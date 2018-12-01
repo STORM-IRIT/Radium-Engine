@@ -7,14 +7,8 @@
 #include <cmath>
 
 namespace Ra {
-Engine::Texture::Texture( const std::string& name ) :
-    m_texture{nullptr},
-    m_isMipMaped{false},
-    m_isLinear{false} {
-    m_textureParameters.name = name;
-}
 
-Engine::Texture::Texture( const TextureData& texParameters ) :
+Engine::Texture::Texture( const TextureParameters& texParameters ) :
     m_textureParameters{texParameters},
     m_texture{nullptr},
     m_isMipMaped{false},
@@ -22,7 +16,8 @@ Engine::Texture::Texture( const TextureData& texParameters ) :
 
 Engine::Texture::~Texture() = default;
 
-void Engine::Texture::InitializeGL( bool linearize, bool mipmaped ) {
+void Engine::Texture::initializeGL(bool linearize)
+{
     if ( (m_textureParameters.target != GL_TEXTURE_1D) &&
          (m_textureParameters.target != GL_TEXTURE_2D) &&
          (m_textureParameters.target != GL_TEXTURE_3D) )
@@ -31,137 +26,46 @@ void Engine::Texture::InitializeGL( bool linearize, bool mipmaped ) {
                         << " must be generated explicitely!";
         return;
     }
-
+    // Transform texels if needed
+    if ( linearize )
+    {
+        uint numcomp = 0;
+        bool hasAlpha = false;
+        switch (m_textureParameters.format)
+        {
+            // RED texture store a gray scale color. Verify if we need to convert
+        case GL_RED:numcomp = 1;
+            break;
+        case GL_RGB:numcomp = 3;
+            break;
+        case GL_RGBA:numcomp = 4;
+            hasAlpha = true;
+            break;
+        default:LOG(logERROR) << "Textures with format " << m_textureParameters.format
+                              << " can't be linearized." << m_textureParameters.name;
+            return;
+        }
+        // This will only do do the RGB space conversion
+        sRGBToLinearRGB(reinterpret_cast<uint8_t *>( m_textureParameters.texels ), numcomp,
+                        hasAlpha);
+    }
+    // Generate OpenGL texture
     if ( m_texture == nullptr )
     {
         m_texture = globjects::Texture::create( m_textureParameters.target );
         GL_CHECK_ERROR;
     }
-
-    m_isMipMaped = mipmaped;
-
+    // Update the sampler parameters
+    m_isMipMaped = !( m_textureParameters.minFilter == GL_NEAREST || m_textureParameters.minFilter == GL_LINEAR );
     updateParameters();
-
-    // Load texels
-    if ( linearize )
+    // upload texture to the GPU
+    updateData( m_textureParameters.texels );
+    // Generate mipmap if needed.
+    if ( m_isMipMaped )
     {
-        uint numcomp = 0;
-        bool hasAlpha = false;
-        switch ( m_textureParameters.format )
-        {
-            // RED texture store a gray scale color. Verify if we need to convert
-        case GL_RED:
-            numcomp = 1;
-            break;
-        case GL_RGB:
-            numcomp = 3;
-            break;
-        case GL_RGBA:
-            numcomp = 4;
-            hasAlpha = true;
-            break;
-        default:
-            LOG( logERROR ) << "Textures with format " << m_textureParameters.format
-                            << " can't be linearized." << m_textureParameters.name;
-            return;
-        }
-        // This will do the conversion then upload texels on GPU and generates mipmap if needed.
-        sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp,
-                         hasAlpha );
-        updateData( m_textureParameters.texels );
-        if ( m_isMipMaped )
-        {
-            m_texture->generateMipmap();
-        }
-    }
-    else
-    {
-        // only upload to the GPU and generate mipmap if needed
-
-        switch ( m_textureParameters.target )
-        {
-        case GL_TEXTURE_1D:
-            m_texture->image1D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width), 0,
-                                m_textureParameters.format, m_textureParameters.type,
-                                m_textureParameters.texels );
-            break;
-        case GL_TEXTURE_2D:
-            glBindTexture(GL_TEXTURE_2D, m_texture->id());
-            m_texture->image2D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
-                                GLsizei(m_textureParameters.height), 0, m_textureParameters.format,
-                                m_textureParameters.type, m_textureParameters.texels );
-            break;
-        case GL_TEXTURE_3D:
-            m_texture->image3D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
-                                GLsizei(m_textureParameters.height), GLsizei(m_textureParameters.depth), 0,
-                                m_textureParameters.format, m_textureParameters.type,
-                                m_textureParameters.texels );
-            break;
-        default:
-            LOG(logERROR) << "Texture::Generate : invalid textureParameters ";
-            break;
-        }
-        GL_CHECK_ERROR;
-        if ( m_isMipMaped )
-        {
-            m_texture->generateMipmap();
-            GL_CHECK_ERROR;
-        }
-    }
-}
-
-void Engine::Texture::GenerateCube( uint w, uint h, GLenum format, void** data, bool linearize,
-                                    bool mipmaped ) {
-    m_textureParameters.target = GL_TEXTURE_CUBE_MAP;
-    if ( m_texture == nullptr )
-    {
-        m_texture = globjects::Texture::create( m_textureParameters.target );
+        m_texture->generateMipmap();
     }
 
-    m_isMipMaped = mipmaped;
-    m_textureParameters.format = format;
-    m_textureParameters.width = w;
-    m_textureParameters.height = h;
-    m_textureParameters.texels = data;
-
-    updateParameters();
-
-    // Load texels
-    if ( linearize )
-    {
-        uint numcomp = 0;
-        bool hasAlpha = false;
-        switch ( m_textureParameters.format )
-        {
-            // RED texture store a gray scale color. Verify if we need to convert
-        case GL_RED:
-            numcomp = 1;
-            break;
-        case GL_RGB:
-            numcomp = 3;
-            break;
-        case GL_RGBA:
-            numcomp = 4;
-            hasAlpha = true;
-            break;
-        default:
-            LOG( logERROR ) << "Textures with format " << m_textureParameters.format
-                            << " can't be linearized." << m_textureParameters.name;
-            return;
-        }
-        // This will do the conversion then upload texels on GPU and generates mipmap if needed.
-        sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp,
-                         hasAlpha );
-    } else
-    {
-        // only upload to the GPU and generate mipmap if needed
-        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat, w, h, 0, format,
-                                 m_textureParameters.type, m_textureParameters.texels );
-        if ( m_isMipMaped )
-        {
-            m_texture->generateMipmap();
-        }
-    }
 }
 
 void Engine::Texture::bind( int unit ) {
@@ -215,7 +119,7 @@ void Engine::Texture::updateParameters() {
     {
     case GL_TEXTURE_CUBE_MAP:
     case GL_TEXTURE_3D:
-        m_texture->setParameter( GL_TEXTURE_WRAP_R, m_textureParameters.wrapR );
+        m_texture->setParameter( GL_TEXTURE_WRAP_R, m_textureParameters.wrapP );
         GL_CHECK_ERROR;
         [[fallthrough]];
     case GL_TEXTURE_2D:
@@ -236,37 +140,35 @@ void Engine::Texture::updateParameters() {
 }
 
 void Engine::Texture::linearize( Scalar gamma ) {
-    if ( !m_isLinear )
-    {
-        // Only RGB and RGBA texture contains color information
-        // (others are not really colors and must be managed explicitely by the user)
-        uint numcomp = 0;
-        bool hasAlpha = false;
-        switch ( m_textureParameters.format )
-        {
-            // RED texture store a gray scale color. Verify if we need to convert
-        case GL_RED:
-            numcomp = 1;
-            break;
-        case GL_RGB:
-            numcomp = 3;
-            break;
-        case GL_RGBA:
-            numcomp = 4;
-            hasAlpha = true;
-            break;
-        default:
-            LOG( logERROR ) << "Textures with format " << m_textureParameters.format
-                            << " can't be linearized." << m_textureParameters.name;
-            return;
-        }
-        std::vector<uint8_t> texPixels;
-        texPixels.resize( m_textureParameters.width * m_textureParameters.height *
-                          m_textureParameters.depth * numcomp );
-        m_texture->getImage( 0, m_textureParameters.format, m_textureParameters.type,
-                             texPixels.data() );
-        sRGBToLinearRGB( texPixels.data(), numcomp, hasAlpha, gamma );
+    if (m_texture != nullptr) {
+        LOG(logERROR) << "Only non OpenGL initialized texture can be linearized.";
+        return;
     }
+    // Only RGB and RGBA texture contains color information
+    // (others are not really colors and must be managed explicitely by the user)
+    uint numcomp = 0;
+    bool hasAlpha = false;
+    switch ( m_textureParameters.format )
+    {
+        // RED texture store a gray scale color. Verify if we need to convert
+    case GL_RED:
+        numcomp = 1;
+        break;
+    case GL_RGB:
+        numcomp = 3;
+        break;
+    case GL_RGBA:
+        numcomp = 4;
+        hasAlpha = true;
+        break;
+    default:
+        LOG( logERROR ) << "Textures with format " << m_textureParameters.format
+                        << " can't be linearized." << m_textureParameters.name;
+        return;
+    }
+    sRGBToLinearRGB(reinterpret_cast<uint8_t *>( m_textureParameters.texels ), numcomp,
+                    hasAlpha, gamma);
+
 }
 
 void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
@@ -309,15 +211,71 @@ void Engine::Texture::resize(size_t w, size_t h, size_t d){
     m_textureParameters.height = h;
     m_textureParameters.depth = d;
     if (m_texture == nullptr) {
-        // TODO : have to integrate linearize and mipmapped in texparam
-        InitializeGL();
+        // TODO : have to integrate linearize in texparam
+        initializeGL(false);
     } else {
         updateData(m_textureParameters.texels);
     }
-
     if ( m_isMipMaped )
     {
         m_texture->generateMipmap();
     }
 }
+
+
+// TODO : This method must be fully rewritten. Maybe by a derived Texture class
+void Engine::Texture::generateCube(uint width, uint height, GLenum format, void **data, bool linearize,
+                                   bool mipmaped) {
+    m_textureParameters.target = GL_TEXTURE_CUBE_MAP;
+    if ( m_texture == nullptr )
+    {
+        m_texture = globjects::Texture::create( m_textureParameters.target );
+    }
+
+    m_isMipMaped = mipmaped;
+    m_textureParameters.format = format;
+    m_textureParameters.width = width;
+    m_textureParameters.height = height;
+    m_textureParameters.texels = data;
+
+    updateParameters();
+
+    // Load texels
+    if ( linearize )
+    {
+        uint numcomp = 0;
+        bool hasAlpha = false;
+        switch ( m_textureParameters.format )
+        {
+            // RED texture store a gray scale color. Verify if we need to convert
+        case GL_RED:
+            numcomp = 1;
+            break;
+        case GL_RGB:
+            numcomp = 3;
+            break;
+        case GL_RGBA:
+            numcomp = 4;
+            hasAlpha = true;
+            break;
+        default:
+            LOG( logERROR ) << "Textures with format " << m_textureParameters.format
+                            << " can't be linearized." << m_textureParameters.name;
+            return;
+        }
+        // This will do the conversion then upload texels on GPU and generates mipmap if needed.
+        sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp,
+                         hasAlpha );
+    } else
+    {
+        // only upload to the GPU and generate mipmap if needed
+        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat, width, height, 0, format,
+                                 m_textureParameters.type, m_textureParameters.texels );
+        if ( m_isMipMaped )
+        {
+            m_texture->generateMipmap();
+        }
+    }
+}
+
 } // namespace Ra

@@ -8,11 +8,11 @@ inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic, Tex
 }
 
 // Add a texture as material parameter with texture parameter set by default for this material
-inline TextureData& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
+inline TextureParameters& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
                                                     const std::string& texture ) {
     CORE_ASSERT( !texture.empty(), "Invalid texture name" );
 
-    TextureData data;
+    TextureParameters data;
     data.name = texture;
     data.wrapS = GL_REPEAT;
     data.wrapT = GL_REPEAT;
@@ -25,8 +25,8 @@ inline TextureData& BlinnPhongMaterial::addTexture( const TextureSemantic& seman
 // Add a texture as material parameter with texture parameter set by the caller
 // The textures will be finalized (i.e loaded from a file if needed and transformed to OpenGL texture)
 // only when needed by the updateGL method.
-inline TextureData& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
-                                                    const TextureData& texture ) {
+inline TextureParameters& BlinnPhongMaterial::addTexture( const TextureSemantic& semantic,
+                                                    const TextureParameters& texture ) {
     m_pendingTextures[semantic] = texture;
     m_isDirty = true;
 

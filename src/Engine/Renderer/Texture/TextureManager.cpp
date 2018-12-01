@@ -18,9 +18,9 @@ TextureManager::~TextureManager() {
     m_textures.clear();
 }
 
-TextureData& TextureManager::addTexture( const std::string& name, uint width, uint height,
+TextureParameters& TextureManager::addTexture( const std::string& name, uint width, uint height,
                                          void* data ) {
-    TextureData texData;
+    TextureParameters texData;
     texData.name = name;
     texData.width = width;
     texData.height = height;
@@ -31,7 +31,7 @@ TextureData& TextureManager::addTexture( const std::string& name, uint width, ui
     return m_pendingTextures[name];
 }
 
-void TextureManager::loadTexture( TextureData& texParameters ) {
+void TextureManager::loadTexture( TextureParameters& texParameters ) {
     stbi_set_flip_vertically_on_load( true );
     int n;
     unsigned char* data = stbi_load( texParameters.name.c_str(), (int*)( &( texParameters.width ) ),
@@ -95,24 +95,29 @@ void TextureManager::loadTexture( TextureData& texParameters ) {
     texParameters.type = GL_UNSIGNED_BYTE;
 }
 
-Texture* TextureManager::getOrLoadTexture( const TextureData& data, bool linearize ) {
-    auto it = m_textures.find( data.name );
+Texture* TextureManager::getOrLoadTexture(const TextureParameters &texParameters, bool linearize) {
+    auto it = m_textures.find( texParameters.name );
     if ( it != m_textures.end() )
     {
         return it->second;
     }
-    auto makeTexture = []( TextureData& data, bool linearize ) -> Texture* {
+    auto makeTexture = []( TextureParameters& data, bool linearize ) -> Texture* {
         auto tex = new Texture( data );
-        bool needMipMap = !( tex->m_textureParameters.minFilter == GL_NEAREST ||
-                             tex->m_textureParameters.minFilter == GL_LINEAR );
-        tex->InitializeGL( linearize, needMipMap );
+        tex->initializeGL(linearize);
         return tex;
     };
-    TextureData texParameters = data;
-    loadTexture( texParameters );
-    auto ret = makeTexture( texParameters, linearize );
-    stbi_image_free( ret->m_textureParameters.texels );
-    ret->m_textureParameters.texels = nullptr;
+    TextureParameters texparams = texParameters;
+    // TODO : allow to keep texels in texture parameters with automatic lifetime management.
+    bool freeTexels = false;
+    if (texparams.texels == nullptr) {
+        loadTexture( texparams );
+        freeTexels = true;
+    }
+    auto ret = makeTexture( texparams, linearize );
+    if (freeTexels) {
+        stbi_image_free( ret->m_textureParameters.texels );
+        ret->m_textureParameters.texels = nullptr;
+    }
     m_textures[texParameters.name] = ret;
     return ret;
 }

@@ -89,11 +89,11 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     * @param texture  The texture to use (file)
     * @return the corresponding TextureData struct
     */
-    inline TextureData& addTexture( const TextureSemantic& semantic, const TextureData& texture );
+    inline TextureParameters& addTexture( const TextureSemantic& semantic, const TextureParameters& texture );
 
 private:
     std::map<TextureSemantic, Texture*> m_textures;
-    std::map<TextureSemantic, TextureData> m_pendingTextures;
+    std::map<TextureSemantic, TextureParameters> m_pendingTextures;
 
     /**
     * Add an new texture, from a given file, to control the specified BSDF parameter.
@@ -101,7 +101,7 @@ private:
     * @param texture  The texture to use (file)
     * @return the corresponding TextureData struct
     */
-    inline TextureData& addTexture( const TextureSemantic& semantic, const std::string& texture );
+    inline TextureParameters& addTexture( const TextureSemantic& semantic, const std::string& texture );
 
 };
 

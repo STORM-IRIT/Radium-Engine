@@ -237,15 +237,15 @@ void RenderObject::render( const RenderParameters& lightParams, const RenderData
             return;
         }
 
-        Core::Matrix4 M = getTransformAsMatrix();
-        Core::Matrix4 N = M.inverse().transpose();
-
+        // FIXME : try to avoid this temporary
+        Core::Matrix4 modelMatrix = getTransformAsMatrix();
+        Core::Matrix4 normalMatrix = getTransformAsMatrix().inverse().transpose();
         // bind data
         shader->bind();
         shader->setUniform( "transform.proj", rdata.projMatrix );
         shader->setUniform( "transform.view", rdata.viewMatrix );
-        shader->setUniform( "transform.model", M );
-        shader->setUniform( "transform.worldNormal", N );
+        shader->setUniform( "transform.model", modelMatrix );
+        shader->setUniform( "transform.worldNormal", normalMatrix);
         lightParams.bind( shader );
 
         auto material = m_renderTechnique->getMaterial();

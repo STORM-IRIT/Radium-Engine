@@ -258,9 +258,7 @@ void ShaderProgram::setUniform( const char* name, float value ) const {
 }
 
 void ShaderProgram::setUniform( const char* name, double value ) const {
-    auto v = static_cast<float>( value );
-
-    m_program->setUniform( name, v );
+    m_program->setUniform( name, static_cast<float>( value ) );
 }
 
 //!
@@ -284,9 +282,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const {
-    Core::Vector2f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const {
@@ -294,9 +290,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const {
-    Core::Vector3f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const {
@@ -304,9 +298,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const {
-    Core::Vector4f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const {
@@ -314,9 +306,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const {
-    Core::Matrix2f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const {
@@ -334,10 +324,9 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const {
-    Core::Matrix4f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
+
 
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
     tex->bind( texUnit );

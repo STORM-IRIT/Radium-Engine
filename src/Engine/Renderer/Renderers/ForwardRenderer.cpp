@@ -69,7 +69,7 @@ void ForwardRenderer::initBuffers() {
     m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
 
     // TODO : remove textures duplication between Renderer and ForwardRenderer (Depth and HDR) !
-    TextureData texparams;
+    TextureParameters texparams;
     texparams.width = m_width;
     texparams.height = m_height;
     texparams.target = GL_TEXTURE_2D;
@@ -106,7 +106,7 @@ void ForwardRenderer::initBuffers() {
     m_textures[RendererTextures_OITAccum] = std::make_unique<Texture>( texparams );
 
     texparams.name = "OIT Revealage";
-    m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( "OIT Revealage" );
+    m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( texparams );
 
 
     m_secondaryTextures["Depth Texture"] = m_textures[RendererTextures_Depth].get();

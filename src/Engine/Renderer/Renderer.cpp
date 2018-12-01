@@ -93,7 +93,7 @@ void Renderer::initialize( uint width, uint height ) {
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
     m_pickingShaders[3] = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
 
-    TextureData texparams;
+    TextureParameters texparams;
     texparams.width = m_width;
     texparams.height = m_height;
     texparams.target = GL_TEXTURE_2D;

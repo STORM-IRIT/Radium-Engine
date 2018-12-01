@@ -15,9 +15,8 @@ namespace Engine {
 
 /**
  * Manage Texture loading and registration.
- * @todo (for Radium-V2) Allow to share the same texel data between different instances of a texture.
+ * @todo (for Radium-V2) Allow to share the same image data between different instances of a texture.
  * Instances could be differentiated by the sampler parameter and the mip-map availability.
- *
  */
 class RA_ENGINE_API TextureManager final {
     RA_SINGLETON_INTERFACE( TextureManager );
@@ -34,20 +33,30 @@ class RA_ENGINE_API TextureManager final {
      * @param height height of the texture
      * @param data pointer to the texture content
      *
-     * @return a texture descriptor that could be furteher specialized (filtering parameters ..) before the
+     * @return a texture descriptor that could be further specialized (filtering parameters ..) before the
      * texture is inserted into Radium OpenGL system by getOrLoadTexture
      */
-    TextureData& addTexture(const std::string &name, uint width, uint height, void *data);
+    TextureParameters& addTexture(const std::string &name, uint width, uint height, void *data);
 
     /**
      * Get or load a named texture.
-     * The name of the texture might be different of the associated file but the data must be
-     * loaded in the TextureData before calling this method.
-     * @param filename : file to load
-     * @param linearize : true if the texture must be converted from sRGB to LinearRGB
+     * If image data are not presents in texParameters.texels (this field is nullptr), this method will
+     * assume that the texParameters.name field contains the fully qualified filename to be loaded to
+     * initialize texParameters.texels
+     *
+     * If image data are presents in texParameters.texels (this field is not nullptr), the name could be of any form as
+     * no loading will occur.
+     *
+     *
+     * This method creates, initialize OpenGL part of the texture and add the created texture to the Texture cache of
+     * the engine.
+     * @note For the moment, the texture cache is indexed by the name of the texture only.
+     *
+     * @param texParameters : The description of the texture to create
+     * @param linearize : true if the texture data (texParameters.texels) must be converted from sRGB to LinearRGB
      * @return The texture as inserted into the Radium available openGL system
      */
-    Texture *getOrLoadTexture(const TextureData &data, bool linearize = false);
+    Texture *getOrLoadTexture(const TextureParameters &texParameters, bool linearize = false);
 
     /**
      * Delete a named texture from the manager
@@ -87,11 +96,11 @@ class RA_ENGINE_API TextureManager final {
     * @param texParameters parameters describing the texture to laod. This paremeters will be updated
      * (width, height, ...) according to the loaded file properties.
     */
-    void loadTexture( TextureData& texParameters );
+    void loadTexture( TextureParameters& texParameters );
 
 private:
     std::map<std::string, Texture*> m_textures;
-    std::map<std::string, TextureData> m_pendingTextures;
+    std::map<std::string, TextureParameters> m_pendingTextures;
     std::map<std::string, void*> m_pendingData;
 
     bool m_verbose;

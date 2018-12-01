@@ -17,8 +17,26 @@ namespace Engine {
 
 /**
  * Describes the content and parameters of a texture.
+ * This structures encapsulates all the states used for creating an OpenGL texture.
+ *  These parameters describe the image data of the texture :
+ *    - target, width, height, depth, format, internalFormat, type and texels for describing image data
+ *    - wrapS, wrapT, wrapP, minfilter and magFilter for describing the sampler of the texture.
+ *
+ *  When one wants to create a texture, the first thing to do is to create and fill a Texture parameter structure
+ *  that will describe the Texture.
+ *
+ *  The Texture creation could be done either using the TextureManager or directly on the client class/function.
+ *
+ *  When a texture is created, no OpenGL initialisation is realized. The user must first call initializeGL before being
+ *  able to use this texture in an OpenGL operation. initializeGL
+ *
+ *  MipMap representation of the texture is automatically generated as soon as the minFilter parameter is something
+ *  else than GL_LINEAR or GL_NEAREST
+ *
+ * @note No coherence checking will be done on the content of this structure. User must ensure coherent data and
+ * parameters before creating the OpenGL texture with Texture::initializeGL
  */
-struct TextureData {
+struct TextureParameters {
     /// Name of the texture
     std::string name{};
     /// OpenGL target
@@ -27,7 +45,7 @@ struct TextureData {
     size_t width{1};
     /// height of the texture (t dimension)
     size_t height{1};
-    /// width of the texture (q dimension)
+    /// width of the texture (p dimension)
     size_t depth{1};
     /// Format of the external data
     GLenum format{GL_RGB};
@@ -39,8 +57,8 @@ struct TextureData {
     GLenum wrapS{GL_CLAMP_TO_EDGE};
     /// OpenGL wrap mode in the t direction
     GLenum wrapT{GL_CLAMP_TO_EDGE};
-    /// OpenGL wrap mode in the q direction
-    GLenum wrapR{GL_CLAMP_TO_EDGE};
+    /// OpenGL wrap mode in the p direction
+    GLenum wrapP{GL_CLAMP_TO_EDGE};
     /// OpenGL minification filter ( GL_LINEAR or GL_NEAREST or GL_XXX_MIPMAP_YYY )
     GLenum minFilter{GL_LINEAR};
     /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
@@ -56,7 +74,7 @@ class RA_ENGINE_API Texture final {
   public:
     /** Texture parameters
      */
-    TextureData m_textureParameters;
+    TextureParameters m_textureParameters;
 
     /** Textures are not copyable, delete copy constructor.
      */
@@ -69,35 +87,27 @@ class RA_ENGINE_API Texture final {
     /**
      * Texture constructor. No OpenGL initialization is done there.
      *
-     * @param name The filename containing the texture
-     *
-     */
-    explicit Texture( const std::string& name = "" );
-
-    /**
-     * Texture constructor. No OpenGL initialization is done there.
-     *
      * @param texParameters Name of the texture
      */
-    explicit Texture( const TextureData& texParameters );
+    explicit Texture( const TextureParameters& texParameters );
 
     /**
-     * Texture desctructor. Both internal data and OpenGL stuff are deleted.
+     * Texture destructor. Both internal data and OpenGL stuff are deleted.
      */
     ~Texture();
 
     /** @brief Generate the OpenGL representation of the texture according to the stored TextureData
      *
-     * This method use the available m_textureParameters to generate and and configure OpenGL
-     * texture. before calling this method, user must fill a TextureData structure, set the
-     * m_textureParameters to this TextureData structure and call Generate with the appropriate
-     * linearize and mipmap parameters.
+     * This method use the available m_textureParameters to generate and configure OpenGL
+     * texture.
      *
-     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
-     * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
+     * Before uploading texels to the GPU, this method will apply RGB space conversion if needed.
+     *
+     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space before
+     * OpenGL initialisation
      * @note This will become soon the only way to generate an Radium Engine OpenGL texture.
      */
-    void InitializeGL( bool linearize = false, bool mipmaped = false );
+    void initializeGL(bool linearize = false);
 
     /**
      * @brief Init the textures needed for the cubemap from OpenGL point of view.
@@ -135,8 +145,8 @@ class RA_ENGINE_API Texture final {
      *
      * @todo integrate this method in the same workflow than other textures ...
      */
-     void GenerateCube( uint width, uint height, GLenum format, void** data = nullptr,
-                       bool linearize = false, bool mipmaped = false );
+     void generateCube(uint width, uint height, GLenum format, void **data = nullptr,
+                       bool linearize = false, bool mipmaped = false);
 
     /**
      * @brief Bind the texture to enable its use in a shader

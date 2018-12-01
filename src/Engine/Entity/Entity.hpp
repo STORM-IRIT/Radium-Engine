@@ -41,8 +41,8 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     // Transform
     inline void setTransform( const Core::Transform& transform );
     inline void setTransform( const Core::Matrix4& transform );
-    Core::Transform getTransform() const;
-    Core::Matrix4 getTransformAsMatrix() const;
+    const Core::Transform & getTransform() const;
+    const Core::Matrix4 & getTransformAsMatrix() const;
 
     void swapTransformBuffers();
 
