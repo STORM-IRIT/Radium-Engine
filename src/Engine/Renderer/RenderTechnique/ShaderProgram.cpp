@@ -30,11 +30,12 @@
 namespace Ra {
 namespace Engine {
 
-ShaderProgram::ShaderProgram() : m_program( nullptr ) {
+ShaderProgram::ShaderProgram() : m_program { nullptr } {
     std::fill(m_shaderObjects.begin(), m_shaderObjects.end(), nullptr);
 }
 
-ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgram() {
+ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) :  m_program { nullptr } {
+    std::fill(m_shaderObjects.begin(), m_shaderObjects.end(), nullptr);
     load( config );
 }
 
