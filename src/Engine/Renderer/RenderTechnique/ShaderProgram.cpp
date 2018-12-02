@@ -188,13 +188,13 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     link();
 
     int texUnit = 0;
-    auto total = m_program->get( GL_ACTIVE_UNIFORMS );
+    auto total = GLuint( m_program->get( GL_ACTIVE_UNIFORMS ) );
     textureUnits.clear();
 
-    for ( int i = 0; i < total; ++i )
+    for ( GLuint i = 0; i < total; ++i )
     {
-        auto name = m_program->getActiveUniformName( GLuint( i ) );
-        auto type = m_program->getActiveUniform( GLuint( i ), GL_UNIFORM_TYPE );
+        auto name = m_program->getActiveUniformName( i );
+        auto type = m_program->getActiveUniform( i, GL_UNIFORM_TYPE );
 
         //!\todo add other sampler type
         if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
@@ -355,8 +355,8 @@ void ShaderProgram::setUniformTexture( const char* texName, Texture* tex ) const
     auto itr = textureUnits.find( std::string( texName ) );
     if ( itr != textureUnits.end() )
     {
-        tex->bind( itr->second.texUnit_ );
-        m_program->setUniform( itr->second.location_, itr->second.texUnit_ );
+        tex->bind( itr->second.m_texUnit );
+        m_program->setUniform( itr->second.m_location, itr->second.m_texUnit );
     }
 }
 
