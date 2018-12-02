@@ -29,7 +29,7 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
                           GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7};
 }
 
-ForwardRenderer::ForwardRenderer() : Renderer() {}
+ForwardRenderer::ForwardRenderer() : Renderer(), m_fancyTransparentCount {0}, m_pingPongSize{0} {}
 
 ForwardRenderer::~ForwardRenderer() = default;
 

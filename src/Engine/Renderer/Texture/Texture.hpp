@@ -207,7 +207,8 @@ class RA_ENGINE_API Texture final {
     globjects::Texture* texture() const { return m_texture.get(); }
 
     /** Resize the texture.
-     * WARNING : must be used only on textures attached to framebuffer)
+     * This allocate GPU memory to store the new resized texture and, if texels are not nullptr, upload the new content.
+     * @note : If texels are not nullptr, user must ensure the texels array is correcly dimensionned.
      * @param w width of the texture
      * @param h height of the texture
      * @param d depth of the texture

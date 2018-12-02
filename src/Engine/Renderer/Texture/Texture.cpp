@@ -211,7 +211,6 @@ void Engine::Texture::resize(size_t w, size_t h, size_t d){
     m_textureParameters.height = h;
     m_textureParameters.depth = d;
     if (m_texture == nullptr) {
-        // TODO : have to integrate linearize in texparam
         initializeGL(false);
     } else {
         updateData(m_textureParameters.texels);
