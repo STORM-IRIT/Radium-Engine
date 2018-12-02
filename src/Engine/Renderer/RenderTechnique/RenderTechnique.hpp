@@ -125,7 +125,7 @@ class RA_ENGINE_API RenderTechnique final {
     std::shared_ptr<Material> material = nullptr;
 
     // Change this if there is more than 8 configurations
-    unsigned char dirtyBits = ( Z_PREPASS | LIGHTING_OPAQUE | LIGHTING_TRANSPARENT );
+    unsigned char dirtyBits = { Z_PREPASS | LIGHTING_OPAQUE | LIGHTING_TRANSPARENT };
     unsigned char setPasses = NO_PASS;
 };
 

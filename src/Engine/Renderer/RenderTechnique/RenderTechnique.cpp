@@ -23,11 +23,8 @@ RenderTechnique::RenderTechnique() {
     }
 }
 
-RenderTechnique::RenderTechnique( const RenderTechnique& o ) {
-    material = o.material;
-    dirtyBits = o.dirtyBits;
-    setPasses = o.setPasses;
-
+RenderTechnique::RenderTechnique( const RenderTechnique& o ) : material {o.material},
+                                  dirtyBits {o.dirtyBits}, setPasses {o.setPasses} {
     for ( auto p : allPasses )
     {
         if ( setPasses & p )
