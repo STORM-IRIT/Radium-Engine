@@ -73,14 +73,13 @@ class RA_ENGINE_API ShaderProgram final {
 
   private:
     struct TextureBinding {
-        int m_texUnit = -1;
-        int m_location = -1;
+        int m_texUnit{-1};
+        int m_location{-1};
         TextureBinding( int unit, int location ) : m_texUnit( unit ), m_location( location ) {}
         TextureBinding() = default;
     };
     using TextureUnits = std::map<std::string, TextureBinding>;
     TextureUnits textureUnits;
-
 
     void loadShader( ShaderType type, const std::string& name, const std::set<std::string>& props,
                      const std::vector<std::pair<std::string, ShaderType>>& includes,
