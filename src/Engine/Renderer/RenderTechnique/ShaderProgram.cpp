@@ -351,8 +351,8 @@ void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) co
     m_program->setUniform( name, texUnit );
 }
 
-void ShaderProgram::setUniformTexture( const char* texName, Texture* tex ) const {
-    auto itr = textureUnits.find( std::string( texName ) );
+void ShaderProgram::setUniformTexture( const char* name, Texture* tex ) const {
+    auto itr = textureUnits.find( std::string( name ) );
     if ( itr != textureUnits.end() )
     {
         tex->bind( itr->second.m_texUnit );

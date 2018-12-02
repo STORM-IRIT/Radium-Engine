@@ -67,7 +67,7 @@ class RA_ENGINE_API ShaderProgram final {
     //! if you want to send a particular texture unit, use setUniform.
     //! It binds tex on an "arbitrary" tex unit.
     //! @warning, call a std::map::find (in O(log(active tex unit in the shader)))
-    void setUniformTexture( const char* texName, Texture* tex ) const;
+    void setUniformTexture( const char* name, Texture* tex ) const;
 
     globjects::Program* getProgramObject() const;
 
