@@ -208,11 +208,11 @@ class RA_ENGINE_API Texture final {
 
     /** Resize the texture.
      * This allocate GPU memory to store the new resized texture and, if texels are not nullptr, upload the new content.
-     * @note : If texels are not nullptr, user must ensure the texels array is correcly dimensionned.
+     * @note : If texels are not nullptr, user must ensure the texels array is correctly dimmensionned.
      * @param w width of the texture
      * @param h height of the texture
      * @param d depth of the texture
-     * @param t the new texel array corresponding the the new texture dimension
+     * @param pix the new texel array corresponding the the new texture dimension
      */
     void resize(size_t w = 1, size_t h = 1, size_t d = 1, void * pix = nullptr);
 
