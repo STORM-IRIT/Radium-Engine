@@ -37,7 +37,7 @@ GeometryComponent::GeometryComponent( const std::string& name, bool deformable, 
     Component( name, entity ),
     m_deformable( deformable ) {}
 
-GeometryComponent::~GeometryComponent() {}
+GeometryComponent::~GeometryComponent() = default;
 
 void GeometryComponent::initialize() {}
 
@@ -92,11 +92,12 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
         }
     }
 
-    mesh.m_triangles.resize( data->getFaces().size(), Ra::Core::Triangle::Zero() );
+    const auto &faces = data->getFaces();
+    mesh.m_triangles.resize( faces.size(), Ra::Core::Triangle::Zero() );
 #pragma omp parallel for
-    for ( uint i = 0; i < data->getFaces().size(); ++i )
+    for ( uint i = 0; i < faces.size(); ++i )
     {
-        mesh.m_triangles[i] = data->getFaces()[i].head<3>();
+        mesh.m_triangles[i] = faces[i].head<3>();
     }
 
     displayMesh->loadGeometry( mesh );
@@ -150,7 +151,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     } else
     {
         auto mat =
-            Ra::Core::make_shared<BlinnPhongMaterial>( data->getName() + "_DefaulBPMaterial" );
+            Ra::Core::make_shared<BlinnPhongMaterial>( data->getName() + "_DefaultBPMaterial" );
         mat->m_kd = Ra::Core::Colors::Grey();
         mat->m_ks = Ra::Core::Colors::White();
         rt.setMaterial( mat );
@@ -174,7 +175,7 @@ const Ra::Core::TriangleMesh& GeometryComponent::getMesh() const {
     return getDisplayMesh().getGeometry();
 }
 
-void GeometryComponent::setDeformable( const bool b ) {
+void GeometryComponent::setDeformable(bool b) {
     this->m_deformable = b;
 }
 
@@ -241,7 +242,7 @@ Ra::Core::TriangleMesh* GeometryComponent::getMeshRw() {
     return &( getDisplayMesh().getGeometry() );
 }
 
-void GeometryComponent::setMeshInput( const Ra::Core::TriangleMesh* meshptr ) {
+void GeometryComponent::setMeshInput(const Core::TriangleMesh *meshptr) {
     CORE_ASSERT( meshptr, " Input is null" );
     CORE_ASSERT( m_deformable, "Mesh is not deformable" );
 

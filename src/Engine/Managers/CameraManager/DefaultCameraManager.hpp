@@ -40,7 +40,7 @@ class RA_ENGINE_API DefaultCameraManager : public CameraManager {
     /// Add \p cam for management.
     void addCamera( Camera* cam ) override;
 
-    void preprocess( const RenderData& ) override;
+    void preprocess(const ViewingParameters &) override;
 
     void render( RenderObject*, unsigned int cam,
                  RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) override;

@@ -4,6 +4,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <Core/Log/Log.hpp>
+#include "RenderTechnique.hpp"
 
 namespace Ra {
 namespace Engine {
@@ -37,7 +38,7 @@ RenderTechnique::RenderTechnique( const RenderTechnique& o ) {
     }
 }
 
-RenderTechnique::~RenderTechnique() {}
+RenderTechnique::~RenderTechnique() = default;
 
 void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig, PassName pass ) {
     shaderConfig[pass] = newConfig;
@@ -104,6 +105,11 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     builder.second(*rt, false);
     RadiumDefaultRenderTechnique.reset( rt );
     return *( RadiumDefaultRenderTechnique.get() );
+}
+
+bool RenderTechnique::shaderIsDirty(RenderTechnique::PassName pass) const
+{
+    return dirtyBits & pass;
 }
 
 ///////////////////////////////////////////////

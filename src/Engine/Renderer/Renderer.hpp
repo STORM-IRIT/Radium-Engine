@@ -39,7 +39,7 @@ class Framebuffer;
 
 namespace Ra {
 namespace Engine {
-struct RA_ENGINE_API RenderData {
+struct RA_ENGINE_API ViewingParameters {
     Core::Matrix4 viewMatrix;
     Core::Matrix4 projMatrix;
     Scalar dt;
@@ -128,7 +128,7 @@ class RA_ENGINE_API Renderer {
      * framebuffer, and restores it before drawing the last final texture.
      * If no framebuffer was bound, it draws into GL_BACK.
      */
-    void render( const RenderData& renderData );
+    void render( const ViewingParameters& renderData );
 
     // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
     /**
@@ -210,7 +210,7 @@ class RA_ENGINE_API Renderer {
      */
     virtual std::string getRendererName() const = 0;
 
-    virtual std::unique_ptr<uchar[]> grabFrame( uint& w, uint& h ) const;
+    virtual std::unique_ptr<uchar[]> grabFrame(size_t &w, size_t &h) const;
 
   protected:
     /**
@@ -220,7 +220,7 @@ class RA_ENGINE_API Renderer {
     virtual void resizeInternal() = 0;
 
     // 2.1
-    virtual void updateStepInternal( const RenderData& renderData ) = 0;
+    virtual void updateStepInternal( const ViewingParameters& renderData ) = 0;
 
     // 4.
     /**
@@ -229,7 +229,7 @@ class RA_ENGINE_API Renderer {
      * @param renderData The basic data needed for the rendering :
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
-    virtual void renderInternal( const RenderData& renderData ) = 0;
+    virtual void renderInternal( const ViewingParameters& renderData ) = 0;
 
     // 5.
     /**
@@ -240,37 +240,37 @@ class RA_ENGINE_API Renderer {
      * @param renderData The basic data needed for the rendering :
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
-    virtual void postProcessInternal( const RenderData& renderData ) = 0;
+    virtual void postProcessInternal( const ViewingParameters& renderData ) = 0;
 
     /**
      * @brief Add the debug layer with useful informations
      */
-    virtual void debugInternal( const RenderData& renderData ) = 0; // is renderData useful ?
+    virtual void debugInternal( const ViewingParameters& renderData ) = 0; // is viewingParameters useful ?
 
     /**
      * @brief Draw the UI data
      */
-    virtual void uiInternal( const RenderData& renderData ) = 0; // idem ?
+    virtual void uiInternal( const ViewingParameters& renderData ) = 0; // idem ?
 
   private:
     // 0.
     void saveExternalFBOInternal();
 
     // 1.
-    void feedRenderQueuesInternal( const RenderData& renderData );
+    void feedRenderQueuesInternal( const ViewingParameters& renderData );
 
     // 2.0
-    void updateRenderObjectsInternal( const RenderData& renderData );
+    void updateRenderObjectsInternal( const ViewingParameters& renderData );
 
     // 3.
-    void splitRenderQueuesForPicking( const RenderData& renderData );
+    void splitRenderQueuesForPicking( const ViewingParameters& renderData );
     void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                   std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
-    void renderForPicking( const RenderData& renderData,
+    void renderForPicking( const ViewingParameters& renderData,
                            const std::array<const ShaderProgram*, 4>& pickingShaders,
                            const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
 
-    void doPicking( const RenderData& renderData );
+    void doPicking( const ViewingParameters& renderData );
 
     // 6.
     void drawScreenInternal();

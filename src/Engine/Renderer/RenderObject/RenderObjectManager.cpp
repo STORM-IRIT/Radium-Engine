@@ -14,9 +14,9 @@
 #include <numeric> // for reduce
 namespace Ra {
 namespace Engine {
-RenderObjectManager::RenderObjectManager() {}
+RenderObjectManager::RenderObjectManager() = default;
 
-RenderObjectManager::~RenderObjectManager() {}
+RenderObjectManager::~RenderObjectManager() = default;
 
 bool RenderObjectManager::exists( const Core::Index& index ) const {
     return ( index.isValid() && m_renderObjects.contains( index ) );

@@ -14,7 +14,7 @@ using namespace gl45ext;
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() {
-    return glGetString( GL_VERSION ) != 0;
+    return glGetString( GL_VERSION ) != nullptr;
 }
 
 /// Gets the openGL error string (emulates gluErrorString())

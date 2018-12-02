@@ -21,7 +21,7 @@ namespace Engine {
 
 LightManager::LightManager() : m_data( nullptr ) {}
 
-LightManager::~LightManager() {}
+LightManager::~LightManager() = default;
 
 //
 // Renderer pre/post calls

@@ -28,7 +28,7 @@ Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar w
     m_height( height ),
     m_aspect( width / height ) {}
 
-Camera::~Camera() {}
+Camera::~Camera() = default;
 
 void Camera::initialize() {
     if ( !m_renderObjects.empty() )

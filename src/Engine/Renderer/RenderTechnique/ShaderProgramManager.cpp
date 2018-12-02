@@ -167,9 +167,11 @@ const ShaderProgram* ShaderProgramManager::getDefaultShaderProgram() const {
 
 void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
                                          const ShaderProgramPtr& shader ) {
-    m_shaderProgramIds.insert(
-        std::pair<std::string, ShaderConfiguration>( config.m_name, config ) );
-    m_shaderPrograms.insert( std::pair<ShaderConfiguration, ShaderProgramPtr>( config, shader ) );
+    //m_shaderProgramIds.insert(
+    //    std::pair<std::string, ShaderConfiguration>( config.m_name, config ) );
+    //m_shaderPrograms.insert( std::pair<ShaderConfiguration, ShaderProgramPtr>( config, shader ) );
+    m_shaderProgramIds.insert( {config.m_name, config} );
+    m_shaderPrograms.insert( {config, shader} );
 }
 
 RA_SINGLETON_IMPLEMENTATION( ShaderProgramManager );

@@ -8,7 +8,7 @@ namespace Ra {
 namespace Engine {
 
 DefaultCameraManager::DefaultCameraManager() {
-    m_data.reset( new DefaultCameraStorage() );
+    m_data = std::make_unique<DefaultCameraStorage>();
 }
 
 const Camera* DefaultCameraManager::getCamera( size_t cam ) const {
@@ -19,19 +19,19 @@ void DefaultCameraManager::addCamera( Camera* cam ) {
     registerComponent( cam->getEntity(), cam );
 }
 
-void DefaultCameraManager::preprocess( const Ra::Engine::RenderData& rd ) {
-    renderData = rd;
+void DefaultCameraManager::preprocess(const Ra::Engine::ViewingParameters &vp) {
+    viewingParameters = vp;
 }
 
 void DefaultCameraManager::render( RenderObject* ro, unsigned int cam,
                                    RenderTechnique::PassName passname ) {
     auto camera = getCamera( cam );
-    renderData.projMatrix = camera->getProjMatrix();
-    renderData.viewMatrix = camera->getViewMatrix();
-    ro->render( params, renderData, passname );
+    viewingParameters.projMatrix = camera->getProjMatrix();
+    viewingParameters.viewMatrix = camera->getViewMatrix();
+    ro->render( renderParameters, viewingParameters, passname );
 }
 
-DefaultCameraStorage::DefaultCameraStorage() {}
+DefaultCameraStorage::DefaultCameraStorage() = default;
 
 void DefaultCameraStorage::add( Camera* cam ) {
     m_Cameras.emplace( cam->getType(), cam );

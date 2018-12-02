@@ -17,16 +17,16 @@ namespace Engine {
 class RA_ENGINE_API DefaultLightStorage : public LightStorage {
   public:
     DefaultLightStorage();
-    void add( Light* i ) override;
-    void remove( Light* li ) override;
+    void add(const Light *i) override;
+    void remove(const Light *li) override;
     void upload() const override;
     size_t size() const override;
     void clear() override;
-    Light* operator[]( unsigned int n ) override;
+    const Light* operator[]( unsigned int n ) override;
 
   private:
     /** Vectors (by light type) of light references. */
-    std::multimap<Ra::Engine::Light::LightType, Ra::Engine::Light*> m_lights;
+    std::multimap<Ra::Engine::Light::LightType, const Ra::Engine::Light*> m_lights;
 };
 
 /**
@@ -37,10 +37,10 @@ class RA_ENGINE_API DefaultLightManager : public LightManager {
     DefaultLightManager();
 
     const Light* getLight( size_t li ) const override;
-    void addLight( Light* li ) override;
+    void addLight(const Light *li) override;
 
-    // Since this manager is dummy, it won't do anything here.
-    void preprocess( const RenderData& ) override;
+    // Since this manager is dedicated to simple lights, it won't do anything here.
+    void preprocess( const ViewingParameters& ) override;
     void prerender( unsigned int li ) override;
     void render( RenderObject*, unsigned int li,
                  RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) override;

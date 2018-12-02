@@ -21,7 +21,7 @@ class RA_ENGINE_API Camera : public Component {
 
     Camera( Entity* entity, const std::string& name, Scalar height, Scalar width );
 
-    ~Camera();
+    ~Camera() override;
 
     void initialize() override;
 
@@ -107,7 +107,7 @@ class RA_ENGINE_API Camera : public Component {
     /// Set the Field Of View to 'fov'.
     /// \note Meaningless for orthogonal projection.
     /// \warning Trigger a rebuild of the projection matrix.
-    inline void setFOV( const Scalar fov );
+    inline void setFOV(Scalar fov);
 
     /// Return the zoom factor.
     inline Scalar getZoomFactor() const;
@@ -124,13 +124,13 @@ class RA_ENGINE_API Camera : public Component {
     inline Scalar getZNear() const;
 
     /// Set the Z Near plane distance to 'zNear'.
-    inline void setZNear( const Scalar zNear );
+    inline void setZNear(Scalar zNear);
 
     /// Return the Z Far plane distance from the camera.
     inline Scalar getZFar() const;
 
     /// Set the Z Far plane distance to 'zFar'.
-    inline void setZFar( const Scalar zFar );
+    inline void setZFar(Scalar zFar);
 
     /// Return the width of the viewport.
     inline Scalar getWidth() const;

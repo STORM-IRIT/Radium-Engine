@@ -26,9 +26,9 @@
 namespace Ra {
 namespace Engine {
 
-RadiumEngine::RadiumEngine() {}
+RadiumEngine::RadiumEngine() = default;
 
-RadiumEngine::~RadiumEngine() {}
+RadiumEngine::~RadiumEngine() = default;
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";

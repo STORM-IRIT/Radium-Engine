@@ -10,8 +10,8 @@ inline const Core::Vector3& Engine::PointLight::getPosition() const {
     return m_position;
 }
 
-inline void Engine::PointLight::setAttenuation( const PointLight::Attenuation& att ) {
-    m_attenuation = att;
+inline void Engine::PointLight::setAttenuation( const PointLight::Attenuation& attenuation ) {
+    m_attenuation = attenuation;
 }
 
 inline void Engine::PointLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {

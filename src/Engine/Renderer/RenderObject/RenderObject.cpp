@@ -14,7 +14,7 @@
 // component to give this directly ?
 #include <Engine/Entity/Entity.hpp>
 
-// STRANGE : only needed to access the RenderData struct --> put it in its own header ?
+// STRANGE : only needed to access the ViewingParameters struct --> put it in its own header ?
 #include <Engine/Renderer/Renderer.hpp>
 
 namespace Ra {
@@ -36,7 +36,7 @@ RenderObject::RenderObject( const std::string& name, Component* comp, const Rend
     m_dirty( true ),
     m_hasLifetime( lifetime > 0 ) {}
 
-RenderObject::~RenderObject() {}
+RenderObject::~RenderObject() = default;
 
 RenderObject* RenderObject::createRenderObject( const std::string& name, Component* comp,
                                                 const RenderObjectType& type,
@@ -228,8 +228,8 @@ void RenderObject::hasExpired() {
     m_component->notifyRenderObjectExpired( idx );
 }
 
-void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata,
-                           const ShaderProgram* shader ) {
+void RenderObject::render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
+                          const ShaderProgram *shader) {
     if ( m_visible )
     {
         if ( !shader )
@@ -242,8 +242,8 @@ void RenderObject::render( const RenderParameters& lightParams, const RenderData
         Core::Matrix4 normalMatrix = getTransformAsMatrix().inverse().transpose();
         // bind data
         shader->bind();
-        shader->setUniform( "transform.proj", rdata.projMatrix );
-        shader->setUniform( "transform.view", rdata.viewMatrix );
+        shader->setUniform( "transform.proj", viewParams.projMatrix );
+        shader->setUniform( "transform.view", viewParams.viewMatrix );
         shader->setUniform( "transform.model", modelMatrix );
         shader->setUniform( "transform.worldNormal", normalMatrix);
         lightParams.bind( shader );
@@ -257,9 +257,9 @@ void RenderObject::render( const RenderParameters& lightParams, const RenderData
     }
 }
 
-void RenderObject::render( const RenderParameters& lightParams, const RenderData& rdata,
-                           RenderTechnique::PassName passname ) {
-    render( lightParams, rdata, getRenderTechnique()->getShader( passname ) );
+void RenderObject::render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
+                          RenderTechnique::PassName passname) {
+    render( lightParams, viewParams, getRenderTechnique()->getShader( passname ) );
 }
 
 } // namespace Engine

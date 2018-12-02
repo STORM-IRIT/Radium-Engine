@@ -34,7 +34,7 @@ class RA_ENGINE_API LightManager : public System {
     LightManager& operator=( const LightManager& ) = delete;
 
     /// Virtual destructor
-    virtual ~LightManager();
+    ~LightManager() override;
 
     /// Get a pointer to the li-th Light.
     virtual const Light* getLight( size_t li ) const = 0;
@@ -44,10 +44,10 @@ class RA_ENGINE_API LightManager : public System {
      * it will just push the light on the storage ...
      * @param li The (already registered) light to add.
      */
-    virtual void addLight( Light* li ) = 0;
+    virtual void addLight(const Light *li) = 0;
 
     //
-    // Calls for the Renderer
+    // Calls for the Renderer. Note that
     //
 
     /**
@@ -61,7 +61,7 @@ class RA_ENGINE_API LightManager : public System {
     /**
      * @brief Call before a render, update the general state of the LightManager.
      */
-    virtual void preprocess( const RenderData& renderData ) = 0;
+    virtual void preprocess( const ViewingParameters& renderData ) = 0;
 
     /**
      * @brief Call before a render, process what is needed for a given Light.
@@ -97,22 +97,22 @@ class RA_ENGINE_API LightManager : public System {
   protected:
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
-    void registerComponent( const Entity* entity, Component* component ) override final;
+    void registerComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
-    void unregisterComponent( const Entity* entity, Component* component ) override final;
+    void unregisterComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
-    void unregisterAllComponents( const Entity* entity ) override final;
+    void unregisterAllComponents( const Entity* entity ) final;
 
   protected:
     /// store the current renderData
-    RenderData renderData;
+    ViewingParameters viewingParameters;
 
     /// store the current light parameters
-    RenderParameters params;
+    RenderParameters renderParameters;
 
     /// Stores the object that stores the lights...
     std::unique_ptr<LightStorage> m_data;

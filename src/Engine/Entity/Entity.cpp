@@ -12,10 +12,10 @@ namespace Engine {
 
 Entity::Entity( const std::string& name ) :
     Core::IndexedObject(),
-    m_transform( Core::Transform::Identity() ),
-    m_doubleBufferedTransform( Core::Transform::Identity() ),
-    m_name( name ),
-    m_transformChanged( false ) {}
+    m_transform { Core::Transform::Identity() },
+    m_doubleBufferedTransform { Core::Transform::Identity() },
+    m_name { name },
+    m_transformChanged { false } {}
 
 Entity::~Entity() {
     // Ensure components are deleted before the entity for consistent

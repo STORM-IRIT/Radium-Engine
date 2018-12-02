@@ -106,8 +106,7 @@ void Renderer::initialize( uint width, uint height ) {
     texparams.type = GL_UNSIGNED_INT;
     m_depthTexture = std::make_unique<Texture>(texparams);
 
-    m_pickingFbo.reset( new globjects::Framebuffer() );
-
+    m_pickingFbo = std::make_unique<globjects::Framebuffer>();
     texparams.name = "Picking";
     texparams.internalFormat = GL_RGBA32I;
     texparams.format = GL_RGBA_INTEGER;
@@ -128,7 +127,7 @@ void Renderer::initialize( uint width, uint height ) {
     // Quad mesh
     Core::TriangleMesh mesh = Core::MeshUtils::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
 
-    m_quadMesh.reset( new Mesh( "quad" ) );
+    m_quadMesh = std::make_unique<Mesh>("quad");
     m_quadMesh->loadGeometry( mesh );
     m_quadMesh->updateGL();
 
@@ -137,7 +136,7 @@ void Renderer::initialize( uint width, uint height ) {
     resize( m_width, m_height );
 }
 
-void Renderer::render( const RenderData& data ) {
+void Renderer::render( const ViewingParameters& data ) {
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
 
     std::lock_guard<std::mutex> renderLock( m_renderMutex );
@@ -201,7 +200,7 @@ void Renderer::saveExternalFBOInternal() {
     glViewport( 0, 0, m_width, m_height );
 }
 
-void Renderer::updateRenderObjectsInternal( const RenderData& renderData ) {
+void Renderer::updateRenderObjectsInternal( const ViewingParameters& renderData ) {
     for ( auto& ro : m_fancyRenderObjects )
     {
         ro->updateGL();
@@ -220,7 +219,7 @@ void Renderer::updateRenderObjectsInternal( const RenderData& renderData ) {
     }
 }
 
-void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
+void Renderer::feedRenderQueuesInternal( const ViewingParameters& renderData ) {
     m_fancyRenderObjects.clear();
     m_debugRenderObjects.clear();
     m_uiRenderObjects.clear();
@@ -265,38 +264,41 @@ void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
 void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                         std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     // clean renderQueuePicking
-    for ( uint i = 0; i < renderQueuePicking.size(); ++i )
-    {
-        renderQueuePicking[i].clear();
+    for (auto &q : renderQueuePicking) {
+        q.clear();
     }
+
     // fill renderQueuePicking from renderQueue
-    for ( auto it = renderQueue.begin(); it != renderQueue.end(); ++it )
-    {
-        switch ( ( *it )->getMesh()->getRenderMode() )
+    for (auto &roPtr : renderQueue ) {
+        switch ( roPtr->getMesh()->getRenderMode() )
         {
         case Mesh::RM_POINTS:
         {
-            renderQueuePicking[0].push_back( *it );
+            renderQueuePicking[0].push_back( roPtr );
             break;
         }
         case Mesh::RM_LINES:     // fall through
+            [[fallthrough]];
         case Mesh::RM_LINE_LOOP: // fall through
+            [[fallthrough]];
         case Mesh::RM_LINE_STRIP:
         {
-            renderQueuePicking[1].push_back( *it );
+            renderQueuePicking[1].push_back( roPtr );
             break;
         }
         case Mesh::RM_LINES_ADJACENCY: // fall through
         case Mesh::RM_LINE_STRIP_ADJACENCY:
         {
-            renderQueuePicking[2].push_back( *it );
+            renderQueuePicking[2].push_back( roPtr );
             break;
         }
         case Mesh::RM_TRIANGLES:
+            [[fallthrough]];
         case Mesh::RM_TRIANGLE_STRIP:
+            [[fallthrough]];
         case Mesh::RM_TRIANGLE_FAN:
         {
-            renderQueuePicking[3].push_back( *it );
+            renderQueuePicking[3].push_back( roPtr );
             break;
         }
         default:
@@ -305,7 +307,7 @@ void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
     }
 }
 
-void Renderer::splitRenderQueuesForPicking( const RenderData& renderData ) {
+void Renderer::splitRenderQueuesForPicking( const ViewingParameters& renderData ) {
     splitRQ( m_fancyRenderObjects, m_fancyRenderObjectsPicking );
     splitRQ( m_debugRenderObjects, m_debugRenderObjectsPicking );
     splitRQ( m_uiRenderObjects, m_uiRenderObjectsPicking );
@@ -314,7 +316,7 @@ void Renderer::splitRenderQueuesForPicking( const RenderData& renderData ) {
 
 // subroutine to Renderer::doPicking()
 void Renderer::renderForPicking(
-    const RenderData& renderData, const std::array<const ShaderProgram*, 4>& pickingShaders,
+    const ViewingParameters& renderData, const std::array<const ShaderProgram*, 4>& pickingShaders,
     const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     for ( uint i = 0; i < pickingShaders.size(); ++i )
     {
@@ -340,7 +342,7 @@ void Renderer::renderForPicking(
     }
 }
 
-void Renderer::doPicking( const RenderData& renderData ) {
+void Renderer::doPicking( const ViewingParameters& renderData ) {
     m_pickingResults.reserve( m_pickingQueries.size() );
 
     m_pickingFbo->bind();
@@ -442,10 +444,10 @@ void Renderer::doPicking( const RenderData& renderData ) {
             // select the results for the RO with the most representatives
             // (or first to come if same amount)
             std::map<int, PickingResult> resultPerRO;
-            for ( int i = -m_brushRadius; i <= m_brushRadius; i += 3 )
+            for ( auto i = -m_brushRadius; i <= m_brushRadius; i += 3 )
             {
-                int h = std::round( std::sqrt( m_brushRadius * m_brushRadius - i * i ) );
-                for ( int j = -h; j <= +h; j += 3 )
+                auto h = std::round( std::sqrt( m_brushRadius * m_brushRadius - i * i ) );
+                for ( auto j = -h; j <= +h; j += 3 )
                 {
                     const int x = query.m_screenCoords.x() + i;
                     const int y = query.m_screenCoords.y() - j;
@@ -491,24 +493,26 @@ void Renderer::drawScreenInternal() {
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
         glDrawBuffer( GL_BACK );
-    } else
+    }
+    else
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
         GL_ASSERT( glDrawBuffers( 1, buffers ) );
     }
+    // Display the final screen
+    {
+        GL_ASSERT(glDepthFunc(GL_ALWAYS));
 
-    GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
+        auto shader = (m_displayedTexture->m_textureParameters.type == GL_INT ||
+            m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT)
+                      ? m_shaderMgr->getShaderProgram("DrawScreenI")
+                      : m_shaderMgr->getShaderProgram("DrawScreen");
+        shader->bind();
+        shader->setUniform("screenTexture", m_displayedTexture, 0);
+        m_quadMesh->render();
 
-    auto shader = ( m_displayedTexture->m_textureParameters.type == GL_INT ||
-                    m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT )
-                      ? m_shaderMgr->getShaderProgram( "DrawScreenI" )
-                      : m_shaderMgr->getShaderProgram( "DrawScreen" );
-    shader->bind();
-    shader->setUniform( "screenTexture", m_displayedTexture, 0 );
-    m_quadMesh->render();
-
-    GL_ASSERT( glDepthFunc( GL_LESS ) );
-
+        GL_ASSERT(glDepthFunc(GL_LESS));
+    }
     // draw brush circle if enabled
     if ( m_brushRadius > 0 )
     {
@@ -555,8 +559,8 @@ void Renderer::resize( uint w, uint h ) {
     m_fancyTexture->resize(m_width, m_height);
 
     m_pickingFbo->bind();
-    m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture.get()->texture() );
-    m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
+    m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture->texture() );
+    m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture->texture() );
     if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
         LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error " << m_pickingFbo->checkStatus();
@@ -580,7 +584,7 @@ void Renderer::displayTexture( const std::string& texName ) {
 
 std::vector<std::string> Renderer::getAvailableTextures() const {
     std::vector<std::string> ret;
-    ret.push_back( "Fancy Texture" );
+    ret.emplace_back( "Final image" );
     std::transform(m_secondaryTextures.begin(), m_secondaryTextures.end(), std::back_inserter(ret),
         [](const std::pair<std::string, Texture*> tex){return tex.first;}
         );
@@ -591,7 +595,7 @@ void Renderer::reloadShaders() {
     ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
 }
 
-std::unique_ptr<uchar[]> Renderer::grabFrame( uint& w, uint& h ) const {
+std::unique_ptr<uchar[]> Renderer::grabFrame(size_t &w, size_t &h) const {
     Engine::Texture* tex = getDisplayTexture();
     tex->bind();
 
@@ -607,8 +611,8 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( uint& w, uint& h ) const {
     {
         for ( uint i = 0; i < tex->width(); ++i )
         {
-            uint in = 4 * ( j * tex->width() + i ); // Index in the texture buffer
-            uint ou = 4 * ( ( tex->height() - 1 - j ) * tex->width() +
+            auto in = 4 * ( j * tex->width() + i ); // Index in the texture buffer
+            auto ou = 4 * ( ( tex->height() - 1 - j ) * tex->width() +
                             i ); // Index in the final image (note the j flipping).
 
             writtenPixels[ou + 0] =
@@ -631,7 +635,7 @@ void Renderer::addLight( const Light* light ) {
       m_lights.push_back( light );
 #endif
     for ( auto m : m_lightmanagers )
-        m->addLight( (Light*)light ); // TODO : modify signatures so that no cast is needed.
+        m->addLight( light );
 }
 
 bool Renderer::hasLight() const {

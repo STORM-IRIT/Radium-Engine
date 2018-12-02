@@ -11,8 +11,7 @@ namespace Ra {
 namespace Engine {
 
 EntityManager::EntityManager() {
-    Entity* systemEntity( SystemEntity::createInstance() );
-    auto idx = m_entities.emplace( std::move( systemEntity ) );
+    auto idx = m_entities.emplace( SystemEntity::createInstance()  );
     auto& ent = m_entities[idx];
     CORE_ASSERT( ent.get() == SystemEntity::getInstance(), "Invalid singleton instanciation" );
     m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), ent->idx ) );
@@ -20,7 +19,7 @@ EntityManager::EntityManager() {
         ItemEntry( SystemEntity::getInstance() ) );
 }
 
-EntityManager::~EntityManager() {}
+EntityManager::~EntityManager() = default;
 
 Entity* EntityManager::createEntity( const std::string& name ) {
     Core::Index idx = m_entities.emplace( new Entity( name ) );
@@ -109,9 +108,9 @@ void EntityManager::swapBuffers() {
 }
 
 void EntityManager::deleteEntities() {
-    std::vector<uint> indices;
+    std::vector<Core::Index> indices;
     indices.reserve( m_entities.size() - 1 );
-    for ( uint i = 1; i < m_entities.size(); ++i )
+    for ( int i = 1; i < m_entities.size(); ++i )
     {
         indices.push_back( m_entities.index( i ) );
     }

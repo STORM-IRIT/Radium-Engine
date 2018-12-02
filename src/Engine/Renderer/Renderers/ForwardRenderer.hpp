@@ -26,12 +26,12 @@ class RA_ENGINE_API ForwardRenderer : public Renderer {
     void initializeInternal() override;
     void resizeInternal() override;
 
-    void updateStepInternal( const RenderData& renderData ) override;
+    void updateStepInternal( const ViewingParameters& renderData ) override;
 
-    void postProcessInternal( const RenderData& renderData ) override;
-    void renderInternal( const RenderData& renderData ) override;
-    void debugInternal( const RenderData& renderData ) override;
-    void uiInternal( const RenderData& renderData ) override;
+    void postProcessInternal( const ViewingParameters& renderData ) override;
+    void renderInternal( const ViewingParameters& renderData ) override;
+    void debugInternal( const ViewingParameters& renderData ) override;
+    void uiInternal( const ViewingParameters& renderData ) override;
 
   private:
     void initShaders();

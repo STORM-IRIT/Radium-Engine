@@ -106,7 +106,8 @@ class RA_ENGINE_API RadiumEngine {
   private:
     using priority = int;
     using SystemKey = std::pair<priority, std::string>;
-    using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<SystemKey>>;
+    // use transparent functors : https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html
+    using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<>>;
 
     SystemContainer::const_iterator findSystem( const std::string& name ) const;
     SystemContainer::iterator findSystem( const std::string& name );

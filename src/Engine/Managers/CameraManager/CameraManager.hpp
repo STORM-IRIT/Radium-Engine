@@ -57,7 +57,7 @@ class RA_ENGINE_API CameraManager : public System {
     /**
      * @brief Call before a render, registers the RenderData to use for rendering.
      */
-    virtual void preprocess( const RenderData& renderData ) = 0;
+    virtual void preprocess(const ViewingParameters &viewParams) = 0;
 
     /**
      * @brief render the object with specific technics for the current Camera.
@@ -68,6 +68,9 @@ class RA_ENGINE_API CameraManager : public System {
      * "The overriders of virtual functions do not acquire the default arguments from the base class declarations,
      * and when the virtual function call is made, the default arguments are decided based on the static type of the
      * object " (https://en.cppreference.com/w/cpp/language/default_arguments)
+     * @todo default argument on virtual functions are not a good idea as the default value is not inherited and must
+     * be replicated in all the derived. At runtime, the default value that is used is those defined by the usage type
+     * of the object, not its concrete type. This could be very confusing.
      */
     virtual void
     render( RenderObject*, unsigned int cam,
@@ -95,10 +98,10 @@ class RA_ENGINE_API CameraManager : public System {
 
   protected:
     /// store the current renderData
-    RenderData renderData;
+    ViewingParameters viewingParameters;
 
     /// store the current Camera parameters
-    RenderParameters params;
+    RenderParameters renderParameters;
 
     /// Stores the object that stores the Cameras...
     std::unique_ptr<CameraStorage> m_data;

@@ -19,7 +19,7 @@ class RA_ENGINE_API DirectionalLight final : public Light {
 
     void getRenderParameters( RenderParameters& params ) const override;
 
-    void setDirection( const Core::Vector3& pos ) override;
+    void setDirection( const Core::Vector3& dir ) override;
     inline const Core::Vector3& getDirection() const;
 
     std::string getShaderInclude() const override;

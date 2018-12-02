@@ -156,6 +156,8 @@ void BlinnPhongMaterial::unregisterMaterial() {
 
 Material* BlinnPhongMaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
     auto result = new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
+    // we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
+    // static cst is safe here
     auto source = static_cast<const Ra::Asset::BlinnPhongMaterialData*>( toconvert );
 
     if ( source->hasDiffuse() )

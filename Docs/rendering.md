@@ -9,7 +9,7 @@ and how it interoperates with geometry, material and shaders._
 The `render` method cannot be modified, it always does the following stuff 
 
 ```
-void Renderer::render( const RenderData& data )
+void Renderer::render( const ViewingParameters& data )
 {
   // 0. Save an eventual already bound FBO
   saveExternalFBOInternal();
@@ -81,7 +81,7 @@ Z-buffer, allowing to activate early z-test for next passes since the depth buff
     *   saves the "Specular" aspect of the object.
  
 In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::Z_PREPASS`` argument so that the corresponding
-shader will be activated before draw call. (``ro->render( params, renderData, RenderTechnique::Z_PREPASS );``)
+shader will be activated before draw call. (``ro->render( renderParameters, viewingParameters, RenderTechnique::Z_PREPASS );``)
   
 Note that the  shader associated to  the ``RenderTechnique::Z_PREPASS`` pass must draw only fully opaque fragments. 
 Fully transparent ones (rejected by a masking information such as mask texture) and blendable ones 
@@ -103,7 +103,7 @@ done
 
 In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::LIGHTING_OPAQUE`` argument so that the 
 corresponding shader will be activated before draw call. 
-(``ro->render( params, renderData, RenderTechnique::LIGHTING_OPAQUE );``)
+(``ro->render( renderParameters, viewingParameters, RenderTechnique::LIGHTING_OPAQUE );``)
   
 Note that the  shader associated to  the ``RenderTechnique::LIGHTING_OPAQUE`` pass must lit and draw only fully opaque 
 fragments. 

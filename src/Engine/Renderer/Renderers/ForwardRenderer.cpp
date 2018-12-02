@@ -16,6 +16,8 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <globjects/Framebuffer.h>
+#include "ForwardRenderer.hpp"
+
 
 //#define NO_TRANSPARENCY
 namespace Ra {
@@ -29,10 +31,7 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
 
 ForwardRenderer::ForwardRenderer() : Renderer() {}
 
-ForwardRenderer::~ForwardRenderer() {
-    // already done in Renderer::~~enderer ...
-    //ShaderProgramManager::destroyInstance();
-}
+ForwardRenderer::~ForwardRenderer() = default;
 
 void ForwardRenderer::initializeInternal() {
     initShaders();
@@ -118,7 +117,7 @@ void ForwardRenderer::initBuffers() {
     m_secondaryTextures["OIT Revealage"] = m_textures[RendererTextures_OITRevealage].get();
 }
 
-void ForwardRenderer::updateStepInternal( const RenderData& renderData ) {
+void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) {
 #ifndef NO_TRANSPARENCY
     m_transparentRenderObjects.clear();
 
@@ -142,7 +141,7 @@ void ForwardRenderer::updateStepInternal( const RenderData& renderData ) {
 #endif
 }
 
-void ForwardRenderer::renderInternal( const RenderData& renderData ) {
+void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
     m_fbo->bind();
 
@@ -313,7 +312,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
 #if 0
                 for ( const auto& ro : m_transparentRenderObjects)
                 {
-                    ro->render( wireframepassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
+                    ro->render( wireframepassParams, viewingParameters, RenderTechnique::LIGHTING_OPAQUE );
                 }
 #endif
             }
@@ -335,7 +334,7 @@ void ForwardRenderer::renderInternal( const RenderData& renderData ) {
 }
 
 // Draw debug stuff, do not overwrite depth map but do depth testing
-void ForwardRenderer::debugInternal( const RenderData& renderData ) {
+void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
     if ( m_drawDebug )
     {
         const ShaderProgram* shader;
@@ -386,7 +385,7 @@ void ForwardRenderer::debugInternal( const RenderData& renderData ) {
 }
 
 // Draw UI stuff, always drawn on top of everything else + clear ZMask
-void ForwardRenderer::uiInternal( const RenderData& renderData ) {
+void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
     const ShaderProgram* shader;
 
     m_postprocessFbo->bind();
@@ -414,7 +413,7 @@ void ForwardRenderer::uiInternal( const RenderData& renderData ) {
             Scalar d = V.norm();
 
             Core::Matrix4 S = Core::Matrix4::Identity();
-            S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
+            S.coeffRef( 0, 0 ) = S.coeffRef( 1, 1 ) = S.coeffRef( 2, 2 ) = d;
 
             M = M * S;
 
@@ -432,7 +431,7 @@ void ForwardRenderer::uiInternal( const RenderData& renderData ) {
     m_postprocessFbo->unbind();
 }
 
-void ForwardRenderer::postProcessInternal( const RenderData& renderData ) {
+void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData ) {
     CORE_UNUSED( renderData );
 
     m_postprocessFbo->bind();
@@ -455,7 +454,7 @@ void ForwardRenderer::postProcessInternal( const RenderData& renderData ) {
 }
 
 void ForwardRenderer::resizeInternal() {
-    m_pingPongSize = std::pow( 2,  uint( std::log2( std::min( m_width, m_height ) ) ) );
+    m_pingPongSize = std::pow( uint(2),  uint( std::log2( std::min( m_width, m_height ) ) ) );
 
     m_textures[RendererTextures_Depth]->resize( m_width, m_height );
     m_textures[RendererTextures_HDR]->resize( m_width, m_height );
@@ -505,6 +504,11 @@ void ForwardRenderer::resizeInternal() {
 
     // finished with fbo, undbind to bind default
     globjects::Framebuffer::unbind();
+}
+
+void ForwardRenderer::updateShadowMaps()
+{
+    // TODO : implement shadow mapping
 }
 
 } // namespace Engine

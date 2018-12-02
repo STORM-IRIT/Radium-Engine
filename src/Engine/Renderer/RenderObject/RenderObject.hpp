@@ -19,7 +19,7 @@ class Component;
 class Mesh;
 class Material;
 class RenderParameters;
-struct RenderData;
+struct ViewingParameters;
 } // namespace Engine
 } // namespace Ra
 
@@ -122,11 +122,25 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     void hasBeenRenderedOnce();
     void hasExpired();
 
-    // FIXME (Mathias) Find why this was added for shader and material refactor ...
-    virtual void render( const RenderParameters& lightParams, const RenderData& rdata,
-                         const ShaderProgram* shader );
-    virtual void render( const RenderParameters& lightParams, const RenderData& rdata,
-                         RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
+    /**
+     * Render the object with the given rendering environment defined by the lighting parameters, the viewing
+     * parameters and  the shader
+     * @param lightParams lighting parameters for this rendering
+     * @param viewParams  viewing parameters for this rendering
+     * @param shader shader to use for this rendering
+     */
+    virtual void render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
+                        const ShaderProgram *shader);
+
+    /**
+     * Render the object for the given rendering environment defined by the lighting parameters, the viewing
+     * parameters and the RenderTechnique pass name
+     * @param lightParams lighting parameters for this rendering
+     * @param viewParams viewing parameters for this rendering
+     * @param passname RenderTechnique pass name
+     */
+    virtual void render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
+                        RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE);
 
   private:
     Core::Transform m_localTransform;

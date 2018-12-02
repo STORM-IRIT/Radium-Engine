@@ -60,21 +60,21 @@ namespace Engine {
  *  depthAmbiant pass
  *      Build a RenderParameters object defining the ambiant lighting configuration (envmap or
  * irradiancemap or constant factor of base color. for each RenderObject call
- * ro->render(ambiantLigthingPtarams, renderData(stange name for matrices + time),
+ * ro->render(ambiantLigthingPtarams, viewingParameters(stange name for matrices + time),
  * TECHNIQUE_DEPTH_AMBIANT);
  *
  *  opaqueLighting pass :
  *      For each light sources set (from 1 to N light sources)
  *          Build a RenderParameters object defining the lighting configuration.
  *          For each RenderObject
- *              call ro->render(ambiantLigthingPtarams, renderData(stange name for matrices + time),
+ *              call ro->render(ambiantLigthingPtarams, viewingParameters(stange name for matrices + time),
  * TECHNIQUE_LIGHT_OPAQUE);
  *
  *  transparentLighting pass
  *      For each light sources set (from 1 to N light sources)
  *          Build a RenderParameters object defining the lighting configuration.
  *          For each RenderObject
- *              call ro->render(ambiantLigthingPtarams, renderData(stange name for matrices + time),
+ *              call ro->render(ambiantLigthingPtarams, viewingParameters(stange name for matrices + time),
  * TECHNIQUE_LIGHT_TRANSPARENT);
  *
  *  Each technique must be configured with its own shaders.
@@ -86,9 +86,9 @@ namespace Engine {
 class RA_ENGINE_API RenderTechnique final {
   public:
     enum PassName {
-        Z_PREPASS = 1 << 0,
-        LIGHTING_OPAQUE = 1 << 1,
-        LIGHTING_TRANSPARENT = 1 << 2,
+        Z_PREPASS = 0x1 << 0,
+        LIGHTING_OPAQUE = 0x1 << 1,
+        LIGHTING_TRANSPARENT = 0x1 << 2,
         NO_PASS = 0
     };
 

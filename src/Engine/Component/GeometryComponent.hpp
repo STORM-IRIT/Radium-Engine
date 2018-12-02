@@ -26,7 +26,7 @@ namespace Engine {
 class RA_ENGINE_API GeometryComponent : public Component {
   public:
     GeometryComponent( const std::string& name, bool deformable, Entity* entity );
-    virtual ~GeometryComponent();
+    ~GeometryComponent() override;
 
     void initialize() override;
 
@@ -43,7 +43,7 @@ class RA_ENGINE_API GeometryComponent : public Component {
     // Component communication management
     void setupIO( const std::string& id );
     void setContentName(const std::string &name);
-    void setDeformable( const bool b );
+    void setDeformable(bool b);
 
   private:
     const Mesh& getDisplayMesh() const;
@@ -52,7 +52,7 @@ class RA_ENGINE_API GeometryComponent : public Component {
     // Give access to the mesh and (if deformable) to update it
     const Ra::Core::TriangleMesh* getMeshOutput() const;
     Ra::Core::TriangleMesh* getMeshRw();
-    void setMeshInput( const Ra::Core::TriangleMesh* mesh );
+    void setMeshInput(const Core::TriangleMesh *mesh);
     Ra::Core::Vector3Array* getVerticesRw();
     Ra::Core::Vector3Array* getNormalsRw();
     Ra::Core::VectorArray<Ra::Core::Triangle>* getTrianglesRw();

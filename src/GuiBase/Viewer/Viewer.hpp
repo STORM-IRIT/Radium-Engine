@@ -236,9 +236,11 @@ class RA_GUIBASE_API Viewer : public QWindow {
     /// Owning (QObject child) pointer to gizmo manager.
     GizmoManager* m_gizmoManager;
 
+#ifdef RADIUM_MULTITHREAD_RENDERING
     // TODO are we really use this ? Remove if we do not plan to do multi thread rendering
     /// Thread in which rendering is done.
     [[deprecated]] QThread* m_renderThread = nullptr; // We have to use a QThread for MT rendering
+#endif
 
     /// GL initialization status
     std::atomic_bool m_glInitStatus;
