@@ -12,8 +12,6 @@ using namespace gl45core;
 #include <glbinding/gl45ext/gl.h>
 using namespace gl45ext;
 
-#include <Core/CoreMacros.hpp>
-
 #ifndef CORE_USE_DOUBLE
 #    define GL_SCALAR GL_FLOAT
 #else
