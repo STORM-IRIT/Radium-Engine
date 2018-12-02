@@ -186,6 +186,24 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     }
 
     link();
+
+    int texUnit = 0;
+    auto total = m_program->get( GL_ACTIVE_UNIFORMS );
+    textureUnits.clear();
+
+    for ( int i = 0; i < total; ++i )
+    {
+        auto name = m_program->getActiveUniformName( GLuint( i ) );
+        auto type = m_program->getActiveUniform( GLuint( i ), GL_UNIFORM_TYPE );
+
+        //!\todo add other sampler type
+        if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
+             type == GL_SAMPLER_2D_SHADOW )
+        {
+            auto location = m_program->getUniformLocation( name );
+            textureUnits[name] = TextureBinding( texUnit++, location );
+        }
+    }
 }
 
 void ShaderProgram::link() {
@@ -331,6 +349,15 @@ void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) co
     tex->bind( texUnit );
 
     m_program->setUniform( name, texUnit );
+}
+
+void ShaderProgram::setUniformTexture( const char* texName, Texture* tex ) const {
+    auto itr = textureUnits.find( std::string( texName ) );
+    if ( itr != textureUnits.end() )
+    {
+        tex->bind( itr->second.texUnit_ );
+        m_program->setUniform( itr->second.location_, itr->second.texUnit_ );
+    }
 }
 
 globjects::Program* ShaderProgram::getProgramObject() const {
