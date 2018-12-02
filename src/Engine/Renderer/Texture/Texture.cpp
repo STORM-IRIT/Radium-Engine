@@ -206,10 +206,11 @@ void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool
     }
  }
 
-void Engine::Texture::resize(size_t w, size_t h, size_t d){
+void Engine::Texture::resize(size_t w, size_t h, size_t d, void *pix){
     m_textureParameters.width = w;
     m_textureParameters.height = h;
     m_textureParameters.depth = d;
+    m_textureParameters.texels = pix;
     if (m_texture == nullptr) {
         initializeGL(false);
     } else {

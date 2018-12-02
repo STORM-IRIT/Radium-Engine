@@ -212,8 +212,9 @@ class RA_ENGINE_API Texture final {
      * @param w width of the texture
      * @param h height of the texture
      * @param d depth of the texture
+     * @param t the new texel array corresponding the the new texture dimension
      */
-    void resize(size_t w = 1, size_t h = 1, size_t d = 1);
+    void resize(size_t w = 1, size_t h = 1, size_t d = 1, void * pix = nullptr);
 
   private:
     /**
