@@ -58,6 +58,9 @@ void Renderer::initialize( uint width, uint height ) {
     m_shaderMgr->addShaderProgram( "CircleBrush", "Shaders/Basic2D.vert.glsl",
                                    "Shaders/CircleBrush.frag.glsl" );
 
+    m_shaderMgr->addShaderProgram( "DisplayDepthBuffer", "Shaders/Basic2D.vert.glsl",
+                                   "Shaders/DepthDisplay/DepthDisplay.frag.glsl" );
+
     ShaderConfiguration pickingPointsConfig( "PickingPoints" );
     pickingPointsConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingPointsConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingPoints.geom.glsl" );
@@ -108,7 +111,7 @@ void Renderer::initialize( uint width, uint height ) {
     m_pickingTexture = std::make_unique<Texture>(texparams);
 
     // Final texture
-    texparams.name = "Final";
+    texparams.name = "Final image";
     texparams.internalFormat = GL_RGBA32F;
     texparams.format = GL_RGBA;
     texparams.type = GL_FLOAT;
@@ -319,17 +322,15 @@ void Renderer::renderForPicking(
     for ( uint i = 0; i < pickingShaders.size(); ++i )
     {
         pickingShaders[i]->bind();
+        pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
+        pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
         for ( const auto& ro : renderQueuePicking[i] )
         {
             if ( ro->isVisible() && ro->isPickable() )
             {
-                int id = ro->idx.getValue();
-                pickingShaders[i]->setUniform( "objectId", id );
-
+                pickingShaders[i]->setUniform( "objectId", ro->idx.getValue() );
                 Core::Matrix4 M = ro->getTransformAsMatrix();
                 Core::Matrix4 N = M.inverse().transpose();
-                pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
-                pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                 pickingShaders[i]->setUniform( "transform.model", M );
                 pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
@@ -364,14 +365,14 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
     renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
 
     // Then draw debug objects
-    GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
     {
         renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking );
     }
 
     // Then draw xrayed objects on top of normal objects
-    GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
     {
         renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking );
@@ -380,17 +381,18 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
     // Finally draw ui stuff on top of everything
     // these have a different way to compute the transform matrices
     // FIXME (florian): find a way to use renderForPicking()!
-    GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     for ( uint i = 0; i < m_pickingShaders.size(); ++i )
     {
         m_pickingShaders[i]->bind();
+        m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
+        m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
 
         for ( const auto& ro : m_uiRenderObjectsPicking[i] )
         {
             if ( ro->isVisible() && ro->isPickable() )
             {
-                int id = ro->idx.getValue();
-                m_pickingShaders[i]->setUniform( "objectId", id );
+                m_pickingShaders[i]->setUniform( "objectId", ro->idx.getValue() );
 
                 Core::Matrix4 M = ro->getTransformAsMatrix();
                 Core::Matrix4 MV = renderData.viewMatrix * M;
@@ -402,8 +404,6 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
                 M = M * S;
                 Core::Matrix4 N = M.inverse().transpose();
 
-                m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
-                m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                 m_pickingShaders[i]->setUniform( "transform.model", M );
                 m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
@@ -502,9 +502,11 @@ void Renderer::drawScreenInternal() {
         GL_ASSERT(glDepthFunc(GL_ALWAYS));
 
         auto shader = (m_displayedTexture->m_textureParameters.type == GL_INT ||
-            m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT)
-                      ? m_shaderMgr->getShaderProgram("DrawScreenI")
-                      : m_shaderMgr->getShaderProgram("DrawScreen");
+                       m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT)
+                      ? ( m_displayedTexture->m_textureParameters.format == GL_DEPTH_COMPONENT
+                                      ? m_shaderMgr->getShaderProgram("DisplayDepthBuffer")
+                                      : m_shaderMgr->getShaderProgram("DrawScreenI") )
+                      :  m_shaderMgr->getShaderProgram("DrawScreen");
         shader->bind();
         shader->setUniform("screenTexture", m_displayedTexture, 0);
         m_quadMesh->render();
@@ -525,6 +527,7 @@ void Renderer::drawScreenInternal() {
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
         GL_ASSERT( glEnable( GL_BLEND ) );
     }
+
 }
 
 void Renderer::notifyRenderObjectsRenderingInternal() {

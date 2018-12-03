@@ -98,14 +98,16 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
 
     for ( const auto& data : lightData )
     {
-        std::string componentName = "LIGHT_" + entity->getName() + std::to_string( id++ );
+
+        std::string componentName = "LIGHT_" + data->getName() + " (" + std::to_string( id++ )+ ")";
         Light* comp = nullptr;
 
         switch ( data->getType() )
         {
         case Asset::LightData::DIRECTIONAL_LIGHT:
         {
-            auto thelight = new Engine::DirectionalLight( entity, data->getName() );
+
+            auto thelight = new Engine::DirectionalLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setDirection( data->m_dirlight.direction );
             comp = thelight;
@@ -113,7 +115,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         }
         case Asset::LightData::POINT_LIGHT:
         {
-            auto thelight = new Engine::PointLight( entity, data->getName() );
+            auto thelight = new Engine::PointLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_pointlight.position );
             thelight->setAttenuation( data->m_pointlight.attenuation.constant,
@@ -124,7 +126,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         }
         case Asset::LightData::SPOT_LIGHT:
         {
-            auto thelight = new Engine::SpotLight( entity, data->getName() );
+            auto thelight = new Engine::SpotLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_spotlight.position );
             thelight->setDirection( data->m_spotlight.direction );
@@ -140,7 +142,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         {
             // No arealight for now (see pbrplugin)
             // TODO : manage real area light. For the moment, transform them in point light using given position
-            auto thelight = new Engine::PointLight( entity, data->getName() );
+            auto thelight = new Engine::PointLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_arealight.position );
             thelight->setAttenuation( data->m_arealight.attenuation.constant,
@@ -148,7 +150,6 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
                                       data->m_arealight.attenuation.quadratic );
             comp = thelight;
 
-            //comp = nullptr;
             break;
         }
         default:

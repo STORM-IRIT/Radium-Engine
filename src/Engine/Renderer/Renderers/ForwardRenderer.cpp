@@ -31,9 +31,6 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
 ForwardRenderer::ForwardRenderer() : Renderer() {}
 
 ForwardRenderer::~ForwardRenderer() {
-    // do not delete "stolen" textures from base class
-    m_textures[RendererTextures_HDR].release();
-    m_textures[RendererTextures_Depth].release();
 };
 
 void ForwardRenderer::initializeInternal() {
@@ -70,23 +67,32 @@ void ForwardRenderer::initBuffers() {
     m_oitFbo = std::make_unique<globjects::Framebuffer>();
     m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
 
-    //Depth and HDR texture are "stolen from base class. beware of unique_ptr semanti.
-    // Ownership stays in base classs
-    // get the dept texture from base class Renderer
-    m_textures[RendererTextures_Depth] = std::unique_ptr<Texture>(Renderer::m_depthTexture.get());
-    // get the final color texture from base class Renderer
-    m_textures[RendererTextures_HDR] = std::unique_ptr<Texture>(Renderer::m_fancyTexture.get());
-
     // Forward renderer internal textures texture
+
+
     TextureParameters texparams;
     texparams.width = m_width;
     texparams.height = m_height;
     texparams.target = GL_TEXTURE_2D;
+
+    // Depth texture
+    texparams.minFilter = GL_NEAREST;
+    texparams.magFilter = GL_NEAREST;
+    texparams.internalFormat = GL_DEPTH_COMPONENT24;
+    texparams.format = GL_DEPTH_COMPONENT;
+    texparams.type = GL_UNSIGNED_INT;
+    texparams.name = "Depth (fw renderer)";
+    m_textures[RendererTextures_Depth] = std::make_unique<Texture>( texparams );
+
+    // Color texture
     texparams.internalFormat = GL_RGBA32F;
     texparams.format = GL_RGBA;
     texparams.type = GL_FLOAT;
     texparams.minFilter = GL_LINEAR;
     texparams.magFilter = GL_LINEAR;
+
+    texparams.name = "HDR";
+    m_textures[RendererTextures_HDR] = std::make_unique<Texture>( texparams );
 
     texparams.name = "Normal";
     m_textures[RendererTextures_Normal] = std::make_unique<Texture>( texparams );
@@ -104,7 +110,7 @@ void ForwardRenderer::initBuffers() {
     m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( texparams );
 
 
-    m_secondaryTextures["Depth Texture"] = m_textures[RendererTextures_Depth].get();
+    m_secondaryTextures["Depth (fw)"] = m_textures[RendererTextures_Depth].get();
     m_secondaryTextures["HDR Texture"] = m_textures[RendererTextures_HDR].get();
     m_secondaryTextures["Normal Texture"] = m_textures[RendererTextures_Normal].get();
     m_secondaryTextures["Diffuse Texture"] = m_textures[RendererTextures_Diffuse].get();
@@ -159,10 +165,8 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );       // Clear depth
 
     // Z prepass
-
     GL_ASSERT( glDepthFunc( GL_LESS ) );
     GL_ASSERT( glDisable( GL_BLEND ) );
-
     GL_ASSERT( glPointSize( 3.f ) );
 
     // Set in RenderParam the configuration about ambiant lighting (instead of hard constant
@@ -181,7 +185,8 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
         ro->render(zprepassParams, renderData, RenderTechnique::Z_PREPASS);
     }
 #endif
-    // Light pass
+
+    // Opaque Lighting pass
     GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
     GL_ASSERT( glDepthMask( GL_FALSE ) );
 
@@ -219,6 +224,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     }
 
 #ifndef NO_TRANSPARENCY
+    // Transparency (blending) pass
     if (!m_transparentRenderObjects.empty())
     {
         m_fbo->unbind();
@@ -260,8 +266,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
         m_fbo->bind();
         GL_ASSERT(glDrawBuffers(1, buffers));
-
-        GL_ASSERT(glDepthFunc(GL_ALWAYS));
+        GL_ASSERT(glDisable( GL_DEPTH_TEST ) );
         GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
         {
             auto shader = m_shaderMgr->getShaderProgram("ComposeOIT");
@@ -270,11 +275,12 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
             shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
         }
         m_quadMesh->render();
+        GL_ASSERT(glEnable( GL_DEPTH_TEST ) );
     }
 #endif
     if ( m_wireframe )
     {
-        m_fbo->bind();
+//        m_fbo->bind();
 
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         glEnable( GL_LINE_SMOOTH );
@@ -284,8 +290,6 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
         // Light pass
         GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
-        GL_ASSERT( glDepthMask( GL_FALSE ) );
-
         GL_ASSERT( glEnable( GL_BLEND ) );
         GL_ASSERT( glBlendFunc( GL_ONE, GL_ONE ) );
 
@@ -324,7 +328,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     // Restore state
     GL_ASSERT( glDepthFunc( GL_LESS ) );
     GL_ASSERT( glDisable( GL_BLEND ) );
-    GL_ASSERT( glDepthMask( GL_TRUE ) );
+    //GL_ASSERT( glDepthMask( GL_TRUE ) );
 
     m_fbo->unbind();
 }
@@ -335,12 +339,12 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
     {
         const ShaderProgram* shader;
 
-        GL_ASSERT( glDisable( GL_BLEND ) );
-        GL_ASSERT( glDepthMask( GL_FALSE ) );
-        GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
-        GL_ASSERT( glDepthFunc( GL_LESS ) );
 
         m_postprocessFbo->bind();
+        GL_ASSERT( glDisable( GL_BLEND ) );
+        GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+        GL_ASSERT( glDepthMask( GL_FALSE ) );
+        GL_ASSERT( glDepthFunc( GL_LESS ) );
 
         glDrawBuffers( 1, buffers );
 
@@ -351,6 +355,9 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
 
         DebugRender::getInstance()->render( renderData.viewMatrix, renderData.projMatrix );
 
+        // FIXME : Do not clear the z-buffer for rendering X-Ray. This prevents for using the depth-buffer after this rendering.
+        // TODO : draw the W-Ray within their own FBO.
+#if 0
         // Draw X rayed objects always on top of normal objects
         GL_ASSERT( glDepthMask( GL_TRUE ) );
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
@@ -375,7 +382,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
                 ro->getMesh()->render();
             }
         }
-
+#endif
         m_postprocessFbo->unbind();
     }
 }
@@ -443,7 +450,7 @@ void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData )
     shader->setUniform( "gamma", 2.2 );
     m_quadMesh->render();
 
-    GL_ASSERT( glDepthMask( GL_TRUE ) );
+    //GL_ASSERT( glDepthMask( GL_TRUE ) );
     GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
 
     m_postprocessFbo->unbind();
@@ -452,11 +459,8 @@ void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData )
 void ForwardRenderer::resizeInternal() {
     m_pingPongSize = std::pow( uint(2),  uint( std::log2( std::min( m_width, m_height ) ) ) );
 
-    /* do not resize twice the stolen textures RendererTextures_Depth and RendererTextures_HDR
-     *
     m_textures[RendererTextures_Depth]->resize( m_width, m_height );
     m_textures[RendererTextures_HDR]->resize( m_width, m_height );
-     */
     m_textures[RendererTextures_Normal]->resize( m_width, m_height );
     m_textures[RendererTextures_Diffuse]->resize( m_width, m_height );
     m_textures[RendererTextures_Specular]->resize( m_width, m_height );
@@ -475,7 +479,7 @@ void ForwardRenderer::resizeInternal() {
                           m_textures[RendererTextures_Specular]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
-        LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
+        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus();
     }
 
 #ifndef NO_TRANSPARENCY
@@ -488,17 +492,21 @@ void ForwardRenderer::resizeInternal() {
                              m_textures[RendererTextures_OITRevealage]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
-        LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
+        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_oitFbo) : " << m_fbo->checkStatus();
     }
 #endif
 
+    // FIXME : when m_postprocessFbo use the RendererTextures_Depth, the depth buffer is erased and is therefore
+    // useless for future computation. Do not use this post-process FBO to render eveything else than the scene.
+    // Create several FBO with ther own configuration (uncomment Renderer::m_depthTexture->texture() to see the difference.)
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,
+                                     // Renderer::m_depthTexture->texture() );
                                      m_textures[RendererTextures_Depth]->texture() );
     m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
-        LOG( logERROR ) << "FBO Error : " << m_fbo->checkStatus();
+        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_postprocessFbo) : " << m_fbo->checkStatus();
     }
 
     // finished with fbo, undbind to bind default
