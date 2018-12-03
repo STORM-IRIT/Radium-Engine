@@ -226,21 +226,13 @@ void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
     gl::glViewport( 0, 0, width(), height() );
 #endif
     renderer->initialize( width(), height() );
+    // do this only when the renderer has something to render and that there is no lights
     /*
     if ( m_camera->hasLightAttached() )
     {
         renderer->addLight( m_camera->getLight() );
     }
     */
-    // if there is no light on the renderer, add the head light attached to the camera ...
-    if ( !renderer->hasLight() )
-    {
-        if ( m_camera->hasLightAttached() )
-            renderer->addLight( m_camera->getLight() );
-        else
-        LOG( logDEBUG ) << "Unable to attach the head light!";
-    }
-
     renderer->lockRendering();
 }
 
@@ -528,8 +520,7 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     data.projMatrix = m_camera->getProjMatrix();
     data.viewMatrix = m_camera->getViewMatrix();
 
-    // TODO : move this outside of the rendering loop. must be done once per renderer ...
- /*
+    // FIXME : move this outside of the rendering loop. must be done once per renderer ...
     // if there is no light on the renderer, add the head light attached to the camera ...
     if ( !m_currentRenderer->hasLight() )
     {
@@ -538,7 +529,6 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
         else
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
- */
     m_currentRenderer->render( data );
 }
 
