@@ -16,7 +16,6 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <globjects/Framebuffer.h>
-#include "ForwardRenderer.hpp"
 
 
 //#define NO_TRANSPARENCY
@@ -29,9 +28,13 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
                           GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7};
 }
 
-ForwardRenderer::ForwardRenderer() : Renderer(), m_fancyTransparentCount {0}, m_pingPongSize{0} {}
+ForwardRenderer::ForwardRenderer() : Renderer() {}
 
-ForwardRenderer::~ForwardRenderer() = default;
+ForwardRenderer::~ForwardRenderer() {
+    // do not delete "stolen" textures from base class
+    m_textures[RendererTextures_HDR].release();
+    m_textures[RendererTextures_Depth].release();
+};
 
 void ForwardRenderer::initializeInternal() {
     initShaders();
@@ -67,30 +70,23 @@ void ForwardRenderer::initBuffers() {
     m_oitFbo = std::make_unique<globjects::Framebuffer>();
     m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
 
-    // TODO : remove textures duplication between Renderer and ForwardRenderer (Depth and HDR) !
+    //Depth and HDR texture are "stolen from base class. beware of unique_ptr semanti.
+    // Ownership stays in base classs
+    // get the dept texture from base class Renderer
+    m_textures[RendererTextures_Depth] = std::unique_ptr<Texture>(Renderer::m_depthTexture.get());
+    // get the final color texture from base class Renderer
+    m_textures[RendererTextures_HDR] = std::unique_ptr<Texture>(Renderer::m_fancyTexture.get());
+
+    // Forward renderer internal textures texture
     TextureParameters texparams;
     texparams.width = m_width;
     texparams.height = m_height;
     texparams.target = GL_TEXTURE_2D;
-    texparams.minFilter = GL_NEAREST;
-    texparams.magFilter = GL_NEAREST;
-
-    // Depth texture
-    texparams.name = "Depth";
-    texparams.internalFormat = GL_DEPTH_COMPONENT24;
-    texparams.format = GL_DEPTH_COMPONENT;
-    texparams.type = GL_UNSIGNED_INT;
-    m_textures[RendererTextures_Depth] = std::make_unique<Texture>( texparams );
-
-    // Color texture
     texparams.internalFormat = GL_RGBA32F;
     texparams.format = GL_RGBA;
     texparams.type = GL_FLOAT;
     texparams.minFilter = GL_LINEAR;
     texparams.magFilter = GL_LINEAR;
-
-    texparams.name = "HDR";
-    m_textures[RendererTextures_HDR] = std::make_unique<Texture>( texparams );
 
     texparams.name = "Normal";
     m_textures[RendererTextures_Normal] = std::make_unique<Texture>( texparams );
@@ -456,8 +452,11 @@ void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData )
 void ForwardRenderer::resizeInternal() {
     m_pingPongSize = std::pow( uint(2),  uint( std::log2( std::min( m_width, m_height ) ) ) );
 
+    /* do not resize twice the stolen textures RendererTextures_Depth and RendererTextures_HDR
+     *
     m_textures[RendererTextures_Depth]->resize( m_width, m_height );
     m_textures[RendererTextures_HDR]->resize( m_width, m_height );
+     */
     m_textures[RendererTextures_Normal]->resize( m_width, m_height );
     m_textures[RendererTextures_Diffuse]->resize( m_width, m_height );
     m_textures[RendererTextures_Specular]->resize( m_width, m_height );

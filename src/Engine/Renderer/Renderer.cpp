@@ -30,17 +30,11 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
                           GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7};
 }
 
-Renderer::Renderer() :
-    m_width( 0 ),
-    m_height( 0 ),
-    m_shaderMgr( nullptr ),
-    m_displayedTexture( nullptr ),
-    m_renderQueuesUpToDate( false ),
-    m_quadMesh( nullptr ),
-    m_drawDebug( true ),
-    m_wireframe( false ),
-    m_postProcessEnabled( true ),
-    m_brushRadius( 0 ) {
+Renderer::Renderer() : m_quadMesh{nullptr},
+                       m_depthTexture { nullptr },
+                       m_fancyTexture {nullptr},
+                       m_pickingFbo { nullptr },
+                       m_pickingTexture { nullptr } {
     GL_CHECK_ERROR;
 }
 
@@ -134,6 +128,10 @@ void Renderer::initialize( uint width, uint height ) {
     initializeInternal();
 
     resize( m_width, m_height );
+
+    glDrawBuffer( GL_BACK );
+    glReadBuffer( GL_BACK );
+
 }
 
 void Renderer::render( const ViewingParameters& data ) {
@@ -568,10 +566,6 @@ void Renderer::resize( uint w, uint h ) {
     m_pickingFbo->unbind();
 
     resizeInternal();
-
-    glDrawBuffer( GL_BACK );
-    glReadBuffer( GL_BACK );
-
 }
 
 void Renderer::displayTexture( const std::string& texName ) {
@@ -631,9 +625,6 @@ std::unique_ptr<uchar[]> Renderer::grabFrame(size_t &w, size_t &h) const {
 }
 
 void Renderer::addLight( const Light* light ) {
-#if 0
-      m_lights.push_back( light );
-#endif
     for ( auto m : m_lightmanagers )
         m->addLight( light );
 }

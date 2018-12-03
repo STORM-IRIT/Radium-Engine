@@ -89,9 +89,9 @@ class RA_ENGINE_API ShaderConfiguration final {
     static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
 
   public:
-    std::string m_name;
+    std::string m_name {};
 
-    std::string m_version;
+    std::string m_version {};
 
   private:
     std::array<std::string, ShaderType_COUNT> m_shaders;

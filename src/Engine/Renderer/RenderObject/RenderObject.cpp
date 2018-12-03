@@ -22,19 +22,12 @@ namespace Engine {
 RenderObject::RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
                             int lifetime ) :
     IndexedObject(),
-    m_localTransform( Core::Transform::Identity() ),
-    m_component( comp ),
-    m_name( name ),
-    m_type( type ),
-    m_renderTechnique( nullptr ),
-    m_mesh( nullptr ),
-    m_lifetime( lifetime ),
-    m_visible( true ),
-    m_pickable( true ),
-    m_xray( false ),
-    m_transparent( false ),
-    m_dirty( true ),
-    m_hasLifetime( lifetime > 0 ) {}
+    m_component{ comp } ,
+    m_name { name },
+    m_type { type },
+    m_mesh { nullptr },
+    m_lifetime { lifetime },
+    m_hasLifetime { lifetime > 0 } {}
 
 RenderObject::~RenderObject() = default;
 
@@ -47,7 +40,7 @@ RenderObject* RenderObject::createRenderObject( const std::string& name, Compone
     obj->setMesh( mesh );
     obj->setVisible( true );
 
-    std::shared_ptr<RenderTechnique> rt( new RenderTechnique( techniqueConfig ) );
+    auto rt = std::make_shared<RenderTechnique> ( techniqueConfig );
 
     if ( material != nullptr )
     {
@@ -188,7 +181,7 @@ Core::Aabb RenderObject::getAabb() const {
 
     for ( int i = 0; i < 8; ++i )
     {
-        result.extend( getTransform() * aabb.corner( (Core::Aabb::CornerType)i ) );
+        result.extend( getTransform() * aabb.corner( Core::Aabb::CornerType(i) ) );
     }
 
     return result;

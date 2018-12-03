@@ -27,7 +27,7 @@ class RA_ENGINE_API LightManager : public System {
     // TODO (Mathias) make light manager compatible with range for ...
   public:
     /// Constructor
-    LightManager();
+    LightManager() = default;
 
     // Make copies impossible
     LightManager( const LightManager& ) = delete;
@@ -109,13 +109,13 @@ class RA_ENGINE_API LightManager : public System {
 
   protected:
     /// store the current renderData
-    ViewingParameters viewingParameters;
+    ViewingParameters viewingParameters {};
 
     /// store the current light parameters
-    RenderParameters renderParameters;
+    RenderParameters renderParameters {};
 
     /// Stores the object that stores the lights...
-    std::unique_ptr<LightStorage> m_data;
+    std::unique_ptr<LightStorage> m_data { nullptr };
 };
 
 } // namespace Engine

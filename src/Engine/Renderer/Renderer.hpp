@@ -19,13 +19,13 @@ namespace Engine {
 class Camera;
 class RenderObject;
 class Light;
-class Mesh;
 class ShaderProgram;
 class ShaderProgramManager;
-class Texture;
 class TextureManager;
 class RenderObjectManager;
 class LightManager;
+class Texture;
+class Mesh;
 } // namespace Engine
 
 namespace Asset {
@@ -40,9 +40,9 @@ class Framebuffer;
 namespace Ra {
 namespace Engine {
 struct RA_ENGINE_API ViewingParameters {
-    Core::Matrix4 viewMatrix;
-    Core::Matrix4 projMatrix;
-    Scalar dt;
+    Core::Matrix4 viewMatrix {Core::Matrix4::Identity()};
+    Core::Matrix4 projMatrix {Core::Matrix4::Identity()};
+    Scalar dt {0};
 };
 
 class RA_ENGINE_API Renderer {
@@ -169,10 +169,6 @@ class RA_ENGINE_API Renderer {
     inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
 
     // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
-    // FIXED : lights must be handled by the renderer as they are the reason to have different
-    // renderers
-    //                How to do this ?
-    // FIXED : use a light manager (Implement the one you need)
     /** Add a light to the renderer.
      * may be overriden to filter the light or to specialize the way ligths are added to the
      * renderer ...
@@ -279,11 +275,11 @@ class RA_ENGINE_API Renderer {
     void notifyRenderObjectsRenderingInternal();
 
   protected:
-    uint m_width;
-    uint m_height;
+    uint m_width { 0 };
+    uint m_height { 0 };
 
-    ShaderProgramManager* m_shaderMgr;
-    RenderObjectManager* m_roMgr;
+    ShaderProgramManager* m_shaderMgr { nullptr };
+    RenderObjectManager* m_roMgr { nullptr };
 
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
@@ -292,16 +288,14 @@ class RA_ENGINE_API Renderer {
      * @see debugTexture has been done, this is just a pointer to
      * @see m_fancyTexture.
      */
-    Texture* m_displayedTexture;
+    Texture* m_displayedTexture { nullptr };
 
-    std::unique_ptr<Texture> m_fancyTexture;
-    std::map<std::string, Texture*> m_secondaryTextures;
 
     /// A renderer could define several LightManager (for instance, one for point light, one other
     /// for infinite light ...)
     std::vector<Ra::Engine::LightManager*> m_lightmanagers;
 
-    bool m_renderQueuesUpToDate;
+    bool m_renderQueuesUpToDate { false };
 
     std::vector<RenderObjectPtr> m_fancyRenderObjects;
     std::vector<RenderObjectPtr> m_debugRenderObjects;
@@ -311,11 +305,19 @@ class RA_ENGINE_API Renderer {
     // Simple quad mesh, used to render the final image
     std::unique_ptr<Mesh> m_quadMesh;
 
-    bool m_drawDebug;          // Should we render debug stuff ?
-    bool m_wireframe;          // Are we rendering in "real" wireframe mode
-    bool m_postProcessEnabled; // Should we do post processing ?
+    bool m_drawDebug { true };          // Should we render debug stuff ?
+    bool m_wireframe { false };          // Are we rendering in "real" wireframe mode
+    bool m_postProcessEnabled { true }; // Should we do post processing ?
 
-  private:
+    // derived class could use the already created textures
+    /// Depth texture : might be attached to the main framebuffer
+    std::unique_ptr<Texture> m_depthTexture ;
+    /// Final color texture : might be attached to the main framebuffer
+    std::unique_ptr<Texture> m_fancyTexture;
+    /// Textures exposed in the texture section box to be displayed.
+    std::map<std::string, Texture*> m_secondaryTextures;
+
+private:
     // Qt has the nice idea to bind an fbo before giving you the opengl context,
     // this flag is used to save it (and render the final screen on it)
     int m_qtPlz;
@@ -328,7 +330,7 @@ class RA_ENGINE_API Renderer {
 
     // PICKING STUFF
     Ra::Core::Vector2 m_mousePosition;
-    float m_brushRadius;
+    float m_brushRadius { 0 };
     std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
     std::unique_ptr<Texture> m_pickingTexture;
 
@@ -342,7 +344,6 @@ class RA_ENGINE_API Renderer {
     std::vector<PickingQuery> m_lastFramePickingQueries;
     std::vector<PickingResult> m_pickingResults;
 
-    std::unique_ptr<Texture> m_depthTexture;
 };
 
 } // namespace Engine

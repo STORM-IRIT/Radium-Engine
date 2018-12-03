@@ -93,9 +93,9 @@ class RA_ENGINE_API Component {
     std::vector<Core::Index> m_renderObjects;
 
   protected:
-    std::string m_name;
-    Entity* m_entity;
-    System* m_system;
+    std::string m_name {};
+    Entity* m_entity { nullptr };
+    System* m_system{ nullptr };
 };
 
 } // namespace Engine

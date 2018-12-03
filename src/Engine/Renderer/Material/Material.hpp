@@ -76,9 +76,9 @@ class RA_ENGINE_API Material {
     virtual bool isTransparent() const;
 
   protected:
-    std::string m_name;
-    bool m_isDirty;
-    MaterialAspect m_aspect;
+    std::string m_name {};
+    bool m_isDirty { true };
+    MaterialAspect m_aspect { MaterialAspect::MAT_OPAQUE };
 };
 
 } // namespace Engine

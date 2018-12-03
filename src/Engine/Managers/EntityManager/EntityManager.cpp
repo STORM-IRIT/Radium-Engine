@@ -13,8 +13,9 @@ namespace Engine {
 EntityManager::EntityManager() {
     auto idx = m_entities.emplace( SystemEntity::createInstance()  );
     auto& ent = m_entities[idx];
+    ent->idx = idx;
     CORE_ASSERT( ent.get() == SystemEntity::getInstance(), "Invalid singleton instanciation" );
-    m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), ent->idx ) );
+    m_entitiesName.insert( { ent->getName(), ent->idx } );
     RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated(
         ItemEntry( SystemEntity::getInstance() ) );
 }
@@ -22,7 +23,7 @@ EntityManager::EntityManager() {
 EntityManager::~EntityManager() = default;
 
 Entity* EntityManager::createEntity( const std::string& name ) {
-    Core::Index idx = m_entities.emplace( new Entity( name ) );
+    auto idx = m_entities.emplace( new Entity( name ) );
     auto& ent = m_entities[idx];
     ent->idx = idx;
 
@@ -47,8 +48,7 @@ Entity* EntityManager::createEntity( const std::string& name ) {
         }
     }
 
-    m_entitiesName.insert( std::pair<std::string, Core::Index>( ent->getName(), idx ) );
-
+    m_entitiesName.insert( { ent->getName(), idx } );
     RadiumEngine::getInstance()->getSignalManager()->fireEntityCreated( ItemEntry( ent.get() ) );
     return ent.get();
 }
@@ -110,7 +110,7 @@ void EntityManager::swapBuffers() {
 void EntityManager::deleteEntities() {
     std::vector<Core::Index> indices;
     indices.reserve( m_entities.size() - 1 );
-    for ( int i = 1; i < m_entities.size(); ++i )
+    for ( size_t i = 1; i < m_entities.size(); ++i )
     {
         indices.push_back( m_entities.index( i ) );
     }

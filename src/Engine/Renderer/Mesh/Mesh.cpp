@@ -56,11 +56,8 @@ inline void sendGLData(Ra::Engine::Mesh *mesh, const Ra::Core::VectorArray<Conta
 // Dirty is initializes as false so that we do not create the vao while
 // we have no data to send to the gpu.
 Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
-    m_name( name ),
-    m_vao( 0 ),
-    m_renderMode( renderMode ),
-    m_numElements( 0 ),
-    m_isDirty( false ) {
+    m_name { name },
+    m_renderMode { renderMode } {
     CORE_ASSERT( m_renderMode == RM_POINTS || m_renderMode == RM_LINES ||
                      m_renderMode == RM_LINE_LOOP || m_renderMode == RM_LINE_STRIP ||
                      m_renderMode == RM_TRIANGLES || m_renderMode == RM_TRIANGLE_STRIP ||

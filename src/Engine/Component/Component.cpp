@@ -13,9 +13,8 @@
 namespace Ra {
 namespace Engine {
 Component::Component( const std::string& name, Entity* entity ) :
-    m_name( name ),
-    m_entity( entity ),
-    m_system( nullptr ) {
+    m_name{ name },
+    m_entity{ entity } {
     m_entity->addComponent( this );
 }
 

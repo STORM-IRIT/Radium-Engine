@@ -5,7 +5,6 @@ namespace Engine {
 
 Material::Material( const std::string& name, MaterialAspect aspect ) :
     m_name { name },
-    m_isDirty { true },
     m_aspect { aspect } {}
 
 
@@ -14,7 +13,7 @@ bool Material::isTransparent() const {
 }
 
 const std::string Material::getShaderInclude() const {
-    return std::string( "" );
+    return {};
 }
 
 } // namespace Engine

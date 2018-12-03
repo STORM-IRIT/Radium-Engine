@@ -60,10 +60,10 @@ class RA_ENGINE_API ShaderProgramManager final {
     std::vector<std::unique_ptr<globjects::File>> m_files;
     std::vector<std::unique_ptr<globjects::NamedString>> m_namedStrings;
 
-    std::string m_defaultVsName;
-    std::string m_defaultFsName;
+    std::string m_defaultVsName {};
+    std::string m_defaultFsName {};
 
-    const ShaderProgram* m_defaultShaderProgram;
+    const ShaderProgram* m_defaultShaderProgram { nullptr };
 };
 
 } // namespace Engine

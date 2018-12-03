@@ -13,11 +13,7 @@ namespace Ra {
 namespace Engine {
 
 BlinnPhongMaterial::BlinnPhongMaterial( const std::string& name ) :
-    Material( name, Material::MaterialAspect::MAT_OPAQUE ),
-    m_kd( 0.9, 0.9, 0.9, 1.0 ),
-    m_ks( 0.0, 0.0, 0.0, 1.0 ),
-    m_ns( 1.0 ),
-    m_alpha( 1.0 ) {}
+    Material( name, Material::MaterialAspect::MAT_OPAQUE ) {}
 
 BlinnPhongMaterial::~BlinnPhongMaterial() {
     m_textures.clear();
@@ -53,54 +49,42 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     shader->setUniform( "material.ns", m_ns );
     shader->setUniform( "material.alpha", std::min( m_alpha, m_kd[3]) );
 
-    Texture* tex = nullptr;
-    uint texUnit {0};
-
-    tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
+    Texture* tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
     if ( tex != nullptr )
     {
-        tex->bind( texUnit );
-        shader->setUniform( "material.tex.kd", tex, texUnit );
+        shader->setUniformTexture( "material.tex.kd", tex);
         shader->setUniform( "material.tex.hasKd", 1 );
-        ++texUnit;
     } else
     { shader->setUniform( "material.tex.hasKd", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR );
     if ( tex != nullptr )
     {
-        tex->bind( texUnit );
-        shader->setUniform( "material.tex.ks", tex, texUnit );
+        shader->setUniformTexture( "material.tex.ks", tex );
         shader->setUniform( "material.tex.hasKs", 1 );
-        ++texUnit;
     } else
     { shader->setUniform( "material.tex.hasKs", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL );
     if ( tex != nullptr )
     {
-        tex->bind( texUnit );
-        shader->setUniform( "material.tex.normal", tex, texUnit );
+        shader->setUniformTexture( "material.tex.normal", tex );
         shader->setUniform( "material.tex.hasNormal", 1 );
-        ++texUnit;
     } else
     { shader->setUniform( "material.tex.hasNormal", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS );
     if ( tex != nullptr )
     {
-        tex->bind( texUnit );
-        shader->setUniform( "material.tex.ns", tex, texUnit );
+        shader->setUniformTexture( "material.tex.ns", tex );
         shader->setUniform( "material.tex.hasNs", 1 );
-        ++texUnit;
     } else
     { shader->setUniform( "material.tex.hasNs", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA );
     if ( tex != nullptr )
     {
-        tex->bind( texUnit );
-        shader->setUniform( "material.tex.alpha", tex, texUnit );
+        shader->setUniformTexture( "material.tex.alpha", tex );
         shader->setUniform( "material.tex.hasAlpha", 1 );
     } else
     { shader->setUniform( "material.tex.hasAlpha", 0 ); }

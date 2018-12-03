@@ -42,13 +42,13 @@ namespace Engine {
     std::string getShaderInclude() const override;
 
   private:
-    Core::Vector3 m_position;
-    Core::Vector3 m_direction;
+    Core::Vector3 m_position { 0, 0, 0 };
+    Core::Vector3 m_direction { 0, -1, 0 };
 
-    Scalar m_innerAngle;
-    Scalar m_outerAngle;
+    Scalar m_innerAngle { Core::Math::PiDiv4 };
+    Scalar m_outerAngle { Core::Math::PiDiv2 };
 
-    Attenuation m_attenuation;
+    Attenuation m_attenuation { 1, 0, 0 };
 };
 
 } // namespace Engine

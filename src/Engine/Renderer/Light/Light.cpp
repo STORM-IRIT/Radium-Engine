@@ -8,7 +8,6 @@ namespace Engine {
 
 Light::Light( Entity* entity, const LightType& type, const std::string& name ) :
     Component( name, entity ),
-    m_color( 1.0, 1.0, 1.0, 1.0 ),
     m_type( type ) {}
 
 void Light::getRenderParameters( RenderParameters& params ) const {

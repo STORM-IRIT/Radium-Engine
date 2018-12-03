@@ -125,7 +125,7 @@ class RA_ENGINE_API RadiumEngine {
     std::unique_ptr<SignalManager> m_signalManager;
     std::unique_ptr<Asset::FileData> m_loadedFile;
 
-    bool m_loadingState = false;
+    bool m_loadingState { false };
 };
 
 } // namespace Engine

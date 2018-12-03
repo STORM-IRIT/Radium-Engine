@@ -19,7 +19,6 @@
 namespace Ra {
 namespace Engine {
 
-LightManager::LightManager() : m_data( nullptr ) {}
 
 LightManager::~LightManager() = default;
 

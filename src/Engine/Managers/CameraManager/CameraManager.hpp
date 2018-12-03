@@ -27,7 +27,7 @@ class RA_ENGINE_API CameraManager : public System {
     // TODO make Camera manager compatible with range for ...
   public:
     /// Constructor
-    CameraManager();
+    CameraManager() = default;
 
     // Make copies impossible
     CameraManager( const CameraManager& ) = delete;
@@ -98,13 +98,13 @@ class RA_ENGINE_API CameraManager : public System {
 
   protected:
     /// store the current renderData
-    ViewingParameters viewingParameters;
+    ViewingParameters viewingParameters {};
 
     /// store the current Camera parameters
-    RenderParameters renderParameters;
+    RenderParameters renderParameters {};
 
     /// Stores the object that stores the Cameras...
-    std::unique_ptr<CameraStorage> m_data;
+    std::unique_ptr<CameraStorage> m_data { nullptr };
 };
 
 } // namespace Engine

@@ -14,9 +14,6 @@
 namespace Ra {
 namespace Engine {
 
-CameraManager::CameraManager() : m_data( nullptr ) {}
-
-//CameraManager::~CameraManager() {}
 
 size_t CameraManager::count() const {
     return m_data->size();

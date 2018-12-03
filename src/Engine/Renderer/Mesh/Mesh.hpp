@@ -158,10 +158,10 @@ class RA_ENGINE_API Mesh {
                            uint vboIdx);
 
   private:
-    std::string m_name; /// Name of the mesh.
+    std::string m_name {}; /// Name of the mesh.
 
-    uint m_vao;                  /// Index of our openGL VAO
-    MeshRenderMode m_renderMode; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
+    uint m_vao { 0 };                  /// Index of our openGL VAO
+    MeshRenderMode m_renderMode {MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
 
     Core::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
                                /// and normals
@@ -187,12 +187,11 @@ class RA_ENGINE_API Mesh {
     std::array<uint, MAX_DATA> m_vbos = {{0}};          /// Indices of our openGL VBOs.
     std::array<bool, MAX_DATA> m_dataDirty = {{false}}; /// Dirty bits of our vertex data.
 
-    size_t m_numElements; /// number of elements to draw. For triangles this is 3*numTriangles but not
+    size_t m_numElements {0}; /// number of elements to draw. For triangles this is 3*numTriangles but not
                         /// for lines.
-    // (val) : this is a bit hacky.
-
-    bool m_isDirty; /// General dirty bit of the mesh.
-    // TODO (Val) this flag could just be replaced by an efficient "or" of the other flags.
+    /// General dirty bit of the mesh. Must be equivalent of the  "or" of the other dirty flags.
+    /// an empty mesh is not dirty
+    bool m_isDirty { false };
 };
 
 } // namespace Engine

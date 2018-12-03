@@ -60,10 +60,10 @@ class RA_ENGINE_API GeometryComponent : public Component {
     const Ra::Core::Index* roIndexRead() const;
 
   private:
-    Ra::Core::Index m_meshIndex;
-    Ra::Core::Index m_aabbIndex;
-    std::string m_contentName;
-    bool m_deformable;
+    Ra::Core::Index m_meshIndex {};
+    Ra::Core::Index m_aabbIndex {};
+    std::string m_contentName {};
+    bool m_deformable {false};
 };
 
 } // namespace Engine

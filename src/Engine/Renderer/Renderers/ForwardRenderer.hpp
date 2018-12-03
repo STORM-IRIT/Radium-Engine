@@ -57,13 +57,13 @@ class RA_ENGINE_API ForwardRenderer : public Renderer {
     std::unique_ptr<globjects::Framebuffer> m_oitFbo;
 
     std::vector<RenderObjectPtr> m_transparentRenderObjects;
-    size_t m_fancyTransparentCount;
+    size_t m_fancyTransparentCount { 0 };
 
-    size_t m_pingPongSize;
+    size_t m_pingPongSize { 0 };
 
     std::array<std::unique_ptr<Texture>, RendererTexture_Count> m_textures;
 
-    static const size_t ShadowMapSize = 1024;
+    static const size_t ShadowMapSize { 1024 };
     std::vector<std::shared_ptr<Texture>> m_shadowMaps;
     std::vector<Core::Matrix4> m_lightMatrices;
 };

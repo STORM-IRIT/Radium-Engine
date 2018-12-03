@@ -143,25 +143,24 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
                         RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE);
 
   private:
-    Core::Transform m_localTransform;
+    Core::Transform m_localTransform { Core::Transform::Identity() };
 
-    Component* m_component;
-    std::string m_name;
+    Component* m_component {nullptr};
+    std::string m_name {};
 
-    RenderObjectType m_type;
-    std::shared_ptr<RenderTechnique> m_renderTechnique;
+    RenderObjectType m_type {RenderObjectType::Geometry};
+    std::shared_ptr<RenderTechnique> m_renderTechnique { nullptr };
     std::shared_ptr<Mesh> m_mesh;
 
     mutable std::mutex m_updateMutex;
 
-    int m_lifetime;
-
-    bool m_visible;
-    bool m_pickable;
-    bool m_xray;
-    bool m_transparent;
-    bool m_dirty;
-    bool m_hasLifetime;
+    int m_lifetime { -1 };
+    bool m_visible { true };
+    bool m_pickable { true };
+    bool m_xray  { false };
+    bool m_transparent  { false };
+    bool m_dirty { true };
+    bool m_hasLifetime { false };
 };
 
 } // namespace Engine

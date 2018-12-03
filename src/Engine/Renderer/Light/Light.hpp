@@ -20,11 +20,11 @@ class RA_ENGINE_API Light : public Component {
     enum LightType { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };
 
     struct Attenuation {
-        Scalar constant;
-        Scalar linear;
-        Scalar quadratic;
+        Scalar constant { 1 };
+        Scalar linear { 0 };
+        Scalar quadratic { 0 };
 
-        Attenuation() : constant( 1.0 ), linear(), quadratic() {}
+        Attenuation() = default;
     };
 
 
@@ -51,9 +51,9 @@ public:
     void initialize() override;
 
   private:
-    Core::Color m_color;
+    Core::Color m_color {1, 1, 1, 1};
 
-    LightType m_type;
+    LightType m_type { LightType::DIRECTIONAL };
 };
 
 } // namespace Engine

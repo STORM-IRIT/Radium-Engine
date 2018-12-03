@@ -30,7 +30,7 @@ class SignalManager {
     using EoFCallback = std::function<void( void )>;
 
   public:
-    SignalManager() : m_isOn( true ) {}
+    SignalManager() = default;
 
     void fireEntityCreated( const ItemEntry& entity ) const;
     void fireEntityDestroyed( const ItemEntry& entity ) const;
@@ -50,7 +50,7 @@ class SignalManager {
     mutable std::mutex m_mutex;
 
   public:
-    bool m_isOn;
+    bool m_isOn {true};
 
     std::vector<Callback> m_entityCreatedCallbacks;
     std::vector<Callback> m_entityDestroyedCallbacks;

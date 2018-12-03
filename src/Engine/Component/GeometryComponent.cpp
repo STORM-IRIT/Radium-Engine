@@ -35,7 +35,7 @@ namespace Ra {
 namespace Engine {
 GeometryComponent::GeometryComponent( const std::string& name, bool deformable, Entity* entity ) :
     Component( name, entity ),
-    m_deformable( deformable ) {}
+    m_deformable{ deformable } {}
 
 GeometryComponent::~GeometryComponent() = default;
 

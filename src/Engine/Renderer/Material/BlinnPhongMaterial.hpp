@@ -78,10 +78,10 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     static void unregisterMaterial();
 
   public:
-    Core::Color m_kd;
-    Core::Color m_ks;
-    Scalar m_ns;
-    Scalar m_alpha;
+    Core::Color m_kd { 0.9, 0.9, 0.9, 1.0 };
+    Core::Color m_ks { 0.0, 0.0, 0.0, 1.0 };
+    Scalar m_ns { 1.0 };
+    Scalar m_alpha { 1.0 };
 
     /**
     * Add an new texture, from a TextureData, to control the specified BSDF parameter.

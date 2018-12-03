@@ -39,7 +39,7 @@ class RA_ENGINE_API RenderParameters final {
         ~TParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        T m_value;
+        T m_value {};
     };
 
     class TextureParameter final : public Parameter {
@@ -65,14 +65,15 @@ class RA_ENGINE_API RenderParameters final {
         void bind( const ShaderProgram* shader ) const;
     };
 
-    typedef TParameter<int> IntParameter;
-    typedef TParameter<uint> UIntParameter;
-    typedef TParameter<Scalar> ScalarParameter;
+    using IntParameter = TParameter<int>;
+    using UIntParameter = TParameter<uint>;
+    using ScalarParameter = TParameter<Scalar> ;
 
-    typedef TParameter<std::vector<int>> IntsParameter;
-    typedef TParameter<std::vector<uint>> UIntsParameter;
+    using IntsParameter = TParameter<std::vector<int>>;
+    using UIntsParameter = TParameter<std::vector<uint>>;
+
     //! globjects seems to not handle vector of double
-    typedef TParameter<std::vector<float>> ScalarsParameter;
+    using ScalarsParameter = TParameter<std::vector<float>>;
 
     using Vec2Parameter = TParameter<Core::Vector2>;
     using Vec3Parameter = TParameter<Core::Vector3>;

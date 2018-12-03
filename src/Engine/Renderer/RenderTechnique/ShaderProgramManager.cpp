@@ -14,8 +14,8 @@ namespace Engine {
 using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
 
 ShaderProgramManager::ShaderProgramManager( const std::string& vs, const std::string& fs ) :
-    m_defaultVsName( vs ),
-    m_defaultFsName( fs ) {
+    m_defaultVsName { vs },
+    m_defaultFsName { fs } {
     initialize();
 }
 

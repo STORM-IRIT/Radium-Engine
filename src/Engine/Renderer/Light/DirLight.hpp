@@ -25,7 +25,7 @@ class RA_ENGINE_API DirectionalLight final : public Light {
     std::string getShaderInclude() const override;
 
   private:
-    Core::Vector3 m_direction;
+    Core::Vector3 m_direction { 0, -1, 0 };
 };
 
 } // namespace Engine

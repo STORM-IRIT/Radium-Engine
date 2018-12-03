@@ -29,9 +29,9 @@ class RA_ENGINE_API PointLight final : public Light {
     std::string getShaderInclude() const override;
 
   private:
-    Core::Vector3 m_position;
+    Core::Vector3 m_position { 0, 0, 0 };
 
-    Attenuation m_attenuation;
+    Attenuation m_attenuation { 1, 0, 0 };
 };
 
 } // namespace Engine
