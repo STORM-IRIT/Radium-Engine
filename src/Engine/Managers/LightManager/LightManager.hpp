@@ -5,8 +5,10 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/System/System.hpp>
+
+// This will be removed when ViewingParameter will not be necessary for LightManager
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <memory>
 

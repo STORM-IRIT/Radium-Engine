@@ -5,7 +5,6 @@
 
 #include <Engine/Renderer/Renderer.hpp>
 
-#include <QObject>
 
 namespace Ra {
 namespace Gui {

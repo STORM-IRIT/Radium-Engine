@@ -14,8 +14,8 @@
 // component to give this directly ?
 #include <Engine/Entity/Entity.hpp>
 
-// STRANGE : only needed to access the ViewingParameters struct --> put it in its own header ?
-#include <Engine/Renderer/Renderer.hpp>
+// Only needed to access the ViewingParameters struct
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra {
 namespace Engine {

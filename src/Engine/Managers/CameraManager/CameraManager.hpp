@@ -4,7 +4,7 @@
 #include <Engine/Managers/CameraManager/CameraStorage.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/System/System.hpp>
 
 #include <memory>
