@@ -55,6 +55,7 @@ class RA_ENGINE_API ForwardRenderer : public Renderer {
     std::unique_ptr<globjects::Framebuffer> m_fbo;
     std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
     std::unique_ptr<globjects::Framebuffer> m_oitFbo;
+    std::unique_ptr<globjects::Framebuffer> m_XrayFbo;
 
     std::vector<RenderObjectPtr> m_transparentRenderObjects;
     size_t m_fancyTransparentCount { 0 };

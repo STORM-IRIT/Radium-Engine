@@ -66,7 +66,7 @@ void ForwardRenderer::initBuffers() {
     m_fbo = std::make_unique<globjects::Framebuffer>();
     m_oitFbo = std::make_unique<globjects::Framebuffer>();
     m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
-
+    m_XrayFbo = std::make_unique<globjects::Framebuffer>();
     // Forward renderer internal textures texture
 
 
@@ -357,7 +357,8 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
 
         // FIXME : Do not clear the z-buffer for rendering X-Ray. This prevents for using the depth-buffer after this rendering.
         // TODO : draw the W-Ray within their own FBO.
-#if 0
+        m_postprocessFbo->unbind();
+        m_XrayFbo->bind();
         // Draw X rayed objects always on top of normal objects
         GL_ASSERT( glDepthMask( GL_TRUE ) );
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
@@ -382,8 +383,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
                 ro->getMesh()->render();
             }
         }
-#endif
-        m_postprocessFbo->unbind();
+        m_XrayFbo->unbind();
     }
 }
 
@@ -396,10 +396,10 @@ void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
     glDrawBuffers( 1, buffers );
 
     // Enable z-test
-    GL_ASSERT( glDepthMask( GL_TRUE ) );
+    //GL_ASSERT( glDepthMask( GL_TRUE ) );
     GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     GL_ASSERT( glDepthFunc( GL_LESS ) );
-    GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+    //GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
 
     for ( const auto& ro : m_uiRenderObjects )
     {
@@ -496,12 +496,8 @@ void ForwardRenderer::resizeInternal() {
     }
 #endif
 
-    // FIXME : when m_postprocessFbo use the RendererTextures_Depth, the depth buffer is erased and is therefore
-    // useless for future computation. Do not use this post-process FBO to render eveything else than the scene.
-    // Create several FBO with ther own configuration (uncomment Renderer::m_depthTexture->texture() to see the difference.)
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                                     // Renderer::m_depthTexture->texture() );
                                      m_textures[RendererTextures_Depth]->texture() );
     m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
@@ -509,6 +505,17 @@ void ForwardRenderer::resizeInternal() {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_postprocessFbo) : " << m_fbo->checkStatus();
     }
 
+    // FIXED : when m_postprocessFbo use the RendererTextures_Depth, the depth buffer is erased and is therefore
+    // useless for future computation. Do not use this post-process FBO to render eveything else than the scene.
+    // Create several FBO with ther own configuration (uncomment Renderer::m_depthTexture->texture() to see the difference.)
+    m_XrayFbo->bind();
+    m_XrayFbo->attachTexture( GL_DEPTH_ATTACHMENT,
+                              Renderer::m_depthTexture->texture() );
+    m_XrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
+    if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
+    {
+        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_XrayFbo) : " << m_fbo->checkStatus();
+    }
     // finished with fbo, undbind to bind default
     globjects::Framebuffer::unbind();
 }
