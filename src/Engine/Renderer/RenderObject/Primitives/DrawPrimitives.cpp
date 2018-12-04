@@ -10,6 +10,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Core/Containers/MakeShared.hpp>
 
 #include<algorithm>
 
@@ -24,16 +25,13 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     } else
     { config = ShaderConfigurationFactory::getConfiguration( "Plain" ); }
 
-    std::shared_ptr<RenderTechnique> rt( new RenderTechnique );
-    rt->setConfiguration( config );
-    rt->resetMaterial( new BlinnPhongMaterial( "Default material" ) );
+    auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Default material" );
+    Ra::Engine::RenderTechnique rt;
+    rt.setMaterial( mat );
+    rt.setConfiguration( config );
 
-    RenderObject* ro = new RenderObject( mesh->getName(), component, RenderObjectType::Debug );
-
-    ro->setRenderTechnique( rt );
-    ro->setMesh( mesh );
-
-    return ro;
+    return Ra::Engine::RenderObject::createRenderObject( mesh->getName(), component, Ra::Engine::RenderObjectType::Debug,
+                                                            mesh, rt);
 }
 
 MeshPtr Point( const Core::Vector3& point, const Core::Color& color, Scalar scale ) {
