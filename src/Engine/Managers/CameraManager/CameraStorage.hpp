@@ -6,7 +6,6 @@
 namespace Ra {
 namespace Engine {
 class Camera;
-class RenderParameters;
 } // namespace Engine
 } // namespace Ra
 
@@ -18,7 +17,7 @@ namespace Engine {
  * an implementation-defined way.
  */
 class RA_ENGINE_API CameraStorage {
-    // TODO: make camera storage compatible with range for ...
+  // Radium-V2 : make camera storage compatible with range for ...
   public:
     CameraStorage() = default;
 

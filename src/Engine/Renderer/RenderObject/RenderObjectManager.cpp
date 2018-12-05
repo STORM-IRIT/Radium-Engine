@@ -43,7 +43,7 @@ Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
 void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
 
-    // FIXME(Charly): Should we check if the render object is in the double buffer map ?
+    // FIXME : Should we check if the render object is in the double buffer map ?
     std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
 
     Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved( ItemEntry(

@@ -126,7 +126,7 @@ class RA_ENGINE_API RenderParameters final {
     }
 
   private:
-    // FIXME: Any way to simplify this a bit ?
+    // Radium V2 : Any way to simplify this a bit ?
     UniformBindableVector<IntParameter> m_intParamsVector;
     UniformBindableVector<UIntParameter> m_uintParamsVector;
     UniformBindableVector<ScalarParameter> m_scalarParamsVector;

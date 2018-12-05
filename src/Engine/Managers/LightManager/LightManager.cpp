@@ -34,50 +34,8 @@ size_t LightManager::count() const {
 // System
 //
 
-void LightManager::generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) {
-    /*
-    futur work for async rendering
-    Ra::Core::FunctionTask* preprocess_task = new Ra::Core::FunctionTask(
-        std::bind(&LightManager::preprocess, this),
-        "PreProcessLight"
-    );
+void LightManager::generateTasks( Core::TaskQueue* /*taskQueue*/, const Engine::FrameInfo& /*frameInfo*/ ) {
 
-    Ra::Core::TaskQueue::TaskId preprocess_id = taskQueue->registerTask( preprocess_task );
-    Ra::Core::TaskQueue::TaskId lastprocess_id = preprocess_id;
-
-    for (const auto& compEntry : m_components)
-    {
-        Light* comp = static_cast<Light*>( compEntry.second );
-
-        if(!comp)
-            continue;
-
-        Ra::Core::FunctionTask* prerender_task = new Ra::Core::FunctionTask(
-           [this,comp]() { this->prerender(*comp); }, "PreRenderLight"
-        );
-
-        Ra::Core::FunctionTask* postrender_task = new Ra::Core::FunctionTask(
-           [this,comp]() { this->postrender(*comp); }, "PostRenderLight"
-        );
-
-        Ra::Core::TaskQueue::TaskId prerender_id = taskQueue->registerTask( prerender_task );
-        Ra::Core::TaskQueue::TaskId postrender_id = taskQueue->registerTask( postrender_task );
-
-        taskQueue->addDependency( preprocess_id, prerender_id);
-        taskQueue->addDependency( prerender_id, postrender_id);
-
-        lastprocess_id = postrender_id;
-    }
-
-    Ra::Core::FunctionTask* postprocess_task = new Ra::Core::FunctionTask(
-        std::bind(&LightManager::postprocess, this),
-        "PostProcess"
-    );
-
-    Ra::Core::TaskQueue::TaskId postprocess_id = taskQueue->registerTask( postprocess_task );
-
-    taskQueue->addDependency( postprocess_id, lastprocess_id);
-    */
 }
 
 void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
@@ -98,7 +56,6 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
 
     for ( const auto& data : lightData )
     {
-
         std::string componentName = "LIGHT_" + data->getName() + " (" + std::to_string( id++ )+ ")";
         Light* comp = nullptr;
 
@@ -140,8 +97,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         }
         case Asset::LightData::AREA_LIGHT:
         {
-            // No arealight for now (see pbrplugin)
-            // TODO : manage real area light. For the moment, transform them in point light using given position
+            // Radium-V2 : manage real area light. For the moment, transform them in point light using given position
             auto thelight = new Engine::PointLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_arealight.position );
@@ -149,7 +105,6 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
                                       data->m_arealight.attenuation.linear,
                                       data->m_arealight.attenuation.quadratic );
             comp = thelight;
-
             break;
         }
         default:

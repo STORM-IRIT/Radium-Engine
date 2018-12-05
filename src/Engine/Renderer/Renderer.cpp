@@ -9,8 +9,7 @@
 #include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Managers/LightManager/LightManager.hpp>
-
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -21,6 +20,9 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
+
+#include <Engine/Managers/LightManager/LightManager.hpp>
+
 
 namespace Ra {
 namespace Engine {

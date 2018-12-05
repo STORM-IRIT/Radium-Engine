@@ -21,14 +21,14 @@ inline void Entity::setTransform( const Core::Matrix4& transform ) {
 }
 
 inline const Core::Transform & Entity::getTransform() const {
-    // FIXME : why a mutex on read ? there is no lock on write on this!
-    //std::lock_guard<std::mutex> lock( m_transformMutex );
+    // Radium-V2 : why a mutex on read ? there is no lock on write on this!
+    std::lock_guard<std::mutex> lock( m_transformMutex );
     return m_transform;
 }
 
 inline const Core::Matrix4 & Entity::getTransformAsMatrix() const {
-    // FIXME : why a mutex on read ? there is no lock on write on this!
-    //std::lock_guard<std::mutex> lock( m_transformMutex );
+    // Radium-V2 : why a mutex on read ? there is no lock on write on this!
+    std::lock_guard<std::mutex> lock( m_transformMutex );
     return m_transform.matrix();
 }
 

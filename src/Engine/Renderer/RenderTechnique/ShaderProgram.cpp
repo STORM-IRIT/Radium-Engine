@@ -52,7 +52,7 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
         return;
     }
 #endif
-    // FIXME : --> for the moment : standard includepaths. Might be controlled per shader ...
+    // Radium V2 --> for the moment : standard includepaths. Might be controlled per shader ...
     // Paths in which globjects will be looking for shaders includes.
     // "/" refer to the root of the directory structure conaining the shader (i.e. the Shaders/
     // directory).
@@ -94,13 +94,14 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
 
     auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
 
-    // FIXME Where are defined the global replacement?
+    // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
 
     auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
     shader->setIncludePaths( {std::string( "/" )} );
 
     // Workaround globject #include bug ...
+    // Radium V2 : update globject to see if tis bug is always here ...
     std::string preprocessedSource = preprocessIncludes( name, shaderSource->string(), 0 );
 
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
@@ -197,9 +198,10 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
         auto name = m_program->getActiveUniformName( i );
         auto type = m_program->getActiveUniform( i, GL_UNIFORM_TYPE );
 
-        //!\todo add other sampler type
+        //!\todo add other sampler type (or manage all type of sampler automatically)
         if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
-             type == GL_SAMPLER_2D_SHADOW )
+             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D || type == GL_SAMPLER_CUBE ||
+             type == GL_SAMPLER_CUBE_SHADOW )
         {
             auto location = m_program->getUniformLocation( name );
             textureUnits[name] = TextureBinding( texUnit++, location );
@@ -387,7 +389,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
         std::smatch match;
         if ( std::regex_search( l, match, reg ) )
         {
-            // FIXME : use the includePaths set elsewhere.
+            // Radium V2 : for composable shaders, use the includePaths set elsewhere.
             auto includeNameString =
                 globjects::NamedString::getFromRegistry( std::string( "/" ) + match[1].str() );
             if ( includeNameString != nullptr )
@@ -402,6 +404,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
                                   << nline << " of file " << name << ". Ignored.";
                 continue;
             }
+            // Radium V2, adapt this if globjct includes bug is still present
             /*
              std::string inc;
              std::string file = m_filepath + match[1].str();

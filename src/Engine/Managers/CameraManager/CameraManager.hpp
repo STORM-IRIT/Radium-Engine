@@ -1,18 +1,16 @@
 #ifndef RADIUMENGINE_CAMERAMANAGER_H
 #define RADIUMENGINE_CAMERAMANAGER_H
 
-#include <Engine/Managers/CameraManager/CameraStorage.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/RaEngine.hpp>
 #include <Engine/System/System.hpp>
+#include <Engine/Managers/CameraManager/CameraStorage.hpp>
+
 
 #include <memory>
 
 namespace Ra {
 namespace Engine {
 class Camera;
-class RenderObject;
 } // namespace Engine
 } // namespace Ra
 
@@ -24,7 +22,7 @@ namespace Engine {
  * in a specific way.
  */
 class RA_ENGINE_API CameraManager : public System {
-    // TODO make Camera manager compatible with range for ...
+  // Radium-V2 : make Camera manager compatible with range for ...
   public:
     /// Constructor
     CameraManager() = default;
@@ -54,28 +52,6 @@ class RA_ENGINE_API CameraManager : public System {
      */
     virtual size_t count() const;
 
-    /**
-     * @brief Call before a render, registers the RenderData to use for rendering.
-     */
-    virtual void preprocess(const ViewingParameters &viewParams) = 0;
-
-    /**
-     * @brief render the object with specific technics for the current Camera.
-     *
-     * An example use case is a cube map renderer.
-     *
-     * @note default argument of virtual functions is not a good idea as
-     * "The overriders of virtual functions do not acquire the default arguments from the base class declarations,
-     * and when the virtual function call is made, the default arguments are decided based on the static type of the
-     * object " (https://en.cppreference.com/w/cpp/language/default_arguments)
-     * @todo default argument on virtual functions are not a good idea as the default value is not inherited and must
-     * be replicated in all the derived. At runtime, the default value that is used is those defined by the usage type
-     * of the object, not its concrete type. This could be very confusing.
-     */
-    virtual void
-    render( RenderObject*, unsigned int cam,
-            RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) = 0;
-
     //
     // System methods
     //
@@ -97,12 +73,6 @@ class RA_ENGINE_API CameraManager : public System {
     void unregisterAllComponents( const Entity* entity ) final;
 
   protected:
-    /// store the current renderData
-    ViewingParameters viewingParameters {};
-
-    /// store the current Camera parameters
-    RenderParameters renderParameters {};
-
     /// Stores the object that stores the Cameras...
     std::unique_ptr<CameraStorage> m_data { nullptr };
 };

@@ -40,13 +40,7 @@ class Framebuffer;
 
 namespace Ra {
 namespace Engine {
-  /*
-struct RA_ENGINE_API ViewingParameters {
-    Core::Matrix4 viewMatrix {Core::Matrix4::Identity()};
-    Core::Matrix4 projMatrix {Core::Matrix4::Identity()};
-    Scalar dt {0};
-};
-*/
+
 class RA_ENGINE_API Renderer {
   protected:
     using RenderObjectPtr = std::shared_ptr<RenderObject>;

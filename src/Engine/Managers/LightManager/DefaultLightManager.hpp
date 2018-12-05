@@ -1,9 +1,9 @@
 #ifndef RADIUMENGINE_DUMMYLIGHTMANAGER_HPP
 #define RADIUMENGINE_DUMMYLIGHTMANAGER_HPP
 
-#include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
+#include <Engine/Managers/LightManager/LightManager.hpp>
+#include <Engine/Renderer/Light/Light.hpp>
 
 #include <memory>
 #include <vector>
@@ -25,7 +25,7 @@ class RA_ENGINE_API DefaultLightStorage : public LightStorage {
     const Light* operator[]( unsigned int n ) override;
 
   private:
-    /** Vectors (by light type) of light references. */
+    /** Multimap (by light type) of light references. */
     std::multimap<Ra::Engine::Light::LightType, const Ra::Engine::Light*> m_lights;
 };
 
@@ -38,14 +38,6 @@ class RA_ENGINE_API DefaultLightManager : public LightManager {
 
     const Light* getLight( size_t li ) const override;
     void addLight(const Light *li) override;
-
-    // Since this manager is dedicated to simple lights, it won't do anything here.
-    void preprocess( const ViewingParameters& ) override;
-    void prerender( unsigned int li ) override;
-    void render( RenderObject*, unsigned int li,
-                 RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) override;
-    void postrender( unsigned int li ) override;
-    void postprocess() override;
 };
 
 } // namespace Engine

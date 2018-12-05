@@ -122,24 +122,17 @@ void ForwardRenderer::initBuffers() {
 void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) {
 #ifndef NO_TRANSPARENCY
     m_transparentRenderObjects.clear();
-
     for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
     {
-        std::shared_ptr<RenderObject> ro = *it;
-        if ( ro->isTransparent() )
+        if ( (*it)->isTransparent() )
         {
-            m_transparentRenderObjects.push_back( ro );
+            m_transparentRenderObjects.push_back( *it );
             it = m_fancyRenderObjects.erase( it );
         } else
         { ++it; }
     }
-
     m_fancyTransparentCount = m_transparentRenderObjects.size();
-
-    // Ra::Core::remove_copy_if(m_debugRenderObjects, m_transparentRenderObjects,
-    //                         [](auto ro) { return ro->isTransparent(); });
-
-    // FIXME(charly) Do we want ui too  ?
+   // Question for Radiumv V2 Do we want ui too  ?
 #endif
 }
 
@@ -195,7 +188,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
     GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
 
-    // TODO : this render loop might be greatly improved by inverting light and objects loop
+    // Radium V2 : this render loop might be greatly improved by inverting light and objects loop
     // Make shaders bounded only once, minimize full stats-changes, ...
     if ( m_lightmanagers[0]->count() > 0 )
     {
@@ -513,7 +506,7 @@ void ForwardRenderer::resizeInternal() {
 
 void ForwardRenderer::updateShadowMaps()
 {
-    // TODO : implement shadow mapping
+    // Radium V2 : implement shadow mapping
 }
 
 } // namespace Engine

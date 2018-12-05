@@ -26,7 +26,7 @@ struct ViewingParameters;
 namespace Ra {
 namespace Engine {
 
-// FIXME(Charly): Does this need a bit of cleanup ?
+// Radium V2 : need a bit of cleanup !
 class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
   public:
     RA_CORE_ALIGNED_NEW
@@ -53,20 +53,13 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     ///     // createRenderObject can finally be called.
     ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
     /// TODO : update the above documentation to match the new profile and use case ...
-    /*
-     static RenderObject* createRenderObject( const std::string& name, Component* comp,
-     const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh,
-     const ShaderConfiguration& shaderConfig =
-     ShaderConfigurationFactory::getConfiguration("BlinnPhong"), const std::shared_ptr<Material>&
-     material = nullptr );
-     */
+
     static RenderObject* createRenderObject(
         const std::string& name, Component* comp, const RenderObjectType& type,
         const std::shared_ptr<Mesh>& mesh,
         const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique(),
         const std::shared_ptr<Material>& material = nullptr );
 
-    // FIXME(Charly): Remove this
     void updateGL();
 
     //

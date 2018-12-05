@@ -61,6 +61,12 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     std::clock_t startTime;
     startTime = std::clock();
 
+    // FIXME : this warkaround is related to assimp issue #2260 Mesh created for a light only file (collada)
+    // https://github.com/assimp/assimp/issues/2260
+    // For the moment, only allow to load failes with Light only.
+    // If one need to load file with only skeleton or animation, this must be changed.
+    // Note that loading only skeletons or animations from a file is not allowed in Radium
+    // For now, Skeleton must be loaded from a file with meshes
     if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
         LOG( logWARNING ) << " ai scene is incomplete, just try to load lights ..";
         AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),

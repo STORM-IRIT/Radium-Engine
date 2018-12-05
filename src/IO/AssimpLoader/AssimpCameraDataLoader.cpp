@@ -77,7 +77,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene, const aiCamer
     view.block<3, 1>( 0, 1 ) = up;
     view.block<3, 1>( 0, 2 ) = lookAt;
     view.block<3, 1>( 0, 3 ) = pos;
-    data.setFrame( view * frame ); // TODO: check that!!!
+    data.setFrame( view * frame );
 
     data.setType( Asset::CameraData::PERSPECTIVE ); // default value since not in aiCamera
     data.setFov( camera.mHorizontalFOV );

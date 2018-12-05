@@ -14,7 +14,7 @@ class RenderParameters;
 namespace Ra {
 namespace Engine {
 
-// FIXME : this class could totally be renamed LightComponent and get a Light struct embedded. Thoughts are welcome !
+// Radium-V2 : this class could totally be renamed LightComponent and get a Light struct embedded. Thoughts are welcome !
 class RA_ENGINE_API Light : public Component {
   public:
     enum LightType { DIRECTIONAL = 0, POINT, SPOT, POLYGONAL };

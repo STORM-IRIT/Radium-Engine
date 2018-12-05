@@ -75,7 +75,6 @@ class RA_IO_API AssimpGeometryDataLoader : public Asset::DataLoader<Asset::Geome
     void fetchFaces( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
     /// Fill \p data with the polyhedra from \p mesh.
-    // FIXME: Are polyhedral meshes handled by AssImp?
     void fetchPolyhedron( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertex normals from \p mesh.

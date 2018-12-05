@@ -116,7 +116,7 @@ class RA_ENGINE_API Mesh {
      * \note Also removes all vertex attributes.
      * \warning This might disappear when line meshes will be managed.
      */
-    // FIXME: Had to keep this for line meshes and Render Primitives.
+    // Had to keep this for line meshes and Render Primitives.
     void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices );
 
     /**

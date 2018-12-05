@@ -1,22 +1,10 @@
 #ifndef RADIUMENGINE_LIGHTMANAGER_H
 #define RADIUMENGINE_LIGHTMANAGER_H
-
-#include <Engine/Managers/LightManager/LightStorage.hpp>
 #include <Engine/RaEngine.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/System/System.hpp>
-
-// This will be removed when ViewingParameter will not be necessary for LightManager
-#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Managers/LightManager/LightStorage.hpp>
 
 #include <memory>
-
-namespace Ra {
-namespace Engine {
-class RenderObject;
-}
-} // namespace Ra
 
 namespace Ra {
 namespace Engine {
@@ -26,7 +14,7 @@ namespace Engine {
  * in a specific way.
  */
 class RA_ENGINE_API LightManager : public System {
-    // TODO (Mathias) make light manager compatible with range for ...
+    // Radium-V2 : make light manager compatible with range for ...
   public:
     /// Constructor
     LightManager() = default;
@@ -60,34 +48,6 @@ class RA_ENGINE_API LightManager : public System {
      */
     virtual size_t count() const;
 
-    /**
-     * @brief Call before a render, update the general state of the LightManager.
-     */
-    virtual void preprocess( const ViewingParameters& renderData ) = 0;
-
-    /**
-     * @brief Call before a render, process what is needed for a given Light.
-     */
-    virtual void prerender( unsigned int li ) = 0;
-
-    /**
-     * @brief render the object with specific technics for the current light (between prerender and
-     * postrender)
-     */
-    virtual void
-    render( RenderObject*, unsigned int li,
-            RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) = 0;
-
-    /**
-     * @brief Call after a render, process what is needed for a given Light.
-     */
-    virtual void postrender( unsigned int li ) = 0;
-
-    /**
-     * @brief Call after a render, update the general state of the LightManager.
-     */
-    virtual void postprocess() = 0;
-
     //
     // System methods
     //
@@ -110,12 +70,6 @@ class RA_ENGINE_API LightManager : public System {
     void unregisterAllComponents( const Entity* entity ) final;
 
   protected:
-    /// store the current renderData
-    ViewingParameters viewingParameters {};
-
-    /// store the current light parameters
-    RenderParameters renderParameters {};
-
     /// Stores the object that stores the lights...
     std::unique_ptr<LightStorage> m_data { nullptr };
 };

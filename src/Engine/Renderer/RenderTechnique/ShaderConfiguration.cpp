@@ -197,7 +197,7 @@ void ShaderConfiguration::addIncludes( const std::list<std::string>& incls, Shad
 }
 
 void ShaderConfiguration::removeInclude( const std::string& incl, ShaderType type ) {
-    // TODO (Hugo)
+    // Part of Radium V2 composable shader system
     // m_properties.erase( "#include " + prop );
 }
 

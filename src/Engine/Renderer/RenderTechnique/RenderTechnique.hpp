@@ -18,71 +18,10 @@ class Material;
 
 namespace Ra {
 namespace Engine {
-// TODO (Mathias) : Adapt RenderTechnique for multi-material purpose
-// TODO transform the folowing ideas and insight into a real doc ...
-//      --> Interface that must be implemented by a RenderTechnique
-//      --> depthAmbiant Pass
-//              This pass must compute the Z of each Fragment and, optionally, the ambiant term
-//              (see DepthAmbiantPass shader of Forward Renderer)
-//      --> opaqueLighting Pass
-//              This pass must compute the lighting of the opaque aspect of the material
-//              (see BlinnPhong shader of Forward Renderer)
-//      --> transparentLighting Pass
-//              This pass must compute the lighting of the transparent aspect of the material
-//              (see LitOIT shader of Forward Renderer)
-//
-//  --> modify RenderObject so that it is able to activate the required technique for rendering
-//      This is done but not yet finalized ... main rendering (internal render) is fixed, secondary
-//      renderings (ui,
-//          debug, ...) still have the possibilities to bypass the notion of Technique"
-//
-// A RenderTechnique correspond to a set shader configuration allowing to manage a Material while
-// rendering.
-//   The set of configurations must contains what is required to render objects in the following
-//   ways :
-//      1- depth and ambiant-environment lighting :
-//          Required for the depth pre-pass of several renderers.
-//          Must initialise the color. Initialization at 0 or to the base color of the fragments
-//          resulting from ambiant-Environment lighting
-//          * Default/Reference : DepthAmbiantPass shaders
-//      2- Opaque lighting : THIS ONE IS MANDATORY, EACH MATERIAL MUST AT LEAST BE RENDERABLE AS
-//      OPAQUE OBJECT
-//          Main configuration, computes the resluting color according to a lighting configuration.
-//          The lighting configuration might contains one or severa sources of different types.
-//          * Default/Reference : BlinnPhong  shaders
-//      3- Transparent lighting :
-//          Same as opaque lighting but for transparent objects
-//          * Default/Reference LitOIT shaders
-//      4- WhatElse ????
-//
-/*  Exemple of use from Forward Renderer
- *
- *  depthAmbiant pass
- *      Build a RenderParameters object defining the ambiant lighting configuration (envmap or
- * irradiancemap or constant factor of base color. for each RenderObject call
- * ro->render(ambiantLigthingPtarams, viewingParameters(stange name for matrices + time),
- * TECHNIQUE_DEPTH_AMBIANT);
- *
- *  opaqueLighting pass :
- *      For each light sources set (from 1 to N light sources)
- *          Build a RenderParameters object defining the lighting configuration.
- *          For each RenderObject
- *              call ro->render(ambiantLigthingPtarams, viewingParameters(stange name for matrices + time),
- * TECHNIQUE_LIGHT_OPAQUE);
- *
- *  transparentLighting pass
- *      For each light sources set (from 1 to N light sources)
- *          Build a RenderParameters object defining the lighting configuration.
- *          For each RenderObject
- *              call ro->render(ambiantLigthingPtarams, viewingParameters(stange name for matrices + time),
- * TECHNIQUE_LIGHT_TRANSPARENT);
- *
- *  Each technique must be configured with its own shaders.
- *
- *   TODO : Default rendertechnique must be renderer dependant ...
+/* Radium V2 : make this class  non final and extensible.
+ * passName must be renderer independant (use a map so that each renderer could set its own passes.
+ * Rely this to future composition based material and renderer architecture.
  */
-/* FIXME : for the moment, this class is final. We need to discuss on how to make it non final and
- * extensible. */
 class RA_ENGINE_API RenderTechnique final {
   public:
     enum PassName {
@@ -97,7 +36,7 @@ class RA_ENGINE_API RenderTechnique final {
     ~RenderTechnique();
 
     void setConfiguration( const ShaderConfiguration& newConfig, PassName pass = LIGHTING_OPAQUE );
-    // TODO : do we need all the config or only the basic part ?
+
     ShaderConfiguration getConfiguration( PassName pass = LIGHTING_OPAQUE ) const;
 
     const ShaderProgram* getShader( PassName pass = LIGHTING_OPAQUE ) const;

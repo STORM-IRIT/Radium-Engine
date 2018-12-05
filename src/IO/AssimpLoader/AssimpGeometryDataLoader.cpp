@@ -97,7 +97,11 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
         fetchBitangents( mesh, data );
     }
 
-    // FIXME( Charly ) << "Is it safe to only consider texcoord 0 ?
+    // Radium V2 : allow to have several UV channels
+    // use MATKEY_UVWSRC to know if any
+    if ( mesh.GetNumUVChannels() > 1 ) {
+        LOG(logWARNING) << "Assimp loader : several UV channels are set, Radium will use only the 1st";
+    }
     if ( mesh.HasTextureCoords( 0 ) )
     {
         fetchTextureCoordinates( mesh, data );
@@ -106,13 +110,6 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
     /*
      if( mesh.HasVertexColors() ) {
      fetchColors( mesh, data );
-     }
-     */
-
-    /*
-     if (mesh.HasBones())
-     {
-     fetchBoneWeights(mesh, data);
      }
      */
 }
@@ -267,8 +264,7 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
 #pragma omp parallel for
     for ( uint i = 0; i < size; ++i )
     {
-        // FIXME(Charly): Is it safe to only consider texcoords[0] ?
-        // ANSWER : no, it is not but Radium ecosystem only support 1 tex coord channel for now
+        // Radium V2 : allow to have several UV channels
         texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
     }
 }
@@ -286,20 +282,8 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     {
         matName = assimpName.C_Str();
     }
-    // TODO : use AI_MATKEY_SHADING_MODEL to select the apropriate model
+    // Radium V2 : use AI_MATKEY_SHADING_MODEL to select the apropriate model
     // (http://assimp.sourceforge.net/lib_html/material_8h.html#a93e23e0201d6ed86fb4287e15218e4cf)
-    /*
-     aiShadingMode shading;
-     if( AI_SUCCESS == material.Get( AI_MATKEY_SHADING_MODEL, shading ) )
-     {
-     LOG(logINFO) << "Got a "  << shading << " shading model.";
-     }
-     else
-     {
-     LOG(logINFO) << "Unable to retrieve shading model.";
-     }
-     */
-
     auto blinnPhongMaterial = new Asset::BlinnPhongMaterialData( matName );
     aiColor4D color;
     float shininess;

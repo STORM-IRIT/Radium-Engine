@@ -18,7 +18,7 @@ namespace Engine {
  * an implementation-defined way.
  */
 class RA_ENGINE_API LightStorage {
-    // TODO (Mathias) make light storage compatible with range for ...
+    // Radium-V2 : make light storage compatible with range for ...
   public:
     /// Constructor
     LightStorage() = default;

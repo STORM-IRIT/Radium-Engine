@@ -2,7 +2,8 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <Core/File/FileData.hpp>
-#include <Core/File/GeometryData.hpp>
+#include <Core/File/CameraData.hpp>
+
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -14,13 +15,12 @@
 namespace Ra {
 namespace Engine {
 
-
 size_t CameraManager::count() const {
     return m_data->size();
 }
 
 void CameraManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
-                                   const Engine::FrameInfo& frameInfo ) {}
+                                   const Engine::FrameInfo& /*frameInfo*/ ) {}
 
 void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
     std::vector<Asset::CameraData*> cameraData = filedata->getCameraData();

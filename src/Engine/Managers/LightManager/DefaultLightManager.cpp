@@ -1,8 +1,6 @@
-#include "DefaultLightManager.hpp"
+#include <Engine/Managers/LightManager/DefaultLightManager.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -17,32 +15,6 @@ const Light* DefaultLightManager::getLight( size_t li ) const {
 
 void DefaultLightManager::addLight(const Light *li) {
     m_data->add( li );
-}
-
-//
-// Pre/Post render operations.
-//
-
-void DefaultLightManager::preprocess( const Ra::Engine::ViewingParameters& vp ) {
-    viewingParameters = vp;
-}
-
-void DefaultLightManager::prerender( unsigned int li ) {
-    const Light* light = ( *(m_data.get()) )[li];
-    renderParameters = RenderParameters();
-    light->getRenderParameters( renderParameters );
-}
-
-void DefaultLightManager::render( RenderObject* ro, unsigned int li,
-                                  RenderTechnique::PassName passname ) {
-    ro->render( renderParameters, viewingParameters, passname );
-}
-
-void DefaultLightManager::postrender( unsigned int li ) {}
-
-void DefaultLightManager::postprocess() {
-    // Eventually, this would be a good idea to disable GL_BLEND, and
-    // all what was enabled in preprocess().
 }
 
 DefaultLightStorage::DefaultLightStorage() = default;

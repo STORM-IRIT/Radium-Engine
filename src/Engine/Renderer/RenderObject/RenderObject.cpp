@@ -74,7 +74,6 @@ const RenderObjectType& RenderObject::getType() const {
 }
 
 void RenderObject::setType( const RenderObjectType& t ) {
-    // Fixme (val) : this will have no effect now
     m_type = t;
 }
 
@@ -230,9 +229,9 @@ void RenderObject::render(const RenderParameters &lightParams, const ViewingPara
             return;
         }
 
-        // FIXME : try to avoid this temporary
+        // Radium V2 : avoid this temporary
         Core::Matrix4 modelMatrix = getTransformAsMatrix();
-        Core::Matrix4 normalMatrix = getTransformAsMatrix().inverse().transpose();
+        Core::Matrix4 normalMatrix = modelMatrix.inverse().transpose();
         // bind data
         shader->bind();
         shader->setUniform( "transform.proj", viewParams.projMatrix );
