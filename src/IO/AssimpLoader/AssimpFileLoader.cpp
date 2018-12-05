@@ -61,38 +61,46 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     std::clock_t startTime;
     startTime = std::clock();
 
-    AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( filename ),
-                                             fileData->isVerbose() );
-    geometryLoader.loadData( scene, fileData->m_geometryData );
+    if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
+        LOG( logWARNING ) << " ai scene is incomplete, just try to load lights ..";
+        AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),
+                                           fileData->isVerbose() );
+        lightLoader.loadData( scene, fileData->m_lightData );
+    } else {
+        AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( filename ),
+                                                 fileData->isVerbose() );
+        geometryLoader.loadData( scene, fileData->m_geometryData );
 
-    // check if that the scene contains at least one mesh
-    // Note that currently, Assimp is ALWAYS creating faces, even when
-    // loading point clouds
-    // (see 3rdPartyLibraries/Assimp/code/PlyLoader.cpp:260)
-    bool ok = std::any_of(fileData->m_geometryData.begin(), fileData->m_geometryData.end(),
-                          [](const auto &geom)->bool{
-                            return geom->hasFaces();
-                          }
-                         );
-    if ( !ok )
-    {
-        if ( fileData->isVerbose() )
+        // check if that the scene contains at least one mesh
+        // Note that currently, Assimp is ALWAYS creating faces, even when
+        // loading point clouds
+        // (see 3rdPartyLibraries/Assimp/code/PlyLoader.cpp:260)
+        bool ok = std::any_of(fileData->m_geometryData.begin(), fileData->m_geometryData.end(),
+                              [](const auto &geom)->bool{
+                                  return geom->hasFaces();
+                              }
+        );
+        if ( !ok )
         {
-            LOG( logINFO ) << "Point-cloud found. Aborting";
-            delete fileData;
-            return nullptr;
+            if ( fileData->isVerbose() )
+            {
+                LOG( logINFO ) << "Point-cloud found. Aborting";
+                delete fileData;
+                return nullptr;
+            }
         }
+
+        AssimpHandleDataLoader handleLoader( fileData->isVerbose() );
+        handleLoader.loadData( scene, fileData->m_handleData );
+
+        AssimpAnimationDataLoader animationLoader( fileData->isVerbose() );
+        animationLoader.loadData( scene, fileData->m_animationData );
+
+        AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),
+                                           fileData->isVerbose() );
+        lightLoader.loadData( scene, fileData->m_lightData );
+
     }
-
-    AssimpHandleDataLoader handleLoader( fileData->isVerbose() );
-    handleLoader.loadData( scene, fileData->m_handleData );
-
-    AssimpAnimationDataLoader animationLoader( fileData->isVerbose() );
-    animationLoader.loadData( scene, fileData->m_animationData );
-
-    AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),
-                                       fileData->isVerbose() );
-    lightLoader.loadData( scene, fileData->m_lightData );
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
