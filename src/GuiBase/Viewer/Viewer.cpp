@@ -512,13 +512,7 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     m_pickingManager->clear();
     m_context->makeCurrent( this );
 
-    // Move camera if needed. Disabled for now as it takes too long (see issue #69)
-    // m_camera->update( dt );
-
-    Engine::ViewingParameters data;
-    data.dt = dt;
-    data.projMatrix = m_camera->getProjMatrix();
-    data.viewMatrix = m_camera->getViewMatrix();
+    Engine::ViewingParameters data { m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt };
 
     // FIXME : move this outside of the rendering loop. must be done once per renderer ...
     // if there is no light on the renderer, add the head light attached to the camera ...

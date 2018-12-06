@@ -38,23 +38,24 @@ class PickingManager;
 namespace Ra {
 namespace Gui {
 
-/// The Viewer is the main display class. It could be used as an independant window or
-/// can be set as a central widget on a more complex gui by using the adapter fro QWindow to QWidget
-/// To do that, the following code could be used :
-/// \code{.cpp}
-///     m_viewer = new Ra::Gui::Viewer();
-///     QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
-///     setCentralWidget(viewerwidget);
-/// \endcode
-/// Whatever its usage (QWindow or QWidget) the Viewer has the same funtionalities.
-/// Its acts as a bridge between the interface, the engine and the renderer
-/// Among its responsibilities are :
-/// * Owning the renderer and camera, and managing their lifetime.
-/// * setting up the renderer and camera by keeping it informed of interfaces changes
-///  (e.g. resize).
-/// * catching user interaction (mouse clicks) at the lowest level and forward it to
-/// the camera and the rest of the application
-/// * Expose the asynchronous rendering interface
+/** The Viewer is the main display class. It could be used as an independant window or
+* can be set as a central widget on a more complex gui by using the adapter fro QWindow to QWidget
+* To do that, the following code could be used :
+* \code{.cpp}
+*     m_viewer = new Ra::Gui::Viewer();
+*     QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
+*     setCentralWidget(viewerwidget);
+* \endcode
+* Whatever its usage (QWindow or QWidget) the Viewer has the same funtionalities.
+* Its acts as a bridge between the interface, the engine and the renderer
+* Among its responsibilities are :
+* * Owning the renderer and camera, and managing their lifetime.
+* * setting up the renderer and camera by keeping it informed of interfaces changes
+*  (e.g. resize).
+* * catching user interaction (mouse clicks) at the lowest level and forward it to
+* the camera and the rest of the application
+* * Expose the asynchronous rendering interface
+*/
 class RA_GUIBASE_API Viewer : public QWindow {
     Q_OBJECT
 

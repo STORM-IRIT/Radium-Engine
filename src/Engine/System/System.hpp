@@ -25,11 +25,12 @@ class FileData;
 namespace Ra {
 namespace Engine {
 
-/// Systems are responsible of updating a specific subset of the components of each entity.
-/// They can provide factory methods to create components, but their main role is to keep a
-/// list of "active" components associated to an entity.
-/// At each frame, each system loaded into the engine will be queried for tasks.
-/// The goal of the tasks is to update the active components during the frame.
+/** Systems are responsible of updating a specific subset of the components of each entity.
+ * They can provide factory methods to create components, but their main role is to keep a
+ * list of "active" components associated to an entity.
+ * At each frame, each system loaded into the engine will be queried for tasks.
+ * The goal of the tasks is to update the active components during the frame.
+ */
 class RA_ENGINE_API System {
     friend class Component;
 

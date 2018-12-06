@@ -22,6 +22,11 @@ namespace Ra {
 namespace Engine {
 class Texture;
 
+/**
+ * Abstraction of OpenGL Shader Program
+ * @see globjects::Program and https://www.khronos.org/opengl/wiki/Shader
+ *
+ */
 class RA_ENGINE_API ShaderProgram final {
   public:
     ShaderProgram();

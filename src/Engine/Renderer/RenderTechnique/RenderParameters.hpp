@@ -19,6 +19,9 @@ class ShaderProgram;
 
 namespace Ra {
 namespace Engine {
+  /**
+   * Management of shader parameters
+   */
 class RA_ENGINE_API RenderParameters final {
   public:
     class Parameter {

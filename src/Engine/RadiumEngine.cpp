@@ -67,9 +67,7 @@ void RadiumEngine::endFrameSync() {
 
 void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     static uint frameCounter = 0;
-    FrameInfo frameInfo;
-    frameInfo.m_dt = dt;
-    frameInfo.m_numFrame = frameCounter++;
+    FrameInfo frameInfo {dt, frameCounter++};
     for ( auto& syst : m_systems )
     {
         syst.second->generateTasks( taskQueue, frameInfo );
@@ -106,10 +104,10 @@ Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& c
     // 1) Get entity
     if ( m_entityManager->entityExists( entityName ) )
     {
-        Ra::Engine::Entity* e = m_entityManager->getEntity( entityName );
+        auto e = m_entityManager->getEntity( entityName );
 
         // 2) Get component
-        const Ra::Engine::Component* c = e->getComponent( componentName );
+        const auto c = e->getComponent( componentName );
 
         if ( c != nullptr && !c->m_renderObjects.empty() )
         {

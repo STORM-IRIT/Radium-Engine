@@ -150,7 +150,7 @@ static const std::string defaultFragmentShader{ "Shaders/Default.frag.glsl" };
 namespace Ra {
 namespace Engine {
 
-ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "DefaultShader",
+ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program",
                                                                 defaultVertexShader,
                                                                 defaultFragmentShader );
 

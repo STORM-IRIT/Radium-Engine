@@ -2,10 +2,10 @@
 
 ## Source code organization
 * `src` contains the main source code of the engine libs
- * `Core` : the Core module (static library) contains the foundation
+ * `Core` : the Core module (dynamic library) contains the foundation
  classes such as math classes, containers, adapters to the standard
  library, etc. 
- * `Engine` the Engine module (static library) contains all graphics
+ * `Engine` the Engine module (dynamic library) contains all graphics
  related code and engine subsystems running.
  * `GuiBase` has the Qt-based GUI classes.
 * `Plugins` contains the plugins which add Systems and Components to the engine.

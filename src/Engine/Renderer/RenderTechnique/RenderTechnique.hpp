@@ -22,6 +22,10 @@ namespace Engine {
  * passName must be renderer independant (use a map so that each renderer could set its own passes.
  * Rely this to future composition based material and renderer architecture.
  */
+/**
+ * Set of shaders to be used by the renderer to render objects with materials.
+ * @see Render technique and materials section in the Material management in the Radium Engine documentation
+ */
 class RA_ENGINE_API RenderTechnique final {
   public:
     enum PassName {

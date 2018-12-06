@@ -41,11 +41,18 @@ class Framebuffer;
 namespace Ra {
 namespace Engine {
 
+  /**
+   * Abstract renderer for the engine.
+   * @see Radium Engine default rendering informations
+   */
 class RA_ENGINE_API Renderer {
   protected:
     using RenderObjectPtr = std::shared_ptr<RenderObject>;
 
   public:
+    /**
+     * Instrumentation structure that allow to extract timings from the rendering
+     */
     struct TimerData {
         Core::Timer::TimePoint renderStart;
         Core::Timer::TimePoint updateEnd;
@@ -55,6 +62,14 @@ class RA_ENGINE_API Renderer {
         Core::Timer::TimePoint renderEnd;
     };
 
+    /**
+    * \defgroup Picking Picking data structures
+     * @todo put all picking related stuff in one place
+    */
+    /*@{*/
+    /**
+     * Picking mode
+     */
     enum PickingMode {
         RO = 0,    ///< Pick a mesh
         VERTEX,    ///< Pick a vertex of a mesh
@@ -65,12 +80,18 @@ class RA_ENGINE_API Renderer {
         C_TRIANGLE ///< Picks all triangles of a mesh within a screen space circle
     };
 
+    /**
+     * Picking query
+     */
     struct PickingQuery {
         Core::Vector2 m_screenCoords;
         Core::MouseButton::MouseButton m_button;
         PickingMode m_mode;
     };
 
+    /**
+     * Picking result
+     */
     struct PickingResult {
         PickingMode m_mode;            // Picking mode of the query
         int m_roIdx;                   // Idx of the picked RO
@@ -83,25 +104,71 @@ class RA_ENGINE_API Renderer {
         // coming from pixels). Note: Beware that the same mesh vertex would also be picked for each
         // of its adjacent triangles.
     };
+    /*@}*/
 
   public:
+    /** Abstract rendere constructor
+     *
+     * could be called without openGL context.
+     * Call initialize once the openGL rendering context is available before using the renderer
+     */
     Renderer();
+
     virtual ~Renderer();
 
     // -=-=-=-=-=-=-=-=- FINAL -=-=-=-=-=-=-=-=- //
+    /**
+     * \defgroup Non polymorphic methods
+     * @return
+     */
+     /*@{*/
+     /**
+      * Extract the timings from las render
+      */
     inline const TimerData& getTimerData() const { return m_timerData; }
 
+    /**
+     * Get the currently displayed texture
+     */
     inline Texture* getDisplayTexture() const { return m_displayedTexture; }
 
     // Lock the renderer (for MT access)
+    /**
+     * Lock rendering. Usefull if there is multithread update of the rendering data
+     */
     inline void lockRendering() { m_renderMutex.lock(); }
 
+    /**
+     * Unlock the rendering.
+     */
     inline void unlockRendering() { m_renderMutex.unlock(); }
 
+    /**
+     * Toggle the fill/wireframe rendering mode
+     */
     inline void toggleWireframe() { m_wireframe = !m_wireframe; }
 
-    inline void setWireframe( bool wireframe ) { m_wireframe = wireframe; }
+    /**
+     * set the fill/wireframe rendering mode
+     * @param enabled true if rendering mode must be wireframe, false for fill render mode
+     */
+    inline void enableWireframe(bool enabled) { m_wireframe = enabled; }
 
+    /**
+     * Toggle debug rendering
+     */
+    inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
+
+    /**
+      * Set the debug rendering mode
+      * @param enabled true if rendering mode must include debug objects, false else
+      */
+    inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
+
+    /**
+     * set the post-process mode
+     * @param enabled true if post processing must bve applied before display.
+     */
     inline void enablePostProcess( bool enabled ) { m_postProcessEnabled = enabled; }
 
     /**
@@ -126,8 +193,7 @@ class RA_ENGINE_API Renderer {
      */
     void render( const ViewingParameters& renderData );
 
-    // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
-    /**
+     /**
      * @brief Initialize renderer
      */
     void initialize( uint width, uint height );
@@ -143,38 +209,62 @@ class RA_ENGINE_API Renderer {
      */
     void resize( uint width, uint height );
 
+    /**
+     * \ingroup Picking
+     *
+     */
+     /*@{*/
+     /**
+      * Add a new picking query for the next rendering
+      * @param query
+      */
     inline void addPickingRequest( const PickingQuery& query ) {
         m_pickingQueries.push_back( query );
     }
 
+    /**
+     * Get the vector of picking results.
+     * Results in the returned vector correspond to queries in the return vector by the function getPickingQueries.
+     * @return Queries results
+     */
     inline const std::vector<PickingResult>& getPickingResults() const { return m_pickingResults; }
 
+    /**
+    * Get the vector of picking queries.
+    * Queries in the returned vector correspond to results in the return vector by the function getPickingResults.
+    * @return Queries results
+    */
     inline const std::vector<PickingQuery>& getPickingQueries() const {
         return m_lastFramePickingQueries;
     }
+    /*@}*/
 
-    inline virtual void setMousePosition( const Core::Vector2& pos ) final {
+    inline void setMousePosition( const Core::Vector2& pos ) {
         m_mousePosition[0] = pos[0];
         m_mousePosition[1] = m_height - pos[1];
     }
 
-    inline virtual void setBrushRadius( Scalar brushRadius ) final { m_brushRadius = brushRadius; }
-
-    inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
-
-    inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
-
-    // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
-    /** Add a light to the renderer.
-     * may be overriden to filter the light or to specialize the way ligths are added to the
-     * renderer ...
-     * @param light
-     */
-    virtual void addLight( const Light* light );
+    inline void setBrushRadius( Scalar brushRadius ) { m_brushRadius = brushRadius; }
 
     /// Tell if the renderer has an usable light.
     bool hasLight() const;
 
+    /*@}*/
+    // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
+    /**
+     * \defgroup RendererPolymorphic Polymorphic methods
+     */
+    /*@{*/
+    /** Add a light to the renderer.
+      * may be overridden to filter the light or to specialize the way ligths are added to the
+      * renderer ...
+      * @param light
+      */
+    virtual void addLight( const Light* light );
+
+    /**
+     * Reload, recompile and relink all shaders and programmed internally used by the renderer.
+     */
     virtual void reloadShaders();
 
     /**
@@ -203,18 +293,27 @@ class RA_ENGINE_API Renderer {
     virtual std::string getRendererName() const = 0;
 
     virtual std::unique_ptr<uchar[]> grabFrame(size_t &w, size_t &h) const;
-
+    /*@}*/
   protected:
+    /** \ingroup RendererPolymorphic
+     */
+     /*@{*/
     /**
      * @brief initializeInternal
+     * Initialize the renderer dependant resources.
      */
     virtual void initializeInternal() = 0;
+    /**
+     * resize the renderer dependent resources
+     */
     virtual void resizeInternal() = 0;
 
-    // 2.1
+    /**
+     * Update the renderer dependent resources for the next frame
+     * @param renderData
+     */
     virtual void updateStepInternal( const ViewingParameters& renderData ) = 0;
 
-    // 4.
     /**
      * @brief All the scene rendering magics basically happens here.
      *
@@ -223,7 +322,6 @@ class RA_ENGINE_API Renderer {
      */
     virtual void renderInternal( const ViewingParameters& renderData ) = 0;
 
-    // 5.
     /**
      * @brief Do all post processing stuff. If you override this method,
      * be careful to fill @see m_fancyTexture since it is the texture that
@@ -243,7 +341,7 @@ class RA_ENGINE_API Renderer {
      * @brief Draw the UI data
      */
     virtual void uiInternal( const ViewingParameters& renderData ) = 0; // idem ?
-
+    /*@}*/
   private:
     // 0.
     void saveExternalFBOInternal();

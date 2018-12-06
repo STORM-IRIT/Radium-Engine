@@ -51,9 +51,10 @@ class RA_ENGINE_API LightManager : public System {
     //
     // System methods
     //
-
+    /// Do nothing as this system only manage light related asset loading
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
+    /// Transform loaded file data to usable entities and component in the engine
     void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
   protected:

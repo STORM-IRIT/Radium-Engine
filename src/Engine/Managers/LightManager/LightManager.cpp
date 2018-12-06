@@ -35,7 +35,7 @@ size_t LightManager::count() const {
 //
 
 void LightManager::generateTasks( Core::TaskQueue* /*taskQueue*/, const Engine::FrameInfo& /*frameInfo*/ ) {
-
+    // do nothing as this system only manage light related asset loading
 }
 
 void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {

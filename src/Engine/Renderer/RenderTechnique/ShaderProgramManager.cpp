@@ -54,7 +54,7 @@ void ShaderProgramManager::initialize() {
         globjects::NamedString::create( "/DefaultLight.glsl", m_files[6].get() ) );
 
     m_defaultShaderProgram =
-        addShaderProgram( "Default Program", m_defaultVsName, m_defaultFsName );
+        addShaderProgram( ShaderConfiguration("Default Program", m_defaultVsName, m_defaultFsName) );
 }
 
 void ShaderProgramManager::addNamedString( const std::string& includepath,
@@ -65,7 +65,7 @@ void ShaderProgramManager::addNamedString( const std::string& includepath,
         globjects::NamedString::create( includepath, m_files[m_files.size() - 1].get() ) );
 }
 
-void ShaderProgramManager::updateNamedString() {
+void ShaderProgramManager::reloadNamedString() {
     auto numNamedString = m_namedStrings.size();
     for ( auto i = 0; i < numNamedString; ++i )
     {
@@ -74,17 +74,6 @@ void ShaderProgramManager::updateNamedString() {
         m_namedStrings[i].reset( nullptr );
         m_namedStrings[i] = globjects::NamedString::create( id, m_files[i].get() );
     }
-}
-
-const ShaderProgram* ShaderProgramManager::addShaderProgram( const std::string& name,
-                                                             const std::string& vert,
-                                                             const std::string& frag ) {
-    ShaderConfiguration config( name );
-
-    config.addShader( ShaderType_VERTEX, vert );
-    config.addShader( ShaderType_FRAGMENT, frag );
-
-    return addShaderProgram( config );
 }
 
 const ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
@@ -98,7 +87,6 @@ const ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfigu
     // Try to load the shader
     auto prog = Core::make_shared<ShaderProgram>( config );
 
-    // FIXED : use isLinked not isValid
     if ( prog->getProgramObject()->isLinked() )
     {
         insertShader( config, prog );
@@ -115,7 +103,7 @@ const ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfigu
         // insert in the failed shaders list
         m_shaderFailedConfs.push_back( config );
 
-        return m_defaultShaderProgram;
+        return getDefaultShaderProgram();
     }
 }
 
@@ -127,7 +115,8 @@ const ShaderProgram* ShaderProgramManager::getShaderProgram( const std::string& 
         return getShaderProgram( found->second );
     }
 
-    return m_defaultShaderProgram;
+    //return m_defaultShaderProgram;
+    return nullptr;
 }
 
 const ShaderProgram* ShaderProgramManager::getShaderProgram( const ShaderConfiguration& config ) {
@@ -136,7 +125,7 @@ const ShaderProgram* ShaderProgramManager::getShaderProgram( const ShaderConfigu
 
 void ShaderProgramManager::reloadAllShaderPrograms() {
     // update the include registry
-    updateNamedString();
+    reloadNamedString();
 
     // For each shader in the map
     for ( auto& shader : m_shaderPrograms )
@@ -168,9 +157,6 @@ const ShaderProgram* ShaderProgramManager::getDefaultShaderProgram() const {
 
 void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
                                          const ShaderProgramPtr& shader ) {
-    //m_shaderProgramIds.insert(
-    //    std::pair<std::string, ShaderConfiguration>( config.m_name, config ) );
-    //m_shaderPrograms.insert( std::pair<ShaderConfiguration, ShaderProgramPtr>( config, shader ) );
     m_shaderProgramIds.insert( {config.m_name, config} );
     m_shaderPrograms.insert( {config, shader} );
 }

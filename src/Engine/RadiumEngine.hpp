@@ -33,6 +33,10 @@ class FileData;
 
 namespace Ra {
 namespace Engine {
+/**
+ * Engine main class : Manage all the systems and managers that are used by the engine module.
+ * @see Documentation on Engine Object Model
+ */
 class RA_ENGINE_API RadiumEngine {
     RA_SINGLETON_INTERFACE( RadiumEngine );
 
@@ -40,9 +44,24 @@ class RA_ENGINE_API RadiumEngine {
     RadiumEngine();
     ~RadiumEngine();
 
+    /**
+     * Instantiate all object managers that make Radium Object Model functionnal.
+     * Initialize internal resources and default states.
+     */
     void initialize();
+
+    /**
+     * Free all resources acquired during initialize
+     */
     void cleanup();
 
+    /**
+     * Builds the set of task that must be executed for the current frame.
+     *
+     * @see Documentation on Engine Object Model the what are tasks and what they can do
+     * @param taskQueue the task queue that will be executed for the current frame
+     * @param dt
+     */
     void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
 
     /**
@@ -56,11 +75,13 @@ class RA_ENGINE_API RadiumEngine {
     bool registerSystem( const std::string& name, System* system, int priority = 1 );
     System* getSystem( const std::string& system ) const;
 
-    /// Convenience function returning a Mesh from its entity and
-    /// component names.
-    /// When no RenderObject name is given, returns the mesh associated
-    /// to the first render object.
-    Mesh* getMesh( const std::string& entityName, const std::string& componentName,
+    /** Convenience function returning a Mesh from its entity and
+     * component names.
+     * When no RenderObject name is given, returns the mesh associated
+     * to the first render object.
+     * @note : mark as deprecated as it must be eitehr removed or reimplemented
+     */
+    [[deprecated]] Mesh* getMesh( const std::string& entityName, const std::string& componentName,
                    const std::string& roName = std::string() ) const;
 
     /**
@@ -95,12 +116,36 @@ class RA_ENGINE_API RadiumEngine {
     void endFrameSync();
 
     /// Manager getters
+    /**
+     * Get the RenderObject manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the object manager
+     */
     RenderObjectManager* getRenderObjectManager() const;
+    /**
+     * Get the entity manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the entity manager
+     */
     EntityManager* getEntityManager() const;
+
+    /**
+     * Get the signal manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the signal manager
+     */
     SignalManager* getSignalManager() const;
 
+    /**
+     * Register a new file loader to the engine.
+     * @param fileLoader
+     */
     void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
 
+    /**
+     * Get the active file loaders from the engine
+     * @return
+     */
     const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>& getFileLoaders() const;
 
   private:

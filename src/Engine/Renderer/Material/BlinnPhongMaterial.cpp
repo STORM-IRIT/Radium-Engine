@@ -104,6 +104,16 @@ void BlinnPhongMaterial::registerMaterial() {
                                               "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
+    Ra::Engine::ShaderConfiguration zprepassconfig(
+        "ZprepassBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+
+    Ra::Engine::ShaderConfiguration transparentpassconfig(
+        "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
+
     // Registering technique
     Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
         "BlinnPhong",
@@ -116,18 +126,14 @@ void BlinnPhongMaterial::registerMaterial() {
             rt.setConfiguration( lightpassconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended) : DepthAmbiantPass
-            Ra::Engine::ShaderConfiguration zprepassconfig(
-                "DepthAmbiantBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
-            Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+            auto zprepassconfig =
+                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "ZprepassBlinnPhong" );
             rt.setConfiguration( zprepassconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
             // Transparent pass (0ptional) : If Transparent ... add LitOIT
             if ( isTransparent )
             {
-                Ra::Engine::ShaderConfiguration transparentpassconfig(
-                    "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                    "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
-                Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
+                auto transparentpassconfig =
+                    Ra::Engine::ShaderConfigurationFactory::getConfiguration( "LitOITBlinnPhong" );
                 rt.setConfiguration( transparentpassconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }
         } );

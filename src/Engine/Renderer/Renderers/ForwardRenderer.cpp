@@ -54,11 +54,11 @@ void ForwardRenderer::initializeInternal() {
 
 void ForwardRenderer::initShaders() {
 
-    m_shaderMgr->addShaderProgram( "Hdr2Ldr", "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
-                                   "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl" );
+    m_shaderMgr->addShaderProgram( ShaderConfiguration("Hdr2Ldr", "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
+                                   "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl") );
 #ifndef NO_TRANSPARENCY
-    m_shaderMgr->addShaderProgram( "ComposeOIT", "Shaders/Basic2D.vert.glsl",
-                                   "Shaders/ComposeOIT.frag.glsl" );
+    m_shaderMgr->addShaderProgram( ShaderConfiguration("ComposeOIT", "Shaders/Basic2D.vert.glsl",
+                                   "Shaders/ComposeOIT.frag.glsl") );
 #endif
 }
 
@@ -359,6 +359,10 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
 
                 // bind data
                 shader->bind();
+                // lighting for Xray : fixed
+                shader->setUniform( "light.color", Ra::Core::Color(5.0, 5.0, 5.0, 1.0) );
+                shader->setUniform( "light.type", Light::LightType::DIRECTIONAL );
+                shader->setUniform( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
 
                 Core::Matrix4 M = ro->getTransformAsMatrix();
                 shader->setUniform( "transform.proj", renderData.projMatrix );
