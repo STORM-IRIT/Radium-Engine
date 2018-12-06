@@ -63,11 +63,6 @@ class RA_ENGINE_API Renderer {
     };
 
     /**
-    * \defgroup Picking Picking data structures
-     * @todo put all picking related stuff in one place
-    */
-    /*@{*/
-    /**
      * Picking mode
      */
     enum PickingMode {
@@ -104,7 +99,6 @@ class RA_ENGINE_API Renderer {
         // coming from pixels). Note: Beware that the same mesh vertex would also be picked for each
         // of its adjacent triangles.
     };
-    /*@}*/
 
   public:
     /** Abstract rendere constructor
@@ -117,11 +111,7 @@ class RA_ENGINE_API Renderer {
     virtual ~Renderer();
 
     // -=-=-=-=-=-=-=-=- FINAL -=-=-=-=-=-=-=-=- //
-    /**
-     * \defgroup Non polymorphic methods
-     * @return
-     */
-     /*@{*/
+
      /**
       * Extract the timings from las render
       */
@@ -209,11 +199,6 @@ class RA_ENGINE_API Renderer {
      */
     void resize( uint width, uint height );
 
-    /**
-     * \ingroup Picking
-     *
-     */
-     /*@{*/
      /**
       * Add a new picking query for the next rendering
       * @param query
@@ -237,7 +222,6 @@ class RA_ENGINE_API Renderer {
     inline const std::vector<PickingQuery>& getPickingQueries() const {
         return m_lastFramePickingQueries;
     }
-    /*@}*/
 
     inline void setMousePosition( const Core::Vector2& pos ) {
         m_mousePosition[0] = pos[0];
@@ -249,12 +233,7 @@ class RA_ENGINE_API Renderer {
     /// Tell if the renderer has an usable light.
     bool hasLight() const;
 
-    /*@}*/
     // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
-    /**
-     * \defgroup RendererPolymorphic Polymorphic methods
-     */
-    /*@{*/
     /** Add a light to the renderer.
       * may be overridden to filter the light or to specialize the way ligths are added to the
       * renderer ...
@@ -267,17 +246,17 @@ class RA_ENGINE_API Renderer {
      */
     virtual void reloadShaders();
 
-    /**
-     * @brief Change the texture that is displayed on screen.
-     * Set m_displayedIsDepth to true if depth linearization is wanted
-     *
-     * @param texIdx The texture to display.
-     */
     // TODO:    For now the drawn texture takes the whole viewport,
     //          maybe it could be great if we had a way to switch between
     //          the current "fullscreen" debug mode, and some kind of
     //          "windowed" mode (that would show the debugged texture in
     //          its own viewport, without hiding the final texture.)
+    /**
+     * @brief Change the texture that is displayed on screen.
+     * Set m_displayedIsDepth to true if depth linearization is wanted
+     *
+     * @param texName The texture to display.
+     */
     virtual void displayTexture( const std::string& texName );
 
     /**
@@ -293,16 +272,15 @@ class RA_ENGINE_API Renderer {
     virtual std::string getRendererName() const = 0;
 
     virtual std::unique_ptr<uchar[]> grabFrame(size_t &w, size_t &h) const;
-    /*@}*/
+
   protected:
-    /** \ingroup RendererPolymorphic
-     */
-     /*@{*/
+
     /**
      * @brief initializeInternal
      * Initialize the renderer dependant resources.
      */
     virtual void initializeInternal() = 0;
+
     /**
      * resize the renderer dependent resources
      */
@@ -341,7 +319,7 @@ class RA_ENGINE_API Renderer {
      * @brief Draw the UI data
      */
     virtual void uiInternal( const ViewingParameters& renderData ) = 0; // idem ?
-    /*@}*/
+
   private:
     // 0.
     void saveExternalFBOInternal();

@@ -120,9 +120,6 @@ class RA_ENGINE_API Texture final {
      * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
      * since this method doc will highly refer to it.
      *
-     * @param internalFormat The number of color components of the texture, and their size.
-     * Refer to the link given above, at the \b internalFormat section
-     * for further informations about available internal formats.
      *
      * @param width Width of the six 2D textures.
      *
@@ -131,10 +128,6 @@ class RA_ENGINE_API Texture final {
      * @param format The format of the pixel data.
      * Refer to the link given above, at the \b format section
      * for further informations about the available formats.
-     *
-     * @param type The data type of the pixel data.
-     * Refer to the link given above, at the \b type section
-     * for further informations about the available types.
      *
      * @param data Data contained in the texture. Can be nullptr. <br/>
      * If \b data is not null, the texture will take the ownership of it.

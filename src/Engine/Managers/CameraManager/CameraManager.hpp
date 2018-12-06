@@ -60,8 +60,9 @@ class RA_ENGINE_API CameraManager : public System {
     void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
   protected:
-    /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. CameraStorage).
+    /** Inherited method marked as final to ensure correct memory management
+     *  even in child classes (e.g. CameraStorage).
+     */
     void registerComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management

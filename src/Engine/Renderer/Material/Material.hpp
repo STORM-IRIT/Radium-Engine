@@ -32,6 +32,11 @@ class RA_ENGINE_API Material {
   public:
     RA_CORE_ALIGNED_NEW
 
+    /**
+     * Creates a named material with the given aspect
+     * @param name
+     * @param aspect
+     */
     explicit Material( const std::string& name, MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
     virtual ~Material() = default;

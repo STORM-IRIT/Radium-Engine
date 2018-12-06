@@ -49,8 +49,7 @@ void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* f
         comp->setZFar( data->getZFar() );
         comp->setZoomFactor( data->getZoomFactor() );
 
-        //! @comp should be allocated in CameraStorage (well, not sure ...)
-
+        // comp should be allocated in CameraStorage (well, not sure ...)
         if ( !comp )
             continue;
 

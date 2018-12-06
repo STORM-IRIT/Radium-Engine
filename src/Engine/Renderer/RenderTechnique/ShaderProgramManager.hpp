@@ -87,7 +87,7 @@ class RA_ENGINE_API ShaderProgramManager final {
 
     /**
      * Allows to define named string so that the inclusion mechanism of OpenGL could be efficient.
-     * A name string associates the name that will be used by a #define directive in a glsl source file
+     * A name string associates the name that will be used by a \#define directive in a glsl source file
      * with a file that contains the included glsl source code.
      * @param includepath
      * @param realfile

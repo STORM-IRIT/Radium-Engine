@@ -31,35 +31,58 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
   public:
     RA_CORE_ALIGNED_NEW
 
-    /// A -1 (or any other negative value) lifetime is considered infinite,
-    /// 0 is an "invalid value" (would mean the render object has to die immediatly),
-    /// hence it's considered as infinite,
-    /// any other positive value will be taken into account.
+    /**
+     * A -1 (or any other negative value) lifetime is considered infinite,
+     * 0 is an "invalid value" (would mean the render object has to die immediatly),
+     * hence it's considered as infinite,
+     * any other positive value will be taken into account.
+     *
+     * @param name
+     * @param comp
+     * @param type
+     * @param lifetime
+     */
     RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
                   int lifetime = -1 );
     ~RenderObject() override;
 
+    /**
+     *
+     */
     /// Sort of factory method to easily create a render object.
-    /// Use case example :
-    ///     std::string name = "MyRO";
-    ///     Component* comp;    // Retrieve the component the way you want.
-    ///                         // Since this method will often be used in a component,
-    ///                         // just use this pointer.
-    ///     RenderObjectType type = RenderObjectType::Geometry; // For example
-    ///     // Retrieve an already created configuration, or create one (see ShaderConfiguration
-    ///     docs). ShaderConfiguration config =
-    ///     ShaderConfigurationFactory::getConfiguration("MyConfig"); Material* mat = new Material;
-    ///     // Then configure your material...
-    ///     // createRenderObject can finally be called.
-    ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
-    /// TODO : update the above documentation to match the new profile and use case ...
-
+    ///     /// TODO : update the above documentation to match the new profile and use case ...
+    /**
+     * Sort of factory method to easily create a render object.
+     * Use case example :
+     *     std::string name = "MyRO";
+     *     Component* comp;    // Retrieve the component the way you want.
+     *                         // Since this method will often be used in a component,
+     *                         // just use this pointer.
+     *     RenderObjectType type = RenderObjectType::Geometry; // For example
+     *     // Retrieve an already created configuration, or create one (see ShaderConfiguration
+     *     docs). ShaderConfiguration config =
+     *     ShaderConfigurationFactory::getConfiguration("MyConfig"); Material* mat = new Material;
+     *     // Then configure your material...
+     *     // createRenderObject can finally be called.
+     *     RenderObject* ro = createRenderObject(name, component, type, config, material);
+     * @todo : update the above documentation to match the new profile and use case ...
+     * @param name
+     * @param comp
+     * @param type
+     * @param mesh
+     * @param techniqueConfig
+     * @param material
+     * @return
+     */
     static RenderObject* createRenderObject(
         const std::string& name, Component* comp, const RenderObjectType& type,
         const std::shared_ptr<Mesh>& mesh,
         const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique(),
         const std::shared_ptr<Material>& material = nullptr );
 
+    /**
+     * Updates all the openGL state of the object. Called at the beginning of
+     */
     void updateGL();
 
     //

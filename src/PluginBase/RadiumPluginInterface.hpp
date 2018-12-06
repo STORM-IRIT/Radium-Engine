@@ -48,10 +48,9 @@ class RadiumPluginInterface {
 
     /**
      * @brief Pass arguments for plugin initialization.
-     * This method is supposed to create the system (<emph>new</emph> it)
-     * and then call Ra::Engine::RadiumEngine::registerSystem().
-     * Without doing this, your system won't do anything
-     * (unless you just want to add UI elements)
+     * This method must create and register all the services that the plugin wants to offer : system, renderers,
+     * materials, Ui ...
+     *
      * @param context : plugin context containing the engine and UI interfaces.
      */
     virtual void registerPlugin( const PluginContext& context ) = 0;
@@ -102,21 +101,33 @@ class RadiumPluginInterface {
      */
     virtual QAction* getAction( int id ) = 0;
 
+    /**
+     * Tells if the plugin will add a renderer
+     * @return true if the plugin offer rendering service
+     */
     virtual bool doAddRenderer() { return false; }
 
     /**
      * @brief addRenderers
      *
-     * \param rds the TODO
-     * \warning Allocated renderers are given to the application and
-     * SHOULD not be destroyed by the plugin
+     * \param rds the renderers that the plugin wants to expose to the application.
+     * \warning Allocated renderers are given to the application that takes ownership. They
+     * MUST not be destroyed by the plugin
      */
-    virtual void addRenderers( std::vector<std::shared_ptr<Engine::Renderer>>* /*rds*/ ) {}
+    virtual void addRenderers( std::vector<std::shared_ptr<Engine::Renderer>>* rds ) {}
 
+    /**
+     * Tells if the system will add a file loader
+     * @return true if a file loader service is offered
+     */
     virtual bool doAddFileLoader() { return false; }
 
+    /**
+     * Add the file loader services offered by the plugin
+     * @param fl The set of file loader to add
+     */
     virtual void
-    addFileLoaders( std::vector<std::shared_ptr<Asset::FileLoaderInterface>>* /*fl*/ ) {}
+    addFileLoaders( std::vector<std::shared_ptr<Asset::FileLoaderInterface>>* fl ) {}
 
     /**
      * @brief openGlInitialize
@@ -124,23 +135,26 @@ class RadiumPluginInterface {
      * \param context (const PluginContext& context) the Plugin context
      * @see https://herbsutter.com/2013/06/05/gotw-91-solution-smart-pointer-parameters/ for the
      * reason a const QOpenGLContext * is given \warning Allocated renderers are given to the
-     * application and SHOULD not be destroyed by the plugin
-     * @note Plugins that want to manage OpenGL resources MUST ENSURE at the time they create/acces
+     * application and MUST not be destroyed by the plugin
+     * @note Plugins that want to manage OpenGL resources MUST ENSURE at the time they create/access
      * these resources that the current openGLContext is the one pass when initializing OpenGL here
      * and stored in the PluginContext ...
      * @note When this function is called from the application, The active OpenGL Context is the one
      * that will be used for rendering.
-     * @todo QOpenGLContext the openGLContext as it is redundant with the PluginContext ?
      *
-     * Developers of plugins that need to manage OpenGL resources in a direct way (recomended for
+     * Developers of plugins that need to manage OpenGL resources in a direct way (recommended for
      * plugins that manage OpenGL resources for rendering or interaction with rendering) must
      * implement this method and memorize the viewer of the PluginContext. Each time they need to
      * create or destroy an OpenGL resource, they must activate this context (viewer->makeCurrent())
-     * and realeas it after usage (viewer->doneCurrent())
+     * and realease it after usage (viewer->doneCurrent())
      * @see Ra::Gui::Viewer
      */
     virtual void openGlInitialize( const PluginContext& context ) {}
 
+    /**
+     * Tells if the plugin offer OpenGL based services that need to be initialized after the OpenGL context is created.
+     * @return true if plugin offers OppenGL services
+     */
     virtual bool doAddROpenGLInitializer() { return false; }
 };
 } // namespace Plugins

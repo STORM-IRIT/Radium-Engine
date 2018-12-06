@@ -50,6 +50,11 @@ enum ShaderType : uint {
  *     auto shader = ShaderProgramManager::getInstance()->getShaderProgram();
  *     shader->bind();
  *     ...
+ *
+ *     @todo : make configuration and program (in the OpenGL sense) be packed. A shader configuration might contains a
+ *     ShaderProgram after compiling. This will remove the need for ShaderConfigurationFactory as ShaderManager will
+ *     offer the same services. Actually, there is redundancy between ShaderConfigurationFactory and ShaderProgramManager
+ *
  */
 class RA_ENGINE_API ShaderConfiguration final {
     friend class ShaderProgram;
@@ -77,14 +82,14 @@ class RA_ENGINE_API ShaderConfiguration final {
      */
     void addShader( ShaderType type, const std::string& name );
 
-    /** Add a property in the form of a #define
+    /** Add a property in the form of a \#define
      * The same shader files with different properties leads to different shader programs
      */
     void addProperty( const std::string& prop );
     void addProperties( const std::list<std::string>& props );
     void removeProperty( const std::string& prop );
 
-    /** Add a property in the form of an #include
+    /** Add a property in the form of an \#include
      * The same shader files with different properties leads to different shader programs
      */
     void addInclude( const std::string& incl, ShaderType type = ShaderType_FRAGMENT );

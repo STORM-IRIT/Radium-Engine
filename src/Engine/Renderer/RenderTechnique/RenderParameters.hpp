@@ -52,6 +52,7 @@ class RA_ENGINE_API RenderParameters final {
             Parameter( name ),
             m_texture( tex ),
             m_texUnit( texUnit ) {}
+
         ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 

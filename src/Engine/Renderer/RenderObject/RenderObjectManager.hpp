@@ -34,26 +34,48 @@ class RA_ENGINE_API RenderObjectManager final {
     std::shared_ptr<RenderObject> getRenderObject( const Core::Index& index );
 
     /**
-     * @brief Get all render objects, the vector is assumed to be empty
-     * @param Empty vector that will receive render objects
+     * @brief Get all render objects, the vector is assumed to be empty when called
+     * @param objectsOut vector that will receive render objects
      */
     void getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& objectsOut ) const;
 
+    /**
+     * Get all render objects of the given type, the vector is assumed to be empty whan called
+     * @param objectsOut
+     * @param type
+     */
     void getRenderObjectsByType( std::vector<std::shared_ptr<RenderObject>>& objectsOut,
                                  const RenderObjectType& type ) const;
 
-    /// Returns true if the index points to a valid render object.
+    /** Returns true if the index points to a valid render object.
+     *
+     * @param index
+     * @return
+     */
     bool exists( const Core::Index& index ) const;
 
+    /**
+     * Removed the render object at the given index
+     * @param idx
+     */
     void renderObjectExpired( const Ra::Core::Index& idx );
 
-    /// Return the total number of faces drawn
+    /** Return the total number of faces drawn
+     *
+     * @return
+     */
     size_t getNumFaces() const;
 
-    /// Return the total number of vertices drawn
+    /** Return the total number of vertices drawn
+     *
+     * @return
+     */
     size_t getNumVertices() const;
 
-    /// Return the AABB of all visible render objects
+    /** Return the AABB of all visible render objects
+     *
+     * @return
+     */
     Core::Aabb getSceneAabb() const;
 
   private:

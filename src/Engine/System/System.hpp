@@ -50,16 +50,19 @@ class RA_ENGINE_API System {
 
     /**
      * @brief Pure virtual method to be overridden by any system.
-     * A very basic version of this method could be to iterate on components
-     * and just call Component::update() method on them.
-     * This update depends on time (e.g. physics system).
+     * Must register in taskQueue the operations that must be done ate each frame
      *
-     * @param dt Time elapsed since last call.
+     * @param taskQueue The queue to fill
+     * @param frameInfo Information about the current frame (@see FrameInfo)
      */
     virtual void generateTasks( Core::TaskQueue* taskQueue,
                                 const Engine::FrameInfo& frameInfo ) = 0;
 
-    /// Returns the components stored for the given entity.
+    /** Returns the components stored for the given entity.
+     *
+     * @param entity
+     * @return the vector of the entity's components
+     */
     std::vector<Component*> getEntityComponents( const Entity* entity );
 
   protected:

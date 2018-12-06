@@ -111,8 +111,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
             comp = nullptr;
         }
 
-        //! @comp should be allocated in LightStorage (well, not sure ...)
-
+        // comp should be allocated in LightStorage (well, not sure ...)
         if ( !comp )
             continue;
 

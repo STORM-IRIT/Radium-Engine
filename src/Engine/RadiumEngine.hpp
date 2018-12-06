@@ -71,15 +71,26 @@ class RA_ENGINE_API RadiumEngine {
      * priority are ranked randomly.
      * Default priority is 1 for all systems;
      *
+     * @param name
+     * @param system
+     * @param priority
      */
     bool registerSystem( const std::string& name, System* system, int priority = 1 );
+
+    /**
+     * Get the named system
+     * @param system
+     * @return
+     */
     System* getSystem( const std::string& system ) const;
 
     /** Convenience function returning a Mesh from its entity and
      * component names.
      * When no RenderObject name is given, returns the mesh associated
      * to the first render object.
-     * @note : mark as deprecated as it must be eitehr removed or reimplemented
+     * @note : mark as deprecated as it must be either removed or reimplemented
+     * @deprecated Will be removed from this class in the next release. A Mesh manager, that could serve mesh
+     * by name will be implemented.
      */
     [[deprecated]] Mesh* getMesh( const std::string& entityName, const std::string& componentName,
                    const std::string& roName = std::string() ) const;

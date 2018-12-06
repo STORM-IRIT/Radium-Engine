@@ -27,7 +27,9 @@ class RA_CORE_API LightData : public AssetData {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    /// Supported light type
+    /** Supported light type
+     *
+     */
     enum LightType {
         UNKNOWN = 1 << 0,
         POINT_LIGHT = 1 << 1,
@@ -86,11 +88,7 @@ class RA_CORE_API LightData : public AssetData {
      */
     inline void setFrame( const Core::Matrix4& frame );
 
-/**
- * \defgroup HelperSetters Helper functions to set the various light parameters.
- *
- * @{
- */
+
     /**
      * Construct a directional light.
      * A directional light is only defined by its color and its lighting direction.
@@ -127,12 +125,7 @@ class RA_CORE_API LightData : public AssetData {
      */
     inline void setLight( const Core::Color &color, const Core::Vector3 &cog, const Core::Matrix3 &spatialCov,
                           const Core::Matrix3 &normalCov, LightAttenuation attenuation );
-/**@}*/
 
-/**
- * \defgroup TypeOperators Helper functions to manage the type of the light.
- * @{
- */
     /**
     * Access to the type of the object
     */
@@ -158,7 +151,7 @@ class RA_CORE_API LightData : public AssetData {
     */
     inline bool isAreaLight() const;
 
-/**@}*/
+
 
     /**
      * For debugging purpose, prints out the formated content of the LightData object.

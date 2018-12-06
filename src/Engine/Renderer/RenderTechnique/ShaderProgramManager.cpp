@@ -114,8 +114,6 @@ const ShaderProgram* ShaderProgramManager::getShaderProgram( const std::string& 
     {
         return getShaderProgram( found->second );
     }
-
-    //return m_defaultShaderProgram;
     return nullptr;
 }
 
