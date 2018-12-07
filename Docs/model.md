@@ -95,12 +95,12 @@ Pending dependencies are resolved just before the task queue starts executing al
 
 ### Rendering
 
-Each Component may have some *RenderObjects* (aka Drawables) which are (usually) OpenGL objects. When a Component has 
-changed it needs to tell its drawables to update their internal data (such as OpenGL VBOs).
+Each Component may have some *RenderObjects* (aka Drawable) which are (usually) OpenGL objects. When a Component has 
+changed it needs to tell its drawable to update their internal data (such as OpenGL VBOs).
 Render objects are stored together by the *render object manager* for efficiency, thus components only store an index to reference their render objects.
 
 The Render Objects are drawn by the *Renderer* which may live in a separated thread. Each frame it grabs all 
-the drawables (which should be double-buffered in case we are mid-VBO update) and calls `draw()` on them.
+the drawable (which should be double-buffered in case we are mid-VBO update) and calls `draw()` on them.
 
 (TODO : a nice class schema).
 
@@ -132,16 +132,16 @@ A series of macros `RA_DISPLAY_...` are defined to conveniently add basic displa
 
 Entities and components have been designed so that the engine is modular in terms of features. It is expected that most interesting works will be done by Systems defined in *Plugins*. Each plugin can define its System (and the corresponding Components). 
 
-We use a compile-time plugins loading mechanism. When running `cmake`, it will list the contents of the  `src/Plugins/` directory and add them to be compiled with the projet, and automatically generate the code to include the plugins Systems in the main application.
+We use a compile-time plugins loading mechanism. When running `cmake`, it will list the contents of the  `src/Plugins/` directory and add them to be compiled with the project, and automatically generate the code to include the plugins Systems in the main application.
 
 ### Requirements
 
 For this automated build to work the plugins are required to follow these requirements
-* The plugin code must be in a subfolder of the `src/Plugins/` directory.
+* The plugin code must be in a sub-folder of the `src/Plugins/` directory.
 * The folder name is taken to be the _base name_ of the plugin. If the directory name is `BaseName`, then
  * Plugin code must be in `namespace BaseNamePlugin`
  * The system defined by the plugin must be named `BaseNamePlugin::BaseNameSystem`
- * It must be defined in a header located at the top of the plugin subfolder, named `BaseNameSystem.hpp` (its full path should be `src/Plugins/Basename/BasenameSystem.hpp`)
+ * It must be defined in a header located at the top of the plugin sub-folder, named `BaseNameSystem.hpp` (its full path should be `src/Plugins/Basename/BasenameSystem.hpp`)
  * The system must inherit from `Engine::System` and have a default empty constructor.
 
 
@@ -149,6 +149,6 @@ For this automated build to work the plugins are required to follow these requir
 
 See the structure of the default plugins for an example of a working plugin.
 So far three default plugin exist:
-* *Animation* handles an animation skeleton and can play keyframed animations.
+* *Animation* handles an animation skeleton and can play keyframe animations.
 * *Skinning* uses a geometric skinning method (like linear blend skinning or dual quaternion).
 See also the Radium-PluginExample project: https://github.com/STORM-IRIT/Radium-PluginExample for ToonShader and LaplacianSmoothing.

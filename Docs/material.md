@@ -96,16 +96,16 @@ Based on the `ForwardRenderer` implementation in Radium, the set of configuratio
 rendering _passes_ corresponds to the following :
 1. Z-prepass : depth and ambient/environment lighting :
     - Identified by the `Ra::Engine::RenderTechnique::Z_PREPASS` constant.
-    - Required for the depth pre-pass of several renderers.
+    - Required for the depth pre-pass of several renderer.
     - Must initialise the color buffer with the computation of ambient/environment lighting.
     - Must discard all non fully opaque fragments.
-    - Default/Reference : ``Material/BlinnPhong/DepthAmbientBlinnPhong` shaders
+    - Default/Reference : ``Material/BlinnPhong/DepthAmbientBlinnPhong` shader
 2. Opaque lighting **(MANDATORY for default ForwardRenderer)**:
     - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_OPAQUE` constant.
     - Main configuration, computes the resulting color according to a lighting configuration.
     - The lighting configuration might contains one or several sources of different types.
     - Must discard all non fully opaque fragments.
-    - Default/Reference : BlinnPhong shaders
+    - Default/Reference : BlinnPhong shader
 3. Transparent lighting :
     - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT` constant.
     - Must discard fully transparent and fully opaque fragments, 
@@ -115,7 +115,7 @@ rendering _passes_ corresponds to the following :
         Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
         http://jcgt.org/published/0002/02/09/
     - Lighting is computed the same way as for Opaque Lighting
-    - Default/Reference : ``Material/BlinnPhong/LitOITBlinnPhong`` shaders
+    - Default/Reference : ``Material/BlinnPhong/LitOITBlinnPhong`` shader
     - The transparent color weighting function might be the same as :
     ``` 
     float weight(float z, float alpha) {
@@ -145,7 +145,7 @@ to render an object without light source but with a specific color computation.
 RenderTechniques are associated with Materials through a Builder Factory defined in the `namespace Ra::Engine::EngineRenderTechniques`
 and located in the `Engine/Renderer/RenderTechnique` directory.
 This factory will manage default technique builders for each registered materials in the engine.
-A default technique builder will associate a set of predefined shaders for each rendering pass to a Material type.
+A default technique builder will associate a set of predefined shader for each rendering pass to a Material type.
 
 This association is based on the type, not on the instance. So it can vary from one instance to the other but
 requires then a manual construction of the render technique instead of an automatic one through the factory.
@@ -176,7 +176,7 @@ For now (master v1), the engine manage only one default material corresponding t
 The type of this material is `"BlinnPhong"`.
 The workflow allowing the Engine to manage this material is the following.
 
-### Making BlinnPhong a lodable material (see _The MaterialData interface_)
+### Making BlinnPhong a loadable material (see _The MaterialData interface_)
 This part of the Material management workflow is related to File loader. So, The corresponding classes are located in
 the `Core/File` subdirectory.
 ```
@@ -206,7 +206,7 @@ public:
 } // namespace Ra
 ```
 
-Then, the Assimp loader, located in the `IO/AssimpLoader` subdirectory will instanciate the
+Then, the Assimp loader, located in the `IO/AssimpLoader` subdirectory will instantiate the
 `BlinnPhongMaterialData` when loading a file in the following way :
 ```cpp
 void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
@@ -227,7 +227,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
 }
 ```
 
-### Making BlinnPhong a renderable material (see _The Material interface_)
+### Making BlinnPhong a usable material (see _The Material interface_)
 This part of the Material management workflow is related to the Renderer part of the Engine. So, The corresponding classes are located in
 the `Engine/Renderer/Material` subdirectory.
 ```
@@ -274,7 +274,7 @@ the MaterialConvertersFactory and the RenderTechniqueBuilder into the RenderTech
 It is recommended (see above) to implement specific class methods in the Material implementations that will register
 and unregister the material type into the engine.
 
-For the default `BlinnPhongMaterial`, wich is of type `"BlinnPhong"`, these methods will do the following :
+For the default `BlinnPhongMaterial`, which is of type `"BlinnPhong"`, these methods will do the following :
 
 ```cpp
 void BlinnPhongMaterial::registerMaterial() {
