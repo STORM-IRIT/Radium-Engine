@@ -200,8 +200,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
         //!\todo add other sampler type (or manage all type of sampler automatically)
         if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
-             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D || type == GL_SAMPLER_CUBE ||
-             type == GL_SAMPLER_CUBE_SHADOW )
+             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D || type == GL_SAMPLER_CUBE_SHADOW )
         {
             auto location = m_program->getUniformLocation( name );
             textureUnits[name] = TextureBinding( texUnit++, location );

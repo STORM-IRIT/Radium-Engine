@@ -118,7 +118,7 @@ ExternalProject_Add(
 	INSTALL_COMMAND cmake -E echo "Skipping install step."
 )
 ```
-Then you have to setup manually all the variables that would have been setted up by `find_package`:
+Then you have to setup manually all the variables that would have been set up by `find_package`:
 ```cmake
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}

@@ -11,6 +11,6 @@ except to one that can be attached to the camera.
 ## Light Manager
 
 ## Loading lights
-Light are loaded by the active fileloader and transformed to a LightData vector in th FileData constructed by the loader.
+Light are loaded by the active file loader and transformed to a LightData vector in th FileData constructed by the loader.
 
 ## Using light

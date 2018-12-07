@@ -1,9 +1,9 @@
 # Material management in the Radium Engine
 A Material is a way to control the appearance of an object when rendering. It could be the definition of a classical
-rendering materials, a _Bidirectionnal Scattering Distribution function (BSDF)_, or just define the way a geometry
+rendering materials, a _Bidirectional Scattering Distribution function (BSDF)_, or just define the way a geometry
 could be rendered and how is computed the final color of an object.
 
-A material is associated to the renderable geometry of an object (a component in the Radium nomenclature) through a so
+A material is associated to the render geometry of an object (a Component in the Radium nomenclature) through a so
 called _Render Technique_. This association is managed by the `RenderObject` class.
 
 This documentation aims at describing the way materials are managed in the Radium engine and how one can extend the set
@@ -16,7 +16,7 @@ application or renderer, a Material could be defined directly without loading it
 
 ### The MaterialData interface
 The interface `MaterialData` define the external representation of a material. Even if this interface could be
-instanciated, it defines an abstract material that is not valid for the Engine.
+instantiated, it defines an abstract material that is not valid for the Engine.
 This interface must then be implemented to define materials that could be loaded from a file.
 
 When defining a loadable material, the corresponding implementation must set the type of the material to a unique
@@ -28,7 +28,7 @@ definition to the Engine internal representation.
 
 ### The Material interface
 The `Material` interface defines the internal abstract representation of a Material. This interface will be used by
-the Engine, mainly by the _Render Technique_ and the renderers.
+the Engine, mainly by the _Render Technique_ and the _Renderer_.
 
 This interface defines all the methods needed to parametrized the OpenGL pipeline for rendering.
 When implementing this interface, it is a good idea to add two static methods to the implementation to allow to register
@@ -87,17 +87,17 @@ RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter( const std
 ### Render technique and materials
 A `RenderTechnique` correspond to the description of how to use Materials to render an object in openGL.
 Even if `RenderTechnique` is tightly coupled with the default `ForwardRenderer` of the engine, it could
-be used also with other renderers. Note nevertheless that RenderTechnique is not mandatory when defining a specific
-renderer as the association between the material and the geometry of a render object could be done explicitely.
+be used also with others renderer. Note nevertheless that RenderTechnique is not mandatory when defining a specific
+renderer as the association between the material and the geometry of a render object could be done explicitly.
 
 To manage the way a Material could be used for rendering, a `RenderTechnique` is then a set of
 _shader configurations_ associated to the different way a renderer will compute the final image.
 Based on the `ForwardRenderer` implementation in Radium, the set of configurations, with one configuration per
 rendering _passes_ corresponds to the following :
-1. Z-prepass : depth and ambiant/environment lighting :
+1. Z-prepass : depth and ambient/environment lighting :
     - Identified by the `Ra::Engine::RenderTechnique::Z_PREPASS` constant.
     - Required for the depth pre-pass of several renderers.
-    - Must initialise the color buffer with the computation of ambiant/environment lighting.
+    - Must initialise the color buffer with the computation of ambient/environment lighting.
     - Must discard all non fully opaque fragments.
     - Default/Reference : ``Material/BlinnPhong/DepthAmbientBlinnPhong` shaders
 2. Opaque lighting **(MANDATORY for default ForwardRenderer)**:
@@ -138,7 +138,7 @@ rendering _passes_ corresponds to the following :
      ```
 
 **Note** that a specific renderer might use the same set of configurations but with a different semantic.
-One can imagine, for instance, that a renderer will only use the _Depth and ambiant/environment_ configuration in order
+One can imagine, for instance, that a renderer will only use the _Depth and ambient/environment_ configuration in order
 to render an object without light source but with a specific color computation.
 
 

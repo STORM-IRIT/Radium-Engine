@@ -82,7 +82,7 @@ which identifies the task.
 Dependencies between tasks can be specified either as *immediate* dependencies or *pending* dependencies.
 Immediate dependencies are dependencies between tasks which are already present in the task queue. 
 Adding a dependency with `TaskkQueue::addDependency()` takes two arguments, the predecessor and the successor task,
-and the task queue will ensure that the successor task must be executed after all its predecesors have finished.
+and the task queue will ensure that the successor task must be executed after all its predecessors have finished.
 In `addDependency()`, tasks can be identified with either a `TaskID` or a name; at least one of
 the arguments must be a `TaskID`.
 If a name is given, *all* tasks matching with the name will be added as dependencies.

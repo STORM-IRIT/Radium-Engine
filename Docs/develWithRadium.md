@@ -1,10 +1,10 @@
 # How to code in Radium
 
 There are three main options to work with Radium:
-1. Write a plugin: full access to the Radium data structures, perfect to implement a new fonctionality: mesh processing, rendering.
+1. Write a plugin: full access to the Radium data structures, perfect to implement a new functionality: mesh processing, rendering.
 2. Write an application: give total control over the GUI, the camera settings, etc...
 3. Contribute to Radium libraries: to improve/extend core components of Radium.
-4. Testing: extend radium tests to improve testing coverage or when adding new functionalities.
+4. Testing: extend radium tests to improve testing coverage or when adding new functionality.
 
 ## Radium Plugin
 Tutorial here: https://github.com/STORM-IRIT/Radium-PluginExample
@@ -19,14 +19,14 @@ Please submit your pull request.
 ## Radium coding style
 Please follow the scripts/clang-format coding style (tested `with clang-format 6.0`).
 To use it, you have to copy or link `scripts/clang-format` to `.clang-format` (in Radium-Engine root dir).
-We also provide a pre commit hook that checks the commited files are correctly formated.
+We also provide a pre commit hook that checks the committed files are correctly formatted.
 To install both hooks and clang-format, simply run `./scripts/install-scripts-linux.sh` on linux, or adapt to your OS.
 
 ## Radium test suite
 ### Preliminaries
 Radium testing is done using two tools:
  - CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.
- - Continuous Integration system: Travis.ci and AppVeyor. We use these services to call CTest on several plateforms (windows, ubuntu and macos) with several compilers, and validate any change made to the main repository.
+ - Continuous Integration system: Travis.ci and AppVeyor. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.
 
 As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically.
 In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.
@@ -38,7 +38,7 @@ Their source code is stored in `Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/sr
 
 We provide in `Radium-Engine/tests/Tests.hpp` some utility functions to ease tests implementation.
 
-Let's consider the following snipplet:
+Let's consider the following snippet:
 
       #include <Core/Math/LinearAlgebra.hpp>                        // include path contains Radium sources,
       #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh> // Radium's dependencies
@@ -141,9 +141,9 @@ To run the tests locally, you first need to compile them (`make buildtests`) and
     Total Test time (real) =   0.06 sec
 
 The standard output is not printed when using CTest. 
-To debug a test, you might need to run it direcly. Tests binaries are located in `CMAKE_BUILD_PATH/tests/`.
+To debug a test, you might need to run it directly. Tests binaries are located in `CMAKE_BUILD_PATH/tests/`.
 
-Tests are automatically compiled and runned for Linux and MacOS CI, each time commits are pushed to Github. See snippet from TravisCI configuration file `Radium-Engine/.travis`:
+Tests are automatically compiled and ran for Linux and MacOS CI, each time commits are pushed to Github. See snippet from TravisCI configuration file `Radium-Engine/.travis`:
 
     script:
       - make -j 4

@@ -30,7 +30,7 @@ You can get the Qt source at [https://www.qt.io/download-open-source]
 A copy of the LGPL is included in this repository, or can be obtained at
 [http://www.gnu.org/licenses/lgpl.html]
 
-Additionnaly some of our source code files use code from Qt examples files
+Additionally some of our source code files use code from Qt examples files
 redistributed under the BSD-licence.
 
 ## Eigen
@@ -60,6 +60,6 @@ STB image is a header-only library, released in the public domain.
 
 The source code is included in this repository or can be obtained at [https://github.com/nothings/stb]
 
-### Additionnal material
+### Additional material
 X-ray Icon
 made by *Freepik* from www.flaticon.com is licensed under CC BY 3.0
