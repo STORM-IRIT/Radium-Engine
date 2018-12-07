@@ -54,22 +54,18 @@ void Renderer::initialize( uint width, uint height ) {
     TextureManager::createInstance();
 
 
-    m_shaderMgr->addShaderProgram(
-                    ShaderConfiguration( "DrawScreen", "Shaders/Basic2D.vert.glsl",
-                                                       "Shaders/DrawScreen.frag.glsl" )
+    m_shaderMgr->addShaderProgram( { {"DrawScreen"}, {"Shaders/Basic2D.vert.glsl"},
+                                     {"Shaders/DrawScreen.frag.glsl"} }
                                  );
-    m_shaderMgr->addShaderProgram(
-                    ShaderConfiguration( "DrawScreenI", "Shaders/Basic2D.vert.glsl",
-                                                        "Shaders/DrawScreenI.frag.glsl" )
+    m_shaderMgr->addShaderProgram( { {"DrawScreenI"}, {"Shaders/Basic2D.vert.glsl"},
+                                     {"Shaders/DrawScreenI.frag.glsl"} }
                                  );
-    m_shaderMgr->addShaderProgram(
-                    ShaderConfiguration( "CircleBrush", "Shaders/Basic2D.vert.glsl",
-                                                        "Shaders/CircleBrush.frag.glsl" )
+    m_shaderMgr->addShaderProgram( { {"CircleBrush"}, {"Shaders/Basic2D.vert.glsl"},
+                                     {"Shaders/CircleBrush.frag.glsl"} }
                                  );
 
-    m_shaderMgr->addShaderProgram(
-                    ShaderConfiguration( "DisplayDepthBuffer", "Shaders/Basic2D.vert.glsl",
-                                   "Shaders/DepthDisplay/DepthDisplay.frag.glsl" )
+    m_shaderMgr->addShaderProgram( { {"DisplayDepthBuffer"}, {"Shaders/Basic2D.vert.glsl"},
+                                     {"Shaders/DepthDisplay/DepthDisplay.frag.glsl"} }
                                  );
 
     ShaderConfiguration pickingPointsConfig( "PickingPoints" );

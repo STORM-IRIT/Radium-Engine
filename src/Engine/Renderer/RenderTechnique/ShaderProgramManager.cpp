@@ -54,7 +54,7 @@ void ShaderProgramManager::initialize() {
         globjects::NamedString::create( "/DefaultLight.glsl", m_files[6].get() ) );
 
     m_defaultShaderProgram =
-        addShaderProgram( ShaderConfiguration("Default Program", m_defaultVsName, m_defaultFsName) );
+        addShaderProgram( { {"Default Program"}, m_defaultVsName, m_defaultFsName } );
 }
 
 void ShaderProgramManager::addNamedString( const std::string& includepath,
