@@ -5,6 +5,9 @@ namespace Engine {
 // Add a texture as material parameter from an already existing Radium Texture
 inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
     m_textures[semantic] = texture;
+    // remove pendingTexture with same semantic, since the latter would
+    // overwrite the former when updateGL will be called.
+    m_pendingTextures.erase( semantic );
 }
 
 // Add a texture as material parameter with texture parameter set by default for this material
