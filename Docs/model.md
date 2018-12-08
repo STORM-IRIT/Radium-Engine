@@ -2,13 +2,10 @@
 
 ## Source code organization
 *   `src` contains the main source code of the engine libs
-
     *   `Core` : the Core module (dynamic library) contains the foundation
  classes such as math classes, containers, adapters to the standard
  library, etc. 
- 
     *   `Engine` the Engine module (dynamic library) contains all graphics related code and engine subsystems running.
- 
     *   `GuiBase` has the Qt-based GUI classes.
     
 *   `Plugins` contains the plugins which add Systems and Components to the engine.
@@ -137,7 +134,7 @@ A series of macros `RA_DISPLAY_...` are defined to conveniently add basic displa
 
 ## The plugin framework
 
-Entities and components have been designed so that the engine is modular in terms of features. It is expected that most interesting works will be done by Systems defined in *Plugins*. Each plugin can define its System (and the corresponding Components). 
+Entities and components have been designed so that the engine is modular in terms of features. It is expected that most interesting works will be done by Systems defined in _Plugins_. Each plugin can define its System (and the corresponding Components). 
 
 We use a compile-time plugins loading mechanism. When running `cmake`, it will list the contents of the  `src/Plugins/` directory and add them to be compiled with the project, and automatically generate the code to include the plugins Systems in the main application.
 
@@ -157,5 +154,7 @@ For this automated build to work the plugins are required to follow these requir
 See the structure of the default plugins for an example of a working plugin.
 So far three default plugin exist:
 *   _Animation_ handles an animation skeleton and can play keyframe animations.
+
 *   _Skinning_ uses a geometric skinning method (like linear blend skinning or dual quaternion).
+
 See also the Radium-PluginExample project: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample) for ToonShader and LaplacianSmoothing.
