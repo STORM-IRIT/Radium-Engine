@@ -7,10 +7,10 @@ There are three main options to work with Radium:
 4. Testing: extend radium tests to improve testing coverage or when adding new functionality.
 
 ## Radium Plugin
-Tutorial here: https://github.com/STORM-IRIT/Radium-PluginExample
+Tutorial here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
 
 ## Radium Application
-Tutorial here: https://github.com/STORM-IRIT/Radium-AppExample
+Tutorial here: [https://github.com/STORM-IRIT/Radium-AppExample](https://github.com/STORM-IRIT/Radium-AppExample)
 
 ## Radium libraries
 Direct contributions to master are closed.
@@ -25,8 +25,8 @@ To install both hooks and clang-format, simply run `./scripts/install-scripts-li
 ## Radium test suite
 ### Preliminaries
 Radium testing is done using two tools:
- - CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.
- - Continuous Integration system: Travis.ci and AppVeyor. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.
+-   CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.
+-   Continuous Integration system: Travis.ci and AppVeyor. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.
 
 As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically.
 In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.
@@ -38,41 +38,43 @@ Their source code is stored in `Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/sr
 
 We provide in `Radium-Engine/tests/Tests.hpp` some utility functions to ease tests implementation.
 
-Let's consider the following snippet:
+Let's consider the following snippet:`
 
-      #include <Core/Math/LinearAlgebra.hpp>                        // include path contains Radium sources,
-      #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh> // Radium's dependencies
-      #include <Tests.hpp>                                          // and the testing tools 
+```c++
+#include <Core/Math/LinearAlgebra.hpp>                        // include path contains Radium sources,
+#include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh> // Radium's dependencies
+#include <Tests.hpp>                                          // and the testing tools 
 
-      namespace Ra {
-      namespace Testing {
+namespace Ra {
+namespace Testing {
 
-      void run() {
-      	    bool condition = true;
-            RA_VERIFY( condition, "This test is passing" );
-            // RA_VERIFY( ! condition, "This test does not pass" );
-      }
+void run() {
+    bool condition = true;
+    RA_VERIFY( condition, "This test is passing" );
+    // RA_VERIFY( ! condition, "This test does not pass" );
+}
 
-      } // namespace Testing
-      } // namespace Ra
-      
-      
-      int main(int argc, const char **argv) {
-           using namespace Ra;
+} // namespace Testing
+} // namespace Ra
 
-           if(!Testing::init_testing(1, argv))
-           {     
-                return EXIT_FAILURE;
-           }
 
-           #pragma omp parallel for
-           for(int i = 0; i < Testing::g_repeat; ++i)
-           {
-               CALL_SUBTEST(( Testing::run() ));
-           }
+int main(int argc, const char **argv) {
+   using namespace Ra;
 
-           return EXIT_SUCCESS;
-      }
+   if(!Testing::init_testing(1, argv))
+   {     
+        return EXIT_FAILURE;
+   }
+
+   #pragma omp parallel for
+   for(int i = 0; i < Testing::g_repeat; ++i)
+   {
+       CALL_SUBTEST(( Testing::run() ));
+   }
+
+   return EXIT_SUCCESS;
+}
+```
 
 The `Ra::Testing::run()` method is performing the tests, and use the macro `RA_VERIFY` to abort the execution if the condition fails. This macro is provided in `<Tests.hpp>`.
 
@@ -81,6 +83,7 @@ It first initializes the testing helpers (including random number generation), a
 Repetition is strongly encouraged, especially to test or detect piece of codes involving non-deterministic behavior.
 Of course, multiple functions can be called in place of the `run()` function shown in this example. A standard use case is:
 
+```c++
      #pragma omp parallel for
      for(int i = 0; i < Testing::g_repeat; ++i)
      {
@@ -88,28 +91,29 @@ Of course, multiple functions can be called in place of the `run()` function sho
           CALL_SUBTEST(( Testing::run<double>() ));
           // ... other types
      }
+```
 
 Note that we target Unit Tests, which can be defined as:
 > The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software, independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every single part works correctly.
-Source: https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters
-
+Source: [https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters](https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters)
 
 ### How to add a test to the testing suite
 The testing suite is handled by `cmake`: tests need to be added with their sources and dependencies.
 We provide a `cmake` helper function to add a test easily:
 
+```cmake
     radium_add_test( TARGET my_test_name SRC src/my_test.cpp LIBS radiumCore radiumEngine )
+```
 
 See `Radium-Engine/cmake/ConfigureTesting.cmake` for the implementation of this function, and `Radium-Engine/tests/CoreTests/CMakeLists.txt` for an usage example.
 
 Tests are located in `Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src`. Currently `cmake` scripts are configured only for `Core`, you might need to copy and adapt them in case you add tests for the others packages (this is what you should do ! ;) ).
 
-
 ### How to run tests locally and on the CI systems
 First, you need to have the `cmake` option `RADIUM_COMPILE_TESTS` set to `ON` (the default).
 
 To run the tests locally, you first need to compile them (`make buildtests`) and then call CTest (`make test`). You should get something like:
-
+```text
     $ make test
     Running tests...
     Test project /home/me/build-Radium-Engine-Desktop-Release
@@ -139,14 +143,14 @@ To run the tests locally, you first need to compile them (`make buildtests`) and
     100% tests passed, 0 tests failed out of 11
 
     Total Test time (real) =   0.06 sec
+```
 
 The standard output is not printed when using CTest. 
 To debug a test, you might need to run it directly. Tests binaries are located in `CMAKE_BUILD_PATH/tests/`.
 
 Tests are automatically compiled and ran for Linux and MacOS CI, each time commits are pushed to Github. See snippet from TravisCI configuration file `Radium-Engine/.travis`:
-
+```text
     script:
       - make -j 4
       - make buildtests && make test
-
-
+```

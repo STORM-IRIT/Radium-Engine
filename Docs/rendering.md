@@ -43,7 +43,7 @@ void Renderer::render( const ViewingParameters& data )
 In some cases (like with `QtOpenGLWidget`), you do not draw directly on the screen, but you have instead
 to feed an already bound FBO. Since the default renderer uses multiple FBOs, the Qt's one must be saved. 
 
-*This behaviour cannot be modified.*
+_This behaviour cannot be modified._
 
 ### 1. Gather render objects and update them
 This construct the set of objects that must be drawn for the current frame and update their OpenGL state
@@ -53,14 +53,15 @@ This construct the set of render actions that must be done for the current frame
 
 ### 3. Do picking if needed
 If there has been some picking requests since the last frame, `doPicking` is called.
-This function just renders all the objects (except *debug* ones) by drawing them in some color given the ID 
+This function just renders all the objects (except _debug_ ones) by drawing them in some color given the ID 
 of the entity a render object is attached to.
 
 Then, for each picking request done, `glReadPixels` is called at the requested location, and object ID is retrieved.
 
 ### 4. Do the rendering
 This method does most of the whole rendering work 
-and outputs one final *render pass* texture, ready to be post-processed.
+and outputs one final _render pass_
+ texture, ready to be post-processed.
 
 The main renderer of Radium, implemented in the class ``ForwardRenderer`` implements a Z-pre-pass forward rendering loop.
 Even if the material association to a drawable object, realized by the so called ``RenderTechnique`` is tightly 
@@ -90,7 +91,7 @@ Fully transparent ones (rejected by a masking information such as mask texture) 
 #### 2. Lighting pass
 This pass is a classic forward lighting pass that accumulates the color of each light source. 
 Before this pass, blending (one, one) is enabled and it does 
-```
+```text
 for each light do
   Get light parameters
   for each object

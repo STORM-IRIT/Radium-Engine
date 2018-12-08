@@ -6,11 +6,11 @@ The RadiumEngine's `Renderer` provides a picking method for `RenderObject` selec
 
 The `FeaturePicking` feature enables to enhance the selection process up to selecting vertices, edges and triangles.
 The result of a `PickingQuery` is a `PickingResult` containing the following data:
-* the picking mode: either`PickingMode::RO`,`PickingMode::VERTEX`, `PickingMode::EDGE`,`PickingMode::TRIANGLE`for simple feature selection and either `C_VERTEX`, `C_EDGE` or `C_TRIANGLE` for multiple selection;
-* the index of the RO the selection is for ;
-* the list of selected vertices indices given w.r.t. the corresponding selected element ;
-* the list of selected element indices, either points for point clouds or triangles for meshes ;
-* the list of selected edge's opposite vertex indices given w.r.t. the corresponding selected triangle.
+*   the picking mode: either`PickingMode::RO`,`PickingMode::VERTEX`, `PickingMode::EDGE`,`PickingMode::TRIANGLE`for simple feature selection and either `C_VERTEX`, `C_EDGE` or `C_TRIANGLE` for multiple selection;
+*   the index of the RO the selection is for ;
+*   the list of selected vertices indices given w.r.t. the corresponding selected element ;
+*   the list of selected element indices, either points for point clouds or triangles for meshes ;
+*   the list of selected edge's opposite vertex indices given w.r.t. the corresponding selected triangle.
 
 Right after a selection, the `PickingResults` are stored in the `PickingManager`and the `SelectionManager` emits the `currentChanged` signal so that Plugins are told a new selection has been made.
 
