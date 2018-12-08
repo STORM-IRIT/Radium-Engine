@@ -94,8 +94,11 @@ Of course, multiple functions can be called in place of the `run()` function sho
 ```
 
 Note that we target Unit Tests, which can be defined as:
-> The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software, independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every single part works correctly.
-Source: [https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters](https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters)
+> The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software, 
+> independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every 
+> single part works correctly.
+>
+> Source: [https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters](https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters)
 
 ### How to add a test to the testing suite
 The testing suite is handled by `cmake`: tests need to be added with their sources and dependencies.
