@@ -15,7 +15,7 @@ namespace Geometry {
 
 void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
                     VectorArray<Vector3>& normal ) {
-    const uint N = p.size();
+    const size_t N = p.size();
     normal.clear();
     normal.resize( N, Vector3::Zero() );
 

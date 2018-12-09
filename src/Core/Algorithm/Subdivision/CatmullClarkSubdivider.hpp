@@ -28,7 +28,7 @@ class RA_CORE_API CatmullClarkSubdivider
   public:
     CatmullClarkSubdivider() : base() {}
 
-    CatmullClarkSubdivider( TopologicalMesh& mesh ) : base() { attach( mesh ); }
+    explicit CatmullClarkSubdivider( TopologicalMesh& mesh ) : base() { attach( mesh ); }
 
     ~CatmullClarkSubdivider() {}
 
@@ -70,19 +70,19 @@ class RA_CORE_API CatmullClarkSubdivider
     // topology helpers
 
     /// Edge recomposition
-    void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, int iter );
+    void split_edge(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh, size_t iter);
 
     /// Face recomposition
-    void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh, int iter );
+    void split_face(TopologicalMesh &mesh, const TopologicalMesh::FaceHandle &fh, size_t iter);
 
     // geometry helpers
 
     /// compute edge midpoint
-    void compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
-                           const bool update_points, int iter );
+    void compute_midpoint(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh,
+                          const bool update_points, size_t iter);
 
     /// smooth input vertices
-    void update_vertex( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh, int iter );
+    void update_vertex(TopologicalMesh &mesh, const TopologicalMesh::VertexHandle &vh, size_t iter);
 
   private:
     /// crease weights
