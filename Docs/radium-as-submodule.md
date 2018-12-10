@@ -105,7 +105,6 @@ ExternalProject_Add(
         SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine"
         # set the compilation options
         CMAKE_ARGS
-            -DRADIUM_WITH_OMP=${MY_WITH_OMP}
             -DRADIUM_WARNINGS_AS_ERRORS=${MY_WARNINGS_AS_ERRORS}
             -DRADIUM_ASSIMP_SUPPORT=${MY_ASSIMP_SUPPORT}
             -DRADIUM_TINYPLY_SUPPORT=${MY_TINYPLY_SUPPORT}

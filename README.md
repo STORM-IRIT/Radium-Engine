@@ -60,9 +60,8 @@ Plugins are generated in `bin/Plugins`.
 
 ### Configure build
 
-Radium offers two build options which are off by default :
+Radium offers the following build option (off by default) :
 * `RADIUM_WITH_DOUBLE_PRECISION` sets the floating point format to double-precision instead of single precisition
-* `RADIUM_WITH_OMP` instructs the compiler to use OpenMP
 
 ###  Building on Linux/MacOS (command line instruction)
 

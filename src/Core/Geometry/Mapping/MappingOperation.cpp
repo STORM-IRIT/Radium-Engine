@@ -56,6 +56,7 @@ bool isAllBoundToElement( const Parametrization& param ) {
     return status;
 }
 
+//! \FIXME Swap loops to avoid constructing each triangle i-times.
 void findParametrization( const TriangleMesh& source, const TriangleMesh& target,
                           Parametrization& param ) {
     const size_t size = source.vertices().size();
