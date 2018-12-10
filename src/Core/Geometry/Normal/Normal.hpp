@@ -2,7 +2,6 @@
 #define NORMAL_DEFINITION
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/Adjacency/Adjacency.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 
@@ -30,7 +29,7 @@ void RA_CORE_API uniformNormal( const VectorArray<Vector3>& p, const VectorArray
  * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring.
  */
 Vector3 RA_CORE_API localUniformNormal( const uint i, const VectorArray<Vector3>& p,
-                                        const VectorArray<Triangle>& T, const TVAdj& adj );
+                                        const VectorArray<Triangle>& T, const Sparse& adj );
 
 /*
  * Return the normalized normal of vertex v_i, expressed as:

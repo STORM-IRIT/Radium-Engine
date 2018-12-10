@@ -1,5 +1,4 @@
 #include "MeshUtils.hpp"
-#include <Core/Geometry/PointCloud/PointCloud.hpp>
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
 #include <Core/Utils/StdUtils.hpp>
 #include <unordered_set>
@@ -7,13 +6,6 @@
 namespace Ra {
 namespace Core {
 namespace MeshUtils {
-inline Scalar getTriangleArea( const TriangleMesh& mesh, TriangleIdx triIdx ) {
-    std::array<Vector3, 3> v;
-    getTriangleVertices( mesh, triIdx, v );
-
-    return Geometry::triangleArea( v[0], v[1], v[2] );
-}
-
 inline Vector3 getTriangleNormal( const TriangleMesh& mesh, TriangleIdx triIdx ) {
     std::array<Vector3, 3> v;
     getTriangleVertices( mesh, triIdx, v );
@@ -30,7 +22,12 @@ inline void getTriangleVertices( const TriangleMesh& mesh, TriangleIdx triIdx,
 }
 
 inline Aabb getAabb( const TriangleMesh& mesh ) {
-    return PointCloud::aabb( mesh.vertices() );
+    Aabb aabb;
+    for (const auto& v : mesh.vertices())
+    {
+        aabb.extend( v );
+    }
+    return aabb;
 }
 
 inline uint getLastVertex( const Triangle& t1, uint v1, uint v2 ) {

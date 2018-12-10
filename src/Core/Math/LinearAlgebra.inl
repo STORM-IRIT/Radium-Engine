@@ -107,20 +107,12 @@ inline Quaternion QuaternionUtils::scale( const Quaternion& q, Scalar k ) {
 
 inline void Vector::getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy,
                                           Eigen::Ref<Vector3> fz ) {
-    // for numerical stability, and seen that z will always be present, take the greatest component
-    // between x and y.
-    if ( std::abs( fx( 0 ) ) > std::abs( fx( 1 ) ) )
-    {
-        float inv_len = 1.f / sqrtf( fx( 0 ) * fx( 0 ) + fx( 2 ) * fx( 2 ) );
-        Vector3 tmp( -fx( 2 ) * inv_len, 0.f, fx( 0 ) * inv_len );
-        fy = tmp;
-    } else
-    {
-        float inv_len = 1.f / sqrtf( fx( 1 ) * fx( 1 ) + fx( 2 ) * fx( 2 ) );
-        Vector3 tmp( 0.f, fx( 2 ) * inv_len, -fx( 1 ) * inv_len );
-        fy = tmp;
-    }
-    fz = fx.cross( fy );
+    // taken from [Duff et al. 17] Building An Orthonormal Basis, Revisited. JCGT. 2017
+    Scalar sign    = std::copysign( Scalar(1.0), fx(2) );
+    const Scalar a = Scalar(-1.0) / ( sign + fx(2) );
+    const Scalar b = fx(0) * fx(1) * a;
+    fy = Ra::Core::Vector3( Scalar(1.0) + sign * fx(0) * fx(0) * a, sign * b, -sign * fx(0) );
+    fz = Ra::Core::Vector3( b, sign + fx(1) * fx(1) * a, -fx(1) );
 }
 
 inline Vector3 Vector::projectOnPlane( const Vector3& planePos, const Vector3& planeNormal,

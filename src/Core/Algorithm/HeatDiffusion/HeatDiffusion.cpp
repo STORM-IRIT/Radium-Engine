@@ -9,7 +9,7 @@ Time t( const Scalar& m, const Scalar& h ) {
 }
 
 void heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::LaplacianMatrix& L,
-           Heat& u, const Delta& delta ) {
+           Heat& u, const Sparse& delta ) {
     Eigen::SimplicialLLT<Sparse> llt;
     llt.compute( ( A + ( t * L ) ) );
     VectorN b = delta;
@@ -17,7 +17,7 @@ void heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::Laplaci
 }
 
 Heat heat( const Geometry::AreaMatrix& A, const Time& t, const Geometry::LaplacianMatrix& L,
-           const Delta& delta ) {
+           const Sparse& delta ) {
     Heat u( L.rows() );
     Eigen::SimplicialLLT<Sparse> llt;
     llt.compute( ( A + ( t * L ) ) );

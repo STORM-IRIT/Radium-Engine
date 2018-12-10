@@ -55,9 +55,8 @@ AreaMatrix barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Tri
 void barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
                       AreaMatrix& A ) {
     oneRingArea( p, T, A );
-    const uint size = p.size();
 #pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
+    for ( int i = 0; i < int( p.size() ); ++i )
     {
         A.coeffRef( i, i ) /= 3.0;
     }
