@@ -15,9 +15,9 @@
 
 namespace Ra {
 namespace Engine {
-DebugRender::DebugRender() {}
+DebugRender::DebugRender() = default;
 
-DebugRender::~DebugRender() {}
+DebugRender::~DebugRender() = default;
 
 void DebugRender::initialize() {
     /// FIXME : this was not ported to globject ...
@@ -26,7 +26,7 @@ void DebugRender::initialize() {
         GL_CHECK_ERROR;
 
         uint vert = glCreateShader( GL_VERTEX_SHADER );
-        glShaderSource( vert, 1, &vertStr, 0 );
+        glShaderSource( vert, 1, &vertStr, nullptr );
         glCompileShader( vert );
 
         GLint compiled = 0;
@@ -44,7 +44,7 @@ void DebugRender::initialize() {
         }
 
         uint frag = glCreateShader( GL_FRAGMENT_SHADER );
-        glShaderSource( frag, 1, &fragStr, 0 );
+        glShaderSource( frag, 1, &fragStr, nullptr );
         glCompileShader( frag );
 
         compiled = 0;
@@ -222,7 +222,7 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
         indices.push_back( indexI++ );
     }
 
-    if ( vertices.size() > 0 )
+    if ( !vertices.empty() )
     {
         const Core::Matrix4f id = Core::Matrix4f::Identity();
 

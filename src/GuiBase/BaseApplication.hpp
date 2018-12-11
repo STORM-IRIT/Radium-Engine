@@ -54,10 +54,13 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
         virtual Ra::GuiBase::MainWindowInterface* createMainWindow() const = 0;
     };
 
-    /// Setup the application, create main window and main connections.
-    ///\param argc from main()
-    ///\param argv from main()
-    ///\param factory : a functor that instanciate the mainWindow
+    /** Setup the application, create main window and main connections.
+     * \param argc from main()
+     * \param argv from main()
+     * \param factory : a functor that instanciate the mainWindow
+     * \param applicationName
+     * \param organizationName
+     */
     BaseApplication( int argc, char** argv, const WindowFactory& factory,
                      QString applicationName = "RadiumEngine",
                      QString organizationName = "STORM-IRIT" );

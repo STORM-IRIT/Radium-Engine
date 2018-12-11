@@ -55,7 +55,9 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     m_brushRadius( 10 ),
     m_camera( nullptr ),
     m_gizmoManager( nullptr ),
+#ifdef RADIUM_MULTITHREAD_RENDERING
     m_renderThread( nullptr ),
+#endif
     m_glInitStatus( false ) {
     setMinimumSize( QSize( 800, 600 ) );
 
@@ -224,10 +226,13 @@ void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
     gl::glViewport( 0, 0, width(), height() );
 #endif
     renderer->initialize( width(), height() );
+    // do this only when the renderer has something to render and that there is no lights
+    /*
     if ( m_camera->hasLightAttached() )
     {
         renderer->addLight( m_camera->getLight() );
     }
+    */
     renderer->lockRendering();
 }
 
@@ -507,17 +512,10 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     m_pickingManager->clear();
     m_context->makeCurrent( this );
 
-    // Move camera if needed. Disabled for now as it takes too long (see issue #69)
-    // m_camera->update( dt );
+    Engine::ViewingParameters data { m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt };
 
-    Engine::RenderData data;
-    data.dt = dt;
-    data.projMatrix = m_camera->getProjMatrix();
-    data.viewMatrix = m_camera->getViewMatrix();
-
+    // FIXME : move this outside of the rendering loop. must be done once per renderer ...
     // if there is no light on the renderer, add the head light attached to the camera ...
-    // FIXME : what if the camera has no attached light ?
-    // FIXME : avoid adding headlight if not needed.
     if ( !m_currentRenderer->hasLight() )
     {
         if ( m_camera->hasLightAttached() )
@@ -587,7 +585,7 @@ std::vector<std::string> Gui::Viewer::getRenderersName() const {
 void Gui::Viewer::grabFrame( const std::string& filename ) {
     m_context->makeCurrent( this );
 
-    uint w, h;
+    size_t w, h;
     auto writtenPixels = m_currentRenderer->grabFrame( w, h );
 
     std::string ext = Core::StringUtils::getFileExt( filename );

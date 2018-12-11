@@ -6,6 +6,8 @@
 #include <map>
 #include <string>
 
+// This include brings only the macro RA_CORE_ALIGNED_NEW in the file scope.
+// Need to be separated to reduce compilation time
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra {
@@ -30,9 +32,14 @@ class RA_ENGINE_API Material {
   public:
     RA_CORE_ALIGNED_NEW
 
+    /**
+     * Creates a named material with the given aspect
+     * @param name
+     * @param aspect
+     */
     explicit Material( const std::string& name, MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
-    virtual ~Material();
+    virtual ~Material() = default;
 
     /** Update the OpenGL states used by the material.
      * These state could be textures, precomputed tables or whater data associated to the material and given to OpenGL
@@ -74,9 +81,9 @@ class RA_ENGINE_API Material {
     virtual bool isTransparent() const;
 
   protected:
-    std::string m_name;
-    bool m_isDirty;
-    MaterialAspect m_aspect;
+    std::string m_name {};
+    bool m_isDirty { true };
+    MaterialAspect m_aspect { MaterialAspect::MAT_OPAQUE };
 };
 
 } // namespace Engine

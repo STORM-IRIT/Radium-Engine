@@ -106,12 +106,12 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     // Editable interface
     //
 
-    virtual bool canEdit( Ra::Core::Index roIdx ) const override;
+    virtual bool canEdit(const Ra::Core::Index &roIdx) const override;
 
-    virtual Ra::Core::Transform getTransform( Ra::Core::Index roIdx ) const override;
+    virtual Ra::Core::Transform getTransform(const Ra::Core::Index &roIdx) const override;
 
-    virtual void setTransform( Ra::Core::Index roIdx,
-                               const Ra::Core::Transform& transform ) override;
+    virtual void setTransform(const Ra::Core::Index &roIdx,
+                              const Ra::Core::Transform &transform) override;
 
   private:
     // Internal function to create the skinning weights.

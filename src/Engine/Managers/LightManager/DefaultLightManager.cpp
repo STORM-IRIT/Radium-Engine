@@ -1,59 +1,31 @@
-#include "DefaultLightManager.hpp"
+#include <Engine/Managers/LightManager/DefaultLightManager.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra {
 namespace Engine {
 
 DefaultLightManager::DefaultLightManager() {
-    m_data.reset( new DefaultLightStorage() );
+    m_data = std::make_unique<DefaultLightStorage>();
 }
 
 const Light* DefaultLightManager::getLight( size_t li ) const {
     return ( *m_data )[li];
 }
 
-void DefaultLightManager::addLight( Light* li ) {
+void DefaultLightManager::addLight(const Light *li) {
     m_data->add( li );
 }
 
-//
-// Pre/Post render operations.
-//
-
-void DefaultLightManager::preprocess( const Ra::Engine::RenderData& rd ) {
-    renderData = rd;
-}
-
-void DefaultLightManager::prerender( unsigned int li ) {
-    Light* light = ( *m_data.get() )[li];
-    params = RenderParameters();
-    light->getRenderParameters( params );
-}
-
-void DefaultLightManager::render( RenderObject* ro, unsigned int li,
-                                  RenderTechnique::PassName passname ) {
-    ro->render( params, renderData, passname );
-}
-
-void DefaultLightManager::postrender( unsigned int li ) {}
-
-void DefaultLightManager::postprocess() {
-    // Eventually, this would be a good idea to disable GL_BLEND, and
-    // all what was enabled in preprocess().
-}
-
-DefaultLightStorage::DefaultLightStorage() {}
+DefaultLightStorage::DefaultLightStorage() = default;
 
 void DefaultLightStorage::upload() const {}
 
-void DefaultLightStorage::add( Light* li ) {
+void DefaultLightStorage::add(const Light *li) {
     m_lights.emplace( li->getType(), li );
 }
 
-void DefaultLightStorage::remove( Light* li ) {
+void DefaultLightStorage::remove(const Light *li) {
     auto range = m_lights.equal_range( li->getType() );
     for ( auto i = range.first; i != range.second; ++i )
     {
@@ -73,7 +45,7 @@ void DefaultLightStorage::clear() {
     m_lights.clear();
 }
 
-Light* DefaultLightStorage::operator[]( unsigned int n ) {
+const Light* DefaultLightStorage::operator[]( unsigned int n ) {
     auto iterator = m_lights.begin();
     std::advance( iterator, n );
     return iterator->second;

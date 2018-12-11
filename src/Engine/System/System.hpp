@@ -25,17 +25,18 @@ class FileData;
 namespace Ra {
 namespace Engine {
 
-/// Systems are responsible of updating a specific subset of the components of each entity.
-/// They can provide factory methods to create components, but their main role is to keep a
-/// list of "active" components associated to an entity.
-/// At each frame, each system loaded into the engine will be queried for tasks.
-/// The goal of the tasks is to update the active components during the frame.
+/** Systems are responsible of updating a specific subset of the components of each entity.
+ * They can provide factory methods to create components, but their main role is to keep a
+ * list of "active" components associated to an entity.
+ * At each frame, each system loaded into the engine will be queried for tasks.
+ * The goal of the tasks is to update the active components during the frame.
+ */
 class RA_ENGINE_API System {
     friend class Component;
 
   public:
-    System();
-    virtual ~System();
+    System() = default;
+    virtual ~System() = default;
 
     /**
      * Factory method for component creation from file data.
@@ -49,16 +50,19 @@ class RA_ENGINE_API System {
 
     /**
      * @brief Pure virtual method to be overridden by any system.
-     * A very basic version of this method could be to iterate on components
-     * and just call Component::update() method on them.
-     * This update depends on time (e.g. physics system).
+     * Must register in taskQueue the operations that must be done ate each frame
      *
-     * @param dt Time elapsed since last call.
+     * @param taskQueue The queue to fill
+     * @param frameInfo Information about the current frame (@see FrameInfo)
      */
     virtual void generateTasks( Core::TaskQueue* taskQueue,
                                 const Engine::FrameInfo& frameInfo ) = 0;
 
-    /// Returns the components stored for the given entity.
+    /** Returns the components stored for the given entity.
+     *
+     * @param entity
+     * @return the vector of the entity's components
+     */
     std::vector<Component*> getEntityComponents( const Entity* entity );
 
   protected:

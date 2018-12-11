@@ -15,10 +15,10 @@ namespace IO {
 
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
-    Asset::DataLoader<Asset::HandleData>( VERBOSE_MODE ) {}
+    Asset::DataLoader<Asset::HandleData>( VERBOSE_MODE ) {};
 
 /// DESTRUCTOR
-AssimpHandleDataLoader::~AssimpHandleDataLoader() {}
+AssimpHandleDataLoader::~AssimpHandleDataLoader() = default;
 
 /// LOAD
 void AssimpHandleDataLoader::loadData( const aiScene* scene,

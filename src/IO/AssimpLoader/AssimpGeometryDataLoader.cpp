@@ -17,7 +17,7 @@ AssimpGeometryDataLoader::AssimpGeometryDataLoader( const std::string& filepath,
     DataLoader<Asset::GeometryData>( VERBOSE_MODE ),
     m_filepath( filepath ) {}
 
-AssimpGeometryDataLoader::~AssimpGeometryDataLoader() {}
+AssimpGeometryDataLoader::~AssimpGeometryDataLoader() = default;
 
 void AssimpGeometryDataLoader::loadData( const aiScene* scene,
                                          std::vector<std::unique_ptr<Asset::GeometryData>>& data ) {
@@ -97,7 +97,11 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
         fetchBitangents( mesh, data );
     }
 
-    // FIXME( Charly ) << "Is it safe to only consider texcoord 0 ?
+    // Radium V2 : allow to have several UV channels
+    // use MATKEY_UVWSRC to know if any
+    if ( mesh.GetNumUVChannels() > 1 ) {
+        LOG(logWARNING) << "Assimp loader : several UV channels are set, Radium will use only the 1st";
+    }
     if ( mesh.HasTextureCoords( 0 ) )
     {
         fetchTextureCoordinates( mesh, data );
@@ -108,17 +112,10 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
      fetchColors( mesh, data );
      }
      */
-
-    /*
-     if (mesh.HasBones())
-     {
-     fetchBoneWeights(mesh, data);
-     }
-     */
 }
 
 void AssimpGeometryDataLoader::loadMeshFrame(
-    const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, uint>& indexTable,
+    const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, size_t>& indexTable,
     std::vector<std::unique_ptr<Asset::GeometryData>>& data ) const {
     const uint child_size = node->mNumChildren;
     const uint mesh_size = node->mNumMeshes;
@@ -267,7 +264,7 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
 #pragma omp parallel for
     for ( uint i = 0; i < size; ++i )
     {
-        // FIXME(Charly): Is it safe to only consider texcoords[0] ?
+        // Radium V2 : allow to have several UV channels
         texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
     }
 }
@@ -285,22 +282,9 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     {
         matName = assimpName.C_Str();
     }
-    // TODO : use AI_MATKEY_SHADING_MODEL to select the apropriate model
+    // Radium V2 : use AI_MATKEY_SHADING_MODEL to select the apropriate model
     // (http://assimp.sourceforge.net/lib_html/material_8h.html#a93e23e0201d6ed86fb4287e15218e4cf)
-    /*
-     aiShadingMode shading;
-     if( AI_SUCCESS == material.Get( AI_MATKEY_SHADING_MODEL, shading ) )
-     {
-     LOG(logINFO) << "Got a "  << shading << " shading model.";
-     }
-     else
-     {
-     LOG(logINFO) << "Unable to retrieve shading model.";
-     }
-     */
-
-    Asset::BlinnPhongMaterialData* blinnPhongMaterial =
-        new Asset::BlinnPhongMaterialData( matName );
+    auto blinnPhongMaterial = new Asset::BlinnPhongMaterialData( matName );
     aiColor4D color;
     float shininess;
     float opacity;
@@ -377,14 +361,14 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
 void AssimpGeometryDataLoader::loadGeometryData(
     const aiScene* scene, std::vector<std::unique_ptr<Asset::GeometryData>>& data ) {
     const uint size = scene->mNumMeshes;
-    std::map<uint, uint> indexTable;
+    std::map<uint, std::size_t> indexTable;
     std::set<std::string> usedNames;
     for ( uint i = 0; i < size; ++i )
     {
         aiMesh* mesh = scene->mMeshes[i];
         if ( mesh->HasPositions() )
         {
-            Asset::GeometryData* geometry = new Asset::GeometryData();
+            auto geometry = new Asset::GeometryData();
             loadMeshData( *mesh, *geometry, usedNames );
             if ( scene->HasMaterials() )
             {

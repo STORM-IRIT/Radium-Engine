@@ -15,6 +15,11 @@ layout (location = 5) in vec3 in_lightVector;
 
 //------------------- main ---------------------
 void main() {
+    // TODO use diffuse texture alpha channel combined with material.alpha ?
+    // Discard non fully opaque fragments
+    if (toDiscard(material, in_texcoord.xy ) || (material.alpha < 1) )
+        discard;
+
 	vec3 binormal 	 = normalize(cross(in_normal, in_tangent));
 	vec3 localNormal = getNormal(material, in_texcoord.xy, in_normal, in_tangent, binormal);
 

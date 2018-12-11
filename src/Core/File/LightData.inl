@@ -1,6 +1,4 @@
 #include <Core/File/LightData.hpp>
-
-#include "LightData.hpp"
 #include <Core/Log/Log.hpp>
 
 namespace Ra {
@@ -18,10 +16,6 @@ inline void LightData::setName( const std::string& name ) {
 /// TYPE
 inline LightData::LightType LightData::getType() const {
     return m_type;
-}
-
-inline void LightData::setType( const LightType& type ) {
-    m_type = type;
 }
 
 /// FRAME

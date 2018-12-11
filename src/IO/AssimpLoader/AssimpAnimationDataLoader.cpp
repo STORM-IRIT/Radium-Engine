@@ -20,7 +20,7 @@ AssimpAnimationDataLoader::AssimpAnimationDataLoader( const bool VERBOSE_MODE ) 
     DataLoader<Asset::AnimationData>( VERBOSE_MODE ) {}
 
 /// DESTRUCTOR
-AssimpAnimationDataLoader::~AssimpAnimationDataLoader() {}
+AssimpAnimationDataLoader::~AssimpAnimationDataLoader() = default;
 
 /// LOADING
 void AssimpAnimationDataLoader::loadData(
@@ -75,19 +75,19 @@ void AssimpAnimationDataLoader::fetchName( const aiAnimation* anim,
 /// TIME
 void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
                                            Asset::AnimationData* data ) const {
-    const Scalar tick = anim->mTicksPerSecond;
-    const Scalar duration = anim->mDuration;
+    const auto tick = Scalar(anim->mTicksPerSecond);
+    const auto duration = Scalar(anim->mDuration);
 
     Asset::AnimationTime time;
     Asset::Time dt;
     time.setStart( 0.0 );
-    if ( tick == 0 )
+    if ( tick == Scalar(0) )
     {
         dt = 0.0;
         time.setEnd( duration );
     } else
     {
-        dt = 1.0 / tick;
+        dt = Scalar(1.0) / tick;
         time.setEnd( dt * duration );
     }
     data->setTime( time );
@@ -144,7 +144,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
 
     for ( uint i = 0; i < T_size; ++i )
     {
-        Scalar time = node->mPositionKeys[i].mTime;
+        auto time = Scalar(node->mPositionKeys[i].mTime);
         aiVector3t<Scalar> value = node->mPositionKeys[i].mValue;
         tr.insertKeyFrame( time, assimpToCore( value ) );
         keyFrame.insert( time );
@@ -152,7 +152,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
 
     for ( uint i = 0; i < R_size; ++i )
     {
-        Scalar time = node->mRotationKeys[i].mTime;
+        auto time = Scalar(node->mRotationKeys[i].mTime);
         aiQuaternion value = node->mRotationKeys[i].mValue;
         rot.insertKeyFrame( time, assimpToCore( value ) );
         keyFrame.insert( time );
@@ -160,7 +160,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
 
     for ( uint i = 0; i < S_size; ++i )
     {
-        Scalar time = node->mScalingKeys[i].mTime;
+        auto time = Scalar(node->mScalingKeys[i].mTime);
         aiVector3t<Scalar> value = node->mScalingKeys[i].mValue;
         s.insertKeyFrame( time, assimpToCore( value ) );
         keyFrame.insert( time );

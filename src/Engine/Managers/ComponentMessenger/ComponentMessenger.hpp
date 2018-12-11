@@ -16,25 +16,25 @@
 namespace Ra {
 namespace Engine {
 class Entity;
-class Callback;
 class Component;
 
-/// This class allows components to communicate data to each other in a type safe way
-/// When a component is created, after being attached to an entity, it can declare
-/// output (get), input (set) or read/write functions on arbitrary type parameters.
-/// Then any component (typically belonging to the same entity) can try to access
-/// the given data through the functions.
-/// Declaring I/O is done by registering a function pointer with the correct
-/// prototype ( returning `const T*` for getters, accepting `const T*` for setters
-/// and returning a `T*` for read/write getters).
-/// Each function is identified by its entity, a name and the return type.
-/// Then, another component can try to query the messenger to check if
-/// a data of the relevant type, entity and string-id is available, with the
-/// canGet(), canSet() and canRw() functions.
-/// It is then possible to directly read or write this data with the get(), set()
-/// and rw() functions.
-/// For more efficiency the underlying function pointers are directly accessible
-/// as well and can be queried with the same identifiers.
+/** This class allows components to communicate data to each other in a type safe way
+ * When a component is created, after being attached to an entity, it can declare
+ * output (get), input (set) or read/write functions on arbitrary type parameters.
+ * Then any component (typically belonging to the same entity) can try to access
+ * the given data through the functions.
+ * Declaring I/O is done by registering a function pointer with the correct
+ * prototype ( returning `const T*` for getters, accepting `const T*` for setters
+ * and returning a `T*` for read/write getters).
+ * Each function is identified by its entity, a name and the return type.
+ * Then, another component can try to query the messenger to check if
+ * a data of the relevant type, entity and string-id is available, with the
+ * canGet(), canSet() and canRw() functions.
+ * It is then possible to directly read or write this data with the get(), set()
+ * and rw() functions.
+ * For more efficiency the underlying function pointers are directly accessible
+ * as well and can be queried with the same identifiers.
+ */
 class RA_ENGINE_API ComponentMessenger {
     RA_SINGLETON_INTERFACE( ComponentMessenger );
 
@@ -96,7 +96,7 @@ class RA_ENGINE_API ComponentMessenger {
     using CallbackMap = std::unordered_map<Key, std::unique_ptr<CallbackBase>, HashFunc>;
 
   public:
-    ComponentMessenger() {}
+    ComponentMessenger() = default;
 
     //
     // Direct access to function pointers

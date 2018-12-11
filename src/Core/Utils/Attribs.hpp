@@ -154,7 +154,7 @@ class AttribManager {
     /// Base copy, does nothing.
     void copyAttributes( const AttribManager& m ) {}
 
-    /// Copy the given attributes from \m.
+    /// Copy the given attributes from m.
     /// \note If some attrib already exists, it will be replaced.
     /// \note Invalid handles are ignored.
     template <class T, class... Handle>
@@ -172,7 +172,7 @@ class AttribManager {
         copyAttributes( m, attribs... );
     }
 
-    /// Copy all attributes from \m.
+    /// Copy all attributes from m.
     /// \note If some attrib already exists, it will be replaced.
     void copyAllAttributes( const AttribManager& m ) {
         for ( const auto& attr : m.m_attribs )

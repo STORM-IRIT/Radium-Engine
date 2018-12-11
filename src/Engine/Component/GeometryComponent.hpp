@@ -1,15 +1,13 @@
 #ifndef RADIUMENGINE_GEOMETRY_COMPONENT_HPP
-#    define RADIUMENGINE_GEOMETRY_COMPONENT_
+#define RADIUMENGINE_GEOMETRY_COMPONENT_HPP
 
-#    include <Core/File/GeometryData.hpp>
-#    include <Core/Mesh/MeshTypes.hpp>
-#    include <Core/Mesh/TriangleMesh.hpp>
-
-#    include <Engine/Component/Component.hpp>
+#include <Core/File/GeometryData.hpp>
+#include <Core/Mesh/MeshTypes.hpp>
+#include <Core/Mesh/TriangleMesh.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Engine {
-class RenderTechnique;
 class Mesh;
 } // namespace Engine
 } // namespace Ra
@@ -28,7 +26,7 @@ namespace Engine {
 class RA_ENGINE_API GeometryComponent : public Component {
   public:
     GeometryComponent( const std::string& name, bool deformable, Entity* entity );
-    virtual ~GeometryComponent();
+    ~GeometryComponent() override;
 
     void initialize() override;
 
@@ -44,8 +42,8 @@ class RA_ENGINE_API GeometryComponent : public Component {
   public:
     // Component communication management
     void setupIO( const std::string& id );
-    void setContentName( const std::string name );
-    void setDeformable( const bool b );
+    void setContentName(const std::string &name);
+    void setDeformable(bool b);
 
   private:
     const Mesh& getDisplayMesh() const;
@@ -54,7 +52,7 @@ class RA_ENGINE_API GeometryComponent : public Component {
     // Give access to the mesh and (if deformable) to update it
     const Ra::Core::TriangleMesh* getMeshOutput() const;
     Ra::Core::TriangleMesh* getMeshRw();
-    void setMeshInput( const Ra::Core::TriangleMesh* mesh );
+    void setMeshInput(const Core::TriangleMesh *mesh);
     Ra::Core::Vector3Array* getVerticesRw();
     Ra::Core::Vector3Array* getNormalsRw();
     Ra::Core::VectorArray<Ra::Core::Triangle>* getTrianglesRw();
@@ -62,13 +60,13 @@ class RA_ENGINE_API GeometryComponent : public Component {
     const Ra::Core::Index* roIndexRead() const;
 
   private:
-    Ra::Core::Index m_meshIndex;
-    Ra::Core::Index m_aabbIndex;
-    std::string m_contentName;
-    bool m_deformable;
+    Ra::Core::Index m_meshIndex {};
+    Ra::Core::Index m_aabbIndex {};
+    std::string m_contentName {};
+    bool m_deformable {false};
 };
 
 } // namespace Engine
 } // namespace Ra
 
-#endif // RADIUMENGINE_GEOMETRY_COMPONENT_
+#endif // RADIUMENGINE_GEOMETRY_COMPONENT_HPP

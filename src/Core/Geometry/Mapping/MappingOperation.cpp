@@ -7,7 +7,7 @@ namespace Core {
 namespace Geometry {
 
 bool isAllFinite( const Parametrization& param ) {
-    const uint size = param.size();
+    const size_t size = param.size();
     bool status = true;
     for ( uint i = 0; i < size; ++i )
     {
@@ -24,7 +24,7 @@ bool isAllFinite( const Parametrization& param ) {
 }
 
 bool isAllInside( const Parametrization& param ) {
-    const uint size = param.size();
+    const size_t size = param.size();
     bool status = true;
     for ( uint i = 0; i < size; ++i )
     {
@@ -41,7 +41,7 @@ bool isAllInside( const Parametrization& param ) {
 }
 
 bool isAllBoundToElement( const Parametrization& param ) {
-    const uint size = param.size();
+    const size_t size = param.size();
     bool status = true;
     for ( uint i = 0; i < size; ++i )
     {
@@ -56,9 +56,10 @@ bool isAllBoundToElement( const Parametrization& param ) {
     return status;
 }
 
+//! \FIXME Swap loops to avoid constructing each triangle i-times.
 void findParametrization( const TriangleMesh& source, const TriangleMesh& target,
                           Parametrization& param ) {
-    const uint size = source.vertices().size();
+    const size_t size = source.vertices().size();
     param.clear();
     param.resize( size );
 #if defined( CORE_USE_OMP )
@@ -103,7 +104,7 @@ void findParametrization( const TriangleMesh& source, const TriangleMesh& target
 
 void applyParametrization( const TriangleMesh& inMesh, const Parametrization& param,
                            Vector3Array& outPoint, const bool FORCE_DISPLACEMENT_TO_ZERO ) {
-    const uint size = param.size();
+    const size_t size = param.size();
     outPoint.resize( size, Vector3::Zero() );
 #if defined( CORE_USE_OMP )
 #    pragma omp parallel for
@@ -114,7 +115,7 @@ void applyParametrization( const TriangleMesh& inMesh, const Parametrization& pa
         // const Scalar  alpha = map.getAlpha();
         // const Scalar  beta  = map.getBeta();
         // const Scalar  gamma = map.getGamma();
-        const uint t = map.getID();
+        const int t = map.getID();
         const uint i = inMesh.m_triangles[t][0];
         const uint j = inMesh.m_triangles[t][1];
         const uint k = inMesh.m_triangles[t][2];
@@ -140,7 +141,7 @@ void print( const Mapping& map ) {
 }
 
 void print( const Parametrization& param ) {
-    const uint size = param.size();
+    const size_t size = param.size();
     for ( uint i = 0; i < size; ++i )
     {
         print( param.at( i ) );

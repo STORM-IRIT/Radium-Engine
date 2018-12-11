@@ -3,27 +3,21 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra {
 namespace Engine {
 
-class RA_ENGINE_API SpotLight final : public Light {
-  public:
-    struct Attenuation {
-        Scalar constant;
-        Scalar linear;
-        Scalar quadratic;
-
-        Attenuation() : constant( 1.0 ), linear(), quadratic() {}
-    };
+  /** Spot light for rendering.
+   *
+   */
+  class RA_ENGINE_API SpotLight final : public Light {
 
   public:
     RA_CORE_ALIGNED_NEW
 
-    SpotLight( Entity* entity, const std::string& name = "spotlight" );
-    ~SpotLight();
+    explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
+    ~SpotLight() override = default;
 
     void getRenderParameters( RenderParameters& params ) const override;
 
@@ -45,16 +39,16 @@ class RA_ENGINE_API SpotLight final : public Light {
     inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
     inline const Attenuation& getAttenuation() const;
 
-    std::string getShaderInclude() const;
+    std::string getShaderInclude() const override;
 
   private:
-    Core::Vector3 m_position;
-    Core::Vector3 m_direction;
+    Core::Vector3 m_position { 0, 0, 0 };
+    Core::Vector3 m_direction { 0, -1, 0 };
 
-    Scalar m_innerAngle;
-    Scalar m_outerAngle;
+    Scalar m_innerAngle { Core::Math::PiDiv4 };
+    Scalar m_outerAngle { Core::Math::PiDiv2 };
 
-    Attenuation m_attenuation;
+    Attenuation m_attenuation { 1, 0, 0 };
 };
 
 } // namespace Engine

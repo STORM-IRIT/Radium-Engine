@@ -28,9 +28,9 @@ namespace IO {
 /// to the Asset::CameraData format.
 class RA_IO_API AssimpCameraDataLoader : public Asset::DataLoader<Asset::CameraData> {
   public:
-    AssimpCameraDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    explicit AssimpCameraDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
-    ~AssimpCameraDataLoader();
+    ~AssimpCameraDataLoader() override;
 
     /// Convert all the camera data from \p scene into \p data.
     void loadData( const aiScene* scene,

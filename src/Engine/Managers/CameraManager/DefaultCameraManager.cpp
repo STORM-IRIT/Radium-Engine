@@ -1,14 +1,12 @@
-#include "DefaultCameraManager.hpp"
+#include <Engine/Managers/CameraManager/DefaultCameraManager.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra {
 namespace Engine {
 
 DefaultCameraManager::DefaultCameraManager() {
-    m_data.reset( new DefaultCameraStorage() );
+    m_data = std::make_unique<DefaultCameraStorage>();
 }
 
 const Camera* DefaultCameraManager::getCamera( size_t cam ) const {
@@ -19,19 +17,7 @@ void DefaultCameraManager::addCamera( Camera* cam ) {
     registerComponent( cam->getEntity(), cam );
 }
 
-void DefaultCameraManager::preprocess( const Ra::Engine::RenderData& rd ) {
-    renderData = rd;
-}
-
-void DefaultCameraManager::render( RenderObject* ro, unsigned int cam,
-                                   RenderTechnique::PassName passname ) {
-    auto camera = getCamera( cam );
-    renderData.projMatrix = camera->getProjMatrix();
-    renderData.viewMatrix = camera->getViewMatrix();
-    ro->render( params, renderData, passname );
-}
-
-DefaultCameraStorage::DefaultCameraStorage() {}
+DefaultCameraStorage::DefaultCameraStorage() = default;
 
 void DefaultCameraStorage::add( Camera* cam ) {
     m_Cameras.emplace( cam->getType(), cam );

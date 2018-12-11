@@ -25,6 +25,7 @@ RA_CORE_API std::string getDirName( const std::string& path );
 /// @return the file name from a given file's full path.
 /// Most of the time this function behaves similarly to the unix basename(1)
 /// command. It will ignore any trailing slash.
+/// @param path the fully qualified file name from which extract the base path
 /// @param keepExtension If true it will behave like unix basename(1)
 /// (path/to/file.ext will give file.ext) ;
 /// otherwise it will remove the extension (path/to/file.ext will give file)

@@ -11,11 +11,12 @@
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 
+#include <numeric> // for reduce
 namespace Ra {
 namespace Engine {
-RenderObjectManager::RenderObjectManager() {}
+RenderObjectManager::RenderObjectManager() = default;
 
-RenderObjectManager::~RenderObjectManager() {}
+RenderObjectManager::~RenderObjectManager() = default;
 
 bool RenderObjectManager::exists( const Core::Index& index ) const {
     return ( index.isValid() && m_renderObjects.contains( index ) );
@@ -42,7 +43,7 @@ Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
 void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
 
-    // FIXME(Charly): Should we check if the render object is in the double buffer map ?
+    // FIXME : Should we check if the render object is in the double buffer map ?
     std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
 
     Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved( ItemEntry(
@@ -57,7 +58,7 @@ void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
     renderObject.reset();
 }
 
-uint RenderObjectManager::getRenderObjectsCount() {
+size_t RenderObjectManager::getRenderObjectsCount() {
     return m_renderObjects.size();
 }
 
@@ -82,10 +83,10 @@ void RenderObjectManager::getRenderObjectsByType(
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     //// Copy each element in m_renderObjects
-    for ( const auto& idx : m_renderObjectByType[(int)type] )
-    {
-        objectsOut.push_back( m_renderObjects.at( idx ) );
-    }
+    std::transform(m_renderObjectByType[(int)type].begin(), m_renderObjectByType[(int)type].end(),
+                   std::back_inserter(objectsOut),
+                   [this](const Core::Index& i){ return this->m_renderObjects.at( i ); }
+                   );
 }
 
 void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
@@ -103,27 +104,32 @@ void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
     ro.reset();
 }
 
-uint RenderObjectManager::getNumFaces() const {
-    uint result = 0;
-    for ( const auto& ro : m_renderObjects )
-    {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-        {
-            result += ro->getMesh()->getGeometry().m_triangles.size();
-        }
-    }
+size_t RenderObjectManager::getNumFaces() const {
+    // todo : use reduce instead of accumulate to improve performances (since C++17)
+    size_t result = std::accumulate(m_renderObjects.begin(), m_renderObjects.end(), size_t(0),
+                    [](size_t a, const std::shared_ptr<RenderObject>& ro) -> size_t {
+                        if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry) {
+                            return a + ro->getMesh()->getGeometry().m_triangles.size();
+                        } else {
+                            return a;
+                        }
+                    }
+    );
     return result;
+
 }
 
-uint RenderObjectManager::getNumVertices() const {
-    uint result = 0;
-    for ( const auto& ro : m_renderObjects )
-    {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-        {
-            result += ro->getMesh()->getGeometry().vertices().size();
-        }
-    }
+size_t RenderObjectManager::getNumVertices() const {
+    // todo : use reduce instead of accumulate to improve performances (since C++17)
+    size_t result = std::accumulate(m_renderObjects.begin(), m_renderObjects.end(), size_t(0),
+                         [](size_t a, const std::shared_ptr<RenderObject>& ro) -> size_t {
+                            if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry) {
+                                return a + ro->getMesh()->getGeometry().vertices().size();
+                            } else {
+                                return a;
+                            }
+                         }
+                                   );
     return result;
 }
 
@@ -139,7 +145,7 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     if ( m_renderObjects.size() == nUiRO )
         return aabb;
 
-    for ( auto ro : m_renderObjects )
+    for ( const auto &ro : m_renderObjects )
     {
         auto entity = ro->getComponent()->getEntity();
         if ( ro->isVisible() && ( entity != systemEntity ) )

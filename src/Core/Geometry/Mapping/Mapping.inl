@@ -23,7 +23,7 @@ inline Scalar Mapping::getBeta() const {
 }
 
 inline Scalar Mapping::getGamma() const {
-    return ( 1.0 - getAlpha() - getBeta() );
+    return ( Scalar(1.0) - getAlpha() - getBeta() );
 }
 
 inline void Mapping::setAlpha( const Scalar alpha ) {

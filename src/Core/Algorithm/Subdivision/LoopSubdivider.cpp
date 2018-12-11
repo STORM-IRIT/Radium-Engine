@@ -7,7 +7,7 @@ bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_vpPos );
     mesh.add_property( m_epPos );
     mesh.add_property( m_hV );
-    for ( int i = 0; i < mesh.n_halfedges(); ++i )
+    for ( uint i = 0; i < mesh.n_halfedges(); ++i )
     {
         auto h = mesh.halfedge_handle( i );
         if ( !mesh.is_boundary( h ) )
@@ -37,12 +37,11 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
 
     TopologicalMesh::FaceIter fit, f_end;
     TopologicalMesh::EdgeIter eit, e_end;
-    TopologicalMesh::VertexIter vit;
 
     // Do n subdivisions
-    for ( size_t iter = 0; iter < n; ++iter )
+    for ( uint iter = 0; iter < n; ++iter )
     {
-        const int NV = mesh.n_vertices();
+        const size_t NV = mesh.n_vertices();
         if ( updatePoints )
         {
             // compute new positions for old vertices
@@ -104,8 +103,8 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
     return true;
 }
 
-void LoopSubdivider::split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh,
-                                 int iter ) {
+void LoopSubdivider::split_face(TopologicalMesh &mesh, const TopologicalMesh::FaceHandle &fh,
+                                size_t iter) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     // get where to cut
     HeHandle heh1( mesh.halfedge_handle( fh ) );
@@ -118,8 +117,8 @@ void LoopSubdivider::split_face( TopologicalMesh& mesh, const TopologicalMesh::F
     corner_cutting( mesh, heh3, iter );
 }
 
-void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
-                                     const TopologicalMesh::HalfedgeHandle& he, int iter ) {
+void LoopSubdivider::corner_cutting(TopologicalMesh &mesh,
+                                    const TopologicalMesh::HalfedgeHandle &he, size_t iter) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     using VHandle = TopologicalMesh::VertexHandle;
     using FHandle = TopologicalMesh::FaceHandle;
@@ -184,8 +183,8 @@ void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
     m_newFacePropOps[iter].push_back( {heh3, {{1, heh5}}} );
 }
 
-void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
-                                 int iter ) {
+void LoopSubdivider::split_edge(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh,
+                                size_t iter) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     using VHandle = TopologicalMesh::VertexHandle;
     using FHandle = TopologicalMesh::FaceHandle;
@@ -256,8 +255,8 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::E
     mesh.adjust_outgoing_halfedge( vh1 );
 }
 
-void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
-                                       int iter ) {
+void LoopSubdivider::compute_midpoint(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh,
+                                      size_t iter) {
     TopologicalMesh::HalfedgeHandle heh = mesh.halfedge_handle( eh, 0 );
     TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
 
@@ -294,8 +293,8 @@ void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh, const TopologicalM
     }
 }
 
-void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh,
-                             int iter ) {
+void LoopSubdivider::smooth(TopologicalMesh &mesh, const TopologicalMesh::VertexHandle &vh,
+                            size_t iter) {
     using VHandle = TopologicalMesh::VertexHandle;
 
     TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
@@ -329,7 +328,7 @@ void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::Verte
     } else // inner vertex: (1-a) * p + a/n * Sum q, q in one-ring of p
     {
         TopologicalMesh::VertexVertexIter vvit;
-        const int valence = mesh.valence( vh );
+        const uint valence = mesh.valence( vh );
         ops.resize( valence + 1 );
         int i = 0;
 
@@ -352,13 +351,14 @@ void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::Verte
 
 void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
                                 const Vector3Array& newCoarseNormals,
-                                Vector3Array& newSubdivVertices, Vector3Array& newSubdivNormals,
+                                Vector3Array& newSubdivVertices,
+                                Vector3Array& newSubdivNormals,
                                 TopologicalMesh& mesh ) {
     // update vertices
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
     auto hNormalProp = mesh.halfedge_normals_pph();
 #pragma omp parallel for
-    for ( size_t i = 0; i < mesh.n_halfedges(); ++i )
+    for ( uint i = 0; i < mesh.n_halfedges(); ++i )
     {
         auto h = mesh.halfedge_handle( i );
         // set position on coarse mesh vertices
@@ -433,7 +433,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
     // update subdivided TriangleMesh vertices and normals
     auto outTriIndexProp = mesh.getOutputTriangleMeshIndexPropHandle();
 #pragma omp parallel for
-    for ( int i = 0; i < mesh.n_halfedges(); ++i )
+    for ( uint i = 0; i < mesh.n_halfedges(); ++i )
     {
         auto h = mesh.halfedge_handle( i );
         if ( !mesh.is_boundary( h ) )

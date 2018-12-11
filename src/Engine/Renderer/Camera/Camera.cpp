@@ -16,25 +16,17 @@ namespace Engine {
 
 Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
     Component( name, entity ),
-    m_frame( Core::Transform::Identity() ),
-    m_projMatrix( Core::Matrix4::Identity() ),
-    m_projType( ProjType::PERSPECTIVE ),
-    m_zoomFactor( Scalar( 1.0f ) ),
-    m_fov( PiDiv4 ),
-    m_RO( nullptr ),
-    m_zNear( Scalar( 0.1f ) ),
-    m_zFar( Scalar( 1000.0f ) ),
-    m_width( width ),
-    m_height( height ),
-    m_aspect( width / height ) {}
+    m_width { width },
+    m_height { height },
+    m_aspect { width / height } {}
 
-Camera::~Camera() {}
+Camera::~Camera() = default;
 
 void Camera::initialize() {
     if ( !m_renderObjects.empty() )
         return;
     // Create the render mesh for the camera
-    std::shared_ptr<Mesh> m( new Mesh( m_name + "_mesh" ) );
+    auto m = std::make_shared<Mesh>( m_name + "_mesh" );
     Ra::Core::TriangleMesh triMesh;
     triMesh.vertices() = {{0, 0, 0},       {-0.5, -0.5, -1}, {-0.5, 0.5, -1}, {0.5, 0.5, -1},
                           {0.5, -0.5, -1}, {-0.3, 0.5, -1},  {0, 0.7, -1},    {0.3, 0.5, -1}};
@@ -80,10 +72,9 @@ void Camera::updateProjMatrix() {
         const Scalar t = dy;  // top
         const Scalar b = -dy; // bottom
 
-        Core::Vector3 tr;
-        tr( 0 ) = -( r + l ) / ( r - l );
-        tr( 1 ) = -( t + b ) / ( t - b );
-        tr( 2 ) = -( ( m_zFar + m_zNear ) / ( m_zFar - m_zNear ) );
+        Core::Vector3 tr( -( r + l ) / ( r - l ),
+                          -( t + b ) / ( t - b ),
+                          -( ( m_zFar + m_zNear ) / ( m_zFar - m_zNear ) ) );
 
         m_projMatrix.setIdentity();
 

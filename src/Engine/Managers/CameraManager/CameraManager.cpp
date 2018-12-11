@@ -2,7 +2,8 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <Core/File/FileData.hpp>
-#include <Core/File/GeometryData.hpp>
+#include <Core/File/CameraData.hpp>
+
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -14,16 +15,12 @@
 namespace Ra {
 namespace Engine {
 
-CameraManager::CameraManager() : m_data( nullptr ) {}
-
-CameraManager::~CameraManager() {}
-
 size_t CameraManager::count() const {
     return m_data->size();
 }
 
-void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
-                                   const Engine::FrameInfo& frameInfo ) {}
+void CameraManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
+                                   const Engine::FrameInfo& /*frameInfo*/ ) {}
 
 void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
     std::vector<Asset::CameraData*> cameraData = filedata->getCameraData();
@@ -32,7 +29,7 @@ void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* f
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
-        Engine::Camera* comp = new Camera( entity, componentName, 100, 100 );
+        auto comp = new Camera( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
         case Asset::CameraData::ORTHOGRAPHIC:
@@ -52,8 +49,7 @@ void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* f
         comp->setZFar( data->getZFar() );
         comp->setZoomFactor( data->getZoomFactor() );
 
-        //! @comp should be allocated in CameraStorage (well, not sure ...)
-
+        // comp should be allocated in CameraStorage (well, not sure ...)
         if ( !comp )
             continue;
 

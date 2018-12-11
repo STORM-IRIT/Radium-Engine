@@ -7,16 +7,15 @@
 #include <string>
 
 #include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 
-
-#include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
 namespace Asset {
 class MaterialData;
 }
 namespace Engine {
-class Texture;
+
 class ShaderProgram;
 
 /**
@@ -39,7 +38,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
      * Destructor.
      * @note The material does not have ownership on its texture. This destructor do not delete the associated textures.
      */
-    ~BlinnPhongMaterial();
+    ~BlinnPhongMaterial() override;
 
     /**
      * Get the basename of the glsl source file to include if one want to build composite shaders that use this material.
@@ -79,10 +78,10 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     static void unregisterMaterial();
 
   public:
-    Core::Color m_kd;
-    Core::Color m_ks;
-    Scalar m_ns;
-    Scalar m_alpha;
+    Core::Color m_kd { 0.9, 0.9, 0.9, 1.0 };
+    Core::Color m_ks { 0.0, 0.0, 0.0, 1.0 };
+    Scalar m_ns { 1.0 };
+    Scalar m_alpha { 1.0 };
 
     /**
     * Add an new texture, from a TextureData, to control the specified BSDF parameter.
@@ -90,11 +89,11 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     * @param texture  The texture to use (file)
     * @return the corresponding TextureData struct
     */
-    inline TextureData& addTexture( const TextureSemantic& semantic, const TextureData& texture );
+    inline TextureParameters& addTexture( const TextureSemantic& semantic, const TextureParameters& texture );
 
 private:
     std::map<TextureSemantic, Texture*> m_textures;
-    std::map<TextureSemantic, TextureData> m_pendingTextures;
+    std::map<TextureSemantic, TextureParameters> m_pendingTextures;
 
     /**
     * Add an new texture, from a given file, to control the specified BSDF parameter.
@@ -102,7 +101,7 @@ private:
     * @param texture  The texture to use (file)
     * @return the corresponding TextureData struct
     */
-    inline TextureData& addTexture( const TextureSemantic& semantic, const std::string& texture );
+    inline TextureParameters& addTexture( const TextureSemantic& semantic, const std::string& texture );
 
 };
 

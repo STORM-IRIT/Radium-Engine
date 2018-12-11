@@ -15,10 +15,17 @@ class Texture;
 
 namespace Ra {
 namespace Engine {
+  /** Default renderer for the Radium Engine
+   * This classe implements aforward rendering algorithm with Z-prepass, multipass light accumulation for opaque
+   * and transperent objects.
+   * Once renderer, the final is composited with Ui, debug and X-ray objects renderings on demand.
+   *
+   * @see rendering.md for description of the renderer
+   */
 class RA_ENGINE_API ForwardRenderer : public Renderer {
   public:
     ForwardRenderer();
-    ~ForwardRenderer();
+    ~ForwardRenderer() override;
 
     std::string getRendererName() const override { return "Forward Renderer"; }
 
@@ -26,12 +33,12 @@ class RA_ENGINE_API ForwardRenderer : public Renderer {
     void initializeInternal() override;
     void resizeInternal() override;
 
-    void updateStepInternal( const RenderData& renderData ) override;
+    void updateStepInternal( const ViewingParameters& renderData ) override;
 
-    void postProcessInternal( const RenderData& renderData ) override;
-    void renderInternal( const RenderData& renderData ) override;
-    void debugInternal( const RenderData& renderData ) override;
-    void uiInternal( const RenderData& renderData ) override;
+    void postProcessInternal( const ViewingParameters& renderData ) override;
+    void renderInternal( const ViewingParameters& renderData ) override;
+    void debugInternal( const ViewingParameters& renderData ) override;
+    void uiInternal( const ViewingParameters& renderData ) override;
 
   private:
     void initShaders();
@@ -55,15 +62,16 @@ class RA_ENGINE_API ForwardRenderer : public Renderer {
     std::unique_ptr<globjects::Framebuffer> m_fbo;
     std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
     std::unique_ptr<globjects::Framebuffer> m_oitFbo;
+    std::unique_ptr<globjects::Framebuffer> m_uiXrayFbo;
 
     std::vector<RenderObjectPtr> m_transparentRenderObjects;
-    uint m_fancyTransparentCount;
+    size_t m_fancyTransparentCount { 0 };
 
-    uint m_pingPongSize;
+    size_t m_pingPongSize { 0 };
 
     std::array<std::unique_ptr<Texture>, RendererTexture_Count> m_textures;
 
-    static const int ShadowMapSize = 1024;
+    static const size_t ShadowMapSize { 1024 };
     std::vector<std::shared_ptr<Texture>> m_shadowMaps;
     std::vector<Core::Matrix4> m_lightMatrices;
 };

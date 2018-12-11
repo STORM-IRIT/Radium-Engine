@@ -14,7 +14,7 @@ AssimpCameraDataLoader::AssimpCameraDataLoader( const std::string& filepath,
                                                 const bool VERBOSE_MODE ) :
     DataLoader<Asset::CameraData>( VERBOSE_MODE ) {}
 
-AssimpCameraDataLoader::~AssimpCameraDataLoader() {}
+AssimpCameraDataLoader::~AssimpCameraDataLoader() = default;
 
 void AssimpCameraDataLoader::loadData( const aiScene* scene,
                                        std::vector<std::unique_ptr<Asset::CameraData>>& data ) {
@@ -77,7 +77,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene, const aiCamer
     view.block<3, 1>( 0, 1 ) = up;
     view.block<3, 1>( 0, 2 ) = lookAt;
     view.block<3, 1>( 0, 3 ) = pos;
-    data.setFrame( view * frame ); // TODO: check that!!!
+    data.setFrame( view * frame );
 
     data.setType( Asset::CameraData::PERSPECTIVE ); // default value since not in aiCamera
     data.setFov( camera.mHorizontalFOV );
@@ -91,26 +91,16 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
                                                        const Core::Matrix4& parentFrame,
                                                        Asset::CameraData& data ) const {
     const aiNode* CameraNode = scene->mRootNode->FindNode( data.getName().c_str() );
-    Core::Matrix4 transform;
-    transform = Core::Matrix4::Identity();
 
     if ( CameraNode != nullptr )
     {
-        Core::Matrix4 t0;
-        Core::Matrix4 t1;
+        auto t0 = Core::Matrix4::NullaryExpr([&scene](int i,int j){ return scene->mRootNode->mTransformation[i][j]; });
+        auto t1 = Core::Matrix4::NullaryExpr([&CameraNode](int i,int j){ return CameraNode->mTransformation[i][j]; });
 
-        for ( uint i = 0; i < 4; ++i )
-        {
-            for ( uint j = 0; j < 4; ++j )
-            {
-                t0( i, j ) = scene->mRootNode->mTransformation[i][j];
-                t1( i, j ) = CameraNode->mTransformation[i][j];
-            }
-        }
-        transform = t0 * t1;
+        return parentFrame * t0 * t1;
+    } else {
+        return parentFrame;
     }
-
-    return parentFrame * transform;
 }
 
 void AssimpCameraDataLoader::fetchName( const aiCamera& camera, Asset::CameraData& data ) const {

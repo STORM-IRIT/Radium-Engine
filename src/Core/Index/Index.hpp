@@ -9,6 +9,7 @@ namespace Core {
 class Index {
   public:
     /// CONSTRUCTOR
+    /// Default constructor that allow implicit conversion from integer to Index
     constexpr Index( int i = s_invalid );
     constexpr Index( const Index& i );
 
@@ -71,12 +72,12 @@ class Index {
 
   protected:
     /// VARIABLE
-    int m_idx;
+    int m_idx { s_invalid };
 
   private:
     /// CONSTANT
-    static const int s_invalid = -1;
-    static const int s_maxIdx = std::numeric_limits<int>::max();
+    static const int s_invalid { -1 };
+    static const int s_maxIdx {std::numeric_limits<int>::max()};
 };
 } // namespace Core
 } // namespace Ra

@@ -6,11 +6,8 @@ namespace Ra {
 namespace Engine {
 
 PointLight::PointLight( Entity* entity, const std::string& name ) :
-    Light( entity, Light::POINT, name ),
-    m_position( 0, 0, 0 ),
-    m_attenuation() {}
-
-PointLight::~PointLight() {}
+    Light( entity, Light::POINT, name )
+    {}
 
 void PointLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );

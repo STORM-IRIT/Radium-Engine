@@ -34,14 +34,15 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // Parse the ASCII header fields
     tinyply::PlyFile file( ss );
 
-    for ( auto e : file.get_elements() )
-    {
-        if ( e.name.compare( "face" ) == 0 && e.size != 0 )
-        {
-            // Mesh found. Let the other loaders handle it
-            LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
-            return nullptr;
-        }
+    auto elements = file.get_elements();
+    if ( std::any_of(elements.begin(), elements.end(),
+        [](const auto & e)->bool {
+            return e.name == "face" && e.size != 0;
+          } )
+        ) {
+        // Mesh found. Let the other loaders handle it
+        LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
+        return nullptr;
     }
 
     // we are now sure to have a point-cloud
@@ -79,7 +80,8 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     fileData->m_geometryData.clear();
     fileData->m_geometryData.reserve( 1 );
 
-    Asset::GeometryData* geometry = new Asset::GeometryData();
+    auto geometry = std::make_unique<Asset::GeometryData>();
+
     geometry->setType( Asset::GeometryData::POINT_CLOUD );
 
     std::vector<float> normals;
@@ -110,13 +112,12 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         geometry->setColors(
             *( reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 4, 1, Eigen::DontAlign>>*>(
                 &colors ) ) );
-        for ( auto& c : geometry->getColors() )
-            c /= Scalar( 255 );
+        std::for_each(geometry->getColors().begin(), geometry->getColors().end(), [](auto & c){ c /= Scalar( 255 ); } );
     }
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
-    fileData->m_geometryData.push_back( std::unique_ptr<Asset::GeometryData>( geometry ) );
+    fileData->m_geometryData.push_back( std::move( geometry ) );
 
     if ( fileData->isVerbose() )
     {

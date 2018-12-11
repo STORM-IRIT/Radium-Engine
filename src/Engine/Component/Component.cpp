@@ -13,9 +13,8 @@
 namespace Ra {
 namespace Engine {
 Component::Component( const std::string& name, Entity* entity ) :
-    m_name( name ),
-    m_entity( entity ),
-    m_system( nullptr ) {
+    m_name{ name },
+    m_entity{ entity } {
     m_entity->addComponent( this );
 }
 
@@ -41,7 +40,7 @@ Core::Index Component::addRenderObject( RenderObject* renderObject ) {
     return m_renderObjects.back();
 }
 
-void Component::removeRenderObject( Core::Index roIdx ) {
+void Component::removeRenderObject(const Core::Index &roIdx) {
     auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(), roIdx );
     CORE_WARN_IF( found == m_renderObjects.cend(), " Render object not found in component" );
     if ( ( found != m_renderObjects.cend() ) && getRoMgr() )

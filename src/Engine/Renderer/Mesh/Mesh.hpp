@@ -13,7 +13,7 @@
 namespace Ra {
 namespace Engine {
 
-// FIXME(Charly): If I want to draw a mesh as lines, points, etc,
+// Question : If I want to draw a mesh as lines, points, etc,
 //                should I send lines, ... to the GPU, or handle the way
 //                I want them displayed in a geometry shader, and always
 //                send adjacent triangles to the GPU ?
@@ -89,7 +89,10 @@ class RA_ENGINE_API Mesh {
     constexpr static uint MAX_DATA = MAX_MESH + MAX_VEC3 + MAX_VEC4;
 
   public:
-    Mesh( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
+    explicit Mesh( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
+    Mesh( const Mesh& rhs ) = delete;
+    void operator=( const Mesh& rhs ) = delete;
+
     ~Mesh();
 
     /// Returns the name of the mesh.
@@ -113,7 +116,7 @@ class RA_ENGINE_API Mesh {
      * \note Also removes all vertex attributes.
      * \warning This might disappear when line meshes will be managed.
      */
-    // FIXME: Had to keep this for line meshes and Render Primitives.
+    // Had to keep this for line meshes and Render Primitives.
     void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices );
 
     /**
@@ -148,19 +151,17 @@ class RA_ENGINE_API Mesh {
     inline void colorize( const Core::Color& color );
 
   private:
-    Mesh( const Mesh& rhs ) = delete;
-    void operator=( const Mesh& rhs ) = delete;
 
     /// Helper function to send buffer data to openGL.
     template <typename type>
-    friend void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr,
-                            const uint vboIdx );
+    friend void sendGLData(Ra::Engine::Mesh *mesh, const Ra::Core::VectorArray<type> &arr,
+                           uint vboIdx);
 
   private:
-    std::string m_name; /// Name of the mesh.
+    std::string m_name {}; /// Name of the mesh.
 
-    uint m_vao;                  /// Index of our openGL VAO
-    MeshRenderMode m_renderMode; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
+    uint m_vao { 0 };                  /// Index of our openGL VAO
+    MeshRenderMode m_renderMode {MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
 
     Core::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
                                /// and normals
@@ -186,12 +187,11 @@ class RA_ENGINE_API Mesh {
     std::array<uint, MAX_DATA> m_vbos = {{0}};          /// Indices of our openGL VBOs.
     std::array<bool, MAX_DATA> m_dataDirty = {{false}}; /// Dirty bits of our vertex data.
 
-    uint m_numElements; /// number of elements to draw. For triangles this is 3*numTriangles but not
+    size_t m_numElements {0}; /// number of elements to draw. For triangles this is 3*numTriangles but not
                         /// for lines.
-    // (val) : this is a bit hacky.
-
-    bool m_isDirty; /// General dirty bit of the mesh.
-    // TODO (Val) this flag could just be replaced by an efficient "or" of the other flags.
+    /// General dirty bit of the mesh. Must be equivalent of the  "or" of the other dirty flags.
+    /// an empty mesh is not dirty
+    bool m_isDirty { false };
 };
 
 } // namespace Engine

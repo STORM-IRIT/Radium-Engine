@@ -102,20 +102,21 @@ endif()
 
 # Additional flags depending on build options =================================
 
-if (${RADIUM_WITH_OMP})
-    find_package(OpenMP QUIET)
-
-    if(OPENMP_FOUND)
-        message(STATUS "${PROJECT_NAME} : Using OpenMP")
-        add_definitions(-DCORE_USE_OMP)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-    endif(OPENMP_FOUND)
-else (${RADIUM_WITH_OMP})
-    message(STATUS "${PROJECT_NAME} : OpenMP disabled")
-    if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
-        add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
-    endif()
+if( NOT MSVC )
+	find_package(OpenMP QUIET)
+	if(OPENMP_FOUND)
+		message(STATUS "${PROJECT_NAME} : Using OpenMP")
+		add_definitions(-DCORE_USE_OMP)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+	else (OPENMP_FOUND)
+		if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
+			add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
+		endif()
+		message(STATUS "${PROJECT_NAME} : OpenMP disabled")
+	endif(OPENMP_FOUND)
+else()
+	message(STATUS "${PROJECT_NAME} : OpenMP is disabled with MSVC ")
 endif()
 
 if ("${CMAKE_BUILD_TYPE}"  STREQUAL "Release" )

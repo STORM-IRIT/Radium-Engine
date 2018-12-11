@@ -10,6 +10,9 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Core/Containers/MakeShared.hpp>
+
+#include<algorithm>
 
 namespace Ra {
 namespace Engine {
@@ -22,19 +25,15 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     } else
     { config = ShaderConfigurationFactory::getConfiguration( "Plain" ); }
 
-    std::shared_ptr<RenderTechnique> rt( new RenderTechnique );
-    rt->setConfiguration( config );
-    rt->resetMaterial( new BlinnPhongMaterial( "Default material" ) );
+    auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Default material" );
+    Ra::Engine::RenderTechnique rt;
+    rt.setMaterial( mat );
+    rt.setConfiguration( config );
 
-    RenderObject* ro = new RenderObject( mesh->getName(), component, RenderObjectType::Debug );
-
-    ro->setRenderTechnique( rt );
-    ro->setMesh( mesh );
-
-    return ro;
+    return Ra::Engine::RenderObject::createRenderObject( mesh->getName(), component, Ra::Engine::RenderObjectType::Debug,
+                                                            mesh, rt);
 }
 
-// TODO(Charly): Factor mesh init code
 MeshPtr Point( const Core::Vector3& point, const Core::Color& color, Scalar scale ) {
     Core::Vector3Array vertices = {( point + ( scale * Core::Vector3::UnitX() ) ),
                                    ( point - ( scale * Core::Vector3::UnitX() ) ),
@@ -221,10 +220,8 @@ MeshPtr CircleArc( const Core::Vector3& center, const Core::Vector3& normal, Sca
 MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Color& color ) {
     Core::TriangleMesh sphere = Core::MeshUtils::makeGeodesicSphere( radius, 2 );
 
-    for ( auto& t : sphere.vertices() )
-    {
-        t += center;
-    }
+    std::for_each(sphere.vertices().begin(), sphere.vertices().end(),
+                  [center](Core::Vector3& v) { v+=center;} );
 
     Core::Vector4Array colors( sphere.vertices().size(), color );
 
@@ -252,10 +249,8 @@ MeshPtr Capsule( const Core::Vector3& p1, const Core::Vector3& p2, Scalar radius
     t.rotate( rot );
     t.pretranslate( trans );
 
-    for ( auto& v : capsule.vertices() )
-    {
-        v = t * v;
-    }
+    std::for_each(capsule.vertices().begin(), capsule.vertices().end(),
+                  [t](Core::Vector3& v) { v = t * v;} );
 
     Core::Vector4Array colors( capsule.vertices().size(), color );
 
@@ -378,8 +373,8 @@ MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x, const Core::V
         Scalar xStep = Scalar( i ) - Scalar( res ) * cellSize / 2.f;
         vertices.push_back( center - halfWidth * y + xStep * x );
         vertices.push_back( center + halfWidth * y + xStep * x );
-        indices.push_back( vertices.size() - 2 );
-        indices.push_back( vertices.size() - 1 );
+        indices.push_back( uint(vertices.size()) - 2 );
+        indices.push_back( uint(vertices.size()) - 1 );
     }
 
     for ( uint i = 0; i < res + 1; ++i )
@@ -387,8 +382,8 @@ MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x, const Core::V
         Scalar yStep = Scalar( i ) - Scalar( res ) * cellSize / 2.f;
         vertices.push_back( center - halfWidth * x + yStep * y );
         vertices.push_back( center + halfWidth * x + yStep * y );
-        indices.push_back( vertices.size() - 2 );
-        indices.push_back( vertices.size() - 1 );
+        indices.push_back( uint(vertices.size()) - 2 );
+        indices.push_back( uint(vertices.size()) - 1 );
     }
 
     Core::Vector4Array colors( vertices.size(), color );
@@ -447,7 +442,7 @@ MeshPtr OBB( const Core::Obb& obb, const Core::Color& color ) {
 }
 
 MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color,
-                Scalar scale ) {
+                Scalar /*scale*/ ) {
     Core::Vector3Array vertices;
     vertices.reserve( pointCount );
 

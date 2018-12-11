@@ -19,46 +19,60 @@ class Component;
 class Mesh;
 class Material;
 class RenderParameters;
-struct RenderData;
+struct ViewingParameters;
 } // namespace Engine
 } // namespace Ra
 
 namespace Ra {
 namespace Engine {
 
-// FIXME(Charly): Does this need a bit of cleanup ?
+// Radium V2 : need a bit of cleanup !
 class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
   public:
     RA_CORE_ALIGNED_NEW
 
-    /// A -1 (or any other negative value) lifetime is considered infinite,
-    /// 0 is an "invalid value" (would mean the render object has to die immediatly),
-    /// hence it's considered as infinite,
-    /// any other positive value will be taken into account.
+    /**
+     * A -1 (or any other negative value) lifetime is considered infinite,
+     * 0 is an "invalid value" (would mean the render object has to die immediatly),
+     * hence it's considered as infinite,
+     * any other positive value will be taken into account.
+     *
+     * @param name
+     * @param comp
+     * @param type
+     * @param lifetime
+     */
     RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
                   int lifetime = -1 );
-    ~RenderObject();
+    ~RenderObject() override;
 
+    /**
+     *
+     */
     /// Sort of factory method to easily create a render object.
-    /// Use case example :
-    ///     std::string name = "MyRO";
-    ///     Component* comp;    // Retrieve the component the way you want.
-    ///                         // Since this method will often be used in a component,
-    ///                         // just use this pointer.
-    ///     RenderObjectType type = RenderObjectType::Geometry; // For example
-    ///     // Retrieve an already created configuration, or create one (see ShaderConfiguration
-    ///     docs). ShaderConfiguration config =
-    ///     ShaderConfigurationFactory::getConfiguration("MyConfig"); Material* mat = new Material;
-    ///     // Then configure your material...
-    ///     // createRenderObject can finally be called.
-    ///     RenderObject* ro = createRenderObject(name, component, type, config, material);
-    /// TODO : update the above documentation to match the new profile and use case ...
-    /*
-     static RenderObject* createRenderObject( const std::string& name, Component* comp,
-     const RenderObjectType& type, const std::shared_ptr<Mesh>& mesh,
-     const ShaderConfiguration& shaderConfig =
-     ShaderConfigurationFactory::getConfiguration("BlinnPhong"), const std::shared_ptr<Material>&
-     material = nullptr );
+    ///     /// TODO : update the above documentation to match the new profile and use case ...
+    /**
+     * Sort of factory method to easily create a render object.
+     * Use case example :
+     *     std::string name = "MyRO";
+     *     Component* comp;    // Retrieve the component the way you want.
+     *                         // Since this method will often be used in a component,
+     *                         // just use this pointer.
+     *     RenderObjectType type = RenderObjectType::Geometry; // For example
+     *     // Retrieve an already created configuration, or create one (see ShaderConfiguration
+     *     docs). ShaderConfiguration config =
+     *     ShaderConfigurationFactory::getConfiguration("MyConfig"); Material* mat = new Material;
+     *     // Then configure your material...
+     *     // createRenderObject can finally be called.
+     *     RenderObject* ro = createRenderObject(name, component, type, config, material);
+     * @todo : update the above documentation to match the new profile and use case ...
+     * @param name
+     * @param comp
+     * @param type
+     * @param mesh
+     * @param techniqueConfig
+     * @param material
+     * @return
      */
     static RenderObject* createRenderObject(
         const std::string& name, Component* comp, const RenderObjectType& type,
@@ -66,7 +80,9 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
         const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique(),
         const std::shared_ptr<Material>& material = nullptr );
 
-    // FIXME(Charly): Remove this
+    /**
+     * Updates all the openGL state of the object. Called at the beginning of
+     */
     void updateGL();
 
     //
@@ -122,32 +138,45 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     void hasBeenRenderedOnce();
     void hasExpired();
 
-    // FIXME (Mathias) Find why this was added for shader and material refactor ...
-    virtual void render( const RenderParameters& lightParams, const RenderData& rdata,
-                         const ShaderProgram* shader );
-    virtual void render( const RenderParameters& lightParams, const RenderData& rdata,
-                         RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
+    /**
+     * Render the object with the given rendering environment defined by the lighting parameters, the viewing
+     * parameters and  the shader
+     * @param lightParams lighting parameters for this rendering
+     * @param viewParams  viewing parameters for this rendering
+     * @param shader shader to use for this rendering
+     */
+    virtual void render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
+                        const ShaderProgram *shader);
+
+    /**
+     * Render the object for the given rendering environment defined by the lighting parameters, the viewing
+     * parameters and the RenderTechnique pass name
+     * @param lightParams lighting parameters for this rendering
+     * @param viewParams viewing parameters for this rendering
+     * @param passname RenderTechnique pass name
+     */
+    virtual void render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
+                        RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE);
 
   private:
-    Core::Transform m_localTransform;
+    Core::Transform m_localTransform { Core::Transform::Identity() };
 
-    Component* m_component;
-    std::string m_name;
+    Component* m_component {nullptr};
+    std::string m_name {};
 
-    RenderObjectType m_type;
-    std::shared_ptr<RenderTechnique> m_renderTechnique;
+    RenderObjectType m_type {RenderObjectType::Geometry};
+    std::shared_ptr<RenderTechnique> m_renderTechnique { nullptr };
     std::shared_ptr<Mesh> m_mesh;
 
     mutable std::mutex m_updateMutex;
 
-    int m_lifetime;
-
-    bool m_visible;
-    bool m_pickable;
-    bool m_xray;
-    bool m_transparent;
-    bool m_dirty;
-    bool m_hasLifetime;
+    int m_lifetime { -1 };
+    bool m_visible { true };
+    bool m_pickable { true };
+    bool m_xray  { false };
+    bool m_transparent  { false };
+    bool m_dirty { true };
+    bool m_hasLifetime { false };
 };
 
 } // namespace Engine
