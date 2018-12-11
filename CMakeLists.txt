@@ -25,7 +25,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
 option(RADIUM_WITH_DOUBLE_PRECISION "Use double precision" OFF)
-option(RADIUM_WITH_OMP              "Use OpenMP" OFF)
 option(RADIUM_WITH_FANCY_GL         "Enable Fancy OpenGL effects" ON)
 option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
 option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
@@ -155,9 +154,6 @@ if(DOXYGEN_FOUND)
 
   add_custom_target(doc
      ${CMAKE_COMMAND} -E make_directory ${RADIUM_DOC_DIRECTORY}
-     COMMAND ${CMAKE_COMMAND} -E copy_directory
-       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/images/
-       ${RADIUM_DOC_DIRECTORY}/html/images
      COMMAND ${CMAKE_COMMAND} -E copy
        ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
        ${RADIUM_BUNDLE_DIRECTORY}/

@@ -4,18 +4,16 @@ namespace Ra {
 namespace Engine {
 
 Material::Material( const std::string& name, MaterialAspect aspect ) :
-    m_name( name ),
-    m_isDirty( true ),
-    m_aspect( MaterialAspect::MAT_OPAQUE ) {}
+    m_name { name },
+    m_aspect { aspect } {}
 
-Material::~Material() {}
 
 bool Material::isTransparent() const {
     return m_aspect == MaterialAspect::MAT_TRANSPARENT;
 }
 
 const std::string Material::getShaderInclude() const {
-    return std::string( "" );
+    return {};
 }
 
 } // namespace Engine

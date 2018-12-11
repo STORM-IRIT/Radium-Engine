@@ -6,9 +6,6 @@
 
 namespace Ra {
 namespace Engine {
-System::System() {}
-
-System::~System() {}
 
 void System::registerComponent( const Entity* ent, Component* component ) {
     // Perform checks on debug
@@ -24,7 +21,7 @@ void System::registerComponent( const Entity* ent, Component* component ) {
         }
     }
 #endif // DEBUG
-    m_components.push_back( {ent, component} );
+    m_components.emplace_back( ent, component );
     component->setSystem( this );
 }
 

@@ -1,20 +1,10 @@
 #ifndef RADIUMENGINE_LIGHTMANAGER_H
 #define RADIUMENGINE_LIGHTMANAGER_H
-
-#include <Engine/Managers/LightManager/LightStorage.hpp>
 #include <Engine/RaEngine.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/System/System.hpp>
+#include <Engine/Managers/LightManager/LightStorage.hpp>
 
 #include <memory>
-
-namespace Ra {
-namespace Engine {
-class RenderObject;
-}
-} // namespace Ra
 
 namespace Ra {
 namespace Engine {
@@ -24,17 +14,17 @@ namespace Engine {
  * in a specific way.
  */
 class RA_ENGINE_API LightManager : public System {
-    // TODO (Mathias) make light manager compatible with range for ...
+    // Radium-V2 : make light manager compatible with range for ...
   public:
     /// Constructor
-    LightManager();
+    LightManager() = default;
 
     // Make copies impossible
     LightManager( const LightManager& ) = delete;
     LightManager& operator=( const LightManager& ) = delete;
 
     /// Virtual destructor
-    virtual ~LightManager();
+    ~LightManager() override;
 
     /// Get a pointer to the li-th Light.
     virtual const Light* getLight( size_t li ) const = 0;
@@ -44,10 +34,10 @@ class RA_ENGINE_API LightManager : public System {
      * it will just push the light on the storage ...
      * @param li The (already registered) light to add.
      */
-    virtual void addLight( Light* li ) = 0;
+    virtual void addLight(const Light *li) = 0;
 
     //
-    // Calls for the Renderer
+    // Calls for the Renderer. Note that
     //
 
     /**
@@ -58,64 +48,31 @@ class RA_ENGINE_API LightManager : public System {
      */
     virtual size_t count() const;
 
-    /**
-     * @brief Call before a render, update the general state of the LightManager.
-     */
-    virtual void preprocess( const RenderData& renderData ) = 0;
-
-    /**
-     * @brief Call before a render, process what is needed for a given Light.
-     */
-    virtual void prerender( unsigned int li ) = 0;
-
-    /**
-     * @brief render the object with specific technics for the current light (between prerender and
-     * postrender)
-     */
-    virtual void
-    render( RenderObject*, unsigned int li,
-            RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) = 0;
-
-    /**
-     * @brief Call after a render, process what is needed for a given Light.
-     */
-    virtual void postrender( unsigned int li ) = 0;
-
-    /**
-     * @brief Call after a render, update the general state of the LightManager.
-     */
-    virtual void postprocess() = 0;
-
     //
     // System methods
     //
-
+    /// Do nothing as this system only manage light related asset loading
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
+    /// Transform loaded file data to usable entities and component in the engine
     void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
 
   protected:
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
-    void registerComponent( const Entity* entity, Component* component ) override final;
+    void registerComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
-    void unregisterComponent( const Entity* entity, Component* component ) override final;
+    void unregisterComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. LightStorage).
-    void unregisterAllComponents( const Entity* entity ) override final;
+    void unregisterAllComponents( const Entity* entity ) final;
 
   protected:
-    /// store the current renderData
-    RenderData renderData;
-
-    /// store the current light parameters
-    RenderParameters params;
-
     /// Stores the object that stores the lights...
-    std::unique_ptr<LightStorage> m_data;
+    std::unique_ptr<LightStorage> m_data { nullptr };
 };
 
 } // namespace Engine

@@ -6,26 +6,26 @@
 #include <iostream>
 #include <string>
 
-const std::string camExt( "cam" );
+const std::string camExt { "cam" };
 
 namespace Ra {
 namespace IO {
 
-CameraFileLoader::CameraFileLoader() {}
+CameraFileLoader::CameraFileLoader() = default;
 
-CameraFileLoader::~CameraFileLoader() {}
+CameraFileLoader::~CameraFileLoader() = default;
 
 std::vector<std::string> CameraFileLoader::getFileExtensions() const {
     return std::vector<std::string>( {"*." + camExt} );
 }
 
 bool CameraFileLoader::handleFileExtension( const std::string& extension ) const {
-    return extension.compare( camExt ) == 0;
+    return extension == camExt;
 }
 
 Asset::FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     // Create the FileData
-    Asset::FileData* fileData = new Asset::FileData( filename );
+    auto fileData = new Asset::FileData( filename );
     if ( !fileData->isInitialized() )
     {
         delete fileData;

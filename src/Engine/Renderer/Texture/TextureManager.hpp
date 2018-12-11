@@ -8,38 +8,15 @@
 #include <Core/Utils/Singleton.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-
+#include <Engine/Renderer/Texture/Texture.hpp>
 namespace Ra {
 namespace Engine {
-class Texture;
-}
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
-/**
- * Describes the content and parameters of a texture.
- */
-struct TextureData {
-    std::string name;
-    int width = -1;
-    int height = -1;
-
-    GLenum format = GL_RGB;
-    GLenum internalFormat = GL_RGB;
-    GLenum type = GL_UNSIGNED_BYTE;
-
-    GLenum wrapS = GL_CLAMP_TO_EDGE;
-    GLenum wrapT = GL_CLAMP_TO_EDGE;
-
-    GLenum minFilter = GL_LINEAR_MIPMAP_LINEAR;
-    GLenum magFilter = GL_LINEAR;
-
-    void* data = nullptr;
-};
 
 /**
  * Manage Texture loading and registration.
+ * @todo (for Radium-V2) Allow to share the same image data between different instances of a texture.
+ * Instances could be differentiated by the sampler parameter and the mip-map availability.
  */
 class RA_ENGINE_API TextureManager final {
     RA_SINGLETON_INTERFACE( TextureManager );
@@ -50,25 +27,36 @@ class RA_ENGINE_API TextureManager final {
   public:
     /** Add a texture giving its name, dimension and content.
      * Usefull for defining procedural textures
+     *
+     * @param name  name of the texture
+     * @param width width of the texture
+     * @param height height of the texture
+     * @param data pointer to the texture content
+     *
+     * @return a texture descriptor that could be further specialized (filtering parameters ..) before the
+     * texture is inserted into Radium OpenGL system by getOrLoadTexture
      */
-    TextureData& addTexture( const std::string& name, int width, int height, void* data );
-
-    /**
-     * Get or load texture from a file.
-     * The name of the texture is the name of its file
-     * @param filename
-     * @return
-     */
-    Texture* getOrLoadTexture( const std::string& filename );
+    TextureParameters& addTexture(const std::string &name, uint width, uint height, void *data);
 
     /**
      * Get or load a named texture.
-     * The name of the texture might be different of the associated file but the data must be
-     * loaded in the TextureData before calling this method.
-     * @param filename
-     * @return
+     * If image data are not presents in texParameters.texels (this field is nullptr), this method will
+     * assume that the texParameters.name field contains the fully qualified filename to be loaded to
+     * initialize texParameters.texels
+     *
+     * If image data are presents in texParameters.texels (this field is not nullptr), the name could be of any form as
+     * no loading will occur.
+     *
+     *
+     * This method creates, initialize OpenGL part of the texture and add the created texture to the Texture cache of
+     * the engine.
+     * @note For the moment, the texture cache is indexed by the name of the texture only.
+     *
+     * @param texParameters : The description of the texture to create
+     * @param linearize : true if the texture data (texParameters.texels) must be converted from sRGB to LinearRGB
+     * @return The texture as inserted into the Radium available openGL system
      */
-    Texture* getOrLoadTexture( const TextureData& data );
+    Texture *getOrLoadTexture(const TextureParameters &texParameters, bool linearize = false);
 
     /**
      * Delete a named texture from the manager
@@ -103,16 +91,16 @@ class RA_ENGINE_API TextureManager final {
     TextureManager();
     ~TextureManager();
 
-    /** Load a given filename and return the associated TextureData.
+    /** Load a texture as described by texParameters.
     * @note : only loads 2D image file for now.
-    * @param filename
-    * @return
+    * @param texParameters parameters describing the texture to laod. This paremeters will be updated
+     * (width, height, ...) according to the loaded file properties.
     */
-    TextureData loadTexture( const std::string& filename );
+    void loadTexture( TextureParameters& texParameters );
 
 private:
     std::map<std::string, Texture*> m_textures;
-    std::map<std::string, TextureData> m_pendingTextures;
+    std::map<std::string, TextureParameters> m_pendingTextures;
     std::map<std::string, void*> m_pendingData;
 
     bool m_verbose;

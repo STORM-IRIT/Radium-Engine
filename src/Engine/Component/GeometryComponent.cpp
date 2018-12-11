@@ -1,7 +1,7 @@
 #include <Engine/Component/GeometryComponent.hpp>
 
 #include <iostream>
-#include <numeric> // std::iota
+//#include <numeric> // std::iota
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/File/FileData.hpp>
@@ -19,9 +19,11 @@
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
+
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
+
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
@@ -33,9 +35,9 @@ namespace Ra {
 namespace Engine {
 GeometryComponent::GeometryComponent( const std::string& name, bool deformable, Entity* entity ) :
     Component( name, entity ),
-    m_deformable( deformable ) {}
+    m_deformable{ deformable } {}
 
-GeometryComponent::~GeometryComponent() {}
+GeometryComponent::~GeometryComponent() = default;
 
 void GeometryComponent::initialize() {}
 
@@ -69,11 +71,11 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     auto displayMesh = Ra::Core::make_shared<Mesh>( meshName /*, Mesh::RM_POINTS*/ );
 
     Ra::Core::TriangleMesh mesh;
-    Ra::Core::Transform T = data->getFrame();
-    Ra::Core::Transform N;
-    N.matrix() = ( T.matrix() ).inverse().transpose();
+    const auto T = data->getFrame();
+    const Ra::Core::Transform N(( T.matrix() ).inverse().transpose());
 
     mesh.vertices().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+
 #pragma omp parallel for
     for ( uint i = 0; i < data->getVerticesSize(); ++i )
     {
@@ -90,11 +92,12 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
         }
     }
 
-    mesh.m_triangles.resize( data->getFaces().size(), Ra::Core::Triangle::Zero() );
+    const auto &faces = data->getFaces();
+    mesh.m_triangles.resize( faces.size(), Ra::Core::Triangle::Zero() );
 #pragma omp parallel for
-    for ( uint i = 0; i < data->getFaces().size(); ++i )
+    for ( uint i = 0; i < faces.size(); ++i )
     {
-        mesh.m_triangles[i] = data->getFaces()[i].head<3>();
+        mesh.m_triangles[i] = faces[i].head<3>();
     }
 
     displayMesh->loadGeometry( mesh );
@@ -148,7 +151,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     } else
     {
         auto mat =
-            Ra::Core::make_shared<BlinnPhongMaterial>( data->getName() + "_DefaulBPMaterial" );
+            Ra::Core::make_shared<BlinnPhongMaterial>( data->getName() + "_DefaultBPMaterial" );
         mat->m_kd = Ra::Core::Colors::Grey();
         mat->m_ks = Ra::Core::Colors::White();
         rt.setMaterial( mat );
@@ -172,11 +175,11 @@ const Ra::Core::TriangleMesh& GeometryComponent::getMesh() const {
     return getDisplayMesh().getGeometry();
 }
 
-void GeometryComponent::setDeformable( const bool b ) {
+void GeometryComponent::setDeformable(bool b) {
     this->m_deformable = b;
 }
 
-void GeometryComponent::setContentName( const std::string name ) {
+void GeometryComponent::setContentName(const std::string &name) {
     this->m_contentName = name;
 }
 
@@ -239,7 +242,7 @@ Ra::Core::TriangleMesh* GeometryComponent::getMeshRw() {
     return &( getDisplayMesh().getGeometry() );
 }
 
-void GeometryComponent::setMeshInput( const Ra::Core::TriangleMesh* meshptr ) {
+void GeometryComponent::setMeshInput(const Core::TriangleMesh *meshptr) {
     CORE_ASSERT( meshptr, " Input is null" );
     CORE_ASSERT( m_deformable, "Mesh is not deformable" );
 

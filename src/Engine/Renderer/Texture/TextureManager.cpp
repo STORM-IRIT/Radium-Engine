@@ -18,146 +18,107 @@ TextureManager::~TextureManager() {
     m_textures.clear();
 }
 
-TextureData& TextureManager::addTexture( const std::string& name, int width, int height,
+TextureParameters& TextureManager::addTexture( const std::string& name, uint width, uint height,
                                          void* data ) {
-    TextureData texData;
+    TextureParameters texData;
     texData.name = name;
     texData.width = width;
     texData.height = height;
-    texData.data = data;
+    texData.texels = data;
 
     m_pendingTextures[name] = texData;
 
     return m_pendingTextures[name];
 }
 
-TextureData TextureManager::loadTexture( const std::string& filename ){
-    TextureData texData;
-    texData.name = filename;
-
+void TextureManager::loadTexture( TextureParameters& texParameters ) {
     stbi_set_flip_vertically_on_load( true );
-
-    int  n;
-    unsigned char* data = stbi_load( filename.c_str(), &(texData.width), &(texData.height), &n, 0 );
+    int n;
+    unsigned char* data = stbi_load( texParameters.name.c_str(), (int*)( &( texParameters.width ) ),
+                                     (int*)( &( texParameters.height ) ), &n, 0 );
 
     if ( !data )
     {
-        LOG( logERROR ) << "Something went wrong when loading image \"" << filename << "\".";
-        texData.width = texData.height = -1;
-        return texData;
+        LOG( logERROR ) << "Something went wrong when loading image \"" << texParameters.name
+                        << "\".";
+        texParameters.width = texParameters.height = 0;
+        return;
     }
 
     switch ( n )
     {
     case 1:
     {
-        texData.format = GL_RED;
-        texData.internalFormat = GL_R8;
+        texParameters.format = GL_RED;
+        texParameters.internalFormat = GL_R8;
     }
-        break;
+    break;
 
     case 2:
     {
-        texData.format = GL_RG;
-        texData.internalFormat = GL_RG8;
+        texParameters.format = GL_RG;
+        texParameters.internalFormat = GL_RG8;
     }
-        break;
+    break;
 
     case 3:
     {
-        texData.format = GL_RGB;
-        texData.internalFormat = GL_RGB8;
+        texParameters.format = GL_RGB;
+        texParameters.internalFormat = GL_RGB8;
     }
-        break;
+    break;
 
     case 4:
     {
-        texData.format = GL_RGBA;
-        texData.internalFormat = GL_RGBA8;
+        texParameters.format = GL_RGBA;
+        texParameters.internalFormat = GL_RGBA8;
     }
-        break;
+    break;
     default:
     {
-        texData.format = GL_RGBA;
-        texData.internalFormat = GL_RGBA8;
+        texParameters.format = GL_RGBA;
+        texParameters.internalFormat = GL_RGBA8;
     }
-        break;
+    break;
     }
 
     if ( m_verbose )
     {
-        LOG( logINFO ) << "Image stats (" << filename << ") :\n"
+        LOG( logINFO ) << "Image stats (" << texParameters.name << ") :\n"
                        << "\tPixels : " << n << std::endl
-                       << "\tFormat : " << texData.format <<  std::endl
-                       << "\tSize   : " << texData.width << ", " << texData.height;
+                       << "\tFormat : " << texParameters.format << std::endl
+                       << "\tSize   : " << texParameters.width << ", " << texParameters.height;
     }
 
     CORE_ASSERT( data, "Data is null" );
-    texData.data = data;
-    texData.type = GL_UNSIGNED_BYTE;
-    return texData;
+    texParameters.texels = data;
+    texParameters.type = GL_UNSIGNED_BYTE;
 }
 
-Texture* TextureManager::getOrLoadTexture( const TextureData& data ) {
-    m_pendingTextures[data.name] = data;
-    return getOrLoadTexture( data.name );
-}
-
-/// FIXME : for the moment, Texture name is equivalent to file name if the texture is loaded by the manager.
-/// Must allow to differentiates the two.
-Texture* TextureManager::getOrLoadTexture( const std::string& filename ) {
-    Texture* ret = nullptr;
-    auto it = m_textures.find( filename );
-
+Texture* TextureManager::getOrLoadTexture(const TextureParameters &texParameters, bool linearize) {
+    auto it = m_textures.find( texParameters.name );
     if ( it != m_textures.end() )
     {
-        ret = it->second;
-    } else {
-        auto makeTexture = [](const TextureData &data) -> Texture* {
-            Texture* tex = new Texture( data.name );
-            tex->internalFormat = data.internalFormat;
-            tex->dataType = data.type;
-            tex->minFilter = data.minFilter;
-            tex->magFilter = data.magFilter;
-            tex->wrapS = data.wrapS;
-            tex->wrapT = data.wrapT;
-            tex->Generate( data.width, data.height, data.format, data.data );
-            return tex;
-        };
-
-        auto pending = m_pendingTextures.find( filename );
-        if ( pending != m_pendingTextures.end() )
-        {
-            auto data = pending->second;
-
-            bool freedata = false;
-            if (data.data == nullptr) {
-
-                auto stbidata = loadTexture(data.name);
-                data.width = stbidata.width;
-                data.height = stbidata.height;
-                data.data = stbidata.data;
-                data.type = stbidata.type;
-                data.format = stbidata.format;
-                data.internalFormat = stbidata.internalFormat;
-
-                freedata = true;
-            }
-
-            ret = makeTexture(data);
-
-            if (freedata)
-                stbi_image_free( data.data );
-
-            m_pendingTextures.erase( filename );
-        } else {
-            auto data = loadTexture(filename);
-            ret = makeTexture(data);
-            stbi_image_free( data.data );
-        }
-        /// FIXME : should it be data.name ?
-        m_textures[filename] = ret;
+        return it->second;
     }
+    auto makeTexture = []( TextureParameters& data, bool linearize ) -> Texture* {
+        auto tex = new Texture( data );
+        tex->initializeGL(linearize);
+        return tex;
+    };
+    TextureParameters texparams = texParameters;
+    // TODO : allow to keep texels in texture parameters with automatic lifetime management.
+    bool freeTexels = false;
+    if (texparams.texels == nullptr) {
+        loadTexture( texparams );
+        freeTexels = true;
+    }
+    auto ret = makeTexture( texparams, linearize );
+    if (freeTexels) {
+        stbi_image_free( ret->m_textureParameters.texels );
+        ret->m_textureParameters.texels = nullptr;
+    }
+    m_textures[texParameters.name] = ret;
     return ret;
 }
 
@@ -175,7 +136,7 @@ void TextureManager::deleteTexture( Texture* texture ) {
     deleteTexture( texture->getName() );
 }
 
-void TextureManager::updateTextureContent(const std::string &texture, void *content) {
+void TextureManager::updateTextureContent( const std::string& texture, void* content ) {
     CORE_ASSERT( m_textures.find( texture ) != m_textures.end(),
                  "Trying to update non existing texture" );
     m_pendingData[texture] = content;

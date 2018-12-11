@@ -22,10 +22,10 @@ namespace IO {
 class RA_IO_API AssimpAnimationDataLoader : public Asset::DataLoader<Asset::AnimationData> {
   public:
     /// CONSTRUCTOR
-    AssimpAnimationDataLoader( const bool VERBOSE_MODE = false );
+    explicit AssimpAnimationDataLoader( const bool VERBOSE_MODE = false );
 
     /// DESTRUCTOR
-    ~AssimpAnimationDataLoader();
+    ~AssimpAnimationDataLoader() override;
 
     /// LOADING
     void loadData( const aiScene* scene,

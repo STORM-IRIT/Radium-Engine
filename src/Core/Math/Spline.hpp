@@ -28,8 +28,7 @@ class Spline {
 
   public:
     /// Type of the nodal vector
-    /// @param k : order of the spline (minimum is two)
-    /// @param node_type : nodal vector type (uniform, open_uniform)
+    /// @param type : nodal vector type (uniform, open_uniform)
     /// This will define the behavior of the spline with its control points
     /// as well as its speed according to its parameter.
     inline Spline( Type type = OPEN_UNIFORM );

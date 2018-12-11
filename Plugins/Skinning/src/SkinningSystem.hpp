@@ -53,7 +53,7 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
                 component->handleWeightsLoading( skel );
                 registerComponent( entity, component );
 
-                SkinningDisplayComponent* display = new SkinningDisplayComponent(
+                /*SkinningDisplayComponent* display = */new SkinningDisplayComponent(
                     "SkC_DSP_" + skel->getName(), skel->getName(), entity );
                 // display->display( component->getRefData() );
             }

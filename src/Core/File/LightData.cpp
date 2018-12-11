@@ -1,13 +1,5 @@
 #include <Core/File/LightData.hpp>
 
-#if 0
-// this will add a dependence on the core to the engine. Not a good idea ...
-#    include <Engine/Renderer/Light/DirLight.hpp>
-#    include <Engine/Renderer/Light/Light.hpp>
-#    include <Engine/Renderer/Light/PointLight.hpp>
-#    include <Engine/Renderer/Light/SpotLight.hpp>
-#endif
-
 namespace Ra {
 namespace Asset {
 

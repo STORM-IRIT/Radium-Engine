@@ -1,5 +1,8 @@
 # Radium-Engine
-Coolest engine ever made #yolo #swag
+Research 3D Engine for rendering, animation and processing.
+Devopped and maintained by the [STORM research group](https://www.irit.fr/STORM/site/).
+
+[![Build Status (linux-macosx)](https://travis-ci.org/STORM-IRIT/Radium-Engine.svg?branch=master-v1)](https://travis-ci.org/STORM-IRIT/Radium-Engine) [![Build status(windows)](https://ci.appveyor.com/api/projects/status/y782apb6urx0krj3/branch/master-v1?svg=true)](https://ci.appveyor.com/project/nmellado/radium-engine/branch/master-v1) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/faf8701c9fb142f7b6215871ec40c5fe)](https://app.codacy.com/app/STORM/Radium-Engine?utm_source=github.com&utm_medium=referral&utm_content=STORM-IRIT/Radium-Engine&utm_campaign=Badge_Grade_Dashboard)
 
 See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelmgNEn7obiBv_E4bmcMl3mXeJPVgc/edit?usp=sharing)
 for an overview of the project.
@@ -57,9 +60,8 @@ Plugins are generated in `bin/Plugins`.
 
 ### Configure build
 
-Radium offers two build options which are off by default :
+Radium offers the following build option (off by default) :
 * `RADIUM_WITH_DOUBLE_PRECISION` sets the floating point format to double-precision instead of single precisition
-* `RADIUM_WITH_OMP` instructs the compiler to use OpenMP
 
 ###  Building on Linux/MacOS (command line instruction)
 

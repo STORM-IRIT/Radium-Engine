@@ -17,12 +17,15 @@ class Mesh;
 
 namespace Ra {
 namespace Engine {
-class RA_ENGINE_API DebugRender {
+  /** This allow to draw debug objects.
+   * @todo : port this to a more Radium-style code
+   */
+class RA_ENGINE_API DebugRender final {
     RA_SINGLETON_INTERFACE( DebugRender );
 
   public:
     DebugRender();
-    virtual ~DebugRender();
+    ~DebugRender();
 
     void initialize();
     void render( const Core::Matrix4& view, const Core::Matrix4& proj );
@@ -55,9 +58,9 @@ class RA_ENGINE_API DebugRender {
   private:
     struct Line {
         Line( const Core::Vector3& la, const Core::Vector3& lb, const Core::Color& lcol ) :
-            a( la ),
-            b( lb ),
-            col( lcol ) {}
+            a { la },
+            b { lb },
+            col { lcol } {}
 
         Core::Vector3 a, b;
         Core::Color col;

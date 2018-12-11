@@ -19,16 +19,19 @@ class ShaderProgram;
 
 namespace Ra {
 namespace Engine {
+  /**
+   * Management of shader parameters
+   */
 class RA_ENGINE_API RenderParameters final {
   public:
     class Parameter {
       public:
         Parameter() = default;
-        Parameter( const char* name ) : m_name( name ) {}
+        explicit Parameter( const char* name ) : m_name( name ) {}
         virtual ~Parameter() = default;
         virtual void bind( const ShaderProgram* shader ) const = 0;
 
-        const char* m_name;
+        const char* m_name {nullptr};
     };
 
     template <typename T>
@@ -36,10 +39,10 @@ class RA_ENGINE_API RenderParameters final {
       public:
         TParameter() = default;
         TParameter( const char* name, const T& value ) : Parameter( name ), m_value( value ) {}
-        ~TParameter() = default;
+        ~TParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        T m_value;
+        T m_value {};
     };
 
     class TextureParameter final : public Parameter {
@@ -49,11 +52,12 @@ class RA_ENGINE_API RenderParameters final {
             Parameter( name ),
             m_texture( tex ),
             m_texUnit( texUnit ) {}
-        ~TextureParameter() = default;
+
+        ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        Texture* m_texture;
-        int m_texUnit;
+        Texture* m_texture {nullptr};
+        int m_texUnit {-1};
     };
 
     template <typename T>
@@ -65,14 +69,15 @@ class RA_ENGINE_API RenderParameters final {
         void bind( const ShaderProgram* shader ) const;
     };
 
-    typedef TParameter<int> IntParameter;
-    typedef TParameter<uint> UIntParameter;
-    typedef TParameter<Scalar> ScalarParameter;
+    using IntParameter = TParameter<int>;
+    using UIntParameter = TParameter<uint>;
+    using ScalarParameter = TParameter<Scalar> ;
 
-    typedef TParameter<std::vector<int>> IntsParameter;
-    typedef TParameter<std::vector<uint>> UIntsParameter;
+    using IntsParameter = TParameter<std::vector<int>>;
+    using UIntsParameter = TParameter<std::vector<uint>>;
+
     //! globjects seems to not handle vector of double
-    typedef TParameter<std::vector<float>> ScalarsParameter;
+    using ScalarsParameter = TParameter<std::vector<float>>;
 
     using Vec2Parameter = TParameter<Core::Vector2>;
     using Vec3Parameter = TParameter<Core::Vector3>;
@@ -125,7 +130,7 @@ class RA_ENGINE_API RenderParameters final {
     }
 
   private:
-    // FIXME(Charly): Any way to simplify this a bit ?
+    // Radium V2 : Any way to simplify this a bit ?
     UniformBindableVector<IntParameter> m_intParamsVector;
     UniformBindableVector<UIntParameter> m_uintParamsVector;
     UniformBindableVector<ScalarParameter> m_scalarParamsVector;

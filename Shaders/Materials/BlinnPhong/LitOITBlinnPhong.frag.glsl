@@ -13,26 +13,32 @@ layout (location = 4) in vec3 in_viewVector;
 layout (location = 5) in vec3 in_lightVector;
 
 
+float weight(float z, float alpha) {
+
+     // pow(alpha, colorResistance) : increase colorResistance if foreground transparent are affecting background transparent color
+     // clamp(adjust / f(z), min, max) :
+     //     adjust : Range adjustment to avoid saturating at the clamp bounds
+     //     clamp bounds : to be tuned to avoid over or underflow of the reveleage texture.
+     // f(z) = 1e-5 + pow(z/depthRange, orederingStrength)
+     //     defRange : Depth range over which significant ordering discrimination is required. Here, 10 camera space units.
+     //         Decrease if high-opacity surfaces seem “too transparent”,
+     //         increase if distant transparents are blending together too much.
+     //     orderingStrength : Ordering strength. Increase if background is showing through foreground too much.
+     // 1e-5 + ... : avoid dividing by zero !
+
+     return pow(alpha, 0.5) * clamp(10 / ( 1e-5 + pow(z/10, 6)  ), 1e-2, 3*1e3);
+ }
+
 void main()
 {
 
-    if (toDiscard(material, in_texcoord.xy) || material.alpha < 0.01)
+    // compute the transparency factor
+    float a             = material.alpha;
+    // discard fully transparent fragment
+    if (toDiscard(material, in_texcoord.xy) || a < 0.01)
     {
         discard;
     }
-
-    float a             = material.alpha;
-    float z             = -in_position.z;
-
-    float va            = (a + 0.01f);
-    float va2           = va * va;
-    float va4           = va2 * va2; // Pow4
-
-    float vz            = abs(z) / 200.0f;
-    float vz2           = vz * vz;
-    float vz4           = vz2 * vz2;
-
-    float w             = va4 + clamp(0.3f / (0.00001f + vz4), 0.01, 3000.0);
 
     vec3 binormal       = normalize(cross(in_normal, in_tangent));
     vec3 normalLocal    = getNormal(material, in_texcoord.xy, in_normal, in_tangent, binormal);
@@ -41,9 +47,10 @@ void main()
 
     vec3 materialColor  = computeMaterialInternal(material, in_texcoord.xy, in_lightVector, in_viewVector,
                                                   normalLocal, tangentLocal, binormalLocal);
-
     vec3 contribution   = lightContributionFrom(light, in_position);
 
-    f_Accumulation      = vec4(materialColor * contribution * a, a) * w;
-    f_Revealage         = vec4(a);
+    float w             = weight(gl_FragCoord.z, a);
+    f_Accumulation     = vec4(materialColor * contribution * a , a) * w;
+    f_Revealage        = vec4(a);
+
 }

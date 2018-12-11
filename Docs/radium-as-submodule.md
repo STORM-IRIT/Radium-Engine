@@ -105,7 +105,6 @@ ExternalProject_Add(
         SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine"
         # set the compilation options
         CMAKE_ARGS
-            -DRADIUM_WITH_OMP=${MY_WITH_OMP}
             -DRADIUM_WARNINGS_AS_ERRORS=${MY_WARNINGS_AS_ERRORS}
             -DRADIUM_ASSIMP_SUPPORT=${MY_ASSIMP_SUPPORT}
             -DRADIUM_TINYPLY_SUPPORT=${MY_TINYPLY_SUPPORT}
@@ -118,7 +117,7 @@ ExternalProject_Add(
 	INSTALL_COMMAND cmake -E echo "Skipping install step."
 )
 ```
-Then you have to setup manually all the variables that would have been setted up by `find_package`:
+Then you have to setup manually all the variables that would have been set up by `find_package`:
 ```cmake
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}

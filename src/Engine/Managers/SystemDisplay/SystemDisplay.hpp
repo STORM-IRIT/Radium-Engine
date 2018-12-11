@@ -26,9 +26,9 @@ namespace Engine {
 /// Component for debug drawing. @see SystemEntity.
 class RA_ENGINE_API DebugComponent : public Component {
   public:
-    DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
+    explicit DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
 
-    void initialize() override {}
+    void initialize() override {};
 
     /// Access render object through RO manager
     RenderObject* getRenderObject( Core::Index idx );
@@ -39,7 +39,7 @@ class RA_ENGINE_API DebugComponent : public Component {
 /// Component for UI drawing. @see SystemEntity.
 class RA_ENGINE_API UiComponent : public Component {
   public:
-    UiComponent( Entity* entity ) : Component( "UI", entity ) {}
+    explicit UiComponent( Entity* entity ) : Component( "UI", entity ) {}
 
     void initialize() override {}
 };
@@ -52,10 +52,10 @@ class RA_ENGINE_API SystemEntity : public Entity {
   public:
     SystemEntity();
 
-    virtual ~SystemEntity(){};
+    ~SystemEntity() override = default;
 
     /// Ignore raycast queries
-    virtual void rayCastQuery( const Core::Ray& r ) const override {}
+    void rayCastQuery( const Core::Ray& r ) const override {}
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
     /// Access the debug component

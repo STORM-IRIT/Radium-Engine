@@ -13,7 +13,6 @@
 #include <string>
 
 namespace globjects {
-class File;
 class Shader;
 class Program;
 class NamedString;
@@ -23,6 +22,11 @@ namespace Ra {
 namespace Engine {
 class Texture;
 
+/**
+ * Abstraction of OpenGL Shader Program
+ * @see globjects::Program and https://www.khronos.org/opengl/wiki/Shader
+ *
+ */
 class RA_ENGINE_API ShaderProgram final {
   public:
     ShaderProgram();
@@ -64,9 +68,24 @@ class RA_ENGINE_API ShaderProgram final {
 
     void setUniform( const char* name, Texture* tex, int texUnit ) const;
 
+    //! use automatic texture unit computation
+    //! if you want to send a particular texture unit, use setUniform.
+    //! It binds tex on an "arbitrary" tex unit.
+    //! @warning, call a std::map::find (in O(log(active tex unit in the shader)))
+    void setUniformTexture( const char* name, Texture* tex ) const;
+
     globjects::Program* getProgramObject() const;
 
   private:
+    struct TextureBinding {
+        int m_texUnit{-1};
+        int m_location{-1};
+        TextureBinding( int unit, int location ) : m_texUnit{ unit }, m_location { location } {}
+        TextureBinding() = default;
+    };
+    using TextureUnits = std::map<std::string, TextureBinding>;
+    TextureUnits textureUnits;
+
     void loadShader( ShaderType type, const std::string& name, const std::set<std::string>& props,
                      const std::vector<std::pair<std::string, ShaderType>>& includes,
                      const std::string& version = "#version 410" );

@@ -19,7 +19,7 @@ class RA_IO_API AssimpFileLoader : public Asset::FileLoaderInterface {
   public:
     AssimpFileLoader();
 
-    virtual ~AssimpFileLoader();
+    ~AssimpFileLoader() override;
 
     std::vector<std::string> getFileExtensions() const override;
     bool handleFileExtension( const std::string& extension ) const override;

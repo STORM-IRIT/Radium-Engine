@@ -12,10 +12,10 @@ template <class DATA>
 class DataLoader {
   public:
     /// CONSTRUCTOR
-    DataLoader( const bool VERBOSE_MODE = false ) : m_verbose( VERBOSE_MODE ) {}
+    explicit DataLoader( const bool VERBOSE_MODE = false ) : m_verbose( VERBOSE_MODE ) {}
 
     /// DESTRUCTOR
-    ~DataLoader() {}
+    virtual ~DataLoader() = default;
 
     /// INTERFACE
     virtual void loadData( const aiScene* scene, std::vector<std::unique_ptr<DATA>>& data ) = 0;

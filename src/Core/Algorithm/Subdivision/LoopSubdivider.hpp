@@ -30,7 +30,7 @@ class RA_CORE_API LoopSubdivider
   public:
     LoopSubdivider() : base() { init_weights(); }
 
-    LoopSubdivider( TopologicalMesh& mesh ) : base() {
+    explicit LoopSubdivider( TopologicalMesh& mesh ) : base() {
         init_weights();
         attach( mesh );
     }
@@ -101,22 +101,22 @@ class RA_CORE_API LoopSubdivider
     // topological modifiers
 
     /// Face recomposition
-    void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh, int iter );
+    void split_face(TopologicalMesh &mesh, const TopologicalMesh::FaceHandle &fh, size_t iter);
 
     /// Face corner recomposition
-    void corner_cutting( TopologicalMesh& mesh, const TopologicalMesh::HalfedgeHandle& he,
-                         int iter );
+    void corner_cutting(TopologicalMesh &mesh, const TopologicalMesh::HalfedgeHandle &he,
+                        size_t iter);
 
     /// Edge recomposition
-    void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, int iter );
+    void split_edge(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh, size_t iter);
 
     // geometry helpers
 
     /// compute edge midpoint
-    void compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, int iter );
+    void compute_midpoint(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh, size_t iter);
 
     /// smooth input vertices
-    void smooth( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh, int iter );
+    void smooth(TopologicalMesh &mesh, const TopologicalMesh::VertexHandle &vh, size_t iter);
 
   private:
     /// old vertex new position

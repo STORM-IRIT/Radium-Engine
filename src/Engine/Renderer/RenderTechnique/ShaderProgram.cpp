@@ -1,12 +1,13 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
+#include <globjects/base/File.h>
+#include <globjects/base/StaticStringSource.h>
+
 #include <globjects/NamedString.h>
 #include <globjects/Program.h>
 #include <globjects/Shader.h>
 #include <globjects/Texture.h>
 
-#include <globjects/base/File.h>
-#include <globjects/base/StaticStringSource.h>
 
 #include <regex>
 
@@ -24,21 +25,21 @@
 
 #include <Engine/Renderer/Texture/Texture.hpp>
 
+#include <numeric> // for std::accumulate
+
 namespace Ra {
 namespace Engine {
 
-ShaderProgram::ShaderProgram() : m_program( nullptr ) {
-    for ( uint i = 0; i < m_shaderObjects.size(); ++i )
-    {
-        m_shaderObjects[i] = nullptr;
-    }
+ShaderProgram::ShaderProgram() : m_program { nullptr } {
+    std::fill(m_shaderObjects.begin(), m_shaderObjects.end(), nullptr);
 }
 
-ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgram() {
+ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) :  m_program { nullptr } {
+    std::fill(m_shaderObjects.begin(), m_shaderObjects.end(), nullptr);
     load( config );
 }
 
-ShaderProgram::~ShaderProgram() {}
+ShaderProgram::~ShaderProgram() = default;
 
 void ShaderProgram::loadShader( ShaderType type, const std::string& name,
                                 const std::set<std::string>& props,
@@ -47,17 +48,16 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
 #ifdef OS_MACOS
     if ( type == ShaderType_COMPUTE )
     {
-        LOG( logERROR ) << "No compute shader on OsX <= El Capitan";
+        LOG( logERROR ) << "No compute shader on OsX !";
         return;
     }
 #endif
-    // FIXME : --> for the moment : standard includepaths. Might be controlled per shader ...
+    // Radium V2 --> for the moment : standard includepaths. Might be controlled per shader ...
     // Paths in which globjects will be looking for shaders includes.
     // "/" refer to the root of the directory structure conaining the shader (i.e. the Shaders/
     // directory).
     globjects::Shader::IncludePaths includePaths{std::string( "/" )};
 
-    // FIXED : use auto instead of the fully qualified type
     auto loadedSource = globjects::Shader::sourceFromFile( name );
 
     // header string that contains #version and pre-declarations ...
@@ -74,29 +74,34 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     { shaderHeader = std::string( version + "\n\n" ); }
 
     // Add properties at the beginning of the file.
-    for ( const auto& prop : props )
-    {
-        shaderHeader = shaderHeader + prop + std::string( "\n\n" );
-    }
+    shaderHeader = std::accumulate(props.begin(), props.end(), shaderHeader,
+                           [](std::string a, const std::string& b) {
+                               return std::move(a) + b + std::string("\n");
+                           }
+                   );
 
     // Add includes, depending on the shader type.
-    for ( const auto& incl : includes )
-    {
-        if ( incl.second == type )
-        {
-            shaderHeader = shaderHeader + incl.first + std::string( "\n\n" );
-        }
-    }
+    shaderHeader = std::accumulate(includes.begin(), includes.end(), shaderHeader,
+                                   [type](std::string a, const std::pair<std::string, ShaderType>& b) -> std::string {
+                                        if (b.second == type ) {
+                                            return std::move(a) + b.first + std::string("\n");
+                                        } else {
+                                            return std::move(a);
+                                        }
+                                   }
+    );
+
 
     auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
 
-    // FIXME Where are defined the global replacement?
+    // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
 
     auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
     shader->setIncludePaths( {std::string( "/" )} );
 
     // Workaround globject #include bug ...
+    // Radium V2 : update globject to see if tis bug is always here ...
     std::string preprocessedSource = preprocessIncludes( name, shaderSource->string(), 0 );
 
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
@@ -173,7 +178,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( m_configuration.m_shaders[i] != "" )
+        if ( ! m_configuration.m_shaders[i].empty() )
         {
             LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
             loadShader( ShaderType( i ), m_configuration.m_shaders[i],
@@ -183,6 +188,24 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     }
 
     link();
+
+    int texUnit = 0;
+    auto total = GLuint( m_program->get( GL_ACTIVE_UNIFORMS ) );
+    textureUnits.clear();
+
+    for ( GLuint i = 0; i < total; ++i )
+    {
+        auto name = m_program->getActiveUniformName( i );
+        auto type = m_program->getActiveUniform( i, GL_UNIFORM_TYPE );
+
+        //!\todo add other sampler type (or manage all type of sampler automatically)
+        if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
+             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D || type == GL_SAMPLER_CUBE_SHADOW )
+        {
+            auto location = m_program->getUniformLocation( name );
+            textureUnits[name] = TextureBinding( texUnit++, location );
+        }
+    }
 }
 
 void ShaderProgram::link() {
@@ -217,14 +240,14 @@ void ShaderProgram::unbind() const {
 }
 
 void ShaderProgram::reload() {
-    for ( unsigned int i = 0; i < m_shaderObjects.size(); ++i )
+    for ( auto & s : m_shaderObjects )
     {
-        if ( m_shaderObjects[i] != nullptr )
+        if ( s != nullptr )
         {
-            LOG( logDEBUG ) << "Reloading shader " << m_shaderObjects[i]->name();
+            LOG( logDEBUG ) << "Reloading shader " << s->name();
 
-            m_program->detach( m_shaderObjects[i].get() );
-            loadShader( getGLenumAsType( m_shaderObjects[i]->type() ), m_shaderObjects[i]->name(),
+            m_program->detach( s.get() );
+            loadShader( getGLenumAsType( s->type() ), s->name(),
                         m_configuration.getProperties(), m_configuration.getIncludes() );
         }
     }
@@ -254,9 +277,7 @@ void ShaderProgram::setUniform( const char* name, float value ) const {
 }
 
 void ShaderProgram::setUniform( const char* name, double value ) const {
-    float v = static_cast<float>( value );
-
-    m_program->setUniform( name, v );
+    m_program->setUniform( name, static_cast<float>( value ) );
 }
 
 //!
@@ -280,9 +301,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const {
-    Core::Vector2f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const {
@@ -290,9 +309,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const {
-    Core::Vector3f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const {
@@ -300,9 +317,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const {
-    Core::Vector4f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const {
@@ -310,9 +325,7 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const {
-    Core::Matrix2f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const {
@@ -330,15 +343,23 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) 
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const {
-    Core::Matrix4f v = value.cast<float>();
-
-    m_program->setUniform( name, Core::toGlm( v ) );
+    m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
+
 
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
     tex->bind( texUnit );
 
     m_program->setUniform( name, texUnit );
+}
+
+void ShaderProgram::setUniformTexture( const char* name, Texture* tex ) const {
+    auto itr = textureUnits.find( std::string( name ) );
+    if ( itr != textureUnits.end() )
+    {
+        tex->bind( itr->second.m_texUnit );
+        m_program->setUniform( itr->second.m_location, itr->second.m_texUnit );
+    }
 }
 
 globjects::Program* ShaderProgram::getProgramObject() const {
@@ -352,7 +373,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
                                                int level, int line ) {
     CORE_ERROR_IF( level < 32, "Shader inclusion depth limit reached." );
 
-    std::string result = "";
+    std::string result {};
     std::vector<std::string> finalStrings;
     auto shaderLines = Core::StringUtils::splitString( shader, '\n' );
     finalStrings.reserve( shaderLines.size() );
@@ -363,17 +384,17 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
 
     for ( const auto& l : shaderLines )
     {
-        std::string line = l;
+        std::string codeline = l;
         std::smatch match;
         if ( std::regex_search( l, match, reg ) )
         {
-            // FIXME : use the includePaths set elsewhere.
+            // Radium V2 : for composable shaders, use the includePaths set elsewhere.
             auto includeNameString =
                 globjects::NamedString::getFromRegistry( std::string( "/" ) + match[1].str() );
             if ( includeNameString != nullptr )
             {
 
-                line =
+                codeline =
                     preprocessIncludes( match[1].str(), includeNameString->string(), level + 1, 0 );
 
             } else
@@ -382,6 +403,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
                                   << nline << " of file " << name << ". Ignored.";
                 continue;
             }
+            // Radium V2, adapt this if globjct includes bug is still present
             /*
              std::string inc;
              std::string file = m_filepath + match[1].str();
@@ -402,7 +424,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
              */
         }
 
-        finalStrings.push_back( line );
+        finalStrings.push_back( codeline );
         ++nline;
     }
 

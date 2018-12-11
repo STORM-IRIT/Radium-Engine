@@ -5,19 +5,12 @@
 #include <string>
 #include <vector>
 
-#include <Core/Containers/VectorArray.hpp>
+#include <Core/RaCore.hpp>
 #include <Core/File/AssetData.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/RaCore.hpp>
-#include <Engine/Entity/Entity.hpp>
+
 
 namespace Ra {
-#if 0
-namespace Engine {
-class Light;
-}
-#endif
-
 namespace Asset {
 
   /**
@@ -34,7 +27,9 @@ class RA_CORE_API LightData : public AssetData {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    /// Supported light type
+    /** Supported light type
+     *
+     */
     enum LightType {
         UNKNOWN = 1 << 0,
         POINT_LIGHT = 1 << 1,
@@ -93,11 +88,7 @@ class RA_CORE_API LightData : public AssetData {
      */
     inline void setFrame( const Core::Matrix4& frame );
 
-/**
- * \defgroup HelperSetters Helper functions to set the various light parameters.
- *
- * @{
- */
+
     /**
      * Construct a directional light.
      * A directional light is only defined by its color and its lighting direction.
@@ -134,25 +125,11 @@ class RA_CORE_API LightData : public AssetData {
      */
     inline void setLight( const Core::Color &color, const Core::Vector3 &cog, const Core::Matrix3 &spatialCov,
                           const Core::Matrix3 &normalCov, LightAttenuation attenuation );
-/**@}*/
 
-/**
- * \defgroup TypeOperators Helper functions to manage the type of the light.
- * @{
- */
     /**
     * Access to the type of the object
     */
     inline LightType getType() const;
-
-    /**
-    * Modify the type of a light asset after its creation.
-    * \note Beware of the risk of data inconsistancy when using the operator. As a LightData object is a union like
-    * object, caller of this method must explicitely ensure a consistancy invariant over its object as the LightData
-    * class could not ensure such an invariant when this method is called.
-    * @param type the type to set.
-    */
-    [[deprecated( "Do not change the type of a LightData, use setLight that ensures data coherency." )]] inline void setType( const LightType& type );
 
     /**
      * Returns true if the light is a PointLight
@@ -174,7 +151,7 @@ class RA_CORE_API LightData : public AssetData {
     */
     inline bool isAreaLight() const;
 
-/**@}*/
+
 
     /**
      * For debugging purpose, prints out the formated content of the LightData object.

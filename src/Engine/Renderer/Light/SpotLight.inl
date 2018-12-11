@@ -46,9 +46,7 @@ inline void Engine::SpotLight::setAttenuation( const Attenuation& attenuation ) 
 }
 
 inline void Engine::SpotLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {
-    m_attenuation.constant = constant;
-    m_attenuation.linear = linear;
-    m_attenuation.quadratic = quadratic;
+    m_attenuation = { constant, linear, quadratic };
 }
 
 inline const Engine::SpotLight::Attenuation& Engine::SpotLight::getAttenuation() const {

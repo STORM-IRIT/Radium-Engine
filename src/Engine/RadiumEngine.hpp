@@ -13,8 +13,6 @@
 namespace Ra {
 namespace Core {
 class TaskQueue;
-struct MouseEvent;
-struct KeyEvent;
 } // namespace Core
 
 namespace Engine {
@@ -35,6 +33,10 @@ class FileData;
 
 namespace Ra {
 namespace Engine {
+/**
+ * Engine main class : Manage all the systems and managers that are used by the engine module.
+ * @see Documentation on Engine Object Model
+ */
 class RA_ENGINE_API RadiumEngine {
     RA_SINGLETON_INTERFACE( RadiumEngine );
 
@@ -42,9 +44,24 @@ class RA_ENGINE_API RadiumEngine {
     RadiumEngine();
     ~RadiumEngine();
 
+    /**
+     * Instantiate all object managers that make Radium Object Model functionnal.
+     * Initialize internal resources and default states.
+     */
     void initialize();
+
+    /**
+     * Free all resources acquired during initialize
+     */
     void cleanup();
 
+    /**
+     * Builds the set of task that must be executed for the current frame.
+     *
+     * @see Documentation on Engine Object Model the what are tasks and what they can do
+     * @param taskQueue the task queue that will be executed for the current frame
+     * @param dt
+     */
     void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
 
     /**
@@ -54,15 +71,28 @@ class RA_ENGINE_API RadiumEngine {
      * priority are ranked randomly.
      * Default priority is 1 for all systems;
      *
+     * @param name
+     * @param system
+     * @param priority
      */
     bool registerSystem( const std::string& name, System* system, int priority = 1 );
+
+    /**
+     * Get the named system
+     * @param system
+     * @return
+     */
     System* getSystem( const std::string& system ) const;
 
-    /// Convenience function returning a Mesh from its entity and
-    /// component names.
-    /// When no RenderObject name is given, returns the mesh associated
-    /// to the first render object.
-    Mesh* getMesh( const std::string& entityName, const std::string& componentName,
+    /** Convenience function returning a Mesh from its entity and
+     * component names.
+     * When no RenderObject name is given, returns the mesh associated
+     * to the first render object.
+     * @note : mark as deprecated as it must be either removed or reimplemented
+     * @deprecated Will be removed from this class in the next release. A Mesh manager, that could serve mesh
+     * by name will be implemented.
+     */
+    [[deprecated]] Mesh* getMesh( const std::string& entityName, const std::string& componentName,
                    const std::string& roName = std::string() ) const;
 
     /**
@@ -97,18 +127,43 @@ class RA_ENGINE_API RadiumEngine {
     void endFrameSync();
 
     /// Manager getters
+    /**
+     * Get the RenderObject manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the object manager
+     */
     RenderObjectManager* getRenderObjectManager() const;
+    /**
+     * Get the entity manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the entity manager
+     */
     EntityManager* getEntityManager() const;
+
+    /**
+     * Get the signal manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the signal manager
+     */
     SignalManager* getSignalManager() const;
 
+    /**
+     * Register a new file loader to the engine.
+     * @param fileLoader
+     */
     void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
 
+    /**
+     * Get the active file loaders from the engine
+     * @return
+     */
     const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>& getFileLoaders() const;
 
   private:
     using priority = int;
     using SystemKey = std::pair<priority, std::string>;
-    using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<SystemKey>>;
+    // use transparent functors : https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html
+    using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<>>;
 
     SystemContainer::const_iterator findSystem( const std::string& name ) const;
     SystemContainer::iterator findSystem( const std::string& name );
@@ -126,7 +181,7 @@ class RA_ENGINE_API RadiumEngine {
     std::unique_ptr<SignalManager> m_signalManager;
     std::unique_ptr<Asset::FileData> m_loadedFile;
 
-    bool m_loadingState = false;
+    bool m_loadingState { false };
 };
 
 } // namespace Engine

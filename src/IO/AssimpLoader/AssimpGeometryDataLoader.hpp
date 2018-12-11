@@ -26,9 +26,9 @@ namespace IO {
 /// to the Asset::GeometryData format.
 class RA_IO_API AssimpGeometryDataLoader : public Asset::DataLoader<Asset::GeometryData> {
   public:
-    AssimpGeometryDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    explicit AssimpGeometryDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
-    ~AssimpGeometryDataLoader();
+    ~AssimpGeometryDataLoader() override;
 
     /// Convert all the geometry data from \p scene into \p data.
     void loadData( const aiScene* scene,
@@ -54,7 +54,7 @@ class RA_IO_API AssimpGeometryDataLoader : public Asset::DataLoader<Asset::Geome
 
     /// Fill \p data with the transformation data from \p node and \p parentFrame.
     void loadMeshFrame( const aiNode* node, const Core::Transform& parentFrame,
-                        const std::map<uint, uint>& indexTable,
+                        const std::map<uint, size_t>& indexTable,
                         std::vector<std::unique_ptr<Asset::GeometryData>>& data ) const;
 
     /// Fill \p data with the name from \p mesh.
@@ -75,7 +75,6 @@ class RA_IO_API AssimpGeometryDataLoader : public Asset::DataLoader<Asset::Geome
     void fetchFaces( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
     /// Fill \p data with the polyhedra from \p mesh.
-    // FIXME: Are polyhedral meshes handled by AssImp?
     void fetchPolyhedron( const aiMesh& mesh, Asset::GeometryData& data ) const;
 
     /// Fill \p data with the vertex normals from \p mesh.

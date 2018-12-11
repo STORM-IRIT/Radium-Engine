@@ -235,7 +235,7 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // unless monothread CPU
     uint numThreads =
         std::max( m_maxThreads == 0 ? RA_MAX_THREAD : std::min( m_maxThreads, RA_MAX_THREAD ), 1u );
-    m_taskQueue.reset( new Core::TaskQueue( numThreads ) );
+    m_taskQueue = std::make_unique<Core::TaskQueue>( numThreads );
 
     setupScene();
     emit starting();
@@ -444,7 +444,7 @@ void BaseApplication::appNeedsToQuit() {
 
 void BaseApplication::initializeOpenGlPlugins() {
     // Initialize plugins that depends on Initialized OpenGL (if any)
-    if ( m_openGLPlugins.size() > 0 )
+    if ( ! m_openGLPlugins.empty() )
     {
         PluginContext context;
         context.m_engine = m_engine.get();
@@ -565,7 +565,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                         std::vector<std::shared_ptr<Engine::Renderer>> tmpR;
                         loadedPlugin->addRenderers( &tmpR );
                         CORE_ASSERT( !tmpR.empty(), "This plugin is expected to add a renderer" );
-                        for ( auto ptr : tmpR )
+                        for ( const auto &ptr : tmpR )
                         {
                             std::string name =
                                 ptr->getRendererName() + "(" + filename.toStdString() + ")";
@@ -578,7 +578,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                         std::vector<std::shared_ptr<Asset::FileLoaderInterface>> tmpL;
                         loadedPlugin->addFileLoaders( &tmpL );
                         CORE_ASSERT( !tmpL.empty(), "This plugin is expected to add file loaders" );
-                        for ( auto ptr : tmpL )
+                        for ( auto &ptr : tmpL )
                         {
                             m_engine->registerFileLoader( ptr );
                         }

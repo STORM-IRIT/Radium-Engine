@@ -12,28 +12,29 @@
 #include <Core/File/FileData.hpp>
 #include <Core/File/FileLoaderInterface.hpp>
 
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/System/System.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
 
-RadiumEngine::RadiumEngine() {}
+RadiumEngine::RadiumEngine() = default;
 
-RadiumEngine::~RadiumEngine() {}
+RadiumEngine::~RadiumEngine() = default;
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
-    m_signalManager.reset( new SignalManager );
-    m_entityManager.reset( new EntityManager );
-    m_renderObjectManager.reset( new RenderObjectManager );
+    m_signalManager = std::make_unique<SignalManager>();
+    m_entityManager = std::make_unique<EntityManager>();
+    m_renderObjectManager = std::make_unique<RenderObjectManager>();
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
     // Engine support some built-in materials. Register here
@@ -66,9 +67,7 @@ void RadiumEngine::endFrameSync() {
 
 void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     static uint frameCounter = 0;
-    FrameInfo frameInfo;
-    frameInfo.m_dt = dt;
-    frameInfo.m_numFrame = frameCounter++;
+    FrameInfo frameInfo {dt, frameCounter++};
     for ( auto& syst : m_systems )
     {
         syst.second->generateTasks( taskQueue, frameInfo );
@@ -105,10 +104,10 @@ Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& c
     // 1) Get entity
     if ( m_entityManager->entityExists( entityName ) )
     {
-        Ra::Engine::Entity* e = m_entityManager->getEntity( entityName );
+        auto e = m_entityManager->getEntity( entityName );
 
         // 2) Get component
-        const Ra::Engine::Component* c = e->getComponent( componentName );
+        const auto c = e->getComponent( componentName );
 
         if ( c != nullptr && !c->m_renderObjects.empty() )
         {
@@ -167,7 +166,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         system.second->handleAssetLoading( entity, m_loadedFile.get() );
     }
 
-    if ( entity->getComponents().size() > 0 )
+    if ( ! entity->getComponents().empty() )
     {
         for ( auto& comp : entity->getComponents() )
         {

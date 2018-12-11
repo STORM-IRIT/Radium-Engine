@@ -5,6 +5,7 @@
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Core/Containers/MakeShared.hpp>
 
 namespace AnimationPlugin {
 
@@ -15,32 +16,23 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
     m_id( id ),
     m_skel( comp->getSkeleton() ),
     m_roMgr( roMgr ) {
-    // TODO ( Val) common material / shader config...
 
-    // FIXME(Charly): Debug or fancy ?
-    Ra::Engine::RenderObject* renderObject =
-        new Ra::Engine::RenderObject( name, comp, Ra::Engine::RenderObjectType::Geometry );
+    // create the mesh
+    auto displayMesh = std::make_shared<Ra::Engine::Mesh>(  name  );
+    displayMesh->loadGeometry( makeBoneShape() );
+
+    // create the material
+    auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Bone Material" );
+    mat->m_kd = Ra::Core::Color( 0.4f, 0.4f, 0.4f, 1.f );;
+    mat->m_ks = Ra::Core::Color( 0.0f, 0.0f, 0.0f, 1.0f );
+    Ra::Engine::RenderTechnique rt;
+    rt.setMaterial( mat );
+    auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+    builder.second( rt, false );
+    auto renderObject = Ra::Engine::RenderObject::createRenderObject( name, comp, Ra::Engine::RenderObjectType::Geometry,
+                                                      displayMesh, rt);
     renderObject->setXRay( false );
 
-    Ra::Engine::ShaderConfiguration shader =
-        Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-    auto bpMaterial = new Ra::Engine::BlinnPhongMaterial( "Bone Material" );
-    m_material.reset( bpMaterial );
-    bpMaterial->m_kd = Ra::Core::Color( 0.4f, 0.4f, 0.4f, 0.5f );
-    bpMaterial->m_ks = Ra::Core::Color( 0.0f, 0.0f, 0.0f, 1.0f );
-    m_material->setMaterialAspect( Ra::Engine::Material::MaterialAspect::MAT_OPAQUE );
-
-    m_renderParams.reset( new Ra::Engine::RenderTechnique() );
-    {
-        m_renderParams->setConfiguration( shader );
-        m_renderParams->setMaterial( m_material );
-    }
-    renderObject->setRenderTechnique( m_renderParams );
-
-    std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
-
-    displayMesh->loadGeometry( makeBoneShape() );
-    renderObject->setMesh( displayMesh );
 
     m_roIdx = m_roMgr->addRenderObject( renderObject );
     updateLocalTransform();

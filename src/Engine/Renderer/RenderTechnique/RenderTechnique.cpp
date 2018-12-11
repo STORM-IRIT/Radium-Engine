@@ -4,14 +4,15 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <Core/Log/Log.hpp>
+#include "RenderTechnique.hpp"
 
 namespace Ra {
 namespace Engine {
 
 // For iterating on the enum easily
-const std::array<RenderTechnique::PassName, 3> allPasses = {RenderTechnique::Z_PREPASS,
-                                                            RenderTechnique::LIGHTING_OPAQUE,
-                                                            RenderTechnique::LIGHTING_TRANSPARENT};
+const std::array<RenderTechnique::PassName, 3> allPasses = { RenderTechnique::Z_PREPASS,
+                                                             RenderTechnique::LIGHTING_OPAQUE,
+                                                             RenderTechnique::LIGHTING_TRANSPARENT };
 
 std::shared_ptr<Ra::Engine::RenderTechnique> RadiumDefaultRenderTechnique( nullptr );
 
@@ -22,11 +23,8 @@ RenderTechnique::RenderTechnique() {
     }
 }
 
-RenderTechnique::RenderTechnique( const RenderTechnique& o ) {
-    material = o.material;
-    dirtyBits = o.dirtyBits;
-    setPasses = o.setPasses;
-
+RenderTechnique::RenderTechnique( const RenderTechnique& o ) : material {o.material},
+                                  dirtyBits {o.dirtyBits}, setPasses {o.setPasses} {
     for ( auto p : allPasses )
     {
         if ( setPasses & p )
@@ -37,7 +35,7 @@ RenderTechnique::RenderTechnique( const RenderTechnique& o ) {
     }
 }
 
-RenderTechnique::~RenderTechnique() {}
+RenderTechnique::~RenderTechnique() = default;
 
 void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig, PassName pass ) {
     shaderConfig[pass] = newConfig;
@@ -95,7 +93,7 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
         return *( RadiumDefaultRenderTechnique.get() );
     }
     std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
-    Ra::Engine::RenderTechnique* rt = new Ra::Engine::RenderTechnique;
+    auto rt = new Ra::Engine::RenderTechnique;
     rt->setMaterial( mat );
     auto builder = EngineRenderTechniques::getDefaultTechnique("BlinnPhong");
     if (!builder.first) {
@@ -104,6 +102,11 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     builder.second(*rt, false);
     RadiumDefaultRenderTechnique.reset( rt );
     return *( RadiumDefaultRenderTechnique.get() );
+}
+
+bool RenderTechnique::shaderIsDirty(RenderTechnique::PassName pass) const
+{
+    return dirtyBits & pass;
 }
 
 ///////////////////////////////////////////////
