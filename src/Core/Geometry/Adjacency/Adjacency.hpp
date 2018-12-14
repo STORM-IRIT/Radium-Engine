@@ -6,8 +6,6 @@
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/MeshTypes.hpp>
 
-#include <Core/Utils/Graph/AdjacencyList.hpp>
-
 namespace Ra {
 namespace Core {
 namespace Geometry {
