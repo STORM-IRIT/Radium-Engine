@@ -1,11 +1,9 @@
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Core/TreeStructures/BVH.hpp>
+#include <Core/Containers/BVH.hpp>
 
 #include <iostream>
 
 #include <Core/Math/ColorPresets.hpp>
-#include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
-//#include <Engine/Renderer/Renderers/DebugRender.hpp>
 
 namespace Ra {
 namespace Core {
@@ -111,11 +109,6 @@ inline void BVH<T>::buildBottomUpSlow() {
     m_upToDate = true;
 }
 
-// Dummy function to transform Vector3 to Vector4
-inline Vector4 fromV3( Vector3 v, int x ) {
-    return Vector4( v( 0 ), v( 1 ), v( 2 ), x );
-}
-
 template <typename T>
 inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
                                       const Frustum& frustum ) const {
@@ -142,15 +135,15 @@ inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
                     Aabb aabb = current->getAabb();
 
                     // If the BBOX is fully outside (at least) one plane, it is not in
-                    if ( ( plane.dot( fromV3( aabb.corner( Aabb::BottomLeftFloor ), 1 ) ) < 0.f ) &&
-                         ( plane.dot( fromV3( aabb.corner( Aabb::BottomRightFloor ), 1 ) ) <
+                    if ( ( plane.dot( aabb.corner( Aabb::BottomLeftFloor ).homogeneous()) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::BottomRightFloor ).homogeneous()) <
                            0.f ) &&
-                         ( plane.dot( fromV3( aabb.corner( Aabb::TopLeftFloor ), 1 ) ) < 0.f ) &&
-                         ( plane.dot( fromV3( aabb.corner( Aabb::TopRightFloor ), 1 ) ) < 0.f ) &&
-                         ( plane.dot( fromV3( aabb.corner( Aabb::BottomLeftCeil ), 1 ) ) < 0.f ) &&
-                         ( plane.dot( fromV3( aabb.corner( Aabb::BottomRightCeil ), 1 ) ) < 0.f ) &&
-                         ( plane.dot( fromV3( aabb.corner( Aabb::TopLeftCeil ), 1 ) ) < 0.f ) &&
-                         ( plane.dot( fromV3( aabb.corner( Aabb::TopRightCeil ), 1 ) ) < 0.f ) )
+                         ( plane.dot( aabb.corner( Aabb::TopLeftFloor ).homogeneous()) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::TopRightFloor ).homogeneous()) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::BottomLeftCeil ).homogeneous()) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::BottomRightCeil ).homogeneous()) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::TopLeftCeil ).homogeneous()) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::TopRightCeil ).homogeneous() ) < 0.f ) )
                         isIn = false;
                 }
 
