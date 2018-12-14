@@ -2,7 +2,7 @@
 #define SKELETON_HANDLE_H
 
 #include <Core/Animation/Handle/Handle.hpp>
-#include <Core/Utils/Graph/AdjacencyList.hpp>
+#include <Core/Containers/AdjacencyList.hpp>
 
 namespace Ra {
 namespace Core {
@@ -65,7 +65,7 @@ class RA_CORE_API Skeleton : public Handle {
     /**
      * Joint hierarchy.
      */
-    Ra::Core::Graph::AdjacencyList m_graph;
+    Ra::Core::AdjacencyList m_graph;
 
   protected:
     /**

@@ -32,7 +32,7 @@ void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& r
 }
 
 void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
-                         const Graph::AdjacencyList& graph, const Pose& pose,
+                         const AdjacencyList& graph, const Pose& pose,
                          BulgeCorrectionData& data ) {
     const uint n = mesh.size();
     data.resize( n );
@@ -41,7 +41,7 @@ void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
     {
         Vector3 start;
         Vector3 end;
-        const auto& child = graph.m_child[wID[i]];
+        const auto& child = graph.children()[wID[i]];
         start = pose[wID[i]].translation();
         end.setZero();
         for ( const auto& c : child )

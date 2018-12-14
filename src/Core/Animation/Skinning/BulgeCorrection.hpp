@@ -2,9 +2,10 @@
 #define RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
 
 #include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Containers/AdjacencyList.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Utils/Graph/AdjacencyList.hpp>
+
 
 namespace Ra {
 namespace Core {
@@ -29,7 +30,7 @@ void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& r
                       Vector3Array& currMesh, const BulgeCorrectionData& currData );
 
 void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
-                         const Graph::AdjacencyList& graph, const Pose& pose,
+                         const AdjacencyList& graph, const Pose& pose,
                          BulgeCorrectionData& data );
 
 } // namespace Animation
