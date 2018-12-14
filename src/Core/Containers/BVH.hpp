@@ -1,21 +1,29 @@
-
 #ifndef RADIUMENGINE_BVH_HPP
 #define RADIUMENGINE_BVH_HPP
 
 #include <Core/RaCore.hpp>
 
 #include <Core/Math/Frustum.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
 
 #include <memory>
 #include <vector>
 
 namespace Ra {
 namespace Core {
-/// This class stores a 3-dimensional hierarchy of meshes of arbitrary type.
-/// Built on a binary tree
+/*!
+ * \brief Stores a 3-dimensional hierarchy of meshes of arbitrary type.
+ *
+ * This class is marked as deprecated as it is not tested nor used.
+ * \FIXME Confirm class status: add tests + use cases *or* remove
+ *
+ * \note Radium might soon have a generic type for geometrical objects.
+ * This would allow to remove the template parameter of this class.
+ *
+ * \note We might consider using this instead:
+ * https://eigen.tuxfamily.org/dox/unsupported/group__BVH__Module.html
+ */
 template <typename T>
-class BVH {
+class [[deprecated("Neither used nor tested")]] BVH {
     class Node {
       public:
         inline Node( const std::shared_ptr<T>& t );
