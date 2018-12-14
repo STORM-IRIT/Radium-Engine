@@ -11,7 +11,6 @@
 #include <Core/File/KeyFrame/KeyPose.hpp>
 #include <Core/File/KeyFrame/KeyTransform.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -121,7 +120,7 @@ void AnimationComponent::printSkeleton( const Ra::Core::Animation::Skeleton& ske
         int level = levels.front();
         levels.pop_front();
         std::cout << i << " " << skeleton.getLabel( i ) << "\t";
-        for ( auto c : skeleton.m_graph.m_child[i] )
+        for ( const auto& c : skeleton.m_graph.children()[i] )
         {
             queue.push_back( c );
             levels.push_back( level + 1 );
@@ -349,8 +348,8 @@ void AnimationComponent::setTransform(const Ra::Core::Index &roIdx,
     const auto& TBoneLocal = m_skel.getTransform( boneIdx, Handle::SpaceType::LOCAL );
 
     // turn bone translation into rotation for parent
-    const uint pBoneIdx = m_skel.m_graph.m_parent[boneIdx];
-    if ( pBoneIdx != -1 && m_skel.m_graph.m_child[pBoneIdx].size() == 1 )
+    const uint pBoneIdx = m_skel.m_graph.parents()[boneIdx];
+    if ( pBoneIdx != -1 && m_skel.m_graph.children()[pBoneIdx].size() == 1 )
     {
         const auto& pTBoneModel = m_skel.getTransform( pBoneIdx, Handle::SpaceType::MODEL );
 

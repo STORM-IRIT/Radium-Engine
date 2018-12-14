@@ -49,7 +49,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
             {
                 m_modelSpace[i] = m_pose[i];
             }
-            for ( const auto& child : m_graph.m_child[i] )
+            for ( const auto& child : m_graph.children()[i] )
             {
                 m_modelSpace[child] = m_modelSpace[i] * m_pose[child];
             }
@@ -66,7 +66,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
             {
                 m_pose[i] = m_modelSpace[i];
             }
-            for ( const auto& child : m_graph.m_child[i] )
+            for ( const auto& child : m_graph.children()[i] )
             {
                 m_pose[child] = m_modelSpace[i].inverse() * m_modelSpace[child];
             }
@@ -107,7 +107,7 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
         {
             m_modelSpace[i] = m_pose[i];
         } else
-        { m_modelSpace[i] = m_modelSpace[m_graph.m_parent[i]] * T; }
+        { m_modelSpace[i] = m_modelSpace[m_graph.parents()[i]] * T; }
         if ( !m_graph.isLeaf( i ) )
         {
             std::stack<uint> stack;
@@ -116,7 +116,7 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             {
                 uint parent = stack.top();
                 stack.pop();
-                for ( const auto& child : m_graph.m_child[parent] )
+                for ( const auto& child : m_graph.children()[parent] )
                 {
                     m_modelSpace[child] = m_modelSpace[parent] * m_pose[child];
                     stack.push( child );
@@ -133,7 +133,7 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
         {
             m_pose[i] = m_modelSpace[i];
         } else
-        { m_pose[i] = m_modelSpace[m_graph.m_parent[i]].inverse() * T; }
+        { m_pose[i] = m_modelSpace[m_graph.parents()[i]].inverse() * T; }
         if ( !m_graph.isLeaf( i ) )
         {
             std::stack<uint> stack;
@@ -142,7 +142,7 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             {
                 uint parent = stack.top();
                 stack.pop();
-                for ( const auto& child : m_graph.m_child[parent] )
+                for ( const auto& child : m_graph.children()[parent] )
                 {
                     m_pose[child] = m_modelSpace[parent].inverse() * m_modelSpace[child];
                     stack.push( child );
@@ -199,7 +199,7 @@ void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut )
         endOut = startOut;
     } else
     {
-        const auto& children = m_graph.m_child[i];
+        const auto& children = m_graph.children()[i];
         CORE_ASSERT( children.size() > 0, "non-leaf bone has no children." );
         // End point is the average of chidren start points.
         endOut = Vector3::Zero();
@@ -239,18 +239,18 @@ std::ostream& operator<<( std::ostream& os, const Skeleton& skeleton ) {
                       : skeleton.m_graph.isBranch( i )
                             ? "BRANCH"
                             : skeleton.m_graph.isLeaf( i ) ? "LEAF" : "UNKNOWN";
-        const int pid = skeleton.m_graph.m_parent.at( i );
+        const int pid = skeleton.m_graph.parents().at( i );
         const std::string pname =
             ( pid == -1 ) ? "" : ( "(" + std::to_string( pid ) + ") " + skeleton.getLabel( pid ) );
 
         os << "Bone " << id << "\t: " << name << std::endl;
         os << "Type\t: " << type << std::endl;
         os << "Parent\t: " << pname << std::endl;
-        os << "Children#\t: " << skeleton.m_graph.m_child.at( i ).size() << std::endl;
+        os << "Children#\t: " << skeleton.m_graph.children().at( i ).size() << std::endl;
         os << "Children\t: ";
-        for ( uint j = 0; j < skeleton.m_graph.m_child.at( i ).size(); ++j )
+        for ( uint j = 0; j < skeleton.m_graph.children().at( i ).size(); ++j )
         {
-            const uint cid = skeleton.m_graph.m_child.at( i ).at( j );
+            const uint cid = skeleton.m_graph.children().at( i ).at( j );
             const std::string cname = skeleton.getLabel( cid );
             os << "(" << cid << ") " << cname << " | ";
         }

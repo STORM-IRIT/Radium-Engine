@@ -2,6 +2,7 @@
 
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/File/HandleData.hpp>
+#include <set>
 
 namespace Ra {
 namespace Asset {
