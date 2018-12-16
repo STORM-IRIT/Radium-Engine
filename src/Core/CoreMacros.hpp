@@ -213,7 +213,9 @@
 #   define DLL_IMPORT __declspec(dllimport)
 
 #   define STDCALL __stdcall
-#   define CDECL __cdecl
+#   ifndef CDECL
+#      define CDECL __cdecl
+#   endif
 #   define FASTCALL __fastcall
 #elif defined(COMPILER_GCC) || defined (COMPILER_CLANG) // ------- GCC and CLang
 
