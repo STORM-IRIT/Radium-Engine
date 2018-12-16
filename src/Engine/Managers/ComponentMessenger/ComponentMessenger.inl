@@ -4,7 +4,7 @@ namespace Ra {
 namespace Engine {
 
 inline std::size_t ComponentMessenger::HashFunc::operator()( const Key& k ) const {
-    return Core::StdUtils::hash( k );
+    return Core::Utils::hash( k );
 }
 
 template <typename ReturnType>

@@ -88,8 +88,8 @@ inline void TriangleMesh::clear() {
 }
 
 inline void TriangleMesh::clearAttributes() {
-    Attrib<Vector3>::Container v;
-    Attrib<Vector3>::Container n;
+    Utils::Attrib<Vector3>::Container v;
+    Utils::Attrib<Vector3>::Container n;
     std::exchange( v, vertices() );
     std::exchange( n, normals() );
     m_vertexAttribs.clear();

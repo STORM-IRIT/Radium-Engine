@@ -13,13 +13,13 @@ namespace Ra {
 namespace Core {
 
 template <typename T>
-using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
+using PropPair = std::pair<Utils::AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 
 template <typename T>
 void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
-                          AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
+                          Utils::AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
                           std::vector<OpenMesh::HPropHandleT<T>>& pph ) {
-    AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
+    Utils::AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
     OpenMesh::HPropHandleT<T> oh;
     topoMesh->add_property( oh, attr->getName() );
     vprop.push_back( std::make_pair( h, oh ) );
@@ -29,7 +29,7 @@ void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh
 template <typename T>
 void addAttribPairToCore( TriangleMesh& triMesh, const TopologicalMesh* topoMesh,
                           OpenMesh::HPropHandleT<T> oh, std::vector<PropPair<T>>& vprop ) {
-    AttribHandle<T> h = triMesh.addAttrib<T>( topoMesh->property( oh ).name() );
+    Utils::AttribHandle<T> h = triMesh.addAttrib<T>( topoMesh->property( oh ).name() );
     vprop.push_back( std::make_pair( h, oh ) );
 }
 
@@ -44,8 +44,8 @@ void copyAttribToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
 }
 
 template <typename T>
-using HandleAndValueVector = std::vector<std::pair<AttribHandle<T>, T>,
-                                         Eigen::aligned_allocator<std::pair<AttribHandle<T>, T>>>;
+using HandleAndValueVector = std::vector<std::pair<Utils::AttribHandle<T>, T>,
+                                         Eigen::aligned_allocator<std::pair<Utils::AttribHandle<T>, T>>>;
 
 template <typename T>
 void copyAttribToCoreVertex( HandleAndValueVector<T>& data, const TopologicalMesh* topoMesh,
