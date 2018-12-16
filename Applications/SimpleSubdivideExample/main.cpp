@@ -3,6 +3,7 @@
 #include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
+#include <Core/Log/Log.hpp>
 #include <memory>
 
 /// Macro used for testing only, to add attibutes to the TopologicalMesh

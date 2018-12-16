@@ -8,7 +8,7 @@ namespace Testing {
 void run()  {
     using Ra::Core::TriangleMesh;
     using Ra::Core::Vector3;
-    using Vec3AttribHandle = Ra::Core::AttribHandle<Vector3>;
+    using Vec3AttribHandle = Ra::Core::Utils::AttribHandle<Vector3>;
 
     TriangleMesh mesh = Ra::Core::MeshUtils::makeBox();
 

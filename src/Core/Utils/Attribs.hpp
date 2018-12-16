@@ -2,12 +2,17 @@
 #define RADIUMENGINE_ATTRIBS_HPP
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Index/IndexMap.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Index/Index.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
+
+// need forward declarations for friend classes outside of Utils namespace
+class TopologicalMesh; 
+class TriangleMesh; 
+
+namespace Utils {
 
 template <typename T>
 class Attrib;
@@ -128,7 +133,7 @@ class AttribHandle {
  * \warning There is no error check on the handles attribute type.
  *
  */
-class AttribManager {
+class RA_CORE_API AttribManager {
   public:
     using value_type = AttribBase*;
     using Container = std::vector<value_type>;
@@ -174,43 +179,10 @@ class AttribManager {
 
     /// Copy all attributes from m.
     /// \note If some attrib already exists, it will be replaced.
-    void copyAllAttributes( const AttribManager& m ) {
-        for ( const auto& attr : m.m_attribs )
-        {
-            if ( attr == nullptr )
-                continue;
-            if ( attr->isFloat() )
-            {
-                auto h = addAttrib<float>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<float>*>( attr )->data();
-            } else if ( attr->isVec2() )
-            {
-                auto h = addAttrib<Vector2>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<Vector2>*>( attr )->data();
-            } else if ( attr->isVec3() )
-            {
-                auto h = addAttrib<Vector3>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<Vector3>*>( attr )->data();
-            } else if ( attr->isVec4() )
-            {
-                auto h = addAttrib<Vector4>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<Vector4>*>( attr )->data();
-            } else
-                LOG( logWARNING )
-                    << "Warning, mesh attribute " << attr->getName()
-                    << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-        }
-    }
+    void copyAllAttributes( const AttribManager& m );
 
     /// clear all attribs, invalidate handles.
-    void clear() {
-        for ( auto attr : m_attribs )
-        {
-            delete attr;
-        }
-        m_attribs.clear();
-        m_attribsIndex.clear();
-    }
+    void clear();
 
     /// Return true if \p h correspond to an existing attribute in *this.
     template <typename T>
@@ -308,25 +280,7 @@ class AttribManager {
     /// Return true if *this and \p other have the same attributes, same amount
     /// and same names.
     /// \warning There is no check on the attribute type nor data.
-    bool hasSameAttribs( const AttribManager& other ) {
-        // one way
-        for ( const auto& attr : m_attribsIndex )
-        {
-            if ( other.m_attribsIndex.find( attr.first ) == other.m_attribsIndex.cend() )
-            {
-                return false;
-            }
-        }
-        // the other way
-        for ( const auto& attr : other.m_attribsIndex )
-        {
-            if ( m_attribsIndex.find( attr.first ) == m_attribsIndex.cend() )
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+    bool hasSameAttribs( const AttribManager& other );
 
   private:
     /// Perform \p fun on each attribute.
@@ -355,10 +309,11 @@ class AttribManager {
     std::map<std::string, Index> m_attribsIndex;
 
     // Ease wrapper
-    friend class TopologicalMesh;
-    friend class TriangleMesh;
+    friend class ::Ra::Core::TopologicalMesh;
+    friend class ::Ra::Core::TriangleMesh;
 };
 
+} // namespace Utils
 } // namespace Core
 } // namespace Ra
 
