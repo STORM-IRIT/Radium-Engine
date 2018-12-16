@@ -61,7 +61,7 @@ struct EdgeEqual {
 };
 struct EdgeHash {
     std::size_t operator()( const std::pair<uint, uint>& x ) const {
-        return StdUtils::hash<uint, uint>( x );
+        return Utils::hash<uint, uint>( x );
     }
 };
 
