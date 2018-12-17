@@ -1,13 +1,13 @@
 #ifndef RADIUMENGINE_CHRONOMETER_DEFINITION
 #define RADIUMENGINE_CHRONOMETER_DEFINITION
 
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
 
 namespace Ra {
 namespace Core {
-namespace Timer {
+namespace Utils {
 
-/**
+/**!
  * @brief The Chrono class represents a chronometer for timing generic functions
  * in an easy way.
  *
@@ -33,34 +33,39 @@ namespace Timer {
  *      }
  *
  * \note Note that bar( bar_args ...) == bar_time< same_type >.run( bar, bar_args... )
- *
+ * \see Ra::Core::Utils::getIntervalMicro
+ * \see Ra::Core::Utils::getIntervalSeconds
  */
-class Chrono {
+class RA_CORE_API Chrono {
   public:
+    using MicroSeconds = long;
+    using Seconds = Scalar;
     /**
-     *    @brief Default constructor.
+     *    \brief Default constructor.
      */
     Chrono() {}
 
     /**
-     *    @brief Copy constructor.
+     *    \brief Copy constructor.
      */
     Chrono( const Chrono& other ) = default;
 
     /**
-     *    @brief Move constructor.
+     *    \brief Move constructor.
      */
     Chrono( Chrono&& other ) = default;
 
     /**
-     *    @brief Destructor.
+     *    \brief Destructor.
      */
     ~Chrono() {}
 
-    /**
-     *    @brief Run the given void function f( args ... ) and times it.
-     *    @param f                  The function to be timed.
-     *    @param args               The parameters of f.
+    /**!
+     *    \brief Run the given void function f( args ... ) and times it.
+     *    \param f                  The function to be timed.
+     *    \param args               The parameters of f.
+     *    \tparam Function          Type of the input function (automatically deduced)
+     *    \tparam Args              Variadic pack with function parameters
      */
     template <class Function, class... Args>
     inline void run( Function&& f, Args&&... args ) {
@@ -69,11 +74,14 @@ class Chrono {
         m_end = Clock::now();
     }
 
-    /**
-     *    @brief Run the given ReturnType function f( args ... ) and times it.
-     *    @param f                  The function to be timed.
-     *    @param args               The parameters of f.
-     *    @return The output of f( args ... ).
+    /**!
+     *    \brief Run the given ReturnType function f( args ... ) and times it.
+     *    \param f                  The function to be timed.
+     *    \param args               The parameters of f.
+     *    \tparam Times             Number of function run
+     *    \tparam Function          Type of the input function (automatically deduced)
+     *    \tparam Args              Variadic pack with function parameters
+     *    \return The output of f( args ... ).
      */
     template <typename ReturnType, class Function, class... Args>
     inline ReturnType run( Function&& f, Args... args ) {
@@ -85,11 +93,14 @@ class Chrono {
         return res;
     }
 
-    /**
-     *    @brief Run the given function f( args ... ) n Times and compute the average timing.
-     *    @param f                  The function to be timed.
-     *    @param args               The parameters of f.
-     *    @return The average time of f( args ... ) in microseconds.
+    /**!
+     *    \brief Run the given function f( args ... ) n Times and compute the average timing.
+     *    \param f                  The function to be timed.
+     *    \param args               The parameters of f.
+     *    \tparam Times             Number of function run
+     *    \tparam Function          Type of the input function (automatically deduced)
+     *    \tparam Args              Variadic pack with function parameters
+     *    \return The average time of f( args ... ) in microseconds.
      */
     template <std::size_t Times, class Function, class... Args>
     inline MicroSeconds test( Function&& f, Args&&... args ) {
@@ -107,37 +118,39 @@ class Chrono {
         return avg;
     }
 
-    /**
-     *    @brief Return the elapsed time for last call of run in microseconds.
-     *    @return The elapsed time in microseconds.
+    /**!
+     *    \brief Return the elapsed time for last call of run in microseconds.
+     *    \return The elapsed time in microseconds.
+     *    \see Ra::Core::Utils::getIntervalMicro
      */
     inline MicroSeconds elapsedMicroSeconds() const { return getIntervalMicro( m_start, m_end ); }
 
-    /**
-     *    @brief Return the elapsed time for last call of run in seconds.
-     *    @return The elapsed time in seconds.
+    /**!
+     *    \brief Return the elapsed time for last call of run in seconds.
+     *    \return The elapsed time in seconds.
+     *    \see Ra::Core::Utils::getIntervalSeconds
      */
     inline Seconds elapsedSeconds() const { return getIntervalSeconds( m_start, m_end ); }
 
-    /**
-     *    @brief Copy assignment operator.
+    /**!
+     *    \brief Copy assignment operator.
      */
     inline Chrono& operator=( const Chrono& other ) = default;
 
-    /**
-     *    @brief Move assignment operator.
+    /**!
+     *    \brief Move assignment operator.
      */
     inline Chrono& operator=( Chrono&& other ) = default;
 
-    /**
-     *    @brief Equal operator.
+    /**!
+     *    \brief Equal operator.
      */
     inline bool operator==( const Chrono& other ) const {
         return ( elapsedMicroSeconds() == other.elapsedMicroSeconds() );
     }
 
-    /**
-     *    @brief Less operator.
+    /**!
+     *    \brief Less operator.
      */
     inline bool operator<( const Chrono& other ) const {
         return ( elapsedMicroSeconds() < other.elapsedMicroSeconds() );
@@ -149,7 +162,7 @@ class Chrono {
     TimePoint m_end;   ///< Time after running the function.
 };
 
-} // namespace Timer
+} // namespace Utils
 } // namespace Core
 } // namespace Ra
 

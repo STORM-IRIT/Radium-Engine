@@ -8,7 +8,7 @@
 
 #include <Core/Log/Log.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
 namespace Ra {
@@ -16,12 +16,12 @@ namespace Ra {
 /// This struct holds all timings for one frame of the engine.
 struct RA_GUIBASE_API FrameTimerData {
     uint numFrame;
-    Core::Timer::TimePoint frameStart;
-    Core::Timer::TimePoint eventsStart;
-    Core::Timer::TimePoint eventsEnd;
-    Core::Timer::TimePoint tasksStart;
-    Core::Timer::TimePoint tasksEnd;
-    Core::Timer::TimePoint frameEnd;
+    Core::Utils::TimePoint frameStart;
+    Core::Utils::TimePoint eventsStart;
+    Core::Utils::TimePoint eventsEnd;
+    Core::Utils::TimePoint tasksStart;
+    Core::Utils::TimePoint tasksEnd;
+    Core::Utils::TimePoint frameEnd;
     Engine::Renderer::TimerData renderData;
     std::vector<Core::TaskQueue::TimerData> taskData;
 

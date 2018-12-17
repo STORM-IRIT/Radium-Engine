@@ -6,7 +6,7 @@
 
 #include <QApplication>
 
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 
@@ -145,7 +145,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     QTimer* m_frameTimer;
 
     /// Time since the last frame start.
-    Core::Timer::TimePoint m_lastFrameStart;
+    Core::Utils::TimePoint m_lastFrameStart;
 
     uint m_frameCounter;
     uint m_frameCountBeforeUpdate;

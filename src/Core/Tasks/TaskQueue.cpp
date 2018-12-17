@@ -228,10 +228,10 @@ void TaskQueue::runThread( uint id ) {
         // Release mutex.
 
         // Run task
-        m_timerData[task].start = Timer::Clock::now();
+        m_timerData[task].start = Utils::Clock::now();
         m_timerData[task].threadId = id;
         m_tasks[task]->process();
-        m_timerData[task].end = Timer::Clock::now();
+        m_timerData[task].end = Utils::Clock::now();
 
         // Critical section : mark task as finished and en-queue dependencies.
         uint newTasks = 0;
