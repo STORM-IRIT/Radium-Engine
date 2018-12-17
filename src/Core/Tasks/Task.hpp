@@ -11,7 +11,7 @@ namespace Core {
 /// Tasks are basic processing units of the engine. Tasks are run
 /// in parallel on separate threads by the engine. The work of
 /// a task is defined by overriding its process() function.
-class Task {
+class RA_CORE_API Task {
   public:
     /// Destructor
     virtual ~Task() {}
@@ -26,7 +26,7 @@ class Task {
 /// A wrapper for a task around a std::function, which must be of type void(void)
 /// The process() method will simply call the provided function.
 /// Use std::bind to bind the arguments to the function object when creating the task.
-class FunctionTask : public Task {
+class RA_CORE_API FunctionTask : public Task {
   public:
     /// Create a function task
     FunctionTask( const std::function<void( void )>& f, const std::string& name ) :

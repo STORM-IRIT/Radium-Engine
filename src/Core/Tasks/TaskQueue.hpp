@@ -10,7 +10,8 @@
 #include <thread>
 #include <vector>
 
-#include <Core/Utils/Timer.hpp>
+#include <Core/Utils/Timer.hpp> // Ra::Core::TimePoint
+#include <Core/Index/Index.hpp>
 
 namespace Ra {
 namespace Core {
@@ -31,8 +32,7 @@ namespace Core {
 class RA_CORE_API TaskQueue {
   public:
     /// Identifier for a task in the task queue.
-    using TaskId = uint;
-    enum { InvalidTaskId = TaskId( -1 ) };
+    using TaskId = Index;
 
     /// Record of a task's start and end time.
     struct TimerData {
