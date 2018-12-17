@@ -13,7 +13,7 @@ TaskQueue::TaskQueue( uint numThreads ) : m_processingTasks( 0 ), m_shuttingDown
     m_workerThreads.reserve( numThreads );
     for ( uint i = 0; i < numThreads; ++i )
     {
-        m_workerThreads.emplace_back( std::thread( &TaskQueue::runThread, this, i ) );
+        m_workerThreads.emplace_back( &TaskQueue::runThread, this, i );
     }
 }
 
@@ -42,10 +42,9 @@ TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
 }
 
 void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor ) {
-    CORE_ASSERT( ( predecessor != InvalidTaskId ) && ( predecessor < m_tasks.size() ),
+    CORE_ASSERT( predecessor.isValid() && ( predecessor < m_tasks.size() ),
                  "Invalid predecessor task" );
-    CORE_ASSERT( ( successor != InvalidTaskId ) && ( successor < m_tasks.size() ),
-                 "Invalid successor task" );
+    CORE_ASSERT( successor.isValid() && ( successor < m_tasks.size() ), "Invalid successor task" );
     CORE_ASSERT( predecessor != successor, "Cannot add self-dependency" );
 
     CORE_ASSERT( std::find( m_dependencies[predecessor].begin(), m_dependencies[predecessor].end(),
@@ -84,11 +83,11 @@ bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string&
 
 void TaskQueue::addPendingDependency( const std::string& predecessors,
                                       TaskQueue::TaskId successor ) {
-    m_pendingDepsSucc.push_back( std::make_pair( predecessors, successor ) );
+    m_pendingDepsSucc.emplace_back( predecessors, successor );
 }
 
 void TaskQueue::addPendingDependency( TaskId predecessor, const std::string& successors ) {
-    m_pendingDepsPre.push_back( std::make_pair( predecessor, successors ) );
+    m_pendingDepsPre.emplace_back( predecessor, successors );
 }
 
 void TaskQueue::resolveDependencies() {
@@ -200,7 +199,7 @@ void TaskQueue::flushTaskQueue() {
 void TaskQueue::runThread( uint id ) {
     while ( true )
     {
-        TaskId task = InvalidTaskId;
+        TaskId task;
 
         // Acquire mutex.
         {
@@ -223,7 +222,7 @@ void TaskQueue::runThread( uint id ) {
             task = m_taskQueue.back();
             m_taskQueue.pop_back();
             ++m_processingTasks;
-            CORE_ASSERT( task != InvalidTaskId && task < m_tasks.size(), "Invalid task" );
+            CORE_ASSERT( task.isValid() && task < m_tasks.size(), "Invalid task" );
         }
         // Release mutex.
 
