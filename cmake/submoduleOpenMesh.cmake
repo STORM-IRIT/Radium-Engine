@@ -1,6 +1,6 @@
 if(${RADIUM_SUBMODULES_BUILD_TYPE} MATCHES Debug)
     set(OPENMESHLIBNAME OpenMeshCored)
-    set(OPENMESHTOOLLIBNAME OpenMeshToold)
+    set(OPENMESHTOOLLIBNAME OpenMeshToolsd)
 else()
     set(OPENMESHLIBNAME OpenMeshCore)
     set(OPENMESHTOOLLIBNAME OpenMeshTools)

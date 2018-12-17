@@ -368,6 +368,8 @@ MACRO_END
     #include <windows.h>
 #endif
 
+#ifndef eigen_assert
 #define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
+#endif
 // clang-format on
 #endif // RADIUMENGINE_CORE_HPP

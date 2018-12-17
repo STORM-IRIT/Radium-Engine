@@ -264,7 +264,6 @@ void CatmullClarkSubdivider::split_edge(TopologicalMesh &mesh,
                                         const TopologicalMesh::EdgeHandle &eh, size_t iter) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     using VHandle = TopologicalMesh::VertexHandle;
-    using FHandle = TopologicalMesh::FaceHandle;
 
     // prepare data
     HeHandle heh = mesh.halfedge_handle( eh, 0 );
