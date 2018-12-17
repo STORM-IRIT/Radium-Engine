@@ -11,7 +11,7 @@
 
 #include <Core/Event/EventEnums.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
 
 namespace Ra {
 
@@ -54,12 +54,12 @@ class RA_ENGINE_API Renderer {
      * Instrumentation structure that allow to extract timings from the rendering
      */
     struct TimerData {
-        Core::Timer::TimePoint renderStart;
-        Core::Timer::TimePoint updateEnd;
-        Core::Timer::TimePoint feedRenderQueuesEnd;
-        Core::Timer::TimePoint mainRenderEnd;
-        Core::Timer::TimePoint postProcessEnd;
-        Core::Timer::TimePoint renderEnd;
+        Core::Utils::TimePoint renderStart;
+        Core::Utils::TimePoint updateEnd;
+        Core::Utils::TimePoint feedRenderQueuesEnd;
+        Core::Utils::TimePoint mainRenderEnd;
+        Core::Utils::TimePoint postProcessEnd;
+        Core::Utils::TimePoint renderEnd;
     };
 
     /**
