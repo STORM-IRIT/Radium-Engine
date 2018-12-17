@@ -230,16 +230,16 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     for ( uint i = 0; i < stats.size(); ++i )
     {
-        sumEvents += Core::Timer::getIntervalMicro( stats[i].eventsStart, stats[i].eventsEnd );
-        sumRender += Core::Timer::getIntervalMicro( stats[i].renderData.renderStart,
+        sumEvents += Core::Utils::getIntervalMicro( stats[i].eventsStart, stats[i].eventsEnd );
+        sumRender += Core::Utils::getIntervalMicro( stats[i].renderData.renderStart,
                                                     stats[i].renderData.renderEnd );
-        sumTasks += Core::Timer::getIntervalMicro( stats[i].tasksStart, stats[i].tasksEnd );
-        sumFrame += Core::Timer::getIntervalMicro( stats[i].frameStart, stats[i].frameEnd );
+        sumTasks += Core::Utils::getIntervalMicro( stats[i].tasksStart, stats[i].tasksEnd );
+        sumFrame += Core::Utils::getIntervalMicro( stats[i].frameStart, stats[i].frameEnd );
 
         if ( i > 0 )
         {
             sumInterFrame +=
-                Core::Timer::getIntervalMicro( stats[i - 1].frameEnd, stats[i].frameEnd );
+                Core::Utils::getIntervalMicro( stats[i - 1].frameEnd, stats[i].frameEnd );
         }
     }
 

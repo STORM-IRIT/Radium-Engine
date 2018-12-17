@@ -4,7 +4,7 @@
 #include <Core/Mesh/MeshPrimitives.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
