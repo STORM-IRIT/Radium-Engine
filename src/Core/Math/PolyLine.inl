@@ -1,5 +1,4 @@
 #include "PolyLine.hpp"
-#include <Core/Geometry/PointCloud/PointCloud.hpp>
 
 namespace Ra {
 namespace Core {
@@ -13,7 +12,12 @@ Scalar PolyLine::length() const {
 }
 
 Ra::Core::Aabb PolyLine::aabb() const {
-    return PointCloud::aabb( m_pts );
+    Aabb aabb;
+    for (const auto& v : m_pts)
+    {
+        aabb.extend(v);
+    }
+    return aabb;
 }
 
 Scalar PolyLine::getLineParameter( uint segment, Scalar tSegment ) const {

@@ -27,7 +27,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
-using TriangleArray = Ra::Core::VectorArray<Ra::Core::Triangle>;
+using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 
 namespace Ra {
 namespace Engine {
@@ -91,7 +91,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     }
 
     const auto &faces = data->getFaces();
-    mesh.m_triangles.resize( faces.size(), Ra::Core::Triangle::Zero() );
+    mesh.m_triangles.resize( faces.size(), Ra::Core::Vector3ui::Zero() );
 #pragma omp parallel for
     for ( uint i = 0; i < faces.size(); ++i )
     {
@@ -258,7 +258,7 @@ Ra::Core::TriangleMesh::NormalAttribHandle::Container* GeometryComponent::getNor
     return &( getDisplayMesh().getGeometry().normals() );
 }
 
-Ra::Core::VectorArray<Ra::Core::Triangle>* GeometryComponent::getTrianglesRw() {
+Ra::Core::VectorArray<Ra::Core::Vector3ui>* GeometryComponent::getTrianglesRw() {
     getDisplayMesh().setDirty( Mesh::INDEX );
     return &( getDisplayMesh().getGeometry().m_triangles );
 }

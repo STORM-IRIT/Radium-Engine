@@ -27,7 +27,7 @@ void run() {
     Vector3 nb = a + 42. * ( b - a );
 
     Vector3 y, z;
-    Ra::Core::Vector::getOrthogonalVectors( b - a, y, z );
+    Ra::Core::Vector::getOrthogonalVectors( (b - a).normalized(), y, z );
 
     // Test line queries.
     RA_VERIFY( areApproxEqual( pointToLineSq( a, a, b - a ), Scalar( 0. ) ),

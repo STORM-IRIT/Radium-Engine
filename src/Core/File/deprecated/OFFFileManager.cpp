@@ -61,7 +61,7 @@ bool OFFFileManager::importData( std::istream& file, TriangleMesh& data ) {
     for ( uint i = 0; i < f_size; ++i )
     {
         uint side;
-        Triangle f;
+        Vector3ui f;
         file >> side;
         if ( side == 3 )
         {
@@ -90,17 +90,15 @@ bool OFFFileManager::exportData( std::ostream& file, const TriangleMesh& data ) 
                std::to_string( e_size ) + "\n";
 
     // Vertices
-    for ( uint i = 0; i < v_size; ++i )
+    for ( const auto& v : data.vertices() )
     {
-        const Vector3 v = data.vertices().at( i );
         content += std::to_string( v[0] ) + " " + std::to_string( v[1] ) + " " +
                    std::to_string( v[2] ) + "\n";
     }
 
     // Triangle
-    for ( uint i = 0; i < f_size; ++i )
+    for ( const auto& f : data.m_triangles )
     {
-        const Triangle f = data.m_triangles.at( i );
         content += "3 " + std::to_string( f[0] ) + " " + std::to_string( f[1] ) + " " +
                    std::to_string( f[2] ) + "\n";
     }

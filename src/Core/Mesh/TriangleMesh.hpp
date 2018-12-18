@@ -3,7 +3,6 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Attribs.hpp>
 
@@ -153,7 +152,7 @@ class TriangleMesh {
 
   public:
     /// The list of triangles.
-    VectorArray<Triangle> m_triangles;
+    VectorArray<Vector3ui> m_triangles;
 
     /// A list of non-triangular polygons.
     // FIXME: not used.

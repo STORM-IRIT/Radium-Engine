@@ -4,7 +4,6 @@
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
 
 namespace Ra {
 namespace Core {
@@ -34,7 +33,7 @@ using TVAdj = AdjacencyMatrix;
  *       f( i, j ) = 0 , otherwise
  */
 RA_CORE_API AdjacencyMatrix uniformAdjacency( const uint point_size,
-                                              const VectorArray<Triangle>& T );
+                                              const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AdjacencyMatrix for the given set of points and triangles.
@@ -43,16 +42,16 @@ RA_CORE_API AdjacencyMatrix uniformAdjacency( const uint point_size,
  *       f( i, j ) = 0 , otherwise
  */
 RA_CORE_API AdjacencyMatrix uniformAdjacency( const VectorArray<Vector3>& p,
-                                              const VectorArray<Triangle>& T );
+                                              const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AdjacencyMatrix for the given set of points and triangles.
- * The function defined over the triangle is:
- *       f( i, j ) = 1 , if triangle i contains to vertex j
+ * The function defined over the Triangle is:
+ *       f( i, j ) = 1 , if Triangle i contains to vertex j
  *       f( i, j ) = 0 , otherwise
  */
 RA_CORE_API TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p,
-                                            const VectorArray<Triangle>& T );
+                                            const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AdjacencyMatrix Adj for the given set of points and triangles.
@@ -60,7 +59,7 @@ RA_CORE_API TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p,
  *       f( i, j ) = 1 , if exist the edge from i to j
  *       f( i, j ) = 0 , otherwise
  */
-void uniformAdjacency( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
+void uniformAdjacency( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                        AdjacencyMatrix& Adj );
 
 /*
@@ -71,7 +70,7 @@ void uniformAdjacency( const VectorArray<Vector3>& p, const VectorArray<Triangle
  * where alpha_ij and beta_ij are the angles opposite the edge
  */
 RA_CORE_API AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
-                                                      const VectorArray<Triangle>& T );
+                                                      const VectorArray<Vector3ui>& T );
 
 // ///////////// //
 // DEGREE MATRIX //
@@ -94,9 +93,9 @@ RA_CORE_API DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A );
 
 // using OneRing = Graph::ChildrenList;
 
-// OneRing vertexOneRing( const uint v, const VectorArray< Triangle >& T );
+// OneRing vertexOneRing( const uint v, const VectorArray< Vector3ui >& T );
 
-// Graph::Adjacency meshOneRing( const VectorArray< Vector3 >& p, const VectorArray< Triangle >& T
+// Graph::Adjacency meshOneRing( const VectorArray< Vector3 >& p, const VectorArray< Vector3ui >& T
 // );
 
 } // namespace Geometry

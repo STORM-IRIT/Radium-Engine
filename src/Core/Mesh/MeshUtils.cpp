@@ -25,7 +25,7 @@ void getAutoNormals( TriangleMesh& mesh, VectorArray<Vector3>& normalsOut ) {
 
     for ( uint t = 0; t < numTriangles; t++ )
     {
-        const Triangle& tri = mesh.m_triangles[t];
+        const Vector3ui& tri = mesh.m_triangles[t];
         Vector3 n = getTriangleNormal( mesh, t );
 
         for ( uint i = 0; i < 3; ++i )
@@ -81,7 +81,7 @@ RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray ) {
             Scalar minDist = std::numeric_limits<Scalar>::max();
             std::array<Vector3, 3> V;
             getTriangleVertices( mesh, result.m_hitTriangle, V );
-            const Triangle& T = mesh.m_triangles[result.m_hitTriangle];
+            const Vector3ui& T = mesh.m_triangles[result.m_hitTriangle];
             const Vector3 I = ray.pointAt( minT );
             // find closest vertex
             for ( uint i = 0; i < 3; ++i )
@@ -117,7 +117,7 @@ RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray ) {
     return result;
 }
 
-/// Return the mean edge length of the given triangle mesh
+/// Return the mean edge length of the given TriangleMesh
 Scalar getMeanEdgeLength( const TriangleMesh& mesh ) {
     using Key = std::pair<uint, uint>;
     std::set<Key> list;
@@ -157,8 +157,8 @@ void checkConsistency( const TriangleMesh& mesh ) {
     std::vector<bool> visited( mesh.vertices().size(), false );
     for ( uint t = 0; t < mesh.m_triangles.size(); ++t )
     {
-        CORE_WARN_IF( !( getTriangleArea( mesh, t ) > 0.f ), "Triangle " << t << " is degenerate" );
-        const Triangle& tri = mesh.m_triangles[t];
+        CORE_WARN_IF( !( getTriangleArea( mesh, t ) > 0.f ), "triangle " << t << " is degenerate" );
+        const Vector3ui& tri = mesh.m_triangles[t];
         for ( uint i = 0; i < 3; ++i )
         {
             CORE_ASSERT( uint( tri[i] ) < mesh.vertices().size(),

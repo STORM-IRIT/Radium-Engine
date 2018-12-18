@@ -3,7 +3,6 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
 
 #include <Core/Geometry/Adjacency/Adjacency.hpp>
 
@@ -99,7 +98,7 @@ LaplacianMatrix RA_CORE_API powerLaplacian( const LaplacianMatrix& L, const uint
  */
 /// WARNING: THIS IMPLEMENTATION IS FASTER THAN DOING L = D - A.
 LaplacianMatrix RA_CORE_API cotangentWeightLaplacian( const VectorArray<Vector3>& p,
-                                                      const VectorArray<Triangle>& T );
+                                                      const VectorArray<Vector3ui>& T );
 
 ////////////////
 /// ONE RING ///

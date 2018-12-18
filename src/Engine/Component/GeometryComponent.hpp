@@ -2,7 +2,7 @@
 #define RADIUMENGINE_GEOMETRY_COMPONENT_HPP
 
 #include <Core/File/GeometryData.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/TriangleMesh.hpp>
 #include <Engine/Component/Component.hpp>
 
@@ -55,7 +55,7 @@ class RA_ENGINE_API GeometryComponent : public Component {
     void setMeshInput(const Core::TriangleMesh *mesh);
     Ra::Core::Vector3Array* getVerticesRw();
     Ra::Core::Vector3Array* getNormalsRw();
-    Ra::Core::VectorArray<Ra::Core::Triangle>* getTrianglesRw();
+    Ra::Core::VectorArray<Ra::Core::Vector3ui>* getTrianglesRw();
 
     const Ra::Core::Index* roIndexRead() const;
 
