@@ -127,7 +127,7 @@ void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
 }
 
 void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices ) {
-    // Do not remove this function to force everyone to use triangle mesh.
+    // Do not remove this function to force everyone to use TriangleMesh.
     //  ... because we have some line meshes as well...
     const size_t nIdx = indices.size();
 
@@ -139,7 +139,7 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
         m_numElements = nIdx;
     m_mesh.vertices() = vertices;
 
-    // Check that when loading a triangle mesh we actually have triangles or lines.
+    // Check that when loading a TriangleMesh we actually have triangles or lines.
     CORE_ASSERT( m_renderMode != GL_TRIANGLES || nIdx % 3 == 0,
                  "There should be 3 indices per triangle " );
     CORE_ASSERT( m_renderMode != GL_LINES || nIdx % 2 == 0, "There should be 2 indices per line" );
@@ -251,7 +251,7 @@ void Mesh::updateGL() {
             } else
             {
                 GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER,
-                                         m_mesh.m_triangles.size() * sizeof( Ra::Core::Triangle ),
+                                         m_mesh.m_triangles.size() * sizeof( Ra::Core::Vector3ui),
                                          m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
             }
             m_dataDirty[INDEX] = false;

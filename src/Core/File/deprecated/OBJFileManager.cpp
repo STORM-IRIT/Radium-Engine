@@ -55,7 +55,7 @@ bool OBJFileManager::importData( std::istream& file, TriangleMesh& data ) {
         }
         if ( token == "f" )
         {
-            Triangle f;
+            Vector3ui f;
             std::string ltoken;
             int count = 0;
             // skip first space
@@ -93,23 +93,20 @@ bool OBJFileManager::exportData( std::ostream& file, const TriangleMesh& data ) 
         return false;
     }
     // Vertices
-    for ( uint i = 0; i < data.vertices().size(); ++i )
+    for ( const auto& v : data.vertices() )
     {
-        const Vector3 v = data.vertices().at( i );
         content += "v " + std::to_string( v[0] ) + " " + std::to_string( v[1] ) + " " +
                    std::to_string( v[2] ) + "\n";
     }
     // Normals
-    for ( uint i = 0; i < data.normals().size(); ++i )
+    for ( const auto& n : data.normals() )
     {
-        const Vector3 n = data.normals().at( i );
         content += "vn " + std::to_string( n[0] ) + " " + std::to_string( n[1] ) + " " +
                    std::to_string( n[2] ) + "\n";
     }
     // Triangle
-    for ( uint i = 0; i < data.m_triangles.size(); ++i )
+    for ( const auto& f : data.m_triangles )
     {
-        const Triangle f = data.m_triangles.at( i );
         content += "f " + std::to_string( f[0] + 1 ) + " " + std::to_string( f[1] + 1 ) + " " +
                    std::to_string( f[2] + 1 ) + "\n";
     }

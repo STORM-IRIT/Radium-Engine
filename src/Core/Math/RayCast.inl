@@ -365,14 +365,14 @@ bool vsTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const Vector
 }
 
 bool vsTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>& hitsOut,
-                     std::vector<Triangle>& trianglesIdxOut ) {
+                     std::vector<Vector3ui>& trianglesIdxOut ) {
     bool hit = false;
     for ( size_t i = 0; i < mesh.m_triangles.size(); ++i )
     {
-        Triangle t = mesh.m_triangles[i];
-        Vector3 a = mesh.vertices()[t[0]];
-        Vector3 b = mesh.vertices()[t[1]];
-        Vector3 c = mesh.vertices()[t[2]];
+        const auto& t = mesh.m_triangles[i];
+        const Vector3& a = mesh.vertices()[t[0]];
+        const Vector3& b = mesh.vertices()[t[1]];
+        const Vector3& c = mesh.vertices()[t[2]];
         if ( vsTriangle( r, a, b, c, hitsOut ) )
         {
             trianglesIdxOut.push_back( t );

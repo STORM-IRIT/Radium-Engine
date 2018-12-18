@@ -75,10 +75,10 @@ Ra::Core::TriangleMesh SkeletonBoneRenderObject::makeBoneShape() {
                        Ra::Core::Vector3( 0, w, l ),  Ra::Core::Vector3( w, 0, l ),
                        Ra::Core::Vector3( 0, -w, l ), Ra::Core::Vector3( -w, 0, l )};
 
-    mesh.m_triangles = {Ra::Core::Triangle( 0, 2, 3 ), Ra::Core::Triangle( 0, 5, 2 ),
-                        Ra::Core::Triangle( 0, 3, 4 ), Ra::Core::Triangle( 0, 4, 5 ),
-                        Ra::Core::Triangle( 1, 3, 2 ), Ra::Core::Triangle( 1, 2, 5 ),
-                        Ra::Core::Triangle( 1, 4, 3 ), Ra::Core::Triangle( 1, 5, 4 )};
+    mesh.m_triangles = {Ra::Core::Vector3ui( 0, 2, 3 ), Ra::Core::Vector3ui( 0, 5, 2 ),
+                        Ra::Core::Vector3ui( 0, 3, 4 ), Ra::Core::Vector3ui( 0, 4, 5 ),
+                        Ra::Core::Vector3ui( 1, 3, 2 ), Ra::Core::Vector3ui( 1, 2, 5 ),
+                        Ra::Core::Vector3ui( 1, 4, 3 ), Ra::Core::Vector3ui( 1, 5, 4 )};
     Ra::Core::MeshUtils::getAutoNormals( mesh, mesh.normals() );
     return mesh;
 }

@@ -33,9 +33,9 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
                 const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
                 const uint baseSlice = u * ( stacks - 1 );
                 result.m_triangles.push_back(
-                    Triangle( baseSlice + v - 2, baseSlice + v - 1, nextSlice + v - 1 ) );
+                    Vector3ui( baseSlice + v - 2, baseSlice + v - 1, nextSlice + v - 1 ) );
                 result.m_triangles.push_back(
-                    Triangle( baseSlice + v - 2, nextSlice + v - 1, nextSlice + v - 2 ) );
+                    Vector3ui( baseSlice + v - 2, nextSlice + v - 1, nextSlice + v - 2 ) );
             }
         }
     }
@@ -53,9 +53,9 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
     {
         const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
         const uint baseSlice = u * ( stacks - 1 );
-        result.m_triangles.push_back( Triangle( northPoleIdx, baseSlice, nextSlice ) );
+        result.m_triangles.push_back( Vector3ui( northPoleIdx, baseSlice, nextSlice ) );
         result.m_triangles.push_back(
-            Triangle( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
+            Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
     checkConsistency( result );
@@ -86,8 +86,8 @@ TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
             result.normals().push_back( ( vertex - circleCenter ).normalized() );
 
             result.m_triangles.push_back(
-                Triangle( iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );
-            result.m_triangles.push_back( Triangle( ( ( iu + 1 ) % U ) * V + iv,
+                Vector3ui( iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );
+            result.m_triangles.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
                                                     ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
                                                     iu * V + ( ( iv + 1 ) % V ) ) );
         }

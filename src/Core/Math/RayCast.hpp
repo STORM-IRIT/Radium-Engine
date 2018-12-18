@@ -37,7 +37,7 @@ inline bool vsTriangle( const Ray& r, const Core::Vector3 a, const Core::Vector3
 
 // FIXME(Charly): Not efficient, intersecting against a kd-tree would be ways faster.
 inline bool vsTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>& hitsOut,
-                            std::vector<Triangle>& trianglesIdxOut );
+                            std::vector<Vector3ui>& trianglesIdxOut );
 } // namespace RayCast
 } // namespace Core
 } // namespace Ra

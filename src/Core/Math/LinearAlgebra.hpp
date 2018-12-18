@@ -158,6 +158,7 @@ template <typename Vector_>
 inline bool checkInvalidNumbers( Eigen::Ref<const Vector_> v, const bool FAIL_ON_ASSERT = false );
 
 /// Get two vectors orthogonal to a given vector.
+/// \warning fx must be normalized (this is not checked in the function)
 inline void getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy,
                                   Eigen::Ref<Vector3> fz );
 

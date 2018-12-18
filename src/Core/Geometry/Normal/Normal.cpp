@@ -13,7 +13,8 @@ namespace Geometry {
 /// GLOBAL ///
 //////////////
 
-void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
+void uniformNormal( const VectorArray<Vector3>& p,
+                    const VectorArray<Vector3ui>& T,
                     VectorArray<Vector3>& normal ) {
     const size_t N = p.size();
     normal.clear();
@@ -45,9 +46,9 @@ void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Triangle>& 
 }
 
 Vector3 localUniformNormal( const uint i, const VectorArray<Vector3>& p,
-                            const VectorArray<Triangle>& T, const TVAdj& adj ) {
+                            const VectorArray<Vector3ui>& T, const Sparse& adj ) {
     Vector3 normal = Vector3::Zero();
-    for ( TVAdj::InnerIterator it( adj, i ); it; ++it )
+    for ( Sparse::InnerIterator it( adj, i ); it; ++it )
     {
         const uint t = it.row();
         const uint i = T[t]( 0 );
@@ -58,7 +59,8 @@ Vector3 localUniformNormal( const uint i, const VectorArray<Vector3>& p,
     return normal; //.normalized();
 }
 
-void angleWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
+void angleWeightedNormal( const VectorArray<Vector3>& p, 
+                          const VectorArray<Vector3ui>& T,
                           VectorArray<Vector3>& normal ) {
     const uint N = p.size();
     normal.clear();
@@ -82,7 +84,8 @@ void angleWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Trian
     }
 }
 
-void areaWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
+void areaWeightedNormal( const VectorArray<Vector3>& p, 
+                         const VectorArray<Vector3ui>& T,
                          VectorArray<Vector3>& normal ) {
     const uint N = p.size();
     normal.clear();
