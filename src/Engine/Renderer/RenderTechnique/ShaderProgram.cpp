@@ -1,5 +1,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
+#include <Core/Utils/StringUtils.hpp>
+
 #include <globjects/base/File.h>
 #include <globjects/base/StaticStringSource.h>
 
@@ -375,18 +377,18 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
 
     std::string result {};
     std::vector<std::string> finalStrings;
-    auto shaderLines = Core::StringUtils::splitString( shader, '\n' );
-    finalStrings.reserve( shaderLines.size() );
 
     uint nline = 0;
 
     static const std::regex reg( "^[ ]*#[ ]*include[ ]+[\"<](.*)[\">].*" );
 
-    for ( const auto& l : shaderLines )
+    // source: https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/
+    std::istringstream iss(shader);
+    std::string codeline;
+    while (std::getline(iss, codeline, '\n'))
     {
-        std::string codeline = l;
         std::smatch match;
-        if ( std::regex_search( l, match, reg ) )
+        if ( std::regex_search( codeline, match, reg ) )
         {
             // Radium V2 : for composable shaders, use the includePaths set elsewhere.
             auto includeNameString =

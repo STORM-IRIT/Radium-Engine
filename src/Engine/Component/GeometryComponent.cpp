@@ -1,7 +1,6 @@
 #include <Engine/Component/GeometryComponent.hpp>
 
 #include <iostream>
-//#include <numeric> // std::iota
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/File/FileData.hpp>
@@ -9,7 +8,6 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Core/String/StringUtils.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>

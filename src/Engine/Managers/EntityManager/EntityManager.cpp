@@ -1,7 +1,6 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
 #include <Core/Log/Log.hpp>
-#include <Core/String/StringUtils.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
@@ -30,7 +29,7 @@ Entity* EntityManager::createEntity( const std::string& name ) {
     std::string entityName = name;
     if ( name.empty() )
     {
-        Core::StringUtils::stringPrintf( entityName, "Entity_%u", idx.getValue() );
+        entityName = "Entity_" + std::to_string(idx.getValue());
         ent->rename( entityName );
     } else
     {

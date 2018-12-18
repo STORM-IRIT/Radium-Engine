@@ -1,4 +1,4 @@
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/StringUtils.hpp>
 #include <cstring> //memset
 #include <Tests.hpp>
 
@@ -7,9 +7,9 @@ namespace Testing {
 
 void run()  {
 
-    using Ra::Core::StringUtils::getBaseName;
-    using Ra::Core::StringUtils::getDirName;
-    using Ra::Core::StringUtils::getFileExt;
+    using Ra::Core::Utils::getBaseName;
+    using Ra::Core::Utils::getDirName;
+    using Ra::Core::Utils::getFileExt;
 
     // Test getFileExt
     {
@@ -63,19 +63,6 @@ void run()  {
                           getFileExt( path ) ==
                       path,
                   "Path reconstruction" );
-
-//    // Test string printf
-//    using Ra::Core::StringUtils::stringPrintf;
-
-//    const char* format = "test %u test %p test %f";
-//    char buffer[100];
-//    std::memset( buffer, 0x0, 100 );
-//    std::string str;
-
-//    int v1 = sprintf( buffer, format, 42, 3.14 );
-//    int v2 = stringPrintf( str, format, 42, 3.14 );
-//    RA_VERIFY( v1 == v2, "String printf 1" );
-//    RA_VERIFY( str == std::string( buffer ), "String printf 2" );
 }
 } // namespace Testing
 } // namespace Ra
