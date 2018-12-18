@@ -11,6 +11,7 @@
 
 #include <Core/File/FileData.hpp>
 #include <Core/File/FileLoaderInterface.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/System/System.hpp>
@@ -134,7 +135,7 @@ Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& c
 }
 
 bool RadiumEngine::loadFile( const std::string& filename ) {
-    std::string extension = Core::StringUtils::getFileExt( filename );
+    std::string extension = Core::Utils::getFileExt( filename );
 
     for ( auto& l : m_fileLoaders )
     {
@@ -157,7 +158,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         return false;
     }
 
-    std::string entityName = Core::StringUtils::getBaseName( filename, false );
+    std::string entityName = Core::Utils::getBaseName( filename, false );
 
     Entity* entity = m_entityManager->createEntity( entityName );
 

@@ -26,7 +26,7 @@
 #include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/Math.hpp>
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
@@ -588,7 +588,7 @@ void Gui::Viewer::grabFrame( const std::string& filename ) {
     size_t w, h;
     auto writtenPixels = m_currentRenderer->grabFrame( w, h );
 
-    std::string ext = Core::StringUtils::getFileExt( filename );
+    std::string ext = Core::Utils::getFileExt( filename );
 
     if ( ext == "bmp" )
     {

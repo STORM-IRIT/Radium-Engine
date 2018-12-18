@@ -1,7 +1,5 @@
 #include <Engine/Entity/Entity.hpp>
 
-#include <Core/String/StringUtils.hpp>
-
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/RadiumEngine.hpp>

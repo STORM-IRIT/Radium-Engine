@@ -6,7 +6,7 @@
 #include <functional>
 
 /// This file contains utilities and wrapper to the standard library
-/// that didn't fit into any other category (see Strings and Containers)
+/// that didn't fit into any other category (see Containers)
 namespace Ra {
 namespace Core {
 namespace Utils {
