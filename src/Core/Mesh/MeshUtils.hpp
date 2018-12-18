@@ -19,27 +19,27 @@ namespace MeshUtils {
 //
 
 /// Fills the given array with the vertices of a given triangle.
-inline void getTriangleVertices( const TriangleMesh& mesh, TriangleIdx triIdx,
+inline void getTriangleVertices( const TriangleMesh& mesh, Index triIdx,
                                  std::array<Vector3, 3>& verticesOut );
 
 /// Returns the area of a given triangle.
-inline Scalar getTriangleArea( const TriangleMesh& mesh, TriangleIdx triIdx );
+inline Scalar getTriangleArea( const TriangleMesh& mesh, Index triIdx );
 
 /// Computes the normal of a given triangle.
-inline Vector3 getTriangleNormal( const TriangleMesh& mesh, TriangleIdx triIdx );
+inline Vector3 getTriangleNormal( const TriangleMesh& mesh, Index triIdx );
 
 inline Aabb getAabb( const TriangleMesh& mesh );
 
 /// If t1 is triangle (v1,v2,v3), returns v3.
-inline uint getLastVertex( const Triangle& t1, uint v1, uint v2 );
+inline uint getLastVertex( const Ra::Core::Vector3ui& t1, uint v1, uint v2 );
 
 /// Returns true if the triangle contains a given edge
-inline bool containsEdge( const Triangle& t1, uint v1, uint v2 );
+inline bool containsEdge( const Ra::Core::Vector3ui& t1, uint v1, uint v2 );
 
 /// Automatically compute normals for each vertex by averaging connected triangle normals.
 RA_CORE_API void getAutoNormals( TriangleMesh& mesh, VectorArray<Vector3>& normalsOut );
 
-/// Returns a list of edges from a given triangle mesh
+/// Returns a list of edges from a given TriangleMesh
 RA_CORE_API inline std::vector<Ra::Core::Vector2ui> getEdges( const TriangleMesh& mesh );
 
 /// Results of a raycast vs a mesh
@@ -51,10 +51,10 @@ struct RayCastResult {
     Scalar m_t = -1;
 };
 
-/// Return the index of the triangle hit by the ray or -1 if there's no hit.
+/// Return the index of the Vector3ui hit by the ray or -1 if there's no hit.
 RA_CORE_API RayCastResult castRay( const TriangleMesh& mesh, const Ray& ray );
 
-/// Return the mean edge length of the given triangle mesh
+/// Return the mean edge length of the given TriangleMesh
 RA_CORE_API Scalar getMeanEdgeLength( const TriangleMesh& mesh );
 
 //

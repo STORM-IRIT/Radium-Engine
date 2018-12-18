@@ -3,7 +3,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/MeshTypes.hpp>
+
 
 namespace Ra {
 namespace Core {
@@ -28,7 +28,7 @@ using AreaMatrix = Diagonal;
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T );
+AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AreaMatrix for the given set of points and triangles.
@@ -39,7 +39,7 @@ AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorA
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-void RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
+void RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                               AreaMatrix& A );
 
 /*
@@ -52,7 +52,7 @@ void RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<T
  * Visualization and Mathematics III 2003
  */
 AreaMatrix RA_CORE_API barycentricArea( const VectorArray<Vector3>& p,
-                                        const VectorArray<Triangle>& T );
+                                        const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AreaMatrix for the given set of points and triangles.
@@ -63,7 +63,7 @@ AreaMatrix RA_CORE_API barycentricArea( const VectorArray<Vector3>& p,
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
+void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                                   AreaMatrix& A );
 
 /*
@@ -75,7 +75,7 @@ void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p, const VectorArr
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-AreaMatrix RA_CORE_API voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T );
+AreaMatrix RA_CORE_API voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AreaMatrix for the given set of points and triangles.
@@ -86,7 +86,7 @@ AreaMatrix RA_CORE_API voronoiArea( const VectorArray<Vector3>& p, const VectorA
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-AreaMatrix RA_CORE_API mixedArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T );
+AreaMatrix RA_CORE_API mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T );
 
 ////////////////
 /// ONE RING ///

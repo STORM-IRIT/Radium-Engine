@@ -3,7 +3,6 @@
 
 #include <Core/Animation/Handle/Handle.hpp>
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Mesh/MeshTypes.hpp> // Triangle
 #include <Core/RaCore.hpp>
 
 namespace Ra {
@@ -32,7 +31,7 @@ public:
     /**
      * The list of triangles in the cage.
      */
-    VectorArray<Ra::Core::Triangle> m_triangle;
+    VectorArray<Ra::Core::Vector3ui> m_triangle;
 };
 
 } // namespace Animation

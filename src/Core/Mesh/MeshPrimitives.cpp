@@ -42,12 +42,12 @@ TriangleMesh makeBox( const Aabb& aabb ) {
                         Vector3( -a, +a, +a ), Vector3( +a, +a, +a )};
 
     result.m_triangles = {
-        Triangle( 0, 2, 1 ), Triangle( 1, 2, 3 ), // Floor
-        Triangle( 0, 1, 4 ), Triangle( 4, 1, 5 ), // Front
-        Triangle( 3, 2, 6 ), Triangle( 3, 6, 7 ), // Back
-        Triangle( 5, 1, 3 ), Triangle( 5, 3, 7 ), // Right
-        Triangle( 2, 0, 4 ), Triangle( 2, 4, 6 ), // Left
-        Triangle( 4, 5, 6 ), Triangle( 6, 5, 7 )  // Top
+        Vector3ui( 0, 2, 1 ), Vector3ui( 1, 2, 3 ), // Floor
+        Vector3ui( 0, 1, 4 ), Vector3ui( 4, 1, 5 ), // Front
+        Vector3ui( 3, 2, 6 ), Vector3ui( 3, 6, 7 ), // Back
+        Vector3ui( 5, 1, 3 ), Vector3ui( 5, 3, 7 ), // Right
+        Vector3ui( 2, 0, 4 ), Vector3ui( 2, 4, 6 ), // Left
+        Vector3ui( 4, 5, 6 ), Vector3ui( 6, 5, 7 )  // Top
     };
 
     checkConsistency( result );
@@ -102,12 +102,12 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
 
     result.m_triangles = {
 
-        Triangle( 0, 1, 2 ),    Triangle( 0, 2, 3 ),    // Floor
-        Triangle( 4, 5, 6 ),    Triangle( 4, 6, 7 ),    // Ceil
-        Triangle( 8, 9, 10 ),   Triangle( 8, 10, 11 ),  // Left
-        Triangle( 12, 13, 14 ), Triangle( 12, 14, 15 ), // Right
-        Triangle( 16, 17, 18 ), Triangle( 16, 18, 19 ), // Bottom
-        Triangle( 20, 21, 22 ), Triangle( 20, 22, 23 )  // Top
+        Vector3ui( 0, 1, 2 ),    Vector3ui( 0, 2, 3 ),    // Floor
+        Vector3ui( 4, 5, 6 ),    Vector3ui( 4, 6, 7 ),    // Ceil
+        Vector3ui( 8, 9, 10 ),   Vector3ui( 8, 10, 11 ),  // Left
+        Vector3ui( 12, 13, 14 ), Vector3ui( 12, 14, 15 ), // Right
+        Vector3ui( 16, 17, 18 ), Vector3ui( 16, 18, 19 ), // Bottom
+        Vector3ui( 20, 21, 22 ), Vector3ui( 20, 22, 23 )  // Top
     };
 
     checkConsistency( result );
@@ -167,11 +167,11 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
 
     for ( uint n = 0; n < numSubdiv; ++n )
     {
-        VectorArray<Triangle> newTris; //= result.m_triangles;
+        VectorArray<Vector3ui> newTris; //= result.m_triangles;
         // Now subdivide every face into 4 triangles.
         for ( uint i = 0; i < result.m_triangles.size(); ++i )
         {
-            const Triangle& tri = result.m_triangles[i];
+            const Vector3ui& tri = result.m_triangles[i];
             std::array<Vector3, 3> triVertices;
             std::array<uint, 3> middles;
 
@@ -346,7 +346,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         result.m_triangles.emplace_back( br, tl, tr );
     }
 
-    // Next rings of the sphere triangle
+    // Next rings of the sphere Vector3ui
     for ( uint j = 0; j < ( nFaces / 2 ) - 2; ++j )
     {
         for ( uint i = 0; i < nFaces; ++i )

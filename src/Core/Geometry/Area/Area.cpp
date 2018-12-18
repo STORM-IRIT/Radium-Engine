@@ -12,7 +12,7 @@ namespace Geometry {
 /// GLOBAL MATRIX ///
 /////////////////////
 
-AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T ) {
+AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
     for ( const auto& t : T )
@@ -28,13 +28,13 @@ AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangl
     return A;
 }
 
-void oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T, AreaMatrix& A ) {
+void oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T, AreaMatrix& A ) {
     A.resize( p.size(), p.size() );
     A.reserve( p.size() );
 #pragma omp parallel for
     for ( int n = 0; n < int( T.size() ); ++n )
     {
-        const Triangle& t = T[n];
+        const Vector3ui& t = T[n];
         const uint i = t( 0 );
         const uint j = t( 1 );
         const uint k = t( 2 );
@@ -48,22 +48,21 @@ void oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
     }
 }
 
-AreaMatrix barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T ) {
+AreaMatrix barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
     return ( ( 1.0f / 3.0f ) * oneRingArea( p, T ) );
 }
 
-void barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T,
+void barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                       AreaMatrix& A ) {
     oneRingArea( p, T, A );
-    const uint size = p.size();
 #pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
+    for (int i = 0; i < int(p.size()); ++i)
     {
         A.coeffRef( i, i ) /= 3.0;
     }
 }
 
-AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T ) {
+AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
     for ( const auto& t : T )
@@ -81,7 +80,7 @@ AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Triangl
     return ( ( 1.0 / 8.0 ) * A );
 }
 
-AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Triangle>& T ) {
+AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
     for ( const auto& t : T )
