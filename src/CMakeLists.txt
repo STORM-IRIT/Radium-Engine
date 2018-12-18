@@ -78,7 +78,7 @@ target_include_directories(${core_target}
 
 target_link_libraries(
     ${core_target}
-    ${core_libs}
+    PUBLIC ${core_libs}
 )
 radium_cotire(${core_target})
 
@@ -126,7 +126,7 @@ if ( RADIUM_IO_IS_INTERFACE )
 
     target_link_libraries(
             ${io_target} INTERFACE
-            ${io_libs}
+            PUBLIC ${io_libs}
     )
 else ( RADIUM_IO_IS_INTERFACE )
     add_library(
@@ -139,7 +139,7 @@ else ( RADIUM_IO_IS_INTERFACE )
 
     target_link_libraries(
         ${io_target}
-        ${io_libs}
+        PUBLIC ${io_libs}
     )
     set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
 
@@ -203,7 +203,7 @@ target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
 target_link_libraries(
     ${engine_target}
-    ${engine_libs}
+    PUBLIC ${engine_libs}
 )
 
 # Build GuiBase
@@ -250,7 +250,7 @@ target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 
 target_link_libraries(
     ${guibase_target}
-    ${guibase_libs}
+    PUBLIC ${guibase_libs}
     )
 
 #radium_cotire(${guibase_target})

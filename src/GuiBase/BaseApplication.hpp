@@ -74,6 +74,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     const Engine::RadiumEngine* getEngine() const { return m_engine.get(); }
 
     uint getFrameCount() const { return m_frameCounter; }
+
+    const std::string& getExportFolderName() const { return m_exportFoldername; }
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
     void starting();

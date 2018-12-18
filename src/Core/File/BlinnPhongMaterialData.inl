@@ -43,43 +43,27 @@ inline bool BlinnPhongMaterialData::hasOpacityTexture() const {
 
 /// DEBUG
 inline void BlinnPhongMaterialData::displayInfo() const {
-    std::string kd;
-    std::string ks;
-    std::string ns;
-    std::string op;
+    auto print = [](bool ok, const std::string& name, const auto& value) {
+        if (ok)
+        {
+            LOG(logINFO) << name << value;
+        }
+        else
+        {
+            LOG(logINFO) << name << "NO";
+        }
+    };
 
-    if ( hasDiffuse() )
-    {
-        Core::StringUtils::stringPrintf( kd, "%.3f %.3f %.3f %.3f", m_diffuse.x(), m_diffuse.y(),
-                                         m_diffuse.z(), m_diffuse.w() );
-    }
-
-    if ( hasSpecular() )
-    {
-        Core::StringUtils::stringPrintf( ks, "%.3f %.3f %.3f %.3f", m_specular.x(),
-                                         m_specular.w() );
-    }
-
-    if ( hasShininess() )
-    {
-        Core::StringUtils::stringPrintf( ns, "%.1f", m_shininess );
-    }
-
-    if ( hasOpacity() )
-    {
-        Core::StringUtils::stringPrintf( op, "%.15f", m_opacity );
-    }
-
-    LOG( logINFO ) << "======== MATERIAL INFO ========";
-    LOG( logINFO ) << " Kd             : " << ( hasDiffuse() ? kd : "NO" );
-    LOG( logINFO ) << " Ks             : " << ( hasSpecular() ? ks : "NO" );
-    LOG( logINFO ) << " Ns             : " << ( hasShininess() ? ns : "NO" );
-    LOG( logINFO ) << " Opacity        : " << ( hasOpacity() ? op : "NO" );
-    LOG( logINFO ) << " Kd Texture     : " << ( hasDiffuseTexture() ? m_texDiffuse : "NO" );
-    LOG( logINFO ) << " Ks Texture     : " << ( hasSpecularTexture() ? m_texSpecular : "NO" );
-    LOG( logINFO ) << " Ns Texture     : " << ( hasShininessTexture() ? m_texShininess : "NO" );
-    LOG( logINFO ) << " Normal Texture : " << ( hasNormalTexture() ? m_texNormal : "NO" );
-    LOG( logINFO ) << " Alpha Texture  : " << ( hasOpacityTexture() ? m_texOpacity : "NO" );
+    LOG(logINFO) <<              "======== MATERIAL INFO ========";
+    print(hasDiffuse(),          " Kd             : ", m_diffuse.transpose());
+    print(hasSpecular(),         " Ks             : ", m_specular.transpose());
+    print(hasShininess(),        " Ns             : ", m_shininess);
+    print(hasOpacity(),          " Opacity        : ", m_opacity);
+    print(hasDiffuseTexture(),   " Kd Texture     : ", m_texDiffuse);
+    print(hasSpecularTexture(),  " Ks Texture     : ", m_texSpecular);
+    print(hasShininessTexture(), " Ns Texture     : ", m_texShininess);
+    print(hasNormalTexture(),    " Normal Texture : ", m_texNormal);
+    print(hasOpacityTexture(),   " Alpha Texture  : ", m_texOpacity);
 }
 
 

@@ -6,8 +6,6 @@
 #include <stdio.h>
 #include <string>
 
-#include <Core/String/StringUtils.hpp>
-
 inline std::string NowTime();
 
 enum TLogLevel {
@@ -161,7 +159,7 @@ inline std::string NowTime() {
     CORE_ASSERT( ok, "Increase buffer size." );
     std::string result( buffer );
     // This doesn't work with minGW. Maybe indicates a serious issue ?
-    // Ra::Core::StringUtils::stringPrintf( result, "%s", buffer );
+    // Ra::Core::Utils::stringPrintf( result, "%s", buffer );
     return result;
 }
 

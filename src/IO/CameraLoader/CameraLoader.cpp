@@ -1,6 +1,7 @@
 #include <IO/CameraLoader/CameraLoader.hpp>
 
 #include <Core/File/FileData.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -73,7 +74,7 @@ Asset::FileData* CameraFileLoader::loadFile( const std::string& filename ) {
 
     /// create the CameraData
     Asset::CameraData* camera = new Asset::CameraData();
-    camera->setName( Core::StringUtils::getBaseName( filename, false ) );
+    camera->setName( Core::Utils::getBaseName( filename, false ) );
     camera->setType( Asset::CameraData::CameraType( type ) );
     Core::Matrix4 frame;
     frame << M[0], M[1], M[2], M[3], M[4], M[5], M[6], M[7], M[8], M[9], M[10], M[11], M[12], M[13],

@@ -7,7 +7,7 @@
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Version.hpp>
@@ -43,8 +43,6 @@
 #include <QOpenGLContext>
 #include <QPluginLoader>
 #include <QTimer>
-
-#include <algorithm>
 
 // Const parameters : TODO : make config / command line options
 
@@ -120,11 +118,13 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     if ( parser.isSet( maxThreadsOpt ) )
         m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
 
-    std::time_t startTime = std::time( nullptr );
-    std::tm* startTm = std::localtime( &startTime );
-    Ra::Core::StringUtils::stringPrintf( m_exportFoldername, "%4u%02u%02u-%02u%02u",
-                                         1900 + startTm->tm_year, startTm->tm_mon + 1,
-                                         startTm->tm_mday, startTm->tm_hour, startTm->tm_min );
+    {
+        std::time_t startTime = std::time(nullptr);
+        std::tm* startTm = std::localtime(&startTime);
+        std::stringstream ssTp;
+        ssTp << std::put_time(startTm, "%Y%m%d-%H%M%S");
+        m_exportFoldername = ssTp.str();
+    }
 
     QDir().mkdir( m_exportFoldername.c_str() );
 
@@ -470,10 +470,12 @@ void BaseApplication::setRecordFrames( bool on ) {
 }
 
 void BaseApplication::recordFrame() {
-    std::string filename;
-    Ra::Core::StringUtils::stringPrintf( filename, "%s/radiumframe_%06u.png",
-                                         m_exportFoldername.c_str(), m_frameCounter );
-    m_viewer->grabFrame( filename );
+    std::stringstream filename;
+    filename << m_exportFoldername
+        << "/radiumframe_"
+        << std::setw(6) << std::setfill('0') << m_frameCounter
+        << ".png";
+    m_viewer->grabFrame(filename.str());
 }
 
 BaseApplication::~BaseApplication() {
@@ -511,7 +513,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
     for ( const auto& filename : pluginsDir.entryList( QDir::Files ) )
     {
 
-        std::string ext = Core::StringUtils::getFileExt( filename.toStdString() );
+        std::string ext = Core::Utils::getFileExt( filename.toStdString() );
 #if defined( OS_WINDOWS )
         std::string sysDllExt = "dll";
 #elif defined( OS_LINUX )
@@ -523,7 +525,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
 #endif
         if ( ext == sysDllExt )
         {
-            std::string basename = Core::StringUtils::getBaseName( filename.toStdString(), false );
+            std::string basename = Core::Utils::getBaseName( filename.toStdString(), false );
 
             auto stringCmp = [basename]( const QString& str ) {
                 return str.toStdString() == basename;

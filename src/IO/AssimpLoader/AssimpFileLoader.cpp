@@ -1,6 +1,7 @@
 #include <IO/AssimpLoader/AssimpFileLoader.hpp>
 
 #include <Core/File/FileData.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -24,8 +25,14 @@ std::vector<std::string> AssimpFileLoader::getFileExtensions() const {
 
     m_importer.GetExtensionList( extensionsList );
 
-    std::vector<std::string> extensions = Core::StringUtils::splitString( extensionsList, ';' );
-
+    // source: https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/
+    std::istringstream iss(extensionsList);
+    std::string ext;
+    std::vector<std::string> extensions;
+    while ( std::getline(iss, ext, ';') )
+    {
+        extensions.push_back( ext );
+    }
     return extensions;
 }
 
@@ -69,11 +76,11 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     // For now, Skeleton must be loaded from a file with meshes
     if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
         LOG( logWARNING ) << " ai scene is incomplete, just try to load lights ..";
-        AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),
+        AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                            fileData->isVerbose() );
         lightLoader.loadData( scene, fileData->m_lightData );
     } else {
-        AssimpGeometryDataLoader geometryLoader( Core::StringUtils::getDirName( filename ),
+        AssimpGeometryDataLoader geometryLoader( Core::Utils::getDirName( filename ),
                                                  fileData->isVerbose() );
         geometryLoader.loadData( scene, fileData->m_geometryData );
 
@@ -102,7 +109,7 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
         AssimpAnimationDataLoader animationLoader( fileData->isVerbose() );
         animationLoader.loadData( scene, fileData->m_animationData );
 
-        AssimpLightDataLoader lightLoader( Core::StringUtils::getDirName( filename ),
+        AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                            fileData->isVerbose() );
         lightLoader.loadData( scene, fileData->m_lightData );
 

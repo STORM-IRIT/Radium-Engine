@@ -1,7 +1,6 @@
 #include "DummyComponent.hpp"
 
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Core/String/StringUtils.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>

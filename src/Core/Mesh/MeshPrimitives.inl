@@ -1,6 +1,5 @@
 #include "MeshPrimitives.hpp"
 #include <Core/Mesh/MeshUtils.hpp>
-#include <Core/String/StringUtils.hpp>
 
 namespace Ra {
 namespace Core {
