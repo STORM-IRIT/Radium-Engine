@@ -1,6 +1,6 @@
 #ifndef BLINNPHONGMATERIAL_GLSL
 #define BLINNPHONGMATERIAL_GLSL
-const float Pi = 3.14159265;
+const float Pi = 3.141592653589793;
 
 struct BlinnPhongTextures
 {
@@ -103,7 +103,7 @@ vec3 computeMaterialInternal(Material material, vec2 texC, vec3 L, vec3 V, vec3 
     vec3 Kd = getKd(material, texC) / Pi;
 
     // use the correct normalization factor for Blinn-Phong BRDF;
-    float normalization = (Ns + 1) / (8 * Pi * clamp(pow(dot(L, H), 3.), 0.000001, 1000000.));
+    float normalization = (Ns + 1) / (8 * Pi * clamp(pow(dot(L, H), 3.), 0.000001, 1.));
     vec3 Ks = getKs(material, texC) * normalization;
 
     vec3 diff = Kd;

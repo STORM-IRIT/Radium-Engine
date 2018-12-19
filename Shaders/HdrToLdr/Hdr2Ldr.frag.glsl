@@ -18,10 +18,10 @@ void main()
     vec2 size = vec2(textureSize(screenTexture, 0));
     vec4 pixel = vec4(texelFetch(screenTexture, ivec2(varTexcoord.xy * size), 0));
     // Pixel is linear, transform to sRGB
-    if (pixel.a != 0) {
+    //if (pixel.a != 0) {
         pixel.r = tosRGB(pixel.r);
         pixel.g = tosRGB(pixel.g);
         pixel.b = tosRGB(pixel.b);
-    }
+    //}
     fragColor = pixel;
 }
