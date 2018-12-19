@@ -146,7 +146,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
     GL_ASSERT( glDrawBuffers( 4, buffers ) );
 
-    const auto clearColor = Core::Colors::FromChars<Core::Colorf>( 42, 42, 42, 0 );
+    const auto clearColor = Core::Colors::FromChars<Core::Colorf>( 10, 10, 10, 0 );
     const auto clearZeros = Core::Colors::Black<Core::Colorf>();
     const auto clearOnes = Core::Colors::FromChars<Core::Colorf>( 255, 255, 255, 255 );
     const float clearDepth {1.0f};
