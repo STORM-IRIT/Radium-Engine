@@ -25,7 +25,7 @@ void run()  {
 
                     // Fire a ray towards the box (some hit, some miss).
                     {
-                        Ra::Core::Ray r = Ra::Core::Ray( s, dir.normalized() );
+                        Eigen::ParametrizedLine<Scalar, 3> r ( s, dir.normalized() );
 
                         Scalar t = 0.f;
                         Ra::Core::Vector3 n = Ra::Core::Vector3::Zero();
@@ -46,7 +46,7 @@ void run()  {
 
                     // Fire a ray on the other direction (which should miss)
                     {
-                        Ra::Core::Ray r = Ra::Core::Ray( s, -dir.normalized() );
+                        Eigen::ParametrizedLine<Scalar, 3> r ( s, -dir.normalized() );
 
                         Scalar t;
                         Ra::Core::Vector3 n;
@@ -57,8 +57,8 @@ void run()  {
 
                     // Fire a ray from within the box.
                     {
-                        Ra::Core::Ray r =
-                            Ra::Core::Ray( Ra::Core::Vector3::Zero(), dir.normalized() );
+                        Eigen::ParametrizedLine<Scalar, 3> r
+                                ( Ra::Core::Vector3::Zero(), dir.normalized() );
 
                         Scalar t;
                         Ra::Core::Vector3 n{0, 0, 0};

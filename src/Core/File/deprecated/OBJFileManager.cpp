@@ -6,7 +6,7 @@ namespace Core {
 /// ===============================================================================
 /// CONSTRUCTOR
 /// ===============================================================================
-OBJFileManager::OBJFileManager() : FileManager<TriangleMesh>() {}
+OBJFileManager::OBJFileManager() : FileManager<Geometry::TriangleMesh>() {}
 
 /// ===============================================================================
 /// DESTRUCTOR
@@ -20,7 +20,7 @@ std::string OBJFileManager::fileExtension() const {
     return "obj";
 }
 
-bool OBJFileManager::importData( std::istream& file, TriangleMesh& data ) {
+bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& data ) {
     data.clear();
     std::string line;
     while ( std::getline( file, line ) )
@@ -85,7 +85,7 @@ bool OBJFileManager::importData( std::istream& file, TriangleMesh& data ) {
     return true;
 }
 
-bool OBJFileManager::exportData( std::ostream& file, const TriangleMesh& data ) {
+bool OBJFileManager::exportData( std::ostream& file, const Geometry::TriangleMesh& data ) {
     std::string content = "";
     if ( data.vertices().size() == 0 )
     {

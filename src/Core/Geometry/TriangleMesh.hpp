@@ -8,6 +8,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 /// Simple Mesh structure that handles indexed polygonal mesh with vertex
 /// attributes.
@@ -17,8 +18,8 @@ namespace Core {
 /// They can be accessed through vertices() and normals().
 /// Other attribs could be added with addAttrib() and accesssed with getAttrib().
 /// \note Attribute names "in_position" and "in_normal" are reserved.
-/// \see MeshUtils for geometric functions operating on a mesh.
-class TriangleMesh {
+/// \see Geometry for geometric functions operating on a mesh.
+class RA_CORE_API TriangleMesh {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
@@ -52,7 +53,7 @@ class TriangleMesh {
     /// Appends another mesh to this one, but only if they have the same attributes.
     /// Return True if the mesh has been successfully appended.
     /// \warning There is no error check on the handles attribute type.
-    inline bool append( const TriangleMesh& other );
+    bool append( const TriangleMesh& other );
 
     /// Erases all data, making the mesh empty.
     inline void clear();
@@ -123,12 +124,12 @@ class TriangleMesh {
     /// Remove attribute by handle.
     /// \see AttribManager::removeAttrib() for more info.
     template <typename T>
-    void removeAttrib(Utils::AttribHandle<T>& h ) {
+    void removeAttrib( Utils::AttribHandle<T>& h ) {
         m_vertexAttribs.removeAttrib( h );
     }
 
     /// Erases all attributes, leaving the mesh with faces and geometry only.
-    inline void clearAttributes();
+    void clearAttributes();
 
     /// Copy only the mesh faces and geometry.
     /// The needed attributes can be copied through copyAttributes().
@@ -150,12 +151,29 @@ class TriangleMesh {
     /// \warning The original handles are not valid for the mesh copy.
     inline bool copyAllAttributes( const TriangleMesh& input );
 
+    inline Aabb computeAabb() const;
+
+    /// Check that the mesh is well built, asserting when it is not.
+    /// only compiles to something when in debug mode.
+    void checkConsistency() const;
+
+    /// Results of a raycast vs a mesh
+    struct RayCastResult {
+        int m_hitTriangle = -1;
+        int m_nearestVertex = -1;
+        int m_edgeVertex0 = -1;
+        int m_edgeVertex1 = -1;
+        Scalar m_t = -1;
+    };
+    /// Return the index of the Triangle hit by the ray or -1 if there's no hit.
+    /// \FIXME
+    RayCastResult castRay( const Eigen::ParametrizedLine<Scalar, 3>& ray ) const;
+
   public:
     /// The list of triangles.
     VectorArray<Vector3ui> m_triangles;
 
     /// A list of non-triangular polygons.
-    // FIXME: not used.
     VectorArray<Face> m_faces;
 
   private:
@@ -190,9 +208,10 @@ class TriangleMesh {
     friend class TopologicalMesh;
 };
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Mesh/TriangleMesh.inl>
+#include <Core/Geometry/TriangleMesh.inl>
 
 #endif // RADIUMENGINE_TRIANGLEMESH_HPP

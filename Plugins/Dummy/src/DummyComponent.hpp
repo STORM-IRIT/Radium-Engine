@@ -3,7 +3,7 @@
 
 #include <DummyPluginMacros.hpp>
 
-#include <Core/Mesh/MeshTypes.hpp>
+#include <Core/Geometry/MeshTypes.hpp>
 #include <Engine/Component/Component.hpp>
 
 namespace Ra {

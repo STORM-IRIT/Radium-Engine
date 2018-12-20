@@ -1,16 +1,16 @@
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Tests.hpp>
 
 namespace Ra {
 namespace Testing {
 
-void run()  {
-    using Ra::Core::TriangleMesh;
+void run() {
     using Ra::Core::Vector3;
+    using Ra::Core::Geometry::TriangleMesh;
     using Vec3AttribHandle = Ra::Core::Utils::AttribHandle<Vector3>;
 
-    TriangleMesh mesh = Ra::Core::MeshUtils::makeBox();
+    TriangleMesh mesh = Ra::Core::Geometry::makeBox();
 
     // cannot add/access "in_position" or "in_normal"
     auto h_pos = mesh.addAttrib<Vector3>( "in_position" );
@@ -63,27 +63,24 @@ void run()  {
     meshCopy.copyAllAttributes( mesh );
     RA_VERIFY( mesh.vertices()[0].isApprox( v0 ), "Cannot copy TriangleMesh" );
     meshCopy.vertices()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
-    RA_VERIFY( !meshCopy.vertices()[0].isApprox( v0 ),
-                  "Cannot copy TriangleMesh attributes" );
+    RA_VERIFY( !meshCopy.vertices()[0].isApprox( v0 ), "Cannot copy TriangleMesh attributes" );
 }
 } // namespace Testing
 } // namespace Ra
 
-
-int main(int argc, const char **argv) {
+int main( int argc, const char** argv ) {
     using namespace Ra;
 
-    if(!Testing::init_testing(1, argv))
+    if ( !Testing::init_testing( 1, argv ) )
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for(int i = 0; i < Testing::g_repeat; ++i)
+    for ( int i = 0; i < Testing::g_repeat; ++i )
     {
-        CALL_SUBTEST(( Testing::run() ));
+        CALL_SUBTEST( ( Testing::run() ) );
     }
 
     return EXIT_SUCCESS;
 }
-

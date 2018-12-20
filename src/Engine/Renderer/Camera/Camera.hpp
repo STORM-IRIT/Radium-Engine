@@ -4,7 +4,6 @@
 #include <Engine/RaEngine.hpp>
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Ray.hpp>
 
 #include <Engine/Component/Component.hpp>
 
@@ -88,7 +87,7 @@ class RA_ENGINE_API Camera : public Component {
 
     /// Return a ray emanating from the camera, passing by the point given by
     /// screen coordinates x and y.
-    Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
+    Eigen::ParametrizedLine<Scalar, 3> getRayFromScreen( const Core::Vector2& pix ) const;
 
     /// Return the screen coordinates of the given point p (in world coordinates).
     inline Core::Vector2 project( const Core::Vector3& p ) const;

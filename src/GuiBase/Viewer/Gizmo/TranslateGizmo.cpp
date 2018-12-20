@@ -1,9 +1,9 @@
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/RayCast.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -43,10 +43,10 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         cylinderEnd[i] = ( 1.f - arrowFrac );
         arrowEnd[i] = 1.f;
 
-        Core::TriangleMesh cylinder = Core::MeshUtils::makeCylinder(
+        Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, arrowScale * axisWidth / 2.f );
 
-        Core::TriangleMesh cone = Core::MeshUtils::makeCone(
+        Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone(
             arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2.f );
 
         // Merge the cylinder and the cone to create the arrow shape.
@@ -75,7 +75,7 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
         T.translation()[( i + 1 ) % 3] += arrowScale / 8 * 3;
         T.translation()[( i + 2 ) % 3] += arrowScale / 8 * 3;
 
-        Core::TriangleMesh plane = Core::MeshUtils::makePlaneGrid(
+        Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
             1, 1, Core::Vector2( arrowScale / 8, arrowScale / 8 ), T );
         auto& n = plane.normals();
 #pragma omp parallel for

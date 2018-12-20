@@ -10,7 +10,6 @@
 
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Ray.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -65,7 +64,7 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     inline uint getNumComponents() const;
 
     // Queries
-    virtual void rayCastQuery( const Core::Ray& r ) const;
+    virtual void rayCastQuery(const Eigen::ParametrizedLine<Scalar, 3> &r ) const;
 
   private:
     Core::Transform m_transform;

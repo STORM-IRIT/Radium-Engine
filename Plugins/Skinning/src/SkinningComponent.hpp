@@ -9,7 +9,7 @@
 #include <Core/File/HandleData.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Math/DualQuaternion.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>

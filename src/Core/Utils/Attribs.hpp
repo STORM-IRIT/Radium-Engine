@@ -8,9 +8,11 @@
 namespace Ra {
 namespace Core {
 
+namespace Geometry {
 // need forward declarations for friend classes outside of Utils namespace
-class TopologicalMesh; 
-class TriangleMesh; 
+class TopologicalMesh;
+class TriangleMesh;
+} // namespace Geometry
 
 namespace Utils {
 
@@ -309,8 +311,8 @@ class RA_CORE_API AttribManager {
     std::map<std::string, Index> m_attribsIndex;
 
     // Ease wrapper
-    friend class ::Ra::Core::TopologicalMesh;
-    friend class ::Ra::Core::TriangleMesh;
+    friend class ::Ra::Core::Geometry::TopologicalMesh;
+    friend class ::Ra::Core::Geometry::TriangleMesh;
 };
 
 } // namespace Utils

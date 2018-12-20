@@ -1,11 +1,12 @@
 #include <Drawing/SkeletonBoneDrawable.hpp>
 
+#include <Core/Geometry/Normal/Normal.hpp>
+#include <Core/Containers/MakeShared.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Core/Containers/MakeShared.hpp>
 
 namespace AnimationPlugin {
 
@@ -18,19 +19,19 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
     m_roMgr( roMgr ) {
 
     // create the mesh
-    auto displayMesh = std::make_shared<Ra::Engine::Mesh>(  name  );
+    auto displayMesh = std::make_shared<Ra::Engine::Mesh>( name );
     displayMesh->loadGeometry( makeBoneShape() );
 
     // create the material
     auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Bone Material" );
-    mat->m_kd = Ra::Core::Color( 0.4f, 0.4f, 0.4f, 1.f );;
+    mat->m_kd = Ra::Core::Color( 0.4f, 0.4f, 0.4f, 1.f );
     mat->m_ks = Ra::Core::Color( 0.0f, 0.0f, 0.0f, 1.0f );
     Ra::Engine::RenderTechnique rt;
     rt.setMaterial( mat );
     auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
     builder.second( rt, false );
-    auto renderObject = Ra::Engine::RenderObject::createRenderObject( name, comp, Ra::Engine::RenderObjectType::Geometry,
-                                                      displayMesh, rt);
+    auto renderObject = Ra::Engine::RenderObject::createRenderObject(
+        name, comp, Ra::Engine::RenderObjectType::Geometry, displayMesh, rt );
     renderObject->setXRay( false );
 
 
@@ -63,10 +64,10 @@ void SkeletonBoneRenderObject::updateLocalTransform() {
     m_roMgr->getRenderObject( m_roIdx )->setLocalTransform( drawTransform * scale );
 }
 
-Ra::Core::TriangleMesh SkeletonBoneRenderObject::makeBoneShape() {
+Ra::Core::Geometry::TriangleMesh SkeletonBoneRenderObject::makeBoneShape() {
     // Bone along Z axis.
 
-    Ra::Core::TriangleMesh mesh;
+    Ra::Core::Geometry::TriangleMesh mesh;
 
     const Scalar l = 0.1f;
     const Scalar w = 0.1f;
@@ -79,7 +80,9 @@ Ra::Core::TriangleMesh SkeletonBoneRenderObject::makeBoneShape() {
                         Ra::Core::Vector3ui( 0, 3, 4 ), Ra::Core::Vector3ui( 0, 4, 5 ),
                         Ra::Core::Vector3ui( 1, 3, 2 ), Ra::Core::Vector3ui( 1, 2, 5 ),
                         Ra::Core::Vector3ui( 1, 4, 3 ), Ra::Core::Vector3ui( 1, 5, 4 )};
-    Ra::Core::MeshUtils::getAutoNormals( mesh, mesh.normals() );
+
+    Ra::Core::Geometry::uniformNormal( mesh.vertices(), mesh.m_triangles, mesh.normals() );
+
     return mesh;
 }
 

@@ -7,10 +7,9 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/Geometry/Triangle/TriangleOperation.hpp> // triangleArea
 #include <Core/Log/Log.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
-#include <Core/Mesh/TopologicalTriMesh/Operations/EdgeSplit.hpp>
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
 
 namespace Ra {
 namespace Core {
@@ -55,9 +54,9 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     //
 
     // convert the mesh to TopologicalMesh for easy processing.
-    TriangleMesh triMesh;
+    Geometry::TriangleMesh triMesh;
     triMesh.copyBaseGeometry( dataInOut.m_referenceMesh );
-    TopologicalMesh topoMesh( triMesh );
+    Geometry::TopologicalMesh topoMesh( triMesh );
 
     // hashing function for Vector3
     struct hash_vec {
@@ -100,7 +99,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
         maxWeightDistance = 0;
 
         // Stores the edges to split
-        std::vector<TopologicalMesh::EdgeHandle> edgesToSplit;
+        std::vector<Geometry::TopologicalMesh::EdgeHandle> edgesToSplit;
 
         // Compute all weights distances for all edges.
         for ( auto e_it = topoMesh.edges_begin(); e_it != topoMesh.edges_end(); ++e_it )
@@ -153,7 +152,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
                 int v0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( edge, 0 ) ).idx();
                 int v1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( edge, 1 ) ).idx();
 
-                TMOperations::splitEdge( topoMesh, edge, 0.5f );
+                topoMesh.splitEdge( edge, 0.5f );
 
                 subdivW.row( startIndex + i ) = 0.5f * ( subdivW.row( v0 ) + subdivW.row( v1 ) );
                 ++i;
@@ -174,8 +173,9 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     dataInOut.m_CoR.resize( nVerts, Vector3::Zero() );
 
     // first precompute triangle data
-    std::map<TopologicalMesh::FaceHandle,
-             std::tuple<Vector3, Scalar, Eigen::SparseVector<Scalar>>> triangleData;
+    std::map<Geometry::TopologicalMesh::FaceHandle,
+             std::tuple<Vector3, Scalar, Eigen::SparseVector<Scalar>>>
+        triangleData;
     for ( auto f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )
     {
         // get needed data

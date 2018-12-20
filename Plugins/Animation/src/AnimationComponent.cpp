@@ -10,7 +10,7 @@
 #include <Core/File/HandleToSkeleton.hpp>
 #include <Core/File/KeyFrame/KeyPose.hpp>
 #include <Core/File/KeyFrame/KeyTransform.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>

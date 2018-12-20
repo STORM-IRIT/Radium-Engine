@@ -1,7 +1,6 @@
 #include <Engine/Component/Component.hpp>
 
 #include <Core/Log/Log.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -59,16 +58,22 @@ void Component::notifyRenderObjectExpired( const Core::Index& idx ) {
     }
 }
 
-void Component::rayCastQuery( const Core::Ray& ray ) const {
+inline Eigen::ParametrizedLine<Scalar, 3> transformRay(
+        const Eigen::ParametrizedLine<Scalar, 3>& r,
+        const Core::Transform& t ) {
+    return Eigen::ParametrizedLine<Scalar, 3>( t * r.origin(), t.linear() * r.direction() );
+}
+
+void Component::rayCastQuery( const Eigen::ParametrizedLine<Scalar, 3>& ray ) const {
+    using Ray = Eigen::ParametrizedLine<Scalar, 3>;
     for ( const auto& idx : m_renderObjects )
     {
         const auto ro = getRoMgr()->getRenderObject( idx );
         if ( ro->isVisible() )
         {
             const Ra::Core::Transform& t = ro->getLocalTransform();
-            Core::Ray transformedRay = Ra::Core::transformRay( ray, t.inverse() );
-            auto result =
-                Ra::Core::MeshUtils::castRay( ro->getMesh()->getGeometry(), transformedRay );
+            Ray transformedRay = transformRay( ray, t.inverse() );
+            auto result = ro->getMesh()->getGeometry().castRay( transformedRay );
             const int& tidx = result.m_hitTriangle;
             if ( tidx >= 0 )
             {

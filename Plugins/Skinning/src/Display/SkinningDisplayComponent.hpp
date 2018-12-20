@@ -10,7 +10,7 @@
 
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -21,8 +21,8 @@
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
-using Ra::Core::TriangleMesh;
 using Ra::Core::Animation::WeightMatrix;
+using Ra::Core::Geometry::TriangleMesh;
 using Ra::Engine::ComponentMessenger;
 
 namespace SkinningPlugin {

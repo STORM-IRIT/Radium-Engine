@@ -2,8 +2,6 @@
 
 #include <Engine/RadiumEngine.hpp>
 
-#include <Core/Mesh/MeshUtils.hpp>
-
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -175,7 +173,7 @@ Core::Matrix4 RenderObject::getTransformAsMatrix() const {
 }
 
 Core::Aabb RenderObject::getAabb() const {
-    Core::Aabb aabb = Core::MeshUtils::getAabb( m_mesh->getGeometry() );
+    Core::Aabb aabb = m_mesh->getGeometry().computeAabb();
     Core::Aabb result;
 
     for ( int i = 0; i < 8; ++i )
@@ -184,10 +182,6 @@ Core::Aabb RenderObject::getAabb() const {
     }
 
     return result;
-}
-
-Core::Aabb RenderObject::getMeshAabb() const {
-    return Core::MeshUtils::getAabb( m_mesh->getGeometry() );
 }
 
 void RenderObject::setLocalTransform( const Core::Transform& transform ) {

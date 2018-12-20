@@ -495,9 +495,8 @@ void MainWindow::onItemRemoved( const Engine::ItemEntry& ent ) {
 
 void MainWindow::exportCurrentMesh() {
     std::stringstream filenameStream;
-    filenameStream << mainApp->getExportFolderName()
-                   << "/radiummesh_"
-                   << std::setw(6) << std::setfill('0') << mainApp->getFrameCount();
+    filenameStream << mainApp->getExportFolderName() << "/radiummesh_" << std::setw( 6 )
+                   << std::setfill( '0' ) << mainApp->getFrameCount();
     std::string filename = filenameStream.str();
 
     ItemEntry e = m_selectionManager->currentItem();
@@ -509,7 +508,7 @@ void MainWindow::exportCurrentMesh() {
         Ra::Core::OBJFileManager obj;
         auto ro = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
             e.m_roIndex );
-        Ra::Core::TriangleMesh mesh = ro->getMesh()->getGeometry();
+        Ra::Core::Geometry::TriangleMesh mesh = ro->getMesh()->getGeometry();
         bool result = obj.save( filename, mesh );
         if ( result )
         {
