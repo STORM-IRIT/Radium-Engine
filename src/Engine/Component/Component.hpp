@@ -5,7 +5,6 @@
 
 #include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Ray.hpp>
 
 namespace Ra {
 
@@ -65,7 +64,7 @@ class RA_ENGINE_API Component {
     void removeRenderObject(const Core::Index &roIdx);
 
     /// Perform a ray cast query.
-    virtual void rayCastQuery( const Core::Ray& ray ) const;
+    virtual void rayCastQuery(const Eigen::ParametrizedLine<Scalar, 3> &ray ) const;
 
     // Editable transform interface.
     // This allow to edit the data in the component with a render object

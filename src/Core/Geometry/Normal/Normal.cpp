@@ -43,6 +43,9 @@ void uniformNormal( const VectorArray<Vector3>& p,
             normal[i].normalize();
         }
     }
+
+    // could also do:
+    // normal.getMap().colwise().normalize();
 }
 
 Vector3 localUniformNormal( const uint i, const VectorArray<Vector3>& p,

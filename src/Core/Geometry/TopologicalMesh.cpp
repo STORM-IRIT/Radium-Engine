@@ -1,4 +1,4 @@
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
 
 #include <Core/Log/Log.hpp>
 #include <Core/RaCore.hpp>
@@ -11,6 +11,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 template <typename T>
 using PropPair = std::pair<Utils::AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
@@ -44,8 +45,9 @@ void copyAttribToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
 }
 
 template <typename T>
-using HandleAndValueVector = std::vector<std::pair<Utils::AttribHandle<T>, T>,
-                                         Eigen::aligned_allocator<std::pair<Utils::AttribHandle<T>, T>>>;
+using HandleAndValueVector =
+    std::vector<std::pair<Utils::AttribHandle<T>, T>,
+                Eigen::aligned_allocator<std::pair<Utils::AttribHandle<T>, T>>>;
 
 template <typename T>
 void copyAttribToCoreVertex( HandleAndValueVector<T>& data, const TopologicalMesh* topoMesh,
@@ -106,7 +108,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             }
         } );
 
-    uint num_triangles = triMesh.m_triangles.size();
+    size_t num_triangles = triMesh.m_triangles.size();
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
@@ -115,7 +117,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         std::vector<unsigned int> face_vertexIndex( 3 );
 
         const auto& triangle = triMesh.m_triangles[i];
-        for ( int j = 0; j < 3; ++j )
+        for ( size_t j = 0; j < 3; ++j )
         {
             unsigned int inMeshVertexIndex = triangle[j];
             const Vector3& p = triMesh.vertices()[inMeshVertexIndex];
@@ -139,7 +141,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         // Add the face, then add attribs to vh
         TopologicalMesh::FaceHandle fh = add_face( face_vhandles );
 
-        for ( int vindex = 0; vindex < face_vhandles.size(); vindex++ )
+        for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
         {
             TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
             set_normal( heh, face_normals[vindex] );
@@ -243,7 +245,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
             VertexMap::iterator vtr = vertexHandles.find( v );
             if ( vtr == vertexHandles.end() )
             {
-                vi = vertexIndex++;
+                vi = int( vertexIndex++ );
                 vertexHandles.insert( vtr, VertexMap::value_type( v, vi ) );
                 out.vertices().push_back( v._vertex );
                 out.normals().push_back( v._normal );
@@ -267,5 +269,150 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     return out;
 }
 
+bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
+    // Global schema of operation
+    /*
+               TRIANGLES ONLY
+         before                after
+               A                       A
+            / F0 \                / F2 | F0 \
+           /      \              /     |     \
+          /h1    h0\            /h1  e2|e0  h0\
+         /    he0   \          /  he2  |  he0  \
+        V1 -------- V0       V1 ------ V ------ V0
+         \    he1   /          \  he3  |  he1  /
+          \o1    o0/            \o1  e3|e1  o0/
+           \      /              \     |     /
+            \ F1 /                \ F3 | F1 /
+               B                       B
+
+    */
+
+    // incorrect factor
+    if ( f < 0 || f > 1 )
+    {
+        return false;
+    }
+
+    // get existing topology data
+    HalfedgeHandle he0 = halfedge_handle( eh, 0 );
+    HalfedgeHandle he1 = halfedge_handle( eh, 1 );
+    VertexHandle v0 = to_vertex_handle( he0 );
+    VertexHandle v1 = to_vertex_handle( he1 );
+    FaceHandle F0 = face_handle( he0 );
+    FaceHandle F1 = face_handle( he1 );
+
+    // not triangles or holes
+    if ( ( !is_boundary( he0 ) && valence( F0 ) != 3 ) ||
+         ( !is_boundary( he1 ) && valence( F1 ) != 3 ) )
+    {
+        return false;
+    }
+
+    // add the new vertex
+    const Point p = Point( f * point( v0 ) + ( Scalar( 1. ) - f ) * point( v1 ) );
+    VertexHandle v = add_vertex( p );
+
+    // create the new faces and reconnect the topology
+    HalfedgeHandle he3 = new_edge( v, v1 );
+    HalfedgeHandle he2 = opposite_halfedge_handle( he3 );
+    set_halfedge_handle( v, he0 );
+    set_vertex_handle( he1, v );
+
+    // does F0 exist
+    if ( !is_boundary( he0 ) )
+    {
+        HalfedgeHandle h0 = next_halfedge_handle( he0 );
+        HalfedgeHandle h1 = next_halfedge_handle( h0 );
+        // create new edge
+        VertexHandle A = to_vertex_handle( h0 );
+        HalfedgeHandle e2 = new_edge( v, A );
+        HalfedgeHandle e0 = opposite_halfedge_handle( e2 );
+        // split F0
+        FaceHandle F2 = new_face();
+        set_halfedge_handle( F0, he0 );
+        set_halfedge_handle( F2, h1 );
+        // update F0
+        set_face_handle( h0, F0 );
+        set_face_handle( e0, F0 );
+        set_face_handle( he0, F0 );
+        set_next_halfedge_handle( he0, h0 );
+        set_next_halfedge_handle( h0, e0 );
+        set_next_halfedge_handle( e0, he0 );
+        // update F2
+        set_face_handle( h1, F2 );
+        set_face_handle( he2, F2 );
+        set_face_handle( e2, F2 );
+        set_next_halfedge_handle( e2, h1 );
+        set_next_halfedge_handle( h1, he2 );
+        set_next_halfedge_handle( he2, e2 );
+        // deal with custom properties
+        // interpolate at he2
+        interpolateAllProps( h1, he0, he2, 0.5 );
+        // copy at e0, and e2
+        copyAllProps( he2, e0 );
+    } else
+    {
+        HalfedgeHandle h1 = prev_halfedge_handle( he0 );
+        set_next_halfedge_handle( h1, he2 );
+        set_next_halfedge_handle( he2, he0 );
+        // next halfedge handle of he0 already is h0
+        // halfedge handle of V already is he0
+    }
+
+    // does F1 exist
+    if ( !is_boundary( he1 ) )
+    {
+        HalfedgeHandle o1 = next_halfedge_handle( he1 );
+        HalfedgeHandle o0 = next_halfedge_handle( o1 );
+        // create new edge
+        VertexHandle B = to_vertex_handle( o1 );
+        HalfedgeHandle e1 = new_edge( v, B );
+        HalfedgeHandle e3 = opposite_halfedge_handle( e1 );
+        // split F1
+        FaceHandle F3 = new_face();
+        set_halfedge_handle( F3, o1 );
+        set_halfedge_handle( F1, he1 );
+        // update F1
+        set_face_handle( o1, F3 );
+        set_face_handle( e3, F3 );
+        set_face_handle( he3, F3 );
+        set_next_halfedge_handle( he3, o1 );
+        set_next_halfedge_handle( o1, e3 );
+        set_next_halfedge_handle( e3, he3 );
+        // update F3
+        set_face_handle( o0, F1 );
+        set_face_handle( he1, F1 );
+        set_face_handle( e1, F1 );
+        set_next_halfedge_handle( he1, e1 );
+        set_next_halfedge_handle( e1, o0 );
+        set_next_halfedge_handle( o0, he1 );
+        // deal with custom properties
+        // first copy at he3
+        copyAllProps( he1, he3 );
+        // interpolate at he1
+        interpolateAllProps( o0, he3, he1, 0.5 );
+        // copy at e1, and e3
+        copyAllProps( he1, e3 );
+        copyAllProps( o1, e1 );
+    } else
+    {
+        HalfedgeHandle o1 = next_halfedge_handle( he1 );
+        // next halfedge handle of o0 already is he1
+        set_next_halfedge_handle( he1, he3 );
+        set_next_halfedge_handle( he3, o1 );
+        // halfedge handle of V already is he0
+    }
+
+    // ensure consistency at v1
+    if ( halfedge_handle( v1 ) == he0 )
+    {
+        set_halfedge_handle( v1, he2 );
+    }
+
+    return true;
+}
+
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

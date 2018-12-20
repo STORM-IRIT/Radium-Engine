@@ -2,6 +2,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 inline TriangleMesh::TriangleMesh( const TriangleMesh& other ) :
     m_triangles( other.m_triangles ),
@@ -37,65 +38,12 @@ inline TriangleMesh& TriangleMesh::operator=( TriangleMesh&& other ) {
     return *this;
 }
 
-inline bool TriangleMesh::append( const TriangleMesh& other ) {
-    // check same attributes through names
-    if ( !m_vertexAttribs.hasSameAttribs( other.m_vertexAttribs ) )
-        return false;
-
-    // now we can proceed, topology first
-    const std::size_t verticesBefore = vertices().size();
-    const std::size_t trianglesBefore = m_triangles.size();
-    const std::size_t facesBefore = m_faces.size();
-    m_triangles.insert( m_triangles.end(), other.m_triangles.cbegin(), other.m_triangles.cend() );
-    m_faces.insert( m_faces.end(), other.m_faces.cbegin(), other.m_faces.cend() );
-    // Offset the vertex indices in the triangles and faces
-    for ( uint t = trianglesBefore; t < m_triangles.size(); ++t )
-    {
-        for ( uint i = 0; i < 3; ++i )
-        {
-            m_triangles[t][i] += verticesBefore;
-        }
-    }
-    for ( uint f = facesBefore; f < m_faces.size(); ++f )
-    {
-        for ( uint i = 0; i < m_faces[f].size(); ++i )
-        {
-            m_faces[f][i] += verticesBefore;
-        }
-    }
-
-    // Deal with all attributes the same way (vertices and normals too)
-    other.m_vertexAttribs.for_each_attrib( [this]( const auto& attr ) {
-        if ( attr->isFloat() )
-            this->append_attrib<float>( attr );
-        if ( attr->isVec2() )
-            this->append_attrib<Vector2>( attr );
-        if ( attr->isVec3() )
-            this->append_attrib<Vector3>( attr );
-        if ( attr->isVec4() )
-            this->append_attrib<Vector4>( attr );
-    } );
-
-    return true;
-}
-
 inline void TriangleMesh::clear() {
     m_vertexAttribs.clear();
     m_triangles.clear();
     m_faces.clear();
     // restore the default attribs (empty though)
     initDefaultAttribs();
-}
-
-inline void TriangleMesh::clearAttributes() {
-    Utils::Attrib<Vector3>::Container v;
-    Utils::Attrib<Vector3>::Container n;
-    std::exchange( v, vertices() );
-    std::exchange( n, normals() );
-    m_vertexAttribs.clear();
-    initDefaultAttribs();
-    std::exchange( vertices(), v );
-    std::exchange( normals(), n );
 }
 
 inline void TriangleMesh::copyBaseGeometry( const TriangleMesh& other ) {
@@ -123,5 +71,15 @@ inline bool TriangleMesh::copyAllAttributes( const TriangleMesh& input ) {
     return true;
 }
 
+inline Aabb TriangleMesh::computeAabb() const {
+    Aabb aabb;
+    for ( const auto& v : vertices() )
+    {
+        aabb.extend( v );
+    }
+    return aabb;
+}
+
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

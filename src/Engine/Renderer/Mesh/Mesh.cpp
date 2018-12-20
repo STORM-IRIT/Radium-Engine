@@ -2,7 +2,6 @@
 
 #include <numeric>
 
-#include <Core/Mesh/MeshUtils.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 #include <Core/Log/Log.hpp>
@@ -11,8 +10,8 @@ namespace Engine {
 
 // Template parameter must be a Core::VectorNArray
 template <typename ContainedType>
-inline void sendGLData(Ra::Engine::Mesh *mesh, const Ra::Core::VectorArray<ContainedType> &arr,
-                       uint vboIdx) {
+inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<ContainedType>& arr,
+                        uint vboIdx ) {
     using VecArray = Ra::Core::VectorArray<ContainedType>;
 #ifdef CORE_USE_DOUBLE
     GLenum type = GL_DOUBLE;
@@ -56,8 +55,8 @@ inline void sendGLData(Ra::Engine::Mesh *mesh, const Ra::Core::VectorArray<Conta
 // Dirty is initializes as false so that we do not create the vao while
 // we have no data to send to the gpu.
 Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
-    m_name { name },
-    m_renderMode { renderMode } {
+    m_name{name},
+    m_renderMode{renderMode} {
     CORE_ASSERT( m_renderMode == RM_POINTS || m_renderMode == RM_LINES ||
                      m_renderMode == RM_LINE_LOOP || m_renderMode == RM_LINE_STRIP ||
                      m_renderMode == RM_TRIANGLES || m_renderMode == RM_TRIANGLE_STRIP ||
@@ -91,12 +90,12 @@ void Mesh::render() {
     if ( m_vao != 0 )
     {
         GL_ASSERT( glBindVertexArray( m_vao ) );
-        GL_ASSERT( glDrawElements( static_cast<GLenum>( m_renderMode ), GLsizei(m_numElements),
+        GL_ASSERT( glDrawElements( static_cast<GLenum>( m_renderMode ), GLsizei( m_numElements ),
                                    GL_UNSIGNED_INT, nullptr ) );
     }
 }
 
-void Mesh::loadGeometry( const Core::TriangleMesh& mesh ) {
+void Mesh::loadGeometry( const Core::Geometry::TriangleMesh& mesh ) {
     m_mesh = mesh;
 
     if ( m_mesh.m_triangles.empty() )
@@ -158,12 +157,12 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     m_mesh.clearAttributes();
     for ( uint i = 0; i < MAX_VEC3; ++i )
     {
-        m_v3DataHandle[i] = Core::TriangleMesh::Vec3AttribHandle();
+        m_v3DataHandle[i] = Core::Geometry::TriangleMesh::Vec3AttribHandle();
     }
 
     for ( uint i = 0; i < MAX_VEC4; ++i )
     {
-        m_v4DataHandle[i] = Core::TriangleMesh::Vec4AttribHandle();
+        m_v4DataHandle[i] = Core::Geometry::TriangleMesh::Vec4AttribHandle();
     }
 
     // Mark mesh as dirty.
@@ -201,7 +200,7 @@ void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
     auto& handle = m_v4DataHandle[index];
 
     // if it's the first time this handle is used, add it to m_mesh.
-    if ( ! data.empty() && !m_mesh.isValid( handle ) )
+    if ( !data.empty() && !m_mesh.isValid( handle ) )
     {
         handle =
             m_mesh.addAttrib<Core::Vector4>( std::string( "Vec4_attr_" ) + std::to_string( type ) );
@@ -251,7 +250,7 @@ void Mesh::updateGL() {
             } else
             {
                 GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER,
-                                         m_mesh.m_triangles.size() * sizeof( Ra::Core::Vector3ui),
+                                         m_mesh.m_triangles.size() * sizeof( Ra::Core::Vector3ui ),
                                          m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
             }
             m_dataDirty[INDEX] = false;

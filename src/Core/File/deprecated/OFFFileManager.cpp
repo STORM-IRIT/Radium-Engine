@@ -6,7 +6,7 @@ namespace Core {
 /// ===============================================================================
 /// CONSTRUCTOR
 /// ===============================================================================
-OFFFileManager::OFFFileManager() : FileManager<TriangleMesh>() {}
+OFFFileManager::OFFFileManager() : FileManager<Geometry::TriangleMesh>() {}
 
 /// ===============================================================================
 /// DESTRUCTOR
@@ -27,7 +27,7 @@ std::string OFFFileManager::fileExtension() const {
     return "off";
 }
 
-bool OFFFileManager::importData( std::istream& file, TriangleMesh& data ) {
+bool OFFFileManager::importData( std::istream& file, Geometry::TriangleMesh& data ) {
     std::string h;
     file >> h;
     if ( h != header() )
@@ -73,7 +73,7 @@ bool OFFFileManager::importData( std::istream& file, TriangleMesh& data ) {
     return true;
 }
 
-bool OFFFileManager::exportData( std::ostream& file, const TriangleMesh& data ) {
+bool OFFFileManager::exportData( std::ostream& file, const Geometry::TriangleMesh& data ) {
     std::string content = "";
     const uint v_size = data.vertices().size();
     const uint f_size = data.m_triangles.size();

@@ -1,4 +1,3 @@
-#include <Core/Mesh/MeshUtils.hpp>
 #include <Core/Containers/BVH.hpp>
 
 #include <iostream>
@@ -135,14 +134,16 @@ inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
                     Aabb aabb = current->getAabb();
 
                     // If the BBOX is fully outside (at least) one plane, it is not in
-                    if ( ( plane.dot( aabb.corner( Aabb::BottomLeftFloor ).homogeneous()) < 0.f ) &&
-                         ( plane.dot( aabb.corner( Aabb::BottomRightFloor ).homogeneous()) <
+                    if ( ( plane.dot( aabb.corner( Aabb::BottomLeftFloor ).homogeneous() ) <
                            0.f ) &&
-                         ( plane.dot( aabb.corner( Aabb::TopLeftFloor ).homogeneous()) < 0.f ) &&
-                         ( plane.dot( aabb.corner( Aabb::TopRightFloor ).homogeneous()) < 0.f ) &&
-                         ( plane.dot( aabb.corner( Aabb::BottomLeftCeil ).homogeneous()) < 0.f ) &&
-                         ( plane.dot( aabb.corner( Aabb::BottomRightCeil ).homogeneous()) < 0.f ) &&
-                         ( plane.dot( aabb.corner( Aabb::TopLeftCeil ).homogeneous()) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::BottomRightFloor ).homogeneous() ) <
+                           0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::TopLeftFloor ).homogeneous() ) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::TopRightFloor ).homogeneous() ) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::BottomLeftCeil ).homogeneous() ) < 0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::BottomRightCeil ).homogeneous() ) <
+                           0.f ) &&
+                         ( plane.dot( aabb.corner( Aabb::TopLeftCeil ).homogeneous() ) < 0.f ) &&
                          ( plane.dot( aabb.corner( Aabb::TopRightCeil ).homogeneous() ) < 0.f ) )
                         isIn = false;
                 }

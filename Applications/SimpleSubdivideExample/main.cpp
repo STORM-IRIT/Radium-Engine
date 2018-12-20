@@ -1,8 +1,8 @@
 #include <Core/Algorithm/Subdivision/CatmullClarkSubdivider.hpp>
 #include <Core/Algorithm/Subdivision/LoopSubdivider.hpp>
 #include <Core/File/deprecated/OBJFileManager.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Log/Log.hpp>
 #include <memory>
 
@@ -16,7 +16,8 @@ struct args {
     int iteration;
     std::string outputFilename;
     std::string inputFilename;
-    std::unique_ptr<OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::TopologicalMesh, Scalar>>
+    std::unique_ptr<
+        OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::Geometry::TopologicalMesh, Scalar>>
         subdivider;
 };
 
@@ -95,12 +96,12 @@ int main( int argc, char* argv[] ) {
         printHelp( argv );
     } else
     {
-        Ra::Core::TriangleMesh mesh;
+        Ra::Core::Geometry::TriangleMesh mesh;
         Ra::Core::OBJFileManager obj;
 
         if ( a.inputFilename.empty() )
         {
-            mesh = Ra::Core::MeshUtils::makeBox();
+            mesh = Ra::Core::Geometry::makeBox();
         } else
         { obj.load( a.inputFilename, mesh ); }
 
@@ -137,7 +138,7 @@ int main( int argc, char* argv[] ) {
         }
 #endif
 
-        Ra::Core::TopologicalMesh topologicalMesh( mesh );
+        Ra::Core::Geometry::TopologicalMesh topologicalMesh( mesh );
 
         a.subdivider->attach( topologicalMesh );
         ( *a.subdivider )( a.iteration );

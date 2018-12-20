@@ -7,7 +7,6 @@
 #include <Core/File/GeometryData.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
 #include <Core/Math/ColorPresets.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -33,13 +32,13 @@ namespace Ra {
 namespace Engine {
 GeometryComponent::GeometryComponent( const std::string& name, bool deformable, Entity* entity ) :
     Component( name, entity ),
-    m_deformable{ deformable } {}
+    m_deformable{deformable} {}
 
 GeometryComponent::~GeometryComponent() = default;
 
 void GeometryComponent::initialize() {}
 
-void GeometryComponent::addMeshRenderObject( const Ra::Core::TriangleMesh& mesh,
+void GeometryComponent::addMeshRenderObject( const Ra::Core::Geometry::TriangleMesh& mesh,
                                              const std::string& name ) {
     setupIO( name );
 
@@ -68,9 +67,9 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
 
     auto displayMesh = Ra::Core::make_shared<Mesh>( meshName /*, Mesh::RM_POINTS*/ );
 
-    Ra::Core::TriangleMesh mesh;
+    Ra::Core::Geometry::TriangleMesh mesh;
     const auto T = data->getFrame();
-    const Ra::Core::Transform N(( T.matrix() ).inverse().transpose());
+    const Ra::Core::Transform N( ( T.matrix() ).inverse().transpose() );
 
     mesh.vertices().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
@@ -90,7 +89,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
         }
     }
 
-    const auto &faces = data->getFaces();
+    const auto& faces = data->getFaces();
     mesh.m_triangles.resize( faces.size(), Ra::Core::Vector3ui::Zero() );
 #pragma omp parallel for
     for ( uint i = 0; i < faces.size(); ++i )
@@ -169,28 +168,28 @@ Ra::Core::Index GeometryComponent::getRenderObjectIndex() const {
     return m_meshIndex;
 }
 
-const Ra::Core::TriangleMesh& GeometryComponent::getMesh() const {
+const Ra::Core::Geometry::TriangleMesh& GeometryComponent::getMesh() const {
     return getDisplayMesh().getGeometry();
 }
 
-void GeometryComponent::setDeformable(bool b) {
+void GeometryComponent::setDeformable( bool b ) {
     this->m_deformable = b;
 }
 
-void GeometryComponent::setContentName(const std::string &name) {
+void GeometryComponent::setContentName( const std::string& name ) {
     this->m_contentName = name;
 }
 
 void GeometryComponent::setupIO( const std::string& id ) {
-    ComponentMessenger::CallbackTypes<Ra::Core::TriangleMesh>::Getter cbOut =
+    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::Getter cbOut =
         std::bind( &GeometryComponent::getMeshOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::TriangleMesh>( getEntity(), this,
-                                                                               id, cbOut );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::TriangleMesh>(
+        getEntity(), this, id, cbOut );
 
-    ComponentMessenger::CallbackTypes<Ra::Core::TriangleMesh>::ReadWrite cbRw =
+    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::ReadWrite cbRw =
         std::bind( &GeometryComponent::getMeshRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::TriangleMesh>( getEntity(), this,
-                                                                                  id, cbRw );
+    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::TriangleMesh>(
+        getEntity(), this, id, cbRw );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter roOut =
         std::bind( &GeometryComponent::roIndexRead, this );
@@ -214,10 +213,10 @@ void GeometryComponent::setupIO( const std::string& id ) {
 
     if ( m_deformable )
     {
-        ComponentMessenger::CallbackTypes<Ra::Core::TriangleMesh>::Setter cbIn =
+        ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::Setter cbIn =
             std::bind( &GeometryComponent::setMeshInput, this, std::placeholders::_1 );
-        ComponentMessenger::getInstance()->registerInput<Ra::Core::TriangleMesh>( getEntity(), this,
-                                                                                  id, cbIn );
+        ComponentMessenger::getInstance()->registerInput<Ra::Core::Geometry::TriangleMesh>(
+            getEntity(), this, id, cbIn );
     }
 }
 
@@ -229,18 +228,18 @@ Mesh& GeometryComponent::getDisplayMesh() {
     return *( getRoMgr()->getRenderObject( getRenderObjectIndex() )->getMesh() );
 }
 
-const Ra::Core::TriangleMesh* GeometryComponent::getMeshOutput() const {
+const Ra::Core::Geometry::TriangleMesh* GeometryComponent::getMeshOutput() const {
     return &( getMesh() );
 }
 
-Ra::Core::TriangleMesh* GeometryComponent::getMeshRw() {
+Ra::Core::Geometry::TriangleMesh* GeometryComponent::getMeshRw() {
     getDisplayMesh().setDirty( Mesh::VERTEX_POSITION );
     getDisplayMesh().setDirty( Mesh::VERTEX_NORMAL );
     getDisplayMesh().setDirty( Mesh::INDEX );
     return &( getDisplayMesh().getGeometry() );
 }
 
-void GeometryComponent::setMeshInput(const Core::TriangleMesh *meshptr) {
+void GeometryComponent::setMeshInput( const Core::Geometry::TriangleMesh* meshptr ) {
     CORE_ASSERT( meshptr, " Input is null" );
     CORE_ASSERT( m_deformable, "Mesh is not deformable" );
 
@@ -248,12 +247,12 @@ void GeometryComponent::setMeshInput(const Core::TriangleMesh *meshptr) {
     displayMesh.loadGeometry( *meshptr );
 }
 
-Ra::Core::TriangleMesh::PointAttribHandle::Container* GeometryComponent::getVerticesRw() {
+Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container* GeometryComponent::getVerticesRw() {
     getDisplayMesh().setDirty( Mesh::VERTEX_POSITION );
     return &( getDisplayMesh().getGeometry().vertices() );
 }
 
-Ra::Core::TriangleMesh::NormalAttribHandle::Container* GeometryComponent::getNormalsRw() {
+Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container* GeometryComponent::getNormalsRw() {
     getDisplayMesh().setDirty( Mesh::VERTEX_NORMAL );
     return &( getDisplayMesh().getGeometry().normals() );
 }

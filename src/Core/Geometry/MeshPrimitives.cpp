@@ -1,9 +1,12 @@
 #include <Core/Containers/Grid.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Math/Types.hpp>
+
+#include <array>
 
 namespace Ra {
 namespace Core {
-namespace MeshUtils {
+namespace Geometry {
 
 TriangleMesh makeXNormalQuad( const Vector2& halfExts ) {
     Transform T = Transform::Identity();
@@ -50,7 +53,7 @@ TriangleMesh makeBox( const Aabb& aabb ) {
         Vector3ui( 4, 5, 6 ), Vector3ui( 6, 5, 7 )  // Top
     };
 
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -110,7 +113,7 @@ TriangleMesh makeSharpBox( const Aabb& aabb ) {
         Vector3ui( 20, 21, 22 ), Vector3ui( 20, 22, 23 )  // Top
     };
 
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -172,10 +175,9 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
         for ( uint i = 0; i < result.m_triangles.size(); ++i )
         {
             const Vector3ui& tri = result.m_triangles[i];
-            std::array<Vector3, 3> triVertices;
+            std::array<Vector3, 3> triVertices = {
+                result.vertices()[tri[0]], result.vertices()[tri[1]], result.vertices()[tri[2]]};
             std::array<uint, 3> middles;
-
-            getTriangleVertices( result, i, triVertices );
 
             for ( int v = 0; v < 3; ++v )
             {
@@ -196,7 +198,7 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
         result.m_triangles = newTris;
     }
 
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -256,7 +258,7 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         result.m_triangles.emplace_back( 0, br, bl );
         result.m_triangles.emplace_back( 1, tl, tr );
     }
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -346,7 +348,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
         result.m_triangles.emplace_back( br, tl, tr );
     }
 
-    // Next rings of the sphere Vector3ui
+    // Next rings of the sphere triangles
     for ( uint j = 0; j < ( nFaces / 2 ) - 2; ++j )
     {
         for ( uint i = 0; i < nFaces; ++i )
@@ -439,7 +441,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces ) {
     }
 
     // Compute normals and check results.
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -530,7 +532,7 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
         result.m_triangles.emplace_back( otr, itr, itl );
         result.m_triangles.emplace_back( itl, otl, otr );
     }
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -572,7 +574,7 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
         result.m_triangles.emplace_back( 0, br, bl );
         result.m_triangles.emplace_back( 1, bl, br );
     }
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -621,6 +623,6 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
 
     return grid;
 }
-} // namespace MeshUtils
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

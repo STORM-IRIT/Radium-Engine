@@ -1,7 +1,7 @@
 
 #include <minimalradium.hpp>
 
-#include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
@@ -24,7 +24,7 @@ MinimalComponent::MinimalComponent( Ra::Engine::Entity* entity ) :
 void MinimalComponent::initialize() {
     // Create a cube mesh render object.
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "Cube" ) );
-    display->loadGeometry( Ra::Core::MeshUtils::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
+    display->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
     auto renderObject = Ra::Engine::RenderObject::createRenderObject(
         "CubeRO", this, Ra::Engine::RenderObjectType::Geometry, display );
     addRenderObject( renderObject );

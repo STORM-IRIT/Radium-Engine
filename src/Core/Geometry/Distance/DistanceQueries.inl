@@ -1,5 +1,4 @@
 #include "DistanceQueries.hpp"
-#include <Core/Mesh/MeshUtils.hpp>
 
 namespace Ra {
 namespace Core {

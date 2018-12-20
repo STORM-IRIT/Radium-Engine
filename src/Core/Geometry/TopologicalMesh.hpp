@@ -1,11 +1,11 @@
 #ifndef TOPOLOGICALMESH_H
 #define TOPOLOGICALMESH_H
 
-#include <Core/Mesh/TopologicalTriMesh/OpenMesh.h>
+#include <Core/Geometry/OpenMesh.h>
 
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
@@ -18,8 +18,7 @@
 
 namespace Ra {
 namespace Core {
-
-class TriangleMesh;
+namespace Geometry {
 
 /**
  * Define the Traits to be used by OpenMesh for TopologicalMesh.
@@ -64,7 +63,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * position are represented only once in the topological mesh.
      * \note This is a costly operation.
      */
-    explicit TopologicalMesh( const Ra::Core::TriangleMesh& triMesh );
+    explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
 
     /**
      * Construct an empty topological mesh
@@ -136,7 +135,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline const std::vector<OpenMesh::HPropHandleT<Vector3>>& getVector3PropsHandles() const;
     inline const std::vector<OpenMesh::HPropHandleT<Vector4>>& getVector4PropsHandles() const;
     ///@}
-    
+
     /**
      * \name Dealing with normals
      * Utils to deal with normals when modifying the mesh topology.
@@ -285,7 +284,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     inline void interpolateAllProps( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out,
                                      Scalar f );
-        
+
     /**
      * Interpolate \p hprops on face center.
      * \note Each property must have been previously created either all at once
@@ -294,16 +293,33 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     inline void
     interpolateAllPropsOnFaces( FaceHandle fh, OpenMesh::FPropHandleT<Normal> normalProp,
-                                            std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
-                                            std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
-                                            std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,
-                                            std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
+                                std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
+                                std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
+                                std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,
+                                std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
+    ///@}
+
+    /**
+     * \name Topological operations
+     */
+    ///@{
+    /**
+     * \brief Apply a 2-4 edge split.
+     * \param eh The handle to the edge to split.
+     * \param f The interpolation factor to place the new point on the edge.
+     *          Must be in [0,1].
+     * \return True if the edge has been split, false otherwise.
+     * \note Only applies on edges between 3 triangles, and if \p f is in [0,1].
+     * \note Mesh attributes are linearly interpolated on the newly created halfedge.
+     */
+    bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
     ///@}
 };
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.inl>
+#include <Core/Geometry/TopologicalMesh.inl>
 
 #endif // TOPOLOGICALMESH_H

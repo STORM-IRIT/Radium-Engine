@@ -2,7 +2,6 @@
 #define ANIMPLUGIN_SKELETON_BONE_DRAWABLE_HPP_
 
 #include <Core/Animation/Handle/Skeleton.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -22,7 +21,7 @@ class SkeletonBoneRenderObject {
 
     void update(); // Update local transform of the associated render object
 
-    static Ra::Core::TriangleMesh makeBoneShape();
+    static Ra::Core::Geometry::TriangleMesh makeBoneShape();
 
     uint getBoneIndex() const { return m_id; }
 

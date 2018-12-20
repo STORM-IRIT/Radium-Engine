@@ -16,9 +16,9 @@ namespace Engine {
 
 Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
     Component( name, entity ),
-    m_width { width },
-    m_height { height },
-    m_aspect { width / height } {}
+    m_width{width},
+    m_height{height},
+    m_aspect{width / height} {}
 
 Camera::~Camera() = default;
 
@@ -27,7 +27,7 @@ void Camera::initialize() {
         return;
     // Create the render mesh for the camera
     auto m = std::make_shared<Mesh>( m_name + "_mesh" );
-    Ra::Core::TriangleMesh triMesh;
+    Ra::Core::Geometry::TriangleMesh triMesh;
     triMesh.vertices() = {{0, 0, 0},       {-0.5, -0.5, -1}, {-0.5, 0.5, -1}, {0.5, 0.5, -1},
                           {0.5, -0.5, -1}, {-0.3, 0.5, -1},  {0, 0.7, -1},    {0.3, 0.5, -1}};
     triMesh.m_triangles = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
@@ -72,8 +72,7 @@ void Camera::updateProjMatrix() {
         const Scalar t = dy;  // top
         const Scalar b = -dy; // bottom
 
-        Core::Vector3 tr( -( r + l ) / ( r - l ),
-                          -( t + b ) / ( t - b ),
+        Core::Vector3 tr( -( r + l ) / ( r - l ), -( t + b ) / ( t - b ),
                           -( ( m_zFar + m_zNear ) / ( m_zFar - m_zNear ) ) );
 
         m_projMatrix.setIdentity();
@@ -106,9 +105,9 @@ void Camera::updateProjMatrix() {
     }
 }
 
-Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
+Eigen::ParametrizedLine<Scalar, 3> Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     // Ray starts from the camera's current position.
-    return Core::Ray::Through( getPosition(), unProject( pix ) );
+    return Eigen::ParametrizedLine<Scalar, 3>::Through( getPosition(), unProject( pix ) );
 }
 
 } // namespace Engine

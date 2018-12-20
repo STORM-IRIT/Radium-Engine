@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
 #define RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
 
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
 
@@ -15,8 +15,9 @@ namespace Core {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API CatmullClarkSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<Geometry::TopologicalMesh, Scalar> {
 
+    using TopologicalMesh = Geometry::TopologicalMesh;
     using base = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
     using V_OP = std::pair<Scalar, TopologicalMesh::VertexHandle>;
     using V_OPS = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
@@ -43,8 +44,8 @@ class RA_CORE_API CatmullClarkSubdivider
     // clang-format off
     /// \code
     /// // 1- apply subdivision once
-    /// Ra::Core::TriangleMesh triangleMesh;
-    /// Ra::Core::TopologicalMesh topoMesh( triangleMesh );
+    /// Ra::Core::Geometry::TriangleMesh triangleMesh;
+    /// Ra::Core::Geometry::TopologicalMesh topoMesh( triangleMesh );
     /// Ra::Core::CatmullClarkSubdivider subdiv( topoMesh );
     /// subdiv( 2 );
     /// // get back to TriangleMesh (mandatory before re-applying)
@@ -70,19 +71,20 @@ class RA_CORE_API CatmullClarkSubdivider
     // topology helpers
 
     /// Edge recomposition
-    void split_edge(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh, size_t iter);
+    void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, size_t iter );
 
     /// Face recomposition
-    void split_face(TopologicalMesh &mesh, const TopologicalMesh::FaceHandle &fh, size_t iter);
+    void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh, size_t iter );
 
     // geometry helpers
 
     /// compute edge midpoint
-    void compute_midpoint(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh,
-                          const bool update_points, size_t iter);
+    void compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
+                           const bool update_points, size_t iter );
 
     /// smooth input vertices
-    void update_vertex(TopologicalMesh &mesh, const TopologicalMesh::VertexHandle &vh, size_t iter);
+    void update_vertex( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh,
+                        size_t iter );
 
   private:
     /// crease weights

@@ -5,7 +5,6 @@
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Math/Obb.hpp>
-#include <Core/Math/Ray.hpp>
 #include <Core/Math/Spline.hpp>
 
 #include <memory>
@@ -37,7 +36,7 @@ RA_ENGINE_API MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v
                               const Core::Color& color );
 
 /// Displays given ray as a straight line.
-RA_ENGINE_API MeshPtr Ray( const Core::Ray& ray, const Core::Color& color );
+RA_ENGINE_API MeshPtr Ray( const Eigen::ParametrizedLine<Scalar, 3>& ray, const Core::Color& color );
 
 /// Displays given triangle ABC, either in wireframe (fill = false)
 /// or filled with the color(fill = true).

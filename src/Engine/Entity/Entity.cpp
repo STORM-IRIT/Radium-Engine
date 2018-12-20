@@ -67,9 +67,15 @@ void Entity::swapTransformBuffers() {
     }
 }
 
-void Entity::rayCastQuery( const Core::Ray& r ) const {
+inline Eigen::ParametrizedLine<Scalar, 3> transformRay(
+        const Eigen::ParametrizedLine<Scalar, 3>& r,
+        const Core::Transform& t ) {
+    return Eigen::ParametrizedLine<Scalar, 3>( t * r.origin(), t.linear() * r.direction() );
+}
+
+void Entity::rayCastQuery( const Eigen::ParametrizedLine<Scalar, 3>& r ) const {
     // put ray in local frame.
-    Core::Ray transformedRay = Ra::Core::transformRay( r, m_transform.inverse() );
+    auto transformedRay = transformRay( r, m_transform.inverse() );
     for ( const auto& c : m_components )
     {
         c->rayCastQuery( transformedRay );
