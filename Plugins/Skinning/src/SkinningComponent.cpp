@@ -25,19 +25,20 @@ using Ra::Core::Skinning::RefData;
 using Ra::Engine::ComponentMessenger;
 namespace SkinningPlugin {
 
-bool findDuplicates( const TriangleMesh& mesh, std::vector<Ra::Core::Index>& duplicatesMap ) {
+bool findDuplicates( const TriangleMesh& mesh,
+                     std::vector<Ra::Core::Utils::Index>& duplicatesMap ) {
     bool hasDuplicates = false;
     duplicatesMap.clear();
     const uint numVerts = mesh.vertices().size();
-    duplicatesMap.resize( numVerts, Ra::Core::Index::Invalid() );
+    duplicatesMap.resize( numVerts, Ra::Core::Utils::Index::Invalid() );
 
     Ra::Core::Vector3Array::const_iterator vertPos;
     Ra::Core::Vector3Array::const_iterator duplicatePos;
-    std::vector<std::pair<Ra::Core::Vector3, Ra::Core::Index>> vertices;
+    std::vector<std::pair<Ra::Core::Vector3, Ra::Core::Utils::Index>> vertices;
 
     for ( uint i = 0; i < numVerts; ++i )
     {
-        vertices.push_back( std::make_pair( mesh.vertices()[i], Ra::Core::Index( i ) ) );
+        vertices.push_back( std::make_pair( mesh.vertices()[i], Ra::Core::Utils::Index( i ) ) );
     }
 
     std::sort( vertices.begin(), vertices.end(),
@@ -190,7 +191,7 @@ void SkinningComponent::skin() {
 
 void uniformNormal( const Ra::Core::Vector3Array& p,
                     const Ra::Core::VectorArray<Ra::Core::Vector3ui>& T,
-                    const std::vector<Ra::Core::Index>& duplicateTable,
+                    const std::vector<Ra::Core::Utils::Index>& duplicateTable,
                     Ra::Core::Vector3Array& normal ) {
     const uint N = p.size();
     normal.clear();
@@ -198,9 +199,9 @@ void uniformNormal( const Ra::Core::Vector3Array& p,
 
     for ( const auto& t : T )
     {
-        const Ra::Core::Index i = duplicateTable.at( t( 0 ) );
-        const Ra::Core::Index j = duplicateTable.at( t( 1 ) );
-        const Ra::Core::Index k = duplicateTable.at( t( 2 ) );
+        const Ra::Core::Utils::Index i = duplicateTable.at( t( 0 ) );
+        const Ra::Core::Utils::Index j = duplicateTable.at( t( 1 ) );
+        const Ra::Core::Utils::Index k = duplicateTable.at( t( 2 ) );
         const Ra::Core::Vector3 triN = Ra::Core::Geometry::triangleNormal( p[i], p[j], p[k] );
         if ( !triN.allFinite() )
         {

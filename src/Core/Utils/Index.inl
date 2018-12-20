@@ -1,5 +1,6 @@
 namespace Ra {
 namespace Core {
+namespace Utils {
 /// CONSTRUCTOR
 constexpr Index::Index( int i ) : m_idx( ( i < 0 ) ? s_invalid : i ) {}
 
@@ -142,5 +143,6 @@ constexpr bool Index::operator>=( const Integer& i ) {
     return ( m_idx >= i );
 }
 
+} // namespace Utils
 } // namespace Core
 } // namespace Ra

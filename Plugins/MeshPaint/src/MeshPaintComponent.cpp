@@ -42,7 +42,8 @@ void MeshPaintComponent::initialize() {
         return;
     }
 
-    m_renderObjectReader = compMess->getterCallback<Ra::Core::Index>( getEntity(), m_dataId );
+    m_renderObjectReader =
+        compMess->getterCallback<Ra::Core::Utils::Index>( getEntity(), m_dataId );
 
     auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
     m_baseConfig = ro->getRenderTechnique()->getConfiguration();

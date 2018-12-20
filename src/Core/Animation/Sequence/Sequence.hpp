@@ -3,7 +3,7 @@
 
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/CoreMacros.hpp>
-#include <Core/Index/CircularIndex.hpp>
+#include <Core/Utils/CircularIndex.hpp>
 #include <vector>
 
 namespace Ra {
@@ -90,7 +90,7 @@ class Sequence {
 
   private:
     /// VARAIBLE
-    CircularIndex m_idx;
+    Utils::CircularIndex m_idx;
     PoseType m_type;
 };
 

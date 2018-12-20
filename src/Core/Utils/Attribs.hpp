@@ -2,8 +2,8 @@
 #define RADIUMENGINE_ATTRIBS_HPP
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Index/Index.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Index.hpp>
 
 namespace Ra {
 namespace Core {

@@ -9,8 +9,8 @@
 #include <set>
 #include <vector>
 
-#include <Core/Index/Index.hpp>
-#include <Core/Index/IndexMap.hpp>
+#include <Core/Utils/Index.hpp>
+#include <Core/Utils/IndexMap.hpp>
 
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
@@ -24,14 +24,14 @@ class RA_ENGINE_API RenderObjectManager final {
     RenderObjectManager();
     ~RenderObjectManager();
 
-    Core::Index addRenderObject( RenderObject* renderObject );
-    void removeRenderObject( const Core::Index& index );
+    Core::Utils::Index addRenderObject( RenderObject* renderObject );
+    void removeRenderObject( const Core::Utils::Index& index );
 
     size_t getRenderObjectsCount();
 
     /// Returns the render object corresponding to the given index. Will assert
     /// if the index does not match to an existing render object. See exists()
-    std::shared_ptr<RenderObject> getRenderObject( const Core::Index& index );
+    std::shared_ptr<RenderObject> getRenderObject( const Core::Utils::Index& index );
 
     /**
      * @brief Get all render objects, the vector is assumed to be empty when called
@@ -52,13 +52,13 @@ class RA_ENGINE_API RenderObjectManager final {
      * @param index
      * @return
      */
-    bool exists( const Core::Index& index ) const;
+    bool exists( const Core::Utils::Index& index ) const;
 
     /**
      * Removed the render object at the given index
      * @param idx
      */
-    void renderObjectExpired( const Ra::Core::Index& idx );
+    void renderObjectExpired( const Ra::Core::Utils::Index& idx );
 
     /** Return the total number of faces drawn
      *
@@ -79,9 +79,9 @@ class RA_ENGINE_API RenderObjectManager final {
     Core::Aabb getSceneAabb() const;
 
   private:
-    Core::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
+    Core::Utils::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;
 
-    std::array<std::set<Core::Index>, (int)RenderObjectType::Count> m_renderObjectByType;
+    std::array<std::set<Core::Utils::Index>, (int)RenderObjectType::Count> m_renderObjectByType;
 
     mutable std::mutex m_doubleBufferMutex;
 };

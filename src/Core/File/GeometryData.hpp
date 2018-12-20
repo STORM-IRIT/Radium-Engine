@@ -6,8 +6,8 @@
 #include <vector>
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Index/Index.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Index.hpp>
 
 #include <Core/File/AssetData.hpp>
 #include <Core/File/MaterialData.hpp>

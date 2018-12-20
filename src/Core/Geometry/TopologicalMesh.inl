@@ -35,12 +35,12 @@ inline TopologicalMesh::HalfedgeHandle TopologicalMesh::halfedge_handle( VertexH
     return HalfedgeHandle();
 }
 
-inline const OpenMesh::HPropHandleT<Index>&
+inline const OpenMesh::HPropHandleT<TopologicalMesh::Index>&
 TopologicalMesh::getInputTriangleMeshIndexPropHandle() const {
     return m_inputTriangleMeshIndexPph;
 }
 
-inline const OpenMesh::HPropHandleT<Index>&
+inline const OpenMesh::HPropHandleT<TopologicalMesh::Index>&
 TopologicalMesh::getOutputTriangleMeshIndexPropHandle() const {
     return m_outputTriangleMeshIndexPph;
 }

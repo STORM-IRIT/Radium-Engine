@@ -7,8 +7,8 @@
 #include <mutex>
 #include <string>
 
-#include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Utils/IndexedObject.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
@@ -27,9 +27,9 @@ namespace Ra {
 namespace Engine {
 
 // Radium V2 : need a bit of cleanup !
-class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
+class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /**
      * A -1 (or any other negative value) lifetime is considered infinite,
@@ -138,44 +138,44 @@ class RA_ENGINE_API RenderObject final : public Core::IndexedObject {
     void hasExpired();
 
     /**
-     * Render the object with the given rendering environment defined by the lighting parameters, the viewing
-     * parameters and  the shader
+     * Render the object with the given rendering environment defined by the lighting parameters,
+     * the viewing parameters and  the shader
      * @param lightParams lighting parameters for this rendering
      * @param viewParams  viewing parameters for this rendering
      * @param shader shader to use for this rendering
      */
-    virtual void render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
-                        const ShaderProgram *shader);
+    virtual void render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+                         const ShaderProgram* shader );
 
     /**
-     * Render the object for the given rendering environment defined by the lighting parameters, the viewing
-     * parameters and the RenderTechnique pass name
+     * Render the object for the given rendering environment defined by the lighting parameters, the
+     * viewing parameters and the RenderTechnique pass name
      * @param lightParams lighting parameters for this rendering
      * @param viewParams viewing parameters for this rendering
      * @param passname RenderTechnique pass name
      */
-    virtual void render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
-                        RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE);
+    virtual void render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+                         RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
 
   private:
-    Core::Transform m_localTransform { Core::Transform::Identity() };
+    Core::Transform m_localTransform{Core::Transform::Identity()};
 
-    Component* m_component {nullptr};
-    std::string m_name {};
+    Component* m_component{nullptr};
+    std::string m_name{};
 
-    RenderObjectType m_type {RenderObjectType::Geometry};
-    std::shared_ptr<RenderTechnique> m_renderTechnique { nullptr };
+    RenderObjectType m_type{RenderObjectType::Geometry};
+    std::shared_ptr<RenderTechnique> m_renderTechnique{nullptr};
     std::shared_ptr<Mesh> m_mesh;
 
     mutable std::mutex m_updateMutex;
 
-    int m_lifetime { -1 };
-    bool m_visible { true };
-    bool m_pickable { true };
-    bool m_xray  { false };
-    bool m_transparent  { false };
-    bool m_dirty { true };
-    bool m_hasLifetime { false };
+    int m_lifetime{-1};
+    bool m_visible{true};
+    bool m_pickable{true};
+    bool m_xray{false};
+    bool m_transparent{false};
+    bool m_dirty{true};
+    bool m_hasLifetime{false};
 };
 
 } // namespace Engine

@@ -157,7 +157,7 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     if ( drawableIdx >= 0 )
     {
         auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(),
-                                Core::Index( drawableIdx ) );
+                                Core::Utils::Index( drawableIdx ) );
         if ( found != m_renderObjects.cend() )
         {
             int i = found - m_renderObjects.begin();

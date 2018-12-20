@@ -333,7 +333,7 @@ void Renderer::renderForPicking(
         {
             if ( ro->isVisible() && ro->isPickable() )
             {
-                pickingShaders[i]->setUniform( "objectId", ro->idx.getValue() );
+                pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
                 Core::Matrix4 M = ro->getTransformAsMatrix();
                 Core::Matrix4 N = M.inverse().transpose();
                 pickingShaders[i]->setUniform( "transform.model", M );
@@ -397,7 +397,7 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
         {
             if ( ro->isVisible() && ro->isPickable() )
             {
-                m_pickingShaders[i]->setUniform( "objectId", ro->idx.getValue() );
+                m_pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
 
                 Core::Matrix4 M = ro->getTransformAsMatrix();
                 Core::Matrix4 MV = renderData.viewMatrix * M;
