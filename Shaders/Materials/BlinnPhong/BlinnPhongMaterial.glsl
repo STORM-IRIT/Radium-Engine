@@ -1,5 +1,10 @@
 #ifndef BLINNPHONGMATERIAL_GLSL
 #define BLINNPHONGMATERIAL_GLSL
+// Blinn-Phong specular and exponent :
+// As this shader is built on Blinn-Phong NDF, that approximate Cook-Torrance,
+// Specular parameters from the asset must be converted so that specular highlight look the same than with
+// standard Phong BRDF (divided both Ks and Ns by Pi looks good).
+// See http://www.thetenthplanet.de/archives/255 for intuitions
 const float Pi = 3.141592653589793;
 
 struct BlinnPhongTextures
@@ -45,7 +50,7 @@ vec3 getKs(Material material, vec2 texCoord)
         return vec3(texture(material.tex.ks, texCoord));
     }
 
-    return material.ks.xyz;
+    return material.ks.xyz / Pi; // Phong specular to blinn-phong exponent
 }
 
 float getNs(Material material, vec2 texCoord)
@@ -56,7 +61,7 @@ float getNs(Material material, vec2 texCoord)
         ns = texture(material.tex.ns, texCoord).r;
     }
 
-    return max(ns, 0.001);
+    return max(ns, 0.001)/Pi; // Phong exponent to blinn-phong exponent
 }
 
 vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B)
