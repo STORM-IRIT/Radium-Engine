@@ -38,7 +38,8 @@ class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
 
   protected:
     // Geometry data
-    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter m_renderObjectReader;
+    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter
+        m_renderObjectReader;
 
     // Data id for compoenent messenger
     std::string m_dataId;

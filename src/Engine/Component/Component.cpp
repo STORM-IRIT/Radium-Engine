@@ -11,9 +11,7 @@
 
 namespace Ra {
 namespace Engine {
-Component::Component( const std::string& name, Entity* entity ) :
-    m_name{ name },
-    m_entity{ entity } {
+Component::Component( const std::string& name, Entity* entity ) : m_name{name}, m_entity{entity} {
     m_entity->addComponent( this );
 }
 
@@ -34,12 +32,12 @@ RenderObjectManager* Component::getRoMgr() {
     return RadiumEngine::getInstance()->getRenderObjectManager();
 }
 
-Core::Index Component::addRenderObject( RenderObject* renderObject ) {
+Core::Utils::Index Component::addRenderObject( RenderObject* renderObject ) {
     m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
     return m_renderObjects.back();
 }
 
-void Component::removeRenderObject(const Core::Index &roIdx) {
+void Component::removeRenderObject( const Core::Utils::Index& roIdx ) {
     auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(), roIdx );
     CORE_WARN_IF( found == m_renderObjects.cend(), " Render object not found in component" );
     if ( ( found != m_renderObjects.cend() ) && getRoMgr() )
@@ -49,7 +47,7 @@ void Component::removeRenderObject(const Core::Index &roIdx) {
     }
 }
 
-void Component::notifyRenderObjectExpired( const Core::Index& idx ) {
+void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
     auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(), idx );
     CORE_WARN_IF( found == m_renderObjects.cend(), " Render object not found in component" );
     if ( found != m_renderObjects.cend() )
@@ -58,9 +56,8 @@ void Component::notifyRenderObjectExpired( const Core::Index& idx ) {
     }
 }
 
-inline Eigen::ParametrizedLine<Scalar, 3> transformRay(
-        const Eigen::ParametrizedLine<Scalar, 3>& r,
-        const Core::Transform& t ) {
+inline Eigen::ParametrizedLine<Scalar, 3> transformRay( const Eigen::ParametrizedLine<Scalar, 3>& r,
+                                                        const Core::Transform& t ) {
     return Eigen::ParametrizedLine<Scalar, 3>( t * r.origin(), t.linear() * r.direction() );
 }
 

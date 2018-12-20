@@ -7,10 +7,11 @@
 #include <assert.h>
 #include <deque>
 
-#include <Core/Index/Index.hpp>
+#include <Core/Utils/Index.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Utils {
 
 /*!
  * The class IndexMap define a map where a object is coupled with a index.
@@ -146,9 +147,10 @@ class IndexMap {
     IndexContainer m_free; /// List of available free indices.
 };
 
+} // namespace Utils
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Index/IndexMap.inl>
+#include <Core/Utils/IndexMap.inl>
 
 #endif // INDEXMAP_HPP

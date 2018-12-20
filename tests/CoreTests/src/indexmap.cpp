@@ -1,6 +1,5 @@
-#include <Core/Index/IndexMap.hpp>
+#include <Core/Utils/IndexMap.hpp>
 #include <Tests.hpp>
-
 
 namespace Ra {
 namespace Testing {
@@ -14,10 +13,9 @@ struct Foo {
 
 } // namespace IndexMap
 
-
-void runMapTest()  {
-    using Ra::Core::Index;
-    using Ra::Core::IndexMap;
+void runMapTest() {
+    using Ra::Core::Utils::Index;
+    using Ra::Core::Utils::IndexMap;
     using Ra::Testing::IndexMap::Foo;
 
     IndexMap<Foo> map1;
@@ -64,8 +62,7 @@ void runMapTest()  {
     for ( Foo& f : map1 )
     {
         f.value = 2 * f.value;
-        RA_VERIFY( f.value == 2 * 32 || f.value == 2 * 42,
-                      "Invalid value (non-const loop)" );
+        RA_VERIFY( f.value == 2 * 32 || f.value == 2 * 42, "Invalid value (non-const loop)" );
         ++counter;
     }
     RA_VERIFY( counter == 2, "Range-for invalid count( non-const loop)" );
@@ -103,9 +100,9 @@ void runMapTest()  {
     RA_VERIFY( map1.empty(), "Map should be empty" );
 }
 
-void runMapNonCopyableTest()  {
-    using Ra::Core::Index;
-    using Ra::Core::IndexMap;
+void runMapNonCopyableTest() {
+    using Ra::Core::Utils::Index;
+    using Ra::Core::Utils::IndexMap;
     // Now try to insert non-copyable elements
 
     IndexMap<NonCopy> map2;
@@ -127,22 +124,20 @@ void runMapNonCopyableTest()  {
 } // namespace Testing
 } // namespace Ra
 
-
-int main(int argc, const char **argv) {
+int main( int argc, const char** argv ) {
     using namespace Ra;
 
-    if(!Testing::init_testing(1, argv))
+    if ( !Testing::init_testing( 1, argv ) )
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for(int i = 0; i < Testing::g_repeat; ++i)
+    for ( int i = 0; i < Testing::g_repeat; ++i )
     {
-        CALL_SUBTEST(( Testing::runMapTest() ));
-        CALL_SUBTEST(( Testing::runMapNonCopyableTest() ));
+        CALL_SUBTEST( ( Testing::runMapTest() ) );
+        CALL_SUBTEST( ( Testing::runMapNonCopyableTest() ) );
     }
 
     return EXIT_SUCCESS;
 }
-

@@ -205,13 +205,13 @@ void RenderObject::hasBeenRenderedOnce() {
     {
         if ( --m_lifetime <= 0 )
         {
-            RadiumEngine::getInstance()->getRenderObjectManager()->renderObjectExpired( idx );
+            RadiumEngine::getInstance()->getRenderObjectManager()->renderObjectExpired( m_idx );
         }
     }
 }
 
 void RenderObject::hasExpired() {
-    m_component->notifyRenderObjectExpired( idx );
+    m_component->notifyRenderObjectExpired( m_idx );
 }
 
 void RenderObject::render(const RenderParameters &lightParams, const ViewingParameters &viewParams,

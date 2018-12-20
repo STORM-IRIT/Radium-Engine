@@ -164,7 +164,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     m_meshIndex = addRenderObject( ro );
 }
 
-Ra::Core::Index GeometryComponent::getRenderObjectIndex() const {
+Ra::Core::Utils::Index GeometryComponent::getRenderObjectIndex() const {
     return m_meshIndex;
 }
 
@@ -191,10 +191,10 @@ void GeometryComponent::setupIO( const std::string& id ) {
     ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::TriangleMesh>(
         getEntity(), this, id, cbRw );
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter roOut =
+    ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
         std::bind( &GeometryComponent::roIndexRead, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Index>( getEntity(), this, id,
-                                                                        roOut );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>( getEntity(), this,
+                                                                               id, roOut );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite vRW =
         std::bind( &GeometryComponent::getVerticesRw, this );
@@ -262,7 +262,7 @@ Ra::Core::VectorArray<Ra::Core::Vector3ui>* GeometryComponent::getTrianglesRw() 
     return &( getDisplayMesh().getGeometry().m_triangles );
 }
 
-const Ra::Core::Index* GeometryComponent::roIndexRead() const {
+const Ra::Core::Utils::Index* GeometryComponent::roIndexRead() const {
     return &m_meshIndex;
 }
 

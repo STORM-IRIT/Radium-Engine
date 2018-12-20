@@ -5,6 +5,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Utils {
 
 class Index {
   public:
@@ -72,16 +73,17 @@ class Index {
 
   protected:
     /// VARIABLE
-    int m_idx { s_invalid };
+    int m_idx{s_invalid};
 
   private:
     /// CONSTANT
-    static const int s_invalid { -1 };
-    static const int s_maxIdx {std::numeric_limits<int>::max()};
+    static const int s_invalid{-1};
+    static const int s_maxIdx{std::numeric_limits<int>::max()};
 };
+} // namespace Utils
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Index/Index.inl>
+#include <Core/Utils/Index.inl>
 
 #endif // RADIUMENGINE_INDEX_HPP

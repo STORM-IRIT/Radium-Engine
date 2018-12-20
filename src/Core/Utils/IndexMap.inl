@@ -1,7 +1,8 @@
-#include <Core/Index/IndexMap.hpp>
+#include <Core/Utils/IndexMap.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Utils {
 
 // ===============================================================================
 // CONSTRUCTOR
@@ -259,5 +260,6 @@ size_t IndexMap<T>::idxfromIndex( const typename IndexMap<T>::ConstIndexIterator
     return std::distance( m_index.cbegin(), it );
 }
 
+} // namespace Utils
 } // namespace Core
 } // namespace Ra

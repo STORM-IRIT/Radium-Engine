@@ -4,9 +4,9 @@
 #include <Core/Geometry/OpenMesh.h>
 
 #include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Index.hpp>
 
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
 #include <OpenMesh/Core/Mesh/Traits.hh>
@@ -43,9 +43,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
   private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
+    using Index = Ra::Core::Utils::Index;
 
-    OpenMesh::HPropHandleT<Ra::Core::Index> m_inputTriangleMeshIndexPph;
-    OpenMesh::HPropHandleT<Ra::Core::Index> m_outputTriangleMeshIndexPph;
+    OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
+    OpenMesh::HPropHandleT<Index> m_outputTriangleMeshIndexPph;
     std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
     std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
     std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;

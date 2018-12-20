@@ -270,7 +270,7 @@ void Gui::MainWindow::toggleCirclePicking( bool on ) {
 }
 
 void MainWindow::handlePicking( const Engine::Renderer::PickingResult& pickingResult ) {
-    Ra::Core::Index roIndex( pickingResult.m_roIdx );
+    Ra::Core::Utils::Index roIndex( pickingResult.m_roIdx );
     Ra::Engine::RadiumEngine* engine = Ra::Engine::RadiumEngine::getInstance();
     if ( roIndex.isValid() )
     {
@@ -538,7 +538,7 @@ void MainWindow::deleteCurrentItem() {
     {
         e.m_entity->removeComponent( e.m_component->getName() );
     } else if ( e.isEntityNode() )
-    { Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity( e.m_entity->idx ); }
+    { Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity( e.m_entity->getIndex() ); }
 }
 
 void MainWindow::resetScene() {

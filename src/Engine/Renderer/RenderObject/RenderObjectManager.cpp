@@ -18,18 +18,18 @@ RenderObjectManager::RenderObjectManager() = default;
 
 RenderObjectManager::~RenderObjectManager() = default;
 
-bool RenderObjectManager::exists( const Core::Index& index ) const {
+bool RenderObjectManager::exists( const Core::Utils::Index& index ) const {
     return ( index.isValid() && m_renderObjects.contains( index ) );
 }
 
-Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
+Core::Utils::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
     // Avoid data race in the std::maps
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     std::shared_ptr<RenderObject> newRenderObject( renderObject );
-    Core::Index index = m_renderObjects.insert( newRenderObject );
+    Core::Utils::Index index = m_renderObjects.insert( newRenderObject );
 
-    newRenderObject->idx = index;
+    newRenderObject->setIndex( index );
 
     auto type = renderObject->getType();
 
@@ -40,7 +40,7 @@ Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
     return index;
 }
 
-void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
+void RenderObjectManager::removeRenderObject( const Core::Utils::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
 
     // FIXME : Should we check if the render object is in the double buffer map ?
@@ -62,7 +62,8 @@ size_t RenderObjectManager::getRenderObjectsCount() {
     return m_renderObjects.size();
 }
 
-std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index ) {
+std::shared_ptr<RenderObject>
+RenderObjectManager::getRenderObject( const Core::Utils::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
     return m_renderObjects.at( index );
 }
@@ -83,13 +84,13 @@ void RenderObjectManager::getRenderObjectsByType(
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     //// Copy each element in m_renderObjects
-    std::transform(m_renderObjectByType[(int)type].begin(), m_renderObjectByType[(int)type].end(),
-                   std::back_inserter(objectsOut),
-                   [this](const Core::Index& i){ return this->m_renderObjects.at( i ); }
-                   );
+    std::transform( m_renderObjectByType[(int)type].begin(), m_renderObjectByType[(int)type].end(),
+                    std::back_inserter( objectsOut ), [this]( const Core::Utils::Index& i ) {
+                        return this->m_renderObjects.at( i );
+                    } );
 }
 
-void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
+void RenderObjectManager::renderObjectExpired( const Core::Utils::Index& idx ) {
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     auto ro = m_renderObjects.at( idx );
@@ -106,30 +107,29 @@ void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
 
 size_t RenderObjectManager::getNumFaces() const {
     // todo : use reduce instead of accumulate to improve performances (since C++17)
-    size_t result = std::accumulate(m_renderObjects.begin(), m_renderObjects.end(), size_t(0),
-                    [](size_t a, const std::shared_ptr<RenderObject>& ro) -> size_t {
-                        if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry) {
-                            return a + ro->getMesh()->getGeometry().m_triangles.size();
-                        } else {
-                            return a;
-                        }
-                    }
-    );
+    size_t result = std::accumulate(
+        m_renderObjects.begin(), m_renderObjects.end(), size_t( 0 ),
+        []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
+            if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
+            {
+                return a + ro->getMesh()->getGeometry().m_triangles.size();
+            } else
+            { return a; }
+        } );
     return result;
-
 }
 
 size_t RenderObjectManager::getNumVertices() const {
     // todo : use reduce instead of accumulate to improve performances (since C++17)
-    size_t result = std::accumulate(m_renderObjects.begin(), m_renderObjects.end(), size_t(0),
-                         [](size_t a, const std::shared_ptr<RenderObject>& ro) -> size_t {
-                            if (ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry) {
-                                return a + ro->getMesh()->getGeometry().vertices().size();
-                            } else {
-                                return a;
-                            }
-                         }
-                                   );
+    size_t result = std::accumulate(
+        m_renderObjects.begin(), m_renderObjects.end(), size_t( 0 ),
+        []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
+            if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
+            {
+                return a + ro->getMesh()->getGeometry().vertices().size();
+            } else
+            { return a; }
+        } );
     return result;
 }
 
@@ -145,7 +145,7 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     if ( m_renderObjects.size() == nUiRO )
         return aabb;
 
-    for ( const auto &ro : m_renderObjects )
+    for ( const auto& ro : m_renderObjects )
     {
         auto entity = ro->getComponent()->getEntity();
         if ( ro->isVisible() && ( entity != systemEntity ) )

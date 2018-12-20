@@ -1,19 +1,20 @@
 #include <Drawing/SkeletonBoneDrawable.hpp>
 
 #include <Core/Geometry/Normal/Normal.hpp>
-#include <Core/Containers/MakeShared.hpp>
+
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Core/Containers/MakeShared.hpp>
 
 namespace AnimationPlugin {
 
 SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
                                                     AnimationComponent* comp, uint id,
                                                     Ra::Engine::RenderObjectManager* roMgr ) :
-    m_roIdx( Ra::Core::Index::Invalid() ),
+    m_roIdx( Ra::Core::Utils::Index::Invalid() ),
     m_id( id ),
     m_skel( comp->getSkeleton() ),
     m_roMgr( roMgr ) {
