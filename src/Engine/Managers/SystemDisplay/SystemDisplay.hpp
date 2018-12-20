@@ -28,10 +28,10 @@ class RA_ENGINE_API DebugComponent : public Component {
   public:
     explicit DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
 
-    void initialize() override {};
+    void initialize() override{};
 
     /// Access render object through RO manager
-    RenderObject* getRenderObject( Core::Index idx );
+    RenderObject* getRenderObject( Core::Utils::Index idx );
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include <Core/Geometry/Normal/Normal.hpp>
 
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
-#include <Core/Index/CircularIndex.hpp>
+#include <Core/Utils/CircularIndex.hpp>
 
 #include <Core/Utils/Timer.hpp>
 
@@ -13,8 +13,7 @@ namespace Geometry {
 /// GLOBAL ///
 //////////////
 
-void uniformNormal( const VectorArray<Vector3>& p,
-                    const VectorArray<Vector3ui>& T,
+void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                     VectorArray<Vector3>& normal ) {
     const size_t N = p.size();
     normal.clear();
@@ -53,7 +52,7 @@ Vector3 localUniformNormal( const uint i, const VectorArray<Vector3>& p,
     Vector3 normal = Vector3::Zero();
     for ( Sparse::InnerIterator it( adj, i ); it; ++it )
     {
-        const uint t = it.row();
+        const size_t t = it.row();
         const uint i = T[t]( 0 );
         const uint j = T[t]( 1 );
         const uint k = T[t]( 2 );
@@ -62,10 +61,9 @@ Vector3 localUniformNormal( const uint i, const VectorArray<Vector3>& p,
     return normal; //.normalized();
 }
 
-void angleWeightedNormal( const VectorArray<Vector3>& p, 
-                          const VectorArray<Vector3ui>& T,
+void angleWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                           VectorArray<Vector3>& normal ) {
-    const uint N = p.size();
+    const size_t N = p.size();
     normal.clear();
     normal.resize( N, Vector3::Zero() );
     for ( const auto& t : T )
@@ -87,10 +85,9 @@ void angleWeightedNormal( const VectorArray<Vector3>& p,
     }
 }
 
-void areaWeightedNormal( const VectorArray<Vector3>& p, 
-                         const VectorArray<Vector3ui>& T,
+void areaWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                          VectorArray<Vector3>& normal ) {
-    const uint N = p.size();
+    const size_t N = p.size();
     normal.clear();
     normal.resize( N, Vector3::Zero() );
     for ( const auto& t : T )
@@ -117,8 +114,8 @@ void areaWeightedNormal( const VectorArray<Vector3>& p,
 Vector3 uniformNormal( const Vector3& v, const VectorArray<Vector3>& one_ring ) {
     Vector3 normal;
     normal.setZero();
-    uint N = one_ring.size();
-    CircularIndex i;
+    size_t N = one_ring.size();
+    Utils::CircularIndex i;
     i.setSize( N );
     for ( uint j = 0; j < N; ++j )
     {
@@ -135,8 +132,8 @@ Vector3 uniformNormal( const Vector3& v, const VectorArray<Vector3>& one_ring ) 
 Vector3 angleWeightedNormal( const Vector3& v, const VectorArray<Vector3>& one_ring ) {
     Vector3 normal;
     normal.setZero();
-    uint N = one_ring.size();
-    CircularIndex i;
+    size_t N = one_ring.size();
+    Utils::CircularIndex i;
     i.setSize( N );
     for ( uint j = 0; j < N; ++j )
     {
@@ -154,8 +151,8 @@ Vector3 angleWeightedNormal( const Vector3& v, const VectorArray<Vector3>& one_r
 Vector3 areaWeightedNormal( const Vector3& v, const VectorArray<Vector3>& one_ring ) {
     Vector3 normal;
     normal.setZero();
-    uint N = one_ring.size();
-    CircularIndex i;
+    size_t N = one_ring.size();
+    Utils::CircularIndex i;
     i.setSize( N );
     for ( uint j = 0; j < N; ++j )
     {

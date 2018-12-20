@@ -27,9 +27,9 @@ std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& e
     return "Invalid Entry";
 }
 
-std::vector<Ra::Core::Index> getItemROs( const Engine::RadiumEngine* /*engine*/,
-                                         const ItemEntry& ent ) {
-    std::vector<Ra::Core::Index> result;
+std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* /*engine*/,
+                                                const ItemEntry& ent ) {
+    std::vector<Ra::Core::Utils::Index> result;
     if ( ent.isValid() )
     {
         if ( ent.isRoNode() )
@@ -61,7 +61,7 @@ bool ItemEntry::isValid() const {
 bool ItemEntry::isSelectable() const {
     Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
 
-    if ( m_entity->idx == Engine::SystemEntity::getInstance()->idx )
+    if ( m_entity->getIndex() == Engine::SystemEntity::getInstance()->getIndex() )
     {
         return false;
     }

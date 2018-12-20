@@ -1,6 +1,6 @@
 #include <Core/Geometry/Laplacian/Laplacian.hpp>
 
-#include <Core/Index/CircularIndex.hpp>
+#include <Core/Utils/CircularIndex.hpp>
 
 namespace Ra {
 namespace Core {
@@ -85,7 +85,7 @@ Vector3 cotangentWeightLaplacian( const Vector3& v, const VectorArray<Vector3>& 
     Vector3 L;
     L.setZero();
     uint N = p.size();
-    CircularIndex i;
+    Utils::CircularIndex i;
     i.setSize( N );
     for ( uint j = 0; j < N; ++j )
     {

@@ -34,7 +34,7 @@ class RA_ENGINE_API GeometryComponent : public Component {
     void handleMeshLoading( const Ra::Asset::GeometryData* data );
 
     /// Returns the index of the associated RO (the display mesh)
-    Ra::Core::Index getRenderObjectIndex() const;
+    Ra::Core::Utils::Index getRenderObjectIndex() const;
 
     /// Returns the current display geometry.
     const Ra::Core::Geometry::TriangleMesh& getMesh() const;
@@ -57,11 +57,11 @@ class RA_ENGINE_API GeometryComponent : public Component {
     Ra::Core::Vector3Array* getNormalsRw();
     Ra::Core::VectorArray<Ra::Core::Vector3ui>* getTrianglesRw();
 
-    const Ra::Core::Index* roIndexRead() const;
+    const Ra::Core::Utils::Index* roIndexRead() const;
 
   private:
-    Ra::Core::Index m_meshIndex{};
-    Ra::Core::Index m_aabbIndex{};
+    Ra::Core::Utils::Index m_meshIndex{};
+    Ra::Core::Utils::Index m_aabbIndex{};
     std::string m_contentName{};
     bool m_deformable{false};
 };

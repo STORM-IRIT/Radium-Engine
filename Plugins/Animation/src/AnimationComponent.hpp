@@ -39,8 +39,7 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// @param nbMeshVertices the number of single vertices.
     // FIXME: nbMeshVertices is needed only for the genereation of
     //        the skinning weights matrix.
-    void handleSkeletonLoading( const Ra::Asset::HandleData* data,
-                                uint nbMeshVertices );
+    void handleSkeletonLoading( const Ra::Asset::HandleData* data, uint nbMeshVertices );
 
     /// Create the animations from the given data.
     void handleAnimationLoading( const std::vector<Ra::Asset::AnimationData*> data );
@@ -100,18 +99,18 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     void toggleSkeleton( const bool status );
 
     /// @returns the index of the skeleton bone associated to the RenderObject with index \p index.
-    uint getBoneIdx( Ra::Core::Index index ) const;
+    uint getBoneIdx( Ra::Core::Utils::Index index ) const;
 
     //
     // Editable interface
     //
 
-    virtual bool canEdit(const Ra::Core::Index &roIdx) const override;
+    virtual bool canEdit( const Ra::Core::Utils::Index& roIdx ) const override;
 
-    virtual Ra::Core::Transform getTransform(const Ra::Core::Index &roIdx) const override;
+    virtual Ra::Core::Transform getTransform( const Ra::Core::Utils::Index& roIdx ) const override;
 
-    virtual void setTransform(const Ra::Core::Index &roIdx,
-                              const Ra::Core::Transform &transform) override;
+    virtual void setTransform( const Ra::Core::Utils::Index& roIdx,
+                               const Ra::Core::Transform& transform ) override;
 
   private:
     // Internal function to create the skinning weights.

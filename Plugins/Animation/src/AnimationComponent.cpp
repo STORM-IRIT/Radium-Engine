@@ -97,7 +97,7 @@ void AnimationComponent::setupSkeletonDisplay() {
     {
         if ( !m_skel.m_graph.isLeaf( i ) )
         {
-            std::string name = m_skel.getLabel(i) + std::to_string(i);
+            std::string name = m_skel.getLabel( i ) + std::to_string( i );
             m_boneDrawables.emplace_back(
                 new SkeletonBoneRenderObject( name, this, i, getRoMgr() ) );
             m_renderObjects.push_back( m_boneDrawables.back()->getRenderObjectIndex() );
@@ -314,7 +314,7 @@ void AnimationComponent::setAnimation( const uint i ) {
     }
 }
 
-bool AnimationComponent::canEdit(const Ra::Core::Index &roIdx) const {
+bool AnimationComponent::canEdit( const Ra::Core::Utils::Index& roIdx ) const {
     // returns true if the roIdx is one of our bones.
     return (
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -322,7 +322,7 @@ bool AnimationComponent::canEdit(const Ra::Core::Index &roIdx) const {
         } ) != m_boneDrawables.end() );
 }
 
-Ra::Core::Transform AnimationComponent::getTransform(const Ra::Core::Index &roIdx) const {
+Ra::Core::Transform AnimationComponent::getTransform( const Ra::Core::Utils::Index& roIdx ) const {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -333,8 +333,8 @@ Ra::Core::Transform AnimationComponent::getTransform(const Ra::Core::Index &roId
     return m_skel.getPose( Handle::SpaceType::MODEL )[boneIdx];
 }
 
-void AnimationComponent::setTransform(const Ra::Core::Index &roIdx,
-                                      const Ra::Core::Transform &transform) {
+void AnimationComponent::setTransform( const Ra::Core::Utils::Index& roIdx,
+                                       const Ra::Core::Transform& transform ) {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -368,7 +368,7 @@ void AnimationComponent::setTransform(const Ra::Core::Index &roIdx,
                          Handle::SpaceType::LOCAL );
 }
 
-uint AnimationComponent::getBoneIdx( Ra::Core::Index index ) const {
+uint AnimationComponent::getBoneIdx( Ra::Core::Utils::Index index ) const {
     auto found =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [index]( const auto& draw ) {
             return draw->getRenderObjectIndex() == index;

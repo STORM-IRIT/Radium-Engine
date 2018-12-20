@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include <Core/Index/Index.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Utils/Index.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -73,11 +73,11 @@ class Gizmo {
                                   Core::Vector3& pointOut, std::vector<Scalar>& hits );
 
   protected:
-    Core::Transform m_worldTo;                ///< World to local space where the transform lives.
-    Core::Transform m_transform;              ///< Transform to be edited.
-    Engine::Component* m_comp;                ///< Engine Ui component.
-    Mode m_mode;                              ///< local or global.
-    std::vector<Core::Index> m_renderObjects; ///< ros for the gizmo.
+    Core::Transform m_worldTo;   ///< World to local space where the transform lives.
+    Core::Transform m_transform; ///< Transform to be edited.
+    Engine::Component* m_comp;   ///< Engine Ui component.
+    Mode m_mode;                 ///< local or global.
+    std::vector<Core::Utils::Index> m_renderObjects; ///< ros for the gizmo.
 };
 } // namespace Gui
 } // namespace Ra

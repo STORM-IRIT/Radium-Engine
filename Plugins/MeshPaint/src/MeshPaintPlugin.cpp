@@ -87,7 +87,8 @@ void MeshPaintPluginC::changePaintColor( const QColor& color ) {
 }
 
 void MeshPaintPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev ) {
-    if ( m_isPainting && Ra::Core::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
+    if ( m_isPainting &&
+         Ra::Core::Utils::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
     {
         m_system->paintMesh( m_PickingManager->getCurrent(), m_paintColor );
     }

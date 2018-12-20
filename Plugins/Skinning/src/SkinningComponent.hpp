@@ -7,9 +7,9 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
 #include <Core/File/HandleData.hpp>
-#include <Core/Index/Index.hpp>
-#include <Core/Math/DualQuaternion.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Math/DualQuaternion.hpp>
+#include <Core/Utils/Index.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -103,7 +103,7 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion> m_DQ;
 
     /// The duplicate vertices map, used to recompute smooth normals.
-    std::vector<Ra::Core::Index> m_duplicatesMap;
+    std::vector<Ra::Core::Utils::Index> m_duplicatesMap;
 };
 } // namespace SkinningPlugin
 

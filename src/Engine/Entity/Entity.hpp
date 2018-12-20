@@ -8,8 +8,8 @@
 #include <thread>
 #include <vector>
 
-#include <Core/Index/IndexedObject.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Utils/IndexedObject.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -22,9 +22,9 @@ namespace Ra {
 namespace Engine {
 
 /// An entity is an scene element. It ties together components with a transform.
-class RA_ENGINE_API Entity : public Core::IndexedObject {
+class RA_ENGINE_API Entity : public Core::Utils::IndexedObject {
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     explicit Entity( const std::string& name = "" );
 
     // Entities are not copyable.
@@ -40,8 +40,8 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     // Transform
     inline void setTransform( const Core::Transform& transform );
     inline void setTransform( const Core::Matrix4& transform );
-    const Core::Transform & getTransform() const;
-    const Core::Matrix4 & getTransformAsMatrix() const;
+    const Core::Transform& getTransform() const;
+    const Core::Matrix4& getTransformAsMatrix() const;
 
     void swapTransformBuffers();
 
@@ -64,7 +64,7 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
     inline uint getNumComponents() const;
 
     // Queries
-    virtual void rayCastQuery(const Eigen::ParametrizedLine<Scalar, 3> &r ) const;
+    virtual void rayCastQuery( const Eigen::ParametrizedLine<Scalar, 3>& r ) const;
 
   private:
     Core::Transform m_transform;
@@ -73,9 +73,8 @@ class RA_ENGINE_API Entity : public Core::IndexedObject {
 
     std::vector<std::unique_ptr<Component>> m_components;
 
-    std::string m_name {};
-    bool m_transformChanged { false };
-
+    std::string m_name{};
+    bool m_transformChanged{false};
 };
 
 } // namespace Engine

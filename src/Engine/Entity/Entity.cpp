@@ -9,11 +9,10 @@ namespace Ra {
 namespace Engine {
 
 Entity::Entity( const std::string& name ) :
-    Core::IndexedObject(),
-    m_transform { Core::Transform::Identity() },
-    m_doubleBufferedTransform { Core::Transform::Identity() },
-    m_name { name }
-    {}
+    Core::Utils::IndexedObject(),
+    m_transform{Core::Transform::Identity()},
+    m_doubleBufferedTransform{Core::Transform::Identity()},
+    m_name{name} {}
 
 Entity::~Entity() {
     // Ensure components are deleted before the entity for consistent
@@ -67,9 +66,8 @@ void Entity::swapTransformBuffers() {
     }
 }
 
-inline Eigen::ParametrizedLine<Scalar, 3> transformRay(
-        const Eigen::ParametrizedLine<Scalar, 3>& r,
-        const Core::Transform& t ) {
+inline Eigen::ParametrizedLine<Scalar, 3> transformRay( const Eigen::ParametrizedLine<Scalar, 3>& r,
+                                                        const Core::Transform& t ) {
     return Eigen::ParametrizedLine<Scalar, 3>( t * r.origin(), t.linear() * r.direction() );
 }
 

@@ -1,6 +1,6 @@
 #include <Core/Geometry/Area/Area.hpp>
 
-#include <Core/Index/CircularIndex.hpp>
+#include <Core/Utils/CircularIndex.hpp>
 
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
 
@@ -56,7 +56,7 @@ void barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui
                       AreaMatrix& A ) {
     oneRingArea( p, T, A );
 #pragma omp parallel for
-    for (int i = 0; i < int(p.size()); ++i)
+    for ( int i = 0; i < int( p.size() ); ++i )
     {
         A.coeffRef( i, i ) /= 3.0;
     }
@@ -141,7 +141,7 @@ AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui
 Scalar oneRingArea( const Vector3& v, const VectorArray<Vector3>& p ) {
     Scalar area = 0.0;
     uint N = p.size();
-    CircularIndex i;
+    Utils::CircularIndex i;
     i.setSize( N );
     for ( uint j = 0; j < N; ++j )
     {
@@ -158,7 +158,7 @@ Scalar barycentricArea( const Vector3& v, const VectorArray<Vector3>& p ) {
 Scalar voronoiArea( const Vector3& v, const VectorArray<Vector3>& p ) {
     Scalar area = 0.0;
     uint N = p.size();
-    CircularIndex i;
+    Utils::CircularIndex i;
     i.setSize( N );
     for ( uint j = 0; j < N; ++j )
     {
@@ -173,7 +173,7 @@ Scalar voronoiArea( const Vector3& v, const VectorArray<Vector3>& p ) {
 Scalar mixedArea( const Vector3& v, const VectorArray<Vector3>& p ) {
     Scalar area = 0.0;
     uint N = p.size();
-    CircularIndex i;
+    Utils::CircularIndex i;
     i.setSize( N );
     for ( uint j = 0; j < N; ++j )
     {
