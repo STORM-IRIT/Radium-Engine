@@ -1,12 +1,12 @@
 #ifndef RADIUMENGINE_MESH_PRIMITIVES_HPP_
 #define RADIUMENGINE_MESH_PRIMITIVES_HPP_
 
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
-namespace MeshUtils {
+namespace Geometry {
 //
 // Primitive construction
 //
@@ -70,9 +70,9 @@ RA_CORE_API TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar ou
 RA_CORE_API TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius,
                                    uint nFaces = 32 );
 
-} // namespace MeshUtils
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Mesh/MeshPrimitives.inl>
+#include <Core/Geometry/MeshPrimitives.inl>
 #endif // RADIUMENGINE_MESH_PRIMITIVES_HPP_

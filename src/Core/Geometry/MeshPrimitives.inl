@@ -1,9 +1,8 @@
 #include "MeshPrimitives.hpp"
-#include <Core/Mesh/MeshUtils.hpp>
 
 namespace Ra {
 namespace Core {
-namespace MeshUtils {
+namespace Geometry {
 
 template <uint U, uint V>
 TriangleMesh makeParametricSphere( Scalar radius ) {
@@ -58,7 +57,7 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
             Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
 
@@ -85,16 +84,16 @@ TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
             result.vertices().push_back( vertex );
             result.normals().push_back( ( vertex - circleCenter ).normalized() );
 
-            result.m_triangles.push_back(
-                Vector3ui( iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );
+            result.m_triangles.push_back( Vector3ui( iu * V + iv, ( ( iu + 1 ) % U ) * V + iv,
+                                                     iu * V + ( ( iv + 1 ) % V ) ) );
             result.m_triangles.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
-                                                    ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
-                                                    iu * V + ( ( iv + 1 ) % V ) ) );
+                                                     ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
+                                                     iu * V + ( ( iv + 1 ) % V ) ) );
         }
     }
-    checkConsistency( result );
+    result.checkConsistency();
     return result;
 }
-} // namespace MeshUtils
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

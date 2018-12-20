@@ -38,7 +38,7 @@ bool Gizmo::findPointOnAxis( const Engine::Camera& cam, const Core::Vector3& ori
     const Core::Vector3 normal =
         ( ortho.squaredNorm() > 0 ) ? axis.cross( ortho ) : axis.cross( cam.getUpVector() );
 
-    const Core::Ray ray = cam.getRayFromScreen( pix );
+    const auto ray = cam.getRayFromScreen( pix );
     bool hasHit = Core::RayCast::vsPlane( ray, origin, normal, hits );
     if ( hasHit )
     {
@@ -51,7 +51,7 @@ bool Gizmo::findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& or
                               const Core::Vector3& axis, const Core::Vector2& pix,
                               Core::Vector3& pointOut, std::vector<Scalar>& hits ) {
     // Taken from Rodolphe's View engine gizmos -- see slide_plane().
-    const Core::Ray ray = cam.getRayFromScreen( pix );
+    const auto ray = cam.getRayFromScreen( pix );
     bool hasHit = Core::RayCast::vsPlane( ray, origin, axis, hits );
     if ( hasHit )
     {

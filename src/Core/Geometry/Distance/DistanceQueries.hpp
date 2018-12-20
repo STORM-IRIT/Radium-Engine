@@ -2,7 +2,7 @@
 #define RADIUMENGINE_DISTANCE_QUERIES_HPP_
 
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 #include <limits>
 

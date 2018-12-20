@@ -8,7 +8,7 @@
 #include <vector>
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -103,11 +103,11 @@ class RA_ENGINE_API Mesh {
     MeshRenderMode getRenderMode() const { return m_renderMode; }
 
     /// Returns the underlying TriangleMesh.
-    inline const Core::TriangleMesh& getGeometry() const;
-    inline Core::TriangleMesh& getGeometry();
+    inline const Core::Geometry::TriangleMesh& getGeometry() const;
+    inline Core::Geometry::TriangleMesh& getGeometry();
 
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
-    void loadGeometry( const Core::TriangleMesh& mesh );
+    void loadGeometry( const Core::Geometry::TriangleMesh& mesh );
 
     /**
      * Use the given vertices and indices to build a display mesh according to
@@ -124,7 +124,7 @@ class RA_ENGINE_API Mesh {
      * Initialize vertexAttrib if needed,
      * data must have the appropriate size (i.e. num vertex) or empty (to
      * remove the data)
-     * Theses functions might disapear to use directly Core::TriangleMesh attribs.
+     * Theses functions might disapear to use directly Core::Geometry::TriangleMesh attribs.
      */
     void addData( const Vec3Data& type, const Core::Vector3Array& data );
     void addData( const Vec4Data& type, const Core::Vector4Array& data );
@@ -151,31 +151,31 @@ class RA_ENGINE_API Mesh {
     inline void colorize( const Core::Color& color );
 
   private:
-
     /// Helper function to send buffer data to openGL.
     template <typename type>
-    friend void sendGLData(Ra::Engine::Mesh *mesh, const Ra::Core::VectorArray<type> &arr,
-                           uint vboIdx);
+    friend void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr,
+                            uint vboIdx );
 
   private:
-    std::string m_name {}; /// Name of the mesh.
+    std::string m_name{}; /// Name of the mesh.
 
-    uint m_vao { 0 };                  /// Index of our openGL VAO
-    MeshRenderMode m_renderMode {MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
+    uint m_vao{0}; /// Index of our openGL VAO
+    MeshRenderMode m_renderMode{
+        MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
 
-    Core::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
-                               /// and normals
+    Core::Geometry::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
+                                         /// and normals
 
     ///\todo @dlyr cleanup this mechanism to have something
     /// extensible. Now the only attribs should be the one defined in
     /// the enums MeshData, Vec3Data, Vec4Data.
 
     /// Additionnal vertex vector 3 data handles, stored in Mesh, added
-    std::array<Core::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
-    Core::TriangleMesh::Vec3AttribHandle::Container m_dummy3;
+    std::array<Core::Geometry::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
+    Core::Geometry::TriangleMesh::Vec3AttribHandle::Container m_dummy3;
     /// Additionnal vertex vector 4 data handles, stored in Mesh, added
-    std::array<Core::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
-    Core::TriangleMesh::Vec4AttribHandle::Container m_dummy4;
+    std::array<Core::Geometry::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
+    Core::Geometry::TriangleMesh::Vec4AttribHandle::Container m_dummy4;
 
     // Combined arrays store the flags in this order Mesh, then Vec3 then Vec4 data.
     // Following the enum declaration above.
@@ -187,11 +187,11 @@ class RA_ENGINE_API Mesh {
     std::array<uint, MAX_DATA> m_vbos = {{0}};          /// Indices of our openGL VBOs.
     std::array<bool, MAX_DATA> m_dataDirty = {{false}}; /// Dirty bits of our vertex data.
 
-    size_t m_numElements {0}; /// number of elements to draw. For triangles this is 3*numTriangles but not
-                        /// for lines.
+    size_t m_numElements{0}; /// number of elements to draw. For triangles this is 3*numTriangles
+                             /// but not for lines.
     /// General dirty bit of the mesh. Must be equivalent of the  "or" of the other dirty flags.
     /// an empty mesh is not dirty
-    bool m_isDirty { false };
+    bool m_isDirty{false};
 };
 
 } // namespace Engine

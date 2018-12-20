@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_LOOPSUBDIVIDER_H
 #define RADIUMENGINE_LOOPSUBDIVIDER_H
 
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
 
@@ -15,8 +15,9 @@ namespace Core {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API LoopSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<Geometry::TopologicalMesh, Scalar> {
 
+    using TopologicalMesh = Geometry::TopologicalMesh;
     using base = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
     using Weight = std::pair<Scalar, Scalar>;
     using Weights = std::vector<Weight>;
@@ -48,8 +49,8 @@ class RA_CORE_API LoopSubdivider
     // clang-format off
     /// \code
     /// // 1- apply subdivision once
-    /// Ra::Core::TriangleMesh triangleMesh;
-    /// Ra::Core::TopologicalMesh topoMesh( triangleMesh );
+    /// Ra::Core::Geometry::TriangleMesh triangleMesh;
+    /// Ra::Core::Geometry::TopologicalMesh topoMesh( triangleMesh );
     /// Ra::Core::LoopSubdivider subdiv( topoMesh );
     /// subdiv( 2 );
     /// // get back to TriangleMesh (mandatory before re-applying)
@@ -101,22 +102,23 @@ class RA_CORE_API LoopSubdivider
     // topological modifiers
 
     /// Face recomposition
-    void split_face(TopologicalMesh &mesh, const TopologicalMesh::FaceHandle &fh, size_t iter);
+    void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh, size_t iter );
 
     /// Face corner recomposition
-    void corner_cutting(TopologicalMesh &mesh, const TopologicalMesh::HalfedgeHandle &he,
-                        size_t iter);
+    void corner_cutting( TopologicalMesh& mesh, const TopologicalMesh::HalfedgeHandle& he,
+                         size_t iter );
 
     /// Edge recomposition
-    void split_edge(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh, size_t iter);
+    void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, size_t iter );
 
     // geometry helpers
 
     /// compute edge midpoint
-    void compute_midpoint(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh, size_t iter);
+    void compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
+                           size_t iter );
 
     /// smooth input vertices
-    void smooth(TopologicalMesh &mesh, const TopologicalMesh::VertexHandle &vh, size_t iter);
+    void smooth( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh, size_t iter );
 
   private:
     /// old vertex new position

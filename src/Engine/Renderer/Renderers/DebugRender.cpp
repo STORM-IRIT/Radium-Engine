@@ -10,7 +10,7 @@
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Log/Log.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 #include <fstream>
 
 namespace Ra {

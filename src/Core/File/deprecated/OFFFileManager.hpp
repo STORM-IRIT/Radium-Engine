@@ -2,7 +2,7 @@
 #define RADIUMENGINE_OFF_FILE_MANAGER_HPP
 
 #include <Core/File/deprecated/FileManager.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 namespace Ra {
 namespace Core {
@@ -11,13 +11,13 @@ namespace Core {
  * The class OFFFileManager handles the loading and storing of TriangleMesh in the standard OFF
  * format.
  */
-class OFFFileManager : public FileManager<TriangleMesh> {
+class OFFFileManager : public FileManager<Geometry::TriangleMesh> {
   public:
     /// CONSTRUCTOR
     OFFFileManager();
 
     /// DESTRUCTOR
-    virtual ~OFFFileManager();
+    ~OFFFileManager() override;
 
   protected:
     /// HEADER
@@ -25,8 +25,8 @@ class OFFFileManager : public FileManager<TriangleMesh> {
 
     /// INTERFACE
     virtual std::string fileExtension() const override;
-    virtual bool importData( std::istream& file, TriangleMesh& data ) override;
-    virtual bool exportData( std::ostream& file, const TriangleMesh& data ) override;
+    virtual bool importData( std::istream& file, Geometry::TriangleMesh& data ) override;
+    virtual bool exportData( std::ostream& file, const Geometry::TriangleMesh& data ) override;
 };
 
 } // namespace Core

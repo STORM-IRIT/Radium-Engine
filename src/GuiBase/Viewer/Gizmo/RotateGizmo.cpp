@@ -1,9 +1,9 @@
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/RayCast.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -30,7 +30,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
-        Core::TriangleMesh torus = Core::MeshUtils::makeParametricTorus<32>(
+        Core::Geometry::TriangleMesh torus = Core::Geometry::makeParametricTorus<32>(
             torusOutRadius, torusAspectRatio * torusOutRadius );
         // Transform the torus from z-axis to axis i.
         for ( auto& v : torus.vertices() )
@@ -176,22 +176,20 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
         // Rotation plane is orthogonal to the image plane
         Core::Vector2 dir =
             ( cam.project( originW + rotationAxisW ) - cam.project( originW ) ).normalized();
-        if ( std::abs(dir( 0 )) < 1e-3 )
+        if ( std::abs( dir( 0 ) ) < 1e-3 )
         {
             dir << 1, 0;
-        } else if ( std::abs(dir( 1 )) < 1e-3 )
+        } else if ( std::abs( dir( 1 ) ) < 1e-3 )
         {
             dir << 0, 1;
         } else
-        {
-            dir = Core::Vector2( dir( 1 ), -dir( 0 ) );
-        }
+        { dir = Core::Vector2( dir( 1 ), -dir( 0 ) ); }
         Scalar diag = std::min( cam.getWidth(), cam.getHeight() );
         angle = dir.dot( ( nextXY - m_initialPix ) ) * 8 / diag;
     }
-    if (std::isnan(angle))
+    if ( std::isnan( angle ) )
     {
-        angle = Scalar(0);
+        angle = Scalar( 0 );
     }
     // Apply rotation
     Core::Vector2 nextXY_ = nextXY;

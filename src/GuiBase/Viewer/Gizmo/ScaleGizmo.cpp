@@ -1,9 +1,9 @@
 #include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/RayCast.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -47,14 +47,14 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
         cylinderEnd[i] = ( 1.f - arrowFrac );
         arrowEnd[i] = 1.f;
 
-        Core::TriangleMesh cylinder = Core::MeshUtils::makeCylinder(
-            Core::Vector3::Zero(), arrowScale * cylinderEnd, radius );
+        Core::Geometry::TriangleMesh cylinder =
+            Core::Geometry::makeCylinder( Core::Vector3::Zero(), arrowScale * cylinderEnd, radius );
 
         Core::Aabb box;
         box.extend( Core::Vector3( -radius * 2, -radius * 2, -radius * 2 ) );
         box.extend( Core::Vector3( radius * 2, radius * 2, radius * 2 ) );
         box.translate( arrowScale * cylinderEnd );
-        Core::TriangleMesh cone = Core::MeshUtils::makeSharpBox( box );
+        Core::Geometry::TriangleMesh cone = Core::Geometry::makeSharpBox( box );
 
         // Merge the cylinder and the cone to create the arrow shape.
         cylinder.append( cone );
@@ -83,7 +83,7 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
         T.translation()[( i + 1 ) % 3] += arrowFrac * arrowScale * 3;
         T.translation()[( i + 2 ) % 3] += arrowFrac * arrowScale * 3;
 
-        Core::TriangleMesh plane = Core::MeshUtils::makePlaneGrid(
+        Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
             1, 1, Core::Vector2( arrowFrac * arrowScale, arrowFrac * arrowScale ), T );
         auto& n = plane.normals();
 #pragma omp parallel for

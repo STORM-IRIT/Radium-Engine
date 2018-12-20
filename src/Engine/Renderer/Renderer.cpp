@@ -4,9 +4,9 @@
 
 #include <iostream>
 
-#include <Core/Log/Log.hpp>
 #include <Core/File/FileData.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Log/Log.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
@@ -32,11 +32,12 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
                           GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7};
 }
 
-Renderer::Renderer() : m_quadMesh{nullptr},
-                       m_depthTexture { nullptr },
-                       m_fancyTexture {nullptr},
-                       m_pickingFbo { nullptr },
-                       m_pickingTexture { nullptr } {
+Renderer::Renderer() :
+    m_quadMesh{nullptr},
+    m_depthTexture{nullptr},
+    m_fancyTexture{nullptr},
+    m_pickingFbo{nullptr},
+    m_pickingTexture{nullptr} {
     GL_CHECK_ERROR;
 }
 
@@ -53,20 +54,15 @@ void Renderer::initialize( uint width, uint height ) {
     m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
     TextureManager::createInstance();
 
-
-    m_shaderMgr->addShaderProgram( { {"DrawScreen"}, {"Shaders/Basic2D.vert.glsl"},
-                                     {"Shaders/DrawScreen.frag.glsl"} }
-                                 );
-    m_shaderMgr->addShaderProgram( { {"DrawScreenI"}, {"Shaders/Basic2D.vert.glsl"},
-                                     {"Shaders/DrawScreenI.frag.glsl"} }
-                                 );
-    m_shaderMgr->addShaderProgram( { {"CircleBrush"}, {"Shaders/Basic2D.vert.glsl"},
-                                     {"Shaders/CircleBrush.frag.glsl"} }
-                                 );
-
-    m_shaderMgr->addShaderProgram( { {"DisplayDepthBuffer"}, {"Shaders/Basic2D.vert.glsl"},
-                                     {"Shaders/DepthDisplay/DepthDisplay.frag.glsl"} }
-                                 );
+    m_shaderMgr->addShaderProgram(
+        {{"DrawScreen"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/DrawScreen.frag.glsl"}} );
+    m_shaderMgr->addShaderProgram(
+        {{"DrawScreenI"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/DrawScreenI.frag.glsl"}} );
+    m_shaderMgr->addShaderProgram(
+        {{"CircleBrush"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/CircleBrush.frag.glsl"}} );
+    m_shaderMgr->addShaderProgram( {{"DisplayDepthBuffer"},
+                                    {"Shaders/Basic2D.vert.glsl"},
+                                    {"Shaders/DepthDisplay/DepthDisplay.frag.glsl"}} );
 
     ShaderConfiguration pickingPointsConfig( "PickingPoints" );
     pickingPointsConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
@@ -108,30 +104,30 @@ void Renderer::initialize( uint width, uint height ) {
     texparams.internalFormat = GL_DEPTH_COMPONENT24;
     texparams.format = GL_DEPTH_COMPONENT;
     texparams.type = GL_UNSIGNED_INT;
-    m_depthTexture = std::make_unique<Texture>(texparams);
+    m_depthTexture = std::make_unique<Texture>( texparams );
 
     m_pickingFbo = std::make_unique<globjects::Framebuffer>();
     texparams.name = "Picking";
     texparams.internalFormat = GL_RGBA32I;
     texparams.format = GL_RGBA_INTEGER;
     texparams.type = GL_INT;
-    m_pickingTexture = std::make_unique<Texture>(texparams);
+    m_pickingTexture = std::make_unique<Texture>( texparams );
 
     // Final texture
     texparams.name = "Final image";
     texparams.internalFormat = GL_RGBA32F;
     texparams.format = GL_RGBA;
     texparams.type = GL_FLOAT;
-    m_fancyTexture = std::make_unique<Texture>(texparams);
-
+    m_fancyTexture = std::make_unique<Texture>( texparams );
 
     m_displayedTexture = m_fancyTexture.get();
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
     // Quad mesh
-    Core::TriangleMesh mesh = Core::MeshUtils::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
+    Core::Geometry::TriangleMesh mesh =
+        Core::Geometry::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
 
-    m_quadMesh = std::make_unique<Mesh>("quad");
+    m_quadMesh = std::make_unique<Mesh>( "quad" );
     m_quadMesh->loadGeometry( mesh );
     m_quadMesh->updateGL();
 
@@ -272,12 +268,14 @@ void Renderer::feedRenderQueuesInternal( const ViewingParameters& renderData ) {
 void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                         std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     // clean renderQueuePicking
-    for (auto &q : renderQueuePicking) {
+    for ( auto& q : renderQueuePicking )
+    {
         q.clear();
     }
 
     // fill renderQueuePicking from renderQueue
-    for (auto &roPtr : renderQueue ) {
+    for ( auto& roPtr : renderQueue )
+    {
         switch ( roPtr->getMesh()->getRenderMode() )
         {
         case Mesh::RM_POINTS:
@@ -285,7 +283,7 @@ void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
             renderQueuePicking[0].push_back( roPtr );
             break;
         }
-        case Mesh::RM_LINES:     // fall through
+        case Mesh::RM_LINES: // fall through
             [[fallthrough]];
         case Mesh::RM_LINE_LOOP: // fall through
             [[fallthrough]];
@@ -498,27 +496,26 @@ void Renderer::drawScreenInternal() {
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
         glDrawBuffer( GL_BACK );
-    }
-    else
+    } else
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
         GL_ASSERT( glDrawBuffers( 1, buffers ) );
     }
     // Display the final screen
     {
-        GL_ASSERT(glDepthFunc(GL_ALWAYS));
+        GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
 
-        auto shader = (m_displayedTexture->m_textureParameters.type == GL_INT ||
-                       m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT)
-                      ? ( m_displayedTexture->m_textureParameters.format == GL_DEPTH_COMPONENT
-                                      ? m_shaderMgr->getShaderProgram("DisplayDepthBuffer")
-                                      : m_shaderMgr->getShaderProgram("DrawScreenI") )
-                      :  m_shaderMgr->getShaderProgram("DrawScreen");
+        auto shader = ( m_displayedTexture->m_textureParameters.type == GL_INT ||
+                        m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT )
+                          ? ( m_displayedTexture->m_textureParameters.format == GL_DEPTH_COMPONENT
+                                  ? m_shaderMgr->getShaderProgram( "DisplayDepthBuffer" )
+                                  : m_shaderMgr->getShaderProgram( "DrawScreenI" ) )
+                          : m_shaderMgr->getShaderProgram( "DrawScreen" );
         shader->bind();
-        shader->setUniform("screenTexture", m_displayedTexture, 0);
+        shader->setUniform( "screenTexture", m_displayedTexture, 0 );
         m_quadMesh->render();
 
-        GL_ASSERT(glDepthFunc(GL_LESS));
+        GL_ASSERT( glDepthFunc( GL_LESS ) );
     }
     // draw brush circle if enabled
     if ( m_brushRadius > 0 )
@@ -562,16 +559,17 @@ void Renderer::notifyRenderObjectsRenderingInternal() {
 void Renderer::resize( uint w, uint h ) {
     m_width = w;
     m_height = h;
-    m_depthTexture->resize(m_width, m_height);
-    m_pickingTexture->resize(m_width, m_height);
-    m_fancyTexture->resize(m_width, m_height);
+    m_depthTexture->resize( m_width, m_height );
+    m_pickingTexture->resize( m_width, m_height );
+    m_fancyTexture->resize( m_width, m_height );
 
     m_pickingFbo->bind();
     m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture->texture() );
     m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture->texture() );
     if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
-        LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error " << m_pickingFbo->checkStatus();
+        LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error "
+                        << m_pickingFbo->checkStatus();
     }
     m_pickingFbo->unbind();
 
@@ -589,9 +587,9 @@ void Renderer::displayTexture( const std::string& texName ) {
 std::vector<std::string> Renderer::getAvailableTextures() const {
     std::vector<std::string> ret;
     ret.emplace_back( "Final image" );
-    std::transform(m_secondaryTextures.begin(), m_secondaryTextures.end(), std::back_inserter(ret),
-        [](const std::pair<std::string, Texture*> tex){return tex.first;}
-        );
+    std::transform( m_secondaryTextures.begin(), m_secondaryTextures.end(),
+                    std::back_inserter( ret ),
+                    []( const std::pair<std::string, Texture*> tex ) { return tex.first; } );
     return ret;
 }
 
@@ -599,7 +597,7 @@ void Renderer::reloadShaders() {
     ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
 }
 
-std::unique_ptr<uchar[]> Renderer::grabFrame(size_t &w, size_t &h) const {
+std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
     Engine::Texture* tex = getDisplayTexture();
     tex->bind();
 

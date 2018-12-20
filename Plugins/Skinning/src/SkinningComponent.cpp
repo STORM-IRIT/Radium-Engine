@@ -2,7 +2,6 @@
 
 #include <Core/Animation/Pose/PoseOperation.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
-#include <Core/Mesh/MeshUtils.hpp>
 
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
@@ -12,11 +11,11 @@
 using Ra::Core::DualQuaternion;
 using Ra::Core::Quaternion;
 
-using Ra::Core::TriangleMesh;
 using Ra::Core::Animation::Pose;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::Skeleton;
 using Ra::Core::Animation::WeightMatrix;
+using Ra::Core::Geometry::TriangleMesh;
 
 using SpaceType = Ra::Core::Animation::Handle::SpaceType;
 
@@ -104,21 +103,21 @@ void SkinningComponent::initialize() {
         m_frameData.m_doSkinning = false;
         m_frameData.m_doReset = false;
         m_frameData.m_previousPose = m_refData.m_refPose;
-        m_frameData.m_currentPose  = m_refData.m_refPose;
+        m_frameData.m_currentPose = m_refData.m_refPose;
 
         m_frameData.m_previousPos = m_refData.m_referenceMesh.vertices();
         m_frameData.m_currentPos = m_refData.m_referenceMesh.vertices();
         m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals();
 
-        m_frameData.m_refToCurrentRelPose  = Ra::Core::Animation::relativePose(
-            m_frameData.m_currentPose, m_refData.m_refPose );
+        m_frameData.m_refToCurrentRelPose =
+            Ra::Core::Animation::relativePose( m_frameData.m_currentPose, m_refData.m_refPose );
         m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(
             m_frameData.m_currentPose, m_frameData.m_previousPose );
 
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton
         // and mesh.
-        ON_ASSERT( bool skinnable =
-                       compMsg->canSet<Ra::Core::TriangleMesh>( getEntity(), m_contentsName ) );
+        ON_ASSERT( bool skinnable = compMsg->canSet<Ra::Core::Geometry::TriangleMesh>(
+                       getEntity(), m_contentsName ) );
         CORE_ASSERT(
             skinnable,
             "Mesh cannot be skinned. It could be because the mesh is set to nondeformable" );
@@ -189,8 +188,10 @@ void SkinningComponent::skin() {
     }
 }
 
-void uniformNormal( const Ra::Core::Vector3Array& p, const Ra::Core::VectorArray< Ra::Core::Vector3ui>& T,
-                    const std::vector<Ra::Core::Index>& duplicateTable, Ra::Core::Vector3Array& normal ) {
+void uniformNormal( const Ra::Core::Vector3Array& p,
+                    const Ra::Core::VectorArray<Ra::Core::Vector3ui>& T,
+                    const std::vector<Ra::Core::Index>& duplicateTable,
+                    Ra::Core::Vector3Array& normal ) {
     const uint N = p.size();
     normal.clear();
     normal.resize( N, Ra::Core::Vector3::Zero() );
@@ -235,8 +236,7 @@ void SkinningComponent::endSkinning() {
         vertices = m_frameData.m_currentPos;
 
         // FIXME: normals should be computed by the Skinning method!
-        uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles,
-                       m_duplicatesMap, normals );
+        uniformNormal( vertices, m_refData.m_referenceMesh.m_triangles, m_duplicatesMap, normals );
 
         std::swap( m_frameData.m_previousPose, m_frameData.m_currentPose );
         std::swap( m_frameData.m_previousPos, m_frameData.m_currentPos );

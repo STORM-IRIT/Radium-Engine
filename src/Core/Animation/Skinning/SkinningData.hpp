@@ -4,7 +4,7 @@
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
@@ -17,7 +17,7 @@ struct RefData {
     Ra::Core::Animation::Skeleton m_skeleton;
 
     /// Mesh in reference position
-    Ra::Core::TriangleMesh m_referenceMesh;
+    Ra::Core::Geometry::TriangleMesh m_referenceMesh;
 
     /// Reference pose
     Ra::Core::Animation::Pose m_refPose;
