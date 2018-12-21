@@ -51,7 +51,8 @@ void MaterialEditor::onKdColorChanged( int ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Color c( kdR->value() / 255.f, kdG->value() / 255.f, kdB->value() / 255.f, 1.0 );
+        Core::Utils::Color c( kdR->value() / 255.f, kdG->value() / 255.f, kdB->value() / 255.f,
+                              1.0 );
         m_material->m_kd = c;
     }
 }
@@ -61,7 +62,8 @@ void MaterialEditor::onKsColorChanged( int ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Color c( ksR->value() / 255.f, ksG->value() / 255.f, ksB->value() / 255.f, 1.0 );
+        Core::Utils::Color c( ksR->value() / 255.f, ksG->value() / 255.f, ksB->value() / 255.f,
+                              1.0 );
         m_material->m_ks = c;
     }
 }
@@ -77,7 +79,7 @@ void MaterialEditor::newKdColor( const QColor& color ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
+        Core::Utils::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
         m_material->m_kd = c;
     }
 }
@@ -93,7 +95,7 @@ void MaterialEditor::newKsColor( const QColor& color ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
+        Core::Utils::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
         m_material->m_ks = c;
     }
 }
@@ -139,8 +141,8 @@ void MaterialEditor::changeRenderObject( Core::Utils::Index roIdx ) {
 }
 
 void MaterialEditor::updateMaterialViz() {
-    const Core::Color kd = m_material->m_kd;
-    const Core::Color ks = m_material->m_ks;
+    const Core::Utils::Color kd = m_material->m_kd;
+    const Core::Utils::Color ks = m_material->m_ks;
 
     int kdr = kd.x() * 255, kdg = kd.y() * 255, kdb = kd.y() * 255;
     int ksr = ks.x() * 255, ksg = ks.y() * 255, ksb = ks.z() * 255;

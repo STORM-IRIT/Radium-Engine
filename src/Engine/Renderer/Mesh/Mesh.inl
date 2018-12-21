@@ -50,7 +50,7 @@ void Mesh::setDirty( const Mesh::Vec4Data& type ) {
     m_isDirty = true;
 }
 
-void Mesh::colorize( const Core::Color& color ) {
+void Mesh::colorize( const Core::Utils::Color& color ) {
     Core::Vector4Array colors( getGeometry().vertices().size(), color );
     addData( Engine::Mesh::VERTEX_COLOR, colors );
 }

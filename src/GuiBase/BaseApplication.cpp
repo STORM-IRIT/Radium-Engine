@@ -3,10 +3,10 @@
 #include <GuiBase/MainWindowInterface.hpp>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
@@ -275,7 +275,7 @@ void BaseApplication::setupScene() {
 
     auto grid = Primitive( Engine::SystemEntity::uiCmp(),
                            Grid( Core::Vector3::Zero(), Core::Vector3::UnitX(),
-                                 Core::Vector3::UnitZ(), Core::Colors::Grey( 0.6f ) ) );
+                                 Core::Vector3::UnitZ(), Core::Utils::Color::Grey( 0.6f ) ) );
     grid->setPickable( false );
     Engine::SystemEntity::uiCmp()->addRenderObject( grid );
 

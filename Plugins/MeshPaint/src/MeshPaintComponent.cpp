@@ -5,7 +5,6 @@
 #include <Core/Utils/Log.hpp>
 
 #include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Math/ColorPresets.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -51,7 +50,7 @@ void MeshPaintComponent::initialize() {
     m_baseConfig = ro->getRenderTechnique()->getConfiguration();
     m_baseColors = ro->getMesh()->getData( Ra::Engine::Mesh::VERTEX_COLOR );
     m_paintColors.resize( ro->getMesh()->getGeometry().vertices().size(),
-                          Ra::Core::Colors::Skin() );
+                          Ra::Core::Utils::Color::Skin() );
     ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_paintColors );
 }
 
@@ -70,7 +69,7 @@ void MeshPaintComponent::startPaint( bool on ) {
 }
 
 void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
-                                    const Ra::Core::Color& color ) {
+                                    const Ra::Core::Utils::Color& color ) {
     // check it's for us
     if ( *m_renderObjectReader() != picking.m_roIdx || picking.m_mode == Ra::Engine::Renderer::RO )
     {

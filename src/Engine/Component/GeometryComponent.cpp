@@ -6,7 +6,7 @@
 #include <Core/File/FileData.hpp>
 #include <Core/File/GeometryData.hpp>
 #include <Core/Geometry/Normal/Normal.hpp>
-#include <Core/Math/ColorPresets.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -149,8 +149,8 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     {
         auto mat =
             Ra::Core::make_shared<BlinnPhongMaterial>( data->getName() + "_DefaultBPMaterial" );
-        mat->m_kd = Ra::Core::Colors::Grey();
-        mat->m_ks = Ra::Core::Colors::White();
+        mat->m_kd = Ra::Core::Utils::Color::Grey();
+        mat->m_ks = Ra::Core::Utils::Color::White();
         rt.setMaterial( mat );
         auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
         builder.second( rt, isTransparent );

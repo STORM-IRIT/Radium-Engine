@@ -4,6 +4,7 @@
 #include <MeshPaintPluginMacros.hpp>
 
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -25,7 +26,7 @@ namespace MeshPaintPlugin {
 class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
   public:
     MeshPaintComponent( const std::string& name, Ra::Engine::Entity* entity );
-    virtual ~MeshPaintComponent();
+    ~MeshPaintComponent() override;
 
     virtual void initialize() override;
     virtual void addTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& info );
@@ -34,7 +35,7 @@ class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
 
     void startPaint( bool on );
     void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
-                    const Ra::Core::Color& color );
+                    const Ra::Core::Utils::Color& color );
 
   protected:
     // Geometry data

@@ -19,23 +19,25 @@ inline LightData::LightType LightData::getType() const {
 }
 
 /// FRAME
-inline const Core::Matrix4& LightData::getFrame() const {
+inline const Eigen::Matrix<Scalar, 4, 4>& LightData::getFrame() const {
     return m_frame;
 }
 
-inline void LightData::setFrame( const Core::Matrix4& frame ) {
+inline void LightData::setFrame( const Eigen::Matrix<Scalar, 4, 4>& frame ) {
     m_frame = frame;
 }
 
 /// construct a directional light
-inline void LightData::setLight( const Core::Color& color, const Core::Vector3& direction ) {
+inline void LightData::setLight( const Core::Utils::Color& color,
+                                 const Eigen::Matrix<Scalar, 3, 1>& direction ) {
     m_type = DIRECTIONAL_LIGHT;
     m_color = color;
     m_dirlight.direction = direction;
 }
 
 /// construct a point light
-inline void LightData::setLight( const Core::Color& color, const Core::Vector3& position,
+inline void LightData::setLight( const Core::Utils::Color& color,
+                                 const Eigen::Matrix<Scalar, 3, 1>& position,
                                  LightAttenuation attenuation ) {
     m_type = POINT_LIGHT;
     m_color = color;
@@ -44,9 +46,10 @@ inline void LightData::setLight( const Core::Color& color, const Core::Vector3& 
 }
 
 /// construct a spot light
-inline void LightData::setLight( const Core::Color& color, const Core::Vector3& position,
-                                 const Core::Vector3& direction, Scalar inAngle, Scalar outAngle,
-                                 LightAttenuation attenuation ) {
+inline void LightData::setLight( const Core::Utils::Color& color,
+                                 const Eigen::Matrix<Scalar, 3, 1>& position,
+                                 const Eigen::Matrix<Scalar, 3, 1>& direction, Scalar inAngle,
+                                 Scalar outAngle, LightAttenuation attenuation ) {
     m_type = SPOT_LIGHT;
     m_color = color;
     m_spotlight.position = position;
@@ -57,8 +60,10 @@ inline void LightData::setLight( const Core::Color& color, const Core::Vector3& 
 }
 
 /// construct an area light
-inline void LightData::setLight( const Core::Color& color, const Core::Vector3& cog,
-                                 const Core::Matrix3& spatialCov, const Core::Matrix3& normalCov,
+inline void LightData::setLight( const Core::Utils::Color& color,
+                                 const Eigen::Matrix<Scalar, 3, 1>& cog,
+                                 const Eigen::Matrix<Scalar, 3, 3>& spatialCov,
+                                 const Eigen::Matrix<Scalar, 3, 3>& normalCov,
                                  LightAttenuation attenuation ) {
     m_type = AREA_LIGHT;
     m_color = color;

@@ -331,16 +331,16 @@ void DebugRender::renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f
 }
 
 void DebugRender::addLine( const Core::Vector3& from, const Core::Vector3& to,
-                           const Core::Color& color ) {
+                           const Core::Utils::Color& color ) {
     Line l( from, to, color );
     m_lines.push_back( l );
 }
 
-void DebugRender::addPoint( const Core::Vector3& p, const Core::Color& c ) {
+void DebugRender::addPoint( const Core::Vector3& p, const Core::Utils::Color& c ) {
     m_points.push_back( {p, c.head<3>()} );
 }
 
-void DebugRender::addPoints( const Core::Vector3Array& p, const Core::Color& c ) {
+void DebugRender::addPoints( const Core::Vector3Array& p, const Core::Utils::Color& c ) {
     for ( uint i = 0; i < p.size(); ++i )
     {
         m_points.push_back( {p[i], c.head<3>()} );
@@ -359,7 +359,8 @@ void DebugRender::addMesh( const std::shared_ptr<Mesh>& mesh, const Core::Transf
     m_meshes.push_back( {mesh, transform} );
 }
 
-void DebugRender::addCross( const Core::Vector3& position, Scalar size, const Core::Color& color ) {
+void DebugRender::addCross( const Core::Vector3& position, Scalar size,
+                            const Core::Utils::Color& color ) {
     const Scalar hz = size / 2.0;
     for ( int i = 0; i < 3; ++i )
     {
@@ -374,12 +375,12 @@ void DebugRender::addCross( const Core::Vector3& position, Scalar size, const Co
 }
 
 void DebugRender::addSphere( const Core::Vector3& center, Scalar radius,
-                             const Core::Color& color ) {
+                             const Core::Utils::Color& color ) {
     addMesh( DrawPrimitives::Sphere( center, radius, color ) );
 }
 
 void DebugRender::addCircle( const Core::Vector3& center, const Core::Vector3& normal,
-                             Scalar radius, const Core::Color& color ) {
+                             Scalar radius, const Core::Utils::Color& color ) {
     addMesh( DrawPrimitives::Circle( center, normal, radius, 64, color ) );
 }
 
@@ -388,16 +389,16 @@ void DebugRender::addFrame( const Core::Transform& transform, Scalar size ) {
 }
 
 void DebugRender::addTriangle( const Core::Vector3& p0, const Core::Vector3& p1,
-                               const Core::Vector3& p2, const Core::Color& color ) {
+                               const Core::Vector3& p2, const Core::Utils::Color& color ) {
     addMesh( DrawPrimitives::Triangle( p0, p1, p2, color ) );
 }
 
-void DebugRender::addAABB( const Core::Aabb& box, const Core::Color& color ) {
+void DebugRender::addAABB( const Core::Aabb& box, const Core::Utils::Color& color ) {
     addMesh( DrawPrimitives::AABB( box, color ) );
 }
 
 void DebugRender::addOBB( const Core::Aabb& box, const Core::Transform& transform,
-                          const Core::Color& color ) {
+                          const Core::Utils::Color& color ) {
     addMesh( DrawPrimitives::AABB( box, color ), transform );
 }
 

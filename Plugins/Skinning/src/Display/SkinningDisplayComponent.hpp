@@ -6,7 +6,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/Adjacency/Adjacency.hpp>
-#include <Core/Math/ColorPresets.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
@@ -59,7 +59,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             for ( uint i = 0; i < fiveColor; ++i )
             {
                 Scalar hue = ( Scalar( i ) / Scalar( fiveColor - 1 ) ) * magenta;
-                palette[i] = Ra::Core::Colors::fromHSV( hue, 1.0, 0.5 );
+                palette[i] = Ra::Core::Utils::Color::fromHSV( hue, 1.0, 0.5 );
             }
 
             std::vector<uint> partition( size );
@@ -128,8 +128,8 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
 
             Ra::Engine::BlinnPhongMaterial* nm =
                 new Ra::Engine::BlinnPhongMaterial( std::string( "Partition" ) + m_name );
-            nm->m_kd = Ra::Core::Vector4::Zero();
-            nm->m_ks = Ra::Core::Vector4::Zero();
+            nm->m_kd = Ra::Core::Utils::Color::Black();
+            nm->m_ks = Ra::Core::Utils::Color::Black();
             nm->m_ns = 100;
             technique->resetMaterial( nm );
 

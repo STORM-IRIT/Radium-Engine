@@ -24,8 +24,8 @@
 #include <stb/stb_image_write.h>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/Math.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
@@ -278,6 +278,8 @@ Engine::Renderer::PickingMode Gui::Viewer::getPickingMode() const {
 }
 
 void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
+    using Core::Utils::Color;
+
     if ( !m_glInitStatus.load() )
     {
         event->ignore();
@@ -290,8 +292,8 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     {
         LOG( logINFO ) << "Raycast query launched";
         auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
-        RA_DISPLAY_POINT( r.origin(), Core::Colors::Cyan(), 0.1f );
-        RA_DISPLAY_RAY( r, Core::Colors::Yellow() );
+        RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f );
+        RA_DISPLAY_RAY( r, Color::Yellow() );
         auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
         for ( auto e : ents )
         {
@@ -416,7 +418,7 @@ void Gui::Viewer::resizeEvent( QResizeEvent* event ) {
     resizeGL( event->size().width(), event->size().height() );
 }
 
-void Gui::Viewer::showEvent( QShowEvent* ev ) {
+void Gui::Viewer::showEvent( QShowEvent* /*ev*/ ) {
     //       LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
     if ( !m_context )
     {
@@ -448,12 +450,12 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
         auto light =
             new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
         // Set the default light intensity so that it does not burn the objects
-        // light->setColor( Ra::Core::Color( 0.5, 0.5, 0.5, 1.0 ) );
+        light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 0.5 ) ) );
         m_camera->attachLight( light );
     }
 }
 
-void Gui::Viewer::exposeEvent( QExposeEvent* ev ) {
+void Gui::Viewer::exposeEvent( QExposeEvent* /*ev*/ ) {
     //       LOG( logDEBUG ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' <<
     //       height();
 }

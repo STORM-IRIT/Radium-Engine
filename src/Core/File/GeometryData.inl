@@ -1,5 +1,6 @@
 #include <Core/File/GeometryData.hpp>
 
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <algorithm>
@@ -208,7 +209,7 @@ inline void GeometryData::setColors( const Container& colorList ) {
     for ( int i = 0; i < int( size ); ++i )
     {
         // unnecessary call to copy constructor and cast are removed at compile time
-        m_color[i] = Core::Color( colorList[i].template cast<Core::Color::Scalar>() );
+        m_color[i] = Core::Utils::Color( colorList[i] );
     }
 }
 

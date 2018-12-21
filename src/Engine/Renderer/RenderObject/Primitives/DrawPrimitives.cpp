@@ -1,7 +1,7 @@
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Math/ColorPresets.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -33,7 +33,7 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
         mesh->getName(), component, Ra::Engine::RenderObjectType::Debug, mesh, rt );
 }
 
-MeshPtr Point( const Core::Vector3& point, const Core::Color& color, Scalar scale ) {
+MeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale ) {
     Core::Vector3Array vertices = {( point + ( scale * Core::Vector3::UnitX() ) ),
                                    ( point - ( scale * Core::Vector3::UnitX() ) ),
 
@@ -54,7 +54,7 @@ MeshPtr Point( const Core::Vector3& point, const Core::Color& color, Scalar scal
     return mesh;
 }
 
-MeshPtr Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Color& color ) {
+MeshPtr Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Utils::Color& color ) {
     Core::Vector3Array vertices = {a, b};
 
     std::vector<uint> indices = {0, 1};
@@ -68,7 +68,8 @@ MeshPtr Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Color&
     return mesh;
 }
 
-MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Color& color ) {
+MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v,
+                const Core::Utils::Color& color ) {
     Core::Vector3 end = start + v;
     Core::Vector3 a, b;
     Core::Vector::getOrthogonalVectors( v, a, b );
@@ -91,7 +92,7 @@ MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::
     return mesh;
 }
 
-MeshPtr Ray( const Eigen::ParametrizedLine<Scalar, 3>& ray, const Core::Color& color ) {
+MeshPtr Ray( const Eigen::ParametrizedLine<Scalar, 3>& ray, const Core::Utils::Color& color ) {
     Core::Vector3 end = ray.pointAt( 1000.f );
 
     Core::Vector3Array vertices = {ray.origin(), end};
@@ -107,7 +108,7 @@ MeshPtr Ray( const Eigen::ParametrizedLine<Scalar, 3>& ray, const Core::Color& c
 }
 
 MeshPtr Triangle( const Core::Vector3& a, const Core::Vector3& b, const Core::Vector3& c,
-                  const Core::Color& color, bool fill ) {
+                  const Core::Utils::Color& color, bool fill ) {
     Core::Vector3Array vertices = {a, b, c};
     std::vector<uint> indices;
 
@@ -129,7 +130,7 @@ MeshPtr Triangle( const Core::Vector3& a, const Core::Vector3& b, const Core::Ve
 }
 
 MeshPtr QuadStrip( const Core::Vector3& a, const Core::Vector3& x, const Core::Vector3& y,
-                   uint quads, const Core::Color& color ) {
+                   uint quads, const Core::Utils::Color& color ) {
     Core::Vector3Array vertices( quads * 2 + 2 );
     std::vector<uint> indices( quads * 2 + 2 );
 
@@ -157,7 +158,7 @@ MeshPtr QuadStrip( const Core::Vector3& a, const Core::Vector3& x, const Core::V
 }
 
 MeshPtr Circle( const Core::Vector3& center, const Core::Vector3& normal, Scalar radius,
-                uint segments, const Core::Color& color ) {
+                uint segments, const Core::Utils::Color& color ) {
     CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
 
     Core::Vector3Array vertices( segments );
@@ -188,7 +189,7 @@ MeshPtr Circle( const Core::Vector3& center, const Core::Vector3& normal, Scalar
 }
 
 MeshPtr CircleArc( const Core::Vector3& center, const Core::Vector3& normal, Scalar radius,
-                   Scalar angle, uint segments, const Core::Color& color ) {
+                   Scalar angle, uint segments, const Core::Utils::Color& color ) {
     Core::Vector3Array vertices( segments );
     std::vector<uint> indices( segments );
 
@@ -216,7 +217,7 @@ MeshPtr CircleArc( const Core::Vector3& center, const Core::Vector3& normal, Sca
     return mesh;
 }
 
-MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Color& color ) {
+MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
     Core::Geometry::TriangleMesh sphere = Core::Geometry::makeGeodesicSphere( radius, 2 );
 
     std::for_each( sphere.vertices().begin(), sphere.vertices().end(),
@@ -232,7 +233,7 @@ MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Color& c
 }
 
 MeshPtr Capsule( const Core::Vector3& p1, const Core::Vector3& p2, Scalar radius,
-                 const Core::Color& color ) {
+                 const Core::Utils::Color& color ) {
     const Scalar l = ( p2 - p1 ).norm();
 
     Core::Geometry::TriangleMesh capsule = Core::Geometry::makeCapsule( l, radius );
@@ -261,7 +262,7 @@ MeshPtr Capsule( const Core::Vector3& p1, const Core::Vector3& p2, Scalar radius
 }
 
 MeshPtr Disk( const Core::Vector3& center, const Core::Vector3& normal, Scalar radius,
-              uint segments, const Core::Color& color ) {
+              uint segments, const Core::Utils::Color& color ) {
     CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
 
     uint seg = segments + 1;
@@ -296,8 +297,8 @@ MeshPtr Disk( const Core::Vector3& center, const Core::Vector3& normal, Scalar r
     return mesh;
 }
 
-MeshPtr Normal( const Core::Vector3& point, const Core::Vector3& normal, const Core::Color& color,
-                Scalar scale ) {
+MeshPtr Normal( const Core::Vector3& point, const Core::Vector3& normal,
+                const Core::Utils::Color& color, Scalar scale ) {
     // Display an arrow (just like the Vector() function)
     // plus the normal plane.
     Core::Vector3 n = scale * normal.normalized();
@@ -347,8 +348,8 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
     std::vector<uint> indices = {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
 
     Core::Vector4Array colors = {
-        Core::Colors::Red(),   Core::Colors::Red(),  Core::Colors::Green(),
-        Core::Colors::Green(), Core::Colors::Blue(), Core::Colors::Blue(),
+        Core::Utils::Color::Red(),   Core::Utils::Color::Red(),  Core::Utils::Color::Green(),
+        Core::Utils::Color::Green(), Core::Utils::Color::Blue(), Core::Utils::Color::Blue(),
     };
 
     MeshPtr mesh( new Mesh( "Frame Primitive", Mesh::RM_LINES_ADJACENCY ) );
@@ -359,7 +360,7 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
 }
 
 MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x, const Core::Vector3& y,
-              const Core::Color& color, Scalar cellSize, uint res ) {
+              const Core::Utils::Color& color, Scalar cellSize, uint res ) {
 
     CORE_ASSERT( res > 1, "Grid has to be at least a 2x2 grid." );
     Core::Vector3Array vertices;
@@ -394,7 +395,7 @@ MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x, const Core::V
     return mesh;
 }
 
-MeshPtr AABB( const Core::Aabb& aabb, const Core::Color& color ) {
+MeshPtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color ) {
     Core::Vector3Array vertices( 8 );
 
     for ( uint i = 0; i < 8; ++i )
@@ -417,7 +418,7 @@ MeshPtr AABB( const Core::Aabb& aabb, const Core::Color& color ) {
     return mesh;
 }
 
-MeshPtr OBB( const Core::Obb& obb, const Core::Color& color ) {
+MeshPtr OBB( const Core::Obb& obb, const Core::Utils::Color& color ) {
     Core::Vector3Array vertices( 8 );
 
     for ( uint i = 0; i < 8; ++i )
@@ -440,7 +441,7 @@ MeshPtr OBB( const Core::Obb& obb, const Core::Color& color ) {
     return mesh;
 }
 
-MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::Color& color,
+MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::Utils::Color& color,
                 Scalar /*scale*/ ) {
     Core::Vector3Array vertices;
     vertices.reserve( pointCount );

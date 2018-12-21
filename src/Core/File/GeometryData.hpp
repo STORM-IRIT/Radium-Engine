@@ -27,7 +27,7 @@ class RA_CORE_API GeometryData : public AssetData {
     using VectorNiArray = Core::VectorArray<Core::VectorNi>;
     using VectorNuArray = Core::VectorArray<Core::VectorNui>;
     using Vector4Array = Core::VectorArray<Core::Vector4>;
-    using ColorArray = Core::VectorArray<Core::Color>;
+    using ColorArray = Core::VectorArray<Core::Vector4>;
 
     using Weight = std::pair<Scalar, uint>;
     using VertexWeights = std::vector<Weight>;

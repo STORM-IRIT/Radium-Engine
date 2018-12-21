@@ -8,6 +8,7 @@
 #include <assimp/vector3.h>
 
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace IO {
@@ -46,8 +47,12 @@ inline Core::Transform assimpToCore( const aiVector3D& T, const aiQuaternion& R,
     return M;
 }
 
-inline Core::Color assimpToCore( const aiColor4D& c ) {
-    return Core::Color( c.r, c.g, c.b, c.a );
+inline Core::Utils::Color assimpToCore( const aiColor3D& c ) {
+    return Core::Utils::Color( c.r, c.g, c.b );
+}
+
+inline Core::Utils::Color assimpToCore( const aiColor4D& c ) {
+    return Core::Utils::Color( c.r, c.g, c.b, c.a );
 }
 
 inline std::string assimpToCore( const aiString& string ) {

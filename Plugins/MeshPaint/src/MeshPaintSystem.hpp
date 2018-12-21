@@ -3,14 +3,10 @@
 
 #include <MeshPaintPluginMacros.hpp>
 
+#include <Core/Utils/Color.hpp>
+
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/System/System.hpp>
-
-namespace Ra {
-namespace Core {
-class TriangleMesh;
-}
-} // namespace Ra
 
 namespace Ra {
 namespace Engine {
@@ -39,7 +35,7 @@ class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System {
     void startPaintMesh( bool start );
 
     void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
-                    const Ra::Core::Color& color );
+                    const Ra::Core::Utils::Color& color );
 };
 
 } // namespace MeshPaintPlugin

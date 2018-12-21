@@ -1,4 +1,5 @@
 #include <Core/File/MaterialData.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Asset {

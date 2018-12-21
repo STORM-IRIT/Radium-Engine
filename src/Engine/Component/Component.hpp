@@ -1,10 +1,12 @@
 #ifndef RADIUMENGINE_COMPONENT_HPP
 #define RADIUMENGINE_COMPONENT_HPP
 
+#include <Core/Utils/Index.hpp>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Utils/IndexedObject.hpp>
+#include <vector>
 
 namespace Ra {
 
@@ -26,6 +28,7 @@ namespace Engine {
  */
 class RA_ENGINE_API Component {
   public:
+    using Transform = Eigen::Transform<Scalar, 3, Eigen::Affine>;
     /// CONSTRUCTOR
     Component( const std::string& name, Entity* entity );
 
@@ -75,13 +78,13 @@ class RA_ENGINE_API Component {
     virtual bool canEdit( const Core::Utils::Index& /*roIdx*/ ) const { return false; }
 
     /// Get the transform associated with the given RO index key.
-    virtual Core::Transform getTransform( const Core::Utils::Index& /*roIdx*/ ) const {
-        return Core::Transform::Identity();
+    virtual Transform getTransform( const Core::Utils::Index& /*roIdx*/ ) const {
+        return Transform::Identity();
     }
 
     /// Set the new transform associated with the RO index key.
     virtual void setTransform( const Core::Utils::Index& /*roIdx*/,
-                               const Core::Transform& /*transform*/ ) {}
+                               const Transform& /*transform*/ ) {}
 
     void notifyRenderObjectExpired( const Core::Utils::Index& idx );
 

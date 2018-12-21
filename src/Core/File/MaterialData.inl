@@ -1,10 +1,5 @@
 #include <Core/File/MaterialData.hpp>
 
-#include <Core/Utils/Log.hpp>
-
-#include <algorithm>
-#include <iterator>
-
 namespace Ra {
 namespace Asset {
 
