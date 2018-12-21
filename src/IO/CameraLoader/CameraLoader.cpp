@@ -7,10 +7,12 @@
 #include <iostream>
 #include <string>
 
-const std::string camExt { "cam" };
+const std::string camExt{"cam"};
 
 namespace Ra {
 namespace IO {
+
+using namespace Core::Utils; // log
 
 CameraFileLoader::CameraFileLoader() = default;
 

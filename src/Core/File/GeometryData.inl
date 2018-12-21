@@ -1,6 +1,6 @@
 #include <Core/File/GeometryData.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <algorithm>
 #include <iterator>
@@ -305,6 +305,7 @@ inline bool GeometryData::hasMaterial() const {
 }
 
 inline void GeometryData::displayInfo() const {
+    using namespace Core::Utils; // log
     std::string type;
     switch ( m_type )
     {

@@ -1,7 +1,7 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
-#include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/Managers/CameraManager/DefaultCameraManager.hpp>
 #include <Engine/Managers/LightManager/DefaultLightManager.hpp>
@@ -17,10 +17,11 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <globjects/Framebuffer.h>
 
-
 //#define NO_TRANSPARENCY
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
 
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
@@ -30,8 +31,7 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_A
 
 ForwardRenderer::ForwardRenderer() : Renderer() {}
 
-ForwardRenderer::~ForwardRenderer() {
-};
+ForwardRenderer::~ForwardRenderer(){};
 
 void ForwardRenderer::initializeInternal() {
     initShaders();
@@ -54,11 +54,12 @@ void ForwardRenderer::initializeInternal() {
 
 void ForwardRenderer::initShaders() {
 
-    m_shaderMgr->addShaderProgram( { {"Hdr2Ldr"}, {"Shaders/HdrToLdr/Hdr2Ldr.vert.glsl"},
-                                     {"Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"} } );
+    m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
+                                    {"Shaders/HdrToLdr/Hdr2Ldr.vert.glsl"},
+                                    {"Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"}} );
 #ifndef NO_TRANSPARENCY
-    m_shaderMgr->addShaderProgram( { {"ComposeOIT"}, {"Shaders/Basic2D.vert.glsl"},
-                                     {"Shaders/ComposeOIT.frag.glsl"} } );
+    m_shaderMgr->addShaderProgram(
+        {{"ComposeOIT"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/ComposeOIT.frag.glsl"}} );
 #endif
 }
 
@@ -68,7 +69,6 @@ void ForwardRenderer::initBuffers() {
     m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
     m_uiXrayFbo = std::make_unique<globjects::Framebuffer>();
     // Forward renderer internal textures texture
-
 
     TextureParameters texparams;
     texparams.width = m_width;
@@ -109,7 +109,6 @@ void ForwardRenderer::initBuffers() {
     texparams.name = "OIT Revealage";
     m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( texparams );
 
-
     m_secondaryTextures["Depth (fw)"] = m_textures[RendererTextures_Depth].get();
     m_secondaryTextures["HDR Texture"] = m_textures[RendererTextures_HDR].get();
     m_secondaryTextures["Normal Texture"] = m_textures[RendererTextures_Normal].get();
@@ -124,7 +123,7 @@ void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) 
     m_transparentRenderObjects.clear();
     for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
     {
-        if ( (*it)->isTransparent() )
+        if ( ( *it )->isTransparent() )
         {
             m_transparentRenderObjects.push_back( *it );
             it = m_fancyRenderObjects.erase( it );
@@ -132,7 +131,7 @@ void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) 
         { ++it; }
     }
     m_fancyTransparentCount = m_transparentRenderObjects.size();
-   // Question for Radiumv V2 Do we want ui too  ?
+    // Question for Radiumv V2 Do we want ui too  ?
 #endif
 }
 
@@ -149,7 +148,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     const auto clearColor = Core::Colors::FromChars<Core::Colorf>( 10, 10, 10, 0 );
     const auto clearZeros = Core::Colors::Black<Core::Colorf>();
     const auto clearOnes = Core::Colors::FromChars<Core::Colorf>( 255, 255, 255, 255 );
-    const float clearDepth {1.0f};
+    const float clearDepth{1.0f};
 
     GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearColor.data() ) ); // Clear color
     GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearZeros.data() ) ); // Clear normals
@@ -170,12 +169,12 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
         ro->render( zprepassParams, renderData, RenderTechnique::Z_PREPASS );
     }
 #ifndef NO_TRANSPARENCY
-    // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments (if any)
-    // might influence the z-buffer
-    // Rendering transparent objects assuming that they discard all their non-opaque fragments
-    for (const auto &ro : m_transparentRenderObjects)
+    // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments (if
+    // any) might influence the z-buffer Rendering transparent objects assuming that they discard
+    // all their non-opaque fragments
+    for ( const auto& ro : m_transparentRenderObjects )
     {
-        ro->render(zprepassParams, renderData, RenderTechnique::Z_PREPASS);
+        ro->render( zprepassParams, renderData, RenderTechnique::Z_PREPASS );
     }
 #endif
 
@@ -204,76 +203,74 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
                 ro->render( lightingpassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
             }
 #ifndef NO_TRANSPARENCY
-            // Rendering transparent objects assuming that they discard all their non-opaque fragments
-            for (const auto& ro : m_transparentRenderObjects)
+            // Rendering transparent objects assuming that they discard all their non-opaque
+            // fragments
+            for ( const auto& ro : m_transparentRenderObjects )
             {
-                ro->render( lightingpassParams, renderData, RenderTechnique::LIGHTING_OPAQUE);
+                ro->render( lightingpassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
             }
 #endif
         }
     } else
-    {
-        LOG(logINFO) << "Opaque : no light sources, unable to render";
-    }
+    { LOG( logINFO ) << "Opaque : no light sources, unable to render"; }
 
 #ifndef NO_TRANSPARENCY
     // Transparency (blending) pass
-    if (!m_transparentRenderObjects.empty())
+    if ( !m_transparentRenderObjects.empty() )
     {
         m_fbo->unbind();
 
         m_oitFbo->bind();
 
-        GL_ASSERT(glDrawBuffers(2, buffers));
-        GL_ASSERT(glClearBufferfv(GL_COLOR, 0, clearZeros.data()));
-        GL_ASSERT(glClearBufferfv(GL_COLOR, 1, clearOnes.data()));
+        GL_ASSERT( glDrawBuffers( 2, buffers ) );
+        GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearZeros.data() ) );
+        GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearOnes.data() ) );
 
-        GL_ASSERT(glDepthFunc(GL_LESS));
-        GL_ASSERT(glEnable(GL_BLEND));
+        GL_ASSERT( glDepthFunc( GL_LESS ) );
+        GL_ASSERT( glEnable( GL_BLEND ) );
 
-        GL_ASSERT(glBlendEquation(GL_FUNC_ADD));
-        GL_ASSERT(glBlendFunci(0, GL_ONE, GL_ONE));
-        GL_ASSERT(glBlendFunci(1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA));
+        GL_ASSERT( glBlendEquation( GL_FUNC_ADD ) );
+        GL_ASSERT( glBlendFunci( 0, GL_ONE, GL_ONE ) );
+        GL_ASSERT( glBlendFunci( 1, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA ) );
 
-        if (m_lightmanagers[0]->count() > 0)
+        if ( m_lightmanagers[0]->count() > 0 )
         {
             // for ( const auto& l : m_lights )
-            for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i)
+            for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
             {
-                const auto l = m_lightmanagers[0]->getLight(i);
+                const auto l = m_lightmanagers[0]->getLight( i );
                 RenderParameters trasparencypassParams;
-                l->getRenderParameters(trasparencypassParams);
+                l->getRenderParameters( trasparencypassParams );
 
-                for (const auto &ro : m_transparentRenderObjects)
+                for ( const auto& ro : m_transparentRenderObjects )
                 {
-                    ro->render(trasparencypassParams, renderData, RenderTechnique::LIGHTING_TRANSPARENT);
+                    ro->render( trasparencypassParams, renderData,
+                                RenderTechnique::LIGHTING_TRANSPARENT );
                 }
             }
-        }
-        else
-        {
-            LOG(logINFO) << "Transparent : no light sources, unable to render";
-        }
+        } else
+        { LOG( logINFO ) << "Transparent : no light sources, unable to render"; }
 
         m_oitFbo->unbind();
 
         m_fbo->bind();
-        GL_ASSERT(glDrawBuffers(1, buffers));
-        GL_ASSERT(glDisable( GL_DEPTH_TEST ) );
-        GL_ASSERT(glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA));
+        GL_ASSERT( glDrawBuffers( 1, buffers ) );
+        GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
+        GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
         {
-            auto shader = m_shaderMgr->getShaderProgram("ComposeOIT");
+            auto shader = m_shaderMgr->getShaderProgram( "ComposeOIT" );
             shader->bind();
-            shader->setUniform("u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0);
-            shader->setUniform("u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1);
+            shader->setUniform( "u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0 );
+            shader->setUniform( "u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(),
+                                1 );
         }
         m_quadMesh->render();
-        GL_ASSERT(glEnable( GL_DEPTH_TEST ) );
+        GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     }
 #endif
     if ( m_wireframe )
     {
-//        m_fbo->bind();
+        //        m_fbo->bind();
 
         glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         glEnable( GL_LINE_SMOOTH );
@@ -301,7 +298,8 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
                 {
                     ro->render( wireframepassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
                 }
-                // This will not work for the moment . skipping wireframe rendering of transparent objects
+                // This will not work for the moment . skipping wireframe rendering of transparent
+                // objects
 #if 0
                 for ( const auto& ro : m_transparentRenderObjects)
                 {
@@ -310,9 +308,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 #endif
             }
         } else
-        {
-            LOG(logINFO) << "Wireframe : no light sources, unable to render";
-        }
+        { LOG( logINFO ) << "Wireframe : no light sources, unable to render"; }
 
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
         glDisable( GL_POLYGON_OFFSET_LINE );
@@ -360,7 +356,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
                 // bind data
                 shader->bind();
                 // lighting for Xray : fixed
-                shader->setUniform( "light.color", Ra::Core::Color(5.0, 5.0, 5.0, 1.0) );
+                shader->setUniform( "light.color", Ra::Core::Color( 5.0, 5.0, 5.0, 1.0 ) );
                 shader->setUniform( "light.type", Light::LightType::DIRECTIONAL );
                 shader->setUniform( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
 
@@ -445,7 +441,7 @@ void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData )
 }
 
 void ForwardRenderer::resizeInternal() {
-    m_pingPongSize = std::pow( uint(2),  uint( std::log2( std::min( m_width, m_height ) ) ) );
+    m_pingPongSize = std::pow( uint( 2 ), uint( std::log2( std::min( m_width, m_height ) ) ) );
 
     m_textures[RendererTextures_Depth]->resize( m_width, m_height );
     m_textures[RendererTextures_HDR]->resize( m_width, m_height );
@@ -456,15 +452,11 @@ void ForwardRenderer::resizeInternal() {
     m_textures[RendererTextures_OITRevealage]->resize( m_width, m_height );
 
     m_fbo->bind();
-    m_fbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                          m_textures[RendererTextures_Depth]->texture() );
+    m_fbo->attachTexture( GL_DEPTH_ATTACHMENT, m_textures[RendererTextures_Depth]->texture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT0, m_textures[RendererTextures_HDR]->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT1,
-                          m_textures[RendererTextures_Normal]->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT2,
-                          m_textures[RendererTextures_Diffuse]->texture() );
-    m_fbo->attachTexture( GL_COLOR_ATTACHMENT3,
-                          m_textures[RendererTextures_Specular]->texture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT1, m_textures[RendererTextures_Normal]->texture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse]->texture() );
+    m_fbo->attachTexture( GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
         LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus();
@@ -472,8 +464,7 @@ void ForwardRenderer::resizeInternal() {
 
 #ifndef NO_TRANSPARENCY
     m_oitFbo->bind();
-    m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                             m_textures[RendererTextures_Depth]->texture() );
+    m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_textures[RendererTextures_Depth]->texture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0,
                              m_textures[RendererTextures_OITAccum]->texture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT1,
@@ -490,15 +481,16 @@ void ForwardRenderer::resizeInternal() {
     m_postprocessFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
-        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_postprocessFbo) : " << m_fbo->checkStatus();
+        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_postprocessFbo) : "
+                        << m_fbo->checkStatus();
     }
 
-    // FIXED : when m_postprocessFbo use the RendererTextures_Depth, the depth buffer is erased and is therefore
-    // useless for future computation. Do not use this post-process FBO to render eveything else than the scene.
-    // Create several FBO with ther own configuration (uncomment Renderer::m_depthTexture->texture() to see the difference.)
+    // FIXED : when m_postprocessFbo use the RendererTextures_Depth, the depth buffer is erased and
+    // is therefore useless for future computation. Do not use this post-process FBO to render
+    // eveything else than the scene. Create several FBO with ther own configuration (uncomment
+    // Renderer::m_depthTexture->texture() to see the difference.)
     m_uiXrayFbo->bind();
-    m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT,
-                              Renderer::m_depthTexture->texture() );
+    m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT, Renderer::m_depthTexture->texture() );
     m_uiXrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     {
@@ -508,8 +500,7 @@ void ForwardRenderer::resizeInternal() {
     globjects::Framebuffer::unbind();
 }
 
-void ForwardRenderer::updateShadowMaps()
-{
+void ForwardRenderer::updateShadowMaps() {
     // Radium V2 : implement shadow mapping
 }
 

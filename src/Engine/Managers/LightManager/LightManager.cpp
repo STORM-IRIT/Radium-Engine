@@ -13,12 +13,12 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/RadiumEngine.hpp>
 
-
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra {
 namespace Engine {
 
+using namespace Core::Utils; // log
 
 LightManager::~LightManager() = default;
 
@@ -34,7 +34,8 @@ size_t LightManager::count() const {
 // System
 //
 
-void LightManager::generateTasks( Core::TaskQueue* /*taskQueue*/, const Engine::FrameInfo& /*frameInfo*/ ) {
+void LightManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
+                                  const Engine::FrameInfo& /*frameInfo*/ ) {
     // do nothing as this system only manage light related asset loading
 }
 
@@ -42,21 +43,24 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
     std::vector<Asset::LightData*> lightData = filedata->getLightData();
     uint id = 0;
 
-    // If thereis some lights already in the manager, just remove from the manager the lights that belong to the system entity (e.g. the headlight)
-    // from the list of managed lights.
-    // Beware to not destroy the headlight component, that do not belong to this system, so that it could be added again
-    for (int i=0; i < m_data->size(); ) {
-        auto l = (*m_data)[i];
-        if (l->getEntity() == Ra::Engine::SystemEntity::getInstance()) {
-            m_data->remove(l);
-        } else {
-            ++i;
-        }
+    // If thereis some lights already in the manager, just remove from the manager the lights that
+    // belong to the system entity (e.g. the headlight) from the list of managed lights. Beware to
+    // not destroy the headlight component, that do not belong to this system, so that it could be
+    // added again
+    for ( int i = 0; i < m_data->size(); )
+    {
+        auto l = ( *m_data )[i];
+        if ( l->getEntity() == Ra::Engine::SystemEntity::getInstance() )
+        {
+            m_data->remove( l );
+        } else
+        { ++i; }
     }
 
     for ( const auto& data : lightData )
     {
-        std::string componentName = "LIGHT_" + data->getName() + " (" + std::to_string( id++ )+ ")";
+        std::string componentName =
+            "LIGHT_" + data->getName() + " (" + std::to_string( id++ ) + ")";
         Light* comp = nullptr;
 
         switch ( data->getType() )
@@ -97,7 +101,8 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
         }
         case Asset::LightData::AREA_LIGHT:
         {
-            // Radium-V2 : manage real area light. For the moment, transform them in point light using given position
+            // Radium-V2 : manage real area light. For the moment, transform them in point light
+            // using given position
             auto thelight = new Engine::PointLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_arealight.position );

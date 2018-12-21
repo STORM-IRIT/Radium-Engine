@@ -10,7 +10,6 @@
 #include <globjects/Shader.h>
 #include <globjects/Texture.h>
 
-
 #include <regex>
 
 #ifdef OS_WINDOWS
@@ -23,7 +22,7 @@
 
 #include <Core/Math/GlmAdapters.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/Renderer/Texture/Texture.hpp>
 
@@ -32,12 +31,14 @@
 namespace Ra {
 namespace Engine {
 
-ShaderProgram::ShaderProgram() : m_program { nullptr } {
-    std::fill(m_shaderObjects.begin(), m_shaderObjects.end(), nullptr);
+using namespace Core::Utils; // log
+
+ShaderProgram::ShaderProgram() : m_program{nullptr} {
+    std::fill( m_shaderObjects.begin(), m_shaderObjects.end(), nullptr );
 }
 
-ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) :  m_program { nullptr } {
-    std::fill(m_shaderObjects.begin(), m_shaderObjects.end(), nullptr);
+ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : m_program{nullptr} {
+    std::fill( m_shaderObjects.begin(), m_shaderObjects.end(), nullptr );
     load( config );
 }
 
@@ -76,23 +77,21 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     { shaderHeader = std::string( version + "\n\n" ); }
 
     // Add properties at the beginning of the file.
-    shaderHeader = std::accumulate(props.begin(), props.end(), shaderHeader,
-                           [](std::string a, const std::string& b) {
-                               return std::move(a) + b + std::string("\n");
-                           }
-                   );
+    shaderHeader = std::accumulate( props.begin(), props.end(), shaderHeader,
+                                    []( std::string a, const std::string& b ) {
+                                        return std::move( a ) + b + std::string( "\n" );
+                                    } );
 
     // Add includes, depending on the shader type.
-    shaderHeader = std::accumulate(includes.begin(), includes.end(), shaderHeader,
-                                   [type](std::string a, const std::pair<std::string, ShaderType>& b) -> std::string {
-                                        if (b.second == type ) {
-                                            return std::move(a) + b.first + std::string("\n");
-                                        } else {
-                                            return std::move(a);
-                                        }
-                                   }
-    );
-
+    shaderHeader = std::accumulate(
+        includes.begin(), includes.end(), shaderHeader,
+        [type]( std::string a, const std::pair<std::string, ShaderType>& b ) -> std::string {
+            if ( b.second == type )
+            {
+                return std::move( a ) + b.first + std::string( "\n" );
+            } else
+            { return std::move( a ); }
+        } );
 
     auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
 
@@ -180,7 +179,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( ! m_configuration.m_shaders[i].empty() )
+        if ( !m_configuration.m_shaders[i].empty() )
         {
             LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
             loadShader( ShaderType( i ), m_configuration.m_shaders[i],
@@ -202,7 +201,8 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
         //!\todo add other sampler type (or manage all type of sampler automatically)
         if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
-             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D || type == GL_SAMPLER_CUBE_SHADOW )
+             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D ||
+             type == GL_SAMPLER_CUBE_SHADOW )
         {
             auto location = m_program->getUniformLocation( name );
             textureUnits[name] = TextureBinding( texUnit++, location );
@@ -242,15 +242,15 @@ void ShaderProgram::unbind() const {
 }
 
 void ShaderProgram::reload() {
-    for ( auto & s : m_shaderObjects )
+    for ( auto& s : m_shaderObjects )
     {
         if ( s != nullptr )
         {
             LOG( logDEBUG ) << "Reloading shader " << s->name();
 
             m_program->detach( s.get() );
-            loadShader( getGLenumAsType( s->type() ), s->name(),
-                        m_configuration.getProperties(), m_configuration.getIncludes() );
+            loadShader( getGLenumAsType( s->type() ), s->name(), m_configuration.getProperties(),
+                        m_configuration.getIncludes() );
         }
     }
 
@@ -348,7 +348,6 @@ void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) 
     m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
-
 void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
     tex->bind( texUnit );
 
@@ -375,7 +374,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
                                                int level, int line ) {
     CORE_ERROR_IF( level < 32, "Shader inclusion depth limit reached." );
 
-    std::string result {};
+    std::string result{};
     std::vector<std::string> finalStrings;
 
     uint nline = 0;
@@ -383,9 +382,9 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
     static const std::regex reg( "^[ ]*#[ ]*include[ ]+[\"<](.*)[\">].*" );
 
     // source: https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/
-    std::istringstream iss(shader);
+    std::istringstream iss( shader );
     std::string codeline;
-    while (std::getline(iss, codeline, '\n'))
+    while ( std::getline( iss, codeline, '\n' ) )
     {
         std::smatch match;
         if ( std::regex_search( codeline, match, reg ) )

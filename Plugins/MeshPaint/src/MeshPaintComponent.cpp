@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/ColorPresets.hpp>
@@ -15,6 +15,8 @@
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
+using namespace Ra::Core::Utils; // log
 
 namespace MeshPaintPlugin {
 

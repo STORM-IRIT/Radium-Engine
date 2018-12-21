@@ -1,11 +1,13 @@
 #include <Core/Animation/Handle/HandleWeightOperation.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <utility>
 
 namespace Ra {
 namespace Core {
 namespace Animation {
+
+using namespace Utils; // log
 
 WeightMatrix extractWeightMatrix( const MeshWeight& weight, const uint weight_size ) {
     WeightMatrix W( weight.size(), weight_size );

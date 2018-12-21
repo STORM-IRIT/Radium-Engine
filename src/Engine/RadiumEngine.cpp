@@ -14,18 +14,20 @@
 #include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/System/System.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
 
 RadiumEngine::RadiumEngine() = default;
 
@@ -68,7 +70,7 @@ void RadiumEngine::endFrameSync() {
 
 void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     static uint frameCounter = 0;
-    FrameInfo frameInfo {dt, frameCounter++};
+    FrameInfo frameInfo{dt, frameCounter++};
     for ( auto& syst : m_systems )
     {
         syst.second->generateTasks( taskQueue, frameInfo );
@@ -167,7 +169,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         system.second->handleAssetLoading( entity, m_loadedFile.get() );
     }
 
-    if ( ! entity->getComponents().empty() )
+    if ( !entity->getComponents().empty() )
     {
         for ( auto& comp : entity->getComponents() )
         {

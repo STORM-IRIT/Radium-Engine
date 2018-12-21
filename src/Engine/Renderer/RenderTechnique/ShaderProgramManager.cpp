@@ -2,7 +2,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <globjects/NamedString.h>
 #include <globjects/Program.h>
@@ -11,11 +11,13 @@
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
 using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
 
 ShaderProgramManager::ShaderProgramManager( const std::string& vs, const std::string& fs ) :
-    m_defaultVsName { vs },
-    m_defaultFsName { fs } {
+    m_defaultVsName{vs},
+    m_defaultFsName{fs} {
     initialize();
 }
 
@@ -27,8 +29,8 @@ void ShaderProgramManager::initialize() {
     // Create named strings which correspond to shader files that you want to use in shaders's
     // includes. NOTE: if you want to add a named string to handle a new shader include file, be
     // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
-    // Radium V2 : are these initialization required here ? They will be better in Engine::Initialize ....
-    // Define a better ressources management and initialization
+    // Radium V2 : are these initialization required here ? They will be better in
+    // Engine::Initialize .... Define a better ressources management and initialization
     m_files.push_back( globjects::File::create( "Shaders/Helpers.glsl" ) );
     m_files.push_back( globjects::File::create( "Shaders/Structs.glsl" ) );
     m_files.push_back( globjects::File::create( "Shaders/Tonemap.glsl" ) );
@@ -54,7 +56,7 @@ void ShaderProgramManager::initialize() {
         globjects::NamedString::create( "/DefaultLight.glsl", m_files[6].get() ) );
 
     m_defaultShaderProgram =
-        addShaderProgram( { {"Default Program"}, m_defaultVsName, m_defaultFsName } );
+        addShaderProgram( {{"Default Program"}, m_defaultVsName, m_defaultFsName} );
 }
 
 void ShaderProgramManager::addNamedString( const std::string& includepath,
@@ -93,8 +95,7 @@ const ShaderProgram* ShaderProgramManager::addShaderProgram( const ShaderConfigu
         return prog.get();
     } else
     {
-        LOG( logERROR ) << "Error occurred while loading shader program "
-                        << config.m_name.c_str()
+        LOG( logERROR ) << "Error occurred while loading shader program " << config.m_name.c_str()
                         << ":\nDefault shader program used instead.";
 
         // insert in the failed shaders list
@@ -134,7 +135,7 @@ void ShaderProgramManager::reloadAllShaderPrograms() {
 
 void ShaderProgramManager::reloadNotCompiledShaderPrograms() {
     // for each shader in the failed map, try to reload
-    for ( const auto & conf : m_shaderFailedConfs )
+    for ( const auto& conf : m_shaderFailedConfs )
     {
         auto prog = Core::make_shared<ShaderProgram>( conf );
 

@@ -5,6 +5,11 @@
 #include <sstream>
 #include <stdio.h>
 #include <string>
+#include <ctime>
+
+namespace Ra {
+namespace Core {
+namespace Utils {
 
 inline std::string NowTime();
 
@@ -132,6 +137,21 @@ inline void Output2FILE::Output( const std::string& msg ) {
 class FILELog : public Log<Output2FILE> {};
 // using FILELog = Log<Output2FILE>;
 
+inline std::string NowTime() {
+    char buffer[100];
+    std::time_t t = std::time( nullptr );
+    ON_ASSERT( int ok = ) std::strftime( buffer, 100, "%X", std::localtime( &t ) );
+    CORE_ASSERT( ok, "Increase buffer size." );
+    std::string result( buffer );
+    // This doesn't work with minGW. Maybe indicates a serious issue ?
+    // Ra::Core::Utils::stringPrintf( result, "%s", buffer );
+    return result;
+}
+
+} // namespace Utils
+} // namespace Core
+} // namespace Ra
+
 #ifndef FILELOG_MAX_LEVEL
 #    ifdef CORE_DEBUG
 #        define FILELOG_MAX_LEVEL logDEBUG4
@@ -149,18 +169,5 @@ class FILELog : public Log<Output2FILE> {};
         FILELog().Get( level )
 
 #define LOG( level ) FILE_LOG( level )
-
-#include <ctime>
-
-inline std::string NowTime() {
-    char buffer[100];
-    std::time_t t = std::time( nullptr );
-    ON_ASSERT( int ok = ) std::strftime( buffer, 100, "%X", std::localtime( &t ) );
-    CORE_ASSERT( ok, "Increase buffer size." );
-    std::string result( buffer );
-    // This doesn't work with minGW. Maybe indicates a serious issue ?
-    // Ra::Core::Utils::stringPrintf( result, "%s", buffer );
-    return result;
-}
 
 #endif // RADIUMENGINE_LOG_HPP

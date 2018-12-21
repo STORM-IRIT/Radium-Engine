@@ -20,6 +20,8 @@
 
 namespace CameraManipPlugin {
 
+using namespace Ra::Core::Utils; // log
+
 CameraManipPluginC::CameraManipPluginC() :
     m_widget( nullptr ),
     m_engine( nullptr ),

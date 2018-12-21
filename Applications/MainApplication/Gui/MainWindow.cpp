@@ -30,6 +30,8 @@ using Ra::Engine::ItemEntry;
 namespace Ra {
 namespace Gui {
 
+using namespace Core::Utils; // log
+
 MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     // Note : at this point most of the components (including the Engine) are
     // not initialized. Listen to the "started" signal.

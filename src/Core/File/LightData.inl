@@ -1,5 +1,5 @@
 #include <Core/File/LightData.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -28,15 +28,15 @@ inline void LightData::setFrame( const Core::Matrix4& frame ) {
 }
 
 /// construct a directional light
-inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &direction) {
+inline void LightData::setLight( const Core::Color& color, const Core::Vector3& direction ) {
     m_type = DIRECTIONAL_LIGHT;
     m_color = color;
     m_dirlight.direction = direction;
 }
 
 /// construct a point light
-inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &position,
-                                LightAttenuation attenuation) {
+inline void LightData::setLight( const Core::Color& color, const Core::Vector3& position,
+                                 LightAttenuation attenuation ) {
     m_type = POINT_LIGHT;
     m_color = color;
     m_pointlight.position = position;
@@ -44,8 +44,9 @@ inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &p
 }
 
 /// construct a spot light
-inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &position, const Core::Vector3 &direction,
-                                Scalar inAngle, Scalar outAngle, LightAttenuation attenuation) {
+inline void LightData::setLight( const Core::Color& color, const Core::Vector3& position,
+                                 const Core::Vector3& direction, Scalar inAngle, Scalar outAngle,
+                                 LightAttenuation attenuation ) {
     m_type = SPOT_LIGHT;
     m_color = color;
     m_spotlight.position = position;
@@ -56,7 +57,9 @@ inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &p
 }
 
 /// construct an area light
-inline void LightData::setLight(const Core::Color &color, const Core::Vector3 &cog, const Core::Matrix3 &spatialCov, const Core::Matrix3 &normalCov, LightAttenuation attenuation ) {
+inline void LightData::setLight( const Core::Color& color, const Core::Vector3& cog,
+                                 const Core::Matrix3& spatialCov, const Core::Matrix3& normalCov,
+                                 LightAttenuation attenuation ) {
     m_type = AREA_LIGHT;
     m_color = color;
     m_arealight.position = cog;
@@ -84,6 +87,7 @@ inline bool LightData::isAreaLight() const {
 
 /// DEBUG
 inline void LightData::displayInfo() const {
+    using namespace Core::Utils; // log
     std::string type;
     switch ( m_type )
     {

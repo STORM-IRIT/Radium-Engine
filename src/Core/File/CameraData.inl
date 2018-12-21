@@ -1,7 +1,7 @@
 #include <Core/File/CameraData.hpp>
 
 #include "CameraData.hpp"
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -75,6 +75,7 @@ inline bool CameraData::isPespectiveCamera() const {
 }
 
 inline void CameraData::displayInfo() const {
+    using namespace Core::Utils; // log
     std::string type;
     switch ( m_type )
     {

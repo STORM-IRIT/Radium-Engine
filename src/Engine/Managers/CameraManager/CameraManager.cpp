@@ -1,8 +1,8 @@
 #include <Engine/Managers/CameraManager/CameraManager.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
-#include <Core/File/FileData.hpp>
 #include <Core/File/CameraData.hpp>
+#include <Core/File/FileData.hpp>
 
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
@@ -14,6 +14,8 @@
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
 
 size_t CameraManager::count() const {
     return m_data->size();

@@ -1,6 +1,6 @@
 #include <Engine/Component/Component.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -11,6 +11,9 @@
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
+
 Component::Component( const std::string& name, Entity* entity ) : m_name{name}, m_entity{entity} {
     m_entity->addComponent( this );
 }

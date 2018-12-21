@@ -3,12 +3,14 @@
 #include <assimp/scene.h>
 
 #include <Core/File/CameraData.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 
 namespace Ra {
 namespace IO {
+
+using namespace Core::Utils; // log
 
 AssimpCameraDataLoader::AssimpCameraDataLoader( const std::string& filepath,
                                                 const bool VERBOSE_MODE ) :
@@ -94,13 +96,14 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
 
     if ( CameraNode != nullptr )
     {
-        auto t0 = Core::Matrix4::NullaryExpr([&scene](int i,int j){ return scene->mRootNode->mTransformation[i][j]; });
-        auto t1 = Core::Matrix4::NullaryExpr([&CameraNode](int i,int j){ return CameraNode->mTransformation[i][j]; });
+        auto t0 = Core::Matrix4::NullaryExpr(
+            [&scene]( int i, int j ) { return scene->mRootNode->mTransformation[i][j]; } );
+        auto t1 = Core::Matrix4::NullaryExpr(
+            [&CameraNode]( int i, int j ) { return CameraNode->mTransformation[i][j]; } );
 
         return parentFrame * t0 * t1;
-    } else {
-        return parentFrame;
-    }
+    } else
+    { return parentFrame; }
 }
 
 void AssimpCameraDataLoader::fetchName( const aiCamera& camera, Asset::CameraData& data ) const {

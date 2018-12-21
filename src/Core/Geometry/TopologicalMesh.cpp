@@ -1,7 +1,7 @@
 #include <Core/Geometry/TopologicalMesh.hpp>
 
-#include <Core/Log/Log.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Eigen/StdVector>
 
@@ -13,14 +13,16 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
+using namespace Utils; // log, AttribXXX
+
 template <typename T>
-using PropPair = std::pair<Utils::AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
+using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 
 template <typename T>
 void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
-                          Utils::AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
+                          AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
                           std::vector<OpenMesh::HPropHandleT<T>>& pph ) {
-    Utils::AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
+    AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
     OpenMesh::HPropHandleT<T> oh;
     topoMesh->add_property( oh, attr->getName() );
     vprop.push_back( std::make_pair( h, oh ) );
@@ -30,7 +32,7 @@ void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh
 template <typename T>
 void addAttribPairToCore( TriangleMesh& triMesh, const TopologicalMesh* topoMesh,
                           OpenMesh::HPropHandleT<T> oh, std::vector<PropPair<T>>& vprop ) {
-    Utils::AttribHandle<T> h = triMesh.addAttrib<T>( topoMesh->property( oh ).name() );
+    AttribHandle<T> h = triMesh.addAttrib<T>( topoMesh->property( oh ).name() );
     vprop.push_back( std::make_pair( h, oh ) );
 }
 
@@ -45,9 +47,8 @@ void copyAttribToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
 }
 
 template <typename T>
-using HandleAndValueVector =
-    std::vector<std::pair<Utils::AttribHandle<T>, T>,
-                Eigen::aligned_allocator<std::pair<Utils::AttribHandle<T>, T>>>;
+using HandleAndValueVector = std::vector<std::pair<AttribHandle<T>, T>,
+                                         Eigen::aligned_allocator<std::pair<AttribHandle<T>, T>>>;
 
 template <typename T>
 void copyAttribToCoreVertex( HandleAndValueVector<T>& data, const TopologicalMesh* topoMesh,

@@ -13,6 +13,8 @@ const std::string plyExt( "ply" );
 namespace Ra {
 namespace IO {
 
+using namespace Core::Utils; // log
+
 TinyPlyFileLoader::TinyPlyFileLoader() {}
 
 TinyPlyFileLoader::~TinyPlyFileLoader() {}
@@ -35,11 +37,9 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     tinyply::PlyFile file( ss );
 
     auto elements = file.get_elements();
-    if ( std::any_of(elements.begin(), elements.end(),
-        [](const auto & e)->bool {
-            return e.name == "face" && e.size != 0;
-          } )
-        ) {
+    if ( std::any_of( elements.begin(), elements.end(),
+                      []( const auto& e ) -> bool { return e.name == "face" && e.size != 0; } ) )
+    {
         // Mesh found. Let the other loaders handle it
         LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
         return nullptr;
@@ -112,7 +112,8 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         geometry->setColors(
             *( reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 4, 1, Eigen::DontAlign>>*>(
                 &colors ) ) );
-        std::for_each(geometry->getColors().begin(), geometry->getColors().end(), [](auto & c){ c /= Scalar( 255 ); } );
+        std::for_each( geometry->getColors().begin(), geometry->getColors().end(),
+                       []( auto& c ) { c /= Scalar( 255 ); } );
     }
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );

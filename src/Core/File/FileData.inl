@@ -4,7 +4,7 @@
 #include <Core/File/GeometryData.hpp>
 #include <Core/File/HandleData.hpp>
 #include <Core/File/LightData.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -117,6 +117,7 @@ inline void FileData::reset() {
 }
 
 inline void FileData::displayInfo() const {
+    using namespace Core::Utils; // log
     uint64_t vtxCount = 0;
     for ( const auto& geom : m_geometryData )
     {
