@@ -34,7 +34,7 @@ class RA_CORE_API GeometryData : public AssetData {
     using WeightArray = std::vector<VertexWeights>;
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// The type of geometry.
     enum GeometryType {

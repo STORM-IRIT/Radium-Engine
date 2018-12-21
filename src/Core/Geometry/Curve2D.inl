@@ -1,7 +1,8 @@
-#include <Core/Math/Curve2D.hpp>
+#include <Core/Geometry/Curve2D.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 /*--------------------------------------------------*/
 
@@ -67,21 +68,21 @@ void SplineCurve::addPoint( const Curve2D::Vector p ) {
 }
 
 Curve2D::Vector SplineCurve::f( Scalar u ) const {
-    Ra::Core::Spline<2, 3> spline;
+    Spline<2, 3> spline;
     spline.setCtrlPoints( m_points );
 
     return spline.f( u );
 }
 
 Curve2D::Vector SplineCurve::df( Scalar u ) const {
-    Ra::Core::Spline<2, 3> spline;
+    Spline<2, 3> spline;
     spline.setCtrlPoints( m_points );
 
     return spline.df( u );
 }
 
 Curve2D::Vector SplineCurve::fdf( Scalar u, Curve2D::Vector& grad ) const {
-    Ra::Core::Spline<2, 3> spline;
+    Spline<2, 3> spline;
     spline.setCtrlPoints( m_points );
 
     grad = spline.df( u );
@@ -96,26 +97,27 @@ void QuadraSpline::addPoint( const Curve2D::Vector p ) {
 }
 
 Curve2D::Vector QuadraSpline::f( Scalar u ) const {
-    Ra::Core::Spline<2, 2> spline;
+    Spline<2, 2> spline;
     spline.setCtrlPoints( m_points );
 
     return spline.f( u );
 }
 
 Curve2D::Vector QuadraSpline::df( Scalar u ) const {
-    Ra::Core::Spline<2, 2> spline;
+    Spline<2, 2> spline;
     spline.setCtrlPoints( m_points );
 
     return spline.df( u );
 }
 
 Curve2D::Vector QuadraSpline::fdf( Scalar u, Vector& grad ) const {
-    Ra::Core::Spline<2, 2> spline;
+    Spline<2, 2> spline;
     spline.setCtrlPoints( m_points );
 
     grad = spline.df( u );
     return spline.f( u );
 }
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

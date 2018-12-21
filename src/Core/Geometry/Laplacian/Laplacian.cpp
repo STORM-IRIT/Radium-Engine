@@ -1,5 +1,5 @@
 #include <Core/Geometry/Laplacian/Laplacian.hpp>
-
+#include <Core/Math/LinearAlgebra.hpp> // Vector::cotan
 #include <Core/Utils/CircularIndex.hpp>
 
 namespace Ra {

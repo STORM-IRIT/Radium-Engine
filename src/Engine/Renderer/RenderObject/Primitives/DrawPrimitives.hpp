@@ -3,9 +3,9 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Obb.hpp>
-#include <Core/Math/Spline.hpp>
+#include <Core/Geometry/Obb.hpp>
+#include <Core/Geometry/Spline.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/Utils/Color.hpp>
 
 #include <memory>
@@ -97,9 +97,9 @@ RA_ENGINE_API MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x,
 RA_ENGINE_API MeshPtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color );
 
 /// Display a wireframe OBB
-RA_ENGINE_API MeshPtr OBB( const Core::Obb& obb, const Core::Utils::Color& color );
+RA_ENGINE_API MeshPtr OBB( const Core::Geometry::Obb& obb, const Core::Utils::Color& color );
 
-RA_ENGINE_API MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount,
+RA_ENGINE_API MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline, uint pointCount,
                               const Core::Utils::Color& color, Scalar scale = 1.0f );
 } // namespace DrawPrimitives
 } // namespace Engine

@@ -18,8 +18,8 @@ constexpr Scalar PiDiv3 = Scalar( 1.04719755119659774615 ); // pi/3
 constexpr Scalar PiDiv4 = Scalar( 0.78539816339744830962 ); // pi/4
 constexpr Scalar PiDiv6 = Scalar( 0.52359877559829887307 ); // pi/6
 constexpr Scalar PiMul2 = Scalar( 2 * Pi );                 // 2*pi
-constexpr Scalar toRad = Scalar( Pi / 180.0 );
-constexpr Scalar toDeg = Scalar( 180.0 * InvPi );
+constexpr Scalar toRad = Scalar( Pi / Scalar( 180.0 ) );
+constexpr Scalar toDeg = Scalar( Scalar( 180.0 ) * InvPi );
 
 constexpr Scalar machineEps = std::numeric_limits<Scalar>::epsilon();
 constexpr Scalar dummyEps = Scalar( 1e-5 );

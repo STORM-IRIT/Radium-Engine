@@ -2,8 +2,7 @@
 #define AREA_DEFINITION
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
-
+#include <Core/Math/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -28,7 +27,8 @@ using AreaMatrix = Diagonal;
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T );
+AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p,
+                                    const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AreaMatrix for the given set of points and triangles.
@@ -75,7 +75,8 @@ void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p, const VectorArr
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-AreaMatrix RA_CORE_API voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T );
+AreaMatrix RA_CORE_API voronoiArea( const VectorArray<Vector3>& p,
+                                    const VectorArray<Vector3ui>& T );
 
 /*
  * Return the AreaMatrix for the given set of points and triangles.

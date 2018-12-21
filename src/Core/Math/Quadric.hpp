@@ -1,7 +1,7 @@
 #ifndef QUADRIC_H
 #define QUADRIC_H
 
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
 #include <Eigen/Eigenvalues>
@@ -61,7 +61,7 @@ class Quadric {
     /// Create a quadric from a normal vector n and the scalar which
     /// represent the distance from the plane of normal n to the origin
     /// \deprecated Use constructor instead
-    [[deprecated]]void compute( const Vector& n, double ndotp );
+    [[deprecated]] void compute( const Vector& n, double ndotp );
 
     /// Computes eigen values and vectors of matrix A
     inline typename Eigen::EigenSolver<Matrix3>::EigenvalueType computeEigenValuesA();

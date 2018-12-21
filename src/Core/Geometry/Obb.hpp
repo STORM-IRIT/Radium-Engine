@@ -2,13 +2,18 @@
 #define RADIUM_OBB_HPP_
 
 #include <Core/RaCore.hpp>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 
-#include <Core/Math/LinearAlgebra.hpp>
 namespace Ra {
 namespace Core {
+namespace Geometry {
 /// An oriented bounding box.
 class Obb {
   public:
+    using Transform = Eigen::Transform<Scalar, 3, Eigen::Affine>;
+    using Aabb = Eigen::AlignedBox<Scalar, 3>;
+
     /// Constructors and destructor.
 
     /// Initializes an empty bounding box.
@@ -58,6 +63,7 @@ class Obb {
     /// Orientation of the box.
     Transform m_transform;
 };
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 

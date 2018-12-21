@@ -1,11 +1,12 @@
 #ifndef RADIUMENGINE_FRUSTUM_HPP
 #define RADIUMENGINE_FRUSTUM_HPP
 
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
+#include <Eigen/Core>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 struct Frustum {
   public:
     enum FACES : int {
@@ -17,10 +18,10 @@ struct Frustum {
         RIGHT = 5
     };
 
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// Default constructor
-    Frustum( const Matrix4& mvp ) {
+    inline Frustum( const Eigen::Matrix<Scalar, 4, 4>& mvp ) {
         // Near clipping plane.
         m_planes[FRONT] = mvp.row( 3 ) + mvp.row( 2 );
         // Far clipping plane.
@@ -35,12 +36,13 @@ struct Frustum {
         m_planes[RIGHT] = mvp.row( 3 ) - mvp.row( 0 );
     }
 
-    Vector4 getPlane( uint p ) const { return m_planes[p]; }
+    inline const Eigen::Matrix<Scalar, 4, 1>& getPlane( uint p ) const { return m_planes[p]; }
 
   public:
     /// Clipping planes
-    Vector4 m_planes[6];
+    std::array<Eigen::Matrix<Scalar, 4, 1>, 6> m_planes;
 };
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 

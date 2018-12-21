@@ -1,20 +1,19 @@
 #ifndef RADIUMENGINE_CAMERA_HPP
 #define RADIUMENGINE_CAMERA_HPP
 
-#include <Engine/RaEngine.hpp>
-
-#include <Core/Math/LinearAlgebra.hpp>
-
+#include <Core/Math/Math.hpp>
+#include <Core/Math/Types.hpp>
 #include <Engine/Component/Component.hpp>
+#include <Engine/RaEngine.hpp>
 
 namespace Ra {
 namespace Engine {
-  /// the set of viewing parameters extracted from the camera and given to the renderer
-  struct RA_ENGINE_API ViewingParameters {
-      Core::Matrix4 viewMatrix {Core::Matrix4::Identity()};
-      Core::Matrix4 projMatrix {Core::Matrix4::Identity()};
-      Scalar dt {0};
-  };
+/// the set of viewing parameters extracted from the camera and given to the renderer
+struct RA_ENGINE_API ViewingParameters {
+    Core::Matrix4 viewMatrix{Core::Matrix4::Identity()};
+    Core::Matrix4 projMatrix{Core::Matrix4::Identity()};
+    Scalar dt{0};
+};
 
 /// A Camera is an Engine Component storing a Camera object.
 class RA_ENGINE_API Camera : public Component {
@@ -22,7 +21,7 @@ class RA_ENGINE_API Camera : public Component {
     /// Define the projection type.
     enum class ProjType { ORTHOGRAPHIC, PERSPECTIVE };
 
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     Camera( Entity* entity, const std::string& name, Scalar height, Scalar width );
 
@@ -112,7 +111,7 @@ class RA_ENGINE_API Camera : public Component {
     /// Set the Field Of View to 'fov'.
     /// \note Meaningless for orthogonal projection.
     /// \warning Trigger a rebuild of the projection matrix.
-    inline void setFOV(Scalar fov);
+    inline void setFOV( Scalar fov );
 
     /// Return the zoom factor.
     inline Scalar getZoomFactor() const;
@@ -129,13 +128,13 @@ class RA_ENGINE_API Camera : public Component {
     inline Scalar getZNear() const;
 
     /// Set the Z Near plane distance to 'zNear'.
-    inline void setZNear(Scalar zNear);
+    inline void setZNear( Scalar zNear );
 
     /// Return the Z Far plane distance from the camera.
     inline Scalar getZFar() const;
 
     /// Set the Z Far plane distance to 'zFar'.
-    inline void setZFar(Scalar zFar);
+    inline void setZFar( Scalar zFar );
 
     /// Return the width of the viewport.
     inline Scalar getWidth() const;
@@ -151,25 +150,26 @@ class RA_ENGINE_API Camera : public Component {
     ///@}
 
   protected:
-    Core::Transform m_frame {Core::Transform::Identity()};    ///< Camera frame (inverse of the view matrix)
-    Core::Matrix4 m_projMatrix {Core::Matrix4::Identity()}; ///< Projection matrix
+    Core::Transform m_frame{
+        Core::Transform::Identity()}; ///< Camera frame (inverse of the view matrix)
+    Core::Matrix4 m_projMatrix{Core::Matrix4::Identity()}; ///< Projection matrix
 
-    ProjType m_projType {ProjType ::PERSPECTIVE}; ///< Projection type
-    Scalar m_zoomFactor {1}; ///< Zoom factor (modifies the field of view)
-    Scalar m_fov {Core::Math::PiDiv4};        ///< Field of view
+    ProjType m_projType{ProjType ::PERSPECTIVE}; ///< Projection type
+    Scalar m_zoomFactor{1};                      ///< Zoom factor (modifies the field of view)
+    Scalar m_fov{Core::Math::PiDiv4};            ///< Field of view
 
-    RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
+    RenderObject* m_RO{nullptr}; ///< Render mesh for the camera.
 
     /// \name To be deprecated
     /// Currently, only the CameraInterface (i.e. TrackballCamera) accesses these
     /// attributes. A rework of the rendering architecture will be done soon.
     /// Thus these attributes might disappear.
     ///@{
-    Scalar m_zNear {0.1};  ///< Z Near plane distance
-    Scalar m_zFar { 1000 };   ///< Z Far plane distance
-    Scalar m_width {1};  ///< Viewport width (in pixels)
-    Scalar m_height {1}; ///< Viewport height (in pixels)
-    Scalar m_aspect {1}; ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
+    Scalar m_zNear{0.1}; ///< Z Near plane distance
+    Scalar m_zFar{1000}; ///< Z Far plane distance
+    Scalar m_width{1};   ///< Viewport width (in pixels)
+    Scalar m_height{1};  ///< Viewport height (in pixels)
+    Scalar m_aspect{1};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
     ///@}
 };
 

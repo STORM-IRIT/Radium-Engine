@@ -2,7 +2,6 @@
 #include <Core/Math/Types.hpp>
 #include <Core/Algorithm/RayCast.hpp>
 #include <Core/Geometry/Triangle/TriangleOperation.hpp> // triangleArea
-#include <Core/Math/RayCast.hpp>
 
 #include <array>
 #include <vector>
@@ -124,8 +123,8 @@ TriangleMesh::castRay( const Eigen::ParametrizedLine<Scalar, 3>& ray ) const {
         {
             tValues.clear();
             const auto& tri = m_triangles[i];
-            if ( RayCast::vsTriangle( ray, vertices()[tri[0]], vertices()[tri[1]],
-                                      vertices()[tri[2]], tValues ) &&
+            if ( Algorithm::RayCastTriangle( ray, vertices()[tri[0]], vertices()[tri[1]],
+                                             vertices()[tri[2]], tValues ) &&
                  tValues[0] < minT )
             {
                 minT = tValues[0];

@@ -29,7 +29,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     enum class TextureSemantic { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     /**
      * Construct a named Blinn-Phongmaterial
      * @param name The name of the material

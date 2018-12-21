@@ -2,7 +2,7 @@
 #define RADIUMENGINE_ASSIMP_GEOMETRY_DATA_LOADER_HPP
 
 #include <Core/File/DataLoader.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <IO/RaIO.hpp>
 
 #include <memory>
@@ -26,7 +26,8 @@ namespace IO {
 /// to the Asset::GeometryData format.
 class RA_IO_API AssimpGeometryDataLoader : public Asset::DataLoader<Asset::GeometryData> {
   public:
-    explicit AssimpGeometryDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    explicit AssimpGeometryDataLoader( const std::string& filepath,
+                                       const bool VERBOSE_MODE = false );
 
     ~AssimpGeometryDataLoader() override;
 

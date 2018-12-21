@@ -2,7 +2,7 @@
 #define RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP
 
 #include <Core/File/DataLoader.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <IO/RaIO.hpp>
 
 #include <set>

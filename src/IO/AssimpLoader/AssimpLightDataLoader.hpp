@@ -2,8 +2,8 @@
 #define RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
 
 #include <Core/File/DataLoader.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/File/LightData.hpp>
+#include <Core/Math/Types.hpp>
 #include <IO/RaIO.hpp>
 
 #include <set>
@@ -42,14 +42,14 @@ class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader<Asset::LightDat
 
     /// LOADING
 
-//    Asset::LightData *loadLightData(const aiScene *scene, const aiLight &light);
-    std::unique_ptr<Asset::LightData> loadLightData(const aiScene *scene, const aiLight &light);
+    //    Asset::LightData *loadLightData(const aiScene *scene, const aiLight &light);
+    std::unique_ptr<Asset::LightData> loadLightData( const aiScene* scene, const aiLight& light );
 
     Core::Matrix4 loadLightFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
-                                  const std::string & lightName ) const;
+                                  const std::string& lightName ) const;
 
     /// NAME
-    std::string fetchName(const aiLight &light) const;
+    std::string fetchName( const aiLight& light ) const;
 
     /// TYPE
     Asset::LightData::LightType fetchType( const aiLight& light ) const;

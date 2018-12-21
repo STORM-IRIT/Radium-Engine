@@ -10,7 +10,7 @@
 #include <vector>
 
 #include <Core/Event/EventEnums.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/Utils/Timer.hpp>
 
 namespace Ra {
@@ -41,10 +41,10 @@ class Framebuffer;
 namespace Ra {
 namespace Engine {
 
-  /**
-   * Abstract renderer for the engine.
-   * @see Radium Engine default rendering informations
-   */
+/**
+ * Abstract renderer for the engine.
+ * @see Radium Engine default rendering informations
+ */
 class RA_ENGINE_API Renderer {
   protected:
     using RenderObjectPtr = std::shared_ptr<RenderObject>;
@@ -112,9 +112,9 @@ class RA_ENGINE_API Renderer {
 
     // -=-=-=-=-=-=-=-=- FINAL -=-=-=-=-=-=-=-=- //
 
-     /**
-      * Extract the timings from las render
-      */
+    /**
+     * Extract the timings from las render
+     */
     inline const TimerData& getTimerData() const { return m_timerData; }
 
     /**
@@ -142,7 +142,7 @@ class RA_ENGINE_API Renderer {
      * set the fill/wireframe rendering mode
      * @param enabled true if rendering mode must be wireframe, false for fill render mode
      */
-    inline void enableWireframe(bool enabled) { m_wireframe = enabled; }
+    inline void enableWireframe( bool enabled ) { m_wireframe = enabled; }
 
     /**
      * Toggle debug rendering
@@ -150,9 +150,9 @@ class RA_ENGINE_API Renderer {
     inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
 
     /**
-      * Set the debug rendering mode
-      * @param enabled true if rendering mode must include debug objects, false else
-      */
+     * Set the debug rendering mode
+     * @param enabled true if rendering mode must include debug objects, false else
+     */
     inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
 
     /**
@@ -183,7 +183,7 @@ class RA_ENGINE_API Renderer {
      */
     void render( const ViewingParameters& renderData );
 
-     /**
+    /**
      * @brief Initialize renderer
      */
     void initialize( uint width, uint height );
@@ -199,26 +199,28 @@ class RA_ENGINE_API Renderer {
      */
     void resize( uint width, uint height );
 
-     /**
-      * Add a new picking query for the next rendering
-      * @param query
-      */
+    /**
+     * Add a new picking query for the next rendering
+     * @param query
+     */
     inline void addPickingRequest( const PickingQuery& query ) {
         m_pickingQueries.push_back( query );
     }
 
     /**
      * Get the vector of picking results.
-     * Results in the returned vector correspond to queries in the return vector by the function getPickingQueries.
+     * Results in the returned vector correspond to queries in the return vector by the function
+     * getPickingQueries.
      * @return Queries results
      */
     inline const std::vector<PickingResult>& getPickingResults() const { return m_pickingResults; }
 
     /**
-    * Get the vector of picking queries.
-    * Queries in the returned vector correspond to results in the return vector by the function getPickingResults.
-    * @return Queries results
-    */
+     * Get the vector of picking queries.
+     * Queries in the returned vector correspond to results in the return vector by the function
+     * getPickingResults.
+     * @return Queries results
+     */
     inline const std::vector<PickingQuery>& getPickingQueries() const {
         return m_lastFramePickingQueries;
     }
@@ -235,10 +237,10 @@ class RA_ENGINE_API Renderer {
 
     // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
     /** Add a light to the renderer.
-      * may be overridden to filter the light or to specialize the way ligths are added to the
-      * renderer ...
-      * @param light
-      */
+     * may be overridden to filter the light or to specialize the way ligths are added to the
+     * renderer ...
+     * @param light
+     */
     virtual void addLight( const Light* light );
 
     /**
@@ -271,10 +273,9 @@ class RA_ENGINE_API Renderer {
      */
     virtual std::string getRendererName() const = 0;
 
-    virtual std::unique_ptr<uchar[]> grabFrame(size_t &w, size_t &h) const;
+    virtual std::unique_ptr<uchar[]> grabFrame( size_t& w, size_t& h ) const;
 
   protected:
-
     /**
      * @brief initializeInternal
      * Initialize the renderer dependant resources.
@@ -313,7 +314,8 @@ class RA_ENGINE_API Renderer {
     /**
      * @brief Add the debug layer with useful informations
      */
-    virtual void debugInternal( const ViewingParameters& renderData ) = 0; // is viewingParameters useful ?
+    virtual void
+    debugInternal( const ViewingParameters& renderData ) = 0; // is viewingParameters useful ?
 
     /**
      * @brief Draw the UI data
@@ -347,11 +349,11 @@ class RA_ENGINE_API Renderer {
     void notifyRenderObjectsRenderingInternal();
 
   protected:
-    uint m_width { 0 };
-    uint m_height { 0 };
+    uint m_width{0};
+    uint m_height{0};
 
-    ShaderProgramManager* m_shaderMgr { nullptr };
-    RenderObjectManager* m_roMgr { nullptr };
+    ShaderProgramManager* m_shaderMgr{nullptr};
+    RenderObjectManager* m_roMgr{nullptr};
 
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
@@ -360,14 +362,13 @@ class RA_ENGINE_API Renderer {
      * @see debugTexture has been done, this is just a pointer to
      * @see m_fancyTexture.
      */
-    Texture* m_displayedTexture { nullptr };
-
+    Texture* m_displayedTexture{nullptr};
 
     /// A renderer could define several LightManager (for instance, one for point light, one other
     /// for infinite light ...)
     std::vector<Ra::Engine::LightManager*> m_lightmanagers;
 
-    bool m_renderQueuesUpToDate { false };
+    bool m_renderQueuesUpToDate{false};
 
     std::vector<RenderObjectPtr> m_fancyRenderObjects;
     std::vector<RenderObjectPtr> m_debugRenderObjects;
@@ -377,19 +378,19 @@ class RA_ENGINE_API Renderer {
     // Simple quad mesh, used to render the final image
     std::unique_ptr<Mesh> m_quadMesh;
 
-    bool m_drawDebug { true };          // Should we render debug stuff ?
-    bool m_wireframe { false };          // Are we rendering in "real" wireframe mode
-    bool m_postProcessEnabled { true }; // Should we do post processing ?
+    bool m_drawDebug{true};          // Should we render debug stuff ?
+    bool m_wireframe{false};         // Are we rendering in "real" wireframe mode
+    bool m_postProcessEnabled{true}; // Should we do post processing ?
 
     // derived class could use the already created textures
     /// Depth texture : might be attached to the main framebuffer
-    std::unique_ptr<Texture> m_depthTexture ;
+    std::unique_ptr<Texture> m_depthTexture;
     /// Final color texture : might be attached to the main framebuffer
     std::unique_ptr<Texture> m_fancyTexture;
     /// Textures exposed in the texture section box to be displayed.
     std::map<std::string, Texture*> m_secondaryTextures;
 
-private:
+  private:
     // Qt has the nice idea to bind an fbo before giving you the opengl context,
     // this flag is used to save it (and render the final screen on it)
     int m_qtPlz;
@@ -402,7 +403,7 @@ private:
 
     // PICKING STUFF
     Ra::Core::Vector2 m_mousePosition;
-    float m_brushRadius { 0 };
+    float m_brushRadius{0};
     std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
     std::unique_ptr<Texture> m_pickingTexture;
 
@@ -415,7 +416,6 @@ private:
     std::vector<PickingQuery> m_pickingQueries;
     std::vector<PickingQuery> m_lastFramePickingQueries;
     std::vector<PickingResult> m_pickingResults;
-
 };
 
 } // namespace Engine

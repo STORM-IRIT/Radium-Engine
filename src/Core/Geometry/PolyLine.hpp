@@ -3,11 +3,12 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/Distance/DistanceQueries.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 /// A parametrized polyline, i.e. a continuous polygonal chain of segments.
 /// Points go from P0 to Pn. The ith segments joins Pi and Pi+1.
 class RA_CORE_API PolyLine {
@@ -76,8 +77,9 @@ class RA_CORE_API PolyLine {
     std::vector<Scalar> m_lengths;
 };
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
-#include <Core/Math/PolyLine.inl>
+#include <Core/Geometry/PolyLine.inl>
 
 #endif // RADIUMENGINE_POLYLINE_HPP_

@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_DISTANCE_QUERIES_HPP_
 #define RADIUMENGINE_DISTANCE_QUERIES_HPP_
 
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 #include <limits>
 

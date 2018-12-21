@@ -22,7 +22,7 @@ class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEdi
     Q_OBJECT
 
   public:
-    RA_CORE_ALIGNED_NEW;
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     enum GizmoType { NONE, TRANSLATION, ROTATION, SCALE };
 
     GizmoManager( QObject* parent = nullptr );

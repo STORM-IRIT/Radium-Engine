@@ -1,7 +1,8 @@
-#include <Core/Math/PolyLine.hpp>
+#include <Core/Geometry/PolyLine.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 void PolyLine::update() {
     m_ptsDiff.clear();
@@ -83,11 +84,11 @@ Scalar PolyLine::project( const Vector3& p ) const {
                 prev = ds[segment - 1] < ds[segment + 1];
             }
             uint i = prev ? segment - 1 : segment;
-            Ra::Core::Vector3 ba = -m_ptsDiff[i];
-            Ra::Core::Vector3 bc = m_ptsDiff[i + 1];
-            Ra::Core::Vector3 bp = p - m_pts[i + 1];
-            Scalar c1 = Ra::Core::Vector::cotan( ba, bp );
-            Scalar c2 = Ra::Core::Vector::cotan( bp, bc );
+            Vector3 ba = -m_ptsDiff[i];
+            Vector3 bc = m_ptsDiff[i + 1];
+            Vector3 bp = p - m_pts[i + 1];
+            Scalar c1 = Vector::cotan( ba, bp );
+            Scalar c2 = Vector::cotan( bp, bc );
 
             Scalar t1 = getLineParameter( i, ts[i] );
             Scalar t2 = getLineParameter( i + 1, ts[i + 1] );
@@ -97,9 +98,9 @@ Scalar PolyLine::project( const Vector3& p ) const {
     return getLineParameter( segment, t );
 }
 
-Ra::Core::Vector3 PolyLine::f( Scalar t ) const {
+Vector3 PolyLine::f( Scalar t ) const {
     // Clamp the parameter between 0 and 1 and scale it.
-    const Scalar param = length() * Ra::Core::Math::saturate( t );
+    const Scalar param = length() * Math::saturate( t );
 
     // Try to locate the segment section where f(t) belongs.
     uint i = 0;
@@ -135,5 +136,6 @@ uint PolyLine::getNearestSegment( const Vector3& p ) const {
     return segment;
 }
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

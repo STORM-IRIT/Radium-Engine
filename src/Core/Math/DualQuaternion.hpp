@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_DUALQUATERNION_HPP
 #define RADIUMENGINE_DUALQUATERNION_HPP
 
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
@@ -18,7 +18,7 @@ namespace Core {
 class DualQuaternion {
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// Construct an uninitialized dual quaternion.
     inline DualQuaternion() {}
