@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
-#include <Core/Math/ColorPresets.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <Engine/Managers/CameraManager/DefaultCameraManager.hpp>
@@ -145,9 +145,9 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
     GL_ASSERT( glDrawBuffers( 4, buffers ) );
 
-    const auto clearColor = Core::Colors::FromChars<Core::Colorf>( 10, 10, 10, 0 );
-    const auto clearZeros = Core::Colors::Black<Core::Colorf>();
-    const auto clearOnes = Core::Colors::FromChars<Core::Colorf>( 255, 255, 255, 255 );
+    const auto clearColor = Core::Utils::Color::Grey( Scalar( 0.0392 ), Scalar( 0. ) );
+    const auto clearZeros = Core::Utils::Color::Black();
+    const auto clearOnes = Core::Utils::Color::White();
     const float clearDepth{1.0f};
 
     GL_ASSERT( glClearBufferfv( GL_COLOR, 0, clearColor.data() ) ); // Clear color
@@ -356,7 +356,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
                 // bind data
                 shader->bind();
                 // lighting for Xray : fixed
-                shader->setUniform( "light.color", Ra::Core::Color( 5.0, 5.0, 5.0, 1.0 ) );
+                shader->setUniform( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
                 shader->setUniform( "light.type", Light::LightType::DIRECTIONAL );
                 shader->setUniform( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
 

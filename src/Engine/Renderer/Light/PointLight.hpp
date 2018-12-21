@@ -7,20 +7,20 @@
 namespace Ra {
 namespace Engine {
 
-  /** Point light for rendering
-   *
-   */
+/** Point light for rendering
+ *
+ */
 class RA_ENGINE_API PointLight final : public Light {
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     explicit PointLight( Entity* entity, const std::string& name = "pointlight" );
     ~PointLight() override = default;
 
     void getRenderParameters( RenderParameters& params ) const override;
 
-    void setPosition( const Core::Vector3& pos ) override;
-    inline const Core::Vector3& getPosition() const;
+    void setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) override;
+    inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
 
     inline void setAttenuation( const Attenuation& attenuation );
     inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
@@ -29,9 +29,9 @@ class RA_ENGINE_API PointLight final : public Light {
     std::string getShaderInclude() const override;
 
   private:
-    Core::Vector3 m_position { 0, 0, 0 };
+    Eigen::Matrix<Scalar, 3, 1> m_position{0, 0, 0};
 
-    Attenuation m_attenuation { 1, 0, 0 };
+    Attenuation m_attenuation{1, 0, 0};
 };
 
 } // namespace Engine

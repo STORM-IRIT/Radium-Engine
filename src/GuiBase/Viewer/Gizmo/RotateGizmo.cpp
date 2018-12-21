@@ -2,8 +2,8 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/RayCast.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -44,7 +44,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
         mesh->loadGeometry( torus );
-        Core::Color color = Core::Color::Zero();
+        Core::Utils::Color color = Core::Utils::Color::Black();
         color[i] = 1.f;
         mesh->colorize( color );
 
@@ -93,7 +93,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
     // reColor constraint
     if ( m_selectedAxis != -1 )
     {
-        Core::Color color = Core::Color::Zero();
+        Core::Utils::Color color = Core::Utils::Color::Black();
         color[m_selectedAxis] = 1.f;
         auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
         RO->getMesh()->colorize( color );
@@ -109,7 +109,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         {
             m_selectedAxis = int( found - m_renderObjects.begin() );
             auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-            RO->getMesh()->colorize( Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         }
     }
     if ( m_selectedAxis != oldAxis )

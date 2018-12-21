@@ -72,8 +72,7 @@ std::unique_ptr<Asset::LightData> AssimpLightDataLoader::loadLightData( const ai
     rootMatrix = Core::Matrix4::Identity();
     Core::Matrix4 frame = loadLightFrame( scene, rootMatrix, builtLight->getName() );
     setFrame( frame );
-    auto color =
-        Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &( light.mColorDiffuse.r ) ).homogeneous();
+    auto color = assimpToCore( light.mColorDiffuse );
 
     switch ( builtLight->getType() )
     {

@@ -3,29 +3,30 @@
 
 #include <Engine/RaEngine.hpp>
 
+#include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra {
 namespace Engine {
 
-  /** Spot light for rendering.
-   *
-   */
-  class RA_ENGINE_API SpotLight final : public Light {
+/** Spot light for rendering.
+ *
+ */
+class RA_ENGINE_API SpotLight final : public Light {
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
     ~SpotLight() override = default;
 
     void getRenderParameters( RenderParameters& params ) const override;
 
-    void setPosition( const Core::Vector3& position ) override;
-    inline const Core::Vector3& getPosition() const;
+    void setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) override;
+    inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
 
-    void setDirection( const Core::Vector3& direction ) override;
-    inline const Core::Vector3& getDirection() const;
+    void setDirection( const Eigen::Matrix<Scalar, 3, 1>& direction ) override;
+    inline const Eigen::Matrix<Scalar, 3, 1>& getDirection() const;
 
     inline void setInnerAngleInRadians( Scalar angle );
     inline void setOuterAngleInRadians( Scalar angle );
@@ -42,13 +43,13 @@ namespace Engine {
     std::string getShaderInclude() const override;
 
   private:
-    Core::Vector3 m_position { 0, 0, 0 };
-    Core::Vector3 m_direction { 0, -1, 0 };
+    Eigen::Matrix<Scalar, 3, 1> m_position{0, 0, 0};
+    Eigen::Matrix<Scalar, 3, 1> m_direction{0, -1, 0};
 
-    Scalar m_innerAngle { Core::Math::PiDiv4 };
-    Scalar m_outerAngle { Core::Math::PiDiv2 };
+    Scalar m_innerAngle{Core::Math::PiDiv4};
+    Scalar m_outerAngle{Core::Math::PiDiv2};
 
-    Attenuation m_attenuation { 1, 0, 0 };
+    Attenuation m_attenuation{1, 0, 0};
 };
 
 } // namespace Engine

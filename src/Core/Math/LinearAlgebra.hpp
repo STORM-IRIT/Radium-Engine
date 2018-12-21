@@ -13,10 +13,6 @@
 
 #include <Core/Math/Math.hpp>
 
-// General config
-// Use this to force vec3 to be aligned for vectorization (FIXME not working yet)
-// #define CORE_USE_ALIGNED_VEC3
-
 namespace Ra {
 namespace Core {
 //
@@ -30,15 +26,9 @@ using Vector4 = Eigen::Matrix<Scalar, 4, 1>;
 using Vector4f = Eigen::Vector4f;
 using Vector4d = Eigen::Vector4d;
 
-#ifndef CORE_USE_ALIGNED_VEC3
 using Vector3 = Eigen::Matrix<Scalar, 3, 1>;
 using Vector3f = Eigen::Vector3f;
 using Vector3d = Eigen::Vector3d;
-#else
-using Vector3 = Eigen::AlignedVector3<Scalar>;
-using Vector3f = Eigen::AlignedVector3<float>;
-using Vector3d = Eigen::AlignedVector3<double>;
-#endif
 
 using Vector2 = Eigen::Matrix<Scalar, 2, 1>;
 using Vector2f = Eigen::Vector2f;
@@ -116,13 +106,6 @@ using Line3 = Eigen::ParametrizedLine<Scalar, 3>;
 using Plane3 = Eigen::Hyperplane<Scalar, 3>;
 
 // Todo : storage transform using quaternions ?
-
-//
-// Misc types
-//
-using Color = Vector4;
-using Colorf = Vector4f;
-using Colord = Vector4d;
 
 //
 // Vector Functions

@@ -2,12 +2,12 @@
 
 #include <Core/Geometry/Normal/Normal.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Core/Containers/MakeShared.hpp>
 
 namespace AnimationPlugin {
 
@@ -25,8 +25,8 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
 
     // create the material
     auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Bone Material" );
-    mat->m_kd = Ra::Core::Color( 0.4f, 0.4f, 0.4f, 1.f );
-    mat->m_ks = Ra::Core::Color( 0.0f, 0.0f, 0.0f, 1.0f );
+    mat->m_kd = Ra::Core::Utils::Color( 0.4f, 0.4f, 0.4f, 1.f );
+    mat->m_ks = Ra::Core::Utils::Color( 0.0f, 0.0f, 0.0f, 1.0f );
     Ra::Engine::RenderTechnique rt;
     rt.setMaterial( mat );
     auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
@@ -34,7 +34,6 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
     auto renderObject = Ra::Engine::RenderObject::createRenderObject(
         name, comp, Ra::Engine::RenderObjectType::Geometry, displayMesh, rt );
     renderObject->setXRay( false );
-
 
     m_roIdx = m_roMgr->addRenderObject( renderObject );
     updateLocalTransform();
