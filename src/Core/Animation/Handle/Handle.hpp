@@ -2,7 +2,7 @@
 #define RADIUMENGINE_HANDLE_INCLUDE
 
 #include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {

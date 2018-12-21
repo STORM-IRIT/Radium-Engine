@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -38,7 +38,7 @@ class Gizmo {
     };
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     Gizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t,
            Mode mode );
 

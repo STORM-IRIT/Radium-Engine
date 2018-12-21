@@ -1,6 +1,6 @@
 #include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
 
-#include <Core/Math/RayCast.hpp>
+#include <Core/Algorithm/RayCast.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 namespace Ra {
@@ -39,7 +39,7 @@ bool Gizmo::findPointOnAxis( const Engine::Camera& cam, const Core::Vector3& ori
         ( ortho.squaredNorm() > 0 ) ? axis.cross( ortho ) : axis.cross( cam.getUpVector() );
 
     const auto ray = cam.getRayFromScreen( pix );
-    bool hasHit = Core::RayCast::vsPlane( ray, origin, normal, hits );
+    bool hasHit = Core::Algorithm::RayCastPlane( ray, origin, normal, hits );
     if ( hasHit )
     {
         pointOut = origin + ( axis.dot( ray.pointAt( hits[0] ) - origin ) ) * axis;
@@ -52,7 +52,7 @@ bool Gizmo::findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& or
                               Core::Vector3& pointOut, std::vector<Scalar>& hits ) {
     // Taken from Rodolphe's View engine gizmos -- see slide_plane().
     const auto ray = cam.getRayFromScreen( pix );
-    bool hasHit = Core::RayCast::vsPlane( ray, origin, axis, hits );
+    bool hasHit = Core::Algorithm::RayCastPlane( ray, origin, axis, hits );
     if ( hasHit )
     {
         pointOut = ray.pointAt( hits[0] );

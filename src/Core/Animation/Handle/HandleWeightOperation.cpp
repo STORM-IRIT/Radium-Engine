@@ -1,5 +1,5 @@
 #include <Core/Animation/Handle/HandleWeightOperation.hpp>
-
+#include <Core/Math/LinearAlgebra.hpp> // MatrixUtils::checkInvalidNumbers
 #include <Core/Utils/Log.hpp>
 #include <utility>
 

@@ -7,7 +7,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/File/AssetData.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {

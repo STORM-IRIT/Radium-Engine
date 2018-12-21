@@ -2,7 +2,7 @@
 #define RADIUMENGINE_LOOPSUBDIVIDER_H
 
 #include <Core/Geometry/TopologicalMesh.hpp>
-
+#include <Core/Math/LinearAlgebra.hpp> // Vector::pi
 #include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
 
 namespace Ra {

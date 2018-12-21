@@ -2,14 +2,16 @@
 #define RADIUMENGINE_BVH_HPP
 
 #include <Core/RaCore.hpp>
+#include <Eigen/Geometry>
 
-#include <Core/Math/Frustum.hpp>
+#include <Core/Geometry/Frustum.hpp>
 
 #include <memory>
 #include <vector>
 
 namespace Ra {
 namespace Core {
+namespace Containers {
 /*!
  * \brief Stores a 3-dimensional hierarchy of meshes of arbitrary type.
  *
@@ -23,7 +25,8 @@ namespace Core {
  * https://eigen.tuxfamily.org/dox/unsupported/group__BVH__Module.html
  */
 template <typename T>
-class [[deprecated("Neither used nor tested")]] BVH {
+class [[deprecated( "Neither used nor tested" )]] BVH {
+    using Aabb = Eigen::AlignedBox<Scalar, 3>;
     class Node {
       public:
         inline Node( const std::shared_ptr<T>& t );
@@ -33,7 +36,7 @@ class [[deprecated("Neither used nor tested")]] BVH {
         inline std::shared_ptr<Node> getLeftChild() const;
         inline std::shared_ptr<Node> getRightChild() const;
 
-        inline Aabb getAabb() const { return m_aabb; }
+        inline const Aabb& getAabb() const { return m_aabb; }
 
         inline std::shared_ptr<T> getData() { return m_data; }
 
@@ -53,7 +56,7 @@ class [[deprecated("Neither used nor tested")]] BVH {
     using Nodep = Node*;
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     inline BVH();
 
@@ -74,7 +77,8 @@ class [[deprecated("Neither used nor tested")]] BVH {
 
     // TODO void buildTopDown();
 
-    void getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects, const Frustum& frustum ) const;
+    void getInFrustumSlow( std::vector<std::shared_ptr<T>> & objects,
+                           const Geometry::Frustum& frustum ) const;
 
   protected:
     std::vector<NodePtr> m_leaves;
@@ -83,9 +87,10 @@ class [[deprecated("Neither used nor tested")]] BVH {
 
     bool m_upToDate;
 };
+} // namespace Containers
 } // namespace Core
 } // namespace Ra
 
-#include <Core/TreeStructures/BVH.inl>
+#include <Core/Containers/BVH.inl>
 
 #endif // RADIUMENGINE_BVH_HPP
