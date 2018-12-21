@@ -2,11 +2,11 @@
 
 namespace Ra {
 
-inline void Engine::PointLight::setPosition( const Core::Vector3& pos ) {
+inline void Engine::PointLight::setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) {
     m_position = pos;
 }
 
-inline const Core::Vector3& Engine::PointLight::getPosition() const {
+inline const Eigen::Matrix<Scalar, 3, 1>& Engine::PointLight::getPosition() const {
     return m_position;
 }
 

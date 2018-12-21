@@ -1,4 +1,6 @@
 #include <Core/File/BlinnPhongMaterialData.hpp>
+#include <Core/Utils/Log.hpp>
+
 namespace Ra {
 namespace Asset {
 

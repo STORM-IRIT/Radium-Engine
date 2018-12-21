@@ -32,7 +32,7 @@ void MeshFeatureTrackingComponent::initialize() {
     std::shared_ptr<Ra::Engine::Material> material;
     auto bpMaterial = new Ra::Engine::BlinnPhongMaterial( "PickingManageSphereMaterial" );
     material.reset( bpMaterial );
-    bpMaterial->m_kd = Ra::Core::Color( 0.f, 1.f, 0.f, 1.f );
+    bpMaterial->m_kd = Ra::Core::Utils::Color( 0.f, 1.f, 0.f, 1.f );
     m_RO = Ra::Engine::RenderObject::createRenderObject(
         "FeaturePickingManagerSphereRO", this, Ra::Engine::RenderObjectType::Geometry, display,
         Ra::Engine::RenderTechnique::createDefaultRenderTechnique(), material );

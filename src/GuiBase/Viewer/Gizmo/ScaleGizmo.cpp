@@ -2,8 +2,8 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/RayCast.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -61,7 +61,7 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
         mesh->loadGeometry( cylinder );
-        Core::Color arrowColor = Core::Color::Zero();
+        Core::Utils::Color arrowColor = Core::Utils::Color::Black();
         arrowColor[i] = 1.f;
         mesh->colorize( arrowColor );
 
@@ -94,7 +94,7 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo,
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Plane" ) );
         mesh->loadGeometry( plane );
-        Core::Color planeColor = Core::Color::Zero();
+        Core::Utils::Color planeColor = Core::Utils::Color::Black();
         planeColor[i] = 1.f;
         mesh->colorize( planeColor );
 
@@ -138,17 +138,17 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     // reColor constraints
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-    RO->getMesh()->colorize( Core::Colors::Red() );
+    RO->getMesh()->colorize( Core::Utils::Color::Red() );
     RO = roMgr->getRenderObject( m_renderObjects[1] );
-    RO->getMesh()->colorize( Core::Colors::Green() );
+    RO->getMesh()->colorize( Core::Utils::Color::Green() );
     RO = roMgr->getRenderObject( m_renderObjects[2] );
-    RO->getMesh()->colorize( Core::Colors::Blue() );
+    RO->getMesh()->colorize( Core::Utils::Color::Blue() );
     RO = roMgr->getRenderObject( m_renderObjects[3] );
-    RO->getMesh()->colorize( Core::Colors::Red() );
+    RO->getMesh()->colorize( Core::Utils::Color::Red() );
     RO = roMgr->getRenderObject( m_renderObjects[4] );
-    RO->getMesh()->colorize( Core::Colors::Green() );
+    RO->getMesh()->colorize( Core::Utils::Color::Green() );
     RO = roMgr->getRenderObject( m_renderObjects[5] );
-    RO->getMesh()->colorize( Core::Colors::Blue() );
+    RO->getMesh()->colorize( Core::Utils::Color::Blue() );
     // prepare selection
     int oldAxis = m_selectedAxis;
     int oldPlane = m_selectedPlane;
@@ -165,16 +165,16 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
             {
                 m_selectedAxis = i;
                 RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-                RO->getMesh()->colorize( Core::Colors::Yellow() );
+                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
             } else if ( i < 6 )
             {
                 m_selectedPlane = i - 3;
                 RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 1 ) % 3] );
-                RO->getMesh()->colorize( Core::Colors::Yellow() );
+                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
                 RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 2 ) % 3] );
-                RO->getMesh()->colorize( Core::Colors::Yellow() );
+                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
                 RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
-                RO->getMesh()->colorize( Core::Colors::Yellow() );
+                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
             }
         }
     }
@@ -195,44 +195,44 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Ve
     if ( whole )
     {
         auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-        RO->getMesh()->colorize( Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[1] );
-        RO->getMesh()->colorize( Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[2] );
-        RO->getMesh()->colorize( Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[3] );
-        RO->getMesh()->colorize( Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[4] );
-        RO->getMesh()->colorize( Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         RO = roMgr->getRenderObject( m_renderObjects[5] );
-        RO->getMesh()->colorize( Core::Colors::Yellow() );
+        RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
     } else
     {
         auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-        RO->getMesh()->colorize( Core::Colors::Red() );
+        RO->getMesh()->colorize( Core::Utils::Color::Red() );
         RO = roMgr->getRenderObject( m_renderObjects[1] );
-        RO->getMesh()->colorize( Core::Colors::Green() );
+        RO->getMesh()->colorize( Core::Utils::Color::Green() );
         RO = roMgr->getRenderObject( m_renderObjects[2] );
-        RO->getMesh()->colorize( Core::Colors::Blue() );
+        RO->getMesh()->colorize( Core::Utils::Color::Blue() );
         RO = roMgr->getRenderObject( m_renderObjects[3] );
-        RO->getMesh()->colorize( Core::Colors::Red() );
+        RO->getMesh()->colorize( Core::Utils::Color::Red() );
         RO = roMgr->getRenderObject( m_renderObjects[4] );
-        RO->getMesh()->colorize( Core::Colors::Green() );
+        RO->getMesh()->colorize( Core::Utils::Color::Green() );
         RO = roMgr->getRenderObject( m_renderObjects[5] );
-        RO->getMesh()->colorize( Core::Colors::Blue() );
+        RO->getMesh()->colorize( Core::Utils::Color::Blue() );
         if ( m_selectedAxis > -1 )
         {
             RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-            RO->getMesh()->colorize( Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         }
         if ( m_selectedPlane > -1 )
         {
             RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 1 ) % 3] );
-            RO->getMesh()->colorize( Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
             RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 2 ) % 3] );
-            RO->getMesh()->colorize( Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
             RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
-            RO->getMesh()->colorize( Core::Colors::Yellow() );
+            RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
         }
     }
 

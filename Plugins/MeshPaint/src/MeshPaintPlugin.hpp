@@ -2,6 +2,8 @@
 #define MESHPAINTPLUGIN_HPP_
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Utils/Color.hpp>
+
 #include <PluginBase/RadiumPluginInterface.hpp>
 #include <QAction>
 #include <QColor>
@@ -57,7 +59,7 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
 
     class MeshPaintSystem* m_system;
 
-    Ra::Core::Color m_paintColor;
+    Ra::Core::Utils::Color m_paintColor;
     bool m_isPainting;
 };
 

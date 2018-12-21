@@ -9,6 +9,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -148,7 +149,7 @@ class RA_ENGINE_API Mesh {
     void render();
 
     /// Colorize all mesh vertices with the given color.
-    inline void colorize( const Core::Color& color );
+    inline void colorize( const Core::Utils::Color& color );
 
   private:
     /// Helper function to send buffer data to openGL.
