@@ -4,13 +4,15 @@
 #include <assimp/scene.h>
 
 #include <Core/File/GeometryData.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Core/File/BlinnPhongMaterialData.hpp>
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 
 namespace Ra {
 namespace IO {
+
+using namespace Core::Utils; // log
 
 AssimpGeometryDataLoader::AssimpGeometryDataLoader( const std::string& filepath,
                                                     const bool VERBOSE_MODE ) :
@@ -99,8 +101,10 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
 
     // Radium V2 : allow to have several UV channels
     // use MATKEY_UVWSRC to know if any
-    if ( mesh.GetNumUVChannels() > 1 ) {
-        LOG(logWARNING) << "Assimp loader : several UV channels are set, Radium will use only the 1st";
+    if ( mesh.GetNumUVChannels() > 1 )
+    {
+        LOG( logWARNING )
+            << "Assimp loader : several UV channels are set, Radium will use only the 1st";
     }
     if ( mesh.HasTextureCoords( 0 ) )
     {
@@ -115,7 +119,8 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
 }
 
 void AssimpGeometryDataLoader::loadMeshFrame(
-    const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, size_t>& indexTable,
+    const aiNode* node, const Core::Transform& parentFrame,
+    const std::map<uint, size_t>& indexTable,
     std::vector<std::unique_ptr<Asset::GeometryData>>& data ) const {
     const uint child_size = node->mNumChildren;
     const uint mesh_size = node->mNumMeshes;
@@ -306,7 +311,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     {
         blinnPhongMaterial->m_hasShininess = true;
         // Assimp gives the Phong exponent, we use the Blinn-Phong exponent
-        blinnPhongMaterial->m_shininess = shininess*4;
+        blinnPhongMaterial->m_shininess = shininess * 4;
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_OPACITY, opacity ) )

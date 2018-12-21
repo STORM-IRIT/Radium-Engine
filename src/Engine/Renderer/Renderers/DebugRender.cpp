@@ -9,12 +9,15 @@
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Log/Log.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Utils/Log.hpp>
 #include <fstream>
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
+
 DebugRender::DebugRender() = default;
 
 DebugRender::~DebugRender() = default;

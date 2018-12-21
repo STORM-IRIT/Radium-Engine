@@ -1,6 +1,6 @@
 #include <Core/File/AnimationData.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -48,6 +48,7 @@ inline void AnimationData::setFrames( const std::vector<HandleAnimation>& frameL
 
 /// DEBUG
 inline void AnimationData::displayInfo() const {
+    using namespace Core::Utils; // log
     LOG( logDEBUG ) << "======== ANIMATION INFO ========";
     LOG( logDEBUG ) << " Name              : " << m_name;
     LOG( logDEBUG ) << " Start Time        : " << m_time.getStart();

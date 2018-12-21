@@ -43,29 +43,26 @@ inline bool BlinnPhongMaterialData::hasOpacityTexture() const {
 
 /// DEBUG
 inline void BlinnPhongMaterialData::displayInfo() const {
-    auto print = [](bool ok, const std::string& name, const auto& value) {
-        if (ok)
+    using namespace Core::Utils; // log
+    auto print = []( bool ok, const std::string& name, const auto& value ) {
+        if ( ok )
         {
-            LOG(logINFO) << name << value;
-        }
-        else
-        {
-            LOG(logINFO) << name << "NO";
-        }
+            LOG( logINFO ) << name << value;
+        } else
+        { LOG( logINFO ) << name << "NO"; }
     };
 
-    LOG(logINFO) <<              "======== MATERIAL INFO ========";
-    print(hasDiffuse(),          " Kd             : ", m_diffuse.transpose());
-    print(hasSpecular(),         " Ks             : ", m_specular.transpose());
-    print(hasShininess(),        " Ns             : ", m_shininess);
-    print(hasOpacity(),          " Opacity        : ", m_opacity);
-    print(hasDiffuseTexture(),   " Kd Texture     : ", m_texDiffuse);
-    print(hasSpecularTexture(),  " Ks Texture     : ", m_texSpecular);
-    print(hasShininessTexture(), " Ns Texture     : ", m_texShininess);
-    print(hasNormalTexture(),    " Normal Texture : ", m_texNormal);
-    print(hasOpacityTexture(),   " Alpha Texture  : ", m_texOpacity);
+    LOG( logINFO ) << "======== MATERIAL INFO ========";
+    print( hasDiffuse(), " Kd             : ", m_diffuse.transpose() );
+    print( hasSpecular(), " Ks             : ", m_specular.transpose() );
+    print( hasShininess(), " Ns             : ", m_shininess );
+    print( hasOpacity(), " Opacity        : ", m_opacity );
+    print( hasDiffuseTexture(), " Kd Texture     : ", m_texDiffuse );
+    print( hasSpecularTexture(), " Ks Texture     : ", m_texSpecular );
+    print( hasShininessTexture(), " Ns Texture     : ", m_texShininess );
+    print( hasNormalTexture(), " Normal Texture : ", m_texNormal );
+    print( hasOpacityTexture(), " Alpha Texture  : ", m_texOpacity );
 }
-
 
 } // namespace Asset
 } // namespace Ra

@@ -9,11 +9,13 @@
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Geometry/Triangle/TriangleOperation.hpp> // triangleArea
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Core {
 namespace Animation {
+
+using namespace Utils; // log
 
 Scalar weightSimilarity( const Eigen::SparseVector<Scalar>& v1w,
                          const Eigen::SparseVector<Scalar>& v2w, Scalar sigma ) {
@@ -193,7 +195,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
         const Eigen::SparseVector<Scalar> triWeight =
             ( 1 / 3.f ) *
             ( subdivW.row( v0.idx() ) + subdivW.row( v1.idx() ) + subdivW.row( v2.idx() ) );
-        triangleData[ *f_it ] = std::make_tuple( centroid, area, triWeight );
+        triangleData[*f_it] = std::make_tuple( centroid, area, triWeight );
     }
 
 #pragma omp parallel for

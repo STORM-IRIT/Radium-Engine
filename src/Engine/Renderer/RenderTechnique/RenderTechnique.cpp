@@ -3,16 +3,18 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
-#include <Core/Log/Log.hpp>
 #include "RenderTechnique.hpp"
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
 
+using namespace Core::Utils; // log
+
 // For iterating on the enum easily
-const std::array<RenderTechnique::PassName, 3> allPasses = { RenderTechnique::Z_PREPASS,
-                                                             RenderTechnique::LIGHTING_OPAQUE,
-                                                             RenderTechnique::LIGHTING_TRANSPARENT };
+const std::array<RenderTechnique::PassName, 3> allPasses = {RenderTechnique::Z_PREPASS,
+                                                            RenderTechnique::LIGHTING_OPAQUE,
+                                                            RenderTechnique::LIGHTING_TRANSPARENT};
 
 std::shared_ptr<Ra::Engine::RenderTechnique> RadiumDefaultRenderTechnique( nullptr );
 
@@ -23,8 +25,10 @@ RenderTechnique::RenderTechnique() {
     }
 }
 
-RenderTechnique::RenderTechnique( const RenderTechnique& o ) : material {o.material},
-                                  dirtyBits {o.dirtyBits}, setPasses {o.setPasses} {
+RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
+    material{o.material},
+    dirtyBits{o.dirtyBits},
+    setPasses{o.setPasses} {
     for ( auto p : allPasses )
     {
         if ( setPasses & p )
@@ -95,17 +99,17 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
     auto rt = new Ra::Engine::RenderTechnique;
     rt->setMaterial( mat );
-    auto builder = EngineRenderTechniques::getDefaultTechnique("BlinnPhong");
-    if (!builder.first) {
+    auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+    if ( !builder.first )
+    {
         LOG( logERROR ) << "Unable to create the default technique : is the Engine initialized ? ";
     }
-    builder.second(*rt, false);
+    builder.second( *rt, false );
     RadiumDefaultRenderTechnique.reset( rt );
     return *( RadiumDefaultRenderTechnique.get() );
 }
 
-bool RenderTechnique::shaderIsDirty(RenderTechnique::PassName pass) const
-{
+bool RenderTechnique::shaderIsDirty( RenderTechnique::PassName pass ) const {
     return dirtyBits & pass;
 }
 

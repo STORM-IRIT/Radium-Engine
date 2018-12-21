@@ -1,13 +1,16 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
+
 TextureManager::TextureManager() : m_verbose( false ) {}
 
 TextureManager::~TextureManager() {
@@ -19,7 +22,7 @@ TextureManager::~TextureManager() {
 }
 
 TextureParameters& TextureManager::addTexture( const std::string& name, uint width, uint height,
-                                         void* data ) {
+                                               void* data ) {
     TextureParameters texData;
     texData.name = name;
     texData.width = width;
@@ -95,7 +98,8 @@ void TextureManager::loadTexture( TextureParameters& texParameters ) {
     texParameters.type = GL_UNSIGNED_BYTE;
 }
 
-Texture* TextureManager::getOrLoadTexture(const TextureParameters &texParameters, bool linearize) {
+Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameters,
+                                           bool linearize ) {
     auto it = m_textures.find( texParameters.name );
     if ( it != m_textures.end() )
     {
@@ -103,18 +107,20 @@ Texture* TextureManager::getOrLoadTexture(const TextureParameters &texParameters
     }
     auto makeTexture = []( TextureParameters& data, bool linearize ) -> Texture* {
         auto tex = new Texture( data );
-        tex->initializeGL(linearize);
+        tex->initializeGL( linearize );
         return tex;
     };
     TextureParameters texparams = texParameters;
     // TODO : allow to keep texels in texture parameters with automatic lifetime management.
     bool freeTexels = false;
-    if (texparams.texels == nullptr) {
+    if ( texparams.texels == nullptr )
+    {
         loadTexture( texparams );
         freeTexels = true;
     }
     auto ret = makeTexture( texparams, linearize );
-    if (freeTexels) {
+    if ( freeTexels )
+    {
         stbi_image_free( ret->m_textureParameters.texels );
         ret->m_textureParameters.texels = nullptr;
     }

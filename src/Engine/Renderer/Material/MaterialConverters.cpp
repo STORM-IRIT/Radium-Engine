@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <map>
 
@@ -10,6 +10,9 @@
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
+
 ///////////////////////////////////////////////
 ////        Radium Material converters      ///
 ///////////////////////////////////////////////

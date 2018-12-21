@@ -7,8 +7,8 @@
 #include <vector>
 
 #include <Core/Containers/AlignedAllocator.hpp>
-#include <Core/Log/Log.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -19,9 +19,9 @@ class ShaderProgram;
 
 namespace Ra {
 namespace Engine {
-  /**
-   * Management of shader parameters
-   */
+/**
+ * Management of shader parameters
+ */
 class RA_ENGINE_API RenderParameters final {
   public:
     class Parameter {
@@ -31,7 +31,7 @@ class RA_ENGINE_API RenderParameters final {
         virtual ~Parameter() = default;
         virtual void bind( const ShaderProgram* shader ) const = 0;
 
-        const char* m_name {nullptr};
+        const char* m_name{nullptr};
     };
 
     template <typename T>
@@ -42,7 +42,7 @@ class RA_ENGINE_API RenderParameters final {
         ~TParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        T m_value {};
+        T m_value{};
     };
 
     class TextureParameter final : public Parameter {
@@ -56,8 +56,8 @@ class RA_ENGINE_API RenderParameters final {
         ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        Texture* m_texture {nullptr};
-        int m_texUnit {-1};
+        Texture* m_texture{nullptr};
+        int m_texUnit{-1};
     };
 
     template <typename T>
@@ -71,7 +71,7 @@ class RA_ENGINE_API RenderParameters final {
 
     using IntParameter = TParameter<int>;
     using UIntParameter = TParameter<uint>;
-    using ScalarParameter = TParameter<Scalar> ;
+    using ScalarParameter = TParameter<Scalar>;
 
     using IntsParameter = TParameter<std::vector<int>>;
     using UIntsParameter = TParameter<std::vector<uint>>;
@@ -123,6 +123,7 @@ class RA_ENGINE_API RenderParameters final {
     void bind( const ShaderProgram* shader ) const;
 
     void print() const {
+        using namespace Core::Utils; // log
         for ( const auto& p : m_scalarParamsVector )
         {
             LOG( logDEBUG ) << "  " << p.first << " : " << p.second.m_name;

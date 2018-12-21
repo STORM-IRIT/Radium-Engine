@@ -60,7 +60,7 @@ inline const char* glErrorString( GLenum err ) {
 }
 
 #ifdef _DEBUG
-#    include <Core/Log/Log.hpp>
+#    include <Core/Utils/Log.hpp>
 #    define GL_ASSERT( x )                                                                     \
         x;                                                                                     \
         {                                                                                      \

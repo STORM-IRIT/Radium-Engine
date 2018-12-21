@@ -16,6 +16,8 @@
 namespace Ra {
 namespace IO {
 
+using namespace Core::Utils; // log
+
 AssimpFileLoader::AssimpFileLoader() = default;
 
 AssimpFileLoader::~AssimpFileLoader() = default;
@@ -26,10 +28,10 @@ std::vector<std::string> AssimpFileLoader::getFileExtensions() const {
     m_importer.GetExtensionList( extensionsList );
 
     // source: https://www.fluentcpp.com/2017/04/21/how-to-split-a-string-in-c/
-    std::istringstream iss(extensionsList);
+    std::istringstream iss( extensionsList );
     std::string ext;
     std::vector<std::string> extensions;
-    while ( std::getline(iss, ext, ';') )
+    while ( std::getline( iss, ext, ';' ) )
     {
         extensions.push_back( ext );
     }
@@ -68,18 +70,19 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     std::clock_t startTime;
     startTime = std::clock();
 
-    // FIXME : this warkaround is related to assimp issue #2260 Mesh created for a light only file (collada)
-    // https://github.com/assimp/assimp/issues/2260
-    // For the moment, only allow to load failes with Light only.
-    // If one need to load file with only skeleton or animation, this must be changed.
-    // Note that loading only skeletons or animations from a file is not allowed in Radium
-    // For now, Skeleton must be loaded from a file with meshes
-    if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
+    // FIXME : this warkaround is related to assimp issue #2260 Mesh created for a light only file
+    // (collada) https://github.com/assimp/assimp/issues/2260 For the moment, only allow to load
+    // failes with Light only. If one need to load file with only skeleton or animation, this must
+    // be changed. Note that loading only skeletons or animations from a file is not allowed in
+    // Radium For now, Skeleton must be loaded from a file with meshes
+    if ( scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE )
+    {
         LOG( logWARNING ) << " ai scene is incomplete, just try to load lights ..";
         AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                            fileData->isVerbose() );
         lightLoader.loadData( scene, fileData->m_lightData );
-    } else {
+    } else
+    {
         AssimpGeometryDataLoader geometryLoader( Core::Utils::getDirName( filename ),
                                                  fileData->isVerbose() );
         geometryLoader.loadData( scene, fileData->m_geometryData );
@@ -88,11 +91,8 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
         // Note that currently, Assimp is ALWAYS creating faces, even when
         // loading point clouds
         // (see 3rdPartyLibraries/Assimp/code/PlyLoader.cpp:260)
-        bool ok = std::any_of(fileData->m_geometryData.begin(), fileData->m_geometryData.end(),
-                              [](const auto &geom)->bool{
-                                  return geom->hasFaces();
-                              }
-        );
+        bool ok = std::any_of( fileData->m_geometryData.begin(), fileData->m_geometryData.end(),
+                               []( const auto& geom ) -> bool { return geom->hasFaces(); } );
         if ( !ok )
         {
             if ( fileData->isVerbose() )
@@ -112,7 +112,6 @@ Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
         AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                            fileData->isVerbose() );
         lightLoader.loadData( scene, fileData->m_lightData );
-
     }
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );

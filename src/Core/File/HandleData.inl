@@ -1,6 +1,6 @@
 #include <Core/File/HandleData.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Asset {
@@ -162,6 +162,7 @@ inline void HandleData::needEndNodes( bool need ) {
 
 /// DEBUG
 inline void HandleData::displayInfo() const {
+    using namespace Core::Utils; // log
     std::string type;
     switch ( m_type )
     {
