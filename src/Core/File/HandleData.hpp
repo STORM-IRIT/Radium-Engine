@@ -6,7 +6,7 @@
 #include <vector>
 
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
 #include <Core/File/AssetData.hpp>
@@ -15,7 +15,7 @@ namespace Ra {
 namespace Asset {
 
 struct RA_CORE_API HandleComponentData {
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     HandleComponentData();
 
@@ -26,7 +26,7 @@ struct RA_CORE_API HandleComponentData {
 
 class RA_CORE_API HandleData : public AssetData {
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// ENUM
     enum HandleType { UNKNOWN = 1 << 0, POINT_CLOUD = 1 << 1, SKELETON = 1 << 2, CAGE = 1 << 3 };

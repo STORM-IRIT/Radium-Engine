@@ -3,7 +3,7 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
@@ -80,7 +80,7 @@ class RA_ENGINE_API ShaderProgram final {
     struct TextureBinding {
         int m_texUnit{-1};
         int m_location{-1};
-        TextureBinding( int unit, int location ) : m_texUnit{ unit }, m_location { location } {}
+        TextureBinding( int unit, int location ) : m_texUnit{unit}, m_location{location} {}
         TextureBinding() = default;
     };
     using TextureUnits = std::map<std::string, TextureBinding>;

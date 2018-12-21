@@ -14,6 +14,9 @@
 #include <algorithm>
 
 namespace Ra {
+
+using namespace Core::Geometry;
+
 namespace Engine {
 namespace DrawPrimitives {
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
@@ -24,13 +27,13 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     } else
     { config = ShaderConfigurationFactory::getConfiguration( "Plain" ); }
 
-    auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Default material" );
-    Ra::Engine::RenderTechnique rt;
+    auto mat = Core::make_shared<BlinnPhongMaterial>( "Default material" );
+    RenderTechnique rt;
     rt.setMaterial( mat );
     rt.setConfiguration( config );
 
-    return Ra::Engine::RenderObject::createRenderObject(
-        mesh->getName(), component, Ra::Engine::RenderObjectType::Debug, mesh, rt );
+    return RenderObject::createRenderObject( mesh->getName(), component, RenderObjectType::Debug,
+                                             mesh, rt );
 }
 
 MeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale ) {
@@ -218,7 +221,7 @@ MeshPtr CircleArc( const Core::Vector3& center, const Core::Vector3& normal, Sca
 }
 
 MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
-    Core::Geometry::TriangleMesh sphere = Core::Geometry::makeGeodesicSphere( radius, 2 );
+    TriangleMesh sphere = makeGeodesicSphere( radius, 2 );
 
     std::for_each( sphere.vertices().begin(), sphere.vertices().end(),
                    [center]( Core::Vector3& v ) { v += center; } );
@@ -236,7 +239,7 @@ MeshPtr Capsule( const Core::Vector3& p1, const Core::Vector3& p2, Scalar radius
                  const Core::Utils::Color& color ) {
     const Scalar l = ( p2 - p1 ).norm();
 
-    Core::Geometry::TriangleMesh capsule = Core::Geometry::makeCapsule( l, radius );
+    TriangleMesh capsule = makeCapsule( l, radius );
 
     // Compute the transform so that
     // (0,0,-l/2) maps to p1 and (0,0,l/2) maps to p2
@@ -418,7 +421,7 @@ MeshPtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color ) {
     return mesh;
 }
 
-MeshPtr OBB( const Core::Obb& obb, const Core::Utils::Color& color ) {
+MeshPtr OBB( const Obb& obb, const Core::Utils::Color& color ) {
     Core::Vector3Array vertices( 8 );
 
     for ( uint i = 0; i < 8; ++i )
@@ -441,8 +444,8 @@ MeshPtr OBB( const Core::Obb& obb, const Core::Utils::Color& color ) {
     return mesh;
 }
 
-MeshPtr Spline( const Core::Spline<3, 3>& spline, uint pointCount, const Core::Utils::Color& color,
-                Scalar /*scale*/ ) {
+MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline, uint pointCount,
+                const Core::Utils::Color& color, Scalar /*scale*/ ) {
     Core::Vector3Array vertices;
     vertices.reserve( pointCount );
 

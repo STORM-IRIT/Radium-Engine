@@ -1,14 +1,14 @@
 #ifndef RADIUMENGINE_TRANSFORM_EDITOR_HPP_
 #define RADIUMENGINE_TRANSFORM_EDITOR_HPP_
 
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Engine/ItemModel/ItemEntry.hpp>
 #include <GuiBase/RaGuiBase.hpp>
 namespace Ra {
 namespace GuiBase {
 class RA_GUIBASE_API TransformEditor {
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     TransformEditor() : m_transform( Core::Transform::Identity() ) {}
     virtual ~TransformEditor();

@@ -1,4 +1,5 @@
-#include "DualQuaternion.hpp"
+#include <Core/Math/DualQuaternion.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // Quaternion operators
 
 namespace Ra {
 namespace Core {

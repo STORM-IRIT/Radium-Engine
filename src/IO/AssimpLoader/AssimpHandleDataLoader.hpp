@@ -5,7 +5,7 @@
 #include <set>
 
 #include <Core/File/DataLoader.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <IO/RaIO.hpp>
 
 struct aiScene;

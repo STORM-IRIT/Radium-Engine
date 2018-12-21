@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_SPLINE_HPP__
-#define RADIUMENGINE_SPLINE_HPP__
+#ifndef RADIUMENGINE_SPLINE_HPP_
+#define RADIUMENGINE_SPLINE_HPP_
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 /**
  * @class Spline
  *
@@ -91,9 +92,10 @@ class Spline {
     std::vector<Scalar> m_node;         ///< Nodal vector
     Type m_type;                        ///< Nodal vector type
 };
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Math/Spline.inl>
+#include <Core/Geometry/Spline.inl>
 
 #endif

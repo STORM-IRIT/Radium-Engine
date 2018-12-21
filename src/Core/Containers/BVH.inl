@@ -2,10 +2,11 @@
 
 #include <iostream>
 
-#include <Core/Math/ColorPresets.hpp>
+#include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Containers {
 
 template <typename T>
 inline BVH<T>::Node::Node( const std::shared_ptr<T>& t ) : m_aabb( t->getAabb() ), m_data( t ) {}
@@ -110,7 +111,7 @@ inline void BVH<T>::buildBottomUpSlow() {
 
 template <typename T>
 inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
-                                      const Frustum& frustum ) const {
+                                      const Geometry::Frustum& frustum ) const {
 
     if ( m_root )
     {
@@ -130,7 +131,7 @@ inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
                 bool isIn = true;
                 for ( uint i = 0; i < 6 && isIn; ++i )
                 {
-                    Vector4 plane = frustum.getPlane( i );
+                    const auto& plane = frustum.getPlane( i );
                     Aabb aabb = current->getAabb();
 
                     // If the BBOX is fully outside (at least) one plane, it is not in
@@ -157,5 +158,6 @@ inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
         }
     }
 }
+} // namespace Containers
 } // namespace Core
 } // namespace Ra

@@ -1,8 +1,7 @@
 #include <Core/Geometry/Area/Area.hpp>
-
-#include <Core/Utils/CircularIndex.hpp>
-
 #include <Core/Geometry/Triangle/TriangleOperation.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // Vector::cotan
+#include <Core/Utils/CircularIndex.hpp>
 
 namespace Ra {
 namespace Core {

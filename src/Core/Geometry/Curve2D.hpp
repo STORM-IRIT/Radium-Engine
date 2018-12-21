@@ -2,12 +2,13 @@
 #define RADIUMENGINE_CURVE2D_HPP_
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/Spline.hpp>
+#include <Core/Geometry/Spline.hpp>
 #include <Core/RaCore.hpp>
 #include <vector>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 class Curve2D {
   public:
     enum CurveType { LINE, CUBICBEZIER, SPLINE, SIZE };
@@ -15,6 +16,7 @@ class Curve2D {
     using Vector = Eigen::Matrix<Scalar, 2, 1>;
 
     virtual void addPoint( const Vector p ) = 0;
+    virtual ~Curve2D() = default;
 
     virtual Vector f( Scalar u ) const = 0;
     virtual Vector df( Scalar u ) const = 0;
@@ -32,6 +34,7 @@ class QuadraSpline : public Curve2D {
         m_points{p0, p1, p2} {
         this->size = 3;
     }
+    ~QuadraSpline() override = default;
 
     inline void addPoint( const Vector p ) override;
 
@@ -51,6 +54,7 @@ class CubicBezier : public Curve2D {
         m_points{p0, p1, p2, p3} {
         this->size = 4;
     }
+    ~CubicBezier() override = default;
 
     inline void addPoint( const Vector p ) override;
 
@@ -66,6 +70,7 @@ class Line : public Curve2D {
   public:
     Line() { this->size = 0; }
     Line( const Vector& p0, const Vector& p1 ) : m_points{p0, p1} { this->size = 2; }
+    ~Line() override = default;
 
     inline void addPoint( const Vector p ) override;
 
@@ -83,6 +88,7 @@ class SplineCurve : public Curve2D {
     SplineCurve( Core::VectorArray<Vector> points ) : m_points( points ) {
         this->size = points.size();
     }
+    ~SplineCurve() override = default;
 
     inline void addPoint( const Vector p ) override;
 
@@ -94,8 +100,9 @@ class SplineCurve : public Curve2D {
     Core::VectorArray<Vector> m_points;
 };
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Math/Curve2D.inl>
+#include <Core/Geometry/Curve2D.inl>
 #endif // RADIUMENGINE_CURVE2D_HPP_

@@ -4,7 +4,7 @@
 #include <Core/Geometry/OpenMesh.h>
 
 #include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Index.hpp>
 

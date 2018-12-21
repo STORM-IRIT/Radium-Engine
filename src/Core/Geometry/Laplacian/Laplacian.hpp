@@ -2,7 +2,7 @@
 #define LAPLACIAN_DEFINITION
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 
 #include <Core/Geometry/Adjacency/Adjacency.hpp>
 

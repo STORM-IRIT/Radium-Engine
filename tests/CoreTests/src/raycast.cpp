@@ -1,10 +1,11 @@
-#include <Core/Math/RayCast.hpp>
+#include <Core/Algorithm/RayCast.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Tests.hpp>
 
 namespace Ra {
 namespace Testing {
 
-void run()  {
+void run() {
     Ra::Core::Aabb ones( -Ra::Core::Vector3::Ones(), Ra::Core::Vector3::Ones() );
     // For all directions x, y, z
     for ( int i = 0; i < 3; ++i )
@@ -25,44 +26,42 @@ void run()  {
 
                     // Fire a ray towards the box (some hit, some miss).
                     {
-                        Eigen::ParametrizedLine<Scalar, 3> r ( s, dir.normalized() );
+                        Eigen::ParametrizedLine<Scalar, 3> r( s, dir.normalized() );
 
                         Scalar t = 0.f;
                         Ra::Core::Vector3 n = Ra::Core::Vector3::Zero();
-                        const bool result = Ra::Core::RayCast::vsAabb( r, ones, t, n );
+                        const bool result = Ra::Core::Algorithm::RayCastAabb( r, ones, t, n );
 
                         if ( std::abs( p ) <= 5 && std::abs( q ) <= 5 )
                         {
                             RA_VERIFY( result, "The ray should have hit" );
                             RA_VERIFY( n.dot( sig * Ra::Core::Vector3::Unit( i ) ) == 1.f,
-                                          "Wrong normal" );
-                            RA_VERIFY(
-                                Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], sig ),
-                                "Wrong hit point" );
-                        }
-                        else
+                                       "Wrong normal" );
+                            RA_VERIFY( Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], sig ),
+                                       "Wrong hit point" );
+                        } else
                         { RA_VERIFY( !result, "The ray should have missed" ); }
                     }
 
                     // Fire a ray on the other direction (which should miss)
                     {
-                        Eigen::ParametrizedLine<Scalar, 3> r ( s, -dir.normalized() );
+                        Eigen::ParametrizedLine<Scalar, 3> r( s, -dir.normalized() );
 
                         Scalar t;
                         Ra::Core::Vector3 n;
-                        const bool result = Ra::Core::RayCast::vsAabb( r, ones, t, n );
+                        const bool result = Ra::Core::Algorithm::RayCastAabb( r, ones, t, n );
 
                         RA_VERIFY( !result, "The ray should have missed (t<0)" );
                     }
 
                     // Fire a ray from within the box.
                     {
-                        Eigen::ParametrizedLine<Scalar, 3> r
-                                ( Ra::Core::Vector3::Zero(), dir.normalized() );
+                        Eigen::ParametrizedLine<Scalar, 3> r( Ra::Core::Vector3::Zero(),
+                                                              dir.normalized() );
 
                         Scalar t;
                         Ra::Core::Vector3 n{0, 0, 0};
-                        const bool result = Ra::Core::RayCast::vsAabb( r, ones, t, n );
+                        const bool result = Ra::Core::Algorithm::RayCastAabb( r, ones, t, n );
 
                         RA_VERIFY( result, "The ray should have hit (inside hit)" );
                         RA_VERIFY( t == 0, "Hit should be at origin" );
@@ -78,19 +77,18 @@ void run()  {
 } // namespace Testing
 } // namespace Ra
 
-
-int main(int argc, const char **argv) {
+int main( int argc, const char** argv ) {
     using namespace Ra;
 
-    if(!Testing::init_testing(1, argv))
+    if ( !Testing::init_testing( 1, argv ) )
     {
         return EXIT_FAILURE;
     }
 
 #pragma omp parallel for
-    for(int i = 0; i < Testing::g_repeat; ++i)
+    for ( int i = 0; i < Testing::g_repeat; ++i )
     {
-        CALL_SUBTEST(( Testing::run() ));
+        CALL_SUBTEST( ( Testing::run() ) );
     }
 
     return EXIT_SUCCESS;

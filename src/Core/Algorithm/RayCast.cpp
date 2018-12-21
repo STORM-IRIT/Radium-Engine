@@ -4,9 +4,9 @@
 namespace Ra {
 namespace Core {
 // useful : http://www.realtimerendering.com/intersections.html
-namespace RayCast {
+namespace Algorithm {
 /// Intersect a ray with an axis-aligned bounding box.
-bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut ) {
+bool RayCastAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut ) {
     // Based on optimized Woo version (ray vs 3 slabs)
     // Ref : Graphics Gems p.395
     // http://www.codercorner.com/RayAABB.cpp
@@ -67,8 +67,8 @@ bool vsAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& norm
     return false;
 }
 
-bool vsSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
-               std::vector<Scalar>& hitsOut ) {
+bool RayCastSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
+                    std::vector<Scalar>& hitsOut ) {
 
     CORE_ASSERT( r.direction().squaredNorm() > 0.f, "Invalid Ray" );
     CORE_ASSERT( radius > 0.f, "Invalid radius" );
@@ -121,8 +121,8 @@ bool vsSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
     return false;
 }
 
-bool vsPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
-              std::vector<Scalar>& hitsOut ) {
+bool RayCastPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
+                   std::vector<Scalar>& hitsOut ) {
     CORE_ASSERT( r.direction().squaredNorm() > 0.f, "Invalid Ray" );
     CORE_ASSERT( normal.squaredNorm() > 0.f, "Invalid plane normal" );
 
@@ -153,8 +153,8 @@ bool vsPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
 }
 
 // TODO : this needs serious optimizing if we want it fast :p
-bool vsCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
-                 std::vector<Scalar>& hitsOut ) {
+bool RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
+                      std::vector<Scalar>& hitsOut ) {
     /// Ref : Graphics Gem IV.
     /// http://www.realtimerendering.com/resources/GraphicsGems//gemsiv/ray_cyl.c
     const Scalar radiusSquared = radius * radius;
@@ -164,11 +164,11 @@ bool vsCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, S
 
     // Intersect the ray against plane A and B.
     std::vector<Scalar> hitsA;
-    const bool vsA = vsPlane( r, a, cylAxis, hitsA );
+    const bool vsA = RayCastPlane( r, a, cylAxis, hitsA );
     const Scalar hitA = vsA ? hitsA[0] : -1.f;
 
     std::vector<Scalar> hitsB;
-    const bool vsB = vsPlane( r, b, cylAxis, hitsB );
+    const bool vsB = RayCastPlane( r, b, cylAxis, hitsB );
     const Scalar hitB = vsB ? hitsB[0] : -1.f;
 
     auto n = r.direction().cross( cylAxis );
@@ -307,8 +307,8 @@ bool vsCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, S
     return false;
 }
 
-bool vsTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const Vector3& c,
-                 std::vector<Scalar>& hitsOut ) {
+bool RayCastTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const Vector3& c,
+                      std::vector<Scalar>& hitsOut ) {
     const Vector3 ab = b - a;
     const Vector3 ac = c - a;
 
@@ -365,8 +365,8 @@ bool vsTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const Vector
     return ( t >= 0 );
 }
 
-bool vsTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh, std::vector<Scalar>& hitsOut,
-                     std::vector<Vector3ui>& trianglesIdxOut ) {
+bool RayCastTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh,
+                          std::vector<Scalar>& hitsOut, std::vector<Vector3ui>& trianglesIdxOut ) {
     bool hit = false;
     for ( size_t i = 0; i < mesh.m_triangles.size(); ++i )
     {
@@ -374,7 +374,7 @@ bool vsTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh, std::vect
         const Vector3& a = mesh.vertices()[t[0]];
         const Vector3& b = mesh.vertices()[t[1]];
         const Vector3& c = mesh.vertices()[t[2]];
-        if ( vsTriangle( r, a, b, c, hitsOut ) )
+        if ( RayCastTriangle( r, a, b, c, hitsOut ) )
         {
             trianglesIdxOut.push_back( t );
             hit = true;
@@ -383,6 +383,6 @@ bool vsTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh, std::vect
 
     return hit;
 }
-} // namespace RayCast
+} // namespace Algorithm
 } // namespace Core
 } // namespace Ra

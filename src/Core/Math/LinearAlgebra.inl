@@ -1,3 +1,5 @@
+#include <Core/Math/LinearAlgebra.hpp>
+
 namespace Ra {
 namespace Core {
 
@@ -108,11 +110,12 @@ inline Quaternion QuaternionUtils::scale( const Quaternion& q, Scalar k ) {
 inline void Vector::getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy,
                                           Eigen::Ref<Vector3> fz ) {
     // taken from [Duff et al. 17] Building An Orthonormal Basis, Revisited. JCGT. 2017
-    Scalar sign = std::copysign(Scalar(1.0), fx(2));
-    const Scalar a = Scalar(-1.0) / (sign + fx(2));
-    const Scalar b = fx(0) * fx(1) * a;
-    fy = Ra::Core::Vector3(Scalar(1.0) + sign * fx(0) * fx(0) * a, sign * b, -sign * fx(0));
-    fz = Ra::Core::Vector3(b, sign + fx(1) * fx(1) * a, -fx(1));
+    Scalar sign = std::copysign( Scalar( 1.0 ), fx( 2 ) );
+    const Scalar a = Scalar( -1.0 ) / ( sign + fx( 2 ) );
+    const Scalar b = fx( 0 ) * fx( 1 ) * a;
+    fy = Ra::Core::Vector3( Scalar( 1.0 ) + sign * fx( 0 ) * fx( 0 ) * a, sign * b,
+                            -sign * fx( 0 ) );
+    fz = Ra::Core::Vector3( b, sign + fx( 1 ) * fx( 1 ) * a, -fx( 1 ) );
 }
 
 inline Vector3 Vector::projectOnPlane( const Vector3& planePos, const Vector3& planeNormal,

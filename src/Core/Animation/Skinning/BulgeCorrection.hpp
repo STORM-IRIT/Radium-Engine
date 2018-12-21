@@ -4,8 +4,7 @@
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Containers/AdjacencyList.hpp>
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
-
+#include <Core/Math/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -30,8 +29,7 @@ void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& r
                       Vector3Array& currMesh, const BulgeCorrectionData& currData );
 
 void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
-                         const AdjacencyList& graph, const Pose& pose,
-                         BulgeCorrectionData& data );
+                         const AdjacencyList& graph, const Pose& pose, BulgeCorrectionData& data );
 
 } // namespace Animation
 } // namespace Core

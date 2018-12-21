@@ -1,4 +1,5 @@
-#include "MeshPrimitives.hpp"
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // Math::pi
 
 namespace Ra {
 namespace Core {

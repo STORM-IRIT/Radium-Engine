@@ -1,4 +1,5 @@
-#include "DistanceQueries.hpp"
+#include <Core/Geometry/Distance/DistanceQueries.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // Math::clamp
 
 namespace Ra {
 namespace Core {
@@ -17,7 +18,7 @@ inline RA_CORE_API Scalar projectOnSegment( const Vector3& q, const Vector3& a,
     {
         return 0;
     }
-    return Ra::Core::Math::clamp<Scalar>( ( q - a ).dot( ab ) / ( ab.squaredNorm() ), 0, 1 );
+    return Math::clamp<Scalar>( ( q - a ).dot( ab ) / ( ab.squaredNorm() ), 0, 1 );
 }
 
 inline RA_CORE_API Scalar pointToSegmentSq( const Vector3& q, const Vector3& a,

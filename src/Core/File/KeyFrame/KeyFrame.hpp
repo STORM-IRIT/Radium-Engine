@@ -5,7 +5,7 @@
 #include <set>
 
 #include <Core/Containers/AlignedAllocator.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 
 #include <Core/File/KeyFrame/AnimationTime.hpp>
 
@@ -160,7 +160,7 @@ class KeyFrame {
     /// VARIABLE
     AnimationTime m_time;
     std::map<Time, FRAME, std::less<Time>,
-             Ra::Core::AlignedAllocator<std::pair<const Time, FRAME>, RA_DEFAULT_ALIGN>>
+             Ra::Core::AlignedAllocator<std::pair<const Time, FRAME>, EIGEN_MAX_ALIGN_BYTES>>
         m_keyframe;
 };
 

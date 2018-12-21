@@ -1,7 +1,8 @@
-#include "PolyLine.hpp"
+#include <Core/Geometry/PolyLine.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 const Vector3Array& PolyLine::getPoints() const {
     return m_pts;
@@ -11,11 +12,11 @@ Scalar PolyLine::length() const {
     return m_lengths.back();
 }
 
-Ra::Core::Aabb PolyLine::aabb() const {
+Aabb PolyLine::aabb() const {
     Aabb aabb;
-    for (const auto& v : m_pts)
+    for ( const auto& v : m_pts )
     {
-        aabb.extend(v);
+        aabb.extend( v );
     }
     return aabb;
 }
@@ -39,7 +40,7 @@ const Vector3Array& PolyLine::getSegmentVectors() const {
 
 uint PolyLine::getSegmentIndex( Scalar t ) const {
     // This could be optimized by dichotomy
-    Scalar param = length() * Ra::Core::Math::saturate( t );
+    Scalar param = length() * Math::saturate( t );
     uint i = 0;
     while ( m_lengths[i] < param )
     {
@@ -48,5 +49,6 @@ uint PolyLine::getSegmentIndex( Scalar t ) const {
     return i;
 }
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

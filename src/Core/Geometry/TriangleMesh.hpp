@@ -2,7 +2,7 @@
 #define RADIUMENGINE_TRIANGLEMESH_HPP
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Attribs.hpp>
 

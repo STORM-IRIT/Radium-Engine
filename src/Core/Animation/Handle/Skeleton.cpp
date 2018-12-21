@@ -1,4 +1,5 @@
 #include <Core/Animation/Handle/Skeleton.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // Math::clamp
 #include <stack>
 
 namespace Ra {

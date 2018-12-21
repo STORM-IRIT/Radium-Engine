@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <Core/Containers/AlignedAllocator.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
@@ -64,7 +64,7 @@ class RA_ENGINE_API RenderParameters final {
     class UniformBindableVector final
         : public std::map<
               std::string, T, std::less<std::string>,
-              Core::AlignedAllocator<std::pair<const std::string, T>, RA_DEFAULT_ALIGN>> {
+              Core::AlignedAllocator<std::pair<const std::string, T>, EIGEN_MAX_ALIGN_BYTES>> {
       public:
         void bind( const ShaderProgram* shader ) const;
     };
