@@ -24,9 +24,9 @@
 #include <stb/stb_image_write.h>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/Math.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Component/Component.hpp>
@@ -47,6 +47,9 @@
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 
 namespace Ra {
+
+using namespace Core::Utils; // log
+
 Gui::Viewer::Viewer( QScreen* screen ) :
     QWindow( screen ),
     m_context( nullptr ),
@@ -286,8 +289,7 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
          isKeyPressed( keyMap->getKeyFromAction( Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
     {
         LOG( logINFO ) << "Raycast query launched";
-        auto r =
-            m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
+        auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
         RA_DISPLAY_POINT( r.origin(), Core::Colors::Cyan(), 0.1f );
         RA_DISPLAY_RAY( r, Core::Colors::Yellow() );
         auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
@@ -446,7 +448,7 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
         auto light =
             new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
         // Set the default light intensity so that it does not burn the objects
-        //light->setColor( Ra::Core::Color( 0.5, 0.5, 0.5, 1.0 ) );
+        // light->setColor( Ra::Core::Color( 0.5, 0.5, 0.5, 1.0 ) );
         m_camera->attachLight( light );
     }
 }
@@ -513,7 +515,7 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     m_pickingManager->clear();
     m_context->makeCurrent( this );
 
-    Engine::ViewingParameters data { m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt };
+    Engine::ViewingParameters data{m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
 
     // FIXME : move this outside of the rendering loop. must be done once per renderer ...
     // if there is no light on the renderer, add the head light attached to the camera ...

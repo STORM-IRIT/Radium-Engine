@@ -1,6 +1,6 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
@@ -8,6 +8,8 @@
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
 
 EntityManager::EntityManager() {
     auto idx = m_entities.emplace( SystemEntity::createInstance() );

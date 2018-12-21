@@ -1,9 +1,11 @@
 #include "KeyMappingManager.hpp"
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Gui {
+
+using namespace Core::Utils; // log
 
 const std::string KeyMappingManager::KeyMappingActionNames[] = {
 #define KMA_VALUE( x ) std::string( #x ),

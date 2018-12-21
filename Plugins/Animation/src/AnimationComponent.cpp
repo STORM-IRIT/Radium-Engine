@@ -24,6 +24,8 @@ using Ra::Core::Animation::Skeleton;
 using Ra::Core::Animation::WeightMatrix;
 using Ra::Engine::ComponentMessenger;
 
+using namespace Ra::Core::Utils; // log
+
 namespace AnimationPlugin {
 
 AnimationComponent::AnimationComponent( const std::string& name, Ra::Engine::Entity* entity ) :

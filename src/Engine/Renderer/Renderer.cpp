@@ -6,7 +6,7 @@
 
 #include <Core/File/FileData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
@@ -23,9 +23,11 @@
 
 #include <Engine/Managers/LightManager/LightManager.hpp>
 
-
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
+
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
                           GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5,
@@ -137,7 +139,6 @@ void Renderer::initialize( uint width, uint height ) {
 
     glDrawBuffer( GL_BACK );
     glReadBuffer( GL_BACK );
-
 }
 
 void Renderer::render( const ViewingParameters& data ) {
@@ -531,7 +532,6 @@ void Renderer::drawScreenInternal() {
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
         GL_ASSERT( glEnable( GL_BLEND ) );
     }
-
 }
 
 void Renderer::notifyRenderObjectsRenderingInternal() {

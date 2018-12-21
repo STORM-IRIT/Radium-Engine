@@ -3,7 +3,7 @@
 #include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <memory>
 
 /// Macro used for testing only, to add attibutes to the TopologicalMesh
@@ -90,6 +90,7 @@ args processArgs( int argc, char* argv[] ) {
 }
 
 int main( int argc, char* argv[] ) {
+    using namespace Ra::Core::Utils; // log
     args a = processArgs( argc, argv );
     if ( !a.valid )
     {

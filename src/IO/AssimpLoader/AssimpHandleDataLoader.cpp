@@ -6,16 +6,18 @@
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/File/HandleData.hpp>
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 
 namespace Ra {
 namespace IO {
 
+using namespace Core::Utils; // log
+
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
-    Asset::DataLoader<Asset::HandleData>( VERBOSE_MODE ) {};
+    Asset::DataLoader<Asset::HandleData>( VERBOSE_MODE ){};
 
 /// DESTRUCTOR
 AssimpHandleDataLoader::~AssimpHandleDataLoader() = default;

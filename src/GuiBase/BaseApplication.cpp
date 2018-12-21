@@ -3,12 +3,12 @@
 #include <GuiBase/MainWindowInterface.hpp>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Log/Log.hpp>
 #include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Utils/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Utils/Log.hpp>
+#include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -47,6 +47,9 @@
 
 namespace Ra {
 namespace GuiBase {
+
+using namespace Core::Utils; // log
+
 BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& factory,
                                   QString applicationName, QString organizationName ) :
     QApplication( argc, argv ),
@@ -118,10 +121,10 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
         m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
 
     {
-        std::time_t startTime = std::time(nullptr);
-        std::tm* startTm = std::localtime(&startTime);
+        std::time_t startTime = std::time( nullptr );
+        std::tm* startTm = std::localtime( &startTime );
         std::stringstream ssTp;
-        ssTp << std::put_time(startTm, "%Y%m%d-%H%M%S");
+        ssTp << std::put_time( startTm, "%Y%m%d-%H%M%S" );
         m_exportFoldername = ssTp.str();
     }
 
@@ -443,7 +446,7 @@ void BaseApplication::appNeedsToQuit() {
 
 void BaseApplication::initializeOpenGlPlugins() {
     // Initialize plugins that depends on Initialized OpenGL (if any)
-    if ( ! m_openGLPlugins.empty() )
+    if ( !m_openGLPlugins.empty() )
     {
         PluginContext context;
         context.m_engine = m_engine.get();
@@ -470,11 +473,9 @@ void BaseApplication::setRecordFrames( bool on ) {
 
 void BaseApplication::recordFrame() {
     std::stringstream filename;
-    filename << m_exportFoldername
-        << "/radiumframe_"
-        << std::setw(6) << std::setfill('0') << m_frameCounter
-        << ".png";
-    m_viewer->grabFrame(filename.str());
+    filename << m_exportFoldername << "/radiumframe_" << std::setw( 6 ) << std::setfill( '0' )
+             << m_frameCounter << ".png";
+    m_viewer->grabFrame( filename.str() );
 }
 
 BaseApplication::~BaseApplication() {
@@ -566,7 +567,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                         std::vector<std::shared_ptr<Engine::Renderer>> tmpR;
                         loadedPlugin->addRenderers( &tmpR );
                         CORE_ASSERT( !tmpR.empty(), "This plugin is expected to add a renderer" );
-                        for ( const auto &ptr : tmpR )
+                        for ( const auto& ptr : tmpR )
                         {
                             std::string name =
                                 ptr->getRendererName() + "(" + filename.toStdString() + ")";
@@ -579,7 +580,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                         std::vector<std::shared_ptr<Asset::FileLoaderInterface>> tmpL;
                         loadedPlugin->addFileLoaders( &tmpL );
                         CORE_ASSERT( !tmpL.empty(), "This plugin is expected to add file loaders" );
-                        for ( auto &ptr : tmpL )
+                        for ( auto& ptr : tmpL )
                         {
                             m_engine->registerFileLoader( ptr );
                         }

@@ -2,11 +2,13 @@
 
 #include <map>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
 namespace ShaderConfigurationFactory {
+
+using namespace Core::Utils; // log
 
 static std::map<std::string, ShaderConfiguration> configs;
 
@@ -19,8 +21,10 @@ void addConfiguration( const ShaderConfiguration& config ) {
     }
 
     auto found = configs.insert( {config.m_name, config} );
-    if ( ! found.second )    {
-        LOG( logWARNING ) << "Configuration " << config.m_name << " already in ShaderConfigurationFactory. "
+    if ( !found.second )
+    {
+        LOG( logWARNING ) << "Configuration " << config.m_name
+                          << " already in ShaderConfigurationFactory. "
                              "Configuration not added";
         return;
     }

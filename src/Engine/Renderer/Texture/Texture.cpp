@@ -1,4 +1,4 @@
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 #include "Texture.hpp"
@@ -8,6 +8,8 @@
 
 namespace Ra {
 
+using namespace Core::Utils; // log
+
 Engine::Texture::Texture( const TextureParameters& texParameters ) :
     m_textureParameters{texParameters},
     m_texture{nullptr},
@@ -16,11 +18,10 @@ Engine::Texture::Texture( const TextureParameters& texParameters ) :
 
 Engine::Texture::~Texture() = default;
 
-void Engine::Texture::initializeGL(bool linearize)
-{
-    if ( (m_textureParameters.target != GL_TEXTURE_1D) &&
-         (m_textureParameters.target != GL_TEXTURE_2D) &&
-         (m_textureParameters.target != GL_TEXTURE_3D) )
+void Engine::Texture::initializeGL( bool linearize ) {
+    if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
+         ( m_textureParameters.target != GL_TEXTURE_2D ) &&
+         ( m_textureParameters.target != GL_TEXTURE_3D ) )
     {
         LOG( logERROR ) << "Texture of type " << m_textureParameters.target
                         << " must be generated explicitely!";
@@ -31,23 +32,27 @@ void Engine::Texture::initializeGL(bool linearize)
     {
         uint numcomp = 0;
         bool hasAlpha = false;
-        switch (m_textureParameters.format)
+        switch ( m_textureParameters.format )
         {
             // RED texture store a gray scale color. Verify if we need to convert
-        case GL_RED:numcomp = 1;
+        case GL_RED:
+            numcomp = 1;
             break;
-        case GL_RGB:numcomp = 3;
+        case GL_RGB:
+            numcomp = 3;
             break;
-        case GL_RGBA:numcomp = 4;
+        case GL_RGBA:
+            numcomp = 4;
             hasAlpha = true;
             break;
-        default:LOG(logERROR) << "Textures with format " << m_textureParameters.format
-                              << " can't be linearized." << m_textureParameters.name;
+        default:
+            LOG( logERROR ) << "Textures with format " << m_textureParameters.format
+                            << " can't be linearized." << m_textureParameters.name;
             return;
         }
         // This will only do do the RGB space conversion
-        sRGBToLinearRGB(reinterpret_cast<uint8_t *>( m_textureParameters.texels ), numcomp,
-                        hasAlpha);
+        sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp,
+                         hasAlpha );
     }
     // Generate OpenGL texture
     if ( m_texture == nullptr )
@@ -56,7 +61,8 @@ void Engine::Texture::initializeGL(bool linearize)
         GL_CHECK_ERROR;
     }
     // Update the sampler parameters
-    m_isMipMaped = !( m_textureParameters.minFilter == GL_NEAREST || m_textureParameters.minFilter == GL_LINEAR );
+    m_isMipMaped = !( m_textureParameters.minFilter == GL_NEAREST ||
+                      m_textureParameters.minFilter == GL_LINEAR );
     updateParameters();
     // upload texture to the GPU
     updateData( m_textureParameters.texels );
@@ -65,7 +71,6 @@ void Engine::Texture::initializeGL(bool linearize)
     {
         m_texture->generateMipmap();
     }
-
 }
 
 void Engine::Texture::bind( int unit ) {
@@ -81,29 +86,33 @@ void Engine::Texture::updateData( void* data ) {
     {
     case GL_TEXTURE_1D:
     {
-        m_texture->image1D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width), 0,
-                            m_textureParameters.format, m_textureParameters.type, data );
+        m_texture->image1D( 0, m_textureParameters.internalFormat,
+                            GLsizei( m_textureParameters.width ), 0, m_textureParameters.format,
+                            m_textureParameters.type, data );
     }
     break;
     case GL_TEXTURE_2D:
     {
-        m_texture->image2D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
-                            GLsizei(m_textureParameters.height), 0, m_textureParameters.format,
+        m_texture->image2D( 0, m_textureParameters.internalFormat,
+                            GLsizei( m_textureParameters.width ),
+                            GLsizei( m_textureParameters.height ), 0, m_textureParameters.format,
                             m_textureParameters.type, data );
     }
     break;
     case GL_TEXTURE_3D:
     {
-        m_texture->image3D( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
-                            GLsizei(m_textureParameters.height), GLsizei(m_textureParameters.depth), 0,
-                            m_textureParameters.format, m_textureParameters.type, data );
+        m_texture->image3D(
+            0, m_textureParameters.internalFormat, GLsizei( m_textureParameters.width ),
+            GLsizei( m_textureParameters.height ), GLsizei( m_textureParameters.depth ), 0,
+            m_textureParameters.format, m_textureParameters.type, data );
     }
     break;
     case GL_TEXTURE_CUBE_MAP:
     {
-        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat, GLsizei(m_textureParameters.width),
-                                 GLsizei(m_textureParameters.height), 0, m_textureParameters.format,
-                                 m_textureParameters.type, data );
+        m_texture->cubeMapImage( 0, m_textureParameters.internalFormat,
+                                 GLsizei( m_textureParameters.width ),
+                                 GLsizei( m_textureParameters.height ), 0,
+                                 m_textureParameters.format, m_textureParameters.type, data );
     }
     break;
     default:
@@ -140,8 +149,9 @@ void Engine::Texture::updateParameters() {
 }
 
 void Engine::Texture::linearize( Scalar gamma ) {
-    if (m_texture != nullptr) {
-        LOG(logERROR) << "Only non OpenGL initialized texture can be linearized.";
+    if ( m_texture != nullptr )
+    {
+        LOG( logERROR ) << "Only non OpenGL initialized texture can be linearized.";
         return;
     }
     // Only RGB and RGBA texture contains color information
@@ -166,9 +176,8 @@ void Engine::Texture::linearize( Scalar gamma ) {
                         << " can't be linearized." << m_textureParameters.name;
         return;
     }
-    sRGBToLinearRGB(reinterpret_cast<uint8_t *>( m_textureParameters.texels ), numcomp,
-                    hasAlpha, gamma);
-
+    sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha,
+                     gamma );
 }
 
 void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
@@ -177,55 +186,50 @@ void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool
     {
         m_isLinear = true;
         // auto linearize = [gamma](float in)-> float {
-        auto linearize = [gamma](uint8_t in) -> uint8_t
-        {
+        auto linearize = [gamma]( uint8_t in ) -> uint8_t {
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
-            float c = float(in) / 255;
-            if (c < 0.04045)
+            float c = float( in ) / 255;
+            if ( c < 0.04045 )
             {
                 c = c / 12.92f;
-            }
-            else
-            {
-                c = std::pow(((c + 0.055f) / (1.f + 0.055f)), float(gamma));
-            }
-            return uint8_t(c * 255);
+            } else
+            { c = std::pow( ( ( c + 0.055f ) / ( 1.f + 0.055f ) ), float( gamma ) ); }
+            return uint8_t( c * 255 );
         };
         uint numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;
 #pragma omp parallel for
-        for (int i = 0; i < m_textureParameters.width * m_textureParameters.height *
-            m_textureParameters.depth;
-             ++i)
+        for ( int i = 0; i < m_textureParameters.width * m_textureParameters.height *
+                                 m_textureParameters.depth;
+              ++i )
         {
             // Convert each R or RGB value while keeping alpha unchanged
-            for (int p = i * numCommponent; p < i * numCommponent + numvalues; ++p)
+            for ( int p = i * numCommponent; p < i * numCommponent + numvalues; ++p )
             {
-                texels[p] = linearize(texels[p]);
+                texels[p] = linearize( texels[p] );
             }
         }
     }
- }
+}
 
-void Engine::Texture::resize(size_t w, size_t h, size_t d, void *pix){
+void Engine::Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     m_textureParameters.width = w;
     m_textureParameters.height = h;
     m_textureParameters.depth = d;
     m_textureParameters.texels = pix;
-    if (m_texture == nullptr) {
-        initializeGL(false);
-    } else {
-        updateData(m_textureParameters.texels);
-    }
+    if ( m_texture == nullptr )
+    {
+        initializeGL( false );
+    } else
+    { updateData( m_textureParameters.texels ); }
     if ( m_isMipMaped )
     {
         m_texture->generateMipmap();
     }
 }
 
-
 // TODO : This method must be fully rewritten. Maybe by a derived Texture class
-void Engine::Texture::generateCube(uint width, uint height, GLenum format, void **data, bool linearize,
-                                   bool mipmaped) {
+void Engine::Texture::generateCube( uint width, uint height, GLenum format, void** data,
+                                    bool linearize, bool mipmaped ) {
     m_textureParameters.target = GL_TEXTURE_CUBE_MAP;
     if ( m_texture == nullptr )
     {
