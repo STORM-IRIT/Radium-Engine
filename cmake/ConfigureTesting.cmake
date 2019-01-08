@@ -21,7 +21,7 @@ function (radium_add_test)
              #CONFIGURATIONS Release
              COMMAND test_${_option_TARGET})
     target_link_libraries(test_${_option_TARGET} ${_option_LIBS})
-    target_include_directories(test_${_option_TARGET} PUBLIC ${testing_include_dir})
+    target_include_directories(test_${_option_TARGET} PUBLIC ${testing_include_dir} ${RADIUM_SRC_DIR})
 endfunction()
 
 # CMake/Ctest does not allow us to change the build command,
