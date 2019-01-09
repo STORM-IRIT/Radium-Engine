@@ -1,11 +1,10 @@
 #ifndef RADIUMENGINE_MOUSEEVENT_HPP
 #define RADIUMENGINE_MOUSEEVENT_HPP
 
-#include <Core/Event/EventEnums.hpp>
-#include <Core/RaCore.hpp>
+#include <GuiBase/Event/EventEnums.hpp>
 
 namespace Ra {
-namespace Core {
+namespace GuiBase {
 
 struct MouseEvent {
     /// MouseEventType: Press, Release, Move, Wheel
@@ -25,7 +24,7 @@ struct MouseEvent {
     int wheelDelta;
 };
 
-} // namespace Core
+} // namespace GuiBase
 } // namespace Ra
 
 #endif // RADIUMENGINE_MOUSEEVENT_HPP

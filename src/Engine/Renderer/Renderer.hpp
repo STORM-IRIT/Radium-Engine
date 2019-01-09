@@ -9,9 +9,9 @@
 #include <mutex>
 #include <vector>
 
-#include <Core/Event/EventEnums.hpp>
 #include <Core/Math/Types.hpp>
 #include <Core/Utils/Timer.hpp>
+#include <GuiBase/Event/EventEnums.hpp>
 
 namespace Ra {
 
@@ -80,7 +80,7 @@ class RA_ENGINE_API Renderer {
      */
     struct PickingQuery {
         Core::Vector2 m_screenCoords;
-        Core::MouseButton::MouseButton m_button;
+        GuiBase::MouseButton::MouseButton m_button;
         PickingMode m_mode;
     };
 
