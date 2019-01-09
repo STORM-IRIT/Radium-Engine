@@ -1,11 +1,10 @@
 #ifndef RADIUMENGINE_KEYEVENT_HPP
 #define RADIUMENGINE_KEYEVENT_HPP
 
-#include <Core/Event/EventEnums.hpp>
-#include <Core/RaCore.hpp>
+#include <GuiBase/Event/EventEnums.hpp>
 
 namespace Ra {
-namespace Core {
+namespace GuiBase {
 
 struct KeyEvent {
     /// KeyEventType : Press, Release
@@ -17,7 +16,7 @@ struct KeyEvent {
     Modifier::Modifier modifier;
 };
 
-} // namespace Core
+} // namespace GuiBase
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEYEVENT_HPP

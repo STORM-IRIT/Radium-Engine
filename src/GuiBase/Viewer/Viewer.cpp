@@ -307,7 +307,7 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
                                          Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
     {
         m_currentRenderer->addPickingRequest( {Core::Vector2( event->x(), height() - event->y() ),
-                                               Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
+                                               GuiBase::MouseButton::RA_MOUSE_LEFT_BUTTON,
                                                Engine::Renderer::RO} );
         if ( m_gizmoManager != nullptr )
         {
@@ -318,7 +318,7 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     {
         // Check picking
         Engine::Renderer::PickingQuery query = {Core::Vector2( event->x(), height() - event->y() ),
-                                                Core::MouseButton::RA_MOUSE_RIGHT_BUTTON,
+                                                GuiBase::MouseButton::RA_MOUSE_RIGHT_BUTTON,
                                                 getPickingMode()};
         m_currentRenderer->addPickingRequest( query );
     }
@@ -347,7 +347,7 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
             // Check picking
             Engine::Renderer::PickingQuery query = {
                 Core::Vector2( event->x(), ( height() - event->y() ) ),
-                Core::MouseButton::RA_MOUSE_RIGHT_BUTTON, getPickingMode()};
+                GuiBase::MouseButton::RA_MOUSE_RIGHT_BUTTON, getPickingMode()};
             m_currentRenderer->addPickingRequest( query );
         }
     } else
@@ -552,10 +552,10 @@ void Gui::Viewer::processPicking() {
     for ( uint i = 0; i < m_currentRenderer->getPickingQueries().size(); ++i )
     {
         const Engine::Renderer::PickingQuery& query = m_currentRenderer->getPickingQueries()[i];
-        if ( query.m_button == Core::MouseButton::RA_MOUSE_LEFT_BUTTON )
+        if ( query.m_button == GuiBase::MouseButton::RA_MOUSE_LEFT_BUTTON )
         {
             emit leftClickPicking( m_currentRenderer->getPickingResults()[i].m_roIdx );
-        } else if ( query.m_button == Core::MouseButton::RA_MOUSE_RIGHT_BUTTON )
+        } else if ( query.m_button == GuiBase::MouseButton::RA_MOUSE_RIGHT_BUTTON )
         {
             const auto& result = m_currentRenderer->getPickingResults()[i];
             m_pickingManager->setCurrent( result );
