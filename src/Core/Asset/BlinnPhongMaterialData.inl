@@ -1,7 +1,8 @@
-#include <Core/File/BlinnPhongMaterialData.hpp>
+#include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 ///////////////////
@@ -67,4 +68,5 @@ inline void BlinnPhongMaterialData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

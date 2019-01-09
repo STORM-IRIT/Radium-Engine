@@ -1,8 +1,9 @@
-#include <Core/File/HandleData.hpp>
+#include <Core/Asset/HandleData.hpp>
 
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /// NAME
@@ -189,4 +190,5 @@ inline void HandleData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

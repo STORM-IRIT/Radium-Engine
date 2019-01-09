@@ -7,6 +7,7 @@
 struct aiScene;
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 template <class DATA>
 class DataLoader {
@@ -29,6 +30,7 @@ class DataLoader {
     bool m_verbose;
 };
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_DATA_LOADER_HPP

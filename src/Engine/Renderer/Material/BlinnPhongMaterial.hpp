@@ -11,9 +11,11 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 class MaterialData;
 }
+} // namespace Core
 namespace Engine {
 
 class ShaderProgram;
@@ -117,7 +119,7 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final {
     BlinnPhongMaterialConverter() = default;
     ~BlinnPhongMaterialConverter() = default;
 
-    Material* operator()( const Ra::Asset::MaterialData* toconvert );
+    Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
 };
 
 } // namespace Engine

@@ -7,7 +7,7 @@
 #include <Core/Animation/KeyRotation.hpp>
 #include <Core/Animation/KeyScaling.hpp>
 #include <Core/Animation/KeyTranslation.hpp>
-#include <Core/File/AnimationData.hpp>
+#include <Core/Asset/AnimationData.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
@@ -17,17 +17,18 @@ namespace IO {
 
 using namespace Core::Utils; // log
 using namespace Core::Animation;
+using namespace Core::Asset;
 
 /// CONSTRUCTOR
 AssimpAnimationDataLoader::AssimpAnimationDataLoader( const bool VERBOSE_MODE ) :
-    DataLoader<Asset::AnimationData>( VERBOSE_MODE ) {}
+    DataLoader<AnimationData>( VERBOSE_MODE ) {}
 
 /// DESTRUCTOR
 AssimpAnimationDataLoader::~AssimpAnimationDataLoader() = default;
 
 /// LOADING
-void AssimpAnimationDataLoader::loadData(
-    const aiScene* scene, std::vector<std::unique_ptr<Asset::AnimationData>>& data ) {
+void AssimpAnimationDataLoader::loadData( const aiScene* scene,
+                                          std::vector<std::unique_ptr<AnimationData>>& data ) {
     data.clear();
 
     if ( scene == nullptr )
@@ -70,14 +71,12 @@ uint AssimpAnimationDataLoader::sceneAnimationSize( const aiScene* scene ) const
 }
 
 /// NAME
-void AssimpAnimationDataLoader::fetchName( const aiAnimation* anim,
-                                           Asset::AnimationData* data ) const {
+void AssimpAnimationDataLoader::fetchName( const aiAnimation* anim, AnimationData* data ) const {
     data->setName( assimpToCore( anim->mName ) );
 }
 
 /// TIME
-void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
-                                           Asset::AnimationData* data ) const {
+void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim, AnimationData* data ) const {
     const auto tick = Scalar( anim->mTicksPerSecond );
     const auto duration = Scalar( anim->mDuration );
 
@@ -99,13 +98,13 @@ void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
 
 /// KEY FRAME
 void AssimpAnimationDataLoader::loadAnimationData(
-    const aiScene* scene, std::vector<std::unique_ptr<Asset::AnimationData>>& data ) const {
+    const aiScene* scene, std::vector<std::unique_ptr<AnimationData>>& data ) const {
     const uint size = sceneAnimationSize( scene );
     data.resize( size );
     for ( uint i = 0; i < size; ++i )
     {
         aiAnimation* anim = scene->mAnimations[i];
-        Asset::AnimationData* animData = new Asset::AnimationData();
+        AnimationData* animData = new AnimationData();
         fetchName( anim, animData );
         fetchTime( anim, animData );
         fetchAnimation( anim, animData );
@@ -118,10 +117,10 @@ void AssimpAnimationDataLoader::loadAnimationData(
 }
 
 void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
-                                                Asset::AnimationData* data ) const {
+                                                AnimationData* data ) const {
     const uint size = anim->mNumChannels;
     AnimationTime time = data->getTime();
-    std::vector<Asset::HandleAnimation> keyFrame( size );
+    std::vector<HandleAnimation> keyFrame( size );
     for ( uint i = 0; i < size; ++i )
     {
         fetchHandleAnimation( anim->mChannels[i], keyFrame[i], data->getTimeStep() );
@@ -131,8 +130,7 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
     data->setTime( time );
 }
 
-void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
-                                                      Asset::HandleAnimation& data,
+void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAnimation& data,
                                                       const Time dt ) const {
     const uint T_size = node->mNumPositionKeys;
     const uint R_size = node->mNumRotationKeys;

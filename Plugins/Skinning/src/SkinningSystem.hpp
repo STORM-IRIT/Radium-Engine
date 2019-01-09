@@ -5,8 +5,8 @@
 
 #include <Engine/System/System.hpp>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/HandleData.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/HandleData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -39,7 +39,7 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
     }
 
     void handleAssetLoading( Ra::Engine::Entity* entity,
-                             const Ra::Asset::FileData* fileData ) override {
+                             const Ra::Core::Asset::FileData* fileData ) override {
 
         auto geomData = fileData->getGeometryData();
         auto skelData = fileData->getHandleData();
@@ -53,7 +53,7 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
                 component->handleWeightsLoading( skel );
                 registerComponent( entity, component );
 
-                /*SkinningDisplayComponent* display = */new SkinningDisplayComponent(
+                /*SkinningDisplayComponent* display = */ new SkinningDisplayComponent(
                     "SkC_DSP_" + skel->getName(), skel->getName(), entity );
                 // display->display( component->getRefData() );
             }

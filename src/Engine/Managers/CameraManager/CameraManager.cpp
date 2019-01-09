@@ -1,8 +1,8 @@
 #include <Engine/Managers/CameraManager/CameraManager.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
-#include <Core/File/CameraData.hpp>
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/CameraData.hpp>
+#include <Core/Asset/FileData.hpp>
 
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
@@ -16,6 +16,7 @@ namespace Ra {
 namespace Engine {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset;
 
 size_t CameraManager::count() const {
     return m_data->size();
@@ -24,8 +25,8 @@ size_t CameraManager::count() const {
 void CameraManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
                                    const Engine::FrameInfo& /*frameInfo*/ ) {}
 
-void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
-    std::vector<Asset::CameraData*> cameraData = filedata->getCameraData();
+void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
+    std::vector<CameraData*> cameraData = filedata->getCameraData();
     uint id = 0;
     m_data->clear();
     for ( const auto& data : cameraData )
@@ -34,12 +35,12 @@ void CameraManager::handleAssetLoading( Entity* entity, const Asset::FileData* f
         auto comp = new Camera( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
-        case Asset::CameraData::ORTHOGRAPHIC:
+        case CameraData::ORTHOGRAPHIC:
         {
             comp->setType( Camera::ProjType::ORTHOGRAPHIC );
             break;
         }
-        case Asset::CameraData::PERSPECTIVE:
+        case CameraData::PERSPECTIVE:
         {
             comp->setType( Camera::ProjType::PERSPECTIVE );
             break;

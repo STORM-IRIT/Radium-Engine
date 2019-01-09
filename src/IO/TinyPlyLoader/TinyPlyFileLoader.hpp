@@ -1,18 +1,13 @@
 #ifndef RADIUMENGINE_TINYPLYFILELOADER_HPP
 #define RADIUMENGINE_TINYPLYFILELOADER_HPP
 
-#include <Core/File/FileLoaderInterface.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
 #include <IO/RaIO.hpp>
 
 namespace Ra {
-
-namespace Asset {
-class FileData;
-}
-
 namespace IO {
 
-class RA_IO_API TinyPlyFileLoader : public Asset::FileLoaderInterface {
+class RA_IO_API TinyPlyFileLoader : public Core::Asset::FileLoaderInterface {
   public:
     TinyPlyFileLoader();
 
@@ -20,7 +15,7 @@ class RA_IO_API TinyPlyFileLoader : public Asset::FileLoaderInterface {
 
     std::vector<std::string> getFileExtensions() const override;
     bool handleFileExtension( const std::string& extension ) const override;
-    Asset::FileData* loadFile( const std::string& filename ) override;
+    Core::Asset::FileData* loadFile( const std::string& filename ) override;
     std::string name() const override;
 };
 

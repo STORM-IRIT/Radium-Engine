@@ -1,12 +1,13 @@
 
-#include <Core/File/AnimationData.hpp>
-#include <Core/File/CameraData.hpp>
-#include <Core/File/GeometryData.hpp>
-#include <Core/File/HandleData.hpp>
-#include <Core/File/LightData.hpp>
+#include <Core/Asset/AnimationData.hpp>
+#include <Core/Asset/CameraData.hpp>
+#include <Core/Asset/GeometryData.hpp>
+#include <Core/Asset/HandleData.hpp>
+#include <Core/Asset/LightData.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /// FILENAME
@@ -132,4 +133,5 @@ inline void FileData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

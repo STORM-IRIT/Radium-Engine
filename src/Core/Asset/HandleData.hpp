@@ -9,9 +9,10 @@
 #include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
-#include <Core/File/AssetData.hpp>
+#include <Core/Asset/AssetData.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 struct RA_CORE_API HandleComponentData {
@@ -102,8 +103,9 @@ class RA_CORE_API HandleData : public AssetData {
 };
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
-#include <Core/File/HandleData.inl>
+#include <Core/Asset/HandleData.inl>
 
 #endif // RADIUMENGINE_HANDLE_DATA_HPP

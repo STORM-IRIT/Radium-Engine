@@ -1,14 +1,14 @@
 #include <Engine/System/GeometrySystem.hpp>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/GeometryData.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Component/GeometryComponent.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/RadiumEngine.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -16,7 +16,7 @@ namespace Engine {
 GeometrySystem::GeometrySystem() : Ra::Engine::System() {}
 
 void GeometrySystem::handleAssetLoading( Ra::Engine::Entity* entity,
-                                         const Ra::Asset::FileData* fileData ) {
+                                         const Ra::Core::Asset::FileData* fileData ) {
     auto geomData = fileData->getGeometryData();
 
     uint id = 0;

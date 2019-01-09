@@ -1,10 +1,9 @@
 #ifndef RADIUMENGINE_CAMERAMANAGER_H
 #define RADIUMENGINE_CAMERAMANAGER_H
 
+#include <Engine/Managers/CameraManager/CameraStorage.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/System/System.hpp>
-#include <Engine/Managers/CameraManager/CameraStorage.hpp>
-
 
 #include <memory>
 
@@ -22,7 +21,7 @@ namespace Engine {
  * in a specific way.
  */
 class RA_ENGINE_API CameraManager : public System {
-  // Radium-V2 : make Camera manager compatible with range for ...
+    // Radium-V2 : make Camera manager compatible with range for ...
   public:
     /// Constructor
     CameraManager() = default;
@@ -57,7 +56,7 @@ class RA_ENGINE_API CameraManager : public System {
     //
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
-    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
+    void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
 
   protected:
     /** Inherited method marked as final to ensure correct memory management
@@ -75,7 +74,7 @@ class RA_ENGINE_API CameraManager : public System {
 
   protected:
     /// Stores the object that stores the Cameras...
-    std::unique_ptr<CameraStorage> m_data { nullptr };
+    std::unique_ptr<CameraStorage> m_data{nullptr};
 };
 
 } // namespace Engine

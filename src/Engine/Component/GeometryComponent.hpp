@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_GEOMETRY_COMPONENT_HPP
 #define RADIUMENGINE_GEOMETRY_COMPONENT_HPP
 
-#include <Core/File/GeometryData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Engine/Component/Component.hpp>
 
@@ -14,7 +14,7 @@ class Mesh;
 namespace Ra {
 namespace Engine {
 /*!
- * \brief Main class to convert Ra::Asset::GeometryData to Ra::Engine::Mesh
+ * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
  *
  * Exports access to the mesh geometry:
  *  - TriangleMesh: get, rw (set vertices, normals and triangles dirty)
@@ -31,7 +31,7 @@ class RA_ENGINE_API GeometryComponent : public Component {
 
     void addMeshRenderObject( const Ra::Core::Geometry::TriangleMesh& mesh,
                               const std::string& name );
-    void handleMeshLoading( const Ra::Asset::GeometryData* data );
+    void handleMeshLoading( const Ra::Core::Asset::GeometryData* data );
 
     /// Returns the index of the associated RO (the display mesh)
     Ra::Core::Utils::Index getRenderObjectIndex() const;
