@@ -9,10 +9,11 @@
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Index.hpp>
 
-#include <Core/File/AssetData.hpp>
-#include <Core/File/MaterialData.hpp>
+#include <Core/Asset/AssetData.hpp>
+#include <Core/Asset/MaterialData.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 class MaterialData;
@@ -305,8 +306,9 @@ class RA_CORE_API GeometryData : public AssetData {
 };
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
-#include <Core/File/GeometryData.inl>
+#include <Core/Asset/GeometryData.inl>
 
 #endif // RADIUMENGINE_GEOMETRY_DATA_HPP

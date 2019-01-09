@@ -1,9 +1,10 @@
-#include <Core/File/CameraData.hpp>
+#include <Core/Asset/CameraData.hpp>
 
 #include "CameraData.hpp"
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 inline void CameraData::setName( const std::string& name ) {
@@ -92,4 +93,5 @@ inline void CameraData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

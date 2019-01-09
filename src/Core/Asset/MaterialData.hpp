@@ -3,10 +3,11 @@
 #include <string>
 #include <vector>
 
-#include <Core/File/AssetData.hpp>
+#include <Core/Asset/AssetData.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /** @brief represent material data loaded by a file loader.
@@ -16,9 +17,9 @@ namespace Asset {
  *  "BlinnPhong"        --> standar Blinn-Phong Material
  *
  *  When extending the material system with a loader plugin (or something similar) :
- *      Define your own "Asset" class derived from Ra::Asset::MaterialData with the "type" that
- * identifies it uniquely and corresponding to the external format of your material (in the file you
- * load). Define your own "Engine" class, derived from Ra::Engine::Material.
+ *      Define your own "Asset" class derived from Ra::Core::Asset::MaterialData with the "type"
+ * that identifies it uniquely and corresponding to the external format of your material (in the
+ * file you load). Define your own "Engine" class, derived from Ra::Engine::Material.
  *
  *      Make your plugin register the converter function from "Asset" to "Engine" for this material.
  *          This function may be everithing that is of the same type than
@@ -58,8 +59,9 @@ class RA_CORE_API MaterialData : public AssetData {
 };
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
-#include <Core/File/MaterialData.inl>
+#include <Core/Asset/MaterialData.inl>
 
 #endif // RADIUMENGINE_MATERIALDATA_HPP

@@ -26,7 +26,7 @@ class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
 
     /// Load a skeleton and an animation from a file.
     void handleAssetLoading( Ra::Engine::Entity* entity,
-                             const Ra::Asset::FileData* fileData ) override;
+                             const Ra::Core::Asset::FileData* fileData ) override;
 
     /// Toggle on/off playing of animations.
     void play( bool isPlaying ) override;

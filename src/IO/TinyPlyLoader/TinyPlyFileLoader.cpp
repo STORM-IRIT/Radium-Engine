@@ -1,6 +1,6 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 
 #include <tinyply/tinyply.h>
 
@@ -14,6 +14,7 @@ namespace Ra {
 namespace IO {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset; // Filedata
 
 TinyPlyFileLoader::TinyPlyFileLoader() {}
 
@@ -27,7 +28,7 @@ bool TinyPlyFileLoader::handleFileExtension( const std::string& extension ) cons
     return extension.compare( plyExt ) == 0;
 }
 
-Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
+FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     // Read the file and create a std::istringstream suitable
     // for the lib -- tinyply does not perform any file i/o.
@@ -46,7 +47,7 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     }
 
     // we are now sure to have a point-cloud
-    Asset::FileData* fileData = new Asset::FileData( filename );
+    FileData* fileData = new FileData( filename );
 
     if ( !fileData->isInitialized() )
     {
@@ -80,9 +81,9 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     fileData->m_geometryData.clear();
     fileData->m_geometryData.reserve( 1 );
 
-    auto geometry = std::make_unique<Asset::GeometryData>();
+    auto geometry = std::make_unique<GeometryData>();
 
-    geometry->setType( Asset::GeometryData::POINT_CLOUD );
+    geometry->setType( GeometryData::POINT_CLOUD );
 
     std::vector<float> normals;
     std::vector<uint8_t> colors;

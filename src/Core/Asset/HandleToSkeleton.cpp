@@ -1,22 +1,23 @@
-#include <Core/File/HandleToSkeleton.hpp>
+#include <Core/Asset/HandleToSkeleton.hpp>
 
 #include <Core/Animation/Handle/Skeleton.hpp>
-#include <Core/File/HandleData.hpp>
+#include <Core/Asset/HandleData.hpp>
 #include <set>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 namespace {
 // Recursive function to add bones
-void addBone(
-    const int parent,                                                       // index of parent bone
-    const uint dataID,                                                      // index in map
-    const Ra::Core::AlignedStdVector<Ra::Asset::HandleComponentData>& data, // handle bone data
-    const Ra::Core::AlignedStdVector<Ra::Core::Vector2i>& edgeList,         // list of edges
-    std::vector<bool>& processed,       // which ids have been processed
-    Core::Animation::Skeleton& skelOut, // skeleton being built
-    std::map<uint, uint>& indexTable )  // correspondance between data idx and bone idx
+void addBone( const int parent,  // index of parent bone
+              const uint dataID, // index in map
+              const Ra::Core::AlignedStdVector<Ra::Core::Asset::HandleComponentData>&
+                  data,                                                       // handle bone data
+              const Ra::Core::AlignedStdVector<Ra::Core::Vector2i>& edgeList, // list of edges
+              std::vector<bool>& processed,       // which ids have been processed
+              Core::Animation::Skeleton& skelOut, // skeleton being built
+              std::map<uint, uint>& indexTable )  // correspondance between data idx and bone idx
 {
     if ( !processed[dataID] )
     {
@@ -36,7 +37,7 @@ void addBone(
 }
 } // namespace
 
-void createSkeleton( const Ra::Asset::HandleData& data, Core::Animation::Skeleton& skelOut,
+void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::Skeleton& skelOut,
                      std::map<uint, uint>& indexTableOut ) {
     const uint size = data.getComponentDataSize();
     auto component = data.getComponentData();
@@ -60,4 +61,5 @@ void createSkeleton( const Ra::Asset::HandleData& data, Core::Animation::Skeleto
     }
 }
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

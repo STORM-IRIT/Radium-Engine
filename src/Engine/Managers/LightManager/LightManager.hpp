@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_LIGHTMANAGER_H
 #define RADIUMENGINE_LIGHTMANAGER_H
+#include <Engine/Managers/LightManager/LightStorage.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/System/System.hpp>
-#include <Engine/Managers/LightManager/LightStorage.hpp>
 
 #include <memory>
 
@@ -30,11 +30,11 @@ class RA_ENGINE_API LightManager : public System {
     virtual const Light* getLight( size_t li ) const = 0;
 
     /** Add a light to the manager ...
-     * Consider the component is already registered. The light manager will not take ownership of the added light,
-     * it will just push the light on the storage ...
+     * Consider the component is already registered. The light manager will not take ownership of
+     * the added light, it will just push the light on the storage ...
      * @param li The (already registered) light to add.
      */
-    virtual void addLight(const Light *li) = 0;
+    virtual void addLight( const Light* li ) = 0;
 
     //
     // Calls for the Renderer. Note that
@@ -55,7 +55,7 @@ class RA_ENGINE_API LightManager : public System {
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
     /// Transform loaded file data to usable entities and component in the engine
-    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
+    void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
 
   protected:
     /// Inherited method marked as final to ensure correct memory management
@@ -72,7 +72,7 @@ class RA_ENGINE_API LightManager : public System {
 
   protected:
     /// Stores the object that stores the lights...
-    std::unique_ptr<LightStorage> m_data { nullptr };
+    std::unique_ptr<LightStorage> m_data{nullptr};
 };
 
 } // namespace Engine

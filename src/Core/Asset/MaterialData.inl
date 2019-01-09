@@ -1,6 +1,7 @@
-#include <Core/File/MaterialData.hpp>
+#include <Core/Asset/MaterialData.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 ////////////////
@@ -22,4 +23,5 @@ inline void MaterialData::setType( const std::string& type ) {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

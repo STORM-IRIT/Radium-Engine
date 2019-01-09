@@ -49,6 +49,7 @@ namespace Ra {
 namespace GuiBase {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset;
 
 BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& factory,
                                   QString applicationName, QString organizationName ) :
@@ -222,15 +223,15 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // Register before AssimpFileLoader, in order to ease override of such
     // custom loader (first loader able to load is taking the file)
     m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
+        std::shared_ptr<FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
 #endif
 #ifdef IO_USE_CAMERA_LOADER
     m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::CameraFileLoader() ) );
+        std::shared_ptr<FileLoaderInterface>( new IO::CameraFileLoader() ) );
 #endif
 #ifdef IO_USE_ASSIMP
     m_engine->registerFileLoader(
-        std::shared_ptr<Asset::FileLoaderInterface>( new IO::AssimpFileLoader() ) );
+        std::shared_ptr<FileLoaderInterface>( new IO::AssimpFileLoader() ) );
 #endif
 
     // Create task queue with N-1 threads (we keep one for rendering),
@@ -577,7 +578,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
 
                     if ( loadedPlugin->doAddFileLoader() )
                     {
-                        std::vector<std::shared_ptr<Asset::FileLoaderInterface>> tmpL;
+                        std::vector<std::shared_ptr<FileLoaderInterface>> tmpL;
                         loadedPlugin->addFileLoaders( &tmpL );
                         CORE_ASSERT( !tmpL.empty(), "This plugin is expected to add file loaders" );
                         for ( auto& ptr : tmpL )

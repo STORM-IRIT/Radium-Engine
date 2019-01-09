@@ -8,8 +8,8 @@
 #include <Core/Animation/KeyPose.hpp>
 #include <Core/Animation/KeyTransform.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Asset/HandleToSkeleton.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/File/HandleToSkeleton.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -144,7 +144,7 @@ void AnimationComponent::reset() {
     m_wasReset = true;
 }
 
-void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data,
+void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleData* data,
                                                 uint nbMeshVertices ) {
     std::string name( m_name );
     name.append( "_" + data->getName() );
@@ -157,7 +157,7 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
     m_contentName = data->getName();
 
     std::map<uint, uint> indexTable;
-    Ra::Asset::createSkeleton( *data, m_skel, indexTable );
+    Ra::Core::Asset::createSkeleton( *data, m_skel, indexTable );
 
     createWeightMatrix( data, indexTable, nbMeshVertices );
     m_refPose = m_skel.getPose( Handle::SpaceType::MODEL );
@@ -167,7 +167,7 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
 }
 
 void AnimationComponent::handleAnimationLoading(
-    const std::vector<Ra::Asset::AnimationData*> data ) {
+    const std::vector<Ra::Core::Asset::AnimationData*> data ) {
     m_animations.clear();
     CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first." );
     if ( data.empty() )
@@ -213,7 +213,7 @@ void AnimationComponent::handleAnimationLoading(
     m_animationTime = 0.0;
 }
 
-void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data,
+void AnimationComponent::createWeightMatrix( const Ra::Core::Asset::HandleData* data,
                                              const std::map<uint, uint>& indexTable,
                                              uint nbMeshVertices ) {
     m_weights.resize( nbMeshVertices, data->getComponentDataSize() );

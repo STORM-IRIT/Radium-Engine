@@ -5,13 +5,13 @@
 #include <string>
 #include <vector>
 
+#include <Core/Asset/AssetData.hpp>
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/File/AssetData.hpp>
 #include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
-
+namespace Core {
 namespace Asset {
 
 /// The CameraData class stores the data related to one of the Cameras of a loaded scene.
@@ -108,8 +108,9 @@ class RA_CORE_API CameraData : public AssetData {
 };
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
-#include <Core/File/CameraData.inl>
+#include <Core/Asset/CameraData.inl>
 
 #endif // RADIUMENGINE_CAMERA_DATA_HPP

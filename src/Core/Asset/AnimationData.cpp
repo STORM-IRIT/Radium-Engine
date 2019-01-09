@@ -1,6 +1,7 @@
-#include <Core/File/AnimationData.hpp>
+#include <Core/Asset/AnimationData.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 HandleAnimation::HandleAnimation( const std::string& name ) : m_name( name ), m_anim() {}
@@ -16,4 +17,5 @@ AnimationData::AnimationData( const std::string& name ) :
 AnimationData::~AnimationData() {}
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

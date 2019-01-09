@@ -3,26 +3,27 @@
 #include <assimp/mesh.h>
 #include <assimp/scene.h>
 
-#include <Core/File/GeometryData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <Core/File/BlinnPhongMaterialData.hpp>
+#include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
 
 namespace Ra {
 namespace IO {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset; // log
 
 AssimpGeometryDataLoader::AssimpGeometryDataLoader( const std::string& filepath,
                                                     const bool VERBOSE_MODE ) :
-    DataLoader<Asset::GeometryData>( VERBOSE_MODE ),
+    DataLoader<GeometryData>( VERBOSE_MODE ),
     m_filepath( filepath ) {}
 
 AssimpGeometryDataLoader::~AssimpGeometryDataLoader() = default;
 
 void AssimpGeometryDataLoader::loadData( const aiScene* scene,
-                                         std::vector<std::unique_ptr<Asset::GeometryData>>& data ) {
+                                         std::vector<std::unique_ptr<GeometryData>>& data ) {
     data.clear();
 
     if ( scene == nullptr )
@@ -72,7 +73,7 @@ uint AssimpGeometryDataLoader::sceneGeometrySize( const aiScene* scene ) const {
     return mesh_size;
 }
 
-void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::GeometryData& data,
+void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, GeometryData& data,
                                              std::set<std::string>& usedNames ) {
     fetchName( mesh, data, usedNames );
     fetchType( mesh, data );
@@ -121,7 +122,7 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, Asset::Geometry
 void AssimpGeometryDataLoader::loadMeshFrame(
     const aiNode* node, const Core::Transform& parentFrame,
     const std::map<uint, size_t>& indexTable,
-    std::vector<std::unique_ptr<Asset::GeometryData>>& data ) const {
+    std::vector<std::unique_ptr<GeometryData>>& data ) const {
     const uint child_size = node->mNumChildren;
     const uint mesh_size = node->mNumMeshes;
     if ( ( child_size == 0 ) && ( mesh_size == 0 ) )
@@ -146,7 +147,7 @@ void AssimpGeometryDataLoader::loadMeshFrame(
     }
 }
 
-void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh, Asset::GeometryData& data,
+void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh, GeometryData& data,
                                           std::set<std::string>& usedNames ) const {
     std::string name = assimpToCore( mesh.mName );
     while ( usedNames.find( name ) != usedNames.end() )
@@ -157,8 +158,8 @@ void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh, Asset::GeometryDat
     data.setName( name );
 }
 
-void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, Asset::GeometryData& data ) const {
-    data.setType( Asset::GeometryData::UNKNOWN );
+void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data ) const {
+    data.setType( GeometryData::UNKNOWN );
     uint face_type = 0;
     for ( uint i = 0; i < mesh.mNumFaces; ++i )
     {
@@ -169,25 +170,25 @@ void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, Asset::GeometryDat
         switch ( face_type )
         {
         case 0:
-        { data.setType( Asset::GeometryData::POINT_CLOUD ); }
+        { data.setType( GeometryData::POINT_CLOUD ); }
         break;
         case 2:
-        { data.setType( Asset::GeometryData::LINE_MESH ); }
+        { data.setType( GeometryData::LINE_MESH ); }
         break;
         case 3:
-        { data.setType( Asset::GeometryData::TRI_MESH ); }
+        { data.setType( GeometryData::TRI_MESH ); }
         break;
         case 4:
-        { data.setType( Asset::GeometryData::QUAD_MESH ); }
+        { data.setType( GeometryData::QUAD_MESH ); }
         break;
         default:
-        { data.setType( Asset::GeometryData::POLY_MESH ); }
+        { data.setType( GeometryData::POLY_MESH ); }
         break;
         }
     }
 }
 
-void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, Asset::GeometryData& data ) {
+void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& data ) {
     const uint size = mesh.mNumVertices;
     auto& vertex = data.getVertices();
     vertex.resize( size );
@@ -198,7 +199,7 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, Asset::Geometr
     }
 }
 
-void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, Asset::GeometryData& data ) const {
+void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumFaces;
     auto& edge = data.getEdges();
     edge.resize( size );
@@ -209,7 +210,7 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, Asset::GeometryDa
     }
 }
 
-void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, Asset::GeometryData& data ) const {
+void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumFaces;
     auto& face = data.getFaces();
     face.resize( size );
@@ -220,12 +221,11 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, Asset::GeometryDa
     }
 }
 
-void AssimpGeometryDataLoader::fetchPolyhedron( const aiMesh& mesh,
-                                                Asset::GeometryData& data ) const {
+void AssimpGeometryDataLoader::fetchPolyhedron( const aiMesh& mesh, GeometryData& data ) const {
     // TO DO
 }
 
-void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, Asset::GeometryData& data ) const {
+void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& data ) const {
     auto& normal = data.getNormals();
     normal.resize( data.getVerticesSize(), Core::Vector3::Zero() );
 
@@ -237,8 +237,7 @@ void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, Asset::Geometry
     }
 }
 
-void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh,
-                                              Asset::GeometryData& data ) const {
+void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumVertices;
     auto& tangent = data.getTangents();
     tangent.resize( size, Core::Vector3::Zero() );
@@ -249,8 +248,7 @@ void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh,
     }
 }
 
-void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh,
-                                                Asset::GeometryData& data ) const {
+void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumVertices;
     auto& bitangent = data.getBiTangents();
     bitangent.resize( size );
@@ -262,7 +260,7 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh,
 }
 
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
-                                                        Asset::GeometryData& data ) const {
+                                                        GeometryData& data ) const {
     const uint size = mesh.mNumVertices;
     auto& texcoord = data.getTexCoords();
     texcoord.resize( data.getVerticesSize() );
@@ -274,12 +272,12 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
     }
 }
 
-void AssimpGeometryDataLoader::fetchColors( const aiMesh& mesh, Asset::GeometryData& data ) const {
+void AssimpGeometryDataLoader::fetchColors( const aiMesh& mesh, GeometryData& data ) const {
     // TO DO
 }
 
 void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
-                                             Asset::GeometryData& data ) const {
+                                             GeometryData& data ) const {
 
     std::string matName;
     aiString assimpName;
@@ -289,7 +287,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     }
     // Radium V2 : use AI_MATKEY_SHADING_MODEL to select the apropriate model
     // (http://assimp.sourceforge.net/lib_html/material_8h.html#a93e23e0201d6ed86fb4287e15218e4cf)
-    auto blinnPhongMaterial = new Asset::BlinnPhongMaterialData( matName );
+    auto blinnPhongMaterial = new BlinnPhongMaterialData( matName );
     aiColor4D color;
     float shininess;
     float opacity;
@@ -364,7 +362,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
 }
 
 void AssimpGeometryDataLoader::loadGeometryData(
-    const aiScene* scene, std::vector<std::unique_ptr<Asset::GeometryData>>& data ) {
+    const aiScene* scene, std::vector<std::unique_ptr<GeometryData>>& data ) {
     const uint size = scene->mNumMeshes;
     std::map<uint, std::size_t> indexTable;
     std::set<std::string> usedNames;
@@ -373,7 +371,7 @@ void AssimpGeometryDataLoader::loadGeometryData(
         aiMesh* mesh = scene->mMeshes[i];
         if ( mesh->HasPositions() )
         {
-            auto geometry = new Asset::GeometryData();
+            auto geometry = new GeometryData();
             loadMeshData( *mesh, *geometry, usedNames );
             if ( scene->HasMaterials() )
             {
@@ -384,7 +382,7 @@ void AssimpGeometryDataLoader::loadGeometryData(
                     loadMaterial( *material, *geometry );
                 }
             }
-            data.push_back( std::unique_ptr<Asset::GeometryData>( geometry ) );
+            data.push_back( std::unique_ptr<GeometryData>( geometry ) );
             indexTable[i] = data.size() - 1;
 
             if ( m_verbose )

@@ -1,7 +1,8 @@
-#include <Core/File/MaterialData.hpp>
+#include <Core/Asset/MaterialData.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /// CONSTRUCTOR
@@ -18,4 +19,5 @@ void MaterialData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

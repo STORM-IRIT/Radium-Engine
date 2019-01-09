@@ -7,8 +7,8 @@
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Handle/Skeleton.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
-#include <Core/File/AnimationData.hpp>
-#include <Core/File/HandleData.hpp>
+#include <Core/Asset/AnimationData.hpp>
+#include <Core/Asset/HandleData.hpp>
 
 #include <Engine/Component/Component.hpp>
 
@@ -39,10 +39,10 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// @param nbMeshVertices the number of single vertices.
     // FIXME: nbMeshVertices is needed only for the genereation of
     //        the skinning weights matrix.
-    void handleSkeletonLoading( const Ra::Asset::HandleData* data, uint nbMeshVertices );
+    void handleSkeletonLoading( const Ra::Core::Asset::HandleData* data, uint nbMeshVertices );
 
     /// Create the animations from the given data.
-    void handleAnimationLoading( const std::vector<Ra::Asset::AnimationData*> data );
+    void handleAnimationLoading( const std::vector<Ra::Core::Asset::AnimationData*> data );
 
     //
     // Animation
@@ -114,7 +114,7 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
 
   private:
     // Internal function to create the skinning weights.
-    void createWeightMatrix( const Ra::Asset::HandleData* data,
+    void createWeightMatrix( const Ra::Core::Asset::HandleData* data,
                              const std::map<uint, uint>& indexTable, uint nbMeshVertices );
 
     // Internal function to create the bone display objects.

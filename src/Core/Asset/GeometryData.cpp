@@ -1,6 +1,7 @@
-#include <Core/File/GeometryData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 GeometryData::GeometryData( const std::string& name, const GeometryType& type ) :
@@ -21,4 +22,5 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
 GeometryData::~GeometryData() {}
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

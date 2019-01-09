@@ -1,6 +1,7 @@
-#include <Core/File/LightData.hpp>
+#include <Core/Asset/LightData.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /// CONSTRUCTOR
@@ -38,4 +39,5 @@ LightData::LightData( const LightData& data ) :
 LightData::~LightData() {}
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

@@ -3,8 +3,8 @@
 #include <Engine/Renderer/Light/PointLight.hpp>
 #include <Engine/Renderer/Light/SpotLight.hpp>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/GeometryData.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -16,9 +16,11 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
 namespace Ra {
+
 namespace Engine {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset;
 
 LightManager::~LightManager() = default;
 
@@ -39,8 +41,8 @@ void LightManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
     // do nothing as this system only manage light related asset loading
 }
 
-void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* filedata ) {
-    std::vector<Asset::LightData*> lightData = filedata->getLightData();
+void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
+    std::vector<LightData*> lightData = filedata->getLightData();
     uint id = 0;
 
     // If thereis some lights already in the manager, just remove from the manager the lights that
@@ -65,7 +67,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
 
         switch ( data->getType() )
         {
-        case Asset::LightData::DIRECTIONAL_LIGHT:
+        case LightData::DIRECTIONAL_LIGHT:
         {
 
             auto thelight = new Engine::DirectionalLight( entity, componentName );
@@ -74,7 +76,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
             comp = thelight;
             break;
         }
-        case Asset::LightData::POINT_LIGHT:
+        case LightData::POINT_LIGHT:
         {
             auto thelight = new Engine::PointLight( entity, componentName );
             thelight->setColor( data->m_color );
@@ -85,7 +87,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
             comp = thelight;
             break;
         }
-        case Asset::LightData::SPOT_LIGHT:
+        case LightData::SPOT_LIGHT:
         {
             auto thelight = new Engine::SpotLight( entity, componentName );
             thelight->setColor( data->m_color );
@@ -99,7 +101,7 @@ void LightManager::handleAssetLoading( Entity* entity, const Asset::FileData* fi
             comp = thelight;
             break;
         }
-        case Asset::LightData::AREA_LIGHT:
+        case LightData::AREA_LIGHT:
         {
             // Radium-V2 : manage real area light. For the moment, transform them in point light
             // using given position

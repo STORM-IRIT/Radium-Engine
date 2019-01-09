@@ -8,7 +8,7 @@
 
 #include <Engine/RadiumEngine.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 #include <Core/Utils/StringUtils.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 

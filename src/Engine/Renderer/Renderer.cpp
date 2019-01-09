@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Log.hpp>
 

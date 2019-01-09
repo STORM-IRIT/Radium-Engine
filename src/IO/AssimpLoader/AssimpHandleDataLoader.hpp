@@ -4,7 +4,7 @@
 #include <map>
 #include <set>
 
-#include <Core/File/DataLoader.hpp>
+#include <Core/Asset/DataLoader.hpp>
 #include <Core/Math/Types.hpp>
 #include <IO/RaIO.hpp>
 
@@ -14,16 +14,16 @@ struct aiMesh;
 struct aiBone;
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 class HandleData;
 struct HandleComponentData;
 } // namespace Asset
-} // namespace Ra
+} // namespace Core
 
-namespace Ra {
 namespace IO {
 
-class RA_IO_API AssimpHandleDataLoader : public Asset::DataLoader<Asset::HandleData> {
+class RA_IO_API AssimpHandleDataLoader : public Core::Asset::DataLoader<Core::Asset::HandleData> {
   public:
     /// CONSTRUCTOR
     explicit AssimpHandleDataLoader( const bool VERBOSE_MODE = false );
@@ -33,7 +33,7 @@ class RA_IO_API AssimpHandleDataLoader : public Asset::DataLoader<Asset::HandleD
 
     /// LOAD
     void loadData( const aiScene* scene,
-                   std::vector<std::unique_ptr<Asset::HandleData>>& data ) override;
+                   std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) override;
 
   protected:
     /// QUERY
@@ -42,26 +42,27 @@ class RA_IO_API AssimpHandleDataLoader : public Asset::DataLoader<Asset::HandleD
 
     /// LOAD
     void loadHandleData( const aiScene* scene,
-                         std::vector<std::unique_ptr<Asset::HandleData>>& data ) const;
+                         std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) const;
     void loadHandleComponentData( const aiScene* scene, const aiMesh* mesh,
-                                  Asset::HandleData* data ) const;
+                                  Core::Asset::HandleData* data ) const;
     void loadHandleComponentData( const aiScene* scene, const aiBone* bone,
-                                  Asset::HandleComponentData& data ) const;
-    void loadHandleComponentData( const aiNode* node, Asset::HandleComponentData& data ) const;
-    void loadHandleTopologyData( const aiScene* scene, Asset::HandleData* data ) const;
+                                  Core::Asset::HandleComponentData& data ) const;
+    void loadHandleComponentData( const aiNode* node,
+                                  Core::Asset::HandleComponentData& data ) const;
+    void loadHandleTopologyData( const aiScene* scene, Core::Asset::HandleData* data ) const;
     void loadHandleFrame( const aiNode* node, const Core::Transform& parentFrame,
                           const std::map<uint, uint>& indexTable,
-                          std::vector<std::unique_ptr<Asset::HandleData>>& data ) const;
+                          std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) const;
 
     /// NAME
-    void fetchName( const aiMesh& mesh, Asset::HandleData& data,
+    void fetchName( const aiMesh& mesh, Core::Asset::HandleData& data,
                     std::set<std::string>& usedNames ) const;
 
     /// TYPE
-    void fetchType( const aiMesh& mesh, Asset::HandleData& data ) const;
+    void fetchType( const aiMesh& mesh, Core::Asset::HandleData& data ) const;
 
     /// VERTEX SIZE
-    void fetchVertexSize( Asset::HandleData& data ) const;
+    void fetchVertexSize( Core::Asset::HandleData& data ) const;
 };
 
 } // namespace IO
