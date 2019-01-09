@@ -1,6 +1,6 @@
-#include <Core/Geometry/Normal/Normal.hpp>
+#include <Core/Geometry/Normal.hpp>
 
-#include <Core/Geometry/Triangle/TriangleOperation.hpp>
+#include <Core/Geometry/TriangleOperation.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Vector::angle
 #include <Core/Utils/CircularIndex.hpp>
 #include <Core/Utils/Timer.hpp>

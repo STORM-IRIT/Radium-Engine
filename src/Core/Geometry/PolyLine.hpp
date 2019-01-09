@@ -2,7 +2,7 @@
 #define RADIUMENGINE_POLYLINE_HPP_
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/Distance/DistanceQueries.hpp>
+#include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 

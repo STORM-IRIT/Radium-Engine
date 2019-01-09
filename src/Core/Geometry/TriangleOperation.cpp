@@ -1,4 +1,4 @@
-#include <Core/Geometry/Triangle/TriangleOperation.hpp>
+#include <Core/Geometry/TriangleOperation.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Vector::angle
 
 namespace Ra {

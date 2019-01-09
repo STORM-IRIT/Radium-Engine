@@ -1,6 +1,6 @@
 #include <Core/Animation/Skinning/BulgeCorrection.hpp>
 
-#include <Core/Geometry/Distance/DistanceQueries.hpp>
+#include <Core/Geometry/DistanceQueries.hpp>
 
 namespace Ra {
 namespace Core {
@@ -32,8 +32,7 @@ void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& r
 }
 
 void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
-                         const AdjacencyList& graph, const Pose& pose,
-                         BulgeCorrectionData& data ) {
+                         const AdjacencyList& graph, const Pose& pose, BulgeCorrectionData& data ) {
     const uint n = mesh.size();
     data.resize( n );
 #pragma omp parallel for
@@ -48,7 +47,8 @@ void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
         {
             end += pose[c].translation();
         }
-        data.m_prj[i] = start + DistanceQueries::projectOnSegment(mesh[i], start, end - start) * (end - start);
+        data.m_prj[i] =
+            start + Geometry::projectOnSegment( mesh[i], start, end - start ) * ( end - start );
         data.m_dv[i] = ( mesh[i] - data.m_prj[i] ).squaredNorm();
     }
 }
