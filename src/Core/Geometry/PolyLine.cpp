@@ -33,7 +33,7 @@ Scalar PolyLine::squaredDistance( const Vector3& p ) const {
     Scalar sqDist = std::numeric_limits<Scalar>::max();
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
-        sqDist = std::min( DistanceQueries::pointToSegmentSq( p, m_pts[i], m_ptsDiff[i] ), sqDist );
+        sqDist = std::min( Geometry::pointToSegmentSq( p, m_pts[i], m_ptsDiff[i] ), sqDist );
     }
     return sqDist;
 }
@@ -44,8 +44,7 @@ Scalar PolyLine::distance( const Vector3& p ) const {
 
 Scalar PolyLine::projectOnSegment( const Vector3& p, uint segment ) const {
     CORE_ASSERT( segment < m_ptsDiff.size(), "invalid segment index" );
-    const Scalar tSegment =
-        DistanceQueries::projectOnSegment( p, m_pts[segment], m_ptsDiff[segment] );
+    const Scalar tSegment = Geometry::projectOnSegment( p, m_pts[segment], m_ptsDiff[segment] );
     return getLineParameter( segment, tSegment );
 }
 
@@ -60,7 +59,7 @@ Scalar PolyLine::project( const Vector3& p ) const {
 
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
-        Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
+        Scalar proj = Geometry::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
         Scalar d = ( p - ( m_pts[i] + proj * ( m_ptsDiff[i] ) ) ).squaredNorm();
         ds.push_back( d );
         ts.push_back( proj );
@@ -123,7 +122,7 @@ uint PolyLine::getNearestSegment( const Vector3& p ) const {
     uint segment = 0;
     for ( uint i = 0; i < m_ptsDiff.size(); ++i )
     {
-        Scalar proj = DistanceQueries::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
+        Scalar proj = Geometry::projectOnSegment( p, m_pts[i], m_ptsDiff[i] );
         Scalar d = ( p - ( m_pts[i] + proj * ( m_ptsDiff[i] ) ) ).squaredNorm();
         if ( d < sqDist )
         {

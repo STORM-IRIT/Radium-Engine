@@ -1,9 +1,9 @@
 #ifndef HEAT_DIFFUSION
 #define HEAT_DIFFUSION
 
-#include <Core/Containers/VectorArray.hpp>       // VectorArray
-#include <Core/Geometry/Area/Area.hpp>           // Geometry::AreaMatrix
-#include <Core/Geometry/Laplacian/Laplacian.hpp> // Geometry::LaplacianMatrix
+#include <Core/Containers/VectorArray.hpp> // VectorArray
+#include <Core/Geometry/Area.hpp>          // Geometry::AreaMatrix
+#include <Core/Geometry/Laplacian.hpp>     // Geometry::LaplacianMatrix
 #include <Core/RaCore.hpp>
 
 namespace Ra {

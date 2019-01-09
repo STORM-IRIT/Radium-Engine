@@ -5,7 +5,7 @@
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/File/FileData.hpp>
 #include <Core/File/GeometryData.hpp>
-#include <Core/Geometry/Normal/Normal.hpp>
+#include <Core/Geometry/Normal.hpp>
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>

@@ -1,5 +1,5 @@
-#include <Core/Geometry/Area/Area.hpp>
-#include <Core/Geometry/Triangle/TriangleOperation.hpp>
+#include <Core/Geometry/Area.hpp>
+#include <Core/Geometry/TriangleOperation.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Vector::cotan
 #include <Core/Utils/CircularIndex.hpp>
 
@@ -30,8 +30,9 @@ AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3
 void oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T, AreaMatrix& A ) {
     A.resize( p.size(), p.size() );
     A.reserve( p.size() );
+    int size = int( T.size() );
 #pragma omp parallel for
-    for ( int n = 0; n < int( T.size() ); ++n )
+    for ( int n = 0; n < size; ++n )
     {
         const Vector3ui& t = T[n];
         const uint i = t( 0 );
@@ -48,16 +49,17 @@ void oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T
 }
 
 AreaMatrix barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
-    return ( ( 1.0f / 3.0f ) * oneRingArea( p, T ) );
+    return ( ( Scalar( 1. ) / Scalar( 3. ) ) * oneRingArea( p, T ) );
 }
 
 void barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                       AreaMatrix& A ) {
     oneRingArea( p, T, A );
+    int size = int( p.size() );
 #pragma omp parallel for
-    for ( int i = 0; i < int( p.size() ); ++i )
+    for ( int i = 0; i < size; ++i )
     {
-        A.coeffRef( i, i ) /= 3.0;
+        A.coeffRef( i, i ) /= Scalar( 3. );
     }
 }
 
@@ -82,6 +84,9 @@ AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Vector3
 AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
+
+    const Scalar w = ( Scalar( 1. ) / Scalar( 8. ) );
+
     for ( const auto& t : T )
     {
         uint i = t( 0 );
@@ -98,34 +103,35 @@ AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui
             Scalar cotI = Vector::cotan( ij, ( -ki ).eval() );
             Scalar cotJ = Vector::cotan( jk, ( -ij ).eval() );
             Scalar cotK = Vector::cotan( ki, ( -jk ).eval() );
-            A.coeffRef( i, i ) += ( 1.0 / 8.0 ) * ( ( KI * cotJ ) + ( IJ * cotK ) );
-            A.coeffRef( j, j ) += ( 1.0 / 8.0 ) * ( ( IJ * cotK ) + ( JK * cotI ) );
-            A.coeffRef( k, k ) += ( 1.0 / 8.0 ) * ( ( JK * cotI ) + ( KI * cotJ ) );
+            A.coeffRef( i, i ) += w * ( ( KI * cotJ ) + ( IJ * cotK ) );
+            A.coeffRef( j, j ) += w * ( ( IJ * cotK ) + ( JK * cotI ) );
+            A.coeffRef( k, k ) += w * ( ( JK * cotI ) + ( KI * cotJ ) );
 
         } else
         {
             Scalar area = triangleArea( p[i], p[j], p[k] );
-            if ( ( ( ( p[j] - p[i] ).normalized() ).dot( ( p[k] - p[i] ).normalized() ) ) < 0.0 )
+            if ( ( ( ( p[j] - p[i] ).normalized() ).dot( ( p[k] - p[i] ).normalized() ) ) <
+                 Scalar( 0. ) )
             {
                 /* obtuse at i */
-                A.coeffRef( i, i ) += area / 2.0;
-                A.coeffRef( j, j ) += area / 4.0;
-                A.coeffRef( k, k ) += area / 4.0;
+                A.coeffRef( i, i ) += area / Scalar( 2. );
+                A.coeffRef( j, j ) += area / Scalar( 4. );
+                A.coeffRef( k, k ) += area / Scalar( 4. );
             } else
             {
                 if ( ( ( ( p[k] - p[j] ).normalized() ).dot( ( p[i] - p[j] ).normalized() ) ) <
-                     0.0 )
+                     Scalar( 0.0 ) )
                 {
                     /* obtuse at j */
-                    A.coeffRef( i, i ) += area / 4.0;
-                    A.coeffRef( j, j ) += area / 2.0;
-                    A.coeffRef( k, k ) += area / 4.0;
+                    A.coeffRef( i, i ) += area / Scalar( 4. );
+                    A.coeffRef( j, j ) += area / Scalar( 2. );
+                    A.coeffRef( k, k ) += area / Scalar( 4. );
                 } else
                 {
                     /* obtuse at k */
-                    A.coeffRef( i, i ) += area / 4.0;
-                    A.coeffRef( j, j ) += area / 4.0;
-                    A.coeffRef( k, k ) += area / 2.0;
+                    A.coeffRef( i, i ) += area / Scalar( 4. );
+                    A.coeffRef( j, j ) += area / Scalar( 4. );
+                    A.coeffRef( k, k ) += area / Scalar( 2. );
                 }
             }
         }
@@ -151,7 +157,7 @@ Scalar oneRingArea( const Vector3& v, const VectorArray<Vector3>& p ) {
 }
 
 Scalar barycentricArea( const Vector3& v, const VectorArray<Vector3>& p ) {
-    return ( oneRingArea( v, p ) / 3.0 );
+    return ( oneRingArea( v, p ) / Scalar( 3. ) );
 }
 
 Scalar voronoiArea( const Vector3& v, const VectorArray<Vector3>& p ) {
@@ -166,7 +172,7 @@ Scalar voronoiArea( const Vector3& v, const VectorArray<Vector3>& p ) {
         Scalar cot_b = Vector::cotan( ( v - p[i + 1] ), ( p[i] - p[i + 1] ) );
         area += ( cot_a + cot_b ) * ( v - p[i] ).squaredNorm();
     }
-    return ( ( 1.0 / 8.0 ) * area );
+    return ( ( Scalar( 1. ) / Scalar( 8. ) ) * area );
 }
 
 Scalar mixedArea( const Vector3& v, const VectorArray<Vector3>& p ) {
@@ -184,14 +190,15 @@ Scalar mixedArea( const Vector3& v, const VectorArray<Vector3>& p ) {
             Scalar PR = ( p[i - 1] - v ).squaredNorm();
             Scalar cotQ = Vector::cotan( ( p[i - 1] - p[i] ), ( v - p[i] ) );
             Scalar cotR = Vector::cotan( ( v - p[i - 1] ), ( p[i] - p[i - 1] ) );
-            area += ( 1.0 / 8.0 ) * ( ( PR * cotQ ) + ( PQ * cotR ) );
+            area += Scalar( 1. ) / Scalar( 8. ) * ( ( PR * cotQ ) + ( PQ * cotR ) );
         } else
         {
-            if ( ( ( ( p[i] - v ).normalized() ).dot( ( p[i - 1] - v ).normalized() ) ) < 0.0 )
+            if ( ( ( ( p[i] - v ).normalized() ).dot( ( p[i - 1] - v ).normalized() ) ) <
+                 Scalar( 0. ) )
             {
-                area += triangleArea( v, p[i], p[i - 1] ) / 2.0;
+                area += triangleArea( v, p[i], p[i - 1] ) / Scalar( 2. );
             } else
-            { area += triangleArea( v, p[i], p[i - 1] ) / 4.0; }
+            { area += triangleArea( v, p[i], p[i - 1] ) / Scalar( 4. ); }
         }
     }
     return area;

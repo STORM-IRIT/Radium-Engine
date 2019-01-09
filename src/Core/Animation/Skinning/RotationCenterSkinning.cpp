@@ -8,7 +8,7 @@
 #include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
 #include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
-#include <Core/Geometry/Triangle/TriangleOperation.hpp> // triangleArea
+#include <Core/Geometry/TriangleOperation.hpp> // triangleArea
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
