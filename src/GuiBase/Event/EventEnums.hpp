@@ -1,10 +1,8 @@
 #ifndef RADIUMENGINE_EVENTENUMS_HPP
 #define RADIUMENGINE_EVENTENUMS_HPP
 
-#include <Core/RaCore.hpp>
-
 namespace Ra {
-namespace Core {
+namespace GuiBase {
 
 namespace Modifier {
 enum Modifier { RA_EMPTY = 0x1, RA_CTRL_KEY = 0x2, RA_SHIFT_KEY = 0x4, RA_ALT_KEY = 0x8 };
@@ -30,7 +28,7 @@ enum MouseButton {
     RA_MOUSE_RIGHT_BUTTON = 0x4
 };
 }
-} // namespace Core
+} // namespace GuiBase
 } // namespace Ra
 
 #endif // RADIUMENGINE_EVENTENUMS_HPP

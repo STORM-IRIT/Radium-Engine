@@ -13,10 +13,10 @@
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
-namespace Core {
+namespace GuiBase {
 struct MouseEvent;
 struct KeyEvent;
-} // namespace Core
+} // namespace GuiBase
 } // namespace Ra
 
 namespace Ra {
