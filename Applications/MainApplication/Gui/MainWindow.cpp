@@ -2,7 +2,6 @@
 #include <MainApplication.hpp>
 
 #include <Core/File/FileLoaderInterface.hpp>
-#include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -18,6 +17,7 @@
 #include <GuiBase/Utils/qt_utils.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+#include <IO/deprecated/OBJFileManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #include <QComboBox>
@@ -507,7 +507,7 @@ void MainWindow::exportCurrentMesh() {
     // There could be a virtual method to get a mesh representation for any object.
     if ( e.isRoNode() )
     {
-        Ra::Core::OBJFileManager obj;
+        Ra::IO::OBJFileManager obj;
         auto ro = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
             e.m_roIndex );
         Ra::Core::Geometry::TriangleMesh mesh = ro->getMesh()->getGeometry();
@@ -540,7 +540,10 @@ void MainWindow::deleteCurrentItem() {
     {
         e.m_entity->removeComponent( e.m_component->getName() );
     } else if ( e.isEntityNode() )
-    { Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity( e.m_entity->getIndex() ); }
+    {
+        Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity(
+            e.m_entity->getIndex() );
+    }
 }
 
 void MainWindow::resetScene() {

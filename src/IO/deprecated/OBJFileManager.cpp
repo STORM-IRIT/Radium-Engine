@@ -1,7 +1,10 @@
-#include <Core/File/deprecated/OBJFileManager.hpp>
+#include <IO/deprecated/OBJFileManager.hpp>
 
 namespace Ra {
-namespace Core {
+
+using namespace Core;
+
+namespace IO {
 
 /// ===============================================================================
 /// CONSTRUCTOR
@@ -114,5 +117,5 @@ bool OBJFileManager::exportData( std::ostream& file, const Geometry::TriangleMes
     return true;
 }
 
-} // namespace Core
+} // namespace IO
 } // namespace Ra

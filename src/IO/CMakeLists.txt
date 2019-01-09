@@ -2,9 +2,14 @@ set( RADIUM_IO_IS_INTERFACE TRUE )
 
 set(io_target radiumIO)
 
-file(GLOB io_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-file(GLOB io_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
-file(GLOB io_inlines ${CMAKE_CURRENT_SOURCE_DIR}/*.inl)
+file(GLOB io_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.cpp)
+file(GLOB io_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h
+                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.h
+                     ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
+                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.hpp)
+file(GLOB io_inlines ${CMAKE_CURRENT_SOURCE_DIR}/*.inl
+                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.inl)
 
 set(io_libs radiumCore radiumEngine)
 

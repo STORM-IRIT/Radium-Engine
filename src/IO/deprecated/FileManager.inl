@@ -1,7 +1,7 @@
-#include <Core/File/deprecated/FileManager.hpp>
+#include <IO/deprecated/FileManager.hpp>
 
 namespace Ra {
-namespace Core {
+namespace IO {
 
 //////////////////////////////////////////////////////////////////////////////
 // CONSTRUCTOR
@@ -155,5 +155,5 @@ inline void FileManager<DATA, Binary>::saveLog( const std::string& filename ) {
     file.close();
 }
 
-} // namespace Core
+} // namespace IO
 } // namespace Ra
