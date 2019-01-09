@@ -7,10 +7,11 @@
 #include <Core/Containers/AlignedAllocator.hpp>
 #include <Core/Math/Types.hpp>
 
-#include <Core/File/KeyFrame/AnimationTime.hpp>
+#include <Core/Animation/AnimationTime.hpp>
 
 namespace Ra {
-namespace Asset {
+namespace Core {
+namespace Animation {
 
 template <class FRAME>
 class KeyFrame {
@@ -164,7 +165,8 @@ class KeyFrame {
         m_keyframe;
 };
 
-} // namespace Asset
+} // namespace Animation
+} // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEY_FRAME_HPP

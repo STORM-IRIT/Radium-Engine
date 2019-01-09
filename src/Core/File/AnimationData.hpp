@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
+#include <Core/Animation/AnimationTime.hpp>
+#include <Core/Animation/KeyTransform.hpp>
 #include <Core/File/AssetData.hpp>
-#include <Core/File/KeyFrame/AnimationTime.hpp>
-#include <Core/File/KeyFrame/KeyTransform.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
@@ -16,7 +16,7 @@ struct RA_CORE_API HandleAnimation {
     HandleAnimation( const std::string& name = "" );
 
     std::string m_name;
-    KeyTransform m_anim;
+    Core::Animation::KeyTransform m_anim;
 };
 
 class RA_CORE_API AnimationData : public AssetData {
@@ -30,10 +30,10 @@ class RA_CORE_API AnimationData : public AssetData {
     inline void setName( const std::string& name );
 
     /// TIME
-    inline const AnimationTime& getTime() const;
-    inline void setTime( const AnimationTime& time );
-    inline Time getTimeStep() const;
-    inline void setTimeStep( const Time& delta );
+    inline const Core::Animation::AnimationTime& getTime() const;
+    inline void setTime( const Core::Animation::AnimationTime& time );
+    inline Core::Animation::Time getTimeStep() const;
+    inline void setTimeStep( const Core::Animation::Time& delta );
 
     /// KEY FRAME
     inline uint getFramesSize() const;
@@ -45,8 +45,8 @@ class RA_CORE_API AnimationData : public AssetData {
 
   protected:
     /// VARIABLE
-    AnimationTime m_time;
-    Time m_dt;
+    Core::Animation::AnimationTime m_time;
+    Core::Animation::Time m_dt;
     std::vector<HandleAnimation> m_keyFrame;
 };
 

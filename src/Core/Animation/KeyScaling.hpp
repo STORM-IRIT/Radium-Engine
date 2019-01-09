@@ -1,11 +1,12 @@
 #ifndef RADIUMENGINE_KEY_SCALING_HPP
 #define RADIUMENGINE_KEY_SCALING_HPP
 
-#include <Core/File/KeyFrame/Interpolation.hpp>
-#include <Core/File/KeyFrame/KeyFrame.hpp>
+#include <Core/Animation/Interpolation.hpp>
+#include <Core/Animation/KeyFrame.hpp>
 
 namespace Ra {
-namespace Asset {
+namespace Core {
+namespace Animation {
 
 class KeyScaling : public KeyFrame<Core::Vector3> {
   public:
@@ -23,12 +24,13 @@ class KeyScaling : public KeyFrame<Core::Vector3> {
     inline Core::Vector3 interpolate( const Core::Vector3& F0, const Core::Vector3& F1,
                                       const Scalar t ) const override {
         Core::Vector3 result;
-        Core::interpolate( F0, F1, t, result );
+        Core::Animation::interpolate( F0, F1, t, result );
         return result;
     }
 };
 
-} // namespace Asset
+} // namespace Animation
+} // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEY_SCALING_HPP
