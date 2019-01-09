@@ -1,11 +1,12 @@
 #ifndef RADIUMENGINE_KEY_TRANSFORM_HPP
 #define RADIUMENGINE_KEY_TRANSFORM_HPP
 
-#include <Core/File/KeyFrame/Interpolation.hpp>
-#include <Core/File/KeyFrame/KeyFrame.hpp>
+#include <Core/Animation/Interpolation.hpp>
+#include <Core/Animation/KeyFrame.hpp>
 
 namespace Ra {
-namespace Asset {
+namespace Core {
+namespace Animation {
 
 class KeyTransform : public KeyFrame<Core::Transform> {
   public:
@@ -24,12 +25,13 @@ class KeyTransform : public KeyFrame<Core::Transform> {
     inline Core::Transform interpolate( const Core::Transform& F0, const Core::Transform& F1,
                                         const Scalar t ) const override {
         Core::Transform result;
-        Core::interpolate( F0, F1, t, result );
+        Core::Animation::interpolate( F0, F1, t, result );
         return result;
     }
 };
 
-} // namespace Asset
+} // namespace Animation
+} // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEY_TRANSFORM_HPP

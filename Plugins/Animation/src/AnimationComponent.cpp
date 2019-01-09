@@ -5,11 +5,11 @@
 #include <queue>
 
 #include <Core/Animation/Handle/HandleWeightOperation.hpp>
+#include <Core/Animation/KeyPose.hpp>
+#include <Core/Animation/KeyTransform.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/File/HandleToSkeleton.hpp>
-#include <Core/File/KeyFrame/KeyPose.hpp>
-#include <Core/File/KeyFrame/KeyTransform.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -173,7 +173,7 @@ void AnimationComponent::handleAnimationLoading(
     if ( data.empty() )
         return;
     std::map<uint, uint> table;
-    std::set<Ra::Asset::Time> keyTime;
+    std::set<Ra::Core::Animation::Time> keyTime;
 
     for ( uint n = 0; n < data.size(); ++n )
     {
@@ -191,7 +191,7 @@ void AnimationComponent::handleAnimationLoading(
             }
         }
 
-        Ra::Asset::KeyPose keypose;
+        Ra::Core::Animation::KeyPose keypose;
         Ra::Core::Animation::Pose pose = m_skel.m_pose;
 
         m_animations.push_back( Ra::Core::Animation::Animation() );

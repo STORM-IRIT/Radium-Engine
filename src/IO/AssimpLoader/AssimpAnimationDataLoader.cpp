@@ -4,10 +4,10 @@
 #include <assimp/scene.h>
 #include <set>
 
+#include <Core/Animation/KeyRotation.hpp>
+#include <Core/Animation/KeyScaling.hpp>
+#include <Core/Animation/KeyTranslation.hpp>
 #include <Core/File/AnimationData.hpp>
-#include <Core/File/KeyFrame/KeyRotation.hpp>
-#include <Core/File/KeyFrame/KeyScaling.hpp>
-#include <Core/File/KeyFrame/KeyTranslation.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
@@ -16,6 +16,7 @@ namespace Ra {
 namespace IO {
 
 using namespace Core::Utils; // log
+using namespace Core::Animation;
 
 /// CONSTRUCTOR
 AssimpAnimationDataLoader::AssimpAnimationDataLoader( const bool VERBOSE_MODE ) :
@@ -80,8 +81,8 @@ void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim,
     const auto tick = Scalar( anim->mTicksPerSecond );
     const auto duration = Scalar( anim->mDuration );
 
-    Asset::AnimationTime time;
-    Asset::Time dt;
+    AnimationTime time;
+    Time dt;
     time.setStart( 0.0 );
     if ( tick == Scalar( 0 ) )
     {
@@ -119,7 +120,7 @@ void AssimpAnimationDataLoader::loadAnimationData(
 void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
                                                 Asset::AnimationData* data ) const {
     const uint size = anim->mNumChannels;
-    Asset::AnimationTime time = data->getTime();
+    AnimationTime time = data->getTime();
     std::vector<Asset::HandleAnimation> keyFrame( size );
     for ( uint i = 0; i < size; ++i )
     {
@@ -132,17 +133,17 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
 
 void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
                                                       Asset::HandleAnimation& data,
-                                                      const Asset::Time dt ) const {
+                                                      const Time dt ) const {
     const uint T_size = node->mNumPositionKeys;
     const uint R_size = node->mNumRotationKeys;
     const uint S_size = node->mNumScalingKeys;
 
-    Asset::KeyTranslation tr;
-    Asset::KeyRotation rot;
-    Asset::KeyScaling s;
+    KeyTranslation tr;
+    KeyRotation rot;
+    KeyScaling s;
 
     data.m_anim.reset();
-    std::set<Asset::Time> keyFrame;
+    std::set<Time> keyFrame;
 
     for ( uint i = 0; i < T_size; ++i )
     {
@@ -169,7 +170,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
     }
 
     data.m_name = assimpToCore( node->mNodeName );
-    data.m_anim.setAnimationTime( Asset::AnimationTime( *keyFrame.begin(), *keyFrame.rbegin() ) );
+    data.m_anim.setAnimationTime( AnimationTime( *keyFrame.begin(), *keyFrame.rbegin() ) );
     for ( const auto& time : keyFrame )
     {
         Core::Transform T;

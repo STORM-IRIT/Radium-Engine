@@ -11,19 +11,19 @@ inline void AnimationData::setName( const std::string& name ) {
 }
 
 /// TIME
-inline const AnimationTime& AnimationData::getTime() const {
+inline const Core::Animation::AnimationTime& AnimationData::getTime() const {
     return m_time;
 }
 
-inline void AnimationData::setTime( const AnimationTime& time ) {
+inline void AnimationData::setTime( const Core::Animation::AnimationTime& time ) {
     m_time = time;
 }
 
-inline Time AnimationData::getTimeStep() const {
+inline Core::Animation::Time AnimationData::getTimeStep() const {
     return m_dt;
 }
 
-inline void AnimationData::setTimeStep( const Time& delta ) {
+inline void AnimationData::setTimeStep( const Core::Animation::Time& delta ) {
     m_dt = delta;
 }
 
