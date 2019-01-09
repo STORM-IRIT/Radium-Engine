@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 /**
  * This class implements the Loop subdivision algorithm
@@ -15,9 +16,8 @@ namespace Core {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API LoopSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<Geometry::TopologicalMesh, Scalar> {
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
 
-    using TopologicalMesh = Geometry::TopologicalMesh;
     using base = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
     using Weight = std::pair<Scalar, Scalar>;
     using Weights = std::vector<Weight>;
@@ -140,6 +140,7 @@ class RA_CORE_API LoopSubdivider
     OpenMesh::HPropHandleT<TopologicalMesh::VertexHandle> m_hV;
 };
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 

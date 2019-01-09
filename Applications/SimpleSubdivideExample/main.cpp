@@ -1,6 +1,6 @@
-#include <Core/Algorithm/Subdivision/CatmullClarkSubdivider.hpp>
-#include <Core/Algorithm/Subdivision/LoopSubdivider.hpp>
 #include <Core/File/deprecated/OBJFileManager.hpp>
+#include <Core/Geometry/CatmullClarkSubdivider.hpp>
+#include <Core/Geometry/LoopSubdivider.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Utils/Log.hpp>
@@ -70,10 +70,10 @@ args processArgs( int argc, char* argv[] ) {
                 subdividerSet = true;
                 if ( a == std::string( "catmull" ) )
                 {
-                    ret.subdivider = std::make_unique<Ra::Core::CatmullClarkSubdivider>();
+                    ret.subdivider = std::make_unique<Ra::Core::Geometry::CatmullClarkSubdivider>();
                 } else if ( a == std::string( "loop" ) )
                 {
-                    ret.subdivider = std::make_unique<Ra::Core::LoopSubdivider>();
+                    ret.subdivider = std::make_unique<Ra::Core::Geometry::LoopSubdivider>();
                 } else
                 { subdividerSet = false; }
             }
