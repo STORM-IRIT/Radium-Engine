@@ -5,10 +5,11 @@
 
 namespace Ra {
 namespace Core {
+namespace Animation {
 
 inline void interpolate( const Core::Vector3& v0, const Core::Vector3& v1, const Scalar t,
                          Core::Vector3& result ) {
-    result = ( ( ( 1.0 - t ) * v0 ) + ( t * v1 ) );
+    result = ( ( ( Scalar( 1. ) - t ) * v0 ) + ( t * v1 ) );
 }
 
 inline void interpolate( const Core::Quaternion& q0, const Core::Quaternion& q1, const Scalar t,
@@ -26,6 +27,7 @@ inline void interpolate( const Core::Transform& T0, const Core::Transform& T1, c
     result.translation() = tr;
 }
 
+} // namespace Animation
 } // namespace Core
 } // namespace Ra
 

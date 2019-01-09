@@ -6,7 +6,8 @@
 #include <limits>
 
 namespace Ra {
-namespace Asset {
+namespace Core {
+namespace Animation {
 
 using Time = Scalar;
 
@@ -80,7 +81,8 @@ class AnimationTime {
     Time m_end;
 };
 
-} // namespace Asset
+} // namespace Animation
+} // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_ANIMATION_TIME_HPP

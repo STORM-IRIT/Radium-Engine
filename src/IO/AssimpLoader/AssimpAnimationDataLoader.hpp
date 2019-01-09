@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 
+#include <Core/Animation/AnimationTime.hpp> // Asset::Time
 #include <Core/File/DataLoader.hpp>
-#include <Core/File/KeyFrame/AnimationTime.hpp> // Asset::Time
 #include <IO/RaIO.hpp>
 
 struct aiScene;
@@ -47,7 +47,7 @@ class RA_IO_API AssimpAnimationDataLoader : public Asset::DataLoader<Asset::Anim
                             std::vector<std::unique_ptr<Asset::AnimationData>>& data ) const;
     void fetchAnimation( const aiAnimation* anim, Asset::AnimationData* data ) const;
     void fetchHandleAnimation( aiNodeAnim* node, Asset::HandleAnimation& data,
-                               const Asset::Time dt ) const;
+                               const Core::Animation::Time dt ) const;
 };
 
 } // namespace IO
