@@ -1,7 +1,8 @@
-#include <Core/Algorithm/Subdivision/LoopSubdivider.hpp>
+#include <Core/Geometry/LoopSubdivider.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_vpPos );
@@ -103,8 +104,8 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
     return true;
 }
 
-void LoopSubdivider::split_face(TopologicalMesh &mesh, const TopologicalMesh::FaceHandle &fh,
-                                size_t iter) {
+void LoopSubdivider::split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh,
+                                 size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     // get where to cut
     HeHandle heh1( mesh.halfedge_handle( fh ) );
@@ -117,8 +118,8 @@ void LoopSubdivider::split_face(TopologicalMesh &mesh, const TopologicalMesh::Fa
     corner_cutting( mesh, heh3, iter );
 }
 
-void LoopSubdivider::corner_cutting(TopologicalMesh &mesh,
-                                    const TopologicalMesh::HalfedgeHandle &he, size_t iter) {
+void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
+                                     const TopologicalMesh::HalfedgeHandle& he, size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     using VHandle = TopologicalMesh::VertexHandle;
     using FHandle = TopologicalMesh::FaceHandle;
@@ -183,8 +184,8 @@ void LoopSubdivider::corner_cutting(TopologicalMesh &mesh,
     m_newFacePropOps[iter].push_back( {heh3, {{1, heh5}}} );
 }
 
-void LoopSubdivider::split_edge(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh,
-                                size_t iter) {
+void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
+                                 size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     using VHandle = TopologicalMesh::VertexHandle;
 
@@ -254,8 +255,8 @@ void LoopSubdivider::split_edge(TopologicalMesh &mesh, const TopologicalMesh::Ed
     mesh.adjust_outgoing_halfedge( vh1 );
 }
 
-void LoopSubdivider::compute_midpoint(TopologicalMesh &mesh, const TopologicalMesh::EdgeHandle &eh,
-                                      size_t iter) {
+void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
+                                       size_t iter ) {
     TopologicalMesh::HalfedgeHandle heh = mesh.halfedge_handle( eh, 0 );
     TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
 
@@ -292,8 +293,8 @@ void LoopSubdivider::compute_midpoint(TopologicalMesh &mesh, const TopologicalMe
     }
 }
 
-void LoopSubdivider::smooth(TopologicalMesh &mesh, const TopologicalMesh::VertexHandle &vh,
-                            size_t iter) {
+void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh,
+                             size_t iter ) {
     using VHandle = TopologicalMesh::VertexHandle;
 
     TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
@@ -350,8 +351,7 @@ void LoopSubdivider::smooth(TopologicalMesh &mesh, const TopologicalMesh::Vertex
 
 void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
                                 const Vector3Array& newCoarseNormals,
-                                Vector3Array& newSubdivVertices,
-                                Vector3Array& newSubdivNormals,
+                                Vector3Array& newSubdivVertices, Vector3Array& newSubdivNormals,
                                 TopologicalMesh& mesh ) {
     // update vertices
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
@@ -444,5 +444,6 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
     }
 }
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

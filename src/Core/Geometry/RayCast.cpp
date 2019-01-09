@@ -1,10 +1,11 @@
-#include "RayCast.hpp"
+#include <Core/Geometry/RayCast.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // Math::sign
 
 namespace Ra {
 namespace Core {
 // useful : http://www.realtimerendering.com/intersections.html
-namespace Algorithm {
+namespace Geometry {
 /// Intersect a ray with an axis-aligned bounding box.
 bool RayCastAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3& normalOut ) {
     // Based on optimized Woo version (ray vs 3 slabs)
@@ -365,8 +366,8 @@ bool RayCastTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const V
     return ( t >= 0 );
 }
 
-bool RayCastTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh,
-                          std::vector<Scalar>& hitsOut, std::vector<Vector3ui>& trianglesIdxOut ) {
+bool RayCastTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>& hitsOut,
+                          std::vector<Vector3ui>& trianglesIdxOut ) {
     bool hit = false;
     for ( size_t i = 0; i < mesh.m_triangles.size(); ++i )
     {
@@ -383,6 +384,6 @@ bool RayCastTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh,
 
     return hit;
 }
-} // namespace Algorithm
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

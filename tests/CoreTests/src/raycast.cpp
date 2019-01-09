@@ -1,4 +1,4 @@
-#include <Core/Algorithm/RayCast.hpp>
+#include <Core/Geometry/RayCast.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Tests.hpp>
 
@@ -30,7 +30,7 @@ void run() {
 
                         Scalar t = 0.f;
                         Ra::Core::Vector3 n = Ra::Core::Vector3::Zero();
-                        const bool result = Ra::Core::Algorithm::RayCastAabb( r, ones, t, n );
+                        const bool result = Ra::Core::Geometry::RayCastAabb( r, ones, t, n );
 
                         if ( std::abs( p ) <= 5 && std::abs( q ) <= 5 )
                         {
@@ -49,7 +49,7 @@ void run() {
 
                         Scalar t;
                         Ra::Core::Vector3 n;
-                        const bool result = Ra::Core::Algorithm::RayCastAabb( r, ones, t, n );
+                        const bool result = Ra::Core::Geometry::RayCastAabb( r, ones, t, n );
 
                         RA_VERIFY( !result, "The ray should have missed (t<0)" );
                     }
@@ -61,7 +61,7 @@ void run() {
 
                         Scalar t;
                         Ra::Core::Vector3 n{0, 0, 0};
-                        const bool result = Ra::Core::Algorithm::RayCastAabb( r, ones, t, n );
+                        const bool result = Ra::Core::Geometry::RayCastAabb( r, ones, t, n );
 
                         RA_VERIFY( result, "The ray should have hit (inside hit)" );
                         RA_VERIFY( t == 0, "Hit should be at origin" );
