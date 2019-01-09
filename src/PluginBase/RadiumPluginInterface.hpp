@@ -28,9 +28,11 @@ namespace Engine {
 class Renderer;
 }
 
+namespace Core {
 namespace Asset {
 class FileLoaderInterface;
 }
+} // namespace Core
 
 /// Data passed to the plugin constructor.
 struct PluginContext {
@@ -48,8 +50,8 @@ class RadiumPluginInterface {
 
     /**
      * @brief Pass arguments for plugin initialization.
-     * This method must create and register all the services that the plugin wants to offer : system, renderers,
-     * materials, Ui ...
+     * This method must create and register all the services that the plugin wants to offer :
+     * system, renderers, materials, Ui ...
      *
      * @param context : plugin context containing the engine and UI interfaces.
      */
@@ -127,7 +129,7 @@ class RadiumPluginInterface {
      * @param fl The set of file loader to add
      */
     virtual void
-    addFileLoaders( std::vector<std::shared_ptr<Asset::FileLoaderInterface>>* fl ) {}
+    addFileLoaders( std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>* fl ) {}
 
     /**
      * @brief openGlInitialize
@@ -152,7 +154,8 @@ class RadiumPluginInterface {
     virtual void openGlInitialize( const PluginContext& context ) {}
 
     /**
-     * Tells if the plugin offer OpenGL based services that need to be initialized after the OpenGL context is created.
+     * Tells if the plugin offer OpenGL based services that need to be initialized after the OpenGL
+     * context is created.
      * @return true if plugin offers OppenGL services
      */
     virtual bool doAddROpenGLInitializer() { return false; }

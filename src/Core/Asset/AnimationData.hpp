@@ -6,10 +6,11 @@
 
 #include <Core/Animation/AnimationTime.hpp>
 #include <Core/Animation/KeyTransform.hpp>
-#include <Core/File/AssetData.hpp>
+#include <Core/Asset/AssetData.hpp>
 #include <Core/RaCore.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 struct RA_CORE_API HandleAnimation {
@@ -51,8 +52,9 @@ class RA_CORE_API AnimationData : public AssetData {
 };
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
-#include <Core/File/AnimationData.inl>
+#include <Core/Asset/AnimationData.inl>
 
 #endif // RADIUMENGINE_ANIMATION_DATA_HPP

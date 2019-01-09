@@ -2,7 +2,7 @@
 
 #include <assimp/scene.h>
 
-#include <Core/File/CameraData.hpp>
+#include <Core/Asset/CameraData.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
@@ -11,15 +11,16 @@ namespace Ra {
 namespace IO {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset; // log
 
 AssimpCameraDataLoader::AssimpCameraDataLoader( const std::string& filepath,
                                                 const bool VERBOSE_MODE ) :
-    DataLoader<Asset::CameraData>( VERBOSE_MODE ) {}
+    DataLoader<CameraData>( VERBOSE_MODE ) {}
 
 AssimpCameraDataLoader::~AssimpCameraDataLoader() = default;
 
 void AssimpCameraDataLoader::loadData( const aiScene* scene,
-                                       std::vector<std::unique_ptr<Asset::CameraData>>& data ) {
+                                       std::vector<std::unique_ptr<CameraData>>& data ) {
     data.clear();
 
     if ( scene == nullptr )
@@ -44,9 +45,9 @@ void AssimpCameraDataLoader::loadData( const aiScene* scene,
     data.reserve( CameraSize );
     for ( uint CameraId = 0; CameraId < CameraSize; ++CameraId )
     {
-        Asset::CameraData* Camera = new Asset::CameraData();
+        CameraData* Camera = new CameraData();
         loadCameraData( scene, *( scene->mCameras[CameraId] ), *Camera );
-        data.push_back( std::unique_ptr<Asset::CameraData>( Camera ) );
+        data.push_back( std::unique_ptr<CameraData>( Camera ) );
     }
 
     if ( m_verbose )
@@ -64,7 +65,7 @@ uint AssimpCameraDataLoader::sceneCameraSize( const aiScene* scene ) const {
 }
 
 void AssimpCameraDataLoader::loadCameraData( const aiScene* scene, const aiCamera& camera,
-                                             Asset::CameraData& data ) {
+                                             CameraData& data ) {
     fetchName( camera, data );
 
     Core::Matrix4 rootMatrix;
@@ -81,7 +82,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene, const aiCamer
     view.block<3, 1>( 0, 3 ) = pos;
     data.setFrame( view * frame );
 
-    data.setType( Asset::CameraData::PERSPECTIVE ); // default value since not in aiCamera
+    data.setType( CameraData::PERSPECTIVE ); // default value since not in aiCamera
     data.setFov( camera.mHorizontalFOV );
     data.setZNear( camera.mClipPlaneNear );
     data.setZFar( camera.mClipPlaneFar );
@@ -91,7 +92,7 @@ void AssimpCameraDataLoader::loadCameraData( const aiScene* scene, const aiCamer
 
 Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
                                                        const Core::Matrix4& parentFrame,
-                                                       Asset::CameraData& data ) const {
+                                                       CameraData& data ) const {
     const aiNode* CameraNode = scene->mRootNode->FindNode( data.getName().c_str() );
 
     if ( CameraNode != nullptr )
@@ -106,7 +107,7 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
     { return parentFrame; }
 }
 
-void AssimpCameraDataLoader::fetchName( const aiCamera& camera, Asset::CameraData& data ) const {
+void AssimpCameraDataLoader::fetchName( const aiCamera& camera, CameraData& data ) const {
     std::string name = assimpToCore( camera.mName );
     data.setName( name );
 }

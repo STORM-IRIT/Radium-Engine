@@ -1,6 +1,6 @@
 #include <IO/AssimpLoader/AssimpFileLoader.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
 #include <assimp/postprocess.h>
@@ -17,6 +17,7 @@ namespace Ra {
 namespace IO {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset;
 
 AssimpFileLoader::AssimpFileLoader() = default;
 
@@ -42,8 +43,8 @@ bool AssimpFileLoader::handleFileExtension( const std::string& extension ) const
     return m_importer.IsExtensionSupported( extension );
 }
 
-Asset::FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
-    auto fileData = new Asset::FileData( filename );
+FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
+    auto fileData = new FileData( filename );
 
     if ( !fileData->isInitialized() )
     {

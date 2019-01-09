@@ -1,4 +1,4 @@
-#include <Core/File/GeometryData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
@@ -7,6 +7,7 @@
 #include <iterator>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 inline void GeometryData::setName( const std::string& name ) {
@@ -355,4 +356,5 @@ inline void GeometryData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

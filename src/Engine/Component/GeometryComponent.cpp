@@ -2,9 +2,9 @@
 
 #include <iostream>
 
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/File/FileData.hpp>
-#include <Core/File/GeometryData.hpp>
 #include <Core/Geometry/Normal.hpp>
 #include <Core/Utils/Color.hpp>
 
@@ -50,7 +50,7 @@ void GeometryComponent::addMeshRenderObject( const Ra::Core::Geometry::TriangleM
     m_meshIndex = addRenderObject( renderObject );
 }
 
-void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data ) {
+void GeometryComponent::handleMeshLoading( const Ra::Core::Asset::GeometryData* data ) {
     std::string name( m_name );
     name.append( "_" + data->getName() );
 
@@ -128,7 +128,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Asset::GeometryData* data )
     bool isTransparent{false};
     if ( data->hasMaterial() )
     {
-        const Ra::Asset::MaterialData& loadedMaterial = data->getMaterial();
+        const Ra::Core::Asset::MaterialData& loadedMaterial = data->getMaterial();
 
         // First extract the material from asset
         auto converter = EngineMaterialConverters::getMaterialConverter( loadedMaterial.getType() );

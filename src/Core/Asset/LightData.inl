@@ -1,7 +1,8 @@
-#include <Core/File/LightData.hpp>
+#include <Core/Asset/LightData.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /////////////////////
@@ -118,4 +119,5 @@ inline void LightData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

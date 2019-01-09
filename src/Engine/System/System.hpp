@@ -9,6 +9,9 @@
 namespace Ra {
 namespace Core {
 class TaskQueue;
+namespace Asset {
+class FileData;
+}
 } // namespace Core
 
 namespace Engine {
@@ -17,12 +20,6 @@ class Component;
 class Entity;
 } // namespace Engine
 
-namespace Asset {
-class FileData;
-}
-} // namespace Ra
-
-namespace Ra {
 namespace Engine {
 
 /** Systems are responsible of updating a specific subset of the components of each entity.
@@ -46,7 +43,7 @@ class RA_ENGINE_API System {
      * outside the m_components vectors (e.g in a buffer on the GPU) the methods, the
      * registerComponent and unregister*Component must be virtual method that could be overriden.
      */
-    virtual void handleAssetLoading( Entity* entity, const Asset::FileData* data ) {}
+    virtual void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) {}
 
     /**
      * @brief Pure virtual method to be overridden by any system.

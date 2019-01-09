@@ -4,10 +4,10 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
-#include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 
-#include <Core/File/BlinnPhongMaterialData.hpp>
+#include <Core/Asset/BlinnPhongMaterialData.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -50,12 +50,12 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     shader->setUniform( "material.kd", m_kd );
     shader->setUniform( "material.ks", m_ks );
     shader->setUniform( "material.ns", m_ns );
-    shader->setUniform( "material.alpha", std::min( m_alpha, m_kd[3]) );
+    shader->setUniform( "material.alpha", std::min( m_alpha, m_kd[3] ) );
 
     Texture* tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE );
     if ( tex != nullptr )
     {
-        shader->setUniformTexture( "material.tex.kd", tex);
+        shader->setUniformTexture( "material.tex.kd", tex );
         shader->setUniform( "material.tex.hasKd", 1 );
     } else
     { shader->setUniform( "material.tex.hasKd", 0 ); }
@@ -94,7 +94,7 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
 }
 
 bool BlinnPhongMaterial::isTransparent() const {
-    return ( m_alpha < 1.0 ) || (m_kd[3] < 1.0) || Material::isTransparent();
+    return ( m_alpha < 1.0 ) || ( m_kd[3] < 1.0 ) || Material::isTransparent();
 }
 
 void BlinnPhongMaterial::registerMaterial() {
@@ -137,7 +137,8 @@ void BlinnPhongMaterial::registerMaterial() {
             {
                 auto transparentpassconfig =
                     Ra::Engine::ShaderConfigurationFactory::getConfiguration( "LitOITBlinnPhong" );
-                rt.setConfiguration( transparentpassconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
+                rt.setConfiguration( transparentpassconfig,
+                                     Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }
         } );
 }
@@ -147,11 +148,12 @@ void BlinnPhongMaterial::unregisterMaterial() {
     EngineRenderTechniques::removeDefaultTechnique( "BlinnPhong" );
 }
 
-Material* BlinnPhongMaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
+Material* BlinnPhongMaterialConverter::
+operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
     auto result = new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
     // we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
     // static cst is safe here
-    auto source = static_cast<const Ra::Asset::BlinnPhongMaterialData*>( toconvert );
+    auto source = static_cast<const Ra::Core::Asset::BlinnPhongMaterialData*>( toconvert );
 
     if ( source->hasDiffuse() )
         result->m_kd = source->m_diffuse;

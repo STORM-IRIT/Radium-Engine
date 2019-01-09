@@ -5,11 +5,12 @@
 #include <string>
 #include <vector>
 
-#include <Core/File/AssetData.hpp>
+#include <Core/Asset/AssetData.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /**
@@ -204,8 +205,9 @@ class RA_CORE_API LightData : public AssetData {
 };
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
-#include <Core/File/LightData.inl>
+#include <Core/Asset/LightData.inl>
 
 #endif // RADIUMENGINE_LIGHT_DATA_HPP

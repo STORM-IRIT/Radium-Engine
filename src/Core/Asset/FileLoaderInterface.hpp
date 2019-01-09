@@ -7,13 +7,10 @@
 #include <Core/RaCore.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 class FileData;
-}
-} // namespace Ra
 
-namespace Ra {
-namespace Asset {
 class FileLoaderInterface {
   public:
     virtual ~FileLoaderInterface() {}
@@ -28,7 +25,9 @@ class FileLoaderInterface {
     //! Unique name of the loader
     virtual std::string name() const = 0;
 };
+
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
 #endif // RADIUMENGINE_FILELOADER_HPP

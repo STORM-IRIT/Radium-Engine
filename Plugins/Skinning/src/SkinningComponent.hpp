@@ -6,7 +6,7 @@
 #include <Core/Animation/Handle/HandleWeight.hpp>
 #include <Core/Animation/Pose/Pose.hpp>
 #include <Core/Animation/Skinning/SkinningData.hpp>
-#include <Core/File/HandleData.hpp>
+#include <Core/Asset/HandleData.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/DualQuaternion.hpp>
 #include <Core/Utils/Index.hpp>
@@ -50,7 +50,7 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
 
     /// Loads the skinning weights from the given Handledata.
     // TODO: for now, weights are stored in the AnimationComponent.
-    virtual void handleWeightsLoading( const Ra::Asset::HandleData* data );
+    virtual void handleWeightsLoading( const Ra::Core::Asset::HandleData* data );
 
     /// @returns the reference skinning data.
     const Ra::Core::Skinning::RefData* getRefData() const { return &m_refData; }

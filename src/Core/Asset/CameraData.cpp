@@ -1,8 +1,9 @@
-#include <Core/File/CameraData.hpp>
+#include <Core/Asset/CameraData.hpp>
 
 #include <Core/Math/Math.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 CameraData::CameraData( const std::string& name, const CameraType& type ) :
@@ -18,4 +19,5 @@ CameraData::CameraData( const std::string& name, const CameraType& type ) :
 CameraData::~CameraData() {}
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

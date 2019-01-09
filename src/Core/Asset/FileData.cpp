@@ -1,7 +1,9 @@
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
+
 /// CONSTRUCTOR
 FileData::FileData( const std::string& filename, const bool VERBOSE_MODE ) :
     m_filename( filename ),
@@ -15,5 +17,7 @@ FileData::FileData( const std::string& filename, const bool VERBOSE_MODE ) :
 
 /// DESTRUCTOR
 FileData::~FileData() {}
+
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

@@ -4,8 +4,8 @@
 #include <assimp/scene.h>
 #include <set>
 
+#include <Core/Asset/HandleData.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/File/HandleData.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>
@@ -14,17 +14,18 @@ namespace Ra {
 namespace IO {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset;
 
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
-    Asset::DataLoader<Asset::HandleData>( VERBOSE_MODE ){};
+    DataLoader<HandleData>( VERBOSE_MODE ){};
 
 /// DESTRUCTOR
 AssimpHandleDataLoader::~AssimpHandleDataLoader() = default;
 
 /// LOAD
 void AssimpHandleDataLoader::loadData( const aiScene* scene,
-                                       std::vector<std::unique_ptr<Asset::HandleData>>& data ) {
+                                       std::vector<std::unique_ptr<HandleData>>& data ) {
     data.clear();
 
     if ( scene == nullptr )
@@ -77,7 +78,7 @@ uint AssimpHandleDataLoader::sceneHandleSize( const aiScene* scene ) const {
 
 /// LOAD
 void AssimpHandleDataLoader::loadHandleData(
-    const aiScene* scene, std::vector<std::unique_ptr<Asset::HandleData>>& data ) const {
+    const aiScene* scene, std::vector<std::unique_ptr<HandleData>>& data ) const {
     const uint meshSize = scene->mNumMeshes;
     std::map<uint, uint> indexTable;
     std::set<std::string> usedNames;
@@ -86,7 +87,7 @@ void AssimpHandleDataLoader::loadHandleData(
         aiMesh* mesh = scene->mMeshes[n];
         if ( mesh->HasBones() )
         {
-            Asset::HandleData* handle = new Asset::HandleData();
+            HandleData* handle = new HandleData();
             fetchName( *mesh, *handle, usedNames );
             fetchType( *mesh, *handle );
             loadHandleComponentData( scene, mesh, handle );
@@ -104,7 +105,7 @@ void AssimpHandleDataLoader::loadHandleData(
                 frame.linear() = R;
             }
 
-            data.push_back( std::unique_ptr<Asset::HandleData>( handle ) );
+            data.push_back( std::unique_ptr<HandleData>( handle ) );
             indexTable[n] = data.size() - 1;
             if ( m_verbose )
             {
@@ -116,10 +117,9 @@ void AssimpHandleDataLoader::loadHandleData(
 }
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiMesh* mesh,
-                                                      Asset::HandleData* data ) const {
+                                                      HandleData* data ) const {
     const uint size = mesh->mNumBones;
-    Core::AlignedStdVector<Asset::HandleComponentData> component( size,
-                                                                  Asset::HandleComponentData() );
+    Core::AlignedStdVector<HandleComponentData> component( size, HandleComponentData() );
     std::set<std::string> name;
     std::map<std::string, uint> nameTable;
     // Load the meaningful handles
@@ -147,7 +147,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
                 auto it = name.find( assimpToCore( child->mName ) );
                 if ( it == name.end() )
                 {
-                    component.push_back( Asset::HandleComponentData() );
+                    component.push_back( HandleComponentData() );
                     const uint j = component.size() - 1;
                     loadHandleComponentData( child, component[j] );
                     nameTable[component[j].m_name] = j;
@@ -160,7 +160,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
 }
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiBone* bone,
-                                                      Asset::HandleComponentData& data ) const {
+                                                      HandleComponentData& data ) const {
     data.m_name = assimpToCore( bone->mName );
     // data.m_frame = assimpToCore( bone->mOffsetMatrix );
     data.m_frame.setIdentity();
@@ -179,7 +179,7 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
 }
 
 void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node,
-                                                      Asset::HandleComponentData& data ) const {
+                                                      HandleComponentData& data ) const {
     data.m_name = assimpToCore( node->mName );
     // data.m_frame = assimpToCore( node->mTransformation );
     data.m_frame.setIdentity();
@@ -192,12 +192,12 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node,
 }
 
 void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene,
-                                                     Asset::HandleData* data ) const {
+                                                     HandleData* data ) const {
     const uint size = data->getComponentDataSize();
     std::vector<std::pair<std::string, std::string>> edgeList;
     for ( uint i = 0; i < size; ++i )
     {
-        const Asset::HandleComponentData& component = data->getComponent( i );
+        const HandleComponentData& component = data->getComponent( i );
         aiNode* node = scene->mRootNode->FindNode( aiString( component.m_name ) );
         const uint children_size = node->mNumChildren;
         for ( uint j = 0; j < children_size; ++j )
@@ -224,7 +224,7 @@ void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene,
 
 void AssimpHandleDataLoader::loadHandleFrame(
     const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, uint>& indexTable,
-    std::vector<std::unique_ptr<Asset::HandleData>>& data ) const {
+    std::vector<std::unique_ptr<HandleData>>& data ) const {
     const uint child_size = node->mNumChildren;
     const uint mesh_size = node->mNumMeshes;
     if ( ( child_size == 0 ) && ( mesh_size == 0 ) )
@@ -248,7 +248,7 @@ void AssimpHandleDataLoader::loadHandleFrame(
 }
 
 /// NAME
-void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, Asset::HandleData& data,
+void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, HandleData& data,
                                         std::set<std::string>& usedNames ) const {
     std::string name = assimpToCore( mesh.mName );
     while ( usedNames.find( name ) != usedNames.end() )
@@ -261,13 +261,13 @@ void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, Asset::HandleData& d
 }
 
 /// TYPE
-void AssimpHandleDataLoader::fetchType( const aiMesh& mesh, Asset::HandleData& data ) const {
-    data.setType( Asset::HandleData::SKELETON );
+void AssimpHandleDataLoader::fetchType( const aiMesh& mesh, HandleData& data ) const {
+    data.setType( HandleData::SKELETON );
     // TO DO: is there a way to know the right type of handle?
 }
 
 /// VERTEX SIZE
-void AssimpHandleDataLoader::fetchVertexSize( Asset::HandleData& data ) const {
+void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
     const uint componentSize = data.getComponentDataSize();
     uint vertexSize = 0;
     for ( uint i = 0; i < componentSize; ++i )

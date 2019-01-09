@@ -8,6 +8,7 @@
 #include <Core/RaCore.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 class AnimationData;
 class CameraData;
@@ -72,8 +73,9 @@ class RA_CORE_API FileData final {
 };
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra
 
-#include <Core/File/FileData.inl>
+#include <Core/Asset/FileData.inl>
 
 #endif // RADIUMENGINE_FILE_DATA_HPP

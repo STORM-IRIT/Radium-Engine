@@ -1,8 +1,9 @@
-#include <Core/File/AnimationData.hpp>
+#include <Core/Asset/AnimationData.hpp>
 
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
+namespace Core {
 namespace Asset {
 
 /// NAME
@@ -58,4 +59,5 @@ inline void AnimationData::displayInfo() const {
 }
 
 } // namespace Asset
+} // namespace Core
 } // namespace Ra

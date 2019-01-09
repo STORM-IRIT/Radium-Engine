@@ -1,7 +1,7 @@
 #include <Gui/MainWindow.hpp>
 #include <MainApplication.hpp>
 
-#include <Core/File/FileLoaderInterface.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>

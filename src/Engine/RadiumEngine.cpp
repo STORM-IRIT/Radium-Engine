@@ -9,8 +9,8 @@
 #include <string>
 #include <thread>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/FileLoaderInterface.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -28,6 +28,7 @@ namespace Ra {
 namespace Engine {
 
 using namespace Core::Utils; // log
+using namespace Core::Asset;
 
 RadiumEngine::RadiumEngine() = default;
 
@@ -143,7 +144,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
     {
         if ( l->handleFileExtension( extension ) )
         {
-            Asset::FileData* data = l->loadFile( filename );
+            FileData* data = l->loadFile( filename );
             if ( data != nullptr )
             {
                 m_loadedFile.reset( data );
@@ -201,18 +202,17 @@ SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
 }
 
-void RadiumEngine::registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader ) {
+void RadiumEngine::registerFileLoader( std::shared_ptr<FileLoaderInterface> fileLoader ) {
     m_fileLoaders.push_back( fileLoader );
 }
 
-const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>&
-RadiumEngine::getFileLoaders() const {
+const std::vector<std::shared_ptr<FileLoaderInterface>>& RadiumEngine::getFileLoaders() const {
     return m_fileLoaders;
 }
 
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
-const Asset::FileData& RadiumEngine::getFileData() const {
+const FileData& RadiumEngine::getFileData() const {
     CORE_ASSERT( m_loadingState, "Access to file content is only available at loading time." );
     return *( m_loadedFile.get() );
 }

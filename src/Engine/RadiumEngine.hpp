@@ -13,6 +13,10 @@
 namespace Ra {
 namespace Core {
 class TaskQueue;
+namespace Asset {
+class FileLoaderInterface;
+class FileData;
+} // namespace Asset
 } // namespace Core
 
 namespace Engine {
@@ -25,13 +29,6 @@ class EntityManager;
 class SignalManager;
 } // namespace Engine
 
-namespace Asset {
-class FileLoaderInterface;
-class FileData;
-} // namespace Asset
-} // namespace Ra
-
-namespace Ra {
 namespace Engine {
 /**
  * Engine main class : Manage all the systems and managers that are used by the engine module.
@@ -89,11 +86,11 @@ class RA_ENGINE_API RadiumEngine {
      * When no RenderObject name is given, returns the mesh associated
      * to the first render object.
      * @note : mark as deprecated as it must be either removed or reimplemented
-     * @deprecated Will be removed from this class in the next release. A Mesh manager, that could serve mesh
-     * by name will be implemented.
+     * @deprecated Will be removed from this class in the next release. A Mesh manager, that could
+     * serve mesh by name will be implemented.
      */
     [[deprecated]] Mesh* getMesh( const std::string& entityName, const std::string& componentName,
-                   const std::string& roName = std::string() ) const;
+                                  const std::string& roName = std::string() ) const;
 
     /**
      * Try to loads the given file.
@@ -113,7 +110,7 @@ class RA_ENGINE_API RadiumEngine {
      * @pre The Engine must be in "loading state".
      * @return
      */
-    const Asset::FileData& getFileData() const;
+    const Core::Asset::FileData& getFileData() const;
 
     /**
      * Release the content of the loaded file.
@@ -151,18 +148,19 @@ class RA_ENGINE_API RadiumEngine {
      * Register a new file loader to the engine.
      * @param fileLoader
      */
-    void registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader );
+    void registerFileLoader( std::shared_ptr<Core::Asset::FileLoaderInterface> fileLoader );
 
     /**
      * Get the active file loaders from the engine
      * @return
      */
-    const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>& getFileLoaders() const;
+    const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
 
   private:
     using priority = int;
     using SystemKey = std::pair<priority, std::string>;
-    // use transparent functors : https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html
+    // use transparent functors :
+    // https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html
     using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<>>;
 
     SystemContainer::const_iterator findSystem( const std::string& name ) const;
@@ -174,14 +172,14 @@ class RA_ENGINE_API RadiumEngine {
      */
     SystemContainer m_systems;
 
-    std::vector<std::shared_ptr<Asset::FileLoaderInterface>> m_fileLoaders;
+    std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
 
     std::unique_ptr<RenderObjectManager> m_renderObjectManager;
     std::unique_ptr<EntityManager> m_entityManager;
     std::unique_ptr<SignalManager> m_signalManager;
-    std::unique_ptr<Asset::FileData> m_loadedFile;
+    std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
-    bool m_loadingState { false };
+    bool m_loadingState{false};
 };
 
 } // namespace Engine
