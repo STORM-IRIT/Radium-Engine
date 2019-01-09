@@ -1,7 +1,8 @@
-#include <Core/Algorithm/Subdivision/CatmullClarkSubdivider.hpp>
+#include <Core/Geometry/CatmullClarkSubdivider.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 bool CatmullClarkSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_vpPos );
@@ -176,8 +177,8 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
     return true;
 }
 
-void CatmullClarkSubdivider::split_face(TopologicalMesh &mesh,
-                                        const TopologicalMesh::FaceHandle &fh, size_t iter) {
+void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
+                                         const TopologicalMesh::FaceHandle& fh, size_t iter ) {
     /*
         Split an n-gon into n quads by connecting
         each vertex of fh to vh.
@@ -260,8 +261,8 @@ void CatmullClarkSubdivider::split_face(TopologicalMesh &mesh,
     }
 }
 
-void CatmullClarkSubdivider::split_edge(TopologicalMesh &mesh,
-                                        const TopologicalMesh::EdgeHandle &eh, size_t iter) {
+void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
+                                         const TopologicalMesh::EdgeHandle& eh, size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     using VHandle = TopologicalMesh::VertexHandle;
 
@@ -333,9 +334,9 @@ void CatmullClarkSubdivider::split_edge(TopologicalMesh &mesh,
     mesh.adjust_outgoing_halfedge( vh1 );
 }
 
-void CatmullClarkSubdivider::compute_midpoint(TopologicalMesh &mesh,
-                                              const TopologicalMesh::EdgeHandle &eh,
-                                              const bool update_points, size_t iter) {
+void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,
+                                               const TopologicalMesh::EdgeHandle& eh,
+                                               const bool update_points, size_t iter ) {
     TopologicalMesh::HalfedgeHandle heh = mesh.halfedge_handle( eh, 0 );
     TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
 
@@ -378,8 +379,8 @@ void CatmullClarkSubdivider::compute_midpoint(TopologicalMesh &mesh,
     }
 }
 
-void CatmullClarkSubdivider::update_vertex(TopologicalMesh &mesh,
-                                           const TopologicalMesh::VertexHandle &vh, size_t iter) {
+void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
+                                            const TopologicalMesh::VertexHandle& vh, size_t iter ) {
     TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
 
     // prepare operations
@@ -565,5 +566,6 @@ void CatmullClarkSubdivider::recompute( const Vector3Array& newCoarseVertices,
     }
 }
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra

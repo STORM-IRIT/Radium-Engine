@@ -10,15 +10,12 @@
 
 namespace Ra {
 namespace Core {
-/// Low-level intersection functions of line versus various abstract shapes.
-/// All functions return true if there was a hit, false if not.
-/// If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
+// Low-level intersection functions of line versus various abstract shapes.
+// All functions return true if there was a hit, false if not.
+// If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
 
 namespace Geometry {
 class TriangleMesh;
-}
-
-namespace Algorithm {
 using Ray = Eigen::ParametrizedLine<Scalar, 3>;
 
 /// Intersect a ray with an axis-aligned bounding box.
@@ -41,10 +38,10 @@ bool RA_CORE_API RayCastCylinder( const Ray& r, const Core::Vector3& a, const Co
 bool RA_CORE_API RayCastTriangle( const Ray& r, const Core::Vector3 a, const Core::Vector3& b,
                                   const Core::Vector3& c, std::vector<Scalar>& hitsOut );
 
-bool RA_CORE_API RayCastTriangleMesh( const Ray& r, const Geometry::TriangleMesh& mesh,
+bool RA_CORE_API RayCastTriangleMesh( const Ray& r, const TriangleMesh& mesh,
                                       std::vector<Scalar>& hitsOut,
                                       std::vector<Vector3ui>& trianglesIdxOut );
-} // namespace Algorithm
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 

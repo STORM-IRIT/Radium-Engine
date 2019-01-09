@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Geometry {
 
 /**
  * This class implements the Catmull-Clark subdivision algorithm
@@ -15,9 +16,8 @@ namespace Core {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API CatmullClarkSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<Geometry::TopologicalMesh, Scalar> {
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
 
-    using TopologicalMesh = Geometry::TopologicalMesh;
     using base = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
     using V_OP = std::pair<Scalar, TopologicalMesh::VertexHandle>;
     using V_OPS = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
@@ -120,6 +120,7 @@ class RA_CORE_API CatmullClarkSubdivider
     OpenMesh::HPropHandleT<TopologicalMesh::VertexHandle> m_hV;
 };
 
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 
