@@ -1,4 +1,4 @@
-#include <Core/Geometry/Adjacency/Adjacency.hpp>
+#include <Core/Geometry/Adjacency.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Vector::cotan
 
 namespace Ra {

@@ -10,7 +10,7 @@
 /// They always return the squared distance.
 namespace Ra {
 namespace Core {
-namespace DistanceQueries {
+namespace Geometry {
 //
 // Point-to-line distance
 //
@@ -126,10 +126,10 @@ struct TriangleToTriangleOutput {
 inline RA_CORE_API TriangleToTriangleOutput triangleToTriSq( const Vector3 v1[3],
                                                              const Vector3 v2[3] );
 
-} // namespace DistanceQueries
+} // namespace Geometry
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Geometry/Distance/DistanceQueries.inl>
+#include <Core/Geometry/DistanceQueries.inl>
 
 #endif // RADIUMENGINE_DISTANCE_QUERIES_HPP_

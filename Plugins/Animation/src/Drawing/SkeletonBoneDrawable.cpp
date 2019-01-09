@@ -1,6 +1,6 @@
 #include <Drawing/SkeletonBoneDrawable.hpp>
 
-#include <Core/Geometry/Normal/Normal.hpp>
+#include <Core/Geometry/Normal.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>

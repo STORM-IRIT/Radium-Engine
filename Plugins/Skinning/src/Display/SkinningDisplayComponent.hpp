@@ -5,7 +5,7 @@
 #include <SkinningPlugin.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/Adjacency/Adjacency.hpp>
+#include <Core/Geometry/Adjacency.hpp>
 #include <Core/Utils/Color.hpp>
 
 #include <Core/Animation/Handle/HandleWeight.hpp>
