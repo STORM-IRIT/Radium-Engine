@@ -1,9 +1,9 @@
-#include <Core/File/deprecated/OBJFileManager.hpp>
 #include <Core/Geometry/CatmullClarkSubdivider.hpp>
 #include <Core/Geometry/LoopSubdivider.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Utils/Log.hpp>
+#include <IO/deprecated/OBJFileManager.hpp>
 #include <memory>
 
 /// Macro used for testing only, to add attibutes to the TopologicalMesh
@@ -98,7 +98,7 @@ int main( int argc, char* argv[] ) {
     } else
     {
         Ra::Core::Geometry::TriangleMesh mesh;
-        Ra::Core::OBJFileManager obj;
+        Ra::IO::OBJFileManager obj;
 
         if ( a.inputFilename.empty() )
         {
