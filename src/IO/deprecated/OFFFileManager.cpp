@@ -1,7 +1,10 @@
-#include <Core/File/deprecated/OFFFileManager.hpp>
+#include <IO/deprecated/OFFFileManager.hpp>
 
 namespace Ra {
-namespace Core {
+
+using namespace Core;
+
+namespace IO {
 
 /// ===============================================================================
 /// CONSTRUCTOR
@@ -108,5 +111,5 @@ bool OFFFileManager::exportData( std::ostream& file, const Geometry::TriangleMes
     return true;
 }
 
-} // namespace Core
+} // namespace IO
 } // namespace Ra
