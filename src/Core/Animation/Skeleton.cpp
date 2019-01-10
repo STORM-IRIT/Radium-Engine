@@ -1,4 +1,4 @@
-#include <Core/Animation/Handle/Skeleton.hpp>
+#include <Core/Animation/Skeleton.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::clamp
 #include <stack>
 
@@ -240,21 +240,23 @@ std::ostream& operator<<( std::ostream& os, const Skeleton& skeleton ) {
                       : skeleton.m_graph.isBranch( i )
                             ? "BRANCH"
                             : skeleton.m_graph.isLeaf( i ) ? "LEAF" : "UNKNOWN";
-        const int pid = skeleton.m_graph.parents().at( i );
+        const int pid = skeleton.m_graph.parents()[i];
         const std::string pname =
             ( pid == -1 ) ? "" : ( "(" + std::to_string( pid ) + ") " + skeleton.getLabel( pid ) );
+
+        const auto& children = skeleton.m_graph.children()[i];
 
         os << "Bone " << id << "\t: " << name << std::endl;
         os << "Type\t: " << type << std::endl;
         os << "Parent\t: " << pname << std::endl;
-        os << "Children#\t: " << skeleton.m_graph.children().at( i ).size() << std::endl;
+        os << "Children#\t: " << children.size() << std::endl;
         os << "Children\t: ";
-        for ( uint j = 0; j < skeleton.m_graph.children().at( i ).size(); ++j )
+        for ( const auto& cid : children )
         {
-            const uint cid = skeleton.m_graph.children().at( i ).at( j );
             const std::string cname = skeleton.getLabel( cid );
             os << "(" << cid << ") " << cname << " | ";
         }
+
         os << " " << std::endl;
         os << " " << std::endl;
     }

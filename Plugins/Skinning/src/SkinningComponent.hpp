@@ -3,9 +3,9 @@
 
 #include <SkinningPluginMacros.hpp>
 
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Animation/Skinning/SkinningData.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Animation/SkinningData.hpp>
 #include <Core/Asset/HandleData.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/DualQuaternion.hpp>

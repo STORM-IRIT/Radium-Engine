@@ -1,11 +1,11 @@
 #include <SkinningComponent.hpp>
 
-#include <Core/Animation/Pose/PoseOperation.hpp>
+#include <Core/Animation/PoseOperation.hpp>
 #include <Core/Geometry/Normal.hpp>
 
-#include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
-#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
-#include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
+#include <Core/Animation/DualQuaternionSkinning.hpp>
+#include <Core/Animation/LinearBlendSkinning.hpp>
+#include <Core/Animation/RotationCenterSkinning.hpp>
 #include <Core/Geometry/TriangleOperation.hpp>
 
 using Ra::Core::DualQuaternion;

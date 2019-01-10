@@ -1,4 +1,4 @@
-#include <Core/Animation/Sequence/Sequence.hpp>
+#include <Core/Animation/Sequence.hpp>
 
 namespace Ra {
 namespace Core {
@@ -17,7 +17,6 @@ inline void Sequence::setFrameType( const FrameType& type ) {
     m_type = type;
 }
 */
-
 
 inline Frame Sequence::nextFrame() const {
     return pose( idx + 1 );

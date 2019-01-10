@@ -1,12 +1,12 @@
-#include <Core/Animation/Skinning/RotationCenterSkinning.hpp>
+#include <Core/Animation/RotationCenterSkinning.hpp>
 
 #include <array>
 #include <unordered_map>
 
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
-#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
+#include <Core/Animation/DualQuaternionSkinning.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/LinearBlendSkinning.hpp>
+#include <Core/Animation/Pose.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Geometry/TriangleOperation.hpp> // triangleArea
 #include <Core/Utils/Log.hpp>

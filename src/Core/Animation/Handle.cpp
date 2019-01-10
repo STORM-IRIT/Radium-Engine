@@ -1,4 +1,4 @@
-#include <Core/Animation/Handle/Handle.hpp>
+#include <Core/Animation/Handle.hpp>
 
 namespace Ra {
 namespace Core {
@@ -17,20 +17,20 @@ void Handle::clear() {
     m_pose.clear();
 }
 
-const Pose& Handle::getPose( const SpaceType MODE ) const {
+const Pose& Handle::getPose( const SpaceType /*MODE*/ ) const {
     return m_pose;
 }
 
-void Handle::setPose( const Pose& pose, const SpaceType MODE ) {
+void Handle::setPose( const Pose& pose, const SpaceType /*MODE*/ ) {
     m_pose = pose;
 }
 
-const Transform& Handle::getTransform( const uint i, const SpaceType MODE ) const {
+const Transform& Handle::getTransform( const uint i, const SpaceType /*MODE*/ ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bound" );
-    return m_pose.at( i );
+    return m_pose[i];
 }
 
-void Handle::setTransform( const uint i, const Transform& T, const SpaceType MODE ) {
+void Handle::setTransform( const uint i, const Transform& T, const SpaceType /*MODE*/ ) {
     CORE_ASSERT( ( i < size() ), "Index i out of bound" );
     m_pose[i] = T;
 }

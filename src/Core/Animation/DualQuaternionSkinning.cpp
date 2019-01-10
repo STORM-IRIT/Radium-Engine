@@ -1,4 +1,4 @@
-#include <Core/Animation/Skinning/DualQuaternionSkinning.hpp>
+#include <Core/Animation/DualQuaternionSkinning.hpp>
 
 namespace Ra {
 namespace Core {

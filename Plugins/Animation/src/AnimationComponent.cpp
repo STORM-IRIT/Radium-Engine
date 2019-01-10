@@ -4,10 +4,10 @@
 #include <iostream>
 #include <queue>
 
-#include <Core/Animation/Handle/HandleWeightOperation.hpp>
+#include <Core/Animation/HandleWeightOperation.hpp>
 #include <Core/Animation/KeyPose.hpp>
 #include <Core/Animation/KeyTransform.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Pose.hpp>
 #include <Core/Asset/HandleToSkeleton.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>

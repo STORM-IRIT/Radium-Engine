@@ -1,4 +1,4 @@
-#include <Core/Animation/Skinning/BulgeCorrection.hpp>
+#include <Core/Animation/BulgeCorrection.hpp>
 
 #include <Core/Geometry/DistanceQueries.hpp>
 
@@ -47,8 +47,8 @@ void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
         {
             end += pose[c].translation();
         }
-        data.m_prj[i] =
-            start + Geometry::projectOnSegment( mesh[i], start, end - start ) * ( end - start );
+        Vector3 seg = end - start;
+        data.m_prj[i] = start + Geometry::projectOnSegment( mesh[i], start, seg ) * seg;
         data.m_dv[i] = ( mesh[i] - data.m_prj[i] ).squaredNorm();
     }
 }
