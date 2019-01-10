@@ -1,6 +1,6 @@
 #include <Core/Asset/HandleToSkeleton.hpp>
 
-#include <Core/Animation/Handle/Skeleton.hpp>
+#include <Core/Animation/Skeleton.hpp>
 #include <Core/Asset/HandleData.hpp>
 #include <set>
 
@@ -22,9 +22,9 @@ void addBone( const int parent,  // index of parent bone
     if ( !processed[dataID] )
     {
         processed[dataID] = true;
-        uint index = skelOut.addBone( parent, data.at( dataID ).m_frame,
-                                      Ra::Core::Animation::Handle::SpaceType::MODEL,
-                                      data.at( dataID ).m_name );
+        const auto& dd = data[dataID];
+        uint index = skelOut.addBone( parent, dd.m_frame,
+                                      Ra::Core::Animation::Handle::SpaceType::MODEL, dd.m_name );
         indexTable[dataID] = index;
         for ( const auto& edge : edgeList )
         {

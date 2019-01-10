@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
 #define RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
 
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Pose.hpp>
 #include <Core/Containers/AdjacencyList.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/Types.hpp>

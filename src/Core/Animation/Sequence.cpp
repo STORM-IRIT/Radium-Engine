@@ -1,4 +1,4 @@
-#include <Core/Animation/Sequence/Sequence.hpp>
+#include <Core/Animation/Sequence.hpp>
 
 namespace Ra {
 namespace Core {
@@ -15,10 +15,10 @@ Sequence::~Sequence() {}
 
 /// INTERFACE
 void Sequence::clear() {}
-void Sequence::setSequence( const FrameSet& set ) {}
-void Sequence::setFrame( const int i, const Frame& frame ) {}
-void Sequence::insertFrame( const Frame& frame, const int i ) {}
-void Sequence::removeFrame( const int i ) {}
+void Sequence::setSequence( const FrameSet& /*set*/ ) {}
+void Sequence::setFrame( const int i, const Frame& /*frame*/ ) {}
+void Sequence::insertFrame( const Frame& /*frame*/, const int /*i*/ ) {}
+void Sequence::removeFrame( const int /*i*/ ) {}
 
 } // namespace Animation
 } // namespace Core

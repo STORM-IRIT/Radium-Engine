@@ -21,22 +21,22 @@ inline bool AdjacencyList::isEmpty() const {
 
 inline bool AdjacencyList::isRoot( const uint i ) const {
     CORE_ASSERT( i < size(), " Index i out of bounds " );
-    return ( m_parent.at( i ) == -1 );
+    return ( m_parent[i] == -1 );
 }
 
 inline bool AdjacencyList::isLeaf( const uint i ) const {
     CORE_ASSERT( i < size(), " Index i out of bounds " );
-    return ( m_child.at( i ).size() == 0 );
+    return ( m_child[i].size() == 0 );
 }
 
 inline bool AdjacencyList::isBranch( const uint i ) const {
     CORE_ASSERT( i < size(), " Index i out of bounds " );
-    return ( m_child.at( i ).size() > 1 );
+    return ( m_child[i].size() > 1 );
 }
 
 inline bool AdjacencyList::isJoint( const uint i ) const {
     CORE_ASSERT( i < size(), " Index i out of bounds " );
-    return ( m_child.at( i ).size() == 1 );
+    return ( m_child[i].size() == 1 );
 }
 
 inline bool AdjacencyList::isEdge( const uint i, const uint j ) const {

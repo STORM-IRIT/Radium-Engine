@@ -1,7 +1,8 @@
 #ifndef POSE_OPERATION_H
 #define POSE_OPERATION_H
 
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Math/Types.hpp>
 
 namespace Ra {
 namespace Core {

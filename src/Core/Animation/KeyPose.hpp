@@ -3,7 +3,7 @@
 
 #include <Core/Animation/Interpolation.hpp>
 #include <Core/Animation/KeyFrame.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Pose.hpp>
 
 namespace Ra {
 namespace Core {

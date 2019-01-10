@@ -1,4 +1,4 @@
-#include <Core/Animation/Handle/Handle.hpp>
+#include <Core/Animation/Handle.hpp>
 
 namespace Ra {
 namespace Core {

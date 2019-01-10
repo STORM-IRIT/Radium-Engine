@@ -1,7 +1,7 @@
 #ifndef ANIMATION_HPP
 #define ANIMATION_HPP
 
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Pose.hpp>
 #include <vector>
 
 namespace Ra {
