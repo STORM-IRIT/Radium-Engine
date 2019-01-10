@@ -1,4 +1,4 @@
-#include <Core/Animation/Skinning/LinearBlendSkinning.hpp>
+#include <Core/Animation/LinearBlendSkinning.hpp>
 
 namespace Ra {
 namespace Core {

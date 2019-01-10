@@ -1,4 +1,4 @@
-#include <Core/Animation/Pose/PoseOperation.hpp>
+#include <Core/Animation/PoseOperation.hpp>
 #include <Eigen/Geometry>
 
 namespace Ra {
@@ -55,7 +55,7 @@ bool areEqual( const Pose& p0, const Pose& p1 ) {
 
 Pose interpolatePoses( const Pose& a, const Pose& b, const Scalar t ) {
     CORE_ASSERT( ( a.size() == b.size() ), "Poses are wrong" );
-    CORE_ASSERT( ( ( t >= 0.0 ) && ( t <= 1.0 ) ), "T is wrong" );
+    CORE_ASSERT( ( ( t >= Scalar( 0. ) ) && ( t <= Scalar( 1. ) ) ), "T is wrong" );
 
     const uint size = a.size();
     Pose interpolatedPose( size );
@@ -90,7 +90,8 @@ void interpolateTransforms( const Ra::Core::Transform& a, const Ra::Core::Transf
     Ra::Core::Quaternion bRot = Ra::Core::Quaternion( b.rotation() );
     Ra::Core::Quaternion interpRot = aRot.slerp( t, bRot );
 
-    Ra::Core::Vector3 interpTranslation = ( 1.0 - t ) * a.translation() + t * b.translation();
+    Ra::Core::Vector3 interpTranslation =
+        ( Scalar( 1. ) - t ) * a.translation() + t * b.translation();
 
     interpolated.linear() = interpRot.toRotationMatrix();
     interpolated.translation() = interpTranslation;

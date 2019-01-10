@@ -1,5 +1,5 @@
 #include <Core/Animation/Animation.hpp>
-#include <Core/Animation/Pose/PoseOperation.hpp>
+#include <Core/Animation/PoseOperation.hpp>
 #include <algorithm>
 #include <cmath>
 #include <utility>

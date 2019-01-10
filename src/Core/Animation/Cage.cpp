@@ -1,4 +1,4 @@
-#include <Core/Animation/Handle/Cage.hpp>
+#include <Core/Animation/Cage.hpp>
 
 namespace Ra {
 namespace Core {

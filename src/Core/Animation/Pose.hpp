@@ -2,7 +2,6 @@
 #define POSE_H
 
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Math/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -15,7 +14,7 @@ namespace Animation {
 /*
  * The Pose is represented just as a vector of Transforms.
  */
-using Pose = AlignedStdVector<Transform>;
+using Pose = AlignedStdVector<Eigen::Transform<Scalar, 3, Eigen::Affine>>;
 
 // Typedef for code redability purposes only.
 using RestPose = Pose;

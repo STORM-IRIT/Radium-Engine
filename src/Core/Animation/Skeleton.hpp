@@ -1,7 +1,7 @@
 #ifndef SKELETON_HANDLE_H
 #define SKELETON_HANDLE_H
 
-#include <Core/Animation/Handle/Handle.hpp>
+#include <Core/Animation/Handle.hpp>
 #include <Core/Containers/AdjacencyList.hpp>
 
 namespace Ra {

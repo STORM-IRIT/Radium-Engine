@@ -8,8 +8,8 @@
 #include <Core/Geometry/Adjacency.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Skinning/SkinningData.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/SkinningData.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>

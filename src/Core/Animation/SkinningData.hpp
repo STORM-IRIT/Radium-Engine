@@ -1,9 +1,9 @@
 #ifndef RADIUMENGINE_SKINNING_DATA_HPP_
 #define RADIUMENGINE_SKINNING_DATA_HPP_
 
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Handle/Skeleton.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Animation/Skeleton.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 

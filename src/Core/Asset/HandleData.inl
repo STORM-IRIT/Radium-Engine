@@ -67,11 +67,13 @@ HandleData::setComponents( const Core::AlignedStdVector<HandleComponentData>& co
 }
 
 inline const HandleComponentData& HandleData::getComponent( const uint i ) const {
-    return m_component.at( i );
+    CORE_ASSERT( ( i < m_component.size() ), "Index i out of bound" );
+    return m_component[i];
 }
 
 inline HandleComponentData& HandleData::getComponent( const uint i ) {
-    return m_component.at( i );
+    CORE_ASSERT( ( i < m_component.size() ), "Index i out of bound" );
+    return m_component[i];
 }
 
 inline const Core::AlignedStdVector<Core::Vector2i>& HandleData::getEdgeData() const {

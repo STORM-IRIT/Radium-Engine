@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_HANDLE_INCLUDE
 #define RADIUMENGINE_HANDLE_INCLUDE
 
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/Pose.hpp>
 #include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
 
@@ -104,6 +104,6 @@ class RA_CORE_API Handle {
 } // Namespace Core
 } // Namespace Ra
 
-#include <Core/Animation/Handle/Handle.inl>
+#include <Core/Animation/Handle.inl>
 
 #endif // RADIUMENGINE_HANDLE_INCLUDE
