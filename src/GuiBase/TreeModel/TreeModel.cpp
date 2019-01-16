@@ -6,6 +6,8 @@
 namespace Ra {
 namespace GuiBase {
 
+using namespace Ra::Core::Utils;
+
 int TreeModel::rowCount( const QModelIndex& parent ) const {
     /// The row count of an item is the number of child it has.
     if ( parent.column() > 0 )
