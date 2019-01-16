@@ -2,10 +2,10 @@
 #define RADIUMENGINE_LOG_HPP
 
 #include <Core/RaCore.hpp>
+#include <ctime>
 #include <sstream>
 #include <stdio.h>
 #include <string>
-#include <ctime>
 
 namespace Ra {
 namespace Core {
@@ -154,19 +154,20 @@ inline std::string NowTime() {
 
 #ifndef FILELOG_MAX_LEVEL
 #    ifdef CORE_DEBUG
-#        define FILELOG_MAX_LEVEL logDEBUG4
+#        define FILELOG_MAX_LEVEL Ra::Core::Utils::logDEBUG4
 #    else
-#        define FILELOG_MAX_LEVEL logINFO
+#        define FILELOG_MAX_LEVEL Ra::Core::Utils::logINFO
 #    endif
 #endif
 
-#define FILE_LOG( level )                                                   \
-    if ( level > FILELOG_MAX_LEVEL )                                        \
-        ;                                                                   \
-    else if ( level > FILELog::ReportingLevel() || !Output2FILE::Stream() ) \
-        ;                                                                   \
-    else                                                                    \
-        FILELog().Get( level )
+#define FILE_LOG( level )                                           \
+    if ( level > FILELOG_MAX_LEVEL )                                \
+        ;                                                           \
+    else if ( level > Ra::Core::Utils::FILELog::ReportingLevel() || \
+              !Ra::Core::Utils::Output2FILE::Stream() )             \
+        ;                                                           \
+    else                                                            \
+        Ra::Core::Utils::FILELog().Get( level )
 
 #define LOG( level ) FILE_LOG( level )
 
