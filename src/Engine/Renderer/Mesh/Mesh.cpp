@@ -243,12 +243,14 @@ void Mesh::updateGL() {
         {
             if ( m_renderMode == RM_POINTS )
             {
+                m_numElements = m_mesh.vertices().size();
                 std::vector<int> indices( m_numElements );
                 std::iota( indices.begin(), indices.end(), 0 );
                 GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_numElements * sizeof( int ),
                                          indices.data(), GL_DYNAMIC_DRAW ) );
             } else
             {
+                m_numElements = m_mesh.m_triangles.size() * 3;
                 GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER,
                                          m_mesh.m_triangles.size() * sizeof( Ra::Core::Vector3ui ),
                                          m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
