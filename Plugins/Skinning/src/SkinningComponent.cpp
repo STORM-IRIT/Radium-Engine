@@ -258,6 +258,10 @@ void SkinningComponent::endSkinning() {
         m_frameData.m_currentPos = m_refData.m_referenceMesh.vertices();
         m_frameData.m_previousPos = m_refData.m_referenceMesh.vertices();
         m_frameData.m_currentNormal = m_refData.m_referenceMesh.normals();
+        m_frameData.m_refToCurrentRelPose =
+            Ra::Core::Animation::relativePose( m_frameData.m_currentPose, m_refData.m_refPose );
+        m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(
+            m_frameData.m_currentPose, m_frameData.m_previousPose );
     }
 }
 

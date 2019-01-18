@@ -5,6 +5,15 @@ namespace Core {
 namespace Geometry {
 
 bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
+    uint maxValence = 0;
+    for (auto v_it = mesh.vertices_begin(); v_it != mesh.vertices_end(); ++v_it )
+    {
+        if ( mesh.valence( *v_it ) > maxValence )
+        {
+            maxValence = mesh.valence( *v_it );
+        }
+    }
+    init_weights( maxValence + 1 );
     mesh.add_property( m_vpPos );
     mesh.add_property( m_epPos );
     mesh.add_property( m_hV );
