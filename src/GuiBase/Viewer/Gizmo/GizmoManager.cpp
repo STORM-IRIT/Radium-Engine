@@ -116,14 +116,13 @@ bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* event ) {
 bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event ) {
     auto keyMap = Gui::KeyMappingManager::getInstance();
     // cannot call actionTriggered because event->button returns Qt::NO_BUTTON for moves
-    if ( ( event->buttons() &
-           keyMap->getKeyFromAction( Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) &&
+    if ( ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ||
+           keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_STEP ) ) &&
          currentGizmo() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
         const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
-        bool step = ( int( event->buttons() ) | event->modifiers() ) ==
-                    keyMap->getKeyFromAction( Gui::KeyMappingManager::GIZMOMANAGER_STEP );
+        bool step = keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_STEP );
         Core::Transform newTransform = currentGizmo()->mouseMove( cam, currentXY, step );
         setTransform( newTransform );
     }
