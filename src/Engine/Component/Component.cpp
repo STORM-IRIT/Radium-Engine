@@ -60,32 +60,5 @@ void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
     }
 }
 
-void Component::rayCastQuery( const Ra::Core::Ray& ray ) const {
-    for ( const auto& idx : m_renderObjects )
-    {
-        const auto ro = getRoMgr()->getRenderObject( idx );
-        if ( ro->isVisible() )
-        {
-            const Ra::Core::Transform& t = ro->getLocalTransform();
-            auto transformedRay = Core::Math::transformRay( t.inverse(), ray );
-            auto result = ro->getMesh()->getGeometry().castRay( transformedRay );
-            const int& tidx = result.m_hitTriangle;
-            if ( tidx >= 0 )
-            {
-
-                const Ra::Core::Vector3 pLocal = transformedRay.pointAt( result.m_t );
-                const Ra::Core::Vector3 pEntity = t * pLocal;
-                const Ra::Core::Vector3 pWorld = getEntity()->getTransform() * pEntity;
-
-                LOG( logINFO ) << " Ray cast vs " << ro->getName();
-                LOG( logINFO ) << " Hit triangle " << tidx;
-                LOG( logINFO ) << " Nearest vertex " << result.m_nearestVertex;
-                LOG( logINFO ) << "Hit position (RO): " << pLocal.transpose();
-                LOG( logINFO ) << "Hit position (Comp): " << pEntity.transpose();
-                LOG( logINFO ) << "Hit position (World): " << pWorld.transpose();
-            }
-        }
-    }
-}
 } // namespace Engine
 } // namespace Ra

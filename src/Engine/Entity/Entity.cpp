@@ -67,15 +67,6 @@ void Entity::swapTransformBuffers() {
     }
 }
 
-void Entity::rayCastQuery( const Ra::Core::Ray& r ) const {
-    // put ray in local frame.
-    auto transformedRay = Core::Math::transformRay( m_transform.inverse(), r );
-    for ( const auto& c : m_components )
-    {
-        c->rayCastQuery( transformedRay );
-    }
-}
-
 } // namespace Engine
 
 } // namespace Ra

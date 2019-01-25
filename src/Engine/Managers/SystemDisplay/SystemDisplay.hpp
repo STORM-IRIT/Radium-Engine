@@ -54,9 +54,6 @@ class RA_ENGINE_API SystemEntity : public Entity {
 
     ~SystemEntity() override = default;
 
-    /// Ignore raycast queries
-    void rayCastQuery( const Core::Ray& r ) const override {}
-
 #ifndef RA_DISABLE_DEBUG_DISPLAY
     /// Access the debug component
     static DebugComponent* dbgCmp();
