@@ -5,6 +5,7 @@ namespace Core {
 namespace Geometry {
 
 inline TriangleMesh::TriangleMesh( const TriangleMesh& other ) :
+    AbstractGeometry(),
     m_triangles( other.m_triangles ),
     m_faces( other.m_faces ) {
     m_vertexAttribs.copyAllAttributes( other.m_vertexAttribs );
@@ -13,6 +14,7 @@ inline TriangleMesh::TriangleMesh( const TriangleMesh& other ) :
 }
 
 inline TriangleMesh::TriangleMesh( TriangleMesh&& other ) :
+    AbstractGeometry( other ),
     m_triangles( std::move( other.m_triangles ) ),
     m_faces( std::move( other.m_faces ) ),
     m_vertexAttribs( std::move( other.m_vertexAttribs ) ),

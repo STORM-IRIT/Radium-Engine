@@ -67,9 +67,6 @@ class RA_ENGINE_API Component {
     /// Remove the render object from the component.
     void removeRenderObject( const Core::Utils::Index& roIdx );
 
-    /// Perform a ray cast query.
-    virtual void rayCastQuery( const Ra::Core::Ray& ray ) const;
-
     // Editable transform interface.
     // This allow to edit the data in the component with a render object
     // as a key. An invalid RO index can be passed, meaning no specific RO is

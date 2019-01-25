@@ -2,6 +2,7 @@
 #define RADIUMENGINE_TRIANGLEMESH_HPP
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/AbstractGeometry.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>
@@ -17,9 +18,10 @@ namespace Geometry {
 /// Points and Normals, defining the mesh geometry, are always present.
 /// They can be accessed through vertices() and normals().
 /// Other attribs could be added with addAttrib() and accesssed with getAttrib().
-/// \note Attribute names "in_position" and "in_normal" are reserved.
-/// \see Geometry for geometric functions operating on a mesh.
-class RA_CORE_API TriangleMesh {
+/// \note Attribute names "in_position" "in_normal" are reserved and pre-allocated.
+/// \note Attribute name "in_color" is not reserved, but automatically binded to
+/// colors by Ra::Engine::Mesh when it exists (type must be Vec4AttribHandle)
+class RA_CORE_API TriangleMesh : public AbstractGeometry {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
@@ -32,7 +34,7 @@ class RA_CORE_API TriangleMesh {
     using Face = VectorNui;
 
     /// Create an empty mesh.
-    inline TriangleMesh() { initDefaultAttribs(); }
+    inline TriangleMesh() : AbstractGeometry() { initDefaultAttribs(); }
 
     /// Copy constructor, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are not valid for *this.
@@ -50,13 +52,15 @@ class RA_CORE_API TriangleMesh {
     /// \note Handles on \p other are also valid for *this.
     inline TriangleMesh& operator=( TriangleMesh&& other );
 
+    ~TriangleMesh() = default;
+
     /// Appends another mesh to this one, but only if they have the same attributes.
     /// Return True if the mesh has been successfully appended.
     /// \warning There is no error check on the handles attribute type.
     bool append( const TriangleMesh& other );
 
     /// Erases all data, making the mesh empty.
-    inline void clear();
+    inline void clear() override;
 
     /// Access the vertices positions.
     inline PointAttribHandle::Container& vertices() {
@@ -151,23 +155,11 @@ class RA_CORE_API TriangleMesh {
     /// \warning The original handles are not valid for the mesh copy.
     inline bool copyAllAttributes( const TriangleMesh& input );
 
-    inline Aabb computeAabb() const;
+    inline Aabb computeAabb() const override;
 
     /// Check that the mesh is well built, asserting when it is not.
     /// only compiles to something when in debug mode.
     void checkConsistency() const;
-
-    /// Results of a raycast vs a mesh
-    struct RayCastResult {
-        int m_hitTriangle = -1;
-        int m_nearestVertex = -1;
-        int m_edgeVertex0 = -1;
-        int m_edgeVertex1 = -1;
-        Scalar m_t = -1;
-    };
-    /// Return the index of the Triangle hit by the ray or -1 if there's no hit.
-    /// \FIXME
-    RayCastResult castRay( const Core::Ray& ray ) const;
 
   public:
     /// The list of triangles.
