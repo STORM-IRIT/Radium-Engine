@@ -299,15 +299,10 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_CAST_RAY_QUERY ) &&
          isKeyPressed( keyMap->getKeyFromAction( Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
     {
-        LOG( logINFO ) << "Raycast query launched";
+        LOG( logINFO ) << "Raycast query are disabled";
         auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
         RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f );
         RA_DISPLAY_RAY( r, Color::Yellow() );
-        auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
-        for ( auto e : ents )
-        {
-            e->rayCastQuery( r );
-        }
     } else if ( keyMap->getKeyFromAction( Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) ==
                 event->button() )
     {
