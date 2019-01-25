@@ -6,7 +6,9 @@ Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.h
 
 * Every .cpp must have an associated .hpp file
 * use .inl files for inline functions definitions and include it in the .hpp
-* All headers should have include guards in the form `#ifndef HEADER_NAME_HPP_` 
+* Two types of include guards are accepted (modern is preferred):
+   * Legacy: `#ifndef HEADER_NAME_HPP_`
+   * Modern: `#pragma once`
 * Every class should have its own header.
 * Always use < > in include directives and never " "
 * Keep headers in order : Class header, system libraries, other libraries, other headers from project.
