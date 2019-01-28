@@ -2,6 +2,7 @@
 
 #include <Core/Geometry/RayCast.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -14,6 +15,8 @@ Gizmo::Gizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::
     m_mode( mode ) {}
 
 Gizmo::~Gizmo() {
+    // first release meshes shared pointers before destroying ROs
+    m_meshes.clear();
     for ( auto ro : m_renderObjects )
     {
         m_comp->removeRenderObject( ro );
@@ -58,6 +61,11 @@ bool Gizmo::findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& or
         pointOut = ray.pointAt( hits[0] );
     }
     return hasHit;
+}
+
+void Gizmo::addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Engine::Mesh>& mesh ) {
+    m_meshes.push_back( mesh );
+    m_renderObjects.push_back( m_comp->addRenderObject( ro ) );
 }
 
 } // namespace Gui

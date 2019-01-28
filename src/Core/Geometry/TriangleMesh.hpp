@@ -6,6 +6,7 @@
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>
+#include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace Core {
@@ -160,6 +161,10 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry {
     /// Check that the mesh is well built, asserting when it is not.
     /// only compiles to something when in debug mode.
     void checkConsistency() const;
+
+    /// Utility function colorzing the mesh with a given color. Add the color attribute if needed.
+    void colorize( const Utils::Color& c );
+
 
   public:
     /// The list of triangles.

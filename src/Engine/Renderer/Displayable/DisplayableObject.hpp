@@ -1,0 +1,66 @@
+#pragma once
+#include <Engine/RaEngine.hpp>
+
+#include <array>
+#include <map>
+#include <vector>
+
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/Color.hpp>
+
+namespace Ra {
+namespace Engine {
+
+/**
+ * Base class of any displayable object.
+ */
+class RA_ENGINE_API Displayable {
+  public:
+    enum PickingRenderMode {
+        PKM_POINTS = 0,
+        PKM_LINES = 1,
+        PKM_LINE_ADJ = 2,
+        PKM_TRI = 3,
+        NO_PICKING
+    };
+
+    inline Displayable( const std::string& name ) : m_name( name ) {}
+    Displayable( const Displayable& rhs ) = delete;
+    void operator=( const Displayable& rhs ) = delete;
+
+    virtual ~Displayable() = default;
+
+    /// Returns the picking rendermode advised by the object (default PickingRenderMode::NO_PICKING)
+    inline PickingRenderMode pickingRenderMode() const { return m_pickingRenderMode; }
+
+    /// Returns the name of the mesh.
+    inline const std::string& getName() const { return m_name; }
+
+    /// Returns the underlying AbstractGeometry, which is in fact a TriangleMesh
+    /// \see getTriangleMesh
+    virtual const Core::Geometry::AbstractGeometry& getGeometry() const = 0;
+    virtual Core::Geometry::AbstractGeometry& getGeometry() = 0;
+
+    /**
+     * This function is called at the start of the rendering. It will update the
+     * necessary openGL buffers.
+     */
+    virtual void updateGL() = 0;
+
+    /// Draw the mesh.
+    virtual void render() = 0;
+
+    //// Utility methods, used to display statistics
+    virtual size_t getNumFaces() const { return 0; }
+    virtual size_t getNumVertices() const { return 0; }
+
+  protected:
+    PickingRenderMode m_pickingRenderMode{NO_PICKING};
+
+  private:
+    std::string m_name{}; /// Name of the mesh.
+};
+
+} // namespace Engine
+} // namespace Ra

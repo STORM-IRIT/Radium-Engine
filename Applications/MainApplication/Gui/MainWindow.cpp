@@ -528,9 +528,10 @@ void MainWindow::exportCurrentMesh() {
         Ra::IO::OBJFileManager obj;
         auto ro = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
             e.m_roIndex );
-        Ra::Core::Geometry::TriangleMesh mesh = ro->getMesh()->getGeometry();
-        bool result = obj.save( filename, mesh );
-        if ( result )
+        const std::shared_ptr<Engine::Displayable>& displ = ro->getMesh();
+        const Engine::Mesh* mesh = dynamic_cast<Engine::Mesh*>( displ.get() );
+
+        if ( mesh != nullptr && obj.save( filename, mesh->getTriangleMesh() ) )
         {
             LOG( logINFO ) << "Mesh from " << ro->getName() << " successfully exported to "
                            << filename;

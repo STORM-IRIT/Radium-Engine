@@ -50,6 +50,7 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
     void activePaintColor( bool on );
     void changePaintColor( const QColor& color );
+    void bakeToDiffuse ();
 
   private:
     MeshPaintUI* m_widget;

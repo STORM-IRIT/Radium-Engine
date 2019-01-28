@@ -34,8 +34,10 @@ public:
 signals:
     void paintColor( bool );
     void colorChanged( const QColor & );
+    void bakeToDiffuse();
 
 private slots:
+    void on__bakeToDiffuse_clicked();
     void on_paintColor_rb_toggled( bool checked );
     void on_changeColor_pb_clicked();
 

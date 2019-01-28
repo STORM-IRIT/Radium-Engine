@@ -26,8 +26,8 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
     Gizmo( c, worldTo, t, mode ),
     m_initialPix( Core::Vector2::Zero() ),
     m_selectedAxis( -1 ) {
-    constexpr Scalar torusOutRadius = 0.1f;
-    constexpr Scalar torusAspectRatio = 0.08f;
+    constexpr Scalar torusOutRadius = .1_ra;
+    constexpr Scalar torusAspectRatio = .08_ra;
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
@@ -36,7 +36,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
         // Transform the torus from z-axis to axis i.
         for ( auto& v : torus.vertices() )
         {
-            v = 0.5f * v;
+            v = .5_ra * v;
             if ( i < 2 )
             {
                 std::swap( v[2], v[i] );
@@ -46,13 +46,13 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
         // set color
         {
             Core::Utils::Color color = Core::Utils::Color::Black();
-            color[i] = 1.f;
+            color[i] = 1_ra;
             auto colorAttribHandle = torus.addAttrib<Core::Vector4>( colorAttribName );
             auto colorAttrib = torus.getAttrib( colorAttribHandle ).data() =
                 Core::Vector4Array( torus.vertices().size(), color );
         }
 
-        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
+        auto mesh = std::shared_ptr<Engine::Mesh>( new Engine::Mesh( "Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( torus ) );
 
         Engine::RenderObject* arrowDrawable =
@@ -66,7 +66,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
 
         updateTransform( mode, m_worldTo, m_transform );
 
-        m_renderObjects.push_back( m_comp->addRenderObject( arrowDrawable ) );
+        addRenderObject( arrowDrawable, mesh );
     }
 }
 
@@ -86,7 +86,8 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worl
         displayTransform.rotate( R );
     }
 
-    for ( auto roIdx : m_renderObjects )
+    /// \fixme Cause multiple search in Ro map.
+    for ( auto roIdx : roIds() )
     {
         Engine::RadiumEngine::getInstance()
             ->getRenderObjectManager()
@@ -96,42 +97,29 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worl
 }
 
 void RotateGizmo::selectConstraint( int drawableIdx ) {
-    auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-
-    auto colorizeMesh = [roMgr]( int id, const Core::Utils::Color& color ) {
-        auto rendermesh = roMgr->getRenderObject( id )->getMesh();
-        CORE_ASSERT( rendermesh != nullptr, "Cannot access Gizmo render mesh" );
-
-        // \warning: this is ugly and might generate a std::bad cast.
-        // An alternative implementation would be to store references to the gizmo meshes and use
-        // them instead of using the roMgr.
-        Core::Geometry::TriangleMesh& mesh =
-            dynamic_cast<Core::Geometry::TriangleMesh&>( rendermesh->getGeometry() );
-        auto colorAttribHandle = mesh.getAttribHandle<Core::Vector4>( colorAttribName );
-        CORE_ASSERT( mesh.isValid( colorAttribHandle ), "Gizmo mesh should have colors" );
-        auto colorAttrib = mesh.getAttrib( colorAttribHandle ).data() =
-            Core::Vector4Array( mesh.vertices().size(), color );
-        rendermesh->setDirty( Engine::Mesh::VERTEX_COLOR );
-    };
 
     // reColor constraint
     if ( m_selectedAxis != -1 )
     {
         Core::Utils::Color color = Core::Utils::Color::Black();
-        color[m_selectedAxis] = 1.f;
-        colorizeMesh( m_renderObjects[m_selectedAxis], color );
+        color[m_selectedAxis] = 1_ra;
+        const auto& mesh = roMeshes()[size_t( m_selectedAxis )];
+        mesh->getTriangleMesh().colorize( color );
+        mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
     }
     // prepare selection
     int oldAxis = m_selectedAxis;
     m_selectedAxis = -1;
     if ( drawableIdx >= 0 )
     {
-        auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(),
-                                Core::Utils::Index( drawableIdx ) );
-        if ( found != m_renderObjects.cend() )
+        auto found =
+            std::find( roIds().cbegin(), roIds().cend(), Core::Utils::Index( drawableIdx ) );
+        if ( found != roIds().cend() )
         {
-            m_selectedAxis = int( found - m_renderObjects.begin() );
-            colorizeMesh( m_renderObjects[m_selectedAxis], Core::Utils::Color::Yellow() );
+            m_selectedAxis = int( std::distance( roIds().cbegin(), found ) );
+            const auto& mesh = roMeshes()[size_t( m_selectedAxis )];
+            mesh->getTriangleMesh().colorize( Core::Utils::Color::Yellow() );
+            mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
         }
     }
     if ( m_selectedAxis != oldAxis )
@@ -143,7 +131,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
 
 Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                         bool stepped ) {
-    static const Scalar step = Ra::Core::Math::Pi / 10.f;
+    static const Scalar step = Ra::Core::Math::Pi / 10_ra;
 
     if ( m_selectedAxis == -1 )
         return m_transform;
@@ -181,7 +169,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
     // Compute the rotation angle
     Scalar angle;
     // standard check  +  guard against precision issues
-    if ( hit1 && hit2 && hits1[0] > 0.2 && hits2[0] > 0.2 )
+    if ( hit1 && hit2 && hits1[0] > .2_ra && hits2[0] > .2_ra )
     {
         // Do the calculations relative to the circle center.
         originalHit -= originW;
@@ -198,20 +186,20 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
         // Rotation plane is orthogonal to the image plane
         Core::Vector2 dir =
             ( cam.project( originW + rotationAxisW ) - cam.project( originW ) ).normalized();
-        if ( std::abs( dir( 0 ) ) < 1e-3 )
+        if ( std::abs( dir( 0 ) ) < 1e-3_ra )
         {
             dir << 1, 0;
-        } else if ( std::abs( dir( 1 ) ) < 1e-3 )
+        } else if ( std::abs( dir( 1 ) ) < 1e-3_ra )
         {
             dir << 0, 1;
         } else
         { dir = Core::Vector2( dir( 1 ), -dir( 0 ) ); }
         Scalar diag = std::min( cam.getWidth(), cam.getHeight() );
-        angle = dir.dot( ( nextXY - m_initialPix ) ) * 8 / diag;
+        angle = dir.dot( ( nextXY - m_initialPix ) ) * 8_ra / diag;
     }
     if ( std::isnan( angle ) )
     {
-        angle = Scalar( 0 );
+        angle = 0_ra;
     }
     // Apply rotation
     Core::Vector2 nextXY_ = nextXY;
@@ -240,7 +228,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
     return m_transform;
 }
 
-void RotateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
+void RotateGizmo::setInitialState( const Engine::Camera& /*cam*/, const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
 }
 

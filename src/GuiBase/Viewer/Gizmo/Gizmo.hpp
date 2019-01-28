@@ -23,13 +23,19 @@ class RenderObject;
 namespace Ra {
 namespace Engine {
 class Camera;
-}
+class Mesh;
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
 namespace Gui {
 /// Base class for gizmos, i.e. graphic tools to manipulate a transform.
-/// Do not feed after midnight.
+///
+/// \fixme There is a lot of duplicated code shared between the different Gizmos (rotate, translate,
+/// scale). This is due to the fact that they all have Render Objects in xyz directions, and which
+/// can be selected with the same logic. An alternative would be to have an intermediate class ,
+/// e.g. `XYZGizmo` which performs all the generic operations (e.g. render object coloring in
+/// #selectConstraint and #mouseMove).
 class Gizmo {
   public:
     enum Mode {
@@ -72,12 +78,26 @@ class Gizmo {
                                   const Core::Vector3& axis, const Core::Vector2& pix,
                                   Core::Vector3& pointOut, std::vector<Scalar>& hits );
 
+    //////////////////////////////
+    // Render objects management
+
+    /// read access to the gizmo render objects id
+    inline const std::vector<Core::Utils::Index>& roIds() const { return m_renderObjects; }
+    /// read access to the gizmo render objects Meshes
+    /// \note Only the std::vector is const, which allows to modify the meshes
+    inline const std::vector<std::shared_ptr<Engine::Mesh>>& roMeshes() const { return m_meshes; }
+    /// add a render object to display the Gizmo
+    /// \param mesh Except declaration type, must be equal to ro->getMesh();
+    void addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Engine::Mesh>& mesh );
+
   protected:
     Core::Transform m_worldTo;   ///< World to local space where the transform lives.
     Core::Transform m_transform; ///< Transform to be edited.
     Engine::Component* m_comp;   ///< Engine Ui component.
     Mode m_mode;                 ///< local or global.
-    std::vector<Core::Utils::Index> m_renderObjects; ///< ros for the gizmo.
+  private:
+    std::vector<Core::Utils::Index> m_renderObjects;     ///< ros for the gizmo.
+    std::vector<std::shared_ptr<Engine::Mesh>> m_meshes; ///< Display meshes of the gizmo
 };
 } // namespace Gui
 } // namespace Ra

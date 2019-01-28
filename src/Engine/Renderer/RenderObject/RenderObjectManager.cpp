@@ -98,7 +98,7 @@ void RenderObjectManager::renderObjectExpired( const Core::Utils::Index& idx ) {
 
     auto type = ro->getType();
 
-    m_renderObjectByType[(int)type].erase( idx );
+    m_renderObjectByType[size_t( type )].erase( idx );
 
     ro->hasExpired();
 
@@ -112,7 +112,7 @@ size_t RenderObjectManager::getNumFaces() const {
         []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
             if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
             {
-                return a + ro->getMesh()->getGeometry().m_triangles.size();
+                return a + ro->getMesh()->getNumFaces();
             } else
             { return a; }
         } );
@@ -126,7 +126,7 @@ size_t RenderObjectManager::getNumVertices() const {
         []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
             if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
             {
-                return a + ro->getMesh()->getGeometry().vertices().size();
+                return a + ro->getMesh()->getNumVertices();
             } else
             { return a; }
         } );
@@ -151,10 +151,8 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
         if ( ro->isVisible() && ( entity != systemEntity ) )
         {
             Transform tr = entity->getTransform() * ro->getLocalTransform();
-            for ( const auto& p : ro->getMesh()->getGeometry().vertices() )
-            {
-                aabb.extend( tr * p );
-            }
+            aabb.extend(
+                Core::Geometry::Obb( ro->getMesh()->getGeometry().computeAabb(), tr ).toAabb() );
         }
     }
     return aabb;

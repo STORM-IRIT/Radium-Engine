@@ -3,8 +3,8 @@
 #include <Engine/RadiumEngine.hpp>
 
 #include <Engine/Component/Component.hpp>
+#include <Engine/Renderer/Displayable/DisplayableObject.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
@@ -20,25 +20,25 @@ namespace Engine {
 RenderObject::RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
                             int lifetime ) :
     IndexedObject(),
-    m_component{ comp } ,
-    m_name { name },
-    m_type { type },
-    m_mesh { nullptr },
-    m_lifetime { lifetime },
-    m_hasLifetime { lifetime > 0 } {}
+    m_component{comp},
+    m_name{name},
+    m_type{type},
+    m_mesh{nullptr},
+    m_lifetime{lifetime},
+    m_hasLifetime{lifetime > 0} {}
 
 RenderObject::~RenderObject() = default;
 
 RenderObject* RenderObject::createRenderObject( const std::string& name, Component* comp,
                                                 const RenderObjectType& type,
-                                                const std::shared_ptr<Mesh>& mesh,
+                                                const std::shared_ptr<Displayable>& mesh,
                                                 const RenderTechnique& techniqueConfig,
                                                 const std::shared_ptr<Material>& material ) {
     auto obj = new RenderObject( name, comp, type );
     obj->setMesh( mesh );
     obj->setVisible( true );
 
-    auto rt = std::make_shared<RenderTechnique> ( techniqueConfig );
+    auto rt = std::make_shared<RenderTechnique>( techniqueConfig );
 
     if ( material != nullptr )
     {
@@ -152,15 +152,15 @@ std::shared_ptr<RenderTechnique> RenderObject::getRenderTechnique() {
     return m_renderTechnique;
 }
 
-void RenderObject::setMesh( const std::shared_ptr<Mesh>& mesh ) {
+void RenderObject::setMesh( const std::shared_ptr<Displayable>& mesh ) {
     m_mesh = mesh;
 }
 
-std::shared_ptr<const Mesh> RenderObject::getMesh() const {
+std::shared_ptr<const Displayable> RenderObject::getMesh() const {
     return m_mesh;
 }
 
-const std::shared_ptr<Mesh>& RenderObject::getMesh() {
+const std::shared_ptr<Displayable>& RenderObject::getMesh() {
     return m_mesh;
 }
 
@@ -178,7 +178,7 @@ Core::Aabb RenderObject::getAabb() const {
 
     for ( int i = 0; i < 8; ++i )
     {
-        result.extend( getTransform() * aabb.corner( Core::Aabb::CornerType(i) ) );
+        result.extend( getTransform() * aabb.corner( Core::Aabb::CornerType( i ) ) );
     }
 
     return result;
@@ -214,8 +214,8 @@ void RenderObject::hasExpired() {
     m_component->notifyRenderObjectExpired( m_idx );
 }
 
-void RenderObject::render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
-                          const ShaderProgram *shader) {
+void RenderObject::render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+                           const ShaderProgram* shader ) {
     if ( m_visible )
     {
         if ( !shader )
@@ -231,11 +231,11 @@ void RenderObject::render(const RenderParameters &lightParams, const ViewingPara
         shader->setUniform( "transform.proj", viewParams.projMatrix );
         shader->setUniform( "transform.view", viewParams.viewMatrix );
         shader->setUniform( "transform.model", modelMatrix );
-        shader->setUniform( "transform.worldNormal", normalMatrix);
+        shader->setUniform( "transform.worldNormal", normalMatrix );
         lightParams.bind( shader );
 
         auto material = m_renderTechnique->getMaterial();
-        if (material != nullptr)
+        if ( material != nullptr )
             material->bind( shader );
 
         // render
@@ -243,8 +243,8 @@ void RenderObject::render(const RenderParameters &lightParams, const ViewingPara
     }
 }
 
-void RenderObject::render(const RenderParameters &lightParams, const ViewingParameters &viewParams,
-                          RenderTechnique::PassName passname) {
+void RenderObject::render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+                           RenderTechnique::PassName passname ) {
     render( lightParams, viewParams, getRenderTechnique()->getShader( passname ) );
 }
 
