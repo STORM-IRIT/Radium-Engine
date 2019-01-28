@@ -10,8 +10,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-using namespace internal;
-
 TriangleMesh makeXNormalQuad( const Vector2& halfExts,
                               const Utils::optional<Utils::Color>& color ) {
     Transform T = Transform::Identity();
@@ -60,7 +58,8 @@ TriangleMesh makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& col
         Vector3ui( 4, 5, 6 ), Vector3ui( 6, 5, 7 )  // Top
     };
 
-    configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -122,7 +121,8 @@ TriangleMesh makeSharpBox( const Aabb& aabb, const Utils::optional<Utils::Color>
         Vector3ui( 20, 21, 22 ), Vector3ui( 20, 22, 23 )  // Top
     };
 
-    configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -210,7 +210,8 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv,
         result.m_triangles = newTris;
     }
 
-    configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -273,7 +274,8 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         result.m_triangles.emplace_back( 0, br, bl );
         result.m_triangles.emplace_back( 1, tl, tr );
     }
-    configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -458,7 +460,8 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces,
         result.m_triangles.emplace_back( bl, br, top );
     }
 
-    configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -552,7 +555,8 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
         result.m_triangles.emplace_back( itl, otl, otr );
     }
 
-    configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -598,7 +602,8 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
         result.m_triangles.emplace_back( 1, bl, br );
     }
 
-    configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -606,15 +611,15 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
 
 TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& halfExts,
                             const Transform& T, const Utils::optional<Utils::Color>& color ) {
-    TriangleMesh grid;
+    TriangleMesh result;
     const uint R = ( rows + 1 );
     const uint C = ( cols + 1 );
     const uint v_size = C * R;
     const uint t_size = 2 * cols * rows;
 
-    grid.vertices().resize( v_size );
-    grid.normals().resize( v_size );
-    grid.m_triangles.reserve( t_size );
+    result.vertices().resize( v_size );
+    result.normals().resize( v_size );
+    result.m_triangles.reserve( t_size );
 
     const Vector3 X = T.linear().col( 0 ).normalized();
     const Vector3 Y = T.linear().col( 1 ).normalized();
@@ -631,8 +636,8 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
         {
             const uint id = ( i * C ) + j;
             v.at( {i, j} ) = id;
-            grid.vertices()[id] = o + ( i * y ) + ( j * x );
-            grid.normals()[id] = Z;
+            result.vertices()[id] = o + ( i * y ) + ( j * x );
+            result.normals()[id] = Z;
         }
     }
 
@@ -640,17 +645,18 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
     {
         for ( uint j = 0; j < cols; ++j )
         {
-            grid.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i, j + 1} ),
-                                           v.at( {i + 1, j + 1} ) );
-            grid.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i + 1, j + 1} ),
-                                           v.at( {i + 1, j} ) );
+            result.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i, j + 1} ),
+                                             v.at( {i + 1, j + 1} ) );
+            result.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i + 1, j + 1} ),
+                                             v.at( {i + 1, j} ) );
         }
     }
 
-    configureColors( grid, color );
-    grid.checkConsistency();
+    if ( bool( color ) )
+        result.colorize( *color );
+    result.checkConsistency();
 
-    return grid;
+    return result;
 }
 } // namespace Geometry
 } // namespace Core

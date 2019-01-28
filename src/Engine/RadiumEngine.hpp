@@ -23,7 +23,7 @@ namespace Engine {
 class System;
 class Entity;
 class Component;
-class Mesh;
+class Displayable;
 class RenderObjectManager;
 class EntityManager;
 class SignalManager;
@@ -89,8 +89,9 @@ class RA_ENGINE_API RadiumEngine {
      * @deprecated Will be removed from this class in the next release. A Mesh manager, that could
      * serve mesh by name will be implemented.
      */
-    [[deprecated]] Mesh* getMesh( const std::string& entityName, const std::string& componentName,
-                                  const std::string& roName = std::string() ) const;
+    [[deprecated]] Displayable* getMesh( const std::string& entityName,
+                                         const std::string& componentName,
+                                         const std::string& roName = std::string() ) const;
 
     /**
      * Try to loads the given file.

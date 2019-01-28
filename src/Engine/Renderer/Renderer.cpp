@@ -70,14 +70,15 @@ void Renderer::initialize( uint width, uint height ) {
     pickingPointsConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingPoints.geom.glsl" );
     pickingPointsConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
-    m_pickingShaders[0] = m_shaderMgr->addShaderProgram( pickingPointsConfig );
+    m_pickingShaders[Displayable::PKM_POINTS] =
+        m_shaderMgr->addShaderProgram( pickingPointsConfig );
 
     ShaderConfiguration pickingLinesConfig( "PickingLines" );
     pickingLinesConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingLinesConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingLines.geom.glsl" );
     pickingLinesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
-    m_pickingShaders[1] = m_shaderMgr->addShaderProgram( pickingLinesConfig );
+    m_pickingShaders[Displayable::PKM_LINES] = m_shaderMgr->addShaderProgram( pickingLinesConfig );
 
     ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
     pickingLinesAdjacencyConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
@@ -85,14 +86,16 @@ void Renderer::initialize( uint width, uint height ) {
                                            "Shaders/PickingLinesAdjacency.geom.glsl" );
     pickingLinesAdjacencyConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
-    m_pickingShaders[2] = m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
+    m_pickingShaders[Displayable::PKM_LINE_ADJ] =
+        m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
 
     ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
     pickingTrianglesConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingTrianglesConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingTriangles.geom.glsl" );
     pickingTrianglesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
-    m_pickingShaders[3] = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
+    m_pickingShaders[Displayable::PKM_TRI] =
+        m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
 
     TextureParameters texparams;
     texparams.width = m_width;
@@ -128,8 +131,9 @@ void Renderer::initialize( uint width, uint height ) {
     Core::Geometry::TriangleMesh mesh =
         Core::Geometry::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
 
-    m_quadMesh = std::make_unique<Mesh>( "quad" );
-    m_quadMesh->loadGeometry( std::move( mesh ) );
+    auto qm = std::make_unique<Mesh>( "quad" );
+    qm->loadGeometry( std::move( mesh ) );
+    m_quadMesh = std::move( qm ); // we need to move, as loadGeometry is not a member of Displayable
     m_quadMesh->updateGL();
 
     initializeInternal();
@@ -201,10 +205,10 @@ void Renderer::saveExternalFBOInternal() {
     // save the currently bound FBO
     GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &m_qtPlz ) );
     // Set the internal rendering viewport
-    glViewport( 0, 0, m_width, m_height );
+    glViewport( 0, 0, int( m_width ), int( m_height ) );
 }
 
-void Renderer::updateRenderObjectsInternal( const ViewingParameters& renderData ) {
+void Renderer::updateRenderObjectsInternal( const ViewingParameters& /*renderData*/ ) {
     for ( auto& ro : m_fancyRenderObjects )
     {
         ro->updateGL();
@@ -223,7 +227,7 @@ void Renderer::updateRenderObjectsInternal( const ViewingParameters& renderData 
     }
 }
 
-void Renderer::feedRenderQueuesInternal( const ViewingParameters& renderData ) {
+void Renderer::feedRenderQueuesInternal( const ViewingParameters& /*renderData*/ ) {
     m_fancyRenderObjects.clear();
     m_debugRenderObjects.clear();
     m_uiRenderObjects.clear();
@@ -276,44 +280,13 @@ void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
     // fill renderQueuePicking from renderQueue
     for ( auto& roPtr : renderQueue )
     {
-        switch ( roPtr->getMesh()->getRenderMode() )
-        {
-        case Mesh::RM_POINTS:
-        {
-            renderQueuePicking[0].push_back( roPtr );
-            break;
-        }
-        case Mesh::RM_LINES: // fall through
-            [[fallthrough]];
-        case Mesh::RM_LINE_LOOP: // fall through
-            [[fallthrough]];
-        case Mesh::RM_LINE_STRIP:
-        {
-            renderQueuePicking[1].push_back( roPtr );
-            break;
-        }
-        case Mesh::RM_LINES_ADJACENCY: // fall through
-        case Mesh::RM_LINE_STRIP_ADJACENCY:
-        {
-            renderQueuePicking[2].push_back( roPtr );
-            break;
-        }
-        case Mesh::RM_TRIANGLES:
-            [[fallthrough]];
-        case Mesh::RM_TRIANGLE_STRIP:
-            [[fallthrough]];
-        case Mesh::RM_TRIANGLE_FAN:
-        {
-            renderQueuePicking[3].push_back( roPtr );
-            break;
-        }
-        default:
-        { break; }
-        }
+        auto mode = roPtr->getMesh()->pickingRenderMode();
+        if ( mode != Displayable::NO_PICKING )
+            renderQueuePicking[size_t( mode )].push_back( roPtr );
     }
 }
 
-void Renderer::splitRenderQueuesForPicking( const ViewingParameters& renderData ) {
+void Renderer::splitRenderQueuesForPicking( const ViewingParameters& /*renderData*/ ) {
     splitRQ( m_fancyRenderObjects, m_fancyRenderObjectsPicking );
     splitRQ( m_debugRenderObjects, m_debugRenderObjectsPicking );
     splitRQ( m_uiRenderObjects, m_uiRenderObjectsPicking );

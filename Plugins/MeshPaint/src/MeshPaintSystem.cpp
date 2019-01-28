@@ -56,4 +56,13 @@ void MeshPaintSystem::paintMesh( const Ra::Engine::Renderer::PickingResult& pick
     }
 }
 
+void MeshPaintSystem::bakeToDiffuse()
+{
+    for ( auto& compEntry : this->m_components )
+    {
+        auto MPcomp = static_cast<MeshPaintComponent*>( compEntry.second );
+        MPcomp->bakePaintToDiffuse();
+    }
+}
+
 } // namespace MeshPaintPlugin

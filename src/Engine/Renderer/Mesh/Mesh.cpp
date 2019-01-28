@@ -55,7 +55,7 @@ inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<Cont
 // Dirty is initializes as false so that we do not create the vao while
 // we have no data to send to the gpu.
 Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
-    m_name{name},
+    Displayable( name ),
     m_renderMode{renderMode} {
     CORE_ASSERT( m_renderMode == RM_POINTS || m_renderMode == RM_LINES ||
                      m_renderMode == RM_LINE_LOOP || m_renderMode == RM_LINE_STRIP ||
@@ -63,6 +63,8 @@ Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
                      m_renderMode == RM_TRIANGLE_FAN || m_renderMode == RM_LINES_ADJACENCY ||
                      m_renderMode == RM_LINE_STRIP_ADJACENCY,
                  "Unsupported render mode" );
+
+    updatePickingRenderMode();
 
     // Mark mesh data as up-to-date.
     for ( uint i = 0; i < MAX_MESH; ++i )
@@ -95,13 +97,27 @@ void Mesh::render() {
     }
 }
 
+size_t Mesh::getNumFaces() const {
+    switch ( getRenderMode() )
+    {
+    case MeshRenderMode::RM_TRIANGLE_STRIP:
+        [[fallthrough]];
+    case MeshRenderMode::RM_TRIANGLE_FAN:
+        return ( getTriangleMesh().m_triangles.size() - 1 ) * 3 + 1;
+    case MeshRenderMode::RM_TRIANGLES:
+        return getTriangleMesh().m_triangles.size();
+    default:
+        return size_t( 0 );
+    }
+}
+
 void Mesh::loadGeometry( Core::Geometry::TriangleMesh&& mesh ) {
     m_mesh = std::move( mesh );
 
     if ( m_mesh.m_triangles.empty() )
     {
         m_numElements = m_mesh.vertices().size();
-        m_renderMode = RM_POINTS;
+        setRenderMode( RM_POINTS );
     } else
         m_numElements = m_mesh.m_triangles.size() * 3;
 
@@ -131,7 +147,7 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     if ( indices.empty() )
     {
         m_numElements = vertices.size();
-        m_renderMode = RM_POINTS;
+        setRenderMode( RM_POINTS );
     } else
         m_numElements = nIdx;
     m_mesh.vertices() = vertices;
@@ -278,6 +294,46 @@ void Mesh::updateGL() {
         GL_ASSERT( glBindVertexArray( 0 ) );
         GL_CHECK_ERROR;
         m_isDirty = false;
+    }
+}
+
+void Mesh::updatePickingRenderMode() {
+    switch ( getRenderMode() )
+    {
+    case Mesh::RM_POINTS:
+    {
+        Displayable::m_pickingRenderMode = PKM_POINTS;
+        break;
+    }
+    case Mesh::RM_LINES: // fall through
+        [[fallthrough]];
+    case Mesh::RM_LINE_LOOP: // fall through
+        [[fallthrough]];
+    case Mesh::RM_LINE_STRIP:
+    {
+        Displayable::m_pickingRenderMode = PKM_LINES;
+        break;
+    }
+    case Mesh::RM_LINES_ADJACENCY: // fall through
+    case Mesh::RM_LINE_STRIP_ADJACENCY:
+    {
+        Displayable::m_pickingRenderMode = PKM_LINE_ADJ;
+        break;
+    }
+    case Mesh::RM_TRIANGLES:
+        [[fallthrough]];
+    case Mesh::RM_TRIANGLE_STRIP:
+        [[fallthrough]];
+    case Mesh::RM_TRIANGLE_FAN:
+    {
+        Displayable::m_pickingRenderMode = PKM_TRI;
+        break;
+    }
+    default:
+    {
+        Displayable::m_pickingRenderMode = NO_PICKING;
+        break;
+    }
     }
 }
 

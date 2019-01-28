@@ -2,6 +2,7 @@
 
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -16,10 +17,13 @@
 using Ra::Engine::ComponentMessenger;
 using MeshRenderMode = Ra::Engine::Mesh::MeshRenderMode;
 using PickingMode = Ra::Engine::Renderer::PickingMode;
+using Ra::Core::Utils::TLogLevel;
 
 namespace MeshFeatureTrackingPlugin {
 MeshFeatureTrackingComponent::MeshFeatureTrackingComponent( const std::string& name ) :
-    Component( name, Ra::Engine::SystemEntity::getInstance() ) {
+    Component( name, Ra::Engine::SystemEntity::getInstance() ),
+    m_pickedMesh( nullptr )
+{
     m_data.m_mode = Ra::Engine::Renderer::PickingMode::RO;
 }
 
@@ -27,11 +31,11 @@ MeshFeatureTrackingComponent::~MeshFeatureTrackingComponent() {}
 
 void MeshFeatureTrackingComponent::initialize() {
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "PickingManagerSphere" ) );
-    display->loadGeometry( Ra::Core::Geometry::makeParametricSphere( 1.0 ) );
+    display->loadGeometry( Ra::Core::Geometry::makeParametricSphere( 1_ra ) );
     std::shared_ptr<Ra::Engine::Material> material;
     auto bpMaterial = new Ra::Engine::BlinnPhongMaterial( "PickingManageSphereMaterial" );
     material.reset( bpMaterial );
-    bpMaterial->m_kd = Ra::Core::Utils::Color( 0.f, 1.f, 0.f, 1.f );
+    bpMaterial->m_kd = Ra::Core::Utils::Color::Green();
     m_RO = Ra::Engine::RenderObject::createRenderObject(
         "FeaturePickingManagerSphereRO", this, Ra::Engine::RenderObjectType::Geometry, display,
         Ra::Engine::RenderTechnique::createDefaultRenderTechnique(), material );
@@ -54,12 +58,7 @@ void MeshFeatureTrackingComponent::setScale( Scalar scale ) {
 int MeshFeatureTrackingComponent::getMaxV() const {
     if ( m_data.m_mode != PickingMode::RO && getRoMgr()->exists( m_pickedRoIdx ) )
     {
-        return getRoMgr()
-            ->getRenderObject( m_pickedRoIdx )
-            ->getMesh()
-            ->getGeometry()
-            .vertices()
-            .size();
+        return int( m_pickedMesh->getNumVertices() );
     }
     return 0;
 }
@@ -67,19 +66,7 @@ int MeshFeatureTrackingComponent::getMaxV() const {
 int MeshFeatureTrackingComponent::getMaxT() const {
     if ( m_data.m_mode != PickingMode::RO && getRoMgr()->exists( m_pickedRoIdx ) )
     {
-        auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
-        if ( ro->getMesh()->getRenderMode() == MeshRenderMode::RM_TRIANGLES )
-        {
-            return ro->getMesh()->getGeometry().m_triangles.size();
-        }
-        if ( ro->getMesh()->getRenderMode() == MeshRenderMode::RM_TRIANGLE_STRIP )
-        {
-            return int( ro->getMesh()->getGeometry().m_triangles.size() - 1 ) * 3 + 1;
-        }
-        if ( ro->getMesh()->getRenderMode() == MeshRenderMode::RM_TRIANGLE_FAN )
-        {
-            return int( ro->getMesh()->getGeometry().m_triangles.size() - 1 ) * 3 + 1;
-        }
+        return int( m_pickedMesh->getNumFaces() );
     }
     return 0;
 }
@@ -200,21 +187,35 @@ void getPos_TF2T( int tf, int& v1, int& v2, int& t1, int& t2 ) {
 } // namespace
 
 void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingResult& data ) {
-    m_pickedRoIdx = data.m_roIdx;
-    m_data.m_mode = data.m_mode;
-    m_data.m_data = {-1, -1, -1, -1};
-    // check picking mode / render config OK
-    if ( m_data.m_mode == PickingMode::RO || m_data.m_mode > PickingMode::TRIANGLE )
-    {
-        return;
-    }
-    if ( !getRoMgr()->exists( m_pickedRoIdx ) )
+    using Ra::Engine::Displayable;
+
+    if ( !getRoMgr()->exists( data.m_roIdx ) )
     {
         m_data.m_mode = PickingMode::RO;
         return;
     }
-    auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
-    auto rm = ro->getMesh()->getRenderMode();
+
+    {
+        auto ro = getRoMgr()->getRenderObject( data.m_roIdx );
+        Ra::Engine::Mesh* mesh = dynamic_cast<Ra::Engine::Mesh*>( ro->getMesh().get() );
+        if( mesh == nullptr ){
+            LOG( TLogLevel::logWARNING ) << "MeshFeatureTracking is available only for meshes";
+            return;
+        }
+
+        // We set both objects at once, they should remain consistent while m_pickedRoIdx is valid
+        m_pickedRoIdx = data.m_roIdx;
+        m_pickedMesh  = mesh;
+    }
+    // check picking mode / render config OK
+    if ( data.m_mode == PickingMode::RO || data.m_mode > PickingMode::TRIANGLE )
+    {
+        return;
+    }
+    m_data.m_mode = data.m_mode;
+    m_data.m_data = {-1, -1, -1, -1};
+
+    auto rm = m_pickedMesh->getRenderMode();
     if ( rm == MeshRenderMode::RM_POINTS && m_data.m_mode != PickingMode::VERTEX )
     {
         m_data.m_mode = PickingMode::RO;
@@ -223,7 +224,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     if ( ( rm == MeshRenderMode::RM_LINES || rm == MeshRenderMode::RM_LINE_LOOP ||
            rm == MeshRenderMode::RM_LINE_STRIP || rm == MeshRenderMode::RM_LINES_ADJACENCY ||
            rm == MeshRenderMode::RM_LINE_STRIP_ADJACENCY ) &&
-         m_data.m_mode == PickingMode::TRIANGLE )
+             m_data.m_mode == PickingMode::TRIANGLE )
     {
         m_data.m_mode = PickingMode::RO;
         return;
@@ -239,7 +240,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v0, v1, t0, t1;
         getPos_L2T( data.m_elementIdx[0], v0, v1, t0, t1 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         if ( m_data.m_mode == PickingMode::VERTEX )
         {
             m_data.m_data[0] = data.m_vertexIdx[0] == 0 ? t[t0]( v0 ) : t[t1]( v1 );
@@ -255,7 +256,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v0, v1, t0, t1;
         getPos_L2T_strip( data.m_elementIdx[0], v0, v1, t0, t1 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         if ( m_data.m_mode == PickingMode::VERTEX )
         {
             m_data.m_data[0] = data.m_vertexIdx[0] == 0 ? t[t0]( v0 ) : t[t1]( v1 );
@@ -271,7 +272,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v0, v1, t0, t1;
         getPos_L2T_adjacency( data.m_elementIdx[0], v0, v1, t0, t1 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         if ( m_data.m_mode == PickingMode::VERTEX )
         {
             m_data.m_data[0] = data.m_vertexIdx[0] == 0 ? t[t0]( v0 ) : t[t1]( v1 );
@@ -287,7 +288,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v0, v1, t0, t1;
         getPos_L2T_strip_adjacency( data.m_elementIdx[0], v0, v1, t0, t1 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         if ( m_data.m_mode == PickingMode::VERTEX )
         {
             m_data.m_data[0] = data.m_vertexIdx[0] == 0 ? t[t0]( v0 ) : t[t1]( v1 );
@@ -301,21 +302,21 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     }
     if ( rm == MeshRenderMode::RM_TRIANGLES && m_data.m_mode == PickingMode::VERTEX )
     {
-        const auto& T = ro->getMesh()->getGeometry().m_triangles[data.m_elementIdx[0]];
+        const auto& T = m_pickedMesh->getTriangleMesh().m_triangles[data.m_elementIdx[0]];
         m_data.m_data[0] = T( data.m_vertexIdx[0] );
         m_data.m_data[1] = T( ( data.m_vertexIdx[0] + 1 ) % 3 );
         return;
     }
     if ( rm == MeshRenderMode::RM_TRIANGLES && m_data.m_mode == PickingMode::EDGE )
     {
-        const auto& T = ro->getMesh()->getGeometry().m_triangles[data.m_elementIdx[0]];
+        const auto& T = m_pickedMesh->getTriangleMesh().m_triangles[data.m_elementIdx[0]];
         m_data.m_data[0] = T( ( data.m_edgeIdx[0] + 1 ) % 3 );
         m_data.m_data[1] = T( ( data.m_edgeIdx[0] + 2 ) % 3 );
         return;
     }
     if ( rm == MeshRenderMode::RM_TRIANGLES )
     {
-        const auto& T = ro->getMesh()->getGeometry().m_triangles[data.m_elementIdx[0]];
+        const auto& T = m_pickedMesh->getTriangleMesh().m_triangles[data.m_elementIdx[0]];
         m_data.m_data[0] = T( 0 );
         m_data.m_data[1] = T( 1 );
         m_data.m_data[2] = T( 2 );
@@ -326,7 +327,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v0, v1, v2, t0, t1, t2;
         getPos_TS2T( data.m_elementIdx[0], v0, v1, v2, t0, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = data.m_vertexIdx[0] == 0
                                ? t[t0]( v0 )
                                : ( data.m_vertexIdx[0] == 1 ? t[t1]( v1 ) : t[t2]( v2 ) );
@@ -337,7 +338,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v0, v1, v2, t0, t1, t2;
         getPos_TS2T( data.m_elementIdx[0], v0, v1, v2, t0, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = data.m_edgeIdx[0] == 0 ? t[t1]( v1 ) : t[t0]( v0 );
         m_data.m_data[1] = data.m_edgeIdx[0] == 2 ? t[t1]( v1 ) : t[t2]( v2 );
         return;
@@ -346,7 +347,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v0, v1, v2, t0, t1, t2;
         getPos_TS2T( data.m_elementIdx[0], v0, v1, v2, t0, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = t[t0]( v0 );
         m_data.m_data[1] = t[t1]( v1 );
         m_data.m_data[2] = t[t2]( v2 );
@@ -357,7 +358,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v1, v2, t1, t2;
         getPos_TF2T( data.m_elementIdx[0], v1, v2, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = data.m_vertexIdx[0] == 0
                                ? t[0]( 0 )
                                : ( data.m_vertexIdx[0] == 1 ? t[t1]( v1 ) : t[t2]( v2 ) );
@@ -368,7 +369,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v1, v2, t1, t2;
         getPos_TF2T( data.m_elementIdx[0], v1, v2, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = data.m_edgeIdx[0] == 0 ? t[t1]( v1 ) : t[0]( 0 );
         m_data.m_data[1] = data.m_edgeIdx[0] == 2 ? t[t1]( v1 ) : t[t2]( v2 );
         return;
@@ -377,7 +378,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         int v1, v2, t1, t2;
         getPos_TF2T( data.m_elementIdx[0], v1, v2, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = t[0]( 0 );
         m_data.m_data[1] = t[t1]( v1 );
         m_data.m_data[2] = t[t2]( v2 );
@@ -391,15 +392,16 @@ void MeshFeatureTrackingComponent::setVertexIdx( int idx ) {
     {
         return;
     }
+    CORE_ASSERT( m_pickedMesh != nullptr, "m_pickedRoIdx and m_pickedMesh are inconsistent" );
+
     m_data.m_data[0] = idx;
     // also need to change second for feature Scale
-    const auto& ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
-    const auto rm = ro->getMesh()->getRenderMode();
+    const auto rm = m_pickedMesh->getRenderMode();
     if ( rm == MeshRenderMode::RM_POINTS )
     {
         return;
     }
-    const auto& t = ro->getMesh()->getGeometry().m_triangles;
+    const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
     if ( rm == MeshRenderMode::RM_LINES )
     {
         for ( uint i = 0; i < t.size(); ++i )
@@ -517,10 +519,11 @@ void MeshFeatureTrackingComponent::setTriangleIdx( int idx ) {
     {
         return;
     }
+    CORE_ASSERT( m_pickedMesh != nullptr, "m_pickedRoIdx and m_pickedMesh are inconsistent" );
+
     // also need to change all for feature Scale, Position and Vector
-    const auto& ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
-    const auto rm = ro->getMesh()->getRenderMode();
-    const auto& t = ro->getMesh()->getGeometry().m_triangles;
+    const auto rm = m_pickedMesh->getRenderMode();
+    const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
     if ( rm == MeshRenderMode::RM_TRIANGLES )
     {
         const auto& T = t[idx];
@@ -534,7 +537,7 @@ void MeshFeatureTrackingComponent::setTriangleIdx( int idx ) {
     {
         int v0, v1, v2, t0, t1, t2;
         getPos_TS2T( idx, v0, v1, v2, t0, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = t[t0]( v0 );
         m_data.m_data[1] = t[t1]( v1 );
         m_data.m_data[2] = t[t2]( v2 );
@@ -545,7 +548,7 @@ void MeshFeatureTrackingComponent::setTriangleIdx( int idx ) {
     {
         int v1, v2, t1, t2;
         getPos_TF2T( idx, v1, v2, t1, t2 );
-        const auto& t = ro->getMesh()->getGeometry().m_triangles;
+        const auto& t = m_pickedMesh->getTriangleMesh().m_triangles;
         m_data.m_data[0] = t[0]( 0 );
         m_data.m_data[1] = t[t1]( v1 );
         m_data.m_data[2] = t[t2]( v2 );
@@ -559,6 +562,8 @@ void MeshFeatureTrackingComponent::update() {
     if ( m_data.m_mode != PickingMode::RO && m_data.m_mode <= PickingMode::TRIANGLE &&
          getRoMgr()->exists( m_pickedRoIdx ) )
     {
+        CORE_ASSERT( m_pickedMesh != nullptr, "m_pickedRoIdx and m_pickedMesh are inconsistent" );
+
         setPosition( getFeaturePosition() );
         setScale( getFeatureScale() );
         m_RO->setVisible( true );
@@ -571,19 +576,25 @@ FeatureData MeshFeatureTrackingComponent::getFeatureData() const {
 }
 
 Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
-    // check supported picking mode
-    if ( m_data.m_mode == PickingMode::RO || !getRoMgr()->exists( m_pickedRoIdx ) )
+    if ( !getRoMgr()->exists( m_pickedRoIdx ) )
     {
-        return 1.0;
+        return 1_ra;
+    }
+    CORE_ASSERT( m_pickedMesh != nullptr, "m_pickedRoIdx and m_pickedMesh are inconsistent" );
+
+    // check supported picking mode
+    if ( m_data.m_mode == PickingMode::RO )
+    {
+        return 1_ra;
     }
 
     // manage picking mode
     auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
-    if ( ro->getMesh()->getRenderMode() == MeshRenderMode::RM_POINTS )
+    if ( m_pickedMesh->getRenderMode() == MeshRenderMode::RM_POINTS )
     {
         return ro->getAabb().sizes().norm() / 500;
     }
-    const auto& v = ro->getMesh()->getGeometry().vertices();
+    const auto& v = m_pickedMesh->getTriangleMesh().vertices();
     switch ( m_data.m_mode )
     {
     case PickingMode::VERTEX:
@@ -591,14 +602,14 @@ Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
         // return 1 fourth of the edge length of the first edge we can find with the vertex
         const Ra::Core::Vector3& v0 = v[m_data.m_data[0]];
         const Ra::Core::Vector3& v1 = v[m_data.m_data[1]];
-        return ( v1 - v0 ).norm() / 4.0;
+        return ( v1 - v0 ).norm() / 4_ra;
     }
     case PickingMode::EDGE:
     {
         // return 1 fourth of the edge length
         const Ra::Core::Vector3& v0 = v[m_data.m_data[0]];
         const Ra::Core::Vector3& v1 = v[m_data.m_data[1]];
-        return ( v1 - v0 ).norm() / 4.0;
+        return ( v1 - v0 ).norm() / 4_ra;
     }
     case PickingMode::TRIANGLE:
     {
@@ -606,7 +617,7 @@ Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
         const Ra::Core::Vector3& v0 = v[m_data.m_data[0]];
         const Ra::Core::Vector3& v1 = v[m_data.m_data[1]];
         const Ra::Core::Vector3& v2 = v[m_data.m_data[2]];
-        const Ra::Core::Vector3 C = ( v0 + v1 + v2 ) / 3.0;
+        const Ra::Core::Vector3 C = ( v0 + v1 + v2 ) / 3_ra;
         const Ra::Core::Vector3 C0 = C - v0;
         const Ra::Core::Vector3 C1 = C - v1;
         const Ra::Core::Vector3 C2 = C - v2;
@@ -620,20 +631,25 @@ Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
                2.0;
     }
     default:
-        return ro->getAabb().diagonal().norm() / 100;
+        return ro->getAabb().diagonal().norm() / 100_ra;
     }
 }
 
 Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeaturePosition() const {
+    if ( !getRoMgr()->exists( m_pickedRoIdx ) )
+    {
+        return Ra::Core::Vector3();
+    }
+    CORE_ASSERT( m_pickedMesh != nullptr, "m_pickedRoIdx and m_pickedMesh are inconsistent" );
+
     // check supported picking mode
-    if ( m_data.m_mode == PickingMode::RO || !getRoMgr()->exists( m_pickedRoIdx ) )
+    if ( m_data.m_mode == PickingMode::RO )
     {
         return Ra::Core::Vector3();
     }
 
     // manage picking mode
-    auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
-    const auto& v = ro->getMesh()->getGeometry().vertices();
+    const auto& v = m_pickedMesh->getTriangleMesh().vertices();
     Ra::Core::Vector3 P( 0, 0, 0 );
     switch ( m_data.m_mode )
     {
@@ -644,12 +660,12 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeaturePosition() const {
     }
     case PickingMode::EDGE:
     {
-        P = ( v[m_data.m_data[0]] + v[m_data.m_data[1]] ) / 2.0;
+        P = ( v[m_data.m_data[0]] + v[m_data.m_data[1]] ) / 2_ra;
         break;
     }
     case PickingMode::TRIANGLE:
     {
-        P = ( v[m_data.m_data[0]] + v[m_data.m_data[1]] + v[m_data.m_data[2]] ) / 3.0;
+        P = ( v[m_data.m_data[0]] + v[m_data.m_data[1]] + v[m_data.m_data[2]] ) / 3_ra;
         break;
     }
     default:
@@ -657,19 +673,25 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeaturePosition() const {
     }
 
     // deal with transformations
+    auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
     return ro->getTransform() * P;
 }
 
 Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
+    if ( !getRoMgr()->exists( m_pickedRoIdx ) )
+    {
+        return Ra::Core::Vector3();
+    }
+    CORE_ASSERT( m_pickedMesh != nullptr, "m_pickedRoIdx and m_pickedMesh are inconsistent" );
+
     // check supported picking mode
-    if ( m_data.m_mode == PickingMode::RO || !getRoMgr()->exists( m_pickedRoIdx ) )
+    if ( m_data.m_mode == PickingMode::RO )
     {
         return Ra::Core::Vector3();
     }
 
     // manage picking mode
-    auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
-    const auto& n = ro->getMesh()->getGeometry().normals();
+    const auto& n = m_pickedMesh->getTriangleMesh().normals();
     if ( m_data.m_mode == PickingMode::VERTEX )
     {
         if ( !n.empty() )
@@ -678,7 +700,7 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
         }
         return Ra::Core::Vector3();
     }
-    const auto& v = ro->getMesh()->getGeometry().vertices();
+    const auto& v = m_pickedMesh->getTriangleMesh().vertices();
     Ra::Core::Vector3 V( 0, 0, 0 );
     switch ( m_data.m_mode )
     {
@@ -702,8 +724,9 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
     }
 
     // deal with transformations
+    auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
     return ( ro->getTransformAsMatrix().inverse().transpose() *
-             Ra::Core::Vector4( V( 0 ), V( 1 ), V( 2 ), 0 ) )
+             Ra::Core::Vector4( V( 0 ), V( 1 ), V( 2 ), 0_ra ) )
         .head<3>();
 }
 

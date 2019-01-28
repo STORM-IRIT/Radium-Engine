@@ -133,7 +133,7 @@ void SkinningComponent::initialize() {
 
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton
         // and mesh.
-        ON_ASSERT( bool skinnable = compMsg->canSet<Ra::Core::Geometry::TriangleMesh>(
+        ON_ASSERT( bool skinnable = compMsg->canRw<Ra::Core::Geometry::TriangleMesh>(
                        getEntity(), m_contentsName ) );
         CORE_ASSERT(
             skinnable,

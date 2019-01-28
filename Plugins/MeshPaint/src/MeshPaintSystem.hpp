@@ -36,6 +36,8 @@ class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System {
 
     void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
                     const Ra::Core::Utils::Color& color );
+
+    void bakeToDiffuse();
 };
 
 } // namespace MeshPaintPlugin
