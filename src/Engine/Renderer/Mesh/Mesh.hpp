@@ -2,6 +2,7 @@
 #define RADIUMENGINE_MESH_HPP
 
 #include <Engine/RaEngine.hpp>
+#include <Engine/Renderer/Displayable/DisplayableObject.hpp>
 
 #include <array>
 #include <map>
@@ -14,15 +15,6 @@
 namespace Ra {
 namespace Engine {
 
-// Question : If I want to draw a mesh as lines, points, etc,
-//                should I send lines, ... to the GPU, or handle the way
-//                I want them displayed in a geometry shader, and always
-//                send adjacent triangles to the GPU ?
-//                The latter solution would be faster (no if / else) in
-//                the updateGL, draw methods, but would require more work
-//                for the plugin developper (or we can just provide shaders
-//                for this kind of renderings ...)
-
 /**
  * A class representing an openGL general mesh to be displayed.
  * It stores the vertex attributes, indices, and can be rendered
@@ -30,7 +22,7 @@ namespace Engine {
  * It maintains the attributes and keeps them in sync with the GPU.
  * \note Attribute names are used to automatic location binding when using shaders.
  */
-class RA_ENGINE_API Mesh {
+class RA_ENGINE_API Mesh : public Displayable {
   public:
     /// \name List of all possible vertex attributes.
     ///@{
@@ -94,18 +86,22 @@ class RA_ENGINE_API Mesh {
     Mesh( const Mesh& rhs ) = delete;
     void operator=( const Mesh& rhs ) = delete;
 
-    ~Mesh();
+    ~Mesh() override;
 
-    /// Returns the name of the mesh.
-    inline const std::string& getName() const;
+    using Displayable::getName;
 
     /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
     inline void setRenderMode( MeshRenderMode mode );
     MeshRenderMode getRenderMode() const { return m_renderMode; }
 
-    /// Returns the underlying TriangleMesh.
-    inline const Core::Geometry::TriangleMesh& getGeometry() const;
-    inline Core::Geometry::TriangleMesh& getGeometry();
+    /// Returns the underlying AbstractGeometry, which is in fact a TriangleMesh
+    /// \see getTriangleMesh
+    inline const Core::Geometry::AbstractGeometry& getGeometry() const override;
+    inline Core::Geometry::AbstractGeometry& getGeometry() override;
+
+    /// Returns the underlying TriangleMesh
+    inline const Core::Geometry::TriangleMesh& getTriangleMesh() const;
+    inline Core::Geometry::TriangleMesh& getTriangleMesh();
 
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
     void loadGeometry( Core::Geometry::TriangleMesh&& mesh );
@@ -151,10 +147,13 @@ class RA_ENGINE_API Mesh {
      * This function is called at the start of the rendering. It will update the
      * necessary openGL buffers.
      */
-    void updateGL();
+    void updateGL() override;
 
     /// Draw the mesh.
-    void render();
+    void render() override;
+
+    size_t getNumFaces() const override;
+    inline size_t getNumVertices() const override { return m_mesh.vertices().size(); }
 
     /// Get the name expected for a given attrib.
     static inline std::string getAttribName( Vec3Data type );
@@ -166,9 +165,10 @@ class RA_ENGINE_API Mesh {
     friend void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr,
                             uint vboIdx );
 
-  private:
-    std::string m_name{}; /// Name of the mesh.
+    /// Update the picking render mode according to the object render mode
+    void updatePickingRenderMode();
 
+  private:
     uint m_vao{0}; /// Index of our openGL VAO
     MeshRenderMode m_renderMode{
         MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)

@@ -92,6 +92,14 @@ void TriangleMesh::checkConsistency() const {
 #endif
 }
 
+void TriangleMesh::colorize( const Utils::Color& color ) {
+    // \warning "Vec4_attr_0" is defined in Engine::Mesh::getAttribName
+    // \fixme Add a proper mechanism for attribute management between Core and Engine
+    static const std::string colorAttribName( "Vec4_attr_0" );
+    auto colorAttribHandle = addAttrib<Core::Vector4>( colorAttribName );
+    getAttrib( colorAttribHandle ).data() = Vector4Array( vertices().size(), color );
+}
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra

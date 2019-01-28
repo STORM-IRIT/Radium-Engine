@@ -16,7 +16,7 @@
 namespace Ra {
 namespace Engine {
 class Component;
-class Mesh;
+class Displayable;
 class Material;
 class RenderParameters;
 struct ViewingParameters;
@@ -76,7 +76,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
      */
     static RenderObject* createRenderObject(
         const std::string& name, Component* comp, const RenderObjectType& type,
-        const std::shared_ptr<Mesh>& mesh,
+        const std::shared_ptr<Displayable>& mesh,
         const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique(),
         const std::shared_ptr<Material>& material = nullptr );
 
@@ -117,9 +117,9 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
     std::shared_ptr<const RenderTechnique> getRenderTechnique() const;
     std::shared_ptr<RenderTechnique> getRenderTechnique();
 
-    void setMesh( const std::shared_ptr<Mesh>& mesh );
-    std::shared_ptr<const Mesh> getMesh() const;
-    const std::shared_ptr<Mesh>& getMesh();
+    void setMesh( const std::shared_ptr<Displayable>& mesh );
+    std::shared_ptr<const Displayable> getMesh() const;
+    const std::shared_ptr<Displayable>& getMesh();
 
     Core::Transform getTransform() const;
     Core::Matrix4 getTransformAsMatrix() const;
@@ -165,7 +165,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
 
     RenderObjectType m_type{RenderObjectType::Geometry};
     std::shared_ptr<RenderTechnique> m_renderTechnique{nullptr};
-    std::shared_ptr<Mesh> m_mesh;
+    std::shared_ptr<Displayable> m_mesh;
 
     mutable std::mutex m_updateMutex;
 

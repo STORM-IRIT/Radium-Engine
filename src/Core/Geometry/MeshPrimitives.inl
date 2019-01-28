@@ -5,22 +5,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-namespace internal {
-// Convenience function used to set the default color of a TriangleMesh, if requested
-inline void configureColors( TriangleMesh& mesh, const Utils::optional<Utils::Color>& color ) {
-    /// This is a temporary solution, awaiting for automatic binding of attributes between
-    /// TriangleMesh and Engine::Mesh. \warning: Should be defined as Engine::Mesh::getAttribName(
-    /// Engine::Mesh::VERTEX_COLOR ); but we don't want a dependency from Core to Engine, right ?
-    const std::string colorAttribName = "Vec4_attr_0";
-    if ( color )
-    {
-        auto colorAttribHandle = mesh.addAttrib<Core::Vector4>( colorAttribName );
-        auto colorAttrib = mesh.getAttrib( colorAttribHandle ).data() =
-            Core::Vector4Array( mesh.vertices().size(), *color );
-    }
-}
-} // namespace internal
-
 template <uint U, uint V>
 TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color ) {
     constexpr uint slices = U;
@@ -74,7 +58,8 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
             Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
-    internal::configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -112,7 +97,8 @@ TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius,
         }
     }
 
-    internal::configureColors( result, color );
+    if ( bool( color ) )
+        result.colorize( *color );
     result.checkConsistency();
 
     return result;

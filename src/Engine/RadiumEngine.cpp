@@ -102,8 +102,8 @@ System* RadiumEngine::getSystem( const std::string& system ) const {
     return sys;
 }
 
-Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& componentName,
-                             const std::string& roName ) const {
+Displayable* RadiumEngine::getMesh( const std::string& entityName, const std::string& componentName,
+                                    const std::string& roName ) const {
 
     // 1) Get entity
     if ( m_entityManager->entityExists( entityName ) )

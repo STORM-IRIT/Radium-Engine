@@ -46,6 +46,7 @@ void MeshPaintPluginC::registerPlugin( const Ra::PluginContext& context ) {
              &MeshPaintPluginC::onCurrentChanged );
     connect( m_widget, &MeshPaintUI::paintColor, this, &MeshPaintPluginC::activePaintColor );
     connect( m_widget, &MeshPaintUI::colorChanged, this, &MeshPaintPluginC::changePaintColor );
+    connect( m_widget, &MeshPaintUI::bakeToDiffuse, this, &MeshPaintPluginC::bakeToDiffuse );
 }
 
 bool MeshPaintPluginC::doAddWidget( QString& name ) {
@@ -83,6 +84,15 @@ void MeshPaintPluginC::changePaintColor( const QColor& color ) {
     m_paintColor =
         Ra::Core::Utils::Color( Scalar( color.red() ) / 255, Scalar( color.green() ) / 255,
                                 Scalar( color.blue() ) / 255, Scalar( 1.0 ) );
+}
+
+void MeshPaintPluginC::bakeToDiffuse()
+{
+    if ( m_isPainting &&
+         Ra::Core::Utils::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
+    {
+        m_system->bakeToDiffuse();
+    }
 }
 
 void MeshPaintPluginC::onCurrentChanged( const QModelIndex& /*current*/,

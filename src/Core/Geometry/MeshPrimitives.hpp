@@ -9,10 +9,6 @@
 namespace Ra {
 namespace Core {
 namespace Geometry {
-namespace internal {
-// Convenience function used to set the default color of a TriangleMesh, if requested
-inline void configureColors( TriangleMesh& mesh, const Utils::optional<Utils::Color>& color );
-} // namespace internal
 //
 // Primitive construction
 //
