@@ -129,7 +129,7 @@ void Renderer::initialize( uint width, uint height ) {
         Core::Geometry::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
 
     m_quadMesh = std::make_unique<Mesh>( "quad" );
-    m_quadMesh->loadGeometry( mesh );
+    m_quadMesh->loadGeometry( std::move( mesh ) );
     m_quadMesh->updateGL();
 
     initializeInternal();

@@ -6,6 +6,7 @@
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/Adjacency.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 
 #include <Core/Animation/HandleWeight.hpp>
@@ -143,8 +144,11 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             renderObject->setVisible( true );
             renderObject->setRenderTechnique( technique );
             std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
-            displayMesh->loadGeometry( mesh );
-            displayMesh->addData( Ra::Engine::Mesh::Vec4Data::VERTEX_COLOR, color );
+            TriangleMesh meshCopy( mesh );
+            auto colorAttribHandle = meshCopy.addAttrib<Ra::Core::Vector4>(
+                Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_COLOR ) );
+            auto colorAttrib = meshCopy.getAttrib( colorAttribHandle ).data() = color;
+            displayMesh->loadGeometry( std::move( meshCopy ) );
             renderObject->setMesh( displayMesh );
 
             renderObject->setVisible( false );

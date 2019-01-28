@@ -19,6 +19,8 @@
 namespace Ra {
 namespace Gui {
 
+const std::string colorAttribName = Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR );
+
 RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                           const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -41,11 +43,17 @@ RotateGizmo::RotateGizmo( Engine::Component* c, const Core::Transform& worldTo,
             }
         }
 
+        // set color
+        {
+            Core::Utils::Color color = Core::Utils::Color::Black();
+            color[i] = 1.f;
+            auto colorAttribHandle = torus.addAttrib<Core::Vector4>( colorAttribName );
+            auto colorAttrib = torus.getAttrib( colorAttribHandle ).data() =
+                Core::Vector4Array( torus.vertices().size(), color );
+        }
+
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
-        mesh->loadGeometry( torus );
-        Core::Utils::Color color = Core::Utils::Color::Black();
-        color[i] = 1.f;
-        mesh->colorize( color );
+        mesh->loadGeometry( std::move( torus ) );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
@@ -89,13 +97,29 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worl
 
 void RotateGizmo::selectConstraint( int drawableIdx ) {
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+
+    auto colorizeMesh = [roMgr]( int id, const Core::Utils::Color& color ) {
+        auto rendermesh = roMgr->getRenderObject( id )->getMesh();
+        CORE_ASSERT( rendermesh != nullptr, "Cannot access Gizmo render mesh" );
+
+        // \warning: this is ugly and might generate a std::bad cast.
+        // An alternative implementation would be to store references to the gizmo meshes and use
+        // them instead of using the roMgr.
+        Core::Geometry::TriangleMesh& mesh =
+            dynamic_cast<Core::Geometry::TriangleMesh&>( rendermesh->getGeometry() );
+        auto colorAttribHandle = mesh.getAttribHandle<Core::Vector4>( colorAttribName );
+        CORE_ASSERT( mesh.isValid( colorAttribHandle ), "Gizmo mesh should have colors" );
+        auto colorAttrib = mesh.getAttrib( colorAttribHandle ).data() =
+            Core::Vector4Array( mesh.vertices().size(), color );
+        rendermesh->setDirty( Engine::Mesh::VERTEX_COLOR );
+    };
+
     // reColor constraint
     if ( m_selectedAxis != -1 )
     {
         Core::Utils::Color color = Core::Utils::Color::Black();
         color[m_selectedAxis] = 1.f;
-        auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-        RO->getMesh()->colorize( color );
+        colorizeMesh( m_renderObjects[m_selectedAxis], color );
     }
     // prepare selection
     int oldAxis = m_selectedAxis;
@@ -107,8 +131,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         if ( found != m_renderObjects.cend() )
         {
             m_selectedAxis = int( found - m_renderObjects.begin() );
-            auto RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-            RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
+            colorizeMesh( m_renderObjects[m_selectedAxis], Core::Utils::Color::Yellow() );
         }
     }
     if ( m_selectedAxis != oldAxis )

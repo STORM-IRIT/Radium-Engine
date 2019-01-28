@@ -5,8 +5,24 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
+namespace internal {
+// Convenience function used to set the default color of a TriangleMesh, if requested
+inline void configureColors( TriangleMesh& mesh, const Utils::optional<Utils::Color>& color ) {
+    /// This is a temporary solution, awaiting for automatic binding of attributes between
+    /// TriangleMesh and Engine::Mesh. \warning: Should be defined as Engine::Mesh::getAttribName(
+    /// Engine::Mesh::VERTEX_COLOR ); but we don't want a dependency from Core to Engine, right ?
+    const std::string colorAttribName = "Vec4_attr_0";
+    if ( color )
+    {
+        auto colorAttribHandle = mesh.addAttrib<Core::Vector4>( colorAttribName );
+        auto colorAttrib = mesh.getAttrib( colorAttribHandle ).data() =
+            Core::Vector4Array( mesh.vertices().size(), *color );
+    }
+}
+} // namespace internal
+
 template <uint U, uint V>
-TriangleMesh makeParametricSphere( Scalar radius ) {
+TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::Color>& color ) {
     constexpr uint slices = U;
     constexpr uint stacks = V;
 
@@ -58,12 +74,15 @@ TriangleMesh makeParametricSphere( Scalar radius ) {
             Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
+    internal::configureColors( result, color );
     result.checkConsistency();
+
     return result;
 }
 
 template <uint U, uint V>
-TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
+TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius,
+                                  const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
     result.vertices().reserve( U * V );
     result.normals().reserve( V * V );
@@ -92,7 +111,10 @@ TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius ) {
                                                      iu * V + ( ( iv + 1 ) % V ) ) );
         }
     }
+
+    internal::configureColors( result, color );
     result.checkConsistency();
+
     return result;
 }
 } // namespace Geometry
