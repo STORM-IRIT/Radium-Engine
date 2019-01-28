@@ -103,11 +103,12 @@ void SkinningComponent::initialize() {
             compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName + "v" );
         m_normalsWriter =
             compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName + "n" );
+        m_meshWritter = compMsg->rwCallback<TriangleMesh>( getEntity(), m_contentsName );
 
         // copy mesh triangles and find duplicates for normal computation.
-        const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
-        m_refData.m_referenceMesh.copyBaseGeometry( mesh );
-        findDuplicates( mesh, m_duplicatesMap );
+        TriangleMesh* mesh = const_cast<TriangleMesh*>( m_meshWritter() );
+        m_refData.m_referenceMesh.copyBaseGeometry( *mesh );
+        findDuplicates( *mesh, m_duplicatesMap );
 
         // get other data
         m_refData.m_skeleton = compMsg->get<Skeleton>( getEntity(), m_contentsName );
@@ -149,7 +150,9 @@ void SkinningComponent::initialize() {
         // prepare RO for skinning weights display
         auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
         m_baseTechnique = ro->getRenderTechnique();
-        m_baseUV = ro->getMesh()->getData( Ra::Engine::Mesh::VERTEX_TEXCOORD );
+        auto handle = mesh->addAttrib<Ra::Core::Vector3>(
+            Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_TEXCOORD ) );
+        m_baseUV = mesh->getAttrib( handle ).data();
         m_weightTechnique.reset( new Ra::Engine::RenderTechnique );
         auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
         builder.second( *m_weightTechnique.get(), true );
@@ -425,14 +428,18 @@ void SkinningComponent::setupSkinningType( SkinningType type ) {
 void SkinningComponent::showWeights( bool on ) {
     m_showingWeights = on;
     auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
+    TriangleMesh* mesh = const_cast<TriangleMesh*>( m_meshWritter() );
+    auto handle = mesh->getAttribHandle<Ra::Core::Vector3>(
+        Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_TEXCOORD ) );
+
     if ( m_showingWeights )
     {
         ro->setRenderTechnique( m_weightTechnique );
-        ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, m_weightsUV );
+        mesh->getAttrib( handle ).data() = m_weightsUV;
     } else
     {
         ro->setRenderTechnique( m_baseTechnique );
-        ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, m_baseUV );
+        mesh->getAttrib( handle ).data() = m_baseUV;
     }
     m_forceUpdate = true;
 }

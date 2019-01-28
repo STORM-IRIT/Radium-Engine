@@ -95,8 +95,8 @@ void Mesh::render() {
     }
 }
 
-void Mesh::loadGeometry( const Core::Geometry::TriangleMesh& mesh ) {
-    m_mesh = mesh;
+void Mesh::loadGeometry( Core::Geometry::TriangleMesh&& mesh ) {
+    m_mesh = std::move( mesh );
 
     if ( m_mesh.m_triangles.empty() )
     {
@@ -107,14 +107,12 @@ void Mesh::loadGeometry( const Core::Geometry::TriangleMesh& mesh ) {
 
     for ( uint i = 0; i < MAX_VEC3; ++i )
     {
-        m_v3DataHandle[i] = m_mesh.getAttribHandle<Ra::Core::Vector3>( std::string( "Vec3_attr_" ) +
-                                                                       std::to_string( i ) );
+        m_v3DataHandle[i] = m_mesh.getAttribHandle<Core::Vector3>( getAttribName( Vec3Data( i ) ) );
     }
 
     for ( uint i = 0; i < MAX_VEC4; ++i )
     {
-        m_v4DataHandle[i] = m_mesh.getAttribHandle<Ra::Core::Vector4>( std::string( "Vec4_attr_" ) +
-                                                                       std::to_string( i ) );
+        m_v4DataHandle[i] = m_mesh.getAttribHandle<Core::Vector4>( getAttribName( Vec4Data( i ) ) );
     }
 
     for ( uint i = 0; i < MAX_DATA; ++i )
@@ -180,8 +178,7 @@ void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
     // if it's the first time this handle is used, add it to m_mesh.
     if ( !data.empty() && !m_mesh.isValid( handle ) )
     {
-        handle =
-            m_mesh.addAttrib<Core::Vector3>( std::string( "Vec3_attr_" ) + std::to_string( type ) );
+        handle = m_mesh.addAttrib<Core::Vector3>( getAttribName( type ) );
     }
 
     //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
@@ -202,8 +199,7 @@ void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
     // if it's the first time this handle is used, add it to m_mesh.
     if ( !data.empty() && !m_mesh.isValid( handle ) )
     {
-        handle =
-            m_mesh.addAttrib<Core::Vector4>( std::string( "Vec4_attr_" ) + std::to_string( type ) );
+        handle = m_mesh.addAttrib<Core::Vector4>( getAttribName( type ) );
     }
 
     //    if ( data.size() != 0 && m_mesh.isValid( handle ) )

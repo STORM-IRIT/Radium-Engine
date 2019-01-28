@@ -30,42 +30,41 @@ using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 
 namespace Ra {
 namespace Engine {
-GeometryComponent::GeometryComponent( const std::string& name, bool deformable, Entity* entity ) :
+TriangleMeshComponent::TriangleMeshComponent( const std::string& name, Entity* entity,
+                                              const Ra::Core::Asset::GeometryData* data ) :
     Component( name, entity ),
-    m_deformable{deformable} {}
-
-GeometryComponent::~GeometryComponent() = default;
-
-void GeometryComponent::initialize() {}
-
-void GeometryComponent::addMeshRenderObject( const Ra::Core::Geometry::TriangleMesh& mesh,
-                                             const std::string& name ) {
-    setupIO( name );
-
-    std::shared_ptr<Mesh> displayMesh( new Mesh( name ) );
-    displayMesh->loadGeometry( mesh );
-
-    auto renderObject =
-        RenderObject::createRenderObject( name, this, RenderObjectType::Geometry, displayMesh );
-    m_meshIndex = addRenderObject( renderObject );
+    m_displayMesh( nullptr ) {
+    generateTriangleMesh( data );
 }
 
-void GeometryComponent::handleMeshLoading( const Ra::Core::Asset::GeometryData* data ) {
+TriangleMeshComponent::TriangleMeshComponent(const std::string &name, Entity *entity,
+                                             Core::Geometry::TriangleMesh &&mesh,
+                                             Core::Asset::MaterialData* mat) :
+    Component( name, entity ),
+    m_contentName( name ),
+    m_displayMesh( new Engine::Mesh( name ) )
+{
+  m_displayMesh->loadGeometry( std::move( mesh ) );
+  finalizeROFromGeometry( mat );
+}
+
+//////////// STORE Mesh/TriangleMesh here instead of an index, so don't need to request the ROMgr
+/// and no problem with the Displayable -> doesn't affect the API
+
+TriangleMeshComponent::~TriangleMeshComponent() = default;
+
+void TriangleMeshComponent::initialize() {}
+
+void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::GeometryData* data ) {
+    m_contentName = data->getName();
+
     std::string name( m_name );
-    name.append( "_" + data->getName() );
+    name.append( "_" +m_contentName );
 
-    std::string roName = name;
-
-    roName.append( "_RO" );
     std::string meshName = name;
     meshName.append( "_Mesh" );
 
-    std::string matName = name;
-    matName.append( "_Mat" );
-
-    m_contentName = data->getName();
-
-    auto displayMesh = Ra::Core::make_shared<Mesh>( meshName /*, Mesh::RM_POINTS*/ );
+    m_displayMesh = Ra::Core::make_shared<Mesh>( meshName );
 
     Ra::Core::Geometry::TriangleMesh mesh;
     const auto T = data->getFrame();
@@ -74,7 +73,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Core::Asset::GeometryData* 
     mesh.vertices().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
 #pragma omp parallel for
-    for ( int i = 0; i < data->getVerticesSize(); ++i )
+    for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
     {
         mesh.vertices()[i] = T * data->getVertices()[i];
     }
@@ -92,177 +91,178 @@ void GeometryComponent::handleMeshLoading( const Ra::Core::Asset::GeometryData* 
     const auto& faces = data->getFaces();
     mesh.m_triangles.resize( faces.size(), Ra::Core::Vector3ui::Zero() );
 #pragma omp parallel for
-    for ( int i = 0; i < faces.size(); ++i )
+    for ( int i = 0; i < int( faces.size() ); ++i )
     {
         mesh.m_triangles[i] = faces[i].head<3>();
     }
 
-    displayMesh->loadGeometry( mesh );
+    m_displayMesh->loadGeometry( std::move( mesh ) );
 
     if ( data->hasTangents() )
     {
-        displayMesh->addData( Mesh::VERTEX_TANGENT, data->getTangents() );
+        m_displayMesh->addData( Mesh::VERTEX_TANGENT, data->getTangents() );
     }
 
     if ( data->hasBiTangents() )
     {
-        displayMesh->addData( Mesh::VERTEX_BITANGENT, data->getBiTangents() );
+        m_displayMesh->addData( Mesh::VERTEX_BITANGENT, data->getBiTangents() );
     }
 
     if ( data->hasTextureCoordinates() )
     {
-        displayMesh->addData( Mesh::VERTEX_TEXCOORD, data->getTexCoords() );
+        m_displayMesh->addData( Mesh::VERTEX_TEXCOORD, data->getTexCoords() );
     }
 
     if ( data->hasColors() )
     {
-        displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() );
+        m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() );
     }
 
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
 
-    // The technique for rendering this component
-    RenderTechnique rt;
 
-    bool isTransparent{false};
-    if ( data->hasMaterial() )
-    {
-        const Ra::Core::Asset::MaterialData& loadedMaterial = data->getMaterial();
+    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr );
 
-        // First extract the material from asset
-        auto converter = EngineMaterialConverters::getMaterialConverter( loadedMaterial.getType() );
-        auto convertedMaterial = converter.second( &loadedMaterial );
-
-        // Second, associate the material to the render technique
-        std::shared_ptr<Material> radiumMaterial( convertedMaterial );
-        if ( radiumMaterial != nullptr )
-        {
-            isTransparent = radiumMaterial->isTransparent();
-        }
-        rt.setMaterial( radiumMaterial );
-
-        // Third, define the technique for rendering this material (here, using the default)
-        auto builder = EngineRenderTechniques::getDefaultTechnique( loadedMaterial.getType() );
-        builder.second( rt, isTransparent );
-    } else
-    {
-        auto mat =
-            Ra::Core::make_shared<BlinnPhongMaterial>( data->getName() + "_DefaultBPMaterial" );
-        mat->m_kd = Ra::Core::Utils::Color::Grey();
-        mat->m_ks = Ra::Core::Utils::Color::White();
-        rt.setMaterial( mat );
-        auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
-        builder.second( rt, isTransparent );
-    }
-
-    auto ro = RenderObject::createRenderObject( roName, this, RenderObjectType::Geometry,
-                                                displayMesh, rt );
-    ro->setTransparent( isTransparent );
-
-    setupIO( m_contentName );
-    m_meshIndex = addRenderObject( ro );
 }
 
-Ra::Core::Utils::Index GeometryComponent::getRenderObjectIndex() const {
+void TriangleMeshComponent::finalizeROFromGeometry(const Core::Asset::MaterialData *data )
+{
+  // The technique for rendering this component
+  RenderTechnique rt;
+
+  bool isTransparent{false};
+
+  if ( data != nullptr )
+  {
+      // First extract the material from asset
+      auto converter = EngineMaterialConverters::getMaterialConverter( data->getType() );
+      auto convertedMaterial = converter.second( data );
+
+      // Second, associate the material to the render technique
+      std::shared_ptr<Material> radiumMaterial( convertedMaterial );
+      if ( radiumMaterial != nullptr )
+      {
+          isTransparent = radiumMaterial->isTransparent();
+      }
+      rt.setMaterial( radiumMaterial );
+
+      // Third, define the technique for rendering this material (here, using the default)
+      auto builder = EngineRenderTechniques::getDefaultTechnique( data->getType() );
+      builder.second( rt, isTransparent );
+  } else
+  {
+      auto mat =
+          Ra::Core::make_shared<BlinnPhongMaterial>( m_contentName + "_DefaultBPMaterial" );
+      mat->m_kd = Ra::Core::Utils::Color::Grey();
+      mat->m_ks = Ra::Core::Utils::Color::White();
+      rt.setMaterial( mat );
+      auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+      builder.second( rt, false );
+  }
+
+  std::string roName( m_name + "_" + m_contentName + "_RO" );
+
+  auto ro = RenderObject::createRenderObject( roName, this, RenderObjectType::Geometry,
+                                              m_displayMesh, rt );
+  ro->setTransparent( isTransparent );
+
+  setupIO( m_contentName );
+  m_meshIndex = addRenderObject( ro );
+}
+
+Ra::Core::Utils::Index TriangleMeshComponent::getRenderObjectIndex() const {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
     return m_meshIndex;
 }
 
-const Ra::Core::Geometry::TriangleMesh& GeometryComponent::getMesh() const {
-    return getDisplayMesh().getGeometry();
+const Ra::Core::Geometry::TriangleMesh& TriangleMeshComponent::getMesh() const {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    return m_displayMesh->getTriangleMesh();
 }
 
-void GeometryComponent::setDeformable( bool b ) {
-    this->m_deformable = b;
+Mesh* TriangleMeshComponent::getDisplayMesh() {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    return m_displayMesh.get();
 }
 
-void GeometryComponent::setContentName( const std::string& name ) {
+void TriangleMeshComponent::setContentName( const std::string& name ) {
     this->m_contentName = name;
 }
 
-void GeometryComponent::setupIO( const std::string& id ) {
+void TriangleMeshComponent::setupIO( const std::string& id ) {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
     ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::Getter cbOut =
-        std::bind( &GeometryComponent::getMeshOutput, this );
+        std::bind( &TriangleMeshComponent::getMeshOutput, this );
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::TriangleMesh>(
         getEntity(), this, id, cbOut );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::ReadWrite cbRw =
-        std::bind( &GeometryComponent::getMeshRw, this );
+        std::bind( &TriangleMeshComponent::getMeshRw, this );
     ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::TriangleMesh>(
         getEntity(), this, id, cbRw );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
-        std::bind( &GeometryComponent::roIndexRead, this );
+        std::bind( &TriangleMeshComponent::roIndexRead, this );
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>( getEntity(), this,
                                                                                id, roOut );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite vRW =
-        std::bind( &GeometryComponent::getVerticesRw, this );
+        std::bind( &TriangleMeshComponent::getVerticesRw, this );
     ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this,
                                                                                   id + "v", vRW );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite nRW =
-        std::bind( &GeometryComponent::getNormalsRw, this );
+        std::bind( &TriangleMeshComponent::getNormalsRw, this );
     ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this,
                                                                                   id + "n", nRW );
 
     ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW =
-        std::bind( &GeometryComponent::getTrianglesRw, this );
+        std::bind( &TriangleMeshComponent::getTrianglesRw, this );
     ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>( getEntity(), this,
                                                                          id + "t", tRW );
-
-    if ( m_deformable )
-    {
-        ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::Setter cbIn =
-            std::bind( &GeometryComponent::setMeshInput, this, std::placeholders::_1 );
-        ComponentMessenger::getInstance()->registerInput<Ra::Core::Geometry::TriangleMesh>(
-            getEntity(), this, id, cbIn );
-    }
 }
 
-const Mesh& GeometryComponent::getDisplayMesh() const {
-    return *( getRoMgr()->getRenderObject( getRenderObjectIndex() )->getMesh() );
+const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() const {
+    return &m_displayMesh->getTriangleMesh();
 }
 
-Mesh& GeometryComponent::getDisplayMesh() {
-    return *( getRoMgr()->getRenderObject( getRenderObjectIndex() )->getMesh() );
+Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
+    m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
+    m_displayMesh->setDirty( Mesh::INDEX );
+    m_displayMesh->setDirty( Mesh::VERTEX_TANGENT, true );
+    m_displayMesh->setDirty( Mesh::VERTEX_BITANGENT, true );
+    m_displayMesh->setDirty( Mesh::VERTEX_TEXCOORD, true );
+    m_displayMesh->setDirty( Mesh::VERTEX_COLOR, true );
+    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHTS, true );
+    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX, true );
+    return &( m_displayMesh->getTriangleMesh() );
 }
 
-const Ra::Core::Geometry::TriangleMesh* GeometryComponent::getMeshOutput() const {
-    return &( getMesh() );
+Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container*
+TriangleMeshComponent::getVerticesRw() {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
+    return &( m_displayMesh->getTriangleMesh().vertices() );
 }
 
-Ra::Core::Geometry::TriangleMesh* GeometryComponent::getMeshRw() {
-    getDisplayMesh().setDirty( Mesh::VERTEX_POSITION );
-    getDisplayMesh().setDirty( Mesh::VERTEX_NORMAL );
-    getDisplayMesh().setDirty( Mesh::INDEX );
-    return &( getDisplayMesh().getGeometry() );
+Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container*
+TriangleMeshComponent::getNormalsRw() {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
+    return &( m_displayMesh->getTriangleMesh().normals() );
 }
 
-void GeometryComponent::setMeshInput( const Core::Geometry::TriangleMesh* meshptr ) {
-    CORE_ASSERT( meshptr, " Input is null" );
-    CORE_ASSERT( m_deformable, "Mesh is not deformable" );
-
-    Mesh& displayMesh = getDisplayMesh();
-    displayMesh.loadGeometry( *meshptr );
+Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    m_displayMesh->setDirty( Mesh::INDEX );
+    return &( m_displayMesh->getTriangleMesh().m_triangles );
 }
 
-Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container* GeometryComponent::getVerticesRw() {
-    getDisplayMesh().setDirty( Mesh::VERTEX_POSITION );
-    return &( getDisplayMesh().getGeometry().vertices() );
-}
-
-Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container* GeometryComponent::getNormalsRw() {
-    getDisplayMesh().setDirty( Mesh::VERTEX_NORMAL );
-    return &( getDisplayMesh().getGeometry().normals() );
-}
-
-Ra::Core::VectorArray<Ra::Core::Vector3ui>* GeometryComponent::getTrianglesRw() {
-    getDisplayMesh().setDirty( Mesh::INDEX );
-    return &( getDisplayMesh().getGeometry().m_triangles );
-}
-
-const Ra::Core::Utils::Index* GeometryComponent::roIndexRead() const {
+const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
     return &m_meshIndex;
 }
 

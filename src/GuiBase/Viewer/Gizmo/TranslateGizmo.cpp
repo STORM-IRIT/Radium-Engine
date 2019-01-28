@@ -19,6 +19,8 @@
 namespace Ra {
 namespace Gui {
 
+const std::string colorAttribName = Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR );
+
 TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& worldTo,
                                 const Core::Transform& t, Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
@@ -26,9 +28,9 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
     m_initialPix( Core::Vector2::Zero() ),
     m_selectedAxis( -1 ),
     m_selectedPlane( -1 ) {
-    constexpr Scalar arrowScale = 0.1f;
-    constexpr Scalar axisWidth = 0.05f;
-    constexpr Scalar arrowFrac = 0.15f;
+    constexpr Scalar arrowScale = .1_ra;
+    constexpr Scalar axisWidth = .05_ra;
+    constexpr Scalar arrowFrac = .15_ra;
 
     std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
     rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
@@ -37,25 +39,27 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
+        Core::Utils::Color arrowColor = Core::Utils::Color::Black();
+        arrowColor[i] = 1_ra;
+
         Core::Vector3 cylinderEnd = Core::Vector3::Zero();
         Core::Vector3 arrowEnd = Core::Vector3::Zero();
-        cylinderEnd[i] = ( 1.f - arrowFrac );
-        arrowEnd[i] = 1.f;
+        cylinderEnd[i] = ( 1_ra - arrowFrac );
+        arrowEnd[i] = 1_ra;
 
-        Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
-            Core::Vector3::Zero(), arrowScale * cylinderEnd, arrowScale * axisWidth / 2.f );
+        Core::Geometry::TriangleMesh cylinder =
+            Core::Geometry::makeCylinder( Core::Vector3::Zero(), arrowScale * cylinderEnd,
+                                          arrowScale * axisWidth / 2_ra, 32, arrowColor );
 
-        Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone(
-            arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2.f );
+        Core::Geometry::TriangleMesh cone =
+            Core::Geometry::makeCone( arrowScale * cylinderEnd, arrowScale * arrowEnd,
+                                      arrowScale * arrowFrac / 2_ra, 32, arrowColor );
 
         // Merge the cylinder and the cone to create the arrow shape.
         cylinder.append( cone );
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
-        mesh->loadGeometry( cylinder );
-        Core::Utils::Color arrowColor = Core::Utils::Color::Black();
-        arrowColor[i] = 1.f;
-        mesh->colorize( arrowColor );
+        mesh->loadGeometry( std::move( cylinder ) );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
@@ -67,27 +71,24 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
 
     for ( uint i = 0; i < 3; ++i )
     {
+        Core::Utils::Color planeColor = Core::Utils::Color::Black();
+        planeColor[i] = 1_ra;
+
         Core::Vector3 axis = Core::Vector3::Zero();
         axis[( i == 0 ? 1 : ( i == 1 ? 0 : 2 ) )] = 1;
         Core::Transform T = Core::Transform::Identity();
         T.rotate( Core::AngleAxis( Core::Math::PiDiv2, axis ) );
-        T.translation()[( i + 1 ) % 3] += arrowScale / 8 * 3;
-        T.translation()[( i + 2 ) % 3] += arrowScale / 8 * 3;
+        T.translation()[( i + 1 ) % 3] += arrowScale / 8_ra * 3_ra;
+        T.translation()[( i + 2 ) % 3] += arrowScale / 8_ra * 3_ra;
 
         Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
-            1, 1, Core::Vector2( arrowScale / 8, arrowScale / 8 ), T );
-        auto& n = plane.normals();
-#pragma omp parallel for
-        for ( int i = 0; i < n.size(); ++i )
-        {
-            n[i] = Core::Vector3::Zero();
-        }
+            1, 1, Core::Vector2( arrowScale / 8_ra, arrowScale / 8_ra ), T, planeColor );
+
+        // \FIXME this hack is here to be sure the plane will be selected (see shader)
+        plane.normals().getMap().fill( 0_ra );
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Plane" ) );
-        mesh->loadGeometry( plane );
-        Core::Utils::Color planeColor = Core::Utils::Color::Black();
-        planeColor[i] = 1.f;
-        mesh->colorize( planeColor );
+        mesh->loadGeometry( std::move( plane ) );
 
         Engine::RenderObject* planeDrawable =
             new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
@@ -127,18 +128,30 @@ void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& w
 void TranslateGizmo::selectConstraint( int drawableIdx ) {
     // reColor constraint
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-    auto RO = roMgr->getRenderObject( m_renderObjects[0] );
-    RO->getMesh()->colorize( Core::Utils::Color::Red() );
-    RO = roMgr->getRenderObject( m_renderObjects[1] );
-    RO->getMesh()->colorize( Core::Utils::Color::Green() );
-    RO = roMgr->getRenderObject( m_renderObjects[2] );
-    RO->getMesh()->colorize( Core::Utils::Color::Blue() );
-    RO = roMgr->getRenderObject( m_renderObjects[3] );
-    RO->getMesh()->colorize( Core::Utils::Color::Red() );
-    RO = roMgr->getRenderObject( m_renderObjects[4] );
-    RO->getMesh()->colorize( Core::Utils::Color::Green() );
-    RO = roMgr->getRenderObject( m_renderObjects[5] );
-    RO->getMesh()->colorize( Core::Utils::Color::Blue() );
+
+    auto colorizeMesh = [roMgr]( int id, const Core::Utils::Color& color ) {
+        auto rendermesh = roMgr->getRenderObject( id )->getMesh();
+        CORE_ASSERT( rendermesh != nullptr, "Cannot access Gizmo render mesh" );
+
+        // \warning: this is ugly and might generate a std::bad cast.
+        // An alternative implementation would be to store references to the gizmo meshes and use
+        // them instead of using the roMgr.
+        Core::Geometry::TriangleMesh& mesh =
+            dynamic_cast<Core::Geometry::TriangleMesh&>( rendermesh->getGeometry() );
+        auto colorAttribHandle = mesh.getAttribHandle<Core::Vector4>( colorAttribName );
+        CORE_ASSERT( mesh.isValid( colorAttribHandle ), "Gizmo mesh should have colors" );
+        auto colorAttrib = mesh.getAttrib( colorAttribHandle ).data() =
+            Core::Vector4Array( mesh.vertices().size(), color );
+        rendermesh->setDirty( Engine::Mesh::VERTEX_COLOR );
+    };
+
+    colorizeMesh( m_renderObjects[0], Core::Utils::Color::Red() );
+    colorizeMesh( m_renderObjects[1], Core::Utils::Color::Green() );
+    colorizeMesh( m_renderObjects[2], Core::Utils::Color::Blue() );
+    colorizeMesh( m_renderObjects[3], Core::Utils::Color::Red() );
+    colorizeMesh( m_renderObjects[4], Core::Utils::Color::Green() );
+    colorizeMesh( m_renderObjects[5], Core::Utils::Color::Blue() );
+
     // prepare selection
     int oldAxis = m_selectedAxis;
     int oldPlane = m_selectedPlane;
@@ -150,21 +163,21 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
                                 Core::Utils::Index( drawableIdx ) );
         if ( found != m_renderObjects.cend() )
         {
-            int i = found - m_renderObjects.begin();
+            auto i = std::distance( m_renderObjects.cbegin(), found );
             if ( i < 3 )
             {
-                m_selectedAxis = i;
-                RO = roMgr->getRenderObject( m_renderObjects[m_selectedAxis] );
-                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
+                m_selectedAxis = int( i );
+                colorizeMesh( m_renderObjects[size_t( m_selectedAxis )],
+                              Core::Utils::Color::Yellow() );
             } else
             {
-                m_selectedPlane = i - 3;
-                RO = roMgr->getRenderObject( m_renderObjects[m_selectedPlane + 3] );
-                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
-                RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 1 ) % 3] );
-                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
-                RO = roMgr->getRenderObject( m_renderObjects[( m_selectedPlane + 2 ) % 3] );
-                RO->getMesh()->colorize( Core::Utils::Color::Yellow() );
+                m_selectedPlane = int( i - 3 );
+                colorizeMesh( m_renderObjects[size_t( m_selectedPlane + 3 )],
+                              Core::Utils::Color::Yellow() );
+                colorizeMesh( m_renderObjects[size_t( m_selectedPlane + 1 ) % 3],
+                              Core::Utils::Color::Yellow() );
+                colorizeMesh( m_renderObjects[size_t( m_selectedPlane + 2 ) % 3],
+                              Core::Utils::Color::Yellow() );
             }
         }
     }
@@ -177,7 +190,7 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
 
 Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                            bool stepped ) {
-    static const Scalar step = 0.2;
+    static const Scalar step = .2_ra;
 
     if ( m_selectedAxis == -1 && m_selectedPlane == -1 )
         return m_transform;

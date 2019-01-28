@@ -24,8 +24,7 @@ void GeometrySystem::handleAssetLoading( Ra::Engine::Entity* entity,
     for ( const auto& data : geomData )
     {
         std::string componentName = "FMC_" + entity->getName() + std::to_string( id++ );
-        auto comp = new GeometryComponent( componentName, fileData->hasHandle(), entity );
-        comp->handleMeshLoading( data );
+        auto comp = new TriangleMeshComponent( componentName, entity, data );
         registerComponent( entity, comp );
     }
 }
