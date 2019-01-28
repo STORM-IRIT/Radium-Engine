@@ -27,8 +27,7 @@ MeshFeatureTrackingComponent::~MeshFeatureTrackingComponent() {}
 
 void MeshFeatureTrackingComponent::initialize() {
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "PickingManagerSphere" ) );
-    auto sphere = Ra::Core::Geometry::makeParametricSphere( 1.0 );
-    display->loadGeometry( sphere );
+    display->loadGeometry( Ra::Core::Geometry::makeParametricSphere( 1.0 ) );
     std::shared_ptr<Ra::Engine::Material> material;
     auto bpMaterial = new Ra::Engine::BlinnPhongMaterial( "PickingManageSphereMaterial" );
     material.reset( bpMaterial );

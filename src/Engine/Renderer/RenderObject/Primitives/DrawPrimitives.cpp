@@ -229,7 +229,7 @@ MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::C
     Core::Vector4Array colors( sphere.vertices().size(), color );
 
     MeshPtr mesh( new Mesh( "Sphere Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( sphere );
+    mesh->loadGeometry( std::move( sphere ) );
     mesh->addData( Mesh::VERTEX_COLOR, colors );
 
     return mesh;
@@ -258,7 +258,7 @@ MeshPtr Capsule( const Core::Vector3& p1, const Core::Vector3& p2, Scalar radius
     Core::Vector4Array colors( capsule.vertices().size(), color );
 
     MeshPtr mesh( new Mesh( "Sphere Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( capsule );
+    mesh->loadGeometry( std::move( capsule ) );
     mesh->addData( Mesh::VERTEX_COLOR, colors );
 
     return mesh;

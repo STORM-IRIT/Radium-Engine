@@ -28,11 +28,12 @@ void Camera::initialize() {
     // Create the render mesh for the camera
     auto m = std::make_shared<Mesh>( m_name + "_mesh" );
     Ra::Core::Geometry::TriangleMesh triMesh;
-    triMesh.vertices() = {{0, 0, 0},       {-0.5, -0.5, -1}, {-0.5, 0.5, -1}, {0.5, 0.5, -1},
-                          {0.5, -0.5, -1}, {-0.3, 0.5, -1},  {0, 0.7, -1},    {0.3, 0.5, -1}};
+    triMesh.vertices() =
+    {{0_ra, 0_ra, 0_ra}, {-.5_ra, -.5_ra, -1_ra}, {-.5_ra, .5_ra, -1_ra}, {.5_ra, .5_ra, -1_ra},
+     {.5_ra, -.5_ra, -1_ra}, {-.3_ra, .5_ra, -1_ra},  {0_ra, .7_ra, -1_ra}, {.3_ra, .5_ra, -1_ra}};
     triMesh.m_triangles = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
-    m->loadGeometry( triMesh );
-    Core::Vector4Array c( triMesh.vertices().size(), {0.2, 0.2, 0.2, 1.0} );
+    m->loadGeometry( std::move( triMesh ) );
+    Core::Vector4Array c( 8, {.2_ra, .2_ra, .2_ra, 1_ra} );
     m->addData( Mesh::VERTEX_COLOR, c );
 
     // Create the RO
@@ -63,7 +64,7 @@ void Camera::updateProjMatrix() {
     {
     case ProjType::ORTHOGRAPHIC:
     {
-        const Scalar dx = m_zoomFactor * 0.5f;
+        const Scalar dx = m_zoomFactor * .5_ra;
         const Scalar dy = dx / m_aspect;
         // ------------
         // Compute projection matrix as describe in the doc of gluPerspective()
@@ -77,9 +78,9 @@ void Camera::updateProjMatrix() {
 
         m_projMatrix.setIdentity();
 
-        m_projMatrix.coeffRef( 0, 0 ) = 2.0f / ( r - l );
-        m_projMatrix.coeffRef( 1, 1 ) = 2.0f / ( t - b );
-        m_projMatrix.coeffRef( 2, 2 ) = -2.0f / ( m_zFar - m_zNear );
+        m_projMatrix.coeffRef( 0, 0 ) = 2_ra / ( r - l );
+        m_projMatrix.coeffRef( 1, 1 ) = 2_ra / ( t - b );
+        m_projMatrix.coeffRef( 2, 2 ) = -2_ra / ( m_zFar - m_zNear );
         m_projMatrix.block<3, 1>( 0, 3 ) = tr;
     }
     break;
@@ -87,7 +88,7 @@ void Camera::updateProjMatrix() {
     case ProjType::PERSPECTIVE:
     {
         // Compute projection matrix as describe in the doc of gluPerspective()
-        const Scalar f = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * Scalar( 0.5 ) ) );
+        const Scalar f = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * .5_ra ) );
         const Scalar diff = m_zNear - m_zFar;
 
         m_projMatrix.setZero();
@@ -95,8 +96,8 @@ void Camera::updateProjMatrix() {
         m_projMatrix.coeffRef( 0, 0 ) = f / m_aspect;
         m_projMatrix.coeffRef( 1, 1 ) = f;
         m_projMatrix.coeffRef( 2, 2 ) = ( m_zFar + m_zNear ) / diff;
-        m_projMatrix.coeffRef( 2, 3 ) = ( Scalar( 2.0 ) * m_zFar * m_zNear ) / diff;
-        m_projMatrix.coeffRef( 3, 2 ) = Scalar( -1.0 );
+        m_projMatrix.coeffRef( 2, 3 ) = ( 2_ra * m_zFar * m_zNear ) / diff;
+        m_projMatrix.coeffRef( 3, 2 ) = -1_ra;
     }
     break;
 
