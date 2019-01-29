@@ -37,8 +37,7 @@ RA_ENGINE_API MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v
                               const Core::Utils::Color& color );
 
 /// Displays given ray as a straight line.
-RA_ENGINE_API MeshPtr Ray( const Eigen::ParametrizedLine<Scalar, 3>& ray,
-                           const Core::Utils::Color& color );
+RA_ENGINE_API MeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color );
 
 /// Displays given triangle ABC, either in wireframe (fill = false)
 /// or filled with the color(fill = true).

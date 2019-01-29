@@ -1,5 +1,6 @@
 #include <Engine/Component/Component.hpp>
 
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -59,20 +60,14 @@ void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
     }
 }
 
-inline Eigen::ParametrizedLine<Scalar, 3> transformRay( const Eigen::ParametrizedLine<Scalar, 3>& r,
-                                                        const Core::Transform& t ) {
-    return Eigen::ParametrizedLine<Scalar, 3>( t * r.origin(), t.linear() * r.direction() );
-}
-
-void Component::rayCastQuery( const Eigen::ParametrizedLine<Scalar, 3>& ray ) const {
-    using Ray = Eigen::ParametrizedLine<Scalar, 3>;
+void Component::rayCastQuery( const Ra::Core::Ray& ray ) const {
     for ( const auto& idx : m_renderObjects )
     {
         const auto ro = getRoMgr()->getRenderObject( idx );
         if ( ro->isVisible() )
         {
             const Ra::Core::Transform& t = ro->getLocalTransform();
-            Ray transformedRay = transformRay( ray, t.inverse() );
+            auto transformedRay = Core::Vector::transformRay( t.inverse(), ray );
             auto result = ro->getMesh()->getGeometry().castRay( transformedRay );
             const int& tidx = result.m_hitTriangle;
             if ( tidx >= 0 )

@@ -90,6 +90,13 @@ Scalar Vector::getNormAndNormalizeSafe( Vector_& v ) {
     return norm;
 }
 
+template <typename Scalar>
+Eigen::ParametrizedLine<Scalar, 3>
+Vector::transformRay( const Eigen::Transform<Scalar, 3, Eigen::Affine>& t,
+                      const Eigen::ParametrizedLine<Scalar, 3>& r ) {
+    return {t * r.origin(), t.linear() * r.direction()};
+}
+
 //
 // Quaternion functions.
 //

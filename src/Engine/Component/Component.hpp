@@ -8,6 +8,8 @@
 
 #include <vector>
 
+#include <Core/Math/Types.hpp>
+
 namespace Ra {
 
 namespace Engine {
@@ -28,7 +30,6 @@ namespace Engine {
  */
 class RA_ENGINE_API Component {
   public:
-    using Transform = Eigen::Transform<Scalar, 3, Eigen::Affine>;
     /// CONSTRUCTOR
     Component( const std::string& name, Entity* entity );
 
@@ -67,7 +68,7 @@ class RA_ENGINE_API Component {
     void removeRenderObject( const Core::Utils::Index& roIdx );
 
     /// Perform a ray cast query.
-    virtual void rayCastQuery( const Eigen::ParametrizedLine<Scalar, 3>& ray ) const;
+    virtual void rayCastQuery( const Ra::Core::Ray& ray ) const;
 
     // Editable transform interface.
     // This allow to edit the data in the component with a render object
@@ -78,13 +79,13 @@ class RA_ENGINE_API Component {
     virtual bool canEdit( const Core::Utils::Index& /*roIdx*/ ) const { return false; }
 
     /// Get the transform associated with the given RO index key.
-    virtual Transform getTransform( const Core::Utils::Index& /*roIdx*/ ) const {
-        return Transform::Identity();
+    virtual Core::Transform getTransform( const Core::Utils::Index& /*roIdx*/ ) const {
+        return Core::Transform::Identity();
     }
 
     /// Set the new transform associated with the RO index key.
     virtual void setTransform( const Core::Utils::Index& /*roIdx*/,
-                               const Transform& /*transform*/ ) {}
+                               const Core::Transform& /*transform*/ ) {}
 
     void notifyRenderObjectExpired( const Core::Utils::Index& idx );
 

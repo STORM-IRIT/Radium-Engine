@@ -86,6 +86,7 @@ template <typename Vector_>
 inline Scalar cotan( const Vector_& v1, const Vector_& v2 );
 
 /// Get the cosine of the angle between two vectors.
+/// \todo use dot instead
 template <typename Vector_>
 inline Scalar cos( const Vector_& v1, const Vector_& v2 );
 
@@ -98,6 +99,18 @@ inline Scalar getNormAndNormalize( Vector_& v );
 /// If the vector's norm is 0, the vector remains null
 template <typename Vector_>
 inline Scalar getNormAndNormalizeSafe( Vector_& v );
+
+/// Transform a ray, direction is only transformed by linear part of the
+/// transformation, while origin is fully transformed
+/// corresponds to t*r
+/// \param t : transform matrix
+/// \param r : ray to transform
+/// \return transoformed ray, origine is translated while direction is only
+/// linarly transformed.
+template <typename Scalar>
+inline Eigen::ParametrizedLine<Scalar, 3>
+transformRay( const Eigen::Transform<Scalar, 3, Eigen::Affine>& t,
+              const Eigen::ParametrizedLine<Scalar, 3>& r );
 
 } // namespace Vector
 
