@@ -230,6 +230,8 @@ void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
     gl::glViewport( 0, 0, width(), height() );
 #endif
     renderer->initialize( width(), height() );
+    // resize camera viewport since it might be 0x0
+    m_camera->resizeViewport( width(), height() );
     // do this only when the renderer has something to render and that there is no lights
     /*
     if ( m_camera->hasLightAttached() )
@@ -443,6 +445,7 @@ void Gui::Viewer::showEvent( QShowEvent* /*ev*/ ) {
         // quick fix meanwhile camera management refactoring
         // see issue #339 Crash when using -f option
         // https://github.com/STORM-IRIT/Radium-Engine/issues/339
+        // here width and height might be  0 ! need to resize camera afterward
         m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
         // Lights are components. So they must be attached to an entity. Attache headlight to system
@@ -498,6 +501,9 @@ bool Gui::Viewer::changeRenderer( int index ) {
         m_currentRenderer->unlockRendering();
 
         LOG( logINFO ) << "[Viewer] Set active renderer: " << m_currentRenderer->getRendererName();
+
+        // resize camera viewport since the one in show event might have 0x0
+        m_camera->resizeViewport( width(), height() );
 
         m_context->doneCurrent();
         emit rendererReady();
