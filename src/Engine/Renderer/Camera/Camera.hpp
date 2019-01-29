@@ -86,7 +86,7 @@ class RA_ENGINE_API Camera : public Component {
 
     /// Return a ray emanating from the camera, passing by the point given by
     /// screen coordinates x and y.
-    Eigen::ParametrizedLine<Scalar, 3> getRayFromScreen( const Core::Vector2& pix ) const;
+    Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
 
     /// Return the screen coordinates of the given point p (in world coordinates).
     inline Core::Vector2 project( const Core::Vector3& p ) const;

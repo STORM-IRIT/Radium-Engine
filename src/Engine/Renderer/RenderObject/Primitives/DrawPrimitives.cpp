@@ -95,7 +95,7 @@ MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v,
     return mesh;
 }
 
-MeshPtr Ray( const Eigen::ParametrizedLine<Scalar, 3>& ray, const Core::Utils::Color& color ) {
+MeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color ) {
     Core::Vector3 end = ray.pointAt( 1000.f );
 
     Core::Vector3Array vertices = {ray.origin(), end};

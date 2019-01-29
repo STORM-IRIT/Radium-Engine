@@ -167,7 +167,7 @@ class RA_CORE_API TriangleMesh {
     };
     /// Return the index of the Triangle hit by the ray or -1 if there's no hit.
     /// \FIXME
-    RayCastResult castRay( const Eigen::ParametrizedLine<Scalar, 3>& ray ) const;
+    RayCastResult castRay( const Core::Ray& ray ) const;
 
   public:
     /// The list of triangles.

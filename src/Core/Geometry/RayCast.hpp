@@ -16,7 +16,6 @@ namespace Core {
 
 namespace Geometry {
 class TriangleMesh;
-using Ray = Eigen::ParametrizedLine<Scalar, 3>;
 
 /// Intersect a ray with an axis-aligned bounding box.
 bool RA_CORE_API RayCastAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut,

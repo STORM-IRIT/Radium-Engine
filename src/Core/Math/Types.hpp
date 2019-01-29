@@ -39,6 +39,10 @@ using Vector2ui = Eigen::Matrix<uint, 2, 1>;
 using Vector3ui = Eigen::Matrix<uint, 3, 1>;
 using Vector4ui = Eigen::Matrix<uint, 4, 1>;
 
+using Ray = Eigen::ParametrizedLine<Scalar, 3>;
+using Rayf = Eigen::ParametrizedLine<float, 3>;
+using Rayd = Eigen::ParametrizedLine<double, 3>;
+
 //
 // Common matrix types
 //

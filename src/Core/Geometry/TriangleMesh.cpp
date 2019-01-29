@@ -92,8 +92,7 @@ void TriangleMesh::checkConsistency() const {
 #endif
 }
 
-TriangleMesh::RayCastResult
-TriangleMesh::castRay( const Eigen::ParametrizedLine<Scalar, 3>& ray ) const {
+TriangleMesh::RayCastResult TriangleMesh::castRay( const Core::Ray& ray ) const {
     RayCastResult result;
 
     // point cloud: get closest point
