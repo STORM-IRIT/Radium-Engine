@@ -105,9 +105,9 @@ void Camera::updateProjMatrix() {
     }
 }
 
-Eigen::ParametrizedLine<Scalar, 3> Camera::getRayFromScreen( const Core::Vector2& pix ) const {
+Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     // Ray starts from the camera's current position.
-    return Eigen::ParametrizedLine<Scalar, 3>::Through( getPosition(), unProject( pix ) );
+    return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
 
 } // namespace Engine

@@ -1,5 +1,6 @@
 #include <Engine/Entity/Entity.hpp>
 
+#include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -66,14 +67,9 @@ void Entity::swapTransformBuffers() {
     }
 }
 
-inline Eigen::ParametrizedLine<Scalar, 3> transformRay( const Eigen::ParametrizedLine<Scalar, 3>& r,
-                                                        const Core::Transform& t ) {
-    return Eigen::ParametrizedLine<Scalar, 3>( t * r.origin(), t.linear() * r.direction() );
-}
-
-void Entity::rayCastQuery( const Eigen::ParametrizedLine<Scalar, 3>& r ) const {
+void Entity::rayCastQuery( const Ra::Core::Ray& r ) const {
     // put ray in local frame.
-    auto transformedRay = transformRay( r, m_transform.inverse() );
+    auto transformedRay = Core::Vector::transformRay( m_transform.inverse(), r );
     for ( const auto& c : m_components )
     {
         c->rayCastQuery( transformedRay );
