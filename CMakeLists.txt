@@ -36,6 +36,7 @@ option(RADIUM_BUILD_APPS            "Choose to build or not radium applications"
 option(RADIUM_FAST_MATH             "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
 option(RADIUM_USE_COTIRE            "Enable cotire precompiled headers" On)
 option(RADIUM_COMPILE_TESTS         "Enable tests" ON)
+set(OpenGL_GL_PREFERENCE GLVND)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
