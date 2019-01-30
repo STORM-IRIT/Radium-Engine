@@ -1,5 +1,5 @@
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Tests.hpp>
 
 namespace Ra {
@@ -17,8 +17,8 @@ void run() {
         Ra::Core::Vector3 fl( std::floor( v.x() ), std::floor( v.y() ), std::floor( v.z() ) );
         Ra::Core::Vector3 ce( std::ceil( v.x() ), std::ceil( v.y() ), std::ceil( v.z() ) );
 
-        RA_VERIFY( fl == Ra::Core::Vector::floor( v ), "Vector floor function fail" );
-        RA_VERIFY( ce == Ra::Core::Vector::ceil( v ), "Vector ceil function fail" );
+        RA_VERIFY( fl == Ra::Core::Math::floor( v ), "Vector floor function fail" );
+        RA_VERIFY( ce == Ra::Core::Math::ceil( v ), "Vector ceil function fail" );
     }
 
     // Test the quaternion function.
@@ -29,7 +29,7 @@ void run() {
 
     Ra::Core::Quaternion qt, qs;
 
-    Ra::Core::QuaternionUtils::getSwingTwist( qr, qs, qt );
+    Ra::Core::Math::getSwingTwist( qr, qs, qt );
 
     RA_VERIFY( qr.isApprox( qs * qt ), "Swing decomposition fail." );
     RA_VERIFY( Ra::Core::AngleAxis( qt ).axis().isApprox( Ra::Core::Vector3::UnitZ() ),

@@ -67,7 +67,7 @@ void Component::rayCastQuery( const Ra::Core::Ray& ray ) const {
         if ( ro->isVisible() )
         {
             const Ra::Core::Transform& t = ro->getLocalTransform();
-            auto transformedRay = Core::Vector::transformRay( t.inverse(), ray );
+            auto transformedRay = Core::Math::transformRay( t.inverse(), ray );
             auto result = ro->getMesh()->getGeometry().castRay( transformedRay );
             const int& tidx = result.m_hitTriangle;
             if ( tidx >= 0 )

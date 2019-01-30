@@ -2,7 +2,7 @@
 #define NORMAL_DEFINITION
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

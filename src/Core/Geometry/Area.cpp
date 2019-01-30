@@ -1,6 +1,6 @@
 #include <Core/Geometry/Area.hpp>
 #include <Core/Geometry/TriangleOperation.hpp>
-#include <Core/Math/LinearAlgebra.hpp> // Vector::cotan
+#include <Core/Math/LinearAlgebra.hpp> // Math::cotan
 #include <Core/Utils/CircularIndex.hpp>
 
 namespace Ra {
@@ -72,11 +72,11 @@ AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Vector3
         uint j = t( 1 );
         uint k = t( 2 );
         A.coeffRef( i, i ) +=
-            Vector::cotan( ( p[i] - p[k] ), ( p[j] - p[k] ) ) * ( p[i] - p[j] ).squaredNorm();
+            Math::cotan( ( p[i] - p[k] ), ( p[j] - p[k] ) ) * ( p[i] - p[j] ).squaredNorm();
         A.coeffRef( j, j ) +=
-            Vector::cotan( ( p[j] - p[i] ), ( p[k] - p[i] ) ) * ( p[j] - p[k] ).squaredNorm();
+            Math::cotan( ( p[j] - p[i] ), ( p[k] - p[i] ) ) * ( p[j] - p[k] ).squaredNorm();
         A.coeffRef( k, k ) +=
-            Vector::cotan( ( p[k] - p[j] ), ( p[i] - p[j] ) ) * ( p[k] - p[i] ).squaredNorm();
+            Math::cotan( ( p[k] - p[j] ), ( p[i] - p[j] ) ) * ( p[k] - p[i] ).squaredNorm();
     }
     return ( ( 1.0 / 8.0 ) * A );
 }
@@ -100,9 +100,9 @@ AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui
             Scalar IJ = ( ij ).squaredNorm();
             Scalar JK = ( jk ).squaredNorm();
             Scalar KI = ( ki ).squaredNorm();
-            Scalar cotI = Vector::cotan( ij, ( -ki ).eval() );
-            Scalar cotJ = Vector::cotan( jk, ( -ij ).eval() );
-            Scalar cotK = Vector::cotan( ki, ( -jk ).eval() );
+            Scalar cotI = Math::cotan( ij, ( -ki ).eval() );
+            Scalar cotJ = Math::cotan( jk, ( -ij ).eval() );
+            Scalar cotK = Math::cotan( ki, ( -jk ).eval() );
             A.coeffRef( i, i ) += w * ( ( KI * cotJ ) + ( IJ * cotK ) );
             A.coeffRef( j, j ) += w * ( ( IJ * cotK ) + ( JK * cotI ) );
             A.coeffRef( k, k ) += w * ( ( JK * cotI ) + ( KI * cotJ ) );
@@ -168,8 +168,8 @@ Scalar voronoiArea( const Vector3& v, const VectorArray<Vector3>& p ) {
     for ( uint j = 0; j < N; ++j )
     {
         i.setValue( j );
-        Scalar cot_a = Vector::cotan( ( v - p[i - 1] ), ( p[i] - p[i - 1] ) );
-        Scalar cot_b = Vector::cotan( ( v - p[i + 1] ), ( p[i] - p[i + 1] ) );
+        Scalar cot_a = Math::cotan( ( v - p[i - 1] ), ( p[i] - p[i - 1] ) );
+        Scalar cot_b = Math::cotan( ( v - p[i + 1] ), ( p[i] - p[i + 1] ) );
         area += ( cot_a + cot_b ) * ( v - p[i] ).squaredNorm();
     }
     return ( ( Scalar( 1. ) / Scalar( 8. ) ) * area );
@@ -188,8 +188,8 @@ Scalar mixedArea( const Vector3& v, const VectorArray<Vector3>& p ) {
             // For the triangle PQR ( a.k.a. v, p[i], p[i-1] ), the area for P ( a.k.a. v ) is :
             Scalar PQ = ( p[i] - v ).squaredNorm();
             Scalar PR = ( p[i - 1] - v ).squaredNorm();
-            Scalar cotQ = Vector::cotan( ( p[i - 1] - p[i] ), ( v - p[i] ) );
-            Scalar cotR = Vector::cotan( ( v - p[i - 1] ), ( p[i] - p[i - 1] ) );
+            Scalar cotQ = Math::cotan( ( p[i - 1] - p[i] ), ( v - p[i] ) );
+            Scalar cotR = Math::cotan( ( v - p[i - 1] ), ( p[i] - p[i - 1] ) );
             area += Scalar( 1. ) / Scalar( 8. ) * ( ( PR * cotQ ) + ( PQ * cotR ) );
         } else
         {

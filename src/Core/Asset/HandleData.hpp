@@ -6,8 +6,8 @@
 #include <vector>
 
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 #include <Core/Asset/AssetData.hpp>
 

@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_INTERPOLATION_HPP
 #define RADIUMENGINE_INTERPOLATION_HPP
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

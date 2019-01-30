@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

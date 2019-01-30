@@ -2,8 +2,8 @@
 #define RADIUMENGINE_TRIANGLEMESH_HPP
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>
 
 namespace Ra {

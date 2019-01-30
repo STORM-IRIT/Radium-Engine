@@ -86,8 +86,8 @@ Scalar PolyLine::project( const Vector3& p ) const {
             Vector3 ba = -m_ptsDiff[i];
             Vector3 bc = m_ptsDiff[i + 1];
             Vector3 bp = p - m_pts[i + 1];
-            Scalar c1 = Vector::cotan( ba, bp );
-            Scalar c2 = Vector::cotan( bp, bc );
+            Scalar c1 = Math::cotan( ba, bp );
+            Scalar c2 = Math::cotan( bp, bc );
 
             Scalar t1 = getLineParameter( i, ts[i] );
             Scalar t2 = getLineParameter( i + 1, ts[i + 1] );

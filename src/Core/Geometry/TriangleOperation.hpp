@@ -1,7 +1,7 @@
 #ifndef TRIANGLE_OPERATION
 #define TRIANGLE_OPERATION
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

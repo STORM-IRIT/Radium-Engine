@@ -8,7 +8,7 @@
 #include <thread>
 #include <vector>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/IndexedObject.hpp>
 
 namespace Ra {

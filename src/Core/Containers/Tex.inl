@@ -108,7 +108,7 @@ inline T Tex<T, N>::fetch( const Vector& v ) const {
     Vector scaled_coords( ( v - m_aabb.min() ).cwiseQuotient( m_cellSize ) );
     // Sometimes due to float imprecision, a value of 0 is passed as -1e7
     // which floors incorrectly rounds down to -1, hence the use of trunc().
-    Vector tmp = Ra::Core::Vector::trunc( scaled_coords );
+    Vector tmp = Ra::Core::Math::trunc( scaled_coords );
     CORE_ASSERT( !( ( tmp.array() < Vector::Zero().array() ).any() ), "Cannot cast to uint" );
     IdxVector nearest = tmp.template cast<uint>();
     Vector fact = scaled_coords - tmp;
@@ -118,7 +118,7 @@ inline T Tex<T, N>::fetch( const Vector& v ) const {
     IdxVector size =
         this->sizeVector() - IdxVector::Ones(); // TODO check this code on borders of the grid
     IdxVector clamped_nearest =
-        Ra::Core::Vector::clamp<IdxVector>( nearest, IdxVector::Zero(), size );
+        Ra::Core::Math::clamp<IdxVector>( nearest, IdxVector::Zero(), size );
 
     return NLinearInterpolator<N>::interpolate( *this, fact, size, clamped_nearest );
 }

@@ -8,7 +8,7 @@
 
 #include <vector>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 

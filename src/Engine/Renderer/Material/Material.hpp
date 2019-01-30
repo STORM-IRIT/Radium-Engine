@@ -8,7 +8,7 @@
 
 // This include brings only the macro EIGEN_MAKE_ALIGNED_OPERATOR_NEW in the file scope.
 // Need to be separated to reduce compilation time
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Engine {

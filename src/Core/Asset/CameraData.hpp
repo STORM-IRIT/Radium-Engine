@@ -7,8 +7,8 @@
 
 #include <Core/Asset/AssetData.hpp>
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

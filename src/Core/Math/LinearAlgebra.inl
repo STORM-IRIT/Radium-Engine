@@ -2,7 +2,7 @@
 
 namespace Ra {
 namespace Core {
-
+namespace Math {
 inline void print( const MatrixN& matrix ) {
     // Taken straight from :
     // http://eigen.tuxfamily.org/dox/structEigen_1_1IOFormat.html
@@ -18,70 +18,68 @@ inline void print( const MatrixN& matrix ) {
 //
 
 template <typename Vector_>
-inline Vector_ Vector::floor( const Vector_& v ) {
+inline Vector_ floor( const Vector_& v ) {
     using Scalar_ = typename Vector_::Scalar;
     return v.unaryExpr(
         std::function<Scalar_( Scalar_ )>( static_cast<Scalar_ ( & )( Scalar_ )>( std::floor ) ) );
 }
 
 template <typename Vector_>
-inline Vector_ Vector::ceil( const Vector_& v ) {
+inline Vector_ ceil( const Vector_& v ) {
     using Scalar_ = typename Vector_::Scalar;
     return v.unaryExpr(
         std::function<Scalar_( Scalar_ )>( static_cast<Scalar_ ( & )( Scalar_ )>( std::ceil ) ) );
 }
 
 template <typename Vector_>
-inline Vector_ Vector::trunc( const Vector_& v ) {
+inline Vector_ trunc( const Vector_& v ) {
     using Scalar_ = typename Vector_::Scalar;
     return v.unaryExpr(
         std::function<Scalar_( Scalar_ )>( static_cast<Scalar_ ( & )( Scalar_ )>( std::trunc ) ) );
 }
 
-template <typename Vector_>
-inline Vector_ Vector::clamp( const Vector_& v, const Vector_& min, const Vector_& max ) {
+template <typename Derived>
+inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v,
+                                         const Eigen::MatrixBase<Derived>& min,
+                                         const Eigen::MatrixBase<Derived>& max ) {
+    return v.cwiseMin( max ).cwiseMax( min );
+}
+
+template <typename Derived>
+inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
+                                         const Scalar& max ) {
     return v.cwiseMin( max ).cwiseMax( min );
 }
 
 template <typename Vector_>
-inline Vector_ Vector::clamp( const Vector_& v, const Scalar& min, const Scalar& max ) {
-    return v.cwiseMin( max ).cwiseMax( min );
+inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max ) {
+    return clamp( v, min, max ) == v;
 }
 
 template <typename Vector_>
-inline bool Vector::checkRange( const Vector_& v, const Scalar& min, const Scalar& max ) {
-    return Vector::clamp( v, min, max ) == v;
-}
-
-template <typename Vector_>
-inline bool Vector::checkInvalidNumbers( Eigen::Ref<const Vector_> v, const bool FAIL_ON_ASSERT ) {
-    return MatrixUtils::checkInvalidNumbers( v, FAIL_ON_ASSERT );
-}
-
-template <typename Vector_>
-inline Scalar Vector::angle( const Vector_& v1, const Vector_& v2 ) {
+inline Scalar angle( const Vector_& v1, const Vector_& v2 ) {
     return std::atan2( v1.cross( v2 ).norm(), v1.dot( v2 ) );
 }
 
 template <typename Vector_>
-Scalar Vector::cotan( const Vector_& v1, const Vector_& v2 ) {
+Scalar cotan( const Vector_& v1, const Vector_& v2 ) {
     return v1.dot( v2 ) / v1.cross( v2 ).norm();
 }
 
 template <typename Vector_>
-Scalar Vector::cos( const Vector_& v1, const Vector_& v2 ) {
+Scalar cos( const Vector_& v1, const Vector_& v2 ) {
     return ( v1.dot( v2 ) ) / std::sqrt( v1.normSquared() * v2.normSquared() );
 }
 
 template <typename Vector_>
-Scalar Vector::getNormAndNormalize( Vector_& v ) {
+Scalar getNormAndNormalize( Vector_& v ) {
     const Scalar norm = v.norm();
     v /= norm;
     return norm;
 }
 
 template <typename Vector_>
-Scalar Vector::getNormAndNormalizeSafe( Vector_& v ) {
+Scalar getNormAndNormalizeSafe( Vector_& v ) {
     const Scalar norm = v.norm();
     if ( norm > 0 )
     {
@@ -92,8 +90,8 @@ Scalar Vector::getNormAndNormalizeSafe( Vector_& v ) {
 
 template <typename Scalar>
 Eigen::ParametrizedLine<Scalar, 3>
-Vector::transformRay( const Eigen::Transform<Scalar, 3, Eigen::Affine>& t,
-                      const Eigen::ParametrizedLine<Scalar, 3>& r ) {
+transformRay( const Eigen::Transform<Scalar, 3, Eigen::Affine>& t,
+              const Eigen::ParametrizedLine<Scalar, 3>& r ) {
     return {t * r.origin(), t.linear() * r.direction()};
 }
 
@@ -101,21 +99,21 @@ Vector::transformRay( const Eigen::Transform<Scalar, 3, Eigen::Affine>& t,
 // Quaternion functions.
 //
 
-inline Quaternion QuaternionUtils::add( const Quaternion& q1, const Quaternion& q2 ) {
+inline Quaternion add( const Quaternion& q1, const Quaternion& q2 ) {
     return Quaternion( q1.coeffs() + q2.coeffs() );
 }
 
-inline Quaternion QuaternionUtils::addQlerp( const Quaternion& q1, const Quaternion& q2 ) {
+inline Quaternion addQlerp( const Quaternion& q1, const Quaternion& q2 ) {
     const Scalar sign = Ra::Core::Math::signNZ( q1.dot( q2 ) );
     return Quaternion( q1.coeffs() + ( sign * q2.coeffs() ) );
 }
 
-inline Quaternion QuaternionUtils::scale( const Quaternion& q, Scalar k ) {
+inline Quaternion scale( const Quaternion& q, Scalar k ) {
     return Quaternion( k * q.coeffs() );
 }
 
-inline void Vector::getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy,
-                                          Eigen::Ref<Vector3> fz ) {
+inline void getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy,
+                                  Eigen::Ref<Vector3> fz ) {
     // taken from [Duff et al. 17] Building An Orthonormal Basis, Revisited. JCGT. 2017
     Scalar sign = std::copysign( Scalar( 1.0 ), fx( 2 ) );
     const Scalar a = Scalar( -1.0 ) / ( sign + fx( 2 ) );
@@ -125,13 +123,13 @@ inline void Vector::getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3>
     fz = Ra::Core::Vector3( b, sign + fx( 1 ) * fx( 1 ) * a, -fx( 1 ) );
 }
 
-inline Vector3 Vector::projectOnPlane( const Vector3& planePos, const Vector3& planeNormal,
-                                       const Vector3& point ) {
+inline Vector3 projectOnPlane( const Vector3& planePos, const Vector3& planeNormal,
+                               const Vector3& point ) {
     return point + planeNormal * ( planePos - point ).dot( planeNormal );
 }
 
 template <typename Vector_>
-Vector_ Ra::Core::Vector::slerp( const Vector_& v1, const Vector_& v2, Scalar t ) {
+Vector_ slerp( const Vector_& v1, const Vector_& v2, Scalar t ) {
     const Scalar dot = v1.dot( v2 );
     const Scalar theta = t * angle( v1, v2 );
     const Vector_ relativeVec = ( v2 - v1 * dot ).normalized();
@@ -141,8 +139,7 @@ Vector_ Ra::Core::Vector::slerp( const Vector_& v1, const Vector_& v2, Scalar t 
 // Reference : Paolo Baerlocher, Inverse Kinematics techniques for interactive posture control
 // of articulated figures (PhD Thesis), p.138. EPFL, 2001.
 // http://www0.cs.ucl.ac.uk/research/equator/papers/Documents2002/Paolo%20Baerlocher_Thesis_2001.pdf
-inline void QuaternionUtils::getSwingTwist( const Quaternion& in, Quaternion& swingOut,
-                                            Quaternion& twistOut ) {
+inline void getSwingTwist( const Quaternion& in, Quaternion& swingOut, Quaternion& twistOut ) {
     // singular case.
     if ( UNLIKELY( in.z() == 0 && in.w() == 0 ) )
     {
@@ -173,7 +170,6 @@ inline void QuaternionUtils::getSwingTwist( const Quaternion& in, Quaternion& sw
     }
 }
 
-namespace MatrixUtils {
 // http://stackoverflow.com/a/13786235/4717805
 inline Matrix4 lookAt( const Vector3& position, const Vector3& target, const Vector3& up ) {
     Matrix3 R;
@@ -239,8 +235,8 @@ bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_A
 
     return !ok;
 }
-} // namespace MatrixUtils
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 
@@ -252,18 +248,18 @@ bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_A
 
 namespace Eigen {
 inline Quaternion<Scalar> operator*( Scalar k, const Quaternion<Scalar>& q ) {
-    return Ra::Core::QuaternionUtils::scale( q, k );
+    return Ra::Core::Math::scale( q, k );
 }
 
 inline Quaternion<Scalar> operator*( const Quaternion<Scalar>& q, Scalar k ) {
-    return Ra::Core::QuaternionUtils::scale( q, k );
+    return Ra::Core::Math::scale( q, k );
 }
 
 inline Quaternion<Scalar> operator+( const Quaternion<Scalar>& q1, const Quaternion<Scalar>& q2 ) {
-    return Ra::Core::QuaternionUtils::add( q1, q2 );
+    return Ra::Core::Math::add( q1, q2 );
 }
 
 inline Quaternion<Scalar> operator/( const Quaternion<Scalar>& q, Scalar k ) {
-    return Ra::Core::QuaternionUtils::scale( q, Scalar( 1 ) / k );
+    return Ra::Core::Math::scale( q, Scalar( 1 ) / k );
 }
 } // namespace Eigen

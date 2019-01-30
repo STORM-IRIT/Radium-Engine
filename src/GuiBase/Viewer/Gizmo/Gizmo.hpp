@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/RadiumEngine.hpp>
