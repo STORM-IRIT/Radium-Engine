@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_DUALQUATERNION_HPP
 #define RADIUMENGINE_DUALQUATERNION_HPP
 
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

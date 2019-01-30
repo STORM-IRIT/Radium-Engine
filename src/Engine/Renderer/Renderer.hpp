@@ -9,7 +9,7 @@
 #include <mutex>
 #include <vector>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Timer.hpp>
 #include <GuiBase/Event/EventEnums.hpp>
 

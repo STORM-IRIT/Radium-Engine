@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_RAY_CAST_HPP_
 #define RADIUMENGINE_RAY_CAST_HPP_
 
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <Eigen/Core>
 #include <vector>
 

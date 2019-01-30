@@ -2,8 +2,8 @@
 #define RADIUMENGINE_VECTORARRAY_HPP
 
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <vector>
 
 namespace Ra {

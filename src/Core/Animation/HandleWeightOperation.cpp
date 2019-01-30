@@ -1,5 +1,5 @@
 #include <Core/Animation/HandleWeightOperation.hpp>
-#include <Core/Math/LinearAlgebra.hpp> // MatrixUtils::checkInvalidNumbers
+#include <Core/Math/LinearAlgebra.hpp> // Math::checkInvalidNumbers
 #include <Core/Utils/Log.hpp>
 #include <utility>
 
@@ -61,7 +61,7 @@ void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights, std::vector<uint
 
 bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix, const bool FAIL_ON_ASSERT,
                         const bool MT ) {
-    bool ok = MatrixUtils::checkInvalidNumbers( matrix, FAIL_ON_ASSERT ) &&
+    bool ok = Math::checkInvalidNumbers( matrix, FAIL_ON_ASSERT ) &&
               checkNoWeightVertex( matrix, FAIL_ON_ASSERT, MT );
 
     if ( !ok )

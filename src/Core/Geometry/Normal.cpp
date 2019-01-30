@@ -1,7 +1,7 @@
 #include <Core/Geometry/Normal.hpp>
 
 #include <Core/Geometry/TriangleOperation.hpp>
-#include <Core/Math/LinearAlgebra.hpp> // Vector::angle
+#include <Core/Math/LinearAlgebra.hpp> // Math::angle
 #include <Core/Utils/CircularIndex.hpp>
 #include <Core/Utils/Timer.hpp>
 
@@ -72,9 +72,9 @@ void angleWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Vecto
         uint j = t( 1 );
         uint k = t( 2 );
         const Vector3 triN = triangleNormal( p[i], p[j], p[k] );
-        const Scalar theta_i = Vector::angle( ( p[j] - p[i] ), ( p[k] - p[i] ) );
-        const Scalar theta_j = Vector::angle( ( p[i] - p[j] ), ( p[k] - p[j] ) );
-        const Scalar theta_k = Vector::angle( ( p[i] - p[k] ), ( p[j] - p[k] ) );
+        const Scalar theta_i = Math::angle( ( p[j] - p[i] ), ( p[k] - p[i] ) );
+        const Scalar theta_j = Math::angle( ( p[i] - p[j] ), ( p[k] - p[j] ) );
+        const Scalar theta_k = Math::angle( ( p[i] - p[k] ), ( p[j] - p[k] ) );
         normal[i] += theta_i * triN;
         normal[j] += theta_j * triN;
         normal[k] += theta_k * triN;
@@ -138,7 +138,7 @@ Vector3 angleWeightedNormal( const Vector3& v, const VectorArray<Vector3>& one_r
     for ( uint j = 0; j < N; ++j )
     {
         i.setValue( j );
-        Scalar theta = Vector::angle( ( one_ring[i] - v ), ( one_ring[i - 1] - v ) );
+        Scalar theta = Math::angle( ( one_ring[i] - v ), ( one_ring[i - 1] - v ) );
         normal += theta * triangleNormal( v, one_ring[i], one_ring[i - 1] );
     }
     if ( !normal.isApprox( Vector3::Zero() ) )

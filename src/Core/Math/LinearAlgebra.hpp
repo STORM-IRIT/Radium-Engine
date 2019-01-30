@@ -12,10 +12,11 @@
 #include <unsupported/Eigen/AlignedVector3>
 
 #include <Core/Math/Math.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
+namespace Math {
 //
 // Common vector types
 //
@@ -31,7 +32,6 @@ inline void print( const MatrixN& matrix );
 //
 // Vector Functions
 //
-namespace Vector {
 
 /// Component-wise floor() function on a floating-point vector.
 template <typename Vector>
@@ -46,20 +46,32 @@ template <typename Vector>
 inline Vector trunc( const Vector& v );
 
 /// Component-wise clamp() function on a floating-point vector.
-template <typename Vector>
-inline Vector clamp( const Vector& v, const Vector& min, const Vector& max );
 
+template <typename Derived>
+inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v,
+                                         const Eigen::MatrixBase<Derived>& min,
+                                         const Eigen::MatrixBase<Derived>& max );
 /// Component-wise clamp() function on a floating-point vector.
-template <typename Vector>
-inline Vector clamp( const Vector& v, const Scalar& min, const Scalar& max );
+template <typename Derived>
+inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
+                                         const Scalar& max );
 
 /// Vector range check, works for any numeric vector.
 template <typename Vector_>
 inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max );
 
-/// Call std::isnormal on vector entries.
-template <typename Vector_>
-inline bool checkInvalidNumbers( Eigen::Ref<const Vector_> v, const bool FAIL_ON_ASSERT = false );
+/// Call std::isnormal on quaternion entries.
+template <typename S>
+inline bool checkInvalidNumbers( Eigen::Ref<Eigen::Quaternion<S>> q,
+                                 const bool FAIL_ON_ASSERT = false ) {
+    return checkInvalidNumbers( q.coeffs(), FAIL_ON_ASSERT );
+}
+
+/// Call std::isnormal on matrix entry.
+/// Dense version
+template <typename Matrix_>
+inline bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix,
+                                 const bool FAIL_ON_ASSERT = false );
 
 /// Get two vectors orthogonal to a given vector.
 /// \warning fx must be normalized (this is not checked in the function)
@@ -112,26 +124,15 @@ inline Eigen::ParametrizedLine<Scalar, 3>
 transformRay( const Eigen::Transform<Scalar, 3, Eigen::Affine>& t,
               const Eigen::ParametrizedLine<Scalar, 3>& r );
 
-} // namespace Vector
-
-namespace MatrixUtils {
 inline Matrix4 lookAt( const Vector3& position, const Vector3& target, const Vector3& up );
 inline Matrix4 perspective( Scalar fovy, Scalar aspect, Scalar near, Scalar zfar );
 inline Matrix4 orthographic( Scalar left, Scalar right, Scalar bottom, Scalar top, Scalar near,
                              Scalar zfar );
 
-/// Call std::isnormal on matrix entry.
-/// Dense version
-template <typename Matrix_>
-inline bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix,
-                                 const bool FAIL_ON_ASSERT = false );
-
-} // namespace MatrixUtils
-
 //
 // Quaternion functions
 //
-namespace QuaternionUtils {
+
 // Define functions for multiplying a quaternion by a scalar
 // and adding two quaternions. While Quaternion is supposed to
 // represent a unit quaternion (thus a valid rotation), these functions
@@ -159,16 +160,9 @@ inline Quaternion addQlerp( const Quaternion& q1, const Quaternion& q2 );
 /// and Qtwist equal to Qin
 inline void getSwingTwist( const Quaternion& in, Quaternion& swingOut, Quaternion& twistOut );
 
-/// Call std::isnormal on quaternion entries.
-template <typename Quaternion_>
-inline bool checkInvalidNumbers( Eigen::Ref<const Quaternion_> q,
-                                 const bool FAIL_ON_ASSERT = false ) {
-    return MatrixUtils::checkInvalidNumbers( q.coeffs(), FAIL_ON_ASSERT );
-}
-} // namespace QuaternionUtils
+} // namespace Math
 } // namespace Core
 } // namespace Ra
-
 #include <Core/Math/LinearAlgebra.inl>
 
 #endif // RADIUMENGINE_LINEARALGEBRA_HPP

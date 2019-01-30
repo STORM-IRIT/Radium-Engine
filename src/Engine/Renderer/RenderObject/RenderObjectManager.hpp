@@ -12,7 +12,7 @@
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/IndexMap.hpp>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 
 namespace Ra {

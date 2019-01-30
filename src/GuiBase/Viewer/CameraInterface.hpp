@@ -9,7 +9,7 @@
 #include <QObject>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {

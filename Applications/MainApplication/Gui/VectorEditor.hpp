@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_VECTOR_EDITOR_HPP_
 #define RADIUMENGINE_VECTOR_EDITOR_HPP_
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 #include <QWidget>
 

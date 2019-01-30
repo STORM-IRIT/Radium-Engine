@@ -75,7 +75,7 @@ MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v,
                 const Core::Utils::Color& color ) {
     Core::Vector3 end = start + v;
     Core::Vector3 a, b;
-    Core::Vector::getOrthogonalVectors( v, a, b );
+    Core::Math::getOrthogonalVectors( v, a, b );
     a.normalize();
     Scalar l = v.norm();
 
@@ -168,7 +168,7 @@ MeshPtr Circle( const Core::Vector3& center, const Core::Vector3& normal, Scalar
     std::vector<uint> indices( segments );
 
     Core::Vector3 xPlane, yPlane;
-    Core::Vector::getOrthogonalVectors( normal, xPlane, yPlane );
+    Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
@@ -197,7 +197,7 @@ MeshPtr CircleArc( const Core::Vector3& center, const Core::Vector3& normal, Sca
     std::vector<uint> indices( segments );
 
     Core::Vector3 xPlane, yPlane;
-    Core::Vector::getOrthogonalVectors( normal, xPlane, yPlane );
+    Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
@@ -273,7 +273,7 @@ MeshPtr Disk( const Core::Vector3& center, const Core::Vector3& normal, Scalar r
     std::vector<uint> indices( seg + 1 );
 
     Core::Vector3 xPlane, yPlane;
-    Core::Vector::getOrthogonalVectors( normal, xPlane, yPlane );
+    Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
@@ -308,7 +308,7 @@ MeshPtr Normal( const Core::Vector3& point, const Core::Vector3& normal,
 
     Core::Vector3 end = point + n;
     Core::Vector3 a, b;
-    Core::Vector::getOrthogonalVectors( n, a, b );
+    Core::Math::getOrthogonalVectors( n, a, b );
     a.normalize();
     b.normalize();
 

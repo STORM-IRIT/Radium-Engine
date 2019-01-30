@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <Core/Containers/AlignedAllocator.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {

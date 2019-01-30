@@ -2,8 +2,8 @@
 #define RADIUMENGINE_DISTANCE_QUERIES_HPP_
 
 #include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <limits>
 
 /// Functions in this file are utilities to compute the distance between various geometric sets.
