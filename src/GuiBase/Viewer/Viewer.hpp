@@ -11,7 +11,7 @@
 #include <QThread>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>

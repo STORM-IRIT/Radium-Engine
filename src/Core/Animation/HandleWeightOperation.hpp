@@ -38,7 +38,7 @@ RA_CORE_API void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
                                     std::vector<uint>& handleID );
 
 /*
- * Call MatrixUtils::checkInvalidNumbers and checkNoWeightVertex on the input matrix
+ * Call Math::checkInvalidNumbers and checkNoWeightVertex on the input matrix
  */
 RA_CORE_API bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
                                     const bool FAIL_ON_ASSERT = false, const bool MT = false );

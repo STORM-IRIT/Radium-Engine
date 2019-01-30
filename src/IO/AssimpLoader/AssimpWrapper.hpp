@@ -7,7 +7,7 @@
 #include <assimp/types.h>
 #include <assimp/vector3.h>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 
 namespace Ra {

@@ -7,7 +7,7 @@
 #include <mutex>
 #include <string>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/IndexedObject.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>

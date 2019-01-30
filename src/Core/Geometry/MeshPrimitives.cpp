@@ -1,6 +1,6 @@
 #include <Core/Containers/Grid.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 #include <array>
 
@@ -213,7 +213,7 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
 
     //  Create two circles normal centered on A and B and normal to ab;
     Vector3 xPlane, yPlane;
-    Vector::getOrthogonalVectors( ab, xPlane, yPlane );
+    Math::getOrthogonalVectors( ab, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
@@ -460,7 +460,7 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
 
     //  Create two circles normal centered on A and B and normal to ab;
     Vector3 xPlane, yPlane;
-    Vector::getOrthogonalVectors( ab, xPlane, yPlane );
+    Math::getOrthogonalVectors( ab, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
@@ -547,7 +547,7 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
 
     //  Create two circles normal centered on A and B and normal to ab;
     Vector3 xPlane, yPlane;
-    Vector::getOrthogonalVectors( ab, xPlane, yPlane );
+    Math::getOrthogonalVectors( ab, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 

@@ -3,7 +3,7 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>

@@ -2,7 +2,7 @@
 #define RADIUMENGINE_CAMERA_HPP
 
 #include <Core/Math/Math.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/RaEngine.hpp>
 

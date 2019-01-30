@@ -617,14 +617,14 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
             auto ou = 4 * ( ( tex->height() - 1 - j ) * tex->width() +
                             i ); // Index in the final image (note the j flipping).
 
-            writtenPixels[ou + 0] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 0] * 255.f, 0, 255 );
-            writtenPixels[ou + 1] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 1] * 255.f, 0, 255 );
-            writtenPixels[ou + 2] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 2] * 255.f, 0, 255 );
-            writtenPixels[ou + 3] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 3] * 255.f, 0, 255 );
+            writtenPixels[ou + 0] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 0] * 255.f ),
+                                                                  Scalar( 0 ), Scalar( 255 ) );
+            writtenPixels[ou + 1] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 1] * 255.f ),
+                                                                  Scalar( 0 ), Scalar( 255 ) );
+            writtenPixels[ou + 2] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 2] * 255.f ),
+                                                                  Scalar( 0 ), Scalar( 255 ) );
+            writtenPixels[ou + 3] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 3] * 255.f ),
+                                                                  Scalar( 0 ), Scalar( 255 ) );
         }
     }
     w = tex->width();

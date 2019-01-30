@@ -3,9 +3,9 @@
 #include <GuiBase/MainWindowInterface.hpp>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/Types.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>

@@ -4,8 +4,8 @@
 #include <Core/Geometry/OpenMesh.h>
 
 #include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
 
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>

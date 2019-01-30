@@ -1,8 +1,8 @@
 #ifndef QUADRIC_H
 #define QUADRIC_H
 
-#include <Core/Math/Types.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 #include <Eigen/Eigenvalues>
 

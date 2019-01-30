@@ -48,7 +48,7 @@ cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v
 
 } // namespace OpenMesh
 
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 #include <OpenMesh/Core/Mesh/Traits.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>

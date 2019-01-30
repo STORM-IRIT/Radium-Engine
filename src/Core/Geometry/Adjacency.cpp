@@ -1,5 +1,5 @@
 #include <Core/Geometry/Adjacency.hpp>
-#include <Core/Math/LinearAlgebra.hpp> // Vector::cotan
+#include <Core/Math/LinearAlgebra.hpp> // Math::cotan
 
 namespace Ra {
 namespace Core {
@@ -87,9 +87,9 @@ AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
         Vector3 IJ = p[j] - p[i];
         Vector3 JK = p[k] - p[j];
         Vector3 KI = p[i] - p[k];
-        Scalar cotI = Vector::cotan( IJ, ( -KI ).eval() );
-        Scalar cotJ = Vector::cotan( JK, ( -IJ ).eval() );
-        Scalar cotK = Vector::cotan( KI, ( -JK ).eval() );
+        Scalar cotI = Math::cotan( IJ, ( -KI ).eval() );
+        Scalar cotJ = Math::cotan( JK, ( -IJ ).eval() );
+        Scalar cotK = Math::cotan( KI, ( -JK ).eval() );
         A.coeffRef( i, j ) += cotK;
         A.coeffRef( j, i ) += cotK;
         A.coeffRef( j, k ) += cotI;

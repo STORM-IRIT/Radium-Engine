@@ -1,7 +1,7 @@
 #include "TriangleMesh.hpp"
 #include <Core/Geometry/RayCast.hpp>
 #include <Core/Geometry/TriangleOperation.hpp> // triangleArea
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 #include <array>
 #include <vector>

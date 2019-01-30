@@ -5,7 +5,7 @@
 
 #include <Core/Geometry/Obb.hpp>
 #include <Core/Geometry/Spline.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 
 #include <memory>
