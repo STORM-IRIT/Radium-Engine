@@ -38,17 +38,18 @@ inline Vector_ trunc( const Vector_& v ) {
         std::function<Scalar_( Scalar_ )>( static_cast<Scalar_ ( & )( Scalar_ )>( std::trunc ) ) );
 }
 
-template <typename Derived>
-inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v,
-                                         const Eigen::MatrixBase<Derived>& min,
-                                         const Eigen::MatrixBase<Derived>& max ) {
+template <typename Derived, typename DerivedA, typename DerivedB>
+inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v,
+                                            const Eigen::MatrixBase<DerivedA>& min,
+                                            const Eigen::MatrixBase<DerivedB>& max ) {
     return v.cwiseMin( max ).cwiseMax( min );
 }
 
 template <typename Derived>
-inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
-                                         const Scalar& max ) {
-    return v.cwiseMin( max ).cwiseMax( min );
+inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
+                                            const Scalar& max ) {
+    return v.unaryExpr( [min, max]( Scalar x ) { return std::clamp( x, min, max ); } );
+    //    return v.cwiseMin( max ).cwiseMax( min );
 }
 
 template <typename Vector_>

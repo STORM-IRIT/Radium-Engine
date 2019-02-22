@@ -1,17 +1,17 @@
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 
-#include <QApplication>
-#include <QMessageBox>
-#include <iostream>
-
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <GuiBase/Event/KeyEvent.hpp>
 #include <GuiBase/Event/MouseEvent.hpp>
-
 #include <GuiBase/Utils/KeyMappingManager.hpp>
+
+#include <QApplication>
+#include <QMessageBox>
+#include <algorithm>
+#include <iostream>
 
 namespace Ra {
 using Core::Math::Pi;
@@ -324,7 +324,7 @@ void Gui::TrackballCamera::handleCameraZoom( Scalar z ) {
     Scalar zoom = m_camera->getZoomFactor() - z * m_cameraSensitivity * m_quickCameraModifier;
     Scalar epsIn = 0.001;
     Scalar epsOut = 3.1;
-    m_camera->setZoomFactor( Core::Math::clamp( zoom, epsIn, epsOut ) );
+    m_camera->setZoomFactor( std::clamp( zoom, epsIn, epsOut ) );
 #else
     Scalar y = m_distFromCenter * z * m_cameraSensitivity * m_quickCameraModifier;
     Core::Vector3 F = m_camera->getDirection();

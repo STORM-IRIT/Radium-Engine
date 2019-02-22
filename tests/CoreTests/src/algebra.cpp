@@ -1,7 +1,9 @@
 #include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Math.hpp>
 #include <Core/Types.hpp>
 #include <Tests.hpp>
 
+#include <algorithm>
 namespace Ra {
 namespace Testing {
 
@@ -36,6 +38,64 @@ void run() {
                "Twist should be around z" );
     RA_VERIFY( Ra::Core::AngleAxis( qs ).axis().dot( Ra::Core::Vector3::UnitZ() ) == 0,
                "Swing should be in xy" );
+
+    //    using std::clamp;
+    //    using Ra::Core::Math::clamp;
+    Scalar min = -12.;
+    Scalar max = +27.;
+    Scalar s = 0.6;
+
+    RA_VERIFY( s == std::clamp( s, min, max ), "Clamp fails on Scalar" );
+    RA_VERIFY( min == std::clamp( min, min, max ), "Clamp fails on Scalar" );
+    RA_VERIFY( max == std::clamp( max, min, max ), "Clamp fails on Scalar" );
+    RA_VERIFY( max == std::clamp( max + s, min, max ), "Clamp fails on Scalar" );
+    RA_VERIFY( min == std::clamp( min - s, min, max ), "Clamp fails on Scalar" );
+
+    Ra::Core::Vector3 v{Scalar( 0.1 ), Scalar( 0.2 ), Scalar( 0.3 )};
+    Ra::Core::Vector3 v2 = Ra::Core::Math::clamp( v, min, max );
+    RA_VERIFY( v2.isApprox( v ), "Clamp fails on Vector and scalar" );
+
+    v = Ra::Core::Math::clamp( Ra::Core::Vector3::Constant( s ), min, max );
+    v2 = Ra::Core::Vector3::Constant( s );
+    RA_VERIFY( v2.isApprox( v ), "Clamp fails on Vector and scalar" );
+
+    RA_VERIFY( Ra::Core::Vector3::Constant( min ).isApprox(
+                   Ra::Core::Math::clamp( Ra::Core::Vector3::Constant( min ), min, max ) ),
+               "Clamp fails on Vector and scalar" );
+
+    RA_VERIFY( Ra::Core::Vector3::Constant( max ).isApprox(
+                   Ra::Core::Math::clamp( Ra::Core::Vector3::Constant( max ), min, max ) ),
+               "Clamp fails on Vector and scalar" );
+    RA_VERIFY( Ra::Core::Vector3::Constant( max ).isApprox(
+                   Ra::Core::Math::clamp( Ra::Core::Vector3::Constant( max + s ), min, max ) ),
+               "Clamp fails on Vector and scalar" );
+    RA_VERIFY( Ra::Core::Vector3::Constant( min ).isApprox(
+                   Ra::Core::Math::clamp( Ra::Core::Vector3::Constant( min - s ), min, max ) ),
+               "Clamp fails on Vector and scalar" );
+
+    RA_VERIFY( Ra::Core::Vector3::Constant( min ).isApprox( Ra::Core::Math::clamp(
+                   Ra::Core::Vector3::Constant( min ), Ra::Core::Vector3::Constant( min ),
+                   Ra::Core::Vector3::Constant( max ) ) ),
+               "Component-wise clamp fails" );
+
+    RA_VERIFY( Ra::Core::Vector3::Constant( max ).isApprox( Ra::Core::Math::clamp(
+                   Ra::Core::Vector3::Constant( max ), Ra::Core::Vector3::Constant( min ),
+                   Ra::Core::Vector3::Constant( max ) ) ),
+               "Component-wise clamp fails" );
+    RA_VERIFY( Ra::Core::Vector3::Constant( max ).isApprox( Ra::Core::Math::clamp(
+                   Ra::Core::Vector3::Constant( max + s ), Ra::Core::Vector3::Constant( min ),
+                   Ra::Core::Vector3::Constant( max ) ) ),
+               "Component-wise clamp fails" );
+    RA_VERIFY( Ra::Core::Vector3::Constant( min ).isApprox( Ra::Core::Math::clamp(
+                   Ra::Core::Vector3::Constant( min - s ), Ra::Core::Vector3::Constant( min ),
+                   Ra::Core::Vector3::Constant( max ) ) ),
+               "Component-wise clamp fails" );
+
+    RA_VERIFY( Ra::Core::Vector3( min, max, s )
+                   .isApprox( Ra::Core::Math::clamp( Ra::Core::Vector3( min - s, max + s, s ),
+                                                     Ra::Core::Vector3::Constant( min ),
+                                                     Ra::Core::Vector3::Constant( max ) ) ),
+               "Component-wise clamp fails" );
 }
 } // namespace Testing
 } // namespace Ra
