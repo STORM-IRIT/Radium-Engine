@@ -81,6 +81,12 @@ void Engine::Texture::bind( int unit ) {
     { m_texture->bind(); }
 }
 
+void Engine::Texture::bindImageTexture( int unit, const GLint level, const GLboolean layered,
+                                        const GLint layer, const GLenum access ) {
+    m_texture->bindImageTexture( uint( unit ), level, layered, layer, access,
+                                 m_textureParameters.internalFormat );
+}
+
 void Engine::Texture::updateData( void* data ) {
     switch ( m_texture->target() )
     {
