@@ -19,22 +19,24 @@ namespace Engine {
  * Describes the content and parameters of a texture.
  * This structures encapsulates all the states used for creating an OpenGL texture.
  *  These parameters describe the image data of the texture :
- *    - target, width, height, depth, format, internalFormat, type and texels for describing image data
+ *    - target, width, height, depth, format, internalFormat, type and texels for describing image
+ * data
  *    - wrapS, wrapT, wrapP, minfilter and magFilter for describing the sampler of the texture.
  *
- *  When one wants to create a texture, the first thing to do is to create and fill a Texture parameter structure
- *  that will describe the Texture.
+ *  When one wants to create a texture, the first thing to do is to create and fill a Texture
+ * parameter structure that will describe the Texture.
  *
- *  The Texture creation could be done either using the TextureManager or directly on the client class/function.
+ *  The Texture creation could be done either using the TextureManager or directly on the client
+ * class/function.
  *
- *  When a texture is created, no OpenGL initialisation is realized. The user must first call initializeGL before being
- *  able to use this texture in an OpenGL operation. initializeGL
+ *  When a texture is created, no OpenGL initialisation is realized. The user must first call
+ * initializeGL before being able to use this texture in an OpenGL operation. initializeGL
  *
- *  MipMap representation of the texture is automatically generated as soon as the minFilter parameter is something
- *  else than GL_LINEAR or GL_NEAREST
+ *  MipMap representation of the texture is automatically generated as soon as the minFilter
+ * parameter is something else than GL_LINEAR or GL_NEAREST
  *
- * @note No coherence checking will be done on the content of this structure. User must ensure coherent data and
- * parameters before creating the OpenGL texture with Texture::initializeGL
+ * @note No coherence checking will be done on the content of this structure. User must ensure
+ * coherent data and parameters before creating the OpenGL texture with Texture::initializeGL
  */
 struct TextureParameters {
     /// Name of the texture
@@ -103,11 +105,11 @@ class RA_ENGINE_API Texture final {
      *
      * Before uploading texels to the GPU, this method will apply RGB space conversion if needed.
      *
-     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space before
-     * OpenGL initialisation
+     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
+     * before OpenGL initialisation
      * @note This will become soon the only way to generate an Radium Engine OpenGL texture.
      */
-    void initializeGL(bool linearize = false);
+    void initializeGL( bool linearize = false );
 
     /**
      * @brief Init the textures needed for the cubemap from OpenGL point of view.
@@ -138,8 +140,8 @@ class RA_ENGINE_API Texture final {
      *
      * @todo integrate this method in the same workflow than other textures ...
      */
-     void generateCube(uint width, uint height, GLenum format, void **data = nullptr,
-                       bool linearize = false, bool mipmaped = false);
+    void generateCube( uint width, uint height, GLenum format, void** data = nullptr,
+                       bool linearize = false, bool mipmaped = false );
 
     /**
      * @brief Bind the texture to enable its use in a shader
@@ -148,21 +150,33 @@ class RA_ENGINE_API Texture final {
     void bind( int unit = -1 );
 
     /**
+     * Bind the texture to an image unit for the purpose of reading and writing it from shaders.
+     * @note, only available since openGL 4.2, not available on MacOs
+     * uses m_parameters.internalFormat as format.
+     * see
+     * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
+     * for documentation
+     */
+    void bindImageTexture( int unit, const GLint level, const GLboolean layered, const GLint layer,
+                           const GLenum access );
+
+    /**
      * @return Name of the texture.
      */
     inline std::string getName() const { return m_textureParameters.name; }
 
     /**
      * Update the data contained by the texture
-     * @param newData The new data, must contain the same number of elements than old data, no check
-     * will be performed.
+     * @param newData The new data, must contain the same number of elements than old data, no
+     * check will be performed.
      */
     void updateData( void* newData );
 
     /**
      * Update the parameters contained by the texture.
-     * User first modify the public attributes corresponding to the parameter he wants to change the
-     * value (e.g wrap* or *Filter) and call this function to update the OpenGL texture state ...
+     * User first modify the public attributes corresponding to the parameter he wants to change
+     * the value (e.g wrap* or *Filter) and call this function to update the OpenGL texture
+     * state ...
      * @return
      */
     void updateParameters();
@@ -193,21 +207,23 @@ class RA_ENGINE_API Texture final {
      */
     size_t depth() const { return m_textureParameters.depth; }
 
-    void *texels() { return m_textureParameters.texels; }
+    void* texels() { return m_textureParameters.texels; }
     /**
      * @return the globjects::Texture associated with the texture
      */
     globjects::Texture* texture() const { return m_texture.get(); }
 
     /** Resize the texture.
-     * This allocate GPU memory to store the new resized texture and, if texels are not nullptr, upload the new content.
-     * @note : If texels are not nullptr, user must ensure the texels array is correctly dimmensionned.
+     * This allocate GPU memory to store the new resized texture and, if texels are not nullptr,
+     * upload the new content.
+     * @note : If texels are not nullptr, user must ensure the texels array is correctly
+     * dimmensionned.
      * @param w width of the texture
      * @param h height of the texture
      * @param d depth of the texture
      * @param pix the new texel array corresponding the the new texture dimension
      */
-    void resize(size_t w = 1, size_t h = 1, size_t d = 1, void * pix = nullptr);
+    void resize( size_t w = 1, size_t h = 1, size_t d = 1, void* pix = nullptr );
 
   private:
     /**
