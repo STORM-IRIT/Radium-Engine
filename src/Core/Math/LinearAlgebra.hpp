@@ -47,14 +47,14 @@ inline Vector trunc( const Vector& v );
 
 /// Component-wise clamp() function on a floating-point vector.
 
-template <typename Derived>
-inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v,
-                                         const Eigen::MatrixBase<Derived>& min,
-                                         const Eigen::MatrixBase<Derived>& max );
+template <typename Derived, typename DerivedA, typename DerivedB>
+inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v,
+                                            const Eigen::MatrixBase<DerivedA>& min,
+                                            const Eigen::MatrixBase<DerivedB>& max );
 /// Component-wise clamp() function on a floating-point vector.
 template <typename Derived>
-inline Eigen::MatrixBase<Derived> clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
-                                         const Scalar& max );
+inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
+                                            const Scalar& max );
 
 /// Vector range check, works for any numeric vector.
 template <typename Vector_>

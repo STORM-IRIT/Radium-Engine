@@ -1,13 +1,9 @@
 #include <Engine/Renderer/Renderer.hpp>
 
-#include <globjects/Framebuffer.h>
-
-#include <iostream>
-
 #include <Core/Asset/FileData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Log.hpp>
-
+#include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
@@ -21,7 +17,10 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
-#include <Engine/Managers/LightManager/LightManager.hpp>
+#include <globjects/Framebuffer.h>
+
+#include <algorithm>
+#include <iostream>
 
 namespace Ra {
 namespace Engine {
@@ -617,14 +616,14 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
             auto ou = 4 * ( ( tex->height() - 1 - j ) * tex->width() +
                             i ); // Index in the final image (note the j flipping).
 
-            writtenPixels[ou + 0] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 0] * 255.f ),
-                                                                  Scalar( 0 ), Scalar( 255 ) );
-            writtenPixels[ou + 1] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 1] * 255.f ),
-                                                                  Scalar( 0 ), Scalar( 255 ) );
-            writtenPixels[ou + 2] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 2] * 255.f ),
-                                                                  Scalar( 0 ), Scalar( 255 ) );
-            writtenPixels[ou + 3] = (uchar)Ra::Core::Math::clamp( Scalar( pixels[in + 3] * 255.f ),
-                                                                  Scalar( 0 ), Scalar( 255 ) );
+            writtenPixels[ou + 0] =
+                (uchar)std::clamp( Scalar( pixels[in + 0] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
+            writtenPixels[ou + 1] =
+                (uchar)std::clamp( Scalar( pixels[in + 1] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
+            writtenPixels[ou + 2] =
+                (uchar)std::clamp( Scalar( pixels[in + 2] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
+            writtenPixels[ou + 3] =
+                (uchar)std::clamp( Scalar( pixels[in + 3] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
         }
     }
     w = tex->width();

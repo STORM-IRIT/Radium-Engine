@@ -1,4 +1,6 @@
 #include <Core/Geometry/DistanceQueries.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/Math.hpp>
 #include <Tests.hpp>
 
 namespace Ra {

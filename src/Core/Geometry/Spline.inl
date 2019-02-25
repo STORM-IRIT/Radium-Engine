@@ -2,6 +2,8 @@
 
 #include <Core/Math/Math.hpp>
 
+#include <algorithm>
+
 namespace Ra {
 namespace Core {
 namespace Geometry {
@@ -55,7 +57,7 @@ inline void Spline<D, K>::setType( Type type ) {
 
 template <uint D, uint K>
 inline typename Spline<D, K>::Vector Spline<D, K>::f( Scalar u ) const {
-    u = Core::Math::clamp( u, Scalar( 0 ), Scalar( 1 ) );
+    u = std::clamp( u, Scalar( 0 ), Scalar( 1 ) );
     return eval( u, m_points, m_node, K );
 }
 
@@ -63,7 +65,7 @@ inline typename Spline<D, K>::Vector Spline<D, K>::f( Scalar u ) const {
 
 template <uint D, uint K>
 inline typename Spline<D, K>::Vector Spline<D, K>::df( Scalar u ) const {
-    u = Core::Math::clamp( u, Scalar( 0 ), Scalar( 1 ) );
+    u = std::clamp( u, Scalar( 0 ), Scalar( 1 ) );
     return eval( u, m_vecs, m_node, K - 1, 1 ) * Scalar( K - 1 );
 }
 
