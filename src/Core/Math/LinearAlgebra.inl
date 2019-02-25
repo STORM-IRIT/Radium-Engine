@@ -49,7 +49,6 @@ template <typename Derived>
 inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
                                             const Scalar& max ) {
     return v.unaryExpr( [min, max]( Scalar x ) { return std::clamp( x, min, max ); } );
-    //    return v.cwiseMin( max ).cwiseMax( min );
 }
 
 template <typename Vector_>
