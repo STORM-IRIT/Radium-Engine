@@ -1,5 +1,5 @@
 #include <Core/Geometry/PolyLine.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Math/LinearAlgebra.hpp> // cotan, saturate (from Math.hpp)
 
 namespace Ra {
 namespace Core {
