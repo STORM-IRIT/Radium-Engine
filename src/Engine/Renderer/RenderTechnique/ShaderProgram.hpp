@@ -52,10 +52,13 @@ class RA_ENGINE_API ShaderProgram final {
     void setUniform( const char* name, std::vector<uint> value ) const;
     void setUniform( const char* name, std::vector<float> value ) const;
 
+    void setUniform( const char* name, const Core::Vector2i& value ) const;
     void setUniform( const char* name, const Core::Vector2f& value ) const;
     void setUniform( const char* name, const Core::Vector2d& value ) const;
+    void setUniform( const char* name, const Core::Vector3i& value ) const;
     void setUniform( const char* name, const Core::Vector3f& value ) const;
     void setUniform( const char* name, const Core::Vector3d& value ) const;
+    void setUniform( const char* name, const Core::Vector4i& value ) const;
     void setUniform( const char* name, const Core::Vector4f& value ) const;
     void setUniform( const char* name, const Core::Vector4d& value ) const;
 

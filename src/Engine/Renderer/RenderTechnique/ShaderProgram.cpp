@@ -298,6 +298,10 @@ void ShaderProgram::setUniform( const char* name, std::vector<float> values ) co
 
 //!
 
+void ShaderProgram::setUniform( const char* name, const Core::Vector2i& value ) const {
+    m_program->setUniform( name, Core::toGlm( value ) );
+}
+
 void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const {
     m_program->setUniform( name, Core::toGlm( value ) );
 }
@@ -306,12 +310,20 @@ void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) 
     m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
 }
 
+void ShaderProgram::setUniform( const char* name, const Core::Vector3i& value ) const {
+    m_program->setUniform( name, Core::toGlm( value ) );
+}
+
 void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const {
     m_program->setUniform( name, Core::toGlm( value ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const {
     m_program->setUniform( name, Core::toGlm( value.cast<float>().eval() ) );
+}
+
+void ShaderProgram::setUniform( const char* name, const Core::Vector4i& value ) const {
+    m_program->setUniform( name, Core::toGlm( value ) );
 }
 
 void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const {
