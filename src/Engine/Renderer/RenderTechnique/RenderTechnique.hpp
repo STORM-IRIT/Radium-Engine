@@ -24,7 +24,8 @@ namespace Engine {
  */
 /**
  * Set of shaders to be used by the renderer to render objects with materials.
- * @see Render technique and materials section in the Material management in the Radium Engine documentation
+ * @see Render technique and materials section in the Material management in the Radium Engine
+ * documentation
  */
 class RA_ENGINE_API RenderTechnique final {
   public:
@@ -65,11 +66,11 @@ class RA_ENGINE_API RenderTechnique final {
     ConfigurationSet shaderConfig;
     ShaderSet shaders;
 
-    std::shared_ptr<Material> material { nullptr };
+    std::shared_ptr<Material> material{nullptr};
 
     // Change this if there is more than 8 configurations
-    unsigned char dirtyBits { Z_PREPASS | LIGHTING_OPAQUE | LIGHTING_TRANSPARENT };
-    unsigned char setPasses {NO_PASS};
+    unsigned char dirtyBits{Z_PREPASS | LIGHTING_OPAQUE | LIGHTING_TRANSPARENT};
+    unsigned char setPasses{NO_PASS};
 };
 
 ///////////////////////////////////////////////

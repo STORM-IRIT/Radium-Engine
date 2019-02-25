@@ -57,10 +57,6 @@ inline constexpr int sign( const T& val );
 template <typename T>
 inline constexpr T signNZ( const T& val );
 
-/// Returns value v clamped between bounds min and max.
-template <typename T>
-inline constexpr T clamp( T v, T min, T max );
-
 /// Clamps the value between 0 and 1
 template <typename T>
 inline constexpr T saturate( T v );

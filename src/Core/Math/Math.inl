@@ -3,6 +3,7 @@
 namespace Ra {
 namespace Core {
 namespace Math {
+
 inline constexpr Scalar toRadians( Scalar a ) {
     return toRad * a;
 }
@@ -80,13 +81,8 @@ inline constexpr T signNZ( const T& val ) {
 }
 
 template <typename T>
-inline constexpr T clamp( T v, T min, T max ) {
-    return std::max( min, std::min( v, max ) );
-}
-
-template <typename T>
 inline constexpr T saturate( T v ) {
-    return clamp( v, static_cast<T>( 0 ), static_cast<T>( 1 ) );
+    return std::clamp( v, static_cast<T>( 0 ), static_cast<T>( 1 ) );
 }
 
 inline bool areApproxEqual( Scalar a, Scalar b, Scalar eps ) {
