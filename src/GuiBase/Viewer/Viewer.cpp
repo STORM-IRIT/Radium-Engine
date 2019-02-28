@@ -452,8 +452,7 @@ void Gui::Viewer::showEvent( QShowEvent* /*ev*/ ) {
         // Entity
         auto light =
             new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
-        // Set the default light intensity so that it does not burn the objects
-        light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 0.5 ) ) );
+        light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
         m_camera->attachLight( light );
     }
 }
