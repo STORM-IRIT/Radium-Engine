@@ -251,7 +251,6 @@ namespace Engine {
 
 class RA_ENGINE_API BlinnPhongMaterial final : public Material {
   public:
-    RA_CORE_ALIGNED_NEW
     explicit BlinnPhongMaterial( const std::string& name );
     ...
   private:
