@@ -21,9 +21,16 @@ struct RA_CORE_API HandleComponentData {
 
     HandleComponentData();
 
+    /// Handle name
     std::string m_name;
+
+    /// Handle transformation in model space
     Core::Transform m_frame;
+
+    /// Matrix from mesh space to local space
     Core::Transform m_offset{Core::Transform::Identity()};
+
+    /// Per skinned-mesh vertex weigths.
     std::map<std::string, std::vector<std::pair<uint, Scalar>>> m_weight;
 };
 
@@ -75,6 +82,7 @@ class RA_CORE_API HandleData : public AssetData {
     inline void setFaces( const Core::AlignedStdVector<Core::VectorNi>& faceList );
     inline void recomputeAllIndices();
 
+    /// SKINNED MESHES
     inline void addBindMesh( const std::string& name );
     inline const std::set<std::string>& getBindMeshes() const;
 
