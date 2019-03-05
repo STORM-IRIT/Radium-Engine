@@ -11,6 +11,8 @@
 
 #include <Core/Types.hpp>
 #include <Core/Utils/Timer.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Engine/Renderer/Displayable/DisplayableObject.hpp>
 #include <GuiBase/Event/EventEnums.hpp>
 
 namespace Ra {
@@ -25,7 +27,6 @@ class TextureManager;
 class RenderObjectManager;
 class LightManager;
 class Texture;
-class Mesh;
 struct ViewingParameters;
 } // namespace Engine
 
@@ -235,6 +236,11 @@ class RA_ENGINE_API Renderer {
     /// Tell if the renderer has an usable light.
     bool hasLight() const;
 
+    /// Update the background color (does not trigger a redraw)
+    inline void setBackgroundColor( const Core::Utils::Color& color ) { m_backgroundColor = color; }
+
+    inline const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
+
     // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
     /** Add a light to the renderer.
      * may be overridden to filter the light or to specialize the way ligths are added to the
@@ -376,7 +382,7 @@ class RA_ENGINE_API Renderer {
     std::vector<RenderObjectPtr> m_uiRenderObjects;
 
     // Simple quad mesh, used to render the final image
-    std::unique_ptr<Mesh> m_quadMesh;
+    std::unique_ptr<Displayable> m_quadMesh;
 
     bool m_drawDebug{true};          // Should we render debug stuff ?
     bool m_wireframe{false};         // Are we rendering in "real" wireframe mode
@@ -407,15 +413,19 @@ class RA_ENGINE_API Renderer {
     std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
     std::unique_ptr<Texture> m_pickingTexture;
 
-    std::array<std::vector<RenderObjectPtr>, 4> m_fancyRenderObjectsPicking;
-    std::array<std::vector<RenderObjectPtr>, 4> m_debugRenderObjectsPicking;
-    std::array<std::vector<RenderObjectPtr>, 4> m_xrayRenderObjectsPicking;
-    std::array<std::vector<RenderObjectPtr>, 4> m_uiRenderObjectsPicking;
-    std::array<const ShaderProgram*, 4> m_pickingShaders;
+    static const int NoPickingRenderMode = Displayable::PickingRenderMode::NO_PICKING;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_fancyRenderObjectsPicking;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_debugRenderObjectsPicking;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_xrayRenderObjectsPicking;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_uiRenderObjectsPicking;
+    std::array<const ShaderProgram*, NoPickingRenderMode> m_pickingShaders;
 
     std::vector<PickingQuery> m_pickingQueries;
     std::vector<PickingQuery> m_lastFramePickingQueries;
     std::vector<PickingResult> m_pickingResults;
+
+    Core::Utils::Color m_backgroundColor{
+        Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 };
 
 } // namespace Engine

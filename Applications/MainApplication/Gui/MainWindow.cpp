@@ -20,8 +20,10 @@
 #include <IO/deprecated/OBJFileManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
+#include <QColorDialog>
 #include <QComboBox>
 #include <QFileDialog>
+#include <QPushButton>
 #include <QSettings>
 #include <QToolButton>
 
@@ -62,6 +64,9 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     createConnections();
 
     mainApp->framesCountForStatsChanged( (uint)m_avgFramesCount->value() );
+
+    // load default color from QSettings
+    updateBackgroundColor();
 }
 
 MainWindow::~MainWindow() {
@@ -390,6 +395,19 @@ void MainWindow::updateDisplayedTexture() {
     }
 }
 
+void MainWindow::updateBackgroundColor( QColor c ) {
+    QSettings settings;
+    if ( !c.isValid() )
+    {
+        c = settings.value( "colors/background", QColor::fromRgb( 10, 10, 10 ) ).value<QColor>();
+    } else
+    { settings.setValue( "colors/background", c ); }
+    QString qss = QString( "background-color: %1" ).arg( c.name() );
+    m_currentColorButton->setStyleSheet( qss );
+    m_viewer->setBackgroundColor( Core::Utils::Color( Scalar( c.redF() ), Scalar( c.greenF() ),
+                                                      Scalar( c.blueF() ), Scalar( 0 ) ) );
+}
+
 void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
     std::string name = shaderName.toStdString();
     if ( name == "" )
@@ -571,3 +589,12 @@ void MainWindow::onGLInitialized() {
 
 } // namespace Gui
 } // namespace Ra
+
+void Ra::Gui::MainWindow::on_m_currentColorButton_clicked() {
+    QColor currentColor;
+    QColor c = QColorDialog::getColor( currentColor, this, "Renderer background color" );
+    if ( c.isValid() )
+    {
+        updateBackgroundColor( c );
+    }
+}
