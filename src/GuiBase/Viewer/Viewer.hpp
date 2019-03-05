@@ -64,7 +64,7 @@ class RA_GUIBASE_API Viewer : public QWindow {
     explicit Viewer( QScreen* screen = nullptr );
 
     /// Destructor
-    virtual ~Viewer();
+    ~Viewer() override;
 
     /// create gizmos
     void createGizmoManager();
@@ -171,6 +171,9 @@ class RA_GUIBASE_API Viewer : public QWindow {
      */
     int addRenderer( std::shared_ptr<Engine::Renderer> e );
 
+    void setBackgroundColor( const Core::Utils::Color& background );
+    const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
+
   private slots:
     /// These slots are connected to the base class signals to properly handle
     /// concurrent access to the renderer.
@@ -245,6 +248,8 @@ class RA_GUIBASE_API Viewer : public QWindow {
 
     /// GL initialization status
     std::atomic_bool m_glInitStatus;
+
+    Core::Utils::Color m_backgroundColor;
 };
 
 } // namespace Gui

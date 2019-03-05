@@ -108,6 +108,12 @@ int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
     return m_renderers.size() - 1;
 }
 
+void Gui::Viewer::setBackgroundColor( const Core::Utils::Color& background ) {
+    m_backgroundColor = background;
+    for ( auto renderer : m_renderers )
+        renderer->setBackgroundColor( background );
+}
+
 void Gui::Viewer::enableDebug() {
     glbinding::setCallbackMask( glbinding::CallbackMask::After |
                                 glbinding::CallbackMask::ParametersAndReturnValue );
@@ -230,6 +236,7 @@ void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
     gl::glViewport( 0, 0, width(), height() );
 #endif
     renderer->initialize( width(), height() );
+    renderer->setBackgroundColor( m_backgroundColor );
     // resize camera viewport since it might be 0x0
     m_camera->resizeViewport( width(), height() );
     // do this only when the renderer has something to render and that there is no lights
