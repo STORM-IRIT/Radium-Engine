@@ -118,6 +118,10 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     /// Update displayed texture according to the current renderer
     void updateDisplayedTexture();
 
+    /// Set the background color (updates viewer). If c is invalid, the color is fetch from
+    /// QSettings.
+    void updateBackgroundColor( QColor c = QColor() );
+
   private slots:
     /// Slot for the "load file" menu.
     void loadFile();
@@ -150,6 +154,8 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void resetScene();
 
     void toggleCirclePicking( bool on );
+
+    void on_m_currentColorButton_clicked();
 
   private:
     /// Stores the internal model of engine objects for selection.

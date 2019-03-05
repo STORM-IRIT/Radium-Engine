@@ -27,7 +27,7 @@
      <x>0</x>
      <y>0</y>
      <width>1350</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -156,15 +156,15 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="shaderLayout">
-            <item>
-             <widget class="QLabel" name="label">
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="1" column="2">
+             <widget class="QPushButton" name="m_currentColorButton">
               <property name="text">
-               <string>Current shader</string>
+               <string/>
               </property>
              </widget>
             </item>
-            <item>
+            <item row="0" column="2">
              <widget class="QComboBox" name="m_currentShaderBox">
               <item>
                <property name="text">
@@ -191,6 +191,26 @@
                 <string>Lines</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="m_currentShaderBoxLabel">
+              <property name="text">
+               <string>Current shader</string>
+              </property>
+              <property name="buddy">
+               <cstring>m_currentShaderBox</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="m_currentColorButtonLabel">
+              <property name="text">
+               <string>Background Color</string>
+              </property>
+              <property name="buddy">
+               <cstring>m_currentColorButton</cstring>
+              </property>
              </widget>
             </item>
            </layout>
@@ -226,6 +246,9 @@
                  <widget class="QLabel" name="label_23">
                   <property name="text">
                    <string>Frames averaging over count</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>m_avgFramesCount</cstring>
                   </property>
                  </widget>
                 </item>
@@ -474,6 +497,9 @@
             <property name="text">
              <string>Displayed Texture</string>
             </property>
+            <property name="buddy">
+             <cstring>m_displayedTextureCombo</cstring>
+            </property>
            </widget>
           </item>
           <item row="2" column="1">
@@ -545,6 +571,9 @@
            <widget class="QLabel" name="label_8">
             <property name="text">
              <string>Current Renderer</string>
+            </property>
+            <property name="buddy">
+             <cstring>m_currentRendererCombo</cstring>
             </property>
            </widget>
           </item>
@@ -735,6 +764,26 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>m_entitiesTreeView</tabstop>
+  <tabstop>m_toggleRenderObjectButton</tabstop>
+  <tabstop>m_editRenderObjectButton</tabstop>
+  <tabstop>m_exportMeshButton</tabstop>
+  <tabstop>m_removeEntityButton</tabstop>
+  <tabstop>m_clearSceneButton</tabstop>
+  <tabstop>m_fitCameraButton</tabstop>
+  <tabstop>m_currentShaderBox</tabstop>
+  <tabstop>m_currentColorButton</tabstop>
+  <tabstop>toolBox</tabstop>
+  <tabstop>m_currentRendererCombo</tabstop>
+  <tabstop>m_displayedTextureCombo</tabstop>
+  <tabstop>m_enablePostProcess</tabstop>
+  <tabstop>m_realFrameRate</tabstop>
+  <tabstop>m_enableDebugDraw</tabstop>
+  <tabstop>m_avgFramesCount</tabstop>
+  <tabstop>m_printGraph</tabstop>
+  <tabstop>m_printTimings</tabstop>
+ </tabstops>
  <resources>
   <include location="../../../../icons.qrc"/>
   <include location="../../../../icons.qrc"/>
