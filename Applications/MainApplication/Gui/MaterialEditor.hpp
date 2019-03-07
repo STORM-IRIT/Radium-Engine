@@ -34,7 +34,7 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
     void changeRenderObject( Ra::Core::Utils::Index roIdx );
 
   private slots:
-    void updateMaterialViz();
+    void updateBlinnPhongViz();
 
     void onKdColorChanged( int );
     void onKsColorChanged( int );
@@ -44,6 +44,9 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
     void newKdColor( const QColor& color );
     void newKsColor( const QColor& color );
 
+    void on_m_closeButton_clicked();
+    void on_kUsePerVertex_clicked(bool checked);
+
   protected:
     virtual void showEvent( QShowEvent* e ) override;
     virtual void closeEvent( QCloseEvent* e ) override;
@@ -51,15 +54,12 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
   private:
     bool m_visible;
 
-    Engine::RadiumEngine* m_engine;
-    Engine::RenderObjectManager* m_roMgr;
-
     Core::Utils::Index m_roIdx;
     std::shared_ptr<Engine::RenderObject> m_renderObject;
 
     /// TODO generalize material editor to others materials
     bool m_usable;
-    Ra::Engine::BlinnPhongMaterial* m_material;
+    Ra::Engine::BlinnPhongMaterial* m_blinnphongmaterial;
 
   private:
     enum {

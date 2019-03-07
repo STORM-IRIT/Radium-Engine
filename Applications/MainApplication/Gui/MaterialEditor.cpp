@@ -37,12 +37,15 @@ MaterialEditor::MaterialEditor( QWidget* parent ) :
 
     connect( kdColorWidget, &ColorWidget::newColorPicked, this, &MaterialEditor::newKdColor );
     connect( ksColorWidget, &ColorWidget::newColorPicked, this, &MaterialEditor::newKsColor );
+
+    setWindowModality( Qt::ApplicationModal );
+    setWindowTitle( "Material Editor" );
 }
 
 void MaterialEditor::onExpChanged( double v ) {
     if ( m_renderObject && m_usable )
     {
-        m_material->m_ns = v;
+        m_blinnphongmaterial->m_ns = Scalar( v );
     }
 }
 
@@ -51,9 +54,9 @@ void MaterialEditor::onKdColorChanged( int ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Utils::Color c( kdR->value() / 255.f, kdG->value() / 255.f, kdB->value() / 255.f,
-                              1.0 );
-        m_material->m_kd = c;
+        m_blinnphongmaterial->m_kd = Core::Utils::Color (
+              kdR->value() / 255_ra, kdG->value() / 255_ra, kdB->value() / 255_ra, 1_ra );
+
     }
 }
 
@@ -62,9 +65,8 @@ void MaterialEditor::onKsColorChanged( int ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Utils::Color c( ksR->value() / 255.f, ksG->value() / 255.f, ksB->value() / 255.f,
-                              1.0 );
-        m_material->m_ks = c;
+        m_blinnphongmaterial->m_ks = Core::Utils::Color (
+              ksR->value() / 255_ra, ksG->value() / 255_ra, ksB->value() / 255_ra, 1_ra );
     }
 }
 
@@ -79,8 +81,8 @@ void MaterialEditor::newKdColor( const QColor& color ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Utils::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-        m_material->m_kd = c;
+        m_blinnphongmaterial->m_kd = Core::Utils::Color (
+              color.redF(), color.greenF(), color.blueF(), 1. );
     }
 }
 
@@ -95,8 +97,8 @@ void MaterialEditor::newKsColor( const QColor& color ) {
 
     if ( m_renderObject && m_usable )
     {
-        Core::Utils::Color c( color.redF(), color.greenF(), color.blueF(), 1.0 );
-        m_material->m_ks = c;
+        m_blinnphongmaterial->m_ks = Core::Utils::Color (
+              color.redF(), color.greenF(), color.blueF(), 1. );
     }
 }
 
@@ -104,48 +106,50 @@ void MaterialEditor::showEvent( QShowEvent* e ) {
     QWidget::showEvent( e );
 
     m_visible = true;
-
-    m_engine = Engine::RadiumEngine::getInstance();
-    m_roMgr = m_engine->getRenderObjectManager();
 }
 
-void MaterialEditor::closeEvent( QCloseEvent* e ) {
+void MaterialEditor::closeEvent( QCloseEvent* /*e*/ ) {
     m_visible = false;
 
     hide();
 }
 
 void MaterialEditor::changeRenderObject( Core::Utils::Index roIdx ) {
-    if ( !m_visible )
+    if ( roIdx.isValid() )
     {
-        return;
-    }
+        m_renderObject =
+            Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( roIdx );
 
-    m_roIdx = roIdx;
-    m_renderObject = m_roMgr->getRenderObject( m_roIdx );
+        if ( m_renderObject != nullptr )
+        {
+            m_BlinnPhongGroup->hide();
 
-    /// TODO : replace this ugly dynamic_cast by something more static ...
-    m_material = dynamic_cast<Ra::Engine::BlinnPhongMaterial*>(
-        m_renderObject->getRenderTechnique()->getMaterial().get() );
-    if ( m_material == nullptr )
-    {
-        m_usable = false;
-        return;
-    }
+            auto genericMaterial = m_renderObject->getRenderTechnique()->getMaterial();
+            if ( genericMaterial->getMaterialName() == "BlinnPhong" )
+            {
+                m_blinnphongmaterial =
+                    dynamic_cast<Ra::Engine::BlinnPhongMaterial*>( genericMaterial.get() );
+                updateBlinnPhongViz();
+                m_BlinnPhongGroup->show();
+            }
 
-    if ( m_renderObject != nullptr )
-    {
-        m_renderObjectName->setText( m_renderObject->getName().c_str() );
-        updateMaterialViz();
+            m_usable = true;
+            m_roIdx = roIdx;
+            m_renderObjectName->setText( m_renderObject->getName().c_str() );
+        }
     }
 }
 
-void MaterialEditor::updateMaterialViz() {
-    const Core::Utils::Color kd = m_material->m_kd;
-    const Core::Utils::Color ks = m_material->m_ks;
+void MaterialEditor::updateBlinnPhongViz() {
+    const Core::Utils::Color kd = m_blinnphongmaterial->m_kd;
+    const Core::Utils::Color ks = m_blinnphongmaterial->m_ks;
 
-    int kdr = kd.x() * 255, kdg = kd.y() * 255, kdb = kd.y() * 255;
-    int ksr = ks.x() * 255, ksg = ks.y() * 255, ksb = ks.z() * 255;
+    int kdr = int( std::floor( kd.x() * 255_ra ) ),
+        kdg = int( std::floor( kd.y() * 255_ra ) ),
+        kdb = int( std::floor( kd.z() * 255_ra ) );
+    int ksr = int( std::floor( ks.x() * 255_ra ) ),
+        ksg = int( std::floor( ks.y() * 255_ra ) ),
+        ksb = int( std::floor( ks.z() * 255_ra ) );
 
     const QSignalBlocker bdr( kdR );
     const QSignalBlocker bdg( kdG );
@@ -165,7 +169,7 @@ void MaterialEditor::updateMaterialViz() {
     ksG->setValue( ksg );
     ksB->setValue( ksb );
 
-    exp->setValue( m_material->m_ns );
+    exp->setValue( double( m_blinnphongmaterial->m_ns ) );
 
     kdColorWidget->colorChanged( kdr, kdg, kdb );
     ksColorWidget->colorChanged( ksr, ksg, ksb );
@@ -173,3 +177,16 @@ void MaterialEditor::updateMaterialViz() {
 
 } // namespace Gui
 } // namespace Ra
+
+void Ra::Gui::MaterialEditor::on_m_closeButton_clicked() {
+    hide();
+}
+
+void Ra::Gui::MaterialEditor::on_kUsePerVertex_clicked(bool checked)
+{
+    if ( m_renderObject && m_usable )
+    {
+        m_blinnphongmaterial->m_hasPerVertexKd = checked;
+    }
+
+}
