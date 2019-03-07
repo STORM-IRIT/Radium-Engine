@@ -39,5 +39,6 @@ void ColorWidget::mousePressEvent( QMouseEvent* e ) {
         }
     }
 }
+
 } // namespace Gui
 } // namespace Ra

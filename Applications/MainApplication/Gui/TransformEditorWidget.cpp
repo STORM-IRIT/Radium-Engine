@@ -41,5 +41,6 @@ void TransformEditorWidget::setEditable( const Engine::ItemEntry& ent ) {
                  &TransformEditorWidget::onChangedPosition );
     }
 }
+
 } // namespace Gui
 } // namespace Ra

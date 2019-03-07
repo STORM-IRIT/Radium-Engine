@@ -6,9 +6,9 @@
 #include <IO/deprecated/OBJFileManager.hpp>
 #include <memory>
 
-/// Macro used for testing only, to add attibutes to the TopologicalMesh
-/// before subdivisition
-/// \FIXME Must be removed once using Radium::IO with attribute loading.
+// Macro used for testing only, to add attibutes to the TopologicalMesh
+// before subdivisition
+// \FIXME Must be removed once using Radium::IO with attribute loading.
 //#define TEST_ATTRIBUTES_SUBDIV
 
 struct args {
@@ -30,7 +30,7 @@ void printHelp( char* argv[] ) {
               << "type \t\t is a string for the subdivider type name : catmull, loop\n"
               << "iteration \t (default is 1) is a positive integer to specify the number of "
                  "iteration of subdivision\n\n";
-    /// \FIXME Use Radium::IO to load and save meshes.
+    // \FIXME Use Radium::IO to load and save meshes.
     std::cout
         << "Warning: The Subdivide application does not use Radium::IO for loading/saving "
         << "files. Input *.obj files must list only vertex position (v) and vertex normal (vn), "
