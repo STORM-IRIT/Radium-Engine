@@ -10,7 +10,9 @@
 namespace Ra {
 namespace Gui {
 
-/// A small Qt widget to edit a vector3 value.
+/**
+ * A small Qt widget to edit a vector3 value.
+ */
 class VectorEditor : public QWidget, private Ui::VectorEditor {
     Q_OBJECT
   public:
@@ -36,7 +38,9 @@ class VectorEditor : public QWidget, private Ui::VectorEditor {
         m_z->setReadOnly( !editable );
     }
 
-    /// Manually set a new value for the vector.
+    /**
+     * Manually set a new value for the vector.
+     */
     void setValue( const Core::Vector3& vec ) {
         m_x->setValue( vec.x() );
         m_y->setValue( vec.y() );
@@ -44,20 +48,26 @@ class VectorEditor : public QWidget, private Ui::VectorEditor {
     }
 
   signals:
-    /// Emitted when the value changes through the UI.
+    /**
+     * Emitted when the value changes through the UI.
+     */
     void valueChanged( const Core::Vector3& newValue, uint id );
 
   private slots:
-
-    /// Listens to the spin box changes and fires the signal.
+    /**
+     * Listens to the spin box changes and fires the signal.
+     */
     void onValueChangedInternal() {
         Core::Vector3 v( m_x->value(), m_y->value(), m_z->value() );
         emit valueChanged( v, m_id );
-    };
+    }
 
   private:
+    /// The index of the editor.
     uint m_id;
 };
+
 } // namespace Gui
 } // namespace Ra
+
 #endif // RADIUMENGINE_VECTOR_EDITOR_HPP_

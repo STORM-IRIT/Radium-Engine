@@ -1,6 +1,6 @@
 #include <GuiBase/BaseApplication.hpp>
 
-/// Allow singleton-like access to the main app à la qApp.
+// Allow singleton-like access to the main app à la qApp.
 #if defined( mainApp )
 #    undef mainApp
 #endif
