@@ -4,13 +4,11 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/// CONSTRUCTOR
 HandleComponentData::HandleComponentData() :
     m_frame( Core::Transform::Identity() ),
     m_name( "" ),
     m_weight() {}
 
-/// CONSTRUCTOR
 HandleData::HandleData( const std::string& name, const HandleType& type ) :
     AssetData( name ),
     m_frame( Core::Transform::Identity() ),
@@ -22,7 +20,6 @@ HandleData::HandleData( const std::string& name, const HandleType& type ) :
     m_edge(),
     m_face() {}
 
-/// DESTRUCTOR
 HandleData::~HandleData() {}
 
 } // namespace Asset

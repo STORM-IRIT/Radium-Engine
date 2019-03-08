@@ -11,18 +11,31 @@ namespace Core {
 namespace Asset {
 class FileData;
 
+/**
+ * The FileLoaderInterface class is the basic class for FileLoaders.
+ */
 class FileLoaderInterface {
   public:
     virtual ~FileLoaderInterface() {}
 
+    /**
+     * Return the list of file extensions supported by the loader.
+     */
     virtual std::vector<std::string> getFileExtensions() const = 0;
 
+    /**
+     * Return true if the loader supports the given file extension.
+     */
     virtual bool handleFileExtension( const std::string& extension ) const = 0;
 
-    //! Try to load file, returns nullptr in case of failure
+    /**
+     * Try to load file, returns nullptr in case of failure.
+     */
     virtual FileData* loadFile( const std::string& filename ) = 0;
 
-    //! Unique name of the loader
+    /**
+     * Return the name of the loader.
+     */
     virtual std::string name() const = 0;
 };
 

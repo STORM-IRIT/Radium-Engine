@@ -4,7 +4,6 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/// CONSTRUCTOR
 LightData::LightData( const std::string& name, const LightType& type ) :
     AssetData( name ),
     m_frame( Eigen::Matrix<Scalar, 4, 4>::Identity() ),
@@ -35,7 +34,6 @@ LightData::LightData( const LightData& data ) :
     }
 }
 
-/// DESTRUCTOR
 LightData::~LightData() {}
 
 } // namespace Asset

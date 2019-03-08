@@ -4,9 +4,6 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-///////////////////
-/// BLINN PHONG ///
-///////////////////
 BlinnPhongMaterialData::BlinnPhongMaterialData( const std::string& name ) :
     MaterialData( name, "BlinnPhong" ),
     m_diffuse(),

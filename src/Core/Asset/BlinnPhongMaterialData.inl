@@ -5,9 +5,6 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-///////////////////
-/// BLINN PHONG ///
-///////////////////
 inline bool BlinnPhongMaterialData::hasDiffuse() const {
     return m_hasDiffuse;
 }
@@ -44,7 +41,6 @@ inline bool BlinnPhongMaterialData::hasOpacityTexture() const {
     return m_hasTexOpacity;
 }
 
-/// DEBUG
 inline void BlinnPhongMaterialData::displayInfo() const {
     using namespace Core::Utils; // log
     auto print = []( bool ok, const std::string& name, const auto& value ) {
