@@ -9,26 +9,38 @@ struct aiScene;
 namespace Ra {
 namespace Core {
 namespace Asset {
+
+/**
+ * The DataLoader class is a generic data converter from Assimp scenes.
+ */
+// FIXME: this should go to IO/AssipLoader
 template <class DATA>
 class DataLoader {
   public:
-    /// CONSTRUCTOR
     explicit DataLoader( const bool VERBOSE_MODE = false ) : m_verbose( VERBOSE_MODE ) {}
 
-    /// DESTRUCTOR
     virtual ~DataLoader() = default;
 
-    /// INTERFACE
+    /**
+     * Converts the Assimp scene into \p data.
+     */
     virtual void loadData( const aiScene* scene, std::vector<std::unique_ptr<DATA>>& data ) = 0;
 
-    /// VERBOSE
+    /**
+     * Return true if the DataLoader is verbose.
+     */
     inline bool isVerbose() const { return m_verbose; }
 
+    /**
+     * Toggle on/off verbosity.
+     */
     inline void setVerbose( const bool VERBOSE_MODE ) { m_verbose = VERBOSE_MODE; }
 
   protected:
+    /// Whether the DataLoader is verbose.
     bool m_verbose;
 };
+
 } // namespace Asset
 } // namespace Core
 } // namespace Ra

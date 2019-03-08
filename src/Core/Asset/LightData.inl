@@ -5,21 +5,14 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/////////////////////
-///  LIGHT DATA   ///
-/////////////////////
-
-/// NAME
 inline void LightData::setName( const std::string& name ) {
     m_name = name;
 }
 
-/// TYPE
 inline LightData::LightType LightData::getType() const {
     return m_type;
 }
 
-/// FRAME
 inline const Eigen::Matrix<Scalar, 4, 4>& LightData::getFrame() const {
     return m_frame;
 }
@@ -28,7 +21,7 @@ inline void LightData::setFrame( const Eigen::Matrix<Scalar, 4, 4>& frame ) {
     m_frame = frame;
 }
 
-/// construct a directional light
+// construct a directional light
 inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 1>& direction ) {
     m_type = DIRECTIONAL_LIGHT;
@@ -36,7 +29,7 @@ inline void LightData::setLight( const Core::Utils::Color& color,
     m_dirlight.direction = direction;
 }
 
-/// construct a point light
+// construct a point light
 inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 1>& position,
                                  LightAttenuation attenuation ) {
@@ -46,7 +39,7 @@ inline void LightData::setLight( const Core::Utils::Color& color,
     m_pointlight.attenuation = attenuation;
 }
 
-/// construct a spot light
+// construct a spot light
 inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 1>& position,
                                  const Eigen::Matrix<Scalar, 3, 1>& direction, Scalar inAngle,
@@ -60,7 +53,7 @@ inline void LightData::setLight( const Core::Utils::Color& color,
     m_spotlight.attenuation = attenuation;
 }
 
-/// construct an area light
+// construct an area light
 inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 1>& cog,
                                  const Eigen::Matrix<Scalar, 3, 3>& spatialCov,
@@ -74,7 +67,6 @@ inline void LightData::setLight( const Core::Utils::Color& color,
     m_arealight.attenuation = attenuation;
 }
 
-/// QUERY
 inline bool LightData::isPointLight() const {
     return ( m_type == POINT_LIGHT );
 }
@@ -91,7 +83,6 @@ inline bool LightData::isAreaLight() const {
     return ( m_type == AREA_LIGHT );
 }
 
-/// DEBUG
 inline void LightData::displayInfo() const {
     using namespace Core::Utils; // log
     std::string type;

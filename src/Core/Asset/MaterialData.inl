@@ -4,16 +4,10 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-////////////////
-/// MATERIAL ///
-////////////////
-
-/// NAME
 inline void MaterialData::setName( const std::string& name ) {
     m_name = name;
 }
 
-/// TYPE
 inline std::string MaterialData::getType() const {
     return m_type;
 }

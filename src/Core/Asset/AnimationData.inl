@@ -6,12 +6,10 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/// NAME
 inline void AnimationData::setName( const std::string& name ) {
     m_name = name;
 }
 
-/// TIME
 inline const Core::Animation::AnimationTime& AnimationData::getTime() const {
     return m_time;
 }
@@ -28,7 +26,6 @@ inline void AnimationData::setTimeStep( const Core::Animation::Time& delta ) {
     m_dt = delta;
 }
 
-/// KEY FRAME
 inline uint AnimationData::getFramesSize() const {
     return m_keyFrame.size();
 }
@@ -47,7 +44,6 @@ inline void AnimationData::setFrames( const std::vector<HandleAnimation>& frameL
     }
 }
 
-/// DEBUG
 inline void AnimationData::displayInfo() const {
     using namespace Core::Utils; // log
     LOG( logDEBUG ) << "======== ANIMATION INFO ========";

@@ -1,3 +1,4 @@
+#include <Core/Asset/FileData.hpp>
 
 #include <Core/Asset/AnimationData.hpp>
 #include <Core/Asset/CameraData.hpp>
@@ -10,7 +11,6 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/// FILENAME
 inline std::string FileData::getFileName() const {
     return m_filename;
 }
@@ -19,12 +19,10 @@ inline void FileData::setFileName( const std::string& filename ) {
     m_filename = filename;
 }
 
-/// TIMING
 inline Scalar FileData::getLoadingTime() const {
     return m_loadingTime;
 }
 
-/// DATA
 inline std::vector<GeometryData*> FileData::getGeometryData() const {
     std::vector<GeometryData*> list;
     list.reserve( m_geometryData.size() );
@@ -79,7 +77,6 @@ inline void FileData::setVerbose( const bool VERBOSE_MODE ) {
     m_verbose = VERBOSE_MODE;
 }
 
-/// QUERY
 inline bool FileData::isInitialized() const {
     return ( ( m_filename != "" ) && !m_processed );
 }
@@ -108,7 +105,6 @@ inline bool FileData::isVerbose() const {
     return m_verbose;
 }
 
-/// RESET
 inline void FileData::reset() {
     m_filename = "";
     m_geometryData.clear();
