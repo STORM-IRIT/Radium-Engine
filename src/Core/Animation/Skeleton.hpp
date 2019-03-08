@@ -24,20 +24,25 @@ class RA_CORE_API Skeleton : public Handle {
     Skeleton( const uint n );
     Skeleton( const Skeleton& skeleton ) = default;
 
-    ~Skeleton();
+    ~Skeleton() override;
 
     inline uint size() const override { return m_graph.size(); }
+
     void clear() override;
+
     const Pose& getPose( const SpaceType MODE ) const override;
+
     void setPose( const Pose& pose, const SpaceType MODE ) override;
+
     const Transform& getTransform( const uint i, const SpaceType MODE ) const override;
+
     void setTransform( const uint i, const Transform& T, const SpaceType MODE ) override;
 
     /**
      * Add a new joint transform to the skeleton.
      * @param parent the index of the joint's parent in the hierarchy
      * @param T      the joint transform associated to the new bone
-     * @param MODE   SpaceType of T (either SpaceType::LOCAL or SpaceType::GLOBAL)
+     * @param MODE   SpaceType of T (either SpaceType::LOCAL or SpaceType::MODEL)
      * @param label  the name for the new joint
      * @return       the index of the new joint
      */
@@ -68,9 +73,7 @@ class RA_CORE_API Skeleton : public Handle {
     Ra::Core::AdjacencyList m_graph;
 
   protected:
-    /**
-     * Skeleton pose in MODEL space.
-     */
+    /// Skeleton pose in MODEL space.
     ModelPose m_modelSpace;
 };
 

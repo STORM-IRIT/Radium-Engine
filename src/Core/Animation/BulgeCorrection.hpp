@@ -10,26 +10,42 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-using Dv = Vector1Array;
-using BoneProjection = Vector3Array;
-using MaxWeightID =
-    std::vector<uint>; // Array containing the ID of the bone influencing the most a vertex
-
-struct BulgeCorrectionData {
+/**
+ * The BulgeCorrectionData stores all data used to perform the bulge correction
+ * algorithm from https://onlinelibrary.wiley.com/doi/epdf/10.1002/cav.1604 .
+ */
+struct RA_CORE_API BulgeCorrectionData {
     BulgeCorrectionData();
     BulgeCorrectionData( const uint size );
     BulgeCorrectionData( const BulgeCorrectionData& data ) = default;
 
+    /// Resize data for match \p size.
     void resize( const uint size );
-    BoneProjection m_prj;
-    Dv m_dv;
+
+    /// List of point projections on bone segments.
+    Vector3Array m_prj;
+
+    /// List of distances from points to projections.
+    Vector1Array m_dv;
 };
 
-void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& restData,
-                      Vector3Array& currMesh, const BulgeCorrectionData& currData );
+/// \name BulgeFree Dual Quaternion Skinning
+/// \{
 
-void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
-                         const AdjacencyList& graph, const Pose& pose, BulgeCorrectionData& data );
+/**
+ * Apply the bulge correction to \p currMesh according to the initial mesh \p
+ * restMesh and the initial and current BulgeCorrectionData.
+ */
+RA_CORE_API void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& restData,
+                                  Vector3Array& currMesh, const BulgeCorrectionData& currData );
+
+/**
+ * Computes the BulgeCorrectionData in \p data for the current mesh \p mesh.
+ */
+RA_CORE_API void findCorrectionData( const Vector3Array& mesh, const std::vector<uint>& wID,
+                                     const AdjacencyList& graph, const Pose& pose,
+                                     BulgeCorrectionData& data );
+/// \}
 
 } // namespace Animation
 } // namespace Core

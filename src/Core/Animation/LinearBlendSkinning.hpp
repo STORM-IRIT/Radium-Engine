@@ -10,8 +10,15 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-void RA_CORE_API linearBlendSkinning( const Vector3Array& inMesh, const Pose& pose,
+/// \name Linear Blend Skinning
+/// \{
+
+/**
+ * Apply the linear interpolation of transformations to the vertices of \p inMesh.
+ */
+RA_CORE_API void linearBlendSkinning( const Vector3Array& inMesh, const Pose& pose,
                                       const WeightMatrix& weight, Vector3Array& outMesh );
+/// \}
 
 } // namespace Animation
 } // namespace Core

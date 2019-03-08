@@ -10,7 +10,7 @@ namespace Core {
 namespace Animation {
 
 /**
- * Type for transform names
+ * Type for transform names.
  */
 using Label = std::string;
 
@@ -32,29 +32,29 @@ class RA_CORE_API Handle {
     virtual ~Handle();
 
     /**
-     * @return the number of transformations
+     * Return the number of transformations.
      */
     inline virtual uint size() const;
 
     /**
-     * Clear the transformtions data
+     * Clear the transformation data.
      */
     virtual void clear();
 
     /**
-     * @return the current pose in the \p MODE space.
+     * Return the current pose in the \p MODE space.
      */
     virtual const Pose& getPose( const SpaceType MODE ) const;
 
     /**
      * Set the current pose.
-     * @param pose the new pose
-     * @param MODE the space the psoe lives in
+     * @param pose the new pose.
+     * @param MODE the space the pose lives in.
      */
     virtual void setPose( const Pose& pose, const SpaceType MODE );
 
     /**
-     * @return the \p i-th transformation in \p MODE space.
+     * Return the \p i-th transformation in \p MODE space.
      */
     virtual const Transform& getTransform( const uint i, const SpaceType MODE ) const;
 
@@ -64,17 +64,17 @@ class RA_CORE_API Handle {
     virtual void setTransform( const uint i, const Transform& T, const SpaceType MODE );
 
     /**
-     * @return the Handle's name
+     * Return the Handle's name.
      */
     inline Label getName() const;
 
     /**
-     * Set the Handle's name
+     * Set the Handle's name.
      */
     inline void setName( const Label& name );
 
     /**
-     * @return the name of the \p i-th transform.
+     * Return the name of the \p i-th transform.
      */
     inline Label getLabel( const uint i ) const;
 
@@ -84,19 +84,15 @@ class RA_CORE_API Handle {
     inline void setLabel( const uint i, const Label& text );
 
     /**
-     * The current pose of the Handle
+     * The current pose of the Handle.
      */
     LocalPose m_pose;
 
   protected:
-    /**
-     * The Handle's name
-     */
+    /// The Handle's name.
     Label m_name;
 
-    /**
-     * The names of the transforms.
-     */
+    /// The names of the transforms.
     std::vector<Label> m_label;
 };
 

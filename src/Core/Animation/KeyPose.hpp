@@ -9,20 +9,19 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
+/**
+ * The KeyPose class is a list of KeyFrame-ed animation Poses.
+ * \note All Poses must have the same size.
+ */
 class KeyPose : public KeyFrame<Pose> {
   public:
-    /// CONSTRUCTOR
     KeyPose( const AnimationTime& time = AnimationTime() ) : KeyFrame<Pose>( time ) {}
+
     KeyPose( const KeyPose& keyframe ) = default;
 
-    /// DESTRUCTOR
-    ~KeyPose() {}
+    ~KeyPose() override = default;
 
   protected:
-    /// SIZE
-    inline uint poseSize() const { return m_keyframe.begin()->second.size(); }
-
-    /// TRANSFORMATION
     inline Pose defaultFrame() const override {
         return Pose( poseSize(), Core::Transform::Identity() );
     }
@@ -38,6 +37,11 @@ class KeyPose : public KeyFrame<Pose> {
         }
         return result;
     }
+
+    /**
+     * Return the size of the animation Poses.
+     */
+    inline uint poseSize() const { return m_keyframe.begin()->second.size(); }
 };
 
 } // namespace Animation

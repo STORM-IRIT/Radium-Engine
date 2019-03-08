@@ -23,14 +23,11 @@ class RA_CORE_API Cage : public Handle {
     Cage( const uint n );
     Cage( const Cage& cage );
 
-    /// DESTRUCTOR
-    ~Cage();
+    ~Cage() override;
 
     void clear() override;
 
-    /**
-     * The list of triangles in the cage.
-     */
+    /// The list of triangles in the cage.
     VectorArray<Ra::Core::Vector3ui> m_triangle;
 };
 

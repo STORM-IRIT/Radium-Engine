@@ -31,7 +31,7 @@ void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& r
     }
 }
 
-void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
+void findCorrectionData( const Vector3Array& mesh, const std::vector<uint>& wID,
                          const AdjacencyList& graph, const Pose& pose, BulgeCorrectionData& data ) {
     const uint n = mesh.size();
     data.resize( n );

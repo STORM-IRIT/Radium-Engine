@@ -3,6 +3,7 @@
 namespace Ra {
 namespace Core {
 namespace Animation {
+
 void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
     CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
     DQ.clear();

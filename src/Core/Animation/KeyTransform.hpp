@@ -8,18 +8,19 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
+/**
+ * The KeyTransform class is a list of KeyFrame-ed transformation matrices.
+ */
 class KeyTransform : public KeyFrame<Core::Transform> {
   public:
-    /// CONSTRUCTOR
     KeyTransform( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Transform>( time ) {}
+
     KeyTransform( const KeyTransform& keyframe ) = default;
 
-    /// DESTRUCTOR
-    ~KeyTransform() {}
+    ~KeyTransform() override = default;
 
   protected:
-    /// TRANSFORMATION
     inline Core::Transform defaultFrame() const override { return Core::Transform::Identity(); }
 
     inline Core::Transform interpolate( const Core::Transform& F0, const Core::Transform& F1,

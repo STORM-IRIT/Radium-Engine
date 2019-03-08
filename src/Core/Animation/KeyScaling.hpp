@@ -8,17 +8,18 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
+/**
+ * The KeyScaling class is a list of KeyFrame-ed scaling factors expressed as vectors.
+ */
 class KeyScaling : public KeyFrame<Core::Vector3> {
   public:
-    /// CONSTRUCTOR
     KeyScaling( const AnimationTime& time = AnimationTime() ) : KeyFrame<Core::Vector3>( time ) {}
+
     KeyScaling( const KeyScaling& keyframe ) = default;
 
-    /// DESTRUCTOR
-    ~KeyScaling() {}
+    ~KeyScaling() override = default;
 
   protected:
-    /// TRANSFORMATION
     inline Core::Vector3 defaultFrame() const override { return Core::Vector3( 1.0, 1.0, 1.0 ); }
 
     inline Core::Vector3 interpolate( const Core::Vector3& F0, const Core::Vector3& F1,
