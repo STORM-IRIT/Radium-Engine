@@ -111,7 +111,7 @@ void AnimationUI::on_m_saveDir_clicked() {
 }
 
 void AnimationUI::updateTime( float t ) {
-    ui->m_animationTimeDisplay->setText( QString::number( t ) );
+    ui->m_animationTimeDisplay->setText( QString::number( double( t ) ) );
 }
 
 void AnimationUI::updateFrame( int f ) {

@@ -85,8 +85,10 @@ int MeshFeatureTrackingComponent::getMaxT() const {
     return 0;
 }
 
-namespace { // anonymous namespace for line mesh indices retrieval from triangles -- according to
-            // the render mode
+// anonymous namespace for line mesh indices retrieval from triangles --
+// according to the render mode
+namespace {
+
 // returns the triangles where the vertices can be found, along with the corresponding vertex
 // indices within them.
 void getPos_L2T( int l, int& v0, int& v1, int& t0, int& t1 ) {
@@ -107,6 +109,7 @@ void getPos_L2T( int l, int& v0, int& v1, int& t0, int& t1 ) {
         ++t1;
     }
 }
+
 void getPos_L2T_strip( int l, int& v0, int& v1, int& t0, int& t1 ) {
     v0 = 0;
     v1 = 1;
@@ -123,6 +126,7 @@ void getPos_L2T_strip( int l, int& v0, int& v1, int& t0, int& t1 ) {
         ++t1;
     }
 }
+
 void getPos_L2T_adjacency( int l, int& v0, int& v1, int& t0, int& t1 ) {
     v0 = 1;
     v1 = 2;
@@ -141,6 +145,7 @@ void getPos_L2T_adjacency( int l, int& v0, int& v1, int& t0, int& t1 ) {
         ++t1;
     }
 }
+
 void getPos_L2T_strip_adjacency( int l, int& v0, int& v1, int& t0, int& t1 ) {
     v0 = 0;
     v1 = 1;
@@ -198,6 +203,7 @@ void getPos_TF2T( int tf, int& v1, int& v2, int& t1, int& t2 ) {
         ++t2;
     }
 }
+
 } // namespace
 
 void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingResult& data ) {
@@ -673,6 +679,7 @@ Ra::Core::Vector3 MeshFeatureTrackingComponent::getFeatureVector() const {
     const auto& n = ro->getMesh()->getGeometry().normals();
     if ( m_data.m_mode == PickingMode::VERTEX )
     {
+        // for vertices, the normal
         if ( !n.empty() )
         {
             return n[m_data.m_data[0]];

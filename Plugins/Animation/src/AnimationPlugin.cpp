@@ -16,7 +16,10 @@
 
 namespace AnimationPlugin {
 
-AnimationPluginC::AnimationPluginC() : m_system( nullptr ) {}
+AnimationPluginC::AnimationPluginC() :
+    m_system( nullptr ),
+    m_widget( nullptr ),
+    m_selectionManager( nullptr ) {}
 
 AnimationPluginC::~AnimationPluginC() {}
 

@@ -16,12 +16,14 @@ class Entity;
 } // namespace Engine
 } // namespace Ra
 
+/**
+ * The CameraManipPlugin allows to change the current camera used for display,
+ * create a copy of the current camera and save the current camera data to a file.
+ */
 namespace CameraManipPlugin {
 
-// Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
-// namespace
-/// The CameraManipPlugin allows to change the current camera used for display,
-/// create a copy of the current camera and save the current camera data to a file.
+// Due to an ambigous name while compiling with Clang, we must differentiate the
+// plugin class from plugin namespace
 class CameraManipPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
@@ -29,30 +31,51 @@ class CameraManipPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
 
   public:
     CameraManipPluginC();
-    virtual ~CameraManipPluginC();
+    ~CameraManipPluginC() override;
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    void registerPlugin( const Ra::PluginContext& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   public slots:
+    /**
+     * Use the selected camera, if any, as the viewer camera.
+     */
     void useSelectedCamera();
+
+    /**
+     * Exports the selected camera data to file.
+     */
     void saveCamera();
+
+    /**
+     * Copy the viewer camera to create a new one.
+     */
     void createCamera();
+
+    /**
+     * Deal with object selection.
+     */
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
 
   private:
+    /// The Plugin UI.
     CameraManipUI* m_widget;
 
+    /// The RadiumEngine the cameras belong to.
     Ra::Engine::RadiumEngine* m_engine;
+
+    /// The SelectionManager of the Viewer.
     Ra::GuiBase::SelectionManager* m_selectionManager;
+
+    /// The Viewer.
     Ra::Gui::Viewer* m_viewer;
 };
 

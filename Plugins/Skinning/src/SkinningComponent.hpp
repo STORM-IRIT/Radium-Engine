@@ -16,11 +16,15 @@
 
 namespace SkinningPlugin {
 
-/// The SkinningComponent class is responsible for applying Geometric Skinning Methods
-/// on an animated object's mesh.
+/**
+ * The SkinningComponent class is responsible for applying Geometric Skinning Methods
+ * on an animated object's mesh.
+ */
 class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
   public:
-    /// The Geometric Skinning Method.
+    /**
+     * The Geometric Skinning Method.
+     */
     enum SkinningType {
         LBS = 0, ///< Linear Blend Skinning
         DQS,     ///< Dual Quaternion Skinning
@@ -32,43 +36,65 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
         m_skinningType( type ),
         m_isReady( false ) {}
 
-    virtual ~SkinningComponent() {}
+    ~SkinningComponent() override = default;
 
-    virtual void initialize() override;
+    void initialize() override;
 
-    /// Apply the Skinning Method.
+    /**
+     * Apply the Skinning Method.
+     */
     void skin();
 
-    /// Update internal data and apply postprocesses to the mesh, e.g. normal computation.
+    /**
+     * Update internal data and apply postprocesses to the mesh, e.g.\ normal computation.
+     */
     void endSkinning();
 
-    /// Sets the Skinning method to use.
+    /**
+     * Sets the Skinning method to use.
+     */
     void setSkinningType( SkinningType type );
 
-    /// \returns the current skinning method.
+    /**
+     * Returns the current skinning method.
+     */
     inline SkinningType getSkinningType() const { return m_skinningType; }
 
-    /// Loads the skinning weights from the given Handledata.
+    /**
+     * Loads the skinning weights from the given Handledata.
+     */
     // TODO: for now, weights are stored in the AnimationComponent.
-    virtual void handleWeightsLoading( const Ra::Core::Asset::HandleData* data );
+    void handleWeightsLoading( const Ra::Core::Asset::HandleData* data );
 
-    /// @returns the reference skinning data.
+    /**
+     * Returns the reference skinning data.
+     */
     const Ra::Core::Skinning::RefData* getRefData() const { return &m_refData; }
 
-    /// @returns the current Pose data.
+    /**
+     * Returns the current Pose data.
+     */
     const Ra::Core::Skinning::FrameData* getFrameData() const { return &m_frameData; }
 
-    /// @returns the list of DualQuaternions used for DQS.
+    /**
+     * Returns the list of DualQuaternions used for DQS.
+     */
     const Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion>* getDQ() const { return &m_DQ; }
 
   public:
-    /// Registers the Entity name for Component communication (out).
+    /**
+     * Registers the Entity name for Component communication (out).
+     */
     void setupIO( const std::string& id );
 
-    /// Computes internal data related to the Skinning method.
+    /**
+     * Computes internal data related to the Skinning method.
+     */
     void setupSkinningType( SkinningType type );
 
-    /// Registers the Entity name for Component communication (in/out).
+    /**
+     * Registers the Entity name for Component communication (in/out).
+     */
     void setContentsName( const std::string name );
 
   private:

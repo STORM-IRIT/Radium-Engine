@@ -11,34 +11,58 @@
 #include <AnimationComponent.hpp>
 #include <AnimationPlugin.hpp>
 
-//#define K_VERSION
-
 namespace AnimationPlugin {
+
+/**
+ * The SkeletonBoneRenderObject class manages the display of an animation bone.
+ */
 class SkeletonBoneRenderObject {
   public:
     SkeletonBoneRenderObject( const std::string& name, AnimationComponent* comp, uint id,
                               Ra::Engine::RenderObjectManager* roMgr );
 
-    void update(); // Update local transform of the associated render object
+    /**
+     * Update internal data.
+     */
+    void update();
 
-    static Ra::Core::Geometry::TriangleMesh makeBoneShape();
-
+    /**
+     * Returns the index of the bone.
+     */
     uint getBoneIndex() const { return m_id; }
 
+    /**
+     * Returns the index of the RO used to render the bone.
+     */
     Ra::Core::Utils::Index getRenderObjectIndex() const { return m_roIdx; }
 
+    /**
+     * Toggle on/off using xray to display the bone.
+     */
     void setXray( bool on );
 
+    /**
+     * Creates a mesh used to display a bone.
+     */
+    static Ra::Core::Geometry::TriangleMesh makeBoneShape();
+
   private:
+    /**
+     * Update local transform of the associated render object.
+     */
     void updateLocalTransform();
 
   private:
-    Ra::Core::Utils::Index m_roIdx; /// Index of the corresponding render object
-    uint m_id;                      /// Bone index
+    /// The index of the RenderObject.
+    Ra::Core::Utils::Index m_roIdx;
 
-    const Ra::Core::Animation::Skeleton& m_skel; /// Skeleton
-    std::shared_ptr<Ra::Engine::RenderTechnique> m_renderParams;
-    std::shared_ptr<Ra::Engine::Material> m_material;
+    /// The index of the bone.
+    uint m_id;
+
+    /// The animation skeleton.
+    const Ra::Core::Animation::Skeleton& m_skel;
+
+    /// The RenderObject manager.
     Ra::Engine::RenderObjectManager* m_roMgr;
 };
 

@@ -63,6 +63,7 @@ void MeshPaintComponent::startPaint( bool on ) {
         ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_paintColors );
     } else
     {
+        m_paintColors = ro->getMesh()->getData( Ra::Engine::Mesh::VERTEX_COLOR );
         ro->getRenderTechnique()->setConfiguration( m_baseConfig );
         ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_COLOR, m_baseColors );
     }

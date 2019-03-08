@@ -109,7 +109,7 @@ void CameraManipPluginC::saveCamera() {
     auto manip = static_cast<Ra::Gui::TrackballCamera*>( m_viewer->getCameraInterface() );
     auto camera = manip->getCamera();
     outFile << "#Radium_camera_state" << std::endl;
-    outFile << (int)camera->getType() << std::endl;
+    outFile << int( camera->getType() ) << std::endl;
     outFile << camera->getFrame().matrix() << std::endl;
     outFile << std::endl;
     outFile << camera->getFOV() << " " << camera->getZNear() << " " << camera->getZFar() << " "

@@ -23,7 +23,9 @@ using Ra::Core::Skinning::FrameData;
 using Ra::Core::Skinning::RefData;
 
 using Ra::Engine::ComponentMessenger;
-namespace SkinningPlugin {
+
+// anonymous namespace for util functions
+namespace {
 
 bool findDuplicates( const TriangleMesh& mesh,
                      std::vector<Ra::Core::Utils::Index>& duplicatesMap ) {
@@ -72,6 +74,49 @@ bool findDuplicates( const TriangleMesh& mesh,
 
     return hasDuplicates;
 }
+
+void uniformNormal( const Ra::Core::Vector3Array& p,
+                    const Ra::Core::VectorArray<Ra::Core::Vector3ui>& T,
+                    const std::vector<Ra::Core::Utils::Index>& duplicateTable,
+                    Ra::Core::Vector3Array& normal ) {
+    const uint N = p.size();
+    normal.clear();
+    normal.resize( N, Ra::Core::Vector3::Zero() );
+
+    for ( const auto& t : T )
+    {
+        const Ra::Core::Utils::Index i = duplicateTable.at( t( 0 ) );
+        const Ra::Core::Utils::Index j = duplicateTable.at( t( 1 ) );
+        const Ra::Core::Utils::Index k = duplicateTable.at( t( 2 ) );
+        const Ra::Core::Vector3 triN = Ra::Core::Geometry::triangleNormal( p[i], p[j], p[k] );
+        if ( !triN.allFinite() )
+        {
+            continue;
+        }
+        normal[i] += triN;
+        normal[j] += triN;
+        normal[k] += triN;
+    }
+
+#pragma omp parallel for
+    for ( uint i = 0; i < N; ++i )
+    {
+        if ( !normal[i].isApprox( Ra::Core::Vector3::Zero() ) )
+        {
+            normal[i].normalize();
+        }
+    }
+
+#pragma omp parallel for
+    for ( uint i = 0; i < N; ++i )
+    {
+        normal[i] = normal[duplicateTable[i]];
+    }
+}
+
+} // namespace
+
+namespace SkinningPlugin {
 
 void SkinningComponent::initialize() {
     auto compMsg = ComponentMessenger::getInstance();
@@ -186,45 +231,6 @@ void SkinningComponent::skin() {
             Ra::Core::Animation::computeDQ( m_frameData.m_refToCurrentRelPose, m_refData.m_weights,
                                             m_DQ );
         }
-    }
-}
-
-void uniformNormal( const Ra::Core::Vector3Array& p,
-                    const Ra::Core::VectorArray<Ra::Core::Vector3ui>& T,
-                    const std::vector<Ra::Core::Utils::Index>& duplicateTable,
-                    Ra::Core::Vector3Array& normal ) {
-    const uint N = p.size();
-    normal.clear();
-    normal.resize( N, Ra::Core::Vector3::Zero() );
-
-    for ( const auto& t : T )
-    {
-        const Ra::Core::Utils::Index i = duplicateTable.at( t( 0 ) );
-        const Ra::Core::Utils::Index j = duplicateTable.at( t( 1 ) );
-        const Ra::Core::Utils::Index k = duplicateTable.at( t( 2 ) );
-        const Ra::Core::Vector3 triN = Ra::Core::Geometry::triangleNormal( p[i], p[j], p[k] );
-        if ( !triN.allFinite() )
-        {
-            continue;
-        }
-        normal[i] += triN;
-        normal[j] += triN;
-        normal[k] += triN;
-    }
-
-#pragma omp parallel for
-    for ( uint i = 0; i < N; ++i )
-    {
-        if ( !normal[i].isApprox( Ra::Core::Vector3::Zero() ) )
-        {
-            normal[i].normalize();
-        }
-    }
-
-#pragma omp parallel for
-    for ( uint i = 0; i < N; ++i )
-    {
-        normal[i] = normal[duplicateTable[i]];
     }
 }
 
