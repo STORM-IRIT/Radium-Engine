@@ -18,11 +18,16 @@ class Entity;
 } // namespace Engine
 } // namespace Ra
 
+/**
+ * The MeshFeatureTrackingPlugin displays a sphere around the selected mesh feature.
+ * Such a feature is either a vertex, an edge or a triangle. This plugin also displays
+ * information on the feature, such as its index, position and normal vector.
+ */
 namespace MeshFeatureTrackingPlugin {
 class MeshFeatureTrackingComponent;
 
-// Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
-// namespace
+// Due to an ambigous name while compiling with Clang, we must differentiate the
+// plugin class from plugin namespace
 class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
@@ -30,30 +35,51 @@ class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInte
 
   public:
     MeshFeatureTrackingPluginC();
-    virtual ~MeshFeatureTrackingPluginC();
+    ~MeshFeatureTrackingPluginC() override;
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    void registerPlugin( const Ra::PluginContext& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   public slots:
+    /**
+     * Updates the FeatureData from the lattest selection.
+     */
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
+
+    /**
+     * Updates the UI and the sphere.
+     */
     void update();
+
+    /**
+     * Slot for the user changing the vertex index.
+     */
     void vertexIdChanged( int );
+
+    /**
+     * Slot for the user changing the triangle index.
+     */
     void triangleIdChanged( int );
 
   private:
+    /// The MeshFeatureTrackingComponent displaying the sphere.
     MeshFeatureTrackingComponent* m_component;
+
+    /// The Plugin UI.
     MeshFeatureTrackingUI* m_widget;
 
+    /// The SelectionManager of the Viewer.
     Ra::GuiBase::SelectionManager* m_selectionManager;
+
+    /// The PickingManager of the Viewer.
     Ra::Gui::PickingManager* m_PickingManager;
 };
 

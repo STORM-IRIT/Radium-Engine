@@ -20,11 +20,17 @@ class SelectionManager;
 }
 } // namespace Ra
 
+/**
+ * The SkinningPlugin manages geometric-based character skinning.
+ */
 namespace SkinningPlugin {
 
 class SkinningComponent;
 class SkinningSystem;
 
+/**
+ * The SkinningWidget is the widget for the SkinningPlugin.
+ */
 class SkinningWidget : public QFrame {
     Q_OBJECT
 
@@ -34,51 +40,87 @@ class SkinningWidget : public QFrame {
     explicit SkinningWidget( QWidget* parent = nullptr );
 
   public slots:
+    /**
+     * Updates the gui according to the selected Component.
+     */
     void setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp );
 
   private slots:
+    /**
+     * Sets the Skinning Method for the current Component.
+     */
     void onSkinningChanged( int newType );
 
+    /**
+     * Sets LBS as the Skinning Method.
+     */
     void onLSBActionTriggered();
+
+    /**
+     * Sets DQS as the Skinning Method.
+     */
     void onDQActionTriggered();
+
+    /**
+     * Sets CoR as the Skinning Method.
+     */
     void onCoRActionTriggered();
 
   private:
+    /// The current SkinningComponent.
     SkinningComponent* m_current;
+
+    /// The comboBox for the Skinning Method.
     QComboBox* m_skinningSelect;
+
+    /// The action for choosing LBS.
     QAction* m_actionLBS;
+
+    /// The action for choosing DQS.
     QAction* m_actionDQ;
+
+    /// The action for choosing CoR.
     QAction* m_actionCoR;
 };
 
-// Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin
-// namespace
+// Due to an ambigous name while compiling with Clang, we must differentiate the
+// plugin class from plugin namespace
 class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
   public:
-    virtual ~SkinningPluginC();
+    SkinningPluginC();
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    ~SkinningPluginC() override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    void registerPlugin( const Ra::PluginContext& context ) override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
+
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   private slots:
+    /**
+     * Register the selected Component as the current one.
+     */
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
 
   private:
+    /// The SkinningSystem.
     SkinningSystem* m_system;
-    Ra::GuiBase::SelectionManager* m_selectionManager;
+
+    /// The Plugin UI.
     SkinningWidget* m_widget;
+
+    /// The SelectionManager of the Engine.
+    Ra::GuiBase::SelectionManager* m_selectionManager;
 };
 
 } // namespace SkinningPlugin

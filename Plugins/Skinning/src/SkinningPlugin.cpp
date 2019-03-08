@@ -7,13 +7,17 @@
 
 namespace SkinningPlugin {
 
+SkinningPluginC::SkinningPluginC() :
+    m_system( nullptr ),
+    m_widget( nullptr ),
+    m_selectionManager( nullptr ) {}
+
 SkinningPluginC::~SkinningPluginC() {}
 
 void SkinningPluginC::registerPlugin( const Ra::PluginContext& context ) {
     m_system = new SkinningSystem;
     m_selectionManager = context.m_selectionManager;
     context.m_engine->registerSystem( "SkinningSystem", m_system );
-    m_widget = new SkinningWidget;
     connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this,
              &SkinningPluginC::onCurrentChanged );
 }
@@ -24,6 +28,7 @@ bool SkinningPluginC::doAddWidget( QString& name ) {
 }
 
 QWidget* SkinningPluginC::getWidget() {
+    m_widget = new SkinningWidget;
     return m_widget;
 }
 

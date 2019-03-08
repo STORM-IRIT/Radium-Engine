@@ -17,11 +17,17 @@
 
 namespace SkinningPlugin {
 
+/**
+ * The SkinningSystem manages the SkinningComponents.
+ */
 class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
   public:
     SkinningSystem() {}
-    virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
-                                const Ra::Engine::FrameInfo& frameInfo ) override {
+
+    ~SkinningSystem() override = default;
+
+    void generateTasks( Ra::Core::TaskQueue* taskQueue,
+                        const Ra::Engine::FrameInfo& frameInfo ) override {
         for ( const auto& compEntry : m_components )
         {
             SkinningComponent* comp = static_cast<SkinningComponent*>( compEntry.second );

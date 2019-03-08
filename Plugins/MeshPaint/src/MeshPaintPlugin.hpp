@@ -21,11 +21,15 @@ class Entity;
 } // namespace Engine
 } // namespace Ra
 
+/**
+ * The MeshPaintPlugin allows to paint colors on a mesh.
+ * For now, it doesn't support textured objects.
+ */
 namespace MeshPaintPlugin {
 class MeshPaintComponent;
 
-// Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
-// namespace
+// Due to an ambigous name while compiling with Clang, we must differentiate the
+// plugin class from plugin namespace
 class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
@@ -33,33 +37,52 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
 
   public:
     MeshPaintPluginC();
-    virtual ~MeshPaintPluginC();
+    ~MeshPaintPluginC() override;
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    void registerPlugin( const Ra::PluginContext& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   public slots:
+    /**
+     * Paints on the picked vertices.
+     */
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
+
+    /**
+     * Toggle on/off painting.
+     */
     void activePaintColor( bool on );
+
+    /**
+     * Set the paint color.
+     */
     void changePaintColor( const QColor& color );
 
   private:
-    MeshPaintUI* m_widget;
-
-    Ra::GuiBase::SelectionManager* m_selectionManager;
-    Ra::Gui::PickingManager* m_PickingManager;
-
+    /// The Paint System.
     class MeshPaintSystem* m_system;
 
+    /// The Plugin UI.
+    MeshPaintUI* m_widget;
+
+    /// The SelectionManager of the Viewer.
+    Ra::GuiBase::SelectionManager* m_selectionManager;
+
+    /// The PickingManager of the Viewer.
+    Ra::Gui::PickingManager* m_PickingManager;
+
+    /// The Paint color.
     Ra::Core::Utils::Color m_paintColor;
+
+    /// Whether painting is active or not.
     bool m_isPainting;
 };
 
