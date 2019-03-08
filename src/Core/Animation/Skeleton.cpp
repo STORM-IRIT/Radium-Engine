@@ -8,7 +8,6 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-/// CONSTRUCTOR
 Skeleton::Skeleton() : Handle(), m_graph(), m_modelSpace() {}
 
 Skeleton::Skeleton( const uint n ) : Handle( n ), m_graph( n ), m_modelSpace( n ) {}

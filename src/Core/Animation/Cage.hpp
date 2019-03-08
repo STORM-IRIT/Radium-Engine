@@ -15,7 +15,7 @@ namespace Animation {
  * The Cage handle is a variation of a triangular mesh.
  * Instead of a list of vertices, it owns a list of transforms.
  *
- * \warning This class is probably unused
+ * \warning This class is probably unused.
  */
 class RA_CORE_API Cage : public Handle {
   public:
@@ -23,14 +23,11 @@ class RA_CORE_API Cage : public Handle {
     Cage( const uint n );
     Cage( const Cage& cage );
 
-    /// DESTRUCTOR
-    ~Cage();
+    ~Cage() override;
 
     void clear() override;
 
-    /**
-     * The list of triangles in the cage.
-     */
+    /// The list of triangles in the cage.
     VectorArray<Ra::Core::Vector3ui> m_triangle;
 };
 

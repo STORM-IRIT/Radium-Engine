@@ -8,18 +8,19 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
+/**
+ * The KeyTranslation class is a list of KeyFrame-ed translations expressed as vectors.
+ */
 class KeyTranslation : public KeyFrame<Core::Vector3> {
   public:
-    /// CONSTRUCTOR
     KeyTranslation( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Vector3>( time ) {}
+
     KeyTranslation( const KeyTranslation& keyframe ) = default;
 
-    /// DESTRUCTOR
-    ~KeyTranslation() {}
+    ~KeyTranslation() override = default;
 
   protected:
-    /// TRANSFORMATION
     inline Core::Vector3 defaultFrame() const override { return Core::Vector3( 0.0, 0.0, 0.0 ); }
 
     inline Core::Vector3 interpolate( const Core::Vector3& F0, const Core::Vector3& F1,
