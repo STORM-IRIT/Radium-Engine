@@ -15,7 +15,8 @@ namespace Ra {
 namespace Core {
 /**
  * Allocator for aligned data.
- * Adapted from https://gist.github.com/donny-dont/1471329
+ * Adapted from: https://gist.github.com/donny-dont/1471329
+ *
  * Modified from the Mallocator from Stephan T. Lavavej.
  * <http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx>
  */

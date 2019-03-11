@@ -9,68 +9,90 @@
 namespace Ra {
 namespace Core {
 
-/// This class is a wrapper around a std::vector of Core::Vectors.
-/// which allow to use the stdlib's dynamic array implementation, yet pass it as
-/// a matrix when Eigen needs it with the getMap() method.
+/**
+ * This class is a wrapper around a std::vector of Core::Vectors.
+ * which allow to use the stdlib's dynamic array implementation, yet pass it as
+ * a matrix when Eigen needs it with the getMap() method.
+ */
 template <typename V>
 class VectorArray : public AlignedStdVector<V> {
   public:
-    // Type shortcuts
+    /// \name Type shortcuts
+    /// \{
     using Vector = V;
     using Matrix = Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic>;
     using MatrixMap = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
+    /// \}
 
   public:
-    /// Inheriting constructors from std::vector
+    /**
+     * Inheriting constructors from std::vector.
+     */
     using AlignedStdVector<V>::AlignedStdVector;
 
-    /// Returns the array as an Eigen Matrix Map
+    /**
+     * Returns the array as an Eigen Matrix Map.
+     */
     MatrixMap getMap() {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
         return MatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
     }
 
-    /// Returns the array as an Eigen Matrix Map (const version)
+    /**
+     * Returns the array as an Eigen Matrix Map (const version).
+     */
     ConstMatrixMap getMap() const {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
         return ConstMatrixMap( this->data()->data(), V::RowsAtCompileTime, this->size() );
     }
 };
 
-/// This specialization stores an array of scalars which can be used as a dynamic
-/// Eigen column vector.
+/**
+ * This specialization stores an array of scalars which can be used as a dynamic
+ * Eigen column vector.
+ */
 template <>
 class VectorArray<Scalar> : public AlignedStdVector<Scalar> {
   public:
-    // Type shortcuts
+    /// \name Type shortcuts
+    /// \{
     using Matrix = Eigen::Matrix<Scalar, 1, Eigen::Dynamic>;
     using MatrixMap = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
+    /// \}
 
   public:
-    /// Inheriting constructors from std::vector
+    /**
+     * Inheriting constructors from std::vector.
+     */
     using AlignedStdVector<Scalar>::AlignedStdVector;
 
-    /// Returns the array as an Eigen Matrix Map
+    /**
+     * Returns the array as an Eigen Matrix Map.
+     */
     MatrixMap getMap() {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
         return MatrixMap( this->data(), 1, this->size() );
     }
 
-    /// Returns the array as an Eigen Matrix Map (const version)
+    /**
+     * Returns the array as an Eigen Matrix Map (const version).
+     */
     ConstMatrixMap getMap() const {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
         return ConstMatrixMap( this->data(), 1, this->size() );
     }
 };
 
-// Convenience aliases
+/// \name Convenience aliases
+/// \{
 using Vector1Array = VectorArray<Scalar>;
 using Vector2Array = VectorArray<Vector2>;
 using Vector3Array = VectorArray<Vector3>;
 using Vector3uiArray = VectorArray<Vector3ui>;
 using Vector4Array = VectorArray<Vector4>;
+/// \}
 
 // Notes :
 // Using a map for eigen integration was recommended by [1].

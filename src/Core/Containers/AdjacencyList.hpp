@@ -1,10 +1,10 @@
 #ifndef ADJACENCY_LIST_H
 #define ADJACENCY_LIST_H
 
-#include <iostream>
-#include <Eigen/Core>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Eigen/Core>
+#include <iostream>
 
 namespace Ra {
 namespace Core {
@@ -20,6 +20,9 @@ using Adjacency = AlignedStdVector<ChildrenList>;
  */
 class RA_CORE_API AdjacencyList {
   public:
+    /**
+     * The possible consistency statuses.
+     */
     enum class ConsistencyStatus {
         Valid,
         IncompatibleChildrenAndParentList,
@@ -29,28 +32,42 @@ class RA_CORE_API AdjacencyList {
         NonLeafNodeWithoutChild
     };
 
-    //////////////////////////////////////////////////////////////////////////////
-    // CONSTRUCTOR
-    //////////////////////////////////////////////////////////////////////////////
     AdjacencyList();
+
     AdjacencyList( const uint n );
+
     AdjacencyList( const AdjacencyList& adj );
 
-    //////////////////////////////////////////////////////////////////////////////
-    // DESTRUCTOR
-    //////////////////////////////////////////////////////////////////////////////
     ~AdjacencyList();
 
-    //////////////////////////////////////////////////////////////////////////////
-    // NODE
-    //////////////////////////////////////////////////////////////////////////////
-    /// Return the index of the added leaf. Use -1 to create the root node.
+    /// \name Nodes
+    /// \{
+
+    /**
+     * Return the index of the added leaf. Use -1 to create the root node.
+     */
     uint addNode( const int parent );
-    /// Prune the leaves of the graph and returns the changes.
+
+    /**
+     * Prune the leaves of the graph and returns the changes.
+     */
     void pruneLeaves( std::vector<uint>& pruned, std::vector<bool>& delete_flag );
-    /// Prune the leaves of the graph.
+
+    /**
+     * Prune the leaves of the graph.
+     */
     void pruneLeaves();
-    /*!
+
+    /**
+     * Clear all data.
+     */
+    inline void clear();
+    /// \}
+
+    /// \name Adjacency
+    /// \{
+
+    /**
      * Return the edge list built from the given adjacency list.
      * If include_leaf is true, the list will contain the pairs:
      *       ...
@@ -60,47 +77,74 @@ class RA_CORE_API AdjacencyList {
      */
     VectorArray<Eigen::Matrix<uint, 2, 1>> extractEdgeList( bool include_leaf = false ) const;
 
-    //////////////////////////////////////////////////////////////////////////////
-    // SIZE
-    //////////////////////////////////////////////////////////////////////////////
-    /// Return the number of nodes in the graph
-    inline uint size() const;
-    /// Clear the vectors
-    inline void clear();
-
-    //////////////////////////////////////////////////////////////////////////////
-    // QUERY
-    //////////////////////////////////////////////////////////////////////////////
-    /// Return true if the graph is consistent
-    ConsistencyStatus computeConsistencyStatus() const;
-    /// Return true if the graph is empty.
-    inline bool isEmpty() const;
-    /// Return true if a node is a root node.
-    inline bool isRoot( const uint i ) const;
-    /// Return true if the node is a leaf node.
-    inline bool isLeaf( const uint i ) const;
-    /// Return true if the node is a branch node. ( |child| > 1 )
-    inline bool isBranch( const uint i ) const;
-    /// Return true if the node is a joint node. ( |child| == 1 )
-    inline bool isJoint( const uint i ) const;
-    /// Return true if the edge { i, j } exists.
-    inline bool isEdge( const uint i, const uint j ) const;
-    
+    /**
+     * Returns the per-element lists of children.
+     */
     inline const Adjacency& children() const;
-    inline const ParentList& parents() const;
 
-    //////////////////////////////////////////////////////////////////////////////
-    // VARIABLE
-    //////////////////////////////////////////////////////////////////////////////
-private:
+    /**
+     * Returns the list of per-element parent.
+     */
+    inline const ParentList& parents() const;
+    /// \}
+
+    /// \name Status queries
+    /// \{
+
+    /**
+     * Return the number of nodes in the graph.
+     */
+    inline uint size() const;
+
+    /**
+     * Return true if the graph is consistent
+     */
+    ConsistencyStatus computeConsistencyStatus() const;
+
+    /**
+     * Return true if the graph is empty.
+     */
+    inline bool isEmpty() const;
+
+    /**
+     * Return true if a node is a root node.
+     */
+    inline bool isRoot( const uint i ) const;
+
+    /**
+     * Return true if the node is a leaf node.
+     */
+    inline bool isLeaf( const uint i ) const;
+
+    /**
+     * Return true if the node is a branch node ( |child| > 1 ).
+     */
+    inline bool isBranch( const uint i ) const;
+
+    /**
+     * Return true if the node is a joint node ( |child| == 1 ).
+     */
+    inline bool isJoint( const uint i ) const;
+
+    /**
+     * Return true if the edge { i, j } exists.
+     */
+    inline bool isEdge( const uint i, const uint j ) const;
+    /// \}
+
+  private:
     /// Adjacency matrix
     Adjacency m_child;
+
     /// Parents ids vector
     ParentList m_parent;
+
+    /// Depth of the nodes.
     LevelList m_level;
 };
 
-RA_CORE_API std::ofstream& operator<<(std::ofstream& ofs, const AdjacencyList& p);
+/// Stream insertion operator.
+RA_CORE_API std::ofstream& operator<<( std::ofstream& ofs, const AdjacencyList& p );
 
 } // namespace Core
 } // namespace Ra

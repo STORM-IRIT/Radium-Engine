@@ -5,8 +5,10 @@
 
 namespace Ra {
 namespace Core {
-/// Really copy elements to out if pred is verified and really remove them from in
-/// Uses a back_insert_iterator
+/**
+ * Really copy elements to \p out if \p pred is verified and really remove them
+ * from \p in. Uses a back_insert_iterator.
+ */
 template <typename Container, typename Pred>
 inline void remove_copy_if( Container& in, Container& out, Pred pred ) {
     auto it = std::remove_if( in.begin(), in.end(), pred );
