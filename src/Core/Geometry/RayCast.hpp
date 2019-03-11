@@ -10,35 +10,61 @@
 
 namespace Ra {
 namespace Core {
-// Low-level intersection functions of line versus various abstract shapes.
-// All functions return true if there was a hit, false if not.
-// If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
-
 namespace Geometry {
+
 class TriangleMesh;
+
+/// Define a ray as a 3D parametric line.
 using Ray = Eigen::ParametrizedLine<Scalar, 3>;
 
-/// Intersect a ray with an axis-aligned bounding box.
-bool RA_CORE_API RayCastAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut,
+/** \name Ray casting
+ * Low-level intersection functions of line versus various abstract shapes.
+ * All functions return true if there was a hit, false if not.
+ * If a ray starts inside the shape, the resulting hit will be at the ray's origin (t=0).
+ */
+/// \{
+
+/**
+ * Intersect a ray with an axis-aligned bounding box.
+ * \p normalOut normal at the hit point.
+ */
+RA_CORE_API bool RayCastAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut,
                               Vector3& normalOut );
 
-/// Intersects a ray with a sphere.
-bool RA_CORE_API RayCastSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
+/**
+ * Intersect a ray with a sphere.
+ */
+// FIXME: why vector since in the implementation there can be only one?
+RA_CORE_API bool RayCastSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
                                 std::vector<Scalar>& hitsOut );
 
-/// Intersect a ray with an infinite plane defined by point A and normal.
-bool RA_CORE_API RayCastPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
+/**
+ * Intersect a ray with an infinite plane defined by point A and normal.
+ */
+// FIXME: why vector since in the implementation there can be only one?
+RA_CORE_API bool RayCastPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
                                std::vector<Scalar>& hitsOut );
 
-/// Intersect  a ray with a cylinder with a and b as caps centers and given radius.
-bool RA_CORE_API RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b,
+/**
+ * Intersect a ray with a cylinder with a and b as caps centers and given radius.
+ */
+// FIXME: why vector since in the implementation there can be only one?
+RA_CORE_API bool RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b,
                                   Scalar radius, std::vector<Scalar>& hitsOut );
 
-/// Intersect a ray with a triangle abc.
-bool RA_CORE_API RayCastTriangle( const Ray& r, const Core::Vector3 a, const Core::Vector3& b,
+/**
+ * Intersect a ray with a triangle abc.
+ */
+// FIXME: why vector since in the implementation there can be only one?
+RA_CORE_API bool RayCastTriangle( const Ray& r, const Core::Vector3 a, const Core::Vector3& b,
                                   const Core::Vector3& c, std::vector<Scalar>& hitsOut );
 
-bool RA_CORE_API RayCastTriangleMesh( const Ray& r, const TriangleMesh& mesh,
+/**
+ * Intersect a ray with a triangle mesh.
+ */
+// FIXME: why vector of scalars since in the implementation there can be only one?
+// FIXME: why vector of triangles since there will be only one hit?
+RA_CORE_API bool RayCastTriangleMesh( const Ray& r, const TriangleMesh& mesh,
                                       std::vector<Scalar>& hitsOut,
                                       std::vector<Vector3ui>& trianglesIdxOut );
 } // namespace Geometry

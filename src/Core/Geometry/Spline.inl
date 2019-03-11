@@ -43,7 +43,6 @@ inline const Core::VectorArray<typename Spline<D, K>::Vector>& Spline<D, K>::get
 
 // -----------------------------------------------------------------------------
 
-/// The the nodal vector type
 template <uint D, uint K>
 inline void Spline<D, K>::setType( Type type ) {
     m_type = type;

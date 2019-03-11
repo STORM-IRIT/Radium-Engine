@@ -5,14 +5,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/////////////////////
-/// GLOBAL MATRIX ///
-/////////////////////
-
-// //////////////// //
-// ADJACENCY MATRIX //
-// //////////////// //
-
 AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray<Vector3ui>& T ) {
     AdjacencyMatrix A( point_size, point_size );
     for ( const auto& t : T )
@@ -99,10 +91,6 @@ AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
     }
     return ( 0.5 * A );
 }
-
-// ///////////// //
-// DEGREE MATRIX //
-// ///////////// //
 
 DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A ) {
     DegreeMatrix D( A.rows(), A.cols() );

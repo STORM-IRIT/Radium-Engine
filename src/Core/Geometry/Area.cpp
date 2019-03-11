@@ -7,10 +7,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/////////////////////
-/// GLOBAL MATRIX ///
-/////////////////////
-
 AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
@@ -138,10 +134,6 @@ AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui
     }
     return A;
 }
-
-////////////////
-/// ONE RING ///
-////////////////
 
 Scalar oneRingArea( const Vector3& v, const VectorArray<Vector3>& p ) {
     Scalar area = 0.0;

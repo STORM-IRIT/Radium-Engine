@@ -9,79 +9,146 @@
 namespace Ra {
 namespace Core {
 namespace Geometry {
+
+/**
+ * Generic class for 2D parametric curves.
+ */
 class Curve2D {
   public:
-    enum CurveType { LINE, CUBICBEZIER, SPLINE, SIZE };
+    /**
+     * The type of curve.
+     */
+    enum CurveType {
+        LINE,        ///< Segment.
+        CUBICBEZIER, ///< Bézier cubic.
+        SPLINE       ///< Spline.
+    };
 
+    /**
+     * 2D point/vector type.
+     */
     using Vector = Eigen::Matrix<Scalar, 2, 1>;
 
-    virtual void addPoint( const Vector p ) = 0;
     virtual ~Curve2D() = default;
 
+    /**
+     * Register the given control point at the end.
+     */
+    virtual void addPoint( const Vector p ) = 0;
+
+    /**
+     * Return the point at parameter \p u.
+     */
     virtual Vector f( Scalar u ) const = 0;
+
+    /**
+     * Return the tangent vector at parameter \p u.
+     */
     virtual Vector df( Scalar u ) const = 0;
+
+    /**
+     * Return the point at parameter \p u, as well as the tangent vector in \p grad.
+     */
     virtual Vector fdf( Scalar t, Vector& grad ) const = 0;
 
   protected:
+    /// The number of control points.
     int size;
 };
 
-class QuadraSpline : public Curve2D {
+/**
+ * The Line class representes 2D segments.
+ */
+class Line : public Curve2D {
   public:
-    QuadraSpline() { this->size = 0; }
-    QuadraSpline( const Curve2D::Vector& p0, const Curve2D::Vector& p1,
-                  const Curve2D::Vector& p2 ) :
-        m_points{p0, p1, p2} {
-        this->size = 3;
-    }
-    ~QuadraSpline() override = default;
+    Line() { this->size = 0; }
 
+    Line( const Vector& p0, const Vector& p1 ) : m_points{p0, p1} { this->size = 2; }
+
+    ~Line() override = default;
+
+    /**
+     * Register the given control point at the end.
+     * \note Does nothing if there are already 2 control points.
+     */
     inline void addPoint( const Vector p ) override;
 
     inline Vector f( Scalar u ) const override;
+
     inline Vector df( Scalar u ) const override;
-    inline Vector fdf( Scalar u, Vector& grad ) const override;
+
+    inline Vector fdf( Scalar t, Vector& grad ) const override;
 
   private:
-    Core::VectorArray<Vector> m_points;
+    /// The control points.
+    Vector m_points[2];
 };
 
+/**
+ * The CubicBezier class representes 2D cubic Bézier curves.
+ */
 class CubicBezier : public Curve2D {
   public:
     CubicBezier() { this->size = 0; }
+
     CubicBezier( const Curve2D::Vector& p0, const Curve2D::Vector& p1, const Curve2D::Vector& p2,
                  const Curve2D::Vector& p3 ) :
         m_points{p0, p1, p2, p3} {
         this->size = 4;
     }
+
     ~CubicBezier() override = default;
 
+    /**
+     * Register the given control point at the end.
+     * \note Does nothing if there are already 4 control points.
+     */
     inline void addPoint( const Vector p ) override;
 
     inline Vector f( Scalar u ) const override;
+
     inline Vector df( Scalar u ) const override;
+
     inline Vector fdf( Scalar t, Vector& grad ) const override;
 
   private:
+    /// The control points.
     Vector m_points[4];
 };
 
-class Line : public Curve2D {
+/**
+ * The QuadraSpline class representes 2D quadratic splines.
+ */
+// FIXME: in the evaluation, Spline<2,2> is used, should be Spline<2,3>!
+class QuadraSpline : public Curve2D {
   public:
-    Line() { this->size = 0; }
-    Line( const Vector& p0, const Vector& p1 ) : m_points{p0, p1} { this->size = 2; }
-    ~Line() override = default;
+    QuadraSpline() { this->size = 0; }
+
+    QuadraSpline( const Curve2D::Vector& p0, const Curve2D::Vector& p1,
+                  const Curve2D::Vector& p2 ) :
+        m_points{p0, p1, p2} {
+        this->size = 3;
+    }
+
+    ~QuadraSpline() override = default;
 
     inline void addPoint( const Vector p ) override;
 
     inline Vector f( Scalar u ) const override;
+
     inline Vector df( Scalar u ) const override;
-    inline Vector fdf( Scalar t, Vector& grad ) const override;
+
+    inline Vector fdf( Scalar u, Vector& grad ) const override;
 
   private:
-    Vector m_points[2];
+    /// The control points.
+    Core::VectorArray<Vector> m_points;
 };
 
+/**
+ * The SplineCurve class representes 2D splines.
+ */
+// FIXME: in the evaluation, Spline<2,3> is used, thus it's quadratic spline!
 class SplineCurve : public Curve2D {
   public:
     SplineCurve() { this->size = 0; }
@@ -93,10 +160,13 @@ class SplineCurve : public Curve2D {
     inline void addPoint( const Vector p ) override;
 
     inline Vector f( Scalar u ) const override;
+
     inline Vector df( Scalar u ) const override;
+
     inline Vector fdf( Scalar t, Vector& grad ) const override;
 
   private:
+    /// The control points.
     Core::VectorArray<Vector> m_points;
 };
 
