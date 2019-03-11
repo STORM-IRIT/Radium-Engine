@@ -8,9 +8,12 @@
 
 namespace Ra {
 namespace Core {
-/// This class stores a discretized N-D function defined inside a N-D
-/// bounding box. It evaluates the function at a given point in space
-/// wrt the stored values N-linear interpolation.
+
+/**
+ * This class stores a discretized N-D function defined inside a N-D
+ * bounding box. It evaluates the function at a given point in space
+ * wrt the stored values N-linear interpolation.
+ */
 template <typename T, uint N>
 class Tex : public Grid<T, N> {
 
@@ -20,32 +23,56 @@ class Tex : public Grid<T, N> {
     using Vector = Eigen::Matrix<Scalar, N, 1>;
     using AabbND = Eigen::AlignedBox<Scalar, N>;
 
-    /// Construct a Tex with the given resolution in the box given by two points.
+    /**
+     * Construct a Tex with the given resolution in the box given by two points.
+     */
     Tex( const IdxVector& resolution, const Vector& start, const Vector& end );
 
-    /// Construct a Tex with the give resulution in the given AABB.
+    /**
+     * Construct a Tex with the give resulution in the given AABB.
+     */
     Tex( const IdxVector& resolution, const AabbND& aabb );
 
-    /// Copy constructor and assignment operator perform a deep copy.
+    /**
+     * Copy constructor performs a deep copy.
+     */
     Tex( const Tex& other ) = default;
+
+    /**
+     * Assignment operator performs a deep copy.
+     */
     Tex& operator=( const Tex& other ) = default;
 
+    /**
+     * Returns the Aabb of the function.
+     */
     inline const AabbND& getAabb() const;
 
-    /// Tri-linear interpolation of the grid values at position v.
+    /**
+     * Tri-linear interpolation of the grid values at position v.
+     */
     T fetch( const Vector& v ) const;
 
   private:
     /// The bounding box of the portion of space represented.
     AabbND m_aabb;
-    /// The size of a discrete cell
-    /// i.e. componentwise division of the aabb extents by the spatial resolution.
+
+    /**
+     * The size of a discrete cell, i.e.\ componentwise division of the aabb
+     *  extents by the spatial resolution.
+     */
     Vector m_cellSize;
 };
 
+/**
+ * Type for 2D textures.
+ */
 template <typename T>
 using Tex2D = Tex<T, 2>;
 
+/**
+ * Type for 3D textures.
+ */
 template <typename T>
 using Tex3D = Tex<T, 3>;
 } // namespace Core

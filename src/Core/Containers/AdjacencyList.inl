@@ -3,7 +3,6 @@
 namespace Ra {
 namespace Core {
 
-/// SIZE
 inline uint AdjacencyList::size() const {
     CORE_ASSERT( m_parent.size() == m_child.size(), "List size inconsistency" );
     return m_parent.size();
@@ -14,7 +13,6 @@ inline void AdjacencyList::clear() {
     m_parent.clear();
 }
 
-/// QUERY
 inline bool AdjacencyList::isEmpty() const {
     return ( size() == 0 );
 }

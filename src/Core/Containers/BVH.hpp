@@ -12,7 +12,7 @@
 namespace Ra {
 namespace Core {
 namespace Containers {
-/*!
+/**
  * \brief Stores a 3-dimensional hierarchy of meshes of arbitrary type.
  *
  * This class is marked as deprecated as it is not tested nor used.
