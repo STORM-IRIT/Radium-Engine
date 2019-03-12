@@ -8,7 +8,10 @@
 namespace Ra {
 namespace Core {
 namespace Math {
-/// Mathematical constants casted to Scalar. Values taken from math.h
+/** \name Mathematical constants
+ * Values taken from math.h.
+ */
+/// \{
 constexpr Scalar Sqrt2 = Scalar( 1.41421356237309504880 );  // sqrt(2)
 constexpr Scalar e = Scalar( 2.7182818284590452354 );       // e = exp(1).
 constexpr Scalar Pi = Scalar( 3.14159265358979323846 );     // pi
@@ -20,48 +23,73 @@ constexpr Scalar PiDiv6 = Scalar( 0.52359877559829887307 ); // pi/6
 constexpr Scalar PiMul2 = Scalar( 2 * Pi );                 // 2*pi
 constexpr Scalar toRad = Scalar( Pi / Scalar( 180.0 ) );
 constexpr Scalar toDeg = Scalar( Scalar( 180.0 ) * InvPi );
+/// \}
 
+/// \name Epsilon constants
+/// \{
 constexpr Scalar machineEps = std::numeric_limits<Scalar>::epsilon();
 constexpr Scalar dummyEps = Scalar( 1e-5 );
+/// \}
 
-/// Useful functions
+// Useful functions
 
-/// Converts an angle from degrees to radians.
+/**
+ * Converts an angle from degrees to radians.
+ */
 inline constexpr Scalar toRadians( Scalar a );
 
-/// Converts an angle from radians to degrees.
+/**
+ * Converts an angle from radians to degrees.
+ */
 inline constexpr Scalar toDegrees( Scalar a );
 
-/// Returns true if |a -b| < eps.
+/**
+ * Returns true if |a - b| < eps.
+ */
 inline bool areApproxEqual( Scalar a, Scalar b, Scalar eps = dummyEps );
 
-/// Integer power functions. Work for all numeric types which support
-/// multiplication and for which T(1) is a valid expression.
-/// x^0 always return T(1) and x^1 always return x (even when x is 0).
+// Integer power functions
 
-/// Run-time exponent version.
+/**
+ * Run-time exponent version.
+ * Work for all numeric types which support multiplication and for which T(1)
+ * is a valid expression.
+ * x^0 always return T(1) and x^1 always return x (even when x is 0).
+ */
 template <typename T>
 inline T ipow( const T& x, uint exp );
 
-/// Compile-time exponent version.
+/**
+ * Compile-time exponent version.
+ * Work for all numeric types which support multiplication and for which T(1)
+ * is a valid expression.
+ * x^0 always return T(1) and x^1 always return x (even when x is 0).
+ */
 template <uint N, typename T>
 inline constexpr T ipow( const T& x );
 
-/// Returns the sign of any numeric type as { -1, 0, 1}
+/**
+ * Returns the sign of any numeric type as one of { -1, 0, 1}.
+ */
 template <typename T>
 inline constexpr int sign( const T& val );
 
-/// Returns the sign of any numeric type as { -1, 1}
-/// Note: signNZ(0) returns 1 for any integral type
-/// but signNZ(-0.f) will return -1
+/**
+ * Returns the sign of any numeric type as one of { -1, 1}.
+ * \note signNZ(0) returns 1 for any integral type but signNZ(-0.f) will return -1
+ */
 template <typename T>
 inline constexpr T signNZ( const T& val );
 
-/// Clamps the value between 0 and 1
+/**
+ * Clamps the value between 0 and 1.
+ */
 template <typename T>
 inline constexpr T saturate( T v );
 
-/// Returns the linear interpolation between a and b
+/**
+ * Returns the linear interpolation between \p a and \p b, w.r.t.\ parameter \p t.
+ */
 template <typename T>
 inline constexpr T lerp( const T& a, const T& b, Scalar t );
 

@@ -7,9 +7,12 @@
 
 namespace Ra {
 namespace Core {
-// Transform an Eigen vector/matrix into a glm vector/matrix.
-// Used to deal with globjects's setUniform() method which uses glm structures instead of Eigen's
-// structures.
+
+/** \name Converters from Eigen to glm
+ * Used to deal with globjects's setUniform() method which uses glm structures
+ * instead of Eigen's structures.
+ */
+/// \{
 
 inline glm::vec2 toGlm( const Vector2f& v ) {
     return glm::vec2( v( 0 ), v( 1 ) );
@@ -95,10 +98,13 @@ inline glm::mat4x3 toGlm( const Eigen::Matrix<float, 4, 3>& m ) {
                         m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 0, 2 ), m.coeff( 1, 2 ),
                         m.coeff( 2, 2 ), m.coeff( 0, 3 ), m.coeff( 1, 3 ), m.coeff( 2, 3 ) );
 }
+/// \}
 
-// Transform a glm vector/matrix into an Eigen vector/matrix.
-// It may be useful because globjects's getUniform() method returns a glm structure and Radium
-// only deals with Eigen's structures.
+/** \name Converters from glm to Eigen
+ * It may be useful because globjects's getUniform() method returns a glm
+ * structure and Radium only deals with Eigen's structures.
+ */
+/// \{
 
 inline void fromGlm( const glm::vec2& v, Vector2& out ) {
     out << v[0], v[1];
@@ -264,6 +270,8 @@ inline Eigen::Matrix<Scalar, 4, 3> fromGlm( const glm::mat4x3& m ) {
     fromGlm( m, returnMatrix );
     return returnMatrix;
 }
+/// \}
+
 } // namespace Core
 } // namespace Ra
 
