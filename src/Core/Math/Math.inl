@@ -29,8 +29,8 @@ inline T ipow( const T& x, uint exp ) {
     { return p * p * x; }
 }
 
-/// This helper class is needed because C++ doesn't support function template
-/// partial specialization.
+// These helper classes are needed because C++ doesn't support function template
+// partial specialization.
 namespace {
 template <typename T, uint N>
 struct IpowHelper {

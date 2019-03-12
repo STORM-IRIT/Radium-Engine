@@ -10,9 +10,9 @@
 
 namespace Ra {
 namespace Core {
-//
-// Common vector types
-//
+
+/// \name Common vector types
+/// \{
 using VectorN = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
 using VectorNf = Eigen::VectorXf;
 using VectorNd = Eigen::VectorXd;
@@ -38,10 +38,10 @@ using VectorNui = Eigen::Matrix<uint, Eigen::Dynamic, 1>;
 using Vector2ui = Eigen::Matrix<uint, 2, 1>;
 using Vector3ui = Eigen::Matrix<uint, 3, 1>;
 using Vector4ui = Eigen::Matrix<uint, 4, 1>;
+/// \}
 
-//
-// Common matrix types
-//
+/// \name Common matrix types
+/// \{
 
 using MatrixN = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
 using Matrix4 = Eigen::Matrix<Scalar, 4, 4>;
@@ -60,15 +60,16 @@ using Matrix2d = Eigen::Matrix2d;
 
 using MatrixNui = Eigen::Matrix<uint, Eigen::Dynamic, Eigen::Dynamic>;
 
+// Not optimized for Diagonal matrices, but the operations between
+// Sparse and Diagonal are not defined.
+using Diagonal = Eigen::SparseMatrix<Scalar>;
 // using Diagonal = Eigen::DiagonalMatrix< Scalar, Eigen::Dynamic >;
-using Diagonal =
-    Eigen::SparseMatrix<Scalar>; // Not optimized for Diagonal matrices, but the operations between
-                                 // Sparse and Diagonal are not defined
-using Sparse = Eigen::SparseMatrix<Scalar>;
 
-//
-// Transforms and rotations
-//
+using Sparse = Eigen::SparseMatrix<Scalar>;
+/// \}
+
+/// \name Transforms and rotations.
+/// \{
 
 using Quaternion = Eigen::Quaternion<Scalar>;
 using Quaternionf = Eigen::Quaternionf;
@@ -89,6 +90,7 @@ using AngleAxisd = Eigen::AngleAxisd;
 using Translation = Eigen::Translation<Scalar, 3>;
 using Translationf = Eigen::Translation3f;
 using Translationd = Eigen::Translation3d;
+/// \}
 
 } // namespace Core
 } // namespace Ra
