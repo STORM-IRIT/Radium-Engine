@@ -6,11 +6,14 @@
 namespace Ra {
 namespace Version {
 
+/// \name Versioning data
+/// \{
 RA_CORE_API extern const char* compiler;
 RA_CORE_API extern const char* compileFlags;
 RA_CORE_API extern const char* compileDate;
 RA_CORE_API extern const char* compileTime;
 RA_CORE_API extern const char* gitChangeSet;
+/// \}
 
 // TODO :
 

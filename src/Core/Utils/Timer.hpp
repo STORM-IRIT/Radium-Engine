@@ -6,17 +6,35 @@
 
 namespace Ra {
 namespace Core {
-// Convenience functions for timing.
-// Wrapping the highest resolution time measuring.
 namespace Utils {
+
+/** \name Time
+ * Convenience functions for timing.
+ * Wrapping the highest resolution time measuring.
+ */
+/// \{
+
+/**
+ * Type for a clock.
+ */
 using Clock = std::chrono::high_resolution_clock;
+
+/**
+ * Type for a point in time.
+ */
 using TimePoint = std::chrono::time_point<Clock>;
 
-inline long RA_CORE_API getIntervalMicro( const TimePoint& start, const TimePoint& end ) {
+/**
+ * Return the number of milliseconds between \p start and \p end.
+ */
+inline long getIntervalMicro( const TimePoint& start, const TimePoint& end ) {
     return ( std::chrono::duration_cast<std::chrono::microseconds>( end - start ) ).count();
 }
 
-inline Scalar RA_CORE_API getIntervalSeconds( const TimePoint& start, const TimePoint& end ) {
+/**
+ * Return the number of seconds between \p start and \p end.
+ */
+inline Scalar getIntervalSeconds( const TimePoint& start, const TimePoint& end ) {
     return ( std::chrono::duration_cast<
                  std::chrono::duration<Scalar, std::chrono::seconds::period>>( end - start ) )
         .count();

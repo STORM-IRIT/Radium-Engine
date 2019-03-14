@@ -19,92 +19,173 @@ namespace Utils {
 template <typename T>
 class Attrib;
 
-/// AttribBase is the base class for attributes of all type.
+/**
+ * AttribBase is the base class for attributes of all type.
+ */
 class AttribBase {
   public:
     virtual ~AttribBase() {}
+
+    /**
+     * Return the attribute's name.
+     */
     std::string getName() const { return m_name; }
+
+    /**
+     * Set the attribute's name.
+     */
     void setName( std::string name ) { m_name = name; }
+
+    /**
+     * Resize the attribute's content.
+     */
     virtual void resize( size_t s ) = 0;
 
+    /**
+     * Return the size of the attribute content.
+     */
     virtual uint getSize() = 0;
+
+    /**
+     * Return the size of one attribute element.
+     */
     virtual int getStride() = 0;
 
+    /**
+     * Return true if *this and \p rhs have the same name.
+     */
     bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
 
+    /**
+     * Downcast from AttribBase to Attrib<T>.
+     */
     template <typename T>
     inline Attrib<T>& cast() {
         return static_cast<Attrib<T>&>( *this );
     }
 
+    /**
+     * Downcast from AttribBase to Attrib<T>.
+     */
     template <typename T>
     inline const Attrib<T>& cast() const {
         return static_cast<const Attrib<T>&>( *this );
     }
 
+    /**
+     * Return true if the attribute content is of float type.
+     */
     virtual bool isFloat() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector2 type.
+     */
     virtual bool isVec2() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector3 type.
+     */
     virtual bool isVec3() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector4 type.
+     */
     virtual bool isVec4() const = 0;
 
   private:
+    /// The attribute's name.
     std::string m_name;
 };
 
-/// An Attribute is a vector of a given type.
+/**
+ * An Attrib stores an element of type \p T for each entry.
+ */
 template <typename T>
 class Attrib : public AttribBase {
   public:
+    /**
+     * Type of an element's attribute value.
+     */
     using value_type = T;
+
+    /**
+     * Type for attribute values storage.
+     */
     using Container = VectorArray<T>;
 
-    /// resize the container (value_type must have a default ctor).
+    /**
+     * Resize the container (value_type must have a default ctor).
+     */
     void resize( size_t s ) override { m_data.resize( s ); }
 
-    /// RW acces to container data
+    /**
+     * Read-write access to container data.
+     */
     inline Container& data() { return m_data; }
 
-    /// R only acccess to container data
+    /**
+     * Read only acccess to container data.
+     */
     inline const Container& data() const { return m_data; }
 
-    virtual ~Attrib() { m_data.clear(); }
+    ~Attrib() override { m_data.clear(); }
+
     uint getSize() override { return Container::Matrix::RowsAtCompileTime; }
+
     int getStride() override { return sizeof( typename Container::value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
+
     bool isVec2() const override { return std::is_same<Vector2, T>::value; }
+
     bool isVec3() const override { return std::is_same<Vector3, T>::value; }
+
     bool isVec4() const override { return std::is_same<Vector4, T>::value; }
 
   private:
+    /// The attribute data container.
     Container m_data;
 };
 
+/**
+ * An AttribHandle stores the storage index of an Attrib within the AttribManager.
+ */
 template <typename T>
 class AttribHandle {
   public:
     typedef T value_type;
     using Container = typename Attrib<T>::Container;
 
-    /// compare two handle, there are the same if they both represent the same
-    /// attrib (type and value).
+    /**
+     * Compare two handle, theY are the same if they both represent the same
+     * attrib (type and value).
+     */
     template <typename U>
     bool operator==( const AttribHandle<U>& lhs ) const {
         return std::is_same<T, U>::value && m_idx == lhs.m_idx;
     }
 
+    /**
+     * Return the storage index of the Attrib.
+     */
     Index idx() const { return m_idx; }
 
+    /**
+     * Return the name of the Attrib.
+     */
     std::string attribName() const { return m_name; }
 
   private:
+    /// Storage index of the Attrib.
     Index m_idx = Index::Invalid();
+
+    /// Name of the Attrib.
     std::string m_name = "";
 
     friend class AttribManager;
 };
 
-/*!
+/**
  * \brief The AttribManager provides attributes management by handles.
  *
  * The AttribManager stores a container of AttribBase *, which can
@@ -142,8 +223,14 @@ class RA_CORE_API AttribManager {
 
     AttribManager() {}
 
-    /// Copy constructor and assignment operator are forbidden.
+    /**
+     * Copy constructor is forbidden.
+     */
     AttribManager( const AttribManager& m ) = delete;
+
+    /**
+     * Assignment operator is forbidden.
+     */
     AttribManager& operator=( const AttribManager& m ) = delete;
 
     AttribManager( AttribManager&& m ) :
@@ -158,12 +245,16 @@ class RA_CORE_API AttribManager {
 
     ~AttribManager() { clear(); }
 
-    /// Base copy, does nothing.
+    /**
+     * Base copy, does nothing.
+     */
     void copyAttributes( const AttribManager& m ) {}
 
-    /// Copy the given attributes from m.
-    /// \note If some attrib already exists, it will be replaced.
-    /// \note Invalid handles are ignored.
+    /**
+     * Copy the given attributes from m.
+     * \note If some attrib already exists, it will be replaced.
+     * \note Invalid handles are ignored.
+     */
     template <class T, class... Handle>
     void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
         if ( m.isValid( attr ) )
@@ -179,20 +270,26 @@ class RA_CORE_API AttribManager {
         copyAttributes( m, attribs... );
     }
 
-    /// Copy all attributes from m.
-    /// \note If some attrib already exists, it will be replaced.
+    /**
+     * Copy all attributes from m.
+     * \note If some attrib already exists, it will be replaced.
+     */
     void copyAllAttributes( const AttribManager& m );
 
-    /// clear all attribs, invalidate handles.
+    /**
+     * Clear all attribs, invalidate handles.
+     */
     void clear();
 
-    /// Return true if \p h correspond to an existing attribute in *this.
+    /**
+     * Return true if \p h correspond to an existing attribute in *this.
+     */
     template <typename T>
     bool isValid( const AttribHandle<T>& h ) const {
         return h.m_idx != Index::Invalid() && m_attribsIndex.at( h.attribName() ) == h.m_idx;
     }
 
-    /*!
+    /**
      * \brief findAttrib Grab an attribute handler by name.
      * \param name Name of the attribute.
      * \return Attribute handler if found, an invalid handler otherwise.
@@ -211,26 +308,32 @@ class RA_CORE_API AttribManager {
         return handle;
     }
 
-    /// Get attribute by handle.
-    /// \note The complexity for accessing an attribute is O(1).
-    /// \warning There is no check on the handle validity.
+    /**
+     * Get attribute by handle.
+     * \note The complexity for accessing an attribute is O(1).
+     * \warning There is no check on the handle validity.
+     */
     template <typename T>
     inline Attrib<T>& getAttrib( const AttribHandle<T>& h ) {
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
-    /// Get attribute by handle (const).
-    /// \note The complexity for accessing an attribute is O(1).
-    /// \warning There is no check on the handle validity.
+    /**
+     * Get attribute by handle (const).
+     * \note The complexity for accessing an attribute is O(1).
+     * \warning There is no check on the handle validity.
+     */
     template <typename T>
     inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const {
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
     }
 
-    /// Add attribute by name.
-    /// \note If an attribute with the same name already exists,
-    ///       just returns a AttribHandle to it.
-    /// \note The complexity for adding a new attribute is O(n).
+    /**
+     * Add attribute by name.
+     * \note If an attribute with the same name already exists,
+     *       just returns a AttribHandle to it.
+     * \note The complexity for adding a new attribute is O(n).
+     */
     template <typename T>
     AttribHandle<T> addAttrib( const std::string& name ) {
         // does the attrib already exist?
@@ -260,10 +363,12 @@ class RA_CORE_API AttribManager {
         return h;
     }
 
-    /// Remove attribute by handle, invalidates the handle.
-    /// \warning If a new attribute is added, old invalidated handles may lead to
-    ///          the new attribute.
-    /// \note The complexity for removing an attribute is O(log(n)).
+    /**
+     * Remove attribute by handle, invalidates the handle.
+     * \warning If a new attribute is added, old invalidated handles may lead to
+     *          the new attribute.
+     * \note The complexity for removing an attribute is O(log(n)).
+     */
     template <typename T>
     void removeAttrib( AttribHandle<T>& h ) {
         const auto& att = getAttrib( h );
@@ -279,13 +384,17 @@ class RA_CORE_API AttribManager {
         h.m_name = "";              // invalidate whatever!
     }
 
-    /// Return true if *this and \p other have the same attributes, same amount
-    /// and same names.
-    /// \warning There is no check on the attribute type nor data.
+    /**
+     * Return true if *this and \p other have the same attributes, same amount
+     * and same names.
+     * \warning There is no check on the attribute type nor data.
+     */
     bool hasSameAttribs( const AttribManager& other );
 
   private:
-    /// Perform \p fun on each attribute.
+    /**
+     * Perform \p fun on each attribute.
+     */
     // This is needed by the user to avoid caring about removed attributes (nullptr)
     template <typename F>
     void for_each_attrib( const F& func ) const {
@@ -294,7 +403,9 @@ class RA_CORE_API AttribManager {
                 func( attr );
     }
 
-    /// Perform \p fun on each attribute.
+    /**
+     * Perform \p fun on each attribute.
+     */
     // This is needed by the user to avoid caring about removed attributes (nullptr)
     template <typename F>
     void for_each_attrib( const F& func ) {
@@ -303,11 +414,14 @@ class RA_CORE_API AttribManager {
                 func( attr );
     }
 
-    /// Attrib list, better using attribs() to go through.
+  private:
+    /// Attrib list.
     Container m_attribs;
 
-    // Map between the attrib's name and its index, used to speedup finding the
-    // handle index from the attribute name.
+    /**
+     * Map between the attrib's name and its index, used to speedup finding the
+     * handle index from the attribute name.
+     */
     std::map<std::string, Index> m_attribsIndex;
 
     // Ease wrapper

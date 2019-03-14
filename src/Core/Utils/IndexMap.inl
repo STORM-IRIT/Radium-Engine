@@ -4,9 +4,6 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-// ===============================================================================
-// CONSTRUCTOR
-// ===============================================================================
 template <typename T>
 IndexMap<T>::IndexMap() : m_data(), m_index(), m_free( 1, Index( 0 ) ) {}
 
@@ -16,15 +13,9 @@ IndexMap<T>::IndexMap( const IndexMap& id_map ) :
     m_index( id_map.m_index ),
     m_free( id_map.m_free ) {}
 
-// ===============================================================================
-// DESTRUCTOR
-// ===============================================================================
 template <typename T>
 IndexMap<T>::~IndexMap() {}
 
-// ===============================================================================
-// INSERT
-// ===============================================================================
 template <typename T>
 inline Index IndexMap<T>::insert( const T& obj ) {
     Index idx;
@@ -60,9 +51,6 @@ Index IndexMap<T>::emplace( const Args&&... args ) {
     return idx;
 }
 
-// ===============================================================================
-// REMOVE
-// ===============================================================================
 template <typename T>
 inline bool IndexMap<T>::remove( const Index& idx ) {
     typename std::deque<Index>::iterator it = std::find( m_index.begin(), m_index.end(), idx );
@@ -76,9 +64,6 @@ inline bool IndexMap<T>::remove( const Index& idx ) {
     return true;
 }
 
-// ===============================================================================
-// ACCESS
-// ===============================================================================
 template <typename T>
 inline const T& IndexMap<T>::at( const Index& idx ) const {
     typename std::deque<Index>::const_iterator it =
@@ -94,12 +79,14 @@ inline T& IndexMap<T>::access( const Index& idx ) {
     return *itfromIndex( it );
 }
 
-// ===============================================================================
-// SIZE
-// ===============================================================================
 template <typename T>
-inline size_t IndexMap<T>::size() const {
-    return m_data.size();
+inline T& IndexMap<T>::operator[]( const Index& idx ) {
+    return access( idx );
+}
+
+template <typename T>
+inline const T& IndexMap<T>::operator[]( const Index& idx ) const {
+    return at( idx );
 }
 
 template <typename T>
@@ -110,9 +97,11 @@ inline void IndexMap<T>::clear() {
     m_free.push_back( Index( 0 ) );
 }
 
-// ===============================================================================
-// QUERY
-// ===============================================================================
+template <typename T>
+inline size_t IndexMap<T>::size() const {
+    return m_data.size();
+}
+
 template <typename T>
 inline bool IndexMap<T>::empty() const {
     return m_data.empty();
@@ -139,35 +128,6 @@ inline Index IndexMap<T>::index( const uint i ) const {
     return m_index.at( i );
 }
 
-// ===============================================================================
-// OPERATOR
-// ===============================================================================
-template <typename T>
-inline T& IndexMap<T>::operator[]( const Index& idx ) {
-    return access( idx );
-}
-
-template <typename T>
-inline const T& IndexMap<T>::operator[]( const Index& idx ) const {
-    return at( idx );
-}
-
-// ===============================================================================
-// INDEX ITERATOR
-// ===============================================================================
-template <typename T>
-inline typename IndexMap<T>::ConstIndexIterator IndexMap<T>::cbegin_index() const {
-    return m_index.cbegin();
-}
-
-template <typename T>
-inline typename IndexMap<T>::ConstIndexIterator IndexMap<T>::cend_index() const {
-    return m_index.cend();
-}
-
-// ===============================================================================
-// DATA ITERATOR
-// ===============================================================================
 template <typename T>
 inline typename IndexMap<T>::Iterator IndexMap<T>::begin() {
     return m_data.begin();
@@ -198,9 +158,16 @@ inline typename IndexMap<T>::ConstIterator IndexMap<T>::cend() const {
     return m_data.cend();
 }
 
-// ===============================================================================
-// FREE LIST
-// ===============================================================================
+template <typename T>
+inline typename IndexMap<T>::ConstIndexIterator IndexMap<T>::cbegin_index() const {
+    return m_index.cbegin();
+}
+
+template <typename T>
+inline typename IndexMap<T>::ConstIndexIterator IndexMap<T>::cend_index() const {
+    return m_index.cend();
+}
+
 template <typename T>
 inline void IndexMap<T>::push_free_index( const Index& idx ) {
     std::deque<Index>::iterator free_it = std::lower_bound( m_free.begin(), m_free.end(), idx );
@@ -234,10 +201,6 @@ inline bool IndexMap<T>::pop_free_index( Index& idx ) {
     }
     return true;
 }
-
-// ===============================================================================
-// HELPER FUNCTIONS
-// ===============================================================================
 
 template <typename T>
 typename IndexMap<T>::ConstIterator

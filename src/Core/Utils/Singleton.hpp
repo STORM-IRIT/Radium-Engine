@@ -32,9 +32,10 @@
   protected:                                             \
     TYPE( const TYPE& ) = delete;                        \
     void operator=( const TYPE& ) = delete
+// The line above is just there to make the macro end with a ;
 
 /// Add this macro in the singleton cpp, followed by a semicolon.
-// Limitations : TYPE cannot be a nested type
+/// Limitations : TYPE cannot be a nested type
 // RA_SINGLETON_IMPLEMENTATION(A::MySingleton); will *not* work.
 #define RA_SINGLETON_IMPLEMENTATION( TYPE )                    \
     namespace TYPE##NS {                                       \
