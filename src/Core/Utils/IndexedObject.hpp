@@ -8,18 +8,29 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
+/**
+ * An IndexedObject is an object identifiable through it's Index.
+ */
 class IndexedObject {
   public:
-    /// CONSTRUCTOR
-    explicit inline IndexedObject( Index idx = Index::Invalid() ) : m_idx{idx} { }
+    explicit inline IndexedObject( Index idx = Index::Invalid() ) : m_idx{idx} {}
+
     inline IndexedObject( const IndexedObject& id_obj ) = default;
+
     virtual inline ~IndexedObject() = default;
 
-    inline void setIndex(const Index& idx) { m_idx = idx; }
+    /**
+     * Set the object's Index.
+     */
+    inline void setIndex( const Index& idx ) { m_idx = idx; }
+
+    /**
+     * Return the object's Index.
+     */
     inline const Index& getIndex() const { return m_idx; }
 
-protected:
-    /// VARIABLE
+  protected:
+    /// The index of the object.
     Index m_idx;
 };
 

@@ -4,7 +4,6 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-/// DIMENSION
 inline size_t CircularIndex::size() const {
     return N;
 }
@@ -13,7 +12,6 @@ inline void CircularIndex::setSize( const size_t size ) {
     N = size;
 }
 
-/// INDEX
 inline size_t CircularIndex::value() const {
     return idx;
 }
@@ -23,7 +21,6 @@ inline void CircularIndex::setValue( const size_t i ) {
     idx = ( n + ( i % n ) ) % n;
 }
 
-/// OPERATOR
 inline CircularIndex::operator size_t() {
     return idx;
 }

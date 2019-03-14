@@ -11,8 +11,14 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
+/**
+ * Return the current day time as a string.
+ */
 inline std::string NowTime();
 
+/**
+ * The print output level.
+ */
 enum TLogLevel {
     logERROR,
     logWARNING,
@@ -24,19 +30,50 @@ enum TLogLevel {
     logDEBUG4
 };
 
+/**
+ * The Log class defines the generic behavior to display Log info.
+ * \tparam T defines the stream type to display to.
+ * \note T must implement void Output( const std::string& msg ).
+ */
 template <typename T>
 class Log {
   public:
     Log();
+
+    /**
+     * Upon deletion, the Log performs a new line insertion and
+     * flushes the output stream before calling T::Output() on it.
+     */
     virtual ~Log();
+
+    /**
+     * Return the output stream corresponding to the given print output level.
+     * \note The ouput stream contains a "header" part depending on \p level.
+     */
     std::ostringstream& Get( TLogLevel level = logINFO );
 
   public:
+    /**
+     * Always return logDEBUG4.
+     */
     static TLogLevel& ReportingLevel();
+
+    /**
+     * Converts the given output level to a string.
+     */
     static std::string ToString( TLogLevel level );
+
+    /**
+     * Converts the given string to the corresponding output level.
+     * If the string does not correspond to any output level, then reports
+     * the error on the logWARNING output and returns logINFO.
+     */
     static TLogLevel FromString( const std::string& level );
 
   protected:
+    /**
+     * The ouput stream.
+     */
     std::ostringstream os;
 
   private:
@@ -113,9 +150,19 @@ TLogLevel Log<T>::FromString( const std::string& level ) {
     return logINFO;
 }
 
+/**
+ * The Output2FILE class defines the Log info stream to be to the sterr output.
+ */
 class Output2FILE {
   public:
+    /**
+     * Return the stderr output stream.
+     */
     static FILE*& Stream();
+
+    /**
+     * Prints the given message to stderr.
+     */
     static void Output( const std::string& msg );
 };
 
@@ -134,6 +181,9 @@ inline void Output2FILE::Output( const std::string& msg ) {
     fflush( pStream );
 }
 
+/**
+ * Log implementation for the stderr output stream.
+ */
 class FILELog : public Log<Output2FILE> {};
 // using FILELog = Log<Output2FILE>;
 
@@ -160,6 +210,11 @@ inline std::string NowTime() {
 #    endif
 #endif
 
+/// This macro enables to display Radium Log messages.
+/// Example:
+/// \code
+///     FILE_LOG( Ra::Core::Utils::logInfo ) << "Hello Radium.";
+/// \endcode
 #define FILE_LOG( level )                                           \
     if ( level > FILELOG_MAX_LEVEL )                                \
         ;                                                           \
@@ -169,6 +224,11 @@ inline std::string NowTime() {
     else                                                            \
         Ra::Core::Utils::FILELog().Get( level )
 
+/// This macro enables to display Radium Log messages.
+/// Example:
+/// \code
+///     LOG( Ra::Core::Utils::logInfo ) << "Hello Radium.";
+/// \endcode
 #define LOG( level ) FILE_LOG( level )
 
 #endif // RADIUMENGINE_LOG_HPP
