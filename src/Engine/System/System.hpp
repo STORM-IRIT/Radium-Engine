@@ -22,72 +22,68 @@ class Entity;
 
 namespace Engine {
 
-/** Systems are responsible of updating a specific subset of the components of each entity.
- * They can provide factory methods to create components, but their main role is to keep a
- * list of "active" components associated to an entity.
- * At each frame, each system loaded into the engine will be queried for tasks.
- * The goal of the tasks is to update the active components during the frame.
+/**
+ * Systems are responsible for updating a specific subset of the Components of each Entity.
+ * They can provide factory methods to create Components, but their main role is to keep a
+ * list of "active" Components associated to an Entity.
+ * At each frame, each System loaded into the RadiumEngine will be queried for Tasks.
+ * The goal of the Tasks is to update the active Components during the frame.
  */
 class RA_ENGINE_API System {
     friend class Component;
 
   public:
     System() = default;
+
     virtual ~System() = default;
 
     /**
-     * Factory method for component creation from file data.
-     * From a given file and the corresponding entity, the system will create the
-     * corresponding components, add them to the entity, and register the component.
-     * @note : Issue #325 - As this method register components and might also manage each component
-     * outside the m_components vectors (e.g in a buffer on the GPU) the methods, the
-     * registerComponent and unregister*Component must be virtual method that could be overriden.
+     * Factory method for Component creation from a FileData.
+     * From a given FileData and the corresponding Entity, the System will create the
+     * corresponding Components, add them to the Entity, and register them.
      */
     virtual void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) {}
 
     /**
-     * @brief Pure virtual method to be overridden by any system.
-     * Must register in taskQueue the operations that must be done ate each frame
+     * \brief Pure virtual method to be overridden by any System.
+     * Must register in \p taskQueue the operations that must be done at each frame.
      *
-     * @param taskQueue The queue to fill
-     * @param frameInfo Information about the current frame (@see FrameInfo)
+     * \param taskQueue The queue to fill.
+     * \param frameInfo Information about the current frame (see FrameInfo).
      */
     virtual void generateTasks( Core::TaskQueue* taskQueue,
                                 const Engine::FrameInfo& frameInfo ) = 0;
 
-    /** Returns the components stored for the given entity.
-     *
-     * @param entity
-     * @return the vector of the entity's components
+    /**
+     * Return the list of Components managed for the given Entity.
      */
     std::vector<Component*> getEntityComponents( const Entity* entity );
 
   protected:
     /**
-     * Registers a component belonging to an entity, making it active within the system.
-     * @note If a system overrides this function, it must call the inherited method.
-     * @param entity
-     * @param component
+     * Register a component belonging to an Entity, making it active within the System.
+     * \note If a System overrides this method, it must explicitely call it
+     *       before doing any specific stuff.
      */
+    // FIXME: should get the entity through the Component!
     virtual void registerComponent( const Entity* entity, Component* component );
 
     /**
-     * Unregisters a component. The system will not update it.
-     * @note If a system overrides this function, it must call the inherited method.
-     * @param entity
-     * @param component
+     * Unregisters the given Component. The System will not update it anymore.
+     * \note If a System overrides this method, it must explicitely call it
+     *       before doing any specific stuff.
      */
+    // FIXME: should get the entity through the Component!
     virtual void unregisterComponent( const Entity* entity, Component* component );
 
     /**
-     * Removes all components belonging to a given entity.
-     * @note If a system overrides this function, it must call the inherited method.
-     * @param entity
+     * Removes all Components belonging to the given Entity.
+     * \note If a System overrides this function, it must call the inherited method.
      */
     virtual void unregisterAllComponents( const Entity* entity );
 
   protected:
-    /// List of active components.
+    /// List of active Components.
     std::vector<std::pair<const Entity*, Component*>> m_components;
 };
 

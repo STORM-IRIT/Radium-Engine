@@ -6,9 +6,13 @@
 namespace Ra {
 namespace Engine {
 
+/**
+ * The GeometrySystem manages the GeometryComponents.
+ */
 class RA_ENGINE_API GeometrySystem : public System {
   public:
     GeometrySystem();
+
     ~GeometrySystem() override = default;
 
     void handleAssetLoading( Entity* entity, const Ra::Core::Asset::FileData* fileData ) override;

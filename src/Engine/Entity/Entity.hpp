@@ -21,60 +21,124 @@ class System;
 namespace Ra {
 namespace Engine {
 
-/// An entity is an scene element. It ties together components with a transform.
+/**
+ * An entity is an scene element. It ties together Components with a transform.
+ */
 class RA_ENGINE_API Entity : public Core::Utils::IndexedObject {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     explicit Entity( const std::string& name = "" );
 
-    // Entities are not copyable.
+    /**
+     * Copy operator is forbidden.
+     */
     Entity( const Entity& entity ) = delete;
+
+    /**
+     * Assignment operator is forbidden.
+     */
     Entity& operator=( const Entity& ) = delete;
 
     ~Entity() override;
 
-    // Name
+    /**
+     * Return the name of the Entity.
+     */
     inline const std::string& getName() const;
+
+    /**
+     * Set the name of the Entity.
+     */
     inline void rename( const std::string& name );
 
-    // Transform
+    /// \name Transform
+    /// \{
+
+    /**
+     * Register the new transform for the Entity.
+     * \note The transform will be effectively set by calling swapTransformBuffers();
+     */
     inline void setTransform( const Core::Transform& transform );
+
+    /**
+     * Register the new transform for the Entity.
+     * \note The transform will be effectively set by calling swapTransformBuffers();
+     */
     inline void setTransform( const Core::Matrix4& transform );
+
+    /**
+     * Return the transform of the Entity.
+     */
     const Core::Transform& getTransform() const;
+
+    /**
+     * Return the transform of the Entity.
+     */
     const Core::Matrix4& getTransformAsMatrix() const;
 
+    /**
+     * Actually sets the new transform for the Entity if required.
+     */
     void swapTransformBuffers();
+    /// \}
 
-    // Components
-    /// Add a component to the given entity. Component ownership is transfered to the entity.
+    /// \name Components
+    /// \{
+
+    /**
+     * Add a Component. Component ownership is transfered to the Entity.
+     */
     void addComponent( Component* component );
 
-    /// Deletes a component with a given name.
+    /**
+     * Deletes the first Component found with the given name.
+     */
     void removeComponent( const std::string& name );
 
-    /// Get component with a given name.
+    /**
+     * Return the first Component found with the given name.
+     */
     Component* getComponent( const std::string& name );
+
+    /**
+     * Return the first Component found with the given name.
+     */
     const Component* getComponent( const std::string& name ) const;
 
+    /**
+     * Return the list of all the Components.
+     */
     const std::vector<std::unique_ptr<Component>>& getComponents() const;
 
-    /// Get component belonging to a given system.
-    // Component* getComponent( const System& system);
-
+    /**
+     * Return the number of Components.
+     */
     inline uint getNumComponents() const;
+    /// \}
 
-    // Queries
+    /**
+     * Perform a ray cast query on each Component.
+     */
     virtual void rayCastQuery( const Core::Ray& r ) const;
 
   private:
-    Core::Transform m_transform;
-    Core::Transform m_doubleBufferedTransform;
-    mutable std::mutex m_transformMutex;
+    /// The name of the Entity.
+    std::string m_name{};
 
+    /// The transformation of the Entity.
+    Core::Transform m_transform;
+
+    /// The Components of the Entity.
     std::vector<std::unique_ptr<Component>> m_components;
 
-    std::string m_name{};
+    /// The new transformation for the Entity.
+    Core::Transform m_doubleBufferedTransform;
+
+    /// Whether the transformation is up-to-date.
     bool m_transformChanged{false};
+
+    /// Mutex to guard transformation manip against thread concurrency.
+    mutable std::mutex m_transformMutex;
 };
 
 } // namespace Engine
