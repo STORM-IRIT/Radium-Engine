@@ -20,76 +20,95 @@ class Entity;
 namespace Ra {
 namespace Engine {
 
+/**
+ * The EntityManager is responsible for storing the Engine's Entities.
+ */
 class RA_ENGINE_API EntityManager {
   public:
-    /// CONSTRUCTOR
     EntityManager();
 
-    // Entity manager is non-copyable
+    /**
+     * Copy operator is forbidden.
+     */
     EntityManager( const EntityManager& ) = delete;
-    EntityManager& operator=( const EntityManager& ) = delete;
-
-    /// DESTRUCTOR
-    virtual ~EntityManager();
 
     /**
-     * @brief Create (if does not exist) an entity given its name
-     * @param name The name of the entity to get or create. If
-     * empty, the entity will be created with a generic name "Entity_xx"
-     * @return The entity.
+     * Assignment operator is forbidden.
+     */
+    EntityManager& operator=( const EntityManager& ) = delete;
+
+    ~EntityManager() = default;
+
+    /**
+     * \brief Create an Entity with the given name.
+     * \return The created Entity.
+     * \note If \p name is an empty string, the Entity will be created with a
+     *       generic name, e.g.\ "Entity_xx".
+     * \note If an Entity with the given name already exists, the Entity will be
+     *       created with name <\p name>_\#n, where n is the number of Entities
+     *       with base name \p name.
      */
     Entity* createEntity( const std::string& name = "" );
 
     /**
-     * @brief Check wether an entity with a given name exists or not.
-     * @param name The name of the entity to find
-     * @return true if the entity exists, false otherwise
+     * \brief Check wether an Entity with a given name exists or not.
+     * \param name The name of the Entity to find.
+     * \return true if the Entity exists, false otherwise.
      */
     bool entityExists( const std::string& name ) const;
 
     /**
-     * @brief Remove an entity given its index. Also deletes the pointer.
-     * @param idx Index if the entity to remove.
+     * \brief Remove an Entity given its index.
+     * \param idx Index if the Entity to remove.
+     * \note \p idx must be a valid Entity Index.
+     * \note \p idx is considered invalid after removal.
      */
     void removeEntity( Core::Utils::Index idx );
 
     /**
-     * @brief Remove a given entity. Also deletes the pointer.
-     * @param entity The entity to remove.
+     * \brief Remove a given Entity.
+     * \param entity The Entity to remove.
+     * \note \p entity must be a registered Entity.
      */
     void removeEntity( Entity* entity );
 
     /**
-     * @brief Get an entity given its index.
-     * @param idx Index of the component to retrieve.
-     * @return The entity if found in the map, nullptr otherwise.
+     * \brief Get an Entity given its index.
+     * \param idx Index of the Entity to find.
+     * \return The Entity if it exists, nullptr otherwise.
      */
     Entity* getEntity( Core::Utils::Index idx ) const;
 
     /**
-     * @brief Get all entities from the manager.
-     * This might be usefull to be able to display and navigate through them
-     * in a GUI for example.
-     * @return A list containing all entities from the manager.
-     */
-    std::vector<Entity*> getEntities() const;
-
-    void swapBuffers();
-
-    /**
-     * @brief Get an entity given its name.
-     * @param name Name of the entity to retrieve.
-     * @return The entity if found in the map, nullptr otherwise.
+     * \brief Get an entity given its name.
+     * \param name Name of the Entity to find.
+     * \return The Entity if it exists, nullptr otherwise.
      */
     Entity* getEntity( const std::string& name ) const;
 
     /**
-     * @brief Removes all entities.
+     * \brief Get all Entities from the manager.
+     * This might be usefull to be able to display and navigate through them
+     * in a gui for example.
+     * \return A list containing all Entities from the manager.
+     */
+    std::vector<Entity*> getEntities() const;
+
+    /**
+     * \brief Update the Entities transformations.
+     */
+    void swapBuffers();
+
+    /**
+     * \brief Removes all entities.
      */
     void deleteEntities();
 
   private:
+    /// The managed Entities.
     Core::Utils::IndexMap<std::unique_ptr<Entity>> m_entities;
+
+    /// The map from Entity name to storage index.
     std::map<std::string, Core::Utils::Index> m_entitiesName;
 };
 

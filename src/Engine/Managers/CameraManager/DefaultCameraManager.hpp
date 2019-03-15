@@ -11,33 +11,44 @@ namespace Ra {
 namespace Engine {
 
 /**
- * Associated class.
+ * Camera storage for the DefaultCameraManager.
  */
 class RA_ENGINE_API DefaultCameraStorage : public CameraStorage {
   public:
     DefaultCameraStorage();
+
+    ~DefaultCameraStorage() override = default;
+
     void add( Camera* cam ) override;
+
     void remove( Camera* cam ) override;
+
     size_t size() const override;
+
     void clear() override;
+
     Camera* operator[]( unsigned int n ) override;
 
   private:
-    /** Vectors (by Camera type) of Camera references. */
+    /// Vectors (by Camera type) of Camera references.
     std::multimap<Ra::Engine::Camera::ProjType, Ra::Engine::Camera*> m_Cameras;
 };
 
 /**
- * @brief DefaultCameraManager. A simple Camera Manager with a list of Cameras.
+ * \brief DefaultCameraManager. A simple CameraManager with a list of Cameras.
  */
 class RA_ENGINE_API DefaultCameraManager : public CameraManager {
   public:
     DefaultCameraManager();
 
-    /// Return the \p cam-th camera.
+    /**
+     * Return the \p cam-th Camera.
+     */
     const Camera* getCamera( size_t cam ) const override;
 
-    /// Add \p cam for management.
+    /**
+     * Add \p cam for management.
+     */
     void addCamera( Camera* cam ) override;
 };
 

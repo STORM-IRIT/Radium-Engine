@@ -10,68 +10,72 @@ namespace Ra {
 namespace Engine {
 
 /**
- * Interface providing functions to manage a group or type of lights
+ * Interface providing functions to manage a group or type of Lights
  * in a specific way.
  */
 class RA_ENGINE_API LightManager : public System {
     // Radium-V2 : make light manager compatible with range for ...
   public:
-    /// Constructor
     LightManager() = default;
 
-    // Make copies impossible
+    /**
+     * Copy operator is forbidden.
+     */
     LightManager( const LightManager& ) = delete;
+
+    /**
+     * Assignment operator is forbidden.
+     */
     LightManager& operator=( const LightManager& ) = delete;
 
-    /// Virtual destructor
     ~LightManager() override;
 
-    /// Get a pointer to the li-th Light.
+    /**
+     * Do nothing as this system only manages Light storage.
+     */
+    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
+
+    void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
+
+    /**
+     * Get a pointer to the li-th Light.
+     */
     virtual const Light* getLight( size_t li ) const = 0;
 
-    /** Add a light to the manager ...
-     * Consider the component is already registered. The light manager will not take ownership of
-     * the added light, it will just push the light on the storage ...
-     * @param li The (already registered) light to add.
+    /**
+     * Add a light to the manager.
+     * Considers \p li is already registered. The LightManager will
+     * not take ownership of the added Light, it will just push it in
+     * the storage.
      */
     virtual void addLight( const Light* li ) = 0;
 
-    //
-    // Calls for the Renderer. Note that
-    //
-
     /**
-     * @brief Number of lights.
+     * \brief Return the number of Lights.
      * This is still a work in progress. The idea is to make it possible for a
      * LightManager to tell it has only one Light, for example if it wants to send
-     * a lot of sources at once in a single RenderParams, let's say a texture.
+     * a lot of sources at once in a single RenderParameters, let's say a texture.
      */
     virtual size_t count() const;
 
-    //
-    // System methods
-    //
-    /// Do nothing as this system only manage light related asset loading
-    void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
+  protected:
+    /**
+     * Registers a Light belonging to an Entity.
+     */
+    void registerComponent( const Entity* entity, Component* component ) override final;
 
-    /// Transform loaded file data to usable entities and component in the engine
-    void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
+    /**
+     * Unregisters a Light belonging to an Entity.
+     */
+    void unregisterComponent( const Entity* entity, Component* component ) override final;
+
+    /**
+     * Removes all Lights belonging to an Entity.
+     */
+    void unregisterAllComponents( const Entity* entity ) override final;
 
   protected:
-    /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. LightStorage).
-    void registerComponent( const Entity* entity, Component* component ) final;
-
-    /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. LightStorage).
-    void unregisterComponent( const Entity* entity, Component* component ) final;
-
-    /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. LightStorage).
-    void unregisterAllComponents( const Entity* entity ) final;
-
-  protected:
-    /// Stores the object that stores the lights...
+    /// Light storage.
     std::unique_ptr<LightStorage> m_data{nullptr};
 };
 

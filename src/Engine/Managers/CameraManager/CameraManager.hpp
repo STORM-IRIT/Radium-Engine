@@ -23,57 +23,66 @@ namespace Engine {
 class RA_ENGINE_API CameraManager : public System {
     // Radium-V2 : make Camera manager compatible with range for ...
   public:
-    /// Constructor
     CameraManager() = default;
 
-    // Make copies impossible
+    /**
+     * Copy operator is forbidden.
+     */
     CameraManager( const CameraManager& ) = delete;
-    CameraManager& operator=( const CameraManager& ) = delete;
-
-    /// Virtual destructor
-    ~CameraManager() override = default;
-
-    /// Get a pointer to the cam-th Camera.
-    virtual const Camera* getCamera( size_t cam ) const = 0;
-
-    /// Add a Camera to the manager ...
-    virtual void addCamera( Camera* cam ) = 0;
-
-    //
-    // Calls for the Renderer
-    //
 
     /**
-     * @brief Number of Cameras.
-     * This is still a work in progress. The idea is to make it possible for a
-     * CameraManager to tell it has only one Camera, for example if it wants to send
-     * a lot of sources at once in a single RenderParams, let's say a texture.
+     * Assignement operator is forbidden.
      */
-    virtual size_t count() const;
+    CameraManager& operator=( const CameraManager& ) = delete;
 
-    //
-    // System methods
-    //
+    ~CameraManager() override = default;
+
+    /**
+     * Do nothing as this system only manages Camera storage.
+     */
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
     void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
 
-  protected:
-    /** Inherited method marked as final to ensure correct memory management
-     *  even in child classes (e.g. CameraStorage).
+    /**
+     * Get a pointer to the cam-th Camera.
      */
-    void registerComponent( const Entity* entity, Component* component ) final;
+    virtual const Camera* getCamera( size_t cam ) const = 0;
 
-    /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. CameraStorage).
-    void unregisterComponent( const Entity* entity, Component* component ) final;
+    /**
+     * Add a Camera to the manager.
+     * Considers \p cam is already registered. The CameraManager will
+     * not take ownership of the added Camera, it will just push it in
+     * the storage.
+     */
+    virtual void addCamera( Camera* cam ) = 0;
 
-    /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. CameraStorage).
-    void unregisterAllComponents( const Entity* entity ) final;
+    /**
+     * \brief Return the number of Cameras.
+     * This is still a work in progress. The idea is to make it possible for a
+     * CameraManager to tell it has only one Camera, for example if it wants to send
+     * a lot of sources at once in a single RenderParameters, let's say a texture.
+     */
+    virtual size_t count() const;
 
   protected:
-    /// Stores the object that stores the Cameras...
+    /**
+     * Registers a Camera belonging to an Entity.
+     */
+    void registerComponent( const Entity* entity, Component* component ) override final;
+
+    /**
+     * Unregisters a Camera belonging to an Entity.
+     */
+    void unregisterComponent( const Entity* entity, Component* component ) override final;
+
+    /**
+     * Removes all Camera belonging to an Entity.
+     */
+    void unregisterAllComponents( const Entity* entity ) override final;
+
+  protected:
+    /// Camera storage.
     std::unique_ptr<CameraStorage> m_data{nullptr};
 };
 
