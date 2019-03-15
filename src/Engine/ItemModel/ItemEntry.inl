@@ -1,3 +1,4 @@
+#include <Engine/ItemModel/ItemEntry.hpp>
 
 namespace Ra {
 namespace Engine {

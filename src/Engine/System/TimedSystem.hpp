@@ -7,29 +7,45 @@
 namespace Ra {
 namespace Engine {
 
-/// Timed Systems are systems which can be disabled or paused, e.g. animation systems.
+/**
+ * Timed Systems are Systems which can be disabled or paused, e.g.\ animation Systems.
+ */
 class RA_ENGINE_API AbstractTimedSystem : public System {
   public:
     AbstractTimedSystem() = default;
+
     ~AbstractTimedSystem() override = default;
 
-    /// Call this to enable / disable the system according to \p on.
+    /**
+     * Call this to enable / disable the System according to \p on.
+     */
     virtual void play( bool on ) = 0;
 
-    /// Call this to enable the system for only one frame.
+    /**
+     * Call this to enable the System for only one frame.
+     */
     virtual void step() = 0;
 
-    /// Call this to reset the system, and its Components, to their first frame state.
+    /**
+     * Call this to reset the System, and its Components, to their first frame state.
+     */
     virtual void reset() = 0;
 
-    /// Saves all the state data related to the \p frameID -th frame into a cache file.
+    /**
+     * Saves all the state data related to the \p frameID -th frame into a cache file.
+     */
     virtual void cacheFrame( const std::string& dir, uint frameID ) const = 0;
 
-    /// Restores the state data related to the \p frameID -th frame from the cache file.
-    /// \returns true if the frame has been successfully restored, false otherwise.
+    /**
+     * Restores the state data related to the \p frameID -th frame from the cache file.
+     * \returns true if the frame has been successfully restored, false otherwise.
+     */
     virtual bool restoreFrame( const std::string& dir, uint frameID ) = 0;
 };
 
+/**
+ * A CoupledTimedSystem couples AbstractTimedSystems.
+ */
 class RA_ENGINE_API CoupledTimedSystem : public BaseCouplingSystem<AbstractTimedSystem> {
   public:
     void play( bool on ) override {
