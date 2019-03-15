@@ -21,8 +21,6 @@ EntityManager::EntityManager() {
         ItemEntry( SystemEntity::getInstance() ) );
 }
 
-EntityManager::~EntityManager() = default;
-
 Entity* EntityManager::createEntity( const std::string& name ) {
     auto idx = m_entities.emplace( new Entity( name ) );
     auto& ent = m_entities[idx];

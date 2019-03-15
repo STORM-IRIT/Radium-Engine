@@ -17,28 +17,35 @@ namespace Engine {
  * an implementation-defined way.
  */
 class RA_ENGINE_API CameraStorage {
-  // Radium-V2 : make camera storage compatible with range for ...
+    // Radium-V2 : make camera storage compatible with range for ...
   public:
     CameraStorage() = default;
 
-    /// Destructor
     virtual ~CameraStorage() = default;
 
-    // Redefine container classic functions.
-
-    /// Returns the container size.
+    /**
+     * Returns the container size.
+     */
     virtual size_t size() const = 0;
 
-    /// Add a Camera to the container.
+    /**
+     * Add a Camera to the container.
+     */
     virtual void add( Camera* cam ) = 0;
 
-    /// Remove a Camera from the container.
+    /**
+     * Remove a Camera from the container.
+     */
     virtual void remove( Camera* cam ) = 0;
 
-    /// Clear the container.
+    /**
+     * Clear the container.
+     */
     virtual void clear() = 0;
 
-    /// Access the container.
+    /**
+     * Access the container.
+     */
     virtual Camera* operator[]( unsigned int n ) = 0;
 };
 

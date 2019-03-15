@@ -3,11 +3,10 @@
 
 #include <Engine/RaEngine.hpp>
 
-/// This file's main purpose is to declare a set of macros to allow drawing
-/// primitives from everywhere in the code, for debug purposes.
-/// These macros can be completely disabled by #defining the following constant :
-
-// define RA_DISABLE_DEBUG_DISPLAY
+// This file's main purpose is to declare a set of macros to allow drawing
+// primitives from everywhere in the code, for debug purposes.
+// These macros can be completely disabled by \#defining the following constant:
+// #define RA_DISABLE_DEBUG_DISPLAY
 
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
@@ -21,31 +20,43 @@
 
 namespace Ra {
 namespace Engine {
-#ifndef RA_DISABLE_DEBUG_DISPLAY
 
-/// Component for debug drawing. @see SystemEntity.
+#ifndef RA_DISABLE_DEBUG_DISPLAY
+/**
+ * Component for debug drawing. \see SystemEntity.
+ */
 class RA_ENGINE_API DebugComponent : public Component {
   public:
     explicit DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
 
-    void initialize() override{};
+    ~DebugComponent() override = default;
 
-    /// Access render object through RO manager
+    void initialize() override {}
+
+    /**
+     * Return the RenderObject with the given Index.
+     */
     RenderObject* getRenderObject( Core::Utils::Index idx );
 };
-
 #endif
 
-/// Component for UI drawing. @see SystemEntity.
+/**
+ * Component for gui drawing. \see SystemEntity.
+ */
 class RA_ENGINE_API UiComponent : public Component {
   public:
     explicit UiComponent( Entity* entity ) : Component( "UI", entity ) {}
 
+    ~UiComponent() override = default;
+
     void initialize() override {}
 };
 
-/// This entity allows to add UI and debug drawables from everywhere in the code.
-/// It should have only one component and its transform should not change.
+/**
+ * This Entity allows to add gui and debug drawables from everywhere in the code.
+ * It should have only one DebugComponent and one UiComponent,
+ * and its transform should not change.
+ */
 class RA_ENGINE_API SystemEntity : public Entity {
     RA_SINGLETON_INTERFACE( SystemEntity );
 
@@ -54,15 +65,21 @@ class RA_ENGINE_API SystemEntity : public Entity {
 
     ~SystemEntity() override = default;
 
-    /// Ignore raycast queries
+    /**
+     * Ignore raycast queries.
+     */
     void rayCastQuery( const Core::Ray& r ) const override {}
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
-    /// Access the debug component
+    /**
+     * Access the DebugComponent.
+     */
     static DebugComponent* dbgCmp();
-
 #endif
-    /// Access the UI Component
+
+    /**
+     * Access the UiComponent.
+     */
     static UiComponent* uiCmp();
 };
 
@@ -70,7 +87,10 @@ class RA_ENGINE_API SystemEntity : public Entity {
 } // namespace Ra
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
-/// Macros for debug drawing. All coordinates are in world space.
+/** \name Macros for debug drawing
+ * \note All coordinates are in world space.
+ */
+/// \{
 #    define RA_DISPLAY_POINT( p, color, scale )              \
         Ra::Engine::SystemEntity::dbgCmp()->addRenderObject( \
             Ra::Engine::DrawPrimitives::Primitive(           \
@@ -140,6 +160,7 @@ class RA_ENGINE_API SystemEntity : public Entity {
             Ra::Engine::DrawPrimitives::Primitive(           \
                 Ra::Engine::SystemEntity::dbgCmp(),          \
                 Ra::Engine::DrawPrimitives::Line( a, b, color ) ) )
+/// \}
 
 #else // if debug display is disabled
 
