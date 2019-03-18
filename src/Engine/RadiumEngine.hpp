@@ -31,8 +31,9 @@ class SignalManager;
 
 namespace Engine {
 /**
- * Engine main class : Manage all the systems and managers that are used by the engine module.
- * @see Documentation on Engine Object Model
+ * Radium main class: manages all the Systems and Managers that are
+ * used by the Engine module.
+ * \see Documentation on "Engine Object Model".
  */
 class RA_ENGINE_API RadiumEngine {
     RA_SINGLETON_INTERFACE( RadiumEngine );
@@ -48,113 +49,114 @@ class RA_ENGINE_API RadiumEngine {
     void initialize();
 
     /**
-     * Free all resources acquired during initialize
+     * Free all resources acquired during initialize.
      */
     void cleanup();
 
     /**
+     * Is called at the end of the frame to synchronize any data
+     * that may have been updated during the frame's multithreaded processing.
+     */
+    void endFrameSync();
+
+    /**
      * Builds the set of task that must be executed for the current frame.
+     * \param taskQueue the task queue that will be executed for the current frame.
+     * \param dt the time elapsed since the last frame.
      *
-     * @see Documentation on Engine Object Model the what are tasks and what they can do
-     * @param taskQueue the task queue that will be executed for the current frame
-     * @param dt
+     * \see The RadiumEngine programmer manual documentation for what are Tasks
+     *      and what they can do.
      */
     void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
 
     /**
-     * @param priority Value used to rank the systems (see more in description)
-     *
-     * System with high priority will always be used first. Systems with the same
-     * priority are ranked randomly.
-     * Default priority is 1 for all systems;
-     *
-     * @param name
-     * @param system
-     * @param priority
+     * Register the given System with the given name and priority.
+     * System with high priority will always be used first.
+     * Systems with the same priority are ranked randomly.
+     * Default priority is 1 for all Systems.
      */
     bool registerSystem( const std::string& name, System* system, int priority = 1 );
 
     /**
-     * Get the named system
-     * @param system
-     * @return
+     * Return the System with the given name.
      */
     System* getSystem( const std::string& system ) const;
 
-    /** Convenience function returning a Mesh from its entity and
-     * component names.
+    /**
+     * Convenience function returning a Mesh from its Entity and Component names.
      * When no RenderObject name is given, returns the mesh associated
-     * to the first render object.
-     * @note : mark as deprecated as it must be either removed or reimplemented
-     * @deprecated Will be removed from this class in the next release. A Mesh manager, that could
-     * serve mesh by name will be implemented.
+     * to the first RenderObject.
+     * \note Marked as deprecated as it must be either removed or reimplemented.
+     * \deprecated Will be removed from this class in the next release.
+     *             A MeshManager, that could store meshes by name will be implemented.
      */
     [[deprecated]] Mesh* getMesh( const std::string& entityName, const std::string& componentName,
                                   const std::string& roName = std::string() ) const;
 
+    /// \name File loading
+    /// \{
+
     /**
      * Try to loads the given file.
-     * If no loader is able to process the input fileformat (determined on the file extension),
-     * return false. If a loader is found, creates the root entity of the loaded scene and gives the
+     *
+     * If no loader is able to process the input fileformat (determined on the
+     * file extension), then returns false.
+     *
+     * If a loader is found, creates the root entity of the loaded scene and gives the
      * content of the file to all systems to add components and to this root entity.
-     * @note Calling this method set the engine in the "loading state".
-     * @param file
-     * @return true if file is loaded, false else.
+     *
+     * \return true if file is loaded, false otherwise.
+     * \note Calling this method puts the RadiumEngine in the "loading state".
      */
     bool loadFile( const std::string& file );
 
     /**
      * Access to the content of the loaded file.
-     * Access to the content is only available at loading time. As soon as the loaded file is
-     * released, its content is no more available outside the Entity/Component architecture.
-     * @pre The Engine must be in "loading state".
-     * @return
+     * Access to the content is only available at loading time.
+     * As soon as the loaded file is released, its content is no more available
+     * outside the Entity/Component architecture.
+     * \pre The RadiumEngine must be in "loading state".
      */
     const Core::Asset::FileData& getFileData() const;
 
     /**
      * Release the content of the loaded file.
-     * After calling this, the getFileData method is
-     * @note Calling this method set the engine out of the "loading state".
+     * \note Calling this method set the engine out of the "loading state".
      */
     void releaseFile();
 
-    /// Is called at the end of the frame to synchronize any data
-    /// that may have been updated during the frame's multithreaded processing.
-    void endFrameSync();
-
-    /// Manager getters
     /**
-     * Get the RenderObject manager attached to the engine.
-     * @note, the engine keep ownership on the pointer returned
-     * @return the object manager
-     */
-    RenderObjectManager* getRenderObjectManager() const;
-    /**
-     * Get the entity manager attached to the engine.
-     * @note, the engine keep ownership on the pointer returned
-     * @return the entity manager
-     */
-    EntityManager* getEntityManager() const;
-
-    /**
-     * Get the signal manager attached to the engine.
-     * @note, the engine keep ownership on the pointer returned
-     * @return the signal manager
-     */
-    SignalManager* getSignalManager() const;
-
-    /**
-     * Register a new file loader to the engine.
-     * @param fileLoader
+     * Register a new file loader to the Engine.
      */
     void registerFileLoader( std::shared_ptr<Core::Asset::FileLoaderInterface> fileLoader );
 
     /**
-     * Get the active file loaders from the engine
-     * @return
+     * Return the active file loaders from the Engine.
      */
     const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
+    /// \}
+
+    /// \name Manager getters
+    /// \{
+
+    /**
+     * Return the RenderObject manager attached to the Engine.
+     * \note The RadiumEngine keep ownership on the pointer returned.
+     */
+    RenderObjectManager* getRenderObjectManager() const;
+
+    /**
+     * Return the EntityManager attached to the Engine.
+     * \note The RadiumEngine keep ownership on the pointer returned.
+     */
+    EntityManager* getEntityManager() const;
+
+    /**
+     * Return the SignalManager attached to the Engine.
+     * \note The RadiumEngine keep ownership on the pointer returned.
+     */
+    SignalManager* getSignalManager() const;
+    /// \}
 
   private:
     using priority = int;
@@ -163,22 +165,40 @@ class RA_ENGINE_API RadiumEngine {
     // https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html
     using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<>>;
 
+    /**
+     * Searches for the System with name \p name.
+     * \return a const_iterator to the System if found, end() otherwise.
+     */
     SystemContainer::const_iterator findSystem( const std::string& name ) const;
+
+    /**
+     * Searches for the System with name \p name.
+     * \return an iterator to the System if found, end() otherwise.
+     */
     SystemContainer::iterator findSystem( const std::string& name );
 
     /**
-     * Stores the systems by priority.
+     * Stores the Systems by priority.
      * \note For convenience, higher priority means that a system will be evaluated first.
      */
     SystemContainer m_systems;
 
+    /// The RadiumEngine FileLoaders.
     std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
 
+    /// The RadiumEngine RenderObjectManager.
     std::unique_ptr<RenderObjectManager> m_renderObjectManager;
+
+    /// The RadiumEngine EntitytManager.
     std::unique_ptr<EntityManager> m_entityManager;
+
+    /// The RadiumEngine SignalManager.
     std::unique_ptr<SignalManager> m_signalManager;
+
+    /// The last loaded file data.
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
+    /// Whether a file is being loaded.
     bool m_loadingState{false};
 };
 
