@@ -83,7 +83,7 @@ void RenderObjectManager::getRenderObjectsByType(
     // Take the mutex
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
-    //// Copy each element in m_renderObjects
+    // Copy each element in m_renderObjects
     std::transform( m_renderObjectByType[(int)type].begin(), m_renderObjectByType[(int)type].end(),
                     std::back_inserter( objectsOut ), [this]( const Core::Utils::Index& i ) {
                         return this->m_renderObjects.at( i );

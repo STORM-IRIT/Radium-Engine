@@ -1,21 +1,22 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
-/**
+/*
  * @todo : make default shader configuration/default shader programm usable
- * outside of the main radium distribution or
- * find a way to ensure that "plain.glsl.*" is always reachable
- * (and change the name of this).
+ *         outside of the main radium distribution or find a way to ensure
+ *         that "plain.glsl.*" is always reachable (and change the name of this).
  * @see TranslateGizmo and RotateGizmo that explicitely try to load the shader
- * "Plain" that is main-app dependant!
+ *      "Plain" that is main-app dependant!
  *
  * \see issue #194
  */
 
 #if 0
-/** The following must define default shader. Perhaps this is not the good place for this and surely, this will need an
- * indepth modification of the shader system to ensure that default program is always correctly managed
+/* The following must define default shader. Perhaps this is not the good place
+ * for this and surely, this will need an indepth modification of the shader
+ * system to ensure that default program is always correctly managed:
  *      - creation/compilation at the first use
- *      - Find a way to notify client that the default shader was provided instead of the requested one
+ *      - Find a way to notify client that the default shader was provided
+ *        instead of the requested one
  *      - ...
  */
 static const std::string defaultVertexShader(
@@ -143,8 +144,8 @@ static const std::string defaultFragmentShader(
                                                );
 
 #else
-static const std::string defaultVertexShader{ "Shaders/Default.vert.glsl" };
-static const std::string defaultFragmentShader{ "Shaders/Default.frag.glsl" };
+static const std::string defaultVertexShader{"Shaders/Default.vert.glsl"};
+static const std::string defaultFragmentShader{"Shaders/Default.frag.glsl"};
 #endif
 
 namespace Ra {
@@ -155,13 +156,13 @@ ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program
                                                                 defaultFragmentShader );
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
-    m_name { name },
-    m_version { "#version 410" } {}
+    m_name{name},
+    m_version{"#version 410"} {}
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name, const std::string& vertexShader,
                                           const std::string& fragmentShader ) :
-    m_name{ name },
-    m_version { "#version 410" } {
+    m_name{name},
+    m_version{"#version 410"} {
     m_shaders[ShaderType_VERTEX] = vertexShader;
     m_shaders[ShaderType_FRAGMENT] = fragmentShader;
 }
@@ -202,7 +203,8 @@ void ShaderConfiguration::removeInclude( const std::string& incl, ShaderType typ
 }
 
 bool ShaderConfiguration::isComplete() const {
-    return ( ( ! m_shaders[ShaderType_VERTEX].empty() ) && ( ! m_shaders[ShaderType_FRAGMENT].empty() ) ) ||
+    return ( ( !m_shaders[ShaderType_VERTEX].empty() ) &&
+             ( !m_shaders[ShaderType_FRAGMENT].empty() ) ) ||
            !m_shaders[ShaderType_COMPUTE].empty();
 }
 
@@ -217,10 +219,12 @@ bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
         }
     }
 
+    // FIXME: what if same "define" properties but different include ones?
     if ( m_properties.size() == o.m_properties.size() )
     {
         if ( m_properties.empty() )
         {
+            // FIXME: what if same number of "include" properties is different?
             if ( m_includes.size() == o.m_includes.size() )
             {
                 if ( m_includes.empty() )
