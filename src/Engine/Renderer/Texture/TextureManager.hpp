@@ -12,12 +12,14 @@
 namespace Ra {
 namespace Engine {
 
-
 /**
  * Manage Texture loading and registration.
- * @todo (for Radium-V2) Allow to share the same image data between different instances of a texture.
- * Instances could be differentiated by the sampler parameter and the mip-map availability.
+ * \todo (for Radium-V2) Allow to share the same image data between different
+ *       instances of a Texture.
+ *       Instances could be differentiated by the sampler parameter and the
+ *       mip-map availability.
  */
+// FIXME: should go in Engine/Managers
 class RA_ENGINE_API TextureManager final {
     RA_SINGLETON_INTERFACE( TextureManager );
 
@@ -25,84 +27,93 @@ class RA_ENGINE_API TextureManager final {
     using TexturePair = std::pair<std::string, Texture*>;
 
   public:
-    /** Add a texture giving its name, dimension and content.
-     * Usefull for defining procedural textures
+    /**
+     * Add a Texture giving its name, dimension and content.
+     * Usefull for defining procedural Textures.
+     * \param name  name of the Texture.
+     * \param width width of the Texture.
+     * \param height height of the Texture.
+     * \param data pointer to the Texture content.
      *
-     * @param name  name of the texture
-     * @param width width of the texture
-     * @param height height of the texture
-     * @param data pointer to the texture content
-     *
-     * @return a texture descriptor that could be further specialized (filtering parameters ..) before the
-     * texture is inserted into Radium OpenGL system by getOrLoadTexture
+     * \return a Texture descriptor that could be further specialized (filtering parameters ..)
+     *         before the Texture is inserted into Radium OpenGL system by getOrLoadTexture().
      */
-    TextureParameters& addTexture(const std::string &name, uint width, uint height, void *data);
+    TextureParameters& addTexture( const std::string& name, uint width, uint height, void* data );
 
     /**
-     * Get or load a named texture.
-     * If image data are not presents in texParameters.texels (this field is nullptr), this method will
-     * assume that the texParameters.name field contains the fully qualified filename to be loaded to
-     * initialize texParameters.texels
+     * Create a Texture, initialize the OpenGL part for it and add the created
+     * Texture to the Texture cache of the engine.
      *
-     * If image data are presents in texParameters.texels (this field is not nullptr), the name could be of any form as
-     * no loading will occur.
+     * If image data are not present in \p texParameters.texels (this field is nullptr),
+     * this method will assume that the \p texParameters.name field contains the
+     * fully qualified filename to be loaded to initialize \p texParameters.texels.
      *
+     * If image data are present in \p texParameters.texels (this field is not nullptr),
+     * the name could be of any form as no loading will occur.
      *
-     * This method creates, initialize OpenGL part of the texture and add the created texture to the Texture cache of
-     * the engine.
-     * @note For the moment, the texture cache is indexed by the name of the texture only.
+     * \param texParameters The description of the Texture to create.
+     * \param linearize true if the Texture data (\p texParameters.texels) must be
+     *        converted from sRGB to LinearRGB.
      *
-     * @param texParameters : The description of the texture to create
-     * @param linearize : true if the texture data (texParameters.texels) must be converted from sRGB to LinearRGB
-     * @return The texture as inserted into the Radium available openGL system
+     * \return The Texture as inserted into the Radium available OpenGL system.
+     *
+     * \note For the moment, the Texture cache is indexed by the name of the Texture only.
      */
-    Texture *getOrLoadTexture(const TextureParameters &texParameters, bool linearize = false);
+    Texture* getOrLoadTexture( const TextureParameters& texParameters, bool linearize = false );
 
     /**
-     * Delete a named texture from the manager
-     * @param filename
+     * Delete a named Texture from the manager.
      */
     void deleteTexture( const std::string& filename );
+
     /**
-     * Delete a texture from the manager
-     * @param texture
+     * Delete a Texture from the manager.
      */
     void deleteTexture( Texture* texture );
 
     /**
-     * Lazy update the texture content from the raw pointer content.
-     * The real update will be done when calling updatePendingTextures
-     * @note User must ensure that the data pointed by content are of the good type wrt the texture.
-     * @param texture
-     * @param content
+     * Lazy update of the Texture content from the raw pointer to the new content.
+     * The real update will be done when calling updatePendingTextures().
+     * \note User must ensure that the data pointed by content are of the good
+     *       type w.r.t.\ the Texture.
      */
-    void updateTextureContent(const std::string &texture, void *content);
+    void updateTextureContent( const std::string& texture, void* content );
 
     /**
-     * Update all textures that are pending after a call to updateTextureContent.
+     * Update all Textures that are pending after a call to updateTextureContent.
      *
-     * The cooperation of updateTextureContent and updatePendingTextures allow applications to manage efficiently
-     * the on line texture generation by separating the content definition (updateTextureContent)
-     * from the OpenGL state modification (updatePendingTextures).
+     * The cooperation of updateTextureContent() and updatePendingTextures() allow
+     * applications to manage efficiently the on line texture generation by
+     * separating the content definition (updateTextureContent()) from the
+     * OpenGL state modification (updatePendingTextures()).
      */
     void updatePendingTextures();
 
   private:
     TextureManager();
+
     ~TextureManager();
 
-    /** Load a texture as described by texParameters.
-    * @note : only loads 2D image file for now.
-    * @param texParameters parameters describing the texture to laod. This paremeters will be updated
-     * (width, height, ...) according to the loaded file properties.
-    */
+    /**
+     * Load a Texture as described by \p texParameters.
+     * \param texParameters parameters describing the Texture to laod.
+     *        This paremeters will be updated (width, height, ...) according to
+     *        the loaded file properties.
+     * \note Only loads 2D image file for now.
+     */
     void loadTexture( TextureParameters& texParameters );
 
-private:
+  private:
+    /// The list of Textures.
     std::map<std::string, Texture*> m_textures;
+
+    /// The list of TextureData for Textures not yet loaded.
     std::map<std::string, TextureParameters> m_pendingTextures;
+
+    /// The list of Texture data for Textures not yet loaded.
     std::map<std::string, void*> m_pendingData;
 
+    /// Whether to print stat info to the Info output.
     bool m_verbose;
 };
 

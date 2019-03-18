@@ -7,8 +7,8 @@
 namespace Ra {
 namespace Engine {
 
-/** Point light for rendering
- *
+/**
+ * A PointLight is a light spreading in all directions around an emission point.
  */
 class RA_ENGINE_API PointLight final : public Light {
   public:
@@ -19,18 +19,35 @@ class RA_ENGINE_API PointLight final : public Light {
 
     void getRenderParameters( RenderParameters& params ) const override;
 
-    void setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) override;
-    inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
-
-    inline void setAttenuation( const Attenuation& attenuation );
-    inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
-    inline const Attenuation& getAttenuation() const;
-
     std::string getShaderInclude() const override;
 
+    void setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) override;
+
+    /**
+     * Return the emission point.
+     */
+    inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
+
+    /**
+     * Set the Attenuation coefficients.
+     */
+    inline void setAttenuation( const Attenuation& attenuation );
+
+    /**
+     * Set the Attenuation coefficients.
+     */
+    inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
+
+    /**
+     * Return the Attenuation coefficients.
+     */
+    inline const Attenuation& getAttenuation() const;
+
   private:
+    /// The emission point.
     Eigen::Matrix<Scalar, 3, 1> m_position{0, 0, 0};
 
+    /// The Attenuation coefficients.
     Attenuation m_attenuation{1, 0, 0};
 };
 

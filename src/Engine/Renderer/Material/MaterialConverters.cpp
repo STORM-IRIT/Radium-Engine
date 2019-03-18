@@ -4,21 +4,13 @@
 
 #include <map>
 
-///////////////////////////////////////////////
-////        Material converter system       ///
-///////////////////////////////////////////////
-
 namespace Ra {
 namespace Engine {
 
 using namespace Core::Utils; // log
 
-///////////////////////////////////////////////
-////        Radium Material converters      ///
-///////////////////////////////////////////////
-
 namespace EngineMaterialConverters {
-/// Map that stores each conversion function
+// Map that stores each conversion function.
 static std::map<std::string, std::function<RadiumMaterialPtr( AssetMaterialPtr )>>
     MaterialConverterRegistry;
 

@@ -1,3 +1,4 @@
+#include <Engine/Renderer/Material/Material.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -6,7 +7,7 @@ const std::string& Material::getName() const {
     return m_name;
 }
 
-void Material::setMaterialAspect(const MaterialAspect &aspect) {
+void Material::setMaterialAspect( const MaterialAspect& aspect ) {
     m_aspect = aspect;
 }
 

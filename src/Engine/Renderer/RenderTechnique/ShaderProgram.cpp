@@ -199,7 +199,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
         auto name = m_program->getActiveUniformName( i );
         auto type = m_program->getActiveUniform( i, GL_UNIFORM_TYPE );
 
-        //!\todo add other sampler type (or manage all type of sampler automatically)
+        // \todo add other sampler type (or manage all type of sampler automatically)
         if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
              type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D ||
              type == GL_SAMPLER_CUBE_SHADOW )
@@ -281,8 +281,6 @@ void ShaderProgram::setUniform( const char* name, float value ) const {
 void ShaderProgram::setUniform( const char* name, double value ) const {
     m_program->setUniform( name, static_cast<float>( value ) );
 }
-
-//!
 
 void ShaderProgram::setUniform( const char* name, std::vector<int> values ) const {
     m_program->setUniform( name, values );

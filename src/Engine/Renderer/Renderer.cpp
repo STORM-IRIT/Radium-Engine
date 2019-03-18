@@ -1,6 +1,5 @@
 #include <Engine/Renderer/Renderer.hpp>
 
-#include <Core/Asset/FileData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Managers/LightManager/LightManager.hpp>

@@ -1,3 +1,4 @@
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 namespace Ra {

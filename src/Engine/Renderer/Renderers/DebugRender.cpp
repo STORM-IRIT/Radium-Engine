@@ -23,7 +23,7 @@ DebugRender::DebugRender() = default;
 DebugRender::~DebugRender() = default;
 
 void DebugRender::initialize() {
-    /// FIXME : this was not ported to globject ...
+    // FIXME : this was not ported to globject ...
     auto createProgram = []( const char* vertStr, const char* fragStr ) -> uint {
         uint prog = glCreateProgram();
         GL_CHECK_ERROR;

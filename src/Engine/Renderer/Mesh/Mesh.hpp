@@ -24,49 +24,55 @@ namespace Engine {
 //                for this kind of renderings ...)
 
 /**
- * A class representing an openGL general mesh to be displayed.
+ * A class representing an OpenGL general mesh to be displayed.
  * It stores the vertex attributes, indices, and can be rendered
- * with a specific render mode (e.g. GL_TRIANGLES or GL_LINES).
+ * with a specific render mode (e.g.\ GL_TRIANGLES or GL_LINES).
  * It maintains the attributes and keeps them in sync with the GPU.
  * \note Attribute names are used to automatic location binding when using shaders.
  */
 class RA_ENGINE_API Mesh {
   public:
-    /// \name List of all possible vertex attributes.
-    ///@{
+    /// \name List of all available vertex attributes.
+    /// \{
     // This is also the layout of the "dirty bit" and "vbo" arrays.
 
-    /// Information which is in the mesh geometry
+    /**
+     * Information which is in the mesh geometry.
+     */
     enum MeshData : uint {
-        INDEX = 0,       ///< Vertex indices
-        VERTEX_POSITION, ///< Vertex positions
-        VERTEX_NORMAL,   ///< Vertex normals
+        INDEX = 0,       ///< Vertex indices.
+        VERTEX_POSITION, ///< Vertex positions.
+        VERTEX_NORMAL,   ///< Vertex normals.
 
-        MAX_MESH
+        MAX_MESH ///< Only there to give the number of data types.
     };
 
-    /// Optional vector 3 data.
+    /**
+     * Optional Vector3 data.
+     */
     enum Vec3Data : uint {
-        VERTEX_TANGENT = 0, ///< Vertex tangent 1
-        VERTEX_BITANGENT,   ///< Vertex tangent 2
-        VERTEX_TEXCOORD,    ///< U,V  texture coords (last coordinate not used)
+        VERTEX_TANGENT = 0, ///< Vertex tangent 1.
+        VERTEX_BITANGENT,   ///< Vertex tangent 2.
+        VERTEX_TEXCOORD,    ///< U,V texture coords (last coordinate not used).
 
-        MAX_VEC3
+        MAX_VEC3 ///< Only there to give the number of data types.
     };
 
-    /// Optional vector 4 data
+    /**
+     * Optional Vector4 data.
+     */
     enum Vec4Data : uint {
         VERTEX_COLOR = 0,  ///< RGBA color.
-        VERTEX_WEIGHTS,    ///< Skinning weights (not used)
-        VERTEX_WEIGHT_IDX, ///< Associated weight bones
+        VERTEX_WEIGHTS,    ///< Skinning weights (not used).
+        VERTEX_WEIGHT_IDX, ///< Associated influence bones.
 
-        MAX_VEC4
+        MAX_VEC4 ///< Only there to give the number of data types.
     };
-    ///@}
+    /// \}
 
     /**
      * Mesh render mode enum.
-     * values taken from OpenGL specification
+     * Values taken from OpenGL specification.
      */
     enum MeshRenderMode : uint {
         RM_POINTS = 0x0000,
@@ -86,28 +92,49 @@ class RA_ENGINE_API Mesh {
         RM_PATCHES = 0x000E,                  // decimal value: 14
     };
 
-    /// Total number of vertex attributes.
+    /**
+     * Total number of vertex attributes.
+     */
     constexpr static uint MAX_DATA = MAX_MESH + MAX_VEC3 + MAX_VEC4;
 
   public:
     explicit Mesh( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
+
     Mesh( const Mesh& rhs ) = delete;
+
     void operator=( const Mesh& rhs ) = delete;
 
     ~Mesh();
 
-    /// Returns the name of the mesh.
+    /**
+     * Returns the name of the mesh.
+     */
     inline const std::string& getName() const;
 
-    /// GL_POINTS, GL_LINES, GL_TRIANGLES, GL_TRIANGLE_ADJACENCY, etc...
+    /**
+     * Set the MeshRenderMode associated with the Mesh.
+     */
     inline void setRenderMode( MeshRenderMode mode );
+
+    /**
+     * Return the MeshRenderMode associated with the Mesh.
+     */
     MeshRenderMode getRenderMode() const { return m_renderMode; }
 
-    /// Returns the underlying TriangleMesh.
+    /**
+     * Returns the underlying TriangleMesh.
+     */
     inline const Core::Geometry::TriangleMesh& getGeometry() const;
+
+    /**
+     * Returns the underlying TriangleMesh.
+     */
     inline Core::Geometry::TriangleMesh& getGeometry();
 
-    /// Use the given geometry as base for a display mesh. Normals are optionnal.
+    /**
+     * Use the given TriangleMesh as base for a display mesh.
+     * \note Normals are optionnal.
+     */
     void loadGeometry( const Core::Geometry::TriangleMesh& mesh );
 
     /**
@@ -121,77 +148,119 @@ class RA_ENGINE_API Mesh {
     void loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices );
 
     /**
-     * Set additionnal vertex data.
-     * Initialize vertexAttrib if needed,
-     * data must have the appropriate size (i.e. num vertex) or empty (to
-     * remove the data)
-     * Theses functions might disapear to use directly Core::Geometry::TriangleMesh attribs.
+     * Set additionnal Vector3 vertex data.
+     * \note Initializes the TriangleMesh vertexAttrib if needed.
+     * \warning \p data must have the appropriate size (i.e.\ \#vertices).
+     * This functions might disapear to use directly Core::Geometry::TriangleMesh attribs.
      */
     void addData( const Vec3Data& type, const Core::Vector3Array& data );
+
+    /**
+     * Set additionnal Vector4 vertex data.
+     * \note Initializes the TriangleMesh vertexAttrib if needed.
+     * \warning \p data must have the appropriate size (i.e.\ \#vertices).
+     * This functions might disapear to use directly Core::Geometry::TriangleMesh attribs.
+     */
     void addData( const Vec4Data& type, const Core::Vector4Array& data );
 
-    /// Access the additionnal data arrays by type.
+    /**
+     * Access the additionnal Vector3 data arrays by type.
+     */
     inline const Core::Vector3Array& getData( const Vec3Data& type ) const;
+
+    /**
+     * Access the additionnal Vector4 data arrays by type.
+     */
     inline const Core::Vector4Array& getData( const Vec4Data& type ) const;
 
-    /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
+    /**
+     * Mark the given mesh data type as dirty, forcing an update of the OpenGL buffer.
+     */
     inline void setDirty( const MeshData& type );
+
+    /**
+     * Mark the given Vector3 data type as dirty, forcing an update of the OpenGL buffer.
+     */
     inline void setDirty( const Vec3Data& type );
+
+    /**
+     * Mark the given Vector4 data type as dirty, forcing an update of the OpenGL buffer.
+     */
     inline void setDirty( const Vec4Data& type );
 
     /**
      * This function is called at the start of the rendering. It will update the
-     * necessary openGL buffers.
+     * necessary OpenGL buffers.
      */
     void updateGL();
 
-    /// Draw the mesh.
+    /**
+     * Draw the mesh.
+     */
     void render();
 
-    /// Colorize all mesh vertices with the given color.
+    /**
+     * Colorize all mesh vertices with the given color.
+     */
     inline void colorize( const Core::Utils::Color& color );
 
   private:
-    /// Helper function to send buffer data to openGL.
+    /**
+     * Helper function to send buffer data to OpenGL.
+     */
     template <typename type>
     friend void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr,
                             uint vboIdx );
 
   private:
-    std::string m_name{}; /// Name of the mesh.
+    /// Name of the mesh.
+    std::string m_name{};
 
-    uint m_vao{0}; /// Index of our openGL VAO
-    MeshRenderMode m_renderMode{
-        MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
+    /// Index of our OpenGL VAO.
+    uint m_vao{0};
 
-    Core::Geometry::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
-                                         /// and normals
+    /// Render mode (GL_TRIANGLES or GL_LINES, etc.).
+    MeshRenderMode m_renderMode{MeshRenderMode::RM_TRIANGLES};
 
-    ///\todo @dlyr cleanup this mechanism to have something
-    /// extensible. Now the only attribs should be the one defined in
-    /// the enums MeshData, Vec3Data, Vec4Data.
+    /// Base geometry : vertices, triangles and normals.
+    Core::Geometry::TriangleMesh m_mesh;
 
-    /// Additionnal vertex vector 3 data handles, stored in Mesh, added
+    // TODO @dlyr cleanup this mechanism to have something extensible.
+    //      Now the only attribs should be the one defined in
+    //      the enums MeshData, Vec3Data, Vec4Data.
+
+    /// Additionnal vertex Vector3 data handles, stored in m_mesh.
     std::array<Core::Geometry::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
+
+    /// Dummy Vector3 data.
     Core::Geometry::TriangleMesh::Vec3AttribHandle::Container m_dummy3;
-    /// Additionnal vertex vector 4 data handles, stored in Mesh, added
+
+    /// Additionnal vertex Vector4 data handles, stored in m_mesh.
     std::array<Core::Geometry::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
+
+    /// Dummy Vector4 data.
     Core::Geometry::TriangleMesh::Vec4AttribHandle::Container m_dummy4;
 
     // Combined arrays store the flags in this order Mesh, then Vec3 then Vec4 data.
     // Following the enum declaration above.
     // Our first VBO index is actually the indices buffer index.
     // The following are for vertex data.
-    // Each data type has a corresponding openGL attribute number, which is
+    // Each data type has a corresponding OpenGL attribute number, which is
     // vbo index - 1 (thus vertex position is VBO number 1 but attribute 0).
 
-    std::array<uint, MAX_DATA> m_vbos = {{0}};          /// Indices of our openGL VBOs.
-    std::array<bool, MAX_DATA> m_dataDirty = {{false}}; /// Dirty bits of our vertex data.
+    /// Indices of our OpenGL VBOs.
+    std::array<uint, MAX_DATA> m_vbos = {{0}};
 
-    size_t m_numElements{0}; /// number of elements to draw. For triangles this is 3*numTriangles
-                             /// but not for lines.
-    /// General dirty bit of the mesh. Must be equivalent of the  "or" of the other dirty flags.
-    /// an empty mesh is not dirty
+    /// Dirty bits of our vertex data.
+    std::array<bool, MAX_DATA> m_dataDirty = {{false}};
+
+    /// Number of elements to draw. For triangles this is 3*numTriangles but not for lines.
+    size_t m_numElements{0};
+
+    /**
+     * General dirty bit of the mesh. Must be equivalent of the "or" of the other dirty flags.
+     * \note An empty mesh is not dirty.
+     */
     bool m_isDirty{false};
 };
 

@@ -7,8 +7,9 @@
 namespace Ra {
 namespace Engine {
 
-/** Directional light for rendering
- *
+/**
+ * A DirectionalLight is a Light directed along one direction,
+ * lighting from and to infinity.
  */
 class RA_ENGINE_API DirectionalLight final : public Light {
   public:
@@ -20,11 +21,16 @@ class RA_ENGINE_API DirectionalLight final : public Light {
     void getRenderParameters( RenderParameters& params ) const override;
 
     void setDirection( const Eigen::Matrix<Scalar, 3, 1>& dir ) override;
-    inline const Eigen::Matrix<Scalar, 3, 1>& getDirection() const;
 
     std::string getShaderInclude() const override;
 
+    /**
+     * Return the lighting direction.
+     */
+    inline const Eigen::Matrix<Scalar, 3, 1>& getDirection() const;
+
   private:
+    /// The lighting direction.
     Eigen::Matrix<Scalar, 3, 1> m_direction{0, -1, 0};
 };
 

@@ -1,11 +1,11 @@
 #ifndef RADIUMENGINE_OPENGL_HPP
 #define RADIUMENGINE_OPENGL_HPP
 
-/// This file provides portable inclusion of OpenGL headers.
-/// In addition it defines the following debug macros
-/// GL_ASSERT(x) : executes code x and, if in debug, asserts when an openGL error is detected.
-/// GL_CHECK_ERROR : queries the last openGL error in debug (no effect in release)
-/// glFlushError() : Ignores the previous openGL errors (no effect in release).
+// This file provides portable inclusion of OpenGL headers.
+// In addition it defines the following debug macros
+// GL_ASSERT(x) : executes code x and, if in debug, asserts when an OpenGL error is detected.
+// GL_CHECK_ERROR : queries the last OpenGL error in debug (no effect in release)
+// glFlushError() : Ignores the previous OpenGL errors (no effect in release).
 
 #include <glbinding/gl45core/gl.h>
 using namespace gl45core;
@@ -18,12 +18,16 @@ using namespace gl45ext;
 #    define GL_SCALAR GL_DOUBLE
 #endif
 
-/// Checks that an openGLContext is available (mostly for debug checks and asserts).
+/**
+ * Checks that an OpenGL Context is available (mostly for debug checks and asserts).
+ */
 inline bool checkOpenGLContext() {
     return glGetString( GL_VERSION ) != nullptr;
 }
 
-/// Gets the openGL error string (emulates gluErrorString())
+/**
+ * Gets the OpenGL error string (emulates gluErrorString()).
+ */
 inline const char* glErrorString( GLenum err ) {
     switch ( err )
     {
@@ -76,7 +80,7 @@ inline const char* glErrorString( GLenum err ) {
             }                                                                                    \
         }
 
-/// This macro will query the last openGL error.
+/// This macro will query the last OpenGL error.
 #    define GL_CHECK_ERROR                                                                   \
         {                                                                                    \
             GLenum err = glGetError();                                                       \
@@ -91,7 +95,7 @@ inline const char* glErrorString( GLenum err ) {
             }                                                                                \
         }
 
-/// Ignore the previous openGL errors.
+/// Ignore the previous OpenGL errors.
 #    define glFlushError() glGetError()
 
 #else // Release version ignores the checks and errors.

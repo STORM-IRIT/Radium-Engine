@@ -16,88 +16,130 @@ class RenderObject;
 class Component;
 class Mesh;
 
-/// A set of convenient functions to instantiate simple displays such as points, lines, etc.
-/// note that objects will be drawn in their entity's local frame.
-/// For "instant" debug drawing, @see DebugDisplay.
+/**
+ * A set of convenient functions to instantiate simple displays such as points, lines, etc.
+ * \note Objects will be drawn in their entity's local frame.
+ * \note For "instant" debug drawing, see DebugRender.
+ */
 namespace DrawPrimitives {
+
+/**
+ * Convenience typedef.
+ */
 using MeshPtr = std::shared_ptr<Mesh>;
 
+/**
+ * Return the RenderObject initialized from the given Mesh.
+ */
 RA_ENGINE_API RenderObject* Primitive( Component* comp, const MeshPtr& mesh );
 
-/// Displays given point shown as the crossing of 3 lines of length 'scale'
+/**
+ * Displays given point shown as the crossing of 3 lines of length \p scale.
+ */
 RA_ENGINE_API MeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color,
                              Scalar scale = 0.1f );
 
-/// Displays given line
+/**
+ * Displays given line.
+ */
 RA_ENGINE_API MeshPtr Line( const Core::Vector3& a, const Core::Vector3& b,
                             const Core::Utils::Color& color );
 
-/// Displays given vector shown as an arrow originating from 'start'
+/**
+ * Displays given vector shown as an arrow originating from \p start.
+ */
 RA_ENGINE_API MeshPtr Vector( const Core::Vector3& start, const Core::Vector3& v,
                               const Core::Utils::Color& color );
 
-/// Displays given ray as a straight line.
+/**
+ * Displays given ray as a straight line.
+ */
 RA_ENGINE_API MeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color );
 
-/// Displays given triangle ABC, either in wireframe (fill = false)
-/// or filled with the color(fill = true).
+/**
+ * Displays given triangle ABC, either in wireframe (\p fill = false)
+ * or filled with the color (\p fill = true).
+ */
 RA_ENGINE_API MeshPtr Triangle( const Core::Vector3& a, const Core::Vector3& b,
                                 const Core::Vector3& c, const Core::Utils::Color& color,
                                 bool fill = false );
 
-/// Displays a strip of n quads, starting at A and with directions X and Y.
+/**
+ * Displays a strip of n quads, starting at A and with directions X and Y.
+ */
 RA_ENGINE_API MeshPtr QuadStrip( const Core::Vector3& a, const Core::Vector3& x,
                                  const Core::Vector3& y, uint quads,
                                  const Core::Utils::Color& color );
 
-/// Displays circle computed with given center and radius,
-/// in plane normal to given vector in wireframe
+/**
+ * Displays circle computed with given center and radius,
+ * in plane normal to given vector in wireframe.
+ */
 RA_ENGINE_API MeshPtr Circle( const Core::Vector3& center, const Core::Vector3& normal,
                               Scalar radius, uint segments, const Core::Utils::Color& color );
 
-/// Displays arc of a circle computed with given center, radius and angle
-/// in plane normal to given vector in wireframe
+/**
+ * Displays arc of a circle computed with given center, radius and angle
+ * in plane normal to given vector in wireframe.
+ */
 RA_ENGINE_API MeshPtr CircleArc( const Core::Vector3& center, const Core::Vector3& normal,
                                  Scalar radius, Scalar angle, uint segments,
                                  const Core::Utils::Color& color );
 
-/// Displays sphere computed with given center and radius
+/**
+ * Displays sphere computed with given center and radius.
+ */
 RA_ENGINE_API MeshPtr Sphere( const Core::Vector3& center, Scalar radius,
                               const Core::Utils::Color& color );
 
-/// Displays a capsule computed with given endpoints and radius.
+/**
+ * Displays a capsule computed with given endpoints and radius.
+ */
 RA_ENGINE_API MeshPtr Capsule( const Core::Vector3& p1, const Core::Vector3& p2, Scalar radius,
                                const Core::Utils::Color& color );
 
-/// Displays disk (filled circle) computed with given center and radius,
-/// in plane normal to given vector in wireframe
+/**
+ * Displays disk (filled circle) computed with given center and radius,
+ * in plane normal to given vector in wireframe.
+ */
 RA_ENGINE_API MeshPtr Disk( const Core::Vector3& center, const Core::Vector3& normal, Scalar radius,
                             uint segments, const Core::Utils::Color& color );
 
-/// Displays a normal vector emanating from the given point as a vector arrow
-/// and a normal plane of size 'scale'.
+/**
+ * Displays a normal vector emanating from the given point as a vector arrow
+ * and a normal plane of size \p scale.
+ */
 RA_ENGINE_API MeshPtr Normal( const Core::Vector3& point, const Core::Vector3& normal,
                               const Core::Utils::Color& color, Scalar scale = 0.1f );
 
-/// Displays a 3D frame representing the given transform.
-/// Each axis has length 'scale' and are in usual colors
-/// (X,Y,Z = red, green blue)
-/// Remainder : the transform will be drawn relative
-/// to the component's entity transform.
+/**
+ * Displays a 3D frame representing the given transform.
+ * Each axis has length \p scale and are in usual colors (X,Y,Z = red, green blue).
+ * \note The transform will be drawn relative to the component's entity transform.
+ */
 RA_ENGINE_API MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale = 0.1f );
 
-/// Create a res*res square grid centered on center,
-/// in plane normal to normal.
+/**
+ * Create a \p res * \p res square grid centered on \p center and orthogonal to \p normal.
+ */
 RA_ENGINE_API MeshPtr Grid( const Core::Vector3& center, const Core::Vector3& x,
                             const Core::Vector3& y, const Core::Utils::Color& color,
                             Scalar cellSize = 1.f, uint res = 10 );
 
-/// Display a wireframe AABB
+/**
+ * Display a wireframe Aabb with color \p color.
+ */
 RA_ENGINE_API MeshPtr AABB( const Core::Aabb& aabb, const Core::Utils::Color& color );
 
-/// Display a wireframe OBB
+/**
+ * Display a wireframe Obb with color \p color.
+ */
 RA_ENGINE_API MeshPtr OBB( const Core::Geometry::Obb& obb, const Core::Utils::Color& color );
 
+/**
+ * Display the Spline curve defined by the given control points,
+ * with color \p color.
+ */
 RA_ENGINE_API MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline, uint pointCount,
                               const Core::Utils::Color& color, Scalar scale = 1.0f );
 } // namespace DrawPrimitives

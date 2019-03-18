@@ -14,8 +14,9 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 class MaterialData;
-}
+} // namespace Asset
 } // namespace Core
+
 namespace Engine {
 
 class ShaderProgram;
@@ -27,96 +28,107 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
     friend class BlinnPhongMaterialConverter;
 
   public:
-    /// Semantic of the texture : define which BSDF parameter is controled by the texture
+    /**
+     * Semantic of the texture: define which BSDF parameter is controled by the texture.
+     */
     enum class TextureSemantic { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     /**
-     * Construct a named Blinn-Phongmaterial
-     * @param name The name of the material
+     * Construct a named Blinn-Phong Material.
+     * \param name The name of the Material.
      */
     explicit BlinnPhongMaterial( const std::string& name );
+
     /**
      * Destructor.
-     * @note The material does not have ownership on its texture. This destructor do not delete the
-     * associated textures.
+     * \note The Material does not have ownership on its textures.
+     *       This destructor do not delete the associated textures.
      */
     ~BlinnPhongMaterial() override;
 
-    /**
-     * Get the basename of the glsl source file to include if one want to build composite shaders
-     * that use this material.
-     * @return The basename (without extension .frag.glsl or .vert.glsl) of the glsl source file.
-     */
+    void updateGL() override;
+
+    void bind( const ShaderProgram* shader ) override;
+
     const std::string getShaderInclude() const override;
 
-    void updateGL() override;
-    void bind( const ShaderProgram* shader ) override;
     bool isTransparent() const override;
 
     /**
-     * Add an already existing texture to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use
+     * Add an already existing Texture to control the specified BSDF parameter.
+     * \param semantic The TextureSemantic.
+     * \param texture  The Texture to use.
      */
     inline void addTexture( const TextureSemantic& semantic, Texture* texture );
 
     /**
-     * Get the texture associated to the given semantic.
-     * @param semantic
-     * @return
-     */
-    inline Texture* getTexture( const TextureSemantic& semantic ) const;
-
-    /**
-     * Register the material in the material library.
-     * After registration, the material could be instantiated by any Radium system, renderer,
-     * plugin, ...
-     */
-    static void registerMaterial();
-
-    /**
-     * Remove the material from the material library.
-     * After removal, the material is no more available, ...
-     */
-    static void unregisterMaterial();
-
-  public:
-    Core::Utils::Color m_kd{0.9, 0.9, 0.9, 1.0};
-    Core::Utils::Color m_ks{0.0, 0.0, 0.0, 1.0};
-    Scalar m_ns{1.0};
-    Scalar m_alpha{1.0};
-
-    /**
-     * Add an new texture, from a TextureData, to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use (file)
-     * @return the corresponding TextureData struct
+     * Add an new Texture to control the specified BSDF parameter.
+     * \param semantic The TextureSemantic.
+     * \param texture  The TextureParameters.
+     * \return the corresponding TextureParameters.
      */
     inline TextureParameters& addTexture( const TextureSemantic& semantic,
                                           const TextureParameters& texture );
 
-  private:
-    std::map<TextureSemantic, Texture*> m_textures;
-    std::map<TextureSemantic, TextureParameters> m_pendingTextures;
+    /**
+     * Return the Texture associated to the given TextureSemantic.
+     */
+    inline Texture* getTexture( const TextureSemantic& semantic ) const;
 
     /**
-     * Add an new texture, from a given file, to control the specified BSDF parameter.
-     * @param semantic The texture semantic
-     * @param texture  The texture to use (file)
-     * @return the corresponding TextureData struct
+     * Register the Material in the Material library.
+     * After registration, the Material could be instantiated by any Radium
+     * System, Renderer, Plugin, ...
+     */
+    static void registerMaterial();
+
+    /**
+     * Remove the Material from the Material library.
+     * After removal, the Material is no more available.
+     */
+    static void unregisterMaterial();
+
+  public:
+    /// The diffuse color of the Material.
+    Core::Utils::Color m_kd{0.9, 0.9, 0.9, 1.0};
+
+    /// The specular color of the Material.
+    Core::Utils::Color m_ks{0.0, 0.0, 0.0, 1.0};
+
+    /// The shininess exponent of the Material.
+    Scalar m_ns{1.0};
+
+    /// The alpha value of the Material.
+    Scalar m_alpha{1.0};
+
+  private:
+    /**
+     * Add an new Texture, from a given file, to control the specified BSDF parameter.
+     * \param semantic The TextureSemantic.
+     * \param texture  The Texture filename to use.
+     * \return the corresponding TextureParameters.
      */
     inline TextureParameters& addTexture( const TextureSemantic& semantic,
                                           const std::string& texture );
+
+  private:
+    /// The list of initialized Textures.
+    std::map<TextureSemantic, Texture*> m_textures;
+
+    /// The lits of to-initialize Textures.
+    std::map<TextureSemantic, TextureParameters> m_pendingTextures;
 };
 
 /**
- * Converter from an external representation comming from FileData to internal representation.
+ * Converter from an external representation coming as a FileData
+ * to the internal representation.
  */
 class RA_ENGINE_API BlinnPhongMaterialConverter final {
   public:
     BlinnPhongMaterialConverter() = default;
+
     ~BlinnPhongMaterialConverter() = default;
 
     Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
