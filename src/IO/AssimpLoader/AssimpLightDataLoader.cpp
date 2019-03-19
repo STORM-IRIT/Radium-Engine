@@ -19,7 +19,6 @@ AssimpLightDataLoader::AssimpLightDataLoader( const std::string& filepath,
 
 AssimpLightDataLoader::~AssimpLightDataLoader() = default;
 
-/// LOADING
 void AssimpLightDataLoader::loadData( const aiScene* scene,
                                       std::vector<std::unique_ptr<LightData>>& data ) {
     data.clear();
@@ -63,11 +62,8 @@ uint AssimpLightDataLoader::sceneLightSize( const aiScene* scene ) const {
     return scene->mNumLights;
 }
 
-// LightData * AssimpLightDataLoader::loadLightData(const aiScene *scene, const aiLight
-// &light)
 std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* scene,
                                                                  const aiLight& light ) {
-    //    auto builtLight = new LightData(fetchName( light ), fetchType( light) );
     auto builtLight = std::make_unique<LightData>( fetchName( light ), fetchType( light ) );
     Core::Matrix4 rootMatrix;
     rootMatrix = Core::Matrix4::Identity();
@@ -165,7 +161,7 @@ LightData::LightType AssimpLightDataLoader::fetchType( const aiLight& light ) co
     case aiLightSource_UNDEFINED:
     default:
     {
-        //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
+        // LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
         return LightData::UNKNOWN;
     }
     }
