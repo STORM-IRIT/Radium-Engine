@@ -6,13 +6,17 @@
 namespace Ra {
 namespace GuiBase {
 
+/**
+ * Stores the data related to a key event.
+ */
 struct KeyEvent {
-    /// KeyEventType : Press, Release
+    /// KeyEventType: Press or Release.
     KeyEventType::KeyEventType event;
+
     /// Keycode. Test this with Qt::Keys enum values.
     int key;
 
-    /// Modifier used : Ctrl, Alt, Shift.
+    /// Modifier used: <Ctrl>, <Alt> or <Shift>.
     Modifier::Modifier modifier;
 };
 

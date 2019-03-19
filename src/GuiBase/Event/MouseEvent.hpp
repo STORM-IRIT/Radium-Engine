@@ -6,21 +6,26 @@
 namespace Ra {
 namespace GuiBase {
 
+/**
+ * Stores the data related to a mouse event.
+ */
 struct MouseEvent {
-    /// MouseEventType: Press, Release, Move, Wheel
+    /// MouseEventType: Press, Release, Move or Wheel.
     MouseEventType::MouseEventType event;
-    /// MouseButton : Left button, Right button, Middle button
+
+    /// MouseButton: Left button, Right button or Middle button.
     MouseButton::MouseButton button;
 
-    /// Modifier has been used ? Ctrl, Alt, Shift
+    /// Modifier used: Ctrl, Alt or Shift.
     Modifier::Modifier modifier;
 
     /// X mouse position in [width, height] when the event occured.
     int absoluteXPosition;
+
     /// Y mouse position in [width, height] when the event occured.
     int absoluteYPosition;
 
-    /// Wheel delta. Is only set for WheelEvent, undefined otherwise.
+    /// Wheel delta. It is only set for WheelEvents, undefined otherwise.
     int wheelDelta;
 };
 

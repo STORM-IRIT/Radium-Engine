@@ -28,40 +28,61 @@ class Renderer;
 namespace Ra {
 namespace GuiBase {
 
-/// Interface class for MainWindow
-/// contains abstract methods that MainApplication uses.
+/**
+ * Interface class for MainWindow.
+ * Contains abstract methods that MainApplication uses.
+ */
 class RA_GUIBASE_API MainWindowInterface : public QMainWindow {
     Q_OBJECT
 
   public:
-    /// Constructor and destructor.
-    explicit MainWindowInterface( QWidget* parent = nullptr ){};
-    virtual ~MainWindowInterface(){};
+    explicit MainWindowInterface( QWidget* parent = nullptr ) {}
 
-    /// Access the viewer, i.e. the rendering widget.
+    virtual ~MainWindowInterface() {}
+
+    /**
+     * Access the Viewer, i.e.\ the rendering widget.
+     */
     virtual Ra::Gui::Viewer* getViewer() = 0;
 
-    /// Access the selection manager.
+    /**
+     * Access the SelectionManager.
+     */
     virtual GuiBase::SelectionManager* getSelectionManager() = 0;
 
-    /// Update the ui from the plugins loaded.
+    /**
+     * Update the gui from the loaded plugins.
+     */
     virtual void updateUi( Plugins::RadiumPluginInterface* plugin ) = 0;
 
-    /// Update the UI ( most importantly gizmos ) to the modifications of the
-    /// engine/
+    /**
+     * Update the gui (most importantly gizmos) according to the modifications
+     * of the Engine.
+     */
     virtual void onFrameComplete() = 0;
 
-    /// Add render in the application: UI, viewer.
+    /**
+     * Add a Renderer to the application.
+     */
     virtual void addRenderer( std::string name, std::shared_ptr<Engine::Renderer> e ) = 0;
 
   public slots:
-    /// Call after loading a new file to let the window resetview for instance.
+    /**
+     * Notify a file has been corectly loaded.
+     * Updates what must be updated w.r.t.\ the new scene configuration
+     * (e.g.\ Camera, gui, ...).
+     */
     virtual void postLoadFile() = 0;
-    /// Cleanup resources.
+
+    /**
+     * Cleanup resources.
+     */
     virtual void cleanup() = 0;
 
   signals:
-    /// Emitted when the closed button has been hit.
+    /**
+     * Emitted when the closed button has been hit.
+     */
     void closed();
 };
 } // namespace GuiBase

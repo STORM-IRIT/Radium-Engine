@@ -14,14 +14,19 @@ namespace Gui {
 // TODO: find how to apply it in global frame.
 class ScaleGizmo : public Gizmo {
   public:
-    // Draw a frame with : 3 RGB cube-shaped arrows and 3 RGB squares
+    /**
+     * Draw a frame with: 3 RGB cube-shaped arrows and 3 RGB squares.
+     */
     ScaleGizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t,
                 Mode mode );
 
     void updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
                           const Core::Transform& t ) override;
+
     void selectConstraint( int drawableIndex ) override;
+
     void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
+
     Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
                                bool stepped = false ) override;
 
