@@ -6,10 +6,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/////////////////////
-/// GLOBAL MATRIX ///
-/////////////////////
-
 LaplacianMatrix standardLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A,
                                    const bool POSITIVE_SEMI_DEFINITE ) {
     if ( POSITIVE_SEMI_DEFINITE )
@@ -66,10 +62,6 @@ LaplacianMatrix cotangentWeightLaplacian( const VectorArray<Vector3>& p,
     }
     return ( 0.5 * L );
 }
-
-////////////////
-/// ONE RING ///
-////////////////
 
 Vector3 uniformLaplacian( const Vector3& v, const VectorArray<Vector3>& p ) {
     Vector3 L;

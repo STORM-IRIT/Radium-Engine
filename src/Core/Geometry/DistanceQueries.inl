@@ -28,6 +28,7 @@ inline RA_CORE_API Scalar pointToSegmentSq( const Vector3& q, const Vector3& a,
     return ( q - ( a + t * ( ab ) ) ).squaredNorm();
 }
 
+namespace {
 // Triangle funcs
 enum FlagsInternal {
     HIT_FACE = PointToTriangleOutput::HIT_FACE,
@@ -40,6 +41,7 @@ enum FlagsInternal {
     HIT_BC = 0x4 | PointToTriangleOutput::HIT_EDGE,
     HIT_CA = 0x8 | PointToTriangleOutput::HIT_EDGE,
 };
+} // namespace
 
 inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q, const Vector3& a,
                                                        const Vector3& b, const Vector3& c ) {

@@ -9,10 +9,6 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-//////////////
-/// GLOBAL ///
-//////////////
-
 void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
                     VectorArray<Vector3>& normal ) {
     const size_t N = p.size();
@@ -106,10 +102,6 @@ void areaWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Vector
         n.normalize();
     }
 }
-
-////////////////
-/// ONE RING ///
-////////////////
 
 Vector3 uniformNormal( const Vector3& v, const VectorArray<Vector3>& one_ring ) {
     Vector3 normal;
