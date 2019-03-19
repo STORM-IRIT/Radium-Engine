@@ -7,19 +7,22 @@
 namespace Ra {
 namespace IO {
 
-class RA_IO_API[[deprecated]] OBJFileManager : public FileManager<Core::Geometry::TriangleMesh> {
+/**
+ * The class OBJFileManager handles the loading and storing of TriangleMesh in
+ * the standard OBJ file format.
+ */
+class [[deprecated]] RA_IO_API OBJFileManager : public FileManager<Core::Geometry::TriangleMesh> {
   public:
-    /// CONSTRUCTOR
     OBJFileManager();
 
-    /// DESTRUCTOR
     ~OBJFileManager() override;
 
-    /// INTERFACE
-    virtual std::string fileExtension() const override;
-    virtual bool importData( std::istream & file, Core::Geometry::TriangleMesh & data ) override;
-    virtual bool exportData( std::ostream & file, const Core::Geometry::TriangleMesh& data )
-        override;
+  protected:
+    std::string fileExtension() const override;
+
+    bool importData( std::istream & file, Core::Geometry::TriangleMesh & data ) override;
+
+    bool exportData( std::ostream & file, const Core::Geometry::TriangleMesh& data ) override;
 };
 
 } // namespace IO

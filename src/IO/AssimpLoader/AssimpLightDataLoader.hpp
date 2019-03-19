@@ -15,51 +15,67 @@ struct aiNode;
 namespace Ra {
 namespace Engine {
 class Light;
-}
-
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
 namespace IO {
-
+/**
+ * The AssimpHandleDataLoader converts light data from the Assimp format
+ * to the Asset::LightData format.
+ */
 class RA_IO_API AssimpLightDataLoader : public Core::Asset::DataLoader<Core::Asset::LightData> {
   public:
-    /// CONSTRUCTOR
     explicit AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
-    /// DESTRUCTOR
     ~AssimpLightDataLoader() override;
 
-    /// LOADING
     void loadData( const aiScene* scene,
                    std::vector<std::unique_ptr<Core::Asset::LightData>>& data ) override;
 
   protected:
-    /// QUERY
+    /**
+     * Return true if the given scene has light data.
+     */
     inline bool sceneHasLight( const aiScene* scene ) const;
 
+    /**
+     * Return the number of lights in the given scene.
+     */
     uint sceneLightSize( const aiScene* scene ) const;
 
-    /// LOADING
-
-    //    Core::Asset::LightData *loadLightData(const aiScene *scene, const aiLight &light);
+    /**
+     * Fill the returned LightData from \p light.
+     */
     std::unique_ptr<Core::Asset::LightData> loadLightData( const aiScene* scene,
                                                            const aiLight& light );
 
+    /**
+     * Register the light frame.
+     */
+    inline void setFrame( const Core::Matrix4& frame ) { m_frame = frame; }
+
+    /**
+     * Fill \p data with the light name from \p light.
+     */
+    std::string fetchName( const aiLight& light ) const;
+
+    /**
+     * Fill \p data with the light type from \p light.
+     */
+    Core::Asset::LightData::LightType fetchType( const aiLight& light ) const;
+
+    /**
+     * Return the light transformation, in world space, for \p data from \p the scene.
+     */
     Core::Matrix4 loadLightFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
                                   const std::string& lightName ) const;
 
-    /// NAME
-    std::string fetchName( const aiLight& light ) const;
-
-    /// TYPE
-    Core::Asset::LightData::LightType fetchType( const aiLight& light ) const;
-
-    /// FRAME
-    inline void setFrame( const Core::Matrix4& frame ) { m_frame = frame; }
-
   private:
+    /// The file.
     std::string m_filepath;
+
+    /// The light frame.
     Core::Transform m_frame;
 };
 

@@ -13,6 +13,11 @@
 namespace Ra {
 namespace IO {
 
+/** \name Assimp Wrappers
+ * Util functions to convert AssImp basic types (vectors, matrices, strings...)
+ * to the Core format (eigen vectors and matrices, stl strings...).
+ */
+/// \{
 inline Core::Vector3 assimpToCore( const aiVector3D& v ) {
     return Core::Vector3( v.x, v.y, v.z );
 }
@@ -74,6 +79,7 @@ inline Core::VectorNi assimpToCore( const uint* index, const uint size ) {
 
     return v;
 }
+/// \}
 
 } // namespace IO
 } // namespace Ra

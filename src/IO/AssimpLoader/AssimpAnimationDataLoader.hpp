@@ -19,34 +19,56 @@ struct HandleAnimation;
 
 namespace IO {
 
+/**
+ * The AssimpAnimationDataLoader converts animation data from the Assimp format
+ * to the Asset::AnimationData format.
+ */
 class RA_IO_API AssimpAnimationDataLoader
     : public Core::Asset::DataLoader<Core::Asset::AnimationData> {
   public:
-    /// CONSTRUCTOR
     explicit AssimpAnimationDataLoader( const bool VERBOSE_MODE = false );
 
-    /// DESTRUCTOR
     ~AssimpAnimationDataLoader() override;
 
-    /// LOADING
     void loadData( const aiScene* scene,
                    std::vector<std::unique_ptr<Core::Asset::AnimationData>>& data ) override;
 
   protected:
-    /// QUERY
+    /**
+     * Return true if the given scene has animation data.
+     */
     bool sceneHasAnimation( const aiScene* scene ) const;
+
+    /**
+     * Return the number of AssImp animation data in the given scene.
+     */
     uint sceneAnimationSize( const aiScene* scene ) const;
 
-    /// NAME
+    /**
+     * Fill \p data with the name from \p anim.
+     */
     void fetchName( const aiAnimation* anim, Core::Asset::AnimationData* data ) const;
 
-    /// TIME
+    /**
+     * Fill \p data with the AnimationTime from \p anim.
+     */
     void fetchTime( const aiAnimation* anim, Core::Asset::AnimationData* data ) const;
 
-    /// KEY FRAME
+    /**
+     * Fill \p data with all the AnimationData from \p scene.
+     */
     void loadAnimationData( const aiScene* scene,
                             std::vector<std::unique_ptr<Core::Asset::AnimationData>>& data ) const;
+
+    /**
+     * Fill \p data with the AnimationData from \p anim.
+     */
     void fetchAnimation( const aiAnimation* anim, Core::Asset::AnimationData* data ) const;
+
+    /**
+     * Fill \p data with the HandleAnimation from \p anim, according to the
+     * animation timestep \p dt.
+     */
     void fetchHandleAnimation( aiNodeAnim* node, Core::Asset::HandleAnimation& data,
                                const Core::Animation::Time dt ) const;
 };

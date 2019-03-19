@@ -41,7 +41,7 @@ FileData* CameraFileLoader::loadFile( const std::string& filename ) {
         LOG( logERROR ) << "[CameraLoader] File Loading begin...";
     }
 
-    /// Open the file
+    // Open the file
     std::ifstream ss( filename );
     if ( !ss.is_open() )
     {
@@ -50,7 +50,7 @@ FileData* CameraFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
 
-    /// Read data
+    // Read data
     std::clock_t startTime = std::clock();
     std::string str;
     int type;
@@ -75,7 +75,7 @@ FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     }
     std::clock_t endTime = std::clock();
 
-    /// create the CameraData
+    // create the CameraData
     CameraData* camera = new CameraData();
     camera->setName( Core::Utils::getBaseName( filename, false ) );
     camera->setType( CameraData::CameraType( type ) );

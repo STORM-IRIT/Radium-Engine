@@ -16,14 +16,11 @@ namespace IO {
 using namespace Core::Utils; // log
 using namespace Core::Asset;
 
-/// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
     DataLoader<HandleData>( VERBOSE_MODE ){};
 
-/// DESTRUCTOR
 AssimpHandleDataLoader::~AssimpHandleDataLoader() = default;
 
-/// LOAD
 void AssimpHandleDataLoader::loadData( const aiScene* scene,
                                        std::vector<std::unique_ptr<HandleData>>& data ) {
     data.clear();
@@ -54,7 +51,6 @@ void AssimpHandleDataLoader::loadData( const aiScene* scene,
     }
 }
 
-/// QUERY
 bool AssimpHandleDataLoader::sceneHasHandle( const aiScene* scene ) const {
     return ( sceneHandleSize( scene ) != 0 );
 }
@@ -76,7 +72,6 @@ uint AssimpHandleDataLoader::sceneHandleSize( const aiScene* scene ) const {
     return handle_size;
 }
 
-/// LOAD
 void AssimpHandleDataLoader::loadHandleData(
     const aiScene* scene, std::vector<std::unique_ptr<HandleData>>& data ) const {
     const uint meshSize = scene->mNumMeshes;
@@ -247,7 +242,6 @@ void AssimpHandleDataLoader::loadHandleFrame(
     }
 }
 
-/// NAME
 void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, HandleData& data,
                                         std::set<std::string>& usedNames ) const {
     std::string name = assimpToCore( mesh.mName );
@@ -260,13 +254,11 @@ void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, HandleData& data,
     data.setName( name );
 }
 
-/// TYPE
 void AssimpHandleDataLoader::fetchType( const aiMesh& mesh, HandleData& data ) const {
     data.setType( HandleData::SKELETON );
     // TO DO: is there a way to know the right type of handle?
 }
 
-/// VERTEX SIZE
 void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
     const uint componentSize = data.getComponentDataSize();
     uint vertexSize = 0;
