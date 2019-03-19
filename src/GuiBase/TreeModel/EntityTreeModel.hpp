@@ -10,22 +10,39 @@
 namespace Ra {
 namespace GuiBase {
 
+/**
+ * A TreeItem for a RadiumEngine object.
+ */
 class RA_GUIBASE_API EngineTreeItem : public TreeItem {
   public:
+    /**
+     * Return the name of the object.
+     */
     std::string getName() const override {
         return getEntryName( Engine::RadiumEngine::getInstance(), m_entry );
     }
 
+    /**
+     * Return true if the object ItemEntry is valid.
+     */
     bool isValid() const override { return m_entry.isValid(); }
 
+    /**
+     * Return true if the object can be selected.
+     */
     bool isSelectable() const override { return m_entry.isSelectable(); }
 
   public:
+    /**
+     * The ItemEntry for the object.
+     */
     Engine::ItemEntry m_entry;
 };
 
-/// Implementation of QAbstractItemModel to show the engine objects
-/// as a tree in the main GUI.
+/**
+ * Implementation of QAbstractItemModel to show the RadiumEngine objects
+ * as a tree in the main gui.
+ */
 class RA_GUIBASE_API ItemModel : public TreeModel {
     Q_OBJECT
   public:
@@ -35,30 +52,44 @@ class RA_GUIBASE_API ItemModel : public TreeModel {
         buildModel();
     }
 
-    // Other functions
-
-    /// Returns the entry corresponding to a given index or an invalid entry
-    /// if the index doesn't match any entry.
+    /**
+     * Returns the ItemEntry corresponding to a given index or an invalid
+     * ItemEntry if the index doesn't match any.
+     */
     const Engine::ItemEntry& getEntry( const QModelIndex& index ) const;
 
-    /// Returns the index corresponding to the given entry if it exists in the
-    /// model, or an invalid index if not found.
+    /**
+     * Returns the index corresponding to the given ItemEntry if it exists,
+     * an invalid index otherwise.
+     */
     QModelIndex findEntryIndex( const Engine::ItemEntry& entry ) const;
 
   public slots:
-
+    /**
+     * Add \p ent to the tree.
+     * \note Will assert if \p ent is invalid or already in the tree.
+     */
     void addItem( const Engine::ItemEntry& ent );
 
+    /**
+     * Remove \p ent to the tree.
+     * \note Will assert if \p ent is invalid or not in the tree.
+     */
     void removeItem( const Engine::ItemEntry& ent );
 
   protected:
-    /// Internal function to build the tree.
+    /**
+     * Internal function to build the tree.
+     */
     void buildModel() override;
 
+    /**
+     * Return the name of the Tree.
+     */
     std::string getHeaderString() const override { return "Engine Objects Tree"; }
 
   protected:
-    /// Engine instance.
+    /// RadiumEngine instance.
     const Engine::RadiumEngine* m_engine;
 };
 
