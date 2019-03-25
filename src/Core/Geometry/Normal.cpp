@@ -35,7 +35,7 @@ void uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>&
     }
 
 #pragma omp parallel for
-    for ( uint i = 0; i < N; ++i )
+    for ( int i = 0; i < N; ++i )
     {
         if ( !normal[i].isApprox( Vector3::Zero() ) )
         {
