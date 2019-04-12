@@ -2577,7 +2577,7 @@ namespace Ra
                     }
                 }
 
-                /// Weighting QEM (proximity detection, one is enough)
+                /// Proximity detection, one is enough (for weighting qem)
                 else
                 {
                     uint k = 0;
@@ -2789,6 +2789,43 @@ namespace Ra
             {
                 // edge collapse and putting the collapse data in the ProgressiveMeshLOD
                 Ra::Core::PriorityQueue::PriorityQueueData d = obj->getPriorityQueue()->top();
+
+                /// Boundary method : if the edge has only one boundary vertex, it will be the resulting vertex (halfedge collapse)
+                if (m_boundary)
+                {
+                    bool vsIsBoundary = false;
+                    bool vtIsBoundary = false;
+
+                    int nb = m_boundaryVertices[objIndex].size();
+
+                    uint i = 0;
+
+                    while ((!vsIsBoundary || !vtIsBoundary) && i < nb)
+                    {
+                        if (m_boundaryVertices[objIndex][i] == d.m_vs_id)
+                        {
+                            vsIsBoundary = true;
+                        }
+                        else if (m_boundaryVertices[objIndex][i] == d.m_vt_id)
+                        {
+                            vtIsBoundary = true;
+                        }
+                        i++;
+                    }
+
+                    if (vsIsBoundary && !vtIsBoundary)
+                    {
+                        d.m_p_result = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[d.m_vs_id]->P();
+                        LOG(logINFO) << "Halfedge collapse";
+                    }
+                    else if (!vsIsBoundary && vtIsBoundary)
+                    {
+                        d.m_p_result = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[d.m_vt_id]->P();
+                        m_boundaryVertices[objIndex].push_back(d.m_vs_id);
+                        LOG(logINFO) << "Halfedge collapse";
+                    }
+                }
+
                 Ra::Core::HalfEdge_ptr he = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
 
 
