@@ -47,6 +47,7 @@ namespace Ra
             ,m_nbclusters_display( 1 )
             ,m_proximity( true )
             ,m_weight( 1 )
+            ,m_boundary( false )
         {
         }
 
@@ -2854,6 +2855,12 @@ namespace Ra
         void MeshContactManager::setWeight(double weight)
         {
             m_weight = weight;
+        }
+
+        void MeshContactManager::setBoundary()
+        {
+            m_proximity = false;
+            m_boundary = true;
         }
 
         void MeshContactManager::proxVertices()
