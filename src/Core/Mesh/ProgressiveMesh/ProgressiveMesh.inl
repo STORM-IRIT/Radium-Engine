@@ -330,12 +330,22 @@ namespace Ra
             Vertex_ptr v1 = m_dcel->m_vertex[vertexIndex1];
             Vertex_ptr v2 = m_dcel->m_vertex[vertexIndex2];
 
-
             const Super4PCS::TriangleKdTree<>::VectorType& p1 = reinterpret_cast<const Super4PCS::TriangleKdTree<>::VectorType&>(v1->P());
             const Super4PCS::TriangleKdTree<>::VectorType& p2 = reinterpret_cast<const Super4PCS::TriangleKdTree<>::VectorType&>(v2->P());
 
             // Look if the edge is too close to another object
             return trianglekdtrees[idxOtherObject]->doQueryIsProximity(p1, p2, threshold);
+        }
+
+        template <class ErrorMetric>
+        bool ProgressiveMesh<ErrorMetric>::isProximityVertex(Index vertexIndex, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold)
+        {
+            Vertex_ptr v = m_dcel->m_vertex[vertexIndex];
+
+            const Super4PCS::TriangleKdTree<>::VectorType& p = reinterpret_cast<const Super4PCS::TriangleKdTree<>::VectorType&>(v->P());
+
+            // Look if the vertex is too close to another object
+            return trianglekdtrees[idxOtherObject]->doQueryIsProximityPoint(p, threshold);
         }
 
 //        template <class ErrorMetric>

@@ -52,6 +52,7 @@ namespace Ra
             virtual int edgeContact(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold) = 0;
             virtual void edgeContacts(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold, std::vector<std::pair<int,Scalar> >& contacts) = 0;
             virtual bool isProximity(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold) = 0;
+            virtual bool isProximityVertex(Index vertexIndex, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold) = 0;
 
             virtual bool isEcolConsistent(Index halfEdgeIndex, Vector3 pResult) = 0;
             virtual bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/) = 0;
@@ -126,6 +127,7 @@ namespace Ra
             void edgeContacts(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold, std::vector<std::pair<int,Scalar> >& contacts);
             //bool hasContact(Index halfEdgeIndex, std::vector<Super4PCS::KdTree<Scalar>*> kdtrees, int idx);
             bool isProximity(Index vertexIndex1, Index vertexIndex2, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold);
+            bool isProximityVertex(Index vertexIndex, std::vector<Super4PCS::TriangleKdTree<>*> trianglekdtrees, int idxOtherObject, Scalar threshold);
 
             bool isEcolConsistent(Index halfEdgeIndex, Vector3 pResult);
             bool isEcolPossible(Index halfEdgeIndex, Vector3 pResult/*, std::vector<Super4PCS::KdTree<float>*> kdtrees, int idx*/);
