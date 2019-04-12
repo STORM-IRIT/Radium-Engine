@@ -2644,6 +2644,40 @@ namespace Ra
                 m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
             }
 
+            /// Boundary method : finding boundary vertices in all meshes
+            if (m_boundary)
+            {
+                LOG(logINFO) << "Boundary vertices computation begins...";
+                for (uint objIndex=0; objIndex < m_meshContactElements.size(); objIndex++)
+                {
+                    std::vector<Ra::Core::Index> boundary;
+                    int nb = m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex.size();
+                    for (uint i = 0; i < nb; i++)
+                    {
+                        Ra::Core::Vertex_ptr& v = m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[i];
+                        uint k = 0;
+                        bool contact = false;
+                        while(k<m_trianglekdtrees.size() && !contact)
+                        {
+                            if (k != objIndex)
+                            {
+                                if (m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->isProximityVertex(v->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2)))
+                                {
+                                    contact = true;
+                                }
+                            }
+                            k++;
+                        }
+                        if (contact)
+                        {
+                            boundary.push_back(v->idx);
+                        }
+                    }
+                    m_boundaryVertices.push_back(boundary);
+                }
+                LOG(logINFO) << "Boundary vertices computation ends...";
+            }
+
             LOG(logINFO) << "Priority queue computation begins...";
 
             for (uint objIndex=0; objIndex < m_nbobjects; objIndex++)

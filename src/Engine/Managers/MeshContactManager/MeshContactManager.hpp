@@ -76,6 +76,7 @@ namespace Ra
             void colorMeshesSimplified();
             void setWeightState(bool state);
             void setWeight(double weight);
+            void setBoundary();
 
             int getNbFacesMax();
             void computeNbFacesMax();
@@ -152,6 +153,10 @@ namespace Ra
             Scalar m_n; // slope of the weight function for contacts
             bool m_proximity;
             Scalar m_weight;
+            bool m_boundary;
+
+            // array of boundary vertices of the scene (one array per mesh)
+            std::vector<std::vector<Ra::Core::Index> > m_boundaryVertices;
 
             Eigen::Matrix<Scalar, NBMAX_ELEMENTS, NBMAX_ELEMENTS> m_thresholds; // thresholds for each pair of objects
             std::vector<Super4PCS::AABB3D> m_aabb;
