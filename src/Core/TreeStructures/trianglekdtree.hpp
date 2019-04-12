@@ -86,6 +86,8 @@ public:
 
     inline bool doQueryIsProximity(const VectorType &s1, const VectorType &s2, Scalar sqdist);
 
+    inline bool doQueryIsProximityPoint(const VectorType &s, Scalar sqdist);
+
     inline std::pair<Index,Scalar> doQueryRestrictedClosestIndexTriangle(const VectorType &a, const VectorType &b, const VectorType &c);
 
     inline std::pair<Index,Scalar> doQueryRestrictedClosestIndexPoint(const VectorType& p);
@@ -495,6 +497,68 @@ bool TriangleKdTree<Index>::doQueryIsProximity(const VectorType &s1, const Vecto
                         mNodeStack[count].nodeId  = node.firstChildId+1;
                         qnode.nodeId = node.firstChildId;
                     }
+                }
+                mNodeStack[count].sq = qnode.sq;
+                qnode.sq = new_off*new_off;
+                ++count;
+            }
+        }
+        else
+        {
+            // pop
+            --count;
+        }
+    }
+    return false;
+}
+
+template<typename Index>
+bool TriangleKdTree<Index>::doQueryIsProximityPoint(const VectorType &s, Scalar sqdist)
+{
+    mNodeStack[0].nodeId = 0;
+    mNodeStack[0].sq = 0.f;
+    unsigned int count = 1;
+
+    while (count)
+    {
+        QueryNode& qnode = mNodeStack[count-1];
+        KdNode   & node  = mNodes[qnode.nodeId];
+
+        if (qnode.sq < sqdist)
+        {
+            if (node.leaf)
+            {
+                --count; // pop
+                const int nbTriangles = node.triangleIndices.size();
+                for (int i = 0; i < nbTriangles; i++)
+                {
+                    const VectorType triangle[3] = { mPoints[mTriangles[node.triangleIndices[i]][0]],
+                                                     mPoints[mTriangles[node.triangleIndices[i]][1]],
+                                                     mPoints[mTriangles[node.triangleIndices[i]][2]] };
+                    const Scalar dist = Ra::Core::DistanceQueries::pointToTriSq(s, triangle[0], triangle[1], triangle[2]).distanceSquared;
+                    if (dist < sqdist)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                Scalar new_off;
+                const Scalar d = s[node.dim] - node.splitValue;
+                // the point is on the left side of the split plane
+                if (d < 0.)
+                {
+                    new_off = d;
+                    mNodeStack[count].nodeId  = node.firstChildId;
+                    qnode.nodeId = node.firstChildId+1;
+                }
+                // the point is on the right side of the split plane
+                else if (d >= 0)
+                {
+                    new_off = d;
+                    mNodeStack[count].nodeId  = node.firstChildId+1;
+                    qnode.nodeId = node.firstChildId;
                 }
                 mNodeStack[count].sq = qnode.sq;
                 qnode.sq = new_off*new_off;
