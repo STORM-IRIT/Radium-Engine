@@ -2659,7 +2659,7 @@ namespace Ra
                         bool contact = false;
                         while(k<m_trianglekdtrees.size() && !contact)
                         {
-                            if (k != objIndex)
+                            if (m_proximityPairs2(objIndex,k))
                             {
                                 if (m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->isProximityVertex(v->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2)))
                                 {
@@ -2816,13 +2816,13 @@ namespace Ra
                     if (vsIsBoundary && !vtIsBoundary)
                     {
                         d.m_p_result = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[d.m_vs_id]->P();
-                        LOG(logINFO) << "Halfedge collapse";
+                        //LOG(logINFO) << "Halfedge collapse";
                     }
                     else if (!vsIsBoundary && vtIsBoundary)
                     {
                         d.m_p_result = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[d.m_vt_id]->P();
                         m_boundaryVertices[objIndex].push_back(d.m_vs_id);
-                        LOG(logINFO) << "Halfedge collapse";
+                        //LOG(logINFO) << "Halfedge collapse";
                     }
                 }
 
