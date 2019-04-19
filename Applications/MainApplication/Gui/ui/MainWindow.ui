@@ -106,13 +106,6 @@
             </item>
             <item>
              <layout class="QGridLayout" name="gridLayout_4">
-              <item row="0" column="0">
-               <widget class="QPushButton" name="m_toggleRenderObjectButton">
-                <property name="text">
-                 <string>Toggle Visible</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="1">
                <widget class="QPushButton" name="m_editRenderObjectButton">
                 <property name="enabled">
