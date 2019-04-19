@@ -32,14 +32,36 @@ TreeItem* TreeModel::getItem( const QModelIndex& index ) const {
 }
 
 QVariant TreeModel::data( const QModelIndex& index, int role ) const {
-    if ( index.isValid() && role == Qt::DisplayRole )
+    if( index.isValid() && index.column() == 0 )
     {
-        if ( index.column() == 0 )
+        if ( role == Qt::DisplayRole )
         {
             return QVariant( QString::fromStdString( getItem( index )->getName() ) );
         }
+        else if ( role == Qt::CheckStateRole )
+        {
+            return static_cast< int >( getItem( index )->isChecked() ? Qt::Checked : Qt::Unchecked );
+        }
     }
     return QVariant();
+}
+
+bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int role )
+{
+    if( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole )
+    {
+        bool checked = value.toBool();
+        getItem( index )->setChecked( checked );
+        emit dataChanged( index, index, {Qt::CheckStateRole} );
+
+        // recursion on all children
+        for(size_t i=0; i<getItem( index )->m_children.size(); ++i)
+        {
+            setData( this->index(i, 0, index), value, role );
+        }
+        return true;
+    }
+    return false;
 }
 
 QVariant TreeModel::headerData( int section, Qt::Orientation orientation, int role ) const {
@@ -87,7 +109,7 @@ QModelIndex TreeModel::parent( const QModelIndex& child ) const {
 
 Qt::ItemFlags TreeModel::flags( const QModelIndex& index ) const {
     return index.isValid() && getItem( index )->isValid() && getItem( index )->isSelectable()
-               ? QAbstractItemModel::flags( index )
+               ? QAbstractItemModel::flags( index ) | Qt::ItemIsUserCheckable
                : Qt::ItemFlags( 0 );
 }
 
