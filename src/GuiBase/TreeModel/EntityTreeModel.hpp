@@ -33,6 +33,7 @@ class RA_GUIBASE_API ItemModel : public TreeModel {
         TreeModel( parent ),
         m_engine( engine ) {
         buildModel();
+        connect(this, &TreeModel::dataChanged, this, &ItemModel::onDataChanged);
     }
 
     // Other functions
@@ -50,6 +51,14 @@ class RA_GUIBASE_API ItemModel : public TreeModel {
     void addItem( const Engine::ItemEntry& ent );
 
     void removeItem( const Engine::ItemEntry& ent );
+
+  private slots:
+
+    void onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
+
+  signals:
+
+    void visibilityROChanged(Ra::Core::Utils::Index roIndex, bool visible);
 
   protected:
     /// Internal function to build the tree.
