@@ -243,10 +243,10 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     setupScene();
     emit starting();
 
-    // A file has been required, load it.
-    if ( parser.isSet( fileOpt ) )
+    // Files have been required, load them.
+    for(const auto& filename : parser.values( fileOpt ))
     {
-        loadFile( parser.value( fileOpt ) );
+        loadFile( filename );
     }
 
     // A camera has been required, load it.
