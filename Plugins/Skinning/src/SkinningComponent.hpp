@@ -22,15 +22,18 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
   public:
     /// The Geometric Skinning Method.
     enum SkinningType {
-        LBS = 0, ///< Linear Blend Skinning
-        DQS,     ///< Dual Quaternion Skinning
-        COR      ///< Center of Rotation skinning
+        LBS = 0,  ///< Linear Blend Skinning
+        DQS,      ///< Dual Quaternion Skinning
+        COR,      ///< Center of Rotation skinning
+        STBS_LBS, ///< Stretchable Twistable Bone Skinning with LBS
+        STBS_DQS  ///< Stretchable Twistable Bone Skinning with DQS
     };
 
     SkinningComponent( const std::string& name, SkinningType type, Ra::Engine::Entity* entity ) :
         Component( name, entity ),
         m_skinningType( type ),
-        m_isReady( false ) {}
+        m_isReady( false ),
+        m_forceUpdate( false ) {}
 
     virtual ~SkinningComponent() {}
 
@@ -99,11 +102,17 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     /// Are all the required data available.
     bool m_isReady;
 
+    /// Whether skinning is mandatory for the current frame.
+    bool m_forceUpdate;
+
     /// The list of DualQuaternions used for DQS.
     Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion> m_DQ;
 
     /// The duplicate vertices map, used to recompute smooth normals.
     std::vector<Ra::Core::Utils::Index> m_duplicatesMap;
+
+    /// The STBS weights.
+    Ra::Core::Animation::WeightMatrix m_weightSTBS;
 };
 } // namespace SkinningPlugin
 

@@ -4,8 +4,11 @@
 #include <Core/Geometry/Normal.hpp>
 
 #include <Core/Animation/DualQuaternionSkinning.hpp>
+#include <Core/Animation/HandleWeightOperation.hpp>
 #include <Core/Animation/LinearBlendSkinning.hpp>
 #include <Core/Animation/RotationCenterSkinning.hpp>
+#include <Core/Animation/StretchableTwistableBoneSkinning.hpp>
+#include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Geometry/TriangleOperation.hpp>
 
 using Ra::Core::DualQuaternion;
@@ -148,8 +151,10 @@ void SkinningComponent::skin() {
     {
         m_frameData.m_currentPose = skel->getPose( SpaceType::MODEL );
         if ( !Ra::Core::Animation::areEqual( m_frameData.m_currentPose,
-                                             m_frameData.m_previousPose ) )
+                                             m_frameData.m_previousPose ) ||
+             m_forceUpdate )
         {
+            m_forceUpdate = false;
             m_frameData.m_doSkinning = true;
             m_frameData.m_frameCounter++;
             m_frameData.m_refToCurrentRelPose =
@@ -180,6 +185,24 @@ void SkinningComponent::skin() {
                 Ra::Core::Animation::corSkinning(
                     m_refData.m_referenceMesh.vertices(), m_frameData.m_refToCurrentRelPose,
                     m_refData.m_weights, m_refData.m_CoR, m_frameData.m_currentPos );
+                break;
+            }
+            case STBS_LBS:
+            {
+                Ra::Core::Animation::linearBlendSkinningSTBS(
+                    m_refData.m_referenceMesh.vertices(), m_frameData.m_refToCurrentRelPose, *skel,
+                    m_refData.m_skeleton, m_refData.m_weights, m_weightSTBS,
+                    m_frameData.m_currentPos );
+                break;
+            }
+            case STBS_DQS:
+            {
+                Ra::Core::AlignedStdVector<DualQuaternion> DQ;
+                Ra::Core::Animation::computeDQSTBS( m_frameData.m_refToCurrentRelPose, *skel,
+                                                    m_refData.m_skeleton, m_refData.m_weights,
+                                                    m_weightSTBS, DQ );
+                Ra::Core::Animation::dualQuaternionSkinning( m_refData.m_referenceMesh.vertices(),
+                                                             DQ, m_frameData.m_currentPos );
                 break;
             }
             }
@@ -298,6 +321,7 @@ void SkinningComponent::setSkinningType( SkinningType type ) {
     if ( m_isReady )
     {
         setupSkinningType( type );
+        m_forceUpdate = true;
     }
 }
 
@@ -322,6 +346,42 @@ void SkinningComponent::setupSkinningType( SkinningType type ) {
         if ( m_refData.m_CoR.empty() )
         {
             Ra::Core::Animation::computeCoR( m_refData );
+        }
+        break;
+    }
+    case STBS_DQS:
+    {
+        if ( m_DQ.empty() )
+        {
+            m_DQ.resize( m_refData.m_weights.rows(),
+                         DualQuaternion( Quaternion( 0.0, 0.0, 0.0, 0.0 ),
+                                         Quaternion( 0.0, 0.0, 0.0, 0.0 ) ) );
+        }
+    }
+        [[fallthrough]];
+    case STBS_LBS:
+    {
+        if ( m_weightSTBS.size() == 0 )
+        {
+            m_weightSTBS.resize( m_refData.m_weights.rows(), m_refData.m_weights.cols() );
+            std::vector<Eigen::Triplet<Scalar>> triplets;
+            const auto& V = m_refData.m_referenceMesh.vertices();
+            for ( int i = 0; i < m_weightSTBS.rows(); ++i )
+            {
+                const auto& pi = V[i];
+                for ( int j = 0; j < m_weightSTBS.cols(); ++j )
+                {
+                    Ra::Core::Vector3 a, b;
+                    m_refData.m_skeleton.getBonePoints( j, a, b );
+                    const Ra::Core::Vector3 ab = b - a;
+                    Scalar t = Ra::Core::Geometry::projectOnSegment( pi, a, ab );
+                    if ( t > 0 )
+                    {
+                        triplets.push_back( Eigen::Triplet<Scalar>( i, j, t ) );
+                    }
+                }
+            }
+            m_weightSTBS.setFromTriplets( triplets.begin(), triplets.end() );
         }
     }
     } // end of switch.

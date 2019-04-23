@@ -42,6 +42,8 @@ class SkinningWidget : public QFrame {
     void onLSBActionTriggered();
     void onDQActionTriggered();
     void onCoRActionTriggered();
+    void onSTBSLBSActionTriggered();
+    void onSTBSDQSActionTriggered();
 
   private:
     SkinningComponent* m_current;
@@ -49,6 +51,8 @@ class SkinningWidget : public QFrame {
     QAction* m_actionLBS;
     QAction* m_actionDQ;
     QAction* m_actionCoR;
+    QAction* m_actionSTBSLBS;
+    QAction* m_actionSTBSDQS;
 };
 
 // Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin
