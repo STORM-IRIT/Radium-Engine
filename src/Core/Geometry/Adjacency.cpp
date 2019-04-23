@@ -79,24 +79,28 @@ TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p, const VectorArray
 AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
                                           const VectorArray<Vector3ui>& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
-    for ( const auto& t : T )
+    std::vector<Eigen::Triplet<Scalar>> triplets( T.size() * 6 );
+#pragma omp parallel for
+    for ( int t_ = 0; t_ < T.size(); ++t_ )
     {
+        const auto& t = T[t_];
         uint i = t( 0 );
         uint j = t( 1 );
         uint k = t( 2 );
-        Vector3 IJ = p[j] - p[i];
-        Vector3 JK = p[k] - p[j];
-        Vector3 KI = p[i] - p[k];
-        Scalar cotI = Math::cotan( IJ, ( -KI ).eval() );
-        Scalar cotJ = Math::cotan( JK, ( -IJ ).eval() );
-        Scalar cotK = Math::cotan( KI, ( -JK ).eval() );
-        A.coeffRef( i, j ) += cotK;
-        A.coeffRef( j, i ) += cotK;
-        A.coeffRef( j, k ) += cotI;
-        A.coeffRef( k, j ) += cotI;
-        A.coeffRef( k, i ) += cotJ;
-        A.coeffRef( i, k ) += cotJ;
+        const Vector3 IJ = p[j] - p[i];
+        const Vector3 JK = p[k] - p[j];
+        const Vector3 KI = p[i] - p[k];
+        const Scalar cotI = Math::cotan( IJ, ( -KI ).eval() );
+        const Scalar cotJ = Math::cotan( JK, ( -IJ ).eval() );
+        const Scalar cotK = Math::cotan( KI, ( -JK ).eval() );
+        triplets[6 * t_] = Eigen::Triplet<Scalar>( i, j, cotK );
+        triplets[6 * t_ + 1] = Eigen::Triplet<Scalar>( j, i, cotK );
+        triplets[6 * t_ + 2] = Eigen::Triplet<Scalar>( j, k, cotI );
+        triplets[6 * t_ + 3] = Eigen::Triplet<Scalar>( k, j, cotI );
+        triplets[6 * t_ + 4] = Eigen::Triplet<Scalar>( k, i, cotJ );
+        triplets[6 * t_ + 5] = Eigen::Triplet<Scalar>( i, k, cotJ );
     }
+    A.setFromTriplets( triplets.begin(), triplets.end() );
     return ( 0.5 * A );
 }
 
