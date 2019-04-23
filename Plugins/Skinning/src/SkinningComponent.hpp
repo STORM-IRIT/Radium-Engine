@@ -13,6 +13,7 @@
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace SkinningPlugin {
 
@@ -33,7 +34,10 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
         Component( name, entity ),
         m_skinningType( type ),
         m_isReady( false ),
-        m_forceUpdate( false ) {}
+        m_forceUpdate( false ),
+        m_weightBone( 0 ),
+        m_weightType( 0 ),
+        m_showingWeights( false ) {}
 
     virtual ~SkinningComponent() {}
 
@@ -64,6 +68,17 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     /// @returns the list of DualQuaternions used for DQS.
     const Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion>* getDQ() const { return &m_DQ; }
 
+    /// Toggles display of skinning weights.
+    void showWeights( bool on );
+
+    /// Set the type of skinning weight to display:
+    ///  - 0 for standard skinning weights
+    ///  - 1 for stbs weights
+    void showWeightsType( int type );
+
+    /// Set the bone to show the weights of.
+    void setWeightBone( uint bone );
+
   public:
     /// Registers the Entity name for Component communication (out).
     void setupIO( const std::string& id );
@@ -74,10 +89,11 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     /// Registers the Entity name for Component communication (in/out).
     void setContentsName( const std::string name );
 
-  private:
+  public:
     /// The Entity name for Component communication.
     std::string m_contentsName;
 
+  private:
     /// The refrence Skinning data.
     Ra::Core::Skinning::RefData m_refData;
 
@@ -96,6 +112,10 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite
         m_normalsWriter;
 
+    // Read FMC's RO idx.
+    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter
+        m_renderObjectReader;
+
     /// The Skinning Method.
     SkinningType m_skinningType;
 
@@ -113,6 +133,15 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
 
     /// The STBS weights.
     Ra::Core::Animation::WeightMatrix m_weightSTBS;
+
+    /// Initial RO shader config when not showing skinning weights.
+    std::shared_ptr<Ra::Engine::RenderTechnique> m_baseTechnique;
+    std::shared_ptr<Ra::Engine::RenderTechnique> m_weightTechnique;
+    Ra::Core::Vector3Array m_baseUV;
+    Ra::Core::Vector3Array m_weightsUV;
+    uint m_weightBone;
+    uint m_weightType;
+    bool m_showingWeights;
 };
 } // namespace SkinningPlugin
 

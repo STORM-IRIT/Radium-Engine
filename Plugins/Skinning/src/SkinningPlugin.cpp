@@ -1,6 +1,11 @@
 #include <SkinningPlugin.hpp>
 
+#include <QHBoxLayout>
+#include <QSpacerItem>
+#include <QVBoxLayout>
+
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
 #include <SkinningSystem.hpp>
@@ -16,6 +21,9 @@ void SkinningPluginC::registerPlugin( const Ra::PluginContext& context ) {
     m_widget = new SkinningWidget;
     connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this,
              &SkinningPluginC::onCurrentChanged );
+    connect( m_widget, &SkinningWidget::showWeights, this, &SkinningPluginC::onShowWeights );
+    connect( m_widget, &SkinningWidget::showWeightsType, this,
+             &SkinningPluginC::onShowWeightsType );
 }
 
 bool SkinningPluginC::doAddWidget( QString& name ) {
@@ -58,6 +66,24 @@ QAction* SkinningPluginC::getAction( int id ) {
     }
 }
 
+bool SkinningPluginC::doAddROpenGLInitializer() {
+    return m_system != nullptr;
+}
+
+void SkinningPluginC::openGlInitialize( const Ra::PluginContext& context ) {
+    if ( !m_system )
+    {
+        return;
+    }
+    Ra::Engine::TextureParameters texData;
+    texData.wrapS = GL_CLAMP_TO_EDGE;
+    texData.wrapT = GL_CLAMP_TO_EDGE;
+    texData.minFilter = GL_NEAREST;
+    texData.magFilter = GL_NEAREST;
+    texData.name = "Assets/Textures/Influence0.png";
+    Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texData );
+}
+
 void SkinningPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev ) {
     Ra::Engine::ItemEntry it = m_selectionManager->currentItem();
     if ( it.m_entity )
@@ -65,16 +91,37 @@ void SkinningPluginC::onCurrentChanged( const QModelIndex& current, const QModel
         auto comps = m_system->getEntityComponents( it.m_entity );
         if ( comps.size() != 0 )
         {
-            m_widget->setCurrent( it, static_cast<SkinningPlugin::SkinningComponent*>( comps[0] ) );
+            auto comp = static_cast<SkinningPlugin::SkinningComponent*>( comps[0] );
+            m_widget->setCurrent( it, comp );
+
+            using BoneMap = std::map<Ra::Core::Utils::Index, uint>;
+            auto CM = Ra::Engine::ComponentMessenger::getInstance();
+            auto BM = *CM->getterCallback<BoneMap>( it.m_entity, comp->m_contentsName )();
+            auto b_it = BM.find( it.m_roIndex );
+            if ( b_it != BM.end() )
+            {
+                comp->setWeightBone( b_it->second );
+            }
         } else
         { m_widget->setCurrent( it, nullptr ); }
     } else
     { m_widget->setCurrent( it, nullptr ); }
 }
 
+void SkinningPluginC::onShowWeights( bool on ) {
+    m_system->showWeights( on );
+}
+
+void SkinningPluginC::onShowWeightsType( int type ) {
+    m_system->showWeightsType( type );
+}
+
 // Class SkinningWidget
 
 SkinningWidget::SkinningWidget( QWidget* parent ) : QFrame( parent ), m_current( nullptr ) {
+    auto vL = new QVBoxLayout( this );
+    auto hL = new QHBoxLayout( this );
+
     m_skinningSelect = new QComboBox( this );
     m_skinningSelect->setMaxVisibleItems( 5 );
     m_skinningSelect->setMaxCount( 5 );
@@ -87,6 +134,25 @@ SkinningWidget::SkinningWidget( QWidget* parent ) : QFrame( parent ), m_current(
                                                     << "STBS LBS"
                                                     << "STBD DQS" );
     m_skinningSelect->setEnabled( false );
+    vL->addWidget( m_skinningSelect );
+    vL->addLayout( hL );
+
+    m_showWeights = new QCheckBox( this );
+    m_showWeights->setText( "Show weights" );
+    m_showWeights->setEnabled( false );
+    hL->addWidget( m_showWeights );
+
+    m_skinningWeights = new QComboBox( this );
+    m_skinningWeights->setMaxVisibleItems( 2 );
+    m_skinningWeights->setMaxCount( 2 );
+    m_skinningWeights->setDuplicatesEnabled( false );
+    m_skinningWeights->setCurrentIndex( 1 );
+    m_skinningWeights->insertItems( 0, QStringList() << "Standard weights"
+                                                     << "STBS weights" );
+    m_skinningWeights->setEnabled( false );
+    hL->addWidget( m_skinningWeights );
+
+    vL->addItem( new QSpacerItem( 20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding ) );
 
     m_actionLBS =
         new QAction( QIcon( ":/Assets/Images/LB.png" ), QString( "Linear Blending" ), nullptr );
@@ -113,6 +179,11 @@ SkinningWidget::SkinningWidget( QWidget* parent ) : QFrame( parent ), m_current(
     connect( m_skinningSelect,
              static_cast<void ( QComboBox::* )( int )>( &QComboBox::currentIndexChanged ), this,
              &SkinningWidget::onSkinningChanged );
+    connect( m_showWeights, static_cast<void ( QCheckBox::* )( bool )>( &QCheckBox::toggled ), this,
+             &SkinningWidget::onShowWeightsToggled );
+    connect( m_skinningWeights,
+             static_cast<void ( QComboBox::* )( int )>( &QComboBox::currentIndexChanged ), this,
+             &SkinningWidget::onSkinningWeightsChanged );
 
     connect( m_actionLBS, &QAction::triggered, this, &SkinningWidget::onLSBActionTriggered );
     connect( m_actionDQ, &QAction::triggered, this, &SkinningWidget::onDQActionTriggered );
@@ -173,6 +244,8 @@ void SkinningWidget::setCurrent( const Ra::Engine::ItemEntry& entry, SkinningCom
     if ( comp )
     {
         m_skinningSelect->setEnabled( true );
+        m_showWeights->setEnabled( true );
+        m_skinningWeights->setEnabled( true );
         m_actionLBS->setEnabled( true );
         m_actionDQ->setEnabled( true );
         m_actionCoR->setEnabled( true );
@@ -182,6 +255,8 @@ void SkinningWidget::setCurrent( const Ra::Engine::ItemEntry& entry, SkinningCom
     } else
     {
         m_skinningSelect->setEnabled( false );
+        m_showWeights->setEnabled( false );
+        m_skinningWeights->setEnabled( false );
         m_actionLBS->setEnabled( false );
         m_actionDQ->setEnabled( false );
         m_actionCoR->setEnabled( false );
@@ -220,6 +295,14 @@ void SkinningWidget::onSkinningChanged( int newType ) {
     default:
     { break; }
     }
+}
+
+void SkinningWidget::onShowWeightsToggled( bool on ) {
+    emit showWeights( on );
+}
+
+void SkinningWidget::onSkinningWeightsChanged( int newType ) {
+    emit showWeightsType( newType );
 }
 
 } // namespace SkinningPlugin
