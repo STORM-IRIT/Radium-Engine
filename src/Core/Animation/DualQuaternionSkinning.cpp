@@ -76,7 +76,7 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
                DualQuaternion( Quaternion( 0, 0, 0, 0 ), Quaternion( 0, 0, 0, 0 ) ) );
 
     std::vector<DualQuaternion> poseDQ;
-    poseDQ.reserve( pose.size() );
+    poseDQ.resize( pose.size() );
 
     // 1. Convert all transforms to DQ
 #pragma omp parallel for
