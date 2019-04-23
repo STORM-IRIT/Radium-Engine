@@ -59,6 +59,20 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
             }
         }
     }
+
+    void showWeights( bool on ) {
+        for ( auto& compEntry : m_components )
+        {
+            static_cast<SkinningComponent*>( compEntry.second )->showWeights( on );
+        }
+    }
+
+    void showWeightsType( int type ) {
+        for ( auto& compEntry : m_components )
+        {
+            static_cast<SkinningComponent*>( compEntry.second )->showWeightsType( type );
+        }
+    }
 };
 } // namespace SkinningPlugin
 
