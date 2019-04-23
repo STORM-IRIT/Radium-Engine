@@ -6,7 +6,7 @@ namespace Geometry {
 
 bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     uint maxValence = 0;
-    for (auto v_it = mesh.vertices_begin(); v_it != mesh.vertices_end(); ++v_it )
+    for ( auto v_it = mesh.vertices_begin(); v_it != mesh.vertices_end(); ++v_it )
     {
         if ( mesh.valence( *v_it ) > maxValence )
         {
@@ -57,7 +57,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
             // compute new positions for old vertices
             m_oldVertexOps[iter].reserve( NV );
 #pragma omp parallel for
-            for ( uint i = 0; i < NV; ++i )
+            for ( int i = 0; i < NV; ++i )
             {
                 const auto& vh = mesh.vertex_handle( i );
                 smooth( mesh, vh, iter );
@@ -67,7 +67,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         // Compute position for new vertices and store them in the edge property
         m_newVertexOps[iter].reserve( mesh.n_edges() );
 #pragma omp parallel for
-        for ( uint i = 0; i < mesh.n_edges(); ++i )
+        for ( int i = 0; i < mesh.n_edges(); ++i )
         {
             const auto& eh = mesh.edge_handle( i );
             compute_midpoint( mesh, eh, iter );
@@ -98,7 +98,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         {
             // Commit changes in geometry
 #pragma omp parallel for
-            for ( uint i = 0; i < NV; ++i )
+            for ( int i = 0; i < NV; ++i )
             {
                 const auto& vh = mesh.vertex_handle( i );
                 mesh.set_point( vh, mesh.property( m_vpPos, vh ) );
@@ -366,7 +366,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
     auto hNormalProp = mesh.halfedge_normals_pph();
 #pragma omp parallel for
-    for ( uint i = 0; i < mesh.n_halfedges(); ++i )
+    for ( int i = 0; i < mesh.n_halfedges(); ++i )
     {
         auto h = mesh.halfedge_handle( i );
         // set position on coarse mesh vertices
@@ -441,7 +441,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
     // update subdivided TriangleMesh vertices and normals
     auto outTriIndexProp = mesh.getOutputTriangleMeshIndexPropHandle();
 #pragma omp parallel for
-    for ( uint i = 0; i < mesh.n_halfedges(); ++i )
+    for ( int i = 0; i < mesh.n_halfedges(); ++i )
     {
         auto h = mesh.halfedge_handle( i );
         if ( !mesh.is_boundary( h ) )
