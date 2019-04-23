@@ -106,6 +106,10 @@ void AnimationComponent::setupSkeletonDisplay() {
         } else
         { LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed."; }
     }
+    for ( const auto& b : m_boneDrawables )
+    {
+        m_boneMap[b->getRenderObjectIndex()] = b->getBoneIndex();
+    }
 }
 
 void AnimationComponent::printSkeleton( const Ra::Core::Animation::Skeleton& skeleton ) {
@@ -264,6 +268,11 @@ void AnimationComponent::setupIO( const std::string& id ) {
     ComponentMessenger::CallbackTypes<Scalar>::Getter timeOut =
         std::bind( &AnimationComponent::getTimeOutput, this );
     ComponentMessenger::getInstance()->registerOutput<Scalar>( getEntity(), this, id, timeOut );
+
+    using BoneMap = std::map<Ra::Core::Utils::Index, uint>;
+    ComponentMessenger::CallbackTypes<BoneMap>::Getter boneMapOut =
+        std::bind( &AnimationComponent::getBoneRO2idx, this );
+    ComponentMessenger::getInstance()->registerOutput<BoneMap>( getEntity(), this, id, boneMapOut );
 }
 
 const Ra::Core::Animation::Skeleton* AnimationComponent::getSkeletonOutput() const {
@@ -370,14 +379,6 @@ void AnimationComponent::setTransform( const Ra::Core::Utils::Index& roIdx,
                          Handle::SpaceType::LOCAL );
 }
 
-uint AnimationComponent::getBoneIdx( Ra::Core::Utils::Index index ) const {
-    auto found =
-        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [index]( const auto& draw ) {
-            return draw->getRenderObjectIndex() == index;
-        } );
-    return found == m_boneDrawables.end() ? uint( -1 ) : ( *found )->getBoneIndex();
-}
-
 const Ra::Core::Animation::Animation* AnimationComponent::getAnimationOutput() const {
     if ( m_animations.empty() )
     {
@@ -388,6 +389,10 @@ const Ra::Core::Animation::Animation* AnimationComponent::getAnimationOutput() c
 
 const Scalar* AnimationComponent::getTimeOutput() const {
     return &m_animationTime;
+}
+
+const std::map<Ra::Core::Utils::Index, uint>* AnimationComponent::getBoneRO2idx() const {
+    return &m_boneMap;
 }
 
 Scalar AnimationComponent::getTime() const {
