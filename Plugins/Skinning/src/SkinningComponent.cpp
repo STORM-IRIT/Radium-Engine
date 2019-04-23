@@ -10,6 +10,16 @@
 #include <Core/Animation/StretchableTwistableBoneSkinning.hpp>
 #include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Geometry/TriangleOperation.hpp>
+#include <Core/Utils/Color.hpp>
+
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 
 using Ra::Core::DualQuaternion;
 using Ra::Core::Quaternion;
@@ -86,6 +96,8 @@ void SkinningComponent::initialize() {
 
     if ( hasSkel && hasWeights && hasMesh && hasRefPose )
     {
+        m_renderObjectReader =
+            compMsg->getterCallback<Ra::Core::Utils::Index>( getEntity(), m_contentsName );
         m_skeletonGetter = compMsg->getterCallback<Skeleton>( getEntity(), m_contentsName );
         m_verticesWriter =
             compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName + "v" );
@@ -132,6 +144,29 @@ void SkinningComponent::initialize() {
 
         m_isReady = true;
         setupSkinningType( m_skinningType );
+        setupSkinningType( STBS_LBS ); // ensure weights are present for display
+
+        // prepare RO for skinning weights display
+        auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
+        m_baseTechnique = ro->getRenderTechnique();
+        m_baseUV = ro->getMesh()->getData( Ra::Engine::Mesh::VERTEX_TEXCOORD );
+        m_weightTechnique.reset( new Ra::Engine::RenderTechnique );
+        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+        builder.second( *m_weightTechnique.get(), true );
+        auto matT = std::static_pointer_cast<Ra::Engine::BlinnPhongMaterial>(
+            ro->getRenderTechnique()->getMaterial() );
+        std::shared_ptr<Ra::Engine::BlinnPhongMaterial> mat(
+            new Ra::Engine::BlinnPhongMaterial( "IS2016_Mat" ) );
+        mat->m_kd = Ra::Core::Utils::Color::Skin();
+        mat->m_ks = Ra::Core::Utils::Color::White();
+        m_weightTechnique->setMaterial( mat );
+        // assign texture
+        Ra::Engine::TextureParameters texParam;
+        texParam.name = "Assets/Textures/Influence0.png";
+        auto tex = Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texParam );
+        mat->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE, tex );
+        // compute default weights uv
+        showWeightsType( 0 );
     }
 }
 
@@ -385,6 +420,52 @@ void SkinningComponent::setupSkinningType( SkinningType type ) {
         }
     }
     } // end of switch.
+}
+
+void SkinningComponent::showWeights( bool on ) {
+    m_showingWeights = on;
+    auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
+    if ( m_showingWeights )
+    {
+        ro->setRenderTechnique( m_weightTechnique );
+        ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, m_weightsUV );
+    } else
+    {
+        ro->setRenderTechnique( m_baseTechnique );
+        ro->getMesh()->addData( Ra::Engine::Mesh::VERTEX_TEXCOORD, m_baseUV );
+    }
+    m_forceUpdate = true;
+}
+
+void SkinningComponent::showWeightsType( int type ) {
+    if ( !m_showingWeights )
+        return;
+    const uint size = m_frameData.m_currentPos.size();
+    m_weightsUV.resize( size, Ra::Core::Vector3::Zero() );
+    m_weightType = type;
+    if ( type == 0 )
+    {
+#pragma omp parallel for
+        for ( int i = 0; i < int( size ); ++i )
+        {
+            m_weightsUV[i][0] = m_refData.m_weights.coeff( i, m_weightBone );
+        }
+    } else
+    {
+#pragma omp parallel for
+        for ( int i = 0; i < int( size ); ++i )
+        {
+            m_weightsUV[i][0] = m_weightSTBS.coeff( i, m_weightBone );
+        }
+    }
+    showWeights( true );
+}
+
+void SkinningComponent::setWeightBone( uint bone ) {
+    if ( m_weightBone == bone )
+        return;
+    m_weightBone = bone;
+    showWeightsType( m_weightType );
 }
 
 } // namespace SkinningPlugin
