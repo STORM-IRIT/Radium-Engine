@@ -271,7 +271,7 @@ void uniformNormal( const Ra::Core::Vector3Array& p,
     }
 
 #pragma omp parallel for
-    for ( uint i = 0; i < N; ++i )
+    for ( int i = 0; i < N; ++i )
     {
         if ( !normal[i].isApprox( Ra::Core::Vector3::Zero() ) )
         {
@@ -280,7 +280,7 @@ void uniformNormal( const Ra::Core::Vector3Array& p,
     }
 
 #pragma omp parallel for
-    for ( uint i = 0; i < N; ++i )
+    for ( int i = 0; i < N; ++i )
     {
         normal[i] = normal[duplicateTable[i]];
     }

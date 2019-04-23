@@ -193,7 +193,7 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& 
     auto& vertex = data.getVertices();
     vertex.resize( size );
 #pragma omp parallel for
-    for ( uint i = 0; i < size; ++i )
+    for ( int i = 0; i < size; ++i )
     {
         vertex[i] = assimpToCore( mesh.mVertices[i] );
     }
@@ -204,7 +204,7 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& dat
     auto& edge = data.getEdges();
     edge.resize( size );
 #pragma omp parallel for
-    for ( uint i = 0; i < size; ++i )
+    for ( int i = 0; i < size; ++i )
     {
         edge[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
     }
@@ -215,7 +215,7 @@ void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& dat
     auto& face = data.getFaces();
     face.resize( size );
 #pragma omp parallel for
-    for ( uint i = 0; i < size; ++i )
+    for ( int i = 0; i < size; ++i )
     {
         face[i] = assimpToCore( mesh.mFaces[i].mIndices, mesh.mFaces[i].mNumIndices ).cast<uint>();
     }
@@ -230,7 +230,7 @@ void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& d
     normal.resize( data.getVerticesSize(), Core::Vector3::Zero() );
 
 #pragma omp parallel for
-    for ( uint i = 0; i < mesh.mNumVertices; ++i )
+    for ( int i = 0; i < mesh.mNumVertices; ++i )
     {
         normal[i] = assimpToCore( mesh.mNormals[i] );
         normal[i].normalize();
@@ -242,7 +242,7 @@ void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& 
     auto& tangent = data.getTangents();
     tangent.resize( size, Core::Vector3::Zero() );
 #pragma omp parallel for
-    for ( uint i = 0; i < size; ++i )
+    for ( int i = 0; i < size; ++i )
     {
         tangent[i] = assimpToCore( mesh.mTangents[i] );
     }
@@ -253,7 +253,7 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
     auto& bitangent = data.getBiTangents();
     bitangent.resize( size );
 #pragma omp parallel for
-    for ( uint i = 0; i < size; ++i )
+    for ( int i = 0; i < size; ++i )
     {
         bitangent[i] = assimpToCore( mesh.mBitangents[i] );
     }
@@ -265,7 +265,7 @@ void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
     auto& texcoord = data.getTexCoords();
     texcoord.resize( data.getVerticesSize() );
 #pragma omp parallel for
-    for ( uint i = 0; i < size; ++i )
+    for ( int i = 0; i < size; ++i )
     {
         // Radium V2 : allow to have several UV channels
         texcoord.at( i ) = assimpToCore( mesh.mTextureCoords[0][i] );
