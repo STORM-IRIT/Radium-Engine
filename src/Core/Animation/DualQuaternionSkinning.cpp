@@ -24,10 +24,7 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
         const int nonZero = weight.col( j ).nonZeros();
 
         WeightMatrix::InnerIterator it0( weight, j );
-#if defined CORE_USE_OMP
-        omp_set_dynamic( 0 );
-#    pragma omp parallel for schedule( static ) num_threads( 4 )
-#endif
+#pragma omp parallel for
         // This for loop is here just because OpenMP wants classic for loops.
         // Since we cannot iterate directly through the non-zero elements using the InnerIterator,
         // we initialize an InnerIterator to the first element and then we increase it nz times.
@@ -57,10 +54,7 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
     }
 
     // Normalize all dual quats.
-#if defined CORE_USE_OMP
-    omp_set_dynamic( 0 );
-#    pragma omp parallel for schedule( static ) num_threads( 4 )
-#endif
+#pragma omp parallel for
     for ( int i = 0; i < int( DQ.size() ); ++i )
     {
         DQ[i].normalize();
@@ -122,10 +116,7 @@ void dualQuaternionSkinning( const Ra::Core::Vector3Array& input, const DQList& 
     const uint size = input.size();
     CORE_ASSERT( ( size == DQ.size() ), "input/DQ size mismatch." );
     output.resize( size );
-#if defined CORE_USE_OMP
-    omp_set_dynamic( 0 );
-#    pragma omp parallel for schedule( static ) num_threads( 4 )
-#endif
+#pragma omp parallel for
     for ( int i = 0; i < int( size ); ++i )
     {
         output[i] = DQ[i].transform( input[i] );
