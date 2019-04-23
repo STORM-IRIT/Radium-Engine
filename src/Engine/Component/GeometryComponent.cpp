@@ -74,7 +74,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Core::Asset::GeometryData* 
     mesh.vertices().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
 #pragma omp parallel for
-    for ( uint i = 0; i < data->getVerticesSize(); ++i )
+    for ( int i = 0; i < data->getVerticesSize(); ++i )
     {
         mesh.vertices()[i] = T * data->getVertices()[i];
     }
@@ -83,7 +83,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Core::Asset::GeometryData* 
     {
         mesh.normals().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 #pragma omp parallel for
-        for ( uint i = 0; i < data->getVerticesSize(); ++i )
+        for ( int i = 0; i < data->getVerticesSize(); ++i )
         {
             mesh.normals()[i] = ( N * data->getNormals()[i] ).normalized();
         }
@@ -92,7 +92,7 @@ void GeometryComponent::handleMeshLoading( const Ra::Core::Asset::GeometryData* 
     const auto& faces = data->getFaces();
     mesh.m_triangles.resize( faces.size(), Ra::Core::Vector3ui::Zero() );
 #pragma omp parallel for
-    for ( uint i = 0; i < faces.size(); ++i )
+    for ( int i = 0; i < faces.size(); ++i )
     {
         mesh.m_triangles[i] = faces[i].head<3>();
     }

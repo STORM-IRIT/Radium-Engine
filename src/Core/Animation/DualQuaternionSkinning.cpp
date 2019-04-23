@@ -76,12 +76,13 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
                DualQuaternion( Quaternion( 0, 0, 0, 0 ), Quaternion( 0, 0, 0, 0 ) ) );
 
     std::vector<DualQuaternion> poseDQ;
-    poseDQ.reserve( pose.size() );
+    poseDQ.resize( pose.size() );
 
     // 1. Convert all transforms to DQ
+#pragma omp parallel for
     for ( int j = 0; j < weight.cols(); ++j )
     {
-        poseDQ.push_back( DualQuaternion( pose[j] ) );
+        poseDQ[j] = DualQuaternion( pose[j] );
     }
 
     // 2. for all vertices, blend the dual quats.
@@ -111,7 +112,8 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
     }
 
     // 3. renormalize all dual quats.
-    for ( uint i = 0; i < DQ.size(); ++i )
+#pragma omp parallel for
+    for ( int i = 0; i < DQ.size(); ++i )
     {
         DQ[i].normalize();
     }
