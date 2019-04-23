@@ -98,9 +98,6 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// Toggle skeleton bones display.
     void toggleSkeleton( const bool status );
 
-    /// @returns the index of the skeleton bone associated to the RenderObject with index \p index.
-    uint getBoneIdx( Ra::Core::Utils::Index index ) const;
-
     //
     // Editable interface
     //
@@ -148,6 +145,9 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// Current Animation Time for CC.
     const Scalar* getTimeOutput() const;
 
+    /// Map from RO index to bone index for CC.
+    const std::map<Ra::Core::Utils::Index, uint>* getBoneRO2idx() const;
+
   private:
     /// Entity name for CC.
     std::string m_contentName;
@@ -167,6 +167,9 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
 
     /// Bones ROs.
     std::vector<std::unique_ptr<SkeletonBoneRenderObject>> m_boneDrawables;
+
+    /// Map from bone RO index to bone idx, for CC.
+    std::map<Ra::Core::Utils::Index, uint> m_boneMap;
 
     /// Current animation ID.
     uint m_animationID;
