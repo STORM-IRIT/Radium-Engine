@@ -44,9 +44,6 @@ RA_CORE_API bool areEqual( const Pose& p0, const Pose& p1 );
 
 RA_CORE_API Pose interpolatePoses( const Pose& a, const Pose& b, const Scalar t );
 
-RA_CORE_API void interpolateTransforms( const Ra::Core::Transform& a, const Ra::Core::Transform& b,
-                                        Scalar t, Ra::Core::Transform& interpolated );
-
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
