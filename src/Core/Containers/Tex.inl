@@ -1,6 +1,6 @@
 #include <Core/Containers/Tex.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
