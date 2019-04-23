@@ -367,8 +367,8 @@ border-image: url(:/Assets/Images/stop_on.png);
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>../../../../Assets/Images/xray.png</normaloff>
-           <normalon>:/Assets/Images/xray.png</normalon>../../../../Assets/Images/xray.png</iconset>
+           <normaloff>:/Assets/Images/xray.png</normaloff>
+           <normalon>:/Assets/Images/xray.png</normalon>:/Assets/Images/xray.png</iconset>
          </property>
          <property name="iconSize">
           <size>

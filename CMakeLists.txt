@@ -170,21 +170,37 @@ endif(DOXYGEN_FOUND)
 ################################################################################
 # Assets                                                                       #
 ################################################################################
-#
-set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
+set(ASSET_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Assets")
 
 if(MSVC OR MSVC_IDE OR MINGW)
-add_custom_target( radium_assets
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
-    COMMENT "Copying shaders and other ressources" VERBATIM
-)
+    add_custom_target( radium_assets
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${ASSET_DIR} "${EXECUTABLE_OUTPUT_PATH}/Assets"
+        COMMENT "Copying ressources" VERBATIM
+    )
 else()
     add_custom_target( radium_assets
-            COMMAND ${CMAKE_COMMAND} -E create_symlink ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
-            COMMENT "Linking (symlink) shaders and other ressources" VERBATIM
-            )
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${ASSET_DIR} "${EXECUTABLE_OUTPUT_PATH}/Assets"
+        COMMENT "Linking (symlink) ressources" VERBATIM
+    )
 endif()
 add_dependencies(radium_assets radiumCore)
+
+################################################################################
+# SHADERS                                                                      #
+################################################################################
+set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
+if(MSVC OR MSVC_IDE OR MINGW)
+    add_custom_target( radium_shaders
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+        COMMENT "Copying shaders" VERBATIM
+    )
+else()
+    add_custom_target( radium_shaders
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+        COMMENT "Linking (symlink) shaders" VERBATIM
+    )
+endif()
+add_dependencies(radium_shaders radiumCore)
 
 ################################################################################
 # Configs                                                                      #
@@ -195,12 +211,12 @@ if(MSVC OR MSVC_IDE OR MINGW)
     add_custom_target( radium_configs
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
         COMMENT "Copying configs (keymapping)" VERBATIM
-        )
+    )
 else()
     add_custom_target( radium_configs
-            COMMAND ${CMAKE_COMMAND} -E create_symlink ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
-            COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
-            )
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
+        COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
+    )
 endif()
 add_dependencies(radium_configs radiumCore)
 
