@@ -23,6 +23,7 @@ struct RA_CORE_API HandleComponentData {
 
     std::string m_name;
     Core::Transform m_frame;
+    Core::Transform m_offset{Core::Transform::Identity()};
     std::map<std::string, std::vector<std::pair<uint, Scalar>>> m_weight;
 };
 
