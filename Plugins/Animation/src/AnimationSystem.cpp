@@ -124,18 +124,8 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
     // deal with AnimationComponents
     for ( const auto& skel : skelData )
     {
-        uint geomID = uint( -1 );
-        for ( uint i = 0; i < geomData.size(); ++i )
-        {
-            if ( skel->getName() == geomData[i]->getName() )
-            {
-                geomID = i;
-            }
-        }
-
         auto component = new AnimationComponent( "AC_" + skel->getName(), entity );
-        uint nbMeshVertices = geomData[geomID]->getVerticesSize();
-        component->handleSkeletonLoading( skel, nbMeshVertices );
+        component->handleSkeletonLoading( skel );
         component->handleAnimationLoading( animData );
 
         component->setXray( m_xrayOn );

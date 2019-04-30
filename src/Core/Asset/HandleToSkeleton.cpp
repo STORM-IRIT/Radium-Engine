@@ -15,9 +15,8 @@ void addBone( const int parent,  // index of parent bone
               const Ra::Core::AlignedStdVector<Ra::Core::Asset::HandleComponentData>&
                   data,                                                       // handle bone data
               const Ra::Core::AlignedStdVector<Ra::Core::Vector2i>& edgeList, // list of edges
-              std::vector<bool>& processed,       // which ids have been processed
-              Core::Animation::Skeleton& skelOut, // skeleton being built
-              std::map<uint, uint>& indexTable )  // correspondance between data idx and bone idx
+              std::vector<bool>& processed,        // which ids have been processed
+              Core::Animation::Skeleton& skelOut ) // correspondance between bone name and bone idx
 {
     if ( !processed[dataID] )
     {
@@ -25,20 +24,18 @@ void addBone( const int parent,  // index of parent bone
         const auto& dd = data[dataID];
         uint index = skelOut.addBone( parent, dd.m_frame,
                                       Ra::Core::Animation::Handle::SpaceType::MODEL, dd.m_name );
-        indexTable[dataID] = index;
         for ( const auto& edge : edgeList )
         {
             if ( edge[0] == dataID )
             {
-                addBone( index, edge[1], data, edgeList, processed, skelOut, indexTable );
+                addBone( index, edge[1], data, edgeList, processed, skelOut );
             }
         }
     }
 }
 } // namespace
 
-void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::Skeleton& skelOut,
-                     std::map<uint, uint>& indexTableOut ) {
+void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::Skeleton& skelOut ) {
     const uint size = data.getComponentDataSize();
     auto component = data.getComponentData();
 
@@ -57,7 +54,7 @@ void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::S
     std::vector<bool> processed( size, false );
     for ( const auto& r : root )
     {
-        addBone( -1, r, component, edgeList, processed, skelOut, indexTableOut );
+        addBone( -1, r, component, edgeList, processed, skelOut );
     }
 }
 } // namespace Asset

@@ -2,6 +2,7 @@
 
 #include <assimp/mesh.h>
 #include <assimp/scene.h>
+#include <queue>
 #include <set>
 
 #include <Core/Asset/HandleData.hpp>
@@ -60,117 +61,226 @@ bool AssimpHandleDataLoader::sceneHasHandle( const aiScene* scene ) const {
 }
 
 uint AssimpHandleDataLoader::sceneHandleSize( const aiScene* scene ) const {
-    const uint size = scene->mNumMeshes;
     uint handle_size = 0;
-    if ( scene != 0 )
+    const uint size = scene->mNumMeshes;
+    for ( uint i = 0; i < size; ++i )
     {
-        for ( uint i = 0; i < size; ++i )
+        aiMesh* mesh = scene->mMeshes[i];
+        if ( mesh->HasBones() )
         {
-            aiMesh* mesh = scene->mMeshes[i];
-            if ( mesh->HasBones() )
-            {
-                ++handle_size;
-            }
+            ++handle_size;
         }
     }
     return handle_size;
 }
 
+namespace {
+
+void initMarks( const aiNode* node, std::map<std::string, bool>& flag ) {
+    flag[assimpToCore( node->mName )] = false;
+    for ( uint i = 0; i < node->mNumChildren; ++i )
+    {
+        initMarks( node->mChildren[i], flag );
+    }
+}
+
+void markParents( const aiNode* node, const aiScene* scene, const aiString& meshName,
+                  std::map<std::string, bool>& flag ) {
+    const std::string nodeName = assimpToCore( node->mName );
+    flag[nodeName] = true;
+    // check node's children for the mesh
+    for ( uint j = 0; j < node->mNumChildren; ++j )
+    {
+        auto child = node->mChildren[j];
+        for ( uint i = 0; i < child->mNumMeshes; ++i )
+        {
+            const auto& mesh = scene->mMeshes[child->mMeshes[i]];
+            if ( mesh != nullptr && mesh->mName == meshName )
+            {
+                // child has the mesh, stop there
+                flag[nodeName] = false;
+                return;
+            }
+        }
+    }
+    // mark parents
+    if ( node->mParent != nullptr )
+    {
+        markParents( node->mParent, scene, meshName, flag );
+    }
+}
+
+} // namespace
+
 /// LOAD
 void AssimpHandleDataLoader::loadHandleData(
     const aiScene* scene, std::vector<std::unique_ptr<HandleData>>& data ) const {
-    const uint meshSize = scene->mNumMeshes;
-    std::map<uint, uint> indexTable;
-    std::set<std::string> usedNames;
-    for ( uint n = 0; n < meshSize; ++n )
+    // list mesh names according to GeometryLoader naming
+    std::set<std::string> meshNames;
+
+    // initialize need flag on all scene nodes
+    std::map<std::string, bool> needNode;
+    initMarks( scene->mRootNode, needNode );
+
+    // load the HandleComponentData for all meshes
+    std::map<std::string, HandleComponentData> mapBone2Data;
+    for ( uint n = 0; n < scene->mNumMeshes; ++n )
     {
-        aiMesh* mesh = scene->mMeshes[n];
-        if ( mesh->HasBones() )
+        const aiMesh* mesh = scene->mMeshes[n];
+        // fetch mesh name as registered by the GeometryLoader
+        std::string meshName = assimpToCore( mesh->mName );
+        while ( meshNames.find( meshName ) != meshNames.end() )
         {
-            HandleData* handle = new HandleData();
-            fetchName( *mesh, *handle, usedNames );
-            fetchType( *mesh, *handle );
-            loadHandleComponentData( scene, mesh, handle );
-            loadHandleTopologyData( scene, handle );
-            fetchVertexSize( *handle );
+            meshName.append( "_" );
+        }
+        meshNames.insert( meshName );
 
-            // Remove scale from transform.
-            for ( auto& component : handle->getComponentData() )
+        // deal with skeleton if present
+        if ( !mesh->HasBones() )
+        {
+            continue;
+        }
+        for ( uint j = 0; j < mesh->mNumBones; ++j )
+        {
+            const aiBone* bone = mesh->mBones[j];
+            // fetch bone data
+            const std::string boneName = assimpToCore( bone->mName );
+            // if data doesn't exist yet, create it
+            mapBone2Data[boneName].m_name = boneName;
+            // fill skinning weights for this mesh
+            loadHandleComponentDataWeights( bone, meshName, mapBone2Data[boneName] );
+            // deal with hierarchy
+            aiNode* node = scene->mRootNode->FindNode( bone->mName );
+            if ( node == nullptr )
             {
-                Core::Transform& frame = component.m_frame;
-                Core::Vector3 t = frame.translation();
-                Core::Matrix3 R = frame.rotation();
-                frame.setIdentity();
-                frame.translation() = t;
-                frame.linear() = R;
+                continue;
             }
-
-            data.push_back( std::unique_ptr<HandleData>( handle ) );
-            indexTable[n] = data.size() - 1;
-            if ( m_verbose )
+            // mark parents as needed up to mesh node relative
+            markParents( node, scene, mesh->mName, needNode );
+            // check children since end bones may not have weights
+            if ( node->mNumChildren == 1 )
             {
-                handle->displayInfo();
+                const aiNode* child = node->mChildren[0];
+                const std::string childName = assimpToCore( child->mName );
+                // mark as needed
+                needNode[childName] = true;
+                // if data doesn't exist yet, create it
+                mapBone2Data[childName].m_name = childName;
             }
         }
     }
-    loadHandleFrame( scene->mRootNode, Core::Transform::Identity(), indexTable, data );
-}
 
-void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiMesh* mesh,
-                                                      HandleData* data ) const {
-    const uint size = mesh->mNumBones;
-    Core::AlignedStdVector<HandleComponentData> component( size, HandleComponentData() );
-    std::set<std::string> name;
-    std::map<std::string, uint> nameTable;
-    // Load the meaningful handles
-
-    for ( uint i = 0; i < size; ++i )
+    // load hierarchy for needed bones
+    std::vector<std::pair<std::string, std::string>> edgeList;
+    for ( const auto& n : needNode )
     {
-        aiBone* bone = mesh->mBones[i];
-        loadHandleComponentData( scene, bone, component[i] );
-        nameTable[component[i].m_name] = i;
-        name.insert( component[i].m_name );
-    }
-    // Load the meaningless handles (if any)
-    for ( uint i = 0; i < size; ++i )
-    {
-        aiNode* node = scene->mRootNode->FindNode( mesh->mBones[i]->mName );
-        const uint children_size = node->mNumChildren;
-        if ( ( children_size == 0 ) && ( component[i].m_weight.size() != 0 ) )
+        if ( !n.second )
         {
-            data->needEndNodes( true );
-        } else
+            continue;
+        }
+        // if data doesn't exist, create it (bone with no weight)
+        mapBone2Data[n.first].m_name = n.first;
+        // link to children
+        const aiNode* node = scene->mRootNode->FindNode( aiString( n.first ) );
+        for ( uint j = 0; j < node->mNumChildren; ++j )
         {
-            if ( children_size == 1 )
+            const std::string childName = assimpToCore( node->mChildren[j]->mName );
+            if ( needNode.at( childName ) )
             {
-                aiNode* child = node->mChildren[0];
-                auto it = name.find( assimpToCore( child->mName ) );
-                if ( it == name.end() )
+                // if data doesn't exist, create it (bone with no weight)
+                mapBone2Data[childName].m_name = childName;
+                // register parenthood
+                edgeList.push_back( {n.first, childName} );
+            }
+        }
+    }
+
+    // load bone frame once all are registered
+    for ( auto& bone : mapBone2Data )
+    {
+        loadHandleComponentDataFrame( scene, aiString( bone.first ), bone.second );
+    }
+
+    // find roots and leaves
+    std::set<std::string> roots;
+    for ( const auto& node : needNode )
+    {
+        if ( node.second )
+        {
+            roots.insert( node.first );
+        }
+    }
+    std::set<std::string> leaves = roots;
+    for ( auto edge : edgeList )
+    {
+        roots.erase( edge.second );
+        leaves.erase( edge.first );
+    }
+
+    // build one HandleData per root
+    for ( auto root : roots )
+    {
+        HandleData* handle = new HandleData();
+        handle->setType( HandleData::SKELETON );
+        handle->setName( root );
+
+        // Fetch the skeleton frame and name
+        Core::Transform frame = Core::Transform::Identity();
+        aiNode* node = scene->mRootNode->FindNode( aiString( root ) );
+        if ( node->mParent != nullptr )
+        {
+            node = node->mParent;
+            while ( node != nullptr )
+            {
+                frame = assimpToCore( node->mTransformation ) * frame;
+                node = node->mParent;
+            }
+        }
+        handle->setFrame( frame );
+
+        // get list of bones and edges for this skeleton
+        std::map<std::string, uint> nameTable;
+        fillHandleData( root, edgeList, mapBone2Data, nameTable, handle );
+        handle->setNameTable( nameTable );
+
+        // check if need additional end bones
+        bool needEndBone = false;
+        for ( const std::string& leaf : leaves )
+        {
+            if ( nameTable.find( leaf ) != nameTable.end() )
+            {
+                const auto& handleComponentData = mapBone2Data[leaf];
+                for ( const auto& mesh : handleComponentData.m_weight )
                 {
-                    component.push_back( HandleComponentData() );
-                    const uint j = component.size() - 1;
-                    loadHandleComponentData( child, component[j] );
-                    nameTable[component[j].m_name] = j;
+                    if ( mesh.second.size() != 0 )
+                    {
+                        needEndBone = true;
+                        break;
+                    }
+                }
+                if ( needEndBone )
+                {
+                    break;
                 }
             }
         }
+        handle->needEndNodes( needEndBone );
+
+        // register the HandleData
+        data.emplace_back( handle );
+        if ( m_verbose )
+        {
+            handle->displayInfo();
+        }
     }
-    data->setComponents( component );
-    data->setNameTable( nameTable );
 }
 
-void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, const aiBone* bone,
-                                                      HandleComponentData& data ) const {
-    data.m_name = assimpToCore( bone->mName );
-    // data.m_frame = assimpToCore( bone->mOffsetMatrix );
+void AssimpHandleDataLoader::loadHandleComponentDataFrame( const aiScene* scene,
+                                                           const aiString& boneName,
+                                                           HandleComponentData& data ) const {
+    // fetch global transform
     data.m_frame.setIdentity();
-    const uint size = bone->mNumWeights;
-    for ( uint j = 0; j < size; ++j )
-    {
-        std::pair<uint, Scalar> weight( bone->mWeights[j].mVertexId, bone->mWeights[j].mWeight );
-        data.m_weight.push_back( weight );
-    }
-    aiNode* node = scene->mRootNode->FindNode( bone->mName );
+    aiNode* node = scene->mRootNode->FindNode( boneName );
     while ( node != nullptr )
     {
         data.m_frame = assimpToCore( node->mTransformation ) * data.m_frame;
@@ -178,106 +288,41 @@ void AssimpHandleDataLoader::loadHandleComponentData( const aiScene* scene, cons
     }
 }
 
-void AssimpHandleDataLoader::loadHandleComponentData( const aiNode* node,
-                                                      HandleComponentData& data ) const {
-    data.m_name = assimpToCore( node->mName );
-    // data.m_frame = assimpToCore( node->mTransformation );
-    data.m_frame.setIdentity();
-    const aiNode* tmpNode = node;
-    while ( tmpNode != nullptr )
+void AssimpHandleDataLoader::loadHandleComponentDataWeights( const aiBone* bone,
+                                                             const std::string& meshName,
+                                                             HandleComponentData& data ) const {
+    // fetch skinning weigthts
+    const uint size = bone->mNumWeights;
+    for ( uint j = 0; j < size; ++j )
     {
-        data.m_frame = assimpToCore( tmpNode->mTransformation ) * data.m_frame;
-        tmpNode = tmpNode->mParent;
+        std::pair<uint, Scalar> weight( bone->mWeights[j].mVertexId, bone->mWeights[j].mWeight );
+        data.m_weight[meshName].push_back( weight );
     }
 }
 
-void AssimpHandleDataLoader::loadHandleTopologyData( const aiScene* scene,
-                                                     HandleData* data ) const {
-    const uint size = data->getComponentDataSize();
-    std::vector<std::pair<std::string, std::string>> edgeList;
-    for ( uint i = 0; i < size; ++i )
+void AssimpHandleDataLoader::fillHandleData(
+    const std::string& node, const std::vector<std::pair<std::string, std::string>>& edgeList,
+    const std::map<std::string, HandleComponentData>& mapBone2Data,
+    std::map<std::string, uint>& nameTable, HandleData* data ) const {
+    // register the HandleComponentData for the bone
+    nameTable[node] = data->getComponentData().size();
+    data->getComponentData().push_back( mapBone2Data.at( node ) );
+    // bind meshes bound to the bone
+    for ( const auto& mesh : mapBone2Data.at( node ).m_weight )
     {
-        const HandleComponentData& component = data->getComponent( i );
-        aiNode* node = scene->mRootNode->FindNode( aiString( component.m_name ) );
-        const uint children_size = node->mNumChildren;
-        for ( uint j = 0; j < children_size; ++j )
+        data->addBindMesh( mesh.first );
+    }
+    // go through children
+    for ( const auto& edge : edgeList )
+    {
+        if ( edge.first == node )
         {
-            std::string childName = assimpToCore( node->mChildren[j]->mName );
-            if ( data->getIndexOf( childName ) != -1 )
-            {
-                edgeList.push_back(
-                    std::pair<std::string, std::string>( component.m_name, childName ) );
-            }
+            fillHandleData( edge.second, edgeList, mapBone2Data, nameTable, data );
+            data->getEdgeData().push_back(
+                {nameTable.at( edge.first ), nameTable.at( edge.second )} );
         }
     }
-    Core::AlignedStdVector<Core::Vector2i> edge;
-    edge.reserve( edgeList.size() );
-    for ( const auto& it : edgeList )
-    {
-        Core::Vector2i e;
-        e[0] = data->getIndexOf( it.first );
-        e[1] = data->getIndexOf( it.second );
-        edge.push_back( e );
-    }
-    data->setEdges( edge );
 }
 
-void AssimpHandleDataLoader::loadHandleFrame(
-    const aiNode* node, const Core::Transform& parentFrame, const std::map<uint, uint>& indexTable,
-    std::vector<std::unique_ptr<HandleData>>& data ) const {
-    const uint child_size = node->mNumChildren;
-    const uint mesh_size = node->mNumMeshes;
-    if ( ( child_size == 0 ) && ( mesh_size == 0 ) )
-    {
-        return;
-    }
-    Core::Transform frame = parentFrame * assimpToCore( node->mTransformation );
-    for ( uint i = 0; i < mesh_size; ++i )
-    {
-        const uint ID = node->mMeshes[i];
-        auto it = indexTable.find( ID );
-        if ( it != indexTable.end() )
-        {
-            data[it->second]->setFrame( frame );
-        }
-    }
-    for ( uint i = 0; i < child_size; ++i )
-    {
-        loadHandleFrame( node->mChildren[i], frame, indexTable, data );
-    }
-}
-
-/// NAME
-void AssimpHandleDataLoader::fetchName( const aiMesh& mesh, HandleData& data,
-                                        std::set<std::string>& usedNames ) const {
-    std::string name = assimpToCore( mesh.mName );
-    while ( usedNames.find( name ) != usedNames.end() )
-    {
-        name.append( "_" );
-    }
-
-    usedNames.insert( name );
-    data.setName( name );
-}
-
-/// TYPE
-void AssimpHandleDataLoader::fetchType( const aiMesh& mesh, HandleData& data ) const {
-    data.setType( HandleData::SKELETON );
-    // TO DO: is there a way to know the right type of handle?
-}
-
-/// VERTEX SIZE
-void AssimpHandleDataLoader::fetchVertexSize( HandleData& data ) const {
-    const uint componentSize = data.getComponentDataSize();
-    uint vertexSize = 0;
-    for ( uint i = 0; i < componentSize; ++i )
-    {
-        for ( const auto& item : data.getComponent( i ).m_weight )
-        {
-            vertexSize = std::max( vertexSize, ( item.first + 1 ) );
-        }
-    }
-    data.setVertexSize( vertexSize );
-}
 } // namespace IO
 } // namespace Ra

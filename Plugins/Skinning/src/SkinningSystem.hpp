@@ -40,24 +40,22 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
 
     void handleAssetLoading( Ra::Engine::Entity* entity,
                              const Ra::Core::Asset::FileData* fileData ) override {
+        //        auto geomData = fileData->getGeometryData();
+        //        auto skelData = fileData->getHandleData();
+        //        if ( geomData.size() > 0 && skelData.size() > 0 )
+        //        {
+        //            for ( const auto& skel : skelData )
+        //            {
+        //                SkinningComponent* component = new SkinningComponent(
+        //                    "SkC_" + skel->getName(), SkinningComponent::LBS, entity );
+        //                component->handleWeightsLoading( skel );
+        //                registerComponent( entity, component );
 
-        auto geomData = fileData->getGeometryData();
-        auto skelData = fileData->getHandleData();
-
-        if ( geomData.size() > 0 && skelData.size() > 0 )
-        {
-            for ( const auto& skel : skelData )
-            {
-                SkinningComponent* component = new SkinningComponent(
-                    "SkC_" + skel->getName(), SkinningComponent::LBS, entity );
-                component->handleWeightsLoading( skel );
-                registerComponent( entity, component );
-
-                /*SkinningDisplayComponent* display = */ new SkinningDisplayComponent(
-                    "SkC_DSP_" + skel->getName(), skel->getName(), entity );
-                // display->display( component->getRefData() );
-            }
-        }
+        //                /*SkinningDisplayComponent* display = */ new SkinningDisplayComponent(
+        //                    "SkC_DSP_" + skel->getName(), skel->getName(), entity );
+        //                // display->display( component->getRefData() );
+        //            }
+        //        }
     }
 
     void showWeights( bool on ) {

@@ -163,6 +163,14 @@ inline void HandleData::needEndNodes( bool need ) {
     m_endNode = need;
 }
 
+inline void HandleData::addBindMesh( const std::string& name ) {
+    m_bindMeshes.insert( name );
+}
+
+inline const std::set<std::string>& HandleData::getBindMeshes() const {
+    return m_bindMeshes;
+}
+
 /// DEBUG
 inline void HandleData::displayInfo() const {
     using namespace Core::Utils; // log
