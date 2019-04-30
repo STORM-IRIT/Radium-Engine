@@ -97,9 +97,9 @@ void AnimationComponent::setupSkeletonDisplay() {
     m_boneDrawables.clear();
     for ( uint i = 0; i < m_skel.size(); ++i )
     {
-        if ( !m_skel.m_graph.isLeaf( i ) )
+        if ( !m_skel.m_graph.isLeaf( i ) && !m_skel.m_graph.isRoot( i ) )
         {
-            std::string name = m_skel.getLabel( i ) + std::to_string( i );
+            std::string name = m_skel.getLabel( i ) + "_" + std::to_string( i );
             m_boneDrawables.emplace_back(
                 new SkeletonBoneRenderObject( name, this, i, getRoMgr() ) );
             m_renderObjects.push_back( m_boneDrawables.back()->getRenderObjectIndex() );
@@ -148,8 +148,7 @@ void AnimationComponent::reset() {
     m_wasReset = true;
 }
 
-void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleData* data,
-                                                uint nbMeshVertices ) {
+void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleData* data ) {
     std::string name( m_name );
     name.append( "_" + data->getName() );
 
@@ -160,10 +159,10 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleDat
 
     m_contentName = data->getName();
 
-    std::map<uint, uint> indexTable;
-    Ra::Core::Asset::createSkeleton( *data, m_skel, indexTable );
+    Ra::Core::Asset::createSkeleton( *data, m_skel );
 
-    createWeightMatrix( data, indexTable, nbMeshVertices );
+    std::map<uint, uint> indexTable;
+    createWeightMatrix( data, indexTable, 0 );
     m_refPose = m_skel.getPose( Handle::SpaceType::MODEL );
 
     setupSkeletonDisplay();
@@ -222,24 +221,24 @@ void AnimationComponent::createWeightMatrix( const Ra::Core::Asset::HandleData* 
                                              uint nbMeshVertices ) {
     m_weights.resize( nbMeshVertices, data->getComponentDataSize() );
 
-    for ( const auto& it : indexTable )
-    {
-        const uint idx = it.first;
-        const uint col = it.second;
-        const uint size = data->getComponent( idx ).m_weight.size();
-        for ( uint i = 0; i < size; ++i )
-        {
-            const uint row = data->getComponent( idx ).m_weight[i].first;
-            const Scalar w = data->getComponent( idx ).m_weight[i].second;
-            m_weights.coeffRef( row, col ) = w;
-        }
-    }
-    Ra::Core::Animation::checkWeightMatrix( m_weights, false, true );
+    //    for ( const auto& it : indexTable )
+    //    {
+    //        const uint idx = it.first;
+    //        const uint col = it.second;
+    //        const uint size = data->getComponent( idx ).m_weight.size();
+    //        for ( uint i = 0; i < size; ++i )
+    //        {
+    //            const uint row = data->getComponent( idx ).m_weight[i].first;
+    //            const Scalar w = data->getComponent( idx ).m_weight[i].second;
+    //            m_weights.coeffRef( row, col ) = w;
+    //        }
+    //    }
+    //    Ra::Core::Animation::checkWeightMatrix( m_weights, false, true );
 
-    if ( Ra::Core::Animation::normalizeWeights( m_weights, true ) )
-    {
-        LOG( logINFO ) << "Skinning weights have been normalized";
-    }
+    //    if ( Ra::Core::Animation::normalizeWeights( m_weights, true ) )
+    //    {
+    //        LOG( logINFO ) << "Skinning weights have been normalized";
+    //    }
 }
 
 void AnimationComponent::setupIO( const std::string& id ) {
