@@ -91,16 +91,19 @@ void SkinningPluginC::onCurrentChanged( const QModelIndex& current, const QModel
         auto comps = m_system->getEntityComponents( it.m_entity );
         if ( comps.size() != 0 )
         {
-            auto comp = static_cast<SkinningPlugin::SkinningComponent*>( comps[0] );
-            m_widget->setCurrent( it, comp );
-
-            using BoneMap = std::map<Ra::Core::Utils::Index, uint>;
-            auto CM = Ra::Engine::ComponentMessenger::getInstance();
-            auto BM = *CM->getterCallback<BoneMap>( it.m_entity, comp->m_contentsName )();
-            auto b_it = BM.find( it.m_roIndex );
-            if ( b_it != BM.end() )
+            for ( auto& comp : comps )
             {
-                comp->setWeightBone( b_it->second );
+                auto skin = static_cast<SkinningPlugin::SkinningComponent*>( comp );
+                m_widget->setCurrent( it, skin );
+
+                using BoneMap = std::map<Ra::Core::Utils::Index, uint>;
+                auto CM = Ra::Engine::ComponentMessenger::getInstance();
+                auto BM = *CM->getterCallback<BoneMap>( it.m_entity, skin->m_contentsName )();
+                auto b_it = BM.find( it.m_roIndex );
+                if ( b_it != BM.end() )
+                {
+                    skin->setWeightBone( b_it->second );
+                }
             }
         } else
         { m_widget->setCurrent( it, nullptr ); }

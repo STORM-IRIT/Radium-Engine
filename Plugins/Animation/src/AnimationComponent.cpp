@@ -4,7 +4,6 @@
 #include <iostream>
 #include <queue>
 
-#include <Core/Animation/HandleWeightOperation.hpp>
 #include <Core/Animation/KeyPose.hpp>
 #include <Core/Animation/KeyTransform.hpp>
 #include <Core/Animation/Pose.hpp>
@@ -161,8 +160,6 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleDat
 
     Ra::Core::Asset::createSkeleton( *data, m_skel );
 
-    std::map<uint, uint> indexTable;
-    createWeightMatrix( data, indexTable, 0 );
     m_refPose = m_skel.getPose( Handle::SpaceType::MODEL );
 
     setupSkeletonDisplay();
@@ -216,31 +213,6 @@ void AnimationComponent::handleAnimationLoading(
     m_animationTime = 0.0;
 }
 
-void AnimationComponent::createWeightMatrix( const Ra::Core::Asset::HandleData* data,
-                                             const std::map<uint, uint>& indexTable,
-                                             uint nbMeshVertices ) {
-    m_weights.resize( nbMeshVertices, data->getComponentDataSize() );
-
-    //    for ( const auto& it : indexTable )
-    //    {
-    //        const uint idx = it.first;
-    //        const uint col = it.second;
-    //        const uint size = data->getComponent( idx ).m_weight.size();
-    //        for ( uint i = 0; i < size; ++i )
-    //        {
-    //            const uint row = data->getComponent( idx ).m_weight[i].first;
-    //            const Scalar w = data->getComponent( idx ).m_weight[i].second;
-    //            m_weights.coeffRef( row, col ) = w;
-    //        }
-    //    }
-    //    Ra::Core::Animation::checkWeightMatrix( m_weights, false, true );
-
-    //    if ( Ra::Core::Animation::normalizeWeights( m_weights, true ) )
-    //    {
-    //        LOG( logINFO ) << "Skinning weights have been normalized";
-    //    }
-}
-
 void AnimationComponent::setupIO( const std::string& id ) {
     ComponentMessenger::CallbackTypes<Skeleton>::Getter skelOut =
         std::bind( &AnimationComponent::getSkeletonOutput, this );
@@ -250,11 +222,6 @@ void AnimationComponent::setupIO( const std::string& id ) {
         std::bind( &AnimationComponent::getRefPoseOutput, this );
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>( getEntity(), this,
                                                                                   id, refpOut );
-
-    ComponentMessenger::CallbackTypes<WeightMatrix>::Getter wOut =
-        std::bind( &AnimationComponent::getWeightsOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>(
-        getEntity(), this, id, wOut );
 
     ComponentMessenger::CallbackTypes<bool>::Getter resetOut =
         std::bind( &AnimationComponent::getWasReset, this );
@@ -276,10 +243,6 @@ void AnimationComponent::setupIO( const std::string& id ) {
 
 const Ra::Core::Animation::Skeleton* AnimationComponent::getSkeletonOutput() const {
     return &m_skel;
-}
-
-const Ra::Core::Animation::WeightMatrix* AnimationComponent::getWeightsOutput() const {
-    return &m_weights;
 }
 
 const Ra::Core::Animation::RefPose* AnimationComponent::getRefPoseOutput() const {
