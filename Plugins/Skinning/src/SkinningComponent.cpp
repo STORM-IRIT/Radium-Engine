@@ -11,6 +11,7 @@
 #include <Core/Geometry/DistanceQueries.hpp>
 #include <Core/Geometry/TriangleOperation.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -36,6 +37,9 @@ using Ra::Core::Skinning::FrameData;
 using Ra::Core::Skinning::RefData;
 
 using Ra::Engine::ComponentMessenger;
+
+using namespace Ra::Core::Utils;
+
 namespace SkinningPlugin {
 
 bool findDuplicates( const TriangleMesh& mesh,
@@ -90,20 +94,19 @@ void SkinningComponent::initialize() {
     auto compMsg = ComponentMessenger::getInstance();
     // get the current animation data.
     bool hasSkel = compMsg->canGet<Skeleton>( getEntity(), m_contentsName );
-    bool hasWeights = compMsg->canGet<WeightMatrix>( getEntity(), m_contentsName );
     bool hasRefPose = compMsg->canGet<RefPose>( getEntity(), m_contentsName );
-    bool hasMesh = compMsg->canGet<TriangleMesh>( getEntity(), m_contentsName );
+    bool hasMesh = compMsg->canGet<TriangleMesh>( getEntity(), m_meshName );
 
-    if ( hasSkel && hasWeights && hasMesh && hasRefPose )
+    if ( hasSkel && hasMesh && hasRefPose )
     {
         m_renderObjectReader =
-            compMsg->getterCallback<Ra::Core::Utils::Index>( getEntity(), m_contentsName );
+            compMsg->getterCallback<Ra::Core::Utils::Index>( getEntity(), m_meshName );
         m_skeletonGetter = compMsg->getterCallback<Skeleton>( getEntity(), m_contentsName );
         m_verticesWriter =
-            compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName + "v" );
+            compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_meshName + "v" );
         m_normalsWriter =
-            compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_contentsName + "n" );
-        m_meshWritter = compMsg->rwCallback<TriangleMesh>( getEntity(), m_contentsName );
+            compMsg->rwCallback<Ra::Core::Vector3Array>( getEntity(), m_meshName + "n" );
+        m_meshWritter = compMsg->rwCallback<TriangleMesh>( getEntity(), m_meshName );
 
         // copy mesh triangles and find duplicates for normal computation.
         TriangleMesh* mesh = const_cast<TriangleMesh*>( m_meshWritter() );
@@ -113,8 +116,6 @@ void SkinningComponent::initialize() {
         // get other data
         m_refData.m_skeleton = compMsg->get<Skeleton>( getEntity(), m_contentsName );
         m_refData.m_refPose = compMsg->get<RefPose>( getEntity(), m_contentsName );
-        m_refData.m_weights = compMsg->get<WeightMatrix>( getEntity(), m_contentsName );
-
         m_frameData.m_previousPose = m_refData.m_refPose;
         m_frameData.m_frameCounter = 0;
         m_frameData.m_doSkinning = false;
@@ -130,6 +131,8 @@ void SkinningComponent::initialize() {
             Ra::Core::Animation::relativePose( m_frameData.m_currentPose, m_refData.m_refPose );
         m_frameData.m_prevToCurrentRelPose = Ra::Core::Animation::relativePose(
             m_frameData.m_currentPose, m_frameData.m_previousPose );
+
+        createWeightMatrix();
 
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton
         // and mesh.
@@ -331,13 +334,45 @@ void SkinningComponent::endSkinning() {
     }
 }
 
-void SkinningComponent::handleWeightsLoading( const Ra::Core::Asset::HandleData* data ) {
+void SkinningComponent::handleWeightsLoading( const Ra::Core::Asset::HandleData* data,
+                                              const std::string& meshName ) {
     m_contentsName = data->getName();
-    setupIO( m_contentsName );
+    m_meshName = meshName;
+    setupIO( meshName );
+    for ( const auto& bone : data->getComponentData() )
+    {
+        auto it = bone.m_weight.find( meshName );
+        if ( it != bone.m_weight.end() )
+        {
+            m_loadedWeights[bone.m_name] = it->second;
+        }
+    }
 }
 
-void SkinningComponent::setContentsName( const std::string& name ) {
-    m_contentsName = name;
+void SkinningComponent::createWeightMatrix() {
+    m_refData.m_weights.resize( m_refData.m_referenceMesh.vertices().size(),
+                                m_refData.m_skeleton.size() );
+    for ( int col = 0; col < m_refData.m_skeleton.size(); ++col )
+    {
+        auto it = m_loadedWeights.find( m_refData.m_skeleton.getLabel( col ) );
+        if ( it != m_loadedWeights.end() )
+        {
+            const auto& W = it->second;
+            const uint size = W.size();
+            for ( uint i = 0; i < size; ++i )
+            {
+                const uint row = W[i].first;
+                const Scalar w = W[i].second;
+                m_refData.m_weights.coeffRef( row, col ) = w;
+            }
+        }
+    }
+    Ra::Core::Animation::checkWeightMatrix( m_refData.m_weights, false, true );
+
+    if ( Ra::Core::Animation::normalizeWeights( m_refData.m_weights, true ) )
+    {
+        LOG( logINFO ) << "Skinning weights have been normalized";
+    }
 }
 
 void SkinningComponent::setupIO( const std::string& id ) {
@@ -347,6 +382,11 @@ void SkinningComponent::setupIO( const std::string& id ) {
         std::bind( &SkinningComponent::getDQ, this );
     ComponentMessenger::getInstance()->registerOutput<DualQuatVector>( getEntity(), this, id,
                                                                        dqOut );
+
+    ComponentMessenger::CallbackTypes<WeightMatrix>::Getter wOut =
+        std::bind( &SkinningComponent::getWeightsOutput, this );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>(
+        getEntity(), this, id, wOut );
 
     ComponentMessenger::CallbackTypes<RefData>::Getter refData =
         std::bind( &SkinningComponent::getRefData, this );
@@ -366,6 +406,10 @@ void SkinningComponent::setSkinningType( SkinningType type ) {
         setupSkinningType( type );
         m_forceUpdate = true;
     }
+}
+
+const Ra::Core::Animation::WeightMatrix* SkinningComponent::getWeightsOutput() const {
+    return &m_refData.m_weights;
 }
 
 void SkinningComponent::setupSkinningType( SkinningType type ) {

@@ -106,10 +106,6 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
                                const Ra::Core::Transform& transform ) override;
 
   private:
-    // Internal function to create the skinning weights.
-    void createWeightMatrix( const Ra::Core::Asset::HandleData* data,
-                             const std::map<uint, uint>& indexTable, uint nbMeshVertices );
-
     // Internal function to create the bone display objects.
     void setupSkeletonDisplay();
 
@@ -128,9 +124,6 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
 
     /// Referene Pose getter for CC.
     const Ra::Core::Animation::RefPose* getRefPoseOutput() const;
-
-    /// Skinning Weight Matrix getter for CC.
-    const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
 
     /// Reset status getter for CC.
     const bool* getWasReset() const;
@@ -156,10 +149,6 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
 
     /// The animations.
     std::vector<Ra::Core::Animation::Animation> m_animations;
-
-    /// The Skinning Weight Matrix
-    // FIXME: this one should go in the SkinningComponent.
-    Ra::Core::Animation::WeightMatrix m_weights;
 
     /// Bones ROs.
     std::vector<std::unique_ptr<SkeletonBoneRenderObject>> m_boneDrawables;

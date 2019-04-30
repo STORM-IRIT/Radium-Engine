@@ -40,22 +40,33 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
 
     void handleAssetLoading( Ra::Engine::Entity* entity,
                              const Ra::Core::Asset::FileData* fileData ) override {
-        //        auto geomData = fileData->getGeometryData();
-        //        auto skelData = fileData->getHandleData();
-        //        if ( geomData.size() > 0 && skelData.size() > 0 )
-        //        {
-        //            for ( const auto& skel : skelData )
-        //            {
-        //                SkinningComponent* component = new SkinningComponent(
-        //                    "SkC_" + skel->getName(), SkinningComponent::LBS, entity );
-        //                component->handleWeightsLoading( skel );
-        //                registerComponent( entity, component );
-
-        //                /*SkinningDisplayComponent* display = */ new SkinningDisplayComponent(
-        //                    "SkC_DSP_" + skel->getName(), skel->getName(), entity );
-        //                // display->display( component->getRefData() );
-        //            }
-        //        }
+        auto geomData = fileData->getGeometryData();
+        auto skelData = fileData->getHandleData();
+        if ( geomData.size() > 0 && skelData.size() > 0 )
+        {
+            for ( const auto& geom : geomData )
+            {
+                // look for a skeleton skining this mesh (!should be at most one such skeleton!)
+                auto it =
+                    std::find_if( skelData.begin(), skelData.end(), [&geom]( const auto& skel ) {
+                        return std::find_if( skel->getBindMeshes().begin(),
+                                             skel->getBindMeshes().end(),
+                                             [&geom]( const auto& meshName ) {
+                                                 return meshName == geom->getName();
+                                             } ) != skel->getBindMeshes().end();
+                    } );
+                if ( it != skelData.end() )
+                {
+                    const auto& skel = *it;
+                    SkinningComponent* component = new SkinningComponent(
+                        "SkC_" + geom->getName(), SkinningComponent::LBS, entity );
+                    component->handleWeightsLoading( skel, geom->getName() );
+                    registerComponent( entity, component );
+                    new SkinningDisplayComponent( "SkC_DSP_" + geom->getName(), geom->getName(),
+                                                  entity );
+                }
+            }
+        }
     }
 
     void showWeights( bool on ) {
