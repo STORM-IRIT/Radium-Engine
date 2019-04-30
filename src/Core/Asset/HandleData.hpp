@@ -2,6 +2,7 @@
 #define RADIUMENGINE_HANDLE_DATA_HPP
 
 #include <map>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -20,9 +21,9 @@ struct RA_CORE_API HandleComponentData {
 
     HandleComponentData();
 
-    Core::Transform m_frame;
     std::string m_name;
-    std::vector<std::pair<uint, Scalar>> m_weight;
+    Core::Transform m_frame;
+    std::map<std::string, std::vector<std::pair<uint, Scalar>>> m_weight;
 };
 
 class RA_CORE_API HandleData : public AssetData {
@@ -73,6 +74,9 @@ class RA_CORE_API HandleData : public AssetData {
     inline void setFaces( const Core::AlignedStdVector<Core::VectorNi>& faceList );
     inline void recomputeAllIndices();
 
+    inline void addBindMesh( const std::string& name );
+    inline const std::set<std::string>& getBindMeshes() const;
+
     /// QUERY
     inline bool isPointCloud() const;
     inline bool isSkeleton() const;
@@ -96,6 +100,7 @@ class RA_CORE_API HandleData : public AssetData {
     bool m_endNode;
     uint m_vertexSize;
     std::map<std::string, uint> m_nameTable;
+    std::set<std::string> m_bindMeshes;
 
     Core::AlignedStdVector<HandleComponentData> m_component;
     Core::AlignedStdVector<Core::Vector2i> m_edge;

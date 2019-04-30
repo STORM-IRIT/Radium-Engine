@@ -24,7 +24,7 @@ class SkeletonBoneRenderObject;
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
   public:
     AnimationComponent( const std::string& name, Ra::Engine::Entity* entity );
-    virtual ~AnimationComponent();
+    ~AnimationComponent() override;
     AnimationComponent( const AnimationComponent& ) = delete;
     AnimationComponent& operator=( const AnimationComponent& ) = delete;
 
@@ -35,11 +35,7 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     //
 
     /// Create the skeleton from the given data.
-    /// @param data the skeleton's joint transform hierarchy.
-    /// @param nbMeshVertices the number of single vertices.
-    // FIXME: nbMeshVertices is needed only for the genereation of
-    //        the skinning weights matrix.
-    void handleSkeletonLoading( const Ra::Core::Asset::HandleData* data, uint nbMeshVertices );
+    void handleSkeletonLoading( const Ra::Core::Asset::HandleData* data );
 
     /// Create the animations from the given data.
     void handleAnimationLoading( const std::vector<Ra::Core::Asset::AnimationData*>& data );
