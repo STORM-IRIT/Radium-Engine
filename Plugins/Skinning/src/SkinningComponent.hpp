@@ -57,7 +57,8 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
 
     /// Loads the skinning weights from the given Handledata.
     // TODO: for now, weights are stored in the AnimationComponent.
-    virtual void handleWeightsLoading( const Ra::Core::Asset::HandleData* data );
+    virtual void handleWeightsLoading( const Ra::Core::Asset::HandleData* data,
+                                       const std::string& meshName );
 
     /// @returns the reference skinning data.
     const Ra::Core::Skinning::RefData* getRefData() const { return &m_refData; }
@@ -94,6 +95,16 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     std::string m_contentsName;
 
   private:
+    // Internal function to create the skinning weights.
+    void createWeightMatrix();
+
+    /// Skinning Weight Matrix getter for CC.
+    const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
+
+  private:
+    /// The mesh name for Component communication.
+    std::string m_meshName;
+
     /// The refrence Skinning data.
     Ra::Core::Skinning::RefData m_refData;
 
@@ -123,6 +134,9 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     /// The Skinning Method.
     SkinningType m_skinningType;
 
+    /// The Skinning Weight Matrix.
+    Ra::Core::Animation::WeightMatrix m_weights;
+
     /// Are all the required data available.
     bool m_isReady;
 
@@ -134,6 +148,9 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
 
     /// The duplicate vertices map, used to recompute smooth normals.
     std::vector<Ra::Core::Utils::Index> m_duplicatesMap;
+
+    /// The skinning weights, stored per bone.
+    std::map<std::string, std::vector<std::pair<uint, Scalar>>> m_loadedWeights;
 
     /// The STBS weights.
     Ra::Core::Animation::WeightMatrix m_weightSTBS;
