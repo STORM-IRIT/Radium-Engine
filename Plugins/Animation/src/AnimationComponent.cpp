@@ -172,11 +172,11 @@ void AnimationComponent::handleAnimationLoading(
     CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first." );
     if ( data.empty() )
         return;
-    std::map<uint, uint> table;
-    std::set<Ra::Core::Animation::Time> keyTime;
 
     for ( uint n = 0; n < data.size(); ++n )
     {
+        std::map<uint, uint> table;
+        std::set<Ra::Core::Animation::Time> keyTime;
         auto handleAnim = data[n]->getFrames();
         for ( uint i = 0; i < m_skel.size(); ++i )
         {
@@ -189,6 +189,11 @@ void AnimationComponent::handleAnimationLoading(
                     keyTime.insert( set.begin(), set.end() );
                 }
             }
+        }
+
+        if ( keyTime.empty() )
+        {
+            continue;
         }
 
         Ra::Core::Animation::KeyPose keypose;
