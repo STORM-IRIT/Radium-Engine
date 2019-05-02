@@ -41,7 +41,7 @@ class KeyFrame {
     }
 
     inline FRAME at( const Time& t ) const {
-        if ( !m_time.contain( t ) )
+        if ( m_keyframe.empty() )
         {
             return defaultFrame();
         }
