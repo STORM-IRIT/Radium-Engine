@@ -151,8 +151,6 @@ void Gui::Viewer::initializeGL() {
     m_context->makeCurrent( this );
 
     LOG( logINFO ) << "*** Radium Engine Viewer ***";
-    Engine::ShaderProgramManager::createInstance( "Shaders/Default.vert.glsl",
-                                                  "Shaders/Default.frag.glsl" );
 
     // initialize renderers added before GL was ready
     if ( !m_renderers.empty() )
@@ -438,6 +436,9 @@ void Gui::Viewer::showEvent( QShowEvent* /*ev*/ ) {
         LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
         LOG( logINFO ) << "GLSL                 : "
                        << gl::glGetString( gl::GLenum( GL_SHADING_LANGUAGE_VERSION ) );
+
+        Engine::ShaderProgramManager::createInstance();
+        Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
 
         m_context->doneCurrent();
     }

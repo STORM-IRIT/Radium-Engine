@@ -3,6 +3,7 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
@@ -101,10 +102,14 @@ void BlinnPhongMaterial::registerMaterial() {
     // Defining Converter
     EngineMaterialConverters::registerMaterialConverter( "BlinnPhong",
                                                          BlinnPhongMaterialConverter() );
+
+    ShaderProgramManager::getInstance()->addNamedString("/BlinnPhongMaterial.glsl",
+        "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl");
     // registering re-usable shaders
     Ra::Engine::ShaderConfiguration lpconfig( "BlinnPhong",
                                               "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
                                               "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     Ra::Engine::ShaderConfiguration zprepassconfig(

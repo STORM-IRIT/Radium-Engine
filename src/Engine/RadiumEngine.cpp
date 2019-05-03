@@ -41,9 +41,31 @@ void RadiumEngine::initialize() {
     m_renderObjectManager = std::make_unique<RenderObjectManager>();
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
+    m_loadingState = false;
+}
+
+void RadiumEngine::registerDefaultPrograms() {
+    auto shaderProgramManager = ShaderProgramManager::getInstance();
+    CORE_ASSERT( shaderProgramManager != nullptr,
+                 "ShaderProgramManager needs to be created first" );
+
+    // Create named strings which correspond to shader files that you want to use in shaders's
+    // includes. NOTE: if you want to add a named string to handle a new shader include file, be
+    // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
+    // Radium V2 : are these initialization required here ? They will be better in
+    // Engine::Initialize .... Define a better ressources management and initialization
+    shaderProgramManager->addNamedString( "/Helpers.glsl", "Shaders/Helpers.glsl" );
+    shaderProgramManager->addNamedString( "/Structs.glsl", "Shaders/Structs.glsl" );
+    shaderProgramManager->addNamedString( "/Tonemap.glsl", "Shaders/Tonemap.glsl" );
+    shaderProgramManager->addNamedString( "/LightingFunctions.glsl",
+                                          "Shaders/LightingFunctions.glsl" );
+    shaderProgramManager->addNamedString( "/TransformStructs.glsl",
+                                          "Shaders/Transform/TransformStructs.glsl" );
+    shaderProgramManager->addNamedString( "/DefaultLight.glsl",
+                                          "Shaders/Lights/DefaultLight.glsl" );
+
     // Engine support some built-in materials. Register here
     BlinnPhongMaterial::registerMaterial();
-    m_loadingState = false;
 }
 
 void RadiumEngine::cleanup() {
@@ -138,6 +160,8 @@ Displayable* RadiumEngine::getMesh( const std::string& entityName, const std::st
 }
 
 bool RadiumEngine::loadFile( const std::string& filename ) {
+    releaseFile();
+
     std::string extension = Core::Utils::getFileExt( filename );
 
     for ( auto& l : m_fileLoaders )

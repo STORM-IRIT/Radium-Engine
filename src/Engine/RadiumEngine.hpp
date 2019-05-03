@@ -48,6 +48,11 @@ class RA_ENGINE_API RadiumEngine {
     void initialize();
 
     /**
+     * Register default shaders, materials and named strings
+     */
+    void registerDefaultPrograms();
+
+    /**
      * Free all resources acquired during initialize
      */
     void cleanup();
