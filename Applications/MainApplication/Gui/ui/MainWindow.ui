@@ -165,33 +165,7 @@
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QComboBox" name="m_currentShaderBox">
-              <item>
-               <property name="text">
-                <string/>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Plain</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>BlinnPhong</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>LinesGeom</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Lines</string>
-               </property>
-              </item>
-             </widget>
+             <widget class="QComboBox" name="m_currentShaderBox"/>
             </item>
             <item row="0" column="1">
              <widget class="QLabel" name="m_currentShaderBoxLabel">

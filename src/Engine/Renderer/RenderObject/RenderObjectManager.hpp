@@ -37,7 +37,7 @@ class RA_ENGINE_API RenderObjectManager final {
      * @brief Get all render objects, the vector is assumed to be empty when called
      * @param objectsOut vector that will receive render objects
      */
-    void getRenderObjects( std::vector<std::shared_ptr<RenderObject>>& objectsOut ) const;
+    const Core::Utils::IndexMap<std::shared_ptr<RenderObject>>& getRenderObjects() const;
 
     /**
      * Get all render objects of the given type, the vector is assumed to be empty whan called

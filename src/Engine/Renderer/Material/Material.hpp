@@ -32,14 +32,16 @@ class RA_ENGINE_API Material {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
+  protected:
     /**
      * Creates a named material with the given aspect
      * @param name
      * @param aspect
      */
-    explicit Material( const std::string& name,
+    explicit Material( const std::string& instanceName, const std::string& materialName,
                        MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
+  public:
     virtual ~Material() = default;
 
     /** Update the OpenGL states used by the material.
@@ -56,15 +58,15 @@ class RA_ENGINE_API Material {
     virtual void bind( const ShaderProgram* shader ) = 0;
 
     /**
-     * @return the name of the material.
+     * @return the name of the material instance
      */
-    inline const std::string& getName() const;
+    inline const std::string& getInstanceName() const;
 
-    /** Get the shader file that define the glsl code to evaluate the material.
-     * @note not used yet by the Engine.
-     * @return the glsl file implementing the GLSL material interface.
+    /**
+     * @return the name of the material, can be used a UUID
+     * @note the material name is expected to be used to define the ShaderConfiguration name
      */
-    virtual const std::string getShaderInclude() const;
+    inline const std::string& getMaterialName() const;
 
     /** set the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      * @param aspect
@@ -83,9 +85,13 @@ class RA_ENGINE_API Material {
     virtual bool isTransparent() const;
 
   protected:
-    std::string m_name{};
+    std::string m_instanceName{};
     bool m_isDirty{true};
     MaterialAspect m_aspect{MaterialAspect::MAT_OPAQUE};
+
+  private:
+    /// Unique material name that can be used to identify the material
+    const std::string m_materialName;
 };
 
 } // namespace Engine

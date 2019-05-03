@@ -5,6 +5,8 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -63,7 +65,7 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
 
     createConnections();
 
-    mainApp->framesCountForStatsChanged( (uint)m_avgFramesCount->value() );
+    mainApp->framesCountForStatsChanged( uint( m_avgFramesCount->value() ) );
 
     // load default color from QSettings
     updateBackgroundColor();
@@ -222,8 +224,8 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     auto romgr = mainApp->m_engine->getRenderObjectManager();
 
-    uint polycount = romgr->getNumFaces();
-    uint vertexcount = romgr->getNumVertices();
+    auto polycount = romgr->getNumFaces();
+    auto vertexcount = romgr->getNumVertices();
 
     QString polyCountText =
         QString( "Rendering %1 faces and %2 vertices" ).arg( polycount ).arg( vertexcount );
@@ -250,7 +252,7 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
         }
     }
 
-    const uint N( stats.size() );
+    const uint N{uint( stats.size() )};
     const Scalar T( N * 1000000.f );
 
     m_eventsTime->setNum( int( sumEvents / N ) );
@@ -296,8 +298,10 @@ void MainWindow::handlePicking( const Engine::Renderer::PickingResult& pickingRe
     { m_selectionManager->clear(); }
 }
 
-void MainWindow::onSelectionChanged( const QItemSelection& selected,
-                                     const QItemSelection& deselected ) {
+void MainWindow::onSelectionChanged( const QItemSelection& /*selected*/,
+                                     const QItemSelection& /*deselected*/ ) {
+    m_currentShaderBox->setEnabled( false );
+
     if ( m_selectionManager->hasSelection() )
     {
         const ItemEntry& ent = m_selectionManager->currentItem();
@@ -314,18 +318,18 @@ void MainWindow::onSelectionChanged( const QItemSelection& selected,
             const std::string& shaderName = mainApp->m_engine->getRenderObjectManager()
                                                 ->getRenderObject( ent.m_roIndex )
                                                 ->getRenderTechnique()
-                                                ->getConfiguration()
-                                                .m_name;
-
-            if ( m_currentShaderBox->findText( shaderName.c_str() ) == -1 )
-            {
-                m_currentShaderBox->addItem( QString( shaderName.c_str() ) );
-                m_currentShaderBox->setCurrentText( shaderName.c_str() );
-            } else
-            { m_currentShaderBox->setCurrentText( shaderName.c_str() ); }
-        }
+                                                ->getMaterial()
+                                                ->getMaterialName();
+            CORE_ASSERT( m_currentShaderBox->findText( shaderName.c_str() ) != -1,
+                         "RO shaders must be already added to the list" );
+            m_currentShaderBox->setCurrentText( shaderName.c_str() );
+            // m_currentShaderBox->setEnabled( true ); // commented out, as there is no simple way
+            // to change the material type
+        } else
+            m_currentShaderBox->setCurrentText( "" );
     } else
     {
+        m_currentShaderBox->setCurrentText( "" );
         emit selectedItem( ItemEntry() );
         m_selectedItemName->setText( "" );
         m_editRenderObjectButton->setEnabled( false );
@@ -423,9 +427,11 @@ void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
     for ( const auto& ro_index : vector_of_ros )
     {
         const auto& ro = mainApp->m_engine->getRenderObjectManager()->getRenderObject( ro_index );
-        if ( ro->getRenderTechnique()->getConfiguration().m_name != name )
+        if ( ro->getRenderTechnique()->getMaterial()->getMaterialName() != name )
         {
-            ro->getRenderTechnique()->setConfiguration( config );
+            // FIXME: this changes only the render technique, not the associated shader.
+            auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( name );
+            builder.second( *ro->getRenderTechnique().get(), false );
         }
     }
 }
@@ -483,7 +489,7 @@ void Gui::MainWindow::updateUi( Plugins::RadiumPluginInterface* plugin ) {
     {
         for ( int i = 0; i < nbActions; ++i )
         {
-            toolBar->insertAction( 0, plugin->getAction( i ) );
+            toolBar->insertAction( nullptr, plugin->getAction( i ) );
         }
         toolBar->addSeparator();
     }
@@ -580,6 +586,25 @@ void MainWindow::fitCamera() {
         m_viewer->getCameraInterface()->resetCamera();
     else
         m_viewer->fitCameraToScene( aabb );
+}
+
+void MainWindow::postLoadFile() {
+    m_selectionManager->clear();
+    m_currentShaderBox->clear();
+    m_currentShaderBox->setEnabled( false );
+    m_currentShaderBox->addItem( "" ); // add empty item
+    for ( const auto& ro :
+          Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObjects() )
+    {
+        if ( ro->getType() == Engine::RenderObjectType::Geometry )
+        {
+            const std::string& shaderName =
+                ro->getRenderTechnique()->getMaterial()->getMaterialName();
+            m_currentShaderBox->addItem( QString( shaderName.c_str() ) );
+        }
+    }
+
+    fitCamera();
 }
 
 void MainWindow::onGLInitialized() {
