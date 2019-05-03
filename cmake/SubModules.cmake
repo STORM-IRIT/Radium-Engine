@@ -1,3 +1,17 @@
+# Fetch submodules if requested
+if(RADIUM_GIT_UPDATE_SUBMODULE)
+    message(STATUS "Submodule update")
+    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                    RESULT_VARIABLE GIT_SUBMOD_RESULT)
+    if(GIT_SUBMOD_RESULT EQUAL "0")
+        message( "Submodules fetched. Turning OFF RADIUM_GIT_UPDATE_SUBMODULE." )
+        SET(RADIUM_GIT_UPDATE_SUBMODULE OFF CACHE BOOL "Check submodules during build" FORCE)
+    else()
+        message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+    endif()
+endif()
+
 
 # EXTERNALS
 # have ExternalProject available
