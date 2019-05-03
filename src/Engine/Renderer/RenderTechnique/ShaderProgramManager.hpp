@@ -9,6 +9,7 @@
 #include <vector>
 
 #include <Core/Utils/Singleton.hpp>
+#include <Core/Utils/StdOptional.hpp>
 
 namespace globjects {
 class File;
@@ -46,11 +47,11 @@ class RA_ENGINE_API ShaderProgramManager final {
      *
      *
      * @param config the configuration of the programm to add to the collection
-     * @return the created shader program. In case of compile/link/verify error, the default shader programm is returned
+     * @return the created shader program. In case of compile/link/verify error, return false
      * @note ownership on the returned pointer is keep by the manager.
-     * @bug, there is no way to know if the returned programm is the default one (except segfault sometimes ...)
+     * @warning this method is *not* reentrant
      */
-    const ShaderProgram* addShaderProgram( const ShaderConfiguration& config );
+    Core::Utils::optional<const ShaderProgram*> addShaderProgram( const ShaderConfiguration& config );
 
     /**
      * Get the shader programm corresponding to the given id
@@ -62,17 +63,10 @@ class RA_ENGINE_API ShaderProgramManager final {
     /**
      * Get the shader programm corresponding to the given configuration
      * @param config Name of the programm to retrieve
-     * @return the shader programm retrieved. If no shader programm corresponding to the configuration could be found,
-     * return the result of addShaderProgram(config)
+     * @return the shader programm retrieved, or nullptr when no shader programm corresponding to
+     * the configuration is found.
      */
     const ShaderProgram* getShaderProgram( const ShaderConfiguration& config );
-
-    /**
-     * Get the system default program.
-     * Default programm could be defined whe building the singleton of the ShaderProgramManager
-     * @return the system default shader programm
-     */
-    const ShaderProgram* getDefaultShaderProgram() const;
 
     /**
      * Reload source, recompile, link and validate all the managed programms.
@@ -91,8 +85,9 @@ class RA_ENGINE_API ShaderProgramManager final {
      * with a file that contains the included glsl source code.
      * @param includepath
      * @param realfile
+     * @return false if the string already exists. Print an error message
      */
-    void addNamedString( const std::string& includepath, const std::string& realfile );
+    bool addNamedString( const std::string& includepath, const std::string& realfile );
 
     /**
      * Reload all the registered name string.
@@ -102,9 +97,8 @@ class RA_ENGINE_API ShaderProgramManager final {
 
   private:
     /// need Initialization after ctr and before use
-    ShaderProgramManager( const std::string& vs, const std::string& fs );
+    ShaderProgramManager();
     ~ShaderProgramManager();
-    void initialize();
     void insertShader( const ShaderConfiguration& config,
                        const std::shared_ptr<ShaderProgram>& shader );
 
@@ -113,13 +107,8 @@ class RA_ENGINE_API ShaderProgramManager final {
     std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
     std::vector<ShaderConfiguration> m_shaderFailedConfs;
 
-    std::vector<std::unique_ptr<globjects::File>> m_files;
-    std::vector<std::unique_ptr<globjects::NamedString>> m_namedStrings;
-
-    std::string m_defaultVsName {};
-    std::string m_defaultFsName {};
-
-    const ShaderProgram* m_defaultShaderProgram { nullptr };
+    std::map<std::string, std::pair<std::unique_ptr<globjects::File>, std::unique_ptr<globjects::NamedString>>>
+        m_namedStrings;
 };
 
 } // namespace Engine

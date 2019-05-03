@@ -70,15 +70,22 @@ void Renderer::initialize( uint width, uint height ) {
     pickingPointsConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingPoints.geom.glsl" );
     pickingPointsConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
-    m_pickingShaders[Displayable::PKM_POINTS] =
-        m_shaderMgr->addShaderProgram( pickingPointsConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram(pickingPointsConfig);
+        CORE_ASSERT(pickingShader, "Picking Shader is required for points");
+        m_pickingShaders[Displayable::PKM_POINTS] = *pickingShader;
+    }
 
     ShaderConfiguration pickingLinesConfig( "PickingLines" );
     pickingLinesConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingLinesConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingLines.geom.glsl" );
     pickingLinesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
-    m_pickingShaders[Displayable::PKM_LINES] = m_shaderMgr->addShaderProgram( pickingLinesConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram(pickingLinesConfig);
+        CORE_ASSERT(pickingShader, "Picking Shader is required for lines");
+        m_pickingShaders[Displayable::PKM_LINES] = *pickingShader;
+    }
 
     ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
     pickingLinesAdjacencyConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
@@ -86,16 +93,22 @@ void Renderer::initialize( uint width, uint height ) {
                                            "Shaders/PickingLinesAdjacency.geom.glsl" );
     pickingLinesAdjacencyConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
-    m_pickingShaders[Displayable::PKM_LINE_ADJ] =
-        m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram(pickingLinesAdjacencyConfig);
+        CORE_ASSERT(pickingShader, "Picking Shader is required for lines adjacency");
+        m_pickingShaders[Displayable::PKM_LINE_ADJ] = *pickingShader;
+    }
 
     ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
     pickingTrianglesConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingTrianglesConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingTriangles.geom.glsl" );
     pickingTrianglesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
-    m_pickingShaders[Displayable::PKM_TRI] =
-        m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram(pickingTrianglesConfig);
+        CORE_ASSERT(pickingShader, "Picking Shader is required for triangles");
+        m_pickingShaders[Displayable::PKM_TRI] = *pickingShader;
+    }
 
     TextureParameters texparams;
     texparams.width = m_width;

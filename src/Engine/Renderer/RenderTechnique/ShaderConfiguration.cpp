@@ -201,6 +201,11 @@ void ShaderConfiguration::removeInclude( const std::string& incl, ShaderType typ
     // m_properties.erase( "#include " + prop );
 }
 
+void ShaderConfiguration::addNamedString(const std::string & includepath, const std::string & realfile)
+{
+    m_named_strings.emplace_back(includepath, realfile);
+}
+
 bool ShaderConfiguration::isComplete() const {
     return ( ( ! m_shaders[ShaderType_VERTEX].empty() ) && ( ! m_shaders[ShaderType_FRAGMENT].empty() ) ) ||
            !m_shaders[ShaderType_COMPUTE].empty();
@@ -267,6 +272,11 @@ std::set<std::string> ShaderConfiguration::getProperties() const {
 
 const std::vector<std::pair<std::string, ShaderType>>& ShaderConfiguration::getIncludes() const {
     return m_includes;
+}
+
+const std::vector<std::pair<std::string, std::string>>& ShaderConfiguration::getNamedStrings() const
+{
+    return m_named_strings;
 }
 
 } // namespace Engine
