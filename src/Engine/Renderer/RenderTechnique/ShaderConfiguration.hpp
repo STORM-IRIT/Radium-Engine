@@ -96,6 +96,9 @@ class RA_ENGINE_API ShaderConfiguration final {
     void addIncludes( const std::list<std::string>& incls, ShaderType type = ShaderType_FRAGMENT );
     void removeInclude( const std::string& incl, ShaderType type = ShaderType_FRAGMENT );
 
+    /// Manage named strings (see ShaderProgramManager::addNamedString)
+    void addNamedString(const std::string& includepath, const std::string& realfile);
+
     /** Tell if a shader configuration has at least a vertex and a fragment shader, or a compute
      * shader.
      * */
@@ -106,6 +109,8 @@ class RA_ENGINE_API ShaderConfiguration final {
     std::set<std::string> getProperties() const;
 
     const std::vector<std::pair<std::string, ShaderType>>& getIncludes() const;
+
+    const std::vector<std::pair<std::string, std::string>>& getNamedStrings() const;
 
     // get default shader configuration
     static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
@@ -121,6 +126,8 @@ class RA_ENGINE_API ShaderConfiguration final {
     std::set<std::string> m_properties;
 
     std::vector<std::pair<std::string, ShaderType>> m_includes;
+
+    std::vector<std::pair<std::string, std::string>> m_named_strings;
 
     static ShaderConfiguration m_defaultShaderConfig;
 };
