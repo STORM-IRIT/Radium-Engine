@@ -30,6 +30,7 @@ struct Material
     float ns;
     float alpha;
 
+    int hasPerVertexKd;
     int renderAsSplat;
 
     BlinnPhongTextures tex;
@@ -37,6 +38,10 @@ struct Material
 
 vec3 getKd(Material material, vec2 texCoord)
 {
+    if (material.hasPerVertexKd == 1)
+    {
+        return in_vertexColor.xyz;
+    }
     if (material.tex.hasKd == 1)
     {
         return vec3(texture(material.tex.kd, texCoord));

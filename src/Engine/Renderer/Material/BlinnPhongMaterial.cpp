@@ -47,6 +47,7 @@ void BlinnPhongMaterial::updateGL() {
 
 void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     shader->setUniform( "material.kd", m_kd );
+    shader->setUniform( "material.hasPerVertexKd", m_hasPerVertexKd );
     shader->setUniform( "material.renderAsSplat", m_renderAsSplat );
     shader->setUniform( "material.ks", m_ks );
     shader->setUniform( "material.ns", m_ns );
