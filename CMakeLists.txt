@@ -56,10 +56,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE
 # get changeset id
 find_package(Git)
 
-if(GIT_FOUND)
-  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    OUTPUT_VARIABLE GIT_CHANGESET)
+if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+    option(RADIUM_GIT_UPDATE_SUBMODULE         "Check submodules during build (will be automatically disabled after run)" ON)
+    execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_CHANGESET)
     # remove new line sometime appearing in git changeset
     string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
 else()
@@ -189,14 +190,17 @@ add_dependencies(radium_assets radiumCore)
 # SHADERS                                                                      #
 ################################################################################
 set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
+file(GLOB_RECURSE SHADER_FILES ${SHADER_DIR}/*.glsl)
 if(MSVC OR MSVC_IDE OR MINGW)
     add_custom_target( radium_shaders
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+        SOURCES ${SHADER_FILES}
         COMMENT "Copying shaders" VERBATIM
     )
 else()
     add_custom_target( radium_shaders
         COMMAND ${CMAKE_COMMAND} -E create_symlink ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+        SOURCES ${SHADER_FILES}
         COMMENT "Linking (symlink) shaders" VERBATIM
     )
 endif()
@@ -206,15 +210,17 @@ add_dependencies(radium_shaders radiumCore)
 # Configs                                                                      #
 ################################################################################
 set(CONFIG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Configs")
-
+file(GLOB_RECURSE CONFIG_FILES ${CONFIG_DIR}/*.xml)
 if(MSVC OR MSVC_IDE OR MINGW)
     add_custom_target( radium_configs
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
+        SOURCES ${CONFIG_FILES}
         COMMENT "Copying configs (keymapping)" VERBATIM
     )
 else()
     add_custom_target( radium_configs
         COMMAND ${CMAKE_COMMAND} -E create_symlink ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
+        SOURCES ${CONFIG_FILES}
         COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
     )
 endif()
