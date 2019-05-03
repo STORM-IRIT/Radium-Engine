@@ -13,8 +13,10 @@
 namespace Ra {
 namespace Engine {
 
-BlinnPhongMaterial::BlinnPhongMaterial( const std::string& name ) :
-    Material( name, Material::MaterialAspect::MAT_OPAQUE ) {}
+static const std::string materialName{"BlinnPhong"};
+
+BlinnPhongMaterial::BlinnPhongMaterial( const std::string& instanceName ) :
+    Material( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
 
 BlinnPhongMaterial::~BlinnPhongMaterial() {
     m_textures.clear();
@@ -41,10 +43,6 @@ void BlinnPhongMaterial::updateGL() {
 
     m_pendingTextures.clear();
     m_isDirty = false;
-}
-
-const std::string BlinnPhongMaterial::getShaderInclude() const {
-    return "BlinnPhong";
 }
 
 void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
@@ -95,16 +93,16 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
 }
 
 bool BlinnPhongMaterial::isTransparent() const {
-    return ( m_alpha < 1.0 ) || ( m_kd[3] < 1.0 ) || Material::isTransparent();
+    return ( m_alpha < 1_ra ) || ( m_kd[3] < 1_ra ) || Material::isTransparent();
 }
 
 void BlinnPhongMaterial::registerMaterial() {
     // Defining Converter
-    EngineMaterialConverters::registerMaterialConverter( "BlinnPhong",
+    EngineMaterialConverters::registerMaterialConverter( materialName,
                                                          BlinnPhongMaterialConverter() );
 
-    ShaderProgramManager::getInstance()->addNamedString("/BlinnPhongMaterial.glsl",
-        "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl");
+    ShaderProgramManager::getInstance()->addNamedString(
+        "/BlinnPhongMaterial.glsl", "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
     // registering re-usable shaders
     Ra::Engine::ShaderConfiguration lpconfig( "BlinnPhong",
                                               "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
@@ -124,7 +122,7 @@ void BlinnPhongMaterial::registerMaterial() {
 
     // Registering technique
     Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
-        "BlinnPhong",
+        materialName,
 
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
@@ -149,8 +147,8 @@ void BlinnPhongMaterial::registerMaterial() {
 }
 
 void BlinnPhongMaterial::unregisterMaterial() {
-    EngineMaterialConverters::removeMaterialConverter( "BlinnPhong" );
-    EngineRenderTechniques::removeDefaultTechnique( "BlinnPhong" );
+    EngineMaterialConverters::removeMaterialConverter( materialName );
+    EngineRenderTechniques::removeDefaultTechnique( materialName );
 }
 
 Material* BlinnPhongMaterialConverter::

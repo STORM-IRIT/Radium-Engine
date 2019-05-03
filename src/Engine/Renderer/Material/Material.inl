@@ -2,11 +2,15 @@
 namespace Ra {
 namespace Engine {
 
-const std::string& Material::getName() const {
-    return m_name;
+const std::string& Material::getInstanceName() const {
+    return m_instanceName;
 }
 
-void Material::setMaterialAspect(const MaterialAspect &aspect) {
+const std::string& Material::getMaterialName() const {
+    return m_materialName;
+}
+
+void Material::setMaterialAspect( const MaterialAspect& aspect ) {
     m_aspect = aspect;
 }
 

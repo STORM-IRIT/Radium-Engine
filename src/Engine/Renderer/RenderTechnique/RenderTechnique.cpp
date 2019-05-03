@@ -83,7 +83,11 @@ void RenderTechnique::setMaterial( const std::shared_ptr<Material>& material ) {
     RenderTechnique::material = material;
 }
 
-ShaderConfiguration RenderTechnique::getConfiguration( PassName pass ) const {
+bool RenderTechnique::hasConfiguration( PassName pass ) const {
+    return shaderConfig.find( pass ) != shaderConfig.end();
+}
+
+const ShaderConfiguration& RenderTechnique::getConfiguration( PassName pass ) const {
     return shaderConfig.at( pass );
 }
 
