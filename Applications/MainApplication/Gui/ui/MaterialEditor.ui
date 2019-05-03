@@ -45,7 +45,7 @@
      <property name="title">
       <string>Material Parameters</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="2,4,1">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="2,0,0,0">
       <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -110,12 +110,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="Ra::Gui::ColorWidget" name="kdColorWidget" native="true"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="Ra::Gui::ColorWidget" name="ksColorWidget" native="true"/>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
@@ -123,7 +117,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
+      <item row="2" column="3">
        <widget class="QDoubleSpinBox" name="exp">
         <property name="decimals">
          <number>1</number>
@@ -139,6 +133,33 @@
         </property>
         <property name="value">
          <double>32.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QCheckBox" name="kUsePerVertex">
+        <property name="text">
+         <string>Per-vertex</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="Ra::Gui::ColorWidget" name="kdColorWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="Ra::Gui::ColorWidget" name="ksColorWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -166,5 +187,54 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kUsePerVertex</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kdB</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>380</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kUsePerVertex</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kdG</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kUsePerVertex</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kdR</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

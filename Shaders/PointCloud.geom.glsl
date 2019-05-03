@@ -22,6 +22,7 @@ layout (location = 2) in vec3 in_normal[];
 layout (location = 3) in vec3 in_tangent[];
 layout (location = 4) in vec3 in_viewVector[];
 layout (location = 5) in vec3 in_lightVector[];
+layout (location = 6) in vec3 in_vertexColor[];
 
 uniform Transform transform;
 float pointCloudSplatRadius = 1.; // fixme -> uniform
@@ -32,6 +33,7 @@ layout (location = 2) out vec3 out_normal;
 layout (location = 3) out vec3 out_tangent;
 layout (location = 4) out vec3 out_viewVector;
 layout (location = 5) out vec3 out_lightVector;
+layout (location = 6) out vec3 out_vertexcolor;
 
 void main()
 {
@@ -86,6 +88,7 @@ void main()
         out_tangent     = in_tangent[0];
         out_viewVector  = in_viewVector[0];
         out_lightVector = in_lightVector[0];
+        out_vertexcolor = in_vertexColor[0];
         EmitVertex();
     }
 
