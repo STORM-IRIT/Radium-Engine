@@ -156,9 +156,26 @@ void TriangleMeshComponent::finalizeROFromGeometry(const Core::Asset::MaterialDa
           Ra::Core::make_shared<BlinnPhongMaterial>( m_contentName + "_DefaultBPMaterial" );
       mat->m_kd = Ra::Core::Utils::Color::Grey();
       mat->m_ks = Ra::Core::Utils::Color::White();
+      mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
       rt.setMaterial( mat );
       auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
       builder.second( rt, false );
+  }
+
+  if ( m_displayMesh->getTriangleMesh().m_triangles.empty() ) // add geometry shader for splatting
+  {
+      auto addGeomShader = [&rt]( RenderTechnique::PassName pass ) {
+          if ( rt.hasConfiguration( pass ) )
+          {
+              ShaderConfiguration config = rt.getConfiguration( pass );
+              config.addShader( ShaderType_GEOMETRY, "Shaders/PointCloud.geom.glsl" );
+              rt.setConfiguration( config, pass );
+          }
+      };
+
+      addGeomShader( RenderTechnique::LIGHTING_OPAQUE );
+      addGeomShader( RenderTechnique::LIGHTING_TRANSPARENT );
+      addGeomShader( RenderTechnique::Z_PREPASS );
   }
 
   std::string roName( m_name + "_" + m_contentName + "_RO" );

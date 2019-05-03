@@ -30,6 +30,8 @@ struct Material
     float ns;
     float alpha;
 
+    int renderAsSplat;
+
     BlinnPhongTextures tex;
 };
 
@@ -89,6 +91,10 @@ bool toDiscard(Material material, vec2 texCoord)
         {
             return true;
         }
+    }
+    if ( material.renderAsSplat == 1)
+    {
+        return dot(texCoord, texCoord) > 1;
     }
     return false;
 }
