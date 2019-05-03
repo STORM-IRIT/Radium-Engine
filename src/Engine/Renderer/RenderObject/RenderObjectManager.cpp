@@ -68,14 +68,9 @@ RenderObjectManager::getRenderObject( const Core::Utils::Index& index ) {
     return m_renderObjects.at( index );
 }
 
-void RenderObjectManager::getRenderObjects(
-    std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const {
-    // Take the mutex
-    std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
-
-    // Copy each element in m_renderObjects
-    renderObjectsOut.resize( m_renderObjects.size() );
-    std::copy( m_renderObjects.begin(), m_renderObjects.end(), renderObjectsOut.begin() );
+const Core::Utils::IndexMap<std::shared_ptr<RenderObject>>&
+RenderObjectManager::getRenderObjects() const {
+    return m_renderObjects;
 }
 
 void RenderObjectManager::getRenderObjectsByType(

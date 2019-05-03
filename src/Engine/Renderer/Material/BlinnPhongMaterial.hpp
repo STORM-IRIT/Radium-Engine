@@ -36,20 +36,13 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
      * Construct a named Blinn-Phongmaterial
      * @param name The name of the material
      */
-    explicit BlinnPhongMaterial( const std::string& name );
+    explicit BlinnPhongMaterial( const std::string& instanceName );
     /**
      * Destructor.
      * @note The material does not have ownership on its texture. This destructor do not delete the
      * associated textures.
      */
     ~BlinnPhongMaterial() override;
-
-    /**
-     * Get the basename of the glsl source file to include if one want to build composite shaders
-     * that use this material.
-     * @return The basename (without extension .frag.glsl or .vert.glsl) of the glsl source file.
-     */
-    const std::string getShaderInclude() const override;
 
     void updateGL() override;
     void bind( const ShaderProgram* shader ) override;

@@ -42,7 +42,8 @@ class RA_ENGINE_API RenderTechnique final {
 
     void setConfiguration( const ShaderConfiguration& newConfig, PassName pass = LIGHTING_OPAQUE );
 
-    ShaderConfiguration getConfiguration( PassName pass = LIGHTING_OPAQUE ) const;
+    bool hasConfiguration( PassName pass ) const;
+    const ShaderConfiguration& getConfiguration( PassName pass = LIGHTING_OPAQUE ) const;
 
     const ShaderProgram* getShader( PassName pass = LIGHTING_OPAQUE ) const;
 
