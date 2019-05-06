@@ -1,0 +1,85 @@
+#include "version.h"
+
+namespace Ra {
+namespace Version {
+
+Version makeCurrentVersion()
+{
+    Version ret;
+    // clang-format off
+    ret.major = @PROJECT_VERSION_MAJOR@;
+    ret.minor = @PROJECT_VERSION_MINOR@;
+    ret.patch = @PROJECT_VERSION_PATCH@;
+    // clang-format on
+    ret.datetime = std::string(__DATE__) + " " + __TIME__;
+    ret.machine = "@VERSION_HOST@";
+    ret.type = "@VERSION_TYPE@";
+    return ret;
+}
+
+Version v{ makeCurrentVersion() };
+
+//-----------------------------------------------------------------------------
+const Version& current()
+{
+    return v;
+}
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------
+// struct Version stuff
+//-----------------------------------------------------------------------------------
+Version::Version() {}
+Version::Version(long long version)
+{
+    major = version / (1000 * 1000);
+    version = version % (1000 * 1000);
+    minor = version / (1000);
+    version = version % (1000);
+    patch = version;
+}
+//-----------------------------------------------------------------------------------
+long long Version::asNumber() const
+{
+    return (major * 10000 * 10000) + (minor * 10000) + patch;
+}
+//-----------------------------------------------------------------------------------
+std::string Version::asShortStr() const
+{
+    std::string version = std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch) + " " + type;
+    return version;
+}
+//-----------------------------------------------------------------------------------
+std::string Version::asLongStr() const
+{
+    return asShortStr() + " / " + datetime + " / " + machine;
+}
+//-----------------------------------------------------------------------------------
+bool Version::operator<(const Version& other)
+{
+    return asNumber() < other.asNumber();
+}
+bool Version::operator>(const Version& other)
+{
+    return asNumber() > other.asNumber();
+}
+bool Version::operator<=(const Version& other)
+{
+    return asNumber() <= other.asNumber();
+}
+bool Version::operator>=(const Version& other)
+{
+    return asNumber() >= other.asNumber();
+}
+bool Version::operator==(const Version& other)
+{
+    return asNumber() == other.asNumber();
+}
+bool Version::operator!=(const Version& other)
+{
+    return asNumber() != other.asNumber();
+}
+//-----------------------------------------------------------------------------------
+
+} // namespace Version
+} // namespace Ra
