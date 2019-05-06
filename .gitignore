@@ -25,5 +25,8 @@ cmake-build-*/
 .hg*
 
 
+# external libraries
+external/eigen
+external/OpenMesh
 #Auto-generated plugins registration file
 src/Core/Utils/Version.cpp
