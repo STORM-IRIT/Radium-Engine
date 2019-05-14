@@ -243,11 +243,13 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     emit starting();
 
     // Files have been required, load them.
-    for(const auto& filename : parser.values( fileOpt ))
+    if ( parser.isSet( fileOpt ) )
     {
-        loadFile( filename );
+        for (const auto &filename : parser.values(fileOpt))
+        {
+            loadFile(filename);
+        }
     }
-
     // A camera has been required, load it.
     if ( parser.isSet( camOpt ) )
     {
