@@ -96,7 +96,8 @@ void AnimationComponent::setupSkeletonDisplay() {
     m_boneDrawables.clear();
     for ( uint i = 0; i < m_skel.size(); ++i )
     {
-        if ( !m_skel.m_graph.isLeaf( i ) && !m_skel.m_graph.isRoot( i ) )
+        if ( !m_skel.m_graph.isLeaf( i ) && !m_skel.m_graph.isRoot( i ) &&
+             m_skel.getLabel( i ).find( "_$AssimpFbx$_" ) == std::string::npos )
         {
             std::string name = m_skel.getLabel( i ) + "_" + std::to_string( i );
             m_boneDrawables.emplace_back(
