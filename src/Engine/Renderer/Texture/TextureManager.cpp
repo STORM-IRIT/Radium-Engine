@@ -59,6 +59,7 @@ void TextureManager::loadTexture( TextureParameters& texParameters ) {
 
     case 2:
     {
+        // suppose it is GL_LUMINANCE_ALPHA
         texParameters.format = GL_RG;
         texParameters.internalFormat = GL_RG8;
     }
