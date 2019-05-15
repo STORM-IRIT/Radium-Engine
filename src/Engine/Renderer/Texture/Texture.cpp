@@ -34,9 +34,13 @@ void Engine::Texture::initializeGL( bool linearize ) {
         bool hasAlpha = false;
         switch ( m_textureParameters.format )
         {
-            // RED texture store a gray scale color. Verify if we need to convert
+            // RED and RG texture store a gray scale color. Verify if we need to convert
         case GL_RED:
             numcomp = 1;
+            break;
+        case GL_RG:
+            numcomp = 1;
+            hasAlpha = true;
             break;
         case GL_RGB:
             numcomp = 3;
