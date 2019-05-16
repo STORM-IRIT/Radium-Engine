@@ -1,6 +1,7 @@
 #include <Core/Containers/Grid.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Types.hpp>
+#include <Core/Math/Math.hpp> // areApproxEqual
 
 #include <array>
 
@@ -140,7 +141,7 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv ) {
 
             const Scalar x = 2.f * sq5_5 * std::cos( theta );
             const Scalar y = 2.f * sq5_5 * std::sin( theta );
-            const Scalar z = j == 0 ? sq5_5 : -sq5_5;
+            const Scalar z = Math::areApproxEqual( Scalar( j ), 0_ra ) ? sq5_5 : -sq5_5;
             result.vertices().emplace_back( x, y, z );
             result.normals().push_back( result.vertices().back().normalized() );
         }

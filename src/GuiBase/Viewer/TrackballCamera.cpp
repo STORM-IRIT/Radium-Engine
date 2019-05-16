@@ -351,13 +351,15 @@ void Gui::TrackballCamera::handleCameraZoom( Scalar z ) {
 }
 
 void Gui::TrackballCamera::updatePhiTheta() {
+    using Core::Math::areApproxEqual;
     const Core::Vector3& P = m_camera->getPosition();
     const Core::Vector3& C = m_trackballCenter;
     const Core::Vector3& R = P - C;
     const Scalar r = R.norm();
 
     m_theta = std::acos( R.y() / r );
-    m_phi = ( R.z() == 0.f && R.x() == 0.f ) ? 0.f : std::atan2( R.z(), R.x() );
+    m_phi = ( areApproxEqual( R.z(), 0_ra ) && areApproxEqual( R.x(), 0_ra ) )
+        ? 0_ra : std::atan2( R.z(), R.x() );
     CORE_ASSERT( std::isfinite( m_theta ) && std::isfinite( m_phi ), "Error in trackball camera" );
 }
 } // namespace Ra
