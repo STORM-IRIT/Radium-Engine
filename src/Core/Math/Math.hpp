@@ -22,7 +22,6 @@ constexpr Scalar toRad = Scalar( Pi / Scalar( 180.0 ) );
 constexpr Scalar toDeg = Scalar( Scalar( 180.0 ) * InvPi );
 
 constexpr Scalar machineEps = std::numeric_limits<Scalar>::epsilon();
-constexpr Scalar dummyEps = Scalar( 1e-5 );
 
 /// Useful functions
 
@@ -32,8 +31,10 @@ inline constexpr Scalar toRadians( Scalar a );
 /// Converts an angle from radians to degrees.
 inline constexpr Scalar toDegrees( Scalar a );
 
-/// Returns true if |a -b| < eps.
-inline bool areApproxEqual( Scalar a, Scalar b, Scalar eps = dummyEps );
+/// Compare two numbers such that |x-y| < espilon*epsilonBoostFactor
+template<class T>
+inline typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
+    areApproxEqual(T x, T y, T espilonBoostFactor = T( 10 ));
 
 /// Integer power functions. Work for all numeric types which support
 /// multiplication and for which T(1) is a valid expression.

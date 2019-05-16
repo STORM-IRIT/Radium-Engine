@@ -85,8 +85,14 @@ inline constexpr T saturate( T v ) {
     return std::clamp( v, static_cast<T>( 0 ), static_cast<T>( 1 ) );
 }
 
-inline bool areApproxEqual( Scalar a, Scalar b, Scalar eps ) {
-    return std::abs( b - a ) < eps;
+/// Implementation inspired from https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
+template<class T>
+typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
+    areApproxEqual(T x, T y, T espilonBoostFactor)
+{
+    return std::abs(x-y) <= std::numeric_limits<T>::epsilon() * espilonBoostFactor
+        // unless the result is subnormal
+        || std::abs(x-y) < std::numeric_limits<T>::min();
 }
 
 template <typename T>
