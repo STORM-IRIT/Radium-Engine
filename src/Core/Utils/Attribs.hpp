@@ -193,6 +193,16 @@ class RA_CORE_API AttribManager {
     }
 
     /*!
+     * \brief contains Check if an attribute with the given name exists.
+     * \param name Name of the attribute.
+     * \warning There is no error check on the attribute type.
+     * \note The complexity for checking an attribute handle is O(log(n)).
+     */
+    inline bool contains( const std::string& name ) const {
+        return m_attribsIndex.find( name ) != m_attribsIndex.end();
+    }
+
+    /*!
      * \brief findAttrib Grab an attribute handler by name.
      * \param name Name of the attribute.
      * \return Attribute handler if found, an invalid handler otherwise.
