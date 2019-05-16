@@ -115,6 +115,12 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry {
         return m_vertexAttribs.getAttrib( h );
     }
 
+    /// Check if an attribute exists with the given name.
+    /// \see AttribManager::contains for more info.
+    bool hasAttrib( const std::string& name ) {
+        return m_vertexAttribs.contains( name );
+    }
+
     /// Add attribute with the given name.
     /// \see AttribManager::addAttrib() for more info.
     /// \note If \p name if a reserved name, then no attribute is added and an
