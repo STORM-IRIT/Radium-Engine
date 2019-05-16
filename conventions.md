@@ -32,6 +32,16 @@ Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.h
 * use C++11 `nullptr` for null pointers.
 * use `auto` only when it helps readability.
 
+## Scalar types
+* Radium defines a default type `Scalar`, set either as `float` or `double` depending on the cmake
+option `RADIUM_WITH_DOUBLE_PRECISION`
+* Always use `Scalar` type to represent floating point numbers, except when interfacing with external
+libraries using a fixed floating point type (e.g. Qt).
+* Radium offers operators to create `Scalar` from integer and floating point numbers: always
+use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a = .5_ra;`,
+`Scalar b = a * Scalar( 2 );` or `Scalar c = a / 2_ra;`).
+* Equality between Scalar values needs to be computed using `Ra::almost_equals` (see CoreMacros.hpp).
+
 ## Code style
 * Indentation style : 4-spaces
 * Brace style : keep it consistent across files.

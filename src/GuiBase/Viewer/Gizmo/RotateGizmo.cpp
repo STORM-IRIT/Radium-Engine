@@ -195,7 +195,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
     if ( stepped )
     {
         angle = int( angle / step ) * step;
-        if ( angle == 0 )
+        if ( Core::Math::areApproxEqual( angle, 0_ra ) )
         {
             nextXY_ = m_initialPix;
         }
@@ -207,7 +207,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::V
     }
     m_stepped = stepped;
     m_totalAngle += angle;
-    if ( angle != 0 )
+    if ( ! Core::Math::areApproxEqual( angle, 0_ra ) )
     {
         auto newRot = Core::AngleAxis( angle, rotationAxis ) * rotationMat;
         m_transform.fromPositionOrientationScale( origin, newRot, scaleMat.diagonal() );

@@ -37,7 +37,7 @@ void run() {
                             RA_VERIFY( result, "The ray should have hit" );
                             RA_VERIFY( n.dot( sig * Ra::Core::Vector3::Unit( i ) ) == 1.f,
                                        "Wrong normal" );
-                            RA_VERIFY( Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], sig ),
+                            RA_VERIFY( Ra::Core::Math::areApproxEqual( r.pointAt( t )[i], Scalar( sig ) ),
                                        "Wrong hit point" );
                         } else
                         { RA_VERIFY( !result, "The ray should have missed" ); }
