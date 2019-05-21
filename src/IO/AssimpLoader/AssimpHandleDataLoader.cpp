@@ -25,7 +25,6 @@ AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
 AssimpHandleDataLoader::~AssimpHandleDataLoader() = default;
 
 /// LOAD
-
 void AssimpHandleDataLoader::loadData( const aiScene* scene,
                                        std::vector<std::unique_ptr<HandleData>>& data ) {
     data.clear();
@@ -255,6 +254,7 @@ void AssimpHandleDataLoader::loadHandleData(
     }
 
     // load bone frame once all are registered (also deal with offset)
+    bool offsetOk = true;
     for ( auto& bone : mapBone2Data )
     {
         loadHandleComponentDataFrame( scene, aiString( bone.first ), bone.second );
@@ -264,34 +264,80 @@ void AssimpHandleDataLoader::loadHandleData(
             mapBone2Data[it->first].m_offset = it->second;
         } else
         {
-            // look for first parent which is a bone
+            // FIXME: Assimp does not provide the offet matrix for non-bound bones
+            //        in the hierarchy. Hence there is no way to get the full
+            //        bind pose skeleton in such a case.
+            //        The code below (2 versions) try to infer the offset matrix
+            //        for such bones through the local transformation of the
+            //        bones' ascendant/descendant with an offset matrix.
+            // WARNING: None of these versions is correct, since the computation
+            //          of the offset matrix is some sort of black magic that
+            //          does not exactly use the local transforms of nodes.
+            //          Hence, one version may work for some models but not
+            //          others, for which the second version is preferred.
+            //          There could also be models for which none of the
+            //          versions work.
+            // NOTE: Model examples include:
+            //       - spiderman.fbx: the first version works, the second version
+            //                        doesn't load bones correctly, leading to
+            //                        strange movements during animations.
+            //       - dragon.fbx: the first version works, the second version
+            //                     doesn't load wing-attachement bones correctly
+            //                     (the animation seams correct though).
+            //       - astroboy.dae: the second version works, the first version
+            //                       doesn't load the hands' palm bones correctly
+            //                       (the animation seams correct though).
+            //       - humanoid.fbx: the second version works, the first version
+            //                       doesn't load bones correctly, leading to
+            //                       strange movements during animations.
+
             auto node = scene->mRootNode->FindNode( aiString( bone.first ) );
-            if ( node->mParent == nullptr )
-            {
-                // no parent, offset = Id
-                mapBone2Data[bone.first].m_offset = Core::Transform::Identity();
-                continue;
-            }
-            // store parents' transformation for offset computation
+
+            // check children and parents for a bone
+            auto child = findBoneChild( node, meshBoneOffset );
             std::queue<Core::Transform> parents;
             parents.push( assimpToCore( node->mTransformation ) );
-            while ( node->mParent != nullptr )
+            auto parent = node;
+            while ( parent->mParent != nullptr )
             {
-                node = node->mParent;
-                it = meshBoneOffset.find( assimpToCore( node->mName ) );
+                parent = parent->mParent;
+                it = meshBoneOffset.find( assimpToCore( parent->mName ) );
                 if ( it != meshBoneOffset.end() )
                 {
                     break;
                 }
-                parents.push( assimpToCore( node->mTransformation ) );
+                parents.push( assimpToCore( parent->mTransformation ) );
             }
-            // compute the offset
+            bool ok = ( it == meshBoneOffset.end() || child == nullptr );
+            offsetOk &= ok;
+
             Core::Transform offset = Core::Transform::Identity();
+#if 1 // First version: try computing from children first, then from parents
+      // go down up to first bone child, if any
+            if ( child != nullptr )
+            {
+                offset = meshBoneOffset[assimpToCore( child->mName )];
+                while ( child != node )
+                {
+                    offset = assimpToCore( child->mTransformation ) * offset;
+                    child = child->mParent;
+                }
+                mapBone2Data[bone.first].m_offset = offset;
+            } else // no child with offset found, go for a parent
+            {
+                offset = it->second;
+                // go down to the node
+                while ( !parents.empty() )
+                {
+                    offset = parents.front().inverse() * offset;
+                    parents.pop();
+                }
+                mapBone2Data[bone.first].m_offset = offset;
+            }
+#else // Second version: try computing from parents first, then from children
             if ( it == meshBoneOffset.end() )
             {
                 // went up to root node, go down up to first bone child
-                node = scene->mRootNode->FindNode( aiString( bone.first ) );
-                auto child = findBoneChild( node, meshBoneOffset );
                 offset = meshBoneOffset[assimpToCore( child->mName )];
                 while ( child != node )
                 {
@@ -310,7 +356,12 @@ void AssimpHandleDataLoader::loadHandleData(
                 }
                 mapBone2Data[bone.first].m_offset = offset;
             }
+#endif
         }
+    }
+    if ( !offsetOk )
+    {
+        LOG( logWARNING ) << "some bones don't have influence, skinning may misbehave.";
     }
 
     // find roots and leaves
