@@ -17,7 +17,7 @@ namespace {
 void addBone( const int parent,                        // index of parent bone
               const uint dataID,                       // index in map
               const Ra::Core::Asset::HandleData& data, // handle data
-              const Ra::Core::AlignedStdVector<Ra::Core::Vector2i>& edgeList, // list of edges
+              const Ra::Core::AlignedStdVector<Ra::Core::Vector2ui>& edgeList, // list of edges
               std::vector<bool>& processed,        // which ids have been processed
               Core::Animation::Skeleton& skelOut ) // correspondance between bone name and bone idx
 {
@@ -25,10 +25,8 @@ void addBone( const int parent,                        // index of parent bone
     {
         processed[dataID] = true;
         const auto& dd    = data.getComponentData()[dataID];
-        uint index        = skelOut.addBone( parent,
-                                      data.getFrame() * dd.m_offset.inverse(),
-                                      Ra::Core::Animation::Handle::SpaceType::MODEL,
-                                      dd.m_name );
+        int index         = skelOut.addBone(
+            parent, dd.m_frame, Ra::Core::Animation::Handle::SpaceType::MODEL, dd.m_name );
         for ( const auto& edge : edgeList )
         {
             if ( edge[0] == int( dataID ) )
@@ -72,11 +70,11 @@ void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::S
         for ( const auto& l : leaves )
         {
             const auto& dd = data.getComponentData()[l];
-            if ( dd.m_weight.size() )
+            if ( dd.m_weights.size() )
             {
                 LOG( logDEBUG ) << "Adding end-bone at " << dd.m_name << ".";
                 skelOut.addBone( int( boneNameMap[dd.m_name] ),
-                                 data.getFrame() * dd.m_offset.inverse(),
+                                 data.getFrame().inverse() * dd.m_frame,
                                  Ra::Core::Animation::Handle::SpaceType::MODEL,
                                  dd.m_name + "_Ra_endBone" );
             }

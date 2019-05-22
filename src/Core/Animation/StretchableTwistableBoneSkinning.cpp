@@ -1,16 +1,38 @@
 #include <Core/Animation/StretchableTwistableBoneSkinning.hpp>
 
+#include <Core/Geometry/DistanceQueries.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Animation {
 
-void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh,
-                                          const Pose& pose,
-                                          const Skeleton& poseSkel,
-                                          const Skeleton& restSkel,
-                                          const WeightMatrix& weightLBS,
-                                          const WeightMatrix& weightSTBS,
-                                          Vector3Array& outMesh ) {
+void computeSTBS_weights( const Vector3Array& inMesh,
+                          const Ra::Core::Animation::Skeleton& skel,
+                          Ra::Core::Animation::WeightMatrix& weights ) {
+    weights.resize( int( inMesh.size() ), skel.size() );
+    std::vector<Eigen::Triplet<Scalar>> triplets;
+    for ( int i = 0; i < weights.rows(); ++i )
+    {
+        const auto& pi = inMesh[uint( i )];
+        for ( int j = 0; j < weights.cols(); ++j )
+        {
+            Ra::Core::Vector3 a, b;
+            skel.getBonePoints( uint( j ), a, b );
+            const Ra::Core::Vector3 ab = b - a;
+            Scalar t                   = Ra::Core::Geometry::projectOnSegment( pi, a, ab );
+            if ( t > 0 ) { triplets.push_back( Eigen::Triplet<Scalar>( i, j, t ) ); }
+        }
+    }
+    weights.setFromTriplets( triplets.begin(), triplets.end() );
+}
+
+void linearBlendSkinningSTBS( const Vector3Array& inMesh,
+                              const Pose& pose,
+                              const Skeleton& poseSkel,
+                              const Skeleton& restSkel,
+                              const WeightMatrix& weightLBS,
+                              const WeightMatrix& weightSTBS,
+                              Vector3Array& outMesh ) {
     outMesh.clear();
     outMesh.resize( inMesh.size(), Vector3::Zero() );
     // first decompose all pose transforms
