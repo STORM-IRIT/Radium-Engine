@@ -25,6 +25,7 @@ AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
 AssimpHandleDataLoader::~AssimpHandleDataLoader() = default;
 
 /// LOAD
+
 void AssimpHandleDataLoader::loadData( const aiScene* scene,
                                        std::vector<std::unique_ptr<HandleData>>& data ) {
     data.clear();
@@ -96,10 +97,14 @@ void initMarks( const aiNode* node, std::map<std::string, bool>& flag ) {
 void markParents( aiNode* node,
                   const aiScene* scene,
                   const std::vector<aiNode*>& meshParents,
-                  std::map<std::string, bool>& flag,
-                  std::map<std::string, aiNode*>& skelRootToMeshNode ) {
+                  std::map<std::string, bool>& flag ) {
     const std::string nodeName = assimpToCore( node->mName );
-    flag[nodeName]             = true;
+    if ( flag[nodeName] )
+    {
+        // skip already visited up-tree.
+        return;
+    }
+    flag[nodeName] = true;
     // check if node is in the mesh hierarchy
     auto it = std::find_if(
         meshParents.begin(), meshParents.end(), [node]( const auto& n ) { return n == node; } );
@@ -109,33 +114,7 @@ void markParents( aiNode* node,
         return;
     }
     // otherwise mark parents
-    if ( node->mParent != nullptr )
-    {
-        markParents( node->mParent, scene, meshParents, flag, skelRootToMeshNode );
-        if ( !flag[assimpToCore( node->mParent->mName )] )
-        {
-            // parent is in the mesh hierarchy, associate node and meshNode
-            skelRootToMeshNode[nodeName] = meshParents[0];
-        }
-    }
-}
-
-aiNode* findBoneChild( aiNode* node,
-                       const std::map<std::string, Core::Transform>& meshBoneOffset ) {
-    for ( uint i = 0; i < node->mNumChildren; ++i )
-    {
-        if ( meshBoneOffset.find( assimpToCore( node->mChildren[i]->mName ) ) !=
-             meshBoneOffset.end() )
-        { return node->mChildren[i]; }
-    }
-    // not found, go down
-    for ( uint i = 0; i < node->mNumChildren; ++i )
-    {
-        auto child = findBoneChild( node->mChildren[i], meshBoneOffset );
-        if ( child != nullptr ) { return child; }
-    }
-    // not on this branch, parent will check siblings
-    return nullptr;
+    if ( node->mParent != nullptr ) { markParents( node->mParent, scene, meshParents, flag ); }
 }
 
 } // namespace
@@ -146,13 +125,10 @@ void AssimpHandleDataLoader::loadHandleData(
     std::vector<std::unique_ptr<HandleData>>& data ) const {
     // list mesh names according to GeometryLoader naming
     std::set<std::string> meshNames;
-    // map from bone name to aiBone for offset matrices
-    std::map<std::string, Core::Transform> meshBoneOffset;
 
     // initialize need flag on all scene nodes
     std::map<std::string, bool> needNode;
     initMarks( scene->mRootNode, needNode );
-    std::map<std::string, aiNode*> skelRootToMeshNode;
 
     // load the HandleComponentData for all meshes
     std::map<std::string, HandleComponentData> mapBone2Data;
@@ -185,16 +161,15 @@ void AssimpHandleDataLoader::loadHandleData(
             const aiBone* bone = mesh->mBones[j];
             // fetch bone data
             const std::string boneName = assimpToCore( bone->mName );
-            meshBoneOffset[boneName]   = assimpToCore( bone->mOffsetMatrix );
             // if data doesn't exist yet, create it
             mapBone2Data[boneName].m_name = boneName;
-            // fill skinning weights for this mesh
+            // fill skinning weights and offset matrix for this mesh
             loadHandleComponentDataWeights( bone, meshName, mapBone2Data[boneName] );
             // deal with hierarchy
             aiNode* node = scene->mRootNode->FindNode( bone->mName );
             if ( node == nullptr ) { continue; }
             // mark parents as needed up to mesh node relative
-            markParents( node, scene, meshParents, needNode, skelRootToMeshNode );
+            markParents( node, scene, meshParents, needNode );
             // check children since end bones may not have weights
             if ( node->mNumChildren == 1 )
             {
@@ -230,111 +205,11 @@ void AssimpHandleDataLoader::loadHandleData(
         }
     }
 
-    // load bone frame once all are registered (also deal with offset)
-    bool offsetOk = true;
+    // load bone frame once all are registered
     for ( auto& bone : mapBone2Data )
     {
         loadHandleComponentDataFrame( scene, aiString( bone.first ), bone.second );
-        auto it = meshBoneOffset.find( bone.first );
-        if ( it != meshBoneOffset.end() ) { mapBone2Data[it->first].m_offset = it->second; }
-        else
-        {
-            // FIXME: Assimp does not provide the offet matrix for non-bound bones
-            //        in the hierarchy. Hence there is no way to get the full
-            //        bind pose skeleton in such a case.
-            //        The code below (2 versions) try to infer the offset matrix
-            //        for such bones through the local transformation of the
-            //        bones' ascendant/descendant with an offset matrix.
-            // WARNING: None of these versions is correct, since the computation
-            //          of the offset matrix is some sort of black magic that
-            //          does not exactly use the local transforms of nodes.
-            //          Hence, one version may work for some models but not
-            //          others, for which the second version is preferred.
-            //          There could also be models for which none of the
-            //          versions work.
-            // NOTE: Model examples include:
-            //       - spiderman.fbx: the first version works, the second version
-            //                        doesn't load bones correctly, leading to
-            //                        strange movements during animations.
-            //       - dragon.fbx: the first version works, the second version
-            //                     doesn't load wing-attachement bones correctly
-            //                     (the animation seams correct though).
-            //       - astroboy.dae: the second version works, the first version
-            //                       doesn't load the hands' palm bones correctly
-            //                       (the animation seams correct though).
-            //       - humanoid.fbx: the second version works, the first version
-            //                       doesn't load bones correctly, leading to
-            //                       strange movements during animations.
-
-            auto node = scene->mRootNode->FindNode( aiString( bone.first ) );
-
-            // check children and parents for a bone
-            auto child = findBoneChild( node, meshBoneOffset );
-            std::queue<Core::Transform> parents;
-            parents.push( assimpToCore( node->mTransformation ) );
-            auto parent = node;
-            while ( parent->mParent != nullptr )
-            {
-                parent = parent->mParent;
-                it     = meshBoneOffset.find( assimpToCore( parent->mName ) );
-                if ( it != meshBoneOffset.end() ) { break; }
-                parents.push( assimpToCore( parent->mTransformation ) );
-            }
-            bool ok = ( it == meshBoneOffset.end() || child == nullptr );
-            offsetOk &= ok;
-
-            Core::Transform offset = Core::Transform::Identity();
-#if 1 // First version: try computing from children first, then from parents
-      // go down up to first bone child, if any
-            if ( child != nullptr )
-            {
-                offset = meshBoneOffset[assimpToCore( child->mName )];
-                while ( child != node )
-                {
-                    offset = assimpToCore( child->mTransformation ) * offset;
-                    child  = child->mParent;
-                }
-                mapBone2Data[bone.first].m_offset = offset;
-            }
-            else // no child with offset found, go for a parent
-            {
-                offset = it->second;
-                // go down to the node
-                while ( !parents.empty() )
-                {
-                    offset = parents.front().inverse() * offset;
-                    parents.pop();
-                }
-                mapBone2Data[bone.first].m_offset = offset;
-            }
-#else // Second version: try computing from parents first, then from children
-            if ( it == meshBoneOffset.end() )
-            {
-                // went up to root node, go down up to first bone child
-                offset = meshBoneOffset[assimpToCore( child->mName )];
-                while ( child != node )
-                {
-                    offset = assimpToCore( child->mTransformation ) * offset;
-                    child  = child->mParent;
-                }
-                mapBone2Data[bone.first].m_offset = offset;
-            }
-            else
-            {
-                offset = it->second;
-                // go down to the node
-                while ( !parents.empty() )
-                {
-                    offset = parents.front().inverse() * offset;
-                    parents.pop();
-                }
-                mapBone2Data[bone.first].m_offset = offset;
-            }
-#endif
-        }
     }
-    if ( !offsetOk )
-    { LOG( logWARNING ) << "some bones don't have influence, skinning may misbehave."; }
 
     // find roots and leaves
     std::set<std::string> roots;
@@ -356,13 +231,12 @@ void AssimpHandleDataLoader::loadHandleData(
         handle->setType( HandleData::SKELETON );
         handle->setName( root );
 
-        // Fetch the skeleton frame
-        Core::Transform frame = Core::Transform::Identity();
-        aiNode* node          = skelRootToMeshNode[root];
-        while ( node != nullptr )
+        Ra::Core::Transform frame = Ra::Core::Transform::Identity();
+        aiNode* node              = scene->mRootNode->FindNode( aiString( root ) );
+        while ( node->mParent != nullptr )
         {
-            frame = assimpToCore( node->mTransformation ) * frame;
             node  = node->mParent;
+            frame = assimpToCore( node->mTransformation ) * frame;
         }
         handle->setFrame( frame );
 
@@ -378,7 +252,7 @@ void AssimpHandleDataLoader::loadHandleData(
             if ( nameTable.find( leaf ) != nameTable.end() )
             {
                 const auto& handleComponentData = mapBone2Data[leaf];
-                for ( const auto& mesh : handleComponentData.m_weight )
+                for ( const auto& mesh : handleComponentData.m_weights )
                 {
                     if ( mesh.second.size() != 0 )
                     {
@@ -414,12 +288,12 @@ void AssimpHandleDataLoader::loadHandleComponentDataWeights( const aiBone* bone,
                                                              const std::string& meshName,
                                                              HandleComponentData& data ) const {
     // fetch skinning weigthts
-    const uint size = bone->mNumWeights;
-    for ( uint j = 0; j < size; ++j )
+    for ( uint j = 0; j < bone->mNumWeights; ++j )
     {
         std::pair<uint, Scalar> weight( bone->mWeights[j].mVertexId, bone->mWeights[j].mWeight );
-        data.m_weight[meshName].push_back( weight );
+        data.m_weights[meshName].push_back( weight );
     }
+    data.m_bindMatrices[meshName] = assimpToCore( bone->mOffsetMatrix );
 }
 
 void AssimpHandleDataLoader::fillHandleData(
@@ -429,10 +303,10 @@ void AssimpHandleDataLoader::fillHandleData(
     std::map<std::string, uint>& nameTable,
     HandleData* data ) const {
     // register the HandleComponentData for the bone
-    nameTable[node] = data->getComponentData().size();
+    nameTable[node] = uint( data->getComponentData().size() );
     data->getComponentData().push_back( mapBone2Data.at( node ) );
     // bind meshes bound to the bone
-    for ( const auto& mesh : mapBone2Data.at( node ).m_weight )
+    for ( const auto& mesh : mapBone2Data.at( node ).m_weights )
     {
         data->addBindMesh( mesh.first );
     }

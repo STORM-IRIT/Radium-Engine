@@ -58,7 +58,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
 
     // convert the mesh to TopologicalMesh for easy processing.
     Geometry::TriangleMesh triMesh;
-    triMesh.copyBaseGeometry( dataInOut.m_referenceMesh );
+    triMesh.copy( dataInOut.m_referenceMesh );
     Geometry::TopologicalMesh topoMesh( triMesh );
 
     // hashing function for Vector3

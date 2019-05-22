@@ -21,6 +21,10 @@ using DQList = AlignedStdVector<DualQuaternion>;
  */
 /// \{
 
+void RA_CORE_API computeSTBS_weights( const Vector3Array& inMesh,
+                                      const Ra::Core::Animation::Skeleton& skel,
+                                      Ra::Core::Animation::WeightMatrix& weights );
+
 /**
  * Apply the linear interpolation of transformations to the vertices of inMesh (STBS version).
  */
