@@ -10,6 +10,7 @@
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -71,14 +72,13 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     Ra::Core::Geometry::TriangleMesh mesh;
     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container vertices;
     Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container normals;
-
+    
     const auto T = data->getFrame();
     const Ra::Core::Transform N( ( T.matrix() ).inverse().transpose() );
 
     vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
 #pragma omp parallel for
-    // use signed int since omp do not accept unsigned, under windows msbuild
     for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
     {
         vertices[i] = T * data->getVertices()[i];
