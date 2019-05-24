@@ -21,11 +21,13 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
 
     inline ColorBase() : ColorBase( _Scalar( 1. ), _Scalar( 1. ), _Scalar( 1. ) ) {}
 
-    inline ColorBase( _Scalar r, _Scalar g, _Scalar b, _Scalar alpha = _Scalar( 1. ) ) :
-        VectorType( r, g, b, alpha ) {}
+    template <typename S2>
+    inline ColorBase( S2 r, S2 g, S2 b, S2 alpha = S2( 1 ) ) :
+        VectorType( _Scalar( r ), _Scalar( g ), _Scalar( b ), _Scalar( alpha ) ) {}
 
     /// Copy constructor
-    inline ColorBase( const ColorBase<_Scalar>& other ) : VectorType( other ) {}
+    template <typename S2>
+    inline ColorBase( const ColorBase<S2>& other ) : VectorType( other.template cast<_Scalar>() ) {}
 
     /// Copy constructor from Eigen expressions: `ColorBase<_Scalar> c( (*this) * 255 );`
     template <typename Derived>
