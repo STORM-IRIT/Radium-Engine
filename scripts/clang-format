@@ -3,22 +3,26 @@ BasedOnStyle: LLVM
 Language: Cpp
 Standard: Cpp11
 AllowShortFunctionsOnASingleLine: Inline
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: true
 BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterClass: true 
+  AfterClass: true
   AfterControlStatement: true
   AfterEnum: false
   AfterFunction: false
   AfterNamespace: false
+  AfterObjCDeclaration: false
   AfterStruct: false
   AfterUnion: false
-  AfterExternBlock: true  
+  AfterExternBlock: true
   BeforeCatch: true
   BeforeElse: true
+  IndentBraces: false
   SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
 ColumnLimit: 100
 IndentWidth: 4
 TabWidth: 4
@@ -27,8 +31,6 @@ NamespaceIndentation: None
 IndentPPDirectives: 'AfterHash'
 AlignEscapedNewlines: 'Left'
 Cpp11BracedListStyle: true
-#not supported yet :
-#SpaceBeforeCpp11BracedList: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 BreakConstructorInitializers: AfterColon
 SortUsingDeclarations: true
@@ -39,4 +41,6 @@ AlignConsecutiveAssignments: true
 AllowAllParametersOfDeclarationOnNextLine: false
 BinPackArguments: false
 BinPackParameters: false
+#not supported yet ?
+SpaceBeforeCpp11BracedList: true
 ...
