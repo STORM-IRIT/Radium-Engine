@@ -245,9 +245,9 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // Files have been required, load them.
     if ( parser.isSet( fileOpt ) )
     {
-        for (const auto &filename : parser.values(fileOpt))
+        for ( const auto& filename : parser.values( fileOpt ) )
         {
-            loadFile(filename);
+            loadFile( filename );
         }
     }
     // A camera has been required, load it.
@@ -269,6 +269,7 @@ void BaseApplication::createConnections() {
              &BaseApplication::appNeedsToQuit );
     connect( m_viewer, &Gui::Viewer::glInitialized, this,
              &BaseApplication::initializeOpenGlPlugins );
+    connect( this, &QGuiApplication::lastWindowClosed, m_viewer, &Gui::WindowQt::cleanupGL );
 }
 
 void BaseApplication::setupScene() {
