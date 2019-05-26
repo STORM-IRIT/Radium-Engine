@@ -228,7 +228,6 @@ endif()
 add_dependencies(radium_configs radiumCore)
 add_dependencies( main-app radium_configs ) # temporary fix, needs to be handled by main-app
 
-
 ################################################################################
 # Tests                                                                        #
 ################################################################################
