@@ -1,8 +1,12 @@
 #include <Core/Asset/HandleToSkeleton.hpp>
 
+#include <set>
+
 #include <Core/Animation/Skeleton.hpp>
 #include <Core/Asset/HandleData.hpp>
-#include <set>
+#include <Core/Utils/Log.hpp>
+
+using namespace Ra::Core::Utils;
 
 namespace Ra {
 namespace Core {
@@ -43,17 +47,39 @@ void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::S
     {
         root.insert( i );
     }
+    std::set<uint> leaves = root;
 
     auto edgeList = data.getEdgeData();
     for ( const auto& edge : edgeList )
     {
         root.erase( edge[1] );
+        leaves.erase( edge[0] );
     }
 
     std::vector<bool> processed( size, false );
     for ( const auto& r : root )
     {
         addBone( -1, r, data, edgeList, processed, skelOut );
+    }
+
+    if ( data.needsEndNodes() )
+    {
+        std::map<std::string, uint> boneNameMap;
+        for ( uint i = 0; i < skelOut.size(); ++i )
+        {
+            boneNameMap[skelOut.getLabel( i )] = i;
+        }
+        for ( const auto& l : leaves )
+        {
+            const auto& dd = data.getComponentData()[l];
+            if ( dd.m_weight.size() )
+            {
+                LOG( logDEBUG ) << "Adding end-bone at " << dd.m_name << ".";
+                skelOut.addBone(
+                    int( boneNameMap[dd.m_name] ), data.getFrame() * dd.m_offset.inverse(),
+                    Ra::Core::Animation::Handle::SpaceType::MODEL, dd.m_name + "_Ra_endBone" );
+            }
+        }
     }
 }
 } // namespace Asset

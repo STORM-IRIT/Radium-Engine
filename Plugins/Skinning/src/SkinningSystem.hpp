@@ -26,10 +26,11 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
         {
             SkinningComponent* comp = static_cast<SkinningComponent*>( compEntry.second );
             Ra::Core::FunctionTask* skinTask = new Ra::Core::FunctionTask(
-                std::bind( &SkinningComponent::skin, comp ), "SkinnerTask" );
+                std::bind( &SkinningComponent::skin, comp ), "SkinnerTask_" + comp->getName() );
 
-            Ra::Core::FunctionTask* endTask = new Ra::Core::FunctionTask(
-                std::bind( &SkinningComponent::endSkinning, comp ), "SkinnerEndTask" );
+            Ra::Core::FunctionTask* endTask =
+                new Ra::Core::FunctionTask( std::bind( &SkinningComponent::endSkinning, comp ),
+                                            "SkinnerEndTask_" + comp->getName() );
 
             Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask( skinTask );
             Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask( endTask );
