@@ -30,6 +30,7 @@ class RA_GUIBASE_API WindowQt : public QWindow {
     virtual ~WindowQt();
 
     virtual void resizeEvent( QResizeEvent* event ) override;
+    virtual void showEvent( QShowEvent* event ) override;
     virtual void exposeEvent( QExposeEvent* event ) override;
     bool event( QEvent* event ) override;
 

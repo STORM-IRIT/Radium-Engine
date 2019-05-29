@@ -88,6 +88,11 @@ void WindowQt::initialize() {
     }
 }
 
+
+void WindowQt::showEvent( QShowEvent* /*ev*/ ) {
+    initialize();
+}
+
 void WindowQt::resize( QResizeEvent* event ) {
     initialize();
 

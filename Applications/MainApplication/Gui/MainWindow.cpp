@@ -43,6 +43,10 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     setupUi( this );
 
     m_viewer = new Viewer();
+
+    connect( m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized );
+    connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
+
     m_viewer->createGizmoManager();
     m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
@@ -147,8 +151,6 @@ void MainWindow::createConnections() {
         static_cast<void ( QComboBox::* )( const QString& )>( &QComboBox::currentIndexChanged ),
         [=]( const QString& ) { this->onCurrentRenderChangedInUI(); } );
 
-    connect( m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized );
-    connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
 
     connect(
         m_displayedTextureCombo,
@@ -608,6 +610,9 @@ void MainWindow::postLoadFile() {
 }
 
 void MainWindow::onGLInitialized() {
+
+    LOG( logINFO )
+        << "onGLInitialized";
     // set default renderer once OpenGL is configured
     std::shared_ptr<Engine::Renderer> e( new Engine::ForwardRenderer() );
     addRenderer( "Forward Renderer", e );

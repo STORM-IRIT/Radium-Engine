@@ -59,7 +59,6 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     // Paths in which globjects will be looking for shaders includes.
     // "/" refer to the root of the directory structure conaining the shader (i.e. the Shaders/
     // directory).
-    globjects::Shader::IncludePaths includePaths{std::string( "/" )};
 
     auto loadedSource = globjects::Shader::sourceFromFile( name );
 
@@ -90,7 +89,7 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
             {
                 return std::move( a ) + b.first + std::string( "\n" );
             } else
-            { return std::move( a ); }
+            { return a; }
         } );
 
     auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
@@ -99,7 +98,6 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
 
     auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
-    shader->setIncludePaths( {std::string( "/" )} );
 
     // Workaround globject #include bug ...
     // Radium V2 : update globject to see if tis bug is always here ...
