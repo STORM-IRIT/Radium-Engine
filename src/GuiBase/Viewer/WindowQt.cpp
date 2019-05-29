@@ -70,7 +70,6 @@ void WindowQt::doneCurrent() {
 
 void WindowQt::resizeEvent( QResizeEvent* event ) {
     resize( event );
-    initialize();
 }
 
 void WindowQt::exposeEvent( QExposeEvent* ) {
@@ -94,6 +93,16 @@ void WindowQt::showEvent( QShowEvent* /*ev*/ ) {
 }
 
 void WindowQt::resize( QResizeEvent* event ) {
+    // Ugly patch since Qt seems buggy on this point on macos, raise two resize call the first time.
+    if (event->size().width() < minimumSize().width() ||
+        event->size().height() < minimumSize().height())
+    {
+        QSize size{std::max(event->size().width(), minimumSize().width()),
+                   std::max(event->size().height(), minimumSize().height())};
+        QResizeEvent *patchEvent = new QResizeEvent(size, event->oldSize());
+        event = patchEvent;
+        QWindow::resize(size);
+    }
     initialize();
 
     makeCurrent();
@@ -104,9 +113,10 @@ void WindowQt::resize( QResizeEvent* event ) {
     resizeGL( &deviceSpecificResizeEvent );
 
     doneCurrent();
+
 }
 /// paint is done by main rendering loop, initialize instead
-
+/*
 bool WindowQt::event( QEvent* event ) {
     switch ( event->type() )
     {
@@ -125,7 +135,7 @@ bool WindowQt::event( QEvent* event ) {
     default:
         return QWindow::event( event );
     }
-}
+}*/
 
 bool WindowQt::initializeGL() {
     return false;
