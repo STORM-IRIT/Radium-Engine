@@ -71,8 +71,8 @@ void Renderer::initialize( uint width, uint height ) {
     pickingPointsConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram(pickingPointsConfig);
-        CORE_ASSERT(pickingShader, "Picking Shader is required for points");
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingPointsConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for points" );
         m_pickingShaders[Displayable::PKM_POINTS] = *pickingShader;
     }
 
@@ -82,8 +82,8 @@ void Renderer::initialize( uint width, uint height ) {
     pickingLinesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram(pickingLinesConfig);
-        CORE_ASSERT(pickingShader, "Picking Shader is required for lines");
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for lines" );
         m_pickingShaders[Displayable::PKM_LINES] = *pickingShader;
     }
 
@@ -94,8 +94,8 @@ void Renderer::initialize( uint width, uint height ) {
     pickingLinesAdjacencyConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram(pickingLinesAdjacencyConfig);
-        CORE_ASSERT(pickingShader, "Picking Shader is required for lines adjacency");
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for lines adjacency" );
         m_pickingShaders[Displayable::PKM_LINE_ADJ] = *pickingShader;
     }
 
@@ -105,8 +105,8 @@ void Renderer::initialize( uint width, uint height ) {
     pickingTrianglesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram(pickingTrianglesConfig);
-        CORE_ASSERT(pickingShader, "Picking Shader is required for triangles");
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for triangles" );
         m_pickingShaders[Displayable::PKM_TRI] = *pickingShader;
     }
 
@@ -544,21 +544,24 @@ void Renderer::notifyRenderObjectsRenderingInternal() {
 void Renderer::resize( uint w, uint h ) {
     m_width = w;
     m_height = h;
-    m_depthTexture->resize( m_width, m_height );
-    m_pickingTexture->resize( m_width, m_height );
-    m_fancyTexture->resize( m_width, m_height );
 
-    m_pickingFbo->bind();
-    m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture->texture() );
-    m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture->texture() );
-    if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
+    if ( w != 0 && h != 0 )
     {
-        LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error "
-                        << m_pickingFbo->checkStatus();
-    }
-    m_pickingFbo->unbind();
+        m_depthTexture->resize( m_width, m_height );
+        m_pickingTexture->resize( m_width, m_height );
+        m_fancyTexture->resize( m_width, m_height );
 
-    resizeInternal();
+        m_pickingFbo->bind();
+        m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture->texture() );
+        m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture->texture() );
+        if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
+        {
+            LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error "
+                            << m_pickingFbo->checkStatus();
+        }
+        m_pickingFbo->unbind();
+        resizeInternal();
+    }
 }
 
 void Renderer::displayTexture( const std::string& texName ) {
