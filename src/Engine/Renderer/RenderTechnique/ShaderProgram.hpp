@@ -16,6 +16,7 @@ namespace globjects {
 class Shader;
 class Program;
 class NamedString;
+class StaticStringSource;
 } // namespace globjects
 
 namespace Ra {
@@ -105,6 +106,7 @@ class RA_ENGINE_API ShaderProgram final {
     ShaderConfiguration m_configuration;
 
     std::array<std::unique_ptr<globjects::Shader>, ShaderType_COUNT> m_shaderObjects;
+    std::array<std::unique_ptr<globjects::StaticStringSource>, ShaderType_COUNT> m_shaderSources;
 
     std::unique_ptr<globjects::Program> m_program;
 };
