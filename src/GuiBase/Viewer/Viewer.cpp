@@ -67,10 +67,10 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     ,
     m_renderThread( nullptr )
 #endif
-{
-    setMinimumSize( QSize( 800, 600 ) );
-    m_pickingManager = new PickingManager();
-}
+    {
+        setMinimumSize(QSize(800, 600));
+        m_pickingManager = new PickingManager();
+    }
 
 Gui::Viewer::~Viewer() {
     if ( m_glInitialized.load() )
@@ -152,6 +152,17 @@ bool Gui::Viewer::initializeGL() {
 
     Engine::ShaderProgramManager::createInstance();
     Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
+
+    m_camera.reset(new Gui::TrackballCamera(width(), height()));
+
+    // Lights are components. So they must be attached to an entity. Attach headlight to system
+    // Entity
+    auto light =
+            new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
+    light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
+    m_camera->attachLight( light );
+
+
 
     m_glInitialized = true;
     makeCurrent();
@@ -242,6 +253,7 @@ void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
     gl::glViewport( 0, 0, width(), height() );
 #endif
     renderer->initialize( width(), height() );
+    renderer->setBackgroundColor( m_backgroundColor );
     // resize camera viewport since it might be 0x0
     m_camera->resizeViewport( width(), height() );
     // do this only when the renderer has something to render and that there is no lights
@@ -406,23 +418,11 @@ void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
     // QWindow::keyReleaseEvent(event);
 }
 
-void Gui::Viewer::showEvent( QShowEvent* /*ev*/ ) {
-    //       LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
-    if ( !m_camera )
-    {
-        // quick fix meanwhile camera management refactoring
-        // see issue #339 Crash when using -f option
-        // https://github.com/STORM-IRIT/Radium-Engine/issues/339
-        // here width and height might be  0 ! need to resize camera afterward
-        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+void Gui::Viewer::showEvent( QShowEvent* ev ) {
+    WindowQt::showEvent(ev);
+    ///todo remove this commented code when camera init in ctr is tested on other arch.
 
-        // Lights are components. So they must be attached to an entity. Attache headlight to system
-        // Entity
-        auto light =
-            new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
-        light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
-        m_camera->attachLight( light );
-    }
+    m_camera->resizeViewport( width(), height());
 }
 
 void Gui::Viewer::reloadShaders() {

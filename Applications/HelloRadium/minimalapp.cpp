@@ -20,18 +20,7 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     // Initialize Engine.
     m_engine.reset( Ra::Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
-
-    // Load Blinn-Phong shader
-    Ra::Engine::ShaderConfiguration bpConfig( "BlinnPhong" );
-    bpConfig.addShader( Ra::Engine::ShaderType_VERTEX, "Shaders/BlinnPhong.vert.glsl" );
-    bpConfig.addShader( Ra::Engine::ShaderType_FRAGMENT, "Shaders/BlinnPhong.frag.glsl" );
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( bpConfig );
-
-    Ra::Engine::ShaderConfiguration pConfig( "Plain" );
-    pConfig.addShader( Ra::Engine::ShaderType_VERTEX, "Shaders/Plain.vert.glsl" );
-    pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl" );
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( pConfig );
-
+    
     Ra::Gui::KeyMappingManager::createInstance();
 
     // Initialize taskqueue.
@@ -41,6 +30,12 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
 
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
     connect( m_viewer.get(), &Ra::Gui::Viewer::glInitialized, this, &MinimalApp::onGLInitialized );
+
+
+    Ra::Engine::ShaderConfiguration pConfig( "Plain" );
+    pConfig.addShader( Ra::Engine::ShaderType_VERTEX, "Shaders/Plain.vert.glsl" );
+    pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl" );
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration( pConfig );
 
     // Initialize timer for the spinning cube.
     m_frame_timer = new QTimer( this );
