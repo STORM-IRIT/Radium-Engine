@@ -35,14 +35,29 @@ using namespace Core::Utils; // log
 
 ShaderProgram::ShaderProgram() : m_program{nullptr} {
     std::fill( m_shaderObjects.begin(), m_shaderObjects.end(), nullptr );
+    std::fill( m_shaderSources.begin(), m_shaderSources.end(), nullptr );
 }
 
 ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : m_program{nullptr} {
     std::fill( m_shaderObjects.begin(), m_shaderObjects.end(), nullptr );
+    std::fill( m_shaderSources.begin(), m_shaderSources.end(), nullptr );
     load( config );
 }
 
-ShaderProgram::~ShaderProgram() = default;
+ShaderProgram::~ShaderProgram() {
+    // first delete shader objects (before program and source) since it refer to
+    // them during delete
+    // See ~Shader (setSource(nullptr)
+    for ( auto& s : m_shaderObjects )
+    {
+        s.reset( nullptr );
+    }
+    for ( auto& s : m_shaderSources )
+    {
+        s.reset( nullptr );
+    }
+    m_program.reset( nullptr );
+}
 
 void ShaderProgram::loadShader( ShaderType type, const std::string& name,
                                 const std::set<std::string>& props,
@@ -113,6 +128,10 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
 
     GL_CHECK_ERROR;
     m_shaderObjects[type].swap( shader );
+
+    // raw ptrSource are stored in shader object, need to keep them valid during
+    // shader life
+    m_shaderSources[type].swap( ptrSource );
 }
 
 GLenum ShaderProgram::getTypeAsGLEnum( ShaderType type ) const {
