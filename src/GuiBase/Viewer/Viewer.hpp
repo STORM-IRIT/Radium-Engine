@@ -41,7 +41,7 @@ namespace Ra {
 namespace Gui {
 
 /** The Viewer is the main display class. It could be used as an independant window or
- * can be set as a central widget on a more complex gui by using the adapter for QWindow to QWidget
+ * can be set as a central widget on a more complex gui by using the adapter from QWindow to QWidget
  * To do that, the following code could be used :
  * \code{.cpp}
  *     m_viewer = new Ra::Gui::Viewer();
