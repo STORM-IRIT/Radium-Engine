@@ -6,14 +6,15 @@ else()
     set(OPENMESHTOOLLIBNAME OpenMeshTools)
 endif()
 
+
 # ----------------------------------------------------------------------------------------------------------------------
 set( OPENMESH_INCLUDE_DIR ${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/include )
 if( APPLE )
     set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.dylib"
                             "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dylib")
 elseif ( UNIX )
-    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshCore.so"
-                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.so")
+    set( OPENMESH_LIBRARIES "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${OPENMESHLIBNAME}.so"
+                            "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/lib${OPENMESHTOOLLIBNAME}.so")
 elseif (MINGW)
     set( OPENMESH_CORE_DLL  "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/libOpenMeshCore.dll")
     set( OPENMESH_TOOLS_DLL "${RADIUM_SUBMODULES_INSTALL_DIRECTORY}/lib/libOpenMeshTools.dll")
