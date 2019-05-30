@@ -23,8 +23,8 @@ for an overview of the project.
 The following platforms and tool chains have been tested and should work :
 
 * *Windows* : MSVC 2017 cmake support, MinGW-32 4.9.2 (with Qt Creator).
-* *Mac OSX* : gcc 5 or higher, Apple clang
-* *Linux* : gcc 5 or higher, clang
+* *Mac OSX* : gcc 7.1 or higher, Apple clang
+* *Linux* : gcc 7.1  or higher, clang
 
 ### Continuous Integration:
 * *Linux (clang 5, gcc7) and Mac OSX* : https://travis-ci.org/STORM-IRIT/Radium-Engine
@@ -78,7 +78,7 @@ $ make
 
 #### Supported versions of MSVC
 Since Radium requires:
-* the C++11/C++14 advanced features such as `constexpr`,
+* the C++11/C++14/C++17 advanced features such as `constexpr`,
 * cmake built-in support
 
 you will need a recent MSVC (2017 minimum).
