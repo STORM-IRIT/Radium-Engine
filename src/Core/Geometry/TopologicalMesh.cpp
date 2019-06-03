@@ -23,10 +23,17 @@ void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh
                           AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
                           std::vector<OpenMesh::HPropHandleT<T>>& pph ) {
     AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
-    OpenMesh::HPropHandleT<T> oh;
-    topoMesh->add_property( oh, attr->getName() );
-    vprop.push_back( std::make_pair( h, oh ) );
-    pph.push_back( oh );
+    if ( attr->getSize() == triMesh.vertices().size() )
+    {
+        OpenMesh::HPropHandleT<T> oh;
+        topoMesh->add_property( oh, attr->getName() );
+        vprop.push_back( std::make_pair( h, oh ) );
+        pph.push_back( oh );
+    } else
+    {
+        LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName()
+                          << ".";
+    }
 }
 
 template <typename T>
