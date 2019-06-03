@@ -28,7 +28,7 @@ class AttribBase {
     void setName( const std::string& name ) { m_name = name; }
     virtual void resize( size_t s ) = 0;
 
-    virtual uint getSize() = 0;
+    virtual size_t getSize() = 0;
     virtual int getStride() = 0;
 
     bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
@@ -70,7 +70,7 @@ class Attrib : public AttribBase {
     inline const Container& data() const { return m_data; }
 
     virtual ~Attrib() { m_data.clear(); }
-    uint getSize() override { return Container::Matrix::RowsAtCompileTime; }
+    size_t getSize() override { return m_data.size(); }
     int getStride() override { return sizeof( typename Container::value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
@@ -277,8 +277,7 @@ class RA_CORE_API AttribManager {
     /// \note The complexity for removing an attribute is O(log(n)).
     template <typename T>
     void removeAttrib( AttribHandle<T>& h ) {
-        const auto& att = getAttrib( h );
-        auto c = m_attribsIndex.find( att.getName() );
+        auto c = m_attribsIndex.find( h.m_name );
         if ( c != m_attribsIndex.end() )
         {
             Index idx = c->second;
