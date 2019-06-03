@@ -150,9 +150,14 @@ void SkinningComponent::initialize() {
         // prepare RO for skinning weights display
         auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
         m_baseTechnique = ro->getRenderTechnique();
-        auto handle = mesh->addAttrib<Ra::Core::Vector3>(
-            Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_TEXCOORD ) );
-        m_baseUV = mesh->getAttrib( handle ).data();
+
+        auto attrUV = Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_TEXCOORD );
+        if ( mesh->hasAttrib( attrUV ) )
+        {
+            auto handle = mesh->getAttribHandle<Ra::Core::Vector3>( attrUV );
+            m_baseUV = mesh->getAttrib( handle ).data();
+        }
+
         m_weightTechnique.reset( new Ra::Engine::RenderTechnique );
         auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
         builder.second( *m_weightTechnique.get(), true );
@@ -429,17 +434,28 @@ void SkinningComponent::showWeights( bool on ) {
     m_showingWeights = on;
     auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
     TriangleMesh* mesh = const_cast<TriangleMesh*>( m_meshWritter() );
-    auto handle = mesh->getAttribHandle<Ra::Core::Vector3>(
-        Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_TEXCOORD ) );
+    auto attrUV = Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_TEXCOORD );
+    Ra::Core::Utils::AttribHandle<Ra::Core::Vector3> handle;
 
     if ( m_showingWeights )
     {
         ro->setRenderTechnique( m_weightTechnique );
+        // get the UV attrib handle, will create it if not there.
+        handle = mesh->addAttrib<Ra::Core::Vector3>( attrUV );
         mesh->getAttrib( handle ).data() = m_weightsUV;
     } else
     {
         ro->setRenderTechnique( m_baseTechnique );
-        mesh->getAttrib( handle ).data() = m_baseUV;
+        handle = mesh->getAttribHandle<Ra::Core::Vector3>( attrUV );
+        // if the UV attrib existed before, reset it, otherwise remove it.
+        if ( m_baseUV.size() > 0 )
+        {
+            mesh->getAttrib( handle ).data() = m_baseUV;
+        } else
+        {
+            mesh->removeAttrib( handle );
+            m_meshWritter(); // update the Engine::Mesh's handles
+        }
     }
     m_forceUpdate = true;
 }
