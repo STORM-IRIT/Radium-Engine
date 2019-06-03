@@ -53,7 +53,7 @@ class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInte
     MeshFeatureTrackingComponent* m_component {nullptr};
     Ra::GuiBase::SelectionManager* m_selectionManager {nullptr};
     Ra::Gui::PickingManager* m_PickingManager {nullptr};
-    MeshFeatureTrackingUI* m_widget;
+    MeshFeatureTrackingUI* m_widget {nullptr};
 };
 
 } // namespace MeshFeatureTrackingPlugin

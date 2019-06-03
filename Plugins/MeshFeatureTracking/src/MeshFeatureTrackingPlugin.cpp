@@ -19,8 +19,7 @@
 
 namespace MeshFeatureTrackingPlugin {
 
-MeshFeatureTrackingPluginC::MeshFeatureTrackingPluginC() :
-    m_widget { new MeshFeatureTrackingUI()} {
+MeshFeatureTrackingPluginC::MeshFeatureTrackingPluginC() {
 }
 
 MeshFeatureTrackingPluginC::~MeshFeatureTrackingPluginC() {}
@@ -49,6 +48,8 @@ bool MeshFeatureTrackingPluginC::doAddWidget( QString& name ) {
 }
 
 QWidget* MeshFeatureTrackingPluginC::getWidget() {
+    if (m_widget == nullptr)
+        m_widget = new MeshFeatureTrackingUI();
     return m_widget;
 }
 

@@ -13,8 +13,6 @@
 #include <Core/Utils/Timer.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Engine/Renderer/Displayable/DisplayableObject.hpp>
-// FIXME : DO NOT USE HARDCODED EVENT ENUMS
-#include <GuiBase/Event/EventEnums.hpp>
 
 namespace Ra {
 
@@ -78,11 +76,20 @@ class RA_ENGINE_API Renderer {
     };
 
     /**
+     * Picking purpose
+     * Used to identify what picking operation is realized
+     */
+    enum PickingPurpose {
+        SELECTION = 0,
+        MANIPULATION
+    };
+
+    /**
      * Picking query
      */
     struct PickingQuery {
         Core::Vector2 m_screenCoords;
-        GuiBase::MouseButton::MouseButton m_button;
+        PickingPurpose m_purpose;
         PickingMode m_mode;
     };
 

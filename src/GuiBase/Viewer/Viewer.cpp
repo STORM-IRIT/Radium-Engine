@@ -321,9 +321,8 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     } else if ( keyMap->actionTriggered( event,
                                          Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
     {
-        // FIXME : DO NOT USE GuiBase::MouseButton::RA_MOUSE_LEFT_BUTTON
         m_currentRenderer->addPickingRequest( {Core::Vector2( event->x(), height() - event->y() ),
-                                               GuiBase::MouseButton::RA_MOUSE_LEFT_BUTTON,
+                                               Engine::Renderer::PickingPurpose::SELECTION,
                                                Engine::Renderer::RO} );
         if ( m_gizmoManager != nullptr )
         {
@@ -333,9 +332,8 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
                                          Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
     {
         // Check picking
-        // FIXME : DO NOT USE GuiBase::MouseButton::RA_MOUSE_RIGHT_BUTTON
         Engine::Renderer::PickingQuery query = {Core::Vector2( event->x(), height() - event->y() ),
-                                                GuiBase::MouseButton::RA_MOUSE_RIGHT_BUTTON,
+                                                Engine::Renderer::PickingPurpose::MANIPULATION,
                                                 getPickingMode()};
         m_currentRenderer->addPickingRequest( query );
     }
@@ -364,7 +362,7 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
             // Check picking
             Engine::Renderer::PickingQuery query = {
                 Core::Vector2( event->x(), ( height() - event->y() ) ),
-                GuiBase::MouseButton::RA_MOUSE_RIGHT_BUTTON, getPickingMode()};
+                Engine::Renderer::PickingPurpose::MANIPULATION, getPickingMode()};
             m_currentRenderer->addPickingRequest( query );
         }
     } else
@@ -525,11 +523,10 @@ void Gui::Viewer::processPicking() {
     for ( uint i = 0; i < m_currentRenderer->getPickingQueries().size(); ++i )
     {
         const Engine::Renderer::PickingQuery& query = m_currentRenderer->getPickingQueries()[i];
-        // FIXME : DO NOT USE RA_MOUSE_LEFT_BUTTON or RA_MOUSE_RIGHT_BUTTON
-        if ( query.m_button == GuiBase::MouseButton::RA_MOUSE_LEFT_BUTTON )
+        if ( query.m_purpose == Engine::Renderer::PickingPurpose::SELECTION)
         {
             emit leftClickPicking( m_currentRenderer->getPickingResults()[i].m_roIdx );
-        } else if ( query.m_button == GuiBase::MouseButton::RA_MOUSE_RIGHT_BUTTON )
+        } else if ( query.m_purpose == Engine::Renderer::PickingPurpose::MANIPULATION )
         {
             const auto& result = m_currentRenderer->getPickingResults()[i];
             m_pickingManager->setCurrent( result );
