@@ -117,7 +117,7 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
         m_renderObjectReader;
 
     // Getter/Setter to the mesh
-    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::Getter
+    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::ReadWrite
         m_meshWritter;
 
     /// The Skinning Method.
