@@ -21,7 +21,7 @@ struct Frustum {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// Default constructor
-    inline Frustum( const Eigen::Matrix<Scalar, 4, 4>& mvp ) {
+    explicit inline Frustum( const Eigen::Matrix<Scalar, 4, 4>& mvp ) {
         // Near clipping plane.
         m_planes[FRONT] = mvp.row( 3 ) + mvp.row( 2 );
         // Far clipping plane.

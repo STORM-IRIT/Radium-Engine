@@ -4,8 +4,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
-#include <GuiBase/Event/KeyEvent.hpp>
-#include <GuiBase/Event/MouseEvent.hpp>
+
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
 #include <QApplication>

@@ -25,7 +25,7 @@ class RA_CORE_API Handle {
     enum class SpaceType { LOCAL, MODEL };
 
     Handle();
-    Handle( const uint n );
+    explicit Handle( const uint n );
     Handle( const Handle& handle ) = default;
     Handle& operator=( const Handle& handle ) = default;
 

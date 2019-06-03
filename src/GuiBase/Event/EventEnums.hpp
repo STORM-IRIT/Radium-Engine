@@ -3,24 +3,9 @@
 
 namespace Ra {
 namespace GuiBase {
-
-namespace Modifier {
-enum Modifier { RA_EMPTY = 0x1, RA_CTRL_KEY = 0x2, RA_SHIFT_KEY = 0x4, RA_ALT_KEY = 0x8 };
-} // namespace Modifier
-
-namespace KeyEventType {
-enum KeyEventType { RA_KEY_PRESSED = 0x1, RA_KEY_RELEASED = 0x2 };
-} // namespace KeyEventType
-
-namespace MouseEventType {
-enum MouseEventType {
-    RA_MOUSE_PRESSED = 0x1,
-    RA_MOUSE_RELEASED = 0x2,
-    RA_MOUSE_MOVED = 0x4,
-    RA_MOUSE_WHEEL = 0x8
-};
-}
-
+/**
+ * TODO : fix this : do not use explicit RA::...::MouseButton.
+ */
 namespace MouseButton {
 enum MouseButton {
     RA_MOUSE_LEFT_BUTTON = 0x1,

@@ -11,7 +11,7 @@ namespace Animation {
 class KeyRotation : public KeyFrame<Core::Quaternion> {
   public:
     /// CONSTRUCTOR
-    KeyRotation( const AnimationTime& time = AnimationTime() ) :
+    explicit KeyRotation( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Quaternion>( time ) {}
     KeyRotation( const KeyRotation& keyframe ) = default;
 

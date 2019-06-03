@@ -20,9 +20,7 @@
 namespace MeshFeatureTrackingPlugin {
 
 MeshFeatureTrackingPluginC::MeshFeatureTrackingPluginC() :
-    m_selectionManager( nullptr ),
-    m_PickingManager( nullptr ) {
-    m_widget = new MeshFeatureTrackingUI();
+    m_widget { new MeshFeatureTrackingUI()} {
 }
 
 MeshFeatureTrackingPluginC::~MeshFeatureTrackingPluginC() {}

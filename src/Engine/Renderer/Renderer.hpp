@@ -13,6 +13,7 @@
 #include <Core/Utils/Timer.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Engine/Renderer/Displayable/DisplayableObject.hpp>
+// FIXME : DO NOT USE HARDCODED EVENT ENUMS
 #include <GuiBase/Event/EventEnums.hpp>
 
 namespace Ra {
@@ -90,7 +91,7 @@ class RA_ENGINE_API Renderer {
      */
     struct PickingResult {
         PickingMode m_mode;            // Picking mode of the query
-        int m_roIdx;                   // Idx of the picked RO
+        Core::Utils::Index m_roIdx;                   // Idx of the picked RO
         std::vector<int> m_vertexIdx;  // Idx of the picked vertex in the element, i.e. point's idx
                                        // OR idx in line or triangle
         std::vector<int> m_elementIdx; // Idx of the element, i.e. triangle for mesh, edge for lines

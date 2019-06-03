@@ -36,11 +36,11 @@ class FileLoaderInterface;
 
 /// Data passed to the plugin constructor.
 struct PluginContext {
-    Engine::RadiumEngine* m_engine = nullptr;
-    GuiBase::SelectionManager* m_selectionManager = nullptr;
-    Gui::PickingManager* m_pickingManager = nullptr;
-    Gui::Viewer* m_viewer = nullptr;
-    std::string m_exportDir = ".";
+    Engine::RadiumEngine* m_engine {nullptr};
+    GuiBase::SelectionManager* m_selectionManager {nullptr};
+    Gui::PickingManager* m_pickingManager {nullptr};
+    Gui::Viewer* m_viewer {nullptr};
+    std::string m_exportDir {"."};
 };
 
 namespace Plugins {

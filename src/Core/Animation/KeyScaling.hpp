@@ -11,7 +11,7 @@ namespace Animation {
 class KeyScaling : public KeyFrame<Core::Vector3> {
   public:
     /// CONSTRUCTOR
-    KeyScaling( const AnimationTime& time = AnimationTime() ) : KeyFrame<Core::Vector3>( time ) {}
+    explicit KeyScaling( const AnimationTime& time = AnimationTime() ) : KeyFrame<Core::Vector3>( time ) {}
     KeyScaling( const KeyScaling& keyframe ) = default;
 
     /// DESTRUCTOR

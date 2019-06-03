@@ -32,7 +32,7 @@ class Spline {
     /// @param type : nodal vector type (uniform, open_uniform)
     /// This will define the behavior of the spline with its control points
     /// as well as its speed according to its parameter.
-    inline Spline( Type type = OPEN_UNIFORM );
+    explicit inline Spline( Type type = OPEN_UNIFORM );
 
     /// Set the position of the spline control points.
     inline void setCtrlPoints( const Core::VectorArray<Vector>& points );

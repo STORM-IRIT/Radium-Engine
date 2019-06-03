@@ -44,7 +44,7 @@ class MeshFeatureTrackingComponent : public Ra::Engine::Component {
     void setScale( Scalar scale );
 
     FeatureData m_data;
-    int m_pickedRoIdx;
+    Ra::Core::Utils::Index m_pickedRoIdx;
     Ra::Engine::Mesh* m_pickedMesh;
     Ra::Engine::RenderObject* m_RO;
 };
