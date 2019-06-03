@@ -19,58 +19,109 @@ namespace Utils {
 template <typename T>
 class Attrib;
 
-/// AttribBase is the base class for attributes of all type.
+/**
+ * AttribBase is the base class for attributes of all type.
+ */
 class AttribBase {
   public:
     explicit AttribBase( const std::string& name ) : m_name{name} {}
     virtual ~AttribBase() {}
+
+    /**
+     * Return the attribute's name.
+     */
     std::string getName() const { return m_name; }
+
+    /**
+     * Set the attribute's name.
+     */
     void setName( const std::string& name ) { m_name = name; }
+
+    /**
+     * Resize the attribute's content.
+     */
     virtual void resize( size_t s ) = 0;
 
+    /**
+     * Return the number of elements in the attribute content.
+     */
     virtual size_t getSize() = 0;
+
+    /**
+     * Return the size, in bytes, of one attribute element.
+     */
     virtual int getStride() = 0;
 
+    /**
+     * Return true if *this and \p rhs have the same name.
+     */
     bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
 
+    /**
+     * Downcast from AttribBase to Attrib<T>.
+     */
     template <typename T>
     inline Attrib<T>& cast() {
         return static_cast<Attrib<T>&>( *this );
     }
 
+    /**
+     * Downcast from AttribBase to Attrib<T>.
+     */
     template <typename T>
     inline const Attrib<T>& cast() const {
         return static_cast<const Attrib<T>&>( *this );
     }
 
+    /**
+     * Return true if the attribute content is of float type, false otherwise.
+     */
     virtual bool isFloat() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector2 type, false otherwise.
+     */
     virtual bool isVec2() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector3 type, false otherwise.
+     */
     virtual bool isVec3() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector4 type, false otherwise.
+     */
     virtual bool isVec4() const = 0;
 
   private:
+    /// The attribute's name.
     std::string m_name;
 };
 
-/// An Attribute is a vector of a given type.
+/**
+ * An Attrib stores an element of type \p T for each entry.
+ */
 template <typename T>
 class Attrib : public AttribBase {
   public:
     using value_type = T;
     using Container = VectorArray<T>;
-
+    
     explicit Attrib( const std::string& name ) : AttribBase( name ) {}
-    /// resize the container (value_type must have a default ctor).
+    
+    /// Resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
 
-    /// RW acces to container data
+    /// Read-write access to the attribute content.
     inline Container& data() { return m_data; }
 
-    /// R only acccess to container data
+    /// Read-only acccess to the attribute content.
     inline const Container& data() const { return m_data; }
 
     virtual ~Attrib() { m_data.clear(); }
     size_t getSize() override { return m_data.size(); }
+
+    /// \warning Does not work for dynamic and sparse Eigen matrices.
     int getStride() override { return sizeof( typename Container::value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
