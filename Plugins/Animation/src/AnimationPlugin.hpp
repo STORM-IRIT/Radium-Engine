@@ -95,7 +95,7 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     AnimationUI* m_widget {nullptr};
 
     /// The SelectionManager of the Viewer.
-    Ra::GuiBase::SelectionManager* m_selectionManager;
+    Ra::GuiBase::SelectionManager* m_selectionManager {nullptr};
 };
 
 } // namespace AnimationPlugin
