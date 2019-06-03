@@ -112,6 +112,13 @@ void run() {
     newMesh = topologicalMesh.toTriangleMesh();
     RA_VERIFY( isSameMesh( mesh, newMesh ), "Conversion to topological cylinder mesh" );
 
+    // Test skip empty attributes
+    mesh.addAttrib<float>( "empty" );
+    topologicalMesh = TopologicalMesh( mesh );
+    newMesh = topologicalMesh.toTriangleMesh();
+    RA_VERIFY( !newMesh.hasAttrib( "empty" ), "TopologicalMesh skip empty attributes" );
+
+    // Test normals
     mesh = Ra::Core::Geometry::makeBox();
     topologicalMesh = TopologicalMesh( mesh );
 
