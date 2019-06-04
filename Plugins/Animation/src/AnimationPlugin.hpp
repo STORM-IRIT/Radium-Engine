@@ -89,13 +89,13 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     std::string m_dataDir;
 
     /// The AnimationSystem.
-    class AnimationSystem* m_system {nullptr};
+    class AnimationSystem* m_system{nullptr};
 
     /// The Animation widget.
-    AnimationUI* m_widget {nullptr};
+    AnimationUI* m_widget{nullptr};
 
     /// The SelectionManager of the Viewer.
-    Ra::GuiBase::SelectionManager* m_selectionManager {nullptr};
+    Ra::GuiBase::SelectionManager* m_selectionManager{nullptr};
 };
 
 } // namespace AnimationPlugin

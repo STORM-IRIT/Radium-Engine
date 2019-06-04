@@ -13,7 +13,7 @@ class Index {
     /// Default constructor that allow implicit conversion from integer to Index
     constexpr explicit Index( int i = s_invalid );
     constexpr Index( const Index& i );
-    constexpr Index &operator =(long int i);
+    constexpr Index& operator=( long int i );
 
     /// DESTRUCTOR: Must not be defined, we need it trivial to be
     /// constexpr

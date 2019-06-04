@@ -95,9 +95,9 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void onShowWeightsType( int type );
 
   private:
-    SkinningSystem* m_system {nullptr};
-    Ra::GuiBase::SelectionManager* m_selectionManager {nullptr};
-    SkinningWidget* m_widget {nullptr};
+    SkinningSystem* m_system{nullptr};
+    Ra::GuiBase::SelectionManager* m_selectionManager{nullptr};
+    SkinningWidget* m_widget{nullptr};
 };
 
 } // namespace SkinningPlugin

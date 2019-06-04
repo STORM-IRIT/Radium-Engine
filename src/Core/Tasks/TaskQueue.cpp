@@ -62,7 +62,7 @@ bool TaskQueue::addDependency( const std::string& predecessors, TaskQueue::TaskI
         if ( m_tasks[i]->getName() == predecessors )
         {
             added = true;
-            addDependency( TaskId(i), successor );
+            addDependency( TaskId( i ), successor );
         }
     }
     return added;
@@ -75,7 +75,7 @@ bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string&
         if ( m_tasks[i]->getName() == successors )
         {
             added = true;
-            addDependency( predecessor, TaskId(i) );
+            addDependency( predecessor, TaskId( i ) );
         }
     }
     return added;
@@ -160,7 +160,7 @@ void TaskQueue::startTasks() {
     {
         if ( m_remainingDependencies[t] == 0 )
         {
-            queueTask( TaskId(t) );
+            queueTask( TaskId( t ) );
         }
     }
 

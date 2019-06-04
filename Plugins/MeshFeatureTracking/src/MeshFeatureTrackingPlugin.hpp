@@ -50,10 +50,10 @@ class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInte
     void triangleIdChanged( int );
 
   private:
-    MeshFeatureTrackingComponent* m_component {nullptr};
-    Ra::GuiBase::SelectionManager* m_selectionManager {nullptr};
-    Ra::Gui::PickingManager* m_PickingManager {nullptr};
-    MeshFeatureTrackingUI* m_widget {nullptr};
+    MeshFeatureTrackingComponent* m_component{nullptr};
+    Ra::GuiBase::SelectionManager* m_selectionManager{nullptr};
+    Ra::Gui::PickingManager* m_PickingManager{nullptr};
+    MeshFeatureTrackingUI* m_widget{nullptr};
 };
 
 } // namespace MeshFeatureTrackingPlugin

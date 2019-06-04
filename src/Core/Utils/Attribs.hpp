@@ -22,10 +22,10 @@ class Attrib;
 /// AttribBase is the base class for attributes of all type.
 class AttribBase {
   public:
-    explicit AttribBase(const std::string &name) : m_name{name} {}
+    explicit AttribBase( const std::string& name ) : m_name{name} {}
     virtual ~AttribBase() {}
     std::string getName() const { return m_name; }
-    void setName(const std::string &name) { m_name = name; }
+    void setName( const std::string& name ) { m_name = name; }
     virtual void resize( size_t s ) = 0;
 
     virtual uint getSize() = 0;
@@ -59,7 +59,7 @@ class Attrib : public AttribBase {
     using value_type = T;
     using Container = VectorArray<T>;
 
-    explicit Attrib(const std::string &name) : AttribBase(name) {}
+    explicit Attrib( const std::string& name ) : AttribBase( name ) {}
     /// resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
 

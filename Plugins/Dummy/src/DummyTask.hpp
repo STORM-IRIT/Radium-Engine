@@ -18,7 +18,7 @@ class DummyTask : public Ra::Core::Task {
     virtual void process() override;
 
   private:
-    DummyData* m_data {nullptr};
+    DummyData* m_data{nullptr};
 };
 
 class DummyOtherTask : public Ra::Core::Task {
@@ -29,7 +29,7 @@ class DummyOtherTask : public Ra::Core::Task {
     virtual void process() override;
 
   private:
-    DummyData* m_data {nullptr};
+    DummyData* m_data{nullptr};
 };
 } // namespace DummyPlugin
 

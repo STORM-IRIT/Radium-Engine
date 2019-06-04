@@ -40,8 +40,8 @@ class DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface {
     void sayHello();
 
   private:
-    DummySystem* m_system {nullptr};
-    QLabel* m_label {nullptr};
+    DummySystem* m_system{nullptr};
+    QLabel* m_label{nullptr};
 };
 
 } // namespace DummyPlugin

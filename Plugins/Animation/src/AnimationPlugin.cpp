@@ -16,9 +16,9 @@
 
 namespace AnimationPlugin {
 
-AnimationPluginC::AnimationPluginC() {}
+AnimationPluginC::AnimationPluginC() = default;
 
-AnimationPluginC::~AnimationPluginC() {}
+AnimationPluginC::~AnimationPluginC() = default;
 
 void AnimationPluginC::registerPlugin( const Ra::PluginContext& context ) {
     QSettings settings;

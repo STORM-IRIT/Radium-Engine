@@ -67,10 +67,10 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     ,
     m_renderThread( nullptr )
 #endif
-    {
-        setMinimumSize(QSize(800, 600));
-        m_pickingManager = new PickingManager();
-    }
+{
+    setMinimumSize( QSize( 800, 600 ) );
+    m_pickingManager = new PickingManager();
+}
 
 Gui::Viewer::~Viewer() {
     if ( m_glInitialized.load() )
@@ -153,16 +153,14 @@ bool Gui::Viewer::initializeGL() {
     Engine::ShaderProgramManager::createInstance();
     Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
 
-    m_camera.reset(new Gui::TrackballCamera(width(), height()));
+    m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
 
     // Lights are components. So they must be attached to an entity. Attach headlight to system
     // Entity
     auto light =
-            new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
+        new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
     light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
     m_camera->attachLight( light );
-
-
 
     m_glInitialized = true;
     makeCurrent();
@@ -419,10 +417,10 @@ void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
 }
 
 void Gui::Viewer::showEvent( QShowEvent* ev ) {
-    WindowQt::showEvent(ev);
-    ///todo remove this commented code when camera init in ctr is tested on other arch.
+    WindowQt::showEvent( ev );
+    /// todo remove this commented code when camera init in ctr is tested on other arch.
 
-    m_camera->resizeViewport( width(), height());
+    m_camera->resizeViewport( width(), height() );
 }
 
 void Gui::Viewer::reloadShaders() {
@@ -523,7 +521,7 @@ void Gui::Viewer::processPicking() {
     for ( uint i = 0; i < m_currentRenderer->getPickingQueries().size(); ++i )
     {
         const Engine::Renderer::PickingQuery& query = m_currentRenderer->getPickingQueries()[i];
-        if ( query.m_purpose == Engine::Renderer::PickingPurpose::SELECTION)
+        if ( query.m_purpose == Engine::Renderer::PickingPurpose::SELECTION )
         {
             emit leftClickPicking( m_currentRenderer->getPickingResults()[i].m_roIdx );
         } else if ( query.m_purpose == Engine::Renderer::PickingPurpose::MANIPULATION )

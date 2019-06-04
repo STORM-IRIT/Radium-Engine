@@ -12,7 +12,7 @@ namespace Ra {
 namespace Engine {
 class Mesh;
 }
-}
+} // namespace Ra
 
 namespace MeshFeatureTrackingPlugin {
 class MeshFeatureTrackingComponent : public Ra::Engine::Component {
