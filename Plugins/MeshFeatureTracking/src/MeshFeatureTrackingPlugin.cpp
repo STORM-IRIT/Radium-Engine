@@ -36,12 +36,6 @@ void MeshFeatureTrackingPluginC::registerPlugin( const Ra::PluginContext& contex
     m_PickingManager = context.m_pickingManager;
     connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this,
              &MeshFeatureTrackingPluginC::onCurrentChanged );
-
-    m_widget = new MeshFeatureTrackingUI();
-    connect( m_widget, &MeshFeatureTrackingUI::vertexIdChanged, this,
-             &MeshFeatureTrackingPluginC::vertexIdChanged );
-    connect( m_widget, &MeshFeatureTrackingUI::triangleIdChanged, this,
-             &MeshFeatureTrackingPluginC::triangleIdChanged );
 }
 
 bool MeshFeatureTrackingPluginC::doAddWidget( QString& name ) {
@@ -50,6 +44,13 @@ bool MeshFeatureTrackingPluginC::doAddWidget( QString& name ) {
 }
 
 QWidget* MeshFeatureTrackingPluginC::getWidget() {
+    if (m_widget == nullptr) {
+        m_widget = new MeshFeatureTrackingUI();
+        connect( m_widget, &MeshFeatureTrackingUI::vertexIdChanged, this,
+                 &MeshFeatureTrackingPluginC::vertexIdChanged );
+        connect( m_widget, &MeshFeatureTrackingUI::triangleIdChanged, this,
+                 &MeshFeatureTrackingPluginC::triangleIdChanged );
+    }
     return m_widget;
 }
 
