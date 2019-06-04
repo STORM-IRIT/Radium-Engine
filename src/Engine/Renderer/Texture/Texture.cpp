@@ -207,7 +207,7 @@ void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool
             {
                 c = c / 12.92f;
             } else
-            { c = std::pow( ( ( c + 0.055f ) / ( 1.f + 0.055f ) ), float( gamma ) ); }
+            { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), float( gamma ) ); }
             return uint8_t( c * 255 );
         };
         uint numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;

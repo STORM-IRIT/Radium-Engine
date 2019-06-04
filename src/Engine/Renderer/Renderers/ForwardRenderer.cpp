@@ -430,7 +430,7 @@ void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData )
     const ShaderProgram* shader = m_shaderMgr->getShaderProgram( "Hdr2Ldr" );
     shader->bind();
     shader->setUniform( "screenTexture", m_textures[RendererTextures_HDR].get(), 0 );
-    shader->setUniform( "gamma", 2.2 );
+    shader->setUniform( "gamma", SRGB_GAMMA );
     m_quadMesh->render();
 
     GL_ASSERT( glDepthMask( GL_TRUE ) );

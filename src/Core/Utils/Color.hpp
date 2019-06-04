@@ -6,6 +6,13 @@
 #include <Eigen/Geometry> //homogeneous
 #include <random>
 
+/**
+ * gamma value for sRGB color space transfer function
+ * @see https://en.wikipedia.org/wiki/SRGB
+ * @see http://www.color.org/srgb.pdf
+ */
+#define SRGB_GAMMA 2.4_ra
+
 namespace Ra {
 namespace Core {
 namespace Utils {
@@ -38,7 +45,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     operator VectorType() { return *this; }
 
     /// convert the color expressed in sRGB color space to linear RGB
-    inline void toLinRGB( _Scalar gamma = 2.2_ra) {
+    inline void toLinRGB( _Scalar gamma = SRGB_GAMMA) {
         for (auto &u : rgb()) {
             if (u < 0.04045_ra) {
                 u /=12.92_ra;
@@ -49,7 +56,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     }
 
     /// convert the color expressed in linear RGB color space to sRGB
-    inline void tosRGB( _Scalar gamma = 2.2_ra) {
+    inline void tosRGB( _Scalar gamma = SRGB_GAMMA) {
         for (auto &u : rgb()) {
             if (u < 0.0031308_ra) {
                 u *=12.92_ra;
