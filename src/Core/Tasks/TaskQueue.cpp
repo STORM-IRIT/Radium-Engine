@@ -119,7 +119,7 @@ void TaskQueue::detectCycles() {
     std::vector<bool> visited( m_tasks.size(), false );
     std::stack<TaskId> pending;
 
-    for ( TaskId id = 0; id < m_tasks.size(); ++id )
+    for ( TaskId id{0}; id < m_tasks.size(); ++id )
     {
         if ( m_dependencies[id].size() == 0 )
         {
