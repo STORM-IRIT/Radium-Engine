@@ -22,7 +22,7 @@ namespace Testing {
 
 // A non-copyable move semantics struct
 struct NonCopy {
-    NonCopy( int x ) : value( x ) {}
+    explicit NonCopy( int x ) : value( x ) {}
     NonCopy( NonCopy&& other ) {
         value = other.value;
         other.value = 0;

@@ -15,7 +15,7 @@ class RA_CORE_API PolyLine {
 
   public:
     /// Create a polyline from a given set of points.
-    PolyLine( const Vector3Array& pt );
+    explicit PolyLine( const Vector3Array& pt );
 
     /// Get the point vector.
     inline const Vector3Array& getPoints() const;

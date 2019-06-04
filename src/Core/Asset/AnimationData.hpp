@@ -14,7 +14,7 @@ namespace Core {
 namespace Asset {
 
 struct RA_CORE_API HandleAnimation {
-    HandleAnimation( const std::string& name = "" );
+    explicit HandleAnimation( const std::string& name = "" );
 
     std::string m_name;
     Core::Animation::KeyTransform m_anim;
@@ -23,7 +23,7 @@ struct RA_CORE_API HandleAnimation {
 class RA_CORE_API AnimationData : public AssetData {
   public:
     /// CONSTRUCTOR
-    AnimationData( const std::string& name = "" );
+    explicit AnimationData( const std::string& name = "" );
     /// DESTRUCTOR
     ~AnimationData();
 

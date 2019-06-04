@@ -6,6 +6,10 @@ constexpr Index::Index( int i ) : m_idx( ( i < 0 ) ? s_invalid : i ) {}
 
 constexpr Index::Index( const Index& i ) : m_idx( i.m_idx ) {}
 
+constexpr Index& Index::operator=( long int i ) {
+    m_idx = ( i < 0 ) ? s_invalid : i;
+    return *this;
+}
 /// VALID
 constexpr bool Index::isValid() const {
     return ( m_idx != s_invalid );

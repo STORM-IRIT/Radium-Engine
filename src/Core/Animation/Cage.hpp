@@ -20,7 +20,7 @@ namespace Animation {
 class RA_CORE_API Cage : public Handle {
   public:
     Cage();
-    Cage( const uint n );
+    explicit Cage( const uint n );
     Cage( const Cage& cage );
 
     /// DESTRUCTOR

@@ -11,7 +11,7 @@ namespace Animation {
 class KeyTransform : public KeyFrame<Core::Transform> {
   public:
     /// CONSTRUCTOR
-    KeyTransform( const AnimationTime& time = AnimationTime() ) :
+    explicit KeyTransform( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Transform>( time ) {}
     KeyTransform( const KeyTransform& keyframe ) = default;
 

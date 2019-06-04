@@ -12,7 +12,7 @@ namespace Animation {
 class KeyPose : public KeyFrame<Pose> {
   public:
     /// CONSTRUCTOR
-    KeyPose( const AnimationTime& time = AnimationTime() ) : KeyFrame<Pose>( time ) {}
+    explicit KeyPose( const AnimationTime& time = AnimationTime() ) : KeyFrame<Pose>( time ) {}
     KeyPose( const KeyPose& keyframe ) = default;
 
     /// DESTRUCTOR

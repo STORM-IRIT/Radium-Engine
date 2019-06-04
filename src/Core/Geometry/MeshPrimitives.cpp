@@ -176,7 +176,7 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv,
         uint i1 = ( i + 0 ) % 10 + 1;
         uint i2 = ( i + 1 ) % 10 + 1;
         uint i3 = ( i + 2 ) % 10 + 1;
-        i % 2 ? result.m_triangles.emplace_back( i3, i2, i1 )
+        (i % 2) ? result.m_triangles.emplace_back( i3, i2, i1 )
               : result.m_triangles.emplace_back( i2, i3, i1 );
     }
 

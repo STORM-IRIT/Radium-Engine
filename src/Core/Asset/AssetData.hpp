@@ -17,7 +17,7 @@ namespace Asset {
 class RA_CORE_API AssetData {
   public:
     /// Construct an asset data given its name.
-    AssetData( const std::string& name ) : m_name( name ) {}
+    explicit AssetData( const std::string& name ) : m_name( name ) {}
 
     /// Copy constructor. Default here
     AssetData( const AssetData& other ) = default;
