@@ -144,6 +144,13 @@
                 </property>
                </widget>
               </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="m_showHideAllButton">
+                <property name="text">
+                 <string>Show/Hide All</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
            </layout>
@@ -733,7 +740,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>m_entitiesTreeView</tabstop>
-  <tabstop>m_toggleRenderObjectButton</tabstop>
+  <tabstop>m_showHideAllButton</tabstop>
   <tabstop>m_editRenderObjectButton</tabstop>
   <tabstop>m_exportMeshButton</tabstop>
   <tabstop>m_removeEntityButton</tabstop>

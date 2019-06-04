@@ -137,14 +137,13 @@ void MainWindow::createConnections() {
         this, &MainWindow::changeRenderObjectShader );
 
     // RO Stuff
-    connect( m_toggleRenderObjectButton, &QPushButton::clicked, this,
-             &MainWindow::toggleVisisbleRO );
     connect( m_itemModel, &GuiBase::ItemModel::visibilityROChanged, this, &MainWindow::setROVisible );
     connect( m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO );
     connect( m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh );
     connect( m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem );
     connect( m_clearSceneButton, &QPushButton::clicked, this, &MainWindow::resetScene );
     connect( m_fitCameraButton, &QPushButton::clicked, this, &MainWindow::fitCamera );
+    connect( m_showHideAllButton, &QPushButton::clicked, this, &MainWindow::showHideAllRO );
 
     // Renderer stuff
     connect(
@@ -461,6 +460,39 @@ void Gui::MainWindow::editRO() {
     {
         m_materialEditor->changeRenderObject( item.m_roIndex );
         m_materialEditor->show();
+    }
+}
+
+void Gui::MainWindow::showHideAllRO()
+{
+    bool allEntityInvisible = true;
+
+    const int j = 0;
+    for (int i = 0; i < m_itemModel->rowCount(); ++i )
+    {
+        auto idx = m_itemModel->index(i,j);
+        auto item = m_itemModel->getEntry(idx);
+        if ( item.isValid() && item.isSelectable() )
+        {
+            bool isVisible = m_itemModel->data(idx, Qt::CheckStateRole).toBool();
+            if ( isVisible )
+            {
+                allEntityInvisible = false;
+                break;
+            }
+        }
+    }
+
+    // if all entities are invisible : show all
+    // if at least one entity is visible : hide all
+    for (int i = 0; i < m_itemModel->rowCount(); ++i )
+    {
+        auto idx = m_itemModel->index(i,j);
+        auto item = m_itemModel->getEntry(idx);
+        if( item.isValid() && item.isSelectable() )
+        {
+            m_itemModel->setData(idx, allEntityInvisible, Qt::CheckStateRole);
+        }
     }
 }
 

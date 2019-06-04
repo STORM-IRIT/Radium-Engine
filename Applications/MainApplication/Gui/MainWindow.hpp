@@ -97,6 +97,9 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     /// Cleanup resources.
     void cleanup() override;
 
+    /// Show or hide all render objects
+    void showHideAllRO();
+
   signals:
     /// Emitted when the frame loads
     void fileLoading( const QString path );
