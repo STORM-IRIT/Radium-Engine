@@ -220,7 +220,7 @@ class RA_GUIBASE_API Viewer : public WindowQt {
     [[deprecated]] QThread* m_renderThread = nullptr; // We have to use a QThread for MT rendering
 #endif
 
-    Core::Utils::Color m_backgroundColor;
+    Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 };
 
 } // namespace Gui

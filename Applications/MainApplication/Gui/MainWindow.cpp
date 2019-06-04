@@ -401,11 +401,15 @@ void MainWindow::updateDisplayedTexture() {
     }
 }
 
+// FIXME : manage transition to and from viewer/renderer, taking into account the sRGB color space
 void MainWindow::updateBackgroundColor( QColor c ) {
     QSettings settings;
     if ( !c.isValid() )
     {
-        c = settings.value( "colors/background", QColor::fromRgb( 10, 10, 10 ) ).value<QColor>();
+        // get the default color or an already existing one
+        auto defColor = m_viewer->getBackgroundColor();
+        auto bgk = QColor::fromRgb( defColor.rgb()[0]*255, defColor.rgb()[1]*255, defColor.rgb()[2]*255 );
+        c = settings.value( "colors/background", bgk ).value<QColor>();
     } else
     { settings.setValue( "colors/background", c ); }
     QString qss = QString( "background-color: %1" ).arg( c.name() );
