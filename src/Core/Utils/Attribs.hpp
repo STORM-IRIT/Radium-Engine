@@ -48,7 +48,7 @@ class AttribBase {
     virtual size_t getSize() = 0;
 
     /**
-     * Return the size, in bytes, of one attribute element.
+     * Return the stride, in bytes, from one attribute address to the next one.
      */
     virtual int getStride() = 0;
 
