@@ -401,21 +401,30 @@ void MainWindow::updateDisplayedTexture() {
     }
 }
 
-// FIXME : manage transition to and from viewer/renderer, taking into account the sRGB color space
+
 void MainWindow::updateBackgroundColor( QColor c ) {
+    // FIXME : sometime, settings does not define colrs but Qt found one ....
     QSettings settings;
+    // Get or set color from/to settings
     if ( !c.isValid() )
     {
         // get the default color or an already existing one
-        auto defColor = m_viewer->getBackgroundColor();
+        auto defColor = m_viewer->getBackgroundColor(); // assume linear RGB
+        defColor.tosRGB();
         auto bgk = QColor::fromRgb( defColor.rgb()[0]*255, defColor.rgb()[1]*255, defColor.rgb()[2]*255 );
         c = settings.value( "colors/background", bgk ).value<QColor>();
     } else
     { settings.setValue( "colors/background", c ); }
+
+    // update the color of the button
     QString qss = QString( "background-color: %1" ).arg( c.name() );
     m_currentColorButton->setStyleSheet( qss );
-    m_viewer->setBackgroundColor( Core::Utils::Color( Scalar( c.redF() ), Scalar( c.greenF() ),
-                                                      Scalar( c.blueF() ), Scalar( 0 ) ) );
+
+    // update the background coolor of the viewer
+    auto bgk = Core::Utils::Color( Scalar( c.redF() ), Scalar( c.greenF() ),
+                                   Scalar( c.blueF() ), Scalar( 0 ) );
+    bgk.toLinRGB();
+    m_viewer->setBackgroundColor( bgk );
 }
 
 void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
@@ -626,7 +635,10 @@ void MainWindow::onGLInitialized() {
 } // namespace Ra
 
 void Ra::Gui::MainWindow::on_m_currentColorButton_clicked() {
-    QColor currentColor;
+    // get the default color or an already existing one
+    auto defColor = m_viewer->getBackgroundColor(); // assume linear RGB
+    defColor.tosRGB();
+    auto currentColor = QColor::fromRgb( defColor.rgb()[0]*255, defColor.rgb()[1]*255, defColor.rgb()[2]*255 );
     QColor c = QColorDialog::getColor( currentColor, this, "Renderer background color" );
     if ( c.isValid() )
     {
