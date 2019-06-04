@@ -11,7 +11,7 @@ namespace Animation {
 class KeyTranslation : public KeyFrame<Core::Vector3> {
   public:
     /// CONSTRUCTOR
-    KeyTranslation( const AnimationTime& time = AnimationTime() ) :
+    explicit KeyTranslation( const AnimationTime& time = AnimationTime() ) :
         KeyFrame<Core::Vector3>( time ) {}
     KeyTranslation( const KeyTranslation& keyframe ) = default;
 

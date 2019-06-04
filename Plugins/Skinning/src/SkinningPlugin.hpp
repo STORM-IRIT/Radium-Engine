@@ -72,6 +72,7 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
   public:
+    SkinningPluginC() = default;
     virtual ~SkinningPluginC();
 
     virtual void registerPlugin( const Ra::PluginContext& context ) override;
@@ -94,9 +95,9 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void onShowWeightsType( int type );
 
   private:
-    SkinningSystem* m_system;
-    Ra::GuiBase::SelectionManager* m_selectionManager;
-    SkinningWidget* m_widget;
+    SkinningSystem* m_system{nullptr};
+    Ra::GuiBase::SelectionManager* m_selectionManager{nullptr};
+    SkinningWidget* m_widget{nullptr};
 };
 
 } // namespace SkinningPlugin

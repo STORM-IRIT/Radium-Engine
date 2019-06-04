@@ -21,7 +21,7 @@ namespace Animation {
 class RA_CORE_API Skeleton : public Handle {
   public:
     Skeleton();
-    Skeleton( const uint n );
+    explicit Skeleton( const uint n );
     Skeleton( const Skeleton& skeleton ) = default;
 
     ~Skeleton();

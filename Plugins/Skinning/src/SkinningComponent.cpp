@@ -331,7 +331,7 @@ void SkinningComponent::handleWeightsLoading( const Ra::Core::Asset::HandleData*
     setupIO( m_contentsName );
 }
 
-void SkinningComponent::setContentsName( const std::string name ) {
+void SkinningComponent::setContentsName( const std::string& name ) {
     m_contentsName = name;
 }
 

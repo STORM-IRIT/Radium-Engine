@@ -42,7 +42,7 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     void handleSkeletonLoading( const Ra::Core::Asset::HandleData* data, uint nbMeshVertices );
 
     /// Create the animations from the given data.
-    void handleAnimationLoading( const std::vector<Ra::Core::Asset::AnimationData*> data );
+    void handleAnimationLoading( const std::vector<Ra::Core::Asset::AnimationData*>& data );
 
     //
     // Animation

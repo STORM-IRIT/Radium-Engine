@@ -1,10 +1,10 @@
 #ifndef ADJACENCY_LIST_H
 #define ADJACENCY_LIST_H
 
-#include <iostream>
-#include <Eigen/Core>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/VectorArray.hpp>
+#include <Eigen/Core>
+#include <iostream>
 
 namespace Ra {
 namespace Core {
@@ -33,7 +33,7 @@ class RA_CORE_API AdjacencyList {
     // CONSTRUCTOR
     //////////////////////////////////////////////////////////////////////////////
     AdjacencyList();
-    AdjacencyList( const uint n );
+    explicit AdjacencyList( const uint n );
     AdjacencyList( const AdjacencyList& adj );
 
     //////////////////////////////////////////////////////////////////////////////
@@ -85,14 +85,14 @@ class RA_CORE_API AdjacencyList {
     inline bool isJoint( const uint i ) const;
     /// Return true if the edge { i, j } exists.
     inline bool isEdge( const uint i, const uint j ) const;
-    
+
     inline const Adjacency& children() const;
     inline const ParentList& parents() const;
 
     //////////////////////////////////////////////////////////////////////////////
     // VARIABLE
     //////////////////////////////////////////////////////////////////////////////
-private:
+  private:
     /// Adjacency matrix
     Adjacency m_child;
     /// Parents ids vector
@@ -100,7 +100,7 @@ private:
     LevelList m_level;
 };
 
-RA_CORE_API std::ofstream& operator<<(std::ofstream& ofs, const AdjacencyList& p);
+RA_CORE_API std::ofstream& operator<<( std::ofstream& ofs, const AdjacencyList& p );
 
 } // namespace Core
 } // namespace Ra

@@ -171,7 +171,7 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleDat
 }
 
 void AnimationComponent::handleAnimationLoading(
-    const std::vector<Ra::Core::Asset::AnimationData*> data ) {
+    const std::vector<Ra::Core::Asset::AnimationData *> &data) {
     m_animations.clear();
     CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first." );
     if ( data.empty() )

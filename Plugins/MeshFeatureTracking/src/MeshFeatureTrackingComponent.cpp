@@ -22,8 +22,7 @@ using Ra::Core::Utils::TLogLevel;
 namespace MeshFeatureTrackingPlugin {
 MeshFeatureTrackingComponent::MeshFeatureTrackingComponent( const std::string& name ) :
     Component( name, Ra::Engine::SystemEntity::getInstance() ),
-    m_pickedMesh( nullptr )
-{
+    m_pickedMesh( nullptr ) {
     m_data.m_mode = Ra::Engine::Renderer::PickingMode::RO;
 }
 
@@ -198,14 +197,15 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     {
         auto ro = getRoMgr()->getRenderObject( data.m_roIdx );
         Ra::Engine::Mesh* mesh = dynamic_cast<Ra::Engine::Mesh*>( ro->getMesh().get() );
-        if( mesh == nullptr ){
+        if ( mesh == nullptr )
+        {
             LOG( TLogLevel::logWARNING ) << "MeshFeatureTracking is available only for meshes";
             return;
         }
 
         // We set both objects at once, they should remain consistent while m_pickedRoIdx is valid
         m_pickedRoIdx = data.m_roIdx;
-        m_pickedMesh  = mesh;
+        m_pickedMesh = mesh;
     }
     // check picking mode / render config OK
     if ( data.m_mode == PickingMode::RO || data.m_mode > PickingMode::TRIANGLE )
@@ -224,7 +224,7 @@ void MeshFeatureTrackingComponent::setData( const Ra::Engine::Renderer::PickingR
     if ( ( rm == MeshRenderMode::RM_LINES || rm == MeshRenderMode::RM_LINE_LOOP ||
            rm == MeshRenderMode::RM_LINE_STRIP || rm == MeshRenderMode::RM_LINES_ADJACENCY ||
            rm == MeshRenderMode::RM_LINE_STRIP_ADJACENCY ) &&
-             m_data.m_mode == PickingMode::TRIANGLE )
+         m_data.m_mode == PickingMode::TRIANGLE )
     {
         m_data.m_mode = PickingMode::RO;
         return;

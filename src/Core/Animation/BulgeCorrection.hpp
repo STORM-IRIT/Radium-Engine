@@ -17,7 +17,7 @@ using MaxWeightID =
 
 struct BulgeCorrectionData {
     BulgeCorrectionData();
-    BulgeCorrectionData( const uint size );
+    explicit BulgeCorrectionData( const uint size );
     BulgeCorrectionData( const BulgeCorrectionData& data ) = default;
 
     void resize( const uint size );

@@ -87,7 +87,7 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     void setupSkinningType( SkinningType type );
 
     /// Registers the Entity name for Component communication (in/out).
-    void setContentsName( const std::string name );
+    void setContentsName( const std::string& name );
 
   public:
     /// The Entity name for Component communication.

@@ -85,7 +85,7 @@ class Line : public Curve2D {
 class SplineCurve : public Curve2D {
   public:
     SplineCurve() { this->size = 0; }
-    SplineCurve( Core::VectorArray<Vector> points ) : m_points( points ) {
+    explicit SplineCurve( Core::VectorArray<Vector> points ) : m_points( points ) {
         this->size = points.size();
     }
     ~SplineCurve() override = default;

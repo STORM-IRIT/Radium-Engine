@@ -13,13 +13,6 @@
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
-namespace GuiBase {
-struct MouseEvent;
-struct KeyEvent;
-} // namespace GuiBase
-} // namespace Ra
-
-namespace Ra {
 namespace Engine {
 class Camera;
 class Light;

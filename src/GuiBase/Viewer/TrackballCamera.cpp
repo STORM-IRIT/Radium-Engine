@@ -4,8 +4,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
-#include <GuiBase/Event/KeyEvent.hpp>
-#include <GuiBase/Event/MouseEvent.hpp>
+
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
 #include <QApplication>
@@ -139,9 +138,8 @@ bool Gui::TrackballCamera::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
 }
 
 bool Gui::TrackballCamera::handleWheelEvent( QWheelEvent* event ) {
-    handleCameraZoom(
-        ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
-        m_wheelSpeedModifier );
+    handleCameraZoom( ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
+                      m_wheelSpeedModifier );
 
     if ( m_light != nullptr )
     {
@@ -359,7 +357,8 @@ void Gui::TrackballCamera::updatePhiTheta() {
 
     m_theta = std::acos( R.y() / r );
     m_phi = ( areApproxEqual( R.z(), 0_ra ) && areApproxEqual( R.x(), 0_ra ) )
-        ? 0_ra : std::atan2( R.z(), R.x() );
+                ? 0_ra
+                : std::atan2( R.z(), R.x() );
     CORE_ASSERT( std::isfinite( m_theta ) && std::isfinite( m_phi ), "Error in trackball camera" );
 }
 } // namespace Ra

@@ -23,13 +23,6 @@ class QOpenGLContext;
 class QSurfaceFormat;
 
 namespace Ra {
-namespace Core {
-struct KeyEvent;
-struct MouseEvent;
-} // namespace Core
-} // namespace Ra
-
-namespace Ra {
 namespace Gui {
 class CameraInterface;
 class GizmoManager;

@@ -29,7 +29,7 @@ class [[deprecated( "Neither used nor tested" )]] BVH {
     using Aabb = Eigen::AlignedBox<Scalar, 3>;
     class Node {
       public:
-        inline Node( const std::shared_ptr<T>& t );
+        explicit inline Node( const std::shared_ptr<T>& t );
 
         inline Node( const std::shared_ptr<Node>& l, const std::shared_ptr<Node>& r );
 
