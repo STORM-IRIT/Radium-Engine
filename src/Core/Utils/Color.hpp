@@ -11,7 +11,7 @@
  * @see https://en.wikipedia.org/wiki/SRGB
  * @see http://www.color.org/srgb.pdf
  */
-#define SRGB_GAMMA 2.4_ra
+static constexpr Scalar SRGB_GAMMA=2.4_ra;
 
 namespace Ra {
 namespace Core {
@@ -45,25 +45,29 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     operator VectorType() { return *this; }
 
     /// convert the color expressed in sRGB color space to linear RGB
-    inline void toLinRGB( _Scalar gamma = SRGB_GAMMA) {
-        for (auto &u : rgb()) {
+    inline ColorBase toLinRGB( _Scalar gamma = SRGB_GAMMA) const {
+        ColorBase<_Scalar> c( *this );
+        for (auto &u : c.rgb()) {
             if (u < 0.04045_ra) {
                 u /=12.92_ra;
             } else {
                 u = std::pow((u+0.055_ra)/1.055_ra, gamma);
             }
         }
+        return c;
     }
 
     /// convert the color expressed in linear RGB color space to sRGB
-    inline void tosRGB( _Scalar gamma = SRGB_GAMMA) {
-        for (auto &u : rgb()) {
+    inline ColorBase tosRGB( _Scalar gamma = SRGB_GAMMA) const {
+        ColorBase<_Scalar> c( *this );
+        for (auto &u : c.rgb()) {
             if (u < 0.0031308_ra) {
                 u *=12.92_ra;
             } else {
                 u = 1.055_ra*std::pow(u, 1_ra/gamma)-0.055_ra;
             }
         }
+        return c;
     }
 
     template <typename Derived>

@@ -8,6 +8,8 @@
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
+#include <Core/Utils/Color.hpp>
+
 namespace globjects {
 class Texture;
 }
@@ -239,7 +241,7 @@ class RA_ENGINE_API Texture final {
      */
     // FIXME : replace the 2.4 constant by SRGB_GAMMA without requiring to include Eigen ...
     void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
-                          Scalar gamma = 2.4_ra );
+                          Scalar gamma = SRGB_GAMMA );
 
     /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;

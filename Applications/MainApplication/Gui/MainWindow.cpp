@@ -409,8 +409,7 @@ void MainWindow::updateBackgroundColor( QColor c ) {
     if ( !c.isValid() )
     {
         // get the default color or an already existing one
-        auto defColor = m_viewer->getBackgroundColor(); // assume linear RGB
-        defColor.tosRGB();
+        auto defColor = m_viewer->getBackgroundColor().tosRGB();
         auto bgk = QColor::fromRgb( defColor.rgb()[0]*255, defColor.rgb()[1]*255, defColor.rgb()[2]*255 );
         c = settings.value( "colors/background", bgk ).value<QColor>();
     } else
@@ -423,8 +422,7 @@ void MainWindow::updateBackgroundColor( QColor c ) {
     // update the background coolor of the viewer
     auto bgk = Core::Utils::Color( Scalar( c.redF() ), Scalar( c.greenF() ),
                                    Scalar( c.blueF() ), Scalar( 0 ) );
-    bgk.toLinRGB();
-    m_viewer->setBackgroundColor( bgk );
+    m_viewer->setBackgroundColor( bgk.toLinRGB() );
 }
 
 void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
@@ -636,8 +634,7 @@ void MainWindow::onGLInitialized() {
 
 void Ra::Gui::MainWindow::on_m_currentColorButton_clicked() {
     // get the default color or an already existing one
-    auto defColor = m_viewer->getBackgroundColor(); // assume linear RGB
-    defColor.tosRGB();
+    auto defColor = m_viewer->getBackgroundColor().tosRGB();
     auto currentColor = QColor::fromRgb( defColor.rgb()[0]*255, defColor.rgb()[1]*255, defColor.rgb()[2]*255 );
     QColor c = QColorDialog::getColor( currentColor, this, "Renderer background color" );
     if ( c.isValid() )
