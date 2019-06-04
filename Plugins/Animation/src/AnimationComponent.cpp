@@ -168,7 +168,7 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleDat
 }
 
 void AnimationComponent::handleAnimationLoading(
-    const std::vector<Ra::Core::Asset::AnimationData *> &data) {
+    const std::vector<Ra::Core::Asset::AnimationData*>& data ) {
     m_animations.clear();
     CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first." );
     if ( data.empty() )
@@ -390,13 +390,13 @@ void AnimationComponent::cacheFrame( const std::string& dir, int frame ) const {
     {
         return;
     }
-    file.write( (const char*)&m_animationID, sizeof( uint ) );
-    file.write( (const char*)&m_animationTimeStep, sizeof( bool ) );
-    file.write( (const char*)&m_animationTime, sizeof( Scalar ) );
-    file.write( (const char*)&m_speed, sizeof( Scalar ) );
-    file.write( (const char*)&m_slowMo, sizeof( bool ) );
+    file.write( reinterpret_cast<const char*>( &m_animationID ), sizeof m_animationID );
+    file.write( reinterpret_cast<const char*>( &m_animationTimeStep ), sizeof m_animationTimeStep );
+    file.write( reinterpret_cast<const char*>( &m_animationTime ), sizeof m_animationTime );
+    file.write( reinterpret_cast<const char*>( &m_speed ), sizeof m_speed );
+    file.write( reinterpret_cast<const char*>( &m_slowMo ), sizeof m_slowMo );
     const auto& pose = m_skel.getPose( Handle::SpaceType::LOCAL );
-    file.write( (const char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
+    file.write( reinterpret_cast<const char*>( pose.data() ), ( sizeof pose[0] ) * pose.size() );
     LOG( logINFO ) << "Saving anim data at time: " << m_animationTime;
 }
 
@@ -407,13 +407,31 @@ bool AnimationComponent::restoreFrame( const std::string& dir, int frame ) {
     {
         return false;
     }
-    file.read( (char*)&m_animationID, sizeof( uint ) );
-    file.read( (char*)&m_animationTimeStep, sizeof( bool ) );
-    file.read( (char*)&m_animationTime, sizeof( Scalar ) );
-    file.read( (char*)&m_speed, sizeof( Scalar ) );
-    file.read( (char*)&m_slowMo, sizeof( bool ) );
+    if ( !file.read( reinterpret_cast<char*>( &m_animationID ), sizeof m_animationID ) )
+    {
+        return false;
+    }
+    if ( !file.read( reinterpret_cast<char*>( &m_animationTimeStep ), sizeof m_animationTimeStep ) )
+    {
+        return false;
+    }
+    if ( !file.read( reinterpret_cast<char*>( &m_animationTime ), sizeof m_animationTime ) )
+    {
+        return false;
+    }
+    if ( !file.read( reinterpret_cast<char*>( &m_speed ), sizeof m_speed ) )
+    {
+        return false;
+    }
+    if ( !file.read( reinterpret_cast<char*>( &m_slowMo ), sizeof m_slowMo ) )
+    {
+        return false;
+    }
     auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
-    file.read( (char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
+    if ( !file.read( reinterpret_cast<char*>( pose.data() ), ( sizeof pose[0] ) * pose.size() ) )
+    {
+        return false;
+    }
     m_skel.setPose( pose, Handle::SpaceType::LOCAL );
 
     // update the render objects
