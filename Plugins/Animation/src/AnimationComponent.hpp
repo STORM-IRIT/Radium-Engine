@@ -24,7 +24,7 @@ class SkeletonBoneRenderObject;
 class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
   public:
     AnimationComponent( const std::string& name, Ra::Engine::Entity* entity );
-    ~AnimationComponent() override;
+    ~AnimationComponent();
     AnimationComponent( const AnimationComponent& ) = delete;
     AnimationComponent& operator=( const AnimationComponent& ) = delete;
 
