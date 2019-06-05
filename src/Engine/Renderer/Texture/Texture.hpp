@@ -239,7 +239,6 @@ class RA_ENGINE_API Texture final {
      * @param gamma the gama value to use (sRGB is 2.4)
      * @note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
      */
-    // FIXME : replace the 2.4 constant by SRGB_GAMMA without requiring to include Eigen ...
     void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
                           Scalar gamma = SRGB_GAMMA );
 
