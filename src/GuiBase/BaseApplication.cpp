@@ -209,7 +209,6 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem, 1000 );
 
-    Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "Test" );
     // Load plugins
     if ( !loadPlugins( pluginsPath, parser.values( pluginLoadOpt ),
                        parser.values( pluginIgnoreOpt ) ) )
@@ -287,17 +286,6 @@ void BaseApplication::setupScene() {
     frame->setPickable( false );
     Engine::SystemEntity::uiCmp()->addRenderObject( frame );
 
-    // FIXME (Florian): this should disappear
-    auto em = Ra::Engine::RadiumEngine::getInstance()->getEntityManager();
-    Ra::Engine::Entity* e =
-        em->entityExists( "Test" )
-            ? Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity( "Test" )
-            : Ra::Engine::RadiumEngine::getInstance()->getEntityManager()->createEntity( "Test" );
-
-    for ( auto& c : e->getComponents() )
-    {
-        c->initialize();
-    }
 }
 
 bool BaseApplication::loadFile( QString path ) {
