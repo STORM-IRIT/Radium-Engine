@@ -188,7 +188,6 @@ class RA_ENGINE_API Texture final {
      * This will transform the internal representation of the texture to GL_FLOAT.
      * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
-     * The gama value  used is the sRGB one  2.4
      */
     void linearize(  );
 

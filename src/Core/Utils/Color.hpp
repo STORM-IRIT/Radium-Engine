@@ -39,7 +39,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     operator VectorType() { return *this; }
 
     /// convert the color expressed in sRGB color space to linear RGB
-    static inline ColorBase toLinRGB(const ColorBase &srgb) {
+    static inline ColorBase sRGBToLinearRGB(const ColorBase &srgb) {
         ColorBase<_Scalar> c( srgb );
         for (auto &u : c.rgb()) {
             if (u < 0.04045_ra) {
@@ -52,7 +52,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     }
 
     /// convert the color expressed in linear RGB color space to sRGB
-    static inline ColorBase tosRGB(const ColorBase &lrgb) {
+    static inline ColorBase linearRGBTosRGB(const ColorBase &lrgb) {
         ColorBase<_Scalar> c( lrgb );
         for (auto &u : c.rgb()) {
             if (u < 0.0031308_ra) {
