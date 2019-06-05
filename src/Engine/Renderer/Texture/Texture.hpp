@@ -240,7 +240,7 @@ class RA_ENGINE_API Texture final {
      * @note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
      */
     void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
-                          Scalar gamma = SRGB_GAMMA );
+                          Scalar gamma = Ra::Core::Utils::SRGB_GAMMA );
 
     /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;

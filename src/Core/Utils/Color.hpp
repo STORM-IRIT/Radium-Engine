@@ -6,16 +6,17 @@
 #include <Eigen/Geometry> //homogeneous
 #include <random>
 
+
+namespace Ra {
+namespace Core {
+namespace Utils {
+
 /**
  * gamma value for sRGB color space transfer function
  * @see https://en.wikipedia.org/wiki/SRGB
  * @see http://www.color.org/srgb.pdf
  */
-static constexpr Scalar SRGB_GAMMA=2.4_ra;
-
-namespace Ra {
-namespace Core {
-namespace Utils {
+  static constexpr Scalar SRGB_GAMMA=2.4_ra;
 
 /*!
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
