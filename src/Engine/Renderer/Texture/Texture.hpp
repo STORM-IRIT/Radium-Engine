@@ -188,9 +188,9 @@ class RA_ENGINE_API Texture final {
      * This will transform the internal representation of the texture to GL_FLOAT.
      * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
-     * @param gamma the gama value to use (sRGB is 2.4)
+     * The gama value  used is the sRGB one  2.4
      */
-    void linearize( Scalar gamma = Scalar( 2.4 ) );
+    void linearize(  );
 
     /**
      * @return the pixel format of the texture
@@ -239,8 +239,7 @@ class RA_ENGINE_API Texture final {
      * @param gamma the gama value to use (sRGB is 2.4)
      * @note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
      */
-    void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
-                          Scalar gamma = Ra::Core::Utils::SRGB_GAMMA );
+    void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel );
 
     /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;

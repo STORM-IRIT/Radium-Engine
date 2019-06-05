@@ -162,7 +162,7 @@ void Engine::Texture::updateParameters() {
     GL_CHECK_ERROR;
 }
 
-void Engine::Texture::linearize( Scalar gamma ) {
+void Engine::Texture::linearize( ) {
     if ( m_texture != nullptr )
     {
         LOG( logERROR ) << "Only non OpenGL initialized texture can be linearized.";
@@ -190,24 +190,22 @@ void Engine::Texture::linearize( Scalar gamma ) {
                         << " can't be linearized." << m_textureParameters.name;
         return;
     }
-    sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha,
-                     gamma );
+    sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha );
 }
 
-void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel,
-                                       Scalar gamma ) {
+void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel) {
     if ( !m_isLinear )
     {
         m_isLinear = true;
         // auto linearize = [gamma](float in)-> float {
-        auto linearize = [gamma]( uint8_t in ) -> uint8_t {
+        auto linearize = []( uint8_t in ) -> uint8_t {
             // Constants are described at https://en.wikipedia.org/wiki/SRGB
             float c = float( in ) / 255;
             if ( c < 0.04045 )
             {
                 c = c / 12.92f;
             } else
-            { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), float( gamma ) ); }
+            { c = std::pow( ( ( c + 0.055f ) / ( 1.055f ) ), 2.4f ); }
             return uint8_t( c * 255 );
         };
         uint numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;

@@ -11,13 +11,6 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-/**
- * gamma value for sRGB color space transfer function
- * @see https://en.wikipedia.org/wiki/SRGB
- * @see http://www.color.org/srgb.pdf
- */
-  static constexpr Scalar SRGB_GAMMA=2.4_ra;
-
 /*!
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
  * displayable colors should have all their coordinates between 0 and 1.
@@ -46,26 +39,26 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     operator VectorType() { return *this; }
 
     /// convert the color expressed in sRGB color space to linear RGB
-    inline ColorBase toLinRGB( _Scalar gamma = SRGB_GAMMA) const {
-        ColorBase<_Scalar> c( *this );
+    static inline ColorBase toLinRGB(const ColorBase &srgb) {
+        ColorBase<_Scalar> c( srgb );
         for (auto &u : c.rgb()) {
             if (u < 0.04045_ra) {
                 u /=12.92_ra;
             } else {
-                u = std::pow((u+0.055_ra)/1.055_ra, gamma);
+                u = std::pow((u+0.055_ra)/1.055_ra, 2.4_ra);
             }
         }
         return c;
     }
 
     /// convert the color expressed in linear RGB color space to sRGB
-    inline ColorBase tosRGB( _Scalar gamma = SRGB_GAMMA) const {
-        ColorBase<_Scalar> c( *this );
+    static inline ColorBase tosRGB(const ColorBase &lrgb) {
+        ColorBase<_Scalar> c( lrgb );
         for (auto &u : c.rgb()) {
             if (u < 0.0031308_ra) {
                 u *=12.92_ra;
             } else {
-                u = 1.055_ra*std::pow(u, 1_ra/gamma)-0.055_ra;
+                u = 1.055_ra*std::pow(u, 1_ra/2.4_ra)-0.055_ra;
             }
         }
         return c;
