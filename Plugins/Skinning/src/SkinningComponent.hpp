@@ -147,6 +147,7 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion> m_DQ;
 
     /// The duplicate vertices map, used to recompute smooth normals.
+    // FIXME: implement proper normal skinning such as http://vcg.isti.cnr.it/deformFactors/
     std::vector<Ra::Core::Utils::Index> m_duplicatesMap;
 
     /// The skinning weights, stored per bone.
