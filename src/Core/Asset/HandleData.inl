@@ -6,12 +6,10 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/// NAME
 inline void HandleData::setName( const std::string& name ) {
     m_name = name;
 }
 
-/// TYPE
 inline HandleData::HandleType HandleData::getType() const {
     return m_type;
 }
@@ -20,7 +18,6 @@ inline void HandleData::setType( const HandleType& type ) {
     m_type = type;
 }
 
-/// FRAME
 inline Core::Transform HandleData::getFrame() const {
     return m_frame;
 }
@@ -29,7 +26,6 @@ inline void HandleData::setFrame( const Core::Transform& frame ) {
     m_frame = frame;
 }
 
-/// VERTEX SIZE
 inline uint HandleData::getVertexSize() const {
     return m_vertexSize;
 }
@@ -37,12 +33,10 @@ inline void HandleData::setVertexSize( uint size ) {
     m_vertexSize = size;
 }
 
-/// TABLE
 inline void HandleData::setNameTable( const std::map<std::string, uint>& nameTable ) {
     m_nameTable = nameTable;
 }
 
-/// DATA
 inline uint HandleData::getComponentDataSize() const {
     return m_component.size();
 }
@@ -121,7 +115,6 @@ inline void HandleData::recomputeAllIndices() {
     }
 }
 
-/// QUERY
 inline bool HandleData::isPointCloud() const {
     return ( m_type == POINT_CLOUD );
 }
@@ -171,7 +164,6 @@ inline const std::set<std::string>& HandleData::getBindMeshes() const {
     return m_bindMeshes;
 }
 
-/// DEBUG
 inline void HandleData::displayInfo() const {
     using namespace Core::Utils; // log
     std::string type;
