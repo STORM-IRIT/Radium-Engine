@@ -6,6 +6,7 @@
 #include <Eigen/Geometry> //homogeneous
 #include <random>
 
+
 namespace Ra {
 namespace Core {
 namespace Utils {
@@ -36,6 +37,32 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
 
     /// cast operator, mandatory to use Vector arithmetic
     operator VectorType() { return *this; }
+
+    /// convert the color expressed in sRGB color space to linear RGB
+    static inline ColorBase sRGBToLinearRGB(const ColorBase &srgb) {
+        ColorBase<_Scalar> c( srgb );
+        for (auto &u : c.rgb()) {
+            if (u < 0.04045_ra) {
+                u /=12.92_ra;
+            } else {
+                u = std::pow((u+0.055_ra)/1.055_ra, 2.4_ra);
+            }
+        }
+        return c;
+    }
+
+    /// convert the color expressed in linear RGB color space to sRGB
+    static inline ColorBase linearRGBTosRGB(const ColorBase &lrgb) {
+        ColorBase<_Scalar> c( lrgb );
+        for (auto &u : c.rgb()) {
+            if (u < 0.0031308_ra) {
+                u *=12.92_ra;
+            } else {
+                u = 1.055_ra*std::pow(u, 1_ra/2.4_ra)-0.055_ra;
+            }
+        }
+        return c;
+    }
 
     template <typename Derived>
     static inline ColorBase fromRGB( const Eigen::MatrixBase<Derived>& rgb,

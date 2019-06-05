@@ -3,14 +3,13 @@ out vec4 fragColor;
 in vec2 varTexcoord;
 
 uniform sampler2D screenTexture;
-uniform float gamma;
 
 // from sRGB color space specification
 float tosRGB(float c) {
   if (c <= 0.0031308) {
     return 12.92*c;
   } else {
-    return 1.055*pow(c, 1/gamma) - 0.055;
+    return 1.055*pow(c, 1./2.4) - 0.055;
   }
 }
 void main()

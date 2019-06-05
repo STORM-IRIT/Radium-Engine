@@ -114,7 +114,7 @@ int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
 void Gui::Viewer::setBackgroundColor( const Core::Utils::Color& background ) {
     m_backgroundColor = background;
     for ( auto renderer : m_renderers )
-        renderer->setBackgroundColor( background );
+        renderer->setBackgroundColor( m_backgroundColor );
 }
 
 void Gui::Viewer::enableDebug() {
