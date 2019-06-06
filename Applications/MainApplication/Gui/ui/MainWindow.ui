@@ -106,13 +106,6 @@
             </item>
             <item>
              <layout class="QGridLayout" name="gridLayout_4">
-              <item row="0" column="0">
-               <widget class="QPushButton" name="m_toggleRenderObjectButton">
-                <property name="text">
-                 <string>Toggle Visible</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="1">
                <widget class="QPushButton" name="m_editRenderObjectButton">
                 <property name="enabled">
@@ -148,6 +141,13 @@
                <widget class="QPushButton" name="m_clearSceneButton">
                 <property name="text">
                  <string>Clear Scene</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="m_showHideAllButton">
+                <property name="text">
+                 <string>Show/Hide All</string>
                 </property>
                </widget>
               </item>
@@ -740,7 +740,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>m_entitiesTreeView</tabstop>
-  <tabstop>m_toggleRenderObjectButton</tabstop>
+  <tabstop>m_showHideAllButton</tabstop>
   <tabstop>m_editRenderObjectButton</tabstop>
   <tabstop>m_exportMeshButton</tabstop>
   <tabstop>m_removeEntityButton</tabstop>

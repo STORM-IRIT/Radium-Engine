@@ -128,6 +128,24 @@ void ItemModel::removeItem( const Engine::ItemEntry& ent ) {
     }
 }
 
+void ItemModel::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+{
+    if( topLeft == bottomRight && roles.size() == 1 && roles.first() == Qt::CheckStateRole )
+    {
+        auto index = topLeft;
+        if( index.isValid() )
+        {
+            bool visible = getItem( index )->isChecked();
+            auto ent = getEntry( index );
+
+            if( ent.isValid() && ent.isRoNode() )
+            {
+                emit visibilityROChanged( ent.m_roIndex, visible );
+            }
+        }
+    }
+}
+
 int TreeItem::getIndexInParent() const {
     CORE_ASSERT( m_parent, "Looking for the root item's index." );
     for ( uint i = 0; i < m_parent->m_children.size(); ++i )

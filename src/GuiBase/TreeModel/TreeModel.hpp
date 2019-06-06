@@ -53,6 +53,9 @@ class RA_GUIBASE_API TreeItem {
     // Of course this won't work for the root item.
     int getIndexInParent() const;
 
+    bool isChecked() const { return m_checked; }
+    void setChecked( bool checked = true ) { m_checked = checked; }
+
   public:
     // Tree structure variables
 
@@ -61,6 +64,9 @@ class RA_GUIBASE_API TreeItem {
 
     /// Children of item in the tree.
     std::vector<std::unique_ptr<TreeItem>> m_children;
+
+private:
+    bool m_checked{true};
 };
 
 /// This class implement QAbstractItem model with the TreeItem as its model
@@ -94,6 +100,8 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
      * @return
      */
     QVariant data( const QModelIndex& index, int role ) const override;
+
+    bool setData( const QModelIndex& index, const QVariant& value, int role ) override;
 
     /** Return the header data of the given section.
      *

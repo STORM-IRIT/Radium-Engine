@@ -83,8 +83,8 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void reloadConfiguration();
     void loadConfiguration();
 
-    /// Slot for the "visible" button
-    void toggleVisisbleRO();
+    /// Slot for the tree view checkboxes
+    void setROVisible(Core::Utils::Index roIndex, bool visible);
 
     /// Reset the camera to see all visible objects
     void fitCamera();
@@ -96,6 +96,9 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
 
     /// Cleanup resources.
     void cleanup() override;
+
+    /// Show or hide all render objects
+    void showHideAllRO();
 
   signals:
     /// Emitted when the frame loads
@@ -159,7 +162,7 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void on_m_currentColorButton_clicked();
 
   private:
-    /// Stores the internal model of engine objects for selection.
+    /// Stores the internal model of engine objects for selection and visibility.
     GuiBase::ItemModel* m_itemModel;
 
     /// Stores and manages the current selection.
