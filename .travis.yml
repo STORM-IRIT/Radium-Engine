@@ -122,6 +122,6 @@ deploy:
   local_dir: Bundle-GNU/Docs/html/
   github_token: $GITHUB_API_KEY
   on:
-    branch: master-v1
+    branch: master
     condition: "$BUILD_DOC = On"
 

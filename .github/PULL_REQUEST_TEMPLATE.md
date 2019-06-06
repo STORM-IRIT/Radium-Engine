@@ -2,9 +2,6 @@ UPDATE the form below to describe your PR.
 
 
 * **Please check if the PR fulfills these requirements**
-- [ ] Is the Pull-Request done against the right branch:
-  - `master`: for hotfixes not impacting the API
-  - `master-v1`: for changes related to the Radium Stable Release V1.
 - [ ] The commit message follows our guidelines
 - [ ] Tests for the changes have been added (for bug fixes / features)
 - [ ] Docs have been added / updated (for bug fixes / features)
