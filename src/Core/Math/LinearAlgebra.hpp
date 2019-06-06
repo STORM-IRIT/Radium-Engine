@@ -53,8 +53,8 @@ inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v,
                                             const Eigen::MatrixBase<DerivedB>& max );
 /// Component-wise clamp() function on a floating-point vector.
 template <typename Derived>
-inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
-                                            const Scalar& max );
+inline typename Derived::PlainMatrix
+clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min, const Scalar& max );
 
 /// Vector range check, works for any numeric vector.
 template <typename Vector_>
@@ -75,8 +75,8 @@ inline bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix,
 
 /// Get two vectors orthogonal to a given vector.
 /// \warning fx must be normalized (this is not checked in the function)
-inline void getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy,
-                                  Eigen::Ref<Vector3> fz );
+inline void
+getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy, Eigen::Ref<Vector3> fz );
 
 /// Get the angle between two vectors. Works for types where the cross product is
 /// defined (i.e. 2D and 3D vectors).
@@ -89,8 +89,8 @@ template <typename Vector_>
 inline Vector_ slerp( const Vector_& v1, const Vector_& v2, Scalar t );
 
 /// @return the projection of point on the plane define by plane and planeNormal
-inline Vector3 projectOnPlane( const Vector3& planePos, const Vector3& planeNormal,
-                               const Vector3& point );
+inline Vector3
+projectOnPlane( const Vector3& planePos, const Vector3& planeNormal, const Vector3& point );
 
 /// Get the cotangent of the angle between two vectors. Works for vector types where
 /// dot and cross product is defined (2D or 3D vectors).
@@ -126,8 +126,8 @@ transformRay( const Eigen::Transform<Scalar, 3, Eigen::Affine>& t,
 
 inline Matrix4 lookAt( const Vector3& position, const Vector3& target, const Vector3& up );
 inline Matrix4 perspective( Scalar fovy, Scalar aspect, Scalar near, Scalar zfar );
-inline Matrix4 orthographic( Scalar left, Scalar right, Scalar bottom, Scalar top, Scalar near,
-                             Scalar zfar );
+inline Matrix4
+orthographic( Scalar left, Scalar right, Scalar bottom, Scalar top, Scalar near, Scalar zfar );
 
 //
 // Quaternion functions

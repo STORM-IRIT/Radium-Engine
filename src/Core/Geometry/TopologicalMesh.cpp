@@ -19,8 +19,10 @@ template <typename T>
 using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 
 template <typename T>
-void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
-                          AttribManager::value_type attr, std::vector<PropPair<T>>& vprop,
+void addAttribPairToTopo( const TriangleMesh& triMesh,
+                          TopologicalMesh* topoMesh,
+                          AttribManager::value_type attr,
+                          std::vector<PropPair<T>>& vprop,
                           std::vector<OpenMesh::HPropHandleT<T>>& pph ) {
     AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
     if ( attr->getSize() == triMesh.vertices().size() )
@@ -29,7 +31,8 @@ void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh
         topoMesh->add_property( oh, attr->getName() );
         vprop.push_back( std::make_pair( h, oh ) );
         pph.push_back( oh );
-    } else
+    }
+    else
     {
         LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName()
                           << ".";
@@ -37,15 +40,19 @@ void addAttribPairToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh
 }
 
 template <typename T>
-void addAttribPairToCore( TriangleMesh& triMesh, const TopologicalMesh* topoMesh,
-                          OpenMesh::HPropHandleT<T> oh, std::vector<PropPair<T>>& vprop ) {
+void addAttribPairToCore( TriangleMesh& triMesh,
+                          const TopologicalMesh* topoMesh,
+                          OpenMesh::HPropHandleT<T> oh,
+                          std::vector<PropPair<T>>& vprop ) {
     AttribHandle<T> h = triMesh.addAttrib<T>( topoMesh->property( oh ).name() );
     vprop.push_back( std::make_pair( h, oh ) );
 }
 
 template <typename T>
-void copyAttribToTopo( const TriangleMesh& triMesh, TopologicalMesh* topoMesh,
-                       const std::vector<PropPair<T>>& vprop, TopologicalMesh::HalfedgeHandle heh,
+void copyAttribToTopo( const TriangleMesh& triMesh,
+                       TopologicalMesh* topoMesh,
+                       const std::vector<PropPair<T>>& vprop,
+                       TopologicalMesh::HalfedgeHandle heh,
                        unsigned int vindex ) {
     for ( auto pp : vprop )
     {
@@ -58,7 +65,8 @@ using HandleAndValueVector = std::vector<std::pair<AttribHandle<T>, T>,
                                          Eigen::aligned_allocator<std::pair<AttribHandle<T>, T>>>;
 
 template <typename T>
-void copyAttribToCoreVertex( HandleAndValueVector<T>& data, const TopologicalMesh* topoMesh,
+void copyAttribToCoreVertex( HandleAndValueVector<T>& data,
+                             const TopologicalMesh* topoMesh,
                              const std::vector<PropPair<T>>& vprop,
                              TopologicalMesh::HalfedgeHandle heh ) {
     for ( auto pp : vprop )
@@ -128,8 +136,8 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         for ( size_t j = 0; j < 3; ++j )
         {
             unsigned int inMeshVertexIndex = triangle[j];
-            const Vector3& p = triMesh.vertices()[inMeshVertexIndex];
-            const Vector3& n = triMesh.normals()[inMeshVertexIndex];
+            const Vector3& p               = triMesh.vertices()[inMeshVertexIndex];
+            const Vector3& n               = triMesh.normals()[inMeshVertexIndex];
 
             VertexMap::iterator vtr = vertexHandles.find( p );
 
@@ -138,11 +146,12 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             {
                 vh = add_vertex( p );
                 vertexHandles.insert( vtr, VertexMap::value_type( p, vh ) );
-            } else
+            }
+            else
             { vh = vtr->second; }
 
-            face_vhandles[j] = vh;
-            face_normals[j] = n;
+            face_vhandles[j]    = vh;
+            face_normals[j]     = n;
             face_vertexIndex[j] = inMeshVertexIndex;
         }
 
@@ -200,10 +209,9 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     VertexMap vertexHandles;
 
     if ( !get_property_handle( m_outputTriangleMeshIndexPph, "OutputTriangleMeshIndices" ) )
-    {
-        add_property( m_outputTriangleMeshIndexPph, "OutputTriangleMeshIndices" );
-    }
-    std::vector<PropPair<float>> vprop_float;
+    { add_property( m_outputTriangleMeshIndexPph, "OutputTriangleMeshIndices" ); }
+    std::vector<PropPair<float>>
+        vprop_float;
     std::vector<PropPair<Vector2>> vprop_vec2;
     std::vector<PropPair<Vector3>> vprop_vec3;
     std::vector<PropPair<Vector4>> vprop_vec4;
@@ -262,9 +270,10 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
                 copyAttribToCore( out, v._vec2 );
                 copyAttribToCore( out, v._vec3 );
                 copyAttribToCore( out, v._vec4 );
-            } else
+            }
+            else
             { vi = vtr->second; }
-            indices[i] = vi;
+            indices[i]                                       = vi;
             property( m_outputTriangleMeshIndexPph, *fh_it ) = vi;
             i++;
         }
@@ -297,28 +306,21 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
     */
 
     // incorrect factor
-    if ( f < 0 || f > 1 )
-    {
-        return false;
-    }
+    if ( f < 0 || f > 1 ) { return false; }
 
     // get existing topology data
     HalfedgeHandle he0 = halfedge_handle( eh, 0 );
     HalfedgeHandle he1 = halfedge_handle( eh, 1 );
-    VertexHandle v0 = to_vertex_handle( he0 );
-    VertexHandle v1 = to_vertex_handle( he1 );
-    FaceHandle F0 = face_handle( he0 );
-    FaceHandle F1 = face_handle( he1 );
+    VertexHandle v0    = to_vertex_handle( he0 );
+    VertexHandle v1    = to_vertex_handle( he1 );
+    FaceHandle F0      = face_handle( he0 );
+    FaceHandle F1      = face_handle( he1 );
 
     // not triangles or holes
     if ( ( !is_boundary( he0 ) && valence( F0 ) != 3 ) ||
          ( !is_boundary( he1 ) && valence( F1 ) != 3 ) )
-    {
-        return false;
-    }
-
-    // add the new vertex
-    const Point p = Point( f * point( v0 ) + ( Scalar( 1. ) - f ) * point( v1 ) );
+    { return false; } // add the new vertex
+    const Point p  = Point( f * point( v0 ) + ( Scalar( 1. ) - f ) * point( v1 ) );
     VertexHandle v = add_vertex( p );
 
     // create the new faces and reconnect the topology
@@ -333,7 +335,7 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
         HalfedgeHandle h0 = next_halfedge_handle( he0 );
         HalfedgeHandle h1 = next_halfedge_handle( h0 );
         // create new edge
-        VertexHandle A = to_vertex_handle( h0 );
+        VertexHandle A    = to_vertex_handle( h0 );
         HalfedgeHandle e2 = new_edge( v, A );
         HalfedgeHandle e0 = opposite_halfedge_handle( e2 );
         // split F0
@@ -359,7 +361,8 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
         interpolateAllProps( h1, he0, he2, 0.5 );
         // copy at e0, and e2
         copyAllProps( he2, e0 );
-    } else
+    }
+    else
     {
         HalfedgeHandle h1 = prev_halfedge_handle( he0 );
         set_next_halfedge_handle( h1, he2 );
@@ -374,7 +377,7 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
         HalfedgeHandle o1 = next_halfedge_handle( he1 );
         HalfedgeHandle o0 = next_halfedge_handle( o1 );
         // create new edge
-        VertexHandle B = to_vertex_handle( o1 );
+        VertexHandle B    = to_vertex_handle( o1 );
         HalfedgeHandle e1 = new_edge( v, B );
         HalfedgeHandle e3 = opposite_halfedge_handle( e1 );
         // split F1
@@ -403,7 +406,8 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
         // copy at e1, and e3
         copyAllProps( he1, e3 );
         copyAllProps( o1, e1 );
-    } else
+    }
+    else
     {
         HalfedgeHandle o1 = next_halfedge_handle( he1 );
         // next halfedge handle of o0 already is he1
@@ -413,10 +417,7 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
     }
 
     // ensure consistency at v1
-    if ( halfedge_handle( v1 ) == he0 )
-    {
-        set_halfedge_handle( v1, he2 );
-    }
+    if ( halfedge_handle( v1 ) == he0 ) { set_halfedge_handle( v1, he2 ); }
 
     return true;
 }

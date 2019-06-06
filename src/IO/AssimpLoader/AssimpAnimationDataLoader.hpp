@@ -20,7 +20,8 @@ struct HandleAnimation;
 namespace IO {
 
 class RA_IO_API AssimpAnimationDataLoader
-    : public Core::Asset::DataLoader<Core::Asset::AnimationData> {
+    : public Core::Asset::DataLoader<Core::Asset::AnimationData>
+{
   public:
     /// CONSTRUCTOR
     explicit AssimpAnimationDataLoader( const bool VERBOSE_MODE = false );
@@ -47,7 +48,8 @@ class RA_IO_API AssimpAnimationDataLoader
     void loadAnimationData( const aiScene* scene,
                             std::vector<std::unique_ptr<Core::Asset::AnimationData>>& data ) const;
     void fetchAnimation( const aiAnimation* anim, Core::Asset::AnimationData* data ) const;
-    void fetchHandleAnimation( aiNodeAnim* node, Core::Asset::HandleAnimation& data,
+    void fetchHandleAnimation( aiNodeAnim* node,
+                               Core::Asset::HandleAnimation& data,
                                const Core::Animation::Time dt ) const;
 };
 

@@ -14,7 +14,8 @@ namespace Core {
 namespace Animation {
 
 template <class FRAME>
-class KeyFrame {
+class KeyFrame
+{
   public:
     /// CONSTRUCTOR
     KeyFrame( const AnimationTime& time = AnimationTime() ) : m_time( time ) {}
@@ -41,10 +42,7 @@ class KeyFrame {
     }
 
     inline FRAME at( const Time& t ) const {
-        if ( m_keyframe.empty() )
-        {
-            return defaultFrame();
-        }
+        if ( m_keyframe.empty() ) { return defaultFrame(); }
         FRAME F0;
         FRAME F1;
         Scalar dt;
@@ -59,22 +57,14 @@ class KeyFrame {
     }
 
     inline void setKeyFrame( const Time& t, const FRAME& frame ) {
-        if ( !m_time.contain( t ) )
-        {
-            insertKeyFrame( t, frame );
-        } else
+        if ( !m_time.contain( t ) ) { insertKeyFrame( t, frame ); }
+        else
         { m_keyframe[t] = frame; }
     }
 
     inline void insertKeyFrame( const Time& t, const FRAME& frame ) {
-        if ( t < m_time.getStart() )
-        {
-            m_time.setStart( t );
-        }
-        if ( t > m_time.getEnd() )
-        {
-            m_time.setEnd( t );
-        }
+        if ( t < m_time.getStart() ) { m_time.setStart( t ); }
+        if ( t > m_time.getEnd() ) { m_time.setEnd( t ); }
         m_keyframe[t] = frame;
     }
 
@@ -105,7 +95,7 @@ class KeyFrame {
 
     /// OPERATOR
     inline KeyFrame& operator=( const KeyFrame& keyframe ) {
-        m_time = keyframe.m_time;
+        m_time     = keyframe.m_time;
         m_keyframe = keyframe.m_keyframe;
         return *this;
     }
@@ -148,11 +138,11 @@ class KeyFrame {
         auto upper = m_keyframe.upper_bound( t );
         auto lower = upper;
         --lower;
-        F0 = lower->second;
+        F0      = lower->second;
         Time t0 = lower->first;
-        F1 = upper->second;
+        F1      = upper->second;
         Time t1 = upper->first;
-        dt = ( t - t0 ) / ( t1 - t0 );
+        dt      = ( t - t0 ) / ( t1 - t0 );
     }
 
     virtual FRAME interpolate( const FRAME& F0, const FRAME& F1, const Scalar t ) const = 0;
@@ -160,7 +150,9 @@ class KeyFrame {
   protected:
     /// VARIABLE
     AnimationTime m_time;
-    std::map<Time, FRAME, std::less<Time>,
+    std::map<Time,
+             FRAME,
+             std::less<Time>,
              Ra::Core::AlignedAllocator<std::pair<const Time, FRAME>, EIGEN_MAX_ALIGN_BYTES>>
         m_keyframe;
 };

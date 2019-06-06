@@ -32,10 +32,7 @@ WindowQt::WindowQt( QScreen* screen ) :
 
     m_context.reset( new QOpenGLContext() );
 
-    if ( !s_getProcAddressHelper )
-    {
-        s_getProcAddressHelper = this;
-    }
+    if ( !s_getProcAddressHelper ) { s_getProcAddressHelper = this; }
 
     // Surface format set in BaseApplication
 
@@ -87,21 +84,20 @@ void WindowQt::initialize() {
     }
 }
 
-
 void WindowQt::showEvent( QShowEvent* /*ev*/ ) {
     initialize();
 }
 
 void WindowQt::resize( QResizeEvent* event ) {
     // Ugly patch since Qt seems buggy on this point on macos, raise two resize call the first time.
-    if (event->size().width() < minimumSize().width() ||
-        event->size().height() < minimumSize().height())
+    if ( event->size().width() < minimumSize().width() ||
+         event->size().height() < minimumSize().height() )
     {
-        QSize size{std::max(event->size().width(), minimumSize().width()),
-                   std::max(event->size().height(), minimumSize().height())};
-        QResizeEvent *patchEvent = new QResizeEvent(size, event->oldSize());
-        event = patchEvent;
-        QWindow::resize(size);
+        QSize size{std::max( event->size().width(), minimumSize().width() ),
+                   std::max( event->size().height(), minimumSize().height() )};
+        QResizeEvent* patchEvent = new QResizeEvent( size, event->oldSize() );
+        event                    = patchEvent;
+        QWindow::resize( size );
     }
     initialize();
 
@@ -113,7 +109,6 @@ void WindowQt::resize( QResizeEvent* event ) {
     resizeGL( &deviceSpecificResizeEvent );
 
     doneCurrent();
-
 }
 /// paint is done by main rendering loop, initialize instead
 /*
@@ -163,10 +158,7 @@ void WindowQt::enterEvent( QEvent* ) {}
 void WindowQt::leaveEvent( QEvent* ) {}
 
 glbinding::ProcAddress WindowQt::getProcAddress( const char* name ) {
-    if ( !s_getProcAddressHelper || name == nullptr )
-    {
-        return nullptr;
-    }
+    if ( !s_getProcAddressHelper || name == nullptr ) { return nullptr; }
 
     const auto symbol = std::string( name );
 

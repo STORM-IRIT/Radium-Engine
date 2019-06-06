@@ -23,19 +23,16 @@ BlinnPhongMaterial::~BlinnPhongMaterial() {
 }
 
 void BlinnPhongMaterial::updateGL() {
-    if ( !m_isDirty )
-    {
-        return;
-    }
+    if ( !m_isDirty ) { return; }
 
     // Load textures
     TextureManager* texManager = TextureManager::getInstance();
     for ( const auto& tex : m_pendingTextures )
     {
         // ask to convert color textures from sRGB to Linear RGB
-        bool tolinear = ( tex.first == TextureSemantic::TEX_DIFFUSE ||
+        bool tolinear         = ( tex.first == TextureSemantic::TEX_DIFFUSE ||
                           tex.first == TextureSemantic::TEX_SPECULAR );
-        auto texture = texManager->getOrLoadTexture( tex.second, tolinear );
+        auto texture          = texManager->getOrLoadTexture( tex.second, tolinear );
         m_textures[tex.first] = texture;
         // do not call addTexture since it invalidate m_pendingTextures itr
         //       addTexture( tex.first, texture );
@@ -58,7 +55,8 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     {
         shader->setUniformTexture( "material.tex.kd", tex );
         shader->setUniform( "material.tex.hasKd", 1 );
-    } else
+    }
+    else
     { shader->setUniform( "material.tex.hasKd", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SPECULAR );
@@ -66,7 +64,8 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     {
         shader->setUniformTexture( "material.tex.ks", tex );
         shader->setUniform( "material.tex.hasKs", 1 );
-    } else
+    }
+    else
     { shader->setUniform( "material.tex.hasKs", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_NORMAL );
@@ -74,7 +73,8 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     {
         shader->setUniformTexture( "material.tex.normal", tex );
         shader->setUniform( "material.tex.hasNormal", 1 );
-    } else
+    }
+    else
     { shader->setUniform( "material.tex.hasNormal", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_SHININESS );
@@ -82,7 +82,8 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     {
         shader->setUniformTexture( "material.tex.ns", tex );
         shader->setUniform( "material.tex.hasNs", 1 );
-    } else
+    }
+    else
     { shader->setUniform( "material.tex.hasNs", 0 ); }
 
     tex = getTexture( BlinnPhongMaterial::TextureSemantic::TEX_ALPHA );
@@ -90,7 +91,8 @@ void BlinnPhongMaterial::bind( const ShaderProgram* shader ) {
     {
         shader->setUniformTexture( "material.tex.alpha", tex );
         shader->setUniform( "material.tex.hasAlpha", 1 );
-    } else
+    }
+    else
     { shader->setUniform( "material.tex.hasAlpha", 0 ); }
 }
 
@@ -113,12 +115,14 @@ void BlinnPhongMaterial::registerMaterial() {
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     Ra::Engine::ShaderConfiguration zprepassconfig(
-        "ZprepassBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        "ZprepassBlinnPhong",
+        "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
     Ra::Engine::ShaderConfiguration transparentpassconfig(
-        "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        "LitOITBlinnPhong",
+        "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
 
@@ -160,14 +164,10 @@ operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
     // static cst is safe here
     auto source = static_cast<const Ra::Core::Asset::BlinnPhongMaterialData*>( toconvert );
 
-    if ( source->hasDiffuse() )
-        result->m_kd = source->m_diffuse;
-    if ( source->hasSpecular() )
-        result->m_ks = source->m_specular;
-    if ( source->hasShininess() )
-        result->m_ns = source->m_shininess;
-    if ( source->hasOpacity() )
-        result->m_alpha = source->m_opacity;
+    if ( source->hasDiffuse() ) result->m_kd = source->m_diffuse;
+    if ( source->hasSpecular() ) result->m_ks = source->m_specular;
+    if ( source->hasShininess() ) result->m_ns = source->m_shininess;
+    if ( source->hasOpacity() ) result->m_alpha = source->m_opacity;
     if ( source->hasDiffuseTexture() )
         result->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE,
                             source->m_texDiffuse );

@@ -19,7 +19,8 @@ namespace Ra {
 namespace Engine {
 class RenderObject;
 
-class RA_ENGINE_API RenderObjectManager final {
+class RA_ENGINE_API RenderObjectManager final
+{
   public:
     RenderObjectManager();
     ~RenderObjectManager();

@@ -25,7 +25,8 @@ class BlinnPhongMaterial;
 
 namespace Ra {
 namespace Gui {
-class MaterialEditor : public QWidget, private Ui::MaterialEditor {
+class MaterialEditor : public QWidget, private Ui::MaterialEditor
+{
     Q_OBJECT
 
   public:
@@ -45,7 +46,7 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
     void newKsColor( const QColor& color );
 
     void on_m_closeButton_clicked();
-    void on_kUsePerVertex_clicked(bool checked);
+    void on_kUsePerVertex_clicked( bool checked );
 
   protected:
     virtual void showEvent( QShowEvent* e ) override;
@@ -63,10 +64,10 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
 
   private:
     enum {
-        OUTPUT_FINAL = 0,
-        OUTPUT_DIFFUSE = 1,
+        OUTPUT_FINAL    = 0,
+        OUTPUT_DIFFUSE  = 1,
         OUTPUT_SPECULAR = 2,
-        OUTPUT_NORMAL = 3,
+        OUTPUT_NORMAL   = 3,
     };
 };
 } // namespace Gui

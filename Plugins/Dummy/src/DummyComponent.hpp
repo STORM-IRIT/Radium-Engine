@@ -13,7 +13,8 @@ struct RenderTechnique;
 } // namespace Ra
 
 namespace DummyPlugin {
-class DUMMY_PLUGIN_API DummyComponent : public Ra::Engine::Component {
+class DUMMY_PLUGIN_API DummyComponent : public Ra::Engine::Component
+{
   public:
     DummyComponent( const std::string& name );
     virtual ~DummyComponent();

@@ -10,7 +10,8 @@ namespace Ra {
 namespace IO {
 
 //! This class loads scenes containing MESHES only (not point-clouds)
-class RA_IO_API AssimpFileLoader : public Core::Asset::FileLoaderInterface {
+class RA_IO_API AssimpFileLoader : public Core::Asset::FileLoaderInterface
+{
   public:
     AssimpFileLoader();
 

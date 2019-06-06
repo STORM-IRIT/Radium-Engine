@@ -17,7 +17,9 @@
 
 namespace Ra {
 namespace Engine {
-RenderObject::RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
+RenderObject::RenderObject( const std::string& name,
+                            Component* comp,
+                            const RenderObjectType& type,
                             int lifetime ) :
     IndexedObject(),
     m_component{comp},
@@ -29,7 +31,8 @@ RenderObject::RenderObject( const std::string& name, Component* comp, const Rend
 
 RenderObject::~RenderObject() = default;
 
-RenderObject* RenderObject::createRenderObject( const std::string& name, Component* comp,
+RenderObject* RenderObject::createRenderObject( const std::string& name,
+                                                Component* comp,
                                                 const RenderObjectType& type,
                                                 const std::shared_ptr<Displayable>& mesh,
                                                 const RenderTechnique& techniqueConfig,
@@ -40,10 +43,7 @@ RenderObject* RenderObject::createRenderObject( const std::string& name, Compone
 
     auto rt = std::make_shared<RenderTechnique>( techniqueConfig );
 
-    if ( material != nullptr )
-    {
-        rt->setMaterial( material );
-    }
+    if ( material != nullptr ) { rt->setMaterial( material ); }
 
     obj->setRenderTechnique( rt );
 
@@ -54,15 +54,9 @@ void RenderObject::updateGL() {
     // Do not update while we are cloning
     std::lock_guard<std::mutex> lock( m_updateMutex );
 
-    if ( m_renderTechnique )
-    {
-        m_renderTechnique->updateGL();
-    }
+    if ( m_renderTechnique ) { m_renderTechnique->updateGL(); }
 
-    if ( m_mesh )
-    {
-        m_mesh->updateGL();
-    }
+    if ( m_mesh ) { m_mesh->updateGL(); }
 
     m_dirty = false;
 }
@@ -204,27 +198,22 @@ void RenderObject::hasBeenRenderedOnce() {
     if ( m_hasLifetime )
     {
         if ( --m_lifetime <= 0 )
-        {
-            RadiumEngine::getInstance()->getRenderObjectManager()->renderObjectExpired( m_idx );
-        }
-    }
+        { RadiumEngine::getInstance()->getRenderObjectManager()->renderObjectExpired( m_idx ); } }
 }
 
 void RenderObject::hasExpired() {
     m_component->notifyRenderObjectExpired( m_idx );
 }
 
-void RenderObject::render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+void RenderObject::render( const RenderParameters& lightParams,
+                           const ViewingParameters& viewParams,
                            const ShaderProgram* shader ) {
     if ( m_visible )
     {
-        if ( !shader )
-        {
-            return;
-        }
+        if ( !shader ) { return; }
 
         // Radium V2 : avoid this temporary
-        Core::Matrix4 modelMatrix = getTransformAsMatrix();
+        Core::Matrix4 modelMatrix  = getTransformAsMatrix();
         Core::Matrix4 normalMatrix = modelMatrix.inverse().transpose();
         // bind data
         shader->bind();
@@ -235,15 +224,15 @@ void RenderObject::render( const RenderParameters& lightParams, const ViewingPar
         lightParams.bind( shader );
 
         auto material = m_renderTechnique->getMaterial();
-        if ( material != nullptr )
-            material->bind( shader );
+        if ( material != nullptr ) material->bind( shader );
 
         // render
         getMesh()->render();
     }
 }
 
-void RenderObject::render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+void RenderObject::render( const RenderParameters& lightParams,
+                           const ViewingParameters& viewParams,
                            RenderTechnique::PassName passname ) {
     render( lightParams, viewParams, getRenderTechnique()->getShader( passname ) );
 }

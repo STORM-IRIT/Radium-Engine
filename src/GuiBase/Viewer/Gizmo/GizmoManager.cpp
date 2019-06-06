@@ -24,18 +24,15 @@ GizmoManager::GizmoManager( QObject* parent ) :
     QObject( parent ),
     m_currentGizmoType( NONE ),
     m_mode( Gizmo::GLOBAL ) {
-    m_gizmos[0].reset( new TranslateGizmo( Engine::SystemEntity::uiCmp(),
-                                           Ra::Core::Transform::Identity(), m_transform, m_mode ) );
-    m_gizmos[1].reset( new RotateGizmo( Engine::SystemEntity::uiCmp(),
-                                        Ra::Core::Transform::Identity(), m_transform, m_mode ) );
-    m_gizmos[2].reset( new ScaleGizmo( Engine::SystemEntity::uiCmp(),
-                                       Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+    m_gizmos[0].reset( new TranslateGizmo(
+        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+    m_gizmos[1].reset( new RotateGizmo(
+        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+    m_gizmos[2].reset( new ScaleGizmo(
+        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
     for ( auto& g : m_gizmos )
     {
-        if ( g )
-        {
-            g->show( false );
-        }
+        if ( g ) { g->show( false ); }
     }
 }
 
@@ -49,16 +46,13 @@ void GizmoManager::setEditable( const Engine::ItemEntry& ent ) {
 void GizmoManager::updateGizmo() {
     for ( auto& g : m_gizmos )
     {
-        if ( g )
-        {
-            g->show( false );
-        }
+        if ( g ) { g->show( false ); }
     }
 
     if ( canEdit() )
     {
         Core::Transform worldTransform = getWorldTransform();
-        auto g = currentGizmo();
+        auto g                         = currentGizmo();
         if ( g )
         {
             g->updateTransform( m_mode, worldTransform, m_transform );
@@ -82,20 +76,14 @@ void GizmoManager::updateValues() {
     {
         getTransform();
         if ( currentGizmo() )
-        {
-            currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform );
-        }
-    }
+        { currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform ); } }
 }
 
 bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
     if ( !( Gui::KeyMappingManager::getInstance()->actionTriggered(
              event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) ||
          !canEdit() || m_currentGizmoType == NONE )
-    {
-        return false;
-    }
-    // If we are there it means that we should have a valid gizmo.
+    { return false; } // If we are there it means that we should have a valid gizmo.
     CORE_ASSERT( currentGizmo(), "Gizmo is not there !" );
 
     const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
@@ -106,10 +94,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
 }
 
 bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* event ) {
-    if ( currentGizmo() )
-    {
-        currentGizmo()->selectConstraint( -1 );
-    }
+    if ( currentGizmo() ) { currentGizmo()->selectConstraint( -1 ); }
     return ( currentGizmo() != nullptr );
 }
 
@@ -130,10 +115,7 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event ) {
 }
 
 void GizmoManager::handlePickingResult( int drawableId ) {
-    if ( currentGizmo() )
-    {
-        currentGizmo()->selectConstraint( drawableId );
-    }
+    if ( currentGizmo() ) { currentGizmo()->selectConstraint( drawableId ); }
 }
 
 Gizmo* GizmoManager::currentGizmo() {

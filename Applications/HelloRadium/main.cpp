@@ -40,7 +40,7 @@ int main( int argc, char* argv[] ) {
 
     // Create and initialize entity and component
     Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity( "Cube" );
-    MinimalComponent* c = new MinimalComponent( e );
+    MinimalComponent* c   = new MinimalComponent( e );
     sys->addComponent( e, c );
     c->initialize();
 

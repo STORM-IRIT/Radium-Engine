@@ -34,7 +34,8 @@ namespace Engine {
  * Engine main class : Manage all the systems and managers that are used by the engine module.
  * @see Documentation on Engine Object Model
  */
-class RA_ENGINE_API RadiumEngine {
+class RA_ENGINE_API RadiumEngine
+{
     RA_SINGLETON_INTERFACE( RadiumEngine );
 
   public:
@@ -163,7 +164,7 @@ class RA_ENGINE_API RadiumEngine {
     const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
 
   private:
-    using priority = int;
+    using priority  = int;
     using SystemKey = std::pair<priority, std::string>;
     // use transparent functors :
     // https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html

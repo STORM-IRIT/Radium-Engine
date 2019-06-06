@@ -29,7 +29,8 @@ namespace Core {
  * Note that most functions are not thread safe and must not be called when the task queue is
  * running.
  */
-class RA_CORE_API TaskQueue {
+class RA_CORE_API TaskQueue
+{
   public:
     /// Identifier for a task in the task queue.
     using TaskId = Utils::Index;

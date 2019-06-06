@@ -9,7 +9,7 @@ namespace Core {
 // Convenience functions for timing.
 // Wrapping the highest resolution time measuring.
 namespace Utils {
-using Clock = std::chrono::high_resolution_clock;
+using Clock     = std::chrono::high_resolution_clock;
 using TimePoint = std::chrono::time_point<Clock>;
 
 inline long RA_CORE_API getIntervalMicro( const TimePoint& start, const TimePoint& end ) {

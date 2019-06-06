@@ -39,7 +39,8 @@ void AnimationUI::on_m_play_clicked( bool checked ) {
         ui->m_play->update();
 
         emit play();
-    } else
+    }
+    else
     {
         ui->m_play->setChecked( false );
 

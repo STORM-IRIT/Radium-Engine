@@ -7,7 +7,8 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-class RA_CORE_API CircularIndex {
+class RA_CORE_API CircularIndex
+{
   public:
     /// CONSTRUCTOR
     CircularIndex( const size_t size = 1, const size_t i = 0 );

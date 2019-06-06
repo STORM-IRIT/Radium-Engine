@@ -17,7 +17,8 @@ using Label = std::string;
 /**
  * The Handle class describes the base handle structure used for deformation.
  */
-class RA_CORE_API Handle {
+class RA_CORE_API Handle
+{
   public:
     /**
      * The SpaceType specifies the space the transform lives in.

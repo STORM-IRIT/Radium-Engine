@@ -23,33 +23,39 @@ ShaderProgramManager::~ShaderProgramManager() {
 
 bool ShaderProgramManager::addNamedString( const std::string& includepath,
                                            const std::string& realfile ) {
-    auto el = m_namedStrings.find(includepath);
-    if (el != m_namedStrings.end())
+    auto el = m_namedStrings.find( includepath );
+    if ( el != m_namedStrings.end() )
     {
-        if(el->second.first->filePath() != realfile)
+        if ( el->second.first->filePath() != realfile )
         {
-            LOG(logWARNING) << "[ShaderProgramManager] A named string already exists with this key: " << includepath << " --> " << el->second.first->filePath();
+            LOG( logWARNING )
+                << "[ShaderProgramManager] A named string already exists with this key: "
+                << includepath << " --> " << el->second.first->filePath();
         }
         else
         {
-            LOG(logINFO) << "[ShaderProgramManager] Named string already inserted, skipping: " << includepath << " --> " << realfile;
+            LOG( logINFO ) << "[ShaderProgramManager] Named string already inserted, skipping: "
+                           << includepath << " --> " << realfile;
         }
 
         return false;
     }
 
-    LOG( logINFO ) << "[ShaderProgramManager] Inserting named string : " << includepath << " --> " << realfile;
-    auto file = globjects::File::create(realfile);
-    m_namedStrings[includepath] = std::make_pair(std::move(file), globjects::NamedString::create(includepath, file.get()));
+    LOG( logINFO ) << "[ShaderProgramManager] Inserting named string : " << includepath << " --> "
+                   << realfile;
+    auto file                   = globjects::File::create( realfile );
+    m_namedStrings[includepath] = std::make_pair(
+        std::move( file ), globjects::NamedString::create( includepath, file.get() ) );
 
     return true;
 }
 
 void ShaderProgramManager::reloadNamedString() {
-    for (auto& el : m_namedStrings) {
+    for ( auto& el : m_namedStrings )
+    {
         el.second.first->reload();
-        el.second.second.reset(nullptr);
-        el.second.second = globjects::NamedString::create(el.first, el.second.first.get());
+        el.second.second.reset( nullptr );
+        el.second.second = globjects::NamedString::create( el.first, el.second.first.get() );
     }
 }
 
@@ -57,15 +63,12 @@ Core::Utils::optional<const ShaderProgram*>
 ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
     auto found = m_shaderPrograms.find( config );
 
-    if (found != m_shaderPrograms.end())
-    {
-        return found->second.get();
-    }
+    if ( found != m_shaderPrograms.end() ) { return found->second.get(); }
 
     // add named strings
-    for (const auto& p : config.getNamedStrings())
+    for ( const auto& p : config.getNamedStrings() )
     {
-        addNamedString(p.first, p.second);
+        addNamedString( p.first, p.second );
     }
 
     // Try to load the shader
@@ -75,19 +78,22 @@ ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
     {
         insertShader( config, prog );
         return prog.get();
-    } else
+    }
+    else
     {
 
         LOG( logERROR ) << "Error occurred while loading shader program " << config.m_name.c_str()
                         << ":\nDefault shader program used instead.";
 
-        for (const auto& strings : config.getNamedStrings()) {
-            auto el = m_namedStrings.find(strings.first);
-            if ( el != m_namedStrings.end())
+        for ( const auto& strings : config.getNamedStrings() )
+        {
+            auto el = m_namedStrings.find( strings.first );
+            if ( el != m_namedStrings.end() )
             {
-                if (el->second.first->filePath() == strings.second)
+                if ( el->second.first->filePath() == strings.second )
                 {
-                    LOG(logINFO) << "[ShaderProgramManager] Removing named string " << strings.first << " --> " << strings.second;
+                    LOG( logINFO ) << "[ShaderProgramManager] Removing named string "
+                                   << strings.first << " --> " << strings.second;
                 }
             }
         }
@@ -102,16 +108,13 @@ ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
 const ShaderProgram* ShaderProgramManager::getShaderProgram( const std::string& id ) {
     auto found = m_shaderProgramIds.find( id );
 
-    if ( found != m_shaderProgramIds.end() )
-    {
-        return getShaderProgram( found->second );
-    }
+    if ( found != m_shaderProgramIds.end() ) { return getShaderProgram( found->second ); }
     return nullptr;
 }
 
 const ShaderProgram* ShaderProgramManager::getShaderProgram( const ShaderConfiguration& config ) {
-    auto res = addShaderProgram(config);
-    return bool(res) ? *res : nullptr;
+    auto res = addShaderProgram( config );
+    return bool( res ) ? *res : nullptr;
 }
 
 void ShaderProgramManager::reloadAllShaderPrograms() {

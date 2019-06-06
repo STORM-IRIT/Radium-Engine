@@ -32,7 +32,8 @@ void RA_CORE_API computeDQ_naive( const Pose& pose, const WeightMatrix& weight, 
  * WARNING : in Debug the function will assert if input and DQ size mismatch. In Release will simply
  * crash.
  */
-void RA_CORE_API dualQuaternionSkinning( const Ra::Core::Vector3Array& input, const DQList& DQ,
+void RA_CORE_API dualQuaternionSkinning( const Ra::Core::Vector3Array& input,
+                                         const DQList& DQ,
                                          Ra::Core::Vector3Array& output );
 
 } // namespace Animation

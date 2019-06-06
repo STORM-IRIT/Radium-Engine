@@ -15,8 +15,8 @@ inline void Engine::PointLight::setAttenuation( const PointLight::Attenuation& a
 }
 
 inline void Engine::PointLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {
-    m_attenuation.constant = constant;
-    m_attenuation.linear = linear;
+    m_attenuation.constant  = constant;
+    m_attenuation.linear    = linear;
     m_attenuation.quadratic = quadratic;
 }
 

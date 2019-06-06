@@ -15,15 +15,17 @@ namespace SkinningPlugin {
 SkinningPluginC::~SkinningPluginC() {}
 
 void SkinningPluginC::registerPlugin( const Ra::PluginContext& context ) {
-    m_system = new SkinningSystem;
+    m_system           = new SkinningSystem;
     m_selectionManager = context.m_selectionManager;
     context.m_engine->registerSystem( "SkinningSystem", m_system );
     m_widget = new SkinningWidget;
-    connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this,
+    connect( m_selectionManager,
+             &Ra::GuiBase::SelectionManager::currentChanged,
+             this,
              &SkinningPluginC::onCurrentChanged );
     connect( m_widget, &SkinningWidget::showWeights, this, &SkinningPluginC::onShowWeights );
-    connect( m_widget, &SkinningWidget::showWeightsType, this,
-             &SkinningPluginC::onShowWeightsType );
+    connect(
+        m_widget, &SkinningWidget::showWeightsType, this, &SkinningPluginC::onShowWeightsType );
 }
 
 bool SkinningPluginC::doAddWidget( QString& name ) {
@@ -71,16 +73,13 @@ bool SkinningPluginC::doAddROpenGLInitializer() {
 }
 
 void SkinningPluginC::openGlInitialize( const Ra::PluginContext& context ) {
-    if ( !m_system )
-    {
-        return;
-    }
+    if ( !m_system ) { return; }
     Ra::Engine::TextureParameters texData;
-    texData.wrapS = GL_CLAMP_TO_EDGE;
-    texData.wrapT = GL_CLAMP_TO_EDGE;
+    texData.wrapS     = GL_CLAMP_TO_EDGE;
+    texData.wrapT     = GL_CLAMP_TO_EDGE;
     texData.minFilter = GL_NEAREST;
     texData.magFilter = GL_NEAREST;
-    texData.name = "Assets/Textures/Influence0.png";
+    texData.name      = "Assets/Textures/Influence0.png";
     Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texData );
 }
 
@@ -97,17 +96,16 @@ void SkinningPluginC::onCurrentChanged( const QModelIndex& current, const QModel
                 m_widget->setCurrent( it, skin );
 
                 using BoneMap = std::map<Ra::Core::Utils::Index, uint>;
-                auto CM = Ra::Engine::ComponentMessenger::getInstance();
-                auto BM = *CM->getterCallback<BoneMap>( it.m_entity, skin->m_contentsName )();
-                auto b_it = BM.find( it.m_roIndex );
-                if ( b_it != BM.end() )
-                {
-                    skin->setWeightBone( b_it->second );
-                }
+                auto CM       = Ra::Engine::ComponentMessenger::getInstance();
+                auto BM       = *CM->getterCallback<BoneMap>( it.m_entity, skin->m_contentsName )();
+                auto b_it     = BM.find( it.m_roIndex );
+                if ( b_it != BM.end() ) { skin->setWeightBone( b_it->second ); }
             }
-        } else
+        }
+        else
         { m_widget->setCurrent( it, nullptr ); }
-    } else
+    }
+    else
     { m_widget->setCurrent( it, nullptr ); }
 }
 
@@ -131,11 +129,12 @@ SkinningWidget::SkinningWidget( QWidget* parent ) : QFrame( parent ), m_current(
     m_skinningSelect->setDuplicatesEnabled( false );
     m_skinningSelect->setCurrentIndex( 1 );
 
-    m_skinningSelect->insertItems( 0, QStringList() << "Linear Blend Skinning"
-                                                    << "Dual Quaternion Skinning"
-                                                    << "Center of Rotation skinning"
-                                                    << "STBS LBS"
-                                                    << "STBD DQS" );
+    m_skinningSelect->insertItems( 0,
+                                   QStringList() << "Linear Blend Skinning"
+                                                 << "Dual Quaternion Skinning"
+                                                 << "Center of Rotation skinning"
+                                                 << "STBS LBS"
+                                                 << "STBD DQS" );
     m_skinningSelect->setEnabled( false );
     vL->addWidget( m_skinningSelect );
     vL->addLayout( hL );
@@ -150,8 +149,9 @@ SkinningWidget::SkinningWidget( QWidget* parent ) : QFrame( parent ), m_current(
     m_skinningWeights->setMaxCount( 2 );
     m_skinningWeights->setDuplicatesEnabled( false );
     m_skinningWeights->setCurrentIndex( 1 );
-    m_skinningWeights->insertItems( 0, QStringList() << "Standard weights"
-                                                     << "STBS weights" );
+    m_skinningWeights->insertItems( 0,
+                                    QStringList() << "Standard weights"
+                                                  << "STBS weights" );
     m_skinningWeights->setEnabled( false );
     hL->addWidget( m_skinningWeights );
 
@@ -180,21 +180,25 @@ SkinningWidget::SkinningWidget( QWidget* parent ) : QFrame( parent ), m_current(
     m_actionSTBSDQS->setCheckable( true );
 
     connect( m_skinningSelect,
-             static_cast<void ( QComboBox::* )( int )>( &QComboBox::currentIndexChanged ), this,
+             static_cast<void ( QComboBox::* )( int )>( &QComboBox::currentIndexChanged ),
+             this,
              &SkinningWidget::onSkinningChanged );
-    connect( m_showWeights, static_cast<void ( QCheckBox::* )( bool )>( &QCheckBox::toggled ), this,
+    connect( m_showWeights,
+             static_cast<void ( QCheckBox::* )( bool )>( &QCheckBox::toggled ),
+             this,
              &SkinningWidget::onShowWeightsToggled );
     connect( m_skinningWeights,
-             static_cast<void ( QComboBox::* )( int )>( &QComboBox::currentIndexChanged ), this,
+             static_cast<void ( QComboBox::* )( int )>( &QComboBox::currentIndexChanged ),
+             this,
              &SkinningWidget::onSkinningWeightsChanged );
 
     connect( m_actionLBS, &QAction::triggered, this, &SkinningWidget::onLSBActionTriggered );
     connect( m_actionDQ, &QAction::triggered, this, &SkinningWidget::onDQActionTriggered );
     connect( m_actionCoR, &QAction::triggered, this, &SkinningWidget::onCoRActionTriggered );
-    connect( m_actionSTBSLBS, &QAction::triggered, this,
-             &SkinningWidget::onSTBSLBSActionTriggered );
-    connect( m_actionSTBSDQS, &QAction::triggered, this,
-             &SkinningWidget::onSTBSDQSActionTriggered );
+    connect(
+        m_actionSTBSLBS, &QAction::triggered, this, &SkinningWidget::onSTBSLBSActionTriggered );
+    connect(
+        m_actionSTBSDQS, &QAction::triggered, this, &SkinningWidget::onSTBSDQSActionTriggered );
 }
 
 void SkinningWidget::onLSBActionTriggered() {
@@ -255,7 +259,8 @@ void SkinningWidget::setCurrent( const Ra::Engine::ItemEntry& entry, SkinningCom
         m_actionSTBSLBS->setEnabled( true );
         m_actionSTBSDQS->setEnabled( true );
         m_skinningSelect->setCurrentIndex( int( comp->getSkinningType() ) );
-    } else
+    }
+    else
     {
         m_skinningSelect->setEnabled( false );
         m_showWeights->setEnabled( false );

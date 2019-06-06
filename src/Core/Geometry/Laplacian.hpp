@@ -53,7 +53,8 @@ using LaplacianMatrix = Sparse;
  */
 /// WARNING; FOR COMPUTING THE POSITIVE SEMI-DEFINITE COTANGENT WEIGHT LAPLACIAN FASTER USE
 /// cotangentWeightLaplacian
-LaplacianMatrix RA_CORE_API standardLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A,
+LaplacianMatrix RA_CORE_API standardLaplacian( const DegreeMatrix& D,
+                                               const AdjacencyMatrix& A,
                                                const bool POSITIVE_SEMI_DEFINITE = true );
 
 /*

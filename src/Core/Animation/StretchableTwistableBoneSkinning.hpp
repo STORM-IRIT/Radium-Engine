@@ -24,18 +24,24 @@ using DQList = AlignedStdVector<DualQuaternion>;
 /**
  * Apply the linear interpolation of transformations to the vertices of inMesh (STBS version).
  */
-void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh, const Pose& pose,
-                                          const Skeleton& poseSkel, const Skeleton& restSkel,
+void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh,
+                                          const Pose& pose,
+                                          const Skeleton& poseSkel,
+                                          const Skeleton& restSkel,
                                           const WeightMatrix& weightLBS,
-                                          const WeightMatrix& weightSTBS, Vector3Array& outMesh );
+                                          const WeightMatrix& weightSTBS,
+                                          Vector3Array& outMesh );
 
 /**
  * Computes the dual quaternions from the given pose, skeleton states and sets of skinning weights
  * (STBS version).
  */
-void RA_CORE_API computeDQSTBS( const Pose& pose, const Skeleton& poseSkel,
-                                const Skeleton& restSkel, const WeightMatrix& weight,
-                                const WeightMatrix& weightSTBS, DQList& DQ );
+void RA_CORE_API computeDQSTBS( const Pose& pose,
+                                const Skeleton& poseSkel,
+                                const Skeleton& restSkel,
+                                const WeightMatrix& weight,
+                                const WeightMatrix& weightSTBS,
+                                DQList& DQ );
 /// \}
 
 } // namespace Animation

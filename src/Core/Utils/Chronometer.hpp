@@ -36,10 +36,11 @@ namespace Utils {
  * \see Ra::Core::Utils::getIntervalMicro
  * \see Ra::Core::Utils::getIntervalSeconds
  */
-class RA_CORE_API Chrono {
+class RA_CORE_API Chrono
+{
   public:
     using MicroSeconds = long;
-    using Seconds = Scalar;
+    using Seconds      = Scalar;
     /**
      *    \brief Default constructor.
      */
@@ -87,9 +88,9 @@ class RA_CORE_API Chrono {
     inline ReturnType run( Function&& f, Args... args ) {
         // TODO //static_assert( /*check if ReturnType is equal to Function return type*/,
         // "RETURN_TYPE_DO_NOT_MATCH_FUNCTION_RETURN_TYPE" );
-        m_start = Clock::now();
+        m_start        = Clock::now();
         ReturnType res = f( args... );
-        m_end = Clock::now();
+        m_end          = Clock::now();
         return res;
     }
 
@@ -114,7 +115,7 @@ class RA_CORE_API Chrono {
         }
         avg /= Times;
         m_start = Clock::now();
-        m_end = m_start + std::chrono::microseconds( avg );
+        m_end   = m_start + std::chrono::microseconds( avg );
         return avg;
     }
 

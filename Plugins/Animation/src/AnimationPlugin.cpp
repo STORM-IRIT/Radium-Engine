@@ -23,10 +23,7 @@ AnimationPluginC::~AnimationPluginC() = default;
 void AnimationPluginC::registerPlugin( const Ra::PluginContext& context ) {
     QSettings settings;
     QString path = settings.value( "AnimDataDir" ).toString();
-    if ( path.isEmpty() )
-    {
-        path = QString( context.m_exportDir.c_str() );
-    }
+    if ( path.isEmpty() ) { path = QString( context.m_exportDir.c_str() ); }
     m_system = new AnimationSystem;
     context.m_engine->registerSystem( "AnimationSystem", m_system );
     context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
@@ -44,7 +41,9 @@ QWidget* AnimationPluginC::getWidget() {
     connect( m_widget, &AnimationUI::toggleXray, this, &AnimationPluginC::toggleXray );
     connect( m_widget, &AnimationUI::showSkeleton, this, &AnimationPluginC::toggleSkeleton );
     connect( m_widget, &AnimationUI::animationID, this, &AnimationPluginC::setAnimation );
-    connect( m_widget, &AnimationUI::toggleAnimationTimeStep, this,
+    connect( m_widget,
+             &AnimationUI::toggleAnimationTimeStep,
+             this,
              &AnimationPluginC::toggleAnimationTimeStep );
     connect( m_widget, &AnimationUI::animationSpeed, this, &AnimationPluginC::setAnimationSpeed );
     connect( m_widget, &AnimationUI::toggleSlowMotion, this, &AnimationPluginC::toggleSlowMotion );
@@ -145,16 +144,13 @@ void AnimationPluginC::cacheFrame() {
 }
 
 void AnimationPluginC::restoreFrame( int frame ) {
-    if ( m_system->restoreFrame( m_dataDir, frame ) )
-    {
-        m_widget->frameLoaded( frame );
-    }
+    if ( m_system->restoreFrame( m_dataDir, frame ) ) { m_widget->frameLoaded( frame ); }
 }
 
 void AnimationPluginC::changeDataDir() {
     QSettings settings;
     QString path = settings.value( "AnimDataDir", QDir::homePath() ).toString();
-    path = QFileDialog::getExistingDirectory( nullptr, "Animation Data Dir", path );
+    path         = QFileDialog::getExistingDirectory( nullptr, "Animation Data Dir", path );
     if ( !path.isEmpty() )
     {
         settings.setValue( "AnimDataDir", path );

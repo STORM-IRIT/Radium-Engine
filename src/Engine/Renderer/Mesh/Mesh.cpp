@@ -10,17 +10,17 @@ namespace Engine {
 
 // Template parameter must be a Core::VectorNArray
 template <typename ContainedType>
-inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<ContainedType>& arr,
-                        uint vboIdx ) {
+inline void
+sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<ContainedType>& arr, uint vboIdx ) {
     using VecArray = Ra::Core::VectorArray<ContainedType>;
 #ifdef CORE_USE_DOUBLE
     GLenum type = GL_DOUBLE;
 #else
     GLenum type = GL_FLOAT;
 #endif
-    constexpr GLuint size = VecArray::Vector::RowsAtCompileTime;
+    constexpr GLuint size      = VecArray::Vector::RowsAtCompileTime;
     const GLboolean normalized = GL_FALSE;
-    constexpr GLint64 ptr = 0;
+    constexpr GLint64 ptr      = 0;
 
     // This vbo has not been created yet
     if ( mesh->m_vbos[vboIdx] == 0 && !arr.empty() )
@@ -29,8 +29,12 @@ inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<Cont
         GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, mesh->m_vbos[vboIdx] ) );
 
         // Use (vboIdx - 1) as attribute index because vbo 0 is actually ibo.
-        GL_ASSERT( glVertexAttribPointer( vboIdx - 1, size, type, normalized,
-                                          sizeof( typename VecArray::Vector ), (GLvoid*)ptr ) );
+        GL_ASSERT( glVertexAttribPointer( vboIdx - 1,
+                                          size,
+                                          type,
+                                          normalized,
+                                          sizeof( typename VecArray::Vector ),
+                                          (GLvoid*)ptr ) );
 
         GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
         // Set dirty as true to send data, see below
@@ -40,14 +44,14 @@ inline void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<Cont
     if ( mesh->m_dataDirty[vboIdx] && mesh->m_vbos[vboIdx] != 0 )
     {
         GL_ASSERT( glBindBuffer( GL_ARRAY_BUFFER, mesh->m_vbos[vboIdx] ) );
-        GL_ASSERT( glBufferData( GL_ARRAY_BUFFER, arr.size() * sizeof( typename VecArray::Vector ),
-                                 arr.data(), GL_DYNAMIC_DRAW ) );
+        GL_ASSERT( glBufferData( GL_ARRAY_BUFFER,
+                                 arr.size() * sizeof( typename VecArray::Vector ),
+                                 arr.data(),
+                                 GL_DYNAMIC_DRAW ) );
         mesh->m_dataDirty[vboIdx] = false;
 
-        if ( !arr.empty() )
-        {
-            GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) );
-        } else
+        if ( !arr.empty() ) { GL_ASSERT( glEnableVertexAttribArray( vboIdx - 1 ) ); }
+        else
         { GL_ASSERT( glDisableVertexAttribArray( vboIdx - 1 ) ); }
     }
 } // sendGLData
@@ -80,10 +84,7 @@ Mesh::~Mesh() {
 
         for ( auto& vbo : m_vbos )
         {
-            if ( vbo != 0 )
-            {
-                glDeleteBuffers( 1, &vbo );
-            }
+            if ( vbo != 0 ) { glDeleteBuffers( 1, &vbo ); }
         }
     }
 }
@@ -92,8 +93,10 @@ void Mesh::render() {
     if ( m_vao != 0 )
     {
         GL_ASSERT( glBindVertexArray( m_vao ) );
-        GL_ASSERT( glDrawElements( static_cast<GLenum>( m_renderMode ), GLsizei( m_numElements ),
-                                   GL_UNSIGNED_INT, nullptr ) );
+        GL_ASSERT( glDrawElements( static_cast<GLenum>( m_renderMode ),
+                                   GLsizei( m_numElements ),
+                                   GL_UNSIGNED_INT,
+                                   nullptr ) );
     }
 }
 
@@ -118,7 +121,8 @@ void Mesh::loadGeometry( Core::Geometry::TriangleMesh&& mesh ) {
     {
         m_numElements = m_mesh.vertices().size();
         setRenderMode( RM_POINTS );
-    } else
+    }
+    else
         m_numElements = m_mesh.m_triangles.size() * 3;
 
     for ( uint i = 0; i < MAX_VEC3; ++i )
@@ -148,7 +152,8 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     {
         m_numElements = vertices.size();
         setRenderMode( RM_POINTS );
-    } else
+    }
+    else
         m_numElements = nIdx;
     m_mesh.vertices() = vertices;
 
@@ -189,13 +194,11 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
 
 void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
     const int index = static_cast<uint>( type );
-    auto& handle = m_v3DataHandle[index];
+    auto& handle    = m_v3DataHandle[index];
 
     // if it's the first time this handle is used, add it to m_mesh.
     if ( !data.empty() && !m_mesh.isValid( handle ) )
-    {
-        handle = m_mesh.addAttrib<Core::Vector3>( getAttribName( type ) );
-    }
+    { handle = m_mesh.addAttrib<Core::Vector3>( getAttribName( type ) ); }
 
     //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
     if ( m_mesh.isValid( handle ) )
@@ -203,27 +206,25 @@ void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
         m_mesh.getAttrib( handle ).data() = data;
 
         m_dataDirty[MAX_MESH + index] = true;
-        m_isDirty = true;
+        m_isDirty                     = true;
     }
 }
 
 void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
 
     const int index = static_cast<uint>( type );
-    auto& handle = m_v4DataHandle[index];
+    auto& handle    = m_v4DataHandle[index];
 
     // if it's the first time this handle is used, add it to m_mesh.
     if ( !data.empty() && !m_mesh.isValid( handle ) )
-    {
-        handle = m_mesh.addAttrib<Core::Vector4>( getAttribName( type ) );
-    }
+    { handle = m_mesh.addAttrib<Core::Vector4>( getAttribName( type ) ); }
 
     //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
     if ( m_mesh.isValid( handle ) )
     {
-        m_mesh.getAttrib( handle ).data() = data;
+        m_mesh.getAttrib( handle ).data()        = data;
         m_dataDirty[MAX_MESH + MAX_VEC3 + index] = true;
-        m_isDirty = true;
+        m_isDirty                                = true;
     }
 }
 
@@ -258,14 +259,18 @@ void Mesh::updateGL() {
                 m_numElements = m_mesh.vertices().size();
                 std::vector<int> indices( m_numElements );
                 std::iota( indices.begin(), indices.end(), 0 );
-                GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_numElements * sizeof( int ),
-                                         indices.data(), GL_DYNAMIC_DRAW ) );
-            } else
+                GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER,
+                                         m_numElements * sizeof( int ),
+                                         indices.data(),
+                                         GL_DYNAMIC_DRAW ) );
+            }
+            else
             {
                 m_numElements = m_mesh.m_triangles.size() * 3;
                 GL_ASSERT( glBufferData( GL_ELEMENT_ARRAY_BUFFER,
                                          m_mesh.m_triangles.size() * sizeof( Ra::Core::Vector3ui ),
-                                         m_mesh.m_triangles.data(), GL_DYNAMIC_DRAW ) );
+                                         m_mesh.m_triangles.data(),
+                                         GL_DYNAMIC_DRAW ) );
             }
             m_dataDirty[INDEX] = false;
         }
@@ -277,17 +282,14 @@ void Mesh::updateGL() {
         for ( int i = 0; i < MAX_VEC3; i++ )
         {
             if ( m_mesh.isValid( m_v3DataHandle[i] ) )
-            {
-                sendGLData( this, m_mesh.getAttrib( m_v3DataHandle[i] ).data(), MAX_MESH + i );
-            }
-        }
+            { sendGLData( this, m_mesh.getAttrib( m_v3DataHandle[i] ).data(), MAX_MESH + i ); } }
 
         for ( int i = 0; i < MAX_VEC4; i++ )
         {
             if ( m_mesh.isValid( m_v4DataHandle[i] ) )
             {
-                sendGLData( this, m_mesh.getAttrib( m_v4DataHandle[i] ).data(),
-                            MAX_MESH + MAX_VEC3 + i );
+                sendGLData(
+                    this, m_mesh.getAttrib( m_v4DataHandle[i] ).data(), MAX_MESH + MAX_VEC3 + i );
             }
         }
 

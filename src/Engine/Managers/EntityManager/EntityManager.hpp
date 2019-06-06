@@ -20,7 +20,8 @@ class Entity;
 namespace Ra {
 namespace Engine {
 
-class RA_ENGINE_API EntityManager {
+class RA_ENGINE_API EntityManager
+{
   public:
     /// CONSTRUCTOR
     EntityManager();

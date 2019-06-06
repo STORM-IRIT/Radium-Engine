@@ -54,7 +54,9 @@ RA_CORE_API Scalar triangleAngleRatio( const Vector3& p, const Vector3& q, const
 /*
  * Return the barycentric coordinates (u, v, w) of the given point v for the given triangle PQR
  */
-RA_CORE_API Vector3 barycentricCoordinate( const Vector3& v, const Vector3& p, const Vector3& q,
+RA_CORE_API Vector3 barycentricCoordinate( const Vector3& v,
+                                           const Vector3& p,
+                                           const Vector3& q,
                                            const Vector3& r );
 
 } // namespace Geometry

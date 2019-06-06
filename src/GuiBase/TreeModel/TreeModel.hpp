@@ -25,8 +25,9 @@ namespace GuiBase {
 /**
  * Base class for element of the tree representation.
  * It just maintains a tree structure leaving the data storage to derived classes.
-*/
-class RA_GUIBASE_API TreeItem {
+ */
+class RA_GUIBASE_API TreeItem
+{
   public:
     TreeItem() {}
     virtual ~TreeItem() {}
@@ -65,13 +66,14 @@ class RA_GUIBASE_API TreeItem {
     /// Children of item in the tree.
     std::vector<std::unique_ptr<TreeItem>> m_children;
 
-private:
+  private:
     bool m_checked{true};
 };
 
 /// This class implement QAbstractItem model with the TreeItem as its model
 /// Derived class must use some kind of cast to access the derived TreeItems.
-class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
+class RA_GUIBASE_API TreeModel : public QAbstractItemModel
+{
     Q_OBJECT
 
   public:
@@ -110,7 +112,8 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
      * @param role
      * @return
      */
-    QVariant headerData( int section, Qt::Orientation orientation,
+    QVariant headerData( int section,
+                         Qt::Orientation orientation,
                          int role = Qt::DisplayRole ) const override;
 
     /** Create an index for the given row, column and parent.
@@ -120,8 +123,8 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
      * @param parent
      * @return
      */
-    QModelIndex index( int row, int column,
-                       const QModelIndex& parent = QModelIndex() ) const override;
+    QModelIndex
+    index( int row, int column, const QModelIndex& parent = QModelIndex() ) const override;
 
     /** Get the parent of a given child item.
      *

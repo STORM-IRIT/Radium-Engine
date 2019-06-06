@@ -16,14 +16,15 @@ namespace Geometry {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API CatmullClarkSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>
+{
 
-    using base = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
-    using V_OP = std::pair<Scalar, TopologicalMesh::VertexHandle>;
-    using V_OPS = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
+    using base   = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
+    using V_OP   = std::pair<Scalar, TopologicalMesh::VertexHandle>;
+    using V_OPS  = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
     using SV_OPS = std::vector<V_OPS>;
-    using P_OP = std::pair<Scalar, TopologicalMesh::HalfedgeHandle>;
-    using P_OPS = std::pair<TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
+    using P_OP   = std::pair<Scalar, TopologicalMesh::HalfedgeHandle>;
+    using P_OPS  = std::pair<TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
     using SP_OPS = std::vector<P_OPS>;
 
   public:
@@ -56,8 +57,10 @@ class RA_CORE_API CatmullClarkSubdivider
     ///                         subdividedMesh.normals(), topoMesh );
     /// \endcode
     // clang-format on
-    void recompute( const Vector3Array& newCoarseVertices, const Vector3Array& newCoarseNormals,
-                    Vector3Array& newSubdivVertices, Vector3Array& newSubdivNormals,
+    void recompute( const Vector3Array& newCoarseVertices,
+                    const Vector3Array& newCoarseNormals,
+                    Vector3Array& newSubdivVertices,
+                    Vector3Array& newSubdivNormals,
                     TopologicalMesh& mesh );
 
   protected:
@@ -79,12 +82,14 @@ class RA_CORE_API CatmullClarkSubdivider
     // geometry helpers
 
     /// compute edge midpoint
-    void compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
-                           const bool update_points, size_t iter );
+    void compute_midpoint( TopologicalMesh& mesh,
+                           const TopologicalMesh::EdgeHandle& eh,
+                           const bool update_points,
+                           size_t iter );
 
     /// smooth input vertices
-    void update_vertex( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh,
-                        size_t iter );
+    void
+    update_vertex( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh, size_t iter );
 
   private:
     /// crease weights

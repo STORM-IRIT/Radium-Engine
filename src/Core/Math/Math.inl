@@ -14,19 +14,11 @@ inline constexpr Scalar toDegrees( Scalar a ) {
 
 template <typename T>
 inline T ipow( const T& x, uint exp ) {
-    if ( exp == 0 )
-    {
-        return T( 1 );
-    }
-    if ( exp == 1 )
-    {
-        return x;
-    }
+    if ( exp == 0 ) { return T( 1 ); }
+    if ( exp == 1 ) { return x; }
     T p = ipow( x, exp / 2 );
-    if ( ( exp % 2 ) == 0 )
-    {
-        return p * p;
-    } else
+    if ( ( exp % 2 ) == 0 ) { return p * p; }
+    else
     { return p * p * x; }
 }
 
@@ -86,13 +78,12 @@ inline constexpr T saturate( T v ) {
 }
 
 /// Implementation inspired from https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
-template<class T>
+template <class T>
 typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
-    areApproxEqual(T x, T y, T espilonBoostFactor)
-{
-    return std::abs(x-y) <= std::numeric_limits<T>::epsilon() * espilonBoostFactor
-        // unless the result is subnormal
-        || std::abs(x-y) < std::numeric_limits<T>::min();
+areApproxEqual( T x, T y, T espilonBoostFactor ) {
+    return std::abs( x - y ) <= std::numeric_limits<T>::epsilon() * espilonBoostFactor
+           // unless the result is subnormal
+           || std::abs( x - y ) < std::numeric_limits<T>::min();
 }
 
 template <typename T>

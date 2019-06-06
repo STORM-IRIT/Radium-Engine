@@ -41,7 +41,7 @@ AnimationComponent::AnimationComponent( const std::string& name, Ra::Engine::Ent
 AnimationComponent::~AnimationComponent() {}
 
 void AnimationComponent::setSkeleton( const Ra::Core::Animation::Skeleton& skel ) {
-    m_skel = skel;
+    m_skel    = skel;
     m_refPose = skel.getPose( Handle::SpaceType::MODEL );
     setupSkeletonDisplay();
 }
@@ -54,23 +54,18 @@ void AnimationComponent::update( Scalar dt ) {
         dt = factor * ( ( m_animationTimeStep && m_dt.size() > 0 ) ? m_dt[m_animationID] : dt );
     }
     // Ignore large dt that appear when the engine is paused (while loading a file for instance)
-    if ( !m_animationTimeStep && ( dt > 0.5f ) )
-    {
-        dt = 0;
-    }
+    if ( !m_animationTimeStep && ( dt > 0.5f ) ) { dt = 0; }
 
     // Compute the elapsed time
     m_animationTime += dt;
 
     if ( m_wasReset )
     {
-        if ( !m_resetDone )
-        {
-            m_resetDone = true;
-        } else
+        if ( !m_resetDone ) { m_resetDone = true; }
+        else
         {
             m_resetDone = false;
-            m_wasReset = false;
+            m_wasReset  = false;
         }
     }
 
@@ -103,7 +98,8 @@ void AnimationComponent::setupSkeletonDisplay() {
             m_boneDrawables.emplace_back(
                 new SkeletonBoneRenderObject( name, this, i, getRoMgr() ) );
             m_renderObjects.push_back( m_boneDrawables.back()->getRenderObjectIndex() );
-        } else
+        }
+        else
         { LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed."; }
     }
     for ( const auto& b : m_boneDrawables )
@@ -131,10 +127,7 @@ void AnimationComponent::printSkeleton( const Ra::Core::Animation::Skeleton& ske
             levels.push_back( level + 1 );
         }
 
-        if ( levels.front() != level )
-        {
-            std::cout << std::endl;
-        }
+        if ( levels.front() != level ) { std::cout << std::endl; }
     }
 }
 
@@ -171,8 +164,7 @@ void AnimationComponent::handleAnimationLoading(
     const std::vector<Ra::Core::Asset::AnimationData*>& data ) {
     m_animations.clear();
     CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first." );
-    if ( data.empty() )
-        return;
+    if ( data.empty() ) return;
 
     for ( uint n = 0; n < data.size(); ++n )
     {
@@ -192,10 +184,7 @@ void AnimationComponent::handleAnimationLoading(
             }
         }
 
-        if ( keyTime.empty() )
-        {
-            continue;
-        }
+        if ( keyTime.empty() ) { continue; }
 
         Ra::Core::Animation::KeyPose keypose;
         Ra::Core::Animation::Pose pose = m_skel.m_pose;
@@ -215,7 +204,7 @@ void AnimationComponent::handleAnimationLoading(
 
         m_dt.push_back( data[n]->getTimeStep() );
     }
-    m_animationID = 0;
+    m_animationID   = 0;
     m_animationTime = 0.0;
 }
 
@@ -226,8 +215,8 @@ void AnimationComponent::setupIO( const std::string& id ) {
 
     ComponentMessenger::CallbackTypes<RefPose>::Getter refpOut =
         std::bind( &AnimationComponent::getRefPoseOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>( getEntity(), this,
-                                                                                  id, refpOut );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>(
+        getEntity(), this, id, refpOut );
 
     ComponentMessenger::CallbackTypes<bool>::Getter resetOut =
         std::bind( &AnimationComponent::getWasReset, this );
@@ -287,10 +276,7 @@ void AnimationComponent::toggleSlowMotion( const bool status ) {
 }
 
 void AnimationComponent::setAnimation( const uint i ) {
-    if ( i < m_animations.size() )
-    {
-        m_animationID = i;
-    }
+    if ( i < m_animations.size() ) { m_animationID = i; }
 }
 
 bool AnimationComponent::canEdit( const Ra::Core::Utils::Index& roIdx ) const {
@@ -321,7 +307,7 @@ void AnimationComponent::setTransform( const Ra::Core::Utils::Index& roIdx,
         } );
 
     // get bone data
-    const uint boneIdx = ( *bonePos )->getBoneIndex();
+    const uint boneIdx     = ( *bonePos )->getBoneIndex();
     const auto& TBoneModel = m_skel.getTransform( boneIdx, Handle::SpaceType::MODEL );
     const auto& TBoneLocal = m_skel.getTransform( boneIdx, Handle::SpaceType::LOCAL );
 
@@ -335,7 +321,7 @@ void AnimationComponent::setTransform( const Ra::Core::Utils::Index& roIdx,
         Ra::Core::Vector3 B;
         m_skel.getBonePoints( pBoneIdx, A, B );
         Ra::Core::Vector3 B_ = transform.translation();
-        auto q = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
+        auto q               = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
         Ra::Core::Transform R( q );
         R.pretranslate( A );
         R.translate( -A );
@@ -343,15 +329,12 @@ void AnimationComponent::setTransform( const Ra::Core::Utils::Index& roIdx,
     }
 
     // update bone local transform
-    m_skel.setTransform( boneIdx, TBoneLocal * TBoneModel.inverse() * transform,
-                         Handle::SpaceType::LOCAL );
+    m_skel.setTransform(
+        boneIdx, TBoneLocal * TBoneModel.inverse() * transform, Handle::SpaceType::LOCAL );
 }
 
 const Ra::Core::Animation::Animation* AnimationComponent::getAnimationOutput() const {
-    if ( m_animations.empty() )
-    {
-        return nullptr;
-    }
+    if ( m_animations.empty() ) { return nullptr; }
     return &m_animations[m_animationID];
 }
 
@@ -368,28 +351,19 @@ Scalar AnimationComponent::getTime() const {
 }
 
 Scalar AnimationComponent::getDuration() const {
-    if ( m_animations.empty() )
-    {
-        return Scalar( 0 );
-    }
+    if ( m_animations.empty() ) { return Scalar( 0 ); }
     return m_animations[m_animationID].getDuration();
 }
 
 uint AnimationComponent::getMaxFrame() const {
-    if ( m_animations.empty() )
-    {
-        return 0;
-    }
+    if ( m_animations.empty() ) { return 0; }
     return uint( std::round( getDuration() / m_dt[m_animationID] ) );
 }
 
 void AnimationComponent::cacheFrame( const std::string& dir, int frame ) const {
     std::ofstream file( dir + "/" + m_contentName + "_frame" + std::to_string( frame ) + ".anim",
                         std::ios::trunc | std::ios::out | std::ios::binary );
-    if ( !file.is_open() )
-    {
-        return;
-    }
+    if ( !file.is_open() ) { return; }
     file.write( reinterpret_cast<const char*>( &m_animationID ), sizeof m_animationID );
     file.write( reinterpret_cast<const char*>( &m_animationTimeStep ), sizeof m_animationTimeStep );
     file.write( reinterpret_cast<const char*>( &m_animationTime ), sizeof m_animationTime );
@@ -403,36 +377,17 @@ void AnimationComponent::cacheFrame( const std::string& dir, int frame ) const {
 bool AnimationComponent::restoreFrame( const std::string& dir, int frame ) {
     std::ifstream file( dir + "/" + m_contentName + "_frame" + std::to_string( frame ) + ".anim",
                         std::ios::in | std::ios::binary );
-    if ( !file.is_open() )
-    {
-        return false;
-    }
+    if ( !file.is_open() ) { return false; }
     if ( !file.read( reinterpret_cast<char*>( &m_animationID ), sizeof m_animationID ) )
-    {
-        return false;
-    }
+    { return false; }
     if ( !file.read( reinterpret_cast<char*>( &m_animationTimeStep ), sizeof m_animationTimeStep ) )
-    {
-        return false;
-    }
+    { return false; }
     if ( !file.read( reinterpret_cast<char*>( &m_animationTime ), sizeof m_animationTime ) )
-    {
-        return false;
-    }
-    if ( !file.read( reinterpret_cast<char*>( &m_speed ), sizeof m_speed ) )
-    {
-        return false;
-    }
-    if ( !file.read( reinterpret_cast<char*>( &m_slowMo ), sizeof m_slowMo ) )
-    {
-        return false;
-    }
-    auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
+    { return false; } if ( !file.read( reinterpret_cast<char*>( &m_speed ), sizeof m_speed ) )
+    { return false; } if ( !file.read( reinterpret_cast<char*>( &m_slowMo ), sizeof m_slowMo ) )
+    { return false; } auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
     if ( !file.read( reinterpret_cast<char*>( pose.data() ), ( sizeof pose[0] ) * pose.size() ) )
-    {
-        return false;
-    }
-    m_skel.setPose( pose, Handle::SpaceType::LOCAL );
+    { return false; } m_skel.setPose( pose, Handle::SpaceType::LOCAL );
 
     // update the render objects
     for ( auto& bone : m_boneDrawables )

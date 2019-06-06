@@ -44,7 +44,8 @@ struct PluginContext {
 };
 
 namespace Plugins {
-class RadiumPluginInterface {
+class RadiumPluginInterface
+{
   public:
     virtual ~RadiumPluginInterface() {}
 

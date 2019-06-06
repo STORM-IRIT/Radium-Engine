@@ -13,19 +13,19 @@ namespace Core {
 //
 // Common vector types
 //
-using VectorN = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+using VectorN  = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
 using VectorNf = Eigen::VectorXf;
 using VectorNd = Eigen::VectorXd;
 
-using Vector4 = Eigen::Matrix<Scalar, 4, 1>;
+using Vector4  = Eigen::Matrix<Scalar, 4, 1>;
 using Vector4f = Eigen::Vector4f;
 using Vector4d = Eigen::Vector4d;
 
-using Vector3 = Eigen::Matrix<Scalar, 3, 1>;
+using Vector3  = Eigen::Matrix<Scalar, 3, 1>;
 using Vector3f = Eigen::Vector3f;
 using Vector3d = Eigen::Vector3d;
 
-using Vector2 = Eigen::Matrix<Scalar, 2, 1>;
+using Vector2  = Eigen::Matrix<Scalar, 2, 1>;
 using Vector2f = Eigen::Vector2f;
 using Vector2d = Eigen::Vector2d;
 
@@ -39,7 +39,7 @@ using Vector2ui = Eigen::Matrix<uint, 2, 1>;
 using Vector3ui = Eigen::Matrix<uint, 3, 1>;
 using Vector4ui = Eigen::Matrix<uint, 4, 1>;
 
-using Ray = Eigen::ParametrizedLine<Scalar, 3>;
+using Ray  = Eigen::ParametrizedLine<Scalar, 3>;
 using Rayf = Eigen::ParametrizedLine<float, 3>;
 using Rayd = Eigen::ParametrizedLine<double, 3>;
 
@@ -74,23 +74,23 @@ using Sparse = Eigen::SparseMatrix<Scalar>;
 // Transforms and rotations
 //
 
-using Quaternion = Eigen::Quaternion<Scalar>;
+using Quaternion  = Eigen::Quaternion<Scalar>;
 using Quaternionf = Eigen::Quaternionf;
 using Quaterniond = Eigen::Quaterniond;
 
-using Transform = Eigen::Transform<Scalar, 3, Eigen::Affine>;
+using Transform  = Eigen::Transform<Scalar, 3, Eigen::Affine>;
 using Transformf = Eigen::Affine3f;
 using Transformd = Eigen::Affine3d;
 
-using Aabb = Eigen::AlignedBox<Scalar, 3>;
+using Aabb  = Eigen::AlignedBox<Scalar, 3>;
 using Aabbf = Eigen::AlignedBox3f;
 using Aabbd = Eigen::AlignedBox3d;
 
-using AngleAxis = Eigen::AngleAxis<Scalar>;
+using AngleAxis  = Eigen::AngleAxis<Scalar>;
 using AngleAxisf = Eigen::AngleAxisf;
 using AngleAxisd = Eigen::AngleAxisd;
 
-using Translation = Eigen::Translation<Scalar, 3>;
+using Translation  = Eigen::Translation<Scalar, 3>;
 using Translationf = Eigen::Translation3f;
 using Translationd = Eigen::Translation3d;
 

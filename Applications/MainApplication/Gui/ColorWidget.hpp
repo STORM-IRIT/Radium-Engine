@@ -6,7 +6,8 @@
 namespace Ra {
 namespace Gui {
 
-class ColorWidget : public QWidget {
+class ColorWidget : public QWidget
+{
     Q_OBJECT
 
   public:

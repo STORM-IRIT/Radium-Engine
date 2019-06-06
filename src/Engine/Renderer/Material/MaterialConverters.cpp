@@ -34,10 +34,7 @@ bool removeMaterialConverter( const std::string& name ) {
 
 std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name ) {
     auto search = MaterialConverterRegistry.find( name );
-    if ( search != MaterialConverterRegistry.end() )
-    {
-        return {true, search->second};
-    }
+    if ( search != MaterialConverterRegistry.end() ) { return {true, search->second}; }
     auto result = std::make_pair( false, [name]( AssetMaterialPtr ) -> RadiumMaterialPtr {
         LOG( logERROR ) << "Required material converter " << name << " not found!";
         return nullptr;

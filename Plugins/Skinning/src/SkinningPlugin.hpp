@@ -26,7 +26,8 @@ namespace SkinningPlugin {
 class SkinningComponent;
 class SkinningSystem;
 
-class SkinningWidget : public QFrame {
+class SkinningWidget : public QFrame
+{
     Q_OBJECT
 
     friend class SkinningPluginC;
@@ -66,7 +67,8 @@ class SkinningWidget : public QFrame {
 
 // Du to an ambiguous name while compiling with Clang, must differentiate plugin claas from plugin
 // namespace
-class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
+class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+{
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )

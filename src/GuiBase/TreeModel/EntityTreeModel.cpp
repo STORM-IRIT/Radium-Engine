@@ -18,20 +18,20 @@ void ItemModel::buildModel() {
     for ( const auto& ent : m_engine->getEntityManager()->getEntities() )
     {
         EngineTreeItem* entityItem = new EngineTreeItem;
-        entityItem->m_entry = ItemEntry( ent );
-        entityItem->m_parent = m_rootItem.get();
+        entityItem->m_entry        = ItemEntry( ent );
+        entityItem->m_parent       = m_rootItem.get();
         for ( const auto& comp : ent->getComponents() )
         {
             if ( comp )
             {
                 EngineTreeItem* componentItem = new EngineTreeItem;
-                componentItem->m_entry = ItemEntry( ent, comp.get() );
-                componentItem->m_parent = entityItem;
+                componentItem->m_entry        = ItemEntry( ent, comp.get() );
+                componentItem->m_parent       = entityItem;
                 for ( const auto& roIdx : comp->m_renderObjects )
                 {
                     EngineTreeItem* roItem = new EngineTreeItem;
-                    roItem->m_entry = ItemEntry( ent, comp.get(), roIdx );
-                    roItem->m_parent = componentItem;
+                    roItem->m_entry        = ItemEntry( ent, comp.get(), roIdx );
+                    roItem->m_parent       = componentItem;
                     componentItem->m_children.emplace_back( roItem );
                 }
                 entityItem->m_children.emplace_back( componentItem );
@@ -56,9 +56,7 @@ QModelIndex ItemModel::findEntryIndex( const ItemEntry& entry ) const {
             stack.pop();
             // Found item, so build the index corresponding to it.
             if ( item->m_entry == entry )
-            {
-                return createIndex( item->getIndexInParent(), 0, item );
-            }
+            { return createIndex( item->getIndexInParent(), 0, item ); }
 
             // Add children to the stack
             for ( const auto& child : item->m_children )
@@ -78,16 +76,12 @@ void ItemModel::addItem( const Engine::ItemEntry& ent ) {
     {
         TreeItem* parentItem;
         QModelIndex parentIdx;
-        if ( ent.isEntityNode() )
-        {
-            parentItem = m_rootItem.get();
-        } else
+        if ( ent.isEntityNode() ) { parentItem = m_rootItem.get(); }
+        else
         {
             ItemEntry parentEntry;
-            if ( ent.isRoNode() )
-            {
-                parentEntry = ItemEntry( ent.m_entity, ent.m_component );
-            } else if ( ent.isComponentNode() )
+            if ( ent.isRoNode() ) { parentEntry = ItemEntry( ent.m_entity, ent.m_component ); }
+            else if ( ent.isComponentNode() )
             { parentEntry = ItemEntry( ent.m_entity ); }
             parentIdx = findEntryIndex( parentEntry );
             CORE_ASSERT( parentIdx.isValid(), "Parent does not exist" );
@@ -97,9 +91,9 @@ void ItemModel::addItem( const Engine::ItemEntry& ent ) {
         CORE_ASSERT( getItem( parentIdx ) == parentItem, "Model inconsistency" );
 
         EngineTreeItem* childItem = new EngineTreeItem;
-        childItem->m_entry = ent;
-        childItem->m_parent = parentItem;
-        int row = int( parentItem->m_children.size() );
+        childItem->m_entry        = ent;
+        childItem->m_parent       = parentItem;
+        int row                   = int( parentItem->m_children.size() );
         beginInsertRows( parentIdx, row, row );
         parentItem->m_children.emplace_back( childItem );
         endInsertRows();
@@ -113,11 +107,12 @@ void ItemModel::removeItem( const Engine::ItemEntry& ent ) {
     if ( entryIndex.isValid() )
     {
         EngineTreeItem* toRemove = static_cast<EngineTreeItem*>( getItem( entryIndex ) );
-        TreeItem* parentItem = toRemove->m_parent;
-        auto& childList = parentItem->m_children;
+        TreeItem* parentItem     = toRemove->m_parent;
+        auto& childList          = parentItem->m_children;
         const auto childPos =
-            std::find_if( childList.begin(), childList.end(),
-                          [toRemove]( const auto& ptr ) { return ptr.get() == toRemove; } );
+            std::find_if( childList.begin(), childList.end(), [toRemove]( const auto& ptr ) {
+                return ptr.get() == toRemove;
+            } );
 
         CORE_ASSERT( childPos != childList.end(), "Child not in parent's list" );
         int row = toRemove->getIndexInParent();
@@ -128,21 +123,19 @@ void ItemModel::removeItem( const Engine::ItemEntry& ent ) {
     }
 }
 
-void ItemModel::onDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
-{
-    if( topLeft == bottomRight && roles.size() == 1 && roles.first() == Qt::CheckStateRole )
+void ItemModel::onDataChanged( const QModelIndex& topLeft,
+                               const QModelIndex& bottomRight,
+                               const QVector<int>& roles ) {
+    if ( topLeft == bottomRight && roles.size() == 1 && roles.first() == Qt::CheckStateRole )
     {
         auto index = topLeft;
-        if( index.isValid() )
+        if ( index.isValid() )
         {
             bool visible = getItem( index )->isChecked();
-            auto ent = getEntry( index );
+            auto ent     = getEntry( index );
 
-            if( ent.isValid() && ent.isRoNode() )
-            {
-                emit visibilityROChanged( ent.m_roIndex, visible );
-            }
-        }
+            if ( ent.isValid() && ent.isRoNode() )
+            { emit visibilityROChanged( ent.m_roIndex, visible ); } }
     }
 }
 
@@ -150,10 +143,7 @@ int TreeItem::getIndexInParent() const {
     CORE_ASSERT( m_parent, "Looking for the root item's index." );
     for ( uint i = 0; i < m_parent->m_children.size(); ++i )
     {
-        if ( m_parent->m_children[i].get() == this )
-        {
-            return i;
-        }
+        if ( m_parent->m_children[i].get() == this ) { return i; }
     }
     // If we reached here, it means that the item
     // was not found in its parent's child list.

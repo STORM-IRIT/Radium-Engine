@@ -24,8 +24,8 @@ struct RA_CORE_API AbstractGeometry {
      * have to be declared as defaulted.
      * See http://en.cppreference.com/w/cpp/language/rule_of_three
      */
-    virtual ~AbstractGeometry() = default;
-    AbstractGeometry() = default;
+    virtual ~AbstractGeometry()                 = default;
+    AbstractGeometry()                          = default;
     AbstractGeometry( const AbstractGeometry& ) = default;
     AbstractGeometry& operator=( const AbstractGeometry& ) = default;
 

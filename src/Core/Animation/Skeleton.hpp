@@ -18,7 +18,8 @@ namespace Animation {
  * the former begin the parent of the latter in the hierarchy.
  * For animation purposes, a bone transform refers to the proximal joint's tranform.
  */
-class RA_CORE_API Skeleton : public Handle {
+class RA_CORE_API Skeleton : public Handle
+{
   public:
     Skeleton();
     explicit Skeleton( const uint n );
@@ -41,8 +42,10 @@ class RA_CORE_API Skeleton : public Handle {
      * @param label  the name for the new joint
      * @return       the index of the new joint
      */
-    int addBone( const int parent = -1, const Transform& T = Transform::Identity(),
-                 const SpaceType MODE = SpaceType::LOCAL, const Label label = "" );
+    int addBone( const int parent     = -1,
+                 const Transform& T   = Transform::Identity(),
+                 const SpaceType MODE = SpaceType::LOCAL,
+                 const Label label    = "" );
 
     /**
      * Get the i-th bone endpoints.

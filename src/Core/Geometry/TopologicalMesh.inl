@@ -26,10 +26,7 @@ inline TopologicalMesh::HalfedgeHandle TopologicalMesh::halfedge_handle( VertexH
                                                                          FaceHandle fh ) const {
     for ( ConstVertexIHalfedgeIter vih_it = cvih_iter( vh ); vih_it.is_valid(); ++vih_it )
     {
-        if ( face_handle( *vih_it ) == fh )
-        {
-            return *vih_it;
-        }
+        if ( face_handle( *vih_it ) == fh ) { return *vih_it; }
     }
     CORE_ASSERT( false, "vh is not a vertex of face fh" );
     return HalfedgeHandle();
@@ -75,18 +72,21 @@ inline void TopologicalMesh::clearProp( OpenMesh::FPropHandleT<Normal>& fProp ) 
 }
 
 inline void TopologicalMesh::copyNormal( HalfedgeHandle input_heh, HalfedgeHandle copy_heh ) {
-    auto nph = halfedge_normals_pph();
+    auto nph                  = halfedge_normals_pph();
     property( nph, copy_heh ) = property( nph, input_heh );
 }
 
-inline void TopologicalMesh::copyNormalFromFace( FaceHandle fh, HalfedgeHandle heh,
+inline void TopologicalMesh::copyNormalFromFace( FaceHandle fh,
+                                                 HalfedgeHandle heh,
                                                  OpenMesh::FPropHandleT<Normal> fProp ) {
-    auto nph = halfedge_normals_pph();
+    auto nph             = halfedge_normals_pph();
     property( nph, heh ) = property( fProp, fh );
 }
 
-inline void TopologicalMesh::interpolateNormal( HalfedgeHandle in_a, HalfedgeHandle in_b,
-                                                HalfedgeHandle out, Scalar f ) {
+inline void TopologicalMesh::interpolateNormal( HalfedgeHandle in_a,
+                                                HalfedgeHandle in_b,
+                                                HalfedgeHandle out,
+                                                Scalar f ) {
     auto nph = halfedge_normals_pph();
     property( nph, out ) =
         ( ( 1 - f ) * property( nph, in_a ) + f * property( nph, in_b ) ).normalized();
@@ -97,9 +97,9 @@ inline void TopologicalMesh::interpolateNormalOnFaces( FaceHandle fh,
     auto nph = halfedge_normals_pph();
 
     // init sum to first
-    auto heh = halfedge_handle( fh );
+    auto heh              = halfedge_handle( fh );
     property( fProp, fh ) = property( nph, heh );
-    heh = next_halfedge_handle( heh );
+    heh                   = next_halfedge_handle( heh );
 
     // sum others
     for ( size_t i = 1; i < valence( fh ); ++i )
@@ -134,7 +134,8 @@ void TopologicalMesh::clearProps( std::vector<OpenMesh::FPropHandleT<T>>& props 
 }
 
 template <typename T>
-void TopologicalMesh::copyProps( HalfedgeHandle input_heh, HalfedgeHandle copy_heh,
+void TopologicalMesh::copyProps( HalfedgeHandle input_heh,
+                                 HalfedgeHandle copy_heh,
                                  const std::vector<OpenMesh::HPropHandleT<T>>& props ) {
     for ( const auto& oh : props )
     {
@@ -143,20 +144,23 @@ void TopologicalMesh::copyProps( HalfedgeHandle input_heh, HalfedgeHandle copy_h
 }
 
 template <typename T>
-void TopologicalMesh::copyPropsFromFace( FaceHandle fh, HalfedgeHandle heh,
+void TopologicalMesh::copyPropsFromFace( FaceHandle fh,
+                                         HalfedgeHandle heh,
                                          const std::vector<OpenMesh::FPropHandleT<T>>& fProps,
                                          const std::vector<OpenMesh::HPropHandleT<T>>& hProps ) {
     for ( uint i = 0; i < fProps.size(); ++i )
     {
-        auto hp = hProps[i];
-        auto fp = fProps[i];
+        auto hp             = hProps[i];
+        auto fp             = fProps[i];
         property( hp, heh ) = property( fp, fh );
     }
 }
 
 template <typename T>
-void TopologicalMesh::interpolateProps( HalfedgeHandle in_a, HalfedgeHandle in_b,
-                                        HalfedgeHandle out, Scalar f,
+void TopologicalMesh::interpolateProps( HalfedgeHandle in_a,
+                                        HalfedgeHandle in_b,
+                                        HalfedgeHandle out,
+                                        Scalar f,
                                         const std::vector<OpenMesh::HPropHandleT<T>>& props ) {
     // interpolate properties
     for ( const auto& oh : props )
@@ -167,16 +171,17 @@ void TopologicalMesh::interpolateProps( HalfedgeHandle in_a, HalfedgeHandle in_b
 
 template <typename T>
 void TopologicalMesh::interpolatePropsOnFaces(
-    FaceHandle fh, const std::vector<OpenMesh::HPropHandleT<T>>& hProps,
+    FaceHandle fh,
+    const std::vector<OpenMesh::HPropHandleT<T>>& hProps,
     const std::vector<OpenMesh::FPropHandleT<T>>& fProps ) {
-    auto heh = halfedge_handle( fh );
+    auto heh       = halfedge_handle( fh );
     const size_t v = valence( fh );
 
     // init sum to first
     for ( size_t j = 0; j < fProps.size(); ++j )
     {
-        auto hp = hProps[j];
-        auto fp = fProps[j];
+        auto hp            = hProps[j];
+        auto fp            = fProps[j];
         property( fp, fh ) = property( hp, heh );
     }
     heh = next_halfedge_handle( heh );
@@ -194,7 +199,7 @@ void TopologicalMesh::interpolatePropsOnFaces(
     // normalize
     for ( size_t j = 0; j < fProps.size(); ++j )
     {
-        auto fp = fProps[j];
+        auto fp            = fProps[j];
         property( fp, fh ) = property( fp, fh ) / v;
     }
 }
@@ -234,7 +239,8 @@ inline void TopologicalMesh::copyAllProps( HalfedgeHandle input_heh, HalfedgeHan
 }
 
 inline void
-TopologicalMesh::copyAllPropsFromFace( FaceHandle fh, HalfedgeHandle heh,
+TopologicalMesh::copyAllPropsFromFace( FaceHandle fh,
+                                       HalfedgeHandle heh,
                                        OpenMesh::FPropHandleT<Normal> normalProp,
                                        std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
                                        std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
@@ -247,8 +253,10 @@ TopologicalMesh::copyAllPropsFromFace( FaceHandle fh, HalfedgeHandle heh,
     copyPropsFromFace( fh, heh, vec4Props, getVector4PropsHandles() );
 }
 
-inline void TopologicalMesh::interpolateAllProps( HalfedgeHandle in_a, HalfedgeHandle in_b,
-                                                  HalfedgeHandle out, Scalar f ) {
+inline void TopologicalMesh::interpolateAllProps( HalfedgeHandle in_a,
+                                                  HalfedgeHandle in_b,
+                                                  HalfedgeHandle out,
+                                                  Scalar f ) {
     interpolateNormal( in_a, in_b, out, f );
     interpolateProps( in_a, in_b, out, f, getFloatPropsHandles() );
     interpolateProps( in_a, in_b, out, f, getVector2PropsHandles() );
@@ -257,7 +265,8 @@ inline void TopologicalMesh::interpolateAllProps( HalfedgeHandle in_a, HalfedgeH
 }
 
 inline void TopologicalMesh::interpolateAllPropsOnFaces(
-    FaceHandle fh, OpenMesh::FPropHandleT<Normal> normalProp,
+    FaceHandle fh,
+    OpenMesh::FPropHandleT<Normal> normalProp,
     std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
     std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
     std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,

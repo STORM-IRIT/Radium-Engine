@@ -3,7 +3,8 @@
 namespace Ra {
 namespace Engine {
 
-Material::Material( const std::string& instanceName, const std::string& materialName,
+Material::Material( const std::string& instanceName,
+                    const std::string& materialName,
                     MaterialAspect aspect ) :
     m_instanceName{instanceName},
     m_aspect{aspect},

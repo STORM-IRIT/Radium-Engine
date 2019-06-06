@@ -8,7 +8,8 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-class KeyScaling : public KeyFrame<Core::Vector3> {
+class KeyScaling : public KeyFrame<Core::Vector3>
+{
   public:
     /// CONSTRUCTOR
     explicit KeyScaling( const AnimationTime& time = AnimationTime() ) :
@@ -22,8 +23,8 @@ class KeyScaling : public KeyFrame<Core::Vector3> {
     /// TRANSFORMATION
     inline Core::Vector3 defaultFrame() const override { return Core::Vector3( 1.0, 1.0, 1.0 ); }
 
-    inline Core::Vector3 interpolate( const Core::Vector3& F0, const Core::Vector3& F1,
-                                      const Scalar t ) const override {
+    inline Core::Vector3
+    interpolate( const Core::Vector3& F0, const Core::Vector3& F1, const Scalar t ) const override {
         Core::Vector3 result;
         Core::Animation::interpolate( F0, F1, t, result );
         return result;

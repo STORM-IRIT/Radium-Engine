@@ -22,11 +22,12 @@ namespace Engine {
  * Signals for destroyed objects are fired just before they are removed from the object
  * owning them and destroyed
  **/
-class SignalManager {
+class SignalManager
+{
 
   public:
     // Callbacks are functions which accept an item entry.
-    using Callback = std::function<void( const ItemEntry& )>;
+    using Callback    = std::function<void( const ItemEntry& )>;
     using EoFCallback = std::function<void( void )>;
 
   public:
@@ -50,7 +51,7 @@ class SignalManager {
     mutable std::mutex m_mutex;
 
   public:
-    bool m_isOn {true};
+    bool m_isOn{true};
 
     std::vector<Callback> m_entityCreatedCallbacks;
     std::vector<Callback> m_entityDestroyedCallbacks;

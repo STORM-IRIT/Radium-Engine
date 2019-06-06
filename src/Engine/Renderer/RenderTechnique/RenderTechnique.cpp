@@ -34,7 +34,7 @@ RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
         if ( setPasses & p )
         {
             shaderConfig[p] = o.shaderConfig.at( p );
-            shaders[p] = o.shaders.at( p );
+            shaders[p]      = o.shaders.at( p );
         }
     }
 }
@@ -48,10 +48,7 @@ void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig, Pa
 }
 
 const ShaderProgram* RenderTechnique::getShader( PassName pass ) const {
-    if ( setPasses & pass )
-    {
-        return shaders.at( pass );
-    }
+    if ( setPasses & pass ) { return shaders.at( pass ); }
     return nullptr;
 }
 
@@ -65,10 +62,7 @@ void RenderTechnique::updateGL() {
         }
     }
 
-    if ( material )
-    {
-        material->updateGL();
-    }
+    if ( material ) { material->updateGL(); }
 }
 
 const std::shared_ptr<Material>& RenderTechnique::getMaterial() const {
@@ -97,10 +91,8 @@ const ShaderConfiguration& RenderTechnique::getConfiguration( PassName pass ) co
 //      LIGHTING_TRANSPARENT = Nothing
 Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     if ( RadiumDefaultRenderTechnique != nullptr )
-    {
-        return *( RadiumDefaultRenderTechnique.get() );
-    }
-    std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
+    { return *( RadiumDefaultRenderTechnique.get() ); } std::shared_ptr<Material> mat(
+        new BlinnPhongMaterial( "DefaultGray" ) );
     auto rt = new Ra::Engine::RenderTechnique;
     rt->setMaterial( mat );
     auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
@@ -148,10 +140,7 @@ bool removeDefaultTechnique( const std::string& name ) {
  */
 std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string& name ) {
     auto search = EngineTechniqueRegistry.find( name );
-    if ( search != EngineTechniqueRegistry.end() )
-    {
-        return {true, search->second};
-    }
+    if ( search != EngineTechniqueRegistry.end() ) { return {true, search->second}; }
     auto result = std::make_pair( false, [name]( RenderTechnique&, bool ) -> void {
         LOG( logERROR ) << "Undefined default technique for " << name << " !";
     } );

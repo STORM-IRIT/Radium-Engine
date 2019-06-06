@@ -23,7 +23,8 @@ class ShaderProgram;
 /**
  * Implementation of the Blinn-Phong Material BSDF.
  */
-class RA_ENGINE_API BlinnPhongMaterial final : public Material {
+class RA_ENGINE_API BlinnPhongMaterial final : public Material
+{
     friend class BlinnPhongMaterialConverter;
 
   public:
@@ -109,9 +110,10 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
 /**
  * Converter from an external representation comming from FileData to internal representation.
  */
-class RA_ENGINE_API BlinnPhongMaterialConverter final {
+class RA_ENGINE_API BlinnPhongMaterialConverter final
+{
   public:
-    BlinnPhongMaterialConverter() = default;
+    BlinnPhongMaterialConverter()  = default;
     ~BlinnPhongMaterialConverter() = default;
 
     Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );

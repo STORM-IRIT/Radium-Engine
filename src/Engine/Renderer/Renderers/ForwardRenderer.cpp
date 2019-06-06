@@ -24,9 +24,14 @@ namespace Engine {
 using namespace Core::Utils; // log
 
 namespace {
-const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
-                          GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5,
-                          GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7};
+const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
+                          GL_COLOR_ATTACHMENT1,
+                          GL_COLOR_ATTACHMENT2,
+                          GL_COLOR_ATTACHMENT3,
+                          GL_COLOR_ATTACHMENT4,
+                          GL_COLOR_ATTACHMENT5,
+                          GL_COLOR_ATTACHMENT6,
+                          GL_COLOR_ATTACHMENT7};
 }
 
 ForwardRenderer::ForwardRenderer() : Renderer() {}
@@ -64,58 +69,58 @@ void ForwardRenderer::initShaders() {
 }
 
 void ForwardRenderer::initBuffers() {
-    m_fbo = std::make_unique<globjects::Framebuffer>();
-    m_oitFbo = std::make_unique<globjects::Framebuffer>();
+    m_fbo            = std::make_unique<globjects::Framebuffer>();
+    m_oitFbo         = std::make_unique<globjects::Framebuffer>();
     m_postprocessFbo = std::make_unique<globjects::Framebuffer>();
-    m_uiXrayFbo = std::make_unique<globjects::Framebuffer>();
+    m_uiXrayFbo      = std::make_unique<globjects::Framebuffer>();
     // Forward renderer internal textures texture
 
     TextureParameters texparams;
-    texparams.width = m_width;
+    texparams.width  = m_width;
     texparams.height = m_height;
     texparams.target = GL_TEXTURE_2D;
 
     // Depth texture
-    texparams.minFilter = GL_NEAREST;
-    texparams.magFilter = GL_NEAREST;
-    texparams.internalFormat = GL_DEPTH_COMPONENT24;
-    texparams.format = GL_DEPTH_COMPONENT;
-    texparams.type = GL_UNSIGNED_INT;
-    texparams.name = "Depth (fw renderer)";
+    texparams.minFilter                = GL_NEAREST;
+    texparams.magFilter                = GL_NEAREST;
+    texparams.internalFormat           = GL_DEPTH_COMPONENT24;
+    texparams.format                   = GL_DEPTH_COMPONENT;
+    texparams.type                     = GL_UNSIGNED_INT;
+    texparams.name                     = "Depth (fw renderer)";
     m_textures[RendererTextures_Depth] = std::make_unique<Texture>( texparams );
 
     // Color texture
     texparams.internalFormat = GL_RGBA32F;
-    texparams.format = GL_RGBA;
-    texparams.type = GL_FLOAT;
-    texparams.minFilter = GL_LINEAR;
-    texparams.magFilter = GL_LINEAR;
+    texparams.format         = GL_RGBA;
+    texparams.type           = GL_FLOAT;
+    texparams.minFilter      = GL_LINEAR;
+    texparams.magFilter      = GL_LINEAR;
 
-    texparams.name = "HDR";
+    texparams.name                   = "HDR";
     m_textures[RendererTextures_HDR] = std::make_unique<Texture>( texparams );
 
-    texparams.name = "Normal";
+    texparams.name                      = "Normal";
     m_textures[RendererTextures_Normal] = std::make_unique<Texture>( texparams );
 
-    texparams.name = "Diffuse";
+    texparams.name                       = "Diffuse";
     m_textures[RendererTextures_Diffuse] = std::make_unique<Texture>( texparams );
 
-    texparams.name = "Specular";
+    texparams.name                        = "Specular";
     m_textures[RendererTextures_Specular] = std::make_unique<Texture>( texparams );
 
-    texparams.name = "OIT Accum";
+    texparams.name                        = "OIT Accum";
     m_textures[RendererTextures_OITAccum] = std::make_unique<Texture>( texparams );
 
-    texparams.name = "OIT Revealage";
+    texparams.name                            = "OIT Revealage";
     m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( texparams );
 
-    m_secondaryTextures["Depth (fw)"] = m_textures[RendererTextures_Depth].get();
-    m_secondaryTextures["HDR Texture"] = m_textures[RendererTextures_HDR].get();
-    m_secondaryTextures["Normal Texture"] = m_textures[RendererTextures_Normal].get();
-    m_secondaryTextures["Diffuse Texture"] = m_textures[RendererTextures_Diffuse].get();
+    m_secondaryTextures["Depth (fw)"]       = m_textures[RendererTextures_Depth].get();
+    m_secondaryTextures["HDR Texture"]      = m_textures[RendererTextures_HDR].get();
+    m_secondaryTextures["Normal Texture"]   = m_textures[RendererTextures_Normal].get();
+    m_secondaryTextures["Diffuse Texture"]  = m_textures[RendererTextures_Diffuse].get();
     m_secondaryTextures["Specular Texture"] = m_textures[RendererTextures_Specular].get();
-    m_secondaryTextures["OIT Accum"] = m_textures[RendererTextures_OITAccum].get();
-    m_secondaryTextures["OIT Revealage"] = m_textures[RendererTextures_OITRevealage].get();
+    m_secondaryTextures["OIT Accum"]        = m_textures[RendererTextures_OITAccum].get();
+    m_secondaryTextures["OIT Revealage"]    = m_textures[RendererTextures_OITRevealage].get();
 }
 
 void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) {
@@ -127,7 +132,8 @@ void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) 
         {
             m_transparentRenderObjects.push_back( *it );
             it = m_fancyRenderObjects.erase( it );
-        } else
+        }
+        else
         { ++it; }
     }
     m_fancyTransparentCount = m_transparentRenderObjects.size();
@@ -146,7 +152,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     GL_ASSERT( glDrawBuffers( 4, buffers ) );
 
     static const auto clearZeros = Core::Utils::Color::Black();
-    static const auto clearOnes = Core::Utils::Color::White();
+    static const auto clearOnes  = Core::Utils::Color::White();
     static const float clearDepth{1.0f};
 
     GL_ASSERT( glClearBufferfv( GL_COLOR, 0, getBackgroundColor().data() ) ); // Clear color
@@ -210,7 +216,8 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
             }
 #endif
         }
-    } else
+    }
+    else
     { LOG( logINFO ) << "Opaque : no light sources, unable to render"; }
 
 #ifndef NO_TRANSPARENCY
@@ -243,11 +250,12 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
                 for ( const auto& ro : m_transparentRenderObjects )
                 {
-                    ro->render( trasparencypassParams, renderData,
-                                RenderTechnique::LIGHTING_TRANSPARENT );
+                    ro->render(
+                        trasparencypassParams, renderData, RenderTechnique::LIGHTING_TRANSPARENT );
                 }
             }
-        } else
+        }
+        else
         { LOG( logINFO ) << "Transparent : no light sources, unable to render"; }
 
         m_oitFbo->unbind();
@@ -260,8 +268,8 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
             auto shader = m_shaderMgr->getShaderProgram( "ComposeOIT" );
             shader->bind();
             shader->setUniform( "u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0 );
-            shader->setUniform( "u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(),
-                                1 );
+            shader->setUniform(
+                "u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1 );
         }
         m_quadMesh->render();
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
@@ -306,7 +314,8 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
                 }
 #endif
             }
-        } else
+        }
+        else
         { LOG( logINFO ) << "Wireframe : no light sources, unable to render"; }
 
         glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
@@ -394,12 +403,12 @@ void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
             // bind data
             shader->bind();
 
-            Core::Matrix4 M = ro->getTransformAsMatrix();
+            Core::Matrix4 M  = ro->getTransformAsMatrix();
             Core::Matrix4 MV = renderData.viewMatrix * M;
-            Core::Vector3 V = MV.block<3, 1>( 0, 3 );
-            Scalar d = V.norm();
+            Core::Vector3 V  = MV.block<3, 1>( 0, 3 );
+            Scalar d         = V.norm();
 
-            Core::Matrix4 S = Core::Matrix4::Identity();
+            Core::Matrix4 S    = Core::Matrix4::Identity();
             S.coeffRef( 0, 0 ) = S.coeffRef( 1, 1 ) = S.coeffRef( 2, 2 ) = d;
 
             M = M * S;
@@ -456,11 +465,9 @@ void ForwardRenderer::resizeInternal() {
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT2, m_textures[RendererTextures_Diffuse]->texture() );
     m_fbo->attachTexture( GL_COLOR_ATTACHMENT3, m_textures[RendererTextures_Specular]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
-    {
-        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus();
-    }
+    { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus(); }
 
-#ifndef NO_TRANSPARENCY
+    #ifndef NO_TRANSPARENCY
     m_oitFbo->bind();
     m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_textures[RendererTextures_Depth]->texture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0,
@@ -468,10 +475,8 @@ void ForwardRenderer::resizeInternal() {
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT1,
                              m_textures[RendererTextures_OITRevealage]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
-    {
-        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_oitFbo) : " << m_fbo->checkStatus();
-    }
-#endif
+    { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_oitFbo) : " << m_fbo->checkStatus(); }
+    #endif
 
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,
@@ -491,9 +496,7 @@ void ForwardRenderer::resizeInternal() {
     m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT, Renderer::m_depthTexture->texture() );
     m_uiXrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
-    {
-        LOG( logERROR ) << "FBO Error (ForwardRenderer::m_uiXrayFbo) : " << m_fbo->checkStatus();
-    }
+    { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_uiXrayFbo) : " << m_fbo->checkStatus(); }
     // finished with fbo, undbind to bind default
     globjects::Framebuffer::unbind();
 }

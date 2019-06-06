@@ -11,11 +11,12 @@ namespace Animation {
 
 using Time = Scalar;
 
-class AnimationTime {
+class AnimationTime
+{
   public:
     /// CONSTRUCTOR
     AnimationTime( const Time& start = std::numeric_limits<Time>::max(),
-                   const Time& end = std::numeric_limits<Time>::min() ) :
+                   const Time& end   = std::numeric_limits<Time>::min() ) :
         m_start( start ),
         m_end( end ) {}
     AnimationTime( const AnimationTime& time ) = default;
@@ -37,7 +38,7 @@ class AnimationTime {
 
     inline void merge( const AnimationTime& time ) {
         m_start = ( m_start > time.m_start ) ? time.m_start : m_start;
-        m_end = ( m_end < time.m_end ) ? time.m_end : m_end;
+        m_end   = ( m_end < time.m_end ) ? time.m_end : m_end;
     }
 
     /// QUERY
@@ -60,10 +61,7 @@ class AnimationTime {
     }
     inline bool operator!=( const AnimationTime& time ) const { return !( *this == time ); }
     inline bool operator<( const AnimationTime& time ) const {
-        if ( ( m_start < time.m_start ) && ( m_end < time.m_start ) )
-        {
-            return true;
-        }
+        if ( ( m_start < time.m_start ) && ( m_end < time.m_start ) ) { return true; }
         if ( m_start == time.m_start )
         {
             // bitch please.

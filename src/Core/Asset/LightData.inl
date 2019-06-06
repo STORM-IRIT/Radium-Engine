@@ -31,8 +31,8 @@ inline void LightData::setFrame( const Eigen::Matrix<Scalar, 4, 4>& frame ) {
 /// construct a directional light
 inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 1>& direction ) {
-    m_type = DIRECTIONAL_LIGHT;
-    m_color = color;
+    m_type               = DIRECTIONAL_LIGHT;
+    m_color              = color;
     m_dirlight.direction = direction;
 }
 
@@ -40,23 +40,25 @@ inline void LightData::setLight( const Core::Utils::Color& color,
 inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 1>& position,
                                  LightAttenuation attenuation ) {
-    m_type = POINT_LIGHT;
-    m_color = color;
-    m_pointlight.position = position;
+    m_type                   = POINT_LIGHT;
+    m_color                  = color;
+    m_pointlight.position    = position;
     m_pointlight.attenuation = attenuation;
 }
 
 /// construct a spot light
 inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 1>& position,
-                                 const Eigen::Matrix<Scalar, 3, 1>& direction, Scalar inAngle,
-                                 Scalar outAngle, LightAttenuation attenuation ) {
-    m_type = SPOT_LIGHT;
-    m_color = color;
-    m_spotlight.position = position;
-    m_spotlight.direction = direction;
-    m_spotlight.innerAngle = inAngle;
-    m_spotlight.outerAngle = outAngle;
+                                 const Eigen::Matrix<Scalar, 3, 1>& direction,
+                                 Scalar inAngle,
+                                 Scalar outAngle,
+                                 LightAttenuation attenuation ) {
+    m_type                  = SPOT_LIGHT;
+    m_color                 = color;
+    m_spotlight.position    = position;
+    m_spotlight.direction   = direction;
+    m_spotlight.innerAngle  = inAngle;
+    m_spotlight.outerAngle  = outAngle;
     m_spotlight.attenuation = attenuation;
 }
 
@@ -66,12 +68,12 @@ inline void LightData::setLight( const Core::Utils::Color& color,
                                  const Eigen::Matrix<Scalar, 3, 3>& spatialCov,
                                  const Eigen::Matrix<Scalar, 3, 3>& normalCov,
                                  LightAttenuation attenuation ) {
-    m_type = AREA_LIGHT;
-    m_color = color;
-    m_arealight.position = cog;
+    m_type                        = AREA_LIGHT;
+    m_color                       = color;
+    m_arealight.position          = cog;
     m_arealight.spatialCovariance = spatialCov;
-    m_arealight.normalCovariance = normalCov;
-    m_arealight.attenuation = attenuation;
+    m_arealight.normalCovariance  = normalCov;
+    m_arealight.attenuation       = attenuation;
 }
 
 /// QUERY

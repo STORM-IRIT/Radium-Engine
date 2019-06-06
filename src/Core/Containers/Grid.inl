@@ -15,7 +15,7 @@ linearToIdxVector( uint linIdx, const typename Grid<T, D>::IdxVector& size ) {
     for ( uint i = 0; i < D; ++i )
     {
         result[i] = linIdx % size[i];
-        linIdx = linIdx / size[i];
+        linIdx    = linIdx / size[i];
     }
     return result;
 }
@@ -23,7 +23,7 @@ linearToIdxVector( uint linIdx, const typename Grid<T, D>::IdxVector& size ) {
 template <typename T, uint D>
 inline uint idxVectorToLinear( const typename Grid<T, D>::IdxVector& vecIdx,
                                const typename Grid<T, D>::IdxVector& size ) {
-    uint result = 0;
+    uint result  = 0;
     uint dimProd = 1;
     for ( uint i = 0; i < D; ++i )
     {

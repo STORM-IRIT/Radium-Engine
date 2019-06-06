@@ -32,10 +32,8 @@ inline Index IndexMap<T>::insert( const T& obj ) {
     {
         typename std::deque<Index>::iterator it =
             std::lower_bound( m_index.begin(), m_index.end(), idx );
-        if ( it == m_index.end() )
-        {
-            m_data.insert( m_data.end(), obj );
-        } else
+        if ( it == m_index.end() ) { m_data.insert( m_data.end(), obj ); }
+        else
         { m_data.insert( citfromIndex( it ), obj ); }
         m_index.insert( it, idx );
     }
@@ -50,10 +48,8 @@ Index IndexMap<T>::emplace( const Args&&... args ) {
     {
         typename std::deque<Index>::iterator it =
             std::lower_bound( m_index.begin(), m_index.end(), idx );
-        if ( it == m_index.end() )
-        {
-            m_data.emplace( m_data.end(), args... );
-        } else
+        if ( it == m_index.end() ) { m_data.emplace( m_data.end(), args... ); }
+        else
         { m_data.emplace( citfromIndex( it ), args... ); }
         m_index.insert( it, idx );
     }
@@ -66,10 +62,7 @@ Index IndexMap<T>::emplace( const Args&&... args ) {
 template <typename T>
 inline bool IndexMap<T>::remove( const Index& idx ) {
     typename std::deque<Index>::iterator it = std::find( m_index.begin(), m_index.end(), idx );
-    if ( it == m_index.end() )
-    {
-        return false;
-    }
+    if ( it == m_index.end() ) { return false; }
     m_data.erase( itfromIndex( it ) );
     m_index.erase( it );
     push_free_index( idx );
@@ -132,10 +125,7 @@ inline bool IndexMap<T>::contains( const Index& idx ) const {
 
 template <typename T>
 inline Index IndexMap<T>::index( const uint i ) const {
-    if ( i >= m_index.size() )
-    {
-        return Index::Invalid();
-    }
+    if ( i >= m_index.size() ) { return Index::Invalid(); }
     return m_index.at( i );
 }
 
@@ -226,10 +216,7 @@ inline bool IndexMap<T>::pop_free_index( Index& idx ) {
         Index next = idx + 1;
         if ( next.isValid() )
         {
-            if ( uint( next.getValue() ) > m_data.size() )
-            {
-                m_free.push_back( next );
-            }
+            if ( uint( next.getValue() ) > m_data.size() ) { m_free.push_back( next ); }
         }
     }
     return true;

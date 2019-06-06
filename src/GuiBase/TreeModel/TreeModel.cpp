@@ -10,10 +10,7 @@ using namespace Ra::Core::Utils;
 
 int TreeModel::rowCount( const QModelIndex& parent ) const {
     /// The row count of an item is the number of child it has.
-    if ( parent.column() > 0 )
-    {
-        return 0;
-    }
+    if ( parent.column() > 0 ) { return 0; }
     TreeItem* parentItem = getItem( parent );
     return int( parentItem->m_children.size() );
 }
@@ -32,32 +29,27 @@ TreeItem* TreeModel::getItem( const QModelIndex& index ) const {
 }
 
 QVariant TreeModel::data( const QModelIndex& index, int role ) const {
-    if( index.isValid() && index.column() == 0 )
+    if ( index.isValid() && index.column() == 0 )
     {
         if ( role == Qt::DisplayRole )
-        {
-            return QVariant( QString::fromStdString( getItem( index )->getName() ) );
-        }
+        { return QVariant( QString::fromStdString( getItem( index )->getName() ) ); }
         else if ( role == Qt::CheckStateRole )
-        {
-            return static_cast< int >( getItem( index )->isChecked() ? Qt::Checked : Qt::Unchecked );
-        }
+        { return static_cast<int>( getItem( index )->isChecked() ? Qt::Checked : Qt::Unchecked ); }
     }
     return QVariant();
 }
 
-bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int role )
-{
-    if( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole )
+bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int role ) {
+    if ( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole )
     {
         bool checked = value.toBool();
         getItem( index )->setChecked( checked );
         emit dataChanged( index, index, {Qt::CheckStateRole} );
 
         // recursion on all children
-        for(size_t i=0; i<getItem( index )->m_children.size(); ++i)
+        for ( size_t i = 0; i < getItem( index )->m_children.size(); ++i )
         {
-            setData( this->index(i, 0, index), value, role );
+            setData( this->index( i, 0, index ), value, role );
         }
         return true;
     }
@@ -66,35 +58,25 @@ bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int ro
 
 QVariant TreeModel::headerData( int section, Qt::Orientation orientation, int role ) const {
     if ( section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole )
-    {
-        return QVariant( QString::fromStdString( getHeaderString() ) );
-    } else
+    { return QVariant( QString::fromStdString( getHeaderString() ) ); } else
     { return QVariant(); }
 }
 
 QModelIndex TreeModel::index( int row, int column, const QModelIndex& parent ) const {
-    if ( !hasIndex( row, column, parent ) )
-    {
-        return QModelIndex();
-    }
+    if ( !hasIndex( row, column, parent ) ) { return QModelIndex(); }
     // Only items from the first column may have a parent
-    if ( parent.isValid() && parent.column() != 0 )
-    {
-        return QModelIndex();
-    }
+    if ( parent.isValid() && parent.column() != 0 ) { return QModelIndex(); }
     // Grab the parent and make an index of the child.
     TreeItem* parentItem = getItem( parent );
     if ( parentItem && row < parentItem->m_children.size() )
-    {
-        return createIndex( row, column, parentItem->m_children[row].get() );
-    } else
+    { return createIndex( row, column, parentItem->m_children[row].get() ); } else
     { return QModelIndex(); }
 }
 
 QModelIndex TreeModel::parent( const QModelIndex& child ) const {
     if ( child.isValid() )
     {
-        TreeItem* childItem = getItem( child );
+        TreeItem* childItem  = getItem( child );
         TreeItem* parentItem = childItem->m_parent;
 
         // No parents of the root item are indexed.
@@ -129,10 +111,7 @@ bool TreeModel::findInTree( const TreeItem* item ) const {
     {
         const TreeItem* current = stack.top();
         stack.pop();
-        if ( current == item )
-        {
-            return true;
-        }
+        if ( current == item ) { return true; }
         for ( const auto& child : current->m_children )
         {
             stack.push( child.get() );

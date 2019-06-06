@@ -15,14 +15,15 @@ class Texture;
 
 namespace Ra {
 namespace Engine {
-  /** Default renderer for the Radium Engine
-   * This classe implements aforward rendering algorithm with Z-prepass, multipass light accumulation for opaque
-   * and transperent objects.
-   * Once renderer, the final is composited with Ui, debug and X-ray objects renderings on demand.
-   *
-   * @see rendering.md for description of the renderer
-   */
-class RA_ENGINE_API ForwardRenderer : public Renderer {
+/** Default renderer for the Radium Engine
+ * This classe implements aforward rendering algorithm with Z-prepass, multipass light accumulation
+ * for opaque and transperent objects. Once renderer, the final is composited with Ui, debug and
+ * X-ray objects renderings on demand.
+ *
+ * @see rendering.md for description of the renderer
+ */
+class RA_ENGINE_API ForwardRenderer : public Renderer
+{
   public:
     ForwardRenderer();
     ~ForwardRenderer() override;
@@ -65,13 +66,13 @@ class RA_ENGINE_API ForwardRenderer : public Renderer {
     std::unique_ptr<globjects::Framebuffer> m_uiXrayFbo;
 
     std::vector<RenderObjectPtr> m_transparentRenderObjects;
-    size_t m_fancyTransparentCount { 0 };
+    size_t m_fancyTransparentCount{0};
 
-    size_t m_pingPongSize { 0 };
+    size_t m_pingPongSize{0};
 
     std::array<std::unique_ptr<Texture>, RendererTexture_Count> m_textures;
 
-    static const size_t ShadowMapSize { 1024 };
+    static const size_t ShadowMapSize{1024};
     std::vector<std::shared_ptr<Texture>> m_shadowMaps;
     std::vector<Core::Matrix4> m_lightMatrices;
 };

@@ -48,10 +48,8 @@ inline bool BlinnPhongMaterialData::hasOpacityTexture() const {
 inline void BlinnPhongMaterialData::displayInfo() const {
     using namespace Core::Utils; // log
     auto print = []( bool ok, const std::string& name, const auto& value ) {
-        if ( ok )
-        {
-            LOG( logINFO ) << name << value;
-        } else
+        if ( ok ) { LOG( logINFO ) << name << value; }
+        else
         { LOG( logINFO ) << name << "NO"; }
     };
 

@@ -9,27 +9,30 @@
 namespace Ra {
 namespace Core {
 namespace Geometry {
-class Curve2D {
+class Curve2D
+{
   public:
     enum CurveType { LINE, CUBICBEZIER, SPLINE, SIZE };
 
     using Vector = Eigen::Matrix<Scalar, 2, 1>;
 
     virtual void addPoint( const Vector p ) = 0;
-    virtual ~Curve2D() = default;
+    virtual ~Curve2D()                      = default;
 
-    virtual Vector f( Scalar u ) const = 0;
-    virtual Vector df( Scalar u ) const = 0;
+    virtual Vector f( Scalar u ) const                 = 0;
+    virtual Vector df( Scalar u ) const                = 0;
     virtual Vector fdf( Scalar t, Vector& grad ) const = 0;
 
   protected:
     int size;
 };
 
-class QuadraSpline : public Curve2D {
+class QuadraSpline : public Curve2D
+{
   public:
     QuadraSpline() { this->size = 0; }
-    QuadraSpline( const Curve2D::Vector& p0, const Curve2D::Vector& p1,
+    QuadraSpline( const Curve2D::Vector& p0,
+                  const Curve2D::Vector& p1,
                   const Curve2D::Vector& p2 ) :
         m_points{p0, p1, p2} {
         this->size = 3;
@@ -46,10 +49,13 @@ class QuadraSpline : public Curve2D {
     Core::VectorArray<Vector> m_points;
 };
 
-class CubicBezier : public Curve2D {
+class CubicBezier : public Curve2D
+{
   public:
     CubicBezier() { this->size = 0; }
-    CubicBezier( const Curve2D::Vector& p0, const Curve2D::Vector& p1, const Curve2D::Vector& p2,
+    CubicBezier( const Curve2D::Vector& p0,
+                 const Curve2D::Vector& p1,
+                 const Curve2D::Vector& p2,
                  const Curve2D::Vector& p3 ) :
         m_points{p0, p1, p2, p3} {
         this->size = 4;
@@ -66,7 +72,8 @@ class CubicBezier : public Curve2D {
     Vector m_points[4];
 };
 
-class Line : public Curve2D {
+class Line : public Curve2D
+{
   public:
     Line() { this->size = 0; }
     Line( const Vector& p0, const Vector& p1 ) : m_points{p0, p1} { this->size = 2; }
@@ -82,7 +89,8 @@ class Line : public Curve2D {
     Vector m_points[2];
 };
 
-class SplineCurve : public Curve2D {
+class SplineCurve : public Curve2D
+{
   public:
     SplineCurve() { this->size = 0; }
     explicit SplineCurve( Core::VectorArray<Vector> points ) : m_points( points ) {

@@ -22,9 +22,9 @@ namespace Geometry {
 //      A( i, j ) = 0         , otherwise
 // where f( i, j ) is a generic function defined over an edge
 using AdjacencyMatrix = Ra::Core::Sparse;
-using VVAdj = AdjacencyMatrix;
-using VTAdj = AdjacencyMatrix;
-using TVAdj = AdjacencyMatrix;
+using VVAdj           = AdjacencyMatrix;
+using VTAdj           = AdjacencyMatrix;
+using TVAdj           = AdjacencyMatrix;
 
 /*
  * Return the AdjacencyMatrix for the given set of points and triangles.
@@ -59,7 +59,8 @@ RA_CORE_API TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p,
  *       f( i, j ) = 1 , if exist the edge from i to j
  *       f( i, j ) = 0 , otherwise
  */
-void uniformAdjacency( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
+void uniformAdjacency( const VectorArray<Vector3>& p,
+                       const VectorArray<Vector3ui>& T,
                        AdjacencyMatrix& Adj );
 
 /*

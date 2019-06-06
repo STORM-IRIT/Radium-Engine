@@ -46,15 +46,12 @@ bool AssimpFileLoader::handleFileExtension( const std::string& extension ) const
 FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     auto fileData = new FileData( filename );
 
-    if ( !fileData->isInitialized() )
-    {
-        return nullptr;
-    }
+    if ( !fileData->isInitialized() ) { return nullptr; }
 
     const aiScene* scene = m_importer.ReadFile(
-        fileData->getFileName(), aiProcess_Triangulate | aiProcess_GenSmoothNormals |
-                                     aiProcess_SortByPType | aiProcess_FixInfacingNormals |
-                                     aiProcess_CalcTangentSpace | aiProcess_GenUVCoords );
+        fileData->getFileName(),
+        aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_SortByPType |
+            aiProcess_FixInfacingNormals | aiProcess_CalcTangentSpace | aiProcess_GenUVCoords );
 
     if ( scene == nullptr )
     {
@@ -63,10 +60,7 @@ FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
 
-    if ( fileData->isVerbose() )
-    {
-        LOG( logINFO ) << "File Loading begin...";
-    }
+    if ( fileData->isVerbose() ) { LOG( logINFO ) << "File Loading begin..."; }
 
     std::clock_t startTime;
     startTime = std::clock();
@@ -82,7 +76,8 @@ FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
         AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                            fileData->isVerbose() );
         lightLoader.loadData( scene, fileData->m_lightData );
-    } else
+    }
+    else
     {
         AssimpGeometryDataLoader geometryLoader( Core::Utils::getDirName( filename ),
                                                  fileData->isVerbose() );
@@ -92,7 +87,8 @@ FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
         // Note that currently, Assimp is ALWAYS creating faces, even when
         // loading point clouds
         // (see 3rdPartyLibraries/Assimp/code/PlyLoader.cpp:260)
-        bool ok = std::any_of( fileData->m_geometryData.begin(), fileData->m_geometryData.end(),
+        bool ok = std::any_of( fileData->m_geometryData.begin(),
+                               fileData->m_geometryData.end(),
                                []( const auto& geom ) -> bool { return geom->hasFaces(); } );
         if ( !ok )
         {

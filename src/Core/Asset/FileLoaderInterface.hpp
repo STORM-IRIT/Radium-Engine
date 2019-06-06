@@ -11,7 +11,8 @@ namespace Core {
 namespace Asset {
 class FileData;
 
-class FileLoaderInterface {
+class FileLoaderInterface
+{
   public:
     virtual ~FileLoaderInterface() {}
 

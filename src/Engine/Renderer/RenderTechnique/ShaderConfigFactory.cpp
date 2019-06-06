@@ -38,10 +38,8 @@ ShaderConfiguration getConfiguration( const std::string& name ) {
     }
 
     auto found = configs.find( name );
-    if ( found != configs.end() )
-    {
-        return found->second;
-    } else
+    if ( found != configs.end() ) { return found->second; }
+    else
     {
         // Instead of creating a inconsistant configuration, warn and return a default one
         // default configuration is defined as a static member of ShaderConfiguration

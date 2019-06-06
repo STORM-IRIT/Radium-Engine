@@ -16,8 +16,9 @@ namespace Engine {
  * Interface providing functions to access and store cameras in
  * an implementation-defined way.
  */
-class RA_ENGINE_API CameraStorage {
-  // Radium-V2 : make camera storage compatible with range for ...
+class RA_ENGINE_API CameraStorage
+{
+    // Radium-V2 : make camera storage compatible with range for ...
   public:
     CameraStorage() = default;
 

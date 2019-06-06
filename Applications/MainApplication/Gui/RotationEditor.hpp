@@ -8,7 +8,8 @@
 namespace Ra {
 namespace Gui {
 /// A small Qt Widget to edit a rotation with Euler angles (with matched sliders and spin boxes).
-class RotationEditor : public QWidget, private Ui::RotationEditor {
+class RotationEditor : public QWidget, private Ui::RotationEditor
+{
     Q_OBJECT
   public:
     RotationEditor( uint id, QString title, bool editable, QWidget* parent = nullptr ) :
@@ -21,41 +22,65 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         m_relSpinBoxes[0] = m_x_rel;
         m_relSpinBoxes[1] = m_y_rel;
         m_relSpinBoxes[2] = m_z_rel;
-        m_relSliders[0] = m_slider_x_rel;
-        m_relSliders[1] = m_slider_y_rel;
-        m_relSliders[2] = m_slider_z_rel;
+        m_relSliders[0]   = m_slider_x_rel;
+        m_relSliders[1]   = m_slider_y_rel;
+        m_relSliders[2]   = m_slider_z_rel;
 
         // A static cast is needed to get the right function pointer.
         // This typedefs makes the declaration easier to read.
         typedef void ( QDoubleSpinBox::*spinPtr )( double );
         typedef void ( QSlider::*slidePtr )( int );
 
-        connect( m_x, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_x,
+                 static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedAbsSpin );
-        connect( m_y, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_y,
+                 static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedAbsSpin );
-        connect( m_z, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_z,
+                 static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedAbsSpin );
 
-        connect( m_slider_x, static_cast<slidePtr>( &QSlider::valueChanged ), this,
+        connect( m_slider_x,
+                 static_cast<slidePtr>( &QSlider::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedAbsSlide );
-        connect( m_slider_y, static_cast<slidePtr>( &QSlider::valueChanged ), this,
+        connect( m_slider_y,
+                 static_cast<slidePtr>( &QSlider::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedAbsSlide );
-        connect( m_slider_z, static_cast<slidePtr>( &QSlider::valueChanged ), this,
+        connect( m_slider_z,
+                 static_cast<slidePtr>( &QSlider::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedAbsSlide );
 
-        connect( m_x_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_x_rel,
+                 static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedRelSpinX );
-        connect( m_y_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_y_rel,
+                 static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedRelSpinY );
-        connect( m_z_rel, static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_z_rel,
+                 static_cast<spinPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedRelSpinZ );
 
-        connect( m_slider_x_rel, static_cast<slidePtr>( &QSlider::valueChanged ), this,
+        connect( m_slider_x_rel,
+                 static_cast<slidePtr>( &QSlider::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedRelSlideX );
-        connect( m_slider_y_rel, static_cast<slidePtr>( &QSlider::valueChanged ), this,
+        connect( m_slider_y_rel,
+                 static_cast<slidePtr>( &QSlider::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedRelSlideY );
-        connect( m_slider_z_rel, static_cast<slidePtr>( &QSlider::valueChanged ), this,
+        connect( m_slider_z_rel,
+                 static_cast<slidePtr>( &QSlider::valueChanged ),
+                 this,
                  &RotationEditor::onValueChangedRelSlideZ );
 
         m_x->setReadOnly( !editable );
@@ -75,7 +100,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
 
     /// Manually set a new value for the rotation.
     void setValue( const Core::Quaternion& quat ) {
-        Core::Matrix3 m = quat.toRotationMatrix();
+        Core::Matrix3 m   = quat.toRotationMatrix();
         Core::Vector3 ypr = m.eulerAngles( 2, 1, 0 ); // yaw pitch roll.
 
         // Note on rotation order : the Euler angles are gotten in the order 2,1,0, because
@@ -104,7 +129,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
         resetRel();
         updateAbsSlide( ypr );
         m_startRelTransformYpr = ypr;
-        Core::Quaternion quat = Core::AngleAxis( ypr[0], Core::Vector3::UnitZ() ) *
+        Core::Quaternion quat  = Core::AngleAxis( ypr[0], Core::Vector3::UnitZ() ) *
                                 Core::AngleAxis( ypr[1], Core::Vector3::UnitY() ) *
                                 Core::AngleAxis( ypr[2], Core::Vector3::UnitX() );
 
@@ -147,9 +172,9 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
             const Scalar z = Scalar( m_z->value() );
             m_relativeAxis = axis;
             resetRel();
-            m_startRelTransformYpr =
-                Core::Vector3( Core::Math::toRadians( z ), Core::Math::toRadians( y ),
-                               Core::Math::toRadians( x ) );
+            m_startRelTransformYpr = Core::Vector3( Core::Math::toRadians( z ),
+                                                    Core::Math::toRadians( y ),
+                                                    Core::Math::toRadians( x ) );
         }
 
         Core::Quaternion quat =
@@ -179,9 +204,9 @@ class RotationEditor : public QWidget, private Ui::RotationEditor {
             const Scalar z = Scalar( m_z->value() );
             m_relativeAxis = axis;
             resetRel();
-            m_startRelTransformYpr =
-                Core::Vector3( Core::Math::toRadians( z ), Core::Math::toRadians( y ),
-                               Core::Math::toRadians( x ) );
+            m_startRelTransformYpr = Core::Vector3( Core::Math::toRadians( z ),
+                                                    Core::Math::toRadians( y ),
+                                                    Core::Math::toRadians( x ) );
         }
 
         Core::Quaternion quat =

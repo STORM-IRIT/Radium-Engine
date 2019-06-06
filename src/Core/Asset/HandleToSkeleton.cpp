@@ -24,23 +24,22 @@ void addBone( const int parent,                        // index of parent bone
     if ( !processed[dataID] )
     {
         processed[dataID] = true;
-        const auto& dd = data.getComponentData()[dataID];
-        uint index = skelOut.addBone( parent, data.getFrame() * dd.m_offset.inverse(),
-                                      Ra::Core::Animation::Handle::SpaceType::MODEL, dd.m_name );
+        const auto& dd    = data.getComponentData()[dataID];
+        uint index        = skelOut.addBone( parent,
+                                      data.getFrame() * dd.m_offset.inverse(),
+                                      Ra::Core::Animation::Handle::SpaceType::MODEL,
+                                      dd.m_name );
         for ( const auto& edge : edgeList )
         {
             if ( edge[0] == dataID )
-            {
-                addBone( index, edge[1], data, edgeList, processed, skelOut );
-            }
-        }
+            { addBone( index, edge[1], data, edgeList, processed, skelOut ); } }
     }
 }
 } // namespace
 
 void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::Skeleton& skelOut ) {
     const uint size = data.getComponentDataSize();
-    auto component = data.getComponentData();
+    auto component  = data.getComponentData();
 
     std::set<uint> root;
     for ( uint i = 0; i < size; ++i )
@@ -75,9 +74,10 @@ void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::S
             if ( dd.m_weight.size() )
             {
                 LOG( logDEBUG ) << "Adding end-bone at " << dd.m_name << ".";
-                skelOut.addBone(
-                    int( boneNameMap[dd.m_name] ), data.getFrame() * dd.m_offset.inverse(),
-                    Ra::Core::Animation::Handle::SpaceType::MODEL, dd.m_name + "_Ra_endBone" );
+                skelOut.addBone( int( boneNameMap[dd.m_name] ),
+                                 data.getFrame() * dd.m_offset.inverse(),
+                                 Ra::Core::Animation::Handle::SpaceType::MODEL,
+                                 dd.m_name + "_Ra_endBone" );
             }
         }
     }

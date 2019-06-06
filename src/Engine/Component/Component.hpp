@@ -28,7 +28,8 @@ namespace Engine {
  * It is also linked to some other components in an entity.
  * Each component share a transform through their entity.
  */
-class RA_ENGINE_API Component {
+class RA_ENGINE_API Component
+{
   public:
     /// CONSTRUCTOR
     Component( const std::string& name, Entity* entity );

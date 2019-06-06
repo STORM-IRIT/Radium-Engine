@@ -23,7 +23,8 @@ struct MinimalComponent : public Ra::Engine::Component {
 
 /// This system will be added to the engine. Every frame it will
 /// add a task to be executed, calling the spin function of the component.
-class MinimalSystem : public Ra::Engine::System {
+class MinimalSystem : public Ra::Engine::System
+{
   public:
     virtual void generateTasks( Ra::Core::TaskQueue* q,
                                 const Ra::Engine::FrameInfo& info ) override;

@@ -15,7 +15,8 @@ class Mesh;
 } // namespace Ra
 
 namespace MeshFeatureTrackingPlugin {
-class MeshFeatureTrackingComponent : public Ra::Engine::Component {
+class MeshFeatureTrackingComponent : public Ra::Engine::Component
+{
   public:
     MeshFeatureTrackingComponent( const std::string& name );
 

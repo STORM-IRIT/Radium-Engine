@@ -17,14 +17,15 @@
 
 namespace SkinningPlugin {
 
-class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
+class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System
+{
   public:
     SkinningSystem() {}
     virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
                                 const Ra::Engine::FrameInfo& frameInfo ) override {
         for ( const auto& compEntry : m_components )
         {
-            SkinningComponent* comp = static_cast<SkinningComponent*>( compEntry.second );
+            SkinningComponent* comp          = static_cast<SkinningComponent*>( compEntry.second );
             Ra::Core::FunctionTask* skinTask = new Ra::Core::FunctionTask(
                 std::bind( &SkinningComponent::skin, comp ), "SkinnerTask_" + comp->getName() );
 
@@ -33,7 +34,7 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
                                             "SkinnerEndTask_" + comp->getName() );
 
             Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask( skinTask );
-            Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask( endTask );
+            Ra::Core::TaskQueue::TaskId endTaskId  = taskQueue->registerTask( endTask );
             taskQueue->addPendingDependency( "AnimatorTask", skinTaskId );
             taskQueue->addDependency( skinTaskId, endTaskId );
         }
@@ -58,13 +59,13 @@ class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
                     } );
                 if ( it != skelData.end() )
                 {
-                    const auto& skel = *it;
+                    const auto& skel             = *it;
                     SkinningComponent* component = new SkinningComponent(
                         "SkC_" + geom->getName(), SkinningComponent::LBS, entity );
                     component->handleWeightsLoading( skel, geom->getName() );
                     registerComponent( entity, component );
-                    new SkinningDisplayComponent( "SkC_DSP_" + geom->getName(), geom->getName(),
-                                                  entity );
+                    new SkinningDisplayComponent(
+                        "SkC_DSP_" + geom->getName(), geom->getName(), entity );
                 }
             }
         }

@@ -50,10 +50,7 @@ void AssimpCameraDataLoader::loadData( const aiScene* scene,
         data.push_back( std::unique_ptr<CameraData>( Camera ) );
     }
 
-    if ( m_verbose )
-    {
-        LOG( logINFO ) << "Camera Loading end.\n";
-    }
+    if ( m_verbose ) { LOG( logINFO ) << "Camera Loading end.\n"; }
 }
 
 bool AssimpCameraDataLoader::sceneHasCamera( const aiScene* scene ) const {
@@ -64,17 +61,18 @@ uint AssimpCameraDataLoader::sceneCameraSize( const aiScene* scene ) const {
     return scene->mNumCameras;
 }
 
-void AssimpCameraDataLoader::loadCameraData( const aiScene* scene, const aiCamera& camera,
+void AssimpCameraDataLoader::loadCameraData( const aiScene* scene,
+                                             const aiCamera& camera,
                                              CameraData& data ) {
     fetchName( camera, data );
 
     Core::Matrix4 rootMatrix;
-    rootMatrix = Core::Matrix4::Identity();
-    Core::Matrix4 frame = loadCameraFrame( scene, rootMatrix, data );
-    Core::Vector3 pos = assimpToCore( camera.mPosition );
+    rootMatrix           = Core::Matrix4::Identity();
+    Core::Matrix4 frame  = loadCameraFrame( scene, rootMatrix, data );
+    Core::Vector3 pos    = assimpToCore( camera.mPosition );
     Core::Vector3 lookAt = assimpToCore( camera.mLookAt ).normalized();
-    Core::Vector3 up = assimpToCore( camera.mUp ).normalized();
-    Core::Vector3 right = lookAt.cross( up );
+    Core::Vector3 up     = assimpToCore( camera.mUp ).normalized();
+    Core::Vector3 right  = lookAt.cross( up );
     Core::Matrix4 view;
     view.block<3, 1>( 0, 0 ) = right;
     view.block<3, 1>( 0, 1 ) = up;
@@ -103,7 +101,8 @@ Core::Matrix4 AssimpCameraDataLoader::loadCameraFrame( const aiScene* scene,
             [&CameraNode]( int i, int j ) { return CameraNode->mTransformation[i][j]; } );
 
         return parentFrame * t0 * t1;
-    } else
+    }
+    else
     { return parentFrame; }
 }
 

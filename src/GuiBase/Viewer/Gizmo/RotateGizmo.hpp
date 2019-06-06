@@ -7,17 +7,22 @@ namespace Ra {
 namespace Gui {
 
 /// A RotateGizmo manipulates the rotational part of a transformation.
-class RotateGizmo : public Gizmo {
+class RotateGizmo : public Gizmo
+{
   public:
     // Draw a frame with : 3 RGB arrows
-    RotateGizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t,
+    RotateGizmo( Engine::Component* c,
+                 const Core::Transform& worldTo,
+                 const Core::Transform& t,
                  Mode mode );
 
-    void updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
+    void updateTransform( Gizmo::Mode mode,
+                          const Core::Transform& worldTo,
                           const Core::Transform& t ) override;
     void selectConstraint( int drawableIndex ) override;
     void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
-    Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
+    Core::Transform mouseMove( const Engine::Camera& cam,
+                               const Core::Vector2& nextXY,
                                bool stepped = false ) override;
 
   private:

@@ -23,14 +23,18 @@ Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar w
 Camera::~Camera() = default;
 
 void Camera::initialize() {
-    if ( !m_renderObjects.empty() )
-        return;
+    if ( !m_renderObjects.empty() ) return;
     // Create the render mesh for the camera
     auto m = std::make_shared<Mesh>( m_name + "_mesh" );
     Ra::Core::Geometry::TriangleMesh triMesh;
-    triMesh.vertices() =
-    {{0_ra, 0_ra, 0_ra}, {-.5_ra, -.5_ra, -1_ra}, {-.5_ra, .5_ra, -1_ra}, {.5_ra, .5_ra, -1_ra},
-     {.5_ra, -.5_ra, -1_ra}, {-.3_ra, .5_ra, -1_ra},  {0_ra, .7_ra, -1_ra}, {.3_ra, .5_ra, -1_ra}};
+    triMesh.vertices()  = {{0_ra, 0_ra, 0_ra},
+                          {-.5_ra, -.5_ra, -1_ra},
+                          {-.5_ra, .5_ra, -1_ra},
+                          {.5_ra, .5_ra, -1_ra},
+                          {.5_ra, -.5_ra, -1_ra},
+                          {-.3_ra, .5_ra, -1_ra},
+                          {0_ra, .7_ra, -1_ra},
+                          {.3_ra, .5_ra, -1_ra}};
     triMesh.m_triangles = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
     m->loadGeometry( std::move( triMesh ) );
     Core::Vector4Array c( 8, {.2_ra, .2_ra, .2_ra, 1_ra} );
@@ -51,8 +55,8 @@ void Camera::show( bool on ) {
 void Camera::applyTransform( const Core::Transform& T ) {
     Core::Transform t1 = Core::Transform::Identity();
     Core::Transform t2 = Core::Transform::Identity();
-    t1.translation() = -getPosition();
-    t2.translation() = getPosition();
+    t1.translation()   = -getPosition();
+    t2.translation()   = getPosition();
 
     m_frame = t2 * T * t1 * m_frame;
     m_RO->setLocalTransform( m_frame );
@@ -73,14 +77,15 @@ void Camera::updateProjMatrix() {
         const Scalar t = dy;  // top
         const Scalar b = -dy; // bottom
 
-        Core::Vector3 tr( -( r + l ) / ( r - l ), -( t + b ) / ( t - b ),
+        Core::Vector3 tr( -( r + l ) / ( r - l ),
+                          -( t + b ) / ( t - b ),
                           -( ( m_zFar + m_zNear ) / ( m_zFar - m_zNear ) ) );
 
         m_projMatrix.setIdentity();
 
-        m_projMatrix.coeffRef( 0, 0 ) = 2_ra / ( r - l );
-        m_projMatrix.coeffRef( 1, 1 ) = 2_ra / ( t - b );
-        m_projMatrix.coeffRef( 2, 2 ) = -2_ra / ( m_zFar - m_zNear );
+        m_projMatrix.coeffRef( 0, 0 )    = 2_ra / ( r - l );
+        m_projMatrix.coeffRef( 1, 1 )    = 2_ra / ( t - b );
+        m_projMatrix.coeffRef( 2, 2 )    = -2_ra / ( m_zFar - m_zNear );
         m_projMatrix.block<3, 1>( 0, 3 ) = tr;
     }
     break;
@@ -88,7 +93,7 @@ void Camera::updateProjMatrix() {
     case ProjType::PERSPECTIVE:
     {
         // Compute projection matrix as describe in the doc of gluPerspective()
-        const Scalar f = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * .5_ra ) );
+        const Scalar f    = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * .5_ra ) );
         const Scalar diff = m_zNear - m_zFar;
 
         m_projMatrix.setZero();

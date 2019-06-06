@@ -10,8 +10,10 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-void RA_CORE_API linearBlendSkinning( const Vector3Array& inMesh, const Pose& pose,
-                                      const WeightMatrix& weight, Vector3Array& outMesh );
+void RA_CORE_API linearBlendSkinning( const Vector3Array& inMesh,
+                                      const Pose& pose,
+                                      const WeightMatrix& weight,
+                                      Vector3Array& outMesh );
 
 } // namespace Animation
 } // namespace Core

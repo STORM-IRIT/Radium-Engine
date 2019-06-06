@@ -6,7 +6,8 @@
 #include <GuiBase/RaGuiBase.hpp>
 namespace Ra {
 namespace GuiBase {
-class RA_GUIBASE_API TransformEditor {
+class RA_GUIBASE_API TransformEditor
+{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 

@@ -10,7 +10,8 @@ namespace Engine {
 /** Point light for rendering
  *
  */
-class RA_ENGINE_API PointLight final : public Light {
+class RA_ENGINE_API PointLight final : public Light
+{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 

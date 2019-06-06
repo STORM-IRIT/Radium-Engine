@@ -78,19 +78,13 @@ Gui::Viewer::~Viewer() {
         makeCurrent();
         m_renderers.clear();
 
-        if ( m_gizmoManager != nullptr )
-        {
-            delete m_gizmoManager;
-        }
+        if ( m_gizmoManager != nullptr ) { delete m_gizmoManager; }
         doneCurrent();
     }
 }
 
 void Gui::Viewer::createGizmoManager() {
-    if ( m_gizmoManager == nullptr )
-    {
-        m_gizmoManager = new GizmoManager( this );
-    }
+    if ( m_gizmoManager == nullptr ) { m_gizmoManager = new GizmoManager( this ); }
 }
 
 int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
@@ -100,7 +94,8 @@ int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
         makeCurrent();
         intializeRenderer( e.get() );
         doneCurrent();
-    } else
+    }
+    else
     {
         LOG( logINFO ) << "[Viewer] New Renderer (" << e->getRendererName()
                        << ") added before GL being Ready: deferring initialization...";
@@ -125,16 +120,10 @@ void Gui::Viewer::enableDebug() {
         for ( unsigned i = 0; i < call.parameters.size(); ++i )
         {
             std::cerr << call.parameters[i].get();
-            if ( i < call.parameters.size() - 1 )
-            {
-                std::cerr << ", ";
-            }
+            if ( i < call.parameters.size() - 1 ) { std::cerr << ", "; }
         }
         std::cerr << ")";
-        if ( call.returnValue )
-        {
-            std::cerr << " -> " << call.returnValue.get();
-        }
+        if ( call.returnValue ) { std::cerr << " -> " << call.returnValue.get(); }
         std::cerr << std::endl;
     } );
 }
@@ -194,10 +183,7 @@ bool Gui::Viewer::initializeGL() {
         addRenderer( e );
     }
 
-    if ( m_currentRenderer == nullptr )
-    {
-        changeRenderer( 0 );
-    }
+    if ( m_currentRenderer == nullptr ) { changeRenderer( 0 ); }
 
     return true;
 }
@@ -265,7 +251,7 @@ void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
 }
 
 void Gui::Viewer::resizeGL( QResizeEvent* event ) {
-    int width = event->size().width();
+    int width  = event->size().width();
     int height = event->size().height();
     // Renderer should have been locked by previous events.
     makeCurrent();
@@ -279,14 +265,10 @@ Engine::Renderer::PickingMode Gui::Viewer::getPickingMode() const {
     auto keyMap = Gui::KeyMappingManager::getInstance();
     if ( Gui::isKeyPressed(
              keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_VERTEX ) ) )
-    {
-        return m_isBrushPickingEnabled ? Engine::Renderer::C_VERTEX : Engine::Renderer::VERTEX;
-    }
+    { return m_isBrushPickingEnabled ? Engine::Renderer::C_VERTEX : Engine::Renderer::VERTEX; }
     if ( Gui::isKeyPressed(
              keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_EDGE ) ) )
-    {
-        return m_isBrushPickingEnabled ? Engine::Renderer::C_EDGE : Engine::Renderer::EDGE;
-    }
+    { return m_isBrushPickingEnabled ? Engine::Renderer::C_EDGE : Engine::Renderer::EDGE; }
     if ( Gui::isKeyPressed(
              keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_TRIANGLE ) ) )
     {
@@ -312,22 +294,19 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
         auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
         RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f );
         RA_DISPLAY_RAY( r, Color::Yellow() );
-    } else if ( keyMap->getKeyFromAction( Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) ==
-                event->button() )
-    {
-        m_camera->handleMousePressEvent( event );
-    } else if ( keyMap->actionTriggered( event,
-                                         Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
+    }
+    else if ( keyMap->getKeyFromAction( Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) ==
+              event->button() )
+    { m_camera->handleMousePressEvent( event ); }
+    else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
     {
         m_currentRenderer->addPickingRequest( {Core::Vector2( event->x(), height() - event->y() ),
                                                Engine::Renderer::PickingPurpose::SELECTION,
                                                Engine::Renderer::RO} );
-        if ( m_gizmoManager != nullptr )
-        {
-            m_gizmoManager->handleMousePressEvent( event );
-        }
-    } else if ( keyMap->actionTriggered( event,
-                                         Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+        if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMousePressEvent( event ); }
+    }
+    else if ( keyMap->actionTriggered( event,
+                                       Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
     {
         // Check picking
         Engine::Renderer::PickingQuery query = {Core::Vector2( event->x(), height() - event->y() ),
@@ -339,20 +318,14 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
 
 void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
     m_camera->handleMouseReleaseEvent( event );
-    if ( m_gizmoManager != nullptr )
-    {
-        m_gizmoManager->handleMouseReleaseEvent( event );
-    }
+    if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMouseReleaseEvent( event ); }
 }
 
 void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
     if ( m_glInitialized.load() )
     {
         m_camera->handleMouseMoveEvent( event );
-        if ( m_gizmoManager != nullptr )
-        {
-            m_gizmoManager->handleMouseMoveEvent( event );
-        }
+        if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMouseMoveEvent( event ); }
         m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
         if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
                  event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
@@ -360,10 +333,12 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
             // Check picking
             Engine::Renderer::PickingQuery query = {
                 Core::Vector2( event->x(), ( height() - event->y() ) ),
-                Engine::Renderer::PickingPurpose::MANIPULATION, getPickingMode()};
+                Engine::Renderer::PickingPurpose::MANIPULATION,
+                getPickingMode()};
             m_currentRenderer->addPickingRequest( query );
         }
-    } else
+    }
+    else
         event->ignore();
 }
 
@@ -376,9 +351,11 @@ void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
                 ( event->angleDelta().y() * 0.01 + event->angleDelta().x() * 0.01 ) > 0 ? 5 : -5;
             m_brushRadius = std::max( m_brushRadius, Scalar( 5 ) );
             m_currentRenderer->setBrushRadius( m_brushRadius );
-        } else
+        }
+        else
         { m_camera->handleWheelEvent( event ); }
-    } else
+    }
+    else
     { event->ignore(); }
 }
 
@@ -387,7 +364,8 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
     {
         keyPressed( event->key() );
         m_camera->handleKeyPressEvent( event );
-    } else
+    }
+    else
     { event->ignore(); }
 
     // Do we need this ?
@@ -401,9 +379,7 @@ void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
     auto keyMap = Gui::KeyMappingManager::getInstance();
     if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_TOGGLE_WIREFRAME ) &&
          !event->isAutoRepeat() )
-    {
-        m_currentRenderer->toggleWireframe();
-    }
+    { m_currentRenderer->toggleWireframe(); }
     if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::FEATUREPICKING_MULTI_CIRCLE ) &&
          event->modifiers() == Qt::NoModifier && !event->isAutoRepeat() )
     {
@@ -451,10 +427,7 @@ bool Gui::Viewer::changeRenderer( int index ) {
     {
         makeCurrent();
 
-        if ( m_currentRenderer != nullptr )
-        {
-            m_currentRenderer->lockRendering();
-        }
+        if ( m_currentRenderer != nullptr ) { m_currentRenderer->lockRendering(); }
 
         m_currentRenderer = m_renderers[index].get();
         // renderers in m_renderers are supposed to be locked
@@ -501,10 +474,7 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
 
 void Gui::Viewer::waitForRendering() {
 
-    if ( isExposed() )
-    {
-        m_context->swapBuffers( this );
-    }
+    if ( isExposed() ) { m_context->swapBuffers( this ); }
 
     doneCurrent();
 }
@@ -522,9 +492,8 @@ void Gui::Viewer::processPicking() {
     {
         const Engine::Renderer::PickingQuery& query = m_currentRenderer->getPickingQueries()[i];
         if ( query.m_purpose == Engine::Renderer::PickingPurpose::SELECTION )
-        {
-            emit leftClickPicking( m_currentRenderer->getPickingResults()[i].m_roIdx );
-        } else if ( query.m_purpose == Engine::Renderer::PickingPurpose::MANIPULATION )
+        { emit leftClickPicking( m_currentRenderer->getPickingResults()[i].m_roIdx ); }
+        else if ( query.m_purpose == Engine::Renderer::PickingPurpose::MANIPULATION )
         {
             const auto& result = m_currentRenderer->getPickingResults()[i];
             m_pickingManager->setCurrent( result );
@@ -538,7 +507,8 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     {
         CORE_ASSERT( m_camera != nullptr, "No camera found." );
         m_camera->fitScene( aabb );
-    } else
+    }
+    else
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }
 }
 
@@ -547,10 +517,7 @@ std::vector<std::string> Gui::Viewer::getRenderersName() const {
 
     for ( const auto& renderer : m_renderers )
     {
-        if ( renderer )
-        {
-            ret.push_back( renderer->getRendererName() );
-        }
+        if ( renderer ) { ret.push_back( renderer->getRendererName() ); }
     }
 
     return ret;
@@ -564,13 +531,10 @@ void Gui::Viewer::grabFrame( const std::string& filename ) {
 
     std::string ext = Core::Utils::getFileExt( filename );
 
-    if ( ext == "bmp" )
-    {
-        stbi_write_bmp( filename.c_str(), w, h, 4, writtenPixels.get() );
-    } else if ( ext == "png" )
-    {
-        stbi_write_png( filename.c_str(), w, h, 4, writtenPixels.get(), w * 4 * sizeof( uchar ) );
-    } else
+    if ( ext == "bmp" ) { stbi_write_bmp( filename.c_str(), w, h, 4, writtenPixels.get() ); }
+    else if ( ext == "png" )
+    { stbi_write_png( filename.c_str(), w, h, 4, writtenPixels.get(), w * 4 * sizeof( uchar ) ); }
+    else
     { LOG( logWARNING ) << "Cannot write frame to " << filename << " : unsupported extension"; }
 
     doneCurrent();

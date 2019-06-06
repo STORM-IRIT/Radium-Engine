@@ -25,7 +25,8 @@ namespace Engine {
  * transparent materials.
  *
  */
-class RA_ENGINE_API Material {
+class RA_ENGINE_API Material
+{
   public:
     enum class MaterialAspect { MAT_OPAQUE, MAT_TRANSPARENT };
 
@@ -38,7 +39,8 @@ class RA_ENGINE_API Material {
      * @param name
      * @param aspect
      */
-    explicit Material( const std::string& instanceName, const std::string& materialName,
+    explicit Material( const std::string& instanceName,
+                       const std::string& materialName,
                        MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
   public:

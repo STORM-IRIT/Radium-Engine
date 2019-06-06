@@ -23,7 +23,8 @@ class MeshFeatureTrackingComponent;
 
 // Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
 // namespace
-class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
+class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+{
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )

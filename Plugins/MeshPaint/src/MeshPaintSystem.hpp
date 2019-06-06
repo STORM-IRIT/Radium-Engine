@@ -21,7 +21,8 @@ class MeshPaintComponent;
 }
 
 namespace MeshPaintPlugin {
-class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System {
+class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System
+{
   public:
     MeshPaintSystem();
     virtual ~MeshPaintSystem();

@@ -26,7 +26,8 @@ class MeshPaintComponent;
 
 // Due to an ambigous name while compiling with Clang, must differentiate plugin class from plugin
 // namespace
-class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
+class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+{
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
@@ -50,7 +51,7 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
     void activePaintColor( bool on );
     void changePaintColor( const QColor& color );
-    void bakeToDiffuse ();
+    void bakeToDiffuse();
 
   private:
     MeshPaintUI* m_widget;

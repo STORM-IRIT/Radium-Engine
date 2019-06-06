@@ -21,12 +21,13 @@ namespace Utils {
  * IndexMap is considered full.
  */
 template <typename T>
-class IndexMap {
+class IndexMap
+{
   public:
     // ===============================================================================
     // TYPEDEF
     // ===============================================================================
-    using Container = typename std::deque<T>;          /// Where the objects are stored
+    using Container      = typename std::deque<T>;     /// Where the objects are stored
     using IndexContainer = typename std::deque<Index>; /// Where the indices are stored
 
     using ConstIndexIterator =

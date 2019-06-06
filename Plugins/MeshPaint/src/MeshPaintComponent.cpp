@@ -23,7 +23,8 @@ static const std::string colAttribName =
     Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_COLOR );
 
 MeshPaintComponent::MeshPaintComponent( const std::string& name, Ra::Engine::Entity* entity ) :
-    Ra::Engine::Component( name, entity ), m_mesh( nullptr ) {}
+    Ra::Engine::Component( name, entity ),
+    m_mesh( nullptr ) {}
 
 MeshPaintComponent::~MeshPaintComponent() {}
 
@@ -51,7 +52,7 @@ void MeshPaintComponent::initialize() {
     m_renderObjectReader =
         compMess->getterCallback<Ra::Core::Utils::Index>( getEntity(), m_dataId );
 
-    auto ro = getRoMgr()->getRenderObject( *m_renderObjectReader() );
+    auto ro      = getRoMgr()->getRenderObject( *m_renderObjectReader() );
     m_baseConfig = ro->getRenderTechnique()->getConfiguration();
 
     m_mesh = dynamic_cast<Mesh*>( ro->getMesh().get() );
@@ -59,53 +60,50 @@ void MeshPaintComponent::initialize() {
 }
 
 void MeshPaintComponent::startPaint( bool on ) {
-    if ( !getRoMgr()->exists( *m_renderObjectReader() ) )
-    {
-        return;
-    }
+    if ( !getRoMgr()->exists( *m_renderObjectReader() ) ) { return; }
     CORE_ASSERT( m_mesh != nullptr, "We should be have a Mesh storing a TriangleMesh here" );
 
     if ( on )
     {
         // Could also be accessed using
-        // auto triangleMesh = compMess->get<Ra::Core::Geometry::TriangleMesh>( getEntity(), m_dataId );
-        // however here we skip the search in the component map
+        // auto triangleMesh = compMess->get<Ra::Core::Geometry::TriangleMesh>( getEntity(),
+        // m_dataId ); however here we skip the search in the component map
         Ra::Core::Geometry::TriangleMesh& triangleMesh = m_mesh->getTriangleMesh();
 
-        // If any, save colors from the CPU object, otherwise set default color and notify GPU object
+        // If any, save colors from the CPU object, otherwise set default color and notify GPU
+        // object
         m_currentColorAttribHdl = triangleMesh.getAttribHandle<Ra::Core::Vector4>( colAttribName );
         if ( m_currentColorAttribHdl.idx().isInvalid() )
         {
             m_baseColors.clear();
             triangleMesh.colorize( Ra::Core::Utils::Color::Skin() );
-            m_currentColorAttribHdl = triangleMesh.getAttribHandle<Ra::Core::Vector4>( colAttribName );
+            m_currentColorAttribHdl =
+                triangleMesh.getAttribHandle<Ra::Core::Vector4>( colAttribName );
             m_mesh->setDirty( Ra::Engine::Mesh::VERTEX_COLOR, true );
-        } else
+        }
+        else
         {
             m_baseColors = triangleMesh.getAttrib( m_currentColorAttribHdl ).data(); // copy
         }
-    } else
+    }
+    else
     {
-        ON_DEBUG( auto colAttrib =
-                      m_mesh->getTriangleMesh().getAttribHandle<Ra::Core::Vector4>( colAttribName ) );
+        ON_DEBUG( auto colAttrib = m_mesh->getTriangleMesh().getAttribHandle<Ra::Core::Vector4>(
+                      colAttribName ) );
         CORE_ASSERT( colAttrib == m_currentColorAttribHdl, "Inconsistent AttribHandle used" );
         // Could also be accessed using
         // auto triangleMesh = compMess->get<Ra::Core::Geometry::TriangleMesh>( getEntity(),
         // m_dataId ); however here we skip the search in the component map
-        Ra::Core::Geometry::TriangleMesh& triangleMesh = m_mesh->getTriangleMesh();
+        Ra::Core::Geometry::TriangleMesh& triangleMesh           = m_mesh->getTriangleMesh();
         triangleMesh.getAttrib( m_currentColorAttribHdl ).data() = m_baseColors;
         m_mesh->setDirty( Ra::Engine::Mesh::VERTEX_COLOR );
     }
 }
 
-void MeshPaintComponent::bakePaintToDiffuse()
-{
+void MeshPaintComponent::bakePaintToDiffuse() {
     // internally, this function simply overwrite the base colors with the current color attrib
 
-    if ( !getRoMgr()->exists( *m_renderObjectReader() ) )
-    {
-        return;
-    }
+    if ( !getRoMgr()->exists( *m_renderObjectReader() ) ) { return; }
     CORE_ASSERT( m_mesh != nullptr, "We should be have a Mesh storing a TriangleMesh here" );
 
     ON_DEBUG( auto colAttrib =
@@ -116,30 +114,19 @@ void MeshPaintComponent::bakePaintToDiffuse()
     // m_dataId ); however here we skip the search in the component map
     Ra::Core::Geometry::TriangleMesh& triangleMesh = m_mesh->getTriangleMesh();
     m_baseColors = triangleMesh.getAttrib( m_currentColorAttribHdl ).data();
-
 }
 
 void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
                                     const Ra::Core::Utils::Color& color ) {
     using Ra::Engine::Mesh;
-    if ( !getRoMgr()->exists( *m_renderObjectReader() ) )
-    {
-        return;
-    }
+    if ( !getRoMgr()->exists( *m_renderObjectReader() ) ) { return; }
     CORE_ASSERT( m_mesh != nullptr, "We should be have a Mesh storing a TriangleMesh here" );
 
     // check it's for us
     if ( *m_renderObjectReader() != picking.m_roIdx || picking.m_mode == Ra::Engine::Renderer::RO )
-    {
-        return;
-    }
+    { return; } auto pickingRenderMode = m_mesh->pickingRenderMode();
 
-    auto pickingRenderMode = m_mesh->pickingRenderMode();
-
-    if ( pickingRenderMode == Ra::Engine::Displayable::NO_PICKING )
-    {
-        return;
-    }
+    if ( pickingRenderMode == Ra::Engine::Displayable::NO_PICKING ) { return; }
 
     if ( ( m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_LINES ||
            m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_LINE_LOOP ||
@@ -148,21 +135,14 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
            m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_LINE_STRIP_ADJACENCY ||
            m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_STRIP ||
            m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_FAN ) )
+    { return; } if ( pickingRenderMode == Ra::Engine::Displayable::PKM_POINTS &&
+                     ( picking.m_mode != Ra::Engine::Renderer::VERTEX &&
+                       picking.m_mode != Ra::Engine::Renderer::C_VERTEX ) )
     {
         return;
-    }
-
-    if ( pickingRenderMode == Ra::Engine::Displayable::PKM_POINTS &&
-         ( picking.m_mode != Ra::Engine::Renderer::VERTEX &&
-           picking.m_mode != Ra::Engine::Renderer::C_VERTEX ) )
-    {
-        return;
-    }
-
-
-    // Could also be accessed using
-    // auto triangleMesh = compMess->get<Ra::Core::Geometry::TriangleMesh>( getEntity(), m_dataId );
-    // however here we skip the search in the component map
+    } // Could also be accessed using
+      // auto triangleMesh = compMess->get<Ra::Core::Geometry::TriangleMesh>( getEntity(),
+      // m_dataId ); however here we skip the search in the component map
     const auto& T = m_mesh->getTriangleMesh().m_triangles;
     ON_DEBUG( auto colAttrib =
                   m_mesh->getTriangleMesh().getAttribHandle<Ra::Core::Vector4>( colAttribName ) );
@@ -182,11 +162,12 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
             {
                 colorContainer[size_t( t )] = color;
             }
-        } else
+        }
+        else
         {
             for ( size_t t = 0; t < picking.m_elementIdx.size(); ++t )
             {
-                size_t v = T[size_t( picking.m_elementIdx[t] )]( picking.m_vertexIdx[t] );
+                size_t v          = T[size_t( picking.m_elementIdx[t] )]( picking.m_vertexIdx[t] );
                 colorContainer[v] = color;
             }
         }
@@ -199,9 +180,9 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
     {
         for ( size_t t = 0; t < picking.m_elementIdx.size(); ++t )
         {
-            const auto& el = T[size_t( picking.m_elementIdx[t] )];
-            size_t v1 = el( ( picking.m_edgeIdx[t] + 1 ) % 3 );
-            size_t v2 = el( ( picking.m_edgeIdx[t] + 2 ) % 3 );
+            const auto& el     = T[size_t( picking.m_elementIdx[t] )];
+            size_t v1          = el( ( picking.m_edgeIdx[t] + 1 ) % 3 );
+            size_t v2          = el( ( picking.m_edgeIdx[t] + 2 ) % 3 );
             colorContainer[v1] = colorContainer[v2] = color;
         }
         m_mesh->setDirty( Mesh::VERTEX_COLOR );
@@ -213,10 +194,10 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
     {
         for ( size_t t = 0; t < picking.m_elementIdx.size(); ++t )
         {
-            const auto& el = T[size_t( picking.m_elementIdx[t] )];
-            size_t v1 = el( 0 );
-            size_t v2 = el( 1 );
-            size_t v3 = el( 2 );
+            const auto& el     = T[size_t( picking.m_elementIdx[t] )];
+            size_t v1          = el( 0 );
+            size_t v2          = el( 1 );
+            size_t v3          = el( 2 );
             colorContainer[v1] = colorContainer[v2] = colorContainer[v3] = color;
         }
         m_mesh->setDirty( Mesh::VERTEX_COLOR );

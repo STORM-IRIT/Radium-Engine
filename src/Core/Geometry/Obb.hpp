@@ -9,10 +9,11 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 /// An oriented bounding box.
-class Obb {
+class Obb
+{
   public:
     using Transform = Eigen::Transform<Scalar, 3, Eigen::Affine>;
-    using Aabb = Eigen::AlignedBox<Scalar, 3>;
+    using Aabb      = Eigen::AlignedBox<Scalar, 3>;
 
     /// Constructors and destructor.
 

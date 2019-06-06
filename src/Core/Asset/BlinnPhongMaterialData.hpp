@@ -9,7 +9,8 @@ namespace Core {
 namespace Asset {
 
 // RADIUM SUPPORTED MATERIALS
-class RA_CORE_API BlinnPhongMaterialData : public MaterialData {
+class RA_CORE_API BlinnPhongMaterialData : public MaterialData
+{
   public:
     explicit BlinnPhongMaterialData( const std::string& name = "" );
 

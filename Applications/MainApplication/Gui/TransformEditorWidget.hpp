@@ -12,7 +12,8 @@ namespace Ra {
 namespace Gui {
 
 /// The specialized tab to edit the transform of an object.
-class TransformEditorWidget : public QWidget, public GuiBase::TransformEditor {
+class TransformEditorWidget : public QWidget, public GuiBase::TransformEditor
+{
     Q_OBJECT
   public:
     TransformEditorWidget( QWidget* parent = nullptr );

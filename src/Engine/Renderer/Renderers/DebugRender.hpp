@@ -21,7 +21,8 @@ namespace Engine {
 /** This allow to draw debug objects.
  * @todo : port this to a more Radium-style code
  */
-class RA_ENGINE_API DebugRender final {
+class RA_ENGINE_API DebugRender final
+{
     RA_SINGLETON_INTERFACE( DebugRender );
 
   public:
@@ -31,8 +32,8 @@ class RA_ENGINE_API DebugRender final {
     void initialize();
     void render( const Core::Matrix4& view, const Core::Matrix4& proj );
 
-    void addLine( const Core::Vector3& from, const Core::Vector3& to,
-                  const Core::Utils::Color& color );
+    void
+    addLine( const Core::Vector3& from, const Core::Vector3& to, const Core::Utils::Color& color );
     void addPoint( const Core::Vector3& p, const Core::Utils::Color& color );
     void addPoints( const Core::Vector3Array& p, const Core::Utils::Color& color );
     void addPoints( const Core::Vector3Array& p, const Core::Vector4Array& colors );
@@ -44,17 +45,22 @@ class RA_ENGINE_API DebugRender final {
 
     void addSphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color );
 
-    void addCircle( const Core::Vector3& center, const Core::Vector3& normal, Scalar radius,
+    void addCircle( const Core::Vector3& center,
+                    const Core::Vector3& normal,
+                    Scalar radius,
                     const Core::Utils::Color& color );
 
     void addFrame( const Core::Transform& transform, Scalar size );
 
-    void addTriangle( const Core::Vector3& p0, const Core::Vector3& p1, const Core::Vector3& p2,
+    void addTriangle( const Core::Vector3& p0,
+                      const Core::Vector3& p1,
+                      const Core::Vector3& p2,
                       const Core::Utils::Color& color );
 
     void addAABB( const Core::Aabb& box, const Core::Utils::Color& color );
 
-    void addOBB( const Core::Aabb& box, const Core::Transform& transform,
+    void addOBB( const Core::Aabb& box,
+                 const Core::Transform& transform,
                  const Core::Utils::Color& color );
 
   private:

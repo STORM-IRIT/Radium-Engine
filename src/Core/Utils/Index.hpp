@@ -7,7 +7,8 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-class Index {
+class Index
+{
   public:
     /// CONSTRUCTOR
     /// Default constructor that allow implicit conversion from integer to Index

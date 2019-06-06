@@ -9,16 +9,17 @@
 namespace Ra {
 namespace Core {
 
-using ParentList = AlignedStdVector<int>;
-using LevelList = AlignedStdVector<uint8_t>;
+using ParentList   = AlignedStdVector<int>;
+using LevelList    = AlignedStdVector<uint8_t>;
 using ChildrenList = AlignedStdVector<uint8_t>;
-using Adjacency = AlignedStdVector<ChildrenList>;
+using Adjacency    = AlignedStdVector<ChildrenList>;
 
 /**
  * The AdjacencyList contains the adjacency matrix expressed as a vector of indices and
  * a vector containing the index of the parents indices of the i-th node.
  */
-class RA_CORE_API AdjacencyList {
+class RA_CORE_API AdjacencyList
+{
   public:
     enum class ConsistencyStatus {
         Valid,

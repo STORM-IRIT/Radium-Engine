@@ -7,7 +7,8 @@
 namespace Ra {
 namespace IO {
 
-class RA_IO_API TinyPlyFileLoader : public Core::Asset::FileLoaderInterface {
+class RA_IO_API TinyPlyFileLoader : public Core::Asset::FileLoaderInterface
+{
   public:
     TinyPlyFileLoader();
 

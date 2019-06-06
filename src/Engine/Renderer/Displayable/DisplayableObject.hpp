@@ -15,13 +15,14 @@ namespace Engine {
 /**
  * Base class of any displayable object.
  */
-class RA_ENGINE_API Displayable {
+class RA_ENGINE_API Displayable
+{
   public:
     enum PickingRenderMode {
-        PKM_POINTS = 0,
-        PKM_LINES = 1,
+        PKM_POINTS   = 0,
+        PKM_LINES    = 1,
         PKM_LINE_ADJ = 2,
-        PKM_TRI = 3,
+        PKM_TRI      = 3,
         NO_PICKING
     };
 
@@ -40,7 +41,7 @@ class RA_ENGINE_API Displayable {
     /// Returns the underlying AbstractGeometry, which is in fact a TriangleMesh
     /// \see getTriangleMesh
     virtual const Core::Geometry::AbstractGeometry& getGeometry() const = 0;
-    virtual Core::Geometry::AbstractGeometry& getGeometry() = 0;
+    virtual Core::Geometry::AbstractGeometry& getGeometry()             = 0;
 
     /**
      * This function is called at the start of the rendering. It will update the

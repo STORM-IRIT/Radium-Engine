@@ -27,13 +27,14 @@ namespace Engine {
  * @see Render technique and materials section in the Material management in the Radium Engine
  * documentation
  */
-class RA_ENGINE_API RenderTechnique final {
+class RA_ENGINE_API RenderTechnique final
+{
   public:
     enum PassName {
-        Z_PREPASS = 0x1 << 0,
-        LIGHTING_OPAQUE = 0x1 << 1,
+        Z_PREPASS            = 0x1 << 0,
+        LIGHTING_OPAQUE      = 0x1 << 1,
         LIGHTING_TRANSPARENT = 0x1 << 2,
-        NO_PASS = 0
+        NO_PASS              = 0
     };
 
     RenderTechnique();
@@ -63,7 +64,7 @@ class RA_ENGINE_API RenderTechnique final {
 
   private:
     using ConfigurationSet = std::map<PassName, ShaderConfiguration>;
-    using ShaderSet = std::map<PassName, const ShaderProgram*>;
+    using ShaderSet        = std::map<PassName, const ShaderProgram*>;
     ConfigurationSet shaderConfig;
     ShaderSet shaders;
 

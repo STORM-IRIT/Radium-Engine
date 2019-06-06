@@ -20,7 +20,7 @@ struct TaskParams;
 namespace Engine {
 struct FrameInfo;
 class Mesh;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace MeshPaintPlugin {
@@ -28,7 +28,8 @@ namespace MeshPaintPlugin {
 /*!
  * \brief The MeshPaintComponent class allows to paint over TriangleMeshes
  */
-class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
+class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component
+{
   public:
     MeshPaintComponent( const std::string& name, Ra::Engine::Entity* entity );
     ~MeshPaintComponent() override;
@@ -43,7 +44,7 @@ class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
     void startPaint( bool on );
     /// Overwrite original colors with current paint
     /// \warning Called for all the components of the scene !
-    void bakePaintToDiffuse( );
+    void bakePaintToDiffuse();
     void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
                     const Ra::Core::Utils::Color& color );
 

@@ -41,8 +41,8 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
         for ( int nz = 0; nz < nonZero; ++nz )
         {
             WeightMatrix::InnerIterator itn = it0 + Eigen::Index( nz );
-            const uint i = itn.row();
-            const Scalar w = itn.value();
+            const uint i                    = itn.row();
+            const Scalar w                  = itn.value();
 
             firstNonZero[i] = std::min( firstNonZero[i], uint( j ) );
             const Scalar sign =
@@ -86,15 +86,9 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
         for ( uint j = 0; j < weight.cols(); ++j )
         {
             const Scalar& w = weight.coeff( i, j );
-            if ( w == 0 )
-            {
-                continue;
-            }
+            if ( w == 0 ) { continue; }
 
-            if ( firstNonZero < 0 )
-            {
-                firstNonZero = j;
-            }
+            if ( firstNonZero < 0 ) { firstNonZero = j; }
 
             // Flip the dual quaternion sign according to the dot product with the first non-null
             // dual quat see Algorithm 2 in section 4.1 of the paper.
@@ -113,7 +107,8 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
     }
 }
 
-void dualQuaternionSkinning( const Ra::Core::Vector3Array& input, const DQList& DQ,
+void dualQuaternionSkinning( const Ra::Core::Vector3Array& input,
+                             const DQList& DQ,
                              Ra::Core::Vector3Array& output ) {
     const uint size = input.size();
     CORE_ASSERT( ( size == DQ.size() ), "input/DQ size mismatch." );

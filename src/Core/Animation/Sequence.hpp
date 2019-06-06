@@ -10,14 +10,15 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-using Frame = Pose;
+using Frame    = Pose;
 using FrameSet = std::vector<Frame>;
 
 /**
  * The class Sequence is a container for an animation sequence.
  *
  **/
-class Sequence {
+class Sequence
+{
   public:
     /// ENUM
     // Specify if the sequence stores trasformations to be applied or

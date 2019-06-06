@@ -8,7 +8,8 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-class RA_CORE_API Animation {
+class RA_CORE_API Animation
+{
   public:
     using MyKeyPose = std::pair<Scalar, Pose>;
     // Add the key pose after the previous ones.

@@ -54,8 +54,10 @@ struct PointToTriangleOutput {
 };
 
 /// Computes the squared distance from a query point Q to the triangle ABC.
-inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q, const Vector3& a,
-                                                       const Vector3& b, const Vector3& c );
+inline RA_CORE_API PointToTriangleOutput pointToTriSq( const Vector3& q,
+                                                       const Vector3& a,
+                                                       const Vector3& b,
+                                                       const Vector3& c );
 
 //
 // Line-to-segment distance
@@ -71,8 +73,10 @@ struct LineToSegmentOutput {
 
 /// Computes the squared distance from a query line to a segment.
 inline RA_CORE_API LineToSegmentOutput lineToSegSq( const Vector3& lineOrigin,
-                                                    Vector3 lineDirection, const Vector3& segCenter,
-                                                    Vector3 segDirection, const Scalar segExtent );
+                                                    Vector3 lineDirection,
+                                                    const Vector3& segCenter,
+                                                    Vector3 segDirection,
+                                                    const Scalar segExtent );
 
 //
 // Line-to-triangle distance
@@ -89,7 +93,8 @@ struct LineToTriangleOutput {
 
 /// Computes the squared distance from a query line to the triangle v.
 inline RA_CORE_API LineToTriangleOutput lineToTriSq( const Vector3& lineOrigin,
-                                                     Vector3 lineDirection, const Vector3 v[3] );
+                                                     Vector3 lineDirection,
+                                                     const Vector3 v[3] );
 
 //
 // Segment-to-triangle distance

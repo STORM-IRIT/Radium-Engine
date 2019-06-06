@@ -18,7 +18,8 @@ namespace Geometry {
  *
  * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring.
  */
-void RA_CORE_API uniformNormal( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
+void RA_CORE_API uniformNormal( const VectorArray<Vector3>& p,
+                                const VectorArray<Vector3ui>& T,
                                 VectorArray<Vector3>& normal );
 
 /*
@@ -27,8 +28,10 @@ void RA_CORE_API uniformNormal( const VectorArray<Vector3>& p, const VectorArray
  *
  * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring.
  */
-Vector3 RA_CORE_API localUniformNormal( const uint i, const VectorArray<Vector3>& p,
-                                        const VectorArray<Vector3ui>& T, const Sparse& adj );
+Vector3 RA_CORE_API localUniformNormal( const uint i,
+                                        const VectorArray<Vector3>& p,
+                                        const VectorArray<Vector3ui>& T,
+                                        const Sparse& adj );
 
 /*
  * Return the normalized normal of vertex v_i, expressed as:
@@ -53,7 +56,8 @@ void RA_CORE_API angleWeightedNormal( const VectorArray<Vector3>& p,
  * where normal( face_j ) is the normalized normal of face_j belonging to v_i one-ring,
  * and area_j is the area of face_j.
  */
-void RA_CORE_API areaWeightedNormal( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
+void RA_CORE_API areaWeightedNormal( const VectorArray<Vector3>& p,
+                                     const VectorArray<Vector3ui>& T,
                                      VectorArray<Vector3>& normal );
 
 ////////////////

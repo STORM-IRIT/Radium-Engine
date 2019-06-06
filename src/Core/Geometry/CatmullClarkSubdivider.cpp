@@ -9,16 +9,13 @@ bool CatmullClarkSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_epH );
     mesh.add_property( m_fpH );
     mesh.add_property( m_creaseWeights );
-    mesh.createAllPropsOnFaces( m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF,
-                                m_vec4PropsF );
+    mesh.createAllPropsOnFaces(
+        m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
     mesh.add_property( m_hV );
     for ( uint i = 0; i < mesh.n_halfedges(); ++i )
     {
         auto h = mesh.halfedge_handle( i );
-        if ( !mesh.is_boundary( h ) )
-        {
-            mesh.property( m_hV, h ) = mesh.to_vertex_handle( h );
-        }
+        if ( !mesh.is_boundary( h ) ) { mesh.property( m_hV, h ) = mesh.to_vertex_handle( h ); }
     }
 
     // initialize all weights to 0 (= smooth edge)
@@ -38,7 +35,8 @@ bool CatmullClarkSubdivider::cleanup( TopologicalMesh& mesh ) {
     return true;
 }
 
-bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
+bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh,
+                                        size_t n,
                                         const bool update_points ) {
     m_oldVertexOps.clear();
     m_newFaceVertexOps.clear();
@@ -68,20 +66,20 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
             { vh = mesh.new_vertex( centroid ); }
             mesh.property( m_fpH, fh ) = vh;
             // register operation
-            const uint v = mesh.valence( fh );
+            const uint v       = mesh.valence( fh );
             const Scalar inv_v = 1.f / v;
             std::vector<V_OP> ops( v );
             auto heh = mesh.halfedge_handle( fh );
             for ( uint j = 0; j < v; ++j )
             {
                 ops[j] = V_OP( inv_v, mesh.to_vertex_handle( heh ) );
-                heh = mesh.next_halfedge_handle( heh );
+                heh    = mesh.next_halfedge_handle( heh );
             }
 #pragma omp critical
             { m_newFaceVertexOps[iter].push_back( V_OPS( vh, ops ) ); }
             // deal with properties
-            mesh.interpolateAllPropsOnFaces( fh, m_normalPropF, m_floatPropsF, m_vec2PropsF,
-                                             m_vec3PropsF, m_vec4PropsF );
+            mesh.interpolateAllPropsOnFaces(
+                fh, m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
         }
 
         // Compute position for new (edge-) vertices and store them in the edge property
@@ -178,7 +176,8 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh, size_t n,
 }
 
 void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
-                                         const TopologicalMesh::FaceHandle& fh, size_t iter ) {
+                                         const TopologicalMesh::FaceHandle& fh,
+                                         size_t iter ) {
     /*
         Split an n-gon into n quads by connecting
         each vertex of fh to vh.
@@ -195,14 +194,14 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
 
     // init new topology with first face
     auto hend = mesh.halfedge_handle( fh );
-    auto hh = mesh.next_halfedge_handle( hend );
+    auto hh   = mesh.next_halfedge_handle( hend );
     auto hold = mesh.new_edge( mesh.to_vertex_handle( hend ), vh );
     mesh.set_next_halfedge_handle( hend, hold );
     mesh.set_face_handle( hold, fh );
 
     // deal with properties for vh
-    mesh.copyAllPropsFromFace( fh, hold, m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF,
-                               m_vec4PropsF );
+    mesh.copyAllPropsFromFace(
+        fh, hold, m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
 
     // go around new vertex to build topology
     hold = mesh.opposite_halfedge_handle( hold );
@@ -219,7 +218,7 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
     {
         // go to next mid-edge vertex
         auto hnext = mesh.next_halfedge_handle( hh );
-        auto hnew = mesh.new_edge( mesh.to_vertex_handle( hnext ), vh );
+        auto hnew  = mesh.new_edge( mesh.to_vertex_handle( hnext ), vh );
 
         // create new face
         auto fnew = mesh.new_face();
@@ -232,11 +231,11 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
         mesh.set_next_halfedge_handle( hold, hh );
 
         // deal with properties for hnew
-        mesh.copyAllPropsFromFace( fh, hnew, m_normalPropF, m_floatPropsF, m_vec2PropsF,
-                                   m_vec3PropsF, m_vec4PropsF );
+        mesh.copyAllPropsFromFace(
+            fh, hnew, m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
 
         // prepare for next face
-        hh = mesh.next_halfedge_handle( hnext );
+        hh   = mesh.next_halfedge_handle( hnext );
         hold = mesh.opposite_halfedge_handle( hnew );
         mesh.set_next_halfedge_handle( hnext, hnew ); // this has to be done after hh !
 
@@ -262,12 +261,13 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
 }
 
 void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
-                                         const TopologicalMesh::EdgeHandle& eh, size_t iter ) {
+                                         const TopologicalMesh::EdgeHandle& eh,
+                                         size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
-    using VHandle = TopologicalMesh::VertexHandle;
+    using VHandle  = TopologicalMesh::VertexHandle;
 
     // prepare data
-    HeHandle heh = mesh.halfedge_handle( eh, 0 );
+    HeHandle heh     = mesh.halfedge_handle( eh, 0 );
     HeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
     HeHandle new_heh;
     HeHandle opp_new_heh;
@@ -285,7 +285,8 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
         for ( t_heh = heh; mesh.next_halfedge_handle( t_heh ) != opp_heh;
               t_heh = mesh.opposite_halfedge_handle( mesh.next_halfedge_handle( t_heh ) ) )
             ;
-    } else
+    }
+    else
     {
         // spin inside opp_heh's face
         for ( t_heh = mesh.next_halfedge_handle( opp_heh );
@@ -294,7 +295,7 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
             ;
     }
 
-    new_heh = mesh.new_edge( vh, vh1 );
+    new_heh     = mesh.new_edge( vh, vh1 );
     opp_new_heh = mesh.opposite_halfedge_handle( new_heh );
     mesh.set_vertex_handle( heh, vh );
 
@@ -336,8 +337,9 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
 
 void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,
                                                const TopologicalMesh::EdgeHandle& eh,
-                                               const bool update_points, size_t iter ) {
-    TopologicalMesh::HalfedgeHandle heh = mesh.halfedge_handle( eh, 0 );
+                                               const bool update_points,
+                                               size_t iter ) {
+    TopologicalMesh::HalfedgeHandle heh     = mesh.halfedge_handle( eh, 0 );
     TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
 
     TopologicalMesh::Point pos = mesh.point( mesh.to_vertex_handle( heh ) );
@@ -355,8 +357,9 @@ void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,
         ops.resize( 2 );
         ops[0] = V_OP( 0.5, mesh.to_vertex_handle( heh ) );
         ops[1] = V_OP( 0.5, mesh.to_vertex_handle( opp_heh ) );
-    } else // inner edge: add neighbouring Vertices to sum
-           // this yields the [1/16 1/16; 3/8 3/8; 1/16 1/16] mask
+    }
+    else // inner edge: add neighbouring Vertices to sum
+         // this yields the [1/16 1/16; 3/8 3/8; 1/16 1/16] mask
     {
         pos += mesh.point( mesh.property( m_fpH, mesh.face_handle( heh ) ) );
         pos += mesh.point( mesh.property( m_fpH, mesh.face_handle( opp_heh ) ) );
@@ -372,7 +375,7 @@ void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,
 #pragma omp critical
     {
         // add new vertex and save into property
-        auto vh = mesh.new_vertex( pos );
+        auto vh                    = mesh.new_vertex( pos );
         mesh.property( m_epH, eh ) = vh;
         // register operations
         m_newEdgeVertexOps[iter].push_back( V_OPS( vh, ops ) );
@@ -380,7 +383,8 @@ void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,
 }
 
 void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
-                                            const TopologicalMesh::VertexHandle& vh, size_t iter ) {
+                                            const TopologicalMesh::VertexHandle& vh,
+                                            size_t iter ) {
     TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
 
     // prepare operations
@@ -395,7 +399,7 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
         pos = mesh.point( vh );
         ops.resize( 3 );
         ops[0] = V_OP( 1.f / 3.f, vh );
-        int i = 1;
+        int i  = 1;
         for ( auto ve_itr = mesh.ve_iter( vh ); ve_itr.is_valid(); ++ve_itr )
         {
             if ( mesh.is_boundary( *ve_itr ) )
@@ -405,7 +409,8 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
             }
         }
         pos /= 3.0;
-    } else // inner vertex
+    }
+    else // inner vertex
     {
         /* For each (non boundary) vertex V, introduce a new vertex whose
            position is F/n + 2E/n + (n-3)V/n where F is the average of
@@ -414,7 +419,7 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
            on the old vertex V, and n is the number of edges incident on
            the vertex.
        */
-        const uint valence = mesh.valence( vh );
+        const uint valence  = mesh.valence( vh );
         const Scalar inv_v2 = 1.f / ( valence * valence );
         ops.resize( valence * 2 + 1 );
 
@@ -449,10 +454,11 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
 void CatmullClarkSubdivider::recompute( const Vector3Array& newCoarseVertices,
                                         const Vector3Array& newCoarseNormals,
                                         Vector3Array& newSubdivVertices,
-                                        Vector3Array& newSubdivNormals, TopologicalMesh& mesh ) {
+                                        Vector3Array& newSubdivNormals,
+                                        TopologicalMesh& mesh ) {
     // update vertices
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
-    auto hNormalProp = mesh.halfedge_normals_pph();
+    auto hNormalProp    = mesh.halfedge_normals_pph();
 #pragma omp parallel for
     for ( int i = 0; i < mesh.n_halfedges(); ++i )
     {
@@ -498,7 +504,7 @@ void CatmullClarkSubdivider::recompute( const Vector3Array& newCoarseVertices,
 #pragma omp parallel for
         for ( int j = 0; j < m_oldVertexOps[i].size(); ++j )
         {
-            pos[j] = Ra::Core::Vector3( 0, 0, 0 );
+            pos[j]          = Ra::Core::Vector3( 0, 0, 0 );
             const auto& ops = m_oldVertexOps[i][j];
             for ( const auto& op : ops.second )
             {
@@ -559,9 +565,9 @@ void CatmullClarkSubdivider::recompute( const Vector3Array& newCoarseVertices,
         auto h = mesh.halfedge_handle( i );
         if ( !mesh.is_boundary( h ) )
         {
-            auto idx = mesh.property( outTriIndexProp, h );
+            auto idx               = mesh.property( outTriIndexProp, h );
             newSubdivVertices[idx] = mesh.point( mesh.to_vertex_handle( h ) );
-            newSubdivNormals[idx] = mesh.property( hNormalProp, h );
+            newSubdivNormals[idx]  = mesh.property( hNormalProp, h );
         }
     }
 }

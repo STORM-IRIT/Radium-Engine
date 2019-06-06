@@ -349,10 +349,7 @@ inline void GeometryData::displayInfo() const {
     LOG( logINFO ) << " Color ?        : " << ( ( m_color.empty() ) ? "NO" : "YES" );
     LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
 
-    if ( hasMaterial() )
-    {
-        m_material->displayInfo();
-    }
+    if ( hasMaterial() ) { m_material->displayInfo(); }
 }
 
 } // namespace Asset

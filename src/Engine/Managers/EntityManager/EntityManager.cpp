@@ -12,7 +12,7 @@ namespace Engine {
 using namespace Core::Utils; // log
 
 EntityManager::EntityManager() {
-    auto idx = m_entities.emplace( SystemEntity::createInstance() );
+    auto idx  = m_entities.emplace( SystemEntity::createInstance() );
     auto& ent = m_entities[idx];
     ent->setIndex( idx );
     CORE_ASSERT( ent.get() == SystemEntity::getInstance(), "Invalid singleton instanciation" );
@@ -24,7 +24,7 @@ EntityManager::EntityManager() {
 EntityManager::~EntityManager() = default;
 
 Entity* EntityManager::createEntity( const std::string& name ) {
-    auto idx = m_entities.emplace( new Entity( name ) );
+    auto idx  = m_entities.emplace( new Entity( name ) );
     auto& ent = m_entities[idx];
     ent->setIndex( idx );
 
@@ -33,9 +33,10 @@ Entity* EntityManager::createEntity( const std::string& name ) {
     {
         entityName = "Entity_" + std::to_string( idx.getValue() );
         ent->rename( entityName );
-    } else
+    }
+    else
     {
-        int i = 1;
+        int i           = 1;
         bool mustRename = false;
         while ( entityExists( entityName ) )
         {
@@ -43,10 +44,7 @@ Entity* EntityManager::createEntity( const std::string& name ) {
             entityName = name + "_" + std::to_string( i++ );
             mustRename = true;
         }
-        if ( mustRename )
-        {
-            ent->rename( entityName );
-        }
+        if ( mustRename ) { ent->rename( entityName ); }
     }
 
     m_entitiesName.insert( {ent->getName(), idx} );
@@ -62,7 +60,7 @@ void EntityManager::removeEntity( Core::Utils::Index idx ) {
     CORE_ASSERT( idx.isValid() && m_entities.contains( idx ),
                  "Trying to remove an entity that has not been added to the manager." );
 
-    auto& ent = m_entities[idx];
+    auto& ent        = m_entities[idx];
     std::string name = ent->getName();
     m_entities.remove( idx );
     m_entitiesName.erase( name );
@@ -77,10 +75,7 @@ Entity* EntityManager::getEntity( Core::Utils::Index idx ) const {
 
     Entity* ent = nullptr;
 
-    if ( m_entities.contains( idx ) )
-    {
-        ent = m_entities[idx].get();
-    }
+    if ( m_entities.contains( idx ) ) { ent = m_entities[idx].get(); }
 
     return ent;
 }
@@ -88,8 +83,9 @@ Entity* EntityManager::getEntity( Core::Utils::Index idx ) const {
 std::vector<Entity*> EntityManager::getEntities() const {
     std::vector<Entity*> entities;
     entities.resize( m_entities.size() );
-    std::transform( m_entities.begin(), m_entities.end(), entities.begin(),
-                    []( const auto& e ) { return e.get(); } );
+    std::transform( m_entities.begin(), m_entities.end(), entities.begin(), []( const auto& e ) {
+        return e.get();
+    } );
 
     return entities;
 }

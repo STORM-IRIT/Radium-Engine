@@ -14,7 +14,8 @@ namespace Asset {
  *  Every asset data must have a name and must be copy constructible.
  *
  */
-class RA_CORE_API AssetData {
+class RA_CORE_API AssetData
+{
   public:
     /// Construct an asset data given its name.
     explicit AssetData( const std::string& name ) : m_name( name ) {}

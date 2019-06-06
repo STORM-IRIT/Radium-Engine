@@ -37,11 +37,11 @@ inline Core::Transform assimpToCore( const aiMatrix4x4& M ) {
     return Core::Transform( m );
 }
 
-inline Core::Transform assimpToCore( const aiVector3D& T, const aiQuaternion& R,
-                                     const aiVector3D& S ) {
-    Core::Vector3 t = assimpToCore( T );
+inline Core::Transform
+assimpToCore( const aiVector3D& T, const aiQuaternion& R, const aiVector3D& S ) {
+    Core::Vector3 t    = assimpToCore( T );
     Core::Quaternion r = assimpToCore( R );
-    Core::Vector3 s = assimpToCore( S );
+    Core::Vector3 s    = assimpToCore( S );
     Core::Transform M;
     M.fromPositionOrientationScale( t, r, s );
     return M;
@@ -58,8 +58,7 @@ inline Core::Utils::Color assimpToCore( const aiColor4D& c ) {
 inline std::string assimpToCore( const aiString& string ) {
     std::string result( string.C_Str() );
     std::transform( result.begin(), result.end(), result.begin(), []( char in ) {
-        if ( in == '\\' )
-            return '/';
+        if ( in == '\\' ) return '/';
         return in;
     } );
     return result.empty() ? "default" : result;

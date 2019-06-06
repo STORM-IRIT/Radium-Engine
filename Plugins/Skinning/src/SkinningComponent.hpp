@@ -19,7 +19,8 @@ namespace SkinningPlugin {
 
 /// The SkinningComponent class is responsible for applying Geometric Skinning Methods
 /// on an animated object's mesh.
-class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
+class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component
+{
   public:
     /// The Geometric Skinning Method.
     enum SkinningType {

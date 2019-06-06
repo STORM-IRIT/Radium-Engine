@@ -44,11 +44,13 @@ class RadiumPluginInterface;
 namespace Ra {
 namespace GuiBase {
 /// This class contains the main application logic. It owns the engine and the GUI.
-class RA_GUIBASE_API BaseApplication : public QApplication {
+class RA_GUIBASE_API BaseApplication : public QApplication
+{
     Q_OBJECT
 
   public:
-    class WindowFactory {
+    class WindowFactory
+    {
       public:
         WindowFactory(){};
         virtual Ra::GuiBase::MainWindowInterface* createMainWindow() const = 0;
@@ -61,8 +63,10 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
      * \param applicationName
      * \param organizationName
      */
-    BaseApplication( int argc, char** argv, const WindowFactory& factory,
-                     QString applicationName = "RadiumEngine",
+    BaseApplication( int argc,
+                     char** argv,
+                     const WindowFactory& factory,
+                     QString applicationName  = "RadiumEngine",
                      QString organizationName = "STORM-IRIT" );
     virtual ~BaseApplication();
 
@@ -116,7 +120,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     /// If loadList is empty, attempts to load all DLLs in the folder (except those on the ignore
     /// list) If loadList contains names it will only look for DLLs in that folder with the given
     /// name.
-    bool loadPlugins( const std::string& pluginsPath, const QStringList& loadList,
+    bool loadPlugins( const std::string& pluginsPath,
+                      const QStringList& loadList,
                       const QStringList& ignoreList );
 
     void setupScene();

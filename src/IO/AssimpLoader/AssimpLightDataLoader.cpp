@@ -49,10 +49,7 @@ void AssimpLightDataLoader::loadData( const aiScene* scene,
         data.emplace_back( loadLightData( scene, *( scene->mLights[lightId] ) ) );
     }
 
-    if ( m_verbose )
-    {
-        LOG( logINFO ) << "Light Loading end.\n";
-    }
+    if ( m_verbose ) { LOG( logINFO ) << "Light Loading end.\n"; }
 }
 
 bool AssimpLightDataLoader::sceneHasLight( const aiScene* scene ) const {
@@ -70,7 +67,7 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
     //    auto builtLight = new LightData(fetchName( light ), fetchType( light) );
     auto builtLight = std::make_unique<LightData>( fetchName( light ), fetchType( light ) );
     Core::Matrix4 rootMatrix;
-    rootMatrix = Core::Matrix4::Identity();
+    rootMatrix          = Core::Matrix4::Identity();
     Core::Matrix4 frame = loadLightFrame( scene, rootMatrix, builtLight->getName() );
     setFrame( frame );
     auto color = assimpToCore( light.mColorDiffuse );
@@ -91,7 +88,8 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
             ( frame * Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &( light.mPosition.x ) )
                           .homogeneous() )
                 .hnormalized(),
-            LightData::LightAttenuation( light.mAttenuationConstant, light.mAttenuationLinear,
+            LightData::LightAttenuation( light.mAttenuationConstant,
+                                         light.mAttenuationLinear,
                                          light.mAttenuationQuadratic ) );
     }
     break;
@@ -105,9 +103,11 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
             ( frame * Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &( light.mPosition.x ) )
                           .homogeneous() )
                 .hnormalized(),
-            -( frame.transpose().inverse() * dir ).head<3>(), light.mAngleInnerCone,
+            -( frame.transpose().inverse() * dir ).head<3>(),
+            light.mAngleInnerCone,
             light.mAngleOuterCone,
-            LightData::LightAttenuation( light.mAttenuationConstant, light.mAttenuationLinear,
+            LightData::LightAttenuation( light.mAttenuationConstant,
+                                         light.mAttenuationLinear,
                                          light.mAttenuationQuadratic ) );
     }
     break;

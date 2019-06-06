@@ -24,7 +24,8 @@ namespace Engine {
 #ifndef RA_DISABLE_DEBUG_DISPLAY
 
 /// Component for debug drawing. @see SystemEntity.
-class RA_ENGINE_API DebugComponent : public Component {
+class RA_ENGINE_API DebugComponent : public Component
+{
   public:
     explicit DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
 
@@ -37,7 +38,8 @@ class RA_ENGINE_API DebugComponent : public Component {
 #endif
 
 /// Component for UI drawing. @see SystemEntity.
-class RA_ENGINE_API UiComponent : public Component {
+class RA_ENGINE_API UiComponent : public Component
+{
   public:
     explicit UiComponent( Entity* entity ) : Component( "UI", entity ) {}
 
@@ -46,7 +48,8 @@ class RA_ENGINE_API UiComponent : public Component {
 
 /// This entity allows to add UI and debug drawables from everywhere in the code.
 /// It should have only one component and its transform should not change.
-class RA_ENGINE_API SystemEntity : public Entity {
+class RA_ENGINE_API SystemEntity : public Entity
+{
     RA_SINGLETON_INTERFACE( SystemEntity );
 
   public:

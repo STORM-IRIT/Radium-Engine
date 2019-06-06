@@ -21,11 +21,11 @@ TextureManager::~TextureManager() {
     m_textures.clear();
 }
 
-TextureParameters& TextureManager::addTexture( const std::string& name, uint width, uint height,
-                                               void* data ) {
+TextureParameters&
+TextureManager::addTexture( const std::string& name, uint width, uint height, void* data ) {
     TextureParameters texData;
-    texData.name = name;
-    texData.width = width;
+    texData.name   = name;
+    texData.width  = width;
     texData.height = height;
     texData.texels = data;
 
@@ -37,8 +37,11 @@ TextureParameters& TextureManager::addTexture( const std::string& name, uint wid
 void TextureManager::loadTexture( TextureParameters& texParameters ) {
     stbi_set_flip_vertically_on_load( true );
     int n;
-    unsigned char* data = stbi_load( texParameters.name.c_str(), (int*)( &( texParameters.width ) ),
-                                     (int*)( &( texParameters.height ) ), &n, 0 );
+    unsigned char* data = stbi_load( texParameters.name.c_str(),
+                                     (int*)( &( texParameters.width ) ),
+                                     (int*)( &( texParameters.height ) ),
+                                     &n,
+                                     0 );
 
     if ( !data )
     {
@@ -52,7 +55,7 @@ void TextureManager::loadTexture( TextureParameters& texParameters ) {
     {
     case 1:
     {
-        texParameters.format = GL_RED;
+        texParameters.format         = GL_RED;
         texParameters.internalFormat = GL_R8;
     }
     break;
@@ -60,27 +63,27 @@ void TextureManager::loadTexture( TextureParameters& texParameters ) {
     case 2:
     {
         // suppose it is GL_LUMINANCE_ALPHA
-        texParameters.format = GL_RG;
+        texParameters.format         = GL_RG;
         texParameters.internalFormat = GL_RG8;
     }
     break;
 
     case 3:
     {
-        texParameters.format = GL_RGB;
+        texParameters.format         = GL_RGB;
         texParameters.internalFormat = GL_RGB8;
     }
     break;
 
     case 4:
     {
-        texParameters.format = GL_RGBA;
+        texParameters.format         = GL_RGBA;
         texParameters.internalFormat = GL_RGBA8;
     }
     break;
     default:
     {
-        texParameters.format = GL_RGBA;
+        texParameters.format         = GL_RGBA;
         texParameters.internalFormat = GL_RGBA8;
     }
     break;
@@ -96,16 +99,13 @@ void TextureManager::loadTexture( TextureParameters& texParameters ) {
 
     CORE_ASSERT( data, "Data is null" );
     texParameters.texels = data;
-    texParameters.type = GL_UNSIGNED_BYTE;
+    texParameters.type   = GL_UNSIGNED_BYTE;
 }
 
 Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameters,
                                            bool linearize ) {
     auto it = m_textures.find( texParameters.name );
-    if ( it != m_textures.end() )
-    {
-        return it->second;
-    }
+    if ( it != m_textures.end() ) { return it->second; }
     auto makeTexture = []( TextureParameters& data, bool linearize ) -> Texture* {
         auto tex = new Texture( data );
         tex->initializeGL( linearize );
@@ -150,10 +150,7 @@ void TextureManager::updateTextureContent( const std::string& texture, void* con
 }
 
 void TextureManager::updatePendingTextures() {
-    if ( m_pendingData.empty() )
-    {
-        return;
-    }
+    if ( m_pendingData.empty() ) { return; }
 
     for ( auto& data : m_pendingData )
     {

@@ -50,7 +50,7 @@ inline void BVH<T>::clear() {
     // TODO Clear tree
 
     m_leaves.clear();
-    m_root = nullptr;
+    m_root      = nullptr;
     m_root_aabb = Aabb();
 
     // m_upToDate = true ;
@@ -58,8 +58,7 @@ inline void BVH<T>::clear() {
 
 template <typename T>
 inline void BVH<T>::update() {
-    if ( !m_upToDate )
-        buildBottomUpSlow();
+    if ( !m_upToDate ) buildBottomUpSlow();
 }
 
 template <typename T>
@@ -87,7 +86,7 @@ inline void BVH<T>::buildBottomUpSlow() {
                 merge = it->get()->getAabb().merged( it2->get()->getAabb() );
                 if ( merge.volume() < low )
                 {
-                    low = merge.volume();
+                    low   = merge.volume();
                     l_min = it;
                     r_min = it2;
                 }
@@ -132,7 +131,7 @@ inline void BVH<T>::getInFrustumSlow( std::vector<std::shared_ptr<T>>& objects,
                 for ( uint i = 0; i < 6 && isIn; ++i )
                 {
                     const auto& plane = frustum.getPlane( i );
-                    Aabb aabb = current->getAabb();
+                    Aabb aabb         = current->getAabb();
 
                     // If the BBOX is fully outside (at least) one plane, it is not in
                     if ( ( plane.dot( aabb.corner( Aabb::BottomLeftFloor ).homogeneous() ) <

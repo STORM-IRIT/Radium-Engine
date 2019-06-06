@@ -22,7 +22,8 @@ namespace CameraManipPlugin {
 // namespace
 /// The CameraManipPlugin allows to change the current camera used for display,
 /// create a copy of the current camera and save the current camera data to a file.
-class CameraManipPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
+class CameraManipPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+{
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )

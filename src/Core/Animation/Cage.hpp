@@ -17,7 +17,8 @@ namespace Animation {
  *
  * \warning This class is probably unused
  */
-class RA_CORE_API Cage : public Handle {
+class RA_CORE_API Cage : public Handle
+{
   public:
     Cage();
     explicit Cage( const uint n );

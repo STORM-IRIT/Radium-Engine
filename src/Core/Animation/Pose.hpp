@@ -18,7 +18,7 @@ using Pose = AlignedStdVector<Eigen::Transform<Scalar, 3, Eigen::Affine>>;
 
 // Typedef for code redability purposes only.
 using RestPose = Pose;
-using RefPose = RestPose;
+using RefPose  = RestPose;
 
 using LocalPose = Pose;
 using ModelPose = Pose;

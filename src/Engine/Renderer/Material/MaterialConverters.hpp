@@ -38,7 +38,7 @@ namespace Engine {
  */
 namespace EngineMaterialConverters {
 
-using AssetMaterialPtr = const Ra::Core::Asset::MaterialData*;
+using AssetMaterialPtr  = const Ra::Core::Asset::MaterialData*;
 using RadiumMaterialPtr = Ra::Engine::Material*;
 using ConverterFunction = std::function<RadiumMaterialPtr( AssetMaterialPtr )>;
 

@@ -145,10 +145,7 @@ inline bool HandleData::needsEndNodes() const {
 
 inline int HandleData::getIndexOf( const std::string& name ) const {
     auto it = m_nameTable.find( name );
-    if ( it == m_nameTable.end() )
-    {
-        return -1;
-    }
+    if ( it == m_nameTable.end() ) { return -1; }
     return it->second;
 }
 

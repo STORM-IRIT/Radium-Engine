@@ -7,10 +7,7 @@ namespace Geometry {
 /*--------------------------------------------------*/
 
 void CubicBezier::addPoint( const Curve2D::Vector p ) {
-    if ( size < 4 )
-    {
-        m_points[size++] = p;
-    }
+    if ( size < 4 ) { m_points[size++] = p; }
 }
 
 Curve2D::Vector CubicBezier::f( Scalar u ) const {
@@ -25,9 +22,9 @@ Curve2D::Vector CubicBezier::df( Scalar u ) const {
 }
 
 Curve2D::Vector CubicBezier::fdf( Scalar t, Vector& grad ) const {
-    float t2 = t * t;
-    float t3 = t2 * t;
-    float oneMinusT = 1.0 - t;
+    float t2         = t * t;
+    float t3         = t2 * t;
+    float oneMinusT  = 1.0 - t;
     float oneMinusT2 = oneMinusT * oneMinusT;
     float oneMinusT3 = oneMinusT2 * oneMinusT;
 
@@ -41,10 +38,7 @@ Curve2D::Vector CubicBezier::fdf( Scalar t, Vector& grad ) const {
 /*--------------------------------------------------*/
 
 void Line::addPoint( const Curve2D::Vector p ) {
-    if ( size < 2 )
-    {
-        m_points[size++] = p;
-    }
+    if ( size < 2 ) { m_points[size++] = p; }
 }
 
 Curve2D::Vector Line::f( Scalar u ) const {
