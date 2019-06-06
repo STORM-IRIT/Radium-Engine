@@ -16,7 +16,8 @@ class GeometryData;
 class HandleData;
 class LightData;
 
-class RA_CORE_API FileData final {
+class RA_CORE_API FileData final
+{
   public:
     /// CONSTRUCTOR
     FileData( const std::string& filename = "", const bool VERBOSE_MODE = false );

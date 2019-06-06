@@ -30,22 +30,23 @@ using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 
 namespace Ra {
 namespace Engine {
-TriangleMeshComponent::TriangleMeshComponent( const std::string& name, Entity* entity,
+TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
+                                              Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
     Component( name, entity ),
     m_displayMesh( nullptr ) {
     generateTriangleMesh( data );
 }
 
-TriangleMeshComponent::TriangleMeshComponent(const std::string &name, Entity *entity,
-                                             Core::Geometry::TriangleMesh &&mesh,
-                                             Core::Asset::MaterialData* mat) :
+TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
+                                              Entity* entity,
+                                              Core::Geometry::TriangleMesh&& mesh,
+                                              Core::Asset::MaterialData* mat ) :
     Component( name, entity ),
     m_contentName( name ),
-    m_displayMesh( new Engine::Mesh( name ) )
-{
-  m_displayMesh->loadGeometry( std::move( mesh ) );
-  finalizeROFromGeometry( mat );
+    m_displayMesh( new Engine::Mesh( name ) ) {
+    m_displayMesh->loadGeometry( std::move( mesh ) );
+    finalizeROFromGeometry( mat );
 }
 
 //////////// STORE Mesh/TriangleMesh here instead of an index, so don't need to request the ROMgr
@@ -59,7 +60,7 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     m_contentName = data->getName();
 
     std::string name( m_name );
-    name.append( "_" +m_contentName );
+    name.append( "_" + m_contentName );
 
     std::string meshName = name;
     meshName.append( "_Mesh" );
@@ -99,95 +100,82 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
     if ( data->hasTangents() )
-    {
-        m_displayMesh->addData( Mesh::VERTEX_TANGENT, data->getTangents() );
-    }
+    { m_displayMesh->addData( Mesh::VERTEX_TANGENT, data->getTangents() ); }
 
     if ( data->hasBiTangents() )
-    {
-        m_displayMesh->addData( Mesh::VERTEX_BITANGENT, data->getBiTangents() );
-    }
+    { m_displayMesh->addData( Mesh::VERTEX_BITANGENT, data->getBiTangents() ); }
 
     if ( data->hasTextureCoordinates() )
-    {
-        m_displayMesh->addData( Mesh::VERTEX_TEXCOORD, data->getTexCoords() );
-    }
+    { m_displayMesh->addData( Mesh::VERTEX_TEXCOORD, data->getTexCoords() ); }
 
     if ( data->hasColors() )
-    {
-        m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() );
-    }
+    { m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() ); }
 
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
 
-
     finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr );
-
 }
 
-void TriangleMeshComponent::finalizeROFromGeometry(const Core::Asset::MaterialData *data )
-{
-  // The technique for rendering this component
-  RenderTechnique rt;
+void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data ) {
+    // The technique for rendering this component
+    RenderTechnique rt;
 
-  bool isTransparent{false};
+    bool isTransparent{false};
 
-  if ( data != nullptr )
-  {
-      // First extract the material from asset
-      auto converter = EngineMaterialConverters::getMaterialConverter( data->getType() );
-      auto convertedMaterial = converter.second( data );
+    if ( data != nullptr )
+    {
+        // First extract the material from asset
+        auto converter         = EngineMaterialConverters::getMaterialConverter( data->getType() );
+        auto convertedMaterial = converter.second( data );
 
-      // Second, associate the material to the render technique
-      std::shared_ptr<Material> radiumMaterial( convertedMaterial );
-      if ( radiumMaterial != nullptr )
-      {
-          isTransparent = radiumMaterial->isTransparent();
-      }
-      rt.setMaterial( radiumMaterial );
+        // Second, associate the material to the render technique
+        std::shared_ptr<Material> radiumMaterial( convertedMaterial );
+        if ( radiumMaterial != nullptr ) { isTransparent = radiumMaterial->isTransparent(); }
+        rt.setMaterial( radiumMaterial );
 
-      // Third, define the technique for rendering this material (here, using the default)
-      auto builder = EngineRenderTechniques::getDefaultTechnique( data->getType() );
-      builder.second( rt, isTransparent );
-  } else
-  {
-      auto mat =
-          Ra::Core::make_shared<BlinnPhongMaterial>( m_contentName + "_DefaultBPMaterial" );
-      mat->m_kd = Ra::Core::Utils::Color::Grey();
-      mat->m_ks = Ra::Core::Utils::Color::White();
-      mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
-      mat->m_hasPerVertexKd =
-          m_displayMesh->getTriangleMesh().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
-      rt.setMaterial( mat );
-      auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
-      builder.second( rt, false );
-  }
+        // Third, define the technique for rendering this material (here, using the default)
+        auto builder = EngineRenderTechniques::getDefaultTechnique( data->getType() );
+        builder.second( rt, isTransparent );
+    }
+    else
+    {
+        auto mat =
+            Ra::Core::make_shared<BlinnPhongMaterial>( m_contentName + "_DefaultBPMaterial" );
+        mat->m_kd            = Ra::Core::Utils::Color::Grey();
+        mat->m_ks            = Ra::Core::Utils::Color::White();
+        mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
+        mat->m_hasPerVertexKd =
+            m_displayMesh->getTriangleMesh().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+        rt.setMaterial( mat );
+        auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+        builder.second( rt, false );
+    }
 
-  if ( m_displayMesh->getTriangleMesh().m_triangles.empty() ) // add geometry shader for splatting
-  {
-      auto addGeomShader = [&rt]( RenderTechnique::PassName pass ) {
-          if ( rt.hasConfiguration( pass ) )
-          {
-              ShaderConfiguration config = rt.getConfiguration( pass );
-              config.addShader( ShaderType_GEOMETRY, "Shaders/PointCloud.geom.glsl" );
-              rt.setConfiguration( config, pass );
-          }
-      };
+    if ( m_displayMesh->getTriangleMesh().m_triangles.empty() ) // add geometry shader for splatting
+    {
+        auto addGeomShader = [&rt]( RenderTechnique::PassName pass ) {
+            if ( rt.hasConfiguration( pass ) )
+            {
+                ShaderConfiguration config = rt.getConfiguration( pass );
+                config.addShader( ShaderType_GEOMETRY, "Shaders/PointCloud.geom.glsl" );
+                rt.setConfiguration( config, pass );
+            }
+        };
 
-      addGeomShader( RenderTechnique::LIGHTING_OPAQUE );
-      addGeomShader( RenderTechnique::LIGHTING_TRANSPARENT );
-      addGeomShader( RenderTechnique::Z_PREPASS );
-  }
+        addGeomShader( RenderTechnique::LIGHTING_OPAQUE );
+        addGeomShader( RenderTechnique::LIGHTING_TRANSPARENT );
+        addGeomShader( RenderTechnique::Z_PREPASS );
+    }
 
-  std::string roName( m_name + "_" + m_contentName + "_RO" );
+    std::string roName( m_name + "_" + m_contentName + "_RO" );
 
-  auto ro = RenderObject::createRenderObject( roName, this, RenderObjectType::Geometry,
-                                              m_displayMesh, rt );
-  ro->setTransparent( isTransparent );
+    auto ro = RenderObject::createRenderObject(
+        roName, this, RenderObjectType::Geometry, m_displayMesh, rt );
+    ro->setTransparent( isTransparent );
 
-  setupIO( m_contentName );
-  m_meshIndex = addRenderObject( ro );
+    setupIO( m_contentName );
+    m_meshIndex = addRenderObject( ro );
 }
 
 Ra::Core::Utils::Index TriangleMeshComponent::getRenderObjectIndex() const {
@@ -223,23 +211,23 @@ void TriangleMeshComponent::setupIO( const std::string& id ) {
 
     ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
         std::bind( &TriangleMeshComponent::roIndexRead, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>( getEntity(), this,
-                                                                               id, roOut );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
+        getEntity(), this, id, roOut );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite vRW =
         std::bind( &TriangleMeshComponent::getVerticesRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this,
-                                                                                  id + "v", vRW );
+    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>(
+        getEntity(), this, id + "v", vRW );
 
     ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite nRW =
         std::bind( &TriangleMeshComponent::getNormalsRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>( getEntity(), this,
-                                                                                  id + "n", nRW );
+    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>(
+        getEntity(), this, id + "n", nRW );
 
     ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW =
         std::bind( &TriangleMeshComponent::getTrianglesRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>( getEntity(), this,
-                                                                         id + "t", tRW );
+    ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>(
+        getEntity(), this, id + "t", tRW );
 }
 
 const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() const {

@@ -12,7 +12,8 @@ namespace Engine {
 /** Spot light for rendering.
  *
  */
-class RA_ENGINE_API SpotLight final : public Light {
+class RA_ENGINE_API SpotLight final : public Light
+{
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW

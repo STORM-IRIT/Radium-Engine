@@ -36,7 +36,8 @@ namespace Gui {
 /// can be selected with the same logic. An alternative would be to have an intermediate class ,
 /// e.g. `XYZGizmo` which performs all the generic operations (e.g. render object coloring in
 /// #selectConstraint and #mouseMove).
-class Gizmo {
+class Gizmo
+{
   public:
     enum Mode {
         LOCAL,
@@ -45,7 +46,9 @@ class Gizmo {
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-    Gizmo( Engine::Component* c, const Core::Transform& worldTo, const Core::Transform& t,
+    Gizmo( Engine::Component* c,
+           const Core::Transform& worldTo,
+           const Core::Transform& t,
            Mode mode );
 
     virtual ~Gizmo();
@@ -54,8 +57,8 @@ class Gizmo {
     void show( bool on );
 
     /// Called every time the underlying transform may have changed.
-    virtual void updateTransform( Mode mode, const Core::Transform& worldTo,
-                                  const Core::Transform& t ) = 0;
+    virtual void
+    updateTransform( Mode mode, const Core::Transform& worldTo, const Core::Transform& t ) = 0;
 
     /// Called when one of the drawables of the gizmo has been selected.
     virtual void selectConstraint( int drawableIndex ) = 0;
@@ -66,17 +69,23 @@ class Gizmo {
 
     /// Called when the mose movement is recorder with the camera parameters and the current pixel
     /// coordinates.
-    virtual Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
-                                       bool stepped = false ) = 0;
+    virtual Core::Transform
+    mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped = false ) = 0;
 
   protected:
-    static bool findPointOnAxis( const Engine::Camera& cam, const Core::Vector3& origin,
-                                 const Core::Vector3& axis, const Core::Vector2& pix,
-                                 Core::Vector3& pointOut, std::vector<Scalar>& hits );
+    static bool findPointOnAxis( const Engine::Camera& cam,
+                                 const Core::Vector3& origin,
+                                 const Core::Vector3& axis,
+                                 const Core::Vector2& pix,
+                                 Core::Vector3& pointOut,
+                                 std::vector<Scalar>& hits );
 
-    static bool findPointOnPlane( const Engine::Camera& cam, const Core::Vector3& origin,
-                                  const Core::Vector3& axis, const Core::Vector2& pix,
-                                  Core::Vector3& pointOut, std::vector<Scalar>& hits );
+    static bool findPointOnPlane( const Engine::Camera& cam,
+                                  const Core::Vector3& origin,
+                                  const Core::Vector3& axis,
+                                  const Core::Vector2& pix,
+                                  Core::Vector3& pointOut,
+                                  std::vector<Scalar>& hits );
 
     //////////////////////////////
     // Render objects management

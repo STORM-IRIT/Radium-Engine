@@ -9,7 +9,8 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-class KeyPose : public KeyFrame<Pose> {
+class KeyPose : public KeyFrame<Pose>
+{
   public:
     /// CONSTRUCTOR
     explicit KeyPose( const AnimationTime& time = AnimationTime() ) : KeyFrame<Pose>( time ) {}

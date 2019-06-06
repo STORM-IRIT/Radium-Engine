@@ -45,7 +45,7 @@ WeightMatrix partitionOfUnity( Eigen::Ref<const WeightMatrix> weights ) {
 }
 
 uint getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights, const uint vertexID ) {
-    uint maxId = uint( -1 );
+    uint maxId  = uint( -1 );
     VectorN row = weights.row( vertexID );
     row.maxCoeff( &maxId );
     return maxId;
@@ -59,20 +59,19 @@ void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights, std::vector<uint
     }
 }
 
-bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix, const bool FAIL_ON_ASSERT,
+bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
+                        const bool FAIL_ON_ASSERT,
                         const bool MT ) {
     bool ok = Math::checkInvalidNumbers( matrix, FAIL_ON_ASSERT ) &&
               checkNoWeightVertex( matrix, FAIL_ON_ASSERT, MT );
 
-    if ( !ok )
-    {
-        LOG( logDEBUG ) << "Matrix is not good.";
-    }
+    if ( !ok ) { LOG( logDEBUG ) << "Matrix is not good."; }
 
     return ok;
 }
 
-bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix, const bool FAIL_ON_ASSERT,
+bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
+                          const bool FAIL_ON_ASSERT,
                           const bool MT ) {
     int status = 1;
     LOG( logDEBUG ) << "Searching for empty rows in the matrix...";
@@ -81,20 +80,19 @@ bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix, const bool FAIL
 #pragma omp parallel for
         for ( int i = 0; i < matrix.rows(); ++i )
         {
-            Sparse row = matrix.row( i );
+            Sparse row      = matrix.row( i );
             const int check = ( row.nonZeros() > 0 ) ? 1 : 0;
 #pragma omp atomic
             status &= check;
         }
         if ( status == 0 )
         {
-            if ( FAIL_ON_ASSERT )
-            {
-                CORE_ASSERT( false, "At least a vertex as no weights" );
-            } else
+            if ( FAIL_ON_ASSERT ) { CORE_ASSERT( false, "At least a vertex as no weights" ); }
+            else
             { LOG( logDEBUG ) << "At least a vertex as no weights"; }
         }
-    } else
+    }
+    else
     {
         for ( int i = 0; i < matrix.rows(); ++i )
         {
@@ -104,10 +102,8 @@ bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix, const bool FAIL
                 status = 0;
 
                 const std::string text = "Vertex " + std::to_string( i ) + " has no weights.";
-                if ( FAIL_ON_ASSERT )
-                {
-                    CORE_ASSERT( false, text.c_str() );
-                } else
+                if ( FAIL_ON_ASSERT ) { CORE_ASSERT( false, text.c_str() ); }
+                else
                 { LOG( logDEBUG ) << text; }
             }
         }

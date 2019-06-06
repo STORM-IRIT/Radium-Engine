@@ -41,10 +41,12 @@ RA_CORE_API void getMaxWeightIndex( Eigen::Ref<const WeightMatrix> weights,
  * Call Math::checkInvalidNumbers and checkNoWeightVertex on the input matrix
  */
 RA_CORE_API bool checkWeightMatrix( Eigen::Ref<const WeightMatrix> matrix,
-                                    const bool FAIL_ON_ASSERT = false, const bool MT = false );
+                                    const bool FAIL_ON_ASSERT = false,
+                                    const bool MT             = false );
 
 RA_CORE_API bool checkNoWeightVertex( Eigen::Ref<const WeightMatrix> matrix,
-                                      const bool FAIL_ON_ASSERT = false, const bool MT = false );
+                                      const bool FAIL_ON_ASSERT = false,
+                                      const bool MT             = false );
 
 /**
  * In-place normalization of the weights, such that matrix.row( k ).sum() = 1;

@@ -49,18 +49,17 @@ args processArgs( int argc, char* argv[] ) {
     {
         if ( std::string( argv[i] ) == std::string( "-i" ) )
         {
-            if ( i + 1 < argc )
-            {
-                ret.inputFilename = argv[i + 1];
-            }
-        } else if ( std::string( argv[i] ) == std::string( "-o" ) )
+            if ( i + 1 < argc ) { ret.inputFilename = argv[i + 1]; }
+        }
+        else if ( std::string( argv[i] ) == std::string( "-o" ) )
         {
             if ( i + 1 < argc )
             {
                 ret.outputFilename = argv[i + 1];
-                outputFilenameSet = true;
+                outputFilenameSet  = true;
             }
-        } else if ( std::string( argv[i] ) == std::string( "-s" ) )
+        }
+        else if ( std::string( argv[i] ) == std::string( "-s" ) )
         {
             if ( i + 1 < argc )
             {
@@ -69,18 +68,16 @@ args processArgs( int argc, char* argv[] ) {
                 if ( a == std::string( "catmull" ) )
                 {
                     ret.subdivider = std::make_unique<Ra::Core::Geometry::CatmullClarkSubdivider>();
-                } else if ( a == std::string( "loop" ) )
-                {
-                    ret.subdivider = std::make_unique<Ra::Core::Geometry::LoopSubdivider>();
-                } else
+                }
+                else if ( a == std::string( "loop" ) )
+                { ret.subdivider = std::make_unique<Ra::Core::Geometry::LoopSubdivider>(); }
+                else
                 { subdividerSet = false; }
             }
-        } else if ( std::string( argv[i] ) == std::string( "-n" ) )
+        }
+        else if ( std::string( argv[i] ) == std::string( "-n" ) )
         {
-            if ( i + 1 < argc )
-            {
-                ret.iteration = std::stoi( std::string( argv[i + 1] ) );
-            }
+            if ( i + 1 < argc ) { ret.iteration = std::stoi( std::string( argv[i + 1] ) ); }
         }
     }
     ret.valid = outputFilenameSet && subdividerSet;
@@ -90,18 +87,14 @@ args processArgs( int argc, char* argv[] ) {
 int main( int argc, char* argv[] ) {
     using namespace Ra::Core::Utils; // log
     args a = processArgs( argc, argv );
-    if ( !a.valid )
-    {
-        printHelp( argv );
-    } else
+    if ( !a.valid ) { printHelp( argv ); }
+    else
     {
         Ra::Core::Geometry::TriangleMesh mesh;
         Ra::IO::OBJFileManager obj;
 
-        if ( a.inputFilename.empty() )
-        {
-            mesh = Ra::Core::Geometry::makeBox();
-        } else
+        if ( a.inputFilename.empty() ) { mesh = Ra::Core::Geometry::makeBox(); }
+        else
         { obj.load( a.inputFilename, mesh ); }
 
         LOG( logINFO ) << "in Mesh";
@@ -117,7 +110,7 @@ int main( int argc, char* argv[] ) {
         }
 
 #ifdef TEST_ATTRIBUTES_SUBDIV
-        float i = 0;
+        float i           = 0;
         auto test_handle2 = mesh.addAttrib<Ra::Core::Vector4>( "test vec4" );
         mesh.getAttrib( test_handle2 ).resize( mesh.vertices().size() );
         for ( auto& v : mesh.getAttrib( test_handle2 ).data() )

@@ -19,7 +19,8 @@ namespace Engine {
 /**
  * Light base classe for rendering
  */
-class RA_ENGINE_API Light : public Component {
+class RA_ENGINE_API Light : public Component
+{
   public:
     /** supported light type.
      * @note POLYGONAL is not really supported.

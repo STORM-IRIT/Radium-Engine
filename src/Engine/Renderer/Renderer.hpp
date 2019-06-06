@@ -45,7 +45,8 @@ namespace Engine {
  * Abstract renderer for the engine.
  * @see Radium Engine default rendering informations
  */
-class RA_ENGINE_API Renderer {
+class RA_ENGINE_API Renderer
+{
   protected:
     using RenderObjectPtr = std::shared_ptr<RenderObject>;
 

@@ -5,10 +5,10 @@
 
 #include <Engine/Renderer/Renderer.hpp>
 
-
 namespace Ra {
 namespace Gui {
-class RA_GUIBASE_API PickingManager {
+class RA_GUIBASE_API PickingManager
+{
   public:
     PickingManager();
     ~PickingManager();

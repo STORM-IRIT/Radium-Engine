@@ -12,8 +12,8 @@
 namespace Ra {
 namespace Engine {
 /**
-* Available shader type
-*/
+ * Available shader type
+ */
 enum ShaderType : uint {
     ShaderType_VERTEX = 0,
     ShaderType_FRAGMENT,
@@ -51,12 +51,14 @@ enum ShaderType : uint {
  *     shader->bind();
  *     ...
  *
- *     @todo : make configuration and program (in the OpenGL sense) be packed. A shader configuration might contains a
- *     ShaderProgram after compiling. This will remove the need for ShaderConfigurationFactory as ShaderManager will
- *     offer the same services. Actually, there is redundancy between ShaderConfigurationFactory and ShaderProgramManager
+ *     @todo : make configuration and program (in the OpenGL sense) be packed. A shader
+ * configuration might contains a ShaderProgram after compiling. This will remove the need for
+ * ShaderConfigurationFactory as ShaderManager will offer the same services. Actually, there is
+ * redundancy between ShaderConfigurationFactory and ShaderProgramManager
  *
  */
-class RA_ENGINE_API ShaderConfiguration final {
+class RA_ENGINE_API ShaderConfiguration final
+{
     friend class ShaderProgram;
 
   public:
@@ -72,7 +74,8 @@ class RA_ENGINE_API ShaderConfiguration final {
      * This does not add the configuration to the factory
      * ShaderConfigurationFactory::addConfiguration(config) must be called.
      */
-    ShaderConfiguration( const std::string& name, const std::string& vertexShader,
+    ShaderConfiguration( const std::string& name,
+                         const std::string& vertexShader,
                          const std::string& fragmentShader );
 
     /** Add a shader given its type
@@ -97,7 +100,7 @@ class RA_ENGINE_API ShaderConfiguration final {
     void removeInclude( const std::string& incl, ShaderType type = ShaderType_FRAGMENT );
 
     /// Manage named strings (see ShaderProgramManager::addNamedString)
-    void addNamedString(const std::string& includepath, const std::string& realfile);
+    void addNamedString( const std::string& includepath, const std::string& realfile );
 
     /** Tell if a shader configuration has at least a vertex and a fragment shader, or a compute
      * shader.
@@ -116,9 +119,9 @@ class RA_ENGINE_API ShaderConfiguration final {
     static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
 
   public:
-    std::string m_name {};
+    std::string m_name{};
 
-    std::string m_version {};
+    std::string m_version{};
 
   private:
     std::array<std::string, ShaderType_COUNT> m_shaders;

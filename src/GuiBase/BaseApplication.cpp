@@ -50,8 +50,11 @@ namespace GuiBase {
 using namespace Core::Utils; // log
 using namespace Core::Asset;
 
-BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& factory,
-                                  QString applicationName, QString organizationName ) :
+BaseApplication::BaseApplication( int argc,
+                                  char** argv,
+                                  const WindowFactory& factory,
+                                  QString applicationName,
+                                  QString organizationName ) :
     QApplication( argc, argv ),
     m_mainWindow( nullptr ),
     m_engine( nullptr ),
@@ -72,7 +75,7 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     QCoreApplication::setOrganizationName( organizationName );
     QCoreApplication::setApplicationName( applicationName );
 
-    m_targetFPS = 60; // Default
+    m_targetFPS             = 60; // Default
     std::string pluginsPath = "Plugins";
 
     QCommandLineParser parser;
@@ -83,15 +86,19 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     QCommandLineOption fpsOpt(
         QStringList{"r", "framerate", "fps"},
         "Control the application framerate, 0 to disable it (and run as fast as possible).",
-        "number", "60" );
+        "number",
+        "60" );
     QCommandLineOption maxThreadsOpt(
         QStringList{"m", "maxthreads", "max-threads"},
         "Control the maximum number of threads. 0 will set to the number of cores available",
-        "number", "0" );
-    QCommandLineOption numFramesOpt( QStringList{"n", "numframes"},
-                                     "Run for a fixed number of frames.", "number", "0" );
+        "number",
+        "0" );
+    QCommandLineOption numFramesOpt(
+        QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0" );
     QCommandLineOption pluginOpt( QStringList{"p", "plugins", "pluginsPath"},
-                                  "Set the path to the plugin dlls.", "folder", "Plugins" );
+                                  "Set the path to the plugin dlls.",
+                                  "folder",
+                                  "Plugins" );
     QCommandLineOption pluginLoadOpt(
         QStringList{"l", "load", "loadPlugin"},
         "Only load plugin with the given name (filename without the extension). If this option is "
@@ -101,28 +108,34 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
                                         "Ignore plugins with the given name. If the name appears "
                                         "within both load and ignore options, it will be ignored.",
                                         "name" );
-    QCommandLineOption fileOpt( QStringList{"f", "file", "scene"}, "Open a scene file at startup.",
-                                "file name", "foo.bar" );
+    QCommandLineOption fileOpt( QStringList{"f", "file", "scene"},
+                                "Open a scene file at startup.",
+                                "file name",
+                                "foo.bar" );
 
-    QCommandLineOption camOpt( QStringList{"c", "camera", "cam"}, "Open a camera file at startup",
-                               "file name", "foo.bar" );
+    QCommandLineOption camOpt( QStringList{"c", "camera", "cam"},
+                               "Open a camera file at startup",
+                               "file name",
+                               "foo.bar" );
 
-    parser.addOptions( {fpsOpt, pluginOpt, pluginLoadOpt, pluginIgnoreOpt, fileOpt, camOpt,
-                        maxThreadsOpt, numFramesOpt} );
+    parser.addOptions( {fpsOpt,
+                        pluginOpt,
+                        pluginLoadOpt,
+                        pluginIgnoreOpt,
+                        fileOpt,
+                        camOpt,
+                        maxThreadsOpt,
+                        numFramesOpt} );
     parser.process( *this );
 
-    if ( parser.isSet( fpsOpt ) )
-        m_targetFPS = parser.value( fpsOpt ).toUInt();
-    if ( parser.isSet( pluginOpt ) )
-        pluginsPath = parser.value( pluginOpt ).toStdString();
-    if ( parser.isSet( numFramesOpt ) )
-        m_numFrames = parser.value( numFramesOpt ).toUInt();
-    if ( parser.isSet( maxThreadsOpt ) )
-        m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
+    if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
+    if ( parser.isSet( pluginOpt ) ) pluginsPath = parser.value( pluginOpt ).toStdString();
+    if ( parser.isSet( numFramesOpt ) ) m_numFrames = parser.value( numFramesOpt ).toUInt();
+    if ( parser.isSet( maxThreadsOpt ) ) m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
 
     {
         std::time_t startTime = std::time( nullptr );
-        std::tm* startTm = std::localtime( &startTime );
+        std::tm* startTm      = std::localtime( &startTime );
         std::stringstream ssTp;
         ssTp << std::put_time( startTm, "%Y%m%d-%H%M%S" );
         m_exportFoldername = ssTp.str();
@@ -210,11 +223,9 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
     m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem, 1000 );
 
     // Load plugins
-    if ( !loadPlugins( pluginsPath, parser.values( pluginLoadOpt ),
-                       parser.values( pluginIgnoreOpt ) ) )
-    {
-        LOG( logERROR ) << "An error occurred while trying to load plugins.";
-    }
+    if ( !loadPlugins(
+             pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
+    { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
 
     // Make builtin loaders the fallback if no plugins can load some file format
 #ifdef IO_USE_TINYPLY
@@ -264,10 +275,10 @@ BaseApplication::BaseApplication( int argc, char** argv, const WindowFactory& fa
 }
 
 void BaseApplication::createConnections() {
-    connect( m_mainWindow.get(), &MainWindowInterface::closed, this,
-             &BaseApplication::appNeedsToQuit );
-    connect( m_viewer, &Gui::Viewer::glInitialized, this,
-             &BaseApplication::initializeOpenGlPlugins );
+    connect(
+        m_mainWindow.get(), &MainWindowInterface::closed, this, &BaseApplication::appNeedsToQuit );
+    connect(
+        m_viewer, &Gui::Viewer::glInitialized, this, &BaseApplication::initializeOpenGlPlugins );
     connect( this, &QGuiApplication::lastWindowClosed, m_viewer, &Gui::WindowQt::cleanupGL );
 }
 
@@ -276,8 +287,10 @@ void BaseApplication::setupScene() {
     using namespace Engine::DrawPrimitives;
 
     auto grid = Primitive( Engine::SystemEntity::uiCmp(),
-                           Grid( Core::Vector3::Zero(), Core::Vector3::UnitX(),
-                                 Core::Vector3::UnitZ(), Core::Utils::Color::Grey( 0.6f ) ) );
+                           Grid( Core::Vector3::Zero(),
+                                 Core::Vector3::UnitX(),
+                                 Core::Vector3::UnitZ(),
+                                 Core::Utils::Color::Grey( 0.6f ) ) );
     grid->setPickable( false );
     Engine::SystemEntity::uiCmp()->addRenderObject( grid );
 
@@ -285,7 +298,6 @@ void BaseApplication::setupScene() {
         Primitive( Engine::SystemEntity::uiCmp(), Frame( Ra::Core::Transform::Identity(), 0.05f ) );
     frame->setPickable( false );
     Engine::SystemEntity::uiCmp()->addRenderObject( frame );
-
 }
 
 bool BaseApplication::loadFile( QString path ) {
@@ -374,10 +386,7 @@ void BaseApplication::radiumFrame() {
     // 3. Run the engine task queue.
     m_engine->getTasks( m_taskQueue.get(), dt );
 
-    if ( m_recordGraph )
-    {
-        m_taskQueue->printTaskGraph( std::cout );
-    }
+    if ( m_recordGraph ) { m_taskQueue->printTaskGraph( std::cout ); }
 
     // Run one frame of tasks
     m_taskQueue->startTasks();
@@ -402,24 +411,15 @@ void BaseApplication::radiumFrame() {
     timerData.frameEnd = Core::Utils::Clock::now();
     timerData.numFrame = m_frameCounter;
 
-    if ( m_recordTimings )
-    {
-        timerData.print( std::cout );
-    }
+    if ( m_recordTimings ) { timerData.print( std::cout ); }
 
     m_timerData.push_back( timerData );
 
-    if ( m_recordFrames )
-    {
-        recordFrame();
-    }
+    if ( m_recordFrames ) { recordFrame(); }
 
     ++m_frameCounter;
 
-    if ( m_numFrames > 0 && m_frameCounter > m_numFrames )
-    {
-        appNeedsToQuit();
-    }
+    if ( m_numFrames > 0 && m_frameCounter > m_numFrames ) { appNeedsToQuit(); }
 
     if ( m_frameCounter % m_frameCountBeforeUpdate == 0 )
     {
@@ -440,10 +440,10 @@ void BaseApplication::initializeOpenGlPlugins() {
     if ( !m_openGLPlugins.empty() )
     {
         PluginContext context;
-        context.m_engine = m_engine.get();
+        context.m_engine           = m_engine.get();
         context.m_selectionManager = m_mainWindow->getSelectionManager();
-        context.m_pickingManager = m_viewer->getPickingManager();
-        context.m_viewer = m_viewer;
+        context.m_pickingManager   = m_viewer->getPickingManager();
+        context.m_viewer           = m_viewer;
         for ( auto plugin : m_openGLPlugins )
         {
             m_viewer->makeCurrent();
@@ -478,7 +478,8 @@ BaseApplication::~BaseApplication() {
     QDir().rmdir( m_exportFoldername.c_str() );
 }
 
-bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QStringList& loadList,
+bool BaseApplication::loadPlugins( const std::string& pluginsPath,
+                                   const QStringList& loadList,
                                    const QStringList& ignoreList ) {
     QDir pluginsDir( qApp->applicationDirPath() );
     LOG( logINFO ) << " *** Loading Plugins ***";
@@ -491,15 +492,15 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
     }
 
     LOG( logDEBUG ) << "Plugin directory :" << pluginsDir.absolutePath().toStdString();
-    bool res = true;
+    bool res       = true;
     uint pluginCpt = 0;
 
     PluginContext context;
-    context.m_engine = m_engine.get();
+    context.m_engine           = m_engine.get();
     context.m_selectionManager = m_mainWindow->getSelectionManager();
-    context.m_pickingManager = m_viewer->getPickingManager();
-    context.m_viewer = m_viewer;
-    context.m_exportDir = m_exportFoldername;
+    context.m_pickingManager   = m_viewer->getPickingManager();
+    context.m_viewer           = m_viewer;
+    context.m_exportDir        = m_exportFoldername;
 
     for ( const auto& filename : pluginsDir.entryList( QDir::Files ) )
     {
@@ -587,7 +588,8 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                             m_viewer->makeCurrent();
                             loadedPlugin->openGlInitialize( context );
                             m_viewer->doneCurrent();
-                        } else
+                        }
+                        else
                         {
                             // Defer OpenGL initialisation
                             LOG( logINFO ) << "Defered OpenGL initialization for plugin "
@@ -595,13 +597,15 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
                             m_openGLPlugins.push_back( loadedPlugin );
                         }
                     }
-                } else
+                }
+                else
                 {
                     LOG( logERROR ) << "Something went wrong while trying to cast plugin"
                                     << filename.toStdString();
                     res = false;
                 }
-            } else
+            }
+            else
             {
                 LOG( logERROR ) << "Something went wrong while trying to load plugin "
                                 << filename.toStdString() << " : "
@@ -611,10 +615,8 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath, const QString
         }
     }
 
-    if ( pluginCpt == 0 )
-    {
-        LOG( logINFO ) << "No plugin found or loaded.";
-    } else
+    if ( pluginCpt == 0 ) { LOG( logINFO ) << "No plugin found or loaded."; }
+    else
     { LOG( logINFO ) << "Loaded " << pluginCpt << " plugins."; }
 
     return res;

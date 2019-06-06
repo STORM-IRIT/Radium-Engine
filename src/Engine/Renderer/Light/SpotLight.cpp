@@ -5,8 +5,7 @@
 namespace Ra {
 namespace Engine {
 SpotLight::SpotLight( Entity* entity, const std::string& name ) :
-    Light( entity, Light::SPOT, name )
-    {}
+    Light( entity, Light::SPOT, name ) {}
 
 void SpotLight::getRenderParameters( RenderParameters& params ) const {
     Light::getRenderParameters( params );

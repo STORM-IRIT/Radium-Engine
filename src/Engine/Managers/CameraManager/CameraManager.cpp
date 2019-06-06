@@ -27,12 +27,12 @@ void CameraManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
 
 void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
     std::vector<CameraData*> cameraData = filedata->getCameraData();
-    uint id = 0;
+    uint id                             = 0;
     m_data->clear();
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
-        auto comp = new Camera( entity, componentName, 100, 100 );
+        auto comp                 = new Camera( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
         case CameraData::ORTHOGRAPHIC:
@@ -53,8 +53,7 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
         comp->setZoomFactor( data->getZoomFactor() );
 
         // comp should be allocated in CameraStorage (well, not sure ...)
-        if ( !comp )
-            continue;
+        if ( !comp ) continue;
 
         registerComponent( entity, comp );
     }
@@ -74,10 +73,7 @@ void CameraManager::unregisterComponent( const Entity* entity, Component* compon
 void CameraManager::unregisterAllComponents( const Entity* entity ) {
     for ( const auto& comp : this->m_components )
     {
-        if ( comp.first == entity )
-        {
-            m_data->remove( reinterpret_cast<Camera*>( comp.second ) );
-        }
+        if ( comp.first == entity ) { m_data->remove( reinterpret_cast<Camera*>( comp.second ) ); }
     }
     System::unregisterAllComponents( entity );
 }

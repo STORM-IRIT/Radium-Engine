@@ -74,7 +74,8 @@ struct TextureParameters {
 /** Represent a Texture of the engine
  * See TextureManager to informations about how unique texture are defined.
  */
-class RA_ENGINE_API Texture final {
+class RA_ENGINE_API Texture final
+{
   public:
     /** Texture parameters
      */
@@ -142,8 +143,12 @@ class RA_ENGINE_API Texture final {
      *
      * @todo integrate this method in the same workflow than other textures ...
      */
-    void generateCube( uint width, uint height, GLenum format, void** data = nullptr,
-                       bool linearize = false, bool mipmaped = false );
+    void generateCube( uint width,
+                       uint height,
+                       GLenum format,
+                       void** data    = nullptr,
+                       bool linearize = false,
+                       bool mipmaped  = false );
 
     /**
      * @brief Bind the texture to enable its use in a shader
@@ -159,7 +164,10 @@ class RA_ENGINE_API Texture final {
      * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
      * for documentation
      */
-    void bindImageTexture( int unit, const GLint level, const GLboolean layered, const GLint layer,
+    void bindImageTexture( int unit,
+                           const GLint level,
+                           const GLboolean layered,
+                           const GLint layer,
                            const GLenum access );
 
     /**
@@ -189,7 +197,7 @@ class RA_ENGINE_API Texture final {
      * Only GL_RGB[8, 16, 16F, 32F] and GL_RGBA[8, 16, 16F, 32F] are managed.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
      */
-    void linearize(  );
+    void linearize();
 
     /**
      * @return the pixel format of the texture

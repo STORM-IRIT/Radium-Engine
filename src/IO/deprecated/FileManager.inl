@@ -19,7 +19,8 @@ inline FileManager<DATA, Binary>::~FileManager() {}
 // INTERFACE
 //////////////////////////////////////////////////////////////////////////////
 template <typename DATA, bool Binary>
-inline bool FileManager<DATA, Binary>::load( const std::string& filename, DATA& data,
+inline bool FileManager<DATA, Binary>::load( const std::string& filename,
+                                             DATA& data,
                                              const bool SAVE_LOG_FILE ) {
     bool status = true;
     resetLog();
@@ -27,8 +28,8 @@ inline bool FileManager<DATA, Binary>::load( const std::string& filename, DATA& 
     addLogEntry( "Expected Format : " + fileExtension() );
     addLogEntry( "File Type       : " + std::string( Binary ? "Binary" : "Text" ) );
     addLogEntry( "Loading start..." );
-    std::ifstream file( filename, std::ios_base::in |
-                                      ( Binary ? std::ios_base::binary : std::ios_base::in ) );
+    std::ifstream file(
+        filename, std::ios_base::in | ( Binary ? std::ios_base::binary : std::ios_base::in ) );
     if ( !( status = file.is_open() ) )
     {
         addLogWarningEntry(
@@ -36,10 +37,7 @@ inline bool FileManager<DATA, Binary>::load( const std::string& filename, DATA& 
         file.open( filename + "." + fileExtension(),
                    std::ios_base::in | ( Binary ? std::ios_base::binary : std::ios_base::in ) );
         if ( !( status = file.is_open() ) )
-        {
-            addLogErrorEntry( "Error occured while opening the file. HINT: FILENAME IS WRONG." );
-        }
-    }
+        { addLogErrorEntry( "Error occured while opening the file. HINT: FILENAME IS WRONG." ); } }
     if ( status )
     {
         addLogEntry( "File opened successfully." );
@@ -51,15 +49,13 @@ inline bool FileManager<DATA, Binary>::load( const std::string& filename, DATA& 
         addLogEntry( "File closed." );
     }
     addLogEntry( "Loading " + filename + " ended." );
-    if ( SAVE_LOG_FILE )
-    {
-        saveLog( filename + "_load" );
-    }
+    if ( SAVE_LOG_FILE ) { saveLog( filename + "_load" ); }
     return status;
 }
 
 template <typename DATA, bool Binary>
-inline bool FileManager<DATA, Binary>::save( const std::string& filename, const DATA& data,
+inline bool FileManager<DATA, Binary>::save( const std::string& filename,
+                                             const DATA& data,
                                              const bool SAVE_LOG_FILE ) {
     bool status = true;
     resetLog();
@@ -71,10 +67,7 @@ inline bool FileManager<DATA, Binary>::save( const std::string& filename, const 
                         std::ios_base::out | std::ios_base::trunc |
                             ( Binary ? std::ios_base::binary : std::ios_base::out ) );
     if ( !( status = file.is_open() ) )
-    {
-        addLogErrorEntry( "Error occured while opening the file." );
-    }
-    if ( status )
+    { addLogErrorEntry( "Error occured while opening the file." ); } if ( status )
     {
         addLogEntry( "File opened successfully." );
         addLogEntry( "Starting to export the data..." );
@@ -85,10 +78,7 @@ inline bool FileManager<DATA, Binary>::save( const std::string& filename, const 
         addLogEntry( "File closed." );
     }
     addLogEntry( "Saving " + filename + " ended." );
-    if ( SAVE_LOG_FILE )
-    {
-        saveLog( filename + "_save" );
-    }
+    if ( SAVE_LOG_FILE ) { saveLog( filename + "_save" ); }
     return status;
 }
 
@@ -147,10 +137,7 @@ inline void FileManager<DATA, Binary>::resetLog() {
 template <typename DATA, bool Binary>
 inline void FileManager<DATA, Binary>::saveLog( const std::string& filename ) {
     std::ofstream file( filename + ".log" );
-    if ( !file.is_open() )
-    {
-        return;
-    }
+    if ( !file.is_open() ) { return; }
     file << log();
     file.close();
 }

@@ -6,7 +6,8 @@
 namespace Ra {
 namespace Engine {
 
-class RA_ENGINE_API GeometrySystem : public System {
+class RA_ENGINE_API GeometrySystem : public System
+{
   public:
     GeometrySystem();
     ~GeometrySystem() override = default;

@@ -22,17 +22,18 @@ namespace Geometry {
 /// \note Attribute names "in_position" "in_normal" are reserved and pre-allocated.
 /// \note Attribute name "in_color" is not reserved, but automatically binded to
 /// colors by Ra::Engine::Mesh when it exists (type must be Vec4AttribHandle)
-class RA_CORE_API TriangleMesh : public AbstractGeometry {
+class RA_CORE_API TriangleMesh : public AbstractGeometry
+{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    using PointAttribHandle = Utils::AttribHandle<Vector3>;
+    using PointAttribHandle  = Utils::AttribHandle<Vector3>;
     using NormalAttribHandle = Utils::AttribHandle<Vector3>;
-    using FloatAttribHandle = Utils::AttribHandle<float>;
-    using Vec2AttribHandle = Utils::AttribHandle<Vector2>;
-    using Vec3AttribHandle = Utils::AttribHandle<Vector3>;
-    using Vec4AttribHandle = Utils::AttribHandle<Vector4>;
-    using Face = VectorNui;
+    using FloatAttribHandle  = Utils::AttribHandle<float>;
+    using Vec2AttribHandle   = Utils::AttribHandle<Vector2>;
+    using Vec3AttribHandle   = Utils::AttribHandle<Vector3>;
+    using Vec4AttribHandle   = Utils::AttribHandle<Vector4>;
+    using Face               = VectorNui;
 
     /// Create an empty mesh.
     inline TriangleMesh() : AbstractGeometry() { initDefaultAttribs(); }
@@ -117,9 +118,7 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry {
 
     /// Check if an attribute exists with the given name.
     /// \see AttribManager::contains for more info.
-    bool hasAttrib( const std::string& name ) {
-        return m_vertexAttribs.contains( name );
-    }
+    bool hasAttrib( const std::string& name ) { return m_vertexAttribs.contains( name ); }
 
     /// Add attribute with the given name.
     /// \see AttribManager::addAttrib() for more info.
@@ -171,7 +170,6 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry {
     /// Utility function colorzing the mesh with a given color. Add the color attribute if needed.
     void colorize( const Utils::Color& c );
 
-
   public:
     /// The list of triangles.
     VectorArray<Vector3ui> m_triangles;
@@ -201,8 +199,8 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry {
     /// \warning There is no error check on the handles attribute type.
     template <typename T>
     void append_attrib( Utils::AttribBase* attr ) {
-        auto h = m_vertexAttribs.findAttrib<T>( attr->getName() );
-        auto& v0 = m_vertexAttribs.getAttrib( h ).data();
+        auto h         = m_vertexAttribs.findAttrib<T>( attr->getName() );
+        auto& v0       = m_vertexAttribs.getAttrib( h ).data();
         const auto& v1 = attr->cast<T>().data();
         v0.insert( v0.end(), v1.cbegin(), v1.cend() );
     }

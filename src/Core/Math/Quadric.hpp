@@ -25,11 +25,12 @@ namespace Core {
 
 // template<int _DIM = 3>
 template <int _DIM>
-class Quadric {
+class Quadric
+{
   public:
     static constexpr int DIM = _DIM;
-    using Matrix = Eigen::Matrix<Scalar, DIM, DIM>;
-    using Vector = Eigen::Matrix<Scalar, DIM, 1>;
+    using Matrix             = Eigen::Matrix<Scalar, DIM, DIM>;
+    using Vector             = Eigen::Matrix<Scalar, DIM, 1>;
 
     /// Construct an initialized quadric.
     Quadric();

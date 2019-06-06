@@ -21,16 +21,18 @@ namespace Gui {
 
 const std::string colorAttribName = Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR );
 
-TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& worldTo,
-                                const Core::Transform& t, Mode mode ) :
+TranslateGizmo::TranslateGizmo( Engine::Component* c,
+                                const Core::Transform& worldTo,
+                                const Core::Transform& t,
+                                Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
     m_startPoint( Core::Vector3::Zero() ),
     m_initialPix( Core::Vector2::Zero() ),
     m_selectedAxis( -1 ),
     m_selectedPlane( -1 ) {
     constexpr Scalar arrowScale = .1_ra;
-    constexpr Scalar axisWidth = .05_ra;
-    constexpr Scalar arrowFrac = .15_ra;
+    constexpr Scalar axisWidth  = .05_ra;
+    constexpr Scalar arrowFrac  = .15_ra;
 
     std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
     rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
@@ -40,20 +42,25 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
     for ( uint i = 0; i < 3; ++i )
     {
         Core::Utils::Color arrowColor = Core::Utils::Color::Black();
-        arrowColor[i] = 1_ra;
+        arrowColor[i]                 = 1_ra;
 
         Core::Vector3 cylinderEnd = Core::Vector3::Zero();
-        Core::Vector3 arrowEnd = Core::Vector3::Zero();
-        cylinderEnd[i] = ( 1_ra - arrowFrac );
-        arrowEnd[i] = 1_ra;
+        Core::Vector3 arrowEnd    = Core::Vector3::Zero();
+        cylinderEnd[i]            = ( 1_ra - arrowFrac );
+        arrowEnd[i]               = 1_ra;
 
         Core::Geometry::TriangleMesh cylinder =
-            Core::Geometry::makeCylinder( Core::Vector3::Zero(), arrowScale * cylinderEnd,
-                                          arrowScale * axisWidth / 2_ra, 32, arrowColor );
+            Core::Geometry::makeCylinder( Core::Vector3::Zero(),
+                                          arrowScale * cylinderEnd,
+                                          arrowScale * axisWidth / 2_ra,
+                                          32,
+                                          arrowColor );
 
-        Core::Geometry::TriangleMesh cone =
-            Core::Geometry::makeCone( arrowScale * cylinderEnd, arrowScale * arrowEnd,
-                                      arrowScale * arrowFrac / 2_ra, 32, arrowColor );
+        Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone( arrowScale * cylinderEnd,
+                                                                      arrowScale * arrowEnd,
+                                                                      arrowScale * arrowFrac / 2_ra,
+                                                                      32,
+                                                                      arrowColor );
 
         // Merge the cylinder and the cone to create the arrow shape.
         cylinder.append( cone );
@@ -72,11 +79,11 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
     for ( uint i = 0; i < 3; ++i )
     {
         Core::Utils::Color planeColor = Core::Utils::Color::Black();
-        planeColor[i] = 1_ra;
+        planeColor[i]                 = 1_ra;
 
-        Core::Vector3 axis = Core::Vector3::Zero();
+        Core::Vector3 axis                        = Core::Vector3::Zero();
         axis[( i == 0 ? 1 : ( i == 1 ? 0 : 2 ) )] = 1;
-        Core::Transform T = Core::Transform::Identity();
+        Core::Transform T                         = Core::Transform::Identity();
         T.rotate( Core::AngleAxis( Core::Math::PiDiv2, axis ) );
         T.translation()[( i + 1 ) % 3] += arrowScale / 8_ra * 3_ra;
         T.translation()[( i + 2 ) % 3] += arrowScale / 8_ra * 3_ra;
@@ -100,11 +107,12 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& wor
     updateTransform( mode, m_worldTo, m_transform );
 }
 
-void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
+void TranslateGizmo::updateTransform( Gizmo::Mode mode,
+                                      const Core::Transform& worldTo,
                                       const Core::Transform& t ) {
-    m_mode = mode;
-    m_worldTo = worldTo;
-    m_transform = t;
+    m_mode                           = mode;
+    m_worldTo                        = worldTo;
+    m_transform                      = t;
     Core::Transform displayTransform = Core::Transform::Identity();
     displayTransform.translate( m_transform.translation() );
     if ( m_mode == LOCAL )
@@ -135,9 +143,9 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     roMeshes()[5]->getTriangleMesh().colorize( Core::Utils::Color::Blue() );
 
     // prepare selection
-    int oldAxis = m_selectedAxis;
-    int oldPlane = m_selectedPlane;
-    m_selectedAxis = -1;
+    int oldAxis     = m_selectedAxis;
+    int oldPlane    = m_selectedPlane;
+    m_selectedAxis  = -1;
     m_selectedPlane = -1;
     if ( drawableIdx >= 0 )
     {
@@ -151,7 +159,8 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
                 m_selectedAxis = int( i );
                 roMeshes()[size_t( m_selectedAxis )]->getTriangleMesh().colorize(
                     Core::Utils::Color::Yellow() );
-            } else
+            }
+            else
             {
                 m_selectedPlane = int( i - 3 );
                 roMeshes()[size_t( ( m_selectedPlane + 1 ) % 3 )]->getTriangleMesh().colorize(
@@ -166,23 +175,22 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     if ( m_selectedAxis != oldAxis || m_selectedPlane != oldPlane )
     {
         m_initialPix = Core::Vector2::Zero();
-        m_start = false;
+        m_start      = false;
     }
 
     for ( auto mesh : roMeshes() )
         mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
 }
 
-Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
-                                           bool stepped ) {
+Core::Transform
+TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped ) {
     static const Scalar step = .2_ra;
 
-    if ( m_selectedAxis == -1 && m_selectedPlane == -1 )
-        return m_transform;
+    if ( m_selectedAxis == -1 && m_selectedPlane == -1 ) return m_transform;
 
     // Get gizmo center and translation axis / plane normal
     std::vector<Scalar> hits;
-    int axis = std::max( m_selectedAxis, m_selectedPlane );
+    int axis                   = std::max( m_selectedAxis, m_selectedPlane );
     const Core::Vector3 origin = m_transform.translation();
     const Core::Vector3 translateDir =
         m_mode == LOCAL ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( axis ) )
@@ -195,7 +203,8 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core
     if ( m_selectedAxis > -1 )
     {
         found = findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint, hits );
-    } else if ( m_selectedPlane > -1 )
+    }
+    else if ( m_selectedPlane > -1 )
     {
         found =
             findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint, hits );
@@ -206,17 +215,14 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core
         // Initialize translation
         if ( !m_start )
         {
-            m_start = true;
-            m_startPoint = endPoint;
+            m_start        = true;
+            m_startPoint   = endPoint;
             m_initialTrans = origin;
         }
 
         // Apply translation
         Ra::Core::Vector3 tr = endPoint - m_startPoint;
-        if ( stepped )
-        {
-            tr = int( tr.norm() / step ) * step * tr.normalized();
-        }
+        if ( stepped ) { tr = int( tr.norm() / step ) * step * tr.normalized(); }
         m_transform.translation() = m_initialTrans + tr;
     }
 
@@ -224,9 +230,9 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core
 }
 
 void TranslateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
-    const Core::Vector3 origin = m_transform.translation();
+    const Core::Vector3 origin    = m_transform.translation();
     const Core::Vector2 orgScreen = cam.project( origin );
-    m_initialPix = orgScreen - initialXY;
+    m_initialPix                  = orgScreen - initialXY;
 }
 
 } // namespace Gui

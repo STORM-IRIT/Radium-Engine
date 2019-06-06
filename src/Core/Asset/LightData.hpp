@@ -22,7 +22,8 @@ namespace Asset {
  *    Directional light : an infinite, isotropic light.
  *    Area light : a local isotropic area light.
  */
-class RA_CORE_API LightData : public AssetData {
+class RA_CORE_API LightData : public AssetData
+{
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -31,11 +32,11 @@ class RA_CORE_API LightData : public AssetData {
      *
      */
     enum LightType {
-        UNKNOWN = 1 << 0,
-        POINT_LIGHT = 1 << 1,
-        SPOT_LIGHT = 1 << 2,
+        UNKNOWN           = 1 << 0,
+        POINT_LIGHT       = 1 << 1,
+        SPOT_LIGHT        = 1 << 2,
         DIRECTIONAL_LIGHT = 1 << 3,
-        AREA_LIGHT = 1 << 4
+        AREA_LIGHT        = 1 << 4
     };
 
     /**
@@ -122,8 +123,10 @@ class RA_CORE_API LightData : public AssetData {
      */
     inline void setLight( const Core::Utils::Color& color,
                           const Eigen::Matrix<Scalar, 3, 1>& position,
-                          const Eigen::Matrix<Scalar, 3, 1>& direction, Scalar inAngle,
-                          Scalar outAngle, LightAttenuation attenuation );
+                          const Eigen::Matrix<Scalar, 3, 1>& direction,
+                          Scalar inAngle,
+                          Scalar outAngle,
+                          LightAttenuation attenuation );
 
     /**
      * Construct a area light.
@@ -133,7 +136,8 @@ class RA_CORE_API LightData : public AssetData {
      * promoted to ``AREA_LIGHT`` light, whatever it was before the call and only the directional
      * light part of the union is consistent after the call
      */
-    inline void setLight( const Core::Utils::Color& color, const Eigen::Matrix<Scalar, 3, 1>& cog,
+    inline void setLight( const Core::Utils::Color& color,
+                          const Eigen::Matrix<Scalar, 3, 1>& cog,
                           const Eigen::Matrix<Scalar, 3, 3>& spatialCov,
                           const Eigen::Matrix<Scalar, 3, 3>& normalCov,
                           LightAttenuation attenuation );

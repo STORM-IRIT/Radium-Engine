@@ -10,13 +10,13 @@ void FrameTimerData::print( std::ostream& ostream ) const {
             << "\n";
     {
         long evStart = Ra::Core::Utils::getIntervalMicro( frameStart, eventsStart );
-        long evEnd = Ra::Core::Utils::getIntervalMicro( frameStart, eventsEnd );
+        long evEnd   = Ra::Core::Utils::getIntervalMicro( frameStart, eventsEnd );
 
         long taStart = Ra::Core::Utils::getIntervalMicro( frameStart, tasksStart );
-        long taEnd = Ra::Core::Utils::getIntervalMicro( frameStart, tasksEnd );
+        long taEnd   = Ra::Core::Utils::getIntervalMicro( frameStart, tasksEnd );
 
         long reStart = Ra::Core::Utils::getIntervalMicro( frameStart, renderData.renderStart );
-        long reEnd = Ra::Core::Utils::getIntervalMicro( frameStart, renderData.renderEnd );
+        long reEnd   = Ra::Core::Utils::getIntervalMicro( frameStart, renderData.renderEnd );
         ostream << "\tevents: " << evStart << " " << evEnd << " " << evEnd - evStart << "\n";
         ostream << "\ttasks: " << taStart << " " << taEnd << " " << taEnd - taStart << "\n";
         ostream << "\t{"
@@ -24,7 +24,7 @@ void FrameTimerData::print( std::ostream& ostream ) const {
         for ( const auto& tData : taskData )
         {
             long tadaStart = Ra::Core::Utils::getIntervalMicro( frameStart, tData.start );
-            long tadaEnd = Ra::Core::Utils::getIntervalMicro( frameStart, tData.end );
+            long tadaEnd   = Ra::Core::Utils::getIntervalMicro( frameStart, tData.end );
             ostream << "\t\t" << tData.taskName << "(" << tData.threadId << "): " << tadaStart
                     << " " << tadaEnd << " " << tadaEnd - tadaStart << "\n";
         }

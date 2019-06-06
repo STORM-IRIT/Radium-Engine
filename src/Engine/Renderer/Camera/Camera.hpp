@@ -16,7 +16,8 @@ struct RA_ENGINE_API ViewingParameters {
 };
 
 /// A Camera is an Engine Component storing a Camera object.
-class RA_ENGINE_API Camera : public Component {
+class RA_ENGINE_API Camera : public Component
+{
   public:
     /// Define the projection type.
     enum class ProjType { ORTHOGRAPHIC, PERSPECTIVE };

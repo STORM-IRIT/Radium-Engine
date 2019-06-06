@@ -17,23 +17,36 @@ MaterialEditor::MaterialEditor( QWidget* parent ) :
     m_usable( false ) {
     setupUi( this );
     typedef void ( QSpinBox::*sigPtr )( int );
-    connect( kdR, static_cast<sigPtr>( &QSpinBox::valueChanged ), this,
+    connect( kdR,
+             static_cast<sigPtr>( &QSpinBox::valueChanged ),
+             this,
              &MaterialEditor::onKdColorChanged );
-    connect( kdG, static_cast<sigPtr>( &QSpinBox::valueChanged ), this,
+    connect( kdG,
+             static_cast<sigPtr>( &QSpinBox::valueChanged ),
+             this,
              &MaterialEditor::onKdColorChanged );
-    connect( kdB, static_cast<sigPtr>( &QSpinBox::valueChanged ), this,
+    connect( kdB,
+             static_cast<sigPtr>( &QSpinBox::valueChanged ),
+             this,
              &MaterialEditor::onKdColorChanged );
 
-    connect( ksR, static_cast<sigPtr>( &QSpinBox::valueChanged ), this,
+    connect( ksR,
+             static_cast<sigPtr>( &QSpinBox::valueChanged ),
+             this,
              &MaterialEditor::onKsColorChanged );
-    connect( ksG, static_cast<sigPtr>( &QSpinBox::valueChanged ), this,
+    connect( ksG,
+             static_cast<sigPtr>( &QSpinBox::valueChanged ),
+             this,
              &MaterialEditor::onKsColorChanged );
-    connect( ksB, static_cast<sigPtr>( &QSpinBox::valueChanged ), this,
+    connect( ksB,
+             static_cast<sigPtr>( &QSpinBox::valueChanged ),
+             this,
              &MaterialEditor::onKsColorChanged );
 
     connect( exp,
              static_cast<void ( QDoubleSpinBox::* )( double )>( &QDoubleSpinBox::valueChanged ),
-             this, &MaterialEditor::onExpChanged );
+             this,
+             &MaterialEditor::onExpChanged );
 
     connect( kdColorWidget, &ColorWidget::newColorPicked, this, &MaterialEditor::newKdColor );
     connect( ksColorWidget, &ColorWidget::newColorPicked, this, &MaterialEditor::newKsColor );
@@ -43,10 +56,7 @@ MaterialEditor::MaterialEditor( QWidget* parent ) :
 }
 
 void MaterialEditor::onExpChanged( double v ) {
-    if ( m_renderObject && m_usable )
-    {
-        m_blinnphongmaterial->m_ns = Scalar( v );
-    }
+    if ( m_renderObject && m_usable ) { m_blinnphongmaterial->m_ns = Scalar( v ); }
 }
 
 void MaterialEditor::onKdColorChanged( int ) {
@@ -54,9 +64,8 @@ void MaterialEditor::onKdColorChanged( int ) {
 
     if ( m_renderObject && m_usable )
     {
-        m_blinnphongmaterial->m_kd = Core::Utils::Color (
-              kdR->value() / 255_ra, kdG->value() / 255_ra, kdB->value() / 255_ra, 1_ra );
-
+        m_blinnphongmaterial->m_kd = Core::Utils::Color(
+            kdR->value() / 255_ra, kdG->value() / 255_ra, kdB->value() / 255_ra, 1_ra );
     }
 }
 
@@ -65,8 +74,8 @@ void MaterialEditor::onKsColorChanged( int ) {
 
     if ( m_renderObject && m_usable )
     {
-        m_blinnphongmaterial->m_ks = Core::Utils::Color (
-              ksR->value() / 255_ra, ksG->value() / 255_ra, ksB->value() / 255_ra, 1_ra );
+        m_blinnphongmaterial->m_ks = Core::Utils::Color(
+            ksR->value() / 255_ra, ksG->value() / 255_ra, ksB->value() / 255_ra, 1_ra );
     }
 }
 
@@ -81,8 +90,8 @@ void MaterialEditor::newKdColor( const QColor& color ) {
 
     if ( m_renderObject && m_usable )
     {
-        m_blinnphongmaterial->m_kd = Core::Utils::Color (
-              color.redF(), color.greenF(), color.blueF(), 1. );
+        m_blinnphongmaterial->m_kd =
+            Core::Utils::Color( color.redF(), color.greenF(), color.blueF(), 1. );
     }
 }
 
@@ -97,8 +106,8 @@ void MaterialEditor::newKsColor( const QColor& color ) {
 
     if ( m_renderObject && m_usable )
     {
-        m_blinnphongmaterial->m_ks = Core::Utils::Color (
-              color.redF(), color.greenF(), color.blueF(), 1. );
+        m_blinnphongmaterial->m_ks =
+            Core::Utils::Color( color.redF(), color.greenF(), color.blueF(), 1. );
     }
 }
 
@@ -134,7 +143,7 @@ void MaterialEditor::changeRenderObject( Core::Utils::Index roIdx ) {
             }
 
             m_usable = true;
-            m_roIdx = roIdx;
+            m_roIdx  = roIdx;
             m_renderObjectName->setText( m_renderObject->getName().c_str() );
         }
     }
@@ -144,11 +153,9 @@ void MaterialEditor::updateBlinnPhongViz() {
     const Core::Utils::Color kd = m_blinnphongmaterial->m_kd;
     const Core::Utils::Color ks = m_blinnphongmaterial->m_ks;
 
-    int kdr = int( std::floor( kd.x() * 255_ra ) ),
-        kdg = int( std::floor( kd.y() * 255_ra ) ),
+    int kdr = int( std::floor( kd.x() * 255_ra ) ), kdg = int( std::floor( kd.y() * 255_ra ) ),
         kdb = int( std::floor( kd.z() * 255_ra ) );
-    int ksr = int( std::floor( ks.x() * 255_ra ) ),
-        ksg = int( std::floor( ks.y() * 255_ra ) ),
+    int ksr = int( std::floor( ks.x() * 255_ra ) ), ksg = int( std::floor( ks.y() * 255_ra ) ),
         ksb = int( std::floor( ks.z() * 255_ra ) );
 
     const QSignalBlocker bdr( kdR );
@@ -182,11 +189,6 @@ void Ra::Gui::MaterialEditor::on_m_closeButton_clicked() {
     hide();
 }
 
-void Ra::Gui::MaterialEditor::on_kUsePerVertex_clicked(bool checked)
-{
-    if ( m_renderObject && m_usable )
-    {
-        m_blinnphongmaterial->m_hasPerVertexKd = checked;
-    }
-
+void Ra::Gui::MaterialEditor::on_kUsePerVertex_clicked( bool checked ) {
+    if ( m_renderObject && m_usable ) { m_blinnphongmaterial->m_hasPerVertexKd = checked; }
 }

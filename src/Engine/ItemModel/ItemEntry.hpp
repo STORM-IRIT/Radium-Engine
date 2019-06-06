@@ -32,8 +32,9 @@ struct RA_ENGINE_API ItemEntry {
     /// ItemEntry(entity) creates an entity entry.
     /// ItemEntry(entity, component) creates a component entry
     /// ItemEntry(entity, component, RO) creates a render object entity.
-    explicit ItemEntry( Ra::Engine::Entity* ent, Ra::Engine::Component* comp = nullptr,
-                        Ra::Core::Utils::Index ro = Ra::Core::Utils::Index::Invalid() ) :
+    explicit ItemEntry( Ra::Engine::Entity* ent,
+                        Ra::Engine::Component* comp = nullptr,
+                        Ra::Core::Utils::Index ro   = Ra::Core::Utils::Index::Invalid() ) :
         m_entity{ent},
         m_component{comp},
         m_roIndex{ro} {}

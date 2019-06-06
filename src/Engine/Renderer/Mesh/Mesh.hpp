@@ -22,7 +22,8 @@ namespace Engine {
  * It maintains the attributes and keeps them in sync with the GPU.
  * \note Attribute names are used to automatic location binding when using shaders.
  */
-class RA_ENGINE_API Mesh : public Displayable {
+class RA_ENGINE_API Mesh : public Displayable
+{
   public:
     /// \name List of all possible vertex attributes.
     ///@{
@@ -61,21 +62,21 @@ class RA_ENGINE_API Mesh : public Displayable {
      * values taken from OpenGL specification
      */
     enum MeshRenderMode : uint {
-        RM_POINTS = 0x0000,
-        RM_LINES = 0x0001,                    // decimal value: 1
-        RM_LINE_LOOP = 0x0002,                // decimal value: 2
-        RM_LINE_STRIP = 0x0003,               // decimal value: 3
-        RM_TRIANGLES = 0x0004,                // decimal value: 4
-        RM_TRIANGLE_STRIP = 0x0005,           // decimal value: 5
-        RM_TRIANGLE_FAN = 0x0006,             // decimal value: 6
-        RM_QUADS = 0x0007,                    // decimal value: 7
-        RM_QUAD_STRIP = 0x0008,               // decimal value: 8
-        RM_POLYGON = 0x0009,                  // decimal value: 9
-        RM_LINES_ADJACENCY = 0x000A,          // decimal value: 10
-        RM_LINE_STRIP_ADJACENCY = 0x000B,     // decimal value: 11
-        RM_TRIANGLES_ADJACENCY = 0x000C,      // decimal value: 12
+        RM_POINTS                   = 0x0000,
+        RM_LINES                    = 0x0001, // decimal value: 1
+        RM_LINE_LOOP                = 0x0002, // decimal value: 2
+        RM_LINE_STRIP               = 0x0003, // decimal value: 3
+        RM_TRIANGLES                = 0x0004, // decimal value: 4
+        RM_TRIANGLE_STRIP           = 0x0005, // decimal value: 5
+        RM_TRIANGLE_FAN             = 0x0006, // decimal value: 6
+        RM_QUADS                    = 0x0007, // decimal value: 7
+        RM_QUAD_STRIP               = 0x0008, // decimal value: 8
+        RM_POLYGON                  = 0x0009, // decimal value: 9
+        RM_LINES_ADJACENCY          = 0x000A, // decimal value: 10
+        RM_LINE_STRIP_ADJACENCY     = 0x000B, // decimal value: 11
+        RM_TRIANGLES_ADJACENCY      = 0x000C, // decimal value: 12
         RM_TRIANGLE_STRIP_ADJACENCY = 0x000D, // decimal value: 13
-        RM_PATCHES = 0x000E,                  // decimal value: 14
+        RM_PATCHES                  = 0x000E, // decimal value: 14
     };
 
     /// Total number of vertex attributes.
@@ -162,8 +163,8 @@ class RA_ENGINE_API Mesh : public Displayable {
   private:
     /// Helper function to send buffer data to openGL.
     template <typename type>
-    friend void sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr,
-                            uint vboIdx );
+    friend void
+    sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr, uint vboIdx );
 
     /// Update the picking render mode according to the object render mode
     void updatePickingRenderMode();
@@ -194,7 +195,7 @@ class RA_ENGINE_API Mesh : public Displayable {
     // Each data type has a corresponding openGL attribute number, which is
     // vbo index - 1 (thus vertex position is VBO number 1 but attribute 0).
 
-    std::array<uint, MAX_DATA> m_vbos = {{0}};          /// Indices of our openGL VBOs.
+    std::array<uint, MAX_DATA> m_vbos      = {{0}};     /// Indices of our openGL VBOs.
     std::array<bool, MAX_DATA> m_dataDirty = {{false}}; /// Dirty bits of our vertex data.
 
     size_t m_numElements{0}; /// number of elements to draw. For triangles this is 3*numTriangles

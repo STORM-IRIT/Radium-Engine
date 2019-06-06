@@ -43,8 +43,8 @@ RA_CORE_API Time t( const Scalar& m, const Scalar& h );
  * TOG 2013
  */
 /// WARNING: L must be a positive semi-definite matrix
-RA_CORE_API void heat( const AreaMatrix& A, const Time& t, const LaplacianMatrix& L, Heat& u,
-                       const Sparse& delta );
+RA_CORE_API void
+heat( const AreaMatrix& A, const Time& t, const LaplacianMatrix& L, Heat& u, const Sparse& delta );
 
 /*
  * Solve the heating equation from the given AreaMatrix, the Time, the LaplacianMatrix and the
@@ -57,7 +57,9 @@ RA_CORE_API void heat( const AreaMatrix& A, const Time& t, const LaplacianMatrix
  * TOG 2013
  */
 /// WARNING: L must be a positive semi-definite matrix
-RA_CORE_API Heat heat( const AreaMatrix& A, const Time& t, const LaplacianMatrix& L,
+RA_CORE_API Heat heat( const AreaMatrix& A,
+                       const Time& t,
+                       const LaplacianMatrix& L,
                        const Sparse& delta );
 
 } // namespace Geometry

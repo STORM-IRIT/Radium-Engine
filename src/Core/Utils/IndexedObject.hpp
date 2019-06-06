@@ -8,17 +8,18 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-class IndexedObject {
+class IndexedObject
+{
   public:
     /// CONSTRUCTOR
-    explicit inline IndexedObject( Index idx = Index::Invalid() ) : m_idx{idx} { }
+    explicit inline IndexedObject( Index idx = Index::Invalid() ) : m_idx{idx} {}
     inline IndexedObject( const IndexedObject& id_obj ) = default;
-    virtual inline ~IndexedObject() = default;
+    virtual inline ~IndexedObject()                     = default;
 
-    inline void setIndex(const Index& idx) { m_idx = idx; }
+    inline void setIndex( const Index& idx ) { m_idx = idx; }
     inline const Index& getIndex() const { return m_idx; }
 
-protected:
+  protected:
     /// VARIABLE
     Index m_idx;
 };

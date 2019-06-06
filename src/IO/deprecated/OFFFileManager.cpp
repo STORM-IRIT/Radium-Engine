@@ -78,9 +78,9 @@ bool OFFFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
 
 bool OFFFileManager::exportData( std::ostream& file, const Geometry::TriangleMesh& data ) {
     std::string content = "";
-    const uint v_size = data.vertices().size();
-    const uint f_size = data.m_triangles.size();
-    const uint e_size = 0;
+    const uint v_size   = data.vertices().size();
+    const uint f_size   = data.m_triangles.size();
+    const uint e_size   = 0;
 
     if ( v_size == 0 )
     {

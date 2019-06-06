@@ -63,7 +63,7 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     headers << tr( "Entities -> Components" );
     m_itemModel = new GuiBase::ItemModel( mainApp->getEngine(), this );
     m_entitiesTreeView->setModel( m_itemModel );
-    m_materialEditor = new MaterialEditor();
+    m_materialEditor   = new MaterialEditor();
     m_selectionManager = new GuiBase::SelectionManager( m_itemModel, this );
     m_entitiesTreeView->setSelectionModel( m_selectionManager );
 
@@ -86,11 +86,13 @@ void MainWindow::cleanup() {
 void MainWindow::createConnections() {
     connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
     connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Viewer::reloadShaders );
-    connect( actionOpen_Material_Editor, &QAction::triggered, this,
-             &MainWindow::openMaterialEditor );
+    connect(
+        actionOpen_Material_Editor, &QAction::triggered, this, &MainWindow::openMaterialEditor );
 
     // Toolbox setup
-    connect( actionToggle_Local_Global, &QAction::toggled, m_viewer->getGizmoManager(),
+    connect( actionToggle_Local_Global,
+             &QAction::toggled,
+             m_viewer->getGizmoManager(),
              &GizmoManager::setLocal );
     connect( actionGizmoOff, &QAction::triggered, this, &MainWindow::gizmoShowNone );
     connect( actionGizmoTranslate, &QAction::triggered, this, &MainWindow::gizmoShowTranslate );
@@ -99,10 +101,10 @@ void MainWindow::createConnections() {
 
     connect( actionRecord_Frames, &QAction::toggled, mainApp, &MainApplication::setRecordFrames );
 
-    connect( actionReload_configuration, &QAction::triggered, this,
-             &MainWindow::reloadConfiguration );
-    connect( actionLoad_configuration_file, &QAction::triggered, this,
-             &MainWindow::loadConfiguration );
+    connect(
+        actionReload_configuration, &QAction::triggered, this, &MainWindow::reloadConfiguration );
+    connect(
+        actionLoad_configuration_file, &QAction::triggered, this, &MainWindow::loadConfiguration );
 
     // Loading setup.
     connect( this, &MainWindow::fileLoading, mainApp, &Ra::GuiBase::BaseApplication::loadFile );
@@ -110,34 +112,44 @@ void MainWindow::createConnections() {
     // Connect picking results (TODO Val : use events to dispatch picking directly)
     connect( m_viewer, &Viewer::toggleBrushPicking, this, &MainWindow::toggleCirclePicking );
     connect( m_viewer, &Viewer::rightClickPicking, this, &MainWindow::handlePicking );
-    connect( m_viewer, &Viewer::leftClickPicking, m_viewer->getGizmoManager(),
+    connect( m_viewer,
+             &Viewer::leftClickPicking,
+             m_viewer->getGizmoManager(),
              &GizmoManager::handlePickingResult );
 
-    connect( m_avgFramesCount, static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ),
-             mainApp, &Ra::GuiBase::BaseApplication::framesCountForStatsChanged );
-    connect( mainApp, &Ra::GuiBase::BaseApplication::updateFrameStats, this,
+    connect( m_avgFramesCount,
+             static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ),
+             mainApp,
+             &Ra::GuiBase::BaseApplication::framesCountForStatsChanged );
+    connect( mainApp,
+             &Ra::GuiBase::BaseApplication::updateFrameStats,
+             this,
              &MainWindow::onUpdateFramestats );
 
     // Inform property editors of new selections
-    connect( m_selectionManager, &GuiBase::SelectionManager::selectionChanged, this,
+    connect( m_selectionManager,
+             &GuiBase::SelectionManager::selectionChanged,
+             this,
              &MainWindow::onSelectionChanged );
     // connect(this, &MainWindow::selectedItem, tab_edition, &TransformEditorWidget::setEditable);
 
     // Make selected item event visible to plugins
     connect( this, &MainWindow::selectedItem, mainApp, &MainApplication::onSelectedItem );
-    connect( this, &MainWindow::selectedItem, m_viewer->getGizmoManager(),
-             &GizmoManager::setEditable );
-    connect( this, &MainWindow::selectedItem, m_viewer->getGizmoManager(),
-             &GizmoManager::setEditable );
+    connect(
+        this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable );
+    connect(
+        this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable );
 
     // Enable changing shaders
     connect(
         m_currentShaderBox,
         static_cast<void ( QComboBox::* )( const QString& )>( &QComboBox::currentIndexChanged ),
-        this, &MainWindow::changeRenderObjectShader );
+        this,
+        &MainWindow::changeRenderObjectShader );
 
     // RO Stuff
-    connect( m_itemModel, &GuiBase::ItemModel::visibilityROChanged, this, &MainWindow::setROVisible );
+    connect(
+        m_itemModel, &GuiBase::ItemModel::visibilityROChanged, this, &MainWindow::setROVisible );
     connect( m_editRenderObjectButton, &QPushButton::clicked, this, &MainWindow::editRO );
     connect( m_exportMeshButton, &QPushButton::clicked, this, &MainWindow::exportCurrentMesh );
     connect( m_removeEntityButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentItem );
@@ -151,20 +163,26 @@ void MainWindow::createConnections() {
         static_cast<void ( QComboBox::* )( const QString& )>( &QComboBox::currentIndexChanged ),
         [=]( const QString& ) { this->onCurrentRenderChangedInUI(); } );
 
-
     connect(
         m_displayedTextureCombo,
         static_cast<void ( QComboBox::* )( const QString& )>( &QComboBox::currentIndexChanged ),
-        m_viewer, &Viewer::displayTexture );
+        m_viewer,
+        &Viewer::displayTexture );
 
     connect( m_enablePostProcess, &QCheckBox::stateChanged, m_viewer, &Viewer::enablePostProcess );
     connect( m_enableDebugDraw, &QCheckBox::stateChanged, m_viewer, &Viewer::enableDebugDraw );
-    connect( m_realFrameRate, &QCheckBox::stateChanged, mainApp,
+    connect( m_realFrameRate,
+             &QCheckBox::stateChanged,
+             mainApp,
              &Ra::GuiBase::BaseApplication::setRealFrameRate );
 
-    connect( m_printGraph, &QCheckBox::stateChanged, mainApp,
+    connect( m_printGraph,
+             &QCheckBox::stateChanged,
+             mainApp,
              &Ra::GuiBase::BaseApplication::setRecordGraph );
-    connect( m_printTimings, &QCheckBox::stateChanged, mainApp,
+    connect( m_printTimings,
+             &QCheckBox::stateChanged,
+             mainApp,
              &Ra::GuiBase::BaseApplication::setRecordTimings );
 
     // Connect engine signals to the appropriate callbacks
@@ -204,7 +222,7 @@ void MainWindow::loadFile() {
     filter.remove( filter.size() - 2, 2 );
 
     QSettings settings;
-    QString path = settings.value( "files/load", QDir::homePath() ).toString();
+    QString path         = settings.value( "files/load", QDir::homePath() ).toString();
     QStringList pathList = QFileDialog::getOpenFileNames( this, "Open Files", path, filter );
 
     if ( !pathList.empty() )
@@ -226,17 +244,17 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     auto romgr = mainApp->m_engine->getRenderObjectManager();
 
-    auto polycount = romgr->getNumFaces();
+    auto polycount   = romgr->getNumFaces();
     auto vertexcount = romgr->getNumVertices();
 
     QString polyCountText =
         QString( "Rendering %1 faces and %2 vertices" ).arg( polycount ).arg( vertexcount );
     m_labelCount->setText( polyCountText );
 
-    long sumEvents = 0;
-    long sumRender = 0;
-    long sumTasks = 0;
-    long sumFrame = 0;
+    long sumEvents     = 0;
+    long sumRender     = 0;
+    long sumTasks      = 0;
+    long sumFrame      = 0;
     long sumInterFrame = 0;
 
     for ( uint i = 0; i < stats.size(); ++i )
@@ -289,14 +307,15 @@ void MainWindow::handlePicking( const Engine::Renderer::PickingResult& pickingRe
         if ( ro->getType() != Ra::Engine::RenderObjectType::UI )
         {
             Ra::Engine::Component* comp = ro->getComponent();
-            Ra::Engine::Entity* ent = comp->getEntity();
+            Ra::Engine::Entity* ent     = comp->getEntity();
 
             // For now we don't enable group selection.
             m_selectionManager->setCurrentEntry( ItemEntry( ent, comp, roIndex ),
                                                  QItemSelectionModel::ClearAndSelect |
                                                      QItemSelectionModel::Current );
         }
-    } else
+    }
+    else
     { m_selectionManager->clear(); }
 }
 
@@ -327,9 +346,11 @@ void MainWindow::onSelectionChanged( const QItemSelection& /*selected*/,
             m_currentShaderBox->setCurrentText( shaderName.c_str() );
             // m_currentShaderBox->setEnabled( true ); // commented out, as there is no simple way
             // to change the material type
-        } else
+        }
+        else
             m_currentShaderBox->setCurrentText( "" );
-    } else
+    }
+    else
     {
         m_currentShaderBox->setCurrentText( "" );
         emit selectedItem( ItemEntry() );
@@ -367,8 +388,8 @@ void MainWindow::reloadConfiguration() {
 void MainWindow::loadConfiguration() {
     QSettings settings;
     QString path = settings.value( "configs/load", QDir::homePath() ).toString();
-    path = QFileDialog::getOpenFileName( this, "Open Configuration File", path,
-                                         "Configuration file (*.xml)" );
+    path         = QFileDialog::getOpenFileName(
+        this, "Open Configuration File", path, "Configuration file (*.xml)" );
 
     if ( path.size() > 0 )
     {
@@ -401,7 +422,6 @@ void MainWindow::updateDisplayedTexture() {
     }
 }
 
-
 void MainWindow::updateBackgroundColor( QColor c ) {
     // FIXME : sometime, settings does not define colrs but Qt found one ....
     QSettings settings;
@@ -409,10 +429,12 @@ void MainWindow::updateBackgroundColor( QColor c ) {
     if ( !c.isValid() )
     {
         // get the default color or an already existing one
-        auto defColor = Core::Utils::Color::linearRGBTosRGB(m_viewer->getBackgroundColor());
-        auto bgk = QColor::fromRgb( defColor.rgb()[0]*255, defColor.rgb()[1]*255, defColor.rgb()[2]*255 );
+        auto defColor = Core::Utils::Color::linearRGBTosRGB( m_viewer->getBackgroundColor() );
+        auto bgk      = QColor::fromRgb(
+            defColor.rgb()[0] * 255, defColor.rgb()[1] * 255, defColor.rgb()[2] * 255 );
         c = settings.value( "colors/background", bgk ).value<QColor>();
-    } else
+    }
+    else
     { settings.setValue( "colors/background", c ); }
 
     // update the color of the button
@@ -420,17 +442,14 @@ void MainWindow::updateBackgroundColor( QColor c ) {
     m_currentColorButton->setStyleSheet( qss );
 
     // update the background coolor of the viewer
-    auto bgk = Core::Utils::Color::sRGBToLinearRGB(Core::Utils::Color(Scalar(c.redF()), Scalar(c.greenF()),
-                                                                      Scalar(c.blueF()), Scalar(0)));
+    auto bgk = Core::Utils::Color::sRGBToLinearRGB( Core::Utils::Color(
+        Scalar( c.redF() ), Scalar( c.greenF() ), Scalar( c.blueF() ), Scalar( 0 ) ) );
     m_viewer->setBackgroundColor( bgk );
 }
 
 void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
     std::string name = shaderName.toStdString();
-    if ( name == "" )
-    {
-        return;
-    }
+    if ( name == "" ) { return; }
 
     const ItemEntry& item = m_selectionManager->currentItem();
     const Engine::ShaderConfiguration config =
@@ -449,8 +468,7 @@ void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
     }
 }
 
-void Gui::MainWindow::setROVisible(Core::Utils::Index roIndex, bool visible)
-{
+void Gui::MainWindow::setROVisible( Core::Utils::Index roIndex, bool visible ) {
     mainApp->m_engine->getRenderObjectManager()->getRenderObject( roIndex )->setVisible( visible );
 }
 
@@ -463,18 +481,17 @@ void Gui::MainWindow::editRO() {
     }
 }
 
-void Gui::MainWindow::showHideAllRO()
-{
+void Gui::MainWindow::showHideAllRO() {
     bool allEntityInvisible = true;
 
     const int j = 0;
-    for (int i = 0; i < m_itemModel->rowCount(); ++i )
+    for ( int i = 0; i < m_itemModel->rowCount(); ++i )
     {
-        auto idx = m_itemModel->index(i,j);
-        auto item = m_itemModel->getEntry(idx);
+        auto idx  = m_itemModel->index( i, j );
+        auto item = m_itemModel->getEntry( idx );
         if ( item.isValid() && item.isSelectable() )
         {
-            bool isVisible = m_itemModel->data(idx, Qt::CheckStateRole).toBool();
+            bool isVisible = m_itemModel->data( idx, Qt::CheckStateRole ).toBool();
             if ( isVisible )
             {
                 allEntityInvisible = false;
@@ -485,15 +502,12 @@ void Gui::MainWindow::showHideAllRO()
 
     // if all entities are invisible : show all
     // if at least one entity is visible : hide all
-    for (int i = 0; i < m_itemModel->rowCount(); ++i )
+    for ( int i = 0; i < m_itemModel->rowCount(); ++i )
     {
-        auto idx = m_itemModel->index(i,j);
-        auto item = m_itemModel->getEntry(idx);
-        if( item.isValid() && item.isSelectable() )
-        {
-            m_itemModel->setData(idx, allEntityInvisible, Qt::CheckStateRole);
-        }
-    }
+        auto idx  = m_itemModel->index( i, j );
+        auto item = m_itemModel->getEntry( idx );
+        if ( item.isValid() && item.isSelectable() )
+        { m_itemModel->setData( idx, allEntityInvisible, Qt::CheckStateRole ); } }
 }
 
 void Gui::MainWindow::openMaterialEditor() {
@@ -504,16 +518,10 @@ void Gui::MainWindow::updateUi( Plugins::RadiumPluginInterface* plugin ) {
     QString tabName;
 
     // Add menu
-    if ( plugin->doAddMenu() )
-    {
-        QMainWindow::menuBar()->addMenu( plugin->getMenu() );
-    }
+    if ( plugin->doAddMenu() ) { QMainWindow::menuBar()->addMenu( plugin->getMenu() ); }
 
     // Add widget
-    if ( plugin->doAddWidget( tabName ) )
-    {
-        toolBox->addTab( plugin->getWidget(), tabName );
-    }
+    if ( plugin->doAddWidget( tabName ) ) { toolBox->addTab( plugin->getWidget(), tabName ); }
 
     // Add actions
     int nbActions;
@@ -573,9 +581,11 @@ void MainWindow::exportCurrentMesh() {
         {
             LOG( logINFO ) << "Mesh from " << ro->getName() << " successfully exported to "
                            << filename;
-        } else
+        }
+        else
         { LOG( logERROR ) << "Mesh from " << ro->getName() << "failed to export"; }
-    } else
+    }
+    else
     { LOG( logWARNING ) << "Current entry was not a render object. No mesh was exported."; }
 }
 
@@ -590,13 +600,10 @@ void MainWindow::deleteCurrentItem() {
     // the object we want to delete, which causes a deadlock.
     // Clearing the selection before deleting the object will avoid this problem.
     m_selectionManager->clear();
-    if ( e.isRoNode() )
-    {
-        e.m_component->removeRenderObject( e.m_roIndex );
-    } else if ( e.isComponentNode() )
-    {
-        e.m_entity->removeComponent( e.m_component->getName() );
-    } else if ( e.isEntityNode() )
+    if ( e.isRoNode() ) { e.m_component->removeRenderObject( e.m_roIndex ); }
+    else if ( e.isComponentNode() )
+    { e.m_entity->removeComponent( e.m_component->getName() ); }
+    else if ( e.isEntityNode() )
     {
         Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity(
             e.m_entity->getIndex() );
@@ -641,8 +648,7 @@ void MainWindow::postLoadFile() {
 
 void MainWindow::onGLInitialized() {
 
-    LOG( logINFO )
-        << "onGLInitialized";
+    LOG( logINFO ) << "onGLInitialized";
     // set default renderer once OpenGL is configured
     std::shared_ptr<Engine::Renderer> e( new Engine::ForwardRenderer() );
     addRenderer( "Forward Renderer", e );
@@ -653,11 +659,9 @@ void MainWindow::onGLInitialized() {
 
 void Ra::Gui::MainWindow::on_m_currentColorButton_clicked() {
     // get the default color or an already existing one
-    auto defColor = Core::Utils::Color::linearRGBTosRGB(m_viewer->getBackgroundColor());
-    auto currentColor = QColor::fromRgb( defColor.rgb()[0]*255, defColor.rgb()[1]*255, defColor.rgb()[2]*255 );
+    auto defColor     = Core::Utils::Color::linearRGBTosRGB( m_viewer->getBackgroundColor() );
+    auto currentColor = QColor::fromRgb(
+        defColor.rgb()[0] * 255, defColor.rgb()[1] * 255, defColor.rgb()[2] * 255 );
     QColor c = QColorDialog::getColor( currentColor, this, "Renderer background color" );
-    if ( c.isValid() )
-    {
-        updateBackgroundColor( c );
-    }
+    if ( c.isValid() ) { updateBackgroundColor( c ); }
 }

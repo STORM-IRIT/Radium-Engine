@@ -116,13 +116,10 @@ inline void Spline<D, K>::setNodeToOpenUniform() {
     uint acc = 1;
     for ( uint i = 0; i < m_node.size(); ++i )
     {
-        if ( i < K )
-        {
-            m_node[i] = 0.f;
-        } else if ( i >= ( m_points.size() + 1 ) )
-        {
-            m_node[i] = 1.f;
-        } else
+        if ( i < K ) { m_node[i] = 0.f; }
+        else if ( i >= ( m_points.size() + 1 ) )
+        { m_node[i] = 1.f; }
+        else
         {
             m_node[i] = Scalar( acc ) / Scalar( m_points.size() + 1 - K );
             acc++;
@@ -133,9 +130,11 @@ inline void Spline<D, K>::setNodeToOpenUniform() {
 // -----------------------------------------------------------------------------
 
 template <uint D, uint K>
-inline typename Spline<D, K>::Vector
-Spline<D, K>::eval( Scalar u, const Core::VectorArray<Vector>& points,
-                    const std::vector<Scalar>& node, uint k, int off ) {
+inline typename Spline<D, K>::Vector Spline<D, K>::eval( Scalar u,
+                                                         const Core::VectorArray<Vector>& points,
+                                                         const std::vector<Scalar>& node,
+                                                         uint k,
+                                                         int off ) {
     CORE_ASSERT( k >= 2, "K must be at least 2" );
     CORE_ASSERT( points.size() >= k, "Not enough points" );
     uint dec = 0;
@@ -164,13 +163,11 @@ Spline<D, K>::eval( Scalar u, const Core::VectorArray<Vector>& points,
 // -----------------------------------------------------------------------------
 
 template <uint D, uint K>
-inline typename Spline<D, K>::Vector
-Spline<D, K>::evalRec( Scalar u, const Core::VectorArray<Vector>& points,
-                       const std::vector<Scalar>& node, uint k ) {
-    if ( points.size() == 1 )
-    {
-        return points[0];
-    }
+inline typename Spline<D, K>::Vector Spline<D, K>::evalRec( Scalar u,
+                                                            const Core::VectorArray<Vector>& points,
+                                                            const std::vector<Scalar>& node,
+                                                            uint k ) {
+    if ( points.size() == 1 ) { return points[0]; }
 
     // TODO: use buffers in attributes for better performances ?
     Core::VectorArray<Vector> pOut( k - 1, Vector::Zero() );

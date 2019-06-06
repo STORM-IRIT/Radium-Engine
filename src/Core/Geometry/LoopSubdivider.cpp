@@ -8,10 +8,7 @@ bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     uint maxValence = 0;
     for ( auto v_it = mesh.vertices_begin(); v_it != mesh.vertices_end(); ++v_it )
     {
-        if ( mesh.valence( *v_it ) > maxValence )
-        {
-            maxValence = mesh.valence( *v_it );
-        }
+        if ( mesh.valence( *v_it ) > maxValence ) { maxValence = mesh.valence( *v_it ); }
     }
     init_weights( maxValence + 1 );
     mesh.add_property( m_vpPos );
@@ -20,10 +17,7 @@ bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     for ( uint i = 0; i < mesh.n_halfedges(); ++i )
     {
         auto h = mesh.halfedge_handle( i );
-        if ( !mesh.is_boundary( h ) )
-        {
-            mesh.property( m_hV, h ) = mesh.to_vertex_handle( h );
-        }
+        if ( !mesh.is_boundary( h ) ) { mesh.property( m_hV, h ) = mesh.to_vertex_handle( h ); }
     }
     return true;
 }
@@ -113,7 +107,8 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
     return true;
 }
 
-void LoopSubdivider::split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh,
+void LoopSubdivider::split_face( TopologicalMesh& mesh,
+                                 const TopologicalMesh::FaceHandle& fh,
                                  size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
     // get where to cut
@@ -128,10 +123,11 @@ void LoopSubdivider::split_face( TopologicalMesh& mesh, const TopologicalMesh::F
 }
 
 void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
-                                     const TopologicalMesh::HalfedgeHandle& he, size_t iter ) {
+                                     const TopologicalMesh::HalfedgeHandle& he,
+                                     size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
-    using VHandle = TopologicalMesh::VertexHandle;
-    using FHandle = TopologicalMesh::FaceHandle;
+    using VHandle  = TopologicalMesh::VertexHandle;
+    using FHandle  = TopologicalMesh::FaceHandle;
 
     // Define Halfedge Handles
     HeHandle heh1( he );
@@ -193,13 +189,14 @@ void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
     m_newFacePropOps[iter].push_back( {heh3, {{1, heh5}}} );
 }
 
-void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
+void LoopSubdivider::split_edge( TopologicalMesh& mesh,
+                                 const TopologicalMesh::EdgeHandle& eh,
                                  size_t iter ) {
     using HeHandle = TopologicalMesh::HalfedgeHandle;
-    using VHandle = TopologicalMesh::VertexHandle;
+    using VHandle  = TopologicalMesh::VertexHandle;
 
     // prepare data
-    HeHandle heh = mesh.halfedge_handle( eh, 0 );
+    HeHandle heh     = mesh.halfedge_handle( eh, 0 );
     HeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
     HeHandle new_heh;
     HeHandle opp_new_heh;
@@ -216,7 +213,8 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::E
         for ( t_heh = heh; mesh.next_halfedge_handle( t_heh ) != opp_heh;
               t_heh = mesh.opposite_halfedge_handle( mesh.next_halfedge_handle( t_heh ) ) )
             ;
-    } else
+    }
+    else
     {
         for ( t_heh = mesh.next_halfedge_handle( opp_heh );
               mesh.next_halfedge_handle( t_heh ) != opp_heh;
@@ -224,7 +222,7 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::E
             ;
     }
 
-    new_heh = mesh.new_edge( vh, vh1 );
+    new_heh     = mesh.new_edge( vh, vh1 );
     opp_new_heh = mesh.opposite_halfedge_handle( new_heh );
     mesh.set_vertex_handle( heh, vh );
 
@@ -264,9 +262,10 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh, const TopologicalMesh::E
     mesh.adjust_outgoing_halfedge( vh1 );
 }
 
-void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
+void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh,
+                                       const TopologicalMesh::EdgeHandle& eh,
                                        size_t iter ) {
-    TopologicalMesh::HalfedgeHandle heh = mesh.halfedge_handle( eh, 0 );
+    TopologicalMesh::HalfedgeHandle heh     = mesh.halfedge_handle( eh, 0 );
     TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
 
     TopologicalMesh::Point pos = mesh.point( mesh.to_vertex_handle( heh ) );
@@ -281,7 +280,8 @@ void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh, const TopologicalM
         ops.resize( 2 );
         ops[0] = V_OP( 0.5, mesh.to_vertex_handle( heh ) );
         ops[1] = V_OP( 0.5, mesh.to_vertex_handle( opp_heh ) );
-    } else // inner edge: add neighbouring Vertices to sum
+    }
+    else // inner edge: add neighbouring Vertices to sum
     {
         pos *= 3.0;
         pos += mesh.point( mesh.to_vertex_handle( mesh.next_halfedge_handle( heh ) ) );
@@ -296,13 +296,14 @@ void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh, const TopologicalM
 
 #pragma omp critical
     {
-        auto vh = mesh.add_vertex( pos );
+        auto vh                      = mesh.add_vertex( pos );
         mesh.property( m_epPos, eh ) = vh;
         m_newVertexOps[iter].push_back( V_OPS( vh, ops ) );
     }
 }
 
-void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh,
+void LoopSubdivider::smooth( TopologicalMesh& mesh,
+                             const TopologicalMesh::VertexHandle& vh,
                              size_t iter ) {
     using VHandle = TopologicalMesh::VertexHandle;
 
@@ -320,7 +321,7 @@ void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::Verte
 
         prev_heh = mesh.prev_halfedge_handle( heh );
 
-        VHandle to_vh = mesh.to_vertex_handle( heh );
+        VHandle to_vh   = mesh.to_vertex_handle( heh );
         VHandle from_vh = mesh.from_vertex_handle( prev_heh );
 
         // ( v_l + 6 v + v_r ) / 8
@@ -334,7 +335,8 @@ void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::Verte
         ops[2] = V_OP( 6.f / 8.f, vh );
         ops[0] = V_OP( 1.f / 8.f, to_vh );
         ops[1] = V_OP( 1.f / 8.f, from_vh );
-    } else // inner vertex: (1-a) * p + a/n * Sum q, q in one-ring of p
+    }
+    else // inner vertex: (1-a) * p + a/n * Sum q, q in one-ring of p
     {
         TopologicalMesh::VertexVertexIter vvit;
         const uint valence = mesh.valence( vh );
@@ -360,11 +362,12 @@ void LoopSubdivider::smooth( TopologicalMesh& mesh, const TopologicalMesh::Verte
 
 void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
                                 const Vector3Array& newCoarseNormals,
-                                Vector3Array& newSubdivVertices, Vector3Array& newSubdivNormals,
+                                Vector3Array& newSubdivVertices,
+                                Vector3Array& newSubdivNormals,
                                 TopologicalMesh& mesh ) {
     // update vertices
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
-    auto hNormalProp = mesh.halfedge_normals_pph();
+    auto hNormalProp    = mesh.halfedge_normals_pph();
 #pragma omp parallel for
     for ( int i = 0; i < mesh.n_halfedges(); ++i )
     {
@@ -398,7 +401,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
 #pragma omp parallel for
         for ( int j = 0; j < m_oldVertexOps[i].size(); ++j )
         {
-            pos[j] = Ra::Core::Vector3( 0, 0, 0 );
+            pos[j]          = Ra::Core::Vector3( 0, 0, 0 );
             const auto& ops = m_oldVertexOps[i][j];
             for ( const auto& op : ops.second )
             {
@@ -446,9 +449,9 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
         auto h = mesh.halfedge_handle( i );
         if ( !mesh.is_boundary( h ) )
         {
-            auto idx = mesh.property( outTriIndexProp, h );
+            auto idx               = mesh.property( outTriIndexProp, h );
             newSubdivVertices[idx] = mesh.point( mesh.to_vertex_handle( h ) );
-            newSubdivNormals[idx] = mesh.property( hNormalProp, h );
+            newSubdivNormals[idx]  = mesh.property( hNormalProp, h );
         }
     }
 }

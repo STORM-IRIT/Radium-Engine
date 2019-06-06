@@ -19,7 +19,8 @@ class RadiumEngine;
 namespace DummyPlugin {
 class DummySystem;
 
-class DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface {
+class DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface
+{
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "foo.bar.RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )

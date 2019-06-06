@@ -12,7 +12,8 @@
 namespace AnimationPlugin {
 
 SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
-                                                    AnimationComponent* comp, uint id,
+                                                    AnimationComponent* comp,
+                                                    uint id,
                                                     Ra::Engine::RenderObjectManager* roMgr ) :
     m_roIdx( Ra::Core::Utils::Index::Invalid() ),
     m_id( id ),
@@ -24,7 +25,7 @@ SkeletonBoneRenderObject::SkeletonBoneRenderObject( const std::string& name,
     displayMesh->loadGeometry( makeBoneShape() );
 
     // create the material
-    auto mat = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Bone Material" );
+    auto mat  = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "Bone Material" );
     mat->m_kd = Ra::Core::Utils::Color( 0.4f, 0.4f, 0.4f, 1.f );
     mat->m_ks = Ra::Core::Utils::Color( 0.0f, 0.0f, 0.0f, 1.0f );
     Ra::Engine::RenderTechnique rt;
@@ -58,7 +59,7 @@ void SkeletonBoneRenderObject::updateLocalTransform() {
         m_skel.getTransform( m_id, Ra::Core::Animation::Handle::SpaceType::MODEL );
     Ra::Core::Matrix3 rotation = rot.toRotationMatrix();
     Ra::Core::Transform drawTransform;
-    drawTransform.linear() = rotation;
+    drawTransform.linear()      = rotation;
     drawTransform.translation() = boneTransform.translation();
 
     m_roMgr->getRenderObject( m_roIdx )->setLocalTransform( drawTransform * scale );
@@ -72,14 +73,21 @@ Ra::Core::Geometry::TriangleMesh SkeletonBoneRenderObject::makeBoneShape() {
     const Scalar l = 0.1f;
     const Scalar w = 0.1f;
 
-    mesh.vertices() = {Ra::Core::Vector3( 0, 0, 0 ),  Ra::Core::Vector3( 0, 0, 1 ),
-                       Ra::Core::Vector3( 0, w, l ),  Ra::Core::Vector3( w, 0, l ),
-                       Ra::Core::Vector3( 0, -w, l ), Ra::Core::Vector3( -w, 0, l )};
+    mesh.vertices() = {Ra::Core::Vector3( 0, 0, 0 ),
+                       Ra::Core::Vector3( 0, 0, 1 ),
+                       Ra::Core::Vector3( 0, w, l ),
+                       Ra::Core::Vector3( w, 0, l ),
+                       Ra::Core::Vector3( 0, -w, l ),
+                       Ra::Core::Vector3( -w, 0, l )};
 
-    mesh.m_triangles = {Ra::Core::Vector3ui( 0, 2, 3 ), Ra::Core::Vector3ui( 0, 5, 2 ),
-                        Ra::Core::Vector3ui( 0, 3, 4 ), Ra::Core::Vector3ui( 0, 4, 5 ),
-                        Ra::Core::Vector3ui( 1, 3, 2 ), Ra::Core::Vector3ui( 1, 2, 5 ),
-                        Ra::Core::Vector3ui( 1, 4, 3 ), Ra::Core::Vector3ui( 1, 5, 4 )};
+    mesh.m_triangles = {Ra::Core::Vector3ui( 0, 2, 3 ),
+                        Ra::Core::Vector3ui( 0, 5, 2 ),
+                        Ra::Core::Vector3ui( 0, 3, 4 ),
+                        Ra::Core::Vector3ui( 0, 4, 5 ),
+                        Ra::Core::Vector3ui( 1, 3, 2 ),
+                        Ra::Core::Vector3ui( 1, 2, 5 ),
+                        Ra::Core::Vector3ui( 1, 4, 3 ),
+                        Ra::Core::Vector3ui( 1, 5, 4 )};
 
     Ra::Core::Geometry::uniformNormal( mesh.vertices(), mesh.m_triangles, mesh.normals() );
 

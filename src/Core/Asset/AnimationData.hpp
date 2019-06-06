@@ -20,7 +20,8 @@ struct RA_CORE_API HandleAnimation {
     Core::Animation::KeyTransform m_anim;
 };
 
-class RA_CORE_API AnimationData : public AssetData {
+class RA_CORE_API AnimationData : public AssetData
+{
   public:
     /// CONSTRUCTOR
     explicit AnimationData( const std::string& name = "" );

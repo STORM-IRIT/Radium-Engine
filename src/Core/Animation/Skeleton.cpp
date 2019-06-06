@@ -48,10 +48,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
         m_modelSpace.resize( m_pose.size() );
         for ( uint i = 0; i < m_graph.size(); ++i )
         {
-            if ( m_graph.isRoot( i ) )
-            {
-                m_modelSpace[i] = m_pose[i];
-            }
+            if ( m_graph.isRoot( i ) ) { m_modelSpace[i] = m_pose[i]; }
             for ( const auto& child : m_graph.children()[i] )
             {
                 m_modelSpace[child] = m_modelSpace[i] * m_pose[child];
@@ -65,10 +62,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
         m_pose.resize( m_modelSpace.size() );
         for ( uint i = 0; i < m_graph.size(); ++i )
         {
-            if ( m_graph.isRoot( i ) )
-            {
-                m_pose[i] = m_modelSpace[i];
-            }
+            if ( m_graph.isRoot( i ) ) { m_pose[i] = m_modelSpace[i]; }
             for ( const auto& child : m_graph.children()[i] )
             {
                 m_pose[child] = m_modelSpace[i].inverse() * m_modelSpace[child];
@@ -106,10 +100,8 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     {
         m_pose[i] = T;
         // Compute the model space pose
-        if ( m_graph.isRoot( i ) )
-        {
-            m_modelSpace[i] = m_pose[i];
-        } else
+        if ( m_graph.isRoot( i ) ) { m_modelSpace[i] = m_pose[i]; }
+        else
         { m_modelSpace[i] = m_modelSpace[m_graph.parents()[i]] * T; }
         if ( !m_graph.isLeaf( i ) )
         {
@@ -132,10 +124,8 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     {
         m_modelSpace[i] = T;
         // Compute the local space pose
-        if ( m_graph.isRoot( i ) )
-        {
-            m_pose[i] = m_modelSpace[i];
-        } else
+        if ( m_graph.isRoot( i ) ) { m_pose[i] = m_modelSpace[i]; }
+        else
         { m_pose[i] = m_modelSpace[m_graph.parents()[i]].inverse() * T; }
         if ( !m_graph.isLeaf( i ) )
         {
@@ -159,27 +149,25 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
     }
 }
 
-int Skeleton::addBone( const int parent, const Transform& T, const SpaceType MODE,
+int Skeleton::addBone( const int parent,
+                       const Transform& T,
+                       const SpaceType MODE,
                        const Label label ) {
     switch ( MODE )
     {
     case SpaceType::LOCAL:
     {
         m_pose.push_back( T );
-        if ( parent == -1 )
-        {
-            m_modelSpace.push_back( T );
-        } else
+        if ( parent == -1 ) { m_modelSpace.push_back( T ); }
+        else
         { m_modelSpace.push_back( T * m_modelSpace[parent] ); }
     }
     break;
     case SpaceType::MODEL:
     {
         m_modelSpace.push_back( T );
-        if ( parent == -1 )
-        {
-            m_pose.push_back( T );
-        } else
+        if ( parent == -1 ) { m_pose.push_back( T ); }
+        else
         { m_pose.push_back( m_modelSpace[parent].inverse() * T ); }
     }
     break;
@@ -197,10 +185,8 @@ void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut )
 
     startOut = m_modelSpace[i].translation();
     // A leaf bone has length 0
-    if ( m_graph.isLeaf( i ) )
-    {
-        endOut = startOut;
-    } else
+    if ( m_graph.isLeaf( i ) ) { endOut = startOut; }
+    else
     {
         const auto& children = m_graph.children()[i];
         CORE_ASSERT( children.size() > 0, "non-leaf bone has no children." );
@@ -218,21 +204,21 @@ Vector3 Skeleton::projectOnBone( int boneIdx, const Ra::Core::Vector3& pos ) con
     Vector3 start, end;
     getBonePoints( boneIdx, start, end );
 
-    auto op = pos - start;
+    auto op  = pos - start;
     auto dir = ( end - start );
     // Square length of bone
     const Scalar length_sq = dir.squaredNorm();
     CORE_ASSERT( length_sq != 0.f, "bone has lenght 0, cannot project." );
 
     // Project on the line segment
-    const Scalar t = std::clamp( op.dot( dir ) / length_sq, Scalar(0), Scalar(1) );
+    const Scalar t = std::clamp( op.dot( dir ) / length_sq, Scalar( 0 ), Scalar( 1 ) );
     return start + ( t * dir );
 }
 
 std::ostream& operator<<( std::ostream& os, const Skeleton& skeleton ) {
     for ( uint i = 0; i < skeleton.size(); ++i )
     {
-        const uint id = i;
+        const uint id          = i;
         const std::string name = skeleton.getLabel( i );
         const std::string type =
             skeleton.m_graph.isRoot( i )

@@ -11,7 +11,7 @@ namespace Animation {
 
 // Taken from the ISL. TODO: Keep only one version
 using SkinningWeights = std::map<int, float>;
-using Weights = std::vector<SkinningWeights>;
+using Weights         = std::vector<SkinningWeights>;
 
 // Defining the pair handle/weight for a vertex
 using SingleWeight = std::pair<uint, Scalar>;

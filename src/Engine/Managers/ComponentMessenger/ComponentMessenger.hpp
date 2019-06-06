@@ -35,7 +35,8 @@ class Component;
  * For more efficiency the underlying function pointers are directly accessible
  * as well and can be queried with the same identifiers.
  */
-class RA_ENGINE_API ComponentMessenger {
+class RA_ENGINE_API ComponentMessenger
+{
     RA_SINGLETON_INTERFACE( ComponentMessenger );
 
   public:
@@ -56,8 +57,8 @@ class RA_ENGINE_API ComponentMessenger {
 
     template <typename T>
     struct CallbackTypes<std::shared_ptr<T>> {
-        using Getter = std::function<std::shared_ptr<const T>( void )>;
-        using Setter = std::function<void( std::shared_ptr<const T> )>;
+        using Getter    = std::function<std::shared_ptr<const T>( void )>;
+        using Setter    = std::function<void( std::shared_ptr<const T> )>;
         using ReadWrite = std::function<std::shared_ptr<T>( void )>;
 
         static const std::shared_ptr<const T>& getHelper( const Getter& g ) { return ( g() ); }
@@ -142,15 +143,21 @@ class RA_ENGINE_API ComponentMessenger {
     //
 
     template <typename ReturnType>
-    inline void registerOutput( const Entity* entity, Component* comp, const std::string& id,
+    inline void registerOutput( const Entity* entity,
+                                Component* comp,
+                                const std::string& id,
                                 const typename CallbackTypes<ReturnType>::Getter& cb );
 
     template <typename ReturnType>
-    inline void registerReadWrite( const Entity* entity, Component* comp, const std::string& id,
+    inline void registerReadWrite( const Entity* entity,
+                                   Component* comp,
+                                   const std::string& id,
                                    const typename CallbackTypes<ReturnType>::ReadWrite& cb );
 
     template <typename ReturnType>
-    inline void registerInput( const Entity* entity, Component* comp, const std::string& id,
+    inline void registerInput( const Entity* entity,
+                               Component* comp,
+                               const std::string& id,
                                const typename CallbackTypes<ReturnType>::Setter& cb );
 
   private:

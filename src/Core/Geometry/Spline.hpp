@@ -18,7 +18,8 @@ namespace Geometry {
  * @tparam K  :order of the curve (min 2)
  */
 template <uint D, uint K = 2>
-class Spline {
+class Spline
+{
   public:
     enum Type {
         UNIFORM,
@@ -77,11 +78,16 @@ class Spline {
     /// parameter u. The nodal vector size must be equal to (k + point.size())
     /// @param off : offset to apply to the nodal vector 'node' before reading
     /// from it. this is useful to compute derivatives.
-    static inline Vector eval( Scalar u, const Core::VectorArray<Vector>& points,
-                               const std::vector<Scalar>& node, uint k, int off = 0 );
+    static inline Vector eval( Scalar u,
+                               const Core::VectorArray<Vector>& points,
+                               const std::vector<Scalar>& node,
+                               uint k,
+                               int off = 0 );
 
-    static inline Vector evalRec( Scalar u, const Core::VectorArray<Vector>& points,
-                                  const std::vector<Scalar>& node, uint k );
+    static inline Vector evalRec( Scalar u,
+                                  const Core::VectorArray<Vector>& points,
+                                  const std::vector<Scalar>& node,
+                                  uint k );
 
     // -------------------------------------------------------------------------
     /// @name attributes

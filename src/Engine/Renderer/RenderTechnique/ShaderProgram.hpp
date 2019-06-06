@@ -28,7 +28,8 @@ class Texture;
  * @see globjects::Program and https://www.khronos.org/opengl/wiki/Shader
  *
  */
-class RA_ENGINE_API ShaderProgram final {
+class RA_ENGINE_API ShaderProgram final
+{
   public:
     ShaderProgram();
     explicit ShaderProgram( const ShaderConfiguration& shaderConfig );
@@ -90,7 +91,9 @@ class RA_ENGINE_API ShaderProgram final {
     using TextureUnits = std::map<std::string, TextureBinding>;
     TextureUnits textureUnits;
 
-    void loadShader( ShaderType type, const std::string& name, const std::set<std::string>& props,
+    void loadShader( ShaderType type,
+                     const std::string& name,
+                     const std::set<std::string>& props,
                      const std::vector<std::pair<std::string, ShaderType>>& includes,
                      const std::string& version = "#version 410" );
 
@@ -99,7 +102,9 @@ class RA_ENGINE_API ShaderProgram final {
 
     void link();
 
-    std::string preprocessIncludes( const std::string& name, const std::string& shader, int level,
+    std::string preprocessIncludes( const std::string& name,
+                                    const std::string& shader,
+                                    int level,
                                     int line = 0 );
 
   private:

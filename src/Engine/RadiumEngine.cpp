@@ -36,8 +36,8 @@ RadiumEngine::~RadiumEngine() = default;
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
-    m_signalManager = std::make_unique<SignalManager>();
-    m_entityManager = std::make_unique<EntityManager>();
+    m_signalManager       = std::make_unique<SignalManager>();
+    m_entityManager       = std::make_unique<EntityManager>();
     m_renderObjectManager = std::make_unique<RenderObjectManager>();
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
@@ -114,17 +114,15 @@ bool RadiumEngine::registerSystem( const std::string& name, System* system, int 
 
 System* RadiumEngine::getSystem( const std::string& system ) const {
     System* sys = nullptr;
-    auto it = findSystem( system );
+    auto it     = findSystem( system );
 
-    if ( it != m_systems.end() )
-    {
-        sys = it->second.get();
-    }
+    if ( it != m_systems.end() ) { sys = it->second.get(); }
 
     return sys;
 }
 
-Displayable* RadiumEngine::getMesh( const std::string& entityName, const std::string& componentName,
+Displayable* RadiumEngine::getMesh( const std::string& entityName,
+                                    const std::string& componentName,
                                     const std::string& roName ) const {
 
     // 1) Get entity
@@ -143,15 +141,13 @@ Displayable* RadiumEngine::getMesh( const std::string& entityName, const std::st
                 return m_renderObjectManager->getRenderObject( c->m_renderObjects.front() )
                     ->getMesh()
                     .get();
-            } else
+            }
+            else
             {
                 for ( const auto& idx : c->m_renderObjects )
                 {
                     const auto& ro = m_renderObjectManager->getRenderObject( idx );
-                    if ( ro->getName() == roName )
-                    {
-                        return ro->getMesh().get();
-                    }
+                    if ( ro->getName() == roName ) { return ro->getMesh().get(); }
                 }
             }
         }
@@ -200,7 +196,8 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         {
             comp->initialize();
         }
-    } else
+    }
+    else
     {
         LOG( logWARNING ) << "File \"" << filename << "\" has no usable data. Deleting entity...";
         m_entityManager->removeEntity( entity );
@@ -243,13 +240,15 @@ const FileData& RadiumEngine::getFileData() const {
 
 RadiumEngine::SystemContainer::const_iterator
 RadiumEngine::findSystem( const std::string& name ) const {
-    return std::find_if( m_systems.cbegin(), m_systems.cend(),
-                         [&name]( const auto& el ) { return el.first.second == name; } );
+    return std::find_if( m_systems.cbegin(), m_systems.cend(), [&name]( const auto& el ) {
+        return el.first.second == name;
+    } );
 }
 
 RadiumEngine::SystemContainer::iterator RadiumEngine::findSystem( const std::string& name ) {
-    return std::find_if( m_systems.begin(), m_systems.end(),
-                         [&name]( const auto& el ) { return el.first.second == name; } );
+    return std::find_if( m_systems.begin(), m_systems.end(), [&name]( const auto& el ) {
+        return el.first.second == name;
+    } );
 }
 
 } // namespace Engine

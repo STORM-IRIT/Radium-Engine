@@ -12,7 +12,8 @@ namespace IO {
  * The class OFFFileManager handles the loading and storing of TriangleMesh in the standard OFF
  * format.
  */
-class RA_IO_API[[deprecated]] OFFFileManager : public FileManager<Core::Geometry::TriangleMesh> {
+class RA_IO_API[[deprecated]] OFFFileManager : public FileManager<Core::Geometry::TriangleMesh>
+{
   public:
     /// CONSTRUCTOR
     OFFFileManager();

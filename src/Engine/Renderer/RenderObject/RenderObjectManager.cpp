@@ -74,15 +74,17 @@ RenderObjectManager::getRenderObjects() const {
 }
 
 void RenderObjectManager::getRenderObjectsByType(
-    std::vector<std::shared_ptr<RenderObject>>& objectsOut, const RenderObjectType& type ) const {
+    std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+    const RenderObjectType& type ) const {
     // Take the mutex
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     //// Copy each element in m_renderObjects
-    std::transform( m_renderObjectByType[(int)type].begin(), m_renderObjectByType[(int)type].end(),
-                    std::back_inserter( objectsOut ), [this]( const Core::Utils::Index& i ) {
-                        return this->m_renderObjects.at( i );
-                    } );
+    std::transform(
+        m_renderObjectByType[(int)type].begin(),
+        m_renderObjectByType[(int)type].end(),
+        std::back_inserter( objectsOut ),
+        [this]( const Core::Utils::Index& i ) { return this->m_renderObjects.at( i ); } );
 }
 
 void RenderObjectManager::renderObjectExpired( const Core::Utils::Index& idx ) {
@@ -103,12 +105,12 @@ void RenderObjectManager::renderObjectExpired( const Core::Utils::Index& idx ) {
 size_t RenderObjectManager::getNumFaces() const {
     // todo : use reduce instead of accumulate to improve performances (since C++17)
     size_t result = std::accumulate(
-        m_renderObjects.begin(), m_renderObjects.end(), size_t( 0 ),
+        m_renderObjects.begin(),
+        m_renderObjects.end(),
+        size_t( 0 ),
         []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
             if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-            {
-                return a + ro->getMesh()->getNumFaces();
-            } else
+            { return a + ro->getMesh()->getNumFaces(); } else
             { return a; }
         } );
     return result;
@@ -117,12 +119,12 @@ size_t RenderObjectManager::getNumFaces() const {
 size_t RenderObjectManager::getNumVertices() const {
     // todo : use reduce instead of accumulate to improve performances (since C++17)
     size_t result = std::accumulate(
-        m_renderObjects.begin(), m_renderObjects.end(), size_t( 0 ),
+        m_renderObjects.begin(),
+        m_renderObjects.end(),
+        size_t( 0 ),
         []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
             if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-            {
-                return a + ro->getMesh()->getNumVertices();
-            } else
+            { return a + ro->getMesh()->getNumVertices(); } else
             { return a; }
         } );
     return result;
@@ -133,12 +135,12 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     Core::Aabb aabb;
 
     const auto& systemEntity = Engine::SystemEntity::getInstance();
-    const auto& comps = systemEntity->getComponents();
-    uint nUiRO = 0;
-    std::for_each( comps.begin(), comps.end(),
-                   [&nUiRO]( const auto& c ) { nUiRO += c->m_renderObjects.size(); } );
-    if ( m_renderObjects.size() == nUiRO )
-        return aabb;
+    const auto& comps        = systemEntity->getComponents();
+    uint nUiRO               = 0;
+    std::for_each( comps.begin(), comps.end(), [&nUiRO]( const auto& c ) {
+        nUiRO += c->m_renderObjects.size();
+    } );
+    if ( m_renderObjects.size() == nUiRO ) return aabb;
 
     for ( const auto& ro : m_renderObjects )
     {

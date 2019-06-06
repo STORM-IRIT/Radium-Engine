@@ -24,8 +24,8 @@ namespace IO {
 
 /// The AssimpGeometryDataLoader converts geometry data from the Assimp format
 /// to the Asset::GeometryData format.
-class RA_IO_API AssimpGeometryDataLoader
-    : public Core::Asset::DataLoader<Core::Asset::GeometryData> {
+class RA_IO_API AssimpGeometryDataLoader : public Core::Asset::DataLoader<Core::Asset::GeometryData>
+{
   public:
     explicit AssimpGeometryDataLoader( const std::string& filepath,
                                        const bool VERBOSE_MODE = false );
@@ -48,20 +48,23 @@ class RA_IO_API AssimpGeometryDataLoader
                            std::vector<std::unique_ptr<Core::Asset::GeometryData>>& data );
 
     /// Fill \p data with the GeometryData from \p mesh.
-    void loadMeshData( const aiMesh& mesh, Core::Asset::GeometryData& data,
+    void loadMeshData( const aiMesh& mesh,
+                       Core::Asset::GeometryData& data,
                        std::set<std::string>& usedNames );
 
     /// Fill \p data with the Material data from \p material.
     void loadMaterial( const aiMaterial& material, Core::Asset::GeometryData& data ) const;
 
     /// Fill \p data with the transformation data from \p node and \p parentFrame.
-    void loadMeshFrame( const aiNode* node, const Core::Transform& parentFrame,
+    void loadMeshFrame( const aiNode* node,
+                        const Core::Transform& parentFrame,
                         const std::map<uint, size_t>& indexTable,
                         std::vector<std::unique_ptr<Core::Asset::GeometryData>>& data ) const;
 
     /// Fill \p data with the name from \p mesh.
     /// \note If the name is already in use, then appends as much "_" as needed.
-    void fetchName( const aiMesh& mesh, Core::Asset::GeometryData& data,
+    void fetchName( const aiMesh& mesh,
+                    Core::Asset::GeometryData& data,
                     std::set<std::string>& usedNames ) const;
 
     /// Fill \p data with the GeometryType from \p mesh.

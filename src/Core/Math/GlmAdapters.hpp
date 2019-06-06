@@ -52,48 +52,104 @@ inline glm::mat2 toGlm( const Matrix2f& m ) {
 }
 
 inline glm::mat3 toGlm( const Matrix3f& m ) {
-    return glm::mat3( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 0, 1 ),
-                      m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 0, 2 ), m.coeff( 1, 2 ),
+    return glm::mat3( m.coeff( 0, 0 ),
+                      m.coeff( 1, 0 ),
+                      m.coeff( 2, 0 ),
+                      m.coeff( 0, 1 ),
+                      m.coeff( 1, 1 ),
+                      m.coeff( 2, 1 ),
+                      m.coeff( 0, 2 ),
+                      m.coeff( 1, 2 ),
                       m.coeff( 2, 2 ) );
 }
 
 inline glm::mat4 toGlm( const Matrix4f& m ) {
-    return glm::mat4( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 3, 0 ),
-                      m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 3, 1 ),
-                      m.coeff( 0, 2 ), m.coeff( 1, 2 ), m.coeff( 2, 2 ), m.coeff( 3, 2 ),
-                      m.coeff( 0, 3 ), m.coeff( 1, 3 ), m.coeff( 2, 3 ), m.coeff( 3, 3 ) );
+    return glm::mat4( m.coeff( 0, 0 ),
+                      m.coeff( 1, 0 ),
+                      m.coeff( 2, 0 ),
+                      m.coeff( 3, 0 ),
+                      m.coeff( 0, 1 ),
+                      m.coeff( 1, 1 ),
+                      m.coeff( 2, 1 ),
+                      m.coeff( 3, 1 ),
+                      m.coeff( 0, 2 ),
+                      m.coeff( 1, 2 ),
+                      m.coeff( 2, 2 ),
+                      m.coeff( 3, 2 ),
+                      m.coeff( 0, 3 ),
+                      m.coeff( 1, 3 ),
+                      m.coeff( 2, 3 ),
+                      m.coeff( 3, 3 ) );
 }
 
 inline glm::mat2x3 toGlm( const Eigen::Matrix<float, 2, 3>& m ) {
-    return glm::mat2x3( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 0, 1 ),
-                        m.coeff( 1, 1 ), m.coeff( 2, 1 ) );
+    return glm::mat2x3( m.coeff( 0, 0 ),
+                        m.coeff( 1, 0 ),
+                        m.coeff( 2, 0 ),
+                        m.coeff( 0, 1 ),
+                        m.coeff( 1, 1 ),
+                        m.coeff( 2, 1 ) );
 }
 
 inline glm::mat3x2 toGlm( const Eigen::Matrix<float, 3, 2>& m ) {
-    return glm::mat3x2( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 0, 1 ), m.coeff( 1, 1 ),
-                        m.coeff( 0, 2 ), m.coeff( 1, 2 ) );
+    return glm::mat3x2( m.coeff( 0, 0 ),
+                        m.coeff( 1, 0 ),
+                        m.coeff( 0, 1 ),
+                        m.coeff( 1, 1 ),
+                        m.coeff( 0, 2 ),
+                        m.coeff( 1, 2 ) );
 }
 
 inline glm::mat2x4 toGlm( const Eigen::Matrix<float, 2, 4>& m ) {
-    return glm::mat2x4( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 3, 0 ),
-                        m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 3, 1 ) );
+    return glm::mat2x4( m.coeff( 0, 0 ),
+                        m.coeff( 1, 0 ),
+                        m.coeff( 2, 0 ),
+                        m.coeff( 3, 0 ),
+                        m.coeff( 0, 1 ),
+                        m.coeff( 1, 1 ),
+                        m.coeff( 2, 1 ),
+                        m.coeff( 3, 1 ) );
 }
 
 inline glm::mat4x2 toGlm( const Eigen::Matrix<float, 4, 2>& m ) {
-    return glm::mat4x2( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 0, 1 ), m.coeff( 1, 1 ),
-                        m.coeff( 0, 2 ), m.coeff( 1, 2 ), m.coeff( 0, 3 ), m.coeff( 1, 3 ) );
+    return glm::mat4x2( m.coeff( 0, 0 ),
+                        m.coeff( 1, 0 ),
+                        m.coeff( 0, 1 ),
+                        m.coeff( 1, 1 ),
+                        m.coeff( 0, 2 ),
+                        m.coeff( 1, 2 ),
+                        m.coeff( 0, 3 ),
+                        m.coeff( 1, 3 ) );
 }
 
 inline glm::mat3x4 toGlm( const Eigen::Matrix<float, 3, 4>& m ) {
-    return glm::mat3x4( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 3, 0 ),
-                        m.coeff( 0, 1 ), m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 3, 1 ),
-                        m.coeff( 0, 2 ), m.coeff( 1, 2 ), m.coeff( 2, 2 ), m.coeff( 3, 2 ) );
+    return glm::mat3x4( m.coeff( 0, 0 ),
+                        m.coeff( 1, 0 ),
+                        m.coeff( 2, 0 ),
+                        m.coeff( 3, 0 ),
+                        m.coeff( 0, 1 ),
+                        m.coeff( 1, 1 ),
+                        m.coeff( 2, 1 ),
+                        m.coeff( 3, 1 ),
+                        m.coeff( 0, 2 ),
+                        m.coeff( 1, 2 ),
+                        m.coeff( 2, 2 ),
+                        m.coeff( 3, 2 ) );
 }
 
 inline glm::mat4x3 toGlm( const Eigen::Matrix<float, 4, 3>& m ) {
-    return glm::mat4x3( m.coeff( 0, 0 ), m.coeff( 1, 0 ), m.coeff( 2, 0 ), m.coeff( 0, 1 ),
-                        m.coeff( 1, 1 ), m.coeff( 2, 1 ), m.coeff( 0, 2 ), m.coeff( 1, 2 ),
-                        m.coeff( 2, 2 ), m.coeff( 0, 3 ), m.coeff( 1, 3 ), m.coeff( 2, 3 ) );
+    return glm::mat4x3( m.coeff( 0, 0 ),
+                        m.coeff( 1, 0 ),
+                        m.coeff( 2, 0 ),
+                        m.coeff( 0, 1 ),
+                        m.coeff( 1, 1 ),
+                        m.coeff( 2, 1 ),
+                        m.coeff( 0, 2 ),
+                        m.coeff( 1, 2 ),
+                        m.coeff( 2, 2 ),
+                        m.coeff( 0, 3 ),
+                        m.coeff( 1, 3 ),
+                        m.coeff( 2, 3 ) );
 }
 
 // Transform a glm vector/matrix into an Eigen vector/matrix.

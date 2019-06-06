@@ -36,10 +36,7 @@ FileData* CameraFileLoader::loadFile( const std::string& filename ) {
         LOG( logERROR ) << "[CameraLoader] Filedata cannot be initialized.";
         return nullptr;
     }
-    if ( fileData->isVerbose() )
-    {
-        LOG( logERROR ) << "[CameraLoader] File Loading begin...";
-    }
+    if ( fileData->isVerbose() ) { LOG( logERROR ) << "[CameraLoader] File Loading begin..."; }
 
     /// Open the file
     std::ifstream ss( filename );
@@ -89,13 +86,10 @@ FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     camera->setZoomFactor( zoom );
     camera->setAspect( aspect );
     fileData->m_cameraData.emplace_back( camera );
-    if ( fileData->isVerbose() )
-    {
-        fileData->displayInfo();
-    }
+    if ( fileData->isVerbose() ) { fileData->displayInfo(); }
 
     fileData->m_loadingTime = ( endTime - startTime ) / Scalar( CLOCKS_PER_SEC );
-    fileData->m_processed = true;
+    fileData->m_processed   = true;
     return fileData;
 }
 

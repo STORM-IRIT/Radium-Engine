@@ -24,7 +24,8 @@ struct HandleComponentData;
 
 namespace IO {
 
-class RA_IO_API AssimpHandleDataLoader : public Core::Asset::DataLoader<Core::Asset::HandleData> {
+class RA_IO_API AssimpHandleDataLoader : public Core::Asset::DataLoader<Core::Asset::HandleData>
+{
   public:
     /// CONSTRUCTOR
     explicit AssimpHandleDataLoader( const bool VERBOSE_MODE = false );
@@ -44,15 +45,18 @@ class RA_IO_API AssimpHandleDataLoader : public Core::Asset::DataLoader<Core::As
     /// LOAD
     void loadHandleData( const aiScene* scene,
                          std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) const;
-    void loadHandleComponentDataFrame( const aiScene* scene, const aiString& boneName,
+    void loadHandleComponentDataFrame( const aiScene* scene,
+                                       const aiString& boneName,
                                        Core::Asset::HandleComponentData& data ) const;
-    void loadHandleComponentDataWeights( const aiBone* bone, const std::string& meshName,
+    void loadHandleComponentDataWeights( const aiBone* bone,
+                                         const std::string& meshName,
                                          Core::Asset::HandleComponentData& data ) const;
     void
     fillHandleData( const std::string& node,
                     const std::vector<std::pair<std::string, std::string>>& edgeList,
                     const std::map<std::string, Core::Asset::HandleComponentData>& mapBone2Data,
-                    std::map<std::string, uint>& nameTable, Core::Asset::HandleData* data ) const;
+                    std::map<std::string, uint>& nameTable,
+                    Core::Asset::HandleData* data ) const;
 };
 
 } // namespace IO

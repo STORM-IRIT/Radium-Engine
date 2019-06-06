@@ -15,7 +15,8 @@ namespace Core {
 /// A good reference.
 /// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/other/dualQuaternion/index.htm
 
-class DualQuaternion {
+class DualQuaternion
+{
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW

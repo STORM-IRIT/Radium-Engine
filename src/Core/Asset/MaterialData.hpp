@@ -37,7 +37,8 @@ namespace Asset {
  *
  *  That's all folks.
  */
-class RA_CORE_API MaterialData : public AssetData {
+class RA_CORE_API MaterialData : public AssetData
+{
   public:
     /// MATERIAL DATA
     MaterialData( const std::string& name = "", const std::string& type = "AbstractMaterial" );

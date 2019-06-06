@@ -1,7 +1,7 @@
 #include <Core/Containers/Grid.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Types.hpp>
 #include <Core/Math/Math.hpp> // areApproxEqual
+#include <Core/Types.hpp>
 
 #include <array>
 #include <string>
@@ -38,28 +38,41 @@ TriangleMesh makeBox( const Vector3& halfExts, const Utils::optional<Utils::Colo
 
 TriangleMesh makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
-    result.vertices() = {
-        aabb.corner( Aabb::BottomLeftFloor ), aabb.corner( Aabb::BottomRightFloor ),
-        aabb.corner( Aabb::TopLeftFloor ),    aabb.corner( Aabb::TopRightFloor ),
-        aabb.corner( Aabb::BottomLeftCeil ),  aabb.corner( Aabb::BottomRightCeil ),
-        aabb.corner( Aabb::TopLeftCeil ),     aabb.corner( Aabb::TopRightCeil )};
+    result.vertices() = {aabb.corner( Aabb::BottomLeftFloor ),
+                         aabb.corner( Aabb::BottomRightFloor ),
+                         aabb.corner( Aabb::TopLeftFloor ),
+                         aabb.corner( Aabb::TopRightFloor ),
+                         aabb.corner( Aabb::BottomLeftCeil ),
+                         aabb.corner( Aabb::BottomRightCeil ),
+                         aabb.corner( Aabb::TopLeftCeil ),
+                         aabb.corner( Aabb::TopRightCeil )};
 
     static const Scalar a = 1_ra / std::sqrt( 3_ra );
-    result.normals() = {Vector3( -a, -a, -a ), Vector3( +a, -a, -a ), Vector3( -a, +a, -a ),
-                        Vector3( +a, +a, -a ), Vector3( -a, -a, +a ), Vector3( +a, -a, +a ),
-                        Vector3( -a, +a, +a ), Vector3( +a, +a, +a )};
+    result.normals()      = {Vector3( -a, -a, -a ),
+                        Vector3( +a, -a, -a ),
+                        Vector3( -a, +a, -a ),
+                        Vector3( +a, +a, -a ),
+                        Vector3( -a, -a, +a ),
+                        Vector3( +a, -a, +a ),
+                        Vector3( -a, +a, +a ),
+                        Vector3( +a, +a, +a )};
 
     result.m_triangles = {
-        Vector3ui( 0, 2, 1 ), Vector3ui( 1, 2, 3 ), // Floor
-        Vector3ui( 0, 1, 4 ), Vector3ui( 4, 1, 5 ), // Front
-        Vector3ui( 3, 2, 6 ), Vector3ui( 3, 6, 7 ), // Back
-        Vector3ui( 5, 1, 3 ), Vector3ui( 5, 3, 7 ), // Right
-        Vector3ui( 2, 0, 4 ), Vector3ui( 2, 4, 6 ), // Left
-        Vector3ui( 4, 5, 6 ), Vector3ui( 6, 5, 7 )  // Top
+        Vector3ui( 0, 2, 1 ),
+        Vector3ui( 1, 2, 3 ), // Floor
+        Vector3ui( 0, 1, 4 ),
+        Vector3ui( 4, 1, 5 ), // Front
+        Vector3ui( 3, 2, 6 ),
+        Vector3ui( 3, 6, 7 ), // Back
+        Vector3ui( 5, 1, 3 ),
+        Vector3ui( 5, 3, 7 ), // Right
+        Vector3ui( 2, 0, 4 ),
+        Vector3ui( 2, 4, 6 ), // Left
+        Vector3ui( 4, 5, 6 ),
+        Vector3ui( 6, 5, 7 ) // Top
     };
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
@@ -73,63 +86,96 @@ TriangleMesh makeSharpBox( const Vector3& halfExts, const Utils::optional<Utils:
 TriangleMesh makeSharpBox( const Aabb& aabb, const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
     result.vertices() = {// Floor Face
-                         aabb.corner( Aabb::BottomLeftFloor ), aabb.corner( Aabb::TopLeftFloor ),
-                         aabb.corner( Aabb::TopRightFloor ), aabb.corner( Aabb::BottomRightFloor ),
+                         aabb.corner( Aabb::BottomLeftFloor ),
+                         aabb.corner( Aabb::TopLeftFloor ),
+                         aabb.corner( Aabb::TopRightFloor ),
+                         aabb.corner( Aabb::BottomRightFloor ),
 
                          // Ceil Face
-                         aabb.corner( Aabb::BottomLeftCeil ), aabb.corner( Aabb::BottomRightCeil ),
-                         aabb.corner( Aabb::TopRightCeil ), aabb.corner( Aabb::TopLeftCeil ),
+                         aabb.corner( Aabb::BottomLeftCeil ),
+                         aabb.corner( Aabb::BottomRightCeil ),
+                         aabb.corner( Aabb::TopRightCeil ),
+                         aabb.corner( Aabb::TopLeftCeil ),
 
                          // Left Face
-                         aabb.corner( Aabb::TopLeftFloor ), aabb.corner( Aabb::BottomLeftFloor ),
-                         aabb.corner( Aabb::BottomLeftCeil ), aabb.corner( Aabb::TopLeftCeil ),
+                         aabb.corner( Aabb::TopLeftFloor ),
+                         aabb.corner( Aabb::BottomLeftFloor ),
+                         aabb.corner( Aabb::BottomLeftCeil ),
+                         aabb.corner( Aabb::TopLeftCeil ),
 
                          // Right Face
-                         aabb.corner( Aabb::BottomRightFloor ), aabb.corner( Aabb::TopRightFloor ),
-                         aabb.corner( Aabb::TopRightCeil ), aabb.corner( Aabb::BottomRightCeil ),
+                         aabb.corner( Aabb::BottomRightFloor ),
+                         aabb.corner( Aabb::TopRightFloor ),
+                         aabb.corner( Aabb::TopRightCeil ),
+                         aabb.corner( Aabb::BottomRightCeil ),
 
                          // Bottom Face
                          aabb.corner( Aabb::BottomLeftFloor ),
                          aabb.corner( Aabb::BottomRightFloor ),
-                         aabb.corner( Aabb::BottomRightCeil ), aabb.corner( Aabb::BottomLeftCeil ),
+                         aabb.corner( Aabb::BottomRightCeil ),
+                         aabb.corner( Aabb::BottomLeftCeil ),
 
                          // Top face
-                         aabb.corner( Aabb::TopLeftFloor ), aabb.corner( Aabb::TopLeftCeil ),
-                         aabb.corner( Aabb::TopRightCeil ), aabb.corner( Aabb::TopRightFloor )};
+                         aabb.corner( Aabb::TopLeftFloor ),
+                         aabb.corner( Aabb::TopLeftCeil ),
+                         aabb.corner( Aabb::TopRightCeil ),
+                         aabb.corner( Aabb::TopRightFloor )};
 
-    result.normals() = {
-        // Floor face
-        Vector3( 0, 0, -1 ), Vector3( 0, 0, -1 ), Vector3( 0, 0, -1 ), Vector3( 0, 0, -1 ),
-        // Ceil Face
-        Vector3( 0, 0, +1 ), Vector3( 0, 0, +1 ), Vector3( 0, 0, +1 ), Vector3( 0, 0, +1 ),
-        // Left Face
-        Vector3( -1, 0, 0 ), Vector3( -1, 0, 0 ), Vector3( -1, 0, 0 ), Vector3( -1, 0, 0 ),
-        // Right Face
-        Vector3( +1, 0, 0 ), Vector3( +1, 0, 0 ), Vector3( +1, 0, 0 ), Vector3( +1, 0, 0 ),
-        // Bottom Face
-        Vector3( 0, -1, 0 ), Vector3( 0, -1, 0 ), Vector3( 0, -1, 0 ), Vector3( 0, -1, 0 ),
-        // Top Face
-        Vector3( 0, +1, 0 ), Vector3( 0, +1, 0 ), Vector3( 0, +1, 0 ), Vector3( 0, +1, 0 )};
+    result.normals() = {// Floor face
+                        Vector3( 0, 0, -1 ),
+                        Vector3( 0, 0, -1 ),
+                        Vector3( 0, 0, -1 ),
+                        Vector3( 0, 0, -1 ),
+                        // Ceil Face
+                        Vector3( 0, 0, +1 ),
+                        Vector3( 0, 0, +1 ),
+                        Vector3( 0, 0, +1 ),
+                        Vector3( 0, 0, +1 ),
+                        // Left Face
+                        Vector3( -1, 0, 0 ),
+                        Vector3( -1, 0, 0 ),
+                        Vector3( -1, 0, 0 ),
+                        Vector3( -1, 0, 0 ),
+                        // Right Face
+                        Vector3( +1, 0, 0 ),
+                        Vector3( +1, 0, 0 ),
+                        Vector3( +1, 0, 0 ),
+                        Vector3( +1, 0, 0 ),
+                        // Bottom Face
+                        Vector3( 0, -1, 0 ),
+                        Vector3( 0, -1, 0 ),
+                        Vector3( 0, -1, 0 ),
+                        Vector3( 0, -1, 0 ),
+                        // Top Face
+                        Vector3( 0, +1, 0 ),
+                        Vector3( 0, +1, 0 ),
+                        Vector3( 0, +1, 0 ),
+                        Vector3( 0, +1, 0 )};
 
     result.m_triangles = {
 
-        Vector3ui( 0, 1, 2 ),    Vector3ui( 0, 2, 3 ),    // Floor
-        Vector3ui( 4, 5, 6 ),    Vector3ui( 4, 6, 7 ),    // Ceil
-        Vector3ui( 8, 9, 10 ),   Vector3ui( 8, 10, 11 ),  // Left
-        Vector3ui( 12, 13, 14 ), Vector3ui( 12, 14, 15 ), // Right
-        Vector3ui( 16, 17, 18 ), Vector3ui( 16, 18, 19 ), // Bottom
-        Vector3ui( 20, 21, 22 ), Vector3ui( 20, 22, 23 )  // Top
+        Vector3ui( 0, 1, 2 ),
+        Vector3ui( 0, 2, 3 ), // Floor
+        Vector3ui( 4, 5, 6 ),
+        Vector3ui( 4, 6, 7 ), // Ceil
+        Vector3ui( 8, 9, 10 ),
+        Vector3ui( 8, 10, 11 ), // Left
+        Vector3ui( 12, 13, 14 ),
+        Vector3ui( 12, 14, 15 ), // Right
+        Vector3ui( 16, 17, 18 ),
+        Vector3ui( 16, 18, 19 ), // Bottom
+        Vector3ui( 20, 21, 22 ),
+        Vector3ui( 20, 22, 23 ) // Top
     };
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv,
-                                 const Utils::optional<Utils::Color>& color ) {
+TriangleMesh
+makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
     uint faceCount = uint( std::pow( 4, numSubdiv ) ) * 20;
     result.vertices().reserve( faceCount - 8 );
@@ -176,8 +222,8 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv,
         uint i1 = ( i + 0 ) % 10 + 1;
         uint i2 = ( i + 1 ) % 10 + 1;
         uint i3 = ( i + 2 ) % 10 + 1;
-        (i % 2) ? result.m_triangles.emplace_back( i3, i2, i1 )
-              : result.m_triangles.emplace_back( i2, i3, i1 );
+        ( i % 2 ) ? result.m_triangles.emplace_back( i3, i2, i1 )
+                  : result.m_triangles.emplace_back( i2, i3, i1 );
     }
 
     for ( uint n = 0; n < numSubdiv; ++n )
@@ -186,7 +232,7 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv,
         // Now subdivide every face into 4 triangles.
         for ( uint i = 0; i < result.m_triangles.size(); ++i )
         {
-            const Vector3ui& tri = result.m_triangles[i];
+            const Vector3ui& tri               = result.m_triangles[i];
             std::array<Vector3, 3> triVertices = {
                 result.vertices()[tri[0]], result.vertices()[tri[1]], result.vertices()[tri[2]]};
             std::array<uint, 3> middles;
@@ -210,21 +256,23 @@ TriangleMesh makeGeodesicSphere( Scalar radius, uint numSubdiv,
         result.m_triangles = newTris;
     }
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, uint nFaces,
+TriangleMesh makeCylinder( const Vector3& a,
+                           const Vector3& b,
+                           Scalar radius,
+                           uint nFaces,
                            const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
     result.vertices().reserve( 2 + 3 * nFaces );
     result.normals().reserve( 2 + 3 * nFaces );
     result.m_triangles.reserve( 6 * nFaces );
 
-    Vector3 ab = b - a;
+    Vector3 ab  = b - a;
     Vector3 dir = ab.normalized();
 
     //  Create two circles normal centered on A and B and normal to ab;
@@ -244,7 +292,7 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
     for ( uint i = 0; i < nFaces; ++i )
     {
         const Scalar theta = i * thetaInc;
-        Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
+        Vector3 normal     = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
 
         // Even indices are A circle and odd indices are B circle.
         result.vertices().push_back( a + radius * normal );
@@ -274,14 +322,15 @@ TriangleMesh makeCylinder( const Vector3& a, const Vector3& b, Scalar radius, ui
         result.m_triangles.emplace_back( 0, br, bl );
         result.m_triangles.emplace_back( 1, tl, tr );
     }
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces,
+TriangleMesh makeCapsule( Scalar length,
+                          Scalar radius,
+                          uint nFaces,
                           const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
     result.vertices().reserve( nFaces * nFaces + nFaces + 2 );
@@ -330,7 +379,7 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces,
 
     // Part 2 : create the bottom hemisphere.
     const Scalar phiInc = Core::Math::Pi / Scalar( nFaces );
-    uint vert_count = uint( result.vertices().size() );
+    uint vert_count     = uint( result.vertices().size() );
 
     // Bottom hemisphere vertices
     for ( uint j = 1; j <= nFaces / 2 - 1; ++j )
@@ -342,7 +391,8 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces,
             const Scalar theta = i * thetaInc;
 
             const Vector3 normal( std::cos( theta ) * std::sin( phi ),
-                                  std::sin( theta ) * std::sin( phi ), std::cos( phi ) );
+                                  std::sin( theta ) * std::sin( phi ),
+                                  std::cos( phi ) );
 
             Vector3 vertex = radius * normal;
             vertex[2] -= l;
@@ -388,9 +438,9 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces,
     for ( uint i = 0; i < nFaces; ++i )
     {
         const uint j = nFaces / 2 - 2;
-        uint bl = vert_count + j * nFaces + i;
-        uint br = vert_count + j * nFaces + ( i + 1 ) % nFaces;
-        uint bot = uint( result.vertices().size() - 1 );
+        uint bl      = vert_count + j * nFaces + i;
+        uint br      = vert_count + j * nFaces + ( i + 1 ) % nFaces;
+        uint bot     = uint( result.vertices().size() - 1 );
         result.m_triangles.emplace_back( br, bl, bot );
     }
 
@@ -407,7 +457,8 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces,
             const Scalar theta = i * thetaInc;
 
             const Vector3 normal( std::cos( theta ) * std::sin( phi ),
-                                  std::sin( theta ) * std::sin( phi ), std::cos( phi ) );
+                                  std::sin( theta ) * std::sin( phi ),
+                                  std::cos( phi ) );
 
             Vector3 vertex = radius * normal;
             vertex[2] += l;
@@ -454,21 +505,24 @@ TriangleMesh makeCapsule( Scalar length, Scalar radius, uint nFaces,
     for ( uint i = 0; i < nFaces; ++i )
     {
         const uint j = nFaces / 2 - 2;
-        uint bl = vert_count + j * nFaces + i;
-        uint br = vert_count + j * nFaces + ( i + 1 ) % nFaces;
-        uint top = uint( result.vertices().size() ) - 1;
+        uint bl      = vert_count + j * nFaces + i;
+        uint br      = vert_count + j * nFaces + ( i + 1 ) % nFaces;
+        uint top     = uint( result.vertices().size() ) - 1;
         result.m_triangles.emplace_back( bl, br, top );
     }
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, Scalar innerRadius,
-                       uint nFaces, const Utils::optional<Utils::Color>& color ) {
+TriangleMesh makeTube( const Vector3& a,
+                       const Vector3& b,
+                       Scalar outerRadius,
+                       Scalar innerRadius,
+                       uint nFaces,
+                       const Utils::optional<Utils::Color>& color ) {
 
     CORE_ASSERT( outerRadius > innerRadius, "Outer radius must be bigger than inner." );
 
@@ -477,7 +531,7 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
     result.normals().reserve( 6 * nFaces );
     result.m_triangles.reserve( 12 * nFaces );
 
-    Vector3 ab = b - a;
+    Vector3 ab  = b - a;
     Vector3 dir = ab.normalized();
 
     //  Create two circles normal centered on A and B and normal to ab;
@@ -555,21 +609,23 @@ TriangleMesh makeTube( const Vector3& a, const Vector3& b, Scalar outerRadius, S
         result.m_triangles.emplace_back( itl, otl, otr );
     }
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, uint nFaces,
+TriangleMesh makeCone( const Vector3& base,
+                       const Vector3& tip,
+                       Scalar radius,
+                       uint nFaces,
                        const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
     result.vertices().reserve( 2 + nFaces );
     result.normals().reserve( 2 + nFaces );
     result.m_triangles.reserve( 2 * nFaces );
 
-    Vector3 ab = tip - base;
+    Vector3 ab  = tip - base;
     Vector3 dir = ab.normalized();
 
     //  Create two circles normal centered on A and B and normal to ab;
@@ -587,7 +643,7 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
     for ( uint i = 0; i < nFaces; ++i )
     {
         const Scalar theta = i * thetaInc;
-        Vector3 normal = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
+        Vector3 normal     = std::cos( theta ) * xPlane + std::sin( theta ) * yPlane;
 
         result.vertices().push_back( base + radius * normal );
         result.normals().push_back( ( normal - dir ).normalized() );
@@ -602,18 +658,20 @@ TriangleMesh makeCone( const Vector3& base, const Vector3& tip, Scalar radius, u
         result.m_triangles.emplace_back( 1, bl, br );
     }
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
-TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& halfExts,
-                            const Transform& T, const Utils::optional<Utils::Color>& color ) {
+TriangleMesh makePlaneGrid( const uint rows,
+                            const uint cols,
+                            const Vector2& halfExts,
+                            const Transform& T,
+                            const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
-    const uint R = ( rows + 1 );
-    const uint C = ( cols + 1 );
+    const uint R      = ( rows + 1 );
+    const uint C      = ( cols + 1 );
     const uint v_size = C * R;
     const uint t_size = 2 * cols * rows;
 
@@ -634,10 +692,10 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
     {
         for ( uint j = 0; j < C; ++j )
         {
-            const uint id = ( i * C ) + j;
-            v.at( {i, j} ) = id;
+            const uint id         = ( i * C ) + j;
+            v.at( {i, j} )        = id;
             result.vertices()[id] = o + ( i * y ) + ( j * x );
-            result.normals()[id] = Z;
+            result.normals()[id]  = Z;
         }
     }
 
@@ -645,15 +703,14 @@ TriangleMesh makePlaneGrid( const uint rows, const uint cols, const Vector2& hal
     {
         for ( uint j = 0; j < cols; ++j )
         {
-            result.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i, j + 1} ),
-                                             v.at( {i + 1, j + 1} ) );
-            result.m_triangles.emplace_back( v.at( {i, j} ), v.at( {i + 1, j + 1} ),
-                                             v.at( {i + 1, j} ) );
+            result.m_triangles.emplace_back(
+                v.at( {i, j} ), v.at( {i, j + 1} ), v.at( {i + 1, j + 1} ) );
+            result.m_triangles.emplace_back(
+                v.at( {i, j} ), v.at( {i + 1, j + 1} ), v.at( {i + 1, j} ) );
         }
     }
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;

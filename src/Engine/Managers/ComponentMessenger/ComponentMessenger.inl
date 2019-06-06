@@ -59,7 +59,7 @@ inline bool ComponentMessenger::canGet( const Entity* entity, const std::string&
     // Check if there are components exporting the given type,
     // so let's try to find if there is one with the requested id.
     const auto& callbackEntry = entityList.find( key );
-    const bool found = ( callbackEntry != entityList.end() );
+    const bool found          = ( callbackEntry != entityList.end() );
     return found;
 }
 
@@ -76,7 +76,7 @@ inline bool ComponentMessenger::canSet( const Entity* entity, const std::string&
     // Check if there are components exporting the given type,
     // so let's try to find if there is one with the requested id.
     const auto& callbackEntry = entityList.find( key );
-    const bool found = ( callbackEntry != entityList.end() );
+    const bool found          = ( callbackEntry != entityList.end() );
     return found;
 }
 
@@ -93,13 +93,15 @@ inline bool ComponentMessenger::canRw( const Entity* entity, const std::string& 
     // Check if there are components exporting the given type,
     // so let's try to find if there is one with the requested id.
     const auto& callbackEntry = entityList.find( key );
-    const bool found = ( callbackEntry != entityList.end() );
+    const bool found          = ( callbackEntry != entityList.end() );
     return found;
 }
 
 template <typename ReturnType>
 inline void
-ComponentMessenger::registerOutput( const Entity* entity, Component* comp, const std::string& id,
+ComponentMessenger::registerOutput( const Entity* entity,
+                                    Component* comp,
+                                    const std::string& id,
                                     const typename CallbackTypes<ReturnType>::Getter& cb ) {
     CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
     // Will insert a new entity entry if it doesn't exist.
@@ -109,13 +111,15 @@ ComponentMessenger::registerOutput( const Entity* entity, Component* comp, const
     CORE_ASSERT( entityList.find( key ) == entityList.end(), "Output function already registered" );
 
     GetterCallback<ReturnType>* getter = new GetterCallback<ReturnType>();
-    getter->m_cb = cb;
+    getter->m_cb                       = cb;
     entityList[key].reset( getter );
 }
 
 template <typename ReturnType>
 inline void
-ComponentMessenger::registerReadWrite( const Entity* entity, Component* comp, const std::string& id,
+ComponentMessenger::registerReadWrite( const Entity* entity,
+                                       Component* comp,
+                                       const std::string& id,
                                        const typename CallbackTypes<ReturnType>::ReadWrite& cb ) {
     CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
     // Will insert a new entity entry if it doesn't exist.
@@ -125,13 +129,15 @@ ComponentMessenger::registerReadWrite( const Entity* entity, Component* comp, co
     CORE_ASSERT( entityList.find( key ) == entityList.end(), "Rw function already registered" );
 
     RwCallback<ReturnType>* rw = new RwCallback<ReturnType>();
-    rw->m_cb = cb;
+    rw->m_cb                   = cb;
     entityList[key].reset( rw );
 }
 
 template <typename ReturnType>
 inline void
-ComponentMessenger::registerInput( const Entity* entity, Component* comp, const std::string& id,
+ComponentMessenger::registerInput( const Entity* entity,
+                                   Component* comp,
+                                   const std::string& id,
                                    const typename CallbackTypes<ReturnType>::Setter& cb ) {
     CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
     // Will insert a new entity entry if it doesn't exist.
@@ -141,7 +147,7 @@ ComponentMessenger::registerInput( const Entity* entity, Component* comp, const 
     CORE_ASSERT( entityList.find( key ) == entityList.end(), "Input function already registered" );
 
     SetterCallback<ReturnType>* setter = new SetterCallback<ReturnType>();
-    setter->m_cb = cb;
+    setter->m_cb                       = cb;
     entityList[key].reset( setter );
 }
 

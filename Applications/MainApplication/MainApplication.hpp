@@ -7,7 +7,8 @@
 #define mainApp ( static_cast<Ra::MainApplication*>( qApp ) )
 
 namespace Ra {
-class MainApplication : public Ra::GuiBase::BaseApplication {
+class MainApplication : public Ra::GuiBase::BaseApplication
+{
   public:
     using Ra::GuiBase::BaseApplication::BaseApplication;
 };

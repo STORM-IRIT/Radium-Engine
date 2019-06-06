@@ -44,8 +44,7 @@ inline bool AdjacencyList::isEdge( const uint i, const uint j ) const {
     CORE_ASSERT( j < size(), " Index j out of bounds " );
     for ( const auto& item : m_child[i] )
     {
-        if ( item == j )
-            return true;
+        if ( item == j ) return true;
     }
     return false;
 }

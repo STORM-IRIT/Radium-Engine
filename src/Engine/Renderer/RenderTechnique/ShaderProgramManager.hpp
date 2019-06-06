@@ -20,7 +20,7 @@ namespace Ra {
 namespace Engine {
 class ShaderProgram;
 class ShaderConfiguration;
-}
+} // namespace Engine
 } // namespace Ra
 
 namespace Ra {
@@ -29,14 +29,16 @@ namespace Engine {
 /**
  * Manage the set of shaders used by Radium Engine for rendering.
  *
- * This class allows to manage shader programs according to their configuration so that, for a given configuration,
- * there is only one ShaderProgram instance in the system.
+ * This class allows to manage shader programs according to their configuration so that, for a given
+ * configuration, there is only one ShaderProgram instance in the system.
  *
- * This manager is a singleton. At the creation of the singleton, one can give parameters that will define the default shader programm
- * example :  Engine::ShaderProgramManager::createInstance( "Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl" );
+ * This manager is a singleton. At the creation of the singleton, one can give parameters that will
+ * define the default shader programm example :  Engine::ShaderProgramManager::createInstance(
+ * "Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl" );
  *
  */
-class RA_ENGINE_API ShaderProgramManager final {
+class RA_ENGINE_API ShaderProgramManager final
+{
     RA_SINGLETON_INTERFACE( ShaderProgramManager );
 
   public:
@@ -51,7 +53,8 @@ class RA_ENGINE_API ShaderProgramManager final {
      * @note ownership on the returned pointer is keep by the manager.
      * @warning this method is *not* reentrant
      */
-    Core::Utils::optional<const ShaderProgram*> addShaderProgram( const ShaderConfiguration& config );
+    Core::Utils::optional<const ShaderProgram*>
+    addShaderProgram( const ShaderConfiguration& config );
 
     /**
      * Get the shader programm corresponding to the given id
@@ -74,15 +77,16 @@ class RA_ENGINE_API ShaderProgramManager final {
      */
     void reloadAllShaderPrograms();
     /**
-     * Programs that did not compiled are temporarilly stored and could be reloaded and compiled when one call this method.
-     * If the reloaded programm is ok, it is removed from the set of not compiled program and added to the programm collection.
+     * Programs that did not compiled are temporarilly stored and could be reloaded and compiled
+     * when one call this method. If the reloaded programm is ok, it is removed from the set of not
+     * compiled program and added to the programm collection.
      */
     void reloadNotCompiledShaderPrograms();
 
     /**
      * Allows to define named string so that the inclusion mechanism of OpenGL could be efficient.
-     * A name string associates the name that will be used by a \#define directive in a glsl source file
-     * with a file that contains the included glsl source code.
+     * A name string associates the name that will be used by a \#define directive in a glsl source
+     * file with a file that contains the included glsl source code.
      * @param includepath
      * @param realfile
      * @return false if the string already exists. Print an error message
@@ -107,7 +111,8 @@ class RA_ENGINE_API ShaderProgramManager final {
     std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
     std::vector<ShaderConfiguration> m_shaderFailedConfs;
 
-    std::map<std::string, std::pair<std::unique_ptr<globjects::File>, std::unique_ptr<globjects::NamedString>>>
+    std::map<std::string,
+             std::pair<std::unique_ptr<globjects::File>, std::unique_ptr<globjects::NamedString>>>
         m_namedStrings;
 };
 

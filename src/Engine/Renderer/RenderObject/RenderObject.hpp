@@ -27,7 +27,8 @@ namespace Ra {
 namespace Engine {
 
 // Radium V2 : need a bit of cleanup !
-class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
+class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
+{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
@@ -42,7 +43,9 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
      * @param type
      * @param lifetime
      */
-    RenderObject( const std::string& name, Component* comp, const RenderObjectType& type,
+    RenderObject( const std::string& name,
+                  Component* comp,
+                  const RenderObjectType& type,
                   int lifetime = -1 );
     ~RenderObject() override;
 
@@ -75,9 +78,11 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
      * @return
      */
     static RenderObject* createRenderObject(
-        const std::string& name, Component* comp, const RenderObjectType& type,
+        const std::string& name,
+        Component* comp,
+        const RenderObjectType& type,
         const std::shared_ptr<Displayable>& mesh,
-        const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique(),
+        const RenderTechnique& techniqueConfig    = RenderTechnique::createDefaultRenderTechnique(),
         const std::shared_ptr<Material>& material = nullptr );
 
     /**
@@ -144,7 +149,8 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
      * @param viewParams  viewing parameters for this rendering
      * @param shader shader to use for this rendering
      */
-    virtual void render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+    virtual void render( const RenderParameters& lightParams,
+                         const ViewingParameters& viewParams,
                          const ShaderProgram* shader );
 
     /**
@@ -154,7 +160,8 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject {
      * @param viewParams viewing parameters for this rendering
      * @param passname RenderTechnique pass name
      */
-    virtual void render( const RenderParameters& lightParams, const ViewingParameters& viewParams,
+    virtual void render( const RenderParameters& lightParams,
+                         const ViewingParameters& viewParams,
                          RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
 
   private:

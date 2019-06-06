@@ -52,18 +52,12 @@ constexpr Index& Index::operator++() {
     return *this;
 }
 constexpr Index& Index::operator--() {
-    if ( m_idx != s_invalid )
-    {
-        m_idx--;
-    }
+    if ( m_idx != s_invalid ) { m_idx--; }
     return *this;
 }
 
 constexpr Index Index::operator+( const Index& id ) {
-    if ( isInvalid() || id.isInvalid() )
-    {
-        return Index::Invalid();
-    }
+    if ( isInvalid() || id.isInvalid() ) { return Index::Invalid(); }
     return Index( m_idx + id.m_idx );
 }
 template <typename Integer>
@@ -72,10 +66,7 @@ constexpr Index Index::operator+( const Integer& id ) {
 }
 
 constexpr Index Index::operator-( const Index& id ) {
-    if ( isInvalid() || id.isInvalid() )
-    {
-        return Index::Invalid();
-    }
+    if ( isInvalid() || id.isInvalid() ) { return Index::Invalid(); }
     return Index( m_idx - id.m_idx );
 }
 template <typename Integer>
@@ -100,10 +91,7 @@ constexpr bool Index::operator!=( const Integer& i ) {
 }
 
 constexpr bool Index::operator<( const Index& id ) {
-    if ( isInvalid() || id.isInvalid() )
-    {
-        return false;
-    }
+    if ( isInvalid() || id.isInvalid() ) { return false; }
     return ( m_idx < id.m_idx );
 }
 template <typename Integer>
@@ -112,10 +100,7 @@ constexpr bool Index::operator<( const Integer& i ) {
 }
 
 constexpr bool Index::operator<=( const Index& id ) {
-    if ( isInvalid() || id.isInvalid() )
-    {
-        return false;
-    }
+    if ( isInvalid() || id.isInvalid() ) { return false; }
     return ( m_idx <= id.m_idx );
 }
 template <typename Integer>
@@ -124,10 +109,7 @@ constexpr bool Index::operator<=( const Integer& i ) {
 }
 
 constexpr bool Index::operator>( const Index& id ) {
-    if ( isInvalid() || id.isInvalid() )
-    {
-        return false;
-    }
+    if ( isInvalid() || id.isInvalid() ) { return false; }
     return ( m_idx > id.m_idx );
 }
 template <typename Integer>
@@ -136,10 +118,7 @@ constexpr bool Index::operator>( const Integer& i ) {
 }
 
 constexpr bool Index::operator>=( const Index& id ) {
-    if ( isInvalid() || id.isInvalid() )
-    {
-        return false;
-    }
+    if ( isInvalid() || id.isInvalid() ) { return false; }
     return ( m_idx >= id.m_idx );
 }
 template <typename Integer>

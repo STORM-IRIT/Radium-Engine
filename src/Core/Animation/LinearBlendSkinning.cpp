@@ -4,7 +4,9 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-void linearBlendSkinning( const Vector3Array& inMesh, const Pose& pose, const WeightMatrix& weight,
+void linearBlendSkinning( const Vector3Array& inMesh,
+                          const Pose& pose,
+                          const WeightMatrix& weight,
                           Vector3Array& outMesh ) {
     outMesh.clear();
     outMesh.resize( inMesh.size(), Vector3::Zero() );
@@ -16,9 +18,9 @@ void linearBlendSkinning( const Vector3Array& inMesh, const Pose& pose, const We
         for ( int nz = 0; nz < nonZero; ++nz )
         {
             WeightMatrix::InnerIterator it = it0 + Eigen::Index( nz );
-            const uint i = it.row();
-            const uint j = it.col();
-            const Scalar w = it.value();
+            const uint i                   = it.row();
+            const uint j                   = it.col();
+            const Scalar w                 = it.value();
             outMesh[i] += w * ( pose[j] * inMesh[i] );
         }
     }

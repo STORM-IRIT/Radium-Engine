@@ -28,11 +28,12 @@ namespace Engine {
  * At each frame, each system loaded into the engine will be queried for tasks.
  * The goal of the tasks is to update the active components during the frame.
  */
-class RA_ENGINE_API System {
+class RA_ENGINE_API System
+{
     friend class Component;
 
   public:
-    System() = default;
+    System()          = default;
     virtual ~System() = default;
 
     /**

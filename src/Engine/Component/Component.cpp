@@ -24,10 +24,7 @@ Component::~Component() {
     {
         getRoMgr()->removeRenderObject( ro );
     }
-    if ( m_system )
-    {
-        m_system->unregisterComponent( getEntity(), this );
-    }
+    if ( m_system ) { m_system->unregisterComponent( getEntity(), this ); }
     RadiumEngine::getInstance()->getSignalManager()->fireComponentRemoved(
         ItemEntry( getEntity(), this ) );
 }
@@ -54,10 +51,7 @@ void Component::removeRenderObject( const Core::Utils::Index& roIdx ) {
 void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
     auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(), idx );
     CORE_WARN_IF( found == m_renderObjects.cend(), " Render object not found in component" );
-    if ( found != m_renderObjects.cend() )
-    {
-        m_renderObjects.erase( found );
-    }
+    if ( found != m_renderObjects.cend() ) { m_renderObjects.erase( found ); }
 }
 
 } // namespace Engine

@@ -26,13 +26,13 @@ bool RayCastAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3&
     // Get rid of the case where the origin of the ray is inside the box
     if ( !( infMin.any() ) && !( supMax.any() ) )
     {
-        hitOut = 0;
+        hitOut    = 0;
         normalOut = -r.direction();
         return true;
     }
 
     // Precompute the t values for each plane.
-    const Core::Vector3 invDir = r.direction().cwiseInverse();
+    const Core::Vector3 invDir  = r.direction().cwiseInverse();
     const Core::Vector3 minOrig = ( aabb.min() - r.origin() ).cwiseProduct( invDir );
     const Core::Vector3 maxOrig = ( aabb.max() - r.origin() ).cwiseProduct( invDir );
 
@@ -61,14 +61,16 @@ bool RayCastAabb( const Ray& r, const Core::Aabb& aabb, Scalar& hitOut, Vector3&
     // Ignore negative t (box behind the origin), and points outside the aabb.
     if ( t >= 0 && !inFace.any() )
     {
-        hitOut = t;
+        hitOut    = t;
         normalOut = -s * Math::sign( r.direction()[i] );
         return true;
     }
     return false;
 }
 
-bool RayCastSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
+bool RayCastSphere( const Ray& r,
+                    const Core::Vector3& center,
+                    Scalar radius,
                     std::vector<Scalar>& hitsOut ) {
 
     CORE_ASSERT( r.direction().squaredNorm() > 0.f, "Invalid Ray" );
@@ -79,8 +81,8 @@ bool RayCastSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
     // ||X - center|| = radius.
 
     const Core::Vector3 co = r.origin() - center;
-    const Scalar co2 = co.squaredNorm();
-    const Scalar dirDotCO = r.direction().dot( co );
+    const Scalar co2       = co.squaredNorm();
+    const Scalar dirDotCO  = r.direction().dot( co );
 
     // t is one solution of at^2 + bt + c = 0;
     // with a = || direction || ^2 = 1.f (rays are normalized in Eigen)
@@ -91,14 +93,12 @@ bool RayCastSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
 
     if ( delta == 0.f )
     {
-        const Scalar t = -b * 0.5f;
+        const Scalar t       = -b * 0.5f;
         const bool tPositive = ( t >= 0.f );
-        if ( tPositive )
-        {
-            hitsOut.push_back( t );
-        }
+        if ( tPositive ) { hitsOut.push_back( t ); }
         return tPositive;
-    } else if ( delta > 0.f )
+    }
+    else if ( delta > 0.f )
     {
         const Scalar t1 = ( -b - std::sqrt( delta ) ) * 0.5f;
         const Scalar t2 = ( -b + std::sqrt( delta ) ) * 0.5f;
@@ -108,21 +108,17 @@ bool RayCastSphere( const Ray& r, const Core::Vector3& center, Scalar radius,
 
         const bool t1Positive = ( t1 >= 0.f );
         const bool t2Positive = ( t2 >= 0.f );
-        if ( t1Positive )
-        {
-            hitsOut.push_back( t1 );
-        }
-        if ( t2Positive )
-        {
-            hitsOut.push_back( t2 );
-        }
+        if ( t1Positive ) { hitsOut.push_back( t1 ); }
+        if ( t2Positive ) { hitsOut.push_back( t2 ); }
 
         return ( t1Positive || t2Positive );
     }
     return false;
 }
 
-bool RayCastPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& normal,
+bool RayCastPlane( const Ray& r,
+                   const Core::Vector3 a,
+                   const Core::Vector3& normal,
                    std::vector<Scalar>& hitsOut ) {
     CORE_ASSERT( r.direction().squaredNorm() > 0.f, "Invalid Ray" );
     CORE_ASSERT( normal.squaredNorm() > 0.f, "Invalid plane normal" );
@@ -132,7 +128,7 @@ bool RayCastPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& nor
     // AP . n =  0
     // gives t = (d.n / OA.n)
 
-    const Scalar ddotn = r.direction().dot( normal );
+    const Scalar ddotn  = r.direction().dot( normal );
     const Scalar OAdotn = ( a - r.origin() ).dot( normal );
 
     // If d.n is non zero, the line intersects the plane.
@@ -154,22 +150,25 @@ bool RayCastPlane( const Ray& r, const Core::Vector3 a, const Core::Vector3& nor
 }
 
 // TODO : this needs serious optimizing if we want it fast :p
-bool RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3& b, Scalar radius,
+bool RayCastCylinder( const Ray& r,
+                      const Core::Vector3& a,
+                      const Core::Vector3& b,
+                      Scalar radius,
                       std::vector<Scalar>& hitsOut ) {
     /// Ref : Graphics Gem IV.
     /// http://www.realtimerendering.com/resources/GraphicsGems//gemsiv/ray_cyl.c
     const Scalar radiusSquared = radius * radius;
 
     const Core::Vector3 cylAxis = b - a;
-    const Core::Vector3 ao = r.origin() - a;
+    const Core::Vector3 ao      = r.origin() - a;
 
     // Intersect the ray against plane A and B.
     std::vector<Scalar> hitsA;
-    const bool vsA = RayCastPlane( r, a, cylAxis, hitsA );
+    const bool vsA    = RayCastPlane( r, a, cylAxis, hitsA );
     const Scalar hitA = vsA ? hitsA[0] : -1.f;
 
     std::vector<Scalar> hitsB;
-    const bool vsB = RayCastPlane( r, b, cylAxis, hitsB );
+    const bool vsB    = RayCastPlane( r, b, cylAxis, hitsB );
     const Scalar hitB = vsB ? hitsB[0] : -1.f;
 
     auto n = r.direction().cross( cylAxis );
@@ -202,7 +201,8 @@ bool RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3&
         }
         // Ray is outside the diameter, so the result is a miss.
         return false;
-    } else // Ray not parallel to the cylinder. We compute the ray/infinite cylinder intersection
+    }
+    else // Ray not parallel to the cylinder. We compute the ray/infinite cylinder intersection
     {
         const Scalar ln = n.norm();
         n.normalize();
@@ -216,13 +216,13 @@ bool RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3&
         if ( dist <= radius )
         {
             // TODO : this could be optimized with squared norms.
-            auto v1 = cylAxis.cross( ao );
+            auto v1        = cylAxis.cross( ao );
             const Scalar t = v1.dot( n ) / ln;
-            auto v2 = n.cross( cylAxis ).normalized();
+            auto v2        = n.cross( cylAxis ).normalized();
             const Scalar s =
                 std::sqrt( radiusSquared - ( dist * dist ) ) / std::abs( r.direction().dot( v2 ) );
 
-            Scalar tIn = t - s;
+            Scalar tIn  = t - s;
             Scalar tOut = t + s;
             CORE_ASSERT( tIn <= tOut, " " );
 
@@ -234,58 +234,36 @@ bool RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3&
             // through plane A.
             if ( ddotAxis < 0 )
             {
-                const Scalar tInPlaneB = ( b - r.origin() ).dot( cylAxis ) / ddotAxis;
+                const Scalar tInPlaneB  = ( b - r.origin() ).dot( cylAxis ) / ddotAxis;
                 const Scalar tOutPlaneA = ( a - r.origin() ).dot( cylAxis ) / ddotAxis;
 
                 // Early exit condition if the ray misses the capped cylinder
-                if ( tInPlaneB > tOut || tOutPlaneA < tIn )
-                {
-                    return false;
-                }
+                if ( tInPlaneB > tOut || tOutPlaneA < tIn ) { return false; }
                 // Cap the in and out
-                if ( tInPlaneB > tIn && tInPlaneB < tOut )
-                {
-                    tIn = tInPlaneB;
-                }
-                if ( tOutPlaneA > tIn && tOutPlaneA < tOut )
-                {
-                    tOut = tOutPlaneA;
-                }
-
+                if ( tInPlaneB > tIn && tInPlaneB < tOut ) { tIn = tInPlaneB; }
+                if ( tOutPlaneA > tIn && tOutPlaneA < tOut ) { tOut = tOutPlaneA; }
             }
             // Ray has the same direction as the cylinder axis it may enter through plane A and exit
             // through B.
             else if ( ddotAxis > 0 )
             {
-                const Scalar tInPlaneA = ( a - r.origin() ).dot( cylAxis ) / ddotAxis;
+                const Scalar tInPlaneA  = ( a - r.origin() ).dot( cylAxis ) / ddotAxis;
                 const Scalar tOutPlaneB = ( b - r.origin() ).dot( cylAxis ) / ddotAxis;
 
                 // Early exit condition if the ray misses the capped cylinder
-                if ( tInPlaneA > tOut || tOutPlaneB < tIn )
-                {
-                    return false;
-                }
+                if ( tInPlaneA > tOut || tOutPlaneB < tIn ) { return false; }
                 // Cap the in and out
-                if ( tInPlaneA > tIn && tInPlaneA < tOut )
-                {
-                    tIn = tInPlaneA;
-                }
+                if ( tInPlaneA > tIn && tInPlaneA < tOut ) { tIn = tInPlaneA; }
 
-                if ( tOutPlaneB > tIn && tOutPlaneB < tOut )
-                {
-                    tOut = tOutPlaneB;
-                }
+                if ( tOutPlaneB > tIn && tOutPlaneB < tOut ) { tOut = tOutPlaneB; }
             }
             // Degenerate case : ray parallel to end planes.
             // in that case we check that the ray does not miss the cylinder.
             else if ( UNLIKELY( ddotAxis == 0 ) )
             {
-                const Scalar h = ao.dot( cylAxis );
+                const Scalar h       = ao.dot( cylAxis );
                 const Scalar lAxisSq = cylAxis.squaredNorm();
-                if ( h < 0 || h > lAxisSq )
-                {
-                    return false;
-                }
+                if ( h < 0 || h > lAxisSq ) { return false; }
             }
 
             // At this point our tIn and tOut are valid within the capped cylinder.
@@ -308,7 +286,10 @@ bool RayCastCylinder( const Ray& r, const Core::Vector3& a, const Core::Vector3&
     return false;
 }
 
-bool RayCastTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const Vector3& c,
+bool RayCastTriangle( const Ray& ray,
+                      const Vector3 a,
+                      const Vector3& b,
+                      const Vector3& c,
                       std::vector<Scalar>& hitsOut ) {
     const Vector3 ab = b - a;
     const Vector3 ac = c - a;
@@ -321,9 +302,9 @@ bool RayCastTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const V
 
     // Compute determinant
     const Vector3 pvec = ray.direction().cross( ac );
-    const Scalar det = ab.dot( pvec );
+    const Scalar det   = ab.dot( pvec );
 
-    const Vector3 tvec = ray.origin() - a;
+    const Vector3 tvec   = ray.origin() - a;
     const Scalar inv_det = 1.f / det;
 
     const Vector3 qvec = tvec.cross( ab );
@@ -337,41 +318,33 @@ bool RayCastTriangle( const Ray& ray, const Vector3 a, const Vector3& b, const V
         }
 
         v = ray.direction().dot( qvec );
-        if ( v < 0 || u + v > det )
-        {
-            return false;
-        }
-    } else if ( det < 0 )
+        if ( v < 0 || u + v > det ) { return false; }
+    }
+    else if ( det < 0 )
     {
         u = tvec.dot( pvec );
-        if ( u > 0 || u < det )
-        {
-            return false;
-        }
+        if ( u > 0 || u < det ) { return false; }
 
         v = ray.direction().dot( qvec );
-        if ( v > 0 || u + v < det )
-        {
-            return false;
-        }
-    } else // line parallel to plane. Maybe we should intersect with the triangle edges ?
+        if ( v > 0 || u + v < det ) { return false; }
+    }
+    else // line parallel to plane. Maybe we should intersect with the triangle edges ?
     { return false; }
 
     // If we're here we really intersect the triangle so let's compute T.
     const Scalar t = ac.dot( qvec ) * inv_det;
-    if ( t >= 0 )
-    {
-        hitsOut.push_back( t );
-    }
+    if ( t >= 0 ) { hitsOut.push_back( t ); }
     return ( t >= 0 );
 }
 
-bool RayCastTriangleMesh( const Ray& r, const TriangleMesh& mesh, std::vector<Scalar>& hitsOut,
+bool RayCastTriangleMesh( const Ray& r,
+                          const TriangleMesh& mesh,
+                          std::vector<Scalar>& hitsOut,
                           std::vector<Vector3ui>& trianglesIdxOut ) {
     bool hit = false;
     for ( size_t i = 0; i < mesh.m_triangles.size(); ++i )
     {
-        const auto& t = mesh.m_triangles[i];
+        const auto& t    = mesh.m_triangles[i];
         const Vector3& a = mesh.vertices()[t[0]];
         const Vector3& b = mesh.vertices()[t[1]];
         const Vector3& c = mesh.vertices()[t[2]];

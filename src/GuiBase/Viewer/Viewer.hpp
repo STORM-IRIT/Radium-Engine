@@ -51,7 +51,8 @@ namespace Gui {
  * the camera and the rest of the application
  * * Expose the asynchronous rendering interface
  */
-class RA_GUIBASE_API Viewer : public WindowQt {
+class RA_GUIBASE_API Viewer : public WindowQt
+{
     Q_OBJECT
 
   public:

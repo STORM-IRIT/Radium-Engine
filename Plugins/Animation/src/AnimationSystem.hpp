@@ -12,7 +12,8 @@ namespace AnimationPlugin {
 /// On one hand, it manages the AnimationComponents, i.e. skeleton animation and display.
 /// On the other hand, it is responsible for transmitting calls to animation-related systems,
 /// for example physics systems that must play with the animation.
-class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem {
+class ANIM_PLUGIN_API AnimationSystem : public Ra::Engine::CoupledTimedSystem
+{
   public:
     /// Create a new animation system
     AnimationSystem();

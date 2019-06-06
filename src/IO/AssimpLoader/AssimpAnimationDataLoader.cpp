@@ -51,10 +51,7 @@ void AssimpAnimationDataLoader::loadData( const aiScene* scene,
 
     loadAnimationData( scene, data );
 
-    if ( m_verbose )
-    {
-        LOG( logDEBUG ) << "Animation Loading end.\n";
-    }
+    if ( m_verbose ) { LOG( logDEBUG ) << "Animation Loading end.\n"; }
 }
 
 /// QUERY
@@ -63,10 +60,7 @@ bool AssimpAnimationDataLoader::sceneHasAnimation( const aiScene* scene ) const 
 }
 
 uint AssimpAnimationDataLoader::sceneAnimationSize( const aiScene* scene ) const {
-    if ( scene->HasAnimations() )
-    {
-        return scene->mNumAnimations;
-    }
+    if ( scene->HasAnimations() ) { return scene->mNumAnimations; }
     return 0;
 }
 
@@ -77,7 +71,7 @@ void AssimpAnimationDataLoader::fetchName( const aiAnimation* anim, AnimationDat
 
 /// TIME
 void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim, AnimationData* data ) const {
-    const auto tick = Scalar( anim->mTicksPerSecond );
+    const auto tick     = Scalar( anim->mTicksPerSecond );
     const auto duration = Scalar( anim->mDuration );
 
     AnimationTime time;
@@ -87,7 +81,8 @@ void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim, AnimationDat
     {
         dt = 0.0;
         time.setEnd( duration );
-    } else
+    }
+    else
     {
         dt = Scalar( 1.0 ) / tick;
         time.setEnd( dt * duration );
@@ -98,27 +93,25 @@ void AssimpAnimationDataLoader::fetchTime( const aiAnimation* anim, AnimationDat
 
 /// KEY FRAME
 void AssimpAnimationDataLoader::loadAnimationData(
-    const aiScene* scene, std::vector<std::unique_ptr<AnimationData>>& data ) const {
+    const aiScene* scene,
+    std::vector<std::unique_ptr<AnimationData>>& data ) const {
     const uint size = sceneAnimationSize( scene );
     data.resize( size );
     for ( uint i = 0; i < size; ++i )
     {
-        aiAnimation* anim = scene->mAnimations[i];
+        aiAnimation* anim       = scene->mAnimations[i];
         AnimationData* animData = new AnimationData();
         fetchName( anim, animData );
         fetchTime( anim, animData );
         fetchAnimation( anim, animData );
-        if ( m_verbose )
-        {
-            animData->displayInfo();
-        }
+        if ( m_verbose ) { animData->displayInfo(); }
         data[i].reset( animData );
     }
 }
 
 void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
                                                 AnimationData* data ) const {
-    const uint size = anim->mNumChannels;
+    const uint size    = anim->mNumChannels;
     AnimationTime time = data->getTime();
     std::vector<HandleAnimation> keyFrame( size );
     for ( uint i = 0; i < size; ++i )
@@ -130,7 +123,8 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
     data->setTime( time );
 }
 
-void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAnimation& data,
+void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
+                                                      HandleAnimation& data,
                                                       const Time dt ) const {
     const uint T_size = node->mNumPositionKeys;
     const uint R_size = node->mNumRotationKeys;
@@ -145,7 +139,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAn
 
     for ( uint i = 0; i < T_size; ++i )
     {
-        auto time = Scalar( node->mPositionKeys[i].mTime );
+        auto time                = Scalar( node->mPositionKeys[i].mTime );
         aiVector3t<Scalar> value = node->mPositionKeys[i].mValue;
         tr.insertKeyFrame( time, assimpToCore( value ) );
         keyFrame.insert( time );
@@ -153,7 +147,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAn
 
     for ( uint i = 0; i < R_size; ++i )
     {
-        auto time = Scalar( node->mRotationKeys[i].mTime );
+        auto time          = Scalar( node->mRotationKeys[i].mTime );
         aiQuaternion value = node->mRotationKeys[i].mValue;
         rot.insertKeyFrame( time, assimpToCore( value ) );
         keyFrame.insert( time );
@@ -161,7 +155,7 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node, HandleAn
 
     for ( uint i = 0; i < S_size; ++i )
     {
-        auto time = Scalar( node->mScalingKeys[i].mTime );
+        auto time                = Scalar( node->mScalingKeys[i].mTime );
         aiVector3t<Scalar> value = node->mScalingKeys[i].mValue;
         s.insertKeyFrame( time, assimpToCore( value ) );
         keyFrame.insert( time );

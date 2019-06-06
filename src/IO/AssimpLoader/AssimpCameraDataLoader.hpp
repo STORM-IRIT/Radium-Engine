@@ -26,7 +26,8 @@ namespace IO {
 
 /// The AssimpCameraDataLoader converts camera data from the Assimp format
 /// to the Asset::CameraData format.
-class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::Asset::CameraData> {
+class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::Asset::CameraData>
+{
   public:
     explicit AssimpCameraDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
@@ -44,14 +45,15 @@ class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::As
     uint sceneCameraSize( const aiScene* scene ) const;
 
     /// Fill \p data with the CameraData from \p camera.
-    void loadCameraData( const aiScene* scene, const aiCamera& camera,
-                         Core::Asset::CameraData& data );
+    void
+    loadCameraData( const aiScene* scene, const aiCamera& camera, Core::Asset::CameraData& data );
 
     /// Fill \p data with the camera name from \p camera.
     void fetchName( const aiCamera& camera, Core::Asset::CameraData& data ) const;
 
     /// Return the Camera transformation, in world space, for \p data from \p the scene.
-    Core::Matrix4 loadCameraFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
+    Core::Matrix4 loadCameraFrame( const aiScene* scene,
+                                   const Core::Matrix4& parentFrame,
                                    Core::Asset::CameraData& data ) const;
 };
 

@@ -28,9 +28,14 @@ namespace Engine {
 using namespace Core::Utils; // log
 
 namespace {
-const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
-                          GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5,
-                          GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7};
+const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
+                          GL_COLOR_ATTACHMENT1,
+                          GL_COLOR_ATTACHMENT2,
+                          GL_COLOR_ATTACHMENT3,
+                          GL_COLOR_ATTACHMENT4,
+                          GL_COLOR_ATTACHMENT5,
+                          GL_COLOR_ATTACHMENT6,
+                          GL_COLOR_ATTACHMENT7};
 }
 
 Renderer::Renderer() :
@@ -47,12 +52,12 @@ Renderer::~Renderer() {
 }
 
 void Renderer::initialize( uint width, uint height ) {
-    m_width = width;
+    m_width  = width;
     m_height = height;
 
     // Initialize managers
     m_shaderMgr = ShaderProgramManager::getInstance();
-    m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
+    m_roMgr     = RadiumEngine::getInstance()->getRenderObjectManager();
     TextureManager::createInstance();
 
     m_shaderMgr->addShaderProgram(
@@ -111,33 +116,33 @@ void Renderer::initialize( uint width, uint height ) {
     }
 
     TextureParameters texparams;
-    texparams.width = m_width;
-    texparams.height = m_height;
-    texparams.target = GL_TEXTURE_2D;
+    texparams.width     = m_width;
+    texparams.height    = m_height;
+    texparams.target    = GL_TEXTURE_2D;
     texparams.minFilter = GL_NEAREST;
     texparams.magFilter = GL_NEAREST;
 
-    texparams.name = "Depth";
+    texparams.name           = "Depth";
     texparams.internalFormat = GL_DEPTH_COMPONENT24;
-    texparams.format = GL_DEPTH_COMPONENT;
-    texparams.type = GL_UNSIGNED_INT;
-    m_depthTexture = std::make_unique<Texture>( texparams );
+    texparams.format         = GL_DEPTH_COMPONENT;
+    texparams.type           = GL_UNSIGNED_INT;
+    m_depthTexture           = std::make_unique<Texture>( texparams );
 
-    m_pickingFbo = std::make_unique<globjects::Framebuffer>();
-    texparams.name = "Picking";
+    m_pickingFbo             = std::make_unique<globjects::Framebuffer>();
+    texparams.name           = "Picking";
     texparams.internalFormat = GL_RGBA32I;
-    texparams.format = GL_RGBA_INTEGER;
-    texparams.type = GL_INT;
-    m_pickingTexture = std::make_unique<Texture>( texparams );
+    texparams.format         = GL_RGBA_INTEGER;
+    texparams.type           = GL_INT;
+    m_pickingTexture         = std::make_unique<Texture>( texparams );
 
     // Final texture
-    texparams.name = "Final image";
+    texparams.name           = "Final image";
     texparams.internalFormat = GL_RGBA32F;
-    texparams.format = GL_RGBA;
-    texparams.type = GL_FLOAT;
-    m_fancyTexture = std::make_unique<Texture>( texparams );
+    texparams.format         = GL_RGBA;
+    texparams.type           = GL_FLOAT;
+    m_fancyTexture           = std::make_unique<Texture>( texparams );
 
-    m_displayedTexture = m_fancyTexture.get();
+    m_displayedTexture                     = m_fancyTexture.get();
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
     // Quad mesh
@@ -181,10 +186,7 @@ void Renderer::render( const ViewingParameters& data ) {
 
     // 3. Do picking if needed
     m_pickingResults.clear();
-    if ( !m_pickingQueries.empty() )
-    {
-        doPicking( data );
-    }
+    if ( !m_pickingQueries.empty() ) { doPicking( data ); }
     m_lastFramePickingQueries = m_pickingQueries;
     m_pickingQueries.clear();
 
@@ -256,7 +258,8 @@ void Renderer::feedRenderQueuesInternal( const ViewingParameters& /*renderData*/
         {
             m_xrayRenderObjects.push_back( *it );
             it = m_fancyRenderObjects.erase( it );
-        } else
+        }
+        else
         { ++it; }
     }
 
@@ -266,7 +269,8 @@ void Renderer::feedRenderQueuesInternal( const ViewingParameters& /*renderData*/
         {
             m_xrayRenderObjects.push_back( *it );
             it = m_debugRenderObjects.erase( it );
-        } else
+        }
+        else
         { ++it; }
     }
 
@@ -276,7 +280,8 @@ void Renderer::feedRenderQueuesInternal( const ViewingParameters& /*renderData*/
         {
             m_xrayRenderObjects.push_back( *it );
             it = m_uiRenderObjects.erase( it );
-        } else
+        }
+        else
         { ++it; }
     }
 }
@@ -308,7 +313,8 @@ void Renderer::splitRenderQueuesForPicking( const ViewingParameters& /*renderDat
 
 // subroutine to Renderer::doPicking()
 void Renderer::renderForPicking(
-    const ViewingParameters& renderData, const std::array<const ShaderProgram*, 4>& pickingShaders,
+    const ViewingParameters& renderData,
+    const std::array<const ShaderProgram*, 4>& pickingShaders,
     const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     for ( uint i = 0; i < pickingShaders.size(); ++i )
     {
@@ -358,16 +364,12 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
     // Then draw debug objects
     GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
-    {
-        renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking );
-    }
+    { renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking ); }
 
     // Then draw xrayed objects on top of normal objects
     GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
-    {
-        renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking );
-    }
+    { renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking ); }
 
     // Finally draw ui stuff on top of everything
     // these have a different way to compute the transform matrices
@@ -385,14 +387,14 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
             {
                 m_pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
 
-                Core::Matrix4 M = ro->getTransformAsMatrix();
+                Core::Matrix4 M  = ro->getTransformAsMatrix();
                 Core::Matrix4 MV = renderData.viewMatrix * M;
-                Scalar d = MV.block<3, 1>( 0, 3 ).norm();
+                Scalar d         = MV.block<3, 1>( 0, 3 ).norm();
 
                 Core::Matrix4 S = Core::Matrix4::Identity();
                 S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
 
-                M = M * S;
+                M               = M * S;
                 Core::Matrix4 N = M.inverse().transpose();
 
                 m_pickingShaders[i]->setUniform( "transform.model", M );
@@ -422,13 +424,19 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
                 m_pickingResults.push_back( result );
                 continue;
             }
-            GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1,
-                                     GL_RGBA_INTEGER, GL_INT, pick ) );
+            GL_ASSERT( glReadPixels( query.m_screenCoords.x(),
+                                     query.m_screenCoords.y(),
+                                     1,
+                                     1,
+                                     GL_RGBA_INTEGER,
+                                     GL_INT,
+                                     pick ) );
             result.m_roIdx = pick[0];                    // RO idx
             result.m_vertexIdx.emplace_back( pick[1] );  // vertex idx in the element
             result.m_elementIdx.emplace_back( pick[2] ); // element idx
             result.m_edgeIdx.emplace_back( pick[3] );    // edge opposite idx for triangles
-        } else
+        }
+        else
         {
             // select the results for the RO with the most representatives
             // (or first to come if same amount)
@@ -441,10 +449,7 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
                     const int x = query.m_screenCoords.x() + i;
                     const int y = query.m_screenCoords.y() - j;
                     // skip query if out of window (can occur when picking while moving outside)
-                    if ( x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1 )
-                    {
-                        continue;
-                    }
+                    if ( x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1 ) { continue; }
                     GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                     resultPerRO[pick[0]].m_roIdx = pick[0];
                     resultPerRO[pick[0]].m_vertexIdx.emplace_back( pick[1] );
@@ -456,10 +461,7 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
             int nbMax = 0;
             for ( const auto& res : resultPerRO )
             {
-                if ( res.second.m_roIdx == -1 )
-                {
-                    continue;
-                }
+                if ( res.second.m_roIdx == -1 ) { continue; }
                 if ( res.second.m_vertexIdx.size() > nbMax )
                 {
                     maxRO = res.first;
@@ -482,7 +484,8 @@ void Renderer::drawScreenInternal() {
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
         glDrawBuffer( GL_BACK );
-    } else
+    }
+    else
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
         GL_ASSERT( glDrawBuffers( 1, buffers ) );
@@ -542,7 +545,7 @@ void Renderer::notifyRenderObjectsRenderingInternal() {
 }
 
 void Renderer::resize( uint w, uint h ) {
-    m_width = w;
+    m_width  = w;
     m_height = h;
 
     if ( w != 0 && h != 0 )
@@ -566,16 +569,15 @@ void Renderer::resize( uint w, uint h ) {
 
 void Renderer::displayTexture( const std::string& texName ) {
     if ( m_secondaryTextures.find( texName ) != m_secondaryTextures.end() )
-    {
-        m_displayedTexture = m_secondaryTextures[texName];
-    } else
+    { m_displayedTexture = m_secondaryTextures[texName]; } else
     { m_displayedTexture = m_fancyTexture.get(); }
 }
 
 std::vector<std::string> Renderer::getAvailableTextures() const {
     std::vector<std::string> ret;
     ret.emplace_back( "Final image" );
-    std::transform( m_secondaryTextures.begin(), m_secondaryTextures.end(),
+    std::transform( m_secondaryTextures.begin(),
+                    m_secondaryTextures.end(),
                     std::back_inserter( ret ),
                     []( const std::pair<std::string, Texture*> tex ) { return tex.first; } );
     return ret;

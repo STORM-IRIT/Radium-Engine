@@ -22,7 +22,8 @@ class Attrib;
 /**
  * AttribBase is the base class for attributes of all type.
  */
-class AttribBase {
+class AttribBase
+{
   public:
     explicit AttribBase( const std::string& name ) : m_name{name} {}
     virtual ~AttribBase() {}
@@ -102,13 +103,14 @@ class AttribBase {
  * An Attrib stores an element of type \p T for each entry.
  */
 template <typename T>
-class Attrib : public AttribBase {
+class Attrib : public AttribBase
+{
   public:
     using value_type = T;
-    using Container = VectorArray<T>;
-    
+    using Container  = VectorArray<T>;
+
     explicit Attrib( const std::string& name ) : AttribBase( name ) {}
-    
+
     /// Resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
 
@@ -134,7 +136,8 @@ class Attrib : public AttribBase {
 };
 
 template <typename T>
-class AttribHandle {
+class AttribHandle
+{
   public:
     typedef T value_type;
     using Container = typename Attrib<T>::Container;
@@ -151,7 +154,7 @@ class AttribHandle {
     std::string attribName() const { return m_name; }
 
   private:
-    Index m_idx = Index::Invalid();
+    Index m_idx        = Index::Invalid();
     std::string m_name = "";
 
     friend class AttribManager;
@@ -188,10 +191,11 @@ class AttribHandle {
  * \warning There is no error check on the handles attribute type.
  *
  */
-class RA_CORE_API AttribManager {
+class RA_CORE_API AttribManager
+{
   public:
     using value_type = AttribBase*;
-    using Container = std::vector<value_type>;
+    using Container  = std::vector<value_type>;
 
     AttribManager() {}
 
@@ -204,7 +208,7 @@ class RA_CORE_API AttribManager {
         m_attribsIndex( std::move( m.m_attribsIndex ) ) {}
 
     AttribManager& operator=( AttribManager&& m ) {
-        m_attribs = std::move( m.m_attribs );
+        m_attribs      = std::move( m.m_attribs );
         m_attribsIndex = std::move( m.m_attribsIndex );
         return *this;
     }
@@ -268,7 +272,7 @@ class RA_CORE_API AttribManager {
         AttribHandle<T> handle;
         if ( c != m_attribsIndex.end() )
         {
-            handle.m_idx = c->second;
+            handle.m_idx  = c->second;
             handle.m_name = c->first;
         }
         return handle;
@@ -298,26 +302,27 @@ class RA_CORE_API AttribManager {
     AttribHandle<T> addAttrib( const std::string& name ) {
         // does the attrib already exist?
         AttribHandle<T> h = findAttrib<T>( name );
-        if ( isValid( h ) )
-            return h;
+        if ( isValid( h ) ) return h;
 
         // create the attrib
         Attrib<T>* attrib = new Attrib<T>( name );
 
         // look for a free slot
-        auto it = std::find_if( m_attribs.begin(), m_attribs.end(),
-                                []( const auto& attr ) { return attr == nullptr; } );
+        auto it = std::find_if( m_attribs.begin(), m_attribs.end(), []( const auto& attr ) {
+            return attr == nullptr;
+        } );
         if ( it != m_attribs.end() )
         {
-            *it = attrib;
+            *it     = attrib;
             h.m_idx = std::distance( m_attribs.begin(), it );
-        } else
+        }
+        else
         {
             m_attribs.push_back( attrib );
             h.m_idx = m_attribs.size() - 1;
         }
         m_attribsIndex[name] = h.m_idx;
-        h.m_name = name;
+        h.m_name             = name;
 
         return h;
     }
@@ -336,8 +341,8 @@ class RA_CORE_API AttribManager {
             m_attribs[idx] = nullptr;
             m_attribsIndex.erase( c );
         }
-        h.m_idx = Index::Invalid(); // invalidate whatever!
-        h.m_name = "";              // invalidate whatever!
+        h.m_idx  = Index::Invalid(); // invalidate whatever!
+        h.m_name = "";               // invalidate whatever!
     }
 
     /// Return true if *this and \p other have the same attributes, same amount
@@ -351,8 +356,7 @@ class RA_CORE_API AttribManager {
     template <typename F>
     void for_each_attrib( const F& func ) const {
         for ( const auto& attr : m_attribs )
-            if ( attr != nullptr )
-                func( attr );
+            if ( attr != nullptr ) func( attr );
     }
 
     /// Perform \p fun on each attribute.
@@ -360,8 +364,7 @@ class RA_CORE_API AttribManager {
     template <typename F>
     void for_each_attrib( const F& func ) {
         for ( auto& attr : m_attribs )
-            if ( attr != nullptr )
-                func( attr );
+            if ( attr != nullptr ) func( attr );
     }
 
     /// Attrib list, better using attribs() to go through.

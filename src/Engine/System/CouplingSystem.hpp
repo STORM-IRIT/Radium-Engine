@@ -34,7 +34,8 @@ namespace Engine {
 /// }
 /// \endcode
 template <typename _BaseAbstractSystem>
-class BaseCouplingSystem : public _BaseAbstractSystem {
+class BaseCouplingSystem : public _BaseAbstractSystem
+{
   public:
     using BaseAbstractSystem = _BaseAbstractSystem;
 
@@ -109,8 +110,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) {
         for ( auto& s : m_systems )
         {
-            if ( !f( s ) && abortWhenInvalid )
-                return false;
+            if ( !f( s ) && abortWhenInvalid ) return false;
         }
         return true;
     }
@@ -120,8 +120,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) const {
         for ( const auto& s : m_systems )
         {
-            if ( !f( s ) && abortWhenInvalid )
-                return false;
+            if ( !f( s ) && abortWhenInvalid ) return false;
         }
         return true;
     }

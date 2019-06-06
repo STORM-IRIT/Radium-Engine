@@ -32,10 +32,7 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
         std::string token;
         iss >> token;
 
-        if ( token == "#" )
-        {
-            continue;
-        }
+        if ( token == "#" ) { continue; }
         if ( token == "v" )
         {
             Vector3 v;
@@ -48,14 +45,8 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
             iss >> n[0] >> n[1] >> n[2];
             data.normals().push_back( n );
         }
-        if ( token == "vt" )
-        {
-            continue;
-        }
-        if ( token == "vp" )
-        {
-            continue;
-        }
+        if ( token == "vt" ) { continue; }
+        if ( token == "vp" ) { continue; }
         if ( token == "f" )
         {
             Vector3ui f;
@@ -70,7 +61,8 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
                 {
                     ss >> f[count];
                     f[count] -= 1;
-                } else
+                }
+                else
                 {
                     addLogErrorEntry( "MESH CONTAINS QUADS." );
                     return false;

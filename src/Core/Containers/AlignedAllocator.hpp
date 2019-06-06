@@ -20,15 +20,16 @@ namespace Core {
  * <http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx>
  */
 template <typename T, std::size_t Alignment>
-class AlignedAllocator {
+class AlignedAllocator
+{
   public:
     // The following will be the same for virtually all allocators.
-    using pointer = T*;
-    using const_pointer = const T*;
-    using reference = T&;
+    using pointer         = T*;
+    using const_pointer   = const T*;
+    using reference       = T&;
     using const_reference = const T&;
-    using value_type = T;
-    using size_type = std::size_t;
+    using value_type      = T;
+    using size_type       = std::size_t;
     using difference_type = ptrdiff_t;
 
     T* address( T& r ) const { return &r; }
@@ -80,10 +81,7 @@ class AlignedAllocator {
         // (the implementation can define malloc(0) to return NULL,
         // in which case the bad_alloc check below would fire).
         // All allocators can return NULL in this case.
-        if ( n == 0 )
-        {
-            return NULL;
-        }
+        if ( n == 0 ) { return NULL; }
 
         // All allocators should contain an integer overflow check.
         // The Standardization Committee recommends that std::length_error

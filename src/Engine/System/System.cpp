@@ -27,8 +27,9 @@ void System::registerComponent( const Entity* ent, Component* component ) {
 void System::unregisterComponent( const Entity* ent, Component* component ) {
     CORE_ASSERT( component->getEntity() == ent, "Component does not belong to entity" );
     const auto& pos =
-        std::find_if( m_components.begin(), m_components.end(),
-                      [component]( const auto& pair ) { return pair.second == component; } );
+        std::find_if( m_components.begin(), m_components.end(), [component]( const auto& pair ) {
+            return pair.second == component;
+        } );
 
     CORE_ASSERT( pos != m_components.end(), "Component is not registered." );
     CORE_ASSERT( pos->first == ent, "Component belongs to a different entity" );
@@ -38,10 +39,10 @@ void System::unregisterComponent( const Entity* ent, Component* component ) {
 
 void System::unregisterAllComponents( const Entity* entity ) {
     std::vector<std::pair<const Entity*, Component*>>::iterator pos;
-    while ( ( pos = std::find_if( m_components.begin(), m_components.end(),
-                                  [entity]( const auto& pair ) {
-                                      return pair.first == entity;
-                                  } ) ) != m_components.end() )
+    while ( ( pos = std::find_if(
+                  m_components.begin(), m_components.end(), [entity]( const auto& pair ) {
+                      return pair.first == entity;
+                  } ) ) != m_components.end() )
     {
         m_components.erase( pos );
     }
@@ -51,10 +52,7 @@ std::vector<Component*> System::getEntityComponents( const Entity* entity ) {
     std::vector<Component*> comps;
     for ( const auto& ec : m_components )
     {
-        if ( ec.first == entity )
-        {
-            comps.push_back( ec.second );
-        }
+        if ( ec.first == entity ) { comps.push_back( ec.second ); }
     }
     return comps;
 }

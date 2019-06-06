@@ -47,10 +47,7 @@ bool areEqual( const Pose& p0, const Pose& p1 ) {
     const uint n = p0.size();
     for ( uint i = 0; i < n; ++i )
     {
-        if ( !p0[i].isApprox( p1[i] ) )
-        {
-            return false;
-        }
+        if ( !p0[i].isApprox( p1[i] ) ) { return false; }
     }
     return true;
 }

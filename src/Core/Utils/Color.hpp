@@ -6,7 +6,6 @@
 #include <Eigen/Geometry> //homogeneous
 #include <random>
 
-
 namespace Ra {
 namespace Core {
 namespace Utils {
@@ -16,7 +15,8 @@ namespace Utils {
  * displayable colors should have all their coordinates between 0 and 1.
  */
 template <typename _Scalar>
-class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
+class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
+{
   public:
     using VectorType = Eigen::Matrix<_Scalar, 4, 1>;
 
@@ -39,27 +39,25 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     operator VectorType() { return *this; }
 
     /// convert the color expressed in sRGB color space to linear RGB
-    static inline ColorBase sRGBToLinearRGB(const ColorBase &srgb) {
+    static inline ColorBase sRGBToLinearRGB( const ColorBase& srgb ) {
         ColorBase<_Scalar> c( srgb );
-        for (auto &u : c.rgb()) {
-            if (u < 0.04045_ra) {
-                u /=12.92_ra;
-            } else {
-                u = std::pow((u+0.055_ra)/1.055_ra, 2.4_ra);
-            }
+        for ( auto& u : c.rgb() )
+        {
+            if ( u < 0.04045_ra ) { u /= 12.92_ra; }
+            else
+            { u = std::pow( ( u + 0.055_ra ) / 1.055_ra, 2.4_ra ); }
         }
         return c;
     }
 
     /// convert the color expressed in linear RGB color space to sRGB
-    static inline ColorBase linearRGBTosRGB(const ColorBase &lrgb) {
+    static inline ColorBase linearRGBTosRGB( const ColorBase& lrgb ) {
         ColorBase<_Scalar> c( lrgb );
-        for (auto &u : c.rgb()) {
-            if (u < 0.0031308_ra) {
-                u *=12.92_ra;
-            } else {
-                u = 1.055_ra*std::pow(u, 1_ra/2.4_ra)-0.055_ra;
-            }
+        for ( auto& u : c.rgb() )
+        {
+            if ( u < 0.0031308_ra ) { u *= 12.92_ra; }
+            else
+            { u = 1.055_ra * std::pow( u, 1_ra / 2.4_ra ) - 0.055_ra; }
         }
         return c;
     }
@@ -124,8 +122,10 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     // Convert to/from various int formats
 
     static inline ColorBase<_Scalar> fromChars( uchar r, uchar g, uchar b, uchar a = 0xff ) {
-        return ColorBase<_Scalar>( _Scalar( r ) / 255.0f, _Scalar( g ) / 255.0f,
-                                   _Scalar( b ) / 255.0f, _Scalar( a ) / 255.0f );
+        return ColorBase<_Scalar>( _Scalar( r ) / 255.0f,
+                                   _Scalar( g ) / 255.0f,
+                                   _Scalar( b ) / 255.0f,
+                                   _Scalar( a ) / 255.0f );
     }
 
     static inline ColorBase<_Scalar> fromRGBA32( uint32_t rgba ) {
@@ -144,19 +144,20 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
         return fromChars( r, g, b, a );
     }
 
-    static inline ColorBase<_Scalar> fromHSV( const _Scalar hue, const _Scalar saturation = 1.0,
-                                              const _Scalar value = 1.0,
-                                              const _Scalar alpha = 1.0 ) {
+    static inline ColorBase<_Scalar> fromHSV( const _Scalar hue,
+                                              const _Scalar saturation = 1.0,
+                                              const _Scalar value      = 1.0,
+                                              const _Scalar alpha      = 1.0 ) {
         ColorBase<_Scalar> c;
 
         if ( saturation == 0.0f )
         {
             c[0] = c[1] = c[2] = value;
-            c[3] = alpha;
+            c[3]               = alpha;
             return c;
         }
-        _Scalar h = ( ( hue == 1.0f ) ? 0.0f : hue ) * 6.0f;
-        int i = int( std::floor( h ) );
+        _Scalar h  = ( ( hue == 1.0f ) ? 0.0f : hue ) * 6.0f;
+        int i      = int( std::floor( h ) );
         _Scalar v1 = value * ( 1.0f - saturation );
         _Scalar v2 = value * ( 1.0f - ( saturation * ( h - i ) ) );
         _Scalar v3 = value * ( 1.0f - ( saturation * ( 1.0f - h - i ) ) );
@@ -238,7 +239,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1> {
     }
 };
 
-using Color = ColorBase<Scalar>;
+using Color  = ColorBase<Scalar>;
 using Colorf = ColorBase<float>;
 using Colord = ColorBase<double>;
 

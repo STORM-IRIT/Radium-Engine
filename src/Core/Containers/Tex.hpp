@@ -12,13 +12,14 @@ namespace Core {
 /// bounding box. It evaluates the function at a given point in space
 /// wrt the stored values N-linear interpolation.
 template <typename T, uint N>
-class Tex : public Grid<T, N> {
+class Tex : public Grid<T, N>
+{
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     using IdxVector = typename Grid<T, N>::IdxVector;
-    using Vector = Eigen::Matrix<Scalar, N, 1>;
-    using AabbND = Eigen::AlignedBox<Scalar, N>;
+    using Vector    = Eigen::Matrix<Scalar, N, 1>;
+    using AabbND    = Eigen::AlignedBox<Scalar, N>;
 
     /// Construct a Tex with the given resolution in the box given by two points.
     Tex( const IdxVector& resolution, const Vector& start, const Vector& end );

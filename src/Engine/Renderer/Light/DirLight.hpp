@@ -10,7 +10,8 @@ namespace Engine {
 /** Directional light for rendering
  *
  */
-class RA_ENGINE_API DirectionalLight final : public Light {
+class RA_ENGINE_API DirectionalLight final : public Light
+{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 

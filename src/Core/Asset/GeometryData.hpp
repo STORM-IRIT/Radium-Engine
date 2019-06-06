@@ -19,34 +19,35 @@ namespace Asset {
 class MaterialData;
 
 /// The GeometryData class stores all the geometry related data of a loaded object.
-class RA_CORE_API GeometryData : public AssetData {
+class RA_CORE_API GeometryData : public AssetData
+{
 
   public:
-    using Vector3Array = Core::VectorArray<Core::Vector3>;
+    using Vector3Array  = Core::VectorArray<Core::Vector3>;
     using Vector2iArray = Core::VectorArray<Core::Vector2i>;
     using Vector2uArray = Core::VectorArray<Core::Vector2ui>;
     using VectorNiArray = Core::VectorArray<Core::VectorNi>;
     using VectorNuArray = Core::VectorArray<Core::VectorNui>;
-    using Vector4Array = Core::VectorArray<Core::Vector4>;
-    using ColorArray = Core::VectorArray<Core::Vector4>;
+    using Vector4Array  = Core::VectorArray<Core::Vector4>;
+    using ColorArray    = Core::VectorArray<Core::Vector4>;
 
-    using Weight = std::pair<Scalar, uint>;
+    using Weight        = std::pair<Scalar, uint>;
     using VertexWeights = std::vector<Weight>;
-    using WeightArray = std::vector<VertexWeights>;
+    using WeightArray   = std::vector<VertexWeights>;
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /// The type of geometry.
     enum GeometryType {
-        UNKNOWN = 1 << 0,
+        UNKNOWN     = 1 << 0,
         POINT_CLOUD = 1 << 1,
-        LINE_MESH = 1 << 2,
-        TRI_MESH = 1 << 3,
-        QUAD_MESH = 1 << 4,
-        POLY_MESH = 1 << 5,
-        TETRA_MESH = 1 << 6,
-        HEX_MESH = 1 << 7
+        LINE_MESH   = 1 << 2,
+        TRI_MESH    = 1 << 3,
+        QUAD_MESH   = 1 << 4,
+        POLY_MESH   = 1 << 5,
+        TETRA_MESH  = 1 << 6,
+        HEX_MESH    = 1 << 7
     };
 
     GeometryData( const std::string& name = "", const GeometryType& type = UNKNOWN );

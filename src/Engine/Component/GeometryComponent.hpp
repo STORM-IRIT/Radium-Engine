@@ -22,16 +22,19 @@ namespace Engine {
  *  - normals: rw (if deformable)
  *  - triangles: rw (if deformable)
  */
-class RA_ENGINE_API TriangleMeshComponent : public Component {
+class RA_ENGINE_API TriangleMeshComponent : public Component
+{
   public:
-    TriangleMeshComponent( const std::string& name, Entity* entity,
+    TriangleMeshComponent( const std::string& name,
+                           Entity* entity,
                            const Ra::Core::Asset::GeometryData* data );
 
     /*!
      * Constructor from an existing mesh
      * \warning Moves the mesh and takes its ownership
      */
-    TriangleMeshComponent( const std::string& name,  Entity* entity,
+    TriangleMeshComponent( const std::string& name,
+                           Entity* entity,
                            Core::Geometry::TriangleMesh&& mesh,
                            Core::Asset::MaterialData* mat = nullptr );
 

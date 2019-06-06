@@ -46,10 +46,7 @@ void AssimpGeometryDataLoader::loadData( const aiScene* scene,
 
     loadGeometryData( scene, data );
 
-    if ( m_verbose )
-    {
-        LOG( logINFO ) << "Geometry Loading end.\n";
-    }
+    if ( m_verbose ) { LOG( logINFO ) << "Geometry Loading end.\n"; }
 }
 
 bool AssimpGeometryDataLoader::sceneHasGeometry( const aiScene* scene ) const {
@@ -64,35 +61,25 @@ uint AssimpGeometryDataLoader::sceneGeometrySize( const aiScene* scene ) const {
         for ( uint i = 0; i < size; ++i )
         {
             aiMesh* mesh = scene->mMeshes[i];
-            if ( mesh->HasPositions() )
-            {
-                ++mesh_size;
-            }
+            if ( mesh->HasPositions() ) { ++mesh_size; }
         }
     }
     return mesh_size;
 }
 
-void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, GeometryData& data,
+void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh,
+                                             GeometryData& data,
                                              std::set<std::string>& usedNames ) {
     fetchName( mesh, data, usedNames );
     fetchType( mesh, data );
     fetchVertices( mesh, data );
-    if ( data.isLineMesh() )
-    {
-        fetchEdges( mesh, data );
-    } else
+    if ( data.isLineMesh() ) { fetchEdges( mesh, data ); }
+    else
     { fetchFaces( mesh, data ); }
 
-    if ( data.isTetraMesh() || data.isHexMesh() )
-    {
-        fetchPolyhedron( mesh, data );
-    }
+    if ( data.isTetraMesh() || data.isHexMesh() ) { fetchPolyhedron( mesh, data ); }
 
-    if ( mesh.HasNormals() )
-    {
-        fetchNormals( mesh, data );
-    }
+    if ( mesh.HasNormals() ) { fetchNormals( mesh, data ); }
 
     if ( mesh.HasTangentsAndBitangents() )
     {
@@ -107,10 +94,7 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, GeometryData& d
         LOG( logWARNING )
             << "Assimp loader : several UV channels are set, Radium will use only the 1st";
     }
-    if ( mesh.HasTextureCoords( 0 ) )
-    {
-        fetchTextureCoordinates( mesh, data );
-    }
+    if ( mesh.HasTextureCoords( 0 ) ) { fetchTextureCoordinates( mesh, data ); }
 
     /*
      if( mesh.HasVertexColors() ) {
@@ -120,25 +104,20 @@ void AssimpGeometryDataLoader::loadMeshData( const aiMesh& mesh, GeometryData& d
 }
 
 void AssimpGeometryDataLoader::loadMeshFrame(
-    const aiNode* node, const Core::Transform& parentFrame,
+    const aiNode* node,
+    const Core::Transform& parentFrame,
     const std::map<uint, size_t>& indexTable,
     std::vector<std::unique_ptr<GeometryData>>& data ) const {
     const uint child_size = node->mNumChildren;
-    const uint mesh_size = node->mNumMeshes;
-    if ( ( child_size == 0 ) && ( mesh_size == 0 ) )
-    {
-        return;
-    }
+    const uint mesh_size  = node->mNumMeshes;
+    if ( ( child_size == 0 ) && ( mesh_size == 0 ) ) { return; }
 
     Core::Transform frame = parentFrame * assimpToCore( node->mTransformation );
     for ( uint i = 0; i < mesh_size; ++i )
     {
         const uint ID = node->mMeshes[i];
-        auto it = indexTable.find( ID );
-        if ( it != indexTable.end() )
-        {
-            data[it->second]->setFrame( frame );
-        }
+        auto it       = indexTable.find( ID );
+        if ( it != indexTable.end() ) { data[it->second]->setFrame( frame ); }
     }
 
     for ( uint i = 0; i < child_size; ++i )
@@ -147,7 +126,8 @@ void AssimpGeometryDataLoader::loadMeshFrame(
     }
 }
 
-void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh, GeometryData& data,
+void AssimpGeometryDataLoader::fetchName( const aiMesh& mesh,
+                                          GeometryData& data,
                                           std::set<std::string>& usedNames ) const {
     std::string name = assimpToCore( mesh.mName );
     while ( usedNames.find( name ) != usedNames.end() )
@@ -190,7 +170,7 @@ void AssimpGeometryDataLoader::fetchType( const aiMesh& mesh, GeometryData& data
 
 void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& data ) {
     const uint size = mesh.mNumVertices;
-    auto& vertex = data.getVertices();
+    auto& vertex    = data.getVertices();
     vertex.resize( size );
 #pragma omp parallel for
     for ( int i = 0; i < size; ++i )
@@ -201,7 +181,7 @@ void AssimpGeometryDataLoader::fetchVertices( const aiMesh& mesh, GeometryData& 
 
 void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumFaces;
-    auto& edge = data.getEdges();
+    auto& edge      = data.getEdges();
     edge.resize( size );
 #pragma omp parallel for
     for ( int i = 0; i < size; ++i )
@@ -212,7 +192,7 @@ void AssimpGeometryDataLoader::fetchEdges( const aiMesh& mesh, GeometryData& dat
 
 void AssimpGeometryDataLoader::fetchFaces( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumFaces;
-    auto& face = data.getFaces();
+    auto& face      = data.getFaces();
     face.resize( size );
 #pragma omp parallel for
     for ( int i = 0; i < size; ++i )
@@ -239,7 +219,7 @@ void AssimpGeometryDataLoader::fetchNormals( const aiMesh& mesh, GeometryData& d
 
 void AssimpGeometryDataLoader::fetchTangents( const aiMesh& mesh, GeometryData& data ) const {
     const uint size = mesh.mNumVertices;
-    auto& tangent = data.getTangents();
+    auto& tangent   = data.getTangents();
     tangent.resize( size, Core::Vector3::Zero() );
 #pragma omp parallel for
     for ( int i = 0; i < size; ++i )
@@ -262,7 +242,7 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
                                                         GeometryData& data ) const {
     const uint size = mesh.mNumVertices;
-    auto& texcoord = data.getTexCoords();
+    auto& texcoord  = data.getTexCoords();
     texcoord.resize( data.getVerticesSize() );
 #pragma omp parallel for
     for ( int i = 0; i < size; ++i )
@@ -282,9 +262,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     std::string matName;
     aiString assimpName;
     if ( AI_SUCCESS == material.Get( AI_MATKEY_NAME, assimpName ) )
-    {
-        matName = assimpName.C_Str();
-    }
+    { matName = assimpName.C_Str(); }
     // Radium V2 : use AI_MATKEY_SHADING_MODEL to select the apropriate model
     // (http://assimp.sourceforge.net/lib_html/material_8h.html#a93e23e0201d6ed86fb4287e15218e4cf)
     auto blinnPhongMaterial = new BlinnPhongMaterialData( matName );
@@ -296,13 +274,13 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     if ( AI_SUCCESS == material.Get( AI_MATKEY_COLOR_DIFFUSE, color ) )
     {
         blinnPhongMaterial->m_hasDiffuse = true;
-        blinnPhongMaterial->m_diffuse = assimpToCore( color );
+        blinnPhongMaterial->m_diffuse    = assimpToCore( color );
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_COLOR_SPECULAR, color ) )
     {
         blinnPhongMaterial->m_hasSpecular = true;
-        blinnPhongMaterial->m_specular = assimpToCore( color );
+        blinnPhongMaterial->m_specular    = assimpToCore( color );
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_SHININESS, shininess ) )
@@ -323,38 +301,38 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_DIFFUSE, 0 ), name ) )
     {
-        blinnPhongMaterial->m_texDiffuse = m_filepath + "/" + assimpToCore( name );
+        blinnPhongMaterial->m_texDiffuse    = m_filepath + "/" + assimpToCore( name );
         blinnPhongMaterial->m_hasTexDiffuse = true;
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_SPECULAR, 0 ), name ) )
     {
-        blinnPhongMaterial->m_texSpecular = m_filepath + "/" + assimpToCore( name );
+        blinnPhongMaterial->m_texSpecular    = m_filepath + "/" + assimpToCore( name );
         blinnPhongMaterial->m_hasTexSpecular = true;
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_SHININESS, 0 ), name ) )
     {
-        blinnPhongMaterial->m_texShininess = m_filepath + "/" + assimpToCore( name );
+        blinnPhongMaterial->m_texShininess    = m_filepath + "/" + assimpToCore( name );
         blinnPhongMaterial->m_hasTexShininess = true;
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_NORMALS, 0 ), name ) )
     {
-        blinnPhongMaterial->m_texNormal = m_filepath + "/" + assimpToCore( name );
+        blinnPhongMaterial->m_texNormal    = m_filepath + "/" + assimpToCore( name );
         blinnPhongMaterial->m_hasTexNormal = true;
     }
 
     // Assimp loads objs bump maps as height maps, gj bro
     if ( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_HEIGHT, 0 ), name ) )
     {
-        blinnPhongMaterial->m_texNormal = m_filepath + "/" + assimpToCore( name );
+        blinnPhongMaterial->m_texNormal    = m_filepath + "/" + assimpToCore( name );
         blinnPhongMaterial->m_hasTexNormal = true;
     }
 
     if ( AI_SUCCESS == material.Get( AI_MATKEY_TEXTURE( aiTextureType_OPACITY, 0 ), name ) )
     {
-        blinnPhongMaterial->m_texOpacity = m_filepath + "/" + assimpToCore( name );
+        blinnPhongMaterial->m_texOpacity    = m_filepath + "/" + assimpToCore( name );
         blinnPhongMaterial->m_hasTexOpacity = true;
     }
 
@@ -362,7 +340,8 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
 }
 
 void AssimpGeometryDataLoader::loadGeometryData(
-    const aiScene* scene, std::vector<std::unique_ptr<GeometryData>>& data ) {
+    const aiScene* scene,
+    std::vector<std::unique_ptr<GeometryData>>& data ) {
     const uint size = scene->mNumMeshes;
     std::map<uint, std::size_t> indexTable;
     std::set<std::string> usedNames;
@@ -385,10 +364,7 @@ void AssimpGeometryDataLoader::loadGeometryData(
             data.push_back( std::unique_ptr<GeometryData>( geometry ) );
             indexTable[i] = data.size() - 1;
 
-            if ( m_verbose )
-            {
-                geometry->displayInfo();
-            }
+            if ( m_verbose ) { geometry->displayInfo(); }
         }
     }
     loadMeshFrame( scene->mRootNode, Core::Transform::Identity(), indexTable, data );

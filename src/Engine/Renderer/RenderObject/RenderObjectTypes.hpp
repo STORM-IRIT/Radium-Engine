@@ -4,9 +4,9 @@
 namespace Ra {
 namespace Engine {
 
-  /**
-   * Defines the families of objects for rendering.
-   */
+/**
+ * Defines the families of objects for rendering.
+ */
 enum class RenderObjectType {
     /// "Ui" render objects are drawn on top of everything else and view independant
     UI = 0,
@@ -17,6 +17,6 @@ enum class RenderObjectType {
 
     Count
 };
-}
+} // namespace Engine
 } // namespace Ra
 #endif // RADIUMENGINE_RENDEROBJECT_TYPES

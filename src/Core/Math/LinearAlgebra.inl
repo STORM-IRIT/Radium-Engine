@@ -46,8 +46,8 @@ inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v,
 }
 
 template <typename Derived>
-inline typename Derived::PlainMatrix clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min,
-                                            const Scalar& max ) {
+inline typename Derived::PlainMatrix
+clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min, const Scalar& max ) {
     return v.unaryExpr( [min, max]( Scalar x ) { return std::clamp( x, min, max ); } );
 }
 
@@ -81,10 +81,7 @@ Scalar getNormAndNormalize( Vector_& v ) {
 template <typename Vector_>
 Scalar getNormAndNormalizeSafe( Vector_& v ) {
     const Scalar norm = v.norm();
-    if ( norm > 0 )
-    {
-        v /= norm;
-    }
+    if ( norm > 0 ) { v /= norm; }
     return norm;
 }
 
@@ -112,26 +109,26 @@ inline Quaternion scale( const Quaternion& q, Scalar k ) {
     return Quaternion( k * q.coeffs() );
 }
 
-inline void getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy,
-                                  Eigen::Ref<Vector3> fz ) {
+inline void
+getOrthogonalVectors( const Vector3& fx, Eigen::Ref<Vector3> fy, Eigen::Ref<Vector3> fz ) {
     // taken from [Duff et al. 17] Building An Orthonormal Basis, Revisited. JCGT. 2017
-    Scalar sign = std::copysign( Scalar( 1.0 ), fx( 2 ) );
+    Scalar sign    = std::copysign( Scalar( 1.0 ), fx( 2 ) );
     const Scalar a = Scalar( -1.0 ) / ( sign + fx( 2 ) );
     const Scalar b = fx( 0 ) * fx( 1 ) * a;
-    fy = Ra::Core::Vector3( Scalar( 1.0 ) + sign * fx( 0 ) * fx( 0 ) * a, sign * b,
-                            -sign * fx( 0 ) );
+    fy             = Ra::Core::Vector3(
+        Scalar( 1.0 ) + sign * fx( 0 ) * fx( 0 ) * a, sign * b, -sign * fx( 0 ) );
     fz = Ra::Core::Vector3( b, sign + fx( 1 ) * fx( 1 ) * a, -fx( 1 ) );
 }
 
-inline Vector3 projectOnPlane( const Vector3& planePos, const Vector3& planeNormal,
-                               const Vector3& point ) {
+inline Vector3
+projectOnPlane( const Vector3& planePos, const Vector3& planeNormal, const Vector3& point ) {
     return point + planeNormal * ( planePos - point ).dot( planeNormal );
 }
 
 template <typename Vector_>
 Vector_ slerp( const Vector_& v1, const Vector_& v2, Scalar t ) {
-    const Scalar dot = v1.dot( v2 );
-    const Scalar theta = t * angle( v1, v2 );
+    const Scalar dot          = v1.dot( v2 );
+    const Scalar theta        = t * angle( v1, v2 );
     const Vector_ relativeVec = ( v2 - v1 * dot ).normalized();
     return ( ( v1 * std::cos( theta ) ) + ( relativeVec * std::sin( theta ) ) );
 }
@@ -145,7 +142,8 @@ inline void getSwingTwist( const Quaternion& in, Quaternion& swingOut, Quaternio
     {
         twistOut = in;
         swingOut.setIdentity();
-    } else
+    }
+    else
     {
         const Scalar gamma = std::atan2( in.z(), in.w() );
         // beta = atan2 ( sqrt ( in.x^2 + in.y^2), sqrt ( in.z^2 + in.w^2))
@@ -177,17 +175,17 @@ inline Matrix4 lookAt( const Vector3& position, const Vector3& target, const Vec
     R.col( 0 ) = up.cross( R.col( 2 ) ).normalized();
     R.col( 1 ) = R.col( 2 ).cross( R.col( 0 ) );
 
-    Matrix4 result = Matrix4::Zero();
-    result.topLeftCorner<3, 3>() = R.transpose();
+    Matrix4 result                = Matrix4::Zero();
+    result.topLeftCorner<3, 3>()  = R.transpose();
     result.topRightCorner<3, 1>() = -R.transpose() * position;
-    result( 3, 3 ) = 1.0;
+    result( 3, 3 )                = 1.0;
 
     return result;
 }
 
 inline Matrix4 perspective( Scalar fovy, Scalar aspect, Scalar znear, Scalar zfar ) {
-    Scalar theta = fovy * 0.5f;
-    Scalar range = zfar - znear;
+    Scalar theta  = fovy * 0.5f;
+    Scalar range  = zfar - znear;
     Scalar invtan = 1.f / std::tan( theta );
 
     Matrix4 result = Matrix4::Zero();
@@ -224,10 +222,7 @@ bool checkInvalidNumbers( Eigen::Ref<const Matrix_> matrix, const bool FAIL_ON_A
             ok |= !std::isnormal( x );
             if ( !ok )
             {
-                if ( FAIL_ON_ASSERT )
-                {
-                    CORE_ASSERT( false, "At least an element is nan" );
-                }
+                if ( FAIL_ON_ASSERT ) { CORE_ASSERT( false, "At least an element is nan" ); }
             }
             return 1;
         } )

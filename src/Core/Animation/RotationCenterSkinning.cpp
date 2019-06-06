@@ -18,14 +18,15 @@ namespace Animation {
 using namespace Utils; // log
 
 Scalar weightSimilarity( const Eigen::SparseVector<Scalar>& v1w,
-                         const Eigen::SparseVector<Scalar>& v2w, Scalar sigma ) {
+                         const Eigen::SparseVector<Scalar>& v2w,
+                         Scalar sigma ) {
     const Scalar sigmaSq = sigma * sigma;
 
     Scalar result = 0;
     // Iterating over non zero coefficients
     for ( Eigen::SparseVector<Scalar>::InnerIterator it1( v1w ); it1; ++it1 )
     {
-        const uint j = it1.index();
+        const uint j      = it1.index();
         const Scalar& W1j = it1.value();              // This one is necessarily non zero
         const Scalar& W2j = v2w.coeff( it1.index() ); // This one may be 0.
 
@@ -33,7 +34,7 @@ Scalar weightSimilarity( const Eigen::SparseVector<Scalar>& v1w,
         {
             for ( Eigen::SparseVector<Scalar>::InnerIterator it2( v2w ); it2; ++it2 )
             {
-                const uint k = it2.index();
+                const uint k      = it2.index();
                 const Scalar& W1k = v1w.coeff( it2.index() );
                 const Scalar& W2k = it2.value();
                 if ( j != k && W1k > 0 )
@@ -94,7 +95,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     // weights are distant of at most `weightEpsilon`.
     // New vertices created by the edge splitting and their new weights are computed
     // and appended to the existing vertices.
-    const Scalar wEps2 = weightEpsilon * weightEpsilon;
+    const Scalar wEps2       = weightEpsilon * weightEpsilon;
     Scalar maxWeightDistance = 0;
     do
     {
@@ -108,23 +109,21 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
         {
             const auto& he0 = topoMesh.halfedge_handle( *e_it, 0 );
             const auto& he1 = topoMesh.halfedge_handle( *e_it, 1 );
-            int v0 = topoMesh.to_vertex_handle( he0 ).idx();
-            int v1 = topoMesh.to_vertex_handle( he1 ).idx();
+            int v0          = topoMesh.to_vertex_handle( he0 ).idx();
+            int v1          = topoMesh.to_vertex_handle( he1 ).idx();
 
             Scalar weightDistance = ( subdivW.row( v0 ) - subdivW.row( v1 ) ).squaredNorm();
 
             maxWeightDistance = std::max( maxWeightDistance, weightDistance );
-            if ( weightDistance > wEps2 )
-            {
-                edgesToSplit.push_back( *e_it );
-            }
+            if ( weightDistance > wEps2 ) { edgesToSplit.push_back( *e_it ); }
         }
         LOG( logDEBUG ) << "Max weight distance is " << sqrt( maxWeightDistance );
 
         // sort edges to split according to growing weightDistance to avoid
         // creating edges larger than weightDistance
         std::sort(
-            edgesToSplit.begin(), edgesToSplit.end(),
+            edgesToSplit.begin(),
+            edgesToSplit.end(),
             [&topoMesh, &subdivW]( const auto& a, const auto& b ) {
                 const auto& a0 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 0 ) );
                 const auto& a1 = topoMesh.to_vertex_handle( topoMesh.halfedge_handle( a, 1 ) );
@@ -145,7 +144,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
                 startIndex + edgesToSplit.size(), numCols );
 
             newWeights.topRows( startIndex ) = subdivW;
-            subdivW = newWeights;
+            subdivW                          = newWeights;
 
             int i = 0;
             // Split ALL the edges !
@@ -181,17 +180,17 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     for ( auto f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )
     {
         // get needed data
-        const auto& he0 = topoMesh.halfedge_handle( *f_it );
-        const auto& he1 = topoMesh.next_halfedge_handle( he0 );
-        const auto& he2 = topoMesh.next_halfedge_handle( he1 );
-        const auto& v0 = topoMesh.to_vertex_handle( he0 );
-        const auto& v1 = topoMesh.to_vertex_handle( he1 );
-        const auto& v2 = topoMesh.to_vertex_handle( he2 );
-        const auto& p0 = topoMesh.point( v0 );
-        const auto& p1 = topoMesh.point( v1 );
-        const auto& p2 = topoMesh.point( v2 );
+        const auto& he0        = topoMesh.halfedge_handle( *f_it );
+        const auto& he1        = topoMesh.next_halfedge_handle( he0 );
+        const auto& he2        = topoMesh.next_halfedge_handle( he1 );
+        const auto& v0         = topoMesh.to_vertex_handle( he0 );
+        const auto& v1         = topoMesh.to_vertex_handle( he1 );
+        const auto& v2         = topoMesh.to_vertex_handle( he2 );
+        const auto& p0         = topoMesh.point( v0 );
+        const auto& p1         = topoMesh.point( v1 );
+        const auto& p2         = topoMesh.point( v2 );
         const Vector3 centroid = ( p0 + p1 + p2 ) / 3.f;
-        const Scalar area = Geometry::triangleArea( p0, p1, p2 );
+        const Scalar area      = Geometry::triangleArea( p0, p1, p2 );
         const Eigen::SparseVector<Scalar> triWeight =
             ( 1 / 3.f ) *
             ( subdivW.row( v0.idx() ) + subdivW.row( v1.idx() ) + subdivW.row( v2.idx() ) );
@@ -202,38 +201,34 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     for ( int i = 0; i < nVerts; ++i )
     {
         Vector3 cor( 0, 0, 0 );
-        Scalar sumweight = 0;
+        Scalar sumweight                     = 0;
         const Eigen::SparseVector<Scalar> Wi = subdivW.row( mapV2I[V[i]] );
 
         // Sum the cor and weights over all triangles of the subdivided mesh.
         for ( auto f_it = topoMesh.faces_begin(); f_it != topoMesh.faces_end(); ++f_it )
         {
-            const auto& triData = triangleData[*f_it];
+            const auto& triData     = triangleData[*f_it];
             const Vector3& centroid = std::get<0>( triData );
-            Scalar area = std::get<1>( triData );
-            const auto& triWeight = std::get<2>( triData );
-            const Scalar s = weightSimilarity( Wi, triWeight, sigma );
+            Scalar area             = std::get<1>( triData );
+            const auto& triWeight   = std::get<2>( triData );
+            const Scalar s          = weightSimilarity( Wi, triWeight, sigma );
             cor += s * area * centroid;
             sumweight += s * area;
         }
 
         // Avoid division by 0
-        if ( sumweight > 0 )
-        {
-            dataInOut.m_CoR[i] = cor / sumweight;
-        }
+        if ( sumweight > 0 ) { dataInOut.m_CoR[i] = cor / sumweight; }
 
 #if defined CORE_DEBUG
-        if ( i % 100 == 0 )
-        {
-            LOG( logDEBUG ) << "CoR: " << i << " / " << nVerts;
-        }
+        if ( i % 100 == 0 ) { LOG( logDEBUG ) << "CoR: " << i << " / " << nVerts; }
 #endif // CORE_DEBUG
     }
 }
 
-void corSkinning( const Vector3Array& input, const Animation::Pose& pose,
-                  const Animation::WeightMatrix& weight, const Vector3Array& CoR,
+void corSkinning( const Vector3Array& input,
+                  const Animation::Pose& pose,
+                  const Animation::WeightMatrix& weight,
+                  const Vector3Array& CoR,
                   Vector3Array& output ) {
     const uint size = input.size();
     output.resize( size );

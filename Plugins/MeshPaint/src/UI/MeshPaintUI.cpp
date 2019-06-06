@@ -28,7 +28,6 @@ void MeshPaintUI::on_paintColor_rb_toggled( bool checked ) {
     emit paintColor( checked );
 }
 
-void MeshPaintUI::on__bakeToDiffuse_clicked( )
-{
+void MeshPaintUI::on__bakeToDiffuse_clicked() {
     emit bakeToDiffuse();
 }

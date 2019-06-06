@@ -38,7 +38,8 @@ namespace Gui {
 
 /// This class manages most of the GUI of the application :
 /// top menu, side toolbar and side dock.
-class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWindow {
+class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWindow
+{
     Q_OBJECT
 
   public:
@@ -84,7 +85,7 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void loadConfiguration();
 
     /// Slot for the tree view checkboxes
-    void setROVisible(Core::Utils::Index roIndex, bool visible);
+    void setROVisible( Core::Utils::Index roIndex, bool visible );
 
     /// Reset the camera to see all visible objects
     void fitCamera();

@@ -39,7 +39,8 @@ AreaMatrix RA_CORE_API oneRingArea( const VectorArray<Vector3>& p,
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-void RA_CORE_API oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
+void RA_CORE_API oneRingArea( const VectorArray<Vector3>& p,
+                              const VectorArray<Vector3ui>& T,
                               AreaMatrix& A );
 
 /*
@@ -63,7 +64,8 @@ AreaMatrix RA_CORE_API barycentricArea( const VectorArray<Vector3>& p,
  * [ Mark Meyer, Mathieu Desbrun, Peter Schoder, Alan H. Barr ]
  * Visualization and Mathematics III 2003
  */
-void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T,
+void RA_CORE_API barycentricArea( const VectorArray<Vector3>& p,
+                                  const VectorArray<Vector3ui>& T,
                                   AreaMatrix& A );
 
 /*

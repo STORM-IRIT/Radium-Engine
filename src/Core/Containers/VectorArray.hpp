@@ -13,12 +13,13 @@ namespace Core {
 /// which allow to use the stdlib's dynamic array implementation, yet pass it as
 /// a matrix when Eigen needs it with the getMap() method.
 template <typename V>
-class VectorArray : public AlignedStdVector<V> {
+class VectorArray : public AlignedStdVector<V>
+{
   public:
     // Type shortcuts
-    using Vector = V;
-    using Matrix = Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic>;
-    using MatrixMap = Eigen::Map<Matrix>;
+    using Vector         = V;
+    using Matrix         = Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic>;
+    using MatrixMap      = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
 
   public:
@@ -41,11 +42,12 @@ class VectorArray : public AlignedStdVector<V> {
 /// This specialization stores an array of scalars which can be used as a dynamic
 /// Eigen column vector.
 template <>
-class VectorArray<Scalar> : public AlignedStdVector<Scalar> {
+class VectorArray<Scalar> : public AlignedStdVector<Scalar>
+{
   public:
     // Type shortcuts
-    using Matrix = Eigen::Matrix<Scalar, 1, Eigen::Dynamic>;
-    using MatrixMap = Eigen::Map<Matrix>;
+    using Matrix         = Eigen::Matrix<Scalar, 1, Eigen::Dynamic>;
+    using MatrixMap      = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
 
   public:
@@ -66,11 +68,11 @@ class VectorArray<Scalar> : public AlignedStdVector<Scalar> {
 };
 
 // Convenience aliases
-using Vector1Array = VectorArray<Scalar>;
-using Vector2Array = VectorArray<Vector2>;
-using Vector3Array = VectorArray<Vector3>;
+using Vector1Array   = VectorArray<Scalar>;
+using Vector2Array   = VectorArray<Vector2>;
+using Vector3Array   = VectorArray<Vector3>;
 using Vector3uiArray = VectorArray<Vector3ui>;
-using Vector4Array = VectorArray<Vector4>;
+using Vector4Array   = VectorArray<Vector4>;
 
 // Notes :
 // Using a map for eigen integration was recommended by [1].

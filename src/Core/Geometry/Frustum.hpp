@@ -10,12 +10,12 @@ namespace Geometry {
 struct Frustum {
   public:
     enum FACES : int {
-        FRONT = 0, // Near plane
-        BACK = 1,  // Far plane
-        TOP = 2,
+        FRONT  = 0, // Near plane
+        BACK   = 1, // Far plane
+        TOP    = 2,
         BOTTOM = 3,
-        LEFT = 4,
-        RIGHT = 5
+        LEFT   = 4,
+        RIGHT  = 5
     };
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW

@@ -40,7 +40,8 @@ struct RA_CORE_API HandleComponentData {
 /**
  * The HandleData class stores all the HandleComponentData linked to an object.
  */
-class RA_CORE_API HandleData : public AssetData {
+class RA_CORE_API HandleData : public AssetData
+{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 

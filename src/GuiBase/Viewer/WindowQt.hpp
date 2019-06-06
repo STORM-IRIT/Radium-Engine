@@ -24,7 +24,8 @@ namespace Gui {
  * \note This class has been extracted from globjects example
  * https://github.com/cginternals/globjects/blob/master/source/examples/qtexample/WindowQt.h
  */
-class RA_GUIBASE_API WindowQt : public QWindow {
+class RA_GUIBASE_API WindowQt : public QWindow
+{
   public:
     explicit WindowQt( QScreen* screen );
     virtual ~WindowQt();

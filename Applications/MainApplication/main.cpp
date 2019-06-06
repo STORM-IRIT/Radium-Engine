@@ -6,7 +6,8 @@
 
 #include <Gui/MainWindow.hpp>
 
-class MainWindowFactory : public Ra::GuiBase::BaseApplication::WindowFactory {
+class MainWindowFactory : public Ra::GuiBase::BaseApplication::WindowFactory
+{
   public:
     using Ra::GuiBase::BaseApplication::WindowFactory::WindowFactory;
     Ra::GuiBase::MainWindowInterface* createMainWindow() const { return new Ra::Gui::MainWindow(); }

@@ -59,7 +59,8 @@ ShaderProgram::~ShaderProgram() {
     m_program.reset( nullptr );
 }
 
-void ShaderProgram::loadShader( ShaderType type, const std::string& name,
+void ShaderProgram::loadShader( ShaderType type,
+                                const std::string& name,
                                 const std::set<std::string>& props,
                                 const std::vector<std::pair<std::string, ShaderType>>& includes,
                                 const std::string& version ) {
@@ -87,23 +88,24 @@ void ShaderProgram::loadShader( ShaderType type, const std::string& name,
                                               "    float gl_PointSize;\n"
                                               "    float gl_ClipDistance[];\n"
                                               "};\n\n" );
-    } else
+    }
+    else
     { shaderHeader = std::string( version + "\n\n" ); }
 
     // Add properties at the beginning of the file.
-    shaderHeader = std::accumulate( props.begin(), props.end(), shaderHeader,
-                                    []( std::string a, const std::string& b ) {
-                                        return std::move( a ) + b + std::string( "\n" );
-                                    } );
+    shaderHeader = std::accumulate(
+        props.begin(), props.end(), shaderHeader, []( std::string a, const std::string& b ) {
+            return std::move( a ) + b + std::string( "\n" );
+        } );
 
     // Add includes, depending on the shader type.
     shaderHeader = std::accumulate(
-        includes.begin(), includes.end(), shaderHeader,
+        includes.begin(),
+        includes.end(),
+        shaderHeader,
         [type]( std::string a, const std::pair<std::string, ShaderType>& b ) -> std::string {
-            if ( b.second == type )
-            {
-                return std::move( a ) + b.first + std::string( "\n" );
-            } else
+            if ( b.second == type ) { return std::move( a ) + b.first + std::string( "\n" ); }
+            else
             { return a; }
         } );
 
@@ -188,9 +190,10 @@ ShaderType ShaderProgram::getGLenumAsType( GLenum type ) const {
 void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     m_configuration = shaderConfig;
 
-    CORE_ERROR_IF( m_configuration.isComplete(), ( "Shader program " + shaderConfig.m_name +
-                                                   " misses vertex or fragment shader." )
-                                                     .c_str() );
+    CORE_ERROR_IF(
+        m_configuration.isComplete(),
+        ( "Shader program " + shaderConfig.m_name + " misses vertex or fragment shader." )
+            .c_str() );
 
     m_program = globjects::Program::create();
 
@@ -199,8 +202,10 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
         if ( !m_configuration.m_shaders[i].empty() )
         {
             LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
-            loadShader( ShaderType( i ), m_configuration.m_shaders[i],
-                        m_configuration.getProperties(), m_configuration.getIncludes(),
+            loadShader( ShaderType( i ),
+                        m_configuration.m_shaders[i],
+                        m_configuration.getProperties(),
+                        m_configuration.getIncludes(),
                         m_configuration.m_version );
         }
     }
@@ -208,7 +213,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     link();
 
     int texUnit = 0;
-    auto total = GLuint( m_program->get( GL_ACTIVE_UNIFORMS ) );
+    auto total  = GLuint( m_program->get( GL_ACTIVE_UNIFORMS ) );
     textureUnits.clear();
 
     for ( GLuint i = 0; i < total; ++i )
@@ -221,7 +226,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
              type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D ||
              type == GL_SAMPLER_CUBE_SHADOW )
         {
-            auto location = m_program->getUniformLocation( name );
+            auto location      = m_program->getUniformLocation( name );
             textureUnits[name] = TextureBinding( texUnit++, location );
         }
     }
@@ -230,10 +235,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 void ShaderProgram::link() {
     for ( int i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( m_shaderObjects[i] )
-        {
-            m_program->attach( m_shaderObjects[i].get() );
-        }
+        if ( m_shaderObjects[i] ) { m_program->attach( m_shaderObjects[i].get() ); }
     }
 
     m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
@@ -248,10 +250,7 @@ void ShaderProgram::bind() const {
 
 void ShaderProgram::validate() const {
     m_program->validate();
-    if ( !m_program->isValid() )
-    {
-        LOG( logDEBUG ) << m_program->infoLog();
-    }
+    if ( !m_program->isValid() ) { LOG( logDEBUG ) << m_program->infoLog(); }
 }
 
 void ShaderProgram::unbind() const {
@@ -266,7 +265,9 @@ void ShaderProgram::reload() {
             LOG( logDEBUG ) << "Reloading shader " << s->name();
 
             m_program->detach( s.get() );
-            loadShader( getGLenumAsType( s->type() ), s->name(), m_configuration.getProperties(),
+            loadShader( getGLenumAsType( s->type() ),
+                        s->name(),
+                        m_configuration.getProperties(),
                         m_configuration.getIncludes() );
         }
     }
@@ -278,7 +279,7 @@ ShaderConfiguration ShaderProgram::getBasicConfiguration() const {
     ShaderConfiguration basicConfig;
 
     basicConfig.m_shaders = m_configuration.m_shaders;
-    basicConfig.m_name = m_configuration.m_name;
+    basicConfig.m_name    = m_configuration.m_name;
 
     return basicConfig;
 }
@@ -399,8 +400,10 @@ globjects::Program* ShaderProgram::getProgramObject() const {
 /****************************************************
  * Include workaround due to globject bugs
  ****************************************************/
-std::string ShaderProgram::preprocessIncludes( const std::string& name, const std::string& shader,
-                                               int level, int line ) {
+std::string ShaderProgram::preprocessIncludes( const std::string& name,
+                                               const std::string& shader,
+                                               int level,
+                                               int line ) {
     CORE_ERROR_IF( level < 32, "Shader inclusion depth limit reached." );
 
     std::string result{};
@@ -426,8 +429,8 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name, const st
 
                 codeline =
                     preprocessIncludes( match[1].str(), includeNameString->string(), level + 1, 0 );
-
-            } else
+            }
+            else
             {
                 LOG( logWARNING ) << "Cannot open included file " << match[1].str() << " at line"
                                   << nline << " of file " << name << ". Ignored.";

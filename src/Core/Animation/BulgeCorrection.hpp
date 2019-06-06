@@ -10,7 +10,7 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-using Dv = Vector1Array;
+using Dv             = Vector1Array;
 using BoneProjection = Vector3Array;
 using MaxWeightID =
     std::vector<uint>; // Array containing the ID of the bone influencing the most a vertex
@@ -25,11 +25,16 @@ struct BulgeCorrectionData {
     Dv m_dv;
 };
 
-void bulgeCorrection( const Vector3Array& restMesh, const BulgeCorrectionData& restData,
-                      Vector3Array& currMesh, const BulgeCorrectionData& currData );
+void bulgeCorrection( const Vector3Array& restMesh,
+                      const BulgeCorrectionData& restData,
+                      Vector3Array& currMesh,
+                      const BulgeCorrectionData& currData );
 
-void findCorrectionData( const Vector3Array& mesh, const MaxWeightID& wID,
-                         const AdjacencyList& graph, const Pose& pose, BulgeCorrectionData& data );
+void findCorrectionData( const Vector3Array& mesh,
+                         const MaxWeightID& wID,
+                         const AdjacencyList& graph,
+                         const Pose& pose,
+                         BulgeCorrectionData& data );
 
 } // namespace Animation
 } // namespace Core

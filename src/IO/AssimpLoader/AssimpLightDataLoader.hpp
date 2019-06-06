@@ -22,7 +22,8 @@ class Light;
 namespace Ra {
 namespace IO {
 
-class RA_IO_API AssimpLightDataLoader : public Core::Asset::DataLoader<Core::Asset::LightData> {
+class RA_IO_API AssimpLightDataLoader : public Core::Asset::DataLoader<Core::Asset::LightData>
+{
   public:
     /// CONSTRUCTOR
     explicit AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
@@ -46,7 +47,8 @@ class RA_IO_API AssimpLightDataLoader : public Core::Asset::DataLoader<Core::Ass
     std::unique_ptr<Core::Asset::LightData> loadLightData( const aiScene* scene,
                                                            const aiLight& light );
 
-    Core::Matrix4 loadLightFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
+    Core::Matrix4 loadLightFrame( const aiScene* scene,
+                                  const Core::Matrix4& parentFrame,
                                   const std::string& lightName ) const;
 
     /// NAME

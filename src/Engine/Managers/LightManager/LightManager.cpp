@@ -43,7 +43,7 @@ void LightManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
 
 void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
     std::vector<LightData*> lightData = filedata->getLightData();
-    uint id = 0;
+    uint id                           = 0;
 
     // If thereis some lights already in the manager, just remove from the manager the lights that
     // belong to the system entity (e.g. the headlight) from the list of managed lights. Beware to
@@ -52,10 +52,8 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
     for ( int i = 0; i < m_data->size(); )
     {
         auto l = ( *m_data )[i];
-        if ( l->getEntity() == Ra::Engine::SystemEntity::getInstance() )
-        {
-            m_data->remove( l );
-        } else
+        if ( l->getEntity() == Ra::Engine::SystemEntity::getInstance() ) { m_data->remove( l ); }
+        else
         { ++i; }
     }
 
@@ -119,8 +117,7 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
         }
 
         // comp should be allocated in LightStorage (well, not sure ...)
-        if ( !comp )
-            continue;
+        if ( !comp ) continue;
 
         registerComponent( entity, comp );
     }
@@ -140,10 +137,7 @@ void LightManager::unregisterComponent( const Entity* entity, Component* compone
 void LightManager::unregisterAllComponents( const Entity* entity ) {
     for ( const auto& comp : this->m_components )
     {
-        if ( comp.first == entity )
-        {
-            m_data->remove( reinterpret_cast<Light*>( comp.second ) );
-        }
+        if ( comp.first == entity ) { m_data->remove( reinterpret_cast<Light*>( comp.second ) ); }
     }
     System::unregisterAllComponents( entity );
 }

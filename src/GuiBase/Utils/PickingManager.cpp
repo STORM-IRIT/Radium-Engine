@@ -6,7 +6,7 @@ namespace Ra {
 namespace Gui {
 
 PickingManager::PickingManager() {
-    m_pickingResult.m_mode = Engine::Renderer::RO;
+    m_pickingResult.m_mode  = Engine::Renderer::RO;
     m_pickingResult.m_roIdx = -1;
 }
 
@@ -21,7 +21,7 @@ const Engine::Renderer::PickingResult& PickingManager::getCurrent() const {
 }
 
 void PickingManager::clear() {
-    m_pickingResult.m_mode = Engine::Renderer::RO;
+    m_pickingResult.m_mode  = Engine::Renderer::RO;
     m_pickingResult.m_roIdx = Core::Utils::Index::Invalid();
     m_pickingResult.m_vertexIdx.clear();
     m_pickingResult.m_edgeIdx.clear();

@@ -20,7 +20,7 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     // Initialize Engine.
     m_engine.reset( Ra::Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
-    
+
     Ra::Gui::KeyMappingManager::createInstance();
 
     // Initialize taskqueue.
@@ -30,7 +30,6 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
 
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
     connect( m_viewer.get(), &Ra::Gui::Viewer::glInitialized, this, &MinimalApp::onGLInitialized );
-
 
     Ra::Engine::ShaderConfiguration pConfig( "Plain" );
     pConfig.addShader( Ra::Engine::ShaderType_VERTEX, "Shaders/Plain.vert.glsl" );

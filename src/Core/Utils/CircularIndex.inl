@@ -20,7 +20,7 @@ inline size_t CircularIndex::value() const {
 
 inline void CircularIndex::setValue( const size_t i ) {
     const size_t n = N;
-    idx = ( n + ( i % n ) ) % n;
+    idx            = ( n + ( i % n ) ) % n;
 }
 
 /// OPERATOR
@@ -29,7 +29,7 @@ inline CircularIndex::operator size_t() {
 }
 
 inline CircularIndex& CircularIndex::operator=( const CircularIndex& id ) {
-    N = id.N;
+    N   = id.N;
     idx = id.idx;
     return *this;
 }

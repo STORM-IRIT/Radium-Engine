@@ -25,7 +25,8 @@ enum TLogLevel {
 };
 
 template <typename T>
-class Log {
+class Log
+{
   public:
     Log();
     virtual ~Log();
@@ -69,51 +70,28 @@ TLogLevel& Log<T>::ReportingLevel() {
 
 template <typename T>
 std::string Log<T>::ToString( TLogLevel level ) {
-    static const char* const buffer[] = {"ERROR",  "WARNING", "INFO",   "DEBUG",
-                                         "DEBUG1", "DEBUG2",  "DEBUG3", "DEBUG4"};
+    static const char* const buffer[] = {
+        "ERROR", "WARNING", "INFO", "DEBUG", "DEBUG1", "DEBUG2", "DEBUG3", "DEBUG4"};
     return buffer[level];
 }
 
 template <typename T>
 TLogLevel Log<T>::FromString( const std::string& level ) {
-    if ( level == "DEBUG4" )
-    {
-        return logDEBUG4;
-    }
-    if ( level == "DEBUG3" )
-    {
-        return logDEBUG3;
-    }
-    if ( level == "DEBUG2" )
-    {
-        return logDEBUG2;
-    }
-    if ( level == "DEBUG1" )
-    {
-        return logDEBUG1;
-    }
-    if ( level == "DEBUG" )
-    {
-        return logDEBUG;
-    }
-    if ( level == "INFO" )
-    {
-        return logINFO;
-    }
-    if ( level == "WARNING" )
-    {
-        return logWARNING;
-    }
-    if ( level == "ERROR" )
-    {
-        return logERROR;
-    }
+    if ( level == "DEBUG4" ) { return logDEBUG4; }
+    if ( level == "DEBUG3" ) { return logDEBUG3; }
+    if ( level == "DEBUG2" ) { return logDEBUG2; }
+    if ( level == "DEBUG1" ) { return logDEBUG1; }
+    if ( level == "DEBUG" ) { return logDEBUG; }
+    if ( level == "INFO" ) { return logINFO; }
+    if ( level == "WARNING" ) { return logWARNING; }
+    if ( level == "ERROR" ) { return logERROR; }
     Log<T>().Get( logWARNING ) << "Unknown logging level '" << level
                                << "'. Using INFO level as default.";
     return logINFO;
 }
 
-class Output2FILE {
+class Output2FILE
+{
   public:
     static FILE*& Stream();
     static void Output( const std::string& msg );
@@ -126,15 +104,13 @@ inline FILE*& Output2FILE::Stream() {
 
 inline void Output2FILE::Output( const std::string& msg ) {
     FILE* pStream = Stream();
-    if ( !pStream )
-    {
-        return;
-    }
+    if ( !pStream ) { return; }
     fprintf( pStream, "%s", msg.c_str() );
     fflush( pStream );
 }
 
-class FILELog : public Log<Output2FILE> {};
+class FILELog : public Log<Output2FILE>
+{};
 // using FILELog = Log<Output2FILE>;
 
 inline std::string NowTime() {

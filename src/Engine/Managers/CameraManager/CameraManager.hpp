@@ -20,7 +20,8 @@ namespace Engine {
  * Interface providing functions to manage a group or type of Cameras
  * in a specific way.
  */
-class RA_ENGINE_API CameraManager : public System {
+class RA_ENGINE_API CameraManager : public System
+{
     // Radium-V2 : make Camera manager compatible with range for ...
   public:
     /// Constructor

@@ -10,12 +10,10 @@ namespace Geometry {
 /// GLOBAL MATRIX ///
 /////////////////////
 
-LaplacianMatrix standardLaplacian( const DegreeMatrix& D, const AdjacencyMatrix& A,
+LaplacianMatrix standardLaplacian( const DegreeMatrix& D,
+                                   const AdjacencyMatrix& A,
                                    const bool POSITIVE_SEMI_DEFINITE ) {
-    if ( POSITIVE_SEMI_DEFINITE )
-    {
-        return ( D - A );
-    }
+    if ( POSITIVE_SEMI_DEFINITE ) { return ( D - A ); }
     return ( A - D );
 }
 
@@ -45,12 +43,12 @@ LaplacianMatrix cotangentWeightLaplacian( const VectorArray<Vector3>& p,
     LaplacianMatrix L( p.size(), p.size() );
     for ( const auto& t : T )
     {
-        uint i = t( 0 );
-        uint j = t( 1 );
-        uint k = t( 2 );
-        Vector3 IJ = p[j] - p[i];
-        Vector3 JK = p[k] - p[j];
-        Vector3 KI = p[i] - p[k];
+        uint i      = t( 0 );
+        uint j      = t( 1 );
+        uint k      = t( 2 );
+        Vector3 IJ  = p[j] - p[i];
+        Vector3 JK  = p[k] - p[j];
+        Vector3 KI  = p[i] - p[k];
         Scalar cotI = Math::cotan( IJ, ( -KI ).eval() );
         Scalar cotJ = Math::cotan( JK, ( -IJ ).eval() );
         Scalar cotK = Math::cotan( KI, ( -JK ).eval() );

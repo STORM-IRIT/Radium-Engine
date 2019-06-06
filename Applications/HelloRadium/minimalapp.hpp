@@ -11,7 +11,8 @@
 classic "Spinning Cube" demo. */
 
 /// Our minimal application uses QTimer to be called at a regular frame rate.
-class MinimalApp : public QApplication {
+class MinimalApp : public QApplication
+{
     Q_OBJECT
 
   public:

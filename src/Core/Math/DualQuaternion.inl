@@ -73,16 +73,16 @@ inline Transform DualQuaternion::getTransform() const {
                  "Dual quaternion not normalized" );
 
     Transform result;
-    result.linear() = m_q0.toRotationMatrix();
+    result.linear()      = m_q0.toRotationMatrix();
     result.translation() = ( 2.f * m_q0 * m_qe.conjugate() ).vec();
     return result;
 }
 
 inline void DualQuaternion::setFromTransform( const Transform& t ) {
-    m_q0 = Quaternion( t.rotation() );
+    m_q0                = Quaternion( t.rotation() );
     Core::Vector4 trans = Core::Vector4::Zero();
-    trans.head<3>() = t.translation();
-    m_qe = 0.5f * Quaternion( trans ) * m_q0;
+    trans.head<3>()     = t.translation();
+    m_qe                = 0.5f * Quaternion( trans ) * m_q0;
 }
 
 inline DualQuaternion operator*( Scalar scalar, const DualQuaternion& dq ) {

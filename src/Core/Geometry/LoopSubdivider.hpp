@@ -16,17 +16,18 @@ namespace Geometry {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API LoopSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar> {
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>
+{
 
-    using base = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
-    using Weight = std::pair<Scalar, Scalar>;
+    using base    = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
+    using Weight  = std::pair<Scalar, Scalar>;
     using Weights = std::vector<Weight>;
-    using V_OP = std::pair<Scalar, TopologicalMesh::VertexHandle>;
-    using V_OPS = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
-    using SV_OPS = std::vector<V_OPS>;
-    using P_OP = std::pair<Scalar, TopologicalMesh::HalfedgeHandle>;
-    using P_OPS = std::pair<TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
-    using SP_OPS = std::vector<P_OPS>;
+    using V_OP    = std::pair<Scalar, TopologicalMesh::VertexHandle>;
+    using V_OPS   = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
+    using SV_OPS  = std::vector<V_OPS>;
+    using P_OP    = std::pair<Scalar, TopologicalMesh::HalfedgeHandle>;
+    using P_OPS   = std::pair<TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
+    using SP_OPS  = std::vector<P_OPS>;
 
   public:
     LoopSubdivider() : base() {}
@@ -58,8 +59,10 @@ class RA_CORE_API LoopSubdivider
     ///                         subdividedMesh.normals(), topoMesh );
     /// \endcode
     // clang-format on
-    void recompute( const Vector3Array& newCoarseVertices, const Vector3Array& newCoarseNormals,
-                    Vector3Array& newSubdivVertices, Vector3Array& newSubdivNormals,
+    void recompute( const Vector3Array& newCoarseVertices,
+                    const Vector3Array& newCoarseNormals,
+                    Vector3Array& newSubdivVertices,
+                    Vector3Array& newSubdivNormals,
                     TopologicalMesh& mesh );
 
   protected:
@@ -86,7 +89,7 @@ class RA_CORE_API LoopSubdivider
             if ( ++m_valence )
             {
                 double inv_v = 1.0 / double( m_valence );
-                double t = ( 3.0 + 2.0 * std::cos( 2.0 * Math::Pi * inv_v ) );
+                double t     = ( 3.0 + 2.0 * std::cos( 2.0 * Math::Pi * inv_v ) );
                 double alpha = ( 40.0 - t * t ) / 64.0;
                 return Weight( 1.0 - alpha, inv_v * alpha );
             }
@@ -102,8 +105,8 @@ class RA_CORE_API LoopSubdivider
     void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh, size_t iter );
 
     /// Face corner recomposition
-    void corner_cutting( TopologicalMesh& mesh, const TopologicalMesh::HalfedgeHandle& he,
-                         size_t iter );
+    void
+    corner_cutting( TopologicalMesh& mesh, const TopologicalMesh::HalfedgeHandle& he, size_t iter );
 
     /// Edge recomposition
     void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, size_t iter );
@@ -111,8 +114,8 @@ class RA_CORE_API LoopSubdivider
     // geometry helpers
 
     /// compute edge midpoint
-    void compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh,
-                           size_t iter );
+    void
+    compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, size_t iter );
 
     /// smooth input vertices
     void smooth( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh, size_t iter );

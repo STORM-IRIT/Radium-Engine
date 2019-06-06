@@ -14,9 +14,12 @@
 //#define K_VERSION
 
 namespace AnimationPlugin {
-class SkeletonBoneRenderObject {
+class SkeletonBoneRenderObject
+{
   public:
-    SkeletonBoneRenderObject( const std::string& name, AnimationComponent* comp, uint id,
+    SkeletonBoneRenderObject( const std::string& name,
+                              AnimationComponent* comp,
+                              uint id,
                               Ra::Engine::RenderObjectManager* roMgr );
 
     void update(); // Update local transform of the associated render object

@@ -38,8 +38,9 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     tinyply::PlyFile file( ss );
 
     auto elements = file.get_elements();
-    if ( std::any_of( elements.begin(), elements.end(),
-                      []( const auto& e ) -> bool { return e.name == "face" && e.size != 0; } ) )
+    if ( std::any_of( elements.begin(), elements.end(), []( const auto& e ) -> bool {
+             return e.name == "face" && e.size != 0;
+         } ) )
     {
         // Mesh found. Let the other loaders handle it
         LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
@@ -56,10 +57,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
 
-    if ( fileData->isVerbose() )
-    {
-        LOG( logINFO ) << "[TinyPLY] File Loading begin...";
-    }
+    if ( fileData->isVerbose() ) { LOG( logINFO ) << "[TinyPLY] File Loading begin..."; }
 
     // Define containers to hold the extracted data. The type must match
     // the property type given in the header. Tinyply will interally allocate the
@@ -115,24 +113,26 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         auto& container = geometry->getColors();
         container.resize( colorCount );
 
-        auto* cols =
-            reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>>*>(
-                &colors )->data();
+        auto* cols = reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>>*>(
+                         &colors )
+                         ->data();
 
         if ( alphaCount == colorCount )
         {
-            uint8_t * al = alphas.data();
-            for( auto& c : container )
+            uint8_t* al = alphas.data();
+            for ( auto& c : container )
             {
-                c = Core::Utils::Color::fromRGB( (*cols).cast<Scalar>() / 255_ra,
-                                                 Scalar( *al ) / 255_ra);
-                cols++;al++;
+                c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra,
+                                                 Scalar( *al ) / 255_ra );
+                cols++;
+                al++;
             }
-        } else
+        }
+        else
         {
-            for( auto& c : container )
+            for ( auto& c : container )
             {
-                c = Core::Utils::Color::fromRGB( (*cols).cast<Scalar>() / 255_ra );
+                c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra );
                 cols++;
             }
         }

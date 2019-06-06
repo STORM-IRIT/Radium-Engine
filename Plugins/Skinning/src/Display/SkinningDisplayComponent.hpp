@@ -28,10 +28,12 @@ using Ra::Engine::ComponentMessenger;
 
 namespace SkinningPlugin {
 
-class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
+class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component
+{
   public:
     /// CONSTRUCTOR
-    SkinningDisplayComponent( const std::string& name, const std::string& content,
+    SkinningDisplayComponent( const std::string& name,
+                              const std::string& content,
                               Ra::Engine::Entity* entity ) :
         Ra::Engine::Component( name, entity ),
         m_contentsName( content ) {}
@@ -43,13 +45,13 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
     void initialize() { display(); }
 
     void display() {
-        auto compMsg = ComponentMessenger::getInstance();
-        bool hasMesh = compMsg->canGet<TriangleMesh>( getEntity(), m_contentsName );
+        auto compMsg    = ComponentMessenger::getInstance();
+        bool hasMesh    = compMsg->canGet<TriangleMesh>( getEntity(), m_contentsName );
         bool hasWeights = compMsg->canGet<WeightMatrix>( getEntity(), m_contentsName );
 
         if ( hasMesh && hasWeights )
         {
-            const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
+            const TriangleMesh& mesh    = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
             const WeightMatrix& weights = compMsg->get<WeightMatrix>( getEntity(), m_contentsName );
 
             const uint size = mesh.vertices().size();
@@ -84,10 +86,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
                     const uint i = it.row();
                     const uint j = it.col();
                     if ( partition[i] != partition[j] )
-                    {
-                        Seg.coeffRef( partition[i], partition[j] ) = 1.0;
-                    }
-                }
+                    { Seg.coeffRef( partition[i], partition[j] ) = 1.0; } }
             }
 
             std::vector<uint> assignedColor( weights.cols(), uint( -1 ) );
@@ -103,13 +102,10 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
                 {
                     const uint j = it.row();
                     if ( assignedColor[j] != uint( -1 ) && option.size() > 1 )
-                    {
-                        option.erase( assignedColor[j] );
-                    }
-                }
+                    { option.erase( assignedColor[j] ); } }
 
                 uint random = std::rand() % std::max<uint>( option.size(), 1 );
-                auto it = option.begin();
+                auto it     = option.begin();
                 for ( uint i = 0; i < random && it != option.end(); ++i )
                 {
                     ++it;

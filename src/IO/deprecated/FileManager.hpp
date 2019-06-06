@@ -28,10 +28,12 @@ class [[deprecated]] FileManager {
     virtual ~FileManager(); // Destructor.
 
     /// INTERFACE
-    inline bool load( const std::string& filename, DATA& data,
+    inline bool load( const std::string& filename,
+                      DATA& data,
                       const bool SAVE_LOG_FILE =
                           false ); // Return true if the data is correctly loaded, false otherwise.
-    inline bool save( const std::string& filename, const DATA& data,
+    inline bool save( const std::string& filename,
+                      const DATA& data,
                       const bool SAVE_LOG_FILE =
                           false ); // Return true if the data is correctly stored, false otherwise.
 

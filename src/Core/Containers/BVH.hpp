@@ -27,7 +27,8 @@ namespace Containers {
 template <typename T>
 class [[deprecated( "Neither used nor tested" )]] BVH {
     using Aabb = Eigen::AlignedBox<Scalar, 3>;
-    class Node {
+    class Node
+    {
       public:
         explicit inline Node( const std::shared_ptr<T>& t );
 

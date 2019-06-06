@@ -58,15 +58,15 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
             Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;
 }
 
 template <uint U, uint V>
-TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius,
+TriangleMesh makeParametricTorus( Scalar majorRadius,
+                                  Scalar minorRadius,
                                   const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
     result.vertices().reserve( U * V );
@@ -89,16 +89,15 @@ TriangleMesh makeParametricTorus( Scalar majorRadius, Scalar minorRadius,
             result.vertices().push_back( vertex );
             result.normals().push_back( ( vertex - circleCenter ).normalized() );
 
-            result.m_triangles.push_back( Vector3ui( iu * V + iv, ( ( iu + 1 ) % U ) * V + iv,
-                                                     iu * V + ( ( iv + 1 ) % V ) ) );
+            result.m_triangles.push_back( Vector3ui(
+                iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );
             result.m_triangles.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
                                                      ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
                                                      iu * V + ( ( iv + 1 ) % V ) ) );
         }
     }
 
-    if ( bool( color ) )
-        result.colorize( *color );
+    if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
     return result;

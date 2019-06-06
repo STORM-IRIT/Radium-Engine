@@ -10,7 +10,8 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 template <class DATA>
-class DataLoader {
+class DataLoader
+{
   public:
     /// CONSTRUCTOR
     explicit DataLoader( const bool VERBOSE_MODE = false ) : m_verbose( VERBOSE_MODE ) {}

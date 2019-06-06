@@ -15,7 +15,7 @@ std::string DummyTask::getName() const {
 
 void DummyTask::init( const Ra::Core::TaskParams* p ) {
     auto params = static_cast<const DummyParams*>( p );
-    m_data = params->data;
+    m_data      = params->data;
 }
 
 void DummyTask::process() {
@@ -42,7 +42,7 @@ std::string DummyOtherTask::getName() const {
 
 void DummyOtherTask::init( const Ra::Core::TaskParams* p ) {
     auto params = static_cast<const DummyParams*>( p );
-    m_data = params->data;
+    m_data      = params->data;
 }
 
 void DummyOtherTask::process() {

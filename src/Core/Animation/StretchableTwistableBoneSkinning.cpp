@@ -4,10 +4,13 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh, const Pose& pose,
-                                          const Skeleton& poseSkel, const Skeleton& restSkel,
+void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh,
+                                          const Pose& pose,
+                                          const Skeleton& poseSkel,
+                                          const Skeleton& restSkel,
                                           const WeightMatrix& weightLBS,
-                                          const WeightMatrix& weightSTBS, Vector3Array& outMesh ) {
+                                          const WeightMatrix& weightSTBS,
+                                          Vector3Array& outMesh ) {
     outMesh.clear();
     outMesh.resize( inMesh.size(), Vector3::Zero() );
     // first decompose all pose transforms
@@ -27,9 +30,9 @@ void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh, const Pose
         for ( int nz = 0; nz < nonZero; ++nz )
         {
             WeightMatrix::InnerIterator it = it0 + Eigen::Index( nz );
-            const uint i = it.row();
-            const uint j = it.col();
-            const Scalar w = it.value();
+            const uint i                   = it.row();
+            const uint j                   = it.col();
+            const Scalar w                 = it.value();
             Vector3 a, b, a_, b_;
             restSkel.getBonePoints( j, a, b );
             poseSkel.getBonePoints( j, a_, b_ );
@@ -40,8 +43,12 @@ void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh, const Pose
     }
 }
 
-void computeDQSTBS( const Pose& pose, const Skeleton& poseSkel, const Skeleton& restSkel,
-                    const WeightMatrix& weight, const WeightMatrix& weightSTBS, DQList& DQ ) {
+void computeDQSTBS( const Pose& pose,
+                    const Skeleton& poseSkel,
+                    const Skeleton& restSkel,
+                    const WeightMatrix& weight,
+                    const WeightMatrix& weightSTBS,
+                    DQList& DQ ) {
     CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
     DQ.clear();
     DQ.resize( weight.rows(),
@@ -90,12 +97,12 @@ void computeDQSTBS( const Pose& pose, const Skeleton& poseSkel, const Skeleton& 
         for ( int nz = 0; nz < nonZero; ++nz )
         {
             WeightMatrix::InnerIterator itn = it0 + Eigen::Index( nz );
-            const uint i = itn.row();
-            const uint j = itn.col();
-            const Scalar w = itn.value();
+            const uint i                    = itn.row();
+            const uint j                    = itn.col();
+            const Scalar w                  = itn.value();
             Transform T( R[j] );
             T.translation() = A_[j] + R[j] * ( weightSTBS.coeff( i, j ) * Si[j] - A[j] );
-            auto D = DualQuaternion( T );
+            auto D          = DualQuaternion( T );
             D.normalize();
             firstNonZero[i] = std::min( firstNonZero[i], uint( k ) );
             const Scalar sign =

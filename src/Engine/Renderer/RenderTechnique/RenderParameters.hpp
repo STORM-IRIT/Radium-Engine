@@ -22,20 +22,23 @@ namespace Engine {
 /**
  * Management of shader parameters
  */
-class RA_ENGINE_API RenderParameters final {
+class RA_ENGINE_API RenderParameters final
+{
   public:
-    class Parameter {
+    class Parameter
+    {
       public:
         Parameter() = default;
         explicit Parameter( const char* name ) : m_name( name ) {}
-        virtual ~Parameter() = default;
+        virtual ~Parameter()                                   = default;
         virtual void bind( const ShaderProgram* shader ) const = 0;
 
         const char* m_name{nullptr};
     };
 
     template <typename T>
-    class TParameter final : public Parameter {
+    class TParameter final : public Parameter
+    {
       public:
         TParameter() = default;
         TParameter( const char* name, const T& value ) : Parameter( name ), m_value( value ) {}
@@ -45,7 +48,8 @@ class RA_ENGINE_API RenderParameters final {
         T m_value{};
     };
 
-    class TextureParameter final : public Parameter {
+    class TextureParameter final : public Parameter
+    {
       public:
         TextureParameter() = default;
         TextureParameter( const char* name, Texture* tex, int texUnit ) :
@@ -63,17 +67,20 @@ class RA_ENGINE_API RenderParameters final {
     template <typename T>
     class UniformBindableVector final
         : public std::map<
-              std::string, T, std::less<std::string>,
-              Core::AlignedAllocator<std::pair<const std::string, T>, EIGEN_MAX_ALIGN_BYTES>> {
+              std::string,
+              T,
+              std::less<std::string>,
+              Core::AlignedAllocator<std::pair<const std::string, T>, EIGEN_MAX_ALIGN_BYTES>>
+    {
       public:
         void bind( const ShaderProgram* shader ) const;
     };
 
-    using IntParameter = TParameter<int>;
-    using UIntParameter = TParameter<uint>;
+    using IntParameter    = TParameter<int>;
+    using UIntParameter   = TParameter<uint>;
     using ScalarParameter = TParameter<Scalar>;
 
-    using IntsParameter = TParameter<std::vector<int>>;
+    using IntsParameter  = TParameter<std::vector<int>>;
     using UIntsParameter = TParameter<std::vector<uint>>;
 
     //! globjects seems to not handle vector of double

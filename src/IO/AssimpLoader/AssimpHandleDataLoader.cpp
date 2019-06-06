@@ -49,10 +49,7 @@ void AssimpHandleDataLoader::loadData( const aiScene* scene,
 
     loadHandleData( scene, data );
 
-    if ( m_verbose )
-    {
-        LOG( logDEBUG ) << "Handle Loading end.\n";
-    }
+    if ( m_verbose ) { LOG( logDEBUG ) << "Handle Loading end.\n"; }
 }
 
 /// QUERY
@@ -62,14 +59,11 @@ bool AssimpHandleDataLoader::sceneHasHandle( const aiScene* scene ) const {
 
 uint AssimpHandleDataLoader::sceneHandleSize( const aiScene* scene ) const {
     uint handle_size = 0;
-    const uint size = scene->mNumMeshes;
+    const uint size  = scene->mNumMeshes;
     for ( uint i = 0; i < size; ++i )
     {
         aiMesh* mesh = scene->mMeshes[i];
-        if ( mesh->HasBones() )
-        {
-            ++handle_size;
-        }
+        if ( mesh->HasBones() ) { ++handle_size; }
     }
     return handle_size;
 }
@@ -80,19 +74,13 @@ aiNode* findMeshNode( aiNode* node, const aiScene* scene, const aiString& meshNa
     // look inside the node
     for ( uint i = 0; i < node->mNumMeshes; ++i )
     {
-        if ( scene->mMeshes[node->mMeshes[i]]->mName == meshName )
-        {
-            return node;
-        }
+        if ( scene->mMeshes[node->mMeshes[i]]->mName == meshName ) { return node; }
     }
     // repeat on children
     for ( uint i = 0; i < node->mNumChildren; ++i )
     {
         aiNode* n = findMeshNode( node->mChildren[i], scene, meshName );
-        if ( n != nullptr )
-        {
-            return n;
-        }
+        if ( n != nullptr ) { return n; }
     }
     return nullptr;
 }
@@ -105,14 +93,16 @@ void initMarks( const aiNode* node, std::map<std::string, bool>& flag ) {
     }
 }
 
-void markParents( aiNode* node, const aiScene* scene, const std::vector<aiNode*>& meshParents,
+void markParents( aiNode* node,
+                  const aiScene* scene,
+                  const std::vector<aiNode*>& meshParents,
                   std::map<std::string, bool>& flag,
                   std::map<std::string, aiNode*>& skelRootToMeshNode ) {
     const std::string nodeName = assimpToCore( node->mName );
-    flag[nodeName] = true;
+    flag[nodeName]             = true;
     // check if node is in the mesh hierarchy
-    auto it = std::find_if( meshParents.begin(), meshParents.end(),
-                            [node]( const auto& n ) { return n == node; } );
+    auto it = std::find_if(
+        meshParents.begin(), meshParents.end(), [node]( const auto& n ) { return n == node; } );
     if ( it != meshParents.end() )
     {
         flag[nodeName] = false;
@@ -136,18 +126,12 @@ aiNode* findBoneChild( aiNode* node,
     {
         if ( meshBoneOffset.find( assimpToCore( node->mChildren[i]->mName ) ) !=
              meshBoneOffset.end() )
-        {
-            return node->mChildren[i];
-        }
-    }
+        { return node->mChildren[i]; } }
     // not found, go down
     for ( uint i = 0; i < node->mNumChildren; ++i )
     {
         auto child = findBoneChild( node->mChildren[i], meshBoneOffset );
-        if ( child != nullptr )
-        {
-            return child;
-        }
+        if ( child != nullptr ) { return child; }
     }
     // not on this branch, parent will check siblings
     return nullptr;
@@ -157,7 +141,8 @@ aiNode* findBoneChild( aiNode* node,
 
 /// LOAD
 void AssimpHandleDataLoader::loadHandleData(
-    const aiScene* scene, std::vector<std::unique_ptr<HandleData>>& data ) const {
+    const aiScene* scene,
+    std::vector<std::unique_ptr<HandleData>>& data ) const {
     // list mesh names according to GeometryLoader naming
     std::set<std::string> meshNames;
     // map from bone name to aiBone for offset matrices
@@ -182,10 +167,7 @@ void AssimpHandleDataLoader::loadHandleData(
         meshNames.insert( meshName );
 
         // if bound to no skeleton, skip
-        if ( !mesh->HasBones() )
-        {
-            continue;
-        }
+        if ( !mesh->HasBones() ) { continue; }
 
         // get mesh node parents
         std::vector<aiNode*> meshParents;
@@ -202,23 +184,20 @@ void AssimpHandleDataLoader::loadHandleData(
             const aiBone* bone = mesh->mBones[j];
             // fetch bone data
             const std::string boneName = assimpToCore( bone->mName );
-            meshBoneOffset[boneName] = assimpToCore( bone->mOffsetMatrix );
+            meshBoneOffset[boneName]   = assimpToCore( bone->mOffsetMatrix );
             // if data doesn't exist yet, create it
             mapBone2Data[boneName].m_name = boneName;
             // fill skinning weights for this mesh
             loadHandleComponentDataWeights( bone, meshName, mapBone2Data[boneName] );
             // deal with hierarchy
             aiNode* node = scene->mRootNode->FindNode( bone->mName );
-            if ( node == nullptr )
-            {
-                continue;
-            }
+            if ( node == nullptr ) { continue; }
             // mark parents as needed up to mesh node relative
             markParents( node, scene, meshParents, needNode, skelRootToMeshNode );
             // check children since end bones may not have weights
             if ( node->mNumChildren == 1 )
             {
-                const aiNode* child = node->mChildren[0];
+                const aiNode* child         = node->mChildren[0];
                 const std::string childName = assimpToCore( child->mName );
                 // mark as needed
                 needNode[childName] = true;
@@ -232,10 +211,7 @@ void AssimpHandleDataLoader::loadHandleData(
     std::vector<std::pair<std::string, std::string>> edgeList;
     for ( const auto& n : needNode )
     {
-        if ( !n.second )
-        {
-            continue;
-        }
+        if ( !n.second ) { continue; }
         // if data doesn't exist, create it (bone with no weight)
         mapBone2Data[n.first].m_name = n.first;
         // link to children
@@ -259,10 +235,8 @@ void AssimpHandleDataLoader::loadHandleData(
     {
         loadHandleComponentDataFrame( scene, aiString( bone.first ), bone.second );
         auto it = meshBoneOffset.find( bone.first );
-        if ( it != meshBoneOffset.end() )
-        {
-            mapBone2Data[it->first].m_offset = it->second;
-        } else
+        if ( it != meshBoneOffset.end() ) { mapBone2Data[it->first].m_offset = it->second; }
+        else
         {
             // FIXME: Assimp does not provide the offet matrix for non-bound bones
             //        in the hierarchy. Hence there is no way to get the full
@@ -301,11 +275,8 @@ void AssimpHandleDataLoader::loadHandleData(
             while ( parent->mParent != nullptr )
             {
                 parent = parent->mParent;
-                it = meshBoneOffset.find( assimpToCore( parent->mName ) );
-                if ( it != meshBoneOffset.end() )
-                {
-                    break;
-                }
+                it     = meshBoneOffset.find( assimpToCore( parent->mName ) );
+                if ( it != meshBoneOffset.end() ) { break; }
                 parents.push( assimpToCore( parent->mTransformation ) );
             }
             bool ok = ( it == meshBoneOffset.end() || child == nullptr );
@@ -320,10 +291,11 @@ void AssimpHandleDataLoader::loadHandleData(
                 while ( child != node )
                 {
                     offset = assimpToCore( child->mTransformation ) * offset;
-                    child = child->mParent;
+                    child  = child->mParent;
                 }
                 mapBone2Data[bone.first].m_offset = offset;
-            } else // no child with offset found, go for a parent
+            }
+            else // no child with offset found, go for a parent
             {
                 offset = it->second;
                 // go down to the node
@@ -342,10 +314,11 @@ void AssimpHandleDataLoader::loadHandleData(
                 while ( child != node )
                 {
                     offset = assimpToCore( child->mTransformation ) * offset;
-                    child = child->mParent;
+                    child  = child->mParent;
                 }
                 mapBone2Data[bone.first].m_offset = offset;
-            } else
+            }
+            else
             {
                 offset = it->second;
                 // go down to the node
@@ -360,18 +333,13 @@ void AssimpHandleDataLoader::loadHandleData(
         }
     }
     if ( !offsetOk )
-    {
-        LOG( logWARNING ) << "some bones don't have influence, skinning may misbehave.";
-    }
+    { LOG( logWARNING ) << "some bones don't have influence, skinning may misbehave."; }
 
     // find roots and leaves
     std::set<std::string> roots;
     for ( const auto& node : needNode )
     {
-        if ( node.second )
-        {
-            roots.insert( node.first );
-        }
+        if ( node.second ) { roots.insert( node.first ); }
     }
     std::set<std::string> leaves = roots;
     for ( auto edge : edgeList )
@@ -389,11 +357,11 @@ void AssimpHandleDataLoader::loadHandleData(
 
         // Fetch the skeleton frame
         Core::Transform frame = Core::Transform::Identity();
-        aiNode* node = skelRootToMeshNode[root];
+        aiNode* node          = skelRootToMeshNode[root];
         while ( node != nullptr )
         {
             frame = assimpToCore( node->mTransformation ) * frame;
-            node = node->mParent;
+            node  = node->mParent;
         }
         handle->setFrame( frame );
 
@@ -417,20 +385,14 @@ void AssimpHandleDataLoader::loadHandleData(
                         break;
                     }
                 }
-                if ( needEndBone )
-                {
-                    break;
-                }
+                if ( needEndBone ) { break; }
             }
         }
         handle->needEndNodes( needEndBone );
 
         // register the HandleData
         data.emplace_back( handle );
-        if ( m_verbose )
-        {
-            handle->displayInfo();
-        }
+        if ( m_verbose ) { handle->displayInfo(); }
     }
 }
 
@@ -443,7 +405,7 @@ void AssimpHandleDataLoader::loadHandleComponentDataFrame( const aiScene* scene,
     while ( node != nullptr )
     {
         data.m_frame = assimpToCore( node->mTransformation ) * data.m_frame;
-        node = node->mParent;
+        node         = node->mParent;
     }
 }
 
@@ -460,9 +422,11 @@ void AssimpHandleDataLoader::loadHandleComponentDataWeights( const aiBone* bone,
 }
 
 void AssimpHandleDataLoader::fillHandleData(
-    const std::string& node, const std::vector<std::pair<std::string, std::string>>& edgeList,
+    const std::string& node,
+    const std::vector<std::pair<std::string, std::string>>& edgeList,
     const std::map<std::string, HandleComponentData>& mapBone2Data,
-    std::map<std::string, uint>& nameTable, HandleData* data ) const {
+    std::map<std::string, uint>& nameTable,
+    HandleData* data ) const {
     // register the HandleComponentData for the bone
     nameTable[node] = data->getComponentData().size();
     data->getComponentData().push_back( mapBone2Data.at( node ) );

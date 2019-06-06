@@ -16,7 +16,8 @@ class Component;
 namespace Ra {
 namespace GuiBase {
 
-class RA_GUIBASE_API SelectionManager : public QItemSelectionModel {
+class RA_GUIBASE_API SelectionManager : public QItemSelectionModel
+{
     Q_OBJECT
   public:
     SelectionManager( ItemModel* model, QObject* parent = nullptr );
@@ -34,7 +35,8 @@ class RA_GUIBASE_API SelectionManager : public QItemSelectionModel {
     /// Return the set of selected entries. @see selectedIndexes()
     std::vector<Engine::ItemEntry> selectedEntries() const;
 
-    /** Return the current selected item, or an invalid entry if there is no current item. @seeCurrentIndex;
+    /** Return the current selected item, or an invalid entry if there is no current item.
+     * @seeCurrentIndex;
      *
      * @return
      */

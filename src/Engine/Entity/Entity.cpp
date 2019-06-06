@@ -35,14 +35,16 @@ void Entity::addComponent( Engine::Component* component ) {
 }
 
 Component* Entity::getComponent( const std::string& name ) {
-    const auto& pos = std::find_if( m_components.begin(), m_components.end(),
+    const auto& pos = std::find_if( m_components.begin(),
+                                    m_components.end(),
                                     [name]( const auto& c ) { return c->getName() == name; } );
 
     return pos != m_components.end() ? pos->get() : nullptr;
 }
 
 const Component* Entity::getComponent( const std::string& name ) const {
-    const auto& pos = std::find_if( m_components.begin(), m_components.end(),
+    const auto& pos = std::find_if( m_components.begin(),
+                                    m_components.end(),
                                     [name]( const auto& c ) { return c->getName() == name; } );
 
     return pos != m_components.end() ? pos->get() : nullptr;
@@ -52,7 +54,8 @@ const std::vector<std::unique_ptr<Component>>& Entity::getComponents() const {
 }
 
 void Entity::removeComponent( const std::string& name ) {
-    const auto& pos = std::find_if( m_components.begin(), m_components.end(),
+    const auto& pos = std::find_if( m_components.begin(),
+                                    m_components.end(),
                                     [name]( const auto& c ) { return c->getName() == name; } );
 
     CORE_ASSERT( pos != m_components.end(), "Component not found in entity" );
@@ -62,7 +65,7 @@ void Entity::removeComponent( const std::string& name ) {
 void Entity::swapTransformBuffers() {
     if ( m_transformChanged )
     {
-        m_transform = m_doubleBufferedTransform;
+        m_transform        = m_doubleBufferedTransform;
         m_transformChanged = false;
     }
 }

@@ -27,7 +27,7 @@ void MeshPaintSystem::handleAssetLoading( Ra::Engine::Entity* entity,
     for ( const auto& data : geomData )
     {
         std::string componentName = "MP_" + entity->getName() + std::to_string( id++ );
-        MeshPaintComponent* comp = new MeshPaintComponent( componentName, entity );
+        MeshPaintComponent* comp  = new MeshPaintComponent( componentName, entity );
         comp->setDataId( data->getName() );
         registerComponent( entity, comp );
     }
@@ -56,8 +56,7 @@ void MeshPaintSystem::paintMesh( const Ra::Engine::Renderer::PickingResult& pick
     }
 }
 
-void MeshPaintSystem::bakeToDiffuse()
-{
+void MeshPaintSystem::bakeToDiffuse() {
     for ( auto& compEntry : this->m_components )
     {
         auto MPcomp = static_cast<MeshPaintComponent*>( compEntry.second );

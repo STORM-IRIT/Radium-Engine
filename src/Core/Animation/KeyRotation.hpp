@@ -8,7 +8,8 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-class KeyRotation : public KeyFrame<Core::Quaternion> {
+class KeyRotation : public KeyFrame<Core::Quaternion>
+{
   public:
     /// CONSTRUCTOR
     explicit KeyRotation( const AnimationTime& time = AnimationTime() ) :
@@ -24,7 +25,8 @@ class KeyRotation : public KeyFrame<Core::Quaternion> {
         return Core::Quaternion( 1.0, 0.0, 0.0, 0.0 );
     }
 
-    inline Core::Quaternion interpolate( const Core::Quaternion& F0, const Core::Quaternion& F1,
+    inline Core::Quaternion interpolate( const Core::Quaternion& F0,
+                                         const Core::Quaternion& F1,
                                          const Scalar t ) const override {
         Core::Quaternion result;
         Core::Animation::interpolate( F0, F1, t, result );
