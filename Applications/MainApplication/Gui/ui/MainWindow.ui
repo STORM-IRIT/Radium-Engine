@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="m_centralWidget"/>
   <widget class="QStatusBar" name="_statusBar"/>
   <widget class="QMenuBar" name="menuBar">
@@ -77,6 +80,10 @@
                 <width>0</width>
                 <height>150</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QTreeView::indicator:unchecked {image:url(:/Assets/Images/eye_closed.png);}
+QTreeView::indicator:checked {image: url(:/Assets/Images/eye_open.png);}</string>
               </property>
               <property name="editTriggers">
                <set>QAbstractItemView::NoEditTriggers</set>
