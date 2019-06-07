@@ -6,7 +6,7 @@
 
 #include <QApplication>
 
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 
@@ -44,22 +44,29 @@ class RadiumPluginInterface;
 namespace Ra {
 namespace GuiBase {
 /// This class contains the main application logic. It owns the engine and the GUI.
-class RA_GUIBASE_API BaseApplication : public QApplication {
+class RA_GUIBASE_API BaseApplication : public QApplication
+{
     Q_OBJECT
 
   public:
-    class WindowFactory {
+    class WindowFactory
+    {
       public:
         WindowFactory(){};
         virtual Ra::GuiBase::MainWindowInterface* createMainWindow() const = 0;
     };
 
-    /// Setup the application, create main window and main connections.
-    ///\param argc from main()
-    ///\param argv from main()
-    ///\param factory : a functor that instanciate the mainWindow
-    BaseApplication( int argc, char** argv, const WindowFactory& factory,
-                     QString applicationName = "RadiumEngine",
+    /** Setup the application, create main window and main connections.
+     * \param argc from main()
+     * \param argv from main()
+     * \param factory : a functor that instanciate the mainWindow
+     * \param applicationName
+     * \param organizationName
+     */
+    BaseApplication( int argc,
+                     char** argv,
+                     const WindowFactory& factory,
+                     QString applicationName  = "RadiumEngine",
                      QString organizationName = "STORM-IRIT" );
     virtual ~BaseApplication();
 
@@ -71,6 +78,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     const Engine::RadiumEngine* getEngine() const { return m_engine.get(); }
 
     uint getFrameCount() const { return m_frameCounter; }
+
+    const std::string& getExportFolderName() const { return m_exportFoldername; }
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
     void starting();
@@ -111,7 +120,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     /// If loadList is empty, attempts to load all DLLs in the folder (except those on the ignore
     /// list) If loadList contains names it will only look for DLLs in that folder with the given
     /// name.
-    bool loadPlugins( const std::string& pluginsPath, const QStringList& loadList,
+    bool loadPlugins( const std::string& pluginsPath,
+                      const QStringList& loadList,
                       const QStringList& ignoreList );
 
     void setupScene();
@@ -142,7 +152,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication {
     QTimer* m_frameTimer;
 
     /// Time since the last frame start.
-    Core::Timer::TimePoint m_lastFrameStart;
+    Core::Utils::TimePoint m_lastFrameStart;
 
     uint m_frameCounter;
     uint m_frameCountBeforeUpdate;

@@ -25,7 +25,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Build options options.
 option(RADIUM_WITH_DOUBLE_PRECISION "Use double precision" OFF)
-option(RADIUM_WITH_OMP              "Use OpenMP" OFF)
 option(RADIUM_WITH_FANCY_GL         "Enable Fancy OpenGL effects" ON)
 option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
 option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
@@ -37,6 +36,7 @@ option(RADIUM_BUILD_APPS            "Choose to build or not radium applications"
 option(RADIUM_FAST_MATH             "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
 option(RADIUM_USE_COTIRE            "Enable cotire precompiled headers" On)
 option(RADIUM_COMPILE_TESTS         "Enable tests" ON)
+set(OpenGL_GL_PREFERENCE GLVND)
 
 if ( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug )
@@ -56,10 +56,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE
 # get changeset id
 find_package(Git)
 
-if(GIT_FOUND)
-  execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    OUTPUT_VARIABLE GIT_CHANGESET)
+if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+    option(RADIUM_GIT_UPDATE_SUBMODULE         "Check submodules during build (will be automatically disabled after run)" ON)
+    execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_CHANGESET)
     # remove new line sometime appearing in git changeset
     string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
 else()
@@ -155,9 +156,6 @@ if(DOXYGEN_FOUND)
 
   add_custom_target(doc
      ${CMAKE_COMMAND} -E make_directory ${RADIUM_DOC_DIRECTORY}
-     COMMAND ${CMAKE_COMMAND} -E copy_directory
-       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/images/
-       ${RADIUM_DOC_DIRECTORY}/html/images
      COMMAND ${CMAKE_COMMAND} -E copy
        ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
        ${RADIUM_BUNDLE_DIRECTORY}/
@@ -173,39 +171,62 @@ endif(DOXYGEN_FOUND)
 ################################################################################
 # Assets                                                                       #
 ################################################################################
-#
-set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
+set(ASSET_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Assets")
 
 if(MSVC OR MSVC_IDE OR MINGW)
-add_custom_target( radium_assets
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
-    COMMENT "Copying shaders and other ressources" VERBATIM
-)
+    add_custom_target( radium_assets
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${ASSET_DIR} "${EXECUTABLE_OUTPUT_PATH}/Assets"
+        COMMENT "Copying ressources" VERBATIM
+    )
 else()
     add_custom_target( radium_assets
-            COMMAND ${CMAKE_COMMAND} -E create_symlink ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
-            COMMENT "Linking (symlink) shaders and other ressources" VERBATIM
-            )
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${ASSET_DIR} "${EXECUTABLE_OUTPUT_PATH}/Assets"
+        COMMENT "Linking (symlink) ressources" VERBATIM
+    )
 endif()
 add_dependencies(radium_assets radiumCore)
+
+################################################################################
+# SHADERS                                                                      #
+################################################################################
+set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
+file(GLOB_RECURSE SHADER_FILES ${SHADER_DIR}/*.glsl)
+if(MSVC OR MSVC_IDE OR MINGW)
+    add_custom_target( radium_shaders
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+        SOURCES ${SHADER_FILES}
+        COMMENT "Copying shaders" VERBATIM
+    )
+else()
+    add_custom_target( radium_shaders
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
+        SOURCES ${SHADER_FILES}
+        COMMENT "Linking (symlink) shaders" VERBATIM
+    )
+endif()
+add_dependencies(radium_shaders radiumCore)
+add_dependencies(radiumEngine radium_shaders)  # temporary fix, needs to be handled by radiumEngine
 
 ################################################################################
 # Configs                                                                      #
 ################################################################################
 set(CONFIG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Configs")
-
+file(GLOB_RECURSE CONFIG_FILES ${CONFIG_DIR}/*.xml)
 if(MSVC OR MSVC_IDE OR MINGW)
     add_custom_target( radium_configs
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
+        SOURCES ${CONFIG_FILES}
         COMMENT "Copying configs (keymapping)" VERBATIM
-        )
+    )
 else()
     add_custom_target( radium_configs
-            COMMAND ${CMAKE_COMMAND} -E create_symlink ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
-            COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
-            )
+        COMMAND ${CMAKE_COMMAND} -E create_symlink ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
+        SOURCES ${CONFIG_FILES}
+        COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
+    )
 endif()
 add_dependencies(radium_configs radiumCore)
+add_dependencies( main-app radium_configs ) # temporary fix, needs to be handled by main-app
 
 
 ################################################################################

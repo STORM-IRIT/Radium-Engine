@@ -22,15 +22,17 @@
 namespace Ra {
 
 namespace GuiBase {
-/// Base classes for element of the tree representation.
-/// It just maintains a tree structure leaving the data
-/// storage to derived classes.
-class RA_GUIBASE_API TreeItem {
+/**
+ * Base class for element of the tree representation.
+ * It just maintains a tree structure leaving the data storage to derived classes.
+ */
+class RA_GUIBASE_API TreeItem
+{
   public:
     TreeItem() {}
     virtual ~TreeItem() {}
 
-    // TreeItems are non-copyable
+    /// TreeItems are non-copyable
     TreeItem( const TreeItem& ) = delete;
     TreeItem& operator=( const TreeItem& ) = delete;
 
@@ -52,6 +54,9 @@ class RA_GUIBASE_API TreeItem {
     // Of course this won't work for the root item.
     int getIndexInParent() const;
 
+    bool isChecked() const { return m_checked; }
+    void setChecked( bool checked = true ) { m_checked = checked; }
+
   public:
     // Tree structure variables
 
@@ -60,11 +65,15 @@ class RA_GUIBASE_API TreeItem {
 
     /// Children of item in the tree.
     std::vector<std::unique_ptr<TreeItem>> m_children;
+
+  private:
+    bool m_checked{true};
 };
 
 /// This class implement QAbstractItem model with the TreeItem as its model
 /// Derived class must use some kind of cast to access the derived TreeItems.
-class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
+class RA_GUIBASE_API TreeModel : public QAbstractItemModel
+{
     Q_OBJECT
 
   public:
@@ -72,31 +81,68 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel {
 
     // QAbstractItemModel interface
 
-    /// Returns the number of rows, i.e .the number of children of a given parent item.
+    /** Returns the number of rows, i.e .the number of children of a given parent item.
+     *
+     * @param parent
+     * @return
+     */
     int rowCount( const QModelIndex& parent = QModelIndex() ) const override;
 
-    /// Returns the number of columns (only one in our case).
+    /** Returns the number of columns (only one in our case).
+     *
+     * @param parent
+     * @return
+     */
     int columnCount( const QModelIndex& parent = QModelIndex() ) const override { return 1; }
 
-    /// Return the data corresponding to the given index : in this case a string with the item name.
+    /** Return the data corresponding to the given index : in this case a string with the item name.
+     *
+     * @param index
+     * @param role
+     * @return
+     */
     QVariant data( const QModelIndex& index, int role ) const override;
 
-    /// Return the header data of the given section.
-    QVariant headerData( int section, Qt::Orientation orientation,
+    bool setData( const QModelIndex& index, const QVariant& value, int role ) override;
+
+    /** Return the header data of the given section.
+     *
+     * @param section
+     * @param orientation
+     * @param role
+     * @return
+     */
+    QVariant headerData( int section,
+                         Qt::Orientation orientation,
                          int role = Qt::DisplayRole ) const override;
 
-    /// Create an index for the given row, column and parent.
-    QModelIndex index( int row, int column,
-                       const QModelIndex& parent = QModelIndex() ) const override;
+    /** Create an index for the given row, column and parent.
+     *
+     * @param row
+     * @param column
+     * @param parent
+     * @return
+     */
+    QModelIndex
+    index( int row, int column, const QModelIndex& parent = QModelIndex() ) const override;
 
-    /// Get the parent of a given child item.
+    /** Get the parent of a given child item.
+     *
+     * @param child
+     * @return
+     */
     QModelIndex parent( const QModelIndex& child ) const override;
 
-    /// Get the flags of the object.
+    /** Get the flags of the object.
+     *
+     * @param index
+     * @return
+     */
     Qt::ItemFlags flags( const QModelIndex& index ) const override;
 
-    /// Call this function to update the tree model to the
-    /// current content of the engine.
+    /** Call this function to update the tree model to the current content of the engine.
+     *
+     */
     void rebuildModel();
 
   signals:

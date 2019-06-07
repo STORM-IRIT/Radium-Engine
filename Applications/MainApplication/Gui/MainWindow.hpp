@@ -38,7 +38,8 @@ namespace Gui {
 
 /// This class manages most of the GUI of the application :
 /// top menu, side toolbar and side dock.
-class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWindow {
+class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWindow
+{
     Q_OBJECT
 
   public:
@@ -77,24 +78,28 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void gizmoShowNone();
     void gizmoShowTranslate();
     void gizmoShowRotate();
-    // void gizmoShowScale();
+    void gizmoShowScale();
 
     // Keymapping configuration tool
     void reloadConfiguration();
     void loadConfiguration();
 
-    /// Slot for the "visible" button
-    void toggleVisisbleRO();
+    /// Slot for the tree view checkboxes
+    void setROVisible( Core::Utils::Index roIndex, bool visible );
 
     /// Reset the camera to see all visible objects
     void fitCamera();
-    void postLoadFile() override { fitCamera(); }
+    /// clear selection, fit camera and update material name in ui
+    void postLoadFile() override;
 
     /// Slot for the "edit" button.
     void editRO();
 
     /// Cleanup resources.
     void cleanup() override;
+
+    /// Show or hide all render objects
+    void showHideAllRO();
 
   signals:
     /// Emitted when the frame loads
@@ -117,6 +122,10 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
 
     /// Update displayed texture according to the current renderer
     void updateDisplayedTexture();
+
+    /// Set the background color (updates viewer). If c is invalid, the color is fetch from
+    /// QSettings.
+    void updateBackgroundColor( QColor c = QColor() );
 
   private slots:
     /// Slot for the "load file" menu.
@@ -151,8 +160,10 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
 
     void toggleCirclePicking( bool on );
 
+    void on_m_currentColorButton_clicked();
+
   private:
-    /// Stores the internal model of engine objects for selection.
+    /// Stores the internal model of engine objects for selection and visibility.
     GuiBase::ItemModel* m_itemModel;
 
     /// Stores and manages the current selection.

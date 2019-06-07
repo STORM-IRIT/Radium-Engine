@@ -1,6 +1,6 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <map>
 
@@ -10,15 +10,13 @@
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
+
 ///////////////////////////////////////////////
 ////        Radium Material converters      ///
 ///////////////////////////////////////////////
-/*
-Material* MaterialConverter::operator()( const Ra::Asset::MaterialData* toconvert ) {
-    LOG( logERROR ) << "Trying to convert a abstract material ... !";
-    return nullptr;
-}
-*/
+
 namespace EngineMaterialConverters {
 /// Map that stores each conversion function
 static std::map<std::string, std::function<RadiumMaterialPtr( AssetMaterialPtr )>>
@@ -36,10 +34,7 @@ bool removeMaterialConverter( const std::string& name ) {
 
 std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name ) {
     auto search = MaterialConverterRegistry.find( name );
-    if ( search != MaterialConverterRegistry.end() )
-    {
-        return {true, search->second};
-    }
+    if ( search != MaterialConverterRegistry.end() ) { return {true, search->second}; }
     auto result = std::make_pair( false, [name]( AssetMaterialPtr ) -> RadiumMaterialPtr {
         LOG( logERROR ) << "Required material converter " << name << " not found!";
         return nullptr;

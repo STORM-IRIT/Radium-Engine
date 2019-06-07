@@ -8,12 +8,19 @@
 
 #include <UI/MeshFeatureTrackingUI.h>
 
+namespace Ra {
+namespace Engine {
+class Mesh;
+}
+} // namespace Ra
+
 namespace MeshFeatureTrackingPlugin {
-class MeshFeatureTrackingComponent : public Ra::Engine::Component {
+class MeshFeatureTrackingComponent : public Ra::Engine::Component
+{
   public:
     MeshFeatureTrackingComponent( const std::string& name );
 
-    virtual ~MeshFeatureTrackingComponent();
+    ~MeshFeatureTrackingComponent() override;
 
     virtual void initialize() override;
 
@@ -38,7 +45,8 @@ class MeshFeatureTrackingComponent : public Ra::Engine::Component {
     void setScale( Scalar scale );
 
     FeatureData m_data;
-    int m_pickedRoIdx;
+    Ra::Core::Utils::Index m_pickedRoIdx;
+    Ra::Engine::Mesh* m_pickedMesh;
     Ra::Engine::RenderObject* m_RO;
 };
 } // namespace MeshFeatureTrackingPlugin

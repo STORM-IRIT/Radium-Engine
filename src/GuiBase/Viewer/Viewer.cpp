@@ -1,5 +1,9 @@
+#include <glbinding-aux/ContextInfo.h>
+#include <glbinding-aux/debug.h>
+#include <glbinding-aux/types_to_string.h>
 #include <glbinding/Binding.h>
-#include <glbinding/ContextInfo.h>
+#include <glbinding/glbinding.h>
+
 #include <glbinding/Version.h>
 // Do not import namespace to prevent glbinding/QTOpenGL collision
 #include <glbinding/gl/gl.h>
@@ -8,7 +12,8 @@
 
 #include <Engine/RadiumEngine.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Utils/StringUtils.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 
 #include <iostream>
@@ -23,10 +28,10 @@
 #include <stb/stb_image_write.h>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Log/Log.hpp>
-#include <Core/Math/ColorPresets.hpp>
 #include <Core/Math/Math.hpp>
-#include <Core/String/StringUtils.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Core/Utils/Log.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
@@ -46,52 +51,51 @@
 #include <GuiBase/Viewer/TrackballCamera.hpp>
 
 namespace Ra {
+
+using namespace Core::Utils; // log
+using namespace glbinding;
+
 Gui::Viewer::Viewer( QScreen* screen ) :
-    QWindow( screen ),
-    m_context( nullptr ),
+    WindowQt( screen ),
     m_currentRenderer( nullptr ),
     m_pickingManager( nullptr ),
     m_isBrushPickingEnabled( false ),
     m_brushRadius( 10 ),
     m_camera( nullptr ),
-    m_gizmoManager( nullptr ),
-    m_renderThread( nullptr ),
-    m_glInitStatus( false ) {
+    m_gizmoManager( nullptr )
+#ifdef RADIUM_MULTITHREAD_RENDERING
+    ,
+    m_renderThread( nullptr )
+#endif
+{
     setMinimumSize( QSize( 800, 600 ) );
-
-    setSurfaceType( OpenGLSurface );
     m_pickingManager = new PickingManager();
 }
 
 Gui::Viewer::~Viewer() {
-    if ( m_glInitStatus.load() )
+    if ( m_glInitialized.load() )
     {
-        m_context->makeCurrent( this );
+        makeCurrent();
         m_renderers.clear();
 
-        if ( m_gizmoManager != nullptr )
-        {
-            delete m_gizmoManager;
-        }
-        m_context->doneCurrent();
+        if ( m_gizmoManager != nullptr ) { delete m_gizmoManager; }
+        doneCurrent();
     }
 }
 
 void Gui::Viewer::createGizmoManager() {
-    if ( m_gizmoManager == nullptr )
-    {
-        m_gizmoManager = new GizmoManager( this );
-    }
+    if ( m_gizmoManager == nullptr ) { m_gizmoManager = new GizmoManager( this ); }
 }
 
 int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
     // initial state and lighting (deferred if GL is not ready yet)
-    if ( m_glInitStatus.load() )
+    if ( m_glInitialized.load() )
     {
-        m_context->makeCurrent( this );
+        makeCurrent();
         intializeRenderer( e.get() );
-        m_context->doneCurrent();
-    } else
+        doneCurrent();
+    }
+    else
     {
         LOG( logINFO ) << "[Viewer] New Renderer (" << e->getRendererName()
                        << ") added before GL being Ready: deferring initialization...";
@@ -102,6 +106,12 @@ int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
     return m_renderers.size() - 1;
 }
 
+void Gui::Viewer::setBackgroundColor( const Core::Utils::Color& background ) {
+    m_backgroundColor = background;
+    for ( auto renderer : m_renderers )
+        renderer->setBackgroundColor( m_backgroundColor );
+}
+
 void Gui::Viewer::enableDebug() {
     glbinding::setCallbackMask( glbinding::CallbackMask::After |
                                 glbinding::CallbackMask::ParametersAndReturnValue );
@@ -109,38 +119,42 @@ void Gui::Viewer::enableDebug() {
         std::cerr << call.function->name() << "(";
         for ( unsigned i = 0; i < call.parameters.size(); ++i )
         {
-            std::cerr << call.parameters[i]->asString();
-            if ( i < call.parameters.size() - 1 )
-            {
-                std::cerr << ", ";
-            }
+            std::cerr << call.parameters[i].get();
+            if ( i < call.parameters.size() - 1 ) { std::cerr << ", "; }
         }
         std::cerr << ")";
-        if ( call.returnValue )
-        {
-            std::cerr << " -> " << call.returnValue->asString();
-        }
+        if ( call.returnValue ) { std::cerr << " -> " << call.returnValue.get(); }
         std::cerr << std::endl;
     } );
 }
 
-void Gui::Viewer::makeCurrent() {
-    CORE_ASSERT( m_glInitStatus, "[Viewer::makeCurrent] OpenGLContext not created!" );
-    m_context->makeCurrent( this );
-}
+bool Gui::Viewer::initializeGL() {
+    globjects::init( getProcAddress );
 
-void Gui::Viewer::doneCurrent() {
-    CORE_ASSERT( m_glInitStatus, "[Viewer::makeCurrent] OpenGLContext not created!" );
-    m_context->doneCurrent();
-}
+    LOG( logINFO ) << "*** Radium Engine OpenGL context ***";
+    LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::aux::ContextInfo::renderer();
+    LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::aux::ContextInfo::vendor();
+    LOG( logINFO ) << "OpenGL   (glbinding) : "
+                   << glbinding::aux::ContextInfo::version().toString();
+    LOG( logINFO ) << "GLSL                 : "
+                   << gl::glGetString( gl::GLenum( GL_SHADING_LANGUAGE_VERSION ) );
 
-void Gui::Viewer::initializeGL() {
-    m_glInitStatus = true;
-    m_context->makeCurrent( this );
+    Engine::ShaderProgramManager::createInstance();
+    Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
+
+    m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+
+    // Lights are components. So they must be attached to an entity. Attach headlight to system
+    // Entity
+    auto light =
+        new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
+    light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
+    m_camera->attachLight( light );
+
+    m_glInitialized = true;
+    makeCurrent();
 
     LOG( logINFO ) << "*** Radium Engine Viewer ***";
-    Engine::ShaderProgramManager::createInstance( "Shaders/Default.vert.glsl",
-                                                  "Shaders/Default.frag.glsl" );
 
     // initialize renderers added before GL was ready
     if ( !m_renderers.empty() )
@@ -153,7 +167,7 @@ void Gui::Viewer::initializeGL() {
     }
 
     emit glInitialized();
-    m_context->doneCurrent();
+    doneCurrent();
 
     // this code is usefull only if glInitialized() connected slot does not add a renderer
     // On Windows, actually, the signal seems to be not fired (DLL_IMPORT/EXPORT problem ?
@@ -162,17 +176,16 @@ void Gui::Viewer::initializeGL() {
         LOG( logINFO )
             << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
 
-        m_context->makeCurrent( this );
+        makeCurrent();
         std::shared_ptr<Ra::Engine::Renderer> e( new Ra::Engine::ForwardRenderer() );
-        m_context->doneCurrent();
+        doneCurrent();
 
         addRenderer( e );
     }
 
-    if ( m_currentRenderer == nullptr )
-    {
-        changeRenderer( 0 );
-    }
+    if ( m_currentRenderer == nullptr ) { changeRenderer( 0 ); }
+
+    return true;
 }
 
 Gui::CameraInterface* Gui::Viewer::getCameraInterface() {
@@ -224,42 +237,38 @@ void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
     gl::glViewport( 0, 0, width(), height() );
 #endif
     renderer->initialize( width(), height() );
+    renderer->setBackgroundColor( m_backgroundColor );
+    // resize camera viewport since it might be 0x0
+    m_camera->resizeViewport( width(), height() );
+    // do this only when the renderer has something to render and that there is no lights
+    /*
     if ( m_camera->hasLightAttached() )
     {
         renderer->addLight( m_camera->getLight() );
     }
+    */
     renderer->lockRendering();
 }
 
-void Gui::Viewer::resizeGL( int width_, int height_ ) {
-    if ( isExposed() )
-    {
-        // Renderer should have been locked by previous events.
-        m_context->makeCurrent( this );
-
-        // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
-        // https://github.com/STORM-IRIT/Radium-Engine/issues/261
-#ifndef OS_MACOS
-        gl::glViewport( 0, 0, width(), height() );
-#endif
-        m_camera->resizeViewport( width_, height_ );
-        m_currentRenderer->resize( width_, height_ );
-        m_context->doneCurrent();
-    }
+void Gui::Viewer::resizeGL( QResizeEvent* event ) {
+    int width  = event->size().width();
+    int height = event->size().height();
+    // Renderer should have been locked by previous events.
+    makeCurrent();
+    gl::glViewport( 0, 0, width, height );
+    m_camera->resizeViewport( width, height );
+    m_currentRenderer->resize( width, height );
+    doneCurrent();
 }
 
 Engine::Renderer::PickingMode Gui::Viewer::getPickingMode() const {
     auto keyMap = Gui::KeyMappingManager::getInstance();
     if ( Gui::isKeyPressed(
              keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_VERTEX ) ) )
-    {
-        return m_isBrushPickingEnabled ? Engine::Renderer::C_VERTEX : Engine::Renderer::VERTEX;
-    }
+    { return m_isBrushPickingEnabled ? Engine::Renderer::C_VERTEX : Engine::Renderer::VERTEX; }
     if ( Gui::isKeyPressed(
              keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_EDGE ) ) )
-    {
-        return m_isBrushPickingEnabled ? Engine::Renderer::C_EDGE : Engine::Renderer::EDGE;
-    }
+    { return m_isBrushPickingEnabled ? Engine::Renderer::C_EDGE : Engine::Renderer::EDGE; }
     if ( Gui::isKeyPressed(
              keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_TRIANGLE ) ) )
     {
@@ -269,7 +278,9 @@ Engine::Renderer::PickingMode Gui::Viewer::getPickingMode() const {
 }
 
 void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
-    if ( !m_glInitStatus.load() )
+    using Core::Utils::Color;
+
+    if ( !m_glInitialized.load() )
     {
         event->ignore();
         return;
@@ -279,36 +290,27 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_CAST_RAY_QUERY ) &&
          isKeyPressed( keyMap->getKeyFromAction( Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
     {
-        LOG( logINFO ) << "Raycast query launched";
-        Core::Ray r =
-            m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
-        RA_DISPLAY_POINT( r.origin(), Core::Colors::Cyan(), 0.1f );
-        RA_DISPLAY_RAY( r, Core::Colors::Yellow() );
-        auto ents = Engine::RadiumEngine::getInstance()->getEntityManager()->getEntities();
-        for ( auto e : ents )
-        {
-            e->rayCastQuery( r );
-        }
-    } else if ( keyMap->getKeyFromAction( Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) ==
-                event->button() )
-    {
-        m_camera->handleMousePressEvent( event );
-    } else if ( keyMap->actionTriggered( event,
-                                         Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
+        LOG( logINFO ) << "Raycast query are disabled";
+        auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
+        RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f );
+        RA_DISPLAY_RAY( r, Color::Yellow() );
+    }
+    else if ( keyMap->getKeyFromAction( Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) ==
+              event->button() )
+    { m_camera->handleMousePressEvent( event ); }
+    else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
     {
         m_currentRenderer->addPickingRequest( {Core::Vector2( event->x(), height() - event->y() ),
-                                               Core::MouseButton::RA_MOUSE_LEFT_BUTTON,
+                                               Engine::Renderer::PickingPurpose::SELECTION,
                                                Engine::Renderer::RO} );
-        if ( m_gizmoManager != nullptr )
-        {
-            m_gizmoManager->handleMousePressEvent( event );
-        }
-    } else if ( keyMap->actionTriggered( event,
-                                         Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+        if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMousePressEvent( event ); }
+    }
+    else if ( keyMap->actionTriggered( event,
+                                       Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
     {
         // Check picking
         Engine::Renderer::PickingQuery query = {Core::Vector2( event->x(), height() - event->y() ),
-                                                Core::MouseButton::RA_MOUSE_RIGHT_BUTTON,
+                                                Engine::Renderer::PickingPurpose::MANIPULATION,
                                                 getPickingMode()};
         m_currentRenderer->addPickingRequest( query );
     }
@@ -316,37 +318,32 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
 
 void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
     m_camera->handleMouseReleaseEvent( event );
-    if ( m_gizmoManager != nullptr )
-    {
-        m_gizmoManager->handleMouseReleaseEvent( event );
-    }
+    if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMouseReleaseEvent( event ); }
 }
 
 void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
-    if ( m_glInitStatus.load() )
+    if ( m_glInitialized.load() )
     {
         m_camera->handleMouseMoveEvent( event );
-        if ( m_gizmoManager != nullptr )
-        {
-            m_gizmoManager->handleMouseMoveEvent( event );
-        }
+        if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMouseMoveEvent( event ); }
         m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
-        if ( ( int( event->buttons() ) | int( event->modifiers() ) ) ==
-             Gui::KeyMappingManager::getInstance()->getKeyFromAction(
-                 Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
+        if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
+                 event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
         {
             // Check picking
             Engine::Renderer::PickingQuery query = {
                 Core::Vector2( event->x(), ( height() - event->y() ) ),
-                Core::MouseButton::RA_MOUSE_RIGHT_BUTTON, getPickingMode()};
+                Engine::Renderer::PickingPurpose::MANIPULATION,
+                getPickingMode()};
             m_currentRenderer->addPickingRequest( query );
         }
-    } else
+    }
+    else
         event->ignore();
 }
 
 void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
-    if ( m_glInitStatus.load() )
+    if ( m_glInitialized.load() )
     {
         if ( m_isBrushPickingEnabled && isKeyPressed( Qt::Key_Shift ) )
         {
@@ -354,18 +351,21 @@ void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
                 ( event->angleDelta().y() * 0.01 + event->angleDelta().x() * 0.01 ) > 0 ? 5 : -5;
             m_brushRadius = std::max( m_brushRadius, Scalar( 5 ) );
             m_currentRenderer->setBrushRadius( m_brushRadius );
-        } else
+        }
+        else
         { m_camera->handleWheelEvent( event ); }
-    } else
+    }
+    else
     { event->ignore(); }
 }
 
 void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
-    if ( m_glInitStatus.load() )
+    if ( m_glInitialized.load() )
     {
         keyPressed( event->key() );
         m_camera->handleKeyPressEvent( event );
-    } else
+    }
+    else
     { event->ignore(); }
 
     // Do we need this ?
@@ -379,9 +379,7 @@ void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
     auto keyMap = Gui::KeyMappingManager::getInstance();
     if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_TOGGLE_WIREFRAME ) &&
          !event->isAutoRepeat() )
-    {
-        m_currentRenderer->toggleWireframe();
-    }
+    { m_currentRenderer->toggleWireframe(); }
     if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::FEATUREPICKING_MULTI_CIRCLE ) &&
          event->modifiers() == Qt::NoModifier && !event->isAutoRepeat() )
     {
@@ -394,94 +392,42 @@ void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
     // QWindow::keyReleaseEvent(event);
 }
 
-void Gui::Viewer::resizeEvent( QResizeEvent* event ) {
-    //       LOG( logDEBUG ) << "Gui::Viewer --> Got resize event : "  << width() << 'x' <<
-    //       height();
-
-    if ( !m_glInitStatus.load() )
-    {
-        initializeGL();
-    }
-
-    if ( !m_currentRenderer || !m_camera )
-        return;
-
-    resizeGL( event->size().width(), event->size().height() );
-}
-
 void Gui::Viewer::showEvent( QShowEvent* ev ) {
-    //       LOG( logDEBUG ) << "Gui::Viewer --> Got show event : " << width() << 'x' << height();
-    if ( !m_context )
-    {
-        m_context.reset( new QOpenGLContext() );
-        m_context->create();
-        m_context->makeCurrent( this );
-        // no need to initalize glbinding. globjects (magically) do this internally.
-        globjects::init( globjects::Shader::IncludeImplementation::Fallback );
+    WindowQt::showEvent( ev );
+    /// todo remove this commented code when camera init in ctr is tested on other arch.
 
-        LOG( logINFO ) << "*** Radium Engine OpenGL context ***";
-        LOG( logINFO ) << "Renderer (glbinding) : " << glbinding::ContextInfo::renderer();
-        LOG( logINFO ) << "Vendor   (glbinding) : " << glbinding::ContextInfo::vendor();
-        LOG( logINFO ) << "OpenGL   (glbinding) : " << glbinding::ContextInfo::version().toString();
-        LOG( logINFO ) << "GLSL                 : "
-                       << gl::glGetString( gl::GLenum( GL_SHADING_LANGUAGE_VERSION ) );
-
-        m_context->doneCurrent();
-    }
-
-    if ( !m_camera )
-    {
-        // quick fix meanwhile camera management refactoring
-        // see issue #339 Crash when using -f option
-        // https://github.com/STORM-IRIT/Radium-Engine/issues/339
-        m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
-
-        // Lights are components. So they must be attached to an entity. Attache headlight to system
-        // Entity
-        auto light =
-            new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
-        // Set the default light intensity so that it does not burn the objects
-        light->setColor(Ra::Core::Color(0.5, 0.5, 0.5, 1.0));
-        m_camera->attachLight( light );
-    }
-}
-
-void Gui::Viewer::exposeEvent( QExposeEvent* ev ) {
-    //       LOG( logDEBUG ) << "Gui::Viewer --> Got exposed event : " << width() << 'x' <<
-    //       height();
+    m_camera->resizeViewport( width(), height() );
 }
 
 void Gui::Viewer::reloadShaders() {
-    CORE_ASSERT( m_glInitStatus.load(), "OpenGL needs to be initialized reload shaders." );
+    CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized reload shaders." );
 
     // FIXME : check thread-saefty of this.
     m_currentRenderer->lockRendering();
 
-    m_context->makeCurrent( this );
+    makeCurrent();
     m_currentRenderer->reloadShaders();
-    m_context->doneCurrent();
+    doneCurrent();
 
     m_currentRenderer->unlockRendering();
 }
 
 void Gui::Viewer::displayTexture( const QString& tex ) {
-    CORE_ASSERT( m_glInitStatus.load(), "OpenGL needs to be initialized to display textures." );
-    m_context->makeCurrent( this );
+    CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized to display textures." );
+
+    makeCurrent();
     m_currentRenderer->lockRendering();
     m_currentRenderer->displayTexture( tex.toStdString() );
     m_currentRenderer->unlockRendering();
-    m_context->doneCurrent();
+    doneCurrent();
 }
 
 bool Gui::Viewer::changeRenderer( int index ) {
-    if ( m_glInitStatus.load() && m_renderers[index] )
+    if ( m_glInitialized.load() && m_renderers[index] )
     {
-        m_context->makeCurrent( this );
+        makeCurrent();
 
-        if ( m_currentRenderer != nullptr )
-        {
-            m_currentRenderer->lockRendering();
-        }
+        if ( m_currentRenderer != nullptr ) { m_currentRenderer->lockRendering(); }
 
         m_currentRenderer = m_renderers[index].get();
         // renderers in m_renderers are supposed to be locked
@@ -490,7 +436,10 @@ bool Gui::Viewer::changeRenderer( int index ) {
 
         LOG( logINFO ) << "[Viewer] Set active renderer: " << m_currentRenderer->getRendererName();
 
-        m_context->doneCurrent();
+        // resize camera viewport since the one in show event might have 0x0
+        m_camera->resizeViewport( width(), height() );
+
+        doneCurrent();
         emit rendererReady();
 
         return true;
@@ -501,24 +450,18 @@ bool Gui::Viewer::changeRenderer( int index ) {
 // Asynchronous rendering implementation
 
 void Gui::Viewer::startRendering( const Scalar dt ) {
-    CORE_ASSERT( m_glInitStatus.load(), "OpenGL needs to be initialized before rendering." );
+
+    CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized before rendering." );
 
     CORE_ASSERT( m_currentRenderer != nullptr, "No renderer found." );
 
     m_pickingManager->clear();
-    m_context->makeCurrent( this );
+    makeCurrent();
 
-    // Move camera if needed. Disabled for now as it takes too long (see issue #69)
-    // m_camera->update( dt );
+    Engine::ViewingParameters data{m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
 
-    Engine::RenderData data;
-    data.dt = dt;
-    data.projMatrix = m_camera->getProjMatrix();
-    data.viewMatrix = m_camera->getViewMatrix();
-
+    // FIXME : move this outside of the rendering loop. must be done once per renderer ...
     // if there is no light on the renderer, add the head light attached to the camera ...
-    // FIXME : what if the camera has no attached light ?
-    // FIXME : avoid adding headlight if not needed.
     if ( !m_currentRenderer->hasLight() )
     {
         if ( m_camera->hasLightAttached() )
@@ -530,16 +473,14 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
 }
 
 void Gui::Viewer::waitForRendering() {
-    if ( isExposed() )
-    {
-        m_context->swapBuffers( this );
-    }
 
-    m_context->doneCurrent();
+    if ( isExposed() ) { m_context->swapBuffers( this ); }
+
+    doneCurrent();
 }
 
 void Gui::Viewer::processPicking() {
-    CORE_ASSERT( m_glInitStatus.load(), "OpenGL needs to be initialized before rendering." );
+    CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized before rendering." );
 
     CORE_ASSERT( m_currentRenderer != nullptr, "No renderer found." );
 
@@ -550,10 +491,9 @@ void Gui::Viewer::processPicking() {
     for ( uint i = 0; i < m_currentRenderer->getPickingQueries().size(); ++i )
     {
         const Engine::Renderer::PickingQuery& query = m_currentRenderer->getPickingQueries()[i];
-        if ( query.m_button == Core::MouseButton::RA_MOUSE_LEFT_BUTTON )
-        {
-            emit leftClickPicking( m_currentRenderer->getPickingResults()[i].m_roIdx );
-        } else if ( query.m_button == Core::MouseButton::RA_MOUSE_RIGHT_BUTTON )
+        if ( query.m_purpose == Engine::Renderer::PickingPurpose::SELECTION )
+        { emit leftClickPicking( m_currentRenderer->getPickingResults()[i].m_roIdx ); }
+        else if ( query.m_purpose == Engine::Renderer::PickingPurpose::MANIPULATION )
         {
             const auto& result = m_currentRenderer->getPickingResults()[i];
             m_pickingManager->setCurrent( result );
@@ -567,7 +507,8 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     {
         CORE_ASSERT( m_camera != nullptr, "No camera found." );
         m_camera->fitScene( aabb );
-    } else
+    }
+    else
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }
 }
 
@@ -576,33 +517,27 @@ std::vector<std::string> Gui::Viewer::getRenderersName() const {
 
     for ( const auto& renderer : m_renderers )
     {
-        if ( renderer )
-        {
-            ret.push_back( renderer->getRendererName() );
-        }
+        if ( renderer ) { ret.push_back( renderer->getRendererName() ); }
     }
 
     return ret;
 }
 
 void Gui::Viewer::grabFrame( const std::string& filename ) {
-    m_context->makeCurrent( this );
+    makeCurrent();
 
-    uint w, h;
+    size_t w, h;
     auto writtenPixels = m_currentRenderer->grabFrame( w, h );
 
-    std::string ext = Core::StringUtils::getFileExt( filename );
+    std::string ext = Core::Utils::getFileExt( filename );
 
-    if ( ext == "bmp" )
-    {
-        stbi_write_bmp( filename.c_str(), w, h, 4, writtenPixels.get() );
-    } else if ( ext == "png" )
-    {
-        stbi_write_png( filename.c_str(), w, h, 4, writtenPixels.get(), w * 4 * sizeof( uchar ) );
-    } else
+    if ( ext == "bmp" ) { stbi_write_bmp( filename.c_str(), w, h, 4, writtenPixels.get() ); }
+    else if ( ext == "png" )
+    { stbi_write_png( filename.c_str(), w, h, 4, writtenPixels.get(), w * 4 * sizeof( uchar ) ); }
+    else
     { LOG( logWARNING ) << "Cannot write frame to " << filename << " : unsupported extension"; }
 
-    m_context->doneCurrent();
+    doneCurrent();
 }
 
 void Gui::Viewer::enablePostProcess( int enabled ) {

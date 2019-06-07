@@ -9,27 +9,24 @@
 #include <mutex>
 #include <vector>
 
-#include <Core/Event/EventEnums.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Time/Timer.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Core/Utils/Timer.hpp>
+#include <Engine/Renderer/Displayable/DisplayableObject.hpp>
 
 namespace Ra {
-namespace Core {
-struct MouseEvent;
-struct KeyEvent;
-} // namespace Core
 
 namespace Engine {
 class Camera;
 class RenderObject;
 class Light;
-class Mesh;
 class ShaderProgram;
 class ShaderProgramManager;
-class Texture;
 class TextureManager;
 class RenderObjectManager;
 class LightManager;
+class Texture;
+struct ViewingParameters;
 } // namespace Engine
 
 namespace Asset {
@@ -43,26 +40,32 @@ class Framebuffer;
 
 namespace Ra {
 namespace Engine {
-struct RA_ENGINE_API RenderData {
-    Core::Matrix4 viewMatrix;
-    Core::Matrix4 projMatrix;
-    Scalar dt;
-};
 
-class RA_ENGINE_API Renderer {
+/**
+ * Abstract renderer for the engine.
+ * @see Radium Engine default rendering informations
+ */
+class RA_ENGINE_API Renderer
+{
   protected:
     using RenderObjectPtr = std::shared_ptr<RenderObject>;
 
   public:
+    /**
+     * Instrumentation structure that allow to extract timings from the rendering
+     */
     struct TimerData {
-        Core::Timer::TimePoint renderStart;
-        Core::Timer::TimePoint updateEnd;
-        Core::Timer::TimePoint feedRenderQueuesEnd;
-        Core::Timer::TimePoint mainRenderEnd;
-        Core::Timer::TimePoint postProcessEnd;
-        Core::Timer::TimePoint renderEnd;
+        Core::Utils::TimePoint renderStart;
+        Core::Utils::TimePoint updateEnd;
+        Core::Utils::TimePoint feedRenderQueuesEnd;
+        Core::Utils::TimePoint mainRenderEnd;
+        Core::Utils::TimePoint postProcessEnd;
+        Core::Utils::TimePoint renderEnd;
     };
 
+    /**
+     * Picking mode
+     */
     enum PickingMode {
         RO = 0,    ///< Pick a mesh
         VERTEX,    ///< Pick a vertex of a mesh
@@ -73,15 +76,27 @@ class RA_ENGINE_API Renderer {
         C_TRIANGLE ///< Picks all triangles of a mesh within a screen space circle
     };
 
+    /**
+     * Picking purpose
+     * Used to identify what picking operation is realized
+     */
+    enum PickingPurpose { SELECTION = 0, MANIPULATION };
+
+    /**
+     * Picking query
+     */
     struct PickingQuery {
         Core::Vector2 m_screenCoords;
-        Core::MouseButton::MouseButton m_button;
+        PickingPurpose m_purpose;
         PickingMode m_mode;
     };
 
+    /**
+     * Picking result
+     */
     struct PickingResult {
         PickingMode m_mode;            // Picking mode of the query
-        int m_roIdx;                   // Idx of the picked RO
+        Core::Utils::Index m_roIdx;    // Idx of the picked RO
         std::vector<int> m_vertexIdx;  // Idx of the picked vertex in the element, i.e. point's idx
                                        // OR idx in line or triangle
         std::vector<int> m_elementIdx; // Idx of the element, i.e. triangle for mesh, edge for lines
@@ -93,23 +108,64 @@ class RA_ENGINE_API Renderer {
     };
 
   public:
+    /** Abstract rendere constructor
+     *
+     * could be called without openGL context.
+     * Call initialize once the openGL rendering context is available before using the renderer
+     */
     Renderer();
+
     virtual ~Renderer();
 
     // -=-=-=-=-=-=-=-=- FINAL -=-=-=-=-=-=-=-=- //
+
+    /**
+     * Extract the timings from las render
+     */
     inline const TimerData& getTimerData() const { return m_timerData; }
 
+    /**
+     * Get the currently displayed texture
+     */
     inline Texture* getDisplayTexture() const { return m_displayedTexture; }
 
     // Lock the renderer (for MT access)
+    /**
+     * Lock rendering. Usefull if there is multithread update of the rendering data
+     */
     inline void lockRendering() { m_renderMutex.lock(); }
 
+    /**
+     * Unlock the rendering.
+     */
     inline void unlockRendering() { m_renderMutex.unlock(); }
 
+    /**
+     * Toggle the fill/wireframe rendering mode
+     */
     inline void toggleWireframe() { m_wireframe = !m_wireframe; }
 
-    inline void setWireframe( bool wireframe ) { m_wireframe = wireframe; }
+    /**
+     * set the fill/wireframe rendering mode
+     * @param enabled true if rendering mode must be wireframe, false for fill render mode
+     */
+    inline void enableWireframe( bool enabled ) { m_wireframe = enabled; }
 
+    /**
+     * Toggle debug rendering
+     */
+    inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
+
+    /**
+     * Set the debug rendering mode
+     * @param enabled true if rendering mode must include debug objects, false else
+     */
+    inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
+
+    /**
+     * set the post-process mode
+     * @param enabled true if post processing must bve applied before display.
+     */
     inline void enablePostProcess( bool enabled ) { m_postProcessEnabled = enabled; }
 
     /**
@@ -132,9 +188,8 @@ class RA_ENGINE_API Renderer {
      * framebuffer, and restores it before drawing the last final texture.
      * If no framebuffer was bound, it draws into GL_BACK.
      */
-    void render( const RenderData& renderData );
+    void render( const ViewingParameters& renderData );
 
-    // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
     /**
      * @brief Initialize renderer
      */
@@ -151,55 +206,71 @@ class RA_ENGINE_API Renderer {
      */
     void resize( uint width, uint height );
 
+    /**
+     * Add a new picking query for the next rendering
+     * @param query
+     */
     inline void addPickingRequest( const PickingQuery& query ) {
         m_pickingQueries.push_back( query );
     }
 
+    /**
+     * Get the vector of picking results.
+     * Results in the returned vector correspond to queries in the return vector by the function
+     * getPickingQueries.
+     * @return Queries results
+     */
     inline const std::vector<PickingResult>& getPickingResults() const { return m_pickingResults; }
 
+    /**
+     * Get the vector of picking queries.
+     * Queries in the returned vector correspond to results in the return vector by the function
+     * getPickingResults.
+     * @return Queries results
+     */
     inline const std::vector<PickingQuery>& getPickingQueries() const {
         return m_lastFramePickingQueries;
     }
 
-    inline virtual void setMousePosition( const Core::Vector2& pos ) final {
+    inline void setMousePosition( const Core::Vector2& pos ) {
         m_mousePosition[0] = pos[0];
         m_mousePosition[1] = m_height - pos[1];
     }
 
-    inline virtual void setBrushRadius( Scalar brushRadius ) final { m_brushRadius = brushRadius; }
+    inline void setBrushRadius( Scalar brushRadius ) { m_brushRadius = brushRadius; }
 
-    inline void toggleDrawDebug() { m_drawDebug = !m_drawDebug; }
+    /// Tell if the renderer has an usable light.
+    bool hasLight() const;
 
-    inline void enableDebugDraw( bool enabled ) { m_drawDebug = enabled; }
+    /// Update the background color (does not trigger a redraw)
+    inline void setBackgroundColor( const Core::Utils::Color& color ) { m_backgroundColor = color; }
+
+    inline const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
     // -=-=-=-=-=-=-=-=- VIRTUAL -=-=-=-=-=-=-=-=- //
-    // FIXED : lights must be handled by the renderer as they are the reason to have different
-    // renderers
-    //                How to do this ?
-    // FIXED : use a light manager (Implement the one you need)
     /** Add a light to the renderer.
-     * may be overriden to filter the light or to specialize the way ligths are added to the
+     * may be overridden to filter the light or to specialize the way ligths are added to the
      * renderer ...
      * @param light
      */
     virtual void addLight( const Light* light );
 
-    /// Tell if the renderer has an usable light.
-    bool hasLight() const;
-
+    /**
+     * Reload, recompile and relink all shaders and programmed internally used by the renderer.
+     */
     virtual void reloadShaders();
 
+    // TODO:    For now the drawn texture takes the whole viewport,
+    //          maybe it could be great if we had a way to switch between
+    //          the current "fullscreen" debug mode, and some kind of
+    //          "windowed" mode (that would show the debugged texture in
+    //          its own viewport, without hiding the final texture.)
     /**
      * @brief Change the texture that is displayed on screen.
      * Set m_displayedIsDepth to true if depth linearization is wanted
      *
-     * @param texIdx The texture to display.
+     * @param texName The texture to display.
      */
-    // FIXME(Charly): For now the drawn texture takes the whole viewport,
-    //                maybe it could be great if we had a way to switch between
-    //                the current "fullscreen" debug mode, and some kind of
-    //                "windowed" mode (that would show the debugged texture in
-    //                its own viewport, without hiding the final texture.)
     virtual void displayTexture( const std::string& texName );
 
     /**
@@ -214,28 +285,34 @@ class RA_ENGINE_API Renderer {
      */
     virtual std::string getRendererName() const = 0;
 
-    virtual std::unique_ptr<uchar[]> grabFrame( uint& w, uint& h ) const;
+    virtual std::unique_ptr<uchar[]> grabFrame( size_t& w, size_t& h ) const;
 
   protected:
     /**
      * @brief initializeInternal
+     * Initialize the renderer dependant resources.
      */
     virtual void initializeInternal() = 0;
+
+    /**
+     * resize the renderer dependent resources
+     */
     virtual void resizeInternal() = 0;
 
-    // 2.1
-    virtual void updateStepInternal( const RenderData& renderData ) = 0;
+    /**
+     * Update the renderer dependent resources for the next frame
+     * @param renderData
+     */
+    virtual void updateStepInternal( const ViewingParameters& renderData ) = 0;
 
-    // 4.
     /**
      * @brief All the scene rendering magics basically happens here.
      *
      * @param renderData The basic data needed for the rendering :
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
-    virtual void renderInternal( const RenderData& renderData ) = 0;
+    virtual void renderInternal( const ViewingParameters& renderData ) = 0;
 
-    // 5.
     /**
      * @brief Do all post processing stuff. If you override this method,
      * be careful to fill @see m_fancyTexture since it is the texture that
@@ -244,37 +321,38 @@ class RA_ENGINE_API Renderer {
      * @param renderData The basic data needed for the rendering :
      * Time elapsed since last frame, camera view matrix, camera projection matrix.
      */
-    virtual void postProcessInternal( const RenderData& renderData ) = 0;
+    virtual void postProcessInternal( const ViewingParameters& renderData ) = 0;
 
     /**
      * @brief Add the debug layer with useful informations
      */
-    virtual void debugInternal( const RenderData& renderData ) = 0; // is renderData useful ?
+    virtual void
+    debugInternal( const ViewingParameters& renderData ) = 0; // is viewingParameters useful ?
 
     /**
      * @brief Draw the UI data
      */
-    virtual void uiInternal( const RenderData& renderData ) = 0; // idem ?
+    virtual void uiInternal( const ViewingParameters& renderData ) = 0; // idem ?
 
   private:
     // 0.
     void saveExternalFBOInternal();
 
     // 1.
-    void feedRenderQueuesInternal( const RenderData& renderData );
+    void feedRenderQueuesInternal( const ViewingParameters& renderData );
 
     // 2.0
-    void updateRenderObjectsInternal( const RenderData& renderData );
+    void updateRenderObjectsInternal( const ViewingParameters& renderData );
 
     // 3.
-    void splitRenderQueuesForPicking( const RenderData& renderData );
+    void splitRenderQueuesForPicking( const ViewingParameters& renderData );
     void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                   std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
-    void renderForPicking( const RenderData& renderData,
+    void renderForPicking( const ViewingParameters& renderData,
                            const std::array<const ShaderProgram*, 4>& pickingShaders,
                            const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
 
-    void doPicking( const RenderData& renderData );
+    void doPicking( const ViewingParameters& renderData );
 
     // 6.
     void drawScreenInternal();
@@ -283,13 +361,12 @@ class RA_ENGINE_API Renderer {
     void notifyRenderObjectsRenderingInternal();
 
   protected:
-    uint m_width;
-    uint m_height;
+    uint m_width{0};
+    uint m_height{0};
 
-    ShaderProgramManager* m_shaderMgr;
-    RenderObjectManager* m_roMgr;
+    ShaderProgramManager* m_shaderMgr{nullptr};
+    RenderObjectManager* m_roMgr{nullptr};
 
-    // FIXME(Charly): Should we change "displayedTexture" to "debuggedTexture" ?
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
     /**
@@ -297,16 +374,13 @@ class RA_ENGINE_API Renderer {
      * @see debugTexture has been done, this is just a pointer to
      * @see m_fancyTexture.
      */
-    Texture* m_displayedTexture;
-
-    std::unique_ptr<Texture> m_fancyTexture;
-    std::map<std::string, Texture*> m_secondaryTextures;
+    Texture* m_displayedTexture{nullptr};
 
     /// A renderer could define several LightManager (for instance, one for point light, one other
     /// for infinite light ...)
     std::vector<Ra::Engine::LightManager*> m_lightmanagers;
 
-    bool m_renderQueuesUpToDate;
+    bool m_renderQueuesUpToDate{false};
 
     std::vector<RenderObjectPtr> m_fancyRenderObjects;
     std::vector<RenderObjectPtr> m_debugRenderObjects;
@@ -314,11 +388,19 @@ class RA_ENGINE_API Renderer {
     std::vector<RenderObjectPtr> m_uiRenderObjects;
 
     // Simple quad mesh, used to render the final image
-    std::unique_ptr<Mesh> m_quadMesh;
+    std::unique_ptr<Displayable> m_quadMesh;
 
-    bool m_drawDebug;          // Should we render debug stuff ?
-    bool m_wireframe;          // Are we rendering in "real" wireframe mode
-    bool m_postProcessEnabled; // Should we do post processing ?
+    bool m_drawDebug{true};          // Should we render debug stuff ?
+    bool m_wireframe{false};         // Are we rendering in "real" wireframe mode
+    bool m_postProcessEnabled{true}; // Should we do post processing ?
+
+    // derived class could use the already created textures
+    /// Depth texture : might be attached to the main framebuffer
+    std::unique_ptr<Texture> m_depthTexture;
+    /// Final color texture : might be attached to the main framebuffer
+    std::unique_ptr<Texture> m_fancyTexture;
+    /// Textures exposed in the texture section box to be displayed.
+    std::map<std::string, Texture*> m_secondaryTextures;
 
   private:
     // Qt has the nice idea to bind an fbo before giving you the opengl context,
@@ -333,21 +415,22 @@ class RA_ENGINE_API Renderer {
 
     // PICKING STUFF
     Ra::Core::Vector2 m_mousePosition;
-    float m_brushRadius;
+    float m_brushRadius{0};
     std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
     std::unique_ptr<Texture> m_pickingTexture;
 
-    std::array<std::vector<RenderObjectPtr>, 4> m_fancyRenderObjectsPicking;
-    std::array<std::vector<RenderObjectPtr>, 4> m_debugRenderObjectsPicking;
-    std::array<std::vector<RenderObjectPtr>, 4> m_xrayRenderObjectsPicking;
-    std::array<std::vector<RenderObjectPtr>, 4> m_uiRenderObjectsPicking;
-    std::array<const ShaderProgram*, 4> m_pickingShaders;
+    static const int NoPickingRenderMode = Displayable::PickingRenderMode::NO_PICKING;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_fancyRenderObjectsPicking;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_debugRenderObjectsPicking;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_xrayRenderObjectsPicking;
+    std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_uiRenderObjectsPicking;
+    std::array<const ShaderProgram*, NoPickingRenderMode> m_pickingShaders;
 
     std::vector<PickingQuery> m_pickingQueries;
     std::vector<PickingQuery> m_lastFramePickingQueries;
     std::vector<PickingResult> m_pickingResults;
 
-    std::unique_ptr<Texture> m_depthTexture;
+    Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 };
 
 } // namespace Engine

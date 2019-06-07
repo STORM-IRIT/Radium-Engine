@@ -5,12 +5,13 @@
 #include <SkinningPlugin.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/Adjacency/Adjacency.hpp>
-#include <Core/Math/ColorPresets.hpp>
+#include <Core/Geometry/Adjacency.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
 
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Skinning/SkinningData.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/SkinningData.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -21,16 +22,18 @@
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
-using Ra::Core::TriangleMesh;
 using Ra::Core::Animation::WeightMatrix;
+using Ra::Core::Geometry::TriangleMesh;
 using Ra::Engine::ComponentMessenger;
 
 namespace SkinningPlugin {
 
-class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
+class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component
+{
   public:
     /// CONSTRUCTOR
-    SkinningDisplayComponent( const std::string& name, const std::string& content,
+    SkinningDisplayComponent( const std::string& name,
+                              const std::string& content,
                               Ra::Engine::Entity* entity ) :
         Ra::Engine::Component( name, entity ),
         m_contentsName( content ) {}
@@ -42,13 +45,13 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
     void initialize() { display(); }
 
     void display() {
-        auto compMsg = ComponentMessenger::getInstance();
-        bool hasMesh = compMsg->canGet<TriangleMesh>( getEntity(), m_contentsName );
+        auto compMsg    = ComponentMessenger::getInstance();
+        bool hasMesh    = compMsg->canGet<TriangleMesh>( getEntity(), m_contentsName );
         bool hasWeights = compMsg->canGet<WeightMatrix>( getEntity(), m_contentsName );
 
         if ( hasMesh && hasWeights )
         {
-            const TriangleMesh& mesh = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
+            const TriangleMesh& mesh    = compMsg->get<TriangleMesh>( getEntity(), m_contentsName );
             const WeightMatrix& weights = compMsg->get<WeightMatrix>( getEntity(), m_contentsName );
 
             const uint size = mesh.vertices().size();
@@ -59,7 +62,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             for ( uint i = 0; i < fiveColor; ++i )
             {
                 Scalar hue = ( Scalar( i ) / Scalar( fiveColor - 1 ) ) * magenta;
-                palette[i] = Ra::Core::Colors::fromHSV( hue, 1.0, 0.5 );
+                palette[i] = Ra::Core::Utils::Color::fromHSV( hue, 1.0, 0.5 );
             }
 
             std::vector<uint> partition( size );
@@ -83,10 +86,7 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
                     const uint i = it.row();
                     const uint j = it.col();
                     if ( partition[i] != partition[j] )
-                    {
-                        Seg.coeffRef( partition[i], partition[j] ) = 1.0;
-                    }
-                }
+                    { Seg.coeffRef( partition[i], partition[j] ) = 1.0; } }
             }
 
             std::vector<uint> assignedColor( weights.cols(), uint( -1 ) );
@@ -102,13 +102,10 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
                 {
                     const uint j = it.row();
                     if ( assignedColor[j] != uint( -1 ) && option.size() > 1 )
-                    {
-                        option.erase( assignedColor[j] );
-                    }
-                }
+                    { option.erase( assignedColor[j] ); } }
 
                 uint random = std::rand() % std::max<uint>( option.size(), 1 );
-                auto it = option.begin();
+                auto it     = option.begin();
                 for ( uint i = 0; i < random && it != option.end(); ++i )
                 {
                     ++it;
@@ -128,8 +125,8 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
 
             Ra::Engine::BlinnPhongMaterial* nm =
                 new Ra::Engine::BlinnPhongMaterial( std::string( "Partition" ) + m_name );
-            nm->m_kd = Ra::Core::Vector4::Zero();
-            nm->m_ks = Ra::Core::Vector4::Zero();
+            nm->m_kd = Ra::Core::Utils::Color::Black();
+            nm->m_ks = Ra::Core::Utils::Color::Black();
             nm->m_ns = 100;
             technique->resetMaterial( nm );
 
@@ -143,8 +140,11 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component {
             renderObject->setVisible( true );
             renderObject->setRenderTechnique( technique );
             std::shared_ptr<Ra::Engine::Mesh> displayMesh( new Ra::Engine::Mesh( name ) );
-            displayMesh->loadGeometry( mesh );
-            displayMesh->addData( Ra::Engine::Mesh::Vec4Data::VERTEX_COLOR, color );
+            TriangleMesh meshCopy( mesh );
+            auto colorAttribHandle = meshCopy.addAttrib<Ra::Core::Vector4>(
+                Ra::Engine::Mesh::getAttribName( Ra::Engine::Mesh::VERTEX_COLOR ) );
+            auto colorAttrib = meshCopy.getAttrib( colorAttribHandle ).data() = color;
+            displayMesh->loadGeometry( std::move( meshCopy ) );
             renderObject->setMesh( displayMesh );
 
             renderObject->setVisible( false );

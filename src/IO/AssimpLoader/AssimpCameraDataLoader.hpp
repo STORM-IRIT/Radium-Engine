@@ -1,8 +1,8 @@
 #ifndef RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP
 
-#include <Core/File/DataLoader.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Asset/DataLoader.hpp>
+#include <Core/Types.hpp>
 #include <IO/RaIO.hpp>
 
 #include <set>
@@ -16,25 +16,26 @@ namespace Engine {
 class Camera;
 } // namespace Engine
 
+namespace Core {
 namespace Asset {
 class CameraData;
-} // namespace Asset
-} // namespace Ra
+}
+} // namespace Core
 
-namespace Ra {
 namespace IO {
 
 /// The AssimpCameraDataLoader converts camera data from the Assimp format
 /// to the Asset::CameraData format.
-class RA_IO_API AssimpCameraDataLoader : public Asset::DataLoader<Asset::CameraData> {
+class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::Asset::CameraData>
+{
   public:
-    AssimpCameraDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    explicit AssimpCameraDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
-    ~AssimpCameraDataLoader();
+    ~AssimpCameraDataLoader() override;
 
     /// Convert all the camera data from \p scene into \p data.
     void loadData( const aiScene* scene,
-                   std::vector<std::unique_ptr<Asset::CameraData>>& data ) override;
+                   std::vector<std::unique_ptr<Core::Asset::CameraData>>& data ) override;
 
   protected:
     /// Return true if the given scene has camera data.
@@ -44,14 +45,16 @@ class RA_IO_API AssimpCameraDataLoader : public Asset::DataLoader<Asset::CameraD
     uint sceneCameraSize( const aiScene* scene ) const;
 
     /// Fill \p data with the CameraData from \p camera.
-    void loadCameraData( const aiScene* scene, const aiCamera& camera, Asset::CameraData& data );
+    void
+    loadCameraData( const aiScene* scene, const aiCamera& camera, Core::Asset::CameraData& data );
 
     /// Fill \p data with the camera name from \p camera.
-    void fetchName( const aiCamera& camera, Asset::CameraData& data ) const;
+    void fetchName( const aiCamera& camera, Core::Asset::CameraData& data ) const;
 
     /// Return the Camera transformation, in world space, for \p data from \p the scene.
-    Core::Matrix4 loadCameraFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
-                                   Asset::CameraData& data ) const;
+    Core::Matrix4 loadCameraFrame( const aiScene* scene,
+                                   const Core::Matrix4& parentFrame,
+                                   Core::Asset::CameraData& data ) const;
 };
 
 } // namespace IO

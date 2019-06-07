@@ -3,6 +3,7 @@
 namespace Ra {
 namespace Core {
 namespace Math {
+
 inline constexpr Scalar toRadians( Scalar a ) {
     return toRad * a;
 }
@@ -13,19 +14,11 @@ inline constexpr Scalar toDegrees( Scalar a ) {
 
 template <typename T>
 inline T ipow( const T& x, uint exp ) {
-    if ( exp == 0 )
-    {
-        return T( 1 );
-    }
-    if ( exp == 1 )
-    {
-        return x;
-    }
+    if ( exp == 0 ) { return T( 1 ); }
+    if ( exp == 1 ) { return x; }
     T p = ipow( x, exp / 2 );
-    if ( ( exp % 2 ) == 0 )
-    {
-        return p * p;
-    } else
+    if ( ( exp % 2 ) == 0 ) { return p * p; }
+    else
     { return p * p * x; }
 }
 
@@ -80,17 +73,17 @@ inline constexpr T signNZ( const T& val ) {
 }
 
 template <typename T>
-inline constexpr T clamp( T v, T min, T max ) {
-    return std::max( min, std::min( v, max ) );
-}
-
-template <typename T>
 inline constexpr T saturate( T v ) {
-    return clamp( v, static_cast<T>( 0 ), static_cast<T>( 1 ) );
+    return std::clamp( v, static_cast<T>( 0 ), static_cast<T>( 1 ) );
 }
 
-inline bool areApproxEqual( Scalar a, Scalar b, Scalar eps ) {
-    return std::abs( b - a ) < eps;
+/// Implementation inspired from https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
+template <class T>
+typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
+areApproxEqual( T x, T y, T espilonBoostFactor ) {
+    return std::abs( x - y ) <= std::numeric_limits<T>::epsilon() * espilonBoostFactor
+           // unless the result is subnormal
+           || std::abs( x - y ) < std::numeric_limits<T>::min();
 }
 
 template <typename T>

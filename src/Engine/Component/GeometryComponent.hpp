@@ -1,15 +1,12 @@
 #ifndef RADIUMENGINE_GEOMETRY_COMPONENT_HPP
-#    define RADIUMENGINE_GEOMETRY_COMPONENT_
+#define RADIUMENGINE_GEOMETRY_COMPONENT_HPP
 
-#    include <Core/File/GeometryData.hpp>
-#    include <Core/Mesh/MeshTypes.hpp>
-#    include <Core/Mesh/TriangleMesh.hpp>
-
-#    include <Engine/Component/Component.hpp>
+#include <Core/Asset/GeometryData.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Engine {
-class RenderTechnique;
 class Mesh;
 } // namespace Engine
 } // namespace Ra
@@ -17,7 +14,7 @@ class Mesh;
 namespace Ra {
 namespace Engine {
 /*!
- * \brief Main class to convert Ra::Asset::GeometryData to Ra::Engine::Mesh
+ * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
  *
  * Exports access to the mesh geometry:
  *  - TriangleMesh: get, rw (set vertices, normals and triangles dirty)
@@ -25,50 +22,61 @@ namespace Engine {
  *  - normals: rw (if deformable)
  *  - triangles: rw (if deformable)
  */
-class RA_ENGINE_API GeometryComponent : public Component {
+class RA_ENGINE_API TriangleMeshComponent : public Component
+{
   public:
-    GeometryComponent( const std::string& name, bool deformable, Entity* entity );
-    virtual ~GeometryComponent();
+    TriangleMeshComponent( const std::string& name,
+                           Entity* entity,
+                           const Ra::Core::Asset::GeometryData* data );
+
+    /*!
+     * Constructor from an existing mesh
+     * \warning Moves the mesh and takes its ownership
+     */
+    TriangleMeshComponent( const std::string& name,
+                           Entity* entity,
+                           Core::Geometry::TriangleMesh&& mesh,
+                           Core::Asset::MaterialData* mat = nullptr );
+
+    ~TriangleMeshComponent() override;
 
     void initialize() override;
 
-    void addMeshRenderObject( const Ra::Core::TriangleMesh& mesh, const std::string& name );
-    void handleMeshLoading( const Ra::Asset::GeometryData* data );
-
-    /// Returns the index of the associated RO (the display mesh)
-    Ra::Core::Index getRenderObjectIndex() const;
-
     /// Returns the current display geometry.
-    const Ra::Core::TriangleMesh& getMesh() const;
+    const Ra::Core::Geometry::TriangleMesh& getMesh() const;
+    Mesh* getDisplayMesh();
 
   public:
     // Component communication management
     void setupIO( const std::string& id );
-    void setContentName( const std::string name );
-    void setDeformable( const bool b );
+    void setContentName( const std::string& name );
+    void setDeformable( bool b );
+
+    /// Returns the index of the associated RO (the display mesh)
+    Ra::Core::Utils::Index getRenderObjectIndex() const;
 
   private:
-    const Mesh& getDisplayMesh() const;
-    Mesh& getDisplayMesh();
+    void generateTriangleMesh( const Ra::Core::Asset::GeometryData* data );
+
+    void finalizeROFromGeometry( const Core::Asset::MaterialData* data );
 
     // Give access to the mesh and (if deformable) to update it
-    const Ra::Core::TriangleMesh* getMeshOutput() const;
-    Ra::Core::TriangleMesh* getMeshRw();
-    void setMeshInput( const Ra::Core::TriangleMesh* mesh );
+    const Ra::Core::Geometry::TriangleMesh* getMeshOutput() const;
+    Ra::Core::Geometry::TriangleMesh* getMeshRw();
     Ra::Core::Vector3Array* getVerticesRw();
     Ra::Core::Vector3Array* getNormalsRw();
-    Ra::Core::VectorArray<Ra::Core::Triangle>* getTrianglesRw();
+    Ra::Core::VectorArray<Ra::Core::Vector3ui>* getTrianglesRw();
 
-    const Ra::Core::Index* roIndexRead() const;
+    const Ra::Core::Utils::Index* roIndexRead() const;
 
   private:
-    Ra::Core::Index m_meshIndex;
-    Ra::Core::Index m_aabbIndex;
-    std::string m_contentName;
-    bool m_deformable;
+    Ra::Core::Utils::Index m_meshIndex{};
+    std::string m_contentName{};
+    // directly hold a reference to the displayMesh to simplify accesses in handlers
+    std::shared_ptr<Mesh> m_displayMesh{nullptr};
 };
 
 } // namespace Engine
 } // namespace Ra
 
-#endif // RADIUMENGINE_GEOMETRY_COMPONENT_
+#endif // RADIUMENGINE_GEOMETRY_COMPONENT_HPP

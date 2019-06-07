@@ -8,12 +8,12 @@ namespace _internalIterator {
 template <class T>
 struct _reversed {
     T& t;
-    _reversed( T& _t ) : t( _t ) {}
+    explicit _reversed( T& _t ) : t( _t ) {}
 };
 template <class T>
 struct _creversed {
     const T& t;
-    _creversed( const T& _t ) : t( _t ) {}
+    explicit _creversed( const T& _t ) : t( _t ) {}
 };
 } // namespace _internalIterator
 

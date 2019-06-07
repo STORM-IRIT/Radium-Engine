@@ -1,9 +1,8 @@
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Math/ColorPresets.hpp>
-#include <Core/Math/RayCast.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -19,69 +18,113 @@
 
 namespace Ra {
 namespace Gui {
-TranslateGizmo::TranslateGizmo( Engine::Component* c, const Core::Transform& worldTo,
-                                const Core::Transform& t, Mode mode ) :
+
+const std::string colorAttribName = Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR );
+
+TranslateGizmo::TranslateGizmo( Engine::Component* c,
+                                const Core::Transform& worldTo,
+                                const Core::Transform& t,
+                                Mode mode ) :
     Gizmo( c, worldTo, t, mode ),
     m_startPoint( Core::Vector3::Zero() ),
     m_initialPix( Core::Vector2::Zero() ),
-    m_selectedAxis( -1 ) {
-    constexpr Scalar arrowScale = 0.2f;
-    constexpr Scalar axisWidth = 0.05f;
-    constexpr Scalar arrowFrac = 0.1f;
+    m_selectedAxis( -1 ),
+    m_selectedPlane( -1 ) {
+    constexpr Scalar arrowScale = .1_ra;
+    constexpr Scalar axisWidth  = .05_ra;
+    constexpr Scalar arrowFrac  = .15_ra;
+
+    std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
+    rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
+    rt->resetMaterial( new Ra::Engine::BlinnPhongMaterial( "Default material" ) );
 
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
+        Core::Utils::Color arrowColor = Core::Utils::Color::Black();
+        arrowColor[i]                 = 1_ra;
+
         Core::Vector3 cylinderEnd = Core::Vector3::Zero();
-        Core::Vector3 arrowEnd = Core::Vector3::Zero();
-        cylinderEnd[i] = ( 1.f - arrowFrac );
-        arrowEnd[i] = 1.f;
+        Core::Vector3 arrowEnd    = Core::Vector3::Zero();
+        cylinderEnd[i]            = ( 1_ra - arrowFrac );
+        arrowEnd[i]               = 1_ra;
 
-        Core::TriangleMesh cylinder = Core::MeshUtils::makeCylinder(
-            Core::Vector3::Zero(), arrowScale * cylinderEnd, arrowScale * axisWidth / 2.f );
+        Core::Geometry::TriangleMesh cylinder =
+            Core::Geometry::makeCylinder( Core::Vector3::Zero(),
+                                          arrowScale * cylinderEnd,
+                                          arrowScale * axisWidth / 2_ra,
+                                          32,
+                                          arrowColor );
 
-        Core::TriangleMesh cone = Core::MeshUtils::makeCone(
-            arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2.f );
+        Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone( arrowScale * cylinderEnd,
+                                                                      arrowScale * arrowEnd,
+                                                                      arrowScale * arrowFrac / 2_ra,
+                                                                      32,
+                                                                      arrowColor );
 
         // Merge the cylinder and the cone to create the arrow shape.
         cylinder.append( cone );
 
-        Core::Color arrowColor = Core::Color::Zero();
-        arrowColor[i] = 1.f;
-        Core::Vector4Array colors( cylinder.vertices().size(), arrowColor );
-
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
-        mesh->loadGeometry( cylinder );
-        mesh->addData( Engine::Mesh::VERTEX_COLOR, colors );
+        mesh->loadGeometry( std::move( cylinder ) );
 
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
-
-        std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-        rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-        rt->resetMaterial( new Ra::Engine::BlinnPhongMaterial( "Default material" ) );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
 
-        updateTransform( mode, m_worldTo, m_transform );
-
-        m_renderObjects.push_back( m_comp->addRenderObject( arrowDrawable ) );
+        addRenderObject( arrowDrawable, mesh );
     }
+
+    for ( uint i = 0; i < 3; ++i )
+    {
+        Core::Utils::Color planeColor = Core::Utils::Color::Black();
+        planeColor[i]                 = 1_ra;
+
+        Core::Vector3 axis                        = Core::Vector3::Zero();
+        axis[( i == 0 ? 1 : ( i == 1 ? 0 : 2 ) )] = 1;
+        Core::Transform T                         = Core::Transform::Identity();
+        T.rotate( Core::AngleAxis( Core::Math::PiDiv2, axis ) );
+        T.translation()[( i + 1 ) % 3] += arrowScale / 8_ra * 3_ra;
+        T.translation()[( i + 2 ) % 3] += arrowScale / 8_ra * 3_ra;
+
+        Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
+            1, 1, Core::Vector2( arrowScale / 8_ra, arrowScale / 8_ra ), T, planeColor );
+
+        // \FIXME this hack is here to be sure the plane will be selected (see shader)
+        plane.normals().getMap().fill( 0_ra );
+
+        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Plane" ) );
+        mesh->loadGeometry( std::move( plane ) );
+
+        Engine::RenderObject* planeDrawable =
+            new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
+        planeDrawable->setRenderTechnique( rt );
+        planeDrawable->setMesh( mesh );
+        addRenderObject( planeDrawable, mesh );
+    }
+
+    updateTransform( mode, m_worldTo, m_transform );
 }
 
-void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& worldTo,
+void TranslateGizmo::updateTransform( Gizmo::Mode mode,
+                                      const Core::Transform& worldTo,
                                       const Core::Transform& t ) {
-    m_mode = mode;
-    m_worldTo = worldTo;
-    m_transform = t;
+    m_mode                           = mode;
+    m_worldTo                        = worldTo;
+    m_transform                      = t;
     Core::Transform displayTransform = Core::Transform::Identity();
+    displayTransform.translate( m_transform.translation() );
     if ( m_mode == LOCAL )
     {
-        displayTransform = m_transform;
-    } else
-    { displayTransform.translate( m_transform.translation() ); }
+        Core::Matrix3 R = m_transform.rotation();
+        R.col( 0 ).normalize();
+        R.col( 1 ).normalize();
+        R.col( 2 ).normalize();
+        displayTransform.rotate( R );
+    }
 
-    for ( auto roIdx : m_renderObjects )
+    for ( auto roIdx : roIds() )
     {
         Engine::RadiumEngine::getInstance()
             ->getRenderObjectManager()
@@ -91,85 +134,106 @@ void TranslateGizmo::updateTransform( Gizmo::Mode mode, const Core::Transform& w
 }
 
 void TranslateGizmo::selectConstraint( int drawableIdx ) {
-    int oldAxis = m_selectedAxis;
-    m_selectedAxis = -1;
+    // reColor constraint
+    roMeshes()[0]->getTriangleMesh().colorize( Core::Utils::Color::Red() );
+    roMeshes()[1]->getTriangleMesh().colorize( Core::Utils::Color::Green() );
+    roMeshes()[2]->getTriangleMesh().colorize( Core::Utils::Color::Blue() );
+    roMeshes()[3]->getTriangleMesh().colorize( Core::Utils::Color::Red() );
+    roMeshes()[4]->getTriangleMesh().colorize( Core::Utils::Color::Green() );
+    roMeshes()[5]->getTriangleMesh().colorize( Core::Utils::Color::Blue() );
+
+    // prepare selection
+    int oldAxis     = m_selectedAxis;
+    int oldPlane    = m_selectedPlane;
+    m_selectedAxis  = -1;
+    m_selectedPlane = -1;
     if ( drawableIdx >= 0 )
     {
-        auto found = std::find( m_renderObjects.cbegin(), m_renderObjects.cend(),
-                                Core::Index( drawableIdx ) );
-        if ( found != m_renderObjects.cend() )
+        auto found =
+            std::find( roIds().cbegin(), roIds().cend(), Core::Utils::Index( drawableIdx ) );
+        if ( found != roIds().cend() )
         {
-            m_selectedAxis = int( found - m_renderObjects.begin() );
-        }
-    }
-    if ( m_selectedAxis != oldAxis )
-    {
-        m_initialPix = Core::Vector2::Zero();
-        m_start = false;
-    }
-}
-
-bool findPointOnAxis( const Engine::Camera& cam, const Ra::Core::Vector3& origin,
-                      const Ra::Core::Vector3& axis, const Ra::Core::Vector2& pix,
-                      Ra::Core::Vector3& pointOut ) {
-
-    // Taken from Rodolphe's View engine gizmos -- see slide_axis().
-
-    // Find a plane containing axis and as parallel as possible to
-    // the camera image plane
-    const Core::Vector3 ortho = cam.getDirection().cross( axis );
-    const Core::Vector3 normal =
-        ( ortho.squaredNorm() > 0 ) ? axis.cross( ortho ) : axis.cross( cam.getUpVector() );
-
-    std::vector<Scalar> hit;
-    const Core::Ray ray = cam.getRayFromScreen( pix );
-    bool hasHit = Core::RayCast::vsPlane( ray, origin, normal, hit );
-    if ( hasHit )
-    {
-        pointOut = origin + ( axis.dot( ray.pointAt( hit[0] ) - origin ) ) * axis;
-    }
-    return hasHit;
-}
-
-Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY,
-                                           bool stepped ) {
-    static const float step = 0.2;
-    if ( m_selectedAxis >= 0 )
-    {
-        const Core::Vector3 origin = m_transform.translation();
-        Core::Vector3 translateDir =
-            m_mode == LOCAL
-                ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( m_selectedAxis ) )
-                : Core::Vector3::Unit( m_selectedAxis );
-
-        if ( !m_start )
-        {
-            if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, m_startPoint ) )
+            auto i = std::distance( roIds().cbegin(), found );
+            if ( i < 3 )
             {
-                m_start = true;
-                m_initialTrans = m_transform.translation();
+                m_selectedAxis = int( i );
+                roMeshes()[size_t( m_selectedAxis )]->getTriangleMesh().colorize(
+                    Core::Utils::Color::Yellow() );
+            }
+            else
+            {
+                m_selectedPlane = int( i - 3 );
+                roMeshes()[size_t( ( m_selectedPlane + 1 ) % 3 )]->getTriangleMesh().colorize(
+                    Core::Utils::Color::Yellow() );
+                roMeshes()[size_t( ( m_selectedPlane + 2 ) % 3 )]->getTriangleMesh().colorize(
+                    Core::Utils::Color::Yellow() );
+                roMeshes()[size_t( m_selectedPlane + 3 )]->getTriangleMesh().colorize(
+                    Core::Utils::Color::Yellow() );
             }
         }
-
-        Ra::Core::Vector3 endPoint;
-        if ( findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint ) )
-        {
-            if ( stepped )
-            {
-                const Ra::Core::Vector3 tr = endPoint - m_startPoint;
-                m_transform.translation() =
-                    m_initialTrans + int( tr.norm() / step ) * step * tr.normalized();
-            } else
-            { m_transform.translation() = m_initialTrans + endPoint - m_startPoint; }
-        }
     }
+    if ( m_selectedAxis != oldAxis || m_selectedPlane != oldPlane )
+    {
+        m_initialPix = Core::Vector2::Zero();
+        m_start      = false;
+    }
+
+    for ( auto mesh : roMeshes() )
+        mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
+}
+
+Core::Transform
+TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped ) {
+    static const Scalar step = .2_ra;
+
+    if ( m_selectedAxis == -1 && m_selectedPlane == -1 ) return m_transform;
+
+    // Get gizmo center and translation axis / plane normal
+    std::vector<Scalar> hits;
+    int axis                   = std::max( m_selectedAxis, m_selectedPlane );
+    const Core::Vector3 origin = m_transform.translation();
+    const Core::Vector3 translateDir =
+        m_mode == LOCAL ? Core::Vector3( m_transform.rotation() * Core::Vector3::Unit( axis ) )
+                        : Core::Vector3::Unit( axis );
+
+    // Project the clicked points against the axis defined by the translation axis,
+    // or the planes defined by the translation plane.
+    Ra::Core::Vector3 endPoint;
+    bool found = false;
+    if ( m_selectedAxis > -1 )
+    {
+        found = findPointOnAxis( cam, origin, translateDir, m_initialPix + nextXY, endPoint, hits );
+    }
+    else if ( m_selectedPlane > -1 )
+    {
+        found =
+            findPointOnPlane( cam, origin, translateDir, m_initialPix + nextXY, endPoint, hits );
+    }
+
+    if ( found )
+    {
+        // Initialize translation
+        if ( !m_start )
+        {
+            m_start        = true;
+            m_startPoint   = endPoint;
+            m_initialTrans = origin;
+        }
+
+        // Apply translation
+        Ra::Core::Vector3 tr = endPoint - m_startPoint;
+        if ( stepped ) { tr = int( tr.norm() / step ) * step * tr.normalized(); }
+        m_transform.translation() = m_initialTrans + tr;
+    }
+
     return m_transform;
 }
 
 void TranslateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
-    const Core::Vector3 origin = m_transform.translation();
+    const Core::Vector3 origin    = m_transform.translation();
     const Core::Vector2 orgScreen = cam.project( origin );
-    m_initialPix = orgScreen - initialXY;
+    m_initialPix                  = orgScreen - initialXY;
 }
+
 } // namespace Gui
 } // namespace Ra

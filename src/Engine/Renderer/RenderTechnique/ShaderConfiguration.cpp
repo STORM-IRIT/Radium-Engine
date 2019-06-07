@@ -143,26 +143,27 @@ static const std::string defaultFragmentShader(
                                                );
 
 #else
-static const std::string defaultVertexShader( "Shaders/Default.vert.glsl" );
-static const std::string defaultFragmentShader( "Shaders/Default.frag.glsl" );
+static const std::string defaultVertexShader{"Shaders/Default.vert.glsl"};
+static const std::string defaultFragmentShader{"Shaders/Default.frag.glsl"};
 #endif
 
 namespace Ra {
 namespace Engine {
 
-ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "DefaultShader",
+ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program",
                                                                 defaultVertexShader,
                                                                 defaultFragmentShader );
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
-    m_name( name ),
-    m_version( "#version 410" ) {}
+    m_name{name},
+    m_version{"#version 410"} {}
 
-ShaderConfiguration::ShaderConfiguration( const std::string& name, const std::string& vertexShader,
+ShaderConfiguration::ShaderConfiguration( const std::string& name,
+                                          const std::string& vertexShader,
                                           const std::string& fragmentShader ) :
-    m_name( name ),
-    m_version( "#version 410" ) {
-    m_shaders[ShaderType_VERTEX] = vertexShader;
+    m_name{name},
+    m_version{"#version 410"} {
+    m_shaders[ShaderType_VERTEX]   = vertexShader;
     m_shaders[ShaderType_FRAGMENT] = fragmentShader;
 }
 
@@ -197,13 +198,19 @@ void ShaderConfiguration::addIncludes( const std::list<std::string>& incls, Shad
 }
 
 void ShaderConfiguration::removeInclude( const std::string& incl, ShaderType type ) {
-    // TODO (Hugo)
+    // Part of Radium V2 composable shader system
     // m_properties.erase( "#include " + prop );
 }
 
+void ShaderConfiguration::addNamedString( const std::string& includepath,
+                                          const std::string& realfile ) {
+    m_named_strings.emplace_back( includepath, realfile );
+}
+
 bool ShaderConfiguration::isComplete() const {
-    return ( ( m_shaders[ShaderType_VERTEX] != "" ) && ( m_shaders[ShaderType_FRAGMENT] != "" ) ) ||
-           m_shaders[ShaderType_COMPUTE] != "";
+    return ( ( !m_shaders[ShaderType_VERTEX].empty() ) &&
+             ( !m_shaders[ShaderType_FRAGMENT].empty() ) ) ||
+           !m_shaders[ShaderType_COMPUTE].empty();
 }
 
 bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
@@ -211,22 +218,17 @@ bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
 
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( m_shaders[i] != o.m_shaders[i] )
-        {
-            return m_shaders[i] < o.m_shaders[i];
-        }
+        if ( m_shaders[i] != o.m_shaders[i] ) { return m_shaders[i] < o.m_shaders[i]; }
     }
 
     if ( m_properties.size() == o.m_properties.size() )
     {
-        if ( m_properties.size() == 0 )
+        if ( m_properties.empty() )
         {
             if ( m_includes.size() == o.m_includes.size() )
             {
-                if ( m_includes.size() == 0 )
-                {
-                    res = false;
-                } else
+                if ( m_includes.empty() ) { res = false; }
+                else
                 {
                     auto lit = m_includes.begin();
                     auto rit = o.m_includes.begin();
@@ -234,14 +236,13 @@ bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
                     for ( ; ( lit != m_includes.end() ) && ( *lit == *rit ); ++lit, ++rit )
                         ;
 
-                    if ( lit == m_includes.end() )
-                    {
-                        res = false;
-                    } else
+                    if ( lit == m_includes.end() ) { res = false; }
+                    else
                     { res = *lit < *rit; }
                 }
             }
-        } else
+        }
+        else
         {
             auto lit = m_properties.begin();
             auto rit = o.m_properties.begin();
@@ -249,13 +250,12 @@ bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {
             for ( ; ( lit != m_properties.end() ) && ( *lit == *rit ); ++lit, ++rit )
                 ;
 
-            if ( lit == m_properties.end() )
-            {
-                res = false;
-            } else
+            if ( lit == m_properties.end() ) { res = false; }
+            else
             { res = *lit < *rit; }
         }
-    } else
+    }
+    else
     { res = m_properties.size() < o.m_properties.size(); }
 
     return res;
@@ -267,6 +267,11 @@ std::set<std::string> ShaderConfiguration::getProperties() const {
 
 const std::vector<std::pair<std::string, ShaderType>>& ShaderConfiguration::getIncludes() const {
     return m_includes;
+}
+
+const std::vector<std::pair<std::string, std::string>>&
+ShaderConfiguration::getNamedStrings() const {
+    return m_named_strings;
 }
 
 } // namespace Engine

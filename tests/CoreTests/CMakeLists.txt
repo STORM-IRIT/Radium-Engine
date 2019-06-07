@@ -9,6 +9,7 @@ endfunction()
 
 radium_add_core_test( algebra    )
 radium_add_core_test( animation  )
+radium_add_core_test( color      )
 radium_add_core_test( containers )
 radium_add_core_test( distance   )
 radium_add_core_test( geometry   )

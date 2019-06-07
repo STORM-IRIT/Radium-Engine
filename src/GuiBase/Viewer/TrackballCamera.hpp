@@ -8,7 +8,8 @@ namespace Ra {
 namespace Gui {
 
 /// A Trackball manipulator for Cameras.
-class RA_GUIBASE_API TrackballCamera : public CameraInterface {
+class RA_GUIBASE_API TrackballCamera : public CameraInterface
+{
     Q_OBJECT
 
   public:

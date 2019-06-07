@@ -18,7 +18,7 @@ inline Core::Vector3 Camera::getPosition() const {
 
 inline void Camera::setPosition( const Core::Vector3& position ) {
     Core::Transform T = Core::Transform::Identity();
-    T.translation() = position - m_frame.translation();
+    T.translation()   = position - m_frame.translation();
     applyTransform( T );
 }
 
@@ -38,9 +38,7 @@ inline void Camera::setDirection( const Core::Vector3& direction ) {
     // Special case if two directions are exactly opposites we constrain.
     // to rotate around the up vector.
     if ( c.isApprox( Core::Vector3::Zero() ) && d < 0.0 )
-    {
-        T.rotate( Core::AngleAxis( Core::Math::PiDiv2, Core::Vector3::UnitY() ) );
-    } else
+    { T.rotate( Core::AngleAxis( Core::Math::PiDiv2, Core::Vector3::UnitY() ) ); } else
     { T.rotate( Core::Quaternion::FromTwoVectors( d0, d1 ) ); }
     applyTransform( T );
 }
@@ -63,7 +61,7 @@ inline Scalar Camera::getFOV() const {
     return m_fov;
 }
 
-inline void Camera::setFOV( const Scalar fov ) {
+inline void Camera::setFOV( Scalar fov ) {
     m_fov = fov;
     updateProjMatrix();
 }
@@ -72,7 +70,7 @@ inline Scalar Camera::getZNear() const {
     return m_zNear;
 }
 
-inline void Camera::setZNear( const Scalar zNear ) {
+inline void Camera::setZNear( Scalar zNear ) {
     m_zNear = zNear;
     updateProjMatrix();
 }
@@ -81,7 +79,7 @@ inline Scalar Camera::getZFar() const {
     return m_zFar;
 }
 
-inline void Camera::setZFar( const Scalar zFar ) {
+inline void Camera::setZFar( Scalar zFar ) {
     m_zFar = zFar;
     updateProjMatrix();
 }
@@ -104,7 +102,7 @@ inline Scalar Camera::getHeight() const {
 }
 
 inline void Camera::resize( Scalar width, Scalar height ) {
-    m_width = width;
+    m_width  = width;
     m_height = height;
     m_aspect = width / height;
     updateProjMatrix();
@@ -132,22 +130,22 @@ inline Core::Matrix4 Camera::getProjMatrix() const {
 
 inline Core::Vector2 Camera::project( const Core::Vector3& p ) const {
     Core::Vector4 point = Core::Vector4::Ones();
-    point.head<3>() = p;
-    auto vpPoint = getProjMatrix() * getViewMatrix() * point;
+    point.head<3>()     = p;
+    auto vpPoint        = getProjMatrix() * getViewMatrix() * point;
 
-    return Core::Vector2( m_width * 0.5f * ( vpPoint.x() + 1 ),
-                          m_height * 0.5f * ( 1 - vpPoint.y() ) );
+    return Core::Vector2( m_width * Scalar( 0.5 ) * ( vpPoint.x() + Scalar( 1 ) ),
+                          m_height * Scalar( 0.5 ) * ( vpPoint.y() + Scalar( -1 ) ) );
 }
 
 inline Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
-    const Scalar localX = ( 2.f * pix.x() ) / m_width - 1;
+    const Scalar localX = ( Scalar( 2 ) * pix.x() ) / m_width - Scalar( 1 );
     // Y is "inverted" (goes downwards)
-    const Scalar localY = -( 2.f * pix.y() ) / m_height + 1;
+    const Scalar localY = -( Scalar( 2 ) * pix.y() ) / m_height + Scalar( 1 );
 
     // Multiply the point in screen space by the inverted projection matrix
     // and then by the inverted view matrix ( = m_frame) to get it in world space.
     // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
-    const Core::Vector4 localPoint( localX, localY, -m_zNear, 1.f );
+    const Core::Vector4 localPoint( localX, localY, -m_zNear, Scalar( 1 ) );
     const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
     return m_frame * unproj.head<3>();
 }

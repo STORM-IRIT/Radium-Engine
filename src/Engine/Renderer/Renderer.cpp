@@ -1,17 +1,11 @@
 #include <Engine/Renderer/Renderer.hpp>
 
-#include <globjects/Framebuffer.h>
-
-#include <iostream>
-
-#include <Core/Log/Log.hpp>
-
-#include <Core/File/FileData.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
-
+#include <Core/Asset/FileData.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
@@ -23,25 +17,33 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
+#include <globjects/Framebuffer.h>
+
+#include <algorithm>
+#include <iostream>
+
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
+
 namespace {
-const GLenum buffers[] = {GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2,
-                          GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5,
-                          GL_COLOR_ATTACHMENT6, GL_COLOR_ATTACHMENT7};
+const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
+                          GL_COLOR_ATTACHMENT1,
+                          GL_COLOR_ATTACHMENT2,
+                          GL_COLOR_ATTACHMENT3,
+                          GL_COLOR_ATTACHMENT4,
+                          GL_COLOR_ATTACHMENT5,
+                          GL_COLOR_ATTACHMENT6,
+                          GL_COLOR_ATTACHMENT7};
 }
 
 Renderer::Renderer() :
-    m_width( 0 ),
-    m_height( 0 ),
-    m_shaderMgr( nullptr ),
-    m_displayedTexture( nullptr ),
-    m_renderQueuesUpToDate( false ),
-    m_quadMesh( nullptr ),
-    m_drawDebug( true ),
-    m_wireframe( false ),
-    m_postProcessEnabled( true ),
-    m_brushRadius( 0 ) {
+    m_quadMesh{nullptr},
+    m_depthTexture{nullptr},
+    m_fancyTexture{nullptr},
+    m_pickingFbo{nullptr},
+    m_pickingTexture{nullptr} {
     GL_CHECK_ERROR;
 }
 
@@ -50,34 +52,45 @@ Renderer::~Renderer() {
 }
 
 void Renderer::initialize( uint width, uint height ) {
-    m_width = width;
+    m_width  = width;
     m_height = height;
 
     // Initialize managers
     m_shaderMgr = ShaderProgramManager::getInstance();
-    m_roMgr = RadiumEngine::getInstance()->getRenderObjectManager();
+    m_roMgr     = RadiumEngine::getInstance()->getRenderObjectManager();
     TextureManager::createInstance();
 
-    m_shaderMgr->addShaderProgram( "DrawScreen", "Shaders/Basic2D.vert.glsl",
-                                   "Shaders/DrawScreen.frag.glsl" );
-    m_shaderMgr->addShaderProgram( "DrawScreenI", "Shaders/Basic2D.vert.glsl",
-                                   "Shaders/DrawScreenI.frag.glsl" );
-    m_shaderMgr->addShaderProgram( "CircleBrush", "Shaders/Basic2D.vert.glsl",
-                                   "Shaders/CircleBrush.frag.glsl" );
+    m_shaderMgr->addShaderProgram(
+        {{"DrawScreen"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/DrawScreen.frag.glsl"}} );
+    m_shaderMgr->addShaderProgram(
+        {{"DrawScreenI"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/DrawScreenI.frag.glsl"}} );
+    m_shaderMgr->addShaderProgram(
+        {{"CircleBrush"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/CircleBrush.frag.glsl"}} );
+    m_shaderMgr->addShaderProgram( {{"DisplayDepthBuffer"},
+                                    {"Shaders/Basic2D.vert.glsl"},
+                                    {"Shaders/DepthDisplay/DepthDisplay.frag.glsl"}} );
 
     ShaderConfiguration pickingPointsConfig( "PickingPoints" );
     pickingPointsConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingPointsConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingPoints.geom.glsl" );
     pickingPointsConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
-    m_pickingShaders[0] = m_shaderMgr->addShaderProgram( pickingPointsConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingPointsConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for points" );
+        m_pickingShaders[Displayable::PKM_POINTS] = *pickingShader;
+    }
 
     ShaderConfiguration pickingLinesConfig( "PickingLines" );
     pickingLinesConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingLinesConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingLines.geom.glsl" );
     pickingLinesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
-    m_pickingShaders[1] = m_shaderMgr->addShaderProgram( pickingLinesConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for lines" );
+        m_pickingShaders[Displayable::PKM_LINES] = *pickingShader;
+    }
 
     ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
     pickingLinesAdjacencyConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
@@ -85,54 +98,77 @@ void Renderer::initialize( uint width, uint height ) {
                                            "Shaders/PickingLinesAdjacency.geom.glsl" );
     pickingLinesAdjacencyConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
-    m_pickingShaders[2] = m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for lines adjacency" );
+        m_pickingShaders[Displayable::PKM_LINE_ADJ] = *pickingShader;
+    }
 
     ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
     pickingTrianglesConfig.addShader( ShaderType_VERTEX, "Shaders/Picking.vert.glsl" );
     pickingTrianglesConfig.addShader( ShaderType_GEOMETRY, "Shaders/PickingTriangles.geom.glsl" );
     pickingTrianglesConfig.addShader( ShaderType_FRAGMENT, "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
-    m_pickingShaders[3] = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
+    {
+        auto pickingShader = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
+        CORE_ASSERT( pickingShader, "Picking Shader is required for triangles" );
+        m_pickingShaders[Displayable::PKM_TRI] = *pickingShader;
+    }
 
-    m_depthTexture.reset( new Texture( "Depth" ) );
-    m_depthTexture->internalFormat = GL_DEPTH_COMPONENT24;
-    m_depthTexture->dataType = GL_UNSIGNED_INT;
+    TextureParameters texparams;
+    texparams.width     = m_width;
+    texparams.height    = m_height;
+    texparams.target    = GL_TEXTURE_2D;
+    texparams.minFilter = GL_NEAREST;
+    texparams.magFilter = GL_NEAREST;
 
-    m_pickingFbo.reset( new globjects::Framebuffer() );
+    texparams.name           = "Depth";
+    texparams.internalFormat = GL_DEPTH_COMPONENT24;
+    texparams.format         = GL_DEPTH_COMPONENT;
+    texparams.type           = GL_UNSIGNED_INT;
+    m_depthTexture           = std::make_unique<Texture>( texparams );
 
-    m_pickingTexture.reset( new Texture( "Picking" ) );
-    m_pickingTexture->internalFormat = GL_RGBA32I;
-    m_pickingTexture->dataType = GL_INT;
-    m_pickingTexture->minFilter = GL_NEAREST;
-    m_pickingTexture->magFilter = GL_NEAREST;
+    m_pickingFbo             = std::make_unique<globjects::Framebuffer>();
+    texparams.name           = "Picking";
+    texparams.internalFormat = GL_RGBA32I;
+    texparams.format         = GL_RGBA_INTEGER;
+    texparams.type           = GL_INT;
+    m_pickingTexture         = std::make_unique<Texture>( texparams );
 
     // Final texture
-    m_fancyTexture.reset( new Texture( "Final" ) );
-    m_fancyTexture->internalFormat = GL_RGBA32F;
-    m_fancyTexture->dataType = GL_FLOAT;
+    texparams.name           = "Final image";
+    texparams.internalFormat = GL_RGBA32F;
+    texparams.format         = GL_RGBA;
+    texparams.type           = GL_FLOAT;
+    m_fancyTexture           = std::make_unique<Texture>( texparams );
 
-    m_displayedTexture = m_fancyTexture.get();
+    m_displayedTexture                     = m_fancyTexture.get();
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
 
     // Quad mesh
-    Core::TriangleMesh mesh = Core::MeshUtils::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
+    Core::Geometry::TriangleMesh mesh =
+        Core::Geometry::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
 
-    m_quadMesh.reset( new Mesh( "quad" ) );
-    m_quadMesh->loadGeometry( mesh );
+    auto qm = std::make_unique<Mesh>( "quad" );
+    qm->loadGeometry( std::move( mesh ) );
+    m_quadMesh = std::move( qm ); // we need to move, as loadGeometry is not a member of Displayable
     m_quadMesh->updateGL();
 
     initializeInternal();
 
     resize( m_width, m_height );
+
+    glDrawBuffer( GL_BACK );
+    glReadBuffer( GL_BACK );
 }
 
-void Renderer::render( const RenderData& data ) {
+void Renderer::render( const ViewingParameters& data ) {
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
 
     std::lock_guard<std::mutex> renderLock( m_renderMutex );
     CORE_UNUSED( renderLock );
 
-    m_timerData.renderStart = Core::Timer::Clock::now();
+    m_timerData.renderStart = Core::Utils::Clock::now();
 
     // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget) and viewport
     saveExternalFBOInternal();
@@ -140,20 +176,17 @@ void Renderer::render( const RenderData& data ) {
     // 1. Gather render objects if needed
     feedRenderQueuesInternal( data );
 
-    m_timerData.feedRenderQueuesEnd = Core::Timer::Clock::now();
+    m_timerData.feedRenderQueuesEnd = Core::Utils::Clock::now();
 
     // 2. Update them (from an opengl point of view)
     // FIXME(Charly): Maybe we could just update objects if they need it
     // before drawing them, that would be cleaner (performance problem ?)
     updateRenderObjectsInternal( data );
-    m_timerData.updateEnd = Core::Timer::Clock::now();
+    m_timerData.updateEnd = Core::Utils::Clock::now();
 
     // 3. Do picking if needed
     m_pickingResults.clear();
-    if ( !m_pickingQueries.empty() )
-    {
-        doPicking( data );
-    }
+    if ( !m_pickingQueries.empty() ) { doPicking( data ); }
     m_lastFramePickingQueries = m_pickingQueries;
     m_pickingQueries.clear();
 
@@ -161,11 +194,11 @@ void Renderer::render( const RenderData& data ) {
 
     // 4. Do the rendering.
     renderInternal( data );
-    m_timerData.mainRenderEnd = Core::Timer::Clock::now();
+    m_timerData.mainRenderEnd = Core::Utils::Clock::now();
 
     // 5. Post processing
     postProcessInternal( data );
-    m_timerData.postProcessEnd = Core::Timer::Clock::now();
+    m_timerData.postProcessEnd = Core::Utils::Clock::now();
 
     // 6. Debug
     debugInternal( data );
@@ -175,7 +208,7 @@ void Renderer::render( const RenderData& data ) {
 
     // 8. Write image to Qt framebuffer.
     drawScreenInternal();
-    m_timerData.renderEnd = Core::Timer::Clock::now();
+    m_timerData.renderEnd = Core::Utils::Clock::now();
 
     // 9. Tell renderobjects they have been drawn (to decreaase the counter)
     notifyRenderObjectsRenderingInternal();
@@ -187,10 +220,10 @@ void Renderer::saveExternalFBOInternal() {
     // save the currently bound FBO
     GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &m_qtPlz ) );
     // Set the internal rendering viewport
-    glViewport( 0, 0, m_width, m_height );
+    glViewport( 0, 0, int( m_width ), int( m_height ) );
 }
 
-void Renderer::updateRenderObjectsInternal( const RenderData& renderData ) {
+void Renderer::updateRenderObjectsInternal( const ViewingParameters& /*renderData*/ ) {
     for ( auto& ro : m_fancyRenderObjects )
     {
         ro->updateGL();
@@ -209,7 +242,7 @@ void Renderer::updateRenderObjectsInternal( const RenderData& renderData ) {
     }
 }
 
-void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
+void Renderer::feedRenderQueuesInternal( const ViewingParameters& /*renderData*/ ) {
     m_fancyRenderObjects.clear();
     m_debugRenderObjects.clear();
     m_uiRenderObjects.clear();
@@ -225,7 +258,8 @@ void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
         {
             m_xrayRenderObjects.push_back( *it );
             it = m_fancyRenderObjects.erase( it );
-        } else
+        }
+        else
         { ++it; }
     }
 
@@ -235,7 +269,8 @@ void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
         {
             m_xrayRenderObjects.push_back( *it );
             it = m_debugRenderObjects.erase( it );
-        } else
+        }
+        else
         { ++it; }
     }
 
@@ -245,7 +280,8 @@ void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
         {
             m_xrayRenderObjects.push_back( *it );
             it = m_uiRenderObjects.erase( it );
-        } else
+        }
+        else
         { ++it; }
     }
 }
@@ -254,47 +290,21 @@ void Renderer::feedRenderQueuesInternal( const RenderData& renderData ) {
 void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                         std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     // clean renderQueuePicking
-    for ( uint i = 0; i < renderQueuePicking.size(); ++i )
+    for ( auto& q : renderQueuePicking )
     {
-        renderQueuePicking[i].clear();
+        q.clear();
     }
+
     // fill renderQueuePicking from renderQueue
-    for ( auto it = renderQueue.begin(); it != renderQueue.end(); ++it )
+    for ( auto& roPtr : renderQueue )
     {
-        switch ( ( *it )->getMesh()->getRenderMode() )
-        {
-        case Mesh::RM_POINTS:
-        {
-            renderQueuePicking[0].push_back( *it );
-            break;
-        }
-        case Mesh::RM_LINES:     // fall through
-        case Mesh::RM_LINE_LOOP: // fall through
-        case Mesh::RM_LINE_STRIP:
-        {
-            renderQueuePicking[1].push_back( *it );
-            break;
-        }
-        case Mesh::RM_LINES_ADJACENCY: // fall through
-        case Mesh::RM_LINE_STRIP_ADJACENCY:
-        {
-            renderQueuePicking[2].push_back( *it );
-            break;
-        }
-        case Mesh::RM_TRIANGLES:
-        case Mesh::RM_TRIANGLE_STRIP:
-        case Mesh::RM_TRIANGLE_FAN:
-        {
-            renderQueuePicking[3].push_back( *it );
-            break;
-        }
-        default:
-        { break; }
-        }
+        auto mode = roPtr->getMesh()->pickingRenderMode();
+        if ( mode != Displayable::NO_PICKING )
+            renderQueuePicking[size_t( mode )].push_back( roPtr );
     }
 }
 
-void Renderer::splitRenderQueuesForPicking( const RenderData& renderData ) {
+void Renderer::splitRenderQueuesForPicking( const ViewingParameters& /*renderData*/ ) {
     splitRQ( m_fancyRenderObjects, m_fancyRenderObjectsPicking );
     splitRQ( m_debugRenderObjects, m_debugRenderObjectsPicking );
     splitRQ( m_uiRenderObjects, m_uiRenderObjectsPicking );
@@ -303,22 +313,21 @@ void Renderer::splitRenderQueuesForPicking( const RenderData& renderData ) {
 
 // subroutine to Renderer::doPicking()
 void Renderer::renderForPicking(
-    const RenderData& renderData, const std::array<const ShaderProgram*, 4>& pickingShaders,
+    const ViewingParameters& renderData,
+    const std::array<const ShaderProgram*, 4>& pickingShaders,
     const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     for ( uint i = 0; i < pickingShaders.size(); ++i )
     {
         pickingShaders[i]->bind();
+        pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
+        pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
         for ( const auto& ro : renderQueuePicking[i] )
         {
             if ( ro->isVisible() && ro->isPickable() )
             {
-                int id = ro->idx.getValue();
-                pickingShaders[i]->setUniform( "objectId", id );
-
+                pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
                 Core::Matrix4 M = ro->getTransformAsMatrix();
                 Core::Matrix4 N = M.inverse().transpose();
-                pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
-                pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                 pickingShaders[i]->setUniform( "transform.model", M );
                 pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
@@ -329,7 +338,7 @@ void Renderer::renderForPicking(
     }
 }
 
-void Renderer::doPicking( const RenderData& renderData ) {
+void Renderer::doPicking( const ViewingParameters& renderData ) {
     m_pickingResults.reserve( m_pickingQueries.size() );
 
     m_pickingFbo->bind();
@@ -353,46 +362,41 @@ void Renderer::doPicking( const RenderData& renderData ) {
     renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
 
     // Then draw debug objects
-    GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
-    {
-        renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking );
-    }
+    { renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking ); }
 
     // Then draw xrayed objects on top of normal objects
-    GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     if ( m_drawDebug )
-    {
-        renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking );
-    }
+    { renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking ); }
 
     // Finally draw ui stuff on top of everything
     // these have a different way to compute the transform matrices
     // FIXME (florian): find a way to use renderForPicking()!
-    GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
     for ( uint i = 0; i < m_pickingShaders.size(); ++i )
     {
         m_pickingShaders[i]->bind();
+        m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
+        m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
 
         for ( const auto& ro : m_uiRenderObjectsPicking[i] )
         {
             if ( ro->isVisible() && ro->isPickable() )
             {
-                int id = ro->idx.getValue();
-                m_pickingShaders[i]->setUniform( "objectId", id );
+                m_pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
 
-                Core::Matrix4 M = ro->getTransformAsMatrix();
+                Core::Matrix4 M  = ro->getTransformAsMatrix();
                 Core::Matrix4 MV = renderData.viewMatrix * M;
-                Scalar d = MV.block<3, 1>( 0, 3 ).norm();
+                Scalar d         = MV.block<3, 1>( 0, 3 ).norm();
 
                 Core::Matrix4 S = Core::Matrix4::Identity();
                 S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
 
-                M = M * S;
+                M               = M * S;
                 Core::Matrix4 N = M.inverse().transpose();
 
-                m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
-                m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
                 m_pickingShaders[i]->setUniform( "transform.model", M );
                 m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
@@ -420,29 +424,32 @@ void Renderer::doPicking( const RenderData& renderData ) {
                 m_pickingResults.push_back( result );
                 continue;
             }
-            GL_ASSERT( glReadPixels( query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1,
-                                     GL_RGBA_INTEGER, GL_INT, pick ) );
+            GL_ASSERT( glReadPixels( query.m_screenCoords.x(),
+                                     query.m_screenCoords.y(),
+                                     1,
+                                     1,
+                                     GL_RGBA_INTEGER,
+                                     GL_INT,
+                                     pick ) );
             result.m_roIdx = pick[0];                    // RO idx
             result.m_vertexIdx.emplace_back( pick[1] );  // vertex idx in the element
             result.m_elementIdx.emplace_back( pick[2] ); // element idx
             result.m_edgeIdx.emplace_back( pick[3] );    // edge opposite idx for triangles
-        } else
+        }
+        else
         {
             // select the results for the RO with the most representatives
             // (or first to come if same amount)
             std::map<int, PickingResult> resultPerRO;
-            for ( int i = -m_brushRadius; i <= m_brushRadius; i += 3 )
+            for ( auto i = -m_brushRadius; i <= m_brushRadius; i += 3 )
             {
-                int h = std::round( std::sqrt( m_brushRadius * m_brushRadius - i * i ) );
-                for ( int j = -h; j <= +h; j += 3 )
+                auto h = std::round( std::sqrt( m_brushRadius * m_brushRadius - i * i ) );
+                for ( auto j = -h; j <= +h; j += 3 )
                 {
                     const int x = query.m_screenCoords.x() + i;
                     const int y = query.m_screenCoords.y() - j;
                     // skip query if out of window (can occur when picking while moving outside)
-                    if ( x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1 )
-                    {
-                        continue;
-                    }
+                    if ( x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1 ) { continue; }
                     GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                     resultPerRO[pick[0]].m_roIdx = pick[0];
                     resultPerRO[pick[0]].m_vertexIdx.emplace_back( pick[1] );
@@ -454,10 +461,7 @@ void Renderer::doPicking( const RenderData& renderData ) {
             int nbMax = 0;
             for ( const auto& res : resultPerRO )
             {
-                if ( res.second.m_roIdx == -1 )
-                {
-                    continue;
-                }
+                if ( res.second.m_roIdx == -1 ) { continue; }
                 if ( res.second.m_vertexIdx.size() > nbMax )
                 {
                     maxRO = res.first;
@@ -480,24 +484,28 @@ void Renderer::drawScreenInternal() {
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
         glDrawBuffer( GL_BACK );
-    } else
+    }
+    else
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
         GL_ASSERT( glDrawBuffers( 1, buffers ) );
     }
+    // Display the final screen
+    {
+        GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
 
-    GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
+        auto shader = ( m_displayedTexture->m_textureParameters.type == GL_INT ||
+                        m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT )
+                          ? ( m_displayedTexture->m_textureParameters.format == GL_DEPTH_COMPONENT
+                                  ? m_shaderMgr->getShaderProgram( "DisplayDepthBuffer" )
+                                  : m_shaderMgr->getShaderProgram( "DrawScreenI" ) )
+                          : m_shaderMgr->getShaderProgram( "DrawScreen" );
+        shader->bind();
+        shader->setUniform( "screenTexture", m_displayedTexture, 0 );
+        m_quadMesh->render();
 
-    auto shader = ( m_displayedTexture->dataType == GL_INT ||
-                    m_displayedTexture->dataType == GL_UNSIGNED_INT )
-                      ? m_shaderMgr->getShaderProgram( "DrawScreenI" )
-                      : m_shaderMgr->getShaderProgram( "DrawScreen" );
-    shader->bind();
-    shader->setUniform( "screenTexture", m_displayedTexture, 0 );
-    m_quadMesh->render();
-
-    GL_ASSERT( glDepthFunc( GL_LESS ) );
-
+        GL_ASSERT( glDepthFunc( GL_LESS ) );
+    }
     // draw brush circle if enabled
     if ( m_brushRadius > 0 )
     {
@@ -537,46 +545,41 @@ void Renderer::notifyRenderObjectsRenderingInternal() {
 }
 
 void Renderer::resize( uint w, uint h ) {
-    m_width = w;
+    m_width  = w;
     m_height = h;
 
-    m_depthTexture->Generate( m_width, m_height, GL_DEPTH_COMPONENT );
-    m_pickingTexture->Generate( m_width, m_height, GL_RGBA_INTEGER );
-    m_fancyTexture->Generate( m_width, m_height, GL_RGBA );
-
-    m_pickingFbo->bind();
-    m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture.get()->texture() );
-    m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture.get()->texture() );
-    if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
+    if ( w != 0 && h != 0 )
     {
-        LOG( logERROR ) << "FBO Error : " << m_pickingFbo->checkStatus();
+        m_depthTexture->resize( m_width, m_height );
+        m_pickingTexture->resize( m_width, m_height );
+        m_fancyTexture->resize( m_width, m_height );
+
+        m_pickingFbo->bind();
+        m_pickingFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_depthTexture->texture() );
+        m_pickingFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_pickingTexture->texture() );
+        if ( m_pickingFbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
+        {
+            LOG( logERROR ) << "File " << __FILE__ << "(" << __LINE__ << ") Picking FBO Error "
+                            << m_pickingFbo->checkStatus();
+        }
+        m_pickingFbo->unbind();
+        resizeInternal();
     }
-    m_pickingFbo->unbind();
-    GL_CHECK_ERROR;
-
-    resizeInternal();
-
-    glDrawBuffer( GL_BACK );
-    glReadBuffer( GL_BACK );
-
-    GL_CHECK_ERROR;
 }
 
 void Renderer::displayTexture( const std::string& texName ) {
     if ( m_secondaryTextures.find( texName ) != m_secondaryTextures.end() )
-    {
-        m_displayedTexture = m_secondaryTextures[texName];
-    } else
+    { m_displayedTexture = m_secondaryTextures[texName]; } else
     { m_displayedTexture = m_fancyTexture.get(); }
 }
 
 std::vector<std::string> Renderer::getAvailableTextures() const {
     std::vector<std::string> ret;
-    ret.push_back( "Fancy Texture" );
-    for ( const auto& tex : m_secondaryTextures )
-    {
-        ret.push_back( tex.first );
-    }
+    ret.emplace_back( "Final image" );
+    std::transform( m_secondaryTextures.begin(),
+                    m_secondaryTextures.end(),
+                    std::back_inserter( ret ),
+                    []( const std::pair<std::string, Texture*> tex ) { return tex.first; } );
     return ret;
 }
 
@@ -584,7 +587,7 @@ void Renderer::reloadShaders() {
     ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
 }
 
-std::unique_ptr<uchar[]> Renderer::grabFrame( uint& w, uint& h ) const {
+std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
     Engine::Texture* tex = getDisplayTexture();
     tex->bind();
 
@@ -600,18 +603,18 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( uint& w, uint& h ) const {
     {
         for ( uint i = 0; i < tex->width(); ++i )
         {
-            uint in = 4 * ( j * tex->width() + i ); // Index in the texture buffer
-            uint ou = 4 * ( ( tex->height() - 1 - j ) * tex->width() +
+            auto in = 4 * ( j * tex->width() + i ); // Index in the texture buffer
+            auto ou = 4 * ( ( tex->height() - 1 - j ) * tex->width() +
                             i ); // Index in the final image (note the j flipping).
 
             writtenPixels[ou + 0] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 0] * 255.f, 0, 255 );
+                (uchar)std::clamp( Scalar( pixels[in + 0] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
             writtenPixels[ou + 1] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 1] * 255.f, 0, 255 );
+                (uchar)std::clamp( Scalar( pixels[in + 1] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
             writtenPixels[ou + 2] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 2] * 255.f, 0, 255 );
+                (uchar)std::clamp( Scalar( pixels[in + 2] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
             writtenPixels[ou + 3] =
-                (uchar)Ra::Core::Math::clamp<Scalar>( pixels[in + 3] * 255.f, 0, 255 );
+                (uchar)std::clamp( Scalar( pixels[in + 3] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
         }
     }
     w = tex->width();
@@ -620,11 +623,8 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( uint& w, uint& h ) const {
 }
 
 void Renderer::addLight( const Light* light ) {
-#if 0
-      m_lights.push_back( light );
-#endif
     for ( auto m : m_lightmanagers )
-        m->addLight( (Light*)light ); // TODO : modify signatures so that no cast is needed.
+        m->addLight( light );
 }
 
 bool Renderer::hasLight() const {

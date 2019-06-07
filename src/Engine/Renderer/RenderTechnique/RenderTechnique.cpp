@@ -3,10 +3,13 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include "RenderTechnique.hpp"
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
+
+using namespace Core::Utils; // log
 
 // For iterating on the enum easily
 const std::array<RenderTechnique::PassName, 3> allPasses = {RenderTechnique::Z_PREPASS,
@@ -22,22 +25,21 @@ RenderTechnique::RenderTechnique() {
     }
 }
 
-RenderTechnique::RenderTechnique( const RenderTechnique& o ) {
-    material = o.material;
-    dirtyBits = o.dirtyBits;
-    setPasses = o.setPasses;
-
+RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
+    material{o.material},
+    dirtyBits{o.dirtyBits},
+    setPasses{o.setPasses} {
     for ( auto p : allPasses )
     {
         if ( setPasses & p )
         {
             shaderConfig[p] = o.shaderConfig.at( p );
-            shaders[p] = o.shaders.at( p );
+            shaders[p]      = o.shaders.at( p );
         }
     }
 }
 
-RenderTechnique::~RenderTechnique() {}
+RenderTechnique::~RenderTechnique() = default;
 
 void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig, PassName pass ) {
     shaderConfig[pass] = newConfig;
@@ -46,10 +48,7 @@ void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig, Pa
 }
 
 const ShaderProgram* RenderTechnique::getShader( PassName pass ) const {
-    if ( setPasses & pass )
-    {
-        return shaders.at( pass );
-    }
+    if ( setPasses & pass ) { return shaders.at( pass ); }
     return nullptr;
 }
 
@@ -63,10 +62,7 @@ void RenderTechnique::updateGL() {
         }
     }
 
-    if ( material )
-    {
-        material->updateGL();
-    }
+    if ( material ) { material->updateGL(); }
 }
 
 const std::shared_ptr<Material>& RenderTechnique::getMaterial() const {
@@ -81,7 +77,11 @@ void RenderTechnique::setMaterial( const std::shared_ptr<Material>& material ) {
     RenderTechnique::material = material;
 }
 
-ShaderConfiguration RenderTechnique::getConfiguration( PassName pass ) const {
+bool RenderTechnique::hasConfiguration( PassName pass ) const {
+    return shaderConfig.find( pass ) != shaderConfig.end();
+}
+
+const ShaderConfiguration& RenderTechnique::getConfiguration( PassName pass ) const {
     return shaderConfig.at( pass );
 }
 
@@ -91,19 +91,22 @@ ShaderConfiguration RenderTechnique::getConfiguration( PassName pass ) const {
 //      LIGHTING_TRANSPARENT = Nothing
 Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     if ( RadiumDefaultRenderTechnique != nullptr )
-    {
-        return *( RadiumDefaultRenderTechnique.get() );
-    }
-    std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
-    Ra::Engine::RenderTechnique* rt = new Ra::Engine::RenderTechnique;
+    { return *( RadiumDefaultRenderTechnique.get() ); } std::shared_ptr<Material> mat(
+        new BlinnPhongMaterial( "DefaultGray" ) );
+    auto rt = new Ra::Engine::RenderTechnique;
     rt->setMaterial( mat );
-    auto builder = EngineRenderTechniques::getDefaultTechnique("BlinnPhong");
-    if (!builder.first) {
+    auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+    if ( !builder.first )
+    {
         LOG( logERROR ) << "Unable to create the default technique : is the Engine initialized ? ";
     }
-    builder.second(*rt, false);
+    builder.second( *rt, false );
     RadiumDefaultRenderTechnique.reset( rt );
     return *( RadiumDefaultRenderTechnique.get() );
+}
+
+bool RenderTechnique::shaderIsDirty( RenderTechnique::PassName pass ) const {
+    return dirtyBits & pass;
 }
 
 ///////////////////////////////////////////////
@@ -137,10 +140,7 @@ bool removeDefaultTechnique( const std::string& name ) {
  */
 std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string& name ) {
     auto search = EngineTechniqueRegistry.find( name );
-    if ( search != EngineTechniqueRegistry.end() )
-    {
-        return {true, search->second};
-    }
+    if ( search != EngineTechniqueRegistry.end() ) { return {true, search->second}; }
     auto result = std::make_pair( false, [name]( RenderTechnique&, bool ) -> void {
         LOG( logERROR ) << "Undefined default technique for " << name << " !";
     } );

@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_VECTOR_EDITOR_HPP_
 #define RADIUMENGINE_VECTOR_EDITOR_HPP_
 
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Types.hpp>
 
 #include <QWidget>
 
@@ -11,7 +11,8 @@ namespace Ra {
 namespace Gui {
 
 /// A small Qt widget to edit a vector3 value.
-class VectorEditor : public QWidget, private Ui::VectorEditor {
+class VectorEditor : public QWidget, private Ui::VectorEditor
+{
     Q_OBJECT
   public:
     VectorEditor( uint id, QString title, bool editable = true, QWidget* parent = nullptr ) :
@@ -24,11 +25,17 @@ class VectorEditor : public QWidget, private Ui::VectorEditor {
         // This typedefs makes the declaration easier to read.
         typedef void ( QDoubleSpinBox::*sigPtr )( double );
 
-        connect( m_x, static_cast<sigPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_x,
+                 static_cast<sigPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &VectorEditor::onValueChangedInternal );
-        connect( m_y, static_cast<sigPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_y,
+                 static_cast<sigPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &VectorEditor::onValueChangedInternal );
-        connect( m_z, static_cast<sigPtr>( &QDoubleSpinBox::valueChanged ), this,
+        connect( m_z,
+                 static_cast<sigPtr>( &QDoubleSpinBox::valueChanged ),
+                 this,
                  &VectorEditor::onValueChangedInternal );
 
         m_x->setReadOnly( !editable );

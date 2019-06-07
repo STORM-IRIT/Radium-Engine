@@ -1,41 +1,42 @@
 #include <IO/CameraLoader/CameraLoader.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <fstream>
 #include <iostream>
 #include <string>
 
-const std::string camExt( "cam" );
+const std::string camExt{"cam"};
 
 namespace Ra {
 namespace IO {
 
-CameraFileLoader::CameraFileLoader() {}
+using namespace Core::Utils; // log
+using namespace Core::Asset;
 
-CameraFileLoader::~CameraFileLoader() {}
+CameraFileLoader::CameraFileLoader() = default;
+
+CameraFileLoader::~CameraFileLoader() = default;
 
 std::vector<std::string> CameraFileLoader::getFileExtensions() const {
     return std::vector<std::string>( {"*." + camExt} );
 }
 
 bool CameraFileLoader::handleFileExtension( const std::string& extension ) const {
-    return extension.compare( camExt ) == 0;
+    return extension == camExt;
 }
 
-Asset::FileData* CameraFileLoader::loadFile( const std::string& filename ) {
+FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     // Create the FileData
-    Asset::FileData* fileData = new Asset::FileData( filename );
+    auto fileData = new FileData( filename );
     if ( !fileData->isInitialized() )
     {
         delete fileData;
         LOG( logERROR ) << "[CameraLoader] Filedata cannot be initialized.";
         return nullptr;
     }
-    if ( fileData->isVerbose() )
-    {
-        LOG( logERROR ) << "[CameraLoader] File Loading begin...";
-    }
+    if ( fileData->isVerbose() ) { LOG( logERROR ) << "[CameraLoader] File Loading begin..."; }
 
     /// Open the file
     std::ifstream ss( filename );
@@ -72,9 +73,9 @@ Asset::FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     std::clock_t endTime = std::clock();
 
     /// create the CameraData
-    Asset::CameraData* camera = new Asset::CameraData();
-    camera->setName( Core::StringUtils::getBaseName( filename, false ) );
-    camera->setType( Asset::CameraData::CameraType( type ) );
+    CameraData* camera = new CameraData();
+    camera->setName( Core::Utils::getBaseName( filename, false ) );
+    camera->setType( CameraData::CameraType( type ) );
     Core::Matrix4 frame;
     frame << M[0], M[1], M[2], M[3], M[4], M[5], M[6], M[7], M[8], M[9], M[10], M[11], M[12], M[13],
         M[14], M[15];
@@ -85,13 +86,10 @@ Asset::FileData* CameraFileLoader::loadFile( const std::string& filename ) {
     camera->setZoomFactor( zoom );
     camera->setAspect( aspect );
     fileData->m_cameraData.emplace_back( camera );
-    if ( fileData->isVerbose() )
-    {
-        fileData->displayInfo();
-    }
+    if ( fileData->isVerbose() ) { fileData->displayInfo(); }
 
     fileData->m_loadingTime = ( endTime - startTime ) / Scalar( CLOCKS_PER_SEC );
-    fileData->m_processed = true;
+    fileData->m_processed   = true;
     return fileData;
 }
 

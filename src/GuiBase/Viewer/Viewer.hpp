@@ -11,21 +11,16 @@
 #include <QThread>
 
 #include <Core/CoreMacros.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Types.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
+#include <GuiBase/Viewer/WindowQt.hpp>
+
 // Forward declarations
 class QOpenGLContext;
 class QSurfaceFormat;
-
-namespace Ra {
-namespace Core {
-struct KeyEvent;
-struct MouseEvent;
-} // namespace Core
-} // namespace Ra
 
 namespace Ra {
 namespace Gui {
@@ -38,24 +33,26 @@ class PickingManager;
 namespace Ra {
 namespace Gui {
 
-/// The Viewer is the main display class. It could be used as an independant window or
-/// can be set as a central widget on a more complex gui by using the adapter fro QWindow to QWidget
-/// To do that, the following code could be used :
-/// \code{.cpp}
-///     m_viewer = new Ra::Gui::Viewer();
-///     QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
-///     setCentralWidget(viewerwidget);
-/// \endcode
-/// Whatever its usage (QWindow or QWidget) the Viewer has the same funtionalities.
-/// Its acts as a bridge between the interface, the engine and the renderer
-/// Among its responsibilities are :
-/// * Owning the renderer and camera, and managing their lifetime.
-/// * setting up the renderer and camera by keeping it informed of interfaces changes
-///  (e.g. resize).
-/// * catching user interaction (mouse clicks) at the lowest level and forward it to
-/// the camera and the rest of the application
-/// * Expose the asynchronous rendering interface
-class RA_GUIBASE_API Viewer : public QWindow {
+/** The Viewer is the main display class. It could be used as an independant window or
+ * can be set as a central widget on a more complex gui by using the adapter from QWindow to QWidget
+ * To do that, the following code could be used :
+ * \code{.cpp}
+ *     m_viewer = new Ra::Gui::Viewer();
+ *     QWidget * viewerwidget = QWidget::createWindowContainer(m_viewer);
+ *     setCentralWidget(viewerwidget);
+ * \endcode
+ * Whatever its usage (QWindow or QWidget) the Viewer has the same funtionalities.
+ * Its acts as a bridge between the interface, the engine and the renderer
+ * Among its responsibilities are :
+ * * Owning the renderer and camera, and managing their lifetime.
+ * * setting up the renderer and camera by keeping it informed of interfaces changes
+ *  (e.g. resize).
+ * * catching user interaction (mouse clicks) at the lowest level and forward it to
+ * the camera and the rest of the application
+ * * Expose the asynchronous rendering interface
+ */
+class RA_GUIBASE_API Viewer : public WindowQt
+{
     Q_OBJECT
 
   public:
@@ -63,28 +60,16 @@ class RA_GUIBASE_API Viewer : public QWindow {
     explicit Viewer( QScreen* screen = nullptr );
 
     /// Destructor
-    virtual ~Viewer();
+    ~Viewer() override;
 
     /// create gizmos
     void createGizmoManager();
-
-    /**
-     * Make the OpenGL context associated with the viewer the current context.
-     */
-    void makeCurrent();
-
-    /**
-     * Reset the current OpenGL context that is no more the one associated with the viewer.
-     */
-    void doneCurrent();
 
     //
     // Accessors
     //
 
     QOpenGLContext* getContext() const { return m_context.get(); }
-
-    bool isOpenGlInitialized() const { return m_glInitStatus; }
 
     /// Access to camera interface.
     CameraInterface* getCameraInterface();
@@ -130,7 +115,7 @@ class RA_GUIBASE_API Viewer : public QWindow {
     void enableDebug();
 
   signals:
-    void glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
+    bool glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
     void rendererReady(); //! Emitted when the rendered is correctly initialized
     void leftClickPicking(
         int id ); //! Emitted when the result of a left click picking is known (for gizmo manip)
@@ -170,6 +155,9 @@ class RA_GUIBASE_API Viewer : public QWindow {
      */
     int addRenderer( std::shared_ptr<Engine::Renderer> e );
 
+    void setBackgroundColor( const Core::Utils::Color& background );
+    const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
+
   private slots:
     /// These slots are connected to the base class signals to properly handle
     /// concurrent access to the renderer.
@@ -190,15 +178,10 @@ class RA_GUIBASE_API Viewer : public QWindow {
     /// Initialize openGL. Called on by the first "show" call to the main window.
     /// \warning This function is NOT reentrant, and may behave incorrectly
     /// if called at the same time than #intializeRenderer
-    virtual void initializeGL();
+    virtual bool initializeGL() override;
 
     /// Resize the view port and the camera. Called by the resize event.
-    virtual void resizeGL( int width, int height );
-
-    //
-    // Qt input events.
-    //
-    void resizeEvent( QResizeEvent* event ) override;
+    virtual void resizeGL( QResizeEvent* event ) override;
 
     void keyPressEvent( QKeyEvent* event ) override;
     void keyReleaseEvent( QKeyEvent* event ) override;
@@ -212,15 +195,11 @@ class RA_GUIBASE_API Viewer : public QWindow {
     void wheelEvent( QWheelEvent* event ) override;
 
     void showEvent( QShowEvent* ev ) override;
-    void exposeEvent( QExposeEvent* ev ) override;
 
   public:
     Scalar m_dt;
 
   protected:
-    // OpenglContext used with this widget
-    std::unique_ptr<QOpenGLContext> m_context;
-
     /// Owning pointer to the renderers.
     std::vector<std::shared_ptr<Engine::Renderer>> m_renderers;
     Engine::Renderer* m_currentRenderer;
@@ -236,12 +215,13 @@ class RA_GUIBASE_API Viewer : public QWindow {
     /// Owning (QObject child) pointer to gizmo manager.
     GizmoManager* m_gizmoManager;
 
+#ifdef RADIUM_MULTITHREAD_RENDERING
     // TODO are we really use this ? Remove if we do not plan to do multi thread rendering
     /// Thread in which rendering is done.
     [[deprecated]] QThread* m_renderThread = nullptr; // We have to use a QThread for MT rendering
+#endif
 
-    /// GL initialization status
-    std::atomic_bool m_glInitStatus;
+    Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 };
 
 } // namespace Gui

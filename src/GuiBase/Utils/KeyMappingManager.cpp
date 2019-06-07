@@ -1,9 +1,18 @@
 #include "KeyMappingManager.hpp"
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Gui {
+
+using namespace Core::Utils; // log
+
+const std::string KeyMappingManager::KeyMappingActionNames[] = {
+#define KMA_VALUE( x ) std::string( #x ),
+    KeyMappingActionEnumValues
+#undef KMA_VALUE
+        std::string( "InvalidKeyMapping" )};
+
 KeyMappingManager::KeyMappingManager() :
     m_domDocument( "Keymapping QDomDocument" ),
     m_metaEnumAction( QMetaEnum::fromType<KeyMappingAction>() ),
@@ -21,8 +30,9 @@ KeyMappingManager::KeyMappingManager() :
 }
 
 void KeyMappingManager::bindKeyToAction( int keyCode, KeyMappingAction action ) {
-    auto f = std::find_if( m_mapping.begin(), m_mapping.end(),
-                           [&keyCode]( const auto& a ) { return a.second == keyCode; } );
+    auto f = std::find_if( m_mapping.begin(), m_mapping.end(), [&keyCode]( const auto& a ) {
+        return a.second == keyCode;
+    } );
     if ( f != m_mapping.end() )
     {
         LOG( logWARNING ) << "Binding action " << action << " to code " << keyCode
@@ -36,7 +46,7 @@ int KeyMappingManager::getKeyFromAction( KeyMappingAction action ) {
 }
 
 bool KeyMappingManager::actionTriggered( QMouseEvent* event, KeyMappingAction action ) {
-    return ( int( event->button() ) | event->modifiers() ) == getKeyFromAction( action );
+    return ( int( event->buttons() ) | event->modifiers() ) == getKeyFromAction( action );
 }
 
 bool KeyMappingManager::actionTriggered( QKeyEvent* event, KeyMappingAction action ) {
@@ -45,15 +55,9 @@ bool KeyMappingManager::actionTriggered( QKeyEvent* event, KeyMappingAction acti
 
 void KeyMappingManager::loadConfiguration( const char* filename ) {
     // if no filename is given, load default configuration
-    if ( !filename )
-    {
-        filename = "Configs/default.xml";
-    }
+    if ( !filename ) { filename = "Configs/default.xml"; }
 
-    if ( m_file )
-    {
-        delete m_file;
-    }
+    if ( m_file ) { delete m_file; }
 
     m_file = new QFile( filename );
 
@@ -66,7 +70,8 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
             LOG( logERROR ) << "Trying to load default configuration...";
             loadConfiguration();
             return;
-        } else
+        }
+        else
         {
             LOG( logERROR ) << "Failed to open default keymapping configuration file !";
             return;
@@ -94,7 +99,7 @@ void KeyMappingManager::loadConfigurationInternal() {
     m_mapping.clear();
 
     QDomElement domElement = m_domDocument.documentElement();
-    QDomNode node = domElement.firstChild();
+    QDomNode node          = domElement.firstChild();
 
     if ( domElement.tagName() != "keymaps" )
     {
@@ -117,8 +122,8 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     {
         QDomNode nodeChild = node.firstChild();
 
-        std::string keyString = nodeChild.toElement().attribute( "value" ).toStdString();
-        std::string typeString = nodeChild.toElement().attribute( "type" ).toStdString();
+        std::string keyString      = nodeChild.toElement().attribute( "value" ).toStdString();
+        std::string typeString     = nodeChild.toElement().attribute( "type" ).toStdString();
         std::string modifierString = nodeChild.toElement().attribute( "modifier" ).toStdString();
 
         nodeChild = nodeChild.nextSibling();
@@ -126,7 +131,8 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
         std::string actionString = nodeChild.toElement().attribute( "value" ).toStdString();
 
         loadConfigurationMappingInternal( typeString, modifierString, keyString, actionString );
-    } else
+    }
+    else
     {
         LOG( logERROR ) << "Unrecognized XML keymapping configuration file tag \""
                         << qPrintable( node.tagName() ) << "\" !";
@@ -156,9 +162,11 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& typ
             LOG( logERROR ) << "Trying to load default configuration...";
 
             loadConfiguration( "Configs/default.xml" );
-        } else
+        }
+        else
         { bindKeyToAction( keyValue | modifierValue, actionValue ); }
-    } else if ( typeString == "mouse" )
+    }
+    else if ( typeString == "mouse" )
     {
         int buttonValue = getQtMouseButtonValue( keyString );
         bindKeyToAction( buttonValue | modifierValue, actionValue );
@@ -168,22 +176,16 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& typ
 Qt::KeyboardModifier KeyMappingManager::getQtModifierValue( const std::string& modifierString ) {
     Qt::KeyboardModifier modifier = Qt::NoModifier;
 
-    if ( modifierString == "ShiftModifier" )
-    {
-        modifier = Qt::ShiftModifier;
-    } else if ( modifierString == "ControlModifier" )
-    {
-        modifier = Qt::ControlModifier;
-    } else if ( modifierString == "AltModifier" )
-    {
-        modifier = Qt::AltModifier;
-    } else if ( modifierString == "MetaModifier" )
-    {
-        modifier = Qt::MetaModifier;
-    } else if ( modifierString == "KeypadModifier" )
-    {
-        modifier = Qt::KeypadModifier;
-    } else if ( modifierString == "GroupSwitchModifier" )
+    if ( modifierString == "ShiftModifier" ) { modifier = Qt::ShiftModifier; }
+    else if ( modifierString == "ControlModifier" )
+    { modifier = Qt::ControlModifier; }
+    else if ( modifierString == "AltModifier" )
+    { modifier = Qt::AltModifier; }
+    else if ( modifierString == "MetaModifier" )
+    { modifier = Qt::MetaModifier; }
+    else if ( modifierString == "KeypadModifier" )
+    { modifier = Qt::KeypadModifier; }
+    else if ( modifierString == "GroupSwitchModifier" )
     { modifier = Qt::GroupSwitchModifier; }
 
     return modifier;
@@ -192,32 +194,23 @@ Qt::KeyboardModifier KeyMappingManager::getQtModifierValue( const std::string& m
 Qt::MouseButton KeyMappingManager::getQtMouseButtonValue( const std::string& keyString ) {
     Qt::MouseButton key = Qt::NoButton;
 
-    if ( keyString == "LeftButton" )
-    {
-        key = Qt::LeftButton;
-    } else if ( keyString == "RightButton" )
-    {
-        key = Qt::RightButton;
-    } else if ( keyString == "MidButton" )
-    {
-        key = Qt::MidButton;
-    } else if ( keyString == "MiddleButton" )
-    {
-        key = Qt::MiddleButton;
-    } else if ( keyString == "XButton1" )
-    {
-        key = Qt::XButton1;
-    } else if ( keyString == "XButton2" )
+    if ( keyString == "LeftButton" ) { key = Qt::LeftButton; }
+    else if ( keyString == "RightButton" )
+    { key = Qt::RightButton; }
+    else if ( keyString == "MidButton" )
+    { key = Qt::MidButton; }
+    else if ( keyString == "MiddleButton" )
+    { key = Qt::MiddleButton; }
+    else if ( keyString == "XButton1" )
+    { key = Qt::XButton1; }
+    else if ( keyString == "XButton2" )
     { key = Qt::XButton2; }
 
     return key;
 }
 
 void KeyMappingManager::reloadConfiguration() {
-    if ( !m_file->isOpen() )
-    {
-        return;
-    }
+    if ( !m_file->isOpen() ) { return; }
 
     QString filename = m_file->fileName();
     m_file->close();
@@ -225,10 +218,7 @@ void KeyMappingManager::reloadConfiguration() {
 }
 
 KeyMappingManager::~KeyMappingManager() {
-    if ( m_file->isOpen() )
-    {
-        m_file->close();
-    }
+    if ( m_file->isOpen() ) { m_file->close(); }
 }
 
 RA_SINGLETON_IMPLEMENTATION( KeyMappingManager );

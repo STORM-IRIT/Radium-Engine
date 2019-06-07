@@ -5,8 +5,8 @@
 
 #include <Engine/System/System.hpp>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/HandleData.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/HandleData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -17,46 +17,71 @@
 
 namespace SkinningPlugin {
 
-class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System {
+class SKIN_PLUGIN_API SkinningSystem : public Ra::Engine::System
+{
   public:
     SkinningSystem() {}
     virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
                                 const Ra::Engine::FrameInfo& frameInfo ) override {
         for ( const auto& compEntry : m_components )
         {
-            SkinningComponent* comp = static_cast<SkinningComponent*>( compEntry.second );
+            SkinningComponent* comp          = static_cast<SkinningComponent*>( compEntry.second );
             Ra::Core::FunctionTask* skinTask = new Ra::Core::FunctionTask(
-                std::bind( &SkinningComponent::skin, comp ), "SkinnerTask" );
+                std::bind( &SkinningComponent::skin, comp ), "SkinnerTask_" + comp->getName() );
 
-            Ra::Core::FunctionTask* endTask = new Ra::Core::FunctionTask(
-                std::bind( &SkinningComponent::endSkinning, comp ), "SkinnerEndTask" );
+            Ra::Core::FunctionTask* endTask =
+                new Ra::Core::FunctionTask( std::bind( &SkinningComponent::endSkinning, comp ),
+                                            "SkinnerEndTask_" + comp->getName() );
 
             Ra::Core::TaskQueue::TaskId skinTaskId = taskQueue->registerTask( skinTask );
-            Ra::Core::TaskQueue::TaskId endTaskId = taskQueue->registerTask( endTask );
+            Ra::Core::TaskQueue::TaskId endTaskId  = taskQueue->registerTask( endTask );
             taskQueue->addPendingDependency( "AnimatorTask", skinTaskId );
             taskQueue->addDependency( skinTaskId, endTaskId );
         }
     }
 
     void handleAssetLoading( Ra::Engine::Entity* entity,
-                             const Ra::Asset::FileData* fileData ) override {
-
+                             const Ra::Core::Asset::FileData* fileData ) override {
         auto geomData = fileData->getGeometryData();
         auto skelData = fileData->getHandleData();
-
         if ( geomData.size() > 0 && skelData.size() > 0 )
         {
-            for ( const auto& skel : skelData )
+            for ( const auto& geom : geomData )
             {
-                SkinningComponent* component = new SkinningComponent(
-                    "SkC_" + skel->getName(), SkinningComponent::LBS, entity );
-                component->handleWeightsLoading( skel );
-                registerComponent( entity, component );
-
-                SkinningDisplayComponent* display = new SkinningDisplayComponent(
-                    "SkC_DSP_" + skel->getName(), skel->getName(), entity );
-                // display->display( component->getRefData() );
+                // look for a skeleton skining this mesh (!should be at most one such skeleton!)
+                auto it =
+                    std::find_if( skelData.begin(), skelData.end(), [&geom]( const auto& skel ) {
+                        return std::find_if( skel->getBindMeshes().begin(),
+                                             skel->getBindMeshes().end(),
+                                             [&geom]( const auto& meshName ) {
+                                                 return meshName == geom->getName();
+                                             } ) != skel->getBindMeshes().end();
+                    } );
+                if ( it != skelData.end() )
+                {
+                    const auto& skel             = *it;
+                    SkinningComponent* component = new SkinningComponent(
+                        "SkC_" + geom->getName(), SkinningComponent::LBS, entity );
+                    component->handleWeightsLoading( skel, geom->getName() );
+                    registerComponent( entity, component );
+                    new SkinningDisplayComponent(
+                        "SkC_DSP_" + geom->getName(), geom->getName(), entity );
+                }
             }
+        }
+    }
+
+    void showWeights( bool on ) {
+        for ( auto& compEntry : m_components )
+        {
+            static_cast<SkinningComponent*>( compEntry.second )->showWeights( on );
+        }
+    }
+
+    void showWeightsType( int type ) {
+        for ( auto& compEntry : m_components )
+        {
+            static_cast<SkinningComponent*>( compEntry.second )->showWeightsType( type );
         }
     }
 };

@@ -1,13 +1,17 @@
 #ifndef RADIUMENGINE_COMPONENT_HPP
 #define RADIUMENGINE_COMPONENT_HPP
 
+#include <Core/Utils/Index.hpp>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Index/IndexedObject.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
-#include <Core/Math/Ray.hpp>
+#include <vector>
+
+#include <Core/Types.hpp>
 
 namespace Ra {
+
 namespace Engine {
 class System;
 class Entity;
@@ -24,7 +28,8 @@ namespace Engine {
  * It is also linked to some other components in an entity.
  * Each component share a transform through their entity.
  */
-class RA_ENGINE_API Component {
+class RA_ENGINE_API Component
+{
   public:
     /// CONSTRUCTOR
     Component( const std::string& name, Entity* entity );
@@ -58,13 +63,10 @@ class RA_ENGINE_API Component {
     virtual System* getSystem() const;
 
     /// Add a new render object to the component. This adds the RO to the manager for drawing.
-    virtual Core::Index addRenderObject( RenderObject* renderObject ) final;
+    Core::Utils::Index addRenderObject( RenderObject* renderObject );
 
     /// Remove the render object from the component.
-    virtual void removeRenderObject( Core::Index roIdx ) final;
-
-    /// Perform a ray cast query.
-    virtual void rayCastQuery( const Core::Ray& ray ) const;
+    void removeRenderObject( const Core::Utils::Index& roIdx );
 
     // Editable transform interface.
     // This allow to edit the data in the component with a render object
@@ -72,29 +74,30 @@ class RA_ENGINE_API Component {
     // queried.
 
     /// Returns true if a transform can be edited with the render object index given as a key.
-    virtual bool canEdit( Core::Index roIdx ) const { return false; }
+    virtual bool canEdit( const Core::Utils::Index& /*roIdx*/ ) const { return false; }
 
     /// Get the transform associated with the given RO index key.
-    virtual Core::Transform getTransform( Core::Index roIdx ) const {
+    virtual Core::Transform getTransform( const Core::Utils::Index& /*roIdx*/ ) const {
         return Core::Transform::Identity();
     }
 
     /// Set the new transform associated with the RO index key.
-    virtual void setTransform( Core::Index roIdx, const Core::Transform& transform ) {}
+    virtual void setTransform( const Core::Utils::Index& /*roIdx*/,
+                               const Core::Transform& /*transform*/ ) {}
 
-    void notifyRenderObjectExpired( const Core::Index& idx );
+    void notifyRenderObjectExpired( const Core::Utils::Index& idx );
 
   protected:
     /// Shortcut to access the render object manager.
     static RenderObjectManager* getRoMgr();
 
   public:
-    std::vector<Core::Index> m_renderObjects;
+    std::vector<Core::Utils::Index> m_renderObjects;
 
   protected:
-    std::string m_name;
-    Entity* m_entity;
-    System* m_system;
+    std::string m_name{};
+    Entity* m_entity{nullptr};
+    System* m_system{nullptr};
 };
 
 } // namespace Engine

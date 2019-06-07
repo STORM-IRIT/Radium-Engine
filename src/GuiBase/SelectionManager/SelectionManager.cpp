@@ -1,12 +1,14 @@
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 
 using Ra::Engine::ItemEntry;
 
 namespace Ra {
 namespace GuiBase {
+
+using namespace Core::Utils; // log
 
 SelectionManager::SelectionManager( ItemModel* model, QObject* parent ) :
     QItemSelectionModel( model, parent ) {
@@ -42,10 +44,7 @@ const ItemEntry& SelectionManager::currentItem() const {
 
 void SelectionManager::select( const ItemEntry& ent, QItemSelectionModel::SelectionFlags command ) {
     QModelIndex idx = itemModel()->findEntryIndex( ent );
-    if ( idx.isValid() && ent.isSelectable() )
-    {
-        QItemSelectionModel::select( idx, command );
-    }
+    if ( idx.isValid() && ent.isSelectable() ) { QItemSelectionModel::select( idx, command ); }
 }
 
 void SelectionManager::setCurrentEntry( const ItemEntry& ent,

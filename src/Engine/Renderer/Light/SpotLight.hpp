@@ -9,29 +9,25 @@
 namespace Ra {
 namespace Engine {
 
-class RA_ENGINE_API SpotLight final : public Light {
-  public:
-    struct Attenuation {
-        Scalar constant;
-        Scalar linear;
-        Scalar quadratic;
-
-        Attenuation() : constant( 1.0 ), linear(), quadratic() {}
-    };
+/** Spot light for rendering.
+ *
+ */
+class RA_ENGINE_API SpotLight final : public Light
+{
 
   public:
-    RA_CORE_ALIGNED_NEW
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    SpotLight( Entity* entity, const std::string& name = "spotlight" );
-    ~SpotLight();
+    explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
+    ~SpotLight() override = default;
 
     void getRenderParameters( RenderParameters& params ) const override;
 
-    void setPosition( const Core::Vector3& position ) override;
-    inline const Core::Vector3& getPosition() const;
+    void setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) override;
+    inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
 
-    void setDirection( const Core::Vector3& direction ) override;
-    inline const Core::Vector3& getDirection() const;
+    void setDirection( const Eigen::Matrix<Scalar, 3, 1>& direction ) override;
+    inline const Eigen::Matrix<Scalar, 3, 1>& getDirection() const;
 
     inline void setInnerAngleInRadians( Scalar angle );
     inline void setOuterAngleInRadians( Scalar angle );
@@ -45,16 +41,16 @@ class RA_ENGINE_API SpotLight final : public Light {
     inline void setAttenuation( Scalar constant, Scalar linear, Scalar quadratic );
     inline const Attenuation& getAttenuation() const;
 
-    std::string getShaderInclude() const;
+    std::string getShaderInclude() const override;
 
   private:
-    Core::Vector3 m_position;
-    Core::Vector3 m_direction;
+    Eigen::Matrix<Scalar, 3, 1> m_position{0, 0, 0};
+    Eigen::Matrix<Scalar, 3, 1> m_direction{0, -1, 0};
 
-    Scalar m_innerAngle;
-    Scalar m_outerAngle;
+    Scalar m_innerAngle{Core::Math::PiDiv4};
+    Scalar m_outerAngle{Core::Math::PiDiv2};
 
-    Attenuation m_attenuation;
+    Attenuation m_attenuation{1, 0, 0};
 };
 
 } // namespace Engine

@@ -2,26 +2,32 @@
 
 #include <map>
 
-#include <Core/Log/Log.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
 namespace ShaderConfigurationFactory {
 
+using namespace Core::Utils; // log
+
 static std::map<std::string, ShaderConfiguration> configs;
 
 void addConfiguration( const ShaderConfiguration& config ) {
-    addConfiguration( config.m_name, config );
-}
-
-void addConfiguration( const std::string& name, const ShaderConfiguration& config ) {
-    if ( name.empty() )
+    if ( config.m_name.empty() )
     {
-        LOG( logWARNING ) << "Empty name in ShaderConfigurationFactory::addConfiguration call.";
+        LOG( logWARNING ) << "Empty name in ShaderConfigurationFactory::addConfiguration call. "
+                             "Configuration not added";
         return;
     }
 
-    configs.insert( std::make_pair( name, config ) );
+    auto found = configs.insert( {config.m_name, config} );
+    if ( !found.second )
+    {
+        LOG( logWARNING ) << "Configuration " << config.m_name
+                          << " already in ShaderConfigurationFactory. "
+                             "Configuration not added";
+        return;
+    }
 }
 
 ShaderConfiguration getConfiguration( const std::string& name ) {
@@ -32,10 +38,8 @@ ShaderConfiguration getConfiguration( const std::string& name ) {
     }
 
     auto found = configs.find( name );
-    if ( found != configs.end() )
-    {
-        return found->second;
-    } else
+    if ( found != configs.end() ) { return found->second; }
+    else
     {
         // Instead of creating a inconsistant configuration, warn and return a default one
         // default configuration is defined as a static member of ShaderConfiguration

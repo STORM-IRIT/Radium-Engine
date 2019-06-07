@@ -15,7 +15,8 @@ namespace Core {
 /// Elements are accessible with a D-dimensional Vector, or linearly with
 /// iterators, thanks to the std-like interface provided.
 template <typename T, uint D>
-class Grid {
+class Grid
+{
 
   public:
     // public types and constants.
@@ -26,7 +27,8 @@ class Grid {
 
     /// This class implements an iterator though elements of the grid that
     /// can be referenced with a linear index or a D-dimensional uint vector.
-    class Iterator {
+    class Iterator
+    {
       public:
         //
         // Construction

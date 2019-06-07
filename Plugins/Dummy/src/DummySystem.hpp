@@ -27,13 +27,15 @@ struct DummyData {
     int bar;
 };
 
-class DummySystem : public Ra::Engine::System {
+class DummySystem : public Ra::Engine::System
+{
   public:
     DummySystem();
     virtual ~DummySystem();
 
     virtual void initialize() override;
-    virtual void handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
+    virtual void handleDataLoading( Ra::Engine::Entity* entity,
+                                    const std::string& rootFolder,
                                     const std::map<std::string, Ra::Core::Any>& data ) override;
 
     virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,

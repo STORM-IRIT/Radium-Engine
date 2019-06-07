@@ -1,4 +1,6 @@
-#include "Tex.hpp"
+#include <Core/Containers/Tex.hpp>
+#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -25,7 +27,9 @@ template <>
 struct NLinearInterpolator<2> {
     // bilinear interpolation in a quad cell
     template <typename T>
-    static T interpolate( const Grid<T, 2>& grid, const Vector2& fact, const Vector2ui& size,
+    static T interpolate( const Grid<T, 2>& grid,
+                          const Vector2& fact,
+                          const Vector2ui& size,
                           const Vector2ui& clamped_nearest ) {
         const uint i0 = clamped_nearest[0];
         const uint j0 = clamped_nearest[1];
@@ -49,7 +53,9 @@ template <>
 struct NLinearInterpolator<3> {
     // tri-linear interpolation in a cubic cell
     template <typename T>
-    static T interpolate( const Grid<T, 3>& grid, const Vector3& fact, const Vector3ui& size,
+    static T interpolate( const Grid<T, 3>& grid,
+                          const Vector3& fact,
+                          const Vector3ui& size,
                           const Vector3ui& clamped_nearest ) {
         const uint i0 = clamped_nearest[0];
         const uint j0 = clamped_nearest[1];
@@ -85,7 +91,7 @@ Tex<T, N>::Tex( const IdxVector& resolution, const Vector& start, const Vector& 
     Grid<T, N>( resolution ),
     m_aabb( start, end ) {
     const Vector quotient = ( resolution - IdxVector::Ones() ).template cast<Scalar>();
-    m_cellSize = m_aabb.sizes().cwiseQuotient( quotient );
+    m_cellSize            = m_aabb.sizes().cwiseQuotient( quotient );
 }
 
 template <typename T, uint N>
@@ -93,7 +99,7 @@ Tex<T, N>::Tex( const IdxVector& resolution, const AabbND& aabb ) :
     Grid<T, N>( resolution ),
     m_aabb( aabb ) {
     const Vector quotient = ( resolution - IdxVector::Ones() ).template cast<Scalar>();
-    m_cellSize = m_aabb.sizes().cwiseQuotient( quotient );
+    m_cellSize            = m_aabb.sizes().cwiseQuotient( quotient );
 }
 
 template <typename T, uint N>
@@ -106,17 +112,17 @@ inline T Tex<T, N>::fetch( const Vector& v ) const {
     Vector scaled_coords( ( v - m_aabb.min() ).cwiseQuotient( m_cellSize ) );
     // Sometimes due to float imprecision, a value of 0 is passed as -1e7
     // which floors incorrectly rounds down to -1, hence the use of trunc().
-    Vector tmp = Ra::Core::Vector::trunc( scaled_coords );
+    Vector tmp = Ra::Core::Math::trunc( scaled_coords );
     CORE_ASSERT( !( ( tmp.array() < Vector::Zero().array() ).any() ), "Cannot cast to uint" );
     IdxVector nearest = tmp.template cast<uint>();
-    Vector fact = scaled_coords - tmp;
+    Vector fact       = scaled_coords - tmp;
 
     // TODO: Give other texture behaviour (such as wrapping) ?
 
     IdxVector size =
         this->sizeVector() - IdxVector::Ones(); // TODO check this code on borders of the grid
     IdxVector clamped_nearest =
-        Ra::Core::Vector::clamp<IdxVector>( nearest, IdxVector::Zero(), size );
+        Ra::Core::Math::clamp<IdxVector>( nearest, IdxVector::Zero(), size );
 
     return NLinearInterpolator<N>::interpolate( *this, fact, size, clamped_nearest );
 }

@@ -16,29 +16,24 @@ std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& e
     if ( ent.isValid() )
     {
         if ( ent.isRoNode() )
-        {
-            return engine->getRenderObjectManager()->getRenderObject( ent.m_roIndex )->getName();
-        } else if ( ent.isComponentNode() )
-        {
-            return ent.m_component->getName();
-        } else if ( ent.isEntityNode() )
+        { return engine->getRenderObjectManager()->getRenderObject( ent.m_roIndex )->getName(); }
+        else if ( ent.isComponentNode() )
+        { return ent.m_component->getName(); }
+        else if ( ent.isEntityNode() )
         { return ent.m_entity->getName(); }
     }
     return "Invalid Entry";
 }
 
-std::vector<Ra::Core::Index> getItemROs( const Engine::RadiumEngine* engine,
-                                         const ItemEntry& ent ) {
-    std::vector<Ra::Core::Index> result;
+std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* /*engine*/,
+                                                const ItemEntry& ent ) {
+    std::vector<Ra::Core::Utils::Index> result;
     if ( ent.isValid() )
     {
-        if ( ent.isRoNode() )
-        {
-            result.push_back( ent.m_roIndex );
-        } else if ( ent.isComponentNode() )
-        {
-            result = ent.m_component->m_renderObjects;
-        } else if ( ent.isEntityNode() )
+        if ( ent.isRoNode() ) { result.push_back( ent.m_roIndex ); }
+        else if ( ent.isComponentNode() )
+        { result = ent.m_component->m_renderObjects; }
+        else if ( ent.isEntityNode() )
         {
             for ( const auto& c : ent.m_entity->getComponents() )
             {
@@ -61,10 +56,7 @@ bool ItemEntry::isValid() const {
 bool ItemEntry::isSelectable() const {
     Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
 
-    if ( m_entity->idx == Engine::SystemEntity::getInstance()->idx )
-    {
-        return false;
-    }
+    if ( m_entity->getIndex() == Engine::SystemEntity::getInstance()->getIndex() ) { return false; }
 
     if ( isRoNode() )
     {

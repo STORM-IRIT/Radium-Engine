@@ -213,7 +213,9 @@
 #   define DLL_IMPORT __declspec(dllimport)
 
 #   define STDCALL __stdcall
-#   define CDECL __cdecl
+#   ifndef CDECL
+#      define CDECL __cdecl
+#   endif
 #   define FASTCALL __fastcall
 #elif defined(COMPILER_GCC) || defined (COMPILER_CLANG) // ------- GCC and CLang
 
@@ -254,6 +256,32 @@ using Scalar = float;
 #else
 using Scalar = double;
 #endif
+
+/*!
+ * User litteral for Radium's Scalar type for floating point numbers
+ * \see https://en.cppreference.com/w/cpp/language/user_literal
+ * To create a Scalar from a litteral float, do:
+ * \code
+ * auto s = 10.5_ra; // s is a Scalar
+ * \endcode
+ */
+constexpr Scalar operator"" _ra ( long double n )
+{
+    return Scalar( n );
+}
+
+/*!
+ * \brief User litteral for Radium's Scalar type for floating point numbers
+ * \see https://en.cppreference.com/w/cpp/language/user_literal
+ * To create a Scalar from a litteral, do:
+ * \code
+ * auto s = 1_ra; // s is a Scalar
+ * \endcode
+ */
+constexpr Scalar operator"" _ra ( unsigned long long n )
+{
+    return Scalar( n );
+}
 
 // ----------------------------------------------------------------------------
 // Debug tools
@@ -360,10 +388,14 @@ MACRO_END
     #pragma warning(disable: 4838) // conversion from enum to uint.
     #pragma warning(disable: 4996) // sprintf unsafe
     #pragma warning(disable: 4503) // Truncated decorated name
+    #ifndef NOMINMAX
     #define NOMINMAX
+    #endif
     #include <windows.h>
 #endif
 
+#ifndef eigen_assert
 #define eigen_assert(XXX) CORE_ASSERT(XXX, "Eigen Assert");
+#endif
 // clang-format on
 #endif // RADIUMENGINE_CORE_HPP

@@ -1,15 +1,15 @@
-# Radium Engine default rendering informations
+# Radium Engine default rendering information
 **TODO : update this documentation wrt the new rendering algorithm**
 
 _See [Material management in the Radium Engine](./material.md) documentation for understanding what is a render technique 
-and how it interoperates with geometry, material and shaders._
+and how it inter-operates with geometry, material and shader._
 
 ## Main render method
 
 The `render` method cannot be modified, it always does the following stuff 
 
 ```
-void Renderer::render( const RenderData& data )
+void Renderer::render( const ViewingParameters& data )
 {
   // 0. Save an eventual already bound FBO
   saveExternalFBOInternal();
@@ -43,75 +43,111 @@ void Renderer::render( const RenderData& data )
 In some cases (like with `QtOpenGLWidget`), you do not draw directly on the screen, but you have instead
 to feed an already bound FBO. Since the default renderer uses multiple FBOs, the Qt's one must be saved. 
 
-*This behaviour cannot be modified.*
+_This behaviour cannot be modified._
+
+### 1. Gather render objects and update them
+This construct the set of objects that must be drawn for the current frame and update their OpenGL state
+
+### 2. Feed the render queue
+This construct the set of render actions that must be done for the current frame.
 
 ### 3. Do picking if needed
 If there has been some picking requests since the last frame, `doPicking` is called.
-This function just renders all the objects (except *debug* ones) by drawing them in some color given the ID 
+This function just renders all the objects (except _debug_ ones) by drawing them in some color given the ID 
 of the entity a render object is attached to.
 
 Then, for each picking request done, `glReadPixels` is called at the requested location, and object ID is retrieved.
 
 ### 4. Do the rendering
 This method does most of the whole rendering work 
-and outputs one final *renderpass* texture, ready to be postprocessed.
+and outputs one final _render pass_
+ texture, ready to be post-processed.
+
+The main renderer of Radium, implemented in the class ``ForwardRenderer`` implements a Z-pre-pass forward rendering loop.
+Even if the material association to a drawable object, realized by the so called ``RenderTechnique`` is tightly 
+coupled with the main rendering loop, Plugins might define new renderer and interact differently with shader and 
+materials properties. See the material chapter of the documentation.
 
 Here is a summary of all the draw calls
 #### 1. Depth, ambient color and "deferred info" pass
-This step 
-  * only concerns opaque objects. It is used to, first, optimize the next pass by not drawing hidden fragments 
-(early z-test since the depth buffer is already filled).
-  * saves ambient color for each object.
-  * saves the world normals and world positions for each object.
+This pass 
+*   only concerns opaque objects AND opaque fragment on transparent objects. It is used to, mainly to fill in the  
+Z-buffer, allowing to activate early z-test for next passes since the depth buffer is already filled,
+
+*   initialize the color buffer by computing e.g. the ambient color for each object,
+
+*   generate several pictures of the scene allowing to implement composition effects later :
+    *   saves the world-space normals for each object,
+    *   saves the "Diffuse" aspect of the object,
+    *   saves the "Specular" aspect of the object.
+ 
+In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::Z_PREPASS`` argument so that the corresponding
+shader will be activated before draw call. (``ro->render( renderParameters, viewingParameters, RenderTechnique::Z_PREPASS );``)
   
-#### 2. Lighing pass
-This pass is a classic forward lighting pass. Blending (one, one) is enabled and it does 
-```
+Note that the  shader associated to  the ``RenderTechnique::Z_PREPASS`` pass must draw only fully opaque fragments. 
+Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones 
+(those with an opacity factor alpha les than one) must be discarded.
+  
+#### 2. Lighting pass
+This pass is a classic forward lighting pass that accumulates the color of each light source. 
+Before this pass, blending (one, one) is enabled and it does 
+```text
 for each light do
-  for each shader do
+  Get light parameters
+  for each object
     bind shader
-    bind light
-    for each material do
-      bind material
-      for each mesh do
-        render mesh
-      done
-    done
+    bind material & light
+    render mesh
   done
 done
 ```
 
-#### 3. Debug and UI render objects
+In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::LIGHTING_OPAQUE`` argument so that the 
+corresponding shader will be activated before draw call. 
+(``ro->render( renderParameters, viewingParameters, RenderTechnique::LIGHTING_OPAQUE );``)
+  
+Note that the  shader associated to  the ``RenderTechnique::LIGHTING_OPAQUE`` pass must lit and draw only fully opaque 
+fragments. 
+Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones 
+(those with an opacity factor alpha les than one) must be discarded.
+
+#### 3. Ordered independent transparency 
+Rendering transparent objects in Radium is done according to the algorithm described in 
+*   Weighted Blended Order-Independent Transparency,
+    Morgan McGuire, Louis Bavoil - NVIDIA,
+    Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013,
+    <http://jcgt.org/published/0002/02/09/>
+    
+This pass contains one scene rendering pass and one composition pass.
+
+*   The scene rendering pass must compute both the accumulation buffer and the coverage buffer as described in the paper  
+(see the Material documentation for example of shader.). It is realized the same way than the lighting pass but only 
+fragments that are transparent must be lit and drawn.
+
+*   The composition pass then adds to the color buffer the resulting blended color.
+
+#### 4. Post-process the whole _render pass_
+This pass takes the color buffer, representing colors in linear RGB space) and apply gamma correction to the image
+
+#### 5. Debug and UI render objects
 Those objects are drawn with their own shader, and without lighting.
 They do not write in the depth map but they have different depth testing behaviour :
-  * func is LESS for debug objects (drawn only if visibles)
-  * func is ALWAYS for UI objects (drawn in front of everything else)
-
-#### 4. Ordered independent transparency pass
-This pass basically implements the first pass of NVidia paper on Weighted blended order independent transparency
-(see http://jcgt.org/published/0002/02/09/)
-
-#### 5. Compositing for the whole *render pass*
-Two draw calls are done for this pass, 
-  * the first one composes ambient and lighted textures
-  * the second one blends (1-alpha, alpha) the last render result with the transparency textures
-
-### 5. Do post-processing
-For now, this method just copies `renderpass` texture to `final` texture.
+*   func is LESS for debug objects (drawn only if visible)
+*   func is ALWAYS for UI objects (drawn in front of everything else)
 
 ### 6. Write final texture to framebuffer / backbuffer
 This method is just responsible for displaying the final stuff on screen or on the saved FBO.
 
-## General informations
-  * Only two methods can be overrided for the renderer, renderInternal (step 4) and postProcessInternal (step 5).
+## General information
+*   Only two methods can be overridden for the renderer, renderInternal (step 4) and postProcessInternal (step 5).
   
 ## TODO
-  * Ambient occlusion
-  * Shadow mapping
-  * Skybox 
-  * Reflection / refraction
-  * Tonemapping
-  * Bloom
-  * Motion blur
-  * FOV
-  * Physically based rendering
+*   Ambient occlusion
+*   Shadow mapping
+*   Skybox 
+*   Reflection / refraction
+*   Tonemapping (only gamma correction is applied for now)
+*   Bloom
+*   Motion blur
+*   FOV
+*   Physically based rendering

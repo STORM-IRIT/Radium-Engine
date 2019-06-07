@@ -21,7 +21,8 @@ class RadiumEngine;
 namespace AnimationPlugin {
 // Due to an ambigous name while compiling with Clang, we must differentiate the
 // plugin class from plugin namespace
-class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
+class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
+{
     Q_OBJECT
     Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface" )
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
@@ -89,13 +90,13 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface {
     std::string m_dataDir;
 
     /// The AnimationSystem.
-    class AnimationSystem* m_system;
+    class AnimationSystem* m_system{nullptr};
 
     /// The Animation widget.
-    AnimationUI* m_widget;
+    AnimationUI* m_widget{nullptr};
 
     /// The SelectionManager of the Viewer.
-    Ra::GuiBase::SelectionManager* m_selectionManager;
+    Ra::GuiBase::SelectionManager* m_selectionManager{nullptr};
 };
 
 } // namespace AnimationPlugin

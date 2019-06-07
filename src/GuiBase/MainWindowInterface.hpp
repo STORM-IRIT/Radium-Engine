@@ -30,7 +30,8 @@ namespace GuiBase {
 
 /// Interface class for MainWindow
 /// contains abstract methods that MainApplication uses.
-class RA_GUIBASE_API MainWindowInterface : public QMainWindow {
+class RA_GUIBASE_API MainWindowInterface : public QMainWindow
+{
     Q_OBJECT
 
   public:

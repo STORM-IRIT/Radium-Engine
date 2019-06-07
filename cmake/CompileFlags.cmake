@@ -12,7 +12,7 @@ if ( NOT MSVC )
     endif()
 endif()
 
-set(UNIX_DEFAULT_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter")
+set(UNIX_DEFAULT_CXX_FLAGS                "-Wall -Wextra  -pthread -msse3 -Wno-sign-compare -Wno-unused-parameter -Wno-deprecated-declarations")
 set(UNIX_DEFAULT_CXX_FLAGS_DEBUG          "-D_DEBUG -DCORE_DEBUG -g3 -ggdb")
 set(UNIX_DEFAULT_CXX_FLAGS_RELEASE        "-DNDEBUG -O3")
 set(UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO "-g3")
@@ -20,6 +20,7 @@ set(UNIX_DEFAULT_CXX_FLAGS_RELWITHDEBINFO "-g3")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+add_definitions (-D_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS)
 
 # Compilation flag for each platforms =========================================
 
@@ -91,9 +92,12 @@ elseif (MSVC)
 
     set(CMAKE_CXX_FLAGS                "/DNOMINMAX /arch:AVX2 /MP /wd4251 /EHsc /bigobj ${CMAKE_CXX_FLAGS}")
     set(CMAKE_CXX_FLAGS_DEBUG          "/D_DEBUG /DCORE_DEBUG /Od /Zi ${CMAKE_CXX_FLAGS_DEBUG} /MDd")
-    set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox /fp:fast ${CMAKE_CXX_FLAGS_RELEASE} /MD")
+    set(CMAKE_CXX_FLAGS_RELEASE        "/DNDEBUG /Ox ${CMAKE_CXX_FLAGS_RELEASE} /MD")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Zi ${CMAKE_CXX_FLAGS_RELEASE}")
-    set(CMAKE_SHARED_LINKER_FLAGS      "/LTCG ${CMAKE_SHARED_LINKER_FLAGS}")
+
+    if(RADIUM_FAST_MATH)
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /fp:fast")
+    endif()
 
     # Problem with Qt linking
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_COMPILING_QSTRING_COMPAT_CPP")
@@ -102,21 +106,18 @@ endif()
 
 # Additional flags depending on build options =================================
 
-if (${RADIUM_WITH_OMP})
-    find_package(OpenMP QUIET)
-
-    if(OPENMP_FOUND)
-        message(STATUS "${PROJECT_NAME} : Using OpenMP")
-        add_definitions(-DCORE_USE_OMP)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-    endif(OPENMP_FOUND)
-else (${RADIUM_WITH_OMP})
-    message(STATUS "${PROJECT_NAME} : OpenMP disabled")
+find_package(OpenMP QUIET)
+if(OPENMP_FOUND)
+    message(STATUS "${PROJECT_NAME} : Using OpenMP")
+    add_definitions(-DCORE_USE_OMP)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+else (OPENMP_FOUND)
     if ( (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") )
         add_definitions( -Wno-unknown-pragmas )  # gcc/mingw prints a lot of warnings due to open mp pragmas
     endif()
-endif()
+    message(STATUS "${PROJECT_NAME} : OpenMP disabled")
+endif(OPENMP_FOUND)
 
 if ("${CMAKE_BUILD_TYPE}"  STREQUAL "Release" )
     add_definitions(-DNO_DEBUG_INFO)

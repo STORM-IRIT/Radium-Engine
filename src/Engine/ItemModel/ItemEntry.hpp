@@ -3,11 +3,10 @@
 
 #include <Engine/RaEngine.hpp>
 
-#include <Core/Index/Index.hpp>
+#include <Core/Utils/Index.hpp>
+
 #include <string>
 #include <vector>
-
-#include <GuiBase/Utils/PickingManager.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -27,17 +26,18 @@ namespace Engine {
 /// * Entity, component and RO index valid : -> RO
 struct RA_ENGINE_API ItemEntry {
     /// Create an invalid entry.
-    ItemEntry() : m_entity( nullptr ), m_component( nullptr ), m_roIndex() {}
+    ItemEntry() = default;
 
     /// Create an entry.
     /// ItemEntry(entity) creates an entity entry.
     /// ItemEntry(entity, component) creates a component entry
     /// ItemEntry(entity, component, RO) creates a render object entity.
-    explicit ItemEntry( Ra::Engine::Entity* ent, Ra::Engine::Component* comp = nullptr,
-                        Ra::Core::Index ro = Ra::Core::Index::Invalid() ) :
-        m_entity( ent ),
-        m_component( comp ),
-        m_roIndex( ro ) {}
+    explicit ItemEntry( Ra::Engine::Entity* ent,
+                        Ra::Engine::Component* comp = nullptr,
+                        Ra::Core::Utils::Index ro   = Ra::Core::Utils::Index::Invalid() ) :
+        m_entity{ent},
+        m_component{comp},
+        m_roIndex{ro} {}
 
     /// Compare two items.
     inline bool operator==( const ItemEntry& rhs ) const;
@@ -61,14 +61,14 @@ struct RA_ENGINE_API ItemEntry {
     inline void checkConsistency() const;
 
     /// The entity represented by the item, or owning the object represented.
-    Ra::Engine::Entity* m_entity;
+    Ra::Engine::Entity* m_entity{nullptr};
 
     /// Component represented by the item or owning the represented RO.
     /// If null, the item represents an entity.
-    Ra::Engine::Component* m_component;
+    Ra::Engine::Component* m_component{nullptr};
 
     /// RO index of the represented object.
-    Ra::Core::Index m_roIndex;
+    Ra::Core::Utils::Index m_roIndex{};
 };
 
 /// Returns the name associated to the given item.
@@ -78,8 +78,8 @@ RA_ENGINE_API std::string getEntryName( const Engine::RadiumEngine* engine, cons
 /// RO item : it returns only the RO index.
 /// Component item : it returns all its ROs.
 /// Entity item : all ROs from all compoents of given entity.
-RA_ENGINE_API std::vector<Ra::Core::Index> getItemROs( const Engine::RadiumEngine* engine,
-                                                       const ItemEntry& ent );
+RA_ENGINE_API std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* engine,
+                                                              const ItemEntry& ent );
 } // namespace Engine
 } // namespace Ra
 

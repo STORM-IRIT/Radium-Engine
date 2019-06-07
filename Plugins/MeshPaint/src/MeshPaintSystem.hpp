@@ -3,19 +3,15 @@
 
 #include <MeshPaintPluginMacros.hpp>
 
+#include <Core/Utils/Color.hpp>
+
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/System/System.hpp>
 
 namespace Ra {
-namespace Core {
-struct TriangleMesh;
-}
-} // namespace Ra
-
-namespace Ra {
 namespace Engine {
 class Entity;
-struct RenderTechnique;
+class RenderTechnique;
 class Component;
 } // namespace Engine
 } // namespace Ra
@@ -25,13 +21,14 @@ class MeshPaintComponent;
 }
 
 namespace MeshPaintPlugin {
-class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System {
+class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System
+{
   public:
     MeshPaintSystem();
     virtual ~MeshPaintSystem();
 
     virtual void handleAssetLoading( Ra::Engine::Entity* entity,
-                                     const Ra::Asset::FileData* fileData ) override;
+                                     const Ra::Core::Asset::FileData* fileData ) override;
 
     virtual void generateTasks( Ra::Core::TaskQueue* taskQueue,
                                 const Ra::Engine::FrameInfo& frameInfo ) override;
@@ -39,7 +36,9 @@ class MESH_PAINT_PLUGIN_API MeshPaintSystem : public Ra::Engine::System {
     void startPaintMesh( bool start );
 
     void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
-                    const Ra::Core::Color& color );
+                    const Ra::Core::Utils::Color& color );
+
+    void bakeToDiffuse();
 };
 
 } // namespace MeshPaintPlugin

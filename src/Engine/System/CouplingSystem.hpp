@@ -16,7 +16,7 @@ namespace Engine {
 /// Also dispatches by default the generateTasks() and handleAssetLoading()
 /// methods from Ra::Engine::System.
 /// Note that Ra::Engine::Component registration methods from Ra::Engine::System
-/// are not dispatched by default, Ra::Engine::Systems managing only their own 
+/// are not dispatched by default, Ra::Engine::Systems managing only their own
 /// Ra::Engine::Components.
 ///
 /// \see CoupledTimedSystem for practical usage
@@ -26,14 +26,16 @@ namespace Engine {
 /// default implementation:
 ///
 /// \code
-/// inline void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override {
+/// inline void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo )
+/// override {
 ///     dispatch( [taskQueue, &frameInfo]( const auto& s ) {
 ///         s->generateTasks( taskQueue, frameInfo );
 ///     } );
 /// }
 /// \endcode
 template <typename _BaseAbstractSystem>
-class BaseCouplingSystem : public _BaseAbstractSystem {
+class BaseCouplingSystem : public _BaseAbstractSystem
+{
   public:
     using BaseAbstractSystem = _BaseAbstractSystem;
 
@@ -41,21 +43,23 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
         static_assert( std::is_base_of<Ra::Engine::System, BaseAbstractSystem>::value,
                        "BaseAbstractSystem must inherit Ra::Core::System" );
     }
-    virtual ~BaseCouplingSystem() {}
+    ~BaseCouplingSystem() override = default;
 
     BaseCouplingSystem( const BaseCouplingSystem<BaseAbstractSystem>& ) = delete;
-    BaseCouplingSystem<BaseAbstractSystem>& operator=( const BaseCouplingSystem<BaseAbstractSystem>& ) = delete;
+    BaseCouplingSystem<BaseAbstractSystem>&
+    operator=( const BaseCouplingSystem<BaseAbstractSystem>& ) = delete;
 
     /// Add management for the given system.
     /// \warning The property of the pointer is given to *this
     inline void addSystem( BaseAbstractSystem* s ) { m_systems.emplace_back( s ); }
 
-    inline void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override {
+    inline void generateTasks( Core::TaskQueue* taskQueue,
+                               const Engine::FrameInfo& frameInfo ) override {
         dispatch( [taskQueue, &frameInfo]( const auto& s ) {
             s->generateTasks( taskQueue, frameInfo );
         } );
     }
-    inline void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override {
+    inline void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override {
         BaseAbstractSystem::handleAssetLoading( entity, data );
         dispatch( [entity, data]( const auto& s ) { s->handleAssetLoading( entity, data ); } );
     }
@@ -106,8 +110,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) {
         for ( auto& s : m_systems )
         {
-            if ( !f( s ) && abortWhenInvalid )
-                return false;
+            if ( !f( s ) && abortWhenInvalid ) return false;
         }
         return true;
     }
@@ -117,8 +120,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem {
     inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) const {
         for ( const auto& s : m_systems )
         {
-            if ( !f( s ) && abortWhenInvalid )
-                return false;
+            if ( !f( s ) && abortWhenInvalid ) return false;
         }
         return true;
     }

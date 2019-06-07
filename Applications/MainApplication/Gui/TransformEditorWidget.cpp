@@ -37,7 +37,9 @@ void TransformEditorWidget::setEditable( const Engine::ItemEntry& ent ) {
                               QString::fromStdString( getEntryName(
                                   Engine::RadiumEngine::getInstance(), m_currentEdit ) ),
                               true );
-        connect( m_translationEditor, &VectorEditor::valueChanged, this,
+        connect( m_translationEditor,
+                 &VectorEditor::valueChanged,
+                 this,
                  &TransformEditorWidget::onChangedPosition );
     }
 }

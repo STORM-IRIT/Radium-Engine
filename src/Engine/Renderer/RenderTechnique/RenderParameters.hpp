@@ -7,8 +7,8 @@
 #include <vector>
 
 #include <Core/Containers/AlignedAllocator.hpp>
-#include <Core/Log/Log.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -19,60 +19,72 @@ class ShaderProgram;
 
 namespace Ra {
 namespace Engine {
-class RA_ENGINE_API RenderParameters final {
+/**
+ * Management of shader parameters
+ */
+class RA_ENGINE_API RenderParameters final
+{
   public:
-    class Parameter {
+    class Parameter
+    {
       public:
         Parameter() = default;
-        Parameter( const char* name ) : m_name( name ) {}
-        virtual ~Parameter() = default;
+        explicit Parameter( const char* name ) : m_name( name ) {}
+        virtual ~Parameter()                                   = default;
         virtual void bind( const ShaderProgram* shader ) const = 0;
 
-        const char* m_name;
+        const char* m_name{nullptr};
     };
 
     template <typename T>
-    class TParameter final : public Parameter {
+    class TParameter final : public Parameter
+    {
       public:
         TParameter() = default;
         TParameter( const char* name, const T& value ) : Parameter( name ), m_value( value ) {}
-        ~TParameter() = default;
+        ~TParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        T m_value;
+        T m_value{};
     };
 
-    class TextureParameter final : public Parameter {
+    class TextureParameter final : public Parameter
+    {
       public:
         TextureParameter() = default;
         TextureParameter( const char* name, Texture* tex, int texUnit ) :
             Parameter( name ),
             m_texture( tex ),
             m_texUnit( texUnit ) {}
-        ~TextureParameter() = default;
+
+        ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
-        Texture* m_texture;
-        int m_texUnit;
+        Texture* m_texture{nullptr};
+        int m_texUnit{-1};
     };
 
     template <typename T>
     class UniformBindableVector final
         : public std::map<
-              std::string, T, std::less<std::string>,
-              Core::AlignedAllocator<std::pair<const std::string, T>, RA_DEFAULT_ALIGN>> {
+              std::string,
+              T,
+              std::less<std::string>,
+              Core::AlignedAllocator<std::pair<const std::string, T>, EIGEN_MAX_ALIGN_BYTES>>
+    {
       public:
         void bind( const ShaderProgram* shader ) const;
     };
 
-    typedef TParameter<int> IntParameter;
-    typedef TParameter<uint> UIntParameter;
-    typedef TParameter<Scalar> ScalarParameter;
+    using IntParameter    = TParameter<int>;
+    using UIntParameter   = TParameter<uint>;
+    using ScalarParameter = TParameter<Scalar>;
 
-    typedef TParameter<std::vector<int>> IntsParameter;
-    typedef TParameter<std::vector<uint>> UIntsParameter;
+    using IntsParameter  = TParameter<std::vector<int>>;
+    using UIntsParameter = TParameter<std::vector<uint>>;
+
     //! globjects seems to not handle vector of double
-    typedef TParameter<std::vector<float>> ScalarsParameter;
+    using ScalarsParameter = TParameter<std::vector<float>>;
 
     using Vec2Parameter = TParameter<Core::Vector2>;
     using Vec3Parameter = TParameter<Core::Vector3>;
@@ -118,6 +130,7 @@ class RA_ENGINE_API RenderParameters final {
     void bind( const ShaderProgram* shader ) const;
 
     void print() const {
+        using namespace Core::Utils; // log
         for ( const auto& p : m_scalarParamsVector )
         {
             LOG( logDEBUG ) << "  " << p.first << " : " << p.second.m_name;
@@ -125,7 +138,7 @@ class RA_ENGINE_API RenderParameters final {
     }
 
   private:
-    // FIXME(Charly): Any way to simplify this a bit ?
+    // Radium V2 : Any way to simplify this a bit ?
     UniformBindableVector<IntParameter> m_intParamsVector;
     UniformBindableVector<UIntParameter> m_uintParamsVector;
     UniformBindableVector<ScalarParameter> m_scalarParamsVector;

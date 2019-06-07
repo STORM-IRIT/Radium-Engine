@@ -10,7 +10,8 @@
 namespace Ra {
 namespace GuiBase {
 
-class RA_GUIBASE_API EngineTreeItem : public TreeItem {
+class RA_GUIBASE_API EngineTreeItem : public TreeItem
+{
   public:
     std::string getName() const override {
         return getEntryName( Engine::RadiumEngine::getInstance(), m_entry );
@@ -26,13 +27,15 @@ class RA_GUIBASE_API EngineTreeItem : public TreeItem {
 
 /// Implementation of QAbstractItemModel to show the engine objects
 /// as a tree in the main GUI.
-class RA_GUIBASE_API ItemModel : public TreeModel {
+class RA_GUIBASE_API ItemModel : public TreeModel
+{
     Q_OBJECT
   public:
     ItemModel( const Engine::RadiumEngine* engine, QObject* parent = nullptr ) :
         TreeModel( parent ),
         m_engine( engine ) {
         buildModel();
+        connect( this, &TreeModel::dataChanged, this, &ItemModel::onDataChanged );
     }
 
     // Other functions
@@ -50,6 +53,16 @@ class RA_GUIBASE_API ItemModel : public TreeModel {
     void addItem( const Engine::ItemEntry& ent );
 
     void removeItem( const Engine::ItemEntry& ent );
+
+  private slots:
+
+    void onDataChanged( const QModelIndex& topLeft,
+                        const QModelIndex& bottomRight,
+                        const QVector<int>& roles );
+
+  signals:
+
+    void visibilityROChanged( Ra::Core::Utils::Index roIndex, bool visible );
 
   protected:
     /// Internal function to build the tree.

@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>478</width>
-    <height>498</height>
+    <height>189</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -19,39 +19,33 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="m_renderObjectName">
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="2" column="1">
+    <widget class="QPushButton" name="m_closeButton">
      <property name="text">
-      <string>TextLabel</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string>Close</string>
      </property>
     </widget>
    </item>
-   <item>
-    <spacer name="verticalSpacer">
+   <item row="2" column="0">
+    <spacer name="horizontalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Expanding</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>40</width>
+       <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox">
+   <item row="1" column="0" colspan="2">
+    <widget class="QGroupBox" name="m_BlinnPhongGroup">
      <property name="title">
       <string>Material Parameters</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="2,4,1">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="2,0,0,0">
       <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -116,12 +110,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="Ra::Gui::ColorWidget" name="kdColorWidget" native="true"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="Ra::Gui::ColorWidget" name="ksColorWidget" native="true"/>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
@@ -129,7 +117,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
+      <item row="2" column="3">
        <widget class="QDoubleSpinBox" name="exp">
         <property name="decimals">
          <number>1</number>
@@ -148,65 +136,45 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="3">
+       <widget class="QCheckBox" name="kUsePerVertex">
+        <property name="text">
+         <string>Per-vertex</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="Ra::Gui::ColorWidget" name="kdColorWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="Ra::Gui::ColorWidget" name="ksColorWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>10</width>
+          <height>10</height>
+         </size>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
-   <item>
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="m_renderObjectName">
+     <property name="text">
+      <string>TextLabel</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
-    </spacer>
-   </item>
-   <item>
-    <layout class="QFormLayout" name="formLayout">
-     <property name="sizeConstraint">
-      <enum>QLayout::SetDefaultConstraint</enum>
-     </property>
-     <property name="fieldGrowthPolicy">
-      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-     </property>
-     <property name="rowWrapPolicy">
-      <enum>QFormLayout::DontWrapRows</enum>
-     </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Output value </string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QComboBox" name="outputValue">
-       <item>
-        <property name="text">
-         <string>final</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>diffuse</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>specular</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>normal</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -219,5 +187,54 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kUsePerVertex</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kdB</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>380</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kUsePerVertex</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kdG</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kUsePerVertex</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kdR</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>240</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

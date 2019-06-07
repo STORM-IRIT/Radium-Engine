@@ -2,66 +2,128 @@
 #define RADIUMENGINE_ATTRIBS_HPP
 
 #include <Core/Containers/VectorArray.hpp>
-#include <Core/Index/IndexMap.hpp>
-#include <Core/Log/Log.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Utils/Index.hpp>
 
 namespace Ra {
 namespace Core {
 
+namespace Geometry {
+// need forward declarations for friend classes outside of Utils namespace
+class TopologicalMesh;
+class TriangleMesh;
+} // namespace Geometry
+
+namespace Utils {
+
 template <typename T>
 class Attrib;
 
-/// AttribBase is the base class for attributes of all type.
-class AttribBase {
+/**
+ * AttribBase is the base class for attributes of all type.
+ */
+class AttribBase
+{
   public:
+    explicit AttribBase( const std::string& name ) : m_name{name} {}
     virtual ~AttribBase() {}
+
+    /**
+     * Return the attribute's name.
+     */
     std::string getName() const { return m_name; }
-    void setName( std::string name ) { m_name = name; }
+
+    /**
+     * Set the attribute's name.
+     */
+    void setName( const std::string& name ) { m_name = name; }
+
+    /**
+     * Resize the attribute's content.
+     */
     virtual void resize( size_t s ) = 0;
 
-    virtual uint getSize() = 0;
+    /**
+     * Return the number of elements in the attribute content.
+     */
+    virtual size_t getSize() = 0;
+
+    /**
+     * Return the stride, in bytes, from one attribute address to the next one.
+     */
     virtual int getStride() = 0;
 
+    /**
+     * Return true if *this and \p rhs have the same name.
+     */
     bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
 
+    /**
+     * Downcast from AttribBase to Attrib<T>.
+     */
     template <typename T>
     inline Attrib<T>& cast() {
         return static_cast<Attrib<T>&>( *this );
     }
 
+    /**
+     * Downcast from AttribBase to Attrib<T>.
+     */
     template <typename T>
     inline const Attrib<T>& cast() const {
         return static_cast<const Attrib<T>&>( *this );
     }
 
+    /**
+     * Return true if the attribute content is of float type, false otherwise.
+     */
     virtual bool isFloat() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector2 type, false otherwise.
+     */
     virtual bool isVec2() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector3 type, false otherwise.
+     */
     virtual bool isVec3() const = 0;
+
+    /**
+     * Return true if the attribute content is of Vector4 type, false otherwise.
+     */
     virtual bool isVec4() const = 0;
 
   private:
+    /// The attribute's name.
     std::string m_name;
 };
 
-/// An Attribute is a vector of a given type.
+/**
+ * An Attrib stores an element of type \p T for each entry.
+ */
 template <typename T>
-class Attrib : public AttribBase {
+class Attrib : public AttribBase
+{
   public:
     using value_type = T;
-    using Container = VectorArray<T>;
+    using Container  = VectorArray<T>;
 
-    /// resize the container (value_type must have a default ctor).
+    explicit Attrib( const std::string& name ) : AttribBase( name ) {}
+
+    /// Resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
 
-    /// RW acces to container data
+    /// Read-write access to the attribute content.
     inline Container& data() { return m_data; }
 
-    /// R only acccess to container data
+    /// Read-only acccess to the attribute content.
     inline const Container& data() const { return m_data; }
 
     virtual ~Attrib() { m_data.clear(); }
-    uint getSize() override { return Container::Matrix::RowsAtCompileTime; }
+    size_t getSize() override { return m_data.size(); }
+
+    /// \warning Does not work for dynamic and sparse Eigen matrices.
     int getStride() override { return sizeof( typename Container::value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
@@ -74,7 +136,8 @@ class Attrib : public AttribBase {
 };
 
 template <typename T>
-class AttribHandle {
+class AttribHandle
+{
   public:
     typedef T value_type;
     using Container = typename Attrib<T>::Container;
@@ -91,7 +154,7 @@ class AttribHandle {
     std::string attribName() const { return m_name; }
 
   private:
-    Index m_idx = Index::Invalid();
+    Index m_idx        = Index::Invalid();
     std::string m_name = "";
 
     friend class AttribManager;
@@ -128,10 +191,11 @@ class AttribHandle {
  * \warning There is no error check on the handles attribute type.
  *
  */
-class AttribManager {
+class RA_CORE_API AttribManager
+{
   public:
     using value_type = AttribBase*;
-    using Container = std::vector<value_type>;
+    using Container  = std::vector<value_type>;
 
     AttribManager() {}
 
@@ -144,7 +208,7 @@ class AttribManager {
         m_attribsIndex( std::move( m.m_attribsIndex ) ) {}
 
     AttribManager& operator=( AttribManager&& m ) {
-        m_attribs = std::move( m.m_attribs );
+        m_attribs      = std::move( m.m_attribs );
         m_attribsIndex = std::move( m.m_attribsIndex );
         return *this;
     }
@@ -154,7 +218,7 @@ class AttribManager {
     /// Base copy, does nothing.
     void copyAttributes( const AttribManager& m ) {}
 
-    /// Copy the given attributes from \m.
+    /// Copy the given attributes from m.
     /// \note If some attrib already exists, it will be replaced.
     /// \note Invalid handles are ignored.
     template <class T, class... Handle>
@@ -172,50 +236,27 @@ class AttribManager {
         copyAttributes( m, attribs... );
     }
 
-    /// Copy all attributes from \m.
+    /// Copy all attributes from m.
     /// \note If some attrib already exists, it will be replaced.
-    void copyAllAttributes( const AttribManager& m ) {
-        for ( const auto& attr : m.m_attribs )
-        {
-            if ( attr == nullptr )
-                continue;
-            if ( attr->isFloat() )
-            {
-                auto h = addAttrib<float>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<float>*>( attr )->data();
-            } else if ( attr->isVec2() )
-            {
-                auto h = addAttrib<Vector2>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<Vector2>*>( attr )->data();
-            } else if ( attr->isVec3() )
-            {
-                auto h = addAttrib<Vector3>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<Vector3>*>( attr )->data();
-            } else if ( attr->isVec4() )
-            {
-                auto h = addAttrib<Vector4>( attr->getName() );
-                getAttrib( h ).data() = static_cast<Attrib<Vector4>*>( attr )->data();
-            } else
-                LOG( logWARNING )
-                    << "Warning, mesh attribute " << attr->getName()
-                    << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-        }
-    }
+    void copyAllAttributes( const AttribManager& m );
 
     /// clear all attribs, invalidate handles.
-    void clear() {
-        for ( auto attr : m_attribs )
-        {
-            delete attr;
-        }
-        m_attribs.clear();
-        m_attribsIndex.clear();
-    }
+    void clear();
 
     /// Return true if \p h correspond to an existing attribute in *this.
     template <typename T>
     bool isValid( const AttribHandle<T>& h ) const {
         return h.m_idx != Index::Invalid() && m_attribsIndex.at( h.attribName() ) == h.m_idx;
+    }
+
+    /*!
+     * \brief contains Check if an attribute with the given name exists.
+     * \param name Name of the attribute.
+     * \warning There is no error check on the attribute type.
+     * \note The complexity for checking an attribute handle is O(log(n)).
+     */
+    inline bool contains( const std::string& name ) const {
+        return m_attribsIndex.find( name ) != m_attribsIndex.end();
     }
 
     /*!
@@ -231,7 +272,7 @@ class AttribManager {
         AttribHandle<T> handle;
         if ( c != m_attribsIndex.end() )
         {
-            handle.m_idx = c->second;
+            handle.m_idx  = c->second;
             handle.m_name = c->first;
         }
         return handle;
@@ -261,27 +302,27 @@ class AttribManager {
     AttribHandle<T> addAttrib( const std::string& name ) {
         // does the attrib already exist?
         AttribHandle<T> h = findAttrib<T>( name );
-        if ( isValid( h ) )
-            return h;
+        if ( isValid( h ) ) return h;
 
         // create the attrib
-        Attrib<T>* attrib = new Attrib<T>;
-        attrib->setName( name );
+        Attrib<T>* attrib = new Attrib<T>( name );
 
         // look for a free slot
-        auto it = std::find_if( m_attribs.begin(), m_attribs.end(),
-                                []( const auto& attr ) { return attr == nullptr; } );
+        auto it = std::find_if( m_attribs.begin(), m_attribs.end(), []( const auto& attr ) {
+            return attr == nullptr;
+        } );
         if ( it != m_attribs.end() )
         {
-            *it = attrib;
+            *it     = attrib;
             h.m_idx = std::distance( m_attribs.begin(), it );
-        } else
+        }
+        else
         {
             m_attribs.push_back( attrib );
             h.m_idx = m_attribs.size() - 1;
         }
         m_attribsIndex[name] = h.m_idx;
-        h.m_name = name;
+        h.m_name             = name;
 
         return h;
     }
@@ -292,8 +333,7 @@ class AttribManager {
     /// \note The complexity for removing an attribute is O(log(n)).
     template <typename T>
     void removeAttrib( AttribHandle<T>& h ) {
-        const auto& att = getAttrib( h );
-        auto c = m_attribsIndex.find( att.getName() );
+        auto c = m_attribsIndex.find( h.m_name );
         if ( c != m_attribsIndex.end() )
         {
             Index idx = c->second;
@@ -301,32 +341,14 @@ class AttribManager {
             m_attribs[idx] = nullptr;
             m_attribsIndex.erase( c );
         }
-        h.m_idx = Index::Invalid(); // invalidate whatever!
-        h.m_name = "";              // invalidate whatever!
+        h.m_idx  = Index::Invalid(); // invalidate whatever!
+        h.m_name = "";               // invalidate whatever!
     }
 
     /// Return true if *this and \p other have the same attributes, same amount
     /// and same names.
     /// \warning There is no check on the attribute type nor data.
-    bool hasSameAttribs( const AttribManager& other ) {
-        // one way
-        for ( const auto& attr : m_attribsIndex )
-        {
-            if ( other.m_attribsIndex.find( attr.first ) == other.m_attribsIndex.cend() )
-            {
-                return false;
-            }
-        }
-        // the other way
-        for ( const auto& attr : other.m_attribsIndex )
-        {
-            if ( m_attribsIndex.find( attr.first ) == m_attribsIndex.cend() )
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+    bool hasSameAttribs( const AttribManager& other );
 
   private:
     /// Perform \p fun on each attribute.
@@ -334,8 +356,7 @@ class AttribManager {
     template <typename F>
     void for_each_attrib( const F& func ) const {
         for ( const auto& attr : m_attribs )
-            if ( attr != nullptr )
-                func( attr );
+            if ( attr != nullptr ) func( attr );
     }
 
     /// Perform \p fun on each attribute.
@@ -343,8 +364,7 @@ class AttribManager {
     template <typename F>
     void for_each_attrib( const F& func ) {
         for ( auto& attr : m_attribs )
-            if ( attr != nullptr )
-                func( attr );
+            if ( attr != nullptr ) func( attr );
     }
 
     /// Attrib list, better using attribs() to go through.
@@ -355,10 +375,11 @@ class AttribManager {
     std::map<std::string, Index> m_attribsIndex;
 
     // Ease wrapper
-    friend class TopologicalMesh;
-    friend class TriangleMesh;
+    friend class ::Ra::Core::Geometry::TopologicalMesh;
+    friend class ::Ra::Core::Geometry::TriangleMesh;
 };
 
+} // namespace Utils
 } // namespace Core
 } // namespace Ra
 

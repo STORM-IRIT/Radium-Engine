@@ -10,6 +10,8 @@
 
 namespace Ra {
 
+using namespace Core::Utils; // log
+
 Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
     m_targetedAabbVolume( 0.0 ),
@@ -21,12 +23,12 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
         Engine::SystemEntity::getInstance()->getComponents().cend(),
         []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
     if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
+    { m_camera = static_cast<Engine::Camera*>( ( *it ).get() ); } else
     {
-        m_camera = static_cast<Engine::Camera*>( ( *it ).get() );
-    } else
-    {
-        m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(), "CAMERA_DEFAULT",
-                                       Scalar( height ), Scalar( width ) );
+        m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(),
+                                       "CAMERA_DEFAULT",
+                                       Scalar( height ),
+                                       Scalar( width ) );
     }
     m_camera->initialize();
     m_camera->show( false );
@@ -41,19 +43,20 @@ void Gui::CameraInterface::resetToDefaultCamera() {
     // Thisis awfull and requires that the current camera is still alive ...
     Scalar w = m_camera->getWidth();
     Scalar h = m_camera->getHeight();
-    auto it = std::find_if(
+    auto it  = std::find_if(
         Engine::SystemEntity::getInstance()->getComponents().cbegin(),
         Engine::SystemEntity::getInstance()->getComponents().cend(),
         []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
     if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
     {
         m_camera = static_cast<Engine::Camera*>( ( *it ).get() );
-        m_camera->resize(w,h);
+        m_camera->resize( w, h );
         m_camera->show( false );
     }
     else
     {
-        LOG(logWARNING) << "A living camera is required. The application might now behave unexpectedly." ;
+        LOG( logWARNING )
+            << "A living camera is required. The application might now behave unexpectedly.";
     }
 }
 
@@ -92,8 +95,8 @@ void Gui::CameraInterface::setCameraZFar( double zFar ) {
 }
 
 void Gui::CameraInterface::mapCameraBehaviourToAabb( const Core::Aabb& aabb ) {
-    m_targetedAabb = aabb;
-    m_targetedAabbVolume = aabb.volume();
+    m_targetedAabb             = aabb;
+    m_targetedAabbVolume       = aabb.volume();
     m_mapCameraBahaviourToAabb = true;
 }
 

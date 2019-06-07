@@ -1,6 +1,6 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 
 #include <tinyply/tinyply.h>
 
@@ -12,6 +12,9 @@ const std::string plyExt( "ply" );
 
 namespace Ra {
 namespace IO {
+
+using namespace Core::Utils; // log
+using namespace Core::Asset; // Filedata
 
 TinyPlyFileLoader::TinyPlyFileLoader() {}
 
@@ -25,7 +28,7 @@ bool TinyPlyFileLoader::handleFileExtension( const std::string& extension ) cons
     return extension.compare( plyExt ) == 0;
 }
 
-Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
+FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     // Read the file and create a std::istringstream suitable
     // for the lib -- tinyply does not perform any file i/o.
@@ -34,18 +37,18 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // Parse the ASCII header fields
     tinyply::PlyFile file( ss );
 
-    for ( auto e : file.get_elements() )
+    auto elements = file.get_elements();
+    if ( std::any_of( elements.begin(), elements.end(), []( const auto& e ) -> bool {
+             return e.name == "face" && e.size != 0;
+         } ) )
     {
-        if ( e.name.compare( "face" ) == 0 && e.size != 0 )
-        {
-            // Mesh found. Let the other loaders handle it
-            LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
-            return nullptr;
-        }
+        // Mesh found. Let the other loaders handle it
+        LOG( logINFO ) << "[TinyPLY] Faces found. Aborting" << std::endl;
+        return nullptr;
     }
 
     // we are now sure to have a point-cloud
-    Asset::FileData* fileData = new Asset::FileData( filename );
+    FileData* fileData = new FileData( filename );
 
     if ( !fileData->isInitialized() )
     {
@@ -54,10 +57,7 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
 
-    if ( fileData->isVerbose() )
-    {
-        LOG( logINFO ) << "[TinyPLY] File Loading begin...";
-    }
+    if ( fileData->isVerbose() ) { LOG( logINFO ) << "[TinyPLY] File Loading begin..."; }
 
     // Define containers to hold the extracted data. The type must match
     // the property type given in the header. Tinyply will interally allocate the
@@ -67,7 +67,7 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // The count returns the number of instances of the property group. The vectors
     // above will be resized into a multiple of the property group size as
     // they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
-    uint32_t vertexCount = file.request_properties_from_element( "vertex", {"x", "y", "z"}, verts );
+    size_t vertexCount = file.request_properties_from_element( "vertex", {"x", "y", "z"}, verts );
 
     if ( vertexCount == 0 )
     {
@@ -79,15 +79,18 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     fileData->m_geometryData.clear();
     fileData->m_geometryData.reserve( 1 );
 
-    Asset::GeometryData* geometry = new Asset::GeometryData();
-    geometry->setType( Asset::GeometryData::POINT_CLOUD );
+    static int nameId = 0;
+    // a unique name is required by the component messaging system
+    auto geometry = std::make_unique<GeometryData>( "PC_" + std::to_string( ++nameId ),
+                                                    GeometryData::POINT_CLOUD );
 
     std::vector<float> normals;
-    std::vector<uint8_t> colors;
-    uint32_t normalCount =
+    std::vector<uint8_t> colors, alphas;
+    size_t normalCount =
         file.request_properties_from_element( "vertex", {"nx", "ny", "nz"}, normals );
-    uint32_t colorCount =
-        file.request_properties_from_element( "vertex", {"red", "green", "blue", "alpha"}, colors );
+    size_t alphaCount = file.request_properties_from_element( "vertex", {"alpha"}, alphas );
+    size_t colorCount =
+        file.request_properties_from_element( "vertex", {"red", "green", "blue"}, colors );
 
     std::clock_t startTime;
     startTime = std::clock();
@@ -107,16 +110,37 @@ Asset::FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     if ( colorCount != 0 )
     {
-        geometry->setColors(
-            *( reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 4, 1, Eigen::DontAlign>>*>(
-                &colors ) ) );
-        for ( auto& c : geometry->getColors() )
-            c /= Scalar( 255 );
+        auto& container = geometry->getColors();
+        container.resize( colorCount );
+
+        auto* cols = reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>>*>(
+                         &colors )
+                         ->data();
+
+        if ( alphaCount == colorCount )
+        {
+            uint8_t* al = alphas.data();
+            for ( auto& c : container )
+            {
+                c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra,
+                                                 Scalar( *al ) / 255_ra );
+                cols++;
+                al++;
+            }
+        }
+        else
+        {
+            for ( auto& c : container )
+            {
+                c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra );
+                cols++;
+            }
+        }
     }
 
     fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
-    fileData->m_geometryData.push_back( std::unique_ptr<Asset::GeometryData>( geometry ) );
+    fileData->m_geometryData.push_back( std::move( geometry ) );
 
     if ( fileData->isVerbose() )
     {

@@ -1,19 +1,19 @@
 
 namespace Ra {
 
-inline void Engine::SpotLight::setPosition( const Core::Vector3& position ) {
+inline void Engine::SpotLight::setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) {
     m_position = position;
 }
 
-inline const Core::Vector3& Engine::SpotLight::getPosition() const {
+inline const Eigen::Matrix<Scalar, 3, 1>& Engine::SpotLight::getPosition() const {
     return m_position;
 }
 
-inline void Engine::SpotLight::setDirection( const Core::Vector3& direction ) {
+inline void Engine::SpotLight::setDirection( const Eigen::Matrix<Scalar, 3, 1>& direction ) {
     m_direction = direction.normalized();
 }
 
-inline const Core::Vector3& Engine::SpotLight::getDirection() const {
+inline const Eigen::Matrix<Scalar, 3, 1>& Engine::SpotLight::getDirection() const {
     return m_direction;
 }
 
@@ -46,9 +46,7 @@ inline void Engine::SpotLight::setAttenuation( const Attenuation& attenuation ) 
 }
 
 inline void Engine::SpotLight::setAttenuation( Scalar constant, Scalar linear, Scalar quadratic ) {
-    m_attenuation.constant = constant;
-    m_attenuation.linear = linear;
-    m_attenuation.quadratic = quadratic;
+    m_attenuation = {constant, linear, quadratic};
 }
 
 inline const Engine::SpotLight::Attenuation& Engine::SpotLight::getAttenuation() const {

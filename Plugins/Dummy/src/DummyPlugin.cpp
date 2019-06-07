@@ -30,7 +30,7 @@ bool DummyPlugin::doAddWidget( QString& name ) {
 QWidget* DummyPlugin::getWidget() {
     QWidget* widget = new QWidget;
 
-    m_label = new QLabel( "I am a dummy label", widget );
+    m_label             = new QLabel( "I am a dummy label", widget );
     QPushButton* button = new QPushButton( "And I am a dummy button", widget );
 
     QVBoxLayout* layout = new QVBoxLayout( widget );

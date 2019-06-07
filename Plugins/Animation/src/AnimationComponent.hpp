@@ -4,11 +4,11 @@
 #include <AnimationPluginMacros.hpp>
 
 #include <Core/Animation/Animation.hpp>
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Handle/Skeleton.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/File/AnimationData.hpp>
-#include <Core/File/HandleData.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Animation/Skeleton.hpp>
+#include <Core/Asset/AnimationData.hpp>
+#include <Core/Asset/HandleData.hpp>
 
 #include <Engine/Component/Component.hpp>
 
@@ -21,10 +21,11 @@ class SkeletonBoneRenderObject;
 /// The AnimationComponent is responsible for the management of skeleton-based
 /// character animations. It stores the animation Skeleton and the animation
 /// data and is responsible for drawing the skeleton.
-class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
+class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component
+{
   public:
     AnimationComponent( const std::string& name, Ra::Engine::Entity* entity );
-    virtual ~AnimationComponent();
+    ~AnimationComponent();
     AnimationComponent( const AnimationComponent& ) = delete;
     AnimationComponent& operator=( const AnimationComponent& ) = delete;
 
@@ -35,15 +36,10 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     //
 
     /// Create the skeleton from the given data.
-    /// @param data the skeleton's joint transform hierarchy.
-    /// @param nbMeshVertices the number of single vertices.
-    // FIXME: nbMeshVertices is needed only for the genereation of
-    //        the skinning weights matrix.
-    void handleSkeletonLoading( const Ra::Asset::HandleData* data,
-                                uint nbMeshVertices );
+    void handleSkeletonLoading( const Ra::Core::Asset::HandleData* data );
 
     /// Create the animations from the given data.
-    void handleAnimationLoading( const std::vector<Ra::Asset::AnimationData*> data );
+    void handleAnimationLoading( const std::vector<Ra::Core::Asset::AnimationData*>& data );
 
     //
     // Animation
@@ -99,25 +95,18 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// Toggle skeleton bones display.
     void toggleSkeleton( const bool status );
 
-    /// @returns the index of the skeleton bone associated to the RenderObject with index \p index.
-    uint getBoneIdx( Ra::Core::Index index ) const;
-
     //
     // Editable interface
     //
 
-    virtual bool canEdit( Ra::Core::Index roIdx ) const override;
+    virtual bool canEdit( const Ra::Core::Utils::Index& roIdx ) const override;
 
-    virtual Ra::Core::Transform getTransform( Ra::Core::Index roIdx ) const override;
+    virtual Ra::Core::Transform getTransform( const Ra::Core::Utils::Index& roIdx ) const override;
 
-    virtual void setTransform( Ra::Core::Index roIdx,
+    virtual void setTransform( const Ra::Core::Utils::Index& roIdx,
                                const Ra::Core::Transform& transform ) override;
 
   private:
-    // Internal function to create the skinning weights.
-    void createWeightMatrix( const Ra::Asset::HandleData* data,
-                             const std::map<uint, uint>& indexTable, uint nbMeshVertices );
-
     // Internal function to create the bone display objects.
     void setupSkeletonDisplay();
 
@@ -137,9 +126,6 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// Referene Pose getter for CC.
     const Ra::Core::Animation::RefPose* getRefPoseOutput() const;
 
-    /// Skinning Weight Matrix getter for CC.
-    const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
-
     /// Reset status getter for CC.
     const bool* getWasReset() const;
 
@@ -148,6 +134,9 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
 
     /// Current Animation Time for CC.
     const Scalar* getTimeOutput() const;
+
+    /// Map from RO index to bone index for CC.
+    const std::map<Ra::Core::Utils::Index, uint>* getBoneRO2idx() const;
 
   private:
     /// Entity name for CC.
@@ -162,12 +151,11 @@ class ANIM_PLUGIN_API AnimationComponent : public Ra::Engine::Component {
     /// The animations.
     std::vector<Ra::Core::Animation::Animation> m_animations;
 
-    /// The Skinning Weight Matrix
-    // FIXME: this one should go in the SkinningComponent.
-    Ra::Core::Animation::WeightMatrix m_weights;
-
     /// Bones ROs.
     std::vector<std::unique_ptr<SkeletonBoneRenderObject>> m_boneDrawables;
+
+    /// Map from bone RO index to bone idx, for CC.
+    std::map<Ra::Core::Utils::Index, uint> m_boneMap;
 
     /// Current animation ID.
     uint m_animationID;

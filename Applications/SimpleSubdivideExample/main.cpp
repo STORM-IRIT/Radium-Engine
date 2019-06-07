@@ -1,8 +1,9 @@
-#include <Core/Algorithm/Subdivision/CatmullClarkSubdivider.hpp>
-#include <Core/Algorithm/Subdivision/LoopSubdivider.hpp>
-#include <Core/File/deprecated/OBJFileManager.hpp>
-#include <Core/Mesh/MeshPrimitives.hpp>
-#include <Core/Mesh/TopologicalTriMesh/TopologicalMesh.hpp>
+#include <Core/Geometry/CatmullClarkSubdivider.hpp>
+#include <Core/Geometry/LoopSubdivider.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/Utils/Log.hpp>
+#include <IO/deprecated/OBJFileManager.hpp>
 #include <memory>
 
 /// Macro used for testing only, to add attibutes to the TopologicalMesh
@@ -15,7 +16,8 @@ struct args {
     int iteration;
     std::string outputFilename;
     std::string inputFilename;
-    std::unique_ptr<OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::TopologicalMesh, Scalar>>
+    std::unique_ptr<
+        OpenMesh::Subdivider::Uniform::SubdividerT<Ra::Core::Geometry::TopologicalMesh, Scalar>>
         subdivider;
 };
 
@@ -45,22 +47,19 @@ args processArgs( int argc, char* argv[] ) {
 
     for ( int i = 1; i < argc; i += 2 )
     {
-        if ( i >= argc )
-            break;
         if ( std::string( argv[i] ) == std::string( "-i" ) )
         {
-            if ( i + 1 < argc )
-            {
-                ret.inputFilename = argv[i + 1];
-            }
-        } else if ( std::string( argv[i] ) == std::string( "-o" ) )
+            if ( i + 1 < argc ) { ret.inputFilename = argv[i + 1]; }
+        }
+        else if ( std::string( argv[i] ) == std::string( "-o" ) )
         {
             if ( i + 1 < argc )
             {
                 ret.outputFilename = argv[i + 1];
-                outputFilenameSet = true;
+                outputFilenameSet  = true;
             }
-        } else if ( std::string( argv[i] ) == std::string( "-s" ) )
+        }
+        else if ( std::string( argv[i] ) == std::string( "-s" ) )
         {
             if ( i + 1 < argc )
             {
@@ -68,19 +67,17 @@ args processArgs( int argc, char* argv[] ) {
                 subdividerSet = true;
                 if ( a == std::string( "catmull" ) )
                 {
-                    ret.subdivider = std::make_unique<Ra::Core::CatmullClarkSubdivider>();
-                } else if ( a == std::string( "loop" ) )
-                {
-                    ret.subdivider = std::make_unique<Ra::Core::LoopSubdivider>();
-                } else
+                    ret.subdivider = std::make_unique<Ra::Core::Geometry::CatmullClarkSubdivider>();
+                }
+                else if ( a == std::string( "loop" ) )
+                { ret.subdivider = std::make_unique<Ra::Core::Geometry::LoopSubdivider>(); }
+                else
                 { subdividerSet = false; }
             }
-        } else if ( std::string( argv[i] ) == std::string( "-n" ) )
+        }
+        else if ( std::string( argv[i] ) == std::string( "-n" ) )
         {
-            if ( i + 1 < argc )
-            {
-                ret.iteration = std::stoi( std::string( argv[i + 1] ) );
-            }
+            if ( i + 1 < argc ) { ret.iteration = std::stoi( std::string( argv[i + 1] ) ); }
         }
     }
     ret.valid = outputFilenameSet && subdividerSet;
@@ -88,19 +85,16 @@ args processArgs( int argc, char* argv[] ) {
 }
 
 int main( int argc, char* argv[] ) {
+    using namespace Ra::Core::Utils; // log
     args a = processArgs( argc, argv );
-    if ( !a.valid )
+    if ( !a.valid ) { printHelp( argv ); }
+    else
     {
-        printHelp( argv );
-    } else
-    {
-        Ra::Core::TriangleMesh mesh;
-        Ra::Core::OBJFileManager obj;
+        Ra::Core::Geometry::TriangleMesh mesh;
+        Ra::IO::OBJFileManager obj;
 
-        if ( a.inputFilename.empty() )
-        {
-            mesh = Ra::Core::MeshUtils::makeBox();
-        } else
+        if ( a.inputFilename.empty() ) { mesh = Ra::Core::Geometry::makeBox(); }
+        else
         { obj.load( a.inputFilename, mesh ); }
 
         LOG( logINFO ) << "in Mesh";
@@ -116,7 +110,7 @@ int main( int argc, char* argv[] ) {
         }
 
 #ifdef TEST_ATTRIBUTES_SUBDIV
-        float i = 0;
+        float i           = 0;
         auto test_handle2 = mesh.addAttrib<Ra::Core::Vector4>( "test vec4" );
         mesh.getAttrib( test_handle2 ).resize( mesh.vertices().size() );
         for ( auto& v : mesh.getAttrib( test_handle2 ).data() )
@@ -136,7 +130,7 @@ int main( int argc, char* argv[] ) {
         }
 #endif
 
-        Ra::Core::TopologicalMesh topologicalMesh( mesh );
+        Ra::Core::Geometry::TopologicalMesh topologicalMesh( mesh );
 
         a.subdivider->attach( topologicalMesh );
         ( *a.subdivider )( a.iteration );

@@ -3,34 +3,42 @@
 
 #include <SkinningPluginMacros.hpp>
 
-#include <Core/Animation/Handle/HandleWeight.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
-#include <Core/Animation/Skinning/SkinningData.hpp>
-#include <Core/File/HandleData.hpp>
-#include <Core/Index/Index.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Animation/SkinningData.hpp>
+#include <Core/Asset/HandleData.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Math/DualQuaternion.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Utils/Index.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace SkinningPlugin {
 
 /// The SkinningComponent class is responsible for applying Geometric Skinning Methods
 /// on an animated object's mesh.
-class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
+class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component
+{
   public:
     /// The Geometric Skinning Method.
     enum SkinningType {
-        LBS = 0, ///< Linear Blend Skinning
-        DQS,     ///< Dual Quaternion Skinning
-        COR      ///< Center of Rotation skinning
+        LBS = 0,  ///< Linear Blend Skinning
+        DQS,      ///< Dual Quaternion Skinning
+        COR,      ///< Center of Rotation skinning
+        STBS_LBS, ///< Stretchable Twistable Bone Skinning with LBS
+        STBS_DQS  ///< Stretchable Twistable Bone Skinning with DQS
     };
 
     SkinningComponent( const std::string& name, SkinningType type, Ra::Engine::Entity* entity ) :
         Component( name, entity ),
         m_skinningType( type ),
-        m_isReady( false ) {}
+        m_isReady( false ),
+        m_forceUpdate( false ),
+        m_weightBone( 0 ),
+        m_weightType( 0 ),
+        m_showingWeights( false ) {}
 
     virtual ~SkinningComponent() {}
 
@@ -50,7 +58,8 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
 
     /// Loads the skinning weights from the given Handledata.
     // TODO: for now, weights are stored in the AnimationComponent.
-    virtual void handleWeightsLoading( const Ra::Asset::HandleData* data );
+    virtual void handleWeightsLoading( const Ra::Core::Asset::HandleData* data,
+                                       const std::string& meshName );
 
     /// @returns the reference skinning data.
     const Ra::Core::Skinning::RefData* getRefData() const { return &m_refData; }
@@ -61,6 +70,17 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     /// @returns the list of DualQuaternions used for DQS.
     const Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion>* getDQ() const { return &m_DQ; }
 
+    /// Toggles display of skinning weights.
+    void showWeights( bool on );
+
+    /// Set the type of skinning weight to display:
+    ///  - 0 for standard skinning weights
+    ///  - 1 for stbs weights
+    void showWeightsType( int type );
+
+    /// Set the bone to show the weights of.
+    void setWeightBone( uint bone );
+
   public:
     /// Registers the Entity name for Component communication (out).
     void setupIO( const std::string& id );
@@ -69,11 +89,22 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     void setupSkinningType( SkinningType type );
 
     /// Registers the Entity name for Component communication (in/out).
-    void setContentsName( const std::string name );
+    void setContentsName( const std::string& name );
 
-  private:
+  public:
     /// The Entity name for Component communication.
     std::string m_contentsName;
+
+  private:
+    // Internal function to create the skinning weights.
+    void createWeightMatrix();
+
+    /// Skinning Weight Matrix getter for CC.
+    const Ra::Core::Animation::WeightMatrix* getWeightsOutput() const;
+
+  private:
+    /// The mesh name for Component communication.
+    std::string m_meshName;
 
     /// The refrence Skinning data.
     Ra::Core::Skinning::RefData m_refData;
@@ -93,17 +124,47 @@ class SKIN_PLUGIN_API SkinningComponent : public Ra::Engine::Component {
     Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite
         m_normalsWriter;
 
+    // Read FMC's RO idx.
+    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter
+        m_renderObjectReader;
+
+    // Getter/Setter to the mesh
+    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::ReadWrite
+        m_meshWritter;
+
     /// The Skinning Method.
     SkinningType m_skinningType;
 
+    /// The Skinning Weight Matrix.
+    Ra::Core::Animation::WeightMatrix m_weights;
+
     /// Are all the required data available.
     bool m_isReady;
+
+    /// Whether skinning is mandatory for the current frame.
+    bool m_forceUpdate;
 
     /// The list of DualQuaternions used for DQS.
     Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion> m_DQ;
 
     /// The duplicate vertices map, used to recompute smooth normals.
-    std::vector<Ra::Core::Index> m_duplicatesMap;
+    // FIXME: implement proper normal skinning such as http://vcg.isti.cnr.it/deformFactors/
+    std::vector<Ra::Core::Utils::Index> m_duplicatesMap;
+
+    /// The skinning weights, stored per bone.
+    std::map<std::string, std::vector<std::pair<uint, Scalar>>> m_loadedWeights;
+
+    /// The STBS weights.
+    Ra::Core::Animation::WeightMatrix m_weightSTBS;
+
+    /// Initial RO shader config when not showing skinning weights.
+    std::shared_ptr<Ra::Engine::RenderTechnique> m_baseTechnique;
+    std::shared_ptr<Ra::Engine::RenderTechnique> m_weightTechnique;
+    Ra::Core::Vector3Array m_baseUV;
+    Ra::Core::Vector3Array m_weightsUV;
+    uint m_weightBone;
+    uint m_weightType;
+    bool m_showingWeights;
 };
 } // namespace SkinningPlugin
 

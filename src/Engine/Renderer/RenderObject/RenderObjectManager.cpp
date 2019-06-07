@@ -11,24 +11,25 @@
 
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 
+#include <numeric> // for reduce
 namespace Ra {
 namespace Engine {
-RenderObjectManager::RenderObjectManager() {}
+RenderObjectManager::RenderObjectManager() = default;
 
-RenderObjectManager::~RenderObjectManager() {}
+RenderObjectManager::~RenderObjectManager() = default;
 
-bool RenderObjectManager::exists( const Core::Index& index ) const {
+bool RenderObjectManager::exists( const Core::Utils::Index& index ) const {
     return ( index.isValid() && m_renderObjects.contains( index ) );
 }
 
-Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
+Core::Utils::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
     // Avoid data race in the std::maps
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     std::shared_ptr<RenderObject> newRenderObject( renderObject );
-    Core::Index index = m_renderObjects.insert( newRenderObject );
+    Core::Utils::Index index = m_renderObjects.insert( newRenderObject );
 
-    newRenderObject->idx = index;
+    newRenderObject->setIndex( index );
 
     auto type = renderObject->getType();
 
@@ -39,10 +40,10 @@ Core::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
     return index;
 }
 
-void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
+void RenderObjectManager::removeRenderObject( const Core::Utils::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
 
-    // FIXME(Charly): Should we check if the render object is in the double buffer map ?
+    // FIXME : Should we check if the render object is in the double buffer map ?
     std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
 
     Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved( ItemEntry(
@@ -57,38 +58,36 @@ void RenderObjectManager::removeRenderObject( const Core::Index& index ) {
     renderObject.reset();
 }
 
-uint RenderObjectManager::getRenderObjectsCount() {
+size_t RenderObjectManager::getRenderObjectsCount() {
     return m_renderObjects.size();
 }
 
-std::shared_ptr<RenderObject> RenderObjectManager::getRenderObject( const Core::Index& index ) {
+std::shared_ptr<RenderObject>
+RenderObjectManager::getRenderObject( const Core::Utils::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
     return m_renderObjects.at( index );
 }
 
-void RenderObjectManager::getRenderObjects(
-    std::vector<std::shared_ptr<RenderObject>>& renderObjectsOut ) const {
-    // Take the mutex
-    std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
-
-    // Copy each element in m_renderObjects
-    renderObjectsOut.resize( m_renderObjects.size() );
-    std::copy( m_renderObjects.begin(), m_renderObjects.end(), renderObjectsOut.begin() );
+const Core::Utils::IndexMap<std::shared_ptr<RenderObject>>&
+RenderObjectManager::getRenderObjects() const {
+    return m_renderObjects;
 }
 
 void RenderObjectManager::getRenderObjectsByType(
-    std::vector<std::shared_ptr<RenderObject>>& objectsOut, const RenderObjectType& type ) const {
+    std::vector<std::shared_ptr<RenderObject>>& objectsOut,
+    const RenderObjectType& type ) const {
     // Take the mutex
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     //// Copy each element in m_renderObjects
-    for ( const auto& idx : m_renderObjectByType[(int)type] )
-    {
-        objectsOut.push_back( m_renderObjects.at( idx ) );
-    }
+    std::transform(
+        m_renderObjectByType[(int)type].begin(),
+        m_renderObjectByType[(int)type].end(),
+        std::back_inserter( objectsOut ),
+        [this]( const Core::Utils::Index& i ) { return this->m_renderObjects.at( i ); } );
 }
 
-void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
+void RenderObjectManager::renderObjectExpired( const Core::Utils::Index& idx ) {
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
     auto ro = m_renderObjects.at( idx );
@@ -96,34 +95,38 @@ void RenderObjectManager::renderObjectExpired( const Core::Index& idx ) {
 
     auto type = ro->getType();
 
-    m_renderObjectByType[(int)type].erase( idx );
+    m_renderObjectByType[size_t( type )].erase( idx );
 
     ro->hasExpired();
 
     ro.reset();
 }
 
-uint RenderObjectManager::getNumFaces() const {
-    uint result = 0;
-    for ( const auto& ro : m_renderObjects )
-    {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-        {
-            result += ro->getMesh()->getGeometry().m_triangles.size();
-        }
-    }
+size_t RenderObjectManager::getNumFaces() const {
+    // todo : use reduce instead of accumulate to improve performances (since C++17)
+    size_t result = std::accumulate(
+        m_renderObjects.begin(),
+        m_renderObjects.end(),
+        size_t( 0 ),
+        []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
+            if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
+            { return a + ro->getMesh()->getNumFaces(); } else
+            { return a; }
+        } );
     return result;
 }
 
-uint RenderObjectManager::getNumVertices() const {
-    uint result = 0;
-    for ( const auto& ro : m_renderObjects )
-    {
-        if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-        {
-            result += ro->getMesh()->getGeometry().vertices().size();
-        }
-    }
+size_t RenderObjectManager::getNumVertices() const {
+    // todo : use reduce instead of accumulate to improve performances (since C++17)
+    size_t result = std::accumulate(
+        m_renderObjects.begin(),
+        m_renderObjects.end(),
+        size_t( 0 ),
+        []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
+            if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
+            { return a + ro->getMesh()->getNumVertices(); } else
+            { return a; }
+        } );
     return result;
 }
 
@@ -132,23 +135,21 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     Core::Aabb aabb;
 
     const auto& systemEntity = Engine::SystemEntity::getInstance();
-    const auto& comps = systemEntity->getComponents();
-    uint nUiRO = 0;
-    std::for_each( comps.begin(), comps.end(),
-                   [&nUiRO]( const auto& c ) { nUiRO += c->m_renderObjects.size(); } );
-    if ( m_renderObjects.size() == nUiRO )
-        return aabb;
+    const auto& comps        = systemEntity->getComponents();
+    uint nUiRO               = 0;
+    std::for_each( comps.begin(), comps.end(), [&nUiRO]( const auto& c ) {
+        nUiRO += c->m_renderObjects.size();
+    } );
+    if ( m_renderObjects.size() == nUiRO ) return aabb;
 
-    for ( auto ro : m_renderObjects )
+    for ( const auto& ro : m_renderObjects )
     {
         auto entity = ro->getComponent()->getEntity();
         if ( ro->isVisible() && ( entity != systemEntity ) )
         {
             Transform tr = entity->getTransform() * ro->getLocalTransform();
-            for ( const auto& p : ro->getMesh()->getGeometry().vertices() )
-            {
-                aabb.extend( tr * p );
-            }
+            aabb.extend(
+                Core::Geometry::Obb( ro->getMesh()->getGeometry().computeAabb(), tr ).toAabb() );
         }
     }
     return aabb;

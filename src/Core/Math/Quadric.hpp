@@ -1,8 +1,8 @@
 #ifndef QUADRIC_H
 #define QUADRIC_H
 
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 #include <Eigen/Eigenvalues>
 
@@ -25,11 +25,12 @@ namespace Core {
 
 // template<int _DIM = 3>
 template <int _DIM>
-class Quadric {
+class Quadric
+{
   public:
     static constexpr int DIM = _DIM;
-    using Matrix = Eigen::Matrix<Scalar, DIM, DIM>;
-    using Vector = Eigen::Matrix<Scalar, DIM, 1>;
+    using Matrix             = Eigen::Matrix<Scalar, DIM, DIM>;
+    using Vector             = Eigen::Matrix<Scalar, DIM, 1>;
 
     /// Construct an initialized quadric.
     Quadric();
@@ -61,7 +62,7 @@ class Quadric {
     /// Create a quadric from a normal vector n and the scalar which
     /// represent the distance from the plane of normal n to the origin
     /// \deprecated Use constructor instead
-    void compute( const Vector& n, double ndotp );
+    [[deprecated]] void compute( const Vector& n, double ndotp );
 
     /// Computes eigen values and vectors of matrix A
     inline typename Eigen::EigenSolver<Matrix3>::EigenvalueType computeEigenValuesA();

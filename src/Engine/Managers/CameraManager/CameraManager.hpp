@@ -2,9 +2,7 @@
 #define RADIUMENGINE_CAMERAMANAGER_H
 
 #include <Engine/Managers/CameraManager/CameraStorage.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/RaEngine.hpp>
 #include <Engine/System/System.hpp>
 
 #include <memory>
@@ -12,7 +10,6 @@
 namespace Ra {
 namespace Engine {
 class Camera;
-class RenderObject;
 } // namespace Engine
 } // namespace Ra
 
@@ -23,18 +20,19 @@ namespace Engine {
  * Interface providing functions to manage a group or type of Cameras
  * in a specific way.
  */
-class RA_ENGINE_API CameraManager : public System {
-    // TODO make Camera manager compatible with range for ...
+class RA_ENGINE_API CameraManager : public System
+{
+    // Radium-V2 : make Camera manager compatible with range for ...
   public:
     /// Constructor
-    CameraManager();
+    CameraManager() = default;
 
     // Make copies impossible
     CameraManager( const CameraManager& ) = delete;
     CameraManager& operator=( const CameraManager& ) = delete;
 
     /// Virtual destructor
-    virtual ~CameraManager();
+    ~CameraManager() override = default;
 
     /// Get a pointer to the cam-th Camera.
     virtual const Camera* getCamera( size_t cam ) const = 0;
@@ -54,49 +52,30 @@ class RA_ENGINE_API CameraManager : public System {
      */
     virtual size_t count() const;
 
-    /**
-     * @brief Call before a render, registers the RenderData to use for rendering.
-     */
-    virtual void preprocess( const RenderData& renderData ) = 0;
-
-    /**
-     * @brief render the object with specific technics for the current Camera.
-     *
-     * An example use case is a cube map renderer.
-     */
-    virtual void
-    render( RenderObject*, unsigned int cam,
-            RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) = 0;
-
     //
     // System methods
     //
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
-    void handleAssetLoading( Entity* entity, const Asset::FileData* data ) override;
+    void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
 
   protected:
-    /// Inherited method marked as final to ensure correct memory management
-    /// even in child classes (e.g. CameraStorage).
-    void registerComponent( const Entity* entity, Component* component ) override final;
+    /** Inherited method marked as final to ensure correct memory management
+     *  even in child classes (e.g. CameraStorage).
+     */
+    void registerComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. CameraStorage).
-    void unregisterComponent( const Entity* entity, Component* component ) override final;
+    void unregisterComponent( const Entity* entity, Component* component ) final;
 
     /// Inherited method marked as final to ensure correct memory management
     /// even in child classes (e.g. CameraStorage).
-    void unregisterAllComponents( const Entity* entity ) override final;
+    void unregisterAllComponents( const Entity* entity ) final;
 
   protected:
-    /// store the current renderData
-    RenderData renderData;
-
-    /// store the current Camera parameters
-    RenderParameters params;
-
     /// Stores the object that stores the Cameras...
-    std::unique_ptr<CameraStorage> m_data;
+    std::unique_ptr<CameraStorage> m_data{nullptr};
 };
 
 } // namespace Engine

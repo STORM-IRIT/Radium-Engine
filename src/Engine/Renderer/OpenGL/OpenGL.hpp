@@ -12,9 +12,17 @@ using namespace gl45core;
 #include <glbinding/gl45ext/gl.h>
 using namespace gl45ext;
 
+#include <glbinding-aux/types_to_string.h>
+
+#ifndef CORE_USE_DOUBLE
+#    define GL_SCALAR GL_FLOAT
+#else
+#    define GL_SCALAR GL_DOUBLE
+#endif
+
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() {
-    return glGetString( GL_VERSION ) != 0;
+    return glGetString( GL_VERSION ) != nullptr;
 }
 
 /// Gets the openGL error string (emulates gluErrorString())
@@ -54,19 +62,20 @@ inline const char* glErrorString( GLenum err ) {
 }
 
 #ifdef _DEBUG
-#    include <Core/Log/Log.hpp>
-#    define GL_ASSERT( x )                                                                     \
-        x;                                                                                     \
-        {                                                                                      \
-            GLenum err = glGetError();                                                         \
-            if ( err != GL_NO_ERROR )                                                          \
-            {                                                                                  \
-                const char* errBuf = glErrorString( err );                                     \
-                LOG( logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", "     \
-                                << STRINGIFY( x ) << ") : " << errBuf << "(" << err << " : 0x" \
-                                << std::hex << err << std::dec << ").";                        \
-                BREAKPOINT( 0 );                                                               \
-            }                                                                                  \
+#    include <Core/Utils/Log.hpp>
+#    define GL_ASSERT( x )                                                                       \
+        x;                                                                                       \
+        {                                                                                        \
+            GLenum err = glGetError();                                                           \
+            if ( err != GL_NO_ERROR )                                                            \
+            {                                                                                    \
+                const char* errBuf = glErrorString( err );                                       \
+                LOG( Ra::Core::Utils::logERROR )                                                 \
+                    << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", " << STRINGIFY( x ) \
+                    << ") : " << errBuf << "(" << err << " : 0x" << std::hex << err << std::dec  \
+                    << ").";                                                                     \
+                BREAKPOINT( 0 );                                                                 \
+            }                                                                                    \
         }
 
 /// This macro will query the last openGL error.
@@ -76,9 +85,10 @@ inline const char* glErrorString( GLenum err ) {
             if ( err != GL_NO_ERROR )                                                        \
             {                                                                                \
                 const char* errBuf = glErrorString( err );                                   \
-                LOG( logERROR ) << "OpenGL error (" << __FILE__ << ":" << __LINE__           \
-                                << ", glCheckError()) : " << errBuf << "(" << err << " : 0x" \
-                                << std::hex << err << std::dec << ").";                      \
+                LOG( Ra::Core::Utils::logERROR )                                             \
+                    << "OpenGL error (" << __FILE__ << ":" << __LINE__                       \
+                    << ", glCheckError()) : " << errBuf << "(" << err << " : 0x" << std::hex \
+                    << err << std::dec << ").";                                              \
                 BREAKPOINT( 0 );                                                             \
             }                                                                                \
         }

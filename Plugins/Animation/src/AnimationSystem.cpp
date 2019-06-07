@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include <Core/File/FileData.hpp>
+#include <Core/Asset/FileData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -17,8 +17,8 @@ namespace AnimationPlugin {
 
 AnimationSystem::AnimationSystem() {
     m_isPlaying = false;
-    m_oneStep = false;
-    m_xrayOn = false;
+    m_oneStep   = false;
+    m_xrayOn    = false;
     m_animFrame = 0;
 }
 
@@ -26,10 +26,7 @@ void AnimationSystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
                                      const Ra::Engine::FrameInfo& frameInfo ) {
     const bool playFrame = m_isPlaying || m_oneStep;
 
-    if ( playFrame )
-    {
-        ++m_animFrame;
-    }
+    if ( playFrame ) { ++m_animFrame; }
 
     // deal with AnimationComponents
     Scalar currentDelta = playFrame ? frameInfo.m_dt : 0;
@@ -116,7 +113,7 @@ void AnimationSystem::toggleSlowMotion( const bool status ) {
 }
 
 void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
-                                          const Ra::Asset::FileData* fileData ) {
+                                          const Ra::Core::Asset::FileData* fileData ) {
     auto geomData = fileData->getGeometryData();
     auto skelData = fileData->getHandleData();
     auto animData = fileData->getAnimationData();
@@ -124,18 +121,8 @@ void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity,
     // deal with AnimationComponents
     for ( const auto& skel : skelData )
     {
-        uint geomID = uint( -1 );
-        for ( uint i = 0; i < geomData.size(); ++i )
-        {
-            if ( skel->getName() == geomData[i]->getName() )
-            {
-                geomID = i;
-            }
-        }
-
         auto component = new AnimationComponent( "AC_" + skel->getName(), entity );
-        uint nbMeshVertices = geomData[geomID]->getVerticesSize();
-        component->handleSkeletonLoading( skel, nbMeshVertices );
+        component->handleSkeletonLoading( skel );
         component->handleAnimationLoading( animData );
 
         component->setXray( m_xrayOn );
@@ -157,19 +144,13 @@ Scalar AnimationSystem::getTime( const Ra::Engine::ItemEntry& entry ) const {
             {
                 const auto c = static_cast<AnimationComponent*>( ec.second );
                 // Entry match, return that one
-                if ( ec.second == c )
-                {
-                    return c->getTime();
-                }
+                if ( ec.second == c ) { return c->getTime(); }
                 comps.push_back( c );
             }
         }
         // If comps is not empty, it means that we have a component in current entity
         // We just pick the first one
-        if ( !comps.empty() )
-        {
-            return comps[0]->getTime();
-        }
+        if ( !comps.empty() ) { return comps[0]->getTime(); }
     }
     return 0.f;
 }
@@ -225,10 +206,7 @@ bool AnimationSystem::restoreFrame( const std::string& dir, uint frameId ) {
         return false;
     }
 
-    if ( success )
-    {
-        m_animFrame = frameId;
-    }
+    if ( success ) { m_animFrame = frameId; }
     return success;
 }
 

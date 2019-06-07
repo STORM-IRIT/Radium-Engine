@@ -1,9 +1,9 @@
 # Material management in the Radium Engine
 A Material is a way to control the appearance of an object when rendering. It could be the definition of a classical
-rendering materials, a _Bidirectionnal Scattering Distribution function (BSDF)_, or just define the way a geometry
+rendering materials, a _Bidirectional Scattering Distribution function (BSDF)_, or just define the way a geometry
 could be rendered and how is computed the final color of an object.
 
-A material is associated to the renderable geometry of an object (a component in the Radium nomenclature) through a so
+A material is associated to the render geometry of an object (a Component in the Radium nomenclature) through a so
 called _Render Technique_. This association is managed by the `RenderObject` class.
 
 This documentation aims at describing the way materials are managed in the Radium engine and how one can extend the set
@@ -16,7 +16,7 @@ application or renderer, a Material could be defined directly without loading it
 
 ### The MaterialData interface
 The interface `MaterialData` define the external representation of a material. Even if this interface could be
-instanciated, it defines an abstract material that is not valid for the Engine.
+instantiated, it defines an abstract material that is not valid for the Engine.
 This interface must then be implemented to define materials that could be loaded from a file.
 
 When defining a loadable material, the corresponding implementation must set the type of the material to a unique
@@ -28,7 +28,7 @@ definition to the Engine internal representation.
 
 ### The Material interface
 The `Material` interface defines the internal abstract representation of a Material. This interface will be used by
-the Engine, mainly by the _Render Technique_ and the renderers.
+the Engine, mainly by the _Render Technique_ and the _Renderer_.
 
 This interface defines all the methods needed to parametrized the OpenGL pipeline for rendering.
 When implementing this interface, it is a good idea to add two static methods to the implementation to allow to register
@@ -87,37 +87,65 @@ RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter( const std
 ### Render technique and materials
 A `RenderTechnique` correspond to the description of how to use Materials to render an object in openGL.
 Even if `RenderTechnique` is tightly coupled with the default `ForwardRenderer` of the engine, it could
-be used also with other renderers. Note nevertheless that RenderTechnique is not mandatory when defining a specific
-renderer as the association between the material and the geometry of a render object could be done explicitely.
+be used also with others renderer. Note nevertheless that RenderTechnique is not mandatory when defining a specific
+renderer as the association between the material and the geometry of a render object could be done explicitly.
 
 To manage the way a Material could be used for rendering, a `RenderTechnique` is then a set of
 _shader configurations_ associated to the different way a renderer will compute the final image.
 Based on the `ForwardRenderer` implementation in Radium, the set of configurations, with one configuration per
 rendering _passes_ corresponds to the following :
-1. Depth and ambiant/environment lighting :
+1. Z-prepass : depth and ambient/environment lighting :
     - Identified by the `Ra::Engine::RenderTechnique::Z_PREPASS` constant.
-    - Required for the depth pre-pass of several renderers.
-    - Must initialise the color buffer with the computation of ambiant/environment lighting.
-    - Default/Reference : DepthAmbiantPass shaders
+    - Required for the depth pre-pass of several renderer.
+    - Must initialise the color buffer with the computation of ambient/environment lighting.
+    - Must discard all non fully opaque fragments.
+    - Default/Reference : ``Material/BlinnPhong/DepthAmbientBlinnPhong` shader
 2. Opaque lighting **(MANDATORY for default ForwardRenderer)**:
     - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_OPAQUE` constant.
     - Main configuration, computes the resulting color according to a lighting configuration.
     - The lighting configuration might contains one or several sources of different types.
-    - Default/Reference : BlinnPhong shaders
+    - Must discard all non fully opaque fragments.
+    - Default/Reference : BlinnPhong shader
 3. Transparent lighting :
     - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT` constant.
-    - Same as opaque lighting but for transparent objects
-    - Default/Reference LitOIT shaders
+    - Must discard fully transparent and fully opaque fragments, 
+    Others will be lit and blended according to the algorithm described in
+        - Weighted Blended Order-Independent Transparency
+        Morgan McGuire, Louis Bavoil - NVIDIA
+        Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
+        http://jcgt.org/published/0002/02/09/
+    - Lighting is computed the same way as for Opaque Lighting
+    - Default/Reference : ``Material/BlinnPhong/LitOITBlinnPhong`` shader
+    - The transparent color weighting function might be the same as :
+    ``` 
+    float weight(float z, float alpha) {
+    
+         // pow(alpha, colorResistance) : increase colorResistance if foreground transparent are affecting background 
+         //                               transparent color
+         // clamp(adjust / f(z), min, max) :
+         //     adjust : Range adjustment to avoid saturating at the clamp bounds
+         //     clamp bounds : to be tuned to avoid over or underflow of the reveleage texture.
+         // f(z) = 1e-5 + pow(z/depthRange, orederingStrength)
+         //     defRange : Depth range over which significant ordering discrimination is required. 
+         //             Here, 10 image space units.
+         //         Decrease if high-opacity surfaces seem “too transparent”,
+         //         increase if distant transparents are blending together too much.
+         //     orderingStrength : Ordering strength. Increase if background is showing through foreground too much.
+         // 1e-5 + ... : avoid dividing by zero !
+    
+         return pow(alpha, 0.5) * clamp(10 / ( 1e-5 + pow(z/10, 6)  ), 1e-2, 3*1e3);
+     }
+     ```
 
 **Note** that a specific renderer might use the same set of configurations but with a different semantic.
-One can imagine, for instance, that a renderer will only use the _Depth and ambiant/environment_ configuration in order
+One can imagine, for instance, that a renderer will only use the _Depth and ambient/environment_ configuration in order
 to render an object without light source but with a specific color computation.
 
 
 RenderTechniques are associated with Materials through a Builder Factory defined in the `namespace Ra::Engine::EngineRenderTechniques`
 and located in the `Engine/Renderer/RenderTechnique` directory.
 This factory will manage default technique builders for each registered materials in the engine.
-A default technique builder will associate a set of predefined shaders for each rendering pass to a Material type.
+A default technique builder will associate a set of predefined shader for each rendering pass to a Material type.
 
 This association is based on the type, not on the instance. So it can vary from one instance to the other but
 requires then a manual construction of the render technique instead of an automatic one through the factory.
@@ -148,7 +176,7 @@ For now (master v1), the engine manage only one default material corresponding t
 The type of this material is `"BlinnPhong"`.
 The workflow allowing the Engine to manage this material is the following.
 
-### Making BlinnPhong a lodable material (see _The MaterialData interface_)
+### Making BlinnPhong a loadable material (see _The MaterialData interface_)
 This part of the Material management workflow is related to File loader. So, The corresponding classes are located in
 the `Core/File` subdirectory.
 ```
@@ -178,7 +206,7 @@ public:
 } // namespace Ra
 ```
 
-Then, the Assimp loader, located in the `IO/AssimpLoader` subdirectory will instanciate the
+Then, the Assimp loader, located in the `IO/AssimpLoader` subdirectory will instantiate the
 `BlinnPhongMaterialData` when loading a file in the following way :
 ```cpp
 void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
@@ -199,7 +227,7 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
 }
 ```
 
-### Making BlinnPhong a renderable material (see _The Material interface_)
+### Making BlinnPhong a usable material (see _The Material interface_)
 This part of the Material management workflow is related to the Renderer part of the Engine. So, The corresponding classes are located in
 the `Engine/Renderer/Material` subdirectory.
 ```
@@ -223,7 +251,6 @@ namespace Engine {
 
 class RA_ENGINE_API BlinnPhongMaterial final : public Material {
   public:
-    RA_CORE_ALIGNED_NEW
     explicit BlinnPhongMaterial( const std::string& name );
     ...
   private:
@@ -246,7 +273,7 @@ the MaterialConvertersFactory and the RenderTechniqueBuilder into the RenderTech
 It is recommended (see above) to implement specific class methods in the Material implementations that will register
 and unregister the material type into the engine.
 
-For the default `BlinnPhongMaterial`, wich is of type `"BlinnPhong"`, these methods will do the following :
+For the default `BlinnPhongMaterial`, which is of type `"BlinnPhong"`, these methods will do the following :
 
 ```cpp
 void BlinnPhongMaterial::registerMaterial() {
@@ -347,4 +374,3 @@ Note that, as we will see in the _Extending the material library from a plugin_ 
 material in the Engine, this will require to define a loader capable of generating such data.
 
 Given the description above, one can extend the material library from a plugin or from an application.
-

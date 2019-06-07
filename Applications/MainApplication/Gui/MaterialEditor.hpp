@@ -5,7 +5,7 @@
 
 #include <memory>
 
-#include <Core/Index/Index.hpp>
+#include <Core/Utils/Index.hpp>
 //#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 #include <ui_MaterialEditor.h>
@@ -25,16 +25,17 @@ class BlinnPhongMaterial;
 
 namespace Ra {
 namespace Gui {
-class MaterialEditor : public QWidget, private Ui::MaterialEditor {
+class MaterialEditor : public QWidget, private Ui::MaterialEditor
+{
     Q_OBJECT
 
   public:
     MaterialEditor( QWidget* parent = nullptr );
 
-    void changeRenderObject( Ra::Core::Index roIdx );
+    void changeRenderObject( Ra::Core::Utils::Index roIdx );
 
   private slots:
-    void updateMaterialViz();
+    void updateBlinnPhongViz();
 
     void onKdColorChanged( int );
     void onKsColorChanged( int );
@@ -44,6 +45,9 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
     void newKdColor( const QColor& color );
     void newKsColor( const QColor& color );
 
+    void on_m_closeButton_clicked();
+    void on_kUsePerVertex_clicked( bool checked );
+
   protected:
     virtual void showEvent( QShowEvent* e ) override;
     virtual void closeEvent( QCloseEvent* e ) override;
@@ -51,22 +55,19 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor {
   private:
     bool m_visible;
 
-    Engine::RadiumEngine* m_engine;
-    Engine::RenderObjectManager* m_roMgr;
-
-    Core::Index m_roIdx;
+    Core::Utils::Index m_roIdx;
     std::shared_ptr<Engine::RenderObject> m_renderObject;
 
     /// TODO generalize material editor to others materials
     bool m_usable;
-    Ra::Engine::BlinnPhongMaterial* m_material;
+    Ra::Engine::BlinnPhongMaterial* m_blinnphongmaterial;
 
   private:
     enum {
-        OUTPUT_FINAL = 0,
-        OUTPUT_DIFFUSE = 1,
+        OUTPUT_FINAL    = 0,
+        OUTPUT_DIFFUSE  = 1,
         OUTPUT_SPECULAR = 2,
-        OUTPUT_NORMAL = 3,
+        OUTPUT_NORMAL   = 3,
     };
 };
 } // namespace Gui

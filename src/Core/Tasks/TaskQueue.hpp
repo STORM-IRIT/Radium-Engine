@@ -10,7 +10,8 @@
 #include <thread>
 #include <vector>
 
-#include <Core/Time/Timer.hpp>
+#include <Core/Utils/Index.hpp>
+#include <Core/Utils/Timer.hpp> // Ra::Core::TimePoint
 
 namespace Ra {
 namespace Core {
@@ -20,23 +21,24 @@ class Task;
 
 namespace Ra {
 namespace Core {
-/// This class allows tasks to be registered and then executed in parallel on separate threads.
-/// it maintains an internal pool of threads. When instructed, it dispatches the tasks to the
-/// pooled threads.
-/// Task are allowed to have dependencies. A task will be executed only when all its dependencies
-/// are satisfied, i.e. all dependant tasks are finished.
-/// Note that most functions are not thread safe and must not be called when the task queue is
-/// running.
-class RA_CORE_API TaskQueue {
+/** This class allows tasks to be registered and then executed in parallel on separate threads.
+ * it maintains an internal pool of threads. When instructed, it dispatches the tasks to the
+ * pooled threads.
+ * Task are allowed to have dependencies. A task will be executed only when all its dependencies
+ * are satisfied, i.e. all dependant tasks are finished.
+ * Note that most functions are not thread safe and must not be called when the task queue is
+ * running.
+ */
+class RA_CORE_API TaskQueue
+{
   public:
     /// Identifier for a task in the task queue.
-    using TaskId = uint;
-    enum { InvalidTaskId = TaskId( -1 ) };
+    using TaskId = Utils::Index;
 
     /// Record of a task's start and end time.
     struct TimerData {
-        Timer::TimePoint start;
-        Timer::TimePoint end;
+        Utils::TimePoint start;
+        Utils::TimePoint end;
         uint threadId;
         std::string taskName;
     };

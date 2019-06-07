@@ -13,7 +13,8 @@ namespace Engine {
 /**
  * Associated class.
  */
-class RA_ENGINE_API DefaultCameraStorage : public CameraStorage {
+class RA_ENGINE_API DefaultCameraStorage : public CameraStorage
+{
   public:
     DefaultCameraStorage();
     void add( Camera* cam ) override;
@@ -30,7 +31,8 @@ class RA_ENGINE_API DefaultCameraStorage : public CameraStorage {
 /**
  * @brief DefaultCameraManager. A simple Camera Manager with a list of Cameras.
  */
-class RA_ENGINE_API DefaultCameraManager : public CameraManager {
+class RA_ENGINE_API DefaultCameraManager : public CameraManager
+{
   public:
     DefaultCameraManager();
 
@@ -39,11 +41,6 @@ class RA_ENGINE_API DefaultCameraManager : public CameraManager {
 
     /// Add \p cam for management.
     void addCamera( Camera* cam ) override;
-
-    void preprocess( const RenderData& ) override;
-
-    void render( RenderObject*, unsigned int cam,
-                 RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE ) override;
 };
 
 } // namespace Engine

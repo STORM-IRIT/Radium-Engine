@@ -8,10 +8,11 @@ namespace Ra {
 namespace Engine {
 
 /// Timed Systems are systems which can be disabled or paused, e.g. animation systems.
-class RA_ENGINE_API AbstractTimedSystem : public System {
+class RA_ENGINE_API AbstractTimedSystem : public System
+{
   public:
-    AbstractTimedSystem() {}
-    virtual ~AbstractTimedSystem() {}
+    AbstractTimedSystem()           = default;
+    ~AbstractTimedSystem() override = default;
 
     /// Call this to enable / disable the system according to \p on.
     virtual void play( bool on ) = 0;
@@ -30,7 +31,8 @@ class RA_ENGINE_API AbstractTimedSystem : public System {
     virtual bool restoreFrame( const std::string& dir, uint frameID ) = 0;
 };
 
-class RA_ENGINE_API CoupledTimedSystem : public BaseCouplingSystem<AbstractTimedSystem> {
+class RA_ENGINE_API CoupledTimedSystem : public BaseCouplingSystem<AbstractTimedSystem>
+{
   public:
     void play( bool on ) override {
         dispatch( [on]( const auto& s ) { s->play( on ); } );

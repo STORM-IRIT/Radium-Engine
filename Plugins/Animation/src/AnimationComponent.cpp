@@ -4,14 +4,12 @@
 #include <iostream>
 #include <queue>
 
-#include <Core/Animation/Handle/HandleWeightOperation.hpp>
-#include <Core/Animation/Pose/Pose.hpp>
+#include <Core/Animation/KeyPose.hpp>
+#include <Core/Animation/KeyTransform.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Asset/HandleToSkeleton.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/File/HandleToSkeleton.hpp>
-#include <Core/File/KeyFrame/KeyPose.hpp>
-#include <Core/File/KeyFrame/KeyTransform.hpp>
-#include <Core/Mesh/TriangleMesh.hpp>
-#include <Core/Utils/Graph/AdjacencyListOperation.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -24,6 +22,8 @@ using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::Skeleton;
 using Ra::Core::Animation::WeightMatrix;
 using Ra::Engine::ComponentMessenger;
+
+using namespace Ra::Core::Utils; // log
 
 namespace AnimationPlugin {
 
@@ -41,7 +41,7 @@ AnimationComponent::AnimationComponent( const std::string& name, Ra::Engine::Ent
 AnimationComponent::~AnimationComponent() {}
 
 void AnimationComponent::setSkeleton( const Ra::Core::Animation::Skeleton& skel ) {
-    m_skel = skel;
+    m_skel    = skel;
     m_refPose = skel.getPose( Handle::SpaceType::MODEL );
     setupSkeletonDisplay();
 }
@@ -54,23 +54,18 @@ void AnimationComponent::update( Scalar dt ) {
         dt = factor * ( ( m_animationTimeStep && m_dt.size() > 0 ) ? m_dt[m_animationID] : dt );
     }
     // Ignore large dt that appear when the engine is paused (while loading a file for instance)
-    if ( !m_animationTimeStep && ( dt > 0.5f ) )
-    {
-        dt = 0;
-    }
+    if ( !m_animationTimeStep && ( dt > 0.5f ) ) { dt = 0; }
 
     // Compute the elapsed time
     m_animationTime += dt;
 
     if ( m_wasReset )
     {
-        if ( !m_resetDone )
-        {
-            m_resetDone = true;
-        } else
+        if ( !m_resetDone ) { m_resetDone = true; }
+        else
         {
             m_resetDone = false;
-            m_wasReset = false;
+            m_wasReset  = false;
         }
     }
 
@@ -96,15 +91,20 @@ void AnimationComponent::setupSkeletonDisplay() {
     m_boneDrawables.clear();
     for ( uint i = 0; i < m_skel.size(); ++i )
     {
-        if ( !m_skel.m_graph.isLeaf( i ) )
+        if ( !m_skel.m_graph.isLeaf( i ) && !m_skel.m_graph.isRoot( i ) &&
+             m_skel.getLabel( i ).find( "_$AssimpFbx$_" ) == std::string::npos )
         {
-            std::string name = m_skel.getLabel( i );
-            Ra::Core::StringUtils::appendPrintf( name, " (%d)", i );
+            std::string name = m_skel.getLabel( i ) + "_" + std::to_string( i );
             m_boneDrawables.emplace_back(
                 new SkeletonBoneRenderObject( name, this, i, getRoMgr() ) );
             m_renderObjects.push_back( m_boneDrawables.back()->getRenderObjectIndex() );
-        } else
+        }
+        else
         { LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed."; }
+    }
+    for ( const auto& b : m_boneDrawables )
+    {
+        m_boneMap[b->getRenderObjectIndex()] = b->getBoneIndex();
     }
 }
 
@@ -121,16 +121,13 @@ void AnimationComponent::printSkeleton( const Ra::Core::Animation::Skeleton& ske
         int level = levels.front();
         levels.pop_front();
         std::cout << i << " " << skeleton.getLabel( i ) << "\t";
-        for ( auto c : skeleton.m_graph.m_child[i] )
+        for ( const auto& c : skeleton.m_graph.children()[i] )
         {
             queue.push_back( c );
             levels.push_back( level + 1 );
         }
 
-        if ( levels.front() != level )
-        {
-            std::cout << std::endl;
-        }
+        if ( levels.front() != level ) { std::cout << std::endl; }
     }
 }
 
@@ -144,8 +141,7 @@ void AnimationComponent::reset() {
     m_wasReset = true;
 }
 
-void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* data,
-                                                uint nbMeshVertices ) {
+void AnimationComponent::handleSkeletonLoading( const Ra::Core::Asset::HandleData* data ) {
     std::string name( m_name );
     name.append( "_" + data->getName() );
 
@@ -156,10 +152,8 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
 
     m_contentName = data->getName();
 
-    std::map<uint, uint> indexTable;
-    Ra::Asset::createSkeleton( *data, m_skel, indexTable );
+    Ra::Core::Asset::createSkeleton( *data, m_skel );
 
-    createWeightMatrix( data, indexTable, nbMeshVertices );
     m_refPose = m_skel.getPose( Handle::SpaceType::MODEL );
 
     setupSkeletonDisplay();
@@ -167,16 +161,15 @@ void AnimationComponent::handleSkeletonLoading( const Ra::Asset::HandleData* dat
 }
 
 void AnimationComponent::handleAnimationLoading(
-    const std::vector<Ra::Asset::AnimationData*> data ) {
+    const std::vector<Ra::Core::Asset::AnimationData*>& data ) {
     m_animations.clear();
     CORE_ASSERT( ( m_skel.size() != 0 ), "At least a skeleton should be loaded first." );
-    if ( data.empty() )
-        return;
-    std::map<uint, uint> table;
-    std::set<Ra::Asset::Time> keyTime;
+    if ( data.empty() ) return;
 
     for ( uint n = 0; n < data.size(); ++n )
     {
+        std::map<uint, uint> table;
+        std::set<Ra::Core::Animation::Time> keyTime;
         auto handleAnim = data[n]->getFrames();
         for ( uint i = 0; i < m_skel.size(); ++i )
         {
@@ -191,7 +184,9 @@ void AnimationComponent::handleAnimationLoading(
             }
         }
 
-        Ra::Asset::KeyPose keypose;
+        if ( keyTime.empty() ) { continue; }
+
+        Ra::Core::Animation::KeyPose keypose;
         Ra::Core::Animation::Pose pose = m_skel.m_pose;
 
         m_animations.push_back( Ra::Core::Animation::Animation() );
@@ -209,33 +204,8 @@ void AnimationComponent::handleAnimationLoading(
 
         m_dt.push_back( data[n]->getTimeStep() );
     }
-    m_animationID = 0;
+    m_animationID   = 0;
     m_animationTime = 0.0;
-}
-
-void AnimationComponent::createWeightMatrix( const Ra::Asset::HandleData* data,
-                                             const std::map<uint, uint>& indexTable,
-                                             uint nbMeshVertices ) {
-    m_weights.resize( nbMeshVertices, data->getComponentDataSize() );
-
-    for ( const auto& it : indexTable )
-    {
-        const uint idx = it.first;
-        const uint col = it.second;
-        const uint size = data->getComponent( idx ).m_weight.size();
-        for ( uint i = 0; i < size; ++i )
-        {
-            const uint row = data->getComponent( idx ).m_weight[i].first;
-            const Scalar w = data->getComponent( idx ).m_weight[i].second;
-            m_weights.coeffRef( row, col ) = w;
-        }
-    }
-    Ra::Core::Animation::checkWeightMatrix( m_weights, false, true );
-
-    if ( Ra::Core::Animation::normalizeWeights( m_weights, true ) )
-    {
-        LOG( logINFO ) << "Skinning weights have been normalized";
-    }
 }
 
 void AnimationComponent::setupIO( const std::string& id ) {
@@ -245,13 +215,8 @@ void AnimationComponent::setupIO( const std::string& id ) {
 
     ComponentMessenger::CallbackTypes<RefPose>::Getter refpOut =
         std::bind( &AnimationComponent::getRefPoseOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>( getEntity(), this,
-                                                                                  id, refpOut );
-
-    ComponentMessenger::CallbackTypes<WeightMatrix>::Getter wOut =
-        std::bind( &AnimationComponent::getWeightsOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>(
-        getEntity(), this, id, wOut );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::Pose>(
+        getEntity(), this, id, refpOut );
 
     ComponentMessenger::CallbackTypes<bool>::Getter resetOut =
         std::bind( &AnimationComponent::getWasReset, this );
@@ -264,14 +229,15 @@ void AnimationComponent::setupIO( const std::string& id ) {
     ComponentMessenger::CallbackTypes<Scalar>::Getter timeOut =
         std::bind( &AnimationComponent::getTimeOutput, this );
     ComponentMessenger::getInstance()->registerOutput<Scalar>( getEntity(), this, id, timeOut );
+
+    using BoneMap = std::map<Ra::Core::Utils::Index, uint>;
+    ComponentMessenger::CallbackTypes<BoneMap>::Getter boneMapOut =
+        std::bind( &AnimationComponent::getBoneRO2idx, this );
+    ComponentMessenger::getInstance()->registerOutput<BoneMap>( getEntity(), this, id, boneMapOut );
 }
 
 const Ra::Core::Animation::Skeleton* AnimationComponent::getSkeletonOutput() const {
     return &m_skel;
-}
-
-const Ra::Core::Animation::WeightMatrix* AnimationComponent::getWeightsOutput() const {
-    return &m_weights;
 }
 
 const Ra::Core::Animation::RefPose* AnimationComponent::getRefPoseOutput() const {
@@ -310,13 +276,10 @@ void AnimationComponent::toggleSlowMotion( const bool status ) {
 }
 
 void AnimationComponent::setAnimation( const uint i ) {
-    if ( i < m_animations.size() )
-    {
-        m_animationID = i;
-    }
+    if ( i < m_animations.size() ) { m_animationID = i; }
 }
 
-bool AnimationComponent::canEdit( Ra::Core::Index roIdx ) const {
+bool AnimationComponent::canEdit( const Ra::Core::Utils::Index& roIdx ) const {
     // returns true if the roIdx is one of our bones.
     return (
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -324,7 +287,7 @@ bool AnimationComponent::canEdit( Ra::Core::Index roIdx ) const {
         } ) != m_boneDrawables.end() );
 }
 
-Ra::Core::Transform AnimationComponent::getTransform( Ra::Core::Index roIdx ) const {
+Ra::Core::Transform AnimationComponent::getTransform( const Ra::Core::Utils::Index& roIdx ) const {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
         std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
@@ -335,7 +298,7 @@ Ra::Core::Transform AnimationComponent::getTransform( Ra::Core::Index roIdx ) co
     return m_skel.getPose( Handle::SpaceType::MODEL )[boneIdx];
 }
 
-void AnimationComponent::setTransform( Ra::Core::Index roIdx,
+void AnimationComponent::setTransform( const Ra::Core::Utils::Index& roIdx,
                                        const Ra::Core::Transform& transform ) {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
     const auto& bonePos =
@@ -344,21 +307,21 @@ void AnimationComponent::setTransform( Ra::Core::Index roIdx,
         } );
 
     // get bone data
-    const uint boneIdx = ( *bonePos )->getBoneIndex();
+    const uint boneIdx     = ( *bonePos )->getBoneIndex();
     const auto& TBoneModel = m_skel.getTransform( boneIdx, Handle::SpaceType::MODEL );
     const auto& TBoneLocal = m_skel.getTransform( boneIdx, Handle::SpaceType::LOCAL );
 
     // turn bone translation into rotation for parent
-    if ( !m_skel.m_graph.isRoot( boneIdx ) )
+    const uint pBoneIdx = m_skel.m_graph.parents()[boneIdx];
+    if ( pBoneIdx != -1 && m_skel.m_graph.children()[pBoneIdx].size() == 1 )
     {
-        const uint pBoneIdx = m_skel.m_graph.m_parent[boneIdx];
         const auto& pTBoneModel = m_skel.getTransform( pBoneIdx, Handle::SpaceType::MODEL );
 
         Ra::Core::Vector3 A;
         Ra::Core::Vector3 B;
         m_skel.getBonePoints( pBoneIdx, A, B );
         Ra::Core::Vector3 B_ = transform.translation();
-        auto q = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
+        auto q               = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
         Ra::Core::Transform R( q );
         R.pretranslate( A );
         R.translate( -A );
@@ -366,23 +329,12 @@ void AnimationComponent::setTransform( Ra::Core::Index roIdx,
     }
 
     // update bone local transform
-    m_skel.setTransform( boneIdx, TBoneLocal * TBoneModel.inverse() * transform,
-                         Handle::SpaceType::LOCAL );
-}
-
-uint AnimationComponent::getBoneIdx( Ra::Core::Index index ) const {
-    auto found =
-        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [index]( const auto& draw ) {
-            return draw->getRenderObjectIndex() == index;
-        } );
-    return found == m_boneDrawables.end() ? uint( -1 ) : ( *found )->getBoneIndex();
+    m_skel.setTransform(
+        boneIdx, TBoneLocal * TBoneModel.inverse() * transform, Handle::SpaceType::LOCAL );
 }
 
 const Ra::Core::Animation::Animation* AnimationComponent::getAnimationOutput() const {
-    if ( m_animations.empty() )
-    {
-        return nullptr;
-    }
+    if ( m_animations.empty() ) { return nullptr; }
     return &m_animations[m_animationID];
 }
 
@@ -390,58 +342,52 @@ const Scalar* AnimationComponent::getTimeOutput() const {
     return &m_animationTime;
 }
 
+const std::map<Ra::Core::Utils::Index, uint>* AnimationComponent::getBoneRO2idx() const {
+    return &m_boneMap;
+}
+
 Scalar AnimationComponent::getTime() const {
     return m_animationTime;
 }
 
 Scalar AnimationComponent::getDuration() const {
-    if ( m_animations.empty() )
-    {
-        return Scalar( 0 );
-    }
+    if ( m_animations.empty() ) { return Scalar( 0 ); }
     return m_animations[m_animationID].getDuration();
 }
 
 uint AnimationComponent::getMaxFrame() const {
-    if ( m_animations.empty() )
-    {
-        return 0;
-    }
+    if ( m_animations.empty() ) { return 0; }
     return uint( std::round( getDuration() / m_dt[m_animationID] ) );
 }
 
 void AnimationComponent::cacheFrame( const std::string& dir, int frame ) const {
     std::ofstream file( dir + "/" + m_contentName + "_frame" + std::to_string( frame ) + ".anim",
                         std::ios::trunc | std::ios::out | std::ios::binary );
-    if ( !file.is_open() )
-    {
-        return;
-    }
-    file.write( (const char*)&m_animationID, sizeof( uint ) );
-    file.write( (const char*)&m_animationTimeStep, sizeof( bool ) );
-    file.write( (const char*)&m_animationTime, sizeof( Scalar ) );
-    file.write( (const char*)&m_speed, sizeof( Scalar ) );
-    file.write( (const char*)&m_slowMo, sizeof( bool ) );
+    if ( !file.is_open() ) { return; }
+    file.write( reinterpret_cast<const char*>( &m_animationID ), sizeof m_animationID );
+    file.write( reinterpret_cast<const char*>( &m_animationTimeStep ), sizeof m_animationTimeStep );
+    file.write( reinterpret_cast<const char*>( &m_animationTime ), sizeof m_animationTime );
+    file.write( reinterpret_cast<const char*>( &m_speed ), sizeof m_speed );
+    file.write( reinterpret_cast<const char*>( &m_slowMo ), sizeof m_slowMo );
     const auto& pose = m_skel.getPose( Handle::SpaceType::LOCAL );
-    file.write( (const char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
+    file.write( reinterpret_cast<const char*>( pose.data() ), ( sizeof pose[0] ) * pose.size() );
     LOG( logINFO ) << "Saving anim data at time: " << m_animationTime;
 }
 
 bool AnimationComponent::restoreFrame( const std::string& dir, int frame ) {
     std::ifstream file( dir + "/" + m_contentName + "_frame" + std::to_string( frame ) + ".anim",
                         std::ios::in | std::ios::binary );
-    if ( !file.is_open() )
-    {
-        return false;
-    }
-    file.read( (char*)&m_animationID, sizeof( uint ) );
-    file.read( (char*)&m_animationTimeStep, sizeof( bool ) );
-    file.read( (char*)&m_animationTime, sizeof( Scalar ) );
-    file.read( (char*)&m_speed, sizeof( Scalar ) );
-    file.read( (char*)&m_slowMo, sizeof( bool ) );
-    auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
-    file.read( (char*)pose.data(), sizeof( Ra::Core::Transform ) * pose.size() );
-    m_skel.setPose( pose, Handle::SpaceType::LOCAL );
+    if ( !file.is_open() ) { return false; }
+    if ( !file.read( reinterpret_cast<char*>( &m_animationID ), sizeof m_animationID ) )
+    { return false; }
+    if ( !file.read( reinterpret_cast<char*>( &m_animationTimeStep ), sizeof m_animationTimeStep ) )
+    { return false; }
+    if ( !file.read( reinterpret_cast<char*>( &m_animationTime ), sizeof m_animationTime ) )
+    { return false; } if ( !file.read( reinterpret_cast<char*>( &m_speed ), sizeof m_speed ) )
+    { return false; } if ( !file.read( reinterpret_cast<char*>( &m_slowMo ), sizeof m_slowMo ) )
+    { return false; } auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
+    if ( !file.read( reinterpret_cast<char*>( pose.data() ), ( sizeof pose[0] ) * pose.size() ) )
+    { return false; } m_skel.setPose( pose, Handle::SpaceType::LOCAL );
 
     // update the render objects
     for ( auto& bone : m_boneDrawables )

@@ -7,7 +7,8 @@
 #include <assimp/types.h>
 #include <assimp/vector3.h>
 
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace IO {
@@ -36,31 +37,34 @@ inline Core::Transform assimpToCore( const aiMatrix4x4& M ) {
     return Core::Transform( m );
 }
 
-inline Core::Transform assimpToCore( const aiVector3D& T, const aiQuaternion& R,
-                                     const aiVector3D& S ) {
-    Core::Vector3 t = assimpToCore( T );
+inline Core::Transform
+assimpToCore( const aiVector3D& T, const aiQuaternion& R, const aiVector3D& S ) {
+    Core::Vector3 t    = assimpToCore( T );
     Core::Quaternion r = assimpToCore( R );
-    Core::Vector3 s = assimpToCore( S );
+    Core::Vector3 s    = assimpToCore( S );
     Core::Transform M;
     M.fromPositionOrientationScale( t, r, s );
     return M;
 }
 
-inline Core::Color assimpToCore( const aiColor4D& c ) {
-    return Core::Color( c.r, c.g, c.b, c.a );
+inline Core::Utils::Color assimpToCore( const aiColor3D& c ) {
+    return Core::Utils::Color( c.r, c.g, c.b );
+}
+
+inline Core::Utils::Color assimpToCore( const aiColor4D& c ) {
+    return Core::Utils::Color( c.r, c.g, c.b, c.a );
 }
 
 inline std::string assimpToCore( const aiString& string ) {
     std::string result( string.C_Str() );
     std::transform( result.begin(), result.end(), result.begin(), []( char in ) {
-        if ( in == '\\' )
-            return '/';
+        if ( in == '\\' ) return '/';
         return in;
     } );
     return result.empty() ? "default" : result;
 }
 
-inline Core::VectorNi assimpToCore( uint* index, const uint size ) {
+inline Core::VectorNi assimpToCore( const uint* index, const uint size ) {
     Core::VectorNi v( size );
     for ( uint i = 0; i < size; ++i )
     {

@@ -13,7 +13,7 @@ TaskQueue::TaskQueue( uint numThreads ) : m_processingTasks( 0 ), m_shuttingDown
     m_workerThreads.reserve( numThreads );
     for ( uint i = 0; i < numThreads; ++i )
     {
-        m_workerThreads.emplace_back( std::thread( &TaskQueue::runThread, this, i ) );
+        m_workerThreads.emplace_back( &TaskQueue::runThread, this, i );
     }
 }
 
@@ -42,13 +42,13 @@ TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
 }
 
 void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor ) {
-    CORE_ASSERT( ( predecessor != InvalidTaskId ) && ( predecessor < m_tasks.size() ),
+    CORE_ASSERT( predecessor.isValid() && ( predecessor < m_tasks.size() ),
                  "Invalid predecessor task" );
-    CORE_ASSERT( ( successor != InvalidTaskId ) && ( successor < m_tasks.size() ),
-                 "Invalid successor task" );
+    CORE_ASSERT( successor.isValid() && ( successor < m_tasks.size() ), "Invalid successor task" );
     CORE_ASSERT( predecessor != successor, "Cannot add self-dependency" );
 
-    CORE_ASSERT( std::find( m_dependencies[predecessor].begin(), m_dependencies[predecessor].end(),
+    CORE_ASSERT( std::find( m_dependencies[predecessor].begin(),
+                            m_dependencies[predecessor].end(),
                             successor ) == m_dependencies[predecessor].end(),
                  "Cannot add a dependency twice" );
 
@@ -63,7 +63,7 @@ bool TaskQueue::addDependency( const std::string& predecessors, TaskQueue::TaskI
         if ( m_tasks[i]->getName() == predecessors )
         {
             added = true;
-            addDependency( i, successor );
+            addDependency( TaskId( i ), successor );
         }
     }
     return added;
@@ -76,7 +76,7 @@ bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string&
         if ( m_tasks[i]->getName() == successors )
         {
             added = true;
-            addDependency( predecessor, i );
+            addDependency( predecessor, TaskId( i ) );
         }
     }
     return added;
@@ -84,25 +84,27 @@ bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string&
 
 void TaskQueue::addPendingDependency( const std::string& predecessors,
                                       TaskQueue::TaskId successor ) {
-    m_pendingDepsSucc.push_back( std::make_pair( predecessors, successor ) );
+    m_pendingDepsSucc.emplace_back( predecessors, successor );
 }
 
 void TaskQueue::addPendingDependency( TaskId predecessor, const std::string& successors ) {
-    m_pendingDepsPre.push_back( std::make_pair( predecessor, successors ) );
+    m_pendingDepsPre.emplace_back( predecessor, successors );
 }
 
 void TaskQueue::resolveDependencies() {
     for ( const auto& pre : m_pendingDepsPre )
     {
         ON_ASSERT( bool result = ) addDependency( pre.first, pre.second );
-        CORE_WARN_IF( !result, "Pending dependency unresolved : " << m_tasks[pre.first]->getName()
-                                                                  << " -> (" << pre.second << ")" );
+        CORE_WARN_IF( !result,
+                      "Pending dependency unresolved : " << m_tasks[pre.first]->getName() << " -> ("
+                                                         << pre.second << ")" );
     }
     for ( const auto& pre : m_pendingDepsSucc )
     {
         ON_ASSERT( bool result = ) addDependency( pre.first, pre.second );
-        CORE_WARN_IF( !result, "Pending dependency unresolved : ("
-                                   << pre.first << ") -> " << m_tasks[pre.second]->getName() );
+        CORE_WARN_IF( !result,
+                      "Pending dependency unresolved : (" << pre.first << ") -> "
+                                                          << m_tasks[pre.second]->getName() );
     }
     m_pendingDepsPre.clear();
     m_pendingDepsSucc.clear();
@@ -120,12 +122,9 @@ void TaskQueue::detectCycles() {
     std::vector<bool> visited( m_tasks.size(), false );
     std::stack<TaskId> pending;
 
-    for ( TaskId id = 0; id < m_tasks.size(); ++id )
+    for ( uint id = 0; id < m_tasks.size(); ++id )
     {
-        if ( m_dependencies[id].size() == 0 )
-        {
-            pending.push( id );
-        }
+        if ( m_dependencies[id].size() == 0 ) { pending.push( TaskId( id ) ); }
     }
 
     // If you hit this assert, there are tasks in the list but
@@ -159,10 +158,7 @@ void TaskQueue::startTasks() {
     // Enqueue all tasks with no dependencies.
     for ( uint t = 0; t < m_tasks.size(); ++t )
     {
-        if ( m_remainingDependencies[t] == 0 )
-        {
-            queueTask( t );
-        }
+        if ( m_remainingDependencies[t] == 0 ) { queueTask( TaskId( t ) ); }
     }
 
     // Wake up all threads.
@@ -177,10 +173,7 @@ void TaskQueue::waitForTasks() {
         m_taskQueueMutex.lock();
         isFinished = ( m_taskQueue.empty() && m_processingTasks == 0 );
         m_taskQueueMutex.unlock();
-        if ( !isFinished )
-        {
-            std::this_thread::yield();
-        }
+        if ( !isFinished ) { std::this_thread::yield(); }
     }
 }
 
@@ -200,7 +193,7 @@ void TaskQueue::flushTaskQueue() {
 void TaskQueue::runThread( uint id ) {
     while ( true )
     {
-        TaskId task = InvalidTaskId;
+        TaskId task;
 
         // Acquire mutex.
         {
@@ -214,24 +207,21 @@ void TaskQueue::runThread( uint id ) {
             }
             // If the task queue is shutting down we quit, releasing
             // the lock.
-            if ( m_shuttingDown )
-            {
-                return;
-            }
+            if ( m_shuttingDown ) { return; }
 
             // If we are here it means we got a task
             task = m_taskQueue.back();
             m_taskQueue.pop_back();
             ++m_processingTasks;
-            CORE_ASSERT( task != InvalidTaskId && task < m_tasks.size(), "Invalid task" );
+            CORE_ASSERT( task.isValid() && task < m_tasks.size(), "Invalid task" );
         }
         // Release mutex.
 
         // Run task
-        m_timerData[task].start = Timer::Clock::now();
+        m_timerData[task].start    = Utils::Clock::now();
         m_timerData[task].threadId = id;
         m_tasks[task]->process();
-        m_timerData[task].end = Timer::Clock::now();
+        m_timerData[task].end = Utils::Clock::now();
 
         // Critical section : mark task as finished and en-queue dependencies.
         uint newTasks = 0;
@@ -252,10 +242,7 @@ void TaskQueue::runThread( uint id ) {
             --m_processingTasks;
         }
         // If we added new tasks, we wake up one thread to execute it.
-        if ( newTasks > 0 )
-        {
-            m_threadNotifier.notify_one();
-        }
+        if ( newTasks > 0 ) { m_threadNotifier.notify_one(); }
     } // End of while(true)
 }
 
@@ -281,35 +268,27 @@ void TaskQueue::printTaskGraph( std::ostream& output ) const {
 
     for ( const auto& preDep : m_pendingDepsPre )
     {
-        const auto& task1 = m_tasks[preDep.first];
+        const auto& task1  = m_tasks[preDep.first];
         std::string t2name = preDep.second;
 
         if ( std::find_if( m_tasks.begin(), m_tasks.end(), [=]( const auto& task ) {
                  return task->getName() == t2name;
              } ) == m_tasks.end() )
-        {
-            t2name += "?";
-        }
-
-        output << "\"" << task1->getName() << "\""
-               << " -> ";
+        { t2name += "?"; } output << "\"" << task1->getName() << "\""
+                                  << " -> ";
         output << "\"" << t2name << "\"" << std::endl;
     }
 
     for ( const auto& postDep : m_pendingDepsSucc )
     {
         std::string t1name = postDep.first;
-        const auto& t2 = m_tasks[postDep.second];
+        const auto& t2     = m_tasks[postDep.second];
 
         if ( std::find_if( m_tasks.begin(), m_tasks.end(), [=]( const auto& task ) {
                  return task->getName() == t1name;
              } ) == m_tasks.end() )
-        {
-            t1name += "?";
-        }
-
-        output << "\"" << t1name << "\""
-               << " -> ";
+        { t1name += "?"; } output << "\"" << t1name << "\""
+                                  << " -> ";
         output << "\"" << t2->getName() << "\"" << std::endl;
     }
 

@@ -1,6 +1,5 @@
 #include "DummySystem.hpp"
 
-#include <Core/String/StringUtils.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -26,7 +25,8 @@ void DummySystem::initialize() {
     m_data->bar = 1337;
 }
 
-void DummySystem::handleDataLoading( Ra::Engine::Entity* entity, const std::string& rootFolder,
+void DummySystem::handleDataLoading( Ra::Engine::Entity* entity,
+                                     const std::string& rootFolder,
                                      const std::map<std::string, Ra::Core::Any>& data ) {}
 
 Ra::Engine::Component* DummySystem::addComponentToEntityInternal( Ra::Engine::Entity* entity,
@@ -39,7 +39,7 @@ Ra::Engine::Component* DummySystem::addComponentToEntityInternal( Ra::Engine::En
 
 void DummySystem::generateTasks( Ra::Core::TaskQueue* taskQueue,
                                  const Ra::Engine::FrameInfo& frameInfo ) {
-    DummyTask* task1 = new DummyTask;
+    DummyTask* task1      = new DummyTask;
     DummyOtherTask* task2 = new DummyOtherTask;
 
     DummyParams p;

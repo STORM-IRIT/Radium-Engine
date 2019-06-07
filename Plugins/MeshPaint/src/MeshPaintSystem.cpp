@@ -1,8 +1,7 @@
 #include <MeshPaintSystem.hpp>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/GeometryData.hpp>
-#include <Core/String/StringUtils.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/GeometryData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
@@ -20,7 +19,7 @@ MeshPaintSystem::MeshPaintSystem() : Ra::Engine::System() {}
 MeshPaintSystem::~MeshPaintSystem() {}
 
 void MeshPaintSystem::handleAssetLoading( Ra::Engine::Entity* entity,
-                                          const Ra::Asset::FileData* fileData ) {
+                                          const Ra::Core::Asset::FileData* fileData ) {
     auto geomData = fileData->getGeometryData();
 
     uint id = 0;
@@ -28,7 +27,7 @@ void MeshPaintSystem::handleAssetLoading( Ra::Engine::Entity* entity,
     for ( const auto& data : geomData )
     {
         std::string componentName = "MP_" + entity->getName() + std::to_string( id++ );
-        MeshPaintComponent* comp = new MeshPaintComponent( componentName, entity );
+        MeshPaintComponent* comp  = new MeshPaintComponent( componentName, entity );
         comp->setDataId( data->getName() );
         registerComponent( entity, comp );
     }
@@ -49,11 +48,19 @@ void MeshPaintSystem::startPaintMesh( bool start ) {
 }
 
 void MeshPaintSystem::paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
-                                 const Ra::Core::Color& color ) {
+                                 const Ra::Core::Utils::Color& color ) {
     for ( auto& compEntry : this->m_components )
     {
         auto MPcomp = static_cast<MeshPaintComponent*>( compEntry.second );
         MPcomp->paintMesh( picking, color );
+    }
+}
+
+void MeshPaintSystem::bakeToDiffuse() {
+    for ( auto& compEntry : this->m_components )
+    {
+        auto MPcomp = static_cast<MeshPaintComponent*>( compEntry.second );
+        MPcomp->bakePaintToDiffuse();
     }
 }
 

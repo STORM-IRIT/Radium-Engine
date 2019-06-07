@@ -1,8 +1,9 @@
 #ifndef RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
 #define RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
 
-#include <Core/File/DataLoader.hpp>
-#include <Core/Math/LinearAlgebra.hpp>
+#include <Core/Asset/DataLoader.hpp>
+#include <Core/Asset/LightData.hpp>
+#include <Core/Types.hpp>
 #include <IO/RaIO.hpp>
 
 #include <set>
@@ -16,26 +17,23 @@ namespace Engine {
 class Light;
 }
 
-namespace Asset {
-
-class LightData;
-}
 } // namespace Ra
 
 namespace Ra {
 namespace IO {
 
-class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader<Asset::LightData> {
+class RA_IO_API AssimpLightDataLoader : public Core::Asset::DataLoader<Core::Asset::LightData>
+{
   public:
     /// CONSTRUCTOR
-    AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    explicit AssimpLightDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
 
     /// DESTRUCTOR
-    ~AssimpLightDataLoader();
+    ~AssimpLightDataLoader() override;
 
     /// LOADING
     void loadData( const aiScene* scene,
-                   std::vector<std::unique_ptr<Asset::LightData>>& data ) override;
+                   std::vector<std::unique_ptr<Core::Asset::LightData>>& data ) override;
 
   protected:
     /// QUERY
@@ -45,16 +43,19 @@ class RA_IO_API AssimpLightDataLoader : public Asset::DataLoader<Asset::LightDat
 
     /// LOADING
 
-    void loadLightData( const aiScene* scene, const aiLight& light, Asset::LightData& data );
+    //    Core::Asset::LightData *loadLightData(const aiScene *scene, const aiLight &light);
+    std::unique_ptr<Core::Asset::LightData> loadLightData( const aiScene* scene,
+                                                           const aiLight& light );
 
-    Core::Matrix4 loadLightFrame( const aiScene* scene, const Core::Matrix4& parentFrame,
-                                  Asset::LightData& data ) const;
+    Core::Matrix4 loadLightFrame( const aiScene* scene,
+                                  const Core::Matrix4& parentFrame,
+                                  const std::string& lightName ) const;
 
     /// NAME
-    void fetchName( const aiLight& mesh, Asset::LightData& data ) const;
+    std::string fetchName( const aiLight& light ) const;
 
     /// TYPE
-    void fetchType( const aiLight& mesh, Asset::LightData& data ) const;
+    Core::Asset::LightData::LightType fetchType( const aiLight& light ) const;
 
     /// FRAME
     inline void setFrame( const Core::Matrix4& frame ) { m_frame = frame; }

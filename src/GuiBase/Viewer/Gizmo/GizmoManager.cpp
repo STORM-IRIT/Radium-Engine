@@ -2,6 +2,7 @@
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
+#include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
@@ -23,17 +24,15 @@ GizmoManager::GizmoManager( QObject* parent ) :
     QObject( parent ),
     m_currentGizmoType( NONE ),
     m_mode( Gizmo::GLOBAL ) {
-    m_gizmos[0].reset( new TranslateGizmo( Engine::SystemEntity::uiCmp(),
-                                           Ra::Core::Transform::Identity(), m_transform, m_mode ) );
-    m_gizmos[1].reset( new RotateGizmo( Engine::SystemEntity::uiCmp(),
-                                        Ra::Core::Transform::Identity(), m_transform, m_mode ) );
-    m_gizmos[2].reset( nullptr ); // add scale gizmo when implemented
+    m_gizmos[0].reset( new TranslateGizmo(
+        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+    m_gizmos[1].reset( new RotateGizmo(
+        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+    m_gizmos[2].reset( new ScaleGizmo(
+        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
     for ( auto& g : m_gizmos )
     {
-        if ( g )
-        {
-            g->show( false );
-        }
+        if ( g ) { g->show( false ); }
     }
 }
 
@@ -47,16 +46,13 @@ void GizmoManager::setEditable( const Engine::ItemEntry& ent ) {
 void GizmoManager::updateGizmo() {
     for ( auto& g : m_gizmos )
     {
-        if ( g )
-        {
-            g->show( false );
-        }
+        if ( g ) { g->show( false ); }
     }
 
     if ( canEdit() )
     {
         Core::Transform worldTransform = getWorldTransform();
-        auto g = currentGizmo();
+        auto g                         = currentGizmo();
         if ( g )
         {
             g->updateTransform( m_mode, worldTransform, m_transform );
@@ -80,25 +76,16 @@ void GizmoManager::updateValues() {
     {
         getTransform();
         if ( currentGizmo() )
-        {
-            currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform );
-        }
-    }
+        { currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform ); } }
 }
 
 bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
     if ( !( Gui::KeyMappingManager::getInstance()->actionTriggered(
              event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) ||
          !canEdit() || m_currentGizmoType == NONE )
-    {
-        return false;
-    }
-    // If we are there it means that we should have a valid gizmo.
+    { return false; } // If we are there it means that we should have a valid gizmo.
     CORE_ASSERT( currentGizmo(), "Gizmo is not there !" );
 
-    // Access the camera from the viewer. (TODO : a cleaner way to access the camera).
-    // const Engine::Camera& cam =
-    // *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
     const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
@@ -107,36 +94,28 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
 }
 
 bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* event ) {
-    if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
-             event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) &&
-         currentGizmo() )
-    {
-        currentGizmo()->selectConstraint( -1 );
-    }
+    if ( currentGizmo() ) { currentGizmo()->selectConstraint( -1 ); }
     return ( currentGizmo() != nullptr );
 }
 
 bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event ) {
-    if ( event->buttons() & Gui::KeyMappingManager::getInstance()->getKeyFromAction(
-                                Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) &&
+    auto keyMap = Gui::KeyMappingManager::getInstance();
+    // cannot call actionTriggered because event->button returns Qt::NO_BUTTON for moves
+    if ( ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ||
+           keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_STEP ) ) &&
          currentGizmo() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        // const Engine::Camera& cam =
-        // *static_cast<Viewer*>(parent())->getCameraInterface()->getCamera();
         const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
-        Core::Transform newTransform = currentGizmo()->mouseMove(
-            cam, currentXY, event->modifiers().testFlag( Qt::ControlModifier ) );
+        bool step = keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_STEP );
+        Core::Transform newTransform = currentGizmo()->mouseMove( cam, currentXY, step );
         setTransform( newTransform );
     }
     return ( currentGizmo() != nullptr );
 }
 
 void GizmoManager::handlePickingResult( int drawableId ) {
-    if ( currentGizmo() )
-    {
-        currentGizmo()->selectConstraint( drawableId );
-    }
+    if ( currentGizmo() ) { currentGizmo()->selectConstraint( drawableId ); }
 }
 
 Gizmo* GizmoManager::currentGizmo() {

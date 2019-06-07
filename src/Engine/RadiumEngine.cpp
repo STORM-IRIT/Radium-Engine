@@ -9,9 +9,11 @@
 #include <string>
 #include <thread>
 
-#include <Core/File/FileData.hpp>
-#include <Core/File/FileLoaderInterface.hpp>
+#include <Core/Asset/FileData.hpp>
+#include <Core/Asset/FileLoaderInterface.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
+#include <Engine/Entity/Entity.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
@@ -25,20 +27,45 @@
 namespace Ra {
 namespace Engine {
 
-RadiumEngine::RadiumEngine() {}
+using namespace Core::Utils; // log
+using namespace Core::Asset;
 
-RadiumEngine::~RadiumEngine() {}
+RadiumEngine::RadiumEngine() = default;
+
+RadiumEngine::~RadiumEngine() = default;
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
-    m_signalManager.reset( new SignalManager );
-    m_entityManager.reset( new EntityManager );
-    m_renderObjectManager.reset( new RenderObjectManager );
+    m_signalManager       = std::make_unique<SignalManager>();
+    m_entityManager       = std::make_unique<EntityManager>();
+    m_renderObjectManager = std::make_unique<RenderObjectManager>();
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
+    m_loadingState = false;
+}
+
+void RadiumEngine::registerDefaultPrograms() {
+    auto shaderProgramManager = ShaderProgramManager::getInstance();
+    CORE_ASSERT( shaderProgramManager != nullptr,
+                 "ShaderProgramManager needs to be created first" );
+
+    // Create named strings which correspond to shader files that you want to use in shaders's
+    // includes. NOTE: if you want to add a named string to handle a new shader include file, be
+    // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
+    // Radium V2 : are these initialization required here ? They will be better in
+    // Engine::Initialize .... Define a better ressources management and initialization
+    shaderProgramManager->addNamedString( "/Helpers.glsl", "Shaders/Helpers.glsl" );
+    shaderProgramManager->addNamedString( "/Structs.glsl", "Shaders/Structs.glsl" );
+    shaderProgramManager->addNamedString( "/Tonemap.glsl", "Shaders/Tonemap.glsl" );
+    shaderProgramManager->addNamedString( "/LightingFunctions.glsl",
+                                          "Shaders/LightingFunctions.glsl" );
+    shaderProgramManager->addNamedString( "/TransformStructs.glsl",
+                                          "Shaders/Transform/TransformStructs.glsl" );
+    shaderProgramManager->addNamedString( "/DefaultLight.glsl",
+                                          "Shaders/Lights/DefaultLight.glsl" );
+
     // Engine support some built-in materials. Register here
     BlinnPhongMaterial::registerMaterial();
-    m_loadingState = false;
 }
 
 void RadiumEngine::cleanup() {
@@ -66,9 +93,7 @@ void RadiumEngine::endFrameSync() {
 
 void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     static uint frameCounter = 0;
-    FrameInfo frameInfo;
-    frameInfo.m_dt = dt;
-    frameInfo.m_numFrame = frameCounter++;
+    FrameInfo frameInfo{dt, frameCounter++};
     for ( auto& syst : m_systems )
     {
         syst.second->generateTasks( taskQueue, frameInfo );
@@ -89,26 +114,24 @@ bool RadiumEngine::registerSystem( const std::string& name, System* system, int 
 
 System* RadiumEngine::getSystem( const std::string& system ) const {
     System* sys = nullptr;
-    auto it = findSystem( system );
+    auto it     = findSystem( system );
 
-    if ( it != m_systems.end() )
-    {
-        sys = it->second.get();
-    }
+    if ( it != m_systems.end() ) { sys = it->second.get(); }
 
     return sys;
 }
 
-Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& componentName,
-                             const std::string& roName ) const {
+Displayable* RadiumEngine::getMesh( const std::string& entityName,
+                                    const std::string& componentName,
+                                    const std::string& roName ) const {
 
     // 1) Get entity
     if ( m_entityManager->entityExists( entityName ) )
     {
-        Ra::Engine::Entity* e = m_entityManager->getEntity( entityName );
+        auto e = m_entityManager->getEntity( entityName );
 
         // 2) Get component
-        const Ra::Engine::Component* c = e->getComponent( componentName );
+        const auto c = e->getComponent( componentName );
 
         if ( c != nullptr && !c->m_renderObjects.empty() )
         {
@@ -118,15 +141,13 @@ Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& c
                 return m_renderObjectManager->getRenderObject( c->m_renderObjects.front() )
                     ->getMesh()
                     .get();
-            } else
+            }
+            else
             {
                 for ( const auto& idx : c->m_renderObjects )
                 {
                     const auto& ro = m_renderObjectManager->getRenderObject( idx );
-                    if ( ro->getName() == roName )
-                    {
-                        return ro->getMesh().get();
-                    }
+                    if ( ro->getName() == roName ) { return ro->getMesh().get(); }
                 }
             }
         }
@@ -135,13 +156,15 @@ Mesh* RadiumEngine::getMesh( const std::string& entityName, const std::string& c
 }
 
 bool RadiumEngine::loadFile( const std::string& filename ) {
-    std::string extension = Core::StringUtils::getFileExt( filename );
+    releaseFile();
+
+    std::string extension = Core::Utils::getFileExt( filename );
 
     for ( auto& l : m_fileLoaders )
     {
         if ( l->handleFileExtension( extension ) )
         {
-            Asset::FileData* data = l->loadFile( filename );
+            FileData* data = l->loadFile( filename );
             if ( data != nullptr )
             {
                 m_loadedFile.reset( data );
@@ -158,7 +181,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         return false;
     }
 
-    std::string entityName = Core::StringUtils::getBaseName( filename, false );
+    std::string entityName = Core::Utils::getBaseName( filename, false );
 
     Entity* entity = m_entityManager->createEntity( entityName );
 
@@ -167,13 +190,14 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
         system.second->handleAssetLoading( entity, m_loadedFile.get() );
     }
 
-    if ( entity->getComponents().size() > 0 )
+    if ( !entity->getComponents().empty() )
     {
         for ( auto& comp : entity->getComponents() )
         {
             comp->initialize();
         }
-    } else
+    }
+    else
     {
         LOG( logWARNING ) << "File \"" << filename << "\" has no usable data. Deleting entity...";
         m_entityManager->removeEntity( entity );
@@ -199,31 +223,32 @@ SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
 }
 
-void RadiumEngine::registerFileLoader( std::shared_ptr<Asset::FileLoaderInterface> fileLoader ) {
+void RadiumEngine::registerFileLoader( std::shared_ptr<FileLoaderInterface> fileLoader ) {
     m_fileLoaders.push_back( fileLoader );
 }
 
-const std::vector<std::shared_ptr<Asset::FileLoaderInterface>>&
-RadiumEngine::getFileLoaders() const {
+const std::vector<std::shared_ptr<FileLoaderInterface>>& RadiumEngine::getFileLoaders() const {
     return m_fileLoaders;
 }
 
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
-const Asset::FileData& RadiumEngine::getFileData() const {
+const FileData& RadiumEngine::getFileData() const {
     CORE_ASSERT( m_loadingState, "Access to file content is only available at loading time." );
     return *( m_loadedFile.get() );
 }
 
 RadiumEngine::SystemContainer::const_iterator
 RadiumEngine::findSystem( const std::string& name ) const {
-    return std::find_if( m_systems.cbegin(), m_systems.cend(),
-                         [&name]( const auto& el ) { return el.first.second == name; } );
+    return std::find_if( m_systems.cbegin(), m_systems.cend(), [&name]( const auto& el ) {
+        return el.first.second == name;
+    } );
 }
 
 RadiumEngine::SystemContainer::iterator RadiumEngine::findSystem( const std::string& name ) {
-    return std::find_if( m_systems.begin(), m_systems.end(),
-                         [&name]( const auto& el ) { return el.first.second == name; } );
+    return std::find_if( m_systems.begin(), m_systems.end(), [&name]( const auto& el ) {
+        return el.first.second == name;
+    } );
 }
 
 } // namespace Engine

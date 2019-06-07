@@ -9,7 +9,7 @@
 
 // define RA_DISABLE_DEBUG_DISPLAY
 
-#include <Core/Math/ColorPresets.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 
 #include <Engine/Component/Component.hpp>
@@ -24,38 +24,38 @@ namespace Engine {
 #ifndef RA_DISABLE_DEBUG_DISPLAY
 
 /// Component for debug drawing. @see SystemEntity.
-class RA_ENGINE_API DebugComponent : public Component {
+class RA_ENGINE_API DebugComponent : public Component
+{
   public:
-    DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
+    explicit DebugComponent( Entity* entity ) : Component( "Debug", entity ) {}
 
-    void initialize() override {}
+    void initialize() override{};
 
     /// Access render object through RO manager
-    RenderObject* getRenderObject( Core::Index idx );
+    RenderObject* getRenderObject( Core::Utils::Index idx );
 };
 
 #endif
 
 /// Component for UI drawing. @see SystemEntity.
-class RA_ENGINE_API UiComponent : public Component {
+class RA_ENGINE_API UiComponent : public Component
+{
   public:
-    UiComponent( Entity* entity ) : Component( "UI", entity ) {}
+    explicit UiComponent( Entity* entity ) : Component( "UI", entity ) {}
 
     void initialize() override {}
 };
 
 /// This entity allows to add UI and debug drawables from everywhere in the code.
 /// It should have only one component and its transform should not change.
-class RA_ENGINE_API SystemEntity : public Entity {
+class RA_ENGINE_API SystemEntity : public Entity
+{
     RA_SINGLETON_INTERFACE( SystemEntity );
 
   public:
     SystemEntity();
 
-    virtual ~SystemEntity(){};
-
-    /// Ignore raycast queries
-    virtual void rayCastQuery( const Core::Ray& r ) const override {}
+    ~SystemEntity() override = default;
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
     /// Access the debug component

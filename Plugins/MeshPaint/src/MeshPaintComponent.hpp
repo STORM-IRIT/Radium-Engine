@@ -3,7 +3,9 @@
 
 #include <MeshPaintPluginMacros.hpp>
 
-#include <Core/Mesh/TriangleMesh.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/Attribs.hpp>
+#include <Core/Utils/Color.hpp>
 
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -17,28 +19,40 @@ struct TaskParams;
 } // namespace Core
 namespace Engine {
 struct FrameInfo;
-}
+class Mesh;
+} // namespace Engine
 } // namespace Ra
 
 namespace MeshPaintPlugin {
 
-class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
+/*!
+ * \brief The MeshPaintComponent class allows to paint over TriangleMeshes
+ */
+class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component
+{
   public:
     MeshPaintComponent( const std::string& name, Ra::Engine::Entity* entity );
-    virtual ~MeshPaintComponent();
+    ~MeshPaintComponent() override;
 
     virtual void initialize() override;
     virtual void addTasks( Ra::Core::TaskQueue* taskQueue, const Ra::Engine::FrameInfo& info );
 
     void setDataId( const std::string& id );
 
+    /// Colors are reset to their original value when calling startPaint( false )
+    /// \warning Called for all the components of the scene !
     void startPaint( bool on );
+    /// Overwrite original colors with current paint
+    /// \warning Called for all the components of the scene !
+    void bakePaintToDiffuse();
     void paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
-                    const Ra::Core::Color& color );
+                    const Ra::Core::Utils::Color& color );
 
   protected:
     // Geometry data
-    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Index>::Getter m_renderObjectReader;
+    Ra::Engine::ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter
+        m_renderObjectReader;
+    Ra::Engine::Mesh* m_mesh;
 
     // Data id for compoenent messenger
     std::string m_dataId;
@@ -46,7 +60,7 @@ class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component {
     // Initial RO shader config when not painting
     Ra::Engine::ShaderConfiguration m_baseConfig;
     Ra::Core::Vector4Array m_baseColors;
-    Ra::Core::Vector4Array m_paintColors;
+    Ra::Core::Utils::AttribHandle<Ra::Core::Vector4> m_currentColorAttribHdl;
 };
 
 } // namespace MeshPaintPlugin

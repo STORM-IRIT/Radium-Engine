@@ -25,14 +25,13 @@ MeshPaintPluginC::MeshPaintPluginC() :
     m_selectionManager( nullptr ),
     m_PickingManager( nullptr ),
     m_system( nullptr ),
-    m_paintColor( Ra::Core::Color( 1.0, 0.0, 0.0, 1.0 ) ),
+    m_paintColor( Ra::Core::Utils::Color::Red() ),
     m_isPainting( false ) {
     m_widget = new MeshPaintUI();
-    QColor color;
-    color.setRed( m_paintColor( 0 ) * 255 );
-    color.setGreen( m_paintColor( 1 ) * 255 );
-    color.setBlue( m_paintColor( 2 ) * 255 );
-    color.setAlpha( m_paintColor( 3 ) * 255 );
+    QColor color( int( m_paintColor( 0 ) * Scalar( 255 ) ),
+                  int( m_paintColor( 1 ) * Scalar( 255 ) ),
+                  int( m_paintColor( 2 ) * Scalar( 255 ) ),
+                  int( m_paintColor( 3 ) * Scalar( 255 ) ) );
     m_widget->ui->changeColor_pb->setPalette( QPalette( color ) );
 }
 
@@ -41,13 +40,16 @@ MeshPaintPluginC::~MeshPaintPluginC() {}
 void MeshPaintPluginC::registerPlugin( const Ra::PluginContext& context ) {
     // register selection context
     m_selectionManager = context.m_selectionManager;
-    m_PickingManager = context.m_pickingManager;
-    m_system = new MeshPaintSystem;
+    m_PickingManager   = context.m_pickingManager;
+    m_system           = new MeshPaintSystem;
     context.m_engine->registerSystem( "MeshPaintSystem", m_system );
-    connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this,
+    connect( m_selectionManager,
+             &Ra::GuiBase::SelectionManager::currentChanged,
+             this,
              &MeshPaintPluginC::onCurrentChanged );
     connect( m_widget, &MeshPaintUI::paintColor, this, &MeshPaintPluginC::activePaintColor );
     connect( m_widget, &MeshPaintUI::colorChanged, this, &MeshPaintPluginC::changePaintColor );
+    connect( m_widget, &MeshPaintUI::bakeToDiffuse, this, &MeshPaintPluginC::bakeToDiffuse );
 }
 
 bool MeshPaintPluginC::doAddWidget( QString& name ) {
@@ -72,7 +74,7 @@ bool MeshPaintPluginC::doAddAction( int& nb ) {
     return false;
 }
 
-QAction* MeshPaintPluginC::getAction( int id ) {
+QAction* MeshPaintPluginC::getAction( int /*id*/ ) {
     return nullptr;
 }
 
@@ -82,15 +84,21 @@ void MeshPaintPluginC::activePaintColor( bool on ) {
 }
 
 void MeshPaintPluginC::changePaintColor( const QColor& color ) {
-    m_paintColor = Ra::Core::Color( Scalar( color.red() ) / 255, Scalar( color.green() ) / 255,
-                                    Scalar( color.blue() ) / 255, 1.0 );
+    m_paintColor = Ra::Core::Utils::Color( Scalar( color.red() ) / 255,
+                                           Scalar( color.green() ) / 255,
+                                           Scalar( color.blue() ) / 255,
+                                           Scalar( 1.0 ) );
 }
 
-void MeshPaintPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev ) {
-    if ( m_isPainting && Ra::Core::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
-    {
-        m_system->paintMesh( m_PickingManager->getCurrent(), m_paintColor );
-    }
-}
+void MeshPaintPluginC::bakeToDiffuse() {
+    if ( m_isPainting &&
+         Ra::Core::Utils::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
+    { m_system->bakeToDiffuse(); } }
+
+void MeshPaintPluginC::onCurrentChanged( const QModelIndex& /*current*/,
+                                         const QModelIndex& /*prev*/ ) {
+    if ( m_isPainting &&
+         Ra::Core::Utils::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
+    { m_system->paintMesh( m_PickingManager->getCurrent(), m_paintColor ); } }
 
 } // namespace MeshPaintPlugin

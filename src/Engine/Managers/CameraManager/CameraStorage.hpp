@@ -6,7 +6,6 @@
 namespace Ra {
 namespace Engine {
 class Camera;
-class RenderParameters;
 } // namespace Engine
 } // namespace Ra
 
@@ -17,13 +16,14 @@ namespace Engine {
  * Interface providing functions to access and store cameras in
  * an implementation-defined way.
  */
-class RA_ENGINE_API CameraStorage {
-    // TODO: make camera storage compatible with range for ...
+class RA_ENGINE_API CameraStorage
+{
+    // Radium-V2 : make camera storage compatible with range for ...
   public:
-    CameraStorage() {}
+    CameraStorage() = default;
 
     /// Destructor
-    virtual ~CameraStorage() {}
+    virtual ~CameraStorage() = default;
 
     // Redefine container classic functions.
 
