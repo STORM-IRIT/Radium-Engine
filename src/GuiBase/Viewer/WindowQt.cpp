@@ -30,16 +30,15 @@ WindowQt::WindowQt( QScreen* screen ) :
     m_updatePending( false ),
     m_glInitialized( false ) {
 
-    m_context.reset( new QOpenGLContext() );
-
+    setSurfaceType( QWindow::OpenGLSurface );
     if ( !s_getProcAddressHelper ) { s_getProcAddressHelper = this; }
 
+    // No need to create as this window is used as widget (and actually segfault on Qt 5.12.3)
     // Surface format set in BaseApplication
 
-    setSurfaceType( OpenGLSurface );
-    create();
-
+    m_context = std::make_unique<QOpenGLContext>( this );
     m_context->setFormat( QSurfaceFormat::defaultFormat() );
+
     if ( !m_context->create() )
     {
         LOG( logINFO ) << "Could not create OpenGL context.";
