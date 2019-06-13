@@ -139,7 +139,7 @@ void SkinningComponent::initialize() {
         // Do some debug checks:  Attempt to write to the mesh and check the weights match skeleton
         // and mesh.
         ON_ASSERT( bool skinnable = compMsg->canRw<Ra::Core::Geometry::TriangleMesh>(
-                       getEntity(), m_contentsName ) );
+                       getEntity(), m_meshName ) );
         CORE_ASSERT(
             skinnable,
             "Mesh cannot be skinned. It could be because the mesh is set to nondeformable" );
