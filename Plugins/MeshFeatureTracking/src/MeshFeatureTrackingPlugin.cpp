@@ -23,7 +23,7 @@ MeshFeatureTrackingPluginC::MeshFeatureTrackingPluginC() {}
 
 MeshFeatureTrackingPluginC::~MeshFeatureTrackingPluginC() {}
 
-void MeshFeatureTrackingPluginC::registerPlugin( const Ra::PluginContext& context ) {
+void MeshFeatureTrackingPluginC::registerPlugin( const Ra::Plugins::Context& context ) {
     // register system
     context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
         std::bind( &MeshFeatureTrackingPluginC::update, this ) );

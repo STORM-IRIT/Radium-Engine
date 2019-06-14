@@ -126,6 +126,8 @@ class RA_GUIBASE_API Viewer : public WindowQt
     void toggleBrushPicking(
         bool on ); //! Emitted when the corresponding key is released (see keyReleaseEvent)
 
+    void needUpdate();
+
   public slots:
     /// Tell the renderer to reload all shaders.
     void reloadShaders();
@@ -178,10 +180,10 @@ class RA_GUIBASE_API Viewer : public WindowQt
     /// Initialize openGL. Called on by the first "show" call to the main window.
     /// \warning This function is NOT reentrant, and may behave incorrectly
     /// if called at the same time than #intializeRenderer
-    virtual bool initializeGL() override;
+    bool initializeGL() override;
 
     /// Resize the view port and the camera. Called by the resize event.
-    virtual void resizeGL( QResizeEvent* event ) override;
+    void resizeGL( QResizeEvent* event ) override;
 
     void keyPressEvent( QKeyEvent* event ) override;
     void keyReleaseEvent( QKeyEvent* event ) override;
@@ -193,7 +195,6 @@ class RA_GUIBASE_API Viewer : public WindowQt
     void mouseReleaseEvent( QMouseEvent* event ) override;
     void mouseMoveEvent( QMouseEvent* event ) override;
     void wheelEvent( QWheelEvent* event ) override;
-
     void showEvent( QShowEvent* ev ) override;
 
   public:

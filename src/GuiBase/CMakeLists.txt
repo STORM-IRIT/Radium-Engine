@@ -32,6 +32,7 @@ set (guibase_libs
     radiumCore
     radiumEngine
     radiumIO
+    radiumPluginBase
     ${Qt5_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${GLBINDING_LIBRARIES}
@@ -46,7 +47,7 @@ add_library(
 
 target_include_directories(${guibase_target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-add_dependencies( ${guibase_target} radiumCore radiumEngine radiumIO glbinding_lib globjects_lib stb_lib)
+add_dependencies( ${guibase_target} radiumCore radiumEngine radiumIO radiumPluginBase glbinding_lib globjects_lib stb_lib)
 target_compile_definitions(${guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 
 target_link_libraries(
