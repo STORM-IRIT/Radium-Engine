@@ -14,7 +14,7 @@ namespace SkinningPlugin {
 
 SkinningPluginC::~SkinningPluginC() {}
 
-void SkinningPluginC::registerPlugin( const Ra::PluginContext& context ) {
+void SkinningPluginC::registerPlugin( const Ra::Plugins::Context& context ) {
     m_system           = new SkinningSystem;
     m_selectionManager = context.m_selectionManager;
     context.m_engine->registerSystem( "SkinningSystem", m_system );
@@ -26,6 +26,9 @@ void SkinningPluginC::registerPlugin( const Ra::PluginContext& context ) {
     connect( m_widget, &SkinningWidget::showWeights, this, &SkinningPluginC::onShowWeights );
     connect(
         m_widget, &SkinningWidget::showWeightsType, this, &SkinningPluginC::onShowWeightsType );
+
+    connect( m_widget, &SkinningWidget::askForUpdate, this, &SkinningPluginC::askForUpdate );
+    connect( this, &SkinningPluginC::askForUpdate, &context, &Ra::Plugins::Context::askForUpdate );
 }
 
 bool SkinningPluginC::doAddWidget( QString& name ) {
@@ -72,7 +75,7 @@ bool SkinningPluginC::doAddROpenGLInitializer() {
     return m_system != nullptr;
 }
 
-void SkinningPluginC::openGlInitialize( const Ra::PluginContext& context ) {
+void SkinningPluginC::openGlInitialize( const Ra::Plugins::Context& /*context*/ ) {
     if ( !m_system ) { return; }
     Ra::Engine::TextureParameters texData;
     texData.wrapS     = GL_CLAMP_TO_EDGE;
@@ -83,7 +86,8 @@ void SkinningPluginC::openGlInitialize( const Ra::PluginContext& context ) {
     Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texData );
 }
 
-void SkinningPluginC::onCurrentChanged( const QModelIndex& current, const QModelIndex& prev ) {
+void SkinningPluginC::onCurrentChanged( const QModelIndex& /*current*/,
+                                        const QModelIndex& /*prev*/ ) {
     Ra::Engine::ItemEntry it = m_selectionManager->currentItem();
     if ( it.m_entity )
     {
@@ -107,14 +111,17 @@ void SkinningPluginC::onCurrentChanged( const QModelIndex& current, const QModel
     }
     else
     { m_widget->setCurrent( it, nullptr ); }
+    askForUpdate();
 }
 
 void SkinningPluginC::onShowWeights( bool on ) {
     m_system->showWeights( on );
+    askForUpdate();
 }
 
 void SkinningPluginC::onShowWeightsType( int type ) {
     m_system->showWeightsType( type );
+    askForUpdate();
 }
 
 // Class SkinningWidget
@@ -208,6 +215,7 @@ void SkinningWidget::onLSBActionTriggered() {
     m_actionCoR->setChecked( false );
     m_actionSTBSLBS->setChecked( false );
     m_actionSTBSDQS->setChecked( false );
+    askForUpdate();
 }
 
 void SkinningWidget::onDQActionTriggered() {
@@ -217,6 +225,7 @@ void SkinningWidget::onDQActionTriggered() {
     m_actionCoR->setChecked( false );
     m_actionSTBSLBS->setChecked( false );
     m_actionSTBSDQS->setChecked( false );
+    askForUpdate();
 }
 
 void SkinningWidget::onCoRActionTriggered() {
@@ -226,6 +235,7 @@ void SkinningWidget::onCoRActionTriggered() {
     m_actionCoR->setChecked( true );
     m_actionSTBSLBS->setChecked( false );
     m_actionSTBSDQS->setChecked( false );
+    askForUpdate();
 }
 
 void SkinningWidget::onSTBSLBSActionTriggered() {
@@ -235,6 +245,7 @@ void SkinningWidget::onSTBSLBSActionTriggered() {
     m_actionCoR->setChecked( false );
     m_actionSTBSLBS->setChecked( true );
     m_actionSTBSDQS->setChecked( false );
+    askForUpdate();
 }
 
 void SkinningWidget::onSTBSDQSActionTriggered() {
@@ -244,6 +255,7 @@ void SkinningWidget::onSTBSDQSActionTriggered() {
     m_actionCoR->setChecked( false );
     m_actionSTBSLBS->setChecked( false );
     m_actionSTBSDQS->setChecked( true );
+    askForUpdate();
 }
 
 void SkinningWidget::setCurrent( const Ra::Engine::ItemEntry& entry, SkinningComponent* comp ) {
@@ -271,6 +283,7 @@ void SkinningWidget::setCurrent( const Ra::Engine::ItemEntry& entry, SkinningCom
         m_actionSTBSLBS->setEnabled( false );
         m_actionSTBSDQS->setEnabled( false );
     }
+    askForUpdate();
 }
 
 void SkinningWidget::onSkinningChanged( int newType ) {
@@ -303,6 +316,7 @@ void SkinningWidget::onSkinningChanged( int newType ) {
     default:
     { break; }
     }
+    askForUpdate();
 }
 
 void SkinningWidget::onShowWeightsToggled( bool on ) {

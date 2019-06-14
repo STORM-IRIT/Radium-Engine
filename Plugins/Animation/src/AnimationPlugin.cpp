@@ -20,7 +20,7 @@ AnimationPluginC::AnimationPluginC() = default;
 
 AnimationPluginC::~AnimationPluginC() = default;
 
-void AnimationPluginC::registerPlugin( const Ra::PluginContext& context ) {
+void AnimationPluginC::registerPlugin( const Ra::Plugins::Context& context ) {
     QSettings settings;
     QString path = settings.value( "AnimDataDir" ).toString();
     if ( path.isEmpty() ) { path = QString( context.m_exportDir.c_str() ); }
@@ -29,6 +29,12 @@ void AnimationPluginC::registerPlugin( const Ra::PluginContext& context ) {
     context.m_engine->getSignalManager()->m_frameEndCallbacks.push_back(
         std::bind( &AnimationPluginC::updateAnimTime, this ) );
     m_selectionManager = context.m_selectionManager;
+
+    connect( this, &AnimationPluginC::askForUpdate, &context, &Ra::Plugins::Context::askForUpdate );
+    connect( this,
+             &AnimationPluginC::setContinuousUpdate,
+             &context,
+             &Ra::Plugins::Context::setContinuousUpdate );
 }
 
 bool AnimationPluginC::doAddWidget( QString& name ) {
@@ -89,36 +95,44 @@ QAction* AnimationPluginC::getAction( int id ) {
 void AnimationPluginC::toggleXray( bool on ) {
     CORE_ASSERT( m_system, "System should be there " );
     m_system->setXray( on );
+    askForUpdate();
 }
 
 void AnimationPluginC::play() {
     CORE_ASSERT( m_system, "System should be there " );
     m_system->play( true );
+    emit setContinuousUpdate( true );
+    askForUpdate();
 }
 
 void AnimationPluginC::pause() {
     CORE_ASSERT( m_system, "System should be there " );
     m_system->play( false );
+    emit setContinuousUpdate( false );
 }
 
 void AnimationPluginC::step() {
     CORE_ASSERT( m_system, "System should be there " );
     pause();
     m_system->step();
+    askForUpdate();
 }
 
 void AnimationPluginC::reset() {
     CORE_ASSERT( m_system, "System should be there " );
     pause();
     m_system->reset();
+    askForUpdate();
 }
 
 void AnimationPluginC::toggleSkeleton( bool status ) {
     m_system->toggleSkeleton( status );
+    askForUpdate();
 }
 
 void AnimationPluginC::setAnimation( uint i ) {
     m_system->setAnimation( i );
+    askForUpdate();
 }
 
 void AnimationPluginC::toggleAnimationTimeStep( bool status ) {
@@ -137,6 +151,7 @@ void AnimationPluginC::updateAnimTime() {
     m_widget->setMaxFrame( m_system->getMaxFrame() );
     m_widget->updateTime( m_system->getTime( m_selectionManager->currentItem() ) );
     m_widget->updateFrame( m_system->getAnimFrame() );
+    askForUpdate();
 }
 
 void AnimationPluginC::cacheFrame() {
@@ -144,7 +159,11 @@ void AnimationPluginC::cacheFrame() {
 }
 
 void AnimationPluginC::restoreFrame( int frame ) {
-    if ( m_system->restoreFrame( m_dataDir, frame ) ) { m_widget->frameLoaded( frame ); }
+    if ( m_system->restoreFrame( m_dataDir, frame ) )
+    {
+        m_widget->frameLoaded( frame );
+        askForUpdate();
+    }
 }
 
 void AnimationPluginC::changeDataDir() {

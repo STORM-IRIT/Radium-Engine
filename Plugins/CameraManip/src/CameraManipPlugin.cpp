@@ -30,7 +30,7 @@ CameraManipPluginC::CameraManipPluginC() :
 
 CameraManipPluginC::~CameraManipPluginC() {}
 
-void CameraManipPluginC::registerPlugin( const Ra::PluginContext& context ) {
+void CameraManipPluginC::registerPlugin( const Ra::Plugins::Context& context ) {
     // register selection context
     m_engine           = context.m_engine;
     m_selectionManager = context.m_selectionManager;

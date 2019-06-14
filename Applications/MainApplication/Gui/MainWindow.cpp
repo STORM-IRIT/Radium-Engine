@@ -251,7 +251,6 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
         QString( "Rendering %1 faces and %2 vertices" ).arg( polycount ).arg( vertexcount );
     m_labelCount->setText( polyCountText );
 
-    long sumEvents     = 0;
     long sumRender     = 0;
     long sumTasks      = 0;
     long sumFrame      = 0;
@@ -259,7 +258,6 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     for ( uint i = 0; i < stats.size(); ++i )
     {
-        sumEvents += Core::Utils::getIntervalMicro( stats[i].eventsStart, stats[i].eventsEnd );
         sumRender += Core::Utils::getIntervalMicro( stats[i].renderData.renderStart,
                                                     stats[i].renderData.renderEnd );
         sumTasks += Core::Utils::getIntervalMicro( stats[i].tasksStart, stats[i].tasksEnd );
@@ -274,9 +272,6 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     const uint N{uint( stats.size() )};
     const Scalar T( N * 1000000.f );
-
-    m_eventsTime->setNum( int( sumEvents / N ) );
-    m_eventsUpdates->setNum( int( T / Scalar( sumEvents ) ) );
     m_renderTime->setNum( int( sumRender / N ) );
     m_renderUpdates->setNum( int( T / Scalar( sumRender ) ) );
     m_tasksTime->setNum( int( sumTasks / N ) );
@@ -367,18 +362,22 @@ void MainWindow::closeEvent( QCloseEvent* event ) {
 
 void MainWindow::gizmoShowNone() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::NONE );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::gizmoShowTranslate() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::TRANSLATION );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::gizmoShowRotate() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::ROTATION );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::gizmoShowScale() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::SCALE );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::reloadConfiguration() {
@@ -449,7 +448,7 @@ void MainWindow::updateBackgroundColor( QColor c ) {
 
 void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
     std::string name = shaderName.toStdString();
-    if ( name == "" ) { return; }
+    if ( name.empty() ) { return; }
 
     const ItemEntry& item = m_selectionManager->currentItem();
     const Engine::ShaderConfiguration config =
@@ -470,6 +469,7 @@ void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
 
 void Gui::MainWindow::setROVisible( Core::Utils::Index roIndex, bool visible ) {
     mainApp->m_engine->getRenderObjectManager()->getRenderObject( roIndex )->setVisible( visible );
+    mainApp->askForUpdate();
 }
 
 void Gui::MainWindow::editRO() {
@@ -478,6 +478,7 @@ void Gui::MainWindow::editRO() {
     {
         m_materialEditor->changeRenderObject( item.m_roIndex );
         m_materialEditor->show();
+        // \fixme check here autoupdate
     }
 }
 
@@ -508,6 +509,7 @@ void Gui::MainWindow::showHideAllRO() {
         auto item = m_itemModel->getEntry( idx );
         if ( item.isValid() && item.isSelectable() )
         { m_itemModel->setData( idx, allEntityInvisible, Qt::CheckStateRole ); } }
+    mainApp->askForUpdate();
 }
 
 void Gui::MainWindow::openMaterialEditor() {
@@ -608,6 +610,7 @@ void MainWindow::deleteCurrentItem() {
         Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity(
             e.m_entity->getIndex() );
     }
+    mainApp->askForUpdate();
 }
 
 void MainWindow::resetScene() {
@@ -622,7 +625,10 @@ void MainWindow::resetScene() {
 void MainWindow::fitCamera() {
     auto aabb = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb();
     if ( aabb.isEmpty() )
+    {
         m_viewer->getCameraInterface()->resetCamera();
+        mainApp->askForUpdate();
+    }
     else
         m_viewer->fitCameraToScene( aabb );
 }
