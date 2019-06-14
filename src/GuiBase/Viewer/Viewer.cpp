@@ -78,7 +78,7 @@ Gui::Viewer::~Viewer() {
         makeCurrent();
         m_renderers.clear();
 
-        if ( m_gizmoManager != nullptr ) { delete m_gizmoManager; }
+        delete m_gizmoManager;
         doneCurrent();
     }
 }
@@ -108,8 +108,10 @@ int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
 
 void Gui::Viewer::setBackgroundColor( const Core::Utils::Color& background ) {
     m_backgroundColor = background;
-    for ( auto renderer : m_renderers )
+    for ( const auto& renderer : m_renderers )
         renderer->setBackgroundColor( m_backgroundColor );
+
+    emit needUpdate();
 }
 
 void Gui::Viewer::enableDebug() {
@@ -142,7 +144,7 @@ bool Gui::Viewer::initializeGL() {
     Engine::ShaderProgramManager::createInstance();
     Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
 
-    m_camera.reset( new Gui::TrackballCamera( width(), height() ) );
+    m_camera = std::make_unique<Gui::TrackballCamera>( width(), height() );
 
     // Lights are components. So they must be attached to an entity. Attach headlight to system
     // Entity
@@ -228,6 +230,7 @@ void Gui::Viewer::onAboutToResize() {
 
 void Gui::Viewer::onResized() {
     m_currentRenderer->unlockRendering();
+    emit needUpdate();
 }
 
 void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
@@ -259,6 +262,7 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
     m_camera->resizeViewport( width, height );
     m_currentRenderer->resize( width, height );
     doneCurrent();
+    emit needUpdate();
 }
 
 Engine::Renderer::PickingMode Gui::Viewer::getPickingMode() const {
@@ -314,11 +318,13 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
                                                 getPickingMode()};
         m_currentRenderer->addPickingRequest( query );
     }
+    emit needUpdate();
 }
 
 void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
     m_camera->handleMouseReleaseEvent( event );
     if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMouseReleaseEvent( event ); }
+    emit needUpdate();
 }
 
 void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
@@ -337,6 +343,7 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
                 getPickingMode()};
             m_currentRenderer->addPickingRequest( query );
         }
+        emit needUpdate();
     }
     else
         event->ignore();
@@ -354,6 +361,7 @@ void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
         }
         else
         { m_camera->handleWheelEvent( event ); }
+        emit needUpdate();
     }
     else
     { event->ignore(); }
@@ -364,12 +372,10 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
     {
         keyPressed( event->key() );
         m_camera->handleKeyPressEvent( event );
+        emit needUpdate();
     }
     else
     { event->ignore(); }
-
-    // Do we need this ?
-    // QWindow::keyPressEvent(event);
 }
 
 void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
@@ -388,8 +394,7 @@ void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
         emit toggleBrushPicking( m_isBrushPickingEnabled );
     }
 
-    // Do we need this ?
-    // QWindow::keyReleaseEvent(event);
+    emit needUpdate();
 }
 
 void Gui::Viewer::showEvent( QShowEvent* ev ) {
@@ -397,6 +402,8 @@ void Gui::Viewer::showEvent( QShowEvent* ev ) {
     /// todo remove this commented code when camera init in ctr is tested on other arch.
 
     m_camera->resizeViewport( width(), height() );
+
+    emit needUpdate();
 }
 
 void Gui::Viewer::reloadShaders() {
@@ -410,6 +417,8 @@ void Gui::Viewer::reloadShaders() {
     doneCurrent();
 
     m_currentRenderer->unlockRendering();
+
+    emit needUpdate();
 }
 
 void Gui::Viewer::displayTexture( const QString& tex ) {
@@ -420,6 +429,8 @@ void Gui::Viewer::displayTexture( const QString& tex ) {
     m_currentRenderer->displayTexture( tex.toStdString() );
     m_currentRenderer->unlockRendering();
     doneCurrent();
+
+    emit needUpdate();
 }
 
 bool Gui::Viewer::changeRenderer( int index ) {
@@ -442,6 +453,7 @@ bool Gui::Viewer::changeRenderer( int index ) {
         doneCurrent();
         emit rendererReady();
 
+        emit needUpdate();
         return true;
     }
     return false;
@@ -470,11 +482,16 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
     m_currentRenderer->render( data );
+    emit needUpdate();
 }
 
 void Gui::Viewer::waitForRendering() {
 
-    if ( isExposed() ) { m_context->swapBuffers( this ); }
+    if ( isExposed() )
+    {
+        m_context->swapBuffers( this );
+        emit needUpdate();
+    }
 
     doneCurrent();
 }
@@ -507,6 +524,7 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     {
         CORE_ASSERT( m_camera != nullptr, "No camera found." );
         m_camera->fitScene( aabb );
+        emit needUpdate();
     }
     else
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }

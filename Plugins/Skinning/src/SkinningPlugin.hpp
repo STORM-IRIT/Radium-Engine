@@ -44,6 +44,9 @@ class SkinningWidget : public QFrame
     void onShowWeightsToggled( bool on );
     void onSkinningWeightsChanged( int newType );
 
+  signals:
+    void askForUpdate();
+
   private slots:
     void onSkinningChanged( int newType );
 
@@ -77,7 +80,7 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     SkinningPluginC() = default;
     virtual ~SkinningPluginC();
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    virtual void registerPlugin( const Ra::Plugins::Context& context ) override;
 
     virtual bool doAddWidget( QString& name ) override;
     virtual QWidget* getWidget() override;
@@ -89,7 +92,10 @@ class SkinningPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     virtual QAction* getAction( int id ) override;
 
     bool doAddROpenGLInitializer() override;
-    void openGlInitialize( const Ra::PluginContext& context ) override;
+    void openGlInitialize( const Ra::Plugins::Context& context ) override;
+
+  signals:
+    void askForUpdate();
 
   private slots:
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );

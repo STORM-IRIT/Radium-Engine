@@ -4,7 +4,10 @@
 #include <memory>
 #include <vector>
 
+#include <QObject>
 #include <QtPlugin>
+
+#include <PluginBase/PluginContext.hpp> // do not use forward declaration to ease usage in Plugin
 
 class QWidget;
 class QMenu;
@@ -13,16 +16,6 @@ class QOpenGLContext;
 class QString;
 
 namespace Ra {
-namespace Engine {
-class RadiumEngine;
-}
-namespace GuiBase {
-class SelectionManager;
-}
-namespace Gui {
-class PickingManager;
-class Viewer;
-} // namespace Gui
 
 namespace Engine {
 class Renderer;
@@ -34,16 +27,8 @@ class FileLoaderInterface;
 }
 } // namespace Core
 
-/// Data passed to the plugin constructor.
-struct PluginContext {
-    Engine::RadiumEngine* m_engine{nullptr};
-    GuiBase::SelectionManager* m_selectionManager{nullptr};
-    Gui::PickingManager* m_pickingManager{nullptr};
-    Gui::Viewer* m_viewer{nullptr};
-    std::string m_exportDir{"."};
-};
-
 namespace Plugins {
+
 class RadiumPluginInterface
 {
   public:
@@ -56,7 +41,7 @@ class RadiumPluginInterface
      *
      * @param context : plugin context containing the engine and UI interfaces.
      */
-    virtual void registerPlugin( const PluginContext& context ) = 0;
+    virtual void registerPlugin( const Context& context ) = 0;
 
     /**
      * @brief Tells wether the plugin wants to add a widget
@@ -101,6 +86,8 @@ class RadiumPluginInterface
     /**
      * @brief Returns the action to be added to the ui and then returns it.
      * @return The action to add.
+     * @warning This mechanism implies QAction copies and does not allow to control the appearance
+     * of multiple actions with interlocked behaviors, e.g. play/pause and stop buttons.
      */
     virtual QAction* getAction( int id ) = 0;
 
@@ -152,7 +139,7 @@ class RadiumPluginInterface
      * and realease it after usage (viewer->doneCurrent())
      * @see Ra::Gui::Viewer
      */
-    virtual void openGlInitialize( const PluginContext& context ) {}
+    virtual void openGlInitialize( const Context& context ) {}
 
     /**
      * Tells if the plugin offer OpenGL based services that need to be initialized after the OpenGL

@@ -17,8 +17,6 @@ namespace Ra {
 struct RA_GUIBASE_API FrameTimerData {
     uint numFrame;
     Core::Utils::TimePoint frameStart;
-    Core::Utils::TimePoint eventsStart;
-    Core::Utils::TimePoint eventsEnd;
     Core::Utils::TimePoint tasksStart;
     Core::Utils::TimePoint tasksEnd;
     Core::Utils::TimePoint frameEnd;

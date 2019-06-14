@@ -37,7 +37,7 @@ MeshPaintPluginC::MeshPaintPluginC() :
 
 MeshPaintPluginC::~MeshPaintPluginC() {}
 
-void MeshPaintPluginC::registerPlugin( const Ra::PluginContext& context ) {
+void MeshPaintPluginC::registerPlugin( const Ra::Plugins::Context& context ) {
     // register selection context
     m_selectionManager = context.m_selectionManager;
     m_PickingManager   = context.m_pickingManager;

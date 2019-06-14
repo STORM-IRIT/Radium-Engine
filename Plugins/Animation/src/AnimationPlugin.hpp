@@ -31,7 +31,7 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     AnimationPluginC();
     ~AnimationPluginC();
 
-    void registerPlugin( const Ra::PluginContext& context ) override;
+    void registerPlugin( const Ra::Plugins::Context& context ) override;
 
     bool doAddWidget( QString& name ) override;
     QWidget* getWidget() override;
@@ -84,6 +84,10 @@ class AnimationPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
 
     /// Request changing the data file directory.
     void changeDataDir();
+
+  signals:
+    void setContinuousUpdate( bool b );
+    void askForUpdate();
 
   private:
     /// The data directory.

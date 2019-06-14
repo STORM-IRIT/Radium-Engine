@@ -42,36 +42,18 @@ void AnimationUI::on_m_play_clicked( bool checked ) {
     }
     else
     {
-        ui->m_play->setChecked( false );
-
-        ui->m_play->setProperty( "pressed", false );
-        ui->m_play->style()->unpolish( ui->m_play );
-        ui->m_play->style()->polish( ui->m_play );
-        ui->m_play->update();
-
+        unpolishPlayButton();
         emit pause();
     }
 }
 
 void AnimationUI::on_m_step_clicked() {
-    ui->m_play->setChecked( false );
-
-    ui->m_play->setProperty( "pressed", false );
-    ui->m_play->style()->unpolish( ui->m_play );
-    ui->m_play->style()->polish( ui->m_play );
-    ui->m_play->update();
-
+    unpolishPlayButton();
     emit step();
 }
 
 void AnimationUI::on_m_reset_clicked() {
-    ui->m_play->setChecked( false );
-
-    ui->m_play->setProperty( "pressed", false );
-    ui->m_play->style()->unpolish( ui->m_play );
-    ui->m_play->style()->polish( ui->m_play );
-    ui->m_play->update();
-
+    unpolishPlayButton();
     emit stop();
 }
 
@@ -109,6 +91,15 @@ void AnimationUI::setMaxFrame( int f ) {
 
 void AnimationUI::on_m_saveDir_clicked() {
     emit changeDataDir();
+}
+
+void AnimationUI::unpolishPlayButton() {
+    ui->m_play->setChecked( false );
+
+    ui->m_play->setProperty( "pressed", false );
+    ui->m_play->style()->unpolish( ui->m_play );
+    ui->m_play->style()->polish( ui->m_play );
+    ui->m_play->update();
 }
 
 void AnimationUI::updateTime( float t ) {
