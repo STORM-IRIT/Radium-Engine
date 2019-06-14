@@ -251,7 +251,6 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
         QString( "Rendering %1 faces and %2 vertices" ).arg( polycount ).arg( vertexcount );
     m_labelCount->setText( polyCountText );
 
-    long sumEvents     = 0;
     long sumRender     = 0;
     long sumTasks      = 0;
     long sumFrame      = 0;
@@ -259,7 +258,6 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     for ( uint i = 0; i < stats.size(); ++i )
     {
-        sumEvents += Core::Utils::getIntervalMicro( stats[i].eventsStart, stats[i].eventsEnd );
         sumRender += Core::Utils::getIntervalMicro( stats[i].renderData.renderStart,
                                                     stats[i].renderData.renderEnd );
         sumTasks += Core::Utils::getIntervalMicro( stats[i].tasksStart, stats[i].tasksEnd );
@@ -274,9 +272,6 @@ void MainWindow::onUpdateFramestats( const std::vector<FrameTimerData>& stats ) 
 
     const uint N{uint( stats.size() )};
     const Scalar T( N * 1000000.f );
-
-    m_eventsTime->setNum( int( sumEvents / N ) );
-    m_eventsUpdates->setNum( int( T / Scalar( sumEvents ) ) );
     m_renderTime->setNum( int( sumRender / N ) );
     m_renderUpdates->setNum( int( T / Scalar( sumRender ) ) );
     m_tasksTime->setNum( int( sumTasks / N ) );
@@ -449,7 +444,7 @@ void MainWindow::updateBackgroundColor( QColor c ) {
 
 void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
     std::string name = shaderName.toStdString();
-    if ( name == "" ) { return; }
+    if ( name.empty() ) { return; }
 
     const ItemEntry& item = m_selectionManager->currentItem();
     const Engine::ShaderConfiguration config =

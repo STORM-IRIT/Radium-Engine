@@ -9,15 +9,11 @@ void FrameTimerData::print( std::ostream& ostream ) const {
     ostream << "{"
             << "\n";
     {
-        long evStart = Ra::Core::Utils::getIntervalMicro( frameStart, eventsStart );
-        long evEnd   = Ra::Core::Utils::getIntervalMicro( frameStart, eventsEnd );
-
         long taStart = Ra::Core::Utils::getIntervalMicro( frameStart, tasksStart );
         long taEnd   = Ra::Core::Utils::getIntervalMicro( frameStart, tasksEnd );
 
         long reStart = Ra::Core::Utils::getIntervalMicro( frameStart, renderData.renderStart );
         long reEnd   = Ra::Core::Utils::getIntervalMicro( frameStart, renderData.renderEnd );
-        ostream << "\tevents: " << evStart << " " << evEnd << " " << evEnd - evStart << "\n";
         ostream << "\ttasks: " << taStart << " " << taEnd << " " << taEnd - taStart << "\n";
         ostream << "\t{"
                 << "\n";

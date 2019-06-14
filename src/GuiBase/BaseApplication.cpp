@@ -272,6 +272,10 @@ BaseApplication::BaseApplication( int argc,
     }
 
     m_lastFrameStart = Core::Utils::Clock::now();
+
+    connect( m_frameTimer, &QTimer::timeout, this, &BaseApplication::updateRadiumFrameIfNeeded );
+    const int deltaTime( m_targetFPS == 0 ? 1 : 1000 / m_targetFPS );
+    m_frameTimer->start( deltaTime );
 }
 
 void BaseApplication::createConnections() {
@@ -280,6 +284,8 @@ void BaseApplication::createConnections() {
     connect(
         m_viewer, &Gui::Viewer::glInitialized, this, &BaseApplication::initializeOpenGlPlugins );
     connect( this, &QGuiApplication::lastWindowClosed, m_viewer, &Gui::WindowQt::cleanupGL );
+
+    connect( m_viewer, &Gui::Viewer::needUpdate, this, &BaseApplication::askForUpdate );
 }
 
 void BaseApplication::setupScene() {
@@ -366,13 +372,8 @@ void BaseApplication::radiumFrame() {
                         : 1.f / Scalar( m_targetFPS );
     m_lastFrameStart = timerData.frameStart;
 
-    timerData.eventsStart = Core::Utils::Clock::now();
-    processEvents();
-    timerData.eventsEnd = Core::Utils::Clock::now();
-
     // ----------
     // 1. Gather user input and dispatch it.
-
     // Get picking results from last frame and forward it to the selection.
     m_viewer->processPicking();
 
@@ -426,7 +427,6 @@ void BaseApplication::radiumFrame() {
         emit( updateFrameStats( m_timerData ) );
         m_timerData.clear();
     }
-
     m_mainWindow->onFrameComplete();
 }
 

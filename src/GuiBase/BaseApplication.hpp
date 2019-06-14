@@ -1,5 +1,6 @@
 #ifndef RADIUMENGINE_BASEAPPLICATION_HPP_
 #define RADIUMENGINE_BASEAPPLICATION_HPP_
+#include <atomic>
 #include <chrono>
 #include <memory>
 #include <vector>
@@ -52,7 +53,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     class WindowFactory
     {
       public:
-        WindowFactory(){};
+        WindowFactory()                                                    = default;
         virtual Ra::GuiBase::MainWindowInterface* createMainWindow() const = 0;
     };
 
@@ -68,7 +69,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
                      const WindowFactory& factory,
                      QString applicationName  = "RadiumEngine",
                      QString organizationName = "STORM-IRIT" );
-    virtual ~BaseApplication();
+    ~BaseApplication();
 
     /// Advance the engine for one frame.
     void radiumFrame();
@@ -80,6 +81,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     uint getFrameCount() const { return m_frameCounter; }
 
     const std::string& getExportFolderName() const { return m_exportFoldername; }
+    void setContinuousUpdate( bool b ) { m_isContinuousUpdating = b; }
+
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
     void starting();
@@ -98,6 +101,12 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
   public slots:
 
+    void updateRadiumFrameIfNeeded() {
+        // Main loop
+        if ( m_isUpdateNeeded.load() ) radiumFrame();
+        if ( !m_isContinuousUpdating ) m_isUpdateNeeded.store( false );
+    }
+
     bool loadFile( QString path );
     void framesCountForStatsChanged( uint count );
     void appNeedsToQuit();
@@ -111,6 +120,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     void recordFrame();
 
     void onSelectedItem( const Ra::Engine::ItemEntry& entry ) { emit selectedItem( entry ); }
+    void askForUpdate() { m_isUpdateNeeded.store( true ); }
 
   protected:
     /// Create signal / slots connections
@@ -126,6 +136,12 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
     void setupScene();
     void addBasicShaders();
+
+    /// check wheter someone ask for update
+    bool isUpdateNeeded() { return m_isUpdateNeeded.load(); }
+
+    /// if b is true, then update anyway. If b is false, update on request only
+    void setIsUpdateNeeded( bool b ) { m_isUpdateNeeded.store( b ); }
 
     // Public variables, accessible through the mainApp singleton.
   public:
@@ -175,6 +191,12 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     bool m_recordGraph;
 
     bool m_isAboutToQuit;
+
+    /// If true update the viewer frame next time
+    std::atomic_bool m_isUpdateNeeded{true};
+
+    /// If true, continuously update viewer frame
+    bool m_isContinuousUpdating{true};
 };
 } // namespace GuiBase
 } // namespace Ra
