@@ -53,7 +53,7 @@ include_directories(
     )
 
 add_library( Dummy SHARED ${sources} ${headers} ${inlines} )
-add_dependencies( Dummy radiumCore radiumEngine radiumGuiBase)
+add_dependencies( Dummy ${RADIUM_LIBRARIES} )
 
 target_compile_definitions( Dummy PRIVATE "-DDummy_EXPORTS" )
 
