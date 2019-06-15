@@ -192,6 +192,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     /// If true, print the task graph;
     bool m_recordGraph;
 
+    /// True if the applicatioon is about to quit. prevent to use resources that are being released.
     bool m_isAboutToQuit;
 
     /// If true update the viewer frame next time

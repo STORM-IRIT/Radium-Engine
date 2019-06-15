@@ -27,15 +27,15 @@ class DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface
 
   public:
     DummyPlugin() = default;
-    virtual ~DummyPlugin();
+    ~DummyPlugin();
 
-    virtual void registerPlugin( const Ra::Plugins::Context& context ) override;
+    void registerPlugin( const Ra::Plugins::Context& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
   private slots:
     void sayHello();
