@@ -25,10 +25,8 @@ void ColorWidget::colorChanged() {
     repaint();
 }
 
-void ColorWidget::mousePressEvent( QMouseEvent* e ) {
-    if ( KeyMappingManager::getInstance()->actionTriggered(
-             e, KeyMappingManager::COLORWIDGET_PRESSBUTTON ) )
-    {
+void ColorWidget::mousePressEvent( QMouseEvent* /*event*/ ) {
+
         QColor color = QColorDialog::getColor( m_currentColor );
         if ( color != m_currentColor )
         {
@@ -37,7 +35,6 @@ void ColorWidget::mousePressEvent( QMouseEvent* e ) {
 
             emit newColorPicked( m_currentColor );
         }
-    }
 }
 } // namespace Gui
 } // namespace Ra

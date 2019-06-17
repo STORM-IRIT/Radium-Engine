@@ -17,7 +17,7 @@
 #include <Engine/Renderer/Renderer.hpp>
 
 #include <GuiBase/Viewer/WindowQt.hpp>
-
+#include <GuiBase/Utils/KeyMappingManager.hpp>
 // Forward declarations
 class QOpenGLContext;
 class QSurfaceFormat;
@@ -155,7 +155,7 @@ class RA_GUIBASE_API Viewer : public WindowQt
      * m_camera->attachLight( light );
      * \endcode
      */
-    int addRenderer( std::shared_ptr<Engine::Renderer> e );
+    int addRenderer( const std::shared_ptr<Engine::Renderer>& e );
 
     void setBackgroundColor( const Core::Utils::Color& background );
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
@@ -188,7 +188,7 @@ class RA_GUIBASE_API Viewer : public WindowQt
     void keyPressEvent( QKeyEvent* event ) override;
     void keyReleaseEvent( QKeyEvent* event ) override;
 
-    Engine::Renderer::PickingMode getPickingMode() const;
+    Engine::Renderer::PickingMode getPickingMode(const Ra::Gui::KeyMappingManager::KeyMappingAction &action) const;
     /// We intercept the mouse events in this widget to get the coordinates of the mouse
     /// in screen space.
     void mousePressEvent( QMouseEvent* event ) override;

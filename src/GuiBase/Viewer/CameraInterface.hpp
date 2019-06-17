@@ -12,6 +12,8 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+
 namespace Ra {
 namespace Engine {
 class Camera;
@@ -43,18 +45,24 @@ class RA_GUIBASE_API CameraInterface : public QObject
     Core::Matrix4 getViewMatrix() const;
 
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMousePressEvent( QMouseEvent* event ) = 0;
+    virtual bool handleMousePressEvent( QMouseEvent* event,
+                                        const KeyMappingManager::KeyMappingAction& action ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseReleaseEvent( QMouseEvent* event ) = 0;
+    virtual bool handleMouseReleaseEvent( QMouseEvent* event,
+                                          const KeyMappingManager::KeyMappingAction& action ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseMoveEvent( QMouseEvent* event ) = 0;
+    virtual bool handleMouseMoveEvent( QMouseEvent* event,
+                                       const KeyMappingManager::KeyMappingAction& action ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleWheelEvent( QWheelEvent* event ) = 0;
+    virtual bool handleWheelEvent( QWheelEvent* event,
+                                   const KeyMappingManager::KeyMappingAction& action ) = 0;
 
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyPressEvent( QKeyEvent* event ) = 0;
+    virtual bool handleKeyPressEvent( QKeyEvent* event,
+                                      const KeyMappingManager::KeyMappingAction& action ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
+    virtual bool handleKeyReleaseEvent( QKeyEvent* event,
+                                        const KeyMappingManager::KeyMappingAction& action ) = 0;
 
     /// Pointer access to the camera.
     const Engine::Camera* getCamera() const { return m_camera; }

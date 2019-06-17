@@ -1,14 +1,13 @@
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Utils/Keyboard.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 #include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
-
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
-
-#include <GuiBase/Utils/KeyMappingManager.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -35,8 +34,6 @@ GizmoManager::GizmoManager( QObject* parent ) :
         if ( g ) { g->show( false ); }
     }
 }
-
-GizmoManager::~GizmoManager() {}
 
 void GizmoManager::setEditable( const Engine::ItemEntry& ent ) {
     TransformEditor::setEditable( ent );
@@ -76,14 +73,16 @@ void GizmoManager::updateValues() {
     {
         getTransform();
         if ( currentGizmo() )
-        { currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform ); } }
+        { currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform ); }
+    }
 }
 
-bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
-    if ( !( Gui::KeyMappingManager::getInstance()->actionTriggered(
-             event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ) ||
-         !canEdit() || m_currentGizmoType == NONE )
-    { return false; } // If we are there it means that we should have a valid gizmo.
+bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
+                                          const KeyMappingManager::KeyMappingAction& action ) {
+
+    if ( !canEdit() || m_currentGizmoType == NONE ) { return false; }
+
+    // If we are there it means that we should have a valid gizmo.
     CORE_ASSERT( currentGizmo(), "Gizmo is not there !" );
 
     const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
@@ -93,21 +92,21 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event ) {
     return true;
 }
 
-bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* event ) {
+bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* /*event*/,
+                                            const KeyMappingManager::KeyMappingAction& action ) {
     if ( currentGizmo() ) { currentGizmo()->selectConstraint( -1 ); }
     return ( currentGizmo() != nullptr );
 }
 
-bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event ) {
-    auto keyMap = Gui::KeyMappingManager::getInstance();
-    // cannot call actionTriggered because event->button returns Qt::NO_BUTTON for moves
-    if ( ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) ||
-           keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_STEP ) ) &&
+bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
+                                         const KeyMappingManager::KeyMappingAction& action ) {
+    if ( ( action == Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ||
+           action == Gui::KeyMappingManager::GIZMOMANAGER_STEP ) &&
          currentGizmo() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
-        bool step = keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_STEP );
+        const Engine::Camera& cam    = CameraInterface::getCameraFromViewer( parent() );
+        bool step                    = action == Gui::KeyMappingManager::GIZMOMANAGER_STEP;
         Core::Transform newTransform = currentGizmo()->mouseMove( cam, currentXY, step );
         setTransform( newTransform );
     }
