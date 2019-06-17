@@ -222,6 +222,20 @@ BaseApplication::BaseApplication( int argc,
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem, 1000 );
 
+    // Initialize plugin context
+    m_pluginContext.m_engine           = m_engine.get();
+    m_pluginContext.m_selectionManager = m_mainWindow->getSelectionManager();
+    m_pluginContext.m_pickingManager   = m_viewer->getPickingManager();
+    m_pluginContext.m_viewer           = m_viewer;
+    m_pluginContext.m_exportDir        = m_exportFoldername;
+
+    connect( &m_pluginContext,
+             &Plugins::Context::setContinuousUpdate,
+             this,
+             &BaseApplication::setContinuousUpdate );
+    connect(
+        &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
+
     // Load plugins
     if ( !loadPlugins(
              pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
@@ -439,15 +453,10 @@ void BaseApplication::initializeOpenGlPlugins() {
     // Initialize plugins that depends on Initialized OpenGL (if any)
     if ( !m_openGLPlugins.empty() )
     {
-        PluginContext context;
-        context.m_engine           = m_engine.get();
-        context.m_selectionManager = m_mainWindow->getSelectionManager();
-        context.m_pickingManager   = m_viewer->getPickingManager();
-        context.m_viewer           = m_viewer;
         for ( auto plugin : m_openGLPlugins )
         {
             m_viewer->makeCurrent();
-            plugin->openGlInitialize( context );
+            plugin->openGlInitialize( m_pluginContext );
             m_viewer->doneCurrent();
         }
         m_openGLPlugins.clear();
@@ -459,6 +468,8 @@ void BaseApplication::setRealFrameRate( bool on ) {
 }
 
 void BaseApplication::setRecordFrames( bool on ) {
+    m_isContinuousUpdating = on;
+    if ( on ) m_isUpdateNeeded = true;
     m_recordFrames = on;
 }
 
@@ -494,13 +505,6 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
     LOG( logDEBUG ) << "Plugin directory :" << pluginsDir.absolutePath().toStdString();
     bool res       = true;
     uint pluginCpt = 0;
-
-    PluginContext context;
-    context.m_engine           = m_engine.get();
-    context.m_selectionManager = m_mainWindow->getSelectionManager();
-    context.m_pickingManager   = m_viewer->getPickingManager();
-    context.m_viewer           = m_viewer;
-    context.m_exportDir        = m_exportFoldername;
 
     for ( const auto& filename : pluginsDir.entryList( QDir::Files ) )
     {
@@ -551,7 +555,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
                 if ( loadedPlugin )
                 {
                     ++pluginCpt;
-                    loadedPlugin->registerPlugin( context );
+                    loadedPlugin->registerPlugin( m_pluginContext );
                     m_mainWindow->updateUi( loadedPlugin );
 
                     if ( loadedPlugin->doAddRenderer() )
@@ -586,7 +590,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
                                            << filename.toStdString();
                             // OpenGL is ready, initialize openGL part of the plugin
                             m_viewer->makeCurrent();
-                            loadedPlugin->openGlInitialize( context );
+                            loadedPlugin->openGlInitialize( m_pluginContext );
                             m_viewer->doneCurrent();
                         }
                         else

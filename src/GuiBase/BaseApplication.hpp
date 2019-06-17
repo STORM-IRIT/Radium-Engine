@@ -10,6 +10,7 @@
 #include <Core/Utils/Timer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
+#include <PluginBase/RadiumPluginInterface.hpp>
 
 class QTimer;
 namespace Ra {
@@ -33,12 +34,6 @@ class Viewer;
 
 namespace GuiBase {
 class MainWindowInterface;
-}
-} // namespace Ra
-
-namespace Ra {
-namespace Plugins {
-class RadiumPluginInterface;
 }
 } // namespace Ra
 
@@ -81,7 +76,6 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     uint getFrameCount() const { return m_frameCounter; }
 
     const std::string& getExportFolderName() const { return m_exportFoldername; }
-    void setContinuousUpdate( bool b ) { m_isContinuousUpdating = b; }
 
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
@@ -120,6 +114,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     void recordFrame();
 
     void onSelectedItem( const Ra::Engine::ItemEntry& entry ) { emit selectedItem( entry ); }
+
+    void setContinuousUpdate( bool b ) { m_isContinuousUpdating = b; }
     void askForUpdate() { m_isUpdateNeeded.store( true ); }
 
   protected:
@@ -198,6 +194,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
     /// If true, continuously update viewer frame
     bool m_isContinuousUpdating{true};
+
+    Plugins::Context m_pluginContext;
 };
 } // namespace GuiBase
 } // namespace Ra

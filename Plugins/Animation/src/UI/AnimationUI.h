@@ -15,7 +15,8 @@ namespace Ui {
 class AnimationUI;
 }
 
-class AnimationUI : public QFrame {
+class AnimationUI : public QFrame
+{
     Q_OBJECT
 
     friend class AnimationPlugin::AnimationPluginC;
@@ -54,6 +55,9 @@ class AnimationUI : public QFrame {
     void frameLoaded( int f );
     void setMaxFrame( int f );
     void on_m_saveDir_clicked();
+
+  private:
+    void unpolishPlayButton();
 
   private:
     Ui::AnimationUI* ui;

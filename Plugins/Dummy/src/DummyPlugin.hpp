@@ -29,7 +29,7 @@ class DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface
     DummyPlugin() = default;
     virtual ~DummyPlugin();
 
-    virtual void registerPlugin( const Ra::PluginContext& context ) override;
+    virtual void registerPlugin( const Ra::Plugins::Context& context ) override;
 
     virtual bool doAddWidget( QString& name ) override;
     virtual QWidget* getWidget() override;

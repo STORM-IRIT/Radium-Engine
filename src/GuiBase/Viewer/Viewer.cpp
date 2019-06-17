@@ -230,6 +230,7 @@ void Gui::Viewer::onAboutToResize() {
 
 void Gui::Viewer::onResized() {
     m_currentRenderer->unlockRendering();
+    emit needUpdate();
 }
 
 void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
@@ -261,6 +262,7 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
     m_camera->resizeViewport( width, height );
     m_currentRenderer->resize( width, height );
     doneCurrent();
+    emit needUpdate();
 }
 
 Engine::Renderer::PickingMode Gui::Viewer::getPickingMode() const {
@@ -341,11 +343,10 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
                 getPickingMode()};
             m_currentRenderer->addPickingRequest( query );
         }
+        emit needUpdate();
     }
     else
         event->ignore();
-
-    emit needUpdate();
 }
 
 void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
@@ -360,11 +361,10 @@ void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
         }
         else
         { m_camera->handleWheelEvent( event ); }
+        emit needUpdate();
     }
     else
     { event->ignore(); }
-
-    emit needUpdate();
 }
 
 void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
@@ -372,11 +372,10 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
     {
         keyPressed( event->key() );
         m_camera->handleKeyPressEvent( event );
+        emit needUpdate();
     }
     else
     { event->ignore(); }
-
-    emit needUpdate();
 }
 
 void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
@@ -483,11 +482,16 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
     m_currentRenderer->render( data );
+    emit needUpdate();
 }
 
 void Gui::Viewer::waitForRendering() {
 
-    if ( isExposed() ) { m_context->swapBuffers( this ); }
+    if ( isExposed() )
+    {
+        m_context->swapBuffers( this );
+        emit needUpdate();
+    }
 
     doneCurrent();
 }
@@ -520,6 +524,7 @@ void Gui::Viewer::fitCameraToScene( const Core::Aabb& aabb ) {
     {
         CORE_ASSERT( m_camera != nullptr, "No camera found." );
         m_camera->fitScene( aabb );
+        emit needUpdate();
     }
     else
     { LOG( logINFO ) << "Unable to fit the camera to the scene : empty Bbox."; }

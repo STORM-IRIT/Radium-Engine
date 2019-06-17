@@ -17,5 +17,6 @@ class MainWindowFactory : public Ra::GuiBase::BaseApplication::WindowFactory
 
 int main( int argc, char** argv ) {
     Ra::MainApplication app( argc, argv, MainWindowFactory() );
+    app.setContinuousUpdate( false );
     return app.exec();
 }

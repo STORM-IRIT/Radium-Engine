@@ -465,6 +465,7 @@ void MainWindow::changeRenderObjectShader( const QString& shaderName ) {
 
 void Gui::MainWindow::setROVisible( Core::Utils::Index roIndex, bool visible ) {
     mainApp->m_engine->getRenderObjectManager()->getRenderObject( roIndex )->setVisible( visible );
+    mainApp->askForUpdate();
 }
 
 void Gui::MainWindow::editRO() {
@@ -473,6 +474,7 @@ void Gui::MainWindow::editRO() {
     {
         m_materialEditor->changeRenderObject( item.m_roIndex );
         m_materialEditor->show();
+        // \fixme check here autoupdate
     }
 }
 
@@ -503,6 +505,7 @@ void Gui::MainWindow::showHideAllRO() {
         auto item = m_itemModel->getEntry( idx );
         if ( item.isValid() && item.isSelectable() )
         { m_itemModel->setData( idx, allEntityInvisible, Qt::CheckStateRole ); } }
+    mainApp->askForUpdate();
 }
 
 void Gui::MainWindow::openMaterialEditor() {
@@ -603,6 +606,7 @@ void MainWindow::deleteCurrentItem() {
         Engine::RadiumEngine::getInstance()->getEntityManager()->removeEntity(
             e.m_entity->getIndex() );
     }
+    mainApp->askForUpdate();
 }
 
 void MainWindow::resetScene() {
@@ -617,7 +621,10 @@ void MainWindow::resetScene() {
 void MainWindow::fitCamera() {
     auto aabb = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb();
     if ( aabb.isEmpty() )
+    {
         m_viewer->getCameraInterface()->resetCamera();
+        mainApp->askForUpdate();
+    }
     else
         m_viewer->fitCameraToScene( aabb );
 }

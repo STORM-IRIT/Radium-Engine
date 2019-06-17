@@ -16,5 +16,6 @@ add_subdirectory( Core )
 add_subdirectory( Engine )
 add_subdirectory( IO )
 add_subdirectory( GuiBase )
+add_subdirectory( PluginBase )
 
-set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} radiumCore radiumEngine radiumIO radiumGuiBase PARENT_SCOPE)
+set(RADIUM_LIBRARIES ${RADIUM_LIBRARIES} radiumCore radiumEngine radiumIO radiumGuiBase radiumPluginBase PARENT_SCOPE)
