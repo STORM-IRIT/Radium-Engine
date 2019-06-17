@@ -26,14 +26,17 @@ class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEdi
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     enum GizmoType { NONE, TRANSLATION, ROTATION, SCALE };
 
-    GizmoManager( QObject* parent = nullptr );
-    ~GizmoManager();
+    explicit GizmoManager( QObject* parent = nullptr );
+    ~GizmoManager() = default;
 
   public:
     /// Receive mouse events and transmit them to the gizmos.
-    virtual bool handleMousePressEvent( QMouseEvent* event );
-    virtual bool handleMouseReleaseEvent( QMouseEvent* event );
-    virtual bool handleMouseMoveEvent( QMouseEvent* event );
+    virtual bool handleMousePressEvent( QMouseEvent* event,
+                                        const KeyMappingManager::KeyMappingAction& action );
+    virtual bool handleMouseReleaseEvent( QMouseEvent* event,
+                                          const KeyMappingManager::KeyMappingAction& action );
+    virtual bool handleMouseMoveEvent( QMouseEvent* event,
+                                       const KeyMappingManager::KeyMappingAction& action );
 
   public slots:
     /// Set the object being currently edited

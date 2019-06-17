@@ -4,6 +4,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
+#include <GuiBase/Utils/Keyboard.hpp>
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
@@ -62,25 +63,29 @@ const Core::Vector3& Gui::TrackballCamera::getTrackballCenter() const {
     return m_trackballCenter;
 }
 
-bool Gui::TrackballCamera::handleMousePressEvent( QMouseEvent* event ) {
+bool Gui::TrackballCamera::handleMousePressEvent(
+    QMouseEvent* event,
+    const KeyMappingManager::KeyMappingAction& action ) {
     bool handled = false;
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
 
-    /* TODO: Better handling of rotation/pan/zoom with KeyMappingManager */
-    if ( event->modifiers().testFlag( Qt::NoModifier ) )
+    if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION )
     {
         m_cameraRotateMode = true;
         handled            = true;
     }
-
-    if ( event->modifiers().testFlag( Qt::ShiftModifier ) )
+    if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_ROTATE )
+    {
+        m_cameraRotateMode = true;
+        handled            = true;
+    }
+    if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_PAN )
     {
         m_cameraPanMode = true;
         handled         = true;
     }
-
-    if ( event->modifiers().testFlag( Qt::ControlModifier ) )
+    if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_ZOOM )
     {
         m_cameraZoomMode = true;
         handled          = true;
@@ -89,7 +94,9 @@ bool Gui::TrackballCamera::handleMousePressEvent( QMouseEvent* event ) {
     return handled;
 }
 
-bool Gui::TrackballCamera::handleMouseMoveEvent( QMouseEvent* event ) {
+bool Gui::TrackballCamera::handleMouseMoveEvent(
+    QMouseEvent* event,
+    const KeyMappingManager::KeyMappingAction& action ) {
     Scalar dx = ( event->pos().x() - m_lastMouseX ) / m_camera->getWidth();
     Scalar dy = ( event->pos().y() - m_lastMouseY ) / m_camera->getHeight();
 
@@ -117,7 +124,9 @@ bool Gui::TrackballCamera::handleMouseMoveEvent( QMouseEvent* event ) {
     return true;
 }
 
-bool Gui::TrackballCamera::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
+bool Gui::TrackballCamera::handleMouseReleaseEvent(
+    QMouseEvent* /*event*/,
+    const KeyMappingManager::KeyMappingAction& action ) {
     m_cameraRotateMode    = false;
     m_cameraPanMode       = false;
     m_cameraZoomMode      = false;
@@ -126,7 +135,8 @@ bool Gui::TrackballCamera::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
     return true;
 }
 
-bool Gui::TrackballCamera::handleWheelEvent( QWheelEvent* event ) {
+bool Gui::TrackballCamera::handleWheelEvent( QWheelEvent* event,
+                                             const KeyMappingManager::KeyMappingAction& action ) {
     handleCameraZoom( ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
                       m_wheelSpeedModifier );
 
@@ -141,9 +151,15 @@ bool Gui::TrackballCamera::handleWheelEvent( QWheelEvent* event ) {
     return true;
 }
 
-bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* e ) {
-    if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
-             e, Gui::KeyMappingManager::TRACKBALLCAMERA_ROTATE_AROUND ) )
+void Gui::TrackballCamera::toggleRotateAround() {
+    m_rotateAround = !m_rotateAround;
+}
+
+bool Gui::TrackballCamera::handleKeyPressEvent(
+    QKeyEvent* e,
+    const KeyMappingManager::KeyMappingAction& action ) {
+
+    if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_ROTATE_AROUND )
     {
         m_rotateAround = !m_rotateAround;
         return true;
@@ -152,7 +168,9 @@ bool Gui::TrackballCamera::handleKeyPressEvent( QKeyEvent* e ) {
     return false;
 }
 
-bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
+bool Gui::TrackballCamera::handleKeyReleaseEvent(
+    QKeyEvent* /*e*/,
+    const KeyMappingManager::KeyMappingAction& action ) {
     return false;
 }
 

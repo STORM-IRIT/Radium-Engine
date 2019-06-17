@@ -16,15 +16,17 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
     TrackballCamera( uint width, uint height );
     virtual ~TrackballCamera();
 
-    bool handleMousePressEvent( QMouseEvent* event ) override;
-    bool handleMouseReleaseEvent( QMouseEvent* event ) override;
-    bool handleMouseMoveEvent( QMouseEvent* event ) override;
-    bool handleWheelEvent( QWheelEvent* event ) override;
+    bool handleMousePressEvent( QMouseEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
+    bool handleMouseReleaseEvent( QMouseEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
+    bool handleMouseMoveEvent( QMouseEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
+    bool handleWheelEvent( QWheelEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
 
-    bool handleKeyPressEvent( QKeyEvent* event ) override;
-    bool handleKeyReleaseEvent( QKeyEvent* event ) override;
+    bool handleKeyPressEvent( QKeyEvent* event , const KeyMappingManager::KeyMappingAction &action) override;
+    bool handleKeyReleaseEvent( QKeyEvent* event , const KeyMappingManager::KeyMappingAction &action) override;
 
-    void setCamera( Engine::Camera* camera ) override;
+
+    void toggleRotateAround();
+        void setCamera( Engine::Camera* camera ) override;
 
     /// Set the distance from the camera to the target point.
     /// \note doesn't modify the camera.

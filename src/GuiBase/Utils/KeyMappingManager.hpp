@@ -28,16 +28,19 @@ class RA_GUIBASE_API KeyMappingManager
     /// clear, FILENAME_ACTION_NAME is used here
 #define KeyMappingActionEnumValues             \
     KMA_VALUE( TRACKBALLCAMERA_MANIPULATION )  \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE )        \
+    KMA_VALUE( TRACKBALLCAMERA_PAN )           \
+    KMA_VALUE( TRACKBALLCAMERA_ZOOM )          \
     KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND ) \
     KMA_VALUE( GIZMOMANAGER_MANIPULATION )     \
     KMA_VALUE( GIZMOMANAGER_STEP )             \
-    KMA_VALUE( VIEWER_BUTTON_PICKING_QUERY )   \
-    KMA_VALUE( FEATUREPICKING_VERTEX )         \
-    KMA_VALUE( FEATUREPICKING_EDGE )           \
-    KMA_VALUE( FEATUREPICKING_TRIANGLE )       \
-    KMA_VALUE( FEATUREPICKING_MULTI_CIRCLE )   \
+    KMA_VALUE( VIEWER_PICKING )                \
+    KMA_VALUE( VIEWER_PICKING_VERTEX )         \
+    KMA_VALUE( VIEWER_PICKING_EDGE )           \
+    KMA_VALUE( VIEWER_PICKING_TRIANGLE )       \
+    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE )   \
     KMA_VALUE( VIEWER_BUTTON_CAST_RAY_QUERY )  \
-    KMA_VALUE( VIEWER_RAYCAST_QUERY )          \
+    KMA_VALUE( VIEWER_RAYCAST )                \
     KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )       \
     KMA_VALUE( COLORWIDGET_PRESSBUTTON )
 
@@ -59,14 +62,12 @@ class RA_GUIBASE_API KeyMappingManager
     void loadConfiguration( const char* filename = nullptr );
     void reloadConfiguration();
 
-    /// May be useful in some cases, but try to use actionTriggered
-    /// instead everytime it is possible.
-    int getKeyFromAction( KeyMappingAction action );
-
-    /// Utility method to check if a QMouseEvent triggers a specific action
-    bool actionTriggered( QMouseEvent* event, KeyMappingAction action );
-    /// Utility method to check if a QKeyEvent triggers a specific action
-    bool actionTriggered( QKeyEvent* event, KeyMappingAction action );
+    /// Return the action associated to the binding buttons + modifiers + key
+    /// \param buttons are the mouse buttons pressed, could be NoButton
+    /// \param modifiers are the keyboard modifiers, could be NoModifiers
+    /// \param key is the key pressed, could be -1
+    KeyMappingAction
+    getAction( Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, int key );
 
     friend std::ostream& operator<<( std::ostream& out,
                                      KeyMappingManager::KeyMappingAction action ) {
@@ -74,13 +75,19 @@ class RA_GUIBASE_API KeyMappingManager
         return out;
     }
 
+    static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );
+    static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
+
   private:
     KeyMappingManager();
     ~KeyMappingManager();
 
     // Private for now, but may need to be public if we want to customize keymapping configuration
     // otherwise than by editing the XML configuration file.
-    void bindKeyToAction( int keyCode, KeyMappingAction action );
+    void bindKeyToAction( int keyCode,
+                          Qt::KeyboardModifiers,
+                          Qt::MouseButtons,
+                          KeyMappingAction action );
 
     void loadConfigurationInternal();
     void loadConfigurationTagsInternal( QDomElement& node );
@@ -91,8 +98,8 @@ class RA_GUIBASE_API KeyMappingManager
 
     // Maybe there's a better way to get enum value from string, even without Q_ENUM
     // defined for Qt::KeyboardModifier and Qt::MouseButton ?
-    Qt::KeyboardModifier getQtModifierValue( const std::string& modifierString );
-    Qt::MouseButton getQtMouseButtonValue( const std::string& keyString );
+    Qt::KeyboardModifiers getQtModifiersValue( const std::string& modifierString );
+    Qt::MouseButtons getQtMouseButtonsValue( const std::string& keyString );
 
   private:
     // For XML parsing using Qt
@@ -101,9 +108,31 @@ class RA_GUIBASE_API KeyMappingManager
     QMetaEnum m_metaEnumKey;
     QFile* m_file;
 
-    // Stores enum value as key, if we want to have two actions bound to the same
-    // combination (is it possible ?)
-    std::map<KeyMappingAction, int> m_mapping;
+    class MouseBinding
+    {
+      public:
+        explicit MouseBinding( Qt::MouseButtons buttons,
+                               Qt::KeyboardModifiers modifiers = Qt::NoModifier,
+                               int key                         = -1 ) :
+
+            m_buttons{buttons},
+            m_modifiers{modifiers},
+            m_key{key} {}
+        bool operator<( const MouseBinding& b ) const {
+            return ( m_buttons < b.m_buttons ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers < b.m_modifiers ) ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
+                     ( m_key < b.m_key ) );
+        }
+
+      private:
+        Qt::MouseButtons m_buttons;
+        Qt::KeyboardModifiers m_modifiers;
+        // only one key
+        int m_key;
+    };
+    using MouseBindingMapping = std::map<MouseBinding, KeyMappingAction>;
+   MouseBindingMapping m_mappingAction;
 };
 } // namespace Gui
 } // namespace Ra
