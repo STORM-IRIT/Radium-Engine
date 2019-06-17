@@ -12,7 +12,7 @@ class RotationEditor : public QWidget, private Ui::RotationEditor
 {
     Q_OBJECT
   public:
-    RotationEditor( uint id, QString title, bool editable, QWidget* parent = nullptr ) :
+    explicit RotationEditor( uint id, QString title, bool editable, QWidget* parent = nullptr ) :
         QWidget( parent ),
         m_id( id ),
         m_relativeAxis( -1 ) {

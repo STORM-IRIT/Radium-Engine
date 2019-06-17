@@ -94,7 +94,7 @@ class RA_GUIBASE_API Viewer : public WindowQt
     void startRendering( const Scalar dt );
 
     /// Blocks until rendering is finished.
-    void waitForRendering();
+    void swapBuffers();
 
     //
     // Misc functions
