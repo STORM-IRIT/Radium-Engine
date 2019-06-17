@@ -391,14 +391,10 @@ void BaseApplication::radiumFrame() {
     // Get picking results from last frame and forward it to the selection.
     m_viewer->processPicking();
 
-    // ----------
-    // 2. Kickoff rendering
-    m_viewer->startRendering( dt );
-
     timerData.tasksStart = Core::Utils::Clock::now();
 
     // ----------
-    // 3. Run the engine task queue.
+    // 2. Run the engine task queue.
     m_engine->getTasks( m_taskQueue.get(), dt );
 
     if ( m_recordGraph ) { m_taskQueue->printTaskGraph( std::cout ); }
@@ -412,17 +408,18 @@ void BaseApplication::radiumFrame() {
     timerData.tasksEnd = Core::Utils::Clock::now();
 
     // ----------
-    // 4. Wait until frame is fully rendered and display.
-    m_viewer->waitForRendering();
+    // 3. Kickoff rendering
+    m_viewer->startRendering( dt );
+    m_viewer->swapBuffers();
 
     timerData.renderData = m_viewer->getRenderer()->getTimerData();
 
     // ----------
-    // 5. Synchronize whatever needs synchronisation
+    // 4. Synchronize whatever needs synchronisation
     m_engine->endFrameSync();
 
     // ----------
-    // 6. Frame end.
+    // 5. Frame end.
     timerData.frameEnd = Core::Utils::Clock::now();
     timerData.numFrame = m_frameCounter;
 

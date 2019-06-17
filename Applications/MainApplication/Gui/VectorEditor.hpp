@@ -15,7 +15,10 @@ class VectorEditor : public QWidget, private Ui::VectorEditor
 {
     Q_OBJECT
   public:
-    VectorEditor( uint id, QString title, bool editable = true, QWidget* parent = nullptr ) :
+    explicit VectorEditor( uint id,
+                           QString title,
+                           bool editable   = true,
+                           QWidget* parent = nullptr ) :
         QWidget( parent ),
         m_id( id ) {
         setupUi( this );
