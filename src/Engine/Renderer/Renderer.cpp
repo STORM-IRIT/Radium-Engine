@@ -162,6 +162,7 @@ void Renderer::initialize( uint width, uint height ) {
     glReadBuffer( GL_BACK );
 }
 
+
 void Renderer::render( const ViewingParameters& data ) {
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
 
@@ -477,7 +478,7 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
     m_pickingFbo->unbind();
 }
 
-void Renderer::drawScreenInternal() {
+void Renderer::restoreExternalFBOInternal() {
     glViewport( m_qtViewport[0], m_qtViewport[1], m_qtViewport[2], m_qtViewport[3] );
 
     if ( m_qtPlz == 0 )
@@ -490,6 +491,11 @@ void Renderer::drawScreenInternal() {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
         GL_ASSERT( glDrawBuffers( 1, buffers ) );
     }
+}
+
+void Renderer::drawScreenInternal() {
+
+    restoreExternalFBOInternal();
     // Display the final screen
     {
         GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
@@ -569,7 +575,8 @@ void Renderer::resize( uint w, uint h ) {
 
 void Renderer::displayTexture( const std::string& texName ) {
     if ( m_secondaryTextures.find( texName ) != m_secondaryTextures.end() )
-    { m_displayedTexture = m_secondaryTextures[texName]; } else
+    { m_displayedTexture = m_secondaryTextures[texName]; }
+    else
     { m_displayedTexture = m_fancyTexture.get(); }
 }
 

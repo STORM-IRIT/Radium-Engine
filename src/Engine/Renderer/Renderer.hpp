@@ -73,7 +73,8 @@ class RA_ENGINE_API Renderer
         TRIANGLE,  ///< Pick a triangle of a mesh
         C_VERTEX,  ///< Picks all vertices of a mesh within a screen space circle
         C_EDGE,    ///< Picks all edges of a mesh within a screen space circle
-        C_TRIANGLE ///< Picks all triangles of a mesh within a screen space circle
+        C_TRIANGLE, ///< Picks all triangles of a mesh within a screen space circle
+        NONE, ///< Do not pick ;)
     };
 
     /**
@@ -337,6 +338,7 @@ class RA_ENGINE_API Renderer
   private:
     // 0.
     void saveExternalFBOInternal();
+    void restoreExternalFBOInternal();
 
     // 1.
     void feedRenderQueuesInternal( const ViewingParameters& renderData );

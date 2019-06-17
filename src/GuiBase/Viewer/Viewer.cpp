@@ -85,7 +85,7 @@ void Gui::Viewer::createGizmoManager() {
     if ( m_gizmoManager == nullptr ) { m_gizmoManager = new GizmoManager( this ); }
 }
 
-int Gui::Viewer::addRenderer( std::shared_ptr<Engine::Renderer> e ) {
+int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Renderer>& e ) {
     // initial state and lighting (deferred if GL is not ready yet)
     if ( m_glInitialized.load() )
     {
@@ -265,21 +265,22 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
     emit needUpdate();
 }
 
-Engine::Renderer::PickingMode Gui::Viewer::getPickingMode() const {
-    auto keyMap = Gui::KeyMappingManager::getInstance();
-    if ( Gui::isKeyPressed(
-             keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_VERTEX ) ) )
+Engine::Renderer::PickingMode
+Gui::Viewer::getPickingMode( const KeyMappingManager::KeyMappingAction& action ) const {
+    if ( action == Gui::KeyMappingManager::VIEWER_PICKING_VERTEX )
     { return m_isBrushPickingEnabled ? Engine::Renderer::C_VERTEX : Engine::Renderer::VERTEX; }
-    if ( Gui::isKeyPressed(
-             keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_EDGE ) ) )
+    if ( action == Gui::KeyMappingManager::VIEWER_PICKING_EDGE )
     { return m_isBrushPickingEnabled ? Engine::Renderer::C_EDGE : Engine::Renderer::EDGE; }
-    if ( Gui::isKeyPressed(
-             keyMap->getKeyFromAction( Gui::KeyMappingManager::FEATUREPICKING_TRIANGLE ) ) )
+    if ( action == Gui::KeyMappingManager::VIEWER_PICKING_TRIANGLE )
     {
         return m_isBrushPickingEnabled ? Engine::Renderer::C_TRIANGLE : Engine::Renderer::TRIANGLE;
     }
-    return Engine::Renderer::RO;
+    if ( action == Gui::KeyMappingManager::VIEWER_PICKING ) { return Engine::Renderer::RO; }
+    return Engine::Renderer::NONE;
 }
+
+enum InteractionMode { INTERACTIVE, PICKING };
+InteractionMode m_interactionMode;
 
 void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     using Core::Utils::Color;
@@ -290,63 +291,89 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
         return;
     }
 
-    auto keyMap = Gui::KeyMappingManager::getInstance();
-    if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_BUTTON_CAST_RAY_QUERY ) &&
-         isKeyPressed( keyMap->getKeyFromAction( Gui::KeyMappingManager::VIEWER_RAYCAST_QUERY ) ) )
+    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
+
+    auto keyMap    = Gui::KeyMappingManager::getInstance();
+    auto buttons   = event->buttons();
+    auto modifiers = event->modifiers();
+    auto key       = activeKey();
+    auto action    = keyMap->getAction( buttons, modifiers, key );
+
+    auto pickingMode = getPickingMode( action );
+    if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ||
+         action == Gui::KeyMappingManager::TRACKBALLCAMERA_ROTATE ||
+         action == Gui::KeyMappingManager::TRACKBALLCAMERA_PAN ||
+         action == Gui::KeyMappingManager::TRACKBALLCAMERA_ZOOM )
+    { m_camera->handleMousePressEvent( event, action ); }
+    else if ( action == Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ||
+              action == Gui::KeyMappingManager::GIZMOMANAGER_STEP )
+    {
+        m_currentRenderer->addPickingRequest( {Core::Vector2( event->x(), height() - event->y() ),
+                                               Engine::Renderer::PickingPurpose::SELECTION,
+                                               Engine::Renderer::RO} );
+        if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMousePressEvent( event, action ); }
+    }
+    else if ( pickingMode != Engine::Renderer::NONE )
+    {
+        Engine::Renderer::PickingQuery query = {Core::Vector2( event->x(), height() - event->y() ),
+                                                Engine::Renderer::PickingPurpose::MANIPULATION,
+                                                pickingMode};
+        m_currentRenderer->addPickingRequest( query );
+    }
+    else if ( action == Gui::KeyMappingManager::VIEWER_RAYCAST )
     {
         LOG( logINFO ) << "Raycast query are disabled";
         auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ) );
         RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f );
         RA_DISPLAY_RAY( r, Color::Yellow() );
     }
-    else if ( keyMap->getKeyFromAction( Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ) ==
-              event->button() )
-    { m_camera->handleMousePressEvent( event ); }
-    else if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ) )
-    {
-        m_currentRenderer->addPickingRequest( {Core::Vector2( event->x(), height() - event->y() ),
-                                               Engine::Renderer::PickingPurpose::SELECTION,
-                                               Engine::Renderer::RO} );
-        if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMousePressEvent( event ); }
-    }
-    else if ( keyMap->actionTriggered( event,
-                                       Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
-    {
-        // Check picking
-        Engine::Renderer::PickingQuery query = {Core::Vector2( event->x(), height() - event->y() ),
-                                                Engine::Renderer::PickingPurpose::MANIPULATION,
-                                                getPickingMode()};
-        m_currentRenderer->addPickingRequest( query );
-    }
+    else if ( action != Gui::KeyMappingManager::KEYMAPPING_ACTION_NUMBER )
+    { LOG( logINFO ) << "Nothing to do for action [" << action << "]"; }
     emit needUpdate();
 }
 
 void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
-    m_camera->handleMouseReleaseEvent( event );
-    if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMouseReleaseEvent( event ); }
+    m_camera->handleMouseReleaseEvent( event, KeyMappingManager::KEYMAPPING_ACTION_NUMBER );
+    if ( m_gizmoManager != nullptr )
+    {
+        m_gizmoManager->handleMouseReleaseEvent( event,
+                                                 KeyMappingManager::KEYMAPPING_ACTION_NUMBER );
+    }
     emit needUpdate();
 }
 
 void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
-    if ( m_glInitialized.load() )
+    if ( !m_glInitialized.load() )
     {
-        m_camera->handleMouseMoveEvent( event );
-        if ( m_gizmoManager != nullptr ) { m_gizmoManager->handleMouseMoveEvent( event ); }
-        m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
-        if ( Gui::KeyMappingManager::getInstance()->actionTriggered(
-                 event, Gui::KeyMappingManager::VIEWER_BUTTON_PICKING_QUERY ) )
-        {
-            // Check picking
-            Engine::Renderer::PickingQuery query = {
-                Core::Vector2( event->x(), ( height() - event->y() ) ),
-                Engine::Renderer::PickingPurpose::MANIPULATION,
-                getPickingMode()};
-            m_currentRenderer->addPickingRequest( query );
-        }
-        emit needUpdate();
-    }
-    else
         event->ignore();
+        return;
+    }
+    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
+
+    auto keyMap      = Gui::KeyMappingManager::getInstance();
+    auto buttons     = event->buttons();
+    auto modifiers   = event->modifiers();
+    auto key         = activeKey();
+    auto action      = keyMap->getAction( buttons, modifiers, key );
+    auto pickingMode = getPickingMode( action );
+
+    if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_MANIPULATION ||
+         action == Gui::KeyMappingManager::TRACKBALLCAMERA_ROTATE ||
+         action == Gui::KeyMappingManager::TRACKBALLCAMERA_PAN ||
+         action == Gui::KeyMappingManager::TRACKBALLCAMERA_ZOOM )
+    { m_camera->handleMouseMoveEvent( event, action ); }
+    else if ( m_gizmoManager != nullptr )
+    { m_gizmoManager->handleMouseMoveEvent( event, action ); }
+    if ( pickingMode != Engine::Renderer::NONE )
+    {
+        // Check picking
+        Engine::Renderer::PickingQuery query = {
+            Core::Vector2( event->x(), ( height() - event->y() ) ),
+            Engine::Renderer::PickingPurpose::MANIPULATION,
+            pickingMode};
+        m_currentRenderer->addPickingRequest( query );
+    }
+    emit needUpdate();
 }
 
 void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
@@ -360,7 +387,7 @@ void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
             m_currentRenderer->setBrushRadius( m_brushRadius );
         }
         else
-        { m_camera->handleWheelEvent( event ); }
+        { m_camera->handleWheelEvent( event, KeyMappingManager::KEYMAPPING_ACTION_NUMBER ); }
         emit needUpdate();
     }
     else
@@ -371,7 +398,29 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
     if ( m_glInitialized.load() )
     {
         keyPressed( event->key() );
-        m_camera->handleKeyPressEvent( event );
+        if ( event->isAutoRepeat() ) return;
+        auto keyMap    = Gui::KeyMappingManager::getInstance();
+        auto buttons   = Qt::NoButton;
+        auto modifiers = event->modifiers();
+        auto key       = activeKey();
+        auto action    = keyMap->getAction( buttons, modifiers, key );
+
+        if ( action == Gui::KeyMappingManager::TRACKBALLCAMERA_ROTATE_AROUND )
+        {
+            m_camera->handleKeyPressEvent( event, action );
+            // m_camera->toogleRotateAround();
+        }
+        else if ( action == Gui::KeyMappingManager::VIEWER_TOGGLE_WIREFRAME )
+        { m_currentRenderer->toggleWireframe(); }
+        else if ( action == Gui::KeyMappingManager::VIEWER_PICKING_MULTI_CIRCLE )
+        {
+            m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
+            m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
+            emit toggleBrushPicking( m_isBrushPickingEnabled );
+        }
+        else if ( action != Gui::KeyMappingManager::KEYMAPPING_ACTION_NUMBER )
+        { LOG( logINFO ) << "Nothing to do for action [" << action << "]"; }
+
         emit needUpdate();
     }
     else
@@ -380,19 +429,12 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
 
 void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
     keyReleased( event->key() );
-    m_camera->handleKeyReleaseEvent( event );
+    auto keyMap    = Gui::KeyMappingManager::getInstance();
+    auto modifiers = event->modifiers();
+    auto key       = activeKey();
+    auto action    = keyMap->getAction( Qt::NoButton, modifiers, key );
 
-    auto keyMap = Gui::KeyMappingManager::getInstance();
-    if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::VIEWER_TOGGLE_WIREFRAME ) &&
-         !event->isAutoRepeat() )
-    { m_currentRenderer->toggleWireframe(); }
-    if ( keyMap->actionTriggered( event, Gui::KeyMappingManager::FEATUREPICKING_MULTI_CIRCLE ) &&
-         event->modifiers() == Qt::NoModifier && !event->isAutoRepeat() )
-    {
-        m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
-        m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
-        emit toggleBrushPicking( m_isBrushPickingEnabled );
-    }
+    m_camera->handleKeyReleaseEvent( event, action );
 
     emit needUpdate();
 }
