@@ -30,7 +30,7 @@ class MaterialEditor : public QWidget, private Ui::MaterialEditor
     Q_OBJECT
 
   public:
-    MaterialEditor( QWidget* parent = nullptr );
+    explicit MaterialEditor( QWidget* parent = nullptr );
 
     void changeRenderObject( Ra::Core::Utils::Index roIdx );
 

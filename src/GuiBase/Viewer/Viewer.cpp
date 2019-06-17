@@ -68,7 +68,6 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     m_renderThread( nullptr )
 #endif
 {
-    setMinimumSize( QSize( 800, 600 ) );
     m_pickingManager = new PickingManager();
 }
 
@@ -258,7 +257,7 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
     int height = event->size().height();
     // Renderer should have been locked by previous events.
     makeCurrent();
-    gl::glViewport( 0, 0, width, height );
+    //    gl::glViewport( 0, 0, width, height );
     m_camera->resizeViewport( width, height );
     m_currentRenderer->resize( width, height );
     doneCurrent();

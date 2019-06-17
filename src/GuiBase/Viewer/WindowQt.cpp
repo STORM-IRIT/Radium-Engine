@@ -101,11 +101,12 @@ void WindowQt::resize( QResizeEvent* event ) {
     initialize();
 
     makeCurrent();
+    // This one do not work well with mac os retina multiscreen, so keep it for later ;)
+    //    QResizeEvent deviceSpecificResizeEvent( event->size() * devicePixelRatio(),
+    //                                            event->oldSize() * devicePixelRatio() );
+    //  resizeGL( &deviceSpecificResizeEvent );
 
-    QResizeEvent deviceSpecificResizeEvent( event->size() * devicePixelRatio(),
-                                            event->oldSize() * devicePixelRatio() );
-
-    resizeGL( &deviceSpecificResizeEvent );
+    resizeGL( event );
 
     doneCurrent();
 }

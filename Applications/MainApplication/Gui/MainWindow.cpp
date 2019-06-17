@@ -51,7 +51,7 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
     QWidget* viewerwidget = QWidget::createWindowContainer( m_viewer );
-    viewerwidget->setMinimumSize( QSize( 800, 600 ) );
+    //  viewerwidget->setMinimumSize( QSize( 800, 600 ) );
     viewerwidget->setAutoFillBackground( false );
 
     setCentralWidget( viewerwidget );
