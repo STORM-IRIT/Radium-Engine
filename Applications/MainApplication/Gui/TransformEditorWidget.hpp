@@ -16,7 +16,7 @@ class TransformEditorWidget : public QWidget, public GuiBase::TransformEditor
 {
     Q_OBJECT
   public:
-    TransformEditorWidget( QWidget* parent = nullptr );
+    explicit TransformEditorWidget( QWidget* parent = nullptr );
     ~TransformEditorWidget(){};
 
   public slots:

@@ -23,7 +23,7 @@ class RA_PLUGINBASE_API Context : public QObject
     Q_OBJECT
 
   public:
-    inline Context( QObject* parent = nullptr ) : QObject( parent ) {}
+    explicit Context( QObject* parent = nullptr ) : QObject( parent ) {}
 
     Engine::RadiumEngine* m_engine{nullptr};
     GuiBase::SelectionManager* m_selectionManager{nullptr};

@@ -11,7 +11,7 @@ class ColorWidget : public QWidget
     Q_OBJECT
 
   public:
-    ColorWidget( QWidget* parent = nullptr );
+    explicit ColorWidget( QWidget* parent = nullptr );
 
   public slots:
     void colorChanged( int r, int g, int b );
