@@ -59,6 +59,7 @@ class RA_GUIBASE_API WindowQt : public QWindow
   public slots:
     /// call deinitializeGL if needed, with context activated
     void cleanupGL();
+    void screenChanged();
 
   protected:
     // OpenglContext used with this widget

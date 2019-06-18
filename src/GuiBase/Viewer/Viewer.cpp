@@ -257,7 +257,9 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
     int height = event->size().height();
     // Renderer should have been locked by previous events.
     makeCurrent();
-    //    gl::glViewport( 0, 0, width, height );
+#ifndef OS_MACOS
+    gl::glViewport( 0, 0, width, height );
+#endif
     m_camera->resizeViewport( width, height );
     m_currentRenderer->resize( width, height );
     doneCurrent();

@@ -5,6 +5,7 @@
 #include <QOpenGLContext>
 #include <QResizeEvent>
 #include <QSurfaceFormat>
+#include <QScreen>
 
 #include <Core/Utils/Log.hpp>
 
@@ -45,11 +46,19 @@ WindowQt::WindowQt( QScreen* screen ) :
         QApplication::quit();
     }
 
+    connect( this, &QWindow::screenChanged, this, &WindowQt::screenChanged );
+
     // cleanup connection is set in BaseApplication
 }
 
 WindowQt::~WindowQt() {
     // cannot deinitialize OpenGL here as it would require the call of a virtual member function
+}
+
+void WindowQt::screenChanged() {
+    QSize s { size().width(), size().height() };
+    QResizeEvent patchEvent { s, s };
+    resize( &patchEvent );
 }
 
 QOpenGLContext* WindowQt::context() {
@@ -88,6 +97,7 @@ void WindowQt::showEvent( QShowEvent* /*ev*/ ) {
 }
 
 void WindowQt::resize( QResizeEvent* event ) {
+#ifdef OS_MACOS
     // Ugly patch since Qt seems buggy on this point on macos, raise two resize call the first time.
     if ( event->size().width() < minimumSize().width() ||
          event->size().height() < minimumSize().height() )
@@ -98,13 +108,11 @@ void WindowQt::resize( QResizeEvent* event ) {
         event                    = patchEvent;
         QWindow::resize( size );
     }
+#endif
+
     initialize();
 
     makeCurrent();
-    // This one do not work well with mac os retina multiscreen, so keep it for later ;)
-    //    QResizeEvent deviceSpecificResizeEvent( event->size() * devicePixelRatio(),
-    //                                            event->oldSize() * devicePixelRatio() );
-    //  resizeGL( &deviceSpecificResizeEvent );
 
     resizeGL( event );
 
