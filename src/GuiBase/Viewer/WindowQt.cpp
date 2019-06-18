@@ -114,6 +114,7 @@ void WindowQt::resize( QResizeEvent* event ) {
 
     makeCurrent();
 
+    // do not take into account devicePixelRatio(), we work on ldi resolution in our GL world.
     resizeGL( event );
 
     doneCurrent();
