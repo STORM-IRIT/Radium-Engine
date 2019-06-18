@@ -66,7 +66,7 @@ void MinimalApp::frame() {
     m_task_queue->flushTaskQueue();
 
     // Finish the frame
-    m_viewer->waitForRendering();
+    m_viewer->swapBuffers();
 
     m_engine->endFrameSync();
 }

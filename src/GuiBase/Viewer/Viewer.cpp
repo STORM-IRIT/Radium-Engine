@@ -58,7 +58,7 @@ using namespace glbinding;
 Gui::Viewer::Viewer( QScreen* screen ) :
     WindowQt( screen ),
     m_currentRenderer( nullptr ),
-    m_pickingManager( nullptr ),
+    m_pickingManager( new PickingManager() ),
     m_isBrushPickingEnabled( false ),
     m_brushRadius( 10 ),
     m_camera( nullptr ),
@@ -68,7 +68,6 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     m_renderThread( nullptr )
 #endif
 {
-    m_pickingManager = new PickingManager();
 }
 
 Gui::Viewer::~Viewer() {
@@ -481,17 +480,10 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
     m_currentRenderer->render( data );
-    emit needUpdate();
 }
 
-void Gui::Viewer::waitForRendering() {
-
-    if ( isExposed() )
-    {
-        m_context->swapBuffers( this );
-        emit needUpdate();
-    }
-
+void Gui::Viewer::swapBuffers() {
+    m_context->swapBuffers( this );
     doneCurrent();
 }
 
