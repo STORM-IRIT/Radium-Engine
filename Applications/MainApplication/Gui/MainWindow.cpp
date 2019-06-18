@@ -474,7 +474,6 @@ void Gui::MainWindow::editRO() {
     {
         m_materialEditor->changeRenderObject( item.m_roIndex );
         m_materialEditor->show();
-        // \fixme check here autoupdate
     }
 }
 

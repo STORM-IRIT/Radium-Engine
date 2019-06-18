@@ -31,18 +31,18 @@ class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInte
 
   public:
     MeshFeatureTrackingPluginC();
-    virtual ~MeshFeatureTrackingPluginC();
+    ~MeshFeatureTrackingPluginC();
 
-    virtual void registerPlugin( const Ra::Plugins::Context& context ) override;
+    void registerPlugin( const Ra::Plugins::Context& context ) override;
 
-    virtual bool doAddWidget( QString& name ) override;
-    virtual QWidget* getWidget() override;
+    bool doAddWidget( QString& name ) override;
+    QWidget* getWidget() override;
 
-    virtual bool doAddMenu() override;
-    virtual QMenu* getMenu() override;
+    bool doAddMenu() override;
+    QMenu* getMenu() override;
 
-    virtual bool doAddAction( int& nb ) override;
-    virtual QAction* getAction( int id ) override;
+    bool doAddAction( int& nb ) override;
+    QAction* getAction( int id ) override;
 
   public slots:
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
