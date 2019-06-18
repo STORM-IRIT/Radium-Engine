@@ -362,18 +362,22 @@ void MainWindow::closeEvent( QCloseEvent* event ) {
 
 void MainWindow::gizmoShowNone() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::NONE );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::gizmoShowTranslate() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::TRANSLATION );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::gizmoShowRotate() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::ROTATION );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::gizmoShowScale() {
     m_viewer->getGizmoManager()->changeGizmoType( GizmoManager::SCALE );
+    mainApp->askForUpdate();
 }
 
 void MainWindow::reloadConfiguration() {

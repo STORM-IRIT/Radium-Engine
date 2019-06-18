@@ -316,6 +316,7 @@ void SkinningWidget::onSkinningChanged( int newType ) {
     default:
     { break; }
     }
+    askForUpdate();
 }
 
 void SkinningWidget::onShowWeightsToggled( bool on ) {
