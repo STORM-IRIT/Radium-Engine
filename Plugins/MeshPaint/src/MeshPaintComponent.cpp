@@ -72,18 +72,12 @@ void MeshPaintComponent::startPaint( bool on ) {
 
         // If any, save colors from the CPU object, otherwise set default color and notify GPU
         // object
-        m_currentColorAttribHdl = triangleMesh.getAttribHandle<Ra::Core::Vector4>( colAttribName );
-        if ( m_currentColorAttribHdl.idx().isInvalid() )
+        m_currentColorAttribHdl = triangleMesh.addAttrib<Ra::Core::Vector4>( colAttribName );
+        m_baseColors            = triangleMesh.getAttrib( m_currentColorAttribHdl ).data();
+        if ( m_baseColors.size() == 0 )
         {
-            m_baseColors.clear();
             triangleMesh.colorize( Ra::Core::Utils::Color::Skin() );
-            m_currentColorAttribHdl =
-                triangleMesh.getAttribHandle<Ra::Core::Vector4>( colAttribName );
             m_mesh->setDirty( Ra::Engine::Mesh::VERTEX_COLOR, true );
-        }
-        else
-        {
-            m_baseColors = triangleMesh.getAttrib( m_currentColorAttribHdl ).data(); // copy
         }
     }
     else
