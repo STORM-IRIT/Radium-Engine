@@ -468,8 +468,8 @@ void BaseApplication::setRealFrameRate( bool on ) {
 }
 
 void BaseApplication::setRecordFrames( bool on ) {
-    m_isContinuousUpdating = on;
-    if ( on ) m_isUpdateNeeded = true;
+    setContinuousUpdate( on );
+    if ( on ) askForUpdate();
     m_recordFrames = on;
 }
 

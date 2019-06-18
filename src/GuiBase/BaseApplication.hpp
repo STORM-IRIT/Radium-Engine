@@ -98,7 +98,11 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     void updateRadiumFrameIfNeeded() {
         // Main loop
         if ( m_isUpdateNeeded.load() ) radiumFrame();
-        if ( !m_isContinuousUpdating ) m_isUpdateNeeded.store( false );
+        if ( m_continuousUpdateRequest <= 0 )
+        {
+            m_continuousUpdateRequest.store( 0 );
+            m_isUpdateNeeded.store( false );
+        }
     }
 
     bool loadFile( QString path );
@@ -115,7 +119,9 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
     void onSelectedItem( const Ra::Engine::ItemEntry& entry ) { emit selectedItem( entry ); }
 
-    void setContinuousUpdate( bool b ) { m_isContinuousUpdating = b; }
+    void setContinuousUpdate( bool b ) {
+        b ? m_continuousUpdateRequest++ : m_continuousUpdateRequest--;
+    }
     void askForUpdate() { m_isUpdateNeeded.store( true ); }
 
   protected:
@@ -192,8 +198,8 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     /// If true update the viewer frame next time
     std::atomic_bool m_isUpdateNeeded{true};
 
-    /// If true, continuously update viewer frame
-    bool m_isContinuousUpdating{true};
+    /// If counter is >= 0, continuously update viewer frame
+    std::atomic<int> m_continuousUpdateRequest{1};
 
     Plugins::Context m_pluginContext;
 };
