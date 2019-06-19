@@ -36,6 +36,7 @@
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
+#include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <QCommandLineParser>
 #include <QDir>
 #include <QOpenGLContext>
@@ -199,6 +200,8 @@ BaseApplication::BaseApplication( int argc,
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
+    Gui::KeyMappingManager::getInstance()->addListener(Gui::TrackballCamera::registerKeyMapping);
+    Gui::KeyMappingManager::getInstance()->addListener(Gui::Viewer::registerKeyMapping);
 
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );

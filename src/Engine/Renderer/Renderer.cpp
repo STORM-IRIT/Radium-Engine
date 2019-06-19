@@ -162,6 +162,57 @@ void Renderer::initialize( uint width, uint height ) {
     glReadBuffer( GL_BACK );
 }
 
+Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
+                                                const ViewingParameters& renderData ) {
+    CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
+
+    PickingResult result;
+
+    // skip query if out of window (can occur when picking while moving outside)
+    if ( query.m_screenCoords.x() < 0 || query.m_screenCoords.x() > m_width - 1 ||
+         query.m_screenCoords.y() < 0 || query.m_screenCoords.y() > m_height - 1 )
+    {
+        result.m_roIdx = -1;
+        return result;
+    }
+
+    std::lock_guard<std::mutex> renderLock( m_renderMutex );
+    CORE_UNUSED( renderLock );
+
+    // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget) and viewport
+    saveExternalFBOInternal();
+
+    // 1. Gather render objects if needed
+    feedRenderQueuesInternal( renderData );
+    updateRenderObjectsInternal( renderData );
+    // 3. Do picking if needed
+
+    m_pickingFbo->bind();
+
+    preparePicking( renderData );
+
+    // Now read the Picking Texture to address the Picking Requests.
+    GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
+
+    int pick[4];
+
+    GL_ASSERT( glReadPixels(
+        query.m_screenCoords.x(), query.m_screenCoords.y(), 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
+    result.m_roIdx = pick[0];                    // RO idx
+    result.m_vertexIdx.emplace_back( pick[1] );  // vertex idx in the element
+    result.m_elementIdx.emplace_back( pick[2] ); // element idx
+    result.m_edgeIdx.emplace_back( pick[3] );    // edge opposite idx for triangles
+
+    result.m_mode = query.m_mode;
+
+    m_pickingFbo->unbind();
+
+    ///////
+
+    restoreExternalFBOInternal();
+
+    return result;
+} // namespace Engine
 
 void Renderer::render( const ViewingParameters& data ) {
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
@@ -343,69 +394,7 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
     m_pickingResults.reserve( m_pickingQueries.size() );
 
     m_pickingFbo->bind();
-
-    GL_ASSERT( glDepthMask( GL_TRUE ) );
-    GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
-    GL_ASSERT( glDrawBuffers( 1, buffers ) );
-
-    float clearDepth = 1.0;
-    int clearColor[] = {-1, -1, -1, -1};
-
-    GL_ASSERT( glClearBufferiv( GL_COLOR, 0, clearColor ) );
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-
-    splitRenderQueuesForPicking( renderData );
-
-    // First draw Geometry Objects
-    GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
-    GL_ASSERT( glDepthFunc( GL_LESS ) );
-
-    renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
-
-    // Then draw debug objects
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-    if ( m_drawDebug )
-    { renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking ); }
-
-    // Then draw xrayed objects on top of normal objects
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-    if ( m_drawDebug )
-    { renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking ); }
-
-    // Finally draw ui stuff on top of everything
-    // these have a different way to compute the transform matrices
-    // FIXME (florian): find a way to use renderForPicking()!
-    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
-    for ( uint i = 0; i < m_pickingShaders.size(); ++i )
-    {
-        m_pickingShaders[i]->bind();
-        m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
-        m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
-
-        for ( const auto& ro : m_uiRenderObjectsPicking[i] )
-        {
-            if ( ro->isVisible() && ro->isPickable() )
-            {
-                m_pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
-
-                Core::Matrix4 M  = ro->getTransformAsMatrix();
-                Core::Matrix4 MV = renderData.viewMatrix * M;
-                Scalar d         = MV.block<3, 1>( 0, 3 ).norm();
-
-                Core::Matrix4 S = Core::Matrix4::Identity();
-                S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
-
-                M               = M * S;
-                Core::Matrix4 N = M.inverse().transpose();
-
-                m_pickingShaders[i]->setUniform( "transform.model", M );
-                m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
-
-                // render
-                ro->getMesh()->render();
-            }
-        }
-    }
+    preparePicking( renderData );
 
     // Now read the Picking Texture to address the Picking Requests.
     GL_ASSERT( glReadBuffer( GL_COLOR_ATTACHMENT0 ) );
@@ -476,6 +465,71 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
     }
 
     m_pickingFbo->unbind();
+}
+void Renderer::preparePicking( const ViewingParameters& renderData ) {
+
+    GL_ASSERT( glDepthMask( GL_TRUE ) );
+    GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
+    GL_ASSERT( glDrawBuffers( 1, buffers ) );
+
+    float clearDepth = 1.0;
+    int clearColor[] = {-1, -1, -1, -1};
+
+    GL_ASSERT( glClearBufferiv( GL_COLOR, 0, clearColor ) );
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+
+    splitRenderQueuesForPicking( renderData );
+
+    // First draw Geometry Objects
+    GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
+    GL_ASSERT( glDepthFunc( GL_LESS ) );
+
+    renderForPicking( renderData, m_pickingShaders, m_fancyRenderObjectsPicking );
+
+    // Then draw debug objects
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+    if ( m_drawDebug )
+    { renderForPicking( renderData, m_pickingShaders, m_debugRenderObjectsPicking ); }
+
+    // Then draw xrayed objects on top of normal objects
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+    if ( m_drawDebug )
+    { renderForPicking( renderData, m_pickingShaders, m_xrayRenderObjectsPicking ); }
+
+    // Finally draw ui stuff on top of everything
+    // these have a different way to compute the transform matrices
+    // FIXME (florian): find a way to use renderForPicking()!
+    GL_ASSERT( glClearBufferfv( GL_DEPTH, 0, &clearDepth ) );
+    for ( uint i = 0; i < m_pickingShaders.size(); ++i )
+    {
+        m_pickingShaders[i]->bind();
+        m_pickingShaders[i]->setUniform( "transform.proj", renderData.projMatrix );
+        m_pickingShaders[i]->setUniform( "transform.view", renderData.viewMatrix );
+
+        for ( const auto& ro : m_uiRenderObjectsPicking[i] )
+        {
+            if ( ro->isVisible() && ro->isPickable() )
+            {
+                m_pickingShaders[i]->setUniform( "objectId", ro->getIndex().getValue() );
+
+                Core::Matrix4 M  = ro->getTransformAsMatrix();
+                Core::Matrix4 MV = renderData.viewMatrix * M;
+                Scalar d         = MV.block<3, 1>( 0, 3 ).norm();
+
+                Core::Matrix4 S = Core::Matrix4::Identity();
+                S( 0, 0 ) = S( 1, 1 ) = S( 2, 2 ) = d;
+
+                M               = M * S;
+                Core::Matrix4 N = M.inverse().transpose();
+
+                m_pickingShaders[i]->setUniform( "transform.model", M );
+                m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
+
+                // render
+                ro->getMesh()->render();
+            }
+        }
+    }
 }
 
 void Renderer::restoreExternalFBOInternal() {
