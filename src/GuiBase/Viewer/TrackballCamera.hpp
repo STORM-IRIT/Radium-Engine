@@ -16,17 +16,25 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
     TrackballCamera( uint width, uint height );
     virtual ~TrackballCamera();
 
-    bool handleMousePressEvent( QMouseEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
-    bool handleMouseReleaseEvent( QMouseEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
-    bool handleMouseMoveEvent( QMouseEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
-    bool handleWheelEvent( QWheelEvent* event, const KeyMappingManager::KeyMappingAction &action ) override;
+    static void registerKeyMapping();
 
-    bool handleKeyPressEvent( QKeyEvent* event , const KeyMappingManager::KeyMappingAction &action) override;
-    bool handleKeyReleaseEvent( QKeyEvent* event , const KeyMappingManager::KeyMappingAction &action) override;
+    bool handleMousePressEvent( QMouseEvent* event,
+                                const Qt::MouseButtons& buttons,
+                                const Qt::KeyboardModifiers& modifiers,
+                                int key ) override;
+    bool handleMouseReleaseEvent( QMouseEvent* event ) override;
+    bool handleMouseMoveEvent( QMouseEvent* event,
+                               const Qt::MouseButtons& buttons,
+                               const Qt::KeyboardModifiers& modifiers,
+                               int key ) override;
+    bool handleWheelEvent( QWheelEvent* event ) override;
 
+    bool handleKeyPressEvent( QKeyEvent* event,
+                              const KeyMappingManager::KeyMappingAction& action ) override;
+    bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void toggleRotateAround();
-        void setCamera( Engine::Camera* camera ) override;
+    void setCamera( Engine::Camera* camera ) override;
 
     /// Set the distance from the camera to the target point.
     /// \note doesn't modify the camera.
@@ -87,6 +95,19 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
     bool m_cameraPanMode;
     bool m_cameraZoomMode;
     // TODO(Charly): fps mode
+
+    // static KeyMappingManager::Context m_keyMappingContext;
+
+#define KeyMappingCamera                      \
+    KMA_VALUE( TRACKBALLCAMERA_MANIPULATION ) \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE )       \
+    KMA_VALUE( TRACKBALLCAMERA_PAN )          \
+    KMA_VALUE( TRACKBALLCAMERA_ZOOM )         \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND )
+
+#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
+    KeyMappingCamera
+#undef KMA_VALUE
 };
 
 } // namespace Gui

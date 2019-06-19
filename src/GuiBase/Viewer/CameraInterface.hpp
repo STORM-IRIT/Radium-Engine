@@ -25,7 +25,7 @@ namespace Ra {
 namespace Gui {
 
 /// The CameraInterface class is the generic class for camera manipulators.
-class RA_GUIBASE_API CameraInterface : public QObject
+class RA_GUIBASE_API CameraInterface : public QObject, public KeyMappingManageable<CameraInterface>
 {
     Q_OBJECT
 
@@ -46,23 +46,24 @@ class RA_GUIBASE_API CameraInterface : public QObject
 
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleMousePressEvent( QMouseEvent* event,
-                                        const KeyMappingManager::KeyMappingAction& action ) = 0;
+                                        const Qt::MouseButtons& buttons,
+                                        const Qt::KeyboardModifiers& modifiers,
+                                        int key ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleMouseReleaseEvent( QMouseEvent* event,
-                                          const KeyMappingManager::KeyMappingAction& action ) = 0;
+    virtual bool handleMouseReleaseEvent( QMouseEvent* event ) = 0;
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleMouseMoveEvent( QMouseEvent* event,
-                                       const KeyMappingManager::KeyMappingAction& action ) = 0;
+                                       const Qt::MouseButtons& buttons,
+                                       const Qt::KeyboardModifiers& modifiers,
+                                       int key ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleWheelEvent( QWheelEvent* event,
-                                   const KeyMappingManager::KeyMappingAction& action ) = 0;
+    virtual bool handleWheelEvent( QWheelEvent* event ) = 0;
 
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleKeyPressEvent( QKeyEvent* event,
                                       const KeyMappingManager::KeyMappingAction& action ) = 0;
     /// @return true if the event has been taken into account, false otherwise
-    virtual bool handleKeyReleaseEvent( QKeyEvent* event,
-                                        const KeyMappingManager::KeyMappingAction& action ) = 0;
+    virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
     /// Pointer access to the camera.
     const Engine::Camera* getCamera() const { return m_camera; }
