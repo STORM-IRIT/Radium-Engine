@@ -288,6 +288,8 @@ class RA_ENGINE_API Renderer
 
     virtual std::unique_ptr<uchar[]> grabFrame( size_t& w, size_t& h ) const;
 
+    PickingResult doPickingNow( const PickingQuery& query, const ViewingParameters& renderData );
+
   protected:
     /**
      * @brief initializeInternal
@@ -433,6 +435,7 @@ class RA_ENGINE_API Renderer
     std::vector<PickingResult> m_pickingResults;
 
     Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
+    void preparePicking( const ViewingParameters& renderData );
 };
 
 } // namespace Engine

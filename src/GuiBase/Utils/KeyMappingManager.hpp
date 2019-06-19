@@ -7,6 +7,8 @@
 
 #include <GuiBase/RaGuiBase.hpp>
 
+#include <Core/Utils/Index.hpp>
+#include <Core/Utils/Log.hpp>
 #include <Core/Utils/Singleton.hpp>
 
 namespace Ra {
@@ -22,43 +24,10 @@ class RA_GUIBASE_API KeyMappingManager
     Q_GADGET
 
   public:
-    /// Definition of the KeyMappingAction identifier
-    /// Represents all of the actions which can be done with a combination of key/modifier or with a
-    /// mouse click. If you want to add a new action, just add a value to this list. Try to keep it
-    /// clear, FILENAME_ACTION_NAME is used here
-#define KeyMappingActionEnumValues             \
-    KMA_VALUE( TRACKBALLCAMERA_MANIPULATION )  \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE )        \
-    KMA_VALUE( TRACKBALLCAMERA_PAN )           \
-    KMA_VALUE( TRACKBALLCAMERA_ZOOM )          \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND ) \
-    KMA_VALUE( GIZMOMANAGER_MANIPULATION )     \
-    KMA_VALUE( GIZMOMANAGER_STEP )             \
-    KMA_VALUE( VIEWER_PICKING )                \
-    KMA_VALUE( VIEWER_PICKING_VERTEX )         \
-    KMA_VALUE( VIEWER_PICKING_EDGE )           \
-    KMA_VALUE( VIEWER_PICKING_TRIANGLE )       \
-    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE )   \
-    KMA_VALUE( VIEWER_BUTTON_CAST_RAY_QUERY )  \
-    KMA_VALUE( VIEWER_RAYCAST )                \
-    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )       \
-    KMA_VALUE( COLORWIDGET_PRESSBUTTON )
+    using Listener = void ( * )();
+    using KeyMappingAction = Ra::Core::Utils::Index;
+    using Context          = Ra::Core::Utils::Index;
 
-    /// Enum which represents all of the actions which can be done
-    enum KeyMappingAction {
-#define KMA_VALUE( x ) x,
-        KeyMappingActionEnumValues
-#undef KMA_VALUE
-            KEYMAPPING_ACTION_NUMBER
-    };
-
-    /// Static array of string representation of enumeration values.
-    static const std::string KeyMappingActionNames[];
-
-    // In order to have a String corresponding to each enum value
-    Q_ENUM( KeyMappingAction )
-
-  public:
     void loadConfiguration( const char* filename = nullptr );
     void reloadConfiguration();
 
@@ -66,17 +35,49 @@ class RA_GUIBASE_API KeyMappingManager
     /// \param buttons are the mouse buttons pressed, could be NoButton
     /// \param modifiers are the keyboard modifiers, could be NoModifiers
     /// \param key is the key pressed, could be -1
-    KeyMappingAction
-    getAction( Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, int key );
-
-    friend std::ostream& operator<<( std::ostream& out,
-                                     KeyMappingManager::KeyMappingAction action ) {
-        out << KeyMappingManager::KeyMappingActionNames[static_cast<unsigned int>( action )];
-        return out;
-    }
+    KeyMappingAction getAction( const Context& context,
+                                const Qt::MouseButtons& buttons,
+                                const Qt::KeyboardModifiers& modifiers,
+                                int key );
 
     static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );
     static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
+
+    Context getContext( const std::string contextName ) {
+        return m_contextNameToIndex[contextName];
+    }
+    KeyMappingAction getActionIndex( const Context& context, const std::string actionName ) {
+        LOG( Ra::Core::Utils::logINFO ) << "getActionIndex " << context << " " << actionName;
+
+        return m_actionNameToIndex[context][actionName];
+    }
+
+    std::string getActionName( const Context& context, const KeyMappingAction& action ) {
+        auto findResult = std::find_if(
+            std::begin( m_actionNameToIndex[context] ),
+            std::end( m_actionNameToIndex[context] ),
+            [&]( const ActionNameMap::value_type& pair ) { return pair.second == action; } );
+
+        if ( findResult != std::end( m_actionNameToIndex[context] ) ) { return findResult->first; }
+        return "Invalid";
+    }
+
+    std::string getContextName( const Context& context ) {
+        auto findResult = std::find_if(
+            std::begin( m_contextNameToIndex ),
+            std::end( m_contextNameToIndex ),
+            [&]( const ContextNameMap ::value_type& pair ) { return pair.second == context; } );
+
+        if ( findResult != std::end( m_contextNameToIndex ) ) { return findResult->first; }
+        return "Invalid";
+    }
+
+    /// Add a callback, triggered when configuration is load or reloaded.
+    void addListener( Listener callback ) {
+        m_listeners.push_back( callback );
+        // call the registered listener directly to have it up to date.
+        callback();
+    }
 
   private:
     KeyMappingManager();
@@ -84,14 +85,16 @@ class RA_GUIBASE_API KeyMappingManager
 
     // Private for now, but may need to be public if we want to customize keymapping configuration
     // otherwise than by editing the XML configuration file.
-    void bindKeyToAction( int keyCode,
+    void bindKeyToAction( Ra::Core::Utils::Index contextIndex,
+                          int keyCode,
                           Qt::KeyboardModifiers,
                           Qt::MouseButtons,
-                          KeyMappingAction action );
+                          Ra::Core::Utils::Index actionIndex );
 
     void loadConfigurationInternal();
     void loadConfigurationTagsInternal( QDomElement& node );
-    void loadConfigurationMappingInternal( const std::string& typeString,
+    void loadConfigurationMappingInternal( const std::string& context,
+                                           const std::string& typeString,
                                            const std::string& modifierString,
                                            const std::string& keyString,
                                            const std::string& actionString );
@@ -131,10 +134,58 @@ class RA_GUIBASE_API KeyMappingManager
         // only one key
         int m_key;
     };
+
     using MouseBindingMapping = std::map<MouseBinding, KeyMappingAction>;
-   MouseBindingMapping m_mappingAction;
+    using ContextNameMap      = std::map<std::string, Context>;
+    using ActionNameMap       = std::map<std::string, Ra::Core::Utils::Index>;
+
+    std::vector<Listener> m_listeners;
+
+    ContextNameMap m_contextNameToIndex;              ///< context string give index
+    std::vector<ActionNameMap> m_actionNameToIndex;   ///< one element per context
+    std::vector<MouseBindingMapping> m_mappingAction; ///< one element per context
 };
-} // namespace Gui
+
+template <typename T>
+class KeyMappingManageable
+{
+  public:
+    //    static virtual void registerKeyMapping() = 0;
+
+    /*
+        /// @return true if the event has been taken into account, false otherwise
+        virtual bool handleMouseReleaseEvent( QMouseEvent* event ) { return false; }
+
+        /// @return true if the event has been taken into account, false otherwise
+        virtual bool handleMouseMoveEvent( QMouseEvent* event,
+                                           const Qt::MouseButtons& buttons,
+                                           const Qt::KeyboardModifiers& modifiers,
+                                           int key ) {
+            return false;
+        }
+
+        /// @return true if the event has been taken into account, false otherwise
+        virtual bool handleWheelEvent( QWheelEvent* event ) { return false; }
+
+        /// @return true if the event has been taken into account, false otherwise
+        virtual bool handleKeyPressEvent( QKeyEvent* event,
+                                          const KeyMappingManager::KeyMappingAction& action ) {
+            return false;
+        }
+
+        /// @return true if the event has been taken into account, false otherwise
+        virtual bool handleKeyReleaseEvent( QKeyEvent* event ) { return false; }
+    */
+    static KeyMappingManager::Context getContext() { return m_keyMappingContext; }
+
+  protected:
+    static KeyMappingManager::Context m_keyMappingContext;
+};
+
+template <typename T>
+KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
+
+}; // namespace Gui
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEYMAPPINGMANAGER_HPP

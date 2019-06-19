@@ -11,11 +11,31 @@
 
 namespace Ra {
 namespace Gui {
+
+///\todo If a macro expert could write a recursive marco to have something like
+/// KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)
+#define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction GizmoManager::XX;
+KeyMappingGizmo;
+#undef KMA_VALUE
+
+void GizmoManager::registerKeyMapping() {
+    m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "GizmoContext" );
+    if ( m_keyMappingContext.isInvalid() )
+    {
+        LOG( Ra::Core::Utils::logINFO )
+            << "GizmoContext not defined (maybe the configuration file do not contains it";
+    }
+#define KMA_VALUE( XX ) \
+    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
+    KeyMappingGizmo
+#undef KMA_VALUE
+}
+
 /*
  * FIXME : Mathias -- Creating gizmos by default is not a good idea.
  * implies that all applications developped on top of the engine will have them.
- * This is not a good idea. Applications mus be able to define and
- * create their their own gizmos
+ * This is not a good idea. Applications must be able to define and
+ * create their own gizmos
  *
  * \see issue #194
  */
@@ -78,35 +98,48 @@ void GizmoManager::updateValues() {
 }
 
 bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
-                                          const KeyMappingManager::KeyMappingAction& action ) {
+                                          const Qt::MouseButtons& buttons,
+                                          const Qt::KeyboardModifiers& modifiers,
+                                          int key ) {
 
-    if ( !canEdit() || m_currentGizmoType == NONE ) { return false; }
+    auto action =
+        KeyMappingManager::getInstance()->getAction( m_keyMappingContext, buttons, modifiers, key );
 
-    // If we are there it means that we should have a valid gizmo.
-    CORE_ASSERT( currentGizmo(), "Gizmo is not there !" );
+    if ( m_currentGizmoType != NONE && canEdit() &&
+         ( action == GIZMOMANAGER_MANIPULATION || action == GIZMOMANAGER_STEP ) && currentGizmo() )
+    {
+        // If we are there it means that we should have a valid gizmo.
+        CORE_ASSERT( currentGizmo(), "Gizmo is not there !" );
 
-    const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
-    currentGizmo()->setInitialState( cam,
-                                     Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
+        const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
+        currentGizmo()->setInitialState(
+            cam, Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
 
-    return true;
+        return true;
+    }
+    return false;
 }
 
-bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* /*event*/,
-                                            const KeyMappingManager::KeyMappingAction& action ) {
+bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* /*event*/
+) {
     if ( currentGizmo() ) { currentGizmo()->selectConstraint( -1 ); }
     return ( currentGizmo() != nullptr );
 }
 
 bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
-                                         const KeyMappingManager::KeyMappingAction& action ) {
-    if ( ( action == Gui::KeyMappingManager::GIZMOMANAGER_MANIPULATION ||
-           action == Gui::KeyMappingManager::GIZMOMANAGER_STEP ) &&
-         currentGizmo() )
+                                         const Qt::MouseButtons& buttons,
+                                         const Qt::KeyboardModifiers& modifiers,
+                                         int key ) {
+    ///\todo what about if someone start a motion with a key, and then release it while moving the
+    /// mouse ?
+    auto action =
+        KeyMappingManager::getInstance()->getAction( m_keyMappingContext, buttons, modifiers, key );
+
+    if ( ( action == GIZMOMANAGER_MANIPULATION || action == GIZMOMANAGER_STEP ) && currentGizmo() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
         const Engine::Camera& cam    = CameraInterface::getCameraFromViewer( parent() );
-        bool step                    = action == Gui::KeyMappingManager::GIZMOMANAGER_STEP;
+        bool step                    = action == GIZMOMANAGER_STEP;
         Core::Transform newTransform = currentGizmo()->mouseMove( cam, currentXY, step );
         setTransform( newTransform );
     }

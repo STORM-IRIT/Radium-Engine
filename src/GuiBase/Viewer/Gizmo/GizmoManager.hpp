@@ -18,7 +18,9 @@ namespace Gui {
 /// This class interfaces the gizmos with the ui commands.
 /// It allows to change the gizmo type when editing an editable transform object
 /// Note :  currently the scale gizmo is not implemented so it will just return a null pointer
-class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEditor
+class RA_GUIBASE_API GizmoManager : public QObject,
+                                    public GuiBase::TransformEditor,
+                                    public KeyMappingManageable<GizmoManager>
 {
     Q_OBJECT
 
@@ -29,14 +31,28 @@ class RA_GUIBASE_API GizmoManager : public QObject, public GuiBase::TransformEdi
     explicit GizmoManager( QObject* parent = nullptr );
     ~GizmoManager() = default;
 
+#define KeyMappingGizmo                    \
+    KMA_VALUE( GIZMOMANAGER_MANIPULATION ) \
+    KMA_VALUE( GIZMOMANAGER_STEP )
+
+#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
+    KeyMappingGizmo
+#undef KMA_VALUE
+
+        static void
+        registerKeyMapping();
+
   public:
     /// Receive mouse events and transmit them to the gizmos.
     virtual bool handleMousePressEvent( QMouseEvent* event,
-                                        const KeyMappingManager::KeyMappingAction& action );
-    virtual bool handleMouseReleaseEvent( QMouseEvent* event,
-                                          const KeyMappingManager::KeyMappingAction& action );
+                                        const Qt::MouseButtons& buttons,
+                                        const Qt::KeyboardModifiers& modifiers,
+                                        int key );
+    virtual bool handleMouseReleaseEvent( QMouseEvent* event );
     virtual bool handleMouseMoveEvent( QMouseEvent* event,
-                                       const KeyMappingManager::KeyMappingAction& action );
+                                       const Qt::MouseButtons& buttons,
+                                       const Qt::KeyboardModifiers& modifiers,
+                                       int key );
 
   public slots:
     /// Set the object being currently edited

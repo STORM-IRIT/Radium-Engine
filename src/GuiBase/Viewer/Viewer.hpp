@@ -16,8 +16,8 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
-#include <GuiBase/Viewer/WindowQt.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Viewer/WindowQt.hpp>
 // Forward declarations
 class QOpenGLContext;
 class QSurfaceFormat;
@@ -51,7 +51,7 @@ namespace Gui {
  * the camera and the rest of the application
  * * Expose the asynchronous rendering interface
  */
-class RA_GUIBASE_API Viewer : public WindowQt
+class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 {
     Q_OBJECT
 
@@ -61,6 +61,8 @@ class RA_GUIBASE_API Viewer : public WindowQt
 
     /// Destructor
     ~Viewer() override;
+
+    static void registerKeyMapping();
 
     /// create gizmos
     void createGizmoManager();
@@ -188,7 +190,8 @@ class RA_GUIBASE_API Viewer : public WindowQt
     void keyPressEvent( QKeyEvent* event ) override;
     void keyReleaseEvent( QKeyEvent* event ) override;
 
-    Engine::Renderer::PickingMode getPickingMode(const Ra::Gui::KeyMappingManager::KeyMappingAction &action) const;
+    Engine::Renderer::PickingMode
+    getPickingMode( const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) const;
     /// We intercept the mouse events in this widget to get the coordinates of the mouse
     /// in screen space.
     void mousePressEvent( QMouseEvent* event ) override;
@@ -223,6 +226,23 @@ class RA_GUIBASE_API Viewer : public WindowQt
 #endif
 
     Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
+
+#define KeyMappingViewer                      \
+    KMA_VALUE( VIEWER_PICKING )               \
+    KMA_VALUE( VIEWER_PICKING_VERTEX )        \
+    KMA_VALUE( VIEWER_PICKING_EDGE )          \
+    KMA_VALUE( VIEWER_PICKING_TRIANGLE )      \
+    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE )  \
+    KMA_VALUE( VIEWER_BUTTON_CAST_RAY_QUERY ) \
+    KMA_VALUE( VIEWER_RAYCAST )               \
+    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )      \
+    KMA_VALUE( COLORWIDGET_PRESSBUTTON )
+
+#define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
+    KeyMappingViewer
+#undef KMA_VALUE
+
+        KeyMappingManager::Context m_activeContext{-1};
 };
 
 } // namespace Gui

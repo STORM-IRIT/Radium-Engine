@@ -7,53 +7,89 @@ namespace Gui {
 
 using namespace Core::Utils; // log
 
-const std::string KeyMappingManager::KeyMappingActionNames[] = {
-#define KMA_VALUE( x ) std::string( #x ),
-    KeyMappingActionEnumValues
-#undef KMA_VALUE
-        std::string( "InvalidKeyMapping" )};
-
 KeyMappingManager::KeyMappingManager() :
-    m_domDocument( "Keymapping QDomDocument" ),
-    m_metaEnumAction( QMetaEnum::fromType<KeyMappingAction>() ),
+    m_domDocument( "Key Mapping QDomDocument" ),
     m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ),
     m_file( nullptr ) {
     QSettings settings;
-    QString keymappingfilename =
+    QString keyMappingFilename =
         settings.value( "keymapping/config", "Configs/default.xml" ).toString();
-    if ( !keymappingfilename.contains( "default.xml" ) )
+    if ( !keyMappingFilename.contains( "default.xml" ) )
     {
-        LOG( logINFO ) << "Loading keymapping " << keymappingfilename.toStdString() << " (from "
+        LOG( logINFO ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
                        << settings.fileName().toStdString() << ")";
     }
-    loadConfiguration( keymappingfilename.toStdString().c_str() );
+    loadConfiguration( keyMappingFilename.toStdString().c_str() );
 }
 
 KeyMappingManager::KeyMappingAction
-KeyMappingManager::getAction( Qt::MouseButtons buttons, Qt::KeyboardModifiers modifiers, int key ) {
-    MouseBinding binding{buttons, modifiers, key};
+KeyMappingManager::getAction( const KeyMappingManager::Context& context,
+                              const Qt::MouseButtons& buttons,
+                              const Qt::KeyboardModifiers& modifiers,
+                              int key ) {
+    CORE_ASSERT( context.isValid(), "try to get action from an invalid context" );
 
-    auto action = m_mappingAction.find( binding );
+    // skip key as modifiers,
+    if ( ( key == Qt::Key_Shift ) || ( key == Qt::Key_Control ) || ( key == Qt::Key_Alt ) ||
+         ( key == Qt::Key_Meta ) )
+    { key = -1; }
 
-    if ( action != m_mappingAction.end() ) { return action->second; }
-    return KEYMAPPING_ACTION_NUMBER;
+    KeyMappingManager::MouseBinding binding{buttons, modifiers, key};
+
+    auto action = m_mappingAction[context].find( binding );
+
+    if ( action != m_mappingAction[context].end() ) { return action->second; }
+    return KeyMappingManager::KeyMappingAction();
 }
 
-void KeyMappingManager::bindKeyToAction( int keyCode,
+void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
+                                         int keyCode,
                                          Qt::KeyboardModifiers modifiers,
                                          Qt::MouseButtons buttons,
-                                         KeyMappingAction action ) {
+                                         Ra::Core::Utils::Index actionIndex ) {
+
     MouseBinding binding{buttons, modifiers, keyCode};
-    auto f = m_mappingAction.find( binding );
-    if ( f != m_mappingAction.end() )
+
+    CORE_ASSERT( contextIndex < m_contextNameToIndex.size(), "contextIndex is out of range" );
+
+    auto f = m_mappingAction[contextIndex].find( binding );
+    if ( f != m_mappingAction[contextIndex].end() )
     {
-        LOG( logWARNING ) << "Binding action " << action << " to "
+
+        auto findResult = std::find_if(
+            std::begin( m_actionNameToIndex[contextIndex] ),
+            std::end( m_actionNameToIndex[contextIndex] ),
+            [&]( const ActionNameMap::value_type& pair ) { return pair.second == actionIndex; } );
+        if ( findResult == std::end( m_actionNameToIndex[contextIndex] ) )
+        {
+            LOG( logERROR ) << "Corrupted call to bindKeyToAction index " << actionIndex
+                            << " must have been "
+                               "inserted before !\n";
+        }
+        auto test = findResult->first;
+
+        auto findResult2 = std::find_if(
+            std::begin( m_actionNameToIndex[contextIndex] ),
+            std::end( m_actionNameToIndex[contextIndex] ),
+            [&]( const ActionNameMap::value_type& pair ) { return f->second == actionIndex; } );
+
+        LOG( logWARNING ) << "Binding action " << findResult->first << " to "
                           << "buttons [" << enumNamesFromMouseButtons( buttons ) << "] "
                           << "modifiers [" << enumNamesFromKeyboardModifiers( modifiers ) << "] "
                           << "keycode [" << keyCode << "]"
-                          << ", which is already used for action " << f->second << ".";
+                          << ", which is already used for action " << findResult2->first << ".";
     }
-    m_mappingAction[binding] = action;
+
+    /*
+        LOG( logINFO ) << "In context " << getContextName(contextIndex) << " [" << contextIndex <<
+       "]"
+        << "binding action "<< getActionName(contextIndex, actionIndex) <<" [" << actionIndex << "]"
+                          << "buttons [" << enumNamesFromMouseButtons( buttons ) << "] "
+                          << "modifiers [" << enumNamesFromKeyboardModifiers( modifiers ) << "] "
+                          << "keycode [" << keyCode << "]";
+    */
+
+    m_mappingAction[contextIndex][binding] = actionIndex;
 }
 
 void KeyMappingManager::loadConfiguration( const char* filename ) {
@@ -67,7 +103,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     {
         if ( strcmp( filename, "Configs/default.xml" ) != 0 )
         {
-            LOG( logERROR ) << "Failed to open keymapping configuration file ! "
+            LOG( logERROR ) << "Failed to open key mapping configuration file ! "
                             << m_file->fileName().toStdString();
             LOG( logERROR ) << "Trying to load default configuration...";
             loadConfiguration();
@@ -75,7 +111,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
         }
         else
         {
-            LOG( logERROR ) << "Failed to open default keymapping configuration file !";
+            LOG( logERROR ) << "Failed to open default key mapping configuration file !";
             return;
         }
     }
@@ -98,9 +134,18 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     m_file->close();
 
     loadConfigurationInternal();
+
+    for ( auto l : m_listeners )
+    {
+        l();
+    }
 }
 
 void KeyMappingManager::loadConfigurationInternal() {
+    ///\todo maybe find a better way to handle laod and reload.
+    /// -> do not clear m_contextNameToIndex m_actionNameToIndex so the keep their index values ...
+    m_contextNameToIndex.clear();
+    m_actionNameToIndex.clear();
     m_mappingAction.clear();
 
     QDomElement domElement = m_domDocument.documentElement();
@@ -124,18 +169,21 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     if ( node.tagName() == "keymap" )
     {
 
-        QDomElement e = node.toElement();
+        QDomElement e         = node.toElement();
         std::string keyString = e.attribute( "key" ).toStdString();
         std::string modifiersString =
             node.toElement().attribute( "modifiers", "NoModifier" ).toStdString();
         std::string buttonsString =
             node.toElement().attribute( "buttons", "NoButton" ).toStdString();
+        std::string contextString =
+            node.toElement().attribute( "context", "AppContext" ).toStdString();
         std::string actionString = node.toElement().attribute( "action" ).toStdString();
-        loadConfigurationMappingInternal( keyString, modifiersString, buttonsString, actionString );
+        loadConfigurationMappingInternal(
+            contextString, keyString, modifiersString, buttonsString, actionString );
     }
     else
     {
-        LOG( logERROR ) << "Unrecognized XML keymapping configuration file tag \""
+        LOG( logERROR ) << "Unrecognized XML key mapping configuration file tag \""
                         << qPrintable( node.tagName() ) << "\" !";
         LOG( logERROR ) << "Trying to load default configuration...";
         loadConfiguration();
@@ -144,32 +192,54 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     }
 }
 
-void KeyMappingManager::loadConfigurationMappingInternal( const std::string& keyString,
+void KeyMappingManager::loadConfigurationMappingInternal( const std::string& context,
+                                                          const std::string& keyString,
                                                           const std::string& modifiersString,
                                                           const std::string& buttonsString,
                                                           const std::string& actionString ) {
 
-    auto actionValue                     = m_metaEnumAction.keyToValue( actionString.c_str() );
+    Ra::Core::Utils::Index contextIndex;
+    auto contextItr = m_contextNameToIndex.find( context );
+    if ( contextItr == m_contextNameToIndex.end() )
+    {
+        contextIndex                  = m_contextNameToIndex.size();
+        m_contextNameToIndex[context] = contextIndex;
+        m_actionNameToIndex.emplace_back();
+        m_mappingAction.emplace_back();
+
+        CORE_ASSERT( m_actionNameToIndex.size() == contextIndex + 1, "Corrupted actionName DB" );
+        CORE_ASSERT( m_mappingAction.size() == contextIndex + 1, "Corrupted mappingAction DB" );
+    }
+    else
+        contextIndex = contextItr->second;
+
+    Ra::Core::Utils::Index actionIndex;
+    auto actionItr = m_actionNameToIndex[contextIndex].find( actionString );
+    if ( actionItr == m_actionNameToIndex[contextIndex].end() )
+    {
+        actionIndex                                     = m_actionNameToIndex[contextIndex].size();
+        m_actionNameToIndex[contextIndex][actionString] = actionIndex;
+    }
+    else
+    {
+        LOG( logERROR ) << "Action " << actionString << " has already been inserted to index for "
+                        << context;
+
+        actionIndex = actionItr->second;
+    }
+
     Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
     auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );
     auto buttonsValue                    = getQtMouseButtonsValue( buttonsString );
 
-    if ( actionValue == -1 )
-    {
-        LOG( logERROR ) << "No valid action [" << actionString << "] specified for binding key ["
-                        << keyString << "], and buttons[" << buttonsString << "]";
-    }
-    else if ( keyValue == -1 && buttonsValue == Qt::NoButton )
+    if ( keyValue == -1 && buttonsValue == Qt::NoButton )
     {
         LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionString
                         << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
         LOG( logERROR ) << "Trying to load default configuration...";
     }
     else
-    {
-        bindKeyToAction(
-            keyValue, modifiersValue, buttonsValue, static_cast<KeyMappingAction>( actionValue ) );
-    }
+    { bindKeyToAction( contextIndex, keyValue, modifiersValue, buttonsValue, actionIndex ); }
 }
 
 Qt::KeyboardModifiers KeyMappingManager::getQtModifiersValue( const std::string& modifierString ) {
