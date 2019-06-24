@@ -32,7 +32,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
 
     /// Copy constructor from Eigen expressions: `ColorBase<_Scalar> c( (*this) * 255 );`
     template <typename Derived>
-    explicit inline ColorBase( const Eigen::MatrixBase<Derived>& v ) :
+    inline ColorBase( const Eigen::MatrixBase<Derived>& v ) :
         VectorType( v.template cast<_Scalar>() ) {}
 
     /// cast operator, mandatory to use Vector arithmetic
