@@ -11,6 +11,7 @@
 #include <Core/Utils/Singleton.hpp>
 #include <Core/Utils/StdOptional.hpp>
 
+
 namespace globjects {
 class File;
 class NamedString;

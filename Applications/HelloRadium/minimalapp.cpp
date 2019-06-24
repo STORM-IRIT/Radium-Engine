@@ -31,11 +31,6 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
     connect( m_viewer.get(), &Ra::Gui::Viewer::glInitialized, this, &MinimalApp::onGLInitialized );
 
-    Ra::Engine::ShaderConfiguration pConfig( "Plain" );
-    pConfig.addShader( Ra::Engine::ShaderType_VERTEX, "Shaders/Plain.vert.glsl" );
-    pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl" );
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( pConfig );
-
     // Initialize timer for the spinning cube.
     m_frame_timer = new QTimer( this );
     m_frame_timer->setInterval( 1000 / m_target_fps );

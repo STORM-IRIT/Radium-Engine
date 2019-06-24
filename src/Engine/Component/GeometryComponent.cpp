@@ -7,6 +7,7 @@
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/Normal.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Resources/Resources.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
@@ -157,7 +158,7 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
             if ( rt.hasConfiguration( pass ) )
             {
                 ShaderConfiguration config = rt.getConfiguration( pass );
-                config.addShader( ShaderType_GEOMETRY, "Shaders/PointCloud.geom.glsl" );
+                config.addShader( ShaderType_GEOMETRY, std::string(Core::Resources::getBaseDir())+"Shaders/PointCloud.geom.glsl" );
                 rt.setConfiguration( config, pass );
             }
         };

@@ -288,15 +288,15 @@ void BlinnPhongMaterial::registerMaterial() {
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configuration for RenderTechnique::LIGHTING_OPAQUE (Mandatory)
             Ra::Engine::ShaderConfiguration lpconfig(
-                "BlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+                "BlinnPhong", RADIUM_BIN_BASEDIR"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                RADIUM_BIN_BASEDIR"Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
             Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
             rt.setConfiguration( lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Configuration for RenderTechnique::Z_PREPASS
             Ra::Engine::ShaderConfiguration dpconfig(
-                "DepthAmbiantBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
+                "DepthAmbiantBlinnPhong", RADIUM_BIN_BASEDIR"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                RADIUM_BIN_BASEDIR"Shaders/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
             Ra::Engine::ShaderConfigurationFactory::addConfiguration( dpconfig );
             rt.setConfiguration( dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
 
@@ -304,8 +304,8 @@ void BlinnPhongMaterial::registerMaterial() {
             if ( isTransparent )
             {
                 Ra::Engine::ShaderConfiguration tpconfig(
-                    "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                    "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
+                    "LitOITBlinnPhong", RADIUM_BIN_BASEDIR"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                    RADIUM_BIN_BASEDIR"Shaders/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
                 Ra::Engine::ShaderConfigurationFactory::addConfiguration( tpconfig );
                 rt.setConfiguration( tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }

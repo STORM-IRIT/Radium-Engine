@@ -1,5 +1,9 @@
 set(core_target radiumCore)
 
+# Define the base path for default shader. To be defined according to the install operation.
+message("Setting radium env base dir to ${RADIUM_BINARY_OUTPUT_PATH}")
+add_compile_definitions(RADIUM_BIN_BASEDIR="${RADIUM_BINARY_OUTPUT_PATH}/")
+
 set(RADIUM_VERSION_FILE ${CMAKE_CURRENT_BINARY_DIR}/Version.cpp)
 add_custom_command(
     OUTPUT ${RADIUM_VERSION_FILE}

@@ -9,6 +9,7 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
+#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -20,6 +21,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/System/GeometrySystem.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
@@ -357,32 +359,29 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 
 void BaseApplication::addBasicShaders() {
     using namespace Ra::Engine;
-
-    ShaderConfiguration pConfig( "Plain" );
-    pConfig.addShader( ShaderType_VERTEX, "Shaders/Plain.vert.glsl" );
-    pConfig.addShader( ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( pConfig );
+    /// For internal resources management in a filesystem
+    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
 
     ShaderConfiguration lgConfig( "LinesGeom" );
-    lgConfig.addShader( ShaderType_VERTEX, "Shaders/Lines.vert.glsl" );
-    lgConfig.addShader( ShaderType_FRAGMENT, "Shaders/Lines.frag.glsl" );
-    lgConfig.addShader( ShaderType_GEOMETRY, "Shaders/Lines.geom.glsl" );
+    lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Lines.vert.glsl" );
+    lgConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Lines.frag.glsl" );
+    lgConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir+"Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lgConfig );
 
     ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
-    lagConfig.addShader( ShaderType_VERTEX, "Shaders/Lines.vert.glsl" );
-    lagConfig.addShader( ShaderType_FRAGMENT, "Shaders/LinesAdjacency.frag.glsl" );
-    lagConfig.addShader( ShaderType_GEOMETRY, "Shaders/Lines.geom.glsl" );
+    lagConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Lines.vert.glsl" );
+    lagConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/LinesAdjacency.frag.glsl" );
+    lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir+"Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lagConfig );
 
     ShaderConfiguration lConfig( "Lines" );
-    lConfig.addShader( ShaderType_VERTEX, "Shaders/Lines.vert.glsl" );
-    lConfig.addShader( ShaderType_FRAGMENT, "Shaders/Lines.frag.glsl" );
+    lConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Lines.vert.glsl" );
+    lConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Lines.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( lConfig );
 
     ShaderConfiguration gdConfig( "GradientDisplay" );
-    gdConfig.addShader( ShaderType_VERTEX, "Shaders/GradientDisplay.vert.glsl" );
-    gdConfig.addShader( ShaderType_FRAGMENT, "Shaders/GradientDisplay.frag.glsl" );
+    gdConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/GradientDisplay.vert.glsl" );
+    gdConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/GradientDisplay.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( gdConfig );
 }
 

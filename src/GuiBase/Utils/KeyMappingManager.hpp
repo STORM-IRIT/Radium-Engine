@@ -134,6 +134,7 @@ class RA_GUIBASE_API KeyMappingManager
     static Qt::MouseButtons getQtMouseButtonsValue( const std::string& buttonsString );
 
   private:
+    std::string defaultConfigFile;
     // For XML parsing using Qt
     QDomDocument m_domDocument;
     QMetaEnum m_metaEnumAction;

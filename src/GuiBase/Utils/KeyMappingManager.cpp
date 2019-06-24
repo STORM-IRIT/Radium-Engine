@@ -1,23 +1,26 @@
 #include "KeyMappingManager.hpp"
 
 #include <Core/Utils/Log.hpp>
+#include <Core/Resources/Resources.hpp>
 
-namespace Ra {
-namespace Gui {
+namespace Ra::Gui {
 
 using namespace Core::Utils; // log
 
 KeyMappingManager::KeyMappingManager() :
+    defaultConfigFile(std::string(Core::Resources::getBaseDir()) + std::string("Configs/default.xml")),
     m_domDocument( "Key Mapping QDomDocument" ),
     m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ),
     m_file( nullptr ) {
     QSettings settings;
     QString keyMappingFilename =
-        settings.value( "keymapping/config", "Configs/default.xml" ).toString();
+        settings.value( "keymapping/config", defaultConfigFile.c_str() ).toString();
     if ( !keyMappingFilename.contains( "default.xml" ) )
     {
         LOG( logINFO ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
                        << settings.fileName().toStdString() << ")";
+    } else {
+        LOG( logINFO ) << "Loading default key mapping " << defaultConfigFile;
     }
     loadConfiguration( keyMappingFilename.toStdString().c_str() );
 }
@@ -166,14 +169,14 @@ void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
 
 void KeyMappingManager::loadConfiguration( const char* filename ) {
     // if no filename is given, load default configuration
-    if ( !filename ) { filename = "Configs/default.xml"; }
+    if ( !filename ) { filename = defaultConfigFile.c_str(); }
 
     delete m_file;
     m_file = new QFile( filename );
 
     if ( !m_file->open( QIODevice::ReadOnly ) )
     {
-        if ( strcmp( filename, "Configs/default.xml" ) != 0 )
+        if ( strcmp( filename, defaultConfigFile.c_str() ) != 0 )
         {
             LOG( logERROR ) << "Failed to open key mapping configuration file ! "
                             << m_file->fileName().toStdString();
@@ -198,7 +201,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     }
 
     // Store setting only if not default
-    if ( !strcmp( filename, "Configs/default.xml" ) )
+    if ( !strcmp( filename, defaultConfigFile.c_str() ) )
     {
         QSettings settings;
         settings.setValue( "keymapping/config", m_file->fileName() );
@@ -440,5 +443,4 @@ KeyMappingManager::enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& 
 #undef TEST_BUTTON_STRING
 
 RA_SINGLETON_IMPLEMENTATION( KeyMappingManager );
-} // namespace Gui
-} // namespace Ra
+} // namespace Ra::Gui

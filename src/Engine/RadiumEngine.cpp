@@ -12,6 +12,7 @@
 #include <Core/Asset/FileData.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <Core/Utils/StringUtils.hpp>
+#include <Core/Resources/Resources.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/FrameInfo.hpp>
@@ -22,7 +23,9 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/System/System.hpp>
+
 
 namespace Ra {
 namespace Engine {
@@ -36,6 +39,7 @@ RadiumEngine::~RadiumEngine() = default;
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
+    m_resourcesRootDir    = {Core::Resources::getBaseDir()};
     m_signalManager       = std::make_unique<SignalManager>();
     m_entityManager       = std::make_unique<EntityManager>();
     m_renderObjectManager = std::make_unique<RenderObjectManager>();
@@ -54,17 +58,23 @@ void RadiumEngine::registerDefaultPrograms() {
     // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
     // Radium V2 : are these initialization required here ? They will be better in
     // Engine::Initialize .... Define a better ressources management and initialization
-    shaderProgramManager->addNamedString( "/Helpers.glsl", "Shaders/Helpers.glsl" );
-    shaderProgramManager->addNamedString( "/Structs.glsl", "Shaders/Structs.glsl" );
-    shaderProgramManager->addNamedString( "/Tonemap.glsl", "Shaders/Tonemap.glsl" );
+    shaderProgramManager->addNamedString( "/Helpers.glsl", m_resourcesRootDir+"Shaders/Helpers.glsl" );
+    shaderProgramManager->addNamedString( "/Structs.glsl", m_resourcesRootDir+"Shaders/Structs.glsl" );
+    shaderProgramManager->addNamedString( "/Tonemap.glsl", m_resourcesRootDir+"Shaders/Tonemap.glsl" );
     shaderProgramManager->addNamedString( "/LightingFunctions.glsl",
-                                          "Shaders/LightingFunctions.glsl" );
+                                          m_resourcesRootDir+"Shaders/LightingFunctions.glsl" );
     shaderProgramManager->addNamedString( "/TransformStructs.glsl",
-                                          "Shaders/Transform/TransformStructs.glsl" );
+                                          m_resourcesRootDir+"Shaders/Transform/TransformStructs.glsl" );
     shaderProgramManager->addNamedString( "/DefaultLight.glsl",
-                                          "Shaders/Lights/DefaultLight.glsl" );
+                                          m_resourcesRootDir+"Shaders/Lights/DefaultLight.glsl" );
 
     // Engine support some built-in materials. Register here
+    LOG(logINFO) << "RadiumEngine::registerDefaultPrograms -- Adding Plain configuration";
+    Ra::Engine::ShaderConfiguration pConfig( "Plain" );
+    pConfig.addShader( Ra::Engine::ShaderType_VERTEX, m_resourcesRootDir+"Shaders/Plain.vert.glsl" );
+    pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT, m_resourcesRootDir+"Shaders/Plain.frag.glsl" );
+    Ra::Engine::ShaderConfigurationFactory::addConfiguration( pConfig );
+
     BlinnPhongMaterial::registerMaterial();
 }
 

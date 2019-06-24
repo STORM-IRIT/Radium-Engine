@@ -188,6 +188,9 @@ class RA_ENGINE_API RadiumEngine
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
     bool m_loadingState{false};
+
+    /// For internal resources management in a filesystem
+    std::string m_resourcesRootDir;
 };
 
 } // namespace Engine

@@ -2,6 +2,7 @@
 
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Core/Resources/Resources.hpp>
 
 #include <Engine/Managers/CameraManager/DefaultCameraManager.hpp>
 #include <Engine/Managers/LightManager/DefaultLightManager.hpp>
@@ -16,6 +17,7 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <globjects/Framebuffer.h>
+
 
 //#define NO_TRANSPARENCY
 namespace Ra {
@@ -58,13 +60,15 @@ void ForwardRenderer::initializeInternal() {
 }
 
 void ForwardRenderer::initShaders() {
-
+    /// For internal resources management in a filesystem
+    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
     m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
-                                    {"Shaders/HdrToLdr/Hdr2Ldr.vert.glsl"},
-                                    {"Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"}} );
+                                    resourcesRootDir+"Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
+                                   resourcesRootDir+"Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"} );
 #ifndef NO_TRANSPARENCY
     m_shaderMgr->addShaderProgram(
-        {{"ComposeOIT"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/ComposeOIT.frag.glsl"}} );
+        {{"ComposeOIT"}, resourcesRootDir+"Shaders/Basic2D.vert.glsl",
+        resourcesRootDir+"Shaders/ComposeOIT.frag.glsl"} );
 #endif
 }
 
