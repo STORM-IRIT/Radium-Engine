@@ -94,6 +94,12 @@ void MainWindow::createConnections() {
              &QAction::toggled,
              m_viewer->getGizmoManager(),
              &GizmoManager::setLocal );
+    // to update display when mode is changed
+    connect( actionToggle_Local_Global,
+             &QAction::toggled,
+             mainApp,
+             &Ra::GuiBase::BaseApplication::askForUpdate);
+
     connect( actionGizmoOff, &QAction::triggered, this, &MainWindow::gizmoShowNone );
     connect( actionGizmoTranslate, &QAction::triggered, this, &MainWindow::gizmoShowTranslate );
     connect( actionGizmoRotate, &QAction::triggered, this, &MainWindow::gizmoShowRotate );
@@ -112,10 +118,7 @@ void MainWindow::createConnections() {
     // Connect picking results (TODO Val : use events to dispatch picking directly)
     connect( m_viewer, &Viewer::toggleBrushPicking, this, &MainWindow::toggleCirclePicking );
     connect( m_viewer, &Viewer::rightClickPicking, this, &MainWindow::handlePicking );
-    connect( m_viewer,
-             &Viewer::leftClickPicking,
-             m_viewer->getGizmoManager(),
-             &GizmoManager::handlePickingResult );
+    // leftClickPicking is obsolete with the new input manager
 
     connect( m_avgFramesCount,
              static_cast<void ( QSpinBox::* )( int )>( &QSpinBox::valueChanged ),
@@ -135,8 +138,6 @@ void MainWindow::createConnections() {
 
     // Make selected item event visible to plugins
     connect( this, &MainWindow::selectedItem, mainApp, &MainApplication::onSelectedItem );
-    connect(
-        this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable );
     connect(
         this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable );
 

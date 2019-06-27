@@ -108,7 +108,6 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
     }
     // prepare selection
-    int oldAxis    = m_selectedAxis;
     m_selectedAxis = -1;
     if ( drawableIdx >= 0 )
     {
@@ -121,11 +120,6 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
             mesh->getTriangleMesh().colorize( Core::Utils::Color::Yellow() );
             mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
         }
-    }
-    if ( m_selectedAxis != oldAxis )
-    {
-        m_start   = false;
-        m_stepped = false;
     }
 }
 
@@ -218,6 +212,8 @@ RotateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, 
 
 void RotateGizmo::setInitialState( const Engine::Camera& /*cam*/, const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
+    m_start      = false;
+    m_stepped    = false;
 }
 
 } // namespace Gui

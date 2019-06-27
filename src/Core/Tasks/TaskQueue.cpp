@@ -274,8 +274,9 @@ void TaskQueue::printTaskGraph( std::ostream& output ) const {
         if ( std::find_if( m_tasks.begin(), m_tasks.end(), [=]( const auto& task ) {
                  return task->getName() == t2name;
              } ) == m_tasks.end() )
-        { t2name += "?"; } output << "\"" << task1->getName() << "\""
-                                  << " -> ";
+        { t2name += "?"; }
+        output << "\"" << task1->getName() << "\""
+               << " -> ";
         output << "\"" << t2name << "\"" << std::endl;
     }
 
@@ -287,8 +288,9 @@ void TaskQueue::printTaskGraph( std::ostream& output ) const {
         if ( std::find_if( m_tasks.begin(), m_tasks.end(), [=]( const auto& task ) {
                  return task->getName() == t1name;
              } ) == m_tasks.end() )
-        { t1name += "?"; } output << "\"" << t1name << "\""
-                                  << " -> ";
+        { t1name += "?"; }
+        output << "\"" << t1name << "\""
+               << " -> ";
         output << "\"" << t2->getName() << "\"" << std::endl;
     }
 

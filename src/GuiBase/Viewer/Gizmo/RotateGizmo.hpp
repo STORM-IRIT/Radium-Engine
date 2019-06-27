@@ -20,6 +20,8 @@ class RotateGizmo : public Gizmo
                           const Core::Transform& worldTo,
                           const Core::Transform& t ) override;
     void selectConstraint( int drawableIndex ) override;
+    bool isSelected() override { return m_selectedAxis != -1; }
+
     void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
     Core::Transform mouseMove( const Engine::Camera& cam,
                                const Core::Vector2& nextXY,

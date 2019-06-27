@@ -24,7 +24,7 @@ class RA_GUIBASE_API KeyMappingManager
     Q_GADGET
 
   public:
-    using Listener = void ( * )();
+    using Listener         = void ( * )();
     using KeyMappingAction = Ra::Core::Utils::Index;
     using Context          = Ra::Core::Utils::Index;
 
@@ -35,40 +35,40 @@ class RA_GUIBASE_API KeyMappingManager
     /// \param buttons are the mouse buttons pressed, could be NoButton
     /// \param modifiers are the keyboard modifiers, could be NoModifiers
     /// \param key is the key pressed, could be -1
-    KeyMappingAction getAction( const Context& context,
-                                const Qt::MouseButtons& buttons,
-                                const Qt::KeyboardModifiers& modifiers,
-                                int key );
+    KeyMappingManager::KeyMappingAction getAction( const KeyMappingManager::Context& context,
+                                                   const Qt::MouseButtons& buttons,
+                                                   const Qt::KeyboardModifiers& modifiers,
+                                                   int key,
+                                                   bool wheel = false );
 
     static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );
     static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
 
-    Context getContext( const std::string contextName ) {
+    Context getContext( const std::string& contextName ) {
         return m_contextNameToIndex[contextName];
     }
-    KeyMappingAction getActionIndex( const Context& context, const std::string actionName ) {
-        LOG( Ra::Core::Utils::logINFO ) << "getActionIndex " << context << " " << actionName;
-
+    KeyMappingAction getActionIndex( const Context& context, const std::string& actionName ) {
         return m_actionNameToIndex[context][actionName];
     }
 
     std::string getActionName( const Context& context, const KeyMappingAction& action ) {
-        auto findResult = std::find_if(
+        auto actionFindItr = std::find_if(
             std::begin( m_actionNameToIndex[context] ),
             std::end( m_actionNameToIndex[context] ),
             [&]( const ActionNameMap::value_type& pair ) { return pair.second == action; } );
 
-        if ( findResult != std::end( m_actionNameToIndex[context] ) ) { return findResult->first; }
+        if ( actionFindItr != std::end( m_actionNameToIndex[context] ) )
+        { return actionFindItr->first; }
         return "Invalid";
     }
 
     std::string getContextName( const Context& context ) {
-        auto findResult = std::find_if(
+        auto contextFindItr = std::find_if(
             std::begin( m_contextNameToIndex ),
             std::end( m_contextNameToIndex ),
             [&]( const ContextNameMap ::value_type& pair ) { return pair.second == context; } );
 
-        if ( findResult != std::end( m_contextNameToIndex ) ) { return findResult->first; }
+        if ( contextFindItr != std::end( m_contextNameToIndex ) ) { return contextFindItr->first; }
         return "Invalid";
     }
 
@@ -85,18 +85,46 @@ class RA_GUIBASE_API KeyMappingManager
 
     // Private for now, but may need to be public if we want to customize keymapping configuration
     // otherwise than by editing the XML configuration file.
+    class MouseBinding
+    {
+      public:
+        explicit MouseBinding( Qt::MouseButtons buttons,
+                               Qt::KeyboardModifiers modifiers = Qt::NoModifier,
+                               int key                         = -1,
+                               bool wheel                      = false ) :
+
+            m_buttons{buttons},
+            m_modifiers{modifiers},
+            m_key{key},
+            m_wheel{wheel} {}
+        bool operator<( const MouseBinding& b ) const {
+            return ( m_buttons < b.m_buttons ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers < b.m_modifiers ) ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
+                     ( m_key < b.m_key ) ) ||
+                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
+                     ( m_key == b.m_key ) && ( m_wheel < b.m_wheel ) );
+        }
+
+        //  private:
+        Qt::MouseButtons m_buttons;
+        Qt::KeyboardModifiers m_modifiers;
+        // only one key
+        int m_key;
+        bool m_wheel;
+    };
+
     void bindKeyToAction( Ra::Core::Utils::Index contextIndex,
-                          int keyCode,
-                          Qt::KeyboardModifiers,
-                          Qt::MouseButtons,
+                          const MouseBinding& binding,
                           Ra::Core::Utils::Index actionIndex );
 
     void loadConfigurationInternal();
     void loadConfigurationTagsInternal( QDomElement& node );
     void loadConfigurationMappingInternal( const std::string& context,
-                                           const std::string& typeString,
-                                           const std::string& modifierString,
                                            const std::string& keyString,
+                                           const std::string& modifiersString,
+                                           const std::string& buttonsString,
+                                           const std::string& wheelString,
                                            const std::string& actionString );
 
     // Maybe there's a better way to get enum value from string, even without Q_ENUM
@@ -110,30 +138,6 @@ class RA_GUIBASE_API KeyMappingManager
     QMetaEnum m_metaEnumAction;
     QMetaEnum m_metaEnumKey;
     QFile* m_file;
-
-    class MouseBinding
-    {
-      public:
-        explicit MouseBinding( Qt::MouseButtons buttons,
-                               Qt::KeyboardModifiers modifiers = Qt::NoModifier,
-                               int key                         = -1 ) :
-
-            m_buttons{buttons},
-            m_modifiers{modifiers},
-            m_key{key} {}
-        bool operator<( const MouseBinding& b ) const {
-            return ( m_buttons < b.m_buttons ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers < b.m_modifiers ) ) ||
-                   ( ( m_buttons == b.m_buttons ) && ( m_modifiers == b.m_modifiers ) &&
-                     ( m_key < b.m_key ) );
-        }
-
-      private:
-        Qt::MouseButtons m_buttons;
-        Qt::KeyboardModifiers m_modifiers;
-        // only one key
-        int m_key;
-    };
 
     using MouseBindingMapping = std::map<MouseBinding, KeyMappingAction>;
     using ContextNameMap      = std::map<std::string, Context>;

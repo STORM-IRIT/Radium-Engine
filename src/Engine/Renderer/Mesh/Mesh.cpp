@@ -282,7 +282,8 @@ void Mesh::updateGL() {
         for ( int i = 0; i < MAX_VEC3; i++ )
         {
             if ( m_mesh.isValid( m_v3DataHandle[i] ) )
-            { sendGLData( this, m_mesh.getAttrib( m_v3DataHandle[i] ).data(), MAX_MESH + i ); } }
+            { sendGLData( this, m_mesh.getAttrib( m_v3DataHandle[i] ).data(), MAX_MESH + i ); }
+        }
 
         for ( int i = 0; i < MAX_VEC4; i++ )
         {
