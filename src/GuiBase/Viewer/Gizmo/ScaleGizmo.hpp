@@ -25,10 +25,9 @@ class ScaleGizmo : public Gizmo
                           const Core::Transform& worldTo,
                           const Core::Transform& t ) override;
     void selectConstraint( int drawableIndex ) override;
+    bool isSelected() override { return m_selectedAxis != -1 || m_selectedPlane != -1; }
     void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
-    Core::Transform mouseMove( const Engine::Camera& cam,
-                               const Core::Vector2& nextXY,
-                               bool stepped = false ) override;
+    Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped ) override;
 
   private:
     Ra::Core::Vector3 m_prevScale;  ///< The previously applied scale.
@@ -37,7 +36,7 @@ class ScaleGizmo : public Gizmo
     Core::Vector2 m_initialPix;     ///< The pixel position when edition starts.
     int m_selectedAxis;             ///< The axis to scale in.
     int m_selectedPlane;            ///< The plane to scale in.
-    bool m_start;                   ///< Did the edition start.
+    bool m_start{false};            ///< Did the edition start.
 };
 
 } // namespace Gui

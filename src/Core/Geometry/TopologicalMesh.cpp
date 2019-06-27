@@ -210,8 +210,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
 
     if ( !get_property_handle( m_outputTriangleMeshIndexPph, "OutputTriangleMeshIndices" ) )
     { add_property( m_outputTriangleMeshIndexPph, "OutputTriangleMeshIndices" ); }
-    std::vector<PropPair<float>>
-        vprop_float;
+    std::vector<PropPair<float>> vprop_float;
     std::vector<PropPair<Vector2>> vprop_vec2;
     std::vector<PropPair<Vector3>> vprop_vec3;
     std::vector<PropPair<Vector4>> vprop_vec4;

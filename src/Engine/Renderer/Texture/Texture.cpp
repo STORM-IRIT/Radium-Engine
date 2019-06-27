@@ -145,7 +145,9 @@ void Engine::Texture::updateData( void* data ) {
     }
     break;
     default:
-    { CORE_ASSERT( 0, "Unsupported texture type ?" ); }
+    {
+        CORE_ASSERT( 0, "Unsupported texture type ?" );
+    }
     break;
     }
     GL_CHECK_ERROR;

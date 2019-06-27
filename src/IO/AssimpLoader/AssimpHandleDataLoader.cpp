@@ -126,7 +126,8 @@ aiNode* findBoneChild( aiNode* node,
     {
         if ( meshBoneOffset.find( assimpToCore( node->mChildren[i]->mName ) ) !=
              meshBoneOffset.end() )
-        { return node->mChildren[i]; } }
+        { return node->mChildren[i]; }
+    }
     // not found, go down
     for ( uint i = 0; i < node->mNumChildren; ++i )
     {

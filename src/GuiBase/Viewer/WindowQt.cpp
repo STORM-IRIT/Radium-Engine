@@ -4,8 +4,8 @@
 #include <QDebug>
 #include <QOpenGLContext>
 #include <QResizeEvent>
-#include <QSurfaceFormat>
 #include <QScreen>
+#include <QSurfaceFormat>
 
 #include <Core/Utils/Log.hpp>
 
@@ -56,8 +56,8 @@ WindowQt::~WindowQt() {
 }
 
 void WindowQt::screenChanged() {
-    QSize s { size().width(), size().height() };
-    QResizeEvent patchEvent { s, s };
+    QSize s{size().width(), size().height()};
+    QResizeEvent patchEvent{s, s};
     resize( &patchEvent );
 }
 

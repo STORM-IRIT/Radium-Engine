@@ -199,7 +199,8 @@ Scalar mixedArea( const Vector3& v, const VectorArray<Vector3>& p ) {
         {
             if ( ( ( ( p[i] - v ).normalized() ).dot( ( p[i - 1] - v ).normalized() ) ) <
                  Scalar( 0. ) )
-            { area += triangleArea( v, p[i], p[i - 1] ) / Scalar( 2. ); } else
+            { area += triangleArea( v, p[i], p[i - 1] ) / Scalar( 2. ); }
+            else
             { area += triangleArea( v, p[i], p[i - 1] ) / Scalar( 4. ); }
         }
     }

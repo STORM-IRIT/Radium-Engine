@@ -143,8 +143,6 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     roMeshes()[5]->getTriangleMesh().colorize( Core::Utils::Color::Blue() );
 
     // prepare selection
-    int oldAxis     = m_selectedAxis;
-    int oldPlane    = m_selectedPlane;
     m_selectedAxis  = -1;
     m_selectedPlane = -1;
     if ( drawableIdx >= 0 )
@@ -171,11 +169,6 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
                     Core::Utils::Color::Yellow() );
             }
         }
-    }
-    if ( m_selectedAxis != oldAxis || m_selectedPlane != oldPlane )
-    {
-        m_initialPix = Core::Vector2::Zero();
-        m_start      = false;
     }
 
     for ( auto mesh : roMeshes() )
@@ -229,10 +222,10 @@ TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextX
     return m_transform;
 }
 
-void TranslateGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
-    const Core::Vector3 origin    = m_transform.translation();
-    const Core::Vector2 orgScreen = cam.project( origin );
-    m_initialPix                  = orgScreen - initialXY;
+void TranslateGizmo::setInitialState( const Engine::Camera& /*cam*/,
+                                      const Core::Vector2& /*initialXY*/ ) {
+    m_initialPix = Core::Vector2::Zero();
+    m_start      = false;
 }
 
 } // namespace Gui
