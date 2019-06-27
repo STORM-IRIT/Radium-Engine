@@ -73,7 +73,7 @@ MeshPtr
 Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::Color& color ) {
     Core::Vector3 end = start + v;
     Core::Vector3 a, b;
-    Core::Math::getOrthogonalVectors( v, a, b );
+    Core::Math::getOrthogonalVectors( v.normalized(), a, b );
     a.normalize();
     Scalar l = v.norm();
 
@@ -324,11 +324,12 @@ MeshPtr Normal( const Core::Vector3& point,
                 Scalar scale ) {
     // Display an arrow (just like the Vector() function)
     // plus the normal plane.
-    Core::Vector3 n = scale * normal.normalized();
-
-    Core::Vector3 end = point + n;
     Core::Vector3 a, b;
+    Core::Vector3 n = normal.normalized();
     Core::Math::getOrthogonalVectors( n, a, b );
+
+    n                 = scale * n;
+    Core::Vector3 end = point + n;
     a.normalize();
     b.normalize();
 
