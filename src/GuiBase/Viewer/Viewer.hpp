@@ -119,11 +119,8 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
   signals:
     bool glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
     void rendererReady(); //! Emitted when the rendered is correctly initialized
-    void leftClickPicking(
-        int id ); //! Emitted when the result of a left click picking is known (for gizmo manip)
-    void rightClickPicking(
-        const Ra::Engine::Renderer::PickingResult&
-            result ); //! Emitted when the resut of a right click picking is known (for selection)
+    void rightClickPicking( const Ra::Engine::Renderer::PickingResult& result );
+    //! Emitted when the resut of a right click picking is known (for selection)
 
     void toggleBrushPicking(
         bool on ); //! Emitted when the corresponding key is released (see keyReleaseEvent)
@@ -201,7 +198,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     void showEvent( QShowEvent* ev ) override;
 
   public:
-    Scalar m_dt;
+    Scalar m_dt{0.1_ra};
 
   protected:
     /// Owning pointer to the renderers.
@@ -227,16 +224,15 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 
-#define KeyMappingViewer                      \
-    KMA_VALUE( VIEWER_PICKING )               \
-    KMA_VALUE( VIEWER_PICKING_VERTEX )        \
-    KMA_VALUE( VIEWER_PICKING_EDGE )          \
-    KMA_VALUE( VIEWER_PICKING_TRIANGLE )      \
-    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE )  \
-    KMA_VALUE( VIEWER_BUTTON_CAST_RAY_QUERY ) \
-    KMA_VALUE( VIEWER_RAYCAST )               \
-    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )      \
-    KMA_VALUE( COLORWIDGET_PRESSBUTTON )
+#define KeyMappingViewer                     \
+    KMA_VALUE( VIEWER_PICKING )              \
+    KMA_VALUE( VIEWER_PICKING_VERTEX )       \
+    KMA_VALUE( VIEWER_PICKING_EDGE )         \
+    KMA_VALUE( VIEWER_PICKING_TRIANGLE )     \
+    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE ) \
+    KMA_VALUE( VIEWER_RAYCAST )              \
+    KMA_VALUE( VIEWER_SCALE_BRUSH )          \
+    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )
 
 #define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer

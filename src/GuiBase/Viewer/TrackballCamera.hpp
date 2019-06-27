@@ -71,10 +71,10 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
     Core::Vector3 m_trackballCenter;
 
     /// x-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseX;
+    Scalar m_lastMouseX{0_ra};
 
     /// y-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseY;
+    Scalar m_lastMouseY{0_ra};
 
     /// Additional factor for camera sensitivity.
     Scalar m_quickCameraModifier;
@@ -83,8 +83,8 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
     Scalar m_wheelSpeedModifier;
 
     /// Polar coordinates of the Camera w.r.t. the trackball center.
-    Scalar m_phi;
-    Scalar m_theta;
+    Scalar m_phi{0_ra};
+    Scalar m_theta{0_ra};
 
     /// The distance from the camera to the trackball center.
     Scalar m_distFromCenter;

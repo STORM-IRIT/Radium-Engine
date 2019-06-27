@@ -26,7 +26,8 @@ KeyMappingManager::KeyMappingAction
 KeyMappingManager::getAction( const KeyMappingManager::Context& context,
                               const Qt::MouseButtons& buttons,
                               const Qt::KeyboardModifiers& modifiers,
-                              int key ) {
+                              int key,
+                              bool wheel ) {
     CORE_ASSERT( context.isValid(), "try to get action from an invalid context" );
 
     // skip key as modifiers,
@@ -34,21 +35,17 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
          ( key == Qt::Key_Meta ) )
     { key = -1; }
 
-    KeyMappingManager::MouseBinding binding{buttons, modifiers, key};
+    KeyMappingManager::MouseBinding binding{buttons, modifiers, key, wheel};
 
     auto action = m_mappingAction[context].find( binding );
-
     if ( action != m_mappingAction[context].end() ) { return action->second; }
+
     return KeyMappingManager::KeyMappingAction();
 }
 
 void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
-                                         int keyCode,
-                                         Qt::KeyboardModifiers modifiers,
-                                         Qt::MouseButtons buttons,
+                                         const MouseBinding& binding,
                                          Ra::Core::Utils::Index actionIndex ) {
-
-    MouseBinding binding{buttons, modifiers, keyCode};
 
     CORE_ASSERT( contextIndex < m_contextNameToIndex.size(), "contextIndex is out of range" );
 
@@ -74,20 +71,23 @@ void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
             [&]( const ActionNameMap::value_type& pair ) { return f->second == actionIndex; } );
 
         LOG( logWARNING ) << "Binding action " << findResult->first << " to "
-                          << "buttons [" << enumNamesFromMouseButtons( buttons ) << "] "
-                          << "modifiers [" << enumNamesFromKeyboardModifiers( modifiers ) << "] "
-                          << "keycode [" << keyCode << "]"
+                          << "buttons [" << enumNamesFromMouseButtons( binding.m_buttons ) << "] "
+                          << "modifiers [" << enumNamesFromKeyboardModifiers( binding.m_modifiers )
+                          << "] "
+                          << "keycode [" << binding.m_key << "]"
+                          << "wheel [" << binding.m_wheel << "]"
                           << ", which is already used for action " << findResult2->first << ".";
     }
 
-    /*
-        LOG( logINFO ) << "In context " << getContextName(contextIndex) << " [" << contextIndex <<
-       "]"
-        << "binding action "<< getActionName(contextIndex, actionIndex) <<" [" << actionIndex << "]"
-                          << "buttons [" << enumNamesFromMouseButtons( buttons ) << "] "
-                          << "modifiers [" << enumNamesFromKeyboardModifiers( modifiers ) << "] "
-                          << "keycode [" << keyCode << "]";
-    */
+    LOG( logDEBUG4 ) << "In context " << getContextName( contextIndex ) << " [" << contextIndex
+                     << "]"
+                     << " binding action " << getActionName( contextIndex, actionIndex ) << " ["
+                     << actionIndex << "]"
+                     << " buttons [" << enumNamesFromMouseButtons( binding.m_buttons ) << "] "
+                     << " modifiers [" << enumNamesFromKeyboardModifiers( binding.m_modifiers )
+                     << "] "
+                     << " keycode [" << binding.m_key << "]"
+                     << " wheel [" << binding.m_wheel << "]";
 
     m_mappingAction[contextIndex][binding] = actionIndex;
 }
@@ -170,16 +170,18 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     {
 
         QDomElement e         = node.toElement();
-        std::string keyString = e.attribute( "key" ).toStdString();
+        std::string keyString = e.attribute( "key", "-1" ).toStdString();
         std::string modifiersString =
             node.toElement().attribute( "modifiers", "NoModifier" ).toStdString();
         std::string buttonsString =
             node.toElement().attribute( "buttons", "NoButton" ).toStdString();
         std::string contextString =
             node.toElement().attribute( "context", "AppContext" ).toStdString();
+        std::string wheelString  = node.toElement().attribute( "wheel", "false" ).toStdString();
         std::string actionString = node.toElement().attribute( "action" ).toStdString();
+
         loadConfigurationMappingInternal(
-            contextString, keyString, modifiersString, buttonsString, actionString );
+            contextString, keyString, modifiersString, buttonsString, wheelString, actionString );
     }
     else
     {
@@ -196,6 +198,7 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
                                                           const std::string& keyString,
                                                           const std::string& modifiersString,
                                                           const std::string& buttonsString,
+                                                          const std::string& wheelString,
                                                           const std::string& actionString ) {
 
     Ra::Core::Utils::Index contextIndex;
@@ -231,15 +234,20 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
     Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
     auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );
     auto buttonsValue                    = getQtMouseButtonsValue( buttonsString );
+    auto wheel                           = wheelString.compare( "true" ) == 0;
 
-    if ( keyValue == -1 && buttonsValue == Qt::NoButton )
+    if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel )
     {
         LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionString
                         << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
         LOG( logERROR ) << "Trying to load default configuration...";
     }
     else
-    { bindKeyToAction( contextIndex, keyValue, modifiersValue, buttonsValue, actionIndex ); }
+    {
+        bindKeyToAction( contextIndex,
+                         MouseBinding{buttonsValue, modifiersValue, keyValue, wheel},
+                         actionIndex );
+    }
 }
 
 Qt::KeyboardModifiers KeyMappingManager::getQtModifiersValue( const std::string& modifierString ) {

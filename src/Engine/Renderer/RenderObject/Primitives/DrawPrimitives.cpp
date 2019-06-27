@@ -22,7 +22,8 @@ namespace DrawPrimitives {
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     ShaderConfiguration config;
     if ( mesh->getRenderMode() == GL_LINES )
-    { config = ShaderConfigurationFactory::getConfiguration( "Lines" ); } else
+    { config = ShaderConfigurationFactory::getConfiguration( "Lines" ); }
+    else
     { config = ShaderConfigurationFactory::getConfiguration( "Plain" ); }
 
     auto mat = Core::make_shared<BlinnPhongMaterial>( "Default material" );

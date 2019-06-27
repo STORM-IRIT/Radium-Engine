@@ -102,26 +102,21 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
                                           const Qt::KeyboardModifiers& modifiers,
                                           int key ) {
 
-    auto action =
-        KeyMappingManager::getInstance()->getAction( m_keyMappingContext, buttons, modifiers, key );
+    if ( !canEdit() || m_currentGizmoType == NONE || !currentGizmo()->isSelected() )
+    { return false; }
 
-    if ( m_currentGizmoType != NONE && canEdit() &&
-         ( action == GIZMOMANAGER_MANIPULATION || action == GIZMOMANAGER_STEP ) && currentGizmo() )
-    {
-        // If we are there it means that we should have a valid gizmo.
-        CORE_ASSERT( currentGizmo(), "Gizmo is not there !" );
+    auto action = KeyMappingManager::getInstance()->getAction(
+        m_keyMappingContext, buttons, modifiers, key, false );
 
-        const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
-        currentGizmo()->setInitialState(
-            cam, Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
+    if ( !( action == GIZMOMANAGER_MANIPULATION || action == GIZMOMANAGER_STEP ) ) { return false; }
 
-        return true;
-    }
-    return false;
+    const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
+    currentGizmo()->setInitialState( cam,
+                                     Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
+    return true;
 }
 
-bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* /*event*/
-) {
+bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
     if ( currentGizmo() ) { currentGizmo()->selectConstraint( -1 ); }
     return ( currentGizmo() != nullptr );
 }
@@ -132,18 +127,21 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
                                          int key ) {
     ///\todo what about if someone start a motion with a key, and then release it while moving the
     /// mouse ?
-    auto action =
-        KeyMappingManager::getInstance()->getAction( m_keyMappingContext, buttons, modifiers, key );
+    auto action = KeyMappingManager::getInstance()->getAction(
+        m_keyMappingContext, buttons, modifiers, key, false );
 
-    if ( ( action == GIZMOMANAGER_MANIPULATION || action == GIZMOMANAGER_STEP ) && currentGizmo() )
+    if ( m_currentGizmoType != NONE && canEdit() &&
+         ( action == GIZMOMANAGER_MANIPULATION || action == GIZMOMANAGER_STEP ) && currentGizmo() &&
+         currentGizmo()->isSelected() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
         const Engine::Camera& cam    = CameraInterface::getCameraFromViewer( parent() );
         bool step                    = action == GIZMOMANAGER_STEP;
         Core::Transform newTransform = currentGizmo()->mouseMove( cam, currentXY, step );
         setTransform( newTransform );
+        return true;
     }
-    return ( currentGizmo() != nullptr );
+    return false;
 }
 
 void GizmoManager::handlePickingResult( int drawableId ) {

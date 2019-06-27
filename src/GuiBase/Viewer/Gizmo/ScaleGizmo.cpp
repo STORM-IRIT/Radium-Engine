@@ -21,6 +21,8 @@
 namespace Ra {
 namespace Gui {
 
+using namespace Ra::Core::Utils;
+
 const std::string colorAttribName = Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR );
 
 ScaleGizmo::ScaleGizmo( Engine::Component* c,
@@ -49,9 +51,7 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c,
         arrowColor[i]                 = 1_ra;
 
         Core::Vector3 cylinderEnd = Core::Vector3::Zero();
-        Core::Vector3 arrowEnd    = Core::Vector3::Zero();
         cylinderEnd[i]            = ( 1_ra - arrowFrac );
-        arrowEnd[i]               = 1_ra;
 
         Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, radius, 32, arrowColor );
@@ -127,7 +127,7 @@ void ScaleGizmo::updateTransform( Gizmo::Mode mode,
         displayTransform.rotate( R );
     }
 
-    for ( auto roIdx : roIds() )
+    for ( const auto& roIdx : roIds() )
     {
         Engine::RadiumEngine::getInstance()
             ->getRenderObjectManager()
@@ -146,8 +146,6 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     roMeshes()[5]->getTriangleMesh().colorize( Core::Utils::Color::Blue() );
 
     // prepare selection
-    int oldAxis     = m_selectedAxis;
-    int oldPlane    = m_selectedPlane;
     m_selectedAxis  = -1;
     m_selectedPlane = -1;
     if ( drawableIdx >= 0 )
@@ -175,13 +173,8 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
             }
         }
     }
-    if ( m_selectedAxis != oldAxis || m_selectedPlane != oldPlane )
-    {
-        m_initialPix = Core::Vector2::Zero();
-        m_start      = false;
-    }
 
-    for ( auto mesh : roMeshes() )
+    for ( const auto& mesh : roMeshes() )
         mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
 }
 
@@ -190,10 +183,12 @@ ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, b
     static const Scalar step = .2_ra;
 
     // Recolor gizmo
+
+    ///!\todo Since one will never happen, find a way to handle this compatible with keybinding
     bool whole = isKeyPressed( 0x01000020 ); // shift 16777248
     if ( whole )
     {
-        for ( auto mesh : roMeshes() )
+        for ( const auto& mesh : roMeshes() )
             mesh->getTriangleMesh().colorize( Core::Utils::Color::Yellow() );
     }
     else
@@ -221,7 +216,7 @@ ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, b
         }
     }
 
-    for ( auto mesh : roMeshes() )
+    for ( const auto& mesh : roMeshes() )
         mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
 
     if ( m_selectedAxis == -1 && m_selectedPlane == -1 && !whole ) { return m_transform; }
@@ -282,10 +277,10 @@ ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, b
     return m_transform;
 }
 
-void ScaleGizmo::setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) {
-    const Core::Vector3 origin    = m_transform.translation();
-    const Core::Vector2 orgScreen = cam.project( origin );
-    m_initialPix                  = orgScreen - initialXY;
+void ScaleGizmo::setInitialState( const Engine::Camera& /*cam*/,
+                                  const Core::Vector2& /*initialXY*/ ) {
+    m_initialPix = Core::Vector2::Zero();
+    m_start      = false;
 }
 
 } // namespace Gui
