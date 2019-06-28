@@ -59,6 +59,7 @@ RA_ENGINE_API MeshPtr QuadStrip( const Core::Vector3& a,
 
 /// Displays circle computed with given center and radius,
 /// in plane normal to given vector in wireframe
+/// @note normal must be a normalized vector.
 RA_ENGINE_API MeshPtr Circle( const Core::Vector3& center,
                               const Core::Vector3& normal,
                               Scalar radius,
@@ -67,6 +68,7 @@ RA_ENGINE_API MeshPtr Circle( const Core::Vector3& center,
 
 /// Displays arc of a circle computed with given center, radius and angle
 /// in plane normal to given vector in wireframe
+/// @note normal must be a normalized vector.
 RA_ENGINE_API MeshPtr CircleArc( const Core::Vector3& center,
                                  const Core::Vector3& normal,
                                  Scalar radius,
@@ -87,6 +89,7 @@ RA_ENGINE_API MeshPtr Capsule( const Core::Vector3& p1,
 
 /// Displays disk (filled circle) computed with given center and radius,
 /// in plane normal to given vector in wireframe
+/// @note normal must be a normalized vector.
 RA_ENGINE_API MeshPtr Disk( const Core::Vector3& center,
                             const Core::Vector3& normal,
                             Scalar radius,
