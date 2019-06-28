@@ -22,6 +22,10 @@
 #include <IO/deprecated/OBJFileManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
+#include <Core/Utils/StringUtils.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+
 #include <QColorDialog>
 #include <QComboBox>
 #include <QFileDialog>
@@ -547,7 +551,7 @@ void MainWindow::onFrameComplete() {
     tab_edition->updateValues();
 }
 
-void MainWindow::addRenderer( std::string name, std::shared_ptr<Engine::Renderer> e ) {
+void MainWindow::addRenderer(const std::string &name, std::shared_ptr<Engine::Renderer> e) {
     int id = m_viewer->addRenderer( e );
     CORE_UNUSED( id );
     CORE_ASSERT( id == m_currentRendererCombo->count(), "Inconsistent renderer state" );
@@ -634,7 +638,8 @@ void MainWindow::fitCamera() {
         m_viewer->fitCameraToScene( aabb );
 }
 
-void MainWindow::postLoadFile() {
+void MainWindow::postLoadFile(const std::string &filename)
+{
     m_selectionManager->clear();
     m_currentShaderBox->clear();
     m_currentShaderBox->setEnabled( false );
@@ -651,6 +656,25 @@ void MainWindow::postLoadFile() {
     }
 
     fitCamera();
+
+    // TODO : find a better way to activate loaded camera
+    // If a camera is in the loaded scene, use it, else, use default
+    std::string loadedEntityName = Core::Utils::getBaseName( filename, false );
+    auto rootEntity =  Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity(loadedEntityName);
+    if (rootEntity != nullptr) {
+        for (const auto & c : rootEntity->getComponents()) {
+            if (c->getName().compare( 0, 7, "CAMERA_" ) == 0 ) {
+                LOG(logINFO) << "Activating camera " << c->getName();
+
+                const auto systemEntity = Ra::Engine::SystemEntity::getInstance();
+                systemEntity->removeComponent("CAMERA_DEFAULT");
+
+                auto camera = static_cast<Ra::Engine::Camera*>(  c.get() );
+                m_viewer->getCameraInterface()->setCamera(camera->duplicate(systemEntity, "CAMERA_DEFAULT") );
+                break;
+            }
+        }
+    }
 }
 
 void MainWindow::onGLInitialized() {

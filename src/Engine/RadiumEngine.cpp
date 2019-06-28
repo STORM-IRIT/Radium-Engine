@@ -206,7 +206,8 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
     return true;
 }
 
-void RadiumEngine::releaseFile() {
+void RadiumEngine::releaseFile(const std::string &filename)
+{
     m_loadedFile.reset( nullptr );
     m_loadingState = false;
 }

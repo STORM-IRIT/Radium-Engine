@@ -60,7 +60,7 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void onFrameComplete() override;
 
     // Add render in the application: UI, viewer.
-    void addRenderer( std::string name, std::shared_ptr<Engine::Renderer> e ) override;
+    void addRenderer(const std::string &name, std::shared_ptr<Engine::Renderer> e) override;
 
   public slots:
     /// Callback to rebuild the item model when the engine objects change.
@@ -90,7 +90,7 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     /// Reset the camera to see all visible objects
     void fitCamera();
     /// clear selection, fit camera and update material name in ui
-    void postLoadFile() override;
+    void postLoadFile(const std::string &filename) override;
 
     /// Slot for the "edit" button.
     void editRO();

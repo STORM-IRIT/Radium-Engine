@@ -53,11 +53,11 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow
     virtual void onFrameComplete() = 0;
 
     /// Add render in the application: UI, viewer.
-    virtual void addRenderer( std::string name, std::shared_ptr<Engine::Renderer> e ) = 0;
+    virtual void addRenderer(const std::string &name, std::shared_ptr<Engine::Renderer> e) = 0;
 
   public slots:
     /// Call after loading a new file to let the window resetview for instance.
-    virtual void postLoadFile() = 0;
+    virtual void postLoadFile(const std::string &filename) = 0;
     /// Cleanup resources.
     virtual void cleanup() = 0;
 

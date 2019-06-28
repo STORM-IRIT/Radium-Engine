@@ -332,9 +332,9 @@ void BaseApplication::setupScene() {
 }
 
 bool BaseApplication::loadFile( QString path ) {
-    std::string pathStr = path.toLocal8Bit().data();
-    LOG( logINFO ) << "Loading file " << pathStr << "...";
-    bool res = m_engine->loadFile( pathStr );
+    std::string fullFilename = path.toLocal8Bit().data();
+    LOG( logINFO ) << "Loading file " << fullFilename << "...";
+    bool res = m_engine->loadFile( fullFilename );
 
     if ( !res )
     {
@@ -343,9 +343,9 @@ bool BaseApplication::loadFile( QString path ) {
         return false;
     }
 
-    m_engine->releaseFile();
+    m_engine->releaseFile(fullFilename);
 
-    m_mainWindow->postLoadFile();
+    m_mainWindow->postLoadFile(fullFilename);
 
     emit loadComplete();
     return true;
