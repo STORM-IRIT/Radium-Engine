@@ -275,9 +275,10 @@ TriangleMesh makeCylinder( const Vector3& a,
     Vector3 ab  = b - a;
     Vector3 dir = ab.normalized();
 
-    //  Create two circles normal centered on A and B and normal to ab;
+    //  Create two circles normal centered on A and B and normal to ab (use dir, since first vector
+    //  must be normalized)
     Vector3 xPlane, yPlane;
-    Math::getOrthogonalVectors( ab, xPlane, yPlane );
+    Math::getOrthogonalVectors( dir, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
@@ -536,7 +537,7 @@ TriangleMesh makeTube( const Vector3& a,
 
     //  Create two circles normal centered on A and B and normal to ab;
     Vector3 xPlane, yPlane;
-    Math::getOrthogonalVectors( ab, xPlane, yPlane );
+    Math::getOrthogonalVectors( dir, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
@@ -630,7 +631,7 @@ TriangleMesh makeCone( const Vector3& base,
 
     //  Create two circles normal centered on A and B and normal to ab;
     Vector3 xPlane, yPlane;
-    Math::getOrthogonalVectors( ab, xPlane, yPlane );
+    Math::getOrthogonalVectors( dir, xPlane, yPlane );
     xPlane.normalize();
     yPlane.normalize();
 
