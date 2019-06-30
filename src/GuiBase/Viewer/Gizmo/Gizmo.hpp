@@ -71,8 +71,10 @@ class Gizmo
 
     /// Called when the mouse movement is recorder with the camera parameters and the current pixel
     /// coordinates.
-    virtual Core::Transform
-    mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped = false ) = 0;
+    virtual Core::Transform mouseMove( const Engine::Camera& cam,
+                                       const Core::Vector2& nextXY,
+                                       bool stepped = false,
+                                       bool whole = false) = 0;
 
   protected:
     static bool findPointOnAxis( const Engine::Camera& cam,

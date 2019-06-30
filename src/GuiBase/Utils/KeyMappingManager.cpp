@@ -28,14 +28,16 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
                               const Qt::KeyboardModifiers& modifiers,
                               int key,
                               bool wheel ) {
-    CORE_ASSERT( context.isValid(), "try to get action from an invalid context" );
 
+    if ( context.isInvalid() )
+    {
+        LOG( logINFO ) << "try to get action from an invalid context";
+        return KeyMappingAction();
+    }
     // skip key as modifiers,
     if ( ( key == Qt::Key_Shift ) || ( key == Qt::Key_Control ) || ( key == Qt::Key_Alt ) ||
          ( key == Qt::Key_Meta ) )
-    { key = -1; }
-
-    KeyMappingManager::MouseBinding binding{buttons, modifiers, key, wheel};
+    { key = -1; } KeyMappingManager::MouseBinding binding{buttons, modifiers, key, wheel};
 
     auto action = m_mappingAction[context].find( binding );
     if ( action != m_mappingAction[context].end() ) { return action->second; }
@@ -49,33 +51,45 @@ void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
 
     CORE_ASSERT( contextIndex < m_contextNameToIndex.size(), "contextIndex is out of range" );
 
+    // search if an action already correspond to this binding.
     auto f = m_mappingAction[contextIndex].find( binding );
     if ( f != m_mappingAction[contextIndex].end() )
     {
 
+        // if yes, search for its name
         auto findResult = std::find_if(
             std::begin( m_actionNameToIndex[contextIndex] ),
             std::end( m_actionNameToIndex[contextIndex] ),
             [&]( const ActionNameMap::value_type& pair ) { return pair.second == actionIndex; } );
+
+        // if the name is not present, something bad happens.
         if ( findResult == std::end( m_actionNameToIndex[contextIndex] ) )
         {
-            LOG( logERROR ) << "Corrupted call to bindKeyToAction index " << actionIndex
-                            << " must have been "
-                               "inserted before !\n";
+            LOG( logERROR ) << "Corrupted call to bindKeyToAction, index " << actionIndex
+                            << " must have been inserted before !\n";
+            return;
         }
-        auto test = findResult->first;
 
+        // if name is present, find the other action's name
         auto findResult2 = std::find_if(
             std::begin( m_actionNameToIndex[contextIndex] ),
             std::end( m_actionNameToIndex[contextIndex] ),
-            [&]( const ActionNameMap::value_type& pair ) { return f->second == actionIndex; } );
+            [&]( const ActionNameMap::value_type& pair ) { return pair.second == f->second; } );
+
+        // if the name is not present, something bad happens.
+        if ( findResult2 == std::end( m_actionNameToIndex[contextIndex] ) )
+        {
+            LOG( logERROR ) << "Corrupted call to bindKeyToAction, index " << actionIndex
+                            << " must have been inserted before !\n";
+            return;
+        }
 
         LOG( logWARNING ) << "Binding action " << findResult->first << " to "
                           << "buttons [" << enumNamesFromMouseButtons( binding.m_buttons ) << "] "
                           << "modifiers [" << enumNamesFromKeyboardModifiers( binding.m_modifiers )
-                          << "] "
-                          << "keycode [" << binding.m_key << "]"
-                          << "wheel [" << binding.m_wheel << "]"
+                          << "]"
+                          << " keycode [" << binding.m_key << "]"
+                          << " wheel [" << binding.m_wheel << "]"
                           << ", which is already used for action " << findResult2->first << ".";
     }
 
@@ -83,9 +97,9 @@ void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
                      << "]"
                      << " binding action " << getActionName( contextIndex, actionIndex ) << " ["
                      << actionIndex << "]"
-                     << " buttons [" << enumNamesFromMouseButtons( binding.m_buttons ) << "] "
+                     << " buttons [" << enumNamesFromMouseButtons( binding.m_buttons ) << "]"
                      << " modifiers [" << enumNamesFromKeyboardModifiers( binding.m_modifiers )
-                     << "] "
+                     << "]"
                      << " keycode [" << binding.m_key << "]"
                      << " wheel [" << binding.m_wheel << "]";
 
@@ -253,18 +267,23 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
 Qt::KeyboardModifiers KeyMappingManager::getQtModifiersValue( const std::string& modifierString ) {
     Qt::KeyboardModifiers modifier = Qt::NoModifier;
 
-    if ( modifierString == "ShiftModifier" ) { modifier = Qt::ShiftModifier; }
-    else if ( modifierString == "ControlModifier" )
-    { modifier = Qt::ControlModifier; }
-    else if ( modifierString == "AltModifier" )
-    { modifier = Qt::AltModifier; }
-    else if ( modifierString == "MetaModifier" )
-    { modifier = Qt::MetaModifier; }
-    else if ( modifierString == "KeypadModifier" )
-    { modifier = Qt::KeypadModifier; }
-    else if ( modifierString == "GroupSwitchModifier" )
-    { modifier = Qt::GroupSwitchModifier; }
+    std::istringstream f( modifierString );
+    std::string s;
 
+    while ( getline( f, s, ',' ) )
+    {
+        if ( s == "ShiftModifier" ) { modifier |= Qt::ShiftModifier; }
+        else if ( s == "ControlModifier" )
+        { modifier |= Qt::ControlModifier; }
+        else if ( s == "AltModifier" )
+        { modifier |= Qt::AltModifier; }
+        else if ( s == "MetaModifier" )
+        { modifier |= Qt::MetaModifier; }
+        else if ( s == "KeypadModifier" )
+        { modifier |= Qt::KeypadModifier; }
+        else if ( s == "GroupSwitchModifier" )
+        { modifier |= Qt::GroupSwitchModifier; }
+    }
     return modifier;
 }
 

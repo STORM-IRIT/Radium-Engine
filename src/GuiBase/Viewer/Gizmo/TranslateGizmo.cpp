@@ -175,8 +175,10 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
         mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
 }
 
-Core::Transform
-TranslateGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped ) {
+Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam,
+                                           const Core::Vector2& nextXY,
+                                           bool stepped,
+                                           bool whole ) {
     static const Scalar step = .2_ra;
 
     if ( m_selectedAxis == -1 && m_selectedPlane == -1 ) return m_transform;
