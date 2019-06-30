@@ -18,8 +18,9 @@ Default values are in \[ \]
 * `CONTEXT` \[AppContext\] epresents the context, for instance the class that will try to catch this keymapping
 * `KEY` \[no def\] represents the key that need to be pressed to trigger the event (ie `Key_Z`, for example), "" or "-1" or absent correspond to no key needed.
 * `MODIFIERS` \[NoModifiers\]represents the modifier used along with key or mouse button (needs to be a `Qt::Modifier` enum value) to trigger the action.
+Multiples modifiers can be specified, separated by commas as in `"ControlModifier,ShiftModifier"`.
 * `BUTTONS` \[NoButtons\] represents the button to trigger the event (i.e. `LeftButton`, for example).
-* `WHEEL` \[false\] if not true, it's a wheel event !
+* `WHEEL` \[false\] if true, it's a wheel event ! (anything else is false).
 
 If only a key is defined then it's a `keyPressedEvent`. 
 If buttons is defined, then it's a `mouse[move/press/release]Event`, that optionally take modifiers and key into account.
@@ -105,4 +106,4 @@ For instance see `Viewer.cpp` `Viewer::mousePressEvent`
 
 ## Limits
 
-* Multiple keys/modifiers/buttons are not yet implemented.
+* Multiple keys/buttons are not yet implemented.

@@ -27,7 +27,9 @@ void Gui::TrackballCamera::registerKeyMapping() {
     if ( m_keyMappingContext.isInvalid() )
     {
         LOG( Ra::Core::Utils::logINFO )
-            << "ViewerContext not defined (maybe the configuration file do not contains it";
+            << "CameraContext not defined (maybe the configuration file do not contains it)";
+        LOG( Ra::Core::Utils::logERROR ) << "CameraContext all keymapping invalide !";
+        return;
     }
 
 #define KMA_VALUE( XX ) \

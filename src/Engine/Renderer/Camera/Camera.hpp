@@ -166,11 +166,11 @@ class RA_ENGINE_API Camera : public Component
     /// attributes. A rework of the rendering architecture will be done soon.
     /// Thus these attributes might disappear.
     ///@{
-    Scalar m_zNear{0.1}; ///< Z Near plane distance
-    Scalar m_zFar{1000}; ///< Z Far plane distance
-    Scalar m_width{1};   ///< Viewport width (in pixels)
-    Scalar m_height{1};  ///< Viewport height (in pixels)
-    Scalar m_aspect{1};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
+    Scalar m_zNear{0.1_ra}; ///< Z Near plane distance
+    Scalar m_zFar{1000_ra}; ///< Z Far plane distance
+    Scalar m_width{1_ra};   ///< Viewport width (in pixels)
+    Scalar m_height{1_ra};  ///< Viewport height (in pixels)
+    Scalar m_aspect{1_ra};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
     ///@}
 };
 

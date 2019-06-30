@@ -25,7 +25,8 @@ class RotateGizmo : public Gizmo
     void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
     Core::Transform mouseMove( const Engine::Camera& cam,
                                const Core::Vector2& nextXY,
-                               bool stepped = false ) override;
+                               bool stepped,
+                               bool whole ) override;
 
   private:
     Core::Vector2 m_initialPix; ///< The pixel location when edition starts.

@@ -1,13 +1,14 @@
 #ifndef RADIUMENGINE_INDEX_HPP
 #define RADIUMENGINE_INDEX_HPP
 
+#include <Core/RaCore.hpp>
 #include <limits>
 
 namespace Ra {
 namespace Core {
 namespace Utils {
 
-class Index
+class RA_CORE_API Index
 {
   public:
     /// CONSTRUCTOR
