@@ -33,7 +33,9 @@ class RA_GUIBASE_API GizmoManager : public QObject,
 
 #define KeyMappingGizmo                    \
     KMA_VALUE( GIZMOMANAGER_MANIPULATION ) \
-    KMA_VALUE( GIZMOMANAGER_STEP )
+    KMA_VALUE( GIZMOMANAGER_STEP )         \
+    KMA_VALUE( GIZMOMANAGER_WHOLE )        \
+    KMA_VALUE( GIZMOMANAGER_STEP_WHOLE )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
     KeyMappingGizmo
@@ -74,6 +76,8 @@ class RA_GUIBASE_API GizmoManager : public QObject,
     void updateValues() override;
 
   private:
+    bool isValidAction( const Gui::KeyMappingManager::KeyMappingAction& action ) const;
+
     // Helper method to change the current gizmo
     void updateGizmo();
 

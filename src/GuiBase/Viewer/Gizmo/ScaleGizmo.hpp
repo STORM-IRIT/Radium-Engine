@@ -27,7 +27,10 @@ class ScaleGizmo : public Gizmo
     void selectConstraint( int drawableIndex ) override;
     bool isSelected() override { return m_selectedAxis != -1 || m_selectedPlane != -1; }
     void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
-    Core::Transform mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped ) override;
+    Core::Transform mouseMove( const Engine::Camera& cam,
+                               const Core::Vector2& nextXY,
+                               bool stepped,
+                               bool whole ) override;
 
   private:
     Ra::Core::Vector3 m_prevScale;  ///< The previously applied scale.

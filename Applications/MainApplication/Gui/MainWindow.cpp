@@ -543,7 +543,6 @@ void MainWindow::onRendererReady() {
 
 void MainWindow::onFrameComplete() {
     tab_edition->updateValues();
-    m_viewer->getGizmoManager()->updateValues();
 }
 
 void MainWindow::addRenderer( std::string name, std::shared_ptr<Engine::Renderer> e ) {

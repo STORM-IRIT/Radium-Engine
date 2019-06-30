@@ -178,14 +178,14 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
         mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
 }
 
-Core::Transform
-ScaleGizmo::mouseMove( const Engine::Camera& cam, const Core::Vector2& nextXY, bool stepped ) {
+Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam,
+                                       const Core::Vector2& nextXY,
+                                       bool stepped,
+                                       bool whole ) {
     static const Scalar step = .2_ra;
 
     // Recolor gizmo
 
-    ///!\todo Since one will never happen, find a way to handle this compatible with keybinding
-    bool whole = isKeyPressed( 0x01000020 ); // shift 16777248
     if ( whole )
     {
         for ( const auto& mesh : roMeshes() )
