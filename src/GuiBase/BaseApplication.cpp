@@ -118,6 +118,7 @@ BaseApplication::BaseApplication( int argc,
                                "Open a camera file at startup",
                                "file name",
                                "foo.bar" );
+    QCommandLineOption recordOpt( "recordFrames", "Enable snapshot recording." );
 
     parser.addOptions( {fpsOpt,
                         pluginOpt,
@@ -126,13 +127,19 @@ BaseApplication::BaseApplication( int argc,
                         fileOpt,
                         camOpt,
                         maxThreadsOpt,
-                        numFramesOpt} );
+                        numFramesOpt,
+                        recordOpt} );
     parser.process( *this );
 
     if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
     if ( parser.isSet( pluginOpt ) ) pluginsPath = parser.value( pluginOpt ).toStdString();
     if ( parser.isSet( numFramesOpt ) ) m_numFrames = parser.value( numFramesOpt ).toUInt();
     if ( parser.isSet( maxThreadsOpt ) ) m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
+    if ( parser.isSet( recordOpt ) )
+    {
+        m_recordFrames = true;
+        setContinuousUpdate( true );
+    }
 
     {
         std::time_t startTime = std::time( nullptr );
@@ -434,7 +441,7 @@ void BaseApplication::radiumFrame() {
 
     ++m_frameCounter;
 
-    if ( m_numFrames > 0 && m_frameCounter > m_numFrames ) { appNeedsToQuit(); }
+    if ( m_numFrames > 0 && m_frameCounter >= m_numFrames ) { appNeedsToQuit(); }
 
     if ( m_frameCounter % m_frameCountBeforeUpdate == 0 )
     {
