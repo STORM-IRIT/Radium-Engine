@@ -103,6 +103,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
             m_continuousUpdateRequest.store( 0 );
             m_isUpdateNeeded.store( false );
         }
+        if ( m_isAboutToQuit ) { this->exit(); }
     }
 
     bool loadFile( QString path );
