@@ -118,7 +118,7 @@ BaseApplication::BaseApplication( int argc,
                                "Open a camera file at startup",
                                "file name",
                                "foo.bar" );
-    QCommandLineOption recordOpt( "recordFrames", "Enable snapshot recording." );
+    QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording." );
 
     parser.addOptions( {fpsOpt,
                         pluginOpt,

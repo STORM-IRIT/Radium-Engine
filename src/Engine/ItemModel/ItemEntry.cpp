@@ -47,7 +47,8 @@ std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* /*en
 bool ItemEntry::isValid() const {
     ON_DEBUG( checkConsistency() );
     Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
-    return m_entity != nullptr                                                // It has an entity
+    return m_entity != nullptr           // It has an entity
+           && engine->getEntityManager() // Is entityManager up ?
            && engine->getEntityManager()->entityExists( m_entity->getName() ) // The entity exists
            && ( ( !isRoNode() ||
                   engine->getRenderObjectManager()->exists( m_roIndex ) ) ); // The RO exists
