@@ -28,7 +28,10 @@ class RA_GUIBASE_API KeyMappingManager
     using KeyMappingAction = Ra::Core::Utils::Index;
     using Context          = Ra::Core::Utils::Index;
 
+    /// load configuration from filename, or default configration filename. It
+    /// calls the listener callback then.
     void loadConfiguration( const char* filename = nullptr );
+
     void reloadConfiguration();
 
     /// Return the action associated to the binding buttons + modifiers + key
@@ -41,43 +44,34 @@ class RA_GUIBASE_API KeyMappingManager
                                                    int key,
                                                    bool wheel = false );
 
-    static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );
-    static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
+    /// Return the context index corresponding to contextName
+    /// \param contextName the name of the context
+    /// \return an invalid context if contextName has not been created (i.e. context,isInvalid())
+    Context getContext( const std::string& contextName );
 
-    Context getContext( const std::string& contextName ) {
-        return m_contextNameToIndex[contextName];
-    }
-    KeyMappingAction getActionIndex( const Context& context, const std::string& actionName ) {
-        return m_actionNameToIndex[context][actionName];
-    }
+    /// Return the action index corresponding to a context index and actionName
+    /// \param context the index of the context
+    /// \param actionName the name of the action
+    /// \return an invalid action if context is not valid, or if actionName has  not been created.
+    /// (i,e action.isInvalid())
+    KeyMappingAction getActionIndex( const Context& context, const std::string& actionName );
 
-    std::string getActionName( const Context& context, const KeyMappingAction& action ) {
-        auto actionFindItr = std::find_if(
-            std::begin( m_actionNameToIndex[context] ),
-            std::end( m_actionNameToIndex[context] ),
-            [&]( const ActionNameMap::value_type& pair ) { return pair.second == action; } );
+    /// \return Action name if context index and action index are valid, "Invalid" otherwise
+    std::string getActionName( const Context& context, const KeyMappingAction& action );
 
-        if ( actionFindItr != std::end( m_actionNameToIndex[context] ) )
-        { return actionFindItr->first; }
-        return "Invalid";
-    }
-
-    std::string getContextName( const Context& context ) {
-        auto contextFindItr = std::find_if(
-            std::begin( m_contextNameToIndex ),
-            std::end( m_contextNameToIndex ),
-            [&]( const ContextNameMap ::value_type& pair ) { return pair.second == context; } );
-
-        if ( contextFindItr != std::end( m_contextNameToIndex ) ) { return contextFindItr->first; }
-        return "Invalid";
-    }
+    /// \return Context name if context index is valid, "Invalid" otherwise
+    std::string getContextName( const Context& context );
 
     /// Add a callback, triggered when configuration is load or reloaded.
-    void addListener( Listener callback ) {
-        m_listeners.push_back( callback );
-        // call the registered listener directly to have it up to date.
-        callback();
-    }
+    void addListener( Listener callback );
+
+    /// return a string of enum names from mouse buttons, comma separated,
+    /// without space
+    static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );
+
+    /// return a string of enum names from keyboard modifiers, comma separated,
+    /// without space
+    static std::string enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& modifiers );
 
   private:
     KeyMappingManager();
@@ -114,6 +108,8 @@ class RA_GUIBASE_API KeyMappingManager
         bool m_wheel;
     };
 
+    /// bind binding to actionIndex, in contextIndex. If replace previously
+    /// binded action, with a warning if binding was alreasly present.,
     void bindKeyToAction( Ra::Core::Utils::Index contextIndex,
                           const MouseBinding& binding,
                           Ra::Core::Utils::Index actionIndex );
@@ -127,10 +123,15 @@ class RA_GUIBASE_API KeyMappingManager
                                            const std::string& wheelString,
                                            const std::string& actionString );
 
-    // Maybe there's a better way to get enum value from string, even without Q_ENUM
-    // defined for Qt::KeyboardModifier and Qt::MouseButton ?
-    Qt::KeyboardModifiers getQtModifiersValue( const std::string& modifierString );
-    Qt::MouseButtons getQtMouseButtonsValue( const std::string& keyString );
+    /// Return KeyboardModifiers described in modifierString, multiple modifiers
+    /// are comma separated in the modifiers string, as in
+    /// "ShiftModifier,AltModifier". This function do note trim any white space.
+    static Qt::KeyboardModifiers getQtModifiersValue( const std::string& modifierString );
+
+    /// Return MouseButtons desribed in buttonString, multiple modifiers
+    /// are comma separated in the modifiers string, \note only one button is
+    /// supported for the moment.
+    static Qt::MouseButtons getQtMouseButtonsValue( const std::string& buttonsString );
 
   private:
     // For XML parsing using Qt
@@ -150,6 +151,13 @@ class RA_GUIBASE_API KeyMappingManager
     std::vector<MouseBindingMapping> m_mappingAction; ///< one element per context
 };
 
+/// KeyMappingManageable decorate, typical use as a CRTP :
+/// class MyClass : public KeyMappingManageable<MyClass> { [...]
+/// it defines a static class member m_keyMappingContext, readable with
+/// getContext()
+/// This context index must be registered by the class to the KeyMappingManager
+/// with KeyMappingManager::getContext("MyClassContextName"); after a
+/// configuration file is loaded.
 template <typename T>
 class KeyMappingManageable
 {
@@ -186,6 +194,7 @@ class KeyMappingManageable
     static KeyMappingManager::Context m_keyMappingContext;
 };
 
+/// create one m_keyMappingContext by template type.
 template <typename T>
 KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
 
