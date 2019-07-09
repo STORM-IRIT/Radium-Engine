@@ -18,7 +18,7 @@
 ##################################################################
 # SETTINGS
 # set path to clang-format binary
-CLANG_FORMAT="/usr/bin/clang-format-6.0"
+CLANG_FORMAT=`which clang-format`
 
 # remove any older patches from previous commits. Set to true or false.
 # DELETE_OLD_PATCHES=false
