@@ -47,7 +47,6 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     connect( m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized );
     connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
 
-    m_viewer->createGizmoManager();
     m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
     QWidget* viewerwidget = QWidget::createWindowContainer( m_viewer );

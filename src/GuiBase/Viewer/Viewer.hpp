@@ -64,8 +64,6 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     static void registerKeyMapping();
 
-    /// create gizmos
-    void createGizmoManager();
 
     //
     // Accessors
@@ -168,6 +166,9 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     void onResized();
 
   protected:
+    /// create gizmos
+    void createGizmoManager();
+
     /// Initialize renderer internal state + configure lights.
     void intializeRenderer( Engine::Renderer* renderer );
 

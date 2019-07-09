@@ -88,6 +88,7 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     m_renderThread( nullptr )
 #endif
 {
+    createGizmoManager();
 }
 
 Gui::Viewer::~Viewer() {
