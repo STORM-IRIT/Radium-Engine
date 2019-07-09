@@ -47,6 +47,63 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
     return KeyMappingManager::KeyMappingAction();
 }
 
+KeyMappingManager::Context KeyMappingManager::getContext( const std::string& contextName ) {
+    // use find so that it do not insert invalid context
+    auto itr = m_contextNameToIndex.find( contextName );
+    if ( itr != m_contextNameToIndex.end() ) return itr->second;
+    return Context{};
+}
+
+KeyMappingManager::KeyMappingAction
+KeyMappingManager::getActionIndex( const Context& context, const std::string& actionName ) {
+    if ( context >= m_actionNameToIndex.size() || context.isInvalid() )
+    {
+        LOG( logINFO ) << "try to get action index from an invalid context";
+
+        return KeyMappingAction{};
+    }
+    auto itr = m_actionNameToIndex[context].find( actionName );
+    if ( itr != m_actionNameToIndex[context].end() ) return itr->second;
+
+    LOG( logINFO ) << "try to get action index from an invalid action name";
+
+    return KeyMappingAction{};
+}
+
+std::string KeyMappingManager::getActionName( const Context& context,
+                                              const KeyMappingAction& action ) {
+
+    if ( context < m_actionNameToIndex.size() && context.isValid() )
+    {
+
+        auto actionFindItr = std::find_if(
+            std::begin( m_actionNameToIndex[context] ),
+            std::end( m_actionNameToIndex[context] ),
+            [&]( const ActionNameMap::value_type& pair ) { return pair.second == action; } );
+
+        if ( actionFindItr != std::end( m_actionNameToIndex[context] ) )
+        { return actionFindItr->first; }
+    }
+    return "Invalid";
+}
+
+std::string KeyMappingManager::getContextName( const Context& context ) {
+    auto contextFindItr = std::find_if(
+        std::begin( m_contextNameToIndex ),
+        std::end( m_contextNameToIndex ),
+        [&]( const ContextNameMap ::value_type& pair ) { return pair.second == context; } );
+
+    if ( contextFindItr != std::end( m_contextNameToIndex ) ) { return contextFindItr->first; }
+    return "Invalid";
+}
+
+void KeyMappingManager::addListener( Listener callback ) {
+    m_listeners.push_back( callback );
+    // call the registered listener directly to have it up to date if the
+    // config is already loaded
+    callback();
+}
+
 void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
                                          const MouseBinding& binding,
                                          Ra::Core::Utils::Index actionIndex ) {
@@ -286,6 +343,7 @@ Qt::KeyboardModifiers KeyMappingManager::getQtModifiersValue( const std::string&
         else if ( s == "GroupSwitchModifier" )
         { modifier |= Qt::GroupSwitchModifier; }
     }
+
     return modifier;
 }
 
@@ -303,7 +361,7 @@ Qt::MouseButtons KeyMappingManager::getQtMouseButtonsValue( const std::string& k
     { key = Qt::XButton1; }
     else if ( keyString == "XButton2" )
     { key = Qt::XButton2; }
-
+    ///\todo add other buttons support here
     return key;
 }
 
@@ -319,52 +377,68 @@ KeyMappingManager::~KeyMappingManager() {
     if ( m_file->isOpen() ) { m_file->close(); }
 }
 
+#define TEST_BUTTON_STRING( BUTTON ) \
+    if ( buttons & Qt::BUTTON )      \
+    {                                \
+        returnText += sep + #BUTTON; \
+        sep = ",";                   \
+    }
+
 std::string KeyMappingManager::enumNamesFromMouseButtons( const Qt::MouseButtons& buttons ) {
     std::string returnText;
+    std::string sep;
+
     if ( buttons == Qt::NoButton ) return "NoButton";
-    if ( buttons & Qt::LeftButton ) returnText += "LeftButton ";
-    if ( buttons & Qt::RightButton ) returnText += "RightButton ";
-    if ( buttons & Qt::MiddleButton ) returnText += "MiddleButton ";
-    if ( buttons & Qt::BackButton ) returnText += "BackButton ";
-    if ( buttons & Qt::ForwardButton ) returnText += "ForwardButton ";
-    if ( buttons & Qt::TaskButton ) returnText += "TaskButton ";
-    if ( buttons & Qt::ExtraButton4 ) returnText += "ExtraButton4 ";
-    if ( buttons & Qt::ExtraButton5 ) returnText += "ExtraButton5 ";
-    if ( buttons & Qt::ExtraButton6 ) returnText += "ExtraButton6 ";
-    if ( buttons & Qt::ExtraButton7 ) returnText += "ExtraButton7 ";
-    if ( buttons & Qt::ExtraButton8 ) returnText += "ExtraButton8 ";
-    if ( buttons & Qt::ExtraButton9 ) returnText += "ExtraButton9 ";
-    if ( buttons & Qt::ExtraButton10 ) returnText += "ExtraButton10 ";
-    if ( buttons & Qt::ExtraButton11 ) returnText += "ExtraButton11 ";
-    if ( buttons & Qt::ExtraButton12 ) returnText += "ExtraButton12 ";
-    if ( buttons & Qt::ExtraButton13 ) returnText += "ExtraButton13 ";
-    if ( buttons & Qt::ExtraButton14 ) returnText += "ExtraButton14 ";
-    if ( buttons & Qt::ExtraButton15 ) returnText += "ExtraButton15 ";
-    if ( buttons & Qt::ExtraButton16 ) returnText += "ExtraButton16 ";
-    if ( buttons & Qt::ExtraButton17 ) returnText += "ExtraButton17 ";
-    if ( buttons & Qt::ExtraButton18 ) returnText += "ExtraButton18 ";
-    if ( buttons & Qt::ExtraButton19 ) returnText += "ExtraButton19 ";
-    if ( buttons & Qt::ExtraButton20 ) returnText += "ExtraButton20 ";
-    if ( buttons & Qt::ExtraButton21 ) returnText += "ExtraButton21 ";
-    if ( buttons & Qt::ExtraButton22 ) returnText += "ExtraButton22 ";
-    if ( buttons & Qt::ExtraButton23 ) returnText += "ExtraButton23 ";
-    if ( buttons & Qt::ExtraButton24 ) returnText += "ExtraButton24 ";
+
+    TEST_BUTTON_STRING( LeftButton );
+    TEST_BUTTON_STRING( RightButton );
+    TEST_BUTTON_STRING( MiddleButton );
+    TEST_BUTTON_STRING( BackButton );
+    TEST_BUTTON_STRING( ForwardButton );
+    TEST_BUTTON_STRING( TaskButton );
+    TEST_BUTTON_STRING( ExtraButton4 );
+    TEST_BUTTON_STRING( ExtraButton5 );
+    TEST_BUTTON_STRING( ExtraButton6 );
+    TEST_BUTTON_STRING( ExtraButton7 );
+    TEST_BUTTON_STRING( ExtraButton8 );
+    TEST_BUTTON_STRING( ExtraButton9 );
+    TEST_BUTTON_STRING( ExtraButton10 );
+    TEST_BUTTON_STRING( ExtraButton11 );
+    TEST_BUTTON_STRING( ExtraButton12 );
+    TEST_BUTTON_STRING( ExtraButton13 );
+    TEST_BUTTON_STRING( ExtraButton14 );
+    TEST_BUTTON_STRING( ExtraButton15 );
+    TEST_BUTTON_STRING( ExtraButton16 );
+    TEST_BUTTON_STRING( ExtraButton17 );
+    TEST_BUTTON_STRING( ExtraButton18 );
+    TEST_BUTTON_STRING( ExtraButton19 );
+    TEST_BUTTON_STRING( ExtraButton20 );
+    TEST_BUTTON_STRING( ExtraButton21 );
+    TEST_BUTTON_STRING( ExtraButton22 );
+    TEST_BUTTON_STRING( ExtraButton23 );
+    TEST_BUTTON_STRING( ExtraButton24 );
+
     return returnText;
 }
 
 std::string
 KeyMappingManager::enumNamesFromKeyboardModifiers( const Qt::KeyboardModifiers& buttons ) {
     std::string returnText;
+    std::string sep;
+
     if ( buttons == Qt::NoModifier ) return "NoModifier";
-    if ( buttons & Qt::ShiftModifier ) returnText += "ShiftModifier ";
-    if ( buttons & Qt::ControlModifier ) returnText += "ControlModifier ";
-    if ( buttons & Qt::AltModifier ) returnText += "AltModifier ";
-    if ( buttons & Qt::MetaModifier ) returnText += "MetaModifier ";
-    if ( buttons & Qt::KeypadModifier ) returnText += "KeypadModifier ";
-    if ( buttons & Qt::GroupSwitchModifier ) returnText += "GroupSwitchModifier ";
+
+    TEST_BUTTON_STRING( ShiftModifier );
+    TEST_BUTTON_STRING( ControlModifier );
+    TEST_BUTTON_STRING( AltModifier );
+    TEST_BUTTON_STRING( MetaModifier );
+    TEST_BUTTON_STRING( KeypadModifier );
+    TEST_BUTTON_STRING( GroupSwitchModifier );
 
     return returnText;
 }
+
+#undef TEST_BUTTON_STRING
 
 RA_SINGLETON_IMPLEMENTATION( KeyMappingManager );
 } // namespace Gui
