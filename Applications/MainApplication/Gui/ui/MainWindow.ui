@@ -579,6 +579,7 @@
    <addaction name="actionGizmoRotate"/>
    <addaction name="actionGizmoScale"/>
    <addaction name="separator"/>
+   <addaction name="actionSnapshot"/>
    <addaction name="actionRecord_Frames"/>
    <addaction name="separator"/>
   </widget>
@@ -726,6 +727,18 @@
    </property>
    <property name="toolTip">
     <string>Scale selected object</string>
+   </property>
+  </action>
+  <action name="actionSnapshot">
+   <property name="icon">
+    <iconset resource="../../../../icons.qrc">
+     <normaloff>:/Assets/Images/screenshot.png</normaloff>:/Assets/Images/screenshot.png</iconset>
+   </property>
+   <property name="text">
+    <string>Snapshot</string>
+   </property>
+   <property name="toolTip">
+    <string>Takes a shnapshot of the current view</string>
    </property>
   </action>
  </widget>

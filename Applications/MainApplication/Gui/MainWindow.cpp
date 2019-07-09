@@ -105,6 +105,7 @@ void MainWindow::createConnections() {
     connect( actionGizmoRotate, &QAction::triggered, this, &MainWindow::gizmoShowRotate );
     connect( actionGizmoScale, &QAction::triggered, this, &MainWindow::gizmoShowScale );
 
+    connect( actionSnapshot, &QAction::triggered, mainApp, &MainApplication::recordFrame );
     connect( actionRecord_Frames, &QAction::toggled, mainApp, &MainApplication::setRecordFrames );
 
     connect(
