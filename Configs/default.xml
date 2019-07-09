@@ -13,6 +13,9 @@
     <keymap context="CameraContext" key="Key_A" modifiers="" buttons="" action="TRACKBALLCAMERA_ROTATE_AROUND"/>
     <keymap context="GizmoContext" key="" modifiers="" buttons="LeftButton" action="GIZMOMANAGER_MANIPULATION"/>
     <keymap context="GizmoContext" key="" modifiers="ControlModifier" buttons="LeftButton" action="GIZMOMANAGER_STEP"/>
+    <keymap context="GizmoContext" key="" modifiers="ShiftModifier" buttons="LeftButton" action="GIZMOMANAGER_WHOLE"/>
+    <keymap context="GizmoContext" key="" modifiers="ControlModifier,ShiftModifier" buttons="LeftButton"
+            action="GIZMOMANAGER_STEP_WHOLE"/>
     <keymap context="ViewerContext" key="" modifiers="" buttons="RightButton" action="VIEWER_PICKING"/>
     <keymap context="ViewerContext" key="Key_V" modifiers="" buttons="RightButton" action="VIEWER_PICKING_VERTEX"/>
     <keymap context="ViewerContext" key="Key_E" modifiers="" buttons="RightButton" action="VIEWER_PICKING_EDGE"/>
