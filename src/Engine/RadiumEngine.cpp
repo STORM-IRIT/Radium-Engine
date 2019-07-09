@@ -69,7 +69,6 @@ void RadiumEngine::registerDefaultPrograms() {
                                           m_resourcesRootDir+"Shaders/Lights/DefaultLight.glsl" );
 
     // Engine support some built-in materials. Register here
-    LOG(logINFO) << "RadiumEngine::registerDefaultPrograms -- Adding Plain configuration";
     Ra::Engine::ShaderConfiguration pConfig( "Plain" );
     pConfig.addShader( Ra::Engine::ShaderType_VERTEX, m_resourcesRootDir+"Shaders/Plain.vert.glsl" );
     pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT, m_resourcesRootDir+"Shaders/Plain.frag.glsl" );

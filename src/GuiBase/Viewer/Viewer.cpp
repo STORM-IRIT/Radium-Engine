@@ -60,7 +60,9 @@ KeyMappingViewer;
 #undef KMA_VALUE
 
 void Gui::Viewer::registerKeyMapping() {
-    m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "ViewerContext" );
+    auto kMapMan = Gui::KeyMappingManager::getInstance();
+    kMapMan->addListener( Gui::GizmoManager::registerKeyMapping );
+    m_keyMappingContext = kMapMan->getContext( "ViewerContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
         LOG( logINFO )
@@ -70,7 +72,7 @@ void Gui::Viewer::registerKeyMapping() {
     }
 
 #define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
+    XX = kMapMan->getActionIndex( m_keyMappingContext, #XX );
     KeyMappingViewer
 #undef KMA_VALUE
 }
@@ -105,7 +107,6 @@ void Gui::Viewer::createGizmoManager() {
     if ( m_gizmoManager == nullptr )
     {
         m_gizmoManager = new GizmoManager( this );
-        Gui::KeyMappingManager::getInstance()->addListener( Gui::GizmoManager::registerKeyMapping );
     }
 }
 
@@ -165,6 +166,8 @@ bool Gui::Viewer::initializeGL() {
 
     Engine::ShaderProgramManager::createInstance();
     Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
+
+    createGizmoManager();
 
     m_camera = std::make_unique<Gui::TrackballCamera>( width(), height() );
 
