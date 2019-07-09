@@ -24,6 +24,7 @@
 #include <Engine/System/GeometrySystem.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #ifdef IO_USE_CAMERA_LOADER
@@ -207,8 +208,8 @@ BaseApplication::BaseApplication( int argc,
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
-    Gui::KeyMappingManager::getInstance()->addListener(Gui::TrackballCamera::registerKeyMapping);
-    Gui::KeyMappingManager::getInstance()->addListener(Gui::Viewer::registerKeyMapping);
+    Gui::KeyMappingManager::getInstance()->addListener( Gui::TrackballCamera::registerKeyMapping );
+    Gui::KeyMappingManager::getInstance()->addListener( Gui::Viewer::registerKeyMapping );
 
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );
@@ -416,6 +417,9 @@ void BaseApplication::radiumFrame() {
     m_taskQueue->flushTaskQueue();
 
     timerData.tasksEnd = Core::Utils::Clock::now();
+
+    // also update gizmo manager to deal with annimation playing / reset
+    m_viewer->getGizmoManager()->updateValues();
 
     // ----------
     // 3. Kickoff rendering
