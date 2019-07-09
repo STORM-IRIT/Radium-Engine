@@ -34,7 +34,9 @@ void GizmoManager::registerKeyMapping() {
 
 bool GizmoManager::isValidAction( const Gui::KeyMappingManager::KeyMappingAction& action ) const {
 
+    if ( action.isInvalid() ) return false;
     bool res = false;
+
 #define KMA_VALUE( XX ) res = ( XX == action ) || res;
     KeyMappingGizmo
 #undef KMA_VALUE
@@ -103,7 +105,8 @@ void GizmoManager::updateValues() {
     {
         getTransform();
         if ( currentGizmo() )
-        { currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform ); } }
+        { currentGizmo()->updateTransform( m_mode, getWorldTransform(), m_transform ); }
+    }
 }
 
 bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
@@ -112,8 +115,9 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
                                           int key ) {
 
     if ( !canEdit() || m_currentGizmoType == NONE || !currentGizmo()->isSelected() )
-    { return false; } auto action = KeyMappingManager::getInstance()->getAction(
-                          m_keyMappingContext, buttons, modifiers, key, false );
+    { return false; }
+    auto action = KeyMappingManager::getInstance()->getAction(
+        m_keyMappingContext, buttons, modifiers, key, false );
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
