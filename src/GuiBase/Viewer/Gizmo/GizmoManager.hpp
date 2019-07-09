@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <GuiBase/TransformEditor/TransformEditor.hpp>
+#include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
 #include <QMouseEvent>
 #include <QObject>

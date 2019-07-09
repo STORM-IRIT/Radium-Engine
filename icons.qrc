@@ -1,29 +1,30 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>Assets/Images/gizmo.png</file>
-    <file>Assets/Images/pause.png</file>
-    <file>Assets/Images/play.png</file>
-    <file>Assets/Images/RadiumIcon.png</file>
-    <file>Assets/Images/rotate.png</file>
-    <file>Assets/Images/scale.png</file>
-    <file>Assets/Images/select.png</file>
-    <file>Assets/Images/translate.png</file>
-    <file>Assets/Images/xray.png</file>
-    <file>Assets/Images/pause_off.png</file>
-    <file>Assets/Images/pause_on.png</file>
-    <file>Assets/Images/play_off.png</file>
-    <file>Assets/Images/play_on.png</file>
-    <file>Assets/Images/rec.png</file>
-    <file>Assets/Images/rec_on.png</file>
-    <file>Assets/Images/step_off.png</file>
-    <file>Assets/Images/step_on.png</file>
-    <file>Assets/Images/stop_off.png</file>
-    <file>Assets/Images/stop_on.png</file>
-    <file>Assets/Images/DQ.png</file>
-    <file>Assets/Images/DQ_on.png</file>
-    <file>Assets/Images/CoR.png</file>
-    <file>Assets/Images/CoR_on.png</file>
-    <file>Assets/Images/LB.png</file>
-    <file>Assets/Images/LB_on.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Images/gizmo.png</file>
+        <file>Assets/Images/pause.png</file>
+        <file>Assets/Images/play.png</file>
+        <file>Assets/Images/RadiumIcon.png</file>
+        <file>Assets/Images/rotate.png</file>
+        <file>Assets/Images/scale.png</file>
+        <file>Assets/Images/select.png</file>
+        <file>Assets/Images/translate.png</file>
+        <file>Assets/Images/xray.png</file>
+        <file>Assets/Images/pause_off.png</file>
+        <file>Assets/Images/pause_on.png</file>
+        <file>Assets/Images/play_off.png</file>
+        <file>Assets/Images/play_on.png</file>
+        <file>Assets/Images/rec.png</file>
+        <file>Assets/Images/rec_on.png</file>
+        <file>Assets/Images/step_off.png</file>
+        <file>Assets/Images/step_on.png</file>
+        <file>Assets/Images/stop_off.png</file>
+        <file>Assets/Images/stop_on.png</file>
+        <file>Assets/Images/DQ.png</file>
+        <file>Assets/Images/DQ_on.png</file>
+        <file>Assets/Images/CoR.png</file>
+        <file>Assets/Images/CoR_on.png</file>
+        <file>Assets/Images/LB.png</file>
+        <file>Assets/Images/LB_on.png</file>
+        <file>Assets/Images/screenshot.png</file>
+    </qresource>
 </RCC>

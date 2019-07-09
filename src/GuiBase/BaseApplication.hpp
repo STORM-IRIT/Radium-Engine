@@ -103,6 +103,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
             m_continuousUpdateRequest.store( 0 );
             m_isUpdateNeeded.store( false );
         }
+        if ( m_isAboutToQuit ) { this->exit(); }
     }
 
     bool loadFile( QString path );
@@ -121,6 +122,9 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
     void setContinuousUpdate( bool b ) {
         b ? m_continuousUpdateRequest++ : m_continuousUpdateRequest--;
+        // if continuous update is requested, then we need an update, if not,
+        // let update needed stay in the same state.
+        if ( m_continuousUpdateRequest > 0 ) m_isUpdateNeeded.store( true );
     }
     void askForUpdate() { m_isUpdateNeeded.store( true ); }
 

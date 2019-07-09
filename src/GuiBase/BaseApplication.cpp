@@ -24,6 +24,7 @@
 #include <Engine/System/GeometrySystem.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #ifdef IO_USE_CAMERA_LOADER
@@ -118,6 +119,7 @@ BaseApplication::BaseApplication( int argc,
                                "Open a camera file at startup",
                                "file name",
                                "foo.bar" );
+    QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording." );
 
     parser.addOptions( {fpsOpt,
                         pluginOpt,
@@ -126,13 +128,19 @@ BaseApplication::BaseApplication( int argc,
                         fileOpt,
                         camOpt,
                         maxThreadsOpt,
-                        numFramesOpt} );
+                        numFramesOpt,
+                        recordOpt} );
     parser.process( *this );
 
     if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
     if ( parser.isSet( pluginOpt ) ) pluginsPath = parser.value( pluginOpt ).toStdString();
     if ( parser.isSet( numFramesOpt ) ) m_numFrames = parser.value( numFramesOpt ).toUInt();
     if ( parser.isSet( maxThreadsOpt ) ) m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
+    if ( parser.isSet( recordOpt ) )
+    {
+        m_recordFrames = true;
+        setContinuousUpdate( true );
+    }
 
     {
         std::time_t startTime = std::time( nullptr );
@@ -200,8 +208,8 @@ BaseApplication::BaseApplication( int argc,
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
-    Gui::KeyMappingManager::getInstance()->addListener(Gui::TrackballCamera::registerKeyMapping);
-    Gui::KeyMappingManager::getInstance()->addListener(Gui::Viewer::registerKeyMapping);
+    Gui::KeyMappingManager::getInstance()->addListener( Gui::TrackballCamera::registerKeyMapping );
+    Gui::KeyMappingManager::getInstance()->addListener( Gui::Viewer::registerKeyMapping );
 
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );
@@ -410,6 +418,9 @@ void BaseApplication::radiumFrame() {
 
     timerData.tasksEnd = Core::Utils::Clock::now();
 
+    // also update gizmo manager to deal with annimation playing / reset
+    m_viewer->getGizmoManager()->updateValues();
+
     // ----------
     // 3. Kickoff rendering
     m_viewer->startRendering( dt );
@@ -434,7 +445,7 @@ void BaseApplication::radiumFrame() {
 
     ++m_frameCounter;
 
-    if ( m_numFrames > 0 && m_frameCounter > m_numFrames ) { appNeedsToQuit(); }
+    if ( m_numFrames > 0 && m_frameCounter >= m_numFrames ) { appNeedsToQuit(); }
 
     if ( m_frameCounter % m_frameCountBeforeUpdate == 0 )
     {
