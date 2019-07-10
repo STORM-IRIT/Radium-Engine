@@ -1,5 +1,7 @@
 #ifndef RADIUMENGINE_RESOURCES_HPP
 #define RADIUMENGINE_RESOURCES_HPP
+#include <Core/RaCore.hpp>
+
 namespace Ra {
   namespace Core {
 
@@ -16,7 +18,7 @@ namespace Ra {
     {
 
       /// Get the base prefix to access the Radium resources in a filesystem.
-      const char * getBaseDir();
+      RA_CORE_API const char * getBaseDir();
     };
   }
 }
