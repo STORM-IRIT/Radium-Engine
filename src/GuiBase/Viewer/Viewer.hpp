@@ -64,7 +64,6 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     static void registerKeyMapping();
 
-
     //
     // Accessors
     //
@@ -93,7 +92,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     //  Time dependent state management
     //
     /// Update the internal viewer state to the (application) time dt
-    void update(const Scalar dt );
+    void update( const Scalar dt );
     //
     // Rendering management
     //

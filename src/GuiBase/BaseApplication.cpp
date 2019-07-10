@@ -3,13 +3,13 @@
 #include <GuiBase/Viewer/Viewer.hpp>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
-#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -337,9 +337,9 @@ bool BaseApplication::loadFile( QString path ) {
         return false;
     }
 
-    m_engine->releaseFile(fullFilename);
+    m_engine->releaseFile( fullFilename );
 
-    m_mainWindow->postLoadFile(fullFilename);
+    m_mainWindow->postLoadFile( fullFilename );
 
     emit loadComplete();
     return true;
@@ -355,25 +355,27 @@ void BaseApplication::addBasicShaders() {
     std::string resourcesRootDir = {Core::Resources::getBaseDir()};
 
     ShaderConfiguration lgConfig( "LinesGeom" );
-    lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Lines.vert.glsl" );
-    lgConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Lines.frag.glsl" );
-    lgConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir+"Shaders/Lines.geom.glsl" );
+    lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
+    lgConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir + "Shaders/Lines.frag.glsl" );
+    lgConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lgConfig );
 
     ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
-    lagConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Lines.vert.glsl" );
-    lagConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/LinesAdjacency.frag.glsl" );
-    lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir+"Shaders/Lines.geom.glsl" );
+    lagConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
+    lagConfig.addShader( ShaderType_FRAGMENT,
+                         resourcesRootDir + "Shaders/LinesAdjacency.frag.glsl" );
+    lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lagConfig );
 
     ShaderConfiguration lConfig( "Lines" );
-    lConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Lines.vert.glsl" );
-    lConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Lines.frag.glsl" );
+    lConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
+    lConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir + "Shaders/Lines.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( lConfig );
 
     ShaderConfiguration gdConfig( "GradientDisplay" );
-    gdConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/GradientDisplay.vert.glsl" );
-    gdConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/GradientDisplay.frag.glsl" );
+    gdConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/GradientDisplay.vert.glsl" );
+    gdConfig.addShader( ShaderType_FRAGMENT,
+                        resourcesRootDir + "Shaders/GradientDisplay.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( gdConfig );
 }
 
@@ -410,10 +412,10 @@ void BaseApplication::radiumFrame() {
     timerData.tasksEnd = Core::Utils::Clock::now();
 
     // also update gizmo manager to deal with annimation playing / reset
-    //m_viewer->getGizmoManager()->updateValues();
+    // m_viewer->getGizmoManager()->updateValues();
 
     // update viewer internal time-dependant state
-    m_viewer->update(dt);
+    m_viewer->update( dt );
 
     // ----------
     // 3. Kickoff rendering

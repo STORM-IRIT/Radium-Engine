@@ -109,22 +109,26 @@ void BlinnPhongMaterial::registerMaterial() {
                                                          BlinnPhongMaterialConverter() );
 
     ShaderProgramManager::getInstance()->addNamedString(
-        "/BlinnPhongMaterial.glsl", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
+        "/BlinnPhongMaterial.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
     // registering re-usable shaders
-    Ra::Engine::ShaderConfiguration lpconfig( "BlinnPhong",
-        resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+    Ra::Engine::ShaderConfiguration lpconfig(
+        "BlinnPhong",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
 
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     Ra::Engine::ShaderConfiguration zprepassconfig(
-        "ZprepassBlinnPhong", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        resourcesRootDir+"Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
+        "ZprepassBlinnPhong",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
     Ra::Engine::ShaderConfiguration transparentpassconfig(
-        "LitOITBlinnPhong", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        resourcesRootDir+"Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
+        "LitOITBlinnPhong",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
 
     // Registering technique

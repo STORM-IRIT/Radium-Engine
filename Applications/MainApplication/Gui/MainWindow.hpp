@@ -90,7 +90,7 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     /// Reset the camera to see all visible objects
     void fitCamera();
     /// clear selection, fit camera and update material name in ui
-    void postLoadFile(const std::string &filename) override;
+    void postLoadFile( const std::string &filename ) override;
 
     /// Slot for the "edit" button.
     void editRO();

@@ -150,9 +150,8 @@ class RA_ENGINE_API Camera : public Component
     inline void resize( Scalar width, Scalar height );
     ///@}
 
-
     /// Duplicate the camera under a different Entity and a different name
-    virtual Camera *duplicate(Entity *cloneEntity, const std::string &cloneName) const;
+    virtual Camera* duplicate( Entity* cloneEntity, const std::string& cloneName ) const;
 
   protected:
     Core::Transform m_frame{

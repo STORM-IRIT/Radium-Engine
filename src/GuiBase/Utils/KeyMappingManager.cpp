@@ -1,14 +1,15 @@
 #include "KeyMappingManager.hpp"
 
-#include <Core/Utils/Log.hpp>
 #include <Core/Resources/Resources.hpp>
+#include <Core/Utils/Log.hpp>
 
 namespace Ra::Gui {
 
 using namespace Core::Utils; // log
 
 KeyMappingManager::KeyMappingManager() :
-    defaultConfigFile(std::string(Core::Resources::getBaseDir()) + std::string("Configs/default.xml")),
+    defaultConfigFile( std::string( Core::Resources::getBaseDir() ) +
+                       std::string( "Configs/default.xml" ) ),
     m_domDocument( "Key Mapping QDomDocument" ),
     m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ),
     m_file( nullptr ) {
@@ -19,9 +20,9 @@ KeyMappingManager::KeyMappingManager() :
     {
         LOG( logINFO ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
                        << settings.fileName().toStdString() << ")";
-    } else {
-        LOG( logINFO ) << "Loading default key mapping " << defaultConfigFile;
     }
+    else
+    { LOG( logINFO ) << "Loading default key mapping " << defaultConfigFile; }
     loadConfiguration( keyMappingFilename.toStdString().c_str() );
 }
 

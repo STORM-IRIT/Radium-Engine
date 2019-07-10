@@ -11,8 +11,8 @@
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
-#include <Core/Utils/StringUtils.hpp>
 #include <Core/Resources/Resources.hpp>
+#include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/FrameInfo.hpp>
@@ -22,10 +22,9 @@
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/System/System.hpp>
-
 
 namespace Ra {
 namespace Engine {
@@ -58,20 +57,25 @@ void RadiumEngine::registerDefaultPrograms() {
     // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
     // Radium V2 : are these initialization required here ? They will be better in
     // Engine::Initialize .... Define a better ressources management and initialization
-    shaderProgramManager->addNamedString( "/Helpers.glsl", m_resourcesRootDir+"Shaders/Helpers.glsl" );
-    shaderProgramManager->addNamedString( "/Structs.glsl", m_resourcesRootDir+"Shaders/Structs.glsl" );
-    shaderProgramManager->addNamedString( "/Tonemap.glsl", m_resourcesRootDir+"Shaders/Tonemap.glsl" );
+    shaderProgramManager->addNamedString( "/Helpers.glsl",
+                                          m_resourcesRootDir + "Shaders/Helpers.glsl" );
+    shaderProgramManager->addNamedString( "/Structs.glsl",
+                                          m_resourcesRootDir + "Shaders/Structs.glsl" );
+    shaderProgramManager->addNamedString( "/Tonemap.glsl",
+                                          m_resourcesRootDir + "Shaders/Tonemap.glsl" );
     shaderProgramManager->addNamedString( "/LightingFunctions.glsl",
-                                          m_resourcesRootDir+"Shaders/LightingFunctions.glsl" );
-    shaderProgramManager->addNamedString( "/TransformStructs.glsl",
-                                          m_resourcesRootDir+"Shaders/Transform/TransformStructs.glsl" );
+                                          m_resourcesRootDir + "Shaders/LightingFunctions.glsl" );
+    shaderProgramManager->addNamedString(
+        "/TransformStructs.glsl", m_resourcesRootDir + "Shaders/Transform/TransformStructs.glsl" );
     shaderProgramManager->addNamedString( "/DefaultLight.glsl",
-                                          m_resourcesRootDir+"Shaders/Lights/DefaultLight.glsl" );
+                                          m_resourcesRootDir + "Shaders/Lights/DefaultLight.glsl" );
 
     // Engine support some built-in materials. Register here
     Ra::Engine::ShaderConfiguration pConfig( "Plain" );
-    pConfig.addShader( Ra::Engine::ShaderType_VERTEX, m_resourcesRootDir+"Shaders/Plain.vert.glsl" );
-    pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT, m_resourcesRootDir+"Shaders/Plain.frag.glsl" );
+    pConfig.addShader( Ra::Engine::ShaderType_VERTEX,
+                       m_resourcesRootDir + "Shaders/Plain.vert.glsl" );
+    pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT,
+                       m_resourcesRootDir + "Shaders/Plain.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( pConfig );
 
     BlinnPhongMaterial::registerMaterial();
@@ -215,8 +219,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
     return true;
 }
 
-void RadiumEngine::releaseFile(const std::string &filename)
-{
+void RadiumEngine::releaseFile( const std::string& filename ) {
     m_loadedFile.reset( nullptr );
     m_loadingState = false;
 }
@@ -243,7 +246,7 @@ const std::vector<std::shared_ptr<FileLoaderInterface>>& RadiumEngine::getFileLo
 
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
-const FileData& RadiumEngine::getFileData() const {
+const FileData& RadiumEngine::getFileData( const std::string& file ) const {
     CORE_ASSERT( m_loadingState, "Access to file content is only available at loading time." );
     return *( m_loadedFile.get() );
 }

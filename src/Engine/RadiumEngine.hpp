@@ -115,17 +115,18 @@ class RA_ENGINE_API RadiumEngine
      * Access to the content is only available at loading time. As soon as the loaded file is
      * released, its content is no more available outside the Entity/Component architecture.
      * @pre The Engine must be in "loading state".
+     * @param filename the name of the loaded file
      * @return
      */
-    const Core::Asset::FileData& getFileData() const;
+    const Core::Asset::FileData& getFileData( const std::string& file ) const;
 
     /**
      * Release the content of the loaded file.
-     * After calling this, the getFileData method is
+     * After calling this, the getFileData method must not be called for this file
      * @param filename the name of the file to release. If empty, releases the last loaded file.
      * @note Calling this method set the engine out of the "loading state".
      */
-    void releaseFile(const std::string &filename = "");
+    void releaseFile( const std::string& filename = "" );
 
     /// Is called at the end of the frame to synchronize any data
     /// that may have been updated during the frame's multithreaded processing.

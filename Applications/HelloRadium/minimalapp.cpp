@@ -23,8 +23,9 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     m_engine->initialize();
 
     Ra::Gui::KeyMappingManager::createInstance();
-    Ra::Gui::KeyMappingManager::getInstance()->addListener(Ra::Gui::TrackballCamera::registerKeyMapping);
-    Ra::Gui::KeyMappingManager::getInstance()->addListener(Ra::Gui::Viewer::registerKeyMapping);
+    Ra::Gui::KeyMappingManager::getInstance()->addListener(
+        Ra::Gui::TrackballCamera::registerKeyMapping );
+    Ra::Gui::KeyMappingManager::getInstance()->addListener( Ra::Gui::Viewer::registerKeyMapping );
 
     // Initialize taskqueue.
     m_task_queue.reset( new Ra::Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );
@@ -41,10 +42,10 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
 
 MinimalApp::~MinimalApp() {
     // need to clean up everithing before engine is cleaned up.
-    m_task_queue.reset(nullptr);
-    m_viewer.reset(nullptr);
+    m_task_queue.reset( nullptr );
+    m_viewer.reset( nullptr );
     m_engine->cleanup();
-    m_engine.reset(nullptr);
+    m_engine.reset( nullptr );
 }
 
 void MinimalApp::onGLInitialized() {

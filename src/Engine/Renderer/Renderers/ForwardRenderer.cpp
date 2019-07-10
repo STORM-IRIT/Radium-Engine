@@ -1,8 +1,8 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
+#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
-#include <Core/Resources/Resources.hpp>
 
 #include <Engine/Managers/CameraManager/DefaultCameraManager.hpp>
 #include <Engine/Managers/LightManager/DefaultLightManager.hpp>
@@ -17,7 +17,6 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <globjects/Framebuffer.h>
-
 
 //#define NO_TRANSPARENCY
 namespace Ra {
@@ -63,12 +62,12 @@ void ForwardRenderer::initShaders() {
     /// For internal resources management in a filesystem
     std::string resourcesRootDir = {Core::Resources::getBaseDir()};
     m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
-                                    resourcesRootDir+"Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
-                                   resourcesRootDir+"Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"} );
+                                    resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
+                                    resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"} );
 #ifndef NO_TRANSPARENCY
-    m_shaderMgr->addShaderProgram(
-        {{"ComposeOIT"}, resourcesRootDir+"Shaders/Basic2D.vert.glsl",
-        resourcesRootDir+"Shaders/ComposeOIT.frag.glsl"} );
+    m_shaderMgr->addShaderProgram( {{"ComposeOIT"},
+                                    resourcesRootDir + "Shaders/Basic2D.vert.glsl",
+                                    resourcesRootDir + "Shaders/ComposeOIT.frag.glsl"} );
 #endif
 }
 
@@ -471,7 +470,7 @@ void ForwardRenderer::resizeInternal() {
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus(); }
 
-#ifndef NO_TRANSPARENCY
+    #ifndef NO_TRANSPARENCY
     m_oitFbo->bind();
     m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_textures[RendererTextures_Depth]->texture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0,
@@ -480,7 +479,7 @@ void ForwardRenderer::resizeInternal() {
                              m_textures[RendererTextures_OITRevealage]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_oitFbo) : " << m_fbo->checkStatus(); }
-#endif
+    #endif
 
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,

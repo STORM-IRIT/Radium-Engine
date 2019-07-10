@@ -64,23 +64,27 @@ void Renderer::initialize( uint width, uint height ) {
     m_roMgr     = RadiumEngine::getInstance()->getRenderObjectManager();
     TextureManager::createInstance();
 
+    m_shaderMgr->addShaderProgram( {{"DrawScreen"},
+                                    resourcesRootDir + "Shaders/Basic2D.vert.glsl",
+                                    resourcesRootDir + "Shaders/DrawScreen.frag.glsl"} );
+    m_shaderMgr->addShaderProgram( {{"DrawScreenI"},
+                                    resourcesRootDir + "Shaders/Basic2D.vert.glsl",
+                                    resourcesRootDir + "Shaders/DrawScreenI.frag.glsl"} );
+    m_shaderMgr->addShaderProgram( {{"CircleBrush"},
+                                    resourcesRootDir + "Shaders/Basic2D.vert.glsl",
+                                    resourcesRootDir + "Shaders/CircleBrush.frag.glsl"} );
     m_shaderMgr->addShaderProgram(
-        {{"DrawScreen"}, resourcesRootDir+"Shaders/Basic2D.vert.glsl",
-         resourcesRootDir+"Shaders/DrawScreen.frag.glsl"} );
-    m_shaderMgr->addShaderProgram(
-        {{"DrawScreenI"}, resourcesRootDir+"Shaders/Basic2D.vert.glsl",
-         resourcesRootDir+"Shaders/DrawScreenI.frag.glsl"} );
-    m_shaderMgr->addShaderProgram(
-        {{"CircleBrush"}, resourcesRootDir+"Shaders/Basic2D.vert.glsl",
-         resourcesRootDir+"Shaders/CircleBrush.frag.glsl"} );
-    m_shaderMgr->addShaderProgram( {{"DisplayDepthBuffer"},
-                                    resourcesRootDir+"Shaders/Basic2D.vert.glsl",
-                                   resourcesRootDir+"Shaders/DepthDisplay/DepthDisplay.frag.glsl"} );
+        {{"DisplayDepthBuffer"},
+         resourcesRootDir + "Shaders/Basic2D.vert.glsl",
+         resourcesRootDir + "Shaders/DepthDisplay/DepthDisplay.frag.glsl"} );
 
     ShaderConfiguration pickingPointsConfig( "PickingPoints" );
-    pickingPointsConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Picking.vert.glsl" );
-    pickingPointsConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir+"Shaders/PickingPoints.geom.glsl" );
-    pickingPointsConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Picking.frag.glsl" );
+    pickingPointsConfig.addShader( ShaderType_VERTEX,
+                                   resourcesRootDir + "Shaders/Picking.vert.glsl" );
+    pickingPointsConfig.addShader( ShaderType_GEOMETRY,
+                                   resourcesRootDir + "Shaders/PickingPoints.geom.glsl" );
+    pickingPointsConfig.addShader( ShaderType_FRAGMENT,
+                                   resourcesRootDir + "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
     {
         auto pickingShader = m_shaderMgr->addShaderProgram( pickingPointsConfig );
@@ -89,9 +93,12 @@ void Renderer::initialize( uint width, uint height ) {
     }
 
     ShaderConfiguration pickingLinesConfig( "PickingLines" );
-    pickingLinesConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Picking.vert.glsl" );
-    pickingLinesConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir+"Shaders/PickingLines.geom.glsl" );
-    pickingLinesConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Picking.frag.glsl" );
+    pickingLinesConfig.addShader( ShaderType_VERTEX,
+                                  resourcesRootDir + "Shaders/Picking.vert.glsl" );
+    pickingLinesConfig.addShader( ShaderType_GEOMETRY,
+                                  resourcesRootDir + "Shaders/PickingLines.geom.glsl" );
+    pickingLinesConfig.addShader( ShaderType_FRAGMENT,
+                                  resourcesRootDir + "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
     {
         auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesConfig );
@@ -100,10 +107,12 @@ void Renderer::initialize( uint width, uint height ) {
     }
 
     ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
-    pickingLinesAdjacencyConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Picking.vert.glsl" );
-    pickingLinesAdjacencyConfig.addShader( ShaderType_GEOMETRY,
-                                           resourcesRootDir+"Shaders/PickingLinesAdjacency.geom.glsl" );
-    pickingLinesAdjacencyConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Picking.frag.glsl" );
+    pickingLinesAdjacencyConfig.addShader( ShaderType_VERTEX,
+                                           resourcesRootDir + "Shaders/Picking.vert.glsl" );
+    pickingLinesAdjacencyConfig.addShader(
+        ShaderType_GEOMETRY, resourcesRootDir + "Shaders/PickingLinesAdjacency.geom.glsl" );
+    pickingLinesAdjacencyConfig.addShader( ShaderType_FRAGMENT,
+                                           resourcesRootDir + "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
     {
         auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
@@ -112,9 +121,12 @@ void Renderer::initialize( uint width, uint height ) {
     }
 
     ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
-    pickingTrianglesConfig.addShader( ShaderType_VERTEX, resourcesRootDir+"Shaders/Picking.vert.glsl" );
-    pickingTrianglesConfig.addShader( ShaderType_GEOMETRY,resourcesRootDir+"Shaders/PickingTriangles.geom.glsl" );
-    pickingTrianglesConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir+"Shaders/Picking.frag.glsl" );
+    pickingTrianglesConfig.addShader( ShaderType_VERTEX,
+                                      resourcesRootDir + "Shaders/Picking.vert.glsl" );
+    pickingTrianglesConfig.addShader( ShaderType_GEOMETRY,
+                                      resourcesRootDir + "Shaders/PickingTriangles.geom.glsl" );
+    pickingTrianglesConfig.addShader( ShaderType_FRAGMENT,
+                                      resourcesRootDir + "Shaders/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
     {
         auto pickingShader = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
@@ -636,8 +648,7 @@ void Renderer::resize( uint w, uint h ) {
 
 void Renderer::displayTexture( const std::string& texName ) {
     if ( m_secondaryTextures.find( texName ) != m_secondaryTextures.end() )
-    { m_displayedTexture = m_secondaryTextures[texName]; }
-    else
+    { m_displayedTexture = m_secondaryTextures[texName]; } else
     { m_displayedTexture = m_fancyTexture.get(); }
 }
 
