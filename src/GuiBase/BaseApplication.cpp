@@ -1,6 +1,6 @@
 #include <GuiBase/BaseApplication.hpp>
-
 #include <GuiBase/MainWindowInterface.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Tasks/Task.hpp>
@@ -13,20 +13,14 @@
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/ItemModel/ItemEntry.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/System/GeometrySystem.hpp>
-#include <GuiBase/Utils/KeyMappingManager.hpp>
-#include <GuiBase/Viewer/CameraInterface.hpp>
-#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #ifdef IO_USE_CAMERA_LOADER
@@ -39,7 +33,6 @@
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
-#include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <QCommandLineParser>
 #include <QDir>
 #include <QOpenGLContext>
@@ -210,7 +203,6 @@ BaseApplication::BaseApplication( int argc,
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
-    Gui::KeyMappingManager::getInstance()->addListener( Gui::TrackballCamera::registerKeyMapping );
     Gui::KeyMappingManager::getInstance()->addListener( Gui::Viewer::registerKeyMapping );
 
     // Create engine
@@ -294,7 +286,7 @@ BaseApplication::BaseApplication( int argc,
         {
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
             auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
-            m_viewer->getCameraInterface()->setCamera( camera );
+            m_viewer->setCamera( camera );
         }
     }
 
@@ -418,7 +410,10 @@ void BaseApplication::radiumFrame() {
     timerData.tasksEnd = Core::Utils::Clock::now();
 
     // also update gizmo manager to deal with annimation playing / reset
-    m_viewer->getGizmoManager()->updateValues();
+    //m_viewer->getGizmoManager()->updateValues();
+
+    // update viewer internal time-dependant state
+    m_viewer->update(dt);
 
     // ----------
     // 3. Kickoff rendering

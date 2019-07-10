@@ -17,6 +17,7 @@
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Utils/qt_utils.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <IO/deprecated/OBJFileManager.hpp>

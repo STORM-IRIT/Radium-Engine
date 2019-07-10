@@ -41,10 +41,10 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
 
 MinimalApp::~MinimalApp() {
     // need to clean up everithing before engine is cleaned up.
-    m_task_queue.release();
-    m_viewer.release();
+    m_task_queue.reset(nullptr);
+    m_viewer.reset(nullptr);
     m_engine->cleanup();
-    m_engine.release();
+    m_engine.reset(nullptr);
 }
 
 void MinimalApp::onGLInitialized() {

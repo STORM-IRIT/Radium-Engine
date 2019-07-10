@@ -68,11 +68,14 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     //
     // Accessors
     //
-
+    /// Access to th OpenGL context of the Viewer
     QOpenGLContext* getContext() const { return m_context.get(); }
 
     /// Access to camera interface.
     CameraInterface* getCameraInterface();
+
+    /// Set the camera managed by the cameraInterface
+    void setCamera( Engine::Camera* camera );
 
     /// Access to gizmo manager
     GizmoManager* getGizmoManager();
@@ -86,6 +89,11 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Access to the feature picking manager
     PickingManager* getPickingManager();
 
+    //
+    //  Time dependent state management
+    //
+    /// Update the internal viewer state to the (application) time dt
+    void update(const Scalar dt );
     //
     // Rendering management
     //
