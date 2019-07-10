@@ -298,7 +298,7 @@ void BlinnPhongMaterial::registerMaterial() {
             // Configuration for RenderTechnique::Z_PREPASS
             Ra::Engine::ShaderConfiguration dpconfig(
                 "DepthAmbiantBlinnPhong", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                resourcesRootDir+"Shaders/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
+                resourcesRootDir+"Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
             Ra::Engine::ShaderConfigurationFactory::addConfiguration( dpconfig );
             rt.setConfiguration( dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
 
@@ -307,7 +307,7 @@ void BlinnPhongMaterial::registerMaterial() {
             {
                 Ra::Engine::ShaderConfiguration tpconfig(
                     "LitOITBlinnPhong", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                    resourcesRootDir+"Shaders/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
+                    resourcesRootDir+"Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
                 Ra::Engine::ShaderConfigurationFactory::addConfiguration( tpconfig );
                 rt.setConfiguration( tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }
