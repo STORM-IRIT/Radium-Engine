@@ -470,7 +470,7 @@ void ForwardRenderer::resizeInternal() {
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_fbo): " << m_fbo->checkStatus(); }
 
-    #ifndef NO_TRANSPARENCY
+#ifndef NO_TRANSPARENCY
     m_oitFbo->bind();
     m_oitFbo->attachTexture( GL_DEPTH_ATTACHMENT, m_textures[RendererTextures_Depth]->texture() );
     m_oitFbo->attachTexture( GL_COLOR_ATTACHMENT0,
@@ -479,7 +479,7 @@ void ForwardRenderer::resizeInternal() {
                              m_textures[RendererTextures_OITRevealage]->texture() );
     if ( m_fbo->checkStatus() != GL_FRAMEBUFFER_COMPLETE )
     { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_oitFbo) : " << m_fbo->checkStatus(); }
-    #endif
+#endif
 
     m_postprocessFbo->bind();
     m_postprocessFbo->attachTexture( GL_DEPTH_ATTACHMENT,

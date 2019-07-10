@@ -1,14 +1,14 @@
 #include <Core/Resources/Resources.hpp>
 
-#ifndef RADIUM_BIN_BASEDIR
-#    warning "RADIUM_BIN_BASEDIR not defined : application/lib may malfunction... "
-#    define RADIUM_BIN_BASEDIR ""
+#ifndef RADIUM_RESOURCES_BASEDIR
+#    warning "RADIUM_RESOURCES_BASEDIR not defined : applications might not function outside of Radium Bundle "
+#    define RADIUM_RESOURCES_BASEDIR ""
 #endif
 
 namespace Ra {
 namespace Core {
 namespace Resources {
-static const char* baseDir = RADIUM_BIN_BASEDIR;
+static const char* baseDir = RADIUM_RESOURCES_BASEDIR;
 const char* getBaseDir() {
     return baseDir;
 }

@@ -59,7 +59,7 @@ using namespace glbinding;
 KeyMappingViewer;
 #undef KMA_VALUE
 
-// Register al keymapings related to the viewer and its managed functionalities (Trackball camera,
+// Register all keymapings related to the viewer and its managed functionalities (Trackball camera,
 // Gizmo, ..)
 void Gui::Viewer::registerKeyMapping() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();

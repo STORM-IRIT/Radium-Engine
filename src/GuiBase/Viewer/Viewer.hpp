@@ -67,7 +67,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     //
     // Accessors
     //
-    /// Access to th OpenGL context of the Viewer
+    /// Access to the OpenGL context of the Viewer
     QOpenGLContext* getContext() const { return m_context.get(); }
 
     /// Access to camera interface.

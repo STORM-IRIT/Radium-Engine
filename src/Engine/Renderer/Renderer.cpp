@@ -648,7 +648,8 @@ void Renderer::resize( uint w, uint h ) {
 
 void Renderer::displayTexture( const std::string& texName ) {
     if ( m_secondaryTextures.find( texName ) != m_secondaryTextures.end() )
-    { m_displayedTexture = m_secondaryTextures[texName]; } else
+    { m_displayedTexture = m_secondaryTextures[texName]; }
+    else
     { m_displayedTexture = m_fancyTexture.get(); }
 }
 

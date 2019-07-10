@@ -658,20 +658,18 @@ void MainWindow::postLoadFile( const std::string& filename ) {
         Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity( loadedEntityName );
     if ( rootEntity != nullptr )
     {
-        for ( const auto& c : rootEntity->getComponents() )
-        {
-            if ( c->getName().compare( 0, 7, "CAMERA_" ) == 0 )
-            {
-                LOG( logINFO ) << "Activating camera " << c->getName();
+        auto fc = std::find_if(rootEntity->getComponents().begin(), rootEntity->getComponents().end(),
+            [](const auto &c){ return (c->getName().compare( 0, 7, "CAMERA_" ) == 0); }
+            );
+        if (fc != rootEntity->getComponents().end() ) {
+            LOG( logINFO ) << "Activating camera " << (*fc)->getName();
 
-                const auto systemEntity = Ra::Engine::SystemEntity::getInstance();
-                systemEntity->removeComponent( "CAMERA_DEFAULT" );
+            const auto systemEntity = Ra::Engine::SystemEntity::getInstance();
+            systemEntity->removeComponent( "CAMERA_DEFAULT" );
 
-                auto camera = static_cast<Ra::Engine::Camera*>( c.get() );
-                m_viewer->getCameraInterface()->setCamera(
-                    camera->duplicate( systemEntity, "CAMERA_DEFAULT" ) );
-                break;
-            }
+            auto camera = static_cast<Ra::Engine::Camera*>( (*fc).get() );
+            m_viewer->getCameraInterface()->setCamera(
+                camera->duplicate( systemEntity, "CAMERA_DEFAULT" ) );
         }
     }
 }
