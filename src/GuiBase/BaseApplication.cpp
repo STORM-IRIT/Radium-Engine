@@ -10,6 +10,7 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
+#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -73,7 +74,8 @@ BaseApplication::BaseApplication( int argc,
     QCoreApplication::setApplicationName( applicationName );
 
     m_targetFPS             = 60; // Default
-    std::string pluginsPath = "Plugins";
+    // TODO at startup, only load "standard plugins". This must be extended.
+    std::string pluginsPath = std::string{Core::Resources::getBaseDir()} + "Plugins";
 
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
