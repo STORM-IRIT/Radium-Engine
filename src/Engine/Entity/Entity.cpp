@@ -1,8 +1,10 @@
 #include <Engine/Entity/Entity.hpp>
 
+#include <Core/Geometry/Obb.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/System/System.hpp>
 
@@ -68,6 +70,19 @@ void Entity::swapTransformBuffers() {
         m_transform        = m_doubleBufferedTransform;
         m_transformChanged = false;
     }
+}
+
+Core::Aabb Entity::computeAabb() const {
+
+    using Ra::Core::Transform;
+    Core::Aabb aabb;
+
+    for ( const auto& component : m_components )
+    {
+        // transform is applied in ro aabb computation ...
+        aabb.extend( component->computeAabb() );
+    }
+    return aabb;
 }
 
 } // namespace Engine

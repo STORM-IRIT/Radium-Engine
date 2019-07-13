@@ -54,5 +54,17 @@ void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
     if ( found != m_renderObjects.cend() ) { m_renderObjects.erase( found ); }
 }
 
+Core::Aabb Component::computeAabb() const {
+
+    // component have not transformation, so ask render objects own bbox.
+    Core::Aabb aabb;
+    for ( const auto& roIndex : m_renderObjects )
+    {
+        auto ro = RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject( roIndex );
+        if ( ro->isVisible() ) { aabb.extend( ro->computeAabb() ); }
+    }
+    return aabb;
+}
+
 } // namespace Engine
 } // namespace Ra

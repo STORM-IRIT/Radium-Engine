@@ -3,6 +3,7 @@
 
 #include <Engine/RaEngine.hpp>
 
+#include <Core/Types.hpp>
 #include <Core/Utils/Singleton.hpp>
 
 #include <map>
@@ -164,6 +165,12 @@ class RA_ENGINE_API RadiumEngine
      * @return
      */
     const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
+
+    /**
+     * Return the aabb of the scene by aggregating aabb from entity.
+     * @return the AABB
+     */
+    Core::Aabb computeSceneAabb() const;
 
   private:
     using priority  = int;

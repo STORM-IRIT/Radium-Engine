@@ -35,8 +35,7 @@ class RA_ENGINE_API RenderObjectManager final
     std::shared_ptr<RenderObject> getRenderObject( const Core::Utils::Index& index );
 
     /**
-     * @brief Get all render objects, the vector is assumed to be empty when called
-     * @param objectsOut vector that will receive render objects
+     * @brief Get all render objects.
      */
     const Core::Utils::IndexMap<std::shared_ptr<RenderObject>>& getRenderObjects() const;
 
@@ -72,12 +71,6 @@ class RA_ENGINE_API RenderObjectManager final
      * @return
      */
     size_t getNumVertices() const;
-
-    /** Return the AABB of all visible render objects
-     *
-     * @return
-     */
-    Core::Aabb getSceneAabb() const;
 
   private:
     Core::Utils::IndexMap<std::shared_ptr<RenderObject>> m_renderObjects;

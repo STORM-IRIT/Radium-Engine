@@ -87,6 +87,9 @@ class RA_ENGINE_API Component
 
     void notifyRenderObjectExpired( const Core::Utils::Index& idx );
 
+    // return the aabb of the union of visible RenderObjects aabb
+    virtual Core::Aabb computeAabb() const;
+
   protected:
     /// Shortcut to access the render object manager.
     static RenderObjectManager* getRoMgr();
