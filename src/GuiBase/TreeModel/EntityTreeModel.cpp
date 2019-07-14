@@ -135,7 +135,8 @@ void ItemModel::onDataChanged( const QModelIndex& topLeft,
             auto ent     = getEntry( index );
 
             if ( ent.isValid() && ent.isRoNode() )
-            { emit visibilityROChanged( ent.m_roIndex, visible ); } }
+            { emit visibilityROChanged( ent.m_roIndex, visible ); }
+        }
     }
 }
 

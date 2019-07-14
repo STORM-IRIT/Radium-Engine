@@ -7,7 +7,7 @@
 namespace Ra {
 namespace IO {
 
-class RA_IO_API[[deprecated]] OBJFileManager : public FileManager<Core::Geometry::TriangleMesh>
+class RA_IO_API [[deprecated]] OBJFileManager : public FileManager<Core::Geometry::TriangleMesh>
 {
   public:
     /// CONSTRUCTOR

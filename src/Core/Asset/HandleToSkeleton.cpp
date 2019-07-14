@@ -32,7 +32,8 @@ void addBone( const int parent,                        // index of parent bone
         for ( const auto& edge : edgeList )
         {
             if ( edge[0] == dataID )
-            { addBone( index, edge[1], data, edgeList, processed, skelOut ); } }
+            { addBone( index, edge[1], data, edgeList, processed, skelOut ); }
+        }
     }
 }
 } // namespace

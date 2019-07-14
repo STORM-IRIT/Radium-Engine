@@ -37,7 +37,8 @@ inline bool FileManager<DATA, Binary>::load( const std::string& filename,
         file.open( filename + "." + fileExtension(),
                    std::ios_base::in | ( Binary ? std::ios_base::binary : std::ios_base::in ) );
         if ( !( status = file.is_open() ) )
-        { addLogErrorEntry( "Error occured while opening the file. HINT: FILENAME IS WRONG." ); } }
+        { addLogErrorEntry( "Error occured while opening the file. HINT: FILENAME IS WRONG." ); }
+    }
     if ( status )
     {
         addLogEntry( "File opened successfully." );
@@ -67,7 +68,8 @@ inline bool FileManager<DATA, Binary>::save( const std::string& filename,
                         std::ios_base::out | std::ios_base::trunc |
                             ( Binary ? std::ios_base::binary : std::ios_base::out ) );
     if ( !( status = file.is_open() ) )
-    { addLogErrorEntry( "Error occured while opening the file." ); } if ( status )
+    { addLogErrorEntry( "Error occured while opening the file." ); }
+    if ( status )
     {
         addLogEntry( "File opened successfully." );
         addLogEntry( "Starting to export the data..." );

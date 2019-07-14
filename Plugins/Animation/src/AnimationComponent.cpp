@@ -383,11 +383,13 @@ bool AnimationComponent::restoreFrame( const std::string& dir, int frame ) {
     if ( !file.read( reinterpret_cast<char*>( &m_animationTimeStep ), sizeof m_animationTimeStep ) )
     { return false; }
     if ( !file.read( reinterpret_cast<char*>( &m_animationTime ), sizeof m_animationTime ) )
-    { return false; } if ( !file.read( reinterpret_cast<char*>( &m_speed ), sizeof m_speed ) )
-    { return false; } if ( !file.read( reinterpret_cast<char*>( &m_slowMo ), sizeof m_slowMo ) )
-    { return false; } auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
+    { return false; }
+    if ( !file.read( reinterpret_cast<char*>( &m_speed ), sizeof m_speed ) ) { return false; }
+    if ( !file.read( reinterpret_cast<char*>( &m_slowMo ), sizeof m_slowMo ) ) { return false; }
+    auto pose = m_skel.getPose( Handle::SpaceType::LOCAL );
     if ( !file.read( reinterpret_cast<char*>( pose.data() ), ( sizeof pose[0] ) * pose.size() ) )
-    { return false; } m_skel.setPose( pose, Handle::SpaceType::LOCAL );
+    { return false; }
+    m_skel.setPose( pose, Handle::SpaceType::LOCAL );
 
     // update the render objects
     for ( auto& bone : m_boneDrawables )

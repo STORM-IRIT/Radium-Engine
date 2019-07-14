@@ -374,7 +374,8 @@ void SkinningComponent::createWeightMatrix() {
     Ra::Core::Animation::checkWeightMatrix( m_refData.m_weights, false, true );
 
     if ( Ra::Core::Animation::normalizeWeights( m_refData.m_weights, true ) )
-    { LOG( logINFO ) << "Skinning weights have been normalized"; } }
+    { LOG( logINFO ) << "Skinning weights have been normalized"; }
+}
 
 void SkinningComponent::setupIO( const std::string& id ) {
     using DualQuatVector = Ra::Core::AlignedStdVector<Ra::Core::DualQuaternion>;

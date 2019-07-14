@@ -67,14 +67,14 @@ class RA_ENGINE_API Renderer
      * Picking mode
      */
     enum PickingMode {
-        RO = 0,    ///< Pick a mesh
-        VERTEX,    ///< Pick a vertex of a mesh
-        EDGE,      ///< Pick an edge of a mesh
-        TRIANGLE,  ///< Pick a triangle of a mesh
-        C_VERTEX,  ///< Picks all vertices of a mesh within a screen space circle
-        C_EDGE,    ///< Picks all edges of a mesh within a screen space circle
+        RO = 0,     ///< Pick a mesh
+        VERTEX,     ///< Pick a vertex of a mesh
+        EDGE,       ///< Pick an edge of a mesh
+        TRIANGLE,   ///< Pick a triangle of a mesh
+        C_VERTEX,   ///< Picks all vertices of a mesh within a screen space circle
+        C_EDGE,     ///< Picks all edges of a mesh within a screen space circle
         C_TRIANGLE, ///< Picks all triangles of a mesh within a screen space circle
-        NONE, ///< Do not pick ;)
+        NONE,       ///< Do not pick ;)
     };
 
     /**
