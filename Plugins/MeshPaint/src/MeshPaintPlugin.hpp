@@ -47,6 +47,9 @@ class MeshPaintPluginC : public QObject, Ra::Plugins::RadiumPluginInterface
     bool doAddAction( int& nb ) override;
     QAction* getAction( int id ) override;
 
+  signals:
+    void askForUpdate();
+
   public slots:
     void onCurrentChanged( const QModelIndex& current, const QModelIndex& prev );
     void activePaintColor( bool on );
