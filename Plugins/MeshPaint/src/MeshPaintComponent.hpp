@@ -60,6 +60,7 @@ class MESH_PAINT_PLUGIN_API MeshPaintComponent : public Ra::Engine::Component
     // Initial RO shader config when not painting
     Ra::Engine::ShaderConfiguration m_baseConfig;
     Ra::Core::Vector4Array m_baseColors;
+    bool m_isBaseColorValid{false};
     Ra::Core::Utils::AttribHandle<Ra::Core::Vector4> m_currentColorAttribHdl;
 };
 

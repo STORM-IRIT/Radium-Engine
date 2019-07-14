@@ -76,6 +76,7 @@ void MeshPaintComponent::startPaint( bool on ) {
         if ( m_currentColorAttribHdl.idx().isInvalid() )
         {
             m_baseColors.clear();
+            m_isBaseColorValid = false;
             triangleMesh.colorize( Ra::Core::Utils::Color::Skin() );
             m_currentColorAttribHdl =
                 triangleMesh.getAttribHandle<Ra::Core::Vector4>( colAttribName );
@@ -83,6 +84,8 @@ void MeshPaintComponent::startPaint( bool on ) {
         }
         else
         {
+            m_isBaseColorValid = true;
+
             m_baseColors = triangleMesh.getAttrib( m_currentColorAttribHdl ).data(); // copy
         }
     }
@@ -94,8 +97,15 @@ void MeshPaintComponent::startPaint( bool on ) {
         // Could also be accessed using
         // auto triangleMesh = compMess->get<Ra::Core::Geometry::TriangleMesh>( getEntity(),
         // m_dataId ); however here we skip the search in the component map
-        Ra::Core::Geometry::TriangleMesh& triangleMesh           = m_mesh->getTriangleMesh();
-        triangleMesh.getAttrib( m_currentColorAttribHdl ).data() = m_baseColors;
+        Ra::Core::Geometry::TriangleMesh& triangleMesh = m_mesh->getTriangleMesh();
+        if ( m_isBaseColorValid )
+            triangleMesh.getAttrib( m_currentColorAttribHdl ).data() = m_baseColors;
+        else
+        {
+            triangleMesh.removeAttrib( m_currentColorAttribHdl );
+            CORE_ASSERT( !triangleMesh.isValid( m_currentColorAttribHdl ),
+                         "Color attrib should be invalid now" );
+        }
         m_mesh->setDirty( Ra::Engine::Mesh::VERTEX_COLOR );
     }
 }
@@ -114,6 +124,7 @@ void MeshPaintComponent::bakePaintToDiffuse() {
     // m_dataId ); however here we skip the search in the component map
     Ra::Core::Geometry::TriangleMesh& triangleMesh = m_mesh->getTriangleMesh();
     m_baseColors = triangleMesh.getAttrib( m_currentColorAttribHdl ).data();
+    m_isBaseColorValid = true;
 }
 
 void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& picking,
