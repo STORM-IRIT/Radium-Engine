@@ -58,7 +58,8 @@ bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int ro
 
 QVariant TreeModel::headerData( int section, Qt::Orientation orientation, int role ) const {
     if ( section == 0 && orientation == Qt::Horizontal && role == Qt::DisplayRole )
-    { return QVariant( QString::fromStdString( getHeaderString() ) ); } else
+    { return QVariant( QString::fromStdString( getHeaderString() ) ); }
+    else
     { return QVariant(); }
 }
 
@@ -69,7 +70,8 @@ QModelIndex TreeModel::index( int row, int column, const QModelIndex& parent ) c
     // Grab the parent and make an index of the child.
     TreeItem* parentItem = getItem( parent );
     if ( parentItem && row < parentItem->m_children.size() )
-    { return createIndex( row, column, parentItem->m_children[row].get() ); } else
+    { return createIndex( row, column, parentItem->m_children[row].get() ); }
+    else
     { return QModelIndex(); }
 }
 

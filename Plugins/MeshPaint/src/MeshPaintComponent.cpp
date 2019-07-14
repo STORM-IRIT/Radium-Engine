@@ -124,7 +124,8 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
 
     // check it's for us
     if ( *m_renderObjectReader() != picking.m_roIdx || picking.m_mode == Ra::Engine::Renderer::RO )
-    { return; } auto pickingRenderMode = m_mesh->pickingRenderMode();
+    { return; }
+    auto pickingRenderMode = m_mesh->pickingRenderMode();
 
     if ( pickingRenderMode == Ra::Engine::Displayable::NO_PICKING ) { return; }
 
@@ -135,9 +136,10 @@ void MeshPaintComponent::paintMesh( const Ra::Engine::Renderer::PickingResult& p
            m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_LINE_STRIP_ADJACENCY ||
            m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_STRIP ||
            m_mesh->getRenderMode() == Ra::Engine::Mesh::RM_TRIANGLE_FAN ) )
-    { return; } if ( pickingRenderMode == Ra::Engine::Displayable::PKM_POINTS &&
-                     ( picking.m_mode != Ra::Engine::Renderer::VERTEX &&
-                       picking.m_mode != Ra::Engine::Renderer::C_VERTEX ) )
+    { return; }
+    if ( pickingRenderMode == Ra::Engine::Displayable::PKM_POINTS &&
+         ( picking.m_mode != Ra::Engine::Renderer::VERTEX &&
+           picking.m_mode != Ra::Engine::Renderer::C_VERTEX ) )
     {
         return;
     } // Could also be accessed using

@@ -74,7 +74,7 @@ class Gizmo
     virtual Core::Transform mouseMove( const Engine::Camera& cam,
                                        const Core::Vector2& nextXY,
                                        bool stepped = false,
-                                       bool whole = false) = 0;
+                                       bool whole   = false ) = 0;
 
   protected:
     static bool findPointOnAxis( const Engine::Camera& cam,

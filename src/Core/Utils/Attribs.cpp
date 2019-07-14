@@ -50,7 +50,8 @@ bool AttribManager::hasSameAttribs( const AttribManager& other ) {
     for ( const auto& attr : m_attribsIndex )
     {
         if ( other.m_attribsIndex.find( attr.first ) == other.m_attribsIndex.cend() )
-        { return false; } }
+        { return false; }
+    }
     // the other way
     for ( const auto& attr : other.m_attribsIndex )
     {
