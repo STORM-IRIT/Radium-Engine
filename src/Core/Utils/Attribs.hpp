@@ -246,7 +246,8 @@ class RA_CORE_API AttribManager
     /// Return true if \p h correspond to an existing attribute in *this.
     template <typename T>
     bool isValid( const AttribHandle<T>& h ) const {
-        return h.m_idx != Index::Invalid() && m_attribsIndex.at( h.attribName() ) == h.m_idx;
+        auto itr = m_attribsIndex.find( h.attribName() );
+        return h.m_idx != Index::Invalid() && itr != m_attribsIndex.end() && itr->second == h.m_idx;
     }
 
     /*!

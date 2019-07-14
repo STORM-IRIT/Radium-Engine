@@ -8,6 +8,8 @@
 namespace Ra {
 namespace Engine {
 
+using namespace Ra::Core::Utils;
+
 // Template parameter must be a Core::VectorNArray
 template <typename ContainedType>
 inline void
@@ -281,16 +283,28 @@ void Mesh::updateGL() {
 
         for ( int i = 0; i < MAX_VEC3; i++ )
         {
+
+            auto idx = MAX_MESH + i;
             if ( m_mesh.isValid( m_v3DataHandle[i] ) )
-            { sendGLData( this, m_mesh.getAttrib( m_v3DataHandle[i] ).data(), MAX_MESH + i ); }
+            { sendGLData( this, m_mesh.getAttrib( m_v3DataHandle[i] ).data(), idx ); }
+            else if ( m_vbos[idx] != 0 )
+            {
+                GL_ASSERT( glDisableVertexAttribArray( idx - 1 ) );
+                GL_ASSERT( glDeleteBuffers( 1, &( m_vbos[idx] ) ) );
+                m_vbos[idx] = 0;
+            }
         }
 
         for ( int i = 0; i < MAX_VEC4; i++ )
         {
+            auto idx = MAX_MESH + MAX_VEC3 + i;
             if ( m_mesh.isValid( m_v4DataHandle[i] ) )
+            { sendGLData( this, m_mesh.getAttrib( m_v4DataHandle[i] ).data(), idx ); }
+            else if ( m_vbos[idx] != 0 )
             {
-                sendGLData(
-                    this, m_mesh.getAttrib( m_v4DataHandle[i] ).data(), MAX_MESH + MAX_VEC3 + i );
+                GL_ASSERT( glDisableVertexAttribArray( idx - 1 ) );
+                GL_ASSERT( glDeleteBuffers( 1, &( m_vbos[idx] ) ) );
+                m_vbos[idx] = 0;
             }
         }
 
