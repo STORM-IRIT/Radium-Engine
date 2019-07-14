@@ -148,7 +148,8 @@ void CameraManipPluginC::onCurrentChanged( const QModelIndex& current, const QMo
         const Ra::Engine::ItemEntry& ent = m_selectionManager->currentItem();
         if ( ent.m_component == nullptr ) { return; }
         if ( ent.m_component->getName().compare( 0, 7, "CAMERA_" ) == 0 )
-        { m_widget->ui->m_useCamera->setEnabled( true ); } }
+        { m_widget->ui->m_useCamera->setEnabled( true ); }
+    }
 }
 
 } // namespace CameraManipPlugin

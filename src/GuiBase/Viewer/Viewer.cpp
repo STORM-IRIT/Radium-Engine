@@ -348,7 +348,8 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     if ( result.m_roIdx.isInvalid() )
     {
         if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) )
-        { m_activeContext = TrackballCamera::getContext(); } else
+        { m_activeContext = TrackballCamera::getContext(); }
+        else
         {
             // should not pass here, since viewerContext is only for valid picking ...
             m_activeContext = KeyMappingManageable::getContext();
@@ -393,7 +394,8 @@ void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
     if ( m_activeContext == TrackballCamera::getContext() )
     { m_camera->handleMouseReleaseEvent( event ); }
     if ( m_activeContext == GizmoManager::getContext() )
-    { m_gizmoManager->handleMouseReleaseEvent( event ); } m_activeContext = -1;
+    { m_gizmoManager->handleMouseReleaseEvent( event ); }
+    m_activeContext = -1;
     emit needUpdate();
 }
 

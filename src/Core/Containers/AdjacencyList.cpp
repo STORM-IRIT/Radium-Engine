@@ -124,10 +124,12 @@ AdjacencyList::ConsistencyStatus AdjacencyList::computeConsistencyStatus() const
         for ( const auto& child : m_child.at( node ) )
         {
             if ( m_parent.at( child ) != node )
-            { return ConsistencyStatus::InconsistentParentIndex; } }
+            { return ConsistencyStatus::InconsistentParentIndex; }
+        }
 
         if ( isLeaf( node ) != ( m_child.at( node ).size() == 0 ) )
-        { return ConsistencyStatus::NonLeafNodeWithoutChild; } }
+        { return ConsistencyStatus::NonLeafNodeWithoutChild; }
+    }
     return ConsistencyStatus::Valid;
 }
 

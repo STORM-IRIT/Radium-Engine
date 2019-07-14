@@ -93,12 +93,14 @@ void MeshPaintPluginC::changePaintColor( const QColor& color ) {
 void MeshPaintPluginC::bakeToDiffuse() {
     if ( m_isPainting &&
          Ra::Core::Utils::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
-    { m_system->bakeToDiffuse(); } }
+    { m_system->bakeToDiffuse(); }
+}
 
 void MeshPaintPluginC::onCurrentChanged( const QModelIndex& /*current*/,
                                          const QModelIndex& /*prev*/ ) {
     if ( m_isPainting &&
          Ra::Core::Utils::Index::Invalid() != m_selectionManager->currentItem().m_roIndex )
-    { m_system->paintMesh( m_PickingManager->getCurrent(), m_paintColor ); } }
+    { m_system->paintMesh( m_PickingManager->getCurrent(), m_paintColor ); }
+}
 
 } // namespace MeshPaintPlugin

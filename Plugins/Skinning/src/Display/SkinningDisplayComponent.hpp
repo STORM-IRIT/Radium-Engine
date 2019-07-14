@@ -86,7 +86,8 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component
                     const uint i = it.row();
                     const uint j = it.col();
                     if ( partition[i] != partition[j] )
-                    { Seg.coeffRef( partition[i], partition[j] ) = 1.0; } }
+                    { Seg.coeffRef( partition[i], partition[j] ) = 1.0; }
+                }
             }
 
             std::vector<uint> assignedColor( weights.cols(), uint( -1 ) );
@@ -102,7 +103,8 @@ class SKIN_PLUGIN_API SkinningDisplayComponent : public Ra::Engine::Component
                 {
                     const uint j = it.row();
                     if ( assignedColor[j] != uint( -1 ) && option.size() > 1 )
-                    { option.erase( assignedColor[j] ); } }
+                    { option.erase( assignedColor[j] ); }
+                }
 
                 uint random = std::rand() % std::max<uint>( option.size(), 1 );
                 auto it     = option.begin();

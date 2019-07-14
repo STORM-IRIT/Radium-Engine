@@ -38,7 +38,6 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
     if ( ( key == Qt::Key_Shift ) || ( key == Qt::Key_Control ) || ( key == Qt::Key_Alt ) ||
          ( key == Qt::Key_Meta ) )
     { key = -1; }
-
     KeyMappingManager::MouseBinding binding{buttons, modifiers, key, wheel};
 
     auto action = m_mappingAction[context].find( binding );

@@ -27,14 +27,14 @@ void ColorWidget::colorChanged() {
 
 void ColorWidget::mousePressEvent( QMouseEvent* /*event*/ ) {
 
-        QColor color = QColorDialog::getColor( m_currentColor );
-        if ( color != m_currentColor )
-        {
-            m_currentColor = color;
-            colorChanged();
+    QColor color = QColorDialog::getColor( m_currentColor );
+    if ( color != m_currentColor )
+    {
+        m_currentColor = color;
+        colorChanged();
 
-            emit newColorPicked( m_currentColor );
-        }
+        emit newColorPicked( m_currentColor );
+    }
 }
 } // namespace Gui
 } // namespace Ra

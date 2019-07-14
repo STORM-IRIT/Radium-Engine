@@ -23,7 +23,8 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
         Engine::SystemEntity::getInstance()->getComponents().cend(),
         []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
     if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
-    { m_camera = static_cast<Engine::Camera*>( ( *it ).get() ); } else
+    { m_camera = static_cast<Engine::Camera*>( ( *it ).get() ); }
+    else
     {
         m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(),
                                        "CAMERA_DEFAULT",

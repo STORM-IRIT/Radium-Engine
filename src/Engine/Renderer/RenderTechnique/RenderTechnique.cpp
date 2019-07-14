@@ -91,8 +91,8 @@ const ShaderConfiguration& RenderTechnique::getConfiguration( PassName pass ) co
 //      LIGHTING_TRANSPARENT = Nothing
 Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     if ( RadiumDefaultRenderTechnique != nullptr )
-    { return *( RadiumDefaultRenderTechnique.get() ); } std::shared_ptr<Material> mat(
-        new BlinnPhongMaterial( "DefaultGray" ) );
+    { return *( RadiumDefaultRenderTechnique.get() ); }
+    std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
     auto rt = new Ra::Engine::RenderTechnique;
     rt->setMaterial( mat );
     auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );

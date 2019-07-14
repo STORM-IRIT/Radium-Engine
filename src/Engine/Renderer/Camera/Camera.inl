@@ -38,7 +38,8 @@ inline void Camera::setDirection( const Core::Vector3& direction ) {
     // Special case if two directions are exactly opposites we constrain.
     // to rotate around the up vector.
     if ( c.isApprox( Core::Vector3::Zero() ) && d < 0.0 )
-    { T.rotate( Core::AngleAxis( Core::Math::PiDiv2, Core::Vector3::UnitY() ) ); } else
+    { T.rotate( Core::AngleAxis( Core::Math::PiDiv2, Core::Vector3::UnitY() ) ); }
+    else
     { T.rotate( Core::Quaternion::FromTwoVectors( d0, d1 ) ); }
     applyTransform( T );
 }
