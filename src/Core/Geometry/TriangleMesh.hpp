@@ -116,6 +116,10 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
         return m_vertexAttribs.getAttrib( h );
     }
 
+    Utils::AttribBase* getAttribBase( const std::string& name ) {
+        return m_vertexAttribs.getAttribBase( name );
+    }
+
     /// Check if an attribute exists with the given name.
     /// \see AttribManager::contains for more info.
     bool hasAttrib( const std::string& name ) { return m_vertexAttribs.contains( name ); }
@@ -169,6 +173,8 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
 
     /// Utility function colorzing the mesh with a given color. Add the color attribute if needed.
     void colorize( const Utils::Color& c );
+
+    Utils::AttribManager& vertexAttribs() { return m_vertexAttribs; }
 
   public:
     /// The list of triangles.

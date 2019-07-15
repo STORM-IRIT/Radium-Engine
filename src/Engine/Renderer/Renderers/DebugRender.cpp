@@ -2,15 +2,18 @@
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Log.hpp>
+
+#include <globjects/Program.h>
+#include <globjects/Shader.h>
+#include <globjects/base/StaticStringSource.h>
+
 #include <fstream>
 
 namespace Ra {
@@ -24,81 +27,30 @@ DebugRender::~DebugRender() = default;
 
 void DebugRender::initialize() {
     /// FIXME : this was not ported to globject ...
-    auto createProgram = []( const char* vertStr, const char* fragStr ) -> uint {
-        uint prog = glCreateProgram();
-        GL_CHECK_ERROR;
+    /// \todo FIXED but not tested
 
-        uint vert = glCreateShader( GL_VERTEX_SHADER );
-        glShaderSource( vert, 1, &vertStr, nullptr );
-        glCompileShader( vert );
-
-        GLint compiled = 0;
-        glGetShaderiv( vert, GL_COMPILE_STATUS, &compiled );
-        if ( !compiled )
-        {
-            GLint length = 0;
-            glGetShaderiv( vert, GL_INFO_LOG_LENGTH, &length );
-
-            std::vector<GLchar> log( length );
-            glGetShaderInfoLog( vert, length, &length, log.data() );
-
-            LOG( logERROR ) << "Vertex shader not compiled : " << std::string( log.data() ) << "\n"
-                            << vertStr;
-        }
-
-        uint frag = glCreateShader( GL_FRAGMENT_SHADER );
-        glShaderSource( frag, 1, &fragStr, nullptr );
-        glCompileShader( frag );
-
-        compiled = 0;
-        glGetShaderiv( frag, GL_COMPILE_STATUS, &compiled );
-        if ( !compiled )
-        {
-            GLint length = 0;
-            glGetShaderiv( frag, GL_INFO_LOG_LENGTH, &length );
-
-            std::vector<GLchar> log( length );
-            glGetShaderInfoLog( frag, length, &length, log.data() );
-
-            LOG( logERROR ) << "Fragment shader not compiled : " << std::string( log.data() )
-                            << "\n"
-                            << fragStr;
-        }
-
-        glAttachShader( prog, vert );
-        glAttachShader( prog, frag );
-        glLinkProgram( prog );
-
-        GLint linked = 0;
-        glGetProgramiv( prog, GL_LINK_STATUS, &linked );
-        if ( !linked )
-        {
-            GLint length = 0;
-            glGetProgramiv( prog, GL_INFO_LOG_LENGTH, &length );
-            std::vector<GLchar> log( length );
-            glGetProgramInfoLog( prog, length, &length, log.data() );
-            LOG( logERROR ) << "Program not linked : " << std::string( log.data() );
-        }
-
-        glDetachShader( prog, vert );
-        glDetachShader( prog, frag );
-
-        glDeleteShader( vert );
-        glDeleteShader( frag );
+    auto createProgram = []( const char* vertStr, const char* fragStr ) -> ShaderProgram* {
+        ShaderProgram* prog = new ShaderProgram();
+        // return prog;
+        prog->addShaderFromSource( ShaderType_VERTEX,
+                                   globjects::Shader::sourceFromString( vertStr ) );
+        prog->addShaderFromSource( ShaderType_FRAGMENT,
+                                   globjects::Shader::sourceFromString( fragStr ) );
+        prog->link();
 
         return prog;
     };
 
     const char* lineVertStr = R"(
 #version 330
-            
+
             layout (location = 0) in vec3 in_pos;
             layout (location = 5) in vec3 in_col;
-            
+
             uniform mat4 model;
             uniform mat4 view;
             uniform mat4 proj;
-            
+
             out vec3 v_color;
             void main()
             {
@@ -109,33 +61,29 @@ void DebugRender::initialize() {
 
     const char* lineFragStr = R"(
 #version 330
-            
+
             in vec3 v_color;
             out vec4 f_color;
-            
+
             void main()
             {
                 f_color = vec4(v_color, 1.0);
             }
             )";
 
-    m_lineProg = createProgram( lineVertStr, lineFragStr );
-
-    m_modelLineLoc = glGetUniformLocation( m_lineProg, "model" );
-    m_viewLineLoc  = glGetUniformLocation( m_lineProg, "view" );
-    m_projLineLoc  = glGetUniformLocation( m_lineProg, "proj" );
+    m_lineProg.reset( createProgram( lineVertStr, lineFragStr ) );
 
     static const char* pointVertStr = R"(
 #version 330
-            
+
             layout (location = 0) in vec3 in_pos;
             layout (location = 1) in vec3 in_col;
-            
+
             uniform mat4 view;
             uniform mat4 proj;
-            
+
             out vec3 v_color;
-            
+
             void main()
             {
                 gl_Position = proj * view * vec4(in_pos, 1.0);
@@ -146,33 +94,30 @@ void DebugRender::initialize() {
 
     static const char* pointFragStr = R"(
 #version 330
-            
+
             in vec3 v_color;
             out vec4 f_color;
-            
+
             void main()
             {
                 f_color = vec4(v_color, 1.0);
             }
             )";
 
-    m_pointProg = createProgram( pointVertStr, pointFragStr );
-
-    m_viewPointLoc = glGetUniformLocation( m_pointProg, "view" );
-    m_projPointLoc = glGetUniformLocation( m_pointProg, "proj" );
+    m_pointProg.reset( createProgram( pointVertStr, pointFragStr ) );
 
     static const char* meshVertStr = R"(
 #version 330
-            
+
             layout (location = 0) in vec3 in_pos;
             layout (location = 5) in vec3 in_col;
-            
+
             uniform mat4 model;
             uniform mat4 view;
             uniform mat4 proj;
-            
+
             out vec3 v_color;
-            
+
             void main()
             {
                 gl_Position = proj * view * model * vec4(in_pos, 1.0);
@@ -182,21 +127,17 @@ void DebugRender::initialize() {
 
     static const char* meshFragStr = R"(
 #version 330
-            
+
             in vec3 v_color;
             out vec4 f_color;
-            
+
             void main()
             {
                 f_color = vec4(v_color, 1.0);
             }
             )";
 
-    m_meshProg = createProgram( meshVertStr, meshFragStr );
-
-    m_modelMeshLoc = glGetUniformLocation( m_meshProg, "model" );
-    m_viewMeshLoc  = glGetUniformLocation( m_meshProg, "view" );
-    m_projMeshLoc  = glGetUniformLocation( m_meshProg, "proj" );
+    m_meshProg.reset( createProgram( meshVertStr, meshFragStr ) );
 
     GL_CHECK_ERROR;
 }
@@ -229,16 +170,17 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
     {
         const Core::Matrix4f id = Core::Matrix4f::Identity();
 
-        glUseProgram( m_lineProg );
-        glUniformMatrix4fv( m_modelLineLoc, 1, GL_FALSE, id.data() );
-        glUniformMatrix4fv( m_viewLineLoc, 1, GL_FALSE, viewMatrix.data() );
-        glUniformMatrix4fv( m_projLineLoc, 1, GL_FALSE, projMatrix.data() );
+        m_lineProg->bind();
+        m_lineProg->setUniform( "model", id );
+        m_lineProg->setUniform( "view", viewMatrix );
+        m_lineProg->setUniform( "proj", projMatrix );
 
         Mesh mesh( "temp", Mesh::RM_LINES );
         mesh.loadGeometry( vertices, indices );
         mesh.addData( Mesh::VERTEX_COLOR, colors );
         mesh.updateGL();
-        mesh.render();
+        ///\todo
+        mesh.render( m_lineProg.get() );
     }
 
     m_lines.clear();
@@ -271,9 +213,10 @@ void DebugRender::renderPoints( const Core::Matrix4f& viewMatrix,
     glEnableVertexAttribArray( 1 );
 
     glEnable( GL_PROGRAM_POINT_SIZE );
-    glUseProgram( m_pointProg );
-    glUniformMatrix4fv( m_viewPointLoc, 1, GL_FALSE, viewMatrix.data() );
-    glUniformMatrix4fv( m_projPointLoc, 1, GL_FALSE, projMatrix.data() );
+    m_pointProg->bind();
+
+    m_pointProg->setUniform( "view", viewMatrix );
+    m_pointProg->setUniform( "proj", projMatrix );
 
     glDrawArrays( GL_POINTS, 0, size );
     glDisable( GL_PROGRAM_POINT_SIZE );
@@ -297,28 +240,28 @@ void DebugRender::renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f
     for ( ; idx < m_meshes.size() && m_meshes[idx].mesh->getRenderMode() != GL_TRIANGLES; ++idx )
         ;
 
-    glUseProgram( m_lineProg );
-    glUniformMatrix4fv( m_viewLineLoc, 1, GL_FALSE, view.data() );
-    glUniformMatrix4fv( m_projLineLoc, 1, GL_FALSE, proj.data() );
+    m_lineProg->bind();
+    m_lineProg->setUniform( "view", view );
+    m_lineProg->setUniform( "proj", proj );
 
     for ( uint i = 0; i < idx; ++i )
     {
         Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
         glUniformMatrix4fv( m_modelLineLoc, 1, GL_FALSE, model.data() );
         m_meshes[i].mesh->updateGL();
-        m_meshes[i].mesh->render();
+        // m_meshes[i].mesh->render();
     }
 
-    glUseProgram( m_meshProg );
-    glUniformMatrix4fv( m_viewMeshLoc, 1, GL_FALSE, view.data() );
-    glUniformMatrix4fv( m_projMeshLoc, 1, GL_FALSE, proj.data() );
+    m_meshProg->bind();
+    m_meshProg->setUniform( "view", view );
+    m_meshProg->setUniform( "proj", proj );
 
     for ( uint i = idx; i < m_meshes.size(); ++i )
     {
         Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
         glUniformMatrix4fv( m_modelMeshLoc, 1, GL_FALSE, model.data() );
         m_meshes[i].mesh->updateGL();
-        m_meshes[i].mesh->render();
+        // m_meshes[i].mesh->render();
     }
 
     m_meshes.clear();

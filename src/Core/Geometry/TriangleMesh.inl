@@ -22,21 +22,27 @@ inline TriangleMesh::TriangleMesh( TriangleMesh&& other ) :
     m_normalsHandle( std::move( other.m_normalsHandle ) ) {}
 
 inline TriangleMesh& TriangleMesh::operator=( const TriangleMesh& other ) {
-    m_vertexAttribs.clear();
-    m_triangles = other.m_triangles;
-    m_faces     = other.m_faces;
-    m_vertexAttribs.copyAllAttributes( other.m_vertexAttribs );
-    m_verticesHandle = other.m_verticesHandle;
-    m_normalsHandle  = other.m_normalsHandle;
+    if ( this != &other )
+    {
+        m_vertexAttribs.clear();
+        m_triangles = other.m_triangles;
+        m_faces     = other.m_faces;
+        m_vertexAttribs.copyAllAttributes( other.m_vertexAttribs );
+        m_verticesHandle = other.m_verticesHandle;
+        m_normalsHandle  = other.m_normalsHandle;
+    }
     return *this;
 }
 
 inline TriangleMesh& TriangleMesh::operator=( TriangleMesh&& other ) {
-    m_triangles      = std::move( other.m_triangles );
-    m_faces          = std::move( other.m_faces );
-    m_vertexAttribs  = std::move( other.m_vertexAttribs );
-    m_verticesHandle = std::move( other.m_verticesHandle );
-    m_normalsHandle  = std::move( other.m_normalsHandle );
+    if ( this != &other )
+    {
+        m_triangles      = std::move( other.m_triangles );
+        m_faces          = std::move( other.m_faces );
+        m_vertexAttribs  = std::move( other.m_vertexAttribs );
+        m_verticesHandle = std::move( other.m_verticesHandle );
+        m_normalsHandle  = std::move( other.m_normalsHandle );
+    }
     return *this;
 }
 

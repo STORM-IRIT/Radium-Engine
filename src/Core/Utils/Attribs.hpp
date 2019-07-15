@@ -48,12 +48,18 @@ class AttribBase
     /**
      * Return the number of elements in the attribute content.
      */
-    virtual size_t getSize() = 0;
+    virtual size_t getSize() const = 0;
+
+    ///\todo rename getNumberOfComponent ?
+    virtual size_t getElementSize() const = 0;
+
+    /// return the size in byte of the container
+    virtual size_t getBufferSize() const = 0;
 
     /**
      * Return the stride, in bytes, from one attribute address to the next one.
      */
-    virtual int getStride() = 0;
+    virtual int getStride() const = 0;
 
     /**
      * Return true if *this and \p rhs have the same name.
@@ -96,6 +102,8 @@ class AttribBase
      */
     virtual bool isVec4() const = 0;
 
+    virtual void* dataPtr() = 0;
+
   private:
     /// The attribute's name.
     std::string m_name;
@@ -119,14 +127,18 @@ class Attrib : public AttribBase
     /// Read-write access to the attribute content.
     inline Container& data() { return m_data; }
 
+    void* dataPtr() override { return m_data.data(); }
+
     /// Read-only acccess to the attribute content.
     inline const Container& data() const { return m_data; }
 
     virtual ~Attrib() { m_data.clear(); }
-    size_t getSize() override { return m_data.size(); }
+    size_t getSize() const override { return m_data.size(); }
 
+    size_t getElementSize() const override;
     /// \warning Does not work for dynamic and sparse Eigen matrices.
-    int getStride() override { return sizeof( value_type ); }
+    int getStride() const override { return sizeof( value_type ); }
+    size_t getBufferSize() const override { return m_data.size() * sizeof( value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
     bool isVec2() const override { return std::is_same<Eigen::Matrix<Scalar, 2, 1>, T>::value; }
@@ -136,6 +148,15 @@ class Attrib : public AttribBase
   private:
     Container m_data;
 };
+
+// fully specialization defined in .cpp
+template <>
+size_t Attrib<float>::getElementSize() const;
+// template specialization defined in header.
+template <typename T>
+size_t Attrib<T>::getElementSize() const {
+    return Attrib<T>::Container::Vector::RowsAtCompileTime;
+}
 
 template <typename T>
 class AttribHandle
@@ -209,18 +230,20 @@ class RA_CORE_API AttribManager
 
     AttribManager( AttribManager&& m ) :
         m_attribs( std::move( m.m_attribs ) ),
-        m_attribsIndex( std::move( m.m_attribsIndex ) ) {}
+        m_attribsIndex( std::move( m.m_attribsIndex ) ),
+        m_numAttribs( std::move( m.m_numAttribs ) ) {}
 
     AttribManager& operator=( AttribManager&& m ) {
         m_attribs      = std::move( m.m_attribs );
         m_attribsIndex = std::move( m.m_attribsIndex );
+        m_numAttribs   = std::move( m.m_numAttribs );
         return *this;
     }
 
     ~AttribManager() { clear(); }
 
     /// Base copy, does nothing.
-    void copyAttributes( const AttribManager& /*m*/ ) {}
+    void copyAttributes( const AttribManager& m ) { m_numAttribs = m.m_numAttribs; }
 
     /// Copy the given attributes from m.
     /// \note If some attrib already exists, it will be replaced.
@@ -299,6 +322,20 @@ class RA_CORE_API AttribManager
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
     }
 
+    AttribBase* getAttribBase( const std::string& name ) {
+        auto c = m_attribsIndex.find( name );
+        if ( c != m_attribsIndex.end() ) return m_attribs[c->second].get();
+
+        return nullptr;
+    }
+
+    AttribBase* getAttribBase( const Index& idx ) {
+
+        if ( idx.isValid() ) return m_attribs[idx].get();
+
+        return nullptr;
+    }
+
     /// Add attribute by name.
     /// \note If an attribute with the same name already exists,
     ///       just returns a AttribHandle to it.
@@ -327,7 +364,7 @@ class RA_CORE_API AttribManager
         }
         m_attribsIndex[name] = h.m_idx;
         h.m_name             = name;
-
+        ++m_numAttribs;
         return h;
     }
 
@@ -346,6 +383,7 @@ class RA_CORE_API AttribManager
         }
         h.m_idx  = Index::Invalid(); // invalidate whatever!
         h.m_name = "";               // invalidate whatever!
+        --m_numAttribs;
     }
 
     /// Return true if *this and \p other have the same attributes, same amount
@@ -353,9 +391,10 @@ class RA_CORE_API AttribManager
     /// \warning There is no check on the attribute type nor data.
     bool hasSameAttribs( const AttribManager& other );
 
-  private:
     /// Perform \p fun on each attribute.
     // This is needed by the user to avoid caring about removed attributes (nullptr)
+    // \todo reimplement as range for
+
     template <typename F>
     void for_each_attrib( const F& func ) const {
         for ( const auto& attr : m_attribs )
@@ -364,12 +403,16 @@ class RA_CORE_API AttribManager
 
     /// Perform \p fun on each attribute.
     // This is needed by the user to avoid caring about removed attributes (nullptr)
+    // \todo keep non const version private
     template <typename F>
     void for_each_attrib( const F& func ) {
         for ( auto& attr : m_attribs )
             if ( attr != nullptr ) func( attr.get() );
     }
 
+    int getNumAttribs() const { return m_numAttribs; }
+
+  private:
     /// Attrib list, better using attribs() to go through.
     Container m_attribs;
 
@@ -380,6 +423,9 @@ class RA_CORE_API AttribManager
     // Ease wrapper
     friend class ::Ra::Core::Geometry::TopologicalMesh;
     friend class ::Ra::Core::Geometry::TriangleMesh;
+
+    /// Count number of valid attribs
+    int m_numAttribs{0};
 };
 
 } // namespace Utils
