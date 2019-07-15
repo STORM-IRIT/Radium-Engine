@@ -17,6 +17,11 @@ namespace Core {
 namespace Resources {
 /// Get the base prefix to access the Radium resources in a filesystem.
 RA_CORE_API const char* getBaseDir();
+
+// allow to manage several resource locators
+RA_CORE_API class ResourceLocator {
+
+};
 }; // namespace Resources
 } // namespace Core
 } // namespace Ra
