@@ -403,7 +403,7 @@ void Renderer::renderForPicking(
                 pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
                 // render
-                ro->getMesh()->render();
+                ro->getMesh()->render( pickingShaders[i] );
             }
         }
     }
@@ -545,7 +545,7 @@ void Renderer::preparePicking( const ViewingParameters& renderData ) {
                 m_pickingShaders[i]->setUniform( "transform.worldNormal", N );
 
                 // render
-                ro->getMesh()->render();
+                ro->getMesh()->render( m_pickingShaders[i] );
             }
         }
     }
@@ -581,7 +581,7 @@ void Renderer::drawScreenInternal() {
                           : m_shaderMgr->getShaderProgram( "DrawScreen" );
         shader->bind();
         shader->setUniform( "screenTexture", m_displayedTexture, 0 );
-        m_quadMesh->render();
+        m_quadMesh->render( shader );
 
         GL_ASSERT( glDepthFunc( GL_LESS ) );
     }
@@ -595,7 +595,7 @@ void Renderer::drawScreenInternal() {
         shader->setUniform( "mousePosition", m_mousePosition );
         shader->setUniform( "brushRadius", m_brushRadius );
         shader->setUniform( "dim", Core::Vector2( m_width, m_height ) );
-        m_quadMesh->render();
+        m_quadMesh->render( shader );
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
         GL_ASSERT( glEnable( GL_BLEND ) );
     }

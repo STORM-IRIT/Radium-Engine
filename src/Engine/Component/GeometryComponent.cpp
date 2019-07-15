@@ -242,12 +242,12 @@ Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
     m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
     m_displayMesh->setDirty( Mesh::INDEX );
-    m_displayMesh->setDirty( Mesh::VERTEX_TANGENT, true );
-    m_displayMesh->setDirty( Mesh::VERTEX_BITANGENT, true );
-    m_displayMesh->setDirty( Mesh::VERTEX_TEXCOORD, true );
-    m_displayMesh->setDirty( Mesh::VERTEX_COLOR, true );
-    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHTS, true );
-    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX, true );
+    m_displayMesh->setDirty( Mesh::VERTEX_TANGENT );
+    m_displayMesh->setDirty( Mesh::VERTEX_BITANGENT );
+    m_displayMesh->setDirty( Mesh::VERTEX_TEXCOORD );
+    m_displayMesh->setDirty( Mesh::VERTEX_COLOR );
+    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHTS );
+    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX );
     return &( m_displayMesh->getTriangleMesh() );
 }
 

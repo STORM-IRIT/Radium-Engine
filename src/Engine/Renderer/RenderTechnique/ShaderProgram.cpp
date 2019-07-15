@@ -114,13 +114,20 @@ void ShaderProgram::loadShader( ShaderType type,
     // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
 
-    auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
-
     // Workaround globject #include bug ...
     // Radium V2 : update globject to see if tis bug is always here ...
     std::string preprocessedSource = preprocessIncludes( name, shaderSource->string(), 0 );
 
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
+
+    addShaderFromSource( type, std::move( ptrSource ) );
+}
+
+void ShaderProgram::addShaderFromSource( ShaderType type,
+                                         std::unique_ptr<globjects::StaticStringSource>&& ptrSource,
+                                         const std::string& name ) {
+
+    auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
 
     shader->setSource( ptrSource.get() );
 
@@ -195,8 +202,6 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
         ( "Shader program " + shaderConfig.m_name + " misses vertex or fragment shader." )
             .c_str() );
 
-    m_program = globjects::Program::create();
-
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
         if ( !m_configuration.m_shaders[i].empty() )
@@ -211,7 +216,20 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     }
 
     link();
+}
 
+void ShaderProgram::link() {
+    m_program = globjects::Program::create();
+
+    for ( int i = 0; i < ShaderType_COUNT; ++i )
+    {
+        if ( m_shaderObjects[i] ) { m_program->attach( m_shaderObjects[i].get() ); }
+    }
+
+    m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
+
+    m_program->link();
+    GL_CHECK_ERROR;
     int texUnit = 0;
     auto total  = GLuint( m_program->get( GL_ACTIVE_UNIFORMS ) );
     textureUnits.clear();
@@ -230,18 +248,6 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
             textureUnits[name] = TextureBinding( texUnit++, location );
         }
     }
-}
-
-void ShaderProgram::link() {
-    for ( int i = 0; i < ShaderType_COUNT; ++i )
-    {
-        if ( m_shaderObjects[i] ) { m_program->attach( m_shaderObjects[i].get() ); }
-    }
-
-    m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
-
-    m_program->link();
-    GL_CHECK_ERROR;
 }
 
 void ShaderProgram::bind() const {

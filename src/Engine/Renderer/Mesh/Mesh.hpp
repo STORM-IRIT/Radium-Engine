@@ -12,8 +12,16 @@
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
 
+namespace globjects {
+
+class VertexArray;
+class Buffer;
+
+} // namespace globjects
+
 namespace Ra {
 namespace Engine {
+class ShaderProgram;
 
 /**
  * A class representing an openGL general mesh to be displayed.
@@ -135,14 +143,13 @@ class RA_ENGINE_API Mesh : public Displayable
     inline const Core::Vector4Array& getData( const Vec4Data& type ) const;
 
     /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
-    inline void setDirty( const MeshData& type );
+    void setDirty( const MeshData& type );
+
     /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
-    /// \param handleAdded Set to true when a new attribute of type #type has been added (mandatory
-    /// when attributes are added after calling loadGeometry)
-    inline void setDirty( const Vec3Data& type, bool handleAdded = false );
-    /// \param handleAdded Set to true when a new attribute of type #type has been added (mandatory
-    /// when attributes are added after calling loadGeometry)
-    inline void setDirty( const Vec4Data& type, bool handleAdded = false );
+    void setDirty( const Vec3Data& type );
+
+    /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
+    void setDirty( const Vec4Data& type );
 
     /**
      * This function is called at the start of the rendering. It will update the
@@ -151,26 +158,25 @@ class RA_ENGINE_API Mesh : public Displayable
     void updateGL() override;
 
     /// Draw the mesh.
-    void render() override;
+    void render( const ShaderProgram* prog ) override;
 
     size_t getNumFaces() const override;
     inline size_t getNumVertices() const override { return m_mesh.vertices().size(); }
 
     /// Get the name expected for a given attrib.
+    static inline std::string getAttribName( MeshData type );
     static inline std::string getAttribName( Vec3Data type );
     static inline std::string getAttribName( Vec4Data type );
 
   private:
-    /// Helper function to send buffer data to openGL.
-    template <typename type>
-    friend void
-    sendGLData( Ra::Engine::Mesh* mesh, const Ra::Core::VectorArray<type>& arr, uint vboIdx );
-
     /// Update the picking render mode according to the object render mode
+
+    void autoVertexAttribPointer( const ShaderProgram* prog );
     void updatePickingRenderMode();
 
   private:
-    uint m_vao{0}; /// Index of our openGL VAO
+    std::unique_ptr<globjects::VertexArray> m_vao;
+
     MeshRenderMode m_renderMode{
         MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
 
@@ -195,8 +201,10 @@ class RA_ENGINE_API Mesh : public Displayable
     // Each data type has a corresponding openGL attribute number, which is
     // vbo index - 1 (thus vertex position is VBO number 1 but attribute 0).
 
-    std::array<uint, MAX_DATA> m_vbos      = {{0}};     /// Indices of our openGL VBOs.
-    std::array<bool, MAX_DATA> m_dataDirty = {{false}}; /// Dirty bits of our vertex data.
+    std::unique_ptr<globjects::Buffer> m_indices;
+    std::vector<std::unique_ptr<globjects::Buffer>> m_vbos;
+    std::vector<bool> m_dataDirty;
+    std::map<std::string, int> m_handleToBuffer;
 
     size_t m_numElements{0}; /// number of elements to draw. For triangles this is 3*numTriangles
                              /// but not for lines.

@@ -81,6 +81,13 @@ class RA_ENGINE_API ShaderProgram final
 
     globjects::Program* getProgramObject() const;
 
+    ///\todo go private, and update ShaderConfiguration to add from source !
+    void addShaderFromSource( ShaderType type,
+                              std::unique_ptr<globjects::StaticStringSource>&& source,
+                              const std::string& name = "" );
+
+    void link();
+
   private:
     struct TextureBinding {
         int m_texUnit{-1};
@@ -99,8 +106,6 @@ class RA_ENGINE_API ShaderProgram final
 
     GLenum getTypeAsGLEnum( ShaderType type ) const;
     ShaderType getGLenumAsType( GLenum type ) const;
-
-    void link();
 
     std::string preprocessIncludes( const std::string& name,
                                     const std::string& shader,

@@ -273,8 +273,9 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
             shader->setUniform( "u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0 );
             shader->setUniform(
                 "u_OITSumWeight", m_textures[RendererTextures_OITRevealage].get(), 1 );
+
+            m_quadMesh->render( shader );
         }
-        m_quadMesh->render();
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     }
 #endif
@@ -379,7 +380,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
                 ro->getRenderTechnique()->getMaterial()->bind( shader );
 
                 // render
-                ro->getMesh()->render();
+                ro->getMesh()->render( shader );
             }
         }
         m_uiXrayFbo->unbind();
@@ -423,7 +424,7 @@ void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
             ro->getRenderTechnique()->getMaterial()->bind( shader );
 
             // render
-            ro->getMesh()->render();
+            ro->getMesh()->render( shader );
         }
     }
     m_uiXrayFbo->unbind();
@@ -442,7 +443,7 @@ void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData )
     const ShaderProgram* shader = m_shaderMgr->getShaderProgram( "Hdr2Ldr" );
     shader->bind();
     shader->setUniform( "screenTexture", m_textures[RendererTextures_HDR].get(), 0 );
-    m_quadMesh->render();
+    m_quadMesh->render( shader );
 
     GL_ASSERT( glDepthMask( GL_TRUE ) );
     GL_ASSERT( glEnable( GL_DEPTH_TEST ) );

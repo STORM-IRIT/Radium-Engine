@@ -13,6 +13,7 @@
 
 namespace Ra {
 namespace Engine {
+class ShaderProgram;
 class Mesh;
 } // namespace Engine
 } // namespace Ra
@@ -90,9 +91,9 @@ class RA_ENGINE_API DebugRender final
     void renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f& proj );
 
   private:
-    uint m_lineProg;
-    uint m_pointProg;
-    uint m_meshProg;
+    std::unique_ptr<ShaderProgram> m_lineProg;
+    std::unique_ptr<ShaderProgram> m_pointProg;
+    std::unique_ptr<ShaderProgram> m_meshProg;
 
     uint m_modelLineLoc;
     uint m_viewLineLoc;

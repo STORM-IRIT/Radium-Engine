@@ -25,50 +25,39 @@ Core::Geometry::TriangleMesh& Mesh::getTriangleMesh() {
 }
 
 const Core::Vector3Array& Mesh::getData( const Mesh::Vec3Data& type ) const {
-    const int index = static_cast<uint>( type );
-    const auto& h   = m_v3DataHandle[index];
-    if ( !m_mesh.isValid( h ) ) return m_dummy3;
-    return m_mesh.getAttrib( h ).data();
+    using Handle  = Core::Geometry::TriangleMesh::Vec3AttribHandle;
+    auto name     = getAttribName( type );
+    Handle handle = m_mesh.getAttribHandle<Core::Vector3>( name );
+    if ( !m_mesh.isValid( handle ) ) return m_dummy3;
+    return m_mesh.getAttrib( handle ).data();
 }
 
 const Core::Vector4Array& Mesh::getData( const Mesh::Vec4Data& type ) const {
-    const int index = static_cast<uint>( type );
-    const auto& h   = m_v4DataHandle[index];
-    if ( !m_mesh.isValid( h ) ) return m_dummy4;
-    return m_mesh.getAttrib( h ).data();
+    using Handle  = Core::Geometry::TriangleMesh::Vec4AttribHandle;
+    auto name     = getAttribName( type );
+    Handle handle = m_mesh.getAttribHandle<Core::Vector4>( name );
+    if ( !m_mesh.isValid( handle ) ) return m_dummy4;
+    return m_mesh.getAttrib( handle ).data();
 }
 
-void Mesh::setDirty( const Mesh::MeshData& type ) {
-    m_dataDirty[type] = true;
-    m_isDirty         = true;
-}
-
-void Mesh::setDirty( const Mesh::Vec3Data& type, bool handleAdded ) {
-    if ( handleAdded )
-    {
-        m_v3DataHandle[int( type )] =
-            m_mesh.getAttribHandle<Core::Vector3>( getAttribName( type ) );
-    }
-    m_dataDirty[MAX_MESH + type] = true;
-    m_isDirty                    = true;
-}
-
-void Mesh::setDirty( const Mesh::Vec4Data& type, bool handleAdded ) {
-    if ( handleAdded )
-    {
-        m_v4DataHandle[int( type )] =
-            m_mesh.getAttribHandle<Core::Vector4>( getAttribName( type ) );
-    }
-    m_dataDirty[MAX_MESH + MAX_VEC3 + type] = true;
-    m_isDirty                               = true;
+std::string Mesh::getAttribName( MeshData type ) {
+    if ( type == VERTEX_POSITION ) return {"in_position"};
+    if ( type == VERTEX_NORMAL ) return {"in_normal"};
+    return {"indices but should not happend"};
 }
 
 std::string Mesh::getAttribName( Vec3Data type ) {
-    return std::string( "Vec3_attr_" ) + std::to_string( uint( type ) );
+    if ( type == VERTEX_TANGENT ) return {"in_tangent"};
+    if ( type == VERTEX_BITANGENT ) return {"in_bitangent"};
+    if ( type == VERTEX_TEXCOORD ) return {"in_texcoord"};
+    return {"invalid vec3 attr"};
 }
 
 std::string Mesh::getAttribName( Vec4Data type ) {
-    return std::string( "Vec4_attr_" ) + std::to_string( uint( type ) );
+    if ( type == VERTEX_COLOR ) return {"in_color"};
+    if ( type == VERTEX_WEIGHTS ) return {"in_weight"};
+    if ( type == VERTEX_WEIGHT_IDX ) return {"in_weight_idx"};
+    return {"invalid vec4 attr"};
 }
 
 // void Mesh::colorize( const Core::Utils::Color& color ) {

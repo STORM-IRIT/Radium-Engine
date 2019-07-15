@@ -225,11 +225,13 @@ void RenderObject::render( const RenderParameters& lightParams,
         shader->setUniform( "transform.worldNormal", normalMatrix );
         lightParams.bind( shader );
 
+        GL_CHECK_ERROR;
         auto material = m_renderTechnique->getMaterial();
         if ( material != nullptr ) material->bind( shader );
-
+        GL_CHECK_ERROR;
         // render
-        getMesh()->render();
+
+        getMesh()->render( shader );
     }
 }
 

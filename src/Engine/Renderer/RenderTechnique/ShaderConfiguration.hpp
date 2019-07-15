@@ -78,6 +78,7 @@ class RA_ENGINE_API ShaderConfiguration final
                          const std::string& vertexShader,
                          const std::string& fragmentShader );
 
+    ///\todo add shader from source.
     /** Add a shader given its type
      *
      * @param type
