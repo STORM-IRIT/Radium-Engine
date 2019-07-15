@@ -6,6 +6,11 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
+template <>
+size_t Attrib<float>::getElementSize() const {
+    return 1;
+}
+
 void AttribManager::clear() {
     m_attribs.clear();
     m_attribsIndex.clear();
