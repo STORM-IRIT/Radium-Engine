@@ -19,8 +19,8 @@ namespace Resources {
 RA_CORE_API const char* getBaseDir();
 
 // allow to manage several resource locators
-RA_CORE_API class ResourceLocator {
-
+RA_CORE_API class ResourcesLocator {
+    
 };
 }; // namespace Resources
 } // namespace Core

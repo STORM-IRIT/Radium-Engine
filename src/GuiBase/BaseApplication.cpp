@@ -60,6 +60,7 @@ BaseApplication::BaseApplication( int argc,
     m_viewer( nullptr ),
     m_frameTimer( new QTimer( this ) ),
     m_frameCounter( 0 ),
+    m_frameCountBeforeUpdate(60),
     m_numFrames( 0 ),
     m_maxThreads( RA_MAX_THREAD ),
     m_realFrameRate( false ),
@@ -369,10 +370,6 @@ void BaseApplication::addBasicShaders() {
     lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lagConfig );
 
-    ShaderConfiguration lConfig( "Lines" );
-    lConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
-    lConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir + "Shaders/Lines.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( lConfig );
 
     ShaderConfiguration gdConfig( "GradientDisplay" );
     gdConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/GradientDisplay.vert.glsl" );

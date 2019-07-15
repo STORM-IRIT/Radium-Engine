@@ -72,11 +72,15 @@ void RadiumEngine::registerDefaultPrograms() {
 
     // Engine support some built-in materials. Register here
     Ra::Engine::ShaderConfiguration pConfig( "Plain" );
-    pConfig.addShader( Ra::Engine::ShaderType_VERTEX,
-                       m_resourcesRootDir + "Shaders/Plain.vert.glsl" );
-    pConfig.addShader( Ra::Engine::ShaderType_FRAGMENT,
-                       m_resourcesRootDir + "Shaders/Plain.frag.glsl" );
+    pConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Plain.vert.glsl" );
+    pConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Plain.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( pConfig );
+
+    ShaderConfiguration lConfig( "Lines" );
+    lConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines.vert.glsl" );
+    lConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Lines.frag.glsl" );
+    ShaderConfigurationFactory::addConfiguration( lConfig );
+
 
     BlinnPhongMaterial::registerMaterial();
 }
