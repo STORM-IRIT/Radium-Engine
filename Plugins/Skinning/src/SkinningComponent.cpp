@@ -12,6 +12,7 @@
 #include <Core/Geometry/TriangleOperation.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Core/Resources/Resources.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -175,7 +176,7 @@ void SkinningComponent::initialize() {
         m_weightTechnique->setMaterial( mat );
         // assign texture
         Ra::Engine::TextureParameters texParam;
-        texParam.name = "Assets/Textures/Influence0.png";
+        texParam.name = std::string(Ra::Core::Resources::getBaseDir()) + "Assets/Textures/Influence0.png";
         auto tex      = Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texParam );
         mat->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE, tex );
         // compute default weights uv
