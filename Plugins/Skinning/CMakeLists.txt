@@ -39,9 +39,11 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 file( GLOB_RECURSE sources src/*.cpp )
 file( GLOB_RECURSE headers src/*.hpp )
 file( GLOB_RECURSE inlines src/*.inl )
+file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/src/UI/*.qrc)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 add_definitions( ${Qt5Core_DEFINITIONS} )
 add_definitions( ${Qt5Widges_DEFINITIONS} )
@@ -53,7 +55,7 @@ include_directories(
     ${RADIUM_INCLUDE_DIRS}
     )
 
-add_library( Skinning SHARED ${sources} ${headers} ${inlines} )
+add_library( Skinning SHARED ${sources} ${headers} ${inlines} ${resources} )
 message(INFO " Skinning : dependencies are ${RADIUM_LIBRARIES}")
 add_dependencies( Skinning ${RADIUM_LIBRARIES} )
 

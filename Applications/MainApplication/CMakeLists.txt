@@ -31,7 +31,7 @@ file(GLOB_RECURSE app_inlines *.inl)
 file(GLOB_RECURSE app_uis     *.ui)
 qt5_wrap_ui(app_uis_moc ${app_uis})
 
-file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/../../*.qrc)
+file(GLOB resources Gui/ui/icons.qrc)
 
 
 include_directories(

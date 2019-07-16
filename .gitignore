@@ -58,6 +58,9 @@
 *.gif
 *.tif
 !Assets/Images/*.png
+!Plugins/Animation/UI/Assets/Images/*.png
+!Plugins/Skinning/UI/Assets/Images/*.png
+!Applications/MainApplication/Gui/ui/Assets/Images/*.png
 
 # Compressed asset files
 *.zip

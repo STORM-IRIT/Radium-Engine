@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Images/pause_off.png</file>
+        <file>Assets/Images/pause_on.png</file>
+        <file>Assets/Images/play_off.png</file>
+        <file>Assets/Images/play_on.png</file>
+        <file>Assets/Images/step_off.png</file>
+        <file>Assets/Images/step_on.png</file>
+        <file>Assets/Images/stop_off.png</file>
+        <file>Assets/Images/stop_on.png</file>
+        <file>Assets/Images/xray.png</file>
+    </qresource>
+</RCC>

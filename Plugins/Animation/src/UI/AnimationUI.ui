@@ -366,7 +366,7 @@ border-image: url(:/Assets/Images/stop_on.png);
           <string/>
          </property>
          <property name="icon">
-          <iconset>
+          <iconset resource="AnimationIcons.qrc">
            <normaloff>:/Assets/Images/xray.png</normaloff>
            <normalon>:/Assets/Images/xray.png</normalon>:/Assets/Images/xray.png</iconset>
          </property>
@@ -434,7 +434,7 @@ border-image: url(:/Assets/Images/stop_on.png);
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="xray.png" resource="../../../../icons.qrc">
+    <iconset theme="xray.png" resource="AnimationIcons.qrc">
      <normaloff>:/Assets/Images/xray.png</normaloff>:/Assets/Images/xray.png</iconset>
    </property>
    <property name="text">
@@ -455,7 +455,7 @@ border-image: url(:/Assets/Images/stop_on.png);
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
+    <iconset resource="AnimationIcons.qrc">
      <normaloff>:/Assets/Images/play_off.png</normaloff>
      <normalon>:/Assets/Images/pause_off.png</normalon>
      <activeoff>:/Assets/Images/play_on.png</activeoff>
@@ -473,7 +473,7 @@ border-image: url(:/Assets/Images/stop_on.png);
   </action>
   <action name="actionStop">
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
+    <iconset resource="AnimationIcons.qrc">
      <normaloff>:/Assets/Images/stop_off.png</normaloff>
      <normalon>:/Assets/Images/stop_off.png</normalon>
      <activeoff>:/Assets/Images/stop_on.png</activeoff>
@@ -494,7 +494,7 @@ border-image: url(:/Assets/Images/stop_on.png);
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
+    <iconset resource="AnimationIcons.qrc">
      <normaloff>:/Assets/Images/step_off.png</normaloff>
      <normalon>:/Assets/Images/step_on.png</normalon>
      <activeoff>:/Assets/Images/step_on.png</activeoff>:/Assets/Images/step_off.png</iconset>
@@ -511,8 +511,7 @@ border-image: url(:/Assets/Images/stop_on.png);
   </action>
  </widget>
  <resources>
-  <include location="../../../../icons.qrc"/>
-  <include location="../../../../icons.qrc"/>
+  <include location="AnimationIcons.qrc"/>
  </resources>
  <connections/>
 </ui>

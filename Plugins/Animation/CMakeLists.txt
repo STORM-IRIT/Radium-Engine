@@ -41,6 +41,8 @@ file( GLOB_RECURSE headers src/*.hpp src/*.h )
 file( GLOB_RECURSE inlines src/*.inl )
 
 file(GLOB_RECURSE app_uis  src/*.ui)
+file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/src/UI/*.qrc)
+
 qt5_wrap_ui(app_uis_moc ${app_uis})
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -56,7 +58,7 @@ include_directories(
     ${RADIUM_INCLUDE_DIRS}
     )
 
-add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis})
+add_library( Animation SHARED ${sources} ${headers} ${inlines} ${app_uis} ${resources})
 message(INFO " Animation : dependencies are ${RADIUM_LIBRARIES}")
 add_dependencies( Animation ${RADIUM_LIBRARIES})
 

@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Images/gizmo.png</file>
+        <file>Assets/Images/RadiumIcon.png</file>
+        <file>Assets/Images/rotate.png</file>
+        <file>Assets/Images/scale.png</file>
+        <file>Assets/Images/select.png</file>
+        <file>Assets/Images/translate.png</file>
+        <file>Assets/Images/screenshot.png</file>
+        <file>Assets/Images/rec.png</file>
+        <file>Assets/Images/rec_on.png</file>
+    </qresource>
+</RCC>

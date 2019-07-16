@@ -86,6 +86,7 @@ void SkinningPluginC::openGlInitialize( const Ra::Plugins::Context& /*context*/ 
     texData.wrapT     = GL_CLAMP_TO_EDGE;
     texData.minFilter = GL_NEAREST;
     texData.magFilter = GL_NEAREST;
+    // TODO : move Influence0 to a skinning specific resources container
     texData.name      = std::string(Ra::Core::Resources::getBaseDir()) + "Assets/Textures/Influence0.png";
     Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texData );
 }
