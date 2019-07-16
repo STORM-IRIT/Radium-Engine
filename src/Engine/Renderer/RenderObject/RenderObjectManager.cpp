@@ -110,7 +110,8 @@ size_t RenderObjectManager::getNumFaces() const {
         size_t( 0 ),
         []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
             if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-            { return a + ro->getMesh()->getNumFaces(); } else
+            { return a + ro->getMesh()->getNumFaces(); }
+            else
             { return a; }
         } );
     return result;
@@ -124,7 +125,8 @@ size_t RenderObjectManager::getNumVertices() const {
         size_t( 0 ),
         []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
             if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
-            { return a + ro->getMesh()->getNumVertices(); } else
+            { return a + ro->getMesh()->getNumVertices(); }
+            else
             { return a; }
         } );
     return result;

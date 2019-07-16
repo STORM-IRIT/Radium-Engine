@@ -60,12 +60,14 @@ void MeshFeatureTrackingComponent::setScale( Scalar scale ) {
 
 int MeshFeatureTrackingComponent::getMaxV() const {
     if ( m_data.m_mode != PickingMode::RO && getRoMgr()->exists( m_pickedRoIdx ) )
-    { return int( m_pickedMesh->getNumVertices() ); } return 0;
+    { return int( m_pickedMesh->getNumVertices() ); }
+    return 0;
 }
 
 int MeshFeatureTrackingComponent::getMaxT() const {
     if ( m_data.m_mode != PickingMode::RO && getRoMgr()->exists( m_pickedRoIdx ) )
-    { return int( m_pickedMesh->getNumFaces() ); } return 0;
+    { return int( m_pickedMesh->getNumFaces() ); }
+    return 0;
 }
 
 namespace { // anonymous namespace for line mesh indices retrieval from triangles -- according to

@@ -198,7 +198,8 @@ void RenderObject::hasBeenRenderedOnce() {
     if ( m_hasLifetime )
     {
         if ( --m_lifetime <= 0 )
-        { RadiumEngine::getInstance()->getRenderObjectManager()->renderObjectExpired( m_idx ); } }
+        { RadiumEngine::getInstance()->getRenderObjectManager()->renderObjectExpired( m_idx ); }
+    }
 }
 
 void RenderObject::hasExpired() {
