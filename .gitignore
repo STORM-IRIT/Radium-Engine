@@ -58,8 +58,8 @@
 *.gif
 *.tif
 !Assets/Images/*.png
-!Plugins/Animation/UI/Assets/Images/*.png
-!Plugins/Skinning/UI/Assets/Images/*.png
+!Plugins/Animation/src/UI/Assets/Images/*.png
+!Plugins/Skinning/src/UI/Assets/Images/*.png
 !Applications/MainApplication/Gui/ui/Assets/Images/*.png
 
 # Compressed asset files
@@ -86,6 +86,7 @@ lib/
 include/
 Bundle*/
 build*/
+cmake-build-*/
 
 # Mercurial stuff (e.g from Eigen)
 .hg*
