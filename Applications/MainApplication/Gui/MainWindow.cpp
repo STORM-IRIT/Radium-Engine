@@ -98,7 +98,7 @@ void MainWindow::createConnections() {
     connect( actionToggle_Local_Global,
              &QAction::toggled,
              mainApp,
-             &Ra::GuiBase::BaseApplication::askForUpdate);
+             &Ra::GuiBase::BaseApplication::askForUpdate );
 
     connect( actionGizmoOff, &QAction::triggered, this, &MainWindow::gizmoShowNone );
     connect( actionGizmoTranslate, &QAction::triggered, this, &MainWindow::gizmoShowTranslate );
@@ -509,7 +509,8 @@ void Gui::MainWindow::showHideAllRO() {
         auto idx  = m_itemModel->index( i, j );
         auto item = m_itemModel->getEntry( idx );
         if ( item.isValid() && item.isSelectable() )
-        { m_itemModel->setData( idx, allEntityInvisible, Qt::CheckStateRole ); } }
+        { m_itemModel->setData( idx, allEntityInvisible, Qt::CheckStateRole ); }
+    }
     mainApp->askForUpdate();
 }
 
