@@ -6,5 +6,6 @@
         <file>Assets/Images/CoR_on.png</file>
         <file>Assets/Images/LB.png</file>
         <file>Assets/Images/LB_on.png</file>
+        <file>Assets/Textures/Influence0.png</file>
     </qresource>
 </RCC>

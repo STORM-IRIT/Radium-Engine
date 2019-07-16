@@ -4,6 +4,8 @@
 #include <QSpacerItem>
 #include <QVBoxLayout>
 
+#include <QFile>
+
 #include <Core/Resources/Resources.hpp>
 
 #include <Engine/RadiumEngine.hpp>
@@ -81,13 +83,18 @@ bool SkinningPluginC::doAddROpenGLInitializer() {
 
 void SkinningPluginC::openGlInitialize( const Ra::Plugins::Context& /*context*/ ) {
     if ( !m_system ) { return; }
+    QImage influenceImage(":/Assets/Textures/Influence0.png");
+    auto img = influenceImage.convertToFormat(QImage::Format_RGB888);
     Ra::Engine::TextureParameters texData;
     texData.wrapS     = GL_CLAMP_TO_EDGE;
     texData.wrapT     = GL_CLAMP_TO_EDGE;
     texData.minFilter = GL_NEAREST;
     texData.magFilter = GL_NEAREST;
-    // TODO : move Influence0 to a skinning specific resources container
-    texData.name      = std::string(Ra::Core::Resources::getBaseDir()) + "Assets/Textures/Influence0.png";
+    texData.width = img.width();
+    texData.height = img.height();
+    texData.format = GL_RGB;
+    texData.texels = img.bits();
+    texData.name = ":/Assets/Textures/Influence0.png";
     Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texData );
 }
 

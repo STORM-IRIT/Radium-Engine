@@ -176,7 +176,7 @@ void SkinningComponent::initialize() {
         m_weightTechnique->setMaterial( mat );
         // assign texture
         Ra::Engine::TextureParameters texParam;
-        texParam.name = std::string(Ra::Core::Resources::getBaseDir()) + "Assets/Textures/Influence0.png";
+        texParam.name = ":/Assets/Textures/Influence0.png";
         auto tex      = Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texParam );
         mat->addTexture( Ra::Engine::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE, tex );
         // compute default weights uv
