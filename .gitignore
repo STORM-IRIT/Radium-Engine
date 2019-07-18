@@ -60,6 +60,7 @@
 !Assets/Images/*.png
 !Plugins/Animation/src/UI/Assets/Images/*.png
 !Plugins/Skinning/src/UI/Assets/Images/*.png
+!Plugins/Skinning/src/UI/Assets/Textures/*.png
 !Applications/MainApplication/Gui/ui/Assets/Images/*.png
 
 # Compressed asset files
