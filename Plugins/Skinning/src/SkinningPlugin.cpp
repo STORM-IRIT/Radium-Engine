@@ -83,7 +83,7 @@ bool SkinningPluginC::doAddROpenGLInitializer() {
 
 void SkinningPluginC::openGlInitialize( const Ra::Plugins::Context& /*context*/ ) {
     if ( !m_system ) { return; }
-    QImage influenceImage(":/Assets/Textures/Influence0.png");
+    QImage influenceImage(":/Resources/Textures/Influence0.png");
     auto img = influenceImage.convertToFormat(QImage::Format_RGB888);
     Ra::Engine::TextureParameters texData;
     texData.wrapS     = GL_CLAMP_TO_EDGE;
@@ -94,7 +94,7 @@ void SkinningPluginC::openGlInitialize( const Ra::Plugins::Context& /*context*/ 
     texData.height = img.height();
     texData.format = GL_RGB;
     texData.texels = img.bits();
-    texData.name = ":/Assets/Textures/Influence0.png";
+    texData.name = ":/Resources/Textures/Influence0.png";
     Ra::Engine::TextureManager::getInstance()->getOrLoadTexture( texData );
 }
 
@@ -177,15 +177,15 @@ SkinningWidget::SkinningWidget( QWidget* parent ) : QFrame( parent ), m_current(
     vL->addItem( new QSpacerItem( 20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding ) );
 
     m_actionLBS =
-        new QAction( QIcon( ":/Assets/Images/LB.png" ), QString( "Linear Blending" ), nullptr );
+        new QAction( QIcon( ":/Resources/Icons/LB.png" ), QString( "Linear Blending" ), nullptr );
     m_actionDQ =
-        new QAction( QIcon( ":/Assets/Images/DQ_on.png" ), QString( "Dual Quaternion" ), nullptr );
+        new QAction( QIcon( ":/Resources/Icons/DQ_on.png" ), QString( "Dual Quaternion" ), nullptr );
     m_actionCoR =
-        new QAction( QIcon( ":/Assets/Images/CoR.png" ), QString( "Center of Rotation" ), nullptr );
+        new QAction( QIcon( ":/Resources/Icons/CoR.png" ), QString( "Center of Rotation" ), nullptr );
     m_actionSTBSLBS =
-        new QAction( QIcon( ":/Assets/Images/LB.png" ), QString( "STBS with LBS" ), nullptr );
+        new QAction( QIcon( ":/Resources/Icons/LB.png" ), QString( "STBS with LBS" ), nullptr );
     m_actionSTBSDQS =
-        new QAction( QIcon( ":/Assets/Images/DQ.png" ), QString( "STBS with DQS" ), nullptr );
+        new QAction( QIcon( ":/Resources/Icons/DQ.png" ), QString( "STBS with DQS" ), nullptr );
 
     m_actionLBS->setEnabled( false );
     m_actionDQ->setEnabled( false );
@@ -306,23 +306,23 @@ void SkinningWidget::onSkinningChanged( int newType ) {
     {
     case 0:
     {
-        m_actionLBS->setIcon( QIcon( ":/Assets/Images/LB_on.png" ) );
-        m_actionDQ->setIcon( QIcon( ":/Assets/Images/DQ.png" ) );
-        m_actionCoR->setIcon( QIcon( ":/Assets/Images/CoR.png" ) );
+        m_actionLBS->setIcon( QIcon( ":/Resources/Icons/LB_on.png" ) );
+        m_actionDQ->setIcon( QIcon( ":/Resources/Icons/DQ.png" ) );
+        m_actionCoR->setIcon( QIcon( ":/Resources/Icons/CoR.png" ) );
         break;
     }
     case 1:
     {
-        m_actionLBS->setIcon( QIcon( ":/Assets/Images/LB.png" ) );
-        m_actionDQ->setIcon( QIcon( ":/Assets/Images/DQ_on.png" ) );
-        m_actionCoR->setIcon( QIcon( ":/Assets/Images/CoR.png" ) );
+        m_actionLBS->setIcon( QIcon( ":/Resources/Icons/LB.png" ) );
+        m_actionDQ->setIcon( QIcon( ":/Resources/Icons/DQ_on.png" ) );
+        m_actionCoR->setIcon( QIcon( ":/Resources/Icons/CoR.png" ) );
         break;
     }
     case 2:
     {
-        m_actionLBS->setIcon( QIcon( ":/Assets/Images/LB.png" ) );
-        m_actionDQ->setIcon( QIcon( ":/Assets/Images/DQ.png" ) );
-        m_actionCoR->setIcon( QIcon( ":/Assets/Images/CoR_on.png" ) );
+        m_actionLBS->setIcon( QIcon( ":/Resources/Icons/LB.png" ) );
+        m_actionDQ->setIcon( QIcon( ":/Resources/Icons/DQ.png" ) );
+        m_actionCoR->setIcon( QIcon( ":/Resources/Icons/CoR_on.png" ) );
         break;
     }
     default:

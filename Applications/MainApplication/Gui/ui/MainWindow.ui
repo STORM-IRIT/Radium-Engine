@@ -615,8 +615,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normalon>:/Assets/Images/translate.png</normalon>
+     <iconset resource="../../Resources/ApplicationIcons.qrc">
+     <normalon>:/Resources/Icons/translate.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -632,7 +632,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normalon>:/Assets/Images/rotate.png</normalon>
+     <normalon>:/Resources/Icons/rotate.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -648,7 +648,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normalon>:/Assets/Images/gizmo.png</normalon>
+     <normalon>:/Resources/Icons/gizmo.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -667,7 +667,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normalon>:/Assets/Images/select.png</normalon>
+     <normalon>:/Resources/Icons/select.png</normalon>
     </iconset>
    </property>
    <property name="text">
@@ -690,9 +690,9 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/rec.png</normaloff>
-     <normalon>:/Assets/Images/rec_on.png</normalon>:/Assets/Images/rec.png</iconset>
+    <iconset resource="../../Resources/ApplicationIcons.qrc">
+     <normaloff>:/Resources/Icons/rec.png</normaloff>
+     <normalon>:/Resources/Icons/rec_on.png</normalon>:/Resources/Icons/rec.png</iconset>
    </property>
    <property name="text">
     <string>Record Frames</string>
@@ -719,8 +719,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/scale.png</normaloff>:/Assets/Images/scale.png</iconset>
+     <iconset resource="../../Resources/ApplicationIcons.qrc">
+     <normaloff>:/Resources/Icons/scale.png</normaloff>:/Resources/Icons/scale.png</iconset>
    </property>
    <property name="text">
     <string>Scale</string>
@@ -731,8 +731,8 @@
   </action>
   <action name="actionSnapshot">
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/screenshot.png</normaloff>:/Assets/Images/screenshot.png</iconset>
+     <iconset resource="../../Resources/ApplicationIcons.qrc">
+     <normaloff>:/Resources/Icons/screenshot.png</normaloff>:/Resources/Icons/screenshot.png</iconset>
    </property>
    <property name="text">
     <string>Snapshot</string>
@@ -772,8 +772,7 @@
   <tabstop>m_printTimings</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../icons.qrc"/>
-  <include location="../../../../icons.qrc"/>
+  <include location="../../Resources/ApplicationIcons.qrc"/>
  </resources>
  <connections>
   <connection>

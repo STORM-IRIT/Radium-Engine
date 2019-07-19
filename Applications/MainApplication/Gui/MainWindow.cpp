@@ -60,7 +60,7 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
 
     setCentralWidget( viewerwidget );
 
-    setWindowIcon( QPixmap( ":/Assets/Images/RadiumIcon.png" ) );
+    setWindowIcon( QPixmap( ":/Resources/Icons/RadiumIcon.png" ) );
     setWindowTitle( QString( "Radium Engine" ) );
 
     QStringList headers;

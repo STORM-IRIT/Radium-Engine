@@ -39,9 +39,8 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 file( GLOB_RECURSE sources src/*.cpp )
 file( GLOB_RECURSE headers src/*.hpp src/*.h )
 file( GLOB_RECURSE inlines src/*.inl )
-
-file(GLOB_RECURSE app_uis  src/*.ui)
-file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/src/UI/*.qrc)
+file( GLOB_RECURSE app_uis  src/*.ui )
+file( GLOB resources Resources/*.qrc )
 
 qt5_wrap_ui(app_uis_moc ${app_uis})
 

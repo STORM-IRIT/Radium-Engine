@@ -39,7 +39,7 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 file( GLOB_RECURSE sources src/*.cpp )
 file( GLOB_RECURSE headers src/*.hpp )
 file( GLOB_RECURSE inlines src/*.inl )
-file(GLOB resources ${CMAKE_CURRENT_SOURCE_DIR}/src/UI/*.qrc)
+file( GLOB resources Resources/*.qrc )
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
