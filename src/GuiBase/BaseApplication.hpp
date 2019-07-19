@@ -12,13 +12,7 @@
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 class QTimer;
-/*
-namespace Ra {
-namespace Core {
-class TaskQueue;
-}
-} // namespace Ra
-*/
+
 namespace Ra {
 namespace Engine {
 class RadiumEngine;

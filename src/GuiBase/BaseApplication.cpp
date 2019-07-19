@@ -10,7 +10,6 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
-#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
@@ -60,7 +59,7 @@ BaseApplication::BaseApplication( int argc,
     m_viewer( nullptr ),
     m_frameTimer( new QTimer( this ) ),
     m_frameCounter( 0 ),
-    m_frameCountBeforeUpdate(60),
+    m_frameCountBeforeUpdate( 60 ),
     m_numFrames( 0 ),
     m_maxThreads( RA_MAX_THREAD ),
     m_realFrameRate( false ),
@@ -74,7 +73,7 @@ BaseApplication::BaseApplication( int argc,
     QCoreApplication::setOrganizationName( organizationName );
     QCoreApplication::setApplicationName( applicationName );
 
-    m_targetFPS             = 60; // Default
+    m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
     std::string pluginsPath = std::string{Core::Resources::getBaseDir()} + "Plugins";
 
@@ -329,9 +328,9 @@ void BaseApplication::setupScene() {
 }
 
 bool BaseApplication::loadFile( QString path ) {
-    std::string fullFilename = path.toLocal8Bit().data();
-    LOG( logINFO ) << "Loading file " << fullFilename << "...";
-    bool res = m_engine->loadFile( fullFilename );
+    std::string filename = path.toLocal8Bit().data();
+    LOG( logINFO ) << "Loading file " << filename << "...";
+    bool res = m_engine->loadFile( filename );
 
     if ( !res )
     {
@@ -340,9 +339,9 @@ bool BaseApplication::loadFile( QString path ) {
         return false;
     }
 
-    m_engine->releaseFile( fullFilename );
+    m_engine->releaseFile( filename );
 
-    m_mainWindow->postLoadFile( fullFilename );
+    m_mainWindow->postLoadFile( filename );
 
     emit loadComplete();
     return true;
@@ -369,7 +368,6 @@ void BaseApplication::addBasicShaders() {
                          resourcesRootDir + "Shaders/LinesAdjacency.frag.glsl" );
     lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lagConfig );
-
 
     ShaderConfiguration gdConfig( "GradientDisplay" );
     gdConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/GradientDisplay.vert.glsl" );
