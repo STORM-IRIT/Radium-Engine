@@ -63,8 +63,8 @@ KeyMappingManager::getActionIndex( const Context& context, const std::string& ac
     }
     auto itr = m_actionNameToIndex[context].find( actionName );
     if ( itr != m_actionNameToIndex[context].end() ) return itr->second;
-
-    LOG( logINFO ) << "try to get action index from an invalid action name";
+    LOG( logINFO ) << "try to get action index from an invalid action name " << actionName
+                   << "(context #" << context << ")";
 
     return KeyMappingAction{};
 }

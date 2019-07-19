@@ -98,11 +98,10 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
 
     // static KeyMappingManager::Context m_keyMappingContext;
 
-#define KeyMappingCamera                      \
-    KMA_VALUE( TRACKBALLCAMERA_MANIPULATION ) \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE )       \
-    KMA_VALUE( TRACKBALLCAMERA_PAN )          \
-    KMA_VALUE( TRACKBALLCAMERA_ZOOM )         \
+#define KeyMappingCamera                \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE ) \
+    KMA_VALUE( TRACKBALLCAMERA_PAN )    \
+    KMA_VALUE( TRACKBALLCAMERA_ZOOM )   \
     KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
