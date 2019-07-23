@@ -41,8 +41,6 @@ bool ShaderProgramManager::addNamedString( const std::string& includepath,
         return false;
     }
 
-    LOG( logINFO ) << "[ShaderProgramManager] Inserting named string : " << includepath << " --> "
-                   << realfile;
     auto file                   = globjects::File::create( realfile );
     m_namedStrings[includepath] = std::make_pair(
         std::move( file ), globjects::NamedString::create( includepath, file.get() ) );

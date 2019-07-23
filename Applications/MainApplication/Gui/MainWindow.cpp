@@ -19,8 +19,13 @@
 #include <GuiBase/Utils/qt_utils.hpp>
 #include <GuiBase/Viewer/CameraInterface.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
 #include <IO/deprecated/OBJFileManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
+
+#include <Core/Utils/StringUtils.hpp>
+#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
+#include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <QColorDialog>
 #include <QComboBox>
@@ -47,7 +52,6 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     connect( m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized );
     connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
 
-    m_viewer->createGizmoManager();
     m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
     QWidget* viewerwidget = QWidget::createWindowContainer( m_viewer );
@@ -56,7 +60,7 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
 
     setCentralWidget( viewerwidget );
 
-    setWindowIcon( QPixmap( ":/Assets/Images/RadiumIcon.png" ) );
+    setWindowIcon( QPixmap( ":/Resources/Icons/RadiumIcon.png" ) );
     setWindowTitle( QString( "Radium Engine" ) );
 
     QStringList headers;
@@ -83,6 +87,7 @@ void MainWindow::cleanup() {
     m_viewer->getGizmoManager()->cleanup();
 }
 
+// Connection to gizmos must be done after GL is initialized
 void MainWindow::createConnections() {
     connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
     connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Viewer::reloadShaders );
@@ -90,10 +95,6 @@ void MainWindow::createConnections() {
         actionOpen_Material_Editor, &QAction::triggered, this, &MainWindow::openMaterialEditor );
 
     // Toolbox setup
-    connect( actionToggle_Local_Global,
-             &QAction::toggled,
-             m_viewer->getGizmoManager(),
-             &GizmoManager::setLocal );
     // to update display when mode is changed
     connect( actionToggle_Local_Global,
              &QAction::toggled,
@@ -139,8 +140,6 @@ void MainWindow::createConnections() {
 
     // Make selected item event visible to plugins
     connect( this, &MainWindow::selectedItem, mainApp, &MainApplication::onSelectedItem );
-    connect(
-        this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable );
 
     // Enable changing shaders
     connect(
@@ -547,7 +546,7 @@ void MainWindow::onFrameComplete() {
     tab_edition->updateValues();
 }
 
-void MainWindow::addRenderer( std::string name, std::shared_ptr<Engine::Renderer> e ) {
+void MainWindow::addRenderer( const std::string& name, std::shared_ptr<Engine::Renderer> e ) {
     int id = m_viewer->addRenderer( e );
     CORE_UNUSED( id );
     CORE_ASSERT( id == m_currentRendererCombo->count(), "Inconsistent renderer state" );
@@ -634,7 +633,7 @@ void MainWindow::fitCamera() {
         m_viewer->fitCameraToScene( aabb );
 }
 
-void MainWindow::postLoadFile() {
+void MainWindow::postLoadFile( const std::string& filename ) {
     m_selectionManager->clear();
     m_currentShaderBox->clear();
     m_currentShaderBox->setEnabled( false );
@@ -651,11 +650,39 @@ void MainWindow::postLoadFile() {
     }
 
     fitCamera();
+
+    // TODO : find a better way to activate loaded camera
+    // If a camera is in the loaded scene, use it, else, use default
+    std::string loadedEntityName = Core::Utils::getBaseName( filename, false );
+    auto rootEntity =
+        Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity( loadedEntityName );
+    if ( rootEntity != nullptr )
+    {
+        auto fc = std::find_if(rootEntity->getComponents().begin(), rootEntity->getComponents().end(),
+            [](const auto &c){ return (c->getName().compare( 0, 7, "CAMERA_" ) == 0); }
+            );
+        if (fc != rootEntity->getComponents().end() ) {
+            LOG( logINFO ) << "Activating camera " << (*fc)->getName();
+
+            const auto systemEntity = Ra::Engine::SystemEntity::getInstance();
+            systemEntity->removeComponent( "CAMERA_DEFAULT" );
+
+            auto camera = static_cast<Ra::Engine::Camera*>( (*fc).get() );
+            m_viewer->getCameraInterface()->setCamera(
+                camera->duplicate( systemEntity, "CAMERA_DEFAULT" ) );
+        }
+    }
 }
 
 void MainWindow::onGLInitialized() {
+    // Connection to gizmos after their creation
+    connect( actionToggle_Local_Global,
+             &QAction::toggled,
+             m_viewer->getGizmoManager(),
+             &GizmoManager::setLocal );
+    connect(
+        this, &MainWindow::selectedItem, m_viewer->getGizmoManager(), &GizmoManager::setEditable );
 
-    LOG( logINFO ) << "onGLInitialized";
     // set default renderer once OpenGL is configured
     std::shared_ptr<Engine::Renderer> e( new Engine::ForwardRenderer() );
     addRenderer( "Forward Renderer", e );

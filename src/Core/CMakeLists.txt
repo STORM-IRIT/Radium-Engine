@@ -1,5 +1,6 @@
 set(core_target radiumCore)
 
+
 set(RADIUM_VERSION_FILE ${CMAKE_CURRENT_BINARY_DIR}/Version.cpp)
 add_custom_command(
     OUTPUT ${RADIUM_VERSION_FILE}
@@ -34,7 +35,11 @@ add_library(
 )
 
 add_dependencies( ${core_target} eigen3  openmesh_lib)
-target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS")
+
+# Define the base path for default shader. To be defined according to the install operation.
+# TODO : will change when proper resources management wil be implemented
+message("Setting radium env base dir to ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+target_compile_definitions(${core_target} PRIVATE "-DRA_CORE_EXPORTS" RADIUM_RESOURCES_BASEDIR="${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/")
 target_include_directories(${core_target}
     PRIVATE
            ${CMAKE_CURRENT_SOURCE_DIR}/..

@@ -1,8 +1,9 @@
 #include <GuiBase/BaseApplication.hpp>
-
 #include <GuiBase/MainWindowInterface.hpp>
+#include <GuiBase/Viewer/Viewer.hpp>
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Types.hpp>
@@ -12,19 +13,14 @@
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/ItemModel/ItemEntry.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/Renderer.hpp>
 #include <Engine/System/GeometrySystem.hpp>
-#include <GuiBase/Utils/KeyMappingManager.hpp>
-#include <GuiBase/Viewer/CameraInterface.hpp>
-#include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 #ifdef IO_USE_CAMERA_LOADER
@@ -37,7 +33,6 @@
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
-#include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <QCommandLineParser>
 #include <QDir>
 #include <QOpenGLContext>
@@ -64,6 +59,7 @@ BaseApplication::BaseApplication( int argc,
     m_viewer( nullptr ),
     m_frameTimer( new QTimer( this ) ),
     m_frameCounter( 0 ),
+    m_frameCountBeforeUpdate( 60 ),
     m_numFrames( 0 ),
     m_maxThreads( RA_MAX_THREAD ),
     m_realFrameRate( false ),
@@ -77,8 +73,9 @@ BaseApplication::BaseApplication( int argc,
     QCoreApplication::setOrganizationName( organizationName );
     QCoreApplication::setApplicationName( applicationName );
 
-    m_targetFPS             = 60; // Default
-    std::string pluginsPath = "Plugins";
+    m_targetFPS = 60; // Default
+    // TODO at startup, only load "standard plugins". This must be extended.
+    std::string pluginsPath = std::string{Core::Resources::getBaseDir()} + "Plugins";
 
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
@@ -208,7 +205,6 @@ BaseApplication::BaseApplication( int argc,
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
-    Gui::KeyMappingManager::getInstance()->addListener( Gui::TrackballCamera::registerKeyMapping );
     Gui::KeyMappingManager::getInstance()->addListener( Gui::Viewer::registerKeyMapping );
 
     // Create engine
@@ -292,7 +288,7 @@ BaseApplication::BaseApplication( int argc,
         {
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
             auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
-            m_viewer->getCameraInterface()->setCamera( camera );
+            m_viewer->setCamera( camera );
         }
     }
 
@@ -332,9 +328,9 @@ void BaseApplication::setupScene() {
 }
 
 bool BaseApplication::loadFile( QString path ) {
-    std::string pathStr = path.toLocal8Bit().data();
-    LOG( logINFO ) << "Loading file " << pathStr << "...";
-    bool res = m_engine->loadFile( pathStr );
+    std::string filename = path.toLocal8Bit().data();
+    LOG( logINFO ) << "Loading file " << filename << "...";
+    bool res = m_engine->loadFile( filename );
 
     if ( !res )
     {
@@ -343,9 +339,9 @@ bool BaseApplication::loadFile( QString path ) {
         return false;
     }
 
-    m_engine->releaseFile();
+    m_engine->releaseFile( filename );
 
-    m_mainWindow->postLoadFile();
+    m_mainWindow->postLoadFile( filename );
 
     emit loadComplete();
     return true;
@@ -357,32 +353,26 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 
 void BaseApplication::addBasicShaders() {
     using namespace Ra::Engine;
-
-    ShaderConfiguration pConfig( "Plain" );
-    pConfig.addShader( ShaderType_VERTEX, "Shaders/Plain.vert.glsl" );
-    pConfig.addShader( ShaderType_FRAGMENT, "Shaders/Plain.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( pConfig );
+    /// For internal resources management in a filesystem
+    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
 
     ShaderConfiguration lgConfig( "LinesGeom" );
-    lgConfig.addShader( ShaderType_VERTEX, "Shaders/Lines.vert.glsl" );
-    lgConfig.addShader( ShaderType_FRAGMENT, "Shaders/Lines.frag.glsl" );
-    lgConfig.addShader( ShaderType_GEOMETRY, "Shaders/Lines.geom.glsl" );
+    lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
+    lgConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir + "Shaders/Lines.frag.glsl" );
+    lgConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lgConfig );
 
     ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
-    lagConfig.addShader( ShaderType_VERTEX, "Shaders/Lines.vert.glsl" );
-    lagConfig.addShader( ShaderType_FRAGMENT, "Shaders/LinesAdjacency.frag.glsl" );
-    lagConfig.addShader( ShaderType_GEOMETRY, "Shaders/Lines.geom.glsl" );
+    lagConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
+    lagConfig.addShader( ShaderType_FRAGMENT,
+                         resourcesRootDir + "Shaders/LinesAdjacency.frag.glsl" );
+    lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lagConfig );
 
-    ShaderConfiguration lConfig( "Lines" );
-    lConfig.addShader( ShaderType_VERTEX, "Shaders/Lines.vert.glsl" );
-    lConfig.addShader( ShaderType_FRAGMENT, "Shaders/Lines.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( lConfig );
-
     ShaderConfiguration gdConfig( "GradientDisplay" );
-    gdConfig.addShader( ShaderType_VERTEX, "Shaders/GradientDisplay.vert.glsl" );
-    gdConfig.addShader( ShaderType_FRAGMENT, "Shaders/GradientDisplay.frag.glsl" );
+    gdConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/GradientDisplay.vert.glsl" );
+    gdConfig.addShader( ShaderType_FRAGMENT,
+                        resourcesRootDir + "Shaders/GradientDisplay.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( gdConfig );
 }
 
@@ -419,7 +409,10 @@ void BaseApplication::radiumFrame() {
     timerData.tasksEnd = Core::Utils::Clock::now();
 
     // also update gizmo manager to deal with annimation playing / reset
-    m_viewer->getGizmoManager()->updateValues();
+    // m_viewer->getGizmoManager()->updateValues();
+
+    // update viewer internal time-dependant state
+    m_viewer->update( dt );
 
     // ----------
     // 3. Kickoff rendering
