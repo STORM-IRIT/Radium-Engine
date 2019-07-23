@@ -49,10 +49,13 @@ void Camera::initialize() {
 }
 
 void Camera::show( bool on ) {
+    CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
     m_RO->setVisible( on );
 }
 
 void Camera::applyTransform( const Core::Transform& T ) {
+    CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
+
     Core::Transform t1 = Core::Transform::Identity();
     Core::Transform t2 = Core::Transform::Identity();
     t1.translation()   = -getPosition();
