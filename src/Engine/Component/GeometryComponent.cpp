@@ -6,6 +6,7 @@
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/Normal.hpp>
+#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
@@ -108,7 +109,8 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     if ( data->hasTextureCoordinates() )
     { m_displayMesh->addData( Mesh::VERTEX_TEXCOORD, data->getTexCoords() ); }
 
-    if ( data->hasColors() ) { m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() ); }
+    if ( data->hasColors() )
+    { m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() ); }
 
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
@@ -157,7 +159,9 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
             if ( rt.hasConfiguration( pass ) )
             {
                 ShaderConfiguration config = rt.getConfiguration( pass );
-                config.addShader( ShaderType_GEOMETRY, "Shaders/PointCloud.geom.glsl" );
+                config.addShader( ShaderType_GEOMETRY,
+                                  std::string( Core::Resources::getBaseDir() ) +
+                                      "Shaders/PointCloud.geom.glsl" );
                 rt.setConfiguration( config, pass );
             }
         };

@@ -60,19 +60,19 @@
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton[checked=&quot;false&quot;] {
-border-image: url(:/Assets/Images/play_off.png);
+border-image: url(:/Resources/Icons/play_off.png);
 }
 
 QPushButton:hover[checked=&quot;false&quot;] {
-border-image: url(:/Assets/Images/play_on.png);
+border-image: url(:/Resources/Icons/play_on.png);
 }
 
 QPushButton[checked=&quot;true&quot;] {
-border-image: url(:/Assets/Images/pause_off.png);
+border-image: url(:/Resources/Icons/pause_off.png);
 }
 
 QPushButton:hover[checked=&quot;true&quot;] {
-border-image: url(:/Assets/Images/pause_on.png);
+border-image: url(:/Resources/Icons/pause_on.png);
 }
 </string>
            </property>
@@ -118,11 +118,11 @@ border-image: url(:/Assets/Images/pause_on.png);
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-border-image: url(:/Assets/Images/step_off.png);
+border-image: url(:/Resources/Icons/step_off.png);
 }
 
 QPushButton:hover {
-border-image: url(:/Assets/Images/step_on.png);
+border-image: url(:/Resources/Icons/step_on.png);
 }
 </string>
            </property>
@@ -162,11 +162,11 @@ border-image: url(:/Assets/Images/step_on.png);
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-border-image: url(:/Assets/Images/stop_off.png);
+border-image: url(:/Resources/Icons/stop_off.png);
 }
 
 QPushButton:hover {
-border-image: url(:/Assets/Images/stop_on.png);
+border-image: url(:/Resources/Icons/stop_on.png);
 }
 </string>
            </property>
@@ -366,9 +366,9 @@ border-image: url(:/Assets/Images/stop_on.png);
           <string/>
          </property>
          <property name="icon">
-          <iconset>
-           <normaloff>:/Assets/Images/xray.png</normaloff>
-           <normalon>:/Assets/Images/xray.png</normalon>:/Assets/Images/xray.png</iconset>
+          <iconset resource="AnimationIcons.qrc">
+           <normaloff>:/Resources/Icons/xray.png</normaloff>
+           <normalon>:/Resources/Icons/xray.png</normalon>:/Resources/Icons/xray.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -434,8 +434,8 @@ border-image: url(:/Assets/Images/stop_on.png);
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="xray.png" resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/xray.png</normaloff>:/Assets/Images/xray.png</iconset>
+    <iconset theme="xray.png" resource="AnimationIcons.qrc">
+     <normaloff>:/Resources/Icons/xray.png</normaloff>:/Resources/Icons/xray.png</iconset>
    </property>
    <property name="text">
     <string>xray</string>
@@ -455,11 +455,11 @@ border-image: url(:/Assets/Images/stop_on.png);
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/play_off.png</normaloff>
-     <normalon>:/Assets/Images/pause_off.png</normalon>
-     <activeoff>:/Assets/Images/play_on.png</activeoff>
-     <activeon>:/Assets/Images/pause_on.png</activeon>:/Assets/Images/play_off.png</iconset>
+    <iconset resource="AnimationIcons.qrc">
+     <normaloff>:/Resources/Icons/play_off.png</normaloff>
+     <normalon>:/Resources/Icons/pause_off.png</normalon>
+     <activeoff>:/Resources/Icons/play_on.png</activeoff>
+     <activeon>:/Resources/Icons/pause_on.png</activeon>:/Resources/Icons/play_off.png</iconset>
    </property>
    <property name="text">
     <string>play</string>
@@ -473,11 +473,11 @@ border-image: url(:/Assets/Images/stop_on.png);
   </action>
   <action name="actionStop">
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/stop_off.png</normaloff>
-     <normalon>:/Assets/Images/stop_off.png</normalon>
-     <activeoff>:/Assets/Images/stop_on.png</activeoff>
-     <activeon>:/Assets/Images/stop_on.png</activeon>:/Assets/Images/stop_off.png</iconset>
+    <iconset resource="AnimationIcons.qrc">
+     <normaloff>:/Resources/Icons/stop_off.png</normaloff>
+     <normalon>:/Resources/Icons/stop_off.png</normalon>
+     <activeoff>:/Resources/Icons/stop_on.png</activeoff>
+     <activeon>:/Resources/Icons/stop_on.png</activeon>:/Resources/Icons/stop_off.png</iconset>
    </property>
    <property name="text">
     <string>stop</string>
@@ -494,10 +494,10 @@ border-image: url(:/Assets/Images/stop_on.png);
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../../../icons.qrc">
-     <normaloff>:/Assets/Images/step_off.png</normaloff>
-     <normalon>:/Assets/Images/step_on.png</normalon>
-     <activeoff>:/Assets/Images/step_on.png</activeoff>:/Assets/Images/step_off.png</iconset>
+    <iconset resource="AnimationIcons.qrc">
+     <normaloff>:/Resources/Icons/step_off.png</normaloff>
+     <normalon>:/Resources/Icons/step_on.png</normalon>
+     <activeoff>:/Resources/Icons/step_on.png</activeoff>:/Resources/Icons/step_off.png</iconset>
    </property>
    <property name="text">
     <string>step</string>
@@ -511,8 +511,7 @@ border-image: url(:/Assets/Images/stop_on.png);
   </action>
  </widget>
  <resources>
-  <include location="../../../../icons.qrc"/>
-  <include location="../../../../icons.qrc"/>
+  <include location="AnimationIcons.qrc"/>
  </resources>
  <connections/>
 </ui>

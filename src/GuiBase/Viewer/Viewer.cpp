@@ -59,8 +59,13 @@ using namespace glbinding;
 KeyMappingViewer;
 #undef KMA_VALUE
 
+// Register all keymapings related to the viewer and its managed functionalities (Trackball camera,
+// Gizmo, ..)
 void Gui::Viewer::registerKeyMapping() {
-    m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "ViewerContext" );
+    auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+    keyMappingManager->addListener( Gui::TrackballCamera::registerKeyMapping );
+    keyMappingManager->addListener( Gui::GizmoManager::registerKeyMapping );
+    m_keyMappingContext = keyMappingManager->getContext( "ViewerContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
         LOG( logINFO )
@@ -69,8 +74,7 @@ void Gui::Viewer::registerKeyMapping() {
         return;
     }
 
-#define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
+#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( m_keyMappingContext, #XX );
     KeyMappingViewer
 #undef KMA_VALUE
 }
@@ -102,11 +106,7 @@ Gui::Viewer::~Viewer() {
 }
 
 void Gui::Viewer::createGizmoManager() {
-    if ( m_gizmoManager == nullptr )
-    {
-        m_gizmoManager = new GizmoManager( this );
-        Gui::KeyMappingManager::getInstance()->addListener( Gui::GizmoManager::registerKeyMapping );
-    }
+    if ( m_gizmoManager == nullptr ) { m_gizmoManager = new GizmoManager( this ); }
 }
 
 int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Renderer>& e ) {
@@ -165,6 +165,8 @@ bool Gui::Viewer::initializeGL() {
 
     Engine::ShaderProgramManager::createInstance();
     Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
+
+    createGizmoManager();
 
     m_camera = std::make_unique<Gui::TrackballCamera>( width(), height() );
 
@@ -694,4 +696,11 @@ void Gui::Viewer::enableDebugDraw( int enabled ) {
     m_currentRenderer->enableDebugDraw( enabled );
 }
 
+void Gui::Viewer::update( const Scalar dt ) {
+    if ( m_gizmoManager != nullptr ) { m_gizmoManager->updateValues(); }
+}
+
+void Gui::Viewer::setCamera( Engine::Camera* camera ) {
+    m_camera->setCamera( camera );
+}
 } // namespace Ra

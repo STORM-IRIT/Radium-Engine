@@ -1,5 +1,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+
 /**
  * @todo : make default shader configuration/default shader programm usable
  * outside of the main radium distribution or
@@ -143,6 +145,7 @@ static const std::string defaultFragmentShader(
                                                );
 
 #else
+/// todo : find a way to define (if this make sense) default shaders.
 static const std::string defaultVertexShader{"Shaders/Default.vert.glsl"};
 static const std::string defaultFragmentShader{"Shaders/Default.frag.glsl"};
 #endif

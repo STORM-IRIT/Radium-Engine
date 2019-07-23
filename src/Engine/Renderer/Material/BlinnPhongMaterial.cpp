@@ -9,6 +9,7 @@
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <Core/Resources/Resources.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -101,29 +102,33 @@ bool BlinnPhongMaterial::isTransparent() const {
 }
 
 void BlinnPhongMaterial::registerMaterial() {
+    /// For internal resources management in a filesystem
+    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
     // Defining Converter
     EngineMaterialConverters::registerMaterialConverter( materialName,
                                                          BlinnPhongMaterialConverter() );
 
     ShaderProgramManager::getInstance()->addNamedString(
-        "/BlinnPhongMaterial.glsl", "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
+        "/BlinnPhongMaterial.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
     // registering re-usable shaders
-    Ra::Engine::ShaderConfiguration lpconfig( "BlinnPhong",
-                                              "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                                              "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+    Ra::Engine::ShaderConfiguration lpconfig(
+        "BlinnPhong",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
 
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     Ra::Engine::ShaderConfiguration zprepassconfig(
         "ZprepassBlinnPhong",
-        "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
     Ra::Engine::ShaderConfiguration transparentpassconfig(
         "LitOITBlinnPhong",
-        "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+        resourcesRootDir + "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
 
     // Registering technique

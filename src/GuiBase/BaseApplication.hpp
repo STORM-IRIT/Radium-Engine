@@ -9,15 +9,9 @@
 
 #include <Core/Utils/Timer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
-#include <GuiBase/Viewer/Viewer.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 class QTimer;
-namespace Ra {
-namespace Core {
-class TaskQueue;
-}
-} // namespace Ra
 
 namespace Ra {
 namespace Engine {

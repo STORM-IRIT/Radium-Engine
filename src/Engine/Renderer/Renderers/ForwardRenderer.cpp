@@ -1,5 +1,6 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
+#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
@@ -58,13 +59,15 @@ void ForwardRenderer::initializeInternal() {
 }
 
 void ForwardRenderer::initShaders() {
-
+    /// For internal resources management in a filesystem
+    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
     m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
-                                    {"Shaders/HdrToLdr/Hdr2Ldr.vert.glsl"},
-                                    {"Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"}} );
+                                    resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
+                                    resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"} );
 #ifndef NO_TRANSPARENCY
-    m_shaderMgr->addShaderProgram(
-        {{"ComposeOIT"}, {"Shaders/Basic2D.vert.glsl"}, {"Shaders/ComposeOIT.frag.glsl"}} );
+    m_shaderMgr->addShaderProgram( {{"ComposeOIT"},
+                                    resourcesRootDir + "Shaders/Basic2D.vert.glsl",
+                                    resourcesRootDir + "Shaders/ComposeOIT.frag.glsl"} );
 #endif
 }
 

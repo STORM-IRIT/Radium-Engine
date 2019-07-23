@@ -119,5 +119,18 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
 
+Camera* Camera::duplicate( Entity* cloneEntity, const std::string& cloneName ) const {
+    auto cam          = new Camera( cloneEntity, cloneName, m_width, m_height );
+    cam->m_frame      = m_frame;
+    cam->m_projMatrix = m_projMatrix;
+    cam->m_projType   = m_projType;
+    cam->m_zoomFactor = m_zoomFactor;
+    cam->m_fov        = m_fov;
+    cam->m_zNear      = m_zNear;
+    cam->m_zFar       = m_zFar;
+    cam->initialize();
+    return cam;
+}
+
 } // namespace Engine
 } // namespace Ra

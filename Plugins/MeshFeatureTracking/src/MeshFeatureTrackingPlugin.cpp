@@ -80,15 +80,20 @@ QAction* MeshFeatureTrackingPluginC::getAction( int id ) {
 void MeshFeatureTrackingPluginC::onCurrentChanged( const QModelIndex& current,
                                                    const QModelIndex& prev ) {
     m_component->setData( m_PickingManager->getCurrent() );
-    m_widget->setMaxV( m_component->getMaxV() );
-    m_widget->setMaxT( m_component->getMaxT() );
+    if ( m_widget )
+    {
+        m_widget->setMaxV(m_component->getMaxV());
+        m_widget->setMaxT(m_component->getMaxT());
+    }
 }
 
 void MeshFeatureTrackingPluginC::update() {
     m_component->update();
-    m_widget->updateTracking( m_component->getFeatureData(),
-                              m_component->getFeaturePosition(),
-                              m_component->getFeatureVector() );
+    if ( m_widget ) {
+        m_widget->updateTracking(m_component->getFeatureData(),
+                                 m_component->getFeaturePosition(),
+                                 m_component->getFeatureVector());
+    }
 }
 void MeshFeatureTrackingPluginC::vertexIdChanged( int idx ) {
     m_component->setVertexIdx( idx );

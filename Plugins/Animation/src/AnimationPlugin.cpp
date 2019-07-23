@@ -148,9 +148,11 @@ void AnimationPluginC::toggleSlowMotion( bool status ) {
 }
 
 void AnimationPluginC::updateAnimTime() {
-    m_widget->setMaxFrame( m_system->getMaxFrame() );
-    m_widget->updateTime( m_system->getTime( m_selectionManager->currentItem() ) );
-    m_widget->updateFrame( m_system->getAnimFrame() );
+    if (m_widget) {
+        m_widget->setMaxFrame( m_system->getMaxFrame() );
+        m_widget->updateTime( m_system->getTime( m_selectionManager->currentItem() ) );
+        m_widget->updateFrame( m_system->getAnimFrame() );
+    }
     askForUpdate();
 }
 

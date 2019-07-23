@@ -277,6 +277,8 @@ For the default `BlinnPhongMaterial`, which is of type `"BlinnPhong"`, these met
 
 ```cpp
 void BlinnPhongMaterial::registerMaterial() {
+    // For internal resources management in a filesystem
+    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
     // 1- register the Material converter for loading
     EngineMaterialConverters::registerMaterialConverter(
         "BlinnPhong",
@@ -288,15 +290,15 @@ void BlinnPhongMaterial::registerMaterial() {
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configuration for RenderTechnique::LIGHTING_OPAQUE (Mandatory)
             Ra::Engine::ShaderConfiguration lpconfig(
-                "BlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+                "BlinnPhong", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
             Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
             rt.setConfiguration( lpconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Configuration for RenderTechnique::Z_PREPASS
             Ra::Engine::ShaderConfiguration dpconfig(
-                "DepthAmbiantBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
+                "DepthAmbiantBlinnPhong", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                resourcesRootDir+"Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
             Ra::Engine::ShaderConfigurationFactory::addConfiguration( dpconfig );
             rt.setConfiguration( dpconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
 
@@ -304,8 +306,8 @@ void BlinnPhongMaterial::registerMaterial() {
             if ( isTransparent )
             {
                 Ra::Engine::ShaderConfiguration tpconfig(
-                    "LitOITBlinnPhong", "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-                    "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
+                    "LitOITBlinnPhong", resourcesRootDir+"Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+                    resourcesRootDir+"Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
                 Ra::Engine::ShaderConfigurationFactory::addConfiguration( tpconfig );
                 rt.setConfiguration( tpconfig, Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }
