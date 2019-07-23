@@ -1,34 +1,3 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-!FreeImage.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-!FreeImage.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
 # Backup files and other machine-local stuff
 *.user
 *.svn
@@ -44,47 +13,10 @@
 .vs
 .clang-format
 
-# Binary asset files
-*.obj
-*.mtl
-*.fbx
-*.dae
-
-# Texture asset files
-*.tga
-*.jpeg
-*.jpg
-*.png
-*.gif
-*.tif
-!Assets/Images/*.png
-!Applications/MainApplication/Resources/**/*.png
-!Plugins/Skinning/Resources/**/*.png
-!Plugins/Animation/Resources/**/*.png
-
-
-# Compressed asset files
-*.zip
-*.rar
-*.7z
-*.tar.gz
-
 # Misc
 *Thumbs.db
 
 # Output Directories
-build/
-build-dbg/
-build-rel/
-bin-debug/
-lib-debug/
-bin-dbg/
-bin-rel/
-lib-dbg/
-lib/rel
-bin/
-lib/
-include/
 Bundle*/
 build*/
 cmake-build-*/
@@ -92,12 +24,6 @@ cmake-build-*/
 # Mercurial stuff (e.g from Eigen)
 .hg*
 
-# Scripts
-*.bat
-*.sh
-
-# Json
-*.json
 
 #Auto-generated plugins registration file
 src/Core/Utils/Version.cpp
