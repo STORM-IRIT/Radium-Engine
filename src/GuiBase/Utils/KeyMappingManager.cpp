@@ -196,7 +196,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     {
         LOG( logERROR ) << "Can't associate XML file to QDomDocument !";
         LOG( logERROR ) << "Trying to load default configuration...";
-
+        m_file->close();
         loadConfiguration();
         return;
     }
@@ -369,10 +369,7 @@ Qt::MouseButtons KeyMappingManager::getQtMouseButtonsValue( const std::string& k
 }
 
 void KeyMappingManager::reloadConfiguration() {
-    if ( !m_file->isOpen() ) { return; }
-
     QString filename = m_file->fileName();
-    m_file->close();
     loadConfiguration( filename.toStdString().c_str() );
 }
 
