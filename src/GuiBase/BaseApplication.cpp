@@ -205,8 +205,8 @@ BaseApplication::BaseApplication( int argc,
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
-    Gui::KeyMappingManager::getInstance()->addListener( Gui::Viewer::registerKeyMapping );
 
+    Gui::Viewer::setupKeyMappingCallbacks();
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
