@@ -62,7 +62,12 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Destructor
     ~Viewer() override;
 
+    /// add observers to keyMappingManager for gizmo, camera and viewer.
     static void setupKeyMappingCallbacks();
+
+    /// update keymapping according to keymapping manager's config, should be
+    /// called each time the configuration changes, or added to observer's list
+    /// with KeyMappingManager::addListener
     static void registerKeyMapping();
 
     //
