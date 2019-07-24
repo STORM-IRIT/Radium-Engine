@@ -62,6 +62,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Destructor
     ~Viewer() override;
 
+    static void setupKeyMappingCallbacks();
     static void registerKeyMapping();
 
     //
