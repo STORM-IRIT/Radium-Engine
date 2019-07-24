@@ -32,6 +32,7 @@ class RA_GUIBASE_API KeyMappingManager
     /// calls the listener callback then.
     void loadConfiguration( const char* filename = nullptr );
 
+    /// reload last open file.
     void reloadConfiguration();
 
     /// Return the action associated to the binding buttons + modifiers + key
