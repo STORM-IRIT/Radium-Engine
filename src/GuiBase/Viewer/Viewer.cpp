@@ -61,11 +61,17 @@ KeyMappingViewer;
 
 // Register all keymapings related to the viewer and its managed functionalities (Trackball camera,
 // Gizmo, ..)
-void Gui::Viewer::registerKeyMapping() {
+void Gui::Viewer::setupKeyMappingCallbacks() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+
     keyMappingManager->addListener( Gui::TrackballCamera::registerKeyMapping );
     keyMappingManager->addListener( Gui::GizmoManager::registerKeyMapping );
-    m_keyMappingContext = keyMappingManager->getContext( "ViewerContext" );
+    keyMappingManager->addListener( registerKeyMapping );
+}
+
+void Gui::Viewer::registerKeyMapping() {
+    auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+    m_keyMappingContext    = keyMappingManager->getContext( "ViewerContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
         LOG( logINFO )
