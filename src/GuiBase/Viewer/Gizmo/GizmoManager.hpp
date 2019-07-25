@@ -24,6 +24,7 @@ class RA_GUIBASE_API GizmoManager : public QObject,
                                     public KeyMappingManageable<GizmoManager>
 {
     Q_OBJECT
+    friend class KeyMappingManageable<GizmoManager>;
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
@@ -31,19 +32,6 @@ class RA_GUIBASE_API GizmoManager : public QObject,
 
     explicit GizmoManager( QObject* parent = nullptr );
     ~GizmoManager() = default;
-
-#define KeyMappingGizmo                    \
-    KMA_VALUE( GIZMOMANAGER_MANIPULATION ) \
-    KMA_VALUE( GIZMOMANAGER_STEP )         \
-    KMA_VALUE( GIZMOMANAGER_WHOLE )        \
-    KMA_VALUE( GIZMOMANAGER_STEP_WHOLE )
-
-#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
-    KeyMappingGizmo
-#undef KMA_VALUE
-
-        static void
-        registerKeyMapping();
 
   public:
     /// Receive mouse events and transmit them to the gizmos.
@@ -89,6 +77,18 @@ class RA_GUIBASE_API GizmoManager : public QObject,
     std::array<std::unique_ptr<Gizmo>, 3> m_gizmos; //! Owning pointers to the gizmos
     GizmoType m_currentGizmoType;                   //! Type of the gizmo
     Gizmo::Mode m_mode;                             //! Local/global axis mode.
+
+    static void configureKeyMapping_impl();
+
+#define KeyMappingGizmo                    \
+    KMA_VALUE( GIZMOMANAGER_MANIPULATION ) \
+    KMA_VALUE( GIZMOMANAGER_STEP )         \
+    KMA_VALUE( GIZMOMANAGER_WHOLE )        \
+    KMA_VALUE( GIZMOMANAGER_STEP_WHOLE )
+
+#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
+    KeyMappingGizmo
+#undef KMA_VALUE
 };
 } // namespace Gui
 } // namespace Ra

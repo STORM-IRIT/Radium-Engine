@@ -27,7 +27,7 @@ If buttons is defined, then it's a `mouse[move/press/release]Event`, that option
 If wheel is true, then it's a wheel event, that optionally take modifiers, buttons and key into account.
 
 On the implementation side, your class `C` need (could) derive from `KeyMappingManageable<C>`, it defines the static member variable
-`m_keyMappingContext`.
+`m_keyMappingContext`, and the static function `configureKeyMapping()`, that calls `configureKeyMapping_impl()`, which have to be implemented in your class `C`.
 
 Then you need to define your specific actions as static member of your class
 
@@ -50,7 +50,7 @@ static KeyMappingManager::KeyMappingAction m_myAction;
 KeyMappingManager::KeyMappingAction m_myAction;
 
 // then typically in main baseApplication ctor or Viewer ctor, but after KeyMappingManager instance is created :
-KeyMappingManager::getInstance()->addListener(MyClass:registerKeyMapping);
+KeyMappingManager::getInstance()->addListener(MyClass:configureKeyMapping);
 
 ```
 

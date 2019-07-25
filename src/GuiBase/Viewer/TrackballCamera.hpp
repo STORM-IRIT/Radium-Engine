@@ -8,15 +8,15 @@ namespace Ra {
 namespace Gui {
 
 /// A Trackball manipulator for Cameras.
-class RA_GUIBASE_API TrackballCamera : public CameraInterface
+class RA_GUIBASE_API TrackballCamera : public CameraInterface,
+                                       public KeyMappingManageable<TrackballCamera>
 {
     Q_OBJECT
+    friend class KeyMappingManageable<TrackballCamera>;
 
   public:
     TrackballCamera( uint width, uint height );
     virtual ~TrackballCamera();
-
-    static void configureKeyMapping();
 
     bool handleMousePressEvent( QMouseEvent* event,
                                 const Qt::MouseButtons& buttons,
@@ -94,9 +94,9 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
     bool m_cameraRotateMode;
     bool m_cameraPanMode;
     bool m_cameraZoomMode;
-    // TODO(Charly): fps mode
 
-    // static KeyMappingManager::Context m_keyMappingContext;
+  private:
+    static void configureKeyMapping_impl();
 
 #define KeyMappingCamera                \
     KMA_VALUE( TRACKBALLCAMERA_ROTATE ) \

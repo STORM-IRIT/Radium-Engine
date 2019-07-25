@@ -69,7 +69,7 @@ void Gui::Viewer::setupKeyMappingCallbacks() {
     keyMappingManager->addListener( configureKeyMapping );
 }
 
-void Gui::Viewer::configureKeyMapping(){
+void Gui::Viewer::configureKeyMapping_impl() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
     m_keyMappingContext    = keyMappingManager->getContext( "ViewerContext" );
     if ( m_keyMappingContext.isInvalid() )

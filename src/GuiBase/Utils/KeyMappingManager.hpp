@@ -164,33 +164,14 @@ template <typename T>
 class KeyMappingManageable
 {
   public:
-    /*
-        /// @return true if the event has been taken into account, false otherwise
-        virtual bool handleMouseReleaseEvent( QMouseEvent* event ) { return false; }
-
-        /// @return true if the event has been taken into account, false otherwise
-        virtual bool handleMouseMoveEvent( QMouseEvent* event,
-                                           const Qt::MouseButtons& buttons,
-                                           const Qt::KeyboardModifiers& modifiers,
-                                           int key ) {
-            return false;
-        }
-
-        /// @return true if the event has been taken into account, false otherwise
-        virtual bool handleWheelEvent( QWheelEvent* event ) { return false; }
-
-        /// @return true if the event has been taken into account, false otherwise
-        virtual bool handleKeyPressEvent( QKeyEvent* event,
-                                          const KeyMappingManager::KeyMappingAction& action ) {
-            return false;
-        }
-
-        /// @return true if the event has been taken into account, false otherwise
-        virtual bool handleKeyReleaseEvent( QKeyEvent* event ) { return false; }
-    */
     static inline KeyMappingManager::Context getContext() { return m_keyMappingContext; }
 
+    /// KeyManageable class should implement configureKeyMapping_impl to get their
+    /// keyMappingAction constants.
+    static inline void configureKeyMapping() { T::configureKeyMapping_impl(); }
+
   protected:
+    T& self() { return static_cast<T&>( *this ); }
     static KeyMappingManager::Context m_keyMappingContext;
 };
 
@@ -198,7 +179,7 @@ class KeyMappingManageable
 template <typename T>
 KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
 
-}; // namespace Gui
+} // namespace Gui
 } // namespace Ra
 
 #endif // RADIUMENGINE_KEYMAPPINGMANAGER_HPP
