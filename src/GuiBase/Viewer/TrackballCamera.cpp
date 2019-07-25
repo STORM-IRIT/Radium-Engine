@@ -21,7 +21,7 @@ using Core::Math::Pi;
 KeyMappingCamera;
 #undef KMA_VALUE
 
-void Gui::TrackballCamera::configureKeyMapping() {
+void Gui::TrackballCamera::configureKeyMapping_impl() {
 
     m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "CameraContext" );
     if ( m_keyMappingContext.isInvalid() )
