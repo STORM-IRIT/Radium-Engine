@@ -68,7 +68,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// update keymapping according to keymapping manager's config, should be
     /// called each time the configuration changes, or added to observer's list
     /// with KeyMappingManager::addListener
-    static void registerKeyMapping();
+    static void configureKeyMapping();
 
     //
     // Accessors

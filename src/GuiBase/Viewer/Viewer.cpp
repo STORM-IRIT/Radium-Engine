@@ -64,12 +64,12 @@ KeyMappingViewer;
 void Gui::Viewer::setupKeyMappingCallbacks() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
 
-    keyMappingManager->addListener( Gui::TrackballCamera::registerKeyMapping );
-    keyMappingManager->addListener( Gui::GizmoManager::registerKeyMapping );
-    keyMappingManager->addListener( registerKeyMapping );
+    keyMappingManager->addListener( Gui::TrackballCamera::configureKeyMapping );
+    keyMappingManager->addListener( Gui::GizmoManager::configureKeyMapping );
+    keyMappingManager->addListener( configureKeyMapping );
 }
 
-void Gui::Viewer::registerKeyMapping() {
+void Gui::Viewer::configureKeyMapping(){
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
     m_keyMappingContext    = keyMappingManager->getContext( "ViewerContext" );
     if ( m_keyMappingContext.isInvalid() )

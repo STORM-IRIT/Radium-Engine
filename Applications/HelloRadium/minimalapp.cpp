@@ -22,10 +22,11 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     m_engine.reset( Ra::Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
 
+    ///\todo update when a basic viewer is implemented ... (to call setupKeyMappingCallbacks)
     Ra::Gui::KeyMappingManager::createInstance();
     Ra::Gui::KeyMappingManager::getInstance()->addListener(
-        Ra::Gui::TrackballCamera::registerKeyMapping );
-    Ra::Gui::KeyMappingManager::getInstance()->addListener( Ra::Gui::Viewer::registerKeyMapping );
+        Ra::Gui::TrackballCamera::configureKeyMapping );
+    Ra::Gui::KeyMappingManager::getInstance()->addListener( Ra::Gui::Viewer::configureKeyMapping );
 
     // Initialize taskqueue.
     m_task_queue.reset( new Ra::Core::TaskQueue( std::thread::hardware_concurrency() - 1 ) );

@@ -16,7 +16,7 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface
     TrackballCamera( uint width, uint height );
     virtual ~TrackballCamera();
 
-    static void registerKeyMapping();
+    static void configureKeyMapping();
 
     bool handleMousePressEvent( QMouseEvent* event,
                                 const Qt::MouseButtons& buttons,
