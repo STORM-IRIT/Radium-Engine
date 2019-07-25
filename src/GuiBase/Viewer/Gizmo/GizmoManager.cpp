@@ -17,7 +17,7 @@ namespace Gui {
 KeyMappingGizmo;
 #undef KMA_VALUE
 
-void GizmoManager::registerKeyMapping() {
+void GizmoManager::configureKeyMapping() {
     m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "GizmoContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
