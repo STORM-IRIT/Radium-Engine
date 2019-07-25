@@ -54,6 +54,7 @@ namespace Gui {
 class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 {
     Q_OBJECT
+    friend class KeyMappingManageable<Viewer>;
 
   public:
     /// Constructor
@@ -64,11 +65,6 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     /// add observers to keyMappingManager for gizmo, camera and viewer.
     static void setupKeyMappingCallbacks();
-
-    /// update keymapping according to keymapping manager's config, should be
-    /// called each time the configuration changes, or added to observer's list
-    /// with KeyMappingManager::addListener
-    static void configureKeyMapping();
 
     //
     // Accessors
@@ -211,6 +207,13 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     void wheelEvent( QWheelEvent* event ) override;
     void showEvent( QShowEvent* ev ) override;
 
+  private:
+    /// update keymapping according to keymapping manager's config, should be
+    /// called each time the configuration changes, or added to observer's list
+    /// with KeyMappingManager::addListener
+    /// Called with KeyManageable::configureKeyMapping
+    static void configureKeyMapping_impl();
+
   public:
     Scalar m_dt{0.1_ra};
 
@@ -238,6 +241,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 
+    KeyMappingManager::Context m_activeContext{-1};
 #define KeyMappingViewer                     \
     KMA_VALUE( VIEWER_PICKING )              \
     KMA_VALUE( VIEWER_PICKING_VERTEX )       \
@@ -251,8 +255,6 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 #define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer
 #undef KMA_VALUE
-
-        KeyMappingManager::Context m_activeContext{-1};
 };
 
 } // namespace Gui
