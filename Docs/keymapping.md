@@ -34,8 +34,8 @@ Then you need to define your specific actions as static member of your class
 ```
 class MyClass :public KeyManageable<MyClass> {
 
-// calleback when a configuration file is loaded, coudl check if the context and action are present.
-static void registerKeyMapping(){
+// callback when a configuration file is loaded, could check if the context and action are present.
+static void configureKeyMapping(){
     m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "MyClassContext" );
     m_myAction =  Gui::KeyMappingManager::getInstance()->getActionIndex( "MyActionName" );
 }
@@ -59,7 +59,7 @@ It could be done with a specific macro :
 ```c++
 // in header
 #define KeyMappingMyClass \
-    KMA_VALUE( MY_ACTION )   
+    KMA_VALUE( MY_ACTION )
     
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
     KeyMappingMyClass
@@ -70,10 +70,10 @@ It could be done with a specific macro :
 KeyMappingMyClass
 #undef KMA_VALUE
 
-void MyClass::registerKeyMapping() {
+void MyClass::configureKeyMapping() {
     m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "MyClassContext" );
     if ( m_keyMappingContext.isInvalid() )
-        LOG( logINFO ) << "MyuClassContext not defined (maybe the configuration file do not contains it";
+        LOG( logINFO ) << "MyClassContext not defined (maybe the configuration file does not contain it";
 #define KMA_VALUE( XX ) \
     XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
     KeyMappingMyClass
@@ -101,8 +101,8 @@ For instance see `Viewer.cpp` `Viewer::mousePressEvent`
         auto accepted = m_camera->handleMousePressEvent( event, buttons, modifiers, key );
         if ( accepted ) { m_activeContext = m_camera->getContext(); }
         else
-  //[...]  
- ```  
+  //[...]
+ ```
 
 ## Limits
 

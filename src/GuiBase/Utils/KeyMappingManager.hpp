@@ -164,8 +164,6 @@ template <typename T>
 class KeyMappingManageable
 {
   public:
-    //    static virtual void registerKeyMapping() = 0;
-
     /*
         /// @return true if the event has been taken into account, false otherwise
         virtual bool handleMouseReleaseEvent( QMouseEvent* event ) { return false; }
@@ -190,7 +188,7 @@ class KeyMappingManageable
         /// @return true if the event has been taken into account, false otherwise
         virtual bool handleKeyReleaseEvent( QKeyEvent* event ) { return false; }
     */
-    static KeyMappingManager::Context getContext() { return m_keyMappingContext; }
+    static inline KeyMappingManager::Context getContext() { return m_keyMappingContext; }
 
   protected:
     static KeyMappingManager::Context m_keyMappingContext;
