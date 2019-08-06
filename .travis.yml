@@ -3,21 +3,12 @@ dist: xenial
 sudo: true
 
 script:
-  - |
-    make -j 4
-    make buildtests && make test
-    if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ; then
-        cd $CHECKOUT_PATH
-        export BUILD_DOC="Off"
-        if ! .ci/compile-official-plugins.sh ; then
-            echo "Plugins compilation have failed. Aborting..."
-            exit 1
-        fi;
-    else
-        if [ "$BUILD_DOC" = "On" ]; then
-          make doc
-        fi;
-    fi;
+  - make -j 4
+  - make check
+#  - |
+#    if [ "$BUILD_DOC" = "On" ]; then
+#        make doc
+#    fi;
 
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
@@ -39,25 +30,12 @@ before_install:
   - $CXX --version
   - cmake --version
 
-  ############################################################################
-  # Install a recent Qt
-  ############################################################################
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt; fi
-  - |
-    if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-xenial
-      sudo apt-get --yes update
-      sudo apt-get --yes install qt510-meta-minimal qt510svg
-      source /opt/qt510/bin/qt510-env.sh # see https://launchpad.net/~beineri/+archive/ubuntu/opt-qt-5.10.1-xenial
-    fi;
-
 
 matrix:
   include:
     # mac clang Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH="/usr/local/opt/qt/lib/cmake"
         - BUILD_DOC=Off
         - MATRIX_EVAL=""
       os: osx
@@ -66,7 +44,6 @@ matrix:
     # linx clang Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
         - CLANG_VERSION=5.0
         - BUILD_DOC=Off
         - MATRIX_EVAL=""
@@ -78,7 +55,6 @@ matrix:
             - clang-5.0
             - g++-7
             - cmake
-            - libgl1-mesa-dev
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-xenial-5.0
@@ -86,7 +62,6 @@ matrix:
     # linx gcc Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
         - GCC_VERSION=7
         - BUILD_DOC=On
         - MATRIX_EVAL=""
@@ -96,9 +71,6 @@ matrix:
           packages:
             - g++-7
             - cmake
-            - doxygen
-            - graphviz
-            - libgl1-mesa-dev
           sources:
             - ubuntu-toolchain-r-test
 
@@ -108,7 +80,7 @@ install:
 
   - mkdir -p build
   - cd build
-  - cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH}
+  - cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
 
 
 # safelist
