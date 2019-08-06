@@ -123,7 +123,7 @@ AdjacencyList::ConsistencyStatus AdjacencyList::computeConsistencyStatus() const
 
         for ( const auto& child : m_child.at( node ) )
         {
-            if ( m_parent.at( child ) != node )
+            if ( m_parent.at( child ) != int( node ) )
             { return ConsistencyStatus::InconsistentParentIndex; }
         }
 

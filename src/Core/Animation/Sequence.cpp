@@ -16,7 +16,7 @@ Sequence::~Sequence() {}
 /// INTERFACE
 void Sequence::clear() {}
 void Sequence::setSequence( const FrameSet& /*set*/ ) {}
-void Sequence::setFrame( const int i, const Frame& /*frame*/ ) {}
+void Sequence::setFrame( const int /*i*/, const Frame& /*frame*/ ) {}
 void Sequence::insertFrame( const Frame& /*frame*/, const int /*i*/ ) {}
 void Sequence::removeFrame( const int /*i*/ ) {}
 

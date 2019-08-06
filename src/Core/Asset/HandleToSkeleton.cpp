@@ -31,7 +31,7 @@ void addBone( const int parent,                        // index of parent bone
                                       dd.m_name );
         for ( const auto& edge : edgeList )
         {
-            if ( edge[0] == dataID )
+            if ( edge[0] == int( dataID ) )
             { addBone( index, edge[1], data, edgeList, processed, skelOut ); }
         }
     }

@@ -60,7 +60,7 @@ class AlignedAllocator
     // Returns true if and only if storage allocated from *this
     // can be deallocated from other, and vice versa.
     // Always returns true for stateless allocators.
-    bool operator==( const AlignedAllocator& other ) const { return true; }
+    bool operator==( const AlignedAllocator& /*other*/ ) const { return true; }
 
     // Default constructor, copy constructor, rebinding constructor, and destructor.
     // Empty for stateless allocators.
@@ -99,7 +99,7 @@ class AlignedAllocator
         return static_cast<T*>( pv );
     }
 
-    void deallocate( T* const p, const std::size_t n ) const { _mm_free( p ); }
+    void deallocate( T* const p, const std::size_t /*n*/ ) const { _mm_free( p ); }
 
     // The following will be the same for all allocators that ignore hints.
     template <typename U>
