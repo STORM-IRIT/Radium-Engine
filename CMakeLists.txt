@@ -13,6 +13,7 @@ set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
+option(RADIUM_ENABLE_TESTING "Enable testing. Tests are automatically built with target all" ON)
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
@@ -113,12 +114,14 @@ set(OpenMesh_DIR ${CMAKE_INSTALL_PREFIX}/share/OpenMesh/cmake/)
 # Images, databases and other data which needs to be installed for project
 #add_subdirectory(data)
 
-# Testing
-#enable_testing()
-#add_subdirectory(test)
-
 # Source code
 add_subdirectory(src)
+
+# Testing
+if( RADIUM_ENABLE_TESTING )
+    enable_testing()
+    add_subdirectory(tests)
+endif()
 
 # Packaging stuff (deb, rpm, windows installer)
 #add_subdirectory(packaging)
@@ -129,11 +132,12 @@ add_subdirectory(src)
 # Wrap up of settings printed on build
 message(STATUS "")
 message(STATUS "    == Final overview for ${PROJECT_NAME} ==")
-message(STATUS "Version:              ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
-message(STATUS "Install prefix:       ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "Compiler:             ${CMAKE_CXX_COMPILER}")
-message(STATUS "CMAKE_BUILD_TYPE:     ${CMAKE_BUILD_TYPE}")
-message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
+message(STATUS "Install prefix:        ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Compiler:              ${CMAKE_CXX_COMPILER}")
+message(STATUS "CMAKE_BUILD_TYPE:      ${CMAKE_BUILD_TYPE}")
+message(STATUS "CMAKE_INSTALL_PREFIX:  ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "RADIUM_ENABLE_TESTING: ${RADIUM_ENABLE_TESTING}")
 message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message(STATUS "")
