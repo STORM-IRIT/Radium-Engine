@@ -46,7 +46,6 @@ macro(configureTargetWithDefaultRaSettings TARGET)
   if(OPENMP_FOUND)
     target_link_libraries(${TARGET} PUBLIC OpenMP::OpenMP_CXX)
   endif(OPENMP_FOUND)
-
 endmacro()
 
 
