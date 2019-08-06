@@ -82,7 +82,7 @@ AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
     AdjacencyMatrix A( p.size(), p.size() );
     std::vector<Eigen::Triplet<Scalar>> triplets( T.size() * 6 );
 #pragma omp parallel for
-    for ( int t_ = 0; t_ < T.size(); ++t_ )
+    for ( int t_ = 0; t_ < int( T.size() ); ++t_ )
     {
         const auto& t        = T[t_];
         uint i               = t( 0 );

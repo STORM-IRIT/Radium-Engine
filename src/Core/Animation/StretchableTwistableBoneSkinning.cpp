@@ -17,7 +17,7 @@ void RA_CORE_API linearBlendSkinningSTBS( const Vector3Array& inMesh,
     Ra::Core::VectorArray<Matrix3> R( pose.size() );
     Matrix3 S; // we don't mind it
 #pragma omp parallel for
-    for ( int i = 0; i < pose.size(); ++i )
+    for ( int i = 0; i < int( pose.size() ); ++i )
     {
         pose[i].computeRotationScaling( &R[i], &S );
     }
@@ -64,7 +64,7 @@ void computeDQSTBS( const Pose& pose,
     VectorArray<Vector3> Si( pose.size() );
     Matrix3 S; // we don't mind it
 #pragma omp parallel for
-    for ( int i = 0; i < pose.size(); ++i )
+    for ( int i = 0; i < int( pose.size() ); ++i )
     {
         pose[i].computeRotationScaling( &R[i], &S );
         Ra::Core::Vector3 b, b_;

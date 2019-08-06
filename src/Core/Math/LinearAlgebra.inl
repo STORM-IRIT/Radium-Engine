@@ -52,11 +52,6 @@ clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min, const Scalar& max
 }
 
 template <typename Vector_>
-inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max ) {
-    return clamp( v, min, max ) == v;
-}
-
-template <typename Vector_>
 inline Scalar angle( const Vector_& v1, const Vector_& v2 ) {
     return std::atan2( v1.cross( v2 ).norm(), v1.dot( v2 ) );
 }

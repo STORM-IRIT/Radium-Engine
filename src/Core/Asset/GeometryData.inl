@@ -1,10 +1,6 @@
 #include <Core/Asset/GeometryData.hpp>
 
-#include <Core/Utils/Color.hpp>
-#include <Core/Utils/Log.hpp>
-
-#include <algorithm>
-#include <iterator>
+#include <algorithm> //std::transform
 
 namespace Ra {
 namespace Core {
@@ -22,176 +18,131 @@ inline void GeometryData::setType( const GeometryType& type ) {
     m_type = type;
 }
 
-inline Core::Transform GeometryData::getFrame() const {
+inline GeometryData::Transform GeometryData::getFrame() const {
     return m_frame;
 }
 
-inline void GeometryData::setFrame( const Core::Transform& frame ) {
+inline void GeometryData::setFrame( const Transform& frame ) {
     m_frame = frame;
 }
 
-inline uint GeometryData::getVerticesSize() const {
+inline std::size_t GeometryData::getVerticesSize() const {
     return m_vertex.size();
 }
 
-inline const GeometryData::Vector3Array& GeometryData::getVertices() const {
+inline const Vector3Array& GeometryData::getVertices() const {
     return m_vertex;
 }
 
-inline GeometryData::Vector3Array& GeometryData::getVertices() {
+inline Vector3Array& GeometryData::getVertices() {
     return m_vertex;
 }
+
+namespace internal {
+
+  template <typename InContainer, typename OutContainer>
+  inline void copyData( const InContainer& input, OutContainer& output ) {
+    std::transform( std::begin( input ), std::end( input), std::back_inserter( output),
+                    [](const typename InContainer::value_type& v)
+                    -> typename OutContainer::value_type { return v.template cast<Scalar>(); } );
+  }
+
+} // namespace internal
 
 template <typename Container>
 inline void GeometryData::setVertices( const Container& vertexList ) {
-    const uint size = vertexList.size();
-    m_vertex.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_vertex[i] = Core::Vector3( vertexList[i].template cast<Core::Vector3::Scalar>() );
-    }
+    internal::copyData( vertexList, m_vertex );
 }
 
-inline GeometryData::Vector2uArray& GeometryData::getEdges() {
+inline Vector2uArray& GeometryData::getEdges() {
     return m_edge;
 }
 
-inline const GeometryData::Vector2uArray& GeometryData::getEdges() const {
+inline const Vector2uArray& GeometryData::getEdges() const {
     return m_edge;
 }
 
 template <typename Container>
 inline void GeometryData::setEdges( const Container& edgeList ) {
-    const uint size = edgeList.size();
-    m_edge.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_edge[i] = Core::Vector2ui( edgeList[i].template cast<Core::Vector2ui::Scalar>() );
-    }
+    internal::copyData( edgeList, m_edge );
 }
 
-inline const GeometryData::VectorNuArray& GeometryData::getFaces() const {
+inline const VectorNuArray& GeometryData::getFaces() const {
     return m_faces;
 }
 
-inline GeometryData::VectorNuArray& GeometryData::getFaces() {
+inline VectorNuArray& GeometryData::getFaces() {
     return m_faces;
 }
 
 template <typename Container>
 inline void GeometryData::setFaces( const Container& faceList ) {
-    const uint size = faceList.size();
-    m_faces.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_faces[i] = Core::VectorNui( faceList[i].template cast<Core::VectorNui::Scalar>() );
-    }
+    internal::copyData( faceList, m_faces );
 }
 
-inline GeometryData::VectorNuArray& GeometryData::getPolyhedra() {
+inline VectorNuArray& GeometryData::getPolyhedra() {
     return m_polyhedron;
 }
 
-inline const GeometryData::VectorNuArray& GeometryData::getPolyhedra() const {
+inline const VectorNuArray& GeometryData::getPolyhedra() const {
     return m_polyhedron;
 }
 
 template <typename Container>
 inline void GeometryData::setPolyhedra( const Container& polyList ) {
-    const uint size = polyList.size();
-    m_polyhedron.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_polyhedron[i] = Core::VectorNui( polyList[i].template cast<Core::VectorNui::Scalar>() );
-    }
+    internal::copyData( polyList, m_polyhedron );
 }
 
-inline GeometryData::Vector3Array& GeometryData::getNormals() {
+inline Vector3Array& GeometryData::getNormals() {
     return m_normal;
 }
 
-inline const GeometryData::Vector3Array& GeometryData::getNormals() const {
+inline const Vector3Array& GeometryData::getNormals() const {
     return m_normal;
 }
 
 template <typename Container>
 inline void GeometryData::setNormals( const Container& normalList ) {
-    const uint size = normalList.size();
-    m_normal.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_normal[i] = Core::Vector3( normalList[i].template cast<Core::Vector3::Scalar>() );
-    }
+    internal::copyData( normalList, m_normal );
 }
 
-inline GeometryData::Vector3Array& GeometryData::getTangents() {
+inline Vector3Array& GeometryData::getTangents() {
     return m_tangent;
 }
 
-inline const GeometryData::Vector3Array& GeometryData::getTangents() const {
+inline const Vector3Array& GeometryData::getTangents() const {
     return m_tangent;
 }
 
 template <typename Container>
 inline void GeometryData::setTangents( const Container& tangentList ) {
-    const uint size = tangentList.size();
-    m_tangent.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_tangent[i] = Core::Vector3( tangentList[i].template cast<Core::Vector3::Scalar>() );
-    }
+    internal::copyData( tangentList, m_tangent );
 }
 
-inline GeometryData::Vector3Array& GeometryData::getBiTangents() {
+inline Vector3Array& GeometryData::getBiTangents() {
     return m_bitangent;
 }
 
-inline const GeometryData::Vector3Array& GeometryData::getBiTangents() const {
+inline const Vector3Array& GeometryData::getBiTangents() const {
     return m_bitangent;
 }
 
 template <typename Container>
 inline void GeometryData::setBitangents( const Container& bitangentList ) {
-    const uint size = bitangentList.size();
-    m_bitangent.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_bitangent[i] = Core::Vector3( bitangentList[i].template cast<Core::Vector3::Scalar>() );
-    }
+    internal::copyData( bitangentList, m_bitangent );
 }
 
-inline GeometryData::Vector3Array& GeometryData::getTexCoords() {
+inline Vector3Array& GeometryData::getTexCoords() {
     return m_texCoord;
 }
 
-inline const GeometryData::Vector3Array& GeometryData::getTexCoords() const {
+inline const Vector3Array& GeometryData::getTexCoords() const {
     return m_texCoord;
 }
 
 template <typename Container>
 inline void GeometryData::setTextureCoordinates( const Container& texCoordList ) {
-    const uint size = texCoordList.size();
-    m_texCoord.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_texCoord[i] = Core::Vector3( texCoordList[i].template cast<Core::Vector3::Scalar>() );
-    }
+    internal::copyData( texCoordList, m_texCoord );
 }
 
 inline GeometryData::ColorArray& GeometryData::getColors() {
@@ -204,14 +155,7 @@ inline const GeometryData::ColorArray& GeometryData::getColors() const {
 
 template <typename Container>
 inline void GeometryData::setColors( const Container& colorList ) {
-    const uint size = colorList.size();
-    m_color.resize( size );
-#pragma omp parallel for
-    for ( int i = 0; i < int( size ); ++i )
-    {
-        // unnecessary call to copy constructor and cast are removed at compile time
-        m_color[i] = Core::Utils::Color( colorList[i] );
-    }
+    internal::copyData( colorList, m_color );
 }
 
 inline GeometryData::WeightArray& GeometryData::getWeights() {
@@ -304,52 +248,6 @@ inline bool GeometryData::hasWeights() const {
 
 inline bool GeometryData::hasMaterial() const {
     return m_material != nullptr;
-}
-
-inline void GeometryData::displayInfo() const {
-    using namespace Core::Utils; // log
-    std::string type;
-    switch ( m_type )
-    {
-    case UNKNOWN:
-        type = "UNKNOWN";
-        break;
-    case POINT_CLOUD:
-        type = "POINT CLOUD";
-        break;
-    case LINE_MESH:
-        type = "LINE MESH";
-        break;
-    case TRI_MESH:
-        type = "TRIANGLE MESH";
-        break;
-    case QUAD_MESH:
-        type = "QUAD MESH";
-        break;
-    case POLY_MESH:
-        type = "POLY MESH";
-        break;
-    case TETRA_MESH:
-        type = "TETRA MESH";
-        break;
-    case HEX_MESH:
-        type = "HEX MESH";
-        break;
-    }
-    LOG( logINFO ) << "======== MESH INFO ========";
-    LOG( logINFO ) << " Name           : " << m_name;
-    LOG( logINFO ) << " Type           : " << type;
-    LOG( logINFO ) << " Vertex #       : " << m_vertex.size();
-    LOG( logINFO ) << " Edge #         : " << m_edge.size();
-    LOG( logINFO ) << " Face #         : " << m_faces.size();
-    LOG( logINFO ) << " Normal ?       : " << ( ( m_normal.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tangent ?      : " << ( ( m_tangent.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Bitangent ?    : " << ( ( m_bitangent.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Tex.Coord. ?   : " << ( ( m_texCoord.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Color ?        : " << ( ( m_color.empty() ) ? "NO" : "YES" );
-    LOG( logINFO ) << " Material ?     : " << ( ( !hasMaterial() ) ? "NO" : "YES" );
-
-    if ( hasMaterial() ) { m_material->displayInfo(); }
 }
 
 } // namespace Asset

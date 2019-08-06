@@ -1,6 +1,8 @@
 #ifndef RADIUMENGINE_ATTRIBS_HPP
 #define RADIUMENGINE_ATTRIBS_HPP
 
+#include <map>
+
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Index.hpp>
@@ -127,9 +129,9 @@ class Attrib : public AttribBase
     int getStride() override { return sizeof( value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
-    bool isVec2() const override { return std::is_same<Vector2, T>::value; }
-    bool isVec3() const override { return std::is_same<Vector3, T>::value; }
-    bool isVec4() const override { return std::is_same<Vector4, T>::value; }
+    bool isVec2() const override { return std::is_same<Eigen::Matrix<Scalar, 2, 1>, T>::value; }
+    bool isVec3() const override { return std::is_same<Eigen::Matrix<Scalar, 3, 1>, T>::value; }
+    bool isVec4() const override { return std::is_same<Eigen::Matrix<Scalar, 4, 1>, T>::value; }
 
   private:
     Container m_data;
@@ -218,7 +220,7 @@ class RA_CORE_API AttribManager
     ~AttribManager() { clear(); }
 
     /// Base copy, does nothing.
-    void copyAttributes( const AttribManager& m ) {}
+    void copyAttributes( const AttribManager& /*m*/ ) {}
 
     /// Copy the given attributes from m.
     /// \note If some attrib already exists, it will be replaced.

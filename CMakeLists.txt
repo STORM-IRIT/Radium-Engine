@@ -13,6 +13,9 @@ set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
+set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+
 message(STATUS "")
 message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
 message(STATUS "")

@@ -74,8 +74,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     // fill map from vertex position to handle index, used to access the weight
     // matrix from initial mesh vertices
     std::unordered_map<Ra::Core::Vector3, int, hash_vec> mapV2I;
-    int i = 0;
-    for ( auto vit = topoMesh.vertices_begin(); vit != topoMesh.vertices_end(); ++vit, ++i )
+    for ( auto vit = topoMesh.vertices_begin(); vit != topoMesh.vertices_end(); ++vit )
     {
         mapV2I[topoMesh.point( *vit )] = vit->idx();
     }
@@ -86,9 +85,9 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     const int numCols = dataInOut.m_weights.cols();
     subdivW.resize( topoMesh.n_vertices(), numCols );
     const auto& V = triMesh.vertices();
-    for ( int i = 0; i < V.size(); ++i )
+    for ( std::size_t i = 0; i < V.size(); ++i )
     {
-        subdivW.row( mapV2I[V[i]] ) = dataInOut.m_weights.row( i );
+        subdivW.row( mapV2I[V[i]] ) = dataInOut.m_weights.row( int( i ) );
     }
 
     // The mesh will be subdivided by repeated edge-split, so that adjacent vertices
@@ -198,7 +197,7 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < nVerts; ++i )
+    for ( int i = 0; i < int( nVerts ); ++i )
     {
         Vector3 cor( 0, 0, 0 );
         Scalar sumweight                     = 0;

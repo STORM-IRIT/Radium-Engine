@@ -22,7 +22,7 @@ class KeyFrame
     KeyFrame( const KeyFrame& keyframe ) = default;
 
     /// DESTRUCTOR
-    ~KeyFrame() {}
+    virtual ~KeyFrame() {}
 
     /// TIME
     inline AnimationTime getAnimationTime() const { return m_time; }

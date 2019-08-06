@@ -56,10 +56,6 @@ template <typename Derived>
 inline typename Derived::PlainMatrix
 clamp( const Eigen::MatrixBase<Derived>& v, const Scalar& min, const Scalar& max );
 
-/// Vector range check, works for any numeric vector.
-template <typename Vector_>
-inline bool checkRange( const Vector_& v, const Scalar& min, const Scalar& max );
-
 /// Call std::isnormal on quaternion entries.
 template <typename S>
 inline bool checkInvalidNumbers( Eigen::Ref<Eigen::Quaternion<S>> q,
