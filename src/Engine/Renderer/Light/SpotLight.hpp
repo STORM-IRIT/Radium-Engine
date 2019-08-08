@@ -6,8 +6,7 @@
 #include <Core/Math/Math.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /** Spot light for rendering.
  *
@@ -53,8 +52,7 @@ class RA_ENGINE_API SpotLight final : public Light
     Attenuation m_attenuation{1, 0, 0};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Renderer/Light/SpotLight.inl>
 

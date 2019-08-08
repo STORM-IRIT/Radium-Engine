@@ -6,8 +6,7 @@
 #include <Engine/Component/Component.hpp>
 #include <Engine/RaEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 /// the set of viewing parameters extracted from the camera and given to the renderer
 struct RA_ENGINE_API ViewingParameters {
     Core::Matrix4 viewMatrix{Core::Matrix4::Identity()};
@@ -177,8 +176,7 @@ class RA_ENGINE_API Camera : public Component
     ///@}
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Renderer/Camera/Camera.inl>
 

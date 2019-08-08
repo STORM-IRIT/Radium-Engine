@@ -43,7 +43,7 @@ class RA_ENGINE_API RadiumEngine
     ~RadiumEngine();
 
     /**
-     * Instantiate all object managers that make Radium Object Model functionnal.
+     * Instantiate all object managers that make Radium Object Model functional.
      * Initialize internal resources and default states.
      */
     void initialize();
@@ -157,13 +157,13 @@ class RA_ENGINE_API RadiumEngine
      * Register a new file loader to the engine.
      * @param fileLoader
      */
-    void registerFileLoader( std::shared_ptr<Core::Asset::FileLoaderInterface> fileLoader );
+    void registerFileLoader(std::unique_ptr<Core::Asset::FileLoaderInterface> fileLoader );
 
     /**
      * Get the active file loaders from the engine
      * @return
      */
-    const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
+    const std::vector<std::unique_ptr<Core::Asset::FileLoaderInterface>> & getFileLoaders() const;
 
   private:
     using priority  = int;
@@ -181,7 +181,7 @@ class RA_ENGINE_API RadiumEngine
      */
     SystemContainer m_systems;
 
-    std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
+    std::vector<std::unique_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
 
     std::unique_ptr<RenderObjectManager> m_renderObjectManager;
     std::unique_ptr<EntityManager> m_entityManager;

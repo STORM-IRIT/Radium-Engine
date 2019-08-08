@@ -8,8 +8,7 @@
 ////        Material converter system       ///
 ///////////////////////////////////////////////
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 
@@ -43,5 +42,4 @@ std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name
 }
 
 } // namespace EngineMaterialConverters
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

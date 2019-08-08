@@ -15,9 +15,7 @@
 
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 
-namespace Ra {
-
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 using namespace Core::Asset;
@@ -45,7 +43,7 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
     std::vector<LightData*> lightData = filedata->getLightData();
     uint id                           = 0;
 
-    // If thereis some lights already in the manager, just remove from the manager the lights that
+    // If there is some lights already in the manager, just remove from the manager the lights that
     // belong to the system entity (e.g. the headlight) from the list of managed lights. Beware to
     // not destroy the headlight component, that do not belong to this system, so that it could be
     // added again
@@ -142,5 +140,4 @@ void LightManager::unregisterAllComponents( const Entity* entity ) {
     System::unregisterAllComponents( entity );
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

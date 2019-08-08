@@ -13,8 +13,7 @@
 #include <Core/Utils/Singleton.hpp>
 #include <Engine/Component/Component.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Entity;
 class Component;
 
@@ -69,7 +68,7 @@ class RA_ENGINE_API ComponentMessenger
     using Key = std::pair<std::string, std::type_index>;
 
     // Unfortunately there is no standard hash functions for std::pair.
-    // so we have to provide one (which justs xors the two hashes)
+    // so we have to provide one (which just xor the two hashes)
     // We could use a proper hash combination function like this one :
     // http://www.boost.org/doc/libs/1_46_1/doc/html/hash/reference.html#boost.hash_combine
 
@@ -169,8 +168,7 @@ class RA_ENGINE_API ComponentMessenger
         m_entityRwLists; /// Per-entity callback read-write list.
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.inl>
 

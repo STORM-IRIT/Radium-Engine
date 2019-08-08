@@ -117,7 +117,7 @@ class RadiumPluginInterface
      * @param fl The set of file loader to add
      */
     virtual void
-    addFileLoaders( std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>* fl ) {}
+    addFileLoaders( std::vector<std::unique_ptr<Core::Asset::FileLoaderInterface>>* fl ) {}
 
     /**
      * @brief openGlInitialize

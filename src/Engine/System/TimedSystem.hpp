@@ -4,8 +4,7 @@
 #include <Engine/RaEngine.hpp>              // RA_ENGINE_API
 #include <Engine/System/CouplingSystem.hpp> // BaseCouplingSystem
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /// Timed Systems are systems which can be disabled or paused, e.g. animation systems.
 class RA_ENGINE_API AbstractTimedSystem : public System
@@ -47,12 +46,11 @@ class RA_ENGINE_API CoupledTimedSystem : public BaseCouplingSystem<AbstractTimed
         dispatch( [&dir, frameID]( const auto& s ) { s->cacheFrame( dir, frameID ); } );
     }
     bool restoreFrame( const std::string& dir, uint frameID ) override {
-        return conditionnaldispatch(
+        return conditionaldispatch(
             [&dir, frameID]( const auto& s ) { return s->restoreFrame( dir, frameID ); } );
     }
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_TIMED_SYSTEM_HPP

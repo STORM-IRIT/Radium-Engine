@@ -6,7 +6,6 @@
 
 #include <Engine/Managers/CameraManager/DefaultCameraManager.hpp>
 #include <Engine/Managers/LightManager/DefaultLightManager.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
@@ -37,7 +36,7 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
 
 ForwardRenderer::ForwardRenderer() : Renderer() {}
 
-ForwardRenderer::~ForwardRenderer(){};
+ForwardRenderer::~ForwardRenderer() = default;
 
 void ForwardRenderer::initializeInternal() {
     initShaders();

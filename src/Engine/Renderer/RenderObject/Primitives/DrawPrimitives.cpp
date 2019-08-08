@@ -13,12 +13,9 @@
 
 #include <algorithm>
 
-namespace Ra {
-
-using namespace Core::Geometry;
-
-namespace Engine {
-namespace DrawPrimitives {
+using namespace Ra::Core::Geometry;
+// TODO : there is a lot of deprecated functions used in this file. Must be removed.
+namespace Ra::Engine::DrawPrimitives {
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     ShaderConfiguration config;
     if ( mesh->getRenderMode() == GL_LINES )
@@ -505,6 +502,5 @@ MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
 
     return mesh;
 }
-} // namespace DrawPrimitives
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine::DrawPrimitives

@@ -5,8 +5,7 @@
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
 #include <Core/Utils/Log.hpp>
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Ra::Core::Utils;
 
@@ -166,7 +165,7 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     CORE_ASSERT( m_renderMode != GL_LINES_ADJACENCY || nIdx % 4 == 0,
                  "There should be 4 indices per line adjacency" );
 
-    for ( uint i = 0; i < indices.size(); i = i + 3 )
+    for ( std::vector<uint>::size_type i = 0; i < indices.size(); i = i + 3 )
     {
         // We store all indices in order. This means that for lines we have
         // (L00, L01, L10), (L11, L20, L21) etc. We fill the missing by wrapping around indices.
@@ -354,5 +353,4 @@ void Mesh::updatePickingRenderMode() {
     }
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

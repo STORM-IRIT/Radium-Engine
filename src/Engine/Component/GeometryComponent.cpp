@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include <Core/Asset/FileData.hpp>
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/Normal.hpp>
@@ -18,19 +17,17 @@
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 
-#include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+
 
 using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
@@ -100,6 +97,7 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
+    // TODO : remove the following deprecated uses
     if ( data->hasTangents() )
     { m_displayMesh->addData( Mesh::VERTEX_TANGENT, data->getTangents() ); }
 
@@ -276,5 +274,4 @@ const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
     return &m_meshIndex;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

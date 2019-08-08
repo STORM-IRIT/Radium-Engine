@@ -10,8 +10,7 @@
 
 #include <memory>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class RenderObject;
 class Component;
 class Mesh;
@@ -130,7 +129,6 @@ RA_ENGINE_API MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
                               const Core::Utils::Color& color,
                               Scalar scale = 1.0f );
 } // namespace DrawPrimitives
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_DRAW_PRIMITIVES_HPP_

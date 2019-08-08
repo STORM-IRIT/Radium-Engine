@@ -9,8 +9,7 @@
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /**
  * Base class of any displayable object.
@@ -26,7 +25,7 @@ class RA_ENGINE_API Displayable
         NO_PICKING
     };
 
-    inline Displayable( const std::string& name ) : m_name( name ) {}
+    explicit inline Displayable( std::string name ) : m_name( std::move(name) ) {}
     Displayable( const Displayable& rhs ) = delete;
     void operator=( const Displayable& rhs ) = delete;
 
@@ -63,5 +62,4 @@ class RA_ENGINE_API Displayable
     std::string m_name{}; /// Name of the mesh.
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

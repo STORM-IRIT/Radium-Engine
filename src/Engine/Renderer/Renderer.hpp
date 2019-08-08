@@ -14,9 +14,15 @@
 #include <Core/Utils/Timer.hpp>
 #include <Engine/Renderer/Displayable/DisplayableObject.hpp>
 
-namespace Ra {
+namespace globjects {
+  class Framebuffer;
+}
 
-namespace Engine {
+namespace Ra::Asset {
+  class FileData;
+} // namespace Ra::Asset
+
+namespace Ra::Engine {
 class Camera;
 class RenderObject;
 class Light;
@@ -27,23 +33,11 @@ class RenderObjectManager;
 class LightManager;
 class Texture;
 struct ViewingParameters;
-} // namespace Engine
 
-namespace Asset {
-class FileData;
-} // namespace Asset
-} // namespace Ra
-
-namespace globjects {
-class Framebuffer;
-}
-
-namespace Ra {
-namespace Engine {
 
 /**
  * Abstract renderer for the engine.
- * @see Radium Engine default rendering informations
+ * @see Radium Engine default rendering documentation
  */
 class RA_ENGINE_API Renderer
 {
@@ -109,7 +103,7 @@ class RA_ENGINE_API Renderer
     };
 
   public:
-    /** Abstract rendere constructor
+    /** Abstract renderer constructor
      *
      * could be called without openGL context.
      * Call initialize once the openGL rendering context is available before using the renderer
@@ -132,7 +126,7 @@ class RA_ENGINE_API Renderer
 
     // Lock the renderer (for MT access)
     /**
-     * Lock rendering. Usefull if there is multithread update of the rendering data
+     * Lock rendering. Useful if there is multi-thread update of the rendering data
      */
     inline void lockRendering() { m_renderMutex.lock(); }
 
@@ -198,8 +192,8 @@ class RA_ENGINE_API Renderer
 
     /**
      * @brief Resize the viewport and all the screen textures, fbos.
-     * This function must be overrided as soon as some FBO or screensized
-     * texture is used (since the default implementation just resizes its
+     * This function must be overridden as soon as some FBO or screensized
+     * texturs are used (since the default implementation just resizes its
      * own fbos / textures)
      *
      * @param width The new viewport width
@@ -327,7 +321,7 @@ class RA_ENGINE_API Renderer
     virtual void postProcessInternal( const ViewingParameters& renderData ) = 0;
 
     /**
-     * @brief Add the debug layer with useful informations
+     * @brief Add the debug layer with useful information
      */
     virtual void
     debugInternal( const ViewingParameters& renderData ) = 0; // is viewingParameters useful ?
@@ -350,9 +344,9 @@ class RA_ENGINE_API Renderer
 
     // 3.
     void splitRenderQueuesForPicking( const ViewingParameters& renderData );
-    void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
+    static void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                   std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
-    void renderForPicking( const ViewingParameters& renderData,
+    static void renderForPicking( const ViewingParameters& renderData,
                            const std::array<const ShaderProgram*, 4>& pickingShaders,
                            const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
 
@@ -409,8 +403,8 @@ class RA_ENGINE_API Renderer
   private:
     // Qt has the nice idea to bind an fbo before giving you the opengl context,
     // this flag is used to save it (and render the final screen on it)
-    int m_qtPlz;
-    int m_qtViewport[4];
+    int m_qtPlz{0};
+    int m_qtViewport[4] {0,0, 0,0};
 
     // Renderer timings data
     TimerData m_timerData;
@@ -438,7 +432,6 @@ class RA_ENGINE_API Renderer
     void preparePicking( const ViewingParameters& renderData );
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_RENDERER_HPP

@@ -9,8 +9,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& ent ) {
     if ( ent.isValid() )
@@ -73,5 +72,4 @@ bool ItemEntry::isSelectable() const {
     return true;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

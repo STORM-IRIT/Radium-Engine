@@ -6,8 +6,7 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 
@@ -56,7 +55,7 @@ bool EntityManager::entityExists( const std::string& name ) const {
     return m_entitiesName.find( name ) != m_entitiesName.end();
 }
 
-void EntityManager::removeEntity( Core::Utils::Index idx ) {
+void EntityManager::removeEntity(const Index &idx ) {
     CORE_ASSERT( idx.isValid() && m_entities.contains( idx ),
                  "Trying to remove an entity that has not been added to the manager." );
 
@@ -70,7 +69,7 @@ void EntityManager::removeEntity( Entity* entity ) {
     removeEntity( entity->getIndex() );
 }
 
-Entity* EntityManager::getEntity( Core::Utils::Index idx ) const {
+Entity* EntityManager::getEntity(const Index &idx ) const {
     CORE_ASSERT( idx.isValid(), "Trying to access an invalid component." );
 
     Entity* ent = nullptr;
@@ -116,5 +115,5 @@ void EntityManager::deleteEntities() {
         removeEntity( idx );
     }
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

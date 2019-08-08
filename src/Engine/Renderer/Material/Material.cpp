@@ -1,17 +1,16 @@
 #include <Engine/Renderer/Material/Material.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
-Material::Material( const std::string& instanceName,
-                    const std::string& materialName,
+Material::Material( std::string instanceName,
+                    std::string materialName,
                     MaterialAspect aspect ) :
-    m_instanceName{instanceName},
+    m_instanceName{std::move(instanceName)},
     m_aspect{aspect},
-    m_materialName{materialName} {}
+    m_materialName{std::move(materialName)} {}
 
 bool Material::isTransparent() const {
     return m_aspect == MaterialAspect::MAT_TRANSPARENT;
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

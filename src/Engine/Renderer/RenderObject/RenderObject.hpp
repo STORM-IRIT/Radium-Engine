@@ -13,18 +13,13 @@
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Component;
 class Displayable;
 class Material;
 class RenderParameters;
 struct ViewingParameters;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 
 // Radium V2 : need a bit of cleanup !
 class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
@@ -34,7 +29,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
 
     /**
      * A -1 (or any other negative value) lifetime is considered infinite,
-     * 0 is an "invalid value" (would mean the render object has to die immediatly),
+     * 0 is an "invalid value" (would mean the render object has to die immediately),
      * hence it's considered as infinite,
      * any other positive value will be taken into account.
      *
@@ -43,10 +38,10 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param type
      * @param lifetime
      */
-    RenderObject( const std::string& name,
-                  Component* comp,
-                  const RenderObjectType& type,
-                  int lifetime = -1 );
+    RenderObject(std::string name,
+                 Component* comp,
+                 const RenderObjectType& type,
+                 int lifetime = -1 );
     ~RenderObject() override;
 
     /**
@@ -160,7 +155,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param viewParams viewing parameters for this rendering
      * @param passname RenderTechnique pass name
      */
-    virtual void render( const RenderParameters& lightParams,
+    void render( const RenderParameters& lightParams,
                          const ViewingParameters& viewParams,
                          RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
 
@@ -185,7 +180,6 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     bool m_hasLifetime{false};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_RENDEROBJECT_HPP

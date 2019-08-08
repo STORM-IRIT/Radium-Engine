@@ -1,8 +1,7 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 inline Core::Transform Camera::getFrame() const {
     return m_frame;
@@ -150,5 +149,5 @@ inline Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
     const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
     return m_frame * unproj.head<3>();
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

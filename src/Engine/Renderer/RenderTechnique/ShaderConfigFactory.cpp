@@ -4,9 +4,7 @@
 
 #include <Core/Utils/Log.hpp>
 
-namespace Ra {
-namespace Engine {
-namespace ShaderConfigurationFactory {
+namespace Ra::Engine::ShaderConfigurationFactory {
 
 using namespace Core::Utils; // log
 
@@ -55,6 +53,4 @@ ShaderConfiguration getConfiguration( const std::string& name ) {
     }
 }
 
-} // namespace ShaderConfigurationFactory
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine::ShaderConfigurationFactory

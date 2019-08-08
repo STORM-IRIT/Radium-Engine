@@ -19,8 +19,7 @@
 #    include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #endif
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 #ifndef RA_DISABLE_DEBUG_DISPLAY
 
 /// Component for debug drawing. @see SystemEntity.
@@ -32,7 +31,7 @@ class RA_ENGINE_API DebugComponent : public Component
     void initialize() override{};
 
     /// Access render object through RO manager
-    RenderObject* getRenderObject( Core::Utils::Index idx );
+    static RenderObject* getRenderObject(const Core::Utils::Index &idx );
 };
 
 #endif
@@ -66,8 +65,7 @@ class RA_ENGINE_API SystemEntity : public Entity
     static UiComponent* uiCmp();
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #ifndef RA_DISABLE_DEBUG_DISPLAY
 /// Macros for debug drawing. All coordinates are in world space.

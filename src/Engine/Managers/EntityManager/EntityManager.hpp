@@ -11,14 +11,8 @@
 #include <Core/Utils/IndexMap.hpp>
 #include <Core/Utils/Singleton.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Entity;
-}
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 class RA_ENGINE_API EntityManager
 {
@@ -52,7 +46,7 @@ class RA_ENGINE_API EntityManager
      * @brief Remove an entity given its index. Also deletes the pointer.
      * @param idx Index if the entity to remove.
      */
-    void removeEntity( Core::Utils::Index idx );
+    void removeEntity(const Core::Utils::Index &idx );
 
     /**
      * @brief Remove a given entity. Also deletes the pointer.
@@ -65,7 +59,7 @@ class RA_ENGINE_API EntityManager
      * @param idx Index of the component to retrieve.
      * @return The entity if found in the map, nullptr otherwise.
      */
-    Entity* getEntity( Core::Utils::Index idx ) const;
+    Entity* getEntity(const Core::Utils::Index &idx ) const;
 
     /**
      * @brief Get all entities from the manager.
@@ -94,7 +88,6 @@ class RA_ENGINE_API EntityManager
     std::map<std::string, Core::Utils::Index> m_entitiesName;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_ENTITYMANAGER_HPP

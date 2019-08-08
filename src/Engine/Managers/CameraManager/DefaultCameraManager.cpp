@@ -2,8 +2,7 @@
 
 #include <Engine/RadiumEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 DefaultCameraManager::DefaultCameraManager() {
     m_data = std::make_unique<DefaultCameraStorage>();
@@ -49,5 +48,4 @@ Camera* DefaultCameraStorage::operator[]( unsigned int n ) {
     return iterator->second;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

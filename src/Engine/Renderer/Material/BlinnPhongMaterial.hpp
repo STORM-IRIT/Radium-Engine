@@ -11,11 +11,10 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra {
-namespace Core {
-namespace Asset {
+namespace Core::Asset {
 class MaterialData;
-}
-} // namespace Core
+} // namespace Core::Asset
+
 namespace Engine {
 
 class ShaderProgram;

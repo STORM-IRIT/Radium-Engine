@@ -8,8 +8,7 @@
 #include <memory>
 #include <vector>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /**
  * Associated class.
@@ -42,7 +41,6 @@ class RA_ENGINE_API DefaultLightManager : public LightManager
     void addLight( const Light* li ) override;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // DUMMYLIGHTMANAGER_HPP

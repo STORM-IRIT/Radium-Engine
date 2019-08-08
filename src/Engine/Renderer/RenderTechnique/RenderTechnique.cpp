@@ -3,11 +3,9 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
-#include "RenderTechnique.hpp"
 #include <Core/Utils/Log.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 
@@ -120,7 +118,7 @@ static std::map<std::string, DefaultTechniqueBuilder> EngineTechniqueRegistry;
 /** register a new default builder for a technique
  *  @return true if builder added, false else (e.g, a builder with the same name exists)
  */
-bool registerDefaultTechnique( const std::string& name, DefaultTechniqueBuilder builder ) {
+bool registerDefaultTechnique(const std::string& name, const DefaultTechniqueBuilder &builder ) {
     auto result = EngineTechniqueRegistry.insert( {name, builder} );
     return result.second;
 }
@@ -149,5 +147,4 @@ std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string&
 
 } // namespace EngineRenderTechniques
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

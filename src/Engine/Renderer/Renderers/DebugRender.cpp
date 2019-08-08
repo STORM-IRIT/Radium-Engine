@@ -2,19 +2,16 @@
 
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Log.hpp>
 #include <fstream>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 
@@ -201,14 +198,14 @@ void DebugRender::initialize() {
     GL_CHECK_ERROR;
 }
 
-void DebugRender::render( const Core::Matrix4& viewMatrix, const Core::Matrix4& projMatrix ) {
-    renderLines( viewMatrix.cast<float>(), projMatrix.cast<float>() );
-    renderPoints( viewMatrix.cast<float>(), projMatrix.cast<float>() );
-    renderMeshes( viewMatrix.cast<float>(), projMatrix.cast<float>() );
+void DebugRender::render( const Core::Matrix4& view, const Core::Matrix4& proj ) {
+    renderLines( view.cast<float>(), proj.cast<float>() );
+    renderPoints( view.cast<float>(), proj.cast<float>() );
+    renderMeshes( view.cast<float>(), proj.cast<float>() );
 }
 
-void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
-                               const Core::Matrix4f& projMatrix ) {
+void DebugRender::renderLines( const Core::Matrix4f& view,
+                               const Core::Matrix4f& proj ) {
     Core::Vector3Array vertices;
     Core::Vector4Array colors;
     std::vector<GLuint> indices;
@@ -231,8 +228,8 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
 
         glUseProgram( m_lineProg );
         glUniformMatrix4fv( m_modelLineLoc, 1, GL_FALSE, id.data() );
-        glUniformMatrix4fv( m_viewLineLoc, 1, GL_FALSE, viewMatrix.data() );
-        glUniformMatrix4fv( m_projLineLoc, 1, GL_FALSE, projMatrix.data() );
+        glUniformMatrix4fv( m_viewLineLoc, 1, GL_FALSE, view.data() );
+        glUniformMatrix4fv( m_projLineLoc, 1, GL_FALSE, proj.data() );
 
         Mesh mesh( "temp", Mesh::RM_LINES );
         mesh.loadGeometry( vertices, indices );
@@ -244,8 +241,8 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
     m_lines.clear();
 }
 
-void DebugRender::renderPoints( const Core::Matrix4f& viewMatrix,
-                                const Core::Matrix4f& projMatrix ) {
+void DebugRender::renderPoints( const Core::Matrix4f& view,
+                                const Core::Matrix4f& proj ) {
     uint size = m_points.size();
     if ( 0 == size ) { return; }
 
@@ -272,8 +269,8 @@ void DebugRender::renderPoints( const Core::Matrix4f& viewMatrix,
 
     glEnable( GL_PROGRAM_POINT_SIZE );
     glUseProgram( m_pointProg );
-    glUniformMatrix4fv( m_viewPointLoc, 1, GL_FALSE, viewMatrix.data() );
-    glUniformMatrix4fv( m_projPointLoc, 1, GL_FALSE, projMatrix.data() );
+    glUniformMatrix4fv( m_viewPointLoc, 1, GL_FALSE, view.data() );
+    glUniformMatrix4fv( m_projPointLoc, 1, GL_FALSE, proj.data() );
 
     glDrawArrays( GL_POINTS, 0, size );
     glDisable( GL_PROGRAM_POINT_SIZE );
@@ -313,7 +310,7 @@ void DebugRender::renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f
     glUniformMatrix4fv( m_viewMeshLoc, 1, GL_FALSE, view.data() );
     glUniformMatrix4fv( m_projMeshLoc, 1, GL_FALSE, proj.data() );
 
-    for ( uint i = idx; i < m_meshes.size(); ++i )
+    for ( std::vector<DbgMesh>::size_type i = idx; i < m_meshes.size(); ++i )
     {
         Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
         glUniformMatrix4fv( m_modelMeshLoc, 1, GL_FALSE, model.data() );
@@ -336,7 +333,7 @@ void DebugRender::addPoint( const Core::Vector3& p, const Core::Utils::Color& c 
 }
 
 void DebugRender::addPoints( const Core::Vector3Array& p, const Core::Utils::Color& c ) {
-    for ( uint i = 0; i < p.size(); ++i )
+    for ( Core::Vector3Array::size_type i = 0; i < p.size(); ++i )
     {
         m_points.push_back( {p[i], c.head<3>()} );
     }
@@ -344,7 +341,7 @@ void DebugRender::addPoints( const Core::Vector3Array& p, const Core::Utils::Col
 
 void DebugRender::addPoints( const Core::Vector3Array& p, const Core::Vector4Array& c ) {
     CORE_ASSERT( p.size() == c.size(), "Data sizes mismatch." );
-    for ( uint i = 0; i < p.size(); ++i )
+    for ( Core::Vector3Array::size_type i = 0; i < p.size(); ++i )
     {
         m_points.push_back( {p[i], c[i].head<3>()} );
     }
@@ -357,7 +354,7 @@ void DebugRender::addMesh( const std::shared_ptr<Mesh>& mesh, const Core::Transf
 void DebugRender::addCross( const Core::Vector3& position,
                             Scalar size,
                             const Core::Utils::Color& color ) {
-    const Scalar hz = size / 2.0;
+    const Scalar hz = size / 2_ra;
     for ( int i = 0; i < 3; ++i )
     {
         Core::Vector3 offset = Core::Vector3::Zero();
@@ -405,5 +402,5 @@ void DebugRender::addOBB( const Core::Aabb& box,
 }
 
 RA_SINGLETON_IMPLEMENTATION( DebugRender );
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

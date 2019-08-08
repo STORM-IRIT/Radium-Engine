@@ -6,21 +6,18 @@
 #include <functional>
 #include <string>
 
-namespace Ra {
-namespace Engine {
-class Material;
-}
-namespace Core {
-namespace Asset {
-class MaterialData;
-}
-} // namespace Core
+namespace Ra::Core::Asset {
+    class MaterialData;
+} // namespace Ra::Core::Asset
 
 ///////////////////////////////////////////////
 ////        Material converter system       ///
 ///////////////////////////////////////////////
 
-namespace Engine {
+namespace Ra::Engine {
+    class Material;
+
+
 
 ///////////////////////////////////////////////
 ////        Radium Material converters      ///
@@ -62,7 +59,7 @@ RA_ENGINE_API bool removeMaterialConverter( const std::string& name );
 RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name );
 
 } // namespace EngineMaterialConverters
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_MATERIALCONVERTERS_HPP

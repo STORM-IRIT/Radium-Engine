@@ -6,8 +6,7 @@
 
 #include <memory>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /**
  * Interface providing functions to manage a group or type of lights
@@ -76,7 +75,6 @@ class RA_ENGINE_API LightManager : public System
     std::unique_ptr<LightStorage> m_data{nullptr};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_LIGHTMANAGER_H

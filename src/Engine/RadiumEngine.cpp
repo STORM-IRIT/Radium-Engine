@@ -1,11 +1,6 @@
 #include <Engine/RadiumEngine.hpp>
 
-#include <chrono>
-#include <cstdio>
-#include <fstream>
 #include <iostream>
-#include <mutex>
-#include <streambuf>
 #include <string>
 #include <thread>
 
@@ -26,8 +21,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/System/System.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 using namespace Core::Asset;
@@ -52,11 +46,11 @@ void RadiumEngine::registerDefaultPrograms() {
     CORE_ASSERT( shaderProgramManager != nullptr,
                  "ShaderProgramManager needs to be created first" );
 
-    // Create named strings which correspond to shader files that you want to use in shaders's
+    // Create named strings which correspond to shader files that you want to use in shaders
     // includes. NOTE: if you want to add a named string to handle a new shader include file, be
     // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
     // Radium V2 : are these initialization required here ? They will be better in
-    // Engine::Initialize .... Define a better ressources management and initialization
+    // Engine::Initialize .... Define a better resources management and initialization
     shaderProgramManager->addNamedString( "/Helpers.glsl",
                                           m_resourcesRootDir + "Shaders/Helpers.glsl" );
     shaderProgramManager->addNamedString( "/Structs.glsl",
@@ -240,11 +234,11 @@ SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
 }
 
-void RadiumEngine::registerFileLoader( std::shared_ptr<FileLoaderInterface> fileLoader ) {
-    m_fileLoaders.push_back( fileLoader );
+void RadiumEngine::registerFileLoader(std::unique_ptr<FileLoaderInterface> fileLoader ) {
+    m_fileLoaders.push_back( std::move(fileLoader) );
 }
 
-const std::vector<std::shared_ptr<FileLoaderInterface>>& RadiumEngine::getFileLoaders() const {
+const std::vector<std::unique_ptr<FileLoaderInterface>> & RadiumEngine::getFileLoaders() const {
     return m_fileLoaders;
 }
 
@@ -268,5 +262,4 @@ RadiumEngine::SystemContainer::iterator RadiumEngine::findSystem( const std::str
     } );
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

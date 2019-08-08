@@ -253,15 +253,16 @@ BaseApplication::BaseApplication( int argc,
     // Register before AssimpFileLoader, in order to ease override of such
     // custom loader (first loader able to load is taking the file)
     m_engine->registerFileLoader(
-        std::shared_ptr<FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
+        std::unique_ptr<FileLoaderInterface>( new IO::TinyPlyFileLoader() )
+            );
 #endif
 #ifdef IO_USE_CAMERA_LOADER
     m_engine->registerFileLoader(
-        std::shared_ptr<FileLoaderInterface>( new IO::CameraFileLoader() ) );
+        std::unique_ptr<FileLoaderInterface>( new IO::CameraFileLoader() ) );
 #endif
 #ifdef IO_USE_ASSIMP
     m_engine->registerFileLoader(
-        std::shared_ptr<FileLoaderInterface>( new IO::AssimpFileLoader() ) );
+        std::unique_ptr<FileLoaderInterface>( new IO::AssimpFileLoader() ) );
 #endif
 
     // Create task queue with N-1 threads (we keep one for rendering),
@@ -577,12 +578,12 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
 
                     if ( loadedPlugin->doAddFileLoader() )
                     {
-                        std::vector<std::shared_ptr<FileLoaderInterface>> tmpL;
+                        std::vector<std::unique_ptr<FileLoaderInterface>> tmpL;
                         loadedPlugin->addFileLoaders( &tmpL );
                         CORE_ASSERT( !tmpL.empty(), "This plugin is expected to add file loaders" );
                         for ( auto& ptr : tmpL )
                         {
-                            m_engine->registerFileLoader( ptr );
+                            m_engine->registerFileLoader( std::move(ptr) );
                         }
                     }
 

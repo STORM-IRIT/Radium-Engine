@@ -9,8 +9,7 @@
 
 #include <Engine/ItemModel/ItemEntry.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 /** This class is used to inform the external world of events happening in the engine.
  * You can register a callback function which will be called any time the event happens.
  * Signals are fired when an object of the engine (entity, component or render object)
@@ -61,7 +60,7 @@ class SignalManager
     std::vector<Callback> m_roRemovedCallbacks;
     std::vector<EoFCallback> m_frameEndCallbacks;
 };
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_SIGNAL_MANAGER_HPP_

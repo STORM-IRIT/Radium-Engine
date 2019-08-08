@@ -2,8 +2,7 @@
 
 #include <Engine/RadiumEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 DefaultLightManager::DefaultLightManager() {
     m_data = std::make_unique<DefaultLightStorage>();
@@ -50,5 +49,5 @@ const Light* DefaultLightStorage::operator[]( unsigned int n ) {
     std::advance( iterator, n );
     return iterator->second;
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

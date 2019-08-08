@@ -1,17 +1,13 @@
 #include <Engine/System/GeometrySystem.hpp>
 
 #include <Core/Asset/FileData.hpp>
-#include <Core/Asset/GeometryData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
 #include <Engine/Component/GeometryComponent.hpp>
 #include <Engine/Entity/Entity.hpp>
-#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/RadiumEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 GeometrySystem::GeometrySystem() : Ra::Engine::System() {}
 
@@ -34,5 +30,4 @@ void GeometrySystem::generateTasks( Ra::Core::TaskQueue* /*taskQueue*/,
     // Do nothing, as this system only displays meshes.
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

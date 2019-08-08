@@ -15,15 +15,14 @@
 // Only needed to access the ViewingParameters struct
 #include <Engine/Renderer/Camera/Camera.hpp>
 
-namespace Ra {
-namespace Engine {
-RenderObject::RenderObject( const std::string& name,
-                            Component* comp,
-                            const RenderObjectType& type,
-                            int lifetime ) :
+namespace Ra::Engine {
+RenderObject::RenderObject(std::string name,
+                           Component* comp,
+                           const RenderObjectType& type,
+                           int lifetime ) :
     IndexedObject(),
     m_component{comp},
-    m_name{name},
+    m_name{std::move(name)},
     m_type{type},
     m_mesh{nullptr},
     m_lifetime{lifetime},
@@ -238,5 +237,4 @@ void RenderObject::render( const RenderParameters& lightParams,
     render( lightParams, viewParams, getRenderTechnique()->getShader( passname ) );
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

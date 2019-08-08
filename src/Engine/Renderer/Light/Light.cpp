@@ -3,8 +3,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 Light::Light( Entity* entity, const LightType& type, const std::string& name ) :
     Component( name, entity ),
@@ -23,5 +22,4 @@ std::string Light::getShaderInclude() const {
     return {};
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

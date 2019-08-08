@@ -1,7 +1,6 @@
 #include "ComponentMessenger.hpp"
 #include <Core/Utils/StdUtils.hpp>
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 inline std::size_t ComponentMessenger::HashFunc::operator()( const Key& k ) const {
     return Core::Utils::hash( k );
@@ -151,5 +150,4 @@ ComponentMessenger::registerInput( const Entity* entity,
     entityList[key].reset( setter );
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

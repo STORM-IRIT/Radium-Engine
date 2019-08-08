@@ -4,8 +4,7 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /** Directional light for rendering
  *
@@ -29,8 +28,7 @@ class RA_ENGINE_API DirectionalLight final : public Light
     Eigen::Matrix<Scalar, 3, 1> m_direction{0, -1, 0};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::engine
 
 #include <Engine/Renderer/Light/DirLight.inl>
 

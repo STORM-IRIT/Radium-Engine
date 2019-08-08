@@ -6,14 +6,13 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/System/System.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
-Entity::Entity( const std::string& name ) :
+Entity::Entity(std::string name ) :
     Core::Utils::IndexedObject(),
     m_transform{Core::Transform::Identity()},
     m_doubleBufferedTransform{Core::Transform::Identity()},
-    m_name{name} {}
+    m_name(std::move(name)) {}
 
 Entity::~Entity() {
     // Ensure components are deleted before the entity for consistent
@@ -70,6 +69,4 @@ void Entity::swapTransformBuffers() {
     }
 }
 
-} // namespace Engine
-
-} // namespace Ra
+} // namespace Ra::Engine

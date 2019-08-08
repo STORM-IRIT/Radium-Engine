@@ -1,7 +1,5 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 RA_SINGLETON_IMPLEMENTATION( ComponentMessenger );
-}
-} // namespace Ra
+} // namespace Ra::Engine

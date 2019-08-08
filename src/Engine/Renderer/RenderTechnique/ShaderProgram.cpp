@@ -1,6 +1,5 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
-#include <Core/Utils/StringUtils.hpp>
 
 #include <globjects/base/File.h>
 #include <globjects/base/StaticStringSource.h>
@@ -28,8 +27,7 @@
 
 #include <numeric> // for std::accumulate
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 
@@ -302,15 +300,15 @@ void ShaderProgram::setUniform( const char* name, double value ) const {
 
 //!
 
-void ShaderProgram::setUniform( const char* name, std::vector<int> values ) const {
+void ShaderProgram::setUniform(const char* name, const std::vector<int> &values ) const {
     m_program->setUniform( name, values );
 }
 
-void ShaderProgram::setUniform( const char* name, std::vector<unsigned int> values ) const {
+void ShaderProgram::setUniform(const char* name, const std::vector<unsigned int> &values ) const {
     m_program->setUniform( name, values );
 }
 
-void ShaderProgram::setUniform( const char* name, std::vector<float> values ) const {
+void ShaderProgram::setUniform(const char* name, const std::vector<float> &values ) const {
     m_program->setUniform( name, values );
 }
 
@@ -473,5 +471,4 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name,
     return result;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

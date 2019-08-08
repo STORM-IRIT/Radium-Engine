@@ -9,15 +9,11 @@
 #include <map>
 #include <memory>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class ShaderProgram;
 class Material;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
+
 /* Radium V2 : make this class  non final and extensible.
  * passName must be renderer independant (use a map so that each renderer could set its own passes.
  * Rely this to future composition based material and renderer architecture.
@@ -87,8 +83,8 @@ using DefaultTechniqueBuilder = std::function<void( RenderTechnique&, bool )>;
 /** register a new default builder for a technique
  *  @return true if builder added, false else (e.g, a builder with the same name exists)
  */
-RA_ENGINE_API bool registerDefaultTechnique( const std::string& name,
-                                             DefaultTechniqueBuilder builder );
+RA_ENGINE_API bool registerDefaultTechnique(const std::string& name,
+                                            const DefaultTechniqueBuilder &builder );
 
 /** remove a default builder
  *  @return true if builder removed, false else (e.g, a builder with the same name does't exists)
@@ -105,7 +101,6 @@ getDefaultTechnique( const std::string& name );
 
 } // namespace EngineRenderTechniques
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_RENDERTECHNIQUE_HPP

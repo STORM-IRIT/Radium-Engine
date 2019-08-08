@@ -3,14 +3,8 @@
 
 #include <Engine/RaEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Camera;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /**
  * Interface providing functions to access and store cameras in
@@ -43,7 +37,6 @@ class RA_ENGINE_API CameraStorage
     virtual Camera* operator[]( unsigned int n ) = 0;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_CAMERASTORAGE_HPP

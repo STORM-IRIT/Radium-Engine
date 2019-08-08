@@ -1,7 +1,6 @@
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 void SignalManager::fireEntityCreated( const ItemEntry& entity ) const {
     CORE_ASSERT( entity.isEntityNode(), "Invalid entry" );
@@ -49,5 +48,5 @@ void SignalManager::fireFrameEnded() const {
         f();
     }
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

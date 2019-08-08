@@ -12,8 +12,7 @@
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 
 #include <numeric> // for reduce
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 RenderObjectManager::RenderObjectManager() = default;
 
 RenderObjectManager::~RenderObjectManager() = default;
@@ -156,5 +155,5 @@ Core::Aabb RenderObjectManager::getSceneAabb() const {
     }
     return aabb;
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

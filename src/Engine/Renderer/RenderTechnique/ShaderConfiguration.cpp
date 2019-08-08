@@ -1,7 +1,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
+namespace Ra::Engine {
 /**
  * @todo : make default shader configuration/default shader programm usable
  * outside of the main radium distribution or
@@ -12,9 +12,8 @@
  *
  * \see issue #194
  */
-
 #if 0
-/** The following must define default shader. Perhaps this is not the good place for this and surely, this will need an
+  /** The following must define default shader. Perhaps this is not the good place for this and surely, this will need an
  * indepth modification of the shader system to ensure that default program is always correctly managed
  *      - creation/compilation at the first use
  *      - Find a way to notify client that the default shader was provided instead of the requested one
@@ -146,28 +145,25 @@ static const std::string defaultFragmentShader(
 
 #else
 /// todo : find a way to define (if this make sense) default shaders.
-static const std::string defaultVertexShader{"Shaders/Default.vert.glsl"};
-static const std::string defaultFragmentShader{"Shaders/Default.frag.glsl"};
+  static const std::string defaultVertexShader{"Shaders/Default.vert.glsl"};
+  static const std::string defaultFragmentShader{"Shaders/Default.frag.glsl"};
 #endif
-
-namespace Ra {
-namespace Engine {
 
 ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program",
                                                                 defaultVertexShader,
                                                                 defaultFragmentShader );
 
-ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
-    m_name{name},
+ShaderConfiguration::ShaderConfiguration(std::string name ) :
+    m_name{std::move(name)},
     m_version{"#version 410"} {}
 
-ShaderConfiguration::ShaderConfiguration( const std::string& name,
-                                          const std::string& vertexShader,
-                                          const std::string& fragmentShader ) :
-    m_name{name},
+ShaderConfiguration::ShaderConfiguration(std::string name,
+                                         std::string vertexShader,
+                                         std::string fragmentShader ) :
+    m_name{std::move(name)},
     m_version{"#version 410"} {
-    m_shaders[ShaderType_VERTEX]   = vertexShader;
-    m_shaders[ShaderType_FRAGMENT] = fragmentShader;
+    m_shaders[ShaderType_VERTEX]   = std::move(vertexShader);
+    m_shaders[ShaderType_FRAGMENT] = std::move(fragmentShader);
 }
 
 void ShaderConfiguration::addShader( ShaderType type, const std::string& name ) {
@@ -277,5 +273,4 @@ ShaderConfiguration::getNamedStrings() const {
     return m_named_strings;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

@@ -1,6 +1,5 @@
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 // Add a texture as material parameter from an already existing Radium Texture
 inline void BlinnPhongMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
@@ -42,5 +41,5 @@ inline Texture* BlinnPhongMaterial::getTexture( const TextureSemantic& semantic 
 
     return tex;
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

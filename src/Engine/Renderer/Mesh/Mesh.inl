@@ -1,7 +1,6 @@
 #include "Mesh.hpp"
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 void Mesh::setRenderMode( MeshRenderMode mode ) {
     m_renderMode = mode;
@@ -76,5 +75,4 @@ std::string Mesh::getAttribName( Vec4Data type ) {
 //    addData( Engine::Mesh::VERTEX_COLOR, colors );
 //}
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

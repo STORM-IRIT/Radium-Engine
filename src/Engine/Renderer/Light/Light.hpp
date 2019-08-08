@@ -5,19 +5,14 @@
 #include <Engine/Component/Component.hpp>
 #include <Engine/RaEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class RenderParameters;
-}
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 
 // Radium-V2 : this class could totally be renamed LightComponent and get a Light struct embedded.
 // Thoughts are welcome !
 /**
- * Light base classe for rendering
+ * Light base class for rendering
  */
 class RA_ENGINE_API Light : public Component
 {
@@ -109,8 +104,7 @@ class RA_ENGINE_API Light : public Component
     LightType m_type{LightType::DIRECTIONAL};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Renderer/Light/Light.inl>
 

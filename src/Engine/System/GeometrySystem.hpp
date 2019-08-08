@@ -3,8 +3,7 @@
 
 #include <Engine/System/System.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 class RA_ENGINE_API GeometrySystem : public System
 {
@@ -17,7 +16,6 @@ class RA_ENGINE_API GeometrySystem : public System
     void generateTasks( Ra::Core::TaskQueue* taskQueue, const FrameInfo& frameInfo ) override;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_GEOMETRY_SYSTEM_HPP

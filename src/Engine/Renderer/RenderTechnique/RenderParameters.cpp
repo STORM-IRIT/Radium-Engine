@@ -1,8 +1,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_intParamsVector.bind( shader );
     m_uintParamsVector.bind( shader );
@@ -37,15 +36,15 @@ void RenderParameters::addParameter( const char* name, Scalar value ) {
 
 ///!! array version
 
-void RenderParameters::addParameter( const char* name, std::vector<int> value ) {
+void RenderParameters::addParameter(const char* name, const std::vector<int> &value ) {
     m_intsParamsVector[name] = IntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, std::vector<uint> value ) {
+void RenderParameters::addParameter(const char* name, const std::vector<uint> &value ) {
     m_uintsParamsVector[name] = UIntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, std::vector<Scalar> value ) {
+void RenderParameters::addParameter(const char* name, const std::vector<Scalar> &value ) {
     m_scalarsParamsVector[name] = ScalarsParameter( name, value );
 }
 
@@ -167,5 +166,4 @@ void RenderParameters::concatParameters( const RenderParameters& params ) {
     }
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

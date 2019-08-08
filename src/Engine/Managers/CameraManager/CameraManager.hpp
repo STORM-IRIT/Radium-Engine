@@ -7,14 +7,8 @@
 
 #include <memory>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Camera;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /**
  * Interface providing functions to manage a group or type of Cameras
@@ -78,7 +72,6 @@ class RA_ENGINE_API CameraManager : public System
     std::unique_ptr<CameraStorage> m_data{nullptr};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_CAMERAMANAGER_H

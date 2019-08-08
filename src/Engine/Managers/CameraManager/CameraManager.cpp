@@ -10,13 +10,11 @@
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/RadiumEngine.hpp>
 
-namespace Ra {
-namespace Engine {
+using namespace Ra::Core::Utils; // log
+using namespace Ra::Core::Asset;
 
-using namespace Core::Utils; // log
-using namespace Core::Asset;
+namespace Ra::Engine {
 
 size_t CameraManager::count() const {
     return m_data->size();
@@ -78,5 +76,4 @@ void CameraManager::unregisterAllComponents( const Entity* entity ) {
     System::unregisterAllComponents( entity );
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

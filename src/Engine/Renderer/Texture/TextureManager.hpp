@@ -9,8 +9,7 @@
 
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /**
  * Manage Texture loading and registration.
@@ -107,7 +106,6 @@ class RA_ENGINE_API TextureManager final
     bool m_verbose;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_TEXTUREMANAGER_HPP

@@ -12,8 +12,7 @@
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /**
  * A class representing an openGL general mesh to be displayed.
@@ -205,8 +204,7 @@ class RA_ENGINE_API Mesh : public Displayable
     bool m_isDirty{false};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Renderer/Mesh/Mesh.inl>
 

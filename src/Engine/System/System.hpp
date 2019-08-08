@@ -42,7 +42,7 @@ class RA_ENGINE_API System
      * corresponding components, add them to the entity, and register the component.
      * @note : Issue #325 - As this method register components and might also manage each component
      * outside the m_components vectors (e.g in a buffer on the GPU) the methods, the
-     * registerComponent and unregister*Component must be virtual method that could be overriden.
+     * registerComponent and unregister*Component must be virtual method that could be overridden.
      */
     virtual void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) {}
 

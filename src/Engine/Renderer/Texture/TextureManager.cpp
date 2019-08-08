@@ -6,8 +6,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 
@@ -161,5 +160,4 @@ void TextureManager::updatePendingTextures() {
 }
 
 RA_SINGLETON_IMPLEMENTATION( TextureManager );
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

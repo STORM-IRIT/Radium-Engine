@@ -11,8 +11,7 @@
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Core/Resources/Resources.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 static const std::string materialName{"BlinnPhong"};
 
@@ -107,29 +106,31 @@ void BlinnPhongMaterial::registerMaterial() {
     // Defining Converter
     EngineMaterialConverters::registerMaterialConverter( materialName,
                                                          BlinnPhongMaterialConverter() );
+    {
+        ShaderProgramManager::getInstance()->addNamedString(
+            "/BlinnPhongMaterial.glsl",
+            resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
 
-    ShaderProgramManager::getInstance()->addNamedString(
-        "/BlinnPhongMaterial.glsl",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
-    // registering re-usable shaders
-    Ra::Engine::ShaderConfiguration lpconfig(
-        "BlinnPhong",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
+        // registering re-usable shaders
+        Ra::Engine::ShaderConfiguration lpconfig(
+            "BlinnPhong",
+            resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+            resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl");
 
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
+        Ra::Engine::ShaderConfigurationFactory::addConfiguration(lpconfig);
 
-    Ra::Engine::ShaderConfiguration zprepassconfig(
-        "ZprepassBlinnPhong",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl" );
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+        Ra::Engine::ShaderConfiguration zprepassconfig(
+            "ZprepassBlinnPhong",
+            resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+            resourcesRootDir + "Shaders/Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl");
+        Ra::Engine::ShaderConfigurationFactory::addConfiguration(zprepassconfig);
 
-    Ra::Engine::ShaderConfiguration transparentpassconfig(
-        "LitOITBlinnPhong",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
+        Ra::Engine::ShaderConfiguration transparentpassconfig(
+            "LitOITBlinnPhong",
+            resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
+            resourcesRootDir + "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl");
+        Ra::Engine::ShaderConfigurationFactory::addConfiguration(transparentpassconfig);
+    }
 
     // Registering technique
     Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
@@ -165,8 +166,8 @@ void BlinnPhongMaterial::unregisterMaterial() {
 Material* BlinnPhongMaterialConverter::
 operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
     auto result = new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
-    // we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
-    // static cst is safe here
+    // As we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
+    // static cast is safe.
     auto source = static_cast<const Ra::Core::Asset::BlinnPhongMaterialData*>( toconvert );
 
     if ( source->hasDiffuse() ) result->m_kd = source->m_diffuse;
@@ -192,5 +193,4 @@ operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
     return result;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

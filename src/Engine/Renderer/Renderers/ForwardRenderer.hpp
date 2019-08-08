@@ -7,17 +7,12 @@ namespace globjects {
 class Framebuffer;
 }
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Texture;
-}
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 /** Default renderer for the Radium Engine
- * This classe implements aforward rendering algorithm with Z-prepass, multipass light accumulation
- * for opaque and transperent objects. Once renderer, the final is composited with Ui, debug and
+ * This class implements aforward rendering algorithm with Z-prepass, multipass light accumulation
+ * for opaque and transparent objects. Once renderer, the final is composited with Ui, debug and
  * X-ray objects renderings on demand.
  *
  * @see rendering.md for description of the renderer
@@ -77,7 +72,6 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     std::vector<Core::Matrix4> m_lightMatrices;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_FORWARDRENDERER_HPP

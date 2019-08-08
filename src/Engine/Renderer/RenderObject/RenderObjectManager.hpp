@@ -15,8 +15,7 @@
 #include <Core/Types.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class RenderObject;
 
 class RA_ENGINE_API RenderObjectManager final
@@ -41,7 +40,7 @@ class RA_ENGINE_API RenderObjectManager final
     const Core::Utils::IndexMap<std::shared_ptr<RenderObject>>& getRenderObjects() const;
 
     /**
-     * Get all render objects of the given type, the vector is assumed to be empty whan called
+     * Get all render objects of the given type, the vector is assumed to be empty when called
      * @param objectsOut
      * @param type
      */
@@ -87,7 +86,6 @@ class RA_ENGINE_API RenderObjectManager final
     mutable std::mutex m_doubleBufferMutex;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_RENDEROBJECTMANAGER_HPP

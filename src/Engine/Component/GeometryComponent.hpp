@@ -5,14 +5,9 @@
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Engine/Component/Component.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Mesh;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 /*!
  * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
  *
@@ -50,7 +45,6 @@ class RA_ENGINE_API TriangleMeshComponent : public Component
     // Component communication management
     void setupIO( const std::string& id );
     void setContentName( const std::string& name );
-    void setDeformable( bool b );
 
     /// Returns the index of the associated RO (the display mesh)
     Ra::Core::Utils::Index getRenderObjectIndex() const;
@@ -76,7 +70,6 @@ class RA_ENGINE_API TriangleMeshComponent : public Component
     std::shared_ptr<Mesh> m_displayMesh{nullptr};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_GEOMETRY_COMPONENT_HPP

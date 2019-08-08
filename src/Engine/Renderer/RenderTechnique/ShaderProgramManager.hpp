@@ -16,15 +16,9 @@ class File;
 class NamedString;
 } // namespace globjects
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class ShaderProgram;
 class ShaderConfiguration;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /**
  * Manage the set of shaders used by Radium Engine for rendering.
@@ -116,7 +110,6 @@ class RA_ENGINE_API ShaderProgramManager final
         m_namedStrings;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_SHADERMANAGER_HPP

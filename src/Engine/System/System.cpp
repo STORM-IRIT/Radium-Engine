@@ -3,8 +3,7 @@
 #include <Engine/Component/Component.hpp>
 #include <Engine/Entity/Entity.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 void System::registerComponent( const Entity* ent, Component* component ) {
     // Perform checks on debug
@@ -56,5 +55,5 @@ std::vector<Component*> System::getEntityComponents( const Entity* entity ) {
     }
     return comps;
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

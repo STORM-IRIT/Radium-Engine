@@ -1,6 +1,5 @@
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 const std::string& Material::getInstanceName() const {
     return m_instanceName;
@@ -18,5 +17,4 @@ const Material::MaterialAspect& Material::getMaterialAspect() const {
     return m_aspect;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

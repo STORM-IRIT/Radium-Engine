@@ -23,10 +23,9 @@
 #include <algorithm>
 #include <iostream>
 
-namespace Ra {
-namespace Engine {
+using namespace Ra::Core::Utils; // log
 
-using namespace Core::Utils; // log
+namespace Ra::Engine {
 
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
@@ -455,8 +454,8 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
                 auto h = std::round( std::sqrt( m_brushRadius * m_brushRadius - i * i ) );
                 for ( auto j = -h; j <= +h; j += 3 )
                 {
-                    const int x = query.m_screenCoords.x() + i;
-                    const int y = query.m_screenCoords.y() - j;
+                    const int x = int(query.m_screenCoords.x() + i);
+                    const int y = int(query.m_screenCoords.y() - j);
                     // skip query if out of window (can occur when picking while moving outside)
                     if ( x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1 ) { continue; }
                     GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
@@ -561,7 +560,7 @@ void Renderer::restoreExternalFBOInternal() {
     }
     else
     {
-        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
+        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, GLuint( m_qtPlz ) ) );
         GL_ASSERT( glDrawBuffers( 1, buffers ) );
     }
 }
@@ -659,7 +658,7 @@ std::vector<std::string> Renderer::getAvailableTextures() const {
     std::transform( m_secondaryTextures.begin(),
                     m_secondaryTextures.end(),
                     std::back_inserter( ret ),
-                    []( const std::pair<std::string, Texture*> tex ) { return tex.first; } );
+                    []( const std::pair<std::string, Texture*> &tex ) { return tex.first; } );
     return ret;
 }
 
@@ -688,13 +687,13 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
                             i ); // Index in the final image (note the j flipping).
 
             writtenPixels[ou + 0] =
-                (uchar)std::clamp( Scalar( pixels[in + 0] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
+                (uchar)std::clamp( 255_ra * pixels[in + 0], 0_ra, 255_ra );
             writtenPixels[ou + 1] =
-                (uchar)std::clamp( Scalar( pixels[in + 1] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
+                (uchar)std::clamp( 255_ra * pixels[in + 1], 0_ra, 255_ra );
             writtenPixels[ou + 2] =
-                (uchar)std::clamp( Scalar( pixels[in + 2] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
+                (uchar)std::clamp( 255_ra * pixels[in + 2], 0_ra, 255_ra );
             writtenPixels[ou + 3] =
-                (uchar)std::clamp( Scalar( pixels[in + 3] * 255.f ), Scalar( 0 ), Scalar( 255 ) );
+                (uchar)std::clamp( 255_ra * pixels[in + 3], 0_ra, 255_ra );
         }
     }
     w = tex->width();
@@ -713,5 +712,5 @@ bool Renderer::hasLight() const {
         n += m->count();
     return n != 0;
 }
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine

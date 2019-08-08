@@ -7,8 +7,7 @@
 #include <type_traits>              // std::is_base_of
 #include <vector>                   // std::vector
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /// Base class for systems coupling multiple subsystems.
 ///
@@ -92,7 +91,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem
     /// * Example 1: call `foo` until one subsystem fails, and fails if aborted
     /// \code
     /// bool foo() override
-    /// { return conditionnaldispatch([](const auto &s) { s->foo(); });}
+    /// { return conditionaldispatch([](const auto &s) { s->foo(); });}
     /// \endcode
     ///
     /// * Example 2: call `foo` for all functors, and `true` if at least one subsystem worked
@@ -100,14 +99,14 @@ class BaseCouplingSystem : public _BaseAbstractSystem
     /// bool foo() override
     /// {
     ///   bool status = false;
-    ///   conditionnaldispatch([&status](const auto &s) { status |= s->foo(); });
+    ///   conditionaldispatch([&status](const auto &s) { status |= s->foo(); });
     ///   return status;
     /// }
     /// \endcode
     ///
     /// \see CoupledTimedSystem for practical usage
     template <typename Functor>
-    inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) {
+    inline bool conditionaldispatch( Functor f, bool abortWhenInvalid = true ) {
         for ( auto& s : m_systems )
         {
             if ( !f( s ) && abortWhenInvalid ) return false;
@@ -115,9 +114,9 @@ class BaseCouplingSystem : public _BaseAbstractSystem
         return true;
     }
 
-    /// \see conditionnaldispatch
+    /// \see conditionaldispatch
     template <typename Functor>
-    inline bool conditionnaldispatch( Functor f, bool abortWhenInvalid = true ) const {
+    inline bool conditionaldispatch( Functor f, bool abortWhenInvalid = true ) const {
         for ( const auto& s : m_systems )
         {
             if ( !f( s ) && abortWhenInvalid ) return false;
@@ -130,7 +129,6 @@ class BaseCouplingSystem : public _BaseAbstractSystem
     std::vector<std::unique_ptr<BaseAbstractSystem>> m_systems;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_COUPLING_SYSTEM_HPP

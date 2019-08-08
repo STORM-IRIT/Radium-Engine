@@ -1,7 +1,6 @@
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 template <typename T>
 inline void RenderParameters::UniformBindableVector<T>::bind( const ShaderProgram* shader ) const {
@@ -20,5 +19,4 @@ inline void RenderParameters::TextureParameter::bind( const ShaderProgram* shade
     shader->setUniform( m_name, m_texture, m_texUnit );
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

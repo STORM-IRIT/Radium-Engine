@@ -5,8 +5,7 @@
 
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /** Factory that manage the set of named shader configurations
  * Usefull for the management of shader libraries where a shader configuration (source code,
@@ -29,7 +28,6 @@ RA_ENGINE_API void addConfiguration( const ShaderConfiguration& config );
 RA_ENGINE_API ShaderConfiguration getConfiguration( const std::string& name );
 } // namespace ShaderConfigurationFactory
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_SHADERCONFIGFACTORY_HPP

@@ -1,6 +1,5 @@
 #include <Engine/Component/Component.hpp>
 
-#include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
@@ -10,12 +9,11 @@
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/System/System.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 
-Component::Component( const std::string& name, Entity* entity ) : m_name{name}, m_entity{entity} {
+Component::Component( std::string name, Entity* entity ) : m_name(std::move(name)), m_entity{entity} {
     m_entity->addComponent( this );
 }
 
@@ -54,5 +52,4 @@ void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
     if ( found != m_renderObjects.cend() ) { m_renderObjects.erase( found ); }
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

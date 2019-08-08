@@ -10,14 +10,8 @@
 // Need to be separated to reduce compilation time
 #include <Core/Types.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class ShaderProgram;
-}
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /**
  * Base class for materials/
@@ -39,15 +33,15 @@ class RA_ENGINE_API Material
      * @param name
      * @param aspect
      */
-    explicit Material( const std::string& instanceName,
-                       const std::string& materialName,
+    explicit Material( std::string instanceName,
+                       std::string materialName,
                        MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
   public:
     virtual ~Material() = default;
 
     /** Update the OpenGL states used by the material.
-     * These state could be textures, precomputed tables or whater data associated to the material
+     * These state could be textures, precomputed tables or whatever data associated to the material
      * and given to OpenGL as a buffer object.
      */
     virtual void updateGL() = 0;
@@ -81,7 +75,7 @@ class RA_ENGINE_API Material
      */
     inline const MaterialAspect& getMaterialAspect() const;
 
-    /** Test if material is transperent.
+    /** Test if material is transparent.
      * @return true if the material is transparent
      */
     virtual bool isTransparent() const;
@@ -96,8 +90,7 @@ class RA_ENGINE_API Material
     const std::string m_materialName;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Renderer/Material/Material.inl>
 #endif

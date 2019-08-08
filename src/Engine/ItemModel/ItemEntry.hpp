@@ -8,16 +8,11 @@
 #include <string>
 #include <vector>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class RadiumEngine;
 class Entity;
 class Component;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 /// This represent a handle for an entity, component or render object.
 /// There are 4 possible states for this object :
 /// * All members are invalid -> No object.
@@ -77,11 +72,10 @@ RA_ENGINE_API std::string getEntryName( const Engine::RadiumEngine* engine, cons
 /// Returns a list of all the render object indices belonging to the given item.
 /// RO item : it returns only the RO index.
 /// Component item : it returns all its ROs.
-/// Entity item : all ROs from all compoents of given entity.
+/// Entity item : all ROs from all components of given entity.
 RA_ENGINE_API std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* engine,
                                                               const ItemEntry& ent );
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/ItemModel/ItemEntry.inl>
 

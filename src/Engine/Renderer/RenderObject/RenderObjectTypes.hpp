@@ -1,14 +1,13 @@
 #ifndef RADIUMENGINE_RENDEROBJECTTYPES_HPP
 #define RADIUMENGINE_RENDEROBJECTTYPES_HPP
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /**
  * Defines the families of objects for rendering.
  */
 enum class RenderObjectType {
-    /// "Ui" render objects are drawn on top of everything else and view independant
+    /// "Ui" render objects are drawn on top of everything else and view independent
     UI = 0,
     /// "Debug" render objects are drawn like any other object (not lit though)
     Debug,
@@ -17,6 +16,6 @@ enum class RenderObjectType {
 
     Count
 };
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine
 #endif // RADIUMENGINE_RENDEROBJECT_TYPES

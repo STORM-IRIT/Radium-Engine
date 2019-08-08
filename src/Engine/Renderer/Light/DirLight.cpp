@@ -2,8 +2,7 @@
 
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 DirectionalLight::DirectionalLight( Entity* entity, const std::string& name ) :
     Light( entity, Light::DIRECTIONAL, name ) {}
 
@@ -17,5 +16,4 @@ std::string DirectionalLight::getShaderInclude() const {
     return "Directional";
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

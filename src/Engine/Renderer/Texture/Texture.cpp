@@ -1,7 +1,6 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 
-#include "Texture.hpp"
 #include <globjects/Texture.h>
 
 #include <cmath>
@@ -80,11 +79,11 @@ void Engine::Texture::bind( int unit ) {
     { m_texture->bind(); }
 }
 
-void Engine::Texture::bindImageTexture( int unit,
-                                        const GLint level,
-                                        const GLboolean layered,
-                                        const GLint layer,
-                                        const GLenum access ) {
+void Engine::Texture::bindImageTexture(int unit,
+                                       GLint level,
+                                       GLboolean layered,
+                                       GLint layer,
+                                       GLenum access ) {
     m_texture->bindImageTexture(
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }

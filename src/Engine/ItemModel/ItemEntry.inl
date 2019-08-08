@@ -1,6 +1,5 @@
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 bool ItemEntry::isEntityNode() const {
     ON_DEBUG( checkConsistency() );
     return ( m_entity && !m_component );
@@ -26,5 +25,4 @@ inline bool ItemEntry::operator==( const ItemEntry& rhs ) const {
     return m_entity == rhs.m_entity && m_component == rhs.m_component && m_roIndex == rhs.m_roIndex;
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

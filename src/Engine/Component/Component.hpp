@@ -10,18 +10,12 @@
 
 #include <Core/Types.hpp>
 
-namespace Ra {
-
-namespace Engine {
+namespace Ra::Engine {
 class System;
 class Entity;
 class RenderObject;
 class RenderObjectManager;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 
 /**
  * @brief A component is an element that can be updated by a system.
@@ -32,7 +26,7 @@ class RA_ENGINE_API Component
 {
   public:
     /// CONSTRUCTOR
-    Component( const std::string& name, Entity* entity );
+    Component( std::string name, Entity* entity );
 
     /// DESTRUCTOR
     virtual ~Component();
@@ -100,8 +94,7 @@ class RA_ENGINE_API Component
     System* m_system{nullptr};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Component/Component.inl>
 

@@ -19,8 +19,7 @@ class NamedString;
 class StaticStringSource;
 } // namespace globjects
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Texture;
 
 /**
@@ -50,9 +49,9 @@ class RA_ENGINE_API ShaderProgram final
     void setUniform( const char* name, float value ) const;
     void setUniform( const char* name, double value ) const;
 
-    void setUniform( const char* name, std::vector<int> value ) const;
-    void setUniform( const char* name, std::vector<uint> value ) const;
-    void setUniform( const char* name, std::vector<float> value ) const;
+    void setUniform(const char* name, const std::vector<int> &values ) const;
+    void setUniform(const char* name, const std::vector<unsigned int> &values ) const;
+    void setUniform(const char* name, const std::vector<float> &values ) const;
 
     void setUniform( const char* name, const Core::Vector2i& value ) const;
     void setUniform( const char* name, const Core::Vector2f& value ) const;
@@ -102,7 +101,7 @@ class RA_ENGINE_API ShaderProgram final
 
     void link();
 
-    std::string preprocessIncludes( const std::string& name,
+    static std::string preprocessIncludes( const std::string& name,
                                     const std::string& shader,
                                     int level,
                                     int line = 0 );
@@ -116,7 +115,6 @@ class RA_ENGINE_API ShaderProgram final
     std::unique_ptr<globjects::Program> m_program;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_SHADERPROGRAM_HPP

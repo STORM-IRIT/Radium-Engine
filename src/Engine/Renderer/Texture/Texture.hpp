@@ -14,8 +14,7 @@ namespace globjects {
 class Texture;
 }
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /**
  * Describes the content and parameters of a texture.
@@ -164,11 +163,11 @@ class RA_ENGINE_API Texture final
      * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
      * for documentation
      */
-    void bindImageTexture( int unit,
-                           const GLint level,
-                           const GLboolean layered,
-                           const GLint layer,
-                           const GLenum access );
+    void bindImageTexture(int unit,
+                          GLint level,
+                          GLboolean layered,
+                          GLint layer,
+                          GLenum access );
 
     /**
      * @return Name of the texture.
@@ -255,7 +254,7 @@ class RA_ENGINE_API Texture final
     /// Is the texture in LinearRGB ?
     bool m_isLinear{false};
 };
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_TEXTURE_HPP

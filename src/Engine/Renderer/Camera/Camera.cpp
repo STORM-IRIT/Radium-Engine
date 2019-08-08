@@ -38,6 +38,7 @@ void Camera::initialize() {
     triMesh.m_triangles = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
     m->loadGeometry( std::move( triMesh ) );
     Core::Vector4Array c( 8, {.2_ra, .2_ra, .2_ra, 1_ra} );
+    // TODO : replace the depracated call to addData to somthing more reliable.
     m->addData( Mesh::VERTEX_COLOR, c );
 
     // Create the RO
@@ -49,12 +50,12 @@ void Camera::initialize() {
 }
 
 void Camera::show( bool on ) {
-    CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
+    CORE_ASSERT( m_RO, "Camera's render object must be initialized with Camera::initialize()" );
     m_RO->setVisible( on );
 }
 
 void Camera::applyTransform( const Core::Transform& T ) {
-    CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
+    CORE_ASSERT( m_RO, "Camera's render object must be initialized with Camera::initialize()" );
 
     Core::Transform t1 = Core::Transform::Identity();
     Core::Transform t2 = Core::Transform::Identity();
@@ -120,7 +121,7 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
 }
 
 Camera* Camera::duplicate( Entity* cloneEntity, const std::string& cloneName ) const {
-    auto cam          = new Camera( cloneEntity, cloneName, m_width, m_height );
+    auto cam          = new Camera( cloneEntity, cloneName, m_height, m_width );
     cam->m_frame      = m_frame;
     cam->m_projMatrix = m_projMatrix;
     cam->m_projType   = m_projType;

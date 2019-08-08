@@ -2,8 +2,7 @@
 
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 SpotLight::SpotLight( Entity* entity, const std::string& name ) :
     Light( entity, Light::SPOT, name ) {}
 
@@ -23,5 +22,4 @@ std::string SpotLight::getShaderInclude() const {
     return "Spot";
 }
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine

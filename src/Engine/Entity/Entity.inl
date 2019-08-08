@@ -1,7 +1,6 @@
 #include <Engine/Entity/Entity.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 inline const std::string& Entity::getName() const {
     return m_name;
@@ -35,6 +34,5 @@ inline const Core::Matrix4& Entity::getTransformAsMatrix() const {
 inline uint Entity::getNumComponents() const {
     return uint( m_components.size() );
 }
-} // namespace Engine
 
-} // namespace Ra
+} // namespace Ra::Engine

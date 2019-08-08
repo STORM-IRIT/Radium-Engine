@@ -9,8 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 /**
  * Available shader type
  */
@@ -68,15 +67,15 @@ class RA_ENGINE_API ShaderConfiguration final
      * ShaderConfigurationFactory. The proper way to do this is by calling
      * ShaderConfigurationFactory::getConfiguration(name);
      */
-    explicit ShaderConfiguration( const std::string& name );
+    explicit ShaderConfiguration(std::string name );
 
     /** Initializes a configuration with a name, a vertex and a fragment shader
      * This does not add the configuration to the factory
      * ShaderConfigurationFactory::addConfiguration(config) must be called.
      */
-    ShaderConfiguration( const std::string& name,
-                         const std::string& vertexShader,
-                         const std::string& fragmentShader );
+    ShaderConfiguration(std::string name,
+                        std::string vertexShader,
+                        std::string fragmentShader );
 
     /** Add a shader given its type
      *
@@ -135,7 +134,6 @@ class RA_ENGINE_API ShaderConfiguration final
     static ShaderConfiguration m_defaultShaderConfig;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_SHADERCONFIGURATION_HPP

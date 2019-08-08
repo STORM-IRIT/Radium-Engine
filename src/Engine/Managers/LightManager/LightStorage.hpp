@@ -4,14 +4,8 @@
 #include "../../RaEngine.hpp"
 #include "../../Renderer/Light/Light.hpp"
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class RenderParameters;
-}
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /**
  * Interface providing functions to access and store lights in
@@ -50,7 +44,6 @@ class RA_ENGINE_API LightStorage
     virtual const Light* operator[]( unsigned int n ) = 0;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_LIGHTSTORAGE_HPP

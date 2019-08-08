@@ -4,8 +4,7 @@
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 /** Point light for rendering
  *
@@ -35,8 +34,7 @@ class RA_ENGINE_API PointLight final : public Light
     Attenuation m_attenuation{1, 0, 0};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Renderer/Light/PointLight.inl>
 

@@ -10,14 +10,9 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Mesh;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 /** This allow to draw debug objects.
  * @todo : port this to a more Radium-style code
  */
@@ -65,10 +60,10 @@ class RA_ENGINE_API DebugRender final
 
   private:
     struct Line {
-        Line( const Core::Vector3& la, const Core::Vector3& lb, const Core::Utils::Color& lcol ) :
-            a{la},
-            b{lb},
-            col{lcol} {}
+        Line( Core::Vector3 la,  Core::Vector3 lb,  Core::Utils::Color lcol ) :
+            a{std::move(la)},
+            b{std::move(lb)},
+            col{std::move(lcol)} {}
 
         Core::Vector3 a, b;
         Core::Utils::Color col;
@@ -89,27 +84,27 @@ class RA_ENGINE_API DebugRender final
     void renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f& proj );
 
   private:
-    uint m_lineProg;
-    uint m_pointProg;
-    uint m_meshProg;
+    uint m_lineProg {0};
+    uint m_pointProg {0};
+    uint m_meshProg {0};
 
-    uint m_modelLineLoc;
-    uint m_viewLineLoc;
-    uint m_projLineLoc;
+    uint m_modelLineLoc {0};
+    uint m_viewLineLoc {0};
+    uint m_projLineLoc {0};
 
-    uint m_modelMeshLoc;
-    uint m_viewMeshLoc;
-    uint m_projMeshLoc;
+    uint m_modelMeshLoc {0};
+    uint m_viewMeshLoc {0};
+    uint m_projMeshLoc {0};
 
-    uint m_viewPointLoc;
-    uint m_projPointLoc;
+    uint m_viewPointLoc {0};
+    uint m_projPointLoc {0};
 
     std::vector<Line> m_lines;
     std::vector<DbgMesh> m_meshes;
 
     std::vector<Point> m_points;
 };
-} // namespace Engine
-} // namespace Ra
+
+} // namespace Ra::Engine
 
 #endif // RADIUMENGINE_DEBUGRENDERER_HPP

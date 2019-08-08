@@ -10,15 +10,10 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Texture;
 class ShaderProgram;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 /**
  * Management of shader parameters
  */
@@ -99,9 +94,9 @@ class RA_ENGINE_API RenderParameters final
     void addParameter( const char* name, uint value );
     void addParameter( const char* name, Scalar value );
 
-    void addParameter( const char* name, std::vector<int> values );
-    void addParameter( const char* name, std::vector<uint> values );
-    void addParameter( const char* name, std::vector<Scalar> values );
+    void addParameter(const char* name, const std::vector<int> &value );
+    void addParameter(const char* name, const std::vector<uint> &value );
+    void addParameter(const char* name, const std::vector<Scalar> &value );
 
     void addParameter( const char* name, const Core::Vector2& value );
     void addParameter( const char* name, const Core::Vector3& value );
@@ -158,8 +153,7 @@ class RA_ENGINE_API RenderParameters final
     UniformBindableVector<TextureParameter> m_texParamsVector;
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Renderer/RenderTechnique/RenderParameters.inl>
 

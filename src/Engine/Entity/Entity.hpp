@@ -11,22 +11,16 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/IndexedObject.hpp>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 class Component;
 class System;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /// An entity is an scene element. It ties together components with a transform.
 class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-    explicit Entity( const std::string& name = "" );
+    explicit Entity(std::string name = "" );
 
     // Entities are not copyable.
     Entity( const Entity& entity ) = delete;
@@ -47,7 +41,7 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     void swapTransformBuffers();
 
     // Components
-    /// Add a component to the given entity. Component ownership is transfered to the entity.
+    /// Add a component to the given entity. Component ownership is transferred to the entity.
     void addComponent( Component* component );
 
     /// Deletes a component with a given name.
@@ -75,8 +69,7 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     bool m_transformChanged{false};
 };
 
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
 
 #include <Engine/Entity/Entity.inl>
 

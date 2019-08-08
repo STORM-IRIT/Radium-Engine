@@ -9,13 +9,12 @@
 #include <globjects/Shader.h>
 #include <globjects/base/File.h>
 
-namespace Ra {
-namespace Engine {
+namespace Ra::Engine {
 
 using namespace Core::Utils; // log
 using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
 
-ShaderProgramManager::ShaderProgramManager() {}
+ShaderProgramManager::ShaderProgramManager() = default;
 
 ShaderProgramManager::~ShaderProgramManager() {
     m_shaderPrograms.clear();
@@ -150,5 +149,4 @@ void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
 }
 
 RA_SINGLETON_IMPLEMENTATION( ShaderProgramManager );
-} // namespace Engine
-} // namespace Ra
+} // namespace Ra::Engine
