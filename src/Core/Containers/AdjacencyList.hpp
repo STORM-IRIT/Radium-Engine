@@ -45,8 +45,10 @@ class RA_CORE_API AdjacencyList
     //////////////////////////////////////////////////////////////////////////////
     // NODE
     //////////////////////////////////////////////////////////////////////////////
-    /// Return the index of the added leaf. Use -1 to create the root node.
-    uint addNode( const int parent );
+    /// Return the index of the added root.
+    uint addRoot();
+    /// Return the index of the added leaf.
+    uint addNode( const uint parent );
     /// Prune the leaves of the graph and returns the changes.
     void pruneLeaves( std::vector<uint>& pruned, std::vector<bool>& delete_flag );
     /// Prune the leaves of the graph.
