@@ -1,3 +1,5 @@
+#include <Core/Utils/Index.hpp>
+
 namespace Ra {
 namespace Core {
 namespace Utils {
@@ -49,6 +51,7 @@ constexpr Index& Index::operator=( const Index& id ) {
 }
 constexpr Index& Index::operator++() {
     m_idx++;
+    if ( m_idx < 0 ) { m_idx = s_invalid; }
     return *this;
 }
 constexpr Index& Index::operator--() {

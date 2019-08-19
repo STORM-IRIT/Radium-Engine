@@ -26,15 +26,8 @@ const Pose& Skeleton::getPose( const SpaceType MODE ) const {
     {
     case SpaceType::LOCAL:
     { return m_pose; }
-    break;
     case SpaceType::MODEL:
     { return m_modelSpace; }
-    break;
-    default:
-    {
-        CORE_ASSERT( false, "Should not get here." );
-        return m_pose;
-    }
     }
 }
 
@@ -70,8 +63,6 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
         }
     }
     break;
-    default:
-    { CORE_ASSERT( false, "Should not get here" ); }
     }
 }
 const Transform& Skeleton::getTransform( const uint i, const SpaceType MODE ) const {
@@ -80,15 +71,8 @@ const Transform& Skeleton::getTransform( const uint i, const SpaceType MODE ) co
     {
     case SpaceType::LOCAL:
     { return m_pose[i]; }
-    break;
     case SpaceType::MODEL:
     { return m_modelSpace[i]; }
-    break;
-    default:
-    {
-        CORE_ASSERT( false, "Should not get here" );
-        return m_pose[i];
-    }
     }
 }
 
@@ -144,39 +128,37 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
         }
     }
     break;
-    default:
-    { CORE_ASSERT( false, "Should not get there" ); }
     }
 }
 
-int Skeleton::addBone( const int parent,
-                       const Transform& T,
-                       const SpaceType MODE,
-                       const Label label ) {
+uint Skeleton::addRoot( const Transform& T, const Label label ) {
+    m_pose.push_back( T );
+    m_modelSpace.push_back( T );
+    m_label.push_back( label );
+    return m_graph.addRoot();
+}
+
+uint Skeleton::addBone( const uint parent,
+                        const Transform& T,
+                        const SpaceType MODE,
+                        const Label label ) {
     switch ( MODE )
     {
     case SpaceType::LOCAL:
     {
         m_pose.push_back( T );
-        if ( parent == -1 ) { m_modelSpace.push_back( T ); }
-        else
-        { m_modelSpace.push_back( T * m_modelSpace[parent] ); }
+        m_modelSpace.push_back( T * m_modelSpace[parent] );
     }
     break;
     case SpaceType::MODEL:
     {
         m_modelSpace.push_back( T );
-        if ( parent == -1 ) { m_pose.push_back( T ); }
-        else
-        { m_pose.push_back( m_modelSpace[parent].inverse() * T ); }
+        m_pose.push_back( m_modelSpace[parent].inverse() * T );
     }
     break;
-    default:
-        return -1;
     }
     m_label.push_back( label );
-    m_graph.addNode( parent );
-    return ( size() - 1 );
+    return m_graph.addNode( parent );
 }
 
 void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut ) const {
@@ -196,11 +178,11 @@ void Skeleton::getBonePoints( const uint i, Vector3& startOut, Vector3& endOut )
         {
             endOut += m_modelSpace[child].translation();
         }
-        endOut *= ( 1.f / children.size() );
+        endOut *= ( 1_ra / children.size() );
     }
 }
 
-Vector3 Skeleton::projectOnBone( int boneIdx, const Ra::Core::Vector3& pos ) const {
+Vector3 Skeleton::projectOnBone( uint boneIdx, const Ra::Core::Vector3& pos ) const {
     Vector3 start, end;
     getBonePoints( boneIdx, start, end );
 
