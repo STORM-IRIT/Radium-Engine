@@ -17,19 +17,21 @@ AdjacencyList::AdjacencyList( const AdjacencyList& adj ) :
 AdjacencyList::~AdjacencyList() {}
 
 /// NODE
-uint AdjacencyList::addNode( const int parent ) {
-    CORE_ASSERT( ( parent < int( size() ) ), "Index parent out of bounds" );
+uint AdjacencyList::addRoot() {
     uint idx = size();
-    m_child.push_back( ChildrenList() ); // New node has no children
-    // If is not a root node
-    if ( parent >= 0 )
-    {
-        m_child[parent].push_back( idx );
-        m_level.push_back( m_level[parent] + 1 );
-    }
-    else
-    { m_level.push_back( 0 ); }
-    m_parent.push_back( parent ); // Set new node parent
+    m_child.push_back( ChildrenList() );
+    m_parent.push_back( -1 );
+    m_level.push_back( 0 );
+    return idx;
+}
+
+uint AdjacencyList::addNode( const uint parent ) {
+    CORE_ASSERT( ( parent < size() ), "Index parent out of bounds" );
+    uint idx = size();
+    m_child.push_back( ChildrenList() );
+    m_parent.push_back( parent );
+    m_level.push_back( m_level[parent] + 1 );
+    m_child[parent].push_back( idx );
     return idx;
 }
 

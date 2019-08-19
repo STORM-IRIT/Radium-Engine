@@ -35,6 +35,14 @@ class RA_CORE_API Skeleton : public Handle
     void setTransform( const uint i, const Transform& T, const SpaceType MODE ) override;
 
     /**
+     * Add a new root transform to the skeleton.
+     * @param T      the joint transform associated to the new bone
+     * @param label  the name for the new joint
+     * @return       the index of the new joint
+     */
+    uint addRoot( const Transform& T = Transform::Identity(), const Label label = "" );
+
+    /**
      * Add a new joint transform to the skeleton.
      * @param parent the index of the joint's parent in the hierarchy
      * @param T      the joint transform associated to the new bone
@@ -42,10 +50,10 @@ class RA_CORE_API Skeleton : public Handle
      * @param label  the name for the new joint
      * @return       the index of the new joint
      */
-    int addBone( const int parent     = -1,
-                 const Transform& T   = Transform::Identity(),
-                 const SpaceType MODE = SpaceType::LOCAL,
-                 const Label label    = "" );
+    uint addBone( const uint parent,
+                  const Transform& T   = Transform::Identity(),
+                  const SpaceType MODE = SpaceType::LOCAL,
+                  const Label label    = "" );
 
     /**
      * Get the i-th bone endpoints.
@@ -58,7 +66,7 @@ class RA_CORE_API Skeleton : public Handle
     /**
      * Project point \p pos onto the bone with index \p boneIdx.
      */
-    Ra::Core::Vector3 projectOnBone( int boneIdx, const Ra::Core::Vector3& pos ) const;
+    Ra::Core::Vector3 projectOnBone( uint boneIdx, const Ra::Core::Vector3& pos ) const;
 
     /**
      * Stream insertion operator.
