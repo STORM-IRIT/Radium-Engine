@@ -65,17 +65,26 @@ FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
     std::clock_t startTime;
     startTime = std::clock();
 
-    // FIXME : this warkaround is related to assimp issue #2260 Mesh created for a light only file
-    // (collada) https://github.com/assimp/assimp/issues/2260 For the moment, only allow to load
-    // failes with Light only. If one need to load file with only skeleton or animation, this must
-    // be changed. Note that loading only skeletons or animations from a file is not allowed in
-    // Radium For now, Skeleton must be loaded from a file with meshes
+    // FIXME : this workaround is related to assimp issue
+    // #2260 Mesh created for a light only file (collada)
+    // https://github.com/assimp/assimp/issues/2260
     if ( scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE )
     {
-        LOG( logWARNING ) << " ai scene is incomplete, just try to load lights ..";
+        LOG( logWARNING )
+            << " ai scene is incomplete, just try to load lights or skeletons (but not both).";
+
         AssimpLightDataLoader lightLoader( Core::Utils::getDirName( filename ),
                                            fileData->isVerbose() );
         lightLoader.loadData( scene, fileData->m_lightData );
+
+        if ( !fileData->hasLight() )
+        {
+            AssimpHandleDataLoader handleLoader( fileData->isVerbose() );
+            handleLoader.loadData( scene, fileData->m_handleData );
+
+            AssimpAnimationDataLoader animationLoader( fileData->isVerbose() );
+            animationLoader.loadData( scene, fileData->m_animationData );
+        }
     }
     else
     {
@@ -92,12 +101,9 @@ FileData* AssimpFileLoader::loadFile( const std::string& filename ) {
                                []( const auto& geom ) -> bool { return geom->hasFaces(); } );
         if ( !ok )
         {
-            if ( fileData->isVerbose() )
-            {
-                LOG( logINFO ) << "Point-cloud found. Aborting";
-                delete fileData;
-                return nullptr;
-            }
+            if ( fileData->isVerbose() ) { LOG( logINFO ) << "Point-cloud found. Aborting"; }
+            delete fileData;
+            return nullptr;
         }
 
         AssimpHandleDataLoader handleLoader( fileData->isVerbose() );

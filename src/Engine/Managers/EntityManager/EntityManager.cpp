@@ -92,8 +92,11 @@ std::vector<Entity*> EntityManager::getEntities() const {
 
 Entity* EntityManager::getEntity( const std::string& name ) const {
     auto idx = m_entitiesName.find( name );
-    CORE_ASSERT( idx != m_entitiesName.end(),
-                 "Trying to access an invalid entity (named: " + name + ")" );
+    if ( idx == m_entitiesName.end() )
+    {
+        LOG( logDEBUG ) << "Trying to access an invalid entity (named: " + name + ")";
+        return nullptr;
+    }
     return m_entities.at( idx->second ).get();
 }
 

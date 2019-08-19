@@ -38,10 +38,6 @@ class RA_IO_API AssimpHandleDataLoader : public Core::Asset::DataLoader<Core::As
                    std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) override;
 
   private:
-    /// QUERY
-    bool sceneHasHandle( const aiScene* scene ) const;
-    uint sceneHandleSize( const aiScene* scene ) const;
-
     /// LOAD
     void loadHandleData( const aiScene* scene,
                          std::vector<std::unique_ptr<Core::Asset::HandleData>>& data ) const;
