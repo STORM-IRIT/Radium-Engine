@@ -79,6 +79,24 @@ else()
         install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 endif()
 
+#------------------------------------------------------------------------------
+# get changeset id
+find_package(Git)
+
+if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+    option(RADIUM_GIT_UPDATE_SUBMODULE         "Check submodules during build (will be automatically disabled after run)" ON)
+    execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_CHANGESET)
+    if ( GIT_CHANGESET )
+      # remove new line sometime appearing in git changeset
+      string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
+    endif()
+else()
+  set(GIT_CHANGESET "")
+endif()
+message("Git Changeset: ${GIT_CHANGESET}")
+
 
 #------------------------------------------------------------------------------
 # Included CMakeLists.txt
@@ -109,7 +127,7 @@ set(Eigen3_DIR ${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/)
 set(OpenMesh_DIR ${CMAKE_INSTALL_PREFIX}/share/OpenMesh/cmake/)
 
 # Documentation build
-#add_subdirectory(doc)
+add_subdirectory(doc)
 
 # Images, databases and other data which needs to be installed for project
 #add_subdirectory(data)

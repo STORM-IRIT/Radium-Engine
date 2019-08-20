@@ -1,10 +1,12 @@
-# Material management in the Radium Engine
+\page develmaterials API: Material management
+[TOC]
+
 A Material is a way to control the appearance of an object when rendering. It could be the definition of a classical
 rendering materials, a _Bidirectional Scattering Distribution function (BSDF)_, or just define the way a geometry
 could be rendered and how is computed the final color of an object.
 
-A material is associated to the render geometry of an object (a Component in the Radium nomenclature) through a so
-called _Render Technique_. This association is managed by the `RenderObject` class.
+A material is associated to the render geometry of an object (a Ra::Engine::Component in the Radium nomenclature) through a so
+called Ra::Engine::RenderTechnique. This association is managed by the Ra::Engine::RenderObject class.
 
 This documentation aims at describing the way materials are managed in the Radium engine and how one can extend the set
 of available material, or specialized a renderer with ad-hoc (pseudo)-material.
@@ -15,26 +17,26 @@ This section describe the workflow of Material management from asset loading to 
 application or renderer, a Material could be defined directly without loading it from a file.
 
 ### The MaterialData interface
-The interface `MaterialData` define the external representation of a material. Even if this interface could be
+The interface Ra::Core::Asset::MaterialData define the external representation of a material. Even if this interface could be
 instantiated, it defines an abstract material that is not valid for the Engine.
 This interface must then be implemented to define materials that could be loaded from a file.
 
 When defining a loadable material, the corresponding implementation must set the type of the material to a unique
 identifier that will be used after that to automatically generate different instances of the material. The implementation
-of the interface `MaterialData` can add whatever functions needed to construct and interact with the external
+of the interface Ra::Core::Asset::MaterialData can add whatever functions needed to construct and interact with the external
 representation of a material. These functions might then be used by the file loader able to understand this material
 and by the material converter, described below, that will be used by some systems to convert this external material
 definition to the Engine internal representation.
 
 ### The Material interface
-The `Material` interface defines the internal abstract representation of a Material. This interface will be used by
-the Engine, mainly by the _Render Technique_ and the _Renderer_.
+The Ra::Engine::Material interface defines the internal abstract representation of a Material. This interface will be used by
+the Engine, mainly by the Ra::Engine::RenderTechnique and the Ra::Engine::Renderer.
 
 This interface defines all the methods needed to parametrized the OpenGL pipeline for rendering.
 When implementing this interface, it is a good idea to add two static methods to the implementation to allow to register
 and unregister the material into the Engine.
 These method could have the following profiles :
-```cpp
+~~~{.cpp}
 class MyMaterial : public Ra::Engine::Material {
 public:
     // implementation of the abstract interface
@@ -48,24 +50,24 @@ public:
     // MyMaterial specific public interface
     ...
 }
-```
+~~~
 
 ### Material converters
 This is used by the loading system to translate the external representation of a material to the internal one and
-associate this internal representation to a `RenderTechnique` inside a `RenderObject`component.
+associate this internal representation to a Ra::Engine::RenderTechnique inside a Ra::Engine::RenderObjectcomponent.
 
 A material converter is a couple `<std::string, std::function<Ra::Engine::Material*(Ra::Asset::MaterialData*)>>`
 where the string gives the type of the material and the function is whatever is compatible with std::function :
-- a lambda
-- a functor
-- a function with bind parameters ...
+ - a lambda
+ - a functor
+ - a function with bind parameters ...
 
-The function is in charge of converting a concrete `Ra::Asset::MaterialData *` to a concrete
+The function is in charge of converting a concrete `Ra::Core::Asset::MaterialData *` to a concrete
 `Ra::Engine::Material *` according to the type of material described by the string ...
 
 Material converters are managed by the engine through a Factory defined in the `namespace Ra::Engine::EngineMaterialConverters`
 and located in the `Engine/Renderer/Material` directory as below :
-```cpp
+~~~{.cpp}
 namespace EngineMaterialConverters {
 using AssetMaterialPtr = const Ra::Asset::MaterialData*;
 using RadiumMaterialPtr = Ra::Engine::Material*;
@@ -82,60 +84,59 @@ RA_ENGINE_API bool removeMaterialConverter( const std::string& name );
 RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name );
 
 } // namespace EngineMaterialConverters
-```
+~~~
 
 ### Render technique and materials
-A `RenderTechnique` correspond to the description of how to use Materials to render an object in openGL.
-Even if `RenderTechnique` is tightly coupled with the default `ForwardRenderer` of the engine, it could
+A Ra::Engine::RenderTechnique correspond to the description of how to use Materials to render an object in openGL.
+Even if Ra::Engine::RenderTechnique is tightly coupled with the default Ra::Engine::ForwardRenderer of the engine, it could
 be used also with others renderer. Note nevertheless that RenderTechnique is not mandatory when defining a specific
 renderer as the association between the material and the geometry of a render object could be done explicitly.
 
-To manage the way a Material could be used for rendering, a `RenderTechnique` is then a set of
+To manage the way a Material could be used for rendering, a Ra::Engine::RenderTechnique is then a set of
 _shader configurations_ associated to the different way a renderer will compute the final image.
-Based on the `ForwardRenderer` implementation in Radium, the set of configurations, with one configuration per
+Based on the Ra::Engine::ForwardRenderer implementation in Radium, the set of configurations, with one configuration per
 rendering _passes_ corresponds to the following :
-1. Z-prepass : depth and ambient/environment lighting :
+ 1. Z-prepass : depth and ambient/environment lighting :
     - Identified by the `Ra::Engine::RenderTechnique::Z_PREPASS` constant.
     - Required for the depth pre-pass of several renderer.
     - Must initialise the color buffer with the computation of ambient/environment lighting.
     - Must discard all non fully opaque fragments.
     - Default/Reference : ``Material/BlinnPhong/DepthAmbientBlinnPhong` shader
-2. Opaque lighting **(MANDATORY for default ForwardRenderer)**:
+ 2. Opaque lighting **(MANDATORY for default ForwardRenderer)**:
     - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_OPAQUE` constant.
     - Main configuration, computes the resulting color according to a lighting configuration.
     - The lighting configuration might contains one or several sources of different types.
     - Must discard all non fully opaque fragments.
     - Default/Reference : BlinnPhong shader
-3. Transparent lighting :
-    - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT` constant.
-    - Must discard fully transparent and fully opaque fragments, 
-    Others will be lit and blended according to the algorithm described in
-        - Weighted Blended Order-Independent Transparency
-        Morgan McGuire, Louis Bavoil - NVIDIA
-        Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
-        http://jcgt.org/published/0002/02/09/
-    - Lighting is computed the same way as for Opaque Lighting
-    - Default/Reference : ``Material/BlinnPhong/LitOITBlinnPhong`` shader
-    - The transparent color weighting function might be the same as :
-    ``` 
-    float weight(float z, float alpha) {
-    
-         // pow(alpha, colorResistance) : increase colorResistance if foreground transparent are affecting background 
-         //                               transparent color
-         // clamp(adjust / f(z), min, max) :
-         //     adjust : Range adjustment to avoid saturating at the clamp bounds
-         //     clamp bounds : to be tuned to avoid over or underflow of the reveleage texture.
-         // f(z) = 1e-5 + pow(z/depthRange, orederingStrength)
-         //     defRange : Depth range over which significant ordering discrimination is required. 
-         //             Here, 10 image space units.
-         //         Decrease if high-opacity surfaces seem “too transparent”,
-         //         increase if distant transparents are blending together too much.
-         //     orderingStrength : Ordering strength. Increase if background is showing through foreground too much.
-         // 1e-5 + ... : avoid dividing by zero !
-    
-         return pow(alpha, 0.5) * clamp(10 / ( 1e-5 + pow(z/10, 6)  ), 1e-2, 3*1e3);
-     }
-     ```
+ 3. Transparent lighting :
+   - Identified by the `Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT` constant.
+   - Must discard fully transparent and fully opaque fragments, Others will be lit and blended
+   according to the algorithm described in
+       - Weighted Blended Order-Independent Transparency
+         Morgan McGuire, Louis Bavoil - NVIDIA
+         Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
+         http://jcgt.org/published/0002/02/09/
+   - Lighting is computed the same way as for Opaque Lighting
+   - Default/Reference : ``Material/BlinnPhong/LitOITBlinnPhong`` shader
+   - The transparent color weighting function might be the same as :
+ ~~~{.cpp}
+float weight(float z, float alpha) {
+    // pow(alpha, colorResistance) : increase colorResistance if foreground transparent are affecting background
+    //                               transparent color
+    // clamp(adjust / f(z), min, max) :
+    //     adjust : Range adjustment to avoid saturating at the clamp bounds
+    //     clamp bounds : to be tuned to avoid over or underflow of the reveleage texture.
+    // f(z) = 1e-5 + pow(z/depthRange, orederingStrength)
+    //     defRange : Depth range over which significant ordering discrimination is required.
+    //             Here, 10 image space units.
+    //         Decrease if high-opacity surfaces seem “too transparent”,
+    //         increase if distant transparents are blending together too much.
+    //     orderingStrength : Ordering strength. Increase if background is showing through foreground too much.
+    // 1e-5 + ... : avoid dividing by zero !
+
+    return pow(alpha, 0.5) * clamp(10 / ( 1e-5 + pow(z/10, 6)  ), 1e-2, 3*1e3);
+}
+~~~
 
 **Note** that a specific renderer might use the same set of configurations but with a different semantic.
 One can imagine, for instance, that a renderer will only use the _Depth and ambient/environment_ configuration in order
@@ -150,8 +151,8 @@ A default technique builder will associate a set of predefined shader for each r
 This association is based on the type, not on the instance. So it can vary from one instance to the other but
 requires then a manual construction of the render technique instead of an automatic one through the factory.
 
-The `RenderTechnique` factory is defined as below :
-```cpp
+The Ra::Engine::RenderTechnique factory is defined as below :
+~~~{.cpp}
 namespace EngineRenderTechniques {
 using DefaultTechniqueBuilder = std::function<void( RenderTechnique&, bool )>;
 
@@ -165,7 +166,7 @@ RA_ENGINE_API bool removeDefaultTechnique( const std::string& name );
 RA_ENGINE_API std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string& name );
 
 } // namespace EngineRenderTechniques
-```
+~~~
 
 **Note** that, if needed, an application could bypass the builder factory and construct directly a render technique.
 More, as the material is associated to the RenderObject component and not to the Render technique, an application
@@ -173,13 +174,13 @@ More, as the material is associated to the RenderObject component and not to the
 
 ## Engine material management workflow
 For now (master v1), the engine manage only one default material corresponding the the Blinn-Phong BSDF.
-The type of this material is `"BlinnPhong"`.
+The type of this material is Ra::Engine::BlinnPhongMaterial.
 The workflow allowing the Engine to manage this material is the following.
 
 ### Making BlinnPhong a loadable material (see _The MaterialData interface_)
 This part of the Material management workflow is related to File loader. So, The corresponding classes are located in
 the `Core/File` subdirectory.
-```
+~~~
 src
 └───Core
 │   └───File
@@ -190,13 +191,13 @@ src
 │       │   ...
 │
 ...
-```
-The `BlinnPhongMaterialData` class is defined as :
-```cpp
+~~~
+The Ra::Core::Asset::BlinnPhongMaterialData class is defined as :
+~~~{.cpp}
 namespace Ra {
 namespace Asset {
 
-class RA_CORE_API BlinnPhongMaterialData : public MaterialData {
+class RA_CORE_API BlinnPhongMaterialData : public Ra::Engine::MaterialData {
 public:
     explicit BlinnPhongMaterialData( const std::string& name = "" );
     ...
@@ -204,13 +205,13 @@ public:
 
 } // namespace Asset
 } // namespace Ra
-```
+~~~
 
-Then, the Assimp loader, located in the `IO/AssimpLoader` subdirectory will instantiate the
-`BlinnPhongMaterialData` when loading a file in the following way :
-```cpp
+Then, Ra::IO::AssimpFileLoader instantiates the
+Ra::Core::Asset::BlinnPhongMaterialData when loading a file in the following way :
+~~~{.cpp}
 void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
-                                             Asset::GeometryData& data ) const {
+                                             Ra::Core::Asset::GeometryData& data ) const {
     // Get the name of the material
     std::string matName;
     aiString assimpName;
@@ -225,12 +226,12 @@ void AssimpGeometryDataLoader::loadMaterial( const aiMaterial& material,
     // Associate the Material with the geometry
     data.setMaterial( blinnPhongMaterial );
 }
-```
+~~~
 
-### Making BlinnPhong a usable material (see _The Material interface_)
+### Making BlinnPhong a usable material (see Ra::Engine::Material)
 This part of the Material management workflow is related to the Renderer part of the Engine. So, The corresponding classes are located in
 the `Engine/Renderer/Material` subdirectory.
-```
+~~~
 src
 └───Engine
 │   └───Renderer
@@ -243,13 +244,13 @@ src
 │   │   ...
 │   ...
 ...
-```
-The `BlinnPhongMaterial` class is defined as :
-```cpp
+~~~
+The Ra::Engine::BlinnPhongMaterial class is defined as :
+~~~{.cpp}
 namespace Ra {
 namespace Engine {
 
-class RA_ENGINE_API BlinnPhongMaterial final : public Material {
+class RA_ENGINE_API BlinnPhongMaterial final : public Ra::Engine::Material {
   public:
     explicit BlinnPhongMaterial( const std::string& name );
     ...
@@ -264,18 +265,18 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material {
 
 } // namespace Engine
 } // namespace Ra
-```
+~~~
 
-### Registering the BlinnPhongMaterial to the Engine
-The registration (and unregistering) of a Material into the Engine consists in registering the material converter into
+### Registering Ra::Engine::BlinnPhongMaterial to the Ra::Engine::RadiumEngine
+The registration (and unregistering) of a Ra::Engine::Material into the Ra::Engine::RadiumEngine consists in registering the material converter into
 the MaterialConvertersFactory and the RenderTechniqueBuilder into the RenderTechniqueFactory.
 
 It is recommended (see above) to implement specific class methods in the Material implementations that will register
 and unregister the material type into the engine.
 
-For the default `BlinnPhongMaterial`, which is of type `"BlinnPhong"`, these methods will do the following :
+For the default Ra::Engine::BlinnPhongMaterial, which is of type `"BlinnPhong"`, these methods will do the following :
 
-```cpp
+~~~{.cpp}
 void BlinnPhongMaterial::registerMaterial() {
     // For internal resources management in a filesystem
     std::string resourcesRootDir = {Core::Resources::getBaseDir()};
@@ -318,31 +319,31 @@ void BlinnPhongMaterial::unregisterMaterial() {
     EngineMaterialConverters::removeMaterialConverter( "BlinnPhong" );
     EngineRenderTechniques::removeDefaultTechnique( "BlinnPhong" );
 }
-```
+~~~
 
-As the `BlinnPhongMaterial` is directly managed by the Engine, registration of the material is realized at the
+As Ra::Engine::BlinnPhongMaterial is directly managed by the Engine, registration of the material is realized at the
 initialization of the Engine.
-We then have, in the `RadiumEngine` class, the following method :
-```cpp
+We then have, in the Ra::Engine::RadiumEngine, the following method :
+~~~{.cpp}
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
     ...
     // Engine support some built-in materials. Register them here
     BlinnPhongMaterial::registerMaterial();
 }
-```
+~~~
 
 ### Asssociate the material with a RenderTechnique inside a RenderObject
-The conversion of a `FileData` structure, resulting from the loading of a data file to entities and components that
+The conversion of a Ra::Core::Asset::FileData structure, resulting from the loading of a data file to entities and components that
 are managed by the Engine and Renderers are in charge of the loading system, by default the `FancyMesh` system.
 
-Thanks to the `MaterialData` interface, the `Material` interface, the `EngineMaterialConverters` factory
-and the `EngineRenderTechniques` factory, this task is generic and is the same for every registered materials.
-So, once a material is developed following the above description, is will be directly usable in the `ForwardRenderer`
-thanks to the following `FancyMesh`method :
+Thanks to the Ra::Core::Asset::MaterialData interface, the Ra::Engine::Material interface, the `EngineMaterialConverters` factory
+and the Ra::Engine:::RenderTechnique factory, this task is generic and is the same for every registered materials.
+So, once a material is developed following the above description, is will be directly usable in the Ra::Engine::ForwardRenderer
+thanks to the following Ra::Engine::TriangleMeshComponent method :
 
-```cpp
-void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data ) {
+~~~{.cpp}
+void TriangleMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data ) {
     // convert the GeometryData into a Renderable Mesh
     ...
     // Convert the MaterialData into a Material and its associated render technique
@@ -368,7 +369,7 @@ void FancyMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* data 
     setupIO( m_contentName );
     m_meshIndex = addRenderObject( ro );
 }
-```
+~~~
 
 ## Extending the material library from a plugin
 

@@ -1,4 +1,5 @@
-# How to code in Radium
+\page develWithRadium How to code in Radium
+[TOC]
 
 There are three main options to work with Radium:
 1. Write a plugin: full access to the Radium data structures, perfect to implement a new functionality: mesh processing, rendering.
@@ -40,10 +41,10 @@ We provide in `Radium-Engine/tests/Tests.hpp` some utility functions to ease tes
 
 Let's consider the following snippet:`
 
-```c++
+~~~{.cpp}
 #include <Core/Math/LinearAlgebra.hpp>                        // include path contains Radium sources,
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh> // Radium's dependencies
-#include <Tests.hpp>                                          // and the testing tools 
+#include <Tests.hpp>                                          // and the testing tools
 
 namespace Ra {
 namespace Testing {
@@ -62,7 +63,7 @@ int main(int argc, const char **argv) {
    using namespace Ra;
 
    if(!Testing::init_testing(1, argv))
-   {     
+   {
         return EXIT_FAILURE;
    }
 
@@ -74,7 +75,7 @@ int main(int argc, const char **argv) {
 
    return EXIT_SUCCESS;
 }
-```
+~~~
 
 The `Ra::Testing::run()` method is performing the tests, and use the macro `RA_VERIFY` to abort the execution if the condition fails. This macro is provided in `<Tests.hpp>`.
 
@@ -83,7 +84,7 @@ It first initializes the testing helpers (including random number generation), a
 Repetition is strongly encouraged, especially to test or detect piece of codes involving non-deterministic behavior.
 Of course, multiple functions can be called in place of the `run()` function shown in this example. A standard use case is:
 
-```c++
+~~~{.cpp}
      #pragma omp parallel for
      for(int i = 0; i < Testing::g_repeat; ++i)
      {
@@ -91,11 +92,11 @@ Of course, multiple functions can be called in place of the `run()` function sho
           CALL_SUBTEST(( Testing::run<double>() ));
           // ... other types
      }
-```
+~~~
 
 Note that we target Unit Tests, which can be defined as:
-> The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software, 
-> independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every 
+> The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software,
+> independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every
 > single part works correctly.
 >
 > Source: [https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters](https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters)
@@ -104,9 +105,9 @@ Note that we target Unit Tests, which can be defined as:
 The testing suite is handled by `cmake`: tests need to be added with their sources and dependencies.
 We provide a `cmake` helper function to add a test easily:
 
-```cmake
+~~~cmake
     radium_add_test( TARGET my_test_name SRC src/my_test.cpp LIBS radiumCore radiumEngine )
-```
+~~~
 
 See `Radium-Engine/cmake/ConfigureTesting.cmake` for the implementation of this function, and `Radium-Engine/tests/CoreTests/CMakeLists.txt` for an usage example.
 
@@ -116,7 +117,7 @@ Tests are located in `Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src`. Curren
 First, you need to have the `cmake` option `RADIUM_COMPILE_TESTS` set to `ON` (the default).
 
 To run the tests locally, you first need to compile them (`make buildtests`) and then call CTest (`make test`). You should get something like:
-```text
+~~~text
     $ make test
     Running tests...
     Test project /home/me/build-Radium-Engine-Desktop-Release
@@ -146,14 +147,14 @@ To run the tests locally, you first need to compile them (`make buildtests`) and
     100% tests passed, 0 tests failed out of 11
 
     Total Test time (real) =   0.06 sec
-```
+~~~
 
-The standard output is not printed when using CTest. 
+The standard output is not printed when using CTest.
 To debug a test, you might need to run it directly. Tests binaries are located in `CMAKE_BUILD_PATH/tests/`.
 
 Tests are automatically compiled and ran for Linux and MacOS CI, each time commits are pushed to Github. See snippet from TravisCI configuration file `Radium-Engine/.travis`:
-```text
+~~~text
     script:
       - make -j 4
       - make buildtests && make test
-```
+~~~

@@ -1,8 +1,9 @@
-# Coding conventions for Radium
+\page develCodingConvention Coding conventions for Radium
+[TOC]
 
 Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
 
-## Headers 
+## Headers
 
 * Every .cpp must have an associated .hpp file
 * use .inl files for inline functions definitions and include it in the .hpp
@@ -48,7 +49,7 @@ use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a
 * Indentation style : 4-spaces
 * Brace style : keep it consistent across files.
 * Case style : CamelCase
-* Only classes have their first letter capitalized. Functions and variables don't. 
+* Only classes have their first letter capitalized. Functions and variables don't.
 * Class members have the `m_` prefix. Other prefixes (apart from `g_`) are discouraged.
 * no ifs / for / while one-liners. Braces everywhere. Even for cases in a switch.
 * separate different clauses in a boolean expression with parens.
@@ -65,7 +66,7 @@ use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a
 * Any class containing a fixed-size `Ra::Core::Vector` or `Matrix`member must declare `RA_CORE_ALIGNED_NEW`
 * Try to declare these fixed-size vectors all together, and preferably first in the class.
 * Never pass a fixed-size vector by value to a function (only ref and const ref). Using them as return value is fine.
-* use `explicit` for all one-arguments constructors 
+* use `explicit` for all one-arguments constructors
 * use `= delete` for preventing copy constructor and other compiler-generated functions
 * use `= default` for default compiler-generated function (copy constructor,  assignment operator)
 * use `struct` for trivial PODs where all data is public and `class` for

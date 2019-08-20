@@ -5,10 +5,10 @@ sudo: true
 script:
   - make -j 4
   - make check
-#  - |
-#    if [ "$BUILD_DOC" = "On" ]; then
-#        make doc
-#    fi;
+  - |
+    if [ "$BUILD_DOC" = "On" ]; then
+        make RadiumDoc
+    fi;
 
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
@@ -71,6 +71,8 @@ matrix:
           packages:
             - g++-7
             - cmake
+            - doxygen
+            - graphviz
           sources:
             - ubuntu-toolchain-r-test
 
@@ -91,7 +93,7 @@ branches:
 deploy:
   provider: pages
   skip_cleanup: true
-  local_dir: Bundle-GNU/Docs/html/
+  local_dir: build/doc/html/
   github_token: $GITHUB_API_KEY
   on:
     branch: master

@@ -1,4 +1,5 @@
-# How to use Radium-Engine as an external dynamic lib for your project
+\page basicsRadiumSubmodule Write your own application for Radium
+[TOC]
 
 ## Fork from AppExample
 
@@ -11,85 +12,85 @@ in the external directory.
 You can clone Radium, or add it as a submodule of your git project.
 For instance if you want Radium in `myproject/external/Radium-Engine`
 
-```bash
+~~~bash
 mkdir external
-git submodule add https://github.com/STORM-IRIT/Radium-Engine/ 
+git submodule add https://github.com/STORM-IRIT/Radium-Engine/
 external/Radium-Engine --recursive
 git submodule update --init --recursive
-```
+~~~
 
-This corresponds to 
-```
+This corresponds to
+~~~
 .gitmodules
 [submodule "Radium-Engine"]
         path = external/Radium-Engine
         url = https://github.com/STORM-IRIT/Radium-Engine
         branch = master
-```
+~~~
 
 
 ## Add Radium to your project using CMake `find_package` and out-of-project build
 Add the following line to include the Radium-Engine cmake module in your main
 `CMakeLists.txt`:
-```cmake
+~~~cmake
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine/cmake)
-```
+~~~
 
 Add the following line in the `CMakeLists.txt` of your application that need Radium as a library
-```cmake
+~~~cmake
 find_package(Radium REQUIRED)
-```
+~~~
 Setting the `RADIUM_ROOT` variable before the `find_package`command might be needed to help cmake find the Radium directories:
-```cmake
+~~~cmake
 set(RADIUM_ROOT "../external/Radium-Engine")
-```
+~~~
 
 The find package script will will define the following cmake variables:
-```cmake
+~~~cmake
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
     ${RADIUM_LIB_DIR}
-```
+~~~
 This is how you should add Radium-related includes in your project's `CMakeLists.txt`
-```cmake
+~~~cmake
 include_directories(
-    ${RADIUM_INCLUDE_DIR} 
+    ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
 )
-```
+~~~
 
 And this is how you add the Radium libraries to your linker (with the dependent libraries):
-```cmake
+~~~cmake
 # Libs directory include
 link_directories(
     ${RADIUM_LIB_DIR}
 )
-```
+~~~
 
-```cmake
+~~~cmake
 # Link libraries
 target_link_libraries( ${EXEC_FILE}  # target
     ${RADIUM_LIBRARIES}              # Radium libs
     ${GLBINDING_LIBRARIES}           # GLbinding
     ${Qt5_LIBRARIES}                 # QT libraries
 )
-```
+~~~
 
 Then build Radium (here, in debug) using the following commands (for Linux):
-```bash
+~~~bash
 cd external
 mkdir build-radium-debug
 cd build-radium-debug
 cmake ../Radium-Engine -DCMAKE_BUILD_TYPE=Debug
 make -j8
-```
+~~~
 
 ## Add Radium to your project using `ExternaProject_Add` and in-project build.
 You can add Radium to your project cmake process with `ExternalProject_Add`, customizing some options.
 
-```cmake
+~~~cmake
 include(ExternalProject)
 option(MY_WITH_OMP              "Use OpenMP" ON)
 option(MY_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
@@ -113,21 +114,21 @@ ExternalProject_Add(
             -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
             -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
             -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-	# skip the install step	
-	INSTALL_COMMAND cmake -E echo "Skipping install step."
+        # skip the install step
+        INSTALL_COMMAND cmake -E echo "Skipping install step."
 )
-```
+~~~
 Then you have to setup manually all the variables that would have been set up by `find_package`:
-```cmake
+~~~cmake
     ${RADIUM_INCLUDE_DIR}
     ${EIGEN_INCLUDE_DIR}
     ${ASSIMP_INCLUDE_DIR}
     ${RADIUM_LIB_DIR}
     ${RADIUM_LIBRARIES}
     ${GLBINDING_LIBRARIES}
-```
+~~~
 For instance :
-```cmake
+~~~cmake
 set( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/external/Radium-Engine/cmake )
 set( RADIUM_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external/Radium-Engine" )
 
@@ -147,4 +148,4 @@ set( RA_IO_LIB      "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/${CMAKE_
 set( RA_GUIBASE_LIB "${RADIUM_ROOT_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}/${CMAKE_BUILD_TYPE}/lib/libradiumGuiBase.so" )
 set( RADIUM_LIBRARIES  )
 list(APPEND RADIUM_LIBRARIES "${RA_CORE_LIB}" "${RA_ENGINE_LIB}" "${RA_IO_LIB}" "${RA_GUIBASE_LIB}")
-```
+~~~

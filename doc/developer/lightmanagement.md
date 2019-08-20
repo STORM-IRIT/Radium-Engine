@@ -1,6 +1,7 @@
-# Radium Engine light management 
+\page develLights API: Lights
+[TOC]
 
-- Lights are components associated with an entity. 
+- Lights are components associated with an entity.
 - Lights can be attached to any of the entities of a given scene.
 - Lights are loaded by a LightManager system. If no system is able to load lights, there will be no lights in the scene
 except to one that can be attached to the camera.
