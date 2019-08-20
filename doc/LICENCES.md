@@ -1,4 +1,4 @@
-# Radium Engine
+# Licenses
 ## Radium contributors
 
 Radium Engine © the Radium Contributors :
