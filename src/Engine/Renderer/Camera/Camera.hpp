@@ -153,6 +153,9 @@ class RA_ENGINE_API Camera : public Component
     /// Duplicate the camera under a different Entity and a different name
     virtual Camera* duplicate( Entity* cloneEntity, const std::string& cloneName ) const;
 
+    /// Fit the Z-range of the camera to the scene's aabb. This will maximize z-buffer precision
+    virtual void fitZRange( const Core::Aabb& aabb );
+
   protected:
     Core::Transform m_frame{
         Core::Transform::Identity()}; ///< Camera frame (inverse of the view matrix)

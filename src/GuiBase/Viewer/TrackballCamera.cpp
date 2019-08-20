@@ -38,6 +38,10 @@ void Gui::TrackballCamera::configureKeyMapping_impl() {
 #undef KMA_VALUE
 }
 
+KeyMappingManager::Listener Gui::TrackballCamera::mappingConfigurationCallback() {
+    return Gui::TrackballCamera::configureKeyMapping;
+}
+
 Gui::TrackballCamera::TrackballCamera( uint width, uint height ) :
     CameraInterface( width, height ),
     m_trackballCenter( 0, 0, 0 ),
@@ -197,6 +201,7 @@ bool Gui::TrackballCamera::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
 }
 
 void Gui::TrackballCamera::setCamera( Engine::Camera* camera ) {
+
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera          = camera;

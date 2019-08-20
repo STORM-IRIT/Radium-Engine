@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_TRACKBALLCAMERA_HPP
-#define RADIUMENGINE_TRACKBALLCAMERA_HPP
+#ifndef RADIUMENGINE_FLIGHTMODECAMERA_HPP
+#define RADIUMENGINE_FLIGHTMODECAMERA_HPP
 #include <GuiBase/RaGuiBase.hpp>
 
 #include <GuiBase/Viewer/CameraInterface.hpp>
@@ -8,15 +8,15 @@ namespace Ra {
 namespace Gui {
 
 /// A Trackball manipulator for Cameras.
-class RA_GUIBASE_API TrackballCamera : public CameraInterface,
-                                       public KeyMappingManageable<TrackballCamera>
+class RA_GUIBASE_API FlightModeCamera : public CameraInterface,
+                                        public KeyMappingManageable<FlightModeCamera>
 {
     Q_OBJECT
-    friend class KeyMappingManageable<TrackballCamera>;
+    friend class KeyMappingManageable<FlightModeCamera>;
 
   public:
-    TrackballCamera( uint width, uint height );
-    virtual ~TrackballCamera();
+    FlightModeCamera( uint width, uint height );
+    virtual ~FlightModeCamera();
 
     KeyMappingManager::Listener mappingConfigurationCallback() override;
 
@@ -38,20 +38,6 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
     void toggleRotateAround();
     void setCamera( Engine::Camera* camera ) override;
 
-    /// Set the distance from the camera to the target point.
-    /// \note doesn't modify the camera.
-    void setTrackballRadius( Scalar rad );
-
-    /// Return the distance from the camera to the target point.
-    Scalar getTrackballRadius() const;
-
-    /// Set the trackball center.
-    void setTrackballCenter( const Core::Vector3& c );
-
-    /// Return the trackball center.
-    /// \note doesn't modify the camera.
-    const Core::Vector3& getTrackballCenter() const;
-
   public slots:
     void setCameraPosition( const Core::Vector3& position ) override;
     void setCameraTarget( const Core::Vector3& target ) override;
@@ -65,13 +51,7 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
     virtual void handleCameraZoom( Scalar dx, Scalar dy );
     virtual void handleCameraZoom( Scalar z );
 
-    /// Update the polar coordinates of the Camera w.r.t. the trackball center.
-    void updatePhiTheta();
-
   protected:
-    /// center of the trackball.
-    Core::Vector3 m_trackballCenter;
-
     /// x-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseX{0_ra};
 
@@ -84,34 +64,29 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
     /// Zoom speed on mouse wheel events.
     Scalar m_wheelSpeedModifier;
 
-    /// Polar coordinates of the Camera w.r.t. the trackball center.
-    Scalar m_phi{0_ra};
-    Scalar m_theta{0_ra};
-
-    /// The distance from the camera to the trackball center.
-    Scalar m_distFromCenter;
-
     /// Whether the corresponding camera movement is active or not.
     bool m_rotateAround;
     bool m_cameraRotateMode;
     bool m_cameraPanMode;
     bool m_cameraZoomMode;
 
+    Core::Vector3 m_target;
+
   private:
     static void configureKeyMapping_impl();
 
-#define KeyMappingCamera                \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE ) \
-    KMA_VALUE( TRACKBALLCAMERA_PAN )    \
-    KMA_VALUE( TRACKBALLCAMERA_ZOOM )   \
-    KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND )
+#define KeyMappingFlightCamera           \
+    KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
+    KMA_VALUE( FLIGHTMODECAMERA_PAN )    \
+    KMA_VALUE( FLIGHTMODECAMERA_ZOOM )   \
+    KMA_VALUE( FLIGHTMODECAMERA_ROTATE_AROUND )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
-    KeyMappingCamera
+    KeyMappingFlightCamera
 #undef KMA_VALUE
 };
 
 } // namespace Gui
 } // namespace Ra
 
-#endif // RADIUMENGINE_TRACKBALLCAMERA_HPP
+#endif // RADIUMENGINE_FLIGHTMODECAMERA_HPP

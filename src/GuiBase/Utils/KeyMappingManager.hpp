@@ -66,6 +66,9 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// Add a callback, triggered when configuration is load or reloaded.
     void addListener( Observable::Observer callback );
 
+    /// Remove a callback, triggered when configuration is load or reloaded.
+    void removeListener( Listener callback );
+
     /// return a string of enum names from mouse buttons, comma separated,
     /// without space
     static std::string enumNamesFromMouseButtons( const Qt::MouseButtons& buttons );

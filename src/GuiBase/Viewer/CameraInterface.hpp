@@ -44,6 +44,13 @@ class RA_GUIBASE_API CameraInterface : public QObject
     /// @return the view matrix.
     Core::Matrix4 getViewMatrix() const;
 
+    /// @return the listener for keymapping configuration operation, nullptr if no configuration is
+    /// available
+    virtual KeyMappingManager::Listener mappingConfigurationCallback();
+
+    /// @return the mapping context for keymapping, nullptr if no mapping is available
+    virtual KeyMappingManager::Context mappingContext();
+
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleMousePressEvent( QMouseEvent* event,
                                         const Qt::MouseButtons& buttons,

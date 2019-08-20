@@ -132,5 +132,61 @@ Camera* Camera::duplicate( Entity* cloneEntity, const std::string& cloneName ) c
     return cam;
 }
 
+void Camera::fitZRange( const Core::Aabb& aabb ) {
+    Ra::Core::Vector3 minAabb   = aabb.min();
+    Ra::Core::Vector3 maxAabb   = aabb.max();
+    Ra::Core::Vector3 position  = m_frame.translation();
+    Ra::Core::Vector3 direction = m_frame.linear() * Ra::Core::Vector3( 0, 0, -1 );
+
+    float d;
+
+    Ra::Core::Vector3 corner = minAabb;
+    d                        = direction.dot( corner - position );
+    m_zNear                  = d;
+    m_zFar                   = d;
+
+    corner  = Ra::Core::Vector3( minAabb[0], minAabb[1], maxAabb[2] );
+    d       = direction.dot( corner - position );
+    m_zNear = std::min( d, m_zNear );
+    m_zFar  = std::max( d, m_zFar ); // beware if all corners are behind the camera
+
+    corner  = Ra::Core::Vector3( minAabb[0], maxAabb[1], minAabb[2] );
+    d       = direction.dot( corner - position );
+    m_zNear = std::min( d, m_zNear );
+    m_zFar  = std::max( d, m_zFar ); // beware if all corners are behind the camera
+
+    corner  = Ra::Core::Vector3( minAabb[0], maxAabb[1], maxAabb[2] );
+    d       = direction.dot( corner - position );
+    m_zNear = std::min( d, m_zNear );
+    m_zFar  = std::max( d, m_zFar ); // beware if all corners are behind the camera
+
+    corner  = maxAabb;
+    d       = direction.dot( corner - position );
+    m_zNear = std::min( d, m_zNear );
+    m_zFar  = std::max( d, m_zFar ); // beware if all corners are behind the camera
+
+    corner  = Ra::Core::Vector3( maxAabb[0], maxAabb[1], minAabb[2] );
+    d       = direction.dot( corner - position );
+    m_zNear = std::min( d, m_zNear );
+    m_zFar  = std::max( d, m_zFar ); // beware if all corners are behind the camera
+
+    corner  = Ra::Core::Vector3( maxAabb[0], minAabb[1], maxAabb[2] );
+    d       = direction.dot( corner - position );
+    m_zNear = std::min( d, m_zNear );
+    m_zFar  = std::max( d, m_zFar ); // beware if all corners are behind the camera
+
+    corner  = Ra::Core::Vector3( maxAabb[0], minAabb[1], minAabb[2] );
+    d       = direction.dot( corner - position );
+    m_zNear = std::min( d, m_zNear );
+    m_zFar  = std::max( d, m_zFar ); // beware if all corners are behind the camera
+
+    // ensure a minimum depth range
+    float range = ( m_zFar - m_zNear ) / 100.f;
+    m_zNear     = std::max( range, m_zNear - range );
+    m_zFar      = std::max( 2.f * range, m_zFar + range );
+
+    updateProjMatrix();
+}
+
 } // namespace Engine
 } // namespace Ra

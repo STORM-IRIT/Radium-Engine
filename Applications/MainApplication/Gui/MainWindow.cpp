@@ -9,7 +9,6 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
@@ -17,8 +16,9 @@
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Utils/qt_utils.hpp>
-#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/FlightModeCamera.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+#include <GuiBase/Viewer/TrackballCamera.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 #include <IO/deprecated/OBJFileManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -87,12 +87,37 @@ void MainWindow::cleanup() {
     m_viewer->getGizmoManager()->cleanup();
 }
 
+void MainWindow::trackballManipulator() {
+    // set trackball manipulator (default)
+    auto cam = new Gui::TrackballCamera( m_viewer->width(), m_viewer->height() );
+    m_viewer->setCameraInterface( cam );
+}
+
+// todo : this must be carefully checked to prevent keymapping problems and memory leaks.
+void MainWindow::flightManipulator() {
+    static bool first = true;
+
+    // set flightmode manipulator
+    auto cam = new Gui::FlightModeCamera( m_viewer->width(), m_viewer->height() );
+    m_viewer->setCameraInterface( cam );
+
+    if ( first )
+    {
+        auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+        keyMappingManager->addListener( cam->mappingConfigurationCallback() );
+        first = false;
+    }
+}
+
 // Connection to gizmos must be done after GL is initialized
 void MainWindow::createConnections() {
     connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
     connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Viewer::reloadShaders );
     connect(
         actionOpen_Material_Editor, &QAction::triggered, this, &MainWindow::openMaterialEditor );
+
+    connect( actionFlight, &QAction::triggered, this, &MainWindow::flightManipulator );
+    connect( actionTrackball, &QAction::triggered, this, &MainWindow::trackballManipulator );
 
     // Toolbox setup
     // to update display when mode is changed
@@ -658,16 +683,18 @@ void MainWindow::postLoadFile( const std::string& filename ) {
         Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity( loadedEntityName );
     if ( rootEntity != nullptr )
     {
-        auto fc = std::find_if(rootEntity->getComponents().begin(), rootEntity->getComponents().end(),
-            [](const auto &c){ return (c->getName().compare( 0, 7, "CAMERA_" ) == 0); }
-            );
-        if (fc != rootEntity->getComponents().end() ) {
-            LOG( logINFO ) << "Activating camera " << (*fc)->getName();
+        auto fc = std::find_if(
+            rootEntity->getComponents().begin(),
+            rootEntity->getComponents().end(),
+            []( const auto& c ) { return ( c->getName().compare( 0, 7, "CAMERA_" ) == 0 ); } );
+        if ( fc != rootEntity->getComponents().end() )
+        {
+            LOG( logINFO ) << "Activating camera " << ( *fc )->getName();
 
             const auto systemEntity = Ra::Engine::SystemEntity::getInstance();
             systemEntity->removeComponent( "CAMERA_DEFAULT" );
 
-            auto camera = static_cast<Ra::Engine::Camera*>( (*fc).get() );
+            auto camera = static_cast<Ra::Engine::Camera*>( ( *fc ).get() );
             m_viewer->getCameraInterface()->setCamera(
                 camera->duplicate( systemEntity, "CAMERA_DEFAULT" ) );
         }

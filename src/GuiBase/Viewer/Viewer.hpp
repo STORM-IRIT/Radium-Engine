@@ -64,7 +64,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     ~Viewer() override;
 
     /// add observers to keyMappingManager for gizmo, camera and viewer.
-    static void setupKeyMappingCallbacks();
+    void setupKeyMappingCallbacks();
 
     //
     // Accessors
@@ -74,6 +74,11 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     /// Access to camera interface.
     CameraInterface* getCameraInterface();
+
+    /// Set the current camera interface.
+    /// @note for compatibility, this method called without parameter sets the cameraInterface to
+    /// TrackballCamera
+    void setCameraInterface( CameraInterface* ci );
 
     /// Set the camera managed by the cameraInterface
     void setCamera( Engine::Camera* camera );

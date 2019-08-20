@@ -107,6 +107,13 @@ void KeyMappingManager::addListener( Observer callback ) {
     callback();
 }
 
+void KeyMappingManager::removeListener( Listener callback ) {
+  std::remove_if( m_listeners.begin(),
+                  m_listeners.end(),
+            [callback]( Listener c ) { return c == callback;}
+                );
+}
+
 void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
                                          const MouseBinding& binding,
                                          Ra::Core::Utils::Index actionIndex ) {

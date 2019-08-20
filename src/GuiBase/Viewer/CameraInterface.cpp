@@ -30,13 +30,13 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
                                        "CAMERA_DEFAULT",
                                        Scalar( height ),
                                        Scalar( width ) );
-    }
-    m_camera->initialize();
-    m_camera->show( false );
+        m_camera->initialize();
+        m_camera->show( false );
 
-    setCameraFovInDegrees( 60.0 );
-    setCameraZNear( 0.1 );
-    setCameraZFar( 1000.0 );
+        setCameraFovInDegrees( 60.0 );
+        setCameraZNear( 0.1 );
+        setCameraZFar( 1000.0 );
+    }
 }
 
 void Gui::CameraInterface::resetToDefaultCamera() {
@@ -107,7 +107,15 @@ void Gui::CameraInterface::unmapCameraBehaviourToAabb() {
 
 void Gui::CameraInterface::attachLight( Engine::Light* light ) {
     m_light = light;
-    m_light->setDirection( Core::Vector3( 0.3f, -1.0f, 0.0f ) );
+    m_light->setDirection( m_camera->getDirection() );
+}
+
+Gui::KeyMappingManager::Listener Gui::CameraInterface::mappingConfigurationCallback() {
+    return nullptr; // Gui::KeyMappingManager::Listener();
+}
+
+Gui::KeyMappingManager::Context Gui::CameraInterface::mappingContext() {
+    return Gui::KeyMappingManager::Context();
 }
 
 const Engine::Camera& Gui::CameraInterface::getCameraFromViewer( QObject* v ) {

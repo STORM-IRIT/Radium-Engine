@@ -206,7 +206,6 @@ BaseApplication::BaseApplication( int argc,
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
 
-    Gui::Viewer::setupKeyMappingCallbacks();
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
@@ -217,6 +216,8 @@ BaseApplication::BaseApplication( int argc,
     m_mainWindow->show();
 
     m_viewer = m_mainWindow->getViewer();
+    m_viewer->setupKeyMappingCallbacks();
+
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
     CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
     CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );

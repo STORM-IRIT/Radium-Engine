@@ -64,7 +64,8 @@ KeyMappingViewer;
 void Gui::Viewer::setupKeyMappingCallbacks() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
 
-    keyMappingManager->addListener( Gui::TrackballCamera::configureKeyMapping );
+    // keyMappingManager->addListener( Gui::TrackballCamera::configureKeyMapping );
+    keyMappingManager->addListener( m_camera->mappingConfigurationCallback() );
     keyMappingManager->addListener( Gui::GizmoManager::configureKeyMapping );
     keyMappingManager->addListener( configureKeyMapping );
 }
@@ -158,6 +159,23 @@ void Gui::Viewer::enableDebug() {
     } );
 }
 
+void Gui::Viewer::setCameraInterface( CameraInterface* ci ) {
+    auto c = m_camera->getCamera();
+    std::cerr << "Gui::Viewer::setCameraInterface " << c << std::endl;
+    LOG( logINFO ) << "Viewer::setCameraInterface -- " << c->getPosition().transpose() << " -- "
+                   << c->getDirection().transpose();
+    m_camera.reset( ci );
+    LOG( logINFO ) << "Viewer::setCameraInterface -- " << c->getPosition().transpose() << " -- "
+                   << c->getDirection().transpose();
+    m_camera->setCamera( c );
+    LOG( logINFO ) << "Viewer::setCameraInterface -- " << c->getPosition().transpose() << " -- "
+                   << c->getDirection().transpose();
+
+    auto headlight = dynamic_cast<Engine::Light*>(
+        Ra::Engine::SystemEntity::getInstance()->getComponent( "headlight" ) );
+    m_camera->attachLight( headlight );
+}
+
 bool Gui::Viewer::initializeGL() {
     globjects::init( getProcAddress );
 
@@ -173,15 +191,12 @@ bool Gui::Viewer::initializeGL() {
     Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
 
     createGizmoManager();
-
+    // create default camera interface : trackball
     m_camera = std::make_unique<Gui::TrackballCamera>( width(), height() );
-
-    // Lights are components. So they must be attached to an entity. Attach headlight to system
-    // Entity
-    auto light =
+    auto headlight =
         new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
-    light->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
-    m_camera->attachLight( light );
+    headlight->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
+    m_camera->attachLight( headlight );
 
     m_glInitialized = true;
     makeCurrent();
@@ -356,7 +371,7 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     if ( result.m_roIdx.isInvalid() )
     {
         if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) )
-        { m_activeContext = TrackballCamera::getContext(); }
+        { m_activeContext = m_camera->mappingContext(); }
         else
         {
             // should not pass here, since viewerContext is only for valid picking ...
@@ -370,7 +385,7 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
         if ( getGizmoManager()->handleMousePressEvent( event, buttons, modifiers, key ) )
         { m_activeContext = GizmoManager::getContext(); } // if not, try to do camera stuff
         else if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) )
-        { m_activeContext = TrackballCamera::getContext(); }
+        { m_activeContext = m_camera->mappingContext(); }
         else
         {
             m_activeContext  = KeyMappingManageable::getContext();
@@ -399,7 +414,7 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
 }
 
 void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
-    if ( m_activeContext == TrackballCamera::getContext() )
+    if ( m_activeContext == m_camera->mappingContext() )
     { m_camera->handleMouseReleaseEvent( event ); }
     if ( m_activeContext == GizmoManager::getContext() )
     { m_gizmoManager->handleMouseReleaseEvent( event ); }
@@ -432,7 +447,7 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
     // if needed can use
     //    auto action = keyMap->getAction( m_activeContext, buttons, modifiers, key );
 
-    if ( m_activeContext == TrackballCamera::getContext() )
+    if ( m_activeContext == m_camera->mappingContext() )
     { m_camera->handleMouseMoveEvent( event, buttons, modifiers, key ); }
     else if ( m_activeContext == GizmoManager::getContext() )
     { m_gizmoManager->handleMouseMoveEvent( event, buttons, modifiers, key ); }
@@ -613,6 +628,24 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
 
     m_pickingManager->clear();
     makeCurrent();
+
+    // TODO : as soon as everything could be computed efficiently, activate z-bounds fitting.
+#if 0
+    // update znear/zfar to fit the scene ...
+    auto roManager = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+    if (roManager) {
+        // TODO : make the aabb only recomputed when needed. For now, getSceneAabb loop over scene vertices to (re)compute the aabb at each call.
+        auto aabb = roManager->getSceneAabb();
+        if ( !aabb.isEmpty() ) {
+            // tight depth bounds
+            m_camera->getCamera()->fitZRange(aabb);
+        } else {
+            // scene is empty, reset to defaults bounds ?
+            m_camera->setCameraZNear(0.1);
+            m_camera->setCameraZFar(100);
+        }
+    }
+#endif
 
     Engine::ViewingParameters data{m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
 
