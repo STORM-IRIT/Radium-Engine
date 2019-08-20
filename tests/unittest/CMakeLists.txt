@@ -12,6 +12,7 @@ add_executable(unittests
     unittestUtils.hpp
     Core/algebra.cpp
     Core/animation.cpp
+    Core/color.cpp
     Core/containers.cpp
     Core/distance.cpp
     Core/indexmap.cpp
