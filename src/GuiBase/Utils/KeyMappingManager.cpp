@@ -108,10 +108,10 @@ void KeyMappingManager::addListener( Observer callback ) {
 }
 
 void KeyMappingManager::removeListener( Listener callback ) {
-  std::remove_if( m_listeners.begin(),
-                  m_listeners.end(),
-            [callback]( Listener c ) { return c == callback;}
-                );
+    auto it = std::remove_if( m_listeners.begin(), m_listeners.end(), [callback]( Listener c ) {
+        return c == callback;
+    } );
+    m_listeners.erase( it, m_listeners.end() );
 }
 
 void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
