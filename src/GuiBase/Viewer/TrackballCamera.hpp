@@ -15,7 +15,14 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
     friend class KeyMappingManageable<TrackballCamera>;
 
   public:
+    /// Default constructor
     TrackballCamera( uint width, uint height );
+
+    /// Copy constructor used when switching camera manipulator
+    /// Requires that m_target is on the line of sight of the camera.
+    explicit TrackballCamera( const CameraInterface* other );
+
+    /// Destructor.
     virtual ~TrackballCamera();
 
     KeyMappingManager::Listener mappingConfigurationCallback() override;
@@ -69,8 +76,7 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
     void updatePhiTheta();
 
   protected:
-    /// center of the trackball.
-    Core::Vector3 m_trackballCenter;
+    // the center of the trackball is defined by the inherited m_target
 
     /// x-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseX{0_ra};
@@ -78,18 +84,12 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
     /// y-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseY{0_ra};
 
-    /// Additional factor for camera sensitivity.
-    Scalar m_quickCameraModifier;
-
-    /// Zoom speed on mouse wheel events.
-    Scalar m_wheelSpeedModifier;
-
     /// Polar coordinates of the Camera w.r.t. the trackball center.
     Scalar m_phi{0_ra};
     Scalar m_theta{0_ra};
 
     /// The distance from the camera to the trackball center.
-    Scalar m_distFromCenter;
+    Scalar m_distFromCenter{0_ra};
 
     /// Whether the corresponding camera movement is active or not.
     bool m_rotateAround;
@@ -98,6 +98,7 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
     bool m_cameraZoomMode;
 
   private:
+    bool checkIntegrity( const std::string& mess ) const;
     static void configureKeyMapping_impl();
 
 #define KeyMappingCamera                \

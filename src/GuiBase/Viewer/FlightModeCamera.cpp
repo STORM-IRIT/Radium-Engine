@@ -45,13 +45,20 @@ KeyMappingManager::Listener Gui::FlightModeCamera::mappingConfigurationCallback(
 
 Gui::FlightModeCamera::FlightModeCamera( uint width, uint height ) :
     CameraInterface( width, height ),
-    m_quickCameraModifier( 1.f ),
-    m_wheelSpeedModifier( 0.02f ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
     m_cameraZoomMode( false ) {
     resetCamera();
+}
+
+Gui::FlightModeCamera::FlightModeCamera( const CameraInterface* other ) :
+    CameraInterface( other ),
+    m_rotateAround( true ),
+    m_cameraRotateMode( false ),
+    m_cameraPanMode( false ),
+    m_cameraZoomMode( false ) {
+    m_flightSpeed = ( m_target - m_camera->getPosition() ).norm() / 10_ra;
 }
 
 Gui::FlightModeCamera::~FlightModeCamera() = default;
@@ -60,7 +67,8 @@ void Gui::FlightModeCamera::resetCamera() {
     m_camera->setFrame( Core::Transform::Identity() );
     m_camera->setPosition( Core::Vector3( 0, 0, 1 ) );
 
-    m_target = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
+    m_target      = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
+    m_flightSpeed = 0.2;
 
     if ( m_light != nullptr )
     {
@@ -205,7 +213,7 @@ void Gui::FlightModeCamera::setCameraPosition( const Core::Vector3& position ) {
         return;
     }
     m_camera->setPosition( position );
-    m_camera->setDirection( m_target - position );
+    m_camera->setDirection( ( m_target - position ).normalized() );
 
     if ( m_light != nullptr )
     {
@@ -224,7 +232,7 @@ void Gui::FlightModeCamera::setCameraTarget( const Core::Vector3& target ) {
     }
 
     m_target = target;
-    m_camera->setDirection( target - m_camera->getPosition() );
+    m_camera->setDirection( ( target - m_camera->getPosition() ).normalized() );
 
     if ( m_light != nullptr ) { m_light->setDirection( m_camera->getDirection() ); }
 
@@ -247,6 +255,8 @@ void Gui::FlightModeCamera::fitScene( const Core::Aabb& aabb ) {
     m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
     m_target = aabb.center();
 
+    m_flightSpeed = d / 10_ra;
+
     Scalar zfar = std::max( d + ( aabb.max().z() - aabb.min().z() ) * 2_ra, m_camera->getZFar() );
     m_camera->setZFar( zfar );
 
@@ -260,12 +270,21 @@ void Gui::FlightModeCamera::fitScene( const Core::Aabb& aabb ) {
 }
 
 void Gui::FlightModeCamera::handleCameraRotate( Scalar dx, Scalar dy ) {
-    // TODO
+    Scalar dphi   = dx * m_cameraSensitivity * m_quickCameraModifier;
+    Scalar dtheta = -dy * m_cameraSensitivity * m_quickCameraModifier;
+    Core::Transform R( Core::Transform::Identity() );
+    if ( std::abs( dphi ) > std::abs( dtheta ) )
+    { R = Core::AngleAxis( -dphi, m_camera->getUpVector().normalized() ); }
+    else
+    { R = Core::AngleAxis( -dtheta, -m_camera->getRightVector().normalized() ); }
+    Scalar d = ( m_target - m_camera->getPosition() ).norm();
+    m_camera->applyTransform( R );
+    m_target = m_camera->getPosition() + d * m_camera->getDirection();
 }
 
 void Gui::FlightModeCamera::handleCameraPan( Scalar dx, Scalar dy ) {
-    Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier * 0.1_ra;
-    Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier * 0.1_ra;
+    Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier;
+    Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier;
     // Move camera and trackball center, keep the distance to the center
     Core::Vector3 R = -m_camera->getRightVector();
     Core::Vector3 U = m_camera->getUpVector();
@@ -283,11 +302,12 @@ void Gui::FlightModeCamera::handleCameraZoom( Scalar dx, Scalar dy ) {
 }
 
 void Gui::FlightModeCamera::handleCameraZoom( Scalar z ) {
-    auto d = z * m_camera->getDirection();
+    auto y = m_flightSpeed * z * m_cameraSensitivity * m_quickCameraModifier;
     Core::Transform T( Core::Transform::Identity() );
-    T.translate( d );
+    Core::Vector3 t = y * m_camera->getDirection();
+    T.translate( t );
     m_camera->applyTransform( T );
-    m_target += d;
+    m_target += t;
 }
 
 } // namespace Gui

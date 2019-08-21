@@ -89,7 +89,7 @@ void MainWindow::cleanup() {
 
 void MainWindow::trackballManipulator() {
     // set trackball manipulator (default)
-    auto cam = new Gui::TrackballCamera( m_viewer->width(), m_viewer->height() );
+    auto cam = new Gui::TrackballCamera( m_viewer->getCameraInterface() );
     m_viewer->setCameraInterface( cam );
 }
 
@@ -98,7 +98,7 @@ void MainWindow::flightManipulator() {
     static bool first = true;
 
     // set flightmode manipulator
-    auto cam = new Gui::FlightModeCamera( m_viewer->width(), m_viewer->height() );
+    auto cam = new Gui::FlightModeCamera( m_viewer->getCameraInterface() );
     m_viewer->setCameraInterface( cam );
 
     if ( first )

@@ -159,23 +159,6 @@ void Gui::Viewer::enableDebug() {
     } );
 }
 
-void Gui::Viewer::setCameraInterface( CameraInterface* ci ) {
-    auto c = m_camera->getCamera();
-    std::cerr << "Gui::Viewer::setCameraInterface " << c << std::endl;
-    LOG( logINFO ) << "Viewer::setCameraInterface -- " << c->getPosition().transpose() << " -- "
-                   << c->getDirection().transpose();
-    m_camera.reset( ci );
-    LOG( logINFO ) << "Viewer::setCameraInterface -- " << c->getPosition().transpose() << " -- "
-                   << c->getDirection().transpose();
-    m_camera->setCamera( c );
-    LOG( logINFO ) << "Viewer::setCameraInterface -- " << c->getPosition().transpose() << " -- "
-                   << c->getDirection().transpose();
-
-    auto headlight = dynamic_cast<Engine::Light*>(
-        Ra::Engine::SystemEntity::getInstance()->getComponent( "headlight" ) );
-    m_camera->attachLight( headlight );
-}
-
 bool Gui::Viewer::initializeGL() {
     globjects::init( getProcAddress );
 
@@ -233,6 +216,10 @@ bool Gui::Viewer::initializeGL() {
     if ( m_currentRenderer == nullptr ) { changeRenderer( 0 ); }
 
     return true;
+}
+
+void Gui::Viewer::setCameraInterface( CameraInterface* ci ) {
+    m_camera.reset( ci );
 }
 
 Gui::CameraInterface* Gui::Viewer::getCameraInterface() {

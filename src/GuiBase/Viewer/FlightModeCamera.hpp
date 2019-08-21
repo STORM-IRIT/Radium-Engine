@@ -16,6 +16,7 @@ class RA_GUIBASE_API FlightModeCamera : public CameraInterface,
 
   public:
     FlightModeCamera( uint width, uint height );
+    explicit FlightModeCamera( const CameraInterface* other );
     virtual ~FlightModeCamera();
 
     KeyMappingManager::Listener mappingConfigurationCallback() override;
@@ -58,21 +59,14 @@ class RA_GUIBASE_API FlightModeCamera : public CameraInterface,
     /// y-position of the mouse on the screen at the manipulation start.
     Scalar m_lastMouseY{0_ra};
 
-    /// Additional factor for camera sensitivity.
-    Scalar m_quickCameraModifier;
-
-    /// Zoom speed on mouse wheel events.
-    Scalar m_wheelSpeedModifier;
-
     /// Whether the corresponding camera movement is active or not.
     bool m_rotateAround;
     bool m_cameraRotateMode;
     bool m_cameraPanMode;
     bool m_cameraZoomMode;
 
-    Core::Vector3 m_target;
-
   private:
+    Scalar m_flightSpeed{1.};
     static void configureKeyMapping_impl();
 
 #define KeyMappingFlightCamera           \

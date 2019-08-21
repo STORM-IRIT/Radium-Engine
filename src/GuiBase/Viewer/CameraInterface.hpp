@@ -24,6 +24,8 @@ class Light;
 namespace Ra {
 namespace Gui {
 
+// TODO : put in this class all the attribs common to all manipulators
+//  (i.e not only the direction but the distance to look at) ..
 /// The CameraInterface class is the generic class for camera manipulators.
 class RA_GUIBASE_API CameraInterface : public QObject
 {
@@ -32,6 +34,9 @@ class RA_GUIBASE_API CameraInterface : public QObject
   public:
     /// Initializes the default app Camera from the given size.
     CameraInterface( uint width, uint height );
+
+    /// Initializes the default app Camera from the given camera.
+    explicit CameraInterface( const CameraInterface* other );
 
     virtual ~CameraInterface();
 
@@ -145,15 +150,24 @@ class RA_GUIBASE_API CameraInterface : public QObject
     void cameraChanged( const Core::Vector3& position, const Core::Vector3& target );
 
   protected:
-    Scalar m_cameraSensitivity; ///< the Camera sensitivity to manipulation.
+    ///< the Camera sensitivity to manipulation.
+    Scalar m_cameraSensitivity;
+    /// Additional factor for camera sensitivity.
+    Scalar m_quickCameraModifier;
+    /// Speed modifier on mouse wheel events.
+    Scalar m_wheelSpeedModifier;
 
     Core::Aabb m_targetedAabb;       ///< Camera behavior restriction AABB.
     Scalar m_targetedAabbVolume;     ///< Volume of the m_targetedAabb
     bool m_mapCameraBahaviourToAabb; ///< whether the camera is restrained or not
 
-    Engine::Camera* m_camera; ///< The Camera.
+    /// Target point of the camera (usefull for most of the manipulator metaphor)
+    /// Be aware that m_target must always be on the line of sight of the camera so that it could be
+    /// used as a "focus" point by a manipulator.
+    Core::Vector3 m_target;
 
-    Engine::Light* m_light; /// The light attached to the Camera.
+    Engine::Camera* m_camera; ///< The Camera.
+    Engine::Light* m_light;   /// The light attached to the Camera.
 };
 
 } // namespace Gui

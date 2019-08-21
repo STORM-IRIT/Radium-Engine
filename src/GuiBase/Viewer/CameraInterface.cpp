@@ -12,10 +12,23 @@ namespace Ra {
 
 using namespace Core::Utils; // log
 
+Gui::CameraInterface::CameraInterface( const CameraInterface* other ) :
+    m_cameraSensitivity( other->m_cameraSensitivity ),
+    m_quickCameraModifier( other->m_quickCameraModifier ),
+    m_wheelSpeedModifier( other->m_wheelSpeedModifier ),
+    m_targetedAabbVolume( other->m_targetedAabbVolume ),
+    m_mapCameraBahaviourToAabb( other->m_mapCameraBahaviourToAabb ),
+    m_target( other->m_target ),
+    m_camera( other->m_camera ),
+    m_light( other->m_light ) {}
+
 Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
+    m_quickCameraModifier( 1.f ),
+    m_wheelSpeedModifier( 0.02f ),
     m_targetedAabbVolume( 0.0 ),
     m_mapCameraBahaviourToAabb( false ),
+    m_target( 0, 0, 0 ),
     m_camera( nullptr ),
     m_light( nullptr ) {
     auto it = std::find_if(
