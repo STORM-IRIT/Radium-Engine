@@ -9,6 +9,18 @@ script:
     if [ "$BUILD_DOC" = "On" ]; then
         make RadiumDoc
     fi;
+  - make install
+    # test relocatable binaries
+  - |
+    export RETURN_PATH=$PWD
+    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+        export CORE_EXAMPLE_APP_PATH="coreExampleApp.app/Contents/MacOS/"
+    else
+        export CORE_EXAMPLE_APP_PATH="bin/"
+    fi
+  - cd installed/$CORE_EXAMPLE_APP_PATH && ./coreExampleApp && cd $RETURN_PATH
+  - mv installed/ installed_moved
+  - cd installed_moved/$CORE_EXAMPLE_APP_PATH && ./coreExampleApp && cd ../..
 
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
@@ -82,7 +94,7 @@ install:
 
   - mkdir -p build
   - cd build
-  - cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+  - cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=./installed
 
 
 # safelist

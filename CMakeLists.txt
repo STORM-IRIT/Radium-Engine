@@ -1,10 +1,13 @@
-cmake_minimum_required (VERSION 3.6)
+﻿cmake_minimum_required (VERSION 3.6)
 
 #------------------------------------------------------------------------------
-# Policies
+# Policies and global parameters for CMake
 if(POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
 endif()
+
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support
@@ -12,6 +15,9 @@ project (radiumproject VERSION 1.0.0)
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
+
+set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
 option(RADIUM_ENABLE_TESTING "Enable testing. Tests are automatically built with target all" ON)
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
@@ -24,8 +30,6 @@ message(STATUS "")
 #------------------------------------------------------------------------------
 # General settings
 
-OPTION( CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT "Install by default to Bundle" ON)
-
 # Be nice to visual studio
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -36,6 +40,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # We can use include() and find_package() for our scripts in there
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+# Configure rpath, see cmake/rpath.cmake
+include(rpath)
+
 # Use gold linker to speed up linking time, see cmake/useGoldLinker.cmake
 include(useGoldLinker)
 
@@ -45,6 +52,9 @@ if(MEASURE_ALL)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "time")
 endif()
 
+# Append library and executable names with d in debug mode
+set(CMAKE_DEBUG_POSTFIX d)
+
 #-------------------------------------------------------------------------------
 # Set default paths for Radium
 set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
@@ -53,7 +63,7 @@ set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
 # we do not want to install to /usr by default
-if (NOT CMAKE_INSTALL_PREFIX AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set (CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}" CACHE PATH
         "Install path prefix, prepended onto install directories." FORCE )
     message( "Set install prefix to ${CMAKE_INSTALL_PREFIX}" )
@@ -65,7 +75,7 @@ endif()
 # we do not want to install to /usr by default
 if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Release )
-    message( "Set default build type to ${CMAKE_INSTALL_PREFIX}" )
+    message( "Set default build type to ${CMAKE_BUILD_TYPE}" )
 endif()
 
 #------------------------------------------------------------------------------
@@ -108,12 +118,31 @@ execute_process(
 )
 message(STATUS "[External] Run cmake")
 execute_process(
-    COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/external -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+    COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/external
+        -DCMAKE_GENERATOR=${CMAKE_GENERATOR}
+                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+                -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+        -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+        -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+        -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
+        -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
+        -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=${CMAKE_CXX_FLAGS_RELWITHDEBINFO}
+        -DCMAKE_SHARED_LINKER_FLAGS=${CMAKE_SHARED_LINKER_FLAGS}
+        -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
 )
 message(STATUS "[External] Build started")
+
+set( RadiumExternalMakeTarget all)
+string( TOLOWER ${CMAKE_GENERATOR} generator_lower)
+if( MSVC AND NOT ${generator_lower} STREQUAL "ninja" )
+        set( RadiumExternalMakeTarget ALL_BUILD)
+        message( "Enable compatibility mode for VS Generator" )
+endif()
+
 execute_process(
-    COMMAND ${CMAKE_COMMAND} --build . --target all
+    COMMAND ${CMAKE_COMMAND} --build . --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
 )
 message(STATUS "[External] Build ended")
