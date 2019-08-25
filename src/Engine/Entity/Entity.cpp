@@ -1,12 +1,9 @@
 #include <Engine/Entity/Entity.hpp>
 
-#include <Core/Geometry/Obb.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -74,7 +71,6 @@ void Entity::swapTransformBuffers() {
 
 Core::Aabb Entity::computeAabb() const {
 
-    using Ra::Core::Transform;
     Core::Aabb aabb;
 
     for ( const auto& component : m_components )
