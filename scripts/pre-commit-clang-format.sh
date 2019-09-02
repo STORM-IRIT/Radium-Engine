@@ -149,28 +149,11 @@ printf "\n"
 # Allows us to read user input below, assigns stdin to keyboard
 exec < /dev/tty
 
-while true; do
-    read -p "Do you want to apply that patch (Y - Apply, N - Do not apply, S - Apply and stage files)? [Y/N/S] " yn
-    case $yn in
-        [Yy] ) git apply $patch;
-        printf "The patch was applied. You can now stage the changes and commit again.\n\n";
-        break
-        ;;
-        [Nn] ) printf "\nYou can apply these changes with:\n  git apply $patch\n";
-        printf "(may need to be called from the root directory of your repository)\n";
-        printf "Aborting commit. Apply changes and commit again or skip checking with";
-        printf " --no-verify (not recommended).\n\n";
-        break
-        ;;
-        [Ss] ) git apply $patch;
-        git diff-index --cached --diff-filter=ACMR --name-only $against -- | while read file;
-        do git add $file;
-        done
-        printf "The patch was applied and the changed files staged. You can now commit.\n\n";
-        break
-        ;;
-        * ) echo "Please answer Y(es) N(no) S(tage) C."
-        ;;
-    esac
+
+git apply $patch;
+git diff-index --cached --diff-filter=ACMR --name-only $against -- | while read file;
+do git add $file;
 done
+printf "The patch was applied and the changed files staged. You can now commit.\n\n";
+
 exit 1 # we don't commit in any case
