@@ -2,7 +2,7 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
-#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/CameraManipulator.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 #include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
@@ -121,7 +121,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
-    const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
+    const Engine::Camera& cam = CameraManipulator::getCameraFromViewer(parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
     return true;
@@ -145,7 +145,7 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
          currentGizmo()->isSelected() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        const Engine::Camera& cam = CameraInterface::getCameraFromViewer( parent() );
+        const Engine::Camera& cam = CameraManipulator::getCameraFromViewer(parent() );
         bool step  = action == GIZMOMANAGER_STEP || action == GIZMOMANAGER_STEP_WHOLE;
         bool whole = action == GIZMOMANAGER_WHOLE || action == GIZMOMANAGER_STEP_WHOLE;
 

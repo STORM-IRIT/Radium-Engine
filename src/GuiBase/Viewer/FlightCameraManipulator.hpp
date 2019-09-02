@@ -1,23 +1,23 @@
-#ifndef RADIUMENGINE_FLIGHTMODECAMERA_HPP
-#define RADIUMENGINE_FLIGHTMODECAMERA_HPP
+#ifndef RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
+#define RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
 #include <GuiBase/RaGuiBase.hpp>
 
-#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/CameraManipulator.hpp>
 
 namespace Ra {
 namespace Gui {
 
-/// A Trackball manipulator for Cameras.
-class RA_GUIBASE_API FlightModeCamera : public CameraInterface,
-                                        public KeyMappingManageable<FlightModeCamera>
+/// A Flight manipulator for Cameras.
+class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
+                                               public KeyMappingManageable<FlightCameraManipulator>
 {
     Q_OBJECT
-    friend class KeyMappingManageable<FlightModeCamera>;
+    friend class KeyMappingManageable<FlightCameraManipulator>;
 
   public:
-    FlightModeCamera( uint width, uint height );
-    explicit FlightModeCamera( const CameraInterface* other );
-    virtual ~FlightModeCamera();
+    FlightCameraManipulator(uint width, uint height );
+    explicit FlightCameraManipulator(const CameraManipulator* other );
+    virtual ~FlightCameraManipulator();
 
     KeyMappingManager::Listener mappingConfigurationCallback() override;
 
@@ -69,18 +69,18 @@ class RA_GUIBASE_API FlightModeCamera : public CameraInterface,
     Scalar m_flightSpeed{1.};
     static void configureKeyMapping_impl();
 
-#define KeyMappingFlightCamera           \
+#define KeyMappingFlightManipulator           \
     KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
     KMA_VALUE( FLIGHTMODECAMERA_PAN )    \
     KMA_VALUE( FLIGHTMODECAMERA_ZOOM )   \
     KMA_VALUE( FLIGHTMODECAMERA_ROTATE_AROUND )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
-    KeyMappingFlightCamera
+      KeyMappingFlightManipulator
 #undef KMA_VALUE
 };
 
 } // namespace Gui
 } // namespace Ra
 
-#endif // RADIUMENGINE_FLIGHTMODECAMERA_HPP
+#endif //RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP

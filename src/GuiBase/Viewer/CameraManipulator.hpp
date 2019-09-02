@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_CAMERAINTERFACE_HPP
-#define RADIUMENGINE_CAMERAINTERFACE_HPP
+#ifndef RADIUMENGINE_CAMERAMANIPULATOR_HPP
+#define RADIUMENGINE_CAMERAMANIPULATOR_HPP
 #include <GuiBase/RaGuiBase.hpp>
 
 #include <memory>
@@ -26,27 +26,27 @@ namespace Gui {
 
 // TODO : put in this class all the attribs common to all manipulators
 //  (i.e not only the direction but the distance to look at) ..
-/// The CameraInterface class is the generic class for camera manipulators.
-class RA_GUIBASE_API CameraInterface : public QObject
+/// The CameraManipulator class is the generic class for camera manipulators.
+class RA_GUIBASE_API CameraManipulator : public QObject
 {
     Q_OBJECT
 
   public:
     /// Initializes the default app Camera from the given size.
-    CameraInterface( uint width, uint height );
+    CameraManipulator(uint width, uint height );
 
     /// Initializes the default app Camera from the given camera.
-    explicit CameraInterface( const CameraInterface* other );
+    explicit CameraManipulator(const CameraManipulator* other );
 
-    virtual ~CameraInterface();
+    virtual ~CameraManipulator();
 
     /// Resize the camera viewport.
     void resizeViewport( uint width, uint height );
 
-    /// @return the projection matrix.
+    /// @return the projection matrix of the manipulated camera.
     Core::Matrix4 getProjMatrix() const;
 
-    /// @return the view matrix.
+    /// @return the view matrix of the manipulated camera.
     Core::Matrix4 getViewMatrix() const;
 
     /// @return the listener for keymapping configuration operation, nullptr if no configuration is
@@ -83,8 +83,8 @@ class RA_GUIBASE_API CameraInterface : public QObject
     /// Pointer access to the camera.
     Engine::Camera* getCamera() { return m_camera; }
 
-    /// Set the Camera used to render the scene.
-    /// \note CameraInterface doesn't have ownership.
+    /// Set the Camera to be manipulated.
+    /// \note CameraManipulator doesn't have ownership.
     virtual void setCamera( Engine::Camera* camera ) = 0;
 
     /**
@@ -97,7 +97,7 @@ class RA_GUIBASE_API CameraInterface : public QObject
     void resetToDefaultCamera();
 
     /// Set the Light attached to the camera.
-    /// \note CameraInterface doesn't have ownership.
+    /// \note CameraManipulator doesn't have ownership.
     void attachLight( Engine::Light* light );
 
     /// @return true if a Light is attached to the camera, false otherwise.
@@ -173,4 +173,4 @@ class RA_GUIBASE_API CameraInterface : public QObject
 } // namespace Gui
 } // namespace Ra
 
-#endif // RADIUMENGINE_CAMERAINTERFACE_HPP
+#endif //RADIUMENGINE_CAMERAMANIPULATOR_HPP

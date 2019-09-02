@@ -48,7 +48,7 @@
 #include <GuiBase/Utils/PickingManager.hpp>
 
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
-#include <GuiBase/Viewer/TrackballCamera.hpp>
+#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
 
 namespace Ra {
 
@@ -64,7 +64,7 @@ KeyMappingViewer;
 void Gui::Viewer::setupKeyMappingCallbacks() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
 
-    // keyMappingManager->addListener( Gui::TrackballCamera::configureKeyMapping );
+    // keyMappingManager->addListener( Gui::TrackballCameraManipulator::configureKeyMapping );
     keyMappingManager->addListener( m_camera->mappingConfigurationCallback() );
     keyMappingManager->addListener( Gui::GizmoManager::configureKeyMapping );
     keyMappingManager->addListener( configureKeyMapping );
@@ -175,7 +175,7 @@ bool Gui::Viewer::initializeGL() {
 
     createGizmoManager();
     // create default camera interface : trackball
-    m_camera = std::make_unique<Gui::TrackballCamera>( width(), height() );
+    m_camera = std::make_unique<Gui::TrackballCameraManipulator>(width(), height() );
     auto headlight =
         new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
     headlight->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
@@ -218,11 +218,11 @@ bool Gui::Viewer::initializeGL() {
     return true;
 }
 
-void Gui::Viewer::setCameraInterface( CameraInterface* ci ) {
+void Gui::Viewer::setCameraInterface(CameraManipulator* ci ) {
     m_camera.reset( ci );
 }
 
-Gui::CameraInterface* Gui::Viewer::getCameraInterface() {
+Gui::CameraManipulator* Gui::Viewer::getCameraManipulator() {
     return m_camera.get();
 }
 

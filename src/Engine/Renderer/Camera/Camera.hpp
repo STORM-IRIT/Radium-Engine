@@ -121,7 +121,7 @@ class RA_ENGINE_API Camera : public Component
     inline void setZoomFactor( const Scalar& zoomFactor );
 
     /// \name To be deprecated.
-    /// Currently, only the CameraInterface (i.e. TrackballCamera) calls these
+    /// Currently, only the CameraInterface (i.e. TrackballCameraManipulator) calls these
     /// methods. A rework of the rendering architecture will be done soon.
     /// Thus these methods might disappear.
     ///@{
@@ -168,7 +168,7 @@ class RA_ENGINE_API Camera : public Component
     RenderObject* m_RO{nullptr}; ///< Render mesh for the camera.
 
     /// \name To be deprecated
-    /// Currently, only the CameraInterface (i.e. TrackballCamera) accesses these
+    /// Currently, only the CameraManipulator (i.e. TrackballCameraManipulator) accesses these
     /// attributes. A rework of the rendering architecture will be done soon.
     /// Thus these attributes might disappear.
     ///@{

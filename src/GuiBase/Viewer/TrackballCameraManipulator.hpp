@@ -1,29 +1,29 @@
-#ifndef RADIUMENGINE_TRACKBALLCAMERA_HPP
-#define RADIUMENGINE_TRACKBALLCAMERA_HPP
+#ifndef RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP
+#define RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP
 #include <GuiBase/RaGuiBase.hpp>
 
-#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/CameraManipulator.hpp>
 
 namespace Ra {
 namespace Gui {
 
 /// A Trackball manipulator for Cameras.
-class RA_GUIBASE_API TrackballCamera : public CameraInterface,
-                                       public KeyMappingManageable<TrackballCamera>
+class RA_GUIBASE_API TrackballCameraManipulator : public CameraManipulator,
+                                                  public KeyMappingManageable<TrackballCameraManipulator>
 {
     Q_OBJECT
-    friend class KeyMappingManageable<TrackballCamera>;
+    friend class KeyMappingManageable<TrackballCameraManipulator>;
 
   public:
     /// Default constructor
-    TrackballCamera( uint width, uint height );
+    TrackballCameraManipulator(uint width, uint height );
 
     /// Copy constructor used when switching camera manipulator
     /// Requires that m_target is on the line of sight of the camera.
-    explicit TrackballCamera( const CameraInterface* other );
+    explicit TrackballCameraManipulator(const CameraManipulator* other );
 
     /// Destructor.
-    virtual ~TrackballCamera();
+    virtual ~TrackballCameraManipulator();
 
     KeyMappingManager::Listener mappingConfigurationCallback() override;
 
@@ -115,4 +115,4 @@ class RA_GUIBASE_API TrackballCamera : public CameraInterface,
 } // namespace Gui
 } // namespace Ra
 
-#endif // RADIUMENGINE_TRACKBALLCAMERA_HPP
+#endif //RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP

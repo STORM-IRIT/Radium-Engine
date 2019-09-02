@@ -16,9 +16,9 @@
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Utils/qt_utils.hpp>
-#include <GuiBase/Viewer/FlightModeCamera.hpp>
+#include <GuiBase/Viewer/FlightCameraManipulator.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
-#include <GuiBase/Viewer/TrackballCamera.hpp>
+#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 #include <IO/deprecated/OBJFileManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -89,7 +89,7 @@ void MainWindow::cleanup() {
 
 void MainWindow::trackballManipulator() {
     // set trackball manipulator (default)
-    auto cam = new Gui::TrackballCamera( m_viewer->getCameraInterface() );
+    auto cam = new Gui::TrackballCameraManipulator(m_viewer->getCameraManipulator() );
     m_viewer->setCameraInterface( cam );
 }
 
@@ -98,7 +98,7 @@ void MainWindow::flightManipulator() {
     static bool first = true;
 
     // set flightmode manipulator
-    auto cam = new Gui::FlightModeCamera( m_viewer->getCameraInterface() );
+    auto cam = new Gui::FlightCameraManipulator(m_viewer->getCameraManipulator() );
     m_viewer->setCameraInterface( cam );
 
     if ( first )
@@ -640,7 +640,7 @@ void MainWindow::deleteCurrentItem() {
 
 void MainWindow::resetScene() {
     // Fix issue #378 : ask the viewer to switch back to the default camera
-    m_viewer->getCameraInterface()->resetToDefaultCamera();
+    m_viewer->getCameraManipulator()->resetToDefaultCamera();
     // To see why this call is important, please see deleteCurrentItem().
     m_selectionManager->clear();
     Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
@@ -651,7 +651,7 @@ void MainWindow::fitCamera() {
     auto aabb = Engine::RadiumEngine::getInstance()->computeSceneAabb();
     if ( aabb.isEmpty() )
     {
-        m_viewer->getCameraInterface()->resetCamera();
+        m_viewer->getCameraManipulator()->resetCamera();
         mainApp->askForUpdate();
     }
     else
@@ -695,7 +695,7 @@ void MainWindow::postLoadFile( const std::string& filename ) {
             systemEntity->removeComponent( "CAMERA_DEFAULT" );
 
             auto camera = static_cast<Ra::Engine::Camera*>( ( *fc ).get() );
-            m_viewer->getCameraInterface()->setCamera(
+            m_viewer->getCameraManipulator()->setCamera(
                 camera->duplicate( systemEntity, "CAMERA_DEFAULT" ) );
         }
     }

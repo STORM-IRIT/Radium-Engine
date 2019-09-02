@@ -1,4 +1,4 @@
-#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/CameraManipulator.hpp>
 
 #include <Core/Math/Math.hpp>
 
@@ -12,7 +12,7 @@ namespace Ra {
 
 using namespace Core::Utils; // log
 
-Gui::CameraInterface::CameraInterface( const CameraInterface* other ) :
+Gui::CameraManipulator::CameraManipulator(const CameraManipulator* other ) :
     m_cameraSensitivity( other->m_cameraSensitivity ),
     m_quickCameraModifier( other->m_quickCameraModifier ),
     m_wheelSpeedModifier( other->m_wheelSpeedModifier ),
@@ -22,7 +22,7 @@ Gui::CameraInterface::CameraInterface( const CameraInterface* other ) :
     m_camera( other->m_camera ),
     m_light( other->m_light ) {}
 
-Gui::CameraInterface::CameraInterface( uint width, uint height ) :
+Gui::CameraManipulator::CameraManipulator(uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),
     m_quickCameraModifier( 1.f ),
     m_wheelSpeedModifier( 0.02f ),
@@ -52,7 +52,7 @@ Gui::CameraInterface::CameraInterface( uint width, uint height ) :
     }
 }
 
-void Gui::CameraInterface::resetToDefaultCamera() {
+void Gui::CameraManipulator::resetToDefaultCamera() {
     // get parameters from the current camera
     // Thisis awfull and requires that the current camera is still alive ...
     Scalar w = m_camera->getWidth();
@@ -74,65 +74,65 @@ void Gui::CameraInterface::resetToDefaultCamera() {
     }
 }
 
-Gui::CameraInterface::~CameraInterface() {}
+Gui::CameraManipulator::~CameraManipulator() {}
 
-void Gui::CameraInterface::resizeViewport( uint width, uint height ) {
+void Gui::CameraManipulator::resizeViewport(uint width, uint height ) {
     m_camera->resize( Scalar( width ), Scalar( height ) );
 }
 
-Core::Matrix4 Gui::CameraInterface::getProjMatrix() const {
+Core::Matrix4 Gui::CameraManipulator::getProjMatrix() const {
     return m_camera->getProjMatrix();
 }
 
-Core::Matrix4 Gui::CameraInterface::getViewMatrix() const {
+Core::Matrix4 Gui::CameraManipulator::getViewMatrix() const {
     return m_camera->getViewMatrix();
 }
 
-void Gui::CameraInterface::setCameraSensitivity( double sensitivity ) {
+void Gui::CameraManipulator::setCameraSensitivity(double sensitivity ) {
     m_cameraSensitivity = sensitivity;
 }
 
-void Gui::CameraInterface::setCameraFov( double fov ) {
+void Gui::CameraManipulator::setCameraFov(double fov ) {
     m_camera->setFOV( fov );
 }
 
-void Gui::CameraInterface::setCameraFovInDegrees( double fov ) {
+void Gui::CameraManipulator::setCameraFovInDegrees(double fov ) {
     m_camera->setFOV( fov * Core::Math::toRad );
 }
 
-void Gui::CameraInterface::setCameraZNear( double zNear ) {
+void Gui::CameraManipulator::setCameraZNear(double zNear ) {
     m_camera->setZNear( zNear );
 }
 
-void Gui::CameraInterface::setCameraZFar( double zFar ) {
+void Gui::CameraManipulator::setCameraZFar(double zFar ) {
     m_camera->setZFar( zFar );
 }
 
-void Gui::CameraInterface::mapCameraBehaviourToAabb( const Core::Aabb& aabb ) {
+void Gui::CameraManipulator::mapCameraBehaviourToAabb(const Core::Aabb& aabb ) {
     m_targetedAabb             = aabb;
     m_targetedAabbVolume       = aabb.volume();
     m_mapCameraBahaviourToAabb = true;
 }
 
-void Gui::CameraInterface::unmapCameraBehaviourToAabb() {
+void Gui::CameraManipulator::unmapCameraBehaviourToAabb() {
     m_mapCameraBahaviourToAabb = false;
 }
 
-void Gui::CameraInterface::attachLight( Engine::Light* light ) {
+void Gui::CameraManipulator::attachLight(Engine::Light* light ) {
     m_light = light;
     m_light->setDirection( m_camera->getDirection() );
 }
 
-Gui::KeyMappingManager::Listener Gui::CameraInterface::mappingConfigurationCallback() {
+Gui::KeyMappingManager::Listener Gui::CameraManipulator::mappingConfigurationCallback() {
     return nullptr; // Gui::KeyMappingManager::Listener();
 }
 
-Gui::KeyMappingManager::Context Gui::CameraInterface::mappingContext() {
+Gui::KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }
 
-const Engine::Camera& Gui::CameraInterface::getCameraFromViewer( QObject* v ) {
-    return *static_cast<Gui::Viewer*>( v )->getCameraInterface()->getCamera();
+const Engine::Camera& Gui::CameraManipulator::getCameraFromViewer(QObject* v ) {
+    return *static_cast<Gui::Viewer *>( v )->getCameraManipulator()->getCamera();
 }
 
 } // namespace Ra
