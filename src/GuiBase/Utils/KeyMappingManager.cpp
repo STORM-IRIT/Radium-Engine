@@ -50,6 +50,61 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
     return KeyMappingManager::KeyMappingAction();
 }
 
+void KeyMappingManager::addAction( const std::string& context,
+                                   const std::string& keyString,
+                                   const std::string& modifiersString,
+                                   const std::string& buttonsString,
+                                   const std::string& wheelString,
+                                   const std::string& actionString ) {
+
+    Ra::Core::Utils::Index contextIndex;
+    auto contextItr = m_contextNameToIndex.find( context );
+    if ( contextItr == m_contextNameToIndex.end() )
+    {
+        contextIndex                  = m_contextNameToIndex.size();
+        m_contextNameToIndex[context] = contextIndex;
+        m_actionNameToIndex.emplace_back();
+        m_mappingAction.emplace_back();
+
+        CORE_ASSERT( m_actionNameToIndex.size() == contextIndex + 1, "Corrupted actionName DB" );
+        CORE_ASSERT( m_mappingAction.size() == contextIndex + 1, "Corrupted mappingAction DB" );
+    }
+    else
+        contextIndex = contextItr->second;
+
+    Ra::Core::Utils::Index actionIndex;
+    auto actionItr = m_actionNameToIndex[contextIndex].find( actionString );
+    if ( actionItr == m_actionNameToIndex[contextIndex].end() )
+    {
+        actionIndex                                     = m_actionNameToIndex[contextIndex].size();
+        m_actionNameToIndex[contextIndex][actionString] = actionIndex;
+    }
+    else
+    {
+        LOG( logWARNING ) << "Action " << actionString << " has already been inserted to index for "
+                          << context;
+        actionIndex = actionItr->second;
+    }
+
+    Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
+    auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );
+    auto buttonsValue                    = getQtMouseButtonsValue( buttonsString );
+    auto wheel                           = wheelString.compare( "true" ) == 0;
+
+    if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel )
+    {
+        LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionString
+                        << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
+        LOG( logERROR ) << "Trying to load default configuration...";
+    }
+    else
+    {
+        bindKeyToAction( contextIndex,
+                         MouseBinding{buttonsValue, modifiersValue, keyValue, wheel},
+                         actionIndex );
+    }
+}
+
 KeyMappingManager::Context KeyMappingManager::getContext( const std::string& contextName ) {
     // use find so that it do not insert invalid context
     auto itr = m_contextNameToIndex.find( contextName );
@@ -61,7 +116,8 @@ KeyMappingManager::KeyMappingAction
 KeyMappingManager::getActionIndex( const Context& context, const std::string& actionName ) {
     if ( context >= m_actionNameToIndex.size() || context.isInvalid() )
     {
-        LOG( logINFO ) << "try to get action index from an invalid context";
+        LOG( logINFO ) << "try to get action index ( " << actionName
+                       << " ) from an invalid context ( " << context << " )";
 
         return KeyMappingAction{};
     }
@@ -240,8 +296,11 @@ void KeyMappingManager::loadConfigurationInternal() {
 
     while ( !node.isNull() )
     {
-        QDomElement nodeElement = node.toElement();
-        loadConfigurationTagsInternal( nodeElement );
+        if ( !node.isComment() )
+        {
+            QDomElement nodeElement = node.toElement();
+            loadConfigurationTagsInternal( nodeElement );
+        }
         node = node.nextSibling();
     }
 }

@@ -45,6 +45,23 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
                                                    int key,
                                                    bool wheel = false );
 
+    /// Add a given action to the mapping system.
+    /// This allow to define default behavior when some KeyMappingManageable object is not
+    /// parameterized in the application config file.
+    /// @todo write the configuration in the configFile to be later reused or modified ?
+    /// @param context the context of the action
+    /// @param keyString
+    /// @param modifiersString
+    /// @param buttonsString
+    /// @param wheelString
+    /// @param actionString
+    void addAction( const std::string& context,
+                    const std::string& keyString,
+                    const std::string& modifiersString,
+                    const std::string& buttonsString,
+                    const std::string& wheelString,
+                    const std::string& actionString );
+
     /// Return the context index corresponding to contextName
     /// \param contextName the name of the context
     /// \return an invalid context if contextName has not been created (i.e. context,isInvalid())

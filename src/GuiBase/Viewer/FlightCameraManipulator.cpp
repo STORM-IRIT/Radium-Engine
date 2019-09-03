@@ -28,10 +28,28 @@ KeyMappingFlightManipulator
         Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
-        LOG( Ra::Core::Utils::logINFO ) << "FlightManipulatorContext not defined (maybe the "
-                                           "configuration file do not contains it)";
-        LOG( Ra::Core::Utils::logERROR ) << "FlightManipulatorContext all keymapping are invalid !";
-        return;
+        LOG( Ra::Core::Utils::logWARNING )
+            << "FlightManipulatorContext not defined (maybe the "
+               "configuration file do not contains it). Adding default configuration.";
+
+        Gui::KeyMappingManager::getInstance()->addAction(
+            "FlightManipulatorContext", "", "", "LeftButton", "", "FLIGHTMODECAMERA_ROTATE" );
+        Gui::KeyMappingManager::getInstance()->addAction( "FlightManipulatorContext",
+                                                          "",
+                                                          "ShiftModifier",
+                                                          "LeftButton",
+                                                          "",
+                                                          "FLIGHTMODECAMERA_PAN" );
+        Gui::KeyMappingManager::getInstance()->addAction( "FlightManipulatorContext",
+                                                          "",
+                                                          "ControlModifier",
+                                                          "LeftButton",
+                                                          "",
+                                                          "FLIGHTMODECAMERA_ZOOM" );
+        Gui::KeyMappingManager::getInstance()->addAction(
+            "FlightManipulatorContext", "Key_A", "", "", "", "FLIGHTMODECAMERA_ROTATE_AROUND" );
+        m_keyMappingContext =
+            Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" );
     }
 
 #define KMA_VALUE( XX ) \
@@ -315,17 +333,21 @@ void Gui::FlightCameraManipulator::handleCameraZoom( Scalar z ) {
 }
 
 void Gui::FlightCameraManipulator::initializeFixedUpVector() {
+#if 0
+    // This is supposed to adapt the up vector to the main up direction but is not really satisfactory.
     const auto& upVector = m_camera->getUpVector();
-    if ( upVector[0] > upVector[1] )
+    if ( std::abs(upVector[0]) >  std::abs(upVector[1]) )
     {
-        if ( upVector[0] > upVector[2] ) { m_fixUpVector = Ra::Core::Vector3( 1, 0, 0 ); }
+        if (  std::abs(upVector[0]) >  std::abs(upVector[2]) ) { m_fixUpVector = Ra::Core::Vector3( 1, 0, 0 ); }
         else
         { m_fixUpVector = Ra::Core::Vector3( 0, 0, 1 ); }
     }
-    else if ( upVector[1] > upVector[2] )
+    else if (  std::abs(upVector[1]) >  std::abs(upVector[2]) )
     { m_fixUpVector = Ra::Core::Vector3( 0, 1, 0 ); }
     else
     { m_fixUpVector = Ra::Core::Vector3( 0, 0, 1 ); }
+#endif
+    m_fixUpVector = Ra::Core::Vector3( 0, 1, 0 );
 }
 
 } // namespace Gui
