@@ -48,6 +48,9 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     setupUi( this );
 
     m_viewer = new Viewer();
+    // Registers the applicaiton dependant camera manipulators
+    auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+    keyMappingManager->addListener( Gui::FlightCameraManipulator::configureKeyMapping );
 
     connect( m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized );
     connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
@@ -89,24 +92,15 @@ void MainWindow::cleanup() {
 
 void MainWindow::trackballManipulator() {
     // set trackball manipulator (default)
-    auto cam = new Gui::TrackballCameraManipulator(m_viewer->getCameraManipulator() );
-    m_viewer->setCameraInterface( cam );
+    m_viewer->setCameraInterface(
+        new Gui::TrackballCameraManipulator( m_viewer->getCameraManipulator() ) );
 }
 
 // todo : this must be carefully checked to prevent keymapping problems and memory leaks.
 void MainWindow::flightManipulator() {
-    static bool first = true;
-
     // set flightmode manipulator
-    auto cam = new Gui::FlightCameraManipulator(m_viewer->getCameraManipulator() );
-    m_viewer->setCameraInterface( cam );
-
-    if ( first )
-    {
-        auto keyMappingManager = Gui::KeyMappingManager::getInstance();
-        keyMappingManager->addListener( cam->mappingConfigurationCallback() );
-        first = false;
-    }
+    m_viewer->setCameraInterface(
+        new Gui::FlightCameraManipulator( m_viewer->getCameraManipulator() ) );
 }
 
 // Connection to gizmos must be done after GL is initialized

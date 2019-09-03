@@ -49,10 +49,6 @@ class RA_GUIBASE_API CameraManipulator : public QObject
     /// @return the view matrix of the manipulated camera.
     Core::Matrix4 getViewMatrix() const;
 
-    /// @return the listener for keymapping configuration operation, nullptr if no configuration is
-    /// available
-    virtual KeyMappingManager::Listener mappingConfigurationCallback();
-
     /// @return the mapping context for keymapping, nullptr if no mapping is available
     virtual KeyMappingManager::Context mappingContext();
 

@@ -123,10 +123,6 @@ void Gui::CameraManipulator::attachLight(Engine::Light* light ) {
     m_light->setDirection( m_camera->getDirection() );
 }
 
-Gui::KeyMappingManager::Listener Gui::CameraManipulator::mappingConfigurationCallback() {
-    return nullptr; // Gui::KeyMappingManager::Listener();
-}
-
 Gui::KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }

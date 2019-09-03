@@ -12,7 +12,6 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
 
-#include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>

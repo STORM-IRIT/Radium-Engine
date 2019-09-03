@@ -39,10 +39,6 @@ void Gui::FlightCameraManipulator::configureKeyMapping_impl() {
 #undef KMA_VALUE
 }
 
-KeyMappingManager::Listener Gui::FlightCameraManipulator::mappingConfigurationCallback() {
-    return Gui::FlightCameraManipulator::configureKeyMapping;
-}
-
 Gui::FlightCameraManipulator::FlightCameraManipulator(uint width, uint height ) :
     CameraManipulator(width, height ),
     m_rotateAround( true ),

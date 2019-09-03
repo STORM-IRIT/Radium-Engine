@@ -64,8 +64,9 @@ KeyMappingViewer;
 void Gui::Viewer::setupKeyMappingCallbacks() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
 
-    // keyMappingManager->addListener( Gui::TrackballCameraManipulator::configureKeyMapping );
-    keyMappingManager->addListener( m_camera->mappingConfigurationCallback() );
+    // Add default manipulator listener
+    keyMappingManager->addListener( Gui::TrackballCameraManipulator::configureKeyMapping );
+    // add viewer related listener
     keyMappingManager->addListener( Gui::GizmoManager::configureKeyMapping );
     keyMappingManager->addListener( configureKeyMapping );
 }
