@@ -64,6 +64,8 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
     bool m_cameraZoomMode;
 
   private:
+    void initializeFixedUpVector();
+    Ra::Core::Vector3 m_fixUpVector{0, 1, 0};
     Scalar m_flightSpeed{1.};
     static void configureKeyMapping_impl();
 

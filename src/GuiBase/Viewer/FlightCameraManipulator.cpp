@@ -21,14 +21,15 @@ using Core::Math::Pi;
 KeyMappingFlightManipulator
 #undef KMA_VALUE
 
-void Gui::FlightCameraManipulator::configureKeyMapping_impl() {
+    void
+    Gui::FlightCameraManipulator::configureKeyMapping_impl() {
 
     m_keyMappingContext =
         Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
-        LOG( Ra::Core::Utils::logINFO )
-            << "FlightManipulatorContext not defined (maybe the configuration file do not contains it)";
+        LOG( Ra::Core::Utils::logINFO ) << "FlightManipulatorContext not defined (maybe the "
+                                           "configuration file do not contains it)";
         LOG( Ra::Core::Utils::logERROR ) << "FlightManipulatorContext all keymapping are invalid !";
         return;
     }
@@ -39,8 +40,8 @@ void Gui::FlightCameraManipulator::configureKeyMapping_impl() {
 #undef KMA_VALUE
 }
 
-Gui::FlightCameraManipulator::FlightCameraManipulator(uint width, uint height ) :
-    CameraManipulator(width, height ),
+Gui::FlightCameraManipulator::FlightCameraManipulator( uint width, uint height ) :
+    CameraManipulator( width, height ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
@@ -48,13 +49,14 @@ Gui::FlightCameraManipulator::FlightCameraManipulator(uint width, uint height ) 
     resetCamera();
 }
 
-Gui::FlightCameraManipulator::FlightCameraManipulator(const CameraManipulator* other ) :
-    CameraManipulator(other ),
+Gui::FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator* other ) :
+    CameraManipulator( other ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
     m_cameraZoomMode( false ) {
     m_flightSpeed = ( m_target - m_camera->getPosition() ).norm() / 10_ra;
+    initializeFixedUpVector();
 }
 
 Gui::FlightCameraManipulator::~FlightCameraManipulator() = default;
@@ -62,6 +64,7 @@ Gui::FlightCameraManipulator::~FlightCameraManipulator() = default;
 void Gui::FlightCameraManipulator::resetCamera() {
     m_camera->setFrame( Core::Transform::Identity() );
     m_camera->setPosition( Core::Vector3( 0, 0, 1 ) );
+    initializeFixedUpVector();
 
     m_target      = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
     m_flightSpeed = 0.2;
@@ -75,10 +78,10 @@ void Gui::FlightCameraManipulator::resetCamera() {
     emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
-bool Gui::FlightCameraManipulator::handleMousePressEvent(QMouseEvent* event,
-                                                         const Qt::MouseButtons& buttons,
-                                                         const Qt::KeyboardModifiers& modifiers,
-                                                         int key ) {
+bool Gui::FlightCameraManipulator::handleMousePressEvent( QMouseEvent* event,
+                                                          const Qt::MouseButtons& buttons,
+                                                          const Qt::KeyboardModifiers& modifiers,
+                                                          int key ) {
     bool handled = false;
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
@@ -105,10 +108,10 @@ bool Gui::FlightCameraManipulator::handleMousePressEvent(QMouseEvent* event,
     return handled;
 }
 
-bool Gui::FlightCameraManipulator::handleMouseMoveEvent(QMouseEvent* event,
-                                                        const Qt::MouseButtons& buttons,
-                                                        const Qt::KeyboardModifiers& modifiers,
-                                                        int /*key*/ ) {
+bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
+                                                         const Qt::MouseButtons& buttons,
+                                                         const Qt::KeyboardModifiers& modifiers,
+                                                         int /*key*/ ) {
 
     // auto action = KeyMappingManager::getInstance()->getAction( context, buttons, modifiers, key
     // );
@@ -140,7 +143,7 @@ bool Gui::FlightCameraManipulator::handleMouseMoveEvent(QMouseEvent* event,
     return m_cameraRotateMode || m_cameraPanMode || m_cameraZoomMode;
 }
 
-bool Gui::FlightCameraManipulator::handleMouseReleaseEvent(QMouseEvent* /*event*/ ) {
+bool Gui::FlightCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
     m_cameraRotateMode    = false;
     m_cameraPanMode       = false;
     m_cameraZoomMode      = false;
@@ -149,7 +152,7 @@ bool Gui::FlightCameraManipulator::handleMouseReleaseEvent(QMouseEvent* /*event*
     return true;
 }
 
-bool Gui::FlightCameraManipulator::handleWheelEvent(QWheelEvent* event ) {
+bool Gui::FlightCameraManipulator::handleWheelEvent( QWheelEvent* event ) {
 
     handleCameraZoom( ( event->angleDelta().y() + event->angleDelta().x() ) *
                       m_wheelSpeedModifier );
@@ -182,16 +185,17 @@ bool Gui::FlightCameraManipulator::handleKeyPressEvent(
     return false;
 }
 
-bool Gui::FlightCameraManipulator::handleKeyReleaseEvent(QKeyEvent* /*e*/ ) {
+bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
 }
 
-void Gui::FlightCameraManipulator::setCamera(Engine::Camera* camera ) {
+void Gui::FlightCameraManipulator::setCamera( Engine::Camera* camera ) {
 
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera = camera;
     m_target = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
+    initializeFixedUpVector();
 
     m_camera->show( false );
 
@@ -202,7 +206,7 @@ void Gui::FlightCameraManipulator::setCamera(Engine::Camera* camera ) {
     }
 }
 
-void Gui::FlightCameraManipulator::setCameraPosition(const Core::Vector3& position ) {
+void Gui::FlightCameraManipulator::setCameraPosition( const Core::Vector3& position ) {
     if ( position == m_target )
     {
         QMessageBox::warning( nullptr, "Error", "Position cannot be set to target point" );
@@ -220,7 +224,7 @@ void Gui::FlightCameraManipulator::setCameraPosition(const Core::Vector3& positi
     emit cameraPositionChanged( m_camera->getPosition() );
 }
 
-void Gui::FlightCameraManipulator::setCameraTarget(const Core::Vector3& target ) {
+void Gui::FlightCameraManipulator::setCameraTarget( const Core::Vector3& target ) {
     if ( m_camera->getPosition() == m_target )
     {
         QMessageBox::warning( nullptr, "Error", "Target cannot be set to current camera position" );
@@ -235,7 +239,7 @@ void Gui::FlightCameraManipulator::setCameraTarget(const Core::Vector3& target )
     emit cameraTargetChanged( m_target );
 }
 
-void Gui::FlightCameraManipulator::fitScene(const Core::Aabb& aabb ) {
+void Gui::FlightCameraManipulator::fitScene( const Core::Aabb& aabb ) {
     resetCamera();
 
     Scalar f = m_camera->getFOV();
@@ -249,6 +253,7 @@ void Gui::FlightCameraManipulator::fitScene(const Core::Aabb& aabb ) {
     m_camera->setPosition(
         Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );
     m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
+    initializeFixedUpVector();
     m_target = aabb.center();
 
     m_flightSpeed = d / 10_ra;
@@ -265,13 +270,13 @@ void Gui::FlightCameraManipulator::fitScene(const Core::Aabb& aabb ) {
     emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
-void Gui::FlightCameraManipulator::handleCameraRotate(Scalar dx, Scalar dy ) {
+void Gui::FlightCameraManipulator::handleCameraRotate( Scalar dx, Scalar dy ) {
     Scalar dphi   = dx * m_cameraSensitivity * m_quickCameraModifier;
     Scalar dtheta = -dy * m_cameraSensitivity * m_quickCameraModifier;
 
     Core::Transform R( Core::Transform::Identity() );
     if ( std::abs( dphi ) > std::abs( dtheta ) )
-    { R = Core::AngleAxis( -dphi, m_camera->getUpVector().normalized() ); }
+    { R = Core::AngleAxis( -dphi, /*m_camera->getUpVector().normalized()*/ m_fixUpVector ); }
     else
     { R = Core::AngleAxis( -dtheta, -m_camera->getRightVector().normalized() ); }
 
@@ -281,12 +286,12 @@ void Gui::FlightCameraManipulator::handleCameraRotate(Scalar dx, Scalar dy ) {
     m_target = m_camera->getPosition() + d * m_camera->getDirection();
 }
 
-void Gui::FlightCameraManipulator::handleCameraPan(Scalar dx, Scalar dy ) {
+void Gui::FlightCameraManipulator::handleCameraPan( Scalar dx, Scalar dy ) {
     Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier;
     Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier;
     // Move camera and trackball center, keep the distance to the center
     Core::Vector3 R = -m_camera->getRightVector();
-    Core::Vector3 U = m_camera->getUpVector();
+    Core::Vector3 U = m_fixUpVector; // m_camera->getUpVector();
 
     Core::Transform T( Core::Transform::Identity() );
     Core::Vector3 t = x * R + y * U;
@@ -296,17 +301,31 @@ void Gui::FlightCameraManipulator::handleCameraPan(Scalar dx, Scalar dy ) {
     m_target += t;
 }
 
-void Gui::FlightCameraManipulator::handleCameraZoom(Scalar dx, Scalar dy ) {
+void Gui::FlightCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {
     handleCameraZoom( Ra::Core::Math::sign( dx ) * ( std::abs( dx ) + std::abs( dy ) ) );
 }
 
-void Gui::FlightCameraManipulator::handleCameraZoom(Scalar z ) {
+void Gui::FlightCameraManipulator::handleCameraZoom( Scalar z ) {
     auto y = m_flightSpeed * z * m_cameraSensitivity * m_quickCameraModifier;
     Core::Transform T( Core::Transform::Identity() );
     Core::Vector3 t = y * m_camera->getDirection();
     T.translate( t );
     m_camera->applyTransform( T );
     m_target += t;
+}
+
+void Gui::FlightCameraManipulator::initializeFixedUpVector() {
+    const auto& upVector = m_camera->getUpVector();
+    if ( upVector[0] > upVector[1] )
+    {
+        if ( upVector[0] > upVector[2] ) { m_fixUpVector = Ra::Core::Vector3( 1, 0, 0 ); }
+        else
+        { m_fixUpVector = Ra::Core::Vector3( 0, 0, 1 ); }
+    }
+    else if ( upVector[1] > upVector[2] )
+    { m_fixUpVector = Ra::Core::Vector3( 0, 1, 0 ); }
+    else
+    { m_fixUpVector = Ra::Core::Vector3( 0, 0, 1 ); }
 }
 
 } // namespace Gui
