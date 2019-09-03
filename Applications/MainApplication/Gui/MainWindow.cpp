@@ -96,7 +96,6 @@ void MainWindow::trackballManipulator() {
         new Gui::TrackballCameraManipulator( m_viewer->getCameraManipulator() ) );
 }
 
-// todo : this must be carefully checked to prevent keymapping problems and memory leaks.
 void MainWindow::flightManipulator() {
     // set flightmode manipulator
     m_viewer->setCameraInterface(
