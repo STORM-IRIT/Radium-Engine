@@ -167,8 +167,7 @@ class RA_ENGINE_API RadiumEngine
     const std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>& getFileLoaders() const;
 
     /**
-     * Return the aabb of the scene by aggregating aabb from entity.
-     * @return the AABB
+     * Compute the aabb of the scene by aggregating aabb from entity.
      */
     Core::Aabb computeSceneAabb() const;
 

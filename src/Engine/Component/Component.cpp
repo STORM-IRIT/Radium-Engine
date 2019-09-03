@@ -56,7 +56,7 @@ void Component::notifyRenderObjectExpired( const Core::Utils::Index& idx ) {
 
 Core::Aabb Component::computeAabb() const {
 
-    // component have not transformation, so ask render objects own bbox.
+    // component haven't any transformation, so ask render objects own aabb.
     Core::Aabb aabb;
     for ( const auto& roIndex : m_renderObjects )
     {
