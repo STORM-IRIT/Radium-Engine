@@ -48,7 +48,7 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     setupUi( this );
 
     m_viewer = new Viewer();
-    // Registers the applicaiton dependant camera manipulators
+    // Registers the application dependant camera manipulators
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
     keyMappingManager->addListener( Gui::FlightCameraManipulator::configureKeyMapping );
 
