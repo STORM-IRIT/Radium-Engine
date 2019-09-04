@@ -7,6 +7,7 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/Observable.hpp>
 
 namespace Ra {
 namespace Core {
@@ -27,8 +28,11 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    using PointAttribHandle  = Utils::AttribHandle<Vector3>;
-    using NormalAttribHandle = Utils::AttribHandle<Vector3>;
+    using Point  = Vector3;
+    using Normal = Vector3;
+
+    using PointAttribHandle  = Utils::AttribHandle<Point>;
+    using NormalAttribHandle = Utils::AttribHandle<Normal>;
     using FloatAttribHandle  = Utils::AttribHandle<float>;
     using Vec2AttribHandle   = Utils::AttribHandle<Vector2>;
     using Vec3AttribHandle   = Utils::AttribHandle<Vector3>;
@@ -62,88 +66,62 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     bool append( const TriangleMesh& other );
 
     /// Erases all data, making the mesh empty.
-    inline void clear() override;
+    void clear() override;
+
+    /// Set vertices
+    inline void setVertices( PointAttribHandle::Container&& vertices );
+    inline void setVertices( const PointAttribHandle::Container& vertices );
 
     /// Access the vertices positions.
-    inline PointAttribHandle::Container& vertices() {
-        return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
-    }
+    inline const PointAttribHandle::Container& vertices() const;
 
-    /// Access the vertices positions.
-    inline const PointAttribHandle::Container& vertices() const {
-        return m_vertexAttribs.getAttrib( m_verticesHandle ).data();
-    }
-
+    /// Set normals
+    inline void setNormals( PointAttribHandle::Container&& normals );
+    inline void setNormals( const PointAttribHandle::Container& normals );
     /// Access the vertices normals.
-    inline NormalAttribHandle::Container& normals() {
-        return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
-    }
-
-    /// Access the vertices normals.
-    inline const NormalAttribHandle::Container& normals() const {
-        return m_vertexAttribs.getAttrib( m_normalsHandle ).data();
-    }
+    inline const NormalAttribHandle::Container& normals() const;
 
     /// Return the Handle to the attribute with the given name if it exists, an
     /// invalid handle otherwise.
     /// \see AttribManager::getAttribHandle() for more info.
-    /// \note Attribute names "in_position" and "in_normal" are reserved and will
-    ///       give an invalid handle.
     template <typename T>
-    Utils::AttribHandle<T> getAttribHandle( const std::string& name ) const {
-        if ( name.compare( "in_position" ) == 0 || name.compare( "in_normal" ) == 0 )
-            return Utils::AttribHandle<T>();
-        return m_vertexAttribs.findAttrib<T>( name );
-    }
+    inline Utils::AttribHandle<T> getAttribHandle( const std::string& name ) const;
 
     /// Return true if \p h refers to an existing attribute in *this.
     template <typename T>
-    bool isValid( const Utils::AttribHandle<T>& h ) const {
-        return m_vertexAttribs.isValid( h );
-    }
+    inline bool isValid( const Utils::AttribHandle<T>& h ) const;
 
     /// Get attribute by handle.
     /// \see AttribManager::getAttrib() for more info.
     template <typename T>
-    Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h ) {
-        return m_vertexAttribs.getAttrib( h );
-    }
+    inline Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h );
+
+    template <typename T>
+    inline Utils::Attrib<T>* getAttribPtr( const Utils::AttribHandle<T>& h );
 
     /// Get attribute by handle (const).
     /// \see AttribManager::getAttrib() for more info.
     template <typename T>
-    const Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h ) const {
-        return m_vertexAttribs.getAttrib( h );
-    }
+    inline const Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h ) const;
 
-    Utils::AttribBase* getAttribBase( const std::string& name ) {
-        return m_vertexAttribs.getAttribBase( name );
-    }
+    inline Utils::AttribBase* getAttribBase( const std::string& name );
 
     /// Check if an attribute exists with the given name.
     /// \see AttribManager::contains for more info.
-    bool hasAttrib( const std::string& name ) { return m_vertexAttribs.contains( name ); }
+    inline bool hasAttrib( const std::string& name );
 
     /// Add attribute with the given name.
     /// \see AttribManager::addAttrib() for more info.
-    /// \note If \p name if a reserved name, then no attribute is added and an
-    ///       invalid Handle is returned.
     template <typename T>
-    Utils::AttribHandle<T> addAttrib( const std::string& name ) {
-        if ( name.compare( "in_position" ) == 0 || name.compare( "in_normal" ) == 0 )
-            return Utils::AttribHandle<T>();
-        return m_vertexAttribs.addAttrib<T>( name );
-    }
+    inline Utils::AttribHandle<T> addAttrib( const std::string& name );
 
     /// Remove attribute by handle.
     /// \see AttribManager::removeAttrib() for more info.
     template <typename T>
-    void removeAttrib( Utils::AttribHandle<T>& h ) {
-        m_vertexAttribs.removeAttrib( h );
-    }
+    inline void removeAttrib( Utils::AttribHandle<T>& h );
 
     /// Erases all attributes, leaving the mesh with faces and geometry only.
-    void clearAttributes();
+    inline void clearAttributes();
 
     /// Copy only the mesh faces and geometry.
     /// The needed attributes can be copied through copyAttributes().
@@ -174,7 +152,18 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     /// Utility function colorzing the mesh with a given color. Add the color attribute if needed.
     void colorize( const Utils::Color& c );
 
-    Utils::AttribManager& vertexAttribs() { return m_vertexAttribs; }
+    inline Utils::AttribManager& vertexAttribs();
+
+    /// Access the vertices positions.
+    inline PointAttribHandle::Container& verticesWithLock();
+    /// Access the vertices positions.
+    inline void verticesUnlock();
+
+    /// Access the vertices positions.
+    inline NormalAttribHandle::Container& normalsWithLock();
+
+    /// Access the vertices positions.
+    inline void normalsUnlock();
 
   public:
     /// The list of triangles.
@@ -184,6 +173,14 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     VectorArray<Face> m_faces;
 
   private:
+    /// Sets the default attribs.
+    inline void initDefaultAttribs();
+    /// Append the data of \p attr to the attribute with the same name.
+    /// \warning There is no check on the existence of *this's attribute.
+    /// \warning There is no error check on the handles attribute type.
+    template <typename T>
+    void append_attrib( Utils::AttribBase* attr );
+
     /// The attrib manager.
     Utils::AttribManager m_vertexAttribs;
 
@@ -192,24 +189,6 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
 
     /// The handle for normals, making request faster.
     NormalAttribHandle m_normalsHandle;
-
-    /// Sets the default attribs.
-    inline void initDefaultAttribs() {
-        m_verticesHandle =
-            m_vertexAttribs.addAttrib<PointAttribHandle::value_type>( "in_position" );
-        m_normalsHandle = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>( "in_normal" );
-    }
-
-    /// Append the data of \p attr to the attribute with the same name.
-    /// \warning There is no check on the existence of *this's attribute.
-    /// \warning There is no error check on the handles attribute type.
-    template <typename T>
-    void append_attrib( Utils::AttribBase* attr ) {
-        auto h         = m_vertexAttribs.findAttrib<T>( attr->getName() );
-        auto& v0       = m_vertexAttribs.getAttrib( h ).data();
-        const auto& v1 = attr->cast<T>().data();
-        v0.insert( v0.end(), v1.cbegin(), v1.cend() );
-    }
 
     // Ease wrapper
     friend class TopologicalMesh;

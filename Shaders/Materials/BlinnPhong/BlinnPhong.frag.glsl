@@ -11,7 +11,7 @@ layout (location = 2) in vec3 in_normal;
 layout (location = 3) in vec3 in_tangent;
 layout (location = 4) in vec3 in_viewVector;
 layout (location = 5) in vec3 in_lightVector;
-layout (location = 6) in vec3 in_vertexColor;
+layout (location = 6) in vec3 in_color;
 
 #include "BlinnPhongMaterial.glsl"
 

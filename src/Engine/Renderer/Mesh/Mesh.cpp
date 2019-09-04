@@ -33,6 +33,7 @@ Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
     updatePickingRenderMode();
 }
 
+// no need to detach listener since TriangleMesh is owned by Mesh.
 Mesh::~Mesh() {}
 
 void Mesh::render( const ShaderProgram* prog ) {
@@ -78,12 +79,18 @@ void Mesh::loadGeometry( Core::Geometry::TriangleMesh&& mesh ) {
     m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
     m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
 
+    // here capture ref to idx to propagate irx incorementation
     m_mesh.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
         m_handleToBuffer[b->getName()] = idx;
         m_dataDirty[idx]               = true;
+
+        b->attach( AttribObserver( this, idx ) );
+
         ++idx;
     } );
 
+    m_mesh.vertexAttribs().attach(
+        std::bind( &Mesh::addAttribObserver, this, std::placeholders::_1 ) );
     m_isDirty = true;
 }
 
@@ -101,7 +108,7 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     }
     else
         m_numElements = nIdx;
-    mesh.vertices() = vertices;
+    mesh.setVertices( vertices );
 
     // Check that when loading a TriangleMesh we actually have triangles or lines.
     CORE_ASSERT( m_renderMode != GL_TRIANGLES || nIdx % 3 == 0,
@@ -124,61 +131,6 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     ///\todo check line vs triangle here is a bug
     loadGeometry( std::move( mesh ) );
 }
-
-void Mesh::addData( const Vec3Data& type, const Core::Vector3Array& data ) {
-
-    if ( !data.empty() )
-    {
-        auto name = getAttribName( type );
-        // add attrib return the corresponding attrib if already present.
-        Core::Geometry::TriangleMesh::Vec3AttribHandle handle =
-            m_mesh.addAttrib<Core::Vector3>( name );
-
-        //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
-        m_mesh.getAttrib( handle ).data() = data;
-        auto itr                          = m_handleToBuffer.find( name );
-
-        if ( itr == m_handleToBuffer.end() )
-        {
-            m_handleToBuffer[name] = m_dataDirty.size();
-            m_dataDirty.push_back( true );
-            m_vbos.emplace_back( nullptr );
-        }
-        else
-            m_dataDirty[m_handleToBuffer[name]] = true;
-
-        m_isDirty = true;
-    }
-}
-
-void Mesh::addData( const Vec4Data& type, const Core::Vector4Array& data ) {
-    if ( !data.empty() )
-    {
-        auto name = getAttribName( type );
-        LOG( logERROR ) << name;
-
-        // add attrib return the corresponding attrib if already present.
-        Core::Geometry::TriangleMesh::Vec4AttribHandle handle =
-            m_mesh.addAttrib<Core::Vector4>( name );
-
-        //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
-        m_mesh.getAttrib( handle ).data() = data;
-        auto itr                          = m_handleToBuffer.find( name );
-        if ( itr == m_handleToBuffer.end() )
-        {
-            LOG( logERROR ) << m_dataDirty.size();
-
-            m_handleToBuffer[name] = m_dataDirty.size();
-            m_dataDirty.push_back( true );
-            m_vbos.emplace_back( nullptr );
-        }
-        else
-            m_dataDirty[m_handleToBuffer[name]] = true;
-
-        m_isDirty = true;
-    }
-}
-
 void Mesh::updateGL() {
     if ( m_isDirty )
     {
@@ -208,15 +160,9 @@ void Mesh::updateGL() {
         auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
             auto idx = m_handleToBuffer[b->getName()];
 
-            LOG( logERROR ) << getName() << "vbo attrib " << b->getName() << "  idx " << idx << "/"
-                            << m_vbos.size() << " " << m_dataDirty.size();
             if ( m_dataDirty[idx] )
             {
-                if ( !m_vbos[idx] )
-                {
-                    LOG( logERROR ) << getName() << " create vbo ";
-                    m_vbos[idx] = globjects::Buffer::create();
-                }
+                if ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }
                 m_vbos[idx]->setData( b->getBufferSize(), b->dataPtr(), GL_DYNAMIC_DRAW );
                 m_dataDirty[idx] = false;
             }
@@ -232,7 +178,10 @@ void Mesh::updateGL() {
             // do not remove name from handleToBuffer to keep index ...
             // we could also update handleToBuffer, m_vbos, m_dataDirty
             if ( !m_mesh.hasAttrib( buffer.first ) && m_vbos[buffer.second] )
+            {
                 m_vbos[buffer.second].reset( nullptr );
+                m_dataDirty[buffer.second] = false;
+            }
         }
 
         GL_CHECK_ERROR;
@@ -303,6 +252,7 @@ void Mesh::autoVertexAttribPointer( const ShaderProgram* prog ) {
             m_vao->enable( loc );
             auto binding = m_vao->binding( idx );
             binding->setAttribute( loc );
+            CORE_ASSERT( m_vbos[m_handleToBuffer[name]].get(), "vbo is nullptr" );
             binding->setBuffer( m_vbos[m_handleToBuffer[name]].get(), 0, attrib->getStride() );
             binding->setFormat( attrib->getElementSize(), GL_FLOAT );
         }
@@ -356,6 +306,26 @@ void Mesh::setDirty( const Vec4Data& type ) {
         m_dataDirty[itr->second] = true;
 
     m_isDirty = true;
+}
+
+void Mesh::addAttribObserver( const std::string& name ) {
+    auto attrib = m_mesh.getAttribBase( name );
+    // if attrib not nullptr, then it's a add
+    if ( attrib )
+    {
+        auto itr = m_handleToBuffer.find( name );
+        if ( itr == m_handleToBuffer.end() )
+        {
+            m_handleToBuffer[name] = m_dataDirty.size();
+            m_dataDirty.push_back( true );
+            m_vbos.emplace_back( nullptr );
+        }
+        auto idx = m_handleToBuffer[name];
+        attrib->attach( AttribObserver( this, idx ) );
+    }
+    // else it's a remove
+    else
+    {}
 }
 
 } // namespace Engine

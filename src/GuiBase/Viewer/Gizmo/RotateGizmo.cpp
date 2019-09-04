@@ -36,26 +36,29 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
         Core::Geometry::TriangleMesh torus = Core::Geometry::makeParametricTorus<32>(
             torusOutRadius, torusAspectRatio * torusOutRadius );
         // Transform the torus from z-axis to axis i.
-        for ( auto& v : torus.vertices() )
+
+        auto& data = torus.verticesWithLock();
+        for ( auto& v : data )
         {
             v = .5_ra * v;
             if ( i < 2 ) { std::swap( v[2], v[i] ); }
         }
+        torus.verticesUnlock();
 
         // set color
         {
             Core::Utils::Color color = Core::Utils::Color::Black();
             color[i]                 = 1_ra;
             auto colorAttribHandle   = torus.addAttrib<Core::Vector4>( colorAttribName );
-            auto colorAttrib         = torus.getAttrib( colorAttribHandle ).data() =
-                Core::Vector4Array( torus.vertices().size(), color );
+            torus.getAttrib( colorAttribHandle )
+                .setData( Core::Vector4Array( torus.vertices().size(), color ) );
         }
 
-        auto mesh = std::shared_ptr<Engine::Mesh>( new Engine::Mesh( "Gizmo Arrow" ) );
+        auto mesh = std::shared_ptr<Engine::Mesh>( new Engine::Mesh( "Gizmo Torus" ) );
         mesh->loadGeometry( std::move( torus ) );
 
         Engine::RenderObject* arrowDrawable =
-            new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
+            new Engine::RenderObject( "Gizmo Torus", m_comp, Engine::RenderObjectType::UI );
 
         std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
         rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
@@ -105,7 +108,6 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         color[m_selectedAxis]    = 1_ra;
         const auto& mesh         = roMeshes()[size_t( m_selectedAxis )];
         mesh->getTriangleMesh().colorize( color );
-        mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
     }
     // prepare selection
     m_selectedAxis = -1;
@@ -118,7 +120,6 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
             m_selectedAxis   = int( std::distance( roIds().cbegin(), found ) );
             const auto& mesh = roMeshes()[size_t( m_selectedAxis )];
             mesh->getTriangleMesh().colorize( Core::Utils::Color::Yellow() );
-            mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
         }
     }
 }

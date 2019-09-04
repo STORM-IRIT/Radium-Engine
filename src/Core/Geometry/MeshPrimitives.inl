@@ -11,8 +11,11 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     constexpr uint stacks = V;
 
     TriangleMesh result;
-    result.vertices().reserve( 2 + slices * ( stacks - 1 ) );
-    result.normals().reserve( 2 + slices * ( stacks - 1 ) );
+
+    TriangleMesh::PointAttribHandle::Container vertices;
+    TriangleMesh::NormalAttribHandle::Container normals;
+    vertices.reserve( 2 + slices * ( stacks - 1 ) );
+    normals.reserve( 2 + slices * ( stacks - 1 ) );
     result.m_triangles.reserve( 2 * slices * ( stacks - 1 ) );
 
     for ( uint u = 0; u < slices; ++u )
@@ -22,10 +25,10 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
         {
             // Regular vertices on the sphere.
             const Scalar phi = Scalar( v ) * Core::Math::Pi / Scalar( stacks );
-            result.vertices().push_back( Vector3( radius * std::cos( theta ) * std::sin( phi ),
-                                                  radius * std::sin( theta ) * std::sin( phi ),
-                                                  radius * std::cos( phi ) ) );
-            result.normals().push_back( result.vertices().back().normalized() );
+            vertices.push_back( Vector3( radius * std::cos( theta ) * std::sin( phi ),
+                                         radius * std::sin( theta ) * std::sin( phi ),
+                                         radius * std::cos( phi ) ) );
+            normals.push_back( vertices.back().normalized() );
 
             // Regular triangles
             if ( v > 1 )
@@ -41,12 +44,15 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     }
 
     // Add the pole vertices.
-    uint northPoleIdx = result.vertices().size();
-    result.vertices().push_back( Vector3( 0, 0, radius ) );
-    result.normals().push_back( Vector3( 0, 0, 1 ) );
-    uint southPoleIdx = result.vertices().size();
-    result.vertices().push_back( Vector3( 0, 0, -radius ) );
-    result.normals().push_back( Vector3( 0, 0, -1 ) );
+    uint northPoleIdx = vertices.size();
+    vertices.push_back( Vector3( 0, 0, radius ) );
+    normals.push_back( Vector3( 0, 0, 1 ) );
+    uint southPoleIdx = vertices.size();
+    vertices.push_back( Vector3( 0, 0, -radius ) );
+    normals.push_back( Vector3( 0, 0, -1 ) );
+
+    result.setVertices( std::move( vertices ) );
+    result.setNormals( std::move( normals ) );
 
     // Add the polar caps triangles.
     for ( uint u = 0; u < slices; ++u )
@@ -69,8 +75,11 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
                                   Scalar minorRadius,
                                   const Utils::optional<Utils::Color>& color ) {
     TriangleMesh result;
-    result.vertices().reserve( U * V );
-    result.normals().reserve( V * V );
+    TriangleMesh::PointAttribHandle::Container vertices;
+    TriangleMesh::NormalAttribHandle::Container normals;
+
+    vertices.reserve( U * V );
+    normals.reserve( V * V );
     result.m_triangles.reserve( 2 * U * V );
 
     for ( uint iu = 0; iu < U; ++iu )
@@ -86,8 +95,8 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
                                   ( majorRadius + minorRadius * std::cos( v ) ) * std::sin( u ),
                                   minorRadius * std::sin( v ) );
 
-            result.vertices().push_back( vertex );
-            result.normals().push_back( ( vertex - circleCenter ).normalized() );
+            vertices.push_back( vertex );
+            normals.push_back( ( vertex - circleCenter ).normalized() );
 
             result.m_triangles.push_back( Vector3ui(
                 iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );
@@ -96,6 +105,9 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
                                                      iu * V + ( ( iv + 1 ) % V ) ) );
         }
     }
+
+    result.setVertices( std::move( vertices ) );
+    result.setNormals( std::move( normals ) );
 
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();

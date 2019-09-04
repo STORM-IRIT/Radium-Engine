@@ -93,7 +93,9 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c,
             1, 1, Core::Vector2( arrowFrac * arrowScale, arrowFrac * arrowScale ), T, planeColor );
 
         // \FIXME this hack is here to be sure the plane will be selected (see shader)
-        plane.normals().getMap().fill( 0_ra );
+        auto& normals = plane.normalsWithLock();
+        normals.getMap().fill( 0_ra );
+        plane.normalsUnlock();
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Plane" ) );
         mesh->loadGeometry( std::move( plane ) );
