@@ -48,14 +48,12 @@ bool TriangleMesh::append( const TriangleMesh& other ) {
 }
 
 void TriangleMesh::clearAttributes() {
-    Utils::Attrib<Vector3>::Container v;
-    Utils::Attrib<Vector3>::Container n;
-    std::exchange( v, vertices() );
-    std::exchange( n, normals() );
+    PointAttribHandle::Container v  = vertices();
+    NormalAttribHandle::Container n = normals();
     m_vertexAttribs.clear();
     initDefaultAttribs();
-    std::exchange( vertices(), v );
-    std::exchange( normals(), n );
+    setVertices( v );
+    setNormals( n );
 }
 
 void TriangleMesh::checkConsistency() const {
@@ -83,14 +81,14 @@ void TriangleMesh::checkConsistency() const {
     }
 
     // Always have the same number of vertex data and vertices
-    CORE_ASSERT( normals().size() == normals().size(), "Inconsistent number of normals" );
+    CORE_ASSERT( vertices().size() == normals().size(), "Inconsistent number of normals" );
 #endif
 }
 
 void TriangleMesh::colorize( const Utils::Color& color ) {
     static const std::string colorAttribName( "in_color" );
-    auto colorAttribHandle                = addAttrib<Core::Vector4>( colorAttribName );
-    getAttrib( colorAttribHandle ).data() = Vector4Array( vertices().size(), color );
+    auto colorAttribHandle = addAttrib<Core::Vector4>( colorAttribName );
+    getAttrib( colorAttribHandle ).setData( Vector4Array( vertices().size(), color ) );
 }
 
 } // namespace Geometry

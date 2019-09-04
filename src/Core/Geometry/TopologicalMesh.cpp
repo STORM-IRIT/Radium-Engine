@@ -77,9 +77,13 @@ void copyAttribToCoreVertex( HandleAndValueVector<T>& data,
 
 template <typename T>
 void copyAttribToCore( TriangleMesh& triMesh, const HandleAndValueVector<T>& data ) {
+
     for ( auto pp : data )
     {
-        triMesh.getAttrib( pp.first ).data().push_back( pp.second );
+        auto attr     = triMesh.getAttrib( pp.first );
+        auto attrData = attr.getDataWithLock();
+        attrData.push_back( pp.second );
+        attr.unlock();
     }
 }
 
@@ -233,8 +237,11 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     unsigned int vertexIndex = 0;
 
     // out will have at least n_vertices vertices and normals.
-    out.vertices().reserve( n_vertices() );
-    out.normals().reserve( n_vertices() );
+    TriangleMesh::PointAttribHandle::Container vertices;
+    TriangleMesh::NormalAttribHandle::Container normals;
+
+    vertices.reserve( n_vertices() );
+    normals.reserve( n_vertices() );
     out.m_triangles.reserve( n_faces() );
 
     for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it )
@@ -262,8 +269,8 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
             {
                 vi = int( vertexIndex++ );
                 vertexHandles.insert( vtr, VertexMap::value_type( v, vi ) );
-                out.vertices().push_back( v._vertex );
-                out.normals().push_back( v._normal );
+                vertices.push_back( v._vertex );
+                normals.push_back( v._normal );
 
                 copyAttribToCore( out, v._float );
                 copyAttribToCore( out, v._vec2 );
@@ -278,8 +285,9 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
         }
         out.m_triangles.emplace_back( indices[0], indices[1], indices[2] );
     }
-
-    CORE_ASSERT( vertexIndex == out.vertices().size(),
+    out.setVertices( vertices );
+    out.setNormals( normals );
+    CORE_ASSERT( vertexIndex == vertices.size(),
                  "Inconsistent number of faces in generated TriangleMesh." );
 
     return out;

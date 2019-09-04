@@ -235,10 +235,12 @@ MeshPtr CircleArc( const Core::Vector3& center,
 
 MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::Color& color ) {
     TriangleMesh sphere = makeGeodesicSphere( radius, 2 );
+    auto handle         = sphere.getAttribHandle<TriangleMesh::Point>( "in_position" );
+    auto vertices       = sphere.getAttrib<TriangleMesh::Point>( handle );
+    auto data           = vertices.getDataWithLock();
 
-    std::for_each( sphere.vertices().begin(),
-                   sphere.vertices().end(),
-                   [center]( Core::Vector3& v ) { v += center; } );
+    std::for_each( data.begin(), data.end(), [center]( Core::Vector3& v ) { v += center; } );
+    vertices.unlock();
 
     Core::Vector4Array colors( sphere.vertices().size(), color );
 
@@ -268,9 +270,13 @@ MeshPtr Capsule( const Core::Vector3& p1,
     t.rotate( rot );
     t.pretranslate( trans );
 
-    std::for_each( capsule.vertices().begin(), capsule.vertices().end(), [t]( Core::Vector3& v ) {
-        v = t * v;
-    } );
+    auto handle   = capsule.getAttribHandle<TriangleMesh::Point>( "in_position" );
+    auto vertices = capsule.getAttrib<TriangleMesh::Point>( handle );
+    auto data     = vertices.getDataWithLock();
+
+    std::for_each( data.begin(), data.end(), [t]( Core::Vector3& v ) { v = t * v; } );
+
+    vertices.unlock();
 
     Core::Vector4Array colors( capsule.vertices().size(), color );
 

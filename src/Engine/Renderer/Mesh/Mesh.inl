@@ -1,5 +1,7 @@
 #include "Mesh.hpp"
 
+#include <globjects/Buffer.h>
+
 namespace Ra {
 namespace Engine {
 
@@ -60,10 +62,42 @@ std::string Mesh::getAttribName( Vec4Data type ) {
     return {"invalid vec4 attr"};
 }
 
-// void Mesh::colorize( const Core::Utils::Color& color ) {
-//    Core::Vector4Array colors( getTriangleMesh().vertices().size(), color );
-//    addData( Engine::Mesh::VERTEX_COLOR, colors );
-//}
+template <typename Type, typename Vector>
+void Mesh::addData( const Type& type, const Core::VectorArray<Vector>& data ) {
+    addData( getAttribName( type ), data );
+}
+
+template <typename Vector>
+void Mesh::addData( const std::string& name, const Core::VectorArray<Vector>& data ) {
+    if ( !data.empty() )
+    {
+        // if this is a new attrib, we need to add observer
+        bool alreadyPresent = m_mesh.hasAttrib( name );
+
+        // add attrib return the corresponding attrib if already present.
+        Core::Utils::AttribHandle<Vector> handle = m_mesh.addAttrib<Vector>( name );
+
+        //    if ( data.size() != 0 && m_mesh.isValid( handle ) )
+        auto itr = m_handleToBuffer.find( name );
+
+        if ( itr == m_handleToBuffer.end() )
+        {
+            m_handleToBuffer[name] = m_dataDirty.size();
+            m_dataDirty.push_back( true );
+            m_vbos.emplace_back( nullptr );
+        }
+
+        if ( !alreadyPresent )
+        {
+            auto idx = m_handleToBuffer[name];
+            m_mesh.getAttrib( handle ).attach( AttribObserver( this, idx ) );
+        }
+        m_mesh.getAttrib( handle ).setData( data );
+
+        auto idx = m_handleToBuffer[name];
+        CORE_ASSERT( m_dataDirty[idx] == true, "notify failed to set dirty" );
+    }
+}
 
 } // namespace Engine
 } // namespace Ra
