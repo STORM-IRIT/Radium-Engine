@@ -296,17 +296,116 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     notify();
 }
 
-void KeyMappingManager::saveConfiguration( const char* filename ) {
+bool KeyMappingManager::saveConfiguration( const char* filename ) {
     QString flnm;
     if ( filename == nullptr ) { flnm = m_file->fileName(); }
     else
     { flnm = filename; }
     QFile saveTo( flnm );
     saveTo.open( QIODevice::WriteOnly );
-    QTextStream stream( &saveTo );
-    // stream<<m_domDocument.toString();
-    m_domDocument.save( stream, 4 );
-    saveTo.close();
+    QXmlStreamWriter stream( &saveTo );
+    stream.setAutoFormatting( true );
+    stream.setAutoFormattingIndent( 4 );
+    stream.setCodec( "ISO 8859-1" );
+    stream.writeStartDocument();
+    stream.writeComment( "\tRadium KeyMappingManager configuration file\t" );
+    stream.writeComment(
+        "\n<keymap context=\"thecontext\" action=\"theAction\" buttons=\"QButton\" "
+        "modifier=\"QModifier\" key=\"QKey\" wheel=\"boolean\"/>\n" );
+    QDomNode root = m_domDocument.documentElement();
+    while ( not root.isNull() )
+    {
+        saveNodeCanonically( stream, root );
+        if ( stream.hasError() ) { break; }
+        root = root.nextSibling();
+    }
+
+    stream.writeEndDocument();
+
+    if ( stream.hasError() )
+    {
+        LOG( logERROR ) << "Fail to write Canonical XML.";
+        return false;
+    }
+    return true;
+}
+
+void KeyMappingManager::saveNodeCanonically( QXmlStreamWriter& stream, const QDomNode& domNode ) {
+    if ( stream.hasError() ) { return; }
+
+    if ( domNode.isElement() )
+    {
+        const QDomElement domElement = domNode.toElement();
+        if ( not domElement.isNull() )
+        {
+            auto tagName = domElement.tagName().toStdString();
+            stream.writeStartElement( domElement.tagName() );
+
+            if ( tagName == "keymap" )
+            {
+
+                auto saveAttrib = [&domElement, &stream]( const QString& attribName,
+                                                          const QString& attribDefault,
+                                                          bool optional = false ) {
+                    QString attribValue = domElement.attribute( attribName, attribDefault );
+                    if ( optional && attribValue == attribDefault ) { return false; }
+                    stream.writeAttribute( attribName, attribValue );
+                    return true;
+                };
+
+                if ( !saveAttrib( "context", "" ) )
+                {
+                    LOG( logERROR ) << "Error, missing context when saving keymap element";
+                    return;
+                }
+                if ( !saveAttrib( "action", "" ) )
+                {
+                    LOG( logERROR ) << "Error, missing action when saving keymap element";
+                    return;
+                }
+                saveAttrib( "buttons", "" );
+                saveAttrib( "modifiers", "" );
+                saveAttrib( "key", "" );
+                saveAttrib( "wheel", "false", true );
+            }
+            else
+            {
+                if ( domElement.hasAttributes() )
+                {
+                    QMap<QString, QString> attributes;
+                    const QDomNamedNodeMap attributeMap = domElement.attributes();
+                    for ( int i = 0; i < attributeMap.count(); ++i )
+                    {
+                        const QDomNode attribute = attributeMap.item( i );
+                        attributes.insert( attribute.nodeName(), attribute.nodeValue() );
+                    }
+
+                    QMap<QString, QString>::const_iterator i = attributes.constBegin();
+                    while ( i != attributes.constEnd() )
+                    {
+                        stream.writeAttribute( i.key(), i.value() );
+                        ++i;
+                    }
+                }
+            }
+
+            if ( domElement.hasChildNodes() )
+            {
+                QDomNode elementChild = domElement.firstChild();
+                while ( not elementChild.isNull() )
+                {
+                    saveNodeCanonically( stream, elementChild );
+                    elementChild = elementChild.nextSibling();
+                }
+            }
+
+            stream.writeEndElement();
+        }
+    }
+    else if ( domNode.isComment() )
+    { stream.writeComment( domNode.nodeValue() ); }
+    else if ( domNode.isText() )
+    { stream.writeCharacters( domNode.nodeValue() ); }
 }
 
 void KeyMappingManager::loadConfigurationInternal() {

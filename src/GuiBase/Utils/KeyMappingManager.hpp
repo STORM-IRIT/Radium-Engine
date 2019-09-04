@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_KEYMAPPINGMANAGER_HPP
 #define RADIUMENGINE_KEYMAPPINGMANAGER_HPP
 
+#include <QXmlStreamWriter>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMouseEvent>
 #include <QtXml/QtXml>
@@ -34,7 +35,8 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
 
     /// Save the configuration
     /// @param filename the file to write to. It will be replaced
-    void saveConfiguration( const char* filename = nullptr );
+    /// @return true if file was correctly saved
+    bool saveConfiguration( const char* filename = nullptr );
 
     /// reload last open file.
     void reloadConfiguration();
@@ -102,6 +104,8 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
   private:
     KeyMappingManager();
     ~KeyMappingManager();
+
+    void saveNodeCanonically( QXmlStreamWriter& stream, const QDomNode& domNode );
 
     // Private for now, but may need to be public if we want to customize keymapping configuration
     // otherwise than by editing the XML configuration file.
