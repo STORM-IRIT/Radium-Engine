@@ -8,7 +8,7 @@ layout (location = 1) in vec3 in_normal;
 layout (location = 2) in vec3 in_tangent;
 layout (location = 3) in vec3 in_bitangent;
 layout (location = 4) in vec3 in_texcoord;
-layout (location = 5) in vec4 in_vertexColor;
+layout (location = 5) in vec4 in_color;
 
 uniform Transform transform;
 
@@ -43,5 +43,5 @@ void main()
 
     out_viewVector  = normalize(vec3(eye - out_position));
     out_lightVector = getLightDirection(light, out_position);
-    out_vertexcolor = in_vertexColor.rgb;
+    out_vertexcolor = in_color.rgb;
 }

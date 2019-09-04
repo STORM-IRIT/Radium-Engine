@@ -43,7 +43,8 @@ bool OFFFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
     uint e_size;
     file >> v_size >> f_size >> e_size;
     data.clear();
-    data.vertices().resize( v_size );
+    Geometry::TriangleMesh::PointAttribHandle::Container vertices;
+    vertices.resize( v_size );
     data.m_triangles.resize( f_size );
 
     // Vertices
@@ -51,7 +52,7 @@ bool OFFFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
     {
         Vector3 v;
         file >> v[0] >> v[1] >> v[2];
-        data.vertices()[i] = v;
+        vertices[i] = v;
     }
 
     // Edge
@@ -72,6 +73,8 @@ bool OFFFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
             data.m_triangles.push_back( f );
         }
     }
+
+    data.setVertices( std::move( vertices ) );
 
     return true;
 }

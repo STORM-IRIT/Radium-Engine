@@ -6,7 +6,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Index.hpp>
-
+#include <Core/Utils/Observable.hpp>
 namespace Ra {
 namespace Core {
 
@@ -24,11 +24,11 @@ class Attrib;
 /**
  * AttribBase is the base class for attributes of all type.
  */
-class AttribBase
+class AttribBase : public Observable<>
 {
   public:
     explicit AttribBase( const std::string& name ) : m_name{name} {}
-    virtual ~AttribBase() {}
+    virtual ~AttribBase() { notify(); }
 
     /**
      * Return the attribute's name.
@@ -102,11 +102,22 @@ class AttribBase
      */
     virtual bool isVec4() const = 0;
 
-    virtual void* dataPtr() = 0;
+    virtual const void* dataPtr() const = 0;
+
+    bool isLocked() const { return m_isLocked; }
+    void lock( bool isLocked = true ) {
+        CORE_ASSERT( isLocked != m_isLocked, "double (un)lock" );
+        m_isLocked = isLocked;
+        if ( !m_isLocked ) notify();
+    }
+    void unlock() { lock( false ); }
 
   private:
     /// The attribute's name.
     std::string m_name;
+
+    /// Is data access locked by a user ?
+    bool m_isLocked{false};
 };
 
 /**
@@ -121,18 +132,33 @@ class Attrib : public AttribBase
 
     explicit Attrib( const std::string& name ) : AttribBase( name ) {}
 
+    virtual ~Attrib() { m_data.clear(); }
     /// Resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
 
     /// Read-write access to the attribute content.
-    inline Container& data() { return m_data; }
+    inline Container& getDataWithLock() {
+        lock();
+        return m_data;
+    }
 
-    void* dataPtr() override { return m_data.data(); }
+    const void* dataPtr() const override { return m_data.data(); }
+
+    void setData( const Container& data ) {
+        CORE_ASSERT( !isLocked(), "try to set onto locked data" );
+        m_data = data;
+        notify();
+    }
+
+    void setData( Container&& data ) {
+        CORE_ASSERT( !isLocked(), "try to set onto locked data" );
+        m_data = std::move( data );
+        notify();
+    }
 
     /// Read-only acccess to the attribute content.
     inline const Container& data() const { return m_data; }
 
-    virtual ~Attrib() { m_data.clear(); }
     size_t getSize() const override { return m_data.size(); }
 
     size_t getElementSize() const override;
@@ -144,6 +170,12 @@ class Attrib : public AttribBase
     bool isVec2() const override { return std::is_same<Eigen::Matrix<Scalar, 2, 1>, T>::value; }
     bool isVec3() const override { return std::is_same<Eigen::Matrix<Scalar, 3, 1>, T>::value; }
     bool isVec4() const override { return std::is_same<Eigen::Matrix<Scalar, 4, 1>, T>::value; }
+
+    /// check if attrib is a given type, as in attr.isType<MyMatrix>()
+    template <typename U>
+    bool isType() {
+        return std::is_same<U, T>::value;
+    }
 
   private:
     Container m_data;
@@ -214,7 +246,7 @@ class AttribHandle
  * \warning There is no error check on the handles attribute type.
  *
  */
-class RA_CORE_API AttribManager
+class RA_CORE_API AttribManager : public Observable<const std::string&>
 {
   public:
     using value_type         = AttribBase;
@@ -257,7 +289,7 @@ class RA_CORE_API AttribManager
             // add new attrib
             auto h = addAttrib<T>( a.getName() );
             // copy attrib data
-            getAttrib( h ).data() = a.data();
+            getAttrib( h ).setData( a.data() );
         }
         // deal with other attribs
         copyAttributes( m, attribs... );
@@ -314,6 +346,22 @@ class RA_CORE_API AttribManager
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
     }
 
+    template <typename T>
+    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h ) {
+        return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
+    }
+
+    template <typename T>
+    inline void setAttrib( const AttribHandle<T>& h,
+                           const typename AttribHandle<T>::Container& data ) {
+        static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->setData( data );
+    }
+
+    template <typename T>
+    inline void setAttrib( const AttribHandle<T>& h, typename AttribHandle<T>::Container&& data ) {
+        static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->setData( data );
+    }
+
     /// Get attribute by handle (const).
     /// \note The complexity for accessing an attribute is O(1).
     /// \warning There is no check on the handle validity.
@@ -365,6 +413,8 @@ class RA_CORE_API AttribManager
         m_attribsIndex[name] = h.m_idx;
         h.m_name             = name;
         ++m_numAttribs;
+
+        notify( name );
         return h;
     }
 
@@ -381,9 +431,11 @@ class RA_CORE_API AttribManager
             m_attribs[idx].reset( nullptr );
             m_attribsIndex.erase( c );
         }
-        h.m_idx  = Index::Invalid(); // invalidate whatever!
-        h.m_name = "";               // invalidate whatever!
+        h.m_idx   = Index::Invalid(); // invalidate whatever!
+        auto name = h.m_name;
+        h.m_name  = ""; // invalidate whatever!
         --m_numAttribs;
+        notify( name );
     }
 
     /// Return true if *this and \p other have the same attributes, same amount

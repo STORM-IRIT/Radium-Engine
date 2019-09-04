@@ -135,8 +135,11 @@ class RA_ENGINE_API Mesh : public Displayable
      *
      * \note Attributes names are computed by #getAttribName
      */
-    [[deprecated]] void addData( const Vec3Data& type, const Core::Vector3Array& data );
-    [[deprecated]] void addData( const Vec4Data& type, const Core::Vector4Array& data );
+    template <typename Type, typename Vector>
+    [[deprecated]] void addData( const Type& type, const Core::VectorArray<Vector>& data );
+
+    template <typename Vector>
+    [[deprecated]] void addData( const std::string& name, const Core::VectorArray<Vector>& data );
 
     /// Access the additionnal data arrays by type.
     inline const Core::Vector3Array& getData( const Vec3Data& type ) const;
@@ -163,25 +166,39 @@ class RA_ENGINE_API Mesh : public Displayable
     size_t getNumFaces() const override;
     inline size_t getNumVertices() const override { return m_mesh.vertices().size(); }
 
+    //@{
     /// Get the name expected for a given attrib.
     static inline std::string getAttribName( MeshData type );
     static inline std::string getAttribName( Vec3Data type );
     static inline std::string getAttribName( Vec4Data type );
+    //@}
 
   private:
+    void addAttribObserver( const std::string& name );
     /// Update the picking render mode according to the object render mode
 
     void autoVertexAttribPointer( const ShaderProgram* prog );
     void updatePickingRenderMode();
+
+    class AttribObserver
+    {
+      public:
+        explicit AttribObserver( Mesh* mesh, int idx ) : m_mesh( mesh ), m_idx( idx ) {}
+        void operator()() {
+            m_mesh->m_dataDirty[m_idx] = true;
+            m_mesh->m_isDirty          = true;
+        }
+
+      private:
+        Mesh* m_mesh;
+        int m_idx;
+    };
 
   private:
     std::unique_ptr<globjects::VertexArray> m_vao;
 
     MeshRenderMode m_renderMode{
         MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
-
-    Core::Geometry::TriangleMesh m_mesh; /// Base geometry : vertices, triangles
-                                         /// and normals
 
     ///\todo @dlyr cleanup this mechanism to have something
     /// extensible. Now the only attribs should be the one defined in
@@ -200,17 +217,22 @@ class RA_ENGINE_API Mesh : public Displayable
     // The following are for vertex data.
     // Each data type has a corresponding openGL attribute number, which is
     // vbo index - 1 (thus vertex position is VBO number 1 but attribute 0).
-
     std::unique_ptr<globjects::Buffer> m_indices;
     std::vector<std::unique_ptr<globjects::Buffer>> m_vbos;
     std::vector<bool> m_dataDirty;
     std::map<std::string, int> m_handleToBuffer;
 
-    size_t m_numElements{0}; /// number of elements to draw. For triangles this is 3*numTriangles
-                             /// but not for lines.
+    /// number of elements to draw. For triangles this is 3*numTriangles
+    /// but not for lines.
+    size_t m_numElements{0};
+
     /// General dirty bit of the mesh. Must be equivalent of the  "or" of the other dirty flags.
     /// an empty mesh is not dirty
     bool m_isDirty{false};
+
+    /// Base geometry : vertices, triangles and normals
+    // must be the last one, to be delete first (and notify in class observer's)
+    Core::Geometry::TriangleMesh m_mesh;
 };
 
 } // namespace Engine

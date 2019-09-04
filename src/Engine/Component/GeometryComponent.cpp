@@ -69,24 +69,27 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     m_displayMesh = Ra::Core::make_shared<Mesh>( meshName );
 
     Ra::Core::Geometry::TriangleMesh mesh;
+    Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container vertices;
+    Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container normals;
+
     const auto T = data->getFrame();
     const Ra::Core::Transform N( ( T.matrix() ).inverse().transpose() );
 
-    mesh.vertices().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+    vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
 #pragma omp parallel for
     for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
     {
-        mesh.vertices()[i] = T * data->getVertices()[i];
+        vertices[i] = T * data->getVertices()[i];
     }
 
     if ( data->hasNormals() )
     {
-        mesh.normals().resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+        normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 #pragma omp parallel for
         for ( int i = 0; i < data->getVerticesSize(); ++i )
         {
-            mesh.normals()[i] = ( N * data->getNormals()[i] ).normalized();
+            normals[i] = ( N * data->getNormals()[i] ).normalized();
         }
     }
 
@@ -97,6 +100,9 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     {
         mesh.m_triangles[i] = faces[i].head<3>();
     }
+
+    mesh.setVertices( std::move( vertices ) );
+    mesh.setNormals( std::move( normals ) );
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
@@ -109,8 +115,7 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     if ( data->hasTextureCoordinates() )
     { m_displayMesh->addData( Mesh::VERTEX_TEXCOORD, data->getTexCoords() ); }
 
-    if ( data->hasColors() )
-    { m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() ); }
+    if ( data->hasColors() ) { m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() ); }
 
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
@@ -217,15 +222,19 @@ void TriangleMeshComponent::setupIO( const std::string& id ) {
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
         getEntity(), this, id, roOut );
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite vRW =
+    ComponentMessenger::CallbackTypes<
+        Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite vRW =
         std::bind( &TriangleMeshComponent::getVerticesRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>(
-        getEntity(), this, id + "v", vRW );
+    ComponentMessenger::getInstance()
+        ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
+            getEntity(), this, id + "v", vRW );
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Vector3Array>::ReadWrite nRW =
+    ComponentMessenger::CallbackTypes<
+        Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite nRW =
         std::bind( &TriangleMeshComponent::getNormalsRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Vector3Array>(
-        getEntity(), this, id + "n", nRW );
+    ComponentMessenger::getInstance()
+        ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
+            getEntity(), this, id + "n", nRW );
 
     ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW =
         std::bind( &TriangleMeshComponent::getTrianglesRw, this );
@@ -251,18 +260,24 @@ Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     return &( m_displayMesh->getTriangleMesh() );
 }
 
-Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container*
+Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType*
 TriangleMeshComponent::getVerticesRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
-    return &( m_displayMesh->getTriangleMesh().vertices() );
+    auto handle =
+        m_displayMesh->getTriangleMesh().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
+            "in_position" );
+    if ( handle.idx().isValid() ) return &( m_displayMesh->getTriangleMesh().getAttrib( handle ) );
+    return nullptr;
 }
 
-Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container*
+Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::AttribType*
 TriangleMeshComponent::getNormalsRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
-    return &( m_displayMesh->getTriangleMesh().normals() );
+    auto handle =
+        m_displayMesh->getTriangleMesh().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
+            "in_normal" );
+    if ( handle.idx().isValid() ) return &( m_displayMesh->getTriangleMesh().getAttrib( handle ) );
+    return nullptr;
 }
 
 Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {

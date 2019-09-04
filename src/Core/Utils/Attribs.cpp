@@ -22,23 +22,23 @@ void AttribManager::copyAllAttributes( const AttribManager& m ) {
         if ( attr == nullptr ) continue;
         if ( attr->isFloat() )
         {
-            auto h                = addAttrib<float>( attr->getName() );
-            getAttrib( h ).data() = static_cast<Attrib<float>*>( attr.get() )->data();
+            auto h = addAttrib<float>( attr->getName() );
+            getAttrib( h ).setData( static_cast<Attrib<float>*>( attr.get() )->data() );
         }
         else if ( attr->isVec2() )
         {
-            auto h                = addAttrib<Vector2>( attr->getName() );
-            getAttrib( h ).data() = static_cast<Attrib<Vector2>*>( attr.get() )->data();
+            auto h = addAttrib<Vector2>( attr->getName() );
+            getAttrib( h ).setData( static_cast<Attrib<Vector2>*>( attr.get() )->data() );
         }
         else if ( attr->isVec3() )
         {
-            auto h                = addAttrib<Vector3>( attr->getName() );
-            getAttrib( h ).data() = static_cast<Attrib<Vector3>*>( attr.get() )->data();
+            auto h = addAttrib<Vector3>( attr->getName() );
+            getAttrib( h ).setData( static_cast<Attrib<Vector3>*>( attr.get() )->data() );
         }
         else if ( attr->isVec4() )
         {
-            auto h                = addAttrib<Vector4>( attr->getName() );
-            getAttrib( h ).data() = static_cast<Attrib<Vector4>*>( attr.get() )->data();
+            auto h = addAttrib<Vector4>( attr->getName() );
+            getAttrib( h ).setData( static_cast<Attrib<Vector4>*>( attr.get() )->data() );
         }
         else
             LOG( logWARNING )
