@@ -32,6 +32,10 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// calls the listener callback then.
     void loadConfiguration( const char* filename = nullptr );
 
+    /// Save the configuration
+    /// @param filename the file to write to. It will be replaced
+    void saveConfiguration( const char* filename = nullptr );
+
     /// reload last open file.
     void reloadConfiguration();
 
@@ -47,7 +51,8 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
 
     /// Add a given action to the mapping system.
     /// This allow to define default behavior when some KeyMappingManageable object is not
-    /// parameterized in the application config file.
+    /// parameterized in the application config file. The action is added to the current config file
+    /// so that it will remains for subsequent usage.
     /// @todo write the configuration in the configFile to be later reused or modified ?
     /// @param context the context of the action
     /// @param keyString

@@ -30,7 +30,8 @@ KeyMappingFlightManipulator
     {
         LOG( Ra::Core::Utils::logWARNING )
             << "FlightManipulatorContext not defined (maybe the "
-               "configuration file do not contains it). Adding default configuration.";
+                                              "configuration file do not contains it). Adding "
+                                              "default configuration for FlightManipulatorContext.";
 
         Gui::KeyMappingManager::getInstance()->addAction(
             "FlightManipulatorContext", "", "", "LeftButton", "", "FLIGHTMODECAMERA_ROTATE" );

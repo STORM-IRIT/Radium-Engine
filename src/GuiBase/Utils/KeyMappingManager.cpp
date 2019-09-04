@@ -16,7 +16,7 @@ KeyMappingManager::KeyMappingManager() :
     QSettings settings;
     QString keyMappingFilename =
         settings.value( "keymapping/config", m_defaultConfigFile.c_str() ).toString();
-    if ( !keyMappingFilename.contains( "default.xml" ) )
+    if ( !keyMappingFilename.contains( m_defaultConfigFile.c_str() ) )
     {
         LOG( logINFO ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
                        << settings.fileName().toStdString() << ")";
@@ -103,6 +103,24 @@ void KeyMappingManager::addAction( const std::string& context,
                          MouseBinding{buttonsValue, modifiersValue, keyValue, wheel},
                          actionIndex );
     }
+
+    QDomElement domElement   = m_domDocument.documentElement();
+    QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
+    elementToAdd.setAttribute( "context", context.c_str() );
+    elementToAdd.setAttribute( "key", keyString.c_str() );
+    elementToAdd.setAttribute( "modifiers", modifiersString.c_str() );
+    elementToAdd.setAttribute( "buttons", buttonsString.c_str() );
+    if ( !wheelString.empty() ) { elementToAdd.setAttribute( "wheel", wheelString.c_str() ); }
+    elementToAdd.setAttribute( "action", actionString.c_str() );
+
+    QString xmlAction;
+    QTextStream s( &xmlAction );
+    s << elementToAdd;
+    LOG( logINFO ) << "KeyMappingManager : adding The action  "
+                   << xmlAction.chopped( 1 ).toStdString();
+
+    domElement.appendChild( elementToAdd );
+    saveConfiguration();
 }
 
 KeyMappingManager::Context KeyMappingManager::getContext( const std::string& contextName ) {
@@ -278,6 +296,19 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     notify();
 }
 
+void KeyMappingManager::saveConfiguration( const char* filename ) {
+    QString flnm;
+    if ( filename == nullptr ) { flnm = m_file->fileName(); }
+    else
+    { flnm = filename; }
+    QFile saveTo( flnm );
+    saveTo.open( QIODevice::WriteOnly );
+    QTextStream stream( &saveTo );
+    // stream<<m_domDocument.toString();
+    m_domDocument.save( stream, 4 );
+    saveTo.close();
+}
+
 void KeyMappingManager::loadConfigurationInternal() {
     ///\todo maybe find a better way to handle laod and reload.
     /// -> do not clear m_contextNameToIndex m_actionNameToIndex so the keep their index values ...
@@ -286,7 +317,6 @@ void KeyMappingManager::loadConfigurationInternal() {
     m_mappingAction.clear();
 
     QDomElement domElement = m_domDocument.documentElement();
-    QDomNode node          = domElement.firstChild();
 
     if ( domElement.tagName() != "keymaps" )
     {
@@ -294,6 +324,7 @@ void KeyMappingManager::loadConfigurationInternal() {
                              "tag ? (Not a big deal)";
     }
 
+    QDomNode node = domElement.firstChild();
     while ( !node.isNull() )
     {
         if ( !node.isComment() )
@@ -311,14 +342,11 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
 
         QDomElement e         = node.toElement();
         std::string keyString = e.attribute( "key", "-1" ).toStdString();
-        std::string modifiersString =
-            node.toElement().attribute( "modifiers", "NoModifier" ).toStdString();
-        std::string buttonsString =
-            node.toElement().attribute( "buttons", "NoButton" ).toStdString();
-        std::string contextString =
-            node.toElement().attribute( "context", "AppContext" ).toStdString();
-        std::string wheelString  = node.toElement().attribute( "wheel", "false" ).toStdString();
-        std::string actionString = node.toElement().attribute( "action" ).toStdString();
+        std::string modifiersString = e.attribute( "modifiers", "NoModifier" ).toStdString();
+        std::string buttonsString   = e.attribute( "buttons", "NoButton" ).toStdString();
+        std::string contextString   = e.attribute( "context", "AppContext" ).toStdString();
+        std::string wheelString     = e.attribute( "wheel", "false" ).toStdString();
+        std::string actionString    = e.attribute( "action" ).toStdString();
 
         loadConfigurationMappingInternal(
             contextString, keyString, modifiersString, buttonsString, wheelString, actionString );
