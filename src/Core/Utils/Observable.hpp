@@ -19,6 +19,7 @@ class Observable
     Observable()   = default;
 
     /// attach an \p observer that will be call on subsecant notify
+    /// \return an unique int to identify the observer, could be used to pass to Obeservable::detach
     int attach( Observer observer ) {
         m_observers.insert( std::make_pair( ++m_currentId, observer ) );
         return m_currentId;
@@ -26,7 +27,6 @@ class Observable
 
     /// notify (call) each attached observer
     void notify( Args... p ) {
-        LOG( logDEBUG ) << "notify has " << m_observers.size() << " observers";
         for ( const auto& o : m_observers )
             o.second( std::forward<Args>( p )... );
     }
@@ -36,12 +36,10 @@ class Observable
 
     /// detach the \p observerId, observerId must have been saved from a
     /// previous call to attach
-
     void detach( int id ) { m_observers.erase( id ); }
 
   private:
     std::map<int, Observer> m_observers;
-
     int m_currentId{0};
 };
 } // namespace Utils
