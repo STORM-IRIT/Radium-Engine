@@ -14,7 +14,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
-#define POINT_SCALE_FACTOR 1_ra / 500
+constexpr Scalar POINT_SCALE_FACTOR = 1_ra / 500;
 
 using Ra::Engine::ComponentMessenger;
 using MeshRenderMode = Ra::Engine::Mesh::MeshRenderMode;
