@@ -9,7 +9,7 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-/// Simple observable implementation with void observer() notification
+/// Simple observable implementation with void observer( Args... ) notification
 template <typename... Args>
 class Observable
 {
