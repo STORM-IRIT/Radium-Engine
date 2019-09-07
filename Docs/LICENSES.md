@@ -1,4 +1,6 @@
-# Radium Engine
+# Radium Engine Licenses
+
+Radium Engine source code is released under [Apache-2.0 LICENSE](./LICENSE)
 ## Radium contributors
 
 Radium Engine © the Radium Contributors :
@@ -17,7 +19,7 @@ Radium Engine © the Radium Contributors :
 ## Third-party libraries
 
 Radium Engine is distributed with third-party code under the following
-licence terms.
+license terms.
 
 ### Qt
 
@@ -31,7 +33,7 @@ A copy of the LGPL is included in this repository, or can be obtained at
 [http://www.gnu.org/licenses/lgpl.html](http://www.gnu.org/licenses/lgpl.html)
 
 Additionally some of our source code files use code from Qt examples files
-redistributed under the BSD-licence.
+redistributed under the BSD-license.
 
 ### Eigen
 
@@ -51,7 +53,7 @@ Assimp is released under the BSD 3-clauses license.
 
 The source code can be obtained in this repository or at [https://github.com/assimp/assimp](https://github.com/assimp/assimp)
 
-A copy of the Assimp licence is included in this repository or can
+A copy of the Assimp license is included in this repository or can
 be obtained at [https://github.com/assimp/assimp/blob/master/LICENSE](https://github.com/assimp/assimp/blob/master/LICENSE)
 
 ### STB Image

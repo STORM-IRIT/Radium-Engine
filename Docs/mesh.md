@@ -1,4 +1,4 @@
-# Radium Engine 3D objects (a.k.a. Meshes)
+# Geometry and meshes {#geometry}
 
 ## Mesh types
 There is three types of meshes included in radium source :

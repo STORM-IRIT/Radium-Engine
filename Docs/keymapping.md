@@ -1,4 +1,4 @@
-# KeyMapping Manual
+# KeyMapping Manager {#keymapping}
 
 ## Usage
 

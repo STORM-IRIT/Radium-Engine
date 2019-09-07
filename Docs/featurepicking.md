@@ -1,4 +1,4 @@
-# FeaturePicking Manual
+# Picking {#picking}
 
 ## Usage
 

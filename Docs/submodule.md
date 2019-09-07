@@ -1,4 +1,4 @@
-# How to use Radium-Engine as an external dynamic lib for your project
+# How to use Radium-Engine as an external dynamic lib for your project {#submodule}
 
 ## Fork from AppExample
 

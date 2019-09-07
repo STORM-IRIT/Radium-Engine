@@ -1,5 +1,4 @@
-# Coding conventions for Radium
-
+# Coding conventions {#convention}
 Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
 
 ## Headers 

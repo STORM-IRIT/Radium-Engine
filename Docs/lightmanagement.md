@@ -1,4 +1,4 @@
-# Radium Engine light management 
+# Light management {#light}
 
 - Lights are components associated with an entity. 
 - Lights can be attached to any of the entities of a given scene.

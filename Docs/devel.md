@@ -1,4 +1,4 @@
-# How to code in Radium
+# How to code in Radium {#devel}
 
 There are three main options to work with Radium:
 1. Write a plugin: full access to the Radium data structures, perfect to implement a new functionality: mesh processing, rendering.

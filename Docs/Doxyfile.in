@@ -670,7 +670,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = @RADIUM_SRC_DIR@ @CMAKE_CURRENT_SOURCE_DIR@/Docs @RADIUM_PLUGINS_DIR@
+INPUT                  = @RADIUM_SRC_DIR@ @CMAKE_CURRENT_SOURCE_DIR@/Docs @RADIUM_PLUGINS_DIR@  @CMAKE_CURRENT_SOURCE_DIR@/README.md
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -957,7 +957,7 @@ HTML_EXTRA_STYLESHEET  = # @CMAKE_CURRENT_SOURCE_DIR@/Docs/style.css
 # files. In the HTML_STYLESHEET file, use the file name only. Also note that
 # the files will be copied as-is; there are no commands or markers available.
 
-HTML_EXTRA_FILES       =
+HTML_EXTRA_FILES       =  @CMAKE_CURRENT_SOURCE_DIR@/LICENSE
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output.
 # Doxygen will adjust the colors in the style sheet and background images

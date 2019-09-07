@@ -1,4 +1,5 @@
-# Material management in the Radium Engine
+# Material {#material}
+
 A Material is a way to control the appearance of an object when rendering. It could be the definition of a classical
 rendering materials, a _Bidirectional Scattering Distribution function (BSDF)_, or just define the way a geometry
 could be rendered and how is computed the final color of an object.

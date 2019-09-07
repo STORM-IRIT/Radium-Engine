@@ -1,4 +1,4 @@
-# Radium-Engine
+# Radium Engine  {#mainpage}
 Research 3D Engine for rendering, animation and processing.
 Devopped and maintained by the [STORM research group](https://www.irit.fr/STORM/site/).
 

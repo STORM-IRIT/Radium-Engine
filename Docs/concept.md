@@ -1,4 +1,4 @@
-# Radium Engine programmer manual
+# Code organization and concept {#code}
 
 ## Source code organization
 *   `src` contains the main source code of the engine libs
