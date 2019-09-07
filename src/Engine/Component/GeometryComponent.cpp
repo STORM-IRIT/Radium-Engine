@@ -104,21 +104,22 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     mesh.setVertices( std::move( vertices ) );
     mesh.setNormals( std::move( normals ) );
 
-    m_displayMesh->loadGeometry( std::move( mesh ) );
-
     if ( data->hasTangents() )
-    { m_displayMesh->addData( Mesh::VERTEX_TANGENT, data->getTangents() ); }
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TANGENT ), data->getTangents() ); }
 
     if ( data->hasBiTangents() )
-    { m_displayMesh->addData( Mesh::VERTEX_BITANGENT, data->getBiTangents() ); }
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_BITANGENT ), data->getBiTangents() ); }
 
     if ( data->hasTextureCoordinates() )
-    { m_displayMesh->addData( Mesh::VERTEX_TEXCOORD, data->getTexCoords() ); }
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TEXCOORD ), data->getTexCoords() ); }
 
-    if ( data->hasColors() ) { m_displayMesh->addData( Mesh::VERTEX_COLOR, data->getColors() ); }
+    if ( data->hasColors() )
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), data->getColors() ); }
 
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
+
+    m_displayMesh->loadGeometry( std::move( mesh ) );
 
     finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr );
 }

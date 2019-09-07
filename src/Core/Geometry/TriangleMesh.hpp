@@ -23,7 +23,7 @@ namespace Geometry {
 /// \note Attribute names "in_position" "in_normal" are reserved and pre-allocated.
 /// \note Attribute name "in_color" is not reserved, but automatically binded to
 /// colors by Ra::Engine::Mesh when it exists (type must be Vec4AttribHandle)
-class RA_CORE_API TriangleMesh : public AbstractGeometry
+class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -37,33 +37,32 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     using Vec2AttribHandle   = Utils::AttribHandle<Vector2>;
     using Vec3AttribHandle   = Utils::AttribHandle<Vector3>;
     using Vec4AttribHandle   = Utils::AttribHandle<Vector4>;
-    using Face               = VectorNui;
 
     /// Create an empty mesh.
-    inline TriangleMesh() : AbstractGeometry() { initDefaultAttribs(); }
+    inline AttribArrayGeometry() : AbstractGeometry() { initDefaultAttribs(); }
 
     /// Copy constructor, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are not valid for *this.
-    inline TriangleMesh( const TriangleMesh& other );
+    inline AttribArrayGeometry( const AttribArrayGeometry& other );
 
     /// Move constructor, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are also valid for *this.
-    inline TriangleMesh( TriangleMesh&& other );
+    inline AttribArrayGeometry( AttribArrayGeometry&& other );
 
     /// Assignment operator, copy all the mesh data (faces, geometry, attributes).
     /// \warning Handles on \p other are not valid for *this.
-    inline TriangleMesh& operator=( const TriangleMesh& other );
+    inline AttribArrayGeometry& operator=( const AttribArrayGeometry& other );
 
     /// Move assignment, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are also valid for *this.
-    inline TriangleMesh& operator=( TriangleMesh&& other );
+    inline AttribArrayGeometry& operator=( AttribArrayGeometry&& other );
 
-    ~TriangleMesh() = default;
+    ~AttribArrayGeometry() = default;
 
     /// Appends another mesh to this one, but only if they have the same attributes.
     /// Return True if the mesh has been successfully appended.
     /// \warning There is no error check on the handles attribute type.
-    bool append( const TriangleMesh& other );
+    bool append( const AttribArrayGeometry& other );
 
     /// Erases all data, making the mesh empty.
     void clear() override;
@@ -115,6 +114,21 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     template <typename T>
     inline Utils::AttribHandle<T> addAttrib( const std::string& name );
 
+    template <typename T>
+    inline Utils::AttribHandle<T> addAttrib( const std::string& name,
+                                             const typename Core::VectorArray<T>& data ) {
+        auto handle = addAttrib<T>( name );
+        getAttrib( handle ).setData( data );
+        return handle;
+    }
+    /*
+        template <typename T>
+        inline Utils::AttribHandle<T> addAttrib( const std::string& name,
+                                                 const typename Utils::Attrib<T>::Container&& data )
+       { auto handle = addAttrib<T>( name ); getAttrib( handle ).setData( std::move( data ) );
+            return handle;
+        }
+    */
     /// Remove attribute by handle.
     /// \see AttribManager::removeAttrib() for more info.
     template <typename T>
@@ -126,7 +140,7 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     /// Copy only the mesh faces and geometry.
     /// The needed attributes can be copied through copyAttributes().
     /// \warning Deletes all attributes of *this.
-    inline void copyBaseGeometry( const TriangleMesh& other );
+    inline virtual void copyBaseGeometry( const AttribArrayGeometry& other );
 
     /// Copy only the required attributes from \p input. Existing attributes are
     /// kept untouched, except if overwritten by attributes copied from \p other.
@@ -134,20 +148,16 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
     template <typename... Handles>
-    bool copyAttributes( const TriangleMesh& input, Handles... attribs );
+    bool copyAttributes( const AttribArrayGeometry& input, Handles... attribs );
 
     /// Copy all the attributes from \p input. Existing attributes are
     /// kept untouched, except if overwritten by attributes copied from \p other.
     /// \return True if the attributes have been sucessfully copied, false otherwise.
     /// \note *this and \p input must have the same number of vertices.
     /// \warning The original handles are not valid for the mesh copy.
-    inline bool copyAllAttributes( const TriangleMesh& input );
+    inline bool copyAllAttributes( const AttribArrayGeometry& input );
 
     inline Aabb computeAabb() const override;
-
-    /// Check that the mesh is well built, asserting when it is not.
-    /// only compiles to something when in debug mode.
-    void checkConsistency() const;
 
     /// Utility function colorzing the mesh with a given color. Add the color attribute if needed.
     void colorize( const Utils::Color& c );
@@ -164,13 +174,6 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
 
     /// Access the vertices positions.
     inline void normalsUnlock();
-
-  public:
-    /// The list of triangles.
-    VectorArray<Vector3ui> m_triangles;
-
-    /// A list of non-triangular polygons.
-    VectorArray<Face> m_faces;
 
   private:
     /// Sets the default attribs.
@@ -194,6 +197,50 @@ class RA_CORE_API TriangleMesh : public AbstractGeometry
     friend class TopologicalMesh;
 };
 
+// alias, mayve extend one day
+using PointCloud = AttribArrayGeometry;
+
+// alias for semantic purpose, actual indices are in derived classes
+using IndexedGeometry = AttribArrayGeometry;
+
+class RA_CORE_API TriangleMesh : public IndexedGeometry
+{
+  public:
+    inline TriangleMesh() = default;
+    inline TriangleMesh( const TriangleMesh& other );
+    inline TriangleMesh( TriangleMesh&& other );
+    inline TriangleMesh& operator=( const TriangleMesh& other );
+    inline TriangleMesh& operator=( TriangleMesh&& other );
+    void clear() override;
+    inline void copy( const TriangleMesh& other );
+    bool append( const TriangleMesh& other );
+    /// Check that the mesh is well built, asserting when it is not.
+    /// only compiles to something when in debug mode.
+    void checkConsistency() const;
+
+    /// The list of triangles.
+    VectorArray<Vector3ui> m_triangles;
+};
+/*
+class RA_CORE_API Mesh : public IndexedGeometry
+{
+    using Face = VectorNui;
+
+  public:
+    /// The list of triangles.
+    VectorArray<Vector3ui> m_triangles;
+
+    /// A list of non-triangular polygons.
+    VectorArray<Face> m_faces;
+};
+
+class RA_CORE_API LineMesh : public IndexedGeometry
+{
+  public:
+    /// The list of triangles.
+    std::vector<int> m_lines;
+};
+*/
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
