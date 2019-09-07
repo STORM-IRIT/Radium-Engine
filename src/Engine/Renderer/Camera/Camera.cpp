@@ -36,9 +36,10 @@ void Camera::initialize() {
                           {0_ra, .7_ra, -1_ra},
                           {.3_ra, .5_ra, -1_ra}} );
     triMesh.m_triangles = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
-    m->loadGeometry( std::move( triMesh ) );
     Core::Vector4Array c( 8, {.2_ra, .2_ra, .2_ra, 1_ra} );
-    m->addData( Mesh::VERTEX_COLOR, c );
+    triMesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), c );
+
+    m->loadGeometry( std::move( triMesh ) );
 
     // Create the RO
     m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m );

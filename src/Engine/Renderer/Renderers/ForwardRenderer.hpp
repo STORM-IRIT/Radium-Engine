@@ -77,13 +77,6 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     std::vector<Core::Matrix4> m_lightMatrices;
 };
 
-class ForwardRenderer2 : public ForwardRenderer
-{
-    using ForwardRenderer::ForwardRenderer;
-    std::string getRendererName() const override { return "Forward Renderer2"; }
-    void renderInternal( const ViewingParameters& renderData ) override;
-};
-
 } // namespace Engine
 } // namespace Ra
 
