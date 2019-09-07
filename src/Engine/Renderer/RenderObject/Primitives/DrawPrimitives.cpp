@@ -52,7 +52,7 @@ MeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scal
 
     MeshPtr mesh( new Mesh( "Point Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
-    mesh->addData( Mesh::VERTEX_COLOR, colors );
+    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -66,7 +66,7 @@ MeshPtr Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Utils:
 
     MeshPtr mesh( new Mesh( "Line Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
-    mesh->addData( Mesh::VERTEX_COLOR, colors );
+    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -92,7 +92,7 @@ Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::C
 
     MeshPtr mesh( new Mesh( "Vector Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
-    mesh->addData( Mesh::VERTEX_COLOR, colors );
+    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
     return mesh;
 }
@@ -107,7 +107,7 @@ MeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color ) {
 
     MeshPtr mesh( new Mesh( "Ray Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( vertices, indices );
-    mesh->addData( Mesh::VERTEX_COLOR, colors );
+    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
     return mesh;
 }

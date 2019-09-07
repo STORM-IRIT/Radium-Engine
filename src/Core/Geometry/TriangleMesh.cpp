@@ -11,15 +11,15 @@ namespace Core {
 namespace Geometry {
 
 bool TriangleMesh::append( const TriangleMesh& other ) {
-    // check same attributes through names
-    if ( !m_vertexAttribs.hasSameAttribs( other.m_vertexAttribs ) ) return false;
-
-    // now we can proceed, topology first
     const std::size_t verticesBefore  = vertices().size();
     const std::size_t trianglesBefore = m_triangles.size();
-    const std::size_t facesBefore     = m_faces.size();
+
+    // check same attributes through names
+    if ( !AttribArrayGeometry::append( other ) ) return false;
+
+    // now we can proceed topology
     m_triangles.insert( m_triangles.end(), other.m_triangles.cbegin(), other.m_triangles.cend() );
-    m_faces.insert( m_faces.end(), other.m_faces.cbegin(), other.m_faces.cend() );
+
     // Offset the vertex indices in the triangles and faces
     for ( size_t t = trianglesBefore; t < m_triangles.size(); ++t )
     {
@@ -28,14 +28,15 @@ bool TriangleMesh::append( const TriangleMesh& other ) {
             m_triangles[t][i] += verticesBefore;
         }
     }
-    for ( size_t f = facesBefore; f < m_faces.size(); ++f )
-    {
-        for ( uint i = 0; i < m_faces[f].size(); ++i )
-        {
-            m_faces[f][i] += verticesBefore;
-        }
-    }
 
+    return true;
+}
+
+/****/
+
+bool AttribArrayGeometry::append( const AttribArrayGeometry& other ) {
+    // check same attributes through names
+    if ( !m_vertexAttribs.hasSameAttribs( other.m_vertexAttribs ) ) return false;
     // Deal with all attributes the same way (vertices and normals too)
     other.m_vertexAttribs.for_each_attrib( [this]( const auto& attr ) {
         if ( attr->isFloat() ) this->append_attrib<float>( attr );
@@ -47,7 +48,7 @@ bool TriangleMesh::append( const TriangleMesh& other ) {
     return true;
 }
 
-void TriangleMesh::clearAttributes() {
+void AttribArrayGeometry::clearAttributes() {
     PointAttribHandle::Container v  = vertices();
     NormalAttribHandle::Container n = normals();
     m_vertexAttribs.clear();
@@ -85,7 +86,7 @@ void TriangleMesh::checkConsistency() const {
 #endif
 }
 
-void TriangleMesh::colorize( const Utils::Color& color ) {
+void AttribArrayGeometry::colorize( const Utils::Color& color ) {
     static const std::string colorAttribName( "in_color" );
     auto colorAttribHandle = addAttrib<Core::Vector4>( colorAttribName );
     getAttrib( colorAttribHandle ).setData( Vector4Array( vertices().size(), color ) );
