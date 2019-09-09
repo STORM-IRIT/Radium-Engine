@@ -64,6 +64,8 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 
     inline uint getNumComponents() const;
 
+    virtual Core::Aabb computeAabb() const;
+
   private:
     Core::Transform m_transform;
     Core::Transform m_doubleBufferedTransform;
