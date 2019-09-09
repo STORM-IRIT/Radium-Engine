@@ -313,7 +313,7 @@ bool KeyMappingManager::saveConfiguration( const char* filename ) {
         "\n<keymap context=\"thecontext\" action=\"theAction\" buttons=\"QButton\" "
         "modifier=\"QModifier\" key=\"QKey\" wheel=\"boolean\"/>\n" );
     QDomNode root = m_domDocument.documentElement();
-    while ( not root.isNull() )
+    while ( !root.isNull() )
     {
         saveNodeCanonically( stream, root );
         if ( stream.hasError() ) { break; }
