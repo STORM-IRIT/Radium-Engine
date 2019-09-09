@@ -129,7 +129,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     Core::Transform getTransform() const;
     Core::Matrix4 getTransformAsMatrix() const;
 
-    Core::Aabb getAabb() const;
+    Core::Aabb computeAabb() const;
 
     void setLocalTransform( const Core::Transform& transform );
     void setLocalTransform( const Core::Matrix4& transform );

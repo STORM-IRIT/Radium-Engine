@@ -132,29 +132,5 @@ size_t RenderObjectManager::getNumVertices() const {
     return result;
 }
 
-Core::Aabb RenderObjectManager::getSceneAabb() const {
-    using Ra::Core::Transform;
-    Core::Aabb aabb;
-
-    const auto& systemEntity = Engine::SystemEntity::getInstance();
-    const auto& comps        = systemEntity->getComponents();
-    uint nUiRO               = 0;
-    std::for_each( comps.begin(), comps.end(), [&nUiRO]( const auto& c ) {
-        nUiRO += c->m_renderObjects.size();
-    } );
-    if ( m_renderObjects.size() == nUiRO ) return aabb;
-
-    for ( const auto& ro : m_renderObjects )
-    {
-        auto entity = ro->getComponent()->getEntity();
-        if ( ro->isVisible() && ( entity != systemEntity ) )
-        {
-            Transform tr = entity->getTransform() * ro->getLocalTransform();
-            aabb.extend(
-                Core::Geometry::Obb( ro->getMesh()->getGeometry().computeAabb(), tr ).toAabb() );
-        }
-    }
-    return aabb;
-}
 } // namespace Engine
 } // namespace Ra
