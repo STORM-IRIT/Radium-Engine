@@ -14,6 +14,8 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
+constexpr Scalar POINT_SCALE_FACTOR = 1_ra / 500;
+
 using Ra::Engine::ComponentMessenger;
 using MeshRenderMode = Ra::Engine::Mesh::MeshRenderMode;
 using PickingMode    = Ra::Engine::Renderer::PickingMode;
@@ -584,7 +586,7 @@ Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
     // manage picking mode
     auto ro = getRoMgr()->getRenderObject( m_pickedRoIdx );
     if ( m_pickedMesh->getRenderMode() == MeshRenderMode::RM_POINTS )
-    { return ro->getAabb().sizes().norm() / 500; }
+    { return ro->computeAabb().sizes().norm() * POINT_SCALE_FACTOR; }
     const auto& v = m_pickedMesh->getTriangleMesh().vertices();
     switch ( m_data.m_mode )
     {
@@ -622,7 +624,7 @@ Scalar MeshFeatureTrackingComponent::getFeatureScale() const {
                2.0;
     }
     default:
-        return ro->getAabb().diagonal().norm() / 100_ra;
+        return 1_ra;
     }
 }
 

@@ -623,7 +623,7 @@ void MainWindow::resetScene() {
 }
 
 void MainWindow::fitCamera() {
-    auto aabb = Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getSceneAabb();
+    auto aabb = Engine::RadiumEngine::getInstance()->computeSceneAabb();
     if ( aabb.isEmpty() )
     {
         m_viewer->getCameraInterface()->resetCamera();

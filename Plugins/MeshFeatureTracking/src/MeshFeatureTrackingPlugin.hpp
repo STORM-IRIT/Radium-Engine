@@ -50,6 +50,9 @@ class MeshFeatureTrackingPluginC : public QObject, Ra::Plugins::RadiumPluginInte
     void vertexIdChanged( int );
     void triangleIdChanged( int );
 
+  signals:
+    void askForUpdate();
+
   private:
     MeshFeatureTrackingComponent* m_component{nullptr};
     Ra::GuiBase::SelectionManager* m_selectionManager{nullptr};

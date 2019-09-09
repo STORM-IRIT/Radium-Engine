@@ -4,7 +4,6 @@
 #include <Engine/Component/Component.hpp>
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -68,6 +67,18 @@ void Entity::swapTransformBuffers() {
         m_transform        = m_doubleBufferedTransform;
         m_transformChanged = false;
     }
+}
+
+Core::Aabb Entity::computeAabb() const {
+
+    Core::Aabb aabb;
+
+    for ( const auto& component : m_components )
+    {
+        // transform is applied in ro aabb computation ...
+        aabb.extend( component->computeAabb() );
+    }
+    return aabb;
 }
 
 } // namespace Engine
