@@ -6,9 +6,7 @@ project( ${ra_core_target}
 
 find_package( Threads REQUIRED )
 
-file(GLOB_RECURSE core_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-file(GLOB_RECURSE core_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
-file(GLOB_RECURSE core_inlines ${CMAKE_CURRENT_SOURCE_DIR}/*.inl)
+include( filelistCore )
 
 add_library(
     ${ra_core_target} SHARED
@@ -45,12 +43,12 @@ set_target_properties(${ra_core_target} PROPERTIES PUBLIC_HEADER "${core_headers
 install(TARGETS ${ra_core_target}
     EXPORT ${ra_core_target}Targets
     CONFIGURATIONS ${CMAKE_BUILD_TYPE}
-	RUNTIME  DESTINATION bin
-	OBJECTS  DESTINATION bin
+    RUNTIME  DESTINATION bin
+    OBJECTS  DESTINATION bin
     LIBRARY  DESTINATION lib
     ARCHIVE  DESTINATION lib
     INCLUDES DESTINATION include
     )
 
-INSTALL ( DIRECTORY . DESTINATION include/Core FILES_MATCHING PATTERN "*.h*")
-INSTALL ( DIRECTORY . DESTINATION include/Core FILES_MATCHING PATTERN "*.inl")
+installLibHeaders( "Core" "${core_headers}" )
+installLibHeaders( "Core" "${core_inlines}" )
