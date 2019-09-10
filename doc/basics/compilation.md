@@ -9,6 +9,8 @@ All the dependencies are automatically fetched and compiled at build time.
  * [GuiBase] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.10 recommended)
  * stb_image
 
+See @ref develbuildchain for technical details on dependencies management.
+
 Minimal requirements
  * OpenGL 3+ / GLSL 330+
  * CMake 3.0.+

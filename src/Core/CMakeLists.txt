@@ -18,6 +18,8 @@ add_library(
 )
 add_library(Radium::Core ALIAS ${ra_core_target})
 
+addExternalFolder( Core ${CMAKE_CURRENT_SOURCE_DIR}/external )
+
 find_package(Eigen3 3.3
     REQUIRED
     NO_DEFAULT_PATH )
@@ -26,8 +28,6 @@ find_package(OpenMesh
     REQUIRED
     COMPONENTS Core Tools
     NO_DEFAULT_PATH )
-
-message("Found Eigen at ${EIGEN3_ROOT_DIR}")
 
 configureTargetWithDefaultRaSettings( ${ra_core_target} )
 add_dependencies ( ${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in version
