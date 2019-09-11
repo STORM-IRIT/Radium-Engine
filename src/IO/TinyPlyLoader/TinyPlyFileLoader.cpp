@@ -2,7 +2,7 @@
 
 #include <Core/Asset/FileData.hpp>
 
-#include <tinyply/tinyply.h>
+#include <tinyply.h>
 
 #include <fstream>
 #include <iostream>
@@ -35,7 +35,8 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     std::ifstream ss( filename, std::ios::binary );
 
     // Parse the ASCII header fields
-    tinyply::PlyFile file( ss );
+    tinyply::PlyFile file;
+    file.parse_header( ss );
 
     auto elements = file.get_elements();
     if ( std::any_of( elements.begin(), elements.end(), []( const auto& e ) -> bool {
@@ -67,9 +68,9 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // The count returns the number of instances of the property group. The vectors
     // above will be resized into a multiple of the property group size as
     // they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
-    size_t vertexCount = file.request_properties_from_element( "vertex", {"x", "y", "z"}, verts );
+    auto vertBuffer = file.request_properties_from_element( "vertex", {"x", "y", "z"} );
 
-    if ( vertexCount == 0 )
+    if ( vertBuffer->count == 0 )
     {
         delete fileData;
         LOG( logINFO ) << "[TinyPLY] No vertice found";
@@ -86,40 +87,40 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     std::vector<float> normals;
     std::vector<uint8_t> colors, alphas;
-    size_t normalCount =
-        file.request_properties_from_element( "vertex", {"nx", "ny", "nz"}, normals );
-    size_t alphaCount = file.request_properties_from_element( "vertex", {"alpha"}, alphas );
-    size_t colorCount =
-        file.request_properties_from_element( "vertex", {"red", "green", "blue"}, colors );
+    auto normalBuffer = file.request_properties_from_element( "vertex", {"nx", "ny", "nz"} );
+    auto alphaBuffer  = file.request_properties_from_element( "vertex", {"alpha"} );
+    auto colorBuffer  = file.request_properties_from_element( "vertex", {"red", "green", "blue"} );
 
     std::clock_t startTime;
     startTime = std::clock();
 
     file.read( ss );
 
-    geometry->setVertices( *(
-        reinterpret_cast<std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>>*>( &verts ) ) );
+    geometry->setVertices(
+        *( reinterpret_cast<std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>>*>(
+            vertBuffer->buffer.get() ) ) );
     geometry->setFrame( Core::Transform::Identity() );
 
-    if ( normalCount != 0 )
+    if ( normalBuffer->count != 0 )
     {
         geometry->setNormals(
             *( reinterpret_cast<std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>>*>(
-                &normals ) ) );
+                normalBuffer->buffer.get() ) ) );
     }
 
+    size_t colorCount = colorBuffer->count;
     if ( colorCount != 0 )
     {
         auto& container = geometry->getColors();
         container.resize( colorCount );
 
         auto* cols = reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>>*>(
-                         &colors )
+                         colorBuffer->buffer.get() )
                          ->data();
 
-        if ( alphaCount == colorCount )
+        if ( alphaBuffer->count == colorCount )
         {
-            uint8_t* al = alphas.data();
+            uint8_t* al = alphaBuffer->buffer.get();
             for ( auto& c : container )
             {
                 c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra,
