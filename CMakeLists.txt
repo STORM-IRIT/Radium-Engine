@@ -29,6 +29,20 @@ option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake proje
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
+if(NOT RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL)
+  include(ProcessorCount)
+  ProcessorCount(N)
+  if(NOT N EQUAL 0)
+    set(CTEST_BUILD_FLAGS -j${N})
+    set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
+    set(RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL ${N})
+  else()
+    set(RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL 1)
+  endif()
+endif()
+
+message("Externals will be built with ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} core(s)")
+
 message(STATUS "")
 message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
 message(STATUS "")
