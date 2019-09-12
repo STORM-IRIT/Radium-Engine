@@ -39,12 +39,21 @@ macro(configureTargetWithDefaultRaSettings TARGET)
   endif(OPENMP_FOUND)
 endmacro()
 
-
-add_subdirectory(Core)
-add_subdirectory(IO)
-#add_subdirectory(Core)
-#add_subdirectory(Core)
-
+if(RADIUM_GENERATE_LIB_CORE)
+    add_subdirectory(Core)
+endif()
+if(RADIUM_GENERATE_LIB_IO)
+    add_subdirectory(IO)
+endif()
+if(RADIUM_GENERATE_LIB_ENGINE)
+    add_subdirectory(Engine)
+endif()
+if(RADIUM_GENERATE_LIB_GUIBASE)
+    add_subdirectory(GuiBase)
+endif()
+if(RADIUM_GENERATE_LIB_PLUGINBASE)
+    add_subdirectory(PluginBase)
+endif()
 
 # # #-------------------------------------------------------------------------------
 # # # exampleApp executable setup
