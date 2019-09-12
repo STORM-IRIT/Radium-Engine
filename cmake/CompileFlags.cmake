@@ -176,6 +176,8 @@ else()
 endif()
 
 
+# Use eigen interface for globjets
+add_definitions(-DGLOBJECTS_USE_EIGEN)
 
 # Additional flags depending on system        =================================
 

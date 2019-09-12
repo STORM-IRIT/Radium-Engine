@@ -52,6 +52,13 @@ add_dependencies( ${engine_target} radiumCore glbinding_lib globjects_lib glm_li
 
 target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
+
+#This one should be extracted directly from external project properties.
+target_compile_definitions(${engine_target}
+        PUBLIC
+        GLOBJECTS_USE_EIGEN
+)
+
 target_link_libraries(
     ${engine_target}
     PUBLIC ${engine_libs}
