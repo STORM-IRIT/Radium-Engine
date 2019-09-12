@@ -15,7 +15,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 ExternalProject_Add( glm
     GIT_REPOSITORY https://github.com/g-truc/glm.git
-    GIT_TAG d162eee1e6f7c317a09229fe6ceab8ec6ab9a4b4
+    GIT_TAG 0.9.9.5
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
@@ -30,8 +30,8 @@ ExternalProject_Add( glm
 
 ExternalProject_Add( glbinding
     GIT_REPOSITORY https://github.com/cginternals/glbinding.git
-    GIT_TAG 28d32d9bbc72aedf815f18113b0bd3aa7b354108
-    GIT_SHALLOW TRUE
+    GIT_TAG 663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c
+    GIT_SHALLOW FALSE
     GIT_PROGRESS TRUE
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
     CMAKE_ARGS
@@ -44,10 +44,9 @@ ExternalProject_Add( glbinding
     -DOPTION_BUILD_EXAMPLES=OFF
     )
 
-
 ExternalProject_Add( globjects
-    GIT_REPOSITORY https://github.com/cginternals/globjects.git
-    GIT_TAG dc68b09a53ec20683d3b3a12ed8d9cb12602bb9a
+    GIT_REPOSITORY https://github.com/dlyr/globjects.git
+    GIT_TAG 11c559a07d9e310abb2f53725fd47cfaf538f8b1
     GIT_PROGRESS TRUE
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
     DEPENDS glbinding glm
@@ -57,9 +56,11 @@ ExternalProject_Add( globjects
     -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
     -DOPTION_BUILD_DOCS=OFF
     -DOPTION_BUILD_EXAMPLES=OFF
+    -DOPTION_USE_EIGEN=ON
     -Dglbinding_DIR=${CMAKE_INSTALL_PREFIX}
-    # force to use the bundled glm version
+    # force to use the bundled glm and eigen version
     -Dglm_DIR=${CMAKE_INSTALL_PREFIX}/lib/cmake/glm
+    -DEigen3_DIR=${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/
     )
 
 ExternalProject_Add( stb

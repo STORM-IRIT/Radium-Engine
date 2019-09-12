@@ -11,6 +11,7 @@
 using namespace gl45core;
 #include <glbinding/gl45ext/gl.h>
 using namespace gl45ext;
+using namespace gl;
 
 #include <glbinding-aux/types_to_string.h>
 
