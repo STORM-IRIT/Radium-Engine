@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
 

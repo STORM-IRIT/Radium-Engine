@@ -22,7 +22,7 @@ set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 option(RADIUM_ENABLE_TESTING          "Enable testing. Tests are automatically built with target all" ON)
 option(RADIUM_GENERATE_LIB_CORE       "Include Radium::Core in CMake project" ON)
 option(RADIUM_GENERATE_LIB_IO         "Include Radium::IO in CMake project" ON)
-option(RADIUM_GENERATE_LIB_ENGINE     "Include Radium::Engine in CMake project" OFF)
+option(RADIUM_GENERATE_LIB_ENGINE     "Include Radium::Engine in CMake project" ON)
 option(RADIUM_GENERATE_LIB_GUIBASE    "Include Radium::GuiBase in CMake project" OFF)
 option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" OFF)
 
@@ -79,6 +79,7 @@ set(CMAKE_DEBUG_POSTFIX d)
 # Set default paths for Radium
 set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
 set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(RADIUM_SHADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
 
 #-------------------------------------------------------------------------------
 # Set default install location to dist folder in build dir
