@@ -27,6 +27,14 @@ addExternalFolder( Engine ${CMAKE_CURRENT_SOURCE_DIR}/external )
 find_package(glbinding REQUIRED NO_DEFAULT_PATH )
 find_package(globjects REQUIRED NO_DEFAULT_PATH )
 
+find_package(Eigen3 REQUIRED  NO_DEFAULT_PATH )
+
+#This one should be extracted directly from external project properties.
+target_compile_definitions(${ra_engine_target}
+        PUBLIC
+        GLOBJECTS_USE_EIGEN
+)
+
 configureTargetWithDefaultRaSettings( ${ra_engine_target} )
 
 target_include_directories(${ra_engine_target} PUBLIC
