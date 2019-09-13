@@ -20,7 +20,7 @@ using namespace Ra::Core::Utils;
 
 // Dirty is initializes as false so that we do not create the vao while
 // we have no data to send to the gpu.
-Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
+VaoDisplayable::VaoDisplayable( const std::string& name, MeshRenderMode renderMode ) :
     Displayable( name ),
     m_renderMode{renderMode} {
     CORE_ASSERT( m_renderMode == RM_POINTS || m_renderMode == RM_LINES ||
@@ -32,9 +32,6 @@ Mesh::Mesh( const std::string& name, MeshRenderMode renderMode ) :
 
     updatePickingRenderMode();
 }
-
-// no need to detach listener since TriangleMesh is owned by Mesh.
-Mesh::~Mesh() {}
 
 void Mesh::render( const ShaderProgram* prog ) {
     if ( m_vao )
@@ -62,36 +59,6 @@ size_t Mesh::getNumFaces() const {
     default:
         return size_t( 0 );
     }
-}
-
-void Mesh::loadGeometry( Core::Geometry::TriangleMesh&& mesh ) {
-    m_mesh = std::move( mesh );
-
-    if ( m_mesh.m_triangles.empty() )
-    {
-        m_numElements = m_mesh.vertices().size();
-        setRenderMode( RM_POINTS );
-    }
-    else
-        m_numElements = m_mesh.m_triangles.size() * 3;
-    int idx = 0;
-
-    m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
-    m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
-
-    // here capture ref to idx to propagate irx incorementation
-    m_mesh.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
-        m_handleToBuffer[b->getName()] = idx;
-        m_dataDirty[idx]               = true;
-
-        b->attach( AttribObserver( this, idx ) );
-
-        ++idx;
-    } );
-
-    m_mesh.vertexAttribs().attach(
-        std::bind( &Mesh::addAttribObserver, this, std::placeholders::_1 ) );
-    m_isDirty = true;
 }
 
 void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<uint>& indices ) {
@@ -140,21 +107,29 @@ void Mesh::updateGL() {
         CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency" );
         CORE_ASSERT( !( m_mesh.vertices().empty() ), "No vertex." );
 
-        if ( !m_indices ) { m_indices = globjects::Buffer::create(); }
-        if ( m_renderMode == RM_POINTS )
+        if ( !m_indices )
         {
-            m_numElements = m_mesh.vertices().size();
-            std::vector<int> indices( m_numElements );
-            std::iota( indices.begin(), indices.end(), 0 );
-            m_indices->setData( indices, GL_STATIC_DRAW );
+            m_indices      = globjects::Buffer::create();
+            m_indicesDirty = true;
         }
-        else
+        if ( m_indicesDirty )
         {
-            m_indices->setData( m_mesh.m_triangles, GL_DYNAMIC_DRAW );
-            m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_triangles.size() *
-                                                             sizeof( Core::Vector3ui ) ),
-                                m_mesh.m_triangles.data(),
-                                GL_STATIC_DRAW );
+            if ( m_renderMode == RM_POINTS )
+            {
+                m_numElements = m_mesh.vertices().size();
+                std::vector<int> indices( m_numElements );
+                std::iota( indices.begin(), indices.end(), 0 );
+                m_indices->setData( indices, GL_STATIC_DRAW );
+            }
+            else
+            {
+                m_indices->setData( m_mesh.m_triangles, GL_DYNAMIC_DRAW );
+                m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_triangles.size() *
+                                                                 sizeof( Core::Vector3ui ) ),
+                                    m_mesh.m_triangles.data(),
+                                    GL_STATIC_DRAW );
+            }
+            m_indicesDirty = false;
         }
 
         auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
@@ -190,34 +165,34 @@ void Mesh::updateGL() {
     }
 }
 
-void Mesh::updatePickingRenderMode() {
+void VaoDisplayable::updatePickingRenderMode() {
     switch ( getRenderMode() )
     {
-    case Mesh::RM_POINTS:
+    case VaoDisplayable::RM_POINTS:
     {
         Displayable::m_pickingRenderMode = PKM_POINTS;
         break;
     }
-    case Mesh::RM_LINES: // fall through
+    case VaoDisplayable::RM_LINES: // fall through
         [[fallthrough]];
-    case Mesh::RM_LINE_LOOP: // fall through
+    case VaoDisplayable::RM_LINE_LOOP: // fall through
         [[fallthrough]];
-    case Mesh::RM_LINE_STRIP:
+    case VaoDisplayable::RM_LINE_STRIP:
     {
         Displayable::m_pickingRenderMode = PKM_LINES;
         break;
     }
-    case Mesh::RM_LINES_ADJACENCY: // fall through
-    case Mesh::RM_LINE_STRIP_ADJACENCY:
+    case VaoDisplayable::RM_LINES_ADJACENCY: // fall through
+    case VaoDisplayable::RM_LINE_STRIP_ADJACENCY:
     {
         Displayable::m_pickingRenderMode = PKM_LINE_ADJ;
         break;
     }
-    case Mesh::RM_TRIANGLES:
+    case VaoDisplayable::RM_TRIANGLES:
         [[fallthrough]];
-    case Mesh::RM_TRIANGLE_STRIP:
+    case VaoDisplayable::RM_TRIANGLE_STRIP:
         [[fallthrough]];
-    case Mesh::RM_TRIANGLE_FAN:
+    case VaoDisplayable::RM_TRIANGLE_FAN:
     {
         Displayable::m_pickingRenderMode = PKM_TRI;
         break;
@@ -263,7 +238,7 @@ void Mesh::autoVertexAttribPointer( const ShaderProgram* prog ) {
     m_vao->unbind();
 }
 
-void Mesh::setDirty( const Mesh::MeshData& type ) {
+void VaoDisplayable::setDirty( const VaoDisplayable::MeshData& type ) {
     auto name = getAttribName( type );
     auto itr  = m_handleToBuffer.find( name );
     if ( itr == m_handleToBuffer.end() )
@@ -278,7 +253,7 @@ void Mesh::setDirty( const Mesh::MeshData& type ) {
     m_isDirty = true;
 }
 
-void Mesh::setDirty( const Vec3Data& type ) {
+void VaoDisplayable::setDirty( const Vec3Data& type ) {
     auto name = getAttribName( type );
     auto itr  = m_handleToBuffer.find( name );
     if ( itr == m_handleToBuffer.end() )
@@ -293,7 +268,7 @@ void Mesh::setDirty( const Vec3Data& type ) {
     m_isDirty = true;
 }
 
-void Mesh::setDirty( const Vec4Data& type ) {
+void VaoDisplayable::setDirty( const Vec4Data& type ) {
     auto name = getAttribName( type );
     auto itr  = m_handleToBuffer.find( name );
     if ( itr == m_handleToBuffer.end() )
@@ -308,7 +283,9 @@ void Mesh::setDirty( const Vec4Data& type ) {
     m_isDirty = true;
 }
 
-void Mesh::addAttribObserver( const std::string& name ) {
+template <>
+void DisplayableGeometry<Core::Geometry::TriangleMesh>::addAttribObserver(
+    const std::string& name ) {
     auto attrib = m_mesh.getAttribBase( name );
     // if attrib not nullptr, then it's a add
     if ( attrib )
@@ -326,6 +303,41 @@ void Mesh::addAttribObserver( const std::string& name ) {
     // else it's a remove
     else
     {}
+}
+
+template <>
+void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
+    Core::Geometry::TriangleMesh&& mesh ) {
+    m_mesh = std::move( mesh );
+
+    if ( m_mesh.m_triangles.empty() )
+    {
+        m_numElements = m_mesh.vertices().size();
+        setRenderMode( RM_POINTS );
+    }
+    else
+        m_numElements = m_mesh.m_triangles.size() * 3;
+    int idx = 0;
+
+    m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
+    m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
+
+    // here capture ref to idx to propagate irx incorementation
+    m_mesh.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
+        m_handleToBuffer[b->getName()] = idx;
+        m_dataDirty[idx]               = true;
+
+        b->attach( AttribObserver( this, idx ) );
+
+        ++idx;
+    } );
+
+    m_mesh.vertexAttribs().attach( std::bind(
+        &DisplayableGeometry<CoreGeometry>::addAttribObserver, this, std::placeholders::_1 ) );
+    m_mesh.vertexAttribs().attachMember( this,
+                                         &DisplayableGeometry<CoreGeometry>::addAttribObserver );
+
+    m_isDirty = true;
 }
 
 } // namespace Engine
