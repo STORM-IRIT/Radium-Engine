@@ -142,8 +142,6 @@ class RA_ENGINE_API Mesh : public Displayable
     [[deprecated]] void addData( const std::string& name, const Core::VectorArray<Vector>& data );
 
     /// Access the additionnal data arrays by type.
-    inline const Core::Vector3Array& getData( const Vec3Data& type ) const;
-    inline const Core::Vector4Array& getData( const Vec4Data& type ) const;
 
     /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
     void setDirty( const MeshData& type );
@@ -199,17 +197,6 @@ class RA_ENGINE_API Mesh : public Displayable
 
     MeshRenderMode m_renderMode{
         MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
-
-    ///\todo @dlyr cleanup this mechanism to have something
-    /// extensible. Now the only attribs should be the one defined in
-    /// the enums MeshData, Vec3Data, Vec4Data.
-
-    /// Additionnal vertex vector 3 data handles, stored in Mesh, added
-    std::array<Core::Geometry::TriangleMesh::Vec3AttribHandle, MAX_VEC3> m_v3DataHandle;
-    Core::Geometry::TriangleMesh::Vec3AttribHandle::Container m_dummy3;
-    /// Additionnal vertex vector 4 data handles, stored in Mesh, added
-    std::array<Core::Geometry::TriangleMesh::Vec4AttribHandle, MAX_VEC4> m_v4DataHandle;
-    Core::Geometry::TriangleMesh::Vec4AttribHandle::Container m_dummy4;
 
     // Combined arrays store the flags in this order Mesh, then Vec3 then Vec4 data.
     // Following the enum declaration above.

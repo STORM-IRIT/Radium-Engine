@@ -249,6 +249,7 @@ const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() c
 
 Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+///\todo check if it's ok ;) but I think we do note need this anymore
     m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
     m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
     m_displayMesh->setDirty( Mesh::INDEX );
