@@ -73,6 +73,42 @@ inline void TriangleMesh::copy( const TriangleMesh& other ) {
     m_triangles = other.m_triangles;
 }
 //***//
+
+//***//
+inline LineMesh::LineMesh( const LineMesh& other ) :
+    IndexedGeometry( other ),
+    m_lines( other.m_lines ) {}
+
+inline LineMesh::LineMesh( LineMesh&& other ) :
+    IndexedGeometry( std::move( other ) ),
+    m_lines( std::move( other.m_lines ) ) {}
+
+inline LineMesh& LineMesh::operator=( const LineMesh& other ) {
+    IndexedGeometry::operator=( other );
+
+    m_lines = other.m_lines;
+    return *this;
+}
+
+inline LineMesh& LineMesh::operator=( LineMesh&& other ) {
+    IndexedGeometry::operator=( std::move( other ) );
+
+    m_lines = std::move( other.m_lines );
+    return *this;
+}
+
+inline void LineMesh::clear() {
+    m_lines.clear();
+    IndexedGeometry::clear();
+}
+
+inline void LineMesh::copy( const LineMesh& other ) {
+    clear();
+    IndexedGeometry::copyBaseGeometry( other );
+    m_lines = other.m_lines;
+}
+//***//
+
 inline void AttribArrayGeometry::clear() {
     m_vertexAttribs.clear();
     // restore the default attribs (empty though)

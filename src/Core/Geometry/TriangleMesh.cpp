@@ -34,6 +34,27 @@ bool TriangleMesh::append( const TriangleMesh& other ) {
 
 /****/
 
+bool LineMesh::append( const LineMesh& other ) {
+    const std::size_t verticesBefore = vertices().size();
+    const std::size_t linesBefore    = m_lines.size();
+
+    // check same attributes through names
+    if ( !AttribArrayGeometry::append( other ) ) return false;
+
+    // now we can proceed topology
+    m_lines.insert( m_lines.end(), other.m_lines.cbegin(), other.m_lines.cend() );
+
+    // Offset the vertex indices in the lines and faces
+    for ( size_t t = linesBefore; t < m_lines.size(); ++t )
+    {
+        m_lines[t] += verticesBefore;
+    }
+
+    return true;
+}
+
+/****/
+
 bool AttribArrayGeometry::append( const AttribArrayGeometry& other ) {
     // check same attributes through names
     if ( !m_vertexAttribs.hasSameAttribs( other.m_vertexAttribs ) ) return false;
