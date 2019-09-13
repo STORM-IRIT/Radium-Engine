@@ -233,14 +233,23 @@ class RA_CORE_API Mesh : public IndexedGeometry
     /// A list of non-triangular polygons.
     VectorArray<Face> m_faces;
 };
-
+*/
 class RA_CORE_API LineMesh : public IndexedGeometry
 {
   public:
-    /// The list of triangles.
+    inline LineMesh() = default;
+    inline LineMesh( const LineMesh& other );
+    inline LineMesh( LineMesh&& other );
+    inline LineMesh& operator=( const LineMesh& other );
+    inline LineMesh& operator=( LineMesh&& other );
+    void clear() override;
+    inline void copy( const LineMesh& other );
+    bool append( const LineMesh& other );
+
+    /// The list of lines, typically 0, 1, 1, 2, 2, 3, 3, 4 ...
     std::vector<int> m_lines;
 };
-*/
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
