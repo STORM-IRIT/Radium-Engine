@@ -26,22 +26,6 @@ Core::Geometry::TriangleMesh& Mesh::getTriangleMesh() {
     return m_mesh;
 }
 
-const Core::Vector3Array& Mesh::getData( const Mesh::Vec3Data& type ) const {
-    using Handle  = Core::Geometry::TriangleMesh::Vec3AttribHandle;
-    auto name     = getAttribName( type );
-    Handle handle = m_mesh.getAttribHandle<Core::Vector3>( name );
-    if ( !m_mesh.isValid( handle ) ) return m_dummy3;
-    return m_mesh.getAttrib( handle ).data();
-}
-
-const Core::Vector4Array& Mesh::getData( const Mesh::Vec4Data& type ) const {
-    using Handle  = Core::Geometry::TriangleMesh::Vec4AttribHandle;
-    auto name     = getAttribName( type );
-    Handle handle = m_mesh.getAttribHandle<Core::Vector4>( name );
-    if ( !m_mesh.isValid( handle ) ) return m_dummy4;
-    return m_mesh.getAttrib( handle ).data();
-}
-
 std::string Mesh::getAttribName( MeshData type ) {
     if ( type == VERTEX_POSITION ) return {"in_position"};
     if ( type == VERTEX_NORMAL ) return {"in_normal"};
