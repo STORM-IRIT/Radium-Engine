@@ -223,24 +223,24 @@ void TriangleMeshComponent::setupIO( const std::string& id ) {
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
         getEntity(), this, id, roOut );
 
-    ComponentMessenger::CallbackTypes<
-        Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite vRW =
-        std::bind( &TriangleMeshComponent::getVerticesRw, this );
-    ComponentMessenger::getInstance()
-        ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
-            getEntity(), this, id + "v", vRW );
+    // ComponentMessenger::CallbackTypes<
+    //     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite vRW =
+    //     std::bind( &TriangleMeshComponent::getVerticesRw, this );
+    // ComponentMessenger::getInstance()
+    //     ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
+    //         getEntity(), this, id + "v", vRW );
 
-    ComponentMessenger::CallbackTypes<
-        Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite nRW =
-        std::bind( &TriangleMeshComponent::getNormalsRw, this );
-    ComponentMessenger::getInstance()
-        ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
-            getEntity(), this, id + "n", nRW );
+    // ComponentMessenger::CallbackTypes<
+    //     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite nRW =
+    //     std::bind( &TriangleMeshComponent::getNormalsRw, this );
+    // ComponentMessenger::getInstance()
+    //     ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
+    //         getEntity(), this, id + "n", nRW );
 
-    ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW =
-        std::bind( &TriangleMeshComponent::getTrianglesRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>(
-        getEntity(), this, id + "t", tRW );
+    //    ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW =
+    //        std::bind( &TriangleMeshComponent::getTrianglesRw, this );
+    //    ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>(
+    //        getEntity(), this, id + "t", tRW );
 }
 
 const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() const {
@@ -261,7 +261,7 @@ Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     //    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX );
     return &( m_displayMesh->getTriangleMesh() );
 }
-
+/*
 Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType*
 TriangleMeshComponent::getVerticesRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
@@ -281,12 +281,12 @@ TriangleMeshComponent::getNormalsRw() {
     if ( handle.idx().isValid() ) return &( m_displayMesh->getTriangleMesh().getAttrib( handle ) );
     return nullptr;
 }
-
-Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+*/
+// Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {
+//    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
 //    m_displayMesh->setDirty( Mesh::INDEX );
-    return &( m_displayMesh->getTriangleMesh().m_triangles );
-}
+//    return &( m_displayMesh->getTriangleMesh().m_triangles );
+//}
 
 const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
