@@ -36,7 +36,7 @@ class RA_GUIBASE_API CameraManipulator : public QObject
     /// Initializes a manipulator keeping properties from an already existing one
     /// This allow to switch from one manipulator to another while keepiong the same visual
     /// experience.
-    explicit CameraManipulator(const CameraManipulator* other );
+    explicit CameraManipulator( const CameraManipulator& other );
 
     /// Destructor.
     /// As a Manipulator does not have ownership over the associated Camera, do not release the

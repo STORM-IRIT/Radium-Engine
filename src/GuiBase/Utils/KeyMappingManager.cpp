@@ -174,18 +174,16 @@ std::string KeyMappingManager::getContextName( const Context& context ) {
     return "Invalid";
 }
 
-void KeyMappingManager::addListener( Observer callback ) {
-    attach( callback );
+int KeyMappingManager::addListener( Observer callback ) {
+    auto gid = attach( callback );
     // call the registered listener directly to have it up to date if the
     // config is already loaded
     callback();
+    return gid;
 }
 
-void KeyMappingManager::removeListener( Listener callback ) {
-    auto it = std::remove_if( m_listeners.begin(), m_listeners.end(), [callback]( Listener c ) {
-        return c == callback;
-    } );
-    m_listeners.erase( it, m_listeners.end() );
+void KeyMappingManager::removeListener( int callbackId ) {
+    detach( callbackId );
 }
 
 void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,

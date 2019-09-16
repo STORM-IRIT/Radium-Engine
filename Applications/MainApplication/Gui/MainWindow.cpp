@@ -93,13 +93,13 @@ void MainWindow::cleanup() {
 void MainWindow::trackballManipulator() {
     // set trackball manipulator (default)
     m_viewer->setCameraManipulator(
-        new Gui::TrackballCameraManipulator( m_viewer->getCameraManipulator() ) );
+        new Gui::TrackballCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
 }
 
 void MainWindow::flightManipulator() {
     // set flightmode manipulator
     m_viewer->setCameraManipulator(
-        new Gui::FlightCameraManipulator( m_viewer->getCameraManipulator() ) );
+        new Gui::FlightCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
 }
 
 // Connection to gizmos must be done after GL is initialized

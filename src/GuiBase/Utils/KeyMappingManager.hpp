@@ -88,10 +88,11 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     std::string getContextName( const Context& context );
 
     /// Add a callback, triggered when configuration is load or reloaded.
-    void addListener( Observable::Observer callback );
+    int addListener( Observable::Observer callback );
 
     /// Remove a callback. To be called when the related Context/Actions are no ore needed.
-    void removeListener( Listener callback );
+    /// @param callbackId the Id, returned by addListener, of the Observer to be removed.
+    void removeListener( int callbackId );
 
     /// return a string of enum names from mouse buttons, comma separated,
     /// without space

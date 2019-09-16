@@ -16,7 +16,8 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
 
   public:
     FlightCameraManipulator(uint width, uint height );
-    explicit FlightCameraManipulator(const CameraManipulator* other );
+    explicit FlightCameraManipulator( const FlightCameraManipulator& other );
+    explicit FlightCameraManipulator( const CameraManipulator& other );
     virtual ~FlightCameraManipulator();
 
     KeyMappingManager::Context mappingContext();

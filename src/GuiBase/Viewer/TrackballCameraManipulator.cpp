@@ -51,7 +51,7 @@ Gui::TrackballCameraManipulator::TrackballCameraManipulator(uint width, uint hei
     resetCamera();
 }
 
-Gui::TrackballCameraManipulator::TrackballCameraManipulator(const CameraManipulator* other ) :
+Gui::TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator& other ) :
     CameraManipulator(other ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),

@@ -12,15 +12,16 @@ namespace Ra {
 
 using namespace Core::Utils; // log
 
-Gui::CameraManipulator::CameraManipulator(const CameraManipulator* other ) :
-    m_cameraSensitivity( other->m_cameraSensitivity ),
-    m_quickCameraModifier( other->m_quickCameraModifier ),
-    m_wheelSpeedModifier( other->m_wheelSpeedModifier ),
-    m_targetedAabbVolume( other->m_targetedAabbVolume ),
-    m_mapCameraBahaviourToAabb( other->m_mapCameraBahaviourToAabb ),
-    m_target( other->m_target ),
-    m_camera( other->m_camera ),
-    m_light( other->m_light ) {}
+Gui::CameraManipulator::CameraManipulator( const CameraManipulator& other ) :
+    QObject(),
+    m_cameraSensitivity( other.m_cameraSensitivity ),
+    m_quickCameraModifier( other.m_quickCameraModifier ),
+    m_wheelSpeedModifier( other.m_wheelSpeedModifier ),
+    m_targetedAabbVolume( other.m_targetedAabbVolume ),
+    m_mapCameraBahaviourToAabb( other.m_mapCameraBahaviourToAabb ),
+    m_target( other.m_target ),
+    m_camera( other.m_camera ),
+    m_light( other.m_light ) {}
 
 Gui::CameraManipulator::CameraManipulator(uint width, uint height ) :
     m_cameraSensitivity( 1.0 ),

@@ -72,7 +72,16 @@ Gui::FlightCameraManipulator::FlightCameraManipulator( uint width, uint height )
     resetCamera();
 }
 
-Gui::FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator* other ) :
+Gui::FlightCameraManipulator::FlightCameraManipulator( const FlightCameraManipulator& other ) :
+    CameraManipulator( other ),
+    m_rotateAround( other.m_rotateAround ),
+    m_cameraRotateMode( other.m_cameraRotateMode ),
+    m_cameraPanMode( other.m_cameraPanMode ),
+    m_cameraZoomMode( other.m_cameraZoomMode ),
+    m_fixUpVector( other.m_fixUpVector ),
+    m_flightSpeed( other.m_flightSpeed ) {}
+
+Gui::FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator& other ) :
     CameraManipulator( other ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),

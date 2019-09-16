@@ -20,7 +20,7 @@ class RA_GUIBASE_API TrackballCameraManipulator : public CameraManipulator,
 
     /// Copy constructor used when switching camera manipulator
     /// Requires that m_target is on the line of sight of the camera.
-    explicit TrackballCameraManipulator(const CameraManipulator* other );
+    explicit TrackballCameraManipulator( const CameraManipulator& other );
 
     /// Destructor.
     virtual ~TrackballCameraManipulator();
