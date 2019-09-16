@@ -19,4 +19,5 @@ radium_add_core_test( raycast    )
 radium_add_core_test( string     )
 radium_add_core_test( topomesh   )
 radium_add_core_test( polyline   )
+radium_add_core_test( observer   )
 

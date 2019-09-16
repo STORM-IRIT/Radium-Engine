@@ -9,6 +9,7 @@
 
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Core/Utils/Observable.hpp>
 #include <Core/Utils/Singleton.hpp>
 
 namespace Ra {
@@ -16,7 +17,7 @@ namespace Gui {
 /// An utility class used to map a (combination) of key / modifier to a specific action.
 /// It can load configuration from a file or if no config is found it will load an
 /// internal version of the default configuration.
-class RA_GUIBASE_API KeyMappingManager
+class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
 {
     RA_SINGLETON_INTERFACE( KeyMappingManager );
 
@@ -24,7 +25,6 @@ class RA_GUIBASE_API KeyMappingManager
     Q_GADGET
 
   public:
-    using Listener         = void ( * )();
     using KeyMappingAction = Ra::Core::Utils::Index;
     using Context          = Ra::Core::Utils::Index;
 
@@ -64,7 +64,7 @@ class RA_GUIBASE_API KeyMappingManager
     std::string getContextName( const Context& context );
 
     /// Add a callback, triggered when configuration is load or reloaded.
-    void addListener( Listener callback );
+    void addListener( Observable::Observer callback );
 
     /// return a string of enum names from mouse buttons, comma separated,
     /// without space
@@ -146,8 +146,6 @@ class RA_GUIBASE_API KeyMappingManager
     using ContextNameMap      = std::map<std::string, Context>;
     using ActionNameMap       = std::map<std::string, Ra::Core::Utils::Index>;
 
-    std::vector<Listener> m_listeners;
-
     ContextNameMap m_contextNameToIndex;              ///< context string give index
     std::vector<ActionNameMap> m_actionNameToIndex;   ///< one element per context
     std::vector<MouseBindingMapping> m_mappingAction; ///< one element per context
@@ -166,7 +164,7 @@ class KeyMappingManageable
   public:
     static inline KeyMappingManager::Context getContext() { return m_keyMappingContext; }
 
-    /// KeyManageable class should implement configureKeyMapping_impl to get their
+    /// KeyManageable class should implement static configureKeyMapping_impl to get their
     /// keyMappingAction constants.
     static inline void configureKeyMapping() { T::configureKeyMapping_impl(); }
 
