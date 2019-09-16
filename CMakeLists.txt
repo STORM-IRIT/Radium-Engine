@@ -23,7 +23,7 @@ option(RADIUM_ENABLE_TESTING          "Enable testing. Tests are automatically b
 option(RADIUM_GENERATE_LIB_CORE       "Include Radium::Core in CMake project" ON)
 option(RADIUM_GENERATE_LIB_IO         "Include Radium::IO in CMake project" ON)
 option(RADIUM_GENERATE_LIB_ENGINE     "Include Radium::Engine in CMake project" ON)
-option(RADIUM_GENERATE_LIB_GUIBASE    "Include Radium::GuiBase in CMake project" OFF)
+option(RADIUM_GENERATE_LIB_GUIBASE    "Include Radium::GuiBase in CMake project" ON)
 option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
 
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
