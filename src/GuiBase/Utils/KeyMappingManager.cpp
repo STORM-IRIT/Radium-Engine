@@ -100,8 +100,8 @@ std::string KeyMappingManager::getContextName( const Context& context ) {
     return "Invalid";
 }
 
-void KeyMappingManager::addListener( Listener callback ) {
-    m_listeners.push_back( callback );
+void KeyMappingManager::addListener( Observer callback ) {
+    attach( callback );
     // call the registered listener directly to have it up to date if the
     // config is already loaded
     callback();
@@ -211,10 +211,8 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
 
     loadConfigurationInternal();
 
-    for ( auto l : m_listeners )
-    {
-        l();
-    }
+    // notify observer that keymapping has changed.
+    notify();
 }
 
 void KeyMappingManager::loadConfigurationInternal() {
