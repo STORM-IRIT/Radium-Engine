@@ -59,6 +59,10 @@ KeyMappingFlightManipulator
 #undef KMA_VALUE
 }
 
+KeyMappingManager::Context Gui::FlightCameraManipulator::mappingContext() {
+    return m_keyMappingContext;
+}
+
 Gui::FlightCameraManipulator::FlightCameraManipulator( uint width, uint height ) :
     CameraManipulator( width, height ),
     m_rotateAround( true ),

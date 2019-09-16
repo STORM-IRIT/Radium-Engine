@@ -25,6 +25,7 @@ class RA_GUIBASE_API TrackballCameraManipulator : public CameraManipulator,
     /// Destructor.
     virtual ~TrackballCameraManipulator();
 
+    KeyMappingManager::Context mappingContext();
     bool handleMousePressEvent( QMouseEvent* event,
                                 const Qt::MouseButtons& buttons,
                                 const Qt::KeyboardModifiers& modifiers,

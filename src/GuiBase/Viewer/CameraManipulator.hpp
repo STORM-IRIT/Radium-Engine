@@ -24,20 +24,23 @@ class Light;
 namespace Ra {
 namespace Gui {
 
-// TODO : put in this class all the attribs common to all manipulators
-//  (i.e not only the direction but the distance to look at) ..
 /// The CameraManipulator class is the generic class for camera manipulators.
 class RA_GUIBASE_API CameraManipulator : public QObject
 {
     Q_OBJECT
 
   public:
-    /// Initializes the default app Camera from the given size.
+    /// Initializes a manipulator for a given viewport size.
     CameraManipulator(uint width, uint height );
 
-    /// Initializes the default app Camera from the given camera.
+    /// Initializes a manipulator keeping properties from an already existing one
+    /// This allow to switch from one manipulator to another while keepiong the same visual
+    /// experience.
     explicit CameraManipulator(const CameraManipulator* other );
 
+    /// Destructor.
+    /// As a Manipulator does not have ownership over the associated Camera, do not release the
+    /// associated Camera.
     virtual ~CameraManipulator();
 
     /// Resize the camera viewport.

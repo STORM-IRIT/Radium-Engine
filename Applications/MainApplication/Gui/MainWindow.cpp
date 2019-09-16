@@ -92,13 +92,13 @@ void MainWindow::cleanup() {
 
 void MainWindow::trackballManipulator() {
     // set trackball manipulator (default)
-    m_viewer->setCameraInterface(
+    m_viewer->setCameraManipulator(
         new Gui::TrackballCameraManipulator( m_viewer->getCameraManipulator() ) );
 }
 
 void MainWindow::flightManipulator() {
     // set flightmode manipulator
-    m_viewer->setCameraInterface(
+    m_viewer->setCameraManipulator(
         new Gui::FlightCameraManipulator( m_viewer->getCameraManipulator() ) );
 }
 

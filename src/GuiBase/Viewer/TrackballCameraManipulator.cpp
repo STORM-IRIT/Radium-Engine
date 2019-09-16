@@ -38,6 +38,10 @@ void Gui::TrackballCameraManipulator::configureKeyMapping_impl() {
 #undef KMA_VALUE
 }
 
+KeyMappingManager::Context Gui::TrackballCameraManipulator::mappingContext() {
+    return m_keyMappingContext;
+}
+
 Gui::TrackballCameraManipulator::TrackballCameraManipulator(uint width, uint height ) :
     CameraManipulator(width, height ),
     m_rotateAround( true ),

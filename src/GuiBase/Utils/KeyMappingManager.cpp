@@ -336,7 +336,7 @@ void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domN
     if ( domNode.isElement() )
     {
         const QDomElement domElement = domNode.toElement();
-        if ( not domElement.isNull() )
+        if ( domElement.isNull() )
         {
             auto tagName = domElement.tagName().toStdString();
             stream.writeStartElement( domElement.tagName() );

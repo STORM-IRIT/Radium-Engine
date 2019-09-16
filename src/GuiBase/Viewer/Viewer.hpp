@@ -78,7 +78,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Set the current camera interface.
     /// @note for compatibility, this method called without parameter sets the cameraInterface to
     /// TrackballCamera
-    void setCameraInterface(CameraManipulator* ci );
+    void setCameraManipulator( CameraManipulator* ci );
 
     /// Set the camera managed by the cameraInterface
     void setCamera( Engine::Camera* camera );

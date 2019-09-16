@@ -219,7 +219,7 @@ bool Gui::Viewer::initializeGL() {
     return true;
 }
 
-void Gui::Viewer::setCameraInterface(CameraManipulator* ci ) {
+void Gui::Viewer::setCameraManipulator( CameraManipulator* ci ) {
     m_camera.reset( ci );
 }
 
