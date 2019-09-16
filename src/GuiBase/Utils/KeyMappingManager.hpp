@@ -90,7 +90,7 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// Add a callback, triggered when configuration is load or reloaded.
     void addListener( Observable::Observer callback );
 
-    /// Remove a callback, triggered when configuration is load or reloaded.
+    /// Remove a callback. To be called when the related Context/Actions are no ore needed.
     void removeListener( Listener callback );
 
     /// return a string of enum names from mouse buttons, comma separated,
@@ -105,7 +105,7 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     KeyMappingManager();
     ~KeyMappingManager();
 
-    void saveNodeCanonically( QXmlStreamWriter& stream, const QDomNode& domNode );
+    void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
 
     // Private for now, but may need to be public if we want to customize keymapping configuration
     // otherwise than by editing the XML configuration file.

@@ -315,7 +315,7 @@ bool KeyMappingManager::saveConfiguration( const char* filename ) {
     QDomNode root = m_domDocument.documentElement();
     while ( !root.isNull() )
     {
-        saveNodeCanonically( stream, root );
+        saveNode( stream, root );
         if ( stream.hasError() ) { break; }
         root = root.nextSibling();
     }
@@ -330,7 +330,7 @@ bool KeyMappingManager::saveConfiguration( const char* filename ) {
     return true;
 }
 
-void KeyMappingManager::saveNodeCanonically( QXmlStreamWriter& stream, const QDomNode& domNode ) {
+void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domNode ) {
     if ( stream.hasError() ) { return; }
 
     if ( domNode.isElement() )
@@ -394,7 +394,7 @@ void KeyMappingManager::saveNodeCanonically( QXmlStreamWriter& stream, const QDo
                 QDomNode elementChild = domElement.firstChild();
                 while ( not elementChild.isNull() )
                 {
-                    saveNodeCanonically( stream, elementChild );
+                    saveNode( stream, elementChild );
                     elementChild = elementChild.nextSibling();
                 }
             }
