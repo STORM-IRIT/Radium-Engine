@@ -334,7 +334,7 @@ void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domN
     if ( domNode.isElement() )
     {
         const QDomElement domElement = domNode.toElement();
-        if ( domElement.isNull() )
+        if ( !domElement.isNull() )
         {
             auto tagName = domElement.tagName().toStdString();
             stream.writeStartElement( domElement.tagName() );
@@ -390,7 +390,7 @@ void KeyMappingManager::saveNode( QXmlStreamWriter& stream, const QDomNode& domN
             if ( domElement.hasChildNodes() )
             {
                 QDomNode elementChild = domElement.firstChild();
-                while ( not elementChild.isNull() )
+                while ( !elementChild.isNull() )
                 {
                     saveNode( stream, elementChild );
                     elementChild = elementChild.nextSibling();
