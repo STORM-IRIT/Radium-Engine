@@ -4,6 +4,16 @@ project( ${ra_core_target}
          LANGUAGES CXX
          VERSION ${RADIUM_VERSION})
 
+set(RA_VERSION_CPP "${CMAKE_CURRENT_BINARY_DIR}/Version.cpp")
+configure_file (
+"${CMAKE_CURRENT_SOURCE_DIR}/Utils/Version.cpp.in"
+"${RA_VERSION_CPP}"
+)
+# If you want to have date and time of the build, your targets has to depend on this.
+# This will force recompilation of version.o and thus forcing gcc to update __DATE__ macro.
+add_custom_target(versionFileTouchForRebuild
+COMMAND ${CMAKE_COMMAND} -E touch "${RA_VERSION_CPP}")
+
 find_package( Threads REQUIRED )
 
 include( filelistCore )
@@ -13,6 +23,7 @@ add_library(
     ${core_sources}
     ${core_headers}
     ${core_inlines}
+    ${RA_VERSION_CPP}
 )
 add_library(Radium::Core ALIAS ${ra_core_target})
 
@@ -39,7 +50,7 @@ if( WIN_32)
     target_compile_definitions(${ra_core_target} PUBLIC "-D_USE_MATH_DEFINES") ##OpenMesh
 endif()
 
-set_target_properties(${ra_core_target} PROPERTIES PUBLIC_HEADER "${core_headers};${core_inlines}")
+# set_target_properties(${ra_core_target} PROPERTIES PUBLIC_HEADER "${core_headers};${core_inlines}")
 install(TARGETS ${ra_core_target}
     EXPORT ${ra_core_target}Targets
     CONFIGURATIONS ${CMAKE_BUILD_TYPE}

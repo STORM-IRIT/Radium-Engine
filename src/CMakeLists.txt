@@ -11,17 +11,6 @@ else()
   add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
-# configure version.cpp.in with selected version
-set(RA_VERSION_CPP "${CMAKE_CURRENT_BINARY_DIR}/version.cpp")
-configure_file (
-  "${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in"
-  "${RA_VERSION_CPP}"
-  )
-# If you want to have date and time of the build, your targets has to depend on this.
-# This will force recompilation of version.o and thus forcing gcc to update __DATE__ macro.
-add_custom_target(versionFileTouchForRebuild
-  COMMAND ${CMAKE_COMMAND} -E touch "${RA_VERSION_CPP}")
-
 
 #------------------------------------------------------------------------------
 # Libraries dependencies
@@ -34,10 +23,12 @@ find_package(OpenMP QUIET)
 macro(configureTargetWithDefaultRaSettings TARGET)
   message( "Configure library ${TARGET} with default settings" )
 
+  # Exported targets include directory
   target_include_directories(${TARGET} PUBLIC
       $<BUILD_INTERFACE:${RADIUM_SRC_DIR}>
       $<INSTALL_INTERFACE:include>
       )
+
   target_compile_features(${TARGET} PUBLIC cxx_std_17)
 
   # Create version symlink for libraries
