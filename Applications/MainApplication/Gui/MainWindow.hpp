@@ -165,10 +165,10 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     void on_m_currentColorButton_clicked();
 
     /// activate trackball camera manipulator
-    void trackballManipulator();
+    void activateTrackballManipulator();
 
     /// activate flight-mode camera manipulator
-    void flightManipulator();
+    void activateFlightManipulator();
 
   private:
     /// Stores the internal model of engine objects for selection and visibility.

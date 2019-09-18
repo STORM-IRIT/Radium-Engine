@@ -90,13 +90,13 @@ void MainWindow::cleanup() {
     m_viewer->getGizmoManager()->cleanup();
 }
 
-void MainWindow::trackballManipulator() {
+void MainWindow::activateTrackballManipulator() {
     // set trackball manipulator (default)
     m_viewer->setCameraManipulator(
         new Gui::TrackballCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
 }
 
-void MainWindow::flightManipulator() {
+void MainWindow::activateFlightManipulator() {
     // set flightmode manipulator
     m_viewer->setCameraManipulator(
         new Gui::FlightCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
@@ -109,8 +109,9 @@ void MainWindow::createConnections() {
     connect(
         actionOpen_Material_Editor, &QAction::triggered, this, &MainWindow::openMaterialEditor );
 
-    connect( actionFlight, &QAction::triggered, this, &MainWindow::flightManipulator );
-    connect( actionTrackball, &QAction::triggered, this, &MainWindow::trackballManipulator );
+    connect( actionFlight, &QAction::triggered, this, &MainWindow::activateFlightManipulator );
+    connect(
+        actionTrackball, &QAction::triggered, this, &MainWindow::activateTrackballManipulator );
 
     // Toolbox setup
     // to update display when mode is changed

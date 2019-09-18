@@ -98,8 +98,8 @@ void Gui::FlightCameraManipulator::resetCamera() {
     m_camera->setPosition( Core::Vector3( 0, 0, 1 ) );
     initializeFixedUpVector();
 
-    m_target      = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
-    m_flightSpeed = 0.2;
+    m_target      = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
+    m_flightSpeed = 0.2_ra;
 
     if ( m_light != nullptr )
     {
@@ -151,9 +151,9 @@ bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
     Scalar dx = ( event->pos().x() - m_lastMouseX ) / m_camera->getWidth();
     Scalar dy = ( event->pos().y() - m_lastMouseY ) / m_camera->getHeight();
 
-    if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0; }
+    if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0_ra; }
     else
-    { m_quickCameraModifier = 2.0; }
+    { m_quickCameraModifier = 2.0_ra; }
 
     if ( m_cameraRotateMode ) { handleCameraRotate( dx, dy ); }
 
@@ -179,7 +179,7 @@ bool Gui::FlightCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event
     m_cameraRotateMode    = false;
     m_cameraPanMode       = false;
     m_cameraZoomMode      = false;
-    m_quickCameraModifier = 1.0;
+    m_quickCameraModifier = 1.0_ra;
 
     return true;
 }
@@ -226,7 +226,7 @@ void Gui::FlightCameraManipulator::setCamera( Engine::Camera* camera ) {
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera = camera;
-    m_target = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
+    m_target = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
     initializeFixedUpVector();
 
     m_camera->show( false );
@@ -284,7 +284,7 @@ void Gui::FlightCameraManipulator::fitScene( const Core::Aabb& aabb ) {
 
     m_camera->setPosition(
         Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );
-    m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
+    m_camera->setDirection( Core::Vector3( 0_ra, 0_ra, -1_ra ) );
     initializeFixedUpVector();
     m_target = aabb.center();
 
@@ -361,7 +361,7 @@ void Gui::FlightCameraManipulator::initializeFixedUpVector() {
     else
     { m_fixUpVector = Ra::Core::Vector3( 0, 0, 1 ); }
 #endif
-    m_fixUpVector = Ra::Core::Vector3( 0, 1, 0 );
+    m_fixUpVector = Ra::Core::Vector3( 0_ra, 1_ra, 0_ra );
 }
 
 } // namespace Gui
