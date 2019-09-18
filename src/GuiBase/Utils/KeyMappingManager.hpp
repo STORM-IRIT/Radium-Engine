@@ -57,12 +57,12 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// so that it will remain for subsequent usage.
     /// @todo write the configuration in the configFile to be later reused or modified ?
     /// @param context the context of the action
-    /// @param keyString  represents the key that need to be pressed to trigger the event
-    /// (ie Key_Z, for example), "" or "-1" or absent correspond to no key needed.
+    /// @param keyString  represents the key that needs to be pressed to trigger the event
+    /// (ie Key_Z, for example), "" or "-1" or absent corresponds to no key needed.
     /// @param modifiersString represents the modifier used along with key or mouse button `
     /// (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be
     /// specified, separated by commas as in "ControlModifier,ShiftModifier".
-    /// @param buttonsString represents the button to trigger the event (i.e. LeftButton,
+    /// @param buttonsString represents the button to trigger the event (e.g. LeftButton),
     /// for example).
     /// @param wheelString if true, it's a wheel event !
     /// @param actionString mandatory represents the KeyMappingAction enum's value you want to
@@ -76,7 +76,7 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
 
     /// Return the context index corresponding to contextName
     /// \param contextName the name of the context
-    /// \return an invalid context if contextName has not been created (i.e. context,isInvalid())
+    /// \return an invalid context if contextName has not been created (e.g. context,isInvalid())
     Context getContext( const std::string& contextName );
 
     /// Return the action index corresponding to a context index and actionName
@@ -111,7 +111,7 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     KeyMappingManager();
     ~KeyMappingManager();
 
-    /// Save an XML node that describe an event/action.
+    /// Save an XML node that describes an event/action.
     void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
 
     // Private for now, but may need to be public if we want to customize keymapping configuration
