@@ -28,13 +28,13 @@ add_custom_target(check
     COMMAND echo [----] Running tests
     USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND}  --output-on-failure -C Debug
-    DEPENDS coreExampleApp unittests)
+    DEPENDS RadiumExampleApps unittests)
 
 add_custom_target(checkVerbose
     COMMAND echo [----] Running tests
     USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure -C Debug
-    DEPENDS coreExampleApp unittests)
+    DEPENDS RadiumExampleApps unittests)
 
 #------------------------------------------------------------------------------
 # CTest test suite
