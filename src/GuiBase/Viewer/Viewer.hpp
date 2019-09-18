@@ -24,7 +24,7 @@ class QSurfaceFormat;
 
 namespace Ra {
 namespace Gui {
-class CameraInterface;
+class CameraManipulator;
 class GizmoManager;
 class PickingManager;
 } // namespace Gui
@@ -64,7 +64,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     ~Viewer() override;
 
     /// add observers to keyMappingManager for gizmo, camera and viewer.
-    static void setupKeyMappingCallbacks();
+    void setupKeyMappingCallbacks();
 
     //
     // Accessors
@@ -73,7 +73,10 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     QOpenGLContext* getContext() const { return m_context.get(); }
 
     /// Access to camera interface.
-    CameraInterface* getCameraInterface();
+    CameraManipulator* getCameraManipulator();
+
+    /// Set the current camera interface.
+    void setCameraManipulator( CameraManipulator* ci );
 
     /// Set the camera managed by the cameraInterface
     void setCamera( Engine::Camera* camera );
@@ -228,7 +231,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     float m_brushRadius;
 
     /// Owning pointer to the camera.
-    std::unique_ptr<CameraInterface> m_camera;
+    std::unique_ptr<CameraManipulator> m_camera;
 
     /// Owning (QObject child) pointer to gizmo manager.
     GizmoManager* m_gizmoManager;

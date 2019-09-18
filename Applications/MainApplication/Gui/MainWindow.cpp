@@ -9,7 +9,6 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
@@ -17,8 +16,9 @@
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Utils/qt_utils.hpp>
-#include <GuiBase/Viewer/CameraInterface.hpp>
+#include <GuiBase/Viewer/FlightCameraManipulator.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>
+#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 #include <IO/deprecated/OBJFileManager.hpp>
 #include <PluginBase/RadiumPluginInterface.hpp>
@@ -48,6 +48,9 @@ MainWindow::MainWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     setupUi( this );
 
     m_viewer = new Viewer();
+    // Registers the application dependant camera manipulators
+    auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+    keyMappingManager->addListener( Gui::FlightCameraManipulator::configureKeyMapping );
 
     connect( m_viewer, &Viewer::glInitialized, this, &MainWindow::onGLInitialized );
     connect( m_viewer, &Viewer::rendererReady, this, &MainWindow::onRendererReady );
@@ -87,12 +90,28 @@ void MainWindow::cleanup() {
     m_viewer->getGizmoManager()->cleanup();
 }
 
+void MainWindow::activateTrackballManipulator() {
+    // set trackball manipulator (default)
+    m_viewer->setCameraManipulator(
+        new Gui::TrackballCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
+}
+
+void MainWindow::activateFlightManipulator() {
+    // set flightmode manipulator
+    m_viewer->setCameraManipulator(
+        new Gui::FlightCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
+}
+
 // Connection to gizmos must be done after GL is initialized
 void MainWindow::createConnections() {
     connect( actionOpenMesh, &QAction::triggered, this, &MainWindow::loadFile );
     connect( actionReload_Shaders, &QAction::triggered, m_viewer, &Viewer::reloadShaders );
     connect(
         actionOpen_Material_Editor, &QAction::triggered, this, &MainWindow::openMaterialEditor );
+
+    connect( actionFlight, &QAction::triggered, this, &MainWindow::activateFlightManipulator );
+    connect(
+        actionTrackball, &QAction::triggered, this, &MainWindow::activateTrackballManipulator );
 
     // Toolbox setup
     // to update display when mode is changed
@@ -615,7 +634,7 @@ void MainWindow::deleteCurrentItem() {
 
 void MainWindow::resetScene() {
     // Fix issue #378 : ask the viewer to switch back to the default camera
-    m_viewer->getCameraInterface()->resetToDefaultCamera();
+    m_viewer->getCameraManipulator()->resetToDefaultCamera();
     // To see why this call is important, please see deleteCurrentItem().
     m_selectionManager->clear();
     Engine::RadiumEngine::getInstance()->getEntityManager()->deleteEntities();
@@ -626,7 +645,7 @@ void MainWindow::fitCamera() {
     auto aabb = Engine::RadiumEngine::getInstance()->computeSceneAabb();
     if ( aabb.isEmpty() )
     {
-        m_viewer->getCameraInterface()->resetCamera();
+        m_viewer->getCameraManipulator()->resetCamera();
         mainApp->askForUpdate();
     }
     else
@@ -658,17 +677,19 @@ void MainWindow::postLoadFile( const std::string& filename ) {
         Engine::RadiumEngine::getInstance()->getEntityManager()->getEntity( loadedEntityName );
     if ( rootEntity != nullptr )
     {
-        auto fc = std::find_if(rootEntity->getComponents().begin(), rootEntity->getComponents().end(),
-            [](const auto &c){ return (c->getName().compare( 0, 7, "CAMERA_" ) == 0); }
-            );
-        if (fc != rootEntity->getComponents().end() ) {
-            LOG( logINFO ) << "Activating camera " << (*fc)->getName();
+        auto fc = std::find_if(
+            rootEntity->getComponents().begin(),
+            rootEntity->getComponents().end(),
+            []( const auto& c ) { return ( c->getName().compare( 0, 7, "CAMERA_" ) == 0 ); } );
+        if ( fc != rootEntity->getComponents().end() )
+        {
+            LOG( logINFO ) << "Activating camera " << ( *fc )->getName();
 
             const auto systemEntity = Ra::Engine::SystemEntity::getInstance();
             systemEntity->removeComponent( "CAMERA_DEFAULT" );
 
-            auto camera = static_cast<Ra::Engine::Camera*>( (*fc).get() );
-            m_viewer->getCameraInterface()->setCamera(
+            auto camera = static_cast<Ra::Engine::Camera*>( ( *fc ).get() );
+            m_viewer->getCameraManipulator()->setCamera(
                 camera->duplicate( systemEntity, "CAMERA_DEFAULT" ) );
         }
     }

@@ -1,6 +1,7 @@
 #ifndef RADIUMENGINE_KEYMAPPINGMANAGER_HPP
 #define RADIUMENGINE_KEYMAPPINGMANAGER_HPP
 
+#include <QXmlStreamWriter>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QMouseEvent>
 #include <QtXml/QtXml>
@@ -32,6 +33,11 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// calls the listener callback then.
     void loadConfiguration( const char* filename = nullptr );
 
+    /// Save the configuration
+    /// @param filename the file to write to. It will be replaced
+    /// @return true if file was correctly saved
+    bool saveConfiguration( const char* filename = nullptr );
+
     /// reload last open file.
     void reloadConfiguration();
 
@@ -45,9 +51,31 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
                                                    int key,
                                                    bool wheel = false );
 
+    /// Add a given action to the mapping system.
+    /// This allow to define default behavior when some KeyMappingManageable object is not
+    /// parameterized in the application config file. The action is added to the current config file
+    /// so that it will remain for subsequent usage.
+    /// @todo write the configuration in the configFile to be later reused or modified ?
+    /// @param context the context of the action
+    /// @param keyString  represents the key that needs to be pressed to trigger the event
+    /// (ie Key_Z, for example), "" or "-1" corresponds to no key needed.
+    /// @param modifiersString represents the modifier used along with key or mouse button `
+    /// (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be
+    /// specified, separated by commas as in "ControlModifier,ShiftModifier".
+    /// @param buttonsString represents the button to trigger the event (e.g. LeftButton).
+    /// @param wheelString if true, it's a wheel event !
+    /// @param actionString represents the KeyMappingAction enum's value you want to
+    /// trigger.
+    void addAction( const std::string& context,
+                    const std::string& keyString,
+                    const std::string& modifiersString,
+                    const std::string& buttonsString,
+                    const std::string& wheelString,
+                    const std::string& actionString );
+
     /// Return the context index corresponding to contextName
     /// \param contextName the name of the context
-    /// \return an invalid context if contextName has not been created (i.e. context,isInvalid())
+    /// \return an invalid context if contextName has not been created
     Context getContext( const std::string& contextName );
 
     /// Return the action index corresponding to a context index and actionName
@@ -64,7 +92,11 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     std::string getContextName( const Context& context );
 
     /// Add a callback, triggered when configuration is load or reloaded.
-    void addListener( Observable::Observer callback );
+    int addListener( Observable::Observer callback );
+
+    /// Remove a callback. To be called when the related Context/Actions are no more needed.
+    /// @param callbackId the Id, returned by addListener, of the Observer to be removed.
+    void removeListener( int callbackId );
 
     /// return a string of enum names from mouse buttons, comma separated,
     /// without space
@@ -77,6 +109,9 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
   private:
     KeyMappingManager();
     ~KeyMappingManager();
+
+    /// Save an XML node that describes an event/action.
+    void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
 
     // Private for now, but may need to be public if we want to customize keymapping configuration
     // otherwise than by editing the XML configuration file.

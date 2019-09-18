@@ -59,7 +59,7 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     /// Update the UI ( most importantly gizmos ) to the modifications of the engine/
     void onFrameComplete() override;
 
-    // Add render in the application: UI, viewer.
+    /// Add a renderer in the application: UI, viewer.
     void addRenderer( const std::string& name, std::shared_ptr<Engine::Renderer> e ) override;
 
   public slots:
@@ -158,9 +158,17 @@ class MainWindow : public Ra::GuiBase::MainWindowInterface, private Ui::MainWind
     /// Clears all entities and resets the camera.
     void resetScene();
 
+    /// Allow to pick using a circle
     void toggleCirclePicking( bool on );
 
+    /// set the current background color
     void on_m_currentColorButton_clicked();
+
+    /// activate trackball camera manipulator
+    void activateTrackballManipulator();
+
+    /// activate flight-mode camera manipulator
+    void activateFlightManipulator();
 
   private:
     /// Stores the internal model of engine objects for selection and visibility.

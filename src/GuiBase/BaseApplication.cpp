@@ -12,7 +12,6 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
 
-#include <Engine/Entity/Entity.hpp>
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -206,7 +205,6 @@ BaseApplication::BaseApplication( int argc,
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
 
-    Gui::Viewer::setupKeyMappingCallbacks();
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
@@ -217,6 +215,8 @@ BaseApplication::BaseApplication( int argc,
     m_mainWindow->show();
 
     m_viewer = m_mainWindow->getViewer();
+    m_viewer->setupKeyMappingCallbacks();
+
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
     CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
     CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
@@ -551,11 +551,10 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
             LOG( logINFO ) << "Found plugin " << filename.toStdString();
 
             QObject* plugin = pluginLoader.instance();
-            Plugins::RadiumPluginInterface* loadedPlugin;
 
             if ( plugin )
             {
-                loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
+                auto loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
                 if ( loadedPlugin )
                 {
                     ++pluginCpt;

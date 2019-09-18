@@ -1,7 +1,5 @@
 #include <MainApplication.hpp>
 
-#include <QCommandLineParser>
-
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 
 #include <Gui/MainWindow.hpp>
