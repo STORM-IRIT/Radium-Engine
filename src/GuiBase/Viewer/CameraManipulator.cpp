@@ -24,12 +24,12 @@ Gui::CameraManipulator::CameraManipulator( const CameraManipulator& other ) :
     m_light( other.m_light ) {}
 
 Gui::CameraManipulator::CameraManipulator(uint width, uint height ) :
-    m_cameraSensitivity( 1.0 ),
-    m_quickCameraModifier( 1.f ),
-    m_wheelSpeedModifier( 0.02f ),
-    m_targetedAabbVolume( 0.0 ),
+    m_cameraSensitivity( 1.0_ra ),
+    m_quickCameraModifier( 1._ra ),
+    m_wheelSpeedModifier( 0.02_ra ),
+    m_targetedAabbVolume( 0.0_ra ),
     m_mapCameraBahaviourToAabb( false ),
-    m_target( 0, 0, 0 ),
+    m_target( 0_ra, 0_ra, 0_ra ),
     m_camera( nullptr ),
     m_light( nullptr ) {
     auto it = std::find_if(
@@ -47,9 +47,9 @@ Gui::CameraManipulator::CameraManipulator(uint width, uint height ) :
         m_camera->initialize();
         m_camera->show( false );
 
-        setCameraFovInDegrees( 60.0 );
-        setCameraZNear( 0.1 );
-        setCameraZFar( 1000.0 );
+        setCameraFovInDegrees( 60.0_ra );
+        setCameraZNear( 0.1_ra );
+        setCameraZFar( 1000.0_ra );
     }
 }
 
@@ -89,23 +89,23 @@ Core::Matrix4 Gui::CameraManipulator::getViewMatrix() const {
     return m_camera->getViewMatrix();
 }
 
-void Gui::CameraManipulator::setCameraSensitivity(double sensitivity ) {
+void Gui::CameraManipulator::setCameraSensitivity( Scalar sensitivity ) {
     m_cameraSensitivity = sensitivity;
 }
 
-void Gui::CameraManipulator::setCameraFov(double fov ) {
+void Gui::CameraManipulator::setCameraFov( Scalar fov ) {
     m_camera->setFOV( fov );
 }
 
-void Gui::CameraManipulator::setCameraFovInDegrees(double fov ) {
+void Gui::CameraManipulator::setCameraFovInDegrees( Scalar fov ) {
     m_camera->setFOV( fov * Core::Math::toRad );
 }
 
-void Gui::CameraManipulator::setCameraZNear(double zNear ) {
+void Gui::CameraManipulator::setCameraZNear( Scalar zNear ) {
     m_camera->setZNear( zNear );
 }
 
-void Gui::CameraManipulator::setCameraZFar(double zFar ) {
+void Gui::CameraManipulator::setCameraZFar( Scalar zFar ) {
     m_camera->setZFar( zFar );
 }
 

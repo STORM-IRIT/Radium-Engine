@@ -33,8 +33,8 @@ class RA_GUIBASE_API CameraManipulator : public QObject
     /// Initializes a manipulator for a given viewport size.
     CameraManipulator(uint width, uint height );
 
-    /// Initializes a manipulator keeping properties from an already existing one
-    /// This allow to switch from one manipulator to another while keepiong the same visual
+    /// Initializes a manipulator keeping properties from an already existing one.
+    /// This allows to switch from one manipulator to another while keeping the same visual
     /// experience.
     explicit CameraManipulator( const CameraManipulator& other );
 
@@ -112,11 +112,11 @@ class RA_GUIBASE_API CameraManipulator : public QObject
   public slots:
     /// \name Camera properties setters
     ///@{
-    void setCameraSensitivity( double sensitivity );
-    void setCameraFov( double fov );
-    void setCameraFovInDegrees( double fov );
-    void setCameraZNear( double zNear );
-    void setCameraZFar( double zFar );
+    void setCameraSensitivity( Scalar sensitivity );
+    void setCameraFov( Scalar fov );
+    void setCameraFovInDegrees( Scalar fov );
+    void setCameraZNear( Scalar zNear );
+    void setCameraZFar( Scalar zFar );
     ///@}
 
     /// Set the AABB to restrain the camera behavior against.
@@ -149,7 +149,7 @@ class RA_GUIBASE_API CameraManipulator : public QObject
     void cameraChanged( const Core::Vector3& position, const Core::Vector3& target );
 
   protected:
-    ///< the Camera sensitivity to manipulation.
+    /// the Camera sensitivity to manipulation.
     Scalar m_cameraSensitivity;
     /// Additional factor for camera sensitivity.
     Scalar m_quickCameraModifier;
@@ -166,7 +166,7 @@ class RA_GUIBASE_API CameraManipulator : public QObject
     Core::Vector3 m_target;
 
     Engine::Camera* m_camera; ///< The Camera.
-    Engine::Light* m_light;   /// The light attached to the Camera.
+    Engine::Light* m_light;   ///< The light attached to the Camera.
 };
 
 } // namespace Gui

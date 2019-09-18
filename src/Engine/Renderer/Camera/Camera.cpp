@@ -136,7 +136,7 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
     const auto& minAabb         = aabb.min();
     const auto& maxAabb         = aabb.max();
     const auto& position        = m_frame.translation();
-    Ra::Core::Vector3 direction = m_frame.linear() * Ra::Core::Vector3( 0, 0, -1 );
+    Ra::Core::Vector3 direction = m_frame.linear() * Ra::Core::Vector3( 0_ra, 0_ra, -1_ra );
 
     m_zNear = m_zFar = direction.dot( minAabb - position );
 
@@ -156,9 +156,9 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
     adaptRange( maxAabb[0], minAabb[1], minAabb[2] );
 
     // ensure a minimum depth range
-    float range = ( m_zFar - m_zNear ) / 100.f;
+    Scalar range = ( m_zFar - m_zNear ) / 100_ra;
     m_zNear     = std::max( range, m_zNear - range );
-    m_zFar      = std::max( 2.f * range, m_zFar + range );
+    m_zFar       = std::max( 2_ra * range, m_zFar + range );
 
     updateProjMatrix();
 }

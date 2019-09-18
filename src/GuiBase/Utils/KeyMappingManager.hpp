@@ -54,14 +54,19 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// Add a given action to the mapping system.
     /// This allow to define default behavior when some KeyMappingManageable object is not
     /// parameterized in the application config file. The action is added to the current config file
-    /// so that it will remains for subsequent usage.
+    /// so that it will remain for subsequent usage.
     /// @todo write the configuration in the configFile to be later reused or modified ?
     /// @param context the context of the action
-    /// @param keyString
-    /// @param modifiersString
-    /// @param buttonsString
-    /// @param wheelString
-    /// @param actionString
+    /// @param keyString  represents the key that need to be pressed to trigger the event
+    /// (ie Key_Z, for example), "" or "-1" or absent correspond to no key needed.
+    /// @param modifiersString represents the modifier used along with key or mouse button `
+    /// (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be
+    /// specified, separated by commas as in "ControlModifier,ShiftModifier".
+    /// @param buttonsString represents the button to trigger the event (i.e. LeftButton,
+    /// for example).
+    /// @param wheelString if true, it's a wheel event !
+    /// @param actionString mandatory represents the KeyMappingAction enum's value you want to
+    /// trigger.
     void addAction( const std::string& context,
                     const std::string& keyString,
                     const std::string& modifiersString,
@@ -90,7 +95,7 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// Add a callback, triggered when configuration is load or reloaded.
     int addListener( Observable::Observer callback );
 
-    /// Remove a callback. To be called when the related Context/Actions are no ore needed.
+    /// Remove a callback. To be called when the related Context/Actions are no more needed.
     /// @param callbackId the Id, returned by addListener, of the Observer to be removed.
     void removeListener( int callbackId );
 
@@ -106,6 +111,7 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     KeyMappingManager();
     ~KeyMappingManager();
 
+    /// Save an XML node that describe an event/action.
     void saveNode( QXmlStreamWriter& stream, const QDomNode& domNode );
 
     // Private for now, but may need to be public if we want to customize keymapping configuration

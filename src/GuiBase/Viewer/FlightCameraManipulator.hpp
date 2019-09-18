@@ -67,8 +67,8 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
 
   private:
     void initializeFixedUpVector();
-    Ra::Core::Vector3 m_fixUpVector{0, 1, 0};
-    Scalar m_flightSpeed{1.};
+    Ra::Core::Vector3 m_fixUpVector{0_ra, 1_ra, 0_ra};
+    Scalar m_flightSpeed{1._ra};
     static void configureKeyMapping_impl();
 
 #define KeyMappingFlightManipulator           \

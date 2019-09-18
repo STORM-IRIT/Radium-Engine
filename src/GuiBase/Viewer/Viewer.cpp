@@ -179,7 +179,7 @@ bool Gui::Viewer::initializeGL() {
     m_camera = std::make_unique<Gui::TrackballCameraManipulator>(width(), height() );
     auto headlight =
         new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
-    headlight->setColor( Ra::Core::Utils::Color::Grey( Scalar( 1.0 ) ) );
+    headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
     m_camera->attachLight( headlight );
 
     m_glInitialized = true;
@@ -618,6 +618,11 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     makeCurrent();
 
     // TODO : as soon as everything could be computed efficiently, activate z-bounds fitting.
+    // For the moment (sept 2019), request of the scene bounding box is really inefficient (all is
+    // recomputed, even if no change since last computation)
+    // TODO : implement better management of UI and debug render objects so that the are drawn with
+    // an adequate
+    //  znear/zfar values
 #if 0
     // update znear/zfar to fit the scene ...
     auto roManager = Engine::RadiumEngine::getInstance()->getRenderObjectManager();

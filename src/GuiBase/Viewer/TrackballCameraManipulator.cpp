@@ -65,10 +65,10 @@ Gui::TrackballCameraManipulator::~TrackballCameraManipulator() = default;
 
 void Gui::TrackballCameraManipulator::resetCamera() {
     m_camera->setFrame( Core::Transform::Identity() );
-    m_camera->setPosition( Core::Vector3( 0, 0, 2 ) );
+    m_camera->setPosition( Core::Vector3( 0_ra, 0_ra, 2_ra ) );
     m_target = Core::Vector3::Zero();
-    m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
-    m_distFromCenter = 2.0;
+    m_camera->setDirection( Core::Vector3( 0_ra, 0_ra, -1_ra ) );
+    m_distFromCenter = 2.0_ra;
     updatePhiTheta();
 
     if ( m_light != nullptr )
@@ -141,9 +141,9 @@ bool Gui::TrackballCameraManipulator::handleMouseMoveEvent(QMouseEvent* event,
     Scalar dx = ( event->pos().x() - m_lastMouseX ) / m_camera->getWidth();
     Scalar dy = ( event->pos().y() - m_lastMouseY ) / m_camera->getHeight();
 
-    if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0; }
+    if ( event->modifiers().testFlag( Qt::AltModifier ) ) { m_quickCameraModifier = 10.0_ra; }
     else
-    { m_quickCameraModifier = 2.0; }
+    { m_quickCameraModifier = 2.0_ra; }
 
     if ( m_cameraRotateMode ) { handleCameraRotate( dx, dy ); }
 
@@ -169,7 +169,7 @@ bool Gui::TrackballCameraManipulator::handleMouseReleaseEvent(QMouseEvent* /*eve
     m_cameraRotateMode    = false;
     m_cameraPanMode       = false;
     m_cameraZoomMode      = false;
-    m_quickCameraModifier = 1.0;
+    m_quickCameraModifier = 1.0_ra;
 
     return true;
 }
@@ -216,7 +216,7 @@ void Gui::TrackballCameraManipulator::setCamera(Engine::Camera* camera ) {
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera         = camera;
     m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
-    m_distFromCenter = 2.0;
+    m_distFromCenter = 2.0_ra;
     updatePhiTheta();
     m_camera->show( false );
 
@@ -280,7 +280,7 @@ void Gui::TrackballCameraManipulator::fitScene(const Core::Aabb& aabb ) {
 
     m_camera->setPosition(
         Core::Vector3( aabb.center().x(), aabb.center().y(), aabb.center().z() + d ) );
-    m_camera->setDirection( Core::Vector3( 0, 0, -1 ) );
+    m_camera->setDirection( Core::Vector3( 0_ra, 0_ra, -1_ra ) );
     m_target         = aabb.center();
     m_distFromCenter = d;
 
@@ -322,7 +322,7 @@ void Gui::TrackballCameraManipulator::handleCameraRotate(Scalar dx, Scalar dy ) 
     Core::Transform R1( Core::Transform::Identity() );
     Core::Transform R2( Core::Transform::Identity() );
 
-    Core::Vector3 U = Core::Vector3( 0, 1, 0 );
+    Core::Vector3 U = Core::Vector3( 0_ra, 1_ra, 0_ra );
     Core::Vector3 R = -m_camera->getRightVector().normalized();
 
     R1 = Core::AngleAxis( -dphi, U );

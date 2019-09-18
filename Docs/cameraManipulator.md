@@ -30,8 +30,8 @@ that will take any `Ra::Gui::CameraManipulator` and will copy the base class bef
 manipulator.
 
 ```c++
-FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator& other ) :
-    CameraManipulator( other ),
+FlightCameraManipulator::FlightCameraManipulator( const Ra::Gui::CameraManipulator& other ) :
+    Ra::Gui::CameraManipulator( other ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
@@ -91,13 +91,13 @@ KeyMappingFlightManipulator
 ## Using a CameraManipulator
 Using a `Ra::Gui::CameraManipulator` in a `Ra::Gui::Viewer`-based application is quite straightforward. 
 
-If one want to set a first camera manipulator to a viewer
+If one wants to set a first camera manipulator to a viewer
 ```c++
 myViewer->setCameraManipulator(
         new FlightCameraManipulator( width, height );
 ```
 
-If one want to change the manipulator while keeping the actual visual state 
+If one wants to change the manipulator while keeping the actual visual state 
 ```c++
 myViewer->setCameraManipulator(
         new FlightCameraManipulator( *( m_viewer->getCameraManipulator() ) ) );
