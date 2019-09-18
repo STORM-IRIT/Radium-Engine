@@ -385,10 +385,10 @@ void Gui::TrackballCameraManipulator::updatePhiTheta() {
                 : std::atan2( R.z(), R.x() );
     // Keep phi between 0 and 2pi
     // Keep theta between -pi and pi
-    if ( m_phi < 0 )
+    if ( m_phi < 0_ra )
     {
         m_theta = -m_theta + Pi;
-        m_phi += 2 * Pi;
+        m_phi += 2_ra * Pi;
     }
 
     CORE_ASSERT( std::isfinite( m_theta ) && std::isfinite( m_phi ), "Error in trackball camera" );
