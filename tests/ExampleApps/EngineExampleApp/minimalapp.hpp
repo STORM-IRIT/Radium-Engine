@@ -43,6 +43,9 @@ class MinimalApp : public QApplication
     // Timer to wake us up at every frame start.
     QTimer* m_frame_timer;
 
+    // Timer to wake us up at every frame start.
+    QTimer* m_close_timer;
+
     // Our framerate
     uint m_target_fps;
 

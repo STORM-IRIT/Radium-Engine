@@ -46,12 +46,6 @@ macro( configureExampleApp APP )
     # Basic runable tests (will not crash)
     add_test(NAME "${APP}Is_Runable "
         COMMAND $<TARGET_FILE:${APP}>)
-
-    add_test(NAME "${APP}Is_Runable-v"
-        COMMAND $<TARGET_FILE:${APP}> -v)
-
-    add_test(NAME "${APP}Is_Runable-h"
-        COMMAND $<TARGET_FILE:${APP}> -h)
 endmacro()
 
 
@@ -60,4 +54,20 @@ add_executable(CoreExampleApp MACOSX_BUNDLE
 target_link_libraries (CoreExampleApp PUBLIC Radium::Core)
 configureExampleApp( "CoreExampleApp" )
 
+#if( RADIUM_GENERATE_LIB_ENGINE )
+#    find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+#    find_package(OpenGL REQUIRED)
+#    set(CMAKE_AUTOMOC ON)
+#    add_executable(EngineExampleApp MACOSX_BUNDLE
+#        EngineExampleApp/main.cpp
+#        EngineExampleApp/minimalapp.cpp
+#        EngineExampleApp/minimalapp.hpp
+#        EngineExampleApp/minimalradium.cpp
+#        EngineExampleApp/minimalradium.hpp)
+#    target_link_libraries (EngineExampleApp PUBLIC
+#                           Radium::Core Radium::Engine Radium::GuiBase
+#                           Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
+#                           OpenGL::GL)
+#    configureExampleApp( "EngineExampleApp" )
+#endif()
 
