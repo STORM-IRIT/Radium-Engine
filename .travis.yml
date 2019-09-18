@@ -14,13 +14,13 @@ script:
   - |
     export RETURN_PATH=$PWD
     if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-        export CORE_EXAMPLE_APP_PATH="coreExampleApp.app/Contents/MacOS/"
+        export CORE_EXAMPLE_APP_PATH="CoreExampleApp.app/Contents/MacOS/"
     else
         export CORE_EXAMPLE_APP_PATH="bin/"
     fi
-  - cd installed/$CORE_EXAMPLE_APP_PATH && ./coreExampleApp && cd $RETURN_PATH
+  - cd installed/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd $RETURN_PATH
   - mv installed/ installed_moved
-  - cd installed_moved/$CORE_EXAMPLE_APP_PATH && ./coreExampleApp && cd ../..
+  - cd installed_moved/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd ../..
 
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
