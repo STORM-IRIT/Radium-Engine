@@ -58,14 +58,13 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
     /// @todo write the configuration in the configFile to be later reused or modified ?
     /// @param context the context of the action
     /// @param keyString  represents the key that needs to be pressed to trigger the event
-    /// (ie Key_Z, for example), "" or "-1" or absent corresponds to no key needed.
+    /// (ie Key_Z, for example), "" or "-1" corresponds to no key needed.
     /// @param modifiersString represents the modifier used along with key or mouse button `
     /// (needs to be a Qt::Modifier enum value) to trigger the action. Multiples modifiers can be
     /// specified, separated by commas as in "ControlModifier,ShiftModifier".
-    /// @param buttonsString represents the button to trigger the event (e.g. LeftButton),
-    /// for example).
+    /// @param buttonsString represents the button to trigger the event (e.g. LeftButton).
     /// @param wheelString if true, it's a wheel event !
-    /// @param actionString mandatory represents the KeyMappingAction enum's value you want to
+    /// @param actionString represents the KeyMappingAction enum's value you want to
     /// trigger.
     void addAction( const std::string& context,
                     const std::string& keyString,
@@ -76,7 +75,7 @@ class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
 
     /// Return the context index corresponding to contextName
     /// \param contextName the name of the context
-    /// \return an invalid context if contextName has not been created (e.g. context,isInvalid())
+    /// \return an invalid context if contextName has not been created
     Context getContext( const std::string& contextName );
 
     /// Return the action index corresponding to a context index and actionName
