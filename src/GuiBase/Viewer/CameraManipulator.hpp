@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_CAMERAINTERFACE_HPP
-#define RADIUMENGINE_CAMERAINTERFACE_HPP
+#ifndef RADIUMENGINE_CAMERAMANIPULATOR_HPP
+#define RADIUMENGINE_CAMERAMANIPULATOR_HPP
 #include <GuiBase/RaGuiBase.hpp>
 
 #include <memory>
@@ -24,25 +24,36 @@ class Light;
 namespace Ra {
 namespace Gui {
 
-/// The CameraInterface class is the generic class for camera manipulators.
-class RA_GUIBASE_API CameraInterface : public QObject
+/// The CameraManipulator class is the generic class for camera manipulators.
+class RA_GUIBASE_API CameraManipulator : public QObject
 {
     Q_OBJECT
 
   public:
-    /// Initializes the default app Camera from the given size.
-    CameraInterface( uint width, uint height );
+    /// Initializes a manipulator for a given viewport size.
+    CameraManipulator(uint width, uint height );
 
-    virtual ~CameraInterface();
+    /// Initializes a manipulator keeping properties from an already existing one.
+    /// This allows to switch from one manipulator to another while keeping the same visual
+    /// experience.
+    explicit CameraManipulator( const CameraManipulator& other );
+
+    /// Destructor.
+    /// As a Manipulator does not have ownership over the associated Camera, do not release the
+    /// associated Camera.
+    virtual ~CameraManipulator();
 
     /// Resize the camera viewport.
     void resizeViewport( uint width, uint height );
 
-    /// @return the projection matrix.
+    /// @return the projection matrix of the manipulated camera.
     Core::Matrix4 getProjMatrix() const;
 
-    /// @return the view matrix.
+    /// @return the view matrix of the manipulated camera.
     Core::Matrix4 getViewMatrix() const;
+
+    /// @return the mapping context for keymapping, nullptr if no mapping is available
+    virtual KeyMappingManager::Context mappingContext();
 
     /// @return true if the event has been taken into account, false otherwise
     virtual bool handleMousePressEvent( QMouseEvent* event,
@@ -71,8 +82,8 @@ class RA_GUIBASE_API CameraInterface : public QObject
     /// Pointer access to the camera.
     Engine::Camera* getCamera() { return m_camera; }
 
-    /// Set the Camera used to render the scene.
-    /// \note CameraInterface doesn't have ownership.
+    /// Set the Camera to be manipulated.
+    /// \note CameraManipulator doesn't have ownership.
     virtual void setCamera( Engine::Camera* camera ) = 0;
 
     /**
@@ -85,7 +96,7 @@ class RA_GUIBASE_API CameraInterface : public QObject
     void resetToDefaultCamera();
 
     /// Set the Light attached to the camera.
-    /// \note CameraInterface doesn't have ownership.
+    /// \note CameraManipulator doesn't have ownership.
     void attachLight( Engine::Light* light );
 
     /// @return true if a Light is attached to the camera, false otherwise.
@@ -101,11 +112,11 @@ class RA_GUIBASE_API CameraInterface : public QObject
   public slots:
     /// \name Camera properties setters
     ///@{
-    void setCameraSensitivity( double sensitivity );
-    void setCameraFov( double fov );
-    void setCameraFovInDegrees( double fov );
-    void setCameraZNear( double zNear );
-    void setCameraZFar( double zFar );
+    void setCameraSensitivity( Scalar sensitivity );
+    void setCameraFov( Scalar fov );
+    void setCameraFovInDegrees( Scalar fov );
+    void setCameraZNear( Scalar zNear );
+    void setCameraZFar( Scalar zFar );
     ///@}
 
     /// Set the AABB to restrain the camera behavior against.
@@ -138,18 +149,27 @@ class RA_GUIBASE_API CameraInterface : public QObject
     void cameraChanged( const Core::Vector3& position, const Core::Vector3& target );
 
   protected:
-    Scalar m_cameraSensitivity; ///< the Camera sensitivity to manipulation.
+    /// the Camera sensitivity to manipulation.
+    Scalar m_cameraSensitivity;
+    /// Additional factor for camera sensitivity.
+    Scalar m_quickCameraModifier;
+    /// Speed modifier on mouse wheel events.
+    Scalar m_wheelSpeedModifier;
 
     Core::Aabb m_targetedAabb;       ///< Camera behavior restriction AABB.
     Scalar m_targetedAabbVolume;     ///< Volume of the m_targetedAabb
     bool m_mapCameraBahaviourToAabb; ///< whether the camera is restrained or not
 
-    Engine::Camera* m_camera; ///< The Camera.
+    /// Target point of the camera (usefull for most of the manipulator metaphor)
+    /// Be aware that m_target must always be on the line of sight of the camera so that it could be
+    /// used as a "focus" point by a manipulator.
+    Core::Vector3 m_target;
 
-    Engine::Light* m_light; /// The light attached to the Camera.
+    Engine::Camera* m_camera; ///< The Camera.
+    Engine::Light* m_light;   ///< The light attached to the Camera.
 };
 
 } // namespace Gui
 } // namespace Ra
 
-#endif // RADIUMENGINE_CAMERAINTERFACE_HPP
+#endif //RADIUMENGINE_CAMERAMANIPULATOR_HPP

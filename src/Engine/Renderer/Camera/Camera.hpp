@@ -121,7 +121,7 @@ class RA_ENGINE_API Camera : public Component
     inline void setZoomFactor( const Scalar& zoomFactor );
 
     /// \name To be deprecated.
-    /// Currently, only the CameraInterface (i.e. TrackballCamera) calls these
+    /// Currently, only the CameraInterface (i.e. TrackballCameraManipulator) calls these
     /// methods. A rework of the rendering architecture will be done soon.
     /// Thus these methods might disappear.
     ///@{
@@ -153,6 +153,9 @@ class RA_ENGINE_API Camera : public Component
     /// Duplicate the camera under a different Entity and a different name
     virtual Camera* duplicate( Entity* cloneEntity, const std::string& cloneName ) const;
 
+    /// Fit the Z-range of the camera to the scene's aabb. This will maximize z-buffer precision
+    virtual void fitZRange( const Core::Aabb& aabb );
+
   protected:
     Core::Transform m_frame{
         Core::Transform::Identity()}; ///< Camera frame (inverse of the view matrix)
@@ -165,7 +168,7 @@ class RA_ENGINE_API Camera : public Component
     RenderObject* m_RO{nullptr}; ///< Render mesh for the camera.
 
     /// \name To be deprecated
-    /// Currently, only the CameraInterface (i.e. TrackballCamera) accesses these
+    /// Currently, only the CameraManipulator (i.e. TrackballCameraManipulator) accesses these
     /// attributes. A rework of the rendering architecture will be done soon.
     /// Thus these attributes might disappear.
     ///@{

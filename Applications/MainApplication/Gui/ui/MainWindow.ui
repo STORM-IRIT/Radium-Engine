@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1350</width>
-    <height>895</height>
+    <height>936</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -27,7 +27,7 @@
      <x>0</x>
      <y>0</y>
      <width>1350</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFILE">
@@ -53,9 +53,17 @@
     <addaction name="separator"/>
     <addaction name="actionLoad_configuration_file"/>
    </widget>
+   <widget class="QMenu" name="menuCamera">
+    <property name="title">
+     <string>Camera</string>
+    </property>
+    <addaction name="actionTrackball"/>
+    <addaction name="actionFlight"/>
+   </widget>
    <addaction name="menuFILE"/>
    <addaction name="menuMisc"/>
    <addaction name="menuKeymapping"/>
+   <addaction name="menuCamera"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <attribute name="dockWidgetArea">
@@ -615,7 +623,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-     <iconset resource="../../Resources/ApplicationIcons.qrc">
+    <iconset>
      <normalon>:/Resources/Icons/translate.png</normalon>
     </iconset>
    </property>
@@ -719,7 +727,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-     <iconset resource="../../Resources/ApplicationIcons.qrc">
+    <iconset resource="../../Resources/ApplicationIcons.qrc">
      <normaloff>:/Resources/Icons/scale.png</normaloff>:/Resources/Icons/scale.png</iconset>
    </property>
    <property name="text">
@@ -731,7 +739,7 @@
   </action>
   <action name="actionSnapshot">
    <property name="icon">
-     <iconset resource="../../Resources/ApplicationIcons.qrc">
+    <iconset resource="../../Resources/ApplicationIcons.qrc">
      <normaloff>:/Resources/Icons/screenshot.png</normaloff>:/Resources/Icons/screenshot.png</iconset>
    </property>
    <property name="text">
@@ -739,6 +747,28 @@
    </property>
    <property name="toolTip">
     <string>Takes a shnapshot of the current view</string>
+   </property>
+  </action>
+  <action name="actionTrackball">
+   <property name="text">
+    <string>Trackball</string>
+   </property>
+   <property name="toolTip">
+    <string>Trackball Manipulator</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionFlight">
+   <property name="text">
+    <string>Flight</string>
+   </property>
+   <property name="toolTip">
+    <string>Flight Manipulator</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

@@ -12,7 +12,7 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
-#include <GuiBase/Viewer/TrackballCamera.hpp>
+#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 
 #include "ui_CameraManipUI.h"
@@ -86,8 +86,8 @@ void CameraManipPluginC::useSelectedCamera() {
         if ( ent.m_component->getName().compare( 0, 7, "CAMERA_" ) == 0 )
         {
             Ra::Engine::Camera* camera = static_cast<Ra::Engine::Camera*>( ent.m_component );
-            m_viewer->getCameraInterface()->getCamera()->show( true );
-            m_viewer->getCameraInterface()->setCamera( camera );
+            m_viewer->getCameraManipulator()->getCamera()->show(true );
+            m_viewer->getCameraManipulator()->setCamera(camera );
         }
     }
 }
@@ -106,7 +106,7 @@ void CameraManipPluginC::saveCamera() {
         return;
     }
 
-    auto manip  = static_cast<Ra::Gui::TrackballCamera*>( m_viewer->getCameraInterface() );
+    auto manip  = static_cast<Ra::Gui::TrackballCameraManipulator*>( m_viewer->getCameraManipulator() );
     auto camera = manip->getCamera();
     outFile << "#Radium_camera_state" << std::endl;
     outFile << (int)camera->getType() << std::endl;
@@ -126,7 +126,7 @@ void CameraManipPluginC::createCamera() {
     Ra::Engine::Camera* cam =
         new Ra::Engine::Camera( entity, camName, m_viewer->width(), m_viewer->height() );
     // Copy Camera data
-    auto manip  = static_cast<Ra::Gui::TrackballCamera*>( m_viewer->getCameraInterface() );
+    auto manip  = static_cast<Ra::Gui::TrackballCameraManipulator*>( m_viewer->getCameraManipulator() );
     auto camera = manip->getCamera();
     cam->resize( camera->getWidth(), camera->getHeight() );
     cam->setType( camera->getType() );

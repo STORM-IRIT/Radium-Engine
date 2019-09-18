@@ -3,7 +3,7 @@
 #include <minimalapp.hpp>
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
-#include <GuiBase/Viewer/TrackballCamera.hpp>
+#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
 
 MinimalApp::MinimalApp( int& argc, char** argv ) :
     QApplication( argc, argv ),
@@ -25,7 +25,7 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     ///\todo update when a basic viewer is implemented ... (to call setupKeyMappingCallbacks)
     Ra::Gui::KeyMappingManager::createInstance();
     Ra::Gui::KeyMappingManager::getInstance()->addListener(
-        Ra::Gui::TrackballCamera::configureKeyMapping );
+        Ra::Gui::TrackballCameraManipulator::configureKeyMapping );
     Ra::Gui::KeyMappingManager::getInstance()->addListener( Ra::Gui::Viewer::configureKeyMapping );
 
     // Initialize taskqueue.

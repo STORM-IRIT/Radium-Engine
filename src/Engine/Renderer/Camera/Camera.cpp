@@ -132,5 +132,36 @@ Camera* Camera::duplicate( Entity* cloneEntity, const std::string& cloneName ) c
     return cam;
 }
 
+void Camera::fitZRange( const Core::Aabb& aabb ) {
+    const auto& minAabb         = aabb.min();
+    const auto& maxAabb         = aabb.max();
+    const auto& position        = m_frame.translation();
+    Ra::Core::Vector3 direction = m_frame.linear() * Ra::Core::Vector3( 0_ra, 0_ra, -1_ra );
+
+    m_zNear = m_zFar = direction.dot( minAabb - position );
+
+    auto adaptRange = [position, direction, this]( Scalar x, Scalar y, Scalar z ) {
+        Ra::Core::Vector3 corner( x, y, z );
+        auto d        = direction.dot( corner - position );
+        this->m_zNear = std::min( d, this->m_zNear );
+        this->m_zFar  = std::max( d, this->m_zFar );
+    };
+
+    adaptRange( minAabb[0], minAabb[1], maxAabb[2] );
+    adaptRange( minAabb[0], maxAabb[1], minAabb[2] );
+    adaptRange( minAabb[0], maxAabb[1], maxAabb[2] );
+    adaptRange( maxAabb[0], maxAabb[1], maxAabb[2] );
+    adaptRange( maxAabb[0], maxAabb[1], minAabb[2] );
+    adaptRange( maxAabb[0], minAabb[1], maxAabb[2] );
+    adaptRange( maxAabb[0], minAabb[1], minAabb[2] );
+
+    // ensure a minimum depth range
+    Scalar range = ( m_zFar - m_zNear ) / 100_ra;
+    m_zNear     = std::max( range, m_zNear - range );
+    m_zFar       = std::max( 2_ra * range, m_zFar + range );
+
+    updateProjMatrix();
+}
+
 } // namespace Engine
 } // namespace Ra
