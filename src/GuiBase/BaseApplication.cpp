@@ -551,11 +551,10 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
             LOG( logINFO ) << "Found plugin " << filename.toStdString();
 
             QObject* plugin = pluginLoader.instance();
-            Plugins::RadiumPluginInterface* loadedPlugin;
 
             if ( plugin )
             {
-                loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
+                auto loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
                 if ( loadedPlugin )
                 {
                     ++pluginCpt;
