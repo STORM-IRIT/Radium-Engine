@@ -24,12 +24,13 @@ addExternalFolder( IO ${CMAKE_CURRENT_SOURCE_DIR}/external
 
 if( RADIUM_IO_ASSIMP )
     find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH )
+    set_target_properties( ${ra_io_target} PROPERTIES IO_ASSIMP ${RADIUM_IO_ASSIMP})
 endif( RADIUM_IO_ASSIMP )
 if( RADIUM_IO_TINYPLY )
     find_package(tinyply REQUIRED NO_DEFAULT_PATH )
+    set_target_properties( ${ra_io_target} PROPERTIES IO_TINYPLY ${RADIUM_IO_TINYPLY})
 endif( RADIUM_IO_TINYPLY )
 
-configureTargetWithDefaultRaSettings( ${ra_io_target} )
 if( RADIUM_IO_ASSIMP )
     target_link_libraries (${ra_io_target} PUBLIC assimp::assimp)
 endif( RADIUM_IO_ASSIMP )
@@ -45,15 +46,6 @@ target_compile_definitions(${ra_io_target} PRIVATE "-DRA_IO_EXPORTS")
 
 
 # set_target_properties(${ra_io_target} PROPERTIES PUBLIC_HEADER "${io_headers};${io_inlines}")
-install(TARGETS ${ra_io_target}
-    EXPORT ${ra_io_target}Targets
-    CONFIGURATIONS ${CMAKE_BUILD_TYPE}
-    RUNTIME  DESTINATION bin
-    OBJECTS  DESTINATION bin
-    LIBRARY  DESTINATION lib
-    ARCHIVE  DESTINATION lib
-    INCLUDES DESTINATION include
-    )
 
 installLibHeaders( "IO" "${io_headers}" )
 installLibHeaders( "IO" "${io_inlines}" )

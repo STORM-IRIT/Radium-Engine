@@ -31,20 +31,11 @@ add_library(Radium::GuiBase ALIAS ${ra_guibase_target})
 
 configureTargetWithDefaultRaSettings( ${ra_guibase_target} )
 add_dependencies( ${ra_guibase_target} Radium::Core Radium::Engine Radium::PluginBase )
-target_link_libraries (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase ${Qt5_LIBRARIES} OpenGL::GL)
+target_link_libraries (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase)
+target_link_libraries (${ra_guibase_target} PRIVATE ${Qt5_LIBRARIES} OpenGL::GL)
 
 target_compile_definitions(${ra_guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 # set_target_properties(${ra_guibase_target} PROPERTIES PUBLIC_HEADER "${guibase_headers};${guibase_inlines}")
-
-install(TARGETS ${ra_guibase_target}
-    EXPORT ${ra_guibase_target}Targets
-    CONFIGURATIONS ${CMAKE_BUILD_TYPE}
-    RUNTIME  DESTINATION bin
-    OBJECTS  DESTINATION bin
-    LIBRARY  DESTINATION lib
-    ARCHIVE  DESTINATION lib
-    INCLUDES DESTINATION include
-    )
 
 installLibHeaders( "GuiBase" "${guibase_headers}" )
 installLibHeaders( "GuiBase" "${guibase_inlines}" )

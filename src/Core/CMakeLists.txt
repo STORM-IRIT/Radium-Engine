@@ -50,16 +50,5 @@ if( WIN_32)
     target_compile_definitions(${ra_core_target} PUBLIC "-D_USE_MATH_DEFINES") ##OpenMesh
 endif()
 
-# set_target_properties(${ra_core_target} PROPERTIES PUBLIC_HEADER "${core_headers};${core_inlines}")
-install(TARGETS ${ra_core_target}
-    EXPORT ${ra_core_target}Targets
-    CONFIGURATIONS ${CMAKE_BUILD_TYPE}
-    RUNTIME  DESTINATION bin
-    OBJECTS  DESTINATION bin
-    LIBRARY  DESTINATION lib
-    ARCHIVE  DESTINATION lib
-    INCLUDES DESTINATION include
-    )
-
 installLibHeaders( "Core" "${core_headers}" )
 installLibHeaders( "Core" "${core_inlines}" )

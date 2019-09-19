@@ -29,20 +29,11 @@ add_library(Radium::PluginBase ALIAS ${ra_pluginbase_target})
 
 configureTargetWithDefaultRaSettings( ${ra_pluginbase_target} )
 add_dependencies( ${ra_pluginbase_target} Radium::Core Radium::Engine )
-target_link_libraries (${ra_pluginbase_target} PUBLIC Radium::Core Radium::Engine Qt5::Core)
+target_link_libraries (${ra_pluginbase_target} PUBLIC Radium::Core Radium::Engine )
+target_link_libraries (${ra_pluginbase_target} PRIVATE Qt5::Core)
 
 target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
 # set_target_properties(${ra_pluginbase_target} PROPERTIES PUBLIC_HEADER "${pluginbase_headers};${pluginbase_inlines}")
-
-install(TARGETS ${ra_pluginbase_target}
-    EXPORT ${ra_pluginbase_target}Targets
-    CONFIGURATIONS ${CMAKE_BUILD_TYPE}
-    RUNTIME  DESTINATION bin
-    OBJECTS  DESTINATION bin
-    LIBRARY  DESTINATION lib
-    ARCHIVE  DESTINATION lib
-    INCLUDES DESTINATION include
-    )
 
 installLibHeaders( "PluginBase" "${pluginbase_headers}" )
 installLibHeaders( "PluginBase" "${pluginbase_inlines}" )

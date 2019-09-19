@@ -1,0 +1,76 @@
+include(CMakeFindDependencyMacro)
+find_dependency(Threads REQUIRED)
+find_dependency(OpenMP REQUIRED)
+# Theses paths reflect the paths founds in RadiumEngine/src/Core/external/package
+find_dependency(Eigen3 REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../share/eigen3/cmake/")
+find_dependency(OpenMesh REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../share/OpenMesh/cmake/")
+
+set(_supported_components RadiumCore)
+
+include("${CMAKE_CURRENT_LIST_DIR}/RadiumCoreTargets.cmake")
+
+macro(checkOptionalTarget TARGET)
+    if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/Radium${TARGET}Targets.cmake" )
+        list(APPEND _supported_components Radium${TARGET})
+    endif()
+endmacro()
+
+# Check available library targets
+checkOptionalTarget(Engine)
+checkOptionalTarget(IO)
+checkOptionalTarget(PluginBase)
+checkOptionalTarget(GuiBase)
+
+# Check the user request matches the available library targets
+set(Radium_FOUND True)
+foreach(_comp ${Radium_FIND_COMPONENTS})
+  list(FIND _supported_components ${_comp} ${_comp}_FOUND)
+  if (${${_comp}_FOUND} EQUAL -1)
+    set(Radium_FOUND False)
+    set(Radium_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
+  endif()
+endforeach()
+
+if(RadiumEngine_FOUND)
+    # Theses paths reflect the paths founds in RadiumEngine/src/Engine/external/package
+    find_dependency(glm REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../lib/cmake/glm/")
+    find_dependency(glbinding REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../" )
+    find_dependency(globjects REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../" )
+
+    include("${CMAKE_CURRENT_LIST_DIR}/RadiumEngineTargets.cmake" )
+endif()
+
+if(RadiumIO_FOUND)
+    include("${CMAKE_CURRENT_LIST_DIR}/RadiumIOTargets.cmake" )
+
+    # Detect if library has been compiled using assimp and tinyply
+    get_target_property( deps Radium::RadiumIO INTERFACE_LINK_LIBRARIES)
+    list( FIND deps "assimp::assimp" depAssimpFound)
+    list( FIND deps "tinyply" depTinyPLYFound)
+
+    # Theses paths reflect the paths founds in RadiumEngine/src/IO/external/package
+    if( depAssimpFound GREATER_EQUAL "0")
+        message("RadiumIO built with Assimp support: exporting dependency")
+        find_dependency(assimp 5.0 REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../lib/cmake/assimp-5.0/")
+    endif()
+    if( depTinyPLYFound GREATER_EQUAL "0")
+        message("RadiumIO built with TinyPLY support: exporting dependency")
+        find_dependency(tinyply REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../lib/cmake/tinyply/")
+    endif()
+
+endif()
+
+
+if(RadiumPluginBase_FOUND)
+    find_dependency(Qt5 COMPONENTS Core REQUIRED)
+    include("${CMAKE_CURRENT_LIST_DIR}/RadiumPluginBaseTargets.cmake" )
+endif()
+
+if(RadiumGuiBase_FOUND)
+    find_dependency(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+    include("${CMAKE_CURRENT_LIST_DIR}/RadiumGuiBaseTargets.cmake" )
+endif()
+
+# Compute paths
+set(RADIUM_INCLUDE_DIR "@CMAKE_INSTALL_INCLUDEDIR@/")
+set(RADIUM_LIB_DIR "@CMAKE_INSTALL_LIBDIR@/")
