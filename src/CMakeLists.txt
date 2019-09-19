@@ -11,10 +11,18 @@ else()
   add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
-
 #------------------------------------------------------------------------------
 # Libraries dependencies
 find_package(OpenMP QUIET)
+
+
+
+#-----------------------------------------------------------------------------------
+# Prepare cmake package
+
+include(CMakePackageConfigHelpers)
+set(ConfigPackageLocation lib/cmake/Radium)
+
 
 #------------------------------------------------------------------------------
 # By using macro to add common dependencies you can avoid repetition when you have
@@ -23,22 +31,61 @@ find_package(OpenMP QUIET)
 macro(configureTargetWithDefaultRaSettings TARGET)
   message( "Configure library ${TARGET} with default settings" )
 
-  # Exported targets include directory
   target_include_directories(${TARGET} PUBLIC
       $<BUILD_INTERFACE:${RADIUM_SRC_DIR}>
       $<INSTALL_INTERFACE:include>
       )
-
   target_compile_features(${TARGET} PUBLIC cxx_std_17)
 
-  # Create version symlink for libraries
+  # Create Exported target properties
   set_target_properties( ${TARGET} PROPERTIES VERSION ${RADIUM_VERSION} )
 
   if(OPENMP_FOUND)
     target_link_libraries(${TARGET} PUBLIC OpenMP::OpenMP_CXX)
   endif(OPENMP_FOUND)
+
+  install(TARGETS ${TARGET}
+      EXPORT ${TARGET}Targets
+      CONFIGURATIONS ${CMAKE_BUILD_TYPE}
+      RUNTIME  DESTINATION bin
+      OBJECTS  DESTINATION bin
+      LIBRARY  DESTINATION lib
+      ARCHIVE  DESTINATION lib
+      INCLUDES DESTINATION include
+      )
+
+  write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/Radium/${TARGET}ConfigVersion.cmake"
+    VERSION ${RADIUM_VERSION}
+    COMPATIBILITY AnyNewerVersion
+  )
+
+  # export for build tree
+  export(EXPORT ${TARGET}Targets
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/Radium/${TARGET}Targets.cmake"
+  )
+
+  # export for the installation tree
+  install(EXPORT ${TARGET}Targets
+    FILE
+      ${TARGET}Targets.cmake
+    NAMESPACE
+      Radium::
+    DESTINATION
+      ${ConfigPackageLocation}
+  )
+
+#  install(
+#    FILES
+#      ../cmake/${TARGET}.cmake
+#      "${CMAKE_CURRENT_BINARY_DIR}/Radium/Radium${TARGET}ConfigVersion.cmake"
+#    DESTINATION
+#      ${ConfigPackageLocation}
+#)
 endmacro()
 
+#-----------------------------------------------------------------------------------
+# Include sources
 if(RADIUM_GENERATE_LIB_CORE)
     add_subdirectory(Core)
 endif()
@@ -54,6 +101,22 @@ endif()
 if(RADIUM_GENERATE_LIB_PLUGINBASE)
     add_subdirectory(PluginBase)
 endif()
+
+
+#-----------------------------------------------------------------------------------
+# Generate cmake package
+
+configure_file(../cmake/Config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/Radium/RadiumConfig.cmake"
+  COPYONLY
+)
+install(
+  FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/Radium/RadiumConfig.cmake"
+  DESTINATION
+    ${ConfigPackageLocation}
+)
+
 
 # # #-------------------------------------------------------------------------------
 # # # exampleApp executable setup

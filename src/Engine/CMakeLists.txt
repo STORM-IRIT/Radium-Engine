@@ -39,15 +39,6 @@ target_link_libraries (${ra_engine_target} PUBLIC Radium::Core glm glbinding::gl
 target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
 # set_target_properties(${ra_engine_target} PROPERTIES PUBLIC_HEADER "${engine_headers};${engine_inlines}")
-install(TARGETS ${ra_engine_target}
-    EXPORT ${ra_engine_target}Targets
-    CONFIGURATIONS ${CMAKE_BUILD_TYPE}
-    RUNTIME  DESTINATION bin
-    OBJECTS  DESTINATION bin
-    LIBRARY  DESTINATION lib
-    ARCHIVE  DESTINATION lib
-    INCLUDES DESTINATION include
-    )
 
 installLibHeaders( "Engine" "${engine_headers}" )
 installLibHeaders( "Engine" "${engine_inlines}" )
