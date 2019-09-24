@@ -7,11 +7,9 @@
 *.orig
 *.swp
 *.old
-.idea/
 \#*\#
-.\#*\#
-.vs
-.clang-format
+# All dot files, if you wish to track one, just add it
+.*
 
 # Misc
 *Thumbs.db
@@ -20,10 +18,6 @@
 Bundle*/
 build*/
 cmake-build-*/
-
-# Mercurial stuff (e.g from Eigen)
-.hg*
-
 
 # external libraries
 external/eigen
