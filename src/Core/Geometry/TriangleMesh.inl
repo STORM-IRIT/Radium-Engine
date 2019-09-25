@@ -68,7 +68,6 @@ inline void TriangleMesh::clear() {
 }
 
 inline void TriangleMesh::copy( const TriangleMesh& other ) {
-    clear();
     IndexedGeometry::copyBaseGeometry( other );
     m_triangles = other.m_triangles;
 }
@@ -103,7 +102,6 @@ inline void LineMesh::clear() {
 }
 
 inline void LineMesh::copy( const LineMesh& other ) {
-    clear();
     IndexedGeometry::copyBaseGeometry( other );
     m_lines = other.m_lines;
 }

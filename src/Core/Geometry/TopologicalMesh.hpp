@@ -80,6 +80,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     TriangleMesh toTriangleMesh();
 
+    /**
+     * Update triangle mesh data, assuming the mesh and this topo mesh has the
+     * same topology.
+    */
+    void updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& mesh );
+
     // import other version of halfedge_handle method
     using base::halfedge_handle;
 
