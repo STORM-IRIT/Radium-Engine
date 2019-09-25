@@ -194,6 +194,7 @@ class AttribHandle
 class RA_CORE_API AttribManager
 {
   public:
+    // Fixme: Todo: use unique_ptr instead of raw pointers?
     using value_type = AttribBase*;
     using Container  = std::vector<value_type>;
 
@@ -208,8 +209,12 @@ class RA_CORE_API AttribManager
         m_attribsIndex( std::move( m.m_attribsIndex ) ) {}
 
     AttribManager& operator=( AttribManager&& m ) {
-        m_attribs      = std::move( m.m_attribs );
-        m_attribsIndex = std::move( m.m_attribsIndex );
+        if ( &m != this )
+        {
+            clear();
+            m_attribs      = std::move( m.m_attribs );
+            m_attribsIndex = std::move( m.m_attribsIndex );
+        }
         return *this;
     }
 
