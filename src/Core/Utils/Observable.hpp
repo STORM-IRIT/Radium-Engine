@@ -37,7 +37,15 @@ class Observable
     using Observer = std::function<void( Args... )>;
 
     /// Default constructor ... do nothing ;)
-    Observable() = default;
+    Observable()                    = default;
+    Observable( const Observable& ) = delete;
+    Observable& operator=( const Observable& ) = delete;
+
+    /// explicit copy of all attached observers the \p other Observable
+    void copyObservers( Observable& other ) {
+        for ( const auto& o : m_observers )
+            other.attach( o );
+    }
 
     /// Attach an \p observer that will be call on subsecant call to notify()
     /// \return An unique int to identify the observer, could be used to pass to Obeservable::detach

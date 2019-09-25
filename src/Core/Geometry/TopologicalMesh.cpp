@@ -80,8 +80,8 @@ void copyAttribToCore( TriangleMesh& triMesh, const HandleAndValueVector<T>& dat
 
     for ( auto pp : data )
     {
-        auto attr     = triMesh.getAttrib( pp.first );
-        auto attrData = attr.getDataWithLock();
+        auto& attr     = triMesh.getAttrib( pp.first );
+        auto& attrData = attr.getDataWithLock();
         attrData.push_back( pp.second );
         attr.unlock();
     }
@@ -291,6 +291,10 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
                  "Inconsistent number of faces in generated TriangleMesh." );
 
     return out;
+}
+
+void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& mesh ) {
+    ///\todo ;)
 }
 
 bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
