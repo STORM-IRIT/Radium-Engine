@@ -29,7 +29,8 @@ class AttribBase : public Observable<>
   public:
     explicit AttribBase( const std::string& name ) : m_name{name} {}
     virtual ~AttribBase() { notify(); }
-
+    AttribBase( const AttribBase& ) = delete;
+    AttribBase& operator=( const AttribBase& ) = delete;
     /**
      * Return the attribute's name.
      */
@@ -348,7 +349,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 
     template <typename T>
     inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h ) {
-        return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
+        return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
     }
 
     template <typename T>

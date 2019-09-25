@@ -12,6 +12,8 @@
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
 
+#include <Core/Utils/Log.hpp>
+
 namespace globjects {
 
 class VertexArray;
@@ -22,7 +24,7 @@ class Buffer;
 namespace Ra {
 namespace Engine {
 class ShaderProgram;
-
+using namespace Ra::Core::Utils;
 /**
  * A class representing an openGL general mesh to be displayed.
  * It stores the vertex attributes, indices, and can be rendered
@@ -137,6 +139,12 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
       public:
         explicit AttribObserver( VaoDisplayable* vao, int idx ) : m_vao( vao ), m_idx( idx ) {}
         void operator()() {
+
+            auto result = std::find_if( m_vao->m_handleToBuffer.begin(),
+                                        m_vao->m_handleToBuffer.end(),
+                                        [this]( const auto& mo ) { return mo.second == this->m_idx; } );
+
+            LOG( logDEBUG ) << "set : " << m_idx << " " << result->first << " dirty\n";
             m_vao->m_dataDirty[m_idx] = true;
             m_vao->m_isDirty          = true;
         }
