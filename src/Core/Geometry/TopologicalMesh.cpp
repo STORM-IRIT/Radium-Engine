@@ -21,7 +21,7 @@ using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 template <typename T>
 void addAttribPairToTopo( const TriangleMesh& triMesh,
                           TopologicalMesh* topoMesh,
-                          AttribManager::value_type attr,
+                          AttribManager::pointer_type attr,
                           std::vector<PropPair<T>>& vprop,
                           std::vector<OpenMesh::HPropHandleT<T>>& pph ) {
     AttribHandle<T> h = triMesh.getAttribHandle<T>( attr->getName() );
