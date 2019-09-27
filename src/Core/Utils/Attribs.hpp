@@ -124,7 +124,7 @@ class Attrib : public AttribBase
     size_t getSize() override { return m_data.size(); }
 
     /// \warning Does not work for dynamic and sparse Eigen matrices.
-    int getStride() override { return sizeof( typename Container::value_type ); }
+    int getStride() override { return sizeof( value_type ); }
 
     bool isFloat() const override { return std::is_same<float, T>::value; }
     bool isVec2() const override { return std::is_same<Vector2, T>::value; }
@@ -139,9 +139,9 @@ template <typename T>
 class AttribHandle
 {
   public:
-    typedef T value_type;
-    using Container = typename Attrib<T>::Container;
-
+    using value_type = T;
+    using AttribType = Attrib<T>;
+    using Container  = typename Attrib<T>::Container;
     /// compare two handle, there are the same if they both represent the same
     /// attrib (type and value).
     template <typename U>
@@ -194,8 +194,10 @@ class AttribHandle
 class RA_CORE_API AttribManager
 {
   public:
-    using value_type = AttribBase*;
-    using Container  = std::vector<value_type>;
+    using value_type         = AttribBase;
+    using pointer_type       = value_type*;
+    using smart_pointer_type = std::unique_ptr<value_type>;
+    using Container          = std::vector<smart_pointer_type>;
 
     AttribManager() {}
 
@@ -226,7 +228,7 @@ class RA_CORE_API AttribManager
         if ( m.isValid( attr ) )
         {
             // get attrib to copy
-            auto a = m.getAttrib( attr );
+            auto& a = m.getAttrib( attr );
             // add new attrib
             auto h = addAttrib<T>( a.getName() );
             // copy attrib data
@@ -284,7 +286,7 @@ class RA_CORE_API AttribManager
     /// \warning There is no check on the handle validity.
     template <typename T>
     inline Attrib<T>& getAttrib( const AttribHandle<T>& h ) {
-        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
+        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
     }
 
     /// Get attribute by handle (const).
@@ -292,7 +294,7 @@ class RA_CORE_API AttribManager
     /// \warning There is no check on the handle validity.
     template <typename T>
     inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const {
-        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ) );
+        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
     }
 
     /// Add attribute by name.
@@ -306,20 +308,19 @@ class RA_CORE_API AttribManager
         if ( isValid( h ) ) return h;
 
         // create the attrib
-        Attrib<T>* attrib = new Attrib<T>( name );
+        smart_pointer_type attrib = std::make_unique<Attrib<T>>( name );
 
         // look for a free slot
-        auto it = std::find_if( m_attribs.begin(), m_attribs.end(), []( const auto& attr ) {
-            return attr == nullptr;
-        } );
+        auto it = std::find_if(
+            m_attribs.begin(), m_attribs.end(), []( const auto& attr ) { return !attr; } );
         if ( it != m_attribs.end() )
         {
-            *it     = attrib;
+            it->swap( attrib );
             h.m_idx = std::distance( m_attribs.begin(), it );
         }
         else
         {
-            m_attribs.push_back( attrib );
+            m_attribs.push_back( std::move( attrib ) );
             h.m_idx = m_attribs.size() - 1;
         }
         m_attribsIndex[name] = h.m_idx;
@@ -338,8 +339,7 @@ class RA_CORE_API AttribManager
         if ( c != m_attribsIndex.end() )
         {
             Index idx = c->second;
-            delete m_attribs[idx];
-            m_attribs[idx] = nullptr;
+            m_attribs[idx].reset( nullptr );
             m_attribsIndex.erase( c );
         }
         h.m_idx  = Index::Invalid(); // invalidate whatever!
@@ -357,7 +357,7 @@ class RA_CORE_API AttribManager
     template <typename F>
     void for_each_attrib( const F& func ) const {
         for ( const auto& attr : m_attribs )
-            if ( attr != nullptr ) func( attr );
+            if ( attr != nullptr ) func( attr.get() );
     }
 
     /// Perform \p fun on each attribute.
@@ -365,7 +365,7 @@ class RA_CORE_API AttribManager
     template <typename F>
     void for_each_attrib( const F& func ) {
         for ( auto& attr : m_attribs )
-            if ( attr != nullptr ) func( attr );
+            if ( attr != nullptr ) func( attr.get() );
     }
 
     /// Attrib list, better using attribs() to go through.
