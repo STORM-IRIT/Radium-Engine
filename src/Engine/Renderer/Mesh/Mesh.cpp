@@ -148,6 +148,7 @@ void Mesh::updateGL() {
         m_vao->bind();
         m_vao->bindElementBuffer( m_indices.get() );
 
+        // cleanup removed attrib
         for ( auto buffer : m_handleToBuffer )
         {
             // do not remove name from handleToBuffer to keep index ...
@@ -300,7 +301,7 @@ void DisplayableGeometry<Core::Geometry::TriangleMesh>::addAttribObserver(
         auto idx = m_handleToBuffer[name];
         attrib->attach( AttribObserver( this, idx ) );
     }
-    // else it's a remove
+    // else it's a remove, cleanup will be done in updateGL()
     else
     {}
 }
@@ -332,8 +333,6 @@ void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
         ++idx;
     } );
 
-    m_mesh.vertexAttribs().attach( std::bind(
-        &DisplayableGeometry<CoreGeometry>::addAttribObserver, this, std::placeholders::_1 ) );
     m_mesh.vertexAttribs().attachMember( this,
                                          &DisplayableGeometry<CoreGeometry>::addAttribObserver );
 
