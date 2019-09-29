@@ -177,7 +177,7 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
 
         Mesh mesh( "temp", Mesh::RM_LINES );
         mesh.loadGeometry( vertices, indices );
-        mesh.addData( Mesh::VERTEX_COLOR, colors );
+        mesh.getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
         mesh.updateGL();
         ///\todo
         mesh.render( m_lineProg.get() );
