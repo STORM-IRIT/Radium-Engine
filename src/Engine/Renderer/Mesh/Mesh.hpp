@@ -139,12 +139,6 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
       public:
         explicit AttribObserver( VaoDisplayable* vao, int idx ) : m_vao( vao ), m_idx( idx ) {}
         void operator()() {
-
-            auto result = std::find_if( m_vao->m_handleToBuffer.begin(),
-                                        m_vao->m_handleToBuffer.end(),
-                                        [this]( const auto& mo ) { return mo.second == this->m_idx; } );
-
-            LOG( logDEBUG ) << "set : " << m_idx << " " << result->first << " dirty\n";
             m_vao->m_dataDirty[m_idx] = true;
             m_vao->m_isDirty          = true;
         }
@@ -160,16 +154,11 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     MeshRenderMode m_renderMode{
         MeshRenderMode::RM_TRIANGLES}; /// Render mode (GL_TRIANGLES or GL_LINES, etc.)
 
-    // Combined arrays store the flags in this order Mesh, then Vec3 then Vec4 data.
-    // Following the enum declaration above.
-    // Our first VBO index is actually the indices buffer index.
-    // The following are for vertex data.
-    // Each data type has a corresponding openGL attribute number, which is
-    // vbo index - 1 (thus vertex position is VBO number 1 but attribute 0).
-    std::unique_ptr<globjects::Buffer> m_indices;
-    bool m_indicesDirty{true};
     std::vector<std::unique_ptr<globjects::Buffer>> m_vbos;
     std::vector<bool> m_dataDirty;
+
+    // Geometry attrib name (std::strin) to buffer id (int)
+    // buffer id are indices in m_vbos
     std::map<std::string, int> m_handleToBuffer;
 
     /// number of elements to draw. For triangles this is 3*numTriangles
@@ -198,31 +187,22 @@ class DisplayableGeometry : public VaoDisplayable
     inline const CoreGeometry& getTriangleMesh() const;
     inline CoreGeometry& getTriangleMesh();
 
+    /// Helper function that calls Ra::Core::CoreGeometry::addAttrib()
+    template <typename A>
+    inline Ra::Core::Utils::AttribHandle<A> addAttrib( const std::string& name,
+                                                       const typename Core::VectorArray<A>& data ) {
+        return m_mesh.addAttrib( name, data );
+    }
+
     inline size_t getNumVertices() const override { return m_mesh.vertices().size(); }
 
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
     void loadGeometry( CoreGeometry&& mesh ) { CORE_ASSERT( false, "must be specialized" ); }
 
-    /**
-     * Set additionnal vertex data.
-     * Initialize vertexAttrib if needed,
-     * data must have the appropriate size (i.e. num vertex) or empty (to
-     * remove the data)
-     * Theses functions might disapear to use directly Core::Geometry::TriangleMesh attribs.
-     *
-     * \note Attributes names are computed by #getAttribName
-     */
-    template <typename Type, typename Vector>
-    [[deprecated]] void addData( const Type& type, const Core::VectorArray<Vector>& data );
-    template <typename Vector>
-    void addData( const std::string& name, const Core::VectorArray<Vector>& data );
-
   protected:
     void addAttribObserver( const std::string& name ) {
         CORE_ASSERT( false, "must be specialized" );
     }
-    /// Base geometry : vertices, triangles and normals
-    // must be the last one, to be delete first (and notify in class observer's)
     CoreGeometry m_mesh;
 };
 
@@ -259,6 +239,8 @@ class Mesh : public DisplayableGeometry<Core::Geometry::TriangleMesh>
 
   private:
     void autoVertexAttribPointer( const ShaderProgram* prog );
+    std::unique_ptr<globjects::Buffer> m_indices;
+    bool m_indicesDirty{true};
 };
 
 } // namespace Engine
