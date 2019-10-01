@@ -47,6 +47,20 @@ void Mesh::render( const ShaderProgram* prog ) {
     }
 }
 
+void LineMesh::render( const ShaderProgram* prog ) {
+    if ( m_vao )
+    {
+        autoVertexAttribPointer( prog );
+        m_vao->bind();
+        m_vao->drawElements( static_cast<GLenum>( m_renderMode ),
+                             GLsizei( m_numElements ),
+                             GL_UNSIGNED_INT,
+                             nullptr );
+
+        m_vao->unbind();
+    }
+}
+
 size_t Mesh::getNumFaces() const {
     switch ( getRenderMode() )
     {
@@ -98,6 +112,7 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     ///\todo check line vs triangle here is a bug
     loadGeometry( std::move( mesh ) );
 }
+
 void Mesh::updateGL() {
     if ( m_isDirty )
     {
@@ -114,55 +129,51 @@ void Mesh::updateGL() {
         }
         if ( m_indicesDirty )
         {
-            if ( m_renderMode == RM_POINTS )
-            {
-                m_numElements = m_mesh.vertices().size();
-                std::vector<int> indices( m_numElements );
-                std::iota( indices.begin(), indices.end(), 0 );
-                m_indices->setData( indices, GL_STATIC_DRAW );
-            }
-            else
-            {
-                m_indices->setData( m_mesh.m_triangles, GL_DYNAMIC_DRAW );
-                m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_triangles.size() *
-                                                                 sizeof( Core::Vector3ui ) ),
-                                    m_mesh.m_triangles.data(),
-                                    GL_STATIC_DRAW );
-            }
+            m_indices->setData( m_mesh.m_triangles, GL_DYNAMIC_DRAW );
+            // m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_triangles.size() *
+            //                                                  sizeof( Core::Vector3ui ) ),
+            //                     m_mesh.m_triangles.data(),
+            //                     GL_STATIC_DRAW );
             m_indicesDirty = false;
         }
-
-        auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
-            auto idx = m_handleToBuffer[b->getName()];
-
-            if ( m_dataDirty[idx] )
-            {
-                if ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }
-                m_vbos[idx]->setData( b->getBufferSize(), b->dataPtr(), GL_DYNAMIC_DRAW );
-                m_dataDirty[idx] = false;
-            }
-        };
-        m_mesh.vertexAttribs().for_each_attrib( func );
-
         if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
         m_vao->bind();
         m_vao->bindElementBuffer( m_indices.get() );
-
-        // cleanup removed attrib
-        for ( auto buffer : m_handleToBuffer )
-        {
-            // do not remove name from handleToBuffer to keep index ...
-            // we could also update handleToBuffer, m_vbos, m_dataDirty
-            if ( !m_mesh.hasAttrib( buffer.first ) && m_vbos[buffer.second] )
-            {
-                m_vbos[buffer.second].reset( nullptr );
-                m_dataDirty[buffer.second] = false;
-            }
-        }
-
-        GL_CHECK_ERROR;
-        m_isDirty = false;
         m_vao->unbind();
+
+        base::updateGL();
+    }
+}
+
+void LineMesh::updateGL() {
+    if ( m_isDirty )
+    {
+        // Check that our dirty bits are consistent.
+        ON_ASSERT( bool dirtyTest = false; for ( const auto& d
+                                                 : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
+        CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency" );
+        CORE_ASSERT( !( m_mesh.vertices().empty() ), "No vertex." );
+
+        if ( !m_indices )
+        {
+            m_indices      = globjects::Buffer::create();
+            m_indicesDirty = true;
+        }
+        if ( m_indicesDirty )
+        {
+            m_indices->setData( m_mesh.m_lines, GL_DYNAMIC_DRAW );
+            // m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_lines.size() *
+            //                                                  sizeof( int ) ),
+            //                     m_mesh.m_lines.data(),
+            //                     GL_STATIC_DRAW );
+            m_indicesDirty = false;
+        }
+        if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
+        m_vao->bind();
+        m_vao->bindElementBuffer( m_indices.get() );
+        m_vao->unbind();
+
+        base::updateGL();
     }
 }
 
@@ -204,39 +215,6 @@ void VaoDisplayable::updatePickingRenderMode() {
         break;
     }
     }
-}
-
-void Mesh::autoVertexAttribPointer( const ShaderProgram* prog ) {
-
-    auto glprog           = prog->getProgramObject();
-    gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
-
-    m_vao->bind();
-    for ( GLint idx = 0; idx < attribCount; ++idx )
-    {
-        const gl::GLsizei bufSize = 256;
-        gl::GLchar name[bufSize];
-        gl::GLsizei length;
-        gl::GLint size;
-        gl::GLenum type;
-        glprog->getActiveAttrib( idx, bufSize, &length, &size, &type, name );
-        auto loc    = glprog->getAttributeLocation( name );
-        auto attrib = m_mesh.getAttribBase( name );
-
-        if ( attrib )
-        {
-            m_vao->enable( loc );
-            auto binding = m_vao->binding( idx );
-            binding->setAttribute( loc );
-            CORE_ASSERT( m_vbos[m_handleToBuffer[name]].get(), "vbo is nullptr" );
-            binding->setBuffer( m_vbos[m_handleToBuffer[name]].get(), 0, attrib->getStride() );
-            binding->setFormat( attrib->getElementSize(), GL_FLOAT );
-        }
-        else
-        { m_vao->disable( loc ); }
-    }
-
-    m_vao->unbind();
 }
 
 void VaoDisplayable::setDirty( const VaoDisplayable::MeshData& type ) {
@@ -285,45 +263,17 @@ void VaoDisplayable::setDirty( const Vec4Data& type ) {
 }
 
 template <>
-void DisplayableGeometry<Core::Geometry::TriangleMesh>::addAttribObserver(
-    const std::string& name ) {
-    auto attrib = m_mesh.getAttribBase( name );
-    // if attrib not nullptr, then it's a add
-    if ( attrib )
-    {
-        auto itr = m_handleToBuffer.find( name );
-        if ( itr == m_handleToBuffer.end() )
-        {
-            m_handleToBuffer[name] = m_dataDirty.size();
-            m_dataDirty.push_back( true );
-            m_vbos.emplace_back( nullptr );
-        }
-        auto idx = m_handleToBuffer[name];
-        attrib->attach( AttribObserver( this, idx ) );
-    }
-    // else it's a remove, cleanup will be done in updateGL()
-    else
-    {}
-}
-
-template <>
 void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
     Core::Geometry::TriangleMesh&& mesh ) {
-    m_mesh = std::move( mesh );
 
-    if ( m_mesh.m_triangles.empty() )
-    {
-        m_numElements = m_mesh.vertices().size();
-        setRenderMode( RM_POINTS );
-    }
-    else
-        m_numElements = m_mesh.m_triangles.size() * 3;
-    int idx = 0;
+    m_mesh        = std::move( mesh );
+    m_numElements = m_mesh.m_triangles.size() * 3;
+    int idx       = 0;
 
     m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
     m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
 
-    // here capture ref to idx to propagate irx incorementation
+    // here capture ref to idx to propagate idx incrementation
     m_mesh.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
         m_handleToBuffer[b->getName()] = idx;
         m_dataDirty[idx]               = true;
@@ -337,6 +287,77 @@ void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
                                          &DisplayableGeometry<CoreGeometry>::addAttribObserver );
 
     m_isDirty = true;
+}
+
+template <>
+void DisplayableGeometry<Core::Geometry::LineMesh>::loadGeometry(
+    Core::Geometry::LineMesh&& mesh ) {
+    m_mesh        = std::move( mesh );
+    m_numElements = m_mesh.m_lines.size();
+
+    setRenderMode( RM_LINES );
+
+    int idx = 0;
+
+    m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
+    m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
+
+    // here capture ref to idx to propagate idx incrementation
+    m_mesh.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
+        m_handleToBuffer[b->getName()] = idx;
+        m_dataDirty[idx]               = true;
+
+        b->attach( AttribObserver( this, idx ) );
+
+        ++idx;
+    } );
+
+    m_mesh.vertexAttribs().attachMember( this,
+                                         &DisplayableGeometry<CoreGeometry>::addAttribObserver );
+
+    m_isDirty = true;
+}
+
+template <>
+void DisplayableGeometry<Core::Geometry::PointCloud>::loadGeometry(
+    Core::Geometry::PointCloud&& mesh ) {
+    m_mesh        = std::move( mesh );
+    m_numElements = m_mesh.vertices().size();
+    setRenderMode( RM_POINTS );
+    int idx = 0;
+    m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
+    m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
+
+    // here capture ref to idx to propagate idx incrementation
+    m_mesh.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
+        m_handleToBuffer[b->getName()] = idx;
+        m_dataDirty[idx]               = true;
+
+        b->attach( AttribObserver( this, idx ) );
+
+        ++idx;
+    } );
+
+    m_mesh.vertexAttribs().attachMember( this,
+                                         &DisplayableGeometry<CoreGeometry>::addAttribObserver );
+
+    m_isDirty = true;
+}
+
+void PointCloud::render( const ShaderProgram* prog ) {
+    if ( m_vao )
+    {
+        autoVertexAttribPointer( prog );
+        m_vao->bind();
+        m_vao->drawArrays( static_cast<GLenum>( m_renderMode ), 0, GLsizei( m_numElements ) );
+        m_vao->unbind();
+    }
+}
+
+void PointCloud::updateGL() {
+    m_numElements = m_mesh.vertices().size();
+    if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
+    base::updateGL();
 }
 
 } // namespace Engine

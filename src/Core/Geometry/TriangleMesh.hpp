@@ -247,7 +247,7 @@ class RA_CORE_API LineMesh : public IndexedGeometry
     bool append( const LineMesh& other );
 
     /// The list of lines, typically 0, 1, 1, 2, 2, 3, 3, 4 ...
-    std::vector<int> m_lines;
+    std::vector<unsigned int> m_lines;
 };
 
 } // namespace Geometry
