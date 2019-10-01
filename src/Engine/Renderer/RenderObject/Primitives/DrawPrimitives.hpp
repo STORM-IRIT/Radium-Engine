@@ -15,19 +15,21 @@ namespace Engine {
 class RenderObject;
 class Component;
 class Mesh;
+class LineMesh;
 
 /// A set of convenient functions to instantiate simple displays such as points, lines, etc.
 /// note that objects will be drawn in their entity's local frame.
 /// For "instant" debug drawing, @see DebugDisplay.
 namespace DrawPrimitives {
-using MeshPtr = std::shared_ptr<Mesh>;
+using MeshPtr     = std::shared_ptr<Mesh>;
+using LineMeshPtr = std::shared_ptr<LineMesh>;
 
 RA_ENGINE_API RenderObject* Primitive( Component* comp, const MeshPtr& mesh );
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'
-RA_ENGINE_API MeshPtr Point( const Core::Vector3& point,
-                             const Core::Utils::Color& color,
-                             Scalar scale = 0.1f );
+RA_ENGINE_API LineMeshPtr Point( const Core::Vector3& point,
+                                 const Core::Utils::Color& color,
+                                 Scalar scale = 0.1f );
 
 /// Displays given line
 RA_ENGINE_API MeshPtr Line( const Core::Vector3& a,

@@ -36,7 +36,7 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
         mesh->getName(), component, RenderObjectType::Debug, mesh, rt );
 }
 
-MeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale ) {
+LineMeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale ) {
     Core::Vector3Array vertices = {( point + ( scale * Core::Vector3::UnitX() ) ),
                                    ( point - ( scale * Core::Vector3::UnitX() ) ),
 
@@ -47,11 +47,14 @@ MeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scal
                                    ( point - ( scale * Core::Vector3::UnitZ() ) )};
 
     std::vector<uint> indices = {0, 1, 2, 3, 4, 5};
-
     Core::Vector4Array colors( vertices.size(), color );
 
-    MeshPtr mesh( new Mesh( "Point Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
+    Ra::Core::Geometry::LineMesh geom;
+    geom.setVertices( vertices );
+    geom.m_lines = indices;
+
+    LineMeshPtr mesh( new LineMesh( "Point Primitive", Mesh::RM_LINES ) );
+    mesh->loadGeometry( std::move( geom ) );
     mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
     return mesh;
