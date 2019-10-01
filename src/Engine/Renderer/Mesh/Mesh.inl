@@ -64,5 +64,78 @@ std::string VaoDisplayable::getAttribName( Vec4Data type ) {
     return {"invalid vec4 attr"};
 }
 
+template <typename CoreGeometry>
+void DisplayableGeometry<CoreGeometry>::autoVertexAttribPointer( const ShaderProgram* prog ) {
+
+    auto glprog           = prog->getProgramObject();
+    gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
+
+    m_vao->bind();
+    for ( GLint idx = 0; idx < attribCount; ++idx )
+    {
+        const gl::GLsizei bufSize = 256;
+        gl::GLchar name[bufSize];
+        gl::GLsizei length;
+        gl::GLint size;
+        gl::GLenum type;
+        glprog->getActiveAttrib( idx, bufSize, &length, &size, &type, name );
+        auto loc    = glprog->getAttributeLocation( name );
+        auto attrib = m_mesh.getAttribBase( name );
+
+        if ( attrib )
+        {
+            m_vao->enable( loc );
+            auto binding = m_vao->binding( idx );
+            binding->setAttribute( loc );
+            CORE_ASSERT( m_vbos[m_handleToBuffer[name]].get(), "vbo is nullptr" );
+            binding->setBuffer( m_vbos[m_handleToBuffer[name]].get(), 0, attrib->getStride() );
+            binding->setFormat( attrib->getElementSize(), GL_FLOAT );
+        }
+        else
+        { m_vao->disable( loc ); }
+    }
+
+    m_vao->unbind();
+}
+
+template <typename CoreGeometry>
+void DisplayableGeometry<CoreGeometry>::updateGL() {
+    if ( m_isDirty )
+    {
+        // Check that our dirty bits are consistent.
+        ON_ASSERT( bool dirtyTest = false; for ( const auto& d
+                                                 : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
+        CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency" );
+        CORE_ASSERT( !( m_mesh.vertices().empty() ), "No vertex." );
+
+        auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
+            auto idx = m_handleToBuffer[b->getName()];
+
+            if ( m_dataDirty[idx] )
+            {
+                if ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }
+                m_vbos[idx]->setData( b->getBufferSize(), b->dataPtr(), GL_DYNAMIC_DRAW );
+                m_dataDirty[idx] = false;
+            }
+        };
+        m_mesh.vertexAttribs().for_each_attrib( func );
+
+        // cleanup removed attrib
+        for ( auto buffer : m_handleToBuffer )
+        {
+            // do not remove name from handleToBuffer to keep index ...
+            // we could also update handleToBuffer, m_vbos, m_dataDirty
+            if ( !m_mesh.hasAttrib( buffer.first ) && m_vbos[buffer.second] )
+            {
+                m_vbos[buffer.second].reset( nullptr );
+                m_dataDirty[buffer.second] = false;
+            }
+        }
+
+        GL_CHECK_ERROR;
+        m_isDirty = false;
+    }
+}
+
 } // namespace Engine
 } // namespace Ra

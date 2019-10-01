@@ -42,6 +42,7 @@ class RA_ENGINE_API Displayable
 
     /// Returns the underlying AbstractGeometry, which is in fact a TriangleMesh
     /// \see getTriangleMesh
+    /// \todo not sure the displayable must have an abstract geometry ...
     virtual const Core::Geometry::AbstractGeometry& getAbstractGeometry() const = 0;
     virtual Core::Geometry::AbstractGeometry& getAbstractGeometry()             = 0;
 

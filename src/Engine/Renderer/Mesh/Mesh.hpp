@@ -25,6 +25,18 @@ namespace Ra {
 namespace Engine {
 class ShaderProgram;
 using namespace Ra::Core::Utils;
+
+/// VAO + VBO attributes management,
+/// also manage draw calls
+class Vao
+{
+    ///
+    std::unique_ptr<globjects::VertexArray> m_vao;
+    std::vector<std::unique_ptr<globjects::Buffer>> m_vbos;
+    std::vector<bool> m_dataDirty;
+    std::map<std::string, int> m_handleToBuffer;
+};
+
 /**
  * A class representing an openGL general mesh to be displayed.
  * It stores the vertex attributes, indices, and can be rendered
@@ -32,7 +44,6 @@ using namespace Ra::Core::Utils;
  * It maintains the attributes and keeps them in sync with the GPU.
  * \note Attribute names are used to automatic location binding when using shaders.
  */
-
 class RA_ENGINE_API VaoDisplayable : public Displayable
 {
   public:
@@ -157,7 +168,7 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     std::vector<std::unique_ptr<globjects::Buffer>> m_vbos;
     std::vector<bool> m_dataDirty;
 
-    // Geometry attrib name (std::strin) to buffer id (int)
+    // Geometry attrib name (std::string) to buffer id (int)
     // buffer id are indices in m_vbos
     std::map<std::string, int> m_handleToBuffer;
 
@@ -198,20 +209,66 @@ class DisplayableGeometry : public VaoDisplayable
 
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
     void loadGeometry( CoreGeometry&& mesh ) { CORE_ASSERT( false, "must be specialized" ); }
+    void updateGL() override;
 
   protected:
+    void autoVertexAttribPointer( const ShaderProgram* prog );
     void addAttribObserver( const std::string& name ) {
-        CORE_ASSERT( false, "must be specialized" );
+        auto attrib = m_mesh.getAttribBase( name );
+        // if attrib not nullptr, then it's a add
+        if ( attrib )
+        {
+            auto itr = m_handleToBuffer.find( name );
+            if ( itr == m_handleToBuffer.end() )
+            {
+                m_handleToBuffer[name] = m_dataDirty.size();
+                m_dataDirty.push_back( true );
+                m_vbos.emplace_back( nullptr );
+            }
+            auto idx = m_handleToBuffer[name];
+            attrib->attach( AttribObserver( this, idx ) );
+        }
+        // else it's a remove, cleanup will be done in updateGL()
+        else
+        {}
     }
     CoreGeometry m_mesh;
 };
 
 template <>
-void DisplayableGeometry<Core::Geometry::TriangleMesh>::addAttribObserver(
-    const std::string& name );
-template <>
 void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
     Core::Geometry::TriangleMesh&& );
+
+template <>
+void DisplayableGeometry<Core::Geometry::LineMesh>::loadGeometry( Core::Geometry::LineMesh&& );
+
+template <>
+void DisplayableGeometry<Core::Geometry::PointCloud>::loadGeometry( Core::Geometry::PointCloud&& );
+
+class PointCloud : public DisplayableGeometry<Core::Geometry::PointCloud>
+{
+    using base = DisplayableGeometry<Core::Geometry::PointCloud>;
+
+  public:
+    using DisplayableGeometry<Core::Geometry::PointCloud>::DisplayableGeometry;
+
+    void updateGL() override;
+    void render( const ShaderProgram* prog ) override;
+};
+
+class LineMesh : public DisplayableGeometry<Core::Geometry::LineMesh>
+{
+    using base = DisplayableGeometry<Core::Geometry::LineMesh>;
+
+  public:
+    using DisplayableGeometry<Core::Geometry::LineMesh>::DisplayableGeometry;
+    void render( const ShaderProgram* prog ) override;
+    void updateGL() override;
+
+  private:
+    std::unique_ptr<globjects::Buffer> m_indices;
+    bool m_indicesDirty{true};
+};
 
 class Mesh : public DisplayableGeometry<Core::Geometry::TriangleMesh>
 {
@@ -238,7 +295,6 @@ class Mesh : public DisplayableGeometry<Core::Geometry::TriangleMesh>
                                       const std::vector<uint>& indices );
 
   private:
-    void autoVertexAttribPointer( const ShaderProgram* prog );
     std::unique_ptr<globjects::Buffer> m_indices;
     bool m_indicesDirty{true};
 };
