@@ -147,6 +147,10 @@ std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string&
     return result;
 }
 
+bool cleanup() {
+    EngineTechniqueRegistry.clear();
+}
+
 } // namespace EngineRenderTechniques
 
 } // namespace Engine

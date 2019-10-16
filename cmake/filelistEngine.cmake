@@ -20,6 +20,7 @@ set( engine_sources
     Renderer/Light/SpotLight.cpp
     Renderer/Material/BlinnPhongMaterial.cpp
     Renderer/Material/Material.cpp
+        Renderer/Material/PlainMaterial.cpp
     Renderer/Material/MaterialConverters.cpp
     Renderer/Mesh/Mesh.cpp
     Renderer/RenderObject/Primitives/DrawPrimitives.cpp
@@ -68,6 +69,7 @@ set( engine_headers
     Renderer/Light/SpotLight.hpp
     Renderer/Material/BlinnPhongMaterial.hpp
     Renderer/Material/Material.hpp
+        Renderer/Material/PlainMaterial.hpp
     Renderer/Material/MaterialConverters.hpp
     Renderer/Mesh/Mesh.hpp
     Renderer/OpenGL/OpenGL.hpp
@@ -107,41 +109,49 @@ set( engine_inlines
     Renderer/Light/SpotLight.inl
     Renderer/Material/BlinnPhongMaterial.inl
     Renderer/Material/Material.inl
+        Renderer/Material/PlainMaterial.inl
     Renderer/Mesh/Mesh.inl
     Renderer/RenderTechnique/RenderParameters.inl
     )
 
 set( engine_shaders
-    PointCloud.geom.glsl
-    Helpers.glsl
-    Structs.glsl
-    Tonemap.glsl
-    LightingFunctions.glsl
+        Deprecated/PointCloud.geom.glsl
+        Deprecated/Helpers.glsl
+        Deprecated/Structs.glsl
+        Deprecated/Tonemap.glsl
+        Deprecated/LightingFunctions.glsl
+        Deprecated/Default.vert.glsl
+        Deprecated/Default.frag.glsl
+        2DShaders/Basic2D.vert.glsl
+        2DShaders/CircleBrush.frag.glsl
+        2DShaders/ComposeOIT.frag.glsl
+        2DShaders/DepthDisplay.frag.glsl
+        2DShaders/DrawScreen.frag.glsl
+        2DShaders/DrawScreenI.frag.glsl
+        2DShaders/Hdr2Ldr.frag.glsl
     Lights/DefaultLight.glsl
-    Transform/TransformStructs.glsl
-    Default.vert.glsl
-    Default.frag.glsl
-    Plain.vert.glsl
-    Plain.frag.glsl
-    Lines.vert.glsl
-    Lines.frag.glsl
-    Materials/BlinnPhong/BlinnPhongMaterial.glsl
+        Lights/DirectionalLight.glsl
+        Lights/PointLight.glsl
+        Lights/SpotLight.glsl
+        Lines/Lines.vert.glsl
+        Lines/Lines.frag.glsl
+        Lines/Lines.geom.glsl
+        Lines/LinesAdjacency.geom.glsl
+        Materials/BlinnPhong/BlinnPhong.glsl
     Materials/BlinnPhong/BlinnPhong.vert.glsl
     Materials/BlinnPhong/BlinnPhong.frag.glsl
     Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl
     Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl
-    Basic2D.vert.glsl
-    DrawScreen.frag.glsl
-    DrawScreenI.frag.glsl
-    CircleBrush.frag.glsl
-    DepthDisplay/DepthDisplay.frag.glsl
-    Picking.vert.glsl
-    PickingPoints.geom.glsl
-    PickingLines.geom.glsl
-    PickingLinesAdjacency.geom.glsl
-    PickingTriangles.geom.glsl
-    Picking.frag.glsl
-    HdrToLdr/Hdr2Ldr.vert.glsl
-    HdrToLdr/Hdr2Ldr.frag.glsl
-    ComposeOIT.frag.glsl
+        Materials/Plain/Plain.vert.glsl
+        Materials/Plain/Plain.frag.glsl
+        Materials/Plain/Plain.glsl
+        Materials/Plain/PlainZPrepass.frag.glsl
+        Materials/VertexAttribInterface.frag.glsl
+        Picking/Picking.vert.glsl
+        Picking/PickingPoints.geom.glsl
+        Picking/PickingLines.geom.glsl
+        Picking/PickingLinesAdjacency.geom.glsl
+        Picking/PickingTriangles.geom.glsl
+        Picking/Picking.frag.glsl
+        Transform/TransformStructs.glsl
     )

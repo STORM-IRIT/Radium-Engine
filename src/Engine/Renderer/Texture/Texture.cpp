@@ -21,6 +21,7 @@ Engine::Texture::~Texture() = default;
 void Engine::Texture::initializeGL( bool linearize ) {
     if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
          ( m_textureParameters.target != GL_TEXTURE_2D ) &&
+         ( m_textureParameters.target != GL_TEXTURE_RECTANGLE ) &&
          ( m_textureParameters.target != GL_TEXTURE_3D ) )
     {
         LOG( logERROR ) << "Texture of type " << m_textureParameters.target
@@ -105,6 +106,7 @@ void Engine::Texture::updateData( void* data ) {
     }
     break;
     case GL_TEXTURE_2D:
+    case GL_TEXTURE_RECTANGLE:
     {
         m_texture->image2D( 0,
                             m_textureParameters.internalFormat,
@@ -161,6 +163,7 @@ void Engine::Texture::updateParameters() {
         GL_CHECK_ERROR;
         [[fallthrough]];
     case GL_TEXTURE_2D:
+    case GL_TEXTURE_RECTANGLE:
         m_texture->setParameter( GL_TEXTURE_WRAP_T, m_textureParameters.wrapT );
         GL_CHECK_ERROR;
         [[fallthrough]];

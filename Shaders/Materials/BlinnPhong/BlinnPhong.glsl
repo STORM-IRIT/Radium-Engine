@@ -1,11 +1,17 @@
 #ifndef BLINNPHONGMATERIAL_GLSL
 #define BLINNPHONGMATERIAL_GLSL
+
+//------------------- VertexAttrib interface ---------------------
+vec4 getPerVertexBaseColor();
+//----------------------------------------------------------------
+
 // Blinn-Phong specular and exponent :
 // As this shader is built on Blinn-Phong NDF, that approximate Cook-Torrance,
 // Specular parameters from the asset must be converted so that specular highlight look the same than with
 // standard Phong BRDF (divided both Ks and Ns by Pi looks good).
 // See http://www.thetenthplanet.de/archives/255 for intuitions
 const float Pi = 3.141592653589793;
+const float OneOver2Pi = 0.159154943091895;
 
 struct BlinnPhongTextures
 {
@@ -36,11 +42,13 @@ struct Material
     BlinnPhongTextures tex;
 };
 
-vec3 getKd(Material material, vec2 texCoord)
+
+// Du to access to in_vertexColor this does not respect the "Material.glsl" interface as it access data outside the material
+vec3 getDiffuseColor(Material material, vec2 texCoord)
 {
     if (material.hasPerVertexKd == 1)
     {
-        return in_color.xyz;
+        return getPerVertexBaseColor().xyz;
     }
     if (material.tex.hasKd == 1)
     {
@@ -50,7 +58,7 @@ vec3 getKd(Material material, vec2 texCoord)
     return material.kd.xyz;
 }
 
-vec3 getKs(Material material, vec2 texCoord)
+vec3 getSpecularColor(Material material, vec2 texCoord)
 {
     if (material.tex.hasKs == 1)
     {
@@ -87,45 +95,44 @@ vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B)
     return normalize(N);
 }
 
-bool toDiscard(Material material, vec2 texCoord)
-{
+vec4 getBaseColor(Material material, vec2 texCoord) {
+    vec4 bc = vec4(getDiffuseColor(material, texCoord), material.alpha);
     if (material.tex.hasAlpha == 1)
     {
-        float alpha = texture(material.tex.alpha, texCoord).r;
-        if (alpha < 0.1)
-        {
-            return true;
-        }
+        bc.a *= texture(material.tex.alpha, texCoord).r;
     }
     if ( material.renderAsSplat == 1)
     {
-        return dot(texCoord, texCoord) > 1;
+        bc.a = (dot(texCoord, texCoord) > 1) ? 0 : 1;
+        //        return dot(texCoord, texCoord) > 1;
     }
-    return false;
+    return bc;
 }
 
-vec3 getDiffuseColor(Material material, vec2 texC) {
-    return getKd(material, texC);
+bool toDiscard(Material material, vec4 color) {
+    return color.a < 1;
 }
 
-vec3 getSpecularColor(Material material, vec2 texC) {
-    return getKs(material, texC);
-}
+//139 ou 236
 
-vec3 computeMaterialInternal(Material material, vec2 texC, vec3 L, vec3 V, vec3 N, vec3 X, vec3 Y) {
-    vec3 H =  normalize(L + V);
+// wi (light direction) and wo (view direction) are in local frame
+// wi dot N is then wi.z ...
+
+vec3 evaluateBSDF(Material material, vec2 texC, vec3 l, vec3 v) {
+    // compute half vector
+    vec3 h =  normalize(l + v);
     // http://www.thetenthplanet.de/archives/255
-    float Ns = getNs(material, texC);
-    vec3 Kd = getKd(material, texC) / Pi;
-
-    // use the correct normalization factor for Blinn-Phong BRDF;
-    float normalization = (Ns + 1) / (8 * Pi * clamp(pow(dot(L, H), 3.), 0.000001, 1.));
-    vec3 Ks = getKs(material, texC) * normalization;
-
+    // Minimalist Cook-Torrance using Blinn-Phong approximation
+    vec3 Kd = getDiffuseColor(material, texC) / Pi;
     vec3 diff = Kd;
-    vec3 spec = pow(max(dot(N, H), 0.0), Ns) * Ks;
 
-    return (diff + spec) * max(dot(L,N), 0.0) ;
+    vec3 Ks = getSpecularColor(material, texC);
+    float Ns = getNs(material, texC);
+
+    float D =  (Ns + 1) * OneOver2Pi * pow(max(h.z, 0.0), Ns);
+    float FV = 0.25 * pow(dot(l, h), -3.);
+    vec3 spec = Ks * D * FV;
+    return (diff + spec) * max(l.z, 0.0);
 }
 
 
