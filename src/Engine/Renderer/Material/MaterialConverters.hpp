@@ -61,6 +61,7 @@ RA_ENGINE_API bool removeMaterialConverter( const std::string& name );
  */
 RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name );
 
+RA_ENGINE_API bool cleanup();
 } // namespace EngineMaterialConverters
 } // namespace Engine
 } // namespace Ra

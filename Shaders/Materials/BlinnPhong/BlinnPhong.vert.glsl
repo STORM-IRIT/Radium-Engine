@@ -41,7 +41,7 @@ void main()
     out_normal      = normal;
     out_tangent     = tangent;
 
-    out_viewVector  = normalize(vec3(eye - out_position));
+    out_viewVector  = vec3(eye - out_position);
     out_lightVector = getLightDirection(light, out_position);
     out_vertexcolor = in_color.rgb;
 }

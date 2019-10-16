@@ -9,7 +9,7 @@
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Engine/Renderer/Material/PlainMaterial.hpp>
 
 #include <algorithm>
 #include <numeric>
@@ -22,16 +22,22 @@ using namespace Core::Geometry;
 namespace Engine {
 namespace DrawPrimitives {
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
-    ShaderConfiguration config;
-    if ( mesh->getRenderMode() == Mesh::RM_LINES )
-    { config = ShaderConfigurationFactory::getConfiguration( "Lines" ); }
-    else
-    { config = ShaderConfigurationFactory::getConfiguration( "Plain" ); }
 
-    auto mat = Core::make_shared<BlinnPhongMaterial>( "Default material" );
     RenderTechnique rt;
-    rt.setMaterial( mat );
-    rt.setConfiguration( config );
+    if ( mesh->getRenderMode() == Mesh::RM_LINES )
+    {
+        auto config = ShaderConfigurationFactory::getConfiguration( "Lines" );
+        rt.setConfiguration( config );
+    }
+    else
+    {
+        auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
+        builder.second( rt, false );
+        auto mat = Core::make_shared<PlainMaterial>( "Default material" );
+        mat->m_perVertexColor =
+            mesh->getTriangleMesh().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+        rt.setMaterial( mat );
+    }
 
     return RenderObject::createRenderObject(
         mesh->getName(), component, RenderObjectType::Debug, mesh, rt );
@@ -509,6 +515,27 @@ MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
+    return mesh;
+}
+
+/*
+ *
+ */
+MeshPtr LineStrip( const Core::Vector3Array& vertices, const Core::Vector4Array& colors ) {
+
+    std::vector<uint> indices( vertices.size() );
+    std::iota( indices.begin(), indices.end(), 0 );
+    auto r = ( vertices.size() % 3 );
+    if ( r != 0 )
+    {
+        for ( ; r < 3; ++r )
+        {
+            indices.push_back( vertices.size() - 1 );
+        }
+    }
+    MeshPtr mesh( new Mesh( "Line Strip Primitive", Mesh::RM_LINE_STRIP ) );
+    mesh->loadGeometry( vertices, indices );
+    if ( colors.size() > 0 ) { mesh->addData( Mesh::VERTEX_COLOR, colors ); }
     return mesh;
 }
 } // namespace DrawPrimitives

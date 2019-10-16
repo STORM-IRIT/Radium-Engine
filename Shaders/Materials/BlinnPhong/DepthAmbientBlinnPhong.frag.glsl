@@ -1,33 +1,28 @@
+#include "TransformStructs.glsl"
+#include "BlinnPhong.glsl"
+
 layout (location = 0) out vec4 out_ambient;
 layout (location = 1) out vec4 out_normal;
 layout (location = 2) out vec4 out_diffuse;
 layout (location = 3) out vec4 out_specular;
 
-#include "TransformStructs.glsl"
-
-layout (location = 0) in vec3 in_position;
-layout (location = 1) in vec3 in_texcoord;
-layout (location = 2) in vec3 in_normal;
-layout (location = 3) in vec3 in_tangent;
-layout (location = 4) in vec3 in_viewVector;
-layout (location = 5) in vec3 in_lightVector;
-layout (location = 6) in vec3 in_color;
-
-#include "BlinnPhongMaterial.glsl"
+#include "VertexAttribInterface.frag.glsl"
 
 //------------------- main ---------------------
 void main() {
-    // TODO use diffuse texture alpha channel combined with material.alpha ?
+
     // Discard non fully opaque fragments
-    if (toDiscard(material, in_texcoord.xy ) || (material.alpha < 1) )
-        discard;
+    vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
+    if (toDiscard(material, bc))
+    discard;
 
-	vec3 binormal 	 = normalize(cross(in_normal, in_tangent));
-	vec3 localNormal = getNormal(material, in_texcoord.xy, in_normal, in_tangent, binormal);
+    vec3 binormal       = getWorldSpaceBiTangent();
+    vec3 normalWorld    = getNormal(material, getPerVertexTexCoord().xy,
+    getWorldSpaceNormal(), getWorldSpaceTangent(), binormal);
 
 
-    out_ambient 	= vec4(getKd(material, in_texcoord.xy) * 0.1, 1.0);
-    out_normal 		= vec4(localNormal * 0.5 + 0.5, 1.0 );
-    out_diffuse 	= vec4(getKd(material, in_texcoord.xy), 1.0);
-    out_specular 	= vec4(getKs(material, in_texcoord.xy), 1.0);
+    out_ambient    = vec4(bc.rgb * 0.01, 1.0);
+    out_normal        = vec4(normalWorld * 0.5 + 0.5, 1.0);
+    out_diffuse    = vec4(getDiffuseColor(material, getPerVertexTexCoord().xy), 1.0);
+    out_specular    = vec4(getSpecularColor(material, getPerVertexTexCoord().xy), 1.0);
 }

@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_BLINNPHONGMATERIAL_HPP
-#define RADIUMENGINE_BLINNPHONGMATERIAL_HPP
+#ifndef RADIUMENGINE_PLAINMATERIAL_HPP
+#define RADIUMENGINE_PLAINMATERIAL_HPP
 
 #include <Engine/RaEngine.hpp>
 
@@ -11,11 +11,6 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra {
-namespace Core {
-namespace Asset {
-class MaterialData;
-}
-} // namespace Core
 namespace Engine {
 
 class ShaderProgram;
@@ -25,13 +20,11 @@ class ShaderProgram;
  * @todo due to "Material.glsl" interface modification, must test this version with all plugins,
  * apps, ... that uses Radium Renderer
  */
-class RA_ENGINE_API BlinnPhongMaterial final : public Material
+class RA_ENGINE_API PlainMaterial final : public Material
 {
-    friend class BlinnPhongMaterialConverter;
-
   public:
     /// Semantic of the texture : define which BSDF parameter is controled by the texture
-    enum class TextureSemantic { TEX_DIFFUSE, TEX_SPECULAR, TEX_NORMAL, TEX_SHININESS, TEX_ALPHA };
+    enum class TextureSemantic { TEX_COLOR, TEX_MASK };
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -39,17 +32,16 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
      * Construct a named Blinn-Phongmaterial
      * @param name The name of the material
      */
-    explicit BlinnPhongMaterial( const std::string& instanceName );
+    explicit PlainMaterial( const std::string& instanceName );
     /**
      * Destructor.
      * @note The material does not have ownership on its texture. This destructor do not delete the
      * associated textures.
      */
-    ~BlinnPhongMaterial() override;
+    ~PlainMaterial() override;
 
     void updateGL() override;
     void bind( const ShaderProgram* shader ) override;
-    bool isTransparent() const override;
 
     /**
      * Add an already existing texture to control the specified BSDF parameter.
@@ -79,12 +71,9 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
     static void unregisterMaterial();
 
   public:
-    Core::Utils::Color m_kd{0.9, 0.9, 0.9, 1.0};
-    Core::Utils::Color m_ks{0.0, 0.0, 0.0, 1.0};
-    Scalar m_ns{1.0};
-    Scalar m_alpha{1.0};
-    bool m_hasPerVertexKd{false};
-    bool m_renderAsSplat{false};
+    Core::Utils::Color m_color{0.9, 0.9, 0.9, 1.0};
+    bool m_perVertexColor{false};
+    bool m_shaded{false};
 
     /**
      * Add an new texture, from a TextureData, to control the specified BSDF parameter.
@@ -109,20 +98,8 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
                                           const std::string& texture );
 };
 
-/**
- * Converter from an external representation comming from FileData to internal representation.
- */
-class RA_ENGINE_API BlinnPhongMaterialConverter final
-{
-  public:
-    BlinnPhongMaterialConverter()  = default;
-    ~BlinnPhongMaterialConverter() = default;
-
-    Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
-};
-
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/Material/BlinnPhongMaterial.inl>
-#endif // RADIUMENGINE_BLINNPHONGMATERIAL_HPP
+#include <Engine/Renderer/Material/PlainMaterial.inl>
+#endif // RADIUMENGINE_PLAINMATERIAL_HPP

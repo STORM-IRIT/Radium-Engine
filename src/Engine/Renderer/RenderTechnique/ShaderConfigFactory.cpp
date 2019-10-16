@@ -23,8 +23,8 @@ void addConfiguration( const ShaderConfiguration& config ) {
     auto found = configs.insert( {config.m_name, config} );
     if ( !found.second )
     {
-        LOG( logWARNING ) << "Configuration " << config.m_name
-                          << " already in ShaderConfigurationFactory. "
+        LOG( logDEBUG ) << "Configuration " << config.m_name
+                        << " already in ShaderConfigurationFactory. "
                              "Configuration not added";
         return;
     }
@@ -45,10 +45,6 @@ ShaderConfiguration getConfiguration( const std::string& name ) {
         // default configuration is defined as a static member of ShaderConfiguration
         LOG( logWARNING ) << "ShaderConfiguration \"" << name
                           << "\" has not been registered. Return default (added to the factory).";
-        /*
-         const ShaderConfiguration config(name);
-         configs.insert(std::make_pair(name, config));
-         */
         ShaderConfiguration config = ShaderConfiguration::getDefaultShaderConfig();
         configs.insert( std::make_pair( config.m_name, config ) );
         return config;

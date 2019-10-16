@@ -11,8 +11,7 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
@@ -62,8 +61,12 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
 
         std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
         rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-        rt->resetMaterial( new Ra::Engine::BlinnPhongMaterial( "Default material" ) );
+        auto mat              = new Ra::Engine::PlainMaterial( "Rotate Gizmo material" );
+        mat->m_perVertexColor = mesh->getTriangleMesh().hasAttrib(
+            Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR ) );
+        rt->resetMaterial( mat );
         arrowDrawable->setRenderTechnique( rt );
+
         arrowDrawable->setMesh( mesh );
 
         updateTransform( mode, m_worldTo, m_transform );

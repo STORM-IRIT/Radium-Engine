@@ -39,7 +39,7 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
 
     if ( context.isInvalid() )
     {
-        LOG( logINFO ) << "try to get action from an invalid context";
+        LOG( logDEBUG ) << "try to get action from an invalid context";
         return KeyMappingAction();
     }
     // skip key as modifiers,
