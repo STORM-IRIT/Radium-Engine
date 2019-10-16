@@ -1,8 +1,6 @@
 #pragma once
 
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/RadiumEngine.hpp>
+#include <Engine/Component/Component.hpp>
 #include <Engine/System/System.hpp>
 
 /* This file contains a minimal radium/qt application which shows the

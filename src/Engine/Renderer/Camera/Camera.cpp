@@ -1,7 +1,9 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Math/Math.hpp>
 
+#include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
@@ -42,9 +44,14 @@ void Camera::initialize() {
     m->loadGeometry( std::move( triMesh ) );
 
     // Create the RO
-    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m );
-    m_RO->getRenderTechnique()->setConfiguration(
-        ShaderConfigurationFactory::getConfiguration( "Plain" ) );
+    auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );
+    mat->m_perVertexColor =
+        m->getTriangleMesh().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+    RenderTechnique rt;
+    rt.setMaterial( mat );
+    rt.setConfiguration( ShaderConfigurationFactory::getConfiguration( "Plain" ) );
+
+    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m, rt );
     m_RO->setLocalTransform( m_frame );
     addRenderObject( m_RO );
 }

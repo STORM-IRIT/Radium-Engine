@@ -119,6 +119,7 @@ void ShaderProgram::loadShader( ShaderType type,
     std::string preprocessedSource = preprocessIncludes( name, shaderSource->string(), 0 );
 
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
+    // LOG(logDEBUG) << "Compiling shader source \n" << ptrSource.get()->string();
 
     addShaderFromSource( type, std::move( ptrSource ), name );
 }

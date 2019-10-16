@@ -1,15 +1,20 @@
 
 #include <minimalradium.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
 
+#include <Engine/RadiumEngine.hpp>
+
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+
+#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */
@@ -25,8 +30,19 @@ void MinimalComponent::initialize() {
     // Create a cube mesh render object.
     std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "Cube" ) );
     display->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
+    // Create BlinnPhong Material and the associated RenderTechnique
+    auto mat  = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "MinimalMaterial" );
+    mat->m_kd = Ra::Core::Utils::Color::Green();
+    mat->m_ks = Ra::Core::Utils::Color::White();
+    Ra::Engine::RenderTechnique renderTechnique;
+    renderTechnique.setMaterial( mat );
+    auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+    builder.second( renderTechnique, true );
+    // Create and add the renderObject to the component
     auto renderObject = Ra::Engine::RenderObject::createRenderObject(
-        "CubeRO", this, Ra::Engine::RenderObjectType::Geometry, display );
+        "CubeRO", this, Ra::Engine::RenderObjectType::Geometry, display, renderTechnique );
+    // mark the renderObject as opaque
+    renderObject->setTransparent( false );
     addRenderObject( renderObject );
 }
 

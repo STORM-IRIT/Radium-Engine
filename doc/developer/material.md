@@ -371,6 +371,245 @@ void TriangleMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* da
 }
 ~~~
 
+
+## Specification of the _Appearance Interface_ of Radium shaders
+
+Being able to compose shaders in a specific renderer while taking profit of Radium Material Library 
+(either included in the base engine or defined in plugins) require a clean definition of appearance computation 
+process and the definition of a glsl interface.
+
+This proposal aims to construct such an interface and to discuss about its usability
+
+### Appearance computation needs
+In order to compute the appearance of an object, and according to the GLSL way of life for rendering, several 
+aspects must be taken into account.
+
+1. Accessing or computing appearance attributes that depends on geometric data, such as
+    - vertex attribs (normal, position, color, ...)
+2. Accessing or computing appearance attributes that depends on extension of geometric data, such as
+    - Normal maps
+    - Displacement maps
+    - Transparency maps
+3. Accessing and computing appearance attributes that depends on the BSDF model used to render the object, such as
+    - Blinn-Phong BSDF (default BSDF in Radium Engine)
+    - Microfacet - based BSDF (added by plugins such as GLTF-2 or PBRT)
+    
+ Due to our current understanding of the OpenGL Shader ecosystem, we propose to define a general 
+ interface for all of these 3 cases such that one can implement these in .glsl files that will be included 
+ into Pipeline program by the renderer or the application.
+ 
+### Interface proposal
+As glsl allows pre-declaration of functions, we are able to define the main interfaces even 
+if one could find dependencies between them when implementing a particular instance. one exemple of such dependencies 
+is the Blinn-Phong BSDF that could take parameters either from the "Material" object in Radium or from color attributes 
+of a vertex.
+
+#### BSDF interface
+Implementing a BSDF in Radium requires 2 steps :
+1. Implement the C++ interface `Ra::Engine::Material` 
+2. Implement the glsl interface described below.
+
+For implementing the C++ interface, refer to the Radium documentation. One thing to remember is that the 
+method `Material::getMaterialName()` must return a string that contains the `name_of_the_BSDF` implemented
+in a file named `name_of_the_BSDF.glsl` that must be preloaded in a `glNamedString` to allow inclusion by others.
+
+This file must only contains the implementation of the BSDF interface, with no `void main(){...}` nor access to
+vertex attribs or so on ...
+
+This file must contain an inclusion guard :
+```glsl
+#ifndef METALLICROUGHNESS_GLSL
+#define METALLICROUGHNESS_GLSL
+.
+.
+.
+#endif
+```
+This file must define the following
+
+```glsl
+    /// Concrete definition of the Material structure that contains the BSDF parameters
+    struct Material {
+        ...
+    };
+
+    /// Returns the base color of the material, at the surface coordinates defined by texCoord.
+    /// The returned color will eventually be used to infer if the fragment is transparent or not.
+    /// The alpha channel could then vary from 0 (totally transparent) to 1 (totally opaque)
+    vec4 getBaseColor(Material material, vec2 texCoord);
+
+    /// Returns the so called "Diffuse Color" of the material, at the surface coordinates defined by texCoord.
+    /// This could be the same that the base color (without the alpha channel) or obtaine by 
+    /// a more or less complex computation
+    vec3 getDiffuseColor(Material material, vec2 texCoord);
+    
+    /// Returns the so called "Specular Color" of the material, at the surface coordinates defined by texCoord.
+    /// This could be the same that the base color (without the alpha channel) or obtained by 
+    /// a more or less complex computation
+    vec3 getSpecularColor(Material material, vec2 texCoord);
+    
+    /// Return the bsdf value for the material, at surface coordinates defined by texCoord,
+    /// for the incoming and outgoing directions `wi` and `wo`. These directions MUIST be in local frame.
+    /// The local Frame is the Frame wher the Geometric normal is the Z axis, 
+    /// and the tangent defined the X axis.
+    vec3 evaluateBSDF(Material material, vec2 texCoord, vec3 wi, vec3 wo);
+
+```
+    
+#### Microgeometry interface
+Defining the micro-geometry programmatically allows to decorelates the geometric sampling from the appearance parameters 
+sampling. The best example of procedural micro-geometry is normal mapping.
+
+The microgeometry could also define which fragment is transparent. So, in order to be able to compute or discard 
+transparent fragments, one need to define a `toDiscard` function.
+
+the interface (to be implemented in `name_of_the_BSDF.glsl`) is then
+```glsl 
+    /// Return the world normal computed according to the microgeometry definition`
+    /// If no normakl map is defined, return N
+    vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B);
+
+    /// return true if the fragment must be condidered as transparent (either fully or partially)
+    bool toDiscard(Material material, vec4 color);
+```
+    
+#### Vertex attrib interface
+In order to compute the appearance of an object, one need to rely on parameters defined directly on the geometry of 
+the object. Such parameters are passed to the shader systems as vertex attributes.
+
+In order to keep the appearance computation agnostic on the way vertex attribs are named or accessed, we must
+propose an abstract interface. But, and this is particular to these attributes, one can access to the attributes 
+himself, on the vertex, or to the attribute interpolated by the rasterizer, on the fragment.
+Accessing the Attribute directly on the vertex (i.e. on a vertex shader) does not necessitate an interface as
+each shader must define its attributes.
+
+As the microgeometry interface or the bsdf interface might access to interpolated attributes the vertexAttrib interface 
+**déclaration** must be written in the file giving the implementation of these interface. The **definition** of
+the implmentation will then be in the main fragment shader. See exemple below for a more precise understanding.
+
+The Vertex attrib interface, to be used in either a fragment shader or a vertex shader must be the following. Note that,
+in order to keep the independance between part of shaders, this interface must be define everywhere, even idf no vertex 
+attribs are accessed In this case, the given default code must be used.
+
+In the file that need the **declaration** of the interface (e.g. `name_of_the_BSDF.glsl`), the following lines must 
+be written :
+
+```glsl
+    /// Return the Vertex position, in world space, defined or interpolated from vertices
+    vec4 getWorldSpacePosition();
+
+    /// Return the geometric normal, in world space, defined or interpolated from vertices
+    vec3 getWorldSpaceNormal();
+
+    ///Return the geometric tangent, in world space, defined or interpolated from vertices
+    vec3 getWorldSpaceTangent();
+
+    ///Return the geometric bi-tangent, in world space, defined or interpolated from vertices
+    vec3 getWorldSpaceBiTangent();
+
+    ///Return the 2D parametric position of the vertex (the texture coords), defined or interpolated from vertices
+    vec3 getPerVertexTexCoord();
+
+    /// Return the base color, defined or interpolated from vertices
+    vec4 getPerVertexBaseColor();
+
+    /// return the specular color, defined or interpolated from vertices
+    vec3 getPerVertexSpecularColor();
+
+```
+Note that if a function is not needed by a shader, there is no need to implement this interface.
+
+The default implementation odf the interface might be the following :
+```glsl
+// Access to the required transfoirmation matrices
+#include "TransformStructs.glsl"
+uniform Transform transform;
+
+layout (location = 0) in vec3 in_position;
+layout (location = 1) in vec3 in_texcoord;
+#ifdef NORMAL_AS_ATTRIBUTE
+layout (location = 2) in vec3 in_normal;
+#endif
+
+#ifdef BASECOLOR_AS_ATTRIBUTE
+layout (location = 3) in vec4 in_baseColor;
+#endif
+
+    /// Return the Vertex position, in world space, defined or interpolated from vertices
+    /// This function is the same for vertex or fragments shaders
+    vec4 getWorldSpacePosition() {
+    #ifdef VERTEX_SHADER
+        vec4 pos = transform.model * vec4(in_position, 1.0);
+        pos /= pos.w;
+        return pos;
+    #else
+        return vec4 (in_position, 1.0);
+    #endif
+    }
+
+    /// Return the geometric normal, in world space, defined or interpolated from vertices
+    /// This function might be different for vertex or fragment shaders
+    vec3 getWorldSpaceNormal(
+#ifdef NORMAL_AS_ATTRIBUTE
+    #ifdef VERTEX_SHADER
+        return normalize(mat3(transform.worldNormal) * in_normal);
+    #else
+        return normalize(in_normal);
+    #endif
+#else
+    #ifdef VERTEX_SHADER
+        return what_you_think_is_the_best;
+    #else
+        vec4 pos = getWorldSpacePosition();
+        vec3 X = dFdx(pos);
+        vec3 Y = dFdy(pos);
+        return normalize(cross(X,Y));
+    #endif
+#endif
+    )
+
+    ///Return the geometric tangent, in world space, defined or interpolated from vertices
+    vec3 getWorldSpaceTangent() {
+       vec3 res;
+       // if tangent is not set, the value should be (0, 0, 0, 1). (openGL Spec)
+       // So, test if the length of in_tangent.xyz is very small and compute the 
+       // tangent from geo derivatives if needed
+       if ( length( in_tangent.xyz ) < 0.0001 ) {
+           // assume tangents are not there
+           res =  dFdx(in_position);
+       } else {
+           res = in_tangent;
+       }
+       return normalize(res);
+    }
+
+    ///Return the geometric bi-tangent, in world space, defined or interpolated from vertices
+    vec3 getWorldSpaceBiTangent() {
+        // The implementation is very similar to getPerVertexNormal
+    }
+
+    ///Return the 2D parametric position of the vertex (the texture coords), defined or interpolated from vertices
+    vec3 getPerVertexTexCoord() {
+        return in_texcoord;
+    }
+
+    /// Return the base color, defined or interpolated from vertices
+    vec4 getPerVertexBaseColor() {
+    #ifdef BASECOLOR_AS_ATTRIBUTE
+        return in_baseColor;  
+    #else
+        /// return white, that is neutral element of multiplication
+        return vec4(1.O);
+    #endif
+    }
+
+    /// return the specular color, defined or interpolated from vertices
+    vec4 getPerVertexSpecularColor() {
+        // implementation similar to getPerVertexBaseColor
+    }         
+```
+
+
 ## Extending the material library from a plugin
 
 Note that, as we will see in the _Extending the material library from a plugin_ if one want to add a new loadable

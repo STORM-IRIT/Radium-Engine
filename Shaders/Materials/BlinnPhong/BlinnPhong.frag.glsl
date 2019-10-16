@@ -1,35 +1,45 @@
 //This is for a preview of the shader composition, but in time we must use more specific Light Shader
 #include "DefaultLight.glsl"
 
+#include "BlinnPhong.glsl"
+
+#include "VertexAttribInterface.frag.glsl"
+
 uniform sampler2D uShadowMap;
 
 out vec4 fragColor;
 
-layout (location = 0) in vec3 in_position;
-layout (location = 1) in vec3 in_texcoord;
-layout (location = 2) in vec3 in_normal;
-layout (location = 3) in vec3 in_tangent;
-layout (location = 4) in vec3 in_viewVector;
-layout (location = 5) in vec3 in_lightVector;
-layout (location = 6) in vec3 in_color;
 
-#include "BlinnPhongMaterial.glsl"
+// -----------------------------------------------------------
+
 
 void main() {
-    // Discard non fully opaque fragments
-    if ( toDiscard(material, in_texcoord.xy) || (material.alpha < 1) )
+    // discard non opaque fragment
+    vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
+    if (toDiscard(material, bc))
         discard;
+    // All vectors are in world space
+    // A material is always evaluated in the fragment local Frame
+    // compute matrix from World to local Frame
+    vec3 normalWorld     = getWorldSpaceNormal();// normalized interpolated normal
+    vec3 tangentWorld    = getWorldSpaceTangent();// normalized tangent
+    vec3 binormalWorld   = getWorldSpaceBiTangent();// normalized bitangent
+    normalWorld         = getNormal(material, getPerVertexTexCoord().xy,
+    normalWorld, tangentWorld, binormalWorld);// normalized bump-mapped normal
+    binormalWorld         = normalize(cross(normalWorld, tangentWorld));// normalized tangent
+    tangentWorld         = normalize(cross(binormalWorld, normalWorld));// normalized bitangent
 
-        vec3 binormal = normalize(cross(in_normal, in_tangent));
+    mat3 world2local;
+    world2local[0]  = vec3(tangentWorld.x, binormalWorld.x, normalWorld.x);
+    world2local[1]  = vec3(tangentWorld.y, binormalWorld.y, normalWorld.y);
+    world2local[2]  = vec3(tangentWorld.z, binormalWorld.z, normalWorld.z);
+    // transform all vectors in local frame so that N = (0, 0, 1);
+    vec3 lightDir = normalize(world2local * in_lightVector);// incident direction
+    vec3 viewDir = normalize(world2local * in_viewVector);// outgoing direction
 
-        vec3 normalLocal 	= getNormal(material, in_texcoord.xy, in_normal, in_tangent, binormal);
-        vec3 binormalLocal 	= normalize(cross(normalLocal, in_tangent));
-        vec3 tangentLocal 	= normalize(cross(binormalLocal, normalLocal));
+    vec3 bsdf    = evaluateBSDF(material, getPerVertexTexCoord().xy, lightDir, viewDir);
 
-        vec3 materialColor 	= computeMaterialInternal(material, in_texcoord.xy, in_lightVector, in_viewVector,
-                                                                                                  normalLocal, tangentLocal, binormalLocal);
+    vec3 contribution    = lightContributionFrom(light, getWorldSpacePosition().xyz);
+    fragColor = vec4(bsdf * contribution, 1.0);
 
-        vec3 attenuation 	= lightContributionFrom(light, in_position);
-
-    fragColor = vec4(materialColor * attenuation, 1.0);
 }

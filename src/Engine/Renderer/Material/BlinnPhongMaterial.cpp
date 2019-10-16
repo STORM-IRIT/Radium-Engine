@@ -109,8 +109,7 @@ void BlinnPhongMaterial::registerMaterial() {
                                                          BlinnPhongMaterialConverter() );
 
     ShaderProgramManager::getInstance()->addNamedString(
-        "/BlinnPhongMaterial.glsl",
-        resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhongMaterial.glsl" );
+        "/BlinnPhong.glsl", resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.glsl" );
     // registering re-usable shaders
     Ra::Engine::ShaderConfiguration lpconfig(
         "BlinnPhong",

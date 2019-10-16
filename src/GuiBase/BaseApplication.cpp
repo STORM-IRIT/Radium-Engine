@@ -369,24 +369,21 @@ void BaseApplication::addBasicShaders() {
     /// For internal resources management in a filesystem
     std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
 
+    /// @todo Are these shaders used somewhere ?
+    /// Why loading them in the applicaiton and not in the engine or in the Plugin ?
     ShaderConfiguration lgConfig( "LinesGeom" );
-    lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
-    lgConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir + "Shaders/Lines.frag.glsl" );
-    lgConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
+    lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lgConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
+    lgConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lgConfig );
 
     ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
-    lagConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
+    lagConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
     lagConfig.addShader( ShaderType_FRAGMENT,
-                         resourcesRootDir + "Shaders/LinesAdjacency.frag.glsl" );
-    lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines.geom.glsl" );
+                         resourcesRootDir + "Shaders/Lines/LinesAdjacency.frag.glsl" );
+    lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lagConfig );
 
-    ShaderConfiguration gdConfig( "GradientDisplay" );
-    gdConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/GradientDisplay.vert.glsl" );
-    gdConfig.addShader( ShaderType_FRAGMENT,
-                        resourcesRootDir + "Shaders/GradientDisplay.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( gdConfig );
 }
 
 void BaseApplication::radiumFrame() {

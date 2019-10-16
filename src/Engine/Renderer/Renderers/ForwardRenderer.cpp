@@ -62,12 +62,12 @@ void ForwardRenderer::initShaders() {
     /// For internal resources management in a filesystem
     std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
     m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
-                                    resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
-                                    resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"} );
+                                    resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+                                    resourcesRootDir + "Shaders/2DShaders/Hdr2Ldr.frag.glsl"} );
 #ifndef NO_TRANSPARENCY
     m_shaderMgr->addShaderProgram( {{"ComposeOIT"},
-                                    resourcesRootDir + "Shaders/Basic2D.vert.glsl",
-                                    resourcesRootDir + "Shaders/ComposeOIT.frag.glsl"} );
+                                    resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+                                    resourcesRootDir + "Shaders/2DShaders/ComposeOIT.frag.glsl"} );
 #endif
 }
 

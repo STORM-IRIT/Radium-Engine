@@ -1,4 +1,4 @@
-#include "Structs.glsl"
+#include "TransformStructs.glsl"
 
 layout(points) in;
 layout(points, max_vertices = 1) out;

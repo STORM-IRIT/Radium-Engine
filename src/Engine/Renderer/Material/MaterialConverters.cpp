@@ -42,6 +42,10 @@ std::pair<bool, ConverterFunction> getMaterialConverter( const std::string& name
     return result;
 }
 
+bool cleanup() {
+    MaterialConverterRegistry.clear();
+}
+
 } // namespace EngineMaterialConverters
 } // namespace Engine
 } // namespace Ra

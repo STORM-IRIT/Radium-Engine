@@ -1,58 +1,72 @@
+#include "TransformStructs.glsl"
+#include "DefaultLight.glsl"
+#include "BlinnPhong.glsl"
+
 layout (location = 0) out vec4 f_Accumulation;
 layout (location = 1) out vec4 f_Revealage;
 
-#include "TransformStructs.glsl"
-#include "DefaultLight.glsl"
+#include "VertexAttribInterface.frag.glsl"
 
-layout (location = 0) in vec3 in_position;
-layout (location = 1) in vec3 in_texcoord;
-layout (location = 2) in vec3 in_normal;
-layout (location = 3) in vec3 in_tangent;
-layout (location = 4) in vec3 in_viewVector;
-layout (location = 5) in vec3 in_lightVector;
-layout (location = 6) in vec3 in_color;
+//implementation of weight functions of the paper
+// Weighted Blended Order-Independent Transparency
+// 	Morgan McGuire, Louis Bavoil - NVIDIA
+// Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
+// http://jcgt.org/published/0002/02/09/
 
-#include "BlinnPhongMaterial.glsl"
+// remark : manage only non colored transmission. see the paper for :
+// ... non-refractive colored transmission can be implemented as a simple extension by processing a separate coverage value per color channel
 
+// Note, z range from 0 at the camera to +infinity far away ...
 
 float weight(float z, float alpha) {
 
-     // pow(alpha, colorResistance) : increase colorResistance if foreground transparent are affecting background transparent color
-     // clamp(adjust / f(z), min, max) :
-     //     adjust : Range adjustment to avoid saturating at the clamp bounds
-     //     clamp bounds : to be tuned to avoid over or underflow of the reveleage texture.
-     // f(z) = 1e-5 + pow(z/depthRange, orederingStrength)
-     //     defRange : Depth range over which significant ordering discrimination is required. Here, 10 camera space units.
-     //         Decrease if high-opacity surfaces seem “too transparent”,
-     //         increase if distant transparents are blending together too much.
-     //     orderingStrength : Ordering strength. Increase if background is showing through foreground too much.
-     // 1e-5 + ... : avoid dividing by zero !
+    // pow(alpha, colorResistance) : increase colorResistance if foreground transparent are affecting background transparent color
+    // clamp(adjust / f(z), min, max) :
+    //     adjust : Range adjustment to avoid saturating at the clamp bounds
+    //     clamp bounds : to be tuned to avoid over or underflow of the reveleage texture.
+    // f(z) = 1e-5 + pow(z/depthRange, orederingStrength)
+    //     defRange : Depth range over which significant ordering discrimination is required. Here, 10 camera space units.
+    //         Decrease if high-opacity surfaces seem “too transparent”,
+    //         increase if distant transparents are blending together too much.
+    //     orderingStrength : Ordering strength. Increase if background is showing through foreground too much.
+    // 1e-5 + ... : avoid dividing by zero !
 
-     return pow(alpha, 0.5) * clamp(10 / ( 1e-5 + pow(z/10, 6)  ), 1e-2, 3*1e3);
- }
+    return pow(alpha, 0.5) * clamp(10 / ( 1e-5 + pow(z/10, 6)  ), 1e-2, 3*1e3);
+}
+
 
 void main()
 {
-
+    // only render non opaque fragments and not fully transparent fragments
+    vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
     // compute the transparency factor
-    float a             = material.alpha;
-    // discard fully transparent fragment
-    if (toDiscard(material, in_texcoord.xy) || a < 0.01)
-    {
-        discard;
-    }
+    float a             = bc.a;
+    if (!toDiscard(material, bc) || a < 0.001)
+    discard;
 
-    vec3 binormal       = normalize(cross(in_normal, in_tangent));
-    vec3 normalLocal    = getNormal(material, in_texcoord.xy, in_normal, in_tangent, binormal);
-    vec3 binormalLocal  = normalize(cross(normalLocal, in_tangent));
-    vec3 tangentLocal   = normalize(cross(binormalLocal, normalLocal));
+    // all vectors are in world space
+    vec3 binormal       = getWorldSpaceBiTangent();
+    vec3 normalWorld    = getNormal(material, getPerVertexTexCoord().xy,
+    getWorldSpaceNormal(), getWorldSpaceTangent(), binormal);
+    vec3 binormalWorld    = normalize(cross(normalWorld, getWorldSpaceTangent()));
+    vec3 tangentWorld    = cross(binormalWorld, normalWorld);
 
-    vec3 materialColor  = computeMaterialInternal(material, in_texcoord.xy, in_lightVector, in_viewVector,
-                                                  normalLocal, tangentLocal, binormalLocal);
-    vec3 contribution   = lightContributionFrom(light, in_position);
+    // A material is always evaluated in the fragment local Frame
+    // compute matrix from World to local Frame
+    mat3 world2local;
+    world2local[0]  = vec3(tangentWorld.x, binormalWorld.x, normalWorld.x);
+    world2local[1]  = vec3(tangentWorld.y, binormalWorld.y, normalWorld.y);
+    world2local[2]  = vec3(tangentWorld.z, binormalWorld.z, normalWorld.z);
+    // transform all vectors in local frame so that N = (0, 0, 1);
+    vec3 wi = world2local * normalize(in_lightVector);// incident direction
+    vec3 wo = world2local * normalize(in_viewVector);// outgoing direction
+
+    vec3 bsdf    = evaluateBSDF(material, getPerVertexTexCoord().xy, wi, wo);
+
+
+    vec3 contribution    = lightContributionFrom(light, getWorldSpacePosition().xyz);
 
     float w             = weight(gl_FragCoord.z, a);
-    f_Accumulation     = vec4(materialColor * contribution * a , a) * w;
+    f_Accumulation     = vec4(bsdf * contribution * a, a) * w;
     f_Revealage        = vec4(a);
-
 }
