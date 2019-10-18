@@ -35,7 +35,7 @@ void Camera::initialize() {
                           {-.3_ra, .5_ra, -1_ra},
                           {0_ra, .7_ra, -1_ra},
                           {.3_ra, .5_ra, -1_ra}} );
-    triMesh.m_triangles = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
+    triMesh.m_indices = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
     Core::Vector4Array c( 8, {.2_ra, .2_ra, .2_ra, 1_ra} );
     triMesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), c );
 
@@ -158,7 +158,7 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
 
     // ensure a minimum depth range
     Scalar range = ( m_zFar - m_zNear ) / 100_ra;
-    m_zNear     = std::max( range, m_zNear - range );
+    m_zNear      = std::max( range, m_zNear - range );
     m_zFar       = std::max( 2_ra * range, m_zFar + range );
 
     updateProjMatrix();

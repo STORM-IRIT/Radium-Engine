@@ -121,14 +121,15 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
         getAttrib( handle ).setData( data );
         return handle;
     }
-    /*
-        template <typename T>
-        inline Utils::AttribHandle<T> addAttrib( const std::string& name,
-                                                 const typename Utils::Attrib<T>::Container&& data )
-       { auto handle = addAttrib<T>( name ); getAttrib( handle ).setData( std::move( data ) );
-            return handle;
-        }
-    */
+
+    template <typename T>
+    inline Utils::AttribHandle<T> addAttrib( const std::string& name,
+                                             const typename Utils::Attrib<T>::Container&& data ) {
+        auto handle = addAttrib<T>( name );
+        getAttrib( handle ).setData( std::move( data ) );
+        return handle;
+    }
+
     /// Remove attribute by handle.
     /// \see AttribManager::removeAttrib() for more info.
     template <typename T>
@@ -197,57 +198,83 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     friend class TopologicalMesh;
 };
 
-// alias, mayve extend one day
-using PointCloud = AttribArrayGeometry;
+class RA_CORE_API PointCloud : public AttribArrayGeometry
+{};
 
-// alias for semantic purpose, actual indices are in derived classes
-using IndexedGeometry = AttribArrayGeometry;
+class RA_CORE_API LineStrip : public AttribArrayGeometry
+{};
 
-class RA_CORE_API TriangleMesh : public IndexedGeometry
+template <typename T>
+class RA_CORE_API IndexedGeometry : public AttribArrayGeometry
 {
   public:
+    using IndexType          = T;
+    using IndexContainerType = AlignedStdVector<IndexType>;
+
+    inline IndexedGeometry() = default;
+    inline IndexedGeometry( const IndexedGeometry<IndexType>& other ) :
+        AttribArrayGeometry( other ),
+        m_indices( other.m_indices ) {}
+
+    inline IndexedGeometry( IndexedGeometry<IndexType>&& other ) :
+        AttribArrayGeometry( std::move( other ) ),
+        m_indices( std::move( other.m_indices ) ) {}
+
+    inline IndexedGeometry<IndexType>& operator=( const IndexedGeometry<IndexType>& other ) {
+        AttribArrayGeometry::operator=( other );
+        m_indices                    = other.m_indices;
+        return *this;
+    }
+    inline IndexedGeometry<IndexType>& operator=( IndexedGeometry<IndexType>&& other ) {
+        AttribArrayGeometry::operator=( std::move( other ) );
+        m_indices                    = std::move( other.m_indices );
+        return *this;
+    }
+
+    inline void clear() override {
+        m_indices.clear();
+        AttribArrayGeometry::clear();
+    }
+
+    inline void copy( const IndexedGeometry<IndexType>& other ) {
+        AttribArrayGeometry::copyBaseGeometry( other );
+        m_indices = other.m_indices;
+    }
+
+    ///\todo make it protected
+    IndexContainerType m_indices;
+};
+
+class RA_CORE_API IndexedPointCloud : public IndexedGeometry<unsigned int>
+{};
+
+class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
+{
+    using base = IndexedGeometry<Vector3ui>;
+
+  public:
     inline TriangleMesh() = default;
-    inline TriangleMesh( const TriangleMesh& other );
-    inline TriangleMesh( TriangleMesh&& other );
-    inline TriangleMesh& operator=( const TriangleMesh& other );
-    inline TriangleMesh& operator=( TriangleMesh&& other );
-    void clear() override;
-    inline void copy( const TriangleMesh& other );
+    using base::IndexedGeometry;
+    using base::operator=;
+
     bool append( const TriangleMesh& other );
     /// Check that the mesh is well built, asserting when it is not.
     /// only compiles to something when in debug mode.
     void checkConsistency() const;
-
-    /// The list of triangles.
-    VectorArray<Vector3ui> m_triangles;
 };
-/*
-class RA_CORE_API Mesh : public IndexedGeometry
-{
-    using Face = VectorNui;
 
-  public:
-    /// The list of triangles.
-    VectorArray<Vector3ui> m_triangles;
-
-    /// A list of non-triangular polygons.
-    VectorArray<Face> m_faces;
-};
-*/
-class RA_CORE_API LineMesh : public IndexedGeometry
+class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
 {
+    using base = IndexedGeometry<Vector2ui>;
+
   public:
     inline LineMesh() = default;
-    inline LineMesh( const LineMesh& other );
-    inline LineMesh( LineMesh&& other );
-    inline LineMesh& operator=( const LineMesh& other );
-    inline LineMesh& operator=( LineMesh&& other );
-    void clear() override;
-    inline void copy( const LineMesh& other );
+    using base::IndexedGeometry;
+    using base::operator=;
+
     bool append( const LineMesh& other );
 
-    /// The list of lines, typically 0, 1, 1, 2, 2, 3, 3, 4 ...
-    std::vector<unsigned int> m_lines;
+    /// The list of lines, typically { 0, 1 }, {1, 2}, {2, 3}, {3, 4} ...
 };
 
 } // namespace Geometry

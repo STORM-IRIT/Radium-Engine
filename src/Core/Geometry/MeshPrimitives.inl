@@ -16,7 +16,7 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     TriangleMesh::NormalAttribHandle::Container normals;
     vertices.reserve( 2 + slices * ( stacks - 1 ) );
     normals.reserve( 2 + slices * ( stacks - 1 ) );
-    result.m_triangles.reserve( 2 * slices * ( stacks - 1 ) );
+    result.m_indices.reserve( 2 * slices * ( stacks - 1 ) );
 
     for ( uint u = 0; u < slices; ++u )
     {
@@ -35,9 +35,9 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
             {
                 const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
                 const uint baseSlice = u * ( stacks - 1 );
-                result.m_triangles.push_back(
+                result.m_indices.push_back(
                     Vector3ui( baseSlice + v - 2, baseSlice + v - 1, nextSlice + v - 1 ) );
-                result.m_triangles.push_back(
+                result.m_indices.push_back(
                     Vector3ui( baseSlice + v - 2, nextSlice + v - 1, nextSlice + v - 2 ) );
             }
         }
@@ -59,8 +59,8 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     {
         const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
         const uint baseSlice = u * ( stacks - 1 );
-        result.m_triangles.push_back( Vector3ui( northPoleIdx, baseSlice, nextSlice ) );
-        result.m_triangles.push_back(
+        result.m_indices.push_back( Vector3ui( northPoleIdx, baseSlice, nextSlice ) );
+        result.m_indices.push_back(
             Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
@@ -80,7 +80,7 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
 
     vertices.reserve( U * V );
     normals.reserve( V * V );
-    result.m_triangles.reserve( 2 * U * V );
+    result.m_indices.reserve( 2 * U * V );
 
     for ( uint iu = 0; iu < U; ++iu )
     {
@@ -98,11 +98,11 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
             vertices.push_back( vertex );
             normals.push_back( ( vertex - circleCenter ).normalized() );
 
-            result.m_triangles.push_back( Vector3ui(
+            result.m_indices.push_back( Vector3ui(
                 iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );
-            result.m_triangles.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
-                                                     ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
-                                                     iu * V + ( ( iv + 1 ) % V ) ) );
+            result.m_indices.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
+                                                   ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
+                                                   iu * V + ( ( iv + 1 ) % V ) ) );
         }
     }
 

@@ -12,20 +12,20 @@ namespace Geometry {
 
 bool TriangleMesh::append( const TriangleMesh& other ) {
     const std::size_t verticesBefore  = vertices().size();
-    const std::size_t trianglesBefore = m_triangles.size();
+    const std::size_t trianglesBefore = m_indices.size();
 
     // check same attributes through names
     if ( !AttribArrayGeometry::append( other ) ) return false;
 
     // now we can proceed topology
-    m_triangles.insert( m_triangles.end(), other.m_triangles.cbegin(), other.m_triangles.cend() );
+    m_indices.insert( m_indices.end(), other.m_indices.cbegin(), other.m_indices.cend() );
 
     // Offset the vertex indices in the triangles and faces
-    for ( size_t t = trianglesBefore; t < m_triangles.size(); ++t )
+    for ( size_t t = trianglesBefore; t < m_indices.size(); ++t )
     {
         for ( uint i = 0; i < 3; ++i )
         {
-            m_triangles[t][i] += verticesBefore;
+            m_indices[t][i] += verticesBefore;
         }
     }
 
@@ -36,18 +36,21 @@ bool TriangleMesh::append( const TriangleMesh& other ) {
 
 bool LineMesh::append( const LineMesh& other ) {
     const std::size_t verticesBefore = vertices().size();
-    const std::size_t linesBefore    = m_lines.size();
+    const std::size_t linesBefore    = m_indices.size();
 
     // check same attributes through names
     if ( !AttribArrayGeometry::append( other ) ) return false;
 
     // now we can proceed topology
-    m_lines.insert( m_lines.end(), other.m_lines.cbegin(), other.m_lines.cend() );
+    m_indices.insert( m_indices.end(), other.m_indices.cbegin(), other.m_indices.cend() );
 
     // Offset the vertex indices in the lines and faces
-    for ( size_t t = linesBefore; t < m_lines.size(); ++t )
+    for ( size_t t = linesBefore; t < m_indices.size(); ++t )
     {
-        m_lines[t] += verticesBefore;
+        for ( uint i = 0; i < 2; ++i )
+        {
+            m_indices[t][i] += verticesBefore;
+        }
     }
 
     return true;
@@ -82,9 +85,9 @@ void TriangleMesh::checkConsistency() const {
 #ifdef CORE_DEBUG
     const auto nbVertices = vertices().size();
     std::vector<bool> visited( nbVertices, false );
-    for ( uint t = 0; t < m_triangles.size(); ++t )
+    for ( uint t = 0; t < m_indices.size(); ++t )
     {
-        const Vector3ui& tri = m_triangles[t];
+        const Vector3ui& tri = m_indices[t];
         for ( uint i = 0; i < 3; ++i )
         {
             CORE_ASSERT( uint( tri[i] ) < nbVertices,

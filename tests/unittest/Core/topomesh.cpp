@@ -21,31 +21,31 @@ bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
     // Check length
     if ( meshOne.vertices().size() != meshTwo.vertices().size() ) return false;
     if ( meshOne.normals().size() != meshTwo.normals().size() ) return false;
-    if ( meshOne.m_triangles.size() != meshTwo.m_triangles.size() ) return false;
+    if ( meshOne.m_indices.size() != meshTwo.m_indices.size() ) return false;
 
     // Check triangles
     std::vector<Ra::Core::Vector3> stackVertices;
     std::vector<Ra::Core::Vector3> stackNormals;
 
     i = 0;
-    while ( result && i < int( meshOne.m_triangles.size() ) )
+    while ( result && i < int( meshOne.m_indices.size() ) )
     {
         std::vector<Ra::Core::Vector3>::iterator it;
         stackVertices.clear();
-        stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][0]] );
-        stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][1]] );
-        stackVertices.push_back( meshOne.vertices()[meshOne.m_triangles[i][2]] );
+        stackVertices.push_back( meshOne.vertices()[meshOne.m_indices[i][0]] );
+        stackVertices.push_back( meshOne.vertices()[meshOne.m_indices[i][1]] );
+        stackVertices.push_back( meshOne.vertices()[meshOne.m_indices[i][2]] );
 
         stackNormals.clear();
-        stackNormals.push_back( meshOne.normals()[meshOne.m_triangles[i][0]] );
-        stackNormals.push_back( meshOne.normals()[meshOne.m_triangles[i][1]] );
-        stackNormals.push_back( meshOne.normals()[meshOne.m_triangles[i][2]] );
+        stackNormals.push_back( meshOne.normals()[meshOne.m_indices[i][0]] );
+        stackNormals.push_back( meshOne.normals()[meshOne.m_indices[i][1]] );
+        stackNormals.push_back( meshOne.normals()[meshOne.m_indices[i][2]] );
 
         for ( int j = 0; j < 3; ++j )
         {
             it = find( stackVertices.begin(),
                        stackVertices.end(),
-                       meshTwo.vertices()[meshTwo.m_triangles[i][j]] );
+                       meshTwo.vertices()[meshTwo.m_indices[i][j]] );
             if ( it != stackVertices.end() ) { stackVertices.erase( it ); }
             else
             { result = false; }
@@ -55,7 +55,7 @@ bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
         {
             it = find( stackNormals.begin(),
                        stackNormals.end(),
-                       meshTwo.normals()[meshTwo.m_triangles[i][j]] );
+                       meshTwo.normals()[meshTwo.m_indices[i][j]] );
             if ( it != stackNormals.end() ) { stackNormals.erase( it ); }
             else
             { result = false; }

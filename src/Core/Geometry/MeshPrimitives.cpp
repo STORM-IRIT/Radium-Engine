@@ -58,7 +58,7 @@ TriangleMesh makeBox( const Aabb& aabb, const Utils::optional<Utils::Color>& col
                         Vector3( -a, +a, +a ),
                         Vector3( +a, +a, +a )} );
 
-    result.m_triangles = {
+    result.m_indices = {
         Vector3ui( 0, 2, 1 ),
         Vector3ui( 1, 2, 3 ), // Floor
         Vector3ui( 0, 1, 4 ),
@@ -153,7 +153,7 @@ TriangleMesh makeSharpBox( const Aabb& aabb, const Utils::optional<Utils::Color>
                         Vector3( 0, +1, 0 ),
                         Vector3( 0, +1, 0 )} );
 
-    result.m_triangles = {
+    result.m_indices = {
 
         Vector3ui( 0, 1, 2 ),
         Vector3ui( 0, 2, 3 ), // Floor
@@ -185,7 +185,7 @@ makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::
 
     vertices.reserve( faceCount - 8 );
     normals.reserve( faceCount - 8 );
-    result.m_triangles.reserve( faceCount );
+    result.m_indices.reserve( faceCount );
 
     // First, make an icosahedron.
     // Top vertex
@@ -217,27 +217,27 @@ makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::
     {
         uint i1 = ( i + 1 ) % 5;
         // Top triangles
-        result.m_triangles.emplace_back( 0, 2 * i + 1, ( 2 * i1 + 1 ) );
+        result.m_indices.emplace_back( 0, 2 * i + 1, ( 2 * i1 + 1 ) );
 
         // Bottom triangles
-        result.m_triangles.emplace_back( 2 * i + 2, 11, ( 2 * i1 + 2 ) );
+        result.m_indices.emplace_back( 2 * i + 2, 11, ( 2 * i1 + 2 ) );
     }
     for ( uint i = 0; i < 10; ++i )
     {
         uint i1 = ( i + 0 ) % 10 + 1;
         uint i2 = ( i + 1 ) % 10 + 1;
         uint i3 = ( i + 2 ) % 10 + 1;
-        ( i % 2 ) ? result.m_triangles.emplace_back( i3, i2, i1 )
-                  : result.m_triangles.emplace_back( i2, i3, i1 );
+        ( i % 2 ) ? result.m_indices.emplace_back( i3, i2, i1 )
+                  : result.m_indices.emplace_back( i2, i3, i1 );
     }
 
     for ( uint n = 0; n < numSubdiv; ++n )
     {
-        VectorArray<Vector3ui> newTris; //= result.m_triangles;
+        VectorArray<Vector3ui> newTris; //= result.m_indices;
         // Now subdivide every face into 4 triangles.
-        for ( uint i = 0; i < result.m_triangles.size(); ++i )
+        for ( uint i = 0; i < result.m_indices.size(); ++i )
         {
-            const Vector3ui& tri               = result.m_triangles[i];
+            const Vector3ui& tri               = result.m_indices[i];
             std::array<Vector3, 3> triVertices = {
                 vertices[tri[0]], vertices[tri[1]], vertices[tri[2]]};
             std::array<uint, 3> middles;
@@ -258,7 +258,7 @@ makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::
             newTris.emplace_back( middles[2], middles[1], tri[2] );
             newTris.emplace_back( middles[0], middles[1], middles[2] );
         }
-        result.m_triangles = newTris;
+        result.m_indices = newTris;
     }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
@@ -279,7 +279,7 @@ TriangleMesh makeCylinder( const Vector3& a,
     TriangleMesh::NormalAttribHandle::Container normals;
     vertices.reserve( 2 + 3 * nFaces );
     normals.reserve( 2 + 3 * nFaces );
-    result.m_triangles.reserve( 6 * nFaces );
+    result.m_indices.reserve( 6 * nFaces );
 
     Vector3 ab  = b - a;
     Vector3 dir = ab.normalized();
@@ -323,14 +323,14 @@ TriangleMesh makeCylinder( const Vector3& a,
         uint tl = ml + 1;                         // top left
         uint tr = mr + 1;                         // top right
 
-        result.m_triangles.emplace_back( bl, br, ml );
-        result.m_triangles.emplace_back( br, mr, ml );
+        result.m_indices.emplace_back( bl, br, ml );
+        result.m_indices.emplace_back( br, mr, ml );
 
-        result.m_triangles.emplace_back( ml, mr, tl );
-        result.m_triangles.emplace_back( mr, tr, tl );
+        result.m_indices.emplace_back( ml, mr, tl );
+        result.m_indices.emplace_back( mr, tr, tl );
 
-        result.m_triangles.emplace_back( 0, br, bl );
-        result.m_triangles.emplace_back( 1, tl, tr );
+        result.m_indices.emplace_back( 0, br, bl );
+        result.m_indices.emplace_back( 1, tl, tr );
     }
 
     result.setVertices( std::move( vertices ) );
@@ -352,7 +352,7 @@ TriangleMesh makeCapsule( Scalar length,
     TriangleMesh::NormalAttribHandle::Container normals;
     vertices.reserve( nFaces * nFaces + nFaces + 2 );
     normals.reserve( nFaces * nFaces + nFaces + 2 );
-    result.m_triangles.reserve( 2 * ( nFaces * nFaces + nFaces ) );
+    result.m_indices.reserve( 2 * ( nFaces * nFaces + nFaces ) );
 
     const Scalar l = length / 2_ra;
 
@@ -387,11 +387,11 @@ TriangleMesh makeCapsule( Scalar length,
         uint tl = ml + 1;                     // top left
         uint tr = mr + 1;                     // top right
 
-        result.m_triangles.emplace_back( bl, br, ml );
-        result.m_triangles.emplace_back( br, mr, ml );
+        result.m_indices.emplace_back( bl, br, ml );
+        result.m_indices.emplace_back( br, mr, ml );
 
-        result.m_triangles.emplace_back( ml, mr, tl );
-        result.m_triangles.emplace_back( mr, tr, tl );
+        result.m_indices.emplace_back( ml, mr, tl );
+        result.m_indices.emplace_back( mr, tr, tl );
     }
 
     // Part 2 : create the bottom hemisphere.
@@ -431,8 +431,8 @@ TriangleMesh makeCapsule( Scalar length,
         uint tl = vert_count + i;
         uint tr = vert_count + ( i + 1 ) % nFaces;
 
-        result.m_triangles.emplace_back( br, bl, tl );
-        result.m_triangles.emplace_back( br, tl, tr );
+        result.m_indices.emplace_back( br, bl, tl );
+        result.m_indices.emplace_back( br, tl, tr );
     }
 
     // Next rings of the sphere triangles
@@ -446,8 +446,8 @@ TriangleMesh makeCapsule( Scalar length,
             uint tl = vert_count + ( j + 1 ) * nFaces + i;
             uint tr = vert_count + ( j + 1 ) * nFaces + ( i + 1 ) % nFaces;
 
-            result.m_triangles.emplace_back( br, bl, tl );
-            result.m_triangles.emplace_back( br, tl, tr );
+            result.m_indices.emplace_back( br, bl, tl );
+            result.m_indices.emplace_back( br, tl, tr );
         }
     }
 
@@ -458,7 +458,7 @@ TriangleMesh makeCapsule( Scalar length,
         uint bl      = vert_count + j * nFaces + i;
         uint br      = vert_count + j * nFaces + ( i + 1 ) % nFaces;
         uint bot     = uint( vertices.size() - 1 );
-        result.m_triangles.emplace_back( br, bl, bot );
+        result.m_indices.emplace_back( br, bl, bot );
     }
 
     // Part 3 : create the top hemisphere
@@ -498,8 +498,8 @@ TriangleMesh makeCapsule( Scalar length,
         uint tl = vert_count + i;
         uint tr = vert_count + ( i + 1 ) % nFaces;
 
-        result.m_triangles.emplace_back( bl, br, tl );
-        result.m_triangles.emplace_back( br, tr, tl );
+        result.m_indices.emplace_back( bl, br, tl );
+        result.m_indices.emplace_back( br, tr, tl );
     }
 
     // Next rigns of the sphere triangles
@@ -513,8 +513,8 @@ TriangleMesh makeCapsule( Scalar length,
             uint tl = vert_count + ( j + 1 ) * nFaces + i;
             uint tr = vert_count + ( j + 1 ) * nFaces + ( i + 1 ) % nFaces;
 
-            result.m_triangles.emplace_back( bl, br, tl );
-            result.m_triangles.emplace_back( br, tr, tl );
+            result.m_indices.emplace_back( bl, br, tl );
+            result.m_indices.emplace_back( br, tr, tl );
         }
     }
 
@@ -525,7 +525,7 @@ TriangleMesh makeCapsule( Scalar length,
         uint bl      = vert_count + j * nFaces + i;
         uint br      = vert_count + j * nFaces + ( i + 1 ) % nFaces;
         uint top     = uint( vertices.size() ) - 1;
-        result.m_triangles.emplace_back( bl, br, top );
+        result.m_indices.emplace_back( bl, br, top );
     }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
@@ -550,7 +550,7 @@ TriangleMesh makeTube( const Vector3& a,
     TriangleMesh::NormalAttribHandle::Container normals;
     vertices.reserve( 6 * nFaces );
     normals.reserve( 6 * nFaces );
-    result.m_triangles.reserve( 12 * nFaces );
+    result.m_indices.reserve( 12 * nFaces );
 
     Vector3 ab  = b - a;
     Vector3 dir = ab.normalized();
@@ -607,27 +607,27 @@ TriangleMesh makeTube( const Vector3& a,
 
         // Outer face triangles, just like a regular cylinder.
 
-        result.m_triangles.emplace_back( obl, obr, oml );
-        result.m_triangles.emplace_back( obr, omr, oml );
+        result.m_indices.emplace_back( obl, obr, oml );
+        result.m_indices.emplace_back( obr, omr, oml );
 
-        result.m_triangles.emplace_back( oml, omr, otl );
-        result.m_triangles.emplace_back( omr, otr, otl );
+        result.m_indices.emplace_back( oml, omr, otl );
+        result.m_indices.emplace_back( omr, otr, otl );
 
         // Inner face triangles (note how order is reversed because inner face points inwards).
 
-        result.m_triangles.emplace_back( ibr, ibl, iml );
-        result.m_triangles.emplace_back( ibr, iml, imr );
+        result.m_indices.emplace_back( ibr, ibl, iml );
+        result.m_indices.emplace_back( ibr, iml, imr );
 
-        result.m_triangles.emplace_back( imr, iml, itl );
-        result.m_triangles.emplace_back( imr, itl, itr );
+        result.m_indices.emplace_back( imr, iml, itl );
+        result.m_indices.emplace_back( imr, itl, itr );
 
         // Bottom face quad
-        result.m_triangles.emplace_back( ibr, obr, ibl );
-        result.m_triangles.emplace_back( obl, ibl, obr );
+        result.m_indices.emplace_back( ibr, obr, ibl );
+        result.m_indices.emplace_back( obl, ibl, obr );
 
         // Top face quad
-        result.m_triangles.emplace_back( otr, itr, itl );
-        result.m_triangles.emplace_back( itl, otl, otr );
+        result.m_indices.emplace_back( otr, itr, itl );
+        result.m_indices.emplace_back( itl, otl, otr );
     }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
@@ -648,7 +648,7 @@ TriangleMesh makeCone( const Vector3& base,
     TriangleMesh::NormalAttribHandle::Container normals;
     vertices.reserve( 2 + nFaces );
     normals.reserve( 2 + nFaces );
-    result.m_triangles.reserve( 2 * nFaces );
+    result.m_indices.reserve( 2 * nFaces );
 
     Vector3 ab  = tip - base;
     Vector3 dir = ab.normalized();
@@ -679,8 +679,8 @@ TriangleMesh makeCone( const Vector3& base,
         uint bl = i + 2;                      // bottom left corner of face
         uint br = ( ( i + 1 ) % nFaces ) + 2; // bottom right corner of face
 
-        result.m_triangles.emplace_back( 0, br, bl );
-        result.m_triangles.emplace_back( 1, bl, br );
+        result.m_indices.emplace_back( 0, br, bl );
+        result.m_indices.emplace_back( 1, bl, br );
     }
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
@@ -707,7 +707,7 @@ TriangleMesh makePlaneGrid( const uint rows,
 
     vertices.resize( v_size );
     normals.resize( v_size );
-    result.m_triangles.reserve( t_size );
+    result.m_indices.reserve( t_size );
 
     const Vector3 X = T.linear().col( 0 ).normalized();
     const Vector3 Y = T.linear().col( 1 ).normalized();
@@ -733,9 +733,9 @@ TriangleMesh makePlaneGrid( const uint rows,
     {
         for ( uint j = 0; j < cols; ++j )
         {
-            result.m_triangles.emplace_back(
+            result.m_indices.emplace_back(
                 v.at( {i, j} ), v.at( {i, j + 1} ), v.at( {i + 1, j + 1} ) );
-            result.m_triangles.emplace_back(
+            result.m_indices.emplace_back(
                 v.at( {i, j} ), v.at( {i + 1, j + 1} ), v.at( {i + 1, j} ) );
         }
     }
