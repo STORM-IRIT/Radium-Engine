@@ -40,71 +40,11 @@ inline AttribArrayGeometry& AttribArrayGeometry::operator=( AttribArrayGeometry&
 //***//
 
 //***//
-inline TriangleMesh::TriangleMesh( const TriangleMesh& other ) :
-    IndexedGeometry( other ),
-    m_triangles( other.m_triangles ) {}
 
-inline TriangleMesh::TriangleMesh( TriangleMesh&& other ) :
-    IndexedGeometry( std::move( other ) ),
-    m_triangles( std::move( other.m_triangles ) ) {}
-
-inline TriangleMesh& TriangleMesh::operator=( const TriangleMesh& other ) {
-    IndexedGeometry::operator=( other );
-
-    m_triangles = other.m_triangles;
-    return *this;
-}
-
-inline TriangleMesh& TriangleMesh::operator=( TriangleMesh&& other ) {
-    IndexedGeometry::operator=( std::move( other ) );
-
-    m_triangles = std::move( other.m_triangles );
-    return *this;
-}
-
-inline void TriangleMesh::clear() {
-    m_triangles.clear();
-    IndexedGeometry::clear();
-}
-
-inline void TriangleMesh::copy( const TriangleMesh& other ) {
-    IndexedGeometry::copyBaseGeometry( other );
-    m_triangles = other.m_triangles;
-}
 //***//
 
 //***//
-inline LineMesh::LineMesh( const LineMesh& other ) :
-    IndexedGeometry( other ),
-    m_lines( other.m_lines ) {}
 
-inline LineMesh::LineMesh( LineMesh&& other ) :
-    IndexedGeometry( std::move( other ) ),
-    m_lines( std::move( other.m_lines ) ) {}
-
-inline LineMesh& LineMesh::operator=( const LineMesh& other ) {
-    IndexedGeometry::operator=( other );
-
-    m_lines = other.m_lines;
-    return *this;
-}
-
-inline LineMesh& LineMesh::operator=( LineMesh&& other ) {
-    IndexedGeometry::operator=( std::move( other ) );
-
-    m_lines = std::move( other.m_lines );
-    return *this;
-}
-
-inline void LineMesh::clear() {
-    m_lines.clear();
-    IndexedGeometry::clear();
-}
-
-inline void LineMesh::copy( const LineMesh& other ) {
-    IndexedGeometry::copyBaseGeometry( other );
-    m_lines = other.m_lines;
-}
 //***//
 
 inline void AttribArrayGeometry::clear() {

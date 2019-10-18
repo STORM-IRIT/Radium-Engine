@@ -128,7 +128,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             }
         } );
 
-    size_t num_triangles = triMesh.m_triangles.size();
+    size_t num_triangles = triMesh.m_indices.size();
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
@@ -136,7 +136,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         std::vector<TopologicalMesh::Normal> face_normals( 3 );
         std::vector<unsigned int> face_vertexIndex( 3 );
 
-        const auto& triangle = triMesh.m_triangles[i];
+        const auto& triangle = triMesh.m_indices[i];
         for ( size_t j = 0; j < 3; ++j )
         {
             unsigned int inMeshVertexIndex = triangle[j];
@@ -242,7 +242,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
 
     vertices.reserve( n_vertices() );
     normals.reserve( n_vertices() );
-    out.m_triangles.reserve( n_faces() );
+    out.m_indices.reserve( n_faces() );
 
     for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it )
     {
@@ -283,7 +283,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
             property( m_outputTriangleMeshIndexPph, *fh_it ) = vi;
             i++;
         }
-        out.m_triangles.emplace_back( indices[0], indices[1], indices[2] );
+        out.m_indices.emplace_back( indices[0], indices[1], indices[2] );
     }
     out.setVertices( vertices );
     out.setNormals( normals );

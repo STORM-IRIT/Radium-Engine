@@ -94,11 +94,11 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     }
 
     const auto& faces = data->getFaces();
-    mesh.m_triangles.resize( faces.size(), Ra::Core::Vector3ui::Zero() );
+    mesh.m_indices.resize( faces.size(), Ra::Core::Vector3ui::Zero() );
 #pragma omp parallel for
     for ( int i = 0; i < int( faces.size() ); ++i )
     {
-        mesh.m_triangles[i] = faces[i].head<3>();
+        mesh.m_indices[i] = faces[i].head<3>();
     }
 
     mesh.setVertices( std::move( vertices ) );
@@ -159,7 +159,7 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
         builder.second( rt, false );
     }
 
-    if ( m_displayMesh->getTriangleMesh().m_triangles.empty() ) // add geometry shader for splatting
+    if ( m_displayMesh->getTriangleMesh().m_indices.empty() ) // add geometry shader for splatting
     {
         auto addGeomShader = [&rt]( RenderTechnique::PassName pass ) {
             if ( rt.hasConfiguration( pass ) )
@@ -285,7 +285,7 @@ TriangleMeshComponent::getNormalsRw() {
 // Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {
 //    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
 //    m_displayMesh->setDirty( Mesh::INDEX );
-//    return &( m_displayMesh->getTriangleMesh().m_triangles );
+//    return &( m_displayMesh->getTriangleMesh().m_indices );
 //}
 
 const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {

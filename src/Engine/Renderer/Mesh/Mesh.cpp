@@ -67,9 +67,9 @@ size_t Mesh::getNumFaces() const {
     case MeshRenderMode::RM_TRIANGLE_STRIP:
         [[fallthrough]];
     case MeshRenderMode::RM_TRIANGLE_FAN:
-        return ( getTriangleMesh().m_triangles.size() - 1 ) * 3 + 1;
+        return ( getTriangleMesh().m_indices.size() - 1 ) * 3 + 1;
     case MeshRenderMode::RM_TRIANGLES:
-        return getTriangleMesh().m_triangles.size();
+        return getTriangleMesh().m_indices.size();
     default:
         return size_t( 0 );
     }
@@ -102,7 +102,7 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     {
         // We store all indices in order. This means that for lines we have
         // (L00, L01, L10), (L11, L20, L21) etc. We fill the missing by wrapping around indices.
-        mesh.m_triangles.push_back(
+        mesh.m_indices.push_back(
             {indices[i], indices[( i + 1 ) % nIdx], indices[( i + 2 ) % nIdx]} );
     }
 
@@ -129,11 +129,12 @@ void Mesh::updateGL() {
         }
         if ( m_indicesDirty )
         {
-            m_indices->setData( m_mesh.m_triangles, GL_DYNAMIC_DRAW );
-            // m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_triangles.size() *
-            //                                                  sizeof( Core::Vector3ui ) ),
-            //                     m_mesh.m_triangles.data(),
-            //                     GL_STATIC_DRAW );
+            /// this one do not work since m_indices is not a std::vector
+            // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
+            m_indices->setData(
+                static_cast<gl::GLsizeiptr>( m_mesh.m_indices.size() * sizeof( Core::Vector3ui ) ),
+                m_mesh.m_indices.data(),
+                GL_STATIC_DRAW );
             m_indicesDirty = false;
         }
         if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
@@ -161,11 +162,12 @@ void LineMesh::updateGL() {
         }
         if ( m_indicesDirty )
         {
-            m_indices->setData( m_mesh.m_lines, GL_DYNAMIC_DRAW );
-            // m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_lines.size() *
-            //                                                  sizeof( int ) ),
-            //                     m_mesh.m_lines.data(),
-            //                     GL_STATIC_DRAW );
+            /// this one do not work since m_indices is not a std::vector
+            // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
+            m_indices->setData(
+                static_cast<gl::GLsizeiptr>( m_mesh.m_indices.size() * sizeof( int ) ),
+                m_mesh.m_indices.data(),
+                GL_STATIC_DRAW );
             m_indicesDirty = false;
         }
         if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
@@ -267,7 +269,7 @@ void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
     Core::Geometry::TriangleMesh&& mesh ) {
 
     m_mesh        = std::move( mesh );
-    m_numElements = m_mesh.m_triangles.size() * 3;
+    m_numElements = m_mesh.m_indices.size() * 3;
     int idx       = 0;
 
     m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
@@ -293,7 +295,7 @@ template <>
 void DisplayableGeometry<Core::Geometry::LineMesh>::loadGeometry(
     Core::Geometry::LineMesh&& mesh ) {
     m_mesh        = std::move( mesh );
-    m_numElements = m_mesh.m_lines.size();
+    m_numElements = m_mesh.m_indices.size();
 
     setRenderMode( RM_LINES );
 

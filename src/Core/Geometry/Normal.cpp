@@ -14,7 +14,7 @@ namespace Geometry {
 //////////////
 
 void uniformNormal( const VectorArray<Vector3>& p,
-                    const VectorArray<Vector3ui>& T,
+                    const AlignedStdVector<Vector3ui>& T,
                     VectorArray<Vector3>& normal ) {
     const size_t N = p.size();
     normal.clear();
@@ -44,7 +44,7 @@ void uniformNormal( const VectorArray<Vector3>& p,
 
 Vector3 localUniformNormal( const uint ii,
                             const VectorArray<Vector3>& p,
-                            const VectorArray<Vector3ui>& T,
+                            const AlignedStdVector<Vector3ui>& T,
                             const Sparse& adj ) {
     Vector3 normal = Vector3::Zero();
     for ( Sparse::InnerIterator it( adj, ii ); it; ++it )
@@ -84,7 +84,7 @@ void angleWeightedNormal( const VectorArray<Vector3>& p,
 }
 
 void areaWeightedNormal( const VectorArray<Vector3>& p,
-                         const VectorArray<Vector3ui>& T,
+                         const AlignedStdVector<Vector3ui>& T,
                          VectorArray<Vector3>& normal ) {
     const size_t N = p.size();
     normal.clear();
