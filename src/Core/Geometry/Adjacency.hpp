@@ -33,7 +33,7 @@ using TVAdj           = AdjacencyMatrix;
  *       f( i, j ) = 0 , otherwise
  */
 RA_CORE_API AdjacencyMatrix uniformAdjacency( const uint point_size,
-                                              const VectorArray<Vector3ui>& T );
+                                              const AlignedStdVector<Vector3ui>& T );
 
 /*
  * Return the AdjacencyMatrix for the given set of points and triangles.
@@ -42,7 +42,7 @@ RA_CORE_API AdjacencyMatrix uniformAdjacency( const uint point_size,
  *       f( i, j ) = 0 , otherwise
  */
 RA_CORE_API AdjacencyMatrix uniformAdjacency( const VectorArray<Vector3>& p,
-                                              const VectorArray<Vector3ui>& T );
+                                              const AlignedStdVector<Vector3ui>& T );
 
 /*
  * Return the AdjacencyMatrix for the given set of points and triangles.
@@ -51,7 +51,7 @@ RA_CORE_API AdjacencyMatrix uniformAdjacency( const VectorArray<Vector3>& p,
  *       f( i, j ) = 0 , otherwise
  */
 RA_CORE_API TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p,
-                                            const VectorArray<Vector3ui>& T );
+                                            const AlignedStdVector<Vector3ui>& T );
 
 /*
  * Return the AdjacencyMatrix Adj for the given set of points and triangles.
@@ -60,7 +60,7 @@ RA_CORE_API TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p,
  *       f( i, j ) = 0 , otherwise
  */
 void uniformAdjacency( const VectorArray<Vector3>& p,
-                       const VectorArray<Vector3ui>& T,
+                       const AlignedStdVector<Vector3ui>& T,
                        AdjacencyMatrix& Adj );
 
 /*
@@ -71,7 +71,7 @@ void uniformAdjacency( const VectorArray<Vector3>& p,
  * where alpha_ij and beta_ij are the angles opposite the edge
  */
 RA_CORE_API AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
-                                                      const VectorArray<Vector3ui>& T );
+                                                      const AlignedStdVector<Vector3ui>& T );
 
 // ///////////// //
 // DEGREE MATRIX //

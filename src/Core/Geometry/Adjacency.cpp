@@ -13,7 +13,7 @@ namespace Geometry {
 // ADJACENCY MATRIX //
 // //////////////// //
 
-AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray<Vector3ui>& T ) {
+AdjacencyMatrix uniformAdjacency( const uint point_size, const AlignedStdVector<Vector3ui>& T ) {
     AdjacencyMatrix A( point_size, point_size );
     for ( const auto& t : T )
     {
@@ -27,7 +27,8 @@ AdjacencyMatrix uniformAdjacency( const uint point_size, const VectorArray<Vecto
     return A;
 }
 
-AdjacencyMatrix uniformAdjacency( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
+AdjacencyMatrix uniformAdjacency( const VectorArray<Vector3>& p,
+                                  const AlignedStdVector<Vector3ui>& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
     for ( const auto& t : T )
     {
@@ -42,7 +43,7 @@ AdjacencyMatrix uniformAdjacency( const VectorArray<Vector3>& p, const VectorArr
 }
 
 void uniformAdjacency( const VectorArray<Vector3>& p,
-                       const VectorArray<Vector3ui>& T,
+                       const AlignedStdVector<Vector3ui>& T,
                        AdjacencyMatrix& Adj ) {
     Adj.resize( p.size(), p.size() );
 #pragma omp parallel for
@@ -61,7 +62,8 @@ void uniformAdjacency( const VectorArray<Vector3>& p,
     }
 }
 
-TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
+TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p,
+                                const AlignedStdVector<Vector3ui>& T ) {
     const uint p_size = p.size();
     const uint t_size = T.size();
     TVAdj A( t_size, p_size );
@@ -78,7 +80,7 @@ TVAdj triangleUniformAdjacency( const VectorArray<Vector3>& p, const VectorArray
 }
 
 AdjacencyMatrix cotangentWeightAdjacency( const VectorArray<Vector3>& p,
-                                          const VectorArray<Vector3ui>& T ) {
+                                          const AlignedStdVector<Vector3ui>& T ) {
     AdjacencyMatrix A( p.size(), p.size() );
     std::vector<Eigen::Triplet<Scalar>> triplets( T.size() * 6 );
 #pragma omp parallel for

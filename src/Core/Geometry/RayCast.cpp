@@ -342,9 +342,9 @@ bool RayCastTriangleMesh( const Ray& r,
                           std::vector<Scalar>& hitsOut,
                           std::vector<Vector3ui>& trianglesIdxOut ) {
     bool hit = false;
-    for ( size_t i = 0; i < mesh.m_triangles.size(); ++i )
+    for ( size_t i = 0; i < mesh.m_indices.size(); ++i )
     {
-        const auto& t    = mesh.m_triangles[i];
+        const auto& t    = mesh.m_indices[i];
         const Vector3& a = mesh.vertices()[t[0]];
         const Vector3& b = mesh.vertices()[t[1]];
         const Vector3& c = mesh.vertices()[t[2]];

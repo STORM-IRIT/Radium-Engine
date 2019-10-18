@@ -46,12 +46,12 @@ LineMeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, 
                                    ( point + ( scale * Core::Vector3::UnitZ() ) ),
                                    ( point - ( scale * Core::Vector3::UnitZ() ) )};
 
-    std::vector<uint> indices = {0, 1, 2, 3, 4, 5};
+    Ra::Core::Geometry::LineMesh::IndexContainerType indices = {{0, 1}, {2, 3}, {4, 5}};
     Core::Vector4Array colors( vertices.size(), color );
 
     Ra::Core::Geometry::LineMesh geom;
     geom.setVertices( vertices );
-    geom.m_lines = indices;
+    geom.m_indices = indices;
 
     LineMeshPtr mesh( new LineMesh( "Point Primitive", Mesh::RM_LINES ) );
     mesh->loadGeometry( std::move( geom ) );

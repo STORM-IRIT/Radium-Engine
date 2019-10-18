@@ -71,7 +71,7 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
                 }
                 count++;
             }
-            data.m_triangles.push_back( f );
+            data.m_indices.push_back( f );
         }
     }
     if ( vertices.size() == 0 )
@@ -105,7 +105,7 @@ bool OBJFileManager::exportData( std::ostream& file, const Geometry::TriangleMes
                    std::to_string( n[2] ) + "\n";
     }
     // Triangle
-    for ( const auto& f : data.m_triangles )
+    for ( const auto& f : data.m_indices )
     {
         content += "f " + std::to_string( f[0] + 1 ) + " " + std::to_string( f[1] + 1 ) + " " +
                    std::to_string( f[2] + 1 ) + "\n";
