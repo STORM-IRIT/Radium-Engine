@@ -13,42 +13,62 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
+/// A HandleAnimation stores the animation KeyFrames of transforms applied to
+/// a part of an object, e.g. a bone of an animation skeleton.
 struct RA_CORE_API HandleAnimation {
     explicit HandleAnimation( const std::string& name = "" );
 
+    /// The handle's name.
     std::string m_name;
+
+    /// The list of KeyFramed transformed applied to the handle.
     Core::Animation::KeyTransform m_anim;
 };
 
+/// The AnimationData class stores all the HandleAnimations related to an object,
+/// e.g. the ones from all the skeleton bones.
 class RA_CORE_API AnimationData : public AssetData
 {
   public:
-    /// CONSTRUCTOR
     explicit AnimationData( const std::string& name = "" );
-    /// DESTRUCTOR
+
     ~AnimationData();
 
-    /// NAME
+    /// Returns the name of the object.
     inline void setName( const std::string& name );
 
-    /// TIME
+    /// Return the AnimationTime linked to the object.
     inline const Core::Animation::AnimationTime& getTime() const;
+
+    /// Set the AnimationTime for the object.
     inline void setTime( const Core::Animation::AnimationTime& time );
+
+    /// Return the animation timestep.
     inline Core::Animation::Time getTimeStep() const;
+
+    /// Set the animation timestep.
     inline void setTimeStep( const Core::Animation::Time& delta );
 
-    /// KEY FRAME
+    /// Return the number of transform.
     inline uint getFramesSize() const;
+
+    /// Return the HandleAnimation, i.e. the whole animation frames.
     inline std::vector<HandleAnimation> getFrames() const;
+
+    /// Set the animation frames.
     inline void setFrames( const std::vector<HandleAnimation>& frameList );
 
-    /// DEBUG
+    /// Print stat info to the Debug output.
     inline void displayInfo() const;
 
   protected:
-    /// VARIABLE
+    /// The AnimationTime for the object.
     Core::Animation::AnimationTime m_time;
+
+    /// The animation timestep.
     Core::Animation::Time m_dt;
+
+    /// The animation frames.
     std::vector<HandleAnimation> m_keyFrame;
 };
 
