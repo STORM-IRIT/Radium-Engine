@@ -4,7 +4,7 @@ set( core_sources
     Animation/BulgeCorrection.cpp
     Animation/Cage.cpp
     Animation/DualQuaternionSkinning.cpp
-    Animation/Handle.cpp
+    Animation/HandleSystem.cpp
     Animation/HandleWeightOperation.cpp
     Animation/LinearBlendSkinning.cpp
     Animation/PoseOperation.cpp
@@ -49,7 +49,7 @@ set( core_headers
     Animation/BulgeCorrection.hpp
     Animation/Cage.hpp
     Animation/DualQuaternionSkinning.hpp
-    Animation/Handle.hpp
+    Animation/HandleSystem.hpp
     Animation/HandleWeight.hpp
     Animation/HandleWeightOperation.hpp
     Animation/Interpolation.hpp
@@ -139,7 +139,7 @@ set( core_headers
     )
 
 set( core_inlines
-    Animation/Handle.inl
+    Animation/HandleSystem.inl
     Animation/Sequence.inl
     Asset/AnimationData.inl
     Asset/BlinnPhongMaterialData.inl

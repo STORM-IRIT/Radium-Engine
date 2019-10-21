@@ -1,7 +1,7 @@
 #ifndef SKELETON_HANDLE_H
 #define SKELETON_HANDLE_H
 
-#include <Core/Animation/Handle.hpp>
+#include <Core/Animation/HandleSystem.hpp>
 #include <Core/Containers/AdjacencyList.hpp>
 
 namespace Ra {
@@ -9,16 +9,16 @@ namespace Core {
 namespace Animation {
 
 /**
- * The Skeleton handle class.
+ * The Skeleton class.
  *
- * A skeleton handle is a set of joint transforms with an associated joint hierarchy,
+ * A skeleton is a set of joint transforms with an associated joint hierarchy,
  * represented by a graph ( adjacency list ).
  *
  * Skeleton bones represent a couple of joints: the proximal joint and the distal joint,
  * the former begin the parent of the latter in the hierarchy.
  * For animation purposes, a bone transform refers to the proximal joint's tranform.
  */
-class RA_CORE_API Skeleton : public Handle
+class RA_CORE_API Skeleton : public HandleSystem
 {
   public:
     Skeleton();

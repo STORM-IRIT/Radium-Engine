@@ -36,6 +36,7 @@ void Animation::normalize() {
     // sort the keys according to their timestamp
     sort( m_keys.begin(), m_keys.end(), KeyPoseComparator() );
 }
+
 Scalar Animation::getTime( Scalar timestamp ) const {
     if ( m_keys.empty() ) { return 0; }
     Scalar duration = m_keys.back().first;
