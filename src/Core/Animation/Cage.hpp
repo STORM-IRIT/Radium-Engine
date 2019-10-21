@@ -1,7 +1,7 @@
 #ifndef CAGE_HANDLE_H
 #define CAGE_HANDLE_H
 
-#include <Core/Animation/Handle.hpp>
+#include <Core/Animation/HandleSystem.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
 
@@ -17,7 +17,7 @@ namespace Animation {
  *
  * \warning This class is probably unused
  */
-class RA_CORE_API Cage : public Handle
+class RA_CORE_API Cage : public HandleSystem
 {
   public:
     Cage();

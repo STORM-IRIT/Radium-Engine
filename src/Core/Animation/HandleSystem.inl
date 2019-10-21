@@ -1,27 +1,27 @@
-#include <Core/Animation/Handle.hpp>
+#include <Core/Animation/HandleSystem.hpp>
 
 namespace Ra {
 namespace Core {
 namespace Animation {
 
-inline uint Handle::size() const {
+inline uint HandleSystem::size() const {
     return m_pose.size();
 }
 
-inline std::string Handle::getName() const {
+inline std::string HandleSystem::getName() const {
     return m_name;
 }
 
-inline void Handle::setName( const Label& name ) {
+inline void HandleSystem::setName( const Label& name ) {
     m_name = name;
 }
 
-inline Label Handle::getLabel( const uint i ) const {
+inline Label HandleSystem::getLabel( const uint i ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bound" );
     return m_label.at( i );
 }
 
-inline void Handle::setLabel( const uint i, const Label& text ) {
+inline void HandleSystem::setLabel( const uint i, const Label& text ) {
     CORE_ASSERT( ( i < size() ), "Index i out of bound" );
     m_label[i] = text;
 }

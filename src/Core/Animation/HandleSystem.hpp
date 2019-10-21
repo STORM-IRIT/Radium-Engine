@@ -1,5 +1,5 @@
-#ifndef RADIUMENGINE_HANDLE_INCLUDE
-#define RADIUMENGINE_HANDLE_INCLUDE
+#ifndef RADIUMENGINE_HANDLE_SYSTEM
+#define RADIUMENGINE_HANDLE_SYSTEM
 
 #include <Core/Animation/Pose.hpp>
 #include <Core/RaCore.hpp>
@@ -15,9 +15,9 @@ namespace Animation {
 using Label = std::string;
 
 /**
- * The Handle class describes the base handle structure used for deformation.
+ * The HandleSystem class describes the base handle structure used for deformation.
  */
-class RA_CORE_API Handle
+class RA_CORE_API HandleSystem
 {
   public:
     /**
@@ -25,12 +25,12 @@ class RA_CORE_API Handle
      */
     enum class SpaceType { LOCAL, MODEL };
 
-    Handle();
-    explicit Handle( const uint n );
-    Handle( const Handle& handle ) = default;
-    Handle& operator=( const Handle& handle ) = default;
+    HandleSystem();
+    explicit HandleSystem( const uint n );
+    HandleSystem( const HandleSystem& handle ) = default;
+    HandleSystem& operator=( const HandleSystem& handle ) = default;
 
-    virtual ~Handle();
+    virtual ~HandleSystem();
 
     /**
      * @return the number of transformations
@@ -38,7 +38,7 @@ class RA_CORE_API Handle
     inline virtual uint size() const;
 
     /**
-     * Clear the transformtions data
+     * Clear the transformations data
      */
     virtual void clear();
 
@@ -105,6 +105,6 @@ class RA_CORE_API Handle
 } // Namespace Core
 } // Namespace Ra
 
-#include <Core/Animation/Handle.inl>
+#include <Core/Animation/HandleSystem.inl>
 
-#endif // RADIUMENGINE_HANDLE_INCLUDE
+#endif // RADIUMENGINE_HANDLE_SYSTEM
