@@ -10,6 +10,7 @@
 
 namespace Ra {
 namespace Core {
+
 //
 // Common vector types
 //
@@ -35,6 +36,7 @@ using Vector3i = Eigen::Vector3i;
 using Vector4i = Eigen::Vector4i;
 
 using VectorNui = Eigen::Matrix<uint, Eigen::Dynamic, 1>;
+using Vector1ui = Eigen::Matrix<uint, 1, 1>;
 using Vector2ui = Eigen::Matrix<uint, 2, 1>;
 using Vector3ui = Eigen::Matrix<uint, 3, 1>;
 using Vector4ui = Eigen::Matrix<uint, 4, 1>;
