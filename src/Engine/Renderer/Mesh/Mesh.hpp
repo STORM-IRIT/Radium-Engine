@@ -30,7 +30,7 @@ using namespace Ra::Core::Utils;
 /// also manage draw calls
 class Vao
 {
-    ///
+    /// \todo not used for now ... but may be if we allow multiple vao per mesh
     std::unique_ptr<globjects::VertexArray> m_vao;
     std::vector<std::unique_ptr<globjects::Buffer>> m_vbos;
     std::vector<bool> m_dataDirty;
@@ -53,28 +53,16 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
 
     /// Information which is in the mesh geometry
     enum MeshData : uint {
-        VERTEX_POSITION, ///< Vertex positions
-        VERTEX_NORMAL,   ///< Vertex normals
-
-        MAX_MESH
-    };
-
-    /// Optional vector 3 data.
-    enum Vec3Data : uint {
-        VERTEX_TANGENT = 0, ///< Vertex tangent 1
-        VERTEX_BITANGENT,   ///< Vertex tangent 2
-        VERTEX_TEXCOORD,    ///< U,V  texture coords (last coordinate not used)
-
-        MAX_VEC3
-    };
-
-    /// Optional vector 4 data
-    enum Vec4Data : uint {
-        VERTEX_COLOR = 0,  ///< RGBA color.
+        VERTEX_POSITION,   ///< Vertex positions
+        VERTEX_NORMAL,     ///< Vertex normals
+        VERTEX_TANGENT,    ///< Vertex tangent 1
+        VERTEX_BITANGENT,  ///< Vertex tangent 2
+        VERTEX_TEXCOORD,   ///< U,V  texture coords (last coordinate not used)
+        VERTEX_COLOR,      ///< RGBA color.
         VERTEX_WEIGHTS,    ///< Skinning weights (not used)
         VERTEX_WEIGHT_IDX, ///< Associated weight bones
 
-        MAX_VEC4
+        MAX_DATA
     };
     ///@}
 
@@ -100,9 +88,6 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
         RM_PATCHES                  = 0x000E, // decimal value: 14
     };
 
-    /// Total number of vertex attributes.
-    constexpr static uint MAX_DATA = MAX_MESH + MAX_VEC3 + MAX_VEC4;
-
   public:
     explicit VaoDisplayable( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
     VaoDisplayable( const VaoDisplayable& rhs ) = delete;
@@ -117,16 +102,20 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     inline void setRenderMode( MeshRenderMode mode );
     MeshRenderMode getRenderMode() const { return m_renderMode; }
 
-    /// Access the additionnal data arrays by type.
+    /// \name Mark one of the data types as dirty, forcing an update of the openGL buffer.
+    ///@{
 
-    /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
+    /// \param type the data to set to dirty
     void setDirty( const MeshData& type );
 
-    /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
-    void setDirty( const Vec3Data& type );
+    /// \param name, the data buffer name to set to dirty
+    void setDirty( const std::string& name );
 
-    /// Mark one of the data types as dirty, forcing an update of the openGL buffer.
-    void setDirty( const Vec4Data& type );
+    /// \param index, the data buffer index to set to dirty. If index is greater
+    /// than then number of buffer, this function as no effect
+    void setDirty( unsigned int index );
+
+    ///@}
 
     /**
      * This function is called at the start of the rendering. It will update the
@@ -137,8 +126,6 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     //@{
     /// Get the name expected for a given attrib.
     static inline std::string getAttribName( MeshData type );
-    static inline std::string getAttribName( Vec3Data type );
-    static inline std::string getAttribName( Vec4Data type );
     //@}
 
   protected:
@@ -170,7 +157,7 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
 
     // Geometry attrib name (std::string) to buffer id (int)
     // buffer id are indices in m_vbos
-    std::map<std::string, int> m_handleToBuffer;
+    std::map<std::string, unsigned int> m_handleToBuffer;
 
     /// number of elements to draw. For triangles this is 3*numTriangles
     /// but not for lines.
@@ -212,26 +199,11 @@ class DisplayableGeometry : public VaoDisplayable
     void updateGL() override;
 
   protected:
+    virtual void updateGL_specific_impl(){};
+    void loadGeometry_common( CoreGeometry&& mesh );
     void autoVertexAttribPointer( const ShaderProgram* prog );
-    void addAttribObserver( const std::string& name ) {
-        auto attrib = m_mesh.getAttribBase( name );
-        // if attrib not nullptr, then it's a add
-        if ( attrib )
-        {
-            auto itr = m_handleToBuffer.find( name );
-            if ( itr == m_handleToBuffer.end() )
-            {
-                m_handleToBuffer[name] = m_dataDirty.size();
-                m_dataDirty.push_back( true );
-                m_vbos.emplace_back( nullptr );
-            }
-            auto idx = m_handleToBuffer[name];
-            attrib->attach( AttribObserver( this, idx ) );
-        }
-        // else it's a remove, cleanup will be done in updateGL()
-        else
-        {}
-    }
+    void addAttribObserver( const std::string& name );
+
     CoreGeometry m_mesh;
 };
 
@@ -251,9 +223,10 @@ class PointCloud : public DisplayableGeometry<Core::Geometry::PointCloud>
 
   public:
     using DisplayableGeometry<Core::Geometry::PointCloud>::DisplayableGeometry;
-
-    void updateGL() override;
     void render( const ShaderProgram* prog ) override;
+
+  protected:
+    void updateGL_specific_impl() override;
 };
 
 class LineMesh : public DisplayableGeometry<Core::Geometry::LineMesh>
@@ -263,7 +236,9 @@ class LineMesh : public DisplayableGeometry<Core::Geometry::LineMesh>
   public:
     using DisplayableGeometry<Core::Geometry::LineMesh>::DisplayableGeometry;
     void render( const ShaderProgram* prog ) override;
-    void updateGL() override;
+
+  protected:
+    void updateGL_specific_impl() override;
 
   private:
     std::unique_ptr<globjects::Buffer> m_indices;
@@ -280,8 +255,6 @@ class Mesh : public DisplayableGeometry<Core::Geometry::TriangleMesh>
     /// Draw the mesh.
     void render( const ShaderProgram* prog ) override;
 
-    void updateGL() override;
-
     /**
      * Use the given vertices and indices to build a display mesh according to
      * the MeshRenderMode.
@@ -293,6 +266,9 @@ class Mesh : public DisplayableGeometry<Core::Geometry::TriangleMesh>
     using base::loadGeometry;
     [[deprecated]] void loadGeometry( const Core::Vector3Array& vertices,
                                       const std::vector<uint>& indices );
+
+  protected:
+    void updateGL_specific_impl() override;
 
   private:
     std::unique_ptr<globjects::Buffer> m_indices;
