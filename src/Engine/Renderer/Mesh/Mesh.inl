@@ -47,21 +47,34 @@ CoreGeometry& DisplayableGeometry<CoreGeometry>::getTriangleMesh() {
 std::string VaoDisplayable::getAttribName( MeshData type ) {
     if ( type == VERTEX_POSITION ) return {"in_position"};
     if ( type == VERTEX_NORMAL ) return {"in_normal"};
-    return {"indices but should not happend"};
-}
-
-std::string VaoDisplayable::getAttribName( Vec3Data type ) {
     if ( type == VERTEX_TANGENT ) return {"in_tangent"};
     if ( type == VERTEX_BITANGENT ) return {"in_bitangent"};
     if ( type == VERTEX_TEXCOORD ) return {"in_texcoord"};
-    return {"invalid vec3 attr"};
-}
-
-std::string VaoDisplayable::getAttribName( Vec4Data type ) {
     if ( type == VERTEX_COLOR ) return {"in_color"};
     if ( type == VERTEX_WEIGHTS ) return {"in_weight"};
     if ( type == VERTEX_WEIGHT_IDX ) return {"in_weight_idx"};
-    return {"invalid vec4 attr"};
+    return {"invalid mesh data attr name"};
+}
+
+template <typename CoreGeometry>
+void DisplayableGeometry<CoreGeometry>::addAttribObserver( const std::string& name ) {
+    auto attrib = m_mesh.getAttribBase( name );
+    // if attrib not nullptr, then it's a add
+    if ( attrib )
+    {
+        auto itr = m_handleToBuffer.find( name );
+        if ( itr == m_handleToBuffer.end() )
+        {
+            m_handleToBuffer[name] = m_dataDirty.size();
+            m_dataDirty.push_back( true );
+            m_vbos.emplace_back( nullptr );
+        }
+        auto idx = m_handleToBuffer[name];
+        attrib->attach( AttribObserver( this, idx ) );
+    }
+    // else it's a remove, cleanup will be done in updateGL()
+    else
+    {}
 }
 
 template <typename CoreGeometry>
@@ -98,6 +111,26 @@ void DisplayableGeometry<CoreGeometry>::autoVertexAttribPointer( const ShaderPro
     m_vao->unbind();
 }
 
+template <typename T>
+void DisplayableGeometry<T>::loadGeometry_common( T&& mesh ) {
+    m_mesh  = std::move( mesh );
+    int idx = 0;
+    m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
+    m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
+    // here capture ref to idx to propagate idx incrementation
+    m_mesh.vertexAttribs().for_each_attrib( [&idx, this]( Ra::Core::Utils::AttribBase* b ) {
+        m_handleToBuffer[b->getName()] = idx;
+        m_dataDirty[idx]               = true;
+
+        b->attach( AttribObserver( this, idx ) );
+
+        ++idx;
+    } );
+    m_mesh.vertexAttribs().attachMember( this,
+                                         &DisplayableGeometry<CoreGeometry>::addAttribObserver );
+    m_isDirty = true;
+}
+
 template <typename CoreGeometry>
 void DisplayableGeometry<CoreGeometry>::updateGL() {
     if ( m_isDirty )
@@ -107,6 +140,8 @@ void DisplayableGeometry<CoreGeometry>::updateGL() {
                                                  : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
         CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency" );
         CORE_ASSERT( !( m_mesh.vertices().empty() ), "No vertex." );
+
+        updateGL_specific_impl();
 
         auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
             auto idx = m_handleToBuffer[b->getName()];
