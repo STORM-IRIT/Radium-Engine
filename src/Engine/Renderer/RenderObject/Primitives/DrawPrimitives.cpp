@@ -37,44 +37,39 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
 }
 
 LineMeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale ) {
-    Core::Vector3Array vertices = {( point + ( scale * Core::Vector3::UnitX() ) ),
-                                   ( point - ( scale * Core::Vector3::UnitX() ) ),
-
-                                   ( point + ( scale * Core::Vector3::UnitY() ) ),
-                                   ( point - ( scale * Core::Vector3::UnitY() ) ),
-
-                                   ( point + ( scale * Core::Vector3::UnitZ() ) ),
-                                   ( point - ( scale * Core::Vector3::UnitZ() ) )};
-
-    Ra::Core::Geometry::LineMesh::IndexContainerType indices = {{0, 1}, {2, 3}, {4, 5}};
-    Core::Vector4Array colors( vertices.size(), color );
 
     Ra::Core::Geometry::LineMesh geom;
-    geom.setVertices( vertices );
-    geom.m_indices = indices;
+    geom.setVertices( {( point + ( scale * Core::Vector3::UnitX() ) ),
+                       ( point - ( scale * Core::Vector3::UnitX() ) ),
 
-    LineMeshPtr mesh( new LineMesh( "Point Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( std::move( geom ) );
-    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+                       ( point + ( scale * Core::Vector3::UnitY() ) ),
+                       ( point - ( scale * Core::Vector3::UnitY() ) ),
 
-    return mesh;
-}
+                       ( point + ( scale * Core::Vector3::UnitZ() ) ),
+                       ( point - ( scale * Core::Vector3::UnitZ() ) )} );
+    geom.m_indices = {{0, 1}, {2, 3}, {4, 5}};
 
-MeshPtr Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Utils::Color& color ) {
-    Core::Vector3Array vertices = {a, b};
-
-    std::vector<uint> indices = {0, 1};
-
-    Core::Vector4Array colors( vertices.size(), color );
-
-    MeshPtr mesh( new Mesh( "Line Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+    LineMeshPtr mesh( new LineMesh( "Point Primitive", std::move( geom ), Mesh::RM_LINES ) );
+    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                                       Core::Vector4Array{mesh->getNumVertices(), color} );
 
     return mesh;
 }
 
-MeshPtr
+LineMeshPtr
+Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Utils::Color& color ) {
+    Ra::Core::Geometry::LineMesh geom;
+    geom.setVertices( {a, b} );
+    geom.m_indices = {{0, 1}};
+
+    LineMeshPtr mesh( new LineMesh( "Line Primitive", std::move( geom ), Mesh::RM_LINES ) );
+    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                                       Core::Vector4Array{mesh->getNumVertices(), color} );
+
+    return mesh;
+}
+
+LineMeshPtr
 Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::Color& color ) {
     Core::Vector3 end = start + v;
     Core::Vector3 a, b;
@@ -84,18 +79,17 @@ Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::C
 
     const Scalar arrowFract = 0.1f;
 
-    Core::Vector3Array vertices = {
-        start,
-        end,
-        start + ( ( 1.f - arrowFract ) * v ) + ( ( arrowFract * l ) * a ),
-        start + ( ( 1.f - arrowFract ) * v ) - ( ( arrowFract * l ) * a )};
-    std::vector<uint> indices = {0, 1, 1, 2, 1, 3};
+    Ra::Core::Geometry::LineMesh geom;
+    geom.setVertices( {start,
+                       end,
+                       start + ( ( 1.f - arrowFract ) * v ) + ( ( arrowFract * l ) * a ),
+                       start + ( ( 1.f - arrowFract ) * v ) - ( ( arrowFract * l ) * a )} );
+    geom.m_indices = {{0, 1}, {1, 2}, {1, 3}};
 
-    Core::Vector4Array colors( vertices.size(), color );
+    LineMeshPtr mesh( new LineMesh( "Vector Primitive", std::move( geom ), Mesh::RM_LINES ) );
 
-    MeshPtr mesh( new Mesh( "Vector Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+    mesh->getTriangleMesh().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                                       Core::Vector4Array{mesh->getNumVertices(), color} );
 
     return mesh;
 }
