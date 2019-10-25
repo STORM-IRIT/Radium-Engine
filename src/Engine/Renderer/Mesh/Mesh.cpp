@@ -247,7 +247,6 @@ void DisplayableGeometry<Core::Geometry::LineMesh>::loadGeometry(
     Core::Geometry::LineMesh&& mesh ) {
     m_numElements = mesh.m_indices.size() * 2;
     /// \todo remove this ? since it's specified when one create a line mesh.
-    setRenderMode( RM_LINES );
     loadGeometry_common( std::move( mesh ) );
 }
 
