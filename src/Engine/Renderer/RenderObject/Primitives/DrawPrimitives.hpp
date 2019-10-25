@@ -32,14 +32,14 @@ RA_ENGINE_API LineMeshPtr Point( const Core::Vector3& point,
                                  Scalar scale = 0.1f );
 
 /// Displays given line
-RA_ENGINE_API MeshPtr Line( const Core::Vector3& a,
-                            const Core::Vector3& b,
-                            const Core::Utils::Color& color );
+RA_ENGINE_API LineMeshPtr Line( const Core::Vector3& a,
+                                const Core::Vector3& b,
+                                const Core::Utils::Color& color );
 
 /// Displays given vector shown as an arrow originating from 'start'
-RA_ENGINE_API MeshPtr Vector( const Core::Vector3& start,
-                              const Core::Vector3& v,
-                              const Core::Utils::Color& color );
+RA_ENGINE_API LineMeshPtr Vector( const Core::Vector3& start,
+                                  const Core::Vector3& v,
+                                  const Core::Utils::Color& color );
 
 /// Displays given ray as a straight line.
 RA_ENGINE_API MeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color );
