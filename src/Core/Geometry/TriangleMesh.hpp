@@ -13,16 +13,12 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/// Simple Mesh structure that handles indexed polygonal mesh with vertex
-/// attributes.
 /// Attributes are unique per vertex, so that same position with different
 /// normals are two vertices.
 /// Points and Normals, defining the mesh geometry, are always present.
 /// They can be accessed through vertices() and normals().
 /// Other attribs could be added with addAttrib() and accesssed with getAttrib().
 /// \note Attribute names "in_position" "in_normal" are reserved and pre-allocated.
-/// \note Attribute name "in_color" is not reserved, but automatically binded to
-/// colors by Ra::Engine::Mesh when it exists (type must be Vec4AttribHandle)
 class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 {
   public:
@@ -204,6 +200,9 @@ class RA_CORE_API PointCloud : public AttribArrayGeometry
 class RA_CORE_API LineStrip : public AttribArrayGeometry
 {};
 
+/// Simple Mesh structure that handles indexed polygonal mesh with vertex
+/// attributes. Each face is indexed with typename T = IndexType.
+/// T is assumed to be an Eigen Vector of unsigned ints
 template <typename T>
 class RA_CORE_API IndexedGeometry : public AttribArrayGeometry
 {
@@ -212,70 +211,30 @@ class RA_CORE_API IndexedGeometry : public AttribArrayGeometry
     using IndexContainerType = AlignedStdVector<IndexType>;
 
     inline IndexedGeometry() = default;
-    inline IndexedGeometry( const IndexedGeometry<IndexType>& other ) :
-        AttribArrayGeometry( other ),
-        m_indices( other.m_indices ) {}
+    inline IndexedGeometry( const IndexedGeometry<IndexType>& other );
+    inline IndexedGeometry( IndexedGeometry<IndexType>&& other );
+    inline IndexedGeometry<IndexType>& operator=( const IndexedGeometry<IndexType>& other );
+    inline IndexedGeometry<IndexType>& operator=( IndexedGeometry<IndexType>&& other );
+    inline void clear() override;
+    inline void copy( const IndexedGeometry<IndexType>& other );
 
-    inline IndexedGeometry( IndexedGeometry<IndexType>&& other ) :
-        AttribArrayGeometry( std::move( other ) ),
-        m_indices( std::move( other.m_indices ) ) {}
-
-    inline IndexedGeometry<IndexType>& operator=( const IndexedGeometry<IndexType>& other ) {
-        AttribArrayGeometry::operator=( other );
-        m_indices                    = other.m_indices;
-        return *this;
-    }
-    inline IndexedGeometry<IndexType>& operator=( IndexedGeometry<IndexType>&& other ) {
-        AttribArrayGeometry::operator=( std::move( other ) );
-        m_indices                    = std::move( other.m_indices );
-        return *this;
-    }
-
-    inline void clear() override {
-        m_indices.clear();
-        AttribArrayGeometry::clear();
-    }
-
-    inline void copy( const IndexedGeometry<IndexType>& other ) {
-        AttribArrayGeometry::copyBaseGeometry( other );
-        m_indices = other.m_indices;
-    }
+    /// Check that the mesh is well built, asserting when it is not.
+    /// only compiles to something when in debug mode.
+    inline void checkConsistency() const;
+    bool append( const IndexedGeometry<IndexType>& other );
 
     ///\todo make it protected
     IndexContainerType m_indices;
 };
 
-class RA_CORE_API IndexedPointCloud : public IndexedGeometry<unsigned int>
+class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
 class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
-{
-    using base = IndexedGeometry<Vector3ui>;
-
-  public:
-    inline TriangleMesh() = default;
-    using base::IndexedGeometry;
-    using base::operator=;
-
-    bool append( const TriangleMesh& other );
-    /// Check that the mesh is well built, asserting when it is not.
-    /// only compiles to something when in debug mode.
-    void checkConsistency() const;
-};
+{};
 
 class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
-{
-    using base = IndexedGeometry<Vector2ui>;
-
-  public:
-    inline LineMesh() = default;
-    using base::IndexedGeometry;
-    using base::operator=;
-
-    bool append( const LineMesh& other );
-
-    /// The list of lines, typically { 0, 1 }, {1, 2}, {2, 3}, {3, 4} ...
-};
+{};
 
 } // namespace Geometry
 } // namespace Core
