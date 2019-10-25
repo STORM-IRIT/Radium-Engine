@@ -175,6 +175,12 @@ class DisplayableGeometry : public VaoDisplayable
 
   public:
     using VaoDisplayable::VaoDisplayable;
+    explicit DisplayableGeometry( const std::string& name,
+                                  CoreGeometry&& geom,
+                                  MeshRenderMode renderMode = RM_TRIANGLES ) :
+        VaoDisplayable( name, renderMode ) {
+        loadGeometry( std::move( geom ) );
+    }
 
     /// Returns the underlying AbstractGeometry, which is in fact a TriangleMesh
     /// \see getTriangleMesh
