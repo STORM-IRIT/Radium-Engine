@@ -33,34 +33,6 @@ VaoDisplayable::VaoDisplayable( const std::string& name, MeshRenderMode renderMo
     updatePickingRenderMode();
 }
 
-void Mesh::render( const ShaderProgram* prog ) {
-    if ( m_vao )
-    {
-        autoVertexAttribPointer( prog );
-        m_vao->bind();
-        m_vao->drawElements( static_cast<GLenum>( m_renderMode ),
-                             GLsizei( m_numElements ),
-                             GL_UNSIGNED_INT,
-                             nullptr );
-
-        m_vao->unbind();
-    }
-}
-
-void LineMesh::render( const ShaderProgram* prog ) {
-    if ( m_vao )
-    {
-        autoVertexAttribPointer( prog );
-        m_vao->bind();
-        m_vao->drawElements( static_cast<GLenum>( m_renderMode ),
-                             GLsizei( m_numElements ),
-                             GL_UNSIGNED_INT,
-                             nullptr );
-
-        m_vao->unbind();
-    }
-}
-
 size_t Mesh::getNumFaces() const {
     switch ( getRenderMode() )
     {
@@ -112,49 +84,6 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
 
     ///\todo check line vs triangle here is a bug
     loadGeometry( std::move( mesh ) );
-}
-
-void Mesh::updateGL_specific_impl() {
-    if ( !m_indices )
-    {
-        m_indices      = globjects::Buffer::create();
-        m_indicesDirty = true;
-    }
-    if ( m_indicesDirty )
-    {
-        /// this one do not work since m_indices is not a std::vector
-        // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
-        m_indices->setData(
-            static_cast<gl::GLsizeiptr>( m_mesh.m_indices.size() * sizeof( Core::Vector3ui ) ),
-            m_mesh.m_indices.data(),
-            GL_STATIC_DRAW );
-        m_indicesDirty = false;
-    }
-    if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
-    m_vao->bind();
-    m_vao->bindElementBuffer( m_indices.get() );
-    m_vao->unbind();
-}
-
-void LineMesh::updateGL_specific_impl() {
-    if ( !m_indices )
-    {
-        m_indices      = globjects::Buffer::create();
-        m_indicesDirty = true;
-    }
-    if ( m_indicesDirty )
-    {
-        /// this one do not work since m_indices is not a std::vector
-        // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
-        m_indices->setData( static_cast<gl::GLsizeiptr>( m_mesh.m_indices.size() * sizeof( int ) ),
-                            m_mesh.m_indices.data(),
-                            GL_STATIC_DRAW );
-        m_indicesDirty = false;
-    }
-    if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
-    m_vao->bind();
-    m_vao->bindElementBuffer( m_indices.get() );
-    m_vao->unbind();
 }
 
 void VaoDisplayable::updatePickingRenderMode() {
@@ -234,42 +163,18 @@ void VaoDisplayable::setDirty( const VaoDisplayable::MeshData& type ) {
     m_isDirty = true;
 }
 
-template <>
-void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
-    Core::Geometry::TriangleMesh&& mesh ) {
-    /// \todo  use an helper function instead of 3 here
-    m_numElements = mesh.m_indices.size() * 3;
-    loadGeometry_common( std::move( mesh ) );
-}
-
-template <>
-void DisplayableGeometry<Core::Geometry::LineMesh>::loadGeometry(
-    Core::Geometry::LineMesh&& mesh ) {
-    m_numElements = mesh.m_indices.size() * 2;
-    /// \todo remove this ? since it's specified when one create a line mesh.
-    loadGeometry_common( std::move( mesh ) );
-}
-
-template <>
-void DisplayableGeometry<Core::Geometry::PointCloud>::loadGeometry(
-    Core::Geometry::PointCloud&& mesh ) {
-    m_numElements = m_mesh.vertices().size();
-    setRenderMode( RM_POINTS );
-    loadGeometry_common( std::move( mesh ) );
-}
-
 void PointCloud::render( const ShaderProgram* prog ) {
     if ( m_vao )
     {
         autoVertexAttribPointer( prog );
         m_vao->bind();
-        m_vao->drawArrays( static_cast<GLenum>( m_renderMode ), 0, GLsizei( m_numElements ) );
+        m_vao->drawArrays(
+            static_cast<GLenum>( m_renderMode ), 0, GLsizei( m_mesh.vertices().size() ) );
         m_vao->unbind();
     }
 }
 
 void PointCloud::updateGL_specific_impl() {
-    m_numElements = m_mesh.vertices().size();
     if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
     base::updateGL();
 }

@@ -172,5 +172,46 @@ void DisplayableGeometry<CoreGeometry>::updateGL() {
     }
 }
 
+template <typename T>
+void IndexedGeometry<T>::updateGL_specific_impl() {
+
+    if ( !m_indices )
+    {
+        m_indices      = globjects::Buffer::create();
+        m_indicesDirty = true;
+    }
+    if ( m_indicesDirty )
+    {
+        /// this one do not work since m_indices is not a std::vector
+        // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
+
+        m_indices->setData(
+            static_cast<gl::GLsizeiptr>( base::m_mesh.m_indices.size() *
+                                         sizeof( typename base::CoreGeometry::IndexType ) ),
+            base::m_mesh.m_indices.data(),
+            GL_STATIC_DRAW );
+        m_indicesDirty = false;
+    }
+    if ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }
+    base::m_vao->bind();
+    base::m_vao->bindElementBuffer( m_indices.get() );
+    base::m_vao->unbind();
+}
+
+template <typename T>
+void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
+    if ( base::m_vao )
+    {
+        base::autoVertexAttribPointer( prog );
+        base::m_vao->bind();
+        base::m_vao->drawElements( static_cast<GLenum>( base::m_renderMode ),
+                                   GLsizei( m_numElements ),
+                                   GL_UNSIGNED_INT,
+                                   nullptr );
+
+        base::m_vao->unbind();
+    }
+}
+
 } // namespace Engine
 } // namespace Ra

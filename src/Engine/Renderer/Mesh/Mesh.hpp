@@ -159,10 +159,6 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     // buffer id are indices in m_vbos
     std::map<std::string, unsigned int> m_handleToBuffer;
 
-    /// number of elements to draw. For triangles this is 3*numTriangles
-    /// but not for lines.
-    size_t m_numElements{0};
-
     /// General dirty bit of the mesh. Must be equivalent of the  "or" of the other dirty flags.
     /// an empty mesh is not dirty
     bool m_isDirty{false};
@@ -171,9 +167,8 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
 template <typename T>
 class DisplayableGeometry : public VaoDisplayable
 {
-    using CoreGeometry = T;
-
   public:
+    using CoreGeometry = T;
     using VaoDisplayable::VaoDisplayable;
     explicit DisplayableGeometry( const std::string& name,
                                   CoreGeometry&& geom,
@@ -201,27 +196,20 @@ class DisplayableGeometry : public VaoDisplayable
     inline size_t getNumVertices() const override { return m_mesh.vertices().size(); }
 
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
-    void loadGeometry( CoreGeometry&& mesh ) { CORE_ASSERT( false, "must be specialized" ); }
+    virtual void loadGeometry( CoreGeometry&& mesh ) {
+        CORE_ASSERT( false, "must be specialized" );
+    }
     void updateGL() override;
 
   protected:
     virtual void updateGL_specific_impl(){};
+
     void loadGeometry_common( CoreGeometry&& mesh );
     void autoVertexAttribPointer( const ShaderProgram* prog );
     void addAttribObserver( const std::string& name );
 
     CoreGeometry m_mesh;
 };
-
-template <>
-void DisplayableGeometry<Core::Geometry::TriangleMesh>::loadGeometry(
-    Core::Geometry::TriangleMesh&& );
-
-template <>
-void DisplayableGeometry<Core::Geometry::LineMesh>::loadGeometry( Core::Geometry::LineMesh&& );
-
-template <>
-void DisplayableGeometry<Core::Geometry::PointCloud>::loadGeometry( Core::Geometry::PointCloud&& );
 
 class PointCloud : public DisplayableGeometry<Core::Geometry::PointCloud>
 {
@@ -231,35 +219,62 @@ class PointCloud : public DisplayableGeometry<Core::Geometry::PointCloud>
     using DisplayableGeometry<Core::Geometry::PointCloud>::DisplayableGeometry;
     void render( const ShaderProgram* prog ) override;
 
+    void loadGeometry( Core::Geometry::PointCloud&& mesh ) override {
+        loadGeometry_common( std::move( mesh ) );
+    }
+
   protected:
     void updateGL_specific_impl() override;
 };
 
-class LineMesh : public DisplayableGeometry<Core::Geometry::LineMesh>
+template <typename T>
+class IndexedGeometry : public DisplayableGeometry<T>
 {
-    using base = DisplayableGeometry<Core::Geometry::LineMesh>;
-
   public:
-    using DisplayableGeometry<Core::Geometry::LineMesh>::DisplayableGeometry;
+    using base = DisplayableGeometry<T>;
+    using DisplayableGeometry<T>::DisplayableGeometry;
+    explicit IndexedGeometry(
+        const std::string& name,
+        typename base::CoreGeometry&& geom,
+        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_TRIANGLES ) :
+        base( name, renderMode ) {
+        loadGeometry( std::move( geom ) );
+    }
+
     void render( const ShaderProgram* prog ) override;
 
-  protected:
-    void updateGL_specific_impl() override;
+    void loadGeometry( T&& mesh ) override {
+        m_numElements = mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
+        base::loadGeometry_common( std::move( mesh ) );
+    }
 
-  private:
+  protected:
+    void updateGL_specific_impl();
     std::unique_ptr<globjects::Buffer> m_indices;
     bool m_indicesDirty{true};
+    /// number of elements to draw. For triangles this is 3*numTriangles
+    /// but not for lines.
+    size_t m_numElements{0};
 };
 
-class Mesh : public DisplayableGeometry<Core::Geometry::TriangleMesh>
+class LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
 {
-    using base = DisplayableGeometry<Core::Geometry::TriangleMesh>;
+    using base = IndexedGeometry<Core::Geometry::LineMesh>;
 
   public:
-    using DisplayableGeometry<Core::Geometry::TriangleMesh>::DisplayableGeometry;
+    using base::IndexedGeometry;
+
+  protected:
+  private:
+};
+
+class Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
+{
+    using base = IndexedGeometry<Core::Geometry::TriangleMesh>;
+
+  public:
+    using base::IndexedGeometry;
     size_t getNumFaces() const override;
-    /// Draw the mesh.
-    void render( const ShaderProgram* prog ) override;
 
     /**
      * Use the given vertices and indices to build a display mesh according to
@@ -274,11 +289,7 @@ class Mesh : public DisplayableGeometry<Core::Geometry::TriangleMesh>
                                       const std::vector<uint>& indices );
 
   protected:
-    void updateGL_specific_impl() override;
-
   private:
-    std::unique_ptr<globjects::Buffer> m_indices;
-    bool m_indicesDirty{true};
 };
 
 } // namespace Engine
