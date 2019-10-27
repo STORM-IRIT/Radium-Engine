@@ -94,8 +94,8 @@ Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::C
     return mesh;
 }
 
-MeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color ) {
-    Core::Vector3 end = ray.pointAt( 1000.f );
+MeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color, Scalar len ) {
+    Core::Vector3 end = ray.pointAt( len );
 
     Core::Vector3Array vertices = {ray.origin(), end};
     std::vector<uint> indices   = {0, 1};
