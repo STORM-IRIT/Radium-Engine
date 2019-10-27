@@ -176,7 +176,7 @@ bool Gui::Viewer::initializeGL() {
 
     createGizmoManager();
     // create default camera interface : trackball
-    m_camera = std::make_unique<Gui::TrackballCameraManipulator>(width(), height() );
+    m_camera = std::make_unique<Gui::TrackballCameraManipulator>( width(), height() );
     auto headlight =
         new Engine::DirectionalLight( Ra::Engine::SystemEntity::getInstance(), "headlight" );
     headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
@@ -521,6 +521,8 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
     {
 
         if ( actionViewer == VIEWER_TOGGLE_WIREFRAME ) { m_currentRenderer->toggleWireframe(); }
+        else if ( actionViewer == VIEWER_RELOAD_SHADERS )
+        { reloadShaders(); }
         else if ( actionViewer == VIEWER_PICKING_MULTI_CIRCLE )
         {
             m_isBrushPickingEnabled = !m_isBrushPickingEnabled;

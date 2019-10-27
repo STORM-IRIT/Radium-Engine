@@ -31,6 +31,7 @@
     <keymap context="ViewerContext" key="Key_C" modifiers="" buttons="" action="VIEWER_PICKING_MULTI_CIRCLE"/>
     <keymap context="ViewerContext" key="Key_Z" modifiers="" buttons="" action="VIEWER_TOGGLE_WIREFRAME"/>
     <keymap context="ViewerContext" key="Key_R" modifiers="AltModifier" buttons="LeftButton" action="VIEWER_RAYCAST"/>
+    <keymap context="ViewerContext" key="Key_R" modifiers="" buttons="" action="VIEWER_RELOAD_SHADERS"/>
     <keymap context="ViewerContext" key="" modifiers="ShiftModifier" buttons="" wheel="true"
             action="VIEWER_SCALE_BRUSH"/>
 </keymaps>
