@@ -18,6 +18,7 @@ add_executable(unittests
     Core/indexmap.cpp
     Core/mesh.cpp
     Core/observer.cpp
+    Core/obb.cpp
     Core/polyline.cpp
     Core/raycast.cpp
     Core/string.cpp
