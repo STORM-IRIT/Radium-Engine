@@ -45,7 +45,7 @@ before_install:
   ############################################################################
   # Install a recent Qt
   ############################################################################
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install qt; fi
   - |
     if [ "$TRAVIS_OS_NAME" = "linux" ]; then
       sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-xenial
