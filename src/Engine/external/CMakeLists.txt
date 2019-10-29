@@ -50,14 +50,16 @@ ExternalProject_Add( globjects
     GIT_TAG dc68b09a53ec20683d3b3a12ed8d9cb12602bb9a
     GIT_PROGRESS TRUE
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        DEPENDS glbinding
+    DEPENDS glbinding glm
     CMAKE_ARGS
     -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
     -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
     -DOPTION_BUILD_DOCS=OFF
     -DOPTION_BUILD_EXAMPLES=OFF
-        -Dglbinding_DIR=${CMAKE_INSTALL_PREFIX}
+    -Dglbinding_DIR=${CMAKE_INSTALL_PREFIX}
+    # force to use the bundled glm version
+    -Dglm_DIR=${CMAKE_INSTALL_PREFIX}/lib/cmake/glm
     )
 
 ExternalProject_Add( stb
