@@ -5,10 +5,12 @@ include(cleanCppExtensions)
 include(sanitizers)
 
 # Enable helpfull warnings and C++17 for all files
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(MSVC)
-  add_compile_options(/std:c++17 /W3 )
+  add_compile_options(/W3 )
 else()
-  add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
+  add_compile_options(-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
 #------------------------------------------------------------------------------
