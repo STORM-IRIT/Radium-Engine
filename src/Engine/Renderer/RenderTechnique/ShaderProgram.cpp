@@ -120,7 +120,7 @@ void ShaderProgram::loadShader( ShaderType type,
 
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
 
-    addShaderFromSource( type, std::move( ptrSource ) );
+    addShaderFromSource( type, std::move( ptrSource ), name );
 }
 
 void ShaderProgram::addShaderFromSource( ShaderType type,
@@ -129,18 +129,15 @@ void ShaderProgram::addShaderFromSource( ShaderType type,
 
     auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
 
-    shader->setSource( ptrSource.get() );
-
     shader->setName( name );
-
+    shader->setSource( ptrSource.get() );
     shader->compile();
 
     GL_CHECK_ERROR;
     m_shaderObjects[type].swap( shader );
-
-    // raw ptrSource are stored in shader object, need to keep them valid during
-    // shader life
     m_shaderSources[type].swap( ptrSource );
+    // ^^^ raw ptrSource are stored in shader object, need to keep them valid during
+    // shader life
 }
 
 GLenum ShaderProgram::getTypeAsGLEnum( ShaderType type ) const {
@@ -266,7 +263,8 @@ void ShaderProgram::unbind() const {
 void ShaderProgram::reload() {
     for ( auto& s : m_shaderObjects )
     {
-        if ( s != nullptr )
+        /// \todo find a way to reload shader without source code file name.
+        if ( s != nullptr && !s->name().empty() )
         {
             LOG( logDEBUG ) << "Reloading shader " << s->name();
 
