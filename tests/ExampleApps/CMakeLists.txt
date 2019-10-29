@@ -28,7 +28,6 @@ macro( configureExampleApp APP )
         RUNTIME DESTINATION bin)
 
     if(APPLE)
-        include( BundleUtilities )
         install(CODE "
             include(BundleUtilities)
             fixup_bundle(${CMAKE_INSTALL_PREFIX}/${APP}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
