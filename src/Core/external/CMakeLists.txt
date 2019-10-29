@@ -39,3 +39,17 @@ ExternalProject_Add( OpenMesh
     -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
     -DBUILD_APPS=OFF
     )
+
+ExternalProject_Add(cpplocate
+        GIT_REPOSITORY https://github.com/cginternals/cpplocate.git
+        GIT_TAG origin/master
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        CMAKE_ARGS
+        -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
+        -DOPTION_BUILD_TESTS=OFF
+        -DOPTION_BUILD_DOCS=OFF
+        )

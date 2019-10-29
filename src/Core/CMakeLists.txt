@@ -38,12 +38,17 @@ find_package(OpenMesh
     COMPONENTS Core Tools
     NO_DEFAULT_PATH )
 
+find_package(cpplocate
+        REQUIRED
+        NO_DEFAULT_PATH
+        PATHS ${CMAKE_INSTALL_PREFIX})
+
 configureTargetWithDefaultRaSettings( ${ra_core_target} )
 add_dependencies ( ${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in version
 target_include_directories(${ra_core_target} PUBLIC
     $<BUILD_INTERFACE:${OPENMESH_INCLUDE_DIR}>
     $<BUILD_INTERFACE:${EIGEN_INCLUDE_DIR}> )
-target_link_libraries (${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen)
+target_link_libraries(${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen cpplocate::cpplocate)
 
 target_compile_definitions(${ra_core_target} PRIVATE "-DRA_CORE_EXPORTS")
 if( WIN_32)
