@@ -170,3 +170,5 @@ message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message(STATUS "")
 
 
+# Add this target so that some IDE could propose to build all radium libs and examples at once
+add_custom_target(RadiumLibs DEPENDS RadiumCore RadiumEngine RadiumGuiBase RadiumIO RadiumPluginBase CoreExampleApp RadiumExampleApps)
