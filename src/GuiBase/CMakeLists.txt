@@ -41,4 +41,5 @@ installLibHeaders( "GuiBase" "${guibase_headers}" )
 installLibHeaders( "GuiBase" "${guibase_inlines}" )
 
 # Fixme: use a proper ressource manager + install in share ?
-install(DIRECTORY Configs DESTINATION Resources)
+message(STATUS "[GuiBase] installing resources from Configs")
+installResources(TARGET ${ra_guibase_target} DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs)

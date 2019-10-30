@@ -42,4 +42,6 @@ target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
 installLibHeaders( "Engine" "${engine_headers}" )
 installLibHeaders( "Engine" "${engine_inlines}" )
-installLibShaders( "${engine_shaders}")
+
+message(STATUS "[Engine] installing resources from ${RADIUM_SHADERS_DIR}")
+installResources(TARGET ${ra_engine_target} DIRECTORY ${RADIUM_SHADERS_DIR} FILES ${engine_shaders})
