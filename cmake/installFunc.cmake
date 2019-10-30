@@ -25,7 +25,7 @@ function(installResources)
     )
     if (NOT PARSED_ARGS_DIRECTORY)
         message(FATAL_ERROR " [installResources] You must provide a resource directory")
-    endif (NOT PARSED_ARGS_DIRECTORY)
+    endif ()
     get_filename_component(rsc_dir ${PARSED_ARGS_DIRECTORY} NAME)
     get_filename_component(buildtree_dir ${CMAKE_CURRENT_BINARY_DIR} DIRECTORY)
     message(STATUS " [installResources] Linking resources directory ${PARSED_ARGS_DIRECTORY} for target ${PARSED_ARGS_TARGET} into ${buildtree_dir}/Resources/${rsc_dir}")
@@ -35,21 +35,25 @@ function(installResources)
         file(CREATE_LINK ${PARSED_ARGS_DIRECTORY} "${buildtree_dir}/Resources/${rsc_dir}" COPY_ON_ERROR SYMBOLIC)
     else ()
         if (MSVC OR MSVC_IDE OR MINGW)
-            add_custom_command(TARGET ${TRGT}
+            add_custom_command(
+                    TARGET ${PARSED_ARGS_TARGET}
                     POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PARSED_ARGS_DIRECTORY} "${buildtree_dir}/Resources/${rsc_dir}"
+                    VERBATIM
                     )
-        else (MSVC OR MSVC_IDE OR MINGW)
-            add_custom_command(TARGET ${TRGT}
+        else ()
+            add_custom_command(
+                    TARGET ${PARSED_ARGS_TARGET}
                     POST_BUILD
                     COMMAND ${CMAKE_COMMAND} -E create_symlink ${PARSED_ARGS_DIRECTORY} "${buildtree_dir}/Resources/${rsc_dir}"
+                    VERBATIM
                     )
-        endif (MSVC OR MSVC_IDE OR MINGW)
-    endif (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.14)
+        endif ()
+    endif ()
     # build the list of files to install
     if (NOT PARSED_ARGS_FILES)
         file(GLOB_RECURSE PARSED_ARGS_FILES RELATIVE ${PARSED_ARGS_DIRECTORY} ${PARSED_ARGS_DIRECTORY}/*)
-    endif (NOT PARSED_ARGS_FILES)
+    endif ()
     message(STATUS " [installResources] Installing files ${PARSED_ARGS_FILES}")
     foreach (file ${PARSED_ARGS_FILES})
         get_filename_component( file_dir ${file} DIRECTORY )
