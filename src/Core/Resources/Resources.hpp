@@ -20,6 +20,9 @@ namespace Core {
  */
 namespace Resources {
 /// Get the base prefix to access the Radium resources in a filesystem.
+/// This base prefix is the parent directory of the directory containing libRadiumCore, appended
+/// with /Resources/ as all Radium resources will be installed  (or linked in the buildtree) in such
+/// a directory
 RA_CORE_API std::string getBaseDir();
 
 // allow to manage several resource locators

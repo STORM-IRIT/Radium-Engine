@@ -10,7 +10,7 @@ std::string getBaseDir() {
     auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
     auto baseDir     = libraryDir.substr( 0, libraryDir.find_last_of( '/' ) + 1 );
 
-    return baseDir;
+    return baseDir + "Resources/";
 }
 
 ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath{""} {
