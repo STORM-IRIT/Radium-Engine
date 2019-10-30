@@ -153,13 +153,13 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
         mat->m_ks            = Ra::Core::Utils::Color::White();
         mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
         mat->m_hasPerVertexKd =
-            m_displayMesh->getTriangleMesh().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+            m_displayMesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
         rt.setMaterial( mat );
         auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
         builder.second( rt, false );
     }
 
-    if ( m_displayMesh->getTriangleMesh().m_indices.empty() ) // add geometry shader for splatting
+    if ( m_displayMesh->getCoreGeometry().m_indices.empty() ) // add geometry shader for splatting
     {
         auto addGeomShader = [&rt]( RenderTechnique::PassName pass ) {
             if ( rt.hasConfiguration( pass ) )
@@ -194,7 +194,7 @@ Ra::Core::Utils::Index TriangleMeshComponent::getRenderObjectIndex() const {
 
 const Ra::Core::Geometry::TriangleMesh& TriangleMeshComponent::getMesh() const {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    return m_displayMesh->getTriangleMesh();
+    return m_displayMesh->getCoreGeometry();
 }
 
 Mesh* TriangleMeshComponent::getDisplayMesh() {
@@ -244,7 +244,7 @@ void TriangleMeshComponent::setupIO( const std::string& id ) {
 }
 
 const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() const {
-    return &m_displayMesh->getTriangleMesh();
+    return &m_displayMesh->getCoreGeometry();
 }
 
 Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
@@ -259,16 +259,16 @@ Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     //    m_displayMesh->setDirty( Mesh::VERTEX_COLOR );
     //    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHTS );
     //    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX );
-    return &( m_displayMesh->getTriangleMesh() );
+    return &( m_displayMesh->getCoreGeometry() );
 }
 /*
 Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType*
 TriangleMeshComponent::getVerticesRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
     auto handle =
-        m_displayMesh->getTriangleMesh().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
+        m_displayMesh->getCoreGeometry().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
             "in_position" );
-    if ( handle.idx().isValid() ) return &( m_displayMesh->getTriangleMesh().getAttrib( handle ) );
+    if ( handle.idx().isValid() ) return &( m_displayMesh->getCoreGeometry().getAttrib( handle ) );
     return nullptr;
 }
 
@@ -276,16 +276,16 @@ Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::AttribType*
 TriangleMeshComponent::getNormalsRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
     auto handle =
-        m_displayMesh->getTriangleMesh().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
+        m_displayMesh->getCoreGeometry().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
             "in_normal" );
-    if ( handle.idx().isValid() ) return &( m_displayMesh->getTriangleMesh().getAttrib( handle ) );
+    if ( handle.idx().isValid() ) return &( m_displayMesh->getCoreGeometry().getAttrib( handle ) );
     return nullptr;
 }
 */
 // Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {
 //    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
 //    m_displayMesh->setDirty( Mesh::INDEX );
-//    return &( m_displayMesh->getTriangleMesh().m_indices );
+//    return &( m_displayMesh->getCoreGeometry().m_indices );
 //}
 
 const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {

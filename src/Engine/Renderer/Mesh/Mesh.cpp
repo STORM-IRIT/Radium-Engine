@@ -40,9 +40,9 @@ size_t Mesh::getNumFaces() const {
     case MeshRenderMode::RM_TRIANGLE_STRIP:
         [[fallthrough]];
     case MeshRenderMode::RM_TRIANGLE_FAN:
-        return ( getTriangleMesh().m_indices.size() - 1 ) * 3 + 1;
+        return ( getCoreGeometry().m_indices.size() - 1 ) * 3 + 1;
     case MeshRenderMode::RM_TRIANGLES:
-        return getTriangleMesh().m_indices.size();
+        return getCoreGeometry().m_indices.size();
     default:
         return size_t( 0 );
     }
