@@ -154,6 +154,9 @@ endif()
 #add_subdirectory(packaging)
 
 
+# Add this target so that some IDE could propose to build all radium libs and examples at once
+add_custom_target(RadiumLibs DEPENDS RadiumCore RadiumEngine RadiumGuiBase RadiumIO RadiumPluginBase CoreExampleApp RadiumExampleApps)
+
 
 #-------------------------------------------------------------------------------
 # Wrap up of settings printed on build
@@ -169,6 +172,3 @@ message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message(STATUS "")
 
-
-# Add this target so that some IDE could propose to build all radium libs and examples at once
-add_custom_target(RadiumLibs DEPENDS RadiumCore RadiumEngine RadiumGuiBase RadiumIO RadiumPluginBase CoreExampleApp RadiumExampleApps)
