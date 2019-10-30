@@ -35,12 +35,12 @@ Ra::Core::Geometry::AbstractGeometry& CoreGeometryDisplayable<CoreGeometry>::get
 }
 
 template <typename CoreGeometry>
-const CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getTriangleMesh() const {
+const CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() const {
     return m_mesh;
 }
 
 template <typename CoreGeometry>
-CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getTriangleMesh() {
+CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() {
     return m_mesh;
 }
 
