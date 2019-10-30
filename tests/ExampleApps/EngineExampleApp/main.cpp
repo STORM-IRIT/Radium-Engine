@@ -46,5 +46,6 @@ int main( int argc, char* argv[] ) {
 
     // Start the app.
     app.m_frame_timer->start();
+    app.m_close_timer->start();
     return app.exec();
 }

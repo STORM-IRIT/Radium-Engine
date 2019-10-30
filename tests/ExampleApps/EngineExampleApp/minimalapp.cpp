@@ -54,8 +54,8 @@ void MinimalApp::onGLInitialized() {
     m_viewer->addRenderer( e );
     connect( m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame );
     m_frame_timer->setInterval( 1000 / m_target_fps );
-    connect( m_frame_timer, &QTimer::timeout, this, &MinimalApp::quit );
-    m_close_timer->setInterval( 1000 );
+    connect( m_close_timer, &QTimer::timeout, this, &MinimalApp::quit );
+    m_close_timer->setInterval( 2000 ); // 2 second before exit
 }
 
 void MinimalApp::frame() {
