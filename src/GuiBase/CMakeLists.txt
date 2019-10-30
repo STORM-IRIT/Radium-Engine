@@ -40,5 +40,5 @@ target_compile_definitions(${ra_guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 installLibHeaders( "GuiBase" "${guibase_headers}" )
 installLibHeaders( "GuiBase" "${guibase_inlines}" )
 
-# Fixme: use a proper ressource manager + install in share, not bin
-install( DIRECTORY Configs DESTINATION bin )
+# Fixme: use a proper ressource manager + install in share ?
+install(DIRECTORY Configs DESTINATION Resources)
