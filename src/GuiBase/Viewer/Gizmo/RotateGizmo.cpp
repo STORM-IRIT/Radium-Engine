@@ -107,7 +107,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         Core::Utils::Color color = Core::Utils::Color::Black();
         color[m_selectedAxis]    = 1_ra;
         const auto& mesh         = roMeshes()[size_t( m_selectedAxis )];
-        mesh->getTriangleMesh().colorize( color );
+        mesh->getCoreGeometry().colorize( color );
     }
     // prepare selection
     m_selectedAxis = -1;
@@ -119,7 +119,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
         {
             m_selectedAxis   = int( std::distance( roIds().cbegin(), found ) );
             const auto& mesh = roMeshes()[size_t( m_selectedAxis )];
-            mesh->getTriangleMesh().colorize( Core::Utils::Color::Yellow() );
+            mesh->getCoreGeometry().colorize( Core::Utils::Color::Yellow() );
         }
     }
 }

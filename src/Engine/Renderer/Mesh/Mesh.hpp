@@ -330,12 +330,12 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
 
     /// Returns the underlying AbstractGeometry, which is in fact a TriangleMesh
     /// \see getTriangleMesh
-    inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override;
-    inline Core::Geometry::AbstractGeometry& getAbstractGeometry() override;
+    inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const;
+    inline Core::Geometry::AbstractGeometry& getAbstractGeometry();
 
     /// Returns the underlying TriangleMesh
-    inline const CoreGeometry& getTriangleMesh() const;
-    inline CoreGeometry& getTriangleMesh();
+    inline const CoreGeometry& getCoreGeometry() const;
+    inline CoreGeometry& getCoreGeometry();
 
     /// Helper function that calls Ra::Core::CoreGeometry::addAttrib()
     template <typename A>
