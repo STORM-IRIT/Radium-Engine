@@ -293,7 +293,8 @@ void DebugRender::addPoints( const Core::Vector3Array& p, const Core::Vector4Arr
     }
 }
 
-void DebugRender::addMesh( const std::shared_ptr<Mesh>& mesh, const Core::Transform& transform ) {
+void DebugRender::addMesh( const std::shared_ptr<AttribArrayDisplayable>& mesh,
+                           const Core::Transform& transform ) {
     m_meshes.push_back( {mesh, transform} );
 }
 

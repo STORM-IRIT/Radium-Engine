@@ -14,7 +14,7 @@
 namespace Ra {
 namespace Engine {
 class ShaderProgram;
-class Mesh;
+class AttribArrayDisplayable;
 } // namespace Engine
 } // namespace Ra
 
@@ -39,7 +39,7 @@ class RA_ENGINE_API DebugRender final
     void addPoint( const Core::Vector3& p, const Core::Utils::Color& color );
     void addPoints( const Core::Vector3Array& p, const Core::Utils::Color& color );
     void addPoints( const Core::Vector3Array& p, const Core::Vector4Array& colors );
-    void addMesh( const std::shared_ptr<Mesh>& mesh,
+    void addMesh( const std::shared_ptr<AttribArrayDisplayable>& mesh,
                   const Core::Transform& transform = Core::Transform::Identity() );
 
     // Shortcuts
@@ -82,7 +82,7 @@ class RA_ENGINE_API DebugRender final
     };
 
     struct DbgMesh {
-        std::shared_ptr<Mesh> mesh;
+        std::shared_ptr<AttribArrayDisplayable> mesh;
         Core::Transform transform;
     };
 
