@@ -64,21 +64,21 @@ RA_ENGINE_API MeshPtr QuadStrip( const Core::Vector3& a,
 /// Displays circle computed with given center and radius,
 /// in plane normal to given vector in wireframe
 /// @note normal must be a normalized vector.
-RA_ENGINE_API MeshPtr Circle( const Core::Vector3& center,
-                              const Core::Vector3& normal,
-                              Scalar radius,
-                              uint segments,
-                              const Core::Utils::Color& color );
+RA_ENGINE_API LineMeshPtr Circle( const Core::Vector3& center,
+                                  const Core::Vector3& normal,
+                                  Scalar radius,
+                                  uint segments,
+                                  const Core::Utils::Color& color );
 
 /// Displays arc of a circle computed with given center, radius and angle
 /// in plane normal to given vector in wireframe
 /// @note normal must be a normalized vector.
-RA_ENGINE_API MeshPtr CircleArc( const Core::Vector3& center,
-                                 const Core::Vector3& normal,
-                                 Scalar radius,
-                                 Scalar angle,
-                                 uint segments,
-                                 const Core::Utils::Color& color );
+RA_ENGINE_API LineMeshPtr CircleArc( const Core::Vector3& center,
+                                     const Core::Vector3& normal,
+                                     Scalar radius,
+                                     Scalar angle,
+                                     uint segments,
+                                     const Core::Utils::Color& color );
 
 /// Displays sphere computed with given center and radius
 RA_ENGINE_API MeshPtr Sphere( const Core::Vector3& center,
