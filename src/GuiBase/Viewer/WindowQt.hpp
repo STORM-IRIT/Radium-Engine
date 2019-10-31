@@ -69,7 +69,7 @@ class RA_GUIBASE_API WindowQt : public QWindow
     std::atomic_bool m_glInitialized;
 
     void initialize();
-    void resize( QResizeEvent* event );
+    void resizeInternal( QResizeEvent* event );
 
     // note when updating from globjets
     // paintGL done by base app rendering loop
