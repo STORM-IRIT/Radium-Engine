@@ -58,7 +58,7 @@ WindowQt::~WindowQt() {
 void WindowQt::screenChanged() {
     QSize s{size().width(), size().height()};
     QResizeEvent patchEvent{s, s};
-    resize( &patchEvent );
+    resizeInternal( &patchEvent );
 }
 
 QOpenGLContext* WindowQt::context() {
@@ -74,7 +74,7 @@ void WindowQt::doneCurrent() {
 }
 
 void WindowQt::resizeEvent( QResizeEvent* event ) {
-    resize( event );
+    resizeInternal( event );
 }
 
 void WindowQt::exposeEvent( QExposeEvent* ) {
@@ -96,7 +96,7 @@ void WindowQt::showEvent( QShowEvent* /*ev*/ ) {
     initialize();
 }
 
-void WindowQt::resize( QResizeEvent* event ) {
+void WindowQt::resizeInternal( QResizeEvent* event ) {
 #ifdef OS_MACOS
     // Ugly patch since Qt seems buggy on this point on macos, raise two resize call the first time.
     if ( event->size().width() < minimumSize().width() ||
