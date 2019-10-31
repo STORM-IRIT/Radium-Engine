@@ -110,7 +110,7 @@ endif()
 
 configure_file(../cmake/Config.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/Radium/RadiumConfig.cmake"
-  COPYONLY
+        @ONLY
 )
 install(
   FILES
