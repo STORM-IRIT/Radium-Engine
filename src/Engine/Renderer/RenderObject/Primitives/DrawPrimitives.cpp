@@ -401,24 +401,31 @@ MeshPtr Grid( const Core::Vector3& center,
     Core::Vector3Array vertices;
     std::vector<uint> indices;
 
-    Scalar halfWidth = ( cellSize * res ) / 2.f;
-
+    Scalar halfWidth{( cellSize * res ) / 2.f};
+    Core::Vector3 deltaPosX{cellSize * x};
+    Core::Vector3 startPosX{center - halfWidth * x};
+    Core::Vector3 endPosX{center + halfWidth * x};
+    Core::Vector3 deltaPosY{cellSize * y};
+    Core::Vector3 startPosY{center - halfWidth * y};
+    Core::Vector3 endPosY{center + halfWidth * y};
+    Core::Vector3 currentPosX{startPosX};
     for ( uint i = 0; i < res + 1; ++i )
     {
-        Scalar xStep = Scalar( i ) - Scalar( res ) * cellSize / 2.f;
-        vertices.push_back( center - halfWidth * y + xStep * x );
-        vertices.push_back( center + halfWidth * y + xStep * x );
+        vertices.push_back( startPosY + currentPosX );
+        vertices.push_back( endPosY + currentPosX );
         indices.push_back( uint( vertices.size() ) - 2 );
         indices.push_back( uint( vertices.size() ) - 1 );
+        currentPosX += deltaPosX;
     }
 
+    Core::Vector3 currentPosY = startPosY;
     for ( uint i = 0; i < res + 1; ++i )
     {
-        Scalar yStep = Scalar( i ) - Scalar( res ) * cellSize / 2.f;
-        vertices.push_back( center - halfWidth * x + yStep * y );
-        vertices.push_back( center + halfWidth * x + yStep * y );
+        vertices.push_back( startPosX + currentPosY );
+        vertices.push_back( endPosX + currentPosY );
         indices.push_back( uint( vertices.size() ) - 2 );
         indices.push_back( uint( vertices.size() ) - 1 );
+        currentPosY += deltaPosY;
     }
 
     Core::Vector4Array colors( vertices.size(), color );
