@@ -4,6 +4,7 @@ find_dependency(OpenMP REQUIRED)
 # Theses paths reflect the paths founds in RadiumEngine/src/Core/external/package
 find_dependency(Eigen3 REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../share/eigen3/cmake/")
 find_dependency(OpenMesh REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../share/OpenMesh/cmake/")
+find_dependency(cpplocate REQUIRED PATHS "${CMAKE_CURRENT_LIST_DIR}/../../../")
 
 set(_supported_components RadiumCore)
 

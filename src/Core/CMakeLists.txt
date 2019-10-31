@@ -40,8 +40,7 @@ find_package(OpenMesh
 
 find_package(cpplocate
         REQUIRED
-        NO_DEFAULT_PATH
-        PATHS ${CMAKE_INSTALL_PREFIX})
+        NO_DEFAULT_PATH)
 
 configureTargetWithDefaultRaSettings( ${ra_core_target} )
 add_dependencies ( ${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in version
