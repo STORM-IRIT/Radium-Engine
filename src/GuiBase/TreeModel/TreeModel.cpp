@@ -3,6 +3,8 @@
 #include <Core/Utils/Log.hpp>
 #include <stack>
 
+#include <QApplication>
+
 namespace Ra {
 namespace GuiBase {
 
@@ -42,14 +44,49 @@ QVariant TreeModel::data( const QModelIndex& index, int role ) const {
 bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int role ) {
     if ( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole )
     {
-        bool checked = value.toBool();
-        getItem( index )->setChecked( checked );
-        emit dataChanged( index, index, {Qt::CheckStateRole} );
+        const bool check = value.toBool();
+        const bool ctrl  = QApplication::keyboardModifiers() == Qt::CTRL;
+        const bool root  = !index.parent().isValid();
 
-        // recursion on all children
-        for ( size_t i = 0; i < getItem( index )->m_children.size(); ++i )
+        if( ctrl && root && !m_updating )
         {
-            setData( this->index( i, 0, index ), value, role );
+            m_updating = true;
+            if( !getItem( index )->isChecked() )
+            {
+                getItem( index )->setChecked( true );
+                emit dataChanged( index, index, {Qt::CheckStateRole} );
+
+                // recursion on all children
+                for ( size_t i = 0; i < getItem( index )->m_children.size(); ++i )
+                {
+                    setData( this->index( i, 0, index ), QVariant(true), role );
+                }
+            }
+
+            // uncheck all other items
+            for ( int row = 0; row < rowCount() ; ++row )
+            {
+                if( row == index.row() ) continue;
+
+                const auto idx = index.siblingAtRow( row );
+                if( idx.isValid() && getItem( idx)->isSelectable() )
+                {
+                    setData( idx, QVariant(false), Qt::CheckStateRole );
+                }
+            }
+
+            m_updating = false;
+        }
+        else
+        {
+            getItem( index )->setChecked( check );
+            emit dataChanged( index, index, {Qt::CheckStateRole} );
+
+            // recursion on all children
+            for ( size_t i = 0; i < getItem( index )->m_children.size(); ++i )
+            {
+                setData( this->index( i, 0, index ), value, role );
+            }
         }
         return true;
     }

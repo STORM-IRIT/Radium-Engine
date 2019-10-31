@@ -168,6 +168,9 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel
   protected:
     /// Root of the tree.
     std::unique_ptr<TreeItem> m_rootItem;
+
+    /// True if updating the tree checkboxes during unique checking
+    bool m_updating{false};
 };
 } // namespace GuiBase
 } // namespace Ra
