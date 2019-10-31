@@ -162,15 +162,16 @@ MeshPtr QuadStrip( const Core::Vector3& a,
     return mesh;
 }
 
-MeshPtr Circle( const Core::Vector3& center,
-                const Core::Vector3& normal,
-                Scalar radius,
-                uint segments,
-                const Core::Utils::Color& color ) {
-    CORE_ASSERT( segments > 2, "Cannot draw a circle with less than 3 points" );
+LineMeshPtr Circle( const Core::Vector3& center,
+                    const Core::Vector3& normal,
+                    Scalar radius,
+                    uint segments,
+                    const Core::Utils::Color& color ) {
+    CORE_ASSERT( segments >= 2, "Cannot draw a circle with less than 3 points" );
 
-    Core::Vector3Array vertices( segments );
-    std::vector<uint> indices( segments );
+    Ra::Core::Geometry::LineMesh geom;
+    Core::Vector3Array vertices( segments + 1 );
+    geom.m_indices.resize( segments );
 
     Core::Vector3 xPlane, yPlane;
     Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );
@@ -179,30 +180,36 @@ MeshPtr Circle( const Core::Vector3& center,
 
     Scalar thetaInc( Core::Math::PiMul2 / Scalar( segments ) );
     Scalar theta( 0.0 );
-    for ( uint i = 0; i < segments; ++i )
+    vertices[0] = center + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane );
+    theta += thetaInc;
+
+    for ( uint i = 1; i <= segments; ++i )
     {
         vertices[i] = center + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane );
-        indices[i]  = i;
-
+        geom.m_indices[i - 1] = {i - 1, i};
         theta += thetaInc;
     }
 
-    Core::Vector4Array colors( vertices.size(), color );
+    geom.setVertices( vertices );
 
-    MeshPtr mesh( new Mesh( "Circle Primitive", Mesh::RM_LINE_LOOP ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+    geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                    Core::Vector4Array{geom.vertices().size(), color} );
+
+    LineMeshPtr mesh( new LineMesh( "Circle Primitive", Mesh::RM_LINES ) );
+    mesh->loadGeometry( std::move( geom ) );
     return mesh;
 }
 
-MeshPtr CircleArc( const Core::Vector3& center,
-                   const Core::Vector3& normal,
-                   Scalar radius,
-                   Scalar angle,
-                   uint segments,
-                   const Core::Utils::Color& color ) {
-    Core::Vector3Array vertices( segments );
-    std::vector<uint> indices( segments );
+LineMeshPtr CircleArc( const Core::Vector3& center,
+                       const Core::Vector3& normal,
+                       Scalar radius,
+                       Scalar angle,
+                       uint segments,
+                       const Core::Utils::Color& color ) {
+
+    Ra::Core::Geometry::LineMesh geom;
+    Core::Vector3Array vertices( segments + 1 );
+    geom.m_indices.resize( segments );
 
     Core::Vector3 xPlane, yPlane;
     Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );
@@ -211,19 +218,23 @@ MeshPtr CircleArc( const Core::Vector3& center,
 
     Scalar thetaInc( 2 * angle / Scalar( segments ) );
     Scalar theta( 0.0 );
-    for ( uint i = 0; i < segments; ++i )
+    vertices[0] = center + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane );
+    theta += thetaInc;
+
+    for ( uint i = 1; i <= segments; ++i )
     {
         vertices[i] = center + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane );
-        indices[i]  = i;
+        geom.m_indices[i - 1] = {i - 1, i};
 
         theta += thetaInc;
     }
 
-    Core::Vector4Array colors( vertices.size(), color );
+    geom.setVertices( vertices );
+    geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                    Core::Vector4Array{geom.vertices().size(), color} );
 
-    MeshPtr mesh( new Mesh( "Arc Circle Primitive", Mesh::RM_LINE_STRIP ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+    LineMeshPtr mesh( new LineMesh( "Arc Circle Primitive", Mesh::RM_LINES ) );
+    mesh->loadGeometry( std::move( geom ) );
 
     return mesh;
 }
