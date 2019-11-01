@@ -13,7 +13,7 @@ inline FileManager<DATA, Binary>::FileManager() : m_log( "" ) {}
 // DESTRUCTOR
 //////////////////////////////////////////////////////////////////////////////
 template <typename DATA, bool Binary>
-inline FileManager<DATA, Binary>::~FileManager() {}
+inline FileManager<DATA, Binary>::~FileManager() = default;
 
 //////////////////////////////////////////////////////////////////////////////
 // INTERFACE

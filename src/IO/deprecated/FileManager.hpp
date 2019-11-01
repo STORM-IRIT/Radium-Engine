@@ -12,7 +12,7 @@ namespace IO {
  * files.
  */
 template <typename DATA, bool Binary = false>
-class RA_IO_API [[deprecated]] FileManager {
+class [[deprecated]] FileManager {
   public:
     /// ENUM
     enum LogEntryType {
