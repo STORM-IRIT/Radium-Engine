@@ -1,3 +1,43 @@
+#--------------------------- Base cofiguration for installation and rpath settings ---------------------------
+#-------------------------------------------------------------------------------
+# Set default install location to installed-<Compiler_ID> folder in build dir
+# we do not want to install to /usr by default
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set (CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}" CACHE PATH
+            "Install path prefix, prepended onto install directories." FORCE )
+    message( "Set install prefix to ${CMAKE_INSTALL_PREFIX}" )
+endif()
+# Custom Install target, used in run target in source/CMakeLists.txt
+if (CMAKE_GENERATOR MATCHES "Makefiles")
+    # Make it multithreaded
+    add_custom_target( Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" --build . --target
+            install -- -j WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+else()
+    add_custom_target( Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" --build . --target
+            install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+endif()
+#------------------------------------------------------------------------------------------------------------
+# use, i.e. don't skip the full RPATH for the build tree
+SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+# when building, don't use the install RPATH already
+# (but later on when installing)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+# add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+# the RPATH to be used when installing, but only if it's not a system directory
+LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+IF("${isSystemDir}" STREQUAL "-1")
+    if(APPLE)
+        SET(CMAKE_INSTALL_RPATH "@executable_path/../lib")
+    else()
+        SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+    endif()
+ENDIF("${isSystemDir}" STREQUAL "-1")
+
+#--------------------------- Configuration of the Radium exported targets and definitions ---------------------------
+
 include(CMakeFindDependencyMacro)
 find_dependency(Threads REQUIRED)
 find_dependency(OpenMP REQUIRED)
