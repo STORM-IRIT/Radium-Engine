@@ -118,6 +118,13 @@ install(
   DESTINATION
     ${ConfigPackageLocation}
 )
+#install general scripts
+install(
+        FILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/application_setup.cmake"
+        DESTINATION
+        ${ConfigPackageLocation}
+)
 
 
 # # #-------------------------------------------------------------------------------
