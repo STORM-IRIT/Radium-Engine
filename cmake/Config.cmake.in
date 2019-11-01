@@ -83,8 +83,9 @@ set(RADIUM_ROOT_DIR "${SELF_DIR}")
 set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
 
 # -------------------------- Usefull fonctions for application and plugins client  ------------------------------------
+# TODO : works well on MacOs : must be tested on other systems
 include(CMakeParseArguments)
-# Install resources : link the resource dir DIRECTORY into the buildtree at the given BUILDLOCATION and install the
+# Install resources : link (copy under window) the resource dir DIRECTORY into the buildtree at the given BUILDLOCATION and install the
 # required files into the <bundle>/Resources
 # If called only with a directory, all the files in this directory and subdirs will be installed
 # to be called with
@@ -93,7 +94,6 @@ include(CMakeParseArguments)
 #                    DIRECTORY theBaseRessourceDirectory
 #                    [FILES [file1 [file2 ... ]]]
 #
-
 function(installTargetResources)
     # "declare" and parse parameters
     cmake_parse_arguments(
@@ -117,7 +117,6 @@ function(installTargetResources)
     # compute resources dir for build tree and install tree
     get_filename_component(rsc_dir ${PARSED_ARGS_DIRECTORY} NAME)
     set(buildtree_dir ${PARSED_ARGS_BUILDLOCATION})
-    #
     # installing resources in the buildtree (link if available, copy if not)
     message(STATUS " [installResources] Linking resources directory ${PARSED_ARGS_DIRECTORY} for target ${PARSED_ARGS_TARGET} into ${buildtree_dir}/Resources/${rsc_dir}")
     file(MAKE_DIRECTORY "${buildtree_dir}")
@@ -139,13 +138,12 @@ function(installTargetResources)
 
    # Install in the install tree
    # Identify the individual files (to preserve directory structure)
+   message(STATUS " [installResources] configuring install for requested files of ${PARSED_ARGS_DIRECTORY}")
    if (NOT PARSED_ARGS_FILES)
        file(GLOB_RECURSE PARSED_ARGS_FILES RELATIVE ${PARSED_ARGS_DIRECTORY} ${PARSED_ARGS_DIRECTORY}/*)
    endif ()
-   message(STATUS " [installResources] Installing files ${PARSED_ARGS_FILES}")
    foreach (file ${PARSED_ARGS_FILES})
        get_filename_component( file_dir ${file} DIRECTORY )
-
        if (APPLE)
            install(
                FILES ${PARSED_ARGS_DIRECTORY}/${file}
@@ -161,7 +159,13 @@ function(installTargetResources)
 endfunction()
 
 
-# Configuration of the installed procedure (with resources)
+# Configuration of the build and installation procedure
+# Allows to install application with dependent resources
+# usage :
+#   configure_radium_app_install(
+#         NAME theTargetName # <- this must be an executable
+#         RESOURCES ResourceDir1 ResourceDir2 # <- acept a list of directories
+# )
 function(configure_radium_app_install)
     # "declare" and parse parameters
     cmake_parse_arguments(
@@ -182,46 +186,40 @@ function(configure_radium_app_install)
         set_target_properties(${PARSED_ARGS_NAME} PROPERTIES MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
         set_target_properties(${PARSED_ARGS_NAME} PROPERTIES MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}")
     endif()
-
+    # Configure the executable installation
     install(
         TARGETS ${PARSED_ARGS_NAME}
         BUNDLE DESTINATION "."
         RUNTIME DESTINATION bin
     )
-
     if(APPLE)
         install(CODE "
             include(BundleUtilities)
-            fixup_bundle(${CMAKE_INSTALL_PREFIX}/${PARSED_ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
-            # import the resources from Radium
-            # install the Radium dependant Resources
+            file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/${PARSED_ARGS_NAME}.app/Contents/Resources)
             file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/${PARSED_ARGS_NAME}.app/Contents)
+            fixup_bundle(${CMAKE_INSTALL_PREFIX}/${PARSED_ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
             "
         )
     else()
         install(DIRECTORY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX})
     endif()
-
-    # FIXME - When li king the resources into the Bundle, the link will be installed instead of the referenced directory
-    # On MacOs, an application might not be run from the buildtree ...
-   if (PARSED_ARGS_RESOURCES)
-       foreach (resLocation ${PARSED_ARGS_RESOURCES})
-           message(STATUS " Installing resources ${resLocation} for ${PARSED_ARGS_NAME} ")
-# FIXME : find a way to insert resources in the right position in the buildtree
-#           if (APPLE)
-#           installTargetResources(
-#                           TARGET ${PARSED_ARGS_NAME}
-#                           DIRECTORY ${resLocation}
-#                           BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/${PARSED_ARGS_NAME}.app/Contents/Resources
-#                       )
-#           else()
-           installTargetResources(
-               TARGET ${PARSED_ARGS_NAME}
-               DIRECTORY ${resLocation}
-               BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources
-           )
-#           endif()
-       endforeach()
-   endif()
+    # Configure tnhe resources installation
+    if (PARSED_ARGS_RESOURCES)
+        foreach (resLocation ${PARSED_ARGS_RESOURCES})
+            message(STATUS " Installing resources ${resLocation} for ${PARSED_ARGS_NAME} ")
+            if (APPLE)
+                installTargetResources(
+                               TARGET ${PARSED_ARGS_NAME}
+                               DIRECTORY ${resLocation}
+                               BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/${PARSED_ARGS_NAME}.app/Contents/Resources
+                           )
+            else()
+                installTargetResources(
+                   TARGET ${PARSED_ARGS_NAME}
+                   DIRECTORY ${resLocation}
+                   BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources
+                )
+            endif()
+        endforeach()
+    endif()
 endfunction()
-
