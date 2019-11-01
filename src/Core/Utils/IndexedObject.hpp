@@ -8,7 +8,7 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
-class IndexedObject
+class RA_CORE_API IndexedObject
 {
   public:
     /// CONSTRUCTOR
