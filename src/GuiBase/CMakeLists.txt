@@ -30,9 +30,19 @@ add_library(
 add_library(Radium::GuiBase ALIAS ${ra_guibase_target})
 
 configureTargetWithDefaultRaSettings( ${ra_guibase_target} )
-add_dependencies( ${ra_guibase_target} Radium::Core Radium::Engine Radium::PluginBase )
-target_link_libraries (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase)
+add_dependencies(${ra_guibase_target} Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
+target_link_libraries(${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
 target_link_libraries (${ra_guibase_target} PRIVATE ${Qt5_LIBRARIES} OpenGL::GL)
+
+# Ask RadiumIO for supported loaders
+get_target_property(USE_ASSIMP Radium::IO IO_ASSIMP)
+if (${USE_ASSIMP})
+    target_compile_definitions(${ra_guibase_target} PRIVATE "-DIO_USE_ASSIMP")
+endif ()
+get_target_property(USE_TINYPLY Radium::IO IO_TINYPLY)
+if (${USE_TINYPLY})
+    target_compile_definitions(${ra_guibase_target} PRIVATE "-DIO_USE_TINYPLY")
+endif ()
 
 target_compile_definitions(${ra_guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 # set_target_properties(${ra_guibase_target} PROPERTIES PUBLIC_HEADER "${guibase_headers};${guibase_inlines}")

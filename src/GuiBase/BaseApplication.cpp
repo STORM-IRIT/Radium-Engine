@@ -22,9 +22,7 @@
 
 #include <PluginBase/RadiumPluginInterface.hpp>
 
-#ifdef IO_USE_CAMERA_LOADER
 #    include <IO/CameraLoader/CameraLoader.hpp>
-#endif
 #ifdef IO_USE_TINYPLY
 #    include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 #endif
@@ -255,10 +253,8 @@ BaseApplication::BaseApplication( int argc,
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
 #endif
-#ifdef IO_USE_CAMERA_LOADER
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::CameraFileLoader() ) );
-#endif
 #ifdef IO_USE_ASSIMP
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::AssimpFileLoader() ) );

@@ -42,7 +42,7 @@ configureTargetWithDefaultRaSettings( ${ra_io_target} )
 add_dependencies( ${ra_io_target} Radium::Core )
 target_link_libraries (${ra_io_target} PUBLIC Radium::Core)
 
-target_compile_definitions(${ra_io_target} PRIVATE "-DRA_IO_EXPORTS")
+target_compile_definitions(${ra_io_target} PRIVATE "-DRA_IO_EXPORTS -DIO_USE_CAMERA_LOADER")
 
 
 # set_target_properties(${ra_io_target} PROPERTIES PUBLIC_HEADER "${io_headers};${io_inlines}")
