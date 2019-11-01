@@ -15,15 +15,16 @@ namespace Engine {
 class RenderObject;
 class Component;
 class Mesh;
+class AttribArrayDisplayable;
 class LineMesh;
 
 /// A set of convenient functions to instantiate simple displays such as points, lines, etc.
 /// note that objects will be drawn in their entity's local frame.
 /// For "instant" debug drawing, @see DebugDisplay.
 namespace DrawPrimitives {
-using MeshPtr     = std::shared_ptr<Mesh>;
-using LineMeshPtr = std::shared_ptr<LineMesh>;
-
+using MeshPtr                   = std::shared_ptr<Mesh>;
+using LineMeshPtr               = std::shared_ptr<LineMesh>;
+using AttribArrayDisplayablePtr = std::shared_ptr<AttribArrayDisplayable>;
 RA_ENGINE_API RenderObject* Primitive( Component* comp, const MeshPtr& mesh );
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'
@@ -42,17 +43,17 @@ RA_ENGINE_API LineMeshPtr Vector( const Core::Vector3& start,
                                   const Core::Utils::Color& color );
 
 /// Displays given ray as a straight line.
-RA_ENGINE_API MeshPtr Ray( const Core::Ray& ray,
-                           const Core::Utils::Color& color,
-                           Scalar len = 1000_ra );
+RA_ENGINE_API LineMeshPtr Ray( const Core::Ray& ray,
+                               const Core::Utils::Color& color,
+                               Scalar len = 1000_ra );
 
 /// Displays given triangle ABC, either in wireframe (fill = false)
 /// or filled with the color(fill = true).
-RA_ENGINE_API MeshPtr Triangle( const Core::Vector3& a,
-                                const Core::Vector3& b,
-                                const Core::Vector3& c,
-                                const Core::Utils::Color& color,
-                                bool fill = false );
+RA_ENGINE_API AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
+                                                  const Core::Vector3& b,
+                                                  const Core::Vector3& c,
+                                                  const Core::Utils::Color& color,
+                                                  bool fill = false );
 
 /// Displays a strip of n quads, starting at A and with directions X and Y.
 RA_ENGINE_API MeshPtr QuadStrip( const Core::Vector3& a,
