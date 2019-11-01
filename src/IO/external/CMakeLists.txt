@@ -32,6 +32,7 @@ if(RADIUM_IO_ASSIMP)
         )
 endif()
 
+
 if(RADIUM_IO_TINYPLY)
     ExternalProject_Add( tinyply
         GIT_REPOSITORY https://github.com/ddiakopoulos/tinyply.git
@@ -43,6 +44,7 @@ if(RADIUM_IO_TINYPLY)
         -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
         -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
+            -DCMAKE_MACOSX_RPATH=TRUE
         -DSHARED_LIB=TRUE
         )
 endif()
