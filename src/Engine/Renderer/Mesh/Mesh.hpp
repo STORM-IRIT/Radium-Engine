@@ -416,6 +416,10 @@ class LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
 
   public:
     using base::IndexedGeometry;
+    explicit LineMesh( const std::string& name,
+                       typename base::CoreGeometry&& geom,
+                       typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_LINES ) :
+        base( name, std::move( geom ), renderMode ) {}
 
   protected:
   private:
