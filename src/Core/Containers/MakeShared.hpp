@@ -21,7 +21,7 @@ inline std::shared_ptr<T> make_shared( Args&&... args ) {
 
 #else // use new and shared_ptr constructor.
 
-    return std::shared_ptr<T>( new T( args... ) );
+    return std::shared_ptr<T>( new T( std::forward<Args>( args )... ) );
 
 #endif
 }
