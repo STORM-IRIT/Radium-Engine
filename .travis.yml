@@ -10,14 +10,10 @@ script:
         make RadiumDoc
     fi;
   - make install
-    # test relocatable binaries
+  # test relocatable binaries (command line tools)
   - |
     export RETURN_PATH=$PWD
-    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-        export CORE_EXAMPLE_APP_PATH="CoreExampleApp.app/Contents/MacOS/"
-    else
-        export CORE_EXAMPLE_APP_PATH="bin/"
-    fi
+    export CORE_EXAMPLE_APP_PATH="bin/"
   - cd installed/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd $RETURN_PATH
   - mv installed/ installed_moved
   - cd installed_moved/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd ../..
