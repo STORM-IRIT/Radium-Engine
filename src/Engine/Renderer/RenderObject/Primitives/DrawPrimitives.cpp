@@ -250,7 +250,7 @@ MeshPtr Sphere( const Core::Vector3& center, Scalar radius, const Core::Utils::C
 
     Core::Vector4Array colors( sphere.vertices().size(), color );
 
-    MeshPtr mesh( new Mesh( "Sphere Primitive", Mesh::RM_LINES ) );
+    MeshPtr mesh( new Mesh( "Sphere Primitive" ) );
     mesh->loadGeometry( std::move( sphere ) );
     mesh->getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
@@ -412,13 +412,13 @@ MeshPtr Grid( const Core::Vector3& center,
     Core::Vector3Array vertices;
     std::vector<uint> indices;
 
-    Scalar halfWidth{( cellSize * res ) / 2.f};
-    Core::Vector3 deltaPosX{cellSize * x};
-    Core::Vector3 startPosX{center - halfWidth * x};
-    Core::Vector3 endPosX{center + halfWidth * x};
-    Core::Vector3 deltaPosY{cellSize * y};
-    Core::Vector3 startPosY{center - halfWidth * y};
-    Core::Vector3 endPosY{center + halfWidth * y};
+    const Scalar halfWidth{( cellSize * res ) / 2.f};
+    const Core::Vector3 deltaPosX{cellSize * x};
+    const Core::Vector3 startPosX{center - halfWidth * x};
+    const Core::Vector3 endPosX{center + halfWidth * x};
+    const Core::Vector3 deltaPosY{cellSize * y};
+    const Core::Vector3 startPosY{center - halfWidth * y};
+    const Core::Vector3 endPosY{center + halfWidth * y};
     Core::Vector3 currentPosX{startPosX};
     for ( uint i = 0; i < res + 1; ++i )
     {
