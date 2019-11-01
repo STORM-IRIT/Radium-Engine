@@ -37,6 +37,7 @@ macro(addExternalFolder NAME FOLDER )
                 -DCMAKE_SHARED_LINKER_FLAGS=${CMAKE_SHARED_LINKER_FLAGS}
                 -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
                 -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
+                -DCMAKE_MACOSX_RPATH=TRUE
                 ${ARGN}
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
             RESULT_VARIABLE ret
