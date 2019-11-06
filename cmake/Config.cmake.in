@@ -1,12 +1,4 @@
-#--------------------------- Base cofiguration for installation and rpath settings ---------------------------
-#-------------------------------------------------------------------------------
-# Set default install location to installed-<Compiler_ID> folder in build dir
-# we do not want to install to /usr by default
-if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set (CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}" CACHE PATH
-            "Install path prefix, prepended onto install directories." FORCE )
-    message( "Set install prefix to ${CMAKE_INSTALL_PREFIX}" )
-endif()
+#--------------------------- Base configuration for installation and rpath settings ---------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
 if (CMAKE_GENERATOR MATCHES "Makefiles")
     # Make it multithreaded
@@ -111,13 +103,17 @@ endif()
 
 # Compute paths
 get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
-# get up in the directories until we found a "Resource" subdir
+# get up in the directories until we found a "Resources" subdir
+# TODO : instead of 'Resources' that might not exists if Engine nor GuiBase are compiled,
+# search for a file identifying Radium (a la Eigen) and that is installed at the root of the
+# Radium Bundle
 while( NOT EXISTS ${SELF_DIR}/Resources)
   get_filename_component(SELF_DIR "${SELF_DIR}" DIRECTORY)
 endwhile()
 
 set(RADIUM_ROOT_DIR "${SELF_DIR}")
 set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
+set(RADIUM_PLUGINS_DIR "${SELF_DIR}/Plugins")
 
 include(${CMAKE_CURRENT_LIST_DIR}/application_setup.cmake)
 
