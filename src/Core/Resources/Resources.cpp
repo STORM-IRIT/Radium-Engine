@@ -5,12 +5,24 @@
 namespace Ra {
 namespace Core {
 namespace Resources {
-std::string getBaseDir() {
-    auto libraryPath = cpplocate::getLibraryPath( reinterpret_cast<void*>( getBaseDir ) );
+std::string getResourcesDir() {
+    auto libraryPath = cpplocate::getLibraryPath( reinterpret_cast<void*>( getResourcesDir ) );
     auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
     auto baseDir     = libraryDir.substr( 0, libraryDir.find_last_of( '/' ) + 1 );
 
     return baseDir + "Resources/";
+}
+
+std::string getPluginsDir() {
+    auto libraryPath = cpplocate::getLibraryPath( reinterpret_cast<void*>( getResourcesDir ) );
+    auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
+    auto baseDir     = libraryDir.substr( 0, libraryDir.find_last_of( '/' ) + 1 );
+
+    return baseDir + "Plugins/lib/";
+}
+
+std::string getBaseDir() {
+    return cpplocate::getBundlePath();
 }
 
 ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath{""} {

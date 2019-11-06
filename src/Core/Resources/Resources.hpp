@@ -19,13 +19,22 @@ namespace Core {
  *   library containing an arbitrary symbol. (easy with cpplocate)
  */
 namespace Resources {
-/// Get the base prefix to access the Radium resources in a filesystem.
+/// Get the path prefix to access Radium resources in a filesystem.
 /// This base prefix is the parent directory of the directory containing libRadiumCore, appended
-/// with /Resources/ as all Radium resources will be installed  (or linked in the buildtree) in such
-/// a directory
+/// with /Resources/ as all Radium resources will be installed, bundled or linked for the buildtree
+/// in such a directory
+RA_CORE_API std::string getResourcesDir();
+
+/// Get the path prefix to access Radium plugins in a filesystem.
+/// This base prefix is the parent directory of the directory containing libRadiumCore, appended
+/// with /Plugins/lib as all Radium plugins will be installed, bundled or linked for the buildtree
+/// in such a directory
+RA_CORE_API std::string getPluginsDir();
+
+/// Get the path prefix to access the current executable in a filesystem.
 RA_CORE_API std::string getBaseDir();
 
-// allow to manage several resource locators
+/// allow to manage several resource locators
 RA_CORE_API class ResourcesLocator
 {
   public:
