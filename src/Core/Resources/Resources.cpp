@@ -22,7 +22,7 @@ std::string getPluginsDir() {
 }
 
 std::string getBaseDir() {
-    return cpplocate::getBundlePath();
+    return cpplocate::getModulePath();
 }
 
 ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath{""} {

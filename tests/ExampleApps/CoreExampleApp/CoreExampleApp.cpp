@@ -10,6 +10,6 @@ int main( int /*argc*/, char** /*argv*/ ) {
     auto topo = Geometry::TopologicalMesh( box );
 
     auto resourcesPaths = Resources::getBaseDir();
-    LOG( Utils::logINFO ) << "Resources are located at : " << resourcesPaths;
+    LOG( Utils::logINFO ) << "Executable is located at : " << resourcesPaths;
     LOG( Utils::logINFO ) << topo.has_vertex_texcoords1D();
 }
