@@ -77,12 +77,16 @@ set(CMAKE_DEBUG_POSTFIX d)
 
 #-------------------------------------------------------------------------------
 # Set default paths for Radium
-set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-Debug)
+else ()
+    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
+endif ()
 set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(RADIUM_SHADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
 
 #-------------------------------------------------------------------------------
-# Set default install location to dist folder in build dir
+# Set default install location to RADIUM_BUNDLE_DIRECTORY
 # we do not want to install to /usr by default
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set (CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}" CACHE PATH
