@@ -44,49 +44,14 @@ QVariant TreeModel::data( const QModelIndex& index, int role ) const {
 bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int role ) {
     if ( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole )
     {
-        const bool check = value.toBool();
-        const bool ctrl  = QApplication::keyboardModifiers() == Qt::CTRL;
-        const bool root  = !index.parent().isValid();
-
-        if( ctrl && root && !m_updating )
+        if( QApplication::keyboardModifiers() == Qt::CTRL )
         {
-            m_updating = true;
-            if( !getItem( index )->isChecked() )
-            {
-                getItem( index )->setChecked( true );
-                emit dataChanged( index, index, {Qt::CheckStateRole} );
-
-                // recursion on all children
-                for ( size_t i = 0; i < getItem( index )->m_children.size(); ++i )
-                {
-                    setData( this->index( i, 0, index ), QVariant(true), role );
-                }
-            }
-
-            // uncheck all other items
-            for ( int row = 0; row < rowCount() ; ++row )
-            {
-                if( row == index.row() ) continue;
-
-                const auto idx = index.siblingAtRow( row );
-                if( idx.isValid() && getItem( idx)->isSelectable() )
-                {
-                    setData( idx, QVariant(false), Qt::CheckStateRole );
-                }
-            }
-
-            m_updating = false;
+            setAllItemsChecked( false );
+            setItemChecked( index, true );
         }
         else
         {
-            getItem( index )->setChecked( check );
-            emit dataChanged( index, index, {Qt::CheckStateRole} );
-
-            // recursion on all children
-            for ( size_t i = 0; i < getItem( index )->m_children.size(); ++i )
-            {
-                setData( this->index( i, 0, index ), value, role );
-            }
+            setItemChecked( index , value.toBool() );
         }
         return true;
     }
@@ -176,5 +141,35 @@ void TreeModel::printModel() const {
     }
 #endif
 }
+
+void TreeModel::setAllItemsChecked( bool checked )
+{
+    for ( int row = 0; row < rowCount() ; ++row )
+    {
+        const QModelIndex index = this->index( row, 0 );
+        setItemChecked( index, checked );
+    }
+}
+
+void TreeModel::setItemChecked( const QModelIndex& index, bool checked )
+{
+    if ( index.isValid() )
+    {
+        TreeItem* item = getItem( index );
+        if( item->isSelectable() )
+        {
+            item->setChecked( checked );
+            emit dataChanged( index, index, {Qt::CheckStateRole} );
+
+            // recursion on all children
+            for ( int i = 0; i < rowCount( index ); ++i )
+            {
+                const QModelIndex child = this->index( i, 0, index );
+                setItemChecked( child, checked );
+            }
+        }
+    }
+}
+
 } // namespace GuiBase
 } // namespace Ra

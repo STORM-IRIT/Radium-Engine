@@ -165,12 +165,15 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel
     /// Prints elements in the model to stdout (debug only)
     void printModel() const;
 
+    /// Set the check state of all items
+    void setAllItemsChecked( bool checked = true );
+
+    /// Set the check state of one item and all of its children
+    void setItemChecked( const QModelIndex& index, bool checked = true);
+
   protected:
     /// Root of the tree.
     std::unique_ptr<TreeItem> m_rootItem;
-
-    /// True if updating the tree checkboxes during unique checking
-    bool m_updating{false};
 };
 } // namespace GuiBase
 } // namespace Ra
