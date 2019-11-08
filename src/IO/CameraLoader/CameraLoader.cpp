@@ -15,10 +15,6 @@ namespace IO {
 using namespace Core::Utils; // log
 using namespace Core::Asset;
 
-CameraFileLoader::CameraFileLoader() = default;
-
-CameraFileLoader::~CameraFileLoader() = default;
-
 std::vector<std::string> CameraFileLoader::getFileExtensions() const {
     return std::vector<std::string>( {"*." + camExt} );
 }
