@@ -10,9 +10,9 @@ namespace IO {
 class RA_IO_API CameraFileLoader : public Core::Asset::FileLoaderInterface
 {
   public:
-    CameraFileLoader();
+    CameraFileLoader() = default;
 
-    ~CameraFileLoader() override;
+    ~CameraFileLoader() override = default;
 
     std::vector<std::string> getFileExtensions() const override;
     bool handleFileExtension( const std::string& extension ) const override;

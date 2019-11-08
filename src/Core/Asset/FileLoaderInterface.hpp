@@ -11,7 +11,7 @@ namespace Core {
 namespace Asset {
 class FileData;
 
-class RA_CORE_API FileLoaderInterface
+class FileLoaderInterface
 {
   public:
     virtual ~FileLoaderInterface() = default;
