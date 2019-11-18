@@ -35,21 +35,21 @@ function(installResources)
     # installing resources in the buildtree (link if available, copy if not)
     message(STATUS " [installResources] Linking resources directory ${PARSED_ARGS_DIRECTORY} for target ${PARSED_ARGS_TARGET} into ${buildtree_dir}/Resources/${rsc_dir}")
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/../Resources")
-    if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.14)
+    if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 10.2) # 3.14)
         # Warning, this will be executed only at configure time (to be verified)
         file(CREATE_LINK ${PARSED_ARGS_DIRECTORY} "${buildtree_dir}/Resources/${rsc_dir}" COPY_ON_ERROR SYMBOLIC)
     else ()
         if (MSVC OR MSVC_IDE OR MINGW)
             add_custom_command(
                     TARGET ${PARSED_ARGS_TARGET}
-                    POST_BUILD
+                    PRE_BUILD
                     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PARSED_ARGS_DIRECTORY} "${buildtree_dir}/Resources/${rsc_dir}"
                     VERBATIM
             )
         else ()
             add_custom_command(
                     TARGET ${PARSED_ARGS_TARGET}
-                    POST_BUILD
+                    PRE_BUILD
                     COMMAND ${CMAKE_COMMAND} -E create_symlink ${PARSED_ARGS_DIRECTORY} "${buildtree_dir}/Resources/${rsc_dir}"
                     VERBATIM
             )
