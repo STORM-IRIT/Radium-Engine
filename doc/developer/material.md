@@ -279,7 +279,7 @@ For the default Ra::Engine::BlinnPhongMaterial, which is of type `"BlinnPhong"`,
 ~~~{.cpp}
 void BlinnPhongMaterial::registerMaterial() {
     // For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getResourcesDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
     // 1- register the Material converter for loading
     EngineMaterialConverters::registerMaterialConverter(
         "BlinnPhong",

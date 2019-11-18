@@ -160,7 +160,7 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
             {
                 ShaderConfiguration config = rt.getConfiguration( pass );
                 config.addShader( ShaderType_GEOMETRY,
-                                  std::string( Core::Resources::getResourcesDir() ) +
+                                  std::string( Core::Resources::getRadiumResourcesDir() ) +
                                       "Shaders/PointCloud.geom.glsl" );
                 rt.setConfiguration( config, pass );
             }

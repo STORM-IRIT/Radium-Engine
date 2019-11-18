@@ -23,13 +23,14 @@ namespace Resources {
 /// This base prefix is the parent directory of the directory containing libRadiumCore, appended
 /// with /Resources/ as all Radium resources will be installed, bundled or linked for the buildtree
 /// in such a directory
-RA_CORE_API std::string getResourcesDir();
+RA_CORE_API std::string getRadiumResourcesDir();
 
 /// Get the path prefix to access Radium plugins in a filesystem.
-/// This base prefix is the parent directory of the directory containing libRadiumCore, appended
+/// A Radium plugin is a plugin installed in the Radium bundled and embedded in installed
+/// application bundle./// This base prefix is the parent directory of the directory containing libRadiumCore, appended
 /// with /Plugins/lib as all Radium plugins will be installed, bundled or linked for the buildtree
 /// in such a directory
-RA_CORE_API std::string getPluginsDir();
+RA_CORE_API std::string getRadiumPluginsDir();
 
 /// Get the path prefix to access the current executable in a filesystem.
 RA_CORE_API std::string getBaseDir();
@@ -39,7 +40,7 @@ RA_CORE_API class ResourcesLocator
 {
   public:
     /// Construct a resource locator tha will offset the path to the dynamic library that contains
-    /// the given symbol by the fgiven offset.
+    /// the given symbol by the given offset.
     explicit ResourcesLocator( void* symbol, const std::string& offset = "../" );
     const std::string& getBasePath();
 
