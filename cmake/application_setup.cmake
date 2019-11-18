@@ -251,7 +251,7 @@ function(installPluginResources)
     cmake_parse_arguments(
             ARGS
             ""
-            "TARGET;DIRECTORY;BUILDLOCATION"
+            "TARGET;DIRECTORY;BUILD_LOCATION;INSTALL_LOCATION"
             "FILES"
             ${ARGN}
     )
@@ -262,13 +262,17 @@ function(installPluginResources)
     if (NOT ARGS_DIRECTORY)
         message(FATAL_ERROR " [installPluginResources] You must provide a resource directory")
     endif ()
-    if (NOT ARGS_BUILDLOCATION)
-        # linking resours in the current bin dir of the build tree
-        set(ARGS_BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR})
+    if (NOT ARGS_BUILD_LOCATION)
+        # linking resources in the current bin dir of the build tree
+        set(ARGS_BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR})
+    endif ()
+    if (NOT ARGS_INSTALL_LOCATION)
+        # installing in the default install dir
+        set(ARGS_INSTALL_LOCATION ${CMAKE_INSTALL_PREFIX})
     endif ()
     # compute resources dir for build tree and install tree
     get_filename_component(rsc_dir ${ARGS_DIRECTORY} NAME)
-    set(buildtree_dir ${ARGS_BUILDLOCATION})
+    set(buildtree_dir ${ARGS_BUILD_LOCATION})
     # installing resources in the buildtree (link if available, copy if not)
     message(STATUS " [installPluginResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
     file(MAKE_DIRECTORY "${buildtree_dir}")
@@ -298,7 +302,7 @@ function(installPluginResources)
         get_filename_component(file_dir ${file} DIRECTORY)
         install(
                 FILES ${ARGS_DIRECTORY}/${file}
-                DESTINATION Resources/${ARGS_TARGET}/${rsc_dir}/${file_dir}
+                DESTINATION ${ARGS_INSTALL_LOCATION}/Resources/${ARGS_TARGET}/${rsc_dir}/${file_dir}
         )
     endforeach ()
 endfunction()
@@ -317,7 +321,7 @@ function(configure_radium_plugin_install)
     # "declare" and parse parameters
     cmake_parse_arguments(
             ARGS
-            "DO_NOT_INSTALL_IN_RADIUM_BUNDLE"
+            "INSTALL_IN_RADIUM_BUNDLE"
             "NAME"
             "RESOURCES" # list of directories containing the resources to install - optional
             ${ARGN}
@@ -327,17 +331,17 @@ function(configure_radium_plugin_install)
     endif ()
     set_target_properties(${ARGS_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins/lib)
     # configure the plugin installation
-    # a plugin always install in the Radium Installation Directory, except if asked explicitely by setting the
-    # TODO This might cause problems.
-    if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-        set(CMAKE_INSTALL_PREFIX "${RADIUM_ROOT_DIR}/Plugins" CACHE PATH
-                "Install path prefix, prepended onto install directories." FORCE)
-        message("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
+    # a plugin could be installed in the Radium Installation Directory
+    if (ARGS_INSTALL_IN_RADIUM_BUNDLE)
+        set(${ARGS_NAME}_INSTALL_DIR "${RADIUM_ROOT_DIR}/Plugins")
+    else ()
+        set(${ARGS_NAME}_INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
     endif ()
-    # CMAKE_INSTALL_DIR variable before calling
+    message("Set plugin install prefix to ${${ARGS_NAME}_INSTALL_DIR} for ${ARGS_NAME}")
     install(
             TARGETS ${ARGS_NAME}
-            LIBRARY DESTINATION lib
+            DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
+            LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
     )
     # Configure the resources installation
     if (ARGS_RESOURCES)
@@ -346,7 +350,8 @@ function(configure_radium_plugin_install)
             installPluginResources(
                     TARGET ${ARGS_NAME}
                     DIRECTORY ${resLocation}
-                    BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME}
+                    BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME}
+                    INSTALL_LOCATION ${${ARGS_NAME}_INSTALL_DIR}
             )
         endforeach ()
     endif ()

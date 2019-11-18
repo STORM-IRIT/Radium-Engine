@@ -72,7 +72,7 @@ BaseApplication::BaseApplication( int argc,
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
-    std::string pluginsPath = std::string{Core::Resources::getPluginsDir()};
+    std::string pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
 
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
@@ -241,10 +241,20 @@ BaseApplication::BaseApplication( int argc,
     connect(
         &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
 
-    // Load plugins
+    // Load installed plugins plugins
     if ( !loadPlugins(
              pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
     { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
+    // load supplemental plugins
+    {
+        QSettings settings;
+        QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
+        for ( const auto s : plunginPaths )
+        {
+            loadPlugins(
+                s.toStdString(), parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) );
+        }
+    }
 
     // Make builtin loaders the fallback if no plugins can load some file format
 #ifdef IO_USE_TINYPLY
@@ -350,7 +360,7 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 void BaseApplication::addBasicShaders() {
     using namespace Ra::Engine;
     /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getResourcesDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
 
     ShaderConfiguration lgConfig( "LinesGeom" );
     lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
@@ -632,5 +642,24 @@ void BaseApplication::setRecordTimings( bool on ) {
 void BaseApplication::setRecordGraph( bool on ) {
     m_recordGraph = on;
 }
+
+void BaseApplication::addPluginDirectory( const std::string& pluginDir ) {
+    QSettings settings;
+    QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
+    LOG( logINFO ) << "Registered plugin paths are : ";
+    for ( const auto s : plunginPaths )
+    {
+        LOG( logINFO ) << s.toStdString();
+    }
+    plunginPaths.append( pluginDir.c_str() );
+    settings.setValue( "plugins/paths", plunginPaths );
+    loadPlugins( pluginDir, QStringList(), QStringList() );
+}
+
+void BaseApplication::clearPluginDirectories() {
+    QSettings settings;
+    settings.setValue( "plugins/paths", QStringList() );
+}
+
 } // namespace GuiBase
 } // namespace Ra

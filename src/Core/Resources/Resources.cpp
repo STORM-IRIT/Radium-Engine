@@ -5,16 +5,17 @@
 namespace Ra {
 namespace Core {
 namespace Resources {
-std::string getResourcesDir() {
-    auto libraryPath = cpplocate::getLibraryPath( reinterpret_cast<void*>( getResourcesDir ) );
+std::string getRadiumResourcesDir() {
+    auto libraryPath =
+        cpplocate::getLibraryPath( reinterpret_cast<void*>( getRadiumResourcesDir ) );
     auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
     auto baseDir     = libraryDir.substr( 0, libraryDir.find_last_of( '/' ) + 1 );
 
     return baseDir + "Resources/";
 }
 
-std::string getPluginsDir() {
-    auto libraryPath = cpplocate::getLibraryPath( reinterpret_cast<void*>( getResourcesDir ) );
+std::string getRadiumPluginsDir() {
+    auto libraryPath = cpplocate::getLibraryPath( reinterpret_cast<void*>( getRadiumPluginsDir ) );
     auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
     auto baseDir     = libraryDir.substr( 0, libraryDir.find_last_of( '/' ) + 1 );
 
