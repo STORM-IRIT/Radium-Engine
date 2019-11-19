@@ -108,6 +108,22 @@ function(configure_cmdline_Radium_app)
             TARGETS ${ARGS_NAME}
             RUNTIME DESTINATION bin
     )
+    # TODO, this Windows only bundle fix might be adapted to Linux also ... perhaps with the same code ?
+    if (MSVC OR MSVC_IDE OR MINGW)
+        # Construciton of the  dependency paths
+        set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
+        # TODO : modify this to use already found packages
+        # Add the Qt bin dir ...
+        list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
+        # Fix the bundled directory
+        install(CODE "
+			message(STATUS \"Fixing application with Qt base direcory at ${FIX_LIBRARY_DIR} !!\")
+            include(BundleUtilities)
+			fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
+            "
+                )
+    endif ()
+
     # install Radium Resources if there is a dependency on Engine or Guibase
     get_target_property(deps ${ARGS_NAME} INTERFACE_LINK_LIBRARIES)
     list(FIND deps "Radium::RadiumEngine" depEngine)
