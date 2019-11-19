@@ -25,7 +25,7 @@ class [[deprecated]] FileManager {
     inline FileManager() = default; // Default constructor.
 
     /// DESTRUCTOR
-    virtual ~FileManager() = default; // Destructor.
+    inline virtual ~FileManager() = default; // Destructor.
 
     /// INTERFACE
     inline bool load( const std::string& filename,
