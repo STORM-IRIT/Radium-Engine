@@ -12,6 +12,11 @@ set(RADIUM_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
 set(RADIUM_RESOURCES_DIR "${CMAKE_INSTALL_PREFIX}/Resources")
 set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
 
+# must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
+# TODO : find a way to that more efficiently
+find_dependency(Qt5 COMPONENTS Core REQUIRED)
+get_target_property(QtCore_Dll Qt5::Core LOCATION)
+get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
 include(application_setup)
 
 add_executable(CoreExampleApp

@@ -93,11 +93,15 @@ endif()
 
 if(RadiumPluginBase_FOUND)
     find_dependency(Qt5 COMPONENTS Core REQUIRED)
+	get_target_property(QtCore_Dll Qt5::Core LOCATION)
+	get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
     include("${CMAKE_CURRENT_LIST_DIR}/RadiumPluginBaseTargets.cmake" )
 endif()
 
 if(RadiumGuiBase_FOUND)
     find_dependency(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+	get_target_property(QtCore_Dll Qt5::Core LOCATION)
+	get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
     include("${CMAKE_CURRENT_LIST_DIR}/RadiumGuiBaseTargets.cmake" )
 endif()
 
