@@ -17,10 +17,9 @@ class RA_IO_API [[deprecated]] OBJFileManager : public FileManager<Core::Geometr
     ~OBJFileManager() override;
 
     /// INTERFACE
-    virtual std::string fileExtension() const override;
-    virtual bool importData( std::istream & file, Core::Geometry::TriangleMesh & data ) override;
-    virtual bool exportData( std::ostream & file, const Core::Geometry::TriangleMesh& data )
-        override;
+    std::string fileExtension() const override;
+    bool importData( std::istream & file, Core::Geometry::TriangleMesh & data ) override;
+    bool exportData( std::ostream & file, const Core::Geometry::TriangleMesh& data ) override;
 };
 
 } // namespace IO
