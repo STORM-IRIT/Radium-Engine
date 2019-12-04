@@ -92,7 +92,7 @@ macro(addExternalFolder NAME FOLDER )
         OPTION( RADIUM_SKIP_${NAME_UPPER}_EXTERNAL "[addExternalFolder] Skip updating ${NAME}::external (disable for rebuild)" ON)
 
     else()
-        message("[addExternalFolder] Skip ${NAME}::external update (use RADIUM_UPDATE_EXTERNAL_${NAME} to change behavior)")
+        message("[addExternalFolder] Skip ${NAME}::external update (use RADIUM_SKIP_${NAME_UPPER}_EXTERNAL to change behavior)")
     endif()
 
     #This dummy target add external/CMakeLists.txt to most IDEs
