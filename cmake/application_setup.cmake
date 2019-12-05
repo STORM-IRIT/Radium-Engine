@@ -117,9 +117,9 @@ function(configure_cmdline_Radium_app)
         list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
         # Fix the bundled directory
         install(CODE "
-			message(STATUS \"Fixing application with Qt base direcory at ${FIX_LIBRARY_DIR} !!\")
+                        message(STATUS \"Fixing application with Qt base direcory at ${FIX_LIBRARY_DIR} !!\")
             include(BundleUtilities)
-			fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
+                        fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
             "
                 )
     endif ()
@@ -346,6 +346,17 @@ function(configure_radium_plugin_install)
         message(FATAL_ERROR " [configure_radium_plugin_install] You must provide the main target of the plugin")
     endif ()
     set_target_properties(${ARGS_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins/lib)
+
+    if( CMAKE_BUILD_TYPE MATCHES Debug )
+        message(INFO " [configure_radium_plugin_install] Plugin compiled with debug info")
+        target_compile_definitions(${ARGS_NAME} PUBLIC PLUGIN_IS_COMPILED_WITH_DEBUG_INFO)
+        file( COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataDebug.json" DESTINATION ${CMAKE_CURRENT_BINARY_DIR} )
+        target_sources(${ARGS_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/pluginMetaDataDebug.json")
+    else()
+        file( COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataRelease.json" DESTINATION ${CMAKE_CURRENT_BINARY_DIR} )
+        target_sources(${ARGS_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/pluginMetaDataRelease.json")
+    endif()
+
     # configure the plugin installation
     # a plugin could be installed in the Radium Installation Directory
     if (ARGS_INSTALL_IN_RADIUM_BUNDLE)

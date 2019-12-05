@@ -34,6 +34,10 @@ add_dependencies(${ra_guibase_target} Radium::Core Radium::Engine Radium::Plugin
 target_link_libraries(${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
 target_link_libraries (${ra_guibase_target} PRIVATE ${Qt5_LIBRARIES} OpenGL::GL)
 
+if( CMAKE_BUILD_TYPE MATCHES Debug )
+    target_compile_definitions(${ra_guibase_target} PUBLIC GUIBASE_IS_COMPILED_WITH_DEBUG_INFO)
+endif()
+
 # Ask RadiumIO for supported loaders
 get_target_property(USE_ASSIMP Radium::IO IO_ASSIMP)
 if (${USE_ASSIMP})

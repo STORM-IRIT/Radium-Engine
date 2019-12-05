@@ -24,6 +24,7 @@ add_library(
     ${pluginbase_sources}
     ${pluginbase_headers}
     ${pluginbase_inlines}
+    ${pluginbase_json}
 )
 add_library(Radium::PluginBase ALIAS ${ra_pluginbase_target})
 
@@ -37,3 +38,7 @@ target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPO
 
 installLibHeaders( "PluginBase" "${pluginbase_headers}" )
 installLibHeaders( "PluginBase" "${pluginbase_inlines}" )
+
+#install json configuration files
+install( FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation}
+)
