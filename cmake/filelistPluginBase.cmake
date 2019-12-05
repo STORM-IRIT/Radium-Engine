@@ -12,3 +12,8 @@ set( pluginbase_headers
 set( pluginbase_inlines
     )
 
+set( pluginbase_json
+    pluginMetaDataRelease.json
+    pluginMetaDataDebug.json
+    )
+
