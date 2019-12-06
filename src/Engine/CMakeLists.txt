@@ -1,4 +1,4 @@
-set(ra_engine_target RadiumEngine)
+set(ra_engine_target Engine)
 
 project( ${ra_engine_target}
          LANGUAGES CXX
@@ -19,7 +19,6 @@ add_library(
     ${engine_headers}
     ${engine_inlines}
 )
-add_library(Radium::Engine ALIAS ${ra_engine_target})
 
 add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
@@ -33,8 +32,8 @@ configureTargetWithDefaultRaSettings( ${ra_engine_target} )
 target_include_directories(${ra_engine_target} PUBLIC
     $<BUILD_INTERFACE:${GLBINDING_INCLUDE_DIR}>
     $<BUILD_INTERFACE:${GLM_INCLUDE_DIR}> )
-add_dependencies (${ra_engine_target} Radium::Core RadiumEngineShaders)
-target_link_libraries (${ra_engine_target} PUBLIC Radium::Core glm glbinding::glbinding glbinding::glbinding-aux globjects::globjects)
+add_dependencies (${ra_engine_target} Core RadiumEngineShaders)
+target_link_libraries (${ra_engine_target} PUBLIC Core glm glbinding::glbinding glbinding::glbinding-aux globjects::globjects)
 
 target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 

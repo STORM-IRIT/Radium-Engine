@@ -1,4 +1,4 @@
-set(ra_pluginbase_target RadiumPluginBase)
+set(ra_pluginbase_target PluginBase)
 
 project( ${ra_pluginbase_target}
          LANGUAGES CXX
@@ -26,11 +26,10 @@ add_library(
     ${pluginbase_inlines}
     ${pluginbase_json}
 )
-add_library(Radium::PluginBase ALIAS ${ra_pluginbase_target})
 
 configureTargetWithDefaultRaSettings( ${ra_pluginbase_target} )
-add_dependencies( ${ra_pluginbase_target} Radium::Core Radium::Engine )
-target_link_libraries (${ra_pluginbase_target} PUBLIC Radium::Core Radium::Engine )
+add_dependencies( ${ra_pluginbase_target} Core Engine )
+target_link_libraries (${ra_pluginbase_target} PUBLIC Core Engine )
 target_link_libraries (${ra_pluginbase_target} PRIVATE Qt5::Core)
 
 target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")

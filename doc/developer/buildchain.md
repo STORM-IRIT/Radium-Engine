@@ -27,8 +27,8 @@ add_dependencies (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium
 ~~~
 \warning Consistency of `RADIUM_GENERATE_LIB_***` options is not checked wrt. the dependencies.
 
- - When enabled using `RADIUM_GENERATE_LIB_***`, each library has a compilation target: `RadiumCore`,
- `RadiumEngine`, ...
+ - When enabled using `RADIUM_GENERATE_LIB_***`, each library has a compilation target: `Core`,
+ `Engine`, ...
 
 #### External dependencies
 Each library comes with its own dependencies, which are fetched and built at **configure** time:
@@ -51,7 +51,7 @@ INFO[addExternalFolder] process Core /*****/Radium-Engine/src/Core/external
 [addExternalFolder] Start build
 [addExternalFolder] Build ended
 [addExternalFolder] Configure package file /****/build-Radium-Engine-Desktop-Release/src/Core/external/cmake/package-Core.cmake
-Configure library RadiumCore with default settings
+Configure library Core with default settings
 clang-tidy - static analysis              NO
 cppcheck - static analysis                NO
 clang-format - code formating             YES
@@ -72,7 +72,7 @@ Configuring done
 Generating done
 CMake Project was parsed successfully.
 ~~~
-Whats is happening here, is that the dependencies of RadiumCore are fetched using git, then
+Whats is happening here, is that the dependencies of Core are fetched using git, then
 configured using cmake, built, and installed to ${CMAKE_INSTALL_PREFIX} of Radium.
 \see File `cmake/externalFunc.cmake` for technical details.
 

@@ -1,4 +1,4 @@
-set(ra_core_target RadiumCore)
+set(ra_core_target Core)
 
 project( ${ra_core_target}
          LANGUAGES CXX
@@ -25,8 +25,6 @@ add_library(
     ${core_inlines}
     ${RA_VERSION_CPP}
 )
-add_library(Radium::Core ALIAS ${ra_core_target})
-
 addExternalFolder( Core ${CMAKE_CURRENT_SOURCE_DIR}/external )
 
 find_package(Eigen3 3.3

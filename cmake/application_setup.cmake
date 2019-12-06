@@ -126,8 +126,8 @@ function(configure_cmdline_Radium_app)
 
     # install Radium Resources if there is a dependency on Engine or Guibase
     get_target_property(deps ${ARGS_NAME} INTERFACE_LINK_LIBRARIES)
-    list(FIND deps "Radium::RadiumEngine" depEngine)
-    list(FIND deps "Radium::RadiumGuiBase" depGuibase)
+    list(FIND deps "Radium::Engine" depEngine)
+    list(FIND deps "Radium::GuiBase" depGuibase)
     if (depEngine GREATER_EQUAL "0" OR depGuibase GREATER_EQUAL "0")
         install(DIRECTORY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX})
     else ()

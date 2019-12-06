@@ -1,4 +1,4 @@
-set(ra_guibase_target RadiumGuiBase)
+set(ra_guibase_target GuiBase)
 
 project( ${ra_guibase_target}
          LANGUAGES CXX
@@ -27,11 +27,10 @@ add_library(
     ${guibase_headers}
     ${guibase_inlines}
 )
-add_library(Radium::GuiBase ALIAS ${ra_guibase_target})
 
 configureTargetWithDefaultRaSettings( ${ra_guibase_target} )
-add_dependencies(${ra_guibase_target} Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
-target_link_libraries(${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
+add_dependencies(${ra_guibase_target} Core Engine PluginBase IO)
+target_link_libraries(${ra_guibase_target} PUBLIC Core Engine PluginBase IO)
 target_link_libraries (${ra_guibase_target} PRIVATE ${Qt5_LIBRARIES} OpenGL::GL)
 
 if( CMAKE_BUILD_TYPE MATCHES Debug )
@@ -39,11 +38,11 @@ if( CMAKE_BUILD_TYPE MATCHES Debug )
 endif()
 
 # Ask RadiumIO for supported loaders
-get_target_property(USE_ASSIMP Radium::IO IO_ASSIMP)
+get_target_property(USE_ASSIMP IO IO_ASSIMP)
 if (${USE_ASSIMP})
     target_compile_definitions(${ra_guibase_target} PRIVATE "-DIO_USE_ASSIMP")
 endif ()
-get_target_property(USE_TINYPLY Radium::IO IO_TINYPLY)
+get_target_property(USE_TINYPLY IO IO_TINYPLY)
 if (${USE_TINYPLY})
     target_compile_definitions(${ra_guibase_target} PRIVATE "-DIO_USE_TINYPLY")
 endif ()

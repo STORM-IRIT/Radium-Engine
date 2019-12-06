@@ -1,4 +1,4 @@
-set(ra_io_target RadiumIO)
+set(ra_io_target IO)
 
 project( ${ra_io_target}
          LANGUAGES CXX
@@ -16,7 +16,6 @@ add_library(
     ${io_headers}
     ${io_inlines}
 )
-add_library(Radium::IO ALIAS ${ra_io_target})
 
 addExternalFolder( IO ${CMAKE_CURRENT_SOURCE_DIR}/external
     -DRADIUM_IO_ASSIMP=${RADIUM_IO_ASSIMP}
@@ -39,8 +38,8 @@ if( RADIUM_IO_TINYPLY )
 endif( RADIUM_IO_TINYPLY )
 
 configureTargetWithDefaultRaSettings( ${ra_io_target} )
-add_dependencies( ${ra_io_target} Radium::Core )
-target_link_libraries (${ra_io_target} PUBLIC Radium::Core)
+add_dependencies( ${ra_io_target} Core )
+target_link_libraries (${ra_io_target} PUBLIC Core)
 
 target_compile_definitions(${ra_io_target} PRIVATE RA_IO_EXPORTS IO_USE_CAMERA_LOADER)
 
