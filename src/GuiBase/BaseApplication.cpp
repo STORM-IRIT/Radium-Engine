@@ -641,16 +641,16 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
                     }
                     else
                     {
-                        LOG( logERROR ) << "Something went wrong while trying to load plugin "
-                                        << filename.toStdString() << " : "
-                                        << pluginLoader.errorString().toStdString();
+                        LOG( logERROR ) << "Something went wrong while trying to cast plugin "
+                                        << filename.toStdString();
                         res = false;
                     }
                 }
                 else
                 {
-                    LOG( logERROR ) << "Something went wrong while trying to cast plugin "
-                                    << filename.toStdString();
+                    LOG( logERROR ) << "Something went wrong while trying to load plugin "
+                                    << filename.toStdString() << " : "
+                                    << pluginLoader.errorString().toStdString();
                     res = false;
                 }
             }
