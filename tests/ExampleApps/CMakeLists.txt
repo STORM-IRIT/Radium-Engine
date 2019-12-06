@@ -21,7 +21,7 @@ include(application_setup)
 
 add_executable(CoreExampleApp
     CoreExampleApp/CoreExampleApp.cpp)
-target_link_libraries (CoreExampleApp PUBLIC Radium::Core)
+target_link_libraries (CoreExampleApp PUBLIC Core)
 configure_radium_app_install(NAME CoreExampleApp)
 
 #if (RADIUM_GENERATE_LIB_ENGINE)

@@ -24,8 +24,8 @@ add_executable(unittests
     Core/topomesh.cpp
     )
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
-target_link_libraries(unittests PRIVATE Catch2 Radium::Core)
-add_dependencies(unittests Catch2 Radium::Core)
+target_link_libraries(unittests PRIVATE Catch2 Core)
+add_dependencies(unittests Catch2 Core)
 target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # convenience target for running only the unit tests
