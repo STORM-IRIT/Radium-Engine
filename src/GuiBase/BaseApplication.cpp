@@ -32,6 +32,7 @@
 
 #include <QCommandLineParser>
 #include <QDir>
+#include <QMessageBox>
 #include <QOpenGLContext>
 #include <QPluginLoader>
 #include <QTimer>
@@ -562,8 +563,22 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
 
             LOG( logINFO ) << "Found plugin " << filename.toStdString();
 
-            // get the metadata, and check the plugin has been compiled with a compatible build type
-            auto metadata      = pluginLoader.metaData()["MetaData"].toObject();
+            auto metadata = pluginLoader.metaData()["MetaData"].toObject();
+
+            // detect if the plugin meets the minimal requirements
+            // if not, triggers a QDialog explaining the error, and abort the application
+            // We choose to stop the application to force all the plugins to be updated
+            if ( !metadata.contains( "isDebug" ) )
+            {
+                QMessageBox::critical( m_mainWindow.get(),
+                                       "Invalid plugin loaded (see Q_RADIUM_PLUGIN_METADATA)",
+                                       QString( "The application tried to load an unsupported "
+                                                "plugin. The application will stop.\n" ) +
+                                           QString( "Plugin path: " ) +
+                                           pluginsDir.absoluteFilePath( filename ) );
+                appNeedsToQuit();
+                return false;
+            }
             bool isPluginDebug = metadata["isDebug"].toString().compare( "true" ) == 0;
             if ( expectPluginsDebug == isPluginDebug )
             {
