@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include <Eigen/Geometry>
+
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Index.hpp>
@@ -23,13 +25,8 @@ class RA_CORE_API GeometryData : public AssetData
 {
 
   public:
-    using Vector3Array  = Core::VectorArray<Core::Vector3>;
-    using Vector2iArray = Core::VectorArray<Core::Vector2i>;
-    using Vector2uArray = Core::VectorArray<Core::Vector2ui>;
-    using VectorNiArray = Core::VectorArray<Core::VectorNi>;
-    using VectorNuArray = Core::VectorArray<Core::VectorNui>;
-    using Vector4Array  = Core::VectorArray<Core::Vector4>;
-    using ColorArray    = Core::VectorArray<Core::Vector4>;
+    using ColorArray    = Vector4Array;
+    using Transform     = Eigen::Transform<Scalar, 3, Eigen::Affine>;
 
     using Weight        = std::pair<Scalar, uint>;
     using VertexWeights = std::vector<Weight>;
@@ -68,13 +65,13 @@ class RA_CORE_API GeometryData : public AssetData
     inline void setType( const GeometryType& type );
 
     /// Return the Transform of the object.
-    inline Core::Transform getFrame() const;
+    inline Transform getFrame() const;
 
     /// Set the Transform of the object.
-    inline void setFrame( const Core::Transform& frame );
+    inline void setFrame( const Transform& frame );
 
     /// Return the number of vertices.
-    inline uint getVerticesSize() const;
+    inline std::size_t getVerticesSize() const;
 
     /// Return the list of vertices.
     inline Vector3Array& getVertices();
@@ -263,11 +260,11 @@ class RA_CORE_API GeometryData : public AssetData
     ///@}
 
     /// Print stast info to the Debug output.
-    inline void displayInfo() const;
+    void displayInfo() const;
 
   protected:
     /// The transformation of the object.
-    Core::Transform m_frame;
+    Transform m_frame;
 
     /// The type of geometry for the object.
     GeometryType m_type;

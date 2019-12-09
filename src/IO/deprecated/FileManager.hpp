@@ -22,10 +22,10 @@ class [[deprecated]] FileManager {
     };
 
     /// CONSTRUCTOR
-    inline FileManager(); // Default constructor.
+    inline FileManager() = default; // Default constructor.
 
     /// DESTRUCTOR
-    virtual ~FileManager(); // Destructor.
+    inline virtual ~FileManager() = default; // Destructor.
 
     /// INTERFACE
     inline bool load( const std::string& filename,
@@ -64,7 +64,7 @@ class [[deprecated]] FileManager {
     inline void saveLog( const std::string& filename ); // Save the log into a text file.
 
     /// VARIABLE
-    std::string m_log;
+    std::string m_log{""};
 };
 
 } // namespace IO

@@ -3,8 +3,6 @@
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
-#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -57,22 +55,36 @@ class VectorArray<Scalar> : public AlignedStdVector<Scalar>
     /// Returns the array as an Eigen Matrix Map
     MatrixMap getMap() {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return MatrixMap( this->data(), 1, this->size() );
+        return MatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
     }
 
     /// Returns the array as an Eigen Matrix Map (const version)
     ConstMatrixMap getMap() const {
         CORE_ASSERT( !this->empty(), "Cannot map an empty vector " );
-        return ConstMatrixMap( this->data(), 1, this->size() );
+        return ConstMatrixMap( this->data(), 1, Eigen::Index( this->size() ) );
     }
 };
 
+
 // Convenience aliases
 using Vector1Array   = VectorArray<Scalar>;
-using Vector2Array   = VectorArray<Vector2>;
-using Vector3Array   = VectorArray<Vector3>;
-using Vector3uiArray = VectorArray<Vector3ui>;
-using Vector4Array   = VectorArray<Vector4>;
+using Vector1uiArray = VectorArray<uint>;
+#define DEFINE_CONVENIENCE_MATRIX_ALIAS(NAME,TYPE,DIM) \
+  using NAME = VectorArray<Eigen::Matrix<TYPE, DIM, 1>>;
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector2Array,Scalar, 2)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector3Array,Scalar, 3)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector4Array,Scalar, 4)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(VectorNArray,Scalar,Eigen::Dynamic)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector2iArray,int, 2)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector3iArray,int, 3)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector4iArray,int, 4)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(VectorNiArray,int,Eigen::Dynamic)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector2uArray,uint, 2)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector3uArray,uint, 3)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector4uArray,uint, 4)
+DEFINE_CONVENIENCE_MATRIX_ALIAS(VectorNuArray,uint,Eigen::Dynamic)
+#undef DEFINE_CONVENIENCE_MATRIX_ALIAS
+
 
 // Notes :
 // Using a map for eigen integration was recommended by [1].

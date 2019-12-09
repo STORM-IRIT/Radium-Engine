@@ -54,7 +54,7 @@ Renderer::~Renderer() {
 
 void Renderer::initialize( uint width, uint height ) {
     /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
 
     m_width  = width;
     m_height = height;

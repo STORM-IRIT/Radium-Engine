@@ -71,6 +71,9 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
     const std::string& getExportFolderName() const { return m_exportFoldername; }
 
+    void addPluginDirectory( const std::string& pluginDir );
+    void clearPluginDirectories();
+
   signals:
     /// Fired when the engine has just started, before the frame timer is set.
     void starting();
