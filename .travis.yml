@@ -17,6 +17,7 @@ script:
   - cd installed/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd $RETURN_PATH
   - mv installed/ installed_moved
   - cd installed_moved/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd ../..
+  - mv installed_moved/ installed
 
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
