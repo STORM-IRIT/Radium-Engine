@@ -2,6 +2,7 @@
 #define RADIUMENGINE_COLOR_HPP_
 
 #include <Core/CoreMacros.hpp>
+#include <Core/Math/Math.hpp>
 #include <Eigen/Core>
 #include <Eigen/Geometry> //homogeneous
 #include <random>
@@ -13,6 +14,16 @@ namespace Utils {
 /*!
  * Colors are defined as vector4, i.e. 4 Scalars in RGBA order.
  * displayable colors should have all their coordinates between 0 and 1.
+ *
+ * \warning Vector arithmetics can be used to add, substract, multiply or divide colors with
+ * scalars and other colors. In that case, alpha is treated as any other component. It is fine for
+ * most cases, however adding two colors (e.g. Blue()+Red()) may lead to unconsistent
+ * alpha: Blue()+Red() = {1, 0, 1, 2}.
+ * In that case, only the rgb values need to be added:
+ * \code
+ * Color result = Color::fromRGB( Blue().rgb()+Red().rgb() ); // result = {1, 0, 1, 1}
+ * \endcode
+ * The validity of alpha can be checked using hasValidAlpha().
  */
 template <typename _Scalar>
 class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
@@ -75,6 +86,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
 
     Scalar alpha() const { return ( *this )( 3 ); }
     Scalar& alpha() { return ( *this )( 3 ); }
+    bool hasValidAlpha() const { return Math::checkRange( alpha(), 0_ra, 1_ra ); }
 
     static inline ColorBase<_Scalar> Alpha() {
         return ColorBase<_Scalar>( _Scalar( 0. ), _Scalar( 0. ), _Scalar( 0. ), _Scalar( 0. ) );

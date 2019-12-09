@@ -36,6 +36,13 @@ template <class T>
 inline typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
 areApproxEqual( T x, T y, T espilonBoostFactor = T( 10 ) );
 
+/// Scalar or component-wise range check.
+/// Note: a definition of clamp must be available:
+///  - for vectors, relies on the component-wise clamp defined in Core/Math/LinearAlgebra
+///  - for scalars, use std version (call `using std::clamp;` beforehand)
+template <typename Vector_Or_Scalar>
+inline bool checkRange( const Vector_Or_Scalar& v, const Scalar& min, const Scalar& max );
+
 /// Integer power functions. Work for all numeric types which support
 /// multiplication and for which T(1) is a valid expression.
 /// x^0 always return T(1) and x^1 always return x (even when x is 0).

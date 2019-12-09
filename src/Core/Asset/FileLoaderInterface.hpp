@@ -14,7 +14,7 @@ class FileData;
 class FileLoaderInterface
 {
   public:
-    virtual ~FileLoaderInterface() {}
+    virtual ~FileLoaderInterface() = default;
 
     virtual std::vector<std::string> getFileExtensions() const = 0;
 

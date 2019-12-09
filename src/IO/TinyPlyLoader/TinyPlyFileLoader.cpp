@@ -2,7 +2,7 @@
 
 #include <Core/Asset/FileData.hpp>
 
-#include <tinyply/tinyply.h>
+#include <tinyply.h>
 
 #include <fstream>
 #include <iostream>
@@ -35,7 +35,8 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     std::ifstream ss( filename, std::ios::binary );
 
     // Parse the ASCII header fields
-    tinyply::PlyFile file( ss );
+    tinyply::PlyFile file;
+    file.parse_header( ss );
 
     auto elements = file.get_elements();
     if ( std::any_of( elements.begin(), elements.end(), []( const auto& e ) -> bool {
@@ -57,19 +58,38 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
 
-    if ( fileData->isVerbose() ) { LOG( logINFO ) << "[TinyPLY] File Loading begin..."; }
+    if ( fileData->isVerbose() )
+    {
+        LOG( logINFO ) << "[TinyPLY] File Loading begin...";
 
-    // Define containers to hold the extracted data. The type must match
-    // the property type given in the header. Tinyply will interally allocate the
-    // the appropriate amount of memory.
-    std::vector<float> verts;
+        LOG( logINFO )
+            << "........................................................................\n";
+        for ( auto c : file.get_comments() )
+            std::cout << "Comment: " << c;
+        for ( auto e : file.get_elements() )
+        {
+            LOG( logINFO ) << "element - " << e.name << " (" << e.size << ")";
+            for ( auto p : e.properties )
+                std::cout << "\tproperty - " << p.name << " ("
+                          << tinyply::PropertyTable[p.propertyType].str << ")";
+        }
+        LOG( logINFO )
+            << "........................................................................\n";
+    }
 
     // The count returns the number of instances of the property group. The vectors
     // above will be resized into a multiple of the property group size as
     // they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
-    size_t vertexCount = file.request_properties_from_element( "vertex", {"x", "y", "z"}, verts );
+    std::shared_ptr<tinyply::PlyData> vertBuffer;
+    try
+    { vertBuffer = file.request_properties_from_element( "vertex", {"x", "y", "z"} ); }
+    catch ( const std::exception& e )
+    {
+        vertBuffer = nullptr;
+        LOG( logERROR ) << "[TinyPLY] " << e.what();
+    }
 
-    if ( vertexCount == 0 )
+    if ( vertBuffer && vertBuffer->count == 0 )
     {
         delete fileData;
         LOG( logINFO ) << "[TinyPLY] No vertice found";
@@ -83,43 +103,67 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // a unique name is required by the component messaging system
     auto geometry = std::make_unique<GeometryData>( "PC_" + std::to_string( ++nameId ),
                                                     GeometryData::POINT_CLOUD );
+    geometry->setFrame( Core::Transform::Identity() );
 
-    std::vector<float> normals;
-    std::vector<uint8_t> colors, alphas;
-    size_t normalCount =
-        file.request_properties_from_element( "vertex", {"nx", "ny", "nz"}, normals );
-    size_t alphaCount = file.request_properties_from_element( "vertex", {"alpha"}, alphas );
-    size_t colorCount =
-        file.request_properties_from_element( "vertex", {"red", "green", "blue"}, colors );
+    std::shared_ptr<tinyply::PlyData> normalBuffer( nullptr ), alphaBuffer( nullptr ),
+        colorBuffer( nullptr );
+    try
+    { normalBuffer = file.request_properties_from_element( "vertex", {"nx", "ny", "nz"} ); }
+    catch ( const std::exception& e )
+    {
+        normalBuffer = nullptr;
+        LOG( logERROR ) << "[TinyPLY] " << e.what();
+    }
+    try
+    { alphaBuffer = file.request_properties_from_element( "vertex", {"alpha"} ); }
+    catch ( const std::exception& e )
+    {
+        alphaBuffer = nullptr;
+        LOG( logERROR ) << "[TinyPLY] " << e.what();
+    }
+    try
+    { colorBuffer = file.request_properties_from_element( "vertex", {"red", "green", "blue"} ); }
+    catch ( const std::exception& e )
+    {
+        colorBuffer = nullptr;
+        LOG( logERROR ) << "[TinyPLY] " << e.what();
+    }
 
     std::clock_t startTime;
     startTime = std::clock();
 
     file.read( ss );
 
-    geometry->setVertices( *(
-        reinterpret_cast<std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>>*>( &verts ) ) );
-    geometry->setFrame( Core::Transform::Identity() );
-
-    if ( normalCount != 0 )
     {
-        geometry->setNormals(
-            *( reinterpret_cast<std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>>*>(
-                &normals ) ) );
+        const size_t numVerticesBytes = vertBuffer->buffer.size_bytes();
+        std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> verts( vertBuffer->count );
+        std::memcpy( verts.data(), vertBuffer->buffer.get(), numVerticesBytes );
+        geometry->setVertices( verts );
     }
 
+    if ( normalBuffer && normalBuffer->count != 0 )
+    {
+        const size_t numVerticesBytes = normalBuffer->buffer.size_bytes();
+        std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> normals( normalBuffer->count );
+        std::memcpy( normals.data(), normalBuffer->buffer.get(), numVerticesBytes );
+        geometry->setNormals( normals );
+    }
+
+    size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 )
     {
         auto& container = geometry->getColors();
         container.resize( colorCount );
 
-        auto* cols = reinterpret_cast<std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>>*>(
-                         &colors )
-                         ->data();
+        const size_t numVerticesBytes = colorBuffer->buffer.size_bytes();
+        std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>> colors( colorBuffer->count );
+        std::memcpy( colors.data(), colorBuffer->buffer.get(), numVerticesBytes );
 
-        if ( alphaCount == colorCount )
+        auto* cols = colors.data();
+
+        if ( alphaBuffer && alphaBuffer->count == colorCount )
         {
-            uint8_t* al = alphas.data();
+            uint8_t* al = alphaBuffer->buffer.get();
             for ( auto& c : container )
             {
                 c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra,

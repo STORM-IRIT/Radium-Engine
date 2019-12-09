@@ -39,7 +39,7 @@ RadiumEngine::~RadiumEngine() = default;
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
-    m_resourcesRootDir    = {Core::Resources::getBaseDir()};
+    m_resourcesRootDir    = {Core::Resources::getRadiumResourcesDir()};
     m_signalManager       = std::make_unique<SignalManager>();
     m_entityManager       = std::make_unique<EntityManager>();
     m_renderObjectManager = std::make_unique<RenderObjectManager>();

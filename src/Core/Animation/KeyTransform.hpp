@@ -17,7 +17,7 @@ class KeyTransform : public KeyFrame<Core::Transform>
     KeyTransform( const KeyTransform& keyframe ) = default;
 
     /// DESTRUCTOR
-    ~KeyTransform() {}
+    ~KeyTransform() override {}
 
   protected:
     /// TRANSFORMATION

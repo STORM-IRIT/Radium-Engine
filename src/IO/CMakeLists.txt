@@ -1,85 +1,50 @@
-set( RADIUM_IO_IS_INTERFACE TRUE )
+set(ra_io_target IO)
 
-set(io_target radiumIO)
+project( ${ra_io_target}
+         LANGUAGES CXX
+         VERSION ${RADIUM_VERSION})
 
-file(GLOB io_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
-                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.cpp)
-file(GLOB io_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h
-                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.h
-                     ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
-                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.hpp)
-file(GLOB io_inlines ${CMAKE_CURRENT_SOURCE_DIR}/*.inl
-                     ${CMAKE_CURRENT_SOURCE_DIR}/deprecated/*.inl)
+option( RADIUM_IO_DEPRECATED  "Provide depricated loaders (to be removed without notice)" ON )
+option( RADIUM_IO_ASSIMP  "Provide loaders based on Assimp library" OFF )
+option( RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON )
 
-set(io_libs radiumCore radiumEngine)
+include( filelistIO )
 
-if( RADIUM_CAMERA_LOADER_SUPPORT )
-    add_subdirectory( CameraLoader )
-    set( io_sources ${io_sources} ${cameraloader_sources} )
-    set( io_headers ${io_headers} ${cameraloader_headers} )
-    set( io_inlines ${io_inlines} ${cameraloader_inlines} )
-endif( RADIUM_CAMERA_LOADER_SUPPORT )
+add_library(
+    ${ra_io_target} SHARED
+    ${io_sources}
+    ${io_headers}
+    ${io_inlines}
+)
 
-if( RADIUM_ASSIMP_SUPPORT )
-    add_subdirectory( AssimpLoader )
-    set( io_sources ${io_sources} ${assimp_sources} )
-    set( io_headers ${io_headers} ${assimp_headers} )
-    set( io_inlines ${io_inlines} ${assimp_inlines} )
-    set( io_libs    ${io_libs}    ${ASSIMP_LIBRARIES} )
-endif( RADIUM_ASSIMP_SUPPORT )
+addExternalFolder( IO ${CMAKE_CURRENT_SOURCE_DIR}/external
+    -DRADIUM_IO_ASSIMP=${RADIUM_IO_ASSIMP}
+    -DRADIUM_IO_TINYPLY=${RADIUM_IO_TINYPLY} )
 
-if( RADIUM_TINYPLY_SUPPORT )
-    add_subdirectory( TinyPlyLoader )
-    set( io_sources ${io_sources} ${tinyply_sources} )
-    set( io_headers ${io_headers} ${tinyply_headers} )
-    set( io_inlines ${io_inlines} ${tinyply_inlines} )
-endif( RADIUM_TINYPLY_SUPPORT )
+if( RADIUM_IO_ASSIMP )
+    find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH )
+    set_target_properties( ${ra_io_target} PROPERTIES IO_ASSIMP ${RADIUM_IO_ASSIMP})
+endif( RADIUM_IO_ASSIMP )
+if( RADIUM_IO_TINYPLY )
+    find_package(tinyply REQUIRED NO_DEFAULT_PATH )
+    set_target_properties( ${ra_io_target} PROPERTIES IO_TINYPLY ${RADIUM_IO_TINYPLY})
+endif( RADIUM_IO_TINYPLY )
 
-if ( RADIUM_IO_IS_INTERFACE )
-    add_library( ${io_target} INTERFACE )
+if( RADIUM_IO_ASSIMP )
+    target_link_libraries (${ra_io_target} PUBLIC assimp::assimp)
+endif( RADIUM_IO_ASSIMP )
+if( RADIUM_IO_TINYPLY )
+    target_link_libraries (${ra_io_target} PUBLIC tinyply)
+endif( RADIUM_IO_TINYPLY )
 
-    target_sources(
-        ${io_target} INTERFACE
-        ${io_sources}
-        ${io_headers}
-        ${io_inlines}
-    )
-    target_compile_definitions(${io_target} INTERFACE "-DRA_IO_STATIC")
+configureTargetWithDefaultRaSettings( ${ra_io_target} )
+add_dependencies( ${ra_io_target} Core )
+target_link_libraries (${ra_io_target} PUBLIC Core)
 
-    target_link_libraries(
-            ${io_target} INTERFACE
-            PUBLIC ${io_libs}
-    )
-else ( RADIUM_IO_IS_INTERFACE )
-    add_library(
-        ${io_target} SHARED
-        ${io_sources}
-        ${io_headers}
-        ${io_inlines}
-    )
-    target_compile_definitions(${io_target} PRIVATE "-DRA_IO_EXPORTS")
-
-    target_link_libraries(
-        ${io_target}
-        PUBLIC ${io_libs}
-    )
-    set_property( TARGET ${io_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
-
-    if (NOT APPLE)
-        radium_cotire(${io_target}) # see https://travis-ci.org/STORM-IRIT/Radium-Engine/jobs/432345198
-    endif (NOT APPLE)
-endif ( RADIUM_IO_IS_INTERFACE )
+target_compile_definitions(${ra_io_target} PRIVATE RA_IO_EXPORTS IO_USE_CAMERA_LOADER)
 
 
-add_dependencies( ${io_target} radiumCore radiumEngine )
-target_include_directories(${io_target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.. )
+# set_target_properties(${ra_io_target} PROPERTIES PUBLIC_HEADER "${io_headers};${io_inlines}")
 
-if( RADIUM_ASSIMP_SUPPORT )
-    add_dependencies( ${io_target} assimp_lib )
-    target_include_directories( ${io_target}  PRIVATE ${ASSIMP_INCLUDE_DIR} )
-endif( RADIUM_ASSIMP_SUPPORT )
-
-if( RADIUM_TINYPLY_SUPPORT )
-    add_dependencies( ${io_target} tinyply )
-endif( RADIUM_TINYPLY_SUPPORT )
-
+installLibHeaders( "IO" "${io_headers}" )
+installLibHeaders( "IO" "${io_inlines}" )

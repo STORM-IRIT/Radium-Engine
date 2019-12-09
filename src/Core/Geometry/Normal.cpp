@@ -33,7 +33,7 @@ void uniformNormal( const VectorArray<Vector3>& p,
     }
 
 #pragma omp parallel for
-    for ( int i = 0; i < N; ++i )
+    for ( int i = 0; i < int( N ); ++i )
     {
         if ( !normal[i].isApprox( Vector3::Zero() ) ) { normal[i].normalize(); }
     }
@@ -42,12 +42,12 @@ void uniformNormal( const VectorArray<Vector3>& p,
     // normal.getMap().colwise().normalize();
 }
 
-Vector3 localUniformNormal( const uint i,
+Vector3 localUniformNormal( const uint ii,
                             const VectorArray<Vector3>& p,
                             const VectorArray<Vector3ui>& T,
                             const Sparse& adj ) {
     Vector3 normal = Vector3::Zero();
-    for ( Sparse::InnerIterator it( adj, i ); it; ++it )
+    for ( Sparse::InnerIterator it( adj, ii ); it; ++it )
     {
         const size_t t = it.row();
         const uint i   = T[t]( 0 );

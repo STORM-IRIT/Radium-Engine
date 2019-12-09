@@ -28,6 +28,7 @@
 #define COMPILER_GCC
 #elif defined (_MSC_VER)
 #define COMPILER_MSVC
+#define _USE_MATH_DEFINES
 #else
 #error unsupported compiler
 #endif

@@ -1,3 +1,11 @@
+set(ra_pluginbase_target PluginBase)
+
+project( ${ra_pluginbase_target}
+         LANGUAGES CXX
+         VERSION ${RADIUM_VERSION})
+
+include( filelistPluginBase )
+
 # Find packages
 find_package(Qt5 COMPONENTS Core REQUIRED)
 
@@ -7,41 +15,29 @@ else ()
     message(STATUS "QT ${Qt5Core_VERSION} found." )
 endif()
 
-# Build PluginBase
-set(pluginbase_target radiumPluginBase)
-
 # Qt5
 set(Qt5_LIBRARIES Qt5::Core)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
-
-file(GLOB_RECURSE pluginbase_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-file(GLOB_RECURSE pluginbase_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
-file(GLOB_RECURSE pluginbase_inlines ${CMAKE_CURRENT_SOURCE_DIR}/*.inl)
-
-set (pluginbase_libs
-    radiumCore
-    radiumEngine
-    ${Qt5_LIBRARIES}
-)
 
 add_library(
-    ${pluginbase_target} SHARED
+    ${ra_pluginbase_target} SHARED
     ${pluginbase_sources}
     ${pluginbase_headers}
-    ${pluginbase_inlines})
+    ${pluginbase_inlines}
+    ${pluginbase_json}
+)
 
-target_include_directories(${pluginbase_target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+configureTargetWithDefaultRaSettings( ${ra_pluginbase_target} )
+add_dependencies( ${ra_pluginbase_target} Core Engine )
+target_link_libraries (${ra_pluginbase_target} PUBLIC Core Engine )
+target_link_libraries (${ra_pluginbase_target} PRIVATE Qt5::Core)
 
-add_dependencies( ${pluginbase_target} radiumCore radiumEngine )
-target_compile_definitions(${pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
+target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
+# set_target_properties(${ra_pluginbase_target} PROPERTIES PUBLIC_HEADER "${pluginbase_headers};${pluginbase_inlines}")
 
-target_link_libraries(
-    ${pluginbase_target}
-    PUBLIC ${pluginbase_libs}
-    )
+installLibHeaders( "PluginBase" "${pluginbase_headers}" )
+installLibHeaders( "PluginBase" "${pluginbase_inlines}" )
 
-#radium_cotire(${pluginbase_target})
-
-set_property( TARGET ${pluginbase_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+#install json configuration files
+install( FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation}
+)

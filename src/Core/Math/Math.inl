@@ -12,6 +12,12 @@ inline constexpr Scalar toDegrees( Scalar a ) {
     return toDeg * a;
 }
 
+template <typename Vector_Or_Scalar>
+inline bool checkRange( const Vector_Or_Scalar& v, const Scalar& min, const Scalar& max ) {
+    using std::clamp; // by default, use clamp from the std library
+    return clamp( v, min, max ) == v;
+}
+
 template <typename T>
 inline T ipow( const T& x, uint exp ) {
     if ( exp == 0 ) { return T( 1 ); }
@@ -40,7 +46,7 @@ struct IpowHelper<T, 1> {
 
 template <typename T>
 struct IpowHelper<T, 0> {
-    static inline constexpr T pow( const T& x ) { return T( 1 ); }
+    static inline constexpr T pow( const T& /*x*/ ) { return T( 1 ); }
 };
 
 } // namespace
@@ -53,12 +59,12 @@ inline constexpr T ipow( const T& x ) {
 
 // Signum implementation that works for unsigned types.
 template <typename T>
-inline constexpr int signum( T x, std::false_type is_signed ) {
+inline constexpr int signum( T x, std::false_type /*is_signed*/ ) {
     return T( 0 ) < x;
 }
 
 template <typename T>
-inline constexpr int signum( T x, std::true_type is_signed ) {
+inline constexpr int signum( T x, std::true_type /*is_signed*/ ) {
     return ( T( 0 ) < x ) - ( x < T( 0 ) );
 }
 
