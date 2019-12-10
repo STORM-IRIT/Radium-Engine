@@ -109,6 +109,7 @@ install:
   - mkdir -p build
   - cd build
   - cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=./installed
+  - zip --symlinks -r ${CHECKOUT_PATH}/build/${Radium_RELEASE_NAME}.zip ${CHECKOUT_PATH}/build/installed/
 
 
 # safelist
@@ -117,7 +118,7 @@ branches:
   - gh-pages
 
 before_deploy:
-  - zip -r build/${Radium_RELEASE_NAME}.zip build/installed/
+  - zip --symlinks -r ${CHECKOUT_PATH}/build/${Radium_RELEASE_NAME}.zip ${CHECKOUT_PATH}/build/installed/
 
 deploy:
   - provider: pages
