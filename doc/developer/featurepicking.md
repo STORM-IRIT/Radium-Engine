@@ -19,7 +19,7 @@ The selection of a mesh feature is activated by holding a specific key while sel
 
 ## MeshFeatureTracking Plugin
 
-The `MeshFeatureTracking` Plugin is an example of how mesh features information can be displayed either through the `Gui` or as displayed objects.
+The `MeshFeatureTracking` Plugin (**Radium Official Plugins** (https://gitlab.com/Storm-IRIT/radium-official-plugins)) is an example of how mesh features information can be displayed either through the `Gui` or as displayed objects.
 The `SelectionManager`'s `currentChanged` signal is connected to the slot `onCurrentChanged`.
 
 When this slot is triggered, the `MeshFeatureTracking` Plugin accesses the picking data through the `PickingManager` and updates both its information widget with the new picking data and the tracking sphere.
@@ -29,7 +29,7 @@ The `MeshFeatureTracking` plugin only manage simple feature selection. For an ex
 
 ## MeshPaint Plugin
 
-The `MeshPaint` Plugin is an example of how to use mesh feature multi-selection.
+The `MeshPaint` Plugin (**Radium Official Plugins** (https://gitlab.com/Storm-IRIT/radium-official-plugins)) is an example of how to use mesh feature multi-selection.
 Here again, the `SelectionManager`'s `currentChanged` signal is connected to the slot `onCurrentChanged`.
 
 When this slot is triggered, and if the painting is enabled, the `MeshPaint` Plugin directly changes the render color of the vertices corresponding to the current picking data.
