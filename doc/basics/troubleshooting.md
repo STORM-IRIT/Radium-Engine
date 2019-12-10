@@ -20,4 +20,4 @@ as a string to point to the Qt directory (for example in the default installatio
 
 ## Crash when starting main application on windows
 This is usally caused by missing dlls.
-With Visual Studio, you may need to copy the Qt dlls to Radium bin folder `Bundle-MSVC\{Release-or-Debug}\bin`.
+With Visual Studio, you may need to copy the Qt dlls to Radium bin folder `Bundle-MSVC\bin` or `Bundle-MSVC-Debug\bin`.

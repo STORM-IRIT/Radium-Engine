@@ -13,6 +13,7 @@ Radium Engine © the Radium Contributors :
 *   Valentin Roussellet (core engine, animation and skinning plugins, Windows port)
 *   Thomas Subileau (spatial data structures)
 *   David Vanderhaeghe (core, engine, gui, rendering)
+*   Florian Canezin (core, engine, gui, plugins, file loading)
 
 ## Third-party libraries
 

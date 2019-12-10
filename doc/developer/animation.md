@@ -23,7 +23,7 @@ the associated mesh vertices w.r.t. the Ra::Core::Animation::Handle deformation 
 
 ## The Character Animation Plugins
 
-The Radium Engine provides one plugin specific to skeleton-based character animation
+The **Radium Official Plugins** (https://gitlab.com/Storm-IRIT/radium-official-plugins) provide one plugin specific to skeleton-based character animation
 and another one specific to skeleton-based character skinning.
 This first one manages user interactions with the animation skeleton, enabling posing the character
  and playing the animations.
