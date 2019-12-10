@@ -12,6 +12,7 @@
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 
 #include <algorithm>
+#include <numeric>
 
 namespace Ra {
 
