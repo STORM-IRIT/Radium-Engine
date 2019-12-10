@@ -12,6 +12,7 @@
 #include <OpenMesh/Core/Mesh/Traits.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 #include <OpenMesh/Core/Utils/Property.hh>
+#include <OpenMesh/Core/Utils/PropertyManager.hh>
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
