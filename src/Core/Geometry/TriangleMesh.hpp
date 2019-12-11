@@ -221,7 +221,7 @@ class RA_CORE_API IndexedGeometry : public AttribArrayGeometry
     /// Check that the mesh is well built, asserting when it is not.
     /// only compiles to something when in debug mode.
     inline void checkConsistency() const;
-    bool append( const IndexedGeometry<IndexType>& other );
+    inline bool append( const IndexedGeometry<IndexType>& other );
 
     ///\todo make it protected
     IndexContainerType m_indices;

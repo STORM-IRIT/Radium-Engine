@@ -50,7 +50,8 @@ inline void AttribArrayGeometry::copyBaseGeometry( const AttribArrayGeometry& ot
 }
 
 template <typename... Handles>
-bool AttribArrayGeometry::copyAttributes( const AttribArrayGeometry& input, Handles... attribs ) {
+inline bool AttribArrayGeometry::copyAttributes( const AttribArrayGeometry& input,
+                                                 Handles... attribs ) {
     if ( vertices().size() != input.vertices().size() ) return false;
     // copy attribs
     m_vertexAttribs.copyAttributes( input.m_vertexAttribs, attribs... );
@@ -99,17 +100,18 @@ AttribArrayGeometry::normals() const {
 }
 
 template <typename T>
-Utils::AttribHandle<T> AttribArrayGeometry::getAttribHandle( const std::string& name ) const {
+inline Utils::AttribHandle<T>
+AttribArrayGeometry::getAttribHandle( const std::string& name ) const {
     return m_vertexAttribs.findAttrib<T>( name );
 }
 
 template <typename T>
-bool AttribArrayGeometry::isValid( const Utils::AttribHandle<T>& h ) const {
+inline bool AttribArrayGeometry::isValid( const Utils::AttribHandle<T>& h ) const {
     return m_vertexAttribs.isValid( h );
 }
 
 template <typename T>
-Utils::Attrib<T>& AttribArrayGeometry::getAttrib( const Utils::AttribHandle<T>& h ) {
+inline Utils::Attrib<T>& AttribArrayGeometry::getAttrib( const Utils::AttribHandle<T>& h ) {
     return m_vertexAttribs.getAttrib( h );
 }
 
@@ -118,21 +120,21 @@ const Utils::Attrib<T>& AttribArrayGeometry::getAttrib( const Utils::AttribHandl
     return m_vertexAttribs.getAttrib( h );
 }
 
-Utils::AttribBase* AttribArrayGeometry::getAttribBase( const std::string& name ) {
+inline Utils::AttribBase* AttribArrayGeometry::getAttribBase( const std::string& name ) {
     return m_vertexAttribs.getAttribBase( name );
 }
 
-bool AttribArrayGeometry::hasAttrib( const std::string& name ) {
+inline bool AttribArrayGeometry::hasAttrib( const std::string& name ) {
     return m_vertexAttribs.contains( name );
 }
 
 template <typename T>
-Utils::AttribHandle<T> AttribArrayGeometry::addAttrib( const std::string& name ) {
+inline Utils::AttribHandle<T> AttribArrayGeometry::addAttrib( const std::string& name ) {
     return m_vertexAttribs.addAttrib<T>( name );
 }
 
 template <typename T>
-void AttribArrayGeometry::removeAttrib( Utils::AttribHandle<T>& h ) {
+inline void AttribArrayGeometry::removeAttrib( Utils::AttribHandle<T>& h ) {
     m_vertexAttribs.removeAttrib( h );
 }
 
@@ -162,7 +164,7 @@ inline void AttribArrayGeometry::initDefaultAttribs() {
 }
 
 template <typename T>
-void AttribArrayGeometry::append_attrib( Utils::AttribBase* attr ) {
+inline void AttribArrayGeometry::append_attrib( Utils::AttribBase* attr ) {
     auto h         = m_vertexAttribs.findAttrib<T>( attr->getName() );
     auto& v0       = m_vertexAttribs.getAttrib( h ).getDataWithLock();
     const auto& v1 = attr->cast<T>().data();
@@ -241,7 +243,7 @@ inline void IndexedGeometry<T>::checkConsistency() const {
 }
 
 template <typename T>
-bool IndexedGeometry<T>::append( const IndexedGeometry<IndexType>& other ) {
+inline bool IndexedGeometry<T>::append( const IndexedGeometry<IndexType>& other ) {
     const std::size_t verticesBefore  = vertices().size();
     const std::size_t trianglesBefore = m_indices.size();
 
