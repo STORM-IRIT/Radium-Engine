@@ -36,7 +36,7 @@ using namespace Ra::Core::Utils;
 
 /// VAO + VBO attributes management,
 /// also manage draw calls
-class Vao
+class RA_ENGINE_API Vao
 {
     /// \todo not used for now ... but may be if we allow multiple vao per mesh
     std::unique_ptr<globjects::VertexArray> m_vao;
@@ -175,7 +175,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     bool m_isDirty{false};
 };
 
-class VaoIndices
+class RA_ENGINE_API VaoIndices
 {
   protected:
     std::unique_ptr<globjects::Buffer> m_indices;
@@ -369,7 +369,7 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     CoreGeometry m_mesh;
 };
 
-class PointCloud : public CoreGeometryDisplayable<Core::Geometry::PointCloud>
+class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::PointCloud>
 {
     using base = CoreGeometryDisplayable<Core::Geometry::PointCloud>;
 
@@ -410,7 +410,7 @@ class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
     void updateGL_specific_impl();
 };
 
-class LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
+class RA_ENGINE_API LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
 {
     using base = IndexedGeometry<Core::Geometry::LineMesh>;
 
@@ -425,7 +425,7 @@ class LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
   private:
 };
 
-class Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
+class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
 {
     using base = IndexedGeometry<Core::Geometry::TriangleMesh>;
 

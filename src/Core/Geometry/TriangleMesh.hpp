@@ -204,7 +204,7 @@ class RA_CORE_API LineStrip : public AttribArrayGeometry
 /// attributes. Each face is indexed with typename T = IndexType.
 /// T is assumed to be an Eigen Vector of unsigned ints
 template <typename T>
-class RA_CORE_API IndexedGeometry : public AttribArrayGeometry
+class IndexedGeometry : public AttribArrayGeometry
 {
   public:
     using IndexType          = T;

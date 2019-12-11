@@ -24,7 +24,7 @@ class Attrib;
 /**
  * AttribBase is the base class for attributes of all type.
  */
-class AttribBase : public Observable<>
+class RA_CORE_API AttribBase : public ObservableVoid
 {
   public:
     explicit AttribBase( const std::string& name ) : m_name{name} {}
@@ -184,7 +184,7 @@ class Attrib : public AttribBase
 
 // fully specialization defined in .cpp
 template <>
-size_t Attrib<float>::getElementSize() const;
+RA_CORE_API size_t Attrib<float>::getElementSize() const;
 // template specialization defined in header.
 template <typename T>
 size_t Attrib<T>::getElementSize() const {
