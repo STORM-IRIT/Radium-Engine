@@ -26,6 +26,7 @@ int A::m_b = 0;
 TEST_CASE( "Core/Utils/Observable", "[Core][Core/Utils][Observable]" ) {
     ObservableTest test;
     ObservableTest2 test2;
+
     A a;
     int c  = 0;
     A::m_b = 0;
@@ -91,10 +92,19 @@ TEST_CASE( "Core/Utils/Observable", "[Core][Core/Utils][Observable]" ) {
     REQUIRE( a.m_a == 6 );
     REQUIRE( A::m_b == 6 );
 
+    ObservableTest2 test2copy;
+    test2.copyObserversTo( test2copy );
+
     test2.detachAll();
     test2.notify( 7 );
 
     REQUIRE( c == 6 );
     REQUIRE( a.m_a == 6 );
     REQUIRE( A::m_b == 6 );
+
+    test2copy.notify( 7 );
+
+    REQUIRE( c == 7 );
+    REQUIRE( a.m_a == 7 );
+    REQUIRE( A::m_b == 7 );
 }
