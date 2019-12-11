@@ -43,7 +43,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     /// Move constructor, copy all the mesh data (faces, geometry, attributes).
     /// \note Handles on \p other are also valid for *this.
-    inline AttribArrayGeometry( AttribArrayGeometry&& other );
+    inline explicit AttribArrayGeometry( AttribArrayGeometry&& other );
 
     /// Assignment operator, copy all the mesh data (faces, geometry, attributes).
     /// \warning Handles on \p other are not valid for *this.
@@ -212,7 +212,7 @@ class RA_CORE_API IndexedGeometry : public AttribArrayGeometry
 
     inline IndexedGeometry() = default;
     inline explicit IndexedGeometry( const IndexedGeometry<IndexType>& other );
-    inline IndexedGeometry( IndexedGeometry<IndexType>&& other );
+    inline explicit IndexedGeometry( IndexedGeometry<IndexType>&& other );
     inline IndexedGeometry<IndexType>& operator=( const IndexedGeometry<IndexType>& other );
     inline IndexedGeometry<IndexType>& operator=( IndexedGeometry<IndexType>&& other );
     inline void clear() override;
