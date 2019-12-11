@@ -1,3 +1,5 @@
+#ifndef RADIIUMENIGNE_OBSERVABLE_HPP
+#define RADIIUMENIGNE_OBSERVABLE_HPP
 #pragma once
 
 #include <Core/Utils/Log.hpp>
@@ -51,7 +53,7 @@ class Observable
 
     /// Attach an \p observer that will be call on subsecant call to notify()
     /// \return An unique int to identify the observer, could be used to pass to Obeservable::detach
-    int attach( Observer observer ) {
+    inline int attach( Observer observer ) {
         m_observers.insert( std::make_pair( ++m_currentId, observer ) );
         return m_currentId;
     }
@@ -65,22 +67,27 @@ class Observable
     }
 
     /// Notify (i.e. call) each attached observer with argument \p p
-    void notify( Args... p ) const {
+    inline void notify( Args... p ) const {
         for ( const auto& o : m_observers )
             o.second( std::forward<Args>( p )... );
     }
 
     /// Detach all observers
-    void detachAll() { m_observers.clear(); }
+    inline void detachAll() { m_observers.clear(); }
 
     /// Detach the \p observerId, observerId must have been saved from a
     /// previous call to attach
-    void detach( int observerId ) { m_observers.erase( observerId ); }
+    inline void detach( int observerId ) { m_observers.erase( observerId ); }
 
   private:
     std::map<int, Observer> m_observers;
     int m_currentId{0};
 };
+
+class RA_CORE_API ObservableVoid : public Observable<>
+{};
+
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
+#endif

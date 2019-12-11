@@ -18,7 +18,7 @@ namespace Gui {
 /// An utility class used to map a (combination) of key / modifier to a specific action.
 /// It can load configuration from a file or if no config is found it will load an
 /// internal version of the default configuration.
-class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::Observable<>
+class RA_GUIBASE_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 {
     RA_SINGLETON_INTERFACE( KeyMappingManager );
 

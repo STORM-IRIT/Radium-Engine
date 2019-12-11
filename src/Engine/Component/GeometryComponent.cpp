@@ -78,6 +78,7 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
 #pragma omp parallel for
+    // use signed int since omp do not accept unsigned, under windows msbuild
     for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
     {
         vertices[i] = T * data->getVertices()[i];
@@ -87,7 +88,7 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     {
         normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 #pragma omp parallel for
-        for ( int i = 0; i < data->getVerticesSize(); ++i )
+        for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
         {
             normals[i] = ( N * data->getNormals()[i] ).normalized();
         }
