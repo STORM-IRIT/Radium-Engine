@@ -249,16 +249,16 @@ const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() c
 
 Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-///\todo check if it's ok ;) but I think we do note need this anymore
-    m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
-    m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
-    m_displayMesh->setDirty( Mesh::INDEX );
-    m_displayMesh->setDirty( Mesh::VERTEX_TANGENT );
-    m_displayMesh->setDirty( Mesh::VERTEX_BITANGENT );
-    m_displayMesh->setDirty( Mesh::VERTEX_TEXCOORD );
-    m_displayMesh->setDirty( Mesh::VERTEX_COLOR );
-    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHTS );
-    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX );
+    ///\todo check if it's ok ;) but I think we do note need this anymore
+    //    m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
+    //    m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
+    //    m_displayMesh->setDirty( Mesh::INDEX );
+    //    m_displayMesh->setDirty( Mesh::VERTEX_TANGENT );
+    //    m_displayMesh->setDirty( Mesh::VERTEX_BITANGENT );
+    //    m_displayMesh->setDirty( Mesh::VERTEX_TEXCOORD );
+    //    m_displayMesh->setDirty( Mesh::VERTEX_COLOR );
+    //    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHTS );
+    //    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX );
     return &( m_displayMesh->getTriangleMesh() );
 }
 
@@ -284,7 +284,7 @@ TriangleMeshComponent::getNormalsRw() {
 
 Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    m_displayMesh->setDirty( Mesh::INDEX );
+//    m_displayMesh->setDirty( Mesh::INDEX );
     return &( m_displayMesh->getTriangleMesh().m_triangles );
 }
 
