@@ -201,12 +201,19 @@ class DisplayableGeometry : public VaoDisplayable
     }
     void updateGL() override;
 
+    void setTranslation( const std::string& meshAttribName, const std::string& shaderAttribName );
+
   protected:
     virtual void updateGL_specific_impl(){};
 
     void loadGeometry_common( CoreGeometry&& mesh );
     void autoVertexAttribPointer( const ShaderProgram* prog );
     void addAttribObserver( const std::string& name );
+
+    /// Core::Mesh attrib name to Render::Mesh attrib name
+    using TranslationTable = std::map<std::string, std::string>;
+    TranslationTable m_translationTableMeshToShader;
+    TranslationTable m_translationTableShaderToMesh;
 
     CoreGeometry m_mesh;
 };
