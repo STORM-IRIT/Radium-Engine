@@ -18,33 +18,33 @@
 namespace Ra {
 namespace Engine {
 
-void VaoDisplayable::setRenderMode( MeshRenderMode mode ) {
+void AttribArrayDisplayable::setRenderMode( MeshRenderMode mode ) {
     m_renderMode = mode;
     updatePickingRenderMode();
 }
 
 template <typename CoreGeometry>
 const Ra::Core::Geometry::AbstractGeometry&
-DisplayableGeometry<CoreGeometry>::getAbstractGeometry() const {
+CoreGeometryDisplayable<CoreGeometry>::getAbstractGeometry() const {
     return m_mesh;
 }
 
 template <typename CoreGeometry>
-Ra::Core::Geometry::AbstractGeometry& DisplayableGeometry<CoreGeometry>::getAbstractGeometry() {
+Ra::Core::Geometry::AbstractGeometry& CoreGeometryDisplayable<CoreGeometry>::getAbstractGeometry() {
     return m_mesh;
 }
 
 template <typename CoreGeometry>
-const CoreGeometry& DisplayableGeometry<CoreGeometry>::getTriangleMesh() const {
+const CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getTriangleMesh() const {
     return m_mesh;
 }
 
 template <typename CoreGeometry>
-CoreGeometry& DisplayableGeometry<CoreGeometry>::getTriangleMesh() {
+CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getTriangleMesh() {
     return m_mesh;
 }
 
-std::string VaoDisplayable::getAttribName( MeshData type ) {
+std::string AttribArrayDisplayable::getAttribName( MeshData type ) {
     if ( type == VERTEX_POSITION ) return {"in_position"};
     if ( type == VERTEX_NORMAL ) return {"in_normal"};
     if ( type == VERTEX_TANGENT ) return {"in_tangent"};
@@ -57,7 +57,7 @@ std::string VaoDisplayable::getAttribName( MeshData type ) {
 }
 
 template <typename CoreGeometry>
-void DisplayableGeometry<CoreGeometry>::addAttribObserver( const std::string& name ) {
+void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string& name ) {
     auto attrib = m_mesh.getAttribBase( name );
     // if attrib not nullptr, then it's a add
     if ( attrib )
@@ -86,7 +86,7 @@ void DisplayableGeometry<CoreGeometry>::addAttribObserver( const std::string& na
 }
 
 template <typename CoreGeometry>
-void DisplayableGeometry<CoreGeometry>::autoVertexAttribPointer( const ShaderProgram* prog ) {
+void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const ShaderProgram* prog ) {
 
     auto glprog           = prog->getProgramObject();
     gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
@@ -123,7 +123,7 @@ void DisplayableGeometry<CoreGeometry>::autoVertexAttribPointer( const ShaderPro
 }
 
 template <typename T>
-void DisplayableGeometry<T>::loadGeometry_common( T&& mesh ) {
+void CoreGeometryDisplayable<T>::loadGeometry_common( T&& mesh ) {
     m_mesh  = std::move( mesh );
     int idx = 0;
     m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
@@ -145,13 +145,13 @@ void DisplayableGeometry<T>::loadGeometry_common( T&& mesh ) {
         b->attach( AttribObserver( this, idx ) );
         ++idx;
     } );
-    m_mesh.vertexAttribs().attachMember( this,
-                                         &DisplayableGeometry<CoreGeometry>::addAttribObserver );
+    m_mesh.vertexAttribs().attachMember(
+        this, &CoreGeometryDisplayable<CoreGeometry>::addAttribObserver );
     m_isDirty = true;
 }
 
 template <typename CoreGeometry>
-void DisplayableGeometry<CoreGeometry>::updateGL() {
+void CoreGeometryDisplayable<CoreGeometry>::updateGL() {
     if ( m_isDirty )
     {
         // Check that our dirty bits are consistent.
@@ -192,8 +192,8 @@ void DisplayableGeometry<CoreGeometry>::updateGL() {
 }
 
 template <typename CoreGeometry>
-void DisplayableGeometry<CoreGeometry>::setTranslation( const std::string& meshAttribName,
-                                                        const std::string& shaderAttribName ) {
+void CoreGeometryDisplayable<CoreGeometry>::setTranslation( const std::string& meshAttribName,
+                                                            const std::string& shaderAttribName ) {
 
     // clean previously set translation
 

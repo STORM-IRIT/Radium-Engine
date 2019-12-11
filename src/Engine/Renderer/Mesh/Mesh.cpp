@@ -20,7 +20,8 @@ using namespace Ra::Core::Utils;
 
 // Dirty is initializes as false so that we do not create the vao while
 // we have no data to send to the gpu.
-VaoDisplayable::VaoDisplayable( const std::string& name, MeshRenderMode renderMode ) :
+AttribArrayDisplayable::AttribArrayDisplayable( const std::string& name,
+                                                MeshRenderMode renderMode ) :
     Displayable( name ),
     m_renderMode{renderMode} {
     CORE_ASSERT( m_renderMode == RM_POINTS || m_renderMode == RM_LINES ||
@@ -86,34 +87,34 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     loadGeometry( std::move( mesh ) );
 }
 
-void VaoDisplayable::updatePickingRenderMode() {
+void AttribArrayDisplayable::updatePickingRenderMode() {
     switch ( getRenderMode() )
     {
-    case VaoDisplayable::RM_POINTS:
+    case AttribArrayDisplayable::RM_POINTS:
     {
         Displayable::m_pickingRenderMode = PKM_POINTS;
         break;
     }
-    case VaoDisplayable::RM_LINES: // fall through
+    case AttribArrayDisplayable::RM_LINES: // fall through
         [[fallthrough]];
-    case VaoDisplayable::RM_LINE_LOOP: // fall through
+    case AttribArrayDisplayable::RM_LINE_LOOP: // fall through
         [[fallthrough]];
-    case VaoDisplayable::RM_LINE_STRIP:
+    case AttribArrayDisplayable::RM_LINE_STRIP:
     {
         Displayable::m_pickingRenderMode = PKM_LINES;
         break;
     }
-    case VaoDisplayable::RM_LINES_ADJACENCY: // fall through
-    case VaoDisplayable::RM_LINE_STRIP_ADJACENCY:
+    case AttribArrayDisplayable::RM_LINES_ADJACENCY: // fall through
+    case AttribArrayDisplayable::RM_LINE_STRIP_ADJACENCY:
     {
         Displayable::m_pickingRenderMode = PKM_LINE_ADJ;
         break;
     }
-    case VaoDisplayable::RM_TRIANGLES:
+    case AttribArrayDisplayable::RM_TRIANGLES:
         [[fallthrough]];
-    case VaoDisplayable::RM_TRIANGLE_STRIP:
+    case AttribArrayDisplayable::RM_TRIANGLE_STRIP:
         [[fallthrough]];
-    case VaoDisplayable::RM_TRIANGLE_FAN:
+    case AttribArrayDisplayable::RM_TRIANGLE_FAN:
     {
         Displayable::m_pickingRenderMode = PKM_TRI;
         break;
@@ -126,7 +127,7 @@ void VaoDisplayable::updatePickingRenderMode() {
     }
 }
 
-void VaoDisplayable::setDirty( const std::string& name ) {
+void AttribArrayDisplayable::setDirty( const std::string& name ) {
     auto itr = m_handleToBuffer.find( name );
     if ( itr == m_handleToBuffer.end() )
     {
@@ -140,7 +141,7 @@ void VaoDisplayable::setDirty( const std::string& name ) {
     m_isDirty = true;
 }
 
-void VaoDisplayable::setDirty( unsigned int index ) {
+void AttribArrayDisplayable::setDirty( unsigned int index ) {
     if ( index < m_dataDirty.size() )
     {
         m_dataDirty[index] = true;
@@ -148,7 +149,7 @@ void VaoDisplayable::setDirty( unsigned int index ) {
     }
 }
 
-void VaoDisplayable::setDirty( const VaoDisplayable::MeshData& type ) {
+void AttribArrayDisplayable::setDirty( const AttribArrayDisplayable::MeshData& type ) {
     auto name = getAttribName( type );
     auto itr  = m_handleToBuffer.find( name );
     if ( itr == m_handleToBuffer.end() )

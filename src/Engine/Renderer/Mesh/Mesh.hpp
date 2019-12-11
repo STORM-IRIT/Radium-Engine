@@ -44,7 +44,7 @@ class Vao
  * It maintains the attributes and keeps them in sync with the GPU.
  * \note Attribute names are used to automatic location binding when using shaders.
  */
-class RA_ENGINE_API VaoDisplayable : public Displayable
+class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 {
   public:
     /// \name List of all possible vertex attributes.
@@ -89,12 +89,13 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     };
 
   public:
-    explicit VaoDisplayable( const std::string& name, MeshRenderMode renderMode = RM_TRIANGLES );
-    VaoDisplayable( const VaoDisplayable& rhs ) = delete;
-    void operator=( const VaoDisplayable& rhs ) = delete;
+    explicit AttribArrayDisplayable( const std::string& name,
+                                     MeshRenderMode renderMode = RM_TRIANGLES );
+    AttribArrayDisplayable( const AttribArrayDisplayable& rhs ) = delete;
+    void operator=( const AttribArrayDisplayable& rhs ) = delete;
 
     // no need to detach listener since TriangleMesh is owned by Mesh.
-    ~VaoDisplayable(){};
+    ~AttribArrayDisplayable(){};
 
     using Displayable::getName;
 
@@ -135,14 +136,16 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     class AttribObserver
     {
       public:
-        explicit AttribObserver( VaoDisplayable* vao, int idx ) : m_vao( vao ), m_idx( idx ) {}
+        explicit AttribObserver( AttribArrayDisplayable* displayable, int idx ) :
+            m_displayable( displayable ),
+            m_idx( idx ) {}
         void operator()() {
-            m_vao->m_dataDirty[m_idx] = true;
-            m_vao->m_isDirty          = true;
+            m_displayable->m_dataDirty[m_idx] = true;
+            m_displayable->m_isDirty          = true;
         }
 
       private:
-        VaoDisplayable* m_vao;
+        AttribArrayDisplayable* m_displayable;
         int m_idx;
     };
 
@@ -164,16 +167,29 @@ class RA_ENGINE_API VaoDisplayable : public Displayable
     bool m_isDirty{false};
 };
 
+class VaoIndices
+{
+  protected:
+    std::unique_ptr<globjects::Buffer> m_indices;
+    bool m_indicesDirty{true};
+    /// number of elements to draw. For triangles this is 3*numTriangles
+    /// but not for lines.
+    size_t m_numElements{0};
+};
+
+class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoIndices
+{};
+
 template <typename T>
-class DisplayableGeometry : public VaoDisplayable
+class CoreGeometryDisplayable : public AttribArrayDisplayable
 {
   public:
     using CoreGeometry = T;
-    using VaoDisplayable::VaoDisplayable;
-    explicit DisplayableGeometry( const std::string& name,
-                                  CoreGeometry&& geom,
-                                  MeshRenderMode renderMode = RM_TRIANGLES ) :
-        VaoDisplayable( name, renderMode ) {
+    using AttribArrayDisplayable::AttribArrayDisplayable;
+    explicit CoreGeometryDisplayable( const std::string& name,
+                                      CoreGeometry&& geom,
+                                      MeshRenderMode renderMode = RM_TRIANGLES ) :
+        AttribArrayDisplayable( name, renderMode ) {
         loadGeometry( std::move( geom ) );
     }
 
@@ -218,12 +234,12 @@ class DisplayableGeometry : public VaoDisplayable
     CoreGeometry m_mesh;
 };
 
-class PointCloud : public DisplayableGeometry<Core::Geometry::PointCloud>
+class PointCloud : public CoreGeometryDisplayable<Core::Geometry::PointCloud>
 {
-    using base = DisplayableGeometry<Core::Geometry::PointCloud>;
+    using base = CoreGeometryDisplayable<Core::Geometry::PointCloud>;
 
   public:
-    using DisplayableGeometry<Core::Geometry::PointCloud>::DisplayableGeometry;
+    using CoreGeometryDisplayable<Core::Geometry::PointCloud>::CoreGeometryDisplayable;
     void render( const ShaderProgram* prog ) override;
 
     void loadGeometry( Core::Geometry::PointCloud&& mesh ) override {
@@ -235,11 +251,11 @@ class PointCloud : public DisplayableGeometry<Core::Geometry::PointCloud>
 };
 
 template <typename T>
-class IndexedGeometry : public DisplayableGeometry<T>
+class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
 {
   public:
-    using base = DisplayableGeometry<T>;
-    using DisplayableGeometry<T>::DisplayableGeometry;
+    using base = CoreGeometryDisplayable<T>;
+    using CoreGeometryDisplayable<T>::CoreGeometryDisplayable;
     explicit IndexedGeometry(
         const std::string& name,
         typename base::CoreGeometry&& geom,
@@ -257,11 +273,6 @@ class IndexedGeometry : public DisplayableGeometry<T>
 
   protected:
     void updateGL_specific_impl();
-    std::unique_ptr<globjects::Buffer> m_indices;
-    bool m_indicesDirty{true};
-    /// number of elements to draw. For triangles this is 3*numTriangles
-    /// but not for lines.
-    size_t m_numElements{0};
 };
 
 class LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
