@@ -121,6 +121,7 @@ AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
     }
 }
 
+/// \todo continue to convert mesh creation and remove call to deprecated Mesh::loadGeometry
 MeshPtr QuadStrip( const Core::Vector3& a,
                    const Core::Vector3& x,
                    const Core::Vector3& y,

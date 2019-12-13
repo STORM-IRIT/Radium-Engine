@@ -105,26 +105,29 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// \see AttribManager::contains for more info.
     inline bool hasAttrib( const std::string& name );
 
+    ///@{
     /// Add attribute with the given name.
     /// \see AttribManager::addAttrib() for more info.
+    /// \param name: attrib name, uniquely identify the attrib
     template <typename T>
     inline Utils::AttribHandle<T> addAttrib( const std::string& name );
 
+    /// Add attribute with the given name.
+    /// \see AttribManager::addAttrib() for more info.
+    /// \param name: attrib name, uniquely identify the attrib
+    /// \param data: an array defining the attrib data
     template <typename T>
     inline Utils::AttribHandle<T> addAttrib( const std::string& name,
-                                             const typename Core::VectorArray<T>& data ) {
-        auto handle = addAttrib<T>( name );
-        getAttrib( handle ).setData( data );
-        return handle;
-    }
+                                             const typename Core::VectorArray<T>& data );
 
+    /// Add attribute with the given name.
+    /// \see AttribManager::addAttrib() for more info.
+    /// \param name: attrib name, uniquely identify the attrib
+    /// \param data: an array defining the attrib data, the data is moved to the attrib
     template <typename T>
     inline Utils::AttribHandle<T> addAttrib( const std::string& name,
-                                             const typename Utils::Attrib<T>::Container&& data ) {
-        auto handle = addAttrib<T>( name );
-        getAttrib( handle ).setData( std::move( data ) );
-        return handle;
-    }
+                                             const typename Utils::Attrib<T>::Container&& data );
+    ///@}
 
     /// Remove attribute by handle.
     /// \see AttribManager::removeAttrib() for more info.
@@ -159,22 +162,28 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// Utility function colorzing the mesh with a given color. Add the color attribute if needed.
     void colorize( const Utils::Color& c );
 
+    /// Return the vertexAttribs manager. In case you want to have direct access
+    /// to Utils::AttribManager functionality.
     inline Utils::AttribManager& vertexAttribs();
 
-    /// Access the vertices positions.
+    /// Read/write access to the vertices positions.
+    /// \warning need to call verticesUnlock when job done.
     inline PointAttribHandle::Container& verticesWithLock();
-    /// Access the vertices positions.
+
+    /// Release lock on vertices positions
     inline void verticesUnlock();
 
-    /// Access the vertices positions.
+    /// Read/write access the vertices normals.
+    /// \warning need to call normalsUnlock when job done.
     inline NormalAttribHandle::Container& normalsWithLock();
 
-    /// Access the vertices positions.
+    /// Release lock on vertices normals
     inline void normalsUnlock();
 
   private:
     /// Sets the default attribs.
     inline void initDefaultAttribs();
+
     /// Append the data of \p attr to the attribute with the same name.
     /// \warning There is no check on the existence of *this's attribute.
     /// \warning There is no error check on the handles attribute type.
@@ -221,6 +230,7 @@ class IndexedGeometry : public AttribArrayGeometry
     /// Check that the mesh is well built, asserting when it is not.
     /// only compiles to something when in debug mode.
     inline void checkConsistency() const;
+
     inline bool append( const IndexedGeometry<IndexType>& other );
 
     ///\todo make it protected

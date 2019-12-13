@@ -134,6 +134,24 @@ inline Utils::AttribHandle<T> AttribArrayGeometry::addAttrib( const std::string&
 }
 
 template <typename T>
+inline Utils::AttribHandle<T>
+AttribArrayGeometry::addAttrib( const std::string& name,
+                                const typename Core::VectorArray<T>& data ) {
+    auto handle = addAttrib<T>( name );
+    getAttrib( handle ).setData( data );
+    return handle;
+}
+
+template <typename T>
+inline Utils::AttribHandle<T>
+AttribArrayGeometry::addAttrib( const std::string& name,
+                                const typename Utils::Attrib<T>::Container&& data ) {
+    auto handle = addAttrib<T>( name );
+    getAttrib( handle ).setData( std::move( data ) );
+    return handle;
+}
+
+template <typename T>
 inline void AttribArrayGeometry::removeAttrib( Utils::AttribHandle<T>& h ) {
     m_vertexAttribs.removeAttrib( h );
 }
