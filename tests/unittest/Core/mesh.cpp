@@ -9,7 +9,7 @@ TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" )
 
     TriangleMesh mesh = Ra::Core::Geometry::makeBox();
 
-    // cannot add/access "in_position" or "in_normal"
+    // base attributes are automatically added
     auto h_pos = mesh.getAttribHandle<Vector3>( "in_position" );
     REQUIRE( mesh.isValid( h_pos ) );
     auto h_nor = mesh.getAttribHandle<Vector3>( "in_normal" );
@@ -64,4 +64,40 @@ TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" )
     meshCopy.verticesWithLock()[0] += Ra::Core::Vector3( 0.5, 0.5, 0.5 );
     meshCopy.verticesUnlock();
     REQUIRE( !meshCopy.vertices()[0].isApprox( v0 ) );
+
+    // For the documentation in doc/developer/mesh.md
+    {
+        TriangleMesh m;
+        TriangleMesh::PointAttribHandle::Container vertices;
+        TriangleMesh::NormalAttribHandle::Container normals;
+
+        vertices.push_back( {0, 0, 0} );
+        vertices.push_back( {1, 0, 0} );
+        vertices.push_back( {0, 2, 0} );
+        normals.push_back( {0, 0, 1} );
+        normals.push_back( {0, 0, 1} );
+        normals.push_back( {0, 0, 1} );
+
+        m.setVertices( std::move( vertices ) );
+        m.setNormals( std::move( normals ) );
+
+        m.m_indices.push_back( {0, 1, 2} );
+        auto handle1  = m.addAttrib<Vector3>( "vector3_attrib" );
+        auto& attrib1 = m.getAttrib( handle1 );
+        auto& buf     = attrib1.getDataWithLock();
+
+        buf.reserve( 3 );
+        buf.push_back( {1, 1, 1} );
+        buf.push_back( {2, 2, 2} );
+        buf.push_back( {3, 3, 3} );
+        attrib1.unlock();
+
+        auto handle2  = m.addAttrib<float>( "float_attrib" );
+        auto& attrib2 = m.getAttrib( handle2 );
+        attrib2.setData( {1.f, 2.f, 3.f} );
+
+        TriangleMesh m2;
+        m2.copyBaseGeometry( m );
+        m2.copyAttributes( m, handle1 );
+    }
 }
