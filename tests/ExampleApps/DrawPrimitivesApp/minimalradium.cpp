@@ -87,7 +87,7 @@ void MinimalComponent::initialize() {
     cube2->getCoreGeometry().addAttrib(
         "colour", Vector4Array{cube2->getNumVertices(), Utils::Color::Red()} );
 
-    cube2->setTranslation( "colour", "in_color" );
+    cube2->setAttribNameCorrespondance( "colour", "in_color" );
     auto renderObject2 =
         RenderObject::createRenderObject( "CubeRO", this, RenderObjectType::Geometry, cube2, rt );
     renderObject2->setLocalTransform(
