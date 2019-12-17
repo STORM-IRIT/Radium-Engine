@@ -164,6 +164,7 @@ set( core_inlines
     Math/LinearAlgebra.inl
     Math/Math.inl
     Math/Quadric.inl
+    Utils/Attribs.inl
     Utils/CircularIndex.inl
     Utils/Index.inl
     Utils/IndexMap.inl

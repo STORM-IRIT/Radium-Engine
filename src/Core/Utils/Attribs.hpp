@@ -7,6 +7,7 @@
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Core/Utils/Observable.hpp>
+
 namespace Ra {
 namespace Core {
 
@@ -28,16 +29,16 @@ class Attrib;
 class RA_CORE_API AttribBase : public ObservableVoid
 {
   public:
-    explicit AttribBase( const std::string& name ) : m_name{name} {}
-    virtual ~AttribBase() { notify(); }
+    inline explicit AttribBase( const std::string& name );
+    virtual ~AttribBase();
     AttribBase( const AttribBase& ) = delete;
     AttribBase& operator=( const AttribBase& ) = delete;
 
     /// Return the attribute's name.
-    std::string getName() const { return m_name; }
+    inline std::string getName() const;
 
     ///    Set the attribute's name.
-    void setName( const std::string& name ) { m_name = name; }
+    inline void setName( const std::string& name );
 
     /// Resize the attribute's array.
     virtual void resize( size_t s ) = 0;
@@ -55,22 +56,22 @@ class RA_CORE_API AttribBase : public ObservableVoid
     virtual size_t getBufferSize() const = 0;
 
     /// Return the stride, in bytes, from one attribute address to the next one.
+    /// This is use for glVertexAttribPointer.
+    /// \warning it's meaningful only if the attrib do not contain heap
+    /// allocated data. Such attrib could not be easily sent to the GPU, and
+    /// getStride is meaningless.
     virtual int getStride() const = 0;
 
     /// Return true if *this and \p rhs have the same name.
-    bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
+    bool inline operator==( const AttribBase& rhs );
 
     /// Downcast from AttribBase to Attrib<T>.
     template <typename T>
-    inline Attrib<T>& cast() {
-        return static_cast<Attrib<T>&>( *this );
-    }
+    inline Attrib<T>& cast();
 
     /// Downcast from AttribBase to Attrib<T>.
     template <typename T>
-    inline const Attrib<T>& cast() const {
-        return static_cast<const Attrib<T>&>( *this );
-    }
+    inline const Attrib<T>& cast() const;
 
     /// Return true if the attribute content is of float type, false otherwise.
     virtual bool isFloat() const = 0;
@@ -90,17 +91,13 @@ class RA_CORE_API AttribBase : public ObservableVoid
     /// Return true if data is locked, i.e. has been locked for write access with
     /// getDataWithlock() (defined in subclass Attrib). Double lock is prohebited, so when finished,
     /// call unlock();
-    bool isLocked() const { return m_isLocked; }
+    bool inline isLocked() const;
 
     /// Unlock data so another one can gain write access.
-    void unlock() { lock( false ); }
+    void inline unlock();
 
   protected:
-    void lock( bool isLocked = true ) {
-        CORE_ASSERT( isLocked != m_isLocked, "double (un)lock" );
-        m_isLocked = isLocked;
-        if ( !m_isLocked ) notify();
-    }
+    void inline lock( bool isLocked = true );
 
   private:
     /// The attribute's name.
@@ -120,68 +117,44 @@ class Attrib : public AttribBase
     using value_type = T;
     using Container  = VectorArray<T>;
 
-    explicit Attrib( const std::string& name ) : AttribBase( name ) {}
-
-    virtual ~Attrib() { m_data.clear(); }
+    explicit Attrib( const std::string& name );
+    virtual ~Attrib();
 
     /// Resize the container (value_type must have a default ctor).
-    void resize( size_t s ) override { m_data.resize( s ); }
+    void resize( size_t s ) override;
 
     /// Read-write access to the attribute content.
     /// lock the content, when done call unlock()
-    inline Container& getDataWithLock() {
-        lock();
-        return m_data;
-    }
+    inline Container& getDataWithLock();
 
-    const void* dataPtr() const override { return m_data.data(); }
+    const void* dataPtr() const override;
 
+    ///@{
     /// setAttribData, attrib mustn't be locked (it's asserted).
-    void setData( const Container& data ) {
-        CORE_ASSERT( !isLocked(), "try to set onto locked data" );
-        m_data = data;
-        notify();
-    }
-
-    void setData( Container&& data ) {
-        CORE_ASSERT( !isLocked(), "try to set onto locked data" );
-        m_data = std::move( data );
-        notify();
-    }
+    void setData( const Container& data );
+    void setData( Container&& data );
+    ///@}
 
     /// Read-only acccess to the attribute content.
-    inline const Container& data() const { return m_data; }
+    inline const Container& data() const;
 
-    size_t getSize() const override { return m_data.size(); }
+    size_t getSize() const override;
 
     size_t getElementSize() const override;
-    /// \warning Does not work for dynamic and sparse Eigen matrices.
-    int getStride() const override { return sizeof( value_type ); }
-    size_t getBufferSize() const override { return m_data.size() * sizeof( value_type ); }
-
-    bool isFloat() const override { return std::is_same<float, T>::value; }
-    bool isVec2() const override { return std::is_same<Eigen::Matrix<Scalar, 2, 1>, T>::value; }
-    bool isVec3() const override { return std::is_same<Eigen::Matrix<Scalar, 3, 1>, T>::value; }
-    bool isVec4() const override { return std::is_same<Eigen::Matrix<Scalar, 4, 1>, T>::value; }
+    int getStride() const override;
+    size_t getBufferSize() const override;
+    bool isFloat() const override;
+    bool isVec2() const override;
+    bool isVec3() const override;
+    bool isVec4() const override;
 
     /// check if attrib is a given type, as in attr.isType<MyMatrix>()
     template <typename U>
-    bool isType() {
-        return std::is_same<U, T>::value;
-    }
+    bool isType();
 
   private:
     Container m_data;
 };
-
-// fully specialization defined in .cpp
-template <>
-RA_CORE_API size_t Attrib<float>::getElementSize() const;
-// template specialization defined in header.
-template <typename T>
-size_t Attrib<T>::getElementSize() const {
-    return Attrib<T>::Container::Vector::RowsAtCompileTime;
-}
 
 /// An attrib handle basically store an Index and a name.
 template <typename T>
@@ -251,48 +224,27 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     using smart_pointer_type = std::unique_ptr<value_type>;
     using Container          = std::vector<smart_pointer_type>;
 
-    AttribManager() {}
+    inline AttribManager();
 
     /// Copy constructor and assignment operator are forbidden.
     AttribManager( const AttribManager& m ) = delete;
     AttribManager& operator=( const AttribManager& m ) = delete;
 
-    AttribManager( AttribManager&& m ) :
-        m_attribs( std::move( m.m_attribs ) ),
-        m_attribsIndex( std::move( m.m_attribsIndex ) ),
-        m_numAttribs( std::move( m.m_numAttribs ) ) {}
+    inline AttribManager( AttribManager&& m );
 
-    AttribManager& operator=( AttribManager&& m ) {
-        m_attribs      = std::move( m.m_attribs );
-        m_attribsIndex = std::move( m.m_attribsIndex );
-        m_numAttribs   = std::move( m.m_numAttribs );
-        return *this;
-    }
-
-    ~AttribManager() { clear(); }
+    inline AttribManager& operator=( AttribManager&& m );
+    ~AttribManager();
 
     /// Base copy, does nothing.
-    void copyAttributes( const AttribManager& m ) { m_numAttribs = m.m_numAttribs; }
+    inline void copyAttributes( const AttribManager& m );
 
-    /// Copy the given attributes from m.
+    /// Copy the given attributes from \p m.
     /// \note If some attrib already exists, it will be replaced.
     /// \note Invalid handles are ignored.
     template <class T, class... Handle>
-    void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs ) {
-        if ( m.isValid( attr ) )
-        {
-            // get attrib to copy
-            auto& a = m.getAttrib( attr );
-            // add new attrib
-            auto h = addAttrib<T>( a.getName() );
-            // copy attrib data
-            getAttrib( h ).setData( a.data() );
-        }
-        // deal with other attribs
-        copyAttributes( m, attribs... );
-    }
+    void copyAttributes( const AttribManager& m, const AttribHandle<T>& attr, Handle... attribs );
 
-    /// Copy all attributes from m.
+    /// Copy all attributes from \p m.
     /// \note If some attrib already exists, it will be replaced.
     void copyAllAttributes( const AttribManager& m );
 
@@ -301,170 +253,95 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 
     /// Return true if \p h correspond to an existing attribute in *this.
     template <typename T>
-    bool isValid( const AttribHandle<T>& h ) const {
-        auto itr = m_attribsIndex.find( h.attribName() );
-        return h.m_idx != Index::Invalid() && itr != m_attribsIndex.end() && itr->second == h.m_idx;
-    }
+    bool isValid( const AttribHandle<T>& h ) const;
 
     /*!
-     * \brief contains Check if an attribute with the given name exists.
+     * \brief contains Check if an attribute with the given \p name exists.
      * \param name Name of the attribute.
      * \warning There is no error check on the attribute type.
      * \note The complexity for checking an attribute handle is O(log(n)).
      */
-    inline bool contains( const std::string& name ) const {
-        return m_attribsIndex.find( name ) != m_attribsIndex.end();
-    }
+    inline bool contains( const std::string& name ) const;
 
     /*!
-     * \brief findAttrib Grab an attribute handler by name.
+     * \brief findAttrib Grab an attribute handler by \p name.
      * \param name Name of the attribute.
      * \return Attribute handler if found, an invalid handler otherwise.
      * \warning There is no error check on the attribute type.
      * \note The complexity for accessing an attribute handle is O(log(n)).
      */
     template <typename T>
-    inline AttribHandle<T> findAttrib( const std::string& name ) const {
-        auto c = m_attribsIndex.find( name );
-        AttribHandle<T> handle;
-        if ( c != m_attribsIndex.end() )
-        {
-            handle.m_idx  = c->second;
-            handle.m_name = c->first;
-        }
-        return handle;
-    }
+    inline AttribHandle<T> findAttrib( const std::string& name ) const;
 
-    /// Get attribute by handle.
+    ///@{
+    /// Get attribute by handle \h.
     /// \note The complexity for accessing an attribute is O(1).
     /// \warning There is no check on the handle validity.
     template <typename T>
-    inline Attrib<T>& getAttrib( const AttribHandle<T>& h ) {
-        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
-    }
+    inline Attrib<T>& getAttrib( const AttribHandle<T>& h );
 
     template <typename T>
-    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h ) {
-        return static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
-    }
-
-    template <typename T>
-    inline void setAttrib( const AttribHandle<T>& h,
-                           const typename AttribHandle<T>::Container& data ) {
-        static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->setData( data );
-    }
-
-    template <typename T>
-    inline void setAttrib( const AttribHandle<T>& h, typename AttribHandle<T>::Container&& data ) {
-        static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() )->setData( data );
-    }
+    inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
 
     /// Get attribute by handle (const).
     /// \note The complexity for accessing an attribute is O(1).
     /// \warning There is no check on the handle validity.
     template <typename T>
-    inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const {
-        return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
-    }
+    inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const;
 
     /// Return a AttribBase ptr to the attrib identified by name.
     /// to give access to AttribBase method, regardless of the type of element
     /// stored in the attrib.
-    AttribBase* getAttribBase( const std::string& name ) {
-        auto c = m_attribsIndex.find( name );
-        if ( c != m_attribsIndex.end() ) return m_attribs[c->second].get();
-
-        return nullptr;
-    }
+    inline AttribBase* getAttribBase( const std::string& name );
 
     /// \see getAttribBase( const std::string& name );
-    AttribBase* getAttribBase( const Index& idx ) {
+    inline AttribBase* getAttribBase( const Index& idx );
+    ///@}
 
-        if ( idx.isValid() ) return m_attribs[idx].get();
+    ///@{
+    /// Set the data of the attrib h.
+    /// \warning \p h has to be a valid attrib handle, this is not checked.
+    template <typename T>
+    inline void setAttrib( const AttribHandle<T>& h,
+                           const typename AttribHandle<T>::Container& data );
 
-        return nullptr;
-    }
+    /// \see #setAttrib
+    template <typename T>
+    inline void setAttrib( const AttribHandle<T>& h, typename AttribHandle<T>::Container&& data );
+    ///@}
 
     /// Add attribute by name.
     /// \note If an attribute with the same name already exists,
     ///       just returns a AttribHandle to it.
     /// \note The complexity for adding a new attribute is O(n).
     template <typename T>
-    AttribHandle<T> addAttrib( const std::string& name ) {
-        // does the attrib already exist?
-        AttribHandle<T> h = findAttrib<T>( name );
-        if ( isValid( h ) ) return h;
-
-        // create the attrib
-        smart_pointer_type attrib = std::make_unique<Attrib<T>>( name );
-
-        // look for a free slot
-        auto it = std::find_if(
-            m_attribs.begin(), m_attribs.end(), []( const auto& attr ) { return !attr; } );
-        if ( it != m_attribs.end() )
-        {
-            it->swap( attrib );
-            h.m_idx = std::distance( m_attribs.begin(), it );
-        }
-        else
-        {
-            m_attribs.push_back( std::move( attrib ) );
-            h.m_idx = m_attribs.size() - 1;
-        }
-        m_attribsIndex[name] = h.m_idx;
-        h.m_name             = name;
-        ++m_numAttribs;
-
-        notify( name );
-        return h;
-    }
+    AttribHandle<T> addAttrib( const std::string& name );
 
     /// Remove attribute by handle, invalidates the handle.
     /// \warning If a new attribute is added, old invalidated handles may lead to
     ///          the new attribute.
     /// \note The complexity for removing an attribute is O(log(n)).
     template <typename T>
-    void removeAttrib( AttribHandle<T>& h ) {
-        auto c = m_attribsIndex.find( h.m_name );
-        if ( c != m_attribsIndex.end() )
-        {
-            Index idx = c->second;
-            m_attribs[idx].reset( nullptr );
-            m_attribsIndex.erase( c );
-        }
-        h.m_idx   = Index::Invalid(); // invalidate whatever!
-        auto name = h.m_name;
-        h.m_name  = ""; // invalidate whatever!
-        --m_numAttribs;
-        notify( name );
-    }
-
+    void removeAttrib( AttribHandle<T>& h );
     /// Return true if *this and \p other have the same attributes, same amount
     /// and same names.
     /// \warning There is no check on the attribute type nor data.
     bool hasSameAttribs( const AttribManager& other );
 
+    ///@{
     /// Perform \p fun on each attribute.
     // This is needed by the user to avoid caring about removed attributes (nullptr)
     // \todo reimplement as range for
-
     template <typename F>
-    void for_each_attrib( const F& func ) const {
-        for ( const auto& attr : m_attribs )
-            if ( attr != nullptr ) func( attr.get() );
-    }
+    void for_each_attrib( const F& func ) const;
 
-    /// Perform \p fun on each attribute.
-    // This is needed by the user to avoid caring about removed attributes (nullptr)
     // \todo keep non const version private
     template <typename F>
-    void for_each_attrib( const F& func ) {
-        for ( auto& attr : m_attribs )
-            if ( attr != nullptr ) func( attr.get() );
-    }
+    void for_each_attrib( const F& func );
+    ///@}
 
     /// Return the number of attributes
-    int getNumAttribs() const { return m_numAttribs; }
+    inline int getNumAttribs() const;
 
   private:
     /// Attrib list, better using attribs() to go through.
@@ -485,5 +362,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
+
+#include <Core/Utils/Attribs.inl>
 
 #endif // RADIUMENGINE_ATTRIBS_HPP
