@@ -35,6 +35,7 @@ AttribArrayDisplayable::AttribArrayDisplayable( const std::string& name,
 }
 
 size_t Mesh::getNumFaces() const {
+    ///\todo fix this once we have explicit triangle fan and strip management.
     switch ( getRenderMode() )
     {
     case MeshRenderMode::RM_TRIANGLE_STRIP:
@@ -173,6 +174,10 @@ void PointCloud::render( const ShaderProgram* prog ) {
             static_cast<GLenum>( m_renderMode ), 0, GLsizei( m_mesh.vertices().size() ) );
         m_vao->unbind();
     }
+}
+
+void PointCloud::loadGeometry( Core::Geometry::PointCloud&& mesh ) {
+    loadGeometry_common( std::move( mesh ) );
 }
 
 void PointCloud::updateGL_specific_impl() {
