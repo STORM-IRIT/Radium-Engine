@@ -1,14 +1,22 @@
+#include <Core/Types.hpp>
 #include <Core/Utils/Attribs.hpp>
 #include <Core/Utils/Log.hpp>
-#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
 namespace Utils {
 
+AttribBase::~AttribBase() {
+    notify();
+}
+
 template <>
 size_t Attrib<float>::getElementSize() const {
     return 1;
+}
+
+AttribManager::~AttribManager() {
+    clear();
 }
 
 void AttribManager::clear() {
