@@ -102,8 +102,10 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 
     using Displayable::getName;
 
+    /// dummy doc : set the render mode
     inline void setRenderMode( MeshRenderMode mode );
-    MeshRenderMode getRenderMode() const { return m_renderMode; }
+    /// dummy doc : get the render mode
+    inline MeshRenderMode getRenderMode() const;
 
     /// @name
     /// Mark attrib data as dirty, forcing an update of the OpenGL buffer.
@@ -187,124 +189,15 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
     using IndexType          = I;
     using IndexContainerType = Ra::Core::AlignedStdVector<IndexType>;
 
-    ///
     template <typename T>
     inline void addAttrib( const std::string& name,
-                           const typename Ra::Core::Utils::Attrib<T>::Container& data ) {
-        auto handle = m_attribManager.addAttrib<T>( name );
-        m_attribManager.getAttrib( handle ).setData( data );
-        m_handleToBuffer[name] = m_dataDirty.size();
-        m_dataDirty.push_back( true );
-        m_vbos.emplace_back( nullptr );
-        m_isDirty = true;
-    }
-
+                           const typename Ra::Core::Utils::Attrib<T>::Container& data );
     template <typename T>
     inline void addAttrib( const std::string& name,
-                           const typename Ra::Core ::Utils::Attrib<T>::Container&& data ) {
-        auto handle = m_attribManager.addAttrib<T>( name );
-        m_attribManager.getAttrib( handle ).setData( std::move( data ) );
-        m_handleToBuffer[name] = m_dataDirty.size();
-        m_dataDirty.push_back( true );
-        m_vbos.emplace_back( nullptr );
-        m_isDirty = true;
-    }
-
-    void updateGL() override {
-        if ( m_isDirty )
-        {
-            // Check that our dirty bits are consistent.
-            ON_ASSERT( bool dirtyTest = false;
-                       for ( const auto& d
-                             : m_dataDirty ) { dirtyTest = dirtyTest || d; } );
-            CORE_ASSERT( dirtyTest == m_isDirty, "Dirty flags inconsistency" );
-
-            if ( !m_indices )
-            {
-                m_indices      = globjects::Buffer::create();
-                m_indicesDirty = true;
-            }
-            if ( m_indicesDirty )
-            {
-                m_indices->setData(
-                    static_cast<gl::GLsizeiptr>( m_cpu_indices.size() * sizeof( IndexType ) ),
-                    m_cpu_indices.data(),
-                    GL_STATIC_DRAW );
-                m_indicesDirty = false;
-            }
-
-            m_numElements = m_cpu_indices.size();
-
-            if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
-            m_vao->bind();
-            m_vao->bindElementBuffer( m_indices.get() );
-            m_vao->unbind();
-
-            auto func = [this]( Ra::Core::Utils::AttribBase* b ) {
-                auto idx = m_handleToBuffer[b->getName()];
-
-                if ( m_dataDirty[idx] )
-                {
-                    if ( !m_vbos[idx] ) { m_vbos[idx] = globjects::Buffer::create(); }
-                    m_vbos[idx]->setData( b->getBufferSize(), b->dataPtr(), GL_DYNAMIC_DRAW );
-                    m_dataDirty[idx] = false;
-                }
-            };
-            m_attribManager.for_each_attrib( func );
-            GL_CHECK_ERROR;
-            m_isDirty = false;
-        }
-    }
-
-    void autoVertexAttribPointer( const ShaderProgram* prog ) {
-
-        auto glprog           = prog->getProgramObject();
-        gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
-
-        m_vao->bind();
-        for ( GLint idx = 0; idx < attribCount; ++idx )
-        {
-            const gl::GLsizei bufSize = 256;
-            gl::GLchar name[bufSize];
-            gl::GLsizei length;
-            gl::GLint size;
-            gl::GLenum type;
-            glprog->getActiveAttrib( idx, bufSize, &length, &size, &type, name );
-            auto loc = glprog->getAttributeLocation( name );
-
-            auto attribName = name; // m_translationTableShaderToMesh[name];
-            auto attrib     = m_attribManager.getAttribBase( attribName );
-
-            if ( attrib )
-            {
-                m_vao->enable( loc );
-                auto binding = m_vao->binding( idx );
-                binding->setAttribute( loc );
-                CORE_ASSERT( m_vbos[m_handleToBuffer[attribName]].get(), "vbo is nullptr" );
-                binding->setBuffer(
-                    m_vbos[m_handleToBuffer[attribName]].get(), 0, attrib->getStride() );
-                binding->setFormat( attrib->getElementSize(), GL_FLOAT );
-            }
-            else
-            { m_vao->disable( loc ); }
-        }
-
-        m_vao->unbind();
-    }
-
-    void render( const ShaderProgram* prog ) override {
-        if ( m_vao )
-        {
-            autoVertexAttribPointer( prog );
-            m_vao->bind();
-            m_vao->drawElements( static_cast<GLenum>( m_renderMode ),
-                                 GLsizei( m_numElements ),
-                                 GL_UNSIGNED_INT,
-                                 nullptr );
-            m_vao->unbind();
-        }
-    }
-
+                           const typename Ra::Core ::Utils::Attrib<T>::Container&& data );
+    inline void updateGL() override;
+    inline void autoVertexAttribPointer( const ShaderProgram* prog );
+    inline void render( const ShaderProgram* prog ) override;
     IndexContainerType m_cpu_indices;
     AttribManager m_attribManager;
 };
@@ -318,11 +211,7 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     using AttribArrayDisplayable::AttribArrayDisplayable;
     explicit CoreGeometryDisplayable( const std::string& name,
                                       CoreGeometry&& geom,
-                                      MeshRenderMode renderMode = RM_TRIANGLES ) :
-        AttribArrayDisplayable( name, renderMode ) {
-        loadGeometry( std::move( geom ) );
-    }
-
+                                      MeshRenderMode renderMode = RM_TRIANGLES );
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AbstractGeometry */
     inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const;
@@ -338,17 +227,11 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     /// Helper function that calls Ra::Core::CoreGeometry::addAttrib()
     template <typename A>
     inline Ra::Core::Utils::AttribHandle<A> addAttrib( const std::string& name,
-                                                       const typename Core::VectorArray<A>& data ) {
-        return m_mesh.addAttrib( name, data );
-    }
-
-    inline size_t getNumVertices() const override { return m_mesh.vertices().size(); }
+                                                       const typename Core::VectorArray<A>& data );
+    inline size_t getNumVertices() const override;
 
     /// Use the given geometry as base for a display mesh. Normals are optionnal.
-    virtual void loadGeometry( CoreGeometry&& /*mesh*/ ) {
-        CORE_ASSERT( false, "must be specialized" );
-    }
-
+    virtual void loadGeometry( CoreGeometry&& mesh );
     /// Update (i.e. send to GPU) the buffers marked as dirty
     void updateGL() override;
 
@@ -380,6 +263,7 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     CoreGeometry m_mesh;
 };
 
+/// A PointCloud without indices
 class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::PointCloud>
 {
     using base = CoreGeometryDisplayable<Core::Geometry::PointCloud>;
@@ -390,14 +274,13 @@ class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::
     /// use glDrawArrays to draw all the points in the point cloud
     void render( const ShaderProgram* prog ) override;
 
-    void loadGeometry( Core::Geometry::PointCloud&& mesh ) override {
-        loadGeometry_common( std::move( mesh ) );
-    }
+    void loadGeometry( Core::Geometry::PointCloud&& mesh ) override;
 
   protected:
     void updateGL_specific_impl() override;
 };
 
+/// A CoreGeometry, with indices
 template <typename T>
 class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
 {
@@ -407,37 +290,33 @@ class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
     explicit IndexedGeometry(
         const std::string& name,
         typename base::CoreGeometry&& geom,
-        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_TRIANGLES ) :
-        base( name, renderMode ) {
-        loadGeometry( std::move( geom ) );
-    }
+        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_TRIANGLES );
 
     void render( const ShaderProgram* prog ) override;
 
-    void loadGeometry( T&& mesh ) override {
-        m_numElements = mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
-        base::loadGeometry_common( std::move( mesh ) );
-    }
+    void loadGeometry( T&& mesh ) override;
 
   protected:
     void updateGL_specific_impl();
 };
 
+/// LineMesh, own a Core::Geometry::LineMesh
 class RA_ENGINE_API LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
 {
     using base = IndexedGeometry<Core::Geometry::LineMesh>;
 
   public:
     using base::IndexedGeometry;
-    explicit LineMesh( const std::string& name,
-                       typename base::CoreGeometry&& geom,
-                       typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_LINES ) :
-        base( name, std::move( geom ), renderMode ) {}
+    inline explicit LineMesh(
+        const std::string& name,
+        typename base::CoreGeometry&& geom,
+        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_LINES );
 
   protected:
   private:
 };
 
+/// Mesh, own a Core::Geometry::TriangleMesh
 class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
 {
     using base = IndexedGeometry<Core::Geometry::TriangleMesh>;
