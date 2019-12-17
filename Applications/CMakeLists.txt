@@ -1,3 +1,0 @@
-add_subdirectory(MainApplication)
-add_subdirectory(HelloRadium)
-add_subdirectory(SimpleSubdivideExample)

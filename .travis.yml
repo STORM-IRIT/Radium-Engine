@@ -3,21 +3,21 @@ dist: xenial
 sudo: true
 
 script:
+  - make -j 4
+  - make check
   - |
-    make -j 4
-    make buildtests && make test
-    if [ "$TRAVIS_EVENT_TYPE" = "cron" ] ; then
-        cd $CHECKOUT_PATH
-        export BUILD_DOC="Off"
-        if ! .ci/compile-official-plugins.sh ; then
-            echo "Plugins compilation have failed. Aborting..."
-            exit 1
-        fi;
-    else
-        if [ "$BUILD_DOC" = "On" ]; then
-          make doc
-        fi;
+    if [ "$BUILD_DOC" = "On" ]; then
+        make RadiumDoc
     fi;
+  - make install
+  # test relocatable binaries (command line tools)
+  - |
+    export RETURN_PATH=$PWD
+    export CORE_EXAMPLE_APP_PATH="bin/"
+  - cd installed/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd $RETURN_PATH
+  - mv installed/ installed_moved
+  - cd installed_moved/$CORE_EXAMPLE_APP_PATH && ./CoreExampleApp && cd ../..
+  - mv installed_moved/ installed
 
 notifications:
    slack: storm-cg:oxJ5LToK0qfPBkNW0Hus3TQg
@@ -36,13 +36,13 @@ before_install:
   - eval "${MATRIX_EVAL}"
   - if [ -n "$GCC_VERSION" ]; then export CXX="g++-${GCC_VERSION}" CC="gcc-${GCC_VERSION}"; fi
   - if [ -n "$CLANG_VERSION" ]; then export CXX="clang++-${CLANG_VERSION}" CC="clang-${CLANG_VERSION}"; fi
+  - export Radium_RELEASE_NAME="Radium-Engine-${APPVEYOR_REPO_TAG}-${TRAVIS_OS_NAME}-${CXX}"
   - $CXX --version
   - cmake --version
-
   ############################################################################
   # Install a recent Qt
   ############################################################################
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install qt; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install qt; fi
   - |
     if [ "$TRAVIS_OS_NAME" = "linux" ]; then
       sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-xenial
@@ -108,7 +108,7 @@ install:
 
   - mkdir -p build
   - cd build
-  - cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH}
+  - cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_PREFIX_PATH=${PREFIX_PATH} -DCMAKE_INSTALL_PREFIX=./installed
 
 
 # safelist
@@ -116,12 +116,22 @@ branches:
   except:
   - gh-pages
 
+before_deploy:
+  - zip --symlinks -r ${CHECKOUT_PATH}/build/${Radium_RELEASE_NAME}.zip ${CHECKOUT_PATH}/build/installed/
+
 deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: Bundle-GNU/Docs/html/
-  github_token: $GITHUB_API_KEY
-  on:
-    branch: master
-    condition: "$BUILD_DOC = On"
+  - provider: pages
+    skip_cleanup: true
+    local_dir: build/installed/share/doc/html/
+    github_token: $GITHUB_API_KEY
+    on:
+      branch: master
+      condition: "$BUILD_DOC = On"
+  - provider: releases
+    api_key: "GITHUB OAUTH TOKEN"
+    file: build/${Radium_RELEASE_NAME}.zip
+    skip_cleanup: true
+    draft: true
+    on:
+      tags: true
 

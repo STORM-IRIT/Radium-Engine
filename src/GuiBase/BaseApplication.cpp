@@ -22,9 +22,7 @@
 
 #include <PluginBase/RadiumPluginInterface.hpp>
 
-#ifdef IO_USE_CAMERA_LOADER
-#    include <IO/CameraLoader/CameraLoader.hpp>
-#endif
+#include <IO/CameraLoader/CameraLoader.hpp>
 #ifdef IO_USE_TINYPLY
 #    include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 #endif
@@ -34,6 +32,7 @@
 
 #include <QCommandLineParser>
 #include <QDir>
+#include <QMessageBox>
 #include <QOpenGLContext>
 #include <QPluginLoader>
 #include <QTimer>
@@ -45,6 +44,12 @@ namespace GuiBase {
 
 using namespace Core::Utils; // log
 using namespace Core::Asset;
+
+#ifdef GUIBASE_IS_COMPILED_WITH_DEBUG_INFO
+static const bool expectPluginsDebug = true;
+#else
+static const bool expectPluginsDebug = false;
+#endif
 
 BaseApplication::BaseApplication( int argc,
                                   char** argv,
@@ -74,7 +79,7 @@ BaseApplication::BaseApplication( int argc,
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
-    std::string pluginsPath = std::string{Core::Resources::getBaseDir()} + "Plugins";
+    std::string pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
 
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
@@ -243,10 +248,20 @@ BaseApplication::BaseApplication( int argc,
     connect(
         &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
 
-    // Load plugins
+    // Load installed plugins plugins
     if ( !loadPlugins(
              pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
     { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
+    // load supplemental plugins
+    {
+        QSettings settings;
+        QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
+        for ( const auto s : plunginPaths )
+        {
+            loadPlugins(
+                s.toStdString(), parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) );
+        }
+    }
 
     // Make builtin loaders the fallback if no plugins can load some file format
 #ifdef IO_USE_TINYPLY
@@ -255,10 +270,8 @@ BaseApplication::BaseApplication( int argc,
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::TinyPlyFileLoader() ) );
 #endif
-#ifdef IO_USE_CAMERA_LOADER
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::CameraFileLoader() ) );
-#endif
 #ifdef IO_USE_ASSIMP
     m_engine->registerFileLoader(
         std::shared_ptr<FileLoaderInterface>( new IO::AssimpFileLoader() ) );
@@ -354,7 +367,7 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 void BaseApplication::addBasicShaders() {
     using namespace Ra::Engine;
     /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
 
     ShaderConfiguration lgConfig( "LinesGeom" );
     lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines.vert.glsl" );
@@ -550,73 +563,102 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
 
             LOG( logINFO ) << "Found plugin " << filename.toStdString();
 
-            QObject* plugin = pluginLoader.instance();
+            auto metadata = pluginLoader.metaData()["MetaData"].toObject();
 
-            if ( plugin )
+            // detect if the plugin meets the minimal requirements
+            // if not, triggers a QDialog explaining the error, and abort the application
+            // We choose to stop the application to force all the plugins to be updated
+            if ( !metadata.contains( "isDebug" ) )
             {
-                auto loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
-                if ( loadedPlugin )
+                QMessageBox::critical( m_mainWindow.get(),
+                                       "Invalid plugin loaded (see Q_RADIUM_PLUGIN_METADATA)",
+                                       QString( "The application tried to load an unsupported "
+                                                "plugin. The application will stop.\n" ) +
+                                           QString( "Plugin path: " ) +
+                                           pluginsDir.absoluteFilePath( filename ) );
+                appNeedsToQuit();
+                return false;
+            }
+            bool isPluginDebug = metadata["isDebug"].toString().compare( "true" ) == 0;
+            if ( expectPluginsDebug == isPluginDebug )
+            {
+                // load the plugin
+                QObject* plugin = pluginLoader.instance();
+                if ( plugin )
                 {
-                    ++pluginCpt;
-                    loadedPlugin->registerPlugin( m_pluginContext );
-                    m_mainWindow->updateUi( loadedPlugin );
-
-                    if ( loadedPlugin->doAddRenderer() )
+                    auto loadedPlugin = qobject_cast<Plugins::RadiumPluginInterface*>( plugin );
+                    if ( loadedPlugin )
                     {
-                        std::vector<std::shared_ptr<Engine::Renderer>> tmpR;
-                        loadedPlugin->addRenderers( &tmpR );
-                        CORE_ASSERT( !tmpR.empty(), "This plugin is expected to add a renderer" );
-                        for ( const auto& ptr : tmpR )
+                        ++pluginCpt;
+                        loadedPlugin->registerPlugin( m_pluginContext );
+                        m_mainWindow->updateUi( loadedPlugin );
+
+                        if ( loadedPlugin->doAddRenderer() )
                         {
-                            std::string name =
-                                ptr->getRendererName() + "(" + filename.toStdString() + ")";
-                            m_mainWindow->addRenderer( name, ptr );
+                            std::vector<std::shared_ptr<Engine::Renderer>> tmpR;
+                            loadedPlugin->addRenderers( &tmpR );
+                            CORE_ASSERT( !tmpR.empty(),
+                                         "This plugin is expected to add a renderer" );
+                            for ( const auto& ptr : tmpR )
+                            {
+                                std::string name =
+                                    ptr->getRendererName() + "(" + filename.toStdString() + ")";
+                                m_mainWindow->addRenderer( name, ptr );
+                            }
+                        }
+
+                        if ( loadedPlugin->doAddFileLoader() )
+                        {
+                            std::vector<std::shared_ptr<FileLoaderInterface>> tmpL;
+                            loadedPlugin->addFileLoaders( &tmpL );
+                            CORE_ASSERT( !tmpL.empty(),
+                                         "This plugin is expected to add file loaders" );
+                            for ( auto& ptr : tmpL )
+                            {
+                                m_engine->registerFileLoader( ptr );
+                            }
+                        }
+
+                        if ( loadedPlugin->doAddROpenGLInitializer() )
+                        {
+                            if ( m_viewer->isOpenGlInitialized() )
+                            {
+                                LOG( logINFO ) << "Direct OpenGL initialization for plugin "
+                                               << filename.toStdString();
+                                // OpenGL is ready, initialize openGL part of the plugin
+                                m_viewer->makeCurrent();
+                                loadedPlugin->openGlInitialize( m_pluginContext );
+                                m_viewer->doneCurrent();
+                            }
+                            else
+                            {
+                                // Defer OpenGL initialisation
+                                LOG( logINFO ) << "Defered OpenGL initialization for plugin "
+                                               << filename.toStdString();
+                                m_openGLPlugins.push_back( loadedPlugin );
+                            }
                         }
                     }
-
-                    if ( loadedPlugin->doAddFileLoader() )
+                    else
                     {
-                        std::vector<std::shared_ptr<FileLoaderInterface>> tmpL;
-                        loadedPlugin->addFileLoaders( &tmpL );
-                        CORE_ASSERT( !tmpL.empty(), "This plugin is expected to add file loaders" );
-                        for ( auto& ptr : tmpL )
-                        {
-                            m_engine->registerFileLoader( ptr );
-                        }
-                    }
-
-                    if ( loadedPlugin->doAddROpenGLInitializer() )
-                    {
-                        if ( m_viewer->isOpenGlInitialized() )
-                        {
-                            LOG( logINFO ) << "Direct OpenGL initialization for plugin "
-                                           << filename.toStdString();
-                            // OpenGL is ready, initialize openGL part of the plugin
-                            m_viewer->makeCurrent();
-                            loadedPlugin->openGlInitialize( m_pluginContext );
-                            m_viewer->doneCurrent();
-                        }
-                        else
-                        {
-                            // Defer OpenGL initialisation
-                            LOG( logINFO ) << "Defered OpenGL initialization for plugin "
-                                           << filename.toStdString();
-                            m_openGLPlugins.push_back( loadedPlugin );
-                        }
+                        LOG( logERROR ) << "Something went wrong while trying to cast plugin "
+                                        << filename.toStdString();
+                        res = false;
                     }
                 }
                 else
                 {
-                    LOG( logERROR ) << "Something went wrong while trying to cast plugin"
-                                    << filename.toStdString();
+                    LOG( logERROR ) << "Something went wrong while trying to load plugin "
+                                    << filename.toStdString() << " : "
+                                    << pluginLoader.errorString().toStdString();
                     res = false;
                 }
             }
             else
             {
-                LOG( logERROR ) << "Something went wrong while trying to load plugin "
-                                << filename.toStdString() << " : "
-                                << pluginLoader.errorString().toStdString();
+                LOG( logERROR ) << "Skipped plugin " << filename.toStdString()
+                                << " : invalid build mode. Full path: "
+                                << pluginsDir.absoluteFilePath( filename ).toStdString();
                 res = false;
             }
         }
@@ -636,5 +678,24 @@ void BaseApplication::setRecordTimings( bool on ) {
 void BaseApplication::setRecordGraph( bool on ) {
     m_recordGraph = on;
 }
+
+void BaseApplication::addPluginDirectory( const std::string& pluginDir ) {
+    QSettings settings;
+    QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
+    LOG( logINFO ) << "Registered plugin paths are : ";
+    for ( const auto s : plunginPaths )
+    {
+        LOG( logINFO ) << s.toStdString();
+    }
+    plunginPaths.append( pluginDir.c_str() );
+    settings.setValue( "plugins/paths", plunginPaths );
+    loadPlugins( pluginDir, QStringList(), QStringList() );
+}
+
+void BaseApplication::clearPluginDirectories() {
+    QSettings settings;
+    settings.setValue( "plugins/paths", QStringList() );
+}
+
 } // namespace GuiBase
 } // namespace Ra

@@ -3,7 +3,7 @@
 namespace Ra {
 namespace Core {
 namespace Animation {
-void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
+void computeDQ( const Pose& pose, const Sparse& weight, DQList& DQ ) {
     CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
     DQ.clear();
     DQ.resize( weight.rows(),
@@ -23,7 +23,7 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
         // Count how many vertices are influenced by the given transform
         const int nonZero = weight.col( j ).nonZeros();
 
-        WeightMatrix::InnerIterator it0( weight, j );
+        Sparse::InnerIterator it0( weight, j );
 #pragma omp parallel for
         // This for loop is here just because OpenMP wants classic for loops.
         // Since we cannot iterate directly through the non-zero elements using the InnerIterator,
@@ -40,9 +40,9 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
 
         for ( int nz = 0; nz < nonZero; ++nz )
         {
-            WeightMatrix::InnerIterator itn = it0 + Eigen::Index( nz );
-            const uint i                    = itn.row();
-            const Scalar w                  = itn.value();
+            Sparse::InnerIterator itn = it0 + Eigen::Index( nz );
+            const uint i              = itn.row();
+            const Scalar w            = itn.value();
 
             firstNonZero[i] = std::min( firstNonZero[i], uint( j ) );
             const Scalar sign =
@@ -63,7 +63,7 @@ void computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
 
 // alternate naive version, for reference purposes.
 // See Kavan , Collins, Zara and O'Sullivan, 2008
-void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ ) {
+void computeDQ_naive( const Pose& pose, const Sparse& weight, DQList& DQ ) {
     CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
     DQ.clear();
     DQ.resize( weight.rows(),
@@ -101,7 +101,7 @@ void computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ )
 
     // 3. renormalize all dual quats.
 #pragma omp parallel for
-    for ( int i = 0; i < DQ.size(); ++i )
+    for ( int i = 0; i < int( DQ.size() ); ++i )
     {
         DQ[i].normalize();
     }

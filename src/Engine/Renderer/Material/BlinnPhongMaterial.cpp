@@ -103,7 +103,7 @@ bool BlinnPhongMaterial::isTransparent() const {
 
 void BlinnPhongMaterial::registerMaterial() {
     /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
     // Defining Converter
     EngineMaterialConverters::registerMaterialConverter( materialName,
                                                          BlinnPhongMaterialConverter() );

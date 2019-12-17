@@ -28,9 +28,49 @@ class FileLoaderInterface;
 } // namespace Core
 
 namespace Plugins {
+/**
+ * @brief Interface class for Radiums plugins
+ *
+ * To write your own plugin, you need to write a class as follow:
+ * \code
+    class MyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface
+    {
+        Q_OBJECT
+        Q_RADIUM_PLUGIN_METADATA
+        Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
+    public:
+        MyPlugin();
+        ~MyPlugin() override;
+
+        virtual void registerPlugin( const Ra::Plugins::Context& context ) override;
+
+        virtual bool doAddWidget( QString& name ) override;
+        virtual QWidget* getWidget() override;
+
+        virtual bool doAddMenu() override;
+        virtual QMenu* getMenu() override;
+
+        virtual bool doAddAction( int &nb ) override;
+        virtual QAction* getAction( int id ) override;
+    };
+    \endcode
+
+    \note `Q_RADIUM_PLUGIN_METADATA`: we use this macro to load a default metadata files,
+    which sets the basic metadata required by Radium. The macro is defined in `RaPluginBase.hpp`.
+    If you need to use your own file, you have to extend the filespluginMetaDataXXXX.json, packaged
+    with Radium in the following folder
+      - source tree: src/PluginBase/
+      - install tree: lib/cmake/Radium/
+    Then, replace `Q_RADIUM_PLUGIN_METADATA` by
+    `Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface"  FILE "yourPluginMetaDataRelease.json" )`
+    or
+    `Q_PLUGIN_METADATA( IID "RadiumEngine.PluginInterface"  FILE "yourPluginMetaDataDebug.json" )`
+    depending on the debug mode
+ */
 class RadiumPluginInterface
 {
+
   public:
     virtual ~RadiumPluginInterface() {}
 
@@ -104,7 +144,7 @@ class RadiumPluginInterface
      * \warning Allocated renderers are given to the application that takes ownership. They
      * MUST not be destroyed by the plugin
      */
-    virtual void addRenderers( std::vector<std::shared_ptr<Engine::Renderer>>* rds ) {}
+    virtual void addRenderers( std::vector<std::shared_ptr<Engine::Renderer>>* /*rds*/ ) {}
 
     /**
      * Tells if the system will add a file loader
@@ -117,7 +157,7 @@ class RadiumPluginInterface
      * @param fl The set of file loader to add
      */
     virtual void
-    addFileLoaders( std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>* fl ) {}
+    addFileLoaders( std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>>* /*fl*/ ) {}
 
     /**
      * @brief openGlInitialize
@@ -139,7 +179,7 @@ class RadiumPluginInterface
      * and realease it after usage (viewer->doneCurrent())
      * @see Ra::Gui::Viewer
      */
-    virtual void openGlInitialize( const Context& context ) {}
+    virtual void openGlInitialize( const Context& /*context*/ ) {}
 
     /**
      * Tells if the plugin offer OpenGL based services that need to be initialized after the OpenGL

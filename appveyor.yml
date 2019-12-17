@@ -4,9 +4,8 @@ version: "{build}"
 # Slack updates
 notifications:
 - provider: Slack
-  auth_token:
+  incoming_webhook:
     secure: fbjePecExKJ5Gkvv1zfw9TkzX4qPXIaTWxp5ECL2Nrso1AwyDzLz58Z4d5iuBlspD8BR2ck7E8XyMe6/W0ioyMsbg/OvMy9rrZVJZN+0gtQ=
-  channel: '#dev-radium'
 
 
 # Operating system (build VM template)
@@ -30,7 +29,7 @@ environment:
   RA_REPOSITORY_ROOT: C:\projects\Radium-Engine
   RA_BUILD_DIR: C:\projects\Radium-Engine\build
   RA_BUNDLE_DIR: C:\projects\Radium-Engine\Bundle-MSVC
-  RA_RELEASE_NAME: Radium-Engine-%platform%-%configuration%
+  RA_RELEASE_NAME: Radium-Engine-%APPVEYOR_REPO_COMMIT%-%platform%-%configuration%
 
 # build configuration, i.e. Debug, Release, etc.
 configuration:
@@ -56,8 +55,8 @@ branches:
 # scripts that run after cloning repository
 # https://www.appveyor.com/docs/build-environment/#qt
 install:
-  - set QTDIR=C:\Qt\5.10.1\msvc2017_64
-  - cmd: git submodule update --init --recursive
+    - set QTDIR=C:\Qt\5.10.1\msvc2017_64
+
 
 # scripts to run before build
 before_build:
@@ -66,18 +65,17 @@ before_build:
 
   - cmd: if "%platform%"=="Win32" set CMAKE_GENERATOR_NAME=Visual Studio 15 2017
   - cmd: if "%platform%"=="x64"   set CMAKE_GENERATOR_NAME=Visual Studio 15 2017 Win64
-  - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH=%QTDIR%  ..
+  - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH=%QTDIR% ..
   - cmd: dir .
 
 
 build:
-  project: C:\projects\Radium-Engine\build\ALL_BUILD.vcxproj  # path to Visual Studio solution or project
+  project: C:\projects\Radium-Engine\build\INSTALL.vcxproj  # path to Visual Studio solution or project
   parallel: true                           # enable MSBuild parallel builds (true|false)
   verbosity: normal                       # MSBuild verbosity level (quiet|minimal|normal|detailed)
 
 after_build:
-  - cmd: cd %RA_REPOSITORY_ROOT%
-  - cmd: dir %RA_BUNDLE_DIR%
+  - cmd: dir C:\projects\Radium-Engine\build
 
 artifacts:
   - path: Bundle-MSVC
@@ -86,7 +84,7 @@ artifacts:
 
 #test: on
 #test_script:
-#  - cmd: if "%configuration%"=="Release" msbuild %RA_BUILD_DIR%\buildtests.vcxproj /m /p:Configuration=%configuration%
+#  - cmd: if "%configuration%"=="Release" msbuild %RA_BUILD_DIR%\RUN_TESTS.vcxproj /m /p:Configuration=%configuration%
 #  - cmd: if "%configuration%"=="Release" msbuild %RA_BUILD_DIR%\RUN_TESTS.vcxproj  /m /p:Configuration=%configuration%
 #   - cmd: ctest --build-config %configuration% --parallel 4 --output-on-failure
 

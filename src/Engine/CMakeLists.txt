@@ -1,60 +1,46 @@
-# Find packages
-find_package(OpenGL     REQUIRED)
-find_package(Qt5 COMPONENTS OpenGL REQUIRED)
+set(ra_engine_target Engine)
 
-if(Qt5Core_VERSION VERSION_LESS 5.5 OR
-   Qt5Widgets_VERSION VERSION_LESS 5.5 OR
-   Qt5OpenGL_VERSION VERSION_LESS 5.5)
-    message(FATAL_ERROR "Qt5 or superior required (found ${Qt5Core_VERSION}).")
-else ()
-    message(STATUS "QT ${Qt5Core_VERSION} found." )
+project( ${ra_engine_target}
+         LANGUAGES CXX
+         VERSION ${RADIUM_VERSION})
+
+include( filelistEngine )
+set(engine_shaders_full ${engine_shaders})
+
+if(CMAKE_VERSION VERSION_LESS 3.12)
+    string(REGEX REPLACE "([^;]+)" "${RADIUM_SHADERS_DIR}/\\1" engine_shaders_full "${engine_shaders}")
+else()
+    list(TRANSFORM engine_shaders_full PREPEND ${RADIUM_SHADERS_DIR}/)
 endif()
 
-# Build Engine
-set(engine_target radiumEngine)
-
-file(GLOB_RECURSE engine_sources ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
-file(GLOB_RECURSE engine_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
-file(GLOB_RECURSE engine_inlines ${CMAKE_CURRENT_SOURCE_DIR}/*.inl)
-
-file(GLOB_RECURSE engine_glsl ${CMAKE_CURRENT_SOURCE_DIR}/../Shaders/*.glsl)
-
-set( engine_shaders ${engine_glsl})
-
-set(engine_libs
-    radiumCore
-    Qt5::OpenGL
-    ${OPENGL_LIBRARIES}
-    ${GLBINDING_LIBRARIES}
-    ${GLOBJECTS_LIBRARIES}
-   )
-
 add_library(
-    ${engine_target} SHARED
+    ${ra_engine_target} SHARED
     ${engine_sources}
     ${engine_headers}
     ${engine_inlines}
-    ${engine_shaders}
 )
 
-target_include_directories(${engine_target}
-    PRIVATE
-           ${CMAKE_CURRENT_SOURCE_DIR}/..
-    PUBLIC 
-           ${GLBINDING_INCLUDE_DIR}
-           ${GLOBJECTS_INCLUDE_DIR}
-           ${GLM_INCLUDE_DIR}
-    INTERFACE 
-           ${STB_INCLUDE_DIR}
-    )
+add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
-add_dependencies( ${engine_target} radiumCore glbinding_lib globjects_lib glm_lib stb_lib)
+addExternalFolder( Engine ${CMAKE_CURRENT_SOURCE_DIR}/external )
 
-target_compile_definitions(${engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
+find_package(glbinding REQUIRED NO_DEFAULT_PATH )
+find_package(globjects REQUIRED NO_DEFAULT_PATH )
 
-target_link_libraries(
-    ${engine_target}
-    PUBLIC ${engine_libs}
-)
+configureTargetWithDefaultRaSettings( ${ra_engine_target} )
 
-set_property( TARGET ${engine_target} PROPERTY POSITION_INDEPENDENT_CODE ON )
+target_include_directories(${ra_engine_target} PUBLIC
+    $<BUILD_INTERFACE:${GLBINDING_INCLUDE_DIR}>
+    $<BUILD_INTERFACE:${GLM_INCLUDE_DIR}> )
+add_dependencies (${ra_engine_target} Core RadiumEngineShaders)
+target_link_libraries (${ra_engine_target} PUBLIC Core glm glbinding::glbinding glbinding::glbinding-aux globjects::globjects)
+
+target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
+
+# set_target_properties(${ra_engine_target} PROPERTIES PUBLIC_HEADER "${engine_headers};${engine_inlines}")
+
+installLibHeaders( "Engine" "${engine_headers}" )
+installLibHeaders( "Engine" "${engine_inlines}" )
+
+message(STATUS "[Engine] installing resources from ${RADIUM_SHADERS_DIR}")
+installResources(TARGET ${ra_engine_target} DIRECTORY ${RADIUM_SHADERS_DIR} FILES ${engine_shaders})

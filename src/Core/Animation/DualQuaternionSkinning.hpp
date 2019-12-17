@@ -1,12 +1,10 @@
 #ifndef RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP
 #define RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP
 
-#include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Math/DualQuaternion.hpp>
-#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -20,10 +18,10 @@ using DQList = AlignedStdVector<DualQuaternion>;
  * WARNING : in Debug the function will assert if pose and weight size mismatch. In Release will
  * simply crash.
  */
-void RA_CORE_API computeDQ( const Pose& pose, const WeightMatrix& weight, DQList& DQ );
+void RA_CORE_API computeDQ( const Pose& pose, const Sparse& weight, DQList& DQ );
 
 // Same version, without the parallelism for reference purposes (see github issue #118)
-void RA_CORE_API computeDQ_naive( const Pose& pose, const WeightMatrix& weight, DQList& DQ );
+void RA_CORE_API computeDQ_naive( const Pose& pose, const Sparse& weight, DQList& DQ );
 
 /*
  * DualQuaternionSkinning applies a set of dual quaternions to a given input set of vertices and

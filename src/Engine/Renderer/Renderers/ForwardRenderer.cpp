@@ -60,7 +60,7 @@ void ForwardRenderer::initializeInternal() {
 
 void ForwardRenderer::initShaders() {
     /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getBaseDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
     m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
                                     resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.vert.glsl",
                                     resourcesRootDir + "Shaders/HdrToLdr/Hdr2Ldr.frag.glsl"} );

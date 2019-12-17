@@ -1,0 +1,132 @@
+#--------------------------- Base configuration for installation and rpath settings ---------------------------
+# Custom Install target, used in run target in source/CMakeLists.txt
+if (CMAKE_GENERATOR MATCHES "Makefiles")
+    # Make it multithreaded
+    add_custom_target( Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" --build . --target
+            install -- -j WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+else()
+    add_custom_target( Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" --build . --target
+            install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+endif()
+#------------------------------------------------------------------------------------------------------------
+# use, i.e. don't skip the full RPATH for the build tree
+SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+# when building, don't use the install RPATH already
+# (but later on when installing)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+# add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+# the RPATH to be used when installing, but only if it's not a system directory
+LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
+IF("${isSystemDir}" STREQUAL "-1")
+    if(APPLE)
+        SET(CMAKE_INSTALL_RPATH "@executable_path/../lib")
+    else()
+        SET(CMAKE_INSTALL_RPATH "\$ORIGIN:\$ORIGIN/../lib")
+    endif()
+ENDIF("${isSystemDir}" STREQUAL "-1")
+
+#--------------------------- Configuration of the Radium exported targets and definitions ---------------------------
+
+include(CMakeFindDependencyMacro)
+find_dependency(Threads REQUIRED)
+find_dependency(OpenMP REQUIRED)
+# Theses paths reflect the paths founds in RadiumEngine/src/Core/external/package
+set(Eigen3_DIR    "${CMAKE_CURRENT_LIST_DIR}/../../../share/eigen3/cmake/")
+set(OpenMesh_DIR  "${CMAKE_CURRENT_LIST_DIR}/../../../share/OpenMesh/cmake/")
+set(cpplocate_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../")
+find_dependency(Eigen3    REQUIRED NO_DEFAULT_PATH)
+find_dependency(OpenMesh  REQUIRED NO_DEFAULT_PATH)
+find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
+
+set(_supported_components Core)
+
+include("${CMAKE_CURRENT_LIST_DIR}/CoreTargets.cmake")
+
+macro(checkOptionalTarget TARGET)
+    if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/${TARGET}Targets.cmake" )
+        list(APPEND _supported_components ${TARGET})
+    endif()
+endmacro()
+
+# Check available library targets
+checkOptionalTarget(Engine)
+checkOptionalTarget(IO)
+checkOptionalTarget(PluginBase)
+checkOptionalTarget(GuiBase)
+
+# Check the user request matches the available library targets
+set(Radium_FOUND True)
+foreach(_comp ${Radium_FIND_COMPONENTS})
+  list(FIND _supported_components ${_comp} ${_comp}_FOUND)
+  if (${${_comp}_FOUND} EQUAL -1)
+    set(Radium_FOUND False)
+    set(Radium_NOT_FOUND_MESSAGE "Unsupported component: ${_comp}")
+  endif()
+endforeach()
+
+if(Engine_FOUND)
+    # Theses paths reflect the paths founds in RadiumEngine/src/Engine/external/package
+    set(glm_DIR       "${CMAKE_CURRENT_LIST_DIR}/../../../lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake/glm/")
+    set(glbinding_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../")
+    set(globjects_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../")
+    find_dependency(glm       REQUIRED NO_DEFAULT_PATH)
+    find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
+    find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
+
+    include("${CMAKE_CURRENT_LIST_DIR}/EngineTargets.cmake" )
+endif()
+
+if(IO_FOUND)
+    include("${CMAKE_CURRENT_LIST_DIR}/IOTargets.cmake" )
+
+    # Detect if library has been compiled using assimp and tinyply
+    get_target_property( deps Radium::IO INTERFACE_LINK_LIBRARIES)
+    list( FIND deps "assimp::assimp" depAssimpFound)
+    list( FIND deps "tinyply" depTinyPLYFound)
+
+    # Theses paths reflect the paths founds in RadiumEngine/src/IO/external/package
+    if( depAssimpFound GREATER_EQUAL "0")
+        set(assimp_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../lib/cmake/assimp-5.0/")
+        find_dependency(assimp 5.0 REQUIRED NO_DEFAULT_PATH)
+    endif()
+    if( depTinyPLYFound GREATER_EQUAL "0")
+        set(tinyply_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../lib/cmake/tinyply/")
+        find_dependency(tinyply REQUIRED NO_DEFAULT_PATH)
+    endif()
+
+endif()
+
+
+if(PluginBase_FOUND)
+    find_dependency(Qt5 COMPONENTS Core REQUIRED)
+        get_target_property(QtCore_Dll Qt5::Core LOCATION)
+        get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
+    include("${CMAKE_CURRENT_LIST_DIR}/PluginBaseTargets.cmake" )
+endif()
+
+if(GuiBase_FOUND)
+    find_dependency(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+        get_target_property(QtCore_Dll Qt5::Core LOCATION)
+        get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
+    include("${CMAKE_CURRENT_LIST_DIR}/GuiBaseTargets.cmake" )
+endif()
+
+# Compute paths
+get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
+# get up in the directories until we found a "Resources" subdir
+# TODO : instead of 'Resources' that might not exists if Engine nor GuiBase are compiled,
+# search for a file identifying Radium (a la Eigen) and that is installed at the root of the
+# Radium Bundle
+while( NOT EXISTS ${SELF_DIR}/Resources)
+  get_filename_component(SELF_DIR "${SELF_DIR}" DIRECTORY)
+endwhile()
+
+set(RADIUM_ROOT_DIR "${SELF_DIR}")
+set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
+set(RADIUM_PLUGINS_DIR "${SELF_DIR}/Plugins")
+
+include(${CMAKE_CURRENT_LIST_DIR}/application_setup.cmake)
+
+

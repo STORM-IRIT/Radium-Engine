@@ -35,20 +35,20 @@ namespace std {
 template <class T>
 auto begin( Ra::Core::_internalIterator::_reversed<T>& r ) -> decltype( r.t.rbegin() ) {
     return r.t.rbegin();
-};
+}
 template <class T>
 auto end( Ra::Core::_internalIterator::_reversed<T>& r ) -> decltype( r.t.rend() ) {
     return r.t.rend();
-};
+}
 
 template <class T>
 auto begin( Ra::Core::_internalIterator::_creversed<T> const& cr ) -> decltype( cr.t.rbegin() ) {
     return cr.t.rbegin();
-};
+}
 template <class T>
 auto end( Ra::Core::_internalIterator::_creversed<T> const& cr ) -> decltype( cr.t.rend() ) {
     return cr.t.rend();
-};
+}
 } // namespace std
 
 #endif // RADIUMENGINE_ALGORITHM_HPP

@@ -51,7 +51,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
             // compute new positions for old vertices
             m_oldVertexOps[iter].reserve( NV );
 #pragma omp parallel for
-            for ( int i = 0; i < NV; ++i )
+            for ( int i = 0; i < int( NV ); ++i )
             {
                 const auto& vh = mesh.vertex_handle( i );
                 smooth( mesh, vh, iter );
@@ -61,7 +61,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         // Compute position for new vertices and store them in the edge property
         m_newVertexOps[iter].reserve( mesh.n_edges() );
 #pragma omp parallel for
-        for ( int i = 0; i < mesh.n_edges(); ++i )
+        for ( int i = 0; i < int( mesh.n_edges() ); ++i )
         {
             const auto& eh = mesh.edge_handle( i );
             compute_midpoint( mesh, eh, iter );
@@ -92,7 +92,7 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         {
             // Commit changes in geometry
 #pragma omp parallel for
-            for ( int i = 0; i < NV; ++i )
+            for ( int i = 0; i < int( NV ); ++i )
             {
                 const auto& vh = mesh.vertex_handle( i );
                 mesh.set_point( vh, mesh.property( m_vpPos, vh ) );
@@ -369,7 +369,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
     auto hNormalProp    = mesh.halfedge_normals_pph();
 #pragma omp parallel for
-    for ( int i = 0; i < mesh.n_halfedges(); ++i )
+    for ( int i = 0; i < int( mesh.n_halfedges() ); ++i )
     {
         auto h = mesh.halfedge_handle( i );
         // set position on coarse mesh vertices
@@ -382,11 +382,11 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
         }
     }
     // for each subdiv step
-    for ( int i = 0; i < m_oldVertexOps.size(); ++i )
+    for ( int i = 0; i < int( m_oldVertexOps.size() ); ++i )
     {
         // first update new vertices
 #pragma omp parallel for schedule( static )
-        for ( int j = 0; j < m_newVertexOps[i].size(); ++j )
+        for ( int j = 0; j < int( m_newVertexOps[i].size() ); ++j )
         {
             Ra::Core::Vector3 pos( 0, 0, 0 );
             const auto& ops = m_newVertexOps[i][j];
@@ -399,7 +399,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
         // then compute old vertices
         std::vector<Ra::Core::Vector3> pos( m_oldVertexOps[i].size() );
 #pragma omp parallel for
-        for ( int j = 0; j < m_oldVertexOps[i].size(); ++j )
+        for ( int j = 0; j < int( m_oldVertexOps[i].size() ); ++j )
         {
             pos[j]          = Ra::Core::Vector3( 0, 0, 0 );
             const auto& ops = m_oldVertexOps[i][j];
@@ -410,14 +410,14 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
         }
         // then commit pos for old vertices
 #pragma omp parallel for schedule( static )
-        for ( int j = 0; j < m_oldVertexOps[i].size(); ++j )
+        for ( int j = 0; j < int( m_oldVertexOps[i].size() ); ++j )
         {
             mesh.set_point( m_oldVertexOps[i][j].first, pos[j] );
         }
         // deal with normal on edge centers (other non-static properties can be updated the same
         // way)
         // This loop should not be parallelized!
-        for ( int j = 0; j < m_newEdgePropOps[i].size(); ++j )
+        for ( int j = 0; j < int( m_newEdgePropOps[i].size() ); ++j )
         {
             Ra::Core::Vector3 nor( 0, 0, 0 );
             const auto& ops = m_newEdgePropOps[i][j];
@@ -430,7 +430,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
         // deal with normal on faces centers (other non-static properties can be updated the same
         // way)
 #pragma omp parallel for
-        for ( int j = 0; j < m_newFacePropOps[i].size(); ++j )
+        for ( int j = 0; j < int( m_newFacePropOps[i].size() ); ++j )
         {
             Ra::Core::Vector3 nor( 0, 0, 0 );
             const auto& ops = m_newFacePropOps[i][j];
@@ -444,7 +444,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
     // update subdivided TriangleMesh vertices and normals
     auto outTriIndexProp = mesh.getOutputTriangleMeshIndexPropHandle();
 #pragma omp parallel for
-    for ( int i = 0; i < mesh.n_halfedges(); ++i )
+    for ( int i = 0; i < int( mesh.n_halfedges() ); ++i )
     {
         auto h = mesh.halfedge_handle( i );
         if ( !mesh.is_boundary( h ) )

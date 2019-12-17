@@ -1,58 +1,120 @@
-project(RadiumEngine)
+﻿cmake_minimum_required(VERSION 3.6)
 
-# Minimal version 3.8 required to get C++17 support
-# https://cmake.org/cmake/help/v3.8/prop_tgt/CXX_STANDARD.html
-cmake_minimum_required(VERSION 3.8)
+#------------------------------------------------------------------------------
+# Policies and global parameters for CMake
+if(POLICY CMP0077)
+  cmake_policy(SET CMP0077 NEW)
+endif()
 
-if (APPLE)
-# CMake 2.8.12 and newer has support for using @rpath in a target’s install
-# name. This was enabled by setting the target property MACOSX_RPATH. The
-# @rpath in an install name is a more flexible and powerful mechanism than
-# @executable_path or @loader_path for locating shared libraries.
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-# CMake 3.0 and later prefer this property to be ON by default. Projects wanting
-# @rpath in a target’s install name may remove any setting of the
-# INSTALL_NAME_DIR and CMAKE_INSTALL_NAME_DIR variables.
+# Project setup, versioning stuff here, change when changing the version
+# Note: keep the project name lower case only for easy linux packaging support
+project (radiumproject VERSION 1.0.0)
+set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
+site_name(VERSION_HOST) # read hostname to VERSION_HOST
+set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 
-# This policy was introduced in CMake version 3.0. CMake version 3.0.2 warns
-# when the policy is not set and uses OLD behavior. Use the cmake_policy command
-# to set it to OLD or NEW explicitly.
-    cmake_policy(SET CMP0042 NEW)
-endif(APPLE)
+set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
-# CMake setups
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+option(RADIUM_ENABLE_TESTING          "Enable testing. Tests are automatically built with target all" ON)
+option(RADIUM_GENERATE_LIB_CORE       "Include Radium::Core in CMake project" ON)
+option(RADIUM_GENERATE_LIB_IO         "Include Radium::IO in CMake project" ON)
+option(RADIUM_GENERATE_LIB_ENGINE     "Include Radium::Engine in CMake project" ON)
+option(RADIUM_GENERATE_LIB_GUIBASE    "Include Radium::GuiBase in CMake project" ON)
+option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
 
-# Build options options.
-option(RADIUM_WITH_DOUBLE_PRECISION "Use double precision" OFF)
-option(RADIUM_WITH_FANCY_GL         "Enable Fancy OpenGL effects" ON)
-option(RADIUM_WITH_PROFILING        "Enable functions profiling." OFF)
-option(RADIUM_WARNINGS_AS_ERRORS    "Treat compiler warning as errors" OFF)
-option(RADIUM_FORCE_ASSERTS         "Enable asserts regardless of build type" OFF)
-option(RADIUM_ASSIMP_SUPPORT        "Enable assimp loader" ON)
-option(RADIUM_TINYPLY_SUPPORT       "Enable TinyPly loader" ON)
-option(RADIUM_CAMERA_LOADER_SUPPORT "Enable Camera loader" ON)
-option(RADIUM_BUILD_APPS            "Choose to build or not radium applications" ON)
-option(RADIUM_FAST_MATH             "Enable Fast Math optimizations in Release Mode (ignored with MVSC)" OFF)
-option(RADIUM_USE_COTIRE            "Enable cotire precompiled headers" On)
-option(RADIUM_COMPILE_TESTS         "Enable tests" ON)
-set(OpenGL_GL_PREFERENCE GLVND)
+set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
-if ( NOT CMAKE_BUILD_TYPE )
-  set( CMAKE_BUILD_TYPE Debug )
+if(NOT RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL)
+  include(ProcessorCount)
+  ProcessorCount(N)
+  if(NOT N EQUAL 0)
+    set(CTEST_BUILD_FLAGS -j${N})
+    set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
+    set(RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL ${N})
+  else()
+    set(RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL 1)
+  endif()
+endif()
+
+message("Externals will be built with ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} core(s)")
+
+message(STATUS "")
+message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
+message(STATUS "")
+
+#------------------------------------------------------------------------------
+# General settings
+
+# Be nice to visual studio
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Be nice and export compile commands by default, this is handy for clang-tidy
+# and for other tools.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# We can use include() and find_package() for our scripts in there
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+# Configure rpath, see cmake/rpath.cmake
+include(rpath)
+
+# Use gold linker to speed up linking time, see cmake/useGoldLinker.cmake
+include(useGoldLinker)
+
+# Helpful option enable build profiling to identify slowly compiling files
+option(MEASURE_ALL "When enabled all commands will be passed through time command" OFF)
+if(MEASURE_ALL)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "time")
+endif()
+
+# Append library and executable names with d in debug mode
+set(CMAKE_DEBUG_POSTFIX d)
+
+#-------------------------------------------------------------------------------
+# Set default paths for Radium
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-Debug)
+else ()
+    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
+endif ()
+set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(RADIUM_SHADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
+
+#-------------------------------------------------------------------------------
+# Set default install location to RADIUM_BUNDLE_DIRECTORY
+# we do not want to install to /usr by default
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set (CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}" CACHE PATH
+        "Install path prefix, prepended onto install directories." FORCE )
+    message( "Set install prefix to ${CMAKE_INSTALL_PREFIX}" )
 endif()
 
 
-# These paths need to be synchronized with FindRadium.cmake
-set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
-set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
-set(RADIUM_PLUGINS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Plugins")
-set(RADIUM_PLUGIN_OUTPUT_PATH "${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin/Plugins")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
-set(EXECUTABLE_OUTPUT_PATH         ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/${CMAKE_BUILD_TYPE}/lib)
+#-------------------------------------------------------------------------------
+# Set default install location to dist folder in build dir
+# we do not want to install to /usr by default
+if (NOT CMAKE_BUILD_TYPE)
+    set (CMAKE_BUILD_TYPE Release )
+    message( "Set default build type to ${CMAKE_BUILD_TYPE}" )
+endif()
 
+#------------------------------------------------------------------------------
+# Custom Install target, used in run target in source/CMakeLists.txt
+if (CMAKE_GENERATOR MATCHES "Makefiles")
+    # Make it multithreaded
+    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
+        install -- -j WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+else()
+    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
+        install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+endif()
+
+#------------------------------------------------------------------------------
 # get changeset id
 find_package(Git)
 
@@ -61,179 +123,56 @@ if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         OUTPUT_VARIABLE GIT_CHANGESET)
-    # remove new line sometime appearing in git changeset
-    string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
+    if ( GIT_CHANGESET )
+      # remove new line sometime appearing in git changeset
+      string(REGEX REPLACE "\n$" "" GIT_CHANGESET "${GIT_CHANGESET}")
+    endif()
 else()
   set(GIT_CHANGESET "")
 endif()
 message("Git Changeset: ${GIT_CHANGESET}")
 
 
-# guard against in-source builds (source: Eigen)
-if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
-  message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there. You may need to remove CMakeCache.txt. ")
+#------------------------------------------------------------------------------
+# Dependency management utilities
+include(externalFunc)
+# Installation utilities
+include(installFunc)
+
+# Documentation build
+add_subdirectory(doc)
+
+# Images, databases and other data which needs to be installed for project
+#add_subdirectory(data)
+
+# Source code
+add_subdirectory(src)
+
+# Testing
+if( RADIUM_ENABLE_TESTING )
+    enable_testing()
+    add_subdirectory(tests)
 endif()
 
-
-# Set the compiler flags.
-include(RadiumFunctions)
-include(CompileFlags)
-
-if ( NOT CMAKE_PREFIX_PATH )
-  set( CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR} )
-endif()
+# Packaging stuff (deb, rpm, windows installer)
+#add_subdirectory(packaging)
 
 
-# Win32 stuff
-if (MSVC OR MSVC_IDE)
-  # Use November CTP 2013 (constexpr and other non implemented stuff in the 2013 version)
-    if (MSVC_VERSION LESS 1800)
-        message(FATAL_ERROR
-                "This project requires C++11 stuff provided only with "
-                "Microsoft Visual C++ Compiler Nov 2013 CTP (v120_CTP_Nov2013).")
-    endif(MSVC_VERSION LESS 1800)
-
-    if (MSVC_VERSION EQUAL 1800)
-        #set(CMAKE_GENERATOR_TOOLSET "CTP_Nov2013" CACHE STRING "Platform Toolset" FORCE)
-    endif (MSVC_VERSION EQUAL 1800)
-
-    # Copy libs / targets in the correct directories
-    if ("${CMAKE_GENERATOR}" STREQUAL "NMake Makefiles")
-        set(PDB_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    else()
-        foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-            string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
-            set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-            set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
-            set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-        endforeach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-    endif()
-endif(MSVC OR MSVC_IDE)
+# Add this target so that some IDE could propose to build all radium libs and examples at once
+add_custom_target(RadiumLibs DEPENDS Core Engine GuiBase IO PluginBase CoreExampleApp RadiumExampleApps)
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-#   SUBMODULES : assimp, glbinding, ....
-include(SubModules)
-set( RADIUM_INCLUDE_DIRS)
-list(APPEND RADIUM_INCLUDE_DIRS "${RADIUM_SRC_DIR}" "${EIGEN3_INCLUDE_DIR}" "${ASSIMP_INCLUDE_DIR}" "${GLBINDING_INCLUDE_DIR}" "${GLOBJECTS_INCLUDE_DIR}" "${OPENMESH_INCLUDE_DIR}")
+#-------------------------------------------------------------------------------
+# Wrap up of settings printed on build
+message(STATUS "")
+message(STATUS "    == Final overview for ${PROJECT_NAME} ==")
+message(STATUS "Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
+message(STATUS "Install prefix:        ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Compiler:              ${CMAKE_CXX_COMPILER}")
+message(STATUS "CMAKE_BUILD_TYPE:      ${CMAKE_BUILD_TYPE}")
+message(STATUS "CMAKE_INSTALL_PREFIX:  ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "RADIUM_ENABLE_TESTING: ${RADIUM_ENABLE_TESTING}")
+message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
+message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
+message(STATUS "")
 
-# ----------------------------------------------------------------------------------------------------------------------
-#   Main Libraries
-# Configure RPath once submodules are configured
-include(ConfigureRPath)
-
-set(RADIUM_LIBRARIES)
-
-include(cotire)
-
-# Radium libraries are set in RADIUM_SRC_DIR
-add_subdirectory(${RADIUM_SRC_DIR})
-#message(INFO " Radium Lib (general) ${RADIUM_LIBRARIES}")
-
-# ----------------------------------------------------------------------------------------------------------------------
-#   Applications
-#   Set Base directories for dependencies
-if(RADIUM_BUILD_APPS)
-  add_subdirectory(Applications)
-endif(RADIUM_BUILD_APPS)
-
-# ----------------------------------------------------------------------------------------------------------------------
-#   External plugins
-add_subdirectory(${RADIUM_PLUGINS_DIR})
-
-
-################################################################################
-# add a target to generate API documentation with Doxygen                      #
-################################################################################
-
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-
-  set (RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
-  set (RADIUM_DOC_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}/Docs)
-
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in ${RADIUM_BUNDLE_DIRECTORY}/Doxyfile @ONLY)
-
-  add_custom_target(doc
-     ${CMAKE_COMMAND} -E make_directory ${RADIUM_DOC_DIRECTORY}
-     COMMAND ${CMAKE_COMMAND} -E copy
-       ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
-       ${RADIUM_BUNDLE_DIRECTORY}/
-     COMMAND ${DOXYGEN_EXECUTABLE} ${RADIUM_BUNDLE_DIRECTORY}/Doxyfile
-     DEPENDS
-       ${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile.in
-       ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG
-     WORKING_DIRECTORY ${RADIUM_BUNDLE_DIRECTORY}
-     COMMENT "Generating API documentation with Doxygen" VERBATIM
-  )
-endif(DOXYGEN_FOUND)
-
-################################################################################
-# Assets                                                                       #
-################################################################################
-set(ASSET_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Assets")
-
-if(MSVC OR MSVC_IDE OR MINGW)
-    add_custom_target( radium_assets
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${ASSET_DIR} "${EXECUTABLE_OUTPUT_PATH}/Assets"
-        COMMENT "Copying ressources" VERBATIM
-    )
-else()
-    add_custom_target( radium_assets
-        COMMAND ${CMAKE_COMMAND} -E create_symlink ${ASSET_DIR} "${EXECUTABLE_OUTPUT_PATH}/Assets"
-        COMMENT "Linking (symlink) ressources" VERBATIM
-    )
-endif()
-add_dependencies(radium_assets radiumCore)
-
-################################################################################
-# SHADERS                                                                      #
-################################################################################
-set(SHADER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
-file(GLOB_RECURSE SHADER_FILES ${SHADER_DIR}/*.glsl)
-if(MSVC OR MSVC_IDE OR MINGW)
-    add_custom_target( radium_shaders
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
-        SOURCES ${SHADER_FILES}
-        COMMENT "Copying shaders" VERBATIM
-    )
-else()
-    add_custom_target( radium_shaders
-        COMMAND ${CMAKE_COMMAND} -E create_symlink ${SHADER_DIR} "${EXECUTABLE_OUTPUT_PATH}/Shaders"
-        SOURCES ${SHADER_FILES}
-        COMMENT "Linking (symlink) shaders" VERBATIM
-    )
-endif()
-add_dependencies(radium_shaders radiumCore)
-add_dependencies(radiumEngine radium_shaders)  # temporary fix, needs to be handled by radiumEngine
-
-################################################################################
-# Configs                                                                      #
-################################################################################
-set(CONFIG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Configs")
-file(GLOB_RECURSE CONFIG_FILES ${CONFIG_DIR}/*.xml)
-if(MSVC OR MSVC_IDE OR MINGW)
-    add_custom_target( radium_configs
-        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
-        SOURCES ${CONFIG_FILES}
-        COMMENT "Copying configs (keymapping)" VERBATIM
-    )
-else()
-    add_custom_target( radium_configs
-        COMMAND ${CMAKE_COMMAND} -E create_symlink ${CONFIG_DIR} "${EXECUTABLE_OUTPUT_PATH}/Configs"
-        SOURCES ${CONFIG_FILES}
-        COMMENT "Linking (symlink) configs (keymapping)" VERBATIM
-    )
-endif()
-add_dependencies(radium_configs radiumCore)
-if(RADIUM_BUILD_APPS)
-    add_dependencies( main-app radium_configs ) # temporary fix, needs to be handled by main-app
-endif(RADIUM_BUILD_APPS)
-
-################################################################################
-# Tests                                                                        #
-################################################################################
-if(RADIUM_COMPILE_TESTS)
-        include(cmake/ConfigureTesting.cmake)
-        add_subdirectory(tests EXCLUDE_FROM_ALL)
-endif(RADIUM_COMPILE_TESTS)

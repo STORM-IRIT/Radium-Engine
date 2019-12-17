@@ -1,5 +1,6 @@
 #include <Core/Utils/Attribs.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
