@@ -223,25 +223,6 @@ void TriangleMeshComponent::setupIO( const std::string& id ) {
         std::bind( &TriangleMeshComponent::roIndexRead, this );
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
         getEntity(), this, id, roOut );
-
-    // ComponentMessenger::CallbackTypes<
-    //     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite vRW =
-    //     std::bind( &TriangleMeshComponent::getVerticesRw, this );
-    // ComponentMessenger::getInstance()
-    //     ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
-    //         getEntity(), this, id + "v", vRW );
-
-    // ComponentMessenger::CallbackTypes<
-    //     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>::ReadWrite nRW =
-    //     std::bind( &TriangleMeshComponent::getNormalsRw, this );
-    // ComponentMessenger::getInstance()
-    //     ->registerReadWrite<Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType>(
-    //         getEntity(), this, id + "n", nRW );
-
-    //    ComponentMessenger::CallbackTypes<TriangleArray>::ReadWrite tRW =
-    //        std::bind( &TriangleMeshComponent::getTrianglesRw, this );
-    //    ComponentMessenger::getInstance()->registerReadWrite<TriangleArray>(
-    //        getEntity(), this, id + "t", tRW );
 }
 
 const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() const {
@@ -250,44 +231,8 @@ const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() c
 
 Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    ///\todo check if it's ok ;) but I think we do note need this anymore
-    //    m_displayMesh->setDirty( Mesh::VERTEX_POSITION );
-    //    m_displayMesh->setDirty( Mesh::VERTEX_NORMAL );
-    //    m_displayMesh->setDirty( Mesh::INDEX );
-    //    m_displayMesh->setDirty( Mesh::VERTEX_TANGENT );
-    //    m_displayMesh->setDirty( Mesh::VERTEX_BITANGENT );
-    //    m_displayMesh->setDirty( Mesh::VERTEX_TEXCOORD );
-    //    m_displayMesh->setDirty( Mesh::VERTEX_COLOR );
-    //    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHTS );
-    //    m_displayMesh->setDirty( Mesh::VERTEX_WEIGHT_IDX );
     return &( m_displayMesh->getCoreGeometry() );
 }
-/*
-Ra::Core::Geometry::TriangleMesh::PointAttribHandle::AttribType*
-TriangleMeshComponent::getVerticesRw() {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    auto handle =
-        m_displayMesh->getCoreGeometry().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
-            "in_position" );
-    if ( handle.idx().isValid() ) return &( m_displayMesh->getCoreGeometry().getAttrib( handle ) );
-    return nullptr;
-}
-
-Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::AttribType*
-TriangleMeshComponent::getNormalsRw() {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    auto handle =
-        m_displayMesh->getCoreGeometry().getAttribHandle<Ra::Core::Geometry::TriangleMesh::Point>(
-            "in_normal" );
-    if ( handle.idx().isValid() ) return &( m_displayMesh->getCoreGeometry().getAttrib( handle ) );
-    return nullptr;
-}
-*/
-// Ra::Core::VectorArray<Ra::Core::Vector3ui>* TriangleMeshComponent::getTrianglesRw() {
-//    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-//    m_displayMesh->setDirty( Mesh::INDEX );
-//    return &( m_displayMesh->getCoreGeometry().m_indices );
-//}
 
 const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
