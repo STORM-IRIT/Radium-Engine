@@ -16,7 +16,7 @@ class VectorArray : public AlignedStdVector<V>
   public:
     // Type shortcuts
     using Vector         = V;
-    using Matrix         = Eigen::Matrix<Scalar, V::RowsAtCompileTime, Eigen::Dynamic>;
+    using Matrix         = Eigen::Matrix<typename V::Scalar, V::RowsAtCompileTime, Eigen::Dynamic>;
     using MatrixMap      = Eigen::Map<Matrix>;
     using ConstMatrixMap = Eigen::Map<const Matrix>;
 
@@ -73,10 +73,12 @@ DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2Array, Scalar, 2 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3Array, Scalar, 3 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4Array, Scalar, 4 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( VectorNArray, Scalar, Eigen::Dynamic )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector1iArray, int, 1 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2iArray, int, 2 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3iArray, int, 3 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4iArray, int, 4 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( VectorNiArray, int, Eigen::Dynamic )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector1uArray, uint, 1 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2uArray, uint, 2 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3uArray, uint, 3 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4uArray, uint, 4 )
