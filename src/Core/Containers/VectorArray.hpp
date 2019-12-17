@@ -65,26 +65,23 @@ class VectorArray<Scalar> : public AlignedStdVector<Scalar>
     }
 };
 
-
 // Convenience aliases
-using Vector1Array   = VectorArray<Scalar>;
-using Vector1uiArray = VectorArray<uint>;
-#define DEFINE_CONVENIENCE_MATRIX_ALIAS(NAME,TYPE,DIM) \
-  using NAME = VectorArray<Eigen::Matrix<TYPE, DIM, 1>>;
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector2Array,Scalar, 2)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector3Array,Scalar, 3)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector4Array,Scalar, 4)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(VectorNArray,Scalar,Eigen::Dynamic)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector2iArray,int, 2)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector3iArray,int, 3)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector4iArray,int, 4)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(VectorNiArray,int,Eigen::Dynamic)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector2uArray,uint, 2)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector3uArray,uint, 3)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(Vector4uArray,uint, 4)
-DEFINE_CONVENIENCE_MATRIX_ALIAS(VectorNuArray,uint,Eigen::Dynamic)
+using Vector1Array = VectorArray<Scalar>;
+#define DEFINE_CONVENIENCE_MATRIX_ALIAS( NAME, TYPE, DIM ) \
+    using NAME = VectorArray<Eigen::Matrix<TYPE, DIM, 1>>;
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2Array, Scalar, 2 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3Array, Scalar, 3 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4Array, Scalar, 4 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( VectorNArray, Scalar, Eigen::Dynamic )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2iArray, int, 2 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3iArray, int, 3 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4iArray, int, 4 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( VectorNiArray, int, Eigen::Dynamic )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2uArray, uint, 2 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3uArray, uint, 3 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4uArray, uint, 4 )
+DEFINE_CONVENIENCE_MATRIX_ALIAS( VectorNuArray, uint, Eigen::Dynamic )
 #undef DEFINE_CONVENIENCE_MATRIX_ALIAS
-
 
 // Notes :
 // Using a map for eigen integration was recommended by [1].
