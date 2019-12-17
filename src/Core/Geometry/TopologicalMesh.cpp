@@ -180,7 +180,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
 }
 
 TriangleMesh TopologicalMesh::toTriangleMesh() {
-    struct VertexData {
+    struct VertexDataInternal {
         Vector3 _vertex;
         Vector3 _normal;
 
@@ -191,14 +191,14 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
 
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-        bool operator==( const VertexData& lhs ) const {
+        bool operator==( const VertexDataInternal& lhs ) const {
             return _vertex == lhs._vertex && _normal == lhs._normal && _float == lhs._float &&
                    _vec2 == lhs._vec2 && _vec3 == lhs._vec3 && _vec4 == lhs._vec4;
         }
     };
 
     struct hash_vec {
-        size_t operator()( const VertexData& lvalue ) const {
+        size_t operator()( const VertexDataInternal& lvalue ) const {
             size_t hx = std::hash<Scalar>()( lvalue._vertex[0] );
             size_t hy = std::hash<Scalar>()( lvalue._vertex[1] );
             size_t hz = std::hash<Scalar>()( lvalue._vertex[2] );
@@ -208,7 +208,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
 
     TriangleMesh out;
 
-    using VertexMap = std::unordered_map<VertexData, int, hash_vec>;
+    using VertexMap = std::unordered_map<VertexDataInternal, int, hash_vec>;
 
     VertexMap vertexHandles;
 
@@ -253,7 +253,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
         for ( TopologicalMesh::ConstFaceHalfedgeIter fh_it = cfh_iter( *f_it ); fh_it.is_valid();
               ++fh_it )
         {
-            VertexData v;
+            VertexDataInternal v;
             CORE_ASSERT( i < 3, "Non-triangular face found." );
             v._vertex = point( to_vertex_handle( *fh_it ) );
             v._normal = normal( to_vertex_handle( *fh_it ), *f_it );
@@ -293,7 +293,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     return out;
 }
 
-void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& mesh ) {
+void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& /*mesh*/ ) {
     ///\todo ;)
 }
 
