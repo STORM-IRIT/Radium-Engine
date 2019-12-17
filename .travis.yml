@@ -117,7 +117,7 @@ branches:
   - gh-pages
 
 before_deploy:
-  - zip -r build/${Radium_RELEASE_NAME}.zip build/installed/
+  - zip --symlinks -r ${CHECKOUT_PATH}/build/${Radium_RELEASE_NAME}.zip ${CHECKOUT_PATH}/build/installed/
 
 deploy:
   - provider: pages
