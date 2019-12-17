@@ -121,10 +121,8 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     void setDirty( unsigned int index );
     ///@}
 
-    /**
-     * This function is called at the start of the rendering. It will update the
-     * necessary openGL buffers.
-     */
+    /// This function is called at the start of the rendering.
+    /// It will update the necessary openGL buffers.
     void updateGL() override = 0;
 
     //@{
@@ -189,6 +187,7 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
     using IndexType          = I;
     using IndexContainerType = Ra::Core::AlignedStdVector<IndexType>;
 
+    ///
     template <typename T>
     inline void addAttrib( const std::string& name,
                            const typename Ra::Core::Utils::Attrib<T>::Container& data ) {
@@ -310,6 +309,7 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
     AttribManager m_attribManager;
 };
 
+/// Template class to manage the Displayable aspect of a Core Gemertry, such as TriangleMesh.
 template <typename T>
 class CoreGeometryDisplayable : public AttribArrayDisplayable
 {
@@ -386,6 +386,8 @@ class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::
 
   public:
     using CoreGeometryDisplayable<Core::Geometry::PointCloud>::CoreGeometryDisplayable;
+
+    /// use glDrawArrays to draw all the points in the point cloud
     void render( const ShaderProgram* prog ) override;
 
     void loadGeometry( Core::Geometry::PointCloud&& mesh ) override {

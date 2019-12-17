@@ -23,6 +23,7 @@ class Attrib;
 
 /**
  * AttribBase is the base class for attributes of all type.
+ * It contains an array of attribute element.
  */
 class RA_CORE_API AttribBase : public ObservableVoid
 {
@@ -31,87 +32,75 @@ class RA_CORE_API AttribBase : public ObservableVoid
     virtual ~AttribBase() { notify(); }
     AttribBase( const AttribBase& ) = delete;
     AttribBase& operator=( const AttribBase& ) = delete;
-    /**
-     * Return the attribute's name.
-     */
+
+    /// Return the attribute's name.
     std::string getName() const { return m_name; }
 
-    /**
-     * Set the attribute's name.
-     */
+    ///    Set the attribute's name.
     void setName( const std::string& name ) { m_name = name; }
 
-    /**
-     * Resize the attribute's content.
-     */
+    /// Resize the attribute's array.
     virtual void resize( size_t s ) = 0;
 
-    /**
-     * Return the number of elements in the attribute content.
-     */
+    /// Return the number of elements in the attribute array
     virtual size_t getSize() const = 0;
 
-    ///\todo rename getNumberOfComponent ?
+    /// Return the number of components of one element (i.e. for
+    /// glVertexAttribPointer size value)
+    /// \see https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glVertexAttribPointer.xhtml
+    /// \todo rename getNumberOfComponent ?
     virtual size_t getElementSize() const = 0;
 
     /// return the size in byte of the container
     virtual size_t getBufferSize() const = 0;
 
-    /**
-     * Return the stride, in bytes, from one attribute address to the next one.
-     */
+    /// Return the stride, in bytes, from one attribute address to the next one.
     virtual int getStride() const = 0;
 
-    /**
-     * Return true if *this and \p rhs have the same name.
-     */
+    /// Return true if *this and \p rhs have the same name.
     bool inline operator==( const AttribBase& rhs ) { return m_name == rhs.getName(); }
 
-    /**
-     * Downcast from AttribBase to Attrib<T>.
-     */
+    /// Downcast from AttribBase to Attrib<T>.
     template <typename T>
     inline Attrib<T>& cast() {
         return static_cast<Attrib<T>&>( *this );
     }
 
-    /**
-     * Downcast from AttribBase to Attrib<T>.
-     */
+    /// Downcast from AttribBase to Attrib<T>.
     template <typename T>
     inline const Attrib<T>& cast() const {
         return static_cast<const Attrib<T>&>( *this );
     }
 
-    /**
-     * Return true if the attribute content is of float type, false otherwise.
-     */
+    /// Return true if the attribute content is of float type, false otherwise.
     virtual bool isFloat() const = 0;
 
-    /**
-     * Return true if the attribute content is of Vector2 type, false otherwise.
-     */
+    /// Return true if the attribute content is of Vector2 type, false otherwise.
     virtual bool isVec2() const = 0;
 
-    /**
-     * Return true if the attribute content is of Vector3 type, false otherwise.
-     */
+    /// Return true if the attribute content is of Vector3 type, false otherwise.
     virtual bool isVec3() const = 0;
 
-    /**
-     * Return true if the attribute content is of Vector4 type, false otherwise.
-     */
+    /// Return true if the attribute content is of Vector4 type, false otherwise.
     virtual bool isVec4() const = 0;
 
+    /// Return a void * on the attrib data
     virtual const void* dataPtr() const = 0;
 
+    /// Return true if data is locked, i.e. has been locked for write access with
+    /// getDataWithlock() (defined in subclass Attrib). Double lock is prohebited, so when finished,
+    /// call unlock();
     bool isLocked() const { return m_isLocked; }
+
+    /// Unlock data so another one can gain write access.
+    void unlock() { lock( false ); }
+
+  protected:
     void lock( bool isLocked = true ) {
         CORE_ASSERT( isLocked != m_isLocked, "double (un)lock" );
         m_isLocked = isLocked;
         if ( !m_isLocked ) notify();
     }
-    void unlock() { lock( false ); }
 
   private:
     /// The attribute's name.
@@ -134,10 +123,12 @@ class Attrib : public AttribBase
     explicit Attrib( const std::string& name ) : AttribBase( name ) {}
 
     virtual ~Attrib() { m_data.clear(); }
+
     /// Resize the container (value_type must have a default ctor).
     void resize( size_t s ) override { m_data.resize( s ); }
 
     /// Read-write access to the attribute content.
+    /// lock the content, when done call unlock()
     inline Container& getDataWithLock() {
         lock();
         return m_data;
@@ -145,6 +136,7 @@ class Attrib : public AttribBase
 
     const void* dataPtr() const override { return m_data.data(); }
 
+    /// setAttribData, attrib mustn't be locked (it's asserted).
     void setData( const Container& data ) {
         CORE_ASSERT( !isLocked(), "try to set onto locked data" );
         m_data = data;
@@ -191,6 +183,7 @@ size_t Attrib<T>::getElementSize() const {
     return Attrib<T>::Container::Vector::RowsAtCompileTime;
 }
 
+/// An attrib handle basically store an Index and a name.
 template <typename T>
 class AttribHandle
 {
@@ -205,8 +198,11 @@ class AttribHandle
         return std::is_same<T, U>::value && m_idx == lhs.m_idx;
     }
 
+    /// return the index of the attrib.
     Index idx() const { return m_idx; }
 
+    /// return the name of the attrib.
+    /// attrib name are unique in a given attribManager.
     std::string attribName() const { return m_name; }
 
   private:
@@ -371,6 +367,9 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
         return *static_cast<Attrib<T>*>( m_attribs.at( h.m_idx ).get() );
     }
 
+    /// Return a AttribBase ptr to the attrib identified by name.
+    /// to give access to AttribBase method, regardless of the type of element
+    /// stored in the attrib.
     AttribBase* getAttribBase( const std::string& name ) {
         auto c = m_attribsIndex.find( name );
         if ( c != m_attribsIndex.end() ) return m_attribs[c->second].get();
@@ -378,6 +377,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
         return nullptr;
     }
 
+    /// \see getAttribBase( const std::string& name );
     AttribBase* getAttribBase( const Index& idx ) {
 
         if ( idx.isValid() ) return m_attribs[idx].get();
@@ -463,6 +463,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
             if ( attr != nullptr ) func( attr.get() );
     }
 
+    /// Return the number of attributes
     int getNumAttribs() const { return m_numAttribs; }
 
   private:
