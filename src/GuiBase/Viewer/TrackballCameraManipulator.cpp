@@ -17,7 +17,8 @@ namespace Ra {
 namespace Gui {
 using Core::Math::Pi;
 
-#define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Gui::TrackballCameraManipulator::XX;
+#define KMA_VALUE( XX ) \
+    Gui::KeyMappingManager::KeyMappingAction Gui::TrackballCameraManipulator::XX;
 KeyMappingCamera;
 #undef KMA_VALUE
 
@@ -38,12 +39,8 @@ void Gui::TrackballCameraManipulator::configureKeyMapping_impl() {
 #undef KMA_VALUE
 }
 
-KeyMappingManager::Context Gui::TrackballCameraManipulator::mappingContext() {
-    return m_keyMappingContext;
-}
-
-Gui::TrackballCameraManipulator::TrackballCameraManipulator(uint width, uint height ) :
-    CameraManipulator(width, height ),
+Gui::TrackballCameraManipulator::TrackballCameraManipulator( uint width, uint height ) :
+    CameraManipulator( width, height ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
@@ -52,7 +49,7 @@ Gui::TrackballCameraManipulator::TrackballCameraManipulator(uint width, uint hei
 }
 
 Gui::TrackballCameraManipulator::TrackballCameraManipulator( const CameraManipulator& other ) :
-    CameraManipulator(other ),
+    CameraManipulator( other ),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
@@ -80,7 +77,7 @@ void Gui::TrackballCameraManipulator::resetCamera() {
     emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
-void Gui::TrackballCameraManipulator::setTrackballRadius(Scalar rad ) {
+void Gui::TrackballCameraManipulator::setTrackballRadius( Scalar rad ) {
     m_distFromCenter = rad;
     m_target         = m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
     updatePhiTheta();
@@ -90,7 +87,7 @@ Scalar Gui::TrackballCameraManipulator::getTrackballRadius() const {
     return m_distFromCenter;
 }
 
-void Gui::TrackballCameraManipulator::setTrackballCenter(const Core::Vector3& c ) {
+void Gui::TrackballCameraManipulator::setTrackballCenter( const Core::Vector3& c ) {
     m_target         = c;
     m_distFromCenter = ( c - m_camera->getPosition() ).norm();
     updatePhiTheta();
@@ -100,10 +97,10 @@ const Core::Vector3& Gui::TrackballCameraManipulator::getTrackballCenter() const
     return m_target;
 }
 
-bool Gui::TrackballCameraManipulator::handleMousePressEvent(QMouseEvent* event,
-                                                            const Qt::MouseButtons& buttons,
-                                                            const Qt::KeyboardModifiers& modifiers,
-                                                            int key ) {
+bool Gui::TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
+                                                             const Qt::MouseButtons& buttons,
+                                                             const Qt::KeyboardModifiers& modifiers,
+                                                             int key ) {
     bool handled = false;
     m_lastMouseX = event->pos().x();
     m_lastMouseY = event->pos().y();
@@ -130,10 +127,10 @@ bool Gui::TrackballCameraManipulator::handleMousePressEvent(QMouseEvent* event,
     return handled;
 }
 
-bool Gui::TrackballCameraManipulator::handleMouseMoveEvent(QMouseEvent* event,
-                                                           const Qt::MouseButtons& buttons,
-                                                           const Qt::KeyboardModifiers& modifiers,
-                                                           int /*key*/ ) {
+bool Gui::TrackballCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
+                                                            const Qt::MouseButtons& buttons,
+                                                            const Qt::KeyboardModifiers& modifiers,
+                                                            int /*key*/ ) {
 
     // auto action = KeyMappingManager::getInstance()->getAction( context, buttons, modifiers, key
     // );
@@ -165,7 +162,7 @@ bool Gui::TrackballCameraManipulator::handleMouseMoveEvent(QMouseEvent* event,
     return m_cameraRotateMode || m_cameraPanMode || m_cameraZoomMode;
 }
 
-bool Gui::TrackballCameraManipulator::handleMouseReleaseEvent(QMouseEvent* /*event*/ ) {
+bool Gui::TrackballCameraManipulator::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
     m_cameraRotateMode    = false;
     m_cameraPanMode       = false;
     m_cameraZoomMode      = false;
@@ -174,7 +171,7 @@ bool Gui::TrackballCameraManipulator::handleMouseReleaseEvent(QMouseEvent* /*eve
     return true;
 }
 
-bool Gui::TrackballCameraManipulator::handleWheelEvent(QWheelEvent* event ) {
+bool Gui::TrackballCameraManipulator::handleWheelEvent( QWheelEvent* event ) {
 
     handleCameraZoom( ( event->angleDelta().y() * 0.01_ra + event->angleDelta().x() * 0.01_ra ) *
                       m_wheelSpeedModifier );
@@ -207,11 +204,11 @@ bool Gui::TrackballCameraManipulator::handleKeyPressEvent(
     return false;
 }
 
-bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent(QKeyEvent* /*e*/ ) {
+bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
 }
 
-void Gui::TrackballCameraManipulator::setCamera(Engine::Camera* camera ) {
+void Gui::TrackballCameraManipulator::setCamera( Engine::Camera* camera ) {
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera         = camera;
@@ -227,7 +224,7 @@ void Gui::TrackballCameraManipulator::setCamera(Engine::Camera* camera ) {
     }
 }
 
-void Gui::TrackballCameraManipulator::setCameraPosition(const Core::Vector3& position ) {
+void Gui::TrackballCameraManipulator::setCameraPosition( const Core::Vector3& position ) {
     if ( position == m_target )
     {
         QMessageBox::warning( nullptr, "Error", "Position cannot be set to target point" );
@@ -250,7 +247,7 @@ void Gui::TrackballCameraManipulator::setCameraPosition(const Core::Vector3& pos
     emit cameraPositionChanged( m_camera->getPosition() );
 }
 
-void Gui::TrackballCameraManipulator::setCameraTarget(const Core::Vector3& target ) {
+void Gui::TrackballCameraManipulator::setCameraTarget( const Core::Vector3& target ) {
     if ( m_camera->getPosition() == m_target )
     {
         QMessageBox::warning( nullptr, "Error", "Target cannot be set to current camera position" );
@@ -267,7 +264,7 @@ void Gui::TrackballCameraManipulator::setCameraTarget(const Core::Vector3& targe
     emit cameraTargetChanged( m_target );
 }
 
-void Gui::TrackballCameraManipulator::fitScene(const Core::Aabb& aabb ) {
+void Gui::TrackballCameraManipulator::fitScene( const Core::Aabb& aabb ) {
     resetCamera();
 
     Scalar f = m_camera->getFOV();
@@ -298,7 +295,7 @@ void Gui::TrackballCameraManipulator::fitScene(const Core::Aabb& aabb ) {
     emit cameraChanged( m_camera->getPosition(), m_target );
 }
 
-void Gui::TrackballCameraManipulator::handleCameraRotate(Scalar dx, Scalar dy ) {
+void Gui::TrackballCameraManipulator::handleCameraRotate( Scalar dx, Scalar dy ) {
     Scalar dphi = dx * m_cameraSensitivity * m_quickCameraModifier;
     Scalar y    = -dy * m_cameraSensitivity * m_quickCameraModifier;
 
@@ -333,7 +330,7 @@ void Gui::TrackballCameraManipulator::handleCameraRotate(Scalar dx, Scalar dy ) 
     m_theta = theta;
 }
 
-void Gui::TrackballCameraManipulator::handleCameraPan(Scalar dx, Scalar dy ) {
+void Gui::TrackballCameraManipulator::handleCameraPan( Scalar dx, Scalar dy ) {
     Scalar x = dx * m_cameraSensitivity * m_quickCameraModifier * m_distFromCenter * 0.1_ra;
     Scalar y = dy * m_cameraSensitivity * m_quickCameraModifier * m_distFromCenter * 0.1_ra;
     // Move camera and trackball center, keep the distance to the center
@@ -348,11 +345,11 @@ void Gui::TrackballCameraManipulator::handleCameraPan(Scalar dx, Scalar dy ) {
     m_target += t;
 }
 
-void Gui::TrackballCameraManipulator::handleCameraZoom(Scalar dx, Scalar dy ) {
+void Gui::TrackballCameraManipulator::handleCameraZoom( Scalar dx, Scalar dy ) {
     handleCameraZoom( Ra::Core::Math::sign( dx ) * ( std::abs( dx ) + std::abs( dy ) ) );
 }
 
-void Gui::TrackballCameraManipulator::handleCameraZoom(Scalar z ) {
+void Gui::TrackballCameraManipulator::handleCameraZoom( Scalar z ) {
     // tested this way of zooming, not convinced it's better
 #if 0
     Scalar zoom = m_camera->getZoomFactor() - z * m_cameraSensitivity * m_quickCameraModifier;
@@ -394,12 +391,13 @@ void Gui::TrackballCameraManipulator::updatePhiTheta() {
     CORE_ASSERT( std::isfinite( m_theta ) && std::isfinite( m_phi ), "Error in trackball camera" );
 }
 
-bool Gui::TrackballCameraManipulator::checkIntegrity(const std::string& mess ) const {
+bool Gui::TrackballCameraManipulator::checkIntegrity( const std::string& mess ) const {
     Core::Vector3 c = m_camera->getPosition() + m_distFromCenter * m_camera->getDirection();
     Scalar d        = ( m_target - c ).norm();
     if ( d > 0.001_ra )
     {
-        LOG( Ra::Core::Utils::logWARNING ) << "TrackballCameraManipulator Integrity problem : " << mess;
+        LOG( Ra::Core::Utils::logWARNING )
+            << "TrackballCameraManipulator Integrity problem : " << mess;
         LOG( Ra::Core::Utils::logWARNING ) << "\t Position " << m_camera->getPosition().transpose();
         LOG( Ra::Core::Utils::logWARNING )
             << "\t Direction " << m_camera->getDirection().transpose();
