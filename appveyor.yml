@@ -23,28 +23,11 @@ environment:
   
   matrix:
     ###########################################################################
-    # Build x86 version using MSVC 2017
-    ###########################################################################
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      MSVC_SETUP_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat
-      MSVC_SETUP_ARG: x86
-    ###########################################################################
     # Build x64 version using MSVC 2017
     ###########################################################################
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       MSVC_SETUP_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat
       MSVC_SETUP_ARG: x64
-    ###########################################################################
-    # Build 64 bit version using clang-cl backed by MSVC 2017
-    # -------------------------------------------------------------------------
-    # Note that building against MSVC 2017 is only supported with a newer clang
-    ###########################################################################
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      MSVC_SETUP_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat
-      MSVC_SETUP_ARG: x64
-      USE_CLANG: ON
-      INSTALL_NEW_CLANG: ON
-      CLANG_URL: http://llvm.org/pre-releases/win-snapshots/LLVM-5.0.0-r301646-win64.exe
     ###########################################################################
     # Build 32 bit version using clang-cl backed by MSVC 2017
     ###########################################################################
@@ -71,22 +54,12 @@ install:
   - set QTDIR=C:\Qt\5.10.1\msvc2017_64
   - mkdir C:\projects\deps
   - cd C:\projects\deps
-  # Setup A newer CMake
-  - set CMAKE_URL=https://cmake.org/files/v3.7/cmake-3.7.2-win64-x64.zip
-  - appveyor DownloadFile %CMAKE_URL% -FileName cmake.zip
-  - 7z x cmake.zip -oC:\projects\deps > nul
-  - move C:\projects\deps\cmake-* C:\projects\deps\cmake
-  - set PATH=C:\projects\deps\cmake\bin;%PATH%
-  - cmake --version
   # Setup Ninja
   - set NINJA_URL=https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip
   - appveyor DownloadFile https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip -FileName ninja.zip
   - 7z x ninja.zip -oC:\projects\deps\ninja > nul
   - set PATH=C:\projects\deps\ninja;%PATH%
   - ninja --version
-  # Upgrade clang if necessary
-  - IF DEFINED INSTALL_NEW_CLANG appveyor DownloadFile %CLANG_URL% -FileName llvm-installer.exe
-  - IF DEFINED INSTALL_NEW_CLANG START /WAIT llvm-installer.exe /S /D=C:\"Program Files\LLVM"
 
 before_build:
 
@@ -100,10 +73,6 @@ build_script:
   - cmd: md %RA_BUILD_DIR%
   - cmd: cd %RA_BUILD_DIR%
   - echo %configuration%
-
-  - IF DEFINED USE_CLANG set PATH="C:\Program Files\LLVM\bin";%PATH%
-  - IF DEFINED USE_CLANG clang-cl -v
-  - IF DEFINED USE_CLANG set CMAKE_EXTRA_OPTIONS=-DCMAKE_C_COMPILER=clang-cl.exe -DCMAKE_CXX_COMPILER=clang-cl.exe
 
   #############################################################################
   # Configuration Step
@@ -119,7 +88,6 @@ build_script:
   - cmake -G Ninja
     "-DCMAKE_BUILD_TYPE=%configuration%"
     "-DCMAKE_PREFIX_PATH=%QTDIR%"
-    %CMAKE_EXTRA_OPTIONS%
     %APPVEYOR_BUILD_FOLDER%
 
   #############################################################################
