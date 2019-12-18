@@ -102,9 +102,9 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 
     using Displayable::getName;
 
-    /// dummy doc : set the render mode
+    /// Set the render mode.
     inline void setRenderMode( MeshRenderMode mode );
-    /// dummy doc : get the render mode
+    /// Get the render mode.
     inline MeshRenderMode getRenderMode() const;
 
     /// @name
@@ -202,7 +202,7 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
     AttribManager m_attribManager;
 };
 
-/// Template class to manage the Displayable aspect of a Core Gemertry, such as TriangleMesh.
+/// Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.
 template <typename T>
 class CoreGeometryDisplayable : public AttribArrayDisplayable
 {
