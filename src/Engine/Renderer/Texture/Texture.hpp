@@ -67,7 +67,14 @@ struct TextureParameters {
     GLenum minFilter{GL_LINEAR};
     /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
     GLenum magFilter{GL_LINEAR};
-    /// External data (not stored after OpenGL texture creation)
+    /// External data (ownership is left to caller, not stored after OpenGL texture creation).
+    /// Note that, for cubmap texture, this is considered as a "void*[6]" array containing the 6
+    /// faces of the cube corresponding to the targets texels[0] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_X
+    /// texels[1] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+    /// texels[2] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+    /// texels[3] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+    /// texels[4] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+    /// texels[5] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
     void* texels{nullptr};
 };
 
@@ -114,41 +121,6 @@ class RA_ENGINE_API Texture final
      */
     void initializeGL( bool linearize = false );
 
-    /**
-     * @brief Init the textures needed for the cubemap from OpenGL point of view.
-     *
-     * Generate, bind and configure OpenGL texture.<br/>
-     * Also sets wrapping to GL_REPEAT and min / mag filters to GL_LINEAR, although no mipmaps are
-     * generated.<br/><br/>
-     *
-     * It is highly recommended to take a look at
-     * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
-     * since this method doc will highly refer to it.
-     *
-     *
-     * @param width Width of the six 2D textures.
-     *
-     * @param height Height of the six 2D textures.
-     *
-     * @param format The format of the pixel data.
-     * Refer to the link given above, at the \b format section
-     * for further informations about the available formats.
-     *
-     * @param data Data contained in the texture. Can be nullptr. <br/>
-     * If \b data is not null, the texture will take the ownership of it.
-     *
-     * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
-     *
-     * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
-     *
-     * @todo integrate this method in the same workflow than other textures ...
-     */
-    void generateCube( uint width,
-                       uint height,
-                       GLenum format,
-                       void** data    = nullptr,
-                       bool linearize = false,
-                       bool mipmaped  = false );
 
     /**
      * @brief Bind the texture to enable its use in a shader
@@ -248,12 +220,48 @@ class RA_ENGINE_API Texture final
      */
     void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel );
 
+    /// linearize a cube map by calling sRGBToLinearRGB fore each face
+    void linearizeCubeMap( uint numCommponent, bool hasAlphaChannel );
+
     /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;
     /// Is the texture mipmaped ?
     bool m_isMipMaped{false};
     /// Is the texture in LinearRGB ?
     bool m_isLinear{false};
+
+#if 0
+    /**
+  * @brief Init the textures needed for the cubemap from OpenGL point of view.
+  *
+  * Generate, bind and configure OpenGL texture.<br/>
+  * Also sets wrapping to GL_REPEAT and min / mag filters to GL_LINEAR, although no mipmaps are
+  * generated.<br/><br/>
+  *
+  * It is highly recommended to take a look at
+  * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
+  * since this method doc will highly refer to it.
+  *
+  *
+  * @param width Width of the six 2D textures.
+  *
+  * @param height Height of the six 2D textures.
+  *
+  * @param format The format of the pixel data.
+  * Refer to the link given above, at the \b format section
+  * for further informations about the available formats.
+  *
+  * @param data Data contained in the texture. Can be nullptr. <br/>
+  * If \b data is not null, the texture will take the ownership of it.
+  *
+  * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
+  *
+  * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
+  *
+  * @todo integrate this method in the same workflow than other textures ...
+  */
+    void generateCube( bool linearize = false );
+#endif
 };
 } // namespace Engine
 } // namespace Ra
