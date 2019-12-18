@@ -1,90 +1,108 @@
-# Specify version format
-version: "{build}"
+###############################################################################
+# Appveyor configuration file for LLVM
+# -----------------------------------------------------------------------------
+# This appveyor.yml is for the LLVM repository (Example: github.com/llvm-mirror/llvm)
+# It builds LLVM, Clang, Clang tools extra, LLD.
+###############################################################################
 
-# Slack updates
-notifications:
-- provider: Slack
-  incoming_webhook:
-    secure: fbjePecExKJ5Gkvv1zfw9TkzX4qPXIaTWxp5ECL2Nrso1AwyDzLz58Z4d5iuBlspD8BR2ck7E8XyMe6/W0ioyMsbg/OvMy9rrZVJZN+0gtQ=
+version: '{build}'
 
+shallow_clone: true
 
-# Operating system (build VM template)
-os: Visual Studio 2017
+build:
+  verbosity: detailed
 
-# build platform, i.e. Win32 (instead of x86), x64, Any CPU. This setting is optional.
-platform:
-  - x64
+configuration:
+  - Release
 
-# Do not build feature branch with open Pull Request
-skip_branch_with_pr: true
-
-skip_commits:
-  files:
-    .travis.yml
-    .gitignore
-
-# specify custom environment variables
 environment:
-  MSVC_DEFAULT_OPTIONS: ON
   RA_REPOSITORY_ROOT: C:\projects\Radium-Engine
   RA_BUILD_DIR: C:\projects\Radium-Engine\build
   RA_BUNDLE_DIR: C:\projects\Radium-Engine\Bundle-MSVC
   RA_RELEASE_NAME: Radium-Engine-%APPVEYOR_REPO_COMMIT%-%platform%-%configuration%
+  
+  matrix:
+    ###########################################################################
+    # Build x64 version using MSVC 2017
+    ###########################################################################
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      MSVC_SETUP_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat
+      MSVC_SETUP_ARG: x64
+    ###########################################################################
+    # Build 32 bit version using clang-cl backed by MSVC 2017
+    ###########################################################################
+    # FIXME: This configuration currently doesn't work.
+    #- APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    #  MSVC_SETUP_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat
+    #  MSVC_SETUP_ARG: x86
+    #  USE_CLANG: ON
+    #  INSTALL_NEW_CLANG: ON
+    #  CLANG_URL: http://llvm.org/pre-releases/win-snapshots/LLVM-5.0.0-r301646-win64.exe
 
-# build configuration, i.e. Debug, Release, etc.
-configuration:
-  - Release
-
-# scripts that are called at very beginning, before repo cloning
-init:
-  - cmd: cmake --version
-  - cmd: msbuild /version
-
-# clone directory
+      
 clone_folder: C:\projects\Radium-Engine
 
 # branches to build
 branches:
-  # whitelist
-  # only:
-  #   - master
-  # blacklist
   except:
     - gh-pages
 
-# scripts that run after cloning repository
-# https://www.appveyor.com/docs/build-environment/#qt
 install:
-    - set QTDIR=C:\Qt\5.10.1\msvc2017_64
+  #############################################################################
+  # Setup Ninja and CMake dependencies
+  #############################################################################
+  - set QTDIR=C:\Qt\5.10.1\msvc2017_64
+  - mkdir C:\projects\deps
+  - cd C:\projects\deps
+  # Setup Ninja
+  - set NINJA_URL=https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip
+  - appveyor DownloadFile https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-win.zip -FileName ninja.zip
+  - 7z x ninja.zip -oC:\projects\deps\ninja > nul
+  - set PATH=C:\projects\deps\ninja;%PATH%
+  - ninja --version
 
-
-# scripts to run before build
 before_build:
+
+  #############################################################################
+  # Setup MSVC Environment
+  #############################################################################
+  - call "%MSVC_SETUP_PATH%" %MSVC_SETUP_ARG%
+  - cd %APPVEYOR_BUILD_FOLDER%
+
+build_script:
   - cmd: md %RA_BUILD_DIR%
   - cmd: cd %RA_BUILD_DIR%
+  - echo %configuration%
 
-  - cmd: if "%platform%"=="Win32" set CMAKE_GENERATOR_NAME=Visual Studio 15 2017
-  - cmd: if "%platform%"=="x64"   set CMAKE_GENERATOR_NAME=Visual Studio 15 2017 Win64
-  - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% -DCMAKE_PREFIX_PATH=%QTDIR% ..
-  - cmd: dir .
+  #############################################################################
+  # Configuration Step
+  # ---------------------------------------------------------------------------
+  # Optional CMake options:
+  #   -DLLVM_ENABLE_ASSERTIONS=ON
+  #     Turn on assertions within LLVM even in release mode. Very helpful
+  #     for catching API misuses and problems.
+  #   -DCMAKE_BUILD_TYPE=RELWITHDEBINFO
+  #      Use this instead of "RELEASE" if you want the created libraries to
+  #      have debug information.
+  #############################################################################
+  - cmake -G Ninja
+    "-DCMAKE_BUILD_TYPE=%configuration%"
+    "-DCMAKE_PREFIX_PATH=%QTDIR%"
+    %APPVEYOR_BUILD_FOLDER%
 
-
-build:
-  project: C:\projects\Radium-Engine\build\INSTALL.vcxproj  # path to Visual Studio solution or project
-  parallel: true                           # enable MSBuild parallel builds (true|false)
-  verbosity: normal                       # MSBuild verbosity level (quiet|minimal|normal|detailed)
+  #############################################################################
+  # Build Step
+  - ninja
+  - ninja install
 
 after_build:
   - cmd: dir C:\projects\Radium-Engine\build
 
+on_failure:
+  - appveyor PushArtifact CMakeFiles/CMakeOutput.log
+  - appveyor PushArtifact CMakeFiles/CMakeError.log
+  
 artifacts:
   - path: Bundle-MSVC
     name: Radium-Engine-%platform%-%configuration%
     type: zip
-
-#test: on
-#test_script:
-#  - cmd: if "%configuration%"=="Release" msbuild %RA_BUILD_DIR%\RUN_TESTS.vcxproj /m /p:Configuration=%configuration%
-#  - cmd: if "%configuration%"=="Release" msbuild %RA_BUILD_DIR%\RUN_TESTS.vcxproj  /m /p:Configuration=%configuration%
-#   - cmd: ctest --build-config %configuration% --parallel 4 --output-on-failure
-
