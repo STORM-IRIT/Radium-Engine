@@ -8,15 +8,16 @@ namespace Ra {
 namespace Gui {
 
 /// A Trackball manipulator for Cameras.
-class RA_GUIBASE_API TrackballCameraManipulator : public CameraManipulator,
-                                                  public KeyMappingManageable<TrackballCameraManipulator>
+class RA_GUIBASE_API TrackballCameraManipulator
+    : public CameraManipulator,
+      public KeyMappingManageable<TrackballCameraManipulator>
 {
     Q_OBJECT
     friend class KeyMappingManageable<TrackballCameraManipulator>;
 
   public:
     /// Default constructor
-    TrackballCameraManipulator(uint width, uint height );
+    TrackballCameraManipulator( uint width, uint height );
 
     /// Copy constructor used when switching camera manipulator
     /// Requires that m_target is on the line of sight of the camera.
@@ -25,7 +26,8 @@ class RA_GUIBASE_API TrackballCameraManipulator : public CameraManipulator,
     /// Destructor.
     virtual ~TrackballCameraManipulator();
 
-    KeyMappingManager::Context mappingContext();
+    // KeyMappingManager::Context mappingContext();
+
     bool handleMousePressEvent( QMouseEvent* event,
                                 const Qt::MouseButtons& buttons,
                                 const Qt::KeyboardModifiers& modifiers,
@@ -114,4 +116,4 @@ class RA_GUIBASE_API TrackballCameraManipulator : public CameraManipulator,
 } // namespace Gui
 } // namespace Ra
 
-#endif //RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP
+#endif // RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP
