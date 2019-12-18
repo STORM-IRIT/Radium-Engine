@@ -22,7 +22,8 @@ void Engine::Texture::initializeGL( bool linearize ) {
     if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
          ( m_textureParameters.target != GL_TEXTURE_2D ) &&
          ( m_textureParameters.target != GL_TEXTURE_RECTANGLE ) &&
-         ( m_textureParameters.target != GL_TEXTURE_3D ) )
+         ( m_textureParameters.target != GL_TEXTURE_3D ) &&
+         ( m_textureParameters.target != GL_TEXTURE_CUBE_MAP ) )
     {
         LOG( logERROR ) << "Texture of type " << m_textureParameters.target
                         << " must be generated explicitely!";
@@ -55,9 +56,14 @@ void Engine::Texture::initializeGL( bool linearize ) {
                             << " can't be linearized." << m_textureParameters.name;
             return;
         }
-        // This will only do do the RGB space conversion
-        sRGBToLinearRGB(
-            reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha );
+        if ( m_textureParameters.target == GL_TEXTURE_CUBE_MAP )
+        { linearizeCubeMap( numcomp, hasAlpha ); }
+        else
+        {
+            // This will only do do the RGB space conversion
+            sRGBToLinearRGB(
+                reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha );
+        }
     }
     // Generate OpenGL texture
     if ( m_texture == nullptr )
@@ -133,16 +139,69 @@ void Engine::Texture::updateData( void* data ) {
         GL_CHECK_ERROR
     }
     break;
-    case GL_TEXTURE_CUBE_MAP:
-    {
-        m_texture->cubeMapImage( 0,
-                                 m_textureParameters.internalFormat,
-                                 GLsizei( m_textureParameters.width ),
-                                 GLsizei( m_textureParameters.height ),
-                                 0,
-                                 m_textureParameters.format,
-                                 m_textureParameters.type,
-                                 data );
+    case GL_TEXTURE_CUBE_MAP: {
+        // Load the 6 faces of the cubemap
+        void** texels = (void**)data;
+        m_texture->bind();
+        gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+                          0,
+                          m_textureParameters.internalFormat,
+                          GLsizei( m_textureParameters.width ),
+                          GLsizei( m_textureParameters.height ),
+                          0,
+                          m_textureParameters.format,
+                          m_textureParameters.type,
+                          texels[0] );
+        gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+                          0,
+                          m_textureParameters.internalFormat,
+                          GLsizei( m_textureParameters.width ),
+                          GLsizei( m_textureParameters.height ),
+                          0,
+                          m_textureParameters.format,
+                          m_textureParameters.type,
+                          texels[1] );
+
+        gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+                          0,
+                          m_textureParameters.internalFormat,
+
+                          GLsizei( m_textureParameters.width ),
+                          GLsizei( m_textureParameters.height ),
+                          0,
+                          m_textureParameters.format,
+                          m_textureParameters.type,
+                          texels[2] );
+        gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+                          0,
+                          m_textureParameters.internalFormat,
+                          GLsizei( m_textureParameters.width ),
+                          GLsizei( m_textureParameters.height ),
+                          0,
+                          m_textureParameters.format,
+                          m_textureParameters.type,
+                          texels[3] );
+
+        gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+                          0,
+                          m_textureParameters.internalFormat,
+                          GLsizei( m_textureParameters.width ),
+                          GLsizei( m_textureParameters.height ),
+                          0,
+                          m_textureParameters.format,
+                          m_textureParameters.type,
+                          texels[4] );
+        gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
+                          0,
+                          m_textureParameters.internalFormat,
+                          GLsizei( m_textureParameters.width ),
+                          GLsizei( m_textureParameters.height ),
+                          0,
+                          m_textureParameters.format,
+                          m_textureParameters.type,
+                          texels[5] );
+
+        m_texture->unbind();
         GL_CHECK_ERROR
     }
     break;
@@ -250,64 +309,18 @@ void Engine::Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     if ( m_isMipMaped ) { m_texture->generateMipmap(); }
 }
 
-// TODO : This method must be fully rewritten. Maybe by a derived Texture class
-void Engine::Texture::generateCube( uint width,
-                                    uint height,
-                                    GLenum format,
-                                    void** data,
-                                    bool linearize,
-                                    bool mipmaped ) {
-    m_textureParameters.target = GL_TEXTURE_CUBE_MAP;
-    if ( m_texture == nullptr )
-    { m_texture = globjects::Texture::create( m_textureParameters.target ); }
-
-    m_isMipMaped               = mipmaped;
-    m_textureParameters.format = format;
-    m_textureParameters.width  = width;
-    m_textureParameters.height = height;
-    m_textureParameters.texels = data;
-
-    updateParameters();
-
-    // Load texels
-    if ( linearize )
+void Engine::Texture::linearizeCubeMap( uint numCommponent, bool hasAlphaChannel ) {
+    if ( m_textureParameters.type == gl::GLenum::GL_UNSIGNED_BYTE )
     {
-        uint numcomp  = 0;
-        bool hasAlpha = false;
-        switch ( m_textureParameters.format )
+        /// Only unsigned byte texture could be linearized. Considering other formats where already
+        /// linear
+        for ( int i = 0; i < 6; ++i )
         {
-            // RED texture store a gray scale color. Verify if we need to convert
-        case GL_RED:
-            numcomp = 1;
-            break;
-        case GL_RGB:
-            numcomp = 3;
-            break;
-        case GL_RGBA:
-            numcomp  = 4;
-            hasAlpha = true;
-            break;
-        default:
-            LOG( logERROR ) << "Textures with format " << m_textureParameters.format
-                            << " can't be linearized." << m_textureParameters.name;
-            return;
+            sRGBToLinearRGB(
+                reinterpret_cast<uint8_t*>( ( (void**)m_textureParameters.texels )[i] ),
+                numCommponent,
+                hasAlphaChannel );
         }
-        // This will do the conversion then upload texels on GPU and generates mipmap if needed.
-        sRGBToLinearRGB(
-            reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha );
-    }
-    else
-    {
-        // only upload to the GPU and generate mipmap if needed
-        m_texture->cubeMapImage( 0,
-                                 m_textureParameters.internalFormat,
-                                 width,
-                                 height,
-                                 0,
-                                 format,
-                                 m_textureParameters.type,
-                                 m_textureParameters.texels );
-        if ( m_isMipMaped ) { m_texture->generateMipmap(); }
     }
 }
 
