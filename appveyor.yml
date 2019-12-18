@@ -55,19 +55,7 @@ environment:
     #  USE_CLANG: ON
     #  INSTALL_NEW_CLANG: ON
     #  CLANG_URL: http://llvm.org/pre-releases/win-snapshots/LLVM-5.0.0-r301646-win64.exe
-    ###########################################################################
-    # Build 64 bit version using clang-cl backed by MSVC 2015
-    ###########################################################################
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      MSVC_SETUP_PATH: C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
-      MSVC_SETUP_ARG: x86_amd64
-      USE_CLANG: ON
-    ###########################################################################
-    # Build using MSVC 2015
-    ###########################################################################
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      MSVC_SETUP_PATH: C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
-      MSVC_SETUP_ARG: x86_amd64
+
       
 clone_folder: C:\projects\Radium-Engine
 
