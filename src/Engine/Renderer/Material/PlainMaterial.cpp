@@ -91,14 +91,13 @@ void PlainMaterial::registerMaterial() {
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : Plain
-            auto lightpassconfig =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
-            rt.setConfiguration( lightpassconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
+            auto lightpass = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
+            rt.setConfiguration( lightpass, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended)
-            auto zprepassconfig =
+            auto zprepass =
                 Ra::Engine::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
-            rt.setConfiguration( zprepassconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
+            rt.setConfiguration( zprepass, Ra::Engine::RenderTechnique::Z_PREPASS );
         } );
 }
 

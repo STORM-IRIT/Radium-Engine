@@ -6,7 +6,7 @@
 **TODO : update this documentation wrt the new rendering algorithm**
 
 _See [Material management in the Radium Engine](./material.md) documentation for understanding what is a render technique
-and how it inter-operates with geometry, material and shader._
+and how it inter-operates with geometry, m_material and shader._
 
 ## Main render method
 
@@ -68,9 +68,9 @@ and outputs one final _render pass_
  texture, ready to be post-processed.
 
 The main renderer of Radium, implemented in the class ``ForwardRenderer`` implements a Z-pre-pass forward rendering loop.
-Even if the material association to a drawable object, realized by the so called ``RenderTechnique`` is tightly
+Even if the m_material association to a drawable object, realized by the so called ``RenderTechnique`` is tightly
 coupled with the main rendering loop, Plugins might define new renderer and interact differently with shader and
-materials properties. See the material chapter of the documentation.
+materials properties. See the m_material chapter of the documentation.
 
 Here is a summary of all the draw calls
 #### 1. Depth, ambient color and "deferred info" pass
@@ -100,7 +100,7 @@ for each light do
   Get light parameters
   for each object
     bind shader
-    bind material & light
+    bind m_material & light
     render mesh
   done
 done

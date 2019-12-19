@@ -21,7 +21,7 @@ set( engine_sources
     Renderer/Material/BlinnPhongMaterial.cpp
     Renderer/Material/Material.cpp
         Renderer/Material/PlainMaterial.cpp
-    Renderer/Material/MaterialConverters.cpp
+        Renderer/Material/MaterialConverters.cpp
     Renderer/Mesh/Mesh.cpp
     Renderer/RenderObject/Primitives/DrawPrimitives.cpp
     Renderer/RenderObject/RenderObject.cpp
@@ -61,16 +61,17 @@ set( engine_headers
     Managers/SystemDisplay/SystemDisplay.hpp
     RaEngine.hpp
     RadiumEngine.hpp
-    Renderer/Camera/Camera.hpp
-    Renderer/Displayable/DisplayableObject.hpp
+        Renderer/Camera/Camera.hpp
+        Renderer/Camera/ViewingParameters.hpp
+        Renderer/Displayable/DisplayableObject.hpp
     Renderer/Light/DirLight.hpp
     Renderer/Light/Light.hpp
     Renderer/Light/PointLight.hpp
     Renderer/Light/SpotLight.hpp
     Renderer/Material/BlinnPhongMaterial.hpp
-    Renderer/Material/Material.hpp
+        Renderer/Material/Material.hpp
         Renderer/Material/PlainMaterial.hpp
-    Renderer/Material/MaterialConverters.hpp
+        Renderer/Material/MaterialConverters.hpp
     Renderer/Mesh/Mesh.hpp
     Renderer/OpenGL/OpenGL.hpp
     Renderer/RenderObject/Primitives/DrawPrimitives.hpp
@@ -108,13 +109,13 @@ set( engine_inlines
     Renderer/Light/PointLight.inl
     Renderer/Light/SpotLight.inl
     Renderer/Material/BlinnPhongMaterial.inl
-    Renderer/Material/Material.inl
+        Renderer/Material/Material.inl
         Renderer/Material/PlainMaterial.inl
-    Renderer/Mesh/Mesh.inl
+        Renderer/Mesh/Mesh.inl
     Renderer/RenderTechnique/RenderParameters.inl
     )
 
-set( engine_shaders
+set(engine_shaders
         Deprecated/PointCloud.geom.glsl
         Deprecated/Helpers.glsl
         Deprecated/Structs.glsl
@@ -129,7 +130,7 @@ set( engine_shaders
         2DShaders/DrawScreen.frag.glsl
         2DShaders/DrawScreenI.frag.glsl
         2DShaders/Hdr2Ldr.frag.glsl
-    Lights/DefaultLight.glsl
+        Lights/DefaultLight.glsl
         Lights/DirectionalLight.glsl
         Lights/PointLight.glsl
         Lights/SpotLight.glsl
@@ -138,10 +139,10 @@ set( engine_shaders
         Lines/Lines.geom.glsl
         Lines/LinesAdjacency.geom.glsl
         Materials/BlinnPhong/BlinnPhong.glsl
-    Materials/BlinnPhong/BlinnPhong.vert.glsl
-    Materials/BlinnPhong/BlinnPhong.frag.glsl
-    Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl
-    Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl
+        Materials/BlinnPhong/BlinnPhong.vert.glsl
+        Materials/BlinnPhong/BlinnPhong.frag.glsl
+        Materials/BlinnPhong/DepthAmbientBlinnPhong.frag.glsl
+        Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl
         Materials/Plain/Plain.vert.glsl
         Materials/Plain/Plain.frag.glsl
         Materials/Plain/Plain.glsl
@@ -154,4 +155,4 @@ set( engine_shaders
         Picking/PickingTriangles.geom.glsl
         Picking/Picking.frag.glsl
         Transform/TransformStructs.glsl
-    )
+        )

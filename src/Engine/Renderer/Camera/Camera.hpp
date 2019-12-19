@@ -5,15 +5,10 @@
 #include <Core/Types.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/RaEngine.hpp>
+#include <Engine/Renderer/Camera/ViewingParameters.hpp>
 
 namespace Ra {
 namespace Engine {
-/// the set of viewing parameters extracted from the camera and given to the renderer
-struct RA_ENGINE_API ViewingParameters {
-    Core::Matrix4 viewMatrix{Core::Matrix4::Identity()};
-    Core::Matrix4 projMatrix{Core::Matrix4::Identity()};
-    Scalar dt{0};
-};
 
 /// A Camera is an Engine Component storing a Camera object.
 class RA_ENGINE_API Camera : public Component

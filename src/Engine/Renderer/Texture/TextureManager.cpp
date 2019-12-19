@@ -106,9 +106,9 @@ Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameter
                                            bool linearize ) {
     auto it = m_textures.find( texParameters.name );
     if ( it != m_textures.end() ) { return it->second; }
-    auto makeTexture = []( TextureParameters& data, bool linearize ) -> Texture* {
-        auto tex = new Texture( data );
-        tex->initializeGL( linearize );
+    auto makeTexture = []( TextureParameters& d, bool l ) -> Texture* {
+        auto tex = new Texture( d );
+        tex->initializeGL( l );
         return tex;
     };
     TextureParameters texparams = texParameters;

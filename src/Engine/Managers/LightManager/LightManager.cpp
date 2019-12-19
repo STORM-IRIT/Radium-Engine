@@ -49,7 +49,7 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
     // belong to the system entity (e.g. the headlight) from the list of managed lights. Beware to
     // not destroy the headlight component, that do not belong to this system, so that it could be
     // added again
-    for ( int i = 0; i < m_data->size(); )
+    for ( size_t i = 0; i < m_data->size(); )
     {
         auto l = ( *m_data )[i];
         if ( l->getEntity() == Ra::Engine::SystemEntity::getInstance() ) { m_data->remove( l ); }

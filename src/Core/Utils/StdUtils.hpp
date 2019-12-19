@@ -26,7 +26,7 @@ inline std::size_t hash( const std::pair<T1, T2>& p ) {
     hash_combine( result, p.first );
     hash_combine( result, p.second );
     return result;
-};
+}
 } // namespace Utils
 } // namespace Core
 } // namespace Ra

@@ -172,8 +172,8 @@ class RA_ENGINE_API RadiumEngine
     Core::Aabb computeSceneAabb() const;
 
   private:
-    using priority  = int;
-    using SystemKey = std::pair<priority, std::string>;
+    using Priority  = int;
+    using SystemKey = std::pair<Priority, std::string>;
     // use transparent functors :
     // https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html
     using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<>>;

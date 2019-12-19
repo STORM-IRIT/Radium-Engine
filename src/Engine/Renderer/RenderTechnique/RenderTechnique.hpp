@@ -65,14 +65,14 @@ class RA_ENGINE_API RenderTechnique final
   private:
     using ConfigurationSet = std::map<PassName, ShaderConfiguration>;
     using ShaderSet        = std::map<PassName, const ShaderProgram*>;
-    ConfigurationSet shaderConfig;
-    ShaderSet shaders;
+    ConfigurationSet m_shaderConfig;
+    ShaderSet m_shaders;
 
-    std::shared_ptr<Material> material{nullptr};
+    std::shared_ptr<Material> m_material{nullptr};
 
     // Change this if there is more than 8 configurations
-    unsigned char dirtyBits{Z_PREPASS | LIGHTING_OPAQUE | LIGHTING_TRANSPARENT};
-    unsigned char setPasses{NO_PASS};
+    unsigned char m_dirtyBits{Z_PREPASS | LIGHTING_OPAQUE | LIGHTING_TRANSPARENT};
+    unsigned char m_setPasses{NO_PASS};
 };
 
 ///////////////////////////////////////////////

@@ -12,8 +12,7 @@
 // component to give this directly ?
 #include <Engine/Entity/Entity.hpp>
 
-// Only needed to access the ViewingParameters struct
-#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Camera/ViewingParameters.hpp>
 
 namespace Ra {
 namespace Engine {
