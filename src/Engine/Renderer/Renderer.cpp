@@ -6,7 +6,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
+#include <Engine/Renderer/Camera/ViewingParameters.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>

@@ -21,20 +21,18 @@ std::shared_ptr<Ra::Engine::RenderTechnique> RadiumDefaultRenderTechnique( nullp
 RenderTechnique::RenderTechnique() {
     for ( auto p : allPasses )
     {
-        shaders[p] = nullptr;
+        m_shaders[p] = nullptr;
     }
 }
 
 RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
-    material{o.material},
-    dirtyBits{o.dirtyBits},
-    setPasses{o.setPasses} {
+    m_material{o.m_material}, m_dirtyBits{o.m_dirtyBits}, m_setPasses{o.m_setPasses} {
     for ( auto p : allPasses )
     {
-        if ( setPasses & p )
+        if ( m_setPasses & p )
         {
-            shaderConfig[p] = o.shaderConfig.at( p );
-            shaders[p]      = o.shaders.at( p );
+            m_shaderConfig[p] = o.m_shaderConfig.at( p );
+            m_shaders[p]      = o.m_shaders.at( p );
         }
     }
 }
@@ -42,47 +40,48 @@ RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
 RenderTechnique::~RenderTechnique() = default;
 
 void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig, PassName pass ) {
-    shaderConfig[pass] = newConfig;
-    dirtyBits |= pass;
-    setPasses |= pass;
+    m_shaderConfig[pass] = newConfig;
+    m_dirtyBits |= pass;
+    m_setPasses |= pass;
 }
 
 const ShaderProgram* RenderTechnique::getShader( PassName pass ) const {
-    if ( setPasses & pass ) { return shaders.at( pass ); }
+    if ( m_setPasses & pass ) { return m_shaders.at( pass ); }
     return nullptr;
 }
 
 void RenderTechnique::updateGL() {
     for ( auto p : allPasses )
     {
-        if ( ( setPasses & p ) && ( ( nullptr == shaders[p] ) || ( dirtyBits & p ) ) )
+        if ( ( m_setPasses & p ) && ( ( nullptr == m_shaders[p] ) || ( m_dirtyBits & p ) ) )
         {
-            shaders[p] = ShaderProgramManager::getInstance()->getShaderProgram( shaderConfig[p] );
-            dirtyBits |= p;
+            m_shaders[p] =
+                ShaderProgramManager::getInstance()->getShaderProgram( m_shaderConfig[p] );
+            m_dirtyBits |= p;
         }
     }
 
-    if ( material ) { material->updateGL(); }
+    if ( m_material ) { m_material->updateGL(); }
 }
 
 const std::shared_ptr<Material>& RenderTechnique::getMaterial() const {
-    return material;
+    return m_material;
 }
 
 void RenderTechnique::resetMaterial( Material* mat ) {
-    material.reset( mat );
+    m_material.reset( mat );
 }
 
 void RenderTechnique::setMaterial( const std::shared_ptr<Material>& material ) {
-    RenderTechnique::material = material;
+    RenderTechnique::m_material = material;
 }
 
 bool RenderTechnique::hasConfiguration( PassName pass ) const {
-    return shaderConfig.find( pass ) != shaderConfig.end();
+    return m_shaderConfig.find( pass ) != m_shaderConfig.end();
 }
 
 const ShaderConfiguration& RenderTechnique::getConfiguration( PassName pass ) const {
-    return shaderConfig.at( pass );
+    return m_shaderConfig.at( pass );
 }
 
 // creates a Radium default rendertechnique :
@@ -106,7 +105,7 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
 }
 
 bool RenderTechnique::shaderIsDirty( RenderTechnique::PassName pass ) const {
-    return dirtyBits & pass;
+    return m_dirtyBits & pass;
 }
 
 ///////////////////////////////////////////////
@@ -149,6 +148,7 @@ std::pair<bool, DefaultTechniqueBuilder> getDefaultTechnique( const std::string&
 
 bool cleanup() {
     EngineTechniqueRegistry.clear();
+    return true;
 }
 
 } // namespace EngineRenderTechniques

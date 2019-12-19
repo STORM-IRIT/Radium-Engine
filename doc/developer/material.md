@@ -372,9 +372,9 @@ void TriangleMeshComponent::handleMeshLoading( const Ra::Asset::GeometryData* da
 ~~~
 
 
-## Specification of the _Appearance Interface_ of Radium shaders
+## Specification of the _Appearance Interface_ of Radium m_shaders
 
-Being able to compose shaders in a specific renderer while taking profit of Radium Material Library 
+Being able to compose m_shaders in a specific renderer while taking profit of Radium Material Library 
 (either included in the base engine or defined in plugins) require a clean definition of appearance computation 
 process and the definition of a glsl interface.
 
@@ -488,7 +488,7 @@ As the microgeometry interface or the bsdf interface might access to interpolate
 the implmentation will then be in the main fragment shader. See exemple below for a more precise understanding.
 
 The Vertex attrib interface, to be used in either a fragment shader or a vertex shader must be the following. Note that,
-in order to keep the independance between part of shaders, this interface must be define everywhere, even idf no vertex 
+in order to keep the independance between part of m_shaders, this interface must be define everywhere, even idf no vertex 
 attribs are accessed In this case, the given default code must be used.
 
 In the file that need the **declaration** of the interface (e.g. `name_of_the_BSDF.glsl`), the following lines must 
@@ -536,7 +536,7 @@ layout (location = 3) in vec4 in_baseColor;
 #endif
 
     /// Return the Vertex position, in world space, defined or interpolated from vertices
-    /// This function is the same for vertex or fragments shaders
+    /// This function is the same for vertex or fragments m_shaders
     vec4 getWorldSpacePosition() {
     #ifdef VERTEX_SHADER
         vec4 pos = transform.model * vec4(in_position, 1.0);
@@ -548,7 +548,7 @@ layout (location = 3) in vec4 in_baseColor;
     }
 
     /// Return the geometric normal, in world space, defined or interpolated from vertices
-    /// This function might be different for vertex or fragment shaders
+    /// This function might be different for vertex or fragment m_shaders
     vec3 getWorldSpaceNormal(
 #ifdef NORMAL_AS_ATTRIBUTE
     #ifdef VERTEX_SHADER

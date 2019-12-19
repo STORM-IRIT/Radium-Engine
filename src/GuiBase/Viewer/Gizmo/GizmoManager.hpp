@@ -27,7 +27,7 @@ class RA_GUIBASE_API GizmoManager : public QObject,
     friend class KeyMappingManageable<GizmoManager>;
 
   public:
-    EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     enum GizmoType { NONE, TRANSLATION, ROTATION, SCALE };
 
     explicit GizmoManager( QObject* parent = nullptr );
