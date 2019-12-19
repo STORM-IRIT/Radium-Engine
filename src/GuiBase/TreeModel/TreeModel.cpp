@@ -3,6 +3,8 @@
 #include <Core/Utils/Log.hpp>
 #include <stack>
 
+#include <QApplication>
+
 namespace Ra {
 namespace GuiBase {
 
@@ -42,14 +44,14 @@ QVariant TreeModel::data( const QModelIndex& index, int role ) const {
 bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int role ) {
     if ( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole )
     {
-        bool checked = value.toBool();
-        getItem( index )->setChecked( checked );
-        emit dataChanged( index, index, {Qt::CheckStateRole} );
-
-        // recursion on all children
-        for ( size_t i = 0; i < getItem( index )->m_children.size(); ++i )
+        if( QApplication::keyboardModifiers() == Qt::CTRL )
         {
-            setData( this->index( i, 0, index ), value, role );
+            setAllItemsChecked( false );
+            setItemChecked( index, true );
+        }
+        else
+        {
+            setItemChecked( index , value.toBool() );
         }
         return true;
     }
@@ -139,5 +141,35 @@ void TreeModel::printModel() const {
     }
 #endif
 }
+
+void TreeModel::setAllItemsChecked( bool checked )
+{
+    for ( int row = 0; row < rowCount() ; ++row )
+    {
+        const QModelIndex index = this->index( row, 0 );
+        setItemChecked( index, checked );
+    }
+}
+
+void TreeModel::setItemChecked( const QModelIndex& index, bool checked )
+{
+    if ( index.isValid() )
+    {
+        TreeItem* item = getItem( index );
+        if( item->isSelectable() )
+        {
+            item->setChecked( checked );
+            emit dataChanged( index, index, {Qt::CheckStateRole} );
+
+            // recursion on all children
+            for ( int i = 0; i < rowCount( index ); ++i )
+            {
+                const QModelIndex child = this->index( i, 0, index );
+                setItemChecked( child, checked );
+            }
+        }
+    }
+}
+
 } // namespace GuiBase
 } // namespace Ra
