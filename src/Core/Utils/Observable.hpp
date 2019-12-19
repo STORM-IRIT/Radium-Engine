@@ -42,6 +42,7 @@ class Observable
     Observable()                    = default;
     Observable( const Observable& ) = delete;
     Observable& operator=( const Observable& ) = delete;
+    virtual ~Observable()                      = default;
 
     /// explicit copy of all attached observers the \p other Observable
     void copyObserversTo( Observable& other ) const {
