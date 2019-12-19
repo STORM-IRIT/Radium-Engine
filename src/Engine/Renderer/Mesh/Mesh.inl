@@ -195,8 +195,9 @@ CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() {
 
 template <typename CoreGeometry>
 void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string& name ) {
+    // this observer is called each time an attrib is added or removed from m_mesh
     auto attrib = m_mesh.getAttribBase( name );
-    // if attrib not nullptr, then it's a add
+    // if attrib not nullptr, then it's an attrib add, so attach an observer to it
     if ( attrib )
     {
         auto itr = m_handleToBuffer.find( name );
@@ -217,7 +218,7 @@ void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string
         auto idx = m_handleToBuffer[name];
         attrib->attach( AttribObserver( this, idx ) );
     }
-    // else it's a remove, cleanup will be done in updateGL()
+    // else it's an attrib remove, do nothing, cleanup will be done in updateGL()
     else
     {}
 }

@@ -24,7 +24,6 @@ class Attrib;
 
 /**
  * AttribBase is the base class for attributes of all type.
- * It contains an array of attribute element.
  */
 class RA_CORE_API AttribBase : public ObservableVoid
 {
@@ -233,7 +232,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     inline AttribManager( AttribManager&& m );
 
     inline AttribManager& operator=( AttribManager&& m );
-    ~AttribManager();
+    ~AttribManager() override;
 
     /// Base copy, does nothing.
     inline void copyAttributes( const AttribManager& m );
@@ -311,6 +310,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     ///@}
 
     /// Add attribute by name.
+    /// notify(name) is called to trigger the observers
     /// \note If an attribute with the same name already exists,
     ///       just returns a AttribHandle to it.
     /// \note The complexity for adding a new attribute is O(n).
@@ -318,6 +318,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     AttribHandle<T> addAttrib( const std::string& name );
 
     /// Remove attribute by handle, invalidates the handle.
+    /// notify(name) is called to trigger the observers
     /// \warning If a new attribute is added, old invalidated handles may lead to
     ///          the new attribute.
     /// \note The complexity for removing an attribute is O(log(n)).

@@ -73,6 +73,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 
     /// Render mode enum used when render()/
     /// values taken from OpenGL specification
+    /// @see https://www.khronos.org/registry/OpenGL/api/GL/glcorearb.h
     enum MeshRenderMode : uint {
         RM_POINTS                   = 0x0000,
         RM_LINES                    = 0x0001, // decimal value: 1
@@ -253,6 +254,10 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
 
     void loadGeometry_common( CoreGeometry&& mesh );
     void autoVertexAttribPointer( const ShaderProgram* prog );
+
+    /// m_mesh Observer method, called whenever an attrib is added or removed from
+    /// m_mesh.
+    /// it adds an observer to the new attrib.
     void addAttribObserver( const std::string& name );
 
     /// Core::Mesh attrib name to Render::Mesh attrib name
