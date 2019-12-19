@@ -34,12 +34,26 @@ namespace Engine {
 using namespace Core::Utils; // log
 
 ShaderProgram::ShaderProgram() : m_program{nullptr} {
-    std::fill( m_shaderObjects.begin(), m_shaderObjects.end(), nullptr );
+    // This does not compile
+    // std::fill( m_shaderObjects.begin(), m_shaderObjects.end(),
+    //               std::pair<bool, std::unique_ptr<globjects::Shader> >{false, nullptr});
+    for ( auto& e : m_shaderObjects )
+    {
+        e.first  = false;
+        e.second = nullptr;
+    }
     std::fill( m_shaderSources.begin(), m_shaderSources.end(), nullptr );
 }
 
 ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : m_program{nullptr} {
-    std::fill( m_shaderObjects.begin(), m_shaderObjects.end(), nullptr );
+    // This does not compile
+    // std::fill( m_shaderObjects.begin(), m_shaderObjects.end(),
+    //               std::pair<bool, std::unique_ptr<globjects::Shader> >{false, nullptr});
+    for ( auto& e : m_shaderObjects )
+    {
+        e.first  = false;
+        e.second = nullptr;
+    }
     std::fill( m_shaderSources.begin(), m_shaderSources.end(), nullptr );
     load( config );
 }
@@ -50,7 +64,7 @@ ShaderProgram::~ShaderProgram() {
     // See ~Shader (setSource(nullptr)
     for ( auto& s : m_shaderObjects )
     {
-        s.reset( nullptr );
+        s.second.reset( nullptr );
     }
     for ( auto& s : m_shaderSources )
     {
@@ -63,6 +77,7 @@ void ShaderProgram::loadShader( ShaderType type,
                                 const std::string& name,
                                 const std::set<std::string>& props,
                                 const std::vector<std::pair<std::string, ShaderType>>& includes,
+                                bool fromFile,
                                 const std::string& version ) {
 #ifdef OS_MACOS
     if ( type == ShaderType_COMPUTE )
@@ -75,8 +90,6 @@ void ShaderProgram::loadShader( ShaderType type,
     // Paths in which globjects will be looking for shaders includes.
     // "/" refer to the root of the directory structure conaining the shader (i.e. the Shaders/
     // directory).
-
-    auto loadedSource = globjects::Shader::sourceFromFile( name );
 
     // header string that contains #version and pre-declarations ...
     std::string shaderHeader;
@@ -109,7 +122,18 @@ void ShaderProgram::loadShader( ShaderType type,
             { return a; }
         } );
 
-    auto fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
+    std::unique_ptr<globjects::StaticStringSource> fullsource{nullptr};
+    if ( fromFile )
+    {
+        LOG( logDEBUG ) << "Loading shader " << name;
+        auto loadedSource = globjects::Shader::sourceFromFile( name );
+        fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
+    }
+    else
+    {
+        auto glslSource = globjects::Shader::sourceFromString( name );
+        fullsource = globjects::Shader::sourceFromString( shaderHeader + glslSource->string() );
+    }
 
     // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
@@ -135,7 +159,9 @@ void ShaderProgram::addShaderFromSource( ShaderType type,
     shader->compile();
 
     GL_CHECK_ERROR;
-    m_shaderObjects[type].swap( shader );
+    m_shaderObjects[type].first = fromFile;
+    m_shaderObjects[type].second.swap( shader );
+
     m_shaderSources[type].swap( ptrSource );
     // ^^^ raw ptrSource are stored in shader object, need to keep them valid during
     // shader life
@@ -202,13 +228,13 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( !m_configuration.m_shaders[i].empty() )
+        if ( !m_configuration.m_shaders[i].first.empty() )
         {
-            LOG( logDEBUG ) << "Loading shader " << m_configuration.m_shaders[i];
             loadShader( ShaderType( i ),
-                        m_configuration.m_shaders[i],
+                        m_configuration.m_shaders[i].first,
                         m_configuration.getProperties(),
                         m_configuration.getIncludes(),
+                        m_configuration.m_shaders[i].second,
                         m_configuration.m_version );
         }
     }
@@ -221,7 +247,7 @@ void ShaderProgram::link() {
 
     for ( int i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( m_shaderObjects[i] ) { m_program->attach( m_shaderObjects[i].get() ); }
+        if ( m_shaderObjects[i].second ) { m_program->attach( m_shaderObjects[i].get() ); }
     }
 
     m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
@@ -264,16 +290,16 @@ void ShaderProgram::unbind() const {
 void ShaderProgram::reload() {
     for ( auto& s : m_shaderObjects )
     {
-        /// \todo find a way to reload shader without source code file name.
-        if ( s != nullptr && !s->name().empty() )
+        if ( s.second != nullptr )
         {
-            LOG( logDEBUG ) << "Reloading shader " << s->name();
+            if ( s.first ) { LOG( logDEBUG ) << "Reloading shader " << s.second->name(); }
 
-            m_program->detach( s.get() );
-            loadShader( getGLenumAsType( s->type() ),
-                        s->name(),
+            m_program->detach( s.second.get() );
+            loadShader( getGLenumAsType( s.second->type() ),
+                        s.second->name(),
                         m_configuration.getProperties(),
-                        m_configuration.getIncludes() );
+                        m_configuration.getIncludes(),
+                        s.first );
         }
     }
 
