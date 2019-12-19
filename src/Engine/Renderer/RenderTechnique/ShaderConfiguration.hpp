@@ -78,13 +78,21 @@ class RA_ENGINE_API ShaderConfiguration final
                          const std::string& vertexShader,
                          const std::string& fragmentShader );
 
-    ///\todo add shader from source.
-    /** Add a shader given its type
+    /** Add a shader, from a file, given its type
      *
-     * @param type
-     * @param name
+     * @param type the Type of the shader
+     * @param name the file to load
      */
     void addShader( ShaderType type, const std::string& name );
+
+    /** Add a shader, given its glsl source code, of a given type.
+     * When a shader is added from a glsl source string, when reloading programs,
+     * only the parts coming from files are reloaded.
+     *
+     * @param type
+     * @param source the source code of the shader
+     */
+    void addShaderSource( ShaderType type, const std::string& source );
 
     /** Add a property in the form of a \#define
      * The same shader files with different properties leads to different shader programs
@@ -125,7 +133,9 @@ class RA_ENGINE_API ShaderConfiguration final
     std::string m_version{};
 
   private:
-    std::array<std::string, ShaderType_COUNT> m_shaders;
+    /// The second member of the pair defining a shader indicates if the shader comes from file
+    /// (true) or from source string (false)
+    std::array<std::pair<std::string, bool>, ShaderType_COUNT> m_shaders;
 
     std::set<std::string> m_properties;
 
