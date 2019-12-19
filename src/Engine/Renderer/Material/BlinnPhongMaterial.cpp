@@ -137,20 +137,20 @@ void BlinnPhongMaterial::registerMaterial() {
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : BlinnPhong
-            auto lightpassconfig =
+            auto lightpass =
                 Ra::Engine::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-            rt.setConfiguration( lightpassconfig, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
+            rt.setConfiguration( lightpass, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended) : DepthAmbiantPass
-            auto zprepassconfig =
+            auto zprepass =
                 Ra::Engine::ShaderConfigurationFactory::getConfiguration( "ZprepassBlinnPhong" );
-            rt.setConfiguration( zprepassconfig, Ra::Engine::RenderTechnique::Z_PREPASS );
+            rt.setConfiguration( zprepass, Ra::Engine::RenderTechnique::Z_PREPASS );
             // Transparent pass (0ptional) : If Transparent ... add LitOIT
             if ( isTransparent )
             {
-                auto transparentpassconfig =
+                auto transparentpass =
                     Ra::Engine::ShaderConfigurationFactory::getConfiguration( "LitOITBlinnPhong" );
-                rt.setConfiguration( transparentpassconfig,
+                rt.setConfiguration( transparentpass,
                                      Ra::Engine::RenderTechnique::LIGHTING_TRANSPARENT );
             }
         } );

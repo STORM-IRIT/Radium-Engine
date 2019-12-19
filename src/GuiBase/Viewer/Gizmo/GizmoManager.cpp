@@ -14,7 +14,7 @@ namespace Gui {
 ///\todo If a macro expert could write a recursive marco to have something like
 /// KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)
 #define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction GizmoManager::XX;
-KeyMappingGizmo;
+KeyMappingGizmo
 #undef KMA_VALUE
 
 void GizmoManager::configureKeyMapping_impl() {

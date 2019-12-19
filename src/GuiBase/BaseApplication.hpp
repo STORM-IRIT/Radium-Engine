@@ -43,6 +43,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     {
       public:
         WindowFactory()                                                    = default;
+        virtual ~WindowFactory()                                           = default;
         virtual Ra::GuiBase::MainWindowInterface* createMainWindow() const = 0;
     };
 

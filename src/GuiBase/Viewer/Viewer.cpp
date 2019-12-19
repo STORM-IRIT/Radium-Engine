@@ -56,7 +56,7 @@ using namespace Core::Utils; // log
 using namespace glbinding;
 
 #define KMA_VALUE( x ) Gui::KeyMappingManager::KeyMappingAction Gui::Viewer::x;
-KeyMappingViewer;
+KeyMappingViewer
 #undef KMA_VALUE
 
 // Register all keymapings related to the viewer and its managed functionalities (Trackball camera,
