@@ -22,14 +22,17 @@ ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
 ShaderConfiguration::ShaderConfiguration( const std::string& name,
                                           const std::string& vertexShader,
                                           const std::string& fragmentShader ) :
-    m_name{name},
-    m_version{"#version 410"} {
-    m_shaders[ShaderType_VERTEX]   = vertexShader;
-    m_shaders[ShaderType_FRAGMENT] = fragmentShader;
+    m_name{name}, m_version{"#version 410"} {
+    m_shaders[ShaderType_VERTEX]   = {vertexShader, true};
+    m_shaders[ShaderType_FRAGMENT] = {fragmentShader, true};
 }
 
 void ShaderConfiguration::addShader( ShaderType type, const std::string& name ) {
-    m_shaders[type] = name;
+    m_shaders[type] = {name, true};
+}
+
+void ShaderConfiguration::addShaderSource( ShaderType type, const std::string& source ) {
+    m_shaders[type] = {source, false};
 }
 
 void ShaderConfiguration::addProperty( const std::string& prop ) {
@@ -69,9 +72,9 @@ void ShaderConfiguration::addNamedString( const std::string& includepath,
 }
 
 bool ShaderConfiguration::isComplete() const {
-    return ( ( !m_shaders[ShaderType_VERTEX].empty() ) &&
-             ( !m_shaders[ShaderType_FRAGMENT].empty() ) ) ||
-           !m_shaders[ShaderType_COMPUTE].empty();
+    return ( ( !m_shaders[ShaderType_VERTEX].first.empty() ) &&
+             ( !m_shaders[ShaderType_FRAGMENT].first.empty() ) ) ||
+           !m_shaders[ShaderType_COMPUTE].first.empty();
 }
 
 bool ShaderConfiguration::operator<( const ShaderConfiguration& o ) const {

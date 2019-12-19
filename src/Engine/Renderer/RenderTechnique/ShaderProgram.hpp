@@ -102,6 +102,7 @@ class RA_ENGINE_API ShaderProgram final
                      const std::string& name,
                      const std::set<std::string>& props,
                      const std::vector<std::pair<std::string, ShaderType>>& includes,
+                     bool fromFile              = true,
                      const std::string& version = "#version 410" );
 
     GLenum getTypeAsGLEnum( ShaderType type ) const;
@@ -115,7 +116,8 @@ class RA_ENGINE_API ShaderProgram final
   private:
     ShaderConfiguration m_configuration;
 
-    std::array<std::unique_ptr<globjects::Shader>, ShaderType_COUNT> m_shaderObjects;
+    std::array<std::pair<bool, std::unique_ptr<globjects::Shader>>, ShaderType_COUNT>
+        m_shaderObjects;
     std::array<std::unique_ptr<globjects::StaticStringSource>, ShaderType_COUNT> m_shaderSources;
 
     std::unique_ptr<globjects::Program> m_program;
