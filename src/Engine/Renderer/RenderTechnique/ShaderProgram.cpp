@@ -130,10 +130,7 @@ void ShaderProgram::loadShader( ShaderType type,
         fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
     }
     else
-    {
-        auto glslSource = globjects::Shader::sourceFromString( name );
-        fullsource = globjects::Shader::sourceFromString( shaderHeader + glslSource->string() );
-    }
+    { fullsource = globjects::Shader::sourceFromString( shaderHeader + name ); }
 
     // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );

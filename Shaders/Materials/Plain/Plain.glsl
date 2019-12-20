@@ -26,27 +26,28 @@ vec4 getPerVertexBaseColor();
 //----------------------------------------------------------------
 const float Pi = 3.141592653589793;
 
-vec3 getDiffuseColor(Material material, vec2 texCoord)
+vec4 getDiffuseColor(Material material, vec2 texCoord)
 {
+    vec4 dc = vec4 (material.color.rgb, 1);
+
     if (material.perVertexColor == 1)
     {
-        return getPerVertexBaseColor().xyz;
+        dc.rgb = getPerVertexBaseColor().rgb;
     }
     if (material.tex.hasColor == 1)
     {
-        return vec3(texture(material.tex.color, texCoord));
+        dc.rgb = texture(material.tex.color, texCoord).rgb;
     }
 
-    return material.color.rgb;
+    if (material.tex.hasMask == 1 && texture(material.tex.mask, texCoord).r < 0.1) {
+        dc.a = 0;
+    }
+    return dc;
 }
 
 // basecolor is diffuseColor
 vec4 getBaseColor(Material material, vec2 texCoord) {
-    if (material.tex.hasMask == 1 && texture(material.tex.mask, texCoord).r < 0.1) {
-        return vec4(getDiffuseColor(material, texCoord), 0);
-    } else {
-        return vec4(getDiffuseColor(material, texCoord), 1);
-    }
+    return getDiffuseColor(material, texCoord);
 }
 
 // only discard based on texture
@@ -57,7 +58,7 @@ bool toDiscard(Material material, vec4 color) {
 // wi (light direction) and wo (view direction) are in local frame
 // wi dot N is then wi.z ...
 vec3 evaluateBSDF(Material material, vec2 texC, vec3 l, vec3 v) {
-    return max(l.z, 0.0) * getDiffuseColor(material, texC) / Pi;
+    return max(l.z, 0.0) * getDiffuseColor(material, texC).rgb / Pi;
 }
 
 uniform Material material;

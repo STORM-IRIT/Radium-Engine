@@ -69,12 +69,13 @@ struct TextureParameters {
     GLenum magFilter{GL_LINEAR};
     /// External data (ownership is left to caller, not stored after OpenGL texture creation).
     /// Note that, for cubmap texture, this is considered as a "void*[6]" array containing the 6
-    /// faces of the cube corresponding to the targets texels[0] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_X
-    /// texels[1] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-    /// texels[2] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-    /// texels[3] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-    /// texels[4] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-    /// texels[5] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+    /// faces of the cube corresponding to the targets. <br/>
+    /// texels[0] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_X <br/>
+    /// texels[1] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_X <br/>
+    /// texels[2] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Y <br/>
+    /// texels[3] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Y <br/>
+    /// texels[4] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Z <br/>
+    /// texels[5] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Z <br/>
     void* texels{nullptr};
 };
 
