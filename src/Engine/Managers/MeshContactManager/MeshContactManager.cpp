@@ -2520,7 +2520,7 @@ namespace Ra
 
             QueueContact::iterator it = m_mainqueue.begin();
 
-            //uint n = 99;
+            uint n = 99;
 
             while (it != m_mainqueue.end() && m_nb_faces_max > m_nbfaces)
             {
@@ -2537,11 +2537,11 @@ namespace Ra
                         m_nb_faces_max -= (nbfaces - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces());
                         //LOG(logINFO) << "Current nb of faces : " << m_nb_faces_max;
 
-//                        if (m_nb_faces_max == (nbfaces_scene_init / 100) * n || m_nb_faces_max == (nbfaces_scene_init / 100) * n - 1)
-//                        {
-//                            LOG(logINFO) << "LOD : " << n << "%";
-//                            n--;
-//                        }
+                        if (m_nb_faces_max == (nbfaces_scene_init / 100) * n || m_nb_faces_max == (nbfaces_scene_init / 100) * n - 1)
+                        {
+                            LOG(logINFO) << "LOD : " << n << "%";
+                            n--;
+                        }
                     }
                     if (obj->getPriorityQueue()->size() > 0)
                     {
