@@ -65,6 +65,7 @@ namespace Ra
             int getThresholdCluster();
             void setNbClustersToComputeChanged(const int nb);
             void setNbClustersToDisplayChanged(const int nb);
+            void setConstructM01();
             void setConstructM0();
             void setThresholdValueChanged(int value);
             int getThresholdMax();
@@ -131,8 +132,12 @@ namespace Ra
             void scale(Scalar n);
 
             bool edgeErrorComputation(Ra::Core::HalfEdge_ptr h, int objIndex, Scalar& error, Ra::Core::Vector3& p);
+            void constructPriorityQueues1();
+            void updatePriorityQueue1(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
             void constructPriorityQueues2();
             void updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex);
+            bool isConstructM0(int objIndex);
+            bool edgeCollapse1(int objIndex);
             bool edgeCollapse(int objIndex);
 
             void pipelineProx();
@@ -276,9 +281,10 @@ namespace Ra
                     }
                 }
             };
+            //typedef std::set<Ra::Core::PriorityQueue::PriorityQueueData, comparePriorityQueueDataByErrorContact> QueueContact;
+            //QueueContact m_mainqueue;
 
-            typedef std::set<Ra::Core::PriorityQueue::PriorityQueueData, comparePriorityQueueDataByErrorContact> QueueContact;
-            QueueContact m_mainqueue;
+            Ra::Core::PriorityQueue m_mainqueue;
 
             std::vector<int> m_index_pmdata; // array recording in which objects collapses have been done
             int m_curr_vsplit; // index for m_index_pmdata

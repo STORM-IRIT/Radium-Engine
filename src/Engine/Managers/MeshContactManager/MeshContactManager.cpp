@@ -1727,6 +1727,7 @@ namespace Ra
         void MeshContactManager::setComputeAlpha()
         {
             constructPriorityQueues2();
+            //constructPriorityQueues1();
 
             Ra::Core::PriorityQueue::PriorityQueueContainer::iterator it;
 
@@ -2072,6 +2073,7 @@ namespace Ra
             }
 
             constructPriorityQueues2();
+            //constructPriorityQueues1();
         }
 
         void MeshContactManager::kmeans(int k)
@@ -2425,7 +2427,73 @@ namespace Ra
             colorClusters3();
         }
 
+
+        void MeshContactManager::setConstructM01()
+        {
+            //m_mainqueue.clear();
+            m_index_pmdata.clear();
+            m_curr_vsplit = 0;
+
+            m_nbfaces = m_nbfacesinit;
+            int nbfaces_scene_init = m_nb_faces_max;
+
+            LOG(logINFO) << "Simplification begins...";
+
+            // end criterion : number of faces set in the UI
+            int i = 0;
+
+            //QueueContact::iterator it = m_mainqueue.begin();
+
+            //Ra::Core::PriorityQueue::PriorityQueueContainer::iterator it = m_mainqueue.begin();
+
+            uint n = 99;
+
+
+
+            while (!m_mainqueue.empty() && m_nb_faces_max > m_nbfaces)
+            {
+                //const Ra::Core::PriorityQueue::PriorityQueueData &d = *it;
+                const Ra::Core::PriorityQueue::PriorityQueueData &d = m_mainqueue.firstData();
+                MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[d.m_index]);
+                int nbfaces = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces();
+
+                if (nbfaces > 2)
+                {
+                    if (edgeCollapse1(obj->getIndex()))
+                    {
+                        m_index_pmdata.push_back(obj->getIndex());
+                        m_curr_vsplit++;
+                        m_nb_faces_max -= (nbfaces - obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces());
+                        //LOG(logINFO) << "Current nb of faces : " << m_nb_faces_max;
+
+                        if (m_nb_faces_max == (nbfaces_scene_init / 100) * n || m_nb_faces_max == (nbfaces_scene_init / 100) * n - 1)
+                        {
+                            LOG(logINFO) << "LOD : " << n << "%";
+                            n--;
+                        }
+                    }
+                }
+                i++;
+                //m_mainqueue.erase(it);
+                //it = m_mainqueue.begin();
+            }
+
+            LOG(logINFO) << "Simplification ends...";
+
             LOG(logINFO) << "Priority queue time : " << m_pqueue_time << " s";
+
+            for (const auto& elem : m_meshContactElements)
+            {
+                MeshContactElement* obj = static_cast<MeshContactElement*>(elem);
+
+                // switch from DCEL to mesh
+                Ra::Core::TriangleMesh newMesh;
+                Ra::Core::convertPM(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), newMesh);
+                obj->updateTriangleMesh(newMesh);
+            }
+        }
+
+
         void MeshContactManager::setConstructM0()
         {     
             m_mainqueue.clear();
@@ -2643,6 +2711,174 @@ namespace Ra
             }
             return contact;
         }
+
+
+        /// A unique priority queue for the scene
+        void MeshContactManager::constructPriorityQueues1()
+        {
+
+            for (uint objIndex=0; objIndex < m_meshContactElements.size(); objIndex++)
+            {
+                Ra::Core::ProgressiveMeshBase<>* pm = new Ra::Core::ProgressiveMesh<>(&m_initTriangleMeshes[objIndex]);
+                m_meshContactElements[objIndex]->setProgressiveMeshLOD(pm);
+                m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->computeFacesQuadrics();
+                m_meshContactElements[objIndex]->computeFacePrimitives();
+                // reloading the mesh in case of successive simplifications
+                m_meshContactElements[objIndex]->setMesh(m_initTriangleMeshes[objIndex]);
+            }
+
+            /// Boundary method : finding boundary vertices in all meshes
+            if (m_boundary)
+            {
+                LOG(logINFO) << "Boundary vertices computation begins...";
+                for (uint objIndex=0; objIndex < m_meshContactElements.size(); objIndex++)
+                {
+                    std::vector<Ra::Core::Index> boundary;
+                    int nb = m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex.size();
+                    for (uint i = 0; i < nb; i++)
+                    {
+                        Ra::Core::Vertex_ptr& v = m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[i];
+                        uint k = 0;
+                        bool contact = false;
+                        while(k<m_trianglekdtrees.size() && !contact)
+                        {
+                            if (m_proximityPairs2(objIndex,k))
+                            {
+                                if (m_meshContactElements[objIndex]->getProgressiveMeshLOD()->getProgressiveMesh()->isProximityVertex(v->idx, m_trianglekdtrees, k, std::pow(m_broader_threshold,2)))
+                                {
+                                    contact = true;
+                                }
+                            }
+                            k++;
+                        }
+                        if (contact)
+                        {
+                            boundary.push_back(v->idx);
+                        }
+                    }
+                    m_boundaryVertices.push_back(boundary);
+                }
+                LOG(logINFO) << "Boundary vertices computation ends...";
+            }
+
+            LOG(logINFO) << "Priority queue computation begins...";
+
+            for (uint objIndex=0; objIndex < m_nbobjects; objIndex++)
+            {
+            MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
+
+            const uint numTriangles = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.size();
+
+            Ra::Core::Vector4 vertexColor (0, 0, 0, 0);
+            int nbVertices = obj->getMesh()->getGeometry().m_vertices.size();
+            Ra::Core::Vector4Array colors;
+            for (uint v = 0; v < nbVertices; v++)
+            {
+                colors.push_back(vertexColor);
+            }
+            Ra::Core::Vector4 contactColor (0.45,0,0,0);
+
+//#pragma omp parallel for
+            for (unsigned int i = 0; i < numTriangles; i++)
+            {
+
+                // browse edges
+                Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
+                int j;
+                const Ra::Core::Face_ptr& f = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_face.at( i );
+                Ra::Core::HalfEdge_ptr h = f->HE();
+                for (j = 0; j < 3; j++)
+                {
+                    const Ra::Core::Vertex_ptr& vs = h->V();
+                    const Ra::Core::Vertex_ptr& vt = h->Next()->V();
+
+                    // to prevent adding twice the same edge
+                    if (vs->idx > vt->idx)
+                    {
+                        h = h->Next();
+                        continue;
+                    }
+
+                    Scalar error;
+                    bool contact = edgeErrorComputation(h, objIndex, error, p);
+
+                    // coloring proximity zones
+                    if (contact)
+                    {
+                        colors[vs->idx] = contactColor;
+                        colors[vt->idx] = contactColor;
+                    }
+
+                    // insert into the priority queue with the real resulting point
+//#pragma omp critical
+                    {
+                        auto start = std::chrono::high_resolution_clock::now();
+                        m_mainqueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, error, p, objIndex));
+                        auto end = std::chrono::high_resolution_clock::now();
+                        std::chrono::duration<Scalar> elapsed = end - start;
+                        m_pqueue_time += elapsed.count();
+                    }
+
+                    h = h->Next();
+                }
+            }
+            obj->getMesh()->addData(Ra::Engine::Mesh::VERTEX_COLOR, colors);
+
+            }
+
+            LOG(logINFO) << "Priority queue computation ends...";
+            LOG(logINFO) << "Size : " << m_mainqueue.size();
+        }
+
+        void MeshContactManager::updatePriorityQueue1(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex)
+        {
+            MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
+
+            auto start = std::chrono::high_resolution_clock::now();
+            m_mainqueue.removeEdges(vsIndex,objIndex);
+            m_mainqueue.removeEdges(vtIndex,objIndex);
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<Scalar> elapsed = end - start;
+            m_pqueue_time += elapsed.count();
+
+            Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
+
+            // listing of all the new edges formed with vs
+            Ra::Core::VHEIterator vsHEIt = Ra::Core::VHEIterator(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[vsIndex]);
+            Ra::Core::HalfEdgeList adjHE = vsHEIt.list();
+
+            // test if the other vertex of the edge has any contacts
+            for (uint i = 0; i < adjHE.size(); i++)
+            {
+                Ra::Core::HalfEdge_ptr h = adjHE[i];
+
+                const Ra::Core::Vertex_ptr& vs = h->V();
+                const Ra::Core::Vertex_ptr& vt = h->Next()->V();
+
+                Scalar error;
+                edgeErrorComputation(h, objIndex, error, p);
+
+                // insert into the priority queue with the real resulting point
+                // check that the index of the starting point of the edge is smaller than the index of its ending point
+                if (vs->idx < vt->idx)
+                {
+                    start = std::chrono::high_resolution_clock::now();
+                    m_mainqueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, h->F()->idx, error, p, objIndex));
+                    end = std::chrono::high_resolution_clock::now();
+                    elapsed = end - start;
+                    m_pqueue_time += elapsed.count();
+                }
+                else
+                {
+                    start = std::chrono::high_resolution_clock::now();
+                    m_mainqueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vt->idx, vs->idx, h->Twin()->idx, h->Twin()->F()->idx, error, p, objIndex));
+                    end = std::chrono::high_resolution_clock::now();
+                    elapsed = end - start;
+                    m_pqueue_time += elapsed.count();
+                }
+            }
+        }
+
 
         void MeshContactManager::constructPriorityQueues2()
         {
@@ -2883,6 +3119,7 @@ namespace Ra
                 // update the priority queue of the object
                 // updatePriorityQueue(d.m_vs_id, d.m_vt_id, objIndex);
                 updatePriorityQueue2(d.m_vs_id, d.m_vt_id, objIndex);
+                //updatePriorityQueue1(d.m_vs_id, d.m_vt_id, objIndex);
     //            else
     //            {
     //                while (obj->getPriorityQueue()->size() > 0)
@@ -3307,6 +3544,7 @@ namespace Ra
             setComputeAlpha();
             setDisplayProximities();
             setConstructM0();
+            //setConstructM01();
             colorMeshesSimplified();
             HausdorffDistance();
         }
@@ -3315,7 +3553,8 @@ namespace Ra
         {
             setDisplayProximities();
             setConstructM0();
-            colorMeshesSimplified();
+            //setConstructM01();
+            //colorMeshesSimplified();
         }
 
         void MeshContactManager::normalize()
