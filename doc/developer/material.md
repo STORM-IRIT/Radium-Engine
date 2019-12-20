@@ -433,15 +433,15 @@ This file must define the following
         ...
     };
 
-    /// Returns the base color of the material, at the surface coordinates defined by texCoord.
+    /// Returns the base color, or albedo, of the material, at the surface coordinates defined by texCoord.
     /// The returned color will eventually be used to infer if the fragment is transparent or not.
     /// The alpha channel could then vary from 0 (totally transparent) to 1 (totally opaque)
     vec4 getBaseColor(Material material, vec2 texCoord);
 
     /// Returns the so called "Diffuse Color" of the material, at the surface coordinates defined by texCoord.
-    /// This could be the same that the base color (without the alpha channel) or obtaine by 
-    /// a more or less complex computation
-    vec3 getDiffuseColor(Material material, vec2 texCoord);
+    /// This could be the same that the base color or obtained by a more or less complex computation (Fresnel, ...)
+    /// The alpha channel is the same than the one computed for getBaseColor().
+    vec4 getDiffuseColor(Material material, vec2 texCoord);
     
     /// Returns the so called "Specular Color" of the material, at the surface coordinates defined by texCoord.
     /// This could be the same that the base color (without the alpha channel) or obtained by 
