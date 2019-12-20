@@ -9,11 +9,12 @@ namespace Ra
 
         //------------------------------
 
-        void PriorityQueue::removeEdges(int v_id)
+        void PriorityQueue::removeEdges(int v_id, int objIndex)
         {
             PriorityQueueData comparator;
             comparator.m_vs_id = v_id;
             comparator.m_vt_id = -1;
+            comparator.m_index = objIndex;
 
             for (VertexHashContainer::iterator it = m_vertex_hash.find(comparator);
                   it != m_vertex_hash.end();

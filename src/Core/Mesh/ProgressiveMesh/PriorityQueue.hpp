@@ -54,6 +54,8 @@ namespace Ra
                         return a1.m_err < a2.m_err;
                     else
                     {
+                        if (a1.m_index != a2.m_index)
+                            return (a1.m_index < a2.m_index);
                         if (a1.m_fl_id != a2.m_fl_id)
                             return a1.m_fl_id < a2.m_fl_id;
                         else
@@ -93,6 +95,8 @@ namespace Ra
             {
                 inline bool operator()(const PriorityQueueData &a1, const PriorityQueueData &a2) const
                 {
+                    if (a1.m_index != a2.m_index)
+                        return (a1.m_index < a2.m_index);
                     if (a1.m_vs_id != a2.m_vs_id)
                         return a1.m_vs_id < a2.m_vs_id;
                     else
@@ -108,6 +112,15 @@ namespace Ra
             typedef std::set<PriorityQueueData, comparePriorityQueueDataByError> PriorityQueueContainer;
             typedef std::set<PriorityQueueData, comparePriorityQueueDataByVertex> VertexHashContainer;
 
+
+            void clear();
+
+            PriorityQueueContainer::iterator begin();
+
+            PriorityQueueContainer::iterator end();
+
+            void erase(PriorityQueueContainer::iterator it);
+
             /// Insert an element in the priority queue
             void insert(PriorityQueueData item);
 
@@ -119,7 +132,7 @@ namespace Ra
             PriorityQueueData firstData();
 
             /// Delete edges having v_id as vertex
-            void removeEdges(int v_id);
+            void removeEdges(int v_id, int objIndex);
 
             void reserve(size_t size);
             bool empty();

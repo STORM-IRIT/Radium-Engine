@@ -6,6 +6,26 @@ namespace Ra
     namespace Core
     {
 
+        inline void PriorityQueue::clear()
+        {
+            m_priority_queue.clear();
+        }
+
+        inline PriorityQueue::PriorityQueueContainer::iterator PriorityQueue::begin()
+        {
+            return m_priority_queue.begin();
+        }
+
+        inline PriorityQueue::PriorityQueueContainer::iterator PriorityQueue::end()
+        {
+            return m_priority_queue.end();
+        }
+
+        inline void PriorityQueue::erase(PriorityQueueContainer::iterator it)
+        {
+            m_priority_queue.erase(it);
+        }
+
         inline void PriorityQueue::insert(PriorityQueueData item)
         {
             std::pair<PriorityQueueContainer::iterator,bool> pair = m_priority_queue.insert(item);
