@@ -38,7 +38,7 @@ float weight(float z, float alpha) {
 void main()
 {
     // only render non opaque fragments and not fully transparent fragments
-    vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
+    vec4 bc = getDiffuseColor(material, getPerVertexTexCoord().xy);
     // compute the transparency factor
     float a             = bc.a;
     if (!toDiscard(material, bc) || a < 0.001)

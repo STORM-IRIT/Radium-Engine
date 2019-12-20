@@ -15,15 +15,16 @@ out vec4 fragColor;
 
 void main() {
     // discard non opaque fragment
-    vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
+    vec4 bc = getDiffuseColor(material, getPerVertexTexCoord().xy);
     if (toDiscard(material, bc))
-        discard;
+    discard;
     // All vectors are in world space
     // A material is always evaluated in the fragment local Frame
     // compute matrix from World to local Frame
     vec3 normalWorld     = getWorldSpaceNormal();// normalized interpolated normal
     vec3 tangentWorld    = getWorldSpaceTangent();// normalized tangent
     vec3 binormalWorld   = getWorldSpaceBiTangent();// normalized bitangent
+    // Apply normal mapping
     normalWorld         = getNormal(material, getPerVertexTexCoord().xy,
     normalWorld, tangentWorld, binormalWorld);// normalized bump-mapped normal
     binormalWorld         = normalize(cross(normalWorld, tangentWorld));// normalized tangent

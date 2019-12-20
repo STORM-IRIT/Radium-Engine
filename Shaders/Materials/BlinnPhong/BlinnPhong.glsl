@@ -44,18 +44,30 @@ struct Material
 
 
 // Du to access to in_vertexColor this does not respect the "Material.glsl" interface as it access data outside the material
-vec3 getDiffuseColor(Material material, vec2 texCoord)
+vec4 getDiffuseColor(Material material, vec2 texCoord)
 {
+    vec4 dc = vec4(material.kd.rgb, material.alpha);
     if (material.hasPerVertexKd == 1)
     {
-        return getPerVertexBaseColor().xyz;
+        dc.rgb = getPerVertexBaseColor().rgb;
     }
     if (material.tex.hasKd == 1)
     {
-        return vec3(texture(material.tex.kd, texCoord));
+        dc.rgb = texture(material.tex.kd, texCoord).rgb;
     }
+    if (material.tex.hasAlpha == 1)
+    {
+        dc.a *= texture(material.tex.alpha, texCoord).r;
+    }
+    if (material.renderAsSplat == 1)
+    {
+        dc.a = (dot(texCoord, texCoord) > 1) ? 0 : 1;
+    }
+    return dc;
+}
 
-    return material.kd.xyz;
+vec4 getBaseColor(Material material, vec2 texCoord) {
+    return getDiffuseColor(material, texCoord);
 }
 
 vec3 getSpecularColor(Material material, vec2 texCoord)
@@ -65,7 +77,7 @@ vec3 getSpecularColor(Material material, vec2 texCoord)
         return vec3(texture(material.tex.ks, texCoord));
     }
 
-    return material.ks.xyz / Pi; // Phong specular to blinn-phong exponent
+    return material.ks.xyz / Pi;// Phong specular to blinn-phong exponent
 }
 
 float getNs(Material material, vec2 texCoord)
@@ -95,20 +107,6 @@ vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B)
     return normalize(N);
 }
 
-vec4 getBaseColor(Material material, vec2 texCoord) {
-    vec4 bc = vec4(getDiffuseColor(material, texCoord), material.alpha);
-    if (material.tex.hasAlpha == 1)
-    {
-        bc.a *= texture(material.tex.alpha, texCoord).r;
-    }
-    if ( material.renderAsSplat == 1)
-    {
-        bc.a = (dot(texCoord, texCoord) > 1) ? 0 : 1;
-        //        return dot(texCoord, texCoord) > 1;
-    }
-    return bc;
-}
-
 bool toDiscard(Material material, vec4 color) {
     return color.a < 1;
 }
@@ -123,7 +121,7 @@ vec3 evaluateBSDF(Material material, vec2 texC, vec3 l, vec3 v) {
     vec3 h =  normalize(l + v);
     // http://www.thetenthplanet.de/archives/255
     // Minimalist Cook-Torrance using Blinn-Phong approximation
-    vec3 Kd = getDiffuseColor(material, texC) / Pi;
+    vec3 Kd = getDiffuseColor(material, texC).rgb / Pi;
     vec3 diff = Kd;
 
     vec3 Ks = getSpecularColor(material, texC);
