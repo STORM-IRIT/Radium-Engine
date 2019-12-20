@@ -20,6 +20,8 @@
 #include <iostream>
 #include <fstream>
 
+#include<chrono>
+
 namespace Ra
 {
     namespace Engine
@@ -48,6 +50,7 @@ namespace Ra
             ,m_proximity( true )
             ,m_weight( 1 )
             ,m_boundary( false )
+            ,m_pqueue_time( 0 )
         {
         }
 
@@ -2422,6 +2425,7 @@ namespace Ra
             colorClusters3();
         }
 
+            LOG(logINFO) << "Priority queue time : " << m_pqueue_time << " s";
         void MeshContactManager::setConstructM0()
         {     
             m_mainqueue.clear();
@@ -2436,7 +2440,11 @@ namespace Ra
             for (uint e = 0; e < m_nbobjects; e++)
             {
                 MeshContactElement* obj = m_meshContactElements[e];
+                auto start = std::chrono::high_resolution_clock::now();
                 m_mainqueue.insert(obj->getPriorityQueue()->firstData());
+                auto end = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<Scalar> elapsed = end - start;
+                m_pqueue_time += elapsed.count();
             }
 
             // end criterion : number of faces set in the UI
@@ -2469,7 +2477,11 @@ namespace Ra
                     }
                     if (obj->getPriorityQueue()->size() > 0)
                     {
+                        auto start = std::chrono::high_resolution_clock::now();
                         m_mainqueue.insert(obj->getPriorityQueue()->firstData());
+                        auto end = std::chrono::high_resolution_clock::now();
+                        std::chrono::duration<Scalar> elapsed = end - start;
+                        m_pqueue_time += elapsed.count();
                     }
                     else
                     {
@@ -2483,6 +2495,7 @@ namespace Ra
 
             LOG(logINFO) << "Simplification ends...";
 
+            LOG(logINFO) << "Priority queue time : " << m_pqueue_time << " s";
             for (const auto& elem : m_meshContactElements)
             {
                 MeshContactElement* obj = static_cast<MeshContactElement*>(elem);
@@ -2730,7 +2743,11 @@ namespace Ra
                     // insert into the priority queue with the real resulting point
 //#pragma omp critical
                     {
+                        auto start = std::chrono::high_resolution_clock::now();
                         pQueue.insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, i, error, p, objIndex));
+                        auto end = std::chrono::high_resolution_clock::now();
+                        std::chrono::duration<Scalar> elapsed = end - start;
+                        m_pqueue_time += elapsed.count();
                     }
 
                     h = h->Next();
@@ -2748,8 +2765,12 @@ namespace Ra
         void MeshContactManager::updatePriorityQueue2(Ra::Core::Index vsIndex, Ra::Core::Index vtIndex, int objIndex)
         {
             MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
-            obj->getPriorityQueue()->removeEdges(vsIndex);
-            obj->getPriorityQueue()->removeEdges(vtIndex);
+            auto start = std::chrono::high_resolution_clock::now();
+            obj->getPriorityQueue()->removeEdges(vsIndex,objIndex);
+            obj->getPriorityQueue()->removeEdges(vtIndex,objIndex);
+            auto end = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<Scalar> elapsed = end - start;
+            m_pqueue_time += elapsed.count();
 
             Ra::Core::Vector3 p = Ra::Core::Vector3::Zero();
 
@@ -2772,11 +2793,23 @@ namespace Ra
                 // check that the index of the starting point of the edge is smaller than the index of its ending point
                 if (vs->idx < vt->idx)
                 {
+                    start = std::chrono::high_resolution_clock::now();
                     obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vs->idx, vt->idx, h->idx, h->F()->idx, error, p, objIndex));
+                    end = std::chrono::high_resolution_clock::now();
+                    elapsed = end - start;
+                    m_pqueue_time += elapsed.count();
                 }
                 else
                 {
+                    start = std::chrono::high_resolution_clock::now();
                     obj->getPriorityQueue()->insert(Ra::Core::PriorityQueue::PriorityQueueData(vt->idx, vs->idx, h->Twin()->idx, h->Twin()->F()->idx, error, p, objIndex));
+                    end = std::chrono::high_resolution_clock::now();
+                    elapsed = end - start;
+                    m_pqueue_time += elapsed.count();
+                }
+            }
+        }
+
                 }
             }
         }

@@ -154,6 +154,7 @@ namespace Ra
             bool m_proximity;
             Scalar m_weight;
             bool m_boundary;
+            Scalar m_pqueue_time;
 
             // array of boundary vertices of the scene (one array per mesh)
             std::vector<std::vector<Ra::Core::Index> > m_boundaryVertices;
