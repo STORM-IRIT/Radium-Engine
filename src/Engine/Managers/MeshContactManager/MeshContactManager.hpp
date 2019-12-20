@@ -263,7 +263,7 @@ namespace Ra
 
             std::vector<Ra::Core::TriangleMesh> m_initTriangleMeshes; // used for contact computation
 
-            struct comparePriorityQueueDataByErrorContact
+            /*struct comparePriorityQueueDataByErrorContact
             {
                 typedef Ra::Core::PriorityQueue::PriorityQueueData PriorityQueueData;
                 inline bool operator()(const PriorityQueueData &a1, const PriorityQueueData &a2) const
@@ -280,7 +280,8 @@ namespace Ra
                             return a1.m_vs_id + a1.m_vt_id < a2.m_vs_id + a2.m_vt_id;
                     }
                 }
-            };
+            };*/
+
             //typedef std::set<Ra::Core::PriorityQueue::PriorityQueueData, comparePriorityQueueDataByErrorContact> QueueContact;
             //QueueContact m_mainqueue;
 

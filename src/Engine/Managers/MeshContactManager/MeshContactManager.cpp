@@ -2518,7 +2518,9 @@ namespace Ra
             // end criterion : number of faces set in the UI
             int i = 0;
 
-            QueueContact::iterator it = m_mainqueue.begin();
+            //QueueContact::iterator it = m_mainqueue.begin();
+
+            Ra::Core::PriorityQueue::PriorityQueueContainer::iterator it = m_mainqueue.begin();
 
             uint n = 99;
 
@@ -2564,6 +2566,7 @@ namespace Ra
             LOG(logINFO) << "Simplification ends...";
 
             LOG(logINFO) << "Priority queue time : " << m_pqueue_time << " s";
+
             for (const auto& elem : m_meshContactElements)
             {
                 MeshContactElement* obj = static_cast<MeshContactElement*>(elem);
@@ -2880,6 +2883,7 @@ namespace Ra
         }
 
 
+        /// A priority queue per mesh + global priority queue
         void MeshContactManager::constructPriorityQueues2()
         {
 
@@ -3046,9 +3050,111 @@ namespace Ra
             }
         }
 
+        bool MeshContactManager::isConstructM0(int objIndex)
+        {
+            MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
+            Ra::Core::PriorityQueue::PriorityQueueData d = m_mainqueue.firstData();
+            Ra::Core::HalfEdge_ptr he = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
+            if (! obj->getProgressiveMeshLOD()->getProgressiveMesh()->isEcolConsistent(he->idx, d.m_p_result))
+            {
+                m_mainqueue.top();
+                return false;
+            }
+            else if (! obj->getProgressiveMeshLOD()->getProgressiveMesh()->isEcolPossible(he->idx, d.m_p_result))
+            {
+                m_mainqueue.top();
+                return false;
+            }
+            else
+                return true;
+        }
+
+        bool MeshContactManager::edgeCollapse1(int objIndex)
+        {
+            MeshContactElement* obj = static_cast<MeshContactElement*>(m_meshContactElements[objIndex]);
+
+            if (isConstructM0(objIndex))
+            {
+                // edge collapse and putting the collapse data in the ProgressiveMeshLOD
+                Ra::Core::PriorityQueue::PriorityQueueData d = m_mainqueue.top();
+
+                /// Boundary method : if the edge has only one boundary vertex, it will be the resulting vertex (halfedge collapse)
+                if (m_boundary)
+                {
+                    bool vsIsBoundary = false;
+                    bool vtIsBoundary = false;
+
+                    int nb = m_boundaryVertices[objIndex].size();
+
+                    uint i = 0;
+
+                    while ((!vsIsBoundary || !vtIsBoundary) && i < nb)
+                    {
+                        if (m_boundaryVertices[objIndex][i] == d.m_vs_id)
+                        {
+                            vsIsBoundary = true;
+                        }
+                        else if (m_boundaryVertices[objIndex][i] == d.m_vt_id)
+                        {
+                            vtIsBoundary = true;
+                        }
+                        i++;
+                    }
+
+                    if (vsIsBoundary && !vtIsBoundary)
+                    {
+                        d.m_p_result = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[d.m_vs_id]->P();
+                        //LOG(logINFO) << "Halfedge collapse";
+                    }
+                    else if (!vsIsBoundary && vtIsBoundary)
+                    {
+                        d.m_p_result = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_vertex[d.m_vt_id]->P();
+                        m_boundaryVertices[objIndex].push_back(d.m_vs_id);
+                        //LOG(logINFO) << "Halfedge collapse";
+                    }
                 }
+
+                Ra::Core::HalfEdge_ptr he = obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()->m_halfedge[d.m_edge_id];
+
+
+                if (he->Twin() == nullptr)
+                {
+                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseFace();
+                    obj->getProgressiveMeshLOD()->oneVertexSplitPossible();
+                }
+                else
+                {
+                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseFace();
+                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseFace();
+                }
+                obj->getProgressiveMeshLOD()->getProgressiveMesh()->collapseVertex();
+
+                Ra::Core::ProgressiveMeshData data = Ra::Core::DcelOperations::edgeCollapse(*(obj->getProgressiveMeshLOD()->getProgressiveMesh()->getDcel()), d.m_edge_id, d.m_p_result);
+
+                if (obj->getProgressiveMeshLOD()->getProgressiveMesh()->getNbFaces() > 0)
+                {
+                    obj->getProgressiveMeshLOD()->getProgressiveMesh()->updateFacesQuadrics(d.m_vs_id);
+                }
+                // update the priority queue of the object
+                // updatePriorityQueue(d.m_vs_id, d.m_vt_id, objIndex);
+                //updatePriorityQueue2(d.m_vs_id, d.m_vt_id, objIndex);
+                updatePriorityQueue1(d.m_vs_id, d.m_vt_id, objIndex);
+    //            else
+    //            {
+    //                while (obj->getPriorityQueue()->size() > 0)
+    //                    obj->getPriorityQueue()->top();
+    //            }
+                obj->getProgressiveMeshLOD()->addData(data);
+                obj->getProgressiveMeshLOD()->oneEdgeCollapseDone();
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
+
 
         bool MeshContactManager::edgeCollapse(int objIndex)
         {
