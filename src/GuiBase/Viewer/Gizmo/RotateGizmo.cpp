@@ -62,7 +62,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
         std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
         rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
         auto mat              = new Ra::Engine::PlainMaterial( "Rotate Gizmo material" );
-        mat->m_perVertexColor = mesh->getTriangleMesh().hasAttrib(
+        mat->m_perVertexColor = mesh->getCoreGeometry().hasAttrib(
             Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR ) );
         rt->resetMaterial( mat );
         arrowDrawable->setRenderTechnique( rt );

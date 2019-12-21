@@ -153,7 +153,7 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
         mat->m_kd            = Ra::Core::Utils::Color::Grey();
         mat->m_ks            = Ra::Core::Utils::Color::White();
         mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
-        mat->m_hasPerVertexKd =
+        mat->m_perVertexColor =
             m_displayMesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
         rt.setMaterial( mat );
         auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );

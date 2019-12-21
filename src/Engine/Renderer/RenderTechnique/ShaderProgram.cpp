@@ -142,12 +142,13 @@ void ShaderProgram::loadShader( ShaderType type,
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
     // LOG(logDEBUG) << "Compiling shader source \n" << ptrSource.get()->string();
 
-    addShaderFromSource( type, std::move( ptrSource ), name );
+    addShaderFromSource( type, std::move( ptrSource ), name, fromFile );
 }
 
 void ShaderProgram::addShaderFromSource( ShaderType type,
                                          std::unique_ptr<globjects::StaticStringSource>&& ptrSource,
-                                         const std::string& name ) {
+                                         const std::string& name,
+                                         bool fromFile ) {
 
     auto shader = globjects::Shader::create( getTypeAsGLEnum( type ) );
 
@@ -244,7 +245,7 @@ void ShaderProgram::link() {
 
     for ( int i = 0; i < ShaderType_COUNT; ++i )
     {
-        if ( m_shaderObjects[i].second ) { m_program->attach( m_shaderObjects[i].get() ); }
+        if ( m_shaderObjects[i].second ) { m_program->attach( m_shaderObjects[i].second.get() ); }
     }
 
     m_program->setParameter( GL_PROGRAM_SEPARABLE, GL_TRUE );
