@@ -91,9 +91,9 @@ class RA_ENGINE_API DebugRender final
     void renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f& proj );
 
   private:
-    std::unique_ptr<ShaderProgram> m_lineProg;
-    std::unique_ptr<ShaderProgram> m_pointProg;
-    std::unique_ptr<ShaderProgram> m_meshProg;
+    const ShaderProgram* m_lineProg{nullptr};
+    const ShaderProgram* m_pointProg{nullptr};
+    const ShaderProgram* m_meshProg{nullptr};
 
     uint m_modelLineLoc;
     uint m_viewLineLoc;

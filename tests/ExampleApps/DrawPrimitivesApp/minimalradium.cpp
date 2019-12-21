@@ -7,11 +7,11 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
 #include <random>
 
 /* This file contains a minimal radium/qt application which shows the
@@ -33,7 +33,7 @@ void MinimalComponent::initialize() {
     // basic render technique associated with all object here, they use per vertex kd.
     RenderTechnique rt;
     auto mat              = make_shared<BlinnPhongMaterial>( "Default Material" );
-    mat->m_hasPerVertexKd = true;
+    mat->m_perVertexColor = true;
     mat->m_ks             = Utils::Color::White();
     mat->m_ns             = 100_ra;
 
@@ -56,17 +56,28 @@ void MinimalComponent::initialize() {
     std::uniform_int_distribution<uint> disInt( 0, 128 );
 
     //// GRID ////
-    addRenderObject(
-        RenderObject::createRenderObject( "test_grid",
-                                          this,
-                                          RenderObjectType::Geometry,
-                                          DrawPrimitives::Grid( Vector3::Zero(),
-                                                                Vector3::UnitX(),
-                                                                Vector3::UnitZ(),
-                                                                Utils::Color::Grey( 0.6f ),
-                                                                cellSize,
-                                                                8 ),
-                                          rt ) );
+    {
+        RenderTechnique grdrt;
+        // Plain shader
+        auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
+        builder.second( grdrt, false );
+        auto mat              = Ra::Core::make_shared<PlainMaterial>( "Grid material" );
+        mat->m_perVertexColor = true;
+        grdrt.setMaterial( mat );
+        auto gridro =
+            RenderObject::createRenderObject( "test_grid",
+                                              this,
+                                              RenderObjectType::Geometry,
+                                              DrawPrimitives::Grid( Vector3::Zero(),
+                                                                    Vector3::UnitX(),
+                                                                    Vector3::UnitZ(),
+                                                                    Utils::Color::Grey( 0.6f ),
+                                                                    cellSize,
+                                                                    8 ),
+                                              grdrt );
+        gridro->setPickable( false );
+        addRenderObject( gridro );
+    }
 
     //// CUBES ////
     std::shared_ptr<Ra::Engine::Mesh> cube1( new Ra::Engine::Mesh( "Cube" ) );
@@ -75,7 +86,7 @@ void MinimalComponent::initialize() {
         "in_color", Vector4Array{cube1->getNumVertices(), Utils::Color::Green()} );
 
     auto renderObject1 =
-        RenderObject::createRenderObject( "CubeRO", this, RenderObjectType::Geometry, cube1, rt );
+        RenderObject::createRenderObject( "CubeRO_1", this, RenderObjectType::Geometry, cube1, rt );
     renderObject1->setLocalTransform(
         Transform{Translation( Vector3( 3 * cellSize, 0_ra, 0_ra ) )} );
 
@@ -89,7 +100,7 @@ void MinimalComponent::initialize() {
 
     cube2->setAttribNameCorrespondance( "colour", "in_color" );
     auto renderObject2 =
-        RenderObject::createRenderObject( "CubeRO", this, RenderObjectType::Geometry, cube2, rt );
+        RenderObject::createRenderObject( "CubeRO_2", this, RenderObjectType::Geometry, cube2, rt );
     renderObject2->setLocalTransform(
         Transform{Translation( Vector3( 4 * cellSize, 0_ra, 0_ra ) )} );
 
@@ -382,7 +393,7 @@ void MinimalComponent::initialize() {
     cellCorner = {-0.5_ra, 0_ra, 0.25_ra};
 
     addRenderObject( RenderObject::createRenderObject(
-        "test_ray",
+        "test_disk",
         this,
         RenderObjectType::Geometry,
         DrawPrimitives::Disk( cellCorner,

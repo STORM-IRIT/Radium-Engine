@@ -28,54 +28,44 @@ DebugRender::~DebugRender() = default;
 void DebugRender::initialize() {
     /// FIXME : this was not ported to globject ...
     /// \todo FIXED but not tested
+    auto shaderMgr = ShaderProgramManager::getInstance();
+    {
+        const char* lineVertStr = R"(
+                layout (location = 0) in vec3 in_pos;
+                layout (location = 5) in vec3 in_col;
 
-    auto createProgram = []( const char* vertStr, const char* fragStr ) -> ShaderProgram* {
-        ShaderProgram* prog = new ShaderProgram();
-        // return prog;
-        prog->addShaderFromSource( ShaderType_VERTEX,
-                                   globjects::Shader::sourceFromString( vertStr ) );
-        prog->addShaderFromSource( ShaderType_FRAGMENT,
-                                   globjects::Shader::sourceFromString( fragStr ) );
-        prog->link();
+                uniform mat4 model;
+                uniform mat4 view;
+                uniform mat4 proj;
 
-        return prog;
-    };
+                out vec3 v_color;
+                void main()
+                {
+                    gl_Position = proj * view * model * vec4(in_pos, 1.0);
+                    v_color = in_col;
+                }
+                )";
 
-    const char* lineVertStr = R"(
-#version 330
+        const char* lineFragStr = R"(
+                in vec3 v_color;
+                out vec4 f_color;
 
-            layout (location = 0) in vec3 in_pos;
-            layout (location = 5) in vec3 in_col;
+                void main()
+                {
+                    f_color = vec4(v_color, 1.0);
+                }
+                )";
 
-            uniform mat4 model;
-            uniform mat4 view;
-            uniform mat4 proj;
-
-            out vec3 v_color;
-            void main()
-            {
-                gl_Position = proj * view * model * vec4(in_pos, 1.0);
-                v_color = in_col;
-            }
-            )";
-
-    const char* lineFragStr = R"(
-#version 330
-
-            in vec3 v_color;
-            out vec4 f_color;
-
-            void main()
-            {
-                f_color = vec4(v_color, 1.0);
-            }
-            )";
-
-    m_lineProg.reset( createProgram( lineVertStr, lineFragStr ) );
-
-    static const char* pointVertStr = R"(
-#version 330
-
+        Ra::Engine::ShaderConfiguration config{"dbgLineShader"};
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, lineVertStr );
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, lineFragStr );
+        auto added = shaderMgr->addShaderProgram( config );
+        if ( added ) { m_lineProg = added.value(); }
+        else
+        { m_lineProg = nullptr; }
+    }
+    {
+        static const char* pointVertStr = R"(
             layout (location = 0) in vec3 in_pos;
             layout (location = 1) in vec3 in_col;
 
@@ -92,53 +82,59 @@ void DebugRender::initialize() {
             }
             )";
 
-    static const char* pointFragStr = R"(
-#version 330
+        static const char* pointFragStr = R"(
+                in vec3 v_color;
+                out vec4 f_color;
 
-            in vec3 v_color;
-            out vec4 f_color;
+                void main()
+                {
+                    f_color = vec4(v_color, 1.0);
+                }
+                )";
 
-            void main()
-            {
-                f_color = vec4(v_color, 1.0);
-            }
-            )";
+        Ra::Engine::ShaderConfiguration config{"dbgPointShader"};
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, pointVertStr );
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, pointFragStr );
+        auto added = shaderMgr->addShaderProgram( config );
+        if ( added ) { m_pointProg = added.value(); }
+        else
+        { m_pointProg = nullptr; }
+    }
+    {
+        static const char* meshVertStr = R"(
+                layout (location = 0) in vec3 in_pos;
+                layout (location = 5) in vec3 in_col;
 
-    m_pointProg.reset( createProgram( pointVertStr, pointFragStr ) );
+                uniform mat4 model;
+                uniform mat4 view;
+                uniform mat4 proj;
 
-    static const char* meshVertStr = R"(
-#version 330
+                out vec3 v_color;
 
-            layout (location = 0) in vec3 in_pos;
-            layout (location = 5) in vec3 in_col;
+                void main()
+                {
+                    gl_Position = proj * view * model * vec4(in_pos, 1.0);
+                    v_color = in_col;
+                }
+                )";
 
-            uniform mat4 model;
-            uniform mat4 view;
-            uniform mat4 proj;
+        static const char* meshFragStr = R"(
+                in vec3 v_color;
+                out vec4 f_color;
 
-            out vec3 v_color;
-
-            void main()
-            {
-                gl_Position = proj * view * model * vec4(in_pos, 1.0);
-                v_color = in_col;
-            }
-            )";
-
-    static const char* meshFragStr = R"(
-#version 330
-
-            in vec3 v_color;
-            out vec4 f_color;
-
-            void main()
-            {
-                f_color = vec4(v_color, 1.0);
-            }
-            )";
-
-    m_meshProg.reset( createProgram( meshVertStr, meshFragStr ) );
-
+                void main()
+                {
+                    f_color = vec4(v_color, 1.0);
+                }
+                )";
+        Ra::Engine::ShaderConfiguration config{"dbgMeshShader"};
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, meshVertStr );
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, meshFragStr );
+        auto added = shaderMgr->addShaderProgram( config );
+        if ( added ) { m_meshProg = added.value(); }
+        else
+        { m_meshProg = nullptr; }
+    }
     GL_CHECK_ERROR;
 }
 
@@ -180,7 +176,7 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
         mesh.getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
         mesh.updateGL();
         ///\todo
-        mesh.render( m_lineProg.get() );
+        mesh.render( m_lineProg );
     }
 
     m_lines.clear();

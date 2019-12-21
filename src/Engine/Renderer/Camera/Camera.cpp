@@ -45,8 +45,7 @@ void Camera::initialize() {
 
     // Create the RO
     auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );
-    mat->m_perVertexColor =
-        m->getTriangleMesh().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+    mat->m_perVertexColor = true;
     RenderTechnique rt;
     rt.setMaterial( mat );
     rt.setConfiguration( ShaderConfigurationFactory::getConfiguration( "Plain" ) );

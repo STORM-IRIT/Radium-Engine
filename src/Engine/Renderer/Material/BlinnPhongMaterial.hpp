@@ -83,7 +83,7 @@ class RA_ENGINE_API BlinnPhongMaterial final : public Material
     Core::Utils::Color m_ks{0.0, 0.0, 0.0, 1.0};
     Scalar m_ns{1.0};
     Scalar m_alpha{1.0};
-    bool m_hasPerVertexKd{false};
+    bool m_perVertexColor{false};
     bool m_renderAsSplat{false};
 
     /**

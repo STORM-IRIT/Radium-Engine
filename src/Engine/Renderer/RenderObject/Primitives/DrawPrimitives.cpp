@@ -35,7 +35,7 @@ RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
         builder.second( rt, false );
         auto mat = Core::make_shared<PlainMaterial>( "Default material" );
         mat->m_perVertexColor =
-            mesh->getTriangleMesh().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+            mesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
         rt.setMaterial( mat );
     }
 
@@ -375,8 +375,6 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
     Core::Vector3Array vertices = {
         pos, pos + scale * x, pos, pos + scale * y, pos, pos + scale * z};
 
-    std::vector<uint> indices = {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
-
     Core::Vector4Array colors = {
         Core::Utils::Color::Red(),
         Core::Utils::Color::Red(),
@@ -386,7 +384,12 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
         Core::Utils::Color::Blue(),
     };
 
-    MeshPtr mesh( new Mesh( "Frame Primitive", Mesh::RM_LINES_ADJACENCY ) );
+    // std::vector<uint> indices = {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
+    // MeshPtr mesh( new Mesh( "Frame Primitive", Mesh::RM_LINES_ADJACENCY ) );
+
+    std::vector<uint> indices = {0, 1, 2, 3, 4, 5};
+    MeshPtr mesh( new Mesh( "Frame Primitive", Mesh::RM_LINES ) );
+
     mesh->loadGeometry( vertices, indices );
     mesh->getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
 
@@ -535,7 +538,8 @@ MeshPtr LineStrip( const Core::Vector3Array& vertices, const Core::Vector4Array&
     }
     MeshPtr mesh( new Mesh( "Line Strip Primitive", Mesh::RM_LINE_STRIP ) );
     mesh->loadGeometry( vertices, indices );
-    if ( colors.size() > 0 ) { mesh->addData( Mesh::VERTEX_COLOR, colors ); }
+    if ( colors.size() > 0 )
+    { mesh->getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors ); }
     return mesh;
 }
 } // namespace DrawPrimitives
