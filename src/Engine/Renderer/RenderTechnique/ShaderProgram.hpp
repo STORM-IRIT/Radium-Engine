@@ -84,7 +84,8 @@ class RA_ENGINE_API ShaderProgram final
     ///\todo go private, and update ShaderConfiguration to add from source !
     void addShaderFromSource( ShaderType type,
                               std::unique_ptr<globjects::StaticStringSource>&& source,
-                              const std::string& name = "" );
+                              const std::string& name = "",
+                              bool fromFile           = true );
 
     void link();
 

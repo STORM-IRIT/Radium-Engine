@@ -100,14 +100,13 @@ void AttribArrayDisplayable::updatePickingRenderMode() {
         [[fallthrough]];
     case AttribArrayDisplayable::RM_LINE_LOOP: // fall through
         [[fallthrough]];
-    case AttribArrayDisplayable::RM_LINE_STRIP:
-    {
+    case AttribArrayDisplayable::RM_LINE_STRIP: {
         Displayable::m_pickingRenderMode = PKM_LINES;
         break;
     }
     case AttribArrayDisplayable::RM_LINES_ADJACENCY: // fall through
-    case AttribArrayDisplayable::RM_LINE_STRIP_ADJACENCY:
-    {
+        [[fallthrough]];
+    case AttribArrayDisplayable::RM_LINE_STRIP_ADJACENCY: {
         Displayable::m_pickingRenderMode = PKM_LINE_ADJ;
         break;
     }
