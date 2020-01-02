@@ -31,16 +31,23 @@ set(ConfigPackageLocation lib/cmake/Radium)
 # multiple binaries.
 # Use with `configureTargetWithDefaultRaSettings(exampleApp)`
 macro(configureTargetWithDefaultRaSettings TARGET)
-  message( "Configure library ${TARGET} with default settings" )
+  message("Configure library ${TARGET} with default settings")
+
+  if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+      target_compile_definitions(${TARGET}
+              PUBLIC
+              _DEBUG
+              )
+  endif ()
 
   target_include_directories(${TARGET} PUBLIC
-      $<BUILD_INTERFACE:${RADIUM_SRC_DIR}>
-      $<INSTALL_INTERFACE:include>
-      )
+          $<BUILD_INTERFACE:${RADIUM_SRC_DIR}>
+          $<INSTALL_INTERFACE:include>
+          )
   target_compile_features(${TARGET} PUBLIC cxx_std_17)
 
   # Create Exported target properties
-  set_target_properties( ${TARGET} PROPERTIES VERSION ${RADIUM_VERSION} )
+  set_target_properties(${TARGET} PROPERTIES VERSION ${RADIUM_VERSION})
 
   if(OPENMP_FOUND)
     target_link_libraries(${TARGET} PUBLIC OpenMP::OpenMP_CXX)
