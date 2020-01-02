@@ -132,7 +132,7 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProg
         auto attribName = name; // m_translationTableShaderToMesh[name];
         auto attrib     = m_attribManager.getAttribBase( attribName );
 
-        if ( attrib )
+        if ( attrib && attrib->getSize() > 0 )
         {
             m_vao->enable( loc );
             auto binding = m_vao->binding( idx );
@@ -243,7 +243,7 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
         auto attribName = m_translationTableShaderToMesh[name];
         auto attrib     = m_mesh.getAttribBase( attribName );
 
-        if ( attrib )
+        if ( attrib && attrib->getSize() > 0 )
         {
             m_vao->enable( loc );
             auto binding = m_vao->binding( idx );
@@ -422,13 +422,16 @@ void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
     if ( base::m_vao )
     {
         base::autoVertexAttribPointer( prog );
+        GL_CHECK_ERROR;
         base::m_vao->bind();
+        GL_CHECK_ERROR;
         base::m_vao->drawElements( static_cast<GLenum>( base::m_renderMode ),
                                    GLsizei( m_numElements ),
                                    GL_UNSIGNED_INT,
                                    nullptr );
-
+        GL_CHECK_ERROR;
         base::m_vao->unbind();
+        GL_CHECK_ERROR;
     }
 }
 
