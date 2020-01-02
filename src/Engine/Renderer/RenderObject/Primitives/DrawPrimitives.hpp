@@ -116,7 +116,7 @@ RA_ENGINE_API MeshPtr Normal( const Core::Vector3& point,
 RA_ENGINE_API MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale = 0.1f );
 
 /// Create a res*res square grid centered on center,
-/// in plane normal to normal.
+/// in plane defined by the vectors x and y.
 RA_ENGINE_API MeshPtr Grid( const Core::Vector3& center,
                             const Core::Vector3& x,
                             const Core::Vector3& y,

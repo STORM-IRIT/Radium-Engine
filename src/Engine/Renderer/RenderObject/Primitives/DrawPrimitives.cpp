@@ -23,7 +23,7 @@ namespace Engine {
 namespace DrawPrimitives {
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
     ShaderConfiguration config;
-    if ( mesh->getRenderMode() == GL_LINES )
+    if ( mesh->getRenderMode() == Mesh::RM_LINES )
     { config = ShaderConfigurationFactory::getConfiguration( "Lines" ); }
     else
     { config = ShaderConfigurationFactory::getConfiguration( "Plain" ); }
