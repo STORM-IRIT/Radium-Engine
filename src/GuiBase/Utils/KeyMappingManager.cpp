@@ -22,11 +22,11 @@ KeyMappingManager::KeyMappingManager() :
         settings.value( "keymapping/config", m_defaultConfigFile.c_str() ).toString();
     if ( !keyMappingFilename.contains( m_defaultConfigFile.c_str() ) )
     {
-        LOG( logINFO ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
-                       << settings.fileName().toStdString() << ")";
+        LOG( logDEBUG ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
+                        << settings.fileName().toStdString() << ")";
     }
     else
-    { LOG( logINFO ) << "Loading default key mapping " << m_defaultConfigFile; }
+    { LOG( logDEBUG ) << "Loading default key mapping " << m_defaultConfigFile; }
     loadConfiguration( keyMappingFilename.toStdString().c_str() );
 }
 
@@ -120,8 +120,8 @@ void KeyMappingManager::addAction( const std::string& context,
     QString xmlAction;
     QTextStream s( &xmlAction );
     s << elementToAdd;
-    LOG( logINFO ) << "KeyMappingManager : adding The action  "
-                   << xmlAction.chopped( 1 ).toStdString();
+    LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
+                    << xmlAction.chopped( 1 ).toStdString();
 
     domElement.appendChild( elementToAdd );
     saveConfiguration();
@@ -138,15 +138,15 @@ KeyMappingManager::KeyMappingAction
 KeyMappingManager::getActionIndex( const Context& context, const std::string& actionName ) {
     if ( context >= m_actionNameToIndex.size() || context.isInvalid() )
     {
-        LOG( logINFO ) << "try to get action index ( " << actionName
-                       << " ) from an invalid context ( " << context << " )";
+        LOG( logWARNING ) << "try to get action index ( " << actionName
+                          << " ) from an invalid context ( " << context << " )";
 
         return KeyMappingAction{};
     }
     auto itr = m_actionNameToIndex[context].find( actionName );
     if ( itr != m_actionNameToIndex[context].end() ) return itr->second;
-    LOG( logINFO ) << "try to get action index from an invalid action name " << actionName
-                   << "(context #" << context << ")";
+    LOG( logWARNING ) << "try to get action index from an invalid action name " << actionName
+                      << "(context #" << context << ")";
 
     return KeyMappingAction{};
 }
