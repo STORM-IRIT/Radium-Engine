@@ -60,7 +60,7 @@ void DebugRender::initialize() {
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, lineVertStr );
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, lineFragStr );
         auto added = shaderMgr->addShaderProgram( config );
-        if ( added ) { m_lineProg = added.value(); }
+        if ( added ) { m_lineProg = *added /*.value()*/; }
         else
         { m_lineProg = nullptr; }
     }
@@ -96,7 +96,7 @@ void DebugRender::initialize() {
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, pointVertStr );
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, pointFragStr );
         auto added = shaderMgr->addShaderProgram( config );
-        if ( added ) { m_pointProg = added.value(); }
+        if ( added ) { m_pointProg = *added /*.value()*/; }
         else
         { m_pointProg = nullptr; }
     }
@@ -131,7 +131,7 @@ void DebugRender::initialize() {
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, meshVertStr );
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, meshFragStr );
         auto added = shaderMgr->addShaderProgram( config );
-        if ( added ) { m_meshProg = added.value(); }
+        if ( added ) { m_meshProg = *added /*.value()*/; }
         else
         { m_meshProg = nullptr; }
     }
