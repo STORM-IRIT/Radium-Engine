@@ -94,13 +94,11 @@ float getNs(Material material, vec2 texCoord)
 vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B)
 {
     if (material.tex.hasNormal == 1) {
+        vec3 normalLocal = normalize(vec3(texture(material.tex.normal, texCoord)) * 2 - 1);
         mat3 tbn;
-
         tbn[0]  = T;
         tbn[1]  = B;
         tbn[2]  = N;
-
-        vec3 normalLocal = normalize(vec3(texture(material.tex.normal, texCoord)) * 2 - 1);
         return normalize(tbn * normalLocal);
     }
 

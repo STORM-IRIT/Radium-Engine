@@ -27,23 +27,37 @@ MinimalComponent::MinimalComponent( Ra::Engine::Entity* entity ) :
 /// This function is called when the component is properly
 /// setup, i.e. it has an entity.
 void MinimalComponent::initialize() {
-    // Create a cube mesh render object.
-    std::shared_ptr<Ra::Engine::Mesh> display( new Ra::Engine::Mesh( "Cube" ) );
-    display->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
-    // Create BlinnPhong Material and the associated RenderTechnique
-    auto mat  = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "MinimalMaterial" );
-    mat->m_kd = Ra::Core::Utils::Color::Green();
-    mat->m_ks = Ra::Core::Utils::Color::White();
-    Ra::Engine::RenderTechnique renderTechnique;
-    renderTechnique.setMaterial( mat );
+    //! [Creating the Engine Mesh]
+    // Create the Engine mesh
+    std::shared_ptr<Ra::Engine::Mesh> theMesh( new Ra::Engine::Mesh( "Cube" ) );
+    // Set the core geometry of the engine mesh
+    theMesh->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
+    //! [Creating the Engine Mesh]
+    //! [Creating the Material]
+    // Create the desired material - here a Ra::Engine::BlinnPhongMaterial
+    auto theMaterial = Ra::Core::make_shared<Ra::Engine::BlinnPhongMaterial>( "theCubeMaterial" );
+    // Set the material parameters
+    theMaterial->m_kd = Ra::Core::Utils::Color::Green();
+    theMaterial->m_ks = Ra::Core::Utils::Color::White();
+    theMaterial->m_ns = 64_ra;
+    //! [Creating the Material]
+    //! [Creating the RenderTechnique]
+    // Create the render technique
+    Ra::Engine::RenderTechnique theRenderTechnique;
+    // Associate the material
+    theRenderTechnique.setMaterial( theMaterial );
+    // Get the default rendertechnique configurator for the material
     auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
-    builder.second( renderTechnique, true );
-    // Create and add the renderObject to the component
-    auto renderObject = Ra::Engine::RenderObject::createRenderObject(
-        "CubeRO", this, Ra::Engine::RenderObjectType::Geometry, display, renderTechnique );
-    // mark the renderObject as opaque
-    renderObject->setTransparent( false );
-    addRenderObject( renderObject );
+    // Configure the render technique for an opaque material (false arg)
+    builder.second( theRenderTechnique, false );
+    //! [Creating the RenderTechnique]
+    //! [Creating the RenderObject]
+    // Create the renderObject
+    auto theRenderObject = Ra::Engine::RenderObject::createRenderObject(
+        "CubeRO", this, Ra::Engine::RenderObjectType::Geometry, theMesh, theRenderTechnique );
+    // Add the renderObject to the component
+    addRenderObject( theRenderObject );
+    //! [Creating the RenderObject]
 }
 
 /// This function will spin our cube
