@@ -767,6 +767,7 @@ EXCLUDE_SYMBOLS        =
 # the \include command).
 
 EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/examples \
+                         @CMAKE_CURRENT_SOURCE_DIR@/../tests \
                          @CMAKE_CURRENT_BINARY_DIR@/doc-src
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the

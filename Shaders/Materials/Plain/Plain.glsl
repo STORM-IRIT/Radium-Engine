@@ -1,3 +1,5 @@
+#ifndef GLSL_PLAIN_MATERIAL
+#define GLSL_PLAIN_MATERIAL
 // Assume that plain rendering is based on very simple "material"
 // This material could be used with or without lighting.
 // When used with lighting, behave like a pure lambertian material.
@@ -23,10 +25,12 @@ struct Material
 
 //------------------- VertexAttrib interface ---------------------
 vec4 getPerVertexBaseColor();
+vec3 getWorldSpaceNormal();
+
 //----------------------------------------------------------------
 const float Pi = 3.141592653589793;
 
-vec4 getDiffuseColor(Material material, vec2 texCoord)
+vec4 getBaseColor(Material material, vec2 texCoord)
 {
     vec4 dc = vec4 (material.color.rgb, 1);
 
@@ -45,14 +49,14 @@ vec4 getDiffuseColor(Material material, vec2 texCoord)
     return dc;
 }
 
-// basecolor is diffuseColor
-vec4 getBaseColor(Material material, vec2 texCoord) {
-    return getDiffuseColor(material, texCoord);
+// diffuseColor is basecolor
+vec4 getDiffuseColor(Material material, vec2 texCoord) {
+    return getBaseColor(material, texCoord);
 }
 
-// only discard based on texture
-bool toDiscard(Material material, vec4 color) {
-    return (color.a < 0.1);
+// specular color is black
+vec3 getSpecularColor(Material material, vec2 texCoord) {
+    return vec3(0);
 }
 
 // wi (light direction) and wo (view direction) are in local frame
@@ -61,4 +65,17 @@ vec3 evaluateBSDF(Material material, vec2 texC, vec3 l, vec3 v) {
     return max(l.z, 0.0) * getDiffuseColor(material, texC).rgb / Pi;
 }
 
+// Return the world-space normal computed according to the microgeometry definition`
+// As no normal map is defined, return N
+vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B) {
+    return N;
+}
+
+// return true if the fragment must be condidered as transparent (either fully or partially)
+bool toDiscard(Material material, vec4 color) {
+    return (color.a < 0.1);
+}
+
 uniform Material material;
+
+#endif

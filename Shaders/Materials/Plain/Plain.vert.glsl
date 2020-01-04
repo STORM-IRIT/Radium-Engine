@@ -1,24 +1,25 @@
-
+// include required headers
 #include "TransformStructs.glsl"
-
-//This is for a preview of the shader composition, but in time we must use more specific Light Shader
 #include "DefaultLight.glsl"
 
+// declare expected attributes
 layout (location = 0) in vec3 in_position;
 layout (location = 1) in vec3 in_normal;
 layout (location = 4) in vec3 in_texcoord;
 layout (location = 5) in vec4 in_color;
 
+// declare uniforms
 uniform Transform transform;
 uniform int drawFixedSize = 0;
 
-
+// declare output of the vertex shader
 layout (location = 0) out vec3 out_position;
 layout (location = 1) out vec3 out_texcoord;
 layout (location = 2) out vec3 out_normal;
 layout (location = 5) out vec3 out_lightVector;
 layout (location = 6) out vec3 out_vertexColor;
 
+// Main function for vertex shader
 void main()
 {
     mat4 mvp;

@@ -102,12 +102,14 @@ bool BlinnPhongMaterial::isTransparent() const {
 }
 
 void BlinnPhongMaterial::registerMaterial() {
-    /// For internal resources management in a filesystem
+    // For resources access (glsl files) in a filesystem
     std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
-    // Defining Converter
+
+    // Defining the material converter
     EngineMaterialConverters::registerMaterialConverter( materialName,
                                                          BlinnPhongMaterialConverter() );
 
+    // adding the material glsl implementation file
     ShaderProgramManager::getInstance()->addNamedString(
         "/BlinnPhong.glsl", resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.glsl" );
     // registering re-usable shaders
@@ -115,7 +117,6 @@ void BlinnPhongMaterial::registerMaterial() {
         "BlinnPhong",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
-
     Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     Ra::Engine::ShaderConfiguration zprepassconfig(
