@@ -10,19 +10,6 @@ inline void PlainMaterial::addTexture( const TextureSemantic& semantic, Texture*
     m_pendingTextures.erase( semantic );
 }
 
-// Add a texture as material parameter with texture parameter set by default for this material
-inline TextureParameters& PlainMaterial::addTexture( const TextureSemantic& semantic,
-                                                     const std::string& texture ) {
-    CORE_ASSERT( !texture.empty(), "Invalid texture name" );
-
-    TextureParameters data;
-    data.name      = texture;
-    data.wrapS     = GL_REPEAT;
-    data.wrapT     = GL_REPEAT;
-    data.minFilter = GL_LINEAR_MIPMAP_LINEAR;
-    return addTexture( semantic, data );
-}
-
 // Add a texture as material parameter with texture parameter set by the caller
 // The textures will be finalized (i.e loaded from a file if needed and transformed to OpenGL
 // texture) only when needed by the updateGL method.

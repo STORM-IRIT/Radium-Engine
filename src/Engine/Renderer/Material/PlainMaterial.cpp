@@ -1,10 +1,9 @@
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
+
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-
-#include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 #include <Core/Resources/Resources.hpp>
@@ -23,7 +22,6 @@ PlainMaterial::~PlainMaterial() {
 
 void PlainMaterial::updateGL() {
     if ( !m_isDirty ) { return; }
-
     // Load textures
     TextureManager* texManager = TextureManager::getInstance();
     for ( const auto& tex : m_pendingTextures )
@@ -32,10 +30,8 @@ void PlainMaterial::updateGL() {
         bool tolinear         = ( tex.first == TextureSemantic::TEX_COLOR );
         auto texture          = texManager->getOrLoadTexture( tex.second, tolinear );
         m_textures[tex.first] = texture;
-        // do not call addTexture since it invalidate m_pendingTextures itr
-        //       addTexture( tex.first, texture );
     }
-
+    // as all the pending textures where initialized, clear the pending textures list
     m_pendingTextures.clear();
     m_isDirty = false;
 }
@@ -65,7 +61,7 @@ void PlainMaterial::bind( const ShaderProgram* shader ) {
 }
 
 void PlainMaterial::registerMaterial() {
-    /// For internal resources management in a filesystem
+    // Get the Radium Resource location on the filesystem
     std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
 
     ShaderProgramManager::getInstance()->addNamedString(
@@ -87,14 +83,11 @@ void PlainMaterial::registerMaterial() {
     // Registering technique
     Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
         materialName,
-
         []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
-            // Configure the technique to render this object using forward Renderer or any
-            // compatible one Main pass (Mandatory) : Plain
+            // Lighting pass
             auto lightpass = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
             rt.setConfiguration( lightpass, Ra::Engine::RenderTechnique::LIGHTING_OPAQUE );
-
-            // Z prepass (Recommended)
+            // Z prepass
             auto zprepass =
                 Ra::Engine::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
             rt.setConfiguration( zprepass, Ra::Engine::RenderTechnique::Z_PREPASS );

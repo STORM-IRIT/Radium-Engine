@@ -26,9 +26,9 @@ namespace Engine {
 ////        Radium Material converters      ///
 ///////////////////////////////////////////////
 /** A material converter is a couple <std::string,
- * std::function<Ra::Engine::Material*(Ra::Core::Asset::MaterialData*)> The string gives the mname
- of the
- * material, the function is whatever is compatible with std::function :
+ * std::function<Ra::Engine::Material*(Ra::Core::Asset::MaterialData*)> where the string gives the
+ mname
+ * of the material and the function is whatever is compatible with std::function :
  *     - a lambda
  *     - a functor
  *     - a function with bind parameters ....
@@ -38,8 +38,18 @@ namespace Engine {
  */
 namespace EngineMaterialConverters {
 
-using AssetMaterialPtr  = const Ra::Core::Asset::MaterialData*;
+/**
+ * Type of a pointer to an IO/ASSET representation of the material
+ */
+using AssetMaterialPtr = const Ra::Core::Asset::MaterialData*;
+/**
+ * Type of a pointer to an Engine representation of the material
+ */
 using RadiumMaterialPtr = Ra::Engine::Material*;
+
+/**
+ * Type of the conversion functor from IO/ASSET representation to Engine representation
+ */
 using ConverterFunction = std::function<RadiumMaterialPtr( AssetMaterialPtr )>;
 
 /** register a new material converter
