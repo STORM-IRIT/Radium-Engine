@@ -387,13 +387,13 @@ IndexedGeometry<T>::IndexedGeometry( const std::string& name,
 
 template <typename T>
 void IndexedGeometry<T>::loadGeometry( T&& mesh ) {
+    if ( base::m_mesh.m_indices != mesh.m_indices ) { m_indicesDirty = true; }
     m_numElements = mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
     base::loadGeometry_common( std::move( mesh ) );
 }
 
 template <typename T>
 void IndexedGeometry<T>::updateGL_specific_impl() {
-
     if ( !m_indices )
     {
         m_indices      = globjects::Buffer::create();
