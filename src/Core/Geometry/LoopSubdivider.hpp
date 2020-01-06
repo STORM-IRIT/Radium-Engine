@@ -34,7 +34,7 @@ class RA_CORE_API LoopSubdivider
 
     explicit LoopSubdivider( TopologicalMesh& mesh ) : base() { attach( mesh ); }
 
-    ~LoopSubdivider() {}
+    ~LoopSubdivider() { detach(); }
 
   public:
     const char* name( void ) const override { return "LoopSubdivider"; }
