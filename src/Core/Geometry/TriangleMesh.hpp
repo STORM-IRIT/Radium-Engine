@@ -15,7 +15,7 @@ namespace Geometry {
 
 /// Attributes are unique per vertex, so that same position with different
 /// normals are two vertices.
-/// Points and Normals, defining the mesh geometry, are always present.
+/// Points and Normals, defining the geometry, are always present.
 /// They can be accessed through vertices() and normals().
 /// Other attribs could be added with addAttrib() and accesssed with getAttrib().
 /// \note Attribute names "in_position" "in_normal" are reserved and pre-allocated.
@@ -34,37 +34,38 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     using Vec3AttribHandle   = Utils::AttribHandle<Vector3>;
     using Vec4AttribHandle   = Utils::AttribHandle<Vector4>;
 
-    /// Create an empty mesh.
+    /// Create an empty geometry.
     inline AttribArrayGeometry() : AbstractGeometry() { initDefaultAttribs(); }
 
-    /// Copy constructor, copy all the mesh data (faces, geometry, attributes).
+    /// Copy constructor, copy all the data (geometry, attributes).
     /// \note Handles on \p other are not valid for *this.
     inline explicit AttribArrayGeometry( const AttribArrayGeometry& other );
 
-    /// Move constructor, copy all the mesh data (faces, geometry, attributes).
+    /// Move constructor, copy all the data (geometry, attributes).
     /// \note Handles on \p other are also valid for *this.
     inline explicit AttribArrayGeometry( AttribArrayGeometry&& other );
 
-    /// Assignment operator, copy all the mesh data (faces, geometry, attributes).
+    /// Assignment operator, copy all the data (geometry, attributes).
     /// \warning Handles on \p other are not valid for *this.
     inline AttribArrayGeometry& operator=( const AttribArrayGeometry& other );
 
-    /// Move assignment, copy all the mesh data (faces, geometry, attributes).
+    /// Move assignment, copy all the data (geometry, attributes).
     /// \note Handles on \p other are also valid for *this.
     inline AttribArrayGeometry& operator=( AttribArrayGeometry&& other );
 
     ~AttribArrayGeometry() = default;
 
-    /// Appends another mesh to this one, but only if they have the same attributes.
-    /// Return True if the mesh has been successfully appended.
+    /// Appends another AttribArrayGeometry to this one, but only if they have the same attributes.
+    /// Return True if \p other has been successfully appended.
     /// \warning There is no error check on the handles attribute type.
     bool append( const AttribArrayGeometry& other );
 
-    /// Erases all data, making the mesh empty.
+    /// Erases all data, making the AttribArrayGeometry empty.
     void clear() override;
 
     /// Set vertices
     inline void setVertices( PointAttribHandle::Container&& vertices );
+    /// Set vertices
     inline void setVertices( const PointAttribHandle::Container& vertices );
 
     /// Access the vertices positions.
@@ -72,7 +73,9 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     /// Set normals
     inline void setNormals( PointAttribHandle::Container&& normals );
+    /// Set normals
     inline void setNormals( const PointAttribHandle::Container& normals );
+
     /// Access the vertices normals.
     inline const NormalAttribHandle::Container& normals() const;
 
@@ -91,6 +94,8 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     template <typename T>
     inline Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h );
 
+    /// Get attribute by handle.
+    /// \see AttribManager::getAttrib() for more info.
     template <typename T>
     inline Utils::Attrib<T>* getAttribPtr( const Utils::AttribHandle<T>& h );
 
@@ -99,6 +104,8 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     template <typename T>
     inline const Utils::Attrib<T>& getAttrib( const Utils::AttribHandle<T>& h ) const;
 
+    /// Get attribute by handle (const).
+    /// \see AttribManager::getAttrib() for more info.
     inline Utils::AttribBase* getAttribBase( const std::string& name );
 
     /// Check if an attribute exists with the given name.
@@ -134,10 +141,10 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     template <typename T>
     inline void removeAttrib( Utils::AttribHandle<T>& h );
 
-    /// Erases all attributes, leaving the mesh with faces and geometry only.
+    /// Erases all attributes, leaving the AttribArrayGeometry with geometry only.
     inline void clearAttributes();
 
-    /// Copy only the mesh faces and geometry.
+    /// Copy only the geometry.
     /// The needed attributes can be copied through copyAttributes().
     /// \warning Deletes all attributes of *this.
     inline virtual void copyBaseGeometry( const AttribArrayGeometry& other );
@@ -146,7 +153,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// kept untouched, except if overwritten by attributes copied from \p other.
     /// \return True if the attributes have been sucessfully copied, false otherwise.
     /// \note *this and \p input must have the same number of vertices.
-    /// \warning The original handles are not valid for the mesh copy.
+    /// \warning The original handles are not valid for the AttribArrayGeometry copy.
     template <typename... Handles>
     bool copyAttributes( const AttribArrayGeometry& input, Handles... attribs );
 
@@ -154,12 +161,13 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// kept untouched, except if overwritten by attributes copied from \p other.
     /// \return True if the attributes have been sucessfully copied, false otherwise.
     /// \note *this and \p input must have the same number of vertices.
-    /// \warning The original handles are not valid for the mesh copy.
+    /// \warning The original handles are not valid for the AttribArrayGeometry copy.
     inline bool copyAllAttributes( const AttribArrayGeometry& input );
 
     inline Aabb computeAabb() const override;
 
-    /// Utility function colorzing the mesh with a given color. Add the color attribute if needed.
+    /// Utility function colorzing the AttribArrayGeometry with a given color.
+    /// \note Add the color attribute if needed.
     void colorize( const Utils::Color& c );
 
     /// Return the vertexAttribs manager. In case you want to have direct access
@@ -224,13 +232,19 @@ class IndexedGeometry : public AttribArrayGeometry
     inline explicit IndexedGeometry( IndexedGeometry<IndexType>&& other );
     inline IndexedGeometry<IndexType>& operator=( const IndexedGeometry<IndexType>& other );
     inline IndexedGeometry<IndexType>& operator=( IndexedGeometry<IndexType>&& other );
+
     inline void clear() override;
+
+    /// Copy only the geometry and the indices from \p other, but not the attributes.
     inline void copy( const IndexedGeometry<IndexType>& other );
 
-    /// Check that the mesh is well built, asserting when it is not.
+    /// Check that the IndexedGeometry is well built, asserting when it is not.
     /// only compiles to something when in debug mode.
     inline void checkConsistency() const;
 
+    /// Appends another IndexedGeometry to this one, but only if they have the same attributes.
+    /// Return True if \p other has been successfully appended.
+    /// \warning There is no error check on the handles attribute type.
     inline bool append( const IndexedGeometry<IndexType>& other );
 
     ///\todo make it protected
