@@ -174,6 +174,9 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 /// Concept class to ensure consistent naming of VaoIndices accross derived classes.
 class RA_ENGINE_API VaoIndices
 {
+  public:
+    inline void setIndicesDirty();
+
   protected:
     std::unique_ptr<globjects::Buffer> m_indices;
     bool m_indicesDirty{true};
@@ -231,8 +234,17 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
                                                        const typename Core::VectorArray<A>& data );
     inline size_t getNumVertices() const override;
 
-    /// Use the given geometry as base for a display mesh. Normals are optionnal.
+    /// Use the given geometry as base for a display mesh.
+    /// This will move mesh and CoreGeometryDisplayable will take the ownership
+    /// of the data.
+    /// The old owned mesh is deleted, if any.
+    /// This method should be called to set or replace the CoreGeometry, if you
+    /// want to update attributs or indices, use getCoreGeometry and
+    /// Core::Geometry::AttribArrayGeometry setters instead.
+    /// \warning for indices, you must call setIndicesDirty after modification
+    /// \todo add observer mecanism for indices .
     virtual void loadGeometry( CoreGeometry&& mesh );
+
     /// Update (i.e. send to GPU) the buffers marked as dirty
     void updateGL() override;
 
