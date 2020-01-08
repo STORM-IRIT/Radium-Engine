@@ -38,6 +38,11 @@ std::string AttribArrayDisplayable::getAttribName( MeshData type ) {
     if ( type == VERTEX_WEIGHT_IDX ) return {"in_weight_idx"};
     return {"invalid mesh data attr name"};
 }
+///////////////// VaoIndices  ///////////////////////
+
+void VaoIndices::setIndicesDirty() {
+    m_indicesDirty = true;
+}
 
 ///////////////// IndexedAttribArrayDisplayable ///////////////////////
 template <typename I>
@@ -387,13 +392,13 @@ IndexedGeometry<T>::IndexedGeometry( const std::string& name,
 
 template <typename T>
 void IndexedGeometry<T>::loadGeometry( T&& mesh ) {
+    setIndicesDirty();
     m_numElements = mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
     base::loadGeometry_common( std::move( mesh ) );
 }
 
 template <typename T>
 void IndexedGeometry<T>::updateGL_specific_impl() {
-
     if ( !m_indices )
     {
         m_indices      = globjects::Buffer::create();
