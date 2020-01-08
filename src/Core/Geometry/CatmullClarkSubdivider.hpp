@@ -32,7 +32,7 @@ class RA_CORE_API CatmullClarkSubdivider
 
     explicit CatmullClarkSubdivider( TopologicalMesh& mesh ) : base() { attach( mesh ); }
 
-    ~CatmullClarkSubdivider() {}
+    ~CatmullClarkSubdivider() { detach(); }
 
   public:
     const char* name( void ) const override { return "CatmullClarkSubdivider"; }
