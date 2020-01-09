@@ -1,5 +1,6 @@
 #include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
@@ -41,10 +42,11 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c,
     constexpr Scalar radius     = arrowScale * axisWidth / 2_ra;
 
     std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-    rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-    auto mat              = new Ra::Engine::PlainMaterial( "Scale Gizmo material" );
+    auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
+    rt->setConfiguration( *plaincfg );
+    auto mat              = Core::make_shared<Engine::PlainMaterial>( "Scale Gizmo material" );
     mat->m_perVertexColor = true;
-    rt->resetMaterial( mat );
+    rt->setParametersProvider( mat );
 
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )

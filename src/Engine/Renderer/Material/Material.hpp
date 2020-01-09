@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_MATERIAL_HPP
-#define RADIUMENGINE_MATERIAL_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -10,11 +9,7 @@
 // Need to be separated to reduce compilation time
 #include <Core/Types.hpp>
 
-namespace Ra {
-namespace Engine {
-class ShaderProgram;
-}
-} // namespace Ra
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -25,7 +20,7 @@ namespace Engine {
  * transparent materials.
  *
  */
-class RA_ENGINE_API Material
+class RA_ENGINE_API Material : public ShaderParameterProvider
 {
   public:
     enum class MaterialAspect { MAT_OPAQUE, MAT_TRANSPARENT };
@@ -45,19 +40,6 @@ class RA_ENGINE_API Material
 
   public:
     virtual ~Material() = default;
-
-    /** Update the OpenGL states used by the material.
-     * These state could be textures, precomputed tables or whater data associated to the material
-     * and given to OpenGL as a buffer object.
-     */
-    virtual void updateGL() = 0;
-
-    /** Bind the material to the given shader.
-     * This method must set the uniforms and textures of the shader to reflect the state of the
-     * material.
-     * @param shader
-     */
-    virtual void bind( const ShaderProgram* shader ) = 0;
 
     /**
      * @return the name of the material instance
@@ -100,4 +82,3 @@ class RA_ENGINE_API Material
 } // namespace Ra
 
 #include <Engine/Renderer/Material/Material.inl>
-#endif

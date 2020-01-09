@@ -286,6 +286,26 @@ class RA_ENGINE_API Renderer
      */
     virtual std::string getRendererName() const = 0;
 
+    /**
+     * Define, for the given render object, the render technique cooresponding to the renderer.
+     * @param ro the render object to modofy
+     * @return True if the renderTechnique was defined.
+     */
+    virtual bool buildRenderTechnique( RenderObject* ro ) const = 0;
+
+    /**
+     *  Loops over all available renderobjects and, build the associated render technique using
+     *  buildRenderTechnique(RenderObject *ro)
+     * @return the number of render objects initialized
+     */
+    int buildAllRenderTechniques() const;
+
+    /**
+     * get the content of the current frame
+     * @param w width of the region to grab
+     * @param h heigth oif the region to grab
+     * @return the pixel array
+     */
     virtual std::unique_ptr<uchar[]> grabFrame( size_t& w, size_t& h ) const;
 
     PickingResult doPickingNow( const PickingQuery& query, const ViewingParameters& renderData );

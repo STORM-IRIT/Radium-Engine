@@ -27,33 +27,33 @@ namespace Ra {
 namespace Engine {
 
 // Radium V2 : need a bit of cleanup !
+/**
+ * Class to manage renderable objects.
+ * This class associate all the informations needed to draw an object in OpenGL.
+ */
 class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
 {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     /**
-     * A -1 (or any other negative value) lifetime is considered infinite,
-     * 0 is an "invalid value" (would mean the render object has to die immediatly),
-     * hence it's considered as infinite,
-     * any other positive value will be taken into account.
+     * Construct a renderObject
      *
-     * @param name
-     * @param comp
-     * @param type
-     * @param lifetime
+     * @param name the name of the renderObject
+     * @param comp The component that holds the RenderObject
+     * @param type The type (ui, debug, geometry) of the render object
+     * @param lifetime A -1 (or any other negative value) lifetime is considered infinite,
+     *        0 is an "invalid value" (would mean the render object has to die immediatly),
+     *        hence it's considered as infinite,
+     *        any other positive value will be taken into account.
      */
     RenderObject( const std::string& name,
                   Component* comp,
                   const RenderObjectType& type,
                   int lifetime = -1 );
+
     ~RenderObject() override;
 
-    /**
-     *
-     */
-    /// Sort of factory method to easily create a render object.
-    ///     /// TODO : update the above documentation to match the new profile and use case ...
     /**
      * Sort of factory method to easily create a render object.
      * Use case example :
@@ -64,11 +64,14 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      *     RenderObjectType type = RenderObjectType::Geometry; // For example
      *     // Retrieve an already created configuration, or create one (see ShaderConfiguration
      *     docs). ShaderConfiguration config =
-     *     ShaderConfigurationFactory::getConfiguration("MyConfig"); Material* mat = new Material;
+     *     ShaderConfigurationFactory::getConfiguration("MyConfig");
+     *     Material* mat = new Material;
      *     // Then configure your material...
+     *     // Configure your render technique
+     *     RenderTechnique rt;
+     *
      *     // createRenderObject can finally be called.
      *     RenderObject* ro = createRenderObject(name, component, type, config, material);
-     * @todo : update the above documentation to match the new profile and use case ...
      * @param name
      * @param comp
      * @param type
@@ -82,11 +85,10 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
         Component* comp,
         const RenderObjectType& type,
         const std::shared_ptr<Displayable>& mesh,
-        const RenderTechnique& techniqueConfig    = RenderTechnique::createDefaultRenderTechnique(),
-        const std::shared_ptr<Material>& material = nullptr );
+        const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique() );
 
     /**
-     * Updates all the openGL state of the object. Called at the beginning of
+     * Updates all the openGL state of the object. Called at the beginning of each frame
      */
     void updateGL();
 
@@ -122,6 +124,10 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     std::shared_ptr<const RenderTechnique> getRenderTechnique() const;
     std::shared_ptr<RenderTechnique> getRenderTechnique();
 
+    void setMaterial( const std::shared_ptr<Material>& material );
+    std::shared_ptr<const Material> getMaterial() const;
+    std::shared_ptr<Material> getMaterial();
+
     void setMesh( const std::shared_ptr<Displayable>& mesh );
     std::shared_ptr<const Displayable> getMesh() const;
     const std::shared_ptr<Displayable>& getMesh();
@@ -149,9 +155,10 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param viewParams  viewing parameters for this rendering
      * @param shader shader to use for this rendering
      */
-    virtual void render( const RenderParameters& lightParams,
-                         const ViewingParameters& viewParams,
-                         const ShaderProgram* shader );
+    void render( const RenderParameters& lightParams,
+                 const ViewingParameters& viewParams,
+                 const ShaderProgram* shader,
+                 const RenderParameters& shaderParams );
 
     /**
      * Render the object for the given rendering environment defined by the lighting parameters, the
@@ -160,9 +167,9 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param viewParams viewing parameters for this rendering
      * @param passname RenderTechnique pass name
      */
-    virtual void render( const RenderParameters& lightParams,
-                         const ViewingParameters& viewParams,
-                         RenderTechnique::PassName passname = RenderTechnique::LIGHTING_OPAQUE );
+    void render( const RenderParameters& lightParams,
+                 const ViewingParameters& viewParams,
+                 Core::Utils::Index passId = DefaultRenderingPasses::LIGHTING_OPAQUE );
 
   private:
     Core::Transform m_localTransform{Core::Transform::Identity()};
@@ -172,7 +179,8 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
 
     RenderObjectType m_type{RenderObjectType::Geometry};
     std::shared_ptr<RenderTechnique> m_renderTechnique{nullptr};
-    std::shared_ptr<Displayable> m_mesh;
+    std::shared_ptr<Displayable> m_mesh{nullptr};
+    std::shared_ptr<Material> m_material{nullptr};
 
     mutable std::mutex m_updateMutex;
 

@@ -6,6 +6,7 @@ namespace Engine {
 Material::Material( const std::string& instanceName,
                     const std::string& materialName,
                     MaterialAspect aspect ) :
+    ShaderParameterProvider(),
     m_instanceName{instanceName},
     m_aspect{aspect},
     m_materialName{materialName} {}

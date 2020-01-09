@@ -1,0 +1,56 @@
+@startuml
+
+title Future radium rendering\n
+
+ForwardRenderer -> RenderObject ++ : render(globalParameters, cameraParameters, passId)
+    RenderObject --> RenderTechnique ++ : getShader(passId)
+        RenderTechnique --> ConfigurationSet ++ : m_activePasses[passId].second
+        return shader
+    return shader
+
+    RenderObject --> RenderTechnique ++ : getPassParameters(passId)
+    group Polymorphic appearance parameter fetch
+        alt
+        else ** AppearanceParameters** are from Material instance
+            RenderTechnique --> Material ++ : m_passParameters[passId]->getParameters()
+                Material --> RenderParameters ++: fetchCachedUniform()
+                return parameters
+            return parameters
+         else ** AppearanceParameters** are from ShaderParameter instance
+                     RenderTechnique --> ShaderParameter ++ : m_passParameters[passId]->getParameters()
+                         ShaderParameter --> RenderParameters ++: fetchCachedUniform()
+                         return parameters
+                     return parameters
+         else ** AppearanceParameters** are from another AppearanceParameter instance
+         |||
+        end
+    end
+    return passParameters
+
+    RenderObject --> RenderObject : computeModelViewMatrices(cameraParameters)
+    |||
+    RenderObject --> ShaderProgram ++ : shader->bind()
+    |||
+    RenderObject --> RenderParameters ++ : modelViewMatrices.bind(shader)
+        RenderParameters --> ShaderProgram : shader->setUniform(...)*
+        return
+    |||
+    RenderObject --> RenderParameters ++ : globalParameters.bind(shader)
+        RenderParameters --> ShaderProgram : shader->setUniform(...)*
+        return
+    |||
+    RenderObject --> RenderParameters ++ : passParameters->bind(shader)
+        RenderParameters --> ShaderProgram : shader->setUniform(...)*
+        return
+    |||
+    RenderObject --> Mesh ++ : mesh->render(shader)
+        Mesh --> VAO : autoAttrib (bind/unbind VAO)
+        Mesh --> VAO ++ : bind()
+            Mesh --> VAO : draw()
+            Mesh --> VAO : unbind()
+            return
+        return
+    return
+ return
+
+ @enduml

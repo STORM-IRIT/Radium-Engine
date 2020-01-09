@@ -44,14 +44,15 @@ void Camera::initialize() {
     m->loadGeometry( std::move( triMesh ) );
 
     // Create the RO
-    auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );
+    auto mat              = Core::make_shared<PlainMaterial>( m_name + "_Material" );
     mat->m_perVertexColor = true;
     RenderTechnique rt;
-    rt.setMaterial( mat );
-    rt.setConfiguration( ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-
+    auto cfg = ShaderConfigurationFactory::getConfiguration( "Plain" );
+    rt.setConfiguration( *cfg );
+    rt.setParametersProvider( mat );
     m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m, rt );
     m_RO->setLocalTransform( m_frame );
+    m_RO->setMaterial( mat );
     addRenderObject( m_RO );
 }
 

@@ -3,6 +3,7 @@
 #include <Core/Geometry/RayCast.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
 namespace Ra {
 namespace Gui {

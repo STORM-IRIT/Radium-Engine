@@ -1,5 +1,6 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
@@ -139,7 +140,7 @@ void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) 
         { ++it; }
     }
     m_fancyTransparentCount = m_transparentRenderObjects.size();
-    // Question for Radiumv V2 Do we want ui too  ?
+    // Question : do we need to update the RenderTechnique ?
 #endif
 }
 
@@ -173,7 +174,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     RenderParameters zprepassParams;
     for ( const auto& ro : m_fancyRenderObjects )
     {
-        ro->render( zprepassParams, renderData, RenderTechnique::Z_PREPASS );
+        ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
     }
 #ifndef NO_TRANSPARENCY
     // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments (if
@@ -181,7 +182,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     // all their non-opaque fragments
     for ( const auto& ro : m_transparentRenderObjects )
     {
-        ro->render( zprepassParams, renderData, RenderTechnique::Z_PREPASS );
+        ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
     }
 #endif
 
@@ -207,14 +208,16 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
             for ( const auto& ro : m_fancyRenderObjects )
             {
-                ro->render( lightingpassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
+                ro->render(
+                    lightingpassParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
             }
 #ifndef NO_TRANSPARENCY
             // Rendering transparent objects assuming that they discard all their non-opaque
             // fragments
             for ( const auto& ro : m_transparentRenderObjects )
             {
-                ro->render( lightingpassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
+                ro->render(
+                    lightingpassParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
             }
 #endif
         }
@@ -252,8 +255,9 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
                 for ( const auto& ro : m_transparentRenderObjects )
                 {
-                    ro->render(
-                        trasparencypassParams, renderData, RenderTechnique::LIGHTING_TRANSPARENT );
+                    ro->render( trasparencypassParams,
+                                renderData,
+                                DefaultRenderingPasses::LIGHTING_TRANSPARENT );
                 }
             }
         }
@@ -306,7 +310,8 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
                 for ( const auto& ro : m_fancyRenderObjects )
                 {
-                    ro->render( wireframepassParams, renderData, RenderTechnique::LIGHTING_OPAQUE );
+                    ro->render(
+                        wireframepassParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
                 }
                 // This will not work for the moment . skipping wireframe rendering of transparent
                 // objects
@@ -358,29 +363,13 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
         // Draw X rayed objects always on top of normal objects
         GL_ASSERT( glDepthMask( GL_TRUE ) );
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
+        RenderParameters xrayLightParams;
+        xrayLightParams.addParameter( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
+        xrayLightParams.addParameter( "light.type", Light::LightType::DIRECTIONAL );
+        xrayLightParams.addParameter( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
         for ( const auto& ro : m_xrayRenderObjects )
         {
-            if ( ro->isVisible() )
-            {
-                shader = ro->getRenderTechnique()->getShader();
-
-                // bind data
-                shader->bind();
-                // lighting for Xray : fixed
-                shader->setUniform( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
-                shader->setUniform( "light.type", Light::LightType::DIRECTIONAL );
-                shader->setUniform( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
-
-                Core::Matrix4 M = ro->getTransformAsMatrix();
-                shader->setUniform( "transform.proj", renderData.projMatrix );
-                shader->setUniform( "transform.view", renderData.viewMatrix );
-                shader->setUniform( "transform.model", M );
-
-                ro->getRenderTechnique()->getMaterial()->bind( shader );
-
-                // render
-                ro->getMesh()->render( shader );
-            }
+            if ( ro->isVisible() ) { ro->render( xrayLightParams, renderData ); }
         }
         m_uiXrayFbo->unbind();
     }
@@ -420,7 +409,8 @@ void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
             shader->setUniform( "transform.view", renderData.viewMatrix );
             shader->setUniform( "transform.model", M );
 
-            ro->getRenderTechnique()->getMaterial()->bind( shader );
+            auto shaderParameter = ro->getRenderTechnique()->getParametersProvider();
+            if ( shaderParameter != nullptr ) shaderParameter->getParameters().bind( shader );
 
             // render
             ro->getMesh()->render( shader );
@@ -502,6 +492,42 @@ void ForwardRenderer::resizeInternal() {
     { LOG( logERROR ) << "FBO Error (ForwardRenderer::m_uiXrayFbo) : " << m_fbo->checkStatus(); }
     // finished with fbo, undbind to bind default
     globjects::Framebuffer::unbind();
+}
+
+/*
+ * Build renderTechnique for Forward Renderer : this is the default in Radium, so create Default
+ * Render Technique
+ */
+bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
+    auto material = ro->getMaterial();
+    auto builder  = EngineRenderTechniques::getDefaultTechnique( material->getMaterialName() );
+    auto rt       = Core::make_shared<RenderTechnique>();
+    // define the technique for rendering this RenderObject (here, using the default from Material
+    // name)
+    builder.second( *rt, material->isTransparent() );
+    // If renderObject is a point cloud,  add geometry shader for splatting
+    auto RenderedGeometry = dynamic_cast<const Mesh*>( ro->getMesh().get() );
+    if ( RenderedGeometry && RenderedGeometry->getNumFaces() == 0 )
+    {
+        auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
+            if ( rt->hasConfiguration( pass ) )
+            {
+                ShaderConfiguration config = rt->getConfiguration( pass );
+                config.addShader( ShaderType_GEOMETRY,
+                                  std::string( Core::Resources::getRadiumResourcesDir() ) +
+                                      "Shaders/PointCloud.geom.glsl" );
+                rt->setConfiguration( config, pass );
+            }
+        };
+
+        addGeomShader( DefaultRenderingPasses::LIGHTING_OPAQUE );
+        addGeomShader( DefaultRenderingPasses::LIGHTING_TRANSPARENT );
+        addGeomShader( DefaultRenderingPasses::Z_PREPASS );
+    }
+    // make the material the parameter provider for the technique
+    rt->setParametersProvider( material );
+    ro->setRenderTechnique( rt );
+    return true;
 }
 
 void ForwardRenderer::updateShadowMaps() {

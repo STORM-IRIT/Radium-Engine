@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_RENDERPARAMETERS_HPP
-#define RADIUMENGINE_RENDERPARAMETERS_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -19,8 +18,10 @@ class ShaderProgram;
 
 namespace Ra {
 namespace Engine {
+
 /**
- * Management of shader parameters
+ * Management of shader parameters with automatic binding of a named parameter to the corresponding
+ * glsl uniform.
  */
 class RA_ENGINE_API RenderParameters final
 {
@@ -111,19 +112,13 @@ class RA_ENGINE_API RenderParameters final
     void addParameter( const char* name, const Core::Matrix3& value );
     void addParameter( const char* name, const Core::Matrix4& value );
 
-    void addParameter( const char* name, Texture* tex, int texUnit );
-
-    void updateParameter( const char* name, int value );
-    void updateParameter( const char* name, uint value );
-    void updateParameter( const char* name, Scalar value );
-
-    void updateParameter( const char* name, const Core::Vector2& value );
-    void updateParameter( const char* name, const Core::Vector3& value );
-    void updateParameter( const char* name, const Core::Vector4& value );
-
-    void updateParameter( const char* name, const Core::Matrix2& value );
-    void updateParameter( const char* name, const Core::Matrix3& value );
-    void updateParameter( const char* name, const Core::Matrix4& value );
+    /**
+     * Adding a texture parameter.
+     * The default (-1) for the texUnit parameter implies automatic uniform binding for the
+     * texture unit associated with the named sampler.
+     * If texUnit is given, then uniform binding will be made at this explicit location.
+     */
+    void addParameter( const char* name, Texture* tex, int texUnit = -1 );
 
     void concatParameters( const RenderParameters& params );
 
@@ -138,7 +133,7 @@ class RA_ENGINE_API RenderParameters final
     }
 
   private:
-    // Radium V2 : Any way to simplify this a bit ?
+    // Radium V2 : Any way to simplify this a bit ? See Mesh attribs
     UniformBindableVector<IntParameter> m_intParamsVector;
     UniformBindableVector<UIntParameter> m_uintParamsVector;
     UniformBindableVector<ScalarParameter> m_scalarParamsVector;
@@ -158,9 +153,31 @@ class RA_ENGINE_API RenderParameters final
     UniformBindableVector<TextureParameter> m_texParamsVector;
 };
 
+/**
+ * Shader program parameter provider.
+ * a ShaderParameterProvider is an object that is associated to a render technique to provide the
+ * uniform parameter set for the program. When an RenderObject is drawn using a given
+ * rendertechnique, the ShaderParameterProvider associated to the renderTechnique is responsible to
+ * set all the uniforms needed by the rendertechnique.
+ */
+class ShaderParameterProvider
+{
+  public:
+    virtual ~ShaderParameterProvider() = default;
+    const RenderParameters& getParameters() const { return m_renderParameters; }
+    /**
+     * Update the OpenGL states used by the material.
+     * These state could be textures, precomputed tables or whater data associated to the material
+     * and given to OpenGL as a buffer object.
+     */
+    virtual void updateGL() = 0;
+
+  protected:
+    RenderParameters m_renderParameters;
+};
+
 } // namespace Engine
 } // namespace Ra
 
 #include <Engine/Renderer/RenderTechnique/RenderParameters.inl>
 
-#endif // RADIUMENGINE_RENDERPARAMETERS_HPP

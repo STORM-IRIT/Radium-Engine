@@ -1,5 +1,6 @@
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
@@ -60,11 +61,12 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
             new Engine::RenderObject( "Gizmo Torus", m_comp, Engine::RenderObjectType::UI );
 
         std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-        rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-        auto mat              = new Ra::Engine::PlainMaterial( "Rotate Gizmo material" );
+        auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
+        rt->setConfiguration( *plaincfg );
+        auto mat              = Core::make_shared<Engine::PlainMaterial>( "Rotate Gizmo material" );
         mat->m_perVertexColor = mesh->getCoreGeometry().hasAttrib(
             Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR ) );
-        rt->resetMaterial( mat );
+        rt->setParametersProvider( mat );
         arrowDrawable->setRenderTechnique( rt );
 
         arrowDrawable->setMesh( mesh );

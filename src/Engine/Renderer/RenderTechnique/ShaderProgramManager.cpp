@@ -122,7 +122,6 @@ void ShaderProgramManager::reloadAllShaderPrograms() {
     // For each shader in the map
     for ( auto& shader : m_shaderPrograms )
     {
-
         shader.second->reload();
     }
 

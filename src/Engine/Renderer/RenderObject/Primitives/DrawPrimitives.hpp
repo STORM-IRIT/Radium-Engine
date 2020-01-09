@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DRAW_PRIMITIVES_HPP_
-#define RADIUMENGINE_DRAW_PRIMITIVES_HPP_
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -143,5 +142,3 @@ RA_ENGINE_API MeshPtr LineStrip( const Core::Vector3Array& vertices,
 } // namespace DrawPrimitives
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_DRAW_PRIMITIVES_HPP_

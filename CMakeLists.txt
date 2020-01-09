@@ -85,10 +85,10 @@ set(CMAKE_DEBUG_POSTFIX d)
 
 #-------------------------------------------------------------------------------
 # Set default paths for Radium
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-Debug)
-else ()
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
     set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
+else ()
+    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
 endif ()
 set(RADIUM_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(RADIUM_SHADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
