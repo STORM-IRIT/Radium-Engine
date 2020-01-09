@@ -11,7 +11,7 @@ namespace Geometry {
 /// GLOBAL MATRIX ///
 /////////////////////
 
-AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
+AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const AlignedStdVector<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
     for ( const auto& t : T )
@@ -27,7 +27,9 @@ AreaMatrix oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3
     return A;
 }
 
-void oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T, AreaMatrix& A ) {
+void oneRingArea( const VectorArray<Vector3>& p,
+                  const AlignedStdVector<Vector3ui>& T,
+                  AreaMatrix& A ) {
     A.resize( p.size(), p.size() );
     A.reserve( p.size() );
     int size = int( T.size() );
@@ -48,12 +50,12 @@ void oneRingArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T
     }
 }
 
-AreaMatrix barycentricArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
+AreaMatrix barycentricArea( const VectorArray<Vector3>& p, const AlignedStdVector<Vector3ui>& T ) {
     return ( ( Scalar( 1. ) / Scalar( 3. ) ) * oneRingArea( p, T ) );
 }
 
 void barycentricArea( const VectorArray<Vector3>& p,
-                      const VectorArray<Vector3ui>& T,
+                      const AlignedStdVector<Vector3ui>& T,
                       AreaMatrix& A ) {
     oneRingArea( p, T, A );
     int size = int( p.size() );
@@ -64,7 +66,7 @@ void barycentricArea( const VectorArray<Vector3>& p,
     }
 }
 
-AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
+AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const AlignedStdVector<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
     for ( const auto& t : T )
@@ -82,7 +84,7 @@ AreaMatrix voronoiArea( const VectorArray<Vector3>& p, const VectorArray<Vector3
     return ( ( 1.0 / 8.0 ) * A );
 }
 
-AreaMatrix mixedArea( const VectorArray<Vector3>& p, const VectorArray<Vector3ui>& T ) {
+AreaMatrix mixedArea( const VectorArray<Vector3>& p, const AlignedStdVector<Vector3ui>& T ) {
     AreaMatrix A( p.size(), p.size() );
     A.reserve( p.size() );
 
