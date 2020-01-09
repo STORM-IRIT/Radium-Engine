@@ -44,12 +44,12 @@ void MinimalComponent::initialize() {
     //! [Creating the RenderTechnique]
     // Create the render technique
     Ra::Engine::RenderTechnique theRenderTechnique;
-    // Associate the material
-    theRenderTechnique.setMaterial( theMaterial );
     // Get the default rendertechnique configurator for the material
     auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
     // Configure the render technique for an opaque material (false arg)
     builder.second( theRenderTechnique, false );
+    // Associate the material as parameter proviedr for rendering
+    theRenderTechnique.setParametersProvider( theMaterial );
     //! [Creating the RenderTechnique]
     //! [Creating the RenderObject]
     // Create the renderObject

@@ -37,9 +37,9 @@ void MinimalComponent::initialize() {
     mat->m_ks             = Utils::Color::White();
     mat->m_ns             = 100_ra;
 
-    rt.setMaterial( mat );
     auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
     builder.second( rt, false );
+    rt.setParametersProvider( mat );
 
     //// setup ////
     Scalar colorBoost = 3_ra; /// since simple primitive are ambient only, boost
@@ -63,7 +63,7 @@ void MinimalComponent::initialize() {
         builder.second( grdrt, false );
         auto mat              = Ra::Core::make_shared<PlainMaterial>( "Grid material" );
         mat->m_perVertexColor = true;
-        grdrt.setMaterial( mat );
+        grdrt.setParametersProvider( mat );
         auto gridro =
             RenderObject::createRenderObject( "test_grid",
                                               this,

@@ -123,7 +123,8 @@ void Renderer::initialize( uint width, uint height ) {
     ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
     pickingTrianglesConfig.addShader( ShaderType_VERTEX,
                                       resourcesRootDir + "Shaders/Picking/Picking.vert.glsl" );
-    pickingTrianglesConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Picking/PickingTriangles.geom.glsl" );
+    pickingTrianglesConfig.addShader(
+        ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Picking/PickingTriangles.geom.glsl" );
     pickingTrianglesConfig.addShader( ShaderType_FRAGMENT,
                                       resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
@@ -244,17 +245,22 @@ void Renderer::render( const ViewingParameters& data ) {
     saveExternalFBOInternal();
 
     // 1. Gather render objects if needed
+    // TODO : make this only once and only update modified objects at each frame
+    //  Actually, this correspond to 3 loops over all ROs. Could be done without loops, just by
+    //  using observers
     feedRenderQueuesInternal( data );
 
     m_timerData.feedRenderQueuesEnd = Core::Utils::Clock::now();
 
     // 2. Update them (from an opengl point of view)
-    // FIXME(Charly): Maybe we could just update objects if they need it
-    // before drawing them, that would be cleaner (performance problem ?)
+    // TODO : This naively updates the OpenGL State of objects at each frame.
+    //  Do it only for modified objects (With an observer ?)
     updateRenderObjectsInternal( data );
     m_timerData.updateEnd = Core::Utils::Clock::now();
 
     // 3. Do picking if needed
+    // TODO : Make picking musch more effient.
+    //  Do not need to loop twice on objects to implement picking.
     m_pickingResults.clear();
     if ( !m_pickingQueries.empty() ) { doPicking( data ); }
     m_lastFramePickingQueries = m_pickingQueries;
@@ -281,6 +287,9 @@ void Renderer::render( const ViewingParameters& data ) {
     m_timerData.renderEnd = Core::Utils::Clock::now();
 
     // 9. Tell renderobjects they have been drawn (to decreaase the counter)
+    // TODO : this must be done when rendering the object, not after.
+    // doeing this here make looping on Ros twice (at least) and even much more due to
+    // implementations of indirectly called methods.
     notifyRenderObjectsRenderingInternal();
 }
 
@@ -711,6 +720,19 @@ bool Renderer::hasLight() const {
     for ( auto m : m_lightmanagers )
         n += m->count();
     return n != 0;
+}
+
+int Renderer::buildAllRenderTechniques() const {
+    std::vector<RenderObjectPtr> renderObjects;
+    m_roMgr->getRenderObjectsByType( renderObjects, RenderObjectType::Geometry );
+    if ( renderObjects.size() > 0 )
+    {
+        for ( auto& ro : renderObjects )
+        {
+            buildRenderTechnique( ro.get() );
+        }
+    }
+    return 0;
 }
 } // namespace Engine
 } // namespace Ra

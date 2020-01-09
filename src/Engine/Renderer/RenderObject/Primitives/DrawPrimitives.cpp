@@ -22,25 +22,18 @@ using namespace Core::Geometry;
 namespace Engine {
 namespace DrawPrimitives {
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
-
     RenderTechnique rt;
-    if ( mesh->getRenderMode() == Mesh::RM_LINES )
-    {
-        auto config = ShaderConfigurationFactory::getConfiguration( "Lines" );
-        rt.setConfiguration( config );
-    }
-    else
-    {
-        auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
-        builder.second( rt, false );
-        auto mat = Core::make_shared<PlainMaterial>( "Default material" );
-        mat->m_perVertexColor =
-            mesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
-        rt.setMaterial( mat );
-    }
+    auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
+    builder.second( rt, false );
+    auto roMaterial = Core::make_shared<PlainMaterial>( "Default material" );
+    roMaterial->m_perVertexColor =
+        mesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+    rt.setParametersProvider( roMaterial );
 
-    return RenderObject::createRenderObject(
+    auto ro = RenderObject::createRenderObject(
         mesh->getName(), component, RenderObjectType::Debug, mesh, rt );
+    ro->setMaterial( roMaterial );
+    return ro;
 }
 
 LineMeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, Scalar scale ) {
@@ -384,9 +377,6 @@ MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
         Core::Utils::Color::Blue(),
     };
 
-    // std::vector<uint> indices = {0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
-    // MeshPtr mesh( new Mesh( "Frame Primitive", Mesh::RM_LINES_ADJACENCY ) );
-
     std::vector<uint> indices = {0, 1, 2, 3, 4, 5};
     MeshPtr mesh( new Mesh( "Frame Primitive", Mesh::RM_LINES ) );
 
@@ -521,9 +511,6 @@ MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
     return mesh;
 }
 
-/*
- *
- */
 MeshPtr LineStrip( const Core::Vector3Array& vertices, const Core::Vector4Array& colors ) {
 
     std::vector<uint> indices( vertices.size() );

@@ -1,5 +1,6 @@
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
@@ -35,10 +36,11 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
     constexpr Scalar arrowFrac  = .15_ra;
 
     std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-    rt->setConfiguration( Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" ) );
-    auto mat              = new Ra::Engine::PlainMaterial( "Translate Gizmo material" );
+    auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
+    rt->setConfiguration( *plaincfg );
+    auto mat              = Core::make_shared<Engine::PlainMaterial>( "Translate Gizmo material" );
     mat->m_perVertexColor = true;
-    rt->resetMaterial( mat );
+    rt->setParametersProvider( mat );
 
     // For x,y,z
     for ( uint i = 0; i < 3; ++i )

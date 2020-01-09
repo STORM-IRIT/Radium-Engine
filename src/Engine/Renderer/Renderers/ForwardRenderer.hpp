@@ -29,6 +29,7 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     ~ForwardRenderer() override;
 
     std::string getRendererName() const override { return "Forward Renderer"; }
+    bool buildRenderTechnique( RenderObject* ro ) const override;
 
   protected:
     void initializeInternal() override;

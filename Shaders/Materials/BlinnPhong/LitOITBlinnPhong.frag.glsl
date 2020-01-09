@@ -7,14 +7,19 @@ layout (location = 1) out vec4 f_Revealage;
 
 #include "VertexAttribInterface.frag.glsl"
 
+layout (location = 5) in vec3 in_viewVector;
+layout (location = 6) in vec3 in_lightVector;
+
 //implementation of weight functions of the paper
 // Weighted Blended Order-Independent Transparency
 // 	Morgan McGuire, Louis Bavoil - NVIDIA
 // Journal of Computer Graphics Techniques (JCGT), vol. 2, no. 2, 122-141, 2013
 // http://jcgt.org/published/0002/02/09/
 
-// remark : manage only non colored transmission. see the paper for :
-// ... non-refractive colored transmission can be implemented as a simple extension by processing a separate coverage value per color channel
+// remark : manage only non colored transmission. Direct implementation of the above paper without the suggested
+// extension :
+// ... non-refractive colored transmission can be implemented as a simple extension by processing a separate coverage
+//  value per color channel
 
 // Note, z range from 0 at the camera to +infinity far away ...
 

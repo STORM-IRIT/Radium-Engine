@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SHADERPROGRAM_HPP
-#define RADIUMENGINE_SHADERPROGRAM_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -126,5 +125,3 @@ class RA_ENGINE_API ShaderProgram final
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_SHADERPROGRAM_HPP

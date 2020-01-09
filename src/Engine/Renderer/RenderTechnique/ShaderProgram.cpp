@@ -12,14 +12,6 @@
 
 #include <regex>
 
-#ifdef OS_WINDOWS
-#    include <direct.h>
-#    define getCurrentDir _getcwd
-#else
-#    include <unistd.h>
-#    define getCurrentDir getcwd
-#endif
-
 #include <Core/Math/GlmAdapters.hpp>
 
 #include <Core/Utils/Log.hpp>
@@ -34,27 +26,13 @@ namespace Engine {
 using namespace Core::Utils; // log
 
 ShaderProgram::ShaderProgram() : m_program{nullptr} {
-    // This does not compile
-    // std::fill( m_shaderObjects.begin(), m_shaderObjects.end(),
-    //               std::pair<bool, std::unique_ptr<globjects::Shader> >{false, nullptr});
-    for ( auto& e : m_shaderObjects )
-    {
-        e.first  = false;
-        e.second = nullptr;
-    }
+    std::generate( m_shaderObjects.begin(), m_shaderObjects.end(), []() {
+        return std::pair<bool, std::unique_ptr<globjects::Shader>>{false, nullptr};
+    } );
     std::fill( m_shaderSources.begin(), m_shaderSources.end(), nullptr );
 }
 
-ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : m_program{nullptr} {
-    // This does not compile
-    // std::fill( m_shaderObjects.begin(), m_shaderObjects.end(),
-    //               std::pair<bool, std::unique_ptr<globjects::Shader> >{false, nullptr});
-    for ( auto& e : m_shaderObjects )
-    {
-        e.first  = false;
-        e.second = nullptr;
-    }
-    std::fill( m_shaderSources.begin(), m_shaderSources.end(), nullptr );
+ShaderProgram::ShaderProgram( const ShaderConfiguration& config ) : ShaderProgram() {
     load( config );
 }
 
@@ -135,13 +113,16 @@ void ShaderProgram::loadShader( ShaderType type,
     // Radium V2 : allow to define global replacement per renderer, shader, rendertechnique ...
     auto shaderSource = globjects::Shader::applyGlobalReplacements( fullsource.get() );
 
-    // Workaround globject #include bug ...
-    // Radium V2 : update globject to see if tis bug is always here ...
+#if 1
+    // Workaround for #include directive
+    // Radium VB2 : rely on GL_ARB_shading_language_include to manage includes
     std::string preprocessedSource = preprocessIncludes( name, shaderSource->string(), 0 );
 
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
     // LOG(logDEBUG) << "Compiling shader source \n" << ptrSource.get()->string();
-
+#else
+    auto ptrSource = globjects::Shader::sourceFromString( shaderSource->string() );
+#endif
     addShaderFromSource( type, std::move( ptrSource ), name, fromFile );
 }
 
