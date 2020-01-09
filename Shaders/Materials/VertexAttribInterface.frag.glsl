@@ -6,12 +6,11 @@
 *****/
 //----------------- Supported vertex Attribs ---------------------
 layout (location = 0) in vec3 in_position;
-layout (location = 1) in vec3 in_texcoord;
-layout (location = 2) in vec3 in_normal;
-layout (location = 3) in vec3 in_tangent;
-layout (location = 4) in vec3 in_viewVector;
-layout (location = 5) in vec3 in_lightVector;
-layout (location = 6) in vec3 in_color;
+layout (location = 1) in vec3 in_normal;
+layout (location = 2) in vec3 in_texcoord;
+layout (location = 3) in vec3 in_vertexcolor;
+layout (location = 4) in vec3 in_tangent;
+
 
 //------------------- VertexAttrib interface ---------------------
 vec4 getWorldSpacePosition() {
@@ -45,5 +44,5 @@ vec3 getPerVertexTexCoord() {
 }
 
 vec4 getPerVertexBaseColor() {
-    return vec4(in_color, 1.0);
+    return vec4(in_vertexcolor, 1.0);
 }

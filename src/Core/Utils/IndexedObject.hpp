@@ -8,6 +8,9 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 
+/**
+ * Base class for objects that will be used through an index.
+ */
 class IndexedObject
 {
   public:

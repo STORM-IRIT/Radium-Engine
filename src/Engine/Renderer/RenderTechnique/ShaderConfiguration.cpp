@@ -2,11 +2,15 @@
 
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
+#include <Core/Resources/Resources.hpp>
+
 /**
  * Plain will be the default shader program
  */
-static const std::string defaultVertexShader{"Shaders/Materials/Plain/Plain.vert.glsl"};
-static const std::string defaultFragmentShader{"Shaders/Materials/Plain/Plain.frag.glsl"};
+static const std::string defaultVertexShader{Ra::Core::Resources::getRadiumResourcesDir() +
+                                             "Shaders/Materials/Plain/Plain.vert.glsl"};
+static const std::string defaultFragmentShader{Ra::Core::Resources::getRadiumResourcesDir() +
+                                               "Shaders/Materials/Plain/Plain.frag.glsl"};
 
 namespace Ra {
 namespace Engine {
@@ -22,7 +26,8 @@ ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
 ShaderConfiguration::ShaderConfiguration( const std::string& name,
                                           const std::string& vertexShader,
                                           const std::string& fragmentShader ) :
-    m_name{name}, m_version{"#version 410"} {
+    m_name{name},
+    m_version{"#version 410"} {
     m_shaders[ShaderType_VERTEX]   = {vertexShader, true};
     m_shaders[ShaderType_FRAGMENT] = {fragmentShader, true};
 }
@@ -62,8 +67,8 @@ void ShaderConfiguration::addIncludes( const std::list<std::string>& incls, Shad
 }
 
 void ShaderConfiguration::removeInclude( const std::string& incl, ShaderType type ) {
-    // Part of Radium V2 composable shader system
-    // m_properties.erase( "#include " + prop );
+    CORE_UNUSED( type );
+    m_properties.erase( "#include " + incl );
 }
 
 void ShaderConfiguration::addNamedString( const std::string& includepath,

@@ -14,16 +14,15 @@ uniform int drawFixedSize = 0;
 
 // declare output of the vertex shader
 layout (location = 0) out vec3 out_position;
-layout (location = 1) out vec3 out_texcoord;
-layout (location = 2) out vec3 out_normal;
-layout (location = 5) out vec3 out_lightVector;
-layout (location = 6) out vec3 out_vertexColor;
+layout (location = 1) out vec3 out_normal;
+layout (location = 2) out vec3 out_texcoord;
+layout (location = 3) out vec3 out_vertexcolor;
 
 // Main function for vertex shader
 void main()
 {
     mat4 mvp;
-    if ( drawFixedSize > 0 )
+    if (drawFixedSize > 0)
     {
         // distance to camera
         mat4 modelView = transform.view * transform.model;
@@ -39,7 +38,7 @@ void main()
     }
 
     gl_Position = mvp * vec4(in_position, 1.0);
-    out_vertexColor = in_color.rgb;
+    out_vertexcolor = in_color.rgb;
     out_texcoord = in_texcoord;
 
     vec4 pos = transform.model * vec4(in_position, 1.0);
@@ -49,5 +48,4 @@ void main()
     vec3 normal = mat3(transform.worldNormal) * in_normal;
     out_normal      = normal;
 
-    out_lightVector = getLightDirection(light, out_position);
 }

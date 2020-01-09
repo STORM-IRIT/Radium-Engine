@@ -5,10 +5,10 @@
 
 #include "VertexAttribInterface.frag.glsl"
 
-uniform sampler2D uShadowMap;
+layout (location = 5) in vec3 in_viewVector;
+layout (location = 6) in vec3 in_lightVector;
 
 out vec4 fragColor;
-
 
 // -----------------------------------------------------------
 

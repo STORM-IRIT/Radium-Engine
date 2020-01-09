@@ -1,5 +1,5 @@
 #include "DefaultLight.glsl"
-#include "Plain.glsl"
+#include "Lambertian.glsl"
 #include "VertexAttribInterface.frag.glsl"
 
 layout (location = 5) in vec3 in_viewVector;
@@ -12,6 +12,8 @@ void main()
     vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
     if (toDiscard(material, bc))
     discard;
-    out_color = vec4(bc.rgb, 1);
+
+    vec3 le    = lightContributionFrom(light, getWorldSpacePosition().xyz);
+    out_color = vec4(bc.rgb * dot(getWorldSpaceNormal(), normalize(in_lightVector)) * le, 1);
 }
 

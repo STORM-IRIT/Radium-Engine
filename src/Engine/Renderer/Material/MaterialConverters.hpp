@@ -27,7 +27,7 @@ namespace Engine {
 ///////////////////////////////////////////////
 /** A material converter is a couple <std::string,
  * std::function<Ra::Engine::Material*(Ra::Core::Asset::MaterialData*)> where the string gives the
- mname
+ * mname
  * of the material and the function is whatever is compatible with std::function :
  *     - a lambda
  *     - a functor

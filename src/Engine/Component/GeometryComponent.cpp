@@ -72,7 +72,7 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     Ra::Core::Geometry::TriangleMesh mesh;
     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container vertices;
     Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container normals;
-    
+
     const auto T = data->getFrame();
     const Ra::Core::Transform N( ( T.matrix() ).inverse().transpose() );
 
@@ -127,63 +127,28 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
 
 void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data ) {
     // The technique for rendering this component
-    RenderTechnique rt;
-
-    bool isTransparent{false};
-
+    std::shared_ptr<Material> roMaterial;
+    // First extract the material from asset or create a default one
     if ( data != nullptr )
     {
-        // First extract the material from asset
-        auto converter         = EngineMaterialConverters::getMaterialConverter( data->getType() );
-        auto convertedMaterial = converter.second( data );
-
-        // Second, associate the material to the render technique
-        std::shared_ptr<Material> radiumMaterial( convertedMaterial );
-        if ( radiumMaterial != nullptr ) { isTransparent = radiumMaterial->isTransparent(); }
-        rt.setMaterial( radiumMaterial );
-
-        // Third, define the technique for rendering this material (here, using the default)
-        auto builder = EngineRenderTechniques::getDefaultTechnique( data->getType() );
-        builder.second( rt, isTransparent );
+        auto converter = EngineMaterialConverters::getMaterialConverter( data->getType() );
+        auto mat       = converter.second( data );
+        roMaterial.reset( mat );
     }
     else
     {
-        auto mat =
-            Ra::Core::make_shared<BlinnPhongMaterial>( m_contentName + "_DefaultBPMaterial" );
-        mat->m_kd            = Ra::Core::Utils::Color::Grey();
-        mat->m_ks            = Ra::Core::Utils::Color::White();
+        auto mat             = new BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
         mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
         mat->m_perVertexColor =
             m_displayMesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
-        rt.setMaterial( mat );
-        auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
-        builder.second( rt, false );
+        roMaterial.reset( mat );
     }
-
-    if ( m_displayMesh->getCoreGeometry().m_indices.empty() ) // add geometry shader for splatting
-    {
-        auto addGeomShader = [&rt]( RenderTechnique::PassName pass ) {
-            if ( rt.hasConfiguration( pass ) )
-            {
-                ShaderConfiguration config = rt.getConfiguration( pass );
-                config.addShader( ShaderType_GEOMETRY,
-                                  std::string( Core::Resources::getRadiumResourcesDir() ) +
-                                      "Shaders/PointCloud.geom.glsl" );
-                rt.setConfiguration( config, pass );
-            }
-        };
-
-        addGeomShader( RenderTechnique::LIGHTING_OPAQUE );
-        addGeomShader( RenderTechnique::LIGHTING_TRANSPARENT );
-        addGeomShader( RenderTechnique::Z_PREPASS );
-    }
-
+    // initialize with a default rendertechique that draws nothing
     std::string roName( m_name + "_" + m_contentName + "_RO" );
-
     auto ro = RenderObject::createRenderObject(
-        roName, this, RenderObjectType::Geometry, m_displayMesh, rt );
-    ro->setTransparent( isTransparent );
-
+        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique{} );
+    ro->setTransparent( roMaterial->isTransparent() );
+    ro->setMaterial( roMaterial );
     setupIO( m_contentName );
     m_meshIndex = addRenderObject( ro );
 }

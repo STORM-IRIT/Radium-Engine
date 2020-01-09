@@ -1,8 +1,7 @@
 #ifndef GLSL_PLAIN_MATERIAL
 #define GLSL_PLAIN_MATERIAL
-// Assume that plain rendering is based on very simple "material"
-// This material is rendered as a plain, flat color comming either fro a uniform color, a per-vefrtex color or a texture.
-struct PlainTextures
+// Difine a simple diffuse material (Lambertian)
+struct LambertianTextures
 {
     int hasColor;
     int hasMask;
@@ -13,9 +12,9 @@ struct PlainTextures
 
 struct Material
 {
-    int perVertexColor;
     vec4 color;
-    PlainTextures tex;
+    int perVertexColor;
+    LambertianTextures tex;
 };
 
 
@@ -24,6 +23,7 @@ vec4 getPerVertexBaseColor();
 vec3 getWorldSpaceNormal();
 
 //----------------------------------------------------------------
+const float Pi = 3.141592653589793;
 
 vec4 getBaseColor(Material material, vec2 texCoord)
 {
@@ -57,7 +57,7 @@ vec3 getSpecularColor(Material material, vec2 texCoord) {
 // wi (light direction) and wo (view direction) are in local frame
 // wi dot N is then wi.z ...
 vec3 evaluateBSDF(Material material, vec2 texC, vec3 l, vec3 v) {
-    return getDiffuseColor(material, texC).rgb;
+    return max(l.z, 0.0) * getDiffuseColor(material, texC).rgb / Pi;
 }
 
 // Return the world-space normal computed according to the microgeometry definition`
@@ -68,6 +68,7 @@ vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B) {
 
 // return true if the fragment must be condidered as transparent (either fully or partially)
 bool toDiscard(Material material, vec4 color) {
+    return false;
     return (color.a < 0.1);
 }
 

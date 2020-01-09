@@ -1,0 +1,51 @@
+@startuml
+/'
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+skinparam sequence {
+	ArrowColor DeepSkyBlue
+	ActorBorderColor DeepSkyBlue
+	LifeLineBorderColor blue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor DeepSkyBlue
+	ParticipantBackgroundColor DodgerBlue
+	ParticipantFontName Impact
+	ParticipantFontSize 17
+	ParticipantFontColor #A9DCDF
+
+	ActorBackgroundColor aqua
+	ActorFontColor DeepSkyBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+'/
+title Actual radium rendering\n
+
+ForwardRenderer -> RenderObject ++ : render(PassParams, ViewParams, passId)
+    RenderObject --> RenderTechnique ++ : getShader(passId)
+        RenderTechnique --> ConfigurationSet ++ : m_activePasses[passId].second
+        return shader
+    return shader
+    RenderObject --> ShaderProgram ++ : shader->bind()
+        RenderObject --> ShaderProgram : shader->setUniform(ViewParams)
+        RenderObject --> RenderParameters ++ : PassParams.bind(shader)
+        RenderParameters --> ShaderProgram : shader->setUniform(PassParams)
+        return
+    RenderObject --> RenderTechnique ++ : getMaterial()
+    return material
+    RenderObject --> Material ++ : material->bind(shader)
+        Material --> ShaderProgram : shader->setUniforms(MaterialParams)
+        return
+    RenderObject --> Mesh ++ : mesh->render(shader)
+        Mesh --> VAO : autoAttrib (bind/unbind VAO)
+        Mesh --> VAO ++ : bind()
+            Mesh --> VAO : draw()
+            Mesh --> VAO : unbind()
+            return
+        return
+    return
+ return
+
+ @enduml

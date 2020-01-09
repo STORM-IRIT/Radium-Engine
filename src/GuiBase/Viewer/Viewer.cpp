@@ -592,6 +592,8 @@ bool Gui::Viewer::changeRenderer( int index ) {
         m_currentRenderer = m_renderers[index].get();
         // renderers in m_renderers are supposed to be locked
         m_currentRenderer->resize( width(), height() );
+        // Configure the renderObjects for this renderer
+        m_currentRenderer->buildAllRenderTechniques();
         m_currentRenderer->unlockRendering();
 
         LOG( logINFO ) << "[Viewer] Set active renderer: " << m_currentRenderer->getRendererName();
