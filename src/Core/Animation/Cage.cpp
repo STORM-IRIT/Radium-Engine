@@ -4,9 +4,9 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 
-Cage::Cage() : HandleSystem(), m_triangle() {}
-Cage::Cage( const uint n ) : HandleSystem( n ), m_triangle() {}
-Cage::Cage( const Cage& cage ) : HandleSystem( cage ), m_triangle( cage.m_triangle ) {}
+Cage::Cage() : HandleArray(), m_triangle() {}
+Cage::Cage( const uint n ) : HandleArray( n ), m_triangle() {}
+Cage::Cage( const Cage& cage ) : HandleArray( cage ), m_triangle( cage.m_triangle ) {}
 
 Cage::~Cage() {}
 

@@ -9,9 +9,9 @@ namespace Core {
 namespace Animation {
 
 /// CONSTRUCTOR
-Skeleton::Skeleton() : HandleSystem(), m_graph(), m_modelSpace() {}
+Skeleton::Skeleton() : HandleArray(), m_graph(), m_modelSpace() {}
 
-Skeleton::Skeleton( const uint n ) : HandleSystem( n ), m_graph( n ), m_modelSpace( n ) {}
+Skeleton::Skeleton( const uint n ) : HandleArray( n ), m_graph( n ), m_modelSpace( n ) {}
 
 Skeleton::~Skeleton() {}
 

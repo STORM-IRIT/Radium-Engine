@@ -15,9 +15,9 @@ namespace Animation {
 using Label = std::string;
 
 /**
- * The HandleSystem class describes the base handle structure used for deformation.
+ * The HandleArray class describes the base handle structure used for deformation.
  */
-class RA_CORE_API HandleSystem
+class RA_CORE_API HandleArray
 {
   public:
     /**
@@ -25,12 +25,12 @@ class RA_CORE_API HandleSystem
      */
     enum class SpaceType { LOCAL, MODEL };
 
-    HandleSystem();
-    explicit HandleSystem( const uint n );
-    HandleSystem( const HandleSystem& handle ) = default;
-    HandleSystem& operator=( const HandleSystem& handle ) = default;
+    HandleArray();
+    explicit HandleArray( const uint n );
+    HandleArray( const HandleArray& handle ) = default;
+    HandleArray& operator=( const HandleArray& handle ) = default;
 
-    virtual ~HandleSystem();
+    virtual ~HandleArray();
 
     /**
      * @return the number of transformations
@@ -105,6 +105,6 @@ class RA_CORE_API HandleSystem
 } // Namespace Core
 } // Namespace Ra
 
-#include <Core/Animation/HandleSystem.inl>
+#include <Core/Animation/HandleArray.inl>
 
 #endif // RADIUMENGINE_HANDLE_SYSTEM
