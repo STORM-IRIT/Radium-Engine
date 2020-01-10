@@ -56,7 +56,7 @@ class RA_CORE_API HandleData : public AssetData
 
     ~HandleData();
 
-    /// \name HandleSystem
+    /// \name HandleArray
     /// \{
 
     /**
@@ -149,32 +149,32 @@ class RA_CORE_API HandleData : public AssetData
     inline void setComponents( const Core::AlignedStdVector<HandleComponentData>& components );
 
     /**
-     * Return the HandleSystem hierarchy, i.e.\ bones hierarchy.
+     * Return the HandleArray hierarchy, i.e.\ bones hierarchy.
      */
     inline const Core::AlignedStdVector<Core::Vector2ui>& getEdgeData() const;
 
     /**
-     * Return the HandleSystem hierarchy, i.e.\ bones hierarchy.
+     * Return the HandleArray hierarchy, i.e.\ bones hierarchy.
      */
     inline Core::AlignedStdVector<Core::Vector2ui>& getEdgeData();
 
     /**
-     * Set the HandleSystem linear hierarchy part, i.e.\ bones hierarchy.
+     * Set the HandleArray linear hierarchy part, i.e.\ bones hierarchy.
      */
     inline void setEdges( const Core::AlignedStdVector<Core::Vector2ui>& edgeList );
 
     /**
-     * Return the HandleSystem N-Dimensional parts, i.e.\ cage polyhedra.
+     * Return the HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
      */
     inline const Core::AlignedStdVector<Core::VectorNui>& getFaceData() const;
 
     /**
-     * Return the HandleSystem N-Dimensional parts, i.e.\ cage polyhedra.
+     * Return the HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
      */
     inline Core::AlignedStdVector<Core::VectorNui>& getFaceData();
 
     /**
-     * Set the HandleSystem N-Dimensional parts, i.e.\ cage polyhedra.
+     * Set the HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
      */
     inline void setFaces( const Core::AlignedStdVector<Core::VectorNui>& faceList );
 
@@ -256,10 +256,10 @@ class RA_CORE_API HandleData : public AssetData
     /// The list of HandleComponentData.
     Core::AlignedStdVector<HandleComponentData> m_component;
 
-    /// The HandleSystem hierarchy, i.e.\ bones hierarchy.
+    /// The HandleArray hierarchy, i.e.\ bones hierarchy.
     Core::AlignedStdVector<Core::Vector2ui> m_edge;
 
-    /// The HandleSystem N-Dimensional parts, i.e.\ cage polyhedra.
+    /// The HandleArray N-Dimensional parts, i.e.\ cage polyhedra.
     Core::AlignedStdVector<Core::VectorNui> m_face;
 };
 
