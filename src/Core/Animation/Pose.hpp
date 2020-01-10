@@ -8,7 +8,7 @@ namespace Core {
 namespace Animation {
 
 /**
- * Definition of the Pose of a generic handle for model animation or deformation.
+ * Definition of the Pose of a generic HandleArray for model animation or deformation.
  */
 
 /*
@@ -16,7 +16,7 @@ namespace Animation {
  */
 using Pose = AlignedStdVector<Eigen::Transform<Scalar, 3, Eigen::Affine>>;
 
-// Typedef for code redability purposes only.
+// Typedef for code readability purposes only.
 using RestPose = Pose;
 using RefPose  = RestPose;
 

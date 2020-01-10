@@ -21,7 +21,7 @@ transformations through the skinnning weights.
 
 The Radium Engine provides the basic classes for character animation.
 
-Starting from a `Ra::Core::Animation::HandleSystem`, which represents a deformation metaphor, such as `Ra::Core::Animation::Cage` or `Ra::Core::Animation::Skeleton`,
+Starting from a `Ra::Core::Animation::HandleArray`, which represents a deformation metaphor, such as `Ra::Core::Animation::Cage` or `Ra::Core::Animation::Skeleton`,
 one must associate influence weights to each vertex of a mesh within a `Ra::Core::Animation::WeightMatrix`
 (rows representing vertices, columns handles).
 These influence weights, or skinning weights, are then used by a skinning algorithm to deform

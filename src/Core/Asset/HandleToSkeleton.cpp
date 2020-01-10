@@ -26,7 +26,7 @@ void addBone( const uint parent,                       // index of parent bone
         processed[dataID] = true;
         const auto& dd    = data.getComponentData()[dataID];
         uint index        = skelOut.addBone(
-            parent, dd.m_frame, Ra::Core::Animation::HandleSystem::SpaceType::MODEL, dd.m_name );
+            parent, dd.m_frame, Ra::Core::Animation::HandleArray::SpaceType::MODEL, dd.m_name );
         for ( const auto& edge : edgeList )
         {
             if ( edge[0] == int( dataID ) )
@@ -94,7 +94,7 @@ void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::S
                 LOG( logDEBUG ) << "Adding end-bone at " << dd.m_name << ".";
                 skelOut.addBone( boneNameMap[dd.m_name],
                                  data.getFrame().inverse() * dd.m_frame,
-                                 Ra::Core::Animation::HandleSystem::SpaceType::MODEL,
+                                 Ra::Core::Animation::HandleArray::SpaceType::MODEL,
                                  dd.m_name + "_Ra_endBone" );
             }
         }

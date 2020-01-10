@@ -1,7 +1,7 @@
 #ifndef SKELETON_HANDLE_H
 #define SKELETON_HANDLE_H
 
-#include <Core/Animation/HandleSystem.hpp>
+#include <Core/Animation/HandleArray.hpp>
 #include <Core/Containers/AdjacencyList.hpp>
 
 namespace Ra {
@@ -18,7 +18,7 @@ namespace Animation {
  * the former begin the parent of the latter in the hierarchy.
  * For animation purposes, a bone transform refers to the proximal joint's tranform.
  */
-class RA_CORE_API Skeleton : public HandleSystem
+class RA_CORE_API Skeleton : public HandleArray
 {
   public:
     Skeleton();
