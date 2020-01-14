@@ -59,7 +59,7 @@ Vector3 localUniformNormal( const uint ii,
 }
 
 void angleWeightedNormal( const VectorArray<Vector3>& p,
-                          const VectorArray<Vector3ui>& T,
+                          const AlignedStdVector<Vector3ui>& T,
                           VectorArray<Vector3>& normal ) {
     const size_t N = p.size();
     normal.clear();
