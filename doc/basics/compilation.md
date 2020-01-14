@@ -80,7 +80,6 @@ Finally, the install target will copy all the radium related library in the same
 $ make install
 ~~~
 
-To run on Mac OS X, one may need to set `DYLD_LIBRARY_PATH` to `path/to/Bundle-*/3rdPartyLibraries/lib`
 
 ### Building on Microsoft Windows with Visual Studio
 
