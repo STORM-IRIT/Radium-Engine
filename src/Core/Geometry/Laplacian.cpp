@@ -39,7 +39,7 @@ LaplacianMatrix powerLaplacian( const LaplacianMatrix& L, const uint k ) {
 }
 
 LaplacianMatrix cotangentWeightLaplacian( const VectorArray<Vector3>& p,
-                                          const VectorArray<Vector3ui>& T ) {
+                                          const AlignedStdVector<Vector3ui>& T ) {
     LaplacianMatrix L( p.size(), p.size() );
     for ( const auto& t : T )
     {
