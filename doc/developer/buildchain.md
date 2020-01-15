@@ -22,8 +22,8 @@ option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake proje
 ~~~{.cmake}
 add_dependencies (${ra_engine_target} PUBLIC Radium::Core)
 add_dependencies (${ra_io_target} PUBLIC Radium::Core)
-add_dependencies( ${ra_pluginbase_target} Radium::Core Radium::Engine )
-add_dependencies (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase )
+add_dependencies (${ra_pluginbase_target} Radium::Core Radium::Engine)
+add_dependencies (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
 ~~~
 \warning Consistency of `RADIUM_GENERATE_LIB_***` options is not checked wrt. the dependencies.
 
