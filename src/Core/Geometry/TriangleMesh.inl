@@ -161,6 +161,10 @@ inline Utils::AttribManager& AttribArrayGeometry::vertexAttribs() {
     return m_vertexAttribs;
 }
 
+inline const Utils::AttribManager& AttribArrayGeometry::vertexAttribs() const {
+    return m_vertexAttribs;
+}
+
 inline AttribArrayGeometry::PointAttribHandle::Container& AttribArrayGeometry::verticesWithLock() {
     return m_vertexAttribs.getAttrib( m_verticesHandle ).getDataWithLock();
 }
