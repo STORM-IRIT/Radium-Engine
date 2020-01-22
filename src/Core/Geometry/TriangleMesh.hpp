@@ -174,6 +174,10 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// to Utils::AttribManager functionality.
     inline Utils::AttribManager& vertexAttribs();
 
+    /// Return the vertexAttribs manager. In case you want to have direct access
+    /// to Utils::AttribManager functionality.
+    inline const Utils::AttribManager& vertexAttribs() const;
+
     /// Read/write access to the vertices positions.
     /// \warning need to call verticesUnlock when job done.
     inline PointAttribHandle::Container& verticesWithLock();
@@ -206,9 +210,6 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     /// The handle for normals, making request faster.
     NormalAttribHandle m_normalsHandle;
-
-    // Ease wrapper
-    friend class TopologicalMesh;
 };
 
 class RA_CORE_API PointCloud : public AttribArrayGeometry
