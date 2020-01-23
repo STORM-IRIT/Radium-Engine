@@ -74,7 +74,12 @@ $ cmake ..
 $ make
 ~~~
 
-To run on Mac OS X, one may need to set `DYLD_LIBRARY_PATH` to `path/to/Bundle-*/3rdPartyLibraries/lib`
+Finally, the install target will copy all the radium related library in the same place, usefull for App compilation 
+
+~~~bash
+$ make install
+~~~
+
 
 ### Building on Microsoft Windows with Visual Studio
 
