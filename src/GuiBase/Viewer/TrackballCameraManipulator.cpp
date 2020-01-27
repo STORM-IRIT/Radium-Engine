@@ -376,10 +376,12 @@ void Gui::TrackballCameraManipulator::updatePhiTheta() {
     using Core::Math::areApproxEqual;
     const auto R = m_camera->getDirection().normalized();
 
-    m_theta = std::acos( R.y() );
-    m_phi   = ( areApproxEqual( R.z(), 0_ra ) && areApproxEqual( R.x(), 0_ra ) )
-                ? 0_ra
+    m_theta = std::acos( -R.y() );
+
+    m_phi = ( areApproxEqual( R.z(), 0_ra ) && areApproxEqual( R.x(), 0_ra ) )
+                ? std::acos( m_camera->getRightVector().dot( Ra::Core::Vector3::UnitZ() ) ) + Pi
                 : std::atan2( R.z(), R.x() );
+
     // Keep phi between 0 and 2pi
     // Keep theta between -pi and pi
     if ( m_phi < 0_ra )
