@@ -278,6 +278,112 @@ inline void TopologicalMesh::interpolateAllPropsOnFaces(
     interpolatePropsOnFaces( fh, getVector4PropsHandles(), vec4Props );
 }
 
+inline std::set<TopologicalMesh::WedgeIndex>
+TopologicalMesh::vertex_wedges( OpenMesh::VertexHandle vh ) const {
+    std::set<TopologicalMesh::WedgeIndex> ret;
+
+    for ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it )
+    {
+        auto widx = property( m_wedgeIndexPph, *vh_it );
+        if ( widx.isValid() && !m_wedges.getWedge( widx ).deleted() ) ret.insert( widx );
+    }
+    return ret;
+}
+
+inline void TopologicalMesh::setWedgeData( TopologicalMesh::WedgeIndex widx,
+                                           const TopologicalMesh::WedgeData& wedge ) {
+    m_wedges.setWedgeData( widx, wedge );
+}
+
+inline const std::vector<std::string>& TopologicalMesh::getVec4AttribNames() const {
+    return m_wedges.m_vector4AttribNames;
+}
+inline const std::vector<std::string>& TopologicalMesh::getVec3AttribNames() const {
+    return m_wedges.m_vector3AttribNames;
+}
+inline const std::vector<std::string>& TopologicalMesh::getVec2AttribNames() const {
+    return m_wedges.m_vector2AttribNames;
+}
+inline const std::vector<std::string>& TopologicalMesh::getFloatAttribNames() const {
+    return m_wedges.m_floatAttribNames;
+}
+
+inline bool TopologicalMesh::isFeatureVertex( const VertexHandle& vh ) const {
+    return vertex_wedges( vh ).size() != 1;
+}
+
+inline bool TopologicalMesh::isFeatureEdge( const EdgeHandle& eh ) const {
+
+    auto heh0 = halfedge_handle( eh, 0 );
+    auto heh1 = halfedge_handle( eh, 1 );
+
+    return property( m_wedgeIndexPph, heh0 ) ==
+               property( m_wedgeIndexPph,
+                         prev_halfedge_handle( opposite_halfedge_handle( heh0 ) ) ) ||
+           property( m_wedgeIndexPph, heh1 ) ==
+               property( m_wedgeIndexPph,
+                         prev_halfedge_handle( opposite_halfedge_handle( heh1 ) ) );
+}
+
+inline const OpenMesh::HPropHandleT<TopologicalMesh::WedgeIndex>&
+TopologicalMesh::getWedgeIndexPph() const {
+    return m_wedgeIndexPph;
+}
+
+/////////////// WEDGES RELATED STUFF /////////////////
+inline void TopologicalMesh::WedgeCollection::del( const TopologicalMesh::WedgeIndex& idx ) {
+    if ( idx.isValid() ) m_data[idx].decrementRefCount();
+}
+
+inline const TopologicalMesh::Wedge&
+TopologicalMesh::WedgeCollection::getWedge( const TopologicalMesh::WedgeIndex& idx ) const {
+    return m_data[idx];
+}
+
+inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                            const TopologicalMesh::WedgeData& wd ) {
+    if ( !( wd.m_floatAttrib.size() == m_floatAttribNames.size() &&
+            wd.m_vector2Attrib.size() == m_vector2AttribNames.size() &&
+            wd.m_vector3Attrib.size() == m_vector3AttribNames.size() &&
+            wd.m_vector4Attrib.size() == m_vector4AttribNames.size() ) )
+    {
+        LOG( logWARNING ) << "Warning, topological mesh set wedge: number of attribs inconsistency";
+    }
+    if ( idx.isValid() ) m_data[idx].setWedgeData( wd );
+}
+
+template <typename T>
+void TopologicalMesh::WedgeCollection::addProp( std::string name ) {
+    if ( name != std::string( "in_position" ) )
+    {
+        if ( std::is_same<T, float>::value )
+            m_floatAttribNames.push_back( name );
+        else if ( std::is_same<T, Vector2>::value )
+            m_vector2AttribNames.push_back( name );
+        else if ( std::is_same<T, Vector3>::value )
+            m_vector3AttribNames.push_back( name );
+        else if ( std::is_same<T, Vector4>::value )
+            m_vector4AttribNames.push_back( name );
+        else
+            LOG( logWARNING )
+                << "Warning, mesh attribute " << name
+                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    }
+}
+
+inline void TopologicalMesh::WedgeCollection::garbageCollection() {
+    std::remove_if( m_data.begin(), m_data.end(), []( const Wedge& w ) { return w.deleted(); } );
+}
+
+inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
+    return
+        //     m_inputTriangleMeshIndex == lhs.m_inputTriangleMeshIndex &&
+        // m_outputTriangleMeshIndex == lhs.m_outputTriangleMeshIndex &&
+        m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
+        m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
+        m_vector4Attrib == lhs.m_vector4Attrib;
+}
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra

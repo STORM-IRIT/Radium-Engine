@@ -3,10 +3,12 @@
 
 #include <Core/Geometry/OpenMesh.hpp>
 
+#include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
+#include <Core/Utils/StdOptional.hpp>
 
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
 #include <OpenMesh/Core/Mesh/Traits.hh>
@@ -17,9 +19,12 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+#include <set>
+
 namespace Ra {
 namespace Core {
 namespace Geometry {
+using namespace Utils; // log, AttribXXX
 
 /**
  * Define the Traits to be used by OpenMesh for TopologicalMesh.
@@ -47,17 +52,28 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using base::PolyMesh_ArrayKernelT;
     using Index = Ra::Core::Utils::Index;
 
-    OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
-    OpenMesh::HPropHandleT<Index> m_outputTriangleMeshIndexPph;
-    std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
-    std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
-    std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
-    std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
-
-    friend class TMOperations;
-
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+    using WedgeIndex = Index;
+
+    /// actual data per wedge
+    class WedgeData
+    {
+      public:
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+        //        Index m_inputTriangleMeshIndex;
+        //        Index m_outputTriangleMeshIndex;
+        Vector3 m_position{};
+        VectorArray<Scalar> m_floatAttrib;
+        VectorArray<Vector2> m_vector2Attrib;
+        VectorArray<Vector3> m_vector3Attrib;
+        VectorArray<Vector4> m_vector4Attrib;
+
+        explicit WedgeData() = default;
+        inline bool operator==( const WedgeData& lhs ) const;
+    };
 
     /**
      * Construct a topological mesh from a triangle mesh.
@@ -79,6 +95,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \warning It uses the attributes defined on halfedges.
      */
     TriangleMesh toTriangleMesh();
+
+    /**
+     * Return a triangleMesh from the topological mesh.
+     * \note This is a costly operation.
+     * \warning It uses the attributes defined on wedges
+     */
+    TriangleMesh toTriangleMeshFromWedges();
 
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
@@ -331,6 +354,145 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
     ///@}
+
+    /// Return the set of WedgeIndex incident to a given Vertex \p vh.
+    /// only valid non deleted wedges are present in the set.
+    inline std::set<WedgeIndex> vertex_wedges( OpenMesh::VertexHandle vh ) const;
+
+    /// Access to wedge data.
+    /// \p idx must be valid and correspond to a non delete wedge index.
+    const WedgeData& getWedgeData( const WedgeIndex& idx ) const {
+        return m_wedges.getWedgeData( idx );
+    }
+
+    /// set WedgeData \p wedge to the wedge with index widx. All halfedge that
+    /// point to widx will get the new values.
+    inline void setWedgeData( WedgeIndex widx, const WedgeData& wedge );
+
+    /// Remove deleted element from the mesh, including wedge informations
+    void garbage_collection();
+
+    inline const std::vector<std::string>& getVec4AttribNames() const;
+    inline const std::vector<std::string>& getVec3AttribNames() const;
+    inline const std::vector<std::string>& getVec2AttribNames() const;
+    inline const std::vector<std::string>& getFloatAttribNames() const;
+
+    /// true if more than one wedge arount vertex \p vh, false if only one wedge
+    inline bool isFeatureVertex( const VertexHandle& vh ) const;
+
+    /// true if at least one of edge's vertex as two different wedge arount the
+    /// edge.
+    /// false if the two vertices have the same wedge for both face aside the edge.
+    inline bool isFeatureEdge( const EdgeHandle& eh ) const;
+
+    inline const OpenMesh::HPropHandleT<WedgeIndex>& getWedgeIndexPph() const;
+
+    void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
+
+  private:
+    // wedge data and refcount, to maintain deleted status
+    class Wedge
+    {
+        WedgeData m_wedgeData{};
+        unsigned int m_refCount{0};
+
+      public:
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+        explicit Wedge() {}
+        explicit Wedge( const WedgeData& wd ) : m_wedgeData{wd}, m_refCount{1} {};
+        const WedgeData& getWedgeData() const { return m_wedgeData; }
+        void setWedgeData( const WedgeData& wedgeData ) { m_wedgeData = wedgeData; }
+        void incrementRefCount() { ++m_refCount; }
+        void decrementRefCount() {
+            if ( m_refCount ) --m_refCount;
+        }
+        /// comparison ignore refCount
+        bool operator==( const Wedge& lhs ) const { return m_wedgeData == lhs.m_wedgeData; }
+
+        bool deleted() const { return m_refCount == 0; }
+        unsigned int getRefCount() const { return m_refCount; }
+    };
+
+    /// This private class manage the wedge collection, most of the data members are public so
+    /// that the enclosing class can easily manage the data.
+    class WedgeCollection
+    {
+      public:
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+        /// attrib names associated to vertex/wedges
+        std::vector<std::string> m_floatAttribNames;
+        std::vector<std::string> m_vector2AttribNames;
+        std::vector<std::string> m_vector3AttribNames;
+        std::vector<std::string> m_vector4AttribNames;
+
+        std::vector<AttribHandle<float>> m_wedgeFloatAttribHandles;
+        std::vector<AttribHandle<Vector2>> m_wedgeVector2AttribHandles;
+        std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
+        std::vector<AttribHandle<Vector4>> m_wedgeVector4AttribHandles;
+
+        /// Add wd to the wedge collection, and return the index.
+        /// If a wedge with same data is already present, it's index is returned.
+        WedgeIndex add( const WedgeData& wd );
+
+        /// Delete the wedge \p idx from the collection.
+        /// These deletion actually just remove one reference from an halfedge
+        /// to the wedge data.
+        /// If the wedge is still referenced by other halfedges, it will not be
+        /// removed during garbageCollection.
+        void del( const WedgeIndex& idx );
+
+        ///\todo remove optional ? we can state that only valid idx are fine,
+        /// and a deleted wedge should not correspond to a non deleted halfedge.
+        const WedgeData& getWedgeData( const WedgeIndex& idx ) const {
+            CORE_ASSERT( idx.isValid() && !m_data[idx].deleted(),
+                         "access to invalid or deleted wedge is prohibited" );
+
+            return m_data[idx].getWedgeData();
+        }
+
+        /// Return the wedge (not the data) for in class manipulation.
+        /// client code should use getWedgeData only.
+        inline const Wedge& getWedge( const WedgeIndex& idx ) const;
+
+        /// change the WedgeData associated for \p idx to \p wd.
+        /// The data is changed for all halfedges referencing this wedge.
+        inline void setWedgeData( const WedgeIndex& idx, const WedgeData& wd );
+
+        // name is supposed to be unique within all attribs
+        // not checks are performed
+        template <typename T>
+        void addProp( std::string name );
+
+        /// return the offset ot apply to each wedgeindex so that
+        /// after garbageCollection all indices are valid and coherent.
+        std::vector<int> computeCleanupOffset() const;
+
+        /// remove unreferenced wedge, halfedges need to be reindexed.
+        inline void garbageCollection();
+
+        inline size_t size() const { return m_data.size(); }
+
+      private:
+        AlignedStdVector<Wedge> m_data;
+    };
+
+    /// Wedges indices stored in halfedges
+    OpenMesh::HPropHandleT<WedgeIndex> m_wedgeIndexPph;
+
+    /// Wedge data management
+    WedgeCollection m_wedges;
+
+    ///\todo to be deleted/updated
+    OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
+    OpenMesh::HPropHandleT<Index> m_outputTriangleMeshIndexPph;
+    std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
+    std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
+    std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
+    std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
+
+    friend class TMOperations;
 };
 
 } // namespace Geometry
