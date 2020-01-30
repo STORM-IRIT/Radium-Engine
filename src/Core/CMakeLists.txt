@@ -4,6 +4,8 @@ project( ${ra_core_target}
          LANGUAGES CXX
          VERSION ${RADIUM_VERSION})
 
+option( RADIUM_QUIET "Disable Radium Log messages" OFF )
+
 set(RA_VERSION_CPP "${CMAKE_CURRENT_BINARY_DIR}/Version.cpp")
 configure_file (
 "${CMAKE_CURRENT_SOURCE_DIR}/Utils/Version.cpp.in"
@@ -55,6 +57,10 @@ target_compile_definitions(${ra_core_target} PRIVATE "-DRA_CORE_EXPORTS")
 if( WIN_32)
     target_compile_definitions(${ra_core_target} PUBLIC "-D_USE_MATH_DEFINES") ##OpenMesh
 endif()
+if( ${RADIUM_QUIET} )
+    target_compile_definitions(${ra_core_target} PUBLIC "-DRA_NO_LOG")
+    message(STATUS "${PROJECT_NAME} : Radium Logs disabled")
+endif ()
 
 installLibHeaders( "Core" "${core_headers}" )
 installLibHeaders( "Core" "${core_inlines}" )

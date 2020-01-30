@@ -145,6 +145,10 @@ inline std::string NowTime() {
     else                                                            \
         Ra::Core::Utils::FILELog().Get( level )
 
-#define LOG( level ) FILE_LOG( level )
+#ifdef RA_NO_LOG
+#    define LOG( level ) FILE_LOG( Ra::Core::Utils::TLogLevel( FILELOG_MAX_LEVEL + 1 ) )
+#else
+#    define LOG( level ) FILE_LOG( level )
+#endif
 
 #endif // RADIUMENGINE_LOG_HPP
