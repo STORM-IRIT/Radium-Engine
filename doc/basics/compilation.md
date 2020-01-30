@@ -107,6 +107,9 @@ RADIUM_GIT_UPDATE_SUBMODULE:BOOL=ON
 // Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target
 RADIUM_INSTALL_DOC:BOOL=ON
 --
+// Disable Radium Log messages
+RADIUM_QUIET:BOOL=OFF
+--
 // Provide loaders based on Assimp library
 RADIUM_IO_ASSIMP:BOOL=OFF
 --
