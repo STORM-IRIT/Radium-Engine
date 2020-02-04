@@ -615,6 +615,11 @@ void TopologicalMesh::garbage_collection() {
     {
         ON_ASSERT( auto idx = property( m_wedgeIndexPph, *he_it ); );
         CORE_ASSERT( !idx.isValid() || !m_wedges.getWedge( idx ).deleted(),
+                     "references deleted wedge remains after garbage collection" );
+    }
+    for ( size_t i = 0; i<m_wedges.size(); ++i)
+    {
+        CORE_ASSERT( !m_wedges.getWedge( WedgeIndex(i) ).deleted(),
                      "deleted wedge remains after garbage collection" );
     }
 }
