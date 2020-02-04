@@ -9,6 +9,9 @@
 #include <OpenMesh/Tools/Decimater/DecimaterT.hh>
 #include <OpenMesh/Tools/Decimater/ModQuadricT.hh>
 
+using namespace Ra::Core;
+using namespace Ra::Core::Geometry;
+
 bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
                  Ra::Core::Geometry::TriangleMesh& meshTwo ) {
 
@@ -66,6 +69,229 @@ bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
     return result;
 }
 
+class WedgeDataAndIdx
+{
+  public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+    TopologicalMesh::WedgeData m_data;
+    size_t m_idx;
+
+    int comp_vec( const Vector3& a, const Vector3& b ) {
+        if ( a == b ) return 1;
+        if ( a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] ) ||
+             ( a[0] == b[0] && a[1] == b[1] && a[2] < b[2] ) )
+            return 2;
+        return 3;
+    }
+
+    int comp_vec( const Vector2& a, const Vector2& b ) {
+        if ( a == b ) return 1;
+        if ( a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] ) ) return 2;
+        return 3;
+    }
+    int comp_vec( const Vector4& a, const Vector4& b ) {
+        if ( a == b ) return 1;
+        if ( a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] ) ||
+             ( a[0] == b[0] && a[1] == b[1] && a[2] < b[2] ) ||
+             ( a[0] == b[0] && a[1] == b[1] && a[2] == b[2] && a[3] < b[3] ) )
+            return 2;
+        return 3;
+    }
+
+    bool operator<( const WedgeDataAndIdx& lhs ) {
+
+        int comp = comp_vec( m_data.m_position, lhs.m_data.m_position );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+
+        for ( size_t i = 0; i < m_data.m_floatAttrib.size(); i++ )
+        {
+            if ( m_data.m_floatAttrib[i] < lhs.m_data.m_floatAttrib[i] )
+                return true;
+            else if ( m_data.m_floatAttrib[i] > lhs.m_data.m_floatAttrib[i] )
+                return false;
+        }
+
+        for ( size_t i = 0; i < m_data.m_vector2Attrib.size(); i++ )
+        {
+            int comp = comp_vec( m_data.m_vector2Attrib[i], lhs.m_data.m_vector2Attrib[i] );
+            if ( comp == 2 ) return true;
+            if ( comp == 3 ) return false;
+        }
+        for ( size_t i = 0; i < m_data.m_vector3Attrib.size(); i++ )
+        {
+            int comp = comp_vec( m_data.m_vector3Attrib[i], lhs.m_data.m_vector3Attrib[i] );
+            if ( comp == 2 ) return true;
+            if ( comp == 3 ) return false;
+        }
+        for ( size_t i = 0; i < m_data.m_vector4Attrib.size(); i++ )
+        {
+            int comp = comp_vec( m_data.m_vector4Attrib[i], lhs.m_data.m_vector4Attrib[i] );
+            if ( comp == 2 ) return true;
+            if ( comp == 3 ) return false;
+        }
+        return false;
+    }
+
+    bool operator!=( const WedgeDataAndIdx& lhs ) {
+
+        int comp = comp_vec( m_data.m_position, lhs.m_data.m_position );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return true;
+
+        for ( size_t i = 0; i < m_data.m_floatAttrib.size(); i++ )
+        {
+            if ( m_data.m_floatAttrib[i] < lhs.m_data.m_floatAttrib[i] )
+                return true;
+            else if ( m_data.m_floatAttrib[i] > lhs.m_data.m_floatAttrib[i] )
+                return true;
+        }
+
+        for ( size_t i = 0; i < m_data.m_vector2Attrib.size(); i++ )
+        {
+            int comp = comp_vec( m_data.m_vector2Attrib[i], lhs.m_data.m_vector2Attrib[i] );
+            if ( comp == 2 ) return true;
+            if ( comp == 3 ) return true;
+        }
+        for ( size_t i = 0; i < m_data.m_vector3Attrib.size(); i++ )
+        {
+            int comp = comp_vec( m_data.m_vector3Attrib[i], lhs.m_data.m_vector3Attrib[i] );
+            if ( comp == 2 ) return true;
+            if ( comp == 3 ) return true;
+        }
+        for ( size_t i = 0; i < m_data.m_vector4Attrib.size(); i++ )
+        {
+            int comp = comp_vec( m_data.m_vector4Attrib[i], lhs.m_data.m_vector4Attrib[i] );
+            if ( comp == 2 ) return true;
+            if ( comp == 3 ) return true;
+        }
+        return false;
+    }
+};
+
+void copyToWedgesVector( size_t size,
+                         TriangleMesh& meshOne,
+                         AlignedStdVector<WedgeDataAndIdx>& wedgesMeshOne,
+                         AttribBase* attr ) {
+
+    if ( attr->getName() == std::string( "in_position" ) )
+    {
+        auto data = meshOne.vertices();
+        for ( size_t i = 0; i < size; ++i )
+        {
+            wedgesMeshOne[i].m_data.m_position = data[i];
+        }
+    }
+    if ( attr->getName() != std::string( "in_position" ) )
+    {
+        if ( attr->isFloat() )
+        {
+            auto data =
+                meshOne.getAttrib( meshOne.getAttribHandle<float>( attr->getName() ) ).data();
+            for ( size_t i = 0; i < size; ++i )
+            {
+                wedgesMeshOne[i].m_data.m_floatAttrib.push_back( data[i] );
+            }
+        }
+        else if ( attr->isVec2() )
+        {
+            auto data =
+                meshOne.getAttrib( meshOne.getAttribHandle<Vector2>( attr->getName() ) ).data();
+            for ( size_t i = 0; i < size; ++i )
+            {
+                wedgesMeshOne[i].m_data.m_vector2Attrib.push_back( data[i] );
+            }
+        }
+        else if ( attr->isVec3() )
+        {
+            auto data =
+                meshOne.getAttrib( meshOne.getAttribHandle<Vector3>( attr->getName() ) ).data();
+            for ( size_t i = 0; i < size; ++i )
+            {
+                wedgesMeshOne[i].m_data.m_vector3Attrib.push_back( data[i] );
+            }
+        }
+        else if ( attr->isVec4() )
+        {
+            auto data =
+                meshOne.getAttrib( meshOne.getAttribHandle<Vector4>( attr->getName() ) ).data();
+            for ( size_t i = 0; i < size; ++i )
+            {
+                wedgesMeshOne[i].m_data.m_vector4Attrib.push_back( data[i] );
+            }
+        }
+    }
+}
+
+bool isSameMeshWedge( Ra::Core::Geometry::TriangleMesh& meshOne,
+                      Ra::Core::Geometry::TriangleMesh& meshTwo ) {
+
+    using namespace Ra::Core;
+    using namespace Ra::Core::Geometry;
+
+    // Check length
+    if ( meshOne.vertices().size() != meshTwo.vertices().size() ) return false;
+    if ( meshOne.normals().size() != meshTwo.normals().size() ) return false;
+    if ( meshOne.m_indices.size() != meshTwo.m_indices.size() ) return false;
+
+    AlignedStdVector<WedgeDataAndIdx> wedgesMeshOne;
+    AlignedStdVector<WedgeDataAndIdx> wedgesMeshTwo;
+
+    auto size = meshOne.vertices().size();
+    for ( size_t i = 0; i < size; ++i )
+    {
+        WedgeDataAndIdx wd;
+        wd.m_idx = i;
+        wedgesMeshOne.push_back( wd );
+        wedgesMeshTwo.push_back( wd );
+    }
+    using namespace std::placeholders;
+    auto f1 =
+        std::bind( copyToWedgesVector, size, std::ref( meshOne ), std::ref( wedgesMeshOne ), _1 );
+    meshOne.vertexAttribs().for_each_attrib( f1 );
+
+    auto f2 =
+        std::bind( copyToWedgesVector, size, std::ref( meshTwo ), std::ref( wedgesMeshTwo ), _1 );
+    meshTwo.vertexAttribs().for_each_attrib( f2 );
+
+    std::sort( wedgesMeshOne.begin(), wedgesMeshOne.end() );
+    std::sort( wedgesMeshTwo.begin(), wedgesMeshTwo.end() );
+
+    std::vector<int> newMeshOneIdx( wedgesMeshOne.size() );
+    std::vector<int> newMeshTwoIdx( wedgesMeshOne.size() );
+    size_t curIdx                         = 0;
+    newMeshOneIdx[wedgesMeshOne[0].m_idx] = 0;
+    newMeshTwoIdx[wedgesMeshTwo[0].m_idx] = 0;
+
+    for ( size_t i = 0; i < wedgesMeshOne.size(); ++i )
+    {
+        if ( wedgesMeshOne[i] != wedgesMeshOne[i - 1] ) ++curIdx;
+        newMeshOneIdx[wedgesMeshOne[i].m_idx] = curIdx;
+    }
+
+    curIdx = 0;
+    for ( size_t i = 0; i < wedgesMeshTwo.size(); ++i )
+    {
+        if ( wedgesMeshTwo[i] != wedgesMeshTwo[i - 1] ) ++curIdx;
+        newMeshTwoIdx[wedgesMeshTwo[i].m_idx] = curIdx;
+    }
+
+    for ( auto& triangle : meshOne.m_indices )
+    {
+        triangle[0] = newMeshOneIdx[triangle[0]];
+        triangle[1] = newMeshOneIdx[triangle[1]];
+        triangle[2] = newMeshOneIdx[triangle[2]];
+    }
+    for ( auto& triangle : meshTwo.m_indices )
+    {
+        triangle[0] = newMeshTwoIdx[triangle[0]];
+        triangle[1] = newMeshTwoIdx[triangle[1]];
+        triangle[2] = newMeshTwoIdx[triangle[2]];
+    }
+    return meshOne.m_indices == meshTwo.m_indices;
+}
+
 TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
@@ -80,6 +306,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         OpenMesh::Decimater::ModQuadricT<Ra::Core::Geometry::TopologicalMesh>::Handle;
 
     TriangleMesh newMesh;
+    TriangleMesh newMesh2;
     TriangleMesh mesh;
     TopologicalMesh topologicalMesh;
 
@@ -87,23 +314,35 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     mesh            = Ra::Core::Geometry::makeBox();
     topologicalMesh = TopologicalMesh( mesh );
     newMesh         = topologicalMesh.toTriangleMesh();
+    newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
     REQUIRE( isSameMesh( mesh, newMesh ) );
+    REQUIRE( isSameMesh( mesh, newMesh2 ) );
+    REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
 
     mesh            = Ra::Core::Geometry::makeSharpBox();
     topologicalMesh = TopologicalMesh( mesh );
     newMesh         = topologicalMesh.toTriangleMesh();
+    newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
     REQUIRE( isSameMesh( mesh, newMesh ) );
+    REQUIRE( isSameMesh( mesh, newMesh2 ) );
+    REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
 
     // Test for mesh with boundaries
     mesh            = Ra::Core::Geometry::makePlaneGrid( 2, 2 );
     topologicalMesh = TopologicalMesh( mesh );
     newMesh         = topologicalMesh.toTriangleMesh();
+    newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
     REQUIRE( isSameMesh( mesh, newMesh ) );
+    REQUIRE( isSameMesh( mesh, newMesh2 ) );
+    REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
 
     mesh            = Ra::Core::Geometry::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
     topologicalMesh = TopologicalMesh( mesh );
     newMesh         = topologicalMesh.toTriangleMesh();
+    newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
     REQUIRE( isSameMesh( mesh, newMesh ) );
+    REQUIRE( isSameMesh( mesh, newMesh2 ) );
+    REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
 
     // Test skip empty attributes
     mesh.addAttrib<float>( "empty" );
