@@ -372,7 +372,7 @@ void TopologicalMesh::WedgeCollection::addProp( std::string name ) {
 }
 
 inline void TopologicalMesh::WedgeCollection::garbageCollection() {
-    std::remove_if( m_data.begin(), m_data.end(), []( const Wedge& w ) { return w.deleted(); } );
+    m_data.erase(std::remove_if( m_data.begin(), m_data.end(), []( const Wedge& w ) { return w.deleted(); } ), m_data.end());
 }
 
 inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
