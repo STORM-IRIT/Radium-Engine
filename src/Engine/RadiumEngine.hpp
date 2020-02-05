@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_ENGINE_HPP
-#define RADIUMENGINE_ENGINE_HPP
-
+#pragma once
 #include <Engine/RaEngine.hpp>
 
 #include <Core/Types.hpp>
@@ -117,7 +115,6 @@ class RA_ENGINE_API RadiumEngine
      * Access to the content is only available at loading time. As soon as the loaded file is
      * released, its content is no more available outside the Entity/Component architecture.
      * @pre The Engine must be in "loading state".
-     * @param filename the name of the loaded file
      * @return
      */
     const Core::Asset::FileData& getFileData() const;
@@ -230,5 +227,3 @@ class RA_ENGINE_API RadiumEngine
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_ENGINE_HPP
