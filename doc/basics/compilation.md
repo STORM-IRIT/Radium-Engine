@@ -80,6 +80,52 @@ Finally, the install target will copy all the radium related library in the same
 $ make install
 ~~~
 
+All radium related cmake options (with their current values) can be printed with `cmake -LAH | grep -B1 RADIUM` (on linux like system)
+
+~~~bash
+// Enable testing. Tests are automatically built with target all
+RADIUM_ENABLE_TESTING:BOOL=ON
+--
+// Include Radium::Core in CMake project
+RADIUM_GENERATE_LIB_CORE:BOOL=ON
+--
+// Include Radium::Engine in CMake project
+RADIUM_GENERATE_LIB_ENGINE:BOOL=ON
+--
+// Include Radium::GuiBase in CMake project
+RADIUM_GENERATE_LIB_GUIBASE:BOOL=ON
+--
+// Include Radium::IO in CMake project
+RADIUM_GENERATE_LIB_IO:BOOL=ON
+--
+// Include Radium::PluginBase in CMake project
+RADIUM_GENERATE_LIB_PLUGINBASE:BOOL=ON
+--
+// Check submodules during build (will be automatically disabled after run)
+RADIUM_GIT_UPDATE_SUBMODULE:BOOL=ON
+--
+// Provide loaders based on Assimp library
+RADIUM_IO_ASSIMP:BOOL=OFF
+--
+// Provide depricated loaders (to be removed without notice)
+RADIUM_IO_DEPRECATED:BOOL=ON
+--
+// Provide loaders based on TinyPly library
+RADIUM_IO_TINYPLY:BOOL=ON
+--
+// [addExternalFolder] Skip updating Core::external (disable for rebuild)
+RADIUM_SKIP_CORE_EXTERNAL:BOOL=ON
+--
+// [addExternalFolder] Skip updating Engine::external (disable for rebuild)
+RADIUM_SKIP_ENGINE_EXTERNAL:BOOL=ON
+--
+// [addExternalFolder] Skip updating IO::external (disable for rebuild)
+RADIUM_SKIP_IO_EXTERNAL:BOOL=ON
+--
+// Touche version file each time the project is compiled
+RADIUM_TOUCH_VERSION:BOOL=ON
+~~~
+
 
 ### Building on Microsoft Windows with Visual Studio
 
