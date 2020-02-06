@@ -1,5 +1,6 @@
 #include <Core/Resources/Resources.hpp>
 
+#include <algorithm>
 #include <cpplocate/cpplocate.h>
 
 namespace Ra {
@@ -8,6 +9,7 @@ namespace Resources {
 std::string getRadiumResourcesDir() {
     auto libraryPath =
         cpplocate::getLibraryPath( reinterpret_cast<void*>( getRadiumResourcesDir ) );
+    std::replace(libraryPath.begin(), libraryPath.end(), '\\', '/');
     auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
     auto baseDir     = libraryDir.substr( 0, libraryDir.find_last_of( '/' ) + 1 );
 
@@ -16,6 +18,7 @@ std::string getRadiumResourcesDir() {
 
 std::string getRadiumPluginsDir() {
     auto libraryPath = cpplocate::getLibraryPath( reinterpret_cast<void*>( getRadiumPluginsDir ) );
+    std::replace(libraryPath.begin(), libraryPath.end(), '\\', '/');
     auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
     auto baseDir     = libraryDir.substr( 0, libraryDir.find_last_of( '/' ) + 1 );
 
@@ -28,6 +31,7 @@ std::string getBaseDir() {
 
 ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath{""} {
     auto libraryPath = cpplocate::getLibraryPath( symbol );
+    std::replace(libraryPath.begin(), libraryPath.end(), '\\', '/');
     auto libraryDir  = libraryPath.substr( 0, libraryPath.find_last_of( '/' ) );
     m_basePath       = libraryDir + offset;
 }
