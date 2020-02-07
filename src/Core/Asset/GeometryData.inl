@@ -167,7 +167,7 @@ inline const GeometryData::WeightArray& GeometryData::getWeights() const {
 }
 
 inline void GeometryData::setWeights( const WeightArray& weightList ) {
-    m_weights = std::move( weightList );
+    m_weights = weightList;
 }
 
 inline const MaterialData& GeometryData::getMaterial() const {
