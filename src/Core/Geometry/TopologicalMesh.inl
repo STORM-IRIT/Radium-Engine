@@ -1,5 +1,7 @@
 #include "TopologicalMesh.hpp"
 
+#include <typeinfo>
+
 namespace Ra {
 namespace Core {
 namespace Geometry {
@@ -290,9 +292,21 @@ TopologicalMesh::vertex_wedges( OpenMesh::VertexHandle vh ) const {
     return ret;
 }
 
+inline const TopologicalMesh::WedgeData&
+TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
+    return m_wedges.getWedgeData( idx );
+}
+
 inline void TopologicalMesh::setWedgeData( TopologicalMesh::WedgeIndex widx,
                                            const TopologicalMesh::WedgeData& wedge ) {
     m_wedges.setWedgeData( widx, wedge );
+}
+
+template <typename T>
+inline bool TopologicalMesh::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                           const std::string& name,
+                                           const T& value ) {
+    return m_wedges.setWedgeData( idx, name, value );
 }
 
 inline const std::vector<std::string>& TopologicalMesh::getVec4AttribNames() const {
@@ -352,6 +366,49 @@ inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMes
     if ( idx.isValid() ) m_data[idx].setWedgeData( wd );
 }
 
+#define GET_NAME_ARRAY_HELPER( TYPE, NAME )                                                       \
+    template <>                                                                                   \
+    inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray<TYPE>() \
+        const {                                                                                   \
+        return m_##NAME##AttribNames;                                                             \
+    }
+
+GET_NAME_ARRAY_HELPER( float, float )
+GET_NAME_ARRAY_HELPER( Vector2, vector2 )
+GET_NAME_ARRAY_HELPER( Vector3, vector3 )
+GET_NAME_ARRAY_HELPER( Vector4, vector4 )
+
+#undef GET_NAME_ARRAY_HELPER
+
+template <typename T>
+inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() const {
+    static_assert( sizeof( T ) == -1, "this type is not supported" );
+    return {};
+}
+
+template <typename T>
+inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                            const std::string& name,
+                                                            const T& value ) {
+    if ( idx.isValid() )
+    {
+        auto nameArray = getNameArray<T>();
+        auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+        if ( itr != nameArray.end() )
+        {
+            auto attrIndex = std::distance( nameArray.begin(), itr );
+            m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex] = value;
+            return true;
+        }
+        else
+        {
+            LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
+                            << typeid( T ).name();
+        }
+    }
+    return false;
+}
+
 template <typename T>
 void TopologicalMesh::WedgeCollection::addProp( std::string name ) {
     if ( name != std::string( "in_position" ) )
@@ -372,7 +429,9 @@ void TopologicalMesh::WedgeCollection::addProp( std::string name ) {
 }
 
 inline void TopologicalMesh::WedgeCollection::garbageCollection() {
-    m_data.erase(std::remove_if( m_data.begin(), m_data.end(), []( const Wedge& w ) { return w.deleted(); } ), m_data.end());
+    m_data.erase( std::remove_if(
+                      m_data.begin(), m_data.end(), []( const Wedge& w ) { return w.deleted(); } ),
+                  m_data.end() );
 }
 
 inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
@@ -382,6 +441,23 @@ inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::Wedge
         m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
         m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
         m_vector4Attrib == lhs.m_vector4Attrib;
+}
+
+#define GET_ATTRIB_ARRAY_HELPER( TYPE, NAME )                                      \
+    template <>                                                                    \
+    inline VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() { \
+        return m_##NAME##Attrib;                                                   \
+    }
+
+GET_ATTRIB_ARRAY_HELPER( float, float )
+GET_ATTRIB_ARRAY_HELPER( Vector2, vector2 )
+GET_ATTRIB_ARRAY_HELPER( Vector3, vector3 )
+GET_ATTRIB_ARRAY_HELPER( Vector4, vector4 )
+#undef GET_ATTRIB_ARRAY_HELPER
+
+template <typename T>
+inline VectorArray<T>& TopologicalMesh::WedgeData::getAttribArray() {
+    static_assert( sizeof( T ) == -1, "this type is not supported" );
 }
 
 } // namespace Geometry
