@@ -334,9 +334,13 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     topologicalMesh = TopologicalMesh( mesh );
     newMesh         = topologicalMesh.toTriangleMesh();
     newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
+    topologicalMesh.setWedgeData( TopologicalMesh::WedgeIndex{0}, "in_normal", Vector3( 0, 0, 0 ) );
+    auto newMesh3 = topologicalMesh.toTriangleMeshFromWedges();
+
     REQUIRE( isSameMesh( mesh, newMesh ) );
     REQUIRE( isSameMesh( mesh, newMesh2 ) );
     REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
+    REQUIRE( !isSameMeshWedge( mesh, newMesh3 ) );
 
     // Test skip empty attributes
     mesh.addAttrib<float>( "empty" );
