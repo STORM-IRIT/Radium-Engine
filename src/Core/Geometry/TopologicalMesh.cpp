@@ -675,6 +675,79 @@ std::vector<int> TopologicalMesh::WedgeCollection::computeCleanupOffset() const 
     return ret;
 }
 
+///////////////// HELPERS ///////////////
+
+std::string wedgeInfo( const Ra::Core::Geometry::TopologicalMesh& topo,
+                       const Ra::Core::Geometry::TopologicalMesh::WedgeIndex& idx ) {
+
+    std::stringstream buffer;
+    if ( !idx.isValid() )
+    {
+        buffer << "wedge (invalid) ";
+        return buffer.str();
+    }
+
+    const Ra::Core::Geometry::TopologicalMesh::WedgeData& wd = topo.getWedgeData( idx );
+
+    buffer << "wedge (" << idx << "), ";
+    auto& floatAttrNames = topo.getFloatAttribNames();
+    for ( size_t i = 0; i < floatAttrNames.size(); ++i )
+    {
+        buffer << floatAttrNames[i];
+        buffer << "[";
+        buffer << wd.m_floatAttrib[i];
+        buffer << "], ";
+    }
+    auto vec2AttrNames = topo.getVec2AttribNames();
+    for ( size_t i = 0; i < vec2AttrNames.size(); ++i )
+    {
+        buffer << vec2AttrNames[i];
+        buffer << "[";
+        buffer << wd.m_vector2Attrib[i].transpose();
+        buffer << "], ";
+    }
+    auto vec3AttrNames = topo.getVec3AttribNames();
+    for ( size_t i = 0; i < vec3AttrNames.size(); ++i )
+    {
+        buffer << vec3AttrNames[i];
+        buffer << "[";
+        buffer << wd.m_vector3Attrib[i].transpose();
+        buffer << "], ";
+    }
+
+    auto vec4AttrNames = topo.getVec4AttribNames();
+    for ( size_t i = 0; i < vec4AttrNames.size(); ++i )
+    {
+        buffer << vec4AttrNames[i];
+        buffer << "[";
+        buffer << wd.m_vector4Attrib[i].transpose();
+        buffer << "], ";
+    }
+
+    return buffer.str();
+}
+
+void printWedgesInfo( const Ra::Core::Geometry::TopologicalMesh& topo ) {
+    using namespace Ra::Core;
+
+    for ( auto itr = topo.vertices_sbegin(); itr != topo.vertices_end(); ++itr )
+    {
+        LOG( Utils::logINFO ) << "vertex " << *itr;
+        auto wedges = topo.vertex_wedges( *itr );
+        for ( auto wedgeIndex : wedges )
+        {
+            LOG( Utils::logINFO ) << wedgeInfo( topo, wedgeIndex );
+        }
+    }
+
+    for ( auto itr = topo.halfedges_sbegin(); itr != topo.halfedges_end(); ++itr )
+    {
+        LOG( Utils::logINFO ) << "he " << *itr
+                              << ( topo.is_boundary( *itr ) ? " boundary " : " inner " );
+        LOG( Utils::logINFO ) << wedgeInfo( topo, topo.property( topo.getWedgeIndexPph(), *itr ) );
+    }
+}
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
