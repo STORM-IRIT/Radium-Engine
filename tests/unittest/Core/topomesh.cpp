@@ -194,7 +194,7 @@ void copyToWedgesVector( size_t size,
                 wedgesMeshOne[i].m_data.m_floatAttrib.push_back( data[i] );
             }
         }
-        else if ( attr->isVec2() )
+        else if ( attr->isVector2() )
         {
             auto data =
                 meshOne.getAttrib( meshOne.getAttribHandle<Vector2>( attr->getName() ) ).data();
@@ -203,7 +203,7 @@ void copyToWedgesVector( size_t size,
                 wedgesMeshOne[i].m_data.m_vector2Attrib.push_back( data[i] );
             }
         }
-        else if ( attr->isVec3() )
+        else if ( attr->isVector3() )
         {
             auto data =
                 meshOne.getAttrib( meshOne.getAttribHandle<Vector3>( attr->getName() ) ).data();
@@ -212,7 +212,7 @@ void copyToWedgesVector( size_t size,
                 wedgesMeshOne[i].m_data.m_vector3Attrib.push_back( data[i] );
             }
         }
-        else if ( attr->isVec4() )
+        else if ( attr->isVector4() )
         {
             auto data =
                 meshOne.getAttrib( meshOne.getAttribHandle<Vector4>( attr->getName() ) ).data();

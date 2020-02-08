@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_ATTRIBS_HPP
-#define RADIUMENGINE_ATTRIBS_HPP
-
+#pragma once
 #include <map>
 
 #include <Core/Containers/VectorArray.hpp>
@@ -76,13 +74,13 @@ class RA_CORE_API AttribBase : public ObservableVoid
     virtual bool isFloat() const = 0;
 
     /// Return true if the attribute content is of Vector2 type, false otherwise.
-    virtual bool isVec2() const = 0;
+    virtual bool isVector2() const = 0;
 
     /// Return true if the attribute content is of Vector3 type, false otherwise.
-    virtual bool isVec3() const = 0;
+    virtual bool isVector3() const = 0;
 
     /// Return true if the attribute content is of Vector4 type, false otherwise.
-    virtual bool isVec4() const = 0;
+    virtual bool isVector4() const = 0;
 
     /// Return a void * on the attrib data
     virtual const void* dataPtr() const = 0;
@@ -143,9 +141,9 @@ class Attrib : public AttribBase
     int getStride() const override;
     size_t getBufferSize() const override;
     bool isFloat() const override;
-    bool isVec2() const override;
-    bool isVec3() const override;
-    bool isVec4() const override;
+    bool isVector2() const override;
+    bool isVector3() const override;
+    bool isVector4() const override;
 
     /// check if attrib is a given type, as in attr.isType<MyMatrix>()
     template <typename U>
@@ -365,5 +363,3 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 } // namespace Ra
 
 #include <Core/Utils/Attribs.inl>
-
-#endif // RADIUMENGINE_ATTRIBS_HPP
