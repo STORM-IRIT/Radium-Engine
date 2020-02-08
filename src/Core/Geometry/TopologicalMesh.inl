@@ -371,6 +371,10 @@ inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMes
     inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray<TYPE>() \
         const {                                                                                   \
         return m_##NAME##AttribNames;                                                             \
+    }                                                                                             \
+    template <>                                                                                   \
+    inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray<TYPE>() {     \
+        return m_##NAME##AttribNames;                                                             \
     }
 
 GET_NAME_ARRAY_HELPER( float, float )
@@ -382,8 +386,19 @@ GET_NAME_ARRAY_HELPER( Vector4, vector4 )
 
 template <typename T>
 inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() const {
-    static_assert( sizeof( T ) == -1, "this type is not supported" );
+
+    LOG( logWARNING ) << "Warning, mesh attribute " << typeid( T ).name()
+                      << " is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    //    static_assert( sizeof( T ) == -1, "this type is not supported" );
     return {};
+}
+template <typename T>
+inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() {
+
+    LOG( logWARNING ) << "Warning, mesh attribute " << typeid( T ).name()
+                      << " is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    static_assert( sizeof( T ) == -1, "this type is not supported" );
+    return m_floatAttribNames;
 }
 
 template <typename T>
@@ -410,22 +425,8 @@ inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMes
 }
 
 template <typename T>
-void TopologicalMesh::WedgeCollection::addProp( std::string name ) {
-    if ( name != std::string( "in_position" ) )
-    {
-        if ( std::is_same<T, float>::value )
-            m_floatAttribNames.push_back( name );
-        else if ( std::is_same<T, Vector2>::value )
-            m_vector2AttribNames.push_back( name );
-        else if ( std::is_same<T, Vector3>::value )
-            m_vector3AttribNames.push_back( name );
-        else if ( std::is_same<T, Vector4>::value )
-            m_vector4AttribNames.push_back( name );
-        else
-            LOG( logWARNING )
-                << "Warning, mesh attribute " << name
-                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-    }
+void TopologicalMesh::WedgeCollection::addProp( const std::string& name ) {
+    if ( name != std::string( "in_position" ) ) { getNameArray<T>().push_back( name ); }
 }
 
 inline void TopologicalMesh::WedgeCollection::garbageCollection() {
@@ -441,6 +442,64 @@ inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::Wedge
         m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
         m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
         m_vector4Attrib == lhs.m_vector4Attrib;
+}
+
+// return 1 : equals, 2: strict less, 3: strich greater
+template <typename T>
+int compareVector( const T& a, const T& b ) {
+    for ( int i = 0; i < T::RowsAtCompileTime; i++ )
+    {
+        if ( a[i] < b[i] ) return 2;
+        if ( a[i] > b[i] ) return 3;
+    }
+    // (a == b)
+    return 1;
+}
+
+inline bool TopologicalMesh::WedgeData::operator<( const TopologicalMesh::WedgeData& lhs ) const {
+
+    CORE_ASSERT( ( m_floatAttrib.size() == lhs.m_floatAttrib.size() ) &&
+                     ( m_vector2Attrib.size() == lhs.m_vector2Attrib.size() ) &&
+                     ( m_vector3Attrib.size() == lhs.m_vector3Attrib.size() ) &&
+                     ( m_vector4Attrib.size() == lhs.m_vector4Attrib.size() ),
+                 "Could only compare wedge with same number of attributes" );
+
+    {
+        int comp = compareVector( m_position, lhs.m_position );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    for ( size_t i = 0; i < m_floatAttrib.size(); i++ )
+    {
+        if ( m_floatAttrib[i] < lhs.m_floatAttrib[i] )
+            return true;
+        else if ( m_floatAttrib[i] > lhs.m_floatAttrib[i] )
+            return false;
+    }
+
+    for ( size_t i = 0; i < m_vector2Attrib.size(); i++ )
+    {
+        int comp = compareVector( m_vector2Attrib[i], lhs.m_vector2Attrib[i] );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    for ( size_t i = 0; i < m_vector3Attrib.size(); i++ )
+    {
+        int comp = compareVector( m_vector3Attrib[i], lhs.m_vector3Attrib[i] );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    for ( size_t i = 0; i < m_vector4Attrib.size(); i++ )
+    {
+        int comp = compareVector( m_vector4Attrib[i], lhs.m_vector4Attrib[i] );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    return false;
+}
+
+bool TopologicalMesh::WedgeData::operator!=( const TopologicalMesh::WedgeData& lhs ) const {
+    return !( *this == lhs );
 }
 
 #define GET_ATTRIB_ARRAY_HELPER( TYPE, NAME )                                      \
