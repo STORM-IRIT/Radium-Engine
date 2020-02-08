@@ -495,6 +495,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     friend class TMOperations;
 };
 
+// heplers
+void printWedgesInfo( const TopologicalMesh& );
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
