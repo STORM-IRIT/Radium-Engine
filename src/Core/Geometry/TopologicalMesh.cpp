@@ -617,9 +617,9 @@ void TopologicalMesh::garbage_collection() {
         CORE_ASSERT( !idx.isValid() || !m_wedges.getWedge( idx ).deleted(),
                      "references deleted wedge remains after garbage collection" );
     }
-    for ( size_t i = 0; i<m_wedges.size(); ++i)
+    for ( size_t i = 0; i < m_wedges.size(); ++i )
     {
-        CORE_ASSERT( !m_wedges.getWedge( WedgeIndex(i) ).deleted(),
+        CORE_ASSERT( !m_wedges.getWedge( WedgeIndex( i ) ).deleted(),
                      "deleted wedge remains after garbage collection" );
     }
 }
