@@ -142,11 +142,11 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             {
                 if ( attr->isFloat() )
                     addAttribPairToTopo( triMesh, this, attr, vprop_float, m_floatPph );
-                else if ( attr->isVec2() )
+                else if ( attr->isVector2() )
                     addAttribPairToTopo( triMesh, this, attr, vprop_vec2, m_vec2Pph );
-                else if ( attr->isVec3() )
+                else if ( attr->isVector3() )
                     addAttribPairToTopo( triMesh, this, attr, vprop_vec3, m_vec3Pph );
-                else if ( attr->isVec4() )
+                else if ( attr->isVector4() )
                     addAttribPairToTopo( triMesh, this, attr, vprop_vec4, m_vec4Pph );
                 else
                     LOG( logWARNING )
@@ -171,19 +171,19 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
                         triMesh.getAttribHandle<float>( attr->getName() ) );
                     m_wedges.addProp<float>( attr->getName() );
                 }
-                else if ( attr->isVec2() )
+                else if ( attr->isVector2() )
                 {
                     m_wedges.m_wedgeVector2AttribHandles.push_back(
                         triMesh.getAttribHandle<Vector2>( attr->getName() ) );
                     m_wedges.addProp<Vector2>( attr->getName() );
                 }
-                else if ( attr->isVec3() )
+                else if ( attr->isVector3() )
                 {
                     m_wedges.m_wedgeVector3AttribHandles.push_back(
                         triMesh.getAttribHandle<Vector3>( attr->getName() ) );
                     m_wedges.addProp<Vector3>( attr->getName() );
                 }
-                else if ( attr->isVec4() )
+                else if ( attr->isVector4() )
                 {
                     m_wedges.m_wedgeVector4AttribHandles.push_back(
                         triMesh.getAttribHandle<Vector4>( attr->getName() ) );
