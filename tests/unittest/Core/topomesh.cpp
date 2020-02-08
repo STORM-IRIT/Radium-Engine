@@ -77,100 +77,9 @@ class WedgeDataAndIdx
     TopologicalMesh::WedgeData m_data;
     size_t m_idx;
 
-    // return 1 : equals, 2: strict less, 3: strich greater
-    int comp_vec( const Vector3& a, const Vector3& b ) const {
-        if ( a == b ) return 1;
-        if ( a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] ) ||
-             ( a[0] == b[0] && a[1] == b[1] && a[2] < b[2] ) )
-            return 2;
-        return 3;
-    }
-
-    int comp_vec( const Vector2& a, const Vector2& b ) const {
-        if ( a == b ) return 1;
-        if ( a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] ) ) return 2;
-        return 3;
-    }
-    int comp_vec( const Vector4& a, const Vector4& b ) const {
-        if ( a == b ) return 1;
-        if ( a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] ) ||
-             ( a[0] == b[0] && a[1] == b[1] && a[2] < b[2] ) ||
-             ( a[0] == b[0] && a[1] == b[1] && a[2] == b[2] && a[3] < b[3] ) )
-            return 2;
-        return 3;
-    }
-
-    bool operator<( const WedgeDataAndIdx& lhs ) const {
-        {
-            int comp = comp_vec( m_data.m_position, lhs.m_data.m_position );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return false;
-        }
-        for ( size_t i = 0; i < m_data.m_floatAttrib.size(); i++ )
-        {
-            if ( m_data.m_floatAttrib[i] < lhs.m_data.m_floatAttrib[i] )
-                return true;
-            else if ( m_data.m_floatAttrib[i] > lhs.m_data.m_floatAttrib[i] )
-                return false;
-        }
-
-        for ( size_t i = 0; i < m_data.m_vector2Attrib.size(); i++ )
-        {
-            int comp = comp_vec( m_data.m_vector2Attrib[i], lhs.m_data.m_vector2Attrib[i] );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return false;
-        }
-        for ( size_t i = 0; i < m_data.m_vector3Attrib.size(); i++ )
-        {
-            int comp = comp_vec( m_data.m_vector3Attrib[i], lhs.m_data.m_vector3Attrib[i] );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return false;
-        }
-        for ( size_t i = 0; i < m_data.m_vector4Attrib.size(); i++ )
-        {
-            int comp = comp_vec( m_data.m_vector4Attrib[i], lhs.m_data.m_vector4Attrib[i] );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return false;
-        }
-        return false;
-    }
-
-    bool operator==( const WedgeDataAndIdx& lhs ) const { return !( *this != lhs ); }
-
-    bool operator!=( const WedgeDataAndIdx& lhs ) const {
-        {
-            int comp = comp_vec( m_data.m_position, lhs.m_data.m_position );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return true;
-        }
-        for ( size_t i = 0; i < m_data.m_floatAttrib.size(); i++ )
-        {
-            if ( m_data.m_floatAttrib[i] < lhs.m_data.m_floatAttrib[i] )
-                return true;
-            else if ( m_data.m_floatAttrib[i] > lhs.m_data.m_floatAttrib[i] )
-                return true;
-        }
-
-        for ( size_t i = 0; i < m_data.m_vector2Attrib.size(); i++ )
-        {
-            int comp = comp_vec( m_data.m_vector2Attrib[i], lhs.m_data.m_vector2Attrib[i] );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return true;
-        }
-        for ( size_t i = 0; i < m_data.m_vector3Attrib.size(); i++ )
-        {
-            int comp = comp_vec( m_data.m_vector3Attrib[i], lhs.m_data.m_vector3Attrib[i] );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return true;
-        }
-        for ( size_t i = 0; i < m_data.m_vector4Attrib.size(); i++ )
-        {
-            int comp = comp_vec( m_data.m_vector4Attrib[i], lhs.m_data.m_vector4Attrib[i] );
-            if ( comp == 2 ) return true;
-            if ( comp == 3 ) return true;
-        }
-        return false;
-    }
+    bool operator<( const WedgeDataAndIdx& lhs ) const { return m_data < lhs.m_data; }
+    bool operator==( const WedgeDataAndIdx& lhs ) const { return !( m_data != lhs.m_data ); }
+    bool operator!=( const WedgeDataAndIdx& lhs ) const { return !( *this == lhs ); }
 };
 
 #define COPY_TO_WEDGES_VECTOR_HELPER( UPTYPE, DOWNTYPE, REALTYPE )                            \
@@ -180,7 +89,7 @@ class WedgeDataAndIdx
             meshOne.getAttrib( meshOne.getAttribHandle<REALTYPE>( attr->getName() ) ).data(); \
         for ( size_t i = 0; i < size; ++i )                                                   \
         {                                                                                     \
-            wedgesMeshOne[i].m_data.m_##DOWNTYPE##Attrib.push_back( data[i] );                \
+            wedgesMeshOne[i].m_data.getAttribArray<REALTYPE>().push_back( data[i] );          \
         }                                                                                     \
     }
 
