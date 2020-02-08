@@ -409,10 +409,14 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
     std::vector<AttribHandle<Vector4>> wedgeVector4AttribHandles;
 
     TriangleMesh::PointAttribHandle::Container wedgePosition;
-    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(m_wedges.m_floatAttribNames.size());
-    AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(m_wedges.m_vector2AttribNames.size());
-    AlignedStdVector<Attrib<Vector3>::Container> wedgeVector3AttribData(m_wedges.m_vector3AttribNames.size());
-    AlignedStdVector<Attrib<Vector4>::Container> wedgeVector4AttribData(m_wedges.m_vector4AttribNames.size());
+    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+        m_wedges.m_floatAttribNames.size() );
+    AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
+        m_wedges.m_vector2AttribNames.size() );
+    AlignedStdVector<Attrib<Vector3>::Container> wedgeVector3AttribData(
+        m_wedges.m_vector3AttribNames.size() );
+    AlignedStdVector<Attrib<Vector4>::Container> wedgeVector4AttribData(
+        m_wedges.m_vector4AttribNames.size() );
 
     /// Wedges are output vertices !
     for ( WedgeIndex widx{0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
