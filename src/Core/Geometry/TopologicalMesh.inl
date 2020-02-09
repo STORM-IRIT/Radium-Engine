@@ -349,6 +349,12 @@ inline void TopologicalMesh::WedgeCollection::del( const TopologicalMesh::WedgeI
     if ( idx.isValid() ) m_data[idx].decrementRefCount();
 }
 
+inline TopologicalMesh::WedgeIndex
+TopologicalMesh::WedgeCollection::newReference( const TopologicalMesh::WedgeIndex& idx ) {
+    if ( idx.isValid() ) m_data[idx].incrementRefCount();
+    return idx;
+}
+
 inline const TopologicalMesh::Wedge&
 TopologicalMesh::WedgeCollection::getWedge( const TopologicalMesh::WedgeIndex& idx ) const {
     return m_data[idx];
@@ -420,6 +426,17 @@ inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMes
             LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
                             << typeid( T ).name();
         }
+    }
+    return false;
+}
+
+inline bool
+TopologicalMesh::WedgeCollection::setWedgePosition( const TopologicalMesh::WedgeIndex& idx,
+                                                    const Vector3& value ) {
+    if ( idx.isValid() )
+    {
+        m_data[idx].getWedgeData().m_position = value;
+        return true;
     }
     return false;
 }
