@@ -594,6 +594,131 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
     return true;
 }
 
+template <typename T>
+void interpolate( const VectorArray<T>& in1,
+                  const VectorArray<T>& in2,
+                  VectorArray<T> out,
+                  const Scalar alpha ) {
+    for ( size_t i = 0; i < in1.size(); ++i )
+    {
+        out.push_back( ( 1_ra - alpha ) * in1[i] + alpha * in2[i] );
+    }
+}
+
+TopologicalMesh::WedgeData
+TopologicalMesh::interpolateWedgeAttributes( const TopologicalMesh::WedgeData& w1,
+                                             const TopologicalMesh::WedgeData& w2,
+                                             Scalar alpha ) {
+    WedgeData ret;
+    interpolate( w1.m_floatAttrib, w2.m_floatAttrib, ret.m_floatAttrib, alpha );
+    interpolate( w1.m_vector2Attrib, w2.m_vector2Attrib, ret.m_vector2Attrib, alpha );
+    interpolate( w1.m_vector3Attrib, w2.m_vector3Attrib, ret.m_vector3Attrib, alpha );
+    interpolate( w1.m_vector4Attrib, w2.m_vector4Attrib, ret.m_vector4Attrib, alpha );
+    return ret;
+}
+
+bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
+    // Global schema of operation
+    /*
+               TRIANGLES ONLY
+         before                after
+
+            /    \                /    |    \
+           /      \              /     |     \
+          /a2    a1\            /t2  t1|u2  u1\
+         /    a0 -->\          /  t0   |  u0   \
+        V0 -------- V1       V0 ------ V ------ V1
+         \<-- b0    /          \  s0   |  r0   /
+          \b1    b2/            \s1  s2|r1  r2/
+           \      /              \     |     /
+            \    /                \    |    /
+
+
+    */
+
+    // incorrect factor
+    if ( f < 0 || f > 1 ) { return false; }
+
+    // get existing topology data
+    auto a0 = halfedge_handle( eh, 0 );
+    auto b0 = halfedge_handle( eh, 1 );
+    auto v0 = to_vertex_handle( b0 );
+    auto v1 = to_vertex_handle( a0 );
+
+    auto a1 = next_halfedge_handle( a0 );
+    auto a2 = next_halfedge_handle( a1 );
+
+    auto b1 = next_halfedge_handle( b0 );
+    auto b2 = next_halfedge_handle( b1 );
+
+    const Point p  = Point( f * point( v1 ) + ( 1_ra - f ) * point( v0 ) );
+    VertexHandle v = add_vertex( p );
+    auto v0widx    = property( m_wedgeIndexPph, b0 );
+    auto wd0       = m_wedges.getWedgeData( v0widx );
+    auto v1widx    = property( m_wedgeIndexPph, a0 );
+    auto wd1       = m_wedges.getWedgeData( v1widx );
+    auto wd        = interpolateWedgeAttributes( wd0, wd1, f );
+    wd.m_position  = p;
+    auto widx      = m_wedges.add( wd );
+
+    base::split_edge( eh, v );
+
+    auto r0 = find_halfedge( v1, v );
+    auto r1 = next_halfedge_handle( r0 );
+    auto r2 = next_halfedge_handle( r1 );
+
+    auto s0 = find_halfedge( v, v0 );
+    auto s1 = next_halfedge_handle( s0 );
+    auto s2 = next_halfedge_handle( s1 );
+
+    auto t0 = find_halfedge( v0, v );
+    auto t1 = next_halfedge_handle( t0 );
+    auto t2 = next_halfedge_handle( t1 );
+
+    auto u0 = find_halfedge( v, v1 );
+    auto u1 = next_halfedge_handle( u0 );
+    auto u2 = next_halfedge_handle( u1 );
+
+    auto updateWedgeIndex1 = [this, widx]( HalfedgeHandle t0_,
+                                           HalfedgeHandle t1_,
+                                           HalfedgeHandle t2_,
+                                           HalfedgeHandle a1_,
+                                           HalfedgeHandle a2_ ) {
+        if ( !is_boundary( t0_ ) )
+        {
+            CORE_ASSERT( t2_ == a2_, "TopologicalMesh: splitEdgeWedge inconsistency" );
+            property( this->m_wedgeIndexPph, t0_ ) = widx;
+            property( this->m_wedgeIndexPph, t1_ ) =
+                this->m_wedges.newReference( property( this->m_wedgeIndexPph, a1_ ) );
+        }
+        else
+        { property( this->m_wedgeIndexPph, t0_ ) = WedgeIndex(); }
+    };
+
+    updateWedgeIndex1( t0, t1, t2, a1, a2 );
+    updateWedgeIndex1( r0, r1, r2, b1, b2 );
+
+    auto updateWedgeIndex2 = [this, widx]( HalfedgeHandle s0_,
+                                           HalfedgeHandle s1_,
+                                           HalfedgeHandle s2_,
+                                           HalfedgeHandle b1_,
+                                           TopologicalMesh::WedgeIndex v0widx_ ) {
+        if ( !is_boundary( s0_ ) )
+        {
+            CORE_ASSERT( s1_ == b1_, "TopologicalMesh: splitEdgeWedge inconsistency" );
+            property( this->m_wedgeIndexPph, s2_ ) = widx;
+            property( this->m_wedgeIndexPph, s0_ ) = this->m_wedges.newReference( v0widx_ );
+        }
+        else
+        { property( this->m_wedgeIndexPph, s0_ ) = WedgeIndex(); }
+    };
+
+    updateWedgeIndex2( s0, s1, s2, b1, v0widx );
+    updateWedgeIndex2( u0, u1, u2, a1, v1widx );
+
+    return true;
+}
+
 void TopologicalMesh::garbage_collection() {
     for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
     {

@@ -363,6 +363,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
     ///@}
+    bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
 
     /// Return the set of WedgeIndex incident to a given Vertex \p vh.
     /// only valid non deleted wedges are present in the set.
@@ -468,6 +469,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// If the wedge is still referenced by other halfedges, it will not be
         /// removed during garbageCollection.
         void del( const WedgeIndex& idx );
+        WedgeIndex newReference( const WedgeIndex& idx );
 
         ///\todo remove optional ? we can state that only valid idx are fine,
         /// and a deleted wedge should not correspond to a non deleted halfedge.
@@ -488,6 +490,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// \see TopologicalMesh::setWedgeData<T>
         template <typename T>
         inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
+        inline bool setWedgePosition( const WedgeIndex& idx, const Vector3& value );
 
         // name is supposed to be unique within all attribs
         // not checks are performed
@@ -517,6 +520,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     /// Wedge data management
     WedgeCollection m_wedges;
+
+    WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
 
     ///\todo to be deleted/updated
     OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
