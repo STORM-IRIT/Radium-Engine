@@ -719,10 +719,25 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
     return true;
 }
 
+void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
+    auto opposite = opposite_halfedge_handle( heh );
+    auto v0       = to_vertex_handle( opposite );
+    auto widx     = property( m_wedgeIndexPph, heh );
+
+    for ( VertexIHalfedgeIter vih_it = vih_iter( v0 ); vih_it; ++vih_it )
+    {
+        m_wedges.del( property( m_wedgeIndexPph, *vih_it ) );
+        property( m_wedgeIndexPph, *vih_it ) = m_wedges.newReference( widx );
+    }
+    m_wedges.del( property( m_wedgeIndexPph, opposite ) );
+    base::collapse( heh );
+}
+
 void TopologicalMesh::garbage_collection() {
     for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
     {
-        if ( status( *he_it ).deleted() ) { m_wedges.del( property( m_wedgeIndexPph, *he_it ) ); }
+        // already done in collapseWedge     if ( status( *he_it ).deleted() ) { m_wedges.del(
+        // property( m_wedgeIndexPph, *he_it ) ); }
     }
     auto offset = m_wedges.computeCleanupOffset();
     for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
