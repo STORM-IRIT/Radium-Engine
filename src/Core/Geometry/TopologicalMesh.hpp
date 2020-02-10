@@ -365,6 +365,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///@}
     bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
 
+    void collapseWedge( TopologicalMesh::HalfedgeHandle heh );
+
     /// Return the set of WedgeIndex incident to a given Vertex \p vh.
     /// only valid non deleted wedges are present in the set.
     inline std::set<WedgeIndex> vertex_wedges( OpenMesh::VertexHandle vh ) const;
