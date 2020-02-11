@@ -44,7 +44,11 @@ struct TopologicalMeshTraits : OpenMesh::DefaultTraits {
  * This class represents a mesh with topological information on the
  * vertex graph, using a half-edge representation.
  *
- * This integration is inspired by: https://gist.github.com/Unril/03fa353d0461ed6bd41d
+ * This integration is inspired by:
+ * https://gist.github.com/Unril/03fa353d0461ed6bd41d
+ *
+ * \todo rename methods to respect Radium guideline (get/set/is, camelCase)
+ * \todo private inheritance from OpenMesh, and import relevant methods.
  */
 class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>
 {
@@ -185,25 +189,25 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///@{
 
     /**
-     * Create a new property for normals on faces of \p mesh.
+     * Create a new property for normals on faces of \a mesh.
      * \note This new property will have to be propagated onto the newly created
      * halfedges with copyNormal().
      */
     inline void createNormalPropOnFaces( OpenMesh::FPropHandleT<Normal>& fProp );
 
     /**
-     * Remove face property \p prop from \p mesh.
+     * Remove face property \a prop from \a mesh.
      * \note Invalidates the property handle.
      */
     inline void clearProp( OpenMesh::FPropHandleT<Normal>& fProp );
 
     /**
-     * Copy the normal property from \p input_heh to \p copy_heh.
+     * Copy the normal property from \a input_heh to \a copy_heh.
      */
     inline void copyNormal( HalfedgeHandle input_heh, HalfedgeHandle copy_heh );
 
-    /** Copy the face normal property \p fProp from \p fh to \p heh.
-     * \note \p fProp must have been previously created through createNormalPropOnFaces().
+    /** Copy the face normal property \a fProp from \a fh to \a heh.
+     * \note \a fProp must have been previously created through createNormalPropOnFaces().
      */
     inline void
     copyNormalFromFace( FaceHandle fh, HalfedgeHandle heh, OpenMesh::FPropHandleT<Normal> fProp );
@@ -215,7 +219,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     interpolateNormal( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, Scalar f );
 
     /** Interpolate normal property on face center.
-     * \note \p fProp must have been previously created through createNormalPropOnFaces().
+     * \note \a fProp must have been previously created through createNormalPropOnFaces().
      */
     inline void interpolateNormalOnFaces( FaceHandle fh, OpenMesh::FPropHandleT<Normal> fProp );
     ///@}
@@ -227,7 +231,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///@{
 
     /**
-     * Create a new property for each \p input properties of \p mesh on faces.
+     * Create a new property for each \a input properties of \a mesh on faces.
      * \note This new property will have to be propagated onto the newly created
      * halfedges with copyProps().
      */
@@ -236,14 +240,14 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                              std::vector<OpenMesh::FPropHandleT<T>>& output );
 
     /**
-     * Remove \p props from \p mesh.
-     * \note Clears \p props.
+     * Remove \a props from \a mesh.
+     * \note Clears \a props.
      */
     template <typename T>
     void clearProps( std::vector<OpenMesh::FPropHandleT<T>>& props );
 
     /**
-     * Copy \p props properties from \p input_heh to \p copy_heh.
+     * Copy \a props properties from \a input_heh to \a copy_heh.
      */
     template <typename T>
     void copyProps( HalfedgeHandle input_heh,
@@ -251,8 +255,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                     const std::vector<OpenMesh::HPropHandleT<T>>& props );
 
     /**
-     * Copy face properties \p props from \p fh to \p heh.
-     * \note \p fProps must have been previously created through createPropsOnFaces().
+     * Copy face properties \a props from \a fh to \a heh.
+     * \note \a fProps must have been previously created through createPropsOnFaces().
      */
     template <typename T>
     void copyPropsFromFace( FaceHandle fh,
@@ -261,7 +265,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                             const std::vector<OpenMesh::HPropHandleT<T>>& hProps );
 
     /**
-     * Interpolate \p props on edge center (after edge split).
+     * Interpolate \a props on edge center (after edge split).
      */
     template <typename T>
     void interpolateProps( HalfedgeHandle in_a,
@@ -271,8 +275,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                            const std::vector<OpenMesh::HPropHandleT<T>>& props );
 
     /**
-     * Interpolate \p hprops on face center.
-     * \note \p fProps must have been previously created through createPropsOnFaces().
+     * Interpolate \a hprops on face center.
+     * \note \a fProps must have been previously created through createPropsOnFaces().
      */
     template <typename T>
     void interpolatePropsOnFaces( FaceHandle fh,
@@ -287,7 +291,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///@{
 
     /**
-     * Create a new property for each property of \p mesh on faces.
+     * Create a new property for each property of \a mesh on faces.
      * Outputs the new face properties handles in the corresponding output parameters.
      * \note These new properties will have to be propagated onto the newly created
      * halfedges with copyAllProps().
@@ -299,8 +303,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                                        std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
 
     /**
-     * Remove all the given properties from \p mesh.
-     * \note Invalidates \p normalProp and clears the given property containers.
+     * Remove all the given properties from \a mesh.
+     * \note Invalidates \a normalProp and clears the given property containers.
      */
     inline void clearAllProps( OpenMesh::FPropHandleT<Normal>& normalProp,
                                std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
@@ -309,12 +313,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                                std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
 
     /**
-     * Copy all properties from \p input_heh to \p copy_heh.
+     * Copy all properties from \a input_heh to \a copy_heh.
      */
     inline void copyAllProps( HalfedgeHandle input_heh, HalfedgeHandle copy_heh );
 
     /**
-     * Copy all given face properties from \p fh to \p heh.
+     * Copy all given face properties from \a fh to \a heh.
      * \note Each property must have been previously created either all at once
      * through createAllPropsOnFaces(), or individually through
      * createNormalPropOnFaces() and createPropsOnFaces().
@@ -334,7 +338,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     interpolateAllProps( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, Scalar f );
 
     /**
-     * Interpolate \p hprops on face center.
+     * Interpolate \a hprops on face center.
      * \note Each property must have been previously created either all at once
      * through createAllPropsOnFaces(), or individually through
      * createNormalPropOnFaces() and createPropsOnFaces().
@@ -353,46 +357,57 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     ///@{
     /**
-     * \brief Apply a 2-4 edge split.
+     * Apply a 2-4 edge split.
      * \param eh The handle to the edge to split.
      * \param f The interpolation factor to place the new point on the edge.
      *          Must be in [0,1].
      * \return True if the edge has been split, false otherwise.
-     * \note Only applies on edges between 3 triangles, and if \p f is in [0,1].
+     * \note Only applies on edges between 3 triangles, and if \a f is in [0,1].
      * \note Mesh attributes are linearly interpolated on the newly created halfedge.
      */
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
     bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
 
     /**
-     * \brief Halfedge collapes he, vo=from_vertex_handle(he) is deleted.
-     * after collapse vo incoming halfedges points to vh = to_vertex_handle(he).
-     * Wedge index are updated to reflect the change in topology.
+     * Halfedge collapes \a he.
+     * vo=from_vertex_handle(he) is deleted.
+     * After collapse vo incoming halfedges points to vh = to_vertex_handle(he).
+     * Wedge indices are updated to reflect the change in topology.
      * For detailed topological modifications see \ref develmeshes.
+     * \param he halfedge's hangle to collapse.
      */
     void collapseWedge( TopologicalMesh::HalfedgeHandle he );
     ///@}
 
-    /// Return the set of WedgeIndex incident to a given Vertex \p vh.
-    /// only valid non deleted wedges are present in the set.
+    /**
+     * Return the set of WedgeIndex incident to a given Vertex \a vh.
+     * only valid non deleted wedges are present in the set.
+     */
     inline std::set<WedgeIndex> vertex_wedges( OpenMesh::VertexHandle vh ) const;
 
-    /// Access to wedge data.
-    /// \p idx must be valid and correspond to a non delete wedge index.
+    /**
+     * Access to wedge data.
+     * \param idx must be valid and correspond to a non delete wedge index.
+     */
     inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
 
-    /// set WedgeData \p wedge to the wedge with index widx. All halfedge that
-    /// point to widx will get the new values.
-    inline void setWedgeData( WedgeIndex widx, const WedgeData& wedge );
+    /** set WedgeData \a wd to the wedge with index \a widx.
+     * All halfedge that point to widx will get the new values.
+     * \param widx index of the wedge
+     * \param wd data to set to wedge that correspond to widx
+     */
+    inline void setWedgeData( WedgeIndex widx, const WedgeData& wd );
 
-    /// change the WedgeData associated for \p idx, for attrib \p name to \p value.
-    /// The data is changed for all halfedges referencing this wedge.
-    /// return true if the wedge is set
-    /// return false if nothing set, i.e. if name is not an attrib of type T
+    /**
+     * Change the WedgeData associated for \a idx, for attrib \a name to \a value.
+     * The data is changed for all halfedges referencing this wedge.
+     * \return true if the wedge is set, false if nothing set, i.e. if name is not an attrib of type
+     * T.
+     */
     template <typename T>
     inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
 
-    /// Remove deleted element from the mesh, including wedge informations
+    /// Remove deleted element from the mesh, including wedges.
     void garbage_collection();
 
     inline const std::vector<std::string>& getVec4AttribNames() const;
@@ -400,7 +415,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline const std::vector<std::string>& getVec2AttribNames() const;
     inline const std::vector<std::string>& getFloatAttribNames() const;
 
-    /// true if more than one wedge arount vertex \p vh, false if only one wedge
+    /// true if more than one wedge arount vertex \a vh, false if only one wedge
     inline bool isFeatureVertex( const VertexHandle& vh ) const;
 
     /// true if at least one of edge's vertex as two different wedge arount the
@@ -454,28 +469,17 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
       public:
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-        /// attrib names associated to vertex/wedges
-        std::vector<std::string> m_floatAttribNames;
-        std::vector<std::string> m_vector2AttribNames;
-        std::vector<std::string> m_vector3AttribNames;
-        std::vector<std::string> m_vector4AttribNames;
-
         template <typename T>
         inline const std::vector<std::string>& getNameArray() const;
 
         template <typename T>
         inline std::vector<std::string>& getNameArray();
 
-        std::vector<AttribHandle<float>> m_wedgeFloatAttribHandles;
-        std::vector<AttribHandle<Vector2>> m_wedgeVector2AttribHandles;
-        std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
-        std::vector<AttribHandle<Vector4>> m_wedgeVector4AttribHandles;
-
         /// Add wd to the wedge collection, and return the index.
         /// If a wedge with same data is already present, it's index is returned.
         WedgeIndex add( const WedgeData& wd );
 
-        /// Delete the wedge \p idx from the collection.
+        /// Delete the wedge \a idx from the collection.
         /// These deletion actually just remove one reference from an halfedge
         /// to the wedge data.
         /// If the wedge is still referenced by other halfedges, it will not be
@@ -520,20 +524,28 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// merge wedges with same data
         /// return old->new index correspondance to update wedgeIndexPph
         /// inline void removeDuplicateWedge
-
         inline size_t size() const { return m_data.size(); }
+
+        /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
+        std::vector<std::string> m_floatAttribNames;
+        std::vector<std::string> m_vector2AttribNames;
+        std::vector<std::string> m_vector3AttribNames;
+        std::vector<std::string> m_vector4AttribNames;
+
+        /// attrib handle from the CoreMesh given at construction, if any.
+        std::vector<AttribHandle<float>> m_wedgeFloatAttribHandles;
+        std::vector<AttribHandle<Vector2>> m_wedgeVector2AttribHandles;
+        std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
+        std::vector<AttribHandle<Vector4>> m_wedgeVector4AttribHandles;
 
       private:
         AlignedStdVector<Wedge> m_data;
     };
 
-    /// Wedges indices stored in halfedges
-    OpenMesh::HPropHandleT<WedgeIndex> m_wedgeIndexPph;
-
-    /// Wedge data management
-    WedgeCollection m_wedges;
-
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
+
+    OpenMesh::HPropHandleT<WedgeIndex> m_wedgeIndexPph; /**< Halfedges' Wedge index */
+    WedgeCollection m_wedges;                           /**< Wedge data management */
 
     ///\todo to be deleted/updated
     OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
