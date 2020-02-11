@@ -130,19 +130,26 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Return the half-edge associated with a given vertex and face.
      * \note Asserts if vh is not a member of fh.
      */
-    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
+    [[deprecated]] inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
+    inline HalfedgeHandle getHalfedgeHandle( VertexHandle vh, FaceHandle fh ) const {
+        return halfedge_handle( vh, fh );
+    }
 
     /**
      * Get normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
-    inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
+    [[deprecated]] inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
+    inline const Normal& getNormal( VertexHandle vh, FaceHandle fh ) const {
+        return normal( vh, fh );
+    }
 
     /**
      * Set normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
-    void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
+    [[deprecated]] void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
+    void setNormal( VertexHandle vh, FaceHandle fh, const Normal& n ) { set_normal( vh, fh, n ); }
 
     /// Import Base definition of normal and set normal.
     ///@{
@@ -156,7 +163,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * If you work with vertex normals, please call this function on all vertex
      * handles before convertion with toTriangleMesh.
      */
-    void propagate_normal_to_halfedges( VertexHandle vh );
+    [[deprecated]] void propagate_normal_to_halfedges( VertexHandle vh );
+    void propagateNormalToHalfedges( VertexHandle vh ) { propagate_normal_to_halfedges( vh ); }
 
     /**
      * Return a handle to the halfedge property storing vertices indices within
@@ -283,11 +291,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                                   const std::vector<OpenMesh::HPropHandleT<T>>& hProps,
                                   const std::vector<OpenMesh::FPropHandleT<T>>& fProps );
     ///@}
-
     /**
-     * \name Deal with all attributes
-     * Utils to deal with the normal and custom properties when modifying the mesh topology.
-     */
+        * \name Deal with all attributes* Utils to deal with the normal and
+        custom properties when modifying the mesh topology.*/
+
     ///@{
 
     /**
@@ -383,7 +390,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Return the set of WedgeIndex incident to a given Vertex \a vh.
      * only valid non deleted wedges are present in the set.
      */
-    inline std::set<WedgeIndex> vertex_wedges( OpenMesh::VertexHandle vh ) const;
+    inline std::set<WedgeIndex> getVertexWedges( OpenMesh::VertexHandle vh ) const;
 
     /**
      * Access to wedge data.
@@ -401,14 +408,15 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * Change the WedgeData associated for \a idx, for attrib \a name to \a value.
      * The data is changed for all halfedges referencing this wedge.
-     * \return true if the wedge is set, false if nothing set, i.e. if name is not an attrib of type
-     * T.
+     * \return true if the wedge is set, false if nothing set, i.e. if name is not an attrib of
+     * type T.
      */
     template <typename T>
     inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
 
     /// Remove deleted element from the mesh, including wedges.
-    void garbage_collection();
+    [[deprecated]] void garbage_collection();
+    void garbageCollection() { garbage_collection(); }
 
     inline const std::vector<std::string>& getVec4AttribNames() const;
     inline const std::vector<std::string>& getVec3AttribNames() const;
@@ -425,7 +433,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     inline const OpenMesh::HPropHandleT<WedgeIndex>& getWedgeIndexPph() const;
 
-    void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
+    [[deprecated]] void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
+    void deleteFace( FaceHandle fh, bool deleteIsolatedVertices = true ) {
+        delete_face( fh, deleteIsolatedVertices );
+    }
 
     /// Check if evrything looks right in the data structure
     /// \return true if ok, false if ko.
@@ -456,7 +467,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// comparison ignore refCount
         bool operator==( const Wedge& lhs ) const { return m_wedgeData == lhs.m_wedgeData; }
 
-        bool deleted() const { return m_refCount == 0; }
+        bool isDeleted() const { return m_refCount == 0; }
         unsigned int getRefCount() const { return m_refCount; }
 
         friend WedgeCollection;
@@ -490,7 +501,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         ///\todo remove optional ? we can state that only valid idx are fine,
         /// and a deleted wedge should not correspond to a non deleted halfedge.
         const WedgeData& getWedgeData( const WedgeIndex& idx ) const {
-            CORE_ASSERT( idx.isValid() && !m_data[idx].deleted(),
+            CORE_ASSERT( idx.isValid() && !m_data[idx].isDeleted(),
                          "access to invalid or deleted wedge is prohibited" );
 
             return m_data[idx].getWedgeData();
@@ -524,7 +535,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// merge wedges with same data
         /// return old->new index correspondance to update wedgeIndexPph
         /// inline void removeDuplicateWedge
-        inline size_t size() const { return m_data.size(); }
+        inline size_t getSize() const { return m_data.size(); }
 
         /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
         std::vector<std::string> m_floatAttribNames;
