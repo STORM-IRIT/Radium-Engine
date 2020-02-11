@@ -281,13 +281,13 @@ inline void TopologicalMesh::interpolateAllPropsOnFaces(
 }
 
 inline std::set<TopologicalMesh::WedgeIndex>
-TopologicalMesh::vertex_wedges( OpenMesh::VertexHandle vh ) const {
+TopologicalMesh::getVertexWedges( OpenMesh::VertexHandle vh ) const {
     std::set<TopologicalMesh::WedgeIndex> ret;
 
     for ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it )
     {
         auto widx = property( m_wedgeIndexPph, *vh_it );
-        if ( widx.isValid() && !m_wedges.getWedge( widx ).deleted() ) ret.insert( widx );
+        if ( widx.isValid() && !m_wedges.getWedge( widx ).isDeleted() ) ret.insert( widx );
     }
     return ret;
 }
@@ -323,7 +323,7 @@ inline const std::vector<std::string>& TopologicalMesh::getFloatAttribNames() co
 }
 
 inline bool TopologicalMesh::isFeatureVertex( const VertexHandle& vh ) const {
-    return vertex_wedges( vh ).size() != 1;
+    return getVertexWedges( vh ).size() != 1;
 }
 
 inline bool TopologicalMesh::isFeatureEdge( const EdgeHandle& eh ) const {
@@ -447,8 +447,9 @@ void TopologicalMesh::WedgeCollection::addProp( const std::string& name ) {
 }
 
 inline void TopologicalMesh::WedgeCollection::garbageCollection() {
-    m_data.erase( std::remove_if(
-                      m_data.begin(), m_data.end(), []( const Wedge& w ) { return w.deleted(); } ),
+    m_data.erase( std::remove_if( m_data.begin(),
+                                  m_data.end(),
+                                  []( const Wedge& w ) { return w.isDeleted(); } ),
                   m_data.end() );
 }
 

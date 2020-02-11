@@ -419,7 +419,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
         m_wedges.m_vector4AttribNames.size() );
 
     /// Wedges are output vertices !
-    for ( WedgeIndex widx{0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
+    for ( WedgeIndex widx{0}; widx < WedgeIndex( m_wedges.getSize() ); ++widx )
     {
         const auto& wd = m_wedges.getWedgeData( widx );
         wedgePosition.push_back( wd.m_position );
@@ -792,12 +792,12 @@ void TopologicalMesh::garbage_collection() {
     for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
     {
         ON_ASSERT( auto idx = property( m_wedgeIndexPph, *he_it ); );
-        CORE_ASSERT( !idx.isValid() || !m_wedges.getWedge( idx ).deleted(),
+        CORE_ASSERT( !idx.isValid() || !m_wedges.getWedge( idx ).isDeleted(),
                      "references deleted wedge remains after garbage collection" );
     }
-    for ( size_t i = 0; i < m_wedges.size(); ++i )
+    for ( size_t i = 0; i < m_wedges.getSize(); ++i )
     {
-        CORE_ASSERT( !m_wedges.getWedge( WedgeIndex( i ) ).deleted(),
+        CORE_ASSERT( !m_wedges.getWedge( WedgeIndex( i ) ).isDeleted(),
                      "deleted wedge remains after garbage collection" );
     }
 }
@@ -838,7 +838,7 @@ std::vector<int> TopologicalMesh::WedgeCollection::computeCleanupOffset() const 
     int currentOffset = 0;
     for ( size_t i = 0; i < m_data.size(); ++i )
     {
-        if ( m_data[i].deleted() )
+        if ( m_data[i].isDeleted() )
         {
             ++currentOffset;
             ret[i] = -1;
@@ -902,7 +902,7 @@ std::string wedgeInfo( const Ra::Core::Geometry::TopologicalMesh& topo,
 }
 
 bool TopologicalMesh::checkIntegrity() const {
-    std::vector<unsigned int> count( m_wedges.size(), 0 );
+    std::vector<unsigned int> count( m_wedges.getSize(), 0 );
     bool ret = true;
     for ( auto he_itr{halfedges_begin()}; he_itr != halfedges_end(); ++he_itr )
     {
@@ -923,7 +923,7 @@ bool TopologicalMesh::checkIntegrity() const {
         }
     }
 
-    for ( int widx = 0; widx < int( m_wedges.size() ); ++widx )
+    for ( int widx = 0; widx < int( m_wedges.getSize() ); ++widx )
     {
         if ( m_wedges.getWedge( WedgeIndex{widx} ).getRefCount() != count[widx] )
         {
@@ -943,7 +943,7 @@ void printWedgesInfo( const Ra::Core::Geometry::TopologicalMesh& topo ) {
     for ( auto itr = topo.vertices_sbegin(); itr != topo.vertices_end(); ++itr )
     {
         LOG( Utils::logINFO ) << "vertex " << *itr;
-        auto wedges = topo.vertex_wedges( *itr );
+        auto wedges = topo.getVertexWedges( *itr );
         for ( auto wedgeIndex : wedges )
         {
             LOG( Utils::logINFO ) << wedgeInfo( topo, wedgeIndex );
