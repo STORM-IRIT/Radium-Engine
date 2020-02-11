@@ -291,4 +291,16 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         REQUIRE( check1 );
         REQUIRE( check2 );
     }
+
+    // create a triangle mesh with 4 vertices
+
+    // add a float attrib
+
+    // convert to topomesh
+
+    // split middle edge
+
+    // check topology and interpolated values
+    // split boundary edge
+    // check topology and interpolated values
 }
