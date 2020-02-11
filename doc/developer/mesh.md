@@ -161,3 +161,6 @@ TopologicalMesh methods and types related to wedges:
 \warning To delete face, one need to call `Ra::Core::Geometry::TopologicalMesh::delete_face`, not the `OpenMesh` vanilla `delete_face`
 
 \todo make OpenMesh inheritance private.
+
+Use `Ra::Core::Geometry::TopologicalMesh::collapseWedge` to perform halfedge collapse (works on triangle only ...). The following figure show the nasty updates:
+![Halfedge collapse and wedge.](wedge-collapse.svg)
