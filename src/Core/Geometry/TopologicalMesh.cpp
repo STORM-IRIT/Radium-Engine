@@ -720,7 +720,6 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
 }
 
 void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
-
     HalfedgeHandle h  = heh;
     HalfedgeHandle hn = next_halfedge_handle( h );
     HalfedgeHandle hp = prev_halfedge_handle( h );
@@ -729,8 +728,8 @@ void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
     HalfedgeHandle on = next_halfedge_handle( o );
     HalfedgeHandle op = prev_halfedge_handle( o );
 
-    FaceHandle fh = face_handle( h );
-    FaceHandle fo = face_handle( o );
+    //    FaceHandle fh = face_handle( h );
+    //    FaceHandle fo = face_handle( o );
 
     VertexHandle vh = to_vertex_handle( h );
     VertexHandle vo = to_vertex_handle( o );
@@ -758,6 +757,7 @@ void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
     m_wedges.del( property( m_wedgeIndexPph, opposite_halfedge_handle( op ) ) );
 
     base::collapse( h );
+
     for ( VertexIHalfedgeIter vih_it( vih_iter( vh ) ); vih_it.is_valid(); ++vih_it )
     {
         // delete and set to new widx
@@ -768,9 +768,11 @@ void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
 void TopologicalMesh::garbage_collection() {
     for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
     {
-        // already done in collapseWedge     if ( status( *he_it ).deleted() ) { m_wedges.del(
-        // property( m_wedgeIndexPph, *he_it ) ); }
+        // already done in collapseWedge
+        // if ( status( *he_it ).deleted() ) { m_wedges.del(property(
+        // m_wedgeIndexPph, *he_it )); }
     }
+
     auto offset = m_wedges.computeCleanupOffset();
     for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
     {
@@ -897,6 +899,42 @@ std::string wedgeInfo( const Ra::Core::Geometry::TopologicalMesh& topo,
     }
 
     return buffer.str();
+}
+
+bool TopologicalMesh::checkIntegrity() const {
+    std::vector<unsigned int> count( m_wedges.size(), 0 );
+    bool ret = true;
+    for ( auto he_itr{halfedges_begin()}; he_itr != halfedges_end(); ++he_itr )
+    {
+        auto widx = property( m_wedgeIndexPph, *he_itr );
+        if ( widx.isValid() )
+        {
+            count[widx]++;
+
+            if ( m_wedges.getWedgeData( widx ).m_position != point( to_vertex_handle( *he_itr ) ) )
+            {
+                LOG( logWARNING ) << "topological mesh wedge inconsistency, wedge and to position "
+                                     "differ for widx "
+                                  << widx << ", have "
+                                  << m_wedges.getWedgeData( widx ).m_position.transpose()
+                                  << "instead of "
+                                  << point( to_vertex_handle( *he_itr ) ).transpose();
+            }
+        }
+    }
+
+    for ( int widx = 0; widx < int( m_wedges.size() ); ++widx )
+    {
+        if ( m_wedges.getWedge( WedgeIndex{widx} ).getRefCount() != count[widx] )
+        {
+            LOG( logWARNING ) << "topological mesh wedge count inconsistency, have  " << count[widx]
+                              << " instead of "
+                              << m_wedges.getWedge( WedgeIndex{widx} ).getRefCount()
+                              << " for wedge id " << widx;
+            ret = false;
+        }
+    }
+    return ret;
 }
 
 void printWedgesInfo( const Ra::Core::Geometry::TopologicalMesh& topo ) {

@@ -215,11 +215,12 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     // Test for close mesh
     mesh            = Ra::Core::Geometry::makeBox();
     topologicalMesh = TopologicalMesh( mesh );
-    newMesh         = topologicalMesh.toTriangleMesh();
     newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
+    newMesh         = topologicalMesh.toTriangleMesh();
     REQUIRE( isSameMesh( mesh, newMesh ) );
     REQUIRE( isSameMesh( mesh, newMesh2 ) );
     REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
+    REQUIRE( topologicalMesh.checkIntegrity() );
 
     mesh            = Ra::Core::Geometry::makeSharpBox();
     topologicalMesh = TopologicalMesh( mesh );
@@ -228,6 +229,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     REQUIRE( isSameMesh( mesh, newMesh ) );
     REQUIRE( isSameMesh( mesh, newMesh2 ) );
     REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
+    REQUIRE( topologicalMesh.checkIntegrity() );
 
     // Test for mesh with boundaries
     mesh            = Ra::Core::Geometry::makePlaneGrid( 2, 2 );
@@ -237,6 +239,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     REQUIRE( isSameMesh( mesh, newMesh ) );
     REQUIRE( isSameMesh( mesh, newMesh2 ) );
     REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
+    REQUIRE( topologicalMesh.checkIntegrity() );
 
     mesh = Ra::Core::Geometry::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
 
@@ -250,12 +253,14 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     REQUIRE( isSameMesh( mesh, newMesh2 ) );
     REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
     REQUIRE( !isSameMeshWedge( mesh, newMesh3 ) );
+    REQUIRE( topologicalMesh.checkIntegrity() );
 
     // Test skip empty attributes
     mesh.addAttrib<float>( "empty" );
     topologicalMesh = TopologicalMesh( mesh );
     newMesh         = topologicalMesh.toTriangleMesh();
     REQUIRE( !newMesh.hasAttrib( "empty" ) );
+    REQUIRE( topologicalMesh.checkIntegrity() );
 
     // Test normals
     mesh            = Ra::Core::Geometry::makeBox();
@@ -290,6 +295,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         }
         REQUIRE( check1 );
         REQUIRE( check2 );
+        REQUIRE( topologicalMesh.checkIntegrity() );
     }
 
     // create a triangle mesh with 4 vertices
@@ -303,4 +309,6 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     // check topology and interpolated values
     // split boundary edge
     // check topology and interpolated values
+
+    // collapse
 }
