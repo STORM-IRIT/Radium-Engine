@@ -362,10 +362,16 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \note Mesh attributes are linearly interpolated on the newly created halfedge.
      */
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
-    ///@}
     bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
 
-    void collapseWedge( TopologicalMesh::HalfedgeHandle heh );
+    /**
+     * \brief Halfedge collapes he, vo=from_vertex_handle(he) is deleted.
+     * after collapse vo incoming halfedges points to vh = to_vertex_handle(he).
+     * Wedge index are updated to reflect the change in topology.
+     * For detailed topological modifications see \ref develmeshes.
+     */
+    void collapseWedge( TopologicalMesh::HalfedgeHandle he );
+    ///@}
 
     /// Return the set of WedgeIndex incident to a given Vertex \p vh.
     /// only valid non deleted wedges are present in the set.
@@ -405,6 +411,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline const OpenMesh::HPropHandleT<WedgeIndex>& getWedgeIndexPph() const;
 
     void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
+
+    /// Check if evrything looks right in the data structure
+    /// \return true if ok, false if ko.
+    bool checkIntegrity() const;
 
   private:
     class WedgeCollection;
