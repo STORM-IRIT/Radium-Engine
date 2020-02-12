@@ -536,7 +536,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// merge wedges with same data
         /// return old->new index correspondance to update wedgeIndexPph
         /// inline void removeDuplicateWedge
-        inline size_t getSize() const { return m_data.size(); }
+        inline size_t size() const { return m_data.size(); }
 
         /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
         std::vector<std::string> m_floatAttribNames;

@@ -249,7 +249,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
                                  &wd );
 
             face_wedges[j] = m_wedges.add( wd );
-            if ( face_wedges[j] != m_wedges.getSize() - 1 )
+            if ( face_wedges[j] != m_wedges.size() - 1 )
             { LOG( logINFO ) << "New wedge " << face_wedges[j]; }
             else
             { LOG( logINFO ) << "Old wedge " << face_wedges[j]; }
@@ -274,7 +274,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         face_normals.clear();
         face_vertexIndex.clear();
     }
-    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.getSize() << " wedges ";
+    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
 
     printWedgesInfo( *this );
 }
@@ -358,7 +358,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
         m_wedges.m_data.emplace_back( wd );
     }
 
-    LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.getSize() << " wedges ";
+    LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.size() << " wedges ";
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
@@ -406,7 +406,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
         face_normals.clear();
         face_vertexIndex.clear();
     }
-    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.getSize() << " wedges ";
+    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
 }
 
 TriangleMesh TopologicalMesh::toTriangleMesh() {
@@ -566,7 +566,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
         m_wedges.m_vector4AttribNames.size() );
 
     /// Wedges are output vertices !
-    for ( WedgeIndex widx{0}; widx < WedgeIndex( m_wedges.getSize() ); ++widx )
+    for ( WedgeIndex widx{0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
     {
         const auto& wd = m_wedges.getWedgeData( widx );
         wedgePosition.push_back( wd.m_position );
@@ -953,7 +953,7 @@ void TopologicalMesh::garbage_collection() {
         CORE_ASSERT( !idx.isValid() || !m_wedges.getWedge( idx ).isDeleted(),
                      "references deleted wedge remains after garbage collection" );
     }
-    for ( size_t i = 0; i < m_wedges.getSize(); ++i )
+    for ( size_t i = 0; i < m_wedges.size(); ++i )
     {
         CORE_ASSERT( !m_wedges.getWedge( WedgeIndex( i ) ).isDeleted(),
                      "deleted wedge remains after garbage collection" );
@@ -1060,7 +1060,7 @@ std::string wedgeInfo( const Ra::Core::Geometry::TopologicalMesh& topo,
 }
 
 bool TopologicalMesh::checkIntegrity() const {
-    std::vector<unsigned int> count( m_wedges.getSize(), 0 );
+    std::vector<unsigned int> count( m_wedges.size(), 0 );
     bool ret = true;
     for ( auto he_itr{halfedges_begin()}; he_itr != halfedges_end(); ++he_itr )
     {
@@ -1081,7 +1081,7 @@ bool TopologicalMesh::checkIntegrity() const {
         }
     }
 
-    for ( int widx = 0; widx < int( m_wedges.getSize() ); ++widx )
+    for ( int widx = 0; widx < int( m_wedges.size() ); ++widx )
     {
         if ( m_wedges.getWedge( WedgeIndex{widx} ).getRefCount() != count[widx] )
         {
