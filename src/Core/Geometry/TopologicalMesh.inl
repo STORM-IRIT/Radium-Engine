@@ -398,6 +398,7 @@ inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getName
     //    static_assert( sizeof( T ) == -1, "this type is not supported" );
     return {};
 }
+
 template <typename T>
 inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() {
 
