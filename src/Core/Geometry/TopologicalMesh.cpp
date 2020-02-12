@@ -737,6 +737,9 @@ void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
     auto position = m_wedges.getWedgeData( property( m_wedgeIndexPph, heh ) ).m_position;
     auto widx     = property( m_wedgeIndexPph, heh );
 
+    CORE_ASSERT( widx.isValid(), "try to collapse onto an invalid wedge" );
+    CORE_ASSERT( !isFeatureVertex( vo ), "try to collapse a feature vertex" );
+
     for ( VertexIHalfedgeIter vih_it( vih_iter( vo ) ); vih_it.is_valid(); ++vih_it )
     {
         // delete and set to new widx
@@ -745,14 +748,22 @@ void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
     }
     // but remove one ref for the deleted opposite he
     m_wedges.del( property( m_wedgeIndexPph, o ) );
+
     // and delete wedge of the remove he
-    property( m_wedgeIndexPph, hp ) =
-        m_wedges.newReference( property( m_wedgeIndexPph, opposite_halfedge_handle( hn ) ) );
+    // first if h is not boundary, copy the wedgeIndex of hn to hp to it
+    if ( !is_boundary( h ) )
+    {
+        property( m_wedgeIndexPph, hp ) =
+            m_wedges.newReference( property( m_wedgeIndexPph, opposite_halfedge_handle( hn ) ) );
+    }
     m_wedges.del( property( m_wedgeIndexPph, hn ) );
     m_wedges.del( property( m_wedgeIndexPph, opposite_halfedge_handle( hn ) ) );
 
-    property( m_wedgeIndexPph, on ) =
-        m_wedges.newReference( property( m_wedgeIndexPph, opposite_halfedge_handle( op ) ) );
+    if ( !is_boundary( o ) )
+    {
+        property( m_wedgeIndexPph, on ) =
+            m_wedges.newReference( property( m_wedgeIndexPph, opposite_halfedge_handle( op ) ) );
+    }
     m_wedges.del( property( m_wedgeIndexPph, op ) );
     m_wedges.del( property( m_wedgeIndexPph, opposite_halfedge_handle( op ) ) );
 
