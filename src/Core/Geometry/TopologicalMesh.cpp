@@ -114,6 +114,12 @@ void copyMeshToWedgeData( const TriangleMesh& mesh,
 }
 
 TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
+    //    initWithWedge( triMesh );
+    //    return;
+
+    LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.m_indices.size()
+                   << " faces and " << triMesh.vertices().size() << " vertices.";
+
     struct hash_vec {
         size_t operator()( const Vector3& lvalue ) const {
             size_t hx = std::hash<Scalar>()( lvalue[0] );
@@ -127,7 +133,9 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     VertexMap vertexHandles;
 
     add_property( m_inputTriangleMeshIndexPph );
+
     add_property( m_wedgeIndexPph );
+
     std::vector<PropPair<float>> vprop_float;
     std::vector<PropPair<Vector2>> vprop_vec2;
     std::vector<PropPair<Vector3>> vprop_vec3;
@@ -154,7 +162,6 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
                         << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
             }
         } );
-
     // loop over all attribs and build correspondance pair
     triMesh.vertexAttribs().for_each_attrib(
         [&triMesh, this]( const auto& attr ) {
@@ -200,12 +207,11 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
+        if ( i % 10 == 0 ) LOG( logINFO ) << "Load " << i << "/" << num_triangles;
         std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
         std::vector<TopologicalMesh::Normal> face_normals( 3 );
         std::vector<unsigned int> face_vertexIndex( 3 );
-        AlignedStdVector<WedgeData> face_wedges;
-        // ctr sizing raise Eigen segfault, so use reserve instead
-        face_wedges.reserve( 3 );
+        std::vector<WedgeIndex> face_wedges( 3 );
         const auto& triangle = triMesh.m_indices[i];
         for ( size_t j = 0; j < 3; ++j )
         {
@@ -220,9 +226,13 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             {
                 vh = add_vertex( p );
                 vertexHandles.insert( vtr, VertexMap::value_type( p, vh ) );
+                LOG( logINFO ) << "New vert " << inMeshVertexIndex;
             }
             else
-            { vh = vtr->second; }
+            {
+                LOG( logINFO ) << "Old vert " << inMeshVertexIndex;
+                vh = vtr->second;
+            }
 
             face_vhandles[j]    = vh;
             face_normals[j]     = n;
@@ -237,7 +247,12 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
                                  m_wedges.m_wedgeVector3AttribHandles,
                                  m_wedges.m_wedgeVector4AttribHandles,
                                  &wd );
-            face_wedges.push_back( wd );
+
+            face_wedges[j] = m_wedges.add( wd );
+            if ( face_wedges[j] != m_wedges.getSize() - 1 )
+            { LOG( logINFO ) << "New wedge " << face_wedges[j]; }
+            else
+            { LOG( logINFO ) << "Old wedge " << face_wedges[j]; }
         }
 
         // Add the face, then add attribs to vh
@@ -252,14 +267,146 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             copyAttribToTopo( triMesh, this, vprop_vec2, heh, face_vertexIndex[vindex] );
             copyAttribToTopo( triMesh, this, vprop_vec3, heh, face_vertexIndex[vindex] );
             copyAttribToTopo( triMesh, this, vprop_vec4, heh, face_vertexIndex[vindex] );
-
-            property( m_wedgeIndexPph, heh ) = m_wedges.add( face_wedges[vindex] );
+            property( m_wedgeIndexPph, heh ) = face_wedges[vindex];
         }
 
         face_vhandles.clear();
         face_normals.clear();
         face_vertexIndex.clear();
     }
+    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.getSize() << " wedges ";
+
+    printWedgesInfo( *this );
+}
+
+void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
+
+    LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.m_indices.size()
+                   << " faces and " << triMesh.vertices().size() << " vertices.";
+
+    ///\todo use a kdtree
+    struct hash_vec {
+        size_t operator()( const Vector3& lvalue ) const {
+            size_t hx = std::hash<Scalar>()( lvalue[0] );
+            size_t hy = std::hash<Scalar>()( lvalue[1] );
+            size_t hz = std::hash<Scalar>()( lvalue[2] );
+            return ( hx ^ ( hy << 1 ) ) ^ hz;
+        }
+    };
+    // use a hashmap for fast search of existing vertex position
+    using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
+    VertexMap vertexHandles;
+
+    add_property( m_inputTriangleMeshIndexPph );
+    add_property( m_wedgeIndexPph );
+
+    // loop over all attribs and build correspondance pair
+    triMesh.vertexAttribs().for_each_attrib(
+        [&triMesh, this]( const auto& attr ) {
+            if ( attr->getSize() != triMesh.vertices().size() )
+            {
+                LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute "
+                                  << attr->getName();
+            }
+            else if ( attr->getName() != std::string( "in_position" ) )
+            {
+                if ( attr->isFloat() )
+                {
+                    m_wedges.m_wedgeFloatAttribHandles.push_back(
+                        triMesh.getAttribHandle<float>( attr->getName() ) );
+                    m_wedges.addProp<float>( attr->getName() );
+                }
+                else if ( attr->isVector2() )
+                {
+                    m_wedges.m_wedgeVector2AttribHandles.push_back(
+                        triMesh.getAttribHandle<Vector2>( attr->getName() ) );
+                    m_wedges.addProp<Vector2>( attr->getName() );
+                }
+                else if ( attr->isVector3() )
+                {
+                    m_wedges.m_wedgeVector3AttribHandles.push_back(
+                        triMesh.getAttribHandle<Vector3>( attr->getName() ) );
+                    m_wedges.addProp<Vector3>( attr->getName() );
+                }
+                else if ( attr->isVector4() )
+                {
+                    m_wedges.m_wedgeVector4AttribHandles.push_back(
+                        triMesh.getAttribHandle<Vector4>( attr->getName() ) );
+                    m_wedges.addProp<Vector4>( attr->getName() );
+                }
+                else
+                    LOG( logWARNING )
+                        << "Warning, mesh attribute " << attr->getName()
+                        << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+            }
+        } );
+
+    size_t num_triangles = triMesh.m_indices.size();
+
+    for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
+    {
+        WedgeData wd;
+        wd.m_position = triMesh.vertices()[i];
+        copyMeshToWedgeData( triMesh,
+                             i,
+                             m_wedges.m_wedgeFloatAttribHandles,
+                             m_wedges.m_wedgeVector2AttribHandles,
+                             m_wedges.m_wedgeVector3AttribHandles,
+                             m_wedges.m_wedgeVector4AttribHandles,
+                             &wd );
+
+        m_wedges.m_data.emplace_back( wd );
+    }
+
+    LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.getSize() << " wedges ";
+
+    for ( unsigned int i = 0; i < num_triangles; i++ )
+    {
+        if ( i % 10 == 0 ) LOG( logINFO ) << "Load " << i << "/" << num_triangles;
+
+        std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
+        std::vector<TopologicalMesh::Normal> face_normals( 3 );
+        std::vector<unsigned int> face_vertexIndex( 3 );
+        std::vector<WedgeIndex> face_wedges( 3 );
+        const auto& triangle = triMesh.m_indices[i];
+
+        for ( size_t j = 0; j < 3; ++j )
+        {
+            unsigned int inMeshVertexIndex = triangle[j];
+            const Vector3& p               = triMesh.vertices()[inMeshVertexIndex];
+            const Vector3& n               = triMesh.normals()[inMeshVertexIndex];
+
+            VertexMap::iterator vtr = vertexHandles.find( p );
+            TopologicalMesh::VertexHandle vh;
+            if ( vtr == vertexHandles.end() )
+            {
+                vh = add_vertex( p );
+                vertexHandles.insert( vtr, VertexMap::value_type( p, vh ) );
+            }
+            else
+            { vh = vtr->second; }
+
+            face_vhandles[j]    = vh;
+            face_normals[j]     = n;
+            face_vertexIndex[j] = inMeshVertexIndex;
+            face_wedges[j]      = WedgeIndex{i};
+        }
+
+        // Add the face, then add attribs to vh
+        TopologicalMesh::FaceHandle fh = add_face( face_vhandles );
+
+        for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
+        {
+            TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
+            set_normal( heh, face_normals[vindex] );
+            property( m_wedgeIndexPph, heh ) = m_wedges.newReference( face_wedges[vindex] );
+        }
+
+        face_vhandles.clear();
+        face_normals.clear();
+        face_vertexIndex.clear();
+    }
+    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.getSize() << " wedges ";
 }
 
 TriangleMesh TopologicalMesh::toTriangleMesh() {

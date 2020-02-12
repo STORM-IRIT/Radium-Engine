@@ -96,6 +96,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \note This is a costly operation.
      */
     explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
+    void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh );
 
     /**
      * Construct an empty topological mesh
@@ -549,7 +550,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
         std::vector<AttribHandle<Vector4>> m_wedgeVector4AttribHandles;
 
-      private:
+        //      private:
         AlignedStdVector<Wedge> m_data;
     };
 
