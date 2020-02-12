@@ -105,6 +105,9 @@ RADIUM_GENERATE_LIB_PLUGINBASE:BOOL=ON
 RADIUM_GIT_UPDATE_SUBMODULE:BOOL=ON
 --
 // Provide loaders based on Assimp library
+RADIUM_INSTALL_DOC:BOOL=ON
+--
+// Provide loaders based on Assimp library
 RADIUM_IO_ASSIMP:BOOL=OFF
 --
 // Provide depricated loaders (to be removed without notice)
@@ -123,7 +126,7 @@ RADIUM_SKIP_ENGINE_EXTERNAL:BOOL=ON
 RADIUM_SKIP_IO_EXTERNAL:BOOL=ON
 --
 // Touche version file each time the project is compiled
-RADIUM_TOUCH_VERSION:BOOL=ON
+RADIUM_UPDATE_VERSION:BOOL=ON
 ~~~
 
 

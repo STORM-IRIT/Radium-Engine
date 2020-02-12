@@ -63,10 +63,12 @@ if(DOXYGEN_FOUND)
     # Where docs will be installed.
     # Note: if docs shall be not a part of final release, leave this commented out
     # docs will be only available in [build_dir]/doc/doc/index.html
-     install(
+    if(RADIUM_INSTALL_DOC)
+      install(
          DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html
          DESTINATION share/doc/
          OPTIONAL )
+    endif()
 endif()
 
 
