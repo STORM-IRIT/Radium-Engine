@@ -474,8 +474,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         friend WedgeCollection;
     };
 
-    /// This private class manage the wedge collection, most of the data members are public so
-    /// that the enclosing class can easily manage the data.
+    /**
+     * This private class manage the wedge collection.
+     * Most of the data members are public so that the enclosing class can
+     * easily manage the data.
+     */
     class WedgeCollection
     {
       public:
@@ -487,20 +490,27 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         template <typename T>
         inline std::vector<std::string>& getNameArray();
 
-        /// Add wd to the wedge collection, and return the index.
-        /// If a wedge with same data is already present, it's index is returned.
+        /**
+         * Add wd to the wedge collection, and return the index.
+         * If a wedge with same data is already present, it's index is returned,
+         * otherwise a new wedge is added to the wedges collection.
+         * \param wd Data to insert.
+         * \return the index of the inserted (or found) wedge.
+         */
         WedgeIndex add( const WedgeData& wd );
 
-        /// Delete the wedge \a idx from the collection.
-        /// These deletion actually just remove one reference from an halfedge
-        /// to the wedge data.
-        /// If the wedge is still referenced by other halfedges, it will not be
-        /// removed during garbageCollection.
+        /**
+         * Delete the wedge \a idx from the collection.
+         * These deletion actually just remove one reference from an halfedge
+         * to the wedge data. If the wedge is still referenced by other
+         * halfedges, it will not be removed during garbageCollection.
+         */
         void del( const WedgeIndex& idx );
         WedgeIndex newReference( const WedgeIndex& idx );
 
-        ///\todo remove optional ? we can state that only valid idx are fine,
-        /// and a deleted wedge should not correspond to a non deleted halfedge.
+        /**
+         * Return the wedge data associated with \a idx
+         */
         const WedgeData& getWedgeData( const WedgeIndex& idx ) const {
             CORE_ASSERT( idx.isValid() && !m_data[idx].isDeleted(),
                          "access to invalid or deleted wedge is prohibited" );
