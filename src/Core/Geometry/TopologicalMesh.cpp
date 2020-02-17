@@ -274,9 +274,8 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         face_normals.clear();
         face_vertexIndex.clear();
     }
-    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
-
-    printWedgesInfo( *this );
+    //    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
+    //    printWedgesInfo( *this );
 }
 
 void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
