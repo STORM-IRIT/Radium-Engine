@@ -131,7 +131,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Return the half-edge associated with a given vertex and face.
      * \note Asserts if vh is not a member of fh.
      */
-    [[deprecated]] inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
+    inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
     inline HalfedgeHandle getHalfedgeHandle( VertexHandle vh, FaceHandle fh ) const {
         return halfedge_handle( vh, fh );
     }
@@ -140,7 +140,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Get normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
-    [[deprecated]] inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
+    inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
     inline const Normal& getNormal( VertexHandle vh, FaceHandle fh ) const {
         return normal( vh, fh );
     }
@@ -149,7 +149,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Set normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
-    [[deprecated]] void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
+    void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
     void setNormal( VertexHandle vh, FaceHandle fh, const Normal& n ) { set_normal( vh, fh, n ); }
 
     /// Import Base definition of normal and set normal.
@@ -164,7 +164,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * If you work with vertex normals, please call this function on all vertex
      * handles before convertion with toTriangleMesh.
      */
-    [[deprecated]] void propagate_normal_to_halfedges( VertexHandle vh );
+    void propagate_normal_to_halfedges( VertexHandle vh );
     void propagateNormalToHalfedges( VertexHandle vh ) { propagate_normal_to_halfedges( vh ); }
 
     /**
@@ -434,7 +434,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     }
 
     /// Remove deleted element from the mesh, including wedges.
-    [[deprecated]] void garbage_collection();
+    void garbage_collection();
     void garbageCollection() { garbage_collection(); }
 
     inline const std::vector<std::string>& getVec4AttribNames() const;
@@ -452,7 +452,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     inline const OpenMesh::HPropHandleT<WedgeIndex>& getWedgeIndexPph() const;
 
-    [[deprecated]] void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
+    void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
     void deleteFace( FaceHandle fh, bool deleteIsolatedVertices = true ) {
         delete_face( fh, deleteIsolatedVertices );
     }
