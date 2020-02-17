@@ -657,7 +657,7 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
 }
 
 void Gui::Viewer::swapBuffers() {
-    m_context->swapBuffers( this );
+    if ( isExposed() ) { m_context->swapBuffers( this ); }
     doneCurrent();
 }
 
