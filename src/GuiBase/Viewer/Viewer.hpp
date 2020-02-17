@@ -182,7 +182,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     void createGizmoManager();
 
     /// Initialize renderer internal state + configure lights.
-    void intializeRenderer( Engine::Renderer* renderer );
+    void initializeRenderer( Engine::Renderer* renderer );
 
     //
     // OpenGL primitives

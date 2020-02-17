@@ -122,7 +122,7 @@ int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Renderer>& e ) {
     if ( m_glInitialized.load() )
     {
         makeCurrent();
-        intializeRenderer( e.get() );
+        initializeRenderer( e.get() );
         doneCurrent();
     }
     else
@@ -192,7 +192,7 @@ bool Gui::Viewer::initializeGL() {
     {
         for ( auto& rptr : m_renderers )
         {
-            intializeRenderer( rptr.get() );
+            initializeRenderer( rptr.get() );
             LOG( logINFO ) << "[Viewer] Deferred initialization of " << rptr->getRendererName();
         }
     }
@@ -266,7 +266,7 @@ void Gui::Viewer::onResized() {
     emit needUpdate();
 }
 
-void Gui::Viewer::intializeRenderer( Engine::Renderer* renderer ) {
+void Gui::Viewer::initializeRenderer( Engine::Renderer* renderer ) {
     // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
     // https://github.com/STORM-IRIT/Radium-Engine/issues/261
 #ifndef OS_MACOS
