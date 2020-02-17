@@ -415,6 +415,24 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     template <typename T>
     inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
 
+    /**
+     * Replace the wedge data associated with an halfedge.
+     * The old wedge is "deleted". If wedge data correspond to an already
+     * present wedge, it's index is used.
+     */
+    void replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd ) {
+        m_wedges.del( property( getWedgeIndexPph(), he ) );
+        property( getWedgeIndexPph(), he ) = m_wedges.add( wd );
+    }
+    /**
+     * Replace the wedge index associated with an halfedge.
+     * The old wedge is "deleted". The new wedge reference count is incremented.
+     */
+    void replaceWedgeIndex( OpenMesh::HalfedgeHandle he, const WedgeIndex& widx ) {
+        m_wedges.del( property( getWedgeIndexPph(), he ) );
+        property( getWedgeIndexPph(), he ) = m_wedges.newReference( widx );
+    }
+
     /// Remove deleted element from the mesh, including wedges.
     [[deprecated]] void garbage_collection();
     void garbageCollection() { garbage_collection(); }
