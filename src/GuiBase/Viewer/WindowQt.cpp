@@ -24,7 +24,7 @@ QSurfaceFormat defaultFormat() {
 #endif
     return format;
 }
-
+/*
 WindowQt::WindowQt( QScreen* screen ) :
     QWindow( screen ), m_context( nullptr ), m_updatePending( false ), m_glInitialized( false ) {
 
@@ -46,6 +46,15 @@ WindowQt::WindowQt( QScreen* screen ) :
     connect( this, &QWindow::screenChanged, this, &WindowQt::screenChanged );
 
     // cleanup connection is set in BaseApplication
+}
+*/
+WindowQt::WindowQt( QWindow* parent ) :
+    QWindow( parent ),
+    m_context( nullptr ),
+    m_updatePending( false ),
+    m_glInitialized( false ) {
+    setSurfaceType( QWindow::OpenGLSurface );
+    if ( !s_getProcAddressHelper ) { s_getProcAddressHelper = this; }
 }
 
 WindowQt::~WindowQt() {
@@ -75,10 +84,25 @@ void WindowQt::resizeEvent( QResizeEvent* event ) {
 }
 
 void WindowQt::exposeEvent( QExposeEvent* ) {
-    initialize();
+    if ( isExposed() ) { initialize(); }
 }
 
 void WindowQt::initialize() {
+    LOG( logDEBUG ) << "WindowQt: initialize";
+    if ( !isExposed() ) return;
+    LOG( logDEBUG ) << "WindowQt: initialize exposed";
+    if ( !m_context )
+    {
+        m_context = std::make_unique<QOpenGLContext>( this );
+        m_context->setFormat( QSurfaceFormat::defaultFormat() );
+
+        if ( !m_context->create() )
+        {
+            LOG( logINFO ) << "Could not create OpenGL context.";
+            QApplication::quit();
+        }
+    }
+
     if ( !m_glInitialized.load() )
     {
         makeCurrent();
@@ -87,6 +111,10 @@ void WindowQt::initialize() {
 
         doneCurrent();
     }
+}
+
+void WindowQt::render() {
+    LOG( logDEBUG ) << "WindowQt: render";
 }
 
 void WindowQt::showEvent( QShowEvent* /*ev*/ ) {
@@ -107,14 +135,14 @@ void WindowQt::resizeInternal( QResizeEvent* event ) {
     }
 #endif
 
-    initialize();
+    if ( isOpenGLInitialized() )
+    {
+        makeCurrent();
+        // do not take into account devicePixelRatio(), we work on ldi resolution in our GL world.
+        resizeGL( event );
 
-    makeCurrent();
-
-    // do not take into account devicePixelRatio(), we work on ldi resolution in our GL world.
-    resizeGL( event );
-
-    doneCurrent();
+        doneCurrent();
+    }
 }
 /// paint is done by main rendering loop, initialize instead
 /*
@@ -125,7 +153,7 @@ bool WindowQt::event( QEvent* event ) {
         //        paint();
         return true;
 
-    case QEvent::Enter:
+``    case QEvent::Enter:
         enterEvent( event );
         return true;
 

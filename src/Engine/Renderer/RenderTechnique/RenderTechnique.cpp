@@ -60,7 +60,7 @@ void RenderTechnique::setParametersProvider(
     }
     if ( pass.isValid() ) { m_passesParameters[pass] = provider; }
     else
-    {
+        {
         for ( int i = 0; i < m_numActivePass; ++i )
         {
             m_passesParameters[i] = provider;
@@ -108,7 +108,7 @@ Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     if ( RadiumDefaultRenderTechnique != nullptr )
     { return *( RadiumDefaultRenderTechnique.get() ); }
     std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
-    auto rt      = new Ra::Engine::RenderTechnique;
+    auto rt = new Ra::Engine::RenderTechnique;
     auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
     if ( !builder.first )
     {

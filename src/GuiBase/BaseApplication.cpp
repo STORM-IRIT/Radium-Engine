@@ -223,8 +223,8 @@ BaseApplication::BaseApplication( int& argc,
     m_viewer->setupKeyMappingCallbacks();
 
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
-    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
+    //    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
+    //    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
     // Connect the signals and allow all pending events to be processed
     // (thus the viewer should have initialized the OpenGL context..)
@@ -617,7 +617,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
 
                         if ( loadedPlugin->doAddROpenGLInitializer() )
                         {
-                            if ( m_viewer->isOpenGlInitialized() )
+                            if ( m_viewer->isOpenGLInitialized() )
                             {
                                 LOG( logINFO ) << "Direct OpenGL initialization for plugin "
                                                << filename.toStdString();

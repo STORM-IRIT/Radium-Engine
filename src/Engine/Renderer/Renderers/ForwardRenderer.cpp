@@ -160,9 +160,10 @@ void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) 
 }
 
 void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
+    glClearColor( 1, 0, 0, 1 );
+    glClear( GL_COLOR_BUFFER_BIT );
 
     m_fbo->bind();
-
     GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     GL_ASSERT( glDepthMask( GL_TRUE ) );
     GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
@@ -187,6 +188,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     // Set in RenderParam the configuration about ambiant lighting (instead of hard constant
     // direclty in shaders)
     RenderParameters zprepassParams;
+    LOG( logDEBUG ) << "[ForwardRenderer::renderInternal()]";
     for ( const auto& ro : m_fancyRenderObjects )
     {
         ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
@@ -382,7 +384,10 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
     // Restore state
     GL_ASSERT( glDepthFunc( GL_LESS ) );
     GL_ASSERT( glDisable( GL_BLEND ) );
+
     m_fbo->unbind();
+    //    glClearColor( 0, 1, 1, 1 );
+    //    glClear( GL_COLOR_BUFFER_BIT );
 }
 
 // Draw debug stuff, do not overwrite depth map but do depth testing

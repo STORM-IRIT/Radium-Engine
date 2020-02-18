@@ -111,13 +111,13 @@ RADIUM_INSTALL_DOC:BOOL=ON
 RADIUM_QUIET:BOOL=OFF
 --
 // Provide loaders based on Assimp library
-RADIUM_IO_ASSIMP:BOOL=OFF
+RADIUM_IO_ASSIMP:BOOL=On
 --
 // Provide depricated loaders (to be removed without notice)
 RADIUM_IO_DEPRECATED:BOOL=ON
 --
 // Provide loaders based on TinyPly library
-RADIUM_IO_TINYPLY:BOOL=ON
+RADIUM_IO_TINYPLY:BOOL=On
 --
 // [addExternalFolder] Skip updating Core::external (disable for rebuild)
 RADIUM_SKIP_CORE_EXTERNAL:BOOL=ON
