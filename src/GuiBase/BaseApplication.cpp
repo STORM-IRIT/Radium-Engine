@@ -386,6 +386,7 @@ void BaseApplication::addBasicShaders() {
 }
 
 void BaseApplication::radiumFrame() {
+    if ( !m_viewer->isOpenGLInitialized() ) return;
     FrameTimerData timerData;
     timerData.frameStart = Core::Utils::Clock::now();
 
