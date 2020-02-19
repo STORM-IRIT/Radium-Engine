@@ -104,7 +104,7 @@ RADIUM_GENERATE_LIB_PLUGINBASE:BOOL=ON
 // Check submodules during build (will be automatically disabled after run)
 RADIUM_GIT_UPDATE_SUBMODULE:BOOL=ON
 --
-// Provide loaders based on Assimp library
+// Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target
 RADIUM_INSTALL_DOC:BOOL=ON
 --
 // Provide loaders based on Assimp library
@@ -125,7 +125,7 @@ RADIUM_SKIP_ENGINE_EXTERNAL:BOOL=ON
 // [addExternalFolder] Skip updating IO::external (disable for rebuild)
 RADIUM_SKIP_IO_EXTERNAL:BOOL=ON
 --
-// Touche version file each time the project is compiled
+// Update version file each time the project is compiled (update compilation time in version.cpp)
 RADIUM_UPDATE_VERSION:BOOL=ON
 ~~~
 

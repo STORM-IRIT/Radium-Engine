@@ -11,7 +11,7 @@ configure_file (
 )
 # If you want to have date and time of the build, your targets has to depend on this.
 # This will force recompilation of version.o and thus forcing gcc to update __DATE__ macro.
-if(RADIUM_TOUCH_VERSION)
+if(RADIUM_UPDATE_VERSION)
 add_custom_target(versionFileTouchForRebuild
 COMMAND ${CMAKE_COMMAND} -E touch "${RA_VERSION_CPP}")
 else()
