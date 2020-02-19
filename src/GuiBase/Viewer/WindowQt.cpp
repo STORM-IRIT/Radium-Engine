@@ -88,9 +88,7 @@ void WindowQt::exposeEvent( QExposeEvent* ) {
 }
 
 void WindowQt::initialize() {
-    LOG( logDEBUG ) << "WindowQt: initialize";
     if ( !isExposed() ) return;
-    LOG( logDEBUG ) << "WindowQt: initialize exposed";
     if ( !m_context )
     {
         m_context = std::make_unique<QOpenGLContext>( this );
@@ -135,7 +133,9 @@ void WindowQt::resizeInternal( QResizeEvent* event ) {
     }
 #endif
 
-    if ( isOpenGLInitialized() )
+    if ( !isOpenGLInitialized() ) { initialize(); }
+    else
+
     {
         makeCurrent();
         // do not take into account devicePixelRatio(), we work on ldi resolution in our GL world.

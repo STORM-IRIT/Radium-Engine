@@ -103,6 +103,7 @@ Gui::Viewer::Viewer( QScreen* screen ) :
 {
 }
 */
+
 Gui::Viewer::Viewer( QWindow* parent ) :
     WindowQt( parent ),
     m_currentRenderer( nullptr ),
@@ -631,9 +632,8 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     makeCurrent();
     glClearColor( 1, 0, 1, 1 );
     glClear( GL_COLOR_BUFFER_BIT );
-    LOG( logDEBUG ) << "[Viewer::startRendering]";
-    auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
-    if ( !aabb.isEmpty() ) { fitCameraToScene( aabb ); }
+    //    auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
+    //    if ( !aabb.isEmpty() ) { fitCameraToScene( aabb ); }
 
     CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized before rendering." );
 
@@ -675,9 +675,6 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
         else
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
-    glClearColor( 0, 0, 1, 1 );
-    glClear( GL_COLOR_BUFFER_BIT );
-
     m_currentRenderer->render( data );
 }
 

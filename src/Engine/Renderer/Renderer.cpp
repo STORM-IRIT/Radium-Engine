@@ -238,8 +238,6 @@ void Renderer::render( const ViewingParameters& data ) {
     CORE_UNUSED( renderLock );
 
     m_timerData.renderStart = Core::Utils::Clock::now();
-    glClearColor( 1, 0, 0, 1 );
-    glClear( GL_COLOR_BUFFER_BIT );
 
     // 0. Save eventual already bound FBO (e.g. QtOpenGLWidget) and viewport
     saveExternalFBOInternal();
@@ -267,8 +265,6 @@ void Renderer::render( const ViewingParameters& data ) {
     m_pickingQueries.clear();
 
     updateStepInternal( data );
-    glClearColor( 1, 0, 0, 1 );
-    glClear( GL_COLOR_BUFFER_BIT );
 
     // 4. Do the rendering.
     renderInternal( data );
