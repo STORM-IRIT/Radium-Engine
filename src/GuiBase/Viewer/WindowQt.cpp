@@ -54,6 +54,18 @@ WindowQt::WindowQt( QWindow* parent ) :
     m_updatePending( false ),
     m_glInitialized( false ) {
     setSurfaceType( QWindow::OpenGLSurface );
+    if ( !m_context )
+    {
+        m_context = std::make_unique<QOpenGLContext>( this );
+        m_context->setFormat( QSurfaceFormat::defaultFormat() );
+
+        if ( !m_context->create() )
+        {
+            LOG( logINFO ) << "Could not create OpenGL context.";
+            QApplication::quit();
+        }
+    }
+
     if ( !s_getProcAddressHelper ) { s_getProcAddressHelper = this; }
 }
 
@@ -89,17 +101,6 @@ void WindowQt::exposeEvent( QExposeEvent* ) {
 
 void WindowQt::initialize() {
     if ( !isExposed() ) return;
-    if ( !m_context )
-    {
-        m_context = std::make_unique<QOpenGLContext>( this );
-        m_context->setFormat( QSurfaceFormat::defaultFormat() );
-
-        if ( !m_context->create() )
-        {
-            LOG( logINFO ) << "Could not create OpenGL context.";
-            QApplication::quit();
-        }
-    }
 
     if ( !m_glInitialized.load() )
     {

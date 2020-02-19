@@ -630,11 +630,6 @@ bool Gui::Viewer::changeRenderer( int index ) {
 
 void Gui::Viewer::startRendering( const Scalar dt ) {
     makeCurrent();
-    glClearColor( 1, 0, 1, 1 );
-    glClear( GL_COLOR_BUFFER_BIT );
-    //    auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
-    //    if ( !aabb.isEmpty() ) { fitCameraToScene( aabb ); }
-
     CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized before rendering." );
 
     CORE_ASSERT( m_currentRenderer != nullptr, "No renderer found." );
