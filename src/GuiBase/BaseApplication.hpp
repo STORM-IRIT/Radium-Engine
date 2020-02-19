@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <QApplication>
+#include <QCommandLineParser>
 
 #include <Core/Utils/Timer.hpp>
 #include <GuiBase/TimerData/FrameTimerData.hpp>
@@ -33,12 +34,8 @@ class MainWindowInterface;
 
 namespace Ra {
 namespace GuiBase {
-/// This class contains the main application logic. It owns the engine and the GUI.
-class RA_GUIBASE_API BaseApplication : public QApplication
-{
-    Q_OBJECT
 
-  public:
+/// virtual class to handle main window creation
     class WindowFactory
     {
       public:
@@ -47,6 +44,12 @@ class RA_GUIBASE_API BaseApplication : public QApplication
         virtual Ra::GuiBase::MainWindowInterface* createMainWindow() const = 0;
     };
 
+/// This class contains the main application logic. It owns the engine and the GUI.
+class RA_GUIBASE_API BaseApplication : public QApplication
+{
+    Q_OBJECT
+
+  public:
     /** Setup the application, create main window and main connections.
      * \param argc from main()
      * \param argv from main()
@@ -56,10 +59,16 @@ class RA_GUIBASE_API BaseApplication : public QApplication
      */
     BaseApplication( int& argc,
                      char** argv,
-                     const WindowFactory& factory,
-                     QString applicationName  = "RadiumEngine",
-                     QString organizationName = "STORM-IRIT" );
+                     const WindowFactory& factory
+//,
+//                     QString applicationName  = "RadiumEngine",
+//                     QString organizationName = "STORM-IRIT" 
+);
     ~BaseApplication();
+
+    /// This function is attached to viewer glInitialized signals so that
+    /// initialization that need opengl context is done correctly.
+    void deferredInitialization();
 
     /// Advance the engine for one frame.
     void radiumFrame();
@@ -204,7 +213,76 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     std::atomic<int> m_continuousUpdateRequest{1};
 
     Plugins::Context m_pluginContext;
+
+    //    QCommandLineParser parser;
 };
+
+class RA_GUIBASE_API BaseApplication2 : public QApplication
+{
+    Q_OBJECT
+  public:
+    BaseApplication2( int argc, char** argv ) : QApplication( argc, argv ) {}
+    ~BaseApplication2() {}
+
+    /// Application main window and GUI root class.
+    //   std::unique_ptr<GuiBase::MainWindowInterface> m_mainWindow;
+
+    /// Instance of the radium engine.
+    //    std::unique_ptr<Engine::RadiumEngine> m_engine;
+
+    /// Task queue for processing tasks.
+    //    std::unique_ptr<Core::TaskQueue> m_taskQueue;
+
+    /// Number of frames per second to generate.
+    //    uint m_targetFPS;
+
+  protected:
+    /// Plugins that need to be initialized once OpenGL is ready
+    //    std::vector<Ra::Plugins::RadiumPluginInterface*> m_openGLPlugins;
+
+    // /// Pointer to OpenGL Viewer for render call (belongs to MainWindow).
+    // Gui::Viewer* m_viewer;
+
+    // /// Timer to wake us up at every frame start.
+    // QTimer* m_frameTimer;
+
+    // /// Time since the last frame start.
+    // Core::Utils::TimePoint m_lastFrameStart;
+
+    // uint m_frameCounter;
+    // uint m_frameCountBeforeUpdate;
+    // uint m_numFrames;
+    // uint m_maxThreads;
+    // std::vector<FrameTimerData> m_timerData;
+
+    // /// If true, use the wall clock to advance the engine. If false, use a fixed time step.
+    // bool m_realFrameRate;
+
+    // // Options to control monitoring and outputs
+    // /// Name of the folder where exported data goes
+    // std::string m_exportFoldername;
+
+    // /// If true, dump each frame to a PNG file.
+    // bool m_recordFrames;
+    // /// If true, print the detailed timings of each frame
+    // bool m_recordTimings;
+    // /// If true, print the task graph;
+    // bool m_recordGraph;
+
+    // /// True if the applicatioon is about to quit. prevent to use resources that are being
+    // released. bool m_isAboutToQuit;
+
+    // /// If true update the viewer frame next time
+    // std::atomic_bool m_isUpdateNeeded{true};
+
+    // /// If counter is >= 0, continuously update viewer frame
+    // std::atomic<int> m_continuousUpdateRequest{1};
+
+    // Plugins::Context m_pluginContext;
+
+    //    QCommandLineParser parser;
+};
+
 } // namespace GuiBase
 } // namespace Ra
 #endif // RADIUMENGINE_BASEAPPLICATION_HPP_

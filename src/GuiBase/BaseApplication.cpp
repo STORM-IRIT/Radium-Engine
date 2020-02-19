@@ -56,7 +56,7 @@ BaseApplication::BaseApplication( int& argc,
                                   const WindowFactory& factory,
                                   QString applicationName,
                                   QString organizationName ) :
-    QApplication( argc, argv ),
+    QApplication( argc, argv ),/*,
     m_mainWindow( nullptr ),
     m_engine( nullptr ),
     m_taskQueue( nullptr ),
@@ -70,18 +70,19 @@ BaseApplication::BaseApplication( int& argc,
     m_recordFrames( false ),
     m_recordTimings( false ),
     m_recordGraph( false ),
-    m_isAboutToQuit( false ) {
+     m_isAboutToQuit( false )*/
+{
+    return;
     // Set application and organization names in order to ensure uniform
     // QSettings configurations.
     // \see http://doc.qt.io/qt-5/qsettings.html#QSettings-4
-    QCoreApplication::setOrganizationName( organizationName );
-    QCoreApplication::setApplicationName( applicationName );
+    //    QCoreApplication::setOrganizationName( organizationName );
+    //    QCoreApplication::setApplicationName( applicationName );
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
     std::string pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
-
-    QCommandLineParser parser;
+    /*
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
     parser.addHelpOption();
     parser.addVersionOption();
@@ -104,23 +105,20 @@ BaseApplication::BaseApplication( int& argc,
                                   "Plugins" );
     QCommandLineOption pluginLoadOpt(
         QStringList{"l", "load", "loadPlugin"},
-        "Only load plugin with the given name (filename without the extension). If this option is "
-        "not used, all plugins in the plugins folder will be loaded. ",
-        "name" );
+            "Only load plugin with the given name (filename without the extension). If this option
+       is " "not used, all plugins in the plugins folder will be loaded. ", "name" );
     QCommandLineOption pluginIgnoreOpt( QStringList{"i", "ignore", "ignorePlugin"},
-                                        "Ignore plugins with the given name. If the name appears "
-                                        "within both load and ignore options, it will be ignored.",
-                                        "name" );
-    QCommandLineOption fileOpt( QStringList{"f", "file", "scene"},
-                                "Open a scene file at startup.",
-                                "file name",
+                                            "Ignore plugins with the given name. If the name appears
+       " "within both load and ignore options, it will be ignored.", "name" ); QCommandLineOption
+       fileOpt( QStringList{"f", "file", "scene"}, "Open a scene file at startup.", "file name",
                                 "foo.bar" );
 
     QCommandLineOption camOpt( QStringList{"c", "camera", "cam"},
                                "Open a camera file at startup",
                                "file name",
                                "foo.bar" );
-    QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording." );
+        QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording."
+       );
 
     parser.addOptions( {fpsOpt,
                         pluginOpt,
@@ -142,7 +140,7 @@ BaseApplication::BaseApplication( int& argc,
         m_recordFrames = true;
         setContinuousUpdate( true );
     }
-
+    */
     {
         std::time_t startTime = std::time( nullptr );
         std::tm* startTm      = std::localtime( &startTime );
@@ -206,6 +204,8 @@ BaseApplication::BaseApplication( int& argc,
     format.setSwapInterval( 0 );
     QSurfaceFormat::setDefaultFormat( format );
 
+    return;
+
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
@@ -223,13 +223,22 @@ BaseApplication::BaseApplication( int& argc,
     m_viewer->setupKeyMappingCallbacks();
 
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    //    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
-    //    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
-    // Connect the signals and allow all pending events to be processed
-    // (thus the viewer should have initialized the OpenGL context..)
     createConnections();
-    processEvents();
+
+    // the rest of the initialization has to be done with valid opengl context,
+    // so defer after glInitialized.
+    QMetaObject::Connection* const connection = new QMetaObject::Connection;
+
+    *connection =
+        QObject::connect( m_viewer, &Ra::Gui::Viewer::glInitialized, [this, connection]() {
+            deferredInitialization();
+            QObject::disconnect( *connection );
+            delete connection;
+        } );
+}
+
+void BaseApplication::deferredInitialization() {
 
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem, 1000 );
@@ -249,8 +258,10 @@ BaseApplication::BaseApplication( int& argc,
         &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
 
     // Load installed plugins plugins
-    if ( !loadPlugins(
-             pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
+    std::string pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
+
+    //    if ( !loadPlugins( pluginsPath, parser.values( "p" ), parser.values( "i" ) ) )
+    if ( !loadPlugins( pluginsPath, {}, {} ) )
     { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
     // load supplemental plugins
     {
@@ -258,8 +269,8 @@ BaseApplication::BaseApplication( int& argc,
         QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
         for ( const auto s : plunginPaths )
         {
-            loadPlugins(
-                s.toStdString(), parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) );
+            // loadPlugins( s.toStdString(), parser.values( "l" ), parser.values( "i" ) );
+            loadPlugins( s.toStdString(), {}, {} );
         }
     }
 
@@ -287,17 +298,17 @@ BaseApplication::BaseApplication( int& argc,
     emit starting();
 
     // Files have been required, load them.
-    if ( parser.isSet( fileOpt ) )
+    /*    if ( parser.isSet( "f" ) )
     {
-        for ( const auto& filename : parser.values( fileOpt ) )
+            for ( const auto& filename : parser.values( "f" ) )
         {
             loadFile( filename );
         }
     }
     // A camera has been required, load it.
-    if ( parser.isSet( camOpt ) )
+        if ( parser.isSet( "c" ) )
     {
-        if ( loadFile( parser.value( camOpt ) ) )
+            if ( loadFile( parser.value( "c" ) ) )
         {
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
             auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
@@ -305,6 +316,7 @@ BaseApplication::BaseApplication( int& argc,
         }
     }
 
+    */
     m_lastFrameStart = Core::Utils::Clock::now();
 
     connect( m_frameTimer, &QTimer::timeout, this, &BaseApplication::updateRadiumFrameIfNeeded );
