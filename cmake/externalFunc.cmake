@@ -43,25 +43,30 @@ macro(addExternalFolder NAME FOLDER )
             RESULT_VARIABLE ret
         )
         if(NOT ret EQUAL "0")
-            message( FATAL_ERROR "[addExternalFolder] Cmake configure step failed. ")
-        endif()
+            message(FATAL_ERROR "[addExternalFolder] Cmake configure step failed. ")
+        endif ()
         message(STATUS "[addExternalFolder] Start build")
 
-        set( RadiumExternalMakeTarget all)
-        string( TOLOWER ${CMAKE_GENERATOR} generator_lower)
-        if( MSVC AND NOT ${generator_lower} STREQUAL "ninja" )
-                set( RadiumExternalMakeTarget ALL_BUILD)
-                message(INFO "[addExternalFolder] Enable compatibility mode for VS Generator" )
-        endif()
+        set(RadiumExternalMakeTarget all)
+        string(TOLOWER ${CMAKE_GENERATOR} generator_lower)
+        if (MSVC AND NOT ${generator_lower} STREQUAL "ninja")
+            set(RadiumExternalMakeTarget ALL_BUILD)
+            message(INFO "[addExternalFolder] Enable compatibility mode for VS Generator")
+        endif ()
 
-        if( ${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.12 )
-        execute_process(
-            COMMAND ${CMAKE_COMMAND} --build . -j ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
-            RESULT_VARIABLE ret
+        if (APPLE AND ${generator_lower} STREQUAL "xcode")
+            set(RadiumExternalMakeTarget ALL_BUILD)
+            message(INFO "[addExternalFolder] Enable compatibility mode for Xcode Generator")
+        endif ()
+
+        if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.12)
+            execute_process(
+                    COMMAND ${CMAKE_COMMAND} --build . -j ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
+                    RESULT_VARIABLE ret
             )
-        else()
-            set( TOOL_OPTIONS "" )
+        else ()
+            set(TOOL_OPTIONS "")
             if( ${generator_lower} MATCHES "|makefile|" OR ${generator_lower} MATCHES "|ninja|" )
               set( TOOL_OPTIONS -- -j${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} )
             elseif( ${generator_lower} MATCHES "|visual|" )
