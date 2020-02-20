@@ -56,91 +56,93 @@ BaseApplication::BaseApplication( int& argc,
                                   const WindowFactory& factory,
                                   QString applicationName,
                                   QString organizationName ) :
-    QApplication( argc, argv ),/*,
-    m_mainWindow( nullptr ),
-    m_engine( nullptr ),
-    m_taskQueue( nullptr ),
-    m_viewer( nullptr ),
-    m_frameTimer( new QTimer( this ) ),
-    m_frameCounter( 0 ),
-    m_frameCountBeforeUpdate( 60 ),
-    m_numFrames( 0 ),
-    m_maxThreads( RA_MAX_THREAD ),
-    m_realFrameRate( false ),
-    m_recordFrames( false ),
-    m_recordTimings( false ),
-    m_recordGraph( false ),
-     m_isAboutToQuit( false )*/
-{
-    return;
+    QApplication( argc, argv ),
+     m_mainWindow( nullptr ),
+     m_engine( nullptr ),
+     m_taskQueue( nullptr ),
+     m_viewer( nullptr ),
+     m_frameTimer( new QTimer( this ) ),
+     m_frameCounter( 0 ),
+     m_frameCountBeforeUpdate( 60 ),
+     m_numFrames( 0 ),
+     m_maxThreads( RA_MAX_THREAD ),
+     m_realFrameRate( false ),
+     m_recordFrames( false ),
+     m_recordTimings( false ),
+     m_recordGraph( false ),
+    m_isAboutToQuit( false ) {
     // Set application and organization names in order to ensure uniform
     // QSettings configurations.
     // \see http://doc.qt.io/qt-5/qsettings.html#QSettings-4
-    //    QCoreApplication::setOrganizationName( organizationName );
-    //    QCoreApplication::setApplicationName( applicationName );
+    QCoreApplication::setOrganizationName( organizationName );
+    QCoreApplication::setApplicationName( applicationName );
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
-    std::string pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
-    /*
-    parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
-    parser.addHelpOption();
-    parser.addVersionOption();
+    pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
 
-    QCommandLineOption fpsOpt(
-        QStringList{"r", "framerate", "fps"},
-        "Control the application framerate, 0 to disable it (and run as fast as possible).",
-        "number",
-        "60" );
-    QCommandLineOption maxThreadsOpt(
-        QStringList{"m", "maxthreads", "max-threads"},
-        "Control the maximum number of threads. 0 will set to the number of cores available",
-        "number",
-        "0" );
-    QCommandLineOption numFramesOpt(
-        QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0" );
-    QCommandLineOption pluginOpt( QStringList{"p", "plugins", "pluginsPath"},
-                                  "Set the path to the plugin dlls.",
-                                  "folder",
-                                  "Plugins" );
-    QCommandLineOption pluginLoadOpt(
-        QStringList{"l", "load", "loadPlugin"},
-            "Only load plugin with the given name (filename without the extension). If this option
-       is " "not used, all plugins in the plugins folder will be loaded. ", "name" );
-    QCommandLineOption pluginIgnoreOpt( QStringList{"i", "ignore", "ignorePlugin"},
-                                            "Ignore plugins with the given name. If the name appears
-       " "within both load and ignore options, it will be ignored.", "name" ); QCommandLineOption
-       fileOpt( QStringList{"f", "file", "scene"}, "Open a scene file at startup.", "file name",
-                                "foo.bar" );
+    QCommandLineParser parser;
+        parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
+        parser.addHelpOption();
+        parser.addVersionOption();
 
-    QCommandLineOption camOpt( QStringList{"c", "camera", "cam"},
-                               "Open a camera file at startup",
-                               "file name",
-                               "foo.bar" );
-        QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording."
-       );
+        QCommandLineOption fpsOpt(
+            QStringList{"r", "framerate", "fps"},
+            "Control the application framerate, 0 to disable it (and run as fast as possible).",
+            "number",
+            "60" );
+        QCommandLineOption maxThreadsOpt(
+            QStringList{"m", "maxthreads", "max-threads"},
+            "Control the maximum number of threads. 0 will set to the number of cores available",
+            "number",
+            "0" );
+        QCommandLineOption numFramesOpt(
+            QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0" );
+        QCommandLineOption pluginOpt( QStringList{"p", "plugins", "pluginsPath"},
+                                      "Set the path to the plugin dlls.",
+                                      "folder",
+                                      "Plugins" );
+        QCommandLineOption pluginLoadOpt(
+            QStringList{"l", "load", "loadPlugin"},
+        "Only load plugin with the given name (filename without the extension). If this option is "
+        "not used, all plugins in the plugins folder will be loaded. ",
+        "name" );
+        QCommandLineOption pluginIgnoreOpt( QStringList{"i", "ignore", "ignorePlugin"},
+                                        "Ignore plugins with the given name. If the name appears "
+                                        "within both load and ignore options, it will be ignored.",
+                                        "name" );
+    QCommandLineOption fileOpt( QStringList{"f", "file", "scene"},
+                                "Open a scene file at startup.",
+                                "file name",
+                                    "foo.bar" );
 
-    parser.addOptions( {fpsOpt,
-                        pluginOpt,
-                        pluginLoadOpt,
-                        pluginIgnoreOpt,
-                        fileOpt,
-                        camOpt,
-                        maxThreadsOpt,
-                        numFramesOpt,
-                        recordOpt} );
-    parser.process( *this );
+        QCommandLineOption camOpt( QStringList{"c", "camera", "cam"},
+                                   "Open a camera file at startup",
+                                   "file name",
+                                   "foo.bar" );
+    QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording." );
 
-    if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
-    if ( parser.isSet( pluginOpt ) ) pluginsPath = parser.value( pluginOpt ).toStdString();
-    if ( parser.isSet( numFramesOpt ) ) m_numFrames = parser.value( numFramesOpt ).toUInt();
-    if ( parser.isSet( maxThreadsOpt ) ) m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
-    if ( parser.isSet( recordOpt ) )
-    {
-        m_recordFrames = true;
-        setContinuousUpdate( true );
-    }
-    */
+        parser.addOptions( {fpsOpt,
+                            pluginOpt,
+                            pluginLoadOpt,
+                            pluginIgnoreOpt,
+                            fileOpt,
+                            camOpt,
+                            maxThreadsOpt,
+                            numFramesOpt,
+                            recordOpt} );
+        parser.process( *this );
+
+        if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
+        if ( parser.isSet( pluginOpt ) ) pluginsPath = parser.value( pluginOpt ).toStdString();
+        if ( parser.isSet( numFramesOpt ) ) m_numFrames = parser.value( numFramesOpt ).toUInt();
+        if ( parser.isSet( maxThreadsOpt ) ) m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
+        if ( parser.isSet( recordOpt ) )
+        {
+            m_recordFrames = true;
+            setContinuousUpdate( true );
+        }
+
     {
         std::time_t startTime = std::time( nullptr );
         std::tm* startTm      = std::localtime( &startTime );
@@ -204,8 +206,6 @@ BaseApplication::BaseApplication( int& argc,
     format.setSwapInterval( 0 );
     QSurfaceFormat::setDefaultFormat( format );
 
-    return;
-
     // Create the instance of the keymapping manager, before creating
     // Qt main windows, which may throw events on Microsoft Windows
     Gui::KeyMappingManager::createInstance();
@@ -223,7 +223,11 @@ BaseApplication::BaseApplication( int& argc,
     m_viewer->setupKeyMappingCallbacks();
 
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
+    //    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
+    //    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
+    // Connect the signals and allow all pending events to be processed
+    // (thus the viewer should have initialized the OpenGL context..)
     createConnections();
 
     // the rest of the initialization has to be done with valid opengl context,
@@ -258,10 +262,7 @@ void BaseApplication::deferredInitialization() {
         &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
 
     // Load installed plugins plugins
-    std::string pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
-
-    //    if ( !loadPlugins( pluginsPath, parser.values( "p" ), parser.values( "i" ) ) )
-    if ( !loadPlugins( pluginsPath, {}, {} ) )
+    if ( !loadPlugins( pluginsPath, parser.values( "l" ), parser.values( "i" ) ) )
     { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
     // load supplemental plugins
     {
@@ -269,8 +270,7 @@ void BaseApplication::deferredInitialization() {
         QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
         for ( const auto s : plunginPaths )
         {
-            // loadPlugins( s.toStdString(), parser.values( "l" ), parser.values( "i" ) );
-            loadPlugins( s.toStdString(), {}, {} );
+            loadPlugins( s.toStdString(), parser.values( "l" ), parser.values( "i" ) );
         }
     }
 
@@ -298,25 +298,24 @@ void BaseApplication::deferredInitialization() {
     emit starting();
 
     // Files have been required, load them.
-    /*    if ( parser.isSet( "f" ) )
-    {
+    if ( parser.isSet( "f" ) )
+        {
             for ( const auto& filename : parser.values( "f" ) )
-        {
-            loadFile( filename );
+            {
+                loadFile( filename );
+            }
         }
-    }
-    // A camera has been required, load it.
+        // A camera has been required, load it.
         if ( parser.isSet( "c" ) )
-    {
-            if ( loadFile( parser.value( "c" ) ) )
         {
-            auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
-            auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
-            m_viewer->setCamera( camera );
+            if ( loadFile( parser.value( "c" ) ) )
+            {
+                auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
+                auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
+                m_viewer->setCamera( camera );
+            }
         }
-    }
 
-    */
     m_lastFrameStart = Core::Utils::Clock::now();
 
     connect( m_frameTimer, &QTimer::timeout, this, &BaseApplication::updateRadiumFrameIfNeeded );
