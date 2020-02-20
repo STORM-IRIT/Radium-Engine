@@ -51,7 +51,7 @@ static const bool expectPluginsDebug = true;
 static const bool expectPluginsDebug = false;
 #endif
 
-BaseApplication::BaseApplication( int argc,
+BaseApplication::BaseApplication( int& argc,
                                   char** argv,
                                   const WindowFactory& factory,
                                   QString applicationName,

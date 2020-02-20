@@ -53,7 +53,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
      * \param applicationName
      * \param organizationName
      */
-    BaseApplication( int argc,
+    BaseApplication( int& argc,
                      char** argv,
                      const WindowFactory& factory,
                      QString applicationName  = "RadiumEngine",
