@@ -26,7 +26,6 @@ struct ViewingParameters;
 namespace Ra {
 namespace Engine {
 
-// Radium V2 : need a bit of cleanup !
 /**
  * Class to manage renderable objects.
  * This class associate all the informations needed to draw an object in OpenGL.

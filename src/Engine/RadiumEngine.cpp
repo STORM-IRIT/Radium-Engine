@@ -21,6 +21,7 @@
 #include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Engine/Renderer/Material/LambertianMaterial.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -66,8 +67,7 @@ void RadiumEngine::registerDefaultPrograms() {
     shaderProgramManager->addNamedString( "/DefaultLight.glsl",
                                           m_resourcesRootDir + "Shaders/Lights/DefaultLight.glsl" );
 
-    /* VertexAttribInterface :add this name string so that each material could include the same code
-     */
+    // VertexAttribInterface :add this name string so that each material could include the same code
     ShaderProgramManager::getInstance()->addNamedString(
         "/VertexAttribInterface.frag.glsl",
         m_resourcesRootDir + "Shaders/Materials/VertexAttribInterface.frag.glsl" );
@@ -82,11 +82,13 @@ void RadiumEngine::registerDefaultPrograms() {
     // Plain is flat or diffuse
     PlainMaterial::registerMaterial();
     BlinnPhongMaterial::registerMaterial();
+    LambertianMaterial::registerMaterial();
 }
 
 void RadiumEngine::cleanup() {
     PlainMaterial::unregisterMaterial();
     BlinnPhongMaterial::unregisterMaterial();
+    LambertianMaterial::unregisterMaterial();
 
     m_signalManager->setOn( false );
     m_entityManager.reset();
