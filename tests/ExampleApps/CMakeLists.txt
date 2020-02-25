@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------
+ #-------------------------------------------------------------------------------
 # exampleApp executables setup
 
 project(RadiumExampleApps)
@@ -24,38 +24,35 @@ add_executable(CoreExampleApp
 target_link_libraries(CoreExampleApp PUBLIC Core)
 configure_radium_app_install(NAME CoreExampleApp)
 
-#if (RADIUM_GENERATE_LIB_ENGINE)
-#    find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
-#    find_package(OpenGL REQUIRED)
-#    set(CMAKE_AUTOMOC ON)
-#    add_executable(HelloRadium MACOSX_BUNDLE
-#            HelloRadium/main.cpp
-#            HelloRadium/minimalapp.cpp
-#            HelloRadium/minimalapp.hpp
-#            HelloRadium/minimalradium.cpp
-#            HelloRadium/minimalradium.hpp)
-#    target_include_directories(HelloRadium PRIVATE HelloRadium)
-#    target_link_libraries(HelloRadium PUBLIC
-#            Core Engine GuiBase
-#            Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
-#            OpenGL::GL)
-#    message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
-#    configure_radium_app_install(NAME HelloRadium)
-#
-#    add_executable(DrawPrimitivesDemo MACOSX_BUNDLE
-#            DrawPrimitivesApp/main.cpp
-#            DrawPrimitivesApp/minimalapp.cpp
-#            DrawPrimitivesApp/minimalapp.hpp
-#            DrawPrimitivesApp/minimalradium.cpp
-#            DrawPrimitivesApp/minimalradium.hpp)
-#    target_include_directories(DrawPrimitivesDemo PRIVATE DrawPrimitivesApp)
-#    target_link_libraries(DrawPrimitivesDemo PUBLIC
-#            Core Engine GuiBase
-#            Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
-#            OpenGL::GL)
-#    message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
-#    configure_radium_app_install(NAME DrawPrimitivesDemo)
-#
-#
-#endif ()
+if (RADIUM_GENERATE_LIB_ENGINE)
+    find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+    find_package(OpenGL REQUIRED)
+    set(CMAKE_AUTOMOC ON)
+    add_executable(HelloRadium MACOSX_BUNDLE
+            HelloRadium/main.cpp
+            HelloRadium/minimalapp.cpp
+            HelloRadium/minimalapp.hpp
+            HelloRadium/minimalradium.cpp
+            HelloRadium/minimalradium.hpp)
+    target_include_directories(HelloRadium PRIVATE HelloRadium)
+    target_link_libraries(HelloRadium PUBLIC
+            Core Engine GuiBase
+            Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
+            OpenGL::GL)
+    message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
+    configure_radium_app_install(NAME HelloRadium)
 
+    add_executable(DrawPrimitivesDemo MACOSX_BUNDLE
+            DrawPrimitivesApp/main.cpp
+            DrawPrimitivesApp/minimalapp.cpp
+            DrawPrimitivesApp/minimalapp.hpp
+            DrawPrimitivesApp/minimalradium.cpp
+            DrawPrimitivesApp/minimalradium.hpp)
+    target_include_directories(DrawPrimitivesDemo PRIVATE DrawPrimitivesApp)
+    target_link_libraries(DrawPrimitivesDemo PUBLIC
+            Core Engine GuiBase
+            Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
+            OpenGL::GL)
+    message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
+    configure_radium_app_install(NAME DrawPrimitivesDemo)
+endif ()

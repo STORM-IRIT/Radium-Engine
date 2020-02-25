@@ -134,8 +134,7 @@ RA_ENGINE_API MeshPtr Spline( const Core::Geometry::Spline<3, 3>& spline,
                               const Core::Utils::Color& color,
                               Scalar scale = 1.0f );
 
-/// MAke a Mesh that represent a line strip.
-/// As other methods in DrawPrimitive, must be adapted to core geometry functionalities.
+/// Display a line strip.
 RA_ENGINE_API MeshPtr LineStrip( const Core::Vector3Array& vertices,
                                  const Core::Vector4Array& colors );
 
