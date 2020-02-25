@@ -7,6 +7,7 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
+#include <Engine/Renderer/Material/LambertianMaterial.hpp>
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -31,20 +32,39 @@ void MinimalComponent::initialize() {
 
     ///
     // basic render technique associated with all object here, they use per vertex kd.
-    RenderTechnique rt;
-    auto mat              = make_shared<BlinnPhongMaterial>( "Default Material" );
-    mat->m_perVertexColor = true;
-    mat->m_ks             = Utils::Color::White();
-    mat->m_ns             = 100_ra;
+    RenderTechnique shadedRt;
+    {
+        auto mat              = make_shared<BlinnPhongMaterial>( "Shaded Material" );
+        mat->m_perVertexColor = true;
+        mat->m_ks             = Utils::Color::White();
+        mat->m_ns             = 100_ra;
 
-    auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
-    builder.second( rt, false );
-    rt.setParametersProvider( mat );
+        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+        builder.second( shadedRt, false );
+        shadedRt.setParametersProvider( mat );
+    }
+    RenderTechnique plainRt;
+    {
+        auto mat              = make_shared<PlainMaterial>( "Plain Material" );
+        mat->m_perVertexColor = true;
+
+        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "Plain" );
+        builder.second( plainRt, false );
+        plainRt.setParametersProvider( mat );
+    }
+    RenderTechnique lambertianRt;
+    {
+        auto mat              = make_shared<LambertianMaterial>( "Lambertian Material" );
+        mat->m_perVertexColor = true;
+
+        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "Lambertian" );
+        builder.second( lambertianRt, false );
+        lambertianRt.setParametersProvider( mat );
+    }
 
     //// setup ////
-    Scalar colorBoost = 3_ra; /// since simple primitive are ambient only, boost
-                              /// their color
-    Scalar cellSize = 0.25_ra;
+    Scalar colorBoost = 1_ra; /// since simple primitive are ambient only, boost their color
+    Scalar cellSize   = 0.25_ra;
     Vector3 cellCorner{-1_ra, 0_ra, 0.25_ra};
     Scalar offset{0.05_ra};
     Vector3 offsetVec{offset, offset, offset};
@@ -57,26 +77,25 @@ void MinimalComponent::initialize() {
 
     //// GRID ////
     {
-        RenderTechnique grdrt;
+        RenderTechnique gridRt;
         // Plain shader
         auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
-        builder.second( grdrt, false );
+        builder.second( gridRt, false );
         auto mat              = Ra::Core::make_shared<PlainMaterial>( "Grid material" );
         mat->m_perVertexColor = true;
-        grdrt.setParametersProvider( mat );
-        auto gridro =
-            RenderObject::createRenderObject( "test_grid",
-                                              this,
-                                              RenderObjectType::Geometry,
-                                              DrawPrimitives::Grid( Vector3::Zero(),
-                                                                    Vector3::UnitX(),
-                                                                    Vector3::UnitZ(),
-                                                                    Utils::Color::Grey( 0.6f ),
-                                                                    cellSize,
-                                                                    8 ),
-                                              grdrt );
-        gridro->setPickable( false );
-        addRenderObject( gridro );
+        gridRt.setParametersProvider( mat );
+
+        auto gridPrimitive = DrawPrimitives::Grid( Vector3::Zero(),
+                                                   Vector3::UnitX(),
+                                                   Vector3::UnitZ(),
+                                                   Utils::Color::Grey( 0.6f ),
+                                                   cellSize,
+                                                   8 );
+
+        auto gridRo = RenderObject::createRenderObject(
+            "test_grid", this, RenderObjectType::Geometry, gridPrimitive, gridRt );
+        gridRo->setPickable( false );
+        addRenderObject( gridRo );
     }
 
     //// CUBES ////
@@ -85,8 +104,8 @@ void MinimalComponent::initialize() {
     cube1->getCoreGeometry().addAttrib(
         "in_color", Vector4Array{cube1->getNumVertices(), Utils::Color::Green()} );
 
-    auto renderObject1 =
-        RenderObject::createRenderObject( "CubeRO_1", this, RenderObjectType::Geometry, cube1, rt );
+    auto renderObject1 = RenderObject::createRenderObject(
+        "CubeRO_1", this, RenderObjectType::Geometry, cube1, shadedRt );
     renderObject1->setLocalTransform(
         Transform{Translation( Vector3( 3 * cellSize, 0_ra, 0_ra ) )} );
 
@@ -99,8 +118,8 @@ void MinimalComponent::initialize() {
         "colour", Vector4Array{cube2->getNumVertices(), Utils::Color::Red()} );
 
     cube2->setAttribNameCorrespondance( "colour", "in_color" );
-    auto renderObject2 =
-        RenderObject::createRenderObject( "CubeRO_2", this, RenderObjectType::Geometry, cube2, rt );
+    auto renderObject2 = RenderObject::createRenderObject(
+        "CubeRO_2", this, RenderObjectType::Geometry, cube2, lambertianRt );
     renderObject2->setLocalTransform(
         Transform{Translation( Vector3( 4 * cellSize, 0_ra, 0_ra ) )} );
 
@@ -113,7 +132,7 @@ void MinimalComponent::initialize() {
         this,
         RenderObjectType::Geometry,
         DrawPrimitives::Point( cellCorner, colorBoost * Utils::Color{0_ra, 1_ra, 0.3_ra} ),
-        rt ) );
+        plainRt ) );
 
     for ( int i = 0; i < 10; ++i )
     {
@@ -125,7 +144,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Point( randomVec, colorBoost * randomCol, 0.03_ra ),
-            rt ) );
+            plainRt ) );
     }
 
     //// LINES ////
@@ -137,7 +156,7 @@ void MinimalComponent::initialize() {
         DrawPrimitives::Line( cellCorner,
                               cellCorner + Vector3{0_ra, 0.4_ra, 0_ra},
                               colorBoost * Utils::Color::Red() ),
-        rt ) );
+        plainRt ) );
 
     for ( int i = 0; i < 20; ++i )
     {
@@ -152,7 +171,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Line( randomVec1, randomVec2, colorBoost * randomCol ),
-            rt ) );
+            plainRt ) );
     }
 
     //// VECTOR ////
@@ -163,7 +182,7 @@ void MinimalComponent::initialize() {
         RenderObjectType::Geometry,
         DrawPrimitives::Vector(
             cellCorner, Vector3{0_ra, 0.5_ra, 0_ra}, colorBoost * Utils::Color::Blue() ),
-        rt ) );
+        plainRt ) );
 
     for ( int i = 0; i < 10; ++i )
     {
@@ -178,7 +197,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Vector( randomVec1, randomVec2 - randomVec1, colorBoost * randomCol ),
-            rt ) );
+            plainRt ) );
     }
 
     /// RAY ////
@@ -189,7 +208,7 @@ void MinimalComponent::initialize() {
         RenderObjectType::Geometry,
         DrawPrimitives::Ray(
             {cellCorner, {0_ra, 1_ra, 0_ra}}, colorBoost * Utils::Color::Yellow(), cellSize ),
-        rt ) );
+        plainRt ) );
 
     //// TRIANGLES ////
     cellCorner = {0_ra, 0_ra, 0.0_ra};
@@ -202,7 +221,7 @@ void MinimalComponent::initialize() {
                                   cellCorner + Vector3{+0.0_ra, 0.02_ra, 0.0_ra},
                                   colorBoost * Utils::Color::White(),
                                   true ),
-        rt ) );
+        shadedRt ) );
 
     cellCorner = {0_ra + 0.125_ra, 0_ra, 0.0_ra};
     addRenderObject( RenderObject::createRenderObject(
@@ -214,7 +233,7 @@ void MinimalComponent::initialize() {
                                   cellCorner + Vector3{+0.0_ra, 0.2_ra, 0.0_ra},
                                   colorBoost * Utils::Color::Green(),
                                   true ),
-        rt ) );
+        shadedRt ) );
 
     for ( int i = 0; i < 10; ++i )
     {
@@ -229,7 +248,7 @@ void MinimalComponent::initialize() {
                 cellCorner + Vector3{+0.0_ra, 0.2_ra, Scalar( i ) / 10_ra * cellSize},
                 colorBoost * Utils::Color::White() * Scalar( i ) / 10_ra,
                 false ),
-            rt ) );
+            plainRt ) );
     }
 
     /*
@@ -247,7 +266,7 @@ void MinimalComponent::initialize() {
     //// CIRCLE ////
     cellCorner = {0.25_ra, 0_ra, 0.0_ra};
     addRenderObject( RenderObject::createRenderObject(
-        "test_cirlce",
+        "test_circle",
         this,
         RenderObjectType::Geometry,
         DrawPrimitives::Circle( cellCorner,
@@ -255,7 +274,7 @@ void MinimalComponent::initialize() {
                                 cellSize / 8_ra,
                                 64,
                                 colorBoost * Utils::Color::White() ),
-        rt ) );
+        plainRt ) );
 
     uint end = 8;
     for ( uint j = 0; j < end; ++j )
@@ -280,13 +299,13 @@ void MinimalComponent::initialize() {
                                                                           circleRadius,
                                                                           circleSubdiv,
                                                                           colorBoost * randomCol ),
-                                                  rt ) );
+                                                  plainRt ) );
         }
 
     //// CIRCLE ARC ////
 
     addRenderObject( RenderObject::createRenderObject(
-        "test_cirlce",
+        "test_circle",
         this,
         RenderObjectType::Geometry,
         DrawPrimitives::CircleArc( cellCorner + Vector3{0_ra, 2_ra * offset, 0_ra},
@@ -295,7 +314,7 @@ void MinimalComponent::initialize() {
                                    1_ra,
                                    64,
                                    colorBoost * Utils::Color::White() ),
-        rt ) );
+        plainRt ) );
 
     for ( uint j = 0; j < end; ++j )
         for ( uint i = 0; i < end; ++i )
@@ -321,7 +340,7 @@ void MinimalComponent::initialize() {
                                            circleArc,
                                            circleSubdiv,
                                            colorBoost * randomCol ),
-                rt ) );
+                plainRt ) );
         }
 
     //// SPHERE /////
@@ -332,7 +351,7 @@ void MinimalComponent::initialize() {
         this,
         RenderObjectType::Geometry,
         DrawPrimitives::Sphere( cellCorner, 0.02_ra, Utils::Color::White() ),
-        rt ) );
+        shadedRt ) );
 
     end = 32;
     for ( uint i = 0; i < end; ++i )
@@ -362,20 +381,20 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Sphere( center1, 0.005_ra + ratio * 0.01_ra, color1 ),
-            rt ) );
+            shadedRt ) );
         addRenderObject( RenderObject::createRenderObject(
             "test_sphere",
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Sphere( center2, 0.005_ra + ratio * 0.01_ra, color2 ),
-            rt ) );
+            shadedRt ) );
 
         addRenderObject( RenderObject::createRenderObject(
             "test_sphere",
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Sphere( center3, 0.01_ra + ratio * 0.01_ra, color3 ),
-            rt ) );
+            shadedRt ) );
     }
 
     //// CAPSULE ////
@@ -387,7 +406,7 @@ void MinimalComponent::initialize() {
         RenderObjectType::Geometry,
         DrawPrimitives::Capsule(
             cellCorner, cellCorner + Vector3{0_ra, 0.1_ra, 0_ra}, 0.02_ra, Utils::Color::White() ),
-        rt ) );
+        shadedRt ) );
 
     //// DISK ////
     cellCorner = {-0.5_ra, 0_ra, 0.25_ra};
@@ -401,7 +420,7 @@ void MinimalComponent::initialize() {
                               0.05_ra,
                               32,
                               colorBoost * Utils::Color::White() ),
-        rt ) );
+        shadedRt ) );
 
     /*        addRenderObject( RenderObject::createRenderObject(
     "test_ray",
