@@ -224,7 +224,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 void ShaderProgram::link() {
     m_program = globjects::Program::create();
 
-    for ( int i = 0; i < ShaderType_COUNT; ++i )
+    for ( unsigned int i = 0; i < ShaderType_COUNT; ++i )
     {
         if ( m_shaderObjects[i].second ) { m_program->attach( m_shaderObjects[i].second.get() ); }
     }
@@ -243,9 +243,28 @@ void ShaderProgram::link() {
         auto type = m_program->getActiveUniform( i, GL_UNIFORM_TYPE );
 
         //!\todo add other sampler type (or manage all type of sampler automatically)
-        if ( type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_RECT ||
-             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_3D ||
-             type == GL_SAMPLER_CUBE_SHADOW )
+        if ( type == GL_SAMPLER_1D || type == GL_SAMPLER_2D || type == GL_SAMPLER_3D ||
+             type == GL_SAMPLER_CUBE || type == GL_SAMPLER_1D_SHADOW ||
+             type == GL_SAMPLER_2D_SHADOW || type == GL_SAMPLER_CUBE_SHADOW ||
+             type == GL_SAMPLER_2D_RECT || type == GL_SAMPLER_2D_RECT_SHADOW ||
+             type == GL_SAMPLER_1D_ARRAY || type == GL_SAMPLER_2D_ARRAY ||
+             type == GL_SAMPLER_BUFFER || type == GL_SAMPLER_1D_ARRAY_SHADOW ||
+             type == GL_SAMPLER_2D_ARRAY_SHADOW || type == GL_INT_SAMPLER_1D ||
+             type == GL_INT_SAMPLER_2D || type == GL_INT_SAMPLER_3D ||
+             type == GL_INT_SAMPLER_CUBE || type == GL_INT_SAMPLER_2D_RECT ||
+             type == GL_INT_SAMPLER_1D_ARRAY || type == GL_INT_SAMPLER_2D_ARRAY ||
+             type == GL_INT_SAMPLER_BUFFER || type == GL_UNSIGNED_INT_SAMPLER_1D ||
+             type == GL_UNSIGNED_INT_SAMPLER_2D || type == GL_UNSIGNED_INT_SAMPLER_3D ||
+             type == GL_UNSIGNED_INT_SAMPLER_CUBE || type == GL_UNSIGNED_INT_SAMPLER_2D_RECT ||
+             type == GL_UNSIGNED_INT_SAMPLER_1D_ARRAY || type == GL_UNSIGNED_INT_SAMPLER_2D_ARRAY ||
+             type == GL_UNSIGNED_INT_SAMPLER_BUFFER || type == GL_SAMPLER_CUBE_MAP_ARRAY ||
+             type == GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW || type == GL_INT_SAMPLER_CUBE_MAP_ARRAY ||
+             type == GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY || type == GL_SAMPLER_2D_MULTISAMPLE ||
+             type == GL_INT_SAMPLER_2D_MULTISAMPLE ||
+             type == GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE ||
+             type == GL_SAMPLER_2D_MULTISAMPLE_ARRAY ||
+             type == GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY ||
+             type == GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY )
         {
             auto location      = m_program->getUniformLocation( name );
             textureUnits[name] = TextureBinding( texUnit++, location );
