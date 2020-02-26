@@ -1,19 +1,20 @@
-# -------------------------- Usefull fonctions for application and plugins client  ------------------------------------
-# CMAKE tips : To delay evaluation of some variable to build time, just escape their name (e.g \${NAME} instead of ${NAME}
-# TODO : works well on MacOs : must be tested on other systems
-# TODO, some part are only for MACOS but could be generalized to all systems (MACOSX_BUNDLE on MacOs, Bundle like directories on other systems
+#-- -- -- -- -- -- -- -- --  Usefull fonctions for application and plugins client -- -- -- -- -- -- -- -- -- -- -- --
+#CMAKE tips : To delay evaluation of some variable to build time, just escape their name( e.g \${NAME} instead of ${NAME}
+#TODO : works well on MacOs : must be tested on other systems
+#TODO, some part are only for MACOS but could be generalized to all systems
+#   (MACOSX_BUNDLE on MacOs, Bundle like directories on other systems
 include(CMakeParseArguments)
-# Install resources : link (copy under window) the resource dir DIRECTORY into the buildtree at the given BUILDLOCATION and install the
-# required files into the <bundle>/Resources
-# If called only with a directory, all the files in this directory and subdirs will be installed
-# to be called with
-# installResources ( TARGET theTarget`
-#                    [BUILDLOCATION whereToLinkInTheBuildTree]
-#                    DIRECTORY theBaseRessourceDirectory
-#                    [FILES [file1 [file2 ... ]]]
+#Install resources : link( copy under window ) the resource dir DIRECTORY into the buildtree at the given BUILDLOCATION
+# and install the required files into the < bundle> / Resources
+#If called only with a directory, all the files in this directory and subdirs will be installed
+#to be called with
+#installResources( TARGET theTarget`
+#                  [BUILDLOCATION whereToLinkInTheBuildTree]
+#                  DIRECTORY theBaseRessourceDirectory
+#                  [FILES[file1[file2...]]]
 #
 function(installTargetResources)
-    # "declare" and parse parameters
+    #"declare" and parse parameters
     cmake_parse_arguments(
             ARGS
             ""
@@ -21,7 +22,7 @@ function(installTargetResources)
             "FILES"
             ${ARGN}
     )
-    # verify that the function was called with expected parameters
+    #verify that the function was called with expected parameters
     if (NOT ARGS_TARGET)
         message(FATAL_ERROR " [installResources] You must provide a target that need these resources")
     endif ()
@@ -29,13 +30,13 @@ function(installTargetResources)
         message(FATAL_ERROR " [installResources] You must provide a resource directory")
     endif ()
     if (NOT ARGS_BUILDLOCATION)
-        # linking resours in the current bin dir of the build tree
+        #linking resours in the current bin dir of the build tree
         set(ARGS_BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR})
     endif ()
-    # compute resources dir for build tree and install tree
+    #compute resources dir for build tree and install tree
     get_filename_component(rsc_dir ${ARGS_DIRECTORY} NAME)
     set(buildtree_dir ${ARGS_BUILDLOCATION})
-    # installing resources in the buildtree (link if available, copy if not)
+    #installing resources in the buildtree( link if available, copy if not)
     message(STATUS " [installResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/Resources/${rsc_dir}")
     file(MAKE_DIRECTORY "${buildtree_dir}")
     if (MSVC OR MSVC_IDE OR MINGW)
@@ -54,8 +55,8 @@ function(installTargetResources)
         )
     endif ()
 
-    # Install in the install tree
-    # Identify the individual files (to preserve directory structure)
+    #Install in the install tree
+    #Identify the individual files( to preserve directory structure )
     message(STATUS " [installResources] configuring install for requested files of ${ARGS_DIRECTORY}")
     if (NOT ARGS_FILES)
         file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)
@@ -181,6 +182,7 @@ function(configure_bundled_Radium_app)
     if (ARGS_USE_PLUGINS)
         install(CODE "
         include(BundleUtilities)
+        set(BU_CHMOD_BUNDLE_ITEMS TRUE)
         file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents/Resources)
         file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents)
         if (EXISTS ${RADIUM_PLUGINS_DIR})
@@ -202,6 +204,7 @@ function(configure_bundled_Radium_app)
         install(CODE "
             message(STATUS \"Installing ${ARGS_NAME} without plugins\")
             include(BundleUtilities)
+            set(BU_CHMOD_BUNDLE_ITEMS TRUE)
             file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents/Resources)
             file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents)
             fixup_bundle(${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
