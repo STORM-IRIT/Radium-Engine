@@ -29,7 +29,7 @@ void addBone( const uint parent,                       // index of parent bone
             parent, dd.m_frame, Ra::Core::Animation::HandleArray::SpaceType::MODEL, dd.m_name );
         for ( const auto& edge : edgeList )
         {
-            if ( edge[0] == int( dataID ) )
+            if ( edge[0] == dataID )
             { addBone( index, edge[1], data, edgeList, processed, skelOut ); }
         }
     }

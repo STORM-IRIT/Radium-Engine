@@ -59,9 +59,10 @@ using namespace glbinding;
 KeyMappingViewer
 #undef KMA_VALUE
 
-// Register all keymapings related to the viewer and its managed functionalities (Trackball camera,
-// Gizmo, ..)
-void Gui::Viewer::setupKeyMappingCallbacks() {
+    // Register all keymapings related to the viewer and its managed functionalities (Trackball
+    // camera, Gizmo, ..)
+    void
+    Gui::Viewer::setupKeyMappingCallbacks() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
 
     // Add default manipulator listener
@@ -733,6 +734,7 @@ void Gui::Viewer::enableDebugDraw( int enabled ) {
 }
 
 void Gui::Viewer::update( const Scalar dt ) {
+    CORE_UNUSED( dt );
     if ( m_gizmoManager != nullptr ) { m_gizmoManager->updateValues(); }
 }
 

@@ -1,21 +1,12 @@
 #include <GuiBase/Viewer/Gizmo/TranslateGizmo.hpp>
 
-#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-
-#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -35,45 +26,35 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
     constexpr Scalar axisWidth  = .05_ra;
     constexpr Scalar arrowFrac  = .15_ra;
 
-    std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-    auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
-    rt->setConfiguration( *plaincfg );
-    auto mat              = Core::make_shared<Engine::PlainMaterial>( "Translate Gizmo material" );
-    mat->m_perVertexColor = true;
-    rt->setParametersProvider( mat );
+    std::shared_ptr<Engine::RenderTechnique> rt(
+        makeRenderTechnique( "Translate Gizmo material", true ) );
 
-    // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
         Core::Utils::Color arrowColor = Core::Utils::Color::Black();
         arrowColor[i]                 = 1_ra;
-
         Core::Vector3 cylinderEnd = Core::Vector3::Zero();
+        cylinderEnd[i]                = ( 1_ra - arrowFrac );
         Core::Vector3 arrowEnd    = Core::Vector3::Zero();
-        cylinderEnd[i]            = ( 1_ra - arrowFrac );
         arrowEnd[i]               = 1_ra;
-
         Core::Geometry::TriangleMesh cylinder =
             Core::Geometry::makeCylinder( Core::Vector3::Zero(),
                                           arrowScale * cylinderEnd,
                                           arrowScale * axisWidth / 2_ra,
                                           32,
                                           arrowColor );
-
         Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone( arrowScale * cylinderEnd,
                                                                       arrowScale * arrowEnd,
                                                                       arrowScale * arrowFrac / 2_ra,
                                                                       32,
                                                                       arrowColor );
-
-        // Merge the cylinder and the cone to create the arrow shape.
         cylinder.append( cone );
 
-        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
+        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Translate Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( cylinder ) );
 
-        Engine::RenderObject* arrowDrawable =
-            new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
+        Engine::RenderObject* arrowDrawable = new Engine::RenderObject(
+            "Translate Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
 
@@ -186,6 +167,7 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam,
                                            const Core::Vector2& nextXY,
                                            bool stepped,
                                            bool whole ) {
+    CORE_UNUSED( whole );
     static const Scalar step = .2_ra;
 
     if ( m_selectedAxis == -1 && m_selectedPlane == -1 ) return m_transform;

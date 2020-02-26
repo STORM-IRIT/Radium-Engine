@@ -259,7 +259,7 @@ void Renderer::render( const ViewingParameters& data ) {
     m_timerData.updateEnd = Core::Utils::Clock::now();
 
     // 3. Do picking if needed
-    // TODO : Make picking musch more effient.
+    // TODO : Make picking much more effient.
     //  Do not need to loop twice on objects to implement picking.
     m_pickingResults.clear();
     if ( !m_pickingQueries.empty() ) { doPicking( data ); }
@@ -288,7 +288,7 @@ void Renderer::render( const ViewingParameters& data ) {
 
     // 9. Tell renderobjects they have been drawn (to decreaase the counter)
     // TODO : this must be done when rendering the object, not after.
-    // doeing this here make looping on Ros twice (at least) and even much more due to
+    // doing this here make looping on Ros twice (at least) and even much more due to
     // implementations of indirectly called methods.
     notifyRenderObjectsRenderingInternal();
 }
@@ -466,7 +466,8 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
                     const int x = query.m_screenCoords.x() + i;
                     const int y = query.m_screenCoords.y() - j;
                     // skip query if out of window (can occur when picking while moving outside)
-                    if ( x < 0 || x > m_width - 1 || y < 0 || y > m_height - 1 ) { continue; }
+                    if ( x < 0 || x > int( m_width ) - 1 || y < 0 || y > int( m_height ) - 1 )
+                    { continue; }
                     GL_ASSERT( glReadPixels( x, y, 1, 1, GL_RGBA_INTEGER, GL_INT, pick ) );
                     resultPerRO[pick[0]].m_roIdx = pick[0];
                     resultPerRO[pick[0]].m_vertexIdx.emplace_back( pick[1] );
@@ -474,18 +475,15 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
                     resultPerRO[pick[0]].m_edgeIdx.emplace_back( pick[3] );
                 }
             }
-            int maxRO = -1;
-            int nbMax = 0;
-            for ( const auto& res : resultPerRO )
-            {
-                if ( res.second.m_roIdx == -1 ) { continue; }
-                if ( res.second.m_vertexIdx.size() > nbMax )
-                {
-                    maxRO = res.first;
-                    nbMax = res.second.m_vertexIdx.size();
-                }
-            }
-            result = resultPerRO[maxRO];
+
+            auto itr = std::max_element(
+                resultPerRO.begin(),
+                resultPerRO.end(),
+                []( const std::map<int, PickingResult>::value_type& a,
+                    const std::map<int, PickingResult>::value_type& b ) -> bool {
+                    return a.second.m_vertexIdx.size() < b.second.m_vertexIdx.size();
+                } );
+            result = itr->second;
         }
         result.m_mode = query.m_mode;
         m_pickingResults.push_back( result );

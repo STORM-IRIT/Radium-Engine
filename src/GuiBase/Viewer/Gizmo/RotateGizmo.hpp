@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ROTATE_GIZMO_HPP_
-#define RADIUMENGINE_ROTATE_GIZMO_HPP_
+#pragma once
 
 #include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
 
@@ -39,5 +38,3 @@ class RotateGizmo : public Gizmo
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_ROTATE_GIZMO_HPP_

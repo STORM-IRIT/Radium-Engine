@@ -44,15 +44,13 @@ QVariant TreeModel::data( const QModelIndex& index, int role ) const {
 bool TreeModel::setData( const QModelIndex& index, const QVariant& value, int role ) {
     if ( index.isValid() && index.column() == 0 && role == Qt::CheckStateRole )
     {
-        if( QApplication::keyboardModifiers() == Qt::CTRL )
+        if ( QApplication::keyboardModifiers() == Qt::CTRL )
         {
             setAllItemsChecked( false );
             setItemChecked( index, true );
         }
         else
-        {
-            setItemChecked( index , value.toBool() );
-        }
+        { setItemChecked( index, value.toBool() ); }
         return true;
     }
     return false;
@@ -71,7 +69,7 @@ QModelIndex TreeModel::index( int row, int column, const QModelIndex& parent ) c
     if ( parent.isValid() && parent.column() != 0 ) { return QModelIndex(); }
     // Grab the parent and make an index of the child.
     TreeItem* parentItem = getItem( parent );
-    if ( parentItem && row < parentItem->m_children.size() )
+    if ( parentItem && size_t( row ) < parentItem->m_children.size() )
     { return createIndex( row, column, parentItem->m_children[row].get() ); }
     else
     { return QModelIndex(); }
@@ -142,21 +140,19 @@ void TreeModel::printModel() const {
 #endif
 }
 
-void TreeModel::setAllItemsChecked( bool checked )
-{
-    for ( int row = 0; row < rowCount() ; ++row )
+void TreeModel::setAllItemsChecked( bool checked ) {
+    for ( int row = 0; row < rowCount(); ++row )
     {
         const QModelIndex index = this->index( row, 0 );
         setItemChecked( index, checked );
     }
 }
 
-void TreeModel::setItemChecked( const QModelIndex& index, bool checked )
-{
+void TreeModel::setItemChecked( const QModelIndex& index, bool checked ) {
     if ( index.isValid() )
     {
         TreeItem* item = getItem( index );
-        if( item->isSelectable() )
+        if ( item->isSelectable() )
         {
             item->setChecked( checked );
             emit dataChanged( index, index, {Qt::CheckStateRole} );

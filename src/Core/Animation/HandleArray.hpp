@@ -23,8 +23,9 @@ class RA_CORE_API HandleArray
     /**
      * The SpaceType specifies the space the transform lives in.
      */
-    enum class SpaceType { LOCAL, MODEL };
-
+    enum class SpaceType : bool { LOCAL, MODEL };
+    static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
+                   "SpaceType is not a boolean" );
     HandleArray();
     explicit HandleArray( const uint n );
     HandleArray( const HandleArray& handle ) = default;

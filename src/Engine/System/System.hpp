@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SYSTEM_HPP
-#define RADIUMENGINE_SYSTEM_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -44,7 +43,10 @@ class RA_ENGINE_API System
      * outside the m_components vectors (e.g in a buffer on the GPU) the methods, the
      * registerComponent and unregister*Component must be virtual method that could be overriden.
      */
-    virtual void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) {}
+    virtual void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) {
+        CORE_UNUSED( entity );
+        CORE_UNUSED( data );
+    }
 
     /**
      * @brief Pure virtual method to be overridden by any system.
@@ -94,5 +96,3 @@ class RA_ENGINE_API System
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_SYSTEM_HPP

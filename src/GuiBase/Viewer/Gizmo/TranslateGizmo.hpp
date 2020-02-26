@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TRANSLATE_GIZMO_HPP_
-#define RADIUMENGINE_TRANSLATE_GIZMO_HPP_
+#pragma once
 
 #include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
 
@@ -38,5 +37,3 @@ class TranslateGizmo : public Gizmo
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_TRANSLATE_GIZMO_HPP_

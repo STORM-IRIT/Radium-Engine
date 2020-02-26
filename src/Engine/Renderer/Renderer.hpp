@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_RENDERER_HPP
-#define RADIUMENGINE_RENDERER_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -460,5 +459,3 @@ class RA_ENGINE_API Renderer
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_RENDERER_HPP

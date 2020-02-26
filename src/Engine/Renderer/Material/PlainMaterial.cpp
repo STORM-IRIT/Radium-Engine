@@ -40,7 +40,7 @@ void PlainMaterial::registerMaterial() {
 
     // Registering technique
     Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
-        materialName, []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
+        materialName, []( Ra::Engine::RenderTechnique& rt, bool ) {
             // Lighting pass
             auto lightpass = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
             rt.setConfiguration( *lightpass, DefaultRenderingPasses::LIGHTING_OPAQUE );

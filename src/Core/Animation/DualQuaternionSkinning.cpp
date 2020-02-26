@@ -4,17 +4,15 @@ namespace Ra {
 namespace Core {
 namespace Animation {
 void computeDQ( const Pose& pose, const Sparse& weight, DQList& DQ ) {
-    CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
+    CORE_ASSERT( ( pose.size() == size_t( weight.cols() ) ), "pose/weight size mismatch." );
     DQ.clear();
     DQ.resize( weight.rows(),
                DualQuaternion( Quaternion( 0, 0, 0, 0 ), Quaternion( 0, 0, 0, 0 ) ) );
 
     // Stores the first non-zero quaternion for each vertex.
     std::vector<uint> firstNonZero( weight.rows(), std::numeric_limits<uint>::max() );
-
     // Contains the converted dual quaternions from the pose
     std::vector<DualQuaternion> poseDQ( pose.size() );
-    // poseDQ.reserve( pose.size());
 
     // Loop through all transforms Tj
     for ( int j = 0; j < weight.outerSize(); ++j )
@@ -64,13 +62,11 @@ void computeDQ( const Pose& pose, const Sparse& weight, DQList& DQ ) {
 // alternate naive version, for reference purposes.
 // See Kavan , Collins, Zara and O'Sullivan, 2008
 void computeDQ_naive( const Pose& pose, const Sparse& weight, DQList& DQ ) {
-    CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
+    CORE_ASSERT( ( pose.size() == size_t( weight.cols() ) ), "pose/weight size mismatch." );
     DQ.clear();
     DQ.resize( weight.rows(),
                DualQuaternion( Quaternion( 0, 0, 0, 0 ), Quaternion( 0, 0, 0, 0 ) ) );
-
-    std::vector<DualQuaternion> poseDQ;
-    poseDQ.resize( pose.size() );
+    std::vector<DualQuaternion> poseDQ( pose.size() );
 
     // 1. Convert all transforms to DQ
 #pragma omp parallel for

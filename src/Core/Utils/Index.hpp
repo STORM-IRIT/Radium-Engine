@@ -10,10 +10,12 @@ namespace Utils {
 
 class RA_CORE_API Index
 {
+    using IntegerType = int;
+
   public:
     /// CONSTRUCTOR
     /// Default constructor that allow implicit conversion from integer to Index
-    constexpr explicit Index( int i = s_invalid );
+    constexpr Index( IntegerType i = s_invalid );
     constexpr Index( const Index& i );
     constexpr Index& operator=( long int i );
 
@@ -31,11 +33,11 @@ class RA_CORE_API Index
     static constexpr Index Max();
 
     /// INDEX
-    constexpr int getValue() const;
-    constexpr void setValue( const int i );
+    constexpr IntegerType getValue() const;
+    constexpr void setValue( const IntegerType i );
 
     /// CAST
-    constexpr operator int() const; // required for `array[idx]`
+    constexpr operator IntegerType() const; // required for `array[idx]`
 
     /// OPERATOR
     constexpr Index& operator=( const Index& id );
@@ -76,12 +78,12 @@ class RA_CORE_API Index
 
   protected:
     /// VARIABLE
-    int m_idx{s_invalid};
+    IntegerType m_idx{s_invalid};
 
   private:
     /// CONSTANT
-    static const int s_invalid{-1};
-    static const int s_maxIdx{std::numeric_limits<int>::max()};
+    static const IntegerType s_invalid{-1};
+    static const IntegerType s_maxIdx{std::numeric_limits<IntegerType>::max()};
 };
 } // namespace Utils
 } // namespace Core

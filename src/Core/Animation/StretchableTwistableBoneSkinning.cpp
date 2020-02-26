@@ -71,7 +71,7 @@ void computeDQSTBS( const Pose& pose,
                     const WeightMatrix& weight,
                     const WeightMatrix& weightSTBS,
                     DQList& DQ ) {
-    CORE_ASSERT( ( pose.size() == weight.cols() ), "pose/weight size mismatch." );
+    CORE_ASSERT( ( pose.size() == size_t( weight.cols() ) ), "pose/weight size mismatch." );
     DQ.clear();
     DQ.resize( weight.rows(),
                DualQuaternion( Quaternion( 0, 0, 0, 0 ), Quaternion( 0, 0, 0, 0 ) ) );

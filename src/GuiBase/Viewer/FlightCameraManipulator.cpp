@@ -28,8 +28,7 @@ KeyMappingFlightManipulator
         Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
-        LOG( Ra::Core::Utils::logWARNING )
-            << "FlightManipulatorContext not defined (maybe the "
+        LOG( Ra::Core::Utils::logWARNING ) << "FlightManipulatorContext not defined (maybe the "
                                               "configuration file do not contains it). Adding "
                                               "default configuration for FlightManipulatorContext.";
 
@@ -141,8 +140,8 @@ bool Gui::FlightCameraManipulator::handleMousePressEvent( QMouseEvent* event,
 }
 
 bool Gui::FlightCameraManipulator::handleMouseMoveEvent( QMouseEvent* event,
-                                                         const Qt::MouseButtons& buttons,
-                                                         const Qt::KeyboardModifiers& modifiers,
+                                                         const Qt::MouseButtons& /*buttons*/,
+                                                         const Qt::KeyboardModifiers& /*modifiers*/,
                                                          int /*key*/ ) {
 
     // auto action = KeyMappingManager::getInstance()->getAction( context, buttons, modifiers, key

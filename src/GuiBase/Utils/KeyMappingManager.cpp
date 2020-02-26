@@ -60,53 +60,8 @@ void KeyMappingManager::addAction( const std::string& context,
                                    const std::string& buttonsString,
                                    const std::string& wheelString,
                                    const std::string& actionString ) {
-
-    Ra::Core::Utils::Index contextIndex;
-    auto contextItr = m_contextNameToIndex.find( context );
-    if ( contextItr == m_contextNameToIndex.end() )
-    {
-        contextIndex                  = m_contextNameToIndex.size();
-        m_contextNameToIndex[context] = contextIndex;
-        m_actionNameToIndex.emplace_back();
-        m_mappingAction.emplace_back();
-
-        CORE_ASSERT( m_actionNameToIndex.size() == contextIndex + 1, "Corrupted actionName DB" );
-        CORE_ASSERT( m_mappingAction.size() == contextIndex + 1, "Corrupted mappingAction DB" );
-    }
-    else
-        contextIndex = contextItr->second;
-
-    Ra::Core::Utils::Index actionIndex;
-    auto actionItr = m_actionNameToIndex[contextIndex].find( actionString );
-    if ( actionItr == m_actionNameToIndex[contextIndex].end() )
-    {
-        actionIndex                                     = m_actionNameToIndex[contextIndex].size();
-        m_actionNameToIndex[contextIndex][actionString] = actionIndex;
-    }
-    else
-    {
-        LOG( logWARNING ) << "Action " << actionString << " has already been inserted to index for "
-                          << context;
-        actionIndex = actionItr->second;
-    }
-
-    Qt::KeyboardModifiers modifiersValue = getQtModifiersValue( modifiersString );
-    auto keyValue                        = m_metaEnumKey.keyToValue( keyString.c_str() );
-    auto buttonsValue                    = getQtMouseButtonsValue( buttonsString );
-    auto wheel                           = wheelString.compare( "true" ) == 0;
-
-    if ( keyValue == -1 && buttonsValue == Qt::NoButton && !wheel )
-    {
-        LOG( logERROR ) << "No key nor mouse buttons specified for action [" << actionString
-                        << "] with key [" << keyString << "], and buttons[" << buttonsString << "]";
-        LOG( logERROR ) << "Trying to load default configuration...";
-    }
-    else
-    {
-        bindKeyToAction( contextIndex,
-                         MouseBinding{buttonsValue, modifiersValue, keyValue, wheel},
-                         actionIndex );
-    }
+    loadConfigurationMappingInternal(
+        context, keyString, modifiersString, buttonsString, wheelString, actionString );
 
     QDomElement domElement   = m_domDocument.documentElement();
     QDomElement elementToAdd = m_domDocument.createElement( "keymap" );
@@ -136,7 +91,7 @@ KeyMappingManager::Context KeyMappingManager::getContext( const std::string& con
 
 KeyMappingManager::KeyMappingAction
 KeyMappingManager::getActionIndex( const Context& context, const std::string& actionName ) {
-    if ( context >= m_actionNameToIndex.size() || context.isInvalid() )
+    if ( size_t( context ) >= m_actionNameToIndex.size() || context.isInvalid() )
     {
         LOG( logWARNING ) << "try to get action index ( " << actionName
                           << " ) from an invalid context ( " << context << " )";
@@ -154,7 +109,7 @@ KeyMappingManager::getActionIndex( const Context& context, const std::string& ac
 std::string KeyMappingManager::getActionName( const Context& context,
                                               const KeyMappingAction& action ) {
 
-    if ( context < m_actionNameToIndex.size() && context.isValid() )
+    if ( size_t( context ) < m_actionNameToIndex.size() && context.isValid() )
     {
 
         auto actionFindItr = std::find_if(
@@ -441,8 +396,8 @@ void KeyMappingManager::loadConfigurationTagsInternal( QDomElement& node ) {
     if ( node.tagName() == "keymap" )
     {
 
-        QDomElement e         = node.toElement();
-        std::string keyString = e.attribute( "key", "-1" ).toStdString();
+        QDomElement e               = node.toElement();
+        std::string keyString       = e.attribute( "key", "-1" ).toStdString();
         std::string modifiersString = e.attribute( "modifiers", "NoModifier" ).toStdString();
         std::string buttonsString   = e.attribute( "buttons", "NoButton" ).toStdString();
         std::string contextString   = e.attribute( "context", "AppContext" ).toStdString();
@@ -479,8 +434,10 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
         m_actionNameToIndex.emplace_back();
         m_mappingAction.emplace_back();
 
-        CORE_ASSERT( m_actionNameToIndex.size() == contextIndex + 1, "Corrupted actionName DB" );
-        CORE_ASSERT( m_mappingAction.size() == contextIndex + 1, "Corrupted mappingAction DB" );
+        CORE_ASSERT( m_actionNameToIndex.size() == size_t( contextIndex + 1 ),
+                     "Corrupted actionName DB" );
+        CORE_ASSERT( m_mappingAction.size() == size_t( contextIndex + 1 ),
+                     "Corrupted mappingAction DB" );
     }
     else
         contextIndex = contextItr->second;
@@ -496,7 +453,6 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
     {
         LOG( logERROR ) << "Action " << actionString << " has already been inserted to index for "
                         << context;
-
         actionIndex = actionItr->second;
     }
 

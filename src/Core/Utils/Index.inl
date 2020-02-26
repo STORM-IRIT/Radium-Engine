@@ -4,7 +4,7 @@ namespace Ra {
 namespace Core {
 namespace Utils {
 /// CONSTRUCTOR
-constexpr Index::Index( int i ) : m_idx( ( i < 0 ) ? s_invalid : i ) {}
+constexpr Index::Index( IntegerType i ) : m_idx( ( i < 0 ) ? s_invalid : i ) {}
 
 constexpr Index::Index( const Index& i ) : m_idx( i.m_idx ) {}
 
@@ -32,10 +32,10 @@ constexpr Index Index::Max() {
 }
 
 /// INDEX
-constexpr int Index::getValue() const {
+constexpr Index::IntegerType Index::getValue() const {
     return m_idx;
 }
-constexpr void Index::setValue( const int i ) {
+constexpr void Index::setValue( const IntegerType i ) {
     m_idx = ( i < 0 ) ? s_invalid : i;
 }
 
@@ -82,15 +82,15 @@ constexpr bool Index::operator==( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator==( const Integer& i ) {
-    return ( m_idx == i );
+    return ( *this == Index( IntegerType( i ) ) );
 }
 
 constexpr bool Index::operator!=( const Index& id ) {
-    return ( m_idx != id.m_idx );
+    return ( !( *this == id ) );
 }
 template <typename Integer>
 constexpr bool Index::operator!=( const Integer& i ) {
-    return ( m_idx != i );
+    return ( !( *this == Index( IntegerType( i ) ) ) );
 }
 
 constexpr bool Index::operator<( const Index& id ) {
@@ -99,7 +99,7 @@ constexpr bool Index::operator<( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator<( const Integer& i ) {
-    return ( m_idx < i );
+    return ( *this < Index( IntegerType( i ) ) );
 }
 
 constexpr bool Index::operator<=( const Index& id ) {
@@ -108,7 +108,7 @@ constexpr bool Index::operator<=( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator<=( const Integer& i ) {
-    return ( m_idx <= i );
+    return ( *this <= Index( IntegerType( i ) ) );
 }
 
 constexpr bool Index::operator>( const Index& id ) {
@@ -117,7 +117,7 @@ constexpr bool Index::operator>( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator>( const Integer& i ) {
-    return ( m_idx > i );
+    return ( *this > Index( IntegerType( i ) ) );
 }
 
 constexpr bool Index::operator>=( const Index& id ) {
@@ -126,7 +126,7 @@ constexpr bool Index::operator>=( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator>=( const Integer& i ) {
-    return ( m_idx >= i );
+    return ( *this >= Index( IntegerType( i ) ) );
 }
 
 } // namespace Utils
