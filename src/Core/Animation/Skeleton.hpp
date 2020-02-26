@@ -1,5 +1,4 @@
-#ifndef SKELETON_HANDLE_H
-#define SKELETON_HANDLE_H
+#pragma once
 
 #include <Core/Animation/HandleArray.hpp>
 #include <Core/Containers/AdjacencyList.hpp>
@@ -88,5 +87,3 @@ class RA_CORE_API Skeleton : public HandleArray
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
-
-#endif // SKELETON_HANDLE_H

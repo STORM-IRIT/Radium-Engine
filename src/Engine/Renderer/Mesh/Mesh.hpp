@@ -219,8 +219,8 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
                                       MeshRenderMode renderMode = RM_TRIANGLES );
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AbstractGeometry */
-    inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const;
-    inline Core::Geometry::AbstractGeometry& getAbstractGeometry();
+    inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override;
+    inline Core::Geometry::AbstractGeometry& getAbstractGeometry() override;
     ///@}
 
     ///@{
@@ -315,7 +315,7 @@ class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
     void loadGeometry( T&& mesh ) override;
 
   protected:
-    void updateGL_specific_impl();
+    void updateGL_specific_impl() override;
 };
 
 /// LineMesh, own a Core::Geometry::LineMesh

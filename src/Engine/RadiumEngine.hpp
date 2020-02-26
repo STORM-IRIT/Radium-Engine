@@ -119,7 +119,7 @@ class RA_ENGINE_API RadiumEngine
      * @param filename the name of the loaded file
      * @return
      */
-    const Core::Asset::FileData& getFileData( const std::string& file ) const;
+    const Core::Asset::FileData& getFileData() const;
 
     /**
      * Release the content of the loaded file.
@@ -127,7 +127,7 @@ class RA_ENGINE_API RadiumEngine
      * @param filename the name of the file to release. If empty, releases the last loaded file.
      * @note Calling this method set the engine out of the "loading state".
      */
-    void releaseFile( const std::string& filename = "" );
+    void releaseFile();
 
     /// Is called at the end of the frame to synchronize any data
     /// that may have been updated during the frame's multithreaded processing.

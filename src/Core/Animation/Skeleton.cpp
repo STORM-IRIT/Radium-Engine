@@ -22,20 +22,17 @@ void Skeleton::clear() {
 }
 
 const Pose& Skeleton::getPose( const SpaceType MODE ) const {
-    switch ( MODE )
-    {
-    case SpaceType::LOCAL:
-    { return m_pose; }
-    case SpaceType::MODEL:
-    { return m_modelSpace; }
-    }
+    static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
+                   "SpaceType is not a boolean" );
+    if ( MODE == SpaceType::LOCAL ) return m_pose;
+    return m_modelSpace;
 }
 
 void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
     CORE_ASSERT( ( size() == pose.size() ), "Size mismatching" );
-    switch ( MODE )
-    {
-    case SpaceType::LOCAL:
+    static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
+                   "SpaceType is not a boolean" );
+    if ( MODE == SpaceType::LOCAL )
     {
         m_pose = pose;
         m_modelSpace.resize( m_pose.size() );
@@ -48,8 +45,7 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
             }
         }
     }
-    break;
-    case SpaceType::MODEL:
+    else
     {
         m_modelSpace = pose;
         m_pose.resize( m_modelSpace.size() );
@@ -62,25 +58,20 @@ void Skeleton::setPose( const Pose& pose, const SpaceType MODE ) {
             }
         }
     }
-    break;
-    }
 }
 const Transform& Skeleton::getTransform( const uint i, const SpaceType MODE ) const {
     CORE_ASSERT( ( i < size() ), "Index i out of bounds" );
-    switch ( MODE )
-    {
-    case SpaceType::LOCAL:
-    { return m_pose[i]; }
-    case SpaceType::MODEL:
-    { return m_modelSpace[i]; }
-    }
+    static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
+                   "SpaceType is not a boolean" );
+    if ( MODE == SpaceType::LOCAL ) return m_pose[i];
+    return m_modelSpace[i];
 }
 
 void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType MODE ) {
     CORE_ASSERT( ( i < size() ), "Index i out of bounds" );
-    switch ( MODE )
-    {
-    case SpaceType::LOCAL:
+    static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
+                   "SpaceType is not a boolean" );
+    if ( MODE == SpaceType::LOCAL )
     {
         m_pose[i] = T;
         // Compute the model space pose
@@ -103,8 +94,7 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             }
         }
     }
-    break;
-    case SpaceType::MODEL:
+    else
     {
         m_modelSpace[i] = T;
         // Compute the local space pose
@@ -127,8 +117,6 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
             }
         }
     }
-    break;
-    }
 }
 
 uint Skeleton::addRoot( const Transform& T, const Label label ) {
@@ -142,20 +130,17 @@ uint Skeleton::addBone( const uint parent,
                         const Transform& T,
                         const SpaceType MODE,
                         const Label label ) {
-    switch ( MODE )
-    {
-    case SpaceType::LOCAL:
+    static_assert( std::is_same<bool, typename std::underlying_type<SpaceType>::type>::value,
+                   "SpaceType is not a boolean" );
+    if ( MODE == SpaceType::LOCAL )
     {
         m_pose.push_back( T );
         m_modelSpace.push_back( T * m_modelSpace[parent] );
     }
-    break;
-    case SpaceType::MODEL:
+    else
     {
         m_modelSpace.push_back( T );
         m_pose.push_back( m_modelSpace[parent].inverse() * T );
-    }
-    break;
     }
     m_label.push_back( label );
     return m_graph.addNode( parent );
@@ -234,5 +219,5 @@ std::ostream& operator<<( std::ostream& os, const Skeleton& skeleton ) {
 }
 
 } // namespace Animation
-} // Namespace Core
-} // Namespace Ra
+} // namespace Core
+} // namespace Ra

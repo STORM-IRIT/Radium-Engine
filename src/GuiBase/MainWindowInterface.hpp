@@ -36,7 +36,7 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow
 
   public:
     /// Constructor and destructor.
-    explicit MainWindowInterface( QWidget* parent = nullptr ){};
+    explicit MainWindowInterface( QWidget* parent = nullptr ) : QMainWindow( parent ){};
     virtual ~MainWindowInterface(){};
 
     /// Access the viewer, i.e. the rendering widget.

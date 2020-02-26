@@ -1,7 +1,7 @@
 #ifndef TOPOLOGICALMESH_H
 #define TOPOLOGICALMESH_H
 
-#include <Core/Geometry/OpenMesh.h>
+#include <Core/Geometry/OpenMesh.hpp>
 
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>

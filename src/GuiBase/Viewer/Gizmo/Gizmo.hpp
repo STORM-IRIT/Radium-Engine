@@ -1,13 +1,10 @@
-#ifndef RADIUMENGINE_GIZMO_HPP_
-#define RADIUMENGINE_GIZMO_HPP_
+#pragma once
 
 #include <vector>
 
 #include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
-#include <Engine/Component/Component.hpp>
 #include <Engine/RadiumEngine.hpp>
-//#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra {
@@ -18,6 +15,7 @@ class Component;
 namespace Ra {
 namespace Engine {
 class RenderObject;
+class RenderTechnique;
 }
 } // namespace Ra
 namespace Ra {
@@ -103,6 +101,10 @@ class Gizmo
     /// \param mesh Except declaration type, must be equal to ro->getMesh();
     void addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Engine::Mesh>& mesh );
 
+    /// Generate a plain rendertechnique to draw the gizmo.
+    Engine::RenderTechnique* makeRenderTechnique( const std::string& mtlName,
+                                                  bool rtPerVertexColor );
+
   protected:
     Core::Transform m_worldTo;   ///< World to local space where the transform lives.
     Core::Transform m_transform; ///< Transform to be edited.
@@ -114,5 +116,3 @@ class Gizmo
 };
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_GIZMO_HPP_

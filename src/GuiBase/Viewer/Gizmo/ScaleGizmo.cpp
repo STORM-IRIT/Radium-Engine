@@ -1,23 +1,12 @@
 #include <GuiBase/Viewer/Gizmo/ScaleGizmo.hpp>
 
-#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-
-#include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
-#include <GuiBase/Utils/Keyboard.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -41,46 +30,35 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c,
     constexpr Scalar arrowFrac  = .125_ra;
     constexpr Scalar radius     = arrowScale * axisWidth / 2_ra;
 
-    std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-    auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
-    rt->setConfiguration( *plaincfg );
-    auto mat              = Core::make_shared<Engine::PlainMaterial>( "Scale Gizmo material" );
-    mat->m_perVertexColor = true;
-    rt->setParametersProvider( mat );
+    std::shared_ptr<Engine::RenderTechnique> rt(
+        makeRenderTechnique( "Scale Gizmo material", true ) );
 
-    // For x,y,z
     for ( uint i = 0; i < 3; ++i )
     {
-        Core::Utils::Color arrowColor = Core::Utils::Color::Black();
-        arrowColor[i]                 = 1_ra;
-
-        Core::Vector3 cylinderEnd = Core::Vector3::Zero();
-        cylinderEnd[i]            = ( 1_ra - arrowFrac );
-
+        Core::Utils::Color arrowColor         = Core::Utils::Color::Black();
+        arrowColor[i]                         = 1_ra;
+        Core::Vector3 cylinderEnd             = Core::Vector3::Zero();
+        cylinderEnd[i]                        = ( 1_ra - arrowFrac );
         Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
             Core::Vector3::Zero(), arrowScale * cylinderEnd, radius, 32, arrowColor );
+        Core::Aabb boxBounds;
+        boxBounds.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
+        boxBounds.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
+        boxBounds.translate( arrowScale * cylinderEnd );
+        Core::Geometry::TriangleMesh box = Core::Geometry::makeSharpBox( boxBounds, arrowColor );
+        cylinder.append( box );
 
-        Core::Aabb box;
-        box.extend( Core::Vector3( -radius * 2_ra, -radius * 2_ra, -radius * 2_ra ) );
-        box.extend( Core::Vector3( radius * 2_ra, radius * 2_ra, radius * 2_ra ) );
-        box.translate( arrowScale * cylinderEnd );
-        Core::Geometry::TriangleMesh cone = Core::Geometry::makeSharpBox( box, arrowColor );
-
-        // Merge the cylinder and the cone to create the arrow shape.
-        cylinder.append( cone );
-
-        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Arrow" ) );
+        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Scale Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( cylinder ) );
 
         Engine::RenderObject* arrowDrawable =
-            new Engine::RenderObject( "Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
+            new Engine::RenderObject( "Scale Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
 
         addRenderObject( arrowDrawable, mesh );
     }
 
-    // For xy,yz,zx
     for ( uint i = 0; i < 3; ++i )
     {
         Core::Utils::Color planeColor = Core::Utils::Color::Black();
@@ -112,7 +90,6 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c,
         addRenderObject( planeDrawable, mesh );
     }
 
-    // update all
     updateTransform( mode, m_worldTo, m_transform );
 }
 

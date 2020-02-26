@@ -13,8 +13,7 @@ namespace IO {
 using namespace Core::Utils; // log
 using namespace Core::Asset; // log
 
-AssimpCameraDataLoader::AssimpCameraDataLoader( const std::string& filepath,
-                                                const bool VERBOSE_MODE ) :
+AssimpCameraDataLoader::AssimpCameraDataLoader( const bool VERBOSE_MODE ) :
     DataLoader<CameraData>( VERBOSE_MODE ) {}
 
 AssimpCameraDataLoader::~AssimpCameraDataLoader() = default;

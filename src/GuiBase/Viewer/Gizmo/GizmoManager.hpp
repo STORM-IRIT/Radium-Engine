@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_GIZMO_MANAGER_HPP_
-#define RADIUMENGINE_GIZMO_MANAGER_HPP_
+#pragma once
 
 #include <memory>
 
@@ -93,4 +92,3 @@ class RA_GUIBASE_API GizmoManager : public QObject,
 } // namespace Gui
 } // namespace Ra
 
-#endif // RADIUMENGINE_GIZMO_MANAGER_HPP_

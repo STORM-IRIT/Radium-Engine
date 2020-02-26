@@ -226,7 +226,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
     return true;
 }
 
-void RadiumEngine::releaseFile( const std::string& filename ) {
+void RadiumEngine::releaseFile() {
     m_loadedFile.reset( nullptr );
     m_loadingState = false;
 }
@@ -253,7 +253,7 @@ const std::vector<std::shared_ptr<FileLoaderInterface>>& RadiumEngine::getFileLo
 
 RA_SINGLETON_IMPLEMENTATION( RadiumEngine );
 
-const FileData& RadiumEngine::getFileData( const std::string& file ) const {
+const FileData& RadiumEngine::getFileData() const {
     CORE_ASSERT( m_loadingState, "Access to file content is only available at loading time." );
     return *( m_loadedFile.get() );
 }
