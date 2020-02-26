@@ -352,7 +352,7 @@ bool BaseApplication::loadFile( QString path ) {
         return false;
     }
 
-    m_engine->releaseFile( filename );
+    m_engine->releaseFile();
 
     m_mainWindow->postLoadFile( filename );
 

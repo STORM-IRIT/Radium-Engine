@@ -127,6 +127,7 @@ void ForwardRenderer::initBuffers() {
 }
 
 void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) {
+    CORE_UNUSED( renderData );
 #ifndef NO_TRANSPARENCY
     m_transparentRenderObjects.clear();
     for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
@@ -340,8 +341,6 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
     if ( m_drawDebug )
     {
-        const ShaderProgram* shader;
-
         m_postprocessFbo->bind();
         GL_ASSERT( glDisable( GL_BLEND ) );
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
@@ -377,7 +376,6 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
 
 // Draw UI stuff, always drawn on top of everything else + clear ZMask
 void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
-    const ShaderProgram* shader;
 
     m_uiXrayFbo->bind();
     glDrawBuffers( 1, buffers );
@@ -390,7 +388,7 @@ void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
     {
         if ( ro->isVisible() )
         {
-            shader = ro->getRenderTechnique()->getShader();
+            auto shader = ro->getRenderTechnique()->getShader();
 
             // bind data
             shader->bind();

@@ -5,6 +5,11 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 
+#include <Core/Containers/MakeShared.hpp>
+#include <Engine/Renderer/Material/PlainMaterial.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
 namespace Ra {
 namespace Gui {
 
@@ -12,9 +17,7 @@ Gizmo::Gizmo( Engine::Component* c,
               const Core::Transform& worldTo,
               const Core::Transform& t,
               Mode mode ) :
-    m_worldTo( worldTo ),
-    m_transform( t ),
-    m_comp( c ),
+    m_worldTo( worldTo ), m_transform( t ), m_comp( c ),
     m_mode( mode ) {}
 
 Gizmo::~Gizmo() {
@@ -71,5 +74,15 @@ void Gizmo::addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Eng
     m_renderObjects.push_back( m_comp->addRenderObject( ro ) );
 }
 
+Engine::RenderTechnique* Gizmo::makeRenderTechnique( const std::string& mtlName,
+                                                     bool rtPerVertexColor ) {
+    auto rt       = new Engine::RenderTechnique;
+    auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
+    rt->setConfiguration( *plaincfg );
+    auto mat              = Core::make_shared<Engine::PlainMaterial>( mtlName );
+    mat->m_perVertexColor = rtPerVertexColor;
+    rt->setParametersProvider( mat );
+    return rt;
+}
 } // namespace Gui
 } // namespace Ra

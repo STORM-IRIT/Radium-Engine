@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_VIEWINGPARAMETERS_HPP
-#define RADIUMENGINE_VIEWINGPARAMETERS_HPP
+#pragma once
 
 #include <Core/Types.hpp>
 
@@ -13,4 +12,3 @@ struct RA_ENGINE_API ViewingParameters {
 };
 } // namespace Engine
 } // namespace Ra
-#endif // RADIUMENGINE_VIEWINGPARAMETERS_HPP

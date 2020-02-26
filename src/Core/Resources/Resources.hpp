@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_RESOURCES_HPP
-#define RADIUMENGINE_RESOURCES_HPP
+#pragma once
 #include <Core/RaCore.hpp>
 
 namespace Ra {
@@ -50,4 +49,3 @@ class RA_CORE_API ResourcesLocator
 } // namespace Resources
 } // namespace Core
 } // namespace Ra
-#endif // RADIUMENGINE_RESOURCES_HPP

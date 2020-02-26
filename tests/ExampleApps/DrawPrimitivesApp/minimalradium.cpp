@@ -6,6 +6,8 @@
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
+
+#include <Engine/FrameInfo.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/LambertianMaterial.hpp>
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
@@ -13,6 +15,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
 #include <random>
 
 /* This file contains a minimal radium/qt application which shows the
@@ -474,6 +477,9 @@ void MinimalComponent::initialize() {
 /// This system will be added to the engine. Every frame it will
 /// add a task to be executed, calling the spin function of the component.
 void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::FrameInfo& info ) {
+    CORE_UNUSED( info );
+    CORE_UNUSED( q );
+
     // We check that our component is here.
     CORE_ASSERT( m_components.size() == 1, "System incorrectly initialized" );
     //    MinimalComponent* c = static_cast<MinimalComponent*>( m_components[0].second );

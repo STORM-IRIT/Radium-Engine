@@ -160,7 +160,8 @@ void computeCoR( Skinning::RefData& dataInOut, Scalar sigma, Scalar weightEpsilo
         }
     } while ( maxWeightDistance > wEps2 );
 
-    CORE_ASSERT( topoMesh.n_vertices() == subdivW.rows(), "Weights and vertices don't match" );
+    CORE_ASSERT( topoMesh.n_vertices() == size_t( subdivW.rows() ),
+                 "Weights and vertices don't match" );
 
     //
     // Second step : evaluate the integrals over all triangles for all vertices.

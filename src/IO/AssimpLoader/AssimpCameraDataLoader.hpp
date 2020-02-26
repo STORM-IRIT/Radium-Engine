@@ -29,7 +29,7 @@ namespace IO {
 class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::Asset::CameraData>
 {
   public:
-    explicit AssimpCameraDataLoader( const std::string& filepath, const bool VERBOSE_MODE = false );
+    explicit AssimpCameraDataLoader( const bool VERBOSE_MODE = false );
 
     ~AssimpCameraDataLoader() override;
 

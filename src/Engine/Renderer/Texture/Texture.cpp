@@ -139,7 +139,8 @@ void Engine::Texture::updateData( void* data ) {
         GL_CHECK_ERROR
     }
     break;
-    case GL_TEXTURE_CUBE_MAP: {
+    case GL_TEXTURE_CUBE_MAP:
+    {
         // Load the 6 faces of the cubemap
         void** texels = (void**)data;
         m_texture->bind();
@@ -206,7 +207,9 @@ void Engine::Texture::updateData( void* data ) {
     }
     break;
     default:
-    { CORE_ASSERT( 0, "Unsupported texture type ?" ); }
+    {
+        CORE_ASSERT( 0, "Unsupported texture type ?" );
+    }
     break;
     }
     GL_CHECK_ERROR;
@@ -285,12 +288,12 @@ void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool
         };
         uint numvalues = hasAlphaChannel ? numCommponent - 1 : numCommponent;
 #pragma omp parallel for
-        for ( int i = 0; i < m_textureParameters.width * m_textureParameters.height *
-                                 m_textureParameters.depth;
+        for ( int i = 0; i < int( m_textureParameters.width * m_textureParameters.height *
+                                  m_textureParameters.depth );
               ++i )
         {
             // Convert each R or RGB value while keeping alpha unchanged
-            for ( int p = i * numCommponent; p < i * numCommponent + numvalues; ++p )
+            for ( uint p = i * numCommponent; p < i * numCommponent + numvalues; ++p )
             {
                 texels[p] = linearize( texels[p] );
             }

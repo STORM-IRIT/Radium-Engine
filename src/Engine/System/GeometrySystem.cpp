@@ -30,7 +30,7 @@ void GeometrySystem::handleAssetLoading( Ra::Engine::Entity* entity,
 }
 
 void GeometrySystem::generateTasks( Ra::Core::TaskQueue* /*taskQueue*/,
-                                    const Ra::Engine::FrameInfo& frameInfo ) {
+                                    const Ra::Engine::FrameInfo& /*frameInfo*/ ) {
     // Do nothing, as this system only displays meshes.
 }
 

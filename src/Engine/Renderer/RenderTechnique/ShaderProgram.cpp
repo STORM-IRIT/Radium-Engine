@@ -431,6 +431,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name,
                                                const std::string& shader,
                                                int level,
                                                int line ) {
+    CORE_UNUSED( line ); // left for radium v2 ??
     CORE_ERROR_IF( level < 32, "Shader inclusion depth limit reached." );
 
     std::string result{};

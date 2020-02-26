@@ -93,7 +93,10 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel
      * @param parent
      * @return
      */
-    int columnCount( const QModelIndex& parent = QModelIndex() ) const override { return 1; }
+    int columnCount( const QModelIndex& parent = QModelIndex() ) const override {
+        CORE_UNUSED( parent );
+        return 1;
+    }
 
     /** Return the data corresponding to the given index : in this case a string with the item name.
      *
@@ -169,7 +172,7 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel
     void setAllItemsChecked( bool checked = true );
 
     /// Set the check state of one item and all of its children
-    void setItemChecked( const QModelIndex& index, bool checked = true);
+    void setItemChecked( const QModelIndex& index, bool checked = true );
 
   protected:
     /// Root of the tree.

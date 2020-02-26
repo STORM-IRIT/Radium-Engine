@@ -19,7 +19,7 @@ using namespace Core::Asset;
 
 /// CONSTRUCTOR
 AssimpHandleDataLoader::AssimpHandleDataLoader( const bool VERBOSE_MODE ) :
-    DataLoader<HandleData>( VERBOSE_MODE ){};
+    DataLoader<HandleData>( VERBOSE_MODE ) {}
 
 /// DESTRUCTOR
 AssimpHandleDataLoader::~AssimpHandleDataLoader() = default;

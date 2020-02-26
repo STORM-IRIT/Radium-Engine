@@ -1,20 +1,13 @@
 #include <GuiBase/Viewer/Gizmo/RotateGizmo.hpp>
 
-#include <Core/Containers/MakeShared.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-
-#include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -60,19 +53,14 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
         Engine::RenderObject* arrowDrawable =
             new Engine::RenderObject( "Gizmo Torus", m_comp, Engine::RenderObjectType::UI );
 
-        std::shared_ptr<Engine::RenderTechnique> rt( new Engine::RenderTechnique );
-        auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
-        rt->setConfiguration( *plaincfg );
-        auto mat              = Core::make_shared<Engine::PlainMaterial>( "Rotate Gizmo material" );
-        mat->m_perVertexColor = mesh->getCoreGeometry().hasAttrib(
-            Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR ) );
-        rt->setParametersProvider( mat );
+        std::shared_ptr<Engine::RenderTechnique> rt(
+            makeRenderTechnique( "Rotate Gizmo material",
+                                 mesh->getCoreGeometry().hasAttrib( Engine::Mesh::getAttribName(
+                                     Engine::Mesh::VERTEX_COLOR ) ) ) );
+
         arrowDrawable->setRenderTechnique( rt );
-
         arrowDrawable->setMesh( mesh );
-
         updateTransform( mode, m_worldTo, m_transform );
-
         addRenderObject( arrowDrawable, mesh );
     }
 }
