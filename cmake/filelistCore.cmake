@@ -1,4 +1,3 @@
-
 set( core_sources
     Animation/Animation.cpp
     Animation/BulgeCorrection.cpp
@@ -41,7 +40,7 @@ set( core_sources
     Utils/Attribs.cpp
     Utils/CircularIndex.cpp
     Utils/StringUtils.cpp
-    )
+)
 
 set( core_headers
     Animation/Animation.hpp
@@ -103,7 +102,7 @@ set( core_headers
     Geometry/MeshPrimitives.hpp
     Geometry/Normal.hpp
     Geometry/Obb.hpp
-    Geometry/OpenMesh.h
+    Geometry/OpenMesh.hpp
     Geometry/PolyLine.hpp
     Geometry/RayCast.hpp
     Geometry/Spline.hpp
@@ -125,9 +124,9 @@ set( core_headers
     Utils/Chronometer.hpp
     Utils/CircularIndex.hpp
     Utils/Color.hpp
+    Utils/IndexedObject.hpp
     Utils/Index.hpp
     Utils/IndexMap.hpp
-    Utils/IndexedObject.hpp
     Utils/Log.hpp
     Utils/Observable.hpp
     Utils/Singleton.hpp
@@ -136,7 +135,7 @@ set( core_headers
     Utils/StringUtils.hpp
     Utils/Timer.hpp
     Utils/Version.hpp
-    )
+)
 
 set( core_inlines
     Animation/HandleArray.inl
@@ -168,4 +167,4 @@ set( core_inlines
     Utils/CircularIndex.inl
     Utils/Index.inl
     Utils/IndexMap.inl
-    )
+)
