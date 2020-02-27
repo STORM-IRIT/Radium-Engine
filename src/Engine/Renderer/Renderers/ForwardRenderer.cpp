@@ -513,7 +513,7 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
                 ShaderConfiguration config = rt->getConfiguration( pass );
                 config.addShader( ShaderType_GEOMETRY,
                                   std::string( Core::Resources::getRadiumResourcesDir() ) +
-                                      "Shaders/PointCloud.geom.glsl" );
+                                      "Shaders/Points/PointCloud.geom.glsl" );
                 rt->setConfiguration( config, pass );
             }
         };
