@@ -4,6 +4,7 @@
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Asset/HandleData.hpp>
 #include <Core/Asset/LightData.hpp>
+#include <Core/Asset/VolumeData.hpp>
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
@@ -29,6 +30,16 @@ inline std::vector<GeometryData*> FileData::getGeometryData() const {
     std::vector<GeometryData*> list;
     list.reserve( m_geometryData.size() );
     for ( const auto& item : m_geometryData )
+    {
+        list.push_back( item.get() );
+    }
+    return list;
+}
+
+inline std::vector<VolumeData*> FileData::getVolumeData() const {
+    std::vector<VolumeData*> list;
+    list.reserve( m_volumeData.size() );
+    for ( const auto& item : m_volumeData )
     {
         list.push_back( item.get() );
     }
@@ -129,6 +140,7 @@ inline void FileData::displayInfo() const {
     LOG( logINFO ) << "Total vertex count : " << vtxCount;
     LOG( logINFO ) << "Handle loaded      : " << m_handleData.size();
     LOG( logINFO ) << "Animation loaded   : " << m_animationData.size();
+    LOG( logINFO ) << "Volume loaded        : " << m_volumeData.size();
     LOG( logINFO ) << "Loading Time (sec) : " << m_loadingTime;
 }
 

@@ -9,6 +9,7 @@ FileData::FileData( const std::string& filename, const bool VERBOSE_MODE ) :
     m_filename( filename ),
     m_loadingTime( 0.0 ),
     m_geometryData(),
+    m_volumeData(),
     m_handleData(),
     m_animationData(),
     m_lightData(),

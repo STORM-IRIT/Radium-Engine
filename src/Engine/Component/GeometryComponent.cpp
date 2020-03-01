@@ -13,11 +13,13 @@
 
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
+#include <Engine/Renderer/Displayable/VolumeObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
+#include <Engine/Renderer/Material/VolumetricMaterial.hpp>
 
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
@@ -202,6 +204,99 @@ Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
 const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
     return &m_meshIndex;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
+/*---------------------------------  Volume Component  ------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+VolumeComponent::VolumeComponent( const std::string& name,
+                                  Entity* entity,
+                                  const Ra::Core::Asset::VolumeData* data ) :
+    Component( name, entity ), m_displayVolume{nullptr} {
+    generateVolumeRender( data );
+}
+
+VolumeComponent::~VolumeComponent() = default;
+
+void VolumeComponent::initialize() {}
+
+void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* data ) {
+    std::string name( m_name );
+    name.append( "_" + data->getName() );
+
+    std::string roName = name;
+
+    roName.append( "_RO" );
+    std::string meshName = name;
+    meshName.append( "_Mesh" );
+
+    std::string matName = name;
+    matName.append( "_Mat" );
+
+    m_contentName = name + "_DAT_" + data->getName();
+
+    m_displayVolume = Ra::Core::make_shared<VolumeObject>( meshName );
+    m_displayVolume->loadGeometry( data->volume );
+
+    auto roMaterial = Ra::Core::make_shared<VolumetricMaterial>( data->getName() + "_VolMat" );
+    roMaterial->setTexture( const_cast<Texture*>( &( m_displayVolume->getDataTexture() ) ) );
+    roMaterial->m_sigma_a       = data->sigma_a;
+    roMaterial->m_sigma_s       = data->sigma_s;
+    roMaterial->m_modelToMedium = Core::Transform::Identity();
+
+    auto ro = RenderObject::createRenderObject(
+        roName, this, RenderObjectType::Geometry, m_displayVolume, RenderTechnique{} );
+    ro->setTransparent( roMaterial->isTransparent() );
+    ro->setMaterial( roMaterial );
+    ro->setLocalTransform( data->modelToMedium );
+
+    setupIO( m_contentName );
+    m_volumeIndex = addRenderObject( ro );
+}
+
+VolumeObject* VolumeComponent::getDisplayVolume() {
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+    return m_displayVolume.get();
+}
+
+Ra::Core::Utils::Index VolumeComponent::getRenderObjectIndex() const {
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+    return m_volumeIndex;
+}
+
+void VolumeComponent::setContentName( const std::string& name ) {
+    this->m_contentName = name;
+}
+
+void VolumeComponent::setupIO( const std::string& id ) {
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::AbstractVolume>::Getter cbOut =
+        std::bind( &VolumeComponent::getVolumeOutput, this );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::AbstractVolume>(
+        getEntity(), this, id, cbOut );
+
+    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::AbstractVolume>::ReadWrite cbRw =
+        std::bind( &VolumeComponent::getVolumeRw, this );
+    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::AbstractVolume>(
+        getEntity(), this, id, cbRw );
+
+    ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
+        std::bind( &VolumeComponent::roIndexRead, this );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
+        getEntity(), this, id, roOut );
+}
+
+const Ra::Core::Utils::Index* VolumeComponent::roIndexRead() const {
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+    return &m_volumeIndex;
+}
+
+const Ra::Core::Geometry::AbstractVolume* VolumeComponent::getVolumeOutput() const {
+    return &m_displayVolume->getVolume();
+}
+
+Ra::Core::Geometry::AbstractVolume* VolumeComponent::getVolumeRw() {
+    return &m_displayVolume->getVolume();
 }
 
 } // namespace Engine

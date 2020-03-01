@@ -228,7 +228,7 @@ void RenderObject::render( const RenderParameters& lightParams,
     shader->setUniform( "transform.worldNormal", normalMatrix );
     lightParams.bind( shader );
     shaderParams.bind( shader );
-    getMesh()->render( shader );
+    m_mesh->render( shader );
 }
 
 void RenderObject::render( const RenderParameters& lightParams,

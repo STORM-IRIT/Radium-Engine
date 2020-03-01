@@ -1,13 +1,15 @@
-#ifndef RADIUMENGINE_GEOMETRY_COMPONENT_HPP
-#define RADIUMENGINE_GEOMETRY_COMPONENT_HPP
+#pragma once
 
 #include <Core/Asset/GeometryData.hpp>
+#include <Core/Asset/VolumeData.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Geometry/Volume.hpp>
 #include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Engine {
 class Mesh;
+class VolumeObject;
 } // namespace Engine
 } // namespace Ra
 
@@ -73,7 +75,46 @@ class RA_ENGINE_API TriangleMeshComponent : public Component
     std::shared_ptr<Mesh> m_displayMesh{nullptr};
 };
 
+/*-----------------------------------------------------------------------------------------------*/
+
+/*!
+ * \brief Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject
+ *
+ * Exports access to the volume:
+ *  - VolumeObject: get, rw
+ */
+class RA_ENGINE_API VolumeComponent : public Component
+{
+  public:
+    VolumeComponent( const std::string& name,
+                     Entity* entity,
+                     const Ra::Core::Asset::VolumeData* data );
+    ~VolumeComponent() override;
+
+    void initialize() override;
+
+  public:
+    // Component communication management
+    void setupIO( const std::string& id );
+    void setContentName( const std::string& name );
+
+    /// Returns the index of the associated RO (the display volume)
+    Ra::Core::Utils::Index getRenderObjectIndex() const;
+    VolumeObject* getDisplayVolume();
+
+  private:
+    void generateVolumeRender( const Ra::Core::Asset::VolumeData* data );
+
+    const Ra::Core::Geometry::AbstractVolume* getVolumeOutput() const;
+    Ra::Core::Geometry::AbstractVolume* getVolumeRw();
+
+    const Ra::Core::Utils::Index* roIndexRead() const;
+
+  private:
+    Ra::Core::Utils::Index m_volumeIndex{};
+    std::string m_contentName{};
+    std::shared_ptr<Engine::VolumeObject> m_displayVolume{nullptr};
+};
+
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_GEOMETRY_COMPONENT_HPP
