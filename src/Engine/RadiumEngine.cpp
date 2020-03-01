@@ -24,6 +24,7 @@
 #include <Engine/Renderer/Material/LambertianMaterial.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
+#include <Engine/Renderer/Material/VolumetricMaterial.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
@@ -83,13 +84,14 @@ void RadiumEngine::registerDefaultPrograms() {
     PlainMaterial::registerMaterial();
     BlinnPhongMaterial::registerMaterial();
     LambertianMaterial::registerMaterial();
+    VolumetricMaterial::registerMaterial();
 }
 
 void RadiumEngine::cleanup() {
     PlainMaterial::unregisterMaterial();
     BlinnPhongMaterial::unregisterMaterial();
     LambertianMaterial::unregisterMaterial();
-
+    VolumetricMaterial::unregisterMaterial();
     m_signalManager->setOn( false );
     m_entityManager.reset();
     m_renderObjectManager.reset();

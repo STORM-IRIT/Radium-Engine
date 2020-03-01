@@ -35,6 +35,7 @@ set( core_sources
     Geometry/TriangleMesh.cpp
     Geometry/TriangleOperation.cpp
     Geometry/VertexDistance.cpp
+    Geometry/Volume.cpp
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
@@ -110,6 +111,7 @@ set( core_headers
     Geometry/TriangleMesh.hpp
     Geometry/TriangleOperation.hpp
     Geometry/VertexDistance.hpp
+    Geometry/Volume.hpp
     Math/DualQuaternion.hpp
     Math/GlmAdapters.hpp
     Math/LinearAlgebra.hpp

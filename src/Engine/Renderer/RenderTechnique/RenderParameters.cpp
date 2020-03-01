@@ -7,19 +7,15 @@ void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_intParamsVector.bind( shader );
     m_uintParamsVector.bind( shader );
     m_scalarParamsVector.bind( shader );
-
     m_intsParamsVector.bind( shader );
     m_uintsParamsVector.bind( shader );
     m_scalarsParamsVector.bind( shader );
-
     m_vec2ParamsVector.bind( shader );
     m_vec3ParamsVector.bind( shader );
     m_vec4ParamsVector.bind( shader );
-
     m_mat2ParamsVector.bind( shader );
     m_mat3ParamsVector.bind( shader );
     m_mat4ParamsVector.bind( shader );
-
     m_texParamsVector.bind( shader );
 }
 

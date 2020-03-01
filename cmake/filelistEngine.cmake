@@ -66,6 +66,7 @@ set( engine_headers
     Renderer/Camera/Camera.hpp
     Renderer/Camera/ViewingParameters.hpp
     Renderer/Displayable/DisplayableObject.hpp
+    Renderer/Displayable/VolumeObject.hpp
     Renderer/Light/DirLight.hpp
     Renderer/Light/Light.hpp
     Renderer/Light/PointLight.hpp
@@ -76,6 +77,7 @@ set( engine_headers
     Renderer/Material/Material.hpp
     Renderer/Material/PlainMaterial.hpp
     Renderer/Material/SimpleMaterial.hpp
+    Renderer/Material/VolumetricMaterial.hpp
     Renderer/Mesh/Mesh.hpp
     Renderer/OpenGL/OpenGL.hpp
     Renderer/Renderer.hpp
@@ -105,6 +107,7 @@ set( engine_inlines
     ItemModel/ItemEntry.inl
     Managers/ComponentMessenger/ComponentMessenger.inl
     Renderer/Camera/Camera.inl
+    Renderer/Displayable/VolumeObject.inl
     Renderer/Light/DirLight.inl
     Renderer/Light/Light.inl
     Renderer/Light/PointLight.inl
@@ -112,6 +115,7 @@ set( engine_inlines
     Renderer/Material/BlinnPhongMaterial.inl
     Renderer/Material/Material.inl
     Renderer/Material/SimpleMaterial.inl
+    Renderer/Material/VolumetricMaterial.inl
     Renderer/Mesh/Mesh.inl
     Renderer/RenderTechnique/RenderParameters.inl
 )
@@ -147,6 +151,10 @@ set(engine_shaders
     Materials/Plain/Plain.vert.glsl
     Materials/Plain/PlainZPrepass.frag.glsl
     Materials/VertexAttribInterface.frag.glsl
+Materials/Volumetric/Volumetric.glsl
+Materials/Volumetric/Volumetric.frag.glsl
+Materials/Volumetric/VolumetricOIT.frag.glsl
+Materials/Volumetric/Volumetric.vert.glsl
     Picking/Picking.frag.glsl
     Picking/PickingLinesAdjacency.geom.glsl
     Picking/PickingLines.geom.glsl

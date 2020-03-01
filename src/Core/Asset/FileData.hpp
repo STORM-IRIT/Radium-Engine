@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_FILE_DATA_HPP
-#define RADIUMENGINE_FILE_DATA_HPP
+#pragma once
 
 #include <memory>
 #include <string>
@@ -13,6 +12,7 @@ namespace Asset {
 class AnimationData;
 class CameraData;
 class GeometryData;
+class VolumeData;
 class HandleData;
 class LightData;
 
@@ -37,6 +37,7 @@ class RA_CORE_API FileData final
 
     /// DATA
     inline std::vector<GeometryData*> getGeometryData() const;
+    inline std::vector<VolumeData*> getVolumeData() const;
     inline std::vector<HandleData*> getHandleData() const;
     inline std::vector<AnimationData*> getAnimationData() const;
     inline std::vector<LightData*> getLightData() const;
@@ -65,6 +66,7 @@ class RA_CORE_API FileData final
     std::string m_filename;
     Scalar m_loadingTime;
     std::vector<std::unique_ptr<GeometryData>> m_geometryData;
+    std::vector<std::unique_ptr<VolumeData>> m_volumeData;
     std::vector<std::unique_ptr<HandleData>> m_handleData;
     std::vector<std::unique_ptr<AnimationData>> m_animationData;
     std::vector<std::unique_ptr<LightData>> m_lightData;
@@ -79,4 +81,3 @@ class RA_CORE_API FileData final
 
 #include <Core/Asset/FileData.inl>
 
-#endif // RADIUMENGINE_FILE_DATA_HPP

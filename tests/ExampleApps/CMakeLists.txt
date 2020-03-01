@@ -15,16 +15,16 @@ set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
 # must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
 # TODO : find a way to that more efficiently
 find_dependency(Qt5 COMPONENTS Core REQUIRED)
-get_target_property(QtCore_Dll Qt5::Core LOCATION)
-get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
-include(application_setup)
+ get_target_property(QtCore_Dll Qt5::Core LOCATION)
+ get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
+ include(application_setup)
 
-add_executable(CoreExampleApp
-        CoreExampleApp/CoreExampleApp.cpp)
-target_link_libraries(CoreExampleApp PUBLIC Core)
-configure_radium_app_install(NAME CoreExampleApp)
+ add_executable(CoreExampleApp
+ CoreExampleApp/CoreExampleApp.cpp)
+ target_link_libraries(CoreExampleApp PUBLIC Core)
+ configure_radium_app_install(NAME CoreExampleApp)
 
-if (RADIUM_GENERATE_LIB_ENGINE)
+#if (RADIUM_GENERATE_LIB_ENGINE)
     find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
     find_package(OpenGL REQUIRED)
     set(CMAKE_AUTOMOC ON)
@@ -55,4 +55,4 @@ if (RADIUM_GENERATE_LIB_ENGINE)
             OpenGL::GL)
     message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
     configure_radium_app_install(NAME DrawPrimitivesDemo)
-endif ()
+#endif ()
