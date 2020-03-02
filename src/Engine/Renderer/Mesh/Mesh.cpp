@@ -100,13 +100,15 @@ void AttribArrayDisplayable::updatePickingRenderMode() {
         [[fallthrough]];
     case AttribArrayDisplayable::RM_LINE_LOOP: // fall through
         [[fallthrough]];
-    case AttribArrayDisplayable::RM_LINE_STRIP: {
+    case AttribArrayDisplayable::RM_LINE_STRIP:
+    {
         Displayable::m_pickingRenderMode = PKM_LINES;
         break;
     }
     case AttribArrayDisplayable::RM_LINES_ADJACENCY: // fall through
         [[fallthrough]];
-    case AttribArrayDisplayable::RM_LINE_STRIP_ADJACENCY: {
+    case AttribArrayDisplayable::RM_LINE_STRIP_ADJACENCY:
+    {
         Displayable::m_pickingRenderMode = PKM_LINE_ADJ;
         break;
     }
@@ -181,7 +183,6 @@ void PointCloud::loadGeometry( Core::Geometry::PointCloud&& mesh ) {
 
 void PointCloud::updateGL_specific_impl() {
     if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
-    base::updateGL();
 }
 
 } // namespace Engine
