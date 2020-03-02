@@ -287,7 +287,11 @@ class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::
     using base = CoreGeometryDisplayable<Core::Geometry::PointCloud>;
 
   public:
-    using CoreGeometryDisplayable<Core::Geometry::PointCloud>::CoreGeometryDisplayable;
+    using base::CoreGeometryDisplayable;
+    inline explicit PointCloud(
+        const std::string& name,
+        typename base::CoreGeometry&& geom,
+        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_POINTS );
 
     /// use glDrawArrays to draw all the points in the point cloud
     void render( const ShaderProgram* prog ) override;

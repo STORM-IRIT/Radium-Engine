@@ -440,6 +440,12 @@ void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
     }
 }
 
+///////// PointCloud //////////
+PointCloud::PointCloud( const std::string& name,
+                        typename base::CoreGeometry&& geom,
+                        typename base::MeshRenderMode renderMode ) :
+    base( name, std::move( geom ), renderMode ) {}
+
 /////////  LineMesh ///////////
 LineMesh::LineMesh( const std::string& name,
                     typename base::CoreGeometry&& geom,

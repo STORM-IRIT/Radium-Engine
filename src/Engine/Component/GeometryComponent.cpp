@@ -34,6 +34,7 @@ using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 
 namespace Ra {
 namespace Engine {
+
 TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
@@ -207,12 +208,182 @@ const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
 }
 
 /*-----------------------------------------------------------------------------------------------*/
+/*---------------------------------  PointCloud Component----------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+
+PointCloudComponent::PointCloudComponent( const std::string& name,
+                                          Entity* entity,
+                                          const Ra::Core::Asset::GeometryData* data ) :
+    Component( name, entity ),
+    m_displayMesh( nullptr ) {
+    generatePointCloud( data );
+}
+
+PointCloudComponent::PointCloudComponent( const std::string& name,
+                                          Entity* entity,
+                                          Core::Geometry::PointCloud&& mesh,
+                                          Core::Asset::MaterialData* mat ) :
+    Component( name, entity ),
+    m_contentName( name ),
+    m_displayMesh( new Engine::PointCloud( name ) ) {
+    m_displayMesh->loadGeometry( std::move( mesh ) );
+    finalizeROFromGeometry( mat );
+}
+
+//////////// STORE Mesh/PointCloud here instead of an index, so don't need to request the ROMgr
+/// and no problem with the Displayable -> doesn't affect the API
+
+PointCloudComponent::~PointCloudComponent() = default;
+
+void PointCloudComponent::initialize() {}
+
+void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryData* data ) {
+    m_contentName = data->getName();
+
+    std::string name( m_name );
+    name.append( "_" + m_contentName );
+
+    std::string meshName = name;
+    meshName.append( "_PointCloud" );
+
+    m_displayMesh = Ra::Core::make_shared<PointCloud>( meshName );
+    m_displayMesh->setRenderMode( AttribArrayDisplayable::RM_POINTS );
+
+    Ra::Core::Geometry::PointCloud mesh;
+    Ra::Core::Geometry::PointCloud::PointAttribHandle::Container vertices;
+    Ra::Core::Geometry::PointCloud::NormalAttribHandle::Container normals;
+
+    const auto T = data->getFrame();
+    const Ra::Core::Transform N( ( T.matrix() ).inverse().transpose() );
+
+    vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+
+#pragma omp parallel for
+    for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
+    {
+        vertices[i] = T * data->getVertices()[i];
+    }
+
+    if ( data->hasNormals() )
+    {
+        normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+#pragma omp parallel for
+        for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
+        {
+            normals[i] = ( N * data->getNormals()[i] ).normalized();
+        }
+    }
+
+    mesh.setVertices( std::move( vertices ) );
+    mesh.setNormals( std::move( normals ) );
+
+    if ( data->hasTangents() )
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TANGENT ), data->getTangents() ); }
+
+    if ( data->hasBiTangents() )
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_BITANGENT ), data->getBiTangents() ); }
+
+    if ( data->hasTextureCoordinates() )
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TEXCOORD ), data->getTexCoords() ); }
+
+    if ( data->hasColors() )
+    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), data->getColors() ); }
+
+    // To be discussed: Should not weights be part of the geometry ?
+    //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
+
+    m_displayMesh->loadGeometry( std::move( mesh ) );
+
+    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr );
+}
+
+void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data ) {
+    // The technique for rendering this component
+    std::shared_ptr<Material> roMaterial;
+    // First extract the material from asset or create a default one
+    if ( data != nullptr )
+    {
+        auto converter = EngineMaterialConverters::getMaterialConverter( data->getType() );
+        auto mat       = converter.second( data );
+        roMaterial.reset( mat );
+    }
+    else
+    {
+        auto mat             = new BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
+        mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
+        mat->m_perVertexColor =
+            m_displayMesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+        roMaterial.reset( mat );
+    }
+    // initialize with a default rendertechique that draws nothing
+    std::string roName( m_name + "_" + m_contentName + "_RO" );
+    auto ro = RenderObject::createRenderObject(
+        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique{} );
+    ro->setTransparent( roMaterial->isTransparent() );
+    ro->setMaterial( roMaterial );
+    setupIO( m_contentName );
+    m_meshIndex = addRenderObject( ro );
+}
+
+Ra::Core::Utils::Index PointCloudComponent::getRenderObjectIndex() const {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    return m_meshIndex;
+}
+
+const Ra::Core::Geometry::PointCloud& PointCloudComponent::getCoreGeometry() const {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    return m_displayMesh->getCoreGeometry();
+}
+
+PointCloud* PointCloudComponent::getGeometry() {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    return m_displayMesh.get();
+}
+
+void PointCloudComponent::setContentName( const std::string& name ) {
+    this->m_contentName = name;
+}
+
+void PointCloudComponent::setupIO( const std::string& id ) {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::PointCloud>::Getter cbOut =
+        std::bind( &PointCloudComponent::getMeshOutput, this );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::PointCloud>(
+        getEntity(), this, id, cbOut );
+
+    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::PointCloud>::ReadWrite cbRw =
+        std::bind( &PointCloudComponent::getPointCloudRw, this );
+    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::PointCloud>(
+        getEntity(), this, id, cbRw );
+
+    ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
+        std::bind( &PointCloudComponent::roIndexRead, this );
+    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
+        getEntity(), this, id, roOut );
+}
+
+const Ra::Core::Geometry::PointCloud* PointCloudComponent::getMeshOutput() const {
+    return &m_displayMesh->getCoreGeometry();
+}
+
+Ra::Core::Geometry::PointCloud* PointCloudComponent::getPointCloudRw() {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    return &( m_displayMesh->getCoreGeometry() );
+}
+
+const Ra::Core::Utils::Index* PointCloudComponent::roIndexRead() const {
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    return &m_meshIndex;
+}
+
+/*-----------------------------------------------------------------------------------------------*/
 /*---------------------------------  Volume Component  ------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------*/
 VolumeComponent::VolumeComponent( const std::string& name,
                                   Entity* entity,
                                   const Ra::Core::Asset::VolumeData* data ) :
-    Component( name, entity ), m_displayVolume{nullptr} {
+    Component( name, entity ),
+    m_displayVolume{nullptr} {
     generateVolumeRender( data );
 }
 

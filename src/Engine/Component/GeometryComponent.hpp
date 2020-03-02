@@ -9,6 +9,7 @@
 namespace Ra {
 namespace Engine {
 class Mesh;
+class PointCloud;
 class VolumeObject;
 } // namespace Engine
 } // namespace Ra
@@ -73,6 +74,57 @@ class RA_ENGINE_API TriangleMeshComponent : public Component
     std::string m_contentName{};
     // directly hold a reference to the displayMesh to simplify accesses in handlers
     std::shared_ptr<Mesh> m_displayMesh{nullptr};
+};
+
+class RA_ENGINE_API PointCloudComponent : public Component
+{
+  public:
+    PointCloudComponent( const std::string& name,
+                         Entity* entity,
+                         const Ra::Core::Asset::GeometryData* data );
+
+    /*!
+     * Constructor from an existing mesh
+     * \warning Moves the mesh and takes its ownership
+     */
+    PointCloudComponent( const std::string& name,
+                         Entity* entity,
+                         Core::Geometry::PointCloud&& mesh,
+                         Core::Asset::MaterialData* mat = nullptr );
+
+    ~PointCloudComponent() override;
+
+    void initialize() override;
+
+    /// Returns the current display geometry.
+    const Ra::Core::Geometry::PointCloud& getCoreGeometry() const;
+    PointCloud* getGeometry();
+
+  public:
+    // Component communication management
+    void setupIO( const std::string& id );
+    void setContentName( const std::string& name );
+    void setDeformable( bool b );
+
+    /// Returns the index of the associated RO (the display mesh)
+    Ra::Core::Utils::Index getRenderObjectIndex() const;
+
+  private:
+    void generatePointCloud( const Ra::Core::Asset::GeometryData* data );
+
+    void finalizeROFromGeometry( const Core::Asset::MaterialData* data );
+
+    // Give access to the mesh and (if deformable) to update it
+    const Ra::Core::Geometry::PointCloud* getMeshOutput() const;
+    Ra::Core::Geometry::PointCloud* getPointCloudRw();
+
+    const Ra::Core::Utils::Index* roIndexRead() const;
+
+  private:
+    Ra::Core::Utils::Index m_meshIndex{};
+    std::string m_contentName{};
+    // directly hold a reference to the displayMesh to simplify accesses in handlers
+    std::shared_ptr<PointCloud> m_displayMesh{nullptr};
 };
 
 /*-----------------------------------------------------------------------------------------------*/

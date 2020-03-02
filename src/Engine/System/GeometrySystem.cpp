@@ -23,8 +23,27 @@ void GeometrySystem::handleAssetLoading( Ra::Engine::Entity* entity,
 
     for ( const auto& data : geomData )
     {
-        std::string componentName = "FMC_" + entity->getName() + std::to_string( id++ );
-        auto comp                 = new TriangleMeshComponent( componentName, entity, data );
+        Component* comp {nullptr};
+        std::string componentName = "GEOM_" + entity->getName() + std::to_string( id++ );
+        switch ( data->getType() )
+        {
+
+        case Ra::Core::Asset::GeometryData::POINT_CLOUD:
+            comp = new PointCloudComponent( componentName, entity, data );
+            break;
+        case Ra::Core::Asset::GeometryData::LINE_MESH:
+            //            comp = new LineMeshComponent( componentName, entity, data );
+            //            break;
+        case Ra::Core::Asset::GeometryData::TRI_MESH:
+            comp = new TriangleMeshComponent( componentName, entity, data );
+            break;
+        case Ra::Core::Asset::GeometryData::QUAD_MESH:
+        case Ra::Core::Asset::GeometryData::POLY_MESH:
+        case Ra::Core::Asset::GeometryData::TETRA_MESH:
+        case Ra::Core::Asset::GeometryData::HEX_MESH:
+        case Ra::Core::Asset::GeometryData::UNKNOWN:
+            CORE_ASSERT( false, "unsupported geometry" );
+        }
         registerComponent( entity, comp );
     }
 
