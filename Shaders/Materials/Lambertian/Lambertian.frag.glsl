@@ -9,7 +9,7 @@ out vec4 out_color;
 
 void main()
 {
-    vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
+    vec4 bc = getBaseColor(material, getPerVertexTexCoord());
     if (toDiscard(material, bc))
     discard;
 

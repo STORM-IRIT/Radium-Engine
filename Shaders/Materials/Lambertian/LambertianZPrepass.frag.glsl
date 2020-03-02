@@ -8,7 +8,7 @@ layout (location = 2) out vec4 out_diffuse;
 
 void main()
 {
-    vec4 bc = getBaseColor(material, getPerVertexTexCoord().xy);
+    vec4 bc = getBaseColor(material, getPerVertexTexCoord());
     if (toDiscard(material, bc))
     discard;
 

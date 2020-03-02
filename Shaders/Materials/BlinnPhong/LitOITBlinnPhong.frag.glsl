@@ -43,7 +43,7 @@ float weight(float z, float alpha) {
 void main()
 {
     // only render non opaque fragments and not fully transparent fragments
-    vec4 bc = getDiffuseColor(material, getPerVertexTexCoord().xy);
+    vec4 bc = getDiffuseColor(material, getPerVertexTexCoord());
     // compute the transparency factor
     float a             = bc.a;
     if (!toDiscard(material, bc) || a < 0.001)
@@ -51,7 +51,7 @@ void main()
 
     // all vectors are in world space
     vec3 binormal       = getWorldSpaceBiTangent();
-    vec3 normalWorld    = getNormal(material, getPerVertexTexCoord().xy,
+    vec3 normalWorld    = getNormal(material, getPerVertexTexCoord(),
     getWorldSpaceNormal(), getWorldSpaceTangent(), binormal);
     vec3 binormalWorld    = normalize(cross(normalWorld, getWorldSpaceTangent()));
     vec3 tangentWorld    = cross(binormalWorld, normalWorld);
@@ -66,7 +66,7 @@ void main()
     vec3 wi = world2local * normalize(in_lightVector);// incident direction
     vec3 wo = world2local * normalize(in_viewVector);// outgoing direction
 
-    vec3 bsdf    = evaluateBSDF(material, getPerVertexTexCoord().xy, wi, wo);
+    vec3 bsdf    = evaluateBSDF(material, getPerVertexTexCoord(), wi, wo);
 
 
     vec3 contribution    = lightContributionFrom(light, getWorldSpacePosition().xyz);
