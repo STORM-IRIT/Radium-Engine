@@ -53,6 +53,7 @@ void Camera::initialize() {
     m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m, rt );
     m_RO->setLocalTransform( m_frame );
     m_RO->setMaterial( mat );
+    show( false );
     addRenderObject( m_RO );
 }
 
