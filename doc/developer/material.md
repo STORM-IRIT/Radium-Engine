@@ -62,7 +62,7 @@ to the material
 \snippet HelloRadium/minimalradium.cpp Creating the RenderObject
 
 Note that this way of using the _Radium Material Library_ is very related to the default Radium rendering capabilities
-exposed by the [Radium forward renderer](./forwardrenderer.md). 
+exposed by the [Radium forward renderer](@ref forwardrendererconcept). 
 See the [Render technique management](./rendertechnique) documentation to learn how to create your own 
 Ra::Engine::RenderTechnique, potentially without associated material.
 
@@ -230,9 +230,9 @@ The interface (to be implemented in the file `name_of_the_BSDF.glsl`) is then
 ~~~{.cpp}
 // Return the world-space normal computed according to the microgeometry definition`
 // If no normal map is defined, return N
-vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B);
-
+vec3 getNormal(Material material, vec3 texCoord, vec3 N, vec3 T, vec3 B);
 // return true if the fragment must be condidered as transparent (either fully or partially)
+
 bool toDiscard(Material material, vec4 color);
 ~~~
 
@@ -267,23 +267,23 @@ struct Material {
 // Returns the base color, or albedo, of the material, at the surface coordinates defined by texCoord.
 // The returned color will eventually be used to infer if the fragment is transparent or not.
 // The alpha channel could then vary from 0 (totally transparent) to 1 (totally opaque)
-vec4 getBaseColor(Material material, vec2 texCoord);
+vec4 getBaseColor(Material material, vec3 texCoord);
 
 // Returns the so called "Diffuse Color" of the material, at the surface coordinates defined by texCoord.
 // This could be the same that the base color or obtained by a more or less complex computation (Fresnel, ...)
 // The alpha channel is the same than the one computed for getBaseColor().
-vec4 getDiffuseColor(Material material, vec2 texCoord);
+vec4 getDiffuseColor(Material material, vec3 texCoord);
 
 // Returns the so called "Specular Color" of the material, at the surface coordinates defined by texCoord.
 // This could be the same that the base color (without the alpha channel) or obtained by
 // a more or less complex computation
-vec3 getSpecularColor(Material material, vec2 texCoord);
+vec3 getSpecularColor(Material material, vec3 texCoord);
 
 // Return the bsdf value for the material, at surface coordinates defined by texCoord,
 // for the incoming and outgoing directions `wi` and `wo`. These directions MUST be in local frame.
 // The local Frame is the Frame wher the Geometric normal is the Z axis,
 // and the tangent defined the X axis.
-vec3 evaluateBSDF(Material material, vec2 texCoord, vec3 wi, vec3 wo);
+vec3 evaluateBSDF(Material material, vec3 texCoord, vec3 wi, vec3 wo);
 ~~~
 
 ## Material registration into the Engine {#registration-mtl-lib}

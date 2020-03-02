@@ -44,7 +44,7 @@ struct Material
 
 
 // Du to access to in_vertexColor this does not respect the "Material.glsl" interface as it access data outside the material
-vec4 getDiffuseColor(Material material, vec2 texCoord)
+vec4 getDiffuseColor(Material material, vec3 texCoord)
 {
     vec4 dc = vec4(material.kd.rgb, material.alpha);
     if (material.hasPerVertexKd == 1)
@@ -53,28 +53,28 @@ vec4 getDiffuseColor(Material material, vec2 texCoord)
     }
     if (material.tex.hasKd == 1)
     {
-        dc.rgb = texture(material.tex.kd, texCoord).rgb;
+        dc.rgb = texture(material.tex.kd, texCoord.xy).rgb;
     }
     if (material.tex.hasAlpha == 1)
     {
-        dc.a *= texture(material.tex.alpha, texCoord).r;
+        dc.a *= texture(material.tex.alpha, texCoord.xy).r;
     }
     if (material.renderAsSplat == 1)
     {
-        dc.a = (dot(texCoord, texCoord) > 1) ? 0 : 1;
+        dc.a = (dot(texCoord.xy, texCoord.xy) > 1) ? 0 : 1;
     }
     return dc;
 }
 
-vec4 getBaseColor(Material material, vec2 texCoord) {
+vec4 getBaseColor(Material material, vec3 texCoord) {
     return getDiffuseColor(material, texCoord);
 }
 
-vec3 getSpecularColor(Material material, vec2 texCoord)
+vec3 getSpecularColor(Material material, vec3 texCoord)
 {
     if (material.tex.hasKs == 1)
     {
-        return vec3(texture(material.tex.ks, texCoord));
+        return vec3(texture(material.tex.ks, texCoord.xy));
     }
 
     return material.ks.xyz / Pi;// Phong specular to blinn-phong exponent
@@ -91,10 +91,10 @@ float getNs(Material material, vec2 texCoord)
     return max(ns, 0.001)/Pi; // Phong exponent to blinn-phong exponent
 }
 
-vec3 getNormal(Material material, vec2 texCoord, vec3 N, vec3 T, vec3 B)
+vec3 getNormal(Material material, vec3 texCoord, vec3 N, vec3 T, vec3 B)
 {
     if (material.tex.hasNormal == 1) {
-        vec3 normalLocal = normalize(vec3(texture(material.tex.normal, texCoord)) * 2 - 1);
+        vec3 normalLocal = normalize(vec3(texture(material.tex.normal, texCoord.xy)) * 2 - 1);
         mat3 tbn;
         tbn[0]  = T;
         tbn[1]  = B;
@@ -114,7 +114,7 @@ bool toDiscard(Material material, vec4 color) {
 // wi (light direction) and wo (view direction) are in local frame
 // wi dot N is then wi.z ...
 
-vec3 evaluateBSDF(Material material, vec2 texC, vec3 l, vec3 v) {
+vec3 evaluateBSDF(Material material, vec3 texC, vec3 l, vec3 v) {
     // compute half vector
     vec3 h =  normalize(l + v);
     // http://www.thetenthplanet.de/archives/255
@@ -123,7 +123,7 @@ vec3 evaluateBSDF(Material material, vec2 texC, vec3 l, vec3 v) {
     vec3 diff = Kd;
 
     vec3 Ks = getSpecularColor(material, texC);
-    float Ns = getNs(material, texC);
+    float Ns = getNs(material, texC.xy);
 
     float D =  (Ns + 1) * OneOver2Pi * pow(max(h.z, 0.0), Ns);
     float FV = 0.25 * pow(dot(l, h), -3.);

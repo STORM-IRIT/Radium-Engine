@@ -15,7 +15,7 @@ out vec4 fragColor;
 
 void main() {
     // discard non opaque fragment
-    vec4 bc = getDiffuseColor(material, getPerVertexTexCoord().xy);
+    vec4 bc = getDiffuseColor(material, getPerVertexTexCoord());
     if (toDiscard(material, bc))
     discard;
     // All vectors are in world space
@@ -25,7 +25,7 @@ void main() {
     vec3 tangentWorld    = getWorldSpaceTangent();// normalized tangent
     vec3 binormalWorld   = getWorldSpaceBiTangent();// normalized bitangent
     // Apply normal mapping
-    normalWorld         = getNormal(material, getPerVertexTexCoord().xy,
+    normalWorld         = getNormal(material, getPerVertexTexCoord(),
     normalWorld, tangentWorld, binormalWorld);// normalized bump-mapped normal
     binormalWorld         = normalize(cross(normalWorld, tangentWorld));// normalized tangent
     tangentWorld         = normalize(cross(binormalWorld, normalWorld));// normalized bitangent
@@ -38,7 +38,7 @@ void main() {
     vec3 lightDir = normalize(world2local * in_lightVector);// incident direction
     vec3 viewDir = normalize(world2local * in_viewVector);// outgoing direction
 
-    vec3 bsdf    = evaluateBSDF(material, getPerVertexTexCoord().xy, lightDir, viewDir);
+    vec3 bsdf    = evaluateBSDF(material, getPerVertexTexCoord(), lightDir, viewDir);
 
     vec3 contribution    = lightContributionFrom(light, getWorldSpacePosition().xyz);
     fragColor = vec4(bsdf * contribution, 1.0);

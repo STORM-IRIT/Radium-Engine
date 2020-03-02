@@ -1,13 +1,13 @@
 \page forwardrendererconcept Concepts: Forward Render 
 [TOC]
 
-The main renderer of Radium, implemented in the class Ra::engine::ForwardRenderer implements a Z-pre-pass forward 
+The main renderer of Radium, implemented in the class Ra::Engine::ForwardRenderer implements a Z-pre-pass forward 
 rendering loop.
 Even if the material association to a drawable object, realized by the so called Ra::Engine::RenderTechnique is tightly
 coupled with the main rendering loop, Plugins might define new renderers and interact differently with shader and
 materials properties (see chapter on [Materials](@ref develmaterials) ).
 
-Here is a summary of the different passes of the Ra::engine::ForwardRenderer
+Here is a summary of the different passes of the Ra::Engine::ForwardRenderer
 
 #### 1. Depth, ambient color and "deferred info" pass
 This pass
@@ -22,11 +22,12 @@ buffer is already filled,
     *   saves the "Diffuse" aspect of the object,
     *   saves the "Specular" aspect of the object.
 
-In this pass, each Ra::engine::RenderObject is drawn with the Ra::Engine::RenderTechnique::Z_PREPASS argument so that 
-the corresponding shader (if it exists) will be activated before draw call. 
-(``ro->render( renderParameters, viewingParameters, RenderTechnique::Z_PREPASS );``)
 
-Note that the  shader associated to  the Ra::Engine::RenderTechnique::Z_PREPASS pass must draw only fully opaque fragments.
+In this pass, each Ra::Engine::RenderObject is drawn with the Ra::Engine::Z_PREPASS argument so that
+the corresponding shader (if it exists) will be activated before draw call. 
+(``ro->render( renderParameters, viewingParameters, DefaultRenderingPasses::Z_PREPASS );``)
+
+Note that the  shader associated to the Ra::Engine::Z_PREPASS pass must draw only fully opaque fragments.
 Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones
 (those with an opacity factor alpha les than one) must be discarded.
 
@@ -44,12 +45,11 @@ for each light do
 done
 ~~~
 
-In this pass, each ``RenderObject``is drawn with the ``RenderTechnique::LIGHTING_OPAQUE`` argument so that the
+In this pass, each RenderObject   drawn with the Ra::Engine::LIGHTING_OPAQUE argument so that the
 corresponding shader will be activated before draw call.
-(``ro->render( renderParameters, viewingParameters, RenderTechnique::LIGHTING_OPAQUE );``)
+(``ro->render( renderParameters, viewingParameters, DefaultRenderingPasses::LIGHTING_OPAQUE );``)
 
-Note that the  shader associated to  the ``RenderTechnique::LIGHTING_OPAQUE`` pass must lit and draw only fully opaque
-fragments.
+Note that the  shader associated to  the Ra::Engine::LIGHTING_OPAQUE pass must lit and draw only fully opaque fragments.
 Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones
 (those with an opacity factor alpha les than one) must be discarded.
 
@@ -79,4 +79,3 @@ They do not write in the depth map but they have different depth testing behavio
 
 ### 6. Write final texture to framebuffer / backbuffer
 This method is just responsible for displaying the final stuff on screen or on the saved FBO.
-
