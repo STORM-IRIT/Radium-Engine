@@ -32,17 +32,56 @@ float phaseHG(float cosTheta, float g) {
 }
 
 /* -------------------------------------------------------------------------------------------------------------- */
-/* The following two functions mut be adatped to the lighting process */
-// compute the attenation of the light (miss the light intensity parameter ...
-vec3 lightColor(Material volume, vec3 p, vec3 light) {
-    // TBD
-    return vec3(1);
-}
-// compute the scattering at p
-vec3 inscatter(Material volume, vec3 p, vec3 dir, vec3 light) {
-    return Inv4Pi*volume.sigma_s.rgb * phaseHG(dot(dir, light), volume.g) * lightColor(volume, p, light);
+bool getTr(Material volume, vec3 p, vec3 dir, out vec3 tr) {
+    tr = vec3(1);
+    // accumulated optical thickness
+    vec3 tau = vec3(0);
+    // sigma_t for the volume, that will be modulated by the density. Here, we precompute the quantum for the integration
+    vec3 sigma_t = (volume.sigma_a.rgb + volume.sigma_s.rgb) * volume.stepsize;
+    // The ray marching loop
+    // Max 1000 steps ...
+    bool hit = false;
+    for (;;) {
+        float density = texture(volume.density, p).r * volume.scale;// <<-- TODO, find the right scaling factor related to the size of the volume
+        if (density > 0) {
+            hit = true;
+            tau += density * sigma_t;
+            tr = exp(-tau);
+        }
+        // go to next point
+        p += dir * 10*volume.stepsize;
+        // volume test
+        if (any(greaterThan(p, vec3(1.0)))
+        || any(lessThan(p, vec3(0.0)))
+        || all(lessThan(tr, vec3(0.00001))))
+        break;
+    }
+    return hit;
 }
 
+/* The following two functions mut be adatped to the lighting process */
+// compute the attenation of the light (miss the light intensity parameter ...
+vec3 lightColor(Material volume, vec3 p, Light l) {
+    vec3 Tr = vec3(1);
+    vec3 lightColor = lightContributionFrom(l, p);
+    #ifdef WANNA_BURN_YOUR_GPU
+    vec3 dirLight = getLightDirection(l, p);
+    getTr(volume, p, dirLight, Tr);
+    #endif
+    return Tr*lightColor;
+}
+
+// compute the scattering at p
+vec3 inscatter(Material volume, vec3 p, vec3 dir, Light l) {
+    vec3 dirLight = getLightDirection(l, p);
+    return Inv4Pi*volume.sigma_s.rgb * phaseHG(dot(dir, dirLight), volume.g) * lightColor(volume, p, l);
+}
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/*
+Volumetric does not fullfill GLSL material interface. When compositing in other shader system, specific tasks must be
+realized
+*/
 /* -------------------------------------------------------------------------------------------------------------- */
 
 // march along the ray.
@@ -52,40 +91,37 @@ vec3 inscatter(Material volume, vec3 p, vec3 dir, vec3 light) {
 // light is the (normalized) direction toward the light source
 // This functions assume that p0, dir and light are expressed in the unit cube frame [0,1]^3, that is the local frame
 // of the volume
-vec3 raymarch(Material volume, vec3 p, vec3 dir, vec3 light, out vec3 tr) {
-    ivec3 texSize = textureSize(volume.density, 0);
-    p /= texSize;
-    dir /= texSize;
-    dir = normalize(dir) * volume.stepsize;
-    tr = vec3(0);
+// volumeProjMatrix is the matrix, computed in the vertex shader to project a point from the volume frame to the image frame
+
+bool raymarch(Material volume, inout vec3 p, vec3 dir, Light l, float tmax, out vec3 color, out vec3 tr) {
+    tr = vec3(1);
     // accumulated optical thickness
-    vec3 k = vec3(0);
-    // accumulated color
-    vec3 color = vec3(0, 0, 0);
-    // sigma_t for the volume, that will be modulated by the density
+    vec3 tau = vec3(0);
+    // sigma_t for the volume, that will be modulated by the density. Here, we precompute the quantum for the integration
     vec3 sigma_t = (volume.sigma_a.rgb + volume.sigma_s.rgb) * volume.stepsize;
     // The ray marching loop
     // Max 1000 steps ...
     bool hit = false;
-    for (int i=0; i<10000; ++i) {
-        float d = texture(volume.density, p).r;
-        if (d > 0.001) {
+    float t=0;
+    for (;;) {
+        float density = texture(volume.density, p).r * volume.scale;// <<-- TODO, find the right scaling factor related to the size of the volume
+        if (density > 0) {
             hit = true;
+            tau += density * sigma_t;
+            tr = exp(-tau);
+            // Compute scattering at point p
+            color += tr * inscatter(volume, p, dir, l) * volume.stepsize;
         }
-        k += d * sigma_t;
-        tr = exp(-k);
-        // Compute scattering at point p
-        color += tr * inscatter(volume, p, dir, light) * volume.stepsize;
-        // go to newt point
-        p += dir;
-        // Stop the computation
-        if (any(greaterThan(p, vec3(1.0))) || any(lessThan(p, vec3(0.0))) || all (lessThan(tr, vec3(0.0001))))
+        // go to next point
+        p += dir * volume.stepsize;
+        t += volume.stepsize;
+        // volume test
+        if (t>tmax || any(greaterThan(p, vec3(1.0)))
+        || any(lessThan(p, vec3(0.0)))
+        || all(lessThan(tr, vec3(0.00001))))
         break;
     }
-    // discard the fragment if volume is not hit
-    if (!hit)
-    discard;
-    return color;
+    return hit;
 }
 
 uniform Material material;

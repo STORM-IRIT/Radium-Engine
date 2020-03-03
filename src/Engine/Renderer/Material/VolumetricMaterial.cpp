@@ -15,7 +15,7 @@ namespace Engine {
 static const std::string materialName{"Volumetric"};
 
 VolumetricMaterial::VolumetricMaterial( const std::string& name ) :
-    Material( name, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
+    Material( name, materialName, Material::MaterialAspect::MAT_DENSITY ) {}
 
 VolumetricMaterial::~VolumetricMaterial() {}
 
@@ -35,7 +35,7 @@ void VolumetricMaterial::updateRenderingParameters() {
     {
         auto dim =
             std::max( std::max( m_texture->width(), m_texture->height() ), m_texture->depth() );
-        m_renderParameters.addParameter( "material.stepsize", 1._ra / ( 10 * dim ) );
+        m_renderParameters.addParameter( "material.stepsize", 1._ra / ( 5 * dim ) );
     }
     else
     { m_renderParameters.addParameter( "material.stepsize", m_stepsize ); }
@@ -44,12 +44,17 @@ void VolumetricMaterial::updateRenderingParameters() {
 }
 
 bool VolumetricMaterial::isTransparent() const {
-    return true;
+    return false;
 }
 
 void VolumetricMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
     std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+
+    ShaderProgramManager::getInstance()->addShaderProgram(
+        {{"ComposeVolume"},
+         resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+         resourcesRootDir + "Shaders/Materials/Volumetric/ComposeVolumeRender.frag.glsl"} );
 
     // adding the material glsl implementation file
     ShaderProgramManager::getInstance()->addNamedString(
@@ -90,9 +95,9 @@ void VolumetricMaterial::registerMaterial() {
             rt.setConfiguration( *lightpassconfig,
                                  DefaultRenderingPasses::LIGHTING_OPAQUE );
             */
-            auto trpassconfig =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "VolumetricOIT" );
-            rt.setConfiguration( *trpassconfig, DefaultRenderingPasses::LIGHTING_TRANSPARENT );
+            auto passconfig =
+                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Volumetric" );
+            rt.setConfiguration( *passconfig, DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
         } );
 }
 

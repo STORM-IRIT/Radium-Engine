@@ -151,10 +151,11 @@ set(engine_shaders
     Materials/Plain/Plain.vert.glsl
     Materials/Plain/PlainZPrepass.frag.glsl
     Materials/VertexAttribInterface.frag.glsl
-Materials/Volumetric/Volumetric.glsl
-Materials/Volumetric/Volumetric.frag.glsl
-Materials/Volumetric/VolumetricOIT.frag.glsl
-Materials/Volumetric/Volumetric.vert.glsl
+    Materials/Volumetric/ComposeVolumeRender.frag.glsl
+    Materials/Volumetric/Volumetric.glsl
+    Materials/Volumetric/Volumetric.frag.glsl
+    Materials/Volumetric/VolumetricOIT.frag.glsl
+    Materials/Volumetric/Volumetric.vert.glsl
     Picking/Picking.frag.glsl
     Picking/PickingLinesAdjacency.geom.glsl
     Picking/PickingLines.geom.glsl

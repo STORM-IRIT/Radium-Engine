@@ -57,6 +57,7 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
         RendererTextures_Specular,
         RendererTextures_OITAccum,
         RendererTextures_OITRevealage,
+        RendererTextures_Volume,
         RendererTexture_Count
     };
 
@@ -65,9 +66,13 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     std::unique_ptr<globjects::Framebuffer> m_postprocessFbo;
     std::unique_ptr<globjects::Framebuffer> m_oitFbo;
     std::unique_ptr<globjects::Framebuffer> m_uiXrayFbo;
+    std::unique_ptr<globjects::Framebuffer> m_volumeFbo;
 
     std::vector<RenderObjectPtr> m_transparentRenderObjects;
     size_t m_fancyTransparentCount{0};
+
+    std::vector<RenderObjectPtr> m_volumetricRenderObjects;
+    size_t m_fancyVolumetricCount{0};
 
     size_t m_pingPongSize{0};
 
