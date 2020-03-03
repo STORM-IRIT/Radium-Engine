@@ -5,6 +5,12 @@ layout (location = 2) in vec3 in_texcoord;
 layout (location = 5) in vec3 in_eyeInModelSpace;
 layout (location = 6) in vec3 in_lightVector;
 
+// The modeltoimage matrix
+in mat4 biasmvp;
+// the depth and color texture whre the volume is rendered.
+uniform sampler2D imageColor;
+uniform sampler2D imageDepth;
+
 #include "Volumetric.glsl"
 
 layout (location = 0) out vec4 f_Accumulation;
@@ -36,7 +42,7 @@ void main() {
     vec3 rayDir = normalize(pos.xyz - eye.xyz);
 
     vec3 volTransmitance;
-    vec3 volColor = raymarch(material, in_position, rayDir, in_lightVector, volTransmitance);
+    vec3 volColor = raymarch(material, in_position, rayDir, in_lightVector, biasmvp, volTransmitance);
     // Take into account the existing color modulated by the trasmittance
     // vec3 backgroungColor = volTransmitance * existingfragmentcolor;
     float a = 1-length(volTransmitance);

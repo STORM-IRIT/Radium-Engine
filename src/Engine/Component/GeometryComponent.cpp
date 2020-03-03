@@ -32,14 +32,16 @@
 
 using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 
+#include <Core/Utils/Log.hpp>
+using namespace Ra::Core::Utils;
+
 namespace Ra {
 namespace Engine {
 
 TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
-    Component( name, entity ),
-    m_displayMesh( nullptr ) {
+    Component( name, entity ), m_displayMesh( nullptr ) {
     generateTriangleMesh( data );
 }
 
