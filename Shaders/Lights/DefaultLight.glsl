@@ -71,23 +71,65 @@ float spotLightAttenuation(Light light, vec3 position) {
     
     float attenuation = light.spot.attenuation.constant +
                         light.spot.attenuation.linear * d +
-                        light.spot.attenuation.quadratic * d * d;
-                        
+    light.spot.attenuation.quadratic * d * d;
+
     vec3 l = normalize(light.spot.position - position);
     float cosRealAngle = dot(l, dir);
     float cosSpotOuter = cos(light.spot.innerAngle / 2.0);
     float radialAttenuation = pow(clamp((cosRealAngle - cosSpotOuter) /
-                                        (1.0 - cosSpotOuter), 0.0, 1.0), 1.6);
+    (1.0 - cosSpotOuter), 0.0, 1.0), 1.6);
     return radialAttenuation / attenuation;
 }
 
-#ifndef POLYGONALLIGHT_GLSL
+
+
+Light directionalLightTransform(Light light, mat4 matrix) {
+    Light l;
+    l.type = light.type;
+    l.color = light.color;
+    l.directional.direction = normalize((matrix * vec4(light.directional.direction, 0)).xyz);
+    return l;
+}
+
+Light pointLightTransform(Light light, mat4 matrix) {
+    Light l;
+    l.type = light.type;
+    l.color = light.color;
+    vec4 pt = matrix * vec4(light.point.position, 1);
+    l.point.position = pt.xyz;// /pt.w;
+    l.point.attenuation = light.point.attenuation;
+    return l;
+}
+
+Light spotLightTransform(Light light, mat4 matrix) {
+    Light l;
+    l.type = light.type;
+    l.color = light.color;
+    vec4 pt = matrix * vec4(light.spot.position, 1);
+    l.spot.position = pt.xyz;// /pt.w;
+    l.spot.direction = normalize((matrix * vec4(light.spot.direction, 0)).xyz);
+    l.spot.attenuation = light.spot.attenuation;
+    l.spot.innerAngle = light.spot.innerAngle;
+    l.spot.outerAngle = light.spot.outerAngle;
+    return l;
+}
+
+
+Light transformLight(Light light, mat4 matrix) {
+    switch (light.type) {
+        case 0: return directionalLightTransform(light, matrix);
+        case 1: return pointLightTransform(light, matrix);
+        case 2: return spotLightTransform(light, matrix);
+    }
+
+}
+    #ifndef POLYGONALLIGHT_GLSL
 vec3 getLightDirection(Light light, vec3 position) {
-     switch (light.type) {
+    switch (light.type) {
         case 0: return directionalLightDirection(light);
         case 1: return pointLightDirection(light, position);
         case 2: return spotLightDirection(light, position);
-        default: return vec3(0);
+        default : return vec3(0);
     }
 }
 

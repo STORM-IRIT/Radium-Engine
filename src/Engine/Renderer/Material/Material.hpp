@@ -23,7 +23,16 @@ namespace Engine {
 class RA_ENGINE_API Material : public ShaderParameterProvider
 {
   public:
-    enum class MaterialAspect { MAT_OPAQUE, MAT_TRANSPARENT };
+    /**
+     * Identifies the type of the material.
+     *  MAT_OPAQUE and MAT_TRANSPARENT implements the GLSL "surfacic" BSDF interface
+     *  MAT_DENSITY implements the GLSL "volumetric" interface
+     */
+    enum class MaterialAspect {
+        MAT_OPAQUE,      /// <- The material is either OPAQUE or TRANSPARENT
+        MAT_TRANSPARENT, /// <- The material is TRANSPARENT
+        MAT_DENSITY      /// <- The material implements the VOLUME interface
+    };
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW

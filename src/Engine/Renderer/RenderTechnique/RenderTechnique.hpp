@@ -45,7 +45,14 @@ enum DefaultRenderingPasses : int {
      * This pass render, with lighting, the transparent fragments using LIT-OIT algorithm
      * @see Ra::Engine::ForwardRenderer documentation
      */
-    LIGHTING_TRANSPARENT
+    LIGHTING_TRANSPARENT,
+    /**
+     * The volumetric pass of Radium default renderer.
+     * This pass render, with lighting, an object with volumetric material (density matrix)
+     * @see Ra::Engine::ForwardRenderer documentation
+     */
+    LIGHTING_VOLUMETRIC
+
 }; // enum DefaultRenderingPasses
 
 
@@ -88,7 +95,7 @@ class RA_ENGINE_API RenderTechnique final
     /**
      * Get the ShaderProgram associated with the pass
      * @param pass The index of the pass
-     * @return  The pass shader program
+     * @return  The pass shader program if the pass is configured, nullptr otherwise.
      */
     const ShaderProgram*
     getShader( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
@@ -107,7 +114,7 @@ class RA_ENGINE_API RenderTechnique final
     /**
      * Get the ShaderProgram parameters associated with the pass
      * @param pass The index of the pass
-     * @return  The pass shader program
+     * @return  The pass ShaderParameterProvider if the pass is configured, nullptr otherwise.
      */
     const ShaderParameterProvider* getParametersProvider(
         Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
