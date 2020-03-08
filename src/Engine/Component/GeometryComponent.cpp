@@ -32,16 +32,30 @@
 
 using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 
+#define CHECK_MESH_NOT_NULL \
+    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+
 #include <Core/Utils/Log.hpp>
 using namespace Ra::Core::Utils;
 
 namespace Ra {
 namespace Engine {
 
+void GeometryComponent::setupIO( const std::string& id ) {
+    const auto& cm = ComponentMessenger::getInstance();
+    auto roOut     = std::bind( &GeometryComponent::roIndexRead, this );
+    cm->registerOutput<Index>( getEntity(), this, id, roOut );
+}
+
+const Index* GeometryComponent::roIndexRead() const {
+    return &m_roIndex;
+}
+
 TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
-    Component( name, entity ), m_displayMesh( nullptr ) {
+    GeometryComponent( name, entity ),
+    m_displayMesh( nullptr ) {
     generateTriangleMesh( data );
 }
 
@@ -49,9 +63,9 @@ TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               Core::Geometry::TriangleMesh&& mesh,
                                               Core::Asset::MaterialData* mat ) :
-    Component( name, entity ),
-    m_contentName( name ),
+    GeometryComponent( name, entity ),
     m_displayMesh( new Engine::Mesh( name ) ) {
+    setContentName( name );
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
 }
@@ -60,8 +74,6 @@ TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
 /// and no problem with the Displayable -> doesn't affect the API
 
 TriangleMeshComponent::~TriangleMeshComponent() = default;
-
-void TriangleMeshComponent::initialize() {}
 
 void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::GeometryData* data ) {
     m_contentName = data->getName();
@@ -158,54 +170,46 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
     m_meshIndex = addRenderObject( ro );
 }
 
-Ra::Core::Utils::Index TriangleMeshComponent::getRenderObjectIndex() const {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+Index TriangleMeshComponent::getRenderObjectIndex() const {
+    CHECK_MESH_NOT_NULL;
     return m_meshIndex;
 }
 
-const Ra::Core::Geometry::TriangleMesh& TriangleMeshComponent::getMesh() const {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+const Ra::Core::Geometry::TriangleMesh& TriangleMeshComponent::getCoreGeometry() const {
+    CHECK_MESH_NOT_NULL;
     return m_displayMesh->getCoreGeometry();
 }
 
-Mesh* TriangleMeshComponent::getDisplayMesh() {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+Mesh* TriangleMeshComponent::getDisplayable() {
+    CHECK_MESH_NOT_NULL;
     return m_displayMesh.get();
 }
 
-void TriangleMeshComponent::setContentName( const std::string& name ) {
-    this->m_contentName = name;
-}
-
 void TriangleMeshComponent::setupIO( const std::string& id ) {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::Getter cbOut =
-        std::bind( &TriangleMeshComponent::getMeshOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::TriangleMesh>(
-        getEntity(), this, id, cbOut );
+    CHECK_MESH_NOT_NULL;
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::TriangleMesh>::ReadWrite cbRw =
-        std::bind( &TriangleMeshComponent::getMeshRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::TriangleMesh>(
-        getEntity(), this, id, cbRw );
+    const auto& cm = ComponentMessenger::getInstance();
+    auto cbOut     = std::bind( &TriangleMeshComponent::getMeshOutput, this );
+    auto cbRw      = std::bind( &TriangleMeshComponent::getMeshRw, this );
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
-        std::bind( &TriangleMeshComponent::roIndexRead, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
-        getEntity(), this, id, roOut );
+    cm->registerOutput<Ra::Core::Geometry::TriangleMesh>( getEntity(), this, id, cbOut );
+    cm->registerReadWrite<Ra::Core::Geometry::TriangleMesh>( getEntity(), this, id, cbRw );
+
+    base::setupIO( id );
 }
 
 const Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshOutput() const {
+    CHECK_MESH_NOT_NULL;
     return &m_displayMesh->getCoreGeometry();
 }
 
 Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    CHECK_MESH_NOT_NULL;
     return &( m_displayMesh->getCoreGeometry() );
 }
 
-const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+const Index* TriangleMeshComponent::roIndexRead() const {
+    CHECK_MESH_NOT_NULL;
     return &m_meshIndex;
 }
 
@@ -216,7 +220,7 @@ const Ra::Core::Utils::Index* TriangleMeshComponent::roIndexRead() const {
 PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           const Ra::Core::Asset::GeometryData* data ) :
-    Component( name, entity ),
+    GeometryComponent( name, entity ),
     m_displayMesh( nullptr ) {
     generatePointCloud( data );
 }
@@ -225,8 +229,7 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           Core::Geometry::PointCloud&& mesh,
                                           Core::Asset::MaterialData* mat ) :
-    Component( name, entity ),
-    m_contentName( name ),
+    GeometryComponent( name, entity ),
     m_displayMesh( new Engine::PointCloud( name ) ) {
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
@@ -324,58 +327,39 @@ void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialDat
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
-    m_meshIndex = addRenderObject( ro );
-}
-
-Ra::Core::Utils::Index PointCloudComponent::getRenderObjectIndex() const {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    return m_meshIndex;
+    m_roIndex = addRenderObject( ro );
 }
 
 const Ra::Core::Geometry::PointCloud& PointCloudComponent::getCoreGeometry() const {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    CHECK_MESH_NOT_NULL;
     return m_displayMesh->getCoreGeometry();
 }
 
 PointCloud* PointCloudComponent::getGeometry() {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    CHECK_MESH_NOT_NULL;
     return m_displayMesh.get();
 }
 
-void PointCloudComponent::setContentName( const std::string& name ) {
-    this->m_contentName = name;
-}
-
 void PointCloudComponent::setupIO( const std::string& id ) {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::PointCloud>::Getter cbOut =
-        std::bind( &PointCloudComponent::getMeshOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::PointCloud>(
-        getEntity(), this, id, cbOut );
+    CHECK_MESH_NOT_NULL;
+    auto cbOut = std::bind( &PointCloudComponent::getMeshOutput, this );
+    auto cbRw  = std::bind( &PointCloudComponent::getPointCloudRw, this );
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::PointCloud>::ReadWrite cbRw =
-        std::bind( &PointCloudComponent::getPointCloudRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::PointCloud>(
-        getEntity(), this, id, cbRw );
+    const auto& cm = ComponentMessenger::getInstance();
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
-        std::bind( &PointCloudComponent::roIndexRead, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
-        getEntity(), this, id, roOut );
+    cm->registerOutput<Ra::Core::Geometry::PointCloud>( getEntity(), this, id, cbOut );
+    cm->registerReadWrite<Ra::Core::Geometry::PointCloud>( getEntity(), this, id, cbRw );
+    base::setupIO( id );
 }
 
 const Ra::Core::Geometry::PointCloud* PointCloudComponent::getMeshOutput() const {
+    CHECK_MESH_NOT_NULL;
     return &m_displayMesh->getCoreGeometry();
 }
 
 Ra::Core::Geometry::PointCloud* PointCloudComponent::getPointCloudRw() {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
+    CHECK_MESH_NOT_NULL;
     return &( m_displayMesh->getCoreGeometry() );
-}
-
-const Ra::Core::Utils::Index* PointCloudComponent::roIndexRead() const {
-    CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
-    return &m_meshIndex;
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -428,12 +412,12 @@ void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* d
 }
 
 VolumeObject* VolumeComponent::getDisplayVolume() {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
     return m_displayVolume.get();
 }
 
-Ra::Core::Utils::Index VolumeComponent::getRenderObjectIndex() const {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+Index VolumeComponent::getRenderObjectIndex() const {
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
     return m_volumeIndex;
 }
 
@@ -442,7 +426,7 @@ void VolumeComponent::setContentName( const std::string& name ) {
 }
 
 void VolumeComponent::setupIO( const std::string& id ) {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
     ComponentMessenger::CallbackTypes<Ra::Core::Geometry::AbstractVolume>::Getter cbOut =
         std::bind( &VolumeComponent::getVolumeOutput, this );
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::AbstractVolume>(
@@ -453,14 +437,14 @@ void VolumeComponent::setupIO( const std::string& id ) {
     ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::AbstractVolume>(
         getEntity(), this, id, cbRw );
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Utils::Index>::Getter roOut =
+    ComponentMessenger::CallbackTypes<Index>::Getter roOut =
         std::bind( &VolumeComponent::roIndexRead, this );
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
         getEntity(), this, id, roOut );
 }
 
-const Ra::Core::Utils::Index* VolumeComponent::roIndexRead() const {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayMesh should exist while component is alive" );
+const Index* VolumeComponent::roIndexRead() const {
+    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
     return &m_volumeIndex;
 }
 
