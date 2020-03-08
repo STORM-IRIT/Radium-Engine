@@ -16,6 +16,35 @@ class VolumeObject;
 
 namespace Ra {
 namespace Engine {
+
+/// Abstract interface of a geometric compoennet in the Engine.
+class RA_ENGINE_API GeometryComponent : public Component
+{
+  public:
+    GeometryComponent( const std::string& name, Entity* entity ) : Component( name, entity ), m_contentName(name) {}
+    ~GeometryComponent() override {}
+
+    void initialize() override {}
+
+    //  public:
+    // Component communication management
+    virtual void setupIO( const std::string& id );
+    void setContentName( const std::string& name ) { m_contentName = name; }
+    //    void setDeformable( bool b );
+
+    /// Returns the index of the associated RO (the display mesh)
+    //    Ra::Core::Utils::Index getRenderObjectIndex() const;
+  protected:
+    const std::string& getContentName() const { return m_contentName; }
+
+  private:
+    const Ra::Core::Utils::Index* roIndexRead() const;
+
+  protected:
+    Ra::Core::Utils::Index m_roIndex{};
+    std::string m_contentName{};
+};
+
 /*!
  * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
  *
@@ -25,8 +54,10 @@ namespace Engine {
  *  - normals: rw (if deformable)
  *  - triangles: rw (if deformable)
  */
-class RA_ENGINE_API TriangleMeshComponent : public Component
+class RA_ENGINE_API TriangleMeshComponent : public GeometryComponent
 {
+    using base = GeometryComponent;
+
   public:
     TriangleMeshComponent( const std::string& name,
                            Entity* entity,
@@ -43,16 +74,13 @@ class RA_ENGINE_API TriangleMeshComponent : public Component
 
     ~TriangleMeshComponent() override;
 
-    void initialize() override;
-
     /// Returns the current display geometry.
-    const Ra::Core::Geometry::TriangleMesh& getMesh() const;
-    Mesh* getDisplayMesh();
+    const Ra::Core::Geometry::TriangleMesh& getCoreGeometry() const;
+    Mesh* getDisplayable();
 
   public:
     // Component communication management
-    void setupIO( const std::string& id );
-    void setContentName( const std::string& name );
+    void setupIO( const std::string& id ) override;
     void setDeformable( bool b );
 
     /// Returns the index of the associated RO (the display mesh)
@@ -71,13 +99,14 @@ class RA_ENGINE_API TriangleMeshComponent : public Component
 
   private:
     Ra::Core::Utils::Index m_meshIndex{};
-    std::string m_contentName{};
     // directly hold a reference to the displayMesh to simplify accesses in handlers
     std::shared_ptr<Mesh> m_displayMesh{nullptr};
 };
 
-class RA_ENGINE_API PointCloudComponent : public Component
+class RA_ENGINE_API PointCloudComponent : public GeometryComponent
 {
+    using base = GeometryComponent;
+
   public:
     PointCloudComponent( const std::string& name,
                          Entity* entity,
@@ -102,12 +131,8 @@ class RA_ENGINE_API PointCloudComponent : public Component
 
   public:
     // Component communication management
-    void setupIO( const std::string& id );
-    void setContentName( const std::string& name );
+    void setupIO( const std::string& id ) override;
     void setDeformable( bool b );
-
-    /// Returns the index of the associated RO (the display mesh)
-    Ra::Core::Utils::Index getRenderObjectIndex() const;
 
   private:
     void generatePointCloud( const Ra::Core::Asset::GeometryData* data );
@@ -118,11 +143,7 @@ class RA_ENGINE_API PointCloudComponent : public Component
     const Ra::Core::Geometry::PointCloud* getMeshOutput() const;
     Ra::Core::Geometry::PointCloud* getPointCloudRw();
 
-    const Ra::Core::Utils::Index* roIndexRead() const;
-
   private:
-    Ra::Core::Utils::Index m_meshIndex{};
-    std::string m_contentName{};
     // directly hold a reference to the displayMesh to simplify accesses in handlers
     std::shared_ptr<PointCloud> m_displayMesh{nullptr};
 };
