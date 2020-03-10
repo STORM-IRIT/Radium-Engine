@@ -33,9 +33,10 @@ void VolumetricMaterial::updateRenderingParameters() {
     m_renderParameters.addParameter( "material.scale", m_scale );
     if ( m_stepsize < 0 )
     {
-        auto dim =
-            std::max( std::max( m_texture->width(), m_texture->height() ), m_texture->depth() );
-        m_renderParameters.addParameter( "material.stepsize", 1._ra / ( 5 * dim ) );
+        auto dim = std::sqrt( Scalar(m_texture->width() * m_texture->width() +
+                                m_texture->height() * m_texture->height() +
+                                m_texture->depth() * m_texture->depth()) );
+        m_renderParameters.addParameter( "material.stepsize", 1._ra / dim  );
     }
     else
     { m_renderParameters.addParameter( "material.stepsize", m_stepsize ); }

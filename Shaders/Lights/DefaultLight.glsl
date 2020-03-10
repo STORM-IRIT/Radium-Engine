@@ -71,13 +71,13 @@ float spotLightAttenuation(Light light, vec3 position) {
     
     float attenuation = light.spot.attenuation.constant +
                         light.spot.attenuation.linear * d +
-    light.spot.attenuation.quadratic * d * d;
+                        light.spot.attenuation.quadratic * d * d;
 
     vec3 l = normalize(light.spot.position - position);
     float cosRealAngle = dot(l, dir);
     float cosSpotOuter = cos(light.spot.innerAngle / 2.0);
     float radialAttenuation = pow(clamp((cosRealAngle - cosSpotOuter) /
-    (1.0 - cosSpotOuter), 0.0, 1.0), 1.6);
+                                (1.0 - cosSpotOuter), 0.0, 1.0), 1.6);
     return radialAttenuation / attenuation;
 }
 
@@ -123,7 +123,7 @@ Light transformLight(Light light, mat4 matrix) {
     }
 
 }
-    #ifndef POLYGONALLIGHT_GLSL
+
 vec3 getLightDirection(Light light, vec3 position) {
     switch (light.type) {
         case 0: return directionalLightDirection(light);
@@ -141,7 +141,6 @@ vec3 lightContributionFrom(Light light, vec3 position) {
         default: return vec3(0.0f);
     }
 }
-#endif
 
 uniform Light light;
 

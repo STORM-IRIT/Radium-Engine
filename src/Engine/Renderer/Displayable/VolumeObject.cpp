@@ -12,24 +12,21 @@ namespace Engine {
 
 VolumeObject::VolumeObject( const std::string& name ) :
     Displayable( name ), m_tex( {} ), m_mesh( name + "_internal" ) {
-
-    using Core::Aabb;
 }
 
 VolumeObject::~VolumeObject() {}
 
-void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume ) {
+void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb & aabb  ) {
     if ( volume != nullptr && volume->isDense() )
     {
 
-        m_mesh.loadGeometry( Core::Geometry::makeSharpBox( volume->computeAabb() ) );
+        m_mesh.loadGeometry( Core::Geometry::makeSharpBox( aabb ) );
 
         Core::Vector3Array tex_coords;
         tex_coords.resize( 24 );
         tex_coords.getMap() <<
             // R
-            Scalar( 1 ),
-            Scalar( 1 ), Scalar( 0 ), Scalar( 0 ),              // Bottom
+            Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), // Bottom
             Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), // Top
             Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), // Right
             Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), // Left
@@ -61,7 +58,7 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume ) {
                                    size_t( dim( 1 ) ),
                                    size_t( dim( 2 ) ),
                                    GL_RED,
-                                   GL_RED,
+                                   GL_R32F,
                                    GL_FLOAT,
                                    GL_CLAMP_TO_BORDER,
                                    GL_CLAMP_TO_BORDER,
@@ -73,6 +70,10 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume ) {
 
         m_isDirty = true;
     }
+}
+
+void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume ) {
+    loadGeometry( volume, volume->computeAabb() );
 }
 
 void VolumeObject::updateGL() {
@@ -95,7 +96,6 @@ void VolumeObject::render( const ShaderProgram* prog ) {
     glGetIntegerv( GL_CULL_FACE_MODE, &culledFaces );
     int frontFaces;
     glGetIntegerv( GL_FRONT_FACE, &frontFaces );
-    glFrontFace( GL_CCW );
     glCullFace( GL_BACK );
     glEnable( GL_CULL_FACE );
 

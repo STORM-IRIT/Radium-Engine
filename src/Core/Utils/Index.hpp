@@ -10,9 +10,9 @@ namespace Utils {
 
 class RA_CORE_API Index
 {
+  public:
     using IntegerType = int;
 
-  public:
     /// CONSTRUCTOR
     /// Default constructor that allow implicit conversion from integer to Index
     constexpr Index( IntegerType i = s_invalid );
