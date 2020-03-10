@@ -43,6 +43,9 @@ class RA_ENGINE_API VolumeObject : public Displayable
     /// Use the given volume for display. \warning Takes the pointer ownership
     void loadGeometry( Core::Geometry::AbstractVolume* volume );
 
+    /// Use the given volume for display and build the proxy from the given aabb. \warning Takes the pointer ownership
+    void loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb & aabb  );
+
     /// Mark the data types as dirty, forcing an update of the openGL buffer.
     inline void setDirty() { m_isDirty = true; }
 
@@ -58,7 +61,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
     /// Draw the mesh.
     void render( const ShaderProgram* prog ) override;
 
-    /// 6 quad faces of the cube
+    /// 6 quad faces of the cube, thus 12 triangles.
     size_t getNumFaces() const override { return 12; }
     /// 8 vertices of the cube
     inline size_t getNumVertices() const override { return 8; }

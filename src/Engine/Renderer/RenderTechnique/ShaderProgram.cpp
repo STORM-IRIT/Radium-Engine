@@ -120,6 +120,7 @@ void ShaderProgram::loadShader( ShaderType type,
 
     auto ptrSource = globjects::Shader::sourceFromString( preprocessedSource );
 #else
+    // this code do not work, include are not processed :( maybe a globjects bug.
     auto ptrSource = globjects::Shader::sourceFromString( shaderSource->string() );
 #endif
     addShaderFromSource( type, std::move( ptrSource ), name, fromFile );

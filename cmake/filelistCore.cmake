@@ -79,6 +79,7 @@ set( core_headers
     Asset/HandleToSkeleton.hpp
     Asset/LightData.hpp
     Asset/MaterialData.hpp
+    Asset/VolumeData.hpp
     Containers/AdjacencyList.hpp
     Containers/Algorithm.hpp
     Containers/AlignedAllocator.hpp

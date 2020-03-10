@@ -217,6 +217,7 @@ void RenderObject::render( const RenderParameters& lightParams,
                            const ViewingParameters& viewParams,
                            const ShaderProgram* shader,
                            const RenderParameters& shaderParams ) {
+    if (!m_visible || !shader) { return; }
     // Radium V2 : avoid this temporary
     Core::Matrix4 modelMatrix  = getTransformAsMatrix();
     Core::Matrix4 normalMatrix = modelMatrix.inverse().transpose();
@@ -228,6 +229,13 @@ void RenderObject::render( const RenderParameters& lightParams,
     shader->setUniform( "transform.worldNormal", normalMatrix );
     lightParams.bind( shader );
     shaderParams.bind( shader );
+    // FIXME : find another solution for FrontFacing polygons (depends on the camera matrix)
+    // This is a hack to allow correct face culling
+    if (viewParams.viewMatrix.determinant() < 0) {
+        glFrontFace( GL_CW );
+    } else {
+        glFrontFace( GL_CCW );
+    }
     m_mesh->render( shader );
 }
 
