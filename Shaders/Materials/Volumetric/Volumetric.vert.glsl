@@ -10,11 +10,10 @@ layout (location = 5) in vec4 in_color;
 uniform Transform transform;
 
 layout (location = 0) out vec3 out_position;
-layout (location = 2) out vec3 out_texcoord;
-layout (location = 5) out vec3 out_eyeInModelSpace;
+layout (location = 1) out vec3 out_eyeInModelSpace;
 
 // The modeltoimage matrix
-flat out mat4 biasmvp;
+flat out mat4 invbiasmvp;
 flat out mat4 world2model;
 
 void main()
@@ -29,7 +28,7 @@ void main()
     0.0, 0.0, 0.5, 0.0,
     0.5, 0.5, 0.5, 1.0
     );
-    biasmvp = bias * mvp;
+    invbiasmvp = inverse(bias * mvp);
     world2model = inverse(transform.model);
 
     // eye in world space
@@ -39,6 +38,5 @@ void main()
 
     // position in modelspace
     out_position    = in_position;
-    out_texcoord    = in_texcoord;
 
 }

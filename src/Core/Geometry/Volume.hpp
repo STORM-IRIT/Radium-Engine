@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_VOLUME_HPP
-#define RADIUMENGINE_VOLUME_HPP
+#pragma once
 
 #include <Core/Geometry/AbstractGeometry.hpp>
 #include <Core/RaCore.hpp>
@@ -15,15 +14,18 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-/// AbstractVolume is an abstract class for Volumetric data (can be parametric or discrete, with
-/// dense or sparse storage)
-///
-/// \note Right now the encoded function \f$f\f$ is dimension 1, ie. \f$f:\Re^3->\Re\f$. If needed,
-/// the class can be templated so the built-in typedef #ValueType is replaced by a parameter.
-///
-/// \note This class could also be modified to encode n-dimensionnal textures.
-/// See this for an implementation of n-dimensionnal grids with neighbhorood queries (compile-time
-/// loop unrolling): http://github.com/STORM-IRIT/OpenGR/blob/master/src/gr/accelerators/normalset.h
+/**
+ * AbstractVolume is an abstract class for Volumetric data (can be parametric or discrete, with
+ * dense or sparse storage).
+ *
+ * \note Right now the encoded function \f$f\f$ is dimension 1, ie. \f$f:\Re^3->\Re\f$. If needed,
+ *          the class can be templated so the built-in typedef #ValueType is replaced by a parameter.
+ *
+ * \note This class could also be modified to encode n-dimensionnal textures.
+ *          See this for an implementation of n-dimensionnal grids with neighbhorood queries
+ *          (compile-time loop unrolling): 
+ *          http://github.com/STORM-IRIT/OpenGR/blob/master/src/gr/accelerators/normalset.h
+ */
 class RA_CORE_API AbstractVolume : public AbstractGeometry
 {
 
@@ -56,9 +58,10 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
     inline void setType( const VolumeStorageType& type );
 
   public:
-    /// Get the function value a given position p
-    ///
-    /// Set to invalid when the query position p is out of bound
+    /** Get the function value at a given position p
+     *
+     * Set to invalid when the query position p is out of bound
+     */
     virtual Utils::optional<ValueType> getValue( Eigen::Ref<const Vector3> p ) const = 0;
     ///@}
 
@@ -81,7 +84,10 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
     /// The type of geometry for the object.
     VolumeStorageType m_type;
 };
-
+/**
+ * General interface for discrete volume that store the information into a set of bins indexed in 3D.
+ *
+ */
 class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
 {
 
@@ -91,7 +97,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
 
   protected:
     inline AbstractDiscreteVolume( const VolumeStorageType& type ) :
-        AbstractVolume( type ), _size( IndexType::Zero() ), _binSize( Vector3::Zero() ) {}
+        AbstractVolume( type ), m_size( IndexType::Zero() ), m_binSize{1_ra, 1_ra, 1_ra} {}
 
   public:
     AbstractDiscreteVolume( const AbstractDiscreteVolume& data ) = default;
@@ -101,30 +107,42 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     /// Erases all data, making the geometry empty.
     void clear() override;
 
+    /// Compute the aabb of the volume
     Aabb computeAabb() const override;
 
-    const Vector3i& size() const { return _size; }
+    /// return the size (number of bins ni each dimension) of the volume
+    const Vector3i& size() const { return m_size; }
     /// \warning Clears existing data
     void setSize( Eigen::Ref<const Vector3i> size ) {
-        _size = size;
+        m_size = size;
         updateStorage();
     }
-    const Vector3& binSize() const { return _binSize; }
-    void setBinSize( Eigen::Ref<const Vector3> binSize ) { _binSize = binSize; }
+    /// return the bin size
+    const Vector3& binSize() const { return m_binSize; }
 
+    /// Set the bin size
+    void setBinSize( Eigen::Ref<const Vector3> binSize ) {
+        CORE_ASSERT(binSize != Vector3::Zero(), "Volume bin size can't be zero.");
+        m_binSize = binSize; }
+
+    /// Get the value of the given bin
     inline Utils::optional<ValueType> getBinValue( Eigen::Ref<const IndexType> p ) const {
         if ( auto res = linearIndex( p ) ) return getBinValue( *res );
         return {};
     }
 
-    /// Get the function value a given position p (discrete implementation).
-    ///
-    /// \see #getBinValue
+    /** Get the function value at a given position p (discrete implementation).
+     * \warning no bounds checking on the parameter p
+     * \see #getBinValue
+     */
     inline Utils::optional<ValueType> getValue( Eigen::Ref<const Vector3> p ) const override final {
-        return getBinValue( ( p.cwiseQuotient( _binSize ) ).cast<typename IndexType::Scalar>() );
+        return getBinValue( ( p.cwiseQuotient( m_binSize ) ).cast<typename IndexType::Scalar>() );
     }
 
-    /// Increment bin p by value
+    /**
+     * Increment bin p by value.
+     * \note : does nothing if p is out of bounds.
+     */
     inline bool addToBin( const ValueType& value, Eigen::Ref<const IndexType> p ) {
         if ( auto res = linearIndex( p ) )
         {
@@ -135,21 +153,24 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     }
 
   protected:
+    /// Convert the 3D position into a linear index on the bin set
     inline Utils::optional<typename IndexType::Scalar>
     linearIndex( Eigen::Ref<const IndexType> p ) const {
         using Integer = typename IndexType::Scalar;
-        if ( ( p.array() >= _size.array() ).any() ) return {};
-        return p.dot( IndexType( Integer( 1 ), _size( 0 ), _size( 0 ) * _size( 1 ) ) );
+        if ( ( p.array() >= m_size.array() ).any() ) return {};
+        return p.dot( IndexType( Integer( 1 ), m_size( 0 ), m_size( 0 ) * m_size( 1 ) ) );
     }
+    /// Get the bin value
     virtual Utils::optional<ValueType> getBinValue( typename IndexType::Scalar idx ) const = 0;
+    /// Add a value to the bin.
     virtual void addToBin( const ValueType& value, typename IndexType::Scalar idx )        = 0;
 
-    /// Method called when size or binsize as been updated
+    /// Method called when size as been updated
     virtual void updateStorage() = 0;
 
   private:
-    IndexType _size;  /// <\brief number of bins per dimension
-    Vector3 _binSize; /// <\brief size of a bin per dimension
+    IndexType m_size;  /// <\brief number of bins per dimension
+    Vector3 m_binSize; /// <\brief size of a bin per dimension
 };
 
 /// Discrete volume data storing values in a regular grid
@@ -163,7 +184,7 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
 
   public:
     inline VolumeGrid( const ValueType& defaultValue = ValueType( 0. ) ) :
-        AbstractDiscreteVolume( DISCRETE_DENSE ), _defaultValue( defaultValue ) {}
+        AbstractDiscreteVolume( DISCRETE_DENSE ), m_defaultValue( defaultValue ) {}
     VolumeGrid( const VolumeGrid& data ) = default;
     VolumeGrid& operator=( const VolumeGrid& ) = default;
     ~VolumeGrid() override                     = default;
@@ -171,36 +192,45 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
     using AbstractDiscreteVolume::addToBin;
     using AbstractDiscreteVolume::getBinValue;
 
-    inline const Container& data() const { return _data; }
-    inline Container& data() { return _data; }
+    /// Direct access to the managed data
+    inline const Container& data() const { return m_data; }
+    /// Direct access, with modification alllowed to the managed data
+    inline Container& data() { return m_data; }
 
-    inline void addToAllBin( const ValueType& value ) {
-        for ( auto& v : _data )
+    /// Add a value to all bins
+    inline void addToAllBins( const ValueType& value ) {
+        for ( auto& v : m_data ) {
             v += value;
+        }
     }
 
   protected:
     /// Get the function value a given position p
+    /// \warning no bounds checking on the parameter p
     inline Utils::optional<ValueType> getBinValue( typename IndexType::Scalar idx ) const override {
-        return _data[size_t( idx )];
+        return m_data[size_t( idx )];
     }
 
+    /// Add a value to the given bin
+    /// \warning no bounds checking on the parameter idx
     inline void addToBin( const ValueType& value, typename IndexType::Scalar idx ) override {
-        _data[size_t( idx )] += value;
+        m_data[size_t( idx )] += value;
     }
 
     /// \warning This method needs to be updated in case we switch to multidimensionnal functions
-    inline void updateStorage() override { _data.resize( size_t( size().prod() ), _defaultValue ); }
+    inline void updateStorage() override {
+        m_data.resize( size_t( size().prod() ), m_defaultValue ); }
 
   private:
-    const ValueType _defaultValue;
-    Container _data;
-}; // class AbstractDiscreteVolume
+    const ValueType m_defaultValue;
+    Container m_data;
+}; // class VolumeGrid
 
-/// Discrete volume data with sparse storage
-///
-/// Samples are stored as SparseVolumeData::sample, which stores the bin linear
-/// index, and the function value
+/** Discrete volume data with sparse storage
+ *
+ * Samples are stored as SparseVolumeData::sample, which stores the bin linear
+ * index, and the function value
+ */
 class RA_CORE_API VolumeSparse : public AbstractDiscreteVolume
 {
   public:
@@ -224,15 +254,16 @@ class RA_CORE_API VolumeSparse : public AbstractDiscreteVolume
     using AbstractDiscreteVolume::getBinValue;
 
   protected:
-    /// Get the function value a given position p (if the bin exists)
-    ///
-    /// Returns an invalid value when no sample is registered in the targeted bin.
-    ///
-    /// Complexity: At most last - first applications of the predicate
-    /// (http://en.cppreference.com/w/cpp/algorithm/find)
+    /** Get the function value at a given position p (if the bin exists)
+     *
+     * Returns an invalid value when no sample is registered in the targeted bin.
+     *
+     * Complexity: At most last - first applications of the predicate
+     * (http://en.cppreference.com/w/cpp/algorithm/find)
+     */
     inline Utils::optional<ValueType> getBinValue( typename IndexType::Scalar idx ) const override {
         auto res = findBin( idx );
-        if ( res != std::end( _data ) ) return res->value;
+        if ( res != std::end( m_data ) ) return res->value;
         return {};
     }
 
@@ -244,33 +275,31 @@ class RA_CORE_API VolumeSparse : public AbstractDiscreteVolume
     /// (http://en.cppreference.com/w/cpp/algorithm/find)
     inline void addToBin( const ValueType& value, typename IndexType::Scalar idx ) override {
         auto res = findBin( idx );
-        if ( res != std::end( _data ) )
+        if ( res != std::end( m_data ) )
             res->value += value;
         else
-            _data.emplace_back( idx, value );
+            m_data.emplace_back( idx, value );
     }
 
-    inline void updateStorage() override { _data.clear(); }
+    inline void updateStorage() override { m_data.clear(); }
 
   private:
     inline Container::iterator findBin( typename IndexType::Scalar idx ) {
-        return std::find_if( std::begin( _data ), std::end( _data ), [&idx]( const SampleType& s ) {
+        return std::find_if( std::begin( m_data ), std::end( m_data ), [&idx]( const SampleType& s ) {
             return s.index == idx;
         } );
     }
     inline Container::const_iterator findBin( typename IndexType::Scalar idx ) const {
-        return std::find_if( std::begin( _data ), std::end( _data ), [&idx]( const SampleType& s ) {
+        return std::find_if( std::begin( m_data ), std::end( m_data ), [&idx]( const SampleType& s ) {
             return s.index == idx;
         } );
     }
 
   private:
-    Container _data;
+    Container m_data;
 
-}; // class DiscreteVolumeData
+}; // class VolumeSparse
 
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_VOLUME_HPP

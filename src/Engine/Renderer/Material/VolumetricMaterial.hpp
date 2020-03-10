@@ -15,7 +15,7 @@ namespace Engine {
 class ShaderProgram;
 
 /**
- * Implementation of a simple Volumetric Matertial.
+ * Implementation of a simple Volumetric Material.
  * Based on a 3D texture defining the density distribution in the volume, perform ray-marching
  * and absorption based rendering of the volume..
  * @todo This material does not implement the MaterialGLSL interface. Shader compositing is not

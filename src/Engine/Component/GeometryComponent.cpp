@@ -393,19 +393,19 @@ void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* d
     m_contentName = name + "_DAT_" + data->getName();
 
     m_displayVolume = Ra::Core::make_shared<VolumeObject>( meshName );
-    m_displayVolume->loadGeometry( data->volume );
+    m_displayVolume->loadGeometry( data->volume, data->boundingBox );
 
     auto roMaterial = Ra::Core::make_shared<VolumetricMaterial>( data->getName() + "_VolMat" );
     roMaterial->setTexture( const_cast<Texture*>( &( m_displayVolume->getDataTexture() ) ) );
     roMaterial->m_sigma_a       = data->sigma_a;
     roMaterial->m_sigma_s       = data->sigma_s;
-    roMaterial->m_modelToMedium = Core::Transform::Identity();
+    roMaterial->m_modelToMedium = data->densityToModel.inverse();
 
     auto ro = RenderObject::createRenderObject(
         roName, this, RenderObjectType::Geometry, m_displayVolume, RenderTechnique{} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
-    ro->setLocalTransform( data->modelToMedium );
+    ro->setLocalTransform( data->modelToWorld );
 
     setupIO( m_contentName );
     m_volumeIndex = addRenderObject( ro );

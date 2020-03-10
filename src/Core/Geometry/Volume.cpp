@@ -61,7 +61,7 @@ void AbstractDiscreteVolume::clear() {
 }
 
 Aabb AbstractDiscreteVolume::computeAabb() const {
-    return Aabb( Vector3::Zero(), _binSize.cwiseProduct( _size.cast<Scalar>() ) );
+    return Aabb( Vector3::Zero(), m_binSize.cwiseProduct( m_size.cast<Scalar>() ) );
 }
 
 } // namespace Geometry
