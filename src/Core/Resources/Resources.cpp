@@ -43,6 +43,11 @@ std::string getBaseDir() {
 ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath{""} {
     m_basePath = searchPath( "/", "", symbol ) + offset;
 }
+
+ResourcesLocator::ResourcesLocator( void* symbol, std::string pattern, const std::string& offset ) {
+    m_basePath = searchPath( pattern, offset, symbol ) + pattern;
+}
+
 const std::string& ResourcesLocator::getBasePath() {
     return m_basePath;
 }
