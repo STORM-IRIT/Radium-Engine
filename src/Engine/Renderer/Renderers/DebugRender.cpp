@@ -28,6 +28,14 @@ DebugRender::~DebugRender() = default;
 void DebugRender::initialize() {
     /// FIXME : this was not ported to globject ...
     /// \todo FIXED but not tested
+    auto setShader = [](ShaderProgramManager *manager, Ra::Engine::ShaderConfiguration &config)
+            -> const ShaderProgram * {
+        auto added = manager->addShaderProgram( config );
+        if ( added ) { return *added; }
+        else
+        { return nullptr; }
+    };
+
     auto shaderMgr = ShaderProgramManager::getInstance();
     {
         const char* lineVertStr = R"(
@@ -59,10 +67,7 @@ void DebugRender::initialize() {
         Ra::Engine::ShaderConfiguration config{"dbgLineShader"};
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, lineVertStr );
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, lineFragStr );
-        auto added = shaderMgr->addShaderProgram( config );
-        if ( added ) { m_lineProg = *added /*.value()*/; }
-        else
-        { m_lineProg = nullptr; }
+        m_lineProg = setShader(shaderMgr, config);
     }
     {
         static const char* pointVertStr = R"(
@@ -95,10 +100,7 @@ void DebugRender::initialize() {
         Ra::Engine::ShaderConfiguration config{"dbgPointShader"};
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, pointVertStr );
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, pointFragStr );
-        auto added = shaderMgr->addShaderProgram( config );
-        if ( added ) { m_pointProg = *added /*.value()*/; }
-        else
-        { m_pointProg = nullptr; }
+        m_pointProg = setShader(shaderMgr, config);
     }
     {
         static const char* meshVertStr = R"(
@@ -130,10 +132,7 @@ void DebugRender::initialize() {
         Ra::Engine::ShaderConfiguration config{"dbgMeshShader"};
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, meshVertStr );
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, meshFragStr );
-        auto added = shaderMgr->addShaderProgram( config );
-        if ( added ) { m_meshProg = *added /*.value()*/; }
-        else
-        { m_meshProg = nullptr; }
+        m_meshProg = setShader(shaderMgr, config);
     }
     GL_CHECK_ERROR;
 }
