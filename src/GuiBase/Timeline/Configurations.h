@@ -38,7 +38,7 @@
 //          ^                      ^ <--
 //          |                      |
 //        cursor                 cursor
-// on ruler clicking, automove to nearest keyPose or ruler scale
+// on ruler clicking, automove to nearest keyFrame or ruler scale
 // if the distance with cursor is below this constant
 #define TIMELINE_AUTO_SUGGEST_CURSOR_RADIUS 4 // unit : pixel
 
@@ -50,11 +50,12 @@
 
 // todo : maybe set global static var
 // frame per second to draw position of each frame in ruler
-#define TIMELINE_FPS 24
+#define TIMELINE_FPS 60
 
-#define TIMELINE_BUFFER_SESSION_MAX_SIZE \
-    500000000 // 500M bytes in RAM, max bytes for saving user anim for undo/redo stack
+// 500M bytes in RAM, max bytes for saving user anim for undo/redo stack
+#define TIMELINE_BUFFER_SESSION_MAX_SIZE 500000000
 
-#define TIMELINE_DELAY_AUTO_SAVE 100 // millisecond, auto save environment after delay
+// millisecond, auto save environment after delay
+#define TIMELINE_DELAY_AUTO_SAVE 100
 
 #endif // RADIUMENGINE_TIMELINE_CONFIG_HPP_

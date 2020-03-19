@@ -1,16 +1,11 @@
 set( guibase_sources
     BaseApplication.cpp
     SelectionManager/SelectionManager.cpp
-    Timeline/qdoublespinboxsmart.cpp
-    Timeline/qframebuttons.cpp
-    Timeline/qframeselector.cpp
-    Timeline/qframetimescale.cpp
-    Timeline/qlabelslider.cpp
-    Timeline/qscrollarearuler.cpp
-    Timeline/qspinboxsmart.cpp
-    Timeline/qtoolbuttonplaypause.cpp
-    Timeline/qwidgetruler.cpp
-    Timeline/Session.cpp
+    Timeline/HelpDialog.cpp
+    Timeline/TimelineFrameSelector.cpp
+    Timeline/TimelineTimeScale.cpp
+    Timeline/TimelineSlider.cpp
+    Timeline/TimelineScrollArea.cpp
     Timeline/Timeline.cpp
     TimerData/FrameTimerData.cpp
     TransformEditor/TransformEditor.cpp
@@ -36,17 +31,12 @@ set( guibase_headers
     MainWindowInterface.hpp
     RaGuiBase.hpp
     SelectionManager/SelectionManager.hpp
+    Timeline/HelpDialog.hpp
     Timeline/Configurations.h
-    Timeline/qdoublespinboxsmart.h
-    Timeline/qframebuttons.h
-    Timeline/qframeselector.h
-    Timeline/qframetimescale.h
-    Timeline/qlabelslider.h
-    Timeline/qscrollarearuler.h
-    Timeline/qspinboxsmart.h
-    Timeline/qtoolbuttonplaypause.h
-    Timeline/qwidgetruler.h
-    Timeline/Session.h
+    Timeline/TimelineFrameSelector.h
+    Timeline/TimelineTimeScale.h
+    Timeline/TimelineSlider.h
+    Timeline/TimelineScrollArea.h
     Timeline/Timeline.h
     TimerData/FrameTimerData.hpp
     TransformEditor/TransformEditor.hpp
@@ -73,6 +63,7 @@ set( guibase_inlines
 )
 
 set( guibase_uis
+    Timeline/HelpDialog.ui
     Timeline/Timeline.ui
     )
 
