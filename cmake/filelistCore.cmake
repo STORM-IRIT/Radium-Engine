@@ -1,5 +1,5 @@
+
 set( core_sources
-    Animation/Animation.cpp
     Animation/BulgeCorrection.cpp
     Animation/Cage.cpp
     Animation/DualQuaternionSkinning.cpp
@@ -44,21 +44,14 @@ set( core_sources
 )
 
 set( core_headers
-    Animation/Animation.hpp
-    Animation/AnimationTime.hpp
     Animation/BulgeCorrection.hpp
     Animation/Cage.hpp
     Animation/DualQuaternionSkinning.hpp
     Animation/HandleArray.hpp
     Animation/HandleWeight.hpp
     Animation/HandleWeightOperation.hpp
-    Animation/Interpolation.hpp
-    Animation/KeyFrame.hpp
-    Animation/KeyPose.hpp
-    Animation/KeyRotation.hpp
-    Animation/KeyScaling.hpp
-    Animation/KeyTransform.hpp
-    Animation/KeyTranslation.hpp
+    Animation/KeyFramedValue.hpp
+    Animation/KeyFramedValueInterpolators.hpp
     Animation/LinearBlendSkinning.hpp
     Animation/Pose.hpp
     Animation/PoseOperation.hpp
@@ -68,6 +61,7 @@ set( core_headers
     Animation/SkinningData.hpp
     Animation/StretchableTwistableBoneSkinning.hpp
     Asset/AnimationData.hpp
+    Asset/AnimationTime.hpp
     Asset/AssetData.hpp
     Asset/BlinnPhongMaterialData.hpp
     Asset/CameraData.hpp
@@ -115,6 +109,7 @@ set( core_headers
     Geometry/Volume.hpp
     Math/DualQuaternion.hpp
     Math/GlmAdapters.hpp
+    Math/Interpolation.hpp
     Math/LinearAlgebra.hpp
     Math/Math.hpp
     Math/Quadric.hpp
