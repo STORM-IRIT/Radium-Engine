@@ -7,6 +7,9 @@ namespace Ra {
 namespace Engine {
 /// Structure passed to each system before they fill the task queue.
 struct RA_ENGINE_API FrameInfo {
+    /// The current animation time.
+    Scalar m_animationTime{0};
+
     /// Time elapsed since the last frame in seconds.
     Scalar m_dt{0};
 
