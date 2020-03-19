@@ -66,7 +66,8 @@ class TimelineFrameSelector : public QFrame
      * Set the current time of the Timeline's playzone to the given time.
      * \param time the new current time.
      * \param internal whether the call has been made internally by the Timeline,
-     *        e.g. through the UI; or externally through Timeline::onChangeEnd().
+     *        e.g. through the UI; or externally through Timeline::onChangeEnd()
+     *        or through the KeyFrameEditor.
      * \note If \p internal is set to true, the signal cursorChanged() will be
      *       emitted.
      */
@@ -78,7 +79,7 @@ class TimelineFrameSelector : public QFrame
      * \param time the time to add a KeyFrame at.
      * \param internal whether the call has been made internally by the Timeline,
      *        e.g. through the UI; or externally, e.g. by setting Keyrames in the
-     *        Timeline.
+     *        Timeline or by the KeyFrame editor.
      * \note If \p time is set to its default value, then it is considered as
      *       the current time.
      * \note If there already is a KeyFrame at time \p time, then it will be
@@ -94,7 +95,8 @@ class TimelineFrameSelector : public QFrame
     /**
      * Removes the KeyFrame at the current time, if any.
      * \param internal whether the call has been made internally by the Timeline,
-     *        e.g. through the UI; or externally.
+     *        e.g. through the UI; or externally, e.g. by removing KeyFrames in
+     *        the KeyFrame editor.
      * \note If \p internal is set to true, the signal keyFrameDeleted() will be
      *       emitted if a KeyFrame has been effectively removed.
      */
@@ -105,7 +107,8 @@ class TimelineFrameSelector : public QFrame
      * \param time0 the time to remove the KeyFrame at.
      * \param time1 the time to add the KeyFrame at.
      * \param internal whether the call has been made internally by the Timeline,
-     *        e.g. through the UI; or externally.
+     *        e.g. through the UI; or externally, e.g. by moving KeyFrames in the
+     *        KeyFrame editor.
      * \note If \p time0 == \p time1, does nothing.
      * \note If \p internal is set to true, the signal keyFrameMoved() will be
      *       emitted if the KeyFrame has been effectively moved.
@@ -117,7 +120,8 @@ class TimelineFrameSelector : public QFrame
      * \param time the time from which to offset KeyFrames.
      * \param offset the offset to offset KeyFrames of.
      * \param internal whether the call has been made internally by the Timeline,
-     *        e.g. through the UI; or externally    .
+     *        e.g. through the UI; or externally, e.g. by moving KeyFrames in the
+     *        KeyFrame editor.
      * \note If \p offset == 0, or \p time has no KeyFrame, does nothing.
      * \note If \p internal is set to true, the signal keyFramesMoved() will be
      *       emitted if the KeyFrames have been effectively moved.

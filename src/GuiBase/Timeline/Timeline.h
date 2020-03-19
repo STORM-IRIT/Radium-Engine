@@ -24,6 +24,8 @@ class Timeline;
 }
 
 namespace Ra::GuiBase {
+class KeyFrameEditor;
+
 /// The KeyFrameManipulator class provides a way to call callback functions on
 /// KeyFramedValues upon keyframe insertion, modification or a modification of
 /// the current time.
@@ -292,6 +294,9 @@ class RA_GUIBASE_API Timeline : public QDialog
   private:
     /// The Timeline UI.
     Ui::Timeline* ui;
+
+    /// The KeyFrame Editor.
+    KeyFrameEditor* m_keyFrameEditor{nullptr};
 
     /// The per-Entity keyframes.
     std::map<Ra::Engine::Entity*, std::vector<KeyFrameManipulator>> m_entityKeyFrames;
