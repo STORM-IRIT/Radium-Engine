@@ -5,10 +5,9 @@
 #include <string>
 #include <vector>
 
-#include <Eigen/Geometry>
-
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
 
 #include <Core/Asset/AssetData.hpp>
@@ -20,22 +19,21 @@ namespace Asset {
 
 class MaterialData;
 
-/// The GeometryData class stores all the geometry related data of a loaded object.
+/**
+ * The GeometryData class stores all the geometry related data of a loaded object.
+ */
 class RA_CORE_API GeometryData : public AssetData
 {
 
   public:
     using ColorArray = Vector4Array;
-    using Transform  = Eigen::Transform<Scalar, 3, Eigen::Affine>;
-
-    using Weight        = std::pair<Scalar, uint>;
-    using VertexWeights = std::vector<Weight>;
-    using WeightArray   = std::vector<VertexWeights>;
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    /// The type of geometry.
+    /**
+     * The type of geometry.
+     */
     enum GeometryType {
         UNKNOWN     = 1 << 0,
         POINT_CLOUD = 1 << 1,
@@ -53,8 +51,9 @@ class RA_CORE_API GeometryData : public AssetData
 
     ~GeometryData();
 
-    /// @name Data access
-    ///@{
+    /// \name Data access
+    /// \{
+
     /// Return the name of the object.
     inline void setName( const std::string& name );
 
@@ -181,28 +180,16 @@ class RA_CORE_API GeometryData : public AssetData
     template <typename Container>
     inline void setColors( const Container& colorList );
 
-    /// Return the list of per-vertex skinning weights.
-    /// \note Those weights are related to the animation skeleton stored in the file.
-    inline WeightArray& getWeights();
-
-    /// Return the list of per-vertex skinning weights.
-    /// \note Those weights are related to the animation skeleton stored in the file.
-    inline const WeightArray& getWeights() const;
-
-    /// Set per-vertex skinning weights.
-    /// \note Those weights must be related to the animation skeleton stored in the file.
-    /// \note In-place setting with getWeights() is preferred.
-    inline void setWeights( const WeightArray& weightList );
-
     /// Return the MaterialData associated to the objet.
     inline const MaterialData& getMaterial() const;
 
     /// Set the MaterialData for the object.
     inline void setMaterial( MaterialData* material );
-    ///@}
+    /// \}
 
     /// \name Status queries
-    ///@{
+    /// \{
+
     /// Return true if the object is a Point Cloud.
     inline bool isPointCloud() const;
 
@@ -252,12 +239,9 @@ class RA_CORE_API GeometryData : public AssetData
     /// Return true if the object has vertex colors.
     inline bool hasColors() const;
 
-    /// Return true if the object has per-vertex skinning weights.
-    inline bool hasWeights() const;
-
     /// Return true if the object has MaterialData.
     inline bool hasMaterial() const;
-    ///@}
+    /// \}
 
     /// Print stast info to the Debug output.
     void displayInfo() const;
@@ -295,9 +279,6 @@ class RA_CORE_API GeometryData : public AssetData
 
     /// The list of vertex colors.
     ColorArray m_color;
-
-    /// The list of per-vertex skinning weights.
-    WeightArray m_weights;
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
