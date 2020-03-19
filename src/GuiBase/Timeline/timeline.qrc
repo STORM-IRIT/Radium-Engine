@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/leftSlider.png</file>
+        <file>images/rightSlider.png</file>
+        <file>images/key.png</file>
+        <file>images/end.png</file>
+        <file>images/forward.png</file>
+        <file>images/pause.png</file>
+        <file>images/play.png</file>
+        <file>images/rearward.png</file>
+        <file>images/start.png</file>
+        <file>images/plus.png</file>
+        <file>images/less.png</file>
+        <file>images/deleteKey.png</file>
+        <file>images/help.png</file>
+    </qresource>
+</RCC>
