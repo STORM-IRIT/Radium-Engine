@@ -25,6 +25,7 @@ class Timeline;
 }
 
 namespace Ra::GuiBase {
+class KeyFrameEditor;
 
 /*!
  * \brief The Timeline class provides display and management of time, as well as
@@ -256,6 +257,9 @@ class RA_GUIBASE_API Timeline : public QDialog
   private:
     /// The Timeline UI.
     Ui::Timeline* ui;
+
+    /// The KeyFrame Editor.
+    KeyFrameEditor* m_keyFrameEditor{nullptr};
 
     /// The per-Entity keyframes.
     std::map<Ra::Engine::Entity*, std::vector<Ra::Core::Animation::KeyFramedValueController>>
