@@ -42,7 +42,6 @@ set( engine_sources
     Renderer/Texture/TextureManager.cpp
     System/GeometrySystem.cpp
     System/System.cpp
-    System/TimedSystem.cpp
 )
 
 set( engine_headers
@@ -98,7 +97,6 @@ set( engine_headers
     System/CouplingSystem.hpp
     System/GeometrySystem.hpp
     System/System.hpp
-    System/TimedSystem.hpp
 )
 
 set( engine_inlines
