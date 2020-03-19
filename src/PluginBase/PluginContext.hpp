@@ -9,7 +9,8 @@ class RadiumEngine;
 }
 namespace GuiBase {
 class SelectionManager;
-}
+class Timeline;
+} // namespace GuiBase
 namespace Gui {
 class PickingManager;
 class Viewer;
@@ -25,11 +26,12 @@ class RA_PLUGINBASE_API Context : public QObject
   public:
     explicit Context( QObject* parent = nullptr ) : QObject( parent ) {}
 
-    Engine::RadiumEngine* m_engine {nullptr};
-    GuiBase::SelectionManager* m_selectionManager {nullptr};
-    Gui::PickingManager* m_pickingManager {nullptr};
-    Gui::Viewer* m_viewer {nullptr};
-    std::string m_exportDir {"."};
+    Engine::RadiumEngine* m_engine{nullptr};
+    GuiBase::SelectionManager* m_selectionManager{nullptr};
+    GuiBase::Timeline* m_timeline{nullptr};
+    Gui::PickingManager* m_pickingManager{nullptr};
+    Gui::Viewer* m_viewer{nullptr};
+    std::string m_exportDir{"."};
 
   signals:
     /*!
