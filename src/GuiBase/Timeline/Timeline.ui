@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>145</height>
+    <width>943</width>
+    <height>120</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,13 +22,13 @@
   <property name="minimumSize">
    <size>
     <width>650</width>
-    <height>145</height>
+    <height>120</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>16777215</width>
-    <height>16777215</height>
+    <height>120</height>
    </size>
   </property>
   <property name="sizeIncrement">
@@ -63,7 +63,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="Ra::GuiBase::QFrameButtons" name="frame_buttons">
+    <widget class="QFrame" name="frame_buttons">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -105,7 +105,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="Ra::GuiBase::QDoubleSpinBoxSmart" name="doubleSpinBox_start">
+       <widget class="QDoubleSpinBox" name="m_startSpin">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -120,7 +120,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>80</width>
+          <width>100</width>
           <height>20</height>
          </size>
         </property>
@@ -173,7 +173,78 @@
        </spacer>
       </item>
       <item>
-       <widget class="Ra::GuiBase::QDoubleSpinBoxSmart" name="doubleSpinBox_end">
+       <widget class="QDoubleSpinBox" name="m_cursorSpin">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Postition of cursor&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #5555ff</string>
+        </property>
+        <property name="wrapping">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="prefix">
+         <string/>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>999.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>5.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>3</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="m_endSpin">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -188,7 +259,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>80</width>
+          <width>100</width>
           <height>20</height>
          </size>
         </property>
@@ -216,309 +287,23 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="Ra::GuiBase::QDoubleSpinBoxSmart" name="doubleSpinBox_cursor">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>85</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Postition of cursor&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: #5555ff</string>
-        </property>
-        <property name="wrapping">
-         <bool>false</bool>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::NoButtons</enum>
-        </property>
-        <property name="prefix">
-         <string/>
-        </property>
-        <property name="decimals">
-         <number>2</number>
-        </property>
-        <property name="maximum">
-         <double>999.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>1.000000000000000</double>
-        </property>
-        <property name="value">
-         <double>5.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeType">
-         <enum>QSizePolicy::Expanding</enum>
+         <enum>QSizePolicy::Minimum</enum>
         </property>
         <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QToolButton" name="toolButton_keyPose">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>18</width>
-          <height>18</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#ffffff;&quot;&gt;Insert/replace key pose on cursor&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:black;</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="timeline.qrc">
-          <normaloff>:/images/key.png</normaloff>:/images/key.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>15</width>
-          <height>15</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="Ra::GuiBase::QSpinBoxSmart" name="spinBox_nbKeyPoses">
-        <property name="maximumSize">
-         <size>
-          <width>35</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Numbers of keyPoses&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border:white;</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::NoButtons</enum>
-        </property>
-        <property name="maximum">
-         <number>999</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="toolButton_deleteKeyPose">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="maximumSize">
          <size>
           <width>20</width>
           <height>20</height>
          </size>
         </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Delete keyPose on cursor&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="timeline.qrc">
-          <normaloff>:/images/deleteKey.png</normaloff>:/images/deleteKey.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
        </spacer>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton_start">
-        <property name="maximumSize">
-         <size>
-          <width>18</width>
-          <height>18</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to the start&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="timeline.qrc">
-          <normaloff>:/images/start.png</normaloff>:/images/start.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="toolButton_rearward">
-        <property name="maximumSize">
-         <size>
-          <width>18</width>
-          <height>18</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to previous keyPose&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="timeline.qrc">
-          <normaloff>:/images/rearward.png</normaloff>:/images/rearward.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="Ra::GuiBase::QToolButtonPlayPause" name="toolButton_playPause">
-        <property name="maximumSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Play/pause animation&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="timeline.qrc">
-          <normaloff>:/images/play.png</normaloff>:/images/play.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="toolButton_forward">
-        <property name="maximumSize">
-         <size>
-          <width>18</width>
-          <height>18</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to next keyPose&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="timeline.qrc">
-          <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="toolButton_end">
-        <property name="maximumSize">
-         <size>
-          <width>18</width>
-          <height>18</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to the end&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="timeline.qrc">
-          <normaloff>:/images/end.png</normaloff>:/images/end.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="Ra::GuiBase::QDoubleSpinBoxSmart" name="doubleSpinBox_maxDuration">
+       <widget class="QDoubleSpinBox" name="m_durationSpin">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -555,6 +340,317 @@
        </widget>
       </item>
       <item>
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_start">
+        <property name="maximumSize">
+         <size>
+          <width>18</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to the start&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/start.png</normaloff>:/images/start.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_rearward">
+        <property name="maximumSize">
+         <size>
+          <width>18</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to previous KeyFrame&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/rearward.png</normaloff>:/images/rearward.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_playPause">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>18</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="focusPolicy">
+         <enum>Qt::TabFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Play/pause animation&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/play.png</normaloff>
+          <normalon>:/images/pause.png</normalon>:/images/play.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_forward">
+        <property name="maximumSize">
+         <size>
+          <width>18</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to next KeyFrame&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/forward.png</normaloff>:/images/forward.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_end">
+        <property name="maximumSize">
+         <size>
+          <width>18</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Set cursor to the end&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/end.png</normaloff>:/images/end.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_9">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pingPong">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/loop.png</normaloff>
+          <normalon>:/images/pingpong.png</normalon>:/images/loop.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>0</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBox_attribute">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_keyFrame">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>18</width>
+          <height>18</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#ffffff;&quot;&gt;Insert/replace KeyFrame on cursor&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:black;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/key.png</normaloff>:/images/key.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>15</width>
+          <height>15</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="m_nbKeyFramesSpin">
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Numbers of KeyFrames</string>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="m_removeKeyFrameButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Delete KeyFrame on cursor&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="timeline.qrc">
+          <normaloff>:/images/deleteKey.png</normaloff>:/images/deleteKey.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_10">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_editAttribute">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Edit</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer_7">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -576,7 +672,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;List of keybindings&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600; font-style:italic;&quot;&gt;* KeyPose :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff5500;&quot;&gt;Next / Previous :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;left/right&amp;gt;&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;shift&amp;gt;+&amp;lt;wheelMouse&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : set cursor to next / previous keyPose&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;wheelMouse&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(over keyPose numbering spinBox)&lt;/span&gt; : idem&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff5500;&quot;&gt;Insert / Replace :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;i&amp;gt;&lt;/span&gt; : insert/replace keyPose on cursor&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff5500;&quot;&gt;Delete :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;shift&amp;gt;+&amp;lt;i&amp;gt; &lt;/span&gt;or &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;del&amp;gt;&lt;/span&gt; : delete current keyPose&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;shift&amp;gt;+&amp;lt;leftClick&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : remove keyPoses between cursor and mouse&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; color:#ff5500;&quot;&gt;Move :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#ff5500;&quot;&gt;cursor already on keyPose :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;rightClick&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : move current keyPose on mouse and slide its right brothers (right brothers : all keyPoses on the right of current keyPose)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;shift&amp;gt;+&amp;lt;rightClick&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : move current keyPose on mouse click&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; color:#ff5500;&quot;&gt;cursor not on keyPose :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;rightClick&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : move first keyPose on the left of mouse on mouse and slide its right brothers&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;shift&amp;gt;+&amp;lt;rightClick&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : move first keyPose on the right of mouse on mouse and slide its right brothers&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600; font-style:italic;&quot;&gt;* Cursor :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;leftClick&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : move cursor and update renderer&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;ctrl&amp;gt;+&amp;lt;leftClick&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : move cursor without renderer update (need to create multiple keyPose of same skeleton, avoid auto interpolate)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600; font-style:italic;&quot;&gt;* Ruler :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;wheeMouse&amp;gt; &lt;/span&gt;&lt;span style=&quot; color:#aa00ff;&quot;&gt;(on ruler)&lt;/span&gt; : zoom in/out (&lt;span style=&quot; color:#00aa00;&quot;&gt;speed of zoom can be changed, see configuration.h&lt;/span&gt;)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;ctrl&amp;gt;+&amp;lt;wheelMouse&amp;gt;&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;hold middleClick&amp;gt;+&amp;lt;mouseMove&amp;gt;&lt;/span&gt; (&lt;span style=&quot; color:#aa00ff;&quot;&gt;on ruler&lt;/span&gt;) : slide left/right ruler (&lt;span style=&quot; color:#00aa00;&quot;&gt;slide speed can be changed, see configuration.h&lt;/span&gt;)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;shift&amp;gt;+&amp;lt;ctrl&amp;gt;+&amp;lt;wheelMouse&amp;gt;&lt;/span&gt; : increase/decrease size of timeline (width of dialog timeline)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600; font-style:italic;&quot;&gt;* Others :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;space&amp;gt;&lt;/span&gt; : set play/pause mode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;u&amp;gt;&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;ctrl&amp;gt;+&amp;lt;z&amp;gt;&lt;/span&gt; : undo&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;r&amp;gt;&lt;/span&gt; or &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;lt;shift&amp;gt;+&amp;lt;ctrl&amp;gt;+&amp;lt;z&amp;gt;&lt;/span&gt; : redo&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Display Help</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background: lightgray;</string>
@@ -594,12 +690,18 @@
     </widget>
    </item>
    <item>
-    <widget class="Ra::GuiBase::QScrollAreaRuler" name="scrollArea">
+    <widget class="Ra::GuiBase::TimelineScrollArea" name="m_scrollArea">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>85</height>
+      </size>
      </property>
      <property name="tabletTracking">
       <bool>false</bool>
@@ -622,13 +724,13 @@
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
-     <widget class="Ra::GuiBase::QWidgetRuler" name="scrollAreaWidgetContents">
+     <widget class="QWidget" name="scrollAreaWidgetContents">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>648</width>
-        <height>105</height>
+        <width>941</width>
+        <height>69</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -678,7 +780,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="Ra::GuiBase::QFrameSelector" name="frame_selector">
+        <widget class="Ra::GuiBase::TimelineFrameSelector" name="frame_selector">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -729,7 +831,7 @@
            <number>1</number>
           </property>
           <item>
-           <widget class="QFrame" name="frame_spacer">
+           <widget class="QFrame" name="m_leftSpacer">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -740,6 +842,12 @@
              <size>
               <width>50</width>
               <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
              </size>
             </property>
             <property name="styleSheet">
@@ -755,7 +863,7 @@
            </widget>
           </item>
           <item>
-           <widget class="Ra::GuiBase::QLabelSlider" name="label_leftSlider">
+           <widget class="Ra::GuiBase::TimelineSlider" name="m_leftSlider">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -765,6 +873,12 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
               <height>50</height>
              </size>
             </property>
@@ -783,7 +897,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="frame_playZone">
+           <widget class="QFrame" name="m_playZone">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -794,6 +908,12 @@
              <size>
               <width>400</width>
               <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
              </size>
             </property>
             <property name="styleSheet">
@@ -812,7 +932,7 @@ border: 0px;</string>
            </widget>
           </item>
           <item>
-           <widget class="Ra::GuiBase::QLabelSlider" name="label_rightSlider">
+           <widget class="Ra::GuiBase::TimelineSlider" name="m_rightSlider">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -822,7 +942,13 @@ border: 0px;</string>
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>86</height>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
              </size>
             </property>
             <property name="cursor">
@@ -869,6 +995,12 @@ border: 0px;</string>
               <height>0</height>
              </size>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgba(0, 0, 255, 0);</string>
             </property>
@@ -901,7 +1033,7 @@ border: 0px;</string>
         </widget>
        </item>
        <item>
-        <widget class="Ra::GuiBase::QFrameTimescale" name="frame_timescale">
+        <widget class="Ra::GuiBase::TimelineTimeScale" name="frame_timescale">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -921,7 +1053,7 @@ border: 0px;</string>
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+          <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
@@ -936,112 +1068,77 @@ border: 0px;</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Ra::GuiBase::QFrameSelector</class>
+   <class>Ra::GuiBase::TimelineTimeScale</class>
    <extends>QFrame</extends>
-   <header>GuiBase/Timeline/qframeselector.h</header>
+   <header>GuiBase/Timeline/TimelineTimeScale.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Ra::GuiBase::TimelineFrameSelector</class>
+   <extends>QFrame</extends>
+   <header>GuiBase/Timeline/TimelineFrameSelector.h</header>
    <container>1</container>
    <slots>
     <signal>updatePlayZone(int)</signal>
     <signal>changeStart(double)</signal>
     <signal>changeCursor(double)</signal>
     <signal>changeEnd(double)</signal>
-    <signal>changeNbKeyPoses(int)</signal>
+    <signal>changeNbKeyFrames(int)</signal>
     <signal>changePauseMode()</signal>
-    <signal>isOnKeyPose(bool)</signal>
+    <signal>isOnKeyFrame(bool)</signal>
     <signal>changeCursor(double,bool)</signal>
     <signal>signal1()</signal>
     <signal>startChanged(double)</signal>
     <signal>endChanged(double)</signal>
-    <signal>nbKeyPosesChanged(int)</signal>
+    <signal>nbKeyFramesChanged(int)</signal>
     <slot>onSlideLeftSlider(int)</slot>
     <slot>onSlideRightSlider(int)</slot>
     <slot>onSlideRelease()</slot>
-    <slot>onAddKeyPose()</slot>
+    <slot>onAddKeyFrame()</slot>
     <slot>onPlay()</slot>
     <slot>onPause()</slot>
     <slot>onChangeStart()</slot>
     <slot>onChangeEnd()</slot>
     <slot>onSetCursorToStart()</slot>
     <slot>onSetCursorToEnd()</slot>
-    <slot>onSetCursorToPreviousKeyPose()</slot>
-    <slot>onSetCursorToNextKeyPose()</slot>
+    <slot>onSetCursorToPreviousKeyFrame()</slot>
+    <slot>onSetCursorToNextKeyFrame()</slot>
     <slot>onChangeStartSpin()</slot>
     <slot>onChangeCursorSpin()</slot>
     <slot>onChangeEndSpin()</slot>
-    <slot>onAddingKeyPose()</slot>
-    <slot>onAddingKeyPose(double)</slot>
-    <slot>onDeleteKeyPose()</slot>
+    <slot>onAddingKeyFrame()</slot>
+    <slot>onAddingKeyFrame(double)</slot>
+    <slot>onDeleteKeyFrame()</slot>
     <slot>onStartIncPlus()</slot>
     <slot>onStartIncLess()</slot>
     <slot>onEndIncPlus()</slot>
     <slot>onEndIncLess()</slot>
     <slot>onChangeDuration()</slot>
-    <slot>onAddingKeyPose(double,bool)</slot>
+    <slot>onAddingKeyFrame(double,bool)</slot>
    </slots>
   </customwidget>
   <customwidget>
-   <class>Ra::GuiBase::QWidgetRuler</class>
-   <extends>QWidget</extends>
-   <header>GuiBase/Timeline/qwidgetruler.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Ra::GuiBase::QScrollAreaRuler</class>
-   <extends>QScrollArea</extends>
-   <header>GuiBase/Timeline/qscrollarearuler.h</header>
-   <container>1</container>
-   <slots>
-    <signal>addKeyPose()</signal>
-    <signal>removeKeyPose()</signal>
-    <signal>adKeyPose(double,bool)</signal>
-    <signal>nextKeyPose()</signal>
-    <signal>previousKeyPose()</signal>
-    <slot>onPlayPause()</slot>
-   </slots>
-  </customwidget>
-  <customwidget>
-   <class>Ra::GuiBase::QFrameTimescale</class>
-   <extends>QFrame</extends>
-   <header>GuiBase/Timeline/qframetimescale.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Ra::GuiBase::QLabelSlider</class>
+   <class>Ra::GuiBase::TimelineSlider</class>
    <extends>QLabel</extends>
-   <header>GuiBase/Timeline/qlabelslider.h</header>
+   <header>GuiBase/Timeline/TimelineSlider.h</header>
    <slots>
     <signal>slide(int)</signal>
     <signal>slideRelease()</signal>
    </slots>
   </customwidget>
   <customwidget>
-   <class>Ra::GuiBase::QToolButtonPlayPause</class>
-   <extends>QToolButton</extends>
-   <header>GuiBase/Timeline/qtoolbuttonplaypause.h</header>
-   <slots>
-    <signal>playClicked()</signal>
-    <signal>pauseClicked()</signal>
-    <slot>onPauseMode()</slot>
-   </slots>
-  </customwidget>
-  <customwidget>
-   <class>Ra::GuiBase::QFrameButtons</class>
-   <extends>QFrame</extends>
-   <header>GuiBase/Timeline/qframebuttons.h</header>
+   <class>Ra::GuiBase::TimelineScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header>GuiBase/Timeline/TimelineScrollArea.h</header>
    <container>1</container>
    <slots>
-    <slot>helpClicked()</slot>
+    <signal>addKeyFrame()</signal>
+    <signal>removeKeyFrame()</signal>
+    <signal>adKeyFrame(double,bool)</signal>
+    <signal>nextKeyFrame()</signal>
+    <signal>previousKeyFrame()</signal>
+    <slot>onPlayPause()</slot>
    </slots>
-  </customwidget>
-  <customwidget>
-   <class>Ra::GuiBase::QDoubleSpinBoxSmart</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>GuiBase/Timeline/qdoublespinboxsmart.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Ra::GuiBase::QSpinBoxSmart</class>
-   <extends>QSpinBox</extends>
-   <header>GuiBase/Timeline/qspinboxsmart.h</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -1051,7 +1148,7 @@ border: 0px;</string>
  <slots>
   <signal>render(double)</signal>
   <slot>onCursorChanged(double)</slot>
-  <slot>onKeyPose(bool)</slot>
+  <slot>onKeyFrame(bool)</slot>
   <slot>onCursorChanged(double,bool)</slot>
  </slots>
 </ui>
