@@ -114,7 +114,16 @@ void RadiumEngine::endFrameSync() {
 
 void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     static uint frameCounter = 0;
-    FrameInfo frameInfo{dt, frameCounter++};
+
+    if ( m_timeData.m_play || m_timeData.m_singleStep )
+    {
+        m_timeData.m_time += m_timeData.m_realTime ? dt : m_timeData.m_dt;
+        m_timeData.updateTime();
+        m_timeData.m_singleStep = false;
+    }
+
+    FrameInfo frameInfo{
+        m_timeData.m_time, m_timeData.m_realTime ? dt : m_timeData.m_dt, frameCounter++};
     for ( auto& syst : m_systems )
     {
         syst.second->generateTasks( taskQueue, frameInfo );
@@ -294,7 +303,7 @@ void RadiumEngine::pushFboAndViewport() {
     // save the currently bound FBO
     GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &activeFbo ) );
     // Set the internal rendering viewport
-    m_fboAndViewportStack.emplace( activeFbo, std::move(activeViewport) );
+    m_fboAndViewportStack.emplace( activeFbo, std::move( activeViewport ) );
 }
 
 void RadiumEngine::popFboAndViewport() {
@@ -307,6 +316,90 @@ void RadiumEngine::popFboAndViewport() {
         glViewport( b.m_viewport[0], b.m_viewport[1], b.m_viewport[2], b.m_viewport[3] );
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, b.m_fbo ) );
         m_fboAndViewportStack.pop();
+    }
+}
+
+void RadiumEngine::setRealTime( bool realTime ) {
+    m_timeData.m_realTime = realTime;
+}
+
+bool RadiumEngine::isRealTime() const {
+    return m_timeData.m_realTime;
+}
+
+bool RadiumEngine::isConstantTime() const {
+    return !m_timeData.m_realTime;
+}
+
+bool RadiumEngine::setConstantTimeStep( Scalar dt, bool forceConstantTime ) {
+    m_timeData.m_dt = dt;
+    if ( forceConstantTime ) { setRealTime( false ); }
+    return !m_timeData.m_realTime;
+}
+
+void RadiumEngine::play( bool isPlaying ) {
+    m_timeData.m_play = isPlaying;
+}
+
+void RadiumEngine::step() {
+    m_timeData.m_singleStep = true;
+}
+
+void RadiumEngine::reset() {
+    m_timeData.m_play       = false;
+    m_timeData.m_singleStep = false;
+    m_timeData.m_time       = m_timeData.m_startTime;
+}
+
+void RadiumEngine::setStartTime( Scalar t ) {
+    m_timeData.m_startTime = std::max( t, 0_ra );
+}
+
+Scalar RadiumEngine::getStartTime() const {
+    return m_timeData.m_startTime;
+}
+
+void RadiumEngine::setEndTime( Scalar t ) {
+    m_timeData.m_endTime = t;
+}
+
+Scalar RadiumEngine::getEndTime() const {
+    return m_timeData.m_endTime;
+}
+
+void RadiumEngine::setPingPongMode( bool mode ) {
+    m_timeData.m_pingPongMode = mode;
+}
+
+Scalar RadiumEngine::getTime() const {
+    return m_timeData.m_time;
+}
+
+uint RadiumEngine::getFrame() const {
+    return uint( std::ceil( m_timeData.m_time / m_timeData.m_dt ) );
+}
+
+void RadiumEngine::TimeData::updateTime() {
+    if ( m_time < m_startTime )
+    {
+        // reset
+        m_time = m_startTime;
+    }
+    if ( m_endTime < 0 )
+    {
+        // just run
+        return;
+    }
+    if ( ( !m_pingPongMode && m_time > m_endTime ) ||
+         ( m_pingPongMode && m_time > 2 * m_endTime - m_startTime ) )
+    {
+        // loop around
+        m_time = m_startTime + m_time - m_endTime;
+    }
+    if ( m_pingPongMode && m_time > m_endTime )
+    {
+        // ping pong
+        m_time = 2 * m_endTime - m_time;
     }
 }
 

@@ -50,6 +50,8 @@ static const bool expectPluginsDebug = true;
 #else
 static const bool expectPluginsDebug = false;
 #endif
+// the default priority for systems created here.
+constexpr int defaultSystemPriority = 1000;
 
 BaseApplication::BaseApplication( int& argc,
                                   char** argv,
@@ -215,6 +217,13 @@ BaseApplication::BaseApplication( int& argc,
     m_engine->initialize();
     addBasicShaders();
 
+    // Register the GeometrySystem converting loaded assets to meshes
+    m_engine->registerSystem(
+        "GeometrySystem", new Ra::Engine::GeometrySystem, defaultSystemPriority );
+    // Register the TimeSystem managing time dependant systems
+    Scalar dt = ( m_targetFPS == 0 ? 1_ra / 60_ra : 1_ra / m_targetFPS );
+    m_engine->setConstantTimeStep( dt );
+
     // Create main window.
     m_mainWindow.reset( factory.createMainWindow() );
     m_mainWindow->show();
@@ -230,9 +239,6 @@ BaseApplication::BaseApplication( int& argc,
     // (thus the viewer should have initialized the OpenGL context..)
     createConnections();
     processEvents();
-
-    // Register the GeometrySystem converting loaded assets to meshes
-    m_engine->registerSystem( "GeometrySystem", new Ra::Engine::GeometrySystem, 1000 );
 
     // Initialize plugin context
     m_pluginContext.m_engine           = m_engine.get();
