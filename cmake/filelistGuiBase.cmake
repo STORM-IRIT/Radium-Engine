@@ -1,6 +1,17 @@
 set( guibase_sources
     BaseApplication.cpp
     SelectionManager/SelectionManager.cpp
+    Timeline/qdoublespinboxsmart.cpp
+    Timeline/qframebuttons.cpp
+    Timeline/qframeselector.cpp
+    Timeline/qframetimescale.cpp
+    Timeline/qlabelslider.cpp
+    Timeline/qscrollarearuler.cpp
+    Timeline/qspinboxsmart.cpp
+    Timeline/qtoolbuttonplaypause.cpp
+    Timeline/qwidgetruler.cpp
+    Timeline/Session.cpp
+    Timeline/Timeline.cpp
     TimerData/FrameTimerData.cpp
     TransformEditor/TransformEditor.cpp
     TreeModel/EntityTreeModel.cpp
@@ -25,6 +36,18 @@ set( guibase_headers
     MainWindowInterface.hpp
     RaGuiBase.hpp
     SelectionManager/SelectionManager.hpp
+    Timeline/Configurations.h
+    Timeline/qdoublespinboxsmart.h
+    Timeline/qframebuttons.h
+    Timeline/qframeselector.h
+    Timeline/qframetimescale.h
+    Timeline/qlabelslider.h
+    Timeline/qscrollarearuler.h
+    Timeline/qspinboxsmart.h
+    Timeline/qtoolbuttonplaypause.h
+    Timeline/qwidgetruler.h
+    Timeline/Session.h
+    Timeline/Timeline.h
     TimerData/FrameTimerData.hpp
     TransformEditor/TransformEditor.hpp
     TreeModel/EntityTreeModel.hpp
@@ -48,3 +71,12 @@ set( guibase_headers
 set( guibase_inlines
    
 )
+
+set( guibase_uis
+    Timeline/Timeline.ui
+    )
+
+set( guibase_resources
+    Timeline/timeline.qrc
+    )
+

@@ -243,6 +243,7 @@ BaseApplication::BaseApplication( int& argc,
     // Initialize plugin context
     m_pluginContext.m_engine           = m_engine.get();
     m_pluginContext.m_selectionManager = m_mainWindow->getSelectionManager();
+    m_pluginContext.m_timeline         = m_mainWindow->getTimeline();
     m_pluginContext.m_pickingManager   = m_viewer->getPickingManager();
     m_pluginContext.m_viewer           = m_viewer;
     m_pluginContext.m_exportDir        = m_exportFoldername;
