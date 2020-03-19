@@ -18,7 +18,7 @@ inline void GeometryData::setType( const GeometryType& type ) {
     m_type = type;
 }
 
-inline GeometryData::Transform GeometryData::getFrame() const {
+inline Transform GeometryData::getFrame() const {
     return m_frame;
 }
 
@@ -160,18 +160,6 @@ inline void GeometryData::setColors( const Container& colorList ) {
     internal::copyData( colorList, m_color );
 }
 
-inline GeometryData::WeightArray& GeometryData::getWeights() {
-    return m_weights;
-}
-
-inline const GeometryData::WeightArray& GeometryData::getWeights() const {
-    return m_weights;
-}
-
-inline void GeometryData::setWeights( const WeightArray& weightList ) {
-    m_weights = weightList;
-}
-
 inline const MaterialData& GeometryData::getMaterial() const {
     return *( m_material.get() );
 }
@@ -242,10 +230,6 @@ inline bool GeometryData::hasTextureCoordinates() const {
 
 inline bool GeometryData::hasColors() const {
     return !m_color.empty();
-}
-
-inline bool GeometryData::hasWeights() const {
-    return !m_weights.empty();
 }
 
 inline bool GeometryData::hasMaterial() const {
