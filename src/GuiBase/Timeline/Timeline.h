@@ -8,10 +8,13 @@
  * current commit id : aaa363ee8ec0247e9299a8949e5bd334b10dc413
  */
 
-#ifndef RADIUMENGINE_TIMELINE_H_
-#define RADIUMENGINE_TIMELINE_H_
+#ifndef RADIUMENGINE_TIMELINE_H
+#define RADIUMENGINE_TIMELINE_H
 
-#include <GuiBase/Timeline/Session.h>
+#include <GuiBase/RaGuiBase.hpp>
+
+#include <Core/Animation/KeyFramedValue.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 
 #include <QDialog>
 #include <QObject>
@@ -21,178 +24,288 @@ class Timeline;
 }
 
 namespace Ra::GuiBase {
+/// The KeyFrameManipulator class provides a way to call callback functions on
+/// KeyFramedValues upon keyframe insertion, modification or a modification of
+/// the current time.
+class KeyFrameManipulator
+{
+  public:
+    using KeyFrame       = Ra::Core::Animation::KeyFramedValueBase;
+    using InsertCallback = std::function<void( const Scalar& /*t*/ )>;
+    using UpdateCallback = std::function<void( const Scalar& /*t*/ )>;
+
+    KeyFrameManipulator( KeyFrame* value         = nullptr,
+                         std::string&& name      = "__INVALID__",
+                         InsertCallback inserter = []( const Scalar& ) {},
+                         UpdateCallback updater  = []( const Scalar& ) {} ) :
+        m_value( value ),
+        m_name( std::move( name ) ),
+        m_inserter( inserter ),
+        m_updater( updater ) {}
+
+    void insertKeyFrame( Scalar t ) { m_inserter( t ); }
+
+    void updateKeyFrame( Scalar t ) { m_updater( t ); }
+
+    KeyFrame* m_value;
+    std::string m_name;
+    InsertCallback m_inserter;
+    UpdateCallback m_updater;
+};
 
 /*!
- * \brief The Timeline class is a minimal specification of timeline abilities
+ * \brief The Timeline class provides display and management of time, as well as
+ *        keyframes.
+ *
+ * The Timeline is to be linked to the TimeSystem in the RadiumEngine through
+ * the application's MainWindow.
+ *
+ * Doing so, time manipulations from the user can be done through the timeline,
+ * such as play, pause and reset animations or simulations, but also going to
+ * a given point in time.
+ *
+ * Regarding KeyFramedValues, the Timeline provides their edition / manipulation.
+ * To do so, KeyFramedValues must be registered into the Timeline, which can be
+ * done using the registerKeyFramedValue methods (see the related Documentation page ).
  */
-class Timeline : public QDialog
+class RA_GUIBASE_API Timeline : public QDialog
 {
     Q_OBJECT
 
   public:
     explicit Timeline( QWidget* parent = nullptr );
-    ~Timeline() override;
+    ~Timeline();
 
-  protected:
-    virtual void resizeEvent( QResizeEvent* ev ) override;
+  public:
+    /**
+     * Updates the keyframes display according to \p ent.
+     */
+    void selectionChanged( const Ra::Engine::ItemEntry& ent );
+
+    /**
+     * Registers \p value as a new KeyFramedValue for \p ent with the given name.
+     */
+    void
+    registerKeyFramedValue( Ra::Engine::Entity* ent,
+                            std::string&& name,
+                            Ra::Core::Animation::KeyFramedValueBase* value,
+                            KeyFrameManipulator::InsertCallback inserter = []( const Scalar& ) {},
+                            KeyFrameManipulator::UpdateCallback updater  = []( const Scalar& ) {} );
+
+    /**
+     * Unregisters the KeyFramedValue for \p ent with the given name.
+     */
+    void unregisterKeyFramedValue( Ra::Engine::Entity* ent, const std::string& name );
+
+    /**
+     * Registers \p value as a new KeyFramedValue for \p comp with the given name.
+     */
+    void
+    registerKeyFramedValue( Ra::Engine::Component* comp,
+                            std::string&& name,
+                            Ra::Core::Animation::KeyFramedValueBase* value,
+                            KeyFrameManipulator::InsertCallback inserter = []( const Scalar& ) {},
+                            KeyFrameManipulator::UpdateCallback updater  = []( const Scalar& ) {} );
+
+    /**
+     * Unregisters the KeyFramedValue for \p comp with the given name.
+     */
+    void unregisterKeyFramedValue( Ra::Engine::Component* comp, const std::string& name );
+
+    /**
+     * Registers \p value as a new KeyFramedValue for \p roIdx with the given name.
+     */
+    void
+    registerKeyFramedValue( Ra::Core::Utils::Index roIdx,
+                            std::string&& name,
+                            Ra::Core::Animation::KeyFramedValueBase* value,
+                            KeyFrameManipulator::InsertCallback inserter = []( const Scalar& ) {},
+                            KeyFrameManipulator::UpdateCallback updater  = []( const Scalar& ) {} );
+
+    /**
+     * Unregisters the KeyFramedValue for \p roIdx with the given name.
+     */
+    void unregisterKeyFramedValue( Ra::Core::Utils::Index roIdx, const std::string& name );
+
+    /**
+     * @returns the current time.
+     */
+    Scalar getTime() const;
 
   signals:
     /*!
      * \brief startChanged is emitted when user move left slider of playzone or set new value in
-     * start spin (green) \param time is the new start time for playzone
+     * start spin (green) \param time is the new start time for playzone.
      */
-    void startChanged( double time );
+    void startChanged( Scalar time );
+
     /*!
      * \brief endChanged is emitted when user move right slider of playzone or set new value in end
-     * spin (red) \param time is the new end time for playzone
+     * spin (red) \param time is the new end time for playzone.
      */
-    void endChanged( double time );
-    /*!
-     * \brief cursorChanged is emitted when user move cursor
-     * \param time is the new time of cursor to render in engine
-     */
-    void cursorChanged( double time );
-    /*!
-     * \brief durationChanged is emitted when user change duration time in top right spin
-     * \param time is the new time for animation
-     */
-    void durationChanged( double time );
+    void endChanged( Scalar time );
 
     /*!
-     * \brief keyPoseAdded is emitted when user add new keyPose
-     * \param time is the time of new keyPose, if a keyPose is already here so signal keyPoseChanged
-     * is called
+     * \brief cursorChanged is emitted when user move cursor.
+     * \param time is the new time of cursor to render in engine.
      */
-    void keyPoseAdded( double time );
-    /*!
-     * \brief keyPoseDeleted is emitted when user remove keyPose
-     * \param id is the ith keyPose to remove (chronological order)
-     */
-    void keyPoseDeleted( size_t id );
-    /*!
-     * \brief keyPoseChanged is emitted when user insert keyPose in a known keyPose position
-     * \param id is the ith keyPose to change
-     */
-    void keyPoseChanged( size_t id );
-    /*!
-     * \brief keyPoseMoved is emitted when user move keyPose on cursor to new position (on mouse)
-     * \param id is the ith keyPose to move
-     * \param time is the time of keyPose, move current keyPose in other keyPose is not possible
-     */
-    void keyPoseMoved( size_t id, double time );
-    /*!
-     * \brief keyPosesMoved is emitted when user move keyPoses
-     * \param gap is the sliding distance for moving
-     * \param first is the first keyPose to move with its right brothers
-     */
-    void keyPosesMoved( double gap, size_t first = 0 );
+    void cursorChanged( Scalar time );
 
     /*!
-     * \brief playClicked is emitted when user click on play button
+     * \brief durationChanged is emitted when user change duration time in top right spin.
+     * \param time is the new time for animation.
      */
-    void playClicked();
+    void durationChanged( Scalar time );
+
     /*!
-     * \brief pauseClicked is emitted when user click on pause button
+     * \brief playClicked is emitted when user click on play button.
      */
-    void pauseClicked();
+    void playClicked( bool play );
+
+    /*!
+     * \brief setPingPong is emitted when user click on PingPong button.
+     */
+    void setPingPong( bool );
+
+    /*!
+     * \brief keyFrameAdded is emitted when user add new keyFrame.
+     * \param time is the time of new keyFrame, if a keyFrame is already here so signal
+     * keyFrameChanged is called.
+     */
+    void keyFrameAdded( Scalar time );
+
+    /*!
+     * \brief keyFrameDeleted is emitted when user remove keyFrame.
+     * \param id is the ith keyFrame to remove (chronological order).
+     */
+    void keyFrameDeleted( Scalar time );
+
+    /*!
+     * \brief keyFrameChanged is emitted when user insert keyFrame in a known keyFrame position.
+     * \param id is the ith keyFrame to change.
+     */
+    void keyFrameChanged( Scalar time );
+
+    /*!
+     * \brief keyFrameMoved is emitted when user move the keyFrame on cursor to a new position (on
+     * mouse) \param time0 is the old time of the keyFrame. \param time1 is the new time of the
+     * keyFrame.
+     */
+    void keyFrameMoved( Scalar time0, Scalar time1 );
+
+    /*!
+     * \brief keyFramesMoved is emitted when user move keyFrames.
+     * \param time is the time of the first keyFrame to move.
+     * \param offset is sliding distance for moving.
+     */
+    void keyFramesMoved( Scalar time, Scalar offset );
 
   public slots:
     /*!
-     * \brief onChangeStart change start in timeline
-     * \param time is the new start
+     * \brief onChangeStart change start in timeline.
+     * \param time is the new start.
      */
-    virtual void onChangeStart( double time );
-    /*!
-     * \brief onChangeEnd change end in timeline
-     * \param time is the new end
-     */
-    virtual void onChangeEnd( double time );
-    /*!
-     * \brief onChangeCursor change cursor in timeline
-     * \param time is the new cursor
-     */
-    virtual void onChangeCursor( double time );
-    /*!
-     * \brief onChangeDuration change duration in timeline
-     * \param time is the new duration
-     */
-    virtual void onChangeDuration( double time );
+    void onChangeStart( Scalar time );
 
     /*!
-     * \brief onAddingKeyPose add keyPose in timeline
-     * \param time is the new keyPose time
+     * \brief onChangeEnd change end in timeline.
+     * \param time is the new end.
      */
-    virtual void onAddingKeyPose( double time );
-    /*!
-     * \brief onClearKeyPoses remove all keyPoses in timeline
-     */
-    virtual void onClearKeyPoses();
+    void onChangeEnd( Scalar time );
 
     /*!
-     * \brief onSetPlayMode set play mode in timeline
+     * \brief onChangeDuration change duration in timeline.
+     * \param time is the new duration.
      */
-    virtual void onSetPlayMode(); // use it if external play button
+    void onChangeDuration( Scalar time );
+
     /*!
-     * \brief onSetPauseMode set pause mode in timeline
+     * \brief onChangeCursor change cursor in timeline.
+     * \param time is the new cursor.
      */
-    virtual void onSetPauseMode(); // use it if external pause button
+    void onChangeCursor( Scalar time );
+
+    /*!
+     * \brief onSetPlay set play mode in timeline.
+     */
+    void onSetPlay( bool play ); // use it if external play button
 
   protected:
-    Ui::Timeline* ui;
-};
+    void resizeEvent( QResizeEvent* ev ) override;
 
-/*!
- * \brief The TimelineWithSession class is a Timeline with session, permit (undo/redo)
- */
-class TimelineWithSession : public Timeline
-{
-    Q_OBJECT
-
-  public:
-    explicit TimelineWithSession( QWidget* parent = nullptr );
-
-  signals:
-    /*!
-     * \brief envSaved is emitted for session, after receive this signal, user must call
-     * onSaveRendering slot of Timeline to save client anim to render later due of undo/redo envent
+  private slots:
+    /**
+     * Toggles time flow ping-pong, i.e. going back and forth.
      */
-    void envSaved();
-    /*!
-     * \brief rendered is emmited when undo/redo envent is calling and need to render previous
-     * environment \param is the environment to render, anim is void* because Qt Q_OBJECT no accept
-     * template class and signal and slots are needed to send signal to user to render
+    void on_pingPong_toggled( bool checked );
+
+    /**
+     * Calls update on all registered KeyFrames.
      */
-    void rendered( void* anim );
+    void updateKeyFrames( Scalar time );
+
     /*!
-     * \brief renderDeleted is emmited when environment is not needed for future
-     * \param anim is the environment to delete
+     * \brief onClearKeyFrames remove all KeyFrames in timeline.
      */
-    void renderDeleted( void* anim );
+    void onClearKeyFrames();
 
-  public slots:
     /*!
-     * \brief onSaveRendering must be called by user after envSaved receive
-     * \param anim is the minimal environment to save in timeline session to render later
-     * \param bytes is the size of minimal environment, permit to save RAM
+     * \brief onAddingKeyFrame add the current KeyFrame to the timeline.
      */
-    void onSaveRendering( void* anim, size_t bytes );
+    void onAddingKeyFrame( Scalar time );
 
-  public slots:
-    void onChangeStart( double time ) override;
-    void onChangeEnd( double time ) override;
-    //    void onChangeCursor(double time);
-    void onChangeDuration( double time ) override;
+    /*!
+     * \brief onRemovingKeyFrame removes the current KeyFrame from the timeline.
+     */
+    void onRemovingKeyFrame( Scalar time );
 
-    void onAddingKeyPose( double time ) override;
-    void onClearKeyPoses() override;
+    /*!
+     * \brief onChangingKeyFrame updates the current KeyFrame of the timeline.
+     */
+    void onChangingKeyFrame( Scalar time );
 
-    //    void onSetPlayMode();
-    //    void onSetPauseMode();
+    /*!
+     * \brief onMovingKeyFrame moves the KeyFrame at time0 to time1.
+     */
+    void onMovingKeyFrame( Scalar time0, Scalar time1 );
+
+    /*!
+     * \brief onMovingKeyFrames offsets all Keyframes from the one at time by offset.
+     */
+    void onMovingKeyFrames( Scalar time, Scalar offset );
+
+    /*!
+     * \brief on_comboBox_attribute_currentIndexChanged set the current keyframe
+     */
+    void on_comboBox_attribute_currentIndexChanged( const QString& arg1 );
+
+    /*!
+     * \brief on_pushButton_editAttribute_clicked make the keyframe editor pop up
+     */
+    void on_pushButton_editAttribute_clicked();
+
+    /*!
+     * \brief on_toolButton_help_clicked make the help dialog pop up
+     */
+    void on_toolButton_help_clicked();
 
   private:
-    Session session{this};
+    /// The Timeline UI.
+    Ui::Timeline* ui;
+
+    /// The per-Entity keyframes.
+    std::map<Ra::Engine::Entity*, std::vector<KeyFrameManipulator>> m_entityKeyFrames;
+
+    /// The per-Component keyframes.
+    std::map<Ra::Engine::Component*, std::vector<KeyFrameManipulator>> m_componentKeyFrames;
+
+    /// The per-RenderObject keyframes.
+    std::map<Ra::Core::Utils::Index, std::vector<KeyFrameManipulator>> m_renderObjectKeyFrames;
+
+    /// The current keyframe.
+    KeyFrameManipulator m_current;
 };
 
 } // namespace Ra::GuiBase
 
-#endif // RADIUMENGINE_TIMELINE_H_
+#endif // RADIUMENGINE_TIMELINE_H

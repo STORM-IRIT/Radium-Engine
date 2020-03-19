@@ -1,0 +1,36 @@
+#ifndef RADIUMENGINE_TIMELINE_TIMESCALE_H
+#define RADIUMENGINE_TIMELINE_TIMESCALE_H
+
+#include <QFrame>
+#include <QObject>
+
+namespace Ra::GuiBase {
+class TimelineScrollArea;
+}
+
+namespace Ra::GuiBase {
+
+/**
+ * The TimelineTimeScale class displays the scale, along the x-axis,
+ * of the TimelineScrollArea it belongs to.
+ */
+class TimelineTimeScale : public QFrame
+{
+    Q_OBJECT
+  public:
+    explicit TimelineTimeScale( QWidget* parent = nullptr );
+
+    /// Set the TimelineScrollArea for which to display the scale.
+    void setScrollArea( TimelineScrollArea* scrollArea );
+
+  protected:
+    virtual void paintEvent( QPaintEvent* event ) override;
+
+  private:
+    /// The TimelineScrollArea.
+    TimelineScrollArea* m_scrollArea;
+};
+
+} // namespace Ra::GuiBase
+
+#endif // RADIUMENGINE_TIMELINE_TIMESCALE_H

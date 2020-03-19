@@ -13,5 +13,7 @@
         <file>images/less.png</file>
         <file>images/deleteKey.png</file>
         <file>images/help.png</file>
+        <file>images/loop.png</file>
+        <file>images/pingpong.png</file>
     </qresource>
 </RCC>

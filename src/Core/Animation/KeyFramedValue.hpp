@@ -47,6 +47,7 @@ class RA_CORE_API KeyFramedValueBase
 /**
  * The KeyFramedValue class is a generic container of keyframed values.
  * The VALUE_TYPE values are bound to a certain point in time.
+ * \see Timeline And Keyframes documentation page for usage examples.
  */
 template <typename VALUE_TYPE>
 class KeyFramedValue : public KeyFramedValueBase

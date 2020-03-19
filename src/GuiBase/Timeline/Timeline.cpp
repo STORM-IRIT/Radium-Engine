@@ -3,318 +3,534 @@
 
 #include <QDesktopWidget>
 #include <QEvent>
+#include <QMessageBox>
 #include <QPainter>
 #include <QTimer>
 #include <QWheelEvent>
+
+#include <Core/Animation/KeyFramedValueInterpolators.hpp>
+#include <Core/Utils/Log.hpp>
+
+#include <Engine/Component/Component.hpp>
+#include <Engine/Entity/Entity.hpp>
+#include <Engine/Managers/SignalManager/SignalManager.hpp>
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+
+#include <GuiBase/Timeline/HelpDialog.hpp>
+
+using namespace Ra::Core::Utils;
 
 namespace Ra::GuiBase {
 
 Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline ) {
     ui->setupUi( this );
 
-    // --------------------------- INTERNAL CONNECTIONS -----------------------
-    // FRAME_BUTTONS
-    connect( ui->toolButton_help,
-             &QToolButton::clicked,
-             ui->frame_buttons,
-             &QFrameButtons::helpClicked );
-
-    // FRAME_SELECTOR
-    connect( ui->doubleSpinBox_start,
-             &QDoubleSpinBoxSmart::editingFinished,
-             ui->frame_selector,
-             &QFrameSelector::onChangeStartSpin );
-    connect( ui->doubleSpinBox_end,
-             &QDoubleSpinBoxSmart::editingFinished,
-             ui->frame_selector,
-             &QFrameSelector::onChangeEndSpin );
-    connect( ui->doubleSpinBox_cursor,
-             &QDoubleSpinBoxSmart::editingFinished,
-             ui->frame_selector,
-             &QFrameSelector::onChangeCursorSpin );
-    connect( ui->doubleSpinBox_maxDuration,
-             &QDoubleSpinBoxSmart::editingFinished,
-             ui->frame_selector,
-             &QFrameSelector::onChangeDurationSpin );
-
-    connect( ui->label_leftSlider,
-             &QLabelSlider::slide,
-             ui->frame_selector,
-             &QFrameSelector::onSlideLeftSlider );
-    connect( ui->label_leftSlider,
-             &QLabelSlider::slideRelease,
-             ui->frame_selector,
-             &QFrameSelector::onLeftSlideRelease );
-    connect( ui->label_rightSlider,
-             &QLabelSlider::slide,
-             ui->frame_selector,
-             &QFrameSelector::onSlideRightSlider );
-    connect( ui->label_rightSlider,
-             &QLabelSlider::slideRelease,
-             ui->frame_selector,
-             &QFrameSelector::onRightSlideRelease );
-
-    connect( ui->scrollArea,
-             &QScrollAreaRuler::removeKeyPose,
-             ui->frame_selector,
-             &QFrameSelector::onDeleteKeyPose );
-    connect(
-        ui->scrollArea, SIGNAL( addKeyPose() ), ui->frame_selector, SLOT( onAddingKeyPose() ) );
-    connect( ui->scrollArea,
-             &QScrollAreaRuler::nextKeyPose,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToNextKeyPose );
-    connect( ui->scrollArea,
-             &QScrollAreaRuler::previousKeyPose,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToPreviousKeyPose );
-    connect( ui->scrollArea,
-             SIGNAL( durationChanged( double ) ),
-             ui->frame_selector,
-             SLOT( onChangeDuration( double ) ) );
-
-    connect( ui->toolButton_deleteKeyPose,
-             &QToolButton::clicked,
-             ui->frame_selector,
-             &QFrameSelector::onDeleteKeyPose );
-    connect( ui->toolButton_end,
-             &QToolButton::clicked,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToEnd );
-    connect( ui->toolButton_forward,
-             &QToolButton::clicked,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToNextKeyPose );
-    connect( ui->toolButton_keyPose,
-             SIGNAL( clicked() ),
-             ui->frame_selector,
-             SLOT( onAddingKeyPose() ) );
-
-    connect( ui->toolButton_rearward,
-             &QToolButton::clicked,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToPreviousKeyPose );
-    connect( ui->toolButton_start,
-             &QToolButton::clicked,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToStart );
-
-    connect( ui->spinBox_nbKeyPoses,
-             &QSpinBoxSmart::nextKeyPose,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToNextKeyPose );
-    connect( ui->spinBox_nbKeyPoses,
-             &QSpinBoxSmart::previousKeyPose,
-             ui->frame_selector,
-             &QFrameSelector::onSetCursorToPreviousKeyPose );
-    connect( ui->spinBox_nbKeyPoses,
-             &QSpinBoxSmart::deleteKeyPose,
-             ui->frame_selector,
-             &QFrameSelector::onDeleteKeyPose );
-
-    // SCROLL_AREA_RULER
-    connect( ui->frame_buttons,
-             &QFrameButtons::keyPressed,
-             ui->scrollArea,
-             &QScrollAreaRuler::onKeyPress );
-    connect( ui->frame_buttons,
-             &QFrameButtons::keyReleased,
-             ui->scrollArea,
-             &QScrollAreaRuler::onKeyRelease );
-
-    // --------------------------- SET INTERNAL REFERENCES --------------------
-    // FRAME_SELECTOR
-    ui->frame_selector->setPlayZone( ui->frame_playZone );
-    ui->frame_selector->setLeftSlider( ui->label_leftSlider );
-    ui->frame_selector->setLeftSpacer( ui->frame_spacer );
-    ui->frame_selector->setRightSlider( ui->label_rightSlider );
-    ui->frame_selector->setCursorSpin( ui->doubleSpinBox_cursor );
-    ui->frame_selector->setStartSpin( ui->doubleSpinBox_start );
-    ui->frame_selector->setEndSpin( ui->doubleSpinBox_end );
-    ui->frame_selector->setRemoveKeyPoseButton( ui->toolButton_deleteKeyPose );
-    ui->frame_selector->setDurationSpin( ui->doubleSpinBox_maxDuration );
-    ui->frame_selector->setNbKeyPosesSpin( ui->spinBox_nbKeyPoses );
-    ui->frame_selector->setShiftDown( ui->scrollArea->getShiftDown() );
-    ui->frame_selector->setMidMouseDown( ui->scrollArea->getMidMouseDown() );
-    ui->frame_selector->setCtrlDown( ui->scrollArea->getCtrlDown() );
-
-    // FRAME_BUTTONS
-    ui->frame_buttons->setTimeline( this );
-    ui->frame_buttons->setRuler( ui->scrollAreaWidgetContents );
-    ui->frame_buttons->setHelpButton( ui->toolButton_help );
-
-    // SCROLL_AREA_RULER
-    ui->scrollArea->setTimeline( this );
-    ui->scrollArea->setRuler( ui->scrollAreaWidgetContents );
-    ui->scrollArea->setPlayPause( ui->toolButton_playPause );
-    ui->scrollArea->setSpinDuration( ui->doubleSpinBox_maxDuration );
-    ui->scrollArea->setSelector( ui->frame_selector );
-    ui->scrollArea->setCursorSpin( ui->doubleSpinBox_cursor );
-
-    // WIDGET_RULER
-    ui->scrollAreaWidgetContents->setSpinStart( ui->doubleSpinBox_start );
-    ui->scrollAreaWidgetContents->setSpinEnd( ui->doubleSpinBox_end );
-    ui->scrollAreaWidgetContents->setSpinCursor( ui->doubleSpinBox_cursor );
-    ui->scrollAreaWidgetContents->setSpinDuration( ui->doubleSpinBox_maxDuration );
-    ui->scrollAreaWidgetContents->setShiftDown( ui->scrollArea->getShiftDown() );
-    ui->scrollAreaWidgetContents->setCtrlDown( ui->scrollArea->getCtrlDown() );
-
-    // --------------------------- SET DEFAULT UI VALUES ----------------------
-    // FRAME_SELECTOR
-    ui->frame_selector->setStart( ui->doubleSpinBox_start->value() );
-    ui->frame_selector->setCursor( ui->doubleSpinBox_cursor->value() );
-    ui->frame_selector->setEnd( ui->doubleSpinBox_end->value() );
-    ui->frame_selector->setDuration( ui->doubleSpinBox_maxDuration->value() );
-
-    // ------------- CONNECT INTERNAL SIGNAL TO EXTERNAL SIGNAL ---------------
-    connect( ui->toolButton_playPause,
-             &QToolButtonPlayPause::playClicked,
-             this,
-             &Timeline::playClicked );
-    connect( ui->toolButton_playPause,
-             &QToolButtonPlayPause::pauseClicked,
-             this,
-             &Timeline::pauseClicked );
-
-    connect( ui->frame_selector, &QFrameSelector::cursorChanged, this, &Timeline::cursorChanged );
-    connect( ui->frame_selector, &QFrameSelector::startChanged, this, &Timeline::startChanged );
-    connect( ui->frame_selector, &QFrameSelector::endChanged, this, &Timeline::endChanged );
-    connect(
-        ui->frame_selector, &QFrameSelector::durationChanged, this, &Timeline::durationChanged );
-    connect( ui->frame_selector, &QFrameSelector::keyPoseAdded, this, &Timeline::keyPoseAdded );
-    connect( ui->frame_selector, &QFrameSelector::keyPoseDeleted, this, &Timeline::keyPoseDeleted );
-    connect( ui->frame_selector, &QFrameSelector::keyPoseChanged, this, &Timeline::keyPoseChanged );
-    connect( ui->frame_selector, &QFrameSelector::keyPosesMoved, this, &Timeline::keyPosesMoved );
-    connect( ui->frame_selector, &QFrameSelector::keyPoseMoved, this, &Timeline::keyPoseMoved );
-
-    // move timeline into parent (not nil) or screen area
-    QRect rec        = QApplication::desktop()->screenGeometry();
-    int rightBorder  = ( parent ) ? ( parent->x() + parent->width() ) : ( rec.x() + rec.width() );
-    int bottomBorder = ( parent ) ? ( parent->y() + parent->height() ) : ( rec.y() + rec.height() );
-
-    int timelineLeft = rightBorder - this->width() - TIMELINE_MARGIN_RIGHT;
-    int timelineTop  = bottomBorder - this->height() - TIMELINE_MARGIN_DOWN;
-    move( timelineLeft, timelineTop );
-
     // set sizePolicy to allow zoom in scrollArea
     ui->scrollAreaWidgetContents->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Preferred );
     // first draw of ruler with current width (default in Timeline.ui) of dialog
-    ui->scrollAreaWidgetContents->onDrawRuler( width() -
-                                               2 ); // left/right border width = 2 *1 pixel
+    ui->m_scrollArea->onDrawRuler( width() - 2 ); // left/right border width = 2 *1 pixel
+
+    // --- SET INTERNAL REFERENCES ---
+    ui->frame_timescale->setScrollArea( ui->m_scrollArea );
+    ui->frame_selector->setTimelineUi( ui );
+
+    // --- CREATE INTERNAL CONNECTIONS ---
+    connect( ui->frame_selector,
+             &TimelineFrameSelector::cursorChanged,
+             this,
+             &Timeline::updateKeyFrames );
+    connect( ui->frame_selector,
+             &TimelineFrameSelector::keyFrameAdded,
+             this,
+             &Timeline::onAddingKeyFrame );
+    connect( ui->frame_selector,
+             &TimelineFrameSelector::keyFrameDeleted,
+             this,
+             &Timeline::onRemovingKeyFrame );
+    connect( ui->frame_selector,
+             &TimelineFrameSelector::keyFrameChanged,
+             this,
+             &Timeline::onChangingKeyFrame );
+    connect( ui->frame_selector,
+             &TimelineFrameSelector::keyFrameMoved,
+             this,
+             &Timeline::onMovingKeyFrame );
+    connect( ui->frame_selector,
+             &TimelineFrameSelector::keyFramesMoved,
+             this,
+             &Timeline::onMovingKeyFrames );
+
+    // --- CONNECT INTERNAL SIGNALS TO EXTERNAL SIGNALS ---
+    connect( ui->toolButton_playPause, &QToolButton::toggled, this, &Timeline::playClicked );
+    connect(
+        ui->frame_selector, &TimelineFrameSelector::cursorChanged, this, &Timeline::cursorChanged );
+    connect(
+        ui->frame_selector, &TimelineFrameSelector::startChanged, this, &Timeline::startChanged );
+    connect( ui->frame_selector, &TimelineFrameSelector::endChanged, this, &Timeline::endChanged );
+    connect( ui->frame_selector,
+             &TimelineFrameSelector::durationChanged,
+             this,
+             &Timeline::durationChanged );
+
+    // --- DEAL WITH OBJET REMOVAL ---
+    Ra::Engine::RadiumEngine::getInstance()
+        ->getSignalManager()
+        ->m_entityDestroyedCallbacks.push_back( [=]( const Ra::Engine::ItemEntry& entry ) {
+            auto it = std::find_if(
+                m_entityKeyFrames.begin(), m_entityKeyFrames.end(), [entry]( const auto& frames ) {
+                    return entry.m_entity == frames.first;
+                } );
+            if ( it != m_entityKeyFrames.end() ) { m_entityKeyFrames.erase( it ); }
+        } );
+    Ra::Engine::RadiumEngine::getInstance()
+        ->getSignalManager()
+        ->m_componentRemovedCallbacks.push_back( [=]( const Ra::Engine::ItemEntry& entry ) {
+            auto it = std::find_if(
+                m_componentKeyFrames.begin(),
+                m_componentKeyFrames.end(),
+                [entry]( const auto& frames ) { return entry.m_component == frames.first; } );
+            if ( it != m_componentKeyFrames.end() ) { m_componentKeyFrames.erase( it ); }
+        } );
+    Ra::Engine::RadiumEngine::getInstance()->getSignalManager()->m_roRemovedCallbacks.push_back(
+        [=]( const Ra::Engine::ItemEntry& entry ) {
+            auto it = std::find_if(
+                m_renderObjectKeyFrames.begin(),
+                m_renderObjectKeyFrames.end(),
+                [entry]( const auto& frames ) { return entry.m_roIndex == frames.first; } );
+            if ( it != m_renderObjectKeyFrames.end() ) { m_renderObjectKeyFrames.erase( it ); }
+        } );
 }
 
 Timeline::~Timeline() {
     delete ui;
 }
 
-// todo : ctrlDown = shiftDown = false, on focus event (initialize state)
-void Timeline::resizeEvent( QResizeEvent* event ) {
-
-    ui->scrollAreaWidgetContents->onDrawRuler( event->size().width() - 2 );
+void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
+    // enables ui if any keyframe
+    auto enableUI = [=]( bool enable ) {
+        ui->comboBox_attribute->setEnabled( enable );
+        ui->toolButton_keyFrame->setEnabled( enable );
+        ui->m_nbKeyFramesSpin->setEnabled( enable );
+        ui->m_removeKeyFrameButton->setEnabled( enable );
+        ui->pushButton_editAttribute->setEnabled( enable );
+    };
+    ui->comboBox_attribute->blockSignals( true );
+    ui->comboBox_attribute->clear();
+    ui->comboBox_attribute->blockSignals( false );
+    enableUI( false );
+    onClearKeyFrames();
+    m_current = KeyFrameManipulator();
+    // collect keyframes names and display times if first one
+    static auto registerFrames = [=]( const KeyFrameManipulator& frame,
+                                      const std::string& prefix ) {
+        ui->comboBox_attribute->addItem( QString( ( prefix + frame.m_name ).c_str() ) );
+        if ( ui->comboBox_attribute->count() == 1 )
+        {
+            const auto times = frame.m_value->getTimeSchedule();
+            for ( const auto& t : times )
+            {
+                ui->frame_selector->onAddingKeyFrame( t, false );
+            }
+        }
+    };
+    // register keyframes for the Entity
+    if ( ent.m_entity == nullptr ) { return; }
+    const std::string& entityName = ent.m_entity->getName();
+    auto entityFrames             = m_entityKeyFrames.find( ent.m_entity );
+    if ( entityFrames != m_entityKeyFrames.end() )
+    {
+        if ( entityFrames->second.size() > 0 ) { m_current = entityFrames->second.front(); }
+        for ( const auto& frames : entityFrames->second )
+        {
+            registerFrames( frames, entityName + "::" );
+        }
+    }
+    // register keyframes for the Component
+    if ( ent.m_component == nullptr )
+    {
+        enableUI( ui->comboBox_attribute->count() > 0 );
+        return;
+    }
+    const std::string& compName = ent.m_component->getName();
+    auto componentFrames        = m_componentKeyFrames.find( ent.m_component );
+    if ( componentFrames != m_componentKeyFrames.end() )
+    {
+        if ( ui->comboBox_attribute->count() == 0 && componentFrames->second.size() > 0 )
+        { m_current = componentFrames->second.front(); }
+        for ( const auto& frames : componentFrames->second )
+        {
+            registerFrames( frames, entityName + "::" + compName + "::" );
+        }
+    }
+    // register keyframes for the RenderObject
+    if ( ent.m_roIndex == Ra::Core::Utils::Index::Invalid() )
+    {
+        enableUI( ui->comboBox_attribute->count() > 0 );
+        return;
+    }
+    const auto& roMngr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+    const std::string roName =
+        roMngr->getRenderObject( ent.m_roIndex )->getName() + "_" + std::to_string( ent.m_roIndex );
+    auto renderObjectFrames = m_renderObjectKeyFrames.find( ent.m_roIndex );
+    if ( renderObjectFrames != m_renderObjectKeyFrames.end() )
+    {
+        if ( ui->comboBox_attribute->count() > 0 && renderObjectFrames->second.size() > 0 )
+        { m_current = renderObjectFrames->second.front(); }
+        for ( const auto& frames : renderObjectFrames->second )
+        {
+            registerFrames( frames, entityName + "::" + compName + "::" + roName + "::" );
+        }
+    }
+    if ( ui->comboBox_attribute->count() > 0 )
+    {
+        enableUI( true );
+        ui->comboBox_attribute->setCurrentIndex( 0 );
+    }
 }
 
-// ------------------------------- EXTERNAL SLOTS -----------------------------
-void Timeline::onChangeStart( double time ) {
+void Timeline::registerKeyFramedValue( Ra::Engine::Entity* ent,
+                                       std::string&& name,
+                                       Ra::Core::Animation::KeyFramedValueBase* value,
+                                       KeyFrameManipulator::InsertCallback inserter,
+                                       KeyFrameManipulator::UpdateCallback updater ) {
+    auto& values = m_entityKeyFrames[ent];
+    auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
+        return frame.m_name == name;
+    } );
+    if ( it != values.end() )
+    {
+        LOG( logWARNING ) << "[Timeline] Already existing KeyFramedValue: " << name
+                          << "\" on Entity \"" << ent->getName() << "\". Will not register."
+                          << std::endl;
+        return;
+    }
+    values.push_back( KeyFrameManipulator( value, std::move( name ), inserter, updater ) );
+    selectionChanged( Engine::ItemEntry( ent ) );
+}
+
+void Timeline::unregisterKeyFramedValue( Ra::Engine::Entity* ent, const std::string& name ) {
+    auto& values = m_entityKeyFrames[ent];
+    auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
+        return frame.m_name == name;
+    } );
+    if ( it != values.end() ) { values.erase( it ); }
+}
+
+void Timeline::registerKeyFramedValue( Ra::Engine::Component* comp,
+                                       std::string&& name,
+                                       Ra::Core::Animation::KeyFramedValueBase* value,
+                                       KeyFrameManipulator::InsertCallback inserter,
+                                       KeyFrameManipulator::UpdateCallback updater ) {
+    auto& values = m_componentKeyFrames[comp];
+    auto it      = std::find_if( values.begin(), values.end(), [name]( const auto& frame ) {
+        return frame.m_name == name;
+    } );
+    if ( it != values.end() )
+    {
+        LOG( logWARNING ) << "[Timeline] Already existing KeyFramedValue: \"" << name
+                          << "\" on Component \"" << comp->getName() << "\". Will not register."
+                          << std::endl;
+        return;
+    }
+    values.push_back( KeyFrameManipulator( value, std::move( name ), inserter, updater ) );
+    selectionChanged( Engine::ItemEntry( comp->getEntity(), comp ) );
+}
+
+void Timeline::unregisterKeyFramedValue( Ra::Engine::Component* comp, const std::string& name ) {
+    auto& values = m_componentKeyFrames[comp];
+    auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
+        return frame.m_name == name;
+    } );
+    if ( it != values.end() ) { values.erase( it ); }
+}
+
+void Timeline::registerKeyFramedValue( Ra::Core::Utils::Index roIdx,
+                                       std::string&& name,
+                                       Ra::Core::Animation::KeyFramedValueBase* value,
+                                       KeyFrameManipulator::InsertCallback inserter,
+                                       KeyFrameManipulator::UpdateCallback updater ) {
+    auto& values = m_renderObjectKeyFrames[roIdx];
+    auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
+        return frame.m_name == name;
+    } );
+    if ( it != values.end() )
+    {
+        LOG( logWARNING ) << "[Timeline] Already existing KeyFramedValue: " << name
+                          << "\" on RenderObject \"" << roIdx << "\". Will not register."
+                          << std::endl;
+        return;
+    }
+    values.push_back( KeyFrameManipulator( value, std::move( name ), inserter, updater ) );
+    auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
+    auto RO    = roMgr->getRenderObject( roIdx );
+    auto comp  = RO->getComponent();
+    selectionChanged( Engine::ItemEntry( comp->getEntity(), comp, roIdx ) );
+}
+
+void Timeline::unregisterKeyFramedValue( Ra::Core::Utils::Index roIdx, const std::string& name ) {
+    auto& values = m_renderObjectKeyFrames[roIdx];
+    auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
+        return frame.m_name == name;
+    } );
+    if ( it != values.end() ) { values.erase( it ); }
+}
+
+Scalar Timeline::getTime() const {
+    return Scalar( ui->m_cursorSpin->value() );
+}
+
+void Timeline::onChangeStart( Scalar time ) {
     ui->frame_selector->onChangeStart( time, false );
 }
 
-void Timeline::onChangeEnd( double time ) {
+void Timeline::onChangeEnd( Scalar time ) {
     ui->frame_selector->onChangeEnd( time, false );
 }
 
-void Timeline::onChangeCursor( double time ) {
-    ui->frame_selector->onChangeCursor( time, false );
-}
-
-void Timeline::onChangeDuration( double time ) {
+void Timeline::onChangeDuration( Scalar time ) {
     ui->frame_selector->onChangeDuration( time, false );
 }
 
-void Timeline::onAddingKeyPose( double time ) {
-    ui->frame_selector->onAddingKeyPose( time, false );
+void Timeline::onChangeCursor( Scalar time ) {
+    ui->frame_selector->onChangeCursor( time, false );
+    updateKeyFrames( time );
 }
 
-void Timeline::onClearKeyPoses() {
-    ui->frame_selector->onClearKeyPoses();
+void Timeline::onSetPlay( bool play ) {
+    ui->toolButton_playPause->setChecked( play );
 }
 
-void Timeline::onSetPlayMode() {
-    ui->toolButton_playPause->onPlayMode();
+// todo : ctrlDown = shiftDown = false, on focus event (initialize state)
+void Timeline::resizeEvent( QResizeEvent* event ) {
+    ui->m_scrollArea->onDrawRuler( event->size().width() - 2 );
 }
 
-void Timeline::onSetPauseMode() {
-    ui->toolButton_playPause->onPauseMode();
+void Timeline::on_pingPong_toggled( bool checked ) {
+    emit setPingPong( checked );
 }
 
-TimelineWithSession::TimelineWithSession( QWidget* parent ) : Timeline( parent ) {
-    connect( this, &TimelineWithSession::startChanged, &session, &Session::onChangeEnv );
-    connect( this, &TimelineWithSession::endChanged, &session, &Session::onChangeEnv );
-    //    connect(this, &TimelineWithSession::cursorChanged, this, &Session::onChangeEnv);
-    connect( this, &TimelineWithSession::durationChanged, &session, &Session::onChangeEnv );
-    connect( this, &TimelineWithSession::keyPoseAdded, &session, &Session::onChangeEnv );
-    connect( this, &TimelineWithSession::keyPoseDeleted, &session, &Session::onChangeEnv );
-    connect( this, &TimelineWithSession::keyPoseChanged, &session, &Session::onChangeEnv );
-    connect( this, &TimelineWithSession::keyPoseMoved, &session, &Session::onChangeEnv );
-    connect( this, &TimelineWithSession::keyPosesMoved, &session, &Session::onChangeEnv );
-    //        connect(this, &TimelineWithSession::playClicked, &session, &Session::onChangeEnv);
-    //        connect(this, &TimelineWithSession::pauseClicked, &session,
-    //        &Session::onChangeEnv);
-
-    connect( ui->scrollArea, &QScrollAreaRuler::undo, &session, &Session::onUndo );
-    connect( ui->scrollArea, &QScrollAreaRuler::redo, &session, &Session::onRedo );
-
-    // signal to signal
-    connect( &session, &Session::envSaved, this, &TimelineWithSession::envSaved );
-    connect( &session, &Session::rendered, this, &TimelineWithSession::rendered );
-    connect( &session, &Session::renderDeleted, this, &TimelineWithSession::renderDeleted );
-
-    session.setStart( ui->frame_selector->getStart() );
-    session.setEnd( ui->frame_selector->getEnd() );
-    session.setCursor( ui->frame_selector->getCursor() );
-    session.setDuration( ui->scrollAreaWidgetContents->getMaxDuration() );
-    session.setKeyPoses( ui->frame_selector->getKeyPoses() );
-    session.setStartSpin( ui->doubleSpinBox_start );
-    session.setEndSpin( ui->doubleSpinBox_end );
-    session.setCursorSpin( ui->doubleSpinBox_cursor );
-    session.setDurationSpin( ui->doubleSpinBox_maxDuration );
-    session.setPlayButton( ui->toolButton_playPause );
-    session.setRuler( ui->scrollAreaWidgetContents );
-    session.setSelector( ui->frame_selector );
-    session.setNbKeyPosesSpin( ui->spinBox_nbKeyPoses );
+void Timeline::updateKeyFrames( Scalar time ) {
+    for ( auto& KF : m_entityKeyFrames )
+    {
+        for ( auto& kf : KF.second )
+        {
+            kf.updateKeyFrame( time );
+        }
+    }
+    for ( auto& KF : m_componentKeyFrames )
+    {
+        for ( auto& kf : KF.second )
+        {
+            kf.updateKeyFrame( time );
+        }
+    }
+    for ( auto& KF : m_renderObjectKeyFrames )
+    {
+        for ( auto& kf : KF.second )
+        {
+            kf.updateKeyFrame( time );
+        }
+    }
 }
 
-void TimelineWithSession::onChangeStart( double time ) {
-    Timeline::onChangeStart( time );
-
-    session.onClearSession();
+void Timeline::onClearKeyFrames() {
+    ui->frame_selector->onClearKeyFrames();
 }
 
-void TimelineWithSession::onChangeEnd( double time ) {
-    Timeline::onChangeEnd( time );
-
-    session.onClearSession();
+void Timeline::onAddingKeyFrame( Scalar time ) {
+    if ( m_current.m_value )
+    {
+        m_current.insertKeyFrame( time );
+        emit keyFrameAdded( time );
+    }
 }
 
-void TimelineWithSession::onChangeDuration( double time ) {
-    Timeline::onChangeDuration( time );
-
-    session.onClearSession();
+void Timeline::onRemovingKeyFrame( Scalar time ) {
+    if ( m_current.m_value )
+    {
+        if ( m_current.m_value->removeKeyFrame( time ) )
+        {
+            m_current.updateKeyFrame( time );
+            emit keyFrameDeleted( time );
+        }
+        else
+        {
+            LOG( logWARNING ) << "[Timeline] Error: Cannot remove keyFrame at "
+                              << Scalar( ui->m_cursorSpin->value() );
+        }
+    }
 }
 
-void TimelineWithSession::onAddingKeyPose( double time ) {
-    Timeline::onAddingKeyPose( time );
-
-    session.onClearSession();
+void Timeline::onChangingKeyFrame( Scalar time ) {
+    if ( m_current.m_value )
+    {
+        m_current.insertKeyFrame( time );
+        emit keyFrameChanged( time );
+    }
 }
 
-void TimelineWithSession::onClearKeyPoses() {
-    Timeline::onClearKeyPoses();
-
-    session.onClearSession();
+void Timeline::onMovingKeyFrame( Scalar time0, Scalar time1 ) {
+    if ( m_current.m_value )
+    {
+        if ( m_current.m_value->moveKeyFrame( time0, time1 ) )
+        {
+            m_current.updateKeyFrame( time1 );
+            emit keyFrameMoved( time0, time1 );
+        }
+    }
 }
 
-void TimelineWithSession::onSaveRendering( void* anim, size_t bytes ) {
-    session.onSaveRendering( anim, bytes );
+void Timeline::onMovingKeyFrames( Scalar time, Scalar offset ) {
+    if ( m_current.m_value )
+    {
+        auto times = m_current.m_value->getTimeSchedule();
+        if ( offset < 0 )
+        {
+            for ( const auto& t : times )
+            {
+                if ( t >= time ) { m_current.m_value->moveKeyFrame( t, t + offset ); }
+            }
+        }
+        else // go from the end to ensure we do not mess up keyframes
+        {
+            for ( auto r_it = times.rbegin(); r_it != times.rend(); ++r_it )
+            {
+                if ( *r_it >= time ) { m_current.m_value->moveKeyFrame( *r_it, *r_it + offset ); }
+            }
+        }
+        m_current.updateKeyFrame( time );
+        emit keyFramesMoved( time, offset );
+    }
+}
+
+void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) {
+    onClearKeyFrames();
+    KeyFrameManipulator frames;
+    const QStringList names = arg1.split( "::" );
+    switch ( names.size() )
+    {
+    case 2:
+    {
+        const std::string entityName = names.at( 0 ).toStdString();
+        auto e_it                    = std::find_if(
+            m_entityKeyFrames.begin(), m_entityKeyFrames.end(), [&entityName]( const auto& frame ) {
+                return frame.first->getName() == entityName;
+            } );
+        if ( e_it == m_entityKeyFrames.end() )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: Entity \"" << entityName
+                              << "\"'s name is not conform.";
+            return;
+        }
+        const std::string frameName = names.at( 1 ).toStdString();
+        auto f_it =
+            std::find_if( e_it->second.begin(),
+                          e_it->second.end(),
+                          [&frameName]( const auto& frame ) { return frame.m_name == frameName; } );
+        if ( f_it == e_it->second.end() )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
+                              << "\"'s name is not conform.";
+            return;
+        }
+        frames = *f_it;
+    }
+    break;
+    case 3:
+    {
+        const std::string compName = names.at( 1 ).toStdString();
+        auto c_it                  = std::find_if(
+            m_componentKeyFrames.begin(),
+            m_componentKeyFrames.end(),
+            [&compName]( const auto& frame ) { return frame.first->getName() == compName; } );
+        if ( c_it == m_componentKeyFrames.end() )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: Component \"" << compName
+                              << "\"'s name is not conform.";
+            return;
+        }
+        const std::string frameName = names.at( 2 ).toStdString();
+        auto f_it =
+            std::find_if( c_it->second.begin(),
+                          c_it->second.end(),
+                          [&frameName]( const auto& frame ) { return frame.m_name == frameName; } );
+        if ( f_it == c_it->second.end() )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
+                              << "\"'s name is not conform.";
+            return;
+        }
+        frames = *f_it;
+    }
+    break;
+    case 4:
+    {
+        const QStringList roName = names.at( 2 ).split( '_' );
+        if ( roName.size() < 2 )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: Component's name for attribute \""
+                              << arg1.toStdString() << "\" is not conform.";
+            return;
+        }
+        bool ok;
+        const auto roIdx = roName.last().toInt( &ok );
+        if ( !ok )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: Component's name for attribute \""
+                              << arg1.toStdString() << "\" is not conform.";
+            return;
+        }
+        auto ro_it = std::find_if( m_renderObjectKeyFrames.begin(),
+                                   m_renderObjectKeyFrames.end(),
+                                   [&roIdx]( const auto& frame ) { return frame.first == roIdx; } );
+        if ( ro_it == m_renderObjectKeyFrames.end() )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: Component's name for attribute \""
+                              << arg1.toStdString() << "\" is not conform.";
+            return;
+        }
+        const std::string frameName = names.at( 3 ).toStdString();
+        auto f_it =
+            std::find_if( ro_it->second.begin(),
+                          ro_it->second.end(),
+                          [&frameName]( const auto& frame ) { return frame.m_name == frameName; } );
+        if ( f_it == ro_it->second.end() )
+        {
+            LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
+                              << "\"'s name is not conform.";
+            return;
+        }
+        frames = *f_it;
+    }
+    break;
+    default:
+        LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
+                          << "\"'s name is not conform.";
+        return;
+    }
+    const auto times = frames.m_value->getTimeSchedule();
+    for ( const auto& t : times )
+    {
+        ui->frame_selector->onAddingKeyFrame( t, false );
+    }
+    m_current = frames;
+}
+
+void Timeline::on_pushButton_editAttribute_clicked() {
+    // TODO
+}
+
+void Timeline::on_toolButton_help_clicked() {
+    static bool is_showing = false;
+    if ( !is_showing )
+    {
+        HelpDialog* dialog = new HelpDialog( this );
+        dialog->show();
+        is_showing = true;
+        connect( dialog, &HelpDialog::closed, [=]() { is_showing = false; } );
+    }
 }
 
 } // namespace Ra::GuiBase
