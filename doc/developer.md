@@ -2,15 +2,15 @@
 [TOC]
 
  * General topics
-   - \subpage develWithRadium *
+   - \subpage develWithRadium
    - \subpage develCodingConvention
-   - \subpage develoldmanual *
+   - \subpage develoldmanual
  * Main modules of the API
    - \subpage develbuildchain
-   - \subpage develmeshes *
+   - \subpage develmeshes
    - \subpage develrendering
    - \subpage develmaterials
-   - \subpage develLights *
+   - \subpage develLights
    - \subpage develpicking
    - \subpage develkeymapping
    - \subpage develCameraManipulator
