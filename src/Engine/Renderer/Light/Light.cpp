@@ -7,8 +7,7 @@ namespace Ra {
 namespace Engine {
 
 Light::Light( Entity* entity, const LightType& type, const std::string& name ) :
-    Component( name, entity ),
-    m_type( type ) {}
+    Component( name, entity ), m_type( type ) {}
 
 void Light::getRenderParameters( RenderParameters& params ) const {
     params.addParameter( "light.color", m_color );

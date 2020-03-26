@@ -198,17 +198,15 @@ inline void AttribArrayGeometry::append_attrib( Utils::AttribBase* attr ) {
 /*** IndexedGeometry ***/
 template <typename T>
 inline IndexedGeometry<T>::IndexedGeometry( const IndexedGeometry<IndexType>& other ) :
-    AttribArrayGeometry( other ),
-    m_indices( other.m_indices ) {}
+    AttribArrayGeometry( other ), m_indices( other.m_indices ) {}
 
 template <typename T>
 inline IndexedGeometry<T>::IndexedGeometry( IndexedGeometry<IndexType>&& other ) :
-    AttribArrayGeometry( std::move( other ) ),
-    m_indices( std::move( other.m_indices ) ) {}
+    AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
 
 template <typename T>
-inline IndexedGeometry<T>& IndexedGeometry<T>::
-operator=( const IndexedGeometry<IndexType>& other ) {
+inline IndexedGeometry<T>&
+IndexedGeometry<T>::operator=( const IndexedGeometry<IndexType>& other ) {
     AttribArrayGeometry::operator=( other );
     m_indices                    = other.m_indices;
     return *this;

@@ -14,8 +14,7 @@ using namespace Core::Asset;
 
 AssimpLightDataLoader::AssimpLightDataLoader( const std::string& filepath,
                                               const bool VERBOSE_MODE ) :
-    DataLoader<LightData>( VERBOSE_MODE ),
-    m_filepath( filepath ) {}
+    DataLoader<LightData>( VERBOSE_MODE ), m_filepath( filepath ) {}
 
 AssimpLightDataLoader::~AssimpLightDataLoader() = default;
 
@@ -74,15 +73,13 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
 
     switch ( builtLight->getType() )
     {
-    case LightData::DIRECTIONAL_LIGHT:
-    {
+    case LightData::DIRECTIONAL_LIGHT: {
         Core::Vector4 dir( light.mDirection[0], light.mDirection[1], light.mDirection[2], 0.0 );
         builtLight->setLight( color, -( frame.transpose().inverse() * dir ).head<3>() );
     }
     break;
 
-    case LightData::POINT_LIGHT:
-    {
+    case LightData::POINT_LIGHT: {
         builtLight->setLight(
             color,
             ( frame * Eigen::Map<const Eigen::Matrix<Scalar, 3, 1>>( &( light.mPosition.x ) )
@@ -94,8 +91,7 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
     }
     break;
 
-    case LightData::SPOT_LIGHT:
-    {
+    case LightData::SPOT_LIGHT: {
         Core::Vector4 dir( light.mDirection[0], light.mDirection[1], light.mDirection[2], 0.0 );
 
         builtLight->setLight(
@@ -112,14 +108,14 @@ std::unique_ptr<LightData> AssimpLightDataLoader::loadLightData( const aiScene* 
     }
     break;
 
-    case LightData::AREA_LIGHT:
-    {
+    case LightData::AREA_LIGHT: {
         LOG( logWARNING ) << "Light " << builtLight->getName()
                           << " : AREA light are not yet supported.";
     }
     break;
-    default:
-    { LOG( logWARNING ) << "Light " << builtLight->getName() << " : unknown type."; }
+    default: {
+        LOG( logWARNING ) << "Light " << builtLight->getName() << " : unknown type.";
+    }
     break;
     }
     return builtLight;
@@ -150,21 +146,24 @@ std::string AssimpLightDataLoader::fetchName( const aiLight& light ) const {
 LightData::LightType AssimpLightDataLoader::fetchType( const aiLight& light ) const {
     switch ( light.mType )
     {
-    case aiLightSource_DIRECTIONAL:
-    { return LightData::DIRECTIONAL_LIGHT; }
+    case aiLightSource_DIRECTIONAL: {
+        return LightData::DIRECTIONAL_LIGHT;
+    }
 
-    case aiLightSource_POINT:
-    { return LightData::POINT_LIGHT; }
+    case aiLightSource_POINT: {
+        return LightData::POINT_LIGHT;
+    }
 
-    case aiLightSource_SPOT:
-    { return LightData::SPOT_LIGHT; }
+    case aiLightSource_SPOT: {
+        return LightData::SPOT_LIGHT;
+    }
 
-    case aiLightSource_AREA:
-    { return LightData::AREA_LIGHT; }
+    case aiLightSource_AREA: {
+        return LightData::AREA_LIGHT;
+    }
 
     case aiLightSource_UNDEFINED:
-    default:
-    {
+    default: {
         //                LOG(ERROR) << "Light " << name.C_Str() << " has undefined type.";
         return LightData::UNKNOWN;
     }

@@ -20,14 +20,12 @@ ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program
                                                                 defaultFragmentShader );
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
-    m_name{name},
-    m_version{"#version 410"} {}
+    m_name{name}, m_version{"#version 410"} {}
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name,
                                           const std::string& vertexShader,
                                           const std::string& fragmentShader ) :
-    m_name{name},
-    m_version{"#version 410"} {
+    m_name{name}, m_version{"#version 410"} {
     m_shaders[ShaderType_VERTEX]   = {vertexShader, true};
     m_shaders[ShaderType_FRAGMENT] = {fragmentShader, true};
 }

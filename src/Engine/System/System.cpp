@@ -24,9 +24,7 @@ void System::registerComponent( const Entity* ent, Component* component ) {
     component->setSystem( this );
 }
 
-void System::unregisterComponent(
-    const Entity* ent,
-    Component* component ) {
+void System::unregisterComponent( const Entity* ent, Component* component ) {
     CORE_ASSERT( component->getEntity() == ent, "Component does not belong to entity" );
     CORE_UNUSED( ent );
     const auto& pos =

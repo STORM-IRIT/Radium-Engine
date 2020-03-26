@@ -16,7 +16,7 @@ namespace Ra {
 namespace Engine {
 class RenderObject;
 class RenderTechnique;
-}
+} // namespace Engine
 } // namespace Ra
 namespace Ra {
 namespace Engine {

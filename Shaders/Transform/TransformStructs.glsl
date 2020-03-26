@@ -1,5 +1,4 @@
-struct Transform
-{
+struct Transform {
     mat4 model;
     mat4 view;
     mat4 proj;
@@ -8,4 +7,3 @@ struct Transform
     mat4 worldNormal;
     mat4 viewNormal;
 };
-

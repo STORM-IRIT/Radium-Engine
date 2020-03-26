@@ -43,8 +43,9 @@ class RA_ENGINE_API VolumeObject : public Displayable
     /// Use the given volume for display. \warning Takes the pointer ownership
     void loadGeometry( Core::Geometry::AbstractVolume* volume );
 
-    /// Use the given volume for display and build the proxy from the given aabb. \warning Takes the pointer ownership
-    void loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb & aabb  );
+    /// Use the given volume for display and build the proxy from the given aabb. \warning Takes the
+    /// pointer ownership
+    void loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb& aabb );
 
     /// Mark the data types as dirty, forcing an update of the openGL buffer.
     inline void setDirty() { m_isDirty = true; }

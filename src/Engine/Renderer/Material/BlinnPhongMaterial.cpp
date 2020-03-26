@@ -160,8 +160,8 @@ void BlinnPhongMaterial::unregisterMaterial() {
     EngineRenderTechniques::removeDefaultTechnique( materialName );
 }
 
-Material* BlinnPhongMaterialConverter::
-operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
+Material*
+BlinnPhongMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toconvert ) {
     auto result = new Ra::Engine::BlinnPhongMaterial( toconvert->getName() );
     // we are sure here that the concrete type of "toconvert" is BlinnPhongMaterialData
     // static cst is safe here

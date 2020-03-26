@@ -25,8 +25,8 @@ class RA_CORE_API GeometryData : public AssetData
 {
 
   public:
-    using ColorArray    = Vector4Array;
-    using Transform     = Eigen::Transform<Scalar, 3, Eigen::Affine>;
+    using ColorArray = Vector4Array;
+    using Transform  = Eigen::Transform<Scalar, 3, Eigen::Affine>;
 
     using Weight        = std::pair<Scalar, uint>;
     using VertexWeights = std::vector<Weight>;

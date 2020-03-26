@@ -264,7 +264,7 @@ void AssimpGeometryDataLoader::fetchBitangents( const aiMesh& mesh, GeometryData
 void AssimpGeometryDataLoader::fetchTextureCoordinates( const aiMesh& mesh,
                                                         GeometryData& data ) const {
     const int size = mesh.mNumVertices;
-    auto& texcoord  = data.getTexCoords();
+    auto& texcoord = data.getTexCoords();
     texcoord.resize( mesh.mNumVertices );
 #pragma omp parallel for
     for ( int i = 0; i < size; ++i )

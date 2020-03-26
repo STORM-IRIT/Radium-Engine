@@ -4,9 +4,9 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace Ra {
@@ -18,9 +18,7 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
                           const Core::Transform& worldTo,
                           const Core::Transform& t,
                           Mode mode ) :
-    Gizmo( c, worldTo, t, mode ),
-    m_initialPix( Core::Vector2::Zero() ),
-    m_selectedAxis( -1 ) {
+    Gizmo( c, worldTo, t, mode ), m_initialPix( Core::Vector2::Zero() ), m_selectedAxis( -1 ) {
     constexpr Scalar torusOutRadius   = .1_ra;
     constexpr Scalar torusAspectRatio = .08_ra;
     // For x,y,z

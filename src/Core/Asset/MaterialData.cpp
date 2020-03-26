@@ -7,8 +7,7 @@ namespace Asset {
 
 /// CONSTRUCTOR
 MaterialData::MaterialData( const std::string& name, const std::string& type ) :
-    AssetData( name ),
-    m_type( type ) {}
+    AssetData( name ), m_type( type ) {}
 
 MaterialData::~MaterialData() {}
 

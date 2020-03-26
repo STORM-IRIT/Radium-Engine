@@ -10,9 +10,7 @@ inline Quadric<DIM>::Quadric( const Quadric<DIM>& q ) : m_a( q.m_a ), m_b( q.m_b
 
 template <int DIM>
 inline Quadric<DIM>::Quadric( const Vector& n, Scalar ndotp ) :
-    m_a( n * n.transpose() ),
-    m_b( ndotp * n ),
-    m_c( ndotp * ndotp ) {}
+    m_a( n * n.transpose() ), m_b( ndotp * n ), m_c( ndotp * ndotp ) {}
 
 template <int DIM>
 inline Quadric<DIM>::~Quadric() {}

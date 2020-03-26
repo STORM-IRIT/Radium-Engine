@@ -41,8 +41,8 @@ class RA_CORE_API ResourcesLocator
     /// Construct a resource locator that will offset the path to the dynamic library that contains
     /// the given symbol by the given offset.
     explicit ResourcesLocator( void* symbol, const std::string& offset = "../" );
-    /// Construct a resource locator that will search for the given pattern starting from the offset the path to the
-    /// dynamic library or executable that contains the given symbol.
+    /// Construct a resource locator that will search for the given pattern starting from the offset
+    /// the path to the dynamic library or executable that contains the given symbol.
     explicit ResourcesLocator( void* symbol, std::string pattern, const std::string& offset );
     const std::string& getBasePath();
 

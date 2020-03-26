@@ -54,9 +54,7 @@ class RA_ENGINE_API RenderParameters final
       public:
         TextureParameter() = default;
         TextureParameter( const char* name, Texture* tex, int texUnit ) :
-            Parameter( name ),
-            m_texture( tex ),
-            m_texUnit( texUnit ) {}
+            Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
 
         ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
@@ -180,4 +178,3 @@ class ShaderParameterProvider
 } // namespace Ra
 
 #include <Engine/Renderer/RenderTechnique/RenderParameters.inl>
-

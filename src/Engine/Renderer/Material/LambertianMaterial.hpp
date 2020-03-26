@@ -44,7 +44,6 @@ class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial
      * After removal, the material is no more available, ...
      */
     static void unregisterMaterial();
-
 };
 
 } // namespace Engine

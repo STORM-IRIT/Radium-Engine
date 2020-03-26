@@ -32,8 +32,7 @@ class RA_GUIBASE_API ItemModel : public TreeModel
     Q_OBJECT
   public:
     ItemModel( const Engine::RadiumEngine* engine, QObject* parent = nullptr ) :
-        TreeModel( parent ),
-        m_engine( engine ) {
+        TreeModel( parent ), m_engine( engine ) {
         buildModel();
         connect( this, &TreeModel::dataChanged, this, &ItemModel::onDataChanged );
     }

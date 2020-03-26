@@ -23,9 +23,7 @@ RenderTechnique::RenderTechnique() : m_numActivePass{0} {
 }
 
 RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
-    m_numActivePass{o.m_numActivePass},
-    m_dirtyBits{o.m_dirtyBits},
-    m_setPasses{o.m_setPasses} {
+    m_numActivePass{o.m_numActivePass}, m_dirtyBits{o.m_dirtyBits}, m_setPasses{o.m_setPasses} {
     for ( auto p = Index( 0 ); p < m_numActivePass; ++p )
     {
         if ( m_setPasses & ( 1 << p ) )

@@ -17,7 +17,8 @@ namespace Gui {
 KeyMappingGizmo
 #undef KMA_VALUE
 
-void GizmoManager::configureKeyMapping_impl() {
+    void
+    GizmoManager::configureKeyMapping_impl() {
     m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "GizmoContext" );
     if ( m_keyMappingContext.isInvalid() )
     {
@@ -52,9 +53,7 @@ bool GizmoManager::isValidAction( const Gui::KeyMappingManager::KeyMappingAction
  * \see issue #194
  */
 GizmoManager::GizmoManager( QObject* parent ) :
-    QObject( parent ),
-    m_currentGizmoType( NONE ),
-    m_mode( Gizmo::GLOBAL ) {
+    QObject( parent ), m_currentGizmoType( NONE ), m_mode( Gizmo::GLOBAL ) {
     m_gizmos[0].reset( new TranslateGizmo(
         Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
     m_gizmos[1].reset( new RotateGizmo(
@@ -121,7 +120,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
-    const Engine::Camera& cam = CameraManipulator::getCameraFromViewer(parent() );
+    const Engine::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
     return true;
@@ -145,7 +144,7 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
          currentGizmo()->isSelected() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        const Engine::Camera& cam = CameraManipulator::getCameraFromViewer(parent() );
+        const Engine::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
         bool step  = action == GIZMOMANAGER_STEP || action == GIZMOMANAGER_STEP_WHOLE;
         bool whole = action == GIZMOMANAGER_WHOLE || action == GIZMOMANAGER_STEP_WHOLE;
 

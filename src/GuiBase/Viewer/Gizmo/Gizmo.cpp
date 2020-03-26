@@ -17,8 +17,7 @@ Gizmo::Gizmo( Engine::Component* c,
               const Core::Transform& worldTo,
               const Core::Transform& t,
               Mode mode ) :
-    m_worldTo( worldTo ), m_transform( t ), m_comp( c ),
-    m_mode( mode ) {}
+    m_worldTo( worldTo ), m_transform( t ), m_comp( c ), m_mode( mode ) {}
 
 Gizmo::~Gizmo() {
     // first release meshes shared pointers before destroying ROs

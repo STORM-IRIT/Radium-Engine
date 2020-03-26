@@ -40,12 +40,14 @@ inline Vector3Array& GeometryData::getVertices() {
 
 namespace internal {
 
-  template <typename InContainer, typename OutContainer>
-  inline void copyData( const InContainer& input, OutContainer& output ) {
-    std::transform( std::begin( input ), std::end( input), std::back_inserter( output),
-                    [](const typename InContainer::value_type& v)
-                    -> typename OutContainer::value_type { return v.template cast<Scalar>(); } );
-  }
+template <typename InContainer, typename OutContainer>
+inline void copyData( const InContainer& input, OutContainer& output ) {
+    std::transform(
+        std::begin( input ), std::end( input ), std::back_inserter( output ), [
+        ]( const typename InContainer::value_type& v ) -> typename OutContainer::value_type {
+            return v.template cast<Scalar>();
+        } );
+}
 
 } // namespace internal
 

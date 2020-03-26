@@ -21,7 +21,8 @@ namespace Engine {
 class RA_ENGINE_API GeometryComponent : public Component
 {
   public:
-    GeometryComponent( const std::string& name, Entity* entity ) : Component( name, entity ), m_contentName(name) {}
+    GeometryComponent( const std::string& name, Entity* entity ) :
+        Component( name, entity ), m_contentName( name ) {}
     ~GeometryComponent() override {}
 
     void initialize() override {}

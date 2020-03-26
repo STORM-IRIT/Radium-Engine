@@ -54,8 +54,7 @@ const Index* GeometryComponent::roIndexRead() const {
 TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( nullptr ) {
+    GeometryComponent( name, entity ), m_displayMesh( nullptr ) {
     generateTriangleMesh( data );
 }
 
@@ -63,8 +62,7 @@ TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               Core::Geometry::TriangleMesh&& mesh,
                                               Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( new Engine::Mesh( name ) ) {
+    GeometryComponent( name, entity ), m_displayMesh( new Engine::Mesh( name ) ) {
     setContentName( name );
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
@@ -220,8 +218,7 @@ const Index* TriangleMeshComponent::roIndexRead() const {
 PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           const Ra::Core::Asset::GeometryData* data ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( nullptr ) {
+    GeometryComponent( name, entity ), m_displayMesh( nullptr ) {
     generatePointCloud( data );
 }
 
@@ -229,8 +226,7 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           Core::Geometry::PointCloud&& mesh,
                                           Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( new Engine::PointCloud( name ) ) {
+    GeometryComponent( name, entity ), m_displayMesh( new Engine::PointCloud( name ) ) {
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
 }
@@ -368,8 +364,7 @@ Ra::Core::Geometry::PointCloud* PointCloudComponent::getPointCloudRw() {
 VolumeComponent::VolumeComponent( const std::string& name,
                                   Entity* entity,
                                   const Ra::Core::Asset::VolumeData* data ) :
-    Component( name, entity ),
-    m_displayVolume{nullptr} {
+    Component( name, entity ), m_displayVolume{nullptr} {
     generateVolumeRender( data );
 }
 
@@ -412,12 +407,14 @@ void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* d
 }
 
 VolumeObject* VolumeComponent::getDisplayVolume() {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
+    CORE_ASSERT( m_displayVolume != nullptr,
+                 "DisplayVolume should exist while component is alive" );
     return m_displayVolume.get();
 }
 
 Index VolumeComponent::getRenderObjectIndex() const {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
+    CORE_ASSERT( m_displayVolume != nullptr,
+                 "DisplayVolume should exist while component is alive" );
     return m_volumeIndex;
 }
 
@@ -426,7 +423,8 @@ void VolumeComponent::setContentName( const std::string& name ) {
 }
 
 void VolumeComponent::setupIO( const std::string& id ) {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
+    CORE_ASSERT( m_displayVolume != nullptr,
+                 "DisplayVolume should exist while component is alive" );
     ComponentMessenger::CallbackTypes<Ra::Core::Geometry::AbstractVolume>::Getter cbOut =
         std::bind( &VolumeComponent::getVolumeOutput, this );
     ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::AbstractVolume>(
@@ -444,7 +442,8 @@ void VolumeComponent::setupIO( const std::string& id ) {
 }
 
 const Index* VolumeComponent::roIndexRead() const {
-    CORE_ASSERT( m_displayVolume != nullptr, "DisplayVolume should exist while component is alive" );
+    CORE_ASSERT( m_displayVolume != nullptr,
+                 "DisplayVolume should exist while component is alive" );
     return &m_volumeIndex;
 }
 

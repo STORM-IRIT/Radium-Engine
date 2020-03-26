@@ -88,16 +88,14 @@ struct NLinearInterpolator<3> {
 
 template <typename T, uint N>
 Tex<T, N>::Tex( const IdxVector& resolution, const Vector& start, const Vector& end ) :
-    Grid<T, N>( resolution ),
-    m_aabb( start, end ) {
+    Grid<T, N>( resolution ), m_aabb( start, end ) {
     const Vector quotient = ( resolution - IdxVector::Ones() ).template cast<Scalar>();
     m_cellSize            = m_aabb.sizes().cwiseQuotient( quotient );
 }
 
 template <typename T, uint N>
 Tex<T, N>::Tex( const IdxVector& resolution, const AabbND& aabb ) :
-    Grid<T, N>( resolution ),
-    m_aabb( aabb ) {
+    Grid<T, N>( resolution ), m_aabb( aabb ) {
     const Vector quotient = ( resolution - IdxVector::Ones() ).template cast<Scalar>();
     m_cellSize            = m_aabb.sizes().cwiseQuotient( quotient );
 }

@@ -17,10 +17,7 @@ using Core::Math::PiDiv4;
 namespace Engine {
 
 Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
-    Component( name, entity ),
-    m_width{width},
-    m_height{height},
-    m_aspect{width / height} {}
+    Component( name, entity ), m_width{width}, m_height{height}, m_aspect{width / height} {}
 
 Camera::~Camera() = default;
 
@@ -78,8 +75,7 @@ void Camera::updateProjMatrix() {
 
     switch ( m_projType )
     {
-    case ProjType::ORTHOGRAPHIC:
-    {
+    case ProjType::ORTHOGRAPHIC: {
         const Scalar dx = m_zoomFactor * .5_ra;
         const Scalar dy = dx / m_aspect;
         // ------------
@@ -102,8 +98,7 @@ void Camera::updateProjMatrix() {
     }
     break;
 
-    case ProjType::PERSPECTIVE:
-    {
+    case ProjType::PERSPECTIVE: {
         // Compute projection matrix as describe in the doc of gluPerspective()
         const Scalar f    = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * .5_ra ) );
         const Scalar diff = m_zNear - m_zFar;
