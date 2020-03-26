@@ -100,16 +100,19 @@ inline void FileManager<DATA, Binary>::addLogEntry( const std::string& text,
                                                     const LogEntryType type ) {
     switch ( type )
     {
-    case LogEntry_Normal:
-    { m_log += text; }
+    case LogEntry_Normal: {
+        m_log += text;
+    }
     break;
 
-    case LogEntry_Warning:
-    { m_log += "\n--- LogEntry_Warning : " + text + " ---\n"; }
+    case LogEntry_Warning: {
+        m_log += "\n--- LogEntry_Warning : " + text + " ---\n";
+    }
     break;
 
-    case LogEntry_Error:
-    { m_log += "\n### LogEntry_Error : " + text + " ###\n"; }
+    case LogEntry_Error: {
+        m_log += "\n### LogEntry_Error : " + text + " ###\n";
+    }
     break;
 
     default:

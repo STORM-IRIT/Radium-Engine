@@ -25,7 +25,7 @@ struct VolumeData : public AssetData {
     Utils::Color sigma_s{2.55_ra, 3.21_ra, 3.77_ra};
 
     /// The bounding box of the volume
-    Aabb boundingBox{ Vector3{0_ra, 0_ra, 0_ra}, Vector3{1_ra, 1_ra, 1_ra}};
+    Aabb boundingBox{Vector3{0_ra, 0_ra, 0_ra}, Vector3{1_ra, 1_ra, 1_ra}};
     /// Transformation matrix to go from the associated geometry frame to the
     /// canonical [0, 1]^3 density domain
     Transform densityToModel{Transform::Identity()};

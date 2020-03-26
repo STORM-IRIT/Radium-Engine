@@ -7,9 +7,7 @@ namespace Animation {
 HandleArray::HandleArray() : m_pose(), m_name( "" ), m_label() {}
 
 HandleArray::HandleArray( const uint n ) :
-    m_pose( n, Transform::Identity() ),
-    m_name( "" ),
-    m_label( n, "" ) {}
+    m_pose( n, Transform::Identity() ), m_name( "" ), m_label( n, "" ) {}
 
 HandleArray::~HandleArray() {}
 

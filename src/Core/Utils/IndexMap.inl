@@ -12,9 +12,7 @@ IndexMap<T>::IndexMap() : m_data(), m_index(), m_free( 1, Index( 0 ) ) {}
 
 template <typename T>
 IndexMap<T>::IndexMap( const IndexMap& id_map ) :
-    m_data( id_map.m_data ),
-    m_index( id_map.m_index ),
-    m_free( id_map.m_free ) {}
+    m_data( id_map.m_data ), m_index( id_map.m_index ), m_free( id_map.m_free ) {}
 
 // ===============================================================================
 // DESTRUCTOR

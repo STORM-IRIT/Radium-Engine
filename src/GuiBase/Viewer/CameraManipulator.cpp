@@ -23,7 +23,7 @@ Gui::CameraManipulator::CameraManipulator( const CameraManipulator& other ) :
     m_camera( other.m_camera ),
     m_light( other.m_light ) {}
 
-Gui::CameraManipulator::CameraManipulator(uint width, uint height ) :
+Gui::CameraManipulator::CameraManipulator( uint width, uint height ) :
     m_cameraSensitivity( 1.0_ra ),
     m_quickCameraModifier( 1._ra ),
     m_wheelSpeedModifier( 0.02_ra ),
@@ -77,7 +77,7 @@ void Gui::CameraManipulator::resetToDefaultCamera() {
 
 Gui::CameraManipulator::~CameraManipulator() {}
 
-void Gui::CameraManipulator::resizeViewport(uint width, uint height ) {
+void Gui::CameraManipulator::resizeViewport( uint width, uint height ) {
     m_camera->resize( Scalar( width ), Scalar( height ) );
 }
 
@@ -109,7 +109,7 @@ void Gui::CameraManipulator::setCameraZFar( Scalar zFar ) {
     m_camera->setZFar( zFar );
 }
 
-void Gui::CameraManipulator::mapCameraBehaviourToAabb(const Core::Aabb& aabb ) {
+void Gui::CameraManipulator::mapCameraBehaviourToAabb( const Core::Aabb& aabb ) {
     m_targetedAabb             = aabb;
     m_targetedAabbVolume       = aabb.volume();
     m_mapCameraBahaviourToAabb = true;
@@ -119,7 +119,7 @@ void Gui::CameraManipulator::unmapCameraBehaviourToAabb() {
     m_mapCameraBahaviourToAabb = false;
 }
 
-void Gui::CameraManipulator::attachLight(Engine::Light* light ) {
+void Gui::CameraManipulator::attachLight( Engine::Light* light ) {
     m_light = light;
     m_light->setDirection( m_camera->getDirection() );
 }
@@ -128,8 +128,8 @@ Gui::KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }
 
-const Engine::Camera& Gui::CameraManipulator::getCameraFromViewer(QObject* v ) {
-    return *static_cast<Gui::Viewer *>( v )->getCameraManipulator()->getCamera();
+const Engine::Camera& Gui::CameraManipulator::getCameraFromViewer( QObject* v ) {
+    return *static_cast<Gui::Viewer*>( v )->getCameraManipulator()->getCamera();
 }
 
 } // namespace Ra

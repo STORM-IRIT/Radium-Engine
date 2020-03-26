@@ -56,8 +56,8 @@ cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v
 namespace OpenMesh {
 template <>
 struct vector_traits<Ra::Core::Vector3> {
-    using vector_type = Ra::Core::Vector3;
-    using value_type = Scalar;
+    using vector_type         = Ra::Core::Vector3;
+    using value_type          = Scalar;
     static const size_t size_ = 3;
     static size_t size() { return 3; }
 };

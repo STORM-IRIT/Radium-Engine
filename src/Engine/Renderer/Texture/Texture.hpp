@@ -122,7 +122,6 @@ class RA_ENGINE_API Texture final
      */
     void initializeGL( bool linearize = false );
 
-
     /**
      * @brief Bind the texture to enable its use in a shader
      * @param unit Index of the texture to be bound. If -1 only calls glBindTexture.

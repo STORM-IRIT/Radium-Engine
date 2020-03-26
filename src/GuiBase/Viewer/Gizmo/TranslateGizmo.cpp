@@ -4,8 +4,8 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
+#include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace Ra {
@@ -33,10 +33,10 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
     {
         Core::Utils::Color arrowColor = Core::Utils::Color::Black();
         arrowColor[i]                 = 1_ra;
-        Core::Vector3 cylinderEnd = Core::Vector3::Zero();
+        Core::Vector3 cylinderEnd     = Core::Vector3::Zero();
         cylinderEnd[i]                = ( 1_ra - arrowFrac );
-        Core::Vector3 arrowEnd    = Core::Vector3::Zero();
-        arrowEnd[i]               = 1_ra;
+        Core::Vector3 arrowEnd        = Core::Vector3::Zero();
+        arrowEnd[i]                   = 1_ra;
         Core::Geometry::TriangleMesh cylinder =
             Core::Geometry::makeCylinder( Core::Vector3::Zero(),
                                           arrowScale * cylinderEnd,

@@ -383,7 +383,6 @@ void BaseApplication::addBasicShaders() {
                          resourcesRootDir + "Shaders/Lines/LinesAdjacency.frag.glsl" );
     lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
     ShaderConfigurationFactory::addConfiguration( lagConfig );
-
 }
 
 void BaseApplication::radiumFrame() {

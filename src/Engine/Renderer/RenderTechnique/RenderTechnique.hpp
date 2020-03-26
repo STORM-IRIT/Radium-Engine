@@ -55,7 +55,6 @@ enum DefaultRenderingPasses : int {
 
 }; // enum DefaultRenderingPasses
 
-
 /**
  * Set of shaders to be used by the renderer to render objects with associated data.
  * @see Render technique and materials section in the Material management in the Radium Engine

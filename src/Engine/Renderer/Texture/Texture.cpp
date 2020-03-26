@@ -99,8 +99,7 @@ void Engine::Texture::bindImageTexture( int unit,
 void Engine::Texture::updateData( void* data ) {
     switch ( m_texture->target() )
     {
-    case GL_TEXTURE_1D:
-    {
+    case GL_TEXTURE_1D: {
         m_texture->image1D( 0,
                             m_textureParameters.internalFormat,
                             GLsizei( m_textureParameters.width ),
@@ -112,8 +111,7 @@ void Engine::Texture::updateData( void* data ) {
     }
     break;
     case GL_TEXTURE_2D:
-    case GL_TEXTURE_RECTANGLE:
-    {
+    case GL_TEXTURE_RECTANGLE: {
         m_texture->image2D( 0,
                             m_textureParameters.internalFormat,
                             GLsizei( m_textureParameters.width ),
@@ -125,8 +123,7 @@ void Engine::Texture::updateData( void* data ) {
         GL_CHECK_ERROR
     }
     break;
-    case GL_TEXTURE_3D:
-    {
+    case GL_TEXTURE_3D: {
         m_texture->image3D( 0,
                             m_textureParameters.internalFormat,
                             GLsizei( m_textureParameters.width ),
@@ -139,8 +136,7 @@ void Engine::Texture::updateData( void* data ) {
         GL_CHECK_ERROR
     }
     break;
-    case GL_TEXTURE_CUBE_MAP:
-    {
+    case GL_TEXTURE_CUBE_MAP: {
         // Load the 6 faces of the cubemap
         void** texels = (void**)data;
         m_texture->bind();
@@ -206,8 +202,7 @@ void Engine::Texture::updateData( void* data ) {
         GL_CHECK_ERROR
     }
     break;
-    default:
-    {
+    default: {
         CORE_ASSERT( 0, "Unsupported texture type ?" );
     }
     break;

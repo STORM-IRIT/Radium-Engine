@@ -17,8 +17,7 @@ class AnimationTime
     /// CONSTRUCTOR
     AnimationTime( const Time& start = std::numeric_limits<Time>::max(),
                    const Time& end   = std::numeric_limits<Time>::min() ) :
-        m_start( start ),
-        m_end( end ) {}
+        m_start( start ), m_end( end ) {}
     AnimationTime( const AnimationTime& time ) = default;
 
     /// DESTRUCTOR

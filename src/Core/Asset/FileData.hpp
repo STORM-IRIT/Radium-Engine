@@ -80,4 +80,3 @@ class RA_CORE_API FileData final
 } // namespace Ra
 
 #include <Core/Asset/FileData.inl>
-

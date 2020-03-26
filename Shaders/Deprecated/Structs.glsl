@@ -1,5 +1,4 @@
-struct Transform
-{
+struct Transform {
     mat4 model;
     mat4 view;
     mat4 proj;
@@ -9,8 +8,7 @@ struct Transform
     mat4 viewNormal;
 };
 
-struct Textures
-{
+struct Textures {
     int hasKd;
     int hasKs;
     int hasNs;
@@ -36,10 +34,9 @@ struct Material
 }
 */
 
-struct Material
-{
+struct Material {
     vec4 kd;
-    vec4 ks;    
+    vec4 ks;
 
     float ns;
     float alpha;
@@ -47,26 +44,22 @@ struct Material
     Textures tex;
 };
 
-struct Attenuation
-{
+struct Attenuation {
     float constant;
     float linear;
     float quadratic;
 };
 
-struct DirectionalLight
-{
+struct DirectionalLight {
     vec3 direction;
 };
 
-struct PointLight
-{
+struct PointLight {
     vec3 position;
     Attenuation attenuation;
 };
 
-struct SpotLight
-{
+struct SpotLight {
     vec3 position;
     vec3 direction;
 
@@ -76,8 +69,7 @@ struct SpotLight
     float outerAngle;
 };
 
-struct Light
-{
+struct Light {
     int type;
     vec4 color;
 

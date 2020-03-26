@@ -22,8 +22,7 @@ using namespace Ra::Core::Utils;
 // we have no data to send to the gpu.
 AttribArrayDisplayable::AttribArrayDisplayable( const std::string& name,
                                                 MeshRenderMode renderMode ) :
-    Displayable( name ),
-    m_renderMode{renderMode} {
+    Displayable( name ), m_renderMode{renderMode} {
     CORE_ASSERT( m_renderMode == RM_POINTS || m_renderMode == RM_LINES ||
                      m_renderMode == RM_LINE_LOOP || m_renderMode == RM_LINE_STRIP ||
                      m_renderMode == RM_TRIANGLES || m_renderMode == RM_TRIANGLE_STRIP ||
@@ -91,8 +90,7 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
 void AttribArrayDisplayable::updatePickingRenderMode() {
     switch ( getRenderMode() )
     {
-    case AttribArrayDisplayable::RM_POINTS:
-    {
+    case AttribArrayDisplayable::RM_POINTS: {
         Displayable::m_pickingRenderMode = PKM_POINTS;
         break;
     }
@@ -100,15 +98,13 @@ void AttribArrayDisplayable::updatePickingRenderMode() {
         [[fallthrough]];
     case AttribArrayDisplayable::RM_LINE_LOOP: // fall through
         [[fallthrough]];
-    case AttribArrayDisplayable::RM_LINE_STRIP:
-    {
+    case AttribArrayDisplayable::RM_LINE_STRIP: {
         Displayable::m_pickingRenderMode = PKM_LINES;
         break;
     }
     case AttribArrayDisplayable::RM_LINES_ADJACENCY: // fall through
         [[fallthrough]];
-    case AttribArrayDisplayable::RM_LINE_STRIP_ADJACENCY:
-    {
+    case AttribArrayDisplayable::RM_LINE_STRIP_ADJACENCY: {
         Displayable::m_pickingRenderMode = PKM_LINE_ADJ;
         break;
     }
@@ -116,13 +112,11 @@ void AttribArrayDisplayable::updatePickingRenderMode() {
         [[fallthrough]];
     case AttribArrayDisplayable::RM_TRIANGLE_STRIP:
         [[fallthrough]];
-    case AttribArrayDisplayable::RM_TRIANGLE_FAN:
-    {
+    case AttribArrayDisplayable::RM_TRIANGLE_FAN: {
         Displayable::m_pickingRenderMode = PKM_TRI;
         break;
     }
-    default:
-    {
+    default: {
         Displayable::m_pickingRenderMode = NO_PICKING;
         break;
     }

@@ -16,8 +16,7 @@ static const std::string materialName{"Lambertian"};
 LambertianMaterial::LambertianMaterial( const std::string& instanceName ) :
     SimpleMaterial( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
 
-LambertianMaterial::~LambertianMaterial() {
-}
+LambertianMaterial::~LambertianMaterial() {}
 
 void LambertianMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem

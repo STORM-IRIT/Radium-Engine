@@ -91,4 +91,3 @@ class RA_GUIBASE_API GizmoManager : public QObject,
 };
 } // namespace Gui
 } // namespace Ra
-

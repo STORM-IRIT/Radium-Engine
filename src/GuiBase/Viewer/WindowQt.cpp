@@ -26,10 +26,7 @@ QSurfaceFormat defaultFormat() {
 }
 
 WindowQt::WindowQt( QScreen* screen ) :
-    QWindow( screen ),
-    m_context( nullptr ),
-    m_updatePending( false ),
-    m_glInitialized( false ) {
+    QWindow( screen ), m_context( nullptr ), m_updatePending( false ), m_glInitialized( false ) {
 
     setSurfaceType( QWindow::OpenGLSurface );
     if ( !s_getProcAddressHelper ) { s_getProcAddressHelper = this; }

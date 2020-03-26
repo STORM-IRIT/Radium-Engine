@@ -35,9 +35,7 @@ struct RA_ENGINE_API ItemEntry {
     explicit ItemEntry( Ra::Engine::Entity* ent,
                         Ra::Engine::Component* comp = nullptr,
                         Ra::Core::Utils::Index ro   = Ra::Core::Utils::Index::Invalid() ) :
-        m_entity{ent},
-        m_component{comp},
-        m_roIndex{ro} {}
+        m_entity{ent}, m_component{comp}, m_roIndex{ro} {}
 
     /// Compare two items.
     inline bool operator==( const ItemEntry& rhs ) const;

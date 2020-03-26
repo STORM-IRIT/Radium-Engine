@@ -32,8 +32,7 @@ class RA_CORE_API FunctionTask : public Task
   public:
     /// Create a function task
     FunctionTask( const std::function<void( void )>& f, const std::string& name ) :
-        m_f( f ),
-        m_name( name ) {}
+        m_f( f ), m_name( name ) {}
 
     /// Return the provided task name
     virtual std::string getName() const override { return m_name; }

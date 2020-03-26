@@ -175,43 +175,37 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
         _Scalar v3 = value * ( 1.0f - ( saturation * ( 1.0f - h - i ) ) );
         switch ( i )
         {
-        case 0:
-        {
+        case 0: {
             c[0] = value;
             c[1] = v3;
             c[2] = v1;
         }
         break;
-        case 1:
-        {
+        case 1: {
             c[0] = v2;
             c[1] = value;
             c[2] = v1;
         }
         break;
-        case 2:
-        {
+        case 2: {
             c[0] = v1;
             c[1] = value;
             c[2] = v3;
         }
         break;
-        case 3:
-        {
+        case 3: {
             c[0] = v1;
             c[1] = v2;
             c[2] = value;
         }
         break;
-        case 4:
-        {
+        case 4: {
             c[0] = v3;
             c[1] = v1;
             c[2] = value;
         }
         break;
-        default:
-        {
+        default: {
             c[0] = value;
             c[1] = v1;
             c[2] = v2;
