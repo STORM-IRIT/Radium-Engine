@@ -25,7 +25,7 @@ The Radium Material Library defines two default material :
 
 The _Radium Material Library_ can be used as this by any Radium Application or can be extended by an application or a 
 Radium Plugin by implementing the corresponding interfaces as described in the 
-[Extending the _Radium Material Library_ ](#extend-mtl-lib).
+[Extending the _Radium Material Library](#extend-mtl-lib).
 
 For each material of the library, a default Ra::Engine::RenderTechnique, corresponding to the standard usage of the 
 material by the Ra::engine::ForwardRenderer and an optional Ra::Engine::EngineMaterialConverters::ConverterFunction, 
@@ -48,7 +48,7 @@ To define a Ra::Engine::RenderObject and add it to the component, the geometry o
 must be associated with a Ra::Engine::RenderTechnique that links to the required Ra::Engine::Material.
  
 To do that, the following steps must be done :
-1. Create the Ra::Engine::Mesh (see the documentation about Meshes)
+1. Create the Ra::Engine::Mesh (see the [documentation about Meshes](@ref develmeshes))
 \snippet HelloRadium/minimalradium.cpp Creating the Engine Mesh
 
 2. Create the Ra::Engine::Material
