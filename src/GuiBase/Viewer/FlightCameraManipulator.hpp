@@ -15,7 +15,7 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
     friend class KeyMappingManageable<FlightCameraManipulator>;
 
   public:
-    FlightCameraManipulator(uint width, uint height );
+    FlightCameraManipulator( uint width, uint height );
     explicit FlightCameraManipulator( const FlightCameraManipulator& other );
     explicit FlightCameraManipulator( const CameraManipulator& other );
     virtual ~FlightCameraManipulator();
@@ -71,18 +71,18 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
     Scalar m_flightSpeed{1._ra};
     static void configureKeyMapping_impl();
 
-#define KeyMappingFlightManipulator           \
+#define KeyMappingFlightManipulator      \
     KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
     KMA_VALUE( FLIGHTMODECAMERA_PAN )    \
     KMA_VALUE( FLIGHTMODECAMERA_ZOOM )   \
     KMA_VALUE( FLIGHTMODECAMERA_ROTATE_AROUND )
 
 #define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
-      KeyMappingFlightManipulator
+    KeyMappingFlightManipulator
 #undef KMA_VALUE
 };
 
 } // namespace Gui
 } // namespace Ra
 
-#endif //RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
+#endif // RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP

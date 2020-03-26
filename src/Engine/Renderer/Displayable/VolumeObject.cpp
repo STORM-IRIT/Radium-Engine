@@ -11,12 +11,11 @@ namespace Ra {
 namespace Engine {
 
 VolumeObject::VolumeObject( const std::string& name ) :
-    Displayable( name ), m_tex( {} ), m_mesh( name + "_internal" ) {
-}
+    Displayable( name ), m_tex( {} ), m_mesh( name + "_internal" ) {}
 
 VolumeObject::~VolumeObject() {}
 
-void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb & aabb  ) {
+void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const Core::Aabb& aabb ) {
     if ( volume != nullptr && volume->isDense() )
     {
 
@@ -26,7 +25,8 @@ void VolumeObject::loadGeometry( Core::Geometry::AbstractVolume* volume, const C
         tex_coords.resize( 24 );
         tex_coords.getMap() <<
             // R
-            Scalar( 1 ), Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), // Bottom
+            Scalar( 1 ),
+            Scalar( 1 ), Scalar( 0 ), Scalar( 0 ),              // Bottom
             Scalar( 1 ), Scalar( 0 ), Scalar( 0 ), Scalar( 1 ), // Top
             Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), Scalar( 1 ), // Right
             Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), Scalar( 0 ), // Left

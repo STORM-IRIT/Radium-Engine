@@ -40,13 +40,11 @@ inline uint idxVectorToLinear( const typename Grid<T, D>::IdxVector& vecIdx,
 
 template <typename T, uint D>
 Grid<T, D>::Grid( const typename Grid<T, D>::IdxVector& size, const T& val ) :
-    m_size( size ),
-    m_data( size.prod(), val ) {}
+    m_size( size ), m_data( size.prod(), val ) {}
 
 template <typename T, uint D>
 Grid<T, D>::Grid( const typename Grid<T, D>::IdxVector& size, const T* values ) :
-    m_size( size ),
-    m_data( size.prod(), values ) {}
+    m_size( size ), m_data( size.prod(), values ) {}
 //
 // Vector size and data management.
 //
@@ -259,24 +257,24 @@ typename Grid<T, D>::Iterator& Grid<T, D>::Iterator::operator-=( uint i ) {
 }
 
 template <typename T, uint D>
-typename Grid<T, D>::Iterator& Grid<T, D>::Iterator::
-operator+=( const typename Grid<T, D>::IdxVector& idx ) {
+typename Grid<T, D>::Iterator&
+Grid<T, D>::Iterator::operator+=( const typename Grid<T, D>::IdxVector& idx ) {
     CORE_ASSERT( isValidOffset( idx.template cast<int>() ), "Invalid offset vector." );
     setFromVector( getVector() + idx );
     return *this;
 }
 
 template <typename T, uint D>
-typename Grid<T, D>::Iterator& Grid<T, D>::Iterator::
-operator-=( const typename Grid<T, D>::IdxVector& idx ) {
+typename Grid<T, D>::Iterator&
+Grid<T, D>::Iterator::operator-=( const typename Grid<T, D>::IdxVector& idx ) {
     CORE_ASSERT( isValidOffset( -( idx.template cast<int>() ) ), "Invalid offset vector." );
     setFromVector( getVector() - idx );
     return *this;
 }
 
 template <typename T, uint D>
-typename Grid<T, D>::Iterator& Grid<T, D>::Iterator::
-operator+=( const typename Grid<T, D>::OffsetVector& idx ) {
+typename Grid<T, D>::Iterator&
+Grid<T, D>::Iterator::operator+=( const typename Grid<T, D>::OffsetVector& idx ) {
     CORE_ASSERT( isValidOffset( idx ), "Invalid offset vector" );
     setFromVector( ( getVector().template cast<int>() + idx ).template cast<uint>() );
     return *this;

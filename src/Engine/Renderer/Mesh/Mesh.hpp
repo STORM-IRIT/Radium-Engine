@@ -141,8 +141,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     {
       public:
         explicit AttribObserver( AttribArrayDisplayable* displayable, int idx ) :
-            m_displayable( displayable ),
-            m_idx( idx ) {}
+            m_displayable( displayable ), m_idx( idx ) {}
         void operator()() {
             m_displayable->m_dataDirty[m_idx] = true;
             m_displayable->m_isDirty          = true;

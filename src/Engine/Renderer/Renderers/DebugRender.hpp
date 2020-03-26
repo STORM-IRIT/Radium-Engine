@@ -68,9 +68,7 @@ class RA_ENGINE_API DebugRender final
   private:
     struct Line {
         Line( const Core::Vector3& la, const Core::Vector3& lb, const Core::Utils::Color& lcol ) :
-            a{la},
-            b{lb},
-            col{lcol} {}
+            a{la}, b{lb}, col{lcol} {}
 
         Core::Vector3 a, b;
         Core::Utils::Color col;

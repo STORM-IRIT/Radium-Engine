@@ -48,9 +48,7 @@ class RA_CORE_API LightData : public AssetData
         Scalar linear;
         Scalar quadratic;
         explicit LightAttenuation( Scalar c = 1, Scalar l = 0, Scalar q = 0 ) :
-            constant( c ),
-            linear( l ),
-            quadratic( q ) {}
+            constant( c ), linear( l ), quadratic( q ) {}
     };
     // TODO : allow to define other attenuation function such
     // \max\left(0,1-\frac{\left|x\right|^2}{r^2}\right)^2

@@ -23,7 +23,6 @@ GeometryData::GeometryData( const std::string& name, const GeometryType& type ) 
 
 GeometryData::~GeometryData() {}
 
-
 void GeometryData::displayInfo() const {
     using namespace Core::Utils; // log
     std::string type;

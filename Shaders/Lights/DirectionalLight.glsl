@@ -1,26 +1,22 @@
 #ifndef DIRECTIONALLIGHT_GLSL
 #define DIRECTIONALLIGHT_GLSL
 
-struct Attenuation
-{
+struct Attenuation {
     float constant;
     float linear;
     float quadratic;
 };
 
-struct DirectionalLight
-{
+struct DirectionalLight {
     vec3 direction;
 };
 
-struct PointLight
-{
+struct PointLight {
     vec3 position;
     Attenuation attenuation;
 };
 
-struct SpotLight
-{
+struct SpotLight {
     vec3 position;
     vec3 direction;
 
@@ -30,8 +26,7 @@ struct SpotLight
     float outerAngle;
 };
 
-struct Light
-{
+struct Light {
     int type;
     vec4 color;
 
@@ -40,22 +35,27 @@ struct Light
     SpotLight spot;
 };
 
-vec3 lightDirection(Light light) {
+vec3 lightDirection( Light light ) {
     return -light.directional.direction;
 }
 
+vec3 lightContributionFrom( Light light,
+                            vec3 position,
+                            Material material,
+                            vec2 T,
+                            vec3 V,
+                            vec3 N,
+                            vec3 X,
+                            vec3 Y ) {
 
-vec3 lightContributionFrom(Light light, vec3 position,
-                           Material material, vec2 T, vec3 V, vec3 N, vec3 X, vec3 Y) 
-{
-
-    vec3 materialColor = computeMaterialInternal(material, T, lightDirection(light), V, N, X, Y);
+    vec3 materialColor =
+        computeMaterialInternal( material, T, lightDirection( light ), V, N, X, Y );
 
     return light.color.xyz * materialColor;
 }
 
 uint lightCount() {
-    return uint(1);
+    return uint( 1 );
 }
 
 uniform Light light;

@@ -1,11 +1,8 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <catch2/catch.hpp>
 
-
-TEST_CASE( "Core/Utils/StringUtils", "[Core][Core/Utils][StringUtils]" )
-{
-    SECTION( "Test getFileExt" )
-    {
+TEST_CASE( "Core/Utils/StringUtils", "[Core][Core/Utils][StringUtils]" ) {
+    SECTION( "Test getFileExt" ) {
         using Ra::Core::Utils::getFileExt;
         // File extension
         REQUIRE( getFileExt( "aaa.xyz" ) == std::string( "xyz" ) );
@@ -17,22 +14,20 @@ TEST_CASE( "Core/Utils/StringUtils", "[Core][Core/Utils][StringUtils]" )
         REQUIRE( getFileExt( "aaa/bbb/xyz" ) == std::string( "" ) );
         REQUIRE( getFileExt( "aaa/bbb/xyz." ) == std::string( "" ) );
     }
-    SECTION( "Test getDirName" )
-    {
+    SECTION( "Test getDirName" ) {
         using Ra::Core::Utils::getDirName;
         // File with no directory
         REQUIRE( getDirName( "aaa.xyz" ) == std::string( "." ) );
         // Relative path
         REQUIRE( getDirName( "aaa/bbb.xyz" ) == std::string( "aaa" ) );
-         // Absolute path
+        // Absolute path
         REQUIRE( getDirName( "/aaa/bbb/ccc.xyz" ) == std::string( "/aaa/bbb" ) );
-         // Trailing slashes
+        // Trailing slashes
         REQUIRE( getDirName( "/aaa/bbb/ccc.xyz///" ) == std::string( "/aaa/bbb" ) );
         // File with no extension
         REQUIRE( getDirName( "aaa/bbb/xyz" ) == std::string( "aaa/bbb" ) );
     }
-    SECTION( "Test getBaseName" )
-    {
+    SECTION( "Test getBaseName" ) {
         using Ra::Core::Utils::getBaseName;
         // File with no directory
         REQUIRE( getBaseName( "aaa.xyz", true ) == std::string( "aaa.xyz" ) );
@@ -49,19 +44,13 @@ TEST_CASE( "Core/Utils/StringUtils", "[Core][Core/Utils][StringUtils]" )
         REQUIRE( getBaseName( "aaa/bbb/xyz", true ) == std::string( "xyz" ) );
         REQUIRE( getBaseName( "aaa/bbb/xyz", false ) == std::string( "xyz" ) );
     }
-    SECTION( "Test jointly getDirName, getBaseName and getFileExt")
-    {
-        using Ra::Core::Utils::getFileExt;
-        using Ra::Core::Utils::getDirName;
+    SECTION( "Test jointly getDirName, getBaseName and getFileExt" ) {
         using Ra::Core::Utils::getBaseName;
+        using Ra::Core::Utils::getDirName;
+        using Ra::Core::Utils::getFileExt;
         // Path reconstruction
         std::string path = "/aaa/bbb/ccc.xyz";
-        REQUIRE( getDirName( path ) + "/" + getBaseName( path, false ) + "." +
-                              getFileExt( path ) == path );
-
+        REQUIRE( getDirName( path ) + "/" + getBaseName( path, false ) + "." + getFileExt( path ) ==
+                 path );
     }
 } // TEST_CASE
-
-
-
-

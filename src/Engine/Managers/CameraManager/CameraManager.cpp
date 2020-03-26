@@ -35,13 +35,11 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
         auto comp                 = new Camera( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
-        case CameraData::ORTHOGRAPHIC:
-        {
+        case CameraData::ORTHOGRAPHIC: {
             comp->setType( Camera::ProjType::ORTHOGRAPHIC );
             break;
         }
-        case CameraData::PERSPECTIVE:
-        {
+        case CameraData::PERSPECTIVE: {
             comp->setType( Camera::ProjType::PERSPECTIVE );
             break;
         }

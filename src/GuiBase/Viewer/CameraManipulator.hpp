@@ -31,7 +31,7 @@ class RA_GUIBASE_API CameraManipulator : public QObject
 
   public:
     /// Initializes a manipulator for a given viewport size.
-    CameraManipulator(uint width, uint height );
+    CameraManipulator( uint width, uint height );
 
     /// Initializes a manipulator keeping properties from an already existing one.
     /// This allows to switch from one manipulator to another while keeping the same visual
@@ -172,4 +172,4 @@ class RA_GUIBASE_API CameraManipulator : public QObject
 } // namespace Gui
 } // namespace Ra
 
-#endif //RADIUMENGINE_CAMERAMANIPULATOR_HPP
+#endif // RADIUMENGINE_CAMERAMANIPULATOR_HPP
