@@ -28,8 +28,13 @@ DebugRender::~DebugRender() = default;
 void DebugRender::initialize() {
     /// FIXME : this was not ported to globject ...
     /// \todo FIXED but not tested
-    auto setShader = [](ShaderProgramManager *manager, Ra::Engine::ShaderConfiguration &config)
-            -> const ShaderProgram * {
+    auto setShader = []( ShaderProgramManager* manager,
+                         const std::string& configName,
+                         const char* vertexShader,
+                         const char* fragmentShader ) -> const ShaderProgram* {
+        Ra::Engine::ShaderConfiguration config{configName};
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, vertexShader );
+        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, fragmentShader );
         auto added = manager->addShaderProgram( config );
         if ( added ) { return *added; }
         else
@@ -37,8 +42,8 @@ void DebugRender::initialize() {
     };
 
     auto shaderMgr = ShaderProgramManager::getInstance();
-    {
-        const char* lineVertStr = R"(
+
+    const char* lineVertStr = R"(
                 layout (location = 0) in vec3 in_pos;
                 layout (location = 5) in vec3 in_col;
 
@@ -54,7 +59,7 @@ void DebugRender::initialize() {
                 }
                 )";
 
-        const char* lineFragStr = R"(
+    const char* lineFragStr = R"(
                 in vec3 v_color;
                 out vec4 f_color;
 
@@ -64,13 +69,7 @@ void DebugRender::initialize() {
                 }
                 )";
 
-        Ra::Engine::ShaderConfiguration config{"dbgLineShader"};
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, lineVertStr );
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, lineFragStr );
-        m_lineProg = setShader(shaderMgr, config);
-    }
-    {
-        static const char* pointVertStr = R"(
+    static const char* pointVertStr = R"(
             layout (location = 0) in vec3 in_pos;
             layout (location = 1) in vec3 in_col;
 
@@ -87,7 +86,7 @@ void DebugRender::initialize() {
             }
             )";
 
-        static const char* pointFragStr = R"(
+    static const char* pointFragStr = R"(
                 in vec3 v_color;
                 out vec4 f_color;
 
@@ -96,14 +95,7 @@ void DebugRender::initialize() {
                     f_color = vec4(v_color, 1.0);
                 }
                 )";
-
-        Ra::Engine::ShaderConfiguration config{"dbgPointShader"};
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, pointVertStr );
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, pointFragStr );
-        m_pointProg = setShader(shaderMgr, config);
-    }
-    {
-        static const char* meshVertStr = R"(
+    static const char* meshVertStr  = R"(
                 layout (location = 0) in vec3 in_pos;
                 layout (location = 5) in vec3 in_col;
 
@@ -120,7 +112,7 @@ void DebugRender::initialize() {
                 }
                 )";
 
-        static const char* meshFragStr = R"(
+    static const char* meshFragStr = R"(
                 in vec3 v_color;
                 out vec4 f_color;
 
@@ -129,11 +121,11 @@ void DebugRender::initialize() {
                     f_color = vec4(v_color, 1.0);
                 }
                 )";
-        Ra::Engine::ShaderConfiguration config{"dbgMeshShader"};
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, meshVertStr );
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, meshFragStr );
-        m_meshProg = setShader(shaderMgr, config);
-    }
+
+    m_lineProg  = setShader( shaderMgr, "dbgLineShader", lineVertStr, lineFragStr );
+    m_pointProg = setShader( shaderMgr, "dbgPointShader", pointVertStr, pointFragStr );
+    m_meshProg  = setShader( shaderMgr, "dbgMeshShader", meshVertStr, meshFragStr );
+
     GL_CHECK_ERROR;
 }
 
