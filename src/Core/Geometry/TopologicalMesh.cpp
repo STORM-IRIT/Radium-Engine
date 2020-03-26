@@ -207,7 +207,6 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
-        if ( i % 10 == 0 ) LOG( logINFO ) << "Load " << i << "/" << num_triangles;
         std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
         std::vector<TopologicalMesh::Normal> face_normals( 3 );
         std::vector<unsigned int> face_vertexIndex( 3 );
@@ -226,13 +225,9 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             {
                 vh = add_vertex( p );
                 vertexHandles.insert( vtr, VertexMap::value_type( p, vh ) );
-                LOG( logINFO ) << "New vert " << inMeshVertexIndex;
             }
             else
-            {
-                LOG( logINFO ) << "Old vert " << inMeshVertexIndex;
-                vh = vtr->second;
-            }
+            { vh = vtr->second; }
 
             face_vhandles[j]    = vh;
             face_normals[j]     = n;
@@ -249,10 +244,6 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
                                  &wd );
 
             face_wedges[j] = m_wedges.add( wd );
-            if ( face_wedges[j] != m_wedges.size() - 1 )
-            { LOG( logINFO ) << "New wedge " << face_wedges[j]; }
-            else
-            { LOG( logINFO ) << "Old wedge " << face_wedges[j]; }
         }
 
         // Add the face, then add attribs to vh
@@ -361,8 +352,6 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
-        if ( i % 10 == 0 ) LOG( logINFO ) << "Load " << i << "/" << num_triangles;
-
         std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
         std::vector<TopologicalMesh::Normal> face_normals( 3 );
         std::vector<unsigned int> face_vertexIndex( 3 );
@@ -388,7 +377,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
             face_vhandles[j]    = vh;
             face_normals[j]     = n;
             face_vertexIndex[j] = inMeshVertexIndex;
-            face_wedges[j]      = WedgeIndex{int(i)};
+            face_wedges[j]      = WedgeIndex{int( i )};
         }
 
         // Add the face, then add attribs to vh
@@ -830,6 +819,9 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
                                            HalfedgeHandle t2_,
                                            HalfedgeHandle a1_,
                                            HalfedgeHandle a2_ ) {
+        CORE_UNUSED( t2_ );
+        CORE_UNUSED( a2_ );
+
         if ( !is_boundary( t0_ ) )
         {
             CORE_ASSERT( t2_ == a2_, "TopologicalMesh: splitEdgeWedge inconsistency" );
@@ -849,6 +841,9 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
                                            HalfedgeHandle s2_,
                                            HalfedgeHandle b1_,
                                            TopologicalMesh::WedgeIndex v0widx_ ) {
+        CORE_UNUSED( s1_ );
+        CORE_UNUSED( b1_ );
+
         if ( !is_boundary( s0_ ) )
         {
             CORE_ASSERT( s1_ == b1_, "TopologicalMesh: splitEdgeWedge inconsistency" );
@@ -936,11 +931,7 @@ void TopologicalMesh::garbage_collection() {
         if ( !status( *he_it ).deleted() )
         {
             auto index = property( m_wedgeIndexPph, *he_it );
-            if ( index.isValid() )
-            {
-                auto newIndex                       = index - offset[index];
-                property( m_wedgeIndexPph, *he_it ) = newIndex;
-            }
+            if ( index.isValid() ) { property( m_wedgeIndexPph, *he_it ) = index - offset[index]; }
         }
     }
     m_wedges.garbageCollection();

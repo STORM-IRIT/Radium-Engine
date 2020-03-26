@@ -331,10 +331,10 @@ inline bool TopologicalMesh::isFeatureEdge( const EdgeHandle& eh ) const {
     auto heh0 = halfedge_handle( eh, 0 );
     auto heh1 = halfedge_handle( eh, 1 );
 
-    return property( m_wedgeIndexPph, heh0 ) ==
+    return property( m_wedgeIndexPph, heh0 ) !=
                property( m_wedgeIndexPph,
                          prev_halfedge_handle( opposite_halfedge_handle( heh0 ) ) ) ||
-           property( m_wedgeIndexPph, heh1 ) ==
+           property( m_wedgeIndexPph, heh1 ) !=
                property( m_wedgeIndexPph,
                          prev_halfedge_handle( opposite_halfedge_handle( heh1 ) ) );
 }
@@ -461,18 +461,6 @@ inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::Wedge
         m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
         m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
         m_vector4Attrib == lhs.m_vector4Attrib;
-}
-
-// return 1 : equals, 2: strict less, 3: strich greater
-template <typename T>
-int compareVector( const T& a, const T& b ) {
-    for ( int i = 0; i < T::RowsAtCompileTime; i++ )
-    {
-        if ( a[i] < b[i] ) return 2;
-        if ( a[i] > b[i] ) return 3;
-    }
-    // (a == b)
-    return 1;
 }
 
 inline bool TopologicalMesh::WedgeData::operator<( const TopologicalMesh::WedgeData& lhs ) const {
