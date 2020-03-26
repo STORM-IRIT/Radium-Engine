@@ -10,14 +10,11 @@
 #include <OpenMesh/Tools/Decimater/ModQuadricT.hh>
 
 using namespace Ra::Core;
+using namespace Ra::Core::Utils;
 using namespace Ra::Core::Geometry;
 
 bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
                  Ra::Core::Geometry::TriangleMesh& meshTwo ) {
-
-    using Ra::Core::Vector3;
-    using Ra::Core::Geometry::TopologicalMesh;
-    using Ra::Core::Geometry::TriangleMesh;
 
     bool result = true;
     int i       = 0;
@@ -27,8 +24,8 @@ bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
     if ( meshOne.m_indices.size() != meshTwo.m_indices.size() ) return false;
 
     // Check triangles
-    std::vector<Ra::Core::Vector3> stackVertices;
-    std::vector<Ra::Core::Vector3> stackNormals;
+    std::vector<Vector3> stackVertices;
+    std::vector<Vector3> stackNormals;
 
     i = 0;
     while ( result && i < int( meshOne.m_indices.size() ) )
@@ -82,7 +79,7 @@ class WedgeDataAndIdx
     bool operator!=( const WedgeDataAndIdx& lhs ) const { return !( *this == lhs ); }
 };
 
-#define COPY_TO_WEDGES_VECTOR_HELPER( UPTYPE, DOWNTYPE, REALTYPE )                            \
+#define COPY_TO_WEDGES_VECTOR_HELPER( UPTYPE, REALTYPE )                                      \
     if ( attr->is##UPTYPE() )                                                                 \
     {                                                                                         \
         auto data =                                                                           \
@@ -105,18 +102,17 @@ void copyToWedgesVector( size_t size,
     }
     else if ( attr->getName() != std::string( "in_position" ) )
     {
-        auto data = meshOne.vertices();
-        for ( size_t i = 0; i < size; ++i )
         {
-            wedgesMeshOne[i].m_data.m_position = data[i];
+            auto data = meshOne.vertices();
+            for ( size_t i = 0; i < size; ++i )
+            {
+                wedgesMeshOne[i].m_data.m_position = data[i];
+            }
         }
-    }
-    if ( attr->getName() != std::string( "in_position" ) )
-    {
-        COPY_TO_WEDGES_VECTOR_HELPER( Float, float, float );
-        COPY_TO_WEDGES_VECTOR_HELPER( Vector2, vector2, Vector2 );
-        COPY_TO_WEDGES_VECTOR_HELPER( Vector3, vector3, Vector3 );
-        COPY_TO_WEDGES_VECTOR_HELPER( Vector4, vector4, Vector4 );
+        COPY_TO_WEDGES_VECTOR_HELPER( Float, float );
+        COPY_TO_WEDGES_VECTOR_HELPER( Vector2, Vector2 );
+        COPY_TO_WEDGES_VECTOR_HELPER( Vector3, Vector3 );
+        COPY_TO_WEDGES_VECTOR_HELPER( Vector4, Vector4 );
     }
 }
 #undef COPY_TO_WEDGES_VECTOR_HELPER
