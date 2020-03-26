@@ -1,5 +1,4 @@
-#ifndef TOPOLOGICALMESH_H
-#define TOPOLOGICALMESH_H
+#pragma once
 
 #include <Core/RaCore.hpp>
 
@@ -86,6 +85,19 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         inline bool operator!=( const WedgeData& lhs ) const;
         inline bool operator<( const WedgeData& lhs ) const;
         friend Wedge;
+
+      private:
+        // return 1 : equals, 2: strict less, 3: strict greater
+        template <typename T>
+        static int compareVector( const T& a, const T& b ) {
+            for ( int i = 0; i < T::RowsAtCompileTime; i++ )
+            {
+                if ( a[i] < b[i] ) return 2;
+                if ( a[i] > b[i] ) return 3;
+            }
+            // (a == b)
+            return 1;
+        }
     };
 
     /**
@@ -606,5 +618,3 @@ void printWedgesInfo( const TopologicalMesh& );
 } // namespace Ra
 
 #include <Core/Geometry/TopologicalMesh.inl>
-
-#endif // TOPOLOGICALMESH_H
