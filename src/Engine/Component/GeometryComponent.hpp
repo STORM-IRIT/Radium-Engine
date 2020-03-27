@@ -98,6 +98,8 @@ class RA_ENGINE_API TriangleMeshComponent : public GeometryComponent
     std::shared_ptr<Mesh> m_displayMesh{nullptr};
 };
 
+/// \warning, WIP
+/// \todo doc.
 class RA_ENGINE_API PointCloudComponent : public GeometryComponent
 {
     using base = GeometryComponent;

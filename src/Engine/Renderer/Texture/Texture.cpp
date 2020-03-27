@@ -140,6 +140,8 @@ void Engine::Texture::updateData( void* data ) {
         // Load the 6 faces of the cubemap
         void** texels = (void**)data;
         m_texture->bind();
+        // track globjects update that will eventually support direct loading of
+        // cubemaps
         gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_X,
                           0,
                           m_textureParameters.internalFormat,

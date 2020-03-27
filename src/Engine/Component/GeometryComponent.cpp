@@ -8,34 +8,28 @@
 #include <Core/Geometry/Normal.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Core/Utils/Log.hpp>
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-
 #include <Engine/Renderer/Displayable/VolumeObject.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Material/VolumetricMaterial.hpp>
-
+#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
-
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
-using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
-
 #define CHECK_MESH_NOT_NULL \
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
 
-#include <Core/Utils/Log.hpp>
+using TriangleArray = Ra::Core::VectorArray<Ra::Core::Vector3ui>;
 using namespace Ra::Core::Utils;
 
 namespace Ra {
@@ -396,15 +390,17 @@ void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* d
     m_volumeIndex = addRenderObject( ro );
 }
 
-VolumeObject* VolumeComponent::getDisplayVolume() {
-    CORE_ASSERT( m_displayVolume != nullptr,
+#define CHECK_VOL_NOT_NULL                   \
+    CORE_ASSERT( m_displayVolume != nullptr, \
                  "DisplayVolume should exist while component is alive" );
+
+VolumeObject* VolumeComponent::getDisplayVolume() {
+    CHECK_VOL_NOT_NULL;
     return m_displayVolume.get();
 }
 
 Index VolumeComponent::getRenderObjectIndex() const {
-    CORE_ASSERT( m_displayVolume != nullptr,
-                 "DisplayVolume should exist while component is alive" );
+    CHECK_VOL_NOT_NULL;
     return m_volumeIndex;
 }
 
@@ -413,35 +409,30 @@ void VolumeComponent::setContentName( const std::string& name ) {
 }
 
 void VolumeComponent::setupIO( const std::string& id ) {
-    CORE_ASSERT( m_displayVolume != nullptr,
-                 "DisplayVolume should exist while component is alive" );
-    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::AbstractVolume>::Getter cbOut =
-        std::bind( &VolumeComponent::getVolumeOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Geometry::AbstractVolume>(
-        getEntity(), this, id, cbOut );
+    CHECK_VOL_NOT_NULL;
 
-    ComponentMessenger::CallbackTypes<Ra::Core::Geometry::AbstractVolume>::ReadWrite cbRw =
-        std::bind( &VolumeComponent::getVolumeRw, this );
-    ComponentMessenger::getInstance()->registerReadWrite<Ra::Core::Geometry::AbstractVolume>(
-        getEntity(), this, id, cbRw );
+    const auto& cm = ComponentMessenger::getInstance();
+    auto cbOut     = std::bind( &VolumeComponent::getVolumeOutput, this );
+    auto cbRw      = std::bind( &VolumeComponent::getVolumeRw, this );
+    auto roOut     = std::bind( &VolumeComponent::roIndexRead, this );
 
-    ComponentMessenger::CallbackTypes<Index>::Getter roOut =
-        std::bind( &VolumeComponent::roIndexRead, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Utils::Index>(
-        getEntity(), this, id, roOut );
+    cm->registerOutput<Ra::Core::Geometry::AbstractVolume>( getEntity(), this, id, cbOut );
+    cm->registerReadWrite<Ra::Core::Geometry::AbstractVolume>( getEntity(), this, id, cbRw );
+    cm->registerOutput<Ra::Core::Utils::Index>( getEntity(), this, id, roOut );
 }
 
 const Index* VolumeComponent::roIndexRead() const {
-    CORE_ASSERT( m_displayVolume != nullptr,
-                 "DisplayVolume should exist while component is alive" );
+    CHECK_VOL_NOT_NULL;
     return &m_volumeIndex;
 }
 
 const Ra::Core::Geometry::AbstractVolume* VolumeComponent::getVolumeOutput() const {
+    CHECK_VOL_NOT_NULL;
     return &m_displayVolume->getVolume();
 }
 
 Ra::Core::Geometry::AbstractVolume* VolumeComponent::getVolumeRw() {
+    CHECK_VOL_NOT_NULL;
     return &m_displayVolume->getVolume();
 }
 

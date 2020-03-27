@@ -40,7 +40,8 @@ constexpr void Index::setValue( const IntegerType i ) {
 }
 
 /// CAST
-constexpr Index::operator int() const {
+/// \todo manage other types ? like unsigned with an assert if invalid ?
+constexpr Index::operator IntegerType() const {
     return m_idx;
 }
 
