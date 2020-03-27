@@ -50,7 +50,7 @@ use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a
 * Brace style : keep it consistent across files.
 * Case style : CamelCase
 * Only classes have their first letter capitalized. Functions and variables don't.
-* Class members have the `m_` prefix. Other prefixes (apart from `g_`) are discouraged.
+* Class members have the `m_` prefix. Other prefixes (apart from `g_` for globals, and `s_` for static classe members) are discouraged.
 * no ifs / for / while one-liners. Braces everywhere. Even for cases in a switch.
 * separate different clauses in a boolean expression with parens.
 `( (a || b) && ( c+d < 0) )`

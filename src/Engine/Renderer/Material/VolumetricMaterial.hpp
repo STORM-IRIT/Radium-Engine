@@ -51,7 +51,7 @@ class RA_ENGINE_API VolumetricMaterial final : public Material
     /**
      * Get the texture associated to the given semantic.
      * @param semantic
-     * @return
+     * @return the corresponding texture
      */
     inline Texture* getTexture() const;
 

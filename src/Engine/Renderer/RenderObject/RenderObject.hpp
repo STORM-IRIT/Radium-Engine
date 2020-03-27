@@ -91,9 +91,8 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      */
     void updateGL();
 
-    //
-    // Getters and setters.
-    //
+    /// Getters and setters.
+    ///@{
     const std::string& getName() const;
     const Component* getComponent() const;
     Component* getComponent();
@@ -140,11 +139,14 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     void setLocalTransform( const Core::Matrix4& transform );
     const Core::Transform& getLocalTransform() const;
     const Core::Matrix4& getLocalTransformAsMatrix() const;
+    ///@}
 
     /// Basically just decreases lifetime counter.
     /// If it goes to zero, then render object notifies the manager that it needs to be deleted.
     /// Does nothing if lifetime is set to -1
     void hasBeenRenderedOnce();
+
+    /// Notify component that the render object has expired.
     void hasExpired();
 
     /**

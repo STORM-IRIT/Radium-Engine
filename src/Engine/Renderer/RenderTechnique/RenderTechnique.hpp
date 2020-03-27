@@ -64,6 +64,8 @@ class RA_ENGINE_API RenderTechnique final
 {
   public:
     RenderTechnique();
+
+    /// copy constuctor, only active pass and active pass parameters are copied.
     RenderTechnique( const RenderTechnique& );
     ~RenderTechnique();
 
@@ -141,14 +143,14 @@ class RA_ENGINE_API RenderTechnique final
 
   private:
     /// Maximum number of passses in the technique
-    static constexpr int m_maxNbPasses{32};
+    static constexpr int s_maxNbPasses{32};
 
     /// A pass configuration is a pair of ShaderConfiguration and a ShaderProgram
     using PassConfiguration = std::pair<ShaderConfiguration, const ShaderProgram*>;
     /// A Configuration set is a fixed-sized array of m_maxNbPasses (32) passes
-    using ConfigurationSet = std::array<PassConfiguration, m_maxNbPasses>;
+    using ConfigurationSet = std::array<PassConfiguration, s_maxNbPasses>;
     /// Rendering parameters associated to the configurationSet
-    using PassesParameters = std::array<std::shared_ptr<ShaderParameterProvider>, m_maxNbPasses>;
+    using PassesParameters = std::array<std::shared_ptr<ShaderParameterProvider>, s_maxNbPasses>;
 
     /// Configuration for all active passes of the technique
     ConfigurationSet m_activePasses;

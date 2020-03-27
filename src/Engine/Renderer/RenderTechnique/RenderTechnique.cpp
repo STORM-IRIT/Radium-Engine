@@ -15,7 +15,7 @@ using namespace Core::Utils; // log
 std::shared_ptr<Ra::Engine::RenderTechnique> RadiumDefaultRenderTechnique{nullptr};
 
 RenderTechnique::RenderTechnique() : m_numActivePass{0} {
-    for ( auto p = Index( 0 ); p < m_maxNbPasses; ++p )
+    for ( auto p = Index( 0 ); p < s_maxNbPasses; ++p )
     {
         m_activePasses[p]     = std::move( PassConfiguration( ShaderConfiguration(), nullptr ) );
         m_passesParameters[p] = nullptr;
