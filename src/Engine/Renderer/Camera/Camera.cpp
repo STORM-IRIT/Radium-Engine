@@ -41,7 +41,8 @@ void Camera::initialize() {
     m->loadGeometry( std::move( triMesh ) );
 
     // Create the RO
-    auto mat              = Core::make_shared<PlainMaterial>( m_name + "_Material" );
+    auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );
+    /// \todo switch to "mat->m_color          = {.2_ra, .2_ra, .2_ra, 1_ra};"
     mat->m_perVertexColor = true;
     RenderTechnique rt;
     auto cfg = ShaderConfigurationFactory::getConfiguration( "Plain" );

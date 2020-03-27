@@ -89,6 +89,8 @@ class RA_ENGINE_API DebugRender final
     void renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f& proj );
 
   private:
+    // these shaders are owned by the manager, just keep a raw copy, since the
+    // manager is available during whole execution.
     const ShaderProgram* m_lineProg{nullptr};
     const ShaderProgram* m_pointProg{nullptr};
     const ShaderProgram* m_meshProg{nullptr};
