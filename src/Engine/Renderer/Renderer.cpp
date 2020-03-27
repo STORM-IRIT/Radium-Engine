@@ -177,8 +177,6 @@ void Renderer::initialize( uint width, uint height ) {
 
     resize( m_width, m_height );
 
-    glDrawBuffer( GL_BACK );
-    glReadBuffer( GL_BACK );
 }
 
 Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
@@ -563,12 +561,10 @@ void Renderer::restoreExternalFBOInternal() {
     if ( m_qtPlz == 0 )
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
-        glDrawBuffer( GL_BACK );
     }
     else
     {
         GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
-        GL_ASSERT( glDrawBuffers( 1, buffers ) );
     }
 }
 
