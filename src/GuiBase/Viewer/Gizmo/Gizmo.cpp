@@ -13,26 +13,47 @@
 namespace Ra {
 namespace Gui {
 
+std::array<std::shared_ptr<Ra::Engine::Material>, 4> Gizmo::s_material;
+
 Gizmo::Gizmo( Engine::Component* c,
               const Core::Transform& worldTo,
               const Core::Transform& t,
               Mode mode ) :
-    m_worldTo( worldTo ), m_transform( t ), m_comp( c ), m_mode( mode ) {}
-
-Gizmo::~Gizmo() {
-    // first release meshes shared pointers before destroying ROs
-    m_meshes.clear();
-    for ( auto ro : m_renderObjects )
+    m_worldTo( worldTo ),
+    m_transform( t ),
+    m_comp( c ),
+    m_mode( mode ) {
+    using namespace Core::Utils;
+    if ( !s_material[0] )
     {
-        m_comp->removeRenderObject( ro );
+        auto mat      = Core::make_shared<Engine::PlainMaterial>( "GizmoRedMaterial" );
+        mat->m_color  = Color::Red();
+        s_material[0] = mat;
+        mat           = Core::make_shared<Engine::PlainMaterial>( "GizmoGreenMaterial" );
+        mat->m_color  = Color::Green();
+        s_material[1] = mat;
+        mat           = Core::make_shared<Engine::PlainMaterial>( "GizmoBlueMaterial" );
+        mat->m_color  = Color::Blue();
+        s_material[2] = mat;
+        mat           = Core::make_shared<Engine::PlainMaterial>( "GizmoYellowMaterial" );
+        mat->m_color  = Color::Yellow();
+        s_material[3] = mat;
     }
 }
 
-void Gizmo::show( bool on ) {
-    auto roMgr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-    for ( auto ro : m_renderObjects )
+Gizmo::~Gizmo() {
+    // first release meshes shared pointers before destroying ROs
+    for ( auto ro : m_ros )
     {
-        roMgr->getRenderObject( ro )->setVisible( on );
+        m_comp->removeRenderObject( ro->getIndex() );
+    }
+    m_ros.clear();
+}
+
+void Gizmo::show( bool on ) {
+    for ( auto ro : m_ros )
+    {
+        ro->setVisible( on );
     }
 }
 
@@ -68,20 +89,22 @@ bool Gizmo::findPointOnPlane( const Engine::Camera& cam,
     return hasHit;
 }
 
-void Gizmo::addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Engine::Mesh>& mesh ) {
-    m_meshes.push_back( mesh );
-    m_renderObjects.push_back( m_comp->addRenderObject( ro ) );
+void Gizmo::addRenderObject( Engine::RenderObject* ro ) {
+    m_comp->addRenderObject( ro );
+    m_ros.push_back( ro );
 }
 
-Engine::RenderTechnique* Gizmo::makeRenderTechnique( const std::string& mtlName,
-                                                     bool rtPerVertexColor ) {
+void Gizmo::changeMat( uint ro, uint mat ) {
+    m_ros[ro]->setMaterial( s_material[mat] );
+    m_ros[ro]->getRenderTechnique()->setParametersProvider( s_material[mat] );
+}
+
+Engine::RenderTechnique* Gizmo::makeRenderTechnique() {
     auto rt       = new Engine::RenderTechnique;
     auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
     rt->setConfiguration( *plaincfg );
-    auto mat              = Core::make_shared<Engine::PlainMaterial>( mtlName );
-    mat->m_perVertexColor = rtPerVertexColor;
-    rt->setParametersProvider( mat );
     return rt;
 }
+
 } // namespace Gui
 } // namespace Ra

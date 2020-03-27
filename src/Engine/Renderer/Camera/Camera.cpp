@@ -17,7 +17,10 @@ using Core::Math::PiDiv4;
 namespace Engine {
 
 Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
-    Component( name, entity ), m_width{width}, m_height{height}, m_aspect{width / height} {}
+    Component( name, entity ),
+    m_width{width},
+    m_height{height},
+    m_aspect{width / height} {}
 
 Camera::~Camera() = default;
 
@@ -35,14 +38,11 @@ void Camera::initialize() {
                           {0_ra, .7_ra, -1_ra},
                           {.3_ra, .5_ra, -1_ra}} );
     triMesh.m_indices = {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}};
-    Core::Vector4Array c( 8, {.2_ra, .2_ra, .2_ra, 1_ra} );
-    triMesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), c );
-
     m->loadGeometry( std::move( triMesh ) );
 
     // Create the RO
-    auto mat              = Core::make_shared<PlainMaterial>( m_name + "_Material" );
-    mat->m_perVertexColor = true;
+    auto mat     = Core::make_shared<PlainMaterial>( m_name + "_Material" );
+    mat->m_color = Color( .2_ra, .2_ra, .2_ra, 1_ra );
     RenderTechnique rt;
     auto cfg = ShaderConfigurationFactory::getConfiguration( "Plain" );
     rt.setConfiguration( *cfg );
@@ -75,7 +75,8 @@ void Camera::updateProjMatrix() {
 
     switch ( m_projType )
     {
-    case ProjType::ORTHOGRAPHIC: {
+    case ProjType::ORTHOGRAPHIC:
+    {
         const Scalar dx = m_zoomFactor * .5_ra;
         const Scalar dy = dx / m_aspect;
         // ------------
@@ -98,7 +99,8 @@ void Camera::updateProjMatrix() {
     }
     break;
 
-    case ProjType::PERSPECTIVE: {
+    case ProjType::PERSPECTIVE:
+    {
         // Compute projection matrix as describe in the doc of gluPerspective()
         const Scalar f    = std::tan( ( PiDiv2 ) - ( m_fov * m_zoomFactor * .5_ra ) );
         const Scalar diff = m_zNear - m_zFar;

@@ -5,7 +5,6 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -21,6 +20,7 @@ class RenderTechnique;
 namespace Ra {
 namespace Engine {
 class Camera;
+class Material;
 class Mesh;
 } // namespace Engine
 } // namespace Ra
@@ -92,27 +92,31 @@ class Gizmo
     //////////////////////////////
     // Render objects management
 
-    /// read access to the gizmo render objects id
-    inline const std::vector<Core::Utils::Index>& roIds() const { return m_renderObjects; }
-    /// read access to the gizmo render objects Meshes
-    /// \note Only the std::vector is const, which allows to modify the meshes
-    inline const std::vector<std::shared_ptr<Engine::Mesh>>& roMeshes() const { return m_meshes; }
+    /// read access to the gizmo render objects
+    /// \note Only the std::vector is const, which allows to modify the render objects.
+    inline const std::vector<Engine::RenderObject*>& ros() const { return m_ros; }
+
     /// add a render object to display the Gizmo
     /// \param mesh Except declaration type, must be equal to ro->getMesh();
-    void addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Engine::Mesh>& mesh );
+    void addRenderObject( Engine::RenderObject* ro );
+
+    /// Changes the material used to display the given RenderObject.
+    void changeMat( uint ro, uint mat );
 
     /// Generate a plain rendertechnique to draw the gizmo.
-    Engine::RenderTechnique* makeRenderTechnique( const std::string& mtlName,
-                                                  bool rtPerVertexColor );
+    static Engine::RenderTechnique* makeRenderTechnique();
 
   protected:
     Core::Transform m_worldTo;   ///< World to local space where the transform lives.
     Core::Transform m_transform; ///< Transform to be edited.
     Engine::Component* m_comp;   ///< Engine Ui component.
     Mode m_mode;                 ///< local or global.
+
+    /// The RenderTechnique used to diplay the gizmo: 1-Red, 2-Green, 3-Blue, 4-Yellow.
+    static std::array<std::shared_ptr<Ra::Engine::Material>, 4> s_material;
+
   private:
-    std::vector<Core::Utils::Index> m_renderObjects;     ///< ros for the gizmo.
-    std::vector<std::shared_ptr<Engine::Mesh>> m_meshes; ///< Display meshes of the gizmo
+    std::vector<Engine::RenderObject*> m_ros; ///< ros for the gizmo.
 };
 } // namespace Gui
 } // namespace Ra
