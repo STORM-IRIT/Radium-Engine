@@ -72,6 +72,7 @@ class WedgeDataAndIdx
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     TopologicalMesh::WedgeData m_data;
+
     size_t m_idx;
 
     bool operator<( const WedgeDataAndIdx& lhs ) const { return m_data < lhs.m_data; }
@@ -293,16 +294,71 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         REQUIRE( check2 );
         REQUIRE( topologicalMesh.checkIntegrity() );
     }
+}
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit",
+           "[Core][Core/Geometry][TopologicalMesh]" ) {
+    using Ra::Core::Vector3;
+    using Ra::Core::Geometry::TopologicalMesh;
+    using Ra::Core::Geometry::TriangleMesh;
 
     // create a triangle mesh with 4 vertices
-
+    TriangleMesh meshSplit;
+    meshSplit.setVertices( {{0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 1, 0}} );
+    meshSplit.setNormals( {{-1, -1, 1}, {1, -1, 1}, {1, 1, 1}, {-1, 1, 1}} );
+    meshSplit.m_indices = {Vector3ui( 0, 1, 2 ), Vector3ui( 0, 2, 3 )};
     // add a float attrib
+    auto handle = meshSplit.addAttrib<float>( "test", {0.f, 1.f, 2.f, 3.f} );
 
     // convert to topomesh
+    TopologicalMesh topo = TopologicalMesh( meshSplit );
 
     // split middle edge
+    TopologicalMesh::EdgeHandle eh;
+    // iterate over all to find inner one
+    int innerEdgeCount = 0;
+    for ( TopologicalMesh::EdgeIter e_it = topo.edges_begin(); e_it != topo.edges_end(); ++e_it )
+    {
+        if ( !topo.is_boundary( *e_it ) )
+        {
+            eh = *e_it;
+            ++innerEdgeCount;
+        }
+    }
+    REQUIRE( innerEdgeCount == 1 );
+    float f  = .3f;
+    auto he0 = topo.halfedge_handle( eh, 0 );
+    auto he1 = topo.halfedge_handle( eh, 1 );
+    auto v0  = topo.to_vertex_handle( he0 );
+    auto p0  = topo.point( v0 );
+    auto v1  = topo.to_vertex_handle( he1 );
+    auto p1  = topo.point( v1 );
+    topo.splitEdgeWedge( eh, f );
 
-    // check topology and interpolated values
+    // check topology and interpolated val
+    REQUIRE( topo.is_valid_handle( he0 ) );
+    REQUIRE( topo.is_valid_handle( he1 ) );
+
+    REQUIRE( v0 == topo.to_vertex_handle( he0 ) );
+    REQUIRE( Math::areApproxEqual( ( p0 - topo.point( v0 ) ).squaredNorm(), 0_ra ) );
+
+    auto vsplit = topo.to_vertex_handle( he1 );
+    auto psplit = topo.point( vsplit );
+
+    auto wedges = topo.getVertexWedges( vsplit );
+    REQUIRE( wedges.size() == 1 );
+
+    auto vcheck = ( f * p0 + ( 1.f - f ) * p1 );
+
+    REQUIRE( Math::areApproxEqual( ( psplit - vcheck ).squaredNorm(), 0.f ) );
+
+    auto wd = topo.getWedgeData( *wedges.begin() );
+
+    auto fsplit = wd.m_floatAttrib[0];
+    auto fcheck = ( f * 0.f + ( 1.f - f ) * 2.f );
+
+    REQUIRE( Math::areApproxEqual( fsplit, fcheck ) );
+
     // split boundary edge
     // check topology and interpolated values
 
