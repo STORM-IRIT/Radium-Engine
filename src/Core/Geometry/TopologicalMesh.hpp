@@ -54,8 +54,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
   private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
-    using Index = Ra::Core::Utils::Index;
-
+    using Index   = Ra::Core::Utils::Index;
+    using Vector3 = Ra::Core::Vector3;
     class Wedge;
 
   public:
@@ -382,8 +382,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \param f The interpolation factor to place the new point on the edge.
      *          Must be in [0,1].
      * \return True if the edge has been split, false otherwise.
-     * \note Only applies on edges between 3 triangles, and if \a f is in [0,1].
-     * \note Mesh attributes are linearly interpolated on the newly created halfedge.
+     * \note Only applies on edges between 2 triangles, and if \a f is in [0,1].
+     * \note Mesh attributes are linearly interpolated on the newly created
+     * halfedge.
+     * \note f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of
+     * the edge)
      */
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
     bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
@@ -410,6 +413,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \param idx must be valid and correspond to a non delete wedge index.
      */
     inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
+
+    unsigned int getWedgeRefCount( const WedgeIndex& idx ) const {
+        return m_wedges.getWedgeRefCount( idx );
+    }
 
     /** set WedgeData \a wd to the wedge with index \a widx.
      * All halfedge that point to widx will get the new values.
@@ -548,6 +555,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
             return m_data[idx].getWedgeData();
         }
 
+        unsigned int getWedgeRefCount( const WedgeIndex& idx ) const {
+            CORE_ASSERT( idx.isValid(), "access to invalid or deleted wedge is prohibited" );
+            return m_data[idx].getRefCount();
+        }
+
         /// Return the wedge (not the data) for in class manipulation.
         /// client code should use getWedgeData only.
         inline const Wedge& getWedge( const WedgeIndex& idx ) const;
@@ -595,6 +607,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     };
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
+
+    void split_copy( EdgeHandle _eh, VertexHandle _vh );
+    void split( EdgeHandle _eh, VertexHandle _vh );
 
     OpenMesh::HPropHandleT<WedgeIndex> m_wedgeIndexPph; /**< Halfedges' Wedge index */
     WedgeCollection m_wedges;                           /**< Wedge data management */

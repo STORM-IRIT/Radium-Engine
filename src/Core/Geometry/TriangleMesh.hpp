@@ -116,6 +116,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// Add attribute with the given name.
     /// \see AttribManager::addAttrib() for more info.
     /// \param name: attrib name, uniquely identify the attrib
+    /// \return handle to set the attrib data with getAttrib(handle).setData()
     template <typename T>
     inline Utils::AttribHandle<T> addAttrib( const std::string& name );
 
