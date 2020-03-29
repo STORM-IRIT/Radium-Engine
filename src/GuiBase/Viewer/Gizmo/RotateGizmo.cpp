@@ -12,8 +12,6 @@
 namespace Ra {
 namespace Gui {
 
-const std::string colorAttribName = Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR );
-
 RotateGizmo::RotateGizmo( Engine::Component* c,
                           const Core::Transform& worldTo,
                           const Core::Transform& t,
@@ -27,7 +25,6 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
         Core::Geometry::TriangleMesh torus = Core::Geometry::makeParametricTorus<32>(
             torusOutRadius, torusAspectRatio * torusOutRadius );
         // Transform the torus from z-axis to axis i.
-
         auto& data = torus.verticesWithLock();
         for ( auto& v : data )
         {
@@ -36,31 +33,17 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
         }
         torus.verticesUnlock();
 
-        // set color
-        {
-            Core::Utils::Color color = Core::Utils::Color::Black();
-            color[i]                 = 1_ra;
-            auto colorAttribHandle   = torus.addAttrib<Core::Vector4>( colorAttribName );
-            torus.getAttrib( colorAttribHandle )
-                .setData( Core::Vector4Array( torus.vertices().size(), color ) );
-        }
-
         auto mesh = std::shared_ptr<Engine::Mesh>( new Engine::Mesh( "Gizmo Torus" ) );
         mesh->loadGeometry( std::move( torus ) );
 
-        Engine::RenderObject* arrowDrawable =
+        auto torusDrawable =
             new Engine::RenderObject( "Gizmo Torus", m_comp, Engine::RenderObjectType::UI );
-
-        std::shared_ptr<Engine::RenderTechnique> rt(
-            makeRenderTechnique( "Rotate Gizmo material",
-                                 mesh->getCoreGeometry().hasAttrib( Engine::Mesh::getAttribName(
-                                     Engine::Mesh::VERTEX_COLOR ) ) ) );
-
-        arrowDrawable->setRenderTechnique( rt );
-        arrowDrawable->setMesh( mesh );
-        updateTransform( mode, m_worldTo, m_transform );
-        addRenderObject( arrowDrawable, mesh );
+        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
+        torusDrawable->setRenderTechnique( rt );
+        torusDrawable->setMesh( mesh );
+        addRenderObject( torusDrawable );
     }
+    updateTransform( mode, m_worldTo, m_transform );
 }
 
 void RotateGizmo::updateTransform( Gizmo::Mode mode,
@@ -80,38 +63,30 @@ void RotateGizmo::updateTransform( Gizmo::Mode mode,
         displayTransform.rotate( R );
     }
 
-    /// \fixme Cause multiple search in Ro map.
-    for ( auto roIdx : roIds() )
+    for ( auto ro : ros() )
     {
-        Engine::RadiumEngine::getInstance()
-            ->getRenderObjectManager()
-            ->getRenderObject( roIdx )
-            ->setLocalTransform( m_worldTo * displayTransform );
+        ro->setLocalTransform( m_worldTo * displayTransform );
     }
 }
 
 void RotateGizmo::selectConstraint( int drawableIdx ) {
-
-    // reColor constraint
+    // deselect previously selected axis
     if ( m_selectedAxis != -1 )
     {
-        Core::Utils::Color color = Core::Utils::Color::Black();
-        color[m_selectedAxis]    = 1_ra;
-        const auto& mesh         = roMeshes()[size_t( m_selectedAxis )];
-        mesh->getCoreGeometry().colorize( color );
+        getControler( m_selectedAxis )->clearState();
+        m_selectedAxis = -1;
     }
-    // prepare selection
-    m_selectedAxis = -1;
-    if ( drawableIdx >= 0 )
+    // Return if no component is selected
+    if ( drawableIdx < 0 ) { return; }
+
+    // update the state of the selected component
+    auto found = std::find_if( ros().cbegin(), ros().cend(), [drawableIdx]( const auto& ro ) {
+        return ro->getIndex() == Core::Utils::Index( drawableIdx );
+    } );
+    if ( found != ros().cend() )
     {
-        auto found =
-            std::find( roIds().cbegin(), roIds().cend(), Core::Utils::Index( drawableIdx ) );
-        if ( found != roIds().cend() )
-        {
-            m_selectedAxis   = int( std::distance( roIds().cbegin(), found ) );
-            const auto& mesh = roMeshes()[size_t( m_selectedAxis )];
-            mesh->getCoreGeometry().colorize( Core::Utils::Color::Yellow() );
-        }
+        m_selectedAxis = int( std::distance( ros().cbegin(), found ) );
+        getControler( m_selectedAxis )->setState();
     }
 }
 

@@ -11,8 +11,6 @@
 namespace Ra {
 namespace Gui {
 
-const std::string colorAttribName = Engine::Mesh::getAttribName( Engine::Mesh::VERTEX_COLOR );
-
 TranslateGizmo::TranslateGizmo( Engine::Component* c,
                                 const Core::Transform& worldTo,
                                 const Core::Transform& t,
@@ -26,28 +24,16 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
     constexpr Scalar axisWidth  = .05_ra;
     constexpr Scalar arrowFrac  = .15_ra;
 
-    std::shared_ptr<Engine::RenderTechnique> rt(
-        makeRenderTechnique( "Translate Gizmo material", true ) );
-
     for ( uint i = 0; i < 3; ++i )
     {
-        Core::Utils::Color arrowColor = Core::Utils::Color::Black();
-        arrowColor[i]                 = 1_ra;
-        Core::Vector3 cylinderEnd     = Core::Vector3::Zero();
-        cylinderEnd[i]                = ( 1_ra - arrowFrac );
-        Core::Vector3 arrowEnd        = Core::Vector3::Zero();
-        arrowEnd[i]                   = 1_ra;
-        Core::Geometry::TriangleMesh cylinder =
-            Core::Geometry::makeCylinder( Core::Vector3::Zero(),
-                                          arrowScale * cylinderEnd,
-                                          arrowScale * axisWidth / 2_ra,
-                                          32,
-                                          arrowColor );
-        Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone( arrowScale * cylinderEnd,
-                                                                      arrowScale * arrowEnd,
-                                                                      arrowScale * arrowFrac / 2_ra,
-                                                                      32,
-                                                                      arrowColor );
+        Core::Vector3 cylinderEnd             = Core::Vector3::Zero();
+        cylinderEnd[i]                        = ( 1_ra - arrowFrac );
+        Core::Vector3 arrowEnd                = Core::Vector3::Zero();
+        arrowEnd[i]                           = 1_ra;
+        Core::Geometry::TriangleMesh cylinder = Core::Geometry::makeCylinder(
+            Core::Vector3::Zero(), arrowScale * cylinderEnd, arrowScale * axisWidth / 2_ra, 32 );
+        Core::Geometry::TriangleMesh cone = Core::Geometry::makeCone(
+            arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2_ra, 32 );
         cylinder.append( cone );
 
         std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Translate Gizmo Arrow" ) );
@@ -55,17 +41,14 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
 
         Engine::RenderObject* arrowDrawable = new Engine::RenderObject(
             "Translate Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
-
-        addRenderObject( arrowDrawable, mesh );
+        addRenderObject( arrowDrawable );
     }
 
     for ( uint i = 0; i < 3; ++i )
     {
-        Core::Utils::Color planeColor = Core::Utils::Color::Black();
-        planeColor[i]                 = 1_ra;
-
         Core::Vector3 axis                        = Core::Vector3::Zero();
         axis[( i == 0 ? 1 : ( i == 1 ? 0 : 2 ) )] = 1;
         Core::Transform T                         = Core::Transform::Identity();
@@ -74,7 +57,7 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
         T.translation()[( i + 2 ) % 3] += arrowScale / 8_ra * 3_ra;
 
         Core::Geometry::TriangleMesh plane = Core::Geometry::makePlaneGrid(
-            1, 1, Core::Vector2( arrowScale / 8_ra, arrowScale / 8_ra ), T, planeColor );
+            1, 1, Core::Vector2( arrowScale / 8_ra, arrowScale / 8_ra ), T );
 
         // \FIXME this hack is here to be sure the plane will be selected (see shader)
 
@@ -87,9 +70,10 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
 
         Engine::RenderObject* planeDrawable =
             new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
         planeDrawable->setRenderTechnique( rt );
         planeDrawable->setMesh( mesh );
-        addRenderObject( planeDrawable, mesh );
+        addRenderObject( planeDrawable );
     }
 
     updateTransform( mode, m_worldTo, m_transform );
@@ -112,55 +96,47 @@ void TranslateGizmo::updateTransform( Gizmo::Mode mode,
         displayTransform.rotate( R );
     }
 
-    for ( auto roIdx : roIds() )
+    for ( auto ro : ros() )
     {
-        Engine::RadiumEngine::getInstance()
-            ->getRenderObjectManager()
-            ->getRenderObject( roIdx )
-            ->setLocalTransform( m_worldTo * displayTransform );
+        ro->setLocalTransform( m_worldTo * displayTransform );
     }
 }
 
 void TranslateGizmo::selectConstraint( int drawableIdx ) {
-    // reColor constraint
-    roMeshes()[0]->getCoreGeometry().colorize( Core::Utils::Color::Red() );
-    roMeshes()[1]->getCoreGeometry().colorize( Core::Utils::Color::Green() );
-    roMeshes()[2]->getCoreGeometry().colorize( Core::Utils::Color::Blue() );
-    roMeshes()[3]->getCoreGeometry().colorize( Core::Utils::Color::Red() );
-    roMeshes()[4]->getCoreGeometry().colorize( Core::Utils::Color::Green() );
-    roMeshes()[5]->getCoreGeometry().colorize( Core::Utils::Color::Blue() );
-
-    // prepare selection
-    m_selectedAxis  = -1;
-    m_selectedPlane = -1;
-    if ( drawableIdx >= 0 )
+    // deselect previously selected axis
+    if ( m_selectedAxis != -1 )
     {
-        auto found =
-            std::find( roIds().cbegin(), roIds().cend(), Core::Utils::Index( drawableIdx ) );
-        if ( found != roIds().cend() )
-        {
-            auto i = std::distance( roIds().cbegin(), found );
-            if ( i < 3 )
-            {
-                m_selectedAxis = int( i );
-                roMeshes()[size_t( m_selectedAxis )]->getCoreGeometry().colorize(
-                    Core::Utils::Color::Yellow() );
-            }
-            else
-            {
-                m_selectedPlane = int( i - 3 );
-                roMeshes()[size_t( ( m_selectedPlane + 1 ) % 3 )]->getCoreGeometry().colorize(
-                    Core::Utils::Color::Yellow() );
-                roMeshes()[size_t( ( m_selectedPlane + 2 ) % 3 )]->getCoreGeometry().colorize(
-                    Core::Utils::Color::Yellow() );
-                roMeshes()[size_t( m_selectedPlane + 3 )]->getCoreGeometry().colorize(
-                    Core::Utils::Color::Yellow() );
-            }
-        }
+        getControler( m_selectedAxis )->clearState();
+        m_selectedAxis = -1;
+    }
+    // deselect previously selected plane
+    if ( m_selectedPlane != -1 )
+    {
+        getControler( m_selectedPlane + 3 )->clearState();
+        getControler( ( m_selectedPlane + 1 ) % 3 )->clearState();
+        getControler( ( m_selectedPlane + 2 ) % 3 )->clearState();
+        m_selectedPlane = -1;
     }
 
-    for ( auto mesh : roMeshes() )
-        mesh->setDirty( Engine::Mesh::VERTEX_COLOR );
+    // Return if no component is selected
+    if ( drawableIdx < 0 ) { return; }
+
+    // update the state of the selected component
+    auto found = std::find_if( ros().cbegin(), ros().cend(), [drawableIdx]( const auto& ro ) {
+        return ro->getIndex() == Core::Utils::Index( drawableIdx );
+    } );
+    if ( found != ros().cend() )
+    {
+        int i = int( std::distance( ros().cbegin(), found ) );
+        getControler( i )->setState();
+        ( i < 3 ) ? m_selectedAxis = i : m_selectedPlane = i - 3;
+        // Activate the axes correponding to the selected plane
+        if ( m_selectedPlane != -1 )
+        {
+            getControler( ( m_selectedPlane + 1 ) % 3 )->setState();
+            getControler( ( m_selectedPlane + 2 ) % 3 )->setState();
+        }
+    }
 }
 
 Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam,
