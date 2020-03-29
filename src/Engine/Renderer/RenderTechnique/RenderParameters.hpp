@@ -64,7 +64,7 @@ class RA_ENGINE_API RenderParameters final
     };
 
     template <typename T>
-    class UniformBindableVector final
+    class UniformBindableSet final
         : public std::map<
               std::string,
               T,
@@ -132,23 +132,23 @@ class RA_ENGINE_API RenderParameters final
 
   private:
     // Radium V2 : Any way to simplify this a bit ? See Mesh attribs
-    UniformBindableVector<IntParameter> m_intParamsVector;
-    UniformBindableVector<UIntParameter> m_uintParamsVector;
-    UniformBindableVector<ScalarParameter> m_scalarParamsVector;
+    UniformBindableSet<IntParameter> m_intParamsVector;
+    UniformBindableSet<UIntParameter> m_uintParamsVector;
+    UniformBindableSet<ScalarParameter> m_scalarParamsVector;
 
-    UniformBindableVector<IntsParameter> m_intsParamsVector;
-    UniformBindableVector<UIntsParameter> m_uintsParamsVector;
-    UniformBindableVector<ScalarsParameter> m_scalarsParamsVector;
+    UniformBindableSet<IntsParameter> m_intsParamsVector;
+    UniformBindableSet<UIntsParameter> m_uintsParamsVector;
+    UniformBindableSet<ScalarsParameter> m_scalarsParamsVector;
 
-    UniformBindableVector<Vec2Parameter> m_vec2ParamsVector;
-    UniformBindableVector<Vec3Parameter> m_vec3ParamsVector;
-    UniformBindableVector<Vec4Parameter> m_vec4ParamsVector;
+    UniformBindableSet<Vec2Parameter> m_vec2ParamsVector;
+    UniformBindableSet<Vec3Parameter> m_vec3ParamsVector;
+    UniformBindableSet<Vec4Parameter> m_vec4ParamsVector;
 
-    UniformBindableVector<Mat2Parameter> m_mat2ParamsVector;
-    UniformBindableVector<Mat3Parameter> m_mat3ParamsVector;
-    UniformBindableVector<Mat4Parameter> m_mat4ParamsVector;
+    UniformBindableSet<Mat2Parameter> m_mat2ParamsVector;
+    UniformBindableSet<Mat3Parameter> m_mat3ParamsVector;
+    UniformBindableSet<Mat4Parameter> m_mat4ParamsVector;
 
-    UniformBindableVector<TextureParameter> m_texParamsVector;
+    UniformBindableSet<TextureParameter> m_texParamsVector;
 };
 
 /**
@@ -164,9 +164,10 @@ class ShaderParameterProvider
     virtual ~ShaderParameterProvider() = default;
     const RenderParameters& getParameters() const { return m_renderParameters; }
     /**
-     * Update the OpenGL states used by the material.
-     * These state could be textures, precomputed tables or whater data associated to the material
-     * and given to OpenGL as a buffer object.
+     * Update the OpenGL states used by the ShaderParameterProvider.
+     * These state could be the ones from an associated material (textures, precomputed tables or
+     * whatever data associated to the material)  or some parameters that are
+     * specific to the provider sementic.
      */
     virtual void updateGL() = 0;
 
