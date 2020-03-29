@@ -25,6 +25,59 @@ namespace Engine {
 
 using namespace Core::Utils; // log
 
+// The two following methods are independent of any ShaderProgram object.
+// Fixed : made them local function to remove dependency on openGL.h for the class header
+GLenum getTypeAsGLEnum( ShaderType type ) {
+    switch ( type )
+    {
+    case ShaderType_VERTEX:
+        return GL_VERTEX_SHADER;
+    case ShaderType_FRAGMENT:
+        return GL_FRAGMENT_SHADER;
+    case ShaderType_GEOMETRY:
+        return GL_GEOMETRY_SHADER;
+    case ShaderType_TESS_EVALUATION:
+        return GL_TESS_EVALUATION_SHADER;
+    case ShaderType_TESS_CONTROL:
+        return GL_TESS_CONTROL_SHADER;
+#ifndef OS_MACOS
+        // GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
+    case ShaderType_COMPUTE:
+        return GL_COMPUTE_SHADER;
+#endif
+    default:
+        CORE_ERROR( "Wrong ShaderType" );
+    }
+
+    // Should never get there
+    return GL_ZERO;
+}
+
+ShaderType getGLenumAsType( GLenum type ) {
+    switch ( type )
+    {
+    case GL_VERTEX_SHADER:
+        return ShaderType_VERTEX;
+    case GL_FRAGMENT_SHADER:
+        return ShaderType_FRAGMENT;
+    case GL_GEOMETRY_SHADER:
+        return ShaderType_GEOMETRY;
+    case GL_TESS_EVALUATION_SHADER:
+        return ShaderType_TESS_EVALUATION;
+    case GL_TESS_CONTROL_SHADER:
+        return ShaderType_TESS_CONTROL;
+#ifndef OS_MACOS
+    case GL_COMPUTE_SHADER:
+        return ShaderType_COMPUTE;
+#endif
+    default:
+        CORE_ERROR( "Wrong GLenum" );
+    }
+
+    // Should never get there
+    return ShaderType_COUNT;
+}
+
 ShaderProgram::ShaderProgram() : m_program{nullptr} {
     std::generate( m_shaderObjects.begin(), m_shaderObjects.end(), []() {
         return std::pair<bool, std::unique_ptr<globjects::Shader>>{false, nullptr};
@@ -144,57 +197,6 @@ void ShaderProgram::addShaderFromSource( ShaderType type,
     m_shaderSources[type].swap( ptrSource );
     // ^^^ raw ptrSource are stored in shader object, need to keep them valid during
     // shader life
-}
-
-GLenum ShaderProgram::getTypeAsGLEnum( ShaderType type ) const {
-    switch ( type )
-    {
-    case ShaderType_VERTEX:
-        return GL_VERTEX_SHADER;
-    case ShaderType_FRAGMENT:
-        return GL_FRAGMENT_SHADER;
-    case ShaderType_GEOMETRY:
-        return GL_GEOMETRY_SHADER;
-    case ShaderType_TESS_EVALUATION:
-        return GL_TESS_EVALUATION_SHADER;
-    case ShaderType_TESS_CONTROL:
-        return GL_TESS_CONTROL_SHADER;
-#ifndef OS_MACOS
-    // GL_COMPUTE_SHADER requires OpenGL >= 4.2, Apple provides OpenGL 4.1
-    case ShaderType_COMPUTE:
-        return GL_COMPUTE_SHADER;
-#endif
-    default:
-        CORE_ERROR( "Wrong ShaderType" );
-    }
-
-    // Should never get there
-    return GL_ZERO;
-}
-
-ShaderType ShaderProgram::getGLenumAsType( GLenum type ) const {
-    switch ( type )
-    {
-    case GL_VERTEX_SHADER:
-        return ShaderType_VERTEX;
-    case GL_FRAGMENT_SHADER:
-        return ShaderType_FRAGMENT;
-    case GL_GEOMETRY_SHADER:
-        return ShaderType_GEOMETRY;
-    case GL_TESS_EVALUATION_SHADER:
-        return ShaderType_TESS_EVALUATION;
-    case GL_TESS_CONTROL_SHADER:
-        return ShaderType_TESS_CONTROL;
-#ifndef OS_MACOS
-    case GL_COMPUTE_SHADER:
-        return ShaderType_COMPUTE;
-#endif
-    default:
-        CORE_ERROR( "Wrong GLenum" );
-    }
-
-    // Should never get there
-    return ShaderType_COUNT;
 }
 
 void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
