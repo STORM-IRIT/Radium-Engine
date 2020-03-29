@@ -4,7 +4,7 @@ namespace Ra {
 namespace Engine {
 
 template <typename T>
-inline void RenderParameters::UniformBindableVector<T>::bind( const ShaderProgram* shader ) const {
+inline void RenderParameters::UniformBindableSet<T>::bind( const ShaderProgram* shader ) const {
     for ( const auto& value : *this )
     {
         value.second.bind( shader );
