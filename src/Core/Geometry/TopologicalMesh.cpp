@@ -1240,6 +1240,7 @@ void TopologicalMesh::delete_face( FaceHandle _fh, bool _delete_isolated_vertice
 }
 
 /////////////// WEDGES RELATED STUFF /////////////////
+
 TopologicalMesh::WedgeIndex
 TopologicalMesh::WedgeCollection::add( const TopologicalMesh::WedgeData& wd ) {
     WedgeIndex idx;

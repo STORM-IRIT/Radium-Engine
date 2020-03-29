@@ -63,43 +63,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     using WedgeIndex = Index;
 
-    /// actual data per wedge
-    class WedgeData
-    {
-      public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-        //        Index m_inputTriangleMeshIndex;
-        //        Index m_outputTriangleMeshIndex;
-        Vector3 m_position{};
-        VectorArray<Scalar> m_floatAttrib;
-        VectorArray<Vector2> m_vector2Attrib;
-        VectorArray<Vector3> m_vector3Attrib;
-        VectorArray<Vector4> m_vector4Attrib;
-
-        template <typename T>
-        inline VectorArray<T>& getAttribArray();
-
-        explicit WedgeData() = default;
-        inline bool operator==( const WedgeData& lhs ) const;
-        inline bool operator!=( const WedgeData& lhs ) const;
-        inline bool operator<( const WedgeData& lhs ) const;
-        friend Wedge;
-
-      private:
-        // return 1 : equals, 2: strict less, 3: strict greater
-        template <typename T>
-        static int compareVector( const T& a, const T& b ) {
-            for ( int i = 0; i < T::RowsAtCompileTime; i++ )
-            {
-                if ( a[i] < b[i] ) return 2;
-                if ( a[i] > b[i] ) return 3;
-            }
-            // (a == b)
-            return 1;
-        }
-    };
-
     /**
      * Construct a topological mesh from a triangle mesh.
      * This operation merges vertex with same position, but keeps vertex
@@ -144,25 +107,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \note Asserts if vh is not a member of fh.
      */
     inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
-    inline HalfedgeHandle getHalfedgeHandle( VertexHandle vh, FaceHandle fh ) const {
-        return halfedge_handle( vh, fh );
-    }
 
     /**
      * Get normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
     inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
-    inline const Normal& getNormal( VertexHandle vh, FaceHandle fh ) const {
-        return normal( vh, fh );
-    }
 
     /**
      * Set normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
     void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
-    void setNormal( VertexHandle vh, FaceHandle fh, const Normal& n ) { set_normal( vh, fh, n ); }
 
     /// Import Base definition of normal and set normal.
     ///@{
@@ -177,7 +133,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * handles before convertion with toTriangleMesh.
      */
     void propagate_normal_to_halfedges( VertexHandle vh );
-    void propagateNormalToHalfedges( VertexHandle vh ) { propagate_normal_to_halfedges( vh ); }
 
     /**
      * Return a handle to the halfedge property storing vertices indices within
@@ -373,6 +328,41 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///@}
 
     /**
+     * Inner class WedgeData represents the actual data per wedge, including position.
+     *
+     * At any time m_position as to be equal to the wedge's vertex point.
+     * All wedges have the same set of attributes.
+     * Access and management is delegated to TopologicalMesh and WedgeCollectiom
+     */
+    class WedgeData
+    {
+      public:
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+        //        Index m_inputTriangleMeshIndex;
+        //        Index m_outputTriangleMeshIndex;
+        Vector3 m_position{};
+        VectorArray<Scalar> m_floatAttrib;
+        VectorArray<Vector2> m_vector2Attrib;
+        VectorArray<Vector3> m_vector3Attrib;
+        VectorArray<Vector4> m_vector4Attrib;
+
+        template <typename T>
+        inline VectorArray<T>& getAttribArray();
+
+        explicit WedgeData() = default;
+        inline bool operator==( const WedgeData& lhs ) const;
+        inline bool operator!=( const WedgeData& lhs ) const;
+        inline bool operator<( const WedgeData& lhs ) const;
+        friend Wedge;
+
+      private:
+        // return 1 : equals, 2: strict less, 3: strict greater
+        template <typename T>
+        static int compareVector( const T& a, const T& b );
+    };
+
+    /**
      * \name Topological operations
      */
     ///@{
@@ -414,9 +404,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
 
-    unsigned int getWedgeRefCount( const WedgeIndex& idx ) const {
-        return m_wedges.getWedgeRefCount( idx );
-    }
+    /**
+     * Return the wedge refcount, for debug purpose.
+     */
+    inline unsigned int getWedgeRefCount( const WedgeIndex& idx ) const;
 
     /** set WedgeData \a wd to the wedge with index \a widx.
      * All halfedge that point to widx will get the new values.
@@ -439,22 +430,16 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * The old wedge is "deleted". If wedge data correspond to an already
      * present wedge, it's index is used.
      */
-    void replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd ) {
-        m_wedges.del( property( getWedgeIndexPph(), he ) );
-        property( getWedgeIndexPph(), he ) = m_wedges.add( wd );
-    }
+    inline void replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd );
+
     /**
      * Replace the wedge index associated with an halfedge.
      * The old wedge is "deleted". The new wedge reference count is incremented.
      */
-    void replaceWedgeIndex( OpenMesh::HalfedgeHandle he, const WedgeIndex& widx ) {
-        m_wedges.del( property( getWedgeIndexPph(), he ) );
-        property( getWedgeIndexPph(), he ) = m_wedges.newReference( widx );
-    }
+    inline void replaceWedgeIndex( OpenMesh::HalfedgeHandle he, const WedgeIndex& widx );
 
     /// Remove deleted element from the mesh, including wedges.
     void garbage_collection();
-    void garbageCollection() { garbage_collection(); }
 
     inline const std::vector<std::string>& getVec4AttribNames() const;
     inline const std::vector<std::string>& getVec3AttribNames() const;
@@ -472,9 +457,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline const OpenMesh::HPropHandleT<WedgeIndex>& getWedgeIndexPph() const;
 
     void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
-    void deleteFace( FaceHandle fh, bool deleteIsolatedVertices = true ) {
-        delete_face( fh, deleteIsolatedVertices );
-    }
 
     /// Check if evrything looks right in the data structure
     /// \return true if ok, false if ko.
