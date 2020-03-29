@@ -4,6 +4,7 @@
 #include <Engine/Renderer/Camera/Camera.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
@@ -13,26 +14,39 @@
 namespace Ra {
 namespace Gui {
 
+std::array<std::shared_ptr<Ra::Engine::PlainMaterial>, 3> Gizmo::s_material;
+
 Gizmo::Gizmo( Engine::Component* c,
               const Core::Transform& worldTo,
               const Core::Transform& t,
               Mode mode ) :
-    m_worldTo( worldTo ), m_transform( t ), m_comp( c ), m_mode( mode ) {}
+    m_worldTo( worldTo ), m_transform( t ), m_comp( c ), m_mode( mode ) {
+    using namespace Core::Utils;
+    if ( !s_material[0] )
+    {
+        auto mat      = Core::make_shared<Engine::PlainMaterial>( "GizmoRedMaterial" );
+        mat->m_color  = Color::Red();
+        s_material[0] = mat;
+        mat           = Core::make_shared<Engine::PlainMaterial>( "GizmoGreenMaterial" );
+        mat->m_color  = Color::Green();
+        s_material[1] = mat;
+        mat           = Core::make_shared<Engine::PlainMaterial>( "GizmoBlueMaterial" );
+        mat->m_color  = Color::Blue();
+        s_material[2] = mat;
+    }
+}
 
 Gizmo::~Gizmo() {
-    // first release meshes shared pointers before destroying ROs
-    m_meshes.clear();
-    for ( auto ro : m_renderObjects )
+    for ( auto ro : m_ros )
     {
-        m_comp->removeRenderObject( ro );
+        m_comp->removeRenderObject( ro->getIndex() );
     }
 }
 
 void Gizmo::show( bool on ) {
-    auto roMgr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-    for ( auto ro : m_renderObjects )
+    for ( auto ro : m_ros )
     {
-        roMgr->getRenderObject( ro )->setVisible( on );
+        ro->setVisible( on );
     }
 }
 
@@ -68,20 +82,49 @@ bool Gizmo::findPointOnPlane( const Engine::Camera& cam,
     return hasHit;
 }
 
-void Gizmo::addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Engine::Mesh>& mesh ) {
-    m_meshes.push_back( mesh );
-    m_renderObjects.push_back( m_comp->addRenderObject( ro ) );
+void Gizmo::addRenderObject( Engine::RenderObject* ro ) {
+    m_comp->addRenderObject( ro );
+    m_ros.push_back( ro );
 }
 
-Engine::RenderTechnique* Gizmo::makeRenderTechnique( const std::string& mtlName,
-                                                     bool rtPerVertexColor ) {
-    auto rt       = new Engine::RenderTechnique;
+std::shared_ptr<Engine::RenderTechnique> Gizmo::makeRenderTechnique( int color ) {
+    auto rt       = Core::make_shared<Engine::RenderTechnique>();
     auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
+    auto provider = new Gizmo::UiSelectionControler( s_material[color] );
     rt->setConfiguration( *plaincfg );
-    auto mat              = Core::make_shared<Engine::PlainMaterial>( mtlName );
-    mat->m_perVertexColor = rtPerVertexColor;
-    rt->setParametersProvider( mat );
+    rt->setParametersProvider( std::shared_ptr<Engine::ShaderParameterProvider>( provider ) );
     return rt;
 }
+
+Gizmo::UiSelectionControler* Gizmo::getControler( int ro ) {
+    // TODO : can these casts be replaced by a improved design ?
+    auto c = dynamic_cast<const Gizmo::UiSelectionControler*>(
+        m_ros[ro]->getRenderTechnique()->getParametersProvider() );
+    CORE_ASSERT( c != nullptr, "Gizmo not set (or with wrong state controler?" );
+    return const_cast<Gizmo::UiSelectionControler*>( c );
+}
+
+Gizmo::UiSelectionControler::UiSelectionControler( std::shared_ptr<Ra::Engine::PlainMaterial>& material,
+                                                   const Core::Utils::Color& selectedColor ) :
+    ShaderParameterProvider(), m_associatedMaterial( material ), m_selectedColor( selectedColor ) {}
+
+void Gizmo::UiSelectionControler::updateGL() {
+    m_associatedMaterial->updateGL();
+    m_renderParameters = m_associatedMaterial->getParameters();
+    if ( m_selected ) { m_renderParameters.addParameter( "material.color", m_selectedColor ); }
+}
+
+void Gizmo::UiSelectionControler::toggleState() {
+    m_selected = !m_selected;
+}
+
+void Gizmo::UiSelectionControler::setState() {
+    m_selected = true;
+}
+
+void Gizmo::UiSelectionControler::clearState() {
+    m_selected = false;
+}
+
 } // namespace Gui
 } // namespace Ra

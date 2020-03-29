@@ -3,37 +3,30 @@
 #include <vector>
 
 #include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
 #include <Core/Utils/Index.hpp>
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
-namespace Ra {
-namespace Engine {
-class Component;
-}
-} // namespace Ra
-namespace Ra {
-namespace Engine {
-class RenderObject;
-class RenderTechnique;
-} // namespace Engine
-} // namespace Ra
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+
 namespace Ra {
 namespace Engine {
 class Camera;
-class Mesh;
+class Component;
+class PlainMaterial;
+class RenderObject;
+class RenderTechnique;
 } // namespace Engine
-} // namespace Ra
 
-namespace Ra {
 namespace Gui {
-/// Base class for gizmos, i.e. graphic tools to manipulate a transform.
-///
-/// \fixme There is a lot of duplicated code shared between the different Gizmos (rotate, translate,
-/// scale). This is due to the fact that they all have Render Objects in xyz directions, and which
-/// can be selected with the same logic. An alternative would be to have an intermediate class ,
-/// e.g. `XYZGizmo` which performs all the generic operations (e.g. render object coloring in
-/// #selectConstraint and #mouseMove).
+/** Base class for gizmos, i.e. graphic tools to manipulate a transform.
+ *
+ * \fixme There is a lot of duplicated code shared between the different Gizmos (rotate, translate,
+ * scale). This is due to the fact that they all have Render Objects in xyz directions, and which
+ * can be selected with the same logic. An alternative would be to have an intermediate class ,
+ * e.g. `XYZGizmo` which performs all the generic operations (e.g. render object coloring in
+ * #selectConstraint and #mouseMove).
+ */
 class Gizmo
 {
   public:
@@ -61,6 +54,7 @@ class Gizmo
     /// Called when one of the drawables of the gizmo has been selected.
     virtual void selectConstraint( int drawableIndex ) = 0;
 
+    /// return the selection state of the gizmo: true if the gizmo is selected, false if not.
     virtual bool isSelected() = 0;
 
     /// Called when the gizmo is first clicked, with the camera parameters and the initial pixel
@@ -75,6 +69,7 @@ class Gizmo
                                        bool whole   = false ) = 0;
 
   protected:
+    /// Find a mouse-designed point on a 3D axis
     static bool findPointOnAxis( const Engine::Camera& cam,
                                  const Core::Vector3& origin,
                                  const Core::Vector3& axis,
@@ -82,6 +77,7 @@ class Gizmo
                                  Core::Vector3& pointOut,
                                  std::vector<Scalar>& hits );
 
+    /// Find a mouse-designed point on a 3D plane
     static bool findPointOnPlane( const Engine::Camera& cam,
                                   const Core::Vector3& origin,
                                   const Core::Vector3& axis,
@@ -89,30 +85,74 @@ class Gizmo
                                   Core::Vector3& pointOut,
                                   std::vector<Scalar>& hits );
 
-    //////////////////////////////
-    // Render objects management
-
     /// read access to the gizmo render objects id
-    inline const std::vector<Core::Utils::Index>& roIds() const { return m_renderObjects; }
-    /// read access to the gizmo render objects Meshes
-    /// \note Only the std::vector is const, which allows to modify the meshes
-    inline const std::vector<std::shared_ptr<Engine::Mesh>>& roMeshes() const { return m_meshes; }
-    /// add a render object to display the Gizmo
-    /// \param mesh Except declaration type, must be equal to ro->getMesh();
-    void addRenderObject( Engine::RenderObject* ro, const std::shared_ptr<Engine::Mesh>& mesh );
+    inline const std::vector<Engine::RenderObject*>& ros() const { return m_ros; }
 
-    /// Generate a plain rendertechnique to draw the gizmo.
-    Engine::RenderTechnique* makeRenderTechnique( const std::string& mtlName,
-                                                  bool rtPerVertexColor );
+    /// add a render object to display the Gizmo
+    void addRenderObject( Engine::RenderObject* ro );
+
+    /** Generate a the rendertechnique to draw the gizmo using the required color :
+     * 0-Red, 1-Green, 2-Blue.
+     * The build render technique has a selection-dependent parameter provider for the shader
+     * configuration used to draw the gizmo. It is this provider that manage the appeartance
+     * changes when the selection state changes on the gizmo.
+     */
+    static std::shared_ptr<Engine::RenderTechnique> makeRenderTechnique( int color );
+
+    /** The Materials used to diplay the gizmo: 0-Red, 1-Green, 2-Blue.
+     *  The material are shared accros gizmos. This might allow coherent dynamic style for
+     *  Ui objects.
+     */
+    static std::array<std::shared_ptr<Ra::Engine::PlainMaterial>, 3> s_material;
 
   protected:
     Core::Transform m_worldTo;   ///< World to local space where the transform lives.
     Core::Transform m_transform; ///< Transform to be edited.
     Engine::Component* m_comp;   ///< Engine Ui component.
     Mode m_mode;                 ///< local or global.
+
+    /** The parameterProvider for Selectable UI Object
+     * This class will manage the appearance change when a gizmo element is selected.
+     * when building a gizmo component (renderObject),
+     *      1 - Create a renderTechnique with the required color parameter
+     *      2 - Associate the renderTechnique to the renderObject
+     *
+     * When the selection state of a gizmo component changes, notify its rendertechnique through
+     * a call to toggleState.
+     */
+    class UiSelectionControler final : public Engine::ShaderParameterProvider
+    {
+      public:
+        /// Construct a controler given a material and the color to used when selected
+        explicit UiSelectionControler(
+            std::shared_ptr<Ra::Engine::PlainMaterial>& material,
+            const Core::Utils::Color& selectedColor = Core::Utils::Color::Yellow() );
+        UiSelectionControler()                              = delete;
+        UiSelectionControler( const UiSelectionControler& ) = delete;
+        ~UiSelectionControler() override                    = default;
+        /// Inherited
+        void updateGL();
+        /// Swap the state of the controler
+        void toggleState();
+        /// Set the state of the controler to true
+        void setState();
+        /// Set the state of the controler to false
+        void clearState();
+
+      private:
+        /// The material associated to the controler (PlainMaterial)
+        std::shared_ptr<Ra::Engine::PlainMaterial> m_associatedMaterial;
+        /// The color to use when selected
+        Core::Utils::Color m_selectedColor;
+        /// State indicator of the controler
+        bool m_selected{false};
+    };
+
+    /// Returns the controler (ShaderParametersProvider) associated to the given gizmo component
+    Gizmo::UiSelectionControler* getControler( int ro );
+
   private:
-    std::vector<Core::Utils::Index> m_renderObjects;     ///< ros for the gizmo.
-    std::vector<std::shared_ptr<Engine::Mesh>> m_meshes; ///< Display meshes of the gizmo
+    std::vector<Engine::RenderObject*> m_ros; ///< ros for the gizmo.
 };
 } // namespace Gui
 } // namespace Ra
