@@ -297,6 +297,11 @@ TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeData( idx );
 }
 
+inline
+unsigned int TopologicalMesh::getWedgeRefCount( const WedgeIndex& idx ) const {
+    return m_wedges.getWedgeRefCount( idx );
+}
+
 inline void TopologicalMesh::setWedgeData( TopologicalMesh::WedgeIndex widx,
                                            const TopologicalMesh::WedgeData& wedge ) {
     m_wedges.setWedgeData( widx, wedge );
@@ -307,6 +312,17 @@ inline bool TopologicalMesh::setWedgeData( const TopologicalMesh::WedgeIndex& id
                                            const std::string& name,
                                            const T& value ) {
     return m_wedges.setWedgeData( idx, name, value );
+}
+
+inline void TopologicalMesh::replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd ) {
+    m_wedges.del( property( getWedgeIndexPph(), he ) );
+    property( getWedgeIndexPph(), he ) = m_wedges.add( wd );
+}
+
+inline void TopologicalMesh::replaceWedgeIndex( OpenMesh::HalfedgeHandle he,
+                                                const WedgeIndex& widx ) {
+    m_wedges.del( property( getWedgeIndexPph(), he ) );
+    property( getWedgeIndexPph(), he ) = m_wedges.newReference( widx );
 }
 
 inline const std::vector<std::string>& TopologicalMesh::getVec4AttribNames() const {
@@ -344,7 +360,11 @@ TopologicalMesh::getWedgeIndexPph() const {
     return m_wedgeIndexPph;
 }
 
-/////////////// WEDGES RELATED STUFF /////////////////
+////////////////////////////////////////////////////////////////////////////////
+///////////////////      WEDGES RELATED STUFF     //////////////////////////////
+///////////////////      WedgeCollection          //////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 inline void TopologicalMesh::WedgeCollection::del( const TopologicalMesh::WedgeIndex& idx ) {
     if ( idx.isValid() ) m_data[idx].decrementRefCount();
 }
@@ -452,6 +472,22 @@ inline void TopologicalMesh::WedgeCollection::garbageCollection() {
                                   m_data.end(),
                                   []( const Wedge& w ) { return w.isDeleted(); } ),
                   m_data.end() );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////      WedgeData                //////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// return 1 : equals, 2: strict less, 3: strict greater
+template <typename T>
+int TopologicalMesh::WedgeData::compareVector( const T& a, const T& b ) {
+    for ( int i = 0; i < T::RowsAtCompileTime; i++ )
+    {
+        if ( a[i] < b[i] ) return 2;
+        if ( a[i] > b[i] ) return 3;
+    }
+    // (a == b)
+    return 1;
 }
 
 inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
