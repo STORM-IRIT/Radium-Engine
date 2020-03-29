@@ -296,8 +296,46 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     }
 }
 
-TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit",
-           "[Core][Core/Geometry][TopologicalMesh]" ) {
+void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f ) {
+
+    auto he0 = topo.halfedge_handle( eh, 0 );
+    auto he1 = topo.halfedge_handle( eh, 1 );
+    auto v0  = topo.from_vertex_handle( he0 ); // i.e. to_vertex_handle(he1)
+    REQUIRE(v0 == topo.to_vertex_handle(he1));
+    auto v1  = topo.to_vertex_handle( he0 );
+    auto p0  = topo.point( v0 );
+    float f0 = topo.getWedgeData( *( topo.getVertexWedges( v0 ) ).begin() ).m_floatAttrib[0];
+    auto p1  = topo.point( v1 );
+    float f1 = topo.getWedgeData( *( topo.getVertexWedges( v1 ) ).begin() ).m_floatAttrib[0];
+    topo.splitEdgeWedge( eh, f );
+
+    // check validity
+    REQUIRE( topo.is_valid_handle( he0 ) );
+    REQUIRE( topo.is_valid_handle( he1 ) );
+
+    // he0 is untouched
+    REQUIRE( v1 == topo.to_vertex_handle( he0 ) );
+    REQUIRE( Math::areApproxEqual( ( p1 - topo.point( v1 ) ).squaredNorm(), 0_ra ) );
+
+    // he1 point to inserted vertex
+    auto vsplit = topo.to_vertex_handle( he1 ); // i.e. from_vertex_handle(he0)
+    REQUIRE(vsplit == topo.from_vertex_handle(he0));
+
+    auto psplit = topo.point( vsplit );
+    auto vcheck = ( f * p1 + ( 1.f - f ) * p0 );
+    REQUIRE( Math::areApproxEqual( ( psplit - vcheck ).squaredNorm(), 0.f ) );
+
+    auto wedges = topo.getVertexWedges( vsplit );
+    REQUIRE( wedges.size() == 1 );
+
+    auto wd     = topo.getWedgeData( *wedges.begin() );
+    auto fsplit = wd.m_floatAttrib[0];
+    auto fcheck = ( f * f1 + ( 1.f - f ) * f0 );
+    REQUIRE( Math::areApproxEqual( fsplit, fcheck ) );
+    REQUIRE( Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0.f ) );
+}
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
     using Ra::Core::Geometry::TriangleMesh;
@@ -315,7 +353,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit",
 
     // split middle edge
     TopologicalMesh::EdgeHandle eh;
-    // iterate over all to find inner one
+    // iterate over all to find the inner one
     int innerEdgeCount = 0;
     for ( TopologicalMesh::EdgeIter e_it = topo.edges_begin(); e_it != topo.edges_end(); ++e_it )
     {
@@ -325,42 +363,11 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit",
             ++innerEdgeCount;
         }
     }
+
     REQUIRE( innerEdgeCount == 1 );
-    float f  = .3f;
-    auto he0 = topo.halfedge_handle( eh, 0 );
-    auto he1 = topo.halfedge_handle( eh, 1 );
-    auto v0  = topo.to_vertex_handle( he0 );
-    auto p0  = topo.point( v0 );
-    auto v1  = topo.to_vertex_handle( he1 );
-    auto p1  = topo.point( v1 );
-    topo.splitEdgeWedge( eh, f );
+    float f = .3f;
 
-    // check topology and interpolated val
-    REQUIRE( topo.is_valid_handle( he0 ) );
-    REQUIRE( topo.is_valid_handle( he1 ) );
-
-    REQUIRE( v0 == topo.to_vertex_handle( he0 ) );
-    REQUIRE( Math::areApproxEqual( ( p0 - topo.point( v0 ) ).squaredNorm(), 0_ra ) );
-
-    auto vsplit = topo.to_vertex_handle( he1 );
-    auto psplit = topo.point( vsplit );
-
-    auto wedges = topo.getVertexWedges( vsplit );
-    REQUIRE( wedges.size() == 1 );
-
-    auto vcheck = ( f * p0 + ( 1.f - f ) * p1 );
-
-    REQUIRE( Math::areApproxEqual( ( psplit - vcheck ).squaredNorm(), 0.f ) );
-
-    auto wd = topo.getWedgeData( *wedges.begin() );
-
-    auto fsplit = wd.m_floatAttrib[0];
-    auto fcheck = ( f * 0.f + ( 1.f - f ) * 2.f );
-
-    REQUIRE( Math::areApproxEqual( fsplit, fcheck ) );
-
+    test_split( topo, eh, f );
     // split boundary edge
-    // check topology and interpolated values
-
     // collapse
 }
