@@ -54,7 +54,8 @@ const Index* GeometryComponent::roIndexRead() const {
 TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
-    GeometryComponent( name, entity ), m_displayMesh( nullptr ) {
+    GeometryComponent( name, entity ),
+    m_displayMesh( nullptr ) {
     generateTriangleMesh( data );
 }
 
@@ -62,7 +63,8 @@ TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               Core::Geometry::TriangleMesh&& mesh,
                                               Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ), m_displayMesh( new Engine::Mesh( name ) ) {
+    GeometryComponent( name, entity ),
+    m_displayMesh( new Engine::Mesh( name ) ) {
     setContentName( name );
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
@@ -165,12 +167,7 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
-    m_meshIndex = addRenderObject( ro );
-}
-
-Index TriangleMeshComponent::getRenderObjectIndex() const {
-    CHECK_MESH_NOT_NULL;
-    return m_meshIndex;
+    m_roIndex = addRenderObject( ro );
 }
 
 const Ra::Core::Geometry::TriangleMesh& TriangleMeshComponent::getCoreGeometry() const {
@@ -206,11 +203,6 @@ Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
     return &( m_displayMesh->getCoreGeometry() );
 }
 
-const Index* TriangleMeshComponent::roIndexRead() const {
-    CHECK_MESH_NOT_NULL;
-    return &m_meshIndex;
-}
-
 /*-----------------------------------------------------------------------------------------------*/
 /*---------------------------------  PointCloud Component----------------------------------------*/
 /*-----------------------------------------------------------------------------------------------*/
@@ -218,7 +210,8 @@ const Index* TriangleMeshComponent::roIndexRead() const {
 PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           const Ra::Core::Asset::GeometryData* data ) :
-    GeometryComponent( name, entity ), m_displayMesh( nullptr ) {
+    GeometryComponent( name, entity ),
+    m_displayMesh( nullptr ) {
     generatePointCloud( data );
 }
 
@@ -226,7 +219,8 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           Core::Geometry::PointCloud&& mesh,
                                           Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ), m_displayMesh( new Engine::PointCloud( name ) ) {
+    GeometryComponent( name, entity ),
+    m_displayMesh( new Engine::PointCloud( name ) ) {
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
 }
@@ -364,7 +358,8 @@ Ra::Core::Geometry::PointCloud* PointCloudComponent::getPointCloudRw() {
 VolumeComponent::VolumeComponent( const std::string& name,
                                   Entity* entity,
                                   const Ra::Core::Asset::VolumeData* data ) :
-    Component( name, entity ), m_displayVolume{nullptr} {
+    Component( name, entity ),
+    m_displayVolume{nullptr} {
     generateVolumeRender( data );
 }
 
