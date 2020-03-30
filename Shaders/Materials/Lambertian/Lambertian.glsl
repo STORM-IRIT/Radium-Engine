@@ -18,6 +18,7 @@ struct Material {
 //------------------- VertexAttrib interface ---------------------
 vec4 getPerVertexBaseColor();
 vec3 getWorldSpaceNormal();
+#define DONT_USE_INPUT_TANGENT
 
 //----------------------------------------------------------------
 const float Pi = 3.141592653589793;
