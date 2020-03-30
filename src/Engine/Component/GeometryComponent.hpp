@@ -22,7 +22,8 @@ class RA_ENGINE_API GeometryComponent : public Component
 {
   public:
     GeometryComponent( const std::string& name, Entity* entity ) :
-        Component( name, entity ), m_contentName( name ) {}
+        Component( name, entity ),
+        m_contentName( name ) {}
     ~GeometryComponent() override {}
 
     void initialize() override {}
@@ -84,9 +85,6 @@ class RA_ENGINE_API TriangleMeshComponent : public GeometryComponent
     void setupIO( const std::string& id ) override;
     void setDeformable( bool b );
 
-    /// Returns the index of the associated RO (the display mesh)
-    Ra::Core::Utils::Index getRenderObjectIndex() const;
-
   private:
     void generateTriangleMesh( const Ra::Core::Asset::GeometryData* data );
 
@@ -96,10 +94,7 @@ class RA_ENGINE_API TriangleMeshComponent : public GeometryComponent
     const Ra::Core::Geometry::TriangleMesh* getMeshOutput() const;
     Ra::Core::Geometry::TriangleMesh* getMeshRw();
 
-    const Ra::Core::Utils::Index* roIndexRead() const;
-
   private:
-    Ra::Core::Utils::Index m_meshIndex{};
     // directly hold a reference to the displayMesh to simplify accesses in handlers
     std::shared_ptr<Mesh> m_displayMesh{nullptr};
 };
