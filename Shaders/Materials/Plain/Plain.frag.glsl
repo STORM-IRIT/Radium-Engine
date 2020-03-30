@@ -2,9 +2,6 @@
 #include "Plain.glsl"
 #include "VertexAttribInterface.frag.glsl"
 
-layout( location = 5 ) in vec3 in_viewVector;
-layout( location = 6 ) in vec3 in_lightVector;
-
 out vec4 out_color;
 
 void main() {

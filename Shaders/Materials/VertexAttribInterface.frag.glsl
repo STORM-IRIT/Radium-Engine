@@ -9,7 +9,9 @@ layout( location = 0 ) in vec3 in_position;
 layout( location = 1 ) in vec3 in_normal;
 layout( location = 2 ) in vec3 in_texcoord;
 layout( location = 3 ) in vec3 in_vertexcolor;
+#ifndef DONT_USE_INPUT_TANGENT
 layout( location = 4 ) in vec3 in_tangent;
+#endif
 
 //------------------- VertexAttrib interface ---------------------
 vec4 getWorldSpacePosition() {
@@ -27,6 +29,7 @@ vec3 getWorldSpaceNormal() {
     { return normalize( in_normal ); }
 }
 
+#ifndef DONT_USE_INPUT_TANGENT
 vec3 getWorldSpaceTangent() {
     if ( length( in_tangent.xyz ) < 0.0001 )
     { // Spec GLSL : vector not set -> (0, 0, 0, 1)
@@ -35,9 +38,14 @@ vec3 getWorldSpaceTangent() {
     else
     { return normalize( in_tangent ); }
 }
+#else
+vec3 getWorldSpaceTangent() {
+    return normalize( dFdx( in_position ) );
+}
+#endif
 
 vec3 getWorldSpaceBiTangent() {
-    return normalize( cross( in_normal, in_tangent ) );
+    return normalize( cross( in_normal, getWorldSpaceTangent() ) );
 }
 
 vec3 getPerVertexTexCoord() {
