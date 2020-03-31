@@ -54,8 +54,7 @@ const Index* GeometryComponent::roIndexRead() const {
 TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               const Ra::Core::Asset::GeometryData* data ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( nullptr ) {
+    GeometryComponent( name, entity ), m_displayMesh( nullptr ) {
     generateTriangleMesh( data );
 }
 
@@ -63,8 +62,7 @@ TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               Core::Geometry::TriangleMesh&& mesh,
                                               Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( new Engine::Mesh( name ) ) {
+    GeometryComponent( name, entity ), m_displayMesh( new Engine::Mesh( name ) ) {
     setContentName( name );
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
@@ -210,8 +208,7 @@ Ra::Core::Geometry::TriangleMesh* TriangleMeshComponent::getMeshRw() {
 PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           const Ra::Core::Asset::GeometryData* data ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( nullptr ) {
+    GeometryComponent( name, entity ), m_displayMesh( nullptr ) {
     generatePointCloud( data );
 }
 
@@ -219,8 +216,7 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           Core::Geometry::PointCloud&& mesh,
                                           Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( new Engine::PointCloud( name ) ) {
+    GeometryComponent( name, entity ), m_displayMesh( new Engine::PointCloud( name ) ) {
     m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat );
 }
@@ -358,8 +354,7 @@ Ra::Core::Geometry::PointCloud* PointCloudComponent::getPointCloudRw() {
 VolumeComponent::VolumeComponent( const std::string& name,
                                   Entity* entity,
                                   const Ra::Core::Asset::VolumeData* data ) :
-    Component( name, entity ),
-    m_displayVolume{nullptr} {
+    Component( name, entity ), m_displayVolume{nullptr} {
     generateVolumeRender( data );
 }
 
