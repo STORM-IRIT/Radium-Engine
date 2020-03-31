@@ -68,7 +68,7 @@ class RA_ENGINE_API Material : public ShaderParameterProvider
 
     /** Get the aspect (MAT_OPAQUE or MAT_TRANSPARENT) of the material.
      *
-     * @return
+     * @return the current aspect of the Material
      */
     inline const MaterialAspect& getMaterialAspect() const;
 
@@ -77,14 +77,23 @@ class RA_ENGINE_API Material : public ShaderParameterProvider
      */
     virtual bool isTransparent() const;
 
+    /** Mark the Material as needing update before the next OpenGL call
+     *
+     */
+    inline void needUpdate();
+
   protected:
+    /// Material instance name
     std::string m_instanceName{};
-    bool m_isDirty{true};
+    /// Material aspect
     MaterialAspect m_aspect{MaterialAspect::MAT_OPAQUE};
+    /// Dirty mark : true if the openGL state of the material need to be updated before next draw call
+    bool m_isDirty{true};
 
   private:
     /// Unique material name that can be used to identify the material
     const std::string m_materialName;
+
 };
 
 } // namespace Engine
