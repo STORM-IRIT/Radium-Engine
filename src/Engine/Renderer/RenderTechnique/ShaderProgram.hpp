@@ -4,7 +4,6 @@
 
 #include <Core/Types.hpp>
 
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 
 #include <array>
@@ -104,9 +103,6 @@ class RA_ENGINE_API ShaderProgram final
                      const std::vector<std::pair<std::string, ShaderType>>& includes,
                      bool fromFile              = true,
                      const std::string& version = "#version 410" );
-
-    GLenum getTypeAsGLEnum( ShaderType type ) const;
-    ShaderType getGLenumAsType( GLenum type ) const;
 
     std::string preprocessIncludes( const std::string& name,
                                     const std::string& shader,

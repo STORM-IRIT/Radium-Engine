@@ -5,6 +5,7 @@
 #include <Engine/Component/Component.hpp>
 #include <Engine/Renderer/Displayable/DisplayableObject.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 
@@ -231,6 +232,7 @@ void RenderObject::render( const RenderParameters& lightParams,
     shaderParams.bind( shader );
     // FIXME : find another solution for FrontFacing polygons (depends on the camera matrix)
     // This is a hack to allow correct face culling
+    // Note that this hack implies the inclusion of OpenGL.h in this file
     if ( viewParams.viewMatrix.determinant() < 0 ) { glFrontFace( GL_CW ); }
     else
     { glFrontFace( GL_CCW ); }
