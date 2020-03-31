@@ -18,5 +18,8 @@ const Material::MaterialAspect& Material::getMaterialAspect() const {
     return m_aspect;
 }
 
+void Material::needUpdate() {
+    m_isDirty = true;
+}
 } // namespace Engine
 } // namespace Ra
