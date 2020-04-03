@@ -51,6 +51,47 @@ static const bool expectPluginsDebug = true;
 static const bool expectPluginsDebug = false;
 #endif
 
+QCommandLineOption
+    fpsOpt( QStringList{"r", "framerate", "fps"},
+            "Control the application framerate, 0 to disable it (and run as fast as possible).",
+            "number",
+            "60" );
+QCommandLineOption maxThreadsOpt(
+    QStringList{"m", "maxthreads", "max-threads"},
+    "Control the maximum number of threads. 0 will set to the number of cores available",
+    "number",
+    "0" );
+QCommandLineOption numFramesOpt( QStringList{"n", "numframes"},
+                                 "Run for a fixed number of frames.",
+                                 "number",
+                                 "0" );
+QCommandLineOption pluginOpt( QStringList{"p", "plugins", "pluginsPath"},
+                              "Set the path to the plugin dlls.",
+                              "folder",
+                              "Plugins" );
+
+QCommandLineOption pluginLoadOpt(
+    QStringList{"l", "load", "loadPlugin"},
+    "Only load plugin with the given name (filename without the extension). If this option is "
+    "not used, all plugins in the plugins folder will be loaded. ",
+    "name" );
+
+QCommandLineOption pluginIgnoreOpt( QStringList{"K", "ignore", "ignorePlugin"},
+                                    "Ignore plugins with the given name. If the name appears "
+                                    "within both load and ignore options, it will be ignored.",
+                                    "name" );
+
+QCommandLineOption fileOpt( QStringList{"f", "file", "scene"},
+                            "Open a scene file at startup.",
+                            "file name",
+                            "foo.bar" );
+
+QCommandLineOption camOpt( QStringList{"c", "camera", "cam"},
+                           "Open a camera file at startup",
+                           "file name",
+                           "foo.bar" );
+QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording." );
+
 BaseApplication::BaseApplication( int& argc,
                                   char** argv,
                                   const WindowFactory& factory,
@@ -81,46 +122,10 @@ BaseApplication::BaseApplication( int& argc,
     // TODO at startup, only load "standard plugins". This must be extended.
     pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
 
-    QCommandLineParser parser;
+
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
     parser.addHelpOption();
     parser.addVersionOption();
-
-    QCommandLineOption fpsOpt(
-        QStringList{"r", "framerate", "fps"},
-        "Control the application framerate, 0 to disable it (and run as fast as possible).",
-        "number",
-        "60" );
-    QCommandLineOption maxThreadsOpt(
-        QStringList{"m", "maxthreads", "max-threads"},
-        "Control the maximum number of threads. 0 will set to the number of cores available",
-        "number",
-        "0" );
-    QCommandLineOption numFramesOpt(
-        QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0" );
-    QCommandLineOption pluginOpt( QStringList{"p", "plugins", "pluginsPath"},
-                                  "Set the path to the plugin dlls.",
-                                  "folder",
-                                  "Plugins" );
-    QCommandLineOption pluginLoadOpt(
-        QStringList{"l", "load", "loadPlugin"},
-        "Only load plugin with the given name (filename without the extension). If this option is "
-        "not used, all plugins in the plugins folder will be loaded. ",
-        "name" );
-    QCommandLineOption pluginIgnoreOpt( QStringList{"i", "ignore", "ignorePlugin"},
-                                        "Ignore plugins with the given name. If the name appears "
-                                        "within both load and ignore options, it will be ignored.",
-                                        "name" );
-    QCommandLineOption fileOpt( QStringList{"f", "file", "scene"},
-                                "Open a scene file at startup.",
-                                "file name",
-                                "foo.bar" );
-
-    QCommandLineOption camOpt( QStringList{"c", "camera", "cam"},
-                               "Open a camera file at startup",
-                               "file name",
-                               "foo.bar" );
-    QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording." );
 
     parser.addOptions( {fpsOpt,
                         pluginOpt,
@@ -131,7 +136,14 @@ BaseApplication::BaseApplication( int& argc,
                         maxThreadsOpt,
                         numFramesOpt,
                         recordOpt} );
+
     parser.process( *this );
+
+
+
+
+    parser.values( pluginIgnoreOpt );
+
 
     if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
     if ( parser.isSet( pluginOpt ) ) pluginsPath = parser.value( pluginOpt ).toStdString();
@@ -262,7 +274,9 @@ void BaseApplication::deferredInitialization() {
         &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
 
     // Load installed plugins plugins
-    if ( !loadPlugins( pluginsPath, parser.values( "l" ), parser.values( "i" ) ) )
+
+    if ( !loadPlugins(
+             pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
     { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
     // load supplemental plugins
     {
@@ -270,7 +284,8 @@ void BaseApplication::deferredInitialization() {
         QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
         for ( const auto s : plunginPaths )
         {
-            loadPlugins( s.toStdString(), parser.values( "l" ), parser.values( "i" ) );
+            loadPlugins(
+                s.toStdString(), parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) );
         }
     }
 
@@ -298,17 +313,17 @@ void BaseApplication::deferredInitialization() {
     emit starting();
 
     // Files have been required, load them.
-    if ( parser.isSet( "f" ) )
+    if ( parser.isSet( fileOpt ) )
     {
-        for ( const auto& filename : parser.values( "f" ) )
+        for ( const auto& filename : parser.values( fileOpt ) )
         {
             loadFile( filename );
         }
     }
     // A camera has been required, load it.
-    if ( parser.isSet( "c" ) )
+    if ( parser.isSet( camOpt ) )
     {
-        if ( loadFile( parser.value( "c" ) ) )
+        if ( loadFile( parser.value( camOpt ) ) )
         {
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
             auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
@@ -514,16 +529,16 @@ BaseApplication::~BaseApplication() {
     QDir().rmdir( m_exportFoldername.c_str() );
 }
 
-bool BaseApplication::loadPlugins( const std::string& pluginsPath,
+bool BaseApplication::loadPlugins( const std::string& pluginsPath2,
                                    const QStringList& loadList,
                                    const QStringList& ignoreList ) {
     QDir pluginsDir( qApp->applicationDirPath() );
     LOG( logINFO ) << " *** Loading Plugins ***";
-    bool result = pluginsDir.cd( pluginsPath.c_str() );
+    bool result = pluginsDir.cd( pluginsPath2.c_str() );
 
     if ( !result )
     {
-        LOG( logERROR ) << "Cannot open specified plugins directory " << pluginsPath;
+        LOG( logERROR ) << "Cannot open specified plugins directory " << pluginsPath2;
         return false;
     }
 
