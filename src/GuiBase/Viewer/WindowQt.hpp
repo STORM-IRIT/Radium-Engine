@@ -27,7 +27,6 @@ namespace Gui {
 class RA_GUIBASE_API WindowQt : public QWindow
 {
   public:
-    //    explicit WindowQt( QScreen* screen );
     explicit WindowQt( QWindow* parent );
     virtual ~WindowQt();
 

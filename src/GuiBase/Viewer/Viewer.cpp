@@ -87,22 +87,6 @@ void Gui::Viewer::configureKeyMapping_impl() {
     KeyMappingViewer
 #undef KMA_VALUE
 }
-/*
-Gui::Viewer::Viewer( QScreen* screen ) :
-    WindowQt( screen ),
-    m_currentRenderer( nullptr ),
-    m_pickingManager( new PickingManager() ),
-    m_isBrushPickingEnabled( false ),
-    m_brushRadius( 10 ),
-    m_camera( nullptr ),
-    m_gizmoManager( nullptr )
-#ifdef RADIUM_MULTITHREAD_RENDERING
-    ,
-    m_renderThread( nullptr )
-#endif
-{
-}
-*/
 
 Gui::Viewer::Viewer( QWindow* parent ) :
     WindowQt( parent ),

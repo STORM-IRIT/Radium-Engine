@@ -58,7 +58,6 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
   public:
     /// Constructor
-    //    explicit Viewer( QScreen* screen = nullptr );
     explicit Viewer( QWindow* parent = nullptr );
 
     /// Destructor

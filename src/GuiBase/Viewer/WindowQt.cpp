@@ -24,35 +24,9 @@ QSurfaceFormat defaultFormat() {
 #endif
     return format;
 }
-/*
-WindowQt::WindowQt( QScreen* screen ) :
-    QWindow( screen ), m_context( nullptr ), m_updatePending( false ), m_glInitialized( false ) {
 
-    setSurfaceType( QWindow::OpenGLSurface );
-    if ( !s_getProcAddressHelper ) { s_getProcAddressHelper = this; }
-
-    // No need to create as this window is used as widget (and actually segfault on Qt 5.12.3)
-    // Surface format set in BaseApplication
-
-    m_context = std::make_unique<QOpenGLContext>( this );
-    m_context->setFormat( QSurfaceFormat::defaultFormat() );
-
-    if ( !m_context->create() )
-    {
-        LOG( logINFO ) << "Could not create OpenGL context.";
-        QApplication::quit();
-    }
-
-    connect( this, &QWindow::screenChanged, this, &WindowQt::screenChanged );
-
-    // cleanup connection is set in BaseApplication
-}
-*/
 WindowQt::WindowQt( QWindow* parent ) :
-    QWindow( parent ),
-    m_context( nullptr ),
-    m_updatePending( false ),
-    m_glInitialized( false ) {
+    QWindow( parent ), m_context( nullptr ), m_updatePending( false ), m_glInitialized( false ) {
     setSurfaceType( QWindow::OpenGLSurface );
     if ( !m_context )
     {
@@ -154,7 +128,7 @@ bool WindowQt::event( QEvent* event ) {
         //        paint();
         return true;
 
-``    case QEvent::Enter:
+    case QEvent::Enter:
         enterEvent( event );
         return true;
 
