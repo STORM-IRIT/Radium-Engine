@@ -77,6 +77,18 @@ class RA_ENGINE_API Material : public ShaderParameterProvider
      */
     virtual bool isTransparent() const;
 
+    /**
+     * Get the list of properties the material migh use in a shader.
+     * each property will be added to the shader used for rendering this material under the form
+     * "#define theProperty". Shaders that support the given property could then fully render the
+     * material. Others migh render the meterial eroneously.
+     *
+     * The defaul implementation returns an empty list.
+     *
+     * @todo : Validate this proposal
+     */
+    std::list<std::string> getPropertyList() const override;
+
     /** Mark the Material as needing update before the next OpenGL call
      *
      */
