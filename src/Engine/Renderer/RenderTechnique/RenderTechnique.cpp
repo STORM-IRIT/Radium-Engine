@@ -66,6 +66,34 @@ void RenderTechnique::setParametersProvider(
             m_passesParameters[i] = provider;
         }
     }
+    // add the provider specific properties to the configuration
+    addPassProperties( provider->getPropertyList() );
+}
+
+void RenderTechnique::addPassProperties( const std::list<std::string>& props,
+                                         Core::Utils::Index pass ) {
+    if ( m_numActivePass == 0 )
+    {
+        LOG( logERROR )
+            << "Unable to set pass properties : is passes configured using setConfiguration ? ";
+        return;
+    }
+    if ( pass.isValid() && ( m_setPasses & ( 1 << pass ) ) )
+    {
+        m_activePasses[pass].first.addProperties( props );
+        m_dirtyBits |= ( 1 << pass );
+    }
+    else
+    {
+        for ( int i = 0; i < m_numActivePass; ++i )
+        {
+            if ( m_setPasses & ( 1 << i ) )
+            {
+                m_activePasses[i].first.addProperties( props );
+                m_dirtyBits |= ( 1 << i );
+            }
+        }
+    }
 }
 
 const ShaderParameterProvider*

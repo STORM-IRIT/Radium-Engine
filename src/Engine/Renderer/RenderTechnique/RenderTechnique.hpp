@@ -133,6 +133,13 @@ class RA_ENGINE_API RenderTechnique final
     bool shaderIsDirty( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
 
     /**
+     * Add properties (several #define in the shader) for the given pass
+     * @param props the properties list, only strings without the #define
+     * @param pass the pass. If left by default, all active passes will get the properties
+     */
+    void addPassProperties( const std::list<std::string>& props,
+                            Core::Utils::Index pass = Core::Utils::Index( -1 ) );
+    /**
      * Creates a default technique based on the ForwarRenderer sementic.
      *  pass 1 --> Z_PREPASS
      *  pass 0 --> LIGHTING_OPAQUE
