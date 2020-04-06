@@ -82,7 +82,7 @@ void RenderTechnique::updateGL() {
         {
             m_activePasses[p].second =
                 ShaderProgramManager::getInstance()->getShaderProgram( m_activePasses[p].first );
-            m_dirtyBits |= ( 1 << p );
+            m_dirtyBits &= ~( 1 << p );
         }
     }
     for ( auto p = Index( 0 ); p < m_numActivePass; ++p )
