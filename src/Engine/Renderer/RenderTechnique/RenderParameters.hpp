@@ -211,7 +211,7 @@ class RA_ENGINE_API RenderParameters final
  * rendertechnique, the ShaderParameterProvider associated to the renderTechnique is responsible to
  * set all the uniforms needed by the rendertechnique.
  */
-class ShaderParameterProvider
+class RA_ENGINE_API ShaderParameterProvider
 {
   public:
     virtual ~ShaderParameterProvider() = default;
@@ -233,7 +233,7 @@ class ShaderParameterProvider
      *
      * @todo : Validate this proposal
      */
-    virtual std::list<std::string> getPropertyList() const;
+    virtual std::list<std::string> getPropertyList() const { return {}; };
 
   protected:
     /// The parameters to set for a shader
