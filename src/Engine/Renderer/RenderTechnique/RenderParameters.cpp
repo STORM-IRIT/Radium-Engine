@@ -127,8 +127,5 @@ void RenderParameters::concatParameters( const RenderParameters& params ) {
     }
 }
 
-std::list<std::string> ShaderParameterProvider::getPropertyList() const {
-    return {};
-}
 } // namespace Engine
 } // namespace Ra
