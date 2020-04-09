@@ -235,8 +235,6 @@ BaseApplication::BaseApplication( int& argc,
     m_viewer->setupKeyMappingCallbacks();
 
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    //    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
-    //    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
     // Connect the signals and allow all pending events to be processed
     // (thus the viewer should have initialized the OpenGL context..)
@@ -274,7 +272,6 @@ void BaseApplication::deferredInitialization() {
         &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
 
     // Load installed plugins plugins
-
     if ( !loadPlugins(
              pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
     { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
