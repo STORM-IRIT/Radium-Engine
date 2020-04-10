@@ -3,6 +3,8 @@
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
 
+#include <QtGlobal> //QT_VERSION, QT_VERSION_CHECK
+
 namespace Ra::Gui {
 
 using namespace Core::Utils; // log
@@ -75,8 +77,16 @@ void KeyMappingManager::addAction( const std::string& context,
     QString xmlAction;
     QTextStream s( &xmlAction );
     s << elementToAdd;
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+    QString xmlActionChopped = xmlAction;
+    xmlActionChopped.chop( 1 );
+    LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
+                    << xmlActionChopped.toStdString();
+    
+#else
     LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
                     << xmlAction.chopped( 1 ).toStdString();
+#endif
 
     domElement.appendChild( elementToAdd );
     saveConfiguration();

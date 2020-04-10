@@ -83,14 +83,29 @@ class RA_ENGINE_API RenderTechnique final
      * @param pass The index of the pass
      * @return true if the pass was configured
      */
-    bool hasConfiguration( Core::Utils::Index pass ) const;
+    inline bool
+    hasConfiguration( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
+
+    /**
+     * Mark the given configured.
+     * @param pass The index of the pass
+     */
+    inline void
+    setConfiguration( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE );
+
+    /**
+     * Mark the given not configured.
+     * @param pass The index of the pass
+     */
+    inline void
+    clearConfiguration( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE );
 
     /**
      * Get the configuration of the given pass
      * @param pass The index of the pass
      * @return The pass shader configuration
      */
-    const ShaderConfiguration&
+    inline const ShaderConfiguration&
     getConfiguration( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
 
     /**
@@ -130,8 +145,27 @@ class RA_ENGINE_API RenderTechnique final
      * @param pass The index of the pass
      * @return Tru if pass must be updated.
      */
-    bool shaderIsDirty( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
+    inline bool isDirty( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
 
+    /**
+     * Set the given pass dirty (openGL state not updated)
+     * @param pass The index of the pass
+     */
+    inline void setDirty( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE );
+
+    /**
+     * Clear the dirty bit for the given pass (openGL state updated)
+     * @param pass The index of the pass
+     */
+    inline void clearDirty( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE );
+
+    /**
+     * Add properties (several #define in the shader) for the given pass
+     * @param props the properties list, only strings without the #define
+     * @param pass the pass. If left by default, all active passes will get the properties
+     */
+    void addPassProperties( const std::list<std::string>& props,
+                            Core::Utils::Index pass = Core::Utils::Index( -1 ) );
     /**
      * Creates a default technique based on the ForwarRenderer sementic.
      *  pass 1 --> Z_PREPASS
@@ -202,5 +236,6 @@ getDefaultTechnique( const std::string& name );
 RA_ENGINE_API bool cleanup();
 } // namespace EngineRenderTechniques
 
+#include <Engine/Renderer/RenderTechnique/RenderTechnique.inl>
 } // namespace Engine
 } // namespace Ra

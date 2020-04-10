@@ -26,7 +26,7 @@ RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
     m_numActivePass{o.m_numActivePass}, m_dirtyBits{o.m_dirtyBits}, m_setPasses{o.m_setPasses} {
     for ( auto p = Index( 0 ); p < m_numActivePass; ++p )
     {
-        if ( m_setPasses & ( 1 << p ) )
+        if ( hasConfiguration( p ) )
         {
             m_activePasses[p]     = o.m_activePasses[p];
             m_passesParameters[p] = o.m_passesParameters[p];
@@ -40,12 +40,12 @@ void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig,
                                         Core::Utils::Index pass ) {
     m_numActivePass      = std::max( m_numActivePass, pass + 1 );
     m_activePasses[pass] = std::move( PassConfiguration( newConfig, nullptr ) );
-    m_dirtyBits |= ( 1 << pass );
-    m_setPasses |= ( 1 << pass );
+    setDirty( pass );
+    setConfiguration( pass );
 }
 
 const ShaderProgram* RenderTechnique::getShader( Core::Utils::Index pass ) const {
-    if ( m_setPasses & ( 1 << pass ) ) { return m_activePasses[pass].second; }
+    if ( hasConfiguration( pass ) ) { return m_activePasses[pass].second; }
     return nullptr;
 }
 
@@ -58,49 +58,67 @@ void RenderTechnique::setParametersProvider(
             << "Unable to set pass parameters : is passes configured using setConfiguration ? ";
         return;
     }
-    if ( pass.isValid() ) { m_passesParameters[pass] = provider; }
+    if ( pass.isValid() )
+    {
+        if ( hasConfiguration( pass ) ) { m_passesParameters[pass] = provider; }
+    }
     else
     {
         for ( int i = 0; i < m_numActivePass; ++i )
         {
-            m_passesParameters[i] = provider;
+            if ( hasConfiguration( i ) ) { m_passesParameters[i] = provider; }
+        }
+    }
+    // add the provider specific properties to the configuration
+    addPassProperties( provider->getPropertyList() );
+}
+
+void RenderTechnique::addPassProperties( const std::list<std::string>& props,
+                                         Core::Utils::Index pass ) {
+    if ( m_numActivePass == 0 )
+    {
+        LOG( logERROR )
+            << "Unable to set pass properties : is passes configured using setConfiguration ? ";
+        return;
+    }
+    if ( pass.isValid() && hasConfiguration( pass ) )
+    {
+        m_activePasses[pass].first.addProperties( props );
+        setDirty( pass );
+    }
+    else
+    {
+        for ( int i = 0; i < m_numActivePass; ++i )
+        {
+            if ( hasConfiguration( i ) )
+            {
+                m_activePasses[i].first.addProperties( props );
+                setDirty( i );
+            }
         }
     }
 }
 
 const ShaderParameterProvider*
 RenderTechnique::getParametersProvider( Core::Utils::Index pass ) const {
-    if ( m_setPasses & ( 1 << pass ) ) { return m_passesParameters[pass].get(); }
+    if ( hasConfiguration( pass ) ) { return m_passesParameters[pass].get(); }
     return nullptr;
 }
 
 void RenderTechnique::updateGL() {
     for ( auto p = Index( 0 ); p < m_numActivePass; ++p )
     {
-        if ( ( m_setPasses & ( 1 << p ) ) &&
-             ( ( nullptr == m_activePasses[p].second ) || ( m_dirtyBits & ( 1 << p ) ) ) )
+        if ( hasConfiguration( p ) && ( ( nullptr == m_activePasses[p].second ) || isDirty( p ) ) )
         {
             m_activePasses[p].second =
                 ShaderProgramManager::getInstance()->getShaderProgram( m_activePasses[p].first );
-            m_dirtyBits |= ( 1 << p );
+            clearDirty( p );
         }
     }
     for ( auto p = Index( 0 ); p < m_numActivePass; ++p )
     {
         if ( m_passesParameters[p] ) { m_passesParameters[p]->updateGL(); }
     }
-}
-
-bool RenderTechnique::hasConfiguration( Core::Utils::Index pass ) const {
-    return m_setPasses & ( 1 << pass );
-}
-
-const ShaderConfiguration& RenderTechnique::getConfiguration( Core::Utils::Index pass ) const {
-    return m_activePasses[pass].first;
-}
-
-bool RenderTechnique::shaderIsDirty( Core::Utils::Index pass ) const {
-    return m_dirtyBits & ( 1 << pass );
 }
 
 ///////////////////////////////////////////////
