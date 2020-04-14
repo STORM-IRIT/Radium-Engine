@@ -8,7 +8,7 @@ There are three main options to work with Radium:
 4. Testing: extend radium tests to improve testing coverage or when adding new functionality.
 
 ## Radium Plugin
-Tutorial here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
+Tutorial and documentation here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
 
 ## Radium Application
 Tutorial here: [https://github.com/STORM-IRIT/Radium-AppExample](https://github.com/STORM-IRIT/Radium-AppExample)
