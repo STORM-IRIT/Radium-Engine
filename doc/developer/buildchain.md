@@ -3,9 +3,15 @@
 
 ### Installation directory
 By default, `${CMAKE_INSTALL_PREFIX}` is set as follow:
-~~~{.cmake}
-set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
-~~~
+
+- For release build :
+    ~~~{.cmake}
+    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID})
+    ~~~
+- For Debug orRelWithDebInfo build
+    ~~~{.cmake}
+    set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
+    ~~~
 
 ### Radium Libraries
 #### Overview
