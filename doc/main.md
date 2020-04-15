@@ -1,9 +1,9 @@
+\mainpage
 Radium is a research 3D Engine for rendering, animation and processing.
 Devopped and maintained by the [STORM research group](https://www.irit.fr/STORM/site/).
 
 The source code is hosted on github: https://github.com/STORM-IRIT/Radium-Engine
 
-## Badges
    Status     |    Tool used
 ------------- | -------------
 ![Build Status (linux-macosx)](https://travis-ci.com/STORM-IRIT/Radium-Engine.svg?branch=master)  | [CI on MacOSx and Linux with TravisCI](https://travis-ci.com/STORM-IRIT/Radium-Engine)
@@ -12,13 +12,10 @@ The source code is hosted on github: https://github.com/STORM-IRIT/Radium-Engine
 
 See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelmgNEn7obiBv_E4bmcMl3mXeJPVgc/edit?usp=sharing) for an overview of the project.
 
-## Table of content
 The documentation is structured as follow:
  - \subpage basicsmanual : how to compile Radium and use it in your own project.
  - \subpage develmanual : general topics (e.g. coding conventions) and description of the concepts found in the API of Radium.
  - \subpage usemanual : general topics when you want to use Radium-Engine bundle as a library for application and plugin development.
-
-*Note*: deprecated pages are marked with an *.
 
 
 

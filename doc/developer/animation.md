@@ -1,6 +1,5 @@
 \page develanimation API: Animation pipeline
 [TOC]
-# Animation in Radium
 
 The Radium Engine provides a set of classes dedicated to animation,
 which can be found in `Core/Animation`.
