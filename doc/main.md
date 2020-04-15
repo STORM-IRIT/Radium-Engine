@@ -16,6 +16,7 @@ See [this presentation](https://docs.google.com/presentation/d/12W2KXY7ctJXFIelm
 The documentation is structured as follow:
  - \subpage basicsmanual : how to compile Radium and use it in your own project.
  - \subpage develmanual : general topics (e.g. coding conventions) and description of the concepts found in the API of Radium.
+ - \subpage usemanual : general topics when you want to use Radium-Engine bundle as a library for application and plugin development.
 
 *Note*: deprecated pages are marked with an *.
 
