@@ -1,4 +1,5 @@
-# Licenses
+\page licenses Licenses
+
 ## Radium contributors
 
 Radium Engine © the Radium Contributors :
