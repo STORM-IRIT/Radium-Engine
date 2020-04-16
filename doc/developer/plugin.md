@@ -1,4 +1,4 @@
-\page useplugin How to write your own plugin
+\page develplugin How to write your own plugin
 [TOC]
 
 Custom plugins can be easily add to Radium ecosystem.

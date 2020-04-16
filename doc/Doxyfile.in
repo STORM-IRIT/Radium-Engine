@@ -839,7 +839,6 @@ INPUT = @CMAKE_CURRENT_SOURCE_DIR@/main.md \
         @CMAKE_CURRENT_SOURCE_DIR@/basics.md \
         @CMAKE_CURRENT_SOURCE_DIR@/concepts.md \
         @CMAKE_CURRENT_SOURCE_DIR@/developer.md \
-        @CMAKE_CURRENT_SOURCE_DIR@/use.md \
         @CMAKE_CURRENT_SOURCE_DIR@/LICENSES.md \
 
 INPUT                  += @RADIUM_SRC_DIR@ @CMAKE_CURRENT_SOURCE_DIR@
