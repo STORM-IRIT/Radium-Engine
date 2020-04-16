@@ -1,5 +1,5 @@
 \page basicsTroubleshooting Troubleshooting
-[TOC]
+
 
 ## Qt cmake errors
 In case you run into an error like

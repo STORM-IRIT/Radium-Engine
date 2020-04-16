@@ -1,4 +1,4 @@
-\page develoldmanual Radium Engine programmer manual [old version]
+\page develoldmanual [deprecated old version]Radium Engine programmer manual
 [TOC]
 
 ## Source code organization
