@@ -64,7 +64,6 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
      * Set to invalid when the query position p is out of bound
      */
     virtual Utils::optional<ValueType> getValue( Eigen::Ref<const Vector3> p ) const = 0;
-    ///@}
 
     /// \name Status queries
     ///@{
