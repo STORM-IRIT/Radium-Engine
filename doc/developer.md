@@ -13,23 +13,27 @@
 - \subpage core
 - \subpage engine
 - \subpage gui
+- \subpage io
 
 \page core Core
-   - \subpage develmeshes
+- \subpage develmeshes
    
-\page engine
-   - \subpage develrendering
-   - \subpage develmaterials
-   - \subpage develLights
-   - \subpage develpicking
-   - \subpage develanimation
+\page engine Engine
+- \subpage develrendering
+- \subpage develmaterials
+- \subpage develLights
+- \subpage develpicking
+- \subpage develanimation
 
 \page gui Gui
-   - \subpage develkeymapping
-   - \subpage develCameraManipulator
-   
+- \subpage develkeymapping
+- \subpage develCameraManipulator
+
+\page io [TODO] IO
+\todo write IO doc 
+
 \page plugin Plugin dev
-   - \subpage develplugin
+- \subpage develplugin
 
-\page apps Application dev
-
+\page apps [TODO] Application dev
+\todo write application dev doc, merging ExampleApp and Apps docs.

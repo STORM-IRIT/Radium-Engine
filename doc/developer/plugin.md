@@ -1,7 +1,7 @@
 \page develplugin How to write your own plugin
 [TOC]
 
-Custom plugins can be easily add to Radium ecosystem.
+Custom plugins can be easily added to Radium ecosystem.
 In addition to the Ra::Plugins::RadiumPluginInterface API,
 Radium provides a set of tools simplifying the deployment of plugins, which among
 other things take care of the portability and relocatability of the
