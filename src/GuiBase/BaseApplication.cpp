@@ -557,9 +557,10 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
             // Force symbol resolution at load time.
             pluginLoader.setLoadHints( QLibrary::ResolveAllSymbolsHint );
 
-            LOG( logINFO ) << "Found plugin " << filename.toStdString();
-
             auto metadata = pluginLoader.metaData()["MetaData"].toObject();
+            if ( metadata.isEmpty() ) { continue; } // Not a Radium plugin, skip the file
+
+            LOG( logINFO ) << "Found plugin " << filename.toStdString();
 
             // detect if the plugin meets the minimal requirements
             // if not, triggers a QDialog explaining the error, and abort the application
