@@ -1,6 +1,8 @@
 set( engine_sources
     Component/Component.cpp
     Component/GeometryComponent.cpp
+    Component/SkeletonComponent.cpp
+    Component/SkinningComponent.cpp
     Entity/Entity.cpp
     ItemModel/ItemEntry.cpp
     Managers/CameraManager/CameraManager.cpp
@@ -41,6 +43,7 @@ set( engine_sources
     Renderer/Texture/Texture.cpp
     Renderer/Texture/TextureManager.cpp
     System/GeometrySystem.cpp
+    System/SkeletonBasedAnimationSystem.cpp
     System/System.cpp
     System/TimedSystem.cpp
 )
@@ -48,6 +51,8 @@ set( engine_sources
 set( engine_headers
     Component/Component.hpp
     Component/GeometryComponent.hpp
+    Component/SkeletonComponent.hpp
+    Component/SkinningComponent.hpp
     Entity/Entity.hpp
     FrameInfo.hpp
     ItemModel/ItemEntry.hpp
@@ -97,6 +102,7 @@ set( engine_headers
     Renderer/Texture/TextureManager.hpp
     System/CouplingSystem.hpp
     System/GeometrySystem.hpp
+    System/SkeletonBasedAnimationSystem.hpp
     System/System.hpp
     System/TimedSystem.hpp
 )
