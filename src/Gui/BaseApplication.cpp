@@ -2,6 +2,8 @@
 #include <Gui/MainWindowInterface.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
+#include <Gui/SettingsEditor/SettingsTree.hpp>
+
 #include <Core/CoreMacros.hpp>
 #include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>
@@ -740,6 +742,30 @@ void BaseApplication::setRecordTimings( bool on ) {
 
 void BaseApplication::setRecordGraph( bool on ) {
     m_recordGraph = on;
+}
+
+void listSettings( QSettings& settings, int level = 0 ) {
+    const QStringList childGroups = settings.childGroups();
+    for ( const QString& group : childGroups )
+    {
+        std::string tabs;
+        for ( int i = 0; i < level; ++i )
+        {
+            tabs += "\t";
+        }
+        LOG( logINFO ) << tabs << group.toStdString();
+        settings.beginGroup( group );
+        listSettings( settings, level + 1 );
+        settings.endGroup();
+    }
+}
+void BaseApplication::editSettings() {
+    auto settingsEditor = new SettingsTree();
+    SettingsTree::SettingsPtr settings( new QSettings() );
+    settingsEditor->setSettingsObject( settings );
+    settingsEditor->setFallbacksEnabled( false );
+    settingsEditor->setAutoRefresh( true );
+    settingsEditor->show();
 }
 
 void BaseApplication::addPluginDirectory( const std::string& pluginDir ) {

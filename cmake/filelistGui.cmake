@@ -2,6 +2,8 @@ set( gui_sources
     BaseApplication.cpp
     RadiumWindow/SimpleWindow.cpp
     SelectionManager/SelectionManager.cpp
+    SettingsEditor/SettingsTree.cpp
+    SettingsEditor/VariantDelegate.cpp
     SkeletonBasedAnimation/SkeletonBasedAnimationUI.cpp
     Timeline/HelpDialog.cpp
     Timeline/Timeline.cpp
