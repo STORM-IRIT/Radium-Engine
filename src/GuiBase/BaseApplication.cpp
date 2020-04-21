@@ -557,10 +557,14 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
             // Force symbol resolution at load time.
             pluginLoader.setLoadHints( QLibrary::ResolveAllSymbolsHint );
 
+            // Looking for Radium plugin signature on metadata
             auto metadata = pluginLoader.metaData()["MetaData"].toObject();
-            if ( metadata.isEmpty() ) { continue; } // Not a Radium plugin, skip the file
-
-            LOG( logINFO ) << "Found plugin " << filename.toStdString();
+            if ( metadata.isEmpty() || !metadata.contains( "com.storm-irit.RadiumEngine" ) ||
+                 metadata["com.storm-irit.RadiumEngine"].toString().compare( "plugin" ) != 0 )
+            {
+                LOG( logDEBUG ) << "File " << filename.toStdString() << " is not a Radium plugin.";
+                continue;
+            }
 
             // detect if the plugin meets the minimal requirements
             // if not, triggers a QDialog explaining the error, and abort the application
@@ -579,6 +583,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
             bool isPluginDebug = metadata["isDebug"].toString().compare( "true" ) == 0;
             if ( expectPluginsDebug == isPluginDebug )
             {
+                LOG( logINFO ) << "Found plugin " << filename.toStdString();
                 // load the plugin
                 QObject* plugin = pluginLoader.instance();
                 if ( plugin )
@@ -620,8 +625,8 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
                         {
                             if ( m_viewer->isOpenGlInitialized() )
                             {
-                                LOG( logINFO ) << "Direct OpenGL initialization for plugin "
-                                               << filename.toStdString();
+                                LOG( logDEBUG ) << "Direct OpenGL initialization for plugin "
+                                                << filename.toStdString();
                                 // OpenGL is ready, initialize openGL part of the plugin
                                 m_viewer->makeCurrent();
                                 loadedPlugin->openGlInitialize( m_pluginContext );
@@ -630,8 +635,8 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
                             else
                             {
                                 // Defer OpenGL initialisation
-                                LOG( logINFO ) << "Defered OpenGL initialization for plugin "
-                                               << filename.toStdString();
+                                LOG( logDEBUG ) << "Defered OpenGL initialization for plugin "
+                                                << filename.toStdString();
                                 m_openGLPlugins.push_back( loadedPlugin );
                             }
                         }
