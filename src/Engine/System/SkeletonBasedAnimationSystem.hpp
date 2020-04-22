@@ -1,18 +1,17 @@
-#ifndef SKELETONBASEDANIMATIONPLUGIN_SYSTEM_HPP_
-#define SKELETONBASEDANIMATIONPLUGIN_SYSTEM_HPP_
-
-#include <Engine/System/TimedSystem.hpp>
+#pragma once
 
 #include <Engine/ItemModel/ItemEntry.hpp>
-#include <SkeletonBasedAnimationPluginMacros.hpp>
+#include <Engine/RaEngine.hpp>
+#include <Engine/System/TimedSystem.hpp>
 
-namespace SkeletonBasedAnimationPlugin {
+namespace Ra {
+namespace Engine {
 
 /// The AnimationSystem is the main system for coupling TimedSystems.
 /// On one hand, it manages the AnimationComponents, i.e. skeleton animation and display.
 /// On the other hand, it is responsible for transmitting calls to animation-related systems,
 /// for example physics systems that must play with the animation.
-class SKEL_ANIM_PLUGIN_API SkeletonBasedAnimationSystem : public Ra::Engine::CoupledTimedSystem
+class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::CoupledTimedSystem
 {
   public:
     /// Create a new animation system
@@ -98,6 +97,6 @@ class SKEL_ANIM_PLUGIN_API SkeletonBasedAnimationSystem : public Ra::Engine::Cou
     /// True if we want to show xray-bones
     bool m_xrayOn;
 };
-} // namespace SkeletonBasedAnimationPlugin
 
-#endif // SKELETONBASEDANIMATIONPLUGIN_SYSTEM_HPP_
+} // namespace Engine
+} // namespace Ra

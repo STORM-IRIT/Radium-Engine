@@ -1,4 +1,4 @@
-#include <SkeletonBasedAnimationSystem.hpp>
+#include <Engine/System/SkeletonBasedAnimationSystem.hpp>
 
 #include <iostream>
 #include <string>
@@ -10,11 +10,12 @@
 #include <Engine/FrameInfo.hpp>
 #include <Engine/RadiumEngine.hpp>
 
-#include <Drawing/SkeletonBoneDrawable.hpp>
-#include <SkeletonComponent.hpp>
-#include <SkinningComponent.hpp>
+//#include <Drawing/SkeletonBoneDrawable.hpp>
+#include <Engine/Component/SkeletonComponent.hpp>
+#include <Engine/Component/SkinningComponent.hpp>
 
-namespace SkeletonBasedAnimationPlugin {
+namespace Ra {
+namespace Engine {
 
 SkeletonBasedAnimationSystem::SkeletonBasedAnimationSystem() :
     m_animFrame( 0 ),
@@ -275,4 +276,5 @@ void SkeletonBasedAnimationSystem::showWeightsType( int type ) {
         { static_cast<SkinningComponent*>( compEntry.second )->showWeightsType( type ); } }
 }
 
-} // namespace SkeletonBasedAnimationPlugin
+} // namespace Engine
+} // namespace Ra

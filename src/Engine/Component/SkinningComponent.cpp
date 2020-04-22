@@ -1,4 +1,4 @@
-﻿#include <SkinningComponent.hpp>
+﻿#include <Engine/Component/SkinningComponent.hpp>
 
 #include <Core/Animation/PoseOperation.hpp>
 #include <Core/Geometry/Normal.hpp>
@@ -42,7 +42,8 @@ using Ra::Engine::ComponentMessenger;
 
 using namespace Ra::Core::Utils;
 
-namespace SkeletonBasedAnimationPlugin {
+namespace Ra {
+namespace Engine {
 
 bool findDuplicates( const TriangleMesh& mesh,
                      std::vector<Ra::Core::Utils::Index>& duplicatesMap ) {
@@ -492,4 +493,5 @@ void SkinningComponent::setWeightBone( uint bone ) {
     showWeightsType( m_weightType );
 }
 
-} // namespace SkeletonBasedAnimationPlugin
+} // namespace Engine
+} // namespace Ra
