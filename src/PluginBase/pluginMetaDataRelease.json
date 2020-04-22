@@ -1,1 +1,4 @@
-{ "isDebug": "false" }
+{
+  "com.storm-irit.RadiumEngine": "plugin",
+  "isDebug": "false"
+}
