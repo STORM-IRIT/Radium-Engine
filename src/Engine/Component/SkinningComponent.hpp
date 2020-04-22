@@ -1,7 +1,6 @@
-#ifndef SKELETONBASEDANIMATIONPLUGIN_SKINNINGCOMPONENT_HPP_
-#define SKELETONBASEDANIMATIONPLUGIN_SKINNINGCOMPONENT_HPP_
+#pragma once
 
-#include <SkeletonBasedAnimationPluginMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
@@ -15,11 +14,12 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
-namespace SkeletonBasedAnimationPlugin {
+namespace Ra {
+namespace Engine {
 
 /// The SkinningComponent class is responsible for applying Geometric Skinning Methods
 /// on an animated object's mesh.
-class SKEL_ANIM_PLUGIN_API SkinningComponent : public Ra::Engine::Component
+class RA_ENGINE_API SkinningComponent : public Ra::Engine::Component
 {
   public:
     /// The Geometric Skinning Method.
@@ -165,6 +165,6 @@ class SKEL_ANIM_PLUGIN_API SkinningComponent : public Ra::Engine::Component
     uint m_weightType;
     bool m_showingWeights;
 };
-} // namespace SkeletonBasedAnimationPlugin
 
-#endif //  SKELETONBASEDANIMATIONPLUGIN_SKINNINGCOMPONENT_HPP_
+} // namespace Engine
+} // namespace Ra

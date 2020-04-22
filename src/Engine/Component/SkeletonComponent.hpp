@@ -1,7 +1,6 @@
-#ifndef SKELETONBASEDANIMATIONPLUGIN_SKELETONCOMPONENT_HPP_
-#define SKELETONBASEDANIMATIONPLUGIN_SKELETONCOMPONENT_HPP_
+#pragma once
 
-#include <SkeletonBasedAnimationPluginMacros.hpp>
+#include <Engine/RaEngine.hpp>
 
 #include <Core/Animation/Animation.hpp>
 #include <Core/Animation/HandleWeight.hpp>
@@ -14,14 +13,15 @@
 
 #include <memory>
 
-namespace SkeletonBasedAnimationPlugin {
+namespace Ra {
+namespace Engine {
 
 class SkeletonBoneRenderObject;
 
 /// The SkeletonComponent is responsible for the management of skeleton-based
 /// character animations. It stores the animation Skeleton and the animation
 /// data and is responsible for drawing the skeleton.
-class SKEL_ANIM_PLUGIN_API SkeletonComponent : public Ra::Engine::Component
+class RA_ENGINE_API SkeletonComponent : public Ra::Engine::Component
 {
   public:
     SkeletonComponent( const std::string& name, Ra::Engine::Entity* entity );
@@ -152,7 +152,8 @@ class SKEL_ANIM_PLUGIN_API SkeletonComponent : public Ra::Engine::Component
     std::vector<Ra::Core::Animation::Animation> m_animations;
 
     /// Bones ROs.
-    std::vector<std::unique_ptr<SkeletonBoneRenderObject>> m_boneDrawables;
+    // FIXME: we need the bones RO type
+    //    std::vector<std::unique_ptr<SkeletonBoneRenderObject>> m_boneDrawables;
 
     /// Map from bone RO index to bone idx, for CC.
     std::map<Ra::Core::Utils::Index, uint> m_boneMap;
@@ -182,6 +183,5 @@ class SKEL_ANIM_PLUGIN_API SkeletonComponent : public Ra::Engine::Component
     bool m_resetDone;
 };
 
-} // namespace SkeletonBasedAnimationPlugin
-
-#endif // SKELETONBASEDANIMATIONPLUGIN_SKELETONCOMPONENT_HPP_
+} // namespace Engine
+} // namespace Ra

@@ -1,4 +1,4 @@
-#include <SkeletonComponent.hpp>
+#include <Engine/Component/SkeletonComponent.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -14,7 +14,7 @@
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
-#include <Drawing/SkeletonBoneDrawable.hpp>
+//#include <Drawing/SkeletonBoneDrawable.hpp>
 
 using Ra::Core::Animation::Animation;
 using Ra::Core::Animation::HandleArray;
@@ -25,7 +25,8 @@ using Ra::Engine::ComponentMessenger;
 
 using namespace Ra::Core::Utils; // log
 
-namespace SkeletonBasedAnimationPlugin {
+namespace Ra {
+namespace Engine {
 
 SkeletonComponent::SkeletonComponent( const std::string& name, Ra::Engine::Entity* entity ) :
     Component( name, entity ),
@@ -80,31 +81,34 @@ void SkeletonComponent::update( Scalar dt ) {
     }
 
     // update the render objects
-    for ( auto& bone : m_boneDrawables )
-    {
-        bone->update();
-    }
+    // FIXME: we need the bones RO type
+    //    for ( auto& bone : m_boneDrawables )
+    //    {
+    //        bone->update();
+    //    }
 }
 
+// FIXME: we need the bones RO type
 void SkeletonComponent::setupSkeletonDisplay() {
     m_renderObjects.clear();
-    m_boneDrawables.clear();
+    //    m_boneDrawables.clear();
     for ( uint i = 0; i < m_skel.size(); ++i )
     {
-        if ( !m_skel.m_graph.isLeaf( i ) && !m_skel.m_graph.isRoot( i ) )
+        if ( false ) // !m_skel.m_graph.isLeaf( i ) && !m_skel.m_graph.isRoot( i ) )
         {
-            std::string name = m_skel.getLabel( i ) + "_" + std::to_string( i );
-            m_boneDrawables.emplace_back(
-                new SkeletonBoneRenderObject( name, this, i, getRoMgr() ) );
-            m_renderObjects.push_back( m_boneDrawables.back()->getRenderObjectIndex() );
+            //            std::string name = m_skel.getLabel( i ) + "_" + std::to_string( i );
+            //            m_boneDrawables.emplace_back(
+            //                new SkeletonBoneRenderObject( name, this, i, getRoMgr() ) );
+            //            m_renderObjects.push_back( m_boneDrawables.back()->getRenderObjectIndex()
+            //            );
         }
         else
         { LOG( logDEBUG ) << "Bone " << m_skel.getLabel( i ) << " not displayed."; }
     }
-    for ( const auto& b : m_boneDrawables )
-    {
-        m_boneMap[b->getRenderObjectIndex()] = b->getBoneIndex();
-    }
+    //    for ( const auto& b : m_boneDrawables )
+    //    {
+    //        m_boneMap[b->getRenderObjectIndex()] = b->getBoneIndex();
+    //    }
 }
 
 void SkeletonComponent::printSkeleton( const Ra::Core::Animation::Skeleton& skeleton ) {
@@ -133,10 +137,11 @@ void SkeletonComponent::printSkeleton( const Ra::Core::Animation::Skeleton& skel
 void SkeletonComponent::reset() {
     m_animationTime = 0;
     m_skel.setPose( m_refPose, HandleArray::SpaceType::MODEL );
-    for ( auto& bone : m_boneDrawables )
-    {
-        bone->update();
-    }
+    // FIXME: we need the bones RO type
+    //    for ( auto& bone : m_boneDrawables )
+    //    {
+    //        bone->update();
+    //    }
     m_wasReset = true;
 }
 
@@ -246,19 +251,21 @@ const bool* SkeletonComponent::getWasReset() const {
     return &m_wasReset;
 }
 
+// FIXME: we need the bones RO type
 void SkeletonComponent::setXray( bool on ) const {
-    for ( const auto& b : m_boneDrawables )
-    {
-        b->setXray( on );
-    }
+    //    for ( const auto& b : m_boneDrawables )
+    //    {
+    //        b->setXray( on );
+    //    }
 }
 
+// FIXME: we need the bones RO type
 void SkeletonComponent::toggleSkeleton( const bool status ) {
-    for ( const auto& b : m_boneDrawables )
-    {
-        const auto id = b->getRenderObjectIndex();
-        getRoMgr()->getRenderObject( id )->setVisible( status );
-    }
+    //    for ( const auto& b : m_boneDrawables )
+    //    {
+    //        const auto id = b->getRenderObjectIndex();
+    //        getRoMgr()->getRenderObject( id )->setVisible( status );
+    //    }
 }
 
 void SkeletonComponent::toggleAnimationTimeStep( const bool status ) {
@@ -277,58 +284,68 @@ void SkeletonComponent::setAnimation( const uint i ) {
     if ( i < m_animations.size() ) { m_animationID = i; }
 }
 
+// FIXME: we need the bones RO type
 bool SkeletonComponent::canEdit( const Ra::Core::Utils::Index& roIdx ) const {
+    return false;
     // returns true if the roIdx is one of our bones.
-    return (
-        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
-            return bone->getRenderObjectIndex() == roIdx;
-        } ) != m_boneDrawables.end() );
+    //    return (
+    //        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto&
+    //        bone ) {
+    //            return bone->getRenderObjectIndex() == roIdx;
+    //        } ) != m_boneDrawables.end() );
 }
 
+// FIXME: we need the bones RO type
 Ra::Core::Transform SkeletonComponent::getTransform( const Ra::Core::Utils::Index& roIdx ) const {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
-    const auto& bonePos =
-        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
-            return bone->getRenderObjectIndex() == roIdx;
-        } );
+    return Ra::Core::Transform::Identity();
+    //    const auto& bonePos =
+    //        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto&
+    //        bone ) {
+    //            return bone->getRenderObjectIndex() == roIdx;
+    //        } );
 
-    const uint boneIdx = ( *bonePos )->getBoneIndex();
-    return m_skel.getPose( HandleArray::SpaceType::MODEL )[boneIdx];
+    //    const uint boneIdx = ( *bonePos )->getBoneIndex();
+    //    return m_skel.getPose( HandleArray::SpaceType::MODEL )[boneIdx];
 }
 
+// FIXME: we need the bones RO type
 void SkeletonComponent::setTransform( const Ra::Core::Utils::Index& roIdx,
                                       const Ra::Core::Transform& transform ) {
     CORE_ASSERT( canEdit( roIdx ), "Transform is not editable" );
-    const auto& bonePos =
-        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto& bone ) {
-            return bone->getRenderObjectIndex() == roIdx;
-        } );
+    //    const auto& bonePos =
+    //        std::find_if( m_boneDrawables.begin(), m_boneDrawables.end(), [roIdx]( const auto&
+    //        bone ) {
+    //            return bone->getRenderObjectIndex() == roIdx;
+    //        } );
 
-    // get bone data
-    const uint boneIdx     = ( *bonePos )->getBoneIndex();
-    const auto& TBoneModel = m_skel.getTransform( boneIdx, HandleArray::SpaceType::MODEL );
-    const auto& TBoneLocal = m_skel.getTransform( boneIdx, HandleArray::SpaceType::LOCAL );
+    //    // get bone data
+    //    const uint boneIdx     = ( *bonePos )->getBoneIndex();
+    //    const auto& TBoneModel = m_skel.getTransform( boneIdx, HandleArray::SpaceType::MODEL );
+    //    const auto& TBoneLocal = m_skel.getTransform( boneIdx, HandleArray::SpaceType::LOCAL );
 
-    // turn bone translation into rotation for parent
-    const uint pBoneIdx = m_skel.m_graph.parents()[boneIdx];
-    if ( pBoneIdx != -1 && m_skel.m_graph.children()[pBoneIdx].size() == 1 )
-    {
-        const auto& pTBoneModel = m_skel.getTransform( pBoneIdx, HandleArray::SpaceType::MODEL );
+    //    // turn bone translation into rotation for parent
+    //    const uint pBoneIdx = m_skel.m_graph.parents()[boneIdx];
+    //    if ( pBoneIdx != -1 && m_skel.m_graph.children()[pBoneIdx].size() == 1 )
+    //    {
+    //        const auto& pTBoneModel = m_skel.getTransform( pBoneIdx, HandleArray::SpaceType::MODEL
+    //        );
 
-        Ra::Core::Vector3 A;
-        Ra::Core::Vector3 B;
-        m_skel.getBonePoints( pBoneIdx, A, B );
-        Ra::Core::Vector3 B_ = transform.translation();
-        auto q               = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
-        Ra::Core::Transform R( q );
-        R.pretranslate( A );
-        R.translate( -A );
-        m_skel.setTransform( pBoneIdx, R * pTBoneModel, HandleArray::SpaceType::MODEL );
-    }
+    //        Ra::Core::Vector3 A;
+    //        Ra::Core::Vector3 B;
+    //        m_skel.getBonePoints( pBoneIdx, A, B );
+    //        Ra::Core::Vector3 B_ = transform.translation();
+    //        auto q               = Ra::Core::Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
+    //        Ra::Core::Transform R( q );
+    //        R.pretranslate( A );
+    //        R.translate( -A );
+    //        m_skel.setTransform( pBoneIdx, R * pTBoneModel, HandleArray::SpaceType::MODEL );
+    //    }
 
-    // update bone local transform
-    m_skel.setTransform(
-        boneIdx, TBoneLocal * TBoneModel.inverse() * transform, HandleArray::SpaceType::LOCAL );
+    //    // update bone local transform
+    //    m_skel.setTransform(
+    //        boneIdx, TBoneLocal * TBoneModel.inverse() * transform, HandleArray::SpaceType::LOCAL
+    //        );
 }
 
 const Ra::Core::Animation::Animation* SkeletonComponent::getAnimationOutput() const {
@@ -387,13 +404,15 @@ bool SkeletonComponent::restoreFrame( const std::string& dir, int frame ) {
     if ( !file.read( reinterpret_cast<char*>( pose.data() ), ( sizeof pose[0] ) * pose.size() ) )
     { return false; } m_skel.setPose( pose, HandleArray::SpaceType::LOCAL );
 
+    // FIXME: we need the bones RO type
     // update the render objects
-    for ( auto& bone : m_boneDrawables )
-    {
-        bone->update();
-    }
+    //    for ( auto& bone : m_boneDrawables )
+    //    {
+    //        bone->update();
+    //    }
 
     return true;
 }
 
-} // namespace SkeletonBasedAnimationPlugin
+} // namespace Engine
+} // namespace Ra
