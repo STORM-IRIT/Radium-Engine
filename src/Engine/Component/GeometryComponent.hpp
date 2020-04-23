@@ -42,6 +42,7 @@ class RA_ENGINE_API GeometryComponent : public Component
     const Ra::Core::Utils::Index* roIndexRead() const;
 
   protected:
+    // the index of the renderObject
     Ra::Core::Utils::Index m_roIndex{};
     std::string m_contentName{};
 };
@@ -87,7 +88,7 @@ class RA_ENGINE_API TriangleMeshComponent : public GeometryComponent
   private:
     void generateTriangleMesh( const Ra::Core::Asset::GeometryData* data );
 
-    void finalizeROFromGeometry( const Core::Asset::MaterialData* data );
+    void finalizeROFromGeometry( const Core::Asset::MaterialData* data, Core::Transform transform );
 
     // Give access to the mesh and (if deformable) to update it
     const Ra::Core::Geometry::TriangleMesh* getMeshOutput() const;
@@ -134,7 +135,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
   private:
     void generatePointCloud( const Ra::Core::Asset::GeometryData* data );
 
-    void finalizeROFromGeometry( const Core::Asset::MaterialData* data );
+    void finalizeROFromGeometry( const Core::Asset::MaterialData* data, Core::Transform transform );
 
     // Give access to the mesh and (if deformable) to update it
     const Ra::Core::Geometry::PointCloud* getMeshOutput() const;
