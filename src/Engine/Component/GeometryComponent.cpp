@@ -59,7 +59,7 @@ TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
     GeometryComponent( name, entity ), m_displayMesh( new Engine::Mesh( name ) ) {
     setContentName( name );
     m_displayMesh->loadGeometry( std::move( mesh ) );
-    finalizeROFromGeometry( mat );
+    finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
 
 //////////// STORE Mesh/TriangleMesh here instead of an index, so don't need to request the ROMgr
@@ -73,33 +73,32 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     std::string name( m_name );
     name.append( "_" + m_contentName );
 
-    std::string meshName = name;
-    meshName.append( "_Mesh" );
+    std::string meshName = m_contentName;
+    // meshName.append( "_Mesh" );
 
     m_displayMesh = Ra::Core::make_shared<Mesh>( meshName );
 
     Ra::Core::Geometry::TriangleMesh mesh;
     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container vertices;
     Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container normals;
-
-    const auto T = data->getFrame();
-    const Ra::Core::Transform N( ( T.matrix() ).inverse().transpose() );
-
+    // data->getFrame()
     vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
+    // Use std::copy ?
 #pragma omp parallel for
     for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
     {
-        vertices[i] = T * data->getVertices()[i];
+        vertices[i] = data->getVertices()[i];
     }
 
     if ( data->hasNormals() )
     {
         normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
+        // Use std::copy ?
 #pragma omp parallel for
         for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
         {
-            normals[i] = ( N * data->getNormals()[i] ).normalized();
+            normals[i] = ( data->getNormals()[i] ).normalized();
         }
     }
 
@@ -131,10 +130,12 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
-    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr );
+    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr,
+                            data->getFrame() );
 }
 
-void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data ) {
+void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data,
+                                                    Core::Transform transform ) {
     // The technique for rendering this component
     std::shared_ptr<Material> roMaterial;
     // First extract the material from asset or create a default one
@@ -159,6 +160,7 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
+    ro->setLocalTransform( transform );
     m_roIndex = addRenderObject( ro );
 }
 
@@ -212,7 +214,7 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Core::Asset::MaterialData* mat ) :
     GeometryComponent( name, entity ), m_displayMesh( new Engine::PointCloud( name ) ) {
     m_displayMesh->loadGeometry( std::move( mesh ) );
-    finalizeROFromGeometry( mat );
+    finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
 
 //////////// STORE Mesh/PointCloud here instead of an index, so don't need to request the ROMgr
@@ -238,15 +240,11 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
     Ra::Core::Geometry::PointCloud::PointAttribHandle::Container vertices;
     Ra::Core::Geometry::PointCloud::NormalAttribHandle::Container normals;
 
-    const auto T = data->getFrame();
-    const Ra::Core::Transform N( ( T.matrix() ).inverse().transpose() );
-
     vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-
 #pragma omp parallel for
     for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
     {
-        vertices[i] = T * data->getVertices()[i];
+        vertices[i] = data->getVertices()[i];
     }
 
     if ( data->hasNormals() )
@@ -255,7 +253,7 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
 #pragma omp parallel for
         for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
         {
-            normals[i] = ( N * data->getNormals()[i] ).normalized();
+            normals[i] = ( data->getNormals()[i] ).normalized();
         }
     }
 
@@ -279,10 +277,12 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
-    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr );
+    finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr,
+                            data->getFrame() );
 }
 
-void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data ) {
+void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data,
+                                                  Core::Transform transform ) {
     // The technique for rendering this component
     std::shared_ptr<Material> roMaterial;
     // First extract the material from asset or create a default one
@@ -307,6 +307,7 @@ void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialDat
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
+    ro->setLocalTransform( transform );
     m_roIndex = addRenderObject( ro );
 }
 
