@@ -2,7 +2,7 @@
 [TOC]
 
 
-## Usage
+# Usage
 
 You first need to add into every configuration file (in `Configs/` folder) an entry which will bind your action to a key.
 This file as an only `keymaps` node, with `keymap` per binding.
@@ -84,7 +84,7 @@ void MyClass::configureKeyMapping() {
 
 ~~~
 
-## Implementation note
+# Implementation note
 
 The viewer is the main entry point to dispatch key and mouse event.
 The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.
@@ -106,6 +106,6 @@ For instance see `Viewer.cpp` `Viewer::mousePressEvent`
   //[...]
  ~~~
 
-## Limits
+# Limits
 
 * Multiple keys/buttons are not yet implemented.

@@ -4,7 +4,7 @@
 The Radium Engine provides a set of classes dedicated to animation,
 which can be found in `Core/Animation`.
 
-## Animation Basics
+# Animation Basics
 
 In order to animate a digital character, one may choose from two main animation techniques:
  - skeleton-based animation, in which the character's mesh is bound to an
@@ -18,7 +18,7 @@ During the animation, the handles transformations are first updated with respect
 to the animation pose, then the mesh is deformed by combining the handles
 transformations through the skinnning weights.
 
-## Character Animation in Radium
+# Character Animation in Radium
 
 The Radium Engine provides the basic classes for character animation.
 
@@ -47,7 +47,7 @@ of transformation matrices, the `Ra::Core::Animation::KeyFrame` class, unfinishe
 a more generic interface, usable for any type of animated data.
 Thus the `Ra::Core::Animation::Animation` class is tagged as deprecated and will be removed once the `Ra::Core::Animation::KeyFrame` class is ready.
 
-## The Skeleton-Based Character Animation Plugin
+# The Skeleton-Based Character Animation Plugin
 
 The `SkeletonBasedAnimation` plugin (https://gitlab.com/Storm-IRIT/radium-official-plugins/skeletonbasedanimation) provides one plugin specific to skeleton-based character animation and skinning.
 This plugin provides a `SkeletonComponent`, which manages user interactions with
@@ -55,7 +55,7 @@ the animation skeleton, enabling posing the character and playing the animations
 It also provides a `SkinningComponent`, which is responsible for deforming the
 object's mesh vertices according to the desired skinning method.
 
-## Importing skeleton-based character animation data into Radium
+# Importing skeleton-based character animation data into Radium
 
 In order to import animation related data into Radium, the default loader would be the `Ra::IO::AssimpLoader`,
  which deals with several standard animation formats (fbx, collada, ...).

@@ -1,7 +1,7 @@
 \page develpicking API: Feature Picking
 [TOC]
 
-## Usage
+# Usage
 
 The RadiumEngine's Ra::Engine::Renderer provides a picking method for Ra::Engine::RenderObject selection.
 
@@ -17,7 +17,7 @@ Right after a selection, the Ra::Engine::Renderer::PickingResult are stored in t
 
 The selection of a mesh feature is activated by holding a specific key while selecting the object (see the `KeyMappingManager` configuration file for those). Multiple selection activation can be activated/de-activated by pressing the corresponding key, which would also make a circle shape, representing the selection area, appear on the screen.
 
-## MeshFeatureTracking Plugin
+# MeshFeatureTracking Plugin
 
 The `MeshFeatureTracking` Plugin (**Radium Official Plugins** (https://gitlab.com/Storm-IRIT/radium-official-plugins)) is an example of how mesh features information can be displayed either through the `Gui` or as displayed objects.
 The `SelectionManager`'s `currentChanged` signal is connected to the slot `onCurrentChanged`.
@@ -27,7 +27,7 @@ The `MeshFeatureTracking` plugin also keeps its information widget updated at th
 
 The `MeshFeatureTracking` plugin only manage simple feature selection. For an example on how to deal with multiple selection, please see the `MeshPaint` Plugin.
 
-## MeshPaint Plugin
+# MeshPaint Plugin
 
 The `MeshPaint` Plugin (**Radium Official Plugins** (https://gitlab.com/Storm-IRIT/radium-official-plugins)) is an example of how to use mesh feature multi-selection.
 Here again, the `SelectionManager`'s `currentChanged` signal is connected to the slot `onCurrentChanged`.

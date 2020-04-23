@@ -1,7 +1,7 @@
 \page basicsCompileRadium Compilation instructions
 [TOC]
 
-## Dependencies
+# Dependencies
 All the dependencies are automatically fetched and compiled at build time.
  * [Core] Eigen, OpenMesh
  * [Engine] glm, globjects, glbindings
@@ -15,7 +15,7 @@ Minimal requirements
  * OpenGL 3+ / GLSL 330+
  * CMake 3.0.+
 
-## Supported compiler and platforms
+# Supported compiler and platforms
 
 The following platforms and tool chains have been tested and should work :
 
@@ -23,20 +23,20 @@ The following platforms and tool chains have been tested and should work :
  * *Mac OSX* : gcc 7.1 or higher, Apple clang
  * *Linux* : gcc 7.1  or higher, clang
 
-### Continuous Integration:
+## Continuous Integration:
  * *Linux (clang 5, gcc7) and Mac OSX* : https://travis-ci.org/STORM-IRIT/Radium-Engine
  * *Windows* (MSVC 2017): https://ci.appveyor.com/project/nmellado/radium-engine
 
-## Build instructions
+# Build instructions
 
-### Getting dependencies
+## Getting dependencies
 They are automatically fetched by cmake at compile time.
 To force cmake re-fetching the dependencies, called
 ~~~bash
 make update
 ~~~
 
-### Folder structure
+## Folder structure
 <!--Radium-Engine relies on CMake buildchain on all supported platforms.
 In most cases, building should be pretty straightforward, provided that cmake can locate the dependencies.
 You will need to have the openGL headers and libraries, Qt 5.4 or more and cmake.
@@ -58,12 +58,12 @@ Plugins are generated in `bin/Plugins`.
 
 TODO: Update this part of the documentation-->
 
-### Configure build
+## Configure build
 
 Radium offers the following build option (off by default) :
 * `RADIUM_WITH_DOUBLE_PRECISION` sets the floating point format to double-precision instead of single precisition
 
-###  Building on Linux/MacOS (command line instruction)
+##  Building on Linux/MacOS (command line instruction)
 
 Out-of source builds are mandatory, we recommand to follow the usual sequence:
 
@@ -133,9 +133,9 @@ RADIUM_UPDATE_VERSION:BOOL=ON
 ~~~
 
 
-### Building on Microsoft Windows with Visual Studio
+## Building on Microsoft Windows with Visual Studio
 
-#### Supported versions of MSVC
+### Supported versions of MSVC
 Since Radium requires:
 * the C++11/C++14/C++17 advanced features such as `constexpr`,
 * cmake built-in support
@@ -145,7 +145,7 @@ We tested our code with *VS 2017 Community* (https://www.visualstudio.com/produc
 
 See general instruction on cmake for Visual Studio here: https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/
 
-#### Dependencies
+### Dependencies
 
 *Qt* distributes version 5.10 with precompiled libraries for VS 2017 - 64 bits.
 If using earlier versions of Qt (5.5)  or a different toolset you may have to compile Qt yourself.
@@ -153,7 +153,7 @@ You will probaby have to manually point cmake to the Qt folder (see Troubleshoot
 
 Other dependencies (Eigen, Assimp, glbinding, globjects and glm) are included as a submodule in the git repository.
 
-#### Getting started with Visual Studio
+### Getting started with Visual Studio
 
 Thanks to the integrated support of CMake in Visual Studio, you don't need a VS solution to build your project: open the Radium folder (via *File* > *Open* > *Folder ...* or `devenv.exe <foldername>`).
 VS should run cmake, generate the target builds (Debug and Release by default).
@@ -189,11 +189,11 @@ To fix it, edit `CMakeSettings.json`, such that
 ~~~
 *Note*: it is strongly encouraged to use `/` separators in your path, instead of `\\` as previously mentionned. See https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u
 
-#### Compilation
+### Compilation
 
 Right click on CMakeList.txt > build > all.
 
-### Building with QtCreator
+## Building with QtCreator
 
 QtCreator is supported on Windows, MacOS and Linux.
 No specific requirement here, just open Radium-Engine CMake project and enjoy !

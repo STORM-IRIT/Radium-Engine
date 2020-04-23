@@ -1,7 +1,7 @@
 \page basicsTroubleshooting Troubleshooting
 
 
-## Qt cmake errors
+# Qt cmake errors
 In case you run into an error like
 ~~~
 By not providing "FindQt5Widgets.cmake" in CMAKE_MODULE_PATH this project
@@ -18,6 +18,6 @@ On windows, using cmake-gui you can use the "add entry" button, adding `CMAKE_PR
 as a string to point to the Qt directory (for example in the default installation :
 `C:/Qt/5.6/msvc2015_64` )
 
-## Crash when starting main application on windows
+# Crash when starting main application on windows
 This is usally caused by missing dlls.
 With Visual Studio, you may need to copy the Qt dlls to Radium bin folder `Bundle-MSVC\bin` or `Bundle-MSVC-Debug\bin`.

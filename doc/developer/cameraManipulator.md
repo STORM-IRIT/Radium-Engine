@@ -8,7 +8,7 @@ The class `Ra::Gui::CameraManipulator` defines the general interface for camera 
 common properties that allow to switch from one manipulator to one other without disturbing the visual and interactive
 behavior of the application.
 
-## Implementing a CameraManipulator
+# Implementing a CameraManipulator
 
 In order to extend the set of `Ra::Gui::CameraManipulator` available in Radium or to develop a dedicated
 `Ra::Gui::CameraManipulator` for a `Ra::Gui::Viewer`-based application, programmers are intended to do the following,
@@ -89,7 +89,7 @@ KeyMappingFlightManipulator
 
 4. Implement the inherited abstract method according to the wanted behavior of the `Ra::Gui::CameraManipulator`
 
-## Using a CameraManipulator
+# Using a CameraManipulator
 Using a `Ra::Gui::CameraManipulator` in a `Ra::Gui::Viewer`-based application is quite straightforward.
 
 If one wants to set a first camera manipulator to a viewer

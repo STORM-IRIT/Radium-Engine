@@ -18,7 +18,7 @@ when rendering an object.
 The Radium Engine exposes some predefined materials, the _Radium Material Library_, with render techniques corresponding
 to the Ra::Engine::ForwardRenderer default renderer. 
 
-## Content of the Radium Material Library
+# Content of the Radium Material Library
 The Radium Material Library defines two default material :
   - BlinnPhong, Ra::Engine::BlinnPhongMaterial, corresponding to the Blinn-Phong BSDF.
   - Plain, Ra::Engine::PlainMaterial, corresponding to a diffuse, lambertian BSDF.
@@ -36,7 +36,7 @@ Ra::Engine::EngineMaterialConverters.
 See the [Material registration into the Engine](#registration-mtl-lib) section of this documentation to learn more about
 these factories.
 
-## Simple usage of materials {#simple-mtl-usage}
+# Simple usage of materials {#simple-mtl-usage}
 
 A simple usage of material is demonstrated in the [HelloRadium Application](https://github.com/STORM-IRIT/Radium-Apps).
 
@@ -69,7 +69,7 @@ Ra::Engine::RenderTechnique, potentially without associated material.
 If one wants to render objects without BSDF computation but with a specific color computation for the fragment, 
 follow the guidelines from [the dedicated section](#non-bsdf-rendering) of this documentation.
 
-## Extending the Radium Material Library {#extend-mtl-lib}
+# Extending the Radium Material Library {#extend-mtl-lib}
 
 The _Radium Material Library_ could be extended to handle several _Bidirectional Scattering Distribution function_. 
 
@@ -93,7 +93,7 @@ give one for the Radium default renderer.
 [BSDF interface](#bsdf-interface) and the [micro-geometry interface](#microgeometry-interface). These shaders are 
 renderer-specific and the programmer must at least give one for the Radium default renderer.
 
-### C++ interface {#cpp-mtl-lib}
+## C++ interface {#cpp-mtl-lib}
 The Ra::Engine::Material interface defines the internal abstract representation of a Material. 
 This interface defines all the methods required to parametrized the OpenGL pipeline for rendering and will be used 
 mainly by the Ra::Engine::RenderTechnique and the Ra::Engine::Renderer classes.
@@ -121,13 +121,13 @@ public:
 ~~~
 See the [Render technique management](./rendertechnique) for documentation on how to build such an helper function.
 
-### GLSL interface {#glsl-mtl-lib}
+## GLSL interface {#glsl-mtl-lib}
 Being able to compose shaders in a specific renderer while taking profit of Radium Material Library
 (either included in the base engine or defined in plugins) require a clean definition of appearance computation
 process and the definition of a glsl interface.
 
 
-#### Appearance computation needs
+## Appearance computation needs
 In order to compute the appearance of an object, and according to the OpenGL/GLSL approach of rendering, several
 aspects might be taken into account and might be integrated into the interface definition to make a material 
 renderer-agnostic. 
@@ -145,7 +145,7 @@ these functionalities and concentrate its effort in developing the required func
     - Blinn-Phong BSDF (default BSDF in Radium Engine)
     - Microfacet - based BSDF (added by plugins such as GLTF-2 or PBRT)
 
-#### Vertex attrib interface {#vrtx-attr-interface}
+### Vertex attrib interface {#vrtx-attr-interface}
 In order to compute the appearance of an object, one need to rely on parameters defined directly on the geometry of
 the object. Such parameters (position, normal, tangent, ...) are passed to the shader systems as vertex attributes.
 

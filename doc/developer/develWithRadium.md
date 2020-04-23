@@ -7,24 +7,24 @@ There are three main options to work with Radium:
 3. Contribute to Radium libraries: to improve/extend core components of Radium.
 4. Testing: extend radium tests to improve testing coverage or when adding new functionality.
 
-## Radium Plugin
+# Radium Plugin
 Tutorial and documentation here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
 
-## Radium Application
+# Radium Application
 Tutorial here: [https://github.com/STORM-IRIT/Radium-AppExample](https://github.com/STORM-IRIT/Radium-AppExample)
 
-## Radium libraries
+# Radium libraries
 Direct contributions to master are closed.
 Please submit your pull request.
 
-## Radium coding style
+# Radium coding style
 Please follow the scripts/clang-format coding style (tested `with clang-format 6.0`).
 To use it, you have to copy or link `scripts/clang-format` to `.clang-format` (in Radium-Engine root dir).
 We also provide a pre commit hook that checks the committed files are correctly formatted.
 To install both hooks and clang-format, simply run `./scripts/install-scripts-linux.sh` on linux, or adapt to your OS.
 
-## Radium test suite
-### Preliminaries
+# Radium test suite
+## Preliminaries
 Radium testing is done using two tools:
 -   CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.
 -   Continuous Integration system: Travis.ci and AppVeyor. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.
@@ -32,7 +32,7 @@ Radium testing is done using two tools:
 As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically.
 In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.
 
-### How to write tests
+## How to write tests
 Tests are C++ executables, expected to set their return value accordingly to the test result, e.g. `return EXIT_FAILURE;` or by calling `abort();` in case of failure.
 
 Their source code is stored in `Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src`.
@@ -101,7 +101,7 @@ Note that we target Unit Tests, which can be defined as:
 >
 > Source: [https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters](https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters)
 
-### How to add a test to the testing suite
+## How to add a test to the testing suite
 The testing suite is handled by `cmake`: tests need to be added with their sources and dependencies.
 We provide a `cmake` helper function to add a test easily:
 
@@ -113,7 +113,7 @@ See `Radium-Engine/cmake/ConfigureTesting.cmake` for the implementation of this 
 
 Tests are located in `Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src`. Currently `cmake` scripts are configured only for `Core`, you might need to copy and adapt them in case you add tests for the others packages (this is what you should do ! ;) ).
 
-### How to run tests locally and on the CI systems
+## How to run tests locally and on the CI systems
 First, you need to have the `cmake` option `RADIUM_COMPILE_TESTS` set to `ON` (the default).
 
 To run the tests locally, you first need to compile them (`make buildtests`) and then call CTest (`make test`). You should get something like:

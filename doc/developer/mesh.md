@@ -1,7 +1,7 @@
 \page develmeshes API: 3D objects (a.k.a. Meshes)
 [TOC]
 
-## Geometry types
+# Geometry types
 There is three kind of geometry representation included in radium source :
  1. Ra::Core::Geometry::*, which handles geometry data and connectivity as a indexed vertex array.
 Each vertex is a unique set of position, normal, and other attributes.
@@ -34,7 +34,7 @@ See inheritance digram of Ra::Engine::AttribArrayDisplayable
    
  `*` : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.
    
-## Colaboration between Core and Engine
+# Colaboration between Core and Engine
 
 A Core Geometry can be used on its own.
 
@@ -42,11 +42,11 @@ Engine Geometry must own a Core Geometry, either set at construction, or later w
 The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with Ra::Engine::Displayable::getAbstractGeometry or Ra::Engine::CoreGeometryDisplayable::getCoreGeometry
 
 
-## Data consistency
+# Data consistency
 As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty.
 On the next Ra::Engine::CoreGeometryDisplayable::updateGL, the dirty data will be updated on the GPU.
 
-## Mesh creation
+# Mesh creation
 `GeometryComponent` is in charge of loading a `GeometryData` and create the corresponding `Mesh`.
 
 The user can add on the fly new vertex attributes to a Ra::Core::Geometry::AttribArrayGeometry
