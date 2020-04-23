@@ -1,5 +1,5 @@
 language: cpp
-dist: xenial
+dist: bionic
 sudo: true
 
 script:
@@ -45,10 +45,10 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew update && brew install qt; fi
   - |
     if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-      sudo add-apt-repository --yes ppa:beineri/opt-qt-5.10.1-xenial
+      sudo add-apt-repository --yes ppa:beineri/opt-qt-5.11.0-bionic
       sudo apt-get --yes update
-      sudo apt-get --yes install qt510-meta-minimal qt510svg
-      source /opt/qt510/bin/qt510-env.sh # see https://launchpad.net/~beineri/+archive/ubuntu/opt-qt-5.10.1-xenial
+      sudo apt-get --yes install qt511-meta-minimal qt511svg
+      source /opt/qt511/bin/qt511-env.sh # see https://launchpad.net/~beineri/+archive/ubuntu/opt-qt-5.11.0-bionic
     fi;
 
 
@@ -66,7 +66,7 @@ matrix:
     # linx clang Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
+        - PREFIX_PATH="~/Qt/5.11.0/gcc_64/lib/cmake"
         - CLANG_VERSION=5.0
         - BUILD_DOC=Off
         - MATRIX_EVAL=""
@@ -81,12 +81,11 @@ matrix:
             - libgl1-mesa-dev
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-xenial-5.0
 
     # linx gcc Release
     - env:
         - BUILD_TYPE=Release
-        - PREFIX_PATH="~/Qt/5.10.0/gcc_64/lib/cmake"
+        - PREFIX_PATH="~/Qt/5.11.0/gcc_64/lib/cmake"
         - GCC_VERSION=7
         - BUILD_DOC=On
         - MATRIX_EVAL=""
