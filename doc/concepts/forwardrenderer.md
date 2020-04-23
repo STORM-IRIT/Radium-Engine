@@ -9,7 +9,7 @@ materials properties (see chapter on [Materials](@ref develmaterials) ).
 
 Here is a summary of the different passes of the Ra::Engine::ForwardRenderer
 
-#### 1. Depth, ambient color and "deferred info" pass
+# 1. Depth, ambient color and "deferred info" pass
 This pass
 *   only concerns opaque objects AND opaque fragment on transparent objects. 
 It is mainly used to fill in the Z-buffer, allowing to activate early z-test for next passes since the depth 
@@ -31,7 +31,7 @@ Note that the  shader associated to the Ra::Engine::Z_PREPASS pass must draw onl
 Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones
 (those with an opacity factor alpha les than one) must be discarded.
 
-#### 2. Lighting pass
+# 2. Lighting pass
 This pass is a classic forward lighting pass that accumulates the color of each light source.
 Before this pass, blending (one, one) is enabled and it does
 ~~~text
@@ -53,7 +53,7 @@ Note that the  shader associated to  the Ra::Engine::LIGHTING_OPAQUE pass must l
 Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones
 (those with an opacity factor alpha les than one) must be discarded.
 
-#### 3. Ordered independent transparency
+# 3. Ordered independent transparency
 Rendering transparent objects in Radium is done according to the algorithm described in
 *   Weighted Blended Order-Independent Transparency,
     Morgan McGuire, Louis Bavoil - NVIDIA,
@@ -68,14 +68,14 @@ fragments that are transparent must be lit and drawn.
 
 *   The composition pass then adds to the color buffer the resulting blended color.
 
-#### 4. Post-process the whole _render pass_
+# 4. Post-process the whole _render pass_
 This pass takes the color buffer, representing colors in linear RGB space) and apply gamma correction to the image
 
-#### 5. Debug and UI render objects
+# 5. Debug and UI render objects
 Those objects are drawn with their own shader, and without lighting.
 They do not write in the depth map but they have different depth testing behaviour :
 *   func is `LESS` for debug objects (drawn only if visible)
 *   func is `ALWAYS` for UI objects (drawn in front of everything else)
 
-### 6. Write final texture to framebuffer / backbuffer
+# 6. Write final texture to framebuffer / backbuffer
 This method is just responsible for displaying the final stuff on screen or on the saved FBO.
