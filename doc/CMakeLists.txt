@@ -39,27 +39,70 @@ if(DOXYGEN_FOUND)
     path_win_to_linux(${PLANT_UML_PATH} PLANT_UML_PATH_LINUX)
     path_win_to_linux(${CMAKE_CURRENT_BINARY_DIR} CMAKE_CURRENT_BINARY_DIR_LINUX)
 
-    # configure doxygen configuration file
-    set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
-    set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+    # configure doxygen target 
     set(RADIUM_DOC_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/)
     set(RADIUM_MAIN_DOC_FILE ${CMAKE_CURRENT_SOURCE_DIR}/main.md)
     set(RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
-    configure_file(${doxyfile_in} ${doxyfile} @ONLY)
 
     # be nice with IDE: add .md files
     file(GLOB_RECURSE md_files ${CMAKE_CURRENT_SOURCE_DIR}/*.md)
 
-    # doc build only target, target is not in default build, so it must be
-    # triggered explicitly
-    add_custom_target(RadiumDoc
-        COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
+    set(md_pages_order
+        "${CMAKE_CURRENT_SOURCE_DIR}/main.md"
+        "${CMAKE_CURRENT_SOURCE_DIR}/basics.md"
+        "${CMAKE_CURRENT_SOURCE_DIR}/concepts.md"
+        "${CMAKE_CURRENT_SOURCE_DIR}/developer.md"
+        "${CMAKE_CURRENT_SOURCE_DIR}/LICENSES.md")
+
+    set( DOXYGEN_PROJECT_NAME           "Radium Engine")
+    set( DOXYGEN_PROJECT_NUMBER         "${RADIUM_PROJECT_NUMBER}")
+    set( DOXYGEN_PROJECT_LOGO           "${CMAKE_CURRENT_SOURCE_DIR}/images/radium-logo.png")
+    set( DOXYGEN_EXTENSION_MAPPING      "dox=C++" "inl=C++")
+    set( DOXYGEN_BUILTIN_STL_SUPPORT    "YES")
+    set( DOXYGEN_EXTRACT_ALL            "YES")
+    set( DOXYGEN_EXTRACT_STATIC         "YES")
+    set( DOXYGEN_SHOW_GROUPED_MEMB_INC  "YES")
+    set( DOXYGEN_FORCE_LOCAL_INCLUDES   "YES")
+    set( DOXYGEN_RECURSIVE              "YES")
+    set( DOXYGEN_EXAMPLE_PATH           "${CMAKE_CURRENT_SOURCE_DIR}/../tests ")
+    set( DOXYGEN_EXAMPLE_PATTERNS       "*.cpp" "*.h" "*.cu")
+    set( DOXYGEN_EXAMPLE_RECURSIVE      "YES")
+    set( DOXYGEN_USE_MDFILE_AS_MAINPAGE "${RADIUM_MAIN_DOC_FILE}")
+    set( DOXYGEN_SOURCE_BROWSER         "YES")
+    set( DOXYGEN_REFERENCES_LINK_SOURCE "NO")
+    set( DOXYGEN_COLS_IN_ALPHA_INDEX    "2")
+    set( DOXYGEN_HTML_COLORSTYLE_HUE    "40")
+    set( DOXYGEN_HTML_COLORSTYLE_SAT    "50")
+    set( DOXYGEN_HTML_COLORSTYLE_GAMMA  "160")
+    set( DOXYGEN_HTML_TIMESTAMP         "YES")
+    set( DOXYGEN_HTML_DYNAMIC_SECTIONS  "YES")
+    set( DOXYGEN_DOCSET_BUNDLE_ID       "com.storm-irit.RadiumEngine")
+    set( DOXYGEN_DOCSET_PUBLISHER_NAME  "IRIT")
+    set( DOXYGEN_GENERATE_TREEVIEW      "YES")
+    set( DOXYGEN_EXT_LINKS_IN_WINDOW    "YES")
+    set( DOXYGEN_USE_MATHJAX            "YES")
+    set( DOXYGEN_MATHJAX_RELPATH        "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/")
+    set( DOXYGEN_MATHJAX_EXTENSIONS     "TeX/AMSsymbols" "TeX/AMSmath")
+    set( DOXYGEN_MACRO_EXPANSION        "YES")
+    set( DOXYGEN_EXPAND_ONLY_PREDEF     "YES")
+    set( DOXYGEN_INCLUDE_PATH           "${CMAKE_CURRENT_SOURCE_DIR}/../src")
+    set( DOXYGEN_PREDEFINED             "PARSED_BY_DOXYGEN MULTIARCH= ")
+    set( DOXYGEN_HIDE_UNDOC_RELATIONS   "NO")
+    set( DOXYGEN_HAVE_DOT               "YES")
+    set( DOXYGEN_UML_LOOK               "YES")
+    set( DOXYGEN_UML_LIMIT_NUM_FIELDS   "50")
+    set( DOXYGEN_TEMPLATE_RELATIONS     "YES")
+    set( DOXYGEN_CALL_GRAPH             "YES")
+    set( DOXYGEN_DOT_IMAGE_FORMAT       "svg")
+    set( DOXYGEN_INTERACTIVE_SVG        "YES")
+    set( DOXYGEN_TOC_INCLUDE_HEADINGS   "2")
+    
+    doxygen_add_docs(RadiumDoc
+        ${md_pages_order} ${md_files} ${RADIUM_SRC_DIR} ${CURRENT_SRC_DIR}
         WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
         COMMENT "Generating API documentation with Doxygen"
-        DEPENDS ${doxyfile_in} ${md_files}
-        SOURCES ${doxyfile_in} ${md_files}
-        VERBATIM)
-
+        )
+    
     # Where docs will be installed.
     # Note: if docs shall be not a part of final release, leave this commented out
     # docs will be only available in [build_dir]/doc/doc/index.html
