@@ -1,9 +1,10 @@
 \page develCodingConvention Coding conventions for Radium
+
 [TOC]
 
 Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
 
-## Headers
+# Headers #
 
 * Every .cpp must have an associated .hpp file
 * use .inl files for inline functions definitions and include it in the .hpp
@@ -15,12 +16,12 @@ Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.h
 * Keep headers in order : Class header, system libraries, other libraries, other headers from project.
 * forward declare as much as you can
 
-## Functions
+# Functions
 * use const reference or value to pass input parameters
 * use references for passing output parameters
 * output parameters appear last.
 
-## Scope and names
+# Scope and names
 * use anonymous namespaces for file local variables / functions. no classes with only static functions !
 * Use `namespace Ra { }` for all radium engine code, plus a sub-namespace for each module (e.g. `Ra::Physics`)
 * never use  the `using` instruction for a whole namespace
@@ -28,14 +29,14 @@ Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.h
 * declare pointers and ref attached to their type : `void* a`, `const Foo& bar`
 * macros and defined constants should be in capitals.
 
-## Variables
+# Variables
 * declarations should always be made on separate lines; (no `int a, b, c;`)
 * initialize variables on the line of declaration whenever possible
 * no global variables. If really necessary, prefix with `g_`
 * use C++11 `nullptr` for null pointers.
 * use `auto` only when it helps readability.
 
-## Scalar types
+# Scalar types
 * Radium defines a default type `Scalar`, set either as `float` or `double` depending on the cmake
 option `RADIUM_WITH_DOUBLE_PRECISION`
 * Always use `Scalar` type to represent floating point numbers, except when interfacing with external
@@ -45,7 +46,7 @@ use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a
 `Scalar b = a * Scalar( 2 );` or `Scalar c = a / 2_ra;`).
 * Equality between Scalar values needs to be computed using `Ra::almost_equals` (see CoreMacros.hpp).
 
-## Code style
+# Code style
 * Indentation style : 4-spaces
 * Brace style : keep it consistent across files.
 * Case style : CamelCase
@@ -60,7 +61,7 @@ use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a
 * line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)
 * no need for () for a return statement.
 
-## Class design
+# Class design
 * Constructors should be trival. All complex work goes in an `init()` function
 * Try to order class members by size (biggest to smallest)
 * Any class containing a fixed-size `Ra::Core::Vector` or `Matrix`member must declare `RA_CORE_ALIGNED_NEW`
@@ -84,7 +85,7 @@ everything else.
 * avoid `mutable`
 * getters and setter should have a consistent name with the variable.
 
-## Non-negociable
+# Non-negociable
 * No exceptions, no  RTTI, no dynamic cast, no gotos.
 
 

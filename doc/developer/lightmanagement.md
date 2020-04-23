@@ -9,9 +9,9 @@ except to one that can be attached to the camera.
 - A renderer must, in its initializeInternal method, create and register a lightManager system.
 - The system will receive fileData at loading and will be polled by the renderer to get light to render.
 
-## Light Manager
+# Light Manager
 
-## Loading lights
+# Loading lights
 Light are loaded by the active file loader and transformed to a LightData vector in th FileData constructed by the loader.
 
-## Using light
+# Using light

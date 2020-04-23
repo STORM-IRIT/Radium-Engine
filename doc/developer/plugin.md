@@ -9,7 +9,7 @@ binaries.
 
 This manual describes how to configure, compile and use your plugin with any Radium-Plugin compatible application.
 
-### Setting a CMakeLists.txt for a Radium plugin
+# Setting a CMakeLists.txt for a Radium plugin
 
 To compile and use a plugin,
  the Radium environment must be configured,
@@ -91,7 +91,7 @@ configure_radium_plugin_install(
 Note that, as it is the case for applications, Plugins does not need to be installed to be used by any applications. 
 Plugins could be loaded and used from their build-trees.
 
-### Configuring the plugin
+# Configuring the plugin
 
 Configuring the plugin for compilation and install depends on several use cases that might evolve 
 during the plugin development.
@@ -151,7 +151,7 @@ Remember that resources associated with the plugin using the option `RESOURCES L
 `configure_radium_plugin_install` command are _linked_ into the buildtree (on systems supporting symbolic links)
 and _copied_ into the installed locations. 
 
-### Using the Plugin
+# Using the Plugin
 
 Any application that inherits from `Ra::GuiBase::BaseApplication` could use any Plugin developped using the
 Radium Engine. 
