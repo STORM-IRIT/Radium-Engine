@@ -69,47 +69,29 @@ TriangleMeshComponent::~TriangleMeshComponent() = default;
 
 void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::GeometryData* data ) {
     m_contentName = data->getName();
-
-    std::string name( m_name );
-    name.append( "_" + m_contentName );
-
-    std::string meshName = m_contentName;
-    // meshName.append( "_Mesh" );
-
-    m_displayMesh = Ra::Core::make_shared<Mesh>( meshName );
+    m_displayMesh = Ra::Core::make_shared<Mesh>( m_contentName );
 
     Ra::Core::Geometry::TriangleMesh mesh;
     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container vertices;
     Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container normals;
-    // data->getFrame()
-    vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
 
-    // Use std::copy ?
-#pragma omp parallel for
-    for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
-    {
-        vertices[i] = data->getVertices()[i];
-    }
+    vertices.reserve( data->getVerticesSize() );
+    std::copy(
+        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
 
     if ( data->hasNormals() )
     {
-        normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-        // Use std::copy ?
-#pragma omp parallel for
-        for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
-        {
-            normals[i] = ( data->getNormals()[i] ).normalized();
-        }
+        normals.reserve( data->getVerticesSize() );
+        std::copy(
+            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
     }
 
     const auto& faces = data->getFaces();
-    mesh.m_indices.resize( faces.size(), Ra::Core::Vector3ui::Zero() );
-#pragma omp parallel for
-    for ( int i = 0; i < int( faces.size() ); ++i )
-    {
-        mesh.m_indices[i] = faces[i].head<3>();
-    }
-
+    mesh.m_indices.reserve( faces.size() );
+    std::transform( faces.begin(),
+                    faces.end(),
+                    std::back_inserter( mesh.m_indices ),
+                    []( const Core::VectorNui& f ) { return f.head<3>(); } );
     mesh.setVertices( std::move( vertices ) );
     mesh.setNormals( std::move( normals ) );
 
@@ -226,35 +208,22 @@ void PointCloudComponent::initialize() {}
 
 void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryData* data ) {
     m_contentName = data->getName();
-
-    std::string name( m_name );
-    name.append( "_" + m_contentName );
-
-    std::string meshName = name;
-    meshName.append( "_PointCloud" );
-
-    m_displayMesh = Ra::Core::make_shared<PointCloud>( meshName );
+    m_displayMesh = Ra::Core::make_shared<PointCloud>( m_contentName );
     m_displayMesh->setRenderMode( AttribArrayDisplayable::RM_POINTS );
 
     Ra::Core::Geometry::PointCloud mesh;
     Ra::Core::Geometry::PointCloud::PointAttribHandle::Container vertices;
     Ra::Core::Geometry::PointCloud::NormalAttribHandle::Container normals;
 
-    vertices.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-#pragma omp parallel for
-    for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
-    {
-        vertices[i] = data->getVertices()[i];
-    }
+    vertices.reserve( data->getVerticesSize() );
+    std::copy(
+        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
 
     if ( data->hasNormals() )
     {
-        normals.resize( data->getVerticesSize(), Ra::Core::Vector3::Zero() );
-#pragma omp parallel for
-        for ( int i = 0; i < int( data->getVerticesSize() ); ++i )
-        {
-            normals[i] = ( data->getNormals()[i] ).normalized();
-        }
+        normals.reserve( data->getVerticesSize() );
+        std::copy(
+            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
     }
 
     mesh.setVertices( std::move( vertices ) );
@@ -358,21 +327,8 @@ VolumeComponent::~VolumeComponent() = default;
 void VolumeComponent::initialize() {}
 
 void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* data ) {
-    std::string name( m_name );
-    name.append( "_" + data->getName() );
-
-    std::string roName = name;
-
-    roName.append( "_RO" );
-    std::string meshName = name;
-    meshName.append( "_Mesh" );
-
-    std::string matName = name;
-    matName.append( "_Mat" );
-
-    m_contentName = name + "_DAT_" + data->getName();
-
-    m_displayVolume = Ra::Core::make_shared<VolumeObject>( meshName );
+    m_contentName   = data->getName();
+    m_displayVolume = Ra::Core::make_shared<VolumeObject>( m_contentName );
     m_displayVolume->loadGeometry( data->volume, data->boundingBox );
 
     auto roMaterial = Ra::Core::make_shared<VolumetricMaterial>( data->getName() + "_VolMat" );
@@ -381,6 +337,7 @@ void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* d
     roMaterial->m_sigma_s       = data->sigma_s;
     roMaterial->m_modelToMedium = data->densityToModel.inverse();
 
+    std::string roName( m_name + "_" + m_contentName + "_RO" );
     auto ro = RenderObject::createRenderObject(
         roName, this, RenderObjectType::Geometry, m_displayVolume, RenderTechnique{} );
     ro->setTransparent( roMaterial->isTransparent() );
