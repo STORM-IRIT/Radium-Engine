@@ -2,11 +2,9 @@
 
 #include <iostream>
 
-#include <Core/Asset/FileData.hpp>
 #include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/Normal.hpp>
-#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
@@ -17,14 +15,10 @@
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Material/VolumetricMaterial.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
 #define CHECK_MESH_NOT_NULL \
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );
