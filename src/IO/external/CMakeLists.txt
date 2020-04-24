@@ -19,7 +19,7 @@ if (RADIUM_IO_ASSIMP)
     # For now, only configure in Debug mode to work with xcode
     ExternalProject_Add(assimp
             GIT_REPOSITORY https://github.com/assimp/assimp.git
-            GIT_TAG origin/master
+            GIT_TAG v5.0.1
             GIT_SHALLOW TRUE
             GIT_PROGRESS TRUE
             INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
