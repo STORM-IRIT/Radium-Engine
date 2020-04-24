@@ -14,9 +14,9 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 ExternalProject_Add(Eigen3
-    GIT_REPOSITORY https://github.com/eigenteam/eigen-git-mirror.git
-    GIT_TAG origin/master
-    GIT_SHALLOW TRUE
+    GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
+    GIT_TAG e80ec243
+    GIT_SHALLOW FALSE
     GIT_PROGRESS TRUE
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
     CMAKE_ARGS
@@ -33,7 +33,7 @@ ExternalProject_Add(Eigen3
 # TODO, find why only OpenMesh is problematic
 ExternalProject_Add(OpenMesh
     GIT_REPOSITORY https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git
-    GIT_TAG origin/master
+    GIT_TAG tags/OpenMesh-8.1
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
@@ -46,7 +46,7 @@ ExternalProject_Add(OpenMesh
 
 ExternalProject_Add(cpplocate
     GIT_REPOSITORY https://github.com/cginternals/cpplocate.git
-    GIT_TAG origin/master
+    GIT_TAG tags/v2.2.0
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
