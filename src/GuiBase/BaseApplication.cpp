@@ -506,7 +506,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
                                    const QStringList& loadList,
                                    const QStringList& ignoreList ) {
     QDir pluginsDir( qApp->applicationDirPath() );
-    LOG( logINFO ) << " *** Loading Plugins ***";
+    LOG( logINFO ) << " *** Loading Plugins from " << pluginsPath << " ***";
     bool result = pluginsDir.cd( pluginsPath.c_str() );
 
     if ( !result )
