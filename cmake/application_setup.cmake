@@ -4,9 +4,23 @@
 #TODO, some part are only for MACOS but could be generalized to all systems
 #   (MACOSX_BUNDLE on MacOs, Bundle like directories on other systems
 include(CMakeParseArguments)
+# Introduction of two customs properties in the buildchain
+define_property(TARGET
+    PROPERTY RADIUM_TARGET_RESOURCES_DIRECTORY
+    BRIEF_DOCS "Identify the optional resource directory associated with a target."
+    FULL_DOCS "Contains a directory that will be linked or installed when building or installing the target."
+    )
+define_property(TARGET
+    PROPERTY RADIUM_TARGET_RESOURCES_FILES
+    BRIEF_DOCS "Identify the optional resource files associated with a target."
+    FULL_DOCS "Contains a list of individual files that will be installed when installing the target."
+    )
+
 #Install resources : link( copy under window ) the resource dir DIRECTORY into the buildtree at the given BUILDLOCATION
 # and install the required files into the < bundle> / Resources
-#If called only with a directory, all the files in this directory and subdirs will be installed
+# If called only with a directory, all the files in this directory and subdirs will be installed
+#This function also define the custom property RADIUM_RESOURCE_DIRECTORY and RADIUM_RESOURCE_FILES
+# for the given target with the corresponding value
 #to be called with
 #installResources( TARGET theTarget`
 #                  [BUILDLOCATION whereToLinkInTheBuildTree]
@@ -16,7 +30,7 @@ include(CMakeParseArguments)
 function(installTargetResources)
     #"declare" and parse parameters
     cmake_parse_arguments(
-            ARGS
+        ARGS
             ""
             "TARGET;DIRECTORY;BUILDLOCATION"
             "FILES"
@@ -30,28 +44,40 @@ function(installTargetResources)
         message(FATAL_ERROR " [installResources] You must provide a resource directory")
     endif ()
     if (NOT ARGS_BUILDLOCATION)
-        #linking resours in the current bin dir of the build tree
+        #linking resources in the current bin dir of the build tree
         set(ARGS_BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR})
+    endif ()
+    # set the target properties
+    set_target_properties(${ARGS_TARGET}
+        PROPERTIES
+        RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_DIRECTORY}
+        )
+    if (ARGS_FILES)
+        set_target_properties(${ARGS_TARGET}
+            PROPERTIES
+            RADIUM_TARGET_RESOURCES_FILES ${ARGS_FILES}
+            )
     endif ()
     #compute resources dir for build tree and install tree
     get_filename_component(rsc_dir ${ARGS_DIRECTORY} NAME)
     set(buildtree_dir ${ARGS_BUILDLOCATION})
     #installing resources in the buildtree( link if available, copy if not)
-    message(STATUS " [installResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/Resources/${rsc_dir}")
+    message(STATUS " [installResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/Resources/${ARGS_TARGET}/${rsc_dir}")
     file(MAKE_DIRECTORY "${buildtree_dir}")
     if (MSVC OR MSVC_IDE OR MINGW)
         add_custom_command(
-                TARGET ${ARGS_TARGET}
-                POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARGS_DIRECTORY} "${buildtree_dir}/${rsc_dir}"
-                VERBATIM
+            TARGET ${ARGS_TARGET}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARGS_DIRECTORY} "${buildtree_dir}/Resources/${rsc_dir}"
+            VERBATIM
         )
     else ()
         add_custom_command(
-                TARGET ${ARGS_TARGET}
-                POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E create_symlink ${ARGS_DIRECTORY} "${buildtree_dir}/${rsc_dir}"
-                VERBATIM
+            TARGET ${ARGS_TARGET}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${buildtree_dir}/Resources" "${buildtree_dir}/Resources/${ARGS_TARGET}"
+            COMMAND ${CMAKE_COMMAND} -E create_symlink ${ARGS_DIRECTORY} "${buildtree_dir}/Resources/${ARGS_TARGET}/${rsc_dir}"
+            VERBATIM
         )
     endif ()
 
@@ -61,20 +87,34 @@ function(installTargetResources)
     if (NOT ARGS_FILES)
         file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)
     endif ()
-    foreach (file ${ARGS_FILES})
-        get_filename_component(file_dir ${file} DIRECTORY)
-        if (APPLE)
-            install(
+    #install resource for application or shared library
+    get_target_property(targetType ${ARGS_TARGET} TYPE)
+    if (${targetType} STREQUAL "EXECUTABLE")
+        foreach (file ${ARGS_FILES})
+            get_filename_component(file_dir ${file} DIRECTORY)
+            if (APPLE)
+                install(
                     FILES ${ARGS_DIRECTORY}/${file}
                     DESTINATION ${ARGS_TARGET}.app/Contents/Resources/${rsc_dir}/${file_dir}
-            )
-        else ()
-            install(
+                )
+            else ()
+                install(
                     FILES ${ARGS_DIRECTORY}/${file}
                     DESTINATION Resources/${rsc_dir}/${file_dir}
+                )
+            endif ()
+        endforeach ()
+    elseif (${targetType} STREQUAL "SHARED_LIBRARY")
+        foreach (file ${ARGS_FILES})
+            get_filename_component(file_dir ${file} DIRECTORY)
+            install(
+                FILES ${ARGS_DIRECTORY}/${file}
+                DESTINATION Resources/${rsc_dir}/${file_dir}
             )
-        endif ()
-    endforeach ()
+        endforeach ()
+    else ()
+        message(FATAL_ERROR "Unknonw target type ${targetType} for target ${ARGS_TARGET} ")
+    endif ()
 endfunction()
 # --------------------------
 
@@ -339,11 +379,11 @@ endfunction()
 function(configure_radium_plugin_install)
     # "declare" and parse parameters
     cmake_parse_arguments(
-            ARGS
-            "INSTALL_IN_RADIUM_BUNDLE"
-            "NAME"
-            "RESOURCES" # list of directories containing the resources to install - optional
-            ${ARGN}
+        ARGS
+        "INSTALL_IN_RADIUM_BUNDLE"
+        "NAME"
+        "RESOURCES;HELPER_LIBS" # list of directories containing the resources to install - optional
+        ${ARGN}
     )
     if (NOT ARGS_NAME)
         message(FATAL_ERROR " [configure_radium_plugin_install] You must provide the main target of the plugin")
@@ -369,19 +409,45 @@ function(configure_radium_plugin_install)
     endif ()
     message("Set plugin install prefix to ${${ARGS_NAME}_INSTALL_DIR} for ${ARGS_NAME}")
     install(
-            TARGETS ${ARGS_NAME}
-            DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
-            LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+        TARGETS ${ARGS_NAME}
+        DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
+        LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
     )
+    # Configure the plugin helper library
+    if (ARGS_HELPER_LIBS)
+        # Adding rpath @loader_path to the library
+        set_target_properties(${ARGS_NAME}
+            PROPERTIES INSTALL_RPATH "@loader_path;${CMAKE_INSTALL_RPATH}")
+        foreach (helperLib ${ARGS_HELPER_LIBS})
+            message(STATUS " [configure_plugin_install] Request to install the helper library ${helperLib} for plugin ${ARGS_NAME}")
+            get_target_property(resourceDir ${helperLib} RADIUM_TARGET_RESOURCES_DIRECTORY)
+            if (NOT ${resourceDir} STREQUAL "resourceDir-NOTFOUND")
+                message(STATUS " [configure_plugin_install]    Helper library ${helperLib} has resources in ${resourceDir}")
+                get_filename_component(rsc_dir ${resourceDir} NAME)
+                file(GLOB_RECURSE RSC_FILES RELATIVE ${resourceDir} ${resourceDir}/*)
+                foreach (file ${RSC_FILES})
+                    get_filename_component(file_dir ${file} DIRECTORY)
+                    install(
+                        FILES ${resourceDir}/${file}
+                        DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/Resources/${helperLib}/${rsc_dir}/${file_dir}
+                    )
+                endforeach ()
+            endif ()
+            install(TARGETS ${helperLib}
+                DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
+                LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+                )
+        endforeach ()
+    endif ()
     # Configure the resources installation
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
             message(STATUS " Installing plugin resources ${resLocation} for ${ARGS_NAME} ")
             installPluginResources(
-                    TARGET ${ARGS_NAME}
-                    DIRECTORY ${resLocation}
-                    BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME}
-                    INSTALL_LOCATION ${${ARGS_NAME}_INSTALL_DIR}
+                TARGET ${ARGS_NAME}
+                DIRECTORY ${resLocation}
+                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Plugins/Resources/${ARGS_NAME}
+                INSTALL_LOCATION ${${ARGS_NAME}_INSTALL_DIR}
             )
         endforeach ()
     endif ()
