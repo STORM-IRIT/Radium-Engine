@@ -28,7 +28,6 @@ add_library(
     ${guibase_inlines}
 )
 
-configureTargetWithDefaultRaSettings( ${ra_guibase_target} )
 add_dependencies(${ra_guibase_target} Core Engine PluginBase IO)
 target_link_libraries(${ra_guibase_target} PUBLIC Core Engine PluginBase IO)
 target_link_libraries (${ra_guibase_target} PRIVATE ${Qt5_LIBRARIES} OpenGL::GL)
@@ -48,11 +47,16 @@ if (${USE_TINYPLY})
 endif ()
 
 target_compile_definitions(${ra_guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
-# set_target_properties(${ra_guibase_target} PROPERTIES PUBLIC_HEADER "${guibase_headers};${guibase_inlines}")
 
-installLibHeaders( "GuiBase" "${guibase_headers}" )
-installLibHeaders( "GuiBase" "${guibase_inlines}" )
-
-# Fixme: use a proper ressource manager + install in share ?
+configureTargetWithDefaultRaSettings(${ra_guibase_target})
+configure_radium_library(
+    TARGET ${ra_guibase_target}
+    TARGET_DIR "GuiBase"
+    PACKAGE_DIR ${ConfigPackageLocation}
+    FILES "${guibase_headers};${guibase_inlines}"
+)
 message(STATUS "[GuiBase] installing resources from Configs")
-installResources(TARGET ${ra_guibase_target} DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs)
+installTargetResources(
+    TARGET ${ra_guibase_target}
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs
+)

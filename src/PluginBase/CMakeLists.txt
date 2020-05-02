@@ -27,17 +27,20 @@ add_library(
     ${pluginbase_json}
 )
 
-configureTargetWithDefaultRaSettings( ${ra_pluginbase_target} )
-add_dependencies( ${ra_pluginbase_target} Core Engine )
-target_link_libraries (${ra_pluginbase_target} PUBLIC Core Engine )
-target_link_libraries (${ra_pluginbase_target} PRIVATE Qt5::Core)
+add_dependencies(${ra_pluginbase_target} Core Engine)
+target_link_libraries(${ra_pluginbase_target} PUBLIC Core Engine)
+target_link_libraries(${ra_pluginbase_target} PRIVATE Qt5::Core)
 
 target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
-# set_target_properties(${ra_pluginbase_target} PROPERTIES PUBLIC_HEADER "${pluginbase_headers};${pluginbase_inlines}")
 
-installLibHeaders( "PluginBase" "${pluginbase_headers}" )
-installLibHeaders( "PluginBase" "${pluginbase_inlines}" )
+configureTargetWithDefaultRaSettings(${ra_pluginbase_target})
+configure_radium_library(
+    TARGET ${ra_pluginbase_target}
+    TARGET_DIR "PluginBase"
+    PACKAGE_DIR ${ConfigPackageLocation}
+    FILES "${pluginbase_headers};${pluginbase_inlines}"
+)
 
 #install json configuration files
-install( FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation}
-)
+install(FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation}
+    )
