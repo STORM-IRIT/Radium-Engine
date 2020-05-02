@@ -17,12 +17,12 @@ set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
 find_dependency(Qt5 COMPONENTS Core REQUIRED)
  get_target_property(QtCore_Dll Qt5::Core LOCATION)
  get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
- include(application_setup)
+ include(radium_setup_functions)
 
  add_executable(CoreExampleApp
  CoreExampleApp/CoreExampleApp.cpp)
  target_link_libraries(CoreExampleApp PUBLIC Core)
- configure_radium_app_install(NAME CoreExampleApp)
+ configure_radium_app(NAME CoreExampleApp)
 
 #if (RADIUM_GENERATE_LIB_ENGINE)
     find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
@@ -39,8 +39,8 @@ find_dependency(Qt5 COMPONENTS Core REQUIRED)
             Core Engine GuiBase
             Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
             OpenGL::GL)
-    message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
-    configure_radium_app_install(NAME HelloRadium)
+ message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
+ configure_radium_app(NAME HelloRadium)
 
     add_executable(DrawPrimitivesDemo MACOSX_BUNDLE
             DrawPrimitivesApp/main.cpp
@@ -53,6 +53,6 @@ find_dependency(Qt5 COMPONENTS Core REQUIRED)
             Core Engine GuiBase
             Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
             OpenGL::GL)
-    message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
-    configure_radium_app_install(NAME DrawPrimitivesDemo)
+ message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
+ configure_radium_app(NAME DrawPrimitivesDemo)
 #endif ()

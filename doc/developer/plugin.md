@@ -57,21 +57,22 @@ could be as simple as
                        ${Qt5_LIBRARIES} )
 
  # Configure the plugin deployement using the Radium configuration tool
- configure_radium_plugin_install( NAME ${PROJECT_NAME} )
+ configure_radium_plugin( NAME ${PROJECT_NAME} )
 ```
 
 Such a CMakeLists.txt is as ususal as others. The only command that is specific to Radium plugins is the last line
-`configure_radium_plugin_install( NAME ${PROJECT_NAME} )` that aims at configuring the plugin installation along with 
+`configure_radium_plugin( NAME ${PROJECT_NAME} )` that aims at configuring the plugin installation along with 
 its associated resources. 
 
-The command `configure_radium_plugin_install`takes several parameters.
+The command `configure_radium_plugin`takes several parameters.
 The full usage of this command is :
 
 ```cmake
-configure_radium_plugin_install( 
+configure_radium_plugin( 
     NAME nameOfTheTargetOtInstall      # mandatory
-    RESOURCES ListOfResourcesDirectory # optional
     INSTALL_IN_RADIUM_BUNDLE           # optional
+    RESOURCES ListOfResourcesDirectory # optional
+    HELPER_LIBS ListofHelperLibraries  # optional
      )
 ```
 
@@ -82,6 +83,10 @@ configure_radium_plugin_install(
 -   `RESOURCES ListOfResourcesDirectory` : this parameter, optional, will install several resources, needed by the plugin for its correct execution,
     so that the Radium resource locator system will be able to find them. 
        Resources could be shader source files, images, data files, etc...
+       
+-   `HELPER_LIBS ListofHelperLibraries`: this parameter, optional, will allow to fetch and install, alongside the plugin, 
+    libraries and their resources used by the plugin and not available in the Radium Bundle. This is useful when a 
+    plugin just defines the radium application interface to services offered in an external, radium dependent, library.
 
 -   `INSTALL_IN_RADIUM_BUNDLE` : this parameter, optional, will install the plugin and its associated resources directly 
     into the Radium Bundle installation directory. This will allow to have Plugins relocatable at the same time than 
@@ -120,7 +125,7 @@ There are three main uses cases we can identify :
     install the plugins in the Radium Bundle. Note that this requires write access to the Radium Bundle.
 
 
-Once you have choosen the adequate use case, you can configure the plugin using cmake.
+Once you have chosen the adequate use case, you can configure the plugin using cmake.
 
 As we disable "in source" build in the CMakeLists.txt example above, we need to create a build directory:
 
@@ -148,7 +153,7 @@ The dynamic library will then be copied into  `pathToInstallPlugins/lib` and the
 
 
 Remember that resources associated with the plugin using the option `RESOURCES ListOfResourcesDirectory` of the 
-`configure_radium_plugin_install` command are _linked_ into the buildtree (on systems supporting symbolic links)
+`configure_radium_plugin` command are _linked_ into the buildtree (on systems supporting symbolic links)
 and _copied_ into the installed locations. 
 
 # Using the Plugin
