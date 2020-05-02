@@ -145,7 +145,7 @@ message("Git Changeset: ${GIT_CHANGESET}")
 # Dependency management utilities
 include(externalFunc)
 # Installation utilities
-include(installFunc)
+include(radium_setup_functions)
 
 # Documentation build
 add_subdirectory(doc)

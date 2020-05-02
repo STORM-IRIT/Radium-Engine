@@ -35,20 +35,24 @@ target_compile_definitions(${ra_engine_target}
         GLOBJECTS_USE_EIGEN
 )
 
-configureTargetWithDefaultRaSettings( ${ra_engine_target} )
-
 target_include_directories(${ra_engine_target} PUBLIC
     $<BUILD_INTERFACE:${GLBINDING_INCLUDE_DIR}>
-    $<BUILD_INTERFACE:${GLM_INCLUDE_DIR}> )
-add_dependencies (${ra_engine_target} Core RadiumEngineShaders)
-target_link_libraries (${ra_engine_target} PUBLIC Core glm glbinding::glbinding glbinding::glbinding-aux globjects::globjects)
+    $<BUILD_INTERFACE:${GLM_INCLUDE_DIR}>)
+add_dependencies(${ra_engine_target} Core RadiumEngineShaders)
+target_link_libraries(${ra_engine_target} PUBLIC Core glm glbinding::glbinding glbinding::glbinding-aux globjects::globjects)
 
 target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
-# set_target_properties(${ra_engine_target} PROPERTIES PUBLIC_HEADER "${engine_headers};${engine_inlines}")
-
-installLibHeaders( "Engine" "${engine_headers}" )
-installLibHeaders( "Engine" "${engine_inlines}" )
-
+configureTargetWithDefaultRaSettings(${ra_engine_target})
+configure_radium_library(
+    TARGET ${ra_engine_target}
+    TARGET_DIR "Engine"
+    PACKAGE_DIR ${ConfigPackageLocation}
+    FILES "${engine_headers};${engine_inlines}"
+)
 message(STATUS "[Engine] installing resources from ${RADIUM_SHADERS_DIR}")
-installResources(TARGET ${ra_engine_target} DIRECTORY ${RADIUM_SHADERS_DIR} FILES ${engine_shaders})
+installTargetResources(
+    TARGET ${ra_engine_target}
+    DIRECTORY ${RADIUM_SHADERS_DIR}
+    FILES ${engine_shaders}
+)

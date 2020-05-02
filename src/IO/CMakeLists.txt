@@ -52,12 +52,14 @@ if (RADIUM_IO_TINYPLY)
     target_link_libraries(${ra_io_target} PUBLIC tinyply)
 endif (RADIUM_IO_TINYPLY)
 
-configureTargetWithDefaultRaSettings( ${ra_io_target} )
-add_dependencies( ${ra_io_target} Core )
-target_link_libraries (${ra_io_target} PUBLIC Core)
+add_dependencies(${ra_io_target} Core)
+target_link_libraries(${ra_io_target} PUBLIC Core)
 target_compile_definitions(${ra_io_target} PRIVATE RA_IO_EXPORTS IO_USE_CAMERA_LOADER)
 
-# set_target_properties(${ra_io_target} PROPERTIES PUBLIC_HEADER "${io_headers};${io_inlines}")
-
-installLibHeaders( "IO" "${io_headers}" )
-installLibHeaders( "IO" "${io_inlines}" )
+configureTargetWithDefaultRaSettings(${ra_io_target})
+configure_radium_library(
+    TARGET ${ra_io_target}
+    TARGET_DIR "IO"
+    PACKAGE_DIR ${ConfigPackageLocation}
+    FILES "${io_headers};${io_inlines}"
+)

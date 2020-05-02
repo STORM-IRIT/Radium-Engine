@@ -135,6 +135,6 @@ set(RADIUM_ROOT_DIR "${SELF_DIR}")
 set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
 set(RADIUM_PLUGINS_DIR "${SELF_DIR}/Plugins")
 
-include(${CMAKE_CURRENT_LIST_DIR}/application_setup.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/radium_setup_functions.cmake)
 
 
