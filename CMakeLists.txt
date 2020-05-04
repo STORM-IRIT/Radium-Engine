@@ -97,9 +97,9 @@ set(RADIUM_SHADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
 # Set default install location to RADIUM_BUNDLE_DIRECTORY
 # we do not want to install to /usr by default
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set (CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}" CACHE PATH
-        "Install path prefix, prepended onto install directories." FORCE )
-    message( "Set install prefix to ${CMAKE_INSTALL_PREFIX}" )
+    set(CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}" CACHE PATH
+        "Install path prefix, prepended onto install directories." FORCE)
+    message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 endif()
 
 

@@ -388,7 +388,7 @@ endfunction()
 # Configuration of the build and installation procedure for a Radium plugin
 # Allows to install plugin with dependent resources and to import them in applications.
 # Import by the application can be done at runtime from the Radium installation directory
-# or, for bundled application, at intall time by adding the available plugins into the bundle
+# or, for bundled application, at install time by adding the available plugins into the bundle
 # usage :
 #   configure_radium_plugin(
 #         NAME theTargetName # <- this must be a plugin
@@ -425,7 +425,6 @@ function(configure_radium_plugin)
     else ()
         set(${ARGS_NAME}_INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
     endif ()
-    message("Set plugin install prefix to ${${ARGS_NAME}_INSTALL_DIR} for ${ARGS_NAME}")
     install(
         TARGETS ${ARGS_NAME}
         DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
@@ -451,10 +450,26 @@ function(configure_radium_plugin)
                     )
                 endforeach ()
             endif ()
-            install(TARGETS ${helperLib}
-                DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
-                LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
-                )
+            get_target_property(OriginalLib "${ARGS_HELPER_LIBS}" ALIASED_TARGET)
+            if (${OriginalLib} STREQUAL "OriginalLib-NOTFOUND")
+                #                message(STATUS "The name ${ARGS_HELPER_LIBS} is a REAL target.")
+                set(OriginalLib ${ARGS_HELPER_LIBS})
+            endif ()
+            message(STATUS "Installing ${OriginalLib}")
+            get_target_property(IsImported "${OriginalLib}" IMPORTED)
+            if (${IsImported})
+                #                message(STATUS "The name ${OriginalLib} is a IMPORTED target.")
+                get_target_property(OriginalLib ${OriginalLib} LOCATION)
+                install(FILES ${OriginalLib}
+                    DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+                    )
+            else ()
+                #                message(STATUS "The name ${OriginalLib} is a LOCAL target.")
+                install(TARGETS ${OriginalLib}
+                    DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
+                    LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+                    )
+            endif ()
         endforeach ()
     endif ()
     # Configure the resources installation
@@ -525,8 +540,12 @@ function(configure_radium_library)
         COMPATIBILITY AnyNewerVersion
     )
     # export for build tree
-    export(EXPORT ${ARGS_TARGET}Targets
-        FILE "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Targets.cmake"
+    export(TARGETS
+        ${ARGS_TARGET}
+        NAMESPACE
+        ${ARGS_NAMESPACE}::
+        FILE
+        "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Targets.cmake"
         )
     # export for the installation tree
     install(EXPORT ${ARGS_TARGET}Targets
