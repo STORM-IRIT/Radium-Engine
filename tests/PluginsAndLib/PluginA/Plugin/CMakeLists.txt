@@ -6,12 +6,8 @@ if (POLICY CMP0077)
 endif ()
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
-    message("Set default build type to ${CMAKE_BUILD_TYPE}")
-endif ()
 
-project(DummyParasitePlugin VERSION 1.0.0)
+project(PluginA VERSION 1.0.0)
 
 if (APPLE)
     cmake_policy(SET CMP0042 NEW)
@@ -25,7 +21,9 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif ()
 
 # Radium and Qt stuff
+message(STATUS "Searching for package Radium")
 find_package(Radium REQUIRED Core Engine PluginBase)
+
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets)
 set(CMAKE_AUTOMOC ON)
@@ -33,6 +31,39 @@ set(CMAKE_AUTORCC ON)
 include_directories(
     ${CMAKE_CURRENT_BINARY_DIR} # Moc
 )
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-add_subdirectory(Plugin)
+set(sources
+    PluginA.cpp
+    )
+
+set(headers
+    PluginA.hpp
+    )
+
+# Our plugin project uses these sources and headers.
+add_library(
+    ${PROJECT_NAME} SHARED
+    ${sources}
+    ${headers}
+)
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
+
+target_link_libraries(
+    ${PROJECT_NAME}
+    Radium::Core
+    Radium::Engine
+    Radium::PluginBase
+    ${Qt5_LIBRARIES}
+    ExampleLibrary
+)
+
+#-----------------------------------------------------------------------------------
+# Radium plugin configuration : manage package and installation
+configure_radium_plugin(
+    NAME ${PROJECT_NAME}
+    HELPER_LIBS ExampleLibrary
+)
+

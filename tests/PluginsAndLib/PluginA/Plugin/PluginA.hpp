@@ -2,33 +2,29 @@
 
 #include <Core/CoreMacros.hpp>
 /// Defines the correct macro to export dll symbols.
-#if defined DummyPlugin_EXPORTS
-#    define DummyPlugin_API DLL_EXPORT
+#if defined PluginA_EXPORTS
+#    define PluginA_API DLL_EXPORT
 #else
-#    define DummyPlugin_API DLL_IMPORT
+#    define PluginA_API DLL_IMPORT
 #endif
 
 #include <PluginBase/RadiumPluginInterface.hpp>
 
-namespace MyDummyPlugin {
+namespace PluginA_NS {
 
-/*!
- * \brief This plugin defines a file loader for glTF2.0 format.
- * Plugin that bring support for GLTF 2.0 in Radium.
- * See file Readme.md for informations about whet is supported from GLTF.
- * This plugin also allow to export Radium scenes in GLTF.
- *
+/**
+ * This plugin just call the example library when initialized.
  */
-class DummyPlugin_API DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface
+class PluginA_API PluginA : public QObject, Ra::Plugins::RadiumPluginInterface
 {
     Q_OBJECT
     Q_RADIUM_PLUGIN_METADATA
     Q_INTERFACES( Ra::Plugins::RadiumPluginInterface )
 
   public:
-    DummyPlugin() = default;
+    PluginA() = default;
 
-    ~DummyPlugin() override = default;
+    ~PluginA() override = default;
 
     void registerPlugin( const Ra::Plugins::Context& context ) override;
 
@@ -40,4 +36,4 @@ class DummyPlugin_API DummyPlugin : public QObject, Ra::Plugins::RadiumPluginInt
     QAction* getAction( int id ) override { return nullptr; }
 };
 
-} // namespace MyDummyPlugin
+} // namespace PluginA_NS
