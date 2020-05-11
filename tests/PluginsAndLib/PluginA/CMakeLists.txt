@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 #------------------------------------------------------------------------------
+# Standard "Radium" cmake preamble
 # Policies and global parameters for CMake
 if (POLICY CMP0077)
     # allow to define options cache variable before the option is declared
@@ -12,27 +13,24 @@ if (APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif (APPLE)
 
-# No in-source build
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
     message("Set default build type to ${CMAKE_BUILD_TYPE}")
 endif ()
 
-project(PluginWithHelperLibDemo VERSION 1.0.0)
+project(PluginWithLib VERSION 1.0.0)
 
-# Prevent the plugins to be installed in the Radium bundle. Install them locally.
-if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID})
-else ()
-    set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}" CACHE PATH
+        "Install path prefix, prepended onto install directories." FORCE)
+    message("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
+    set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
 endif ()
-message(STATUS " Installing plugin demo into ${PLUGIN_DEMO_DIRECTORY}")
-# This make the build system to buuuuuuug when compiling before installing Radium
-set(CMAKE_INSTALL_PREFIX ${PLUGIN_DEMO_DIRECTORY})
-set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
+#------------------------------------------------------------------------------
 
-add_subdirectory(PluginA)
-add_subdirectory(PluginB)
+# Configure the helper lib
+add_subdirectory(Library)
+# Configure the Plugin
+add_subdirectory(Plugin)

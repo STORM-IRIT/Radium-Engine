@@ -18,7 +18,7 @@ if (NOT CMAKE_BUILD_TYPE)
     message("Set default build type to ${CMAKE_BUILD_TYPE}")
 endif ()
 
-project(DummyLibrary VERSION 1.0.0)
+project(ExampleLibrary VERSION 1.0.0)
 
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}" CACHE PATH
@@ -28,17 +28,17 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif ()
 
 # Radium and Qt stuff
-message(STATUS " Demo-Plugin : Searching for package Radium")
+message(STATUS " Example Library : Searching for package Radium")
 find_package(Radium REQUIRED Core Engine)
 
 set(markdowns
-    Readme.md
+    README.md
     )
 set(sources
-    DummyLibrary.cpp
+    ExampleLibrary.cpp
     )
 set(public_headers
-    DummyLibrary.hpp
+    ExampleLibrary.hpp
     )
 set(headers
     PrivateHeader.hpp
