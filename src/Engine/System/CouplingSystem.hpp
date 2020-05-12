@@ -53,6 +53,8 @@ class BaseCouplingSystem : public _BaseAbstractSystem
     /// \warning The property of the pointer is given to *this
     inline void addSystem( BaseAbstractSystem* s ) { m_systems.emplace_back( s ); }
 
+    const std::vector<std::unique_ptr<BaseAbstractSystem>>& getSystems() const { return m_systems; }
+
     inline void generateTasks( Core::TaskQueue* taskQueue,
                                const Engine::FrameInfo& frameInfo ) override {
         dispatch( [taskQueue, &frameInfo]( const auto& s ) {

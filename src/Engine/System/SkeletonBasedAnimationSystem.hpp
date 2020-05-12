@@ -7,11 +7,11 @@
 namespace Ra {
 namespace Engine {
 
-/// The AnimationSystem is the main system for coupling TimedSystems.
-/// On one hand, it manages the AnimationComponents, i.e. skeleton animation and display.
-/// On the other hand, it is responsible for transmitting calls to animation-related systems,
-/// for example physics systems that must play with the animation.
-class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::CoupledTimedSystem
+/**
+ * The SkeletonBasedAnimationSystem manages both SkeletonComponents and SkinningComponents.
+ * It is also responsible for transmitting calls to/from animation-related processes.
+ */
+class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::AbstractTimedSystem
 {
   public:
     /// Create a new animation system
@@ -20,63 +20,99 @@ class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::CoupledTim
     SkeletonBasedAnimationSystem( const SkeletonBasedAnimationSystem& ) = delete;
     SkeletonBasedAnimationSystem& operator=( const SkeletonBasedAnimationSystem& ) = delete;
 
-    /// Create a task for each animation component to advance the current animation.
+    /// \name System Interface
+    /// \{
+
+    /**
+     * \brief Creates tasks for skeleton-based animation.
+     *
+     * There is one task per SkeletonComponent to update the skeleton display,
+     * which is given the name "AnimatorTask_" + <skeleton_name>.
+     * There are two tasks per SkinningComponent:
+     *  - one for applying skinning on the FrameData, which is given the name
+     *    "SkinnerTask_" + <mesh_name>
+     *  - one for updating the GeometryComponent's RenderObject from the
+     *    FrameData (thus depending on the first one), which is given the name
+     *    "SkinnerEndTask_" + <mesh_name>
+     */
     void generateTasks( Ra::Core::TaskQueue* taskQueue,
                         const Ra::Engine::FrameInfo& frameInfo ) override;
 
-    /// Load a skeleton and an animation from a file.
+    /**
+     * Loads Skeletons and Animations from a file data into the given Entity,
+     * as well as the skinning data.
+     *
+     * Skeletons and animations are loaded into SkeletonComponents given names
+     * "AC_" + <skeleton_name>.
+     * Skinning data are loaded into SkinningComponents given names
+     * "SkC_" + <mesh_name>.
+     */
     void handleAssetLoading( Ra::Engine::Entity* entity,
                              const Ra::Core::Asset::FileData* fileData ) override;
+    /// \}
 
-    /// Toggle on/off playing of animations.
-    void play( bool isPlaying ) override;
+    /// \name AbstractTimedSystem Interface
+    /// \{
 
-    /// Advance the animation next frame, then pauses.
-    void step() override;
+    void goTo( Scalar t ) override;
 
-    /// Resets the skeleton to its rest pose.
-    void reset() override;
+    void cacheFrame( const std::string& dir, uint frameID ) const override;
 
-    /// Saves all the state data related to the current frame into a cache file.
-    void cacheFrame( const std::string& dir ) const { cacheFrame( dir, m_animFrame ); }
+    bool restoreFrame( const std::string& dir, uint frameID ) override;
+    /// \}
 
-    /// Saves all the state data related to the given frame into a cache file.
-    void cacheFrame( const std::string& dir, uint frameId ) const override;
+    /// \name Skeleton display
+    /// \{
 
-    /// Restores the state data related to the \p frameID -th frame from the cache file.
-    /// \returns true if the frame has been successfully restored, false otherwise.
-    bool restoreFrame( const std::string& dir, uint frameId ) override;
-
-    /// Set on or off xray bone display.
+    /**
+     * Sets bone display xray mode to \p on for all SkeletonComponents.
+     */
     void setXray( bool on );
 
-    /// Is xray bone display on.
+    /**
+     * \returns true if bone display xray mode on, false otherwise.
+     */
     bool isXrayOn();
 
-    /// Display the skeleton.
+    /**
+     * Toggles skeleton display for all SkeletonComponents.
+     */
     void toggleSkeleton( const bool status );
+    /// \}
 
-    /// Set the animation to play.
-    void setAnimation( const uint i );
+    /// \name Animation parameters
+    /// \{
 
-    /// If \p status is `true`, then use the animation time step if available;
-    /// else, use the application timestep.
+    /**
+     * Toggles the use of the animation timestep for all SkeletonComponents.
+     */
     void toggleAnimationTimeStep( const bool status );
 
-    /// Set animation speed factor.
+    /**
+     * Sets the animation speed factor for all SkeletonComponents.
+     */
     void setAnimationSpeed( const Scalar value );
 
-    /// Toggle the slow motion speed (speed x0.1).
-    void toggleSlowMotion( const bool status );
+    /**
+     * Toggles animation auto repeat for all SkeletonComponents.
+     */
+    void autoRepeat( const bool status );
 
-    /// @returns the animation time corresponding to the \p entry 's entity.
-    Scalar getTime( const Ra::Engine::ItemEntry& entry ) const;
+    /**
+     * Toggles animation ping-pong for all SkeletonComponents.
+     */
+    void pingPong( const bool status );
 
-    /// @returns the system frame.
-    uint getAnimFrame() const { return m_animFrame; }
+    /**
+     * \returns the animation time of the SkeletonComponents corresponding to \p entry 's entity.
+     */
+    Scalar getAnimationTime( const Ra::Engine::ItemEntry& entry ) const;
+    /// \}
 
-    /// @returns the system frame.
-    uint getMaxFrame() const;
+    /**
+     * Update the timeline w.r.t. the \p id-th animation of component \p comp.
+     */
+    void useAnim( class SkeletonComponent* comp, uint id );
 
     /// Enable display of skinning weights.
     void showWeights( bool on );
@@ -85,17 +121,8 @@ class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::CoupledTim
     void showWeightsType( int type );
 
   private:
-    /// Current frame
-    uint m_animFrame;
-
-    /// See if animation is playing or paused
-    bool m_isPlaying;
-
-    /// True if one step has been required to play.
-    bool m_oneStep;
-
-    /// True if we want to show xray-bones
-    bool m_xrayOn;
+    /// True if we want to show xray-bones.
+    bool m_xrayOn{false};
 };
 
 } // namespace Engine

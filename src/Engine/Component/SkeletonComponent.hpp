@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine/RaEngine.hpp>
+#include <memory>
 
 #include <Core/Animation/Animation.hpp>
 #include <Core/Animation/HandleWeight.hpp>
@@ -11,132 +11,271 @@
 
 #include <Engine/Component/Component.hpp>
 
-#include <memory>
-
 namespace Ra {
 namespace Engine {
 
-class SkeletonBoneRenderObject;
+class Mesh;
+class RenderObject;
+class RenderTechnique;
+class SkeletonBasedAnimationSystem;
 
-/// The SkeletonComponent is responsible for the management of skeleton-based
-/// character animations. It stores the animation Skeleton and the animation
-/// data and is responsible for drawing the skeleton.
+/**
+ * The SkeletonComponent is responsible for the management of skeleton-based
+ * character animations. It stores the animation Skeleton and the animation
+ * data and is responsible for drawing the skeleton.
+ *
+ * Regarding Component Communication, an AnimationComponent gives access to
+ * the following data from the skeleton's name:
+ *    - the Skeleton;
+ *    - the mapping from the bones RenderObject's index to
+ *      the bones indices within the Skeleton;
+ *    - the reference Pose;
+ *    - the current Animation;
+ *    - the current animation time;
+ *    - whether the animation time has been reset.
+ */
 class RA_ENGINE_API SkeletonComponent : public Ra::Engine::Component
 {
   public:
+    friend class SkeletonBasedAnimationSystem;
+
+    using Animation = Ra::Core::Animation::Animation;
+
     SkeletonComponent( const std::string& name, Ra::Engine::Entity* entity );
-    ~SkeletonComponent();
+    ~SkeletonComponent() override;
     SkeletonComponent( const SkeletonComponent& ) = delete;
     SkeletonComponent& operator=( const SkeletonComponent& ) = delete;
 
-    virtual void initialize() override {}
+    /// \name Component interface
+    /// \{
 
-    //
-    // Build from fileData
-    //
+    void initialize() override {}
 
-    /// Create the skeleton from the given data.
+    bool canEdit( const Ra::Core::Utils::Index& roIdx ) const override;
+
+    Ra::Core::Transform getTransform( const Ra::Core::Utils::Index& roIdx ) const override;
+
+    void setTransform( const Ra::Core::Utils::Index& roIdx,
+                       const Ra::Core::Transform& transform ) override;
+    /// \}
+
+    /// \name Build from fileData
+    /// \{
+
+    /**
+     * Create the skeleton from the given data.
+     */
     void handleSkeletonLoading( const Ra::Core::Asset::HandleData* data );
 
-    /// Create the animations from the given data.
+    /**
+     * Create the animations from the given data.
+     */
     void handleAnimationLoading( const std::vector<Ra::Core::Asset::AnimationData*>& data );
+    /// \}
 
-    //
-    // Animation
-    //
+    /// \name Skeleton-based animation data
+    /// \{
 
-    /// Set the animation skeleton.
+    /**
+     * Set the animation skeleton.
+     */
     void setSkeleton( const Ra::Core::Animation::Skeleton& skel );
 
-    /// @returns the animation skeleton.
+    /**
+     * \returns the animation skeleton.
+     */
     inline Ra::Core::Animation::Skeleton& getSkeleton() { return m_skel; }
 
-    /// Update the skeleton with an animation.
-    void update( Scalar dt );
+    /**
+     * Return the number of animations.
+     */
+    size_t getAnimationCount() const { return m_animations.size(); }
 
-    /// Resets the animation, thus posing the skeleton into the reference pose.
-    void reset();
+    /**
+     * Return the \p i -th animation.
+     */
+    const Animation& getAnimation( const size_t i ) const { return m_animations[i]; }
 
-    /// Saves all the state data related to the current frame into a cache file.
-    void cacheFrame( const std::string& dir, int frame ) const;
+    /**
+     * Return the \p i -th animation.
+     */
+    Animation& getAnimation( const size_t i ) { return m_animations[i]; }
 
-    /// Restores the state data related to the \p frameID -th frame from the cache file.
-    /// \returns true if the frame has been successfully restored, false otherwise.
-    /// Note: the AnimationSystem ensures that in case the frame restoration fails,
-    ///       the Component still remains in the current frame state
-    bool restoreFrame( const std::string& dir, int frame );
+    /**
+     * Creates a new empty animation from the current pose.
+     */
+    Animation& addNewAnimation();
 
-    /// If \p status is TRUE, then use the animation time step if available;
-    /// else, use the application timestep.
+    /**
+     * Deletes the \p i-th animation.
+     */
+    void removeAnimation( const uint i );
+
+    /**
+     * Set the animation to play.
+     */
+    void useAnimation( const uint i );
+
+    /**
+     * Return the index of the animation to play.
+     */
+    size_t getAnimationId() const;
+    /// \}
+
+    /// \name Animation Process
+    /// \{
+
+    /**
+     * Updates the skeleton display.
+     */
+    void update();
+
+    /**
+     * Updates the skeleton pose as the pose corresponding to time \p time.
+     */
+    void goTo( Scalar time );
+
+    /**
+     * \returns the current time of animation.
+     */
+    Scalar getAnimationTime() const;
+
+    /**
+     * \returns the duration of the current animation.
+     */
+    Scalar getAnimationDuration() const;
+
+    /**
+     * If \p status is TRUE, then use the animation time step if available;
+     * otherwise, use the application timestep.
+     */
     void toggleAnimationTimeStep( const bool status );
 
-    /// Set animation speed factor.
+    /**
+     * Return true if using the animation time step, false otherwise.
+     */
+    bool usesAnimationTimeStep() const;
+
+    /**
+     * Set animation speed factor.
+     */
     void setSpeed( const Scalar value );
 
-    /// Toggle the slow motion speed (speed x0.1).
-    void toggleSlowMotion( const bool status );
+    /**
+     * Return animation speed factor.
+     */
+    Scalar getSpeed() const;
 
-    /// Set the animation to play.
-    void setAnimation( const uint i );
+    /**
+     * Toggle animation auto repeat.
+     */
+    void autoRepeat( const bool status );
 
-    /// @returns the current time of animation.
-    Scalar getTime() const;
+    /**
+     * Return true is animation auto repeat is on, false otherwise.
+     */
+    bool isAutoRepeat() const;
 
-    /// @returns the duration of the current animation.
-    Scalar getDuration() const;
+    /**
+     * Toggle animation ping-pong.
+     */
+    void pingPong( const bool status );
 
-    /// @returns the duration of the current animation.
-    uint getMaxFrame() const;
+    /**
+     * Return true is animation ping-pong is on, false otherwise.
+     */
+    bool isPingPong() const;
+    /// \}
 
-    // Skeleton display
-    /// Turns xray display on/off for the skeleton bones.
+    /// \name Caching frames
+    /// \{
+
+    /**
+     * Saves all the state data related to the current frame into a cache file.
+     */
+    void cacheFrame( const std::string& dir, uint frame ) const;
+
+    /**
+     * Restores the state data related to the \p frameID -th frame from the cache file.
+     * \returns true if the frame has been successfully restored, false otherwise.
+     */
+    bool restoreFrame( const std::string& dir, uint frame );
+    /// \}
+
+    /// \name Skeleton display
+    /// \{
+
+    /**
+     * Turns xray display on/off for the skeleton bones.
+     */
     void setXray( bool on ) const;
 
-    /// Toggle skeleton bones display.
+    /**
+     * Return true if bones are displayed in xray mode, false otherwise.
+     */
+    bool isXray() const;
+
+    /**
+     * Toggle skeleton bones display.
+     */
+    // FIXME: There is a compatibility issue between xray and display!
     void toggleSkeleton( const bool status );
 
-    //
-    // Editable interface
-    //
-
-    virtual bool canEdit( const Ra::Core::Utils::Index& roIdx ) const override;
-
-    virtual Ra::Core::Transform getTransform( const Ra::Core::Utils::Index& roIdx ) const override;
-
-    virtual void setTransform( const Ra::Core::Utils::Index& roIdx,
-                               const Ra::Core::Transform& transform ) override;
+    /**
+     * Return true if the skeleton is displayed.
+     */
+    bool isShowingSkeleton() const;
+    /// \}
 
   private:
-    // Internal function to create the bone display objects.
+    /**
+     * Internal function to create the bone display objects.
+     */
     void setupSkeletonDisplay();
 
-    // debug function to display the hierarchy
+    /**
+     * Internal Debug function to display the skeleton hierarchy.
+     */
     void printSkeleton( const Ra::Core::Animation::Skeleton& skeleton );
 
-    //
-    // Component Communication (CC)
-    //
+    /// \name Component Communication (CC)
+    /// \{
 
-    /// Setup CC.
+    /**
+     * Setup CC.
+     */
     void setupIO();
 
-    /// Skeleton getter for CC.
+    /**
+     * Skeleton getter for CC.
+     */
     const Ra::Core::Animation::Skeleton* getSkeletonOutput() const;
 
-    /// Referene Pose getter for CC.
+    /**
+     * Map from RO index to bone index getter for CC.
+     */
+    const std::map<Ra::Core::Utils::Index, uint>* getBoneRO2idx() const;
+
+    /**
+     * Reference Pose getter for CC.
+     */
     const Ra::Core::Animation::RefPose* getRefPoseOutput() const;
 
-    /// Reset status getter for CC.
-    const bool* getWasReset() const;
+    /**
+     * Current Animation getter for CC.
+     */
+    const Animation* getAnimationOutput() const;
 
-    /// Current Animation getter for CC.
-    const Ra::Core::Animation::Animation* getAnimationOutput() const;
-
-    /// Current Animation Time for CC.
+    /**
+     * Current Animation Time for CC.
+     */
     const Scalar* getTimeOutput() const;
 
-    /// Map from RO index to bone index for CC.
-    const std::map<Ra::Core::Utils::Index, uint>* getBoneRO2idx() const;
+    /**
+     * Reset status getter for CC.
+     */
+    const bool* getWasReset() const;
+    /// \}
 
   private:
     /// Entity name for CC.
@@ -149,38 +288,43 @@ class RA_ENGINE_API SkeletonComponent : public Ra::Engine::Component
     Ra::Core::Animation::RefPose m_refPose;
 
     /// The animations.
-    std::vector<Ra::Core::Animation::Animation> m_animations;
+    std::vector<Animation> m_animations;
 
     /// Bones ROs.
-    // FIXME: we need the bones RO type
-    //    std::vector<std::unique_ptr<SkeletonBoneRenderObject>> m_boneDrawables;
+    std::vector<RenderObject*> m_boneDrawables;
 
     /// Map from bone RO index to bone idx, for CC.
     std::map<Ra::Core::Utils::Index, uint> m_boneMap;
 
     /// Current animation ID.
-    uint m_animationID;
+    size_t m_animationID{0};
 
-    /// Wheither to use the animation timestep (if available) or the app's.
-    bool m_animationTimeStep;
-
-    /// Current animation time.
-    Scalar m_animationTime;
+    /// Wheither to use the animation's timestep (if available) or the app's.
+    bool m_animationTimeStep{false};
 
     /// Time step of each animation.
     std::vector<Scalar> m_dt;
 
-    /// Animation Play speed.
-    Scalar m_speed;
+    /// Current animation time (might be different from the app time -- see below).
+    Scalar m_animationTime{0_ra};
 
-    /// Is slow motion active?
-    bool m_slowMo;
+    /// Animation Play speed.
+    Scalar m_speed{1_ra};
+
+    /// Whether animation auto repeat mode in on.
+    bool m_autoRepeat{false};
+
+    /// Whether animation ping-pong mode is on.
+    bool m_pingPong{false};
 
     /// Was the animation reset?
-    bool m_wasReset;
+    bool m_wasReset{false};
 
-    /// Is the reset process done?
-    bool m_resetDone;
+    /// Mesh for bone display.
+    static std::shared_ptr<Engine::Mesh> s_boneMesh;
+
+    /// RenderTechnique for bone display.
+    static std::shared_ptr<Engine::RenderTechnique> s_boneRenderTechnique;
 };
 
 } // namespace Engine

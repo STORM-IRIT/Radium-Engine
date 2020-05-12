@@ -49,25 +49,24 @@ bool findDuplicates( const TriangleMesh& mesh,
                      std::vector<Ra::Core::Utils::Index>& duplicatesMap ) {
     bool hasDuplicates = false;
     duplicatesMap.clear();
-    const uint numVerts = mesh.vertices().size();
+    const size_t numVerts = mesh.vertices().size();
     duplicatesMap.resize( numVerts, Ra::Core::Utils::Index::Invalid() );
 
-    Ra::Core::Vector3Array::const_iterator vertPos;
-    Ra::Core::Vector3Array::const_iterator duplicatePos;
     std::vector<std::pair<Ra::Core::Vector3, Ra::Core::Utils::Index>> vertices;
 
     for ( uint i = 0; i < numVerts; ++i )
     {
-        vertices.push_back( std::make_pair( mesh.vertices()[i], Ra::Core::Utils::Index( i ) ) );
+        vertices.push_back(
+            std::make_pair( mesh.vertices()[i], Ra::Core::Utils::Index( int( i ) ) ) );
     }
 
     std::sort( vertices.begin(),
                vertices.end(),
                []( std::pair<Ra::Core::Vector3, int> a, std::pair<Ra::Core::Vector3, int> b ) {
-                   if ( a.first.x() == b.first.x() )
+                   if ( Ra::Core::Math::areApproxEqual( a.first.x(), b.first.x() ) )
                    {
-                       if ( a.first.y() == b.first.y() )
-                           if ( a.first.z() == b.first.z() )
+                       if ( Ra::Core::Math::areApproxEqual( a.first.y(), b.first.y() ) )
+                           if ( Ra::Core::Math::areApproxEqual( a.first.z(), b.first.z() ) )
                                return a.second < b.second;
                            else
                                return a.first.z() < b.first.z();
@@ -327,7 +326,8 @@ void SkinningComponent::handleSkinDataLoading( const Ra::Core::Asset::HandleData
             m_loadedWeights[bone.m_name] = it_w->second;
             auto it_b                    = bone.m_bindMatrices.find( meshName );
             if ( it_b != bone.m_bindMatrices.end() )
-            { m_loadedBindMatrices[bone.m_name] = it_b->second; } else
+            { m_loadedBindMatrices[bone.m_name] = it_b->second; }
+            else
             {
                 LOG( logWARNING ) << "Bone " << bone.m_name
                                   << " has skinning weights but no bind matrix. Using Identity.";
@@ -364,30 +364,27 @@ void SkinningComponent::createWeightMatrix() {
     Ra::Core::Animation::checkWeightMatrix( m_refData.m_weights, false, true );
 
     if ( Ra::Core::Animation::normalizeWeights( m_refData.m_weights, true ) )
-    { LOG( logINFO ) << "Skinning weights have been normalized"; } }
+    { LOG( logINFO ) << "Skinning weights have been normalized"; }
+}
 
 void SkinningComponent::applyBindMatrices( Ra::Core::Animation::Pose& pose ) const {
     for ( const auto& bM : m_refData.m_bindMatrices )
     {
-        pose[bM.first] = pose[bM.first] * bM.second * m_meshFrameInv;
+        pose[bM.first] = m_meshFrameInv * pose[bM.first] * bM.second;
     }
 }
 
 void SkinningComponent::setupIO( const std::string& id ) {
-    ComponentMessenger::CallbackTypes<WeightMatrix>::Getter wOut =
-        std::bind( &SkinningComponent::getWeightsOutput, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Animation::WeightMatrix>(
-        getEntity(), this, id, wOut );
+    const auto& cm = ComponentMessenger::getInstance();
 
-    ComponentMessenger::CallbackTypes<RefData>::Getter refData =
-        std::bind( &SkinningComponent::getRefData, this );
-    ComponentMessenger::getInstance()->registerOutput<Ra::Core::Skinning::RefData>(
-        getEntity(), this, id, refData );
+    auto wOut = std::bind( &SkinningComponent::getWeightsOutput, this );
+    cm->registerOutput<Ra::Core::Animation::WeightMatrix>( getEntity(), this, id, wOut );
 
-    ComponentMessenger::CallbackTypes<FrameData>::Getter frameData =
-        std::bind( &SkinningComponent::getFrameData, this );
-    ComponentMessenger::getInstance()->registerOutput<FrameData>(
-        getEntity(), this, id, frameData );
+    auto refData = std::bind( &SkinningComponent::getRefData, this );
+    cm->registerOutput<Ra::Core::Skinning::RefData>( getEntity(), this, id, refData );
+
+    auto frameData = std::bind( &SkinningComponent::getFrameData, this );
+    cm->registerOutput<FrameData>( getEntity(), this, id, frameData );
 }
 
 void SkinningComponent::setSkinningType( SkinningType type ) {

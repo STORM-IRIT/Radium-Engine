@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Engine/RaEngine.hpp>
-
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Animation/SkinningData.hpp>
@@ -17,8 +15,16 @@
 namespace Ra {
 namespace Engine {
 
-/// The SkinningComponent class is responsible for applying Geometric Skinning Methods
-/// on an animated object's mesh.
+/**
+ * The SkinningComponent class is responsible for applying Geometric Skinning Methods
+ * on an animated object's mesh.
+ *
+ * Regarding Component Communication, a SkinningComponent gives access to
+ * the following data from the mesh's name:
+ *    - the skinning weights matrix;
+ *    - the RefData for the skinned mesh;
+ *    - the FrameData for the current skeleton pose.
+ */
 class RA_ENGINE_API SkinningComponent : public Ra::Engine::Component
 {
   public:
@@ -40,9 +46,9 @@ class RA_ENGINE_API SkinningComponent : public Ra::Engine::Component
         m_weightType( 0 ),
         m_showingWeights( false ) {}
 
-    virtual ~SkinningComponent() {}
+    ~SkinningComponent() override {}
 
-    virtual void initialize() override;
+    void initialize() override;
 
     /// Apply the Skinning Method.
     void skin();
@@ -68,35 +74,32 @@ class RA_ENGINE_API SkinningComponent : public Ra::Engine::Component
     /// @returns the current Pose data.
     const Ra::Core::Skinning::FrameData* getFrameData() const { return &m_frameData; }
 
+    /// @returns the name of the skinned mesh.
     const std::string getMeshName() const;
+
+    /// @returns the name of the animation skeleton.
     const std::string getSkeletonName() const;
 
     /// Toggles display of skinning weights.
     void showWeights( bool on );
 
-    /// Set the type of skinning weight to display:
-    ///  - 0 for standard skinning weights
-    ///  - 1 for stbs weights
+    /**
+     * Set the type of skinning weight to display:
+     *  - 0 for standard skinning weights
+     *  - 1 for stbs weights
+     */
     void showWeightsType( int type );
 
     /// Set the bone to show the weights of.
     void setWeightBone( uint bone );
 
-  public:
+  private:
     /// Registers the Entity name for Component communication (out).
     void setupIO( const std::string& id );
 
     /// Computes internal data related to the Skinning method.
     void setupSkinningType( SkinningType type );
 
-    /// Registers the Entity name for Component communication (in/out).
-    void setContentsName( const std::string& name );
-
-  public:
-    /// The Entity name for Component communication.
-    std::string m_skelName;
-
-  private:
     // Internal function to create the skinning weights.
     void createWeightMatrix();
 
@@ -105,6 +108,10 @@ class RA_ENGINE_API SkinningComponent : public Ra::Engine::Component
 
     /// Applies the bones bindMatrices to the given skeleton pose.
     void applyBindMatrices( Ra::Core::Animation::Pose& pose ) const;
+
+  public:
+    /// The Entity name for Component communication.
+    std::string m_skelName;
 
   private:
     /// The mesh name for Component communication.
@@ -158,11 +165,17 @@ class RA_ENGINE_API SkinningComponent : public Ra::Engine::Component
 
     /// Initial RO shader config when not showing skinning weights.
     std::shared_ptr<Ra::Engine::RenderTechnique> m_baseTechnique;
+    /// RO shader config when showing skinning weights.
     std::shared_ptr<Ra::Engine::RenderTechnique> m_weightTechnique;
+    /// Mesh texture coordinates when not showing skinning weights.
     Ra::Core::Vector3Array m_baseUV;
+    /// Mesh texture coordinates when showing skinning weights.
     Ra::Core::Vector3Array m_weightsUV;
+    /// Bone for which to show the skinning weigths.
     uint m_weightBone;
+    /// Type of skinning weigths to show: 0=skinning weights, 1=STBS weights.
     uint m_weightType;
+    /// Whether we are showing the skinning weights or not.
     bool m_showingWeights;
 };
 
