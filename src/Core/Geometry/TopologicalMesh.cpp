@@ -356,20 +356,30 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         }
 
         // Add the face, then add attribs to vh
-        TopologicalMesh::FaceHandle fh = add_face( face_vhandles );
-
-        for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
+        auto fh = add_face( face_vhandles );
+        // In case of topological inconsistancy, face will be invalid ...
+        if ( fh.is_valid() )
         {
-            TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
-            set_normal( heh, face_normals[vindex] );
-            property( m_inputTriangleMeshIndexPph, heh ) = face_vertexIndex[vindex];
-            copyAttribToTopo( triMesh, this, vprop_float, heh, face_vertexIndex[vindex] );
-            copyAttribToTopo( triMesh, this, vprop_vec2, heh, face_vertexIndex[vindex] );
-            copyAttribToTopo( triMesh, this, vprop_vec3, heh, face_vertexIndex[vindex] );
-            copyAttribToTopo( triMesh, this, vprop_vec4, heh, face_vertexIndex[vindex] );
-            property( m_wedgeIndexPph, heh ) = face_wedges[vindex];
+            for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
+            {
+                TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
+                set_normal( heh, face_normals[vindex] );
+                property( m_inputTriangleMeshIndexPph, heh ) = face_vertexIndex[vindex];
+                copyAttribToTopo( triMesh, this, vprop_float, heh, face_vertexIndex[vindex] );
+                copyAttribToTopo( triMesh, this, vprop_vec2, heh, face_vertexIndex[vindex] );
+                copyAttribToTopo( triMesh, this, vprop_vec3, heh, face_vertexIndex[vindex] );
+                copyAttribToTopo( triMesh, this, vprop_vec4, heh, face_vertexIndex[vindex] );
+                property( m_wedgeIndexPph, heh ) = face_wedges[vindex];
+            }
         }
-
+        else
+        {
+            LOG( logWARNING ) << "Invalid face handle returned : face not added (1)";
+            // TODO memorize invalid faces for post processing ...
+            //  see
+            //  https://www.graphics.rwth-aachen.de/media/openflipper_static/Daily-Builds/Doc/Free/Developer/OBJImporter_8cc_source.html
+            // for an exemple of loading
+        }
         face_vhandles.clear();
         face_normals.clear();
         face_vertexIndex.clear();
@@ -486,19 +496,22 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
             face_vhandles[j]    = vh;
             face_normals[j]     = n;
             face_vertexIndex[j] = inMeshVertexIndex;
-            face_wedges[j]      = WedgeIndex{int( i )};
+            face_wedges[j]      = WedgeIndex{ int( i ) };
         }
 
         // Add the face, then add attribs to vh
         TopologicalMesh::FaceHandle fh = add_face( face_vhandles );
-
-        for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
+        if ( fh.is_valid() )
         {
-            TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
-            set_normal( heh, face_normals[vindex] );
-            property( m_wedgeIndexPph, heh ) = m_wedges.newReference( face_wedges[vindex] );
+            for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
+            {
+                TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
+                set_normal( heh, face_normals[vindex] );
+                property( m_wedgeIndexPph, heh ) = m_wedges.newReference( face_wedges[vindex] );
+            }
         }
-
+        else
+        { LOG( logWARNING ) << "Invalid face handle returned : face not added (2)"; }
         face_vhandles.clear();
         face_normals.clear();
         face_vertexIndex.clear();
