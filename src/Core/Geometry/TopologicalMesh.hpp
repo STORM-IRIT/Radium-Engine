@@ -36,6 +36,7 @@ struct TopologicalMeshTraits : OpenMesh::DefaultTraits {
     VertexAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );
     FaceAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );
     EdgeAttributes( OpenMesh::Attributes::Status );
+    // Add  OpenMesh::Attributes::PrevHalfedge for efficiency ?
     HalfedgeAttributes( OpenMesh::Attributes::Status | OpenMesh::Attributes::Normal );
 };
 
