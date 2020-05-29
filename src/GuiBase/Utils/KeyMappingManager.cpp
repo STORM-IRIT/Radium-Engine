@@ -111,7 +111,11 @@ KeyMappingManager::getActionIndex( const Context& context, const std::string& ac
     auto itr = m_actionNameToIndex[context].find( actionName );
     if ( itr != m_actionNameToIndex[context].end() ) return itr->second;
     LOG( logWARNING ) << "try to get action index from an invalid action name " << actionName
-                      << "(context #" << context << ")";
+                      << " (context " << getContextName( context ) << " [" << context << "])";
+    LOG( logWARNING ) << "consider add to conf: "
+                      << "<keymap context=\"" << getContextName( context )
+                      << "\" key=\"\" modifiers=\"\" buttons=\"\" action=\"" << actionName
+                      << "\"/>";
 
     return KeyMappingAction{};
 }
