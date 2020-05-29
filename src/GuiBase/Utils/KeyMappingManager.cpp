@@ -254,7 +254,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     }
 
     // Store setting only if not default
-    if ( !strcmp( filename, m_defaultConfigFile.c_str() ) )
+    if ( std::string(filename) != m_defaultConfigFile )
     {
         QSettings settings;
         settings.setValue( "keymapping/config", m_file->fileName() );
