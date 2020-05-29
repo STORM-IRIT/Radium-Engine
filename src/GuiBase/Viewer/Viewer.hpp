@@ -64,7 +64,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     ~Viewer() override;
 
     /// add observers to keyMappingManager for gizmo, camera and viewer.
-    void setupKeyMappingCallbacks();
+    virtual void setupKeyMappingCallbacks();
 
     //
     // Accessors
@@ -197,19 +197,39 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Resize the view port and the camera. Called by the resize event.
     void resizeGL( QResizeEvent* event ) override;
 
+    Engine::Renderer::PickingMode
+    getPickingMode( const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) const;
+
+    /// @name
+    /// Qt event, do the viewer stuff, and call handle*Event to perform the
+    /// actual event handling, according to keyMapping.
+    ///@{
+    /// Do nothing if GL is not initialized, then call handleKeyPressEvent
     void keyPressEvent( QKeyEvent* event ) override;
     void keyReleaseEvent( QKeyEvent* event ) override;
 
-    Engine::Renderer::PickingMode
-    getPickingMode( const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) const;
     /// We intercept the mouse events in this widget to get the coordinates of the mouse
     /// in screen space.
     void mousePressEvent( QMouseEvent* event ) override;
     void mouseReleaseEvent( QMouseEvent* event ) override;
     void mouseMoveEvent( QMouseEvent* event ) override;
     void wheelEvent( QWheelEvent* event ) override;
+    ///@}
+
     void showEvent( QShowEvent* ev ) override;
 
+    /// @name
+    /// handle the events, called by *Event, do the actual work, should be overriden in
+    /// derived classes.
+    ///@{
+    virtual void handleKeyPressEvent( QKeyEvent* event );
+    virtual void handleMousePressEvent( QMouseEvent* event,
+                                        Ra::Engine::Renderer::PickingResult& result );
+    virtual void handleMouseReleaseEvent( QMouseEvent* event );
+    virtual void handleMouseMoveEvent( QMouseEvent* event,
+                                       Ra::Engine::Renderer::PickingResult& result );
+    virtual void handleWheelEvent( QWheelEvent* event );
+    ///@}
   private:
     /// update keymapping according to keymapping manager's config, should be
     /// called each time the configuration changes, or added to observer's list
@@ -217,16 +237,15 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Called with KeyManageable::configureKeyMapping
     static void configureKeyMapping_impl();
 
-  public:
-    Scalar m_dt{0.1_ra};
-
   protected:
+    ///\todo make the following  private:
     /// Owning pointer to the renderers.
     std::vector<std::shared_ptr<Engine::Renderer>> m_renderers;
     Engine::Renderer* m_currentRenderer;
 
     /// Owning Pointer to the feature picking manager.
     PickingManager* m_pickingManager;
+
     bool m_isBrushPickingEnabled;
     float m_brushRadius;
 

@@ -315,28 +315,8 @@ Gui::Viewer::getPickingMode( const KeyMappingManager::KeyMappingAction& action )
     return Engine::Renderer::NONE;
 }
 
-enum InteractionMode { INTERACTIVE, PICKING };
-InteractionMode m_interactionMode;
-
-void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
-    using Core::Utils::Color;
-
-    if ( !m_glInitialized.load() )
-    {
-        event->ignore();
-        return;
-    }
-
-    // get what's under the mouse
-
-    makeCurrent();
-    auto result = m_currentRenderer->doPickingNow(
-        {Core::Vector2( event->x(), height() - event->y() ),
-         Engine::Renderer::PickingPurpose::SELECTION,
-         Engine::Renderer::RO},
-        {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
-
-    doneCurrent();
+void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
+                                         Ra::Engine::Renderer::PickingResult& result ) {
 
     ///\todo something like explained here
     // if under mouse objects grabs the action, just send it to the object
@@ -348,8 +328,6 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
 
     // for now just handle one active context
     m_activeContext = -1;
-
-    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
 
     auto keyMap    = Gui::KeyMappingManager::getInstance();
     auto buttons   = event->buttons();
@@ -398,36 +376,49 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     auto r = m_camera->getCamera()->getRayFromScreen( Core::Vector2( event->x(), event->y() ));
     RA_DISPLAY_POINT( r.origin(), Color::Cyan(), 0.1f ); RA_DISPLAY_RAY( r, Color::Yellow() );
     }*/
-
-    emit needUpdate();
 }
 
-void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
-    if ( m_activeContext == m_camera->mappingContext() )
-    { m_camera->handleMouseReleaseEvent( event ); }
-    if ( m_activeContext == GizmoManager::getContext() )
-    { m_gizmoManager->handleMouseReleaseEvent( event ); }
-    m_activeContext = -1;
-    emit needUpdate();
-}
+void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
+    using Core::Utils::Color;
 
-void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
     if ( !m_glInitialized.load() )
     {
         event->ignore();
         return;
     }
 
-    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
+    // get what's under the mouse
 
     makeCurrent();
-
     auto result = m_currentRenderer->doPickingNow(
         {Core::Vector2( event->x(), height() - event->y() ),
          Engine::Renderer::PickingPurpose::SELECTION,
          Engine::Renderer::RO},
         {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
+
     doneCurrent();
+
+    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
+
+    handleMousePressEvent( event, result );
+    emit needUpdate();
+}
+
+void Gui::Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
+    if ( m_activeContext == m_camera->mappingContext() )
+    { m_camera->handleMouseReleaseEvent( event ); }
+    if ( m_activeContext == GizmoManager::getContext() )
+    { m_gizmoManager->handleMouseReleaseEvent( event ); }
+    m_activeContext = -1;
+}
+
+void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
+    handleMouseReleaseEvent( event );
+    emit needUpdate();
+}
+
+void Gui::Viewer::handleMouseMoveEvent( QMouseEvent* event,
+                                        Ra::Engine::Renderer::PickingResult& result ) {
 
     auto keyMap    = Gui::KeyMappingManager::getInstance();
     auto buttons   = event->buttons();
@@ -455,17 +446,30 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
     }
     else
     { getGizmoManager()->handlePickingResult( result.m_roIdx ); }
-
-    emit needUpdate();
 }
 
-void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
-
+void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
     if ( !m_glInitialized.load() )
     {
         event->ignore();
         return;
     }
+
+    m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
+
+    makeCurrent();
+
+    auto result = m_currentRenderer->doPickingNow(
+        {Core::Vector2( event->x(), height() - event->y() ),
+         Engine::Renderer::PickingPurpose::SELECTION,
+         Engine::Renderer::RO},
+        {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
+    doneCurrent();
+    handleMouseMoveEvent( event, result );
+    emit needUpdate();
+}
+
+void Gui::Viewer::handleWheelEvent( QWheelEvent* event ) {
 
     auto keyMap    = Gui::KeyMappingManager::getInstance();
     auto buttons   = event->buttons();
@@ -483,10 +487,9 @@ void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
     }
     else
     { m_camera->handleWheelEvent( event ); }
-    emit needUpdate();
 }
 
-void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
+void Gui::Viewer::wheelEvent( QWheelEvent* event ) {
 
     if ( !m_glInitialized.load() )
     {
@@ -494,8 +497,12 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
         return;
     }
 
-    keyPressed( event->key() );
-    if ( event->isAutoRepeat() ) return;
+    handleWheelEvent( event );
+
+    emit needUpdate();
+}
+
+void Gui::Viewer::handleKeyPressEvent( QKeyEvent* event ) {
 
     auto keyMap    = Gui::KeyMappingManager::getInstance();
     auto buttons   = Qt::NoButton;
@@ -531,6 +538,20 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
             emit toggleBrushPicking( m_isBrushPickingEnabled );
         }
     }
+}
+
+void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
+
+    if ( !m_glInitialized.load() )
+    {
+        event->ignore();
+        return;
+    }
+
+    keyPressed( event->key() );
+    if ( event->isAutoRepeat() ) return;
+
+    handleKeyPressEvent( event );
 
     emit needUpdate();
 }
@@ -549,7 +570,7 @@ void Gui::Viewer::keyReleaseEvent( QKeyEvent* event ) {
 
 void Gui::Viewer::showEvent( QShowEvent* ev ) {
     WindowQt::showEvent( ev );
-    /// todo remove this commented code when camera init in ctr is tested on other arch.
+    /// \todo remove this commented code when camera init in ctr is tested on other arch.
 
     m_camera->resizeViewport( width(), height() );
 
