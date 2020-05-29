@@ -207,7 +207,7 @@ void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
                           << ", which is already used for action " << findResult2->first << ".";
     }
 
-    LOG( logDEBUG4 ) << "In context " << getContextName( contextIndex ) << " [" << contextIndex
+    LOG( logDEBUG2 ) << "In context " << getContextName( contextIndex ) << " [" << contextIndex
                      << "]"
                      << " binding action " << getActionName( contextIndex, actionIndex ) << " ["
                      << actionIndex << "]"
