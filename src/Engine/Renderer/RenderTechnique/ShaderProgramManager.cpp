@@ -80,7 +80,7 @@ ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
     else
     {
 
-        LOG( logERROR ) << "Error occurred while loading shader program " << config.m_name.c_str()
+        LOG( logERROR ) << "Error occurred while loading shader program " << config.getName().c_str()
                         << ":\nDefault shader program used instead.";
 
         for ( const auto& strings : config.getNamedStrings() )
@@ -145,7 +145,7 @@ void ShaderProgramManager::reloadNotCompiledShaderPrograms() {
 
 void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
                                          const ShaderProgramPtr& shader ) {
-    m_shaderProgramIds.insert( {config.m_name, config} );
+    m_shaderProgramIds.insert( {config.getName(), config} );
     m_shaderPrograms.insert( {config, shader} );
 }
 
