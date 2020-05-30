@@ -237,6 +237,8 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Called with KeyManageable::configureKeyMapping
     static void configureKeyMapping_impl();
 
+    Ra::Engine::Renderer::PickingResult pickAtPosition( Core::Vector2 position );
+
   protected:
     ///\todo make the following  private:
     /// Owning pointer to the renderers.

@@ -378,6 +378,16 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
     }*/
 }
 
+Ra::Engine::Renderer::PickingResult Gui::Viewer::pickAtPosition( Core::Vector2 position ) {
+    makeCurrent();
+    auto result = m_currentRenderer->doPickingNow(
+        {position, Engine::Renderer::PickingPurpose::SELECTION, Engine::Renderer::RO},
+        {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
+
+    doneCurrent();
+    return result;
+}
+
 void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     using Core::Utils::Color;
 
@@ -388,15 +398,7 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     }
 
     // get what's under the mouse
-
-    makeCurrent();
-    auto result = m_currentRenderer->doPickingNow(
-        {Core::Vector2( event->x(), height() - event->y() ),
-         Engine::Renderer::PickingPurpose::SELECTION,
-         Engine::Renderer::RO},
-        {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
-
-    doneCurrent();
+    auto result = pickAtPosition( {event->x(), height() - event->y()} );
 
     m_currentRenderer->setMousePosition( Ra::Core::Vector2( event->x(), event->y() ) );
 
@@ -459,12 +461,8 @@ void Gui::Viewer::mouseMoveEvent( QMouseEvent* event ) {
 
     makeCurrent();
 
-    auto result = m_currentRenderer->doPickingNow(
-        {Core::Vector2( event->x(), height() - event->y() ),
-         Engine::Renderer::PickingPurpose::SELECTION,
-         Engine::Renderer::RO},
-        {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
-    doneCurrent();
+    auto result = pickAtPosition( {event->x(), height() - event->y()} );
+
     handleMouseMoveEvent( event, result );
     emit needUpdate();
 }
