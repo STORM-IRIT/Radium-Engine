@@ -128,10 +128,10 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     /// It will update the necessary openGL buffers.
     void updateGL() override = 0;
 
-    //@{
+    ///@{
     /// Get the name expected for a given attrib.
     static inline std::string getAttribName( MeshData type );
-    //@}
+    ///@}
 
   protected:
     /// Update the picking render mode according to the object render mode
