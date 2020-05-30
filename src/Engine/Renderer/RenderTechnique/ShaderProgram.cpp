@@ -204,7 +204,7 @@ void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
 
     CORE_ERROR_IF(
         m_configuration.isComplete(),
-        ( "Shader program " + shaderConfig.m_name + " misses vertex or fragment shader." )
+        ( "Shader program " + shaderConfig.m_name + " is incomplete (e.g. misses vertex or fragment shader)." )
             .c_str() );
 
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
