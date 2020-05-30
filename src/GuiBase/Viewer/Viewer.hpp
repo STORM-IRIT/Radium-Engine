@@ -72,11 +72,11 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Access to the OpenGL context of the Viewer
     QOpenGLContext* getContext() const { return m_context.get(); }
 
-    /// Access to camera interface.
-    CameraManipulator* getCameraManipulator();
-
     /// Set the current camera interface.
     void setCameraManipulator( CameraManipulator* ci );
+
+    /// Access to camera interface.
+    CameraManipulator* getCameraManipulator();
 
     /// Set the camera managed by the cameraInterface
     void setCamera( Engine::Camera* camera );
@@ -89,6 +89,19 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     /// Read-write access to renderer
     Engine::Renderer* getRenderer();
+
+    /** Add a renderer and return its index. Need to be called when catching
+     * \param e : unique_ptr to your own renderer
+     * \return index of the newly added renderer
+     * \code
+     * int rendererId = addRenderer(new MyRenderer(width(), height()));
+     * changeRenderer(rendererId);
+     * getRenderer()->initialize();
+     * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+     * m_camera->attachLight( light );
+     * \endcode
+     */
+    int addRenderer( const std::shared_ptr<Engine::Renderer>& e );
 
     /// Access to the feature picking manager
     PickingManager* getPickingManager();
@@ -108,9 +121,9 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Blocks until rendering is finished.
     void swapBuffers();
 
-    //
-    // Misc functions
-    //
+    /// @name
+    /// Misc functions
+    /// @{
 
     /// Emits signals corresponding to picking requests.
     void processPicking();
@@ -125,6 +138,10 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     void grabFrame( const std::string& filename );
 
     void enableDebug();
+
+    const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
+
+    ///@}
 
   signals:
     bool glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
@@ -152,30 +169,15 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     /// Toggle the debug drawing
     void enableDebugDraw( int enabled );
-
-    /** Add a renderer and return its index. Need to be called when catching
-     * \param e : unique_ptr to your own renderer
-     * \return index of the newly added renderer
-     * \code
-     * int rendererId = addRenderer(new MyRenderer(width(), height()));
-     * changeRenderer(rendererId);
-     * getRenderer()->initialize();
-     * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
-     * m_camera->attachLight( light );
-     * \endcode
-     */
-    int addRenderer( const std::shared_ptr<Engine::Renderer>& e );
-
     void setBackgroundColor( const Core::Utils::Color& background );
-    const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
   private slots:
     /// These slots are connected to the base class signals to properly handle
     /// concurrent access to the renderer.
     void onAboutToCompose();
     void onAboutToResize();
-    void onFrameSwapped();
     void onResized();
+    void onFrameSwapped();
 
   protected:
     /// create gizmos
