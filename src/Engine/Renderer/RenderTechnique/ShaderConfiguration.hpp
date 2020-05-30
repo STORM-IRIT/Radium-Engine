@@ -126,12 +126,16 @@ class RA_ENGINE_API ShaderConfiguration final
     // get default shader configuration
     static ShaderConfiguration getDefaultShaderConfig() { return m_defaultShaderConfig; }
 
-  public:
-    std::string m_name{};
+    void setVersion( const std::string& version ) { m_version = version; }
+    void setName( const std::string& name ) { m_name = name; }
 
-    std::string m_version{};
+    const std::string& getName() const { return m_name; }
+    const std::string& getVersion() const { return m_version; }
 
   private:
+    std::string m_name{};
+    std::string m_version{};
+
     /// The second member of the pair defining a shader indicates if the shader comes from file
     /// (true) or from source string (false)
     std::array<std::pair<std::string, bool>, ShaderType_COUNT> m_shaders;

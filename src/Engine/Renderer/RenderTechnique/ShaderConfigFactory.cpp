@@ -13,17 +13,17 @@ using namespace Core::Utils; // log
 static std::map<std::string, ShaderConfiguration> configs;
 
 void addConfiguration( const ShaderConfiguration& config ) {
-    if ( config.m_name.empty() )
+    if ( config.getName().empty() )
     {
         LOG( logWARNING ) << "Empty name in ShaderConfigurationFactory::addConfiguration call. "
                              "Configuration not added";
         return;
     }
 
-    auto found = configs.insert( {config.m_name, config} );
+    auto found = configs.insert( {config.getName(), config} );
     if ( !found.second )
     {
-        LOG( logDEBUG ) << "Configuration " << config.m_name
+        LOG( logDEBUG ) << "Configuration " << config.getName()
                         << " already in ShaderConfigurationFactory. "
                            "Configuration not added";
         return;
