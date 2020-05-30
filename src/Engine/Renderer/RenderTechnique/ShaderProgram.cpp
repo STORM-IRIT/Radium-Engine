@@ -299,7 +299,8 @@ void ShaderProgram::reload() {
                         s.second->name(),
                         m_configuration.getProperties(),
                         m_configuration.getIncludes(),
-                        s.first );
+                        s.first,
+                        m_configuration.m_version );
         }
     }
 
