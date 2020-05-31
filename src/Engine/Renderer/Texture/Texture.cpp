@@ -7,18 +7,19 @@
 #include <cmath>
 
 namespace Ra {
+namespace Engine {
 
 using namespace Core::Utils; // log
 
-Engine::Texture::Texture( const TextureParameters& texParameters ) :
+Texture::Texture( const TextureParameters& texParameters ) :
     m_textureParameters{texParameters},
     m_texture{nullptr},
     m_isMipMaped{false},
     m_isLinear{false} {}
 
-Engine::Texture::~Texture() = default;
+Texture::~Texture() = default;
 
-void Engine::Texture::initializeGL( bool linearize ) {
+void Texture::initializeGL( bool linearize ) {
     if ( ( m_textureParameters.target != GL_TEXTURE_1D ) &&
          ( m_textureParameters.target != GL_TEXTURE_2D ) &&
          ( m_textureParameters.target != GL_TEXTURE_RECTANGLE ) &&
@@ -81,22 +82,22 @@ void Engine::Texture::initializeGL( bool linearize ) {
     if ( m_isMipMaped ) { m_texture->generateMipmap(); }
 }
 
-void Engine::Texture::bind( int unit ) {
+void Texture::bind( int unit ) {
     if ( unit >= 0 ) { m_texture->bindActive( uint( unit ) ); }
     else
     { m_texture->bind(); }
 }
 
-void Engine::Texture::bindImageTexture( int unit,
-                                        const GLint level,
-                                        const GLboolean layered,
-                                        const GLint layer,
-                                        const GLenum access ) {
+void Texture::bindImageTexture( int unit,
+                                const GLint level,
+                                const GLboolean layered,
+                                const GLint layer,
+                                const GLenum access ) {
     m_texture->bindImageTexture(
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }
 
-void Engine::Texture::updateData( void* data ) {
+void Texture::updateData( void* data ) {
     switch ( m_texture->target() )
     {
     case GL_TEXTURE_1D: {
@@ -213,7 +214,7 @@ void Engine::Texture::updateData( void* data ) {
 }
 
 // let the compiler warn about case fallthrough
-void Engine::Texture::updateParameters() {
+void Texture::updateParameters() {
     switch ( m_texture->target() )
     {
     case GL_TEXTURE_CUBE_MAP:
@@ -239,7 +240,7 @@ void Engine::Texture::updateParameters() {
     GL_CHECK_ERROR;
 }
 
-void Engine::Texture::linearize() {
+void Texture::linearize() {
     if ( m_texture != nullptr )
     {
         LOG( logERROR ) << "Only non OpenGL initialized texture can be linearized.";
@@ -270,7 +271,7 @@ void Engine::Texture::linearize() {
     sRGBToLinearRGB( reinterpret_cast<uint8_t*>( m_textureParameters.texels ), numcomp, hasAlpha );
 }
 
-void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel ) {
+void Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel ) {
     if ( !m_isLinear )
     {
         m_isLinear = true;
@@ -298,7 +299,7 @@ void Engine::Texture::sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool
     }
 }
 
-void Engine::Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
+void Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     m_textureParameters.width  = w;
     m_textureParameters.height = h;
     m_textureParameters.depth  = d;
@@ -309,7 +310,7 @@ void Engine::Texture::resize( size_t w, size_t h, size_t d, void* pix ) {
     if ( m_isMipMaped ) { m_texture->generateMipmap(); }
 }
 
-void Engine::Texture::linearizeCubeMap( uint numCommponent, bool hasAlphaChannel ) {
+void Texture::linearizeCubeMap( uint numCommponent, bool hasAlphaChannel ) {
     if ( m_textureParameters.type == gl::GLenum::GL_UNSIGNED_BYTE )
     {
         /// Only unsigned byte texture could be linearized. Considering other formats where already
@@ -324,4 +325,5 @@ void Engine::Texture::linearizeCubeMap( uint numCommponent, bool hasAlphaChannel
     }
 }
 
+} // namespace Engine
 } // namespace Ra
