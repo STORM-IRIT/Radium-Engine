@@ -557,15 +557,7 @@ void Renderer::preparePicking( const ViewingParameters& renderData ) {
 
 void Renderer::restoreExternalFBOInternal() {
     glViewport( m_qtViewport[0], m_qtViewport[1], m_qtViewport[2], m_qtViewport[3] );
-
-    if ( m_qtPlz == 0 )
-    {
-        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
-    }
-    else
-    {
-        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
-    }
+    GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
 }
 
 void Renderer::drawScreenInternal() {
