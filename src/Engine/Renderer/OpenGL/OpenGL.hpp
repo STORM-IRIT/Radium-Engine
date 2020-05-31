@@ -8,10 +8,15 @@
 /// glFlushError() : Ignores the previous openGL errors (no effect in release).
 
 #include <glbinding/gl45core/gl.h>
-using namespace gl45core;
 #include <glbinding/gl45ext/gl.h>
+namespace Ra {
+namespace Engine {
+// use glbinding namespace only in Ra::Engine to avoid namespace clash with e.g. Qt.
+using namespace gl45core;
 using namespace gl45ext;
 using namespace gl;
+} // namespace Engine
+} // namespace Ra
 
 #include <glbinding-aux/types_to_string.h>
 
@@ -23,11 +28,14 @@ using namespace gl;
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() {
-    return glGetString( GL_VERSION ) != nullptr;
+    return glGetString( gl::GL_VERSION ) != nullptr;
 }
 
 /// Gets the openGL error string (emulates gluErrorString())
-inline const char* glErrorString( GLenum err ) {
+inline const char* glErrorString( gl::GLenum err ) {
+    using namespace gl45core;
+    using namespace gl45ext;
+    using namespace gl;
     switch ( err )
     {
     case GL_INVALID_ENUM:
@@ -67,8 +75,8 @@ inline const char* glErrorString( GLenum err ) {
 #    define GL_ASSERT( x )                                                                       \
         x;                                                                                       \
         {                                                                                        \
-            GLenum err = glGetError();                                                           \
-            if ( err != GL_NO_ERROR )                                                            \
+            gl::GLenum err = glGetError();                                                       \
+            if ( err != gl::GL_NO_ERROR )                                                        \
             {                                                                                    \
                 const char* errBuf = glErrorString( err );                                       \
                 LOG( Ra::Core::Utils::logERROR )                                                 \
@@ -82,8 +90,8 @@ inline const char* glErrorString( GLenum err ) {
 /// This macro will query the last openGL error.
 #    define GL_CHECK_ERROR                                                                   \
         {                                                                                    \
-            GLenum err = glGetError();                                                       \
-            if ( err != GL_NO_ERROR )                                                        \
+            gl::GLenum err = glGetError();                                                   \
+            if ( err != gl::GL_NO_ERROR )                                                    \
             {                                                                                \
                 const char* errBuf = glErrorString( err );                                   \
                 LOG( Ra::Core::Utils::logERROR )                                             \
