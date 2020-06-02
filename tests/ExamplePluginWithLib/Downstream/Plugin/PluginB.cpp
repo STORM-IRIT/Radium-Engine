@@ -8,4 +8,4 @@ void PluginB::registerPlugin( const Ra::Plugins::Context& context ) {
     ExampleLibrary::ExampleMessage( "Registering PluginB *** " );
 }
 
-} // namespace MyDummyParasitePlugin
+} // namespace PluginB_NS

@@ -21,18 +21,20 @@ if (NOT CMAKE_BUILD_TYPE)
     message("Set default build type to ${CMAKE_BUILD_TYPE}")
 endif ()
 
-project(PluginWithHelperLibDemo VERSION 1.0.0)
+project(ExamplePluginWithLib VERSION 1.0.0)
 
 # Prevent the plugins to be installed in the Radium bundle. Install them locally.
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID})
+    set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID})
 else ()
-    set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
+    set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
 endif ()
 message(STATUS " Installing plugin demo into ${PLUGIN_DEMO_DIRECTORY}")
 # This make the build system to buuuuuuug when compiling before installing Radium
 set(CMAKE_INSTALL_PREFIX ${PLUGIN_DEMO_DIRECTORY})
 set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
 
-add_subdirectory(PluginA)
-add_subdirectory(PluginB)
+add_subdirectory(Upstream)
+#add_subdirectory(Downstream)
+
+add_custom_target(${PROJECT_NAME}-Doc SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
