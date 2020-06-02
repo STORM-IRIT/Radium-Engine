@@ -1,9 +1,18 @@
 cmake_minimum_required(VERSION 3.6)
 #------------------------------------------------------------------------------
+# Standard "Radium" cmake preamble
 # Policies and global parameters for CMake
 if (POLICY CMP0077)
+    # allow to define options cache variable before the option is declared
+    # https://cmake.org/cmake/help/latest/policy/CMP0077.html
     cmake_policy(SET CMP0077 NEW)
 endif ()
+if (APPLE)
+    # MACOSX_RPATH is enabled by default.
+    # https://cmake.org/cmake/help/latest/policy/CMP0042.html
+    cmake_policy(SET CMP0042 NEW)
+endif (APPLE)
+
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 if (NOT CMAKE_BUILD_TYPE)
@@ -11,11 +20,7 @@ if (NOT CMAKE_BUILD_TYPE)
     message("Set default build type to ${CMAKE_BUILD_TYPE}")
 endif ()
 
-project(PluginB VERSION 1.0.0)
-
-if (APPLE)
-    cmake_policy(SET CMP0042 NEW)
-endif (APPLE)
+project(PluginWithLib VERSION 1.0.0)
 
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}" CACHE PATH
@@ -23,16 +28,11 @@ if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     message("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
     set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
 endif ()
+#------------------------------------------------------------------------------
 
-# Radium and Qt stuff
-find_package(Radium REQUIRED Core Engine PluginBase)
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
-set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-include_directories(
-    ${CMAKE_CURRENT_BINARY_DIR} # Moc
-)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# Configure the helper lib
+add_subdirectory(Library)
+# Configure the Plugin
+#add_subdirectory(Plugin)
 
-add_subdirectory(Plugin)
+add_custom_target(${PROJECT_NAME}-Doc SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
