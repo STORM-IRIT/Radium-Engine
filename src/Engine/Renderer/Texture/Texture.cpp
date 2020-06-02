@@ -97,7 +97,7 @@ void Texture::bindImageTexture( int unit,
         uint( unit ), level, layered, layer, access, m_textureParameters.internalFormat );
 }
 
-void Texture::updateData( void* data ) {
+void Texture::updateData( const void* data ) {
     switch ( m_texture->target() )
     {
     case GL_TEXTURE_1D: {
