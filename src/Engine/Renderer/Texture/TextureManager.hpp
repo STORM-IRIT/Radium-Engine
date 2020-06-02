@@ -60,6 +60,12 @@ class RA_ENGINE_API TextureManager final
     Texture* getOrLoadTexture( const TextureParameters& texParameters, bool linearize = false );
 
     /**
+     * Helper function, load the texture without adding it to the manager.
+     * @see getOrLoadTexture() for parameters description.
+     */
+    Texture* loadTexture( const TextureParameters& texParameters, bool linearize = false );
+
+    /**
      * Delete a named texture from the manager
      * @param filename
      */
@@ -88,16 +94,16 @@ class RA_ENGINE_API TextureManager final
      */
     void updatePendingTextures();
 
-  private:
-    TextureManager();
-    ~TextureManager();
-
     /** Load a texture as described by texParameters.
      * @note : only loads 2D image file for now.
      * @param texParameters parameters describing the texture to laod. This paremeters will be
      * updated (width, height, ...) according to the loaded file properties.
      */
-    void loadTexture( TextureParameters& texParameters );
+    void loadTextureImage( TextureParameters& texParameters );
+
+  private:
+    TextureManager();
+    ~TextureManager();
 
   private:
     std::map<std::string, Texture*> m_textures;
