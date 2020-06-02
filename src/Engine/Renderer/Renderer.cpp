@@ -176,7 +176,6 @@ void Renderer::initialize( uint width, uint height ) {
     initializeInternal();
 
     resize( m_width, m_height );
-
 }
 
 Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
@@ -292,10 +291,7 @@ void Renderer::render( const ViewingParameters& data ) {
 }
 
 void Renderer::saveExternalFBOInternal() {
-    // Save the current viewport ...
-    glGetIntegerv( GL_VIEWPORT, m_qtViewport );
-    // save the currently bound FBO
-    GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &m_qtPlz ) );
+    RadiumEngine::getInstance()->pushFboAndViewport();
     // Set the internal rendering viewport
     glViewport( 0, 0, int( m_width ), int( m_height ) );
 }
@@ -556,8 +552,7 @@ void Renderer::preparePicking( const ViewingParameters& renderData ) {
 }
 
 void Renderer::restoreExternalFBOInternal() {
-    glViewport( m_qtViewport[0], m_qtViewport[1], m_qtViewport[2], m_qtViewport[3] );
-    GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
+    RadiumEngine::getInstance()->popFboAndViewport();
 }
 
 void Renderer::drawScreenInternal() {
