@@ -286,5 +286,29 @@ Core::Aabb RadiumEngine::computeSceneAabb() const {
     return aabb;
 }
 
+void RadiumEngine::pushFboAndViewport() {
+    int activeFbo;
+    std::array<int, 4> activeViewport;
+
+    glGetIntegerv( GL_VIEWPORT, activeViewport.data() );
+    // save the currently bound FBO
+    GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &activeFbo ) );
+    // Set the internal rendering viewport
+    m_fboAndViewportStack.emplace( activeFbo, std::move(activeViewport) );
+}
+
+void RadiumEngine::popFboAndViewport() {
+    if ( m_fboAndViewportStack.empty() )
+    { LOG( logERROR ) << "RadiumEngine: try to pop from an empty Fbo and Viewport stack\n"; }
+    else
+    {
+        auto b = m_fboAndViewportStack.top();
+
+        glViewport( b.m_viewport[0], b.m_viewport[1], b.m_viewport[2], b.m_viewport[3] );
+        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, b.m_fbo ) );
+        m_fboAndViewportStack.pop();
+    }
+}
+
 } // namespace Engine
 } // namespace Ra
