@@ -34,7 +34,7 @@ TextureManager::addTexture( const std::string& name, uint width, uint height, vo
     return m_pendingTextures[name];
 }
 
-void TextureManager::loadTexture( TextureParameters& texParameters ) {
+void TextureManager::loadTextureImage( TextureParameters& texParameters ) {
     stbi_set_flip_vertically_on_load( true );
     int n;
     unsigned char* data = stbi_load( texParameters.name.c_str(),
@@ -97,6 +97,29 @@ void TextureManager::loadTexture( TextureParameters& texParameters ) {
     texParameters.type   = GL_UNSIGNED_BYTE;
 }
 
+Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bool linearize ) {
+    auto makeTexture = []( TextureParameters& d, bool l ) -> Texture* {
+        auto tex = new Texture( d );
+        tex->initializeGL( l );
+        return tex;
+    };
+    TextureParameters texparams = texParameters;
+    // TODO : allow to keep texels in texture parameters with automatic lifetime management.
+    bool freeTexels = false;
+    if ( texparams.texels == nullptr )
+    {
+        loadTextureImage( texparams );
+        freeTexels = true;
+    }
+    auto ret = makeTexture( texparams, linearize );
+    if ( freeTexels )
+    {
+        stbi_image_free( ret->m_textureParameters.texels );
+        ret->m_textureParameters.texels = nullptr;
+    }
+    return ret;
+}
+
 Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameters,
                                            bool linearize ) {
     auto it = m_textures.find( texParameters.name );
@@ -111,7 +134,7 @@ Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameter
     bool freeTexels = false;
     if ( texparams.texels == nullptr )
     {
-        loadTexture( texparams );
+        loadTextureImage( texparams );
         freeTexels = true;
     }
     auto ret = makeTexture( texparams, linearize );
