@@ -3,6 +3,12 @@
 #TODO : works well on MacOs : must be tested on other systems
 #TODO, some part are only for MACOS but could be generalized to all systems
 #   (MACOSX_BUNDLE on MacOs, Bundle like directories on other systems
+
+# Minimum version:
+# 3.13: install target from different directory
+#       see https://github.com/STORM-IRIT/Radium-Engine/pull/550#issuecomment-637415860
+cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
+
 include(CMakeParseArguments)
 # Introduction of two customs properties in the buildchain
 # these properties allow identify dependency resources when configuring/installing a target.
