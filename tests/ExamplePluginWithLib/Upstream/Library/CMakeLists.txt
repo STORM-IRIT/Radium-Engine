@@ -18,7 +18,7 @@ if (NOT CMAKE_BUILD_TYPE)
     message("Set default build type to ${CMAKE_BUILD_TYPE}")
 endif ()
 
-project(ExampleLibrary VERSION 1.0.0)
+project(ExampleLibraryUpstream VERSION 1.0.0)
 
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/installed-${CMAKE_CXX_COMPILER_ID}" CACHE PATH

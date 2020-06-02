@@ -1,9 +1,9 @@
 
 # This Plugin uses an external helper library (DummyLibrary).
 # This library can be searched and used in its build tree or in an installed one.
-if (NOT TARGET ExampleLibrary)
+if (NOT TARGET ExampleLibraryUpstream)
     message(STATUS "Searching for package ExampleLibrary")
-    find_package(ExampleLibrary REQUIRED)
+    find_package(ExampleLibraryUpstream REQUIRED)
 endif ()
 #once found (or used from the same buildtree than this project, the helper library has name DummyLibrary::DummyLibrary
 
@@ -29,7 +29,7 @@ target_link_libraries(
     Radium::Engine
     Radium::PluginBase
     ${Qt5_LIBRARIES}
-    ExampleLibrary::ExampleLibrary
+    ExampleLibraryUpstream::ExampleLibraryUpstream
 )
 
 #-----------------------------------------------------------------------------------
@@ -37,5 +37,5 @@ target_link_libraries(
 message(STATUS "Configuring the plugin ${PROJECT_NAME}")
 configure_radium_plugin(
     NAME ${PROJECT_NAME}
-    HELPER_LIBS ExampleLibrary::ExampleLibrary
+    HELPER_LIBS ExampleLibraryUpstream::ExampleLibraryUpstream
 )
