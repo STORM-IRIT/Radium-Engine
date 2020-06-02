@@ -10,6 +10,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <stack>
 
 namespace Ra {
 namespace Core {
@@ -171,6 +172,19 @@ class RA_ENGINE_API RadiumEngine
      */
     Core::Aabb computeSceneAabb() const;
 
+    /**
+     * Save currently bound OpenGL Framebuffer and viewport on the internal
+     * Engine stack. You can restore the state afterward with popFboAndViewport()
+     */
+    void pushFboAndViewport();
+
+    /**
+     * Restore  OpenGL Framebuffer and viewport from the internal
+     * Engine stack. The state have to be previously saved with pushFboAndViewport()
+     * Error message if stack is empty.
+     */
+    void popFboAndViewport();
+
   private:
     using Priority  = int;
     using SystemKey = std::pair<Priority, std::string>;
@@ -198,6 +212,20 @@ class RA_ENGINE_API RadiumEngine
 
     /// For internal resources management in a filesystem
     std::string m_resourcesRootDir;
+
+    /// active fbo and viewport management, this class handle fbo and viewport
+    /// values so that one can save and restore these value with pushFboAndViewport and popFboAndViewport
+    class FboAndViewport
+    {
+      public:
+        FboAndViewport( int fbo, std::array<int,4>&& viewport ) :
+            m_fbo{fbo}, m_viewport{viewport} {}
+        int m_fbo;
+        std::array<int,4> m_viewport;
+    };
+
+    /// Stack of saved fbo and viewport values @see pushFboAndViewport popFboAndViewport
+    std::stack<FboAndViewport> m_fboAndViewportStack;
 };
 
 } // namespace Engine
