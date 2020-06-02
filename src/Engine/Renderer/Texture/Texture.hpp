@@ -152,7 +152,7 @@ class RA_ENGINE_API Texture final
      * @param newData The new data, must contain the same number of elements than old data, no
      * check will be performed.
      */
-    void updateData( void* newData );
+    void updateData( const void* newData );
 
     /**
      * Update the parameters contained by the texture.
