@@ -23,6 +23,7 @@ find_dependency(Qt5 COMPONENTS Core REQUIRED)
  CoreExampleApp/CoreExampleApp.cpp)
  target_link_libraries(CoreExampleApp PUBLIC Core)
  configure_radium_app(NAME CoreExampleApp)
+ add_dependencies(${PROJECT_NAME} CoreExampleApp)
 
 #if (RADIUM_GENERATE_LIB_ENGINE)
     find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
@@ -39,6 +40,7 @@ find_dependency(Qt5 COMPONENTS Core REQUIRED)
             Core Engine GuiBase
             Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
             OpenGL::GL)
+    add_dependencies(${PROJECT_NAME} HelloRadium)
  message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
  configure_radium_app(NAME HelloRadium)
 
@@ -53,6 +55,7 @@ find_dependency(Qt5 COMPONENTS Core REQUIRED)
             Core Engine GuiBase
             Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
             OpenGL::GL)
+    add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
  message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
  configure_radium_app(NAME DrawPrimitivesDemo)
 #endif ()

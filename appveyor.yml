@@ -20,7 +20,7 @@ environment:
   RA_BUILD_DIR: C:\projects\Radium-Engine\build
   RA_BUNDLE_DIR: C:\projects\Radium-Engine\Bundle-MSVC
   RA_RELEASE_NAME: Radium-Engine-%APPVEYOR_REPO_COMMIT%-%platform%-%configuration%
-  
+
   matrix:
     ###########################################################################
     # Build x64 version using MSVC 2017
@@ -39,7 +39,7 @@ environment:
     #  INSTALL_NEW_CLANG: ON
     #  CLANG_URL: http://llvm.org/pre-releases/win-snapshots/LLVM-5.0.0-r301646-win64.exe
 
-      
+
 clone_folder: C:\projects\Radium-Engine
 
 # branches to build
@@ -89,6 +89,7 @@ build_script:
     "-DCMAKE_BUILD_TYPE=%configuration%"
     "-DCMAKE_PREFIX_PATH=%QTDIR%"
     "-DRADIUM_IO_ASSIMP=ON"
+    "-DRADIUM_UPDATE_VERSION=OFF"
     %APPVEYOR_BUILD_FOLDER%
 
   #############################################################################
@@ -102,7 +103,7 @@ after_build:
 on_failure:
   - appveyor PushArtifact CMakeFiles/CMakeOutput.log
   - appveyor PushArtifact CMakeFiles/CMakeError.log
-  
+
 artifacts:
   - path: Bundle-MSVC
     name: Radium-Engine-%platform%-%configuration%

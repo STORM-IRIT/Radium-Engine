@@ -33,6 +33,6 @@ endif ()
 # Configure the helper lib
 add_subdirectory(Library)
 # Configure the Plugin
-#add_subdirectory(Plugin)
+add_subdirectory(Plugin)
 
 add_custom_target(${PROJECT_NAME}-Doc SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
