@@ -21,6 +21,7 @@ endif()
 add_subdirectory(external)
 add_subdirectory(unittest)
 add_subdirectory(ExampleApps)
+add_subdirectory(ExamplePluginWithLib EXCLUDE_FROM_ALL)
 
 # Convenience targets for fast testing, they depends on binaries (so the build
 # is triggered, when sources were changed).

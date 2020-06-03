@@ -12,10 +12,6 @@ if (APPLE)
     cmake_policy(SET CMP0042 NEW)
 endif (APPLE)
 
-# No in-source build
-set(CMAKE_DISABLE_SOURCE_CHANGES ON)
-set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
     message("Set default build type to ${CMAKE_BUILD_TYPE}")
@@ -30,11 +26,42 @@ else ()
     set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
 endif ()
 message(STATUS " Installing plugin demo into ${PLUGIN_DEMO_DIRECTORY}")
-# This make the build system to buuuuuuug when compiling before installing Radium
+
+set(Radium_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium)
 set(CMAKE_INSTALL_PREFIX ${PLUGIN_DEMO_DIRECTORY})
 set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT False)
+add_custom_target(${PROJECT_NAME})
 
-add_subdirectory(Upstream)
-#add_subdirectory(Downstream)
+
+include(ExternalProject)
+
+macro(addLocalExternalFolder NAME FOLDER )
+
+    ExternalProject_Add(
+            ${NAME}
+            PREFIX "${CMAKE_CURRENT_BINARY_DIR}/${FOLDER}"
+            CONFIGURE_COMMAND ""
+            BUILD_COMMAND  ${CMAKE_COMMAND} "${CMAKE_CURRENT_SOURCE_DIR}/${FOLDER}"
+                -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+                -DCMAKE_PREFIX_PATH=${PLUGIN_DEMO_DIRECTORY}/lib/cmake
+                -DRadium_DIR=${Radium_DIR}
+                -DQt5_DIR=${Qt5_DIR}
+                -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+                -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+
+            DOWNLOAD_COMMAND ""
+            UPDATE_COMMAND ""
+            EXCLUDE_FROM_ALL
+            STEP_TARGETS install
+    )
+    add_dependencies(${NAME} ForceRadiumInstallation)
+    add_dependencies(ExamplePluginWithLib ${NAME})
+
+endmacro()
+addLocalExternalFolder( PluginUpstreamTarget Upstream )
+addLocalExternalFolder( PluginDownstreamTarget Downstream )
+add_dependencies(PluginDownstreamTarget PluginUpstreamTarget)
 
 add_custom_target(${PROJECT_NAME}-Doc SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/README.md)

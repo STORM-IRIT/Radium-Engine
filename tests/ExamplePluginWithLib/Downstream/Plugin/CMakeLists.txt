@@ -1,13 +1,12 @@
-
-# This Plugin uses an external helper library (DummyLibrary).
-# This library can be searched and used in its build tree or in an installed one.
+# This Plugin uses an external helper library (ExampleLibraryUpstream).
+# This library can be searched and used in its build tree or from an installation one.
 if (NOT TARGET ExampleLibraryUpstream)
-    message(STATUS "Searching for package ExampleLibrary")
+    message(STATUS "Searching for package ExampleLibraryUpstream")
     find_package(ExampleLibraryUpstream REQUIRED)
 endif ()
-#once found (or used from the same buildtree than this project, the helper library has name DummyLibrary::DummyLibrary
+#once found (or used from the same buildtree than this project), the helper library has name ExampleLibraryUpstream::ExampleLibraryUpstream
 
-# Poupulate the plugin by its sources
+# Populate the plugin by its sources
 set(sources
     PluginB.cpp
     )
