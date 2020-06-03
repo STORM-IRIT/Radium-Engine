@@ -22,7 +22,14 @@ add_library(
 
 add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
-addExternalFolder( Engine ${CMAKE_CURRENT_SOURCE_DIR}/external )
+# Choose between bundled or system dependencies
+set(LocalDependencies)
+if (DEFINED Eigen3_DIR)
+    set(LocalDependencies "-DEigen3_DIR=${Eigen3_DIR}")
+else ()
+    set(LocalDependencies "-DEigen3_DIR=${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/")
+endif ()
+addExternalFolder(Engine ${CMAKE_CURRENT_SOURCE_DIR}/external ${LocalDependencies})
 
 find_package(glbinding REQUIRED NO_DEFAULT_PATH )
 find_package(globjects REQUIRED NO_DEFAULT_PATH )

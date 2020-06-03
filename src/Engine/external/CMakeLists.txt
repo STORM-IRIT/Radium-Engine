@@ -42,6 +42,12 @@ ExternalProject_Add(glbinding
     -DOPTION_BUILD_EXAMPLES=OFF
     )
 
+if (NOT DEFINED Eigen3_DIR)
+    message(STATUS "[EngineExternal] globjects use bundled eigen3")
+    set(Eigen3_DIR ${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/)
+else ()
+    message(STATUS "[EngineExternal] globjects use eigen3 from ${Eigen3_DIR}")
+endif ()
 ExternalProject_Add(globjects
     GIT_REPOSITORY https://github.com/dlyr/globjects.git
     GIT_TAG 11c559a07d9e310abb2f53725fd47cfaf538f8b1
@@ -57,7 +63,7 @@ ExternalProject_Add(globjects
     -Dglbinding_DIR=${CMAKE_INSTALL_PREFIX}
     # force to use the bundled glm and eigen version
     -Dglm_DIR=${CMAKE_INSTALL_PREFIX}/lib/cmake/glm
-    -DEigen3_DIR=${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/
+    -DEigen3_DIR=${Eigen3_DIR}
     )
 
 ExternalProject_Add( stb

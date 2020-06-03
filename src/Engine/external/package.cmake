@@ -6,5 +6,6 @@ set(Eigen3_sub_DIR share/eigen3/cmake/ CACHE INTERNAL "")
 set(glm_DIR ${CMAKE_INSTALL_PREFIX}/${glm_sub_DIR})
 set(glbinding_DIR ${CMAKE_INSTALL_PREFIX}/${glbinding_sub_DIR})
 set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/${globjects_sub_DIR})
-set(Eigen3_DIR ${CMAKE_INSTALL_PREFIX}/${Eigen3_sub_DIR})
-
+if (NOT DEFINED Eigen3_DIR)
+    set(Eigen3_DIR ${CMAKE_INSTALL_PREFIX}/${Eigen3_sub_DIR})
+endif ()
