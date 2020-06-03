@@ -156,6 +156,16 @@ add_subdirectory(doc)
 # Source code
 add_subdirectory(src)
 
+# add a target allowing to force the installation of the library
+
+set(RadiumForceInstallCommutators "")
+if (MSVC)
+        set(RadiumForceInstallCommutators "/p:Configuration=${CMAKE_BUILD_TYPE}")
+endif(MSVC)
+add_custom_target(ForceRadiumInstallation
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target install -- ${RadiumForceInstallCommutators}
+    COMMENT "Forcing Radium installation")
+
 # Testing
 if( RADIUM_ENABLE_TESTING )
     enable_testing()
