@@ -172,7 +172,7 @@ add_custom_target(ForceRadiumInstallation
 # Testing
 if( RADIUM_ENABLE_TESTING )
     enable_testing()
-    add_subdirectory(tests EXCLUDE_FROM_ALL)
+    add_subdirectory(tests)
     add_dependencies(RadiumLibs CoreExampleApp RadiumExampleApps)
 endif()
 

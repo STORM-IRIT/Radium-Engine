@@ -1,13 +1,13 @@
 # Plugin sharing library - Downstream
-This example illustrates how to ship a library with a Radium plugin, and make the library available
-to other plugins.
+This example illustrates how to ship a library with a Radium plugin, and make the library available to other plugins.
 
 ## Configure and compile
 ```bash
 mkdir build
-ce build
-cmake -DRadium_DIR=/pathToInstalledRadium/lib/cmake/Radium/  -DQt5_DIR=/pathToInstalledQt5/lib/cmake/Qt5 ..`
+cd build
+cmake -DRadium_DIR=/pathToInstalledRadium/lib/cmake/Radium/ ..`
 ```
+If Qt5 package is not found, add the option `-DQt5_DIR=/pathToInstalledQt5/lib/cmake/Qt5` to the cmake command.
 
 ## Compile
 ```bash

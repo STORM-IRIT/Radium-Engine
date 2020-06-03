@@ -1,5 +1,5 @@
 # Plugin sharing library
-This example illustrate how to distribute a library alongside a plugin Radium, while making the
+This example illustrates how to distribute a library alongside a plugin Radium, while making the
 library available for any other plugin.
 
 It has two components:
@@ -7,15 +7,16 @@ It has two components:
  - Downstream: User plugin using the library provided by Upstream.
 
 ## Configure and compile
-This example can either be compiled with Radium, or separately. For the latter, Radium must be
-already compiled and installed.
-
+The head `CMakefile.txt` compiles and install the cmake projects in Upstream and Downstream directories.
+When compiling Radium, this process can be called using the target `ExamplePluginWithLib`:
 ```bash
-mkdir build
-cd build
-cmake -DRadium_DIR=/pathToInstalledRadium/lib/cmake/Radium/ ../
-make install
+make ExamplePluginWithLib
 ```
+Note that calling this target will force the installation of Radium, as both Upstream and Downstream
+plugins needs an installed Radium cmake package.
+
+Alternatively, this process can be replicated by compiling the Upstream and Downstream projects separately, 
+by following the compilation instructions given in `Upstream/CMakefile.txt` and then `Downstream/CMakefile.txt`.
 
 ## Use
 Load the Upstream and Downstream plugins into any plugin compatible Radium app, a confirmation
