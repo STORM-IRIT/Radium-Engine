@@ -91,7 +91,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     Engine::Renderer* getRenderer();
 
     /** Add a renderer and return its index. Need to be called when catching
-     * \param e : unique_ptr to your own renderer
+     * \param e : your own renderer
      * \return index of the newly added renderer
      * \code
      * int rendererId = addRenderer(new MyRenderer(width(), height()));
