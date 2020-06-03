@@ -156,6 +156,9 @@ add_subdirectory(doc)
 # Source code
 add_subdirectory(src)
 
+# Add this target so that some IDE could propose to build all radium libs and examples at once
+add_custom_target(RadiumLibs DEPENDS Core Engine GuiBase IO PluginBase)
+
 # add a target allowing to force the installation of the library
 
 set(RadiumForceInstallCommutators "")
@@ -169,15 +172,14 @@ add_custom_target(ForceRadiumInstallation
 # Testing
 if( RADIUM_ENABLE_TESTING )
     enable_testing()
-    add_subdirectory(tests)
+    add_subdirectory(tests EXCLUDE_FROM_ALL)
+    add_dependencies(RadiumLibs CoreExampleApp RadiumExampleApps)
 endif()
 
 # Packaging stuff (deb, rpm, windows installer)
 #add_subdirectory(packaging)
 
 
-# Add this target so that some IDE could propose to build all radium libs and examples at once
-add_custom_target(RadiumLibs DEPENDS Core Engine GuiBase IO PluginBase CoreExampleApp RadiumExampleApps)
 
 
 #-------------------------------------------------------------------------------
