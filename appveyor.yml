@@ -88,6 +88,7 @@ build_script:
   - cmake -G Ninja
     "-DCMAKE_BUILD_TYPE=%configuration%"
     "-DCMAKE_PREFIX_PATH=%QTDIR%"
+    "-DRADIUM_IO_ASSIMP=ON"
     %APPVEYOR_BUILD_FOLDER%
 
   #############################################################################
