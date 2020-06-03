@@ -14,17 +14,22 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-ExternalProject_Add(Eigen3
-    GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
-    GIT_TAG e80ec243
-    GIT_SHALLOW FALSE
-    GIT_PROGRESS TRUE
-    INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-    CMAKE_ARGS
-    ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
-    -DEIGEN_TEST_CXX11=OFF
-    -DBUILD_TESTING=OFF
-    )
+if (NOT DEFINED Eigen3_DIR)
+    message(STATUS "[CoreExternal] Using eigen3 from its git repository")
+    ExternalProject_Add(Eigen3
+        GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
+        GIT_TAG e80ec243
+        GIT_SHALLOW FALSE
+        GIT_PROGRESS TRUE
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        CMAKE_ARGS
+        ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+        -DEIGEN_TEST_CXX11=OFF
+        -DBUILD_TESTING=OFF
+        )
+else ()
+    message(STATUS "[CoreExternal] Using user provided Eigen3_DIR [${Eigen3_DIR}]")
+endif ()
 
 # I found some problems when generating xcode project for OpenMesh: the libXXX.dylib link to
 # libXXX.Major.minor.dylib (eg libOpenMesh.2.1.dylib) is not generated and the script failed.

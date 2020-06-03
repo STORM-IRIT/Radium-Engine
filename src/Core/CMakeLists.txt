@@ -31,7 +31,12 @@ add_library(
     ${core_inlines}
     ${RA_VERSION_CPP}
 )
-addExternalFolder( Core ${CMAKE_CURRENT_SOURCE_DIR}/external )
+
+set(LocalDependencies)
+if (DEFINED Eigen3_DIR)
+    set(LocalDependencies "-DEigen3_DIR=${Eigen3_DIR}")
+endif ()
+addExternalFolder(Core ${CMAKE_CURRENT_SOURCE_DIR}/external ${LocalDependencies})
 
 find_package(Eigen3 3.3
     REQUIRED
