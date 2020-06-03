@@ -36,6 +36,7 @@ macro(configureTargetWithDefaultRaSettings TARGET)
       $<INSTALL_INTERFACE:include>
       )
   set_target_properties(${TARGET} PROPERTIES VERSION ${RADIUM_VERSION})
+  add_library(Radium::${TARGET} ALIAS ${TARGET})
 endmacro()
 
 #-----------------------------------------------------------------------------------
