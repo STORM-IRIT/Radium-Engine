@@ -42,7 +42,8 @@ void Texture::initializeGL( bool linearize ) {
             numcomp = 1;
             break;
         case GL_RG:
-            numcomp  = 1;
+            // correspondS to deprecated GL_LUMINANCE_ALPHA
+            numcomp  = 2;
             hasAlpha = true;
             break;
         case GL_RGB:
