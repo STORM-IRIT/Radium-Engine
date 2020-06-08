@@ -53,8 +53,8 @@ class RA_CORE_API KeyFramedValueBase
  * which are pairs (time,value) sorted by time.
  *
  * It also introduces the concept of Interpolator:
- * an Interpolator is a function that takes as input a collection
- * of KeyFramedValue::KeyFrame and returns the value for a given time t
+ * a KeyFramedValue::Interpolator is a function that takes as input a
+ * KeyFramedValue and returns the value for a given time t
  * (see for instance Ra::Core::Animation::linearInterpolate).
  *
  * \note There is always at least one keyframe defined.
@@ -68,6 +68,9 @@ class KeyFramedValue : public KeyFramedValueBase
 
     /// The type for the keyframes container.
     using KeyFrames = std::vector<KeyFrame>;
+
+    /// The type for interpolators.
+    using Interpolator = std::function<VALUE_TYPE( const KeyFramedValue<VALUE_TYPE>&, Scalar )>;
 
     /**
      * Creates a KeyFramedValue from a first keyframe.
@@ -132,8 +135,7 @@ class KeyFramedValue : public KeyFramedValueBase
     ￼ * Inserts a keyframe at time \p t corresponding to the value interpolated at \p t
      * using the given interpolator.
     ￼ */
-    template <typename INTERPOLATOR>
-    inline void insertInterpolatedKeyFrame( const Scalar& t, const INTERPOLATOR& interpolator ) {
+    inline void insertInterpolatedKeyFrame( const Scalar& t, const Interpolator& interpolator ) {
         insertKeyFrame( t, at( t, interpolator ) );
     }
 
@@ -163,9 +165,52 @@ class KeyFramedValue : public KeyFramedValueBase
     ￼ * \returns the value at time \p t, interpolated from the keyframes using the
      *          given interpolator.
     ￼ */
-    template <typename INTERPOLATOR>
-    inline VALUE_TYPE at( const Scalar& t, const INTERPOLATOR& interpolator ) const {
-        return interpolator( m_keyframes, t );
+    inline VALUE_TYPE at( const Scalar& t, const Interpolator& interpolator ) const {
+        return interpolator( *this, t );
+    }
+
+    /**
+     * Look for the keyframes around time \p t.
+     * \param t The time to search for.
+     * \returns a triplet(i,j,dt), where i is the index for the keyframe
+     *          preceding t, j is the index for the keyframe following t and
+     *          dt \f$ \in [0;1] \f$ is the linear parameter of \p t between
+     *          times \p ti and \p tj at keyframes i and j.
+     * \note If \p t is lower than the first keyframe's time tf,
+     *       then \p i = \p j = 0 and \p dt = 0.
+     *       If \p t is higher than the last keyframe's time tl,
+     *       then \p i = \p j = the index of the last keyframe and \p dt = 0.
+     *       If \p t is an exact match on a keyframe's time tt,
+     *       then \p i = \p j = the index of the keyframe and \p dt = 0.
+     */
+    std::tuple<size_t, size_t, Scalar> findRange( Scalar t ) const {
+        // before first
+        if ( t < m_keyframes.begin()->first ) { return {0, 0, 0_ra}; }
+        // after last
+        if ( t > m_keyframes.rbegin()->first )
+        {
+            const size_t i = m_keyframes.size() - 1;
+            return {i, i, 0_ra};
+        }
+        // look for exact match
+        auto kf0   = m_keyframes[0];
+        kf0.first  = t;
+        auto upper = std::upper_bound(
+            m_keyframes.begin(), m_keyframes.end(), kf0, []( const auto& a, const auto& b ) {
+                return a.first < b.first;
+            } );
+        auto lower = upper;
+        --lower;
+        if ( Math::areApproxEqual( lower->first, t ) )
+        {
+            const size_t i = std::distance( m_keyframes.begin(), lower );
+            return {i, i, 0_ra};
+        }
+        // in-between
+        const size_t i  = std::distance( m_keyframes.begin(), lower );
+        const Scalar t0 = lower->first;
+        const Scalar t1 = upper->first;
+        return {i, i + 1, ( t - t0 ) / ( t1 - t0 )};
     }
     /// \}
 
