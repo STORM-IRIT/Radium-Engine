@@ -141,49 +141,48 @@ void AssimpAnimationDataLoader::fetchHandleAnimation( aiNodeAnim* node,
     AnimationTime::Time timeOffset = time < 0_ra ? -time : 0_ra;
     keyFrame.insert( time + timeOffset );
     KeyFramedValue<Core::Vector3> tr( assimpToCore( node->mPositionKeys[0].mValue ),
-                                      time + timeOffset,
-                                      Core::Animation::linearInterpolate<Core::Vector3> );
+                                      time + timeOffset );
     time = Scalar( node->mRotationKeys[0].mTime );
     keyFrame.insert( time );
     KeyFramedValue<Core::Quaternion> rot( assimpToCore( node->mRotationKeys[0].mValue ),
-                                          time + timeOffset,
-                                          Core::Animation::linearInterpolate<Core::Quaternion> );
+                                          time + timeOffset );
     time = Scalar( node->mScalingKeys[0].mTime );
     keyFrame.insert( time );
     KeyFramedValue<Core::Vector3> s( assimpToCore( node->mScalingKeys[0].mValue ),
-                                     time + timeOffset,
-                                     Core::Animation::linearInterpolate<Core::Vector3> );
+                                     time + timeOffset );
 
     // fetch the other keyframes
     for ( uint i = 1; i < T_size; ++i )
     {
-        auto time = Scalar( node->mPositionKeys[i].mTime ) + timeOffset;
+        time = Scalar( node->mPositionKeys[i].mTime ) + timeOffset;
         tr.insertKeyFrame( time, assimpToCore( node->mPositionKeys[i].mValue ) );
         keyFrame.insert( time );
     }
 
     for ( uint i = 1; i < R_size; ++i )
     {
-        auto time = Scalar( node->mRotationKeys[i].mTime ) + timeOffset;
+        time = Scalar( node->mRotationKeys[i].mTime ) + timeOffset;
         rot.insertKeyFrame( time, assimpToCore( node->mRotationKeys[i].mValue ) );
         keyFrame.insert( time );
     }
 
     for ( uint i = 1; i < S_size; ++i )
     {
-        auto time = Scalar( node->mScalingKeys[i].mTime ) + timeOffset;
+        time = Scalar( node->mScalingKeys[i].mTime ) + timeOffset;
         s.insertKeyFrame( time, assimpToCore( node->mScalingKeys[i].mValue ) );
         keyFrame.insert( time );
     }
 
     // fill data
     data.m_animationTime = AnimationTime( *keyFrame.begin(), *keyFrame.rbegin() );
-    for ( const auto& time : keyFrame )
+    for ( const auto& t : keyFrame )
     {
         Core::Transform T;
-        T.fromPositionOrientationScale( tr.at( time ), rot.at( time ), s.at( time ) );
-        data.m_anim.insertKeyFrame(
-            ( Ra::Core::Math::areApproxEqual( dt, 0_ra ) ? time : ( dt * time ) ), T );
+        T.fromPositionOrientationScale( tr.at( t, linearInterpolate<Core::Vector3> ),
+                                        rot.at( t, linearInterpolate<Core::Quaternion> ),
+                                        s.at( t, linearInterpolate<Core::Vector3> ) );
+        data.m_anim.insertKeyFrame( ( Ra::Core::Math::areApproxEqual( dt, 0_ra ) ? t : ( dt * t ) ),
+                                    T );
     }
     data.m_anim.removeKeyFrame( 0 );
 }
