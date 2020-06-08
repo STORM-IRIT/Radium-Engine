@@ -26,6 +26,22 @@ class RA_CORE_API KeyFramedValueBase
     virtual ~KeyFramedValueBase() {}
 
     /**
+     * @returns the number of keyframes.
+     */
+    virtual inline size_t size() const = 0;
+
+    /**
+     * Removes the \p i-th keyframe, if not the only one.
+     * \returns true if the keyframed has been removed, false otherwise.
+     */
+    virtual inline bool removeKeyFrame( size_t i ) = 0;
+
+    /**
+     * Moves the \p i-th keyframe to time \p t.
+     */
+    virtual inline void moveKeyFrame( size_t i, const Scalar& t ) = 0;
+
+    /**
      * \returns the ordered list of the points in time where a keyframe is defined.
      */
     virtual inline std::vector<Scalar> getTimes() const = 0;
@@ -81,7 +97,7 @@ class KeyFramedValue : public KeyFramedValueBase
     /**
      * @returns the number of keyframes.
      */
-    inline size_t size() const { return m_keyframes.size(); }
+    inline size_t size() const override { return m_keyframes.size(); }
 
     /**
      * @returns the collection of keyframes.
@@ -127,7 +143,7 @@ class KeyFramedValue : public KeyFramedValueBase
      * Removes the \p i-th keyframe, if not the only one.
      * \returns true if the keyframed has been removed, false otherwise.
      */
-    inline bool removeKeyFrame( size_t i ) {
+    inline bool removeKeyFrame( size_t i ) override {
         if ( size() == 1 ) return false;
         m_keyframes.erase( m_keyframes.begin() + i );
         return true;
@@ -136,7 +152,7 @@ class KeyFramedValue : public KeyFramedValueBase
     /**
      * Moves the \p i-th keyframe to time \p t.
      */
-    inline void moveKeyFrame( size_t i, const Scalar& t ) {
+    inline void moveKeyFrame( size_t i, const Scalar& t ) override {
         KeyFrame kf = m_keyframes[i];
         if ( !Ra::Core::Math::areApproxEqual( kf.first, t ) )
         {
