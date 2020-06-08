@@ -74,7 +74,7 @@ $ cmake ..
 $ make
 ~~~
 
-Finally, the install target will copy all the radium related library in the same place, usefull for App compilation 
+Finally, the install target will copy all the radium related library in the same place, usefull for App compilation
 
 ~~~bash
 $ make install
@@ -106,6 +106,9 @@ RADIUM_GIT_UPDATE_SUBMODULE:BOOL=ON
 --
 // Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target
 RADIUM_INSTALL_DOC:BOOL=ON
+--
+// Value of CMAKE_INSTALL_MESSAGE for dependencies. See documentations of CMAKE_INSTALL_MESSAGE for possible values
+RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=NEVER
 --
 // Disable Radium Log messages
 RADIUM_QUIET:BOOL=OFF
