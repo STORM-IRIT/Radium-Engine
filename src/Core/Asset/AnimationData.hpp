@@ -81,12 +81,12 @@ class RA_CORE_API AnimationData : public AssetData
     /**
      * \returns the list of HandleAnimations, i.e. the whole animation frames.
      */
-    inline std::vector<HandleAnimation> getFrames() const;
+    inline std::vector<HandleAnimation> getHandleData() const;
 
     /**
      * Sets the animation frames.
      */
-    inline void setFrames( const std::vector<HandleAnimation>& frameList );
+    inline void setHandleData( const std::vector<HandleAnimation>& frameList );
     /// \}
 
     /**

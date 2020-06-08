@@ -119,7 +119,7 @@ void AssimpAnimationDataLoader::fetchAnimation( const aiAnimation* anim,
         fetchHandleAnimation( anim->mChannels[i], keyFrame[i], data->getTimeStep() );
         time.extends( keyFrame[i].m_animationTime );
     }
-    data->setFrames( keyFrame );
+    data->setHandleData( keyFrame );
     data->setTime( time );
 }
 
