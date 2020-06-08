@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include <Core/Animation/KeyFramedValue.hpp>
+#include <Core/Animation/KeyFramedValueInterpolators.hpp>
 #include <Core/Math/Interpolation.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
@@ -20,10 +21,8 @@
 
 static constexpr int CTRL_PT_RAD = 5;
 
+using namespace Ra::Core::Animation;
 using namespace Ra::Core::Utils;
-
-template <typename T>
-using KeyFramedValue = Ra::Core::Animation::KeyFramedValue<T>;
 
 namespace Ra::GuiBase {
 
@@ -297,32 +296,32 @@ void KeyFrameEditorFrame::onSetCursorToNextKeyFrame() {
         }                                                            \
     }
 
-#define drawSampled( drawFunc )                           \
-    {                                                     \
-        int p;                                            \
-        Scalar t0 = *times.begin();                       \
-        for ( auto t1 : times )                           \
-        {                                                 \
-            fromTimeToPixel( t1, p );                     \
-            if ( p < sliderH )                            \
-            {                                             \
-                std::exchange( t0, t1 );                  \
-                continue;                                 \
-            }                                             \
-            fromTimeToPixel( t0, p );                     \
-            if ( p > sliderH + areaWidth )                \
-            {                                             \
-                std::exchange( t0, t1 );                  \
-                continue;                                 \
-            }                                             \
-            const int N = int( ( t1 - t0 ) / stepT );     \
-            for ( Scalar t = t0; t <= t1; t += 1_ra / N ) \
-            {                                             \
-                fromTimeToPixel( t, p );                  \
-                drawFunc( p, kf->at( t ) );               \
-            }                                             \
-            std::exchange( t0, t1 );                      \
-        }                                                 \
+#define drawSampled( drawFunc, type )                                \
+    {                                                                \
+        int p;                                                       \
+        Scalar t0 = *times.begin();                                  \
+        for ( auto t1 : times )                                      \
+        {                                                            \
+            fromTimeToPixel( t1, p );                                \
+            if ( p < sliderH )                                       \
+            {                                                        \
+                std::exchange( t0, t1 );                             \
+                continue;                                            \
+            }                                                        \
+            fromTimeToPixel( t0, p );                                \
+            if ( p > sliderH + areaWidth )                           \
+            {                                                        \
+                std::exchange( t0, t1 );                             \
+                continue;                                            \
+            }                                                        \
+            const int N = int( ( t1 - t0 ) / stepT );                \
+            for ( Scalar t = t0; t <= t1; t += 1_ra / N )            \
+            {                                                        \
+                fromTimeToPixel( t, p );                             \
+                drawFunc( p, kf->at( t, linearInterpolate<type> ) ); \
+            }                                                        \
+            std::exchange( t0, t1 );                                 \
+        }                                                            \
     }
 
 void KeyFrameEditorFrame::paintEvent( QPaintEvent* ) {
@@ -483,33 +482,33 @@ void KeyFrameEditorFrame::paintEvent( QPaintEvent* ) {
                     fromValueToPixel( v, y );
                     path[0].lineTo( QPoint( x, y ) );
                 };
-                drawSampled( drawScalar );
+                drawSampled( drawScalar, Scalar );
             }
         }
         else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Vector2>*>( m_value ) )
         {
             if ( m_displayCurve[0] || m_displayCurve[1] )
-            { drawSampled( drawVector( Ra::Core::Vector2, 2 ) ); }
+            { drawSampled( drawVector( Ra::Core::Vector2, 2 ), Ra::Core::Vector2 ); }
         }
         else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Vector3>*>( m_value ) )
         {
             if ( m_displayCurve[0] || m_displayCurve[1] || m_displayCurve[2] )
-            { drawSampled( drawVector( Ra::Core::Vector3, 3 ) ); }
+            { drawSampled( drawVector( Ra::Core::Vector3, 3 ), Ra::Core::Vector3 ); }
         }
         else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Vector4>*>( m_value ) )
         {
             if ( m_displayCurve[0] || m_displayCurve[1] || m_displayCurve[2] || m_displayCurve[3] )
-            { drawSampled( drawVector( Ra::Core::Vector4, 4 ) ); }
+            { drawSampled( drawVector( Ra::Core::Vector4, 4 ), Ra::Core::Vector4 ); }
         }
         else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Utils::Color>*>( m_value ) )
         {
             if ( m_displayCurve[0] || m_displayCurve[1] || m_displayCurve[2] || m_displayCurve[3] )
-            { drawSampled( drawVector( Ra::Core::Utils::Color, 4 ) ); }
+            { drawSampled( drawVector( Ra::Core::Utils::Color, 4 ), Ra::Core::Utils::Color ); }
         }
         else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Quaternion>*>( m_value ) )
         {
             if ( m_displayCurve[0] || m_displayCurve[1] || m_displayCurve[2] || m_displayCurve[3] )
-            { drawSampled( drawQuaternion ); }
+            { drawSampled( drawQuaternion, Ra::Core::Quaternion ); }
         }
         else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Transform>*>( m_value ) )
         {
@@ -541,7 +540,7 @@ void KeyFrameEditorFrame::paintEvent( QPaintEvent* ) {
                         path[9].lineTo( QPoint( x, y ) );
                     }
                 };
-                drawSampled( drawTransform );
+                drawSampled( drawTransform, Ra::Core::Transform );
             }
         }
 
@@ -729,17 +728,20 @@ void KeyFrameEditorFrame::mouseMoveEvent( QMouseEvent* event ) {
             if ( auto kf = dynamic_cast<KeyFramedValue<bool>*>( m_value ) )
             {
                 kf->insertKeyFrame( time, int( std::max( value, 0_ra ) ) );
-                m_curveControlPoints[uint( i )][uint( j )].y() = kf->at( time );
+                m_curveControlPoints[uint( i )][uint( j )].y() =
+                    kf->at( time, linearInterpolate<bool> );
             }
             if ( auto kf = dynamic_cast<KeyFramedValue<int>*>( m_value ) )
             {
                 kf->insertKeyFrame( time, int( value ) );
-                m_curveControlPoints[uint( i )][uint( j )].y() = kf->at( time );
+                m_curveControlPoints[uint( i )][uint( j )].y() =
+                    kf->at( time, linearInterpolate<int> );
             }
             if ( auto kf = dynamic_cast<KeyFramedValue<Scalar>*>( m_value ) )
             {
                 kf->insertKeyFrame( time, value );
-                m_curveControlPoints[uint( i )][uint( j )].y() = kf->at( time );
+                m_curveControlPoints[uint( i )][uint( j )].y() =
+                    kf->at( time, linearInterpolate<Scalar> );
             }
             if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Vector2>*>( m_value ) )
             {
@@ -855,21 +857,21 @@ Scalar KeyFrameEditorFrame::nearestStep( Scalar time ) const {
     return newCursor;
 }
 
-#define registerValue()                                        \
-    m_curveControlPoints[0].reserve( times.size() );           \
-    for ( auto t : times )                                     \
-    {                                                          \
-        m_curveControlPoints[0].push_back( {t, kf->at( t )} ); \
+#define registerValue( type )                                                           \
+    m_curveControlPoints[0].reserve( times.size() );                                    \
+    for ( auto t : times )                                                              \
+    {                                                                                   \
+        m_curveControlPoints[0].push_back( {t, kf->at( t, linearInterpolate<type> )} ); \
     }
 
-#define registerVector( N )                                   \
+#define registerVector( N, type )                             \
     for ( size_t i = 0; i < N; ++i )                          \
     {                                                         \
         m_curveControlPoints[i].reserve( times.size() );      \
     }                                                         \
     for ( auto t : times )                                    \
     {                                                         \
-        const auto f = kf->at( t );                           \
+        const auto f = kf->at( t, linearInterpolate<type> );  \
         for ( uint i = 0; i < N; ++i )                        \
             m_curveControlPoints[i].push_back( {t, f( i )} ); \
     }
@@ -910,7 +912,8 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
         m_curveControlPoints[0].reserve( times.size() );
         for ( auto t : times )
         {
-            m_curveControlPoints[0].push_back( {t, ( kf->at( t ) ? 1 : 0 )} );
+            m_curveControlPoints[0].push_back(
+                {t, ( kf->at( t, linearInterpolate<bool> ) ? 1 : 0 )} );
         }
 
         if ( m_ui != nullptr )
@@ -921,7 +924,7 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
     }
     else if ( auto kf = dynamic_cast<KeyFramedValue<int>*>( m_value ) )
     {
-        registerValue();
+        registerValue( int );
 
         if ( m_ui != nullptr )
         {
@@ -931,7 +934,7 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
     }
     else if ( auto kf = dynamic_cast<KeyFramedValue<Scalar>*>( m_value ) )
     {
-        registerValue();
+        registerValue( Scalar );
 
         if ( m_ui != nullptr )
         {
@@ -941,7 +944,7 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
     }
     else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Vector2>*>( m_value ) )
     {
-        registerVector( 2 );
+        registerVector( 2, Ra::Core::Vector2 );
 
         if ( m_ui != nullptr )
         {
@@ -953,7 +956,7 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
     }
     else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Vector3>*>( m_value ) )
     {
-        registerVector( 3 );
+        registerVector( 3, Ra::Core::Vector3 );
 
         if ( m_ui != nullptr )
         {
@@ -967,7 +970,7 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
     }
     else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Vector4>*>( m_value ) )
     {
-        registerVector( 4 );
+        registerVector( 4, Ra::Core::Vector4 );
 
         if ( m_ui != nullptr )
         {
@@ -983,7 +986,7 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
     }
     else if ( auto kf = dynamic_cast<KeyFramedValue<Ra::Core::Utils::Color>*>( m_value ) )
     {
-        registerVector( 4 );
+        registerVector( 4, Ra::Core::Utils::Color );
 
         if ( m_ui != nullptr )
         {
@@ -1004,7 +1007,9 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
         m_curveControlPoints[6].reserve( times.size() );
         for ( auto t : times )
         {
-            const auto f = kf->at( t ).matrix().eulerAngles( 0, 1, 2 );
+            const auto f = kf->at( t, linearInterpolate<Ra::Core::Quaternion> )
+                               .matrix()
+                               .eulerAngles( 0, 1, 2 );
             m_curveControlPoints[4].push_back( {t, f.x()} );
             m_curveControlPoints[5].push_back( {t, f.y()} );
             m_curveControlPoints[6].push_back( {t, f.z()} );
@@ -1025,7 +1030,7 @@ void KeyFrameEditorFrame::registerKeyFrames( bool newValue ) {
         }
         for ( auto t : times )
         {
-            const auto f = kf->at( t );
+            const auto f = kf->at( t, linearInterpolate<Ra::Core::Transform> );
             const auto T = f.translation();
             Ra::Core::Matrix3 R, S;
             f.computeRotationScaling( &R, &S );
