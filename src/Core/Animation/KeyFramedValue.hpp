@@ -121,9 +121,7 @@ class KeyFramedValue : public KeyFramedValueBase
             } );
         auto lower = upper;
         --lower;
-        if ( upper == m_keyframes.end() ) { m_keyframes.insert( upper, kf ); }
-        else if ( lower == m_keyframes.end() )
-        { m_keyframes.insert( m_keyframes.begin(), kf ); }
+        if ( upper == m_keyframes.begin() ) { m_keyframes.insert( upper, kf ); }
         else if ( Math::areApproxEqual( lower->first, t ) )
         { lower->second = frame; }
         else
