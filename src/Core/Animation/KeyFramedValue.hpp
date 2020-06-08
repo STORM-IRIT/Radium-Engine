@@ -17,9 +17,6 @@ namespace Animation {
  * any variable (e.g. transformation matrix, color, scalar value, flag) that
  * needs to be animated can be controlled by a `KeyFramedValue`, which inherits
  * KeyFramedValueBase (see dedicated documentation).
- *
- * KeyFramedValueBase defines the basic interface available to control keyframes:
- * insertKeyFrame, removeKeyFrame and moveKeyFrame.
  */
 class RA_CORE_API KeyFramedValueBase
 {
@@ -29,42 +26,22 @@ class RA_CORE_API KeyFramedValueBase
     virtual ~KeyFramedValueBase() {}
 
     /**
-     * \returns the number of keyframes.
-     */
-    virtual size_t size() const = 0;
-
-    /**
      * \returns the ordered list of the points in time where a keyframe is defined.
      */
     virtual inline std::vector<Scalar> getTimes() const = 0;
-
-    /**
-     * Inserts a keyframe at time \p t.
-     */
-    virtual void insertKeyFrame( const Scalar& t ) = 0;
-
-    /**
-     * Removes the \p i-th keyframe.
-     * \returns true if the keyframe has been removed, false otherwise.
-     */
-    virtual bool removeKeyFrame( size_t i ) = 0;
-
-    /**
-     * Moves the \p i-th keyframe to time \p t.
-     * \returns true if the keyframe has been moved, false otherwise.
-     */
-    virtual bool moveKeyFrame( size_t i, const Scalar& t ) = 0;
 };
 
 /**
  * KeyFramedValue extends KeyFramedValueBase by implementing its interface,
  * adding management for the VALUE_TYPE KeyFramedValue::KeyFrame,
- * which are pairs (time,value).
+ * which are pairs (time,value) sorted by time.
  *
- * It also introduces the concept of KeyFramedValue::Interpolator:
- * a KeyFramedValue::Interpolator is a function that takes as input a collection
+ * It also introduces the concept of Interpolator:
+ * an Interpolator is a function that takes as input a collection
  * of KeyFramedValue::KeyFrame and returns the value for a given time t
  * (see for instance Ra::Core::Animation::linearInterpolate).
+ *
+ * \note There is always at least one keyframe defined.
  */
 template <typename VALUE_TYPE>
 class KeyFramedValue : public KeyFramedValueBase
@@ -76,47 +53,45 @@ class KeyFramedValue : public KeyFramedValueBase
     /// The type for the keyframes container.
     using KeyFrames = std::vector<KeyFrame>;
 
-    /// The type for interpolators.
-    using Interpolator = std::function<VALUE_TYPE( const KeyFrames& /*frames*/, Scalar /*t*/ )>;
-
     /**
      * Creates a KeyFramedValue from a first keyframe.
      * \param frame the first keyframe value.
      * \param t the first keyframe point in time.
      * \param interpolator the function used to interpolate between keyframes.
      */
-    KeyFramedValue( VALUE_TYPE frame,
-                    Scalar t,
-                    Interpolator interpolator = []( const KeyFrames& frames,
-                                                    Scalar ) { return frames.begin()->second; } ) :
-        KeyFramedValueBase(),
-        m_interpolator( interpolator ) {
-        insertKeyFrame( t, frame );
-    }
+    KeyFramedValue( VALUE_TYPE frame, Scalar t ) { insertKeyFrame( t, frame ); }
 
     KeyFramedValue( const KeyFramedValue& keyframe ) = default;
 
     inline KeyFramedValue& operator=( const KeyFramedValue& keyframe ) = default;
 
-    inline size_t size() const override final { return m_keyframes.size(); }
-
-    inline std::vector<Scalar> getTimes() const override final {
-        std::vector<Scalar> time( m_keyframes.size() );
+    virtual inline std::vector<Scalar> getTimes() const {
+        std::vector<Scalar> times( m_keyframes.size() );
 #pragma omp parallel for
-        for ( int i = 0; i < m_keyframes.size(); ++i )
+        for ( int i = 0; i < int( m_keyframes.size() ); ++i )
         {
-            time[i] = m_keyframes[i].first;
+            times[i] = m_keyframes[i].first;
         }
-        return time;
+        return times;
     }
 
     /// \name KeyFrame Management
     /// \{
 
     /**
+     * @returns the number of keyframes.
+     */
+    inline size_t size() const { return m_keyframes.size(); }
+
+    /**
+     * @returns the collection of keyframes.
+     */
+    const KeyFrames& getKeyFrames() const { return m_keyframes; }
+
+    /**
      * \returns the \p i-th keyframe.
      */
-    inline const KeyFrame& getKeyFrame( size_t i ) { return m_keyframes[i]; }
+    inline const KeyFrame& operator[]( size_t i ) const { return m_keyframes[i]; }
 
     /**
     ￼ * Inserts a new keyframe with value \p frame at time \p t.
@@ -140,33 +115,47 @@ class KeyFramedValue : public KeyFramedValueBase
     }
 
     /**
-    ￼ * Inserts a keyframe at time \p t corresponding to the value interpolated at \p t.
+    ￼ * Inserts a keyframe at time \p t corresponding to the value interpolated at \p t
+     * using the given interpolator.
     ￼ */
-    inline void insertKeyFrame( const Scalar& t ) override final { insertKeyFrame( t, at( t ) ); }
+    template <typename INTERPOLATOR>
+    inline void insertInterpolatedKeyFrame( const Scalar& t, const INTERPOLATOR& interpolator ) {
+        insertKeyFrame( t, at( t, interpolator ) );
+    }
 
-    inline bool removeKeyFrame( size_t i ) override final {
+    /**
+     * Removes the \p i-th keyframe, if not the only one.
+     * \returns true if the keyframed has been removed, false otherwise.
+     */
+    inline bool removeKeyFrame( size_t i ) {
+        if ( size() == 1 ) return false;
         m_keyframes.erase( m_keyframes.begin() + i );
         return true;
     }
 
-    inline bool moveKeyFrame( size_t i, const Scalar& t ) override final {
-        KeyFrame kf = getKeyFrame( i );
+    /**
+     * Moves the \p i-th keyframe to time \p t.
+     */
+    inline void moveKeyFrame( size_t i, const Scalar& t ) {
+        KeyFrame kf = m_keyframes[i];
         if ( !Ra::Core::Math::areApproxEqual( kf.first, t ) )
         {
             removeKeyFrame( i );
             insertKeyFrame( t, kf.second );
         }
-        return true;
     }
 
     /**
-    ￼ * \returns the value at time \p t, interpolated from the keyframes.
-    ￼ * \note This method calls the interpolator.
+    ￼ * \returns the value at time \p t, interpolated from the keyframes using the
+     *          given interpolator.
     ￼ */
-    inline VALUE_TYPE at( const Scalar& t ) const { return m_interpolator( m_keyframes, t ); }
+    template <typename INTERPOLATOR>
+    inline VALUE_TYPE at( const Scalar& t, const INTERPOLATOR& interpolator ) const {
+        return interpolator( m_keyframes, t );
+    }
     /// \}
 
-    ///  \name Comparison operators
+    /// \name Comparison operators
     /// \{
 
     /**
@@ -186,26 +175,9 @@ class KeyFramedValue : public KeyFramedValueBase
     }
     /// \}
 
-    /// \name Interpolator
-    /// \{
-
-    /**
-     * Sets the function to interpolate keyframes.
-     */
-    inline void setInterpolator( Interpolator interpolator ) { m_interpolator = interpolator; }
-
-    /**
-     * \returns the function interpolate keyframes.
-     */
-    inline Interpolator getInterpolator() const { return m_interpolator; }
-    /// \}
-
   protected:
     /// The list of keyframes.
     KeyFrames m_keyframes;
-
-    /// The function to interpolate keyframes.
-    Interpolator m_interpolator;
 };
 
 } // namespace Animation
