@@ -4,20 +4,18 @@ include(cleanCppExtensions)
 # Creates options to turn on sanitizers, see cmake/sanitizers.cmake
 include(sanitizers)
 
-# Enable helpfull warnings and C++17 for all files
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-if(MSVC)
+#------------------------------------------------------------------------------
+# Compilation option
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   add_compile_options(/W3 )
 else()
   add_compile_options(-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
+
 #------------------------------------------------------------------------------
 # Libraries dependencies
 find_package(OpenMP QUIET)
-
-
 
 #-----------------------------------------------------------------------------------
 # Prepare cmake package
