@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.6)
 project (radiumio-external VERSION 1.0.0)
 
 include(ExternalProject)
+include(ExternalInclude)
 
 #------------------------------------------------------------------------------
 # Eigen - Linear Algebra library
@@ -24,12 +25,7 @@ if (RADIUM_IO_ASSIMP)
             GIT_PROGRESS TRUE
             INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
             CMAKE_ARGS
-            --log-level=WARNING
-            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-            -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-            -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
-            -DCMAKE_INSTALL_MESSAGE=${RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE}
+            ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
             -DASSIMP_BUILD_ASSIMP_TOOLS=False
             -DASSIMP_BUILD_SAMPLES=False
             -DASSIMP_BUILD_TESTS=False
@@ -47,13 +43,7 @@ if(RADIUM_IO_TINYPLY)
         GIT_PROGRESS TRUE
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
         CMAKE_ARGS
-        --log-level=WARNING
-        -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-        -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
-        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-        -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
-        -DCMAKE_MACOSX_RPATH=TRUE
-        -DCMAKE_INSTALL_MESSAGE=${RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE}
+        ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DSHARED_LIB=TRUE
         )
 endif()
