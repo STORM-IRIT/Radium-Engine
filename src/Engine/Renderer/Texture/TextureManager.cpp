@@ -98,11 +98,6 @@ void TextureManager::loadTextureImage( TextureParameters& texParameters ) {
 }
 
 Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bool linearize ) {
-    auto makeTexture = []( TextureParameters& d, bool l ) -> Texture* {
-        auto tex = new Texture( d );
-        tex->initializeGL( l );
-        return tex;
-    };
     TextureParameters texparams = texParameters;
     // TODO : allow to keep texels in texture parameters with automatic lifetime management.
     bool freeTexels = false;
@@ -111,11 +106,13 @@ Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bo
         loadTextureImage( texparams );
         freeTexels = true;
     }
-    auto ret = makeTexture( texparams, linearize );
+    auto ret = new Texture( texparams );
+    ret->initializeGL( linearize );
+
     if ( freeTexels )
     {
-        stbi_image_free( ret->m_textureParameters.texels );
-        ret->m_textureParameters.texels = nullptr;
+        stbi_image_free( ret->getParameters().texels );
+        ret->getParameters().texels = nullptr;
     }
     return ret;
 }
@@ -124,25 +121,9 @@ Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameter
                                            bool linearize ) {
     auto it = m_textures.find( texParameters.name );
     if ( it != m_textures.end() ) { return it->second; }
-    auto makeTexture = []( TextureParameters& d, bool l ) -> Texture* {
-        auto tex = new Texture( d );
-        tex->initializeGL( l );
-        return tex;
-    };
-    TextureParameters texparams = texParameters;
-    // TODO : allow to keep texels in texture parameters with automatic lifetime management.
-    bool freeTexels = false;
-    if ( texparams.texels == nullptr )
-    {
-        loadTextureImage( texparams );
-        freeTexels = true;
-    }
-    auto ret = makeTexture( texparams, linearize );
-    if ( freeTexels )
-    {
-        stbi_image_free( ret->m_textureParameters.texels );
-        ret->m_textureParameters.texels = nullptr;
-    }
+
+    auto ret = loadTexture( texParameters, linearize );
+
     m_textures[texParameters.name] = ret;
     return ret;
 }
