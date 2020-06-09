@@ -1,5 +1,7 @@
 set( CMAKE_EXECUTE_PROCESS_COMMAND_ECHO STDOUT)
 
+include(ExternalInclude)
+
 macro(addExternalFolder NAME FOLDER )
     # External resources/repositories are downloaded and built at configuration stage
     message(STATUS "[addExternalFolder] process ${NAME} ${FOLDER}")
@@ -25,19 +27,7 @@ macro(addExternalFolder NAME FOLDER )
     if ( UPDATE_EXTERNAL )
         execute_process(
             COMMAND ${CMAKE_COMMAND} ${FOLDER}
-                -DCMAKE_GENERATOR=${CMAKE_GENERATOR}
-                -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-                -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-                -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
-                -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-                -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
-                -DCMAKE_CXX_FLAGS_DEBUG=${CMAKE_CXX_FLAGS_DEBUG}
-                -DCMAKE_CXX_FLAGS_RELEASE=${CMAKE_CXX_FLAGS_RELEASE}
-                -DCMAKE_CXX_FLAGS_RELWITHDEBINFO=${CMAKE_CXX_FLAGS_RELWITHDEBINFO}
-                -DCMAKE_SHARED_LINKER_FLAGS=${CMAKE_SHARED_LINKER_FLAGS}
-                -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
-                -DCMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
-                -DCMAKE_MACOSX_RPATH=TRUE
+                ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
                 ${ARGN}
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
             RESULT_VARIABLE ret
