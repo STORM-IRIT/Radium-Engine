@@ -9,6 +9,10 @@ endif()
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
+# Enable helpfull warnings and C++17 for all files
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support
 project (radiumproject VERSION 1.0.0)
@@ -27,7 +31,8 @@ option(RADIUM_GENERATE_LIB_GUIBASE    "Include Radium::GuiBase in CMake project"
 option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
 option(RADIUM_UPDATE_VERSION          "Update version file each time the project is compiled (update compilation time in version.cpp)" ON)
 option(RADIUM_INSTALL_DOC             "Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target" ON)
-option(RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE "CMAKE_INSTALL_MESSAGE for externals" NEVER)
+
+set(RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE NEVER)
 
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
