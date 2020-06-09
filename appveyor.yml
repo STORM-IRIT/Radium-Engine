@@ -86,6 +86,8 @@ build_script:
   #      have debug information.
   #############################################################################
   - cmake -G Ninja
+    "-DCMAKE_INSTALL_MESSAGE=LAZY"
+    "--log-level=WARNING"
     "-DCMAKE_BUILD_TYPE=%configuration%"
     "-DCMAKE_PREFIX_PATH=%QTDIR%"
     "-DRADIUM_IO_ASSIMP=ON"
