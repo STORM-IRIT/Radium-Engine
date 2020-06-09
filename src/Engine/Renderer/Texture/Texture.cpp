@@ -42,7 +42,7 @@ void Texture::initializeGL( bool linearize ) {
             numcomp = 1;
             break;
         case GL_RG:
-            // correspondS to deprecated GL_LUMINANCE_ALPHA
+            // corresponds to deprecated GL_LUMINANCE_ALPHA
             numcomp  = 2;
             hasAlpha = true;
             break;
@@ -142,7 +142,7 @@ void Texture::updateData( const void* data ) {
         // Load the 6 faces of the cubemap
         void** texels = (void**)data;
         m_texture->bind();
-        // track globjects update that will eventually support direct loading of
+        // track globjects update that will hopefully support direct loading of
         // cubemaps
         gl::glTexImage2D( gl::GL_TEXTURE_CUBE_MAP_POSITIVE_X,
                           0,
