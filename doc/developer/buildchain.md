@@ -51,7 +51,7 @@ Sanitizers:
   + ADDRESS_SANITIZER                     OFF
   + UB_SANITIZER                          OFF
   + THREAD_SANITIZER                      OFF
-INFO[addExternalFolder] process Core /*****/Radium-Engine/src/Core/external
+[addExternalFolder] process Core /*****/Radium-Engine/src/Core/external
 [addExternalFolder] Create temporary directory
 [addExternalFolder] Configure cmake project
 [addExternalFolder] Start build
