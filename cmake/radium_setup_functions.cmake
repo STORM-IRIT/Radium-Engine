@@ -415,7 +415,7 @@ function(configure_radium_plugin)
     set_target_properties(${ARGS_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins/lib)
 
     if( CMAKE_BUILD_TYPE MATCHES Debug )
-        message(INFO " [configure_radium_plugin] Plugin compiled with debug info")
+        message(STATUS " [configure_radium_plugin] Plugin compiled with debug info")
         target_compile_definitions(${ARGS_NAME} PUBLIC PLUGIN_IS_COMPILED_WITH_DEBUG_INFO)
         file( COPY "${RADIUM_ROOT_DIR}/lib/cmake/Radium/pluginMetaDataDebug.json" DESTINATION ${CMAKE_CURRENT_BINARY_DIR} )
         target_sources(${ARGS_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/pluginMetaDataDebug.json")

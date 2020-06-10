@@ -2,7 +2,7 @@ set( CMAKE_EXECUTE_PROCESS_COMMAND_ECHO STDOUT)
 
 macro(addExternalFolder NAME FOLDER )
     # External resources/repositories are downloaded and built at configuration stage
-    message(INFO "[addExternalFolder] process ${NAME} ${FOLDER}")
+    message(STATUS "[addExternalFolder] process ${NAME} ${FOLDER}")
 
     message(STATUS "[addExternalFolder] Create temporary directory")
     execute_process(
@@ -51,12 +51,12 @@ macro(addExternalFolder NAME FOLDER )
         string(TOLOWER ${CMAKE_GENERATOR} generator_lower)
         if (MSVC AND NOT ${generator_lower} STREQUAL "ninja")
             set(RadiumExternalMakeTarget ALL_BUILD)
-            message(INFO "[addExternalFolder] Enable compatibility mode for VS Generator")
+            message(STATUS "[addExternalFolder] Enable compatibility mode for VS Generator")
         endif ()
 
         if (APPLE AND ${generator_lower} STREQUAL "xcode")
             set(RadiumExternalMakeTarget ALL_BUILD)
-            message(INFO "[addExternalFolder] Enable compatibility mode for Xcode Generator")
+            message(STATUS "[addExternalFolder] Enable compatibility mode for Xcode Generator")
         endif ()
 
         if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.12)
