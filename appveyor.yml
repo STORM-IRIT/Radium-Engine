@@ -92,6 +92,7 @@ build_script:
     "-DCMAKE_PREFIX_PATH=%QTDIR%"
     "-DRADIUM_IO_ASSIMP=ON"
     "-DRADIUM_UPDATE_VERSION=OFF"
+    "-DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT"
     %APPVEYOR_BUILD_FOLDER%
 
   #############################################################################
