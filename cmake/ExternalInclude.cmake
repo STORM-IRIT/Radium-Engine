@@ -1,13 +1,13 @@
 #set the compile defdinition for current directory (i.e. externals)
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  add_compile_options(/w )
+    if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+        string(REGEX REPLACE "/W[0-4]" "/w " EXTERNAL_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    else()
+        set(EXTERNAL_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w ")
+    endif()
 else()
-  add_compile_options(-w)
+    set(EXTERNAL_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w") 
 endif()
-
-#create a sepefic options for the external build
-get_directory_property(EXTERNAL_FLAGS COMPILE_OPTIONS)
-set(EXTERNAL_CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTERNAL_FLAGS}")
 
 #if we are in a radium process, use radium specific option, else use cmake option.
 if(RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE) 
