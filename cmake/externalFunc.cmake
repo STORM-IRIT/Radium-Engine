@@ -1,5 +1,3 @@
-set( CMAKE_EXECUTE_PROCESS_COMMAND_ECHO STDOUT)
-
 include(ExternalInclude)
 
 macro(addExternalFolder NAME FOLDER )
