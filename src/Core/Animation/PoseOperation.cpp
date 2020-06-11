@@ -62,7 +62,7 @@ Pose interpolatePoses( const Pose& a, const Pose& b, const Scalar t ) {
 #pragma omp parallel for
     for ( int i = 0; i < int( size ); ++i )
     {
-        interpolatedPose[i] = linearInterpolate( a[i], b[i], t );
+        interpolatedPose[i] = Math::linearInterpolate( a[i], b[i], t );
     }
 
     return interpolatedPose;
