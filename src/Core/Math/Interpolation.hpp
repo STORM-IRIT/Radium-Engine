@@ -5,6 +5,7 @@
 
 namespace Ra {
 namespace Core {
+namespace Math {
 
 /// \name Linear Interpolation
 /// \{
@@ -57,6 +58,7 @@ inline Core::Transform linearInterpolate<Core::Transform>( const Core::Transform
 }
 /// \}
 
+} // namespace Math
 } // namespace Core
 } // namespace Ra
 

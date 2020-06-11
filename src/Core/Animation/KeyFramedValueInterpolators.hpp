@@ -20,7 +20,7 @@ template <typename T>
 inline T linearInterpolate( const KeyFramedValue<T>& keyframes, Scalar t ) {
     CORE_ASSERT( keyframes.size() > 0, "Keyframe vectors must contain at least one keyframe." );
     auto [i, j, dt] = keyframes.findRange( t );
-    return Core::linearInterpolate( keyframes[i].second, keyframes[j].second, dt );
+    return Core::Math::linearInterpolate( keyframes[i].second, keyframes[j].second, dt );
 }
 
 /// Force step for booleans.
