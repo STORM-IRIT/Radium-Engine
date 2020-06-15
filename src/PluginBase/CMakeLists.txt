@@ -29,7 +29,7 @@ add_library(
 
 add_dependencies(${ra_pluginbase_target} Core Engine)
 target_link_libraries(${ra_pluginbase_target} PUBLIC Core Engine)
-target_link_libraries(${ra_pluginbase_target} PRIVATE Qt5::Core)
+target_link_libraries(${ra_pluginbase_target} PUBLIC ${Qt5_LIBRARIES})
 
 target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
 
