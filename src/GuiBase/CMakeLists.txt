@@ -30,8 +30,7 @@ add_library(
 
 add_dependencies(${ra_guibase_target} Core Engine PluginBase IO)
 target_link_libraries(${ra_guibase_target} PUBLIC Core Engine PluginBase IO)
-target_link_libraries (${ra_guibase_target} PUBLIC ${Qt5_LIBRARIES})
-target_link_libraries (${ra_guibase_target} PRIVATE OpenGL::GL)
+target_link_libraries (${ra_guibase_target} PRIVATE ${Qt5_LIBRARIES} OpenGL::GL) 
 
 if( CMAKE_BUILD_TYPE MATCHES Debug )
     target_compile_definitions(${ra_guibase_target} PUBLIC GUIBASE_IS_COMPILED_WITH_DEBUG_INFO)
