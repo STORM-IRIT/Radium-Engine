@@ -428,11 +428,34 @@ specific, the following steps are required :
 1. Develop specific vertex and fragment shaders to compute the fragment color
 2. Build a Ra::Engine::ShaderConfiguration that uses these shaders
 3. Build a render technique that use this configuration
-4. Associate the render technique with a geometry in a Ra::Engine::RenderObject
+4. If the shaders have uniform parameters, develop a specific Ra::Engine::ShaderParameterProvider and associate an 
+instance of the parameter provider to the render technique.
+5. Associate the render technique with a geometry in a Ra::Engine::RenderObject
 
 This could result in the following C++ code to configure a RenderObject.
 ~~~{.cpp}
-// 1. Develop specific vertex and fragment shaders to compute the fragment color
+// 1. Develop a parameter provider that manage the uniforms of the shader
+class MyParameterProvider : public Ra:Engine::ShaderParameterProvider {
+public:
+  MyParameterProvider() {}
+  ~MyParameterProvider() {}
+  void updateGL() override {
+    // Method called before drawing each frame. Might recall its state to update only when mandatory
+    // The name of the parameter corresponds to a uniform in the shader
+    m_renderParameters.addParameter( "aColorUniform", m_colorParameter );
+    m_renderParameters.addParameter( "aScalarUniform", m_scalarParameter );
+  }
+
+  void setOrComputeTheParameterValues() {
+  // do something here that, when this method is called by your application,
+  // compute or set the value of the parameters
+  }
+private:
+  Ra::Core::Color m_colorParameter;
+  Scalar m_scalarParameter;
+}
+
+// 2. Develop specific vertex and fragment shaders to compute the fragment color based on uniform values
 // Vertex shader source code
 const std::string vertexShaderSource{
     "#include \"TransformStructs.glsl\"\n"
@@ -446,23 +469,33 @@ const std::string vertexShaderSource{
 // Fragment shader source code
 const std::string fragmentShaderSource{
     "layout (location = 0) out vec4 out_color;\n"
-    "vec4 some_color_computation()\n"
-    "{\n"
-    "    vec result = vec4(vec3(1), 1);\n"
-    "}\n"};
+     "uniform vec4 aColorUniform;\n"
+     "uniform float aScalarUniform;\n"
+     "vec4 some_color_computation()\n"
+     "{\n"
+     "    return aColorUniform*aScalarUniform;\n"
+     "}\n"};
     "void main(void)\n"
     "{\n"
     "    out_color = some_color_computation();\n"
     "}\n"};
-// 2. Build a Ra::Engine::ShaderConfiguration that uses these shaders
+
+// 3. Build a Ra::Engine::ShaderConfiguration that uses these shaders
 Ra::Engine::ShaderConfiguration myConfig{"MyColorComputation"};
 config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, vertexShaderSource );
 config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, fragmentShaderSource );
 Ra::Engine::ShaderConfigurationFactory::addConfiguration( myConfig );
-// 3. Build a render technique that use this configuration
+
+// 4. Build a render technique that use this configuration
 Ra::Engine::RenderTechnique theRenderTechnique;
 theRenderTechnique.setConfiguration( myConfig, DefaultRenderingPasses::LIGHTING_OPAQUE );
-// 4. Associate the render technique with a geometry in a Ra::Engine::RenderObject
+
+// 5. Create and associate the parameter provider with the RenderTechnique
+auto parameterProvider = std::make_shared<MyParameterProvider>();
+parameterProvider->setOrComputeTheParameterValues();
+theRenderTechnique.setParametersProvider(parameterProvider);
+
+// 6. Associate the render technique with a geometry in a Ra::Engine::RenderObject
 std::shared_ptr<Ra::Engine::Mesh> theMesh( new Ra::Engine::Mesh( "theMesh" ) );
 theMesh->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
 auto theRenderObject = Ra::Engine::RenderObject::createRenderObject(
@@ -473,4 +506,6 @@ addRenderObject( theRenderObject );
 ~~~
 
 After this, when ``theRenderObject`` will be drawn by the Ra::Engine::ForwardRenderer, all the resulting fragments 
-will have the color computed by the GLSL function ``some_color_computation()``
+will have the color computed by the GLSL function ``some_color_computation()``. Before rendering, the method ``updateGL``
+on the ``MyParameterProvider`` instance will be called so that, if the parameter values have changed, the new values 
+could be set on the shaders.
