@@ -7,7 +7,7 @@ project( ${ra_pluginbase_target}
 include( filelistPluginBase )
 
 # Find packages
-find_package(Qt5 COMPONENTS Core REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 if(Qt5Core_VERSION VERSION_LESS 5.5)
     message(FATAL_ERROR "Qt5 or superior required (found ${Qt5Core_VERSION}).")
