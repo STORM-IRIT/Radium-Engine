@@ -16,7 +16,7 @@ else ()
 endif()
 
 # Qt5
-set(Qt5_LIBRARIES Qt5::Core)
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets)
 set(CMAKE_AUTOMOC ON)
 
 add_library(
