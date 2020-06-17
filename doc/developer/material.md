@@ -407,46 +407,43 @@ builder.second( rt, isMaterialTransparent );
 
 
 ## Rendering without using Materials {#non-bsdf-rendering}
-The _Radium Material Library_ and related components are mainly designed to manage Materials as a representation of a 
-_Bidirectional Scattering Distribution function (BSDF)_.
+The _Radium Material Library_ and related components are mainly designed to manage Materials as a representation of a _Bidirectional Scattering Distribution function (BSDF)_.
 
-When rendering, it is sometime useful to compute the final color of an object that do not rely on a bsdf but just 
-on a specific color for each geometry fragment.
+When rendering, it is sometime useful to compute the final color of an object that do not rely on a bsdf but just on a specific color for each geometry fragment.
 
-Even if the Ra::Engine::PlainMaterial could be used for this and assuming that such a way to define material is object 
-specific, the following steps are required :
+Even if the Ra::Engine::PlainMaterial could be used for this and assuming that such a way to define material is object specific, the following steps are required :
 
 1. Develop specific vertex and fragment shaders to compute the fragment color
 2. Build a Ra::Engine::ShaderConfiguration that uses these shaders
 3. Build a render technique that use this configuration
-4. If the shaders have uniform parameters, develop a specific Ra::Engine::ShaderParameterProvider and associate an 
-instance of the parameter provider to the render technique.
+4. If the shaders have uniform parameters, implement a specific Ra::Engine::ShaderParameterProvider and associate an instance of the parameter provider to the render technique.
 5. Associate the render technique with a geometry in a Ra::Engine::RenderObject
 
-This could result in the following C++ code to configure a RenderObject.
+Here is an example snippet.
 ~~~{.cpp}
-// 1. Develop a parameter provider that manage the uniforms of the shader
+// 1. Implement a parameter provider to provide the uniforms for the shader
 class MyParameterProvider : public Ra:Engine::ShaderParameterProvider {
 public:
   MyParameterProvider() {}
   ~MyParameterProvider() {}
   void updateGL() override {
-    // Method called before drawing each frame. Might recall its state to update only when mandatory
-    // The name of the parameter corresponds to a uniform in the shader
+    // Method called before drawing each frame in Renderer::updateRenderObjectsInternal.
+    // The name of the parameter corresponds to the shader's uniform name.
     m_renderParameters.addParameter( "aColorUniform", m_colorParameter );
     m_renderParameters.addParameter( "aScalarUniform", m_scalarParameter );
   }
 
   void setOrComputeTheParameterValues() {
-  // do something here that, when this method is called by your application,
-  // compute or set the value of the parameters
+	// client side computation of the parameters, e.g.
+	m_colorParameter = Ra::Core::Color::Red();
+	m_scalarParameter = .5_ra;
   }
 private:
   Ra::Core::Color m_colorParameter;
   Scalar m_scalarParameter;
 }
 
-// 2. Develop specific vertex and fragment shaders to compute the fragment color based on uniform values
+// 2. Implement a specific vertex and fragment shaders to compute the fragment color based on uniform values
 // Vertex shader source code
 const std::string vertexShaderSource{
     "#include \"TransformStructs.glsl\"\n"
@@ -462,41 +459,36 @@ const std::string fragmentShaderSource{
     "layout (location = 0) out vec4 out_color;\n"
      "uniform vec4 aColorUniform;\n"
      "uniform float aScalarUniform;\n"
-     "vec4 some_color_computation()\n"
-     "{\n"
-     "    return aColorUniform*aScalarUniform;\n"
-     "}\n"};
     "void main(void)\n"
     "{\n"
-    "    out_color = some_color_computation();\n"
+    "    out_color =  aColorUniform*aScalarUniform;\n"
     "}\n"};
 
-// 3. Build a Ra::Engine::ShaderConfiguration that uses these shaders
+// 3. Setup a Ra::Engine::ShaderConfiguration that uses these shaders
 Ra::Engine::ShaderConfiguration myConfig{"MyColorComputation"};
 config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, vertexShaderSource );
 config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, fragmentShaderSource );
 Ra::Engine::ShaderConfigurationFactory::addConfiguration( myConfig );
 
 // 4. Build a render technique that use this configuration
-Ra::Engine::RenderTechnique theRenderTechnique;
-theRenderTechnique.setConfiguration( myConfig, DefaultRenderingPasses::LIGHTING_OPAQUE );
+Ra::Engine::RenderTechnique renderTechnique;
+renderTechnique.setConfiguration( myConfig, DefaultRenderingPasses::LIGHTING_OPAQUE );
 
 // 5. Create and associate the parameter provider with the RenderTechnique
 auto parameterProvider = std::make_shared<MyParameterProvider>();
 parameterProvider->setOrComputeTheParameterValues();
-theRenderTechnique.setParametersProvider(parameterProvider);
+renderTechnique.setParametersProvider(parameterProvider);
 
 // 6. Associate the render technique with a geometry in a Ra::Engine::RenderObject
-std::shared_ptr<Ra::Engine::Mesh> theMesh( new Ra::Engine::Mesh( "theMesh" ) );
-theMesh->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
-auto theRenderObject = Ra::Engine::RenderObject::createRenderObject(
-    "myRenderObject", theRadiumComponent, 
-    Ra::Engine::RenderObjectType::Geometry, theMesh, 
-    theRenderTechnique );
-addRenderObject( theRenderObject );
+std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( "my mesh" ) );
+mesh->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
+auto renderObject = Ra::Engine::RenderObject::createRenderObject(
+    "myRenderObject", radiumComponent,
+    Ra::Engine::RenderObjectType::Geometry, mesh, renderTechnique );
+addRenderObject( renderObject );
+// where radiumComponent is a component of the scene.
 ~~~
 
-After this, when ``theRenderObject`` will be drawn by the Ra::Engine::ForwardRenderer, all the resulting fragments 
-will have the color computed by the GLSL function ``some_color_computation()``. Before rendering, the method ``updateGL``
-on the ``MyParameterProvider`` instance will be called so that, if the parameter values have changed, the new values 
-could be set on the shaders.
+Then the draw call of ``renderObject`` uses the ``myConfig`` as shader configuration.
+Before rendering, the method ``updateGL`` on the ``parameterProvider`` instance is called so that the shader's uniforms values are updated according the one stored in ``parameterProvider``.
+
