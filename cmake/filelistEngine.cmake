@@ -119,6 +119,7 @@ set( engine_inlines
     Renderer/Mesh/Mesh.inl
     Renderer/RenderTechnique/RenderParameters.inl
     Renderer/RenderTechnique/RenderTechnique.inl
+    Renderer/RenderTechnique/ShaderProgram.inl
 )
 
 set(engine_shaders
