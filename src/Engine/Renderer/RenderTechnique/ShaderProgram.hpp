@@ -42,32 +42,9 @@ class RA_ENGINE_API ShaderProgram final
     void validate() const;
     void unbind() const;
 
-    // Uniform setters
-    void setUniform( const char* name, int value ) const;
-    void setUniform( const char* name, uint value ) const;
-    void setUniform( const char* name, float value ) const;
-    void setUniform( const char* name, double value ) const;
-
-    void setUniform( const char* name, std::vector<int> value ) const;
-    void setUniform( const char* name, std::vector<uint> value ) const;
-    void setUniform( const char* name, std::vector<float> value ) const;
-
-    void setUniform( const char* name, const Core::Vector2i& value ) const;
-    void setUniform( const char* name, const Core::Vector2f& value ) const;
-    void setUniform( const char* name, const Core::Vector2d& value ) const;
-    void setUniform( const char* name, const Core::Vector3i& value ) const;
-    void setUniform( const char* name, const Core::Vector3f& value ) const;
-    void setUniform( const char* name, const Core::Vector3d& value ) const;
-    void setUniform( const char* name, const Core::Vector4i& value ) const;
-    void setUniform( const char* name, const Core::Vector4f& value ) const;
-    void setUniform( const char* name, const Core::Vector4d& value ) const;
-
-    void setUniform( const char* name, const Core::Matrix2f& value ) const;
-    void setUniform( const char* name, const Core::Matrix2d& value ) const;
-    void setUniform( const char* name, const Core::Matrix3f& value ) const;
-    void setUniform( const char* name, const Core::Matrix3d& value ) const;
-    void setUniform( const char* name, const Core::Matrix4f& value ) const;
-    void setUniform( const char* name, const Core::Matrix4d& value ) const;
+    /// Uniform setters
+    template <typename T>
+    void setUniform( const char* name, const T & value ) const;
 
     void setUniform( const char* name, Texture* tex, int texUnit ) const;
 
@@ -121,3 +98,5 @@ class RA_ENGINE_API ShaderProgram final
 
 } // namespace Engine
 } // namespace Ra
+
+#include "ShaderProgram.inl"
