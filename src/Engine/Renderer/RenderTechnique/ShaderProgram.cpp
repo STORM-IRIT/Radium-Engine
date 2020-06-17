@@ -315,99 +315,36 @@ ShaderConfiguration ShaderProgram::getBasicConfiguration() const {
     return basicConfig;
 }
 
-void ShaderProgram::setUniform( const char* name, int value ) const {
-    m_program->setUniform( name, value );
-}
-
-void ShaderProgram::setUniform( const char* name, unsigned int value ) const {
-    m_program->setUniform( name, value );
-}
-
-void ShaderProgram::setUniform( const char* name, float value ) const {
-    m_program->setUniform( name, value );
-}
-
-void ShaderProgram::setUniform( const char* name, double value ) const {
-    m_program->setUniform( name, static_cast<float>( value ) );
-}
-
-//!
-
-void ShaderProgram::setUniform( const char* name, std::vector<int> values ) const {
-    m_program->setUniform( name, values );
-}
-
-void ShaderProgram::setUniform( const char* name, std::vector<unsigned int> values ) const {
-    m_program->setUniform( name, values );
-}
-
-void ShaderProgram::setUniform( const char* name, std::vector<float> values ) const {
-    m_program->setUniform( name, values );
-}
-
-//!
-
-void ShaderProgram::setUniform( const char* name, const Core::Vector2i& value ) const {
-    m_program->setUniform( name, value );
-}
-
-void ShaderProgram::setUniform( const char* name, const Core::Vector2f& value ) const {
-    m_program->setUniform( name, value );
-}
-
+template <>
 void ShaderProgram::setUniform( const char* name, const Core::Vector2d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector3i& value ) const {
-    m_program->setUniform( name, value );
-}
-
-void ShaderProgram::setUniform( const char* name, const Core::Vector3f& value ) const {
-    m_program->setUniform( name, value );
-}
-
+template <>
 void ShaderProgram::setUniform( const char* name, const Core::Vector3d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Vector4i& value ) const {
-    m_program->setUniform( name, value );
-}
-
-void ShaderProgram::setUniform( const char* name, const Core::Vector4f& value ) const {
-    m_program->setUniform( name, value );
-}
-
+template <>
 void ShaderProgram::setUniform( const char* name, const Core::Vector4d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix2f& value ) const {
-    m_program->setUniform( name, value );
-}
-
+template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix2d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix3f& value ) const {
-    m_program->setUniform( name, value );
-}
-
+template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix3d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
 
-void ShaderProgram::setUniform( const char* name, const Core::Matrix4f& value ) const {
-    m_program->setUniform( name, value );
-}
-
+template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
-
-void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
+void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const  {
     tex->bind( texUnit );
 
     m_program->setUniform( name, texUnit );
@@ -502,6 +439,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name,
 
     return result;
 }
+
 
 } // namespace Engine
 } // namespace Ra

@@ -99,6 +99,8 @@ class RA_ENGINE_API RenderParameters final
         void bind( const ShaderProgram* shader ) const;
     };
 
+
+    ///\todo use array of parameter to templated uniform, as in globjects ?
     /// Parameter of type int
     using IntParameter = TParameter<int>;
     /// Parameter of type unsigned int
