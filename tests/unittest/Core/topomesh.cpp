@@ -301,7 +301,7 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f 
     auto he0 = topo.halfedge_handle( eh, 0 );
     auto he1 = topo.halfedge_handle( eh, 1 );
     auto v0  = topo.from_vertex_handle( he0 ); // i.e. to_vertex_handle(he1)
-    REQUIRE(v0 == topo.to_vertex_handle(he1));
+    REQUIRE( v0 == topo.to_vertex_handle( he1 ) );
     auto v1  = topo.to_vertex_handle( he0 );
     auto p0  = topo.point( v0 );
     float f0 = topo.getWedgeData( *( topo.getVertexWedges( v0 ) ).begin() ).m_floatAttrib[0];
@@ -319,7 +319,7 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f 
 
     // he1 point to inserted vertex
     auto vsplit = topo.to_vertex_handle( he1 ); // i.e. from_vertex_handle(he0)
-    REQUIRE(vsplit == topo.from_vertex_handle(he0));
+    REQUIRE( vsplit == topo.from_vertex_handle( he0 ) );
 
     auto psplit = topo.point( vsplit );
     auto vcheck = ( f * p1 + ( 1.f - f ) * p0 );
@@ -347,6 +347,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
     meshSplit.m_indices = {Vector3ui( 0, 1, 2 ), Vector3ui( 0, 2, 3 )};
     // add a float attrib
     auto handle = meshSplit.addAttrib<float>( "test", {0.f, 1.f, 2.f, 3.f} );
+    CORE_UNUSED( handle ); // until unit test is finished.
 
     // convert to topomesh
     TopologicalMesh topo = TopologicalMesh( meshSplit );
@@ -370,4 +371,5 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
     test_split( topo, eh, f );
     // split boundary edge
     // collapse
+    // check float attrib value
 }
