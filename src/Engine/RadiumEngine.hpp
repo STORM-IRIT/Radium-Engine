@@ -171,6 +171,83 @@ class RA_ENGINE_API RadiumEngine
      */
     Core::Aabb computeSceneAabb() const;
 
+    /// \name Time Management.
+    /// {
+
+    /**
+     * Toggles effective time flow or constant time flow.
+     */
+    void setRealTime( bool realTime );
+
+    /**
+     * Sets the time delta between two frames for constant time flow.
+     */
+    void setConstantTimeFlowDt( Scalar dt );
+
+    /**
+     * Toggles on/off time flow.
+     */
+    void play( bool isPlaying );
+
+    /**
+     * Toggles time flow for one frame.
+     */
+    void step();
+
+    /**
+     * Resets time to 0, same as \code goTo( uint( 0 ) ); \endCode.
+     */
+    void reset();
+
+    /**
+     * Sets the `start` time for the time window.
+     * \note A negative start time is considered as 0.
+     */
+    void setStartTime( Scalar t );
+
+    /**
+     * Sets the `start` time for the time window.
+     */
+    Scalar getStartTime() const;
+
+    /**
+     * Sets the `end` time for the time window.
+     * \note A negative end time makes the time flow indefinitely.
+     */
+    void setEndTime( Scalar t );
+
+    /**
+     * \Returns the `end` time for the time window.
+     */
+    Scalar getEndTime() const;
+
+    /**
+     * Toggles the PingPong mode.
+     */
+    void setPingPongMode( bool mode );
+
+    /**
+     * \returns the current time.
+     */
+    Scalar getTime() const;
+
+    /**
+     * \returns the current frame.
+     */
+    uint getFrame() const;
+    /// \}
+
+  private:
+    /// \name Time Management.
+    /// {
+
+    /**
+     * Update the current time from the current frame number, according to the
+     * time flow policy (ping-pong or loop around).
+     */
+    void updateTime();
+    /// \}
+
   private:
     using Priority  = int;
     using SystemKey = std::pair<Priority, std::string>;
@@ -198,6 +275,16 @@ class RA_ENGINE_API RadiumEngine
 
     /// For internal resources management in a filesystem
     std::string m_resourcesRootDir;
+
+    Scalar m_dt;                ///< The time delta between 2 consecutive frames.
+    Scalar m_startTime{0_ra};   ///< The `start` time for the time window.
+    Scalar m_endTime;           ///< The `end` time for the time window.
+    Scalar m_time{0_ra};        ///< The current time.
+    bool m_realTime{false};     ///< Whether we use the effective time flow or the constant one.
+    bool m_play{false};         ///< Shall time flow.
+    bool m_step{true};          ///< Shall time flow for only one frame.
+    bool m_pingPongMode{false}; ///< Is PingPong mode enabled.
+    bool m_lockFrame{false};    ///< lock on m_frame for internal calls to goTo.
 };
 
 } // namespace Engine

@@ -7,8 +7,14 @@ namespace Ra {
 namespace Engine {
 /// Structure passed to each system before they fill the task queue.
 struct RA_ENGINE_API FrameInfo {
+    /// The current time.
+    Scalar m_time{0};
+
     /// Time elapsed since the last frame in seconds.
     Scalar m_dt{0};
+
+    /// The frame corresponding to the current time.
+    uint m_currentFrame{0};
 
     /// Number of frames since the start of the application.
     // (NB : at 60 FPS on a 32 bits machine this will cycle every two years... ;) )

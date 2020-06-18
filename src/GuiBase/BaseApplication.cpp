@@ -19,7 +19,6 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/System/GeometrySystem.hpp>
-#include <Engine/System/TimedSystem.hpp>
 
 #include <PluginBase/RadiumPluginInterface.hpp>
 
@@ -223,8 +222,7 @@ BaseApplication::BaseApplication( int& argc,
         "GeometrySystem", new Ra::Engine::GeometrySystem, defaultSystemPriority );
     // Register the TimeSystem managing time dependant systems
     Scalar dt = ( m_targetFPS == 0 ? 1_ra / 60_ra : 1_ra / m_targetFPS );
-    m_engine->registerSystem(
-        "TimeSystem", new Ra::Engine::TimeSystem( dt, -1 ), defaultSystemPriority );
+    m_engine->setConstantTimeFlowDt( dt );
 
     // Create main window.
     m_mainWindow.reset( factory.createMainWindow() );

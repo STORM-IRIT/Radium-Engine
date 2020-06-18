@@ -114,7 +114,15 @@ void RadiumEngine::endFrameSync() {
 
 void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     static uint frameCounter = 0;
-    FrameInfo frameInfo{dt, frameCounter++};
+
+    if ( m_play || m_step )
+    {
+        m_time += m_realTime ? dt : m_dt;
+        updateTime();
+        m_step = false;
+    }
+
+    FrameInfo frameInfo{m_time, m_realTime ? dt : m_dt, getFrame(), frameCounter++};
     for ( auto& syst : m_systems )
     {
         syst.second->generateTasks( taskQueue, frameInfo );
@@ -284,6 +292,70 @@ Core::Aabb RadiumEngine::computeSceneAabb() const {
         if ( entity != systemEntity ) aabb.extend( entity->computeAabb() );
     }
     return aabb;
+}
+
+void RadiumEngine::setRealTime( bool realTime ) {
+    m_realTime = realTime;
+}
+
+void RadiumEngine::setConstantTimeFlowDt( Scalar dt ) {
+    m_dt = dt;
+}
+
+void RadiumEngine::play( bool isPlaying ) {
+    m_play = isPlaying;
+}
+
+void RadiumEngine::step() {
+    m_step = true;
+}
+
+void RadiumEngine::reset() {
+    m_play = false;
+    m_step = false;
+    m_time = m_startTime;
+}
+
+void RadiumEngine::setStartTime( Scalar t ) {
+    m_startTime = std::max( t, 0_ra );
+}
+
+Scalar RadiumEngine::getStartTime() const {
+    return m_startTime;
+}
+
+void RadiumEngine::setEndTime( Scalar t ) {
+    m_endTime = t;
+}
+
+Scalar RadiumEngine::getEndTime() const {
+    return m_endTime;
+}
+
+void RadiumEngine::setPingPongMode( bool mode ) {
+    m_pingPongMode = mode;
+}
+
+Scalar RadiumEngine::getTime() const {
+    return m_time;
+}
+
+uint RadiumEngine::getFrame() const {
+    return uint( std::ceil( m_time / m_dt ) );
+}
+
+void RadiumEngine::updateTime() {
+    if ( m_time < m_startTime || ( !m_pingPongMode && m_endTime > 0 && m_time > m_endTime ) ||
+         ( m_pingPongMode && m_endTime > 0 && m_time > 2 * m_endTime - m_startTime ) )
+    {
+        // loop around
+        m_time = m_startTime + m_time - m_endTime;
+    }
+    if ( m_pingPongMode && m_endTime > 0 && m_time > m_endTime )
+    {
+        // ping pong
+        m_time = 2 * m_endTime - m_time;
+    }
 }
 
 } // namespace Engine
