@@ -85,10 +85,6 @@ struct TextureParameters {
 class RA_ENGINE_API Texture final
 {
   public:
-    /** Texture parameters
-     */
-    TextureParameters m_textureParameters;
-
     /** Textures are not copyable, delete copy constructor.
      */
     Texture( const Texture& ) = delete;
@@ -152,7 +148,7 @@ class RA_ENGINE_API Texture final
      * @param newData The new data, must contain the same number of elements than old data, no
      * check will be performed.
      */
-    void updateData( void* newData );
+    void updateData( const void* newData );
 
     /**
      * Update the parameters contained by the texture.
@@ -206,6 +202,23 @@ class RA_ENGINE_API Texture final
      */
     void resize( size_t w = 1, size_t h = 1, size_t d = 1, void* pix = nullptr );
 
+    /// get read access to texture parameters
+    const TextureParameters& getParameters() const { return m_textureParameters; }
+
+    /** get read/write access to texture parameters, need to update
+     * representation afterward, @see setParamters()
+     */
+    TextureParameters& getParameters() { return m_textureParameters; }
+
+    /** set TextureParameters.
+     * If texels is changed, need to call initializeGL() to update GPU representation
+     * if only wrap or filter parameters are change, updateParameters() is
+     * sufficient to update the GPU representation.
+     */
+    void setParameters( const TextureParameters& textureParameters ) {
+        m_textureParameters = textureParameters;
+    }
+
   private:
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
@@ -222,6 +235,10 @@ class RA_ENGINE_API Texture final
 
     /// linearize a cube map by calling sRGBToLinearRGB fore each face
     void linearizeCubeMap( uint numCommponent, bool hasAlphaChannel );
+
+    /** Texture parameters
+     */
+    TextureParameters m_textureParameters;
 
     /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;

@@ -11,4 +11,7 @@
 #        define RA_ENGINE_API DLL_IMPORT
 #    endif
 
+// always include engine's gl before any other
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+
 #endif // RADIUMENGINE_RA_ENGINE_HPP_

@@ -10,31 +10,33 @@ inline void AnimationData::setName( const std::string& name ) {
     m_name = name;
 }
 
-inline const Core::Animation::AnimationTime& AnimationData::getTime() const {
+// TIME
+inline const AnimationTime& AnimationData::getTime() const {
     return m_time;
 }
 
-inline void AnimationData::setTime( const Core::Animation::AnimationTime& time ) {
+inline void AnimationData::setTime( const AnimationTime& time ) {
     m_time = time;
 }
 
-inline Core::Animation::Time AnimationData::getTimeStep() const {
+inline AnimationTime::Time AnimationData::getTimeStep() const {
     return m_dt;
 }
 
-inline void AnimationData::setTimeStep( const Core::Animation::Time& delta ) {
+inline void AnimationData::setTimeStep( const AnimationTime::Time& delta ) {
     m_dt = delta;
 }
 
+// Keyframes
 inline uint AnimationData::getFramesSize() const {
     return m_keyFrame.size();
 }
 
-inline std::vector<HandleAnimation> AnimationData::getFrames() const {
+inline std::vector<HandleAnimation> AnimationData::getHandleData() const {
     return m_keyFrame;
 }
 
-inline void AnimationData::setFrames( const std::vector<HandleAnimation>& frameList ) {
+inline void AnimationData::setHandleData( const std::vector<HandleAnimation>& frameList ) {
     const uint size = frameList.size();
     m_keyFrame.resize( size );
 #pragma omp parallel for

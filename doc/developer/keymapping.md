@@ -35,6 +35,7 @@ Then you need to define your specific actions as static member of your class
 
 ~~~{.cpp}
 class MyClass :public KeyManageable<MyClass> {
+    friend class KeyMappingManageable<MyClass>;
 
 // callback when a configuration file is loaded, could check if the context and action are present.
 static void configureKeyMapping(){
@@ -104,7 +105,55 @@ For instance see `Viewer.cpp` `Viewer::mousePressEvent`
         if ( accepted ) { m_activeContext = m_camera->getContext(); }
         else
   //[...]
- ~~~
+~~~
+
+# Key mapping and inheritence.
+If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:
+
+*  Base and derived classes will have two different contexts.
+* Derived  `setupKeymappingcallbacks` should call base  `setupKeymappingcallbacks`, hence derived `configureKeymapping_impl` should only care about its own `KeyMappingAction`.
+
+Here is an example snippets.
+
+~~~{.cpp}
+class MyViewer : public Ra::Gui::Viewer, public Ra::Gui::KeyMappingManageable<MyViewer>
+{
+    using baseKeyMapping = Ra::Gui::KeyMappingManageable<Ra::Gui::Viewer>;
+    using thisKeyMapping = Ra::Gui::KeyMappingManageable<MyViewer>;
+    void setupKeyMappingCallbacks() override;
+    friend class Ra::Gui::KeyMappingManageable<MyViewer>;
+
+//[...]
+#define KeyMappingMyViewer \
+    KMA_VALUE( MY_ACTION )
+//[...]
+}
+
+void  MyViewer::setupKeyMappingCallbacks() {
+	// Setup keymapping for base
+    base::setupKeyMappingCallbacks();
+	
+	// then extend
+    auto keyMappingManager = Gui::KeyMappingManager::getInstance();
+    keyMappingManager->addListener( thisKeyMapping::configureKeyMapping );
+}
+
+void MyViewer::configureKeyMapping_impl() {
+    auto keyMappingManager              = Gui::KeyMappingManager::getInstance();
+    thisKeyMapping::m_keyMappingContext = keyMappingManager->getContext( "MyViewerContext" );
+    if ( thisKeyMapping::m_keyMappingContext.isInvalid() )
+    {
+        LOG( logINFO ) << "MyViewerContext not defined (maybe the configuration file do not contains it)";
+        return;
+    }
+
+#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( thisKeyMapping::m_keyMappingContext, #XX );
+    
+	KeyMappingMyViewer
+
+#undef KMA_VALUE
+}
+~~~
 
 # Limits
 

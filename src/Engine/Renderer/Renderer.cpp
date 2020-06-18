@@ -176,7 +176,6 @@ void Renderer::initialize( uint width, uint height ) {
     initializeInternal();
 
     resize( m_width, m_height );
-
 }
 
 Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
@@ -292,10 +291,7 @@ void Renderer::render( const ViewingParameters& data ) {
 }
 
 void Renderer::saveExternalFBOInternal() {
-    // Save the current viewport ...
-    glGetIntegerv( GL_VIEWPORT, m_qtViewport );
-    // save the currently bound FBO
-    GL_ASSERT( glGetIntegerv( GL_FRAMEBUFFER_BINDING, &m_qtPlz ) );
+    RadiumEngine::getInstance()->pushFboAndViewport();
     // Set the internal rendering viewport
     glViewport( 0, 0, int( m_width ), int( m_height ) );
 }
@@ -556,16 +552,7 @@ void Renderer::preparePicking( const ViewingParameters& renderData ) {
 }
 
 void Renderer::restoreExternalFBOInternal() {
-    glViewport( m_qtViewport[0], m_qtViewport[1], m_qtViewport[2], m_qtViewport[3] );
-
-    if ( m_qtPlz == 0 )
-    {
-        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, 0 ) );
-    }
-    else
-    {
-        GL_ASSERT( glBindFramebuffer( GL_FRAMEBUFFER, m_qtPlz ) );
-    }
+    RadiumEngine::getInstance()->popFboAndViewport();
 }
 
 void Renderer::drawScreenInternal() {
@@ -575,9 +562,9 @@ void Renderer::drawScreenInternal() {
     {
         GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
 
-        auto shader = ( m_displayedTexture->m_textureParameters.type == GL_INT ||
-                        m_displayedTexture->m_textureParameters.type == GL_UNSIGNED_INT )
-                          ? ( m_displayedTexture->m_textureParameters.format == GL_DEPTH_COMPONENT
+        auto shader = ( m_displayedTexture->getParameters().type == GL_INT ||
+            m_displayedTexture->getParameters().type == GL_UNSIGNED_INT )
+            ? ( m_displayedTexture->getParameters().format == GL_DEPTH_COMPONENT
                                   ? m_shaderMgr->getShaderProgram( "DisplayDepthBuffer" )
                                   : m_shaderMgr->getShaderProgram( "DrawScreenI" ) )
                           : m_shaderMgr->getShaderProgram( "DrawScreen" );

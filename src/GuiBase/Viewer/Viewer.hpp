@@ -64,7 +64,7 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     ~Viewer() override;
 
     /// add observers to keyMappingManager for gizmo, camera and viewer.
-    void setupKeyMappingCallbacks();
+    virtual void setupKeyMappingCallbacks();
 
     //
     // Accessors
@@ -72,11 +72,11 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Access to the OpenGL context of the Viewer
     QOpenGLContext* getContext() const { return m_context.get(); }
 
-    /// Access to camera interface.
-    CameraManipulator* getCameraManipulator();
-
     /// Set the current camera interface.
     void setCameraManipulator( CameraManipulator* ci );
+
+    /// Access to camera interface.
+    CameraManipulator* getCameraManipulator();
 
     /// Set the camera managed by the cameraInterface
     void setCamera( Engine::Camera* camera );
@@ -89,6 +89,19 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     /// Read-write access to renderer
     Engine::Renderer* getRenderer();
+
+    /** Add a renderer and return its index. Need to be called when catching
+     * \param e : your own renderer
+     * \return index of the newly added renderer
+     * \code
+     * int rendererId = addRenderer(new MyRenderer(width(), height()));
+     * changeRenderer(rendererId);
+     * getRenderer()->initialize();
+     * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+     * m_camera->attachLight( light );
+     * \endcode
+     */
+    int addRenderer( const std::shared_ptr<Engine::Renderer>& e );
 
     /// Access to the feature picking manager
     PickingManager* getPickingManager();
@@ -108,9 +121,9 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Blocks until rendering is finished.
     void swapBuffers();
 
-    //
-    // Misc functions
-    //
+    /// @name
+    /// Misc functions
+    /// @{
 
     /// Emits signals corresponding to picking requests.
     void processPicking();
@@ -125,6 +138,10 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     void grabFrame( const std::string& filename );
 
     void enableDebug();
+
+    const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
+
+    ///@}
 
   signals:
     bool glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
@@ -152,30 +169,15 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
     /// Toggle the debug drawing
     void enableDebugDraw( int enabled );
-
-    /** Add a renderer and return its index. Need to be called when catching
-     * \param e : unique_ptr to your own renderer
-     * \return index of the newly added renderer
-     * \code
-     * int rendererId = addRenderer(new MyRenderer(width(), height()));
-     * changeRenderer(rendererId);
-     * getRenderer()->initialize();
-     * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
-     * m_camera->attachLight( light );
-     * \endcode
-     */
-    int addRenderer( const std::shared_ptr<Engine::Renderer>& e );
-
     void setBackgroundColor( const Core::Utils::Color& background );
-    const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
   private slots:
     /// These slots are connected to the base class signals to properly handle
     /// concurrent access to the renderer.
     void onAboutToCompose();
     void onAboutToResize();
-    void onFrameSwapped();
     void onResized();
+    void onFrameSwapped();
 
   protected:
     /// create gizmos
@@ -197,19 +199,39 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Resize the view port and the camera. Called by the resize event.
     void resizeGL( QResizeEvent* event ) override;
 
+    Engine::Renderer::PickingMode
+    getPickingMode( const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) const;
+
+    /// @name
+    /// Qt event, do the viewer stuff, and call handle*Event to perform the
+    /// actual event handling, according to keyMapping.
+    ///@{
+    /// Do nothing if GL is not initialized, then call handleKeyPressEvent
     void keyPressEvent( QKeyEvent* event ) override;
     void keyReleaseEvent( QKeyEvent* event ) override;
 
-    Engine::Renderer::PickingMode
-    getPickingMode( const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) const;
     /// We intercept the mouse events in this widget to get the coordinates of the mouse
     /// in screen space.
     void mousePressEvent( QMouseEvent* event ) override;
     void mouseReleaseEvent( QMouseEvent* event ) override;
     void mouseMoveEvent( QMouseEvent* event ) override;
     void wheelEvent( QWheelEvent* event ) override;
+    ///@}
+
     void showEvent( QShowEvent* ev ) override;
 
+    /// @name
+    /// handle the events, called by *Event, do the actual work, should be overriden in
+    /// derived classes.
+    ///@{
+    virtual void handleKeyPressEvent( QKeyEvent* event );
+    virtual void handleMousePressEvent( QMouseEvent* event,
+                                        Ra::Engine::Renderer::PickingResult& result );
+    virtual void handleMouseReleaseEvent( QMouseEvent* event );
+    virtual void handleMouseMoveEvent( QMouseEvent* event,
+                                       Ra::Engine::Renderer::PickingResult& result );
+    virtual void handleWheelEvent( QWheelEvent* event );
+    ///@}
   private:
     /// update keymapping according to keymapping manager's config, should be
     /// called each time the configuration changes, or added to observer's list
@@ -217,16 +239,17 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Called with KeyManageable::configureKeyMapping
     static void configureKeyMapping_impl();
 
-  public:
-    Scalar m_dt{0.1_ra};
+    Ra::Engine::Renderer::PickingResult pickAtPosition( Core::Vector2 position );
 
   protected:
+    ///\todo make the following  private:
     /// Owning pointer to the renderers.
     std::vector<std::shared_ptr<Engine::Renderer>> m_renderers;
     Engine::Renderer* m_currentRenderer;
 
     /// Owning Pointer to the feature picking manager.
     PickingManager* m_pickingManager;
+
     bool m_isBrushPickingEnabled;
     float m_brushRadius;
 

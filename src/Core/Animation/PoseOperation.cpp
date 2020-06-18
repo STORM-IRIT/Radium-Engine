@@ -1,5 +1,5 @@
-#include <Core/Animation/Interpolation.hpp>
 #include <Core/Animation/PoseOperation.hpp>
+#include <Core/Math/Interpolation.hpp>
 
 #include <Eigen/Geometry>
 
@@ -62,7 +62,7 @@ Pose interpolatePoses( const Pose& a, const Pose& b, const Scalar t ) {
 #pragma omp parallel for
     for ( int i = 0; i < int( size ); ++i )
     {
-        interpolate( a[i], b[i], t, interpolatedPose[i] );
+        interpolatedPose[i] = Math::linearInterpolate( a[i], b[i], t );
     }
 
     return interpolatedPose;

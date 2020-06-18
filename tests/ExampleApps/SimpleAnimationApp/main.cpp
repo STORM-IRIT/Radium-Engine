@@ -11,8 +11,11 @@
 #include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-#include <minimalapp.hpp>
 #include <minimalradium.hpp>
+/* This file contains a minimal radium/qt application which shows the
+ * "Simple Animation" demo, which uses KeyFramedValues to spin a cube with
+ * time-varying colors. */
+#include <minimalapp.hpp>
 
 int main( int argc, char* argv[] ) {
 
@@ -30,7 +33,6 @@ int main( int argc, char* argv[] ) {
     // Create app and show viewer window
     MinimalApp app( argc, argv );
     app.m_viewer->show();
-    app.m_viewer->resize( {500, 500} );
     CORE_ASSERT( app.m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
     // process all events so that everithing is initialized
     QApplication::processEvents();
@@ -45,10 +47,8 @@ int main( int argc, char* argv[] ) {
     sys->addComponent( e, c );
     c->initialize();
 
-    auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
-    if ( !aabb.isEmpty() ) { app.m_viewer->fitCameraToScene( aabb ); }
-
     // Start the app.
     app.m_frame_timer->start();
+    app.m_close_timer->start();
     return app.exec();
 }

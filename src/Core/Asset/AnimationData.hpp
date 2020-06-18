@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
-#include <Core/Animation/AnimationTime.hpp>
-#include <Core/Animation/KeyTransform.hpp>
+#include <Core/Animation/KeyFramedValue.hpp>
+#include <Core/Asset/AnimationTime.hpp>
 #include <Core/Asset/AssetData.hpp>
 #include <Core/RaCore.hpp>
 
@@ -13,20 +13,27 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-/// A HandleAnimation stores the animation KeyFrames of transforms applied to
-/// a part of an object, e.g. a bone of an animation skeleton.
+/**
+ * A HandleAnimation stores data for an animation Handle.
+ */
 struct RA_CORE_API HandleAnimation {
     explicit HandleAnimation( const std::string& name = "" );
 
-    /// The handle's name.
+    /// The Handle's name.
     std::string m_name;
 
-    /// The list of KeyFramed transformed applied to the handle.
-    Core::Animation::KeyTransform m_anim;
+    /// The list of KeyFramed transforms applied to the Handle.
+    Core::Animation::KeyFramedValue<Transform> m_anim;
+
+    /// The AnimationTime for the Handle.
+    AnimationTime m_animationTime;
 };
 
-/// The AnimationData class stores all the HandleAnimations related to an object,
-/// e.g. the ones from all the skeleton bones.
+/**
+ * The AnimationData class stores all the HandleAnimation related to an
+ * animation of an object, one per animation Handle.
+ * \note Objects can have several AnimationData, one for each animation.
+ */
 class RA_CORE_API AnimationData : public AssetData
 {
   public:
@@ -34,39 +41,65 @@ class RA_CORE_API AnimationData : public AssetData
 
     ~AnimationData();
 
-    /// Returns the name of the object.
+    /**
+     * Sets the name of the animation.
+     */
     inline void setName( const std::string& name );
 
-    /// Return the AnimationTime linked to the object.
-    inline const Core::Animation::AnimationTime& getTime() const;
+    /// \name Time
+    /// \{
 
-    /// Set the AnimationTime for the object.
-    inline void setTime( const Core::Animation::AnimationTime& time );
+    /**
+     * \returns the AnimationTime of the animation.
+     */
+    inline const AnimationTime& getTime() const;
 
-    /// Return the animation timestep.
-    inline Core::Animation::Time getTimeStep() const;
+    /**
+     * Sets the AnimationTime of the animation.
+     */
+    inline void setTime( const AnimationTime& time );
 
-    /// Set the animation timestep.
-    inline void setTimeStep( const Core::Animation::Time& delta );
+    /**
+     * \returns the animation timestep.
+     */
+    inline AnimationTime::Time getTimeStep() const;
 
-    /// Return the number of transform.
+    /**
+     * Sets the animation timestep.
+    ￼ */
+    inline void setTimeStep( const AnimationTime::Time& delta );
+    /// \}
+
+    /// \name Keyframes
+    /// \{
+
+    /**
+     * \returns the number of HandleAnimations.
+     */
     inline uint getFramesSize() const;
 
-    /// Return the HandleAnimation, i.e. the whole animation frames.
-    inline std::vector<HandleAnimation> getFrames() const;
+    /**
+     * \returns the list of HandleAnimations, i.e. the whole animation frames.
+     */
+    inline std::vector<HandleAnimation> getHandleData() const;
 
-    /// Set the animation frames.
-    inline void setFrames( const std::vector<HandleAnimation>& frameList );
+    /**
+     * Sets the animation frames.
+     */
+    inline void setHandleData( const std::vector<HandleAnimation>& frameList );
+    /// \}
 
-    /// Print stat info to the Debug output.
+    /**
+     * Print stat info to the Debug output.
+     */
     inline void displayInfo() const;
 
   protected:
     /// The AnimationTime for the object.
-    Core::Animation::AnimationTime m_time;
+    AnimationTime m_time;
 
     /// The animation timestep.
-    Core::Animation::Time m_dt;
+    AnimationTime::Time m_dt{0};
 
     /// The animation frames.
     std::vector<HandleAnimation> m_keyFrame;
