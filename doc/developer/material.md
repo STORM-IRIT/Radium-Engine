@@ -411,7 +411,7 @@ The _Radium Material Library_ and related components are mainly designed to mana
 
 When rendering, it is sometime useful to compute the final color of an object that do not rely on a bsdf but just on a specific color for each geometry fragment.
 
-Even if the Ra::Engine::PlainMaterial could be used for this and assuming that such a way to define material is object specific, the following steps are required :
+To define a custom fragment's color computation shader and use it with application provided parameters, the following steps are required :
 
 1. Develop specific vertex and fragment shaders to compute the fragment color
 2. Build a Ra::Engine::ShaderConfiguration that uses these shaders
