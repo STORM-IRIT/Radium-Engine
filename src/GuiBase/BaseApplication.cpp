@@ -251,7 +251,7 @@ BaseApplication::BaseApplication( int& argc,
     // Load installed plugins plugins
     if ( !loadPlugins(
              pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
-    { LOG( logERROR ) << "An error occurred while trying to load plugins."; }
+    { LOG( logDEBUG ) << "No plugin found in default path " << pluginsPath; }
     // load supplemental plugins
     {
         QSettings settings;
@@ -506,16 +506,19 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
                                    const QStringList& loadList,
                                    const QStringList& ignoreList ) {
     QDir pluginsDir( qApp->applicationDirPath() );
-    LOG( logINFO ) << " *** Loading Plugins from " << pluginsPath << " ***";
     bool result = pluginsDir.cd( pluginsPath.c_str() );
 
-    if ( !result )
+    if ( result )
     {
-        LOG( logERROR ) << "Cannot open specified plugins directory " << pluginsPath;
+        LOG( logINFO ) << " *** Loading Plugins from " << pluginsDir.absolutePath().toStdString()
+                       << " ***";
+    }
+    else
+    {
+        LOG( logDEBUG ) << "Cannot open specified plugins directory "
+                        << pluginsDir.absolutePath().toStdString();
         return false;
     }
-
-    LOG( logDEBUG ) << "Plugin directory :" << pluginsDir.absolutePath().toStdString();
     bool res       = true;
     uint pluginCpt = 0;
 
