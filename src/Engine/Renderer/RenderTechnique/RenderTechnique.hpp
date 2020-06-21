@@ -124,7 +124,7 @@ class RA_ENGINE_API RenderTechnique final
      * @param pass The index of the pass to set. If this -1, all active passes will share the same
      * provider.
      */
-    void setParametersProvider( const std::shared_ptr<ShaderParameterProvider>& provider,
+    void setParametersProvider( std::shared_ptr<ShaderParameterProvider> provider,
                                 Core::Utils::Index pass = Core::Utils::Index( -1 ) );
 
     /**
