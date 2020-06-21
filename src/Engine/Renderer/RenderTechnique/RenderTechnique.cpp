@@ -50,7 +50,7 @@ const ShaderProgram* RenderTechnique::getShader( Core::Utils::Index pass ) const
 }
 
 void RenderTechnique::setParametersProvider(
-    const std::shared_ptr<ShaderParameterProvider>& provider,
+    std::shared_ptr<ShaderParameterProvider> provider,
     Core::Utils::Index pass ) {
     if ( m_numActivePass == 0 )
     {

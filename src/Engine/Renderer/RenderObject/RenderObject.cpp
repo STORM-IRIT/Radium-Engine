@@ -35,7 +35,7 @@ RenderObject::~RenderObject() = default;
 RenderObject* RenderObject::createRenderObject( const std::string& name,
                                                 Component* comp,
                                                 const RenderObjectType& type,
-                                                const std::shared_ptr<Displayable>& mesh,
+                                                std::shared_ptr<Displayable> mesh,
                                                 const RenderTechnique& techniqueConfig ) {
     auto obj = new RenderObject( name, comp, type );
     obj->setMesh( mesh );
@@ -128,7 +128,7 @@ Component* RenderObject::getComponent() {
     return m_component;
 }
 
-void RenderObject::setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique ) {
+void RenderObject::setRenderTechnique( std::shared_ptr<RenderTechnique> technique ) {
     CORE_ASSERT( technique, "Passing a nullptr as render technique" );
     m_renderTechnique = technique;
 }
@@ -141,7 +141,7 @@ std::shared_ptr<RenderTechnique> RenderObject::getRenderTechnique() {
     return m_renderTechnique;
 }
 
-void RenderObject::setMaterial( const std::shared_ptr<Material>& material ) {
+void RenderObject::setMaterial( std::shared_ptr<Material> material ) {
     m_material = material;
 }
 
@@ -153,7 +153,7 @@ std::shared_ptr<Material> RenderObject::getMaterial() {
     return m_material;
 }
 
-void RenderObject::setMesh( const std::shared_ptr<Displayable>& mesh ) {
+void RenderObject::setMesh( std::shared_ptr<Displayable> mesh ) {
     m_mesh = mesh;
 }
 

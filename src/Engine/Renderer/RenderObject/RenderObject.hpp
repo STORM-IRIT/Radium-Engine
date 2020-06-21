@@ -83,7 +83,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
         const std::string& name,
         Component* comp,
         const RenderObjectType& type,
-        const std::shared_ptr<Displayable>& mesh,
+        std::shared_ptr<Displayable> mesh,
         const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique() );
 
     /**
@@ -118,15 +118,15 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
 
     bool isDirty() const;
 
-    void setRenderTechnique( const std::shared_ptr<RenderTechnique>& technique );
+    void setRenderTechnique( std::shared_ptr<RenderTechnique> technique );
     std::shared_ptr<const RenderTechnique> getRenderTechnique() const;
     std::shared_ptr<RenderTechnique> getRenderTechnique();
 
-    void setMaterial( const std::shared_ptr<Material>& material );
+    void setMaterial( std::shared_ptr<Material> material );
     std::shared_ptr<const Material> getMaterial() const;
     std::shared_ptr<Material> getMaterial();
 
-    void setMesh( const std::shared_ptr<Displayable>& mesh );
+    void setMesh( std::shared_ptr<Displayable> mesh );
     std::shared_ptr<const Displayable> getMesh() const;
     const std::shared_ptr<Displayable>& getMesh();
 
