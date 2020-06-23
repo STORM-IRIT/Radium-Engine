@@ -19,59 +19,59 @@ void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_texParamsVector.bind( shader );
 }
 
-void RenderParameters::addParameter( const char* name, int value ) {
+void RenderParameters::addParameter( const std::string& name, int value ) {
     m_intParamsVector[name] = IntParameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, uint value ) {
+void RenderParameters::addParameter( const std::string& name, uint value ) {
     m_uintParamsVector[name] = UIntParameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, Scalar value ) {
+void RenderParameters::addParameter( const std::string& name, Scalar value ) {
     m_scalarParamsVector[name] = ScalarParameter( name, value );
 }
 
 ///!! array version
 
-void RenderParameters::addParameter( const char* name, std::vector<int> value ) {
+void RenderParameters::addParameter( const std::string& name, std::vector<int> value ) {
     m_intsParamsVector[name] = IntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, std::vector<uint> value ) {
+void RenderParameters::addParameter( const std::string& name, std::vector<uint> value ) {
     m_uintsParamsVector[name] = UIntsParameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, std::vector<Scalar> value ) {
+void RenderParameters::addParameter( const std::string& name, std::vector<Scalar> value ) {
     m_scalarsParamsVector[name] = ScalarsParameter( name, value );
 }
 
 ///!!
 
-void RenderParameters::addParameter( const char* name, const Core::Vector2& value ) {
+void RenderParameters::addParameter( const std::string& name, const Core::Vector2& value ) {
     m_vec2ParamsVector[name] = Vec2Parameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, const Core::Vector3& value ) {
+void RenderParameters::addParameter( const std::string& name, const Core::Vector3& value ) {
     m_vec3ParamsVector[name] = Vec3Parameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, const Core::Vector4& value ) {
+void RenderParameters::addParameter( const std::string& name, const Core::Vector4& value ) {
     m_vec4ParamsVector[name] = Vec4Parameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, const Core::Matrix2& value ) {
+void RenderParameters::addParameter( const std::string& name, const Core::Matrix2& value ) {
     m_mat2ParamsVector[name] = Mat2Parameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, const Core::Matrix3& value ) {
+void RenderParameters::addParameter( const std::string& name, const Core::Matrix3& value ) {
     m_mat3ParamsVector[name] = Mat3Parameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, const Core::Matrix4& value ) {
+void RenderParameters::addParameter( const std::string& name, const Core::Matrix4& value ) {
     m_mat4ParamsVector[name] = Mat4Parameter( name, value );
 }
 
-void RenderParameters::addParameter( const char* name, Texture* tex, int texUnit ) {
+void RenderParameters::addParameter( const std::string& name, Texture* tex, int texUnit ) {
     m_texParamsVector[name] = TextureParameter( name, tex, texUnit );
 }
 
