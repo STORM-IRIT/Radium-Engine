@@ -217,7 +217,7 @@ class RA_ENGINE_API RadiumEngine
     bool setConstantTimeStep( Scalar dt, bool forceConstantTime = false );
 
     /**
-     * \brief Toggles ForwardBackward time flow.
+     * \brief Activates or disables ForwardBackward time flow.
      *
      * When ForwardBackward mode is disabled (default), time will flow through
      * the time window and restart over.
@@ -226,26 +226,36 @@ class RA_ENGINE_API RadiumEngine
      * \note If `end` time is negative, the ForwardBackward mode doesn't apply
      *       and time just flows indefinitely.
      */
-    void setPingPongMode( bool mode );
+    void setForwardBackward( bool mode );
 
     /**
-     * Toggles on/off time flow.
+     * Activates or stops time flow.
      */
     void play( bool isPlaying );
 
     /**
-     * Toggles time flow for one frame.
+     * Activates time flow for one frame.
      */
     void step();
 
     /**
-     * Resets time to 0, same as \code goTo( uint( 0 ) ); \endCode.
+     * Resets time to the `start` time of the time window.
+     * \note Also stops time flow.
      */
-    void reset();
+    void resetTime();
+
+    /**
+     * Sets time to \p t.
+     * \note \p t can be any time value, regardless of the time window or time
+     *       flow modes. However as soon as time flows, \p t will be adapted.
+     */
+    void setTime( Scalar t );
 
     /**
      * Sets the `start` time for the time window.
      * \note A negative start time is considered as 0.
+     * \note If the `start` time comes after the `end` time, then time will
+     *       flow indefinitely.
      */
     void setStartTime( Scalar t );
 
@@ -258,6 +268,8 @@ class RA_ENGINE_API RadiumEngine
      * Sets the `end` time for the time window.
      * \note A negative end time makes the time flow indefinitely, whether
      *       in ForwardBackward mode or not.
+     * \note If the `start` time comes after the `end` time, then time will
+     *       flow indefinitely.
      */
     void setEndTime( Scalar t );
 
@@ -328,15 +340,14 @@ class RA_ENGINE_API RadiumEngine
          */
         void updateTime();
 
-        Scalar m_dt;                ///< The time delta between 2 consecutive frames.
-        Scalar m_startTime{0_ra};   ///< The `start` time for the time window.
-        Scalar m_endTime;           ///< The `end` time for the time window.
-        Scalar m_time{0_ra};        ///< The current time.
-        bool m_realTime{false};     ///< Whether we use the effective time flow or the constant one.
-        bool m_play{false};         ///< Shall time flow.
-        bool m_singleStep{true};    ///< Shall time flow for only one frame.
-        bool m_pingPongMode{false}; ///< Is PingPong mode enabled.
-        bool m_lockFrame{false};    ///< lock on m_frame for internal calls to goTo.
+        Scalar m_dt;              ///< The time delta between 2 consecutive frames.
+        Scalar m_startTime{0_ra}; ///< The `start` time for the time window.
+        Scalar m_endTime;         ///< The `end` time for the time window.
+        Scalar m_time{0_ra};      ///< The current time.
+        bool m_play{false};       ///< Shall time flow.
+        bool m_singleStep{true};  ///< Shall time flow for only one frame.
+        bool m_realTime{false};   ///< Whether we use the effective time flow or the constant one.
+        bool m_forwardBackward{false}; ///< Is PingPong mode enabled.
     };
 
     TimeData m_timeData;
