@@ -345,10 +345,14 @@ void RadiumEngine::step() {
     m_timeData.m_singleStep = true;
 }
 
-void RadiumEngine::reset() {
+void RadiumEngine::resetTime() {
     m_timeData.m_play       = false;
     m_timeData.m_singleStep = false;
     m_timeData.m_time       = m_timeData.m_startTime;
+}
+
+void RadiumEngine::setTime( Scalar t ) {
+    m_timeData.m_time = t;
 }
 
 void RadiumEngine::setStartTime( Scalar t ) {
@@ -367,8 +371,8 @@ Scalar RadiumEngine::getEndTime() const {
     return m_timeData.m_endTime;
 }
 
-void RadiumEngine::setPingPongMode( bool mode ) {
-    m_timeData.m_pingPongMode = mode;
+void RadiumEngine::setForwardBackward( bool mode ) {
+    m_timeData.m_forwardBackward = mode;
 }
 
 Scalar RadiumEngine::getTime() const {
@@ -385,18 +389,18 @@ void RadiumEngine::TimeData::updateTime() {
         // reset
         m_time = m_startTime;
     }
-    if ( m_endTime < 0 )
+    if ( m_endTime < 0 || m_startTime > m_endTime )
     {
         // just run
         return;
     }
-    if ( ( !m_pingPongMode && m_time > m_endTime ) ||
-         ( m_pingPongMode && m_time > 2 * m_endTime - m_startTime ) )
+    if ( ( !m_forwardBackward && m_time > m_endTime ) ||
+         ( m_forwardBackward && m_time > 2 * m_endTime - m_startTime ) )
     {
         // loop around
         m_time = m_startTime + m_time - m_endTime;
     }
-    if ( m_pingPongMode && m_time > m_endTime )
+    if ( m_forwardBackward && m_time > m_endTime )
     {
         // ping pong
         m_time = 2 * m_endTime - m_time;
