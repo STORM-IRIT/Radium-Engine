@@ -4,6 +4,7 @@
 namespace Ra {
 namespace Engine {
 void RenderParameters::bind( const ShaderProgram* shader ) const {
+    m_boolParamsVector.bind( shader );
     m_intParamsVector.bind( shader );
     m_uintParamsVector.bind( shader );
     m_scalarParamsVector.bind( shader );
@@ -13,10 +14,16 @@ void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_vec2ParamsVector.bind( shader );
     m_vec3ParamsVector.bind( shader );
     m_vec4ParamsVector.bind( shader );
+    m_colorParamsVector.bind( shader );
     m_mat2ParamsVector.bind( shader );
     m_mat3ParamsVector.bind( shader );
     m_mat4ParamsVector.bind( shader );
     m_texParamsVector.bind( shader );
+}
+
+
+void RenderParameters::addParameter( const std::string& name, bool value ) {
+    m_boolParamsVector[name] = BoolParameter( name, value );
 }
 
 void RenderParameters::addParameter( const std::string& name, int value ) {
@@ -57,6 +64,11 @@ void RenderParameters::addParameter( const std::string& name, const Core::Vector
 
 void RenderParameters::addParameter( const std::string& name, const Core::Vector4& value ) {
     m_vec4ParamsVector[name] = Vec4Parameter( name, value );
+}
+
+
+void RenderParameters::addParameter( const std::string& name, const Core::Utils::Color& value ) {
+    m_colorParamsVector[name] = ColorParameter( name, value );
 }
 
 void RenderParameters::addParameter( const std::string& name, const Core::Matrix2& value ) {
