@@ -18,8 +18,9 @@ See inheritance diagram of Ra::Core::Geometry::AbstractGeometry :
  2. Ra::Core::Geometry::TopologicalMesh, which is an half-edge data structure. 
 A converter allows to go back and forth to `TriangleMesh`
 without loss of data, but during the conversion, vertices with the same position represents the same topological point (and are hence merged). 
-The other vertex attributes are stored on half-edges (to manage multiple normals per 3D positions
+**Soon deprecated:** The other vertex attributes are stored on half-edges (to manage multiple normals per 3D positions
 for instance).
+**New:** The other vertex attributes are stored on wedges. Each half-edge has one wedge index. If multiple half-edge have the same set of attributes (including vertex position) they have the same wedge index at construction. See section [wedges](#wedges) below.
 
  3. Ra::Engine::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call).
 See inheritance digram of Ra::Engine::AttribArrayDisplayable
@@ -127,3 +128,39 @@ m2.copyAttributes( m, handle1 );
 
 
 Other examples are provided in DrawPrimitives.cpp
+
+## Wedges {#wedges}
+
+![Wedge concept in a nutshell.](wedges.svg)
+
+Wedge are built at construction by using CoreMesh vertex index (which are supposed to represent wedges). Vertices with same (exact) position are merged topologically.
+The figure above show the basic concept of wedges for the example of vertex with color attribute (same works for normals, texture coordinates or any other attributes).
+a) A colored mesh, each vertex can have a different color depending on which face is considered. b) for rendering, vertex are duplicated the needed number of time. Here the center vertex is duplicated three time, while the top right one is duplicated two times. c) But for topological computation, one need to know these vertex are actually the same position, and are modified the same way. d) So the attributes (here color only) are represented as wedges associated with each coherent set of position+attributes. Here the center vertex has three wedges, while the top right vertex has two wedges. e) In the TopologicalMesh implementation, wedges are stored in an array, independently of the topology. Each half-edge has a wedge index. Half-edges that share the same wedge have the same index.
+During manipulation, if two wedges become the same (i.e. for the example on the figure, if we recolor the whole mesh using a single color), **they are not merged**.
+To merge wedges an explicit call to TopologicalMesh::mergeEqualWedges is needed.
+When a wedge is not referenced anymore (because referencing halfedges have been deleted), it is marked for deletation. When one call Ra::Core::Geometry::TopologicalMesh::garbage_collection(), the marked wedges are eventually deleted and halfedges index are updated accordingly.
+
+\todo  TopologicalMesh::mergeEqualWedges
+
+TopologicalMesh methods and types related to wedges: 
+
+- Ra::Core::Geometry::TopologicalMesh::WedgeData the actual wedge data, with one vector array for each of the supported types (float, Vector2, Vector3, Vector4). The order in these arrays follow the names found in getXXXAttribNames referenced below.
+- Ra::Core::Geometry::TopologicalMesh::WedgeIndex
+- Ra::Core::Geometry::TopologicalMesh::vertex_wedges
+- Ra::Core::Geometry::TopologicalMesh::getWedgeData
+- Ra::Core::Geometry::TopologicalMesh::setWedgeData
+- Ra::Core::Geometry::TopologicalMesh::getVec4AttribNames
+- Ra::Core::Geometry::TopologicalMesh::getVec3AttribNames
+- Ra::Core::Geometry::TopologicalMesh::getVec2AttribNames
+- Ra::Core::Geometry::TopologicalMesh::getFloatAttribNames
+- Ra::Core::Geometry::TopologicalMesh::isFeatureVertex
+- Ra::Core::Geometry::TopologicalMesh::isFeatureEdge
+- Ra::Core::Geometry::TopologicalMesh::getWedgeIndexPph
+
+
+\warning To delete face, one need to call `Ra::Core::Geometry::TopologicalMesh::delete_face`, not the `OpenMesh` vanilla `delete_face`
+
+\todo make OpenMesh inheritance private.
+
+Use `Ra::Core::Geometry::TopologicalMesh::collapseWedge` to perform halfedge collapse (works on triangle only ...). The following figure show the nasty updates:
+![Halfedge collapse and wedge.](wedge-collapse.svg)
