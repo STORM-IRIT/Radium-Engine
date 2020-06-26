@@ -46,6 +46,7 @@ ExternalProject_Add(cpplocate
     GIT_TAG tags/v2.2.0
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE
+    PATCH_COMMAND git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/cpplocate.patch"
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
     CMAKE_ARGS
     ${RADIUM_EXTERNAL_CMAKE_OPTIONS}

@@ -126,27 +126,27 @@ function(configure_bundled_Radium_app)
     # Configure the executable installation
     install(
         TARGETS ${ARGS_NAME}
-        BUNDLE DESTINATION "."
+        BUNDLE DESTINATION "bin/"
     )
     if (ARGS_USE_PLUGINS)
         install(CODE "
         include(BundleUtilities)
         set(BU_CHMOD_BUNDLE_ITEMS TRUE)
-        file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents/Resources)
-        file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents)
+        file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
+        file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
         if (EXISTS ${RADIUM_PLUGINS_DIR})
-            file(COPY ${RADIUM_PLUGINS_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents/)
+            file(COPY ${RADIUM_PLUGINS_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/)
         else()
-            file(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents/Plugins/lib\")
+            file(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib\")
         endif()
         file(GLOB RadiumAvailablePlugins
                 RELATIVE ${RADIUM_PLUGINS_DIR}/lib/
                 ${RADIUM_PLUGINS_DIR}/lib/*.dylib )
         set(InstalledPlugins)
         foreach (plugin \${RadiumAvailablePlugins})
-            list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
+            list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
         endforeach ()
-        fixup_bundle(${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
+        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
         "
             )
     else ()
@@ -154,9 +154,9 @@ function(configure_bundled_Radium_app)
             message(STATUS \"Installing ${ARGS_NAME} without plugins\")
             include(BundleUtilities)
             set(BU_CHMOD_BUNDLE_ITEMS TRUE)
-            file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents/Resources)
-            file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app/Contents)
-            fixup_bundle(${CMAKE_INSTALL_PREFIX}/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
+            file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
+            file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
+            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
             "
             )
     endif ()
@@ -168,7 +168,7 @@ function(configure_bundled_Radium_app)
             installTargetResources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
-                BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}.app/Contents/Resources
+                BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/bin/${ARGS_NAME}.app/Contents/Resources
             )
         endforeach ()
     endif ()
