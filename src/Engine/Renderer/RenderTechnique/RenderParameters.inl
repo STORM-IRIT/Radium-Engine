@@ -13,13 +13,13 @@ inline void RenderParameters::UniformBindableSet<T>::bind( const ShaderProgram* 
 
 template <typename T>
 inline void RenderParameters::TParameter<T>::bind( const ShaderProgram* shader ) const {
-    shader->setUniform( m_name, m_value );
+    shader->setUniform( m_name.c_str(), m_value );
 }
 
 inline void RenderParameters::TextureParameter::bind( const ShaderProgram* shader ) const {
-    if ( m_texUnit == -1 ) { shader->setUniformTexture( m_name, m_texture ); }
+    if ( m_texUnit == -1 ) { shader->setUniformTexture( m_name.c_str(), m_texture ); }
     else
-    { shader->setUniform( m_name, m_texture, m_texUnit ); }
+    { shader->setUniform( m_name.c_str(), m_texture, m_texUnit ); }
 }
 
 template <>

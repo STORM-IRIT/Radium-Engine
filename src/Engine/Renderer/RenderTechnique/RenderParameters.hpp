@@ -27,11 +27,13 @@ class RA_ENGINE_API RenderParameters final
 {
   public:
     /// Base abstract parameter Class
+    ///\todo use globjects Uniform directly (which seems to correspond to the
+    ///same data/purpose, even if not well documented
     class Parameter
     {
       public:
         Parameter() = default;
-        explicit Parameter( const char* name ) : m_name( name ) {}
+        explicit Parameter( const std::string & name ) : m_name( name ) {}
         virtual ~Parameter() = default;
         /** Bind the parameter uniform on the shader program
          *
@@ -41,7 +43,7 @@ class RA_ENGINE_API RenderParameters final
         /** The name of the parameter.
          * This must correspond to the name of a Uniform in the shader the Parameter is bound to.
          */
-        const char* m_name{nullptr};
+        std::string m_name{};
     };
 
     /** Typed parameter.
@@ -53,7 +55,7 @@ class RA_ENGINE_API RenderParameters final
     {
       public:
         TParameter() = default;
-        TParameter( const char* name, const T& value ) : Parameter( name ), m_value( value ) {}
+        TParameter( const std::string &name, const T& value ) : Parameter( name ), m_value( value ) {}
         ~TParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
         /// The value of the parameter
@@ -67,7 +69,7 @@ class RA_ENGINE_API RenderParameters final
     {
       public:
         TextureParameter() = default;
-        TextureParameter( const char* name, Texture* tex, int texUnit ) :
+        TextureParameter( const std::string & name, Texture* tex, int texUnit ) :
             Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
         ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
@@ -136,21 +138,21 @@ class RA_ENGINE_API RenderParameters final
      * Overloaded operators to set shader parameters
      * @{
      */
-    void addParameter( const char* name, int value );
-    void addParameter( const char* name, uint value );
-    void addParameter( const char* name, Scalar value );
+    void addParameter( const std::string & name, int value );
+    void addParameter( const std::string & name, uint value );
+    void addParameter( const std::string & name, Scalar value );
 
-    void addParameter( const char* name, std::vector<int> values );
-    void addParameter( const char* name, std::vector<uint> values );
-    void addParameter( const char* name, std::vector<Scalar> values );
+    void addParameter( const std::string & name, std::vector<int> values );
+    void addParameter( const std::string & name, std::vector<uint> values );
+    void addParameter( const std::string & name, std::vector<Scalar> values );
 
-    void addParameter( const char* name, const Core::Vector2& value );
-    void addParameter( const char* name, const Core::Vector3& value );
-    void addParameter( const char* name, const Core::Vector4& value );
+    void addParameter( const std::string & name, const Core::Vector2& value );
+    void addParameter( const std::string & name, const Core::Vector3& value );
+    void addParameter( const std::string & name, const Core::Vector4& value );
 
-    void addParameter( const char* name, const Core::Matrix2& value );
-    void addParameter( const char* name, const Core::Matrix3& value );
-    void addParameter( const char* name, const Core::Matrix4& value );
+    void addParameter( const std::string & name, const Core::Matrix2& value );
+    void addParameter( const std::string & name, const Core::Matrix3& value );
+    void addParameter( const std::string & name, const Core::Matrix4& value );
 
     /**
      * Adding a texture parameter.
@@ -158,7 +160,7 @@ class RA_ENGINE_API RenderParameters final
      * texture unit associated with the named sampler.
      * If texUnit is given, then uniform binding will be made at this explicit location.
      */
-    void addParameter( const char* name, Texture* tex, int texUnit = -1 );
+    void addParameter( const std::string & name, Texture* tex, int texUnit = -1 );
     /**@}*/
     /***
      * Concatenates two RenderParameters
@@ -217,7 +219,8 @@ class RA_ENGINE_API ShaderParameterProvider
 {
   public:
     virtual ~ShaderParameterProvider() = default;
-    const RenderParameters& getParameters() const { return m_renderParameters; }
+    RenderParameters& getParameters() { return m_renderParameters; }
+    const RenderParameters& getParameters() const{ return m_renderParameters; }
     /**
      * Update the OpenGL states used by the ShaderParameterProvider.
      * These state could be the ones from an associated material (textures, precomputed tables or
