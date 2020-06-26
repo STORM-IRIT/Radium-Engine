@@ -1,5 +1,5 @@
---- cpplocate-prefix/src/cpplocate/CMakeLists.txt	2020-06-26 14:40:30.000000000 +0200
-+++ cpplocate-prefix/src/cpplocate/CMakeLists.txt.Radium	2020-06-26 14:44:55.000000000 +0200
+--- cpplocate/CMakeLists.txt	2020-06-26 14:40:30.000000000 +0200
++++ cpplocate/CMakeLists.txt.Radium	2020-06-26 14:44:55.000000000 +0200
 @@ -123,8 +123,6 @@
  endif()
  
