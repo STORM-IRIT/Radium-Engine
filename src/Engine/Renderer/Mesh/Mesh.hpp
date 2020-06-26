@@ -2,35 +2,24 @@
 #define RADIUMENGINE_MESH_HPP
 
 #include <Engine/RaEngine.hpp>
+
 #include <Engine/Renderer/Displayable/DisplayableObject.hpp>
+
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Core/Utils/Log.hpp>
+
+#include <globjects/Buffer.h>
+#include <globjects/VertexArray.h>
 
 #include <array>
 #include <map>
 #include <vector>
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Utils/Color.hpp>
-
-#include <Core/Utils/Log.hpp>
-
-// from .inl, temporary include, remove when compiles
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
-#include <globjects/Buffer.h>
-#include <globjects/Program.h>
-#include <globjects/VertexArray.h>
-#include <globjects/VertexAttributeBinding.h>
-
-namespace globjects {
-
-class VertexArray;
-class Buffer;
-
-} // namespace globjects
-
 namespace Ra {
 namespace Engine {
+
 class ShaderProgram;
 using namespace Ra::Core::Utils;
 
