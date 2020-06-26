@@ -32,7 +32,7 @@ ExternalProject_Add(glbinding
     GIT_TAG 663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c
     GIT_SHALLOW FALSE
     GIT_PROGRESS TRUE
-    PATCH_COMMAND patch < "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
+    PATCH_COMMAND patch --verbose < "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
     CMAKE_ARGS
     ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
@@ -46,7 +46,7 @@ ExternalProject_Add(globjects
     GIT_REPOSITORY https://github.com/dlyr/globjects.git
     GIT_TAG 11c559a07d9e310abb2f53725fd47cfaf538f8b1
     GIT_PROGRESS TRUE
-    PATCH_COMMAND patch < "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
+    PATCH_COMMAND patch --verbose < "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
     DEPENDS glbinding glm
     CMAKE_ARGS

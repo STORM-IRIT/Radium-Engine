@@ -1,5 +1,5 @@
---- CMakeLists.txt	2020-06-26 11:44:18.000000000 +0200
-+++ CMakeLists.txt.new	2020-06-26 11:45:22.000000000 +0200
+--- glbinding-prefix/src/glbinding/CMakeLists.txt	2020-06-26 14:59:00.000000000 +0200
++++ glbinding-prefix/src/glbinding/CMakeLists.txt.Radium	2020-06-26 15:09:42.000000000 +0200
 @@ -136,8 +136,6 @@
  endif()
  
