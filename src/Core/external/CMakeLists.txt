@@ -46,7 +46,7 @@ ExternalProject_Add(cpplocate
     GIT_TAG tags/v2.2.0
     GIT_SHALLOW TRUE
     GIT_PROGRESS TRUE
-    PATCH_COMMAND patch --verbose < "${CMAKE_CURRENT_LIST_DIR}/patches/cpplocate.patch"
+    PATCH_COMMAND patch --verbose -i "${CMAKE_CURRENT_LIST_DIR}/patches/cpplocate.patch"
     INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
     CMAKE_ARGS
     ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
