@@ -1,17 +1,11 @@
+#include <Engine/Renderer/Mesh/Mesh.hpp>
+
 #include <globjects/Buffer.h>
-
-// #include <numeric>
-
-// #include <Core/Utils/Attribs.hpp>
-// #include <Core/Utils/Log.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 #include <globjects/Program.h>
-
-#include <globjects/Buffer.h>
-#include <globjects/VertexArray.h>
 #include <globjects/VertexAttributeBinding.h>
+
 
 namespace Ra {
 namespace Engine {
