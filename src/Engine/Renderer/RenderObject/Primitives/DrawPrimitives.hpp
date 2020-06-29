@@ -102,7 +102,7 @@ RA_ENGINE_API MeshPtr Disk( const Core::Vector3& center,
 
 /// Displays a normal vector emanating from the given point as a vector arrow
 /// and a normal plane of size 'scale'.
-RA_ENGINE_API MeshPtr Normal( const Core::Vector3& point,
+RA_ENGINE_API LineMeshPtr Normal( const Core::Vector3& point,
                               const Core::Vector3& normal,
                               const Core::Utils::Color& color,
                               Scalar scale = 0.1f );

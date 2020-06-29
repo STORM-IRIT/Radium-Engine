@@ -425,53 +425,58 @@ void MinimalComponent::initialize() {
                               colorBoost * Utils::Color::White() ),
         shadedRt ) );
 
-    /*        addRenderObject( RenderObject::createRenderObject(
-    "test_ray",
-    this,
-    RenderObjectType::Geometry,
-    DrawPrimitives::Normal( const Core::Vector3& point,
-                                      const Core::Vector3& normal,
-                                      const Core::Utils::Color& color,
-                                      Scalar scale = 0.1f );
-            addRenderObject( RenderObject::createRenderObject(
-    "test_ray",
-    this,
-    RenderObjectType::Geometry,
-    DrawPrimitives::Frame( const Core::Transform& frameFromEntity,
-        Scalar scale = 0.1f );
+    /// NORMAL
+    cellCorner = {-0.5_ra, 0_ra, 0.25_ra};
 
-            addRenderObject( RenderObject::createRenderObject(
-    "test_ray",
-    this,
-    RenderObjectType::Geometry,
-    DrawPrimitives::Grid( const Core::Vector3& center,
-                                    const Core::Vector3& x,
-                                    const Core::Vector3& y,
-                                    const Core::Utils::Color& color,
-                                    Scalar cellSize = 1.f,
-                                    uint res        = 10 );
+    addRenderObject( RenderObject::createRenderObject(
+        "test_normal",
+        this,
+        RenderObjectType::Geometry,
+        DrawPrimitives::Normal(
+            cellCorner, Vector3{0_ra, 0_ra, 1_ra}, colorBoost * Utils::Color::White() ),
+        plainRt ) );
 
-            addRenderObject( RenderObject::createRenderObject(
-    "test_ray",
-    this,
-    RenderObjectType::Geometry,
-    DrawPrimitives::AABB( const Core::Aabb& aabb, const
-        Core::Utils::Color& color );
+    /*
+        addRenderObject( RenderObject::createRenderObject(
+        "test_ray",
+        this,
+        RenderObjectType::Geometry,
+        DrawPrimitives::Frame( const Core::Transform& frameFromEntity,
+            Scalar scale = 0.1f );
 
-            addRenderObject( RenderObject::createRenderObject(
-    "test_ray",
-    this,
-    RenderObjectType::Geometry,
-    DrawPrimitives::OBB( const Core::Geometry::Obb& obb, const
-        Core::Utils::Color& color );
+                           addRenderObject( RenderObject::createRenderObject(
+                   "test_ray",
+                   this,
+                   RenderObjectType::Geometry,
+                   DrawPrimitives::Grid( const Core::Vector3& center,
+                                                   const Core::Vector3& x,
+                                                   const Core::Vector3& y,
+                                                   const Core::Utils::Color& color,
+                                                   Scalar cellSize = 1.f,
+                                                   uint res        = 10 );
 
-            addRenderObject( RenderObject::createRenderObject(
-    "test_ray",
-    this,
-    RenderObjectType::Geometry,
-    DrawPrimitives::Spline( const Core::Geometry::Spline<3, 3>&
-        spline, uint pointCount, const Core::Utils::Color& color, Scalar scale = 1.0f
-    );*/
+                           addRenderObject( RenderObject::createRenderObject(
+                   "test_ray",
+                   this,
+                   RenderObjectType::Geometry,
+                   DrawPrimitives::AABB( const Core::Aabb& aabb, const
+                       Core::Utils::Color& color );
+
+                           addRenderObject( RenderObject::createRenderObject(
+                   "test_ray",
+                   this,
+                   RenderObjectType::Geometry,
+                   DrawPrimitives::OBB( const Core::Geometry::Obb& obb, const
+                       Core::Utils::Color& color );
+
+                           addRenderObject( RenderObject::createRenderObject(
+                   "test_ray",
+                   this,
+                   RenderObjectType::Geometry,
+                   DrawPrimitives::Spline( const Core::Geometry::Spline<3, 3>&
+                       spline, uint pointCount, const Core::Utils::Color& color, Scalar scale
+       = 1.0f
+                   );*/
 }
 
 /// This system will be added to the engine. Every frame it will
