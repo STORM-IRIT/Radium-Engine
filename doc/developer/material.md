@@ -286,7 +286,7 @@ vec3 getSpecularColor(Material material, vec3 texCoord);
 vec3 evaluateBSDF(Material material, vec3 texCoord, vec3 wi, vec3 wo);
 ~~~
 
-### Emissivity interface {#bsdf-interface}
+### Emissivity interface {#emissivity-interface}
 Some materials are not only reflective, hence implementing the BSDF interface, but also can be emissive. 
 To allow a renderer to access the emissivity of a material the following GLSL function  must 
 defined in the same GLSL file than the BSDF and microgeometry interface :
