@@ -317,10 +317,10 @@ MeshPtr Disk( const Core::Vector3& center,
     return mesh;
 }
 
-MeshPtr Normal( const Core::Vector3& point,
-                const Core::Vector3& normal,
-                const Core::Utils::Color& color,
-                Scalar scale ) {
+LineMeshPtr Normal( const Core::Vector3& point,
+                    const Core::Vector3& normal,
+                    const Core::Utils::Color& color,
+                    Scalar scale ) {
     // Display an arrow (just like the Vector() function)
     // plus the normal plane.
     Core::Vector3 a, b;
@@ -334,6 +334,8 @@ MeshPtr Normal( const Core::Vector3& point,
 
     const Scalar arrowFract = 0.1f;
 
+    Geometry::LineMesh geom;
+
     Core::Vector3Array vertices = {
         point,
         end,
@@ -346,15 +348,12 @@ MeshPtr Normal( const Core::Vector3& point,
         point - ( scale * b ),
     };
 
-    Core::Vector4Array colors( vertices.size(), color );
+    geom.setVertices( vertices );
+    geom.m_indices = {{0, 1}, {1, 2}, {1, 3}, {4, 5}, {5, 6}, {6, 7}, {7, 4}, {4, 6}, {5, 7}};
+    geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                    Core::Vector4Array{geom.vertices().size(), color} );
 
-    std::vector<uint> indices = {0, 1, 1, 2, 1, 3, 4, 5, 5, 6, 6, 7, 7, 4, 4, 6, 5, 7};
-
-    MeshPtr mesh( new Mesh( "Normal Primitive", Mesh::RM_LINES ) );
-    mesh->loadGeometry( vertices, indices );
-    mesh->getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
-
-    return mesh;
+    return make_shared<LineMesh>( "Normal Primitive", std::move( geom ) );
 }
 
 MeshPtr Frame( const Core::Transform& frameFromEntity, Scalar scale ) {
