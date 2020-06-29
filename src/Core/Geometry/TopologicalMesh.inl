@@ -409,14 +409,15 @@ GET_NAME_ARRAY_HELPER( Vector3, vector3 )
 GET_NAME_ARRAY_HELPER( Vector4, vector4 )
 
 #undef GET_NAME_ARRAY_HELPER
-
+// These template functions, for supported types are explicitly instanciated above. For unsupported
+// types, generates a compile error.
 template <typename T>
 inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() const {
 
     LOG( logWARNING ) << "Warning, mesh attribute " << typeid( T ).name()
                       << " is not supported (only float, vec2, vec3 nor vec4 are supported)";
-    //    static_assert( sizeof( T ) == -1, "this type is not supported" );
-    return {};
+    static_assert( sizeof( T ) == -1, "this type is not supported" );
+    return m_floatAttribNames;
 }
 
 template <typename T>
