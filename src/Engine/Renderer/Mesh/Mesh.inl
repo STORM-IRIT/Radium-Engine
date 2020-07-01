@@ -189,6 +189,17 @@ Ra::Core::Geometry::AbstractGeometry& CoreGeometryDisplayable<CoreGeometry>::get
 }
 
 template <typename CoreGeometry>
+const Ra::Core::Geometry::AttribArrayGeometry&
+CoreGeometryDisplayable<CoreGeometry>::getAttribArrayGeometry() const {
+    return m_mesh;
+}
+
+template <typename CoreGeometry>
+Ra::Core::Geometry::AttribArrayGeometry& CoreGeometryDisplayable<CoreGeometry>::getAttribArrayGeometry() {
+    return m_mesh;
+}
+
+template <typename CoreGeometry>
 const CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() const {
     return m_mesh;
 }
