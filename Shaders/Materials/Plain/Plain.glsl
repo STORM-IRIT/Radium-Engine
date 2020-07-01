@@ -23,14 +23,19 @@ vec3 getWorldSpaceNormal();
 #define DONT_USE_INPUT_TANGENT
 
 //----------------------------------------------------------------
+// Implementation of the emissivity interface.
+// Plain Material is not emissive
+vec3 getEmissiveColor(Material material, vec3 textCoord) {
+    return vec3(0);
+}
 
-vec4 getBaseColor( Material material, vec3 texCoord ) {
-    vec4 dc = vec4( material.color.rgb, 1 );
+vec4 getBaseColor(Material material, vec3 texCoord) {
+    vec4 dc = vec4(material.color.rgb, 1);
 
-    if ( material.perVertexColor == 1 ) { dc.rgb = getPerVertexBaseColor().rgb; }
-    if ( material.tex.hasColor == 1 ) { dc.rgb = texture( material.tex.color, texCoord.xy ).rgb; }
+    if (material.perVertexColor == 1) { dc.rgb = getPerVertexBaseColor().rgb; }
+    if (material.tex.hasColor == 1) { dc.rgb = texture(material.tex.color, texCoord.xy).rgb; }
 
-    if ( material.tex.hasMask == 1 && texture( material.tex.mask, texCoord.xy ).r < 0.1 )
+    if (material.tex.hasMask == 1 && texture(material.tex.mask, texCoord.xy).r < 0.1)
     { dc.a = 0; }
     return dc;
 }

@@ -10,7 +10,7 @@ void main() {
     vec4 bc = getBaseColor( material, getPerVertexTexCoord() );
     if ( toDiscard( material, bc ) ) discard;
 
-    out_ambient = vec4( bc.rgb * 0.01, 1.0 );
-    out_normal  = vec4( getWorldSpaceNormal() * 0.5 + 0.5, 1.0 );
+    out_ambient = vec4(bc.rgb * 0.01  + getEmissiveColor(material, getPerVertexTexCoord()), 1.0);
+    out_normal  = vec4(getWorldSpaceNormal() * 0.5 + 0.5, 1.0);
     out_diffuse = vec4( bc.rgb, 1.0 );
 }
