@@ -210,7 +210,7 @@ vec3 getPerVertexSpecularColor();
 Note also that if a function is not needed by a shader, there is no need to implement its interface.
 
 
-#### Microgeometry interface {#microgeometry-interface}
+### Microgeometry interface {#microgeometry-interface}
 Defining the micro-geometry procedurally or by using textures allows to de-correlates the geometric sampling from the
 appearance parameters sampling.
 The best example of procedural micro-geometry is normal mapping.
@@ -237,7 +237,7 @@ bool toDiscard(Material material, vec4 color);
 ~~~
 
 
-#### BSDF interface {#bsdf-interface}
+### BSDF interface {#bsdf-interface}
 Implementing or using the GLSL BSDF interface is based on the fact that the method Ra::Engine::Material::getMaterialName()
  must return a string that contains the `name_of_the_BSDF` implemented in a file named `name_of_the_BSDF.glsl`.
 This file is preloaded at [material registration](#registration-mtl-lib) into a `glNamedString` to allow inclusion by others.
@@ -284,6 +284,15 @@ vec3 getSpecularColor(Material material, vec3 texCoord);
 // The local Frame is the Frame wher the Geometric normal is the Z axis,
 // and the tangent defined the X axis.
 vec3 evaluateBSDF(Material material, vec3 texCoord, vec3 wi, vec3 wo);
+~~~
+
+### Emissivity interface {#emissivity-interface}
+Some materials are not only reflective, hence implementing the BSDF interface, but also can be emissive. 
+To allow a renderer to access the emissivity of a material the following GLSL function  must 
+defined in the same GLSL file than the BSDF and microgeometry interface :
+~~~
+// Return the emissivity of the material
+vec3 getEmissiveColor(GLTFCommon material, vec3 textCoord);
 ~~~
 
 ## Material registration into the Engine {#registration-mtl-lib}
