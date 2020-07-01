@@ -19,8 +19,8 @@ void main() {
     vec3 normalWorld = getNormal(
         material, getPerVertexTexCoord(), getWorldSpaceNormal(), getWorldSpaceTangent(), binormal );
 
-    out_ambient  = vec4( bc.rgb * 0.01, 1.0 );
-    out_normal   = vec4( normalWorld * 0.5 + 0.5, 1.0 );
+    out_ambient  = vec4(bc.rgb * 0.01 + getEmissiveColor(material, getPerVertexTexCoord()), 1.0);
+    out_normal   = vec4(normalWorld * 0.5 + 0.5, 1.0);
     out_diffuse  = vec4( bc.xyz, 1.0 );
     out_specular = vec4( getSpecularColor( material, getPerVertexTexCoord() ), 1.0 );
 }
