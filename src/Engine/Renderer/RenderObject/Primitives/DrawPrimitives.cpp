@@ -21,13 +21,24 @@ using namespace Core::Geometry;
 
 namespace Engine {
 namespace DrawPrimitives {
+
 RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
+    return Primitive( component,
+                      std::dynamic_pointer_cast<Ra::Engine::AttribArrayDisplayable>( mesh ) );
+}
+
+RenderObject* Primitive( Component* component, const LineMeshPtr& mesh ) {
+    return Primitive( component,
+                      std::dynamic_pointer_cast<Ra::Engine::AttribArrayDisplayable>( mesh ) );
+}
+
+RenderObject* Primitive( Component* component, const AttribArrayDisplayablePtr& mesh ) {
     RenderTechnique rt;
     auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
     builder.second( rt, false );
     auto roMaterial = Core::make_shared<PlainMaterial>( "Default material" );
     roMaterial->m_perVertexColor =
-        mesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+        mesh->getAttribArrayGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
     rt.setParametersProvider( roMaterial );
 
     auto ro = RenderObject::createRenderObject(

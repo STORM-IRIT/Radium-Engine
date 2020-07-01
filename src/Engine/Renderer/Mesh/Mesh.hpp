@@ -133,6 +133,12 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     static inline std::string getAttribName( MeshData type );
     ///@}
 
+    ///@{
+    /**  Returns the underlying CoreGeometry as an Core::Geometry::AttribArrayGeometry */
+    virtual const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const = 0;
+    virtual Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry()            = 0;
+    ///@}
+
   protected:
     /// Update the picking render mode according to the object render mode
     void updatePickingRenderMode();
@@ -221,6 +227,9 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override;
     inline Core::Geometry::AbstractGeometry& getAbstractGeometry() override;
     ///@}
+
+    inline const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const override;
+    inline Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() override;
 
     ///@{
     /// Returns the underlying CoreGeometry

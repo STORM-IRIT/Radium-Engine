@@ -24,7 +24,13 @@ namespace DrawPrimitives {
 using MeshPtr                   = std::shared_ptr<Mesh>;
 using LineMeshPtr               = std::shared_ptr<LineMesh>;
 using AttribArrayDisplayablePtr = std::shared_ptr<AttribArrayDisplayable>;
+
+///@{
+/// Renturn a render object to display the given geometry
 RA_ENGINE_API RenderObject* Primitive( Component* comp, const MeshPtr& mesh );
+RA_ENGINE_API RenderObject* Primitive( Component* comp, const LineMeshPtr& mesh );
+RA_ENGINE_API RenderObject* Primitive( Component* comp, const AttribArrayDisplayablePtr& mesh );
+///@}
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'
 RA_ENGINE_API LineMeshPtr Point( const Core::Vector3& point,
