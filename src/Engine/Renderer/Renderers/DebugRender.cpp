@@ -139,7 +139,7 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
                                const Core::Matrix4f& projMatrix ) {
     Core::Vector3Array vertices;
     Core::Vector4Array colors;
-    std::vector<GLuint> indices;
+    Core::Geometry::LineMesh::IndexContainerType indices;
     unsigned int indexI = 0;
     for ( const auto& l : m_lines )
     {
@@ -149,8 +149,8 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
         colors.push_back( l.col );
         colors.push_back( l.col );
 
-        indices.push_back( indexI++ );
-        indices.push_back( indexI++ );
+        indices.push_back( {indexI, indexI + 1} );
+        indexI += 2;
     }
 
     if ( !vertices.empty() )
@@ -162,9 +162,13 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
         m_lineProg->setUniform( "view", viewMatrix );
         m_lineProg->setUniform( "proj", projMatrix );
 
-        Mesh mesh( "temp", Mesh::RM_LINES );
-        mesh.loadGeometry( vertices, indices );
-        mesh.getCoreGeometry().addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+        Core::Geometry::LineMesh geom;
+        geom.setVertices( vertices );
+        geom.m_indices = indices;
+        geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+
+        LineMesh mesh( "temp", std::move( geom ) );
+
         mesh.updateGL();
         ///\todo
         mesh.render( m_lineProg );
