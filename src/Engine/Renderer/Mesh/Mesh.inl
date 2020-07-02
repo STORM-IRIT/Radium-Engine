@@ -1,11 +1,10 @@
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
-#include <globjects/Buffer.h>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
+#include <globjects/Buffer.h>
 #include <globjects/Program.h>
 #include <globjects/VertexAttributeBinding.h>
-
 
 namespace Ra {
 namespace Engine {
@@ -163,13 +162,6 @@ void IndexedAttribArrayDisplayable<I>::render( const ShaderProgram* prog ) {
 }
 
 ////////////////  CoreGeometryDisplayable ///////////////////////////////
-template <typename CoreGeometry>
-CoreGeometryDisplayable<CoreGeometry>::CoreGeometryDisplayable( const std::string& name,
-                                                                CoreGeometry&& geom,
-                                                                MeshRenderMode renderMode ) :
-    AttribArrayDisplayable( name, renderMode ) {
-    loadGeometry( std::move( geom ) );
-}
 
 template <typename CoreGeometry>
 const Ra::Core::Geometry::AbstractGeometry&
@@ -189,7 +181,8 @@ CoreGeometryDisplayable<CoreGeometry>::getAttribArrayGeometry() const {
 }
 
 template <typename CoreGeometry>
-Ra::Core::Geometry::AttribArrayGeometry& CoreGeometryDisplayable<CoreGeometry>::getAttribArrayGeometry() {
+Ra::Core::Geometry::AttribArrayGeometry&
+CoreGeometryDisplayable<CoreGeometry>::getAttribArrayGeometry() {
     return m_mesh;
 }
 
