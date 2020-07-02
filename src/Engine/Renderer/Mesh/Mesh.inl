@@ -164,6 +164,13 @@ void IndexedAttribArrayDisplayable<I>::render( const ShaderProgram* prog ) {
 ////////////////  CoreGeometryDisplayable ///////////////////////////////
 
 template <typename CoreGeometry>
+CoreGeometryDisplayable<CoreGeometry>::CoreGeometryDisplayable( const std::string& name,
+                                                                MeshRenderMode renderMode ) :
+    base( name, renderMode ) {
+    setupCoreMeshObservers();
+}
+
+template <typename CoreGeometry>
 const Ra::Core::Geometry::AbstractGeometry&
 CoreGeometryDisplayable<CoreGeometry>::getAbstractGeometry() const {
     return m_mesh;
@@ -265,7 +272,12 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
 
 template <typename T>
 void CoreGeometryDisplayable<T>::loadGeometry_common( T&& mesh ) {
-    m_mesh  = std::move( mesh );
+    m_mesh = std::move( mesh );
+    setupCoreMeshObservers();
+}
+
+template <typename T>
+void CoreGeometryDisplayable<T>::setupCoreMeshObservers() {
     int idx = 0;
     m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
     m_vbos.resize( m_mesh.vertexAttribs().getNumAttribs() );
