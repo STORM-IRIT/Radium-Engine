@@ -205,11 +205,12 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
 template <typename T>
 class CoreGeometryDisplayable : public AttribArrayDisplayable
 {
-  private:
-    using AttribArrayDisplayable::AttribArrayDisplayable;
-
   public:
+    using base         = AttribArrayDisplayable;
     using CoreGeometry = T;
+
+    explicit CoreGeometryDisplayable( const std::string& name,
+                                      MeshRenderMode renderMode = RM_TRIANGLES );
 
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AbstractGeometry */
@@ -263,6 +264,7 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     virtual void updateGL_specific_impl(){};
 
     void loadGeometry_common( CoreGeometry&& mesh );
+    void setupCoreMeshObservers();
     void autoVertexAttribPointer( const ShaderProgram* prog );
 
     /// m_mesh Observer method, called whenever an attrib is added or removed from
