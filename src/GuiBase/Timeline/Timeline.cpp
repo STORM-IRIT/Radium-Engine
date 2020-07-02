@@ -77,7 +77,7 @@ Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline 
     // --- DEAL WITH OBJET REMOVAL ---
     Ra::Engine::RadiumEngine::getInstance()
         ->getSignalManager()
-        ->m_entityDestroyedCallbacks.push_back( [=]( const Ra::Engine::ItemEntry& entry ) {
+        ->m_entityDestroyedCallbacks.push_back( [this]( const Ra::Engine::ItemEntry& entry ) {
             auto it = std::find_if(
                 m_entityKeyFrames.begin(), m_entityKeyFrames.end(), [entry]( const auto& frames ) {
                     return entry.m_entity == frames.first;
@@ -86,7 +86,7 @@ Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline 
         } );
     Ra::Engine::RadiumEngine::getInstance()
         ->getSignalManager()
-        ->m_componentRemovedCallbacks.push_back( [=]( const Ra::Engine::ItemEntry& entry ) {
+        ->m_componentRemovedCallbacks.push_back( [this]( const Ra::Engine::ItemEntry& entry ) {
             auto it = std::find_if(
                 m_componentKeyFrames.begin(),
                 m_componentKeyFrames.end(),
@@ -94,7 +94,7 @@ Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline 
             if ( it != m_componentKeyFrames.end() ) { m_componentKeyFrames.erase( it ); }
         } );
     Ra::Engine::RadiumEngine::getInstance()->getSignalManager()->m_roRemovedCallbacks.push_back(
-        [=]( const Ra::Engine::ItemEntry& entry ) {
+        [this]( const Ra::Engine::ItemEntry& entry ) {
             auto it = std::find_if(
                 m_renderObjectKeyFrames.begin(),
                 m_renderObjectKeyFrames.end(),
@@ -109,22 +109,23 @@ Timeline::~Timeline() {
 
 void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
     // enables ui if any keyframe
-    auto enableUI = [=]( bool enable ) {
+    auto enableUI = [this]( bool enable ) {
         ui->comboBox_attribute->setEnabled( enable );
         ui->toolButton_keyFrame->setEnabled( enable );
         ui->m_nbKeyFramesSpin->setEnabled( enable );
         ui->m_removeKeyFrameButton->setEnabled( enable );
         ui->pushButton_editAttribute->setEnabled( enable );
     };
+    // reset ui
     ui->comboBox_attribute->blockSignals( true );
     ui->comboBox_attribute->clear();
     ui->comboBox_attribute->blockSignals( false );
     enableUI( false );
     onClearKeyFrames();
     m_current = Ra::Core::Animation::KeyFramedValueController();
-    // collect keyframes names and display times if first one
-    static auto registerFrames = [=]( const Ra::Core::Animation::KeyFramedValueController& frame,
-                                      const std::string& prefix ) {
+    // collects keyframedvalue name; if first one then display times and register as current
+    auto registerFrames = [this]( const Ra::Core::Animation::KeyFramedValueController& frame,
+                                  const std::string& prefix ) {
         ui->comboBox_attribute->addItem( QString( ( prefix + frame.m_name ).c_str() ) );
         if ( ui->comboBox_attribute->count() == 1 )
         {
@@ -133,20 +134,26 @@ void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
             {
                 ui->frame_selector->onAddingKeyFrame( t, false );
             }
+            m_current = frame;
         }
     };
+    // checks if the given keyframedvalue map contains the given key.
+    // if so, registers all keyframedvalues with the given prefix.
+#define REGISTER_KEYFRAMED_VALUES( map, key, prefix )       \
+    {                                                       \
+        auto it = map.find( key );                          \
+        if ( it != map.end() )                              \
+        {                                                   \
+            for ( const auto& keyFramedValue : it->second ) \
+            {                                               \
+                registerFrames( keyFramedValue, prefix );   \
+            }                                               \
+        }                                                   \
+    }
     // register keyframes for the Entity
     if ( ent.m_entity == nullptr ) { return; }
     const std::string& entityName = ent.m_entity->getName();
-    auto entityFrames             = m_entityKeyFrames.find( ent.m_entity );
-    if ( entityFrames != m_entityKeyFrames.end() )
-    {
-        if ( entityFrames->second.size() > 0 ) { m_current = entityFrames->second.front(); }
-        for ( const auto& frames : entityFrames->second )
-        {
-            registerFrames( frames, entityName + "::" );
-        }
-    }
+    REGISTER_KEYFRAMED_VALUES( m_entityKeyFrames, ent.m_entity, entityName + "::" );
     // register keyframes for the Component
     if ( ent.m_component == nullptr )
     {
@@ -154,16 +161,8 @@ void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
         return;
     }
     const std::string& compName = ent.m_component->getName();
-    auto componentFrames        = m_componentKeyFrames.find( ent.m_component );
-    if ( componentFrames != m_componentKeyFrames.end() )
-    {
-        if ( ui->comboBox_attribute->count() == 0 && componentFrames->second.size() > 0 )
-        { m_current = componentFrames->second.front(); }
-        for ( const auto& frames : componentFrames->second )
-        {
-            registerFrames( frames, entityName + "::" + compName + "::" );
-        }
-    }
+    REGISTER_KEYFRAMED_VALUES(
+        m_componentKeyFrames, ent.m_component, entityName + "::" + compName + "::" );
     // register keyframes for the RenderObject
     if ( ent.m_roIndex == Ra::Core::Utils::Index::Invalid() )
     {
@@ -173,16 +172,10 @@ void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
     const auto& roMngr = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     const std::string roName =
         roMngr->getRenderObject( ent.m_roIndex )->getName() + "_" + std::to_string( ent.m_roIndex );
-    auto renderObjectFrames = m_renderObjectKeyFrames.find( ent.m_roIndex );
-    if ( renderObjectFrames != m_renderObjectKeyFrames.end() )
-    {
-        if ( ui->comboBox_attribute->count() > 0 && renderObjectFrames->second.size() > 0 )
-        { m_current = renderObjectFrames->second.front(); }
-        for ( const auto& frames : renderObjectFrames->second )
-        {
-            registerFrames( frames, entityName + "::" + compName + "::" + roName + "::" );
-        }
-    }
+    REGISTER_KEYFRAMED_VALUES( m_renderObjectKeyFrames,
+                               ent.m_roIndex,
+                               entityName + "::" + compName + "::" + roName + "::" );
+#undef REGISTER_KEYFRAMED_VALUES
     if ( ui->comboBox_attribute->count() > 0 )
     {
         enableUI( true );
@@ -300,6 +293,7 @@ void Timeline::onChangeDuration( Scalar time ) {
 }
 
 void Timeline::onChangeCursor( Scalar time ) {
+    if ( Ra::Core::Math::areApproxEqual( time, Scalar( ui->m_cursorSpin->value() ) ) ) { return; }
     ui->frame_selector->onChangeCursor( time, false );
     updateKeyFrames( time );
 }
@@ -318,27 +312,18 @@ void Timeline::on_pingPong_toggled( bool checked ) {
 }
 
 void Timeline::updateKeyFrames( Scalar time ) {
-    for ( auto& KF : m_entityKeyFrames )
-    {
-        for ( auto& kf : KF.second )
+    auto update = [time]( auto& keyFrames ) {
+        for ( auto& KF : keyFrames )
         {
-            kf.updateKeyFrame( time );
+            for ( auto& kf : KF.second )
+            {
+                kf.updateKeyFrame( time );
+            }
         }
-    }
-    for ( auto& KF : m_componentKeyFrames )
-    {
-        for ( auto& kf : KF.second )
-        {
-            kf.updateKeyFrame( time );
-        }
-    }
-    for ( auto& KF : m_renderObjectKeyFrames )
-    {
-        for ( auto& kf : KF.second )
-        {
-            kf.updateKeyFrame( time );
-        }
-    }
+    };
+    update( m_entityKeyFrames );
+    update( m_componentKeyFrames );
+    update( m_renderObjectKeyFrames );
 }
 
 void Timeline::onClearKeyFrames() {
@@ -419,115 +404,87 @@ void Timeline::onMovingKeyFrames( size_t first, Scalar offset ) {
 
 void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) {
     onClearKeyFrames();
-    Ra::Core::Animation::KeyFramedValueController frames;
+    std::vector<Ra::Core::Animation::KeyFramedValueController> list;
     const QStringList names = arg1.split( "::" );
+
+    // prints a warning message for the attribute and returns
+#define LOG_AND_RETURN                                                          \
+    LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString() \
+                      << "\"'s name is not conform.";                           \
+    return
+
+    // Checks if the given vector of KeyFramedValues contains a KeyFramedValue
+    // with the given name.
+    // If so, set the current frame to this KeyFramedValue;
+    // If not, prints a warning message for the attribute and returns.
+#define GET_KEYFRAMEDVALUE( list, name )                                                 \
+    {                                                                                    \
+        auto it = std::find_if( list.begin(), list.end(), [&name]( const auto& frame ) { \
+            return frame.m_name == name;                                                 \
+        } );                                                                             \
+        if ( it == list.end() ) { LOG_AND_RETURN; }                                      \
+        m_current = *it;                                                                 \
+    }
+
+    // Checks if the given map has an element fulfilling lambda.
+    // If so, set list to the associated vector of KeyFramedValues.
+    // If not, prints a warning message for the attribute and returns.
+#define GET_KEYFRAMEDVALUE_LIST( map, lambda )                                 \
+    {                                                                          \
+        auto keyFramedValues = std::find_if( map.begin(), map.end(), lambda ); \
+        if ( keyFramedValues == map.end() ) { LOG_AND_RETURN; }                \
+        list = keyFramedValues->second;                                        \
+    }
+
     switch ( names.size() )
     {
     case 2:
     {
         const std::string entityName = names.at( 0 ).toStdString();
-        auto e_it                    = std::find_if(
-            m_entityKeyFrames.begin(), m_entityKeyFrames.end(), [&entityName]( const auto& frame ) {
-                return frame.first->getName() == entityName;
-            } );
-        if ( e_it == m_entityKeyFrames.end() )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: Entity \"" << entityName
-                              << "\"'s name is not conform.";
-            return;
-        }
-        const std::string frameName = names.at( 1 ).toStdString();
-        auto f_it =
-            std::find_if( e_it->second.begin(),
-                          e_it->second.end(),
-                          [&frameName]( const auto& frame ) { return frame.m_name == frameName; } );
-        if ( f_it == e_it->second.end() )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
-                              << "\"'s name is not conform.";
-            return;
-        }
-        frames = *f_it;
+        const std::string frameName  = names.at( 1 ).toStdString();
+        auto lambda                  = [entityName]( const auto& frame ) {
+            return frame.first->getName() == entityName;
+        };
+        GET_KEYFRAMEDVALUE_LIST( m_entityKeyFrames, lambda );
+        GET_KEYFRAMEDVALUE( list, frameName );
     }
     break;
     case 3:
     {
-        const std::string compName = names.at( 1 ).toStdString();
-        auto c_it                  = std::find_if(
-            m_componentKeyFrames.begin(),
-            m_componentKeyFrames.end(),
-            [&compName]( const auto& frame ) { return frame.first->getName() == compName; } );
-        if ( c_it == m_componentKeyFrames.end() )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: Component \"" << compName
-                              << "\"'s name is not conform.";
-            return;
-        }
+        const std::string compName  = names.at( 1 ).toStdString();
         const std::string frameName = names.at( 2 ).toStdString();
-        auto f_it =
-            std::find_if( c_it->second.begin(),
-                          c_it->second.end(),
-                          [&frameName]( const auto& frame ) { return frame.m_name == frameName; } );
-        if ( f_it == c_it->second.end() )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
-                              << "\"'s name is not conform.";
-            return;
-        }
-        frames = *f_it;
+        auto lambda                 = [compName]( const auto& frame ) {
+            return frame.first->getName() == compName;
+        };
+        GET_KEYFRAMEDVALUE_LIST( m_componentKeyFrames, lambda );
+        GET_KEYFRAMEDVALUE( list, frameName );
     }
     break;
     case 4:
     {
-        const QStringList roName = names.at( 2 ).split( '_' );
-        if ( roName.size() < 2 )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: Component's name for attribute \""
-                              << arg1.toStdString() << "\" is not conform.";
-            return;
-        }
+        const QStringList fullRoName = names.at( 2 ).split( '_' );
         bool ok;
-        const auto roIdx = roName.last().toInt( &ok );
-        if ( !ok )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: Component's name for attribute \""
-                              << arg1.toStdString() << "\" is not conform.";
-            return;
-        }
-        auto ro_it = std::find_if( m_renderObjectKeyFrames.begin(),
-                                   m_renderObjectKeyFrames.end(),
-                                   [&roIdx]( const auto& frame ) { return frame.first == roIdx; } );
-        if ( ro_it == m_renderObjectKeyFrames.end() )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: Component's name for attribute \""
-                              << arg1.toStdString() << "\" is not conform.";
-            return;
-        }
+        const auto roIdx = fullRoName.last().toInt( &ok );
+        if ( !ok ) { LOG_AND_RETURN; }
+        auto lambda = [&roIdx]( const auto& frame ) { return frame.first == roIdx; };
         const std::string frameName = names.at( 3 ).toStdString();
-        auto f_it =
-            std::find_if( ro_it->second.begin(),
-                          ro_it->second.end(),
-                          [&frameName]( const auto& frame ) { return frame.m_name == frameName; } );
-        if ( f_it == ro_it->second.end() )
-        {
-            LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
-                              << "\"'s name is not conform.";
-            return;
-        }
-        frames = *f_it;
+        GET_KEYFRAMEDVALUE_LIST( m_renderObjectKeyFrames, lambda );
+        GET_KEYFRAMEDVALUE( list, frameName );
     }
     break;
     default:
-        LOG( logWARNING ) << "[Timeline] Error: attribute \"" << arg1.toStdString()
-                          << "\"'s name is not conform.";
-        return;
+        LOG_AND_RETURN;
     }
-    const auto times = frames.m_value->getTimes();
+#undef GET_KEYFRAMEDVALUE_LIST
+#undef GET_KEYFRAMEDVALUE
+#undef LOG_AND_RETURN
+
+    // update ui
+    const auto times = m_current.m_value->getTimes();
     for ( const auto& t : times )
     {
         ui->frame_selector->onAddingKeyFrame( t, false );
     }
-    m_current = frames;
 }
 
 void Timeline::on_pushButton_editAttribute_clicked() {
