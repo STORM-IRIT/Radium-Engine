@@ -50,9 +50,9 @@ TriangleMeshComponent::TriangleMeshComponent( const std::string& name,
                                               Entity* entity,
                                               Core::Geometry::TriangleMesh&& mesh,
                                               Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ), m_displayMesh( new Engine::Mesh( name ) ) {
+    GeometryComponent( name, entity ),
+    m_displayMesh( new Engine::Mesh( name, std::move( mesh ) ) ) {
     setContentName( name );
-    m_displayMesh->loadGeometry( std::move( mesh ) );
     finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
 
@@ -188,8 +188,8 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Entity* entity,
                                           Core::Geometry::PointCloud&& mesh,
                                           Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ), m_displayMesh( new Engine::PointCloud( name ) ) {
-    m_displayMesh->loadGeometry( std::move( mesh ) );
+    GeometryComponent( name, entity ),
+    m_displayMesh( new Engine::PointCloud( name, std::move( mesh ) ) ) {
     finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
 

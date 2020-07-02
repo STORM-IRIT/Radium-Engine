@@ -125,7 +125,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AttribArrayGeometry */
     virtual const Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry() const = 0;
-    virtual Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry()            = 0;
+    virtual Core::Geometry::AttribArrayGeometry& getAttribArrayGeometry()             = 0;
     ///@}
 
   protected:
@@ -205,12 +205,12 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
 template <typename T>
 class CoreGeometryDisplayable : public AttribArrayDisplayable
 {
+  private:
+    using AttribArrayDisplayable::AttribArrayDisplayable;
+
   public:
     using CoreGeometry = T;
-    using AttribArrayDisplayable::AttribArrayDisplayable;
-    explicit CoreGeometryDisplayable( const std::string& name,
-                                      CoreGeometry&& geom,
-                                      MeshRenderMode renderMode = RM_TRIANGLES );
+
     ///@{
     /**  Returns the underlying CoreGeometry as an Core::Geometry::AbstractGeometry */
     inline const Core::Geometry::AbstractGeometry& getAbstractGeometry() const override;
