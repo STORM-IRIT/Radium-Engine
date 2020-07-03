@@ -88,7 +88,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     void operator=( const AttribArrayDisplayable& rhs ) = delete;
 
     // no need to detach listener since TriangleMesh is owned by Mesh.
-    ~AttribArrayDisplayable(){};
+    ~AttribArrayDisplayable() {}
 
     using Displayable::getName;
 
@@ -136,9 +136,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     {
       public:
         explicit AttribObserver( AttribArrayDisplayable* displayable, int idx ) :
-            m_displayable( displayable ), m_idx( idx ) {
-            LOG( logDEBUG ) << "add attrib observer " << m_idx << " " << m_displayable->getName();
-        }
+            m_displayable( displayable ), m_idx( idx ) {}
         void operator()() {
             m_displayable->m_dataDirty[m_idx] = true;
             m_displayable->m_isDirty          = true;
@@ -178,6 +176,7 @@ class RA_ENGINE_API VaoIndices
     std::unique_ptr<globjects::Buffer> m_indices{nullptr};
     bool m_indicesDirty{true};
     /// number of elements to draw (i.e number of indices to use)
+    /// automatically set by updateGL(), not meaningfull if m_indicesDirty.
     size_t m_numElements{0};
 };
 
@@ -263,7 +262,7 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
                                       const std::string& shaderAttribName );
 
   protected:
-    virtual void updateGL_specific_impl(){};
+    virtual void updateGL_specific_impl() {}
 
     void loadGeometry_common( CoreGeometry&& mesh );
     void setupCoreMeshObservers();
