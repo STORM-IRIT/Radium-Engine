@@ -54,10 +54,10 @@ TEST_CASE( "Core/Animation/KeyFramedValue", "[Core][Core/Animation][KeyFramedVal
         REQUIRE( Math::areApproxEqual( p.second, value ) );
     };
 
-    auto checkSorting = []( auto& kf ) {
-        for ( size_t i = 1; i < kf.size(); ++i )
+    auto checkSorting = []( auto& lkf ) {
+        for ( size_t i = 1; i < lkf.size(); ++i )
         {
-            REQUIRE( kf[i - 1].first < kf[i].first );
+            REQUIRE( lkf[i - 1].first < lkf[i].first );
         }
     };
 

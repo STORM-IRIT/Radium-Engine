@@ -28,6 +28,8 @@ template <>
 inline bool linearInterpolate<bool>( const KeyFramedValue<bool>& keyframes, const Scalar t ) {
     CORE_ASSERT( keyframes.size() > 0, "Keyframe vectors must contain at least one keyframe." );
     auto [i, j, dt] = keyframes.findRange( t );
+    CORE_UNUSED( j )
+    CORE_UNUSED( dt )
     return keyframes[i].second;
 }
 
@@ -36,6 +38,8 @@ template <>
 inline int linearInterpolate<int>( const KeyFramedValue<int>& keyframes, const Scalar t ) {
     CORE_ASSERT( keyframes.size() > 0, "Keyframe vectors must contain at least one keyframe." );
     auto [i, j, dt] = keyframes.findRange( t );
+    CORE_UNUSED( j )
+    CORE_UNUSED( dt )
     return keyframes[i].second;
 }
 
