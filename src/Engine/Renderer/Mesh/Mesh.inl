@@ -226,7 +226,7 @@ void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string
         {
             m_handleToBuffer[name] = m_dataDirty.size();
 
-            addToTranslationTable(name);
+            addToTranslationTable( name );
 
             m_dataDirty.push_back( true );
             m_vbos.emplace_back( nullptr );
@@ -295,11 +295,13 @@ void CoreGeometryDisplayable<T>::setupCoreMeshObservers() {
         m_dataDirty[idx]       = true;
 
         // create a identity translation if name is not already translated.
-        addToTranslationTable(name);
+        addToTranslationTable( name );
 
         b->attach( AttribObserver( this, idx ) );
         ++idx;
     } );
+
+    // add an observer on attrib manipulation.
     m_mesh.vertexAttribs().attachMember(
         this, &CoreGeometryDisplayable<CoreGeometry>::addAttribObserver );
     m_isDirty = true;
@@ -405,7 +407,6 @@ IndexedGeometry<T>::IndexedGeometry( const std::string& name,
 template <typename T>
 void IndexedGeometry<T>::loadGeometry( T&& mesh ) {
     setIndicesDirty();
-    m_numElements = mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
     base::loadGeometry_common( std::move( mesh ) );
 }
 
@@ -420,6 +421,8 @@ void IndexedGeometry<T>::updateGL_specific_impl() {
     {
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
+        m_numElements =
+            base::m_mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
 
         m_indices->setData(
             static_cast<gl::GLsizeiptr>( base::m_mesh.m_indices.size() *
