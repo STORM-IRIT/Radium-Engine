@@ -136,7 +136,9 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
     {
       public:
         explicit AttribObserver( AttribArrayDisplayable* displayable, int idx ) :
-            m_displayable( displayable ), m_idx( idx ) {}
+            m_displayable( displayable ), m_idx( idx ) {
+            LOG( logDEBUG ) << "add attrib observer " << m_idx << " " << m_displayable->getName();
+        }
         void operator()() {
             m_displayable->m_dataDirty[m_idx] = true;
             m_displayable->m_isDirty          = true;
@@ -271,6 +273,8 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     /// m_mesh.
     /// it adds an observer to the new attrib.
     void addAttribObserver( const std::string& name );
+
+    void addToTranslationTable( const std::string& name );
 
     /// Core::Mesh attrib name to Render::Mesh attrib name
     using TranslationTable = std::map<std::string, std::string>;
