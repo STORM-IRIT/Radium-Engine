@@ -204,10 +204,21 @@ CoreGeometry& CoreGeometryDisplayable<CoreGeometry>::getCoreGeometry() {
 }
 
 template <typename CoreGeometry>
+void CoreGeometryDisplayable<CoreGeometry>::addToTranslationTable( const std::string& name ) {
+    auto it = m_translationTableMeshToShader.find( name );
+    if ( it == m_translationTableMeshToShader.end() )
+    {
+        m_translationTableMeshToShader[name] = name;
+        m_translationTableShaderToMesh[name] = name;
+    }
+}
+
+template <typename CoreGeometry>
 void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string& name ) {
     // this observer is called each time an attrib is added or removed from m_mesh
     auto attrib = m_mesh.getAttribBase( name );
     // if attrib not nullptr, then it's an attrib add, so attach an observer to it
+
     if ( attrib )
     {
         auto itr = m_handleToBuffer.find( name );
@@ -215,12 +226,7 @@ void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string
         {
             m_handleToBuffer[name] = m_dataDirty.size();
 
-            auto it = m_translationTableMeshToShader.find( name );
-            if ( it == m_translationTableMeshToShader.end() )
-            {
-                m_translationTableMeshToShader[name] = name;
-                m_translationTableShaderToMesh[name] = name;
-            }
+            addToTranslationTable(name);
 
             m_dataDirty.push_back( true );
             m_vbos.emplace_back( nullptr );
@@ -277,6 +283,7 @@ void CoreGeometryDisplayable<T>::loadGeometry_common( T&& mesh ) {
 }
 
 template <typename T>
+
 void CoreGeometryDisplayable<T>::setupCoreMeshObservers() {
     int idx = 0;
     m_dataDirty.resize( m_mesh.vertexAttribs().getNumAttribs() );
@@ -288,12 +295,7 @@ void CoreGeometryDisplayable<T>::setupCoreMeshObservers() {
         m_dataDirty[idx]       = true;
 
         // create a identity translation if name is not already translated.
-        auto it = m_translationTableMeshToShader.find( name );
-        if ( it == m_translationTableMeshToShader.end() )
-        {
-            m_translationTableMeshToShader[name] = name;
-            m_translationTableShaderToMesh[name] = name;
-        }
+        addToTranslationTable(name);
 
         b->attach( AttribObserver( this, idx ) );
         ++idx;
