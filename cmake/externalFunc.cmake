@@ -23,6 +23,13 @@ macro(addExternalFolder NAME FOLDER )
         set( UPDATE_EXTERNAL OFF)
     endif()
 
+    # Check if install prefix has changed. If yes, force installing the externals again
+    if( DEFINED CACHED_INSTALL_PREFIX )
+        if( NOT "${CACHED_INSTALL_PREFIX}" STREQUAL "${CMAKE_INSTALL_PREFIX}" )
+            message(STATUS "[addExternalFolder] CMAKE_INSTALL_PREFIX has changed (from ${CACHED_INSTALL_PREFIX} to ${CMAKE_INSTALL_PREFIX}), reinstalling dependency")
+            set( UPDATE_EXTERNAL ON)
+        endif()
+    endif()
 
     if ( UPDATE_EXTERNAL )
         execute_process(
