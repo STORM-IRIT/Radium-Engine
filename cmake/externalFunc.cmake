@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.12)
+
 include(ExternalInclude)
 
 macro(addExternalFolder NAME FOLDER )
@@ -47,27 +49,11 @@ macro(addExternalFolder NAME FOLDER )
             message(STATUS "[addExternalFolder] Enable compatibility mode for Xcode Generator")
         endif ()
 
-        if (${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.12)
-            execute_process(
-                    COMMAND ${CMAKE_COMMAND} --build . -j ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
-                    RESULT_VARIABLE ret
-            )
-        else ()
-            set(TOOL_OPTIONS "")
-            if( ${generator_lower} MATCHES "|makefile|" OR ${generator_lower} MATCHES "|ninja|" )
-              set( TOOL_OPTIONS -- -j${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} )
-            elseif( ${generator_lower} MATCHES "|visual|" )
-              set( TOOL_OPTIONS -- /m )
-            else()
-              message(WARNING "[addExternalFolder] Parallel build are not supported with your generator ${CMAKE_GENERATOR}")
-            endif()
-            execute_process(
-              COMMAND ${CMAKE_COMMAND} --build . --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget} ${TOOL_OPTIONS}
-              WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
-              RESULT_VARIABLE ret
-              )
-        endif()
+        execute_process(
+                COMMAND ${CMAKE_COMMAND} --build . -j ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
+                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
+                RESULT_VARIABLE ret
+        )
 
         if(NOT ret EQUAL "0")
             message( FATAL_ERROR "[addExternalFolder] Cmake build step failed. ")
