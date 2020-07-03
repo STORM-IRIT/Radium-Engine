@@ -203,3 +203,6 @@ message(STATUS "RADIUM_INSTALL_DOC:    ${RADIUM_INSTALL_DOC}")
 message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
 message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 message(STATUS "")
+
+
+set( CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL "Previous value of CMAKE_INSTALL_PREFIX")
