@@ -1,5 +1,9 @@
-UPDATE the form below to describe your PR.
+_Check if you branch history is PR compatible_
+- Your branch need to be up to date with origin/master AND to have linear history (i.e. no merge commit).
+- Update your git repository `git fetch origin` if origin is this remote
+- Check with the script provided in `scripts/is-history-pr-compatible.sh`
 
+_UPDATE the form below to describe your PR._
 
 * **Please check if the PR fulfills these requirements**
 - [ ] The commit message follows our guidelines
