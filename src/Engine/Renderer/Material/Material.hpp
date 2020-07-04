@@ -99,13 +99,13 @@ class RA_ENGINE_API Material : public ShaderParameterProvider
     std::string m_instanceName{};
     /// Material aspect
     MaterialAspect m_aspect{MaterialAspect::MAT_OPAQUE};
-    /// Dirty mark : true if the openGL state of the material need to be updated before next draw call
+    /// Dirty mark : true if the openGL state of the material need to be updated before next draw
+    /// call
     bool m_isDirty{true};
 
   private:
     /// Unique material name that can be used to identify the material
     const std::string m_materialName;
-
 };
 
 } // namespace Engine

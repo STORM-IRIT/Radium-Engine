@@ -49,9 +49,8 @@ const ShaderProgram* RenderTechnique::getShader( Core::Utils::Index pass ) const
     return nullptr;
 }
 
-void RenderTechnique::setParametersProvider(
-    std::shared_ptr<ShaderParameterProvider> provider,
-    Core::Utils::Index pass ) {
+void RenderTechnique::setParametersProvider( std::shared_ptr<ShaderParameterProvider> provider,
+                                             Core::Utils::Index pass ) {
     if ( m_numActivePass == 0 )
     {
         LOG( logERROR )

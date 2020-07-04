@@ -77,12 +77,11 @@ void KeyMappingManager::addAction( const std::string& context,
     QString xmlAction;
     QTextStream s( &xmlAction );
     s << elementToAdd;
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
     QString xmlActionChopped = xmlAction;
     xmlActionChopped.chop( 1 );
-    LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                    << xmlActionChopped.toStdString();
-    
+    LOG( logDEBUG ) << "KeyMappingManager : adding The action  " << xmlActionChopped.toStdString();
+
 #else
     LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
                     << xmlAction.chopped( 1 ).toStdString();
@@ -254,7 +253,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     }
 
     // Store setting only if not default
-    if ( std::string(filename) != m_defaultConfigFile )
+    if ( std::string( filename ) != m_defaultConfigFile )
     {
         QSettings settings;
         settings.setValue( "keymapping/config", m_file->fileName() );

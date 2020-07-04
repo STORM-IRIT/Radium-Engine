@@ -496,7 +496,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
             face_vhandles[j]    = vh;
             face_normals[j]     = n;
             face_vertexIndex[j] = inMeshVertexIndex;
-            face_wedges[j]      = WedgeIndex{ int( i ) };
+            face_wedges[j]      = WedgeIndex{int( i )};
         }
 
         // Add the face, then add attribs to vh

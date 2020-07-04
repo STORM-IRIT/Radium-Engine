@@ -324,8 +324,7 @@ class RA_ENGINE_API RadiumEngine
     {
       public:
         FboAndViewport( int fbo, std::array<int, 4>&& viewport ) :
-            m_fbo{fbo},
-            m_viewport{viewport} {}
+            m_fbo{fbo}, m_viewport{viewport} {}
         int m_fbo;
         std::array<int, 4> m_viewport;
     };

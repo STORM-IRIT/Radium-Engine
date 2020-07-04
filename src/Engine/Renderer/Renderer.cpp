@@ -563,8 +563,8 @@ void Renderer::drawScreenInternal() {
         GL_ASSERT( glDepthFunc( GL_ALWAYS ) );
 
         auto shader = ( m_displayedTexture->getParameters().type == GL_INT ||
-            m_displayedTexture->getParameters().type == GL_UNSIGNED_INT )
-            ? ( m_displayedTexture->getParameters().format == GL_DEPTH_COMPONENT
+                        m_displayedTexture->getParameters().type == GL_UNSIGNED_INT )
+                          ? ( m_displayedTexture->getParameters().format == GL_DEPTH_COMPONENT
                                   ? m_shaderMgr->getShaderProgram( "DisplayDepthBuffer" )
                                   : m_shaderMgr->getShaderProgram( "DrawScreenI" ) )
                           : m_shaderMgr->getShaderProgram( "DrawScreen" );

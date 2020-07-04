@@ -104,8 +104,9 @@ Gizmo::UiSelectionControler* Gizmo::getControler( int ro ) {
     return const_cast<Gizmo::UiSelectionControler*>( c );
 }
 
-Gizmo::UiSelectionControler::UiSelectionControler( std::shared_ptr<Ra::Engine::PlainMaterial>& material,
-                                                   const Core::Utils::Color& selectedColor ) :
+Gizmo::UiSelectionControler::UiSelectionControler(
+    std::shared_ptr<Ra::Engine::PlainMaterial>& material,
+    const Core::Utils::Color& selectedColor ) :
     ShaderParameterProvider(), m_associatedMaterial( material ), m_selectedColor( selectedColor ) {}
 
 void Gizmo::UiSelectionControler::updateGL() {
