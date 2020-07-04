@@ -13,6 +13,7 @@ gitismerge () {
 
 if [ `git rev-parse origin/master` != `git merge-base origin/master HEAD` ]; then
     echo "Please rebase your branch with \"rebase origin/master\" ";
+    exit 1
 else
     ko=""
     while read -r rev; do
@@ -23,6 +24,9 @@ else
 	fi
     done< <(git rev-list origin/master..HEAD)
     if [[ -z $ko ]]; then
-       echo "congrats your branch history is compatible with our PR guidelines";
+	echo "congrats your branch history is compatible with our PR guidelines";
+	exit 0
+    else
+	exit 1
     fi	   
 fi
