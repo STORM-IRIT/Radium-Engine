@@ -1,0 +1,17 @@
+name: code format validation
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+      
+    steps:
+    - uses: actions/checkout@v2
+    - uses: DoozyX/clang-format-lint-action@v0.6
+      with:
+        source: '.'
+        exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
+        extensions: 'hpp,inl,cpp'
+        clangFormatVersion: 9
+        style: file
