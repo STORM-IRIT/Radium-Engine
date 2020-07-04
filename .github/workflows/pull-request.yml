@@ -1,31 +1,62 @@
 name: Guideline Checks
 
-on: pull_request
+on: [pull_request]
 
 jobs:
-  test:
-    name: Git history
+  reformat:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    name: Apply coding style
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-      with:
-        fetch-depth: 0
-        ref: ${{ github.event.pull_request.head.sha }}
-    - name: Check up to date linear history, without merges
-      uses: skx/github-action-tester@master
-      with:
-        script: scripts/is-history-pr-compatible.sh
-
-  build:
-    name: Coding style
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.head_ref }}
+                      #ref: ${{ github.event.pull_request.head.sha }}
+      - name: Clang-format
+        uses: dlyr/clang-format-lint-action@master
+        with:
+          source: '.'
+          exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
+          extensions: 'hpp,inl,cpp'
+          clangFormatVersion: 9
+          style: file
+          inplace: true
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'dlyr'
+          git config --global user.email 'dlyr@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git commit -am "*** auto format only ***"
+          git push
+  guidelines:
+    name: Check guideline compliance
+    needs: reformat
     runs-on: ubuntu-latest
-      
     steps:
-    - uses: actions/checkout@v2
-    - uses: DoozyX/clang-format-lint-action@v0.6
-      with:
-        source: '.'
-        exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
-        extensions: 'hpp,inl,cpp'
-        clangFormatVersion: 9
-        style: file
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          # checkout branch head instead of merge commit to have the potientially commited change from formatter
+          ref: ${{  github.head_ref }}
+      - name: Check up to date linear history, without merges
+        uses: skx/github-action-tester@master
+        with:
+          script: scripts/is-history-pr-compatible.sh
+      - name: Check coding style
+        id: format-check
+        uses: DoozyX/clang-format-lint-action@v0.6
+        with:
+          source: '.'
+          exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
+          extensions: 'hpp,inl,cpp'
+          clangFormatVersion: 9
+          style: file
+      - name: Hint push your branch on IRIT-STROM repo for automatic formating
+        if: steps.format-check.status == 'failure'
+        run: |
+          echo "CHECK FAILED, hint: push your branch on IRIT-STROM repo for automatic formating."
