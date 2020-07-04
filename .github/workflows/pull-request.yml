@@ -1,0 +1,31 @@
+name: Guideline Checks
+
+on: pull_request
+
+jobs:
+  test:
+    name: Git history
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Check up to date linear history, without merges
+      uses: skx/github-action-tester@master
+      with:
+        script: scripts/is-history-pr-compatible.sh
+
+  build:
+    name: Coding style
+    runs-on: ubuntu-latest
+      
+    steps:
+    - uses: actions/checkout@v2
+    - uses: DoozyX/clang-format-lint-action@v0.6
+      with:
+        source: '.'
+        exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
+        extensions: 'hpp,inl,cpp'
+        clangFormatVersion: 9
+        style: file

@@ -17,6 +17,7 @@ if [ `git rev-parse origin/master` != `git merge-base origin/master HEAD` ]; the
 else
     ko=""
     while read -r rev; do
+	echo "check " `git log -1 --pretty=oneline  --abbrev-commit  ${rev}`
 	ok=`gitismerge $rev` 
 	if [[ -n $ok ]]; then
 	    echo " ${rev} is a merge commit, please rebase and remove (e.g. squash) all merge commits";
