@@ -42,6 +42,6 @@ AllowAllParametersOfDeclarationOnNextLine: false
 BinPackArguments: false
 BinPackParameters: false
 #not supported yet ?
-#SpaceBeforeCpp11BracedList: true
+SpaceBeforeCpp11BracedList: true
 ...
 
