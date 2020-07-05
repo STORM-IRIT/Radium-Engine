@@ -3,40 +3,8 @@ name: Guideline Checks
 on: [pull_request]
 
 jobs:
-  reformat:
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    name: Apply coding style
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
-        with:
-          ref: ${{ github.head_ref }}
-                      #ref: ${{ github.event.pull_request.head.sha }}
-      - name: Clang-format
-        uses: dlyr/clang-format-lint-action@master
-        with:
-          source: '.'
-          exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
-          extensions: 'hpp,inl,cpp'
-          clangFormatVersion: 9
-          style: file
-          inplace: true
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
-      - name: Push changes
-        if: steps.git-check.outputs.modified == 'true'
-        run: |
-          git config --global user.name 'dlyr'
-          git config --global user.email 'dlyr@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git commit -am "*** auto format only ***"
-          git push
-  guidelines:
-    name: Check guideline compliance
-    needs: reformat
-    if: ${{ always() }}
+  hitory:
+    name: Check linear history
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -49,6 +17,10 @@ jobs:
         uses: skx/github-action-tester@master
         with:
           script: scripts/is-history-pr-compatible.sh
+  format:
+    name: Check format
+    runs-on: ubuntu-latest
+    steps:
       - name: Check coding style
         id: format-check
         uses: DoozyX/clang-format-lint-action@v0.6
@@ -61,4 +33,13 @@ jobs:
       - name: In case of failure
         if: ${{ failure() }}
         run: |
-          echo "CHECK FAILED, hint: push your branch on IRIT-STROM repo for automatic formating."
+          echo "CHECK FAILED, hint: force push your branch on IRIT-STROM/formatter for automatic formating. Then fetch/hard reset your branch"
+          echo "git branch -D formatter"
+          echo "git switch -c formatter"
+          echo "# ensure you have the .github/workflows/formatter.yml file, if not add it to your branch"
+          echo "git push -f --set-upstream origin formatter"
+          echo "# wait for git action to finish"
+          echo "git pull origin"
+          echo "git checkout  ${{  github.head_ref }}"
+          echo "git reset --hard formatter"
+          echo "git push ${{ github.event.pull_request.head.repo.full_name }}"
