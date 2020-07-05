@@ -54,7 +54,7 @@ TEST_CASE( "Core/Math/Algebra", "[Core][Core/Math][Algebra]" ) {
         REQUIRE( Math::areApproxEqual( max, std::clamp( max + s, min, max ) ) );
         REQUIRE( Math::areApproxEqual( min, std::clamp( min - s, min, max ) ) );
 
-        Vector3 v{Scalar( 0.1 ), Scalar( 0.2 ), Scalar( 0.3 )};
+        Vector3 v {Scalar( 0.1 ), Scalar( 0.2 ), Scalar( 0.3 )};
         Vector3 v2 = Math::clamp( v, min, max );
         REQUIRE( v2.isApprox( v ) );
 

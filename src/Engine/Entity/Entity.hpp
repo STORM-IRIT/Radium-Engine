@@ -73,8 +73,8 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 
     std::vector<std::unique_ptr<Component>> m_components;
 
-    std::string m_name{};
-    bool m_transformChanged{false};
+    std::string m_name {};
+    bool m_transformChanged {false};
 };
 
 } // namespace Engine

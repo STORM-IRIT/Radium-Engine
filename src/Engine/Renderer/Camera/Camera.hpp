@@ -152,26 +152,26 @@ class RA_ENGINE_API Camera : public Component
     virtual void fitZRange( const Core::Aabb& aabb );
 
   protected:
-    Core::Transform m_frame{
+    Core::Transform m_frame {
         Core::Transform::Identity()}; ///< Camera frame (inverse of the view matrix)
-    Core::Matrix4 m_projMatrix{Core::Matrix4::Identity()}; ///< Projection matrix
+    Core::Matrix4 m_projMatrix {Core::Matrix4::Identity()}; ///< Projection matrix
 
-    ProjType m_projType{ProjType ::PERSPECTIVE}; ///< Projection type
-    Scalar m_zoomFactor{1};                      ///< Zoom factor (modifies the field of view)
-    Scalar m_fov{Core::Math::PiDiv4};            ///< Field of view
+    ProjType m_projType {ProjType ::PERSPECTIVE}; ///< Projection type
+    Scalar m_zoomFactor {1};                      ///< Zoom factor (modifies the field of view)
+    Scalar m_fov {Core::Math::PiDiv4};            ///< Field of view
 
-    RenderObject* m_RO{nullptr}; ///< Render mesh for the camera.
+    RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
 
     /// \name To be deprecated
     /// Currently, only the CameraManipulator (i.e. TrackballCameraManipulator) accesses these
     /// attributes. A rework of the rendering architecture will be done soon.
     /// Thus these attributes might disappear.
     ///@{
-    Scalar m_zNear{0.1_ra}; ///< Z Near plane distance
-    Scalar m_zFar{1000_ra}; ///< Z Far plane distance
-    Scalar m_width{1_ra};   ///< Viewport width (in pixels)
-    Scalar m_height{1_ra};  ///< Viewport height (in pixels)
-    Scalar m_aspect{1_ra};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
+    Scalar m_zNear {0.1_ra}; ///< Z Near plane distance
+    Scalar m_zFar {1000_ra}; ///< Z Far plane distance
+    Scalar m_width {1_ra};   ///< Viewport width (in pixels)
+    Scalar m_height {1_ra};  ///< Viewport height (in pixels)
+    Scalar m_aspect {1_ra};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
     ///@}
 };
 

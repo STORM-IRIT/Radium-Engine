@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-const std::string camExt{"cam"};
+const std::string camExt {"cam"};
 
 namespace Ra {
 namespace IO {

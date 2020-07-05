@@ -17,7 +17,7 @@ using Core::Math::PiDiv4;
 namespace Engine {
 
 Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
-    Component( name, entity ), m_width{width}, m_height{height}, m_aspect{width / height} {}
+    Component( name, entity ), m_width {width}, m_height {height}, m_aspect {width / height} {}
 
 Camera::~Camera() = default;
 

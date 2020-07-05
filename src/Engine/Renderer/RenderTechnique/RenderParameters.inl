@@ -17,8 +17,9 @@ inline void RenderParameters::TParameter<T>::bind( const ShaderProgram* shader )
 }
 
 template <>
-inline void RenderParameters::TParameter<Ra::Core::Utils::Color>::bind( const ShaderProgram* shader ) const {
-    shader->setUniform( m_name.c_str(), Ra::Core::Utils::Color::VectorType(m_value) );
+inline void
+RenderParameters::TParameter<Ra::Core::Utils::Color>::bind( const ShaderProgram* shader ) const {
+    shader->setUniform( m_name.c_str(), Ra::Core::Utils::Color::VectorType( m_value ) );
 }
 
 inline void RenderParameters::TextureParameter::bind( const ShaderProgram* shader ) const {
@@ -26,7 +27,6 @@ inline void RenderParameters::TextureParameter::bind( const ShaderProgram* shade
     else
     { shader->setUniform( m_name.c_str(), m_texture, m_texUnit ); }
 }
-
 
 template <>
 inline const RenderParameters::UniformBindableSet<RenderParameters::BoolParameter>&
@@ -87,7 +87,6 @@ inline const RenderParameters::UniformBindableSet<RenderParameters::Vec4Paramete
 RenderParameters::getParameterSet() const {
     return m_vec4ParamsVector;
 }
-
 
 template <>
 inline const RenderParameters::UniformBindableSet<RenderParameters::ColorParameter>&

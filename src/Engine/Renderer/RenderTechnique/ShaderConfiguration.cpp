@@ -7,10 +7,10 @@
 /**
  * Plain will be the default shader program
  */
-static const std::string defaultVertexShader{Ra::Core::Resources::getRadiumResourcesDir() +
-                                             "Shaders/Materials/Plain/Plain.vert.glsl"};
-static const std::string defaultFragmentShader{Ra::Core::Resources::getRadiumResourcesDir() +
-                                               "Shaders/Materials/Plain/Plain.frag.glsl"};
+static const std::string defaultVertexShader {Ra::Core::Resources::getRadiumResourcesDir() +
+                                              "Shaders/Materials/Plain/Plain.vert.glsl"};
+static const std::string defaultFragmentShader {Ra::Core::Resources::getRadiumResourcesDir() +
+                                                "Shaders/Materials/Plain/Plain.frag.glsl"};
 
 namespace Ra {
 namespace Engine {
@@ -20,12 +20,12 @@ ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program
                                                                 defaultFragmentShader );
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name ) :
-    m_name{name}, m_version{"#version 410"} {}
+    m_name {name}, m_version {"#version 410"} {}
 
 ShaderConfiguration::ShaderConfiguration( const std::string& name,
                                           const std::string& vertexShader,
                                           const std::string& fragmentShader ) :
-    m_name{name}, m_version{"#version 410"} {
+    m_name {name}, m_version {"#version 410"} {
     m_shaders[ShaderType_VERTEX]   = {vertexShader, true};
     m_shaders[ShaderType_FRAGMENT] = {fragmentShader, true};
 }

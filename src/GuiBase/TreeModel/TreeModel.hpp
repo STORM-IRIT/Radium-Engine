@@ -67,7 +67,7 @@ class RA_GUIBASE_API TreeItem
     std::vector<std::unique_ptr<TreeItem>> m_children;
 
   private:
-    bool m_checked{true};
+    bool m_checked {true};
 };
 
 /// This class implement QAbstractItem model with the TreeItem as its model

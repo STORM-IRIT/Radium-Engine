@@ -48,7 +48,7 @@ KeyMappingManager::getAction( const KeyMappingManager::Context& context,
     if ( ( key == Qt::Key_Shift ) || ( key == Qt::Key_Control ) || ( key == Qt::Key_Alt ) ||
          ( key == Qt::Key_Meta ) )
     { key = -1; }
-    KeyMappingManager::MouseBinding binding{buttons, modifiers, key, wheel};
+    KeyMappingManager::MouseBinding binding {buttons, modifiers, key, wheel};
 
     auto action = m_mappingAction[context].find( binding );
     if ( action != m_mappingAction[context].end() ) { return action->second; }
@@ -77,12 +77,11 @@ void KeyMappingManager::addAction( const std::string& context,
     QString xmlAction;
     QTextStream s( &xmlAction );
     s << elementToAdd;
-#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
+#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
     QString xmlActionChopped = xmlAction;
     xmlActionChopped.chop( 1 );
-    LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
-                    << xmlActionChopped.toStdString();
-    
+    LOG( logDEBUG ) << "KeyMappingManager : adding The action  " << xmlActionChopped.toStdString();
+
 #else
     LOG( logDEBUG ) << "KeyMappingManager : adding The action  "
                     << xmlAction.chopped( 1 ).toStdString();
@@ -96,7 +95,7 @@ KeyMappingManager::Context KeyMappingManager::getContext( const std::string& con
     // use find so that it do not insert invalid context
     auto itr = m_contextNameToIndex.find( contextName );
     if ( itr != m_contextNameToIndex.end() ) return itr->second;
-    return Context{};
+    return Context {};
 }
 
 KeyMappingManager::KeyMappingAction
@@ -106,7 +105,7 @@ KeyMappingManager::getActionIndex( const Context& context, const std::string& ac
         LOG( logWARNING ) << "try to get action index ( " << actionName
                           << " ) from an invalid context ( " << context << " )";
 
-        return KeyMappingAction{};
+        return KeyMappingAction {};
     }
     auto itr = m_actionNameToIndex[context].find( actionName );
     if ( itr != m_actionNameToIndex[context].end() ) return itr->second;
@@ -117,7 +116,7 @@ KeyMappingManager::getActionIndex( const Context& context, const std::string& ac
                       << "\" key=\"\" modifiers=\"\" buttons=\"\" action=\"" << actionName
                       << "\"/>";
 
-    return KeyMappingAction{};
+    return KeyMappingAction {};
 }
 
 std::string KeyMappingManager::getActionName( const Context& context,
@@ -254,7 +253,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     }
 
     // Store setting only if not default
-    if ( std::string(filename) != m_defaultConfigFile )
+    if ( std::string( filename ) != m_defaultConfigFile )
     {
         QSettings settings;
         settings.setValue( "keymapping/config", m_file->fileName() );
@@ -484,7 +483,7 @@ void KeyMappingManager::loadConfigurationMappingInternal( const std::string& con
     else
     {
         bindKeyToAction( contextIndex,
-                         MouseBinding{buttonsValue, modifiersValue, keyValue, wheel},
+                         MouseBinding {buttonsValue, modifiersValue, keyValue, wheel},
                          actionIndex );
     }
 }

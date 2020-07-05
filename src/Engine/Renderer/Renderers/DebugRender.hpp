@@ -68,7 +68,7 @@ class RA_ENGINE_API DebugRender final
   private:
     struct Line {
         Line( const Core::Vector3& la, const Core::Vector3& lb, const Core::Utils::Color& lcol ) :
-            a{la}, b{lb}, col{lcol} {}
+            a {la}, b {lb}, col {lcol} {}
 
         Core::Vector3 a, b;
         Core::Utils::Color col;
@@ -91,9 +91,9 @@ class RA_ENGINE_API DebugRender final
   private:
     // these shaders are owned by the manager, just keep a raw copy, since the
     // manager is available during whole execution.
-    const ShaderProgram* m_lineProg{nullptr};
-    const ShaderProgram* m_pointProg{nullptr};
-    const ShaderProgram* m_meshProg{nullptr};
+    const ShaderProgram* m_lineProg {nullptr};
+    const ShaderProgram* m_pointProg {nullptr};
+    const ShaderProgram* m_meshProg {nullptr};
 
     uint m_modelLineLoc;
     uint m_viewLineLoc;

@@ -173,25 +173,25 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
                  Core::Utils::Index passId = DefaultRenderingPasses::LIGHTING_OPAQUE );
 
   private:
-    Core::Transform m_localTransform{Core::Transform::Identity()};
+    Core::Transform m_localTransform {Core::Transform::Identity()};
 
-    Component* m_component{nullptr};
-    std::string m_name{};
+    Component* m_component {nullptr};
+    std::string m_name {};
 
-    RenderObjectType m_type{RenderObjectType::Geometry};
-    std::shared_ptr<RenderTechnique> m_renderTechnique{nullptr};
-    std::shared_ptr<Displayable> m_mesh{nullptr};
-    std::shared_ptr<Material> m_material{nullptr};
+    RenderObjectType m_type {RenderObjectType::Geometry};
+    std::shared_ptr<RenderTechnique> m_renderTechnique {nullptr};
+    std::shared_ptr<Displayable> m_mesh {nullptr};
+    std::shared_ptr<Material> m_material {nullptr};
 
     mutable std::mutex m_updateMutex;
 
-    int m_lifetime{-1};
-    bool m_visible{true};
-    bool m_pickable{true};
-    bool m_xray{false};
-    bool m_transparent{false};
-    bool m_dirty{true};
-    bool m_hasLifetime{false};
+    int m_lifetime {-1};
+    bool m_visible {true};
+    bool m_pickable {true};
+    bool m_xray {false};
+    bool m_transparent {false};
+    bool m_dirty {true};
+    bool m_hasLifetime {false};
 };
 
 } // namespace Engine
