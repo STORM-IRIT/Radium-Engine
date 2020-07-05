@@ -1,0 +1,50 @@
+name: Guideline Checks
+
+on: [pull_request]
+
+jobs:
+  hitory:
+    name: Check linear history
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout remote head
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+          # checkout branch head instead of merge commit to have the potientially commited change from formatter
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Check up to date linear history, without merges
+        uses: skx/github-action-tester@master
+        with:
+          script: scripts/is-history-pr-compatible.sh
+  format:
+    name: Check format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@master
+      - name: Check coding style
+        id: format-check
+        uses: DoozyX/clang-format-lint-action@v0.6
+        with:
+          source: '.'
+          exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
+          extensions: 'hpp,inl,cpp'
+          clangFormatVersion: 9
+          style: file
+      - name: In case of failure
+        if: ${{ failure() }}
+        run: |
+          echo "## CHECK FAILED, you can trigger automatic format action on github"
+          echo "git branch -D gh-formatter"
+          echo "git switch -c gh-formatter"
+          echo "## ensure you have the .github/workflows/formatter.yml file, if not add it to your branch from origin/gh-formatter"
+          echo "## ADAPT REMOTE TO YOUR SETUP, here origin is supposed to correspond to your repo: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "git push -f --set-upstream origin gh-formatter"
+          echo "## wait for git action to finish"
+          echo "git pull"
+          echo "git checkout ${{  github.head_ref }}"
+          echo "git reset --hard gh-formatter"
+          echo "git push"
+          exit 1
+#this last step must report fail to catch viewer attention.
