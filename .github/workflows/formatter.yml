@@ -3,7 +3,7 @@ name: Reformat
 on:
   push:
     branches:
-      - formatter
+      - gh-formatter
 jobs:
   reformat:
     name: Apply coding style
@@ -13,7 +13,6 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: ${{ github.head_ref }}
-                      #ref: ${{ github.event.pull_request.head.sha }}
       - name: Clang-format
         uses: dlyr/clang-format-lint-action@master
         with:

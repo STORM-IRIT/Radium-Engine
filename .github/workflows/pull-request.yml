@@ -7,12 +7,12 @@ jobs:
     name: Check linear history
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout remote head
+        uses: actions/checkout@master
         with:
           fetch-depth: 0
           # checkout branch head instead of merge commit to have the potientially commited change from formatter
-          ref: ${{  github.head_ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Check up to date linear history, without merges
         uses: skx/github-action-tester@master
         with:
@@ -21,6 +21,8 @@ jobs:
     name: Check format
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout PR
+        uses: actions/checkout@master
       - name: Check coding style
         id: format-check
         uses: DoozyX/clang-format-lint-action@v0.6
@@ -33,13 +35,14 @@ jobs:
       - name: In case of failure
         if: ${{ failure() }}
         run: |
-          echo "CHECK FAILED, hint: force push your branch on IRIT-STROM/formatter for automatic formating. Then fetch/hard reset your branch"
-          echo "git branch -D formatter"
-          echo "git switch -c formatter"
-          echo "# ensure you have the .github/workflows/formatter.yml file, if not add it to your branch"
-          echo "git push -f --set-upstream origin formatter"
-          echo "# wait for git action to finish"
-          echo "git pull origin"
-          echo "git checkout  ${{  github.head_ref }}"
-          echo "git reset --hard formatter"
-          echo "git push ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "## CHECK FAILED, you can trigger automatic format action on github"
+          echo "git branch -D gh-formatter"
+          echo "git switch -c gh-formatter"
+          echo "## ensure you have the .github/workflows/formatter.yml file, if not add it to your branch from origin/gh-formatter"
+          echo "## ADAPT REMOTE TO YOUR SETUP, here origin is supposed to correspond to your repo: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "git push -f --set-upstream origin gh-formatter"
+          echo "## wait for git action to finish"
+          echo "git pull"
+          echo "git checkout ${{  github.head_ref }}"
+          echo "git reset --hard gh-formatter"
+          echo "git push"
