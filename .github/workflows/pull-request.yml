@@ -36,6 +36,7 @@ jobs:
   guidelines:
     name: Check guideline compliance
     needs: reformat
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
