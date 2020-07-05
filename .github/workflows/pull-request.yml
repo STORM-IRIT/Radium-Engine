@@ -44,6 +44,7 @@ jobs:
           fetch-depth: 0
           # checkout branch head instead of merge commit to have the potientially commited change from formatter
           ref: ${{  github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Check up to date linear history, without merges
         uses: skx/github-action-tester@master
         with:
