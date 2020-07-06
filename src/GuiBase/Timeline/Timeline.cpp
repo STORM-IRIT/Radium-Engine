@@ -27,8 +27,6 @@ namespace Ra::GuiBase {
 Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline ) {
     ui->setupUi( this );
 
-    // set sizePolicy to allow zoom in scrollArea
-    ui->scrollAreaWidgetContents->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Preferred );
     // first draw of ruler with current width (default in Timeline.ui) of dialog
     ui->m_scrollArea->onDrawRuler( width() - 2 ); // left/right border width = 2 *1 pixel
 

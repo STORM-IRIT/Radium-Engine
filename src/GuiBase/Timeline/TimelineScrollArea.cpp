@@ -67,8 +67,7 @@ void TimelineScrollArea::onDrawRuler( int width ) {
 
     m_nbInterval = int( std::ceil( m_maxDuration / m_step ) ) + 2;
     m_pixPerSec  = ( Scalar( width ) / m_nbInterval ) / m_step;
-
-    m_zero = int( m_pixPerSec * m_step );
+    m_zero       = int( m_pixPerSec * m_step );
     widget()->setMinimumWidth( width );
 
     update();
