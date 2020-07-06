@@ -17,6 +17,34 @@ jobs:
         uses: skx/github-action-tester@master
         with:
           script: scripts/is-history-pr-compatible.sh
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: 1
+          body-includes: CHECK LINEAR HISTORY FAIL
+      - name: Reset comment
+        uses: peter-evans/create-or-update-comment@v1
+        if:  ${{ steps.fc.outputs.comment-id != '' }} 
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.PR_COMMENT_TOKEN }}
+          commit-id: ${{ steps.fc.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+              **CHECK LINEAR HISTORY PASS**
+      - name: Add comment on PR
+        uses: peter-evans/create-or-update-comment@v1
+        if: ${{ failure() }}
+        with:
+          token: ${{ secrets.PR_COMMENT_TOKEN }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+              **CHECK LINEAR HISTORY FAIL**
+
+              Please rebase on current up to date master, 
+              without merge commits (e.g. you can squash them).  
+          reactions: rocket
   format:
     name: Check format
     runs-on: ubuntu-latest
@@ -32,19 +60,52 @@ jobs:
           extensions: 'hpp,inl,cpp'
           clangFormatVersion: 9
           style: file
-      - name: In case of failure
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: 1
+          body-includes: CHECK FORMAT FAIL
+      - name: Reset comment
+        uses: peter-evans/create-or-update-comment@v1
+        if:  ${{ steps.fc.outputs.comment-id  != '' }}
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.PR_COMMENT_TOKEN }}
+          commit-id: ${{ steps.fc.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+              **CHECK FORMAT PASS**
+      - name: Add comment on PR
+        uses: peter-evans/create-or-update-comment@v1
         if: ${{ failure() }}
-        run: |
-          echo "## CHECK FAILED, you can trigger automatic format action on github"
-          echo "git branch -D gh-formatter"
-          echo "git switch -c gh-formatter"
-          echo "## ensure you have the .github/workflows/formatter.yml file, if not add it to your branch from origin/gh-formatter"
-          echo "## ADAPT REMOTE TO YOUR SETUP, here origin is supposed to correspond to your repo: ${{ github.event.pull_request.head.repo.full_name }}"
-          echo "git push -f --set-upstream origin gh-formatter"
-          echo "## wait for git action to finish"
-          echo "git pull"
-          echo "git checkout ${{  github.head_ref }}"
-          echo "git reset --hard gh-formatter"
-          echo "git push"
-          exit 1
-#this last step must report fail to catch viewer attention.
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.PR_COMMENT_TOKEN }}
+          body: |
+              **CHECK FORMAT FAIL**
+              You can trigger automatic format action on github with the special branch `gh-formatter`.
+              This special branch trigger clang-format and add a commit with the modified files.
+          
+              ```bash
+              git branch -D gh-formatter
+              git switch -c gh-formatter
+              ```
+              
+              Ensure you have the .github/workflows/formatter.yml file, if not add it to your branch from
+              [here](https://github.com/STORM-IRIT/Radium-Engine/tree/master/.github/workflows).
+
+
+              **ADAPT REMOTE TO YOUR SETUP**, here origin is supposed to correspond to your repo: `${{ github.event.pull_request.head.repo.full_name }}`
+              ```bash
+              git push -f --set-upstream origin gh-formatter
+              ```
+              Wait for git action to finish, it will add a commit to orogin/gh-formatter.
+              Then take this commit back to your branch and update your PR:
+              ```
+              git pull
+              git checkout ${{  github.head_ref }}
+              git reset --hard gh-formatter
+              git push
+              ```
+          reactions: rocket
