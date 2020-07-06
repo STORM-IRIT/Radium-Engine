@@ -12,10 +12,10 @@ namespace Engine {
 using namespace Core::Utils; // log
 
 Texture::Texture( const TextureParameters& texParameters ) :
-    m_textureParameters{texParameters},
-    m_texture{nullptr},
-    m_isMipMaped{false},
-    m_isLinear{false} {}
+    m_textureParameters {texParameters},
+    m_texture {nullptr},
+    m_isMipMaped {false},
+    m_isLinear {false} {}
 
 Texture::~Texture() = default;
 

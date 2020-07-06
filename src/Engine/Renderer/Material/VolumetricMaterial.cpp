@@ -12,7 +12,7 @@
 namespace Ra {
 namespace Engine {
 
-static const std::string materialName{"Volumetric"};
+static const std::string materialName {"Volumetric"};
 
 VolumetricMaterial::VolumetricMaterial( const std::string& name ) :
     Material( name, materialName, Material::MaterialAspect::MAT_DENSITY ) {}

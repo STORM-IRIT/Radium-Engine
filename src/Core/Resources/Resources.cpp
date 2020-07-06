@@ -40,7 +40,7 @@ std::string getBaseDir() {
     return cpplocate::getModulePath();
 }
 
-ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath{""} {
+ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath {""} {
     m_basePath = searchPath( "/", "", symbol ) + offset;
 }
 

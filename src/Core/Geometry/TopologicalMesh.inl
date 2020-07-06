@@ -297,8 +297,7 @@ TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeData( idx );
 }
 
-inline
-unsigned int TopologicalMesh::getWedgeRefCount( const WedgeIndex& idx ) const {
+inline unsigned int TopologicalMesh::getWedgeRefCount( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeRefCount( idx );
 }
 

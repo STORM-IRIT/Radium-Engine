@@ -101,7 +101,7 @@ class RA_CORE_API AttribBase : public ObservableVoid
     std::string m_name;
 
     /// Is data access locked by a user ?
-    bool m_isLocked{false};
+    bool m_isLocked {false};
 };
 
 /**
@@ -355,7 +355,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     friend class ::Ra::Core::Geometry::TriangleMesh;
 
     /// Count number of valid attribs
-    int m_numAttribs{0};
+    int m_numAttribs {0};
 };
 
 } // namespace Utils

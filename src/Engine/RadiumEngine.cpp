@@ -122,7 +122,7 @@ void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
         m_timeData.m_singleStep = false;
     }
 
-    FrameInfo frameInfo{
+    FrameInfo frameInfo {
         m_timeData.m_time, m_timeData.m_realTime ? dt : m_timeData.m_dt, frameCounter++};
     for ( auto& syst : m_systems )
     {

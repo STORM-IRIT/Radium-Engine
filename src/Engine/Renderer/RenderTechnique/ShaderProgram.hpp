@@ -44,7 +44,7 @@ class RA_ENGINE_API ShaderProgram final
 
     /// Uniform setters
     template <typename T>
-    void setUniform( const char* name, const T & value ) const;
+    void setUniform( const char* name, const T& value ) const;
 
     void setUniform( const char* name, Texture* tex, int texUnit ) const;
 
@@ -66,9 +66,9 @@ class RA_ENGINE_API ShaderProgram final
 
   private:
     struct TextureBinding {
-        int m_texUnit{-1};
-        int m_location{-1};
-        TextureBinding( int unit, int location ) : m_texUnit{unit}, m_location{location} {}
+        int m_texUnit {-1};
+        int m_location {-1};
+        TextureBinding( int unit, int location ) : m_texUnit {unit}, m_location {location} {}
         TextureBinding() = default;
     };
     using TextureUnits = std::map<std::string, TextureBinding>;

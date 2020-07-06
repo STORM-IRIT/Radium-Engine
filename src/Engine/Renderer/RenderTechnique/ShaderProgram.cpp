@@ -78,9 +78,9 @@ ShaderType getGLenumAsType( GLenum type ) {
     return ShaderType_COUNT;
 }
 
-ShaderProgram::ShaderProgram() : m_program{nullptr} {
+ShaderProgram::ShaderProgram() : m_program {nullptr} {
     std::generate( m_shaderObjects.begin(), m_shaderObjects.end(), []() {
-        return std::pair<bool, std::unique_ptr<globjects::Shader>>{false, nullptr};
+        return std::pair<bool, std::unique_ptr<globjects::Shader>> {false, nullptr};
     } );
     std::fill( m_shaderSources.begin(), m_shaderSources.end(), nullptr );
 }
@@ -153,7 +153,7 @@ void ShaderProgram::loadShader( ShaderType type,
             { return a; }
         } );
 
-    std::unique_ptr<globjects::StaticStringSource> fullsource{nullptr};
+    std::unique_ptr<globjects::StaticStringSource> fullsource {nullptr};
     if ( fromFile )
     {
         LOG( logDEBUG ) << "Loading shader " << name;
@@ -202,10 +202,10 @@ void ShaderProgram::addShaderFromSource( ShaderType type,
 void ShaderProgram::load( const ShaderConfiguration& shaderConfig ) {
     m_configuration = shaderConfig;
 
-    CORE_ERROR_IF(
-        m_configuration.isComplete(),
-        ( "Shader program " + shaderConfig.m_name + " is incomplete (e.g. misses vertex or fragment shader)." )
-            .c_str() );
+    CORE_ERROR_IF( m_configuration.isComplete(),
+                   ( "Shader program " + shaderConfig.m_name +
+                     " is incomplete (e.g. misses vertex or fragment shader)." )
+                       .c_str() );
 
     for ( size_t i = 0; i < ShaderType_COUNT; ++i )
     {
@@ -345,7 +345,7 @@ template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
-void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const  {
+void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
     tex->bind( texUnit );
 
     m_program->setUniform( name, texUnit );
@@ -374,7 +374,7 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name,
     CORE_UNUSED( line ); // left for radium v2 ??
     CORE_ERROR_IF( level < 32, "Shader inclusion depth limit reached." );
 
-    std::string result{};
+    std::string result {};
     std::vector<std::string> finalStrings;
 
     uint nline = 0;
@@ -440,7 +440,6 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name,
 
     return result;
 }
-
 
 } // namespace Engine
 } // namespace Ra

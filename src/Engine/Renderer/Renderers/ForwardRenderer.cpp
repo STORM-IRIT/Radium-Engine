@@ -171,7 +171,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 
     static const auto clearZeros = Core::Utils::Color::Black();
     static const auto clearOnes  = Core::Utils::Color::White();
-    static const float clearDepth{1.0f};
+    static const float clearDepth {1.0f};
 
     GL_ASSERT( glClearBufferfv( GL_COLOR, 0, getBackgroundColor().data() ) ); // Clear color
     GL_ASSERT( glClearBufferfv( GL_COLOR, 1, clearZeros.data() ) );           // Clear normals
@@ -399,7 +399,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
 
         for ( const auto& ro : m_debugRenderObjects )
         {
-            ro->render( RenderParameters{}, renderData );
+            ro->render( RenderParameters {}, renderData );
         }
 
         DebugRender::getInstance()->render( renderData.viewMatrix, renderData.projMatrix );

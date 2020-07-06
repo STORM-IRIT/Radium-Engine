@@ -11,7 +11,7 @@
 namespace Ra {
 namespace Engine {
 
-static const std::string materialName{"Plain"};
+static const std::string materialName {"Plain"};
 
 PlainMaterial::PlainMaterial( const std::string& instanceName ) :
     SimpleMaterial( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}
