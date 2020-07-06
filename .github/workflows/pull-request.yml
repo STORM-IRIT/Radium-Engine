@@ -17,6 +17,21 @@ jobs:
         uses: skx/github-action-tester@master
         with:
           script: scripts/is-history-pr-compatible.sh
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        id: fc
+        with:
+          issue-number: 1
+          body-includes: CHECK LINEAR HISTORY FAILED
+      - name: Reset comment
+        uses: peter-evans/create-or-update-comment@v1
+        if:  ${{ steps.fc.outputs.comment-id }} != ''
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.PR_COMMENT_TOKEN }}
+          commit-id: ${{ steps.fc.outputs.comment-id }}
+          edit-mode: replace
+          body: ''
       - name: Add comment on PR
         uses: peter-evans/create-or-update-comment@v1
         if: ${{ failure() }}
@@ -58,7 +73,7 @@ jobs:
           token: ${{ secrets.PR_COMMENT_TOKEN }}
           commit-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body:
+          body: ''
       - name: Add comment on PR
         uses: peter-evans/create-or-update-comment@v1
         if: ${{ failure() }}
