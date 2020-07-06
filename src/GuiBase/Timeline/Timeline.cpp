@@ -185,11 +185,9 @@ void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
 
 void Timeline::registerKeyFramedValue(
     Ra::Engine::Entity* ent,
-    std::string&& name,
-    Ra::Core::Animation::KeyFramedValueBase* value,
-    Ra::Core::Animation::KeyFramedValueController::InsertCallback inserter,
-    Ra::Core::Animation::KeyFramedValueController::UpdateCallback updater ) {
+    const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController ) {
     auto& values = m_entityKeyFrames[ent];
+    auto& name   = keyFramedValueController.m_name;
     auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
         return frame.m_name == name;
     } );
@@ -200,8 +198,7 @@ void Timeline::registerKeyFramedValue(
                           << std::endl;
         return;
     }
-    values.push_back( Ra::Core::Animation::KeyFramedValueController(
-        value, std::move( name ), inserter, updater ) );
+    values.push_back( keyFramedValueController );
     selectionChanged( Engine::ItemEntry( ent ) );
 }
 
@@ -215,11 +212,9 @@ void Timeline::unregisterKeyFramedValue( Ra::Engine::Entity* ent, const std::str
 
 void Timeline::registerKeyFramedValue(
     Ra::Engine::Component* comp,
-    std::string&& name,
-    Ra::Core::Animation::KeyFramedValueBase* value,
-    Ra::Core::Animation::KeyFramedValueController::InsertCallback inserter,
-    Ra::Core::Animation::KeyFramedValueController::UpdateCallback updater ) {
+    const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController ) {
     auto& values = m_componentKeyFrames[comp];
+    auto name    = keyFramedValueController.m_name;
     auto it      = std::find_if( values.begin(), values.end(), [name]( const auto& frame ) {
         return frame.m_name == name;
     } );
@@ -230,8 +225,7 @@ void Timeline::registerKeyFramedValue(
                           << std::endl;
         return;
     }
-    values.push_back( Ra::Core::Animation::KeyFramedValueController(
-        value, std::move( name ), inserter, updater ) );
+    values.push_back( keyFramedValueController );
     selectionChanged( Engine::ItemEntry( comp->getEntity(), comp ) );
 }
 
@@ -245,11 +239,9 @@ void Timeline::unregisterKeyFramedValue( Ra::Engine::Component* comp, const std:
 
 void Timeline::registerKeyFramedValue(
     Ra::Core::Utils::Index roIdx,
-    std::string&& name,
-    Ra::Core::Animation::KeyFramedValueBase* value,
-    Ra::Core::Animation::KeyFramedValueController::InsertCallback inserter,
-    Ra::Core::Animation::KeyFramedValueController::UpdateCallback updater ) {
+    const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController ) {
     auto& values = m_renderObjectKeyFrames[roIdx];
+    auto name    = keyFramedValueController.m_name;
     auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
         return frame.m_name == name;
     } );
@@ -260,8 +252,7 @@ void Timeline::registerKeyFramedValue(
                           << std::endl;
         return;
     }
-    values.push_back( Ra::Core::Animation::KeyFramedValueController(
-        value, std::move( name ), inserter, updater ) );
+    values.push_back( keyFramedValueController );
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     auto RO    = roMgr->getRenderObject( roIdx );
     auto comp  = RO->getComponent();
