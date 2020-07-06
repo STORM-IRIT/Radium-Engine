@@ -2,7 +2,7 @@
 add_custom_target( update )
 ExternalDownloadNowGit(Catch2
     https://github.com/catchorg/Catch2.git
-    origin/master)
+    v2.12.4)
 
 set(CATCH_USE_VALGRIND OFF CACHE BOOL "Perform SelfTests with Valgrind")
 set(CATCH_BUILD_TESTING OFF CACHE BOOL "Build SelfTest project")
