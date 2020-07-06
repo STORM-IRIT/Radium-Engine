@@ -22,10 +22,10 @@ jobs:
         id: fc
         with:
           issue-number: 1
-          body-includes: CHECK LINEAR HISTORY FAILED
+          body-includes: CHECK LINEAR HISTORY FAIL
       - name: Reset comment
         uses: peter-evans/create-or-update-comment@v1
-        if:  ${{ steps.fc.outputs.comment-id }} != ''
+        if:  ${{ steps.fc.outputs.comment-id != '' }} 
         with:
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.PR_COMMENT_TOKEN }}
@@ -40,7 +40,7 @@ jobs:
           token: ${{ secrets.PR_COMMENT_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-              **CHECK LINEAR HISTORY FAILED**
+              **CHECK LINEAR HISTORY FAIL**
 
               Please rebase on current up to date master, 
               without merge commits (e.g. you can squash them).  
@@ -65,10 +65,10 @@ jobs:
         id: fc
         with:
           issue-number: 1
-          body-includes: CHECK FORMAT FAILED
+          body-includes: CHECK FORMAT FAIL
       - name: Reset comment
         uses: peter-evans/create-or-update-comment@v1
-        if:  ${{ steps.fc.outputs.comment-id }} != ''
+        if:  ${{ steps.fc.outputs.comment-id  != '' }}
         with:
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.PR_COMMENT_TOKEN }}
@@ -83,7 +83,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.PR_COMMENT_TOKEN }}
           body: |
-              **CHECK FORMAT FAILED**
+              **CHECK FORMAT FAIL**
               You can trigger automatic format action on github with the special branch `gh-formatter`.
               This special branch trigger clang-format and add a commit with the modified files.
           
