@@ -26,9 +26,15 @@ macro(addExternalFolder NAME FOLDER )
     # Check if install prefix has changed. If yes, force installing the externals again
     if( DEFINED CACHED_INSTALL_PREFIX )
         if( NOT "${CACHED_INSTALL_PREFIX}" STREQUAL "${CMAKE_INSTALL_PREFIX}" )
-            message(STATUS "[addExternalFolder] CMAKE_INSTALL_PREFIX has changed (from ${CACHED_INSTALL_PREFIX} to ${CMAKE_INSTALL_PREFIX}), reinstalling dependency")
+            message(STATUS "[addExternalFolder] CMAKE_INSTALL_PREFIX has changed (from ${CACHED_INSTALL_PREFIX} to ${CMAKE_INSTALL_PREFIX}), reinstalling dependencies")
             set( UPDATE_EXTERNAL ON)
         endif()
+    endif()
+
+    # Check if the external ${NAME} is installed. If not, force installing the externals again
+    if( NOT EXISTS "${CMAKE_INSTALL_PREFIX}/share/Radium-${NAME}.touch" )
+        message(STATUS "[addExternalFolder] CMAKE_INSTALL_PREFIX is empty (${CMAKE_INSTALL_PREFIX}), reinstalling dependencies")
+        set( UPDATE_EXTERNAL ON)
     endif()
 
     if ( UPDATE_EXTERNAL )
@@ -88,5 +94,14 @@ macro(addExternalFolder NAME FOLDER )
     endif()
     add_custom_target(External${NAME} ALL SOURCES ${external_sources})
     include("${CMAKE_CURRENT_BINARY_DIR}/external/cmake/package-${NAME}.cmake")
+
+    # Create touch file
+    file( TOUCH "${CMAKE_CURRENT_BINARY_DIR}/Radium-${NAME}.touch" )
+    install(
+      FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/Radium-${NAME}.touch"
+      DESTINATION
+        share/
+    )
 
 endmacro()
