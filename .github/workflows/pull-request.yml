@@ -31,7 +31,8 @@ jobs:
           token: ${{ secrets.PR_COMMENT_TOKEN }}
           commit-id: ${{ steps.fc.outputs.comment-id }}
           edit-mode: replace
-          body: ''
+          body: |
+              **CHECK LINEAR HISTORY PASS**
       - name: Add comment on PR
         uses: peter-evans/create-or-update-comment@v1
         if: ${{ failure() }}
