@@ -1,7 +1,7 @@
 #ifndef RADIUMENGINE_RA_CORE_HPP_
 #define RADIUMENGINE_RA_CORE_HPP_
 
-#include <Core/CoreMacros.hpp>
+  #include <Core/CoreMacros.hpp>
 
 /// Defines the correct macro to export dll symbols.
 #if defined RA_CORE_EXPORTS
