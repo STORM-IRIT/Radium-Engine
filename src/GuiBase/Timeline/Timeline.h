@@ -58,14 +58,9 @@ class RA_GUIBASE_API Timeline : public QDialog
     /**
      * Registers \p value as a new KeyFramedValue for \p ent with the given name.
      */
-    void
-    registerKeyFramedValue( Ra::Engine::Entity* ent,
-                            std::string&& name,
-                            Ra::Core::Animation::KeyFramedValueBase* value,
-                            Ra::Core::Animation::KeyFramedValueController::InsertCallback inserter =
-                                []( const Scalar& ) {},
-                            Ra::Core::Animation::KeyFramedValueController::UpdateCallback updater =
-                                []( const Scalar& ) {} );
+    void registerKeyFramedValue(
+        Ra::Engine::Entity* ent,
+        const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController );
 
     /**
      * Unregisters the KeyFramedValue for \p ent with the given name.
@@ -75,14 +70,9 @@ class RA_GUIBASE_API Timeline : public QDialog
     /**
      * Registers \p value as a new KeyFramedValue for \p comp with the given name.
      */
-    void
-    registerKeyFramedValue( Ra::Engine::Component* comp,
-                            std::string&& name,
-                            Ra::Core::Animation::KeyFramedValueBase* value,
-                            Ra::Core::Animation::KeyFramedValueController::InsertCallback inserter =
-                                []( const Scalar& ) {},
-                            Ra::Core::Animation::KeyFramedValueController::UpdateCallback updater =
-                                []( const Scalar& ) {} );
+    void registerKeyFramedValue(
+        Ra::Engine::Component* comp,
+        const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController );
 
     /**
      * Unregisters the KeyFramedValue for \p comp with the given name.
@@ -92,14 +82,9 @@ class RA_GUIBASE_API Timeline : public QDialog
     /**
      * Registers \p value as a new KeyFramedValue for \p roIdx with the given name.
      */
-    void
-    registerKeyFramedValue( Ra::Core::Utils::Index roIdx,
-                            std::string&& name,
-                            Ra::Core::Animation::KeyFramedValueBase* value,
-                            Ra::Core::Animation::KeyFramedValueController::InsertCallback inserter =
-                                []( const Scalar& ) {},
-                            Ra::Core::Animation::KeyFramedValueController::UpdateCallback updater =
-                                []( const Scalar& ) {} );
+    void registerKeyFramedValue(
+        Ra::Core::Utils::Index roIdx,
+        const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController );
 
     /**
      * Unregisters the KeyFramedValue for \p roIdx with the given name.
