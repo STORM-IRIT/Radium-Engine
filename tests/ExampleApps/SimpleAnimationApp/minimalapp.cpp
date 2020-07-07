@@ -21,6 +21,9 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     // Initialize Engine.
     m_engine.reset( Ra::Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
+    m_engine->setEndTime( 3_ra );
+    m_engine->setRealTime( true );
+    m_engine->play( true );
 
     ///\todo update when a basic viewer is implemented ... (to call setupKeyMappingCallbacks)
     Ra::Gui::KeyMappingManager::createInstance();
