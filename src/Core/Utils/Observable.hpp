@@ -82,7 +82,7 @@ class Observable
 
   private:
     std::map<int, Observer> m_observers;
-    int m_currentId{0};
+    int m_currentId {0};
 };
 
 class RA_CORE_API ObservableVoid : public Observable<>

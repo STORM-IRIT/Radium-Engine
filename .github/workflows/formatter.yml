@@ -1,0 +1,35 @@
+name: Reformat
+
+on:
+  push:
+    branches:
+      - gh-formatter
+jobs:
+  reformat:
+    name: Apply coding style
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Clang-format
+        uses: dlyr/clang-format-lint-action@master
+        with:
+          source: '.'
+          exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
+          extensions: 'hpp,inl,cpp,glsl'
+          clangFormatVersion: 9
+          style: file
+          inplace: true
+      - name: Check for modified files
+        id: git-check
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name 'dlyr'
+          git config --global user.email 'dlyr@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git commit -am "*** auto format only ***"
+          git push

@@ -98,7 +98,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
 
   protected:
     inline AbstractDiscreteVolume( const VolumeStorageType& type ) :
-        AbstractVolume( type ), m_size( IndexType::Zero() ), m_binSize{1_ra, 1_ra, 1_ra} {}
+        AbstractVolume( type ), m_size( IndexType::Zero() ), m_binSize {1_ra, 1_ra, 1_ra} {}
 
   public:
     AbstractDiscreteVolume( const AbstractDiscreteVolume& data ) = default;

@@ -312,7 +312,7 @@ class RA_ENGINE_API RadiumEngine
     std::unique_ptr<SignalManager> m_signalManager;
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
-    bool m_loadingState{false};
+    bool m_loadingState {false};
 
     /// For internal resources management in a filesystem
     std::string m_resourcesRootDir;
@@ -324,8 +324,7 @@ class RA_ENGINE_API RadiumEngine
     {
       public:
         FboAndViewport( int fbo, std::array<int, 4>&& viewport ) :
-            m_fbo{fbo},
-            m_viewport{viewport} {}
+            m_fbo {fbo}, m_viewport {viewport} {}
         int m_fbo;
         std::array<int, 4> m_viewport;
     };
@@ -340,14 +339,14 @@ class RA_ENGINE_API RadiumEngine
          */
         void updateTime();
 
-        Scalar m_dt;              ///< The time delta between 2 consecutive frames.
-        Scalar m_startTime{0_ra}; ///< The `start` time for the time window.
-        Scalar m_endTime;         ///< The `end` time for the time window.
-        Scalar m_time{0_ra};      ///< The current time.
-        bool m_play{false};       ///< Shall time flow.
-        bool m_singleStep{true};  ///< Shall time flow for only one frame.
-        bool m_realTime{false};   ///< Whether we use the effective time flow or the constant one.
-        bool m_forwardBackward{false}; ///< Is PingPong mode enabled.
+        Scalar m_dt;               ///< The time delta between 2 consecutive frames.
+        Scalar m_startTime {0_ra}; ///< The `start` time for the time window.
+        Scalar m_endTime;          ///< The `end` time for the time window.
+        Scalar m_time {0_ra};      ///< The current time.
+        bool m_play {false};       ///< Shall time flow.
+        bool m_singleStep {true};  ///< Shall time flow for only one frame.
+        bool m_realTime {false};   ///< Whether we use the effective time flow or the constant one.
+        bool m_forwardBackward {false}; ///< Is PingPong mode enabled.
     };
 
     TimeData m_timeData;

@@ -198,10 +198,10 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     bool m_isAboutToQuit;
 
     /// If true update the viewer frame next time
-    std::atomic_bool m_isUpdateNeeded{true};
+    std::atomic_bool m_isUpdateNeeded {true};
 
     /// If counter is >= 0, continuously update viewer frame
-    std::atomic<int> m_continuousUpdateRequest{1};
+    std::atomic<int> m_continuousUpdateRequest {1};
 
     Plugins::Context m_pluginContext;
 };

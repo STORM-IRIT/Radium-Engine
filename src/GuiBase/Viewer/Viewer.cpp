@@ -200,7 +200,7 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     }
 #endif
 
-    Engine::ViewingParameters data{m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
+    Engine::ViewingParameters data {m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
 
     // FIXME : move this outside of the rendering loop. must be done once per renderer ...
     // if there is no light on the renderer, add the head light attached to the camera ...

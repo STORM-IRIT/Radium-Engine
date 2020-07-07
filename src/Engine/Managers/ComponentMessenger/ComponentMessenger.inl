@@ -109,7 +109,8 @@ ComponentMessenger::registerOutput( const Entity* entity,
     CallbackMap& entityList = m_entityGetLists[entity];
 
     Key key( id, std::type_index( typeid( ReturnType ) ) );
-    CORE_ASSERT( entityList.find( key ) == entityList.end(), "Output function already registered for " + id );
+    CORE_ASSERT( entityList.find( key ) == entityList.end(),
+                 "Output function already registered for " + id );
 
     GetterCallback<ReturnType>* getter = new GetterCallback<ReturnType>();
     getter->m_cb                       = cb;
@@ -128,7 +129,8 @@ ComponentMessenger::registerReadWrite( const Entity* entity,
     CallbackMap& entityList = m_entityRwLists[entity];
 
     Key key( id, std::type_index( typeid( ReturnType ) ) );
-    CORE_ASSERT( entityList.find( key ) == entityList.end(), "Rw function already registered for " + id);
+    CORE_ASSERT( entityList.find( key ) == entityList.end(),
+                 "Rw function already registered for " + id );
 
     RwCallback<ReturnType>* rw = new RwCallback<ReturnType>();
     rw->m_cb                   = cb;
@@ -146,7 +148,8 @@ ComponentMessenger::registerInput( const Entity* entity,
     CallbackMap& entityList = m_entitySetLists[entity];
 
     Key key( id, std::type_index( typeid( ReturnType ) ) );
-    CORE_ASSERT( entityList.find( key ) == entityList.end(), "Input function already registered for " + id );
+    CORE_ASSERT( entityList.find( key ) == entityList.end(),
+                 "Input function already registered for " + id );
 
     SetterCallback<ReturnType>* setter = new SetterCallback<ReturnType>();
     setter->m_cb                       = cb;
