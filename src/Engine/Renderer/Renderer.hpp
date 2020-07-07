@@ -384,11 +384,11 @@ class RA_ENGINE_API Renderer
     void notifyRenderObjectsRenderingInternal();
 
   protected:
-    uint m_width{0};
-    uint m_height{0};
+    uint m_width {0};
+    uint m_height {0};
 
-    ShaderProgramManager* m_shaderMgr{nullptr};
-    RenderObjectManager* m_roMgr{nullptr};
+    ShaderProgramManager* m_shaderMgr {nullptr};
+    RenderObjectManager* m_roMgr {nullptr};
 
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
@@ -397,13 +397,13 @@ class RA_ENGINE_API Renderer
      * @see debugTexture has been done, this is just a pointer to
      * @see m_fancyTexture.
      */
-    Texture* m_displayedTexture{nullptr};
+    Texture* m_displayedTexture {nullptr};
 
     /// A renderer could define several LightManager (for instance, one for point light, one other
     /// for infinite light ...)
     std::vector<Ra::Engine::LightManager*> m_lightmanagers;
 
-    bool m_renderQueuesUpToDate{false};
+    bool m_renderQueuesUpToDate {false};
 
     std::vector<RenderObjectPtr> m_fancyRenderObjects;
     std::vector<RenderObjectPtr> m_debugRenderObjects;
@@ -413,9 +413,9 @@ class RA_ENGINE_API Renderer
     // Simple quad mesh, used to render the final image
     std::unique_ptr<Displayable> m_quadMesh;
 
-    bool m_drawDebug{true};          // Should we render debug stuff ?
-    bool m_wireframe{false};         // Are we rendering in "real" wireframe mode
-    bool m_postProcessEnabled{true}; // Should we do post processing ?
+    bool m_drawDebug {true};          // Should we render debug stuff ?
+    bool m_wireframe {false};         // Are we rendering in "real" wireframe mode
+    bool m_postProcessEnabled {true}; // Should we do post processing ?
 
     // derived class could use the already created textures
     /// Depth texture : might be attached to the main framebuffer
@@ -438,7 +438,7 @@ class RA_ENGINE_API Renderer
 
     // PICKING STUFF
     Ra::Core::Vector2 m_mousePosition;
-    float m_brushRadius{0};
+    float m_brushRadius {0};
     std::unique_ptr<globjects::Framebuffer> m_pickingFbo;
     std::unique_ptr<Texture> m_pickingTexture;
 
@@ -453,7 +453,7 @@ class RA_ENGINE_API Renderer
     std::vector<PickingQuery> m_lastFramePickingQueries;
     std::vector<PickingResult> m_pickingResults;
 
-    Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
+    Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
     void preparePicking( const ViewingParameters& renderData );
 };
 

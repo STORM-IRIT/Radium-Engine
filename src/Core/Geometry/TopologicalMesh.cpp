@@ -73,7 +73,7 @@ std::string wedgeInfo( const Ra::Core::Geometry::TopologicalMesh& topo,
 bool TopologicalMesh::checkIntegrity() const {
     std::vector<unsigned int> count( m_wedges.size(), 0 );
     bool ret = true;
-    for ( auto he_itr{halfedges_begin()}; he_itr != halfedges_end(); ++he_itr )
+    for ( auto he_itr {halfedges_begin()}; he_itr != halfedges_end(); ++he_itr )
     {
         auto widx = property( m_wedgeIndexPph, *he_itr );
         if ( widx.isValid() )
@@ -94,11 +94,11 @@ bool TopologicalMesh::checkIntegrity() const {
 
     for ( int widx = 0; widx < int( m_wedges.size() ); ++widx )
     {
-        if ( m_wedges.getWedge( WedgeIndex{widx} ).getRefCount() != count[widx] )
+        if ( m_wedges.getWedge( WedgeIndex {widx} ).getRefCount() != count[widx] )
         {
             LOG( logWARNING ) << "topological mesh wedge count inconsistency, have  " << count[widx]
                               << " instead of "
-                              << m_wedges.getWedge( WedgeIndex{widx} ).getRefCount()
+                              << m_wedges.getWedge( WedgeIndex {widx} ).getRefCount()
                               << " for wedge id " << widx;
             ret = false;
         }
@@ -496,7 +496,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
             face_vhandles[j]    = vh;
             face_normals[j]     = n;
             face_vertexIndex[j] = inMeshVertexIndex;
-            face_wedges[j]      = WedgeIndex{ int( i ) };
+            face_wedges[j]      = WedgeIndex {int( i )};
         }
 
         // Add the face, then add attribs to vh
@@ -676,7 +676,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
         m_wedges.m_vector4AttribNames.size() );
 
     /// Wedges are output vertices !
-    for ( WedgeIndex widx{0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
+    for ( WedgeIndex widx {0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
     {
         const auto& wd = m_wedges.getWedgeData( widx );
         wedgePosition.push_back( wd.m_position );
@@ -1257,7 +1257,7 @@ void TopologicalMesh::delete_face( FaceHandle _fh, bool _delete_isolated_vertice
 TopologicalMesh::WedgeIndex
 TopologicalMesh::WedgeCollection::add( const TopologicalMesh::WedgeData& wd ) {
     WedgeIndex idx;
-    auto itr = std::find( m_data.begin(), m_data.end(), Wedge{wd} );
+    auto itr = std::find( m_data.begin(), m_data.end(), Wedge {wd} );
 
     if ( itr == m_data.end() )
     {

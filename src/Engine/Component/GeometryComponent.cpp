@@ -132,7 +132,7 @@ void TriangleMeshComponent::finalizeROFromGeometry( const Core::Asset::MaterialD
     // initialize with a default rendertechique that draws nothing
     std::string roName( m_name + "_" + m_contentName + "_RO" );
     auto ro = RenderObject::createRenderObject(
-        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique{} );
+        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique {} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
@@ -266,7 +266,7 @@ void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialDat
     // initialize with a default rendertechique that draws nothing
     std::string roName( m_name + "_" + m_contentName + "_RO" );
     auto ro = RenderObject::createRenderObject(
-        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique{} );
+        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique {} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
@@ -312,7 +312,7 @@ Ra::Core::Geometry::PointCloud* PointCloudComponent::getPointCloudRw() {
 VolumeComponent::VolumeComponent( const std::string& name,
                                   Entity* entity,
                                   const Ra::Core::Asset::VolumeData* data ) :
-    Component( name, entity ), m_displayVolume{nullptr} {
+    Component( name, entity ), m_displayVolume {nullptr} {
     generateVolumeRender( data );
 }
 
@@ -333,7 +333,7 @@ void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* d
 
     std::string roName( m_name + "_" + m_contentName + "_RO" );
     auto ro = RenderObject::createRenderObject(
-        roName, this, RenderObjectType::Geometry, m_displayVolume, RenderTechnique{} );
+        roName, this, RenderObjectType::Geometry, m_displayVolume, RenderTechnique {} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     ro->setLocalTransform( data->modelToWorld );

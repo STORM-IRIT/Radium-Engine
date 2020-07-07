@@ -21,7 +21,6 @@ void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_texParamsVector.bind( shader );
 }
 
-
 void RenderParameters::addParameter( const std::string& name, bool value ) {
     m_boolParamsVector[name] = BoolParameter( name, value );
 }
@@ -65,7 +64,6 @@ void RenderParameters::addParameter( const std::string& name, const Core::Vector
 void RenderParameters::addParameter( const std::string& name, const Core::Vector4& value ) {
     m_vec4ParamsVector[name] = Vec4Parameter( name, value );
 }
-
 
 void RenderParameters::addParameter( const std::string& name, const Core::Utils::Color& value ) {
     m_colorParamsVector[name] = ColorParameter( name, value );

@@ -80,8 +80,8 @@ ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
     else
     {
 
-        LOG( logERROR ) << "Error occurred while loading shader program " << config.getName().c_str()
-                        << ":\nDefault shader program used instead.";
+        LOG( logERROR ) << "Error occurred while loading shader program "
+                        << config.getName().c_str() << ":\nDefault shader program used instead.";
 
         for ( const auto& strings : config.getNamedStrings() )
         {

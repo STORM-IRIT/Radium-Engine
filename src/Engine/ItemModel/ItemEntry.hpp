@@ -35,7 +35,7 @@ struct RA_ENGINE_API ItemEntry {
     explicit ItemEntry( Ra::Engine::Entity* ent,
                         Ra::Engine::Component* comp = nullptr,
                         Ra::Core::Utils::Index ro   = Ra::Core::Utils::Index::Invalid() ) :
-        m_entity{ent}, m_component{comp}, m_roIndex{ro} {}
+        m_entity {ent}, m_component {comp}, m_roIndex {ro} {}
 
     /// Compare two items.
     inline bool operator==( const ItemEntry& rhs ) const;
@@ -59,14 +59,14 @@ struct RA_ENGINE_API ItemEntry {
     inline void checkConsistency() const;
 
     /// The entity represented by the item, or owning the object represented.
-    Ra::Engine::Entity* m_entity{nullptr};
+    Ra::Engine::Entity* m_entity {nullptr};
 
     /// Component represented by the item or owning the represented RO.
     /// If null, the item represents an entity.
-    Ra::Engine::Component* m_component{nullptr};
+    Ra::Engine::Component* m_component {nullptr};
 
     /// RO index of the represented object.
-    Ra::Core::Utils::Index m_roIndex{};
+    Ra::Core::Utils::Index m_roIndex {};
 };
 
 /// Returns the name associated to the given item.
