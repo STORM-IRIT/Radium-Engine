@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_TIMELINE_HELP_HPP__
-#define RADIUMENGINE_TIMELINE_HELP_HPP__
-
+#pragma once
 #include <QDialog>
 
 namespace Ui {
@@ -29,5 +27,3 @@ class HelpDialog : public QDialog
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_TIMELINE_HELP_HPP__

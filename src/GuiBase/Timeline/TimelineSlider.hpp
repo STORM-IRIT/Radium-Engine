@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_TIMELINE_SLIDER_H
-#define RADIUMENGINE_TIMELINE_SLIDER_H
-
+#pragma once
 #include <QLabel>
 
 namespace Ra::GuiBase {
@@ -31,9 +29,7 @@ class TimelineSlider : public QLabel
 
   private:
     /// Whether the widget being dragged or not.
-    bool m_clicked{false};
+    bool m_clicked {false};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_TIMELINE_SLIDER_H

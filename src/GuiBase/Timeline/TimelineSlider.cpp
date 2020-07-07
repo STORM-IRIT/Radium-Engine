@@ -1,4 +1,4 @@
-#include <GuiBase/Timeline/TimelineSlider.h>
+#include <GuiBase/Timeline/TimelineSlider.hpp>
 
 #include <QMouseEvent>
 

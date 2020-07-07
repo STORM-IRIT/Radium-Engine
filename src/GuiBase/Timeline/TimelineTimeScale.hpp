@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_TIMELINE_TIMESCALE_H
-#define RADIUMENGINE_TIMELINE_TIMESCALE_H
-
+#pragma once
 #include <QFrame>
 #include <QObject>
 
@@ -28,9 +26,7 @@ class TimelineTimeScale : public QFrame
 
   private:
     /// The TimelineScrollArea.
-    TimelineScrollArea* m_scrollArea{nullptr};
+    TimelineScrollArea* m_scrollArea {nullptr};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_TIMELINE_TIMESCALE_H

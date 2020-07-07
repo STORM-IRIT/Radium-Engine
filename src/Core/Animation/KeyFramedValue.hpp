@@ -84,7 +84,7 @@ class KeyFramedValue : public KeyFramedValueBase
 
     inline KeyFramedValue& operator=( const KeyFramedValue& keyframe ) = default;
 
-    virtual inline std::vector<Scalar> getTimes() const {
+    inline std::vector<Scalar> getTimes() const override {
         std::vector<Scalar> times( m_keyframes.size() );
 #pragma omp parallel for
         for ( int i = 0; i < int( m_keyframes.size() ); ++i )

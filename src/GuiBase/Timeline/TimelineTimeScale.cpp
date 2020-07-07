@@ -1,8 +1,8 @@
-#include <GuiBase/Timeline/TimelineTimeScale.h>
+#include <GuiBase/Timeline/TimelineTimeScale.hpp>
 
 #include <QPainter>
 
-#include <GuiBase/Timeline/TimelineScrollArea.h>
+#include <GuiBase/Timeline/TimelineScrollArea.hpp>
 
 namespace Ra::GuiBase {
 
