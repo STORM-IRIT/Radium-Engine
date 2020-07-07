@@ -81,7 +81,7 @@ BaseApplication::BaseApplication( int& argc,
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
-    std::string pluginsPath = std::string{Core::Resources::getRadiumPluginsDir()};
+    std::string pluginsPath = std::string {Core::Resources::getRadiumPluginsDir()};
 
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
@@ -89,40 +89,40 @@ BaseApplication::BaseApplication( int& argc,
     parser.addVersionOption();
 
     QCommandLineOption fpsOpt(
-        QStringList{"r", "framerate", "fps"},
+        QStringList {"r", "framerate", "fps"},
         "Control the application framerate, 0 to disable it (and run as fast as possible).",
         "number",
         "60" );
     QCommandLineOption maxThreadsOpt(
-        QStringList{"m", "maxthreads", "max-threads"},
+        QStringList {"m", "maxthreads", "max-threads"},
         "Control the maximum number of threads. 0 will set to the number of cores available",
         "number",
         "0" );
     QCommandLineOption numFramesOpt(
-        QStringList{"n", "numframes"}, "Run for a fixed number of frames.", "number", "0" );
-    QCommandLineOption pluginOpt( QStringList{"p", "plugins", "pluginsPath"},
+        QStringList {"n", "numframes"}, "Run for a fixed number of frames.", "number", "0" );
+    QCommandLineOption pluginOpt( QStringList {"p", "plugins", "pluginsPath"},
                                   "Set the path to the plugin dlls.",
                                   "folder",
                                   "Plugins" );
     QCommandLineOption pluginLoadOpt(
-        QStringList{"l", "load", "loadPlugin"},
+        QStringList {"l", "load", "loadPlugin"},
         "Only load plugin with the given name (filename without the extension). If this option is "
         "not used, all plugins in the plugins folder will be loaded. ",
         "name" );
-    QCommandLineOption pluginIgnoreOpt( QStringList{"i", "ignore", "ignorePlugin"},
+    QCommandLineOption pluginIgnoreOpt( QStringList {"i", "ignore", "ignorePlugin"},
                                         "Ignore plugins with the given name. If the name appears "
                                         "within both load and ignore options, it will be ignored.",
                                         "name" );
-    QCommandLineOption fileOpt( QStringList{"f", "file", "scene"},
+    QCommandLineOption fileOpt( QStringList {"f", "file", "scene"},
                                 "Open a scene file at startup.",
                                 "file name",
                                 "foo.bar" );
 
-    QCommandLineOption camOpt( QStringList{"c", "camera", "cam"},
+    QCommandLineOption camOpt( QStringList {"c", "camera", "cam"},
                                "Open a camera file at startup",
                                "file name",
                                "foo.bar" );
-    QCommandLineOption recordOpt( QStringList{"s", "recordFrames"}, "Enable snapshot recording." );
+    QCommandLineOption recordOpt( QStringList {"s", "recordFrames"}, "Enable snapshot recording." );
 
     parser.addOptions( {fpsOpt,
                         pluginOpt,

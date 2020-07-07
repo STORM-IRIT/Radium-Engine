@@ -15,7 +15,7 @@ namespace Engine {
 
 using namespace Core::Utils; // log
 
-Component::Component( const std::string& name, Entity* entity ) : m_name{name}, m_entity{entity} {
+Component::Component( const std::string& name, Entity* entity ) : m_name {name}, m_entity {entity} {
     m_entity->addComponent( this );
 }
 

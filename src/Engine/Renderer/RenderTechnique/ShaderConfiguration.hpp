@@ -133,8 +133,8 @@ class RA_ENGINE_API ShaderConfiguration final
     const std::string& getVersion() const { return m_version; }
 
   private:
-    std::string m_name{};
-    std::string m_version{};
+    std::string m_name {};
+    std::string m_version {};
 
     /// The second member of the pair defining a shader indicates if the shader comes from file
     /// (true) or from source string (false)

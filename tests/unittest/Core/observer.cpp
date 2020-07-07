@@ -17,7 +17,7 @@ class A
     static void g() { m_b++; }
     static void g2( int b ) { m_b = b; }
 
-    int m_a{0};
+    int m_a {0};
     static int m_b;
 };
 

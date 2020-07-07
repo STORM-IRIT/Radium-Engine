@@ -51,7 +51,7 @@ class SignalManager
     mutable std::mutex m_mutex;
 
   public:
-    bool m_isOn{true};
+    bool m_isOn {true};
 
     std::vector<Callback> m_entityCreatedCallbacks;
     std::vector<Callback> m_entityDestroyedCallbacks;

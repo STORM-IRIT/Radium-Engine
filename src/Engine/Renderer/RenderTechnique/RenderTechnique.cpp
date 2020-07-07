@@ -12,9 +12,9 @@ namespace Engine {
 
 using namespace Core::Utils; // log
 
-std::shared_ptr<Ra::Engine::RenderTechnique> RadiumDefaultRenderTechnique{nullptr};
+std::shared_ptr<Ra::Engine::RenderTechnique> RadiumDefaultRenderTechnique {nullptr};
 
-RenderTechnique::RenderTechnique() : m_numActivePass{0} {
+RenderTechnique::RenderTechnique() : m_numActivePass {0} {
     for ( auto p = Index( 0 ); p < s_maxNbPasses; ++p )
     {
         m_activePasses[p]     = std::move( PassConfiguration( ShaderConfiguration(), nullptr ) );
@@ -23,7 +23,7 @@ RenderTechnique::RenderTechnique() : m_numActivePass{0} {
 }
 
 RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
-    m_numActivePass{o.m_numActivePass}, m_dirtyBits{o.m_dirtyBits}, m_setPasses{o.m_setPasses} {
+    m_numActivePass {o.m_numActivePass}, m_dirtyBits {o.m_dirtyBits}, m_setPasses {o.m_setPasses} {
     for ( auto p = Index( 0 ); p < m_numActivePass; ++p )
     {
         if ( hasConfiguration( p ) )
@@ -49,9 +49,8 @@ const ShaderProgram* RenderTechnique::getShader( Core::Utils::Index pass ) const
     return nullptr;
 }
 
-void RenderTechnique::setParametersProvider(
-    std::shared_ptr<ShaderParameterProvider> provider,
-    Core::Utils::Index pass ) {
+void RenderTechnique::setParametersProvider( std::shared_ptr<ShaderParameterProvider> provider,
+                                             Core::Utils::Index pass ) {
     if ( m_numActivePass == 0 )
     {
         LOG( logERROR )

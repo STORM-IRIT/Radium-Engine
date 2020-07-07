@@ -11,7 +11,7 @@
 namespace Ra {
 namespace Engine {
 
-static const std::string materialName{"Lambertian"};
+static const std::string materialName {"Lambertian"};
 
 LambertianMaterial::LambertianMaterial( const std::string& instanceName ) :
     SimpleMaterial( instanceName, materialName, Material::MaterialAspect::MAT_OPAQUE ) {}

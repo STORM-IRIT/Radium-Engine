@@ -43,8 +43,8 @@ class RA_ENGINE_API GeometryComponent : public Component
 
   protected:
     // the index of the renderObject
-    Ra::Core::Utils::Index m_roIndex{};
-    std::string m_contentName{};
+    Ra::Core::Utils::Index m_roIndex {};
+    std::string m_contentName {};
 };
 
 /*!
@@ -96,7 +96,7 @@ class RA_ENGINE_API TriangleMeshComponent : public GeometryComponent
 
   private:
     // directly hold a reference to the displayMesh to simplify accesses in handlers
-    std::shared_ptr<Mesh> m_displayMesh{nullptr};
+    std::shared_ptr<Mesh> m_displayMesh {nullptr};
 };
 
 /// \warning, WIP
@@ -143,7 +143,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
 
   private:
     // directly hold a reference to the displayMesh to simplify accesses in handlers
-    std::shared_ptr<PointCloud> m_displayMesh{nullptr};
+    std::shared_ptr<PointCloud> m_displayMesh {nullptr};
 };
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -182,9 +182,9 @@ class RA_ENGINE_API VolumeComponent : public Component
     const Ra::Core::Utils::Index* roIndexRead() const;
 
   private:
-    Ra::Core::Utils::Index m_volumeIndex{};
-    std::string m_contentName{};
-    std::shared_ptr<Engine::VolumeObject> m_displayVolume{nullptr};
+    Ra::Core::Utils::Index m_volumeIndex {};
+    std::string m_contentName {};
+    std::shared_ptr<Engine::VolumeObject> m_displayVolume {nullptr};
 };
 
 } // namespace Engine

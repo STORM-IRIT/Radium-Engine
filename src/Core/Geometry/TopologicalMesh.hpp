@@ -342,7 +342,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
         //        Index m_inputTriangleMeshIndex;
         //        Index m_outputTriangleMeshIndex;
-        Vector3 m_position{};
+        Vector3 m_position {};
         VectorArray<Scalar> m_floatAttrib;
         VectorArray<Vector2> m_vector2Attrib;
         VectorArray<Vector3> m_vector3Attrib;
@@ -468,8 +468,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     // wedge data and refcount, to maintain deleted status
     class Wedge
     {
-        WedgeData m_wedgeData{};
-        unsigned int m_refCount{0};
+        WedgeData m_wedgeData {};
+        unsigned int m_refCount {0};
 
       private:
         WedgeData& getWedgeData() { return m_wedgeData; }
@@ -478,7 +478,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
         explicit Wedge() {}
-        explicit Wedge( const WedgeData& wd ) : m_wedgeData{wd}, m_refCount{1} {};
+        explicit Wedge( const WedgeData& wd ) : m_wedgeData {wd}, m_refCount {1} {};
         const WedgeData& getWedgeData() const { return m_wedgeData; }
         void setWedgeData( const WedgeData& wedgeData ) { m_wedgeData = wedgeData; }
         void incrementRefCount() { ++m_refCount; }
