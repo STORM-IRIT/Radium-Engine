@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_TIMELINE_CONFIG_HPP_
-#define RADIUMENGINE_TIMELINE_CONFIG_HPP_
-
+#pragma once
 // on ruler clicking, automove to nearest keyFrame or ruler scale
 // if the distance with cursor is below this constant
 #define TIMELINE_AUTO_SUGGEST_CURSOR_RADIUS 4 // unit : pixel
@@ -14,5 +12,3 @@
 // todo : maybe set global static var
 // frame per second to draw position of each frame in ruler
 #define TIMELINE_FPS 60
-
-#endif // RADIUMENGINE_TIMELINE_CONFIG_HPP_

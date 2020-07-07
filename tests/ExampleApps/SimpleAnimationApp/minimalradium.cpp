@@ -86,10 +86,6 @@ void MinimalComponent::initialize() {
     //! [Creating the color KeyFrames]
 }
 
-MinimalComponent::~MinimalComponent() {
-    delete m_colorController.m_value;
-}
-
 /// This function will spin our cube
 void MinimalComponent::update( Scalar t ) {
     auto ro = Ra::Engine::RadiumEngine::getInstance()->getRenderObjectManager()->getRenderObject(
@@ -111,17 +107,9 @@ void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::Fra
     CORE_ASSERT( m_components.size() == 1, "System incorrectly initialized" );
     MinimalComponent* c = static_cast<MinimalComponent*>( m_components[0].second );
 
-    // compute the current animation time
-    static Scalar time = 0_ra;
-    auto t0            = c->m_transform.getKeyFrames().begin()->first;
-    auto t1            = c->m_transform.getKeyFrames().rbegin()->first;
-    auto t             = time + info.m_dt;
-    if ( t > t1 ) { t = t0 + t - t1; }
-    time = t;
-
     // Create a new task which wil call c->spin() when executed.
-    q->registerTask(
-        new Ra::Core::FunctionTask( std::bind( &MinimalComponent::update, c, time ), "spin" ) );
+    q->registerTask( new Ra::Core::FunctionTask(
+        std::bind( &MinimalComponent::update, c, info.m_animationTime ), "spin" ) );
 }
 
 void MinimalSystem::addComponent( Ra::Engine::Entity* ent, MinimalComponent* comp ) {

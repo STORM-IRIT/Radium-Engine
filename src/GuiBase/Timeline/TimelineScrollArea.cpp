@@ -1,12 +1,12 @@
-#include <GuiBase/Timeline/TimelineScrollArea.h>
+#include <GuiBase/Timeline/TimelineScrollArea.hpp>
 
 #include <cmath>
 
 #include <QScrollBar>
 #include <QWheelEvent>
 
-#include <GuiBase/Timeline/Timeline.h>
-#include <GuiBase/Timeline/TimelineFrameSelector.h>
+#include <GuiBase/Timeline/Timeline.hpp>
+#include <GuiBase/Timeline/TimelineFrameSelector.hpp>
 
 namespace Ra::GuiBase {
 

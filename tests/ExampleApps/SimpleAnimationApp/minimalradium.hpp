@@ -19,8 +19,6 @@ struct MinimalComponent : public Ra::Engine::Component {
 
     explicit MinimalComponent( Ra::Engine::Entity* entity );
 
-    ~MinimalComponent() override;
-
     /// This function is called when the component is properly
     /// setup, i.e. it has an entity.
     void initialize() override;

@@ -1070,13 +1070,13 @@ border: 0px;</string>
   <customwidget>
    <class>Ra::GuiBase::TimelineTimeScale</class>
    <extends>QFrame</extends>
-   <header>GuiBase/Timeline/TimelineTimeScale.h</header>
+   <header>GuiBase/Timeline/TimelineTimeScale.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Ra::GuiBase::TimelineFrameSelector</class>
    <extends>QFrame</extends>
-   <header>GuiBase/Timeline/TimelineFrameSelector.h</header>
+   <header>GuiBase/Timeline/TimelineFrameSelector.hpp</header>
    <container>1</container>
    <slots>
     <signal>updatePlayZone(int)</signal>
@@ -1120,7 +1120,7 @@ border: 0px;</string>
   <customwidget>
    <class>Ra::GuiBase::TimelineSlider</class>
    <extends>QLabel</extends>
-   <header>GuiBase/Timeline/TimelineSlider.h</header>
+   <header>GuiBase/Timeline/TimelineSlider.hpp</header>
    <slots>
     <signal>slide(int)</signal>
     <signal>slideRelease()</signal>
@@ -1129,7 +1129,7 @@ border: 0px;</string>
   <customwidget>
    <class>Ra::GuiBase::TimelineScrollArea</class>
    <extends>QScrollArea</extends>
-   <header>GuiBase/Timeline/TimelineScrollArea.h</header>
+   <header>GuiBase/Timeline/TimelineScrollArea.hpp</header>
    <container>1</container>
    <slots>
     <signal>addKeyFrame()</signal>

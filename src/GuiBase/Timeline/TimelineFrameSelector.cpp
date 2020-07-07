@@ -1,4 +1,4 @@
-#include <GuiBase/Timeline/TimelineFrameSelector.h>
+#include <GuiBase/Timeline/TimelineFrameSelector.hpp>
 
 #include <QPainter>
 #include <QTimer>
@@ -6,7 +6,7 @@
 #include <QtGlobal>
 
 #include <Core/Math/Math.hpp>
-#include <GuiBase/Timeline/TimelineScrollArea.h>
+#include <GuiBase/Timeline/TimelineScrollArea.hpp>
 
 #include "ui_Timeline.h"
 

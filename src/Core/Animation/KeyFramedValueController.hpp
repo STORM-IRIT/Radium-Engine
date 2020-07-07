@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAMEDVALUE_CONTROLLER_HPP
-#define RADIUMENGINE_KEYFRAMEDVALUE_CONTROLLER_HPP
-
+#pragma once
 #include <map>
 #include <set>
 
@@ -22,10 +20,11 @@ class KeyFramedValueController
     using InsertCallback = std::function<void( const Scalar& /*t*/ )>;
     using UpdateCallback = std::function<void( const Scalar& /*t*/ )>;
 
-    KeyFramedValueController( KeyFrame* value         = nullptr,
-                              std::string&& name      = "__INVALID__",
-                              InsertCallback inserter = []( const Scalar& ) {},
-                              UpdateCallback updater  = []( const Scalar& ) {} ) :
+    KeyFramedValueController(
+        KeyFrame* value         = nullptr,
+        std::string&& name      = "__INVALID__",
+        InsertCallback inserter = []( const Scalar& ) {},
+        UpdateCallback updater  = []( const Scalar& ) {} ) :
         m_value( value ),
         m_name( std::move( name ) ),
         m_inserter( inserter ),
@@ -65,5 +64,3 @@ class KeyFramedValueController
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_KEYFRAMEDVALUE_CONTROLLER_HPP
