@@ -145,7 +145,7 @@ class Gizmo
         /// The color to use when selected
         Core::Utils::Color m_selectedColor;
         /// State indicator of the controler
-        bool m_selected{false};
+        bool m_selected {false};
     };
 
     /// Returns the controler (ShaderParametersProvider) associated to the given gizmo component

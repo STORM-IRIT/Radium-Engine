@@ -75,7 +75,7 @@ class RA_ENGINE_API CameraManager : public System
 
   protected:
     /// Stores the object that stores the Cameras...
-    std::unique_ptr<CameraStorage> m_data{nullptr};
+    std::unique_ptr<CameraStorage> m_data {nullptr};
 };
 
 } // namespace Engine

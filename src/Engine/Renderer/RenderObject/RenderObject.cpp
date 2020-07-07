@@ -23,12 +23,12 @@ RenderObject::RenderObject( const std::string& name,
                             const RenderObjectType& type,
                             int lifetime ) :
     IndexedObject(),
-    m_component{comp},
-    m_name{name},
-    m_type{type},
-    m_mesh{nullptr},
-    m_lifetime{lifetime},
-    m_hasLifetime{lifetime > 0} {}
+    m_component {comp},
+    m_name {name},
+    m_type {type},
+    m_mesh {nullptr},
+    m_lifetime {lifetime},
+    m_hasLifetime {lifetime > 0} {}
 
 RenderObject::~RenderObject() = default;
 

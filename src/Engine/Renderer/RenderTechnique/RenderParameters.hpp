@@ -44,7 +44,7 @@ class RA_ENGINE_API RenderParameters final
         /** The name of the parameter.
          * This must correspond to the name of a Uniform in the shader the Parameter is bound to.
          */
-        std::string m_name{};
+        std::string m_name {};
     };
 
     /** Typed parameter.
@@ -61,7 +61,7 @@ class RA_ENGINE_API RenderParameters final
         ~TParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
         /// The value of the parameter
-        T m_value{};
+        T m_value {};
     };
 
     /**
@@ -77,9 +77,9 @@ class RA_ENGINE_API RenderParameters final
         void bind( const ShaderProgram* shader ) const override;
 
         /// The texture object
-        Texture* m_texture{nullptr};
+        Texture* m_texture {nullptr};
         /// The texture unit where to bind the parameter
-        int m_texUnit{-1};
+        int m_texUnit {-1};
     };
 
     /** Set of typed parameters

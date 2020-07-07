@@ -30,9 +30,9 @@ class RA_ENGINE_API PointLight final : public Light
     std::string getShaderInclude() const override;
 
   private:
-    Eigen::Matrix<Scalar, 3, 1> m_position{0, 0, 0};
+    Eigen::Matrix<Scalar, 3, 1> m_position {0, 0, 0};
 
-    Attenuation m_attenuation{1, 0, 0};
+    Attenuation m_attenuation {1, 0, 0};
 };
 
 } // namespace Engine

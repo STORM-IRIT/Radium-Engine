@@ -80,17 +80,17 @@ class RA_GUIBASE_API TrackballCameraManipulator
     // the center of the trackball is defined by the inherited m_target
 
     /// x-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseX{0_ra};
+    Scalar m_lastMouseX {0_ra};
 
     /// y-position of the mouse on the screen at the manipulation start.
-    Scalar m_lastMouseY{0_ra};
+    Scalar m_lastMouseY {0_ra};
 
     /// Polar coordinates of the Camera w.r.t. the trackball center.
-    Scalar m_phi{0_ra};
-    Scalar m_theta{0_ra};
+    Scalar m_phi {0_ra};
+    Scalar m_theta {0_ra};
 
     /// The distance from the camera to the trackball center.
-    Scalar m_distFromCenter{0_ra};
+    Scalar m_distFromCenter {0_ra};
 
     /// Whether the corresponding camera movement is active or not.
     bool m_rotateAround;

@@ -265,9 +265,9 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     [[deprecated]] QThread* m_renderThread = nullptr; // We have to use a QThread for MT rendering
 #endif
 
-    Core::Utils::Color m_backgroundColor{Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
+    Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 
-    KeyMappingManager::Context m_activeContext{};
+    KeyMappingManager::Context m_activeContext {};
 #define KeyMappingViewer                     \
     KMA_VALUE( VIEWER_PICKING )              \
     KMA_VALUE( VIEWER_PICKING_VERTEX )       \

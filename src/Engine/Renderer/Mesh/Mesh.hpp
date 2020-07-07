@@ -150,7 +150,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
   protected:
     std::unique_ptr<globjects::VertexArray> m_vao;
 
-    MeshRenderMode m_renderMode{MeshRenderMode::RM_TRIANGLES};
+    MeshRenderMode m_renderMode {MeshRenderMode::RM_TRIANGLES};
 
     // m_vbos and m_dataDirty have the same size and are indexed thru m_handleToBuffer[attribName]
     std::vector<std::unique_ptr<globjects::Buffer>> m_vbos;
@@ -162,7 +162,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
 
     /// General dirty bit of the mesh. Must be equivalent of the "or" of the other dirty flags.
     /// an empty mesh is not dirty
-    bool m_isDirty{false};
+    bool m_isDirty {false};
 };
 
 /// Concept class to ensure consistent naming of VaoIndices accross derived classes.
@@ -173,11 +173,11 @@ class RA_ENGINE_API VaoIndices
     inline void setIndicesDirty();
 
   protected:
-    std::unique_ptr<globjects::Buffer> m_indices{nullptr};
-    bool m_indicesDirty{true};
+    std::unique_ptr<globjects::Buffer> m_indices {nullptr};
+    bool m_indicesDirty {true};
     /// number of elements to draw (i.e number of indices to use)
     /// automatically set by updateGL(), not meaningfull if m_indicesDirty.
-    size_t m_numElements{0};
+    size_t m_numElements {0};
 };
 
 /// This class handles an attrib array displayable on gpu only, without core

@@ -32,7 +32,7 @@ void DebugRender::initialize() {
                          const std::string& configName,
                          const char* vertexShader,
                          const char* fragmentShader ) -> const ShaderProgram* {
-        Ra::Engine::ShaderConfiguration config{configName};
+        Ra::Engine::ShaderConfiguration config {configName};
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, vertexShader );
         config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, fragmentShader );
         auto added = manager->addShaderProgram( config );
