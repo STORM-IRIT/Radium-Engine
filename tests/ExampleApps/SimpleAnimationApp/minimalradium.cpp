@@ -34,6 +34,7 @@ MinimalComponent::MinimalComponent( Ra::Engine::Entity* entity ) :
     T.rotate( Ra::Core::AngleAxis( Ra::Core::Math::PiDiv3, Ra::Core::Vector3::UnitY() ) );
     m_transform.insertKeyFrame( 3_ra, T );
     //! [Creating the transform KeyFrames]
+    //! [Creating the color KeyFrames]
     m_color.insertKeyFrame( 1_ra, Ra::Core::Utils::Color::Red() );
     m_color.insertKeyFrame( 2_ra, Ra::Core::Utils::Color::Blue() );
     m_color.insertKeyFrame( 3_ra, Ra::Core::Utils::Color::Green() );
@@ -99,17 +100,9 @@ void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::Fra
     CORE_ASSERT( m_components.size() == 1, "System incorrectly initialized" );
     MinimalComponent* c = static_cast<MinimalComponent*>( m_components[0].second );
 
-    // compute the current animation time
-    static Scalar time = 0_ra;
-    auto t0            = c->m_transform.getKeyFrames().begin()->first;
-    auto t1            = c->m_transform.getKeyFrames().rbegin()->first;
-    auto t             = time + info.m_dt;
-    if ( t > t1 ) { t = t0 + t - t1; }
-    time = t;
-
     // Create a new task which wil call c->spin() when executed.
-    q->registerTask(
-        new Ra::Core::FunctionTask( std::bind( &MinimalComponent::update, c, time ), "spin" ) );
+    q->registerTask( new Ra::Core::FunctionTask(
+        std::bind( &MinimalComponent::update, c, info.m_animationTime ), "spin" ) );
 }
 
 void MinimalSystem::addComponent( Ra::Engine::Entity* ent, MinimalComponent* comp ) {
