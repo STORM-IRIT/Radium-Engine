@@ -67,7 +67,7 @@ jobs:
         with:
           source: '.'
           exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
-          extensions: 'hpp,inl,cpp'
+          extensions: 'hpp,inl,cpp,glsl'
           clangFormatVersion: 9
           style: file
       - name: Find Comment
