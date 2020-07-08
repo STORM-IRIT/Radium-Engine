@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/Animation/KeyFramedValue.hpp>
+#include <Core/Animation/KeyFramedValueController.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Engine/Component/Component.hpp>
 #include <Engine/System/System.hpp>
@@ -29,10 +30,7 @@ struct MinimalComponent : public Ra::Engine::Component {
     Ra::Core::Animation::KeyFramedValue<Ra::Core::Transform> m_transform;
 
     /// The Keyframes for the cube's color.
-    Ra::Core::Animation::KeyFramedValue<Ra::Core::Utils::Color> m_color;
-
-    /// The cube's material we change the color.
-    std::shared_ptr<Ra::Engine::BlinnPhongMaterial> m_material;
+    Ra::Core::Animation::KeyFramedValueController m_colorController;
 };
 
 /// This system will be added to the engine. Every frame it will

@@ -21,11 +21,19 @@ set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+include_directories(
+    ${CMAKE_CURRENT_BINARY_DIR} # Moc
+    )
+qt5_wrap_ui(guibase_uis ${guibase_uis})
+
 add_library(
     ${ra_guibase_target} SHARED
     ${guibase_sources}
     ${guibase_headers}
     ${guibase_inlines}
+    ${guibase_uis}
+    ${guibase_resources}
 )
 
 add_dependencies(${ra_guibase_target} Core Engine PluginBase IO)
