@@ -13,7 +13,8 @@ class Viewer;
 
 namespace GuiBase {
 class SelectionManager;
-}
+class Timeline;
+} // namespace GuiBase
 
 namespace Plugins {
 class RadiumPluginInterface;
@@ -44,6 +45,9 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow
 
     /// Access the selection manager.
     virtual GuiBase::SelectionManager* getSelectionManager() = 0;
+
+    /// Access the timeline.
+    virtual GuiBase::Timeline* getTimeline() = 0;
 
     /// Update the ui from the plugins loaded.
     virtual void updateUi( Plugins::RadiumPluginInterface* plugin ) = 0;

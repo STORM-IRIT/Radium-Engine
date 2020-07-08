@@ -51,6 +51,7 @@ set( core_headers
     Animation/HandleWeight.hpp
     Animation/HandleWeightOperation.hpp
     Animation/KeyFramedValue.hpp
+    Animation/KeyFramedValueController.hpp
     Animation/KeyFramedValueInterpolators.hpp
     Animation/LinearBlendSkinning.hpp
     Animation/Pose.hpp
