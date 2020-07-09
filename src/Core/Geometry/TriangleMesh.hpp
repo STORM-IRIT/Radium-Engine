@@ -222,8 +222,9 @@ class RA_CORE_API LineStrip : public AttribArrayGeometry
 /// Simple Mesh structure that handles indexed polygonal mesh with vertex
 /// attributes. Each face is indexed with typename T = IndexType.
 /// T is assumed to be an Eigen Vector of unsigned ints
+/// observable on indices
 template <typename T>
-class IndexedGeometry : public AttribArrayGeometry
+class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
 {
   public:
     using IndexType          = T;
@@ -249,6 +250,13 @@ class IndexedGeometry : public AttribArrayGeometry
     /// \warning There is no error check on the handles attribute type.
     inline bool append( const IndexedGeometry<IndexType>& other );
 
+    const IndexContainerType& getIndices() const { return m_indices; }
+    /// not allowed to have notification
+    /// IndexContainerType& getIndices() { return m_indices; }
+    void setIndices( const IndexContainerType indices ) {
+        m_indices = indices;
+        notify();
+    }
     ///\todo make it protected
     IndexContainerType m_indices;
 };

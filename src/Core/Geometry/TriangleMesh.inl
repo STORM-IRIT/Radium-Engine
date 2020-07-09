@@ -209,6 +209,7 @@ inline IndexedGeometry<T>&
 IndexedGeometry<T>::operator=( const IndexedGeometry<IndexType>& other ) {
     AttribArrayGeometry::operator=( other );
     m_indices                    = other.m_indices;
+    notify();
     return *this;
 }
 
@@ -216,6 +217,7 @@ template <typename T>
 inline IndexedGeometry<T>& IndexedGeometry<T>::operator=( IndexedGeometry<IndexType>&& other ) {
     AttribArrayGeometry::operator=( std::move( other ) );
     m_indices                    = std::move( other.m_indices );
+    notify();
     return *this;
 }
 
@@ -223,12 +225,14 @@ template <typename T>
 inline void IndexedGeometry<T>::clear() {
     m_indices.clear();
     AttribArrayGeometry::clear();
+    notify();
 }
 
 template <typename T>
 inline void IndexedGeometry<T>::copy( const IndexedGeometry<IndexType>& other ) {
     AttribArrayGeometry::copyBaseGeometry( other );
     m_indices = other.m_indices;
+    notify();
 }
 
 template <typename T>
@@ -282,7 +286,7 @@ inline bool IndexedGeometry<T>::append( const IndexedGeometry<IndexType>& other 
             m_indices[t][i] += verticesBefore;
         }
     }
-
+    notify();
     return true;
 }
 
