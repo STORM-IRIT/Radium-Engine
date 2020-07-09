@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAME_EDITOR_VALUESCALE_H
-#define RADIUMENGINE_KEYFRAME_EDITOR_VALUESCALE_H
+#pragma once
 
 #include <QFrame>
 
@@ -27,9 +26,7 @@ class KeyframeEditorValueScale : public QFrame
 
   private:
     /// The KeyframeEditorScrollArea.
-    KeyFrameEditorScrollArea* m_scrollArea{nullptr};
+    KeyFrameEditorScrollArea* m_scrollArea {nullptr};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_KEYFRAME_EDITOR_VALUESCALE_H

@@ -1312,31 +1312,31 @@
   <customwidget>
    <class>Ra::GuiBase::KeyFrameEditorFrame</class>
    <extends>QFrame</extends>
-   <header>GuiBase/KeyFrameEditor/KeyFrameEditorFrame.h</header>
+   <header>GuiBase/KeyFrameEditor/KeyFrameEditorFrame.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Ra::GuiBase::KeyFrameEditorScrollArea</class>
    <extends>QScrollArea</extends>
-   <header>GuiBase/KeyFrameEditor/KeyFrameEditorScrollArea.h</header>
+   <header>GuiBase/KeyFrameEditor/KeyFrameEditorScrollArea.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Ra::GuiBase::KeyFrameEditorTimeScale</class>
    <extends>QFrame</extends>
-   <header>GuiBase/KeyFrameEditor/KeyFrameEditorTimeScale.h</header>
+   <header>GuiBase/KeyFrameEditor/KeyFrameEditorTimeScale.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Ra::GuiBase::KeyframeEditorValueScale</class>
    <extends>QFrame</extends>
-   <header>GuiBase/KeyFrameEditor/KeyFrameEditorValueScale.h</header>
+   <header>GuiBase/KeyFrameEditor/KeyFrameEditorValueScale.hpp</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Ra::GuiBase::KeyFrameEditorFrameScale</class>
    <extends>QFrame</extends>
-   <header>GuiBase/KeyFrameEditor/KeyFrameEditorFrameScale.h</header>
+   <header>GuiBase/KeyFrameEditor/KeyFrameEditorFrameScale.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

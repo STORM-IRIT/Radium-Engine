@@ -1,12 +1,12 @@
-#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrameScale.h>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrameScale.hpp>
 
 #include <QPainter>
 #include <QScrollBar>
 
-#include <GuiBase/Timeline/Configurations.h>
+#include <GuiBase/Timeline/Configurations.hpp>
 
-#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrame.h>
-#include <GuiBase/KeyFrameEditor/KeyFrameEditorScrollArea.h>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrame.hpp>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditorScrollArea.hpp>
 
 namespace Ra::GuiBase {
 

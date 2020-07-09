@@ -1,4 +1,4 @@
-#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrame.h>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrame.hpp>
 
 #include <QCheckBox>
 #include <QPainter>
@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QWheelEvent>
 #include <QtGlobal>
+#include <QPainterPath>
 
 #include <iostream>
 
@@ -15,8 +16,8 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <GuiBase/KeyFrameEditor/KeyFrameEditorScrollArea.h>
-#include <GuiBase/Timeline/Configurations.h>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditorScrollArea.hpp>
+#include <GuiBase/Timeline/Configurations.hpp>
 #include <ui_KeyFrameEditor.h>
 
 static constexpr int CTRL_PT_RAD = 5;

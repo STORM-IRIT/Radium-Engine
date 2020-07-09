@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAME_EDITOR_SCROLLAREARULER_H
-#define RADIUMENGINE_KEYFRAME_EDITOR_SCROLLAREARULER_H
+#pragma once
 
 #include <QScrollArea>
 
@@ -95,38 +94,36 @@ class KeyFrameEditorScrollArea : public QScrollArea
     int m_sliderPosX; ///< x coordinate of the slider on mouse middle click.
     int m_sliderPosY; ///< y coordinate of the slider on mouse middle click.
 
-    Scalar m_maxTime{200};   ///< <b>end<\b> of the Timeline's playzone.
-    Scalar m_stepTime;       ///< Step between two time scale graduations.
-    int m_nbIntervalTime{0}; ///< Number of time scale graduations.
-    Scalar m_pixPerTime;     ///< Number of pixels used to display 1 second on the scale.
-    Scalar m_zeroTime;       ///< Pixel corresponding to time 0.
+    Scalar m_maxTime {200};   ///< <b>end<\b> of the Timeline's playzone.
+    Scalar m_stepTime {10};   ///< Step between two time scale graduations.
+    int m_nbIntervalTime {0}; ///< Number of time scale graduations.
+    Scalar m_pixPerTime {10}; ///< Number of pixels used to display 1 second on the scale.
+    Scalar m_zeroTime {10};   ///< Pixel corresponding to time 0.
 
-    Scalar m_maxValue{200};   ///< Maximal extent of a KeyFrame value.
-    Scalar m_stepValue;       ///< Step between two value scale graduations.
-    int m_nbIntervalValue{0}; ///< Number of value scale graduations.
-    Scalar
-        m_pixPerValue;  ///< Number of pixels used to display a value difference of 1 on the scale.
-    Scalar m_zeroValue; ///< Pixel corresponding to time 0.
+    Scalar m_maxValue {200};   ///< Maximal extent of a KeyFrame value.
+    Scalar m_stepValue {10};   ///< Step between two value scale graduations.
+    int m_nbIntervalValue {0}; ///< Number of value scale graduations.
+    Scalar m_pixPerValue {
+        10}; ///< Number of pixels used to display a value difference of 1 on the scale.
+    Scalar m_zeroValue {10}; ///< Pixel corresponding to time 0.
 
     /// Number of possible steps.
-    static constexpr int s_nbSteps = 13;
+    static constexpr int s_nbSteps {13};
 
     /// Possible steps.
-    static constexpr Scalar s_steps[s_nbSteps] = {0.01_ra,
-                                                  0.02_ra,
-                                                  0.05_ra,
-                                                  0.1_ra,
-                                                  0.2_ra,
-                                                  0.5_ra,
-                                                  1.0_ra,
-                                                  2.0_ra,
-                                                  5.0_ra,
-                                                  10.0_ra,
-                                                  20.0_ra,
-                                                  50.0_ra,
-                                                  100.0_ra};
+    static constexpr Scalar s_steps[s_nbSteps] {0.01_ra,
+                                                0.02_ra,
+                                                0.05_ra,
+                                                0.1_ra,
+                                                0.2_ra,
+                                                0.5_ra,
+                                                1.0_ra,
+                                                2.0_ra,
+                                                5.0_ra,
+                                                10.0_ra,
+                                                20.0_ra,
+                                                50.0_ra,
+                                                100.0_ra};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_KEYFRAME_EDITOR_SCROLLAREARULER_H

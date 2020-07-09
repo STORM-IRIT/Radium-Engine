@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAME_EDITOR_FRAMESCALE_H
-#define RADIUMENGINE_KEYFRAME_EDITOR_FRAMESCALE_H
+#pragma once
 
 #include <QFrame>
 
@@ -31,12 +30,10 @@ class KeyFrameEditorFrameScale : public QFrame
 
   private:
     /// The KeyFrameEditorFrame.
-    KeyFrameEditorFrame* m_editorFrame{nullptr};
+    KeyFrameEditorFrame* m_editorFrame {nullptr};
 
     /// The KeyFrameEditorScrollArea.
-    KeyFrameEditorScrollArea* m_scrollArea{nullptr};
+    KeyFrameEditorScrollArea* m_scrollArea {nullptr};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_KEYFRAME_EDITOR_FRAMESCALE_H

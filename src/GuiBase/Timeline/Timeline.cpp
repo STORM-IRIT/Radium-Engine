@@ -18,7 +18,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
-#include <GuiBase/KeyFrameEditor/KeyFrameEditor.h>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditor.hpp>
 #include <GuiBase/Timeline/HelpDialog.hpp>
 
 using namespace Ra::Core::Utils;
@@ -428,7 +428,8 @@ void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) 
 
     switch ( names.size() )
     {
-    case 2: {
+    case 2:
+    {
         const std::string entityName = names.at( 0 ).toStdString();
         const std::string frameName  = names.at( 1 ).toStdString();
         auto lambda                  = [entityName]( const auto& frame ) {
@@ -438,7 +439,8 @@ void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) 
         GET_KEYFRAMEDVALUE( list, frameName );
     }
     break;
-    case 3: {
+    case 3:
+    {
         const std::string compName  = names.at( 1 ).toStdString();
         const std::string frameName = names.at( 2 ).toStdString();
         auto lambda                 = [compName]( const auto& frame ) {
@@ -448,7 +450,8 @@ void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) 
         GET_KEYFRAMEDVALUE( list, frameName );
     }
     break;
-    case 4: {
+    case 4:
+    {
         const QStringList fullRoName = names.at( 2 ).split( '_' );
         bool ok;
         const auto roIdx = fullRoName.last().toInt( &ok );

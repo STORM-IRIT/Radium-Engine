@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAME_EDITOR_H
-#define RADIUMENGINE_KEYFRAME_EDITOR_H
+#pragma once
 
 #include <GuiBase/RaGuiBase.hpp>
 
@@ -67,9 +66,7 @@ class RA_GUIBASE_API KeyFrameEditor : public QDialog
     void resizeEvent( QResizeEvent* ev ) override;
 
   private:
-    Ui::KeyFrameEditor* ui;
+    Ui::KeyFrameEditor* ui {nullptr};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_KEYFRAME_EDITOR_H

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEY_FRAME_EDITOR_TIMESCALE_H
-#define RADIUMENGINE_KEY_FRAME_EDITOR_TIMESCALE_H
+#pragma once
 
 #include <QFrame>
 
@@ -27,9 +26,7 @@ class KeyFrameEditorTimeScale : public QFrame
 
   private:
     /// The KeyFrameEditorScrollArea.
-    KeyFrameEditorScrollArea* m_scrollArea{nullptr};
+    KeyFrameEditorScrollArea* m_scrollArea {nullptr};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_KEY_FRAME_EDITOR_TIMESCALE_H

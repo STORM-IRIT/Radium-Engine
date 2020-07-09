@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAME_EDITOR_FRAME_H
-#define RADIUMENGINE_KEYFRAME_EDITOR_FRAME_H
+#pragma once
 
 #include <QDoubleSpinBox>
 #include <QFrame>
@@ -182,17 +181,17 @@ class KeyFrameEditorFrame : public QFrame
 
   private:
     /// The currently edited KeyFramedValue.
-    KeyFrame* m_value{nullptr};
+    KeyFrame* m_value {nullptr};
 
     /// The current time of the Timeline's playzone.
-    Scalar m_cursor;
+    Scalar m_cursor {0_ra};
 
     /// The display state of the KeyFramed value channels.
-    std::array<bool, 10> m_displayCurve =
-        {true, true, true, true, true, true, true, true, true, true};
+    std::array<bool, 10>
+        m_displayCurve {true, true, true, true, true, true, true, true, true, true};
 
     /// Whether the user is editing values or not.
-    bool m_mouseLeftClicked{false};
+    bool m_mouseLeftClicked {false};
 
     /// The type for KeyFramedValue edition control points.
     using CurveControlPoints = std::vector<Ra::Core::Vector2>;
@@ -201,15 +200,13 @@ class KeyFrameEditorFrame : public QFrame
     std::array<CurveControlPoints, 10> m_curveControlPoints;
 
     /// The current control point.
-    Ra::Core::Vector2i m_currentControlPoint{-1, -1};
+    Ra::Core::Vector2i m_currentControlPoint {-1, -1};
 
     /// The QPainter to display all the data.
-    QPainter* m_painter{nullptr};
+    QPainter* m_painter {nullptr};
 
     /// The KeyFrameEditor UI.
-    Ui::KeyFrameEditor* m_ui{nullptr};
+    Ui::KeyFrameEditor* m_ui {nullptr};
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_KEYFRAME_EDITOR_FRAME_H

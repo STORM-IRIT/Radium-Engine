@@ -1,6 +1,6 @@
 #include "ui_KeyFrameEditor.h"
-#include <GuiBase/KeyFrameEditor/KeyFrameEditor.h>
-#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrame.h>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditor.hpp>
+#include <GuiBase/KeyFrameEditor/KeyFrameEditorFrame.hpp>
 
 #include <Core/Animation/KeyFramedValue.hpp>
 

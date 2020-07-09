@@ -39,12 +39,12 @@ set(guibase_headers
     RaGuiBase.hpp
     RadiumWindow/SimpleWindow.hpp
     RadiumWindow/SimpleWindowFactory.hpp
-    KeyFrameEditor/KeyFrameEditor.h
-    KeyFrameEditor/KeyFrameEditorFrame.h
-    KeyFrameEditor/KeyFrameEditorFrameScale.h
-    KeyFrameEditor/KeyFrameEditorScrollArea.h
-    KeyFrameEditor/KeyFrameEditorTimeScale.h
-    KeyFrameEditor/KeyFrameEditorValueScale.h
+    KeyFrameEditor/KeyFrameEditor.hpp
+    KeyFrameEditor/KeyFrameEditorFrame.hpp
+    KeyFrameEditor/KeyFrameEditorFrameScale.hpp
+    KeyFrameEditor/KeyFrameEditorScrollArea.hpp
+    KeyFrameEditor/KeyFrameEditorTimeScale.hpp
+    KeyFrameEditor/KeyFrameEditorValueScale.hpp
     SelectionManager/SelectionManager.hpp
     Timeline/HelpDialog.hpp
     Timeline/Configurations.hpp
