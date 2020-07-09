@@ -122,11 +122,11 @@ jobs:
               git push
               ```
           reactions: rocket
-      - name: Status report README PLEASE
+      - name:  ********** Status report README PLEASE **********
         if: ${{ failure() && github.event.pull_request.head.repo.full_name != github.repository }}
         run: |
             echo **CHECK FORMAT FAIL**
-            echo You can trigger automatic format action on github with the special branch `gh-formatter`.
+            echo You can trigger automatic format action on github with the special branch gh-formatter.
             echo This special branch trigger clang-format and add a commit with the modified files.
             echo 
             echo git branch -D gh-formatter
