@@ -712,6 +712,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
 }
 
 void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& /*mesh*/ ) {
+    CORE_ASSERT( false, "not implemented yet" );
     ///\todo ;)
 }
 
