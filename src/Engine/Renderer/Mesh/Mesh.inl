@@ -424,12 +424,12 @@ void IndexedGeometry<T>::updateGL_specific_impl() {
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
         m_numElements =
-            base::m_mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
+            base::m_mesh.getIndices().size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
 
         m_indices->setData(
-            static_cast<gl::GLsizeiptr>( base::m_mesh.m_indices.size() *
+            static_cast<gl::GLsizeiptr>( base::m_mesh.getIndices().size() *
                                          sizeof( typename base::CoreGeometry::IndexType ) ),
-            base::m_mesh.m_indices.data(),
+            base::m_mesh.getIndices().data(),
             GL_STATIC_DRAW );
         m_indicesDirty = false;
     }

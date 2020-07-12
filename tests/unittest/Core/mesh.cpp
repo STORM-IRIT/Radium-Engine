@@ -70,6 +70,7 @@ TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" )
         TriangleMesh m;
         TriangleMesh::PointAttribHandle::Container vertices;
         TriangleMesh::NormalAttribHandle::Container normals;
+        TriangleMesh::IndexContainerType indices;
 
         vertices.push_back( {0, 0, 0} );
         vertices.push_back( {1, 0, 0} );
@@ -81,7 +82,8 @@ TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" )
         m.setVertices( std::move( vertices ) );
         m.setNormals( std::move( normals ) );
 
-        m.m_indices.push_back( {0, 1, 2} );
+        m.setIndices( {{0, 1, 2}} );
+
         auto handle1  = m.addAttrib<Vector3>( "vector3_attrib" );
         auto& attrib1 = m.getAttrib( handle1 );
         auto& buf     = attrib1.getDataWithLock();

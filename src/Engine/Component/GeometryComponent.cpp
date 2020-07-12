@@ -68,6 +68,7 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     Ra::Core::Geometry::TriangleMesh mesh;
     Ra::Core::Geometry::TriangleMesh::PointAttribHandle::Container vertices;
     Ra::Core::Geometry::TriangleMesh::NormalAttribHandle::Container normals;
+    Ra::Core::Geometry::TriangleMesh::IndexContainerType indices;
 
     vertices.reserve( data->getVerticesSize() );
     std::copy(
@@ -81,10 +82,10 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
     }
 
     const auto& faces = data->getFaces();
-    mesh.m_indices.reserve( faces.size() );
+    indices.reserve( faces.size() );
     std::transform( faces.begin(),
                     faces.end(),
-                    std::back_inserter( mesh.m_indices ),
+                    std::back_inserter( indices ),
                     []( const Core::VectorNui& f ) { return f.head<3>(); } );
     mesh.setVertices( std::move( vertices ) );
     mesh.setNormals( std::move( normals ) );
@@ -103,6 +104,8 @@ void TriangleMeshComponent::generateTriangleMesh( const Ra::Core::Asset::Geometr
 
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
+
+    mesh.setIndices( std::move( indices ) );
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
