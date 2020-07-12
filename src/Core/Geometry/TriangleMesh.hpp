@@ -251,32 +251,20 @@ class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
     inline bool append( const IndexedGeometry<IndexType>& other );
 
     /// read only access to indices
-    const IndexContainerType& getIndices() const { return m_indices; }
+    const IndexContainerType& getIndices() const;
 
     /// read write access to indices.
     /// Cause indices to be "lock" for the caller
     /// need to be unlock by the caller before any one can ask for write access.
-    IndexContainerType& getIndicesWithLock() {
-        CORE_ASSERT( !m_isIndicesLocked, "try to get already locked indices" );
-        m_isIndicesLocked = true;
-        return m_indices;
-    }
+    IndexContainerType& getIndicesWithLock();
 
     /// unlock previously read write acces, notify observers of the update.
-    void unlockIndices() {
-        CORE_ASSERT( !m_isIndicesLocked, "try unlock not locked indices" );
-        m_isIndicesLocked = false;
-        notify();
-    }
+    void indicesUnlock();
 
     /// set indices. Indices must be unlock, i.e. no one should have write
     /// access to it.
     /// Notify observers of the update.
-    void setIndices( IndexContainerType&& indices ) {
-        CORE_ASSERT( !m_isIndicesLocked, "try set already locked indices" );
-        m_indices = std::move( indices );
-        notify();
-    }
+    void setIndices( IndexContainerType&& indices );
 
   private:
     bool m_isIndicesLocked {false};

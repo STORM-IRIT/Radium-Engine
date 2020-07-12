@@ -290,6 +290,32 @@ inline bool IndexedGeometry<T>::append( const IndexedGeometry<IndexType>& other 
     return true;
 }
 
+template <typename T>
+const typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndices() const {
+    return m_indices;
+}
+
+template <typename T>
+typename  IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
+    CORE_ASSERT( !m_isIndicesLocked, "try to get already locked indices" );
+    m_isIndicesLocked = true;
+    return m_indices;
+}
+
+template <typename T>
+void IndexedGeometry<T>::indicesUnlock() {
+    CORE_ASSERT( !m_isIndicesLocked, "try unlock not locked indices" );
+    m_isIndicesLocked = false;
+    notify();
+}
+
+template <typename T>
+void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
+    CORE_ASSERT( !m_isIndicesLocked, "try set already locked indices" );
+    m_indices = std::move( indices );
+    notify();
+}
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
