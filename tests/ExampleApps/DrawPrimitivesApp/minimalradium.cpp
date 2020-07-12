@@ -531,12 +531,14 @@ void MinimalComponent::initialize() {
         std::shared_ptr<Ra::Engine::PolyMesh> poly1(
             new Ra::Engine::PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
-            "in_color", Vector4Array {poly1->getNumVertices(),  colorBoost * Utils::Color {1_ra, 0.6_ra, 0.1_ra}} );
+            "in_color",
+            Vector4Array {poly1->getNumVertices(),
+                          colorBoost * Utils::Color {1_ra, 0.6_ra, 0.1_ra}} );
 
         auto renderObject1 = RenderObject::createRenderObject(
             "CubeRO_1", this, RenderObjectType::Geometry, poly1, shadedRt );
         renderObject1->setLocalTransform(
-                Transform {Translation( Vector3( 3.5 * cellSize, 0_ra, 1.5*cellSize ) ) *
+            Transform {Translation( Vector3( 3.5 * cellSize, 0_ra, 1.5 * cellSize ) ) *
                        Eigen::UniformScaling<Scalar>( 0.06_ra )} );
 
         addRenderObject( renderObject1 );
