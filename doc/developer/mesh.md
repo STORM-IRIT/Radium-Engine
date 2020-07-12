@@ -14,6 +14,7 @@ See inheritance diagram of Ra::Core::Geometry::AbstractGeometry :
    - Ra::Core::Geometry::IndexedPointCloud *
    - Ra::Core::Geometry::LineMesh *
    - Ra::Core::Geometry::TriangleMesh *
+   - Ra::Core::Geometry::PolyMesh *
 
  2. Ra::Core::Geometry::TopologicalMesh, which is an half-edge data structure. 
 A converter allows to go back and forth to `TriangleMesh`
@@ -32,6 +33,7 @@ See inheritance digram of Ra::Engine::AttribArrayDisplayable
    - Ra::Engine::IndexedAttribArrayDisplayable
    - Ra::Engine::LineMesh *
    - Ra::Engine::Mesh *
+   - Ra::Engine::PolyMesh *
    
  `*` : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.
    
@@ -74,6 +76,9 @@ In order to copy some/all of the attributes, the dedicated methods must be used.
 Attribute writes must be with "lock" to ensure data syncronisation.
 Utility methods are provided for position and normals :
 
+ - Ra::Core::Geometry::IndexedGeometry::setIndices
+ - Ra::Core::Geometry::IndexedGeometry::getIndicesWithLock
+ - Ra::Core::Geometry::IndexedGeometry::indicesUnlock
  - Ra::Core::Geometry::AttribArrayGeometry::setVertices
  - Ra::Core::Geometry::AttribArrayGeometry::verticesWithLock
  - Ra::Core::Geometry::AttribArrayGeometry::verticesUnlock
@@ -105,8 +110,9 @@ normals.push_back( {0, 0, 1} );
 	
 m.setVertices( std::move( vertices ) );
 m.setNormals( std::move( normals ) );
-	
-m.m_indices.push_back( {0, 1, 2} );
+
+m.setIndices( {0, 1, 2} );
+
 auto handle1  = m.addAttrib<Vector3>( "vector3_attrib" );
 auto& attrib1 = m.getAttrib( handle1 );
 auto& buf     = attrib1.getDataWithLock();
