@@ -410,6 +410,9 @@ template <typename T>
 void IndexedGeometry<T>::loadGeometry( T&& mesh ) {
     setIndicesDirty();
     base::loadGeometry_common( std::move( mesh ) );
+
+    // indices
+    base::m_mesh.attach( IndicesObserver( this ) );
 }
 
 template <typename T>

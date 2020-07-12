@@ -296,7 +296,7 @@ const typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIn
 }
 
 template <typename T>
-typename  IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
+typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
     CORE_ASSERT( !m_isIndicesLocked, "try to get already locked indices" );
     m_isIndicesLocked = true;
     return m_indices;

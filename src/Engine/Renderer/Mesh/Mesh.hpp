@@ -177,6 +177,19 @@ class RA_ENGINE_API VaoIndices
     /// Tag the indices as dirty, asking for a update to gpu.
     inline void setIndicesDirty();
 
+    ///\todo Add test for Indices observer
+    class IndicesObserver
+    {
+      public:
+        /// not tested
+        explicit IndicesObserver( VaoIndices* displayable ) : m_displayable {displayable} {}
+        /// not tested
+        void operator()() { m_displayable->m_indicesDirty = true; }
+
+      private:
+        VaoIndices* m_displayable;
+    };
+
   protected:
     std::unique_ptr<globjects::Buffer> m_indices {nullptr};
     bool m_indicesDirty {true};

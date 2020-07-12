@@ -81,9 +81,9 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
         return false;
     }
 
-    data.setVertices( std::move(vertices) );
-    data.setNormals( std::move(normals) );
-    data.setIndices( std::move(indices) );
+    data.setVertices( std::move( vertices ) );
+    data.setNormals( std::move( normals ) );
+    data.setIndices( std::move( indices ) );
     return true;
 }
 

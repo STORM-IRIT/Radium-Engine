@@ -66,7 +66,7 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
             Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
-    result.setIndices(std::move(indices));
+    result.setIndices( std::move( indices ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
