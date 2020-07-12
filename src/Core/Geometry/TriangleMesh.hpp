@@ -272,7 +272,7 @@ class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
     /// set indices. Indices must be unlock, i.e. no one should have write
     /// access to it.
     /// Notify observers of the update.
-    void setIndices( IndexContainerType indices ) {
+    void setIndices( IndexContainerType&& indices ) {
         CORE_ASSERT( !m_isIndicesLocked, "try set already locked indices" );
         m_indices = std::move( indices );
         notify();
@@ -280,8 +280,6 @@ class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
 
   private:
     bool m_isIndicesLocked {false};
-
-  public:
     IndexContainerType m_indices;
 };
 
