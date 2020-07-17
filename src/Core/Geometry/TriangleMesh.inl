@@ -304,7 +304,7 @@ typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesW
 
 template <typename T>
 void IndexedGeometry<T>::indicesUnlock() {
-    CORE_ASSERT( !m_isIndicesLocked, "try unlock not locked indices" );
+    CORE_ASSERT( m_isIndicesLocked, "try unlock not locked indices" );
     m_isIndicesLocked = false;
     notify();
 }
