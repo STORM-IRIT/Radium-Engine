@@ -33,6 +33,7 @@ RA_CORE_API std::string getRadiumPluginsDir();
 
 /// Get the path prefix to access the current executable in a filesystem.
 RA_CORE_API std::string getBaseDir();
+RA_CORE_API std::string getBaseResourcesDir();
 
 /// allow to manage several resource locators
 class RA_CORE_API ResourcesLocator
