@@ -23,10 +23,13 @@ Once found, the Radium package defines a cmake target for each requested compone
 When configuring your own target in your `CMakeLists.txt` file, you just need to link with those targets to get access to all the public interface of Radium (include search path, libraries, ...).
 
 The radium package also defines several cmake functions, described below, that you can use to ease the configuration of your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their own build-tree. 
-Th functions defined by the Radium package are the following:
+
+The functions defined by the Radium package are the following:
  - [configure_radium_library](#configure_radium_library).
  - [installTargetResources](#installTargetResources).
- - [configure_radium_package](#configurePackage)
+ - [configure_radium_package](#configure_radium_package)
+ - [configure_radium_app](#configure_radium_app)
+ - [configure_radium_plugin](#configure_radium_plugin)
  
 ## Function configure_radium_library {#configure_radium_library}
 ~~~{.cmake}
@@ -213,6 +216,44 @@ This function takes the following parameters :
   - `<PACKAGE_CONFIG>`. The configure script to be used by `find_package`.
   - `<PACKAGE_DIR>`. If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
 
+## Function configure_radium_app {#configure_radium_app}
+~~~{.cmake}
+configure_radium_app( 
+    NAME applicationName                        # The name of the executable target to configure as a relocatable application
+    [USE_PLUGINS]                               # Set this if the application uses installed plugins. 
+    [RESOURCES ResourceDir1 ResourceDir2 ...]   # List of directories to install as application resources
+)
+~~~
+
+This function configure the executable target `<NAME>` for installation so that the installation directory is relocatable and distributable.
+This function takes the following parameters :
+ 
+  - `<NAME>`. The name of the *executable* target to configure and install
+  - `<USE_PLUGINS>`. If this option is given, the plugins installed into the Radium bundle at the installation time will be copied into the application bundle.
+  - `<RESOURCES> ResourceDir1 ResourceDir2 ...`. The optinal list of directories given here will be considered as application resources and installed into the application bundle.
+
+When installed into a directory `<prefix>`, the application bundle has the following structure on linux and windows or on MacOsX if the executable is not configured as a `MACOSX_BUNDLE`. In this case, the application is a standard `.app` MacOsX application:
+
+```
+<prefix>/
+├── bin/
+|   └──  applicationName
+├── Resources/
+|   ├── ResourceDir1/
+|   ├── ResourceDir2/
+|   ...
+```
+
+### Limitations
+For now (Radium version of August 2020): 
+  - MacOsX Bundled application are truly relocatable (on the build system or between compatible systems) if they do not use plugins. 
+  - Linux application can be relocated only on the build system.
+  - Windows application need further processsing (windeployQt) to be relocatable.
+    
+## Function configure_radium_plugin {#configure_radium_plugin}
+YTBD;p
+
+
 # How to write your CMakeLists.txt
 When writing your cmake configuration script `CMakeLists.txt`, you might rely on the following guideline to configure the project `ProjectName`.
 Note that these are only guidelines and that you can always write your cmake script from scratch, assuming you understand what you do.
@@ -328,6 +369,10 @@ and the function [configure_radium_package](#configurePackage) should be used.
 Standard usage of this function requires to have some libraries configured like the following: 
 ~~~{.cmake}
 ...
+add_library(
+        <firstLib> SHARED
+        ...
+}
 configure_radium_library(
     TARGET <firstLib>
     FILES "${firstLib_public_headers}"
@@ -336,6 +381,11 @@ configure_radium_library(
     PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
 )
 ...
+
+add_library(
+        <secondLib> SHARED
+        ...
+}
 configure_radium_library(
     TARGET <secondLib>
     FILES "${secondLib_public_headers}"
@@ -414,8 +464,35 @@ endif()
 
 Based on the above example, once the package `<packageName>` is found, the targets `<namespace>::<firstLib>` and  `<namespace>::<secondLib>` will be imported in the current project and should be used as any imported Radium targets.
 
-## Configuring a command line application (all systems)
+## Configuring an application
+Configuring an installable and relocatable application is very easy with Radium cmake scripts.
+First, an executable target that depends on Radium libraries (internal Radium libraries or client libraries) should be configured with a cmake script such as
+~~~{.cmake}
+# Configure a general Radium application that will use plugins
+find_package(Radium REQUIRED Core Engine GuiBase PluginBase IO)
+...
+# Configure an relocatable executable target (here a bundle on MacOsX)
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE
+    ...
+)
+~~~ 
 
-## Configuring a bundled graphical application (MacOsX only)
+Then, the application is configured to be relocatable after installation with 
+~~~{.cmake}
+# Configure the Radium application installation 
+configure_radium_app(
+    NAME <applicationName>
+    USE_PLUGINS
+    RESOURCES <applicationResources>
+)
+~~~ 
 
+Once compiled and installed, the directory `<${CMAKE_INSTALL_PREFIX}>`, set to `installed-<COMPILER_ID>-<CONFIGURATION>` into the root of the build tree if not specified at configure time, is a relocatable directory that contains the bundled application and associated resources.
 
+Note that, on MacOsX, if the executable target is configured using the `MACOSX_BUNDLE` option, only the `bin` directory is created into this bundle and it contains the relocatable `.app` bundle.
+If the option `MACOSX_BUNDLE` is not given, the executable will not be a bundled MacOs `.app` but a command line application and will be installed as any application on Linux.
+
+The resources associated to an application are installed using the [installTargetResources](#installTargetResources) function.
+
+## Configuring a Radium application plugin
+YTBD;p
