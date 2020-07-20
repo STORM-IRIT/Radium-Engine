@@ -26,6 +26,16 @@ define_property(TARGET
     BRIEF_DOCS "Identify the optional resource files associated with a target."
     FULL_DOCS "Contains a list of individual files that will be installed when installing the target."
     )
+define_property(TARGET
+    PROPERTY RADIUM_TARGET_RESOURCES_PREFIX
+    BRIEF_DOCS "Identify the optional resource install prefix associated with a target."
+    FULL_DOCS "Contains a name that will be prepended to each resource name before installing the target resources."
+    )
+define_property(TARGET
+    PROPERTY RADIUM_TARGET_INSTALLED_RESOURCES
+    BRIEF_DOCS "Identify the path where optional resource are installed for the target."
+    FULL_DOCS "Contains the inxtallation directory of the target resources."
+    )
 
 # ------------------------------------------------------------------------------
 # Internal functions not to be called directly by the user.
@@ -135,12 +145,29 @@ function(configure_bundled_Radium_app)
         TARGETS ${ARGS_NAME}
         BUNDLE DESTINATION "bin/"
     )
+    # build the list of resource directory from the linked libraries to copy into the bundle
+    get_target_property(linkedLibs ${ARGS_NAME} LINK_LIBRARIES)
+    set(depsRsc "")
+    foreach(lib ${linkedLibs})
+        get_target_property(rscPrefix ${lib} RADIUM_TARGET_RESOURCES_PREFIX)
+        if (NOT ${rscPrefix} STREQUAL "rscPrefix-NOTFOUND")
+            get_target_property(rscLocation ${lib} RADIUM_TARGET_INSTALLED_RESOURCES)
+            message(STATUS " [configure_radium_app] Found lib ${lib} resources location to be : ${rscLocation} !" )
+            list(APPEND depsRsc ${rscLocation})
+        endif ()
+    endforeach()
     if (ARGS_USE_PLUGINS)
+        # TODO : fix rpath for plugins that use helper libs (can't load helper.dylib)
         install(CODE "
         include(BundleUtilities)
         set(BU_CHMOD_BUNDLE_ITEMS TRUE)
         file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
         file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
+        set(instRsc ${depsRsc})
+        foreach( rsc \${instRsc})
+            message(STATUS \"Copy resources from  \${rsc}\")
+            file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
+        endforeach()
         if (EXISTS ${RADIUM_PLUGINS_DIR})
             file(COPY ${RADIUM_PLUGINS_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/)
         else()
@@ -153,7 +180,7 @@ function(configure_bundled_Radium_app)
         foreach (plugin \${RadiumAvailablePlugins})
             list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
         endforeach ()
-        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
+        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\")
         "
             )
     else ()
@@ -163,11 +190,15 @@ function(configure_bundled_Radium_app)
             set(BU_CHMOD_BUNDLE_ITEMS TRUE)
             file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
             file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
-            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
+            set(instRsc ${depsRsc})
+            foreach( rsc \${instRsc})
+                message(STATUS \"Copy resources from  \${rsc}\")
+                file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
+            endforeach()
+            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR};${CMAKE_INSTALL_PREFIX}/lib\")
             "
             )
     endif ()
-
     # Configure the resources installation
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
@@ -303,11 +334,21 @@ function(installTargetResources)
     #Install in the install tree
     #Identify the individual files( to preserve directory structure )
     # set the target properties
-    message(STATUS " [installTargetResources] Set resources properties for target ${ARGS_TARGET} to ${ARGS_DIRECTORY}")
+    #message(STATUS " [installTargetResources] Set resources properties for target ${ARGS_TARGET} : DIRECTORY =  ${ARGS_DIRECTORY}")
     set_target_properties(${ARGS_TARGET}
         PROPERTIES
         RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_DIRECTORY}
         )
+    if (ARGS_PREFIX)
+        #message(STATUS " [installTargetResources] Set resources properties for target ${ARGS_TARGET} : PREFIX = ${ARGS_PREFIX}")
+        set(ARGS_PREFIX "${ARGS_PREFIX}")
+        set_target_properties(${ARGS_TARGET}
+            PROPERTIES
+            RADIUM_TARGET_RESOURCES_PREFIX ${ARGS_PREFIX}
+            )
+    else()
+        set(ARGS_PREFIX "")
+    endif ()
     if (ARGS_FILES)
         set_target_properties(${ARGS_TARGET}
             PROPERTIES
@@ -315,9 +356,6 @@ function(installTargetResources)
             )
     else ()
         file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)
-    endif ()
-    if (ARGS_PREFIX)
-        set(ARGS_PREFIX "${ARGS_PREFIX}/")
     endif ()
     #install resource for application or shared library
     get_target_property(targetType ${ARGS_TARGET} TYPE)
@@ -328,26 +366,30 @@ function(installTargetResources)
             if (APPLE)
                 install(
                     FILES ${ARGS_DIRECTORY}/${file}
-                    DESTINATION ${ARGS_TARGET}.app/Contents/Resources/${rsc_dir}/${file_dir}
+                    DESTINATION ${ARGS_TARGET}.app/Contents/Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
                 )
             else ()
                 install(
                     FILES ${ARGS_DIRECTORY}/${file}
-                    DESTINATION Resources/${rsc_dir}/${file_dir}
+                    DESTINATION Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
                 )
             endif ()
         endforeach ()
     elseif (${targetType} STREQUAL "SHARED_LIBRARY")
-        message(STATUS " [installTargetResources] Installing resources for target ${ARGS_TARGET} into Resources/${ARGS_PREFIX}${rsc_dir}/${file_dir}")
+        message(STATUS " [installTargetResources] Installing resources for target ${ARGS_TARGET} into Resources/${ARGS_PREFIX}")
+        set_target_properties(${ARGS_TARGET}
+            PROPERTIES
+            RADIUM_TARGET_INSTALLED_RESOURCES "${CMAKE_INSTALL_PREFIX}/Resources/${ARGS_PREFIX}"
+        )
         foreach (file ${ARGS_FILES})
             get_filename_component(file_dir ${file} DIRECTORY)
             install(
                 FILES ${ARGS_DIRECTORY}/${file}
-                DESTINATION Resources/${ARGS_PREFIX}${rsc_dir}/${file_dir}
+                DESTINATION Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
             )
         endforeach ()
     else ()
-        message(FATAL_ERROR "Unknonw target type ${targetType} for target ${ARGS_TARGET} ")
+        message(FATAL_ERROR "Unknown target type ${targetType} for target ${ARGS_TARGET} ")
     endif ()
 endfunction()
 
@@ -357,7 +399,7 @@ endfunction()
 # usage :
 #   configure_radium_app(
 #         NAME theTargetName # <- this must be an executable
-#         [USE_PLUGINS] # <- The application uses Radium Plugins : install available plugins into the bundle is it is one
+#         [USE_PLUGINS] # <- The application uses Radium Plugins : install available plugins into the bundle if it is one
 #         [RESOURCES ResourceDir1 ResourceDir2] # <- acept a list of directories
 # )
 function(configure_radium_app)
@@ -450,26 +492,33 @@ function(configure_radium_plugin)
         set_target_properties(${ARGS_NAME}
             PROPERTIES INSTALL_RPATH "@loader_path;${CMAKE_INSTALL_RPATH}")
         foreach (helperLib ${ARGS_HELPER_LIBS})
-            message(STATUS " [configure_plugin] Request to install the helper library ${helperLib} for plugin ${ARGS_NAME}")
+            # if helperLib is an alias, find the original name
+            get_target_property(OriginalLib "${helperLib}" ALIASED_TARGET)
+            if (${OriginalLib} STREQUAL "OriginalLib-NOTFOUND")
+                #                message(STATUS "The name ${ARGS_HELPER_LIBS} is a REAL target.")
+                set(OriginalLib ${helperLib})
+            endif ()
+            message(STATUS " [configure_radium_plugin] Request to install the helper library ${helperLib} for plugin ${ARGS_NAME}")
+            # gets the resource install property of the target
             get_target_property(resourceDir ${helperLib} RADIUM_TARGET_RESOURCES_DIRECTORY)
             if (NOT ${resourceDir} STREQUAL "resourceDir-NOTFOUND")
-                message(STATUS " [configure_plugin]    Installing ${helperLib} resources in ${${ARGS_NAME}_INSTALL_DIR}/Resources/${helperLib}/${rsc_dir}/${file_dir}")
+                # gets the resource prefix for the target
+                get_target_property(resourcePrefix ${helperLib} RADIUM_TARGET_RESOURCES_PREFIX)
+                if (${resourcePrefix} STREQUAL "resourcePrefix-NOTFOUND")
+                    set(resourcePrefix "")
+                endif()
+                message(STATUS " [configure_radium_plugin] Installing ${helperLib} resources in ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}")
                 get_filename_component(rsc_dir ${resourceDir} NAME)
                 file(GLOB_RECURSE RSC_FILES RELATIVE ${resourceDir} ${resourceDir}/*)
                 foreach (file ${RSC_FILES})
                     get_filename_component(file_dir ${file} DIRECTORY)
                     install(
                         FILES ${resourceDir}/${file}
-                        DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/Resources/${helperLib}/${rsc_dir}/${file_dir}
+                        DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}/${rsc_dir}/${file_dir}
                     )
                 endforeach ()
             endif ()
-            get_target_property(OriginalLib "${helperLib}" ALIASED_TARGET)
-            if (${OriginalLib} STREQUAL "OriginalLib-NOTFOUND")
-                #                message(STATUS "The name ${ARGS_HELPER_LIBS} is a REAL target.")
-                set(OriginalLib ${helperLib})
-            endif ()
-            message(STATUS "Installing ${OriginalLib}")
+            message(STATUS " [configure_radium_plugin] Installing the helper lib ${OriginalLib}")
             get_target_property(IsImported "${OriginalLib}" IMPORTED)
             if (${IsImported})
                 #                message(STATUS "The name ${OriginalLib} is a IMPORTED target.")
@@ -489,7 +538,7 @@ function(configure_radium_plugin)
     # Configure the resources installation
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
-            message(STATUS " Installing plugin resources ${resLocation} for ${ARGS_NAME} ")
+            message(STATUS " [configure_radium_plugin] Installing plugin resources ${resLocation} for ${ARGS_NAME} ")
             installPluginResources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
@@ -510,7 +559,6 @@ include(CMakePackageConfigHelpers)
 #   TARGET_DIR : The directory where FILES will be installed (default : <prefix>/include/<TARGET>
 #   NAMESPACE : The namespace in which the library will be added (default Radium)
 #   PACKAGE_DIR : The directory in which the cmake package config file will be installed (default <prefix>/lib/cmake/Radium)
-
 function(configure_radium_library)
     # parse and verify args
     cmake_parse_arguments(
@@ -555,6 +603,7 @@ function(configure_radium_library)
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:include/${ARGS_TARGET}>
         )
+    message(STATUS " [configure_radium_library] Defining alias ${ARGS_NAMESPACE}::${ARGS_TARGET} for target ${ARGS_TARGET}")
     add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
     set(ConfigPackageLocation ${ARGS_PACKAGE_DIR})
     install(TARGETS ${ARGS_TARGET}
