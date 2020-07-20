@@ -75,16 +75,15 @@ function(configure_cmdline_Radium_app)
     )
     # TODO, this Windows only bundle fix might be adapted to Linux also ... perhaps with the same code ?
     if (MSVC OR MSVC_IDE OR MINGW)
-        # Construciton of the  dependency paths
+        # Construction of the  dependency paths
         set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
         # Add the Qt bin dir ...
         list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
         # Fix the bundled directory
-        install(CODE "
-                        message(STATUS \"Fixing application with Qt base direcory at ${FIX_LIBRARY_DIR} !!\")
-            include(BundleUtilities)
-                        fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
-            "
+        install(CODE " message(STATUS \"Fixing application with Qt base direcory at ${FIX_LIBRARY_DIR} !!\")
+                       include(BundleUtilities)
+                       fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
+                     "
             )
         if (CMAKE_BUILD_TYPE STREQUAL "Debug")
             install(FILES $<TARGET_PDB_FILE:${ARGS_NAME}> DESTINATION bin)
