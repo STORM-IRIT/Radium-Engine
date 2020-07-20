@@ -262,7 +262,7 @@ function(installPluginResources)
 
     # Install in the Radium install tree
     # Identify the individual files (to preserve directory structure)
-    message(STATUS " [installResources] configuring install for requested files of ${ARGS_DIRECTORY}")
+    message(STATUS " [installPluginResources] configuring install for requested files of ${ARGS_DIRECTORY}")
     if (NOT ARGS_FILES)
         file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)
     endif ()
@@ -283,7 +283,7 @@ endfunction()
 # This function also define the custom properties RADIUM_RESOURCE_DIRECTORY and RADIUM_RESOURCE_FILES
 # for the given target with the corresponding value.
 # To be called with
-# installResources( TARGET theTarget`
+# installTargetResources( TARGET theTarget`
 #                  DIRECTORY theBaseResourceDirectory
 #                  [BUILD_LOCATION whereToLinkInTheBuildTree]
 #                  [PREFIX TargetResourcePathPrefix]
@@ -299,10 +299,10 @@ function(installTargetResources)
     )
     #verify that the function was called with expected parameters
     if (NOT ARGS_TARGET)
-        message(FATAL_ERROR " [installResources] You must provide a target that need these resources")
+        message(FATAL_ERROR " [installTargetResources] You must provide a target that need these resources")
     endif ()
     if (NOT ARGS_DIRECTORY)
-        message(FATAL_ERROR " [installResources] You must provide a resource directory")
+        message(FATAL_ERROR " [installTargetResources] You must provide a resource directory")
     endif ()
     if (NOT ARGS_BUILD_LOCATION)
         # linking resources as in Radium bundle build dir : ${CMAKE_CURRENT_BINARY_DIR}/../Resources
@@ -314,7 +314,7 @@ function(installTargetResources)
     get_filename_component(rsc_dir ${ARGS_DIRECTORY} NAME)
     set(buildtree_dir ${ARGS_BUILD_LOCATION})
     #installing resources in the buildtree( link if available, copy if not)
-    message(STATUS " [installResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
+    message(STATUS " [installTargetResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
     file(MAKE_DIRECTORY "${buildtree_dir}")
     if (MSVC OR MSVC_IDE OR MINGW)
         add_custom_command(
