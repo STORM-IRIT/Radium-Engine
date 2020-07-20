@@ -654,3 +654,40 @@ function(configure_radium_library)
         install(FILES ${file} DESTINATION include/${ARGS_TARGET_DIR}/${file_dir})
     endforeach ()
 endfunction()
+
+
+# mandatory parameters :
+#   NAME : The name of the package to install
+#   PACKAGE_CONFIG : The package configuration file
+#
+# optional arguments
+#   PACKAGE_DIR : The directory in which the cmake package config file will be installed (default <prefix>/lib/cmake/Radium)
+function(configure_radium_package)
+    # parse and verify args
+    cmake_parse_arguments(
+        ARGS
+        ""  # no options
+        "NAME;PACKAGE_DIR;PACKAGE_CONFIG" # one value args
+        "" # no multivalued args
+        ${ARGN}
+    )
+    if (NOT ARGS_NAME)
+        message(FATAL_ERROR " [add_package] You must provide the package name")
+    endif ()
+    if (NOT ARGS_PACKAGE_DIR)
+        set(ARGS_PACKAGE_DIR lib/cmake/Radium)
+    endif ()
+    if (NOT ARGS_PACKAGE_CONFIG)
+        message(FATAL_ERROR " [add_package] You must provide the package config file")
+    endif ()
+    configure_file(${ARGS_PACKAGE_CONFIG}
+        "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake"
+        @ONLY
+        )
+    install(
+        FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake"
+        DESTINATION
+        ${ARGS_PACKAGE_DIR}
+    )
+endfunction()

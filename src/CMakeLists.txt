@@ -59,17 +59,11 @@ endif()
 
 #-----------------------------------------------------------------------------------
 # Generate cmake package
+configure_radium_package(
+    NAME Radium
+    PACKAGE_CONFIG ../cmake/Config.cmake.in
+)
 
-configure_file(../cmake/Config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/Radium/RadiumConfig.cmake"
-        @ONLY
-)
-install(
-  FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/Radium/RadiumConfig.cmake"
-  DESTINATION
-    ${ConfigPackageLocation}
-)
 #install general scripts
 install(
     FILES
