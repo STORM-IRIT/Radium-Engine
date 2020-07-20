@@ -101,6 +101,7 @@ set( engine_headers
 
 set( engine_inlines
     Component/Component.inl
+    Component/GeometryComponent.inl
     Entity/Entity.inl
     ItemModel/ItemEntry.inl
     Managers/ComponentMessenger/ComponentMessenger.inl

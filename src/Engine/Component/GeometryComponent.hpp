@@ -9,6 +9,7 @@
 namespace Ra {
 namespace Engine {
 class Mesh;
+class PolyMesh;
 class PointCloud;
 class VolumeObject;
 } // namespace Engine
@@ -47,57 +48,80 @@ class RA_ENGINE_API GeometryComponent : public Component
     std::string m_contentName {};
 };
 
+/// \internal
+namespace SurfaceMeshComponentInternal {
+template <class CoreMeshT>
+struct RenderMeshHelper {};
+
+template <>
+struct RenderMeshHelper<Ra::Core::Geometry::TriangleMesh> {
+    using Type = Ra::Engine::Mesh;
+};
+template <>
+struct RenderMeshHelper<Ra::Core::Geometry::PolyMesh> {
+    using Type = Ra::Engine::PolyMesh;
+};
+} // namespace SurfaceMeshComponentInternal
+
 /*!
  * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
  *
  * Exports access to the mesh geometry:
- *  - TriangleMesh: get, rw (set vertices, normals and triangles dirty)
+ *  - SurfaceMeshComponent: get, rw (set vertices, normals and triangles dirty)
  *  - Vertices: rw (if deformable)
  *  - normals: rw (if deformable)
  *  - triangles: rw (if deformable)
  */
-class RA_ENGINE_API TriangleMeshComponent : public GeometryComponent
+template <typename CoreMeshType>
+class RA_ENGINE_API SurfaceMeshComponent : public GeometryComponent
 {
     using base = GeometryComponent;
 
   public:
-    TriangleMeshComponent( const std::string& name,
-                           Entity* entity,
-                           const Ra::Core::Asset::GeometryData* data );
+    using RenderMeshType =
+        typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type;
+
+    inline SurfaceMeshComponent( const std::string& name,
+                                 Entity* entity,
+                                 const Ra::Core::Asset::GeometryData* data );
 
     /*!
      * Constructor from an existing mesh
      * \warning Moves the mesh and takes its ownership
      */
-    TriangleMeshComponent( const std::string& name,
-                           Entity* entity,
-                           Core::Geometry::TriangleMesh&& mesh,
-                           Core::Asset::MaterialData* mat = nullptr );
+    inline SurfaceMeshComponent( const std::string& name,
+                                 Entity* entity,
+                                 CoreMeshType&& mesh,
+                                 Core::Asset::MaterialData* mat = nullptr );
 
-    ~TriangleMeshComponent() override;
+    ~SurfaceMeshComponent() override = default;
 
     /// Returns the current display geometry.
-    const Ra::Core::Geometry::TriangleMesh& getCoreGeometry() const;
-    Mesh* getDisplayable();
+    inline const CoreMeshType& getCoreGeometry() const;
+    inline RenderMeshType* getDisplayable();
 
   public:
     // Component communication management
-    void setupIO( const std::string& id ) override;
-    void setDeformable( bool b );
+    inline void setupIO( const std::string& id ) override;
+    inline void setDeformable( bool b );
 
   private:
-    void generateTriangleMesh( const Ra::Core::Asset::GeometryData* data );
+    inline void generateMesh( const Ra::Core::Asset::GeometryData* data );
 
-    void finalizeROFromGeometry( const Core::Asset::MaterialData* data, Core::Transform transform );
+    inline void finalizeROFromGeometry( const Core::Asset::MaterialData* data,
+                                        Core::Transform transform );
 
     // Give access to the mesh and (if deformable) to update it
-    const Ra::Core::Geometry::TriangleMesh* getMeshOutput() const;
-    Ra::Core::Geometry::TriangleMesh* getMeshRw();
+    inline const CoreMeshType* getMeshOutput() const;
+    inline CoreMeshType* getMeshRw();
 
   private:
     // directly hold a reference to the displayMesh to simplify accesses in handlers
-    std::shared_ptr<Mesh> m_displayMesh {nullptr};
+    std::shared_ptr<RenderMeshType> m_displayMesh {nullptr};
 };
+
+using TriangleMeshComponent = SurfaceMeshComponent<Ra::Core::Geometry::TriangleMesh>;
+using PolyMeshComponent     = SurfaceMeshComponent<Ra::Core::Geometry::PolyMesh>;
 
 /// \warning, WIP
 /// \todo doc.
@@ -189,3 +213,5 @@ class RA_ENGINE_API VolumeComponent : public Component
 
 } // namespace Engine
 } // namespace Ra
+
+#include <Engine/Component/GeometryComponent.inl>
