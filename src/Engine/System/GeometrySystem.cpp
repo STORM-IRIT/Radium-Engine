@@ -39,6 +39,8 @@ void GeometrySystem::handleAssetLoading( Ra::Engine::Entity* entity,
             break;
         case Ra::Core::Asset::GeometryData::QUAD_MESH:
         case Ra::Core::Asset::GeometryData::POLY_MESH:
+            comp = new PolyMeshComponent( componentName, entity, data );
+            break;
         case Ra::Core::Asset::GeometryData::TETRA_MESH:
         case Ra::Core::Asset::GeometryData::HEX_MESH:
         case Ra::Core::Asset::GeometryData::UNKNOWN:
