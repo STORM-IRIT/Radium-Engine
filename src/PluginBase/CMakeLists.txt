@@ -33,11 +33,10 @@ target_link_libraries(${ra_pluginbase_target} PRIVATE Qt5::Core)
 
 target_compile_definitions(${ra_pluginbase_target} PRIVATE "-DRA_PLUGINBASE_EXPORTS")
 
+message(STATUS "Configuring library ${ra_pluginbase_target} with standard settings")
 configureTargetWithDefaultRaSettings(${ra_pluginbase_target})
 configure_radium_library(
     TARGET ${ra_pluginbase_target}
-    TARGET_DIR "PluginBase"
-    PACKAGE_DIR ${ConfigPackageLocation}
     FILES "${pluginbase_headers};${pluginbase_inlines}"
 )
 

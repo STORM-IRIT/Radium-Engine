@@ -502,6 +502,15 @@ endfunction()
 
 
 include(CMakePackageConfigHelpers)
+# mandatory parameters :
+#   TARGET : The name of the target to install
+#   FILES : The list of files (headers) to install
+#
+# optional arguments
+#   TARGET_DIR : The directory where FILES will be installed (default : <prefix>/include/<TARGET>
+#   NAMESPACE : The namespace in which the library will be added (default Radium)
+#   PACKAGE_DIR : The directory in which the cmake package config file will be installed (default <prefix>/lib/cmake/Radium)
+
 function(configure_radium_library)
     # parse and verify args
     cmake_parse_arguments(
@@ -514,11 +523,11 @@ function(configure_radium_library)
     if (NOT ARGS_TARGET)
         message(FATAL_ERROR " [configure_radium_library] You must provide the target to install")
     endif ()
-    if (NOT ARGS_TARGET_DIR)
-        message(FATAL_ERROR " [configure_radium_library] You must provide the library directory install name")
-    endif ()
     if (NOT ARGS_FILES)
         message(FATAL_ERROR " [configure_radium_library] You must provide the library files to install")
+    endif ()
+    if (NOT ARGS_TARGET_DIR)
+        set(ARGS_TARGET_DIR ${ARGS_TARGET})
     endif ()
     if (NOT ARGS_NAMESPACE)
         set(ARGS_NAMESPACE "Radium")
@@ -540,7 +549,13 @@ function(configure_radium_library)
     if (OPENMP_FOUND)
         target_link_libraries(${ARGS_TARGET} PUBLIC OpenMP::OpenMP_CXX)
     endif (OPENMP_FOUND)
-
+    target_compile_definitions(${ARGS_TARGET} PRIVATE ${ARGS_TARGET}_EXPORTS)
+    target_include_directories(${ARGS_TARGET}
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:include/${ARGS_TARGET}>
+        )
+    add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
     set(ConfigPackageLocation ${ARGS_PACKAGE_DIR})
     install(TARGETS ${ARGS_TARGET}
         EXPORT ${ARGS_TARGET}Targets
