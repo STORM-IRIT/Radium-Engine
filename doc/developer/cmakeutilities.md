@@ -35,9 +35,9 @@ configure_radium_library(
     [PACKAGE_DIR packageDirName]    # Name of the directory where the cmake config file will be installed (default <prefix>/lib/cmake/Radium)
 )
 ~~~
-This cmake function configure the `<TARGET>` for installation and for further import in client project using `find_package(<TARGET>)`.
+This cmake function configures the `<TARGET>` for installation and for further import in client project using `find_package(<TARGET>)`.
 In order to use the library either through an imported target from an installed binary or as a project target in another component on the same build tree, this function defines an alias target with the same name than the imported one.
-This function also define the symbol <TARGET>_EXPORTS so that, it could be used to allow symbol import/export from dynamic library.
+This function also defines the symbol <TARGET>_EXPORTS so that, it could be used to allow symbol import/export from dynamic library.
 
 This function takes the following parameters :
  
@@ -48,7 +48,7 @@ This function takes the following parameters :
   - `<PACKAGE_CONFIG>`. If given, a configure script, to be used by `find_package`, will be generated. If not, only the exported targets will be generated.
   - `<PACKAGE_DIR>`. If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
 
-In order to allow usage of installed library in all supported systems (Linux, MacOs, Windows), one of the public header, that might be named, e.g. `<TARGET>Macros.hpp` and included all the public or private headers, should contains the following :
+In order to allow usage of installed library in all supported systems (Linux, MacOs, Windows), one of the public header, that might be named, e.g. `<TARGET>Macros.hpp` and included all the public or private headers, should contain the following :
 
 ~~~{.cpp}
 #pragma once
@@ -72,7 +72,7 @@ class <TARGET>_API MyAwesomeMaterial : public Ra::Engine::Material
 <TARGET>_API bool initializeMyLibrary();
 ~~~
 
-Assuming a library `MyLib` was configured as the following
+Assuming a library `MyLib` was configured as follows:
 ~~~{.cmake}
 ... 
 configure_radium_library(
@@ -119,30 +119,30 @@ installResources(
     [FILES[file1[file2...]]]        # Resources individual files to install
 ~~~
 
-When a Radium based component need to access several resources to implement its functionalities, this function install the required resources.
+When a Radium based component needs to access several resources to implement its functionalities, this function installs the required resources.
 This function takes the following parameters :
  
-  - `<TARGET>`. The name of the target to configure
+  - `<TARGET>`. The name of the target to configure.
   - `<DIRECTORY>`. The directory in the source tree that contains the resource to install.
   - `<BUILD_LOCATION>`. If given, `<DIRECTORY>` will be linked in the build tree at this location. If not, the resource directory will be linked to `${CMAKE_CURRENT_BINARY_DIR}/../Resources` directory.
-  - `<PREFIX>`. If given, the resources will be installed into the directory `<install_prefix>/Resources/<PREFIX>/`. If not, the resources will be installed into the directory `<install_prefix>/Resources/` where `<install_prefix>`is the installation directory of the target.
+  - `<PREFIX>`. If given, the resources will be installed into the directory `<install_prefix>/Resources/<PREFIX>/`. If not, the resources will be installed into the directory `<install_prefix>/Resources/` where `<install_prefix>` is the installation directory of the target.
   - `<FILES>`. If given, this allow to install only the given files from `<DIRECTORY>`. If not, all the files from `<DIRECTORY>` will be installed.
  
-For a Radium-based software component, resources can be of several type :
-  - Text files, that contains some glsl source code for used shaders.
+For a Radium-based software component, resources can be of several types:
+  - Text files, that contain some glsl source code used for shaders.
   - Images used internally as textures or source of data.
   - Precomputed data, stored in whatever format.
   
-To access resources, the component might rely on a Ra::Core::Resources::ResourcesLocator object. Such an object allows to access files located in some predefine directories
+To access resources, the component might rely on a Ra::Core::Resources::ResourcesLocator object. Such an object allows to access files located in some predefined directories:
   - Radium default resource directory. This directory is located at `<prefix>/Resources` where `<prefix>` is the Radium installation directory.
   - Current executable directory. This directory is where the currently running executable is located.
   
-In order to allow client component to access their own resources, and to allow that either on the build-tree or once the component is installed without having to recompile or modify anything, this function both link (on supported systems, copy elsewhere) and install the component resources at the given places.
+In order to allow client component to access its own resources, and to allow that either on the build-tree or once the component is installed without having to recompile or modify anything, this function both links (on supported systems, copy elsewhere) and installs the component resources at the given places.
 
 As the process must be system and component independent it is the responsibility of the client package to configure the proper paths for resources management.
 
 According to the installation layout of the Radium lib, that matches the GNU standard, but also to the MacOs bundle architecture, Resources might be localized relatively to any binary object (library, executable, plugin, ...)
-The Radium installation hierarchy, that embed base libraries, their resources and some executable file is the following.
+The Radium installation hierarchy, that embeds base libraries, their resources and some executable files is the following:
 ```
 <prefix>/
 ├── include/
@@ -163,8 +163,8 @@ The Radium installation hierarchy, that embed base libraries, their resources an
 |   ...
 ```
 In this hierarchy, Resources are located in the relative path `../Resources/` from any binary (executable or lib).
-The source code structure of the Radium libraries allow to have the same property on the buildtree.
-When a Radium component need to access some resources, it could either use the Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir() method or search for the resource relatively to a symbol defined in the component.
+The source code structure of the Radium libraries allows to have the same property on the buildtree.
+When a Radium component needs to access some resources, it could either use the Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir() method or search for the resource relatively to a symbol defined in the component.
 
 To do this, the source code (.cpp file) of the component could contain the following.
 ~~~{.cpp}
@@ -194,7 +194,7 @@ installTargetResources(
 
 # How to write your CMakeLists.txt
 When writing your cmake configuration script `CMakeLists.txt`, you might rely on the following guideline to configure the project `ProjectName`.
-Note that this is only guidelines and that you can always write your cmake script from scratch, according you understand what you do.
+Note that these are only guidelines and that you can always write your cmake script from scratch, assuming you understand what you do.
 
 ## General cmake preamble
 ~~~{.cmake}
@@ -227,8 +227,8 @@ find_package(Radium REQUIRED Core Engine)
 Then, according to the type of the targets defined in your project (application, single library, set of libraries, plugin, mix of them), you might configure your project according to the following guidelines.
 
 ## Configuring a single installable library
-An installable library could be used to add functionalities built over the Radium libraries and to make these functionalties available to developers.
-Once installed, a library consist in
+An installable library could be used to add functionalities built over the Radium libraries and to make these functionalities available to developers.
+Once installed, a library consists in:
  - a set of public headers
  - a dynamic library (`.so`, `.dylib` or `.dll`)
  - a cmake config file so that the library could be fetched by the cmake command `find_package`
@@ -298,7 +298,6 @@ installTargetResources(
 ~~~
 
 The two commands [configure_radium_library](#configure_radium_library) and [installTargetResources](#installTargetResources) are defined by the cmake Radium package.
-
 
 ## Configuring a set of libraries as a single package
 
