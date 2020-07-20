@@ -23,7 +23,11 @@ Once found, the Radium package defines a cmake target for each requested compone
 When configuring your own target in your `CMakeLists.txt` file, you just need to link with those targets to get access to all the public interface of Radium (include search path, libraries, ...).
 
 The radium package also defines several cmake functions, described below, that you can use to ease the configuration of your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their own build-tree. 
-
+Th functions defined by the Radium package are the following:
+ - [configure_radium_library](#configure_radium_library).
+ - [installTargetResources](#installTargetResources).
+ - [configure_radium_package](#configurePackage)
+ 
 ## Function configure_radium_library {#configure_radium_library}
 ~~~{.cmake}
 configure_radium_library( 
@@ -109,9 +113,9 @@ target_link_libraries(
 )
 ~~~
 
-## Function installResources {#installResources}
+## Function installTargetResources {#installTargetResources}
 ~~~{.cmake}
-installResources( 
+installTargetResources( 
     TARGET targetName               # Name of the target for which resources must be installed                      
     DIRECTORY theResourceDirectory  # location, in the source tree, of the resources 
     [BUILD_LOCATION whereToLink]    # In the build tree, where to link the resources (default ${CMAKE_CURRENT_BINARY_DIR}/../Resources
@@ -180,7 +184,7 @@ auto resourcesPath = Ra::Core::Resources::ResourcesLocator(
 // Read files from the found resourcesPath that will prefix the Resource files or directory
 ~~~
 
-When using the [installResources](#installResources) function to configure the component resources installation, the following call should be made to allow access from both the build tree and the install tree using the above snippet.
+When using the [installTargetResources](#installTargetResources) function to configure the component resources installation, the following call should be made to allow access from both the build tree and the install tree using the above snippet.
 
 ~~~{.cmake}
 # Assuming MyComponentTarget was configured as a library, plugin or executable, this will configure the resource access in the build tree and the install tree
@@ -191,6 +195,23 @@ installTargetResources(
     PREFIX MyComponentResources # the resources will be installed in <prefix>/Resources/MyComponentResources
 )
 ~~~
+
+## Function configure_radium_package {#configurePackage}
+~~~{.cmake}
+configure_radium_package( 
+    NAME packageName                # The name of the package to install
+    PACKAGE_CONFIG configFile.in    # The package configuration file
+    [PACKAGE_DIR packageDirName]    # Name of the directory where the cmake config file will be installed (default <prefix>/lib/cmake/Radium)
+)
+~~~
+This cmake function configures the package `packageName for installation and for further import in client project using `find_package(<TARGET>)`.`
+This function allows to define multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command.
+
+This function takes the following parameters :
+ 
+  - `<NAME>`. The name of the package to configure and install
+  - `<PACKAGE_CONFIG>`. The configure script to be used by `find_package`.
+  - `<PACKAGE_DIR>`. If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
 
 # How to write your CMakeLists.txt
 When writing your cmake configuration script `CMakeLists.txt`, you might rely on the following guideline to configure the project `ProjectName`.
@@ -297,12 +318,104 @@ installTargetResources(
 )
 ~~~
 
-The two commands [configure_radium_library](#configure_radium_library) and [installTargetResources](#installTargetResources) are defined by the cmake Radium package.
-
 ## Configuring a set of libraries as a single package
+When configuring a library, a cmake package configuration file should be written so that the cmake package configuration module is installed alongside the library.
+Meanwhile, when several libraries must be used as components in a single package (e.g. the Radium internal libraries are all gathered into the single Radium package), a more general configuration module has to be defined.
 
-## Configuring a command line application
+For this, instead of defining a configuration package for each configured library, the parameter `PACKAGE_CONFIG` of the function [configure_radium_library](#configure_radium_library) should be omitted
+and the function [configure_radium_package](#configurePackage) should be used.
 
-## Configuring a bundled graphical application
+Standard usage of this function requires to have some libraries configured like the following: 
+~~~{.cmake}
+...
+configure_radium_library(
+    TARGET <firstLib>
+    FILES "${firstLib_public_headers}"
+    TARGET_DIR <include_prefix>
+    NAMESPACE <namespace>
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
+)
+...
+configure_radium_library(
+    TARGET <secondLib>
+    FILES "${secondLib_public_headers}"
+    TARGET_DIR <include_prefix>
+    NAMESPACE <namespace>
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
+)
+...
+~~~ 
+
+Once this is done, the package should be configured using
+~~~{.cmake}
+...
+configure_radium_package(
+    NAME <packageName>
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/<packageName>Config.cmake.in
+)
+~~~ 
+
+Where the configuration file `<packageName>Config.cmake.in` should be written as the example below. 
+(see [cmake documentation](https://cmake.org/cmake/help/v3.13/manual/cmake-packages.7.html) for deeper explanations on how to write a package configuration file).
+~~~{.cmake}
+# list the supported component components
+set(<packageName>_supported_components <firstLib> <secondLib>)
+
+# mark the package as found
+set(<packageName>_FOUND True)
+
+# verify the list of requested component. If none is given, request for all components
+if (NOT <packageName>_FIND_COMPONENTS)
+    set(<packageName>_FIND_COMPONENTS ${<packageName>_supported_components})
+endif()
+
+# search for requested components
+foreach(_comp ${<packageName>_FIND_COMPONENTS})
+  list(FIND <packageName>_supported_components ${_comp} ${_comp}_FOUND)
+  if (${${_comp}_FOUND} EQUAL -1)
+    set(<packageName>_FOUND False)
+    set(<packageName>_NOT_FOUND_MESSAGE "Unsupported <packageName> component: ${_comp}")
+  else()
+    set(${_comp}_FOUND True)
+  endif()
+endforeach()
+
+# configure individual components
+#------------------------------------------------------------------------------------------------------------
+include(CMakeFindDependencyMacro)
+
+# component <firstLib>
+if (<firstLib>_FOUND)
+    # manage component dependencies (e.g. some Radium components)
+    if ( NOT Radium_FOUND)
+        find_dependency(Radium COMPONENTS Core Engine REQUIRED)
+    endif()
+    # include the target definition generated by configure_radium_library (must be installed in the same directory than the package module)
+    include("${CMAKE_CURRENT_LIST_DIR}/<firstLib>Targets.cmake" )
+endif()
+
+# component <secondLib>
+if (<secondLib>_FOUND)
+    # manage component dependencies (e.g. <firstLib> must be requested and <secondLib> depends also on Qt5)
+    if (NOT <firstLib>_FOUND)
+        set(<secondLib>_FOUND False)
+        set(<packageName>_FOUND False)
+        set(<packageName>_NOT_FOUND_MESSAGE "Component <secondLib> requires the component <firstLib>")
+        # Note that you can also explicitely configure first lib instead of raising an error
+    else()
+        if (NOT Qt5_FOUND)
+            find_dependency(Qt5 COMPONENTS Core Widgets REQUIRED)
+        endif()
+        include("${CMAKE_CURRENT_LIST_DIR}/<secondLib>Targets.cmake" )
+    endif()
+endif()
+~~~ 
+
+Based on the above example, once the package `<packageName>` is found, the targets `<namespace>::<firstLib>` and  `<namespace>::<secondLib>` will be imported in the current project and should be used as any imported Radium targets.
+
+## Configuring a command line application (all systems)
+
+## Configuring a bundled graphical application (MacOsX only)
 
 
