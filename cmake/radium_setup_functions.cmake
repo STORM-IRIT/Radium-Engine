@@ -601,7 +601,7 @@ function(configure_radium_library)
     target_include_directories(${ARGS_TARGET}
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:include/${ARGS_TARGET}>
+        $<INSTALL_INTERFACE:include/${ARGS_TARGET_DIR}>
         )
     message(STATUS " [configure_radium_library] Defining alias ${ARGS_NAMESPACE}::${ARGS_TARGET} for target ${ARGS_TARGET}")
     add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
