@@ -60,28 +60,7 @@ TODO: Update this part of the documentation-->
 
 ## Configure build
 
-Radium offers the following build option (off by default) :
-* `RADIUM_WITH_DOUBLE_PRECISION` sets the floating point format to double-precision instead of single precisition
-
-##  Building on Linux/MacOS (command line instruction)
-
-Out-of source builds are mandatory, we recommand to follow the usual sequence:
-
-~~~bash
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
-~~~
-
-Finally, the install target will copy all the radium related library in the same place, usefull for App compilation
-
-~~~bash
-$ make install
-~~~
-
-All radium related cmake options (with their current values) can be printed with `cmake -LAH | grep -B1 RADIUM` (on linux like system)
-
+Radium offers the following build options:
 ~~~bash
 // Enable testing. Tests are automatically built with target all
 RADIUM_ENABLE_TESTING:BOOL=ON
@@ -135,24 +114,41 @@ RADIUM_SKIP_IO_EXTERNAL:BOOL=ON
 RADIUM_UPDATE_VERSION:BOOL=ON
 ~~~
 
+All radium related cmake options (with their current values) can be printed with `cmake -LAH | grep -B1 RADIUM` (on linux like system)
+
+##  Building on Linux/MacOS (command line instruction)
+
+Out-of source builds are mandatory, we recommand to follow the usual sequence:
+
+~~~bash
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+~~~
+
+Finally, the `install` target will copy all the radium related library in the same place, usefull for App compilation
+
+~~~bash
+$ make install
+~~~
+
+Note that installation requires write access on the installation directory.
 
 ## Building on Microsoft Windows with Visual Studio
 
 ### Supported versions of MSVC
-Since Radium requires:
-* the C++11/C++14/C++17 advanced features such as `constexpr`,
+Radium requires MSVC 2017 or superior, as it relies on:
+* C++11/C++14/C++17 features such as `constexpr`,
 * cmake built-in support
 
-you will need a recent MSVC (2017 minimum).
-We tested our code with *VS 2017 Community* (https://www.visualstudio.com/products/visual-studio-community-vs), with the *CMake Tools for Visual Studio* extension.
-
-See general instruction on cmake for Visual Studio here: https://blogs.msdn.microsoft.com/vcblog/2016/10/05/cmake-support-in-visual-studio/
+Our Continuous Integration systems work with *VS 2019 Community* (https://www.visualstudio.com/products/visual-studio-community-vs).
 
 ### Dependencies
 
-*Qt* distributes version 5.10 with precompiled libraries for VS 2017 - 64 bits.
+*Qt* distributes precompiled libraries for VS 2017 - 64 bits (tested with 5.10 and 5.12).
 If using earlier versions of Qt (5.5)  or a different toolset you may have to compile Qt yourself.
-You will probaby have to manually point cmake to the Qt folder (see Troubleshooting below)
+You will probaby have to manually point cmake to the Qt folder.
 
 Other dependencies (Eigen, Assimp, glbinding, globjects and glm) are included as a submodule in the git repository.
 
@@ -162,39 +158,47 @@ Thanks to the integrated support of CMake in Visual Studio, you don't need a VS 
 VS should run cmake, generate the target builds (Debug and Release by default).
 Other build types can be added by editing `CMakeSettings.json`.
 
-You may have Cmake errors occuring at the first run (see Troubleshooting section below).
+You may have Cmake errors occuring at the first run.
 To fix them, you need to edit the VS-specific file `CMakeSettings.json`, via *CMake* > *Change CMake Settings* > path-to-CMakeLists (configuration-name) from the main menu.
 For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries.
 To fix it, edit `CMakeSettings.json`, such that
 ~~~json
-    {
-      "name": "x64-Debug",
-      "generator": "Ninja",
-      "configurationType": "Debug",
-      "inheritEnvironments": [ "msvc_x64_x64" ],
-      "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
-      "installRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\install\\${name}",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DCMAKE_BUILD_TYPE=Debug",
-      "buildCommandArgs": "-v",
-      "ctestCommandArgs": ""
-    },
+{
+  "configurations": [
     {
       "name": "x64-Release",
       "generator": "Ninja",
       "configurationType": "Release",
       "inheritEnvironments": [ "msvc_x64_x64" ],
-      "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
-      "installRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\install\\${name}",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DCMAKE_BUILD_TYPE=Release",
-      "buildCommandArgs": "-v",
+      "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
+      "installRoot": "C:/Users/XXX/Dev/Radium-install",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_IO_ASSIMP=ON",
+      "buildCommandArgs": "",
       "ctestCommandArgs": ""
     },
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
+      "installRoot": "C:/Users/XXX/Dev/Radium-installdbg",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_IO_ASSIMP=ON",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    }
+  ]
+}
 ~~~
 *Note*: it is strongly encouraged to use `/` separators in your path, instead of `\\` as previously mentionned. See https://stackoverflow.com/questions/13737370/cmake-error-invalid-escape-sequence-u
+
+
+*Note*: When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later
 
 ### Compilation
 
 Right click on CMakeList.txt > build > all.
+To install, you need to run any installation target, e.g. `Engine.dll (install)` or to select the menu <Build>/<Install radiumproject>
 
 ## Building with QtCreator
 
