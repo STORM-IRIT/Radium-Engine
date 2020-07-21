@@ -72,6 +72,9 @@ function(configure_cmdline_Radium_app)
                         fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
             "
             )
+        if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+            install(FILES $<TARGET_PDB_FILE:${ARGS_NAME}> DESTINATION bin)
+        endif()
     endif ()
 
     # Configure the application own resources installation
@@ -516,6 +519,9 @@ function(configure_radium_library)
             PUBLIC
             _DEBUG
             )
+        if (MSVC OR MSVC_IDE)
+            install(FILES $<TARGET_PDB_FILE:${ARGS_TARGET}> DESTINATION bin)
+        endif()
     endif ()
     target_compile_features(${ARGS_TARGET} PUBLIC cxx_std_17)
     if (OPENMP_FOUND)
