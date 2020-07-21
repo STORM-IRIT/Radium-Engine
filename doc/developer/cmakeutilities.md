@@ -6,8 +6,8 @@ The Radium environment could be used in several ways
  2. extending the Radium capabilities by developing new libraries
  3. integrating new functionalities in the Radium applications using plugins.
 
-As Radium rely on the [cmake](https://cmake.org/documentation/) build and configuration system, this 
-documentation focus on how to configure your build system to use and extend Radium.
+As Radium relies on the [cmake](https://cmake.org/documentation/) build and configuration system, this 
+documentation focuses on how to configure your build system to use and extend Radium.
 
 # Radium cmake utilities
 
@@ -19,25 +19,28 @@ As for any cmake package, this could be done by adding the following line into y
 find_package(Radium REQUIRED Core Engine)
 ~~~
 Remember to configure your project by giving the cmake command line option `-DRadium_DIR=/path/to/installed/Radium/lib/cmake/Radium` so that the `find_package` command could find the Radium package definition.
-Once found, the Radium package defines a cmake target for each requested components (`Core`and `Engine` in the example above) in the cmake namespace `Radium`
+Once found, the Radium package defines a cmake target for each requested components (`Core` and `Engine` in the example above) in the cmake namespace `Radium`.
 
-When configuring your own target in your `CMakeLists.txt` file, you just need to link with those targets to get access to all the public interface of Radium (include search path, libraries, ...).
+When configuring your own target in your `CMakeLists.txt` file, you just need to link with those targets to get access to all the public interface of Radium (include search path, libraries, ...), for instance:
+~~~{.cmake}
+target_link_libraries (myTarget PUBLIC Radium::Core Radium::Engine)
+~~~
 
 The radium package also defines several cmake functions, described below, that you can use to ease the configuration of your application, library or plugin, mainly to install them in a relocatable way while allowing their use from their own build-tree. 
 
 The functions defined by the Radium package are the following:
 1. Client application configuration
-  - [configure_radium_app](#configure_radium_app)
+  - [`configure_radium_app`](#configure_radium_app).
 2. Extending Radium through libraries
-  - [configure_radium_library](#configure_radium_library).
-  - [installTargetResources](#installTargetResources).
-  - [configure_radium_package](#configure_radium_package)
-  - [radium_exported_resources](#radium_exported_resources) 
+  - [`configure_radium_library`](#configure_radium_library).
+  - [`installTargetResources`](#installTargetResources).
+  - [`configure_radium_package`](#configure_radium_package).
+  - [`radium_exported_resources`](#radium_exported_resources).
 3. Extending Radium through plugins 
-  - [configure_radium_plugin](#configure_radium_plugin).
+  - [`configure_radium_plugin`](#configure_radium_plugin).
 
 ## Client application configuration
-### Function configure_radium_app {#configure_radium_app}
+### Function `configure_radium_app` {#configure_radium_app}
 ~~~{.cmake}
 configure_radium_app( 
     NAME applicationName                        # The name of the executable target to configure as a relocatable application
@@ -46,17 +49,17 @@ configure_radium_app(
 )
 ~~~
 
-This function configure the executable target `<NAME>` for installation so that the installation directory is relocatable and distributable.
+This function configures the executable target `<NAME>` for installation so that the installation directory is relocatable and distributable.
 
 This function takes the following parameters:
 
 *Parameter name*                            | *Parameter description*
 --------------------------------------------|--------------------
-`<NAME>`                                    | The name of the *executable* target to configure and install
+`<NAME> applicationName`                    | The name of the *executable* target to configure and install
 `<USE_PLUGINS>`                             | If this option is given, the plugins installed into the Radium bundle at the installation time will be copied into the application bundle.
-`<RESOURCES> ResourceDir1 ResourceDir2 ...` | The optinal list of directories given here will be considered as application resources and installed into the application bundle.
+`<RESOURCES> ResourceDir1 ResourceDir2 ...` | Optional list of directories to be considered as application resources and installed into the application bundle.
 
-When installed into a directory `<prefix>`, the application bundle has the following structure on linux and windows or on MacOsX if the executable is not configured as a `MACOSX_BUNDLE`. In this case, the application is a standard `.app` MacOsX application:
+When installed into a directory `<prefix>`, the application bundle has the following structure on linux, windows or on MacOsX (if the executable is not configured as a `MACOSX_BUNDLE`):
 
 ```
 <prefix>/
@@ -68,14 +71,18 @@ When installed into a directory `<prefix>`, the application bundle has the follo
 |   ...
 ```
 
+For `MACOSX_BUNDLE` applications, a standard `.app` MacOsX application is generated.
+
 ### Limitations
 For now (Radium version of August 2020): 
   - MacOsX Bundled application are truly relocatable (on the build system or between compatible systems) if they do not use plugins. 
   - Linux application can be relocated only on the build system.
   - Windows application need further processsing (windeployQt) to be relocatable.
   
+To get relocatable packages, download pre-built binaries here: [https://github.com/STORM-IRIT/Radium-Releases/releases](https://github.com/STORM-IRIT/Radium-Releases/releases)
+
 ## Extending Radium through libraries
-### Function configure_radium_library {#configure_radium_library}
+### Function `configure_radium_library` {#configure_radium_library}
 ~~~{.cmake}
 configure_radium_library( 
     TARGET targetName               # Name of the target to configure as a Radium Library
@@ -96,12 +103,12 @@ This function takes the following parameters:
 -------------------|--------------------
 `<TARGET>`         | The name of the target to configure
 `<FILES>`          | Expected to be public headers, they will be installed in the include directory of the project installation configuration `${CMAKE_INSTALL_PREFIX}/include`.
-`<TARGET_DIR>`     | If given, `<FILES>` will be installed into the `${CMAKE_INSTALL_PREFIX}/include/<TARGET_DIR>` directory. If not, the files will be installed into `${CMAKE_INSTALL_PREFIX}/include/<TARGET>` directory.
+`<TARGET_DIR>`     | Optional. `<FILES>` will be installed into the `${CMAKE_INSTALL_PREFIX}/include/<TARGET_DIR>` directory. If not, the files will be installed into `${CMAKE_INSTALL_PREFIX}/include/<TARGET>` directory.
 `<NAMESPACE>`      | If given, the imported target will be `<NAMESPACE>::<TARGET>`. If not, the imported target will be `Radium::<TARGET>`
 `<PACKAGE_CONFIG>` | If given, a configure script, to be used by `find_package`, will be generated. If not, only the exported targets will be generated.
 `<PACKAGE_DIR>`    | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
 
-Note that the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>` could be omitted as the associated cmake package module could be generated using the function [configure_radium_package](#configure_radium_package) documented below. If these parameter are given here, they will be forwarded to this function.
+Note that the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>` could be omitted as the associated cmake package module could be generated using the function [`configure_radium_package`](#configure_radium_package) documented below. If these parameter are given here, they will be forwarded to this function.
 
 In order to allow usage of installed library in all supported systems (Linux, MacOs, Windows), one of the public header, that might be named, e.g. `<TARGET>Macros.hpp` and included all the public or private headers, should contain the following :
 
@@ -164,27 +171,27 @@ target_link_libraries(
 )
 ~~~
 
-### Function installTargetResources {#installTargetResources}
+### Function `installTargetResources` {#installTargetResources}
 ~~~{.cmake}
 installTargetResources( 
     TARGET targetName               # Name of the target for which resources must be installed                      
-    DIRECTORY theResourceDirectory  # location, in the source tree, of the resources 
+    DIRECTORY resourceDirectory  # location, in the source tree, of the resources 
     [BUILD_LOCATION whereToLink]    # In the build tree, where to link the resources (default ${CMAKE_CURRENT_BINARY_DIR}/../Resources
     [PREFIX TargetResourcePrefix]   # In the install tree, where to install resources (default <empty>).
-    [FILES[file1[file2...]]]        # Resources individual files to install
+    [FILES [file1[file2...]]]        # Resources individual files to install
 ~~~
 
 When a Radium based component needs to access several resources to implement its functionalities, this function installs the required resources.
 
 This function takes the following parameters:
 
-*Parameter name*    | *Parameter description*
---------------------|--------------------
- `<TARGET>`         | The name of the target to configure.
- `<DIRECTORY>`      | The directory in the source tree that contains the resource to install.
- `<BUILD_LOCATION>` | If given, `<DIRECTORY>` will be linked in the build tree at this location. If not, the resource directory will be linked to `${CMAKE_CURRENT_BINARY_DIR}/../Resources` directory.
- `<PREFIX>`         | If given, the resources will be installed into the directory `<install_prefix>/Resources/<PREFIX>/`. If not, the resources will be installed into the directory `<install_prefix>/Resources/` where `<install_prefix>` is the installation directory of the target.
- `<FILES>`          | If given, this allow to install only the given files from `<DIRECTORY>`. If not, all the files from `<DIRECTORY>` will be installed.
+*Parameter name*                 | *Parameter description*
+---------------------------------|--------------------
+ `<TARGET> targetName`           | The name of the target to configure.
+ `<DIRECTORY> resourceDirectory` | The directory in the source tree that contains the resource to install.
+ `<BUILD_LOCATION> whereToLink`  | If given, `<DIRECTORY>` will be linked in the build tree at this location. If not, the resource directory will be linked to `${CMAKE_CURRENT_BINARY_DIR}/../Resources` directory.
+ `<PREFIX> TargetResourcePrefix` | If given, the resources will be installed into the directory `<install_prefix>/Resources/<PREFIX>/`. If not, the resources will be installed into the directory `<install_prefix>/Resources/` where `<install_prefix>` is the installation directory of the target.
+ `<FILES> file1 file2 ...`       | If given, this allow to install only the given files from `<DIRECTORY>`. If not, all the files from `<DIRECTORY>` will be installed.
  
 For a Radium-based software component, resources can be of several types:
   - Text files, that contain some glsl source code used for shaders.
@@ -238,7 +245,7 @@ auto resourcesPath = Ra::Core::Resources::ResourcesLocator(
 // Read files from the found resourcesPath that will prefix the Resource files or directory
 ~~~
 
-When using the [installTargetResources](#installTargetResources) function to configure the component resources installation, the following call should be made to allow access from both the build tree and the install tree using the above snippet.
+When using the [`installTargetResources`](#installTargetResources) function to configure the component resources installation, the following call should be made to allow access from both the build tree and the install tree using the above snippet.
 
 ~~~{.cmake}
 # Assuming MyComponentTarget was configured as a library, plugin or executable, this will configure the resource access in the build tree and the install tree
@@ -250,7 +257,7 @@ installTargetResources(
 )
 ~~~
 
-### Function configure_radium_package {#configurePackage}
+### Function `configure_radium_package` {#configurePackage}
 ~~~{.cmake}
 configure_radium_package( 
     NAME packageName                # The name of the package to install
@@ -262,56 +269,56 @@ This cmake function configures the package `packageName` for installation and fo
 
 This function takes the following parameters:
 
-*Parameter name*   | *Parameter description*
--------------------|--------------------
-`<NAME>`           | The name of the package to configure and install
-`<PACKAGE_CONFIG>` | The configure script to be used by `find_package`.
-`<PACKAGE_DIR>`    | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
+*Parameter name*                 | *Parameter description*
+---------------------------------|--------------------
+`<NAME> packageName`             | The name of the package to configure and install
+`<PACKAGE_CONFIG> configFile.in` | The configure script to be used by `find_package`.
+`<PACKAGE_DIR> packageDirName`   | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
   
-This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>` are given to the library configuration function [configure_radium_library](#configure_radium_library).
+This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>` are given to the library configuration function [`configure_radium_library`](#configure_radium_library).
 
 This function also allows to define multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command when called explicitly with an apropriate `PACKAGE_CONFIG` parameter.
  
-### Function radium_exported_resources {#radium_exported_resources)}
+### Function `radium_exported_resources` {#radium_exported_resources)}
 
 ~~~{.cmake}
 radium_exported_resources(
-         TARGET <target>            # The name of the exported target
-         ACCESS_FROM_PACKAGE <path> # The path from the installe package module to the installed resources directory
-         [PREFIX <resourcesPrefix>] # Name of the directory in wich the resources are installed
+         TARGET target            # The name of the exported target
+         ACCESS_FROM_PACKAGE path # The path from the installe package module to the installed resources directory
+         [PREFIX resourcesPrefix] # Name of the directory in wich the resources are installed
      )
 ~~~
 This function defines the resources access properties for the exported target `<target>`. Based on these properties, client application and libraries might access to the exported resources.
 
 This function takes the following parameters:
 
-*Parameter name*        | *Parameter description*
-------------------------|--------------------
-`<TARGET>`              | The name of the package to configure and install
-`<ACCESS_FROM_PACKAGE>` | The configure script to be used by `find_package`.
-`<PACKAGE_DIR>`         | If given, the cmake configuration script `<TARGET>Config.cmake` searched by `find_package(<TARGET>)` will be installed in the directory `${CMAKE_INSTALL_PREFIX}/<PACKAGE_DIR>`. If not, the configure script will be installed in the directory `<${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium`.
+*Parameter name*             | *Parameter description*
+-----------------------------|--------------------
+`<TARGET> target`            | The name of the package to configure and install
+`<ACCESS_FROM_PACKAGE> path` | The path from the installed package module to the installed resources directory.
+`<PREFIX> resourcesPrefix`   | Name of the directory in wich the resources are installed.
 
 As described above, the installation tree of any installed target, if configured with radium cmake utilities, looks like the following
 ```
-<prefix>/
+prefix/
 ├── include/
 |   ├── ...
 ├── lib/
 |   ├── cmake/
-|   |   └── <TARGET>Config.cmake
-|   ├──  lib<TARGET>.so (or.dylib, .dll)
+|   |   └── targetConfig.cmake
+|   ├──  libtarget.so (or.dylib, .dll)
 |   ...
 ├── Resources/
-|   ├── <resourcesPrefix>
+|   ├── resourcesPrefix
 ```
 
-where `<TARGET>`is the name of the exported target, `<TARGET>Config.cmake` the cmake package module installed when installing the target and `<resourcesPrefix>` the resource prefix defined when installing the resources for the target (can be empty). 
+where `target` is the name of the exported target, `targetConfig.cmake` the cmake package module installed when installing the target and `resourcesPrefix` the resource prefix defined when installing the resources for the target (can be empty). 
 
-In the above example, the `<ACCESS_FROM_PACKAGE>` parameter of the function [radium_exported_resources](#radium_exported_resources) should be set to `"../.."`
+In the above example, the `<ACCESS_FROM_PACKAGE> path` parameter of the function [`radium_exported_resources`](#radium_exported_resources) should be set to `"../.."`
 This parameter must contain the relative path that start from the package module installation directory, here `<prefix>/lib/cmake`, to the resources installation directory, here `<prefix>/Resources`.
 
 ## Extending Radium through plugins
-### Function configure_radium_plugin {#configure_radium_plugin}
+### Function `configure_radium_plugin` {#configure_radium_plugin}
 YTBD;p
 
 This function takes the following parameters:
@@ -380,7 +387,7 @@ Once compiled and installed, the directory `<${CMAKE_INSTALL_PREFIX}>`, set to `
 Note that, on MacOsX, if the executable target is configured using the `MACOSX_BUNDLE` option, only the `bin` directory is created into this bundle and it contains the relocatable `.app` bundle.
 If the option `MACOSX_BUNDLE` is not given, the executable will not be a bundled MacOs `.app` but a command line application and will be installed as any application on Linux.
 
-The resources associated to an application are installed using the [installTargetResources](#installTargetResources).
+The resources associated to an application are installed using the [`installTargetResources`](#installTargetResources).
 
 ## Configuring client and extension libraries
 ### Configuring the library target
@@ -455,8 +462,8 @@ The `Config.cmake.in` file used to configure the package could be written simila
 When configuring a library, a cmake package configuration file should be written so that the cmake package configuration module is installed alongside the library.
 Meanwhile, when several libraries must be used as components in a single package (e.g. the Radium internal libraries are all gathered into the single Radium package), a more general configuration module has to be defined.
 
-For this, instead of defining a configuration package for each configured library, the parameter `PACKAGE_CONFIG` of the function [configure_radium_library](#configure_radium_library) should be omitted
-and the function [configure_radium_package](#configurePackage) should be used.
+For this, instead of defining a configuration package for each configured library, the parameter `PACKAGE_CONFIG` of the function [`configure_radium_library`](#configure_radium_library) should be omitted
+and the function [`configure_radium_package`](#configurePackage) should be used.
 
 Standard usage of this function requires to have some libraries configured like the following: 
 ~~~{.cmake}
@@ -557,7 +564,7 @@ endif()
 Based on the above example, once the package `<packageName>` is found, the targets `<namespace>::<firstLib>` and  `<namespace>::<secondLib>` will be imported in the current project and should be used as any imported Radium targets.
 
 ### Configuring library resources
-When a library need to access resources, the [installTargetResources](#installTargetResources) must be called once the library target is configured as explain above.
+When a library need to access resources, the [`installTargetResources`](#installTargetResources) must be called once the library target is configured as explain above.
 This result, as an example, in the following cmake snippet if the library `${NAME_OF_LIBRARY}` need to access glsl source file from the resource directory `${CMAKE_CURRENT_SOURCE_DIR}/Shaders` in the source tree.
 ~~~{.cmake}
 # Optional, if the library need resources
@@ -573,7 +580,7 @@ The following properties should be added to the corresponding targets:
   - `RADIUM_TARGET_RESOURCES_PREFIX` : defines the directory prefix to access the library resources
   - `RADIUM_TARGET_INSTALLED_RESOURCES` : specify where are installed the resources on the system.
  
-These properties, located in the installation tree, are the same than those defined when installing resources for a library and should be set by using the function [radium_exported_resources](#radium_exported_resources) in the
+These properties, located in the installation tree, are the same than those defined when installing resources for a library and should be set by using the function [`radium_exported_resources`](#radium_exported_resources) in the
 `<packageName>Config.cmake.in` such as
 ~~~{.cmake}
 radium_exported_resources(
