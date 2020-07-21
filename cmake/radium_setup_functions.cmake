@@ -151,13 +151,14 @@ function(configure_bundled_Radium_app)
         get_target_property(rscPrefix ${lib} RADIUM_TARGET_RESOURCES_PREFIX)
         if (NOT ${rscPrefix} STREQUAL "rscPrefix-NOTFOUND")
             get_target_property(rscLocation ${lib} RADIUM_TARGET_INSTALLED_RESOURCES)
-            message(STATUS " [configure_radium_app] Found lib ${lib} resources location to be : ${rscLocation} !" )
+ #           message(STATUS " [configure_radium_app] Found lib ${lib} resources location to be : ${rscLocation} !" )
             list(APPEND depsRsc ${rscLocation})
-        else()
-            message(STATUS " [configure_radium_app] No resources for lib  ${lib} !" )
+ #       else()
+ #           message(STATUS " [configure_radium_app] No resources for lib  ${lib} !" )
         endif ()
     endforeach()
     if (ARGS_USE_PLUGINS)
+        message(STATUS \"Installing ${ARGS_NAME} with plugins\")
         # TODO : fix rpath for plugins that use helper libs (can't load helper.dylib)
         install(CODE "
         include(BundleUtilities)
@@ -166,7 +167,6 @@ function(configure_bundled_Radium_app)
         file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
         set(instRsc ${depsRsc})
         foreach( rsc \${instRsc})
-            message(STATUS \"Copy resources from  \${rsc}\")
             file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
         endforeach()
         if (EXISTS ${RADIUM_PLUGINS_DIR})
@@ -193,7 +193,6 @@ function(configure_bundled_Radium_app)
             file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
             set(instRsc ${depsRsc})
             foreach( rsc \${instRsc})
-                message(STATUS \"Copy resources from  \${rsc}\")
                 file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
             endforeach()
             fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR};${CMAKE_INSTALL_PREFIX}/lib\")
@@ -379,13 +378,11 @@ function(installTargetResources)
     #Install in the install tree
     #Identify the individual files( to preserve directory structure )
     # set the target properties
-    #message(STATUS " [installTargetResources] Set resources properties for target ${ARGS_TARGET} : DIRECTORY =  ${ARGS_DIRECTORY}")
     set_target_properties(${ARGS_TARGET}
         PROPERTIES
         RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_DIRECTORY}
-        )
+    )
     if (ARGS_PREFIX)
-        #message(STATUS " [installTargetResources] Set resources properties for target ${ARGS_TARGET} : PREFIX = ${ARGS_PREFIX}")
         set(ARGS_PREFIX "${ARGS_PREFIX}")
         set_target_properties(${ARGS_TARGET}
             PROPERTIES
@@ -540,10 +537,9 @@ function(configure_radium_plugin)
             # if helperLib is an alias, find the original name
             get_target_property(OriginalLib "${helperLib}" ALIASED_TARGET)
             if (${OriginalLib} STREQUAL "OriginalLib-NOTFOUND")
-                #                message(STATUS "The name ${ARGS_HELPER_LIBS} is a REAL target.")
                 set(OriginalLib ${helperLib})
             endif ()
-            message(STATUS " [configure_radium_plugin] Request to install the helper library ${helperLib} for plugin ${ARGS_NAME}")
+            message(STATUS " [configure_radium_plugin] Install the helper library ${helperLib} for plugin ${ARGS_NAME}")
             # gets the resource install property of the target
             get_target_property(resourceDir ${helperLib} RADIUM_TARGET_RESOURCES_DIRECTORY)
             if (NOT ${resourceDir} STREQUAL "resourceDir-NOTFOUND")
@@ -563,16 +559,13 @@ function(configure_radium_plugin)
                     )
                 endforeach ()
             endif ()
-            message(STATUS " [configure_radium_plugin] Installing the helper lib ${OriginalLib}")
             get_target_property(IsImported "${OriginalLib}" IMPORTED)
             if (${IsImported})
-                #                message(STATUS "The name ${OriginalLib} is a IMPORTED target.")
                 get_target_property(OriginalLib ${OriginalLib} LOCATION)
                 install(FILES ${OriginalLib}
                     DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
                     )
             else ()
-                #                message(STATUS "The name ${OriginalLib} is a LOCAL target.")
                 install(TARGETS ${OriginalLib}
                     DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
                     LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
@@ -682,7 +675,6 @@ function(configure_radium_library)
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:include/${ARGS_TARGET_DIR}>
         )
-    message(STATUS " [configure_radium_library] Defining alias ${ARGS_NAMESPACE}::${ARGS_TARGET} for target ${ARGS_TARGET}")
     add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
 
     install(TARGETS ${ARGS_TARGET}
