@@ -9,6 +9,10 @@
 #       see https://github.com/STORM-IRIT/Radium-Engine/pull/550#issuecomment-637415860
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
+if (MSVC OR MSVC_IDE OR MINGW)
+    include( Windeployqt )
+endif()
+
 include(CMakeParseArguments)
 # Introduction of two customs properties in the buildchain
 # these properties allow identify dependency resources when configuring/installing a target.
@@ -381,6 +385,15 @@ function(configure_radium_app)
     else ()
         message(STATUS " Configuring application ${ARGS_NAME} as a command line application")
         configure_cmdline_Radium_app(${ARGN})
+    endif ()
+
+    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
+    list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
+    if(NOT QTCOREIDX EQUAL -1)
+        if (MSVC OR MSVC_IDE OR MINGW)
+            message(STATUS " Preparing call to WinDeployQT for application ${ARGS_NAME}")
+            windeployqt( ${ARGS_NAME} bin )
+        endif ()
     endif ()
 endfunction()
 
