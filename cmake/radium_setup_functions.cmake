@@ -464,26 +464,25 @@ function(configure_radium_app)
         message(FATAL_ERROR " [configure_radium_app] You must provide the main target of the application")
     endif ()
     # configure the application
+    message(STATUS " Configuring application ${ARGS_NAME} for being relocatable after installation.")
     if (APPLE)
         get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
         if (IsMacBundle)
-            message(STATUS " Configuring application ${ARGS_NAME} as a MacOs Bundled application")
             configure_bundled_Radium_app(${ARGN})
         else ()
-            message(STATUS " Configuring application ${ARGS_NAME} as a command line application")
             configure_cmdline_Radium_app(${ARGN})
         endif ()
     else ()
-        message(STATUS " Configuring application ${ARGS_NAME} as a command line application")
         configure_cmdline_Radium_app(${ARGN})
-    endif ()
-
-    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
-    if(NOT QTCOREIDX EQUAL -1)
-        if (MSVC OR MSVC_IDE OR MINGW)
-            message(STATUS " Preparing call to WinDeployQT for application ${ARGS_NAME}")
-            windeployqt( ${ARGS_NAME} bin )
+        get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
+        list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
+        if(NOT QTCOREIDX EQUAL -1)
+            if (MSVC OR MSVC_IDE OR MINGW)
+                message(STATUS " Preparing call to WinDeployQT for application ${ARGS_NAME}")
+                windeployqt( ${ARGS_NAME} bin )
+            else()
+                message(STATUS " Deploying QT is not yet supported for application ${ARGS_NAME} on ${CMAKE_SYSTEM_NAME}")
+            endif ()
         endif ()
     endif ()
 endfunction()
@@ -496,8 +495,10 @@ endfunction()
 # or, for bundled application, at install time by adding the available plugins into the bundle
 # usage :
 #   configure_radium_plugin(
-#         NAME theTargetName # <- this must be a plugin
-#         RESOURCES ResourceDir1 ResourceDir2 # <- accept a list of directories
+#         NAME pluginName                            # Name of the target (standard dynamic library) corresponding to the plugin
+#         [RESOURCES ResourceDir1 [ResourceDir2 ...] # Optional. List of resources directories (only directorizq
+#         [HELPER_LIBS lib1 [lib2 ...]]              # Optional. List of libraries (local target or imported targets) the plugin depends on
+#         [INSTALL_IN_RADIUM_BUNDLE]                 # Optional. If given, the plugin is installed into ${RADIUM_ROOT_DIR}/Plugins. If not, the installation is performed into ${CMAKE_INSTALL_PREFIX}
 # )
 function(configure_radium_plugin)
     # "declare" and parse parameters
