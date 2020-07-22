@@ -14,6 +14,8 @@ if (MSVC OR MSVC_IDE OR MINGW)
 endif()
 
 include(CMakeParseArguments)
+include(CMakePackageConfigHelpers)
+
 # Introduction of two customs properties in the buildchain
 # these properties allow identify dependency resources when configuring/installing a target.
 define_property(TARGET
@@ -151,16 +153,12 @@ function(configure_bundled_Radium_app)
         get_target_property(rscPrefix ${lib} RADIUM_TARGET_RESOURCES_PREFIX)
         if (NOT ${rscPrefix} STREQUAL "rscPrefix-NOTFOUND")
             get_target_property(rscLocation ${lib} RADIUM_TARGET_INSTALLED_RESOURCES)
- #           message(STATUS " [configure_radium_app] Found lib ${lib} resources location to be : ${rscLocation} !" )
             list(APPEND depsRsc ${rscLocation})
- #       else()
- #           message(STATUS " [configure_radium_app] No resources for lib  ${lib} !" )
         endif ()
     endforeach()
     if (ARGS_USE_PLUGINS)
-        message(STATUS \"Installing ${ARGS_NAME} with plugins\")
-        # TODO : fix rpath for plugins that use helper libs (can't load helper.dylib)
         install(CODE "
+        message(STATUS \"Installing ${ARGS_NAME} with plugins\")
         include(BundleUtilities)
         set(BU_CHMOD_BUNDLE_ITEMS TRUE)
         file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
@@ -182,8 +180,19 @@ function(configure_bundled_Radium_app)
             list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
         endforeach ()
         fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\")
-        "
-            )
+        # TODO : fix rpath for plugins that use helper libs (can't load helper.dylib)
+        # install_name_tool -add_rpath @loader_path/. thelib
+        foreach(helper \${InstalledPlugins} )
+            # get the name (.dylib) of the helper
+            get_filename_component(FileHelper \${helper} NAME )
+            # change the LC_LOAD_DYLIB path of the helper in any plugin that uses it
+            foreach(plugin \${InstalledPlugins} )
+                if (NOT \${plugin} STREQUAL \${helper})
+                    execute_process(COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change @executable_path/../Frameworks/\${FileHelper} @loader_path/\${FileHelper} \${plugin})
+                endif()
+            endforeach()
+        endforeach()
+        ")
     else ()
         install(CODE "
             message(STATUS \"Installing ${ARGS_NAME} without plugins\")
@@ -275,7 +284,6 @@ function(installPluginResources)
     endforeach ()
 endfunction()
 
-
 # ------------------------------------------------------------------------------
 # Library configuration functions
 # ------------------------------------------------------------------------------
@@ -288,8 +296,7 @@ endfunction()
 # )
 #
 # The resources will be fetched from the target installation directory <prefix>/Resources
-# TODO modify the installation directory access to allow customisable install
-
+# TODO modify the resources installation directory access to allow customisable install
 function(radium_exported_resources)
     # parse and verify args
     cmake_parse_arguments(
@@ -587,8 +594,7 @@ function(configure_radium_plugin)
     endif ()
 endfunction()
 
-
-include(CMakePackageConfigHelpers)
+# ---------------------------------------------------------------------------------------------
 
 # mandatory parameters :
 #   NAME : The name of the package to install
