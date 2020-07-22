@@ -1,11 +1,8 @@
 #include <QApplication>
 #include <QTimer>
 
-#include <GuiBase/TimerData/FrameTimerData.hpp>
+#include <Core/Tasks/TaskQueue.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
-
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */
