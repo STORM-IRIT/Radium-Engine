@@ -7,7 +7,9 @@ The Radium environment could be used in several ways
  3. integrating new functionalities in the Radium applications using plugins.
 
 As Radium relies on the [cmake](https://cmake.org/documentation/) build and configuration system, this 
-documentation focuses on how to configure your build system to use and extend Radium.
+documentation focuses on how to configure your build system to use and extend Radium using Radium cmake utilities.
+
+Complete functional examples using these cmake scripts are accessible in the `src/tests/ExampleApps` and `src/tests/ExamplePluginWithLib` directories of the [Radium source distribution](https://github.com/STORM-IRIT/Radium-Engine).
 
 # Radium cmake utilities
 
@@ -38,7 +40,7 @@ The functions defined by the Radium package are the following:
   - [`radium_exported_resources`](#radium_exported_resources).
 3. Extending Radium through plugins 
   - [`configure_radium_plugin`](#configure_radium_plugin).
-
+  
 ## Client application configuration
 ### Function `configure_radium_app` {#configure_radium_app}
 ~~~{.cmake}
@@ -138,11 +140,11 @@ Assuming a library `MyLib` was configured as follows:
 ~~~{.cmake}
 ... 
 configure_radium_library(
-        TARGET MyLib
-        NAMESPACE MyLib
-        PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-        PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
-        FILES "${public_headers};${public_inlines}"
+    TARGET MyLib
+    NAMESPACE MyLib
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
+    FILES "${public_headers};${public_inlines}"
 )
 ~~~
 
@@ -151,11 +153,11 @@ This library could be used either from its installed binaries :
 find_package(MyLib) 
 ...
 target_link_libraries(
-        MyProject
-        PUBLIC
-        Radium::Core
-        Radium::Engine
-        MyLib::MyLib
+    MyProject
+    PUBLIC
+    Radium::Core
+    Radium::Engine
+    MyLib::MyLib
 )
 ~~~
 or from the same buildtree :
@@ -163,11 +165,11 @@ or from the same buildtree :
 add_subdirectory(MyLibSource) 
 ...
 target_link_libraries(
-        MyProject
-        PUBLIC
-        Radium::Core
-        Radium::Engine
-        MyLib::MyLib
+    MyProject
+    PUBLIC
+    Radium::Core
+    Radium::Engine
+    MyLib::MyLib
 )
 ~~~
 
@@ -283,10 +285,10 @@ This function also allows to define multi-component packages for selective impor
 
 ~~~{.cmake}
 radium_exported_resources(
-         TARGET target            # The name of the exported target
-         ACCESS_FROM_PACKAGE path # The path from the installe package module to the installed resources directory
-         [PREFIX resourcesPrefix] # Name of the directory in wich the resources are installed
-     )
+    TARGET target            # The name of the exported target
+    ACCESS_FROM_PACKAGE path # The path from the installe package module to the installed resources directory
+    [PREFIX resourcesPrefix] # Name of the directory in wich the resources are installed
+)
 ~~~
 This function defines the resources access properties for the exported target `<target>`. Based on these properties, client application and libraries might access to the exported resources.
 
@@ -319,13 +321,52 @@ This parameter must contain the relative path that start from the package module
 
 ## Extending Radium through plugins
 ### Function `configure_radium_plugin` {#configure_radium_plugin}
-YTBD;p
+
+~~~{.cmake}
+configure_radium_plugin(
+    NAME pluginName                            # Name of the target (standard dynamic library) corresponding to the plugin
+    [RESOURCES ResourceDir1 [ResourceDir2 ...] # Optional. List of resources directories (only directories are allowed as resources)
+    [HELPER_LIBS lib1 [lib2 ...]]              # Optional. List of libraries (local target or imported targets) the plugin depends on
+    [INSTALL_IN_RADIUM_BUNDLE]                 # Optional. If given, the plugin is installed into ${RADIUM_ROOT_DIR}/Plugins. If not, the installation is performed into ${CMAKE_INSTALL_PREFIX}
+~~~
+This cmake function configures the target `NAME pluginName` to be compiled, linked and optionally installed as a Radium Plugin. 
+The plugin, and its optional resources, might then be used in any plugin-compatible Radium application.
+If the plugin is installed in the Radium distribution bundle, it will be embedded in all bundled application installed later.
 
 This function takes the following parameters:
 
 *Parameter name*        | *Parameter description*
 ------------------------|--------------------
- `<PARAM>`               | Description
+`NAME pluginName`               | Name of the target to be linked and installed as a plugin
+`[RESOURCES ResourceDir1 [ResourceDir2 ...]` | Optional. List of directories, in the source tree, containing the plugin own resources. 
+`[HELPER_LIBS helperlib1 [helperlib2 ...]]` | List of libraries the plugin depends on. 
+`[INSTALL_IN_RADIUM_BUNDLE]` | Optional. If given, the plugin is installed in the Radium general bundle (`${RADIUM_ROOT_DIR}/Plugins`) instead of being installed in the `${CMAKE_INSTALL_PREFIX}`
+
+The `pluginName` target must be a dynamic library that exports a class inheriting from `QObject` and Ra::Plugins::RadiumPluginInterface.
+The optional resources associated with the plugin are own resources that the plugin needs to be functionnal and will be installed as described below.
+The optional helper libraries can be local targets, configured in the same buildtree, or imported targets, resulting from a `find_package(...)`.
+If an helper library need to access its own resources, it must be configured using using [`configure_radium_library`](#configure_radium_library) if it is a local target or imported from an installed target configured the same way.
+
+The directory hierarchy in which a plugin will be installed (or where the build target will be) is the following:
+```
+<prefix>/
+├── lib/
+|   ├──  libpluginName.so (or.dylib, .dll)
+|   ├──  helperlib1
+|   ├──  ...
+├── Resources/
+|   ├── pluginName
+|   |     ├── ResourceDir1
+|   |     ...
+```
+where `<prefix>` refer to the base plugin dir into the build tree or the installation directory.
+ - In the buildtree, `<prefix>` refers to the directory `${CMAKE_CURRENT_BINARY_DIR}/Plugins`. Resources directories are linked into `Resources` directory on system that supports links, copied otherwise. Helper libs are not copied into the hierarchy.
+ - When installed into the Radium distribution bundle, `<prefix>` refers to `${RADIUM_ROOT_DIR}/Plugins`. Optional resources directories are copied into `Resources` directory.
+ - When installed in the user specified install location, `<prefix>` refers to `${CMAKE_INSTALL_PREFIX}`. Optional resources directories are copied into `Resources` directory.
+
+When a plugin is installed and depends on an helper library that embed its own resources, the helper resources are copied into the `<prefix>/Resources` directory so that the helper lib could find its resources as described in the section [`installTargetResources`](#installTargetResources).
+In this hierarchy, a plugin will access to its resources in a way very similar than any other library. Only one level of hierarchy, whose name is the plugin name, will be added.
+
 
 # How to write your CMakeLists.txt
 When writing your cmake configuration script `CMakeLists.txt`, you might rely on the following guideline to configure the project `ProjectName`.
@@ -428,31 +469,31 @@ set(resources
 
 # configuring the target as a dynamic library
 add_library(
-        ${NAME_OF_LIBRARY} SHARED
-        ${sources}
-        ${headers}
-        ${inlines}
-        ${public_headers}
-        ${public_inlines}
-        ${resources}
+    ${NAME_OF_LIBRARY} SHARED
+    ${sources}
+    ${headers}
+    ${inlines}
+    ${public_headers}
+    ${public_inlines}
+    ${resources}
 )
 
 # Setting specific target_* properties
 ... 
 target_link_libraries(
-        ${NAME_OF_LIBRARY}
-        PUBLIC
-        # Give here the list of the dependency (e.g. Radium::Core ... ) to link with
+    ${NAME_OF_LIBRARY}
+    PUBLIC
+    # Give here the list of the dependency (e.g. Radium::Core ... ) to link with
 )
 
 # Configuring the library to be inserted into the Radium exosystem
 message("Configure library ${NAME_OF_LIBRARY} for insertion into Radium exosystem")
 configure_radium_library(
-        TARGET ${NAME_OF_LIBRARY}
-        NAMESPACE ${NAME_OF_LIBRARY} # The imported target will be ${NAME_OF_LIBRARY}::${NAME_OF_LIBRARY}
-        PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
-        PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-        FILES "${public_headers};${public_inlines}" # They will be installed in <prefix>/include/${NAME_OF_LIBRARY}/
+    TARGET ${NAME_OF_LIBRARY}
+    NAMESPACE ${NAME_OF_LIBRARY} # The imported target will be ${NAME_OF_LIBRARY}::${NAME_OF_LIBRARY}
+    PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
+    PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+    FILES "${public_headers};${public_inlines}" # They will be installed in <prefix>/include/${NAME_OF_LIBRARY}/
 )
 ~~~
 
@@ -469,8 +510,8 @@ Standard usage of this function requires to have some libraries configured like 
 ~~~{.cmake}
 ...
 add_library(
-        <firstLib> SHARED
-        ...
+    <firstLib> SHARED
+    ...
 }
 configure_radium_library(
     TARGET <firstLib>
@@ -482,8 +523,8 @@ configure_radium_library(
 ...
 
 add_library(
-        <secondLib> SHARED
-        ...
+    <secondLib> SHARED
+    ...
 }
 configure_radium_library(
     TARGET <secondLib>
@@ -584,12 +625,13 @@ These properties, located in the installation tree, are the same than those defi
 `<packageName>Config.cmake.in` such as
 ~~~{.cmake}
 radium_exported_resources(
-        TARGET <namespace>::<libtarget>
-        ACCESS_FROM_PACKAGE <pathFromPackageToResourcesInInstallTree>
-        PREFIX <resourcesPrefix>
-    )
+    TARGET <namespace>::<libtarget>
+    ACCESS_FROM_PACKAGE <pathFromPackageToResourcesInInstallTree>
+    PREFIX <resourcesPrefix>
+)
 ~~~ 
 where `<resourcesPrefix>` corresponds to the parameter `PREFIX` used when installing the resources for the target `<namespace>::<libtarget>`.
 
 ## Configuring an application plugin
-YTBD;p
+See the dedicated how to [How to write your own plugin](@ref develplugin).
+
