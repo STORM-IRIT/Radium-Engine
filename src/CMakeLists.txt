@@ -80,6 +80,14 @@ install(
         ${ConfigPackageLocation}
 )
 
+if (MSVC OR MSVC_IDE OR MINGW)
+    install(
+        FILES
+        "${CMAKE_CURRENT_SOURCE_DIR}/../cmake/Windeployqt.cmake"
+        DESTINATION
+            ${ConfigPackageLocation}
+    )
+endif()
 
 # # #-------------------------------------------------------------------------------
 # # # exampleApp executable setup
