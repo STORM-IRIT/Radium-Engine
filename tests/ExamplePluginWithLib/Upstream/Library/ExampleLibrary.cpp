@@ -10,7 +10,9 @@
 
 namespace ExampleLibrary {
 
+// This symbol will be used to identify the library and find its directory using Ra::Core::Resources::ResourcesLocator.
 static int ExampleLibraryMagick = 0x0F0F0F0F;
+
 void ExampleMessage( const std::string& message ) {
     auto resourcesPath = Ra::Core::Resources::ResourcesLocator(
         reinterpret_cast<void*>( &ExampleLibraryMagick ), "Resources/LibraryResources", "../" );
