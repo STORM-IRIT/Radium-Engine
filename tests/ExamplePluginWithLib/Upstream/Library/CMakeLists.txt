@@ -63,9 +63,6 @@ target_link_libraries(
     Radium::Engine
 )
 
-# make an alias to have acces to the target in a shared project build-tree
-#add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-
 #-----------------------------------------------------------------------------------
 # Radium library configuration : manage package and installation
 message(STATUS " Configure library ${PROJECT_NAME} for insertion into Radium exosystem at ${CMAKE_INSTALL_PREFIX}")
