@@ -596,6 +596,7 @@ endfunction()
 
 # ---------------------------------------------------------------------------------------------
 
+# This function configures the package `NAME` for installation and for further import in client project using `find_package(<NAME>)`.
 # mandatory parameters :
 #   NAME : The name of the package to install
 #   PACKAGE_CONFIG : The package configuration file
@@ -632,6 +633,8 @@ function(configure_radium_package)
     )
 endfunction()
 
+# This function configures the `<TARGET>` according to Radium requisite (exported target, namespace, package, ...), for installation and, if the parameter
+# `PACKAGE_CONFIG`is given for further import in client project using `find_package(<TARGET>)`.
 # mandatory parameters :
 #   TARGET : The name of the target to install
 #   FILES : The list of files (headers) to install
@@ -640,6 +643,7 @@ endfunction()
 #   TARGET_DIR : The directory where FILES will be installed (default : <prefix>/include/<TARGET>
 #   NAMESPACE : The namespace in which the library will be added (default Radium)
 #   PACKAGE_DIR : The directory in which the cmake package config file will be installed (default <prefix>/lib/cmake/Radium)
+#   PACKAGE_CONFIG : If given, a configure script, to be used by `find_package`, will be generated.
 function(configure_radium_library)
     # parse and verify args
     cmake_parse_arguments(
