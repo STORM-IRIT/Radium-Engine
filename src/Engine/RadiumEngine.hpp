@@ -339,13 +339,13 @@ class RA_ENGINE_API RadiumEngine
          */
         void updateTime();
 
-        Scalar m_dt;               ///< The time delta between 2 consecutive frames.
-        Scalar m_startTime {0_ra}; ///< The `start` time for the time window.
-        Scalar m_endTime;          ///< The `end` time for the time window.
-        Scalar m_time {0_ra};      ///< The current time.
-        bool m_play {false};       ///< Shall time flow.
-        bool m_singleStep {true};  ///< Shall time flow for only one frame.
-        bool m_realTime {false};   ///< Whether we use the effective time flow or the constant one.
+        Scalar m_dt {1_ra / 60_ra}; ///< The time delta between 2 consecutive frames.
+        Scalar m_startTime {0_ra};  ///< The `start` time for the time window.
+        Scalar m_endTime {1_ra};    ///< The `end` time for the time window.
+        Scalar m_time {0_ra};       ///< The current time.
+        bool m_play {false};        ///< Shall time flow.
+        bool m_singleStep {true};   ///< Shall time flow for only one frame.
+        bool m_realTime {false};    ///< Whether we use the effective time flow or the constant one.
         bool m_forwardBackward {false}; ///< Is PingPong mode enabled.
     };
 

@@ -17,9 +17,11 @@ if file_or_link "${ROOT}/.git/hooks/pre-commit" ; then
 else
     echo "pre-commit hook already present, please remove .git/hooks/pre-commit";
 fi
-if file_or_link "${ROOT}/.clang-format" ; then
-    echo "create symlink for clang-format style file";
-    ln -rs "${ROOT}/scripts/clang-format" "${ROOT}/.clang-format"
-else
-    echo "clang-format link already present, please remove .clang-format";
-fi
+
+# now .clang-format is in git repo for auto formatiing
+#if file_or_link "${ROOT}/.clang-format" ; then
+#    echo "create symlink for clang-format style file";
+#    ln -rs "${ROOT}/scripts/clang-format" "${ROOT}/.clang-format"
+#else
+#    echo "clang-format link already present, please remove .clang-format";
+#fi

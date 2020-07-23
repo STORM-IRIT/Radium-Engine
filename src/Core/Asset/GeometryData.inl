@@ -42,11 +42,14 @@ namespace internal {
 
 template <typename InContainer, typename OutContainer>
 inline void copyData( const InContainer& input, OutContainer& output ) {
-    std::transform(
-        std::begin( input ), std::end( input ), std::back_inserter( output ), [
-        ]( const typename InContainer::value_type& v ) -> typename OutContainer::value_type {
-            return v.template cast<Scalar>();
-        } );
+    using OutValueType  = typename OutContainer::value_type;
+    using OutScalarType = typename OutValueType::Scalar;
+    std::transform( std::begin( input ),
+                    std::end( input ),
+                    std::back_inserter( output ),
+                    []( const typename InContainer::value_type& v ) -> OutValueType {
+                        return v.template cast<OutScalarType>();
+                    } );
 }
 
 } // namespace internal

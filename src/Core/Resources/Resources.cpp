@@ -40,6 +40,11 @@ std::string getBaseDir() {
     return cpplocate::getModulePath();
 }
 
+std::string getBaseResourcesDir() {
+    auto baseDir = cpplocate::locatePath( "Resources", "", nullptr );
+    return baseDir + "Resources/";
+}
+
 ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath {""} {
     m_basePath = searchPath( "/", "", symbol ) + offset;
 }

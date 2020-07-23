@@ -102,32 +102,33 @@ void MinimalComponent::initialize() {
     }
 
     //// CUBES ////
-    std::shared_ptr<Ra::Engine::Mesh> cube1( new Ra::Engine::Mesh( "Cube" ) );
-    cube1->loadGeometry( Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
-    cube1->getCoreGeometry().addAttrib(
-        "in_color", Vector4Array {cube1->getNumVertices(), Utils::Color::Green()} );
+    {
+        std::shared_ptr<Ra::Engine::Mesh> cube1( new Ra::Engine::Mesh( "Cube" ) );
+        cube1->loadGeometry( Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
+        cube1->getCoreGeometry().addAttrib(
+            "in_color", Vector4Array {cube1->getNumVertices(), Utils::Color::Green()} );
 
-    auto renderObject1 = RenderObject::createRenderObject(
-        "CubeRO_1", this, RenderObjectType::Geometry, cube1, shadedRt );
-    renderObject1->setLocalTransform(
-        Transform {Translation( Vector3( 3 * cellSize, 0_ra, 0_ra ) )} );
+        auto renderObject1 = RenderObject::createRenderObject(
+            "CubeRO_1", this, RenderObjectType::Geometry, cube1, shadedRt );
+        renderObject1->setLocalTransform(
+            Transform {Translation( Vector3( 3 * cellSize, 0_ra, 0_ra ) )} );
 
-    addRenderObject( renderObject1 );
+        addRenderObject( renderObject1 );
 
-    // another cube
-    std::shared_ptr<Ra::Engine::Mesh> cube2( new Ra::Engine::Mesh( "Cube" ) );
-    cube2->loadGeometry( Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
-    cube2->getCoreGeometry().addAttrib(
-        "colour", Vector4Array {cube2->getNumVertices(), Utils::Color::Red()} );
+        // another cube
+        std::shared_ptr<Ra::Engine::Mesh> cube2( new Ra::Engine::Mesh( "Cube" ) );
+        cube2->loadGeometry( Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
+        cube2->getCoreGeometry().addAttrib(
+            "colour", Vector4Array {cube2->getNumVertices(), Utils::Color::Red()} );
 
-    cube2->setAttribNameCorrespondance( "colour", "in_color" );
-    auto renderObject2 = RenderObject::createRenderObject(
-        "CubeRO_2", this, RenderObjectType::Geometry, cube2, lambertianRt );
-    renderObject2->setLocalTransform(
-        Transform {Translation( Vector3( 4 * cellSize, 0_ra, 0_ra ) )} );
+        cube2->setAttribNameCorrespondance( "colour", "in_color" );
+        auto renderObject2 = RenderObject::createRenderObject(
+            "CubeRO_2", this, RenderObjectType::Geometry, cube2, lambertianRt );
+        renderObject2->setLocalTransform(
+            Transform {Translation( Vector3( 4 * cellSize, 0_ra, 0_ra ) )} );
 
-    addRenderObject( renderObject2 );
-
+        addRenderObject( renderObject2 );
+    }
     //// POINTS ////
     cellCorner = {-1_ra, 0_ra, 0.0_ra};
     addRenderObject( RenderObject::createRenderObject(
@@ -426,7 +427,7 @@ void MinimalComponent::initialize() {
         shadedRt ) );
 
     /// NORMAL
-    cellCorner = {-0.5_ra, 0_ra, 0.25_ra};
+    cellCorner = {-0.25_ra, 0_ra, 0.25_ra};
 
     addRenderObject( RenderObject::createRenderObject(
         "test_normal",
@@ -477,6 +478,71 @@ void MinimalComponent::initialize() {
                        spline, uint pointCount, const Core::Utils::Color& color, Scalar scale
        = 1.0f
                    );*/
+
+    //// PolyMesh ////
+    {
+        Ra::Core::Geometry::PolyMesh polyMesh;
+        polyMesh.setVertices( {
+            // quad
+            {-1.1_ra, -0_ra, 0_ra},
+            {1.1_ra, -0_ra, 0_ra},
+            {1_ra, 1_ra, 0_ra},
+            {-1_ra, 1_ra, 0_ra},
+            // hepta
+            {2_ra, 2_ra, 0_ra},
+            {2_ra, 3_ra, 0_ra},
+            {0_ra, 4_ra, 0_ra},
+            {-2_ra, 3_ra, 0_ra},
+            {-2_ra, 2_ra, 0_ra},
+            // degen
+            {-1.1_ra, -2_ra, 0_ra},
+            {-0.5_ra, -2_ra, 0_ra},
+            {-0.3_ra, -2_ra, 0_ra},
+            {0.0_ra, -2_ra, 0_ra},
+            {0.0_ra, -2_ra, 0_ra},
+            {0.3_ra, -2_ra, 0_ra},
+            {0.5_ra, -2_ra, 0_ra},
+            {1.1_ra, -2_ra, 0_ra},
+            // degen2
+            {-1_ra, -3_ra, 0_ra},
+            {1_ra, -3_ra, 0_ra},
+
+        } );
+
+        Vector3Array normals;
+        normals.resize( polyMesh.vertices().size() );
+        std::transform(
+            polyMesh.vertices().cbegin(),
+            polyMesh.vertices().cend(),
+            normals.begin(),
+            []( const Vector3& v ) { return ( v + Vector3( 0_ra, 0_ra, 1_ra ) ).normalized(); } );
+        polyMesh.setNormals( normals );
+
+        auto quad = VectorNui( 4 );
+        quad << 0, 1, 2, 3;
+        auto hepta = VectorNui( 7 );
+        hepta << 3, 2, 4, 5, 6, 7, 8;
+        auto degen = VectorNui( 10 );
+        degen << 1, 0, 9, 10, 11, 12, 13, 14, 15, 16;
+        auto degen2 = VectorNui( 10 );
+        degen2 << 14, 13, 12, 11, 10, 9, 17, 18, 16, 15;
+        polyMesh.setIndices( {quad, hepta, degen, degen2} );
+
+        std::shared_ptr<Ra::Engine::PolyMesh> poly1(
+            new Ra::Engine::PolyMesh( "Poly", std::move( polyMesh ) ) );
+        poly1->getCoreGeometry().addAttrib(
+            "in_color",
+            Vector4Array {poly1->getNumVertices(),
+                          colorBoost * Utils::Color {1_ra, 0.6_ra, 0.1_ra}} );
+
+        auto renderObject1 = RenderObject::createRenderObject(
+            "CubeRO_1", this, RenderObjectType::Geometry, poly1, shadedRt );
+        renderObject1->setLocalTransform(
+            Transform {Translation( Vector3( 3.5 * cellSize, 0_ra, 1.5 * cellSize ) ) *
+                       Eigen::UniformScaling<Scalar>( 0.06_ra )} );
+
+        addRenderObject( renderObject1 );
+    }
 }
 
 /// This system will be added to the engine. Every frame it will

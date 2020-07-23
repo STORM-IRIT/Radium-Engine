@@ -31,6 +31,7 @@ std::string AttribArrayDisplayable::getAttribName( MeshData type ) {
     if ( type == VERTEX_WEIGHT_IDX ) return {"in_weight_idx"};
     return {"invalid mesh data attr name"};
 }
+
 ///////////////// VaoIndices  ///////////////////////
 
 void VaoIndices::setIndicesDirty() {
@@ -38,6 +39,7 @@ void VaoIndices::setIndicesDirty() {
 }
 
 ///////////////// IndexedAttribArrayDisplayable ///////////////////////
+
 template <typename I>
 template <typename T>
 void IndexedAttribArrayDisplayable<I>::addAttrib(
@@ -408,6 +410,9 @@ template <typename T>
 void IndexedGeometry<T>::loadGeometry( T&& mesh ) {
     setIndicesDirty();
     base::loadGeometry_common( std::move( mesh ) );
+
+    // indices
+    base::m_mesh.attach( IndicesObserver( this ) );
 }
 
 template <typename T>
@@ -422,12 +427,12 @@ void IndexedGeometry<T>::updateGL_specific_impl() {
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
         m_numElements =
-            base::m_mesh.m_indices.size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
+            base::m_mesh.getIndices().size() * base::CoreGeometry::IndexType::RowsAtCompileTime;
 
         m_indices->setData(
-            static_cast<gl::GLsizeiptr>( base::m_mesh.m_indices.size() *
+            static_cast<gl::GLsizeiptr>( base::m_mesh.getIndices().size() *
                                          sizeof( typename base::CoreGeometry::IndexType ) ),
-            base::m_mesh.m_indices.data(),
+            base::m_mesh.getIndices().data(),
             GL_STATIC_DRAW );
         m_indicesDirty = false;
     }
@@ -456,6 +461,7 @@ void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
 }
 
 ///////// PointCloud //////////
+
 PointCloud::PointCloud( const std::string& name,
                         typename base::CoreGeometry&& geom,
                         typename base::MeshRenderMode renderMode ) :
@@ -464,10 +470,67 @@ PointCloud::PointCloud( const std::string& name,
 }
 
 /////////  LineMesh ///////////
+
 LineMesh::LineMesh( const std::string& name,
                     typename base::CoreGeometry&& geom,
                     typename base::MeshRenderMode renderMode ) :
     base( name, std::move( geom ), renderMode ) {}
+
+/////////  PolyMesh ///////////
+
+void PolyMesh::updateGL_specific_impl() {
+    if ( !m_indices )
+    {
+        m_indices      = globjects::Buffer::create();
+        m_indicesDirty = true;
+    }
+    if ( m_indicesDirty )
+    {
+        triangulate();
+        /// this one do not work since m_indices is not a std::vector
+        // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
+        m_numElements = m_triangleIndices.size() * Core::Vector3ui::RowsAtCompileTime;
+
+        m_indices->setData(
+            static_cast<gl::GLsizeiptr>( m_triangleIndices.size() *
+                                         sizeof( typename base::CoreGeometry::IndexType ) ),
+            m_triangleIndices.data(),
+            GL_STATIC_DRAW );
+        m_indicesDirty = false;
+    }
+    if ( !base::m_vao ) { base::m_vao = globjects::VertexArray::create(); }
+    base::m_vao->bind();
+    base::m_vao->bindElementBuffer( m_indices.get() );
+    base::m_vao->unbind();
+}
+
+void PolyMesh::triangulate() {
+    m_triangleIndices.clear();
+    m_triangleIndices.reserve( m_mesh.getIndices().size() );
+    for ( const auto& face : m_mesh.getIndices() )
+    {
+        if ( face.size() == 3 ) { m_triangleIndices.push_back( face ); }
+        else
+        {
+            /// simple sew triangulation
+            int minus {int( face.size() ) - 1};
+            int plus {0};
+            while ( plus + 1 < minus )
+            {
+                if ( ( plus - minus ) % 2 )
+                {
+                    m_triangleIndices.emplace_back( face[plus], face[plus + 1], face[minus] );
+                    ++plus;
+                }
+                else
+                {
+                    m_triangleIndices.emplace_back( face[minus], face[plus], face[minus - 1] );
+                    --minus;
+                }
+            }
+        }
+    }
+}
 
 } // namespace Engine
 } // namespace Ra

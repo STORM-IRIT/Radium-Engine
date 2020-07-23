@@ -222,8 +222,9 @@ class RA_CORE_API LineStrip : public AttribArrayGeometry
 /// Simple Mesh structure that handles indexed polygonal mesh with vertex
 /// attributes. Each face is indexed with typename T = IndexType.
 /// T is assumed to be an Eigen Vector of unsigned ints
+/// observable on indices
 template <typename T>
-class IndexedGeometry : public AttribArrayGeometry
+class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
 {
   public:
     using IndexType          = T;
@@ -249,7 +250,24 @@ class IndexedGeometry : public AttribArrayGeometry
     /// \warning There is no error check on the handles attribute type.
     inline bool append( const IndexedGeometry<IndexType>& other );
 
-    ///\todo make it protected
+    /// read only access to indices
+    const IndexContainerType& getIndices() const;
+
+    /// read write access to indices.
+    /// Cause indices to be "lock" for the caller
+    /// need to be unlock by the caller before any one can ask for write access.
+    IndexContainerType& getIndicesWithLock();
+
+    /// unlock previously read write acces, notify observers of the update.
+    void indicesUnlock();
+
+    /// set indices. Indices must be unlock, i.e. no one should have write
+    /// access to it.
+    /// Notify observers of the update.
+    void setIndices( IndexContainerType&& indices );
+
+  private:
+    bool m_isIndicesLocked {false};
     IndexContainerType m_indices;
 };
 
@@ -257,6 +275,9 @@ class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
 class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
+{};
+
+class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>
 {};
 
 class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>

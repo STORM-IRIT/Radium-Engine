@@ -56,7 +56,7 @@ LineMeshPtr Point( const Core::Vector3& point, const Core::Utils::Color& color, 
                        ( point - ( scale * Core::Vector3::UnitY() ) ),
                        ( point + ( scale * Core::Vector3::UnitZ() ) ),
                        ( point - ( scale * Core::Vector3::UnitZ() ) )} );
-    geom.m_indices = {{0, 1}, {2, 3}, {4, 5}};
+    geom.setIndices( {{0, 1}, {2, 3}, {4, 5}} );
     geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                     Core::Vector4Array {geom.vertices().size(), color} );
 
@@ -67,7 +67,7 @@ LineMeshPtr
 Line( const Core::Vector3& a, const Core::Vector3& b, const Core::Utils::Color& color ) {
     Geometry::LineMesh geom;
     geom.setVertices( {a, b} );
-    geom.m_indices = {{0, 1}};
+    geom.setIndices( {{0, 1}} );
     geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                     Core::Vector4Array {geom.vertices().size(), color} );
 
@@ -89,7 +89,7 @@ Vector( const Core::Vector3& start, const Core::Vector3& v, const Core::Utils::C
                        end,
                        start + ( ( 1.f - arrowFract ) * v ) + ( ( arrowFract * l ) * a ),
                        start + ( ( 1.f - arrowFract ) * v ) - ( ( arrowFract * l ) * a )} );
-    geom.m_indices = {{0, 1}, {1, 2}, {1, 3}};
+    geom.setIndices( {{0, 1}, {1, 2}, {1, 3}} );
     geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                     Core::Vector4Array {geom.vertices().size(), color} );
 
@@ -100,7 +100,7 @@ LineMeshPtr Ray( const Core::Ray& ray, const Core::Utils::Color& color, Scalar l
     Geometry::LineMesh geom;
     Core::Vector3 end = ray.pointAt( len );
     geom.setVertices( {ray.origin(), end} );
-    geom.m_indices = {{0, 1}};
+    geom.setIndices( {{0, 1}} );
     geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                     Core::Vector4Array {geom.vertices().size(), color} );
     return make_shared<LineMesh>( "Ray Primitive", std::move( geom ) );
@@ -115,7 +115,7 @@ AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
     {
         Geometry::TriangleMesh geom;
         geom.setVertices( {a, b, c} );
-        geom.m_indices = {{0, 1, 2}};
+        geom.setIndices( {{0, 1, 2}} );
         geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                         Core::Vector4Array {geom.vertices().size(), color} );
         return make_shared<Mesh>( "Triangle Primitive", std::move( geom ) );
@@ -124,7 +124,7 @@ AttribArrayDisplayablePtr Triangle( const Core::Vector3& a,
     {
         Geometry::LineMesh geom;
         geom.setVertices( {a, b, c} );
-        geom.m_indices = {{0, 1}, {1, 2}, {2, 0}};
+        geom.setIndices( {{0, 1}, {1, 2}, {2, 0}} );
         geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                         Core::Vector4Array {geom.vertices().size(), color} );
         return make_shared<LineMesh>( "Triangle Primitive", std::move( geom ) );
@@ -170,8 +170,10 @@ LineMeshPtr Circle( const Core::Vector3& center,
     CORE_ASSERT( segments >= 2, "Cannot draw a circle with less than 3 points" );
 
     Geometry::LineMesh geom;
+    ///\todo refer to class typedef instaed of core types/
     Core::Vector3Array vertices( segments + 1 );
-    geom.m_indices.resize( segments );
+    Geometry::LineMesh::IndexContainerType indices;
+    indices.resize( segments );
 
     Core::Vector3 xPlane, yPlane;
     Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );
@@ -186,12 +188,12 @@ LineMeshPtr Circle( const Core::Vector3& center,
     for ( uint i = 1; i <= segments; ++i )
     {
         vertices[i] = center + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane );
-        geom.m_indices[i - 1] = {i - 1, i};
+        indices[i - 1] = {i - 1, i};
         theta += thetaInc;
     }
 
-    geom.setVertices( vertices );
-
+    geom.setVertices( std::move( vertices ) );
+    geom.setIndices( std::move( indices ) );
     geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                     Core::Vector4Array {geom.vertices().size(), color} );
 
@@ -207,7 +209,8 @@ LineMeshPtr CircleArc( const Core::Vector3& center,
 
     Geometry::LineMesh geom;
     Core::Vector3Array vertices( segments + 1 );
-    geom.m_indices.resize( segments );
+    Geometry::LineMesh::IndexContainerType indices;
+    indices.resize( segments );
 
     Core::Vector3 xPlane, yPlane;
     Core::Math::getOrthogonalVectors( normal, xPlane, yPlane );
@@ -222,12 +225,13 @@ LineMeshPtr CircleArc( const Core::Vector3& center,
     for ( uint i = 1; i <= segments; ++i )
     {
         vertices[i] = center + radius * ( std::cos( theta ) * xPlane + std::sin( theta ) * yPlane );
-        geom.m_indices[i - 1] = {i - 1, i};
+        indices[i - 1] = {i - 1, i};
 
         theta += thetaInc;
     }
 
-    geom.setVertices( vertices );
+    geom.setVertices( std::move( vertices ) );
+    geom.setIndices( std::move( indices ) );
     geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                     Core::Vector4Array {geom.vertices().size(), color} );
 
@@ -360,7 +364,7 @@ LineMeshPtr Normal( const Core::Vector3& point,
     };
 
     geom.setVertices( vertices );
-    geom.m_indices = {{0, 1}, {1, 2}, {1, 3}, {4, 5}, {5, 6}, {6, 7}, {7, 4}, {4, 6}, {5, 7}};
+    geom.setIndices( {{0, 1}, {1, 2}, {1, 3}, {4, 5}, {5, 6}, {6, 7}, {7, 4}, {4, 6}, {5, 7}} );
     geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                     Core::Vector4Array {geom.vertices().size(), color} );
 
