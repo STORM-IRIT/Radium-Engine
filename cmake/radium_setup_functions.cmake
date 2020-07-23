@@ -10,7 +10,7 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
 if (MSVC OR MSVC_IDE OR MINGW)
-    include( Windeployqt )
+    include( ${CMAKE_CURRENT_LIST_DIR}/Windeployqt.cmake )
 endif()
 
 include(CMakeParseArguments)
