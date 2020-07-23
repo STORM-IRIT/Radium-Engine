@@ -77,9 +77,7 @@ For `MACOSX_BUNDLE` applications, a standard `.app` MacOsX application is genera
 
 ### Limitations
 For now (Radium version of August 2020): 
-  - MacOsX Bundled application are truly relocatable (on the build system or between compatible systems) if they do not use plugins. 
   - Linux application can be relocated only on the build system.
-  - Windows application need further processsing (windeployQt) to be relocatable.
   
 To get relocatable packages, download pre-built binaries here: [https://github.com/STORM-IRIT/Radium-Releases/releases](https://github.com/STORM-IRIT/Radium-Releases/releases)
 
@@ -160,7 +158,7 @@ target_link_libraries(
     MyLib::MyLib
 )
 ~~~
-or from the same buildtree :
+or from the same build tree :
 ~~~{.cmake}
 add_subdirectory(MyLibSource) 
 ...
@@ -230,7 +228,7 @@ The Radium installation hierarchy, that embeds base libraries, their resources a
 |   ...
 ```
 In this hierarchy, Resources are located in the relative path `../Resources/` from any binary (executable or lib).
-The source code structure of the Radium libraries allows to have the same property on the buildtree.
+The source code structure of the Radium libraries allows to have the same property on the build tree.
 When a Radium component needs to access some resources, it could either use the Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir() method or search for the resource relatively to a symbol defined in the component.
 
 To do this, the source code (.cpp file) of the component could contain the following.
@@ -279,7 +277,7 @@ This function takes the following parameters:
   
 This function is called implicitly, when defining a single component package, when the parameters `<PACKAGE_CONFIG>` and `<PACKAGE_DIR>` are given to the library configuration function [`configure_radium_library`](#configure_radium_library).
 
-This function also allows to define multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command when called explicitly with an apropriate `PACKAGE_CONFIG` parameter.
+This function also allows to define multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command when called explicitly with an appropriate `PACKAGE_CONFIG` parameter.
  
 ### Function `radium_exported_resources` {#radium_exported_resources)}
 
@@ -298,7 +296,7 @@ This function takes the following parameters:
 -----------------------------|--------------------
 `<TARGET> target`            | The name of the package to configure and install
 `<ACCESS_FROM_PACKAGE> path` | The path from the installed package module to the installed resources directory.
-`<PREFIX> resourcesPrefix`   | Name of the directory in wich the resources are installed.
+`<PREFIX> resourcesPrefix`   | Name of the directory in which the resources are installed.
 
 As described above, the installation tree of any installed target, if configured with radium cmake utilities, looks like the following
 ```
@@ -343,8 +341,8 @@ This function takes the following parameters:
 `[INSTALL_IN_RADIUM_BUNDLE]` | Optional. If given, the plugin is installed in the Radium general bundle (`${RADIUM_ROOT_DIR}/Plugins`) instead of being installed in the `${CMAKE_INSTALL_PREFIX}`
 
 The `pluginName` target must be a dynamic library that exports a class inheriting from `QObject` and Ra::Plugins::RadiumPluginInterface.
-The optional resources associated with the plugin are own resources that the plugin needs to be functionnal and will be installed as described below.
-The optional helper libraries can be local targets, configured in the same buildtree, or imported targets, resulting from a `find_package(...)`.
+The optional resources associated with the plugin are own resources that the plugin needs to be functional and will be installed as described below.
+The optional helper libraries can be local targets, configured in the same build tree, or imported targets, resulting from a `find_package(...)`.
 If an helper library need to access its own resources, it must be configured using using [`configure_radium_library`](#configure_radium_library) if it is a local target or imported from an installed target configured the same way.
 
 The directory hierarchy in which a plugin will be installed (or where the build target will be) is the following:
@@ -360,7 +358,7 @@ The directory hierarchy in which a plugin will be installed (or where the build 
 |   |     ...
 ```
 where `<prefix>` refer to the base plugin dir into the build tree or the installation directory.
- - In the buildtree, `<prefix>` refers to the directory `${CMAKE_CURRENT_BINARY_DIR}/Plugins`. Resources directories are linked into `Resources` directory on system that supports links, copied otherwise. Helper libs are not copied into the hierarchy.
+ - In the build tree, `<prefix>` refers to the directory `${CMAKE_CURRENT_BINARY_DIR}/Plugins`. Resources directories are linked into `Resources` directory on system that supports links, copied otherwise. Helper libs are not copied into the hierarchy.
  - When installed into the Radium distribution bundle, `<prefix>` refers to `${RADIUM_ROOT_DIR}/Plugins`. Optional resources directories are copied into `Resources` directory.
  - When installed in the user specified install location, `<prefix>` refers to `${CMAKE_INSTALL_PREFIX}`. Optional resources directories are copied into `Resources` directory.
 
