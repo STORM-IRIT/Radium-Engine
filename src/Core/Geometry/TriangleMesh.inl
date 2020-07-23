@@ -209,6 +209,7 @@ inline IndexedGeometry<T>&
 IndexedGeometry<T>::operator=( const IndexedGeometry<IndexType>& other ) {
     AttribArrayGeometry::operator=( other );
     m_indices                    = other.m_indices;
+    notify();
     return *this;
 }
 
@@ -216,6 +217,7 @@ template <typename T>
 inline IndexedGeometry<T>& IndexedGeometry<T>::operator=( IndexedGeometry<IndexType>&& other ) {
     AttribArrayGeometry::operator=( std::move( other ) );
     m_indices                    = std::move( other.m_indices );
+    notify();
     return *this;
 }
 
@@ -223,12 +225,14 @@ template <typename T>
 inline void IndexedGeometry<T>::clear() {
     m_indices.clear();
     AttribArrayGeometry::clear();
+    notify();
 }
 
 template <typename T>
 inline void IndexedGeometry<T>::copy( const IndexedGeometry<IndexType>& other ) {
     AttribArrayGeometry::copyBaseGeometry( other );
     m_indices = other.m_indices;
+    notify();
 }
 
 template <typename T>
@@ -282,8 +286,34 @@ inline bool IndexedGeometry<T>::append( const IndexedGeometry<IndexType>& other 
             m_indices[t][i] += verticesBefore;
         }
     }
-
+    notify();
     return true;
+}
+
+template <typename T>
+const typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndices() const {
+    return m_indices;
+}
+
+template <typename T>
+typename IndexedGeometry<T>::IndexContainerType& IndexedGeometry<T>::getIndicesWithLock() {
+    CORE_ASSERT( !m_isIndicesLocked, "try to get already locked indices" );
+    m_isIndicesLocked = true;
+    return m_indices;
+}
+
+template <typename T>
+void IndexedGeometry<T>::indicesUnlock() {
+    CORE_ASSERT( m_isIndicesLocked, "try unlock not locked indices" );
+    m_isIndicesLocked = false;
+    notify();
+}
+
+template <typename T>
+void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
+    CORE_ASSERT( !m_isIndicesLocked, "try set already locked indices" );
+    m_indices = std::move( indices );
+    notify();
 }
 
 } // namespace Geometry

@@ -28,6 +28,7 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
     std::string line;
     Geometry::TriangleMesh::PointAttribHandle::Container vertices;
     Geometry::TriangleMesh::NormalAttribHandle::Container normals;
+    Geometry::TriangleMesh::IndexContainerType indices;
     while ( std::getline( file, line ) )
     {
         std::istringstream iss( line );
@@ -71,7 +72,7 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
                 }
                 count++;
             }
-            data.m_indices.push_back( f );
+            indices.push_back( f );
         }
     }
     if ( vertices.size() == 0 )
@@ -80,8 +81,9 @@ bool OBJFileManager::importData( std::istream& file, Geometry::TriangleMesh& dat
         return false;
     }
 
-    data.setVertices( vertices );
-    data.setNormals( normals );
+    data.setVertices( std::move( vertices ) );
+    data.setNormals( std::move( normals ) );
+    data.setIndices( std::move( indices ) );
     return true;
 }
 
@@ -105,7 +107,7 @@ bool OBJFileManager::exportData( std::ostream& file, const Geometry::TriangleMes
                    std::to_string( n[2] ) + "\n";
     }
     // Triangle
-    for ( const auto& f : data.m_indices )
+    for ( const auto& f : data.getIndices() )
     {
         content += "f " + std::to_string( f[0] + 1 ) + " " + std::to_string( f[1] + 1 ) + " " +
                    std::to_string( f[2] + 1 ) + "\n";

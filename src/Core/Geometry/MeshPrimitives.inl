@@ -14,9 +14,11 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
 
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
+    TriangleMesh::IndexContainerType indices;
+
     vertices.reserve( 2 + slices * ( stacks - 1 ) );
     normals.reserve( 2 + slices * ( stacks - 1 ) );
-    result.m_indices.reserve( 2 * slices * ( stacks - 1 ) );
+    indices.reserve( 2 * slices * ( stacks - 1 ) );
 
     for ( uint u = 0; u < slices; ++u )
     {
@@ -35,9 +37,9 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
             {
                 const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
                 const uint baseSlice = u * ( stacks - 1 );
-                result.m_indices.push_back(
+                indices.push_back(
                     Vector3ui( baseSlice + v - 2, baseSlice + v - 1, nextSlice + v - 1 ) );
-                result.m_indices.push_back(
+                indices.push_back(
                     Vector3ui( baseSlice + v - 2, nextSlice + v - 1, nextSlice + v - 2 ) );
             }
         }
@@ -59,11 +61,12 @@ TriangleMesh makeParametricSphere( Scalar radius, const Utils::optional<Utils::C
     {
         const uint nextSlice = ( ( u + 1 ) % slices ) * ( stacks - 1 );
         const uint baseSlice = u * ( stacks - 1 );
-        result.m_indices.push_back( Vector3ui( northPoleIdx, baseSlice, nextSlice ) );
-        result.m_indices.push_back(
+        indices.push_back( Vector3ui( northPoleIdx, baseSlice, nextSlice ) );
+        indices.push_back(
             Vector3ui( southPoleIdx, nextSlice + stacks - 2, baseSlice + stacks - 2 ) );
     }
 
+    result.setIndices( std::move( indices ) );
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();
 
@@ -77,10 +80,11 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
     TriangleMesh result;
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
+    TriangleMesh::IndexContainerType indices;
 
     vertices.reserve( U * V );
     normals.reserve( V * V );
-    result.m_indices.reserve( 2 * U * V );
+    indices.reserve( 2 * U * V );
 
     for ( uint iu = 0; iu < U; ++iu )
     {
@@ -98,16 +102,17 @@ TriangleMesh makeParametricTorus( Scalar majorRadius,
             vertices.push_back( vertex );
             normals.push_back( ( vertex - circleCenter ).normalized() );
 
-            result.m_indices.push_back( Vector3ui(
+            indices.push_back( Vector3ui(
                 iu * V + iv, ( ( iu + 1 ) % U ) * V + iv, iu * V + ( ( iv + 1 ) % V ) ) );
-            result.m_indices.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
-                                                   ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
-                                                   iu * V + ( ( iv + 1 ) % V ) ) );
+            indices.push_back( Vector3ui( ( ( iu + 1 ) % U ) * V + iv,
+                                          ( ( iu + 1 ) % U ) * V + ( ( iv + 1 ) % V ),
+                                          iu * V + ( ( iv + 1 ) % V ) ) );
         }
     }
 
     result.setVertices( std::move( vertices ) );
     result.setNormals( std::move( normals ) );
+    result.setIndices( std::move( indices ) );
 
     if ( bool( color ) ) result.colorize( *color );
     result.checkConsistency();

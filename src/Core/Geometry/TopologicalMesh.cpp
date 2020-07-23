@@ -226,7 +226,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
     //    initWithWedge( triMesh );
     //    return;
 
-    LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.m_indices.size()
+    LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.getIndices().size()
                    << " faces and " << triMesh.vertices().size() << " vertices.";
 
     struct hash_vec {
@@ -312,7 +312,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
             }
         } );
 
-    size_t num_triangles = triMesh.m_indices.size();
+    size_t num_triangles = triMesh.getIndices().size();
 
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
@@ -320,7 +320,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
         std::vector<TopologicalMesh::Normal> face_normals( 3 );
         std::vector<unsigned int> face_vertexIndex( 3 );
         std::vector<WedgeIndex> face_wedges( 3 );
-        const auto& triangle = triMesh.m_indices[i];
+        const auto& triangle = triMesh.getIndices()[i];
         for ( size_t j = 0; j < 3; ++j )
         {
             unsigned int inMeshVertexIndex = triangle[j];
@@ -390,7 +390,7 @@ TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) {
 
 void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
 
-    LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.m_indices.size()
+    LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.getIndices().size()
                    << " faces and " << triMesh.vertices().size() << " vertices.";
 
     ///\todo use a kdtree
@@ -450,7 +450,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
             }
         } );
 
-    size_t num_triangles = triMesh.m_indices.size();
+    size_t num_triangles = triMesh.getIndices().size();
 
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
     {
@@ -475,7 +475,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
         std::vector<TopologicalMesh::Normal> face_normals( 3 );
         std::vector<unsigned int> face_vertexIndex( 3 );
         std::vector<WedgeIndex> face_wedges( 3 );
-        const auto& triangle = triMesh.m_indices[i];
+        const auto& triangle = triMesh.getIndices()[i];
 
         for ( size_t j = 0; j < 3; ++j )
         {
@@ -579,14 +579,15 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     // out will have at least n_vertices vertices and normals.
     TriangleMesh::PointAttribHandle::Container vertices;
     TriangleMesh::NormalAttribHandle::Container normals;
+    TriangleMesh::IndexContainerType indices;
 
     vertices.reserve( n_vertices() );
     normals.reserve( n_vertices() );
-    out.m_indices.reserve( n_faces() );
+    indices.reserve( n_faces() );
 
     for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it )
     {
-        int indices[3];
+        int tindices[3];
         int i = 0;
 
         // iterator over vertex (through halfedge to get access to halfedge normals)
@@ -619,14 +620,15 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
             }
             else
             { vi = vtr->second; }
-            indices[i]                                       = vi;
+            tindices[i]                                      = vi;
             property( m_outputTriangleMeshIndexPph, *fh_it ) = vi;
             i++;
         }
-        out.m_indices.emplace_back( indices[0], indices[1], indices[2] );
+        indices.emplace_back( tindices[0], tindices[1], tindices[2] );
     }
-    out.setVertices( vertices );
-    out.setNormals( normals );
+    out.setVertices( std::move( vertices ) );
+    out.setNormals( std::move( normals ) );
+    out.setIndices( std::move( indices ) );
     CORE_ASSERT( vertexIndex == vertices.size(),
                  "Inconsistent number of faces in generated TriangleMesh." );
 
@@ -658,6 +660,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
     garbage_collection();
 
     TriangleMesh out;
+    TriangleMesh::IndexContainerType indices;
 
     /// add attribs to out
     std::vector<AttribHandle<float>> wedgeFloatAttribHandles;
@@ -694,7 +697,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
 
     for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it )
     {
-        int indices[3];
+        int tindices[3];
         int i = 0;
 
         // iterator over vertex (through halfedge to get access to halfedge normals)
@@ -702,16 +705,19 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
               ++fh_it )
         {
             CORE_ASSERT( i < 3, "Non-triangular face found." );
-            indices[i] = property( m_wedgeIndexPph, *fh_it );
+            tindices[i] = property( m_wedgeIndexPph, *fh_it );
             i++;
         }
-        out.m_indices.emplace_back( indices[0], indices[1], indices[2] );
+        indices.emplace_back( tindices[0], tindices[1], tindices[2] );
     }
+
+    out.setIndices( std::move( indices ) );
 
     return out;
 }
 
 void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& /*mesh*/ ) {
+    CORE_ASSERT( false, "not implemented yet" );
     ///\todo ;)
 }
 

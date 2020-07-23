@@ -177,6 +177,19 @@ class RA_ENGINE_API VaoIndices
     /// Tag the indices as dirty, asking for a update to gpu.
     inline void setIndicesDirty();
 
+    ///\todo Add test for Indices observer
+    class IndicesObserver
+    {
+      public:
+        /// not tested
+        explicit IndicesObserver( VaoIndices* displayable ) : m_displayable {displayable} {}
+        /// not tested
+        void operator()() { m_displayable->m_indicesDirty = true; }
+
+      private:
+        VaoIndices* m_displayable;
+    };
+
   protected:
     std::unique_ptr<globjects::Buffer> m_indices {nullptr};
     bool m_indicesDirty {true};
@@ -367,6 +380,25 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
 
   protected:
   private:
+};
+
+/// PolyMesh, own a Core::Geometry::PolyMesh
+/// This class handle the GPU representation of a polyhedron mesh.
+/// Each face of the polyhedron (typically quads) are assume to be planar and convex.
+/// Simple triangulation is performed on the fly before sending data to the GPU.
+class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
+{
+    using base = IndexedGeometry<Core::Geometry::PolyMesh>;
+
+  public:
+    using base::IndexedGeometry;
+
+  protected:
+    inline void updateGL_specific_impl() override;
+
+  private:
+    inline void triangulate();
+    Core::AlignedStdVector<Core::Vector3ui> m_triangleIndices;
 };
 
 } // namespace Engine

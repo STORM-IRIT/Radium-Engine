@@ -21,31 +21,31 @@ bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
     // Check length
     if ( meshOne.vertices().size() != meshTwo.vertices().size() ) return false;
     if ( meshOne.normals().size() != meshTwo.normals().size() ) return false;
-    if ( meshOne.m_indices.size() != meshTwo.m_indices.size() ) return false;
+    if ( meshOne.getIndices().size() != meshTwo.getIndices().size() ) return false;
 
     // Check triangles
     std::vector<Vector3> stackVertices;
     std::vector<Vector3> stackNormals;
 
     i = 0;
-    while ( result && i < int( meshOne.m_indices.size() ) )
+    while ( result && i < int( meshOne.getIndices().size() ) )
     {
         std::vector<Ra::Core::Vector3>::iterator it;
         stackVertices.clear();
-        stackVertices.push_back( meshOne.vertices()[meshOne.m_indices[i][0]] );
-        stackVertices.push_back( meshOne.vertices()[meshOne.m_indices[i][1]] );
-        stackVertices.push_back( meshOne.vertices()[meshOne.m_indices[i][2]] );
+        stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][0]] );
+        stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][1]] );
+        stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][2]] );
 
         stackNormals.clear();
-        stackNormals.push_back( meshOne.normals()[meshOne.m_indices[i][0]] );
-        stackNormals.push_back( meshOne.normals()[meshOne.m_indices[i][1]] );
-        stackNormals.push_back( meshOne.normals()[meshOne.m_indices[i][2]] );
+        stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][0]] );
+        stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][1]] );
+        stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][2]] );
 
         for ( int j = 0; j < 3; ++j )
         {
             it = find( stackVertices.begin(),
                        stackVertices.end(),
-                       meshTwo.vertices()[meshTwo.m_indices[i][j]] );
+                       meshTwo.vertices()[meshTwo.getIndices()[i][j]] );
             if ( it != stackVertices.end() ) { stackVertices.erase( it ); }
             else
             { result = false; }
@@ -55,7 +55,7 @@ bool isSameMesh( Ra::Core::Geometry::TriangleMesh& meshOne,
         {
             it = find( stackNormals.begin(),
                        stackNormals.end(),
-                       meshTwo.normals()[meshTwo.m_indices[i][j]] );
+                       meshTwo.normals()[meshTwo.getIndices()[i][j]] );
             if ( it != stackNormals.end() ) { stackNormals.erase( it ); }
             else
             { result = false; }
@@ -127,7 +127,7 @@ bool isSameMeshWedge( const Ra::Core::Geometry::TriangleMesh& meshOne,
     // Check length
     if ( meshOne.vertices().size() != meshTwo.vertices().size() ) return false;
     if ( meshOne.normals().size() != meshTwo.normals().size() ) return false;
-    if ( meshOne.m_indices.size() != meshTwo.m_indices.size() ) return false;
+    if ( meshOne.getIndices().size() != meshTwo.getIndices().size() ) return false;
 
     AlignedStdVector<WedgeDataAndIdx> wedgesMeshOne;
     AlignedStdVector<WedgeDataAndIdx> wedgesMeshTwo;
@@ -173,8 +173,8 @@ bool isSameMeshWedge( const Ra::Core::Geometry::TriangleMesh& meshOne,
         newMeshTwoIdx[wedgesMeshTwo[i].m_idx] = curIdx;
     }
 
-    auto indices1 = meshOne.m_indices;
-    auto indices2 = meshTwo.m_indices;
+    auto indices1 = meshOne.getIndices();
+    auto indices2 = meshTwo.getIndices();
 
     for ( auto& triangle : indices1 )
     {
@@ -345,7 +345,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
     TriangleMesh meshSplit;
     meshSplit.setVertices( {{0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 1, 0}} );
     meshSplit.setNormals( {{-1, -1, 1}, {1, -1, 1}, {1, 1, 1}, {-1, 1, 1}} );
-    meshSplit.m_indices = {Vector3ui( 0, 1, 2 ), Vector3ui( 0, 2, 3 )};
+    meshSplit.setIndices( {Vector3ui( 0, 1, 2 ), Vector3ui( 0, 2, 3 )} );
     // add a float attrib
     auto handle = meshSplit.addAttrib<float>( "test", {0.f, 1.f, 2.f, 3.f} );
     CORE_UNUSED( handle ); // until unit test is finished.

@@ -40,9 +40,9 @@ size_t Mesh::getNumFaces() const {
     case MeshRenderMode::RM_TRIANGLE_STRIP:
         [[fallthrough]];
     case MeshRenderMode::RM_TRIANGLE_FAN:
-        return ( getCoreGeometry().m_indices.size() - 1 ) * 3 + 1;
+        return ( getCoreGeometry().getIndices().size() - 1 ) * 3 + 1;
     case MeshRenderMode::RM_TRIANGLES:
-        return getCoreGeometry().m_indices.size();
+        return getCoreGeometry().getIndices().size();
     default:
         return size_t( 0 );
     }
@@ -71,15 +71,15 @@ void Mesh::loadGeometry( const Core::Vector3Array& vertices, const std::vector<u
     CORE_ASSERT( m_renderMode != GL_LINES || nIdx % 2 == 0, "There should be 2 indices per line" );
     CORE_ASSERT( m_renderMode != GL_LINES_ADJACENCY || nIdx % 4 == 0,
                  "There should be 4 indices per line adjacency" );
-
+    Core::Geometry::TriangleMesh::IndexContainerType mindices;
     for ( uint i = 0; i < indices.size(); i = i + 3 )
     {
         // We store all indices in order. This means that for lines we have
         // (L00, L01, L10), (L11, L20, L21) etc. We fill the missing by wrapping around indices.
-        mesh.m_indices.push_back(
-            {indices[i], indices[( i + 1 ) % nIdx], indices[( i + 2 ) % nIdx]} );
+        mindices.push_back( {indices[i], indices[( i + 1 ) % nIdx], indices[( i + 2 ) % nIdx]} );
     }
 
+    mesh.setIndices( std::move( mindices ) );
     m_dataDirty.clear();
     m_vbos.clear();
 

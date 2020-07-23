@@ -58,7 +58,7 @@ class RA_ENGINE_API ShaderProgramManager final
     /**
      * Get the shader programm corresponding to the given id
      * @param id Name of the programm to retrieve
-     * @return the shader programm retrieved, nullptr if the frogram was not in the collection
+     * @return the shader programm retrieved, nullptr if the program was not in the collection
      */
     const ShaderProgram* getShaderProgram( const std::string& id );
 
