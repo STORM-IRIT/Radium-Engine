@@ -1,4 +1,4 @@
-#-- -- -- -- -- -- -- -- --  Usefull fonctions for application and plugins client -- -- -- -- -- -- -- -- -- -- -- --
+#-- -- -- -- -- -- -- -- --  Useful functions for application and plugins client -- -- -- -- -- -- -- -- -- -- -- --
 #CMAKE tips : To delay evaluation of some variable to build time, just escape their name( e.g \${NAME} instead of ${NAME}
 #TODO : works well on MacOs : must be tested on other systems
 #TODO, some part are only for MACOS but could be generalized to all systems
@@ -36,7 +36,7 @@ define_property(TARGET
 define_property(TARGET
     PROPERTY RADIUM_TARGET_INSTALLED_RESOURCES
     BRIEF_DOCS "Identify the path where optional resource are installed for the target."
-    FULL_DOCS "Contains the inxtallation directory of the target resources."
+    FULL_DOCS "Contains the installation directory of the target resources."
     )
 
 # ------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ define_property(TARGET
 # usage :
 #   configure_cmdline_Radium_app(
 #         NAME theTargetName # <- this must be an executable
-#         RESOURCES ResourceDir1 ResourceDir2 # <- acept a list of directories
+#         RESOURCES ResourceDir1 ResourceDir2 # <- accept a list of directories
 # )
 function(configure_cmdline_Radium_app)
     # "declare" and parse parameters
@@ -82,7 +82,7 @@ function(configure_cmdline_Radium_app)
         # Add the Qt bin dir ...
         list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
         # Fix the bundled directory
-        install(CODE " message(STATUS \"Fixing application with Qt base direcory at ${FIX_LIBRARY_DIR} !!\")
+        install(CODE " message(STATUS \"Fixing application with Qt base directory at ${FIX_LIBRARY_DIR} !!\")
                        include(BundleUtilities)
                        fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
                      "
@@ -107,8 +107,8 @@ endfunction()
 
 
 # NOTE that only MacosX is supported for now to handle bundled applications
-# But the script could be generalized to all systems by integrfating the bundle structure
-# (MACOSX_BUNDLE* and BundleName.app are explicitely used here)
+# But the script could be generalized to all systems by integrating the bundle structure
+# (MACOSX_BUNDLE* and BundleName.app are explicitly used here)
 #
 # Configuration of the build and installation procedure for bundled Radium application
 # Allows to install application with dependent resources
@@ -116,7 +116,7 @@ endfunction()
 #   configure_bundled_Radium_app(
 #         NAME theTargetName # <- this must be an executable
 #         RESOURCES ResourceDir1 ResourceDir2 # <- accept a list of directories
-#         [USE_PLUGIN] # set this option if Plugins from Radium bundle must be imported in thea applicaiton bundle
+#         [USE_PLUGIN] # set this option if Plugins from Radium bundle must be imported in the application bundle
 # )
 function(configure_bundled_Radium_app)
     # "declare" and parse parameters
@@ -180,8 +180,7 @@ function(configure_bundled_Radium_app)
             list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
         endforeach ()
         fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\")
-        # TODO : fix rpath for plugins that use helper libs (can't load helper.dylib)
-        # install_name_tool -add_rpath @loader_path/. thelib
+        # fix rpath for plugins that use helper libs (can't load helper.dylib)
         foreach(helper \${InstalledPlugins} )
             # get the name (.dylib) of the helper
             get_filename_component(FileHelper \${helper} NAME )
@@ -222,7 +221,7 @@ function(configure_bundled_Radium_app)
 endfunction()
 
 # Install plugin resources
-# Not the same than target resources because of the destination directory (here, the Radium 'Bundle'
+# Not the same than target resources because of the destination directory structure
 function(installPluginResources)
     # "declare" and parse parameters
     cmake_parse_arguments(
@@ -449,7 +448,7 @@ endfunction()
 #   configure_radium_app(
 #         NAME theTargetName # <- this must be an executable
 #         [USE_PLUGINS] # <- The application uses Radium Plugins : install available plugins into the bundle if it is one
-#         [RESOURCES ResourceDir1 ResourceDir2] # <- acept a list of directories
+#         [RESOURCES ResourceDir1 ResourceDir2] # <- accept a list of directories
 # )
 function(configure_radium_app)
     # "declare" and parse parameters
@@ -496,7 +495,7 @@ endfunction()
 # usage :
 #   configure_radium_plugin(
 #         NAME pluginName                            # Name of the target (standard dynamic library) corresponding to the plugin
-#         [RESOURCES ResourceDir1 [ResourceDir2 ...] # Optional. List of resources directories (only directorizq
+#         [RESOURCES ResourceDir1 [ResourceDir2 ...] # Optional. List of resources directories (only directories are allowed for plugins)
 #         [HELPER_LIBS lib1 [lib2 ...]]              # Optional. List of libraries (local target or imported targets) the plugin depends on
 #         [INSTALL_IN_RADIUM_BUNDLE]                 # Optional. If given, the plugin is installed into ${RADIUM_ROOT_DIR}/Plugins. If not, the installation is performed into ${CMAKE_INSTALL_PREFIX}
 # )
