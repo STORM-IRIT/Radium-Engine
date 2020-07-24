@@ -56,11 +56,10 @@ endif ()
 
 target_compile_definitions(${ra_guibase_target} PRIVATE "-DRA_GUIBASE_EXPORTS")
 
+message(STATUS "Configuring library ${ra_guibase_target} with standard settings")
 configureTargetWithDefaultRaSettings(${ra_guibase_target})
 configure_radium_library(
     TARGET ${ra_guibase_target}
-    TARGET_DIR "GuiBase"
-    PACKAGE_DIR ${ConfigPackageLocation}
     FILES "${guibase_headers};${guibase_inlines}"
 )
 message(STATUS "[GuiBase] installing resources from Configs")

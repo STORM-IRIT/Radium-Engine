@@ -4,3 +4,8 @@ if ( NOT Radium_FOUND)
     find_dependency(Radium COMPONENTS Core Engine REQUIRED)
 endif()
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake" )
+radium_exported_resources(
+        TARGET @PROJECT_NAME@::@PROJECT_NAME@
+        ACCESS_FROM_PACKAGE "../.."
+        PREFIX LibraryResources
+)

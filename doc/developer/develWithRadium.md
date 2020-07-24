@@ -1,11 +1,14 @@
 \page develWithRadium How to code in Radium
 [TOC]
 
-There are three main options to work with Radium:
+There are four main options to work and develop using Radium:
 1. Write a plugin: full access to the Radium data structures, perfect to implement a new functionality: mesh processing, rendering.
 2. Write an application: give total control over the GUI, the camera settings, etc...
 3. Contribute to Radium libraries: to improve/extend core components of Radium.
 4. Testing: extend radium tests to improve testing coverage or when adding new functionality.
+
+Once installed, Radium offers several cmake functions to configure and build your extension. 
+You can access documentation and how-to about these cmake function in the [Radium cmake utilities](@ref cmakeutilities) documentation. 
 
 # Radium Plugin
 Tutorial and documentation here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
@@ -18,8 +21,7 @@ Direct contributions to master are closed.
 Please submit your pull request.
 
 # Radium coding style
-Please follow the scripts/clang-format coding style (tested `with clang-format 6.0`).
-To use it, you have to copy or link `scripts/clang-format` to `.clang-format` (in Radium-Engine root dir).
+Please follow the scripts/clang-format coding style (tested `with clang-format 9.0`).
 We also provide a pre commit hook that checks the committed files are correctly formatted.
 To install both hooks and clang-format, simply run `./scripts/install-scripts-linux.sh` on linux, or adapt to your OS.
 

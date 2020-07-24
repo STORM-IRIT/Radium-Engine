@@ -43,7 +43,9 @@ set(public_headers
 set(headers
     PrivateHeader.hpp
     )
-
+set(resources
+    LibraryResources/welcome.txt
+)
 # Our library project uses these sources and headers.
 add_library(
     ${PROJECT_NAME} SHARED
@@ -51,16 +53,8 @@ add_library(
     ${headers}
     ${public_headers}
     ${markdowns}
+    ${resources}
 )
-
-# Include directories for imported target
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
-    )
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_EXPORTS)
 
 target_link_libraries(
     ${PROJECT_NAME}
@@ -68,9 +62,6 @@ target_link_libraries(
     Radium::Core
     Radium::Engine
 )
-
-# make an alias to have acces to the target in a shared project build-tree
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 #-----------------------------------------------------------------------------------
 # Radium library configuration : manage package and installation
@@ -82,4 +73,9 @@ configure_radium_library(
     PACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake
     PACKAGE_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}-Config.cmake.in
     FILES "${public_headers}"
+)
+
+installTargetResources(
+    TARGET ${PROJECT_NAME}
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/LibraryResources
 )
