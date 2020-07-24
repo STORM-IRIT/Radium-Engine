@@ -105,11 +105,24 @@ function(configure_cmdline_Radium_app)
     endif ()
 endfunction()
 
+# internal Utility function to install Qt internal plugins into a macosX bundle
+macro(install_qt5_plugin _qt_plugin_name _qt_plugins_var _destination)
+    get_target_property(_qt_plugin_path "${_qt_plugin_name}" LOCATION)
+    if(EXISTS "${_qt_plugin_path}")
+        get_filename_component(_qt_plugin_file "${_qt_plugin_path}" NAME)
+        get_filename_component(_qt_plugin_type "${_qt_plugin_path}" PATH)
+        get_filename_component(_qt_plugin_type "${_qt_plugin_type}" NAME)
+        set(_qt_plugin_dest "${_destination}/PlugIns/${_qt_plugin_type}")
+        install(FILES "${_qt_plugin_path}"
+            DESTINATION "${_qt_plugin_dest}")
+        set(${_qt_plugins_var}
+            "${${_qt_plugins_var}};${_qt_plugin_dest}/${_qt_plugin_file}")
+    else()
+        message(FATAL_ERROR "QT plugin ${_qt_plugin_name} not found")
+    endif()
+endmacro()
 
-# NOTE that only MacosX is supported for now to handle bundled applications
-# But the script could be generalized to all systems by integrating the bundle structure
-# (MACOSX_BUNDLE* and BundleName.app are explicitly used here)
-#
+
 # Configuration of the build and installation procedure for bundled Radium application
 # Allows to install application with dependent resources
 # usage :
@@ -156,6 +169,14 @@ function(configure_bundled_Radium_app)
             list(APPEND depsRsc ${rscLocation})
         endif ()
     endforeach()
+    # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html)
+    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
+    list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
+    if(NOT QTCOREIDX EQUAL -1)
+        message( STATUS " [configure_bundled_Radium_app] installing Qt plugins for ${ARGS_NAME}." )
+        install_qt5_plugin("Qt5::QCocoaIntegrationPlugin" INSTALLED_QT_PLUGINS "${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/")
+    endif()
+    #install Radium plugins
     if (ARGS_USE_PLUGINS)
         install(CODE "
         message(STATUS \"Installing ${ARGS_NAME} with plugins\")
@@ -179,7 +200,7 @@ function(configure_bundled_Radium_app)
         foreach (plugin \${RadiumAvailablePlugins})
             list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
         endforeach ()
-        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\")
+        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins};${INSTALLED_QT_PLUGINS}\" \"${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\")
         # fix rpath for plugins that use helper libs (can't load helper.dylib)
         foreach(helper \${InstalledPlugins} )
             # get the name (.dylib) of the helper
@@ -203,7 +224,7 @@ function(configure_bundled_Radium_app)
             foreach( rsc \${instRsc})
                 file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
             endforeach()
-            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR};${CMAKE_INSTALL_PREFIX}/lib\")
+            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"${INSTALLED_QT_PLUGINS}\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
             "
             )
     endif ()
