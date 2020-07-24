@@ -43,11 +43,10 @@ target_link_libraries(${ra_engine_target} PUBLIC Core glm glbinding::glbinding g
 
 target_compile_definitions(${ra_engine_target} PRIVATE "-DRA_ENGINE_EXPORTS")
 
+message(STATUS "Configuring library ${ra_engine_target} with standard settings")
 configureTargetWithDefaultRaSettings(${ra_engine_target})
 configure_radium_library(
     TARGET ${ra_engine_target}
-    TARGET_DIR "Engine"
-    PACKAGE_DIR ${ConfigPackageLocation}
     FILES "${engine_headers};${engine_inlines}"
 )
 message(STATUS "[Engine] installing resources from ${RADIUM_SHADERS_DIR}")

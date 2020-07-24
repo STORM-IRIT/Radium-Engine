@@ -52,19 +52,18 @@ target_include_directories(${ra_core_target} PUBLIC
     $<BUILD_INTERFACE:${EIGEN_INCLUDE_DIR}> )
 target_link_libraries(${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen cpplocate::cpplocate)
 
-target_compile_definitions(${ra_core_target} PRIVATE "-DRA_CORE_EXPORTS")
+target_compile_definitions(${ra_core_target} PRIVATE RA_CORE_EXPORTS)
 if (WIN_32)
-    target_compile_definitions(${ra_core_target} PUBLIC "-D_USE_MATH_DEFINES") ##OpenMesh
+    target_compile_definitions(${ra_core_target} PUBLIC _USE_MATH_DEFINES) ##OpenMesh
 endif ()
 if (${RADIUM_QUIET})
-    target_compile_definitions(${ra_core_target} PUBLIC "-DRA_NO_LOG")
+    target_compile_definitions(${ra_core_target} PUBLIC RA_NO_LOG)
     message(STATUS "${PROJECT_NAME} : Radium Logs disabled")
 endif ()
 
+message(STATUS "Configuring library ${ra_core_target} with standard settings")
 configureTargetWithDefaultRaSettings(${ra_core_target})
 configure_radium_library(
     TARGET ${ra_core_target}
-    TARGET_DIR "Core"
-    PACKAGE_DIR ${ConfigPackageLocation}
     FILES "${core_headers};${core_inlines}"
 )

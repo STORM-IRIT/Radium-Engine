@@ -1,4 +1,4 @@
-#-- -- -- -- -- -- -- -- --  Usefull fonctions for application and plugins client -- -- -- -- -- -- -- -- -- -- -- --
+#-- -- -- -- -- -- -- -- --  Useful functions for application and plugins client -- -- -- -- -- -- -- -- -- -- -- --
 #CMAKE tips : To delay evaluation of some variable to build time, just escape their name( e.g \${NAME} instead of ${NAME}
 #TODO : works well on MacOs : must be tested on other systems
 #TODO, some part are only for MACOS but could be generalized to all systems
@@ -14,6 +14,8 @@ if (MSVC OR MSVC_IDE OR MINGW)
 endif()
 
 include(CMakeParseArguments)
+include(CMakePackageConfigHelpers)
+
 # Introduction of two customs properties in the buildchain
 # these properties allow identify dependency resources when configuring/installing a target.
 define_property(TARGET
@@ -26,6 +28,16 @@ define_property(TARGET
     BRIEF_DOCS "Identify the optional resource files associated with a target."
     FULL_DOCS "Contains a list of individual files that will be installed when installing the target."
     )
+define_property(TARGET
+    PROPERTY RADIUM_TARGET_RESOURCES_PREFIX
+    BRIEF_DOCS "Identify the optional resource install prefix associated with a target."
+    FULL_DOCS "Contains a name that will be prepended to each resource name before installing the target resources."
+    )
+define_property(TARGET
+    PROPERTY RADIUM_TARGET_INSTALLED_RESOURCES
+    BRIEF_DOCS "Identify the path where optional resource are installed for the target."
+    FULL_DOCS "Contains the installation directory of the target resources."
+    )
 
 # ------------------------------------------------------------------------------
 # Internal functions not to be called directly by the user.
@@ -37,7 +49,7 @@ define_property(TARGET
 # usage :
 #   configure_cmdline_Radium_app(
 #         NAME theTargetName # <- this must be an executable
-#         RESOURCES ResourceDir1 ResourceDir2 # <- acept a list of directories
+#         RESOURCES ResourceDir1 ResourceDir2 # <- accept a list of directories
 # )
 function(configure_cmdline_Radium_app)
     # "declare" and parse parameters
@@ -65,16 +77,15 @@ function(configure_cmdline_Radium_app)
     )
     # TODO, this Windows only bundle fix might be adapted to Linux also ... perhaps with the same code ?
     if (MSVC OR MSVC_IDE OR MINGW)
-        # Construciton of the  dependency paths
+        # Construction of the  dependency paths
         set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
         # Add the Qt bin dir ...
         list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
         # Fix the bundled directory
-        install(CODE "
-                        message(STATUS \"Fixing application with Qt base direcory at ${FIX_LIBRARY_DIR} !!\")
-            include(BundleUtilities)
-                        fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
-            "
+        install(CODE " message(STATUS \"Fixing application with Qt base directory at ${FIX_LIBRARY_DIR} !!\")
+                       include(BundleUtilities)
+                       fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
+                     "
             )
         if (CMAKE_BUILD_TYPE STREQUAL "Debug")
             install(FILES $<TARGET_PDB_FILE:${ARGS_NAME}> DESTINATION bin)
@@ -96,8 +107,8 @@ endfunction()
 
 
 # NOTE that only MacosX is supported for now to handle bundled applications
-# But the script could be generalized to all systems by integrfating the bundle structure
-# (MACOSX_BUNDLE* and BundleName.app are explicitely used here)
+# But the script could be generalized to all systems by integrating the bundle structure
+# (MACOSX_BUNDLE* and BundleName.app are explicitly used here)
 #
 # Configuration of the build and installation procedure for bundled Radium application
 # Allows to install application with dependent resources
@@ -105,7 +116,7 @@ endfunction()
 #   configure_bundled_Radium_app(
 #         NAME theTargetName # <- this must be an executable
 #         RESOURCES ResourceDir1 ResourceDir2 # <- accept a list of directories
-#         [USE_PLUGIN] # set this option if Plugins from Radium bundle must be imported in thea applicaiton bundle
+#         [USE_PLUGIN] # set this option if Plugins from Radium bundle must be imported in the application bundle
 # )
 function(configure_bundled_Radium_app)
     # "declare" and parse parameters
@@ -135,12 +146,27 @@ function(configure_bundled_Radium_app)
         TARGETS ${ARGS_NAME}
         BUNDLE DESTINATION "bin/"
     )
+    # build the list of resource directory from the linked libraries to copy into the bundle
+    get_target_property(linkedLibs ${ARGS_NAME} LINK_LIBRARIES)
+    set(depsRsc "")
+    foreach(lib ${linkedLibs})
+        get_target_property(rscPrefix ${lib} RADIUM_TARGET_RESOURCES_PREFIX)
+        if (NOT ${rscPrefix} STREQUAL "rscPrefix-NOTFOUND")
+            get_target_property(rscLocation ${lib} RADIUM_TARGET_INSTALLED_RESOURCES)
+            list(APPEND depsRsc ${rscLocation})
+        endif ()
+    endforeach()
     if (ARGS_USE_PLUGINS)
         install(CODE "
+        message(STATUS \"Installing ${ARGS_NAME} with plugins\")
         include(BundleUtilities)
         set(BU_CHMOD_BUNDLE_ITEMS TRUE)
         file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
         file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
+        set(instRsc ${depsRsc})
+        foreach( rsc \${instRsc})
+            file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
+        endforeach()
         if (EXISTS ${RADIUM_PLUGINS_DIR})
             file(COPY ${RADIUM_PLUGINS_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/)
         else()
@@ -153,9 +179,19 @@ function(configure_bundled_Radium_app)
         foreach (plugin \${RadiumAvailablePlugins})
             list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\${plugin} )
         endforeach ()
-        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
-        "
-            )
+        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\${InstalledPlugins}\" \"${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Plugins/lib/\")
+        # fix rpath for plugins that use helper libs (can't load helper.dylib)
+        foreach(helper \${InstalledPlugins} )
+            # get the name (.dylib) of the helper
+            get_filename_component(FileHelper \${helper} NAME )
+            # change the LC_LOAD_DYLIB path of the helper in any plugin that uses it
+            foreach(plugin \${InstalledPlugins} )
+                if (NOT \${plugin} STREQUAL \${helper})
+                    execute_process(COMMAND ${CMAKE_INSTALL_NAME_TOOL} -change @executable_path/../Frameworks/\${FileHelper} @loader_path/\${FileHelper} \${plugin})
+                endif()
+            endforeach()
+        endforeach()
+        ")
     else ()
         install(CODE "
             message(STATUS \"Installing ${ARGS_NAME} without plugins\")
@@ -163,11 +199,14 @@ function(configure_bundled_Radium_app)
             set(BU_CHMOD_BUNDLE_ITEMS TRUE)
             file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
             file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents)
-            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}\")
+            set(instRsc ${depsRsc})
+            foreach( rsc \${instRsc})
+                file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
+            endforeach()
+            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app \"\" \"${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR};${CMAKE_INSTALL_PREFIX}/lib\")
             "
             )
     endif ()
-
     # Configure the resources installation
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
@@ -182,7 +221,7 @@ function(configure_bundled_Radium_app)
 endfunction()
 
 # Install plugin resources
-# Not the same than target resources because of the destination directory (here, the Radium 'Bundle'
+# Not the same than target resources because of the destination directory structure
 function(installPluginResources)
     # "declare" and parse parameters
     cmake_parse_arguments(
@@ -231,7 +270,7 @@ function(installPluginResources)
 
     # Install in the Radium install tree
     # Identify the individual files (to preserve directory structure)
-    message(STATUS " [installResources] configuring install for requested files of ${ARGS_DIRECTORY}")
+    message(STATUS " [installPluginResources] configuring install for requested files of ${ARGS_DIRECTORY}")
     if (NOT ARGS_FILES)
         file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)
     endif ()
@@ -243,7 +282,49 @@ function(installPluginResources)
         )
     endforeach ()
 endfunction()
+
 # ------------------------------------------------------------------------------
+# Library configuration functions
+# ------------------------------------------------------------------------------
+
+# Add resources to an exported target
+# this will allow to access the resources in the installation tree of the exported target from any import of this target
+# To be called with
+# installTargetResources( TARGET theTarget
+#                  [PREFIX TargetResourcePathPrefix]
+# )
+#
+# The resources will be fetched from the target installation directory <prefix>/Resources
+# TODO modify the resources installation directory access to allow customisable install
+function(radium_exported_resources)
+    # parse and verify args
+    cmake_parse_arguments(
+        ARGS
+        ""  # no options
+        "TARGET;PREFIX;ACCESS_FROM_PACKAGE" # one value args
+        "" # no multivalued args
+        ${ARGN}
+    )
+    if (NOT ARGS_TARGET)
+        message(FATAL_ERROR " [radium_exported_resources] You must provide the target to configure")
+    endif ()
+    if (NOT ARGS_ACCESS_FROM_PACKAGE)
+        message(FATAL_ERROR " [radium_exported_resources] You must provide resource relative path access from the config package")
+    endif()
+    if (ARGS_PREFIX)
+        set(ARGS_PREFIX "${ARGS_PREFIX}")
+    else()
+        set(ARGS_PREFIX "")
+    endif ()
+    set_target_properties( ${ARGS_TARGET}
+        PROPERTIES
+        RADIUM_TARGET_RESOURCES_PREFIX ${ARGS_PREFIX}
+        )
+    set_target_properties( ${ARGS_TARGET}
+        PROPERTIES
+        RADIUM_TARGET_INSTALLED_RESOURCES "${CMAKE_CURRENT_LIST_DIR}/${ARGS_ACCESS_FROM_PACKAGE}/Resources/${ARGS_PREFIX}"
+        )
+endfunction()
 
 # Install resources for the target  theTarget:
 #    - Link( copy under window ) the resource dir DIRECTORY into the buildtree at the given BUILD_LOCATION
@@ -252,7 +333,7 @@ endfunction()
 # This function also define the custom properties RADIUM_RESOURCE_DIRECTORY and RADIUM_RESOURCE_FILES
 # for the given target with the corresponding value.
 # To be called with
-# installResources( TARGET theTarget`
+# installTargetResources( TARGET theTarget
 #                  DIRECTORY theBaseResourceDirectory
 #                  [BUILD_LOCATION whereToLinkInTheBuildTree]
 #                  [PREFIX TargetResourcePathPrefix]
@@ -268,10 +349,10 @@ function(installTargetResources)
     )
     #verify that the function was called with expected parameters
     if (NOT ARGS_TARGET)
-        message(FATAL_ERROR " [installResources] You must provide a target that need these resources")
+        message(FATAL_ERROR " [installTargetResources] You must provide a target that need these resources")
     endif ()
     if (NOT ARGS_DIRECTORY)
-        message(FATAL_ERROR " [installResources] You must provide a resource directory")
+        message(FATAL_ERROR " [installTargetResources] You must provide a resource directory")
     endif ()
     if (NOT ARGS_BUILD_LOCATION)
         # linking resources as in Radium bundle build dir : ${CMAKE_CURRENT_BINARY_DIR}/../Resources
@@ -283,7 +364,7 @@ function(installTargetResources)
     get_filename_component(rsc_dir ${ARGS_DIRECTORY} NAME)
     set(buildtree_dir ${ARGS_BUILD_LOCATION})
     #installing resources in the buildtree( link if available, copy if not)
-    message(STATUS " [installResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
+    message(STATUS " [installTargetResources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
     file(MAKE_DIRECTORY "${buildtree_dir}")
     if (MSVC OR MSVC_IDE OR MINGW)
         add_custom_command(
@@ -303,11 +384,19 @@ function(installTargetResources)
     #Install in the install tree
     #Identify the individual files( to preserve directory structure )
     # set the target properties
-    message(STATUS " [installTargetResources] Set resources properties for target ${ARGS_TARGET} to ${ARGS_DIRECTORY}")
     set_target_properties(${ARGS_TARGET}
         PROPERTIES
         RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_DIRECTORY}
-        )
+    )
+    if (ARGS_PREFIX)
+        set(ARGS_PREFIX "${ARGS_PREFIX}")
+        set_target_properties(${ARGS_TARGET}
+            PROPERTIES
+            RADIUM_TARGET_RESOURCES_PREFIX ${ARGS_PREFIX}
+            )
+    else()
+        set(ARGS_PREFIX "")
+    endif ()
     if (ARGS_FILES)
         set_target_properties(${ARGS_TARGET}
             PROPERTIES
@@ -315,9 +404,6 @@ function(installTargetResources)
             )
     else ()
         file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)
-    endif ()
-    if (ARGS_PREFIX)
-        set(ARGS_PREFIX "${ARGS_PREFIX}/")
     endif ()
     #install resource for application or shared library
     get_target_property(targetType ${ARGS_TARGET} TYPE)
@@ -328,26 +414,30 @@ function(installTargetResources)
             if (APPLE)
                 install(
                     FILES ${ARGS_DIRECTORY}/${file}
-                    DESTINATION ${ARGS_TARGET}.app/Contents/Resources/${rsc_dir}/${file_dir}
+                    DESTINATION ${ARGS_TARGET}.app/Contents/Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
                 )
             else ()
                 install(
                     FILES ${ARGS_DIRECTORY}/${file}
-                    DESTINATION Resources/${rsc_dir}/${file_dir}
+                    DESTINATION Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
                 )
             endif ()
         endforeach ()
     elseif (${targetType} STREQUAL "SHARED_LIBRARY")
-        message(STATUS " [installTargetResources] Installing resources for target ${ARGS_TARGET} into Resources/${ARGS_PREFIX}${rsc_dir}/${file_dir}")
+        message(STATUS " [installTargetResources] Installing resources for target ${ARGS_TARGET} into Resources/${ARGS_PREFIX}")
+        set_target_properties(${ARGS_TARGET}
+            PROPERTIES
+            RADIUM_TARGET_INSTALLED_RESOURCES "${CMAKE_INSTALL_PREFIX}/Resources/${ARGS_PREFIX}"
+        )
         foreach (file ${ARGS_FILES})
             get_filename_component(file_dir ${file} DIRECTORY)
             install(
                 FILES ${ARGS_DIRECTORY}/${file}
-                DESTINATION Resources/${ARGS_PREFIX}${rsc_dir}/${file_dir}
+                DESTINATION Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
             )
         endforeach ()
     else ()
-        message(FATAL_ERROR "Unknonw target type ${targetType} for target ${ARGS_TARGET} ")
+        message(FATAL_ERROR "Unknown target type ${targetType} for target ${ARGS_TARGET} ")
     endif ()
 endfunction()
 
@@ -357,8 +447,8 @@ endfunction()
 # usage :
 #   configure_radium_app(
 #         NAME theTargetName # <- this must be an executable
-#         [USE_PLUGINS] # <- The application uses Radium Plugins : install available plugins into the bundle is it is one
-#         [RESOURCES ResourceDir1 ResourceDir2] # <- acept a list of directories
+#         [USE_PLUGINS] # <- The application uses Radium Plugins : install available plugins into the bundle if it is one
+#         [RESOURCES ResourceDir1 ResourceDir2] # <- accept a list of directories
 # )
 function(configure_radium_app)
     # "declare" and parse parameters
@@ -373,26 +463,25 @@ function(configure_radium_app)
         message(FATAL_ERROR " [configure_radium_app] You must provide the main target of the application")
     endif ()
     # configure the application
+    message(STATUS " Configuring application ${ARGS_NAME} for being relocatable after installation.")
     if (APPLE)
         get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
         if (IsMacBundle)
-            message(STATUS " Configuring application ${ARGS_NAME} as a MacOs Bundled application")
             configure_bundled_Radium_app(${ARGN})
         else ()
-            message(STATUS " Configuring application ${ARGS_NAME} as a command line application")
             configure_cmdline_Radium_app(${ARGN})
         endif ()
     else ()
-        message(STATUS " Configuring application ${ARGS_NAME} as a command line application")
         configure_cmdline_Radium_app(${ARGN})
-    endif ()
-
-    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
-    list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
-    if(NOT QTCOREIDX EQUAL -1)
-        if (MSVC OR MSVC_IDE OR MINGW)
-            message(STATUS " Preparing call to WinDeployQT for application ${ARGS_NAME}")
-            windeployqt( ${ARGS_NAME} bin )
+        get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
+        list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
+        if(NOT QTCOREIDX EQUAL -1)
+            if (MSVC OR MSVC_IDE OR MINGW)
+                message(STATUS " Preparing call to WinDeployQT for application ${ARGS_NAME}")
+                windeployqt( ${ARGS_NAME} bin )
+            else()
+                message(STATUS " Deploying QT is not yet supported for application ${ARGS_NAME} on ${CMAKE_SYSTEM_NAME}")
+            endif ()
         endif ()
     endif ()
 endfunction()
@@ -405,8 +494,10 @@ endfunction()
 # or, for bundled application, at install time by adding the available plugins into the bundle
 # usage :
 #   configure_radium_plugin(
-#         NAME theTargetName # <- this must be a plugin
-#         RESOURCES ResourceDir1 ResourceDir2 # <- accept a list of directories
+#         NAME pluginName                            # Name of the target (standard dynamic library) corresponding to the plugin
+#         [RESOURCES ResourceDir1 [ResourceDir2 ...] # Optional. List of resources directories (only directories are allowed for plugins)
+#         [HELPER_LIBS lib1 [lib2 ...]]              # Optional. List of libraries (local target or imported targets) the plugin depends on
+#         [INSTALL_IN_RADIUM_BUNDLE]                 # Optional. If given, the plugin is installed into ${RADIUM_ROOT_DIR}/Plugins. If not, the installation is performed into ${CMAKE_INSTALL_PREFIX}
 # )
 function(configure_radium_plugin)
     # "declare" and parse parameters
@@ -450,35 +541,38 @@ function(configure_radium_plugin)
         set_target_properties(${ARGS_NAME}
             PROPERTIES INSTALL_RPATH "@loader_path;${CMAKE_INSTALL_RPATH}")
         foreach (helperLib ${ARGS_HELPER_LIBS})
-            message(STATUS " [configure_plugin] Request to install the helper library ${helperLib} for plugin ${ARGS_NAME}")
+            # if helperLib is an alias, find the original name
+            get_target_property(OriginalLib "${helperLib}" ALIASED_TARGET)
+            if (${OriginalLib} STREQUAL "OriginalLib-NOTFOUND")
+                set(OriginalLib ${helperLib})
+            endif ()
+            message(STATUS " [configure_radium_plugin] Install the helper library ${helperLib} for plugin ${ARGS_NAME}")
+            # gets the resource install property of the target
             get_target_property(resourceDir ${helperLib} RADIUM_TARGET_RESOURCES_DIRECTORY)
             if (NOT ${resourceDir} STREQUAL "resourceDir-NOTFOUND")
-                message(STATUS " [configure_plugin]    Installing ${helperLib} resources in ${${ARGS_NAME}_INSTALL_DIR}/Resources/${helperLib}/${rsc_dir}/${file_dir}")
+                # gets the resource prefix for the target
+                get_target_property(resourcePrefix ${helperLib} RADIUM_TARGET_RESOURCES_PREFIX)
+                if (${resourcePrefix} STREQUAL "resourcePrefix-NOTFOUND")
+                    set(resourcePrefix "")
+                endif()
+                message(STATUS " [configure_radium_plugin] Installing ${helperLib} resources in ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}")
                 get_filename_component(rsc_dir ${resourceDir} NAME)
                 file(GLOB_RECURSE RSC_FILES RELATIVE ${resourceDir} ${resourceDir}/*)
                 foreach (file ${RSC_FILES})
                     get_filename_component(file_dir ${file} DIRECTORY)
                     install(
                         FILES ${resourceDir}/${file}
-                        DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/Resources/${helperLib}/${rsc_dir}/${file_dir}
+                        DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/Resources/${resourcePrefix}/${rsc_dir}/${file_dir}
                     )
                 endforeach ()
             endif ()
-            get_target_property(OriginalLib "${helperLib}" ALIASED_TARGET)
-            if (${OriginalLib} STREQUAL "OriginalLib-NOTFOUND")
-                #                message(STATUS "The name ${ARGS_HELPER_LIBS} is a REAL target.")
-                set(OriginalLib ${helperLib})
-            endif ()
-            message(STATUS "Installing ${OriginalLib}")
             get_target_property(IsImported "${OriginalLib}" IMPORTED)
             if (${IsImported})
-                #                message(STATUS "The name ${OriginalLib} is a IMPORTED target.")
                 get_target_property(OriginalLib ${OriginalLib} LOCATION)
                 install(FILES ${OriginalLib}
                     DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
                     )
             else ()
-                #                message(STATUS "The name ${OriginalLib} is a LOCAL target.")
                 install(TARGETS ${OriginalLib}
                     DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
                     LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
@@ -489,7 +583,7 @@ function(configure_radium_plugin)
     # Configure the resources installation
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
-            message(STATUS " Installing plugin resources ${resLocation} for ${ARGS_NAME} ")
+            message(STATUS " [configure_radium_plugin] Installing plugin resources ${resLocation} for ${ARGS_NAME} ")
             installPluginResources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
@@ -500,8 +594,56 @@ function(configure_radium_plugin)
     endif ()
 endfunction()
 
+# ---------------------------------------------------------------------------------------------
 
-include(CMakePackageConfigHelpers)
+# This function configures the package `NAME` for installation and for further import in client project using `find_package(<NAME>)`.
+# mandatory parameters :
+#   NAME : The name of the package to install
+#   PACKAGE_CONFIG : The package configuration file
+#
+# optional arguments
+#   PACKAGE_DIR : The directory in which the cmake package config file will be installed (default <prefix>/lib/cmake/Radium)
+function(configure_radium_package)
+    # parse and verify args
+    cmake_parse_arguments(
+        ARGS
+        ""  # no options
+        "NAME;PACKAGE_DIR;PACKAGE_CONFIG" # one value args
+        "" # no multivalued args
+        ${ARGN}
+    )
+    if (NOT ARGS_NAME)
+        message(FATAL_ERROR " [add_package] You must provide the package name")
+    endif ()
+    if (NOT ARGS_PACKAGE_DIR)
+        set(ARGS_PACKAGE_DIR lib/cmake/Radium)
+    endif ()
+    if (NOT ARGS_PACKAGE_CONFIG)
+        message(FATAL_ERROR " [add_package] You must provide the package config file")
+    endif ()
+    configure_file(${ARGS_PACKAGE_CONFIG}
+        "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake"
+        @ONLY
+        )
+    install(
+        FILES
+        "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}Config.cmake"
+        DESTINATION
+        ${ARGS_PACKAGE_DIR}
+    )
+endfunction()
+
+# This function configures the `<TARGET>` according to Radium requisite (exported target, namespace, package, ...), for installation and, if the parameter
+# `PACKAGE_CONFIG`is given for further import in client project using `find_package(<TARGET>)`.
+# mandatory parameters :
+#   TARGET : The name of the target to install
+#   FILES : The list of files (headers) to install
+#
+# optional arguments
+#   TARGET_DIR : The directory where FILES will be installed (default : <prefix>/include/<TARGET>
+#   NAMESPACE : The namespace in which the library will be added (default Radium)
+#   PACKAGE_DIR : The directory in which the cmake package config file will be installed (default <prefix>/lib/cmake/Radium)
+#   PACKAGE_CONFIG : If given, a configure script, to be used by `find_package`, will be generated.
 function(configure_radium_library)
     # parse and verify args
     cmake_parse_arguments(
@@ -514,17 +656,14 @@ function(configure_radium_library)
     if (NOT ARGS_TARGET)
         message(FATAL_ERROR " [configure_radium_library] You must provide the target to install")
     endif ()
-    if (NOT ARGS_TARGET_DIR)
-        message(FATAL_ERROR " [configure_radium_library] You must provide the library directory install name")
-    endif ()
     if (NOT ARGS_FILES)
         message(FATAL_ERROR " [configure_radium_library] You must provide the library files to install")
     endif ()
+    if (NOT ARGS_TARGET_DIR)
+        set(ARGS_TARGET_DIR ${ARGS_TARGET})
+    endif ()
     if (NOT ARGS_NAMESPACE)
         set(ARGS_NAMESPACE "Radium")
-    endif ()
-    if (NOT ARGS_PACKAGE_DIR)
-        set(ARGS_PACKAGE_DIR lib/cmake/Radium)
     endif ()
 
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -540,8 +679,14 @@ function(configure_radium_library)
     if (OPENMP_FOUND)
         target_link_libraries(${ARGS_TARGET} PUBLIC OpenMP::OpenMP_CXX)
     endif (OPENMP_FOUND)
+    target_compile_definitions(${ARGS_TARGET} PRIVATE ${ARGS_TARGET}_EXPORTS)
+    target_include_directories(${ARGS_TARGET}
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:include/${ARGS_TARGET_DIR}>
+        )
+    add_library(${ARGS_NAMESPACE}::${ARGS_TARGET} ALIAS ${ARGS_TARGET})
 
-    set(ConfigPackageLocation ${ARGS_PACKAGE_DIR})
     install(TARGETS ${ARGS_TARGET}
         EXPORT ${ARGS_TARGET}Targets
         CONFIGURATIONS ${CMAKE_BUILD_TYPE}
@@ -565,24 +710,23 @@ function(configure_radium_library)
         "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Targets.cmake"
         )
     # export for the installation tree
+    if (NOT ARGS_PACKAGE_DIR)
+        set(ARGS_PACKAGE_DIR lib/cmake/Radium)
+    endif ()
+
     install(EXPORT ${ARGS_TARGET}Targets
         FILE
         ${ARGS_TARGET}Targets.cmake
         NAMESPACE
         ${ARGS_NAMESPACE}::
         DESTINATION
-        ${ConfigPackageLocation}
+        ${ARGS_PACKAGE_DIR}
         )
     if (ARGS_PACKAGE_CONFIG)
-        configure_file(${ARGS_PACKAGE_CONFIG}
-            "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Config.cmake"
-            @ONLY
-            )
-        install(
-            FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/${ARGS_TARGET}Config.cmake"
-            DESTINATION
-            ${ConfigPackageLocation}
+        configure_radium_package(
+            NAME ${ARGS_TARGET}
+            PACKAGE_CONFIG ${ARGS_PACKAGE_CONFIG}
+            PACKAGE_DIR ${ARGS_PACKAGE_DIR}
         )
     endif ()
     foreach (file ${ARGS_FILES})
@@ -590,3 +734,4 @@ function(configure_radium_library)
         install(FILES ${file} DESTINATION include/${ARGS_TARGET_DIR}/${file_dir})
     endforeach ()
 endfunction()
+

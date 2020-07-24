@@ -5,7 +5,7 @@
 - \subpage develCodingConvention
 - \subpage develbuildchain
 - \subpage api
-- \subpage plugin
+- \subpage extensions
 - \subpage apps
 - \subpage develoldmanual
 
@@ -32,8 +32,8 @@
 \page io [TODO] IO
 \todo write IO doc 
 
-\page plugin Plugin dev
+\page extensions Developing using Radium
+- \subpage cmakeutilities
 - \subpage develplugin
-
-\page apps [TODO] Application dev
+- \subpage apps [TODO] Application dev
 \todo write application dev doc, merging ExampleApp and Apps docs.
