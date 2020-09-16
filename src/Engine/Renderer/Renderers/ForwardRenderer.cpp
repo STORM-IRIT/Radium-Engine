@@ -565,9 +565,11 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     // name)
     builder.second( *rt, material->isTransparent() );
     // If renderObject is a point cloud,  add geometry shader for splatting
-    auto RenderedGeometry = dynamic_cast<const Mesh*>( ro->getMesh().get() );
+    auto RenderedGeometry = ro->getMesh().get();
+
     if ( RenderedGeometry && RenderedGeometry->getNumFaces() == 0 )
     {
+        LOG(logWARNING) << "Found a point cloud  ... adding geom shader";
         auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
             if ( rt->hasConfiguration( pass ) )
             {
