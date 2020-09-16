@@ -16,13 +16,17 @@ out vec4 fragColor;
 void main() {
     // discard non opaque fragment
     vec4 bc = getDiffuseColor( material, getPerVertexTexCoord() );
-    if ( toDiscard( material, bc ) ) discard;
+
     // All vectors are in world space
     // A material is always evaluated in the fragment local Frame
     // compute matrix from World to local Frame
     vec3 normalWorld   = getWorldSpaceNormal();    // normalized interpolated normal
     vec3 tangentWorld  = getWorldSpaceTangent();   // normalized tangent
     vec3 binormalWorld = getWorldSpaceBiTangent(); // normalized bitangent
+
+    // Computing attributes using dfdx or dfdy must be done before discarding fragments
+    if ( toDiscard( material, bc ) ) discard;
+
     // Apply normal mapping
     normalWorld   = getNormal( material,
                              getPerVertexTexCoord(),
@@ -40,8 +44,7 @@ void main() {
     vec3 lightDir = normalize( world2local * in_lightVector ); // incident direction
     vec3 viewDir  = normalize( world2local * in_viewVector );  // outgoing direction
 
-    vec3 bsdf = evaluateBSDF( material, getPerVertexTexCoord(), lightDir, viewDir );
-
+    vec3 bsdf         = evaluateBSDF( material, getPerVertexTexCoord(), lightDir, viewDir );
     vec3 contribution = lightContributionFrom( light, getWorldSpacePosition().xyz );
     fragColor         = vec4( bsdf * contribution, 1.0 );
 }

@@ -18,23 +18,23 @@ layout( points ) in;
 layout( triangle_strip, max_vertices = 4 ) out;
 
 layout( location = 0 ) in vec3 in_position[];
-layout( location = 1 ) in vec3 in_texcoord[];
-layout( location = 2 ) in vec3 in_normal[];
-layout( location = 3 ) in vec3 in_tangent[];
-layout( location = 4 ) in vec3 in_viewVector[];
-layout( location = 5 ) in vec3 in_lightVector[];
-layout( location = 6 ) in vec3 in_vertexColor[];
+layout( location = 1 ) in vec3 in_normal[];
+layout( location = 2 ) in vec3 in_texcoord[];
+layout( location = 3 ) in vec3 in_vertexColor[];
+layout( location = 4 ) in vec3 in_tangent[];
+layout( location = 5 ) in vec3 in_viewVector[];
+layout( location = 6 ) in vec3 in_lightVector[];
 
 uniform Transform transform;
-float pointCloudSplatRadius = 1.; // fixme -> uniform
+float pointCloudSplatRadius = 0.0025; // fixme -> uniform
 
 layout( location = 0 ) out vec3 out_position;
-layout( location = 1 ) out vec3 out_texcoord;
-layout( location = 2 ) out vec3 out_normal;
-layout( location = 3 ) out vec3 out_tangent;
-layout( location = 4 ) out vec3 out_viewVector;
-layout( location = 5 ) out vec3 out_lightVector;
-layout( location = 6 ) out vec3 out_vertexcolor;
+layout( location = 1 ) out vec3 out_normal;
+layout( location = 2 ) out vec3 out_texcoord;
+layout( location = 3 ) out vec3 out_vertexcolor;
+layout( location = 4 ) out vec3 out_tangent;
+layout( location = 5 ) out vec3 out_viewVector;
+layout( location = 6 ) out vec3 out_lightVector;
 
 void main() {
     vec3 eye = -transform.view[3].xyz * mat3( transform.view );
