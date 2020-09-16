@@ -44,9 +44,7 @@ void main() {
     vec3 lightDir = normalize( world2local * in_lightVector ); // incident direction
     vec3 viewDir  = normalize( world2local * in_viewVector );  // outgoing direction
 
-    vec3 bsdf = evaluateBSDF( material, getPerVertexTexCoord(), lightDir, viewDir );
-
+    vec3 bsdf         = evaluateBSDF( material, getPerVertexTexCoord(), lightDir, viewDir );
     vec3 contribution = lightContributionFrom( light, getWorldSpacePosition().xyz );
     fragColor         = vec4( bsdf * contribution, 1.0 );
-    //fragColor = vec4(tangentWorld, 1);
 }

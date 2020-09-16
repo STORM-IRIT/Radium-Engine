@@ -8,7 +8,7 @@ layout( location = 6 ) in vec3 in_lightVector;
 out vec4 out_color;
 
 void main() {
-    vec4 bc = getBaseColor( material, getPerVertexTexCoord() );
+    vec4 bc     = getBaseColor( material, getPerVertexTexCoord() );
     vec3 normal = getWorldSpaceNormal();
     // Computing attributes using dfdx or dfdy must be done before discarding fragments
     if ( toDiscard( material, bc ) ) discard;

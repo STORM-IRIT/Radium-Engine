@@ -25,7 +25,6 @@ layout( location = 4 ) in vec3 in_tangent[];
 layout( location = 5 ) in vec3 in_viewVector[];
 layout( location = 6 ) in vec3 in_lightVector[];
 
-
 uniform Transform transform;
 float pointCloudSplatRadius = 0.0025; // fixme -> uniform
 
@@ -36,7 +35,6 @@ layout( location = 3 ) out vec3 out_vertexcolor;
 layout( location = 4 ) out vec3 out_tangent;
 layout( location = 5 ) out vec3 out_viewVector;
 layout( location = 6 ) out vec3 out_lightVector;
-
 
 void main() {
     vec3 eye = -transform.view[3].xyz * mat3( transform.view );
