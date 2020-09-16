@@ -569,7 +569,6 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
 
     if ( RenderedGeometry && RenderedGeometry->getNumFaces() == 0 )
     {
-        LOG(logWARNING) << "Found a point cloud  ... adding geom shader";
         auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
             if ( rt->hasConfiguration( pass ) )
             {
