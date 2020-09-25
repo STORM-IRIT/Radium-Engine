@@ -2,7 +2,8 @@ layout( location = 0 ) in vec3 in_position;
 layout( location = 1 ) in vec3 in_normal;
 layout( location = 2 ) in vec3 in_eye;
 layout( location = 3 ) flat in int in_eltID;
-layout( location = 4 ) in vec3 in_eltCoords;
+layout( location = 4 ) flat in vec3 in_eltCoords;
+layout( location = 5) in vec3 in_texcoord;
 
 out ivec4 fragId;
 
@@ -11,6 +12,8 @@ uniform int objectId;
 void main() {
     // discard if culled
     if ( length( in_normal ) > 1e-5 && dot( in_eye - in_position, in_normal ) <= 0 ) { discard; }
+    if ( length( in_texcoord) > 1.0 ) discard;
+//    fragId = ivec4(255,0,0,255);
 
     // set Object ID
     fragId.r = objectId;
