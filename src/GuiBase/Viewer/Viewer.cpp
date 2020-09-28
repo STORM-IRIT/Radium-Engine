@@ -536,11 +536,13 @@ void Gui::Viewer::mousePressEvent( QMouseEvent* event ) {
     auto result = pickAtPosition( {event->x(), height() - event->y()} );
 
     handleMousePressEvent( event, result );
+    emit onMousePress();
     emit needUpdate();
 }
 
 void Gui::Viewer::mouseReleaseEvent( QMouseEvent* event ) {
     handleMouseReleaseEvent( event );
+    emit onMouseRelease();
     emit needUpdate();
 }
 

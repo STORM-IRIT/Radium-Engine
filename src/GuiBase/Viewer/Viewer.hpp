@@ -148,6 +148,8 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     void rendererReady(); //! Emitted when the rendered is correctly initialized
     void rightClickPicking( const Ra::Engine::Renderer::PickingResult& result );
     //! Emitted when the resut of a right click picking is known (for selection)
+    void onMousePress();    // signal fired when receiving MousePressEvent
+    void onMouseRelease();  // signal fired when receiving MouseReleaseEvent
 
     void toggleBrushPicking(
         bool on ); //! Emitted when the corresponding key is released (see keyReleaseEvent)
