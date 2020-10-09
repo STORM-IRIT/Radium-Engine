@@ -130,7 +130,7 @@ float getGGXRoughness( Material material, vec3 texC ) {
     float Ns = getNs( material, texC.xy );
     if ( Ns > 1 ) { Ns = Ns / 128; }
     float r = clamp( 1 - Ns, 0.04, 0.96 );
-    return r * r;
+    return pow( r, 4 );
 }
 
 // wi (light direction) and wo (view direction) are in local frame
