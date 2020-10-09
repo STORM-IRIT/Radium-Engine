@@ -50,11 +50,6 @@ vec3 getSpecularColor( Material material, vec3 texCoord ) {
     return vec3( 0 );
 }
 
-// wi (light direction) and wo (view direction) are in local frame
-// wi dot N is then wi.z ...
-vec3 evaluateBSDF( Material material, vec3 texC, vec3 l, vec3 v ) {
-    return max( l.z, 0.0 ) * getDiffuseColor( material, texC ).rgb / Pi;
-}
 
 // Return the world-space normal computed according to the microgeometry definition`
 // As no normal map is defined, return N
@@ -68,6 +63,27 @@ bool toDiscard( Material material, vec4 color ) {
     return ( color.a < 0.1 );
 }
 
+vec3 diffuseBSDF(Material material, vec3 texC) {
+    return getDiffuseColor( material, texC ).rgb / Pi;
+}
+
+// Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using de BSDF
+int getSeparateBSDFComponent(Material material, vec3 texC, vec3 L, vec3 V, vec3 N, out vec3 diffuse, out vec3 specular) {
+    diffuse = diffuseBSDF(material, texC) ;
+    specular = vec3(0);
+    return 1;
+}
+
+float getGGXRoughness(Material material, vec3 texC) {
+    return 1;
+}
+
+// wi (light direction) and wo (view direction) are in local frame
+// wi dot N is then wi.z ...
+vec3 evaluateBSDF( Material material, vec3 texC, vec3 l, vec3 v ) {
+    vec3 diff = diffuseBSDF( material, texC );
+    return ( diff ) * max( l.z, 0.0 );
+}
 uniform Material material;
 
 #endif
