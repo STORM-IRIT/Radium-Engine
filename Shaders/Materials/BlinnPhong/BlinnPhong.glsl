@@ -101,11 +101,12 @@ vec3 specularBSDF( Material material, vec3 texC, vec3 L, vec3 V, vec3 N ) {
     // Minimalist Cook-Torrance using Blinn-Phong approximation
     vec3 Ks  = getSpecularColor( material, texC );
     float Ns = getNs( material, texC.xy );
-    vec3 H = V+L;
+    vec3 H   = V + L;
     if ( length( H ) < 0.001 ) { H = N; }
-    else { H = normalize(H); }
-    float D   = ( Ns + 1 ) * OneOver2Pi * pow( max( dot( N, H ), 0.0 ), Ns );
-    float FV  = 0.25 * pow( clamp( dot( L, H ), 0.001, 1), -3. );
+    else
+    { H = normalize(H); }
+    float D  = ( Ns + 1 ) * OneOver2Pi * pow( max( dot( N, H ), 0.0 ), Ns );
+    float FV = 0.25 * pow( clamp( dot( L, H ), 0.001, 1), -3. );
     return Ks * D * FV;
 }
 
@@ -117,7 +118,7 @@ int getSeparateBSDFComponent( Material material,
                               vec3 N,
                               out vec3 diffuse,
                               out vec3 specular ) {
-    diffuse = diffuseBSDF( material, texC ) ;
+    diffuse  = diffuseBSDF( material, texC ) ;
     specular = specularBSDF( material, texC, L, V, N );
     return 1;
 }
@@ -126,8 +127,8 @@ int getSeparateBSDFComponent( Material material,
 // https://computergraphics.stackexchange.com/questions/1515/what-is-the-accepted-method-of-converting-shininess-to-roughness-and-vice-versa
 float getGGXRoughness( Material material, vec3 texC ) {
     float Ns = getNs( material, texC.xy );
-    if ( Ns > 1 ) { Ns = Ns/128; }
-    float r = clamp( 1-Ns, 0.04, 0.96 );
+    if ( Ns > 1 ) { Ns = Ns / 128; }
+    float r = clamp( 1 - Ns, 0.04, 0.96 );
     return r * r;
 }
 

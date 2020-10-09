@@ -61,7 +61,6 @@ bool toDiscard( Material material, vec4 color ) {
     return ( color.a < 0.1 );
 }
 
-
 vec3 diffuseBSDF( Material material, vec3 texC ) {
     return getDiffuseColor( material, texC ).rgb;
 }
@@ -74,7 +73,7 @@ int getSeparateBSDFComponent( Material material,
                               vec3 N,
                               out vec3 diffuse,
                               out vec3 specular ) {
-    diffuse = diffuseBSDF( material, texC ) ;
+    diffuse  = diffuseBSDF( material, texC ) ;
     specular = vec3( 0 );
     return 1;
 }
