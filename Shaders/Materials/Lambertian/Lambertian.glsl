@@ -63,18 +63,24 @@ bool toDiscard( Material material, vec4 color ) {
     return ( color.a < 0.1 );
 }
 
-vec3 diffuseBSDF(Material material, vec3 texC) {
+vec3 diffuseBSDF( Material material, vec3 texC ) {
     return getDiffuseColor( material, texC ).rgb / Pi;
 }
 
 // Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using de BSDF
-int getSeparateBSDFComponent(Material material, vec3 texC, vec3 L, vec3 V, vec3 N, out vec3 diffuse, out vec3 specular) {
-    diffuse = diffuseBSDF(material, texC) ;
-    specular = vec3(0);
+int getSeparateBSDFComponent( Material material,
+                              vec3 texC,
+                              vec3 L,
+                              vec3 V,
+                              vec3 N,
+                              out vec3 diffuse,
+                              out vec3 specular) {
+    diffuse = diffuseBSDF( material, texC ) ;
+    specular = vec3( 0 );
     return 1;
 }
 
-float getGGXRoughness(Material material, vec3 texC) {
+float getGGXRoughness( Material material, vec3 texC ) {
     return 1;
 }
 
