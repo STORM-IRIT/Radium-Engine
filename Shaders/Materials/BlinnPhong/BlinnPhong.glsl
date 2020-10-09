@@ -104,9 +104,9 @@ vec3 specularBSDF( Material material, vec3 texC, vec3 L, vec3 V, vec3 N ) {
     vec3 H   = V + L;
     if ( length( H ) < 0.001 ) { H = N; }
     else
-    { H = normalize(H); }
+    { H = normalize( H ); }
     float D  = ( Ns + 1 ) * OneOver2Pi * pow( max( dot( N, H ), 0.0 ), Ns );
-    float FV = 0.25 * pow( clamp( dot( L, H ), 0.001, 1), -3. );
+    float FV = 0.25 * pow( clamp( dot( L, H ), 0.001, 1 ), -3. );
     return Ks * D * FV;
 }
 
@@ -118,7 +118,7 @@ int getSeparateBSDFComponent( Material material,
                               vec3 N,
                               out vec3 diffuse,
                               out vec3 specular ) {
-    diffuse  = diffuseBSDF( material, texC ) ;
+    diffuse  = diffuseBSDF( material, texC );
     specular = specularBSDF( material, texC, L, V, N );
     return 1;
 }

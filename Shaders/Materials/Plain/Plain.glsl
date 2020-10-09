@@ -73,7 +73,7 @@ int getSeparateBSDFComponent( Material material,
                               vec3 N,
                               out vec3 diffuse,
                               out vec3 specular ) {
-    diffuse  = diffuseBSDF( material, texC ) ;
+    diffuse  = diffuseBSDF( material, texC );
     specular = vec3( 0 );
     return 1;
 }
