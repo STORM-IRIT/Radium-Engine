@@ -110,7 +110,8 @@ vec3 specularBSDF( Material material, vec3 texC, vec3 L, vec3 V, vec3 N ) {
     return Ks * D * FV;
 }
 
-// Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using de BSDF
+// Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using
+// the BSDF
 int getSeparateBSDFComponent( Material material,
                               vec3 texC,
                               vec3 L,

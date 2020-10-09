@@ -65,7 +65,8 @@ vec3 diffuseBSDF( Material material, vec3 texC ) {
     return getDiffuseColor( material, texC ).rgb;
 }
 
-// Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using de BSDF
+// Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using
+// the BSDF
 int getSeparateBSDFComponent( Material material,
                               vec3 texC,
                               vec3 L,
