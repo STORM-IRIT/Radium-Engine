@@ -92,25 +92,52 @@ bool toDiscard( Material material, vec4 color ) {
     return color.a < 1;
 }
 
-// 139 ou 236
+vec3 diffuseBSDF( Material material, vec3 texC ) {
+    return getDiffuseColor( material, texC ).rgb / Pi;
+}
+
+vec3 specularBSDF( Material material, vec3 texC, vec3 L, vec3 V, vec3 N ) {
+    // http://www.thetenthplanet.de/archives/255
+    // Minimalist Cook-Torrance using Blinn-Phong approximation
+    vec3 Ks  = getSpecularColor( material, texC );
+    float Ns = getNs( material, texC.xy );
+    vec3 H   = V + L;
+    if ( length( H ) < 0.001 ) { H = N; }
+    else
+    { H = normalize( H ); }
+    float D  = ( Ns + 1 ) * OneOver2Pi * pow( max( dot( N, H ), 0.0 ), Ns );
+    float FV = 0.25 * pow( clamp( dot( L, H ), 0.001, 1 ), -3. );
+    return Ks * D * FV;
+}
+
+// Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using
+// the BSDF
+int getSeparateBSDFComponent( Material material,
+                              vec3 texC,
+                              vec3 L,
+                              vec3 V,
+                              vec3 N,
+                              out vec3 diffuse,
+                              out vec3 specular ) {
+    diffuse  = diffuseBSDF( material, texC );
+    specular = specularBSDF( material, texC, L, V, N );
+    return 1;
+}
+
+// Blinn-Phong exponent to Roughness conversiont :
+// https://computergraphics.stackexchange.com/questions/1515/what-is-the-accepted-method-of-converting-shininess-to-roughness-and-vice-versa
+float getGGXRoughness( Material material, vec3 texC ) {
+    float Ns = getNs( material, texC.xy );
+    if ( Ns > 1 ) { Ns = Ns / 128; }
+    float r = clamp( 1 - Ns, 0.04, 0.96 );
+    return pow( r, 0.5 );
+}
 
 // wi (light direction) and wo (view direction) are in local frame
 // wi dot N is then wi.z ...
-
 vec3 evaluateBSDF( Material material, vec3 texC, vec3 l, vec3 v ) {
-    // compute half vector
-    vec3 h = normalize( l + v );
-    // http://www.thetenthplanet.de/archives/255
-    // Minimalist Cook-Torrance using Blinn-Phong approximation
-    vec3 Kd   = getDiffuseColor( material, texC ).rgb / Pi;
-    vec3 diff = Kd;
-
-    vec3 Ks  = getSpecularColor( material, texC );
-    float Ns = getNs( material, texC.xy );
-
-    float D   = ( Ns + 1 ) * OneOver2Pi * pow( max( h.z, 0.0 ), Ns );
-    float FV  = 0.25 * pow( dot( l, h ), -3. );
-    vec3 spec = Ks * D * FV;
+    vec3 diff = diffuseBSDF( material, texC );
+    vec3 spec = specularBSDF( material, texC, l, v, vec3( 0, 0, 1 ) );
     return ( diff + spec ) * max( l.z, 0.0 );
 }
 

@@ -272,18 +272,36 @@ vec4 getBaseColor(Material material, vec3 texCoord);
 // Returns the so called "Diffuse Color" of the material, at the surface coordinates defined by texCoord.
 // This could be the same that the base color or obtained by a more or less complex computation (Fresnel, ...)
 // The alpha channel is the same than the one computed for getBaseColor().
+// Note : might be deprecated in a near future (see getSeparateBSDFComponent)
 vec4 getDiffuseColor(Material material, vec3 texCoord);
 
 // Returns the so called "Specular Color" of the material, at the surface coordinates defined by texCoord.
 // This could be the same that the base color (without the alpha channel) or obtained by
 // a more or less complex computation
+// Note : might be deprecated in a near future (see getSeparateBSDFComponent)
 vec3 getSpecularColor(Material material, vec3 texCoord);
 
-// Return the bsdf value for the material, at surface coordinates defined by texCoord,
-// for the incoming and outgoing directions `wi` and `wo`. These directions MUST be in local frame.
+// Return the reflectance value for the material, at surface coordinates defined by texCoord,
+// for the incoming and outgoing directions `wi` and `wo`. 
+// the reflectance value is defined as bsdf * cos(Theta_i).
+// IMPORTANT : for efficiency reasons, these directions MUST be in local frame.
 // The local Frame is the Frame wher the Geometric normal is the Z axis,
 // and the tangent defined the X axis.
 vec3 evaluateBSDF(Material material, vec3 texCoord, vec3 wi, vec3 wo);
+
+// Extract separated components of the bsdf value for the material according to the Light/View/Normal configuration. 
+// This function must return 0 if the bsdf is not defined for the given configuration (e.g. back-face lighting) and 1 
+// if the results are usable.
+// Separated components are the diffuse part of the BSDF and the specular part of the BSDF.
+// NOTE : these separated components must not include the cos(Theta_i).
+// NOTE : For non separable bsdf model (e.g. bsdf encoded on shperical Harmonics), it is recomended to set the diffuse 
+// part to 0 and to evaluate the bsdf in the specular part.
+int getSeparateBSDFComponent(Material material, vec3 texCoord, vec3 Light, vec3 View, vec3 Normal, out vec3 diffuse, out vec3 specular);
+
+// Return the GGX equivalent "roughness" of the BSDF as defined in the GGX microfacet bsdf model.
+// Roughness might range from 0.04 to 1 for specular to diffuse materials.
+// This roughness might be used, e.g. to filter environment map when computing environment lighting.
+float getGGXRoughness(Material material, vec3 texCoord);
 ~~~
 
 ### Emissivity interface {#emissivity-interface}
