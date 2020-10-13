@@ -19,6 +19,7 @@ void main() {
     vec3 normalWorld = getNormal(
         material, getPerVertexTexCoord(), getWorldSpaceNormal(), getWorldSpaceTangent(), binormal );
 
+    // TODO : use BSDF separable interface ?
     out_ambient = vec4( bc.rgb * 0.01 + getEmissiveColor( material, getPerVertexTexCoord() ), 1.0 );
     out_normal  = vec4( normalWorld * 0.5 + 0.5, 1.0 );
     out_diffuse = vec4( bc.xyz, 1.0 );

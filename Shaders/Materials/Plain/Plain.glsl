@@ -50,12 +50,6 @@ vec3 getSpecularColor( Material material, vec3 texCoord ) {
     return vec3( 0 );
 }
 
-// wi (light direction) and wo (view direction) are in local frame
-// wi dot N is then wi.z ...
-vec3 evaluateBSDF( Material material, vec3 texC, vec3 l, vec3 v ) {
-    return getDiffuseColor( material, texC ).rgb;
-}
-
 // Return the world-space normal computed according to the microgeometry definition`
 // As no normal map is defined, return N
 vec3 getNormal( Material material, vec3 texCoord, vec3 N, vec3 T, vec3 B ) {
@@ -65,6 +59,34 @@ vec3 getNormal( Material material, vec3 texCoord, vec3 N, vec3 T, vec3 B ) {
 // return true if the fragment must be condidered as transparent (either fully or partially)
 bool toDiscard( Material material, vec4 color ) {
     return ( color.a < 0.1 );
+}
+
+vec3 diffuseBSDF( Material material, vec3 texC ) {
+    return getDiffuseColor( material, texC ).rgb;
+}
+
+// Note that diffuse and specular must not be multiplied by cos(wi) as this will be done when using
+// the BSDF
+int getSeparateBSDFComponent( Material material,
+                              vec3 texC,
+                              vec3 L,
+                              vec3 V,
+                              vec3 N,
+                              out vec3 diffuse,
+                              out vec3 specular ) {
+    diffuse  = diffuseBSDF( material, texC );
+    specular = vec3( 0 );
+    return 1;
+}
+
+float getGGXRoughness( Material material, vec3 texC ) {
+    return 1;
+}
+
+// wi (light direction) and wo (view direction) are in local frame
+// wi dot N is then wi.z ...
+vec3 evaluateBSDF( Material material, vec3 texC, vec3 l, vec3 v ) {
+    return diffuseBSDF( material, texC );
 }
 
 uniform Material material;
