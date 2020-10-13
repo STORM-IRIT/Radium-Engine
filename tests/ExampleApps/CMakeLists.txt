@@ -30,11 +30,7 @@ find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 find_package(OpenGL REQUIRED)
 set(CMAKE_AUTOMOC ON)
 add_executable(HelloRadium MACOSX_BUNDLE
-    HelloRadium/main.cpp
-    HelloRadium/minimalapp.cpp
-    HelloRadium/minimalapp.hpp
-    HelloRadium/minimalradium.cpp
-    HelloRadium/minimalradium.hpp)
+    HelloRadium/main.cpp)
 target_include_directories(HelloRadium PRIVATE HelloRadium)
 target_link_libraries(HelloRadium PUBLIC
     Core Engine GuiBase
@@ -60,11 +56,7 @@ message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME DrawPrimitivesDemo)
 
 add_executable(SimpleAnimationApp MACOSX_BUNDLE
-    SimpleAnimationApp/main.cpp
-    SimpleAnimationApp/minimalapp.cpp
-    SimpleAnimationApp/minimalapp.hpp
-    SimpleAnimationApp/minimalradium.cpp
-    SimpleAnimationApp/minimalradium.hpp)
+    SimpleAnimationApp/main.cpp)
 target_include_directories(SimpleAnimationApp PRIVATE SimpleAnimationApp)
 target_link_libraries(SimpleAnimationApp PUBLIC
     Core Engine GuiBase
