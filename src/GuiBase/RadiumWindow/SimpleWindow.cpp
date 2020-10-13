@@ -1,10 +1,10 @@
 #include <GuiBase/RadiumWindow/SimpleWindow.hpp>
 
+#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Viewer/CameraManipulator.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
-#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
 namespace Ra {
 using namespace Gui;
@@ -13,9 +13,8 @@ using namespace Engine;
 namespace GuiBase {
 
 SimpleWindow::SimpleWindow( QWidget* parent ) : MainWindowInterface( parent ) {
-    if (objectName().isEmpty())
-        setObjectName(QString::fromUtf8("RadiumSimpleWindow"));
-    resize(800, 640);
+    if ( objectName().isEmpty() ) setObjectName( QString::fromUtf8( "RadiumSimpleWindow" ) );
+    resize( 800, 640 );
 
     // Initialize the minimum tools for a Radium-Guibased Application
     m_viewer = std::make_unique<Viewer>();
@@ -35,7 +34,7 @@ SimpleWindow::SimpleWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     createConnections();
 }
 
-SimpleWindow::~SimpleWindow()  = default;
+SimpleWindow::~SimpleWindow() = default;
 
 Ra::Gui::Viewer* SimpleWindow::getViewer() {
     return m_viewer.get();
@@ -49,7 +48,7 @@ Ra::GuiBase::Timeline* SimpleWindow::getTimeline() {
     return nullptr;
 }
 
-void SimpleWindow::updateUi( Ra::Plugins::RadiumPluginInterface*  ) {
+void SimpleWindow::updateUi( Ra::Plugins::RadiumPluginInterface* ) {
     // no ui in the simple window, so, nothing to do
 }
 
@@ -75,13 +74,11 @@ void SimpleWindow::cleanup() {
     m_viewer.reset( nullptr );
 }
 
-void SimpleWindow::createConnections() {
-
-}
+void SimpleWindow::createConnections() {}
 
 void SimpleWindow::onGLInitialized() {
     auto forwardRenderer = std::make_shared<ForwardRenderer>();
-    addRenderer("Forward renderer (default)", forwardRenderer);
+    addRenderer( "Forward renderer (default)", forwardRenderer );
 }
 
 } // namespace GuiBase
