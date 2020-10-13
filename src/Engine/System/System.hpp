@@ -65,6 +65,15 @@ class RA_ENGINE_API System
      */
     std::vector<Component*> getEntityComponents( const Entity* entity );
 
+    /** Register an already configured component to the system.
+     * @param entity The entity owning the component
+     * @param component The component to add to the system
+     * @note the component is added to the system without any compatibility check.
+     */
+    void addComponent( Entity* entity, Component* component ) {
+        registerComponent( entity, component );
+    }
+
   protected:
     /**
      * Registers a component belonging to an entity, making it active within the system.
