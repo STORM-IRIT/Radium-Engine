@@ -1,6 +1,6 @@
 #pragma once
-#include <GuiBase/RaGuiBase.hpp>
 #include <GuiBase/MainWindowInterface.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 
 namespace Ra {
@@ -74,7 +74,6 @@ class RA_GUIBASE_API SimpleWindow : public Ra::GuiBase::MainWindowInterface
   private slots:
     /// Slot to init renderers once gl is ready
     void onGLInitialized();
-
 };
 
 } // namespace GuiBase

@@ -4,25 +4,25 @@
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Component/GeometryComponent.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/System/GeometrySystem.hpp>
 
 #include <QTimer>
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv, Ra::GuiBase::SimpleWindowFactory{} );
+    Ra::GuiBase::BaseApplication app( argc, argv, Ra::GuiBase::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) ;
+    auto cube = Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} );
     //! [Creating the cube]
 
     //! [Colorize the Cube]
     cube.addAttrib(
         "in_color",
-        Ra::Core::Vector4Array{ cube.vertices().size(), Ra::Core::Utils::Color::Green() } );
+        Ra::Core::Vector4Array {cube.vertices().size(), Ra::Core::Utils::Color::Green()} );
     //! [Colorize the Cube]
 
     //! [Create the engine entity for the cube]
@@ -46,9 +46,8 @@ int main( int argc, char* argv[] ) {
     // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
     auto close_timer = new QTimer( &app );
     close_timer->setInterval( 4000 );
-    QObject::connect( close_timer, &QTimer::timeout, [&app](){ app.appNeedsToQuit(); } );
+    QObject::connect( close_timer, &QTimer::timeout, [&app]() { app.appNeedsToQuit(); } );
     close_timer->start();
 
     return app.exec();
 }
-

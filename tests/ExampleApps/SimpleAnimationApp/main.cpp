@@ -3,18 +3,18 @@
 #include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the core geometry/appearance interface
-#include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <Core/Geometry/MeshPrimitives.hpp>
 
 // include the Engine/entity/component/system/animation interface
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
 #include <Engine/Component/GeometryComponent.hpp>
-#include <Engine/System/System.hpp>
 #include <Engine/FrameInfo.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/System/System.hpp>
 
 // include the keyframe animation interface
-#include <Core/Animation/KeyFramedValueInterpolators.hpp>
 #include <Core/Animation/KeyFramedValueController.hpp>
+#include <Core/Animation/KeyFramedValueInterpolators.hpp>
 #include <Core/Tasks/Task.hpp>
 
 // include the render object interface to keyframe the material
@@ -49,7 +49,10 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
     inline KeyFramedGeometryComponent( const std::string& name,
                                        Ra::Engine::Entity* entity,
                                        Ra::Core::Geometry::TriangleMesh&& mesh ) :
-        Ra::Engine::TriangleMeshComponent( name, entity, std::move(mesh), new Ra::Core::Asset::BlinnPhongMaterialData{} ),
+        Ra::Engine::TriangleMeshComponent( name,
+                                           entity,
+                                           std::move( mesh ),
+                                           new Ra::Core::Asset::BlinnPhongMaterialData {} ),
         m_transform( Ra::Core::Transform::Identity(), 0_ra ) {
         //! [Creating the transform KeyFrames]
         Ra::Core::Transform T = Ra::Core::Transform::Identity();
@@ -67,13 +70,14 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
         colors->insertKeyFrame( 2_ra, Ra::Core::Utils::Color::Blue() );
         colors->insertKeyFrame( 3_ra, Ra::Core::Utils::Color::Green() );
         //! [Attach the color KeyFrames to a controller of the Render object material]
-        m_colorController.m_value   = colors;
-        m_ro = getRoMgr()->getRenderObject(m_roIndex);
-        auto material = dynamic_cast<Ra::Engine::BlinnPhongMaterial*>(m_ro->getMaterial().get());
+        m_colorController.m_value = colors;
+        m_ro                      = getRoMgr()->getRenderObject( m_roIndex );
+        auto material = dynamic_cast<Ra::Engine::BlinnPhongMaterial*>( m_ro->getMaterial().get() );
         m_colorController.m_updater = [colors, material]( const Scalar& t ) {
-          auto C = colors->at( t, Ra::Core::Animation::linearInterpolate<Ra::Core::Utils::Color> );
-          material->m_kd = C;
-          material->needUpdate();
+            auto C =
+                colors->at( t, Ra::Core::Animation::linearInterpolate<Ra::Core::Utils::Color> );
+            material->m_kd = C;
+            material->needUpdate();
         };
         //! [Attach the color KeyFrames to a controller]
         //! [Creating the color KeyFrames]
@@ -110,14 +114,14 @@ class SimpleAnimationSystem : public Ra::Engine::System
   public:
     virtual void generateTasks( Ra::Core::TaskQueue* q,
                                 const Ra::Engine::FrameInfo& info ) override {
-        KeyFramedGeometryComponent* c = static_cast<KeyFramedGeometryComponent*>( m_components[0].second );
+        KeyFramedGeometryComponent* c =
+            static_cast<KeyFramedGeometryComponent*>( m_components[0].second );
 
         // Create a new task which wil call c->spin() when executed.
         q->registerTask( new Ra::Core::FunctionTask(
             std::bind( &KeyFramedGeometryComponent::update, c, info.m_animationTime ), "spin" ) );
     }
 };
-
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
@@ -134,7 +138,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Create the demo animated component]
     //! [Creating the cube]
-    auto cube = Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) ;
+    auto cube = Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} );
     //! [Creating the cube]
 
     //! [Create the engine entity for the cube]
@@ -157,7 +161,7 @@ int main( int argc, char* argv[] ) {
     // terminate the app after 6 second (approximatively). Camera can be moved using mouse moves.
     auto close_timer = new QTimer( &app );
     close_timer->setInterval( 6000 );
-    QObject::connect( close_timer, &QTimer::timeout, [&app](){ app.appNeedsToQuit(); } );
+    QObject::connect( close_timer, &QTimer::timeout, [&app]() { app.appNeedsToQuit(); } );
     close_timer->start();
 
     return app.exec();
