@@ -20,7 +20,7 @@ get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
 include(radium_setup_functions)
 
 add_executable(CoreExampleApp
-    CoreExampleApp/CoreExampleApp.cpp)
+    CoreExampleApp/main.cpp)
 target_link_libraries(CoreExampleApp PUBLIC Core)
 configure_radium_app(NAME CoreExampleApp)
 add_dependencies(${PROJECT_NAME} CoreExampleApp)
