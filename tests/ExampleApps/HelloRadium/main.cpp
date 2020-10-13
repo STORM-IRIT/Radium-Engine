@@ -1,53 +1,54 @@
-#include <Engine/RaEngine.hpp>
+// Include Radium base application and its simple Gui
+#include <GuiBase/BaseApplication.hpp>
+#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
 
-#include <QApplication>
+// include the Engine/entity/component interface
+#include <Core/Geometry/MeshPrimitives.hpp>
+#include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/Component/GeometryComponent.hpp>
+#include <Engine/System/GeometrySystem.hpp>
+
 #include <QTimer>
 
-#include <QOpenGLContext>
-
-#include <GuiBase/TimerData/FrameTimerData.hpp>
-#include <GuiBase/Viewer/Viewer.hpp>
-
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-
-#include <minimalradium.hpp>
-/* This file contains a minimal radium/qt application which shows the
-classic "Spinning Cube" demo. */
-#include <minimalapp.hpp>
-
 int main( int argc, char* argv[] ) {
+    //! [Creating the application]
+    Ra::GuiBase::BaseApplication app( argc, argv, Ra::GuiBase::SimpleWindowFactory{} );
+    //! [Creating the application]
 
-    // Create default format for Qt.
-    QSurfaceFormat format;
-    format.setVersion( 4, 4 );
-    format.setProfile( QSurfaceFormat::CoreProfile );
-    format.setDepthBufferSize( 24 );
-    format.setStencilBufferSize( 8 );
-    // format.setSamples( 16 );
-    format.setSwapBehavior( QSurfaceFormat::DoubleBuffer );
-    format.setSwapInterval( 0 );
-    QSurfaceFormat::setDefaultFormat( format );
+    //! [Creating the cube]
+    auto cube = Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) ;
+    //! [Creating the cube]
 
-    // Create app and show viewer window
-    MinimalApp app( argc, argv );
-    app.m_viewer->show();
-    CORE_ASSERT( app.m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
-    // process all events so that everithing is initialized
-    QApplication::processEvents();
+    //! [Colorize the Cube]
+    cube.addAttrib(
+        "in_color",
+        Ra::Core::Vector4Array{ cube.vertices().size(), Ra::Core::Utils::Color::Green() } );
+    //! [Colorize the Cube]
 
-    // Create one system
-    MinimalSystem* sys = new MinimalSystem;
-    app.m_engine->registerSystem( "Minimal system", sys );
+    //! [Create the engine entity for the cube]
+    auto e = app.m_engine->getEntityManager()->createEntity( "Green cube" );
+    //! [Create the engine entity for the cube]
 
-    // Create and initialize entity and component
-    Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity( "Cube" );
-    MinimalComponent* c   = new MinimalComponent( e );
-    sys->addComponent( e, c );
-    c->initialize();
+    //! [Create a geometry component with the cube]
+    auto c = new Ra::Engine::TriangleMeshComponent( "Cube Mesh", e, std::move( cube ), nullptr );
+    //! [Create a geometry component with the cube]
 
-    // Start the app.
-    app.m_frame_timer->start();
-    app.m_close_timer->start();
+    //! [Register the entity/component association to the geometry system ]
+    auto geometrySystem = app.m_engine->getSystem( "GeometrySystem" );
+    geometrySystem->addComponent(
+        e, c ); // <-- Need to add the (virtual) method addComponent to the class Ra::Engine::System
+    //! [Register the entity/component association to the geometry system ]
+
+    //! [Tell the window that something is to be displayed]
+    app.m_mainWindow->postLoadFile( "Cube" );
+    //! [Tell the window that something is to be displayed]
+
+    // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.
+    auto close_timer = new QTimer( &app );
+    close_timer->setInterval( 4000 );
+    QObject::connect( close_timer, &QTimer::timeout, [&app](){ app.appNeedsToQuit(); } );
+    close_timer->start();
+
     return app.exec();
 }
+
