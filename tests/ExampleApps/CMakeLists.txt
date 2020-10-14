@@ -40,6 +40,17 @@ add_dependencies(${PROJECT_NAME} HelloRadium)
 message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME HelloRadium)
 
+add_executable(SimpleSimulationApp MACOSX_BUNDLE
+    SimpleSimulationApp/main.cpp)
+target_include_directories(SimpleSimulationApp PRIVATE SimpleSimulationApp)
+target_link_libraries(SimpleSimulationApp PUBLIC
+    Core Engine GuiBase
+    Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
+    OpenGL::GL)
+add_dependencies(${PROJECT_NAME} SimpleSimulationApp)
+message(STATUS " Installing SimpleSimulationApp into ${CMAKE_INSTALL_PREFIX}")
+configure_radium_app(NAME SimpleSimulationApp)
+
 add_executable(DrawPrimitivesDemo MACOSX_BUNDLE
     DrawPrimitivesApp/main.cpp
     DrawPrimitivesApp/minimalapp.cpp
