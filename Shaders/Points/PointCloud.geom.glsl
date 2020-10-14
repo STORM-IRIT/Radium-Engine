@@ -26,7 +26,7 @@ layout( location = 5 ) in vec3 in_viewVector[];
 layout( location = 6 ) in vec3 in_lightVector[];
 
 uniform Transform transform;
-float pointCloudSplatRadius = 0.0025; // fixme -> uniform
+uniform float pointCloudSplatRadius;
 
 layout( location = 0 ) out vec3 out_position;
 layout( location = 1 ) out vec3 out_normal;
