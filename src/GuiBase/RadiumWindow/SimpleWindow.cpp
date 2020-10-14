@@ -12,9 +12,9 @@ using namespace Engine;
 
 namespace GuiBase {
 
-SimpleWindow::SimpleWindow( QWidget* parent ) : MainWindowInterface( parent ) {
+SimpleWindow::SimpleWindow( uint w, uint h, QWidget* parent ) : MainWindowInterface( parent ) {
     if ( objectName().isEmpty() ) setObjectName( QString::fromUtf8( "RadiumSimpleWindow" ) );
-    resize( 800, 640 );
+    resize( w, h );
 
     // Initialize the minimum tools for a Radium-Guibased Application
     m_viewer = std::make_unique<Viewer>();
@@ -22,8 +22,8 @@ SimpleWindow::SimpleWindow( QWidget* parent ) : MainWindowInterface( parent ) {
     m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
     // Initialize the scene interactive representation
-    m_sceneModel = new Ra::GuiBase::ItemModel( Ra::Engine::RadiumEngine::getInstance(), this );
-    m_selectionManager = new Ra::GuiBase::SelectionManager( m_sceneModel, this );
+    m_sceneModel = std::make_unique<Ra::GuiBase::ItemModel>( Ra::Engine::RadiumEngine::getInstance(), this );
+    m_selectionManager = std::make_unique<Ra::GuiBase::SelectionManager>( m_sceneModel.get(), this );
 
     // initialize Gui for the application
     auto viewerWidget = QWidget::createWindowContainer( m_viewer.get() );
@@ -41,7 +41,7 @@ Ra::Gui::Viewer* SimpleWindow::getViewer() {
 }
 
 Ra::GuiBase::SelectionManager* SimpleWindow::getSelectionManager() {
-    return m_selectionManager;
+    return m_selectionManager.get();
 }
 
 Ra::GuiBase::Timeline* SimpleWindow::getTimeline() {
