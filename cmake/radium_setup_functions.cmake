@@ -11,6 +11,9 @@ cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 
 if (MSVC OR MSVC_IDE OR MINGW)
     include( ${CMAKE_CURRENT_LIST_DIR}/Windeployqt.cmake )
+    if (MSVC OR MSVC_IDE)
+        add_compile_definitions( _ENABLE_EXTENDED_ALIGNED_STORAGE )
+    endif()
 endif()
 
 include(CMakeParseArguments)
