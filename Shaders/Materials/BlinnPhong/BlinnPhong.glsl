@@ -10,8 +10,8 @@ vec4 getPerVertexBaseColor();
 // Specular parameters from the asset must be converted so that specular highlight look the same
 // than with standard Phong BRDF (divided both Ks and Ns by Pi looks good). See
 // http://www.thetenthplanet.de/archives/255 for intuitions
-const float Pi         = 3.141592653589793;
-const float OneOver2Pi = 0.159154943091895;
+const float Pi         = 3.141592653589793f;
+const float OneOver2Pi = 0.159154943091895f;
 
 struct BlinnPhongTextures {
     int hasKd;
@@ -105,8 +105,8 @@ vec3 specularBSDF( Material material, vec3 texC, vec3 L, vec3 V, vec3 N ) {
     if ( length( H ) < 0.001 ) { H = N; }
     else
     { H = normalize( H ); }
-    float D  = ( Ns + 1 ) * OneOver2Pi * pow( max( dot( N, H ), 0.0 ), Ns );
-    float FV = 0.25 * pow( clamp( dot( L, H ), 0.001, 1 ), -3. );
+    float D  = ( Ns + 1 ) * OneOver2Pi * pow( max( dot( N, H ), 0.0f ), Ns );
+    float FV = 0.25f * pow( clamp( dot( L, H ), 0.001f, 1.f ), -3.f );
     return Ks * D * FV;
 }
 
@@ -129,8 +129,8 @@ int getSeparateBSDFComponent( Material material,
 float getGGXRoughness( Material material, vec3 texC ) {
     float Ns = getNs( material, texC.xy );
     if ( Ns > 1 ) { Ns = Ns / 128; }
-    float r = clamp( 1 - Ns, 0.04, 0.96 );
-    return pow( r, 0.5 );
+    float r = clamp( 1 - Ns, 0.04f, 0.96f );
+    return pow( r, 0.5f );
 }
 
 // wi (light direction) and wo (view direction) are in local frame
@@ -138,7 +138,7 @@ float getGGXRoughness( Material material, vec3 texC ) {
 vec3 evaluateBSDF( Material material, vec3 texC, vec3 l, vec3 v ) {
     vec3 diff = diffuseBSDF( material, texC );
     vec3 spec = specularBSDF( material, texC, l, v, vec3( 0, 0, 1 ) );
-    return ( diff + spec ) * max( l.z, 0.0 );
+    return ( diff + spec ) * max( l.z, 0.0f );
 }
 
 uniform Material material;

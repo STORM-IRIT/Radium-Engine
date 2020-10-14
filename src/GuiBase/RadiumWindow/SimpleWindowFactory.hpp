@@ -11,11 +11,11 @@ namespace GuiBase {
  * This factory is to be used when instanciating a Ra::GuiBase::BaseApplication to serve
  * as display controler.
  */
-class RA_GUIBASE_API SimpleWindowFactory : public Ra::GuiBase::BaseApplication::WindowFactory
+class SimpleWindowFactory : public Ra::GuiBase::BaseApplication::WindowFactory
 {
   public:
     using Ra::GuiBase::BaseApplication::WindowFactory::WindowFactory;
-    Ra::GuiBase::MainWindowInterface* createMainWindow() const override {
+    inline Ra::GuiBase::MainWindowInterface* createMainWindow() const override {
         return new SimpleWindow();
     }
 };
