@@ -10,6 +10,7 @@ namespace GuiBase {
  * Definition of a minimal Radium Window.
  * This minimal window allows to display radium Engine entities.
  */
+
 class RA_GUIBASE_API SimpleWindow : public Ra::GuiBase::MainWindowInterface
 {
     Q_OBJECT
@@ -19,7 +20,7 @@ class RA_GUIBASE_API SimpleWindow : public Ra::GuiBase::MainWindowInterface
      *  https://en.cppreference.com/w/cpp/language/rule_of_three
      */
     /** @{ */
-    explicit SimpleWindow( QWidget* parent = nullptr );
+    explicit SimpleWindow( uint w=800, uint h=640, QWidget* parent = nullptr );
     SimpleWindow( const SimpleWindow& ) = delete;
     SimpleWindow& operator=( const SimpleWindow& ) = delete;
     SimpleWindow( SimpleWindow&& )                 = delete;
@@ -66,10 +67,10 @@ class RA_GUIBASE_API SimpleWindow : public Ra::GuiBase::MainWindowInterface
 
     /// Stores and manages the current selection.
     /// Even if no selection is provided by this application, used plugins require this
-    Ra::GuiBase::SelectionManager* m_selectionManager;
+    std::unique_ptr<Ra::GuiBase::SelectionManager> m_selectionManager;
 
     /// Stores the internal model of engine objects for selection and visibility.
-    Ra::GuiBase::ItemModel* m_sceneModel;
+    std::unique_ptr<Ra::GuiBase::ItemModel> m_sceneModel;
 
   private slots:
     /// Slot to init renderers once gl is ready
