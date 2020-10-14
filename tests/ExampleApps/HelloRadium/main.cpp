@@ -35,7 +35,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Register the entity/component association to the geometry system ]
     auto geometrySystem = app.m_engine->getSystem( "GeometrySystem" );
-    geometrySystem->addComponent( e, c ); 
+    geometrySystem->addComponent( e, c );
     //! [Register the entity/component association to the geometry system ]
 
     //! [Tell the window that something is to be displayed]
