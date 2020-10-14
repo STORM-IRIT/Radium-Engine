@@ -20,7 +20,7 @@ class RA_GUIBASE_API SimpleWindow : public Ra::GuiBase::MainWindowInterface
      *  https://en.cppreference.com/w/cpp/language/rule_of_three
      */
     /** @{ */
-    explicit SimpleWindow( uint w=800, uint h=640, QWidget* parent = nullptr );
+    explicit SimpleWindow( uint w = 800, uint h = 640, QWidget* parent = nullptr );
     SimpleWindow( const SimpleWindow& ) = delete;
     SimpleWindow& operator=( const SimpleWindow& ) = delete;
     SimpleWindow( SimpleWindow&& )                 = delete;

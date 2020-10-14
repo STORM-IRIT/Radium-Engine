@@ -22,8 +22,10 @@ SimpleWindow::SimpleWindow( uint w, uint h, QWidget* parent ) : MainWindowInterf
     m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
     // Initialize the scene interactive representation
-    m_sceneModel = std::make_unique<Ra::GuiBase::ItemModel>( Ra::Engine::RadiumEngine::getInstance(), this );
-    m_selectionManager = std::make_unique<Ra::GuiBase::SelectionManager>( m_sceneModel.get(), this );
+    m_sceneModel =
+        std::make_unique<Ra::GuiBase::ItemModel>( Ra::Engine::RadiumEngine::getInstance(), this );
+    m_selectionManager =
+        std::make_unique<Ra::GuiBase::SelectionManager>( m_sceneModel.get(), this );
 
     // initialize Gui for the application
     auto viewerWidget = QWidget::createWindowContainer( m_viewer.get() );
