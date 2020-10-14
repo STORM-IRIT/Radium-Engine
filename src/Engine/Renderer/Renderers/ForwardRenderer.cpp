@@ -18,10 +18,15 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <globjects/Framebuffer.h>
 
-namespace Ra {
-namespace Engine {
+/* Test Point cloud parameter provider */
+#include <Core/RaCore.hpp>
+#include <Engine/Component/GeometryComponent.hpp>
 
+namespace Ra {
+using namespace Core;
 using namespace Core::Utils; // log
+
+namespace Engine {
 
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
@@ -553,6 +558,30 @@ void ForwardRenderer::resizeInternal() {
     globjects::Framebuffer::unbind();
 }
 
+/* Test Point cloud parameter provider */
+/*
+ * TODO : put this class elsewhere so that others renderers might use it
+ * TODO : make point cloud management less specific
+ */
+class PointCloudParameterProvider : public ShaderParameterProvider {
+  public:
+    PointCloudParameterProvider(std::shared_ptr<Material> mat, PointCloudComponent *pointCloud) :
+        ShaderParameterProvider(),
+        m_displayMaterial(mat),
+        m_component(pointCloud) {
+
+    }
+    ~PointCloudParameterProvider() override = default;
+    void updateGL() override {
+        m_displayMaterial->updateGL();
+        m_renderParameters = m_displayMaterial->getParameters();
+        m_renderParameters.addParameter( "pointCloudSplatRadius", m_component->getSplatSize() );
+    }
+  private :
+    std::shared_ptr<Material> m_displayMaterial;
+    PointCloudComponent *m_component;
+};
+
 /*
  * Build renderTechnique for Forward Renderer : this is the default in Radium, so create Default
  * Render Technique
@@ -569,6 +598,7 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
 
     if ( RenderedGeometry && RenderedGeometry->getNumFaces() == 0 )
     {
+
         auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
             if ( rt->hasConfiguration( pass ) )
             {
@@ -583,9 +613,18 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
         addGeomShader( DefaultRenderingPasses::LIGHTING_OPAQUE );
         addGeomShader( DefaultRenderingPasses::LIGHTING_TRANSPARENT );
         addGeomShader( DefaultRenderingPasses::Z_PREPASS );
+        // construct the parameter provider for the technique
+        auto pointCloud = dynamic_cast<PointCloudComponent *>( ro->getComponent() );
+        if ( pointCloud ) {
+            auto pr = std::make_shared<PointCloudParameterProvider>( material, pointCloud );
+            rt->setParametersProvider( pr );
+        } else {
+            rt->setParametersProvider( material );
+        }
+    } else {
+        // make the material the parameter provider for the technique
+        rt->setParametersProvider( material );
     }
-    // make the material the parameter provider for the technique
-    rt->setParametersProvider( material );
     ro->setRenderTechnique( rt );
     return true;
 }

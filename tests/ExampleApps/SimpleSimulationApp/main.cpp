@@ -82,6 +82,7 @@ int main( int argc, char* argv[] ) {
 
     //! [Create a geometry component with the cloud]
     auto c = new Ra::Engine::PointCloudComponent( "cloud Mesh", e, std::move( cloud ), nullptr );
+    c->setSplatSize( 0.05f );
     //! [Create a geometry component with the cloud]
 
     //! [Register the entity/component association to the geometry system ]
