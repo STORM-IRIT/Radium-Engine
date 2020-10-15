@@ -41,6 +41,7 @@ macro(addExternalFolder NAME FOLDER )
         execute_process(
             COMMAND ${CMAKE_COMMAND} ${FOLDER}
                 ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+                -Wno-dev
                 ${ARGN}
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
             RESULT_VARIABLE ret

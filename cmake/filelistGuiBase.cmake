@@ -1,5 +1,6 @@
 set( guibase_sources
     BaseApplication.cpp
+    RadiumWindow/SimpleWindow.cpp
     SelectionManager/SelectionManager.cpp
     Timeline/HelpDialog.cpp
     Timeline/TimelineFrameSelector.cpp
@@ -30,6 +31,8 @@ set(guibase_headers
     BaseApplication.hpp
     MainWindowInterface.hpp
     RaGuiBase.hpp
+    RadiumWindow/SimpleWindow.hpp
+    RadiumWindow/SimpleWindowFactory.hpp
     SelectionManager/SelectionManager.hpp
     Timeline/HelpDialog.hpp
     Timeline/Configurations.hpp
