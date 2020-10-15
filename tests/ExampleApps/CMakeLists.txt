@@ -20,7 +20,7 @@ get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
 include(radium_setup_functions)
 
 add_executable(CoreExampleApp
-    CoreExampleApp/CoreExampleApp.cpp)
+    CoreExampleApp/main.cpp)
 target_link_libraries(CoreExampleApp PUBLIC Core)
 configure_radium_app(NAME CoreExampleApp)
 add_dependencies(${PROJECT_NAME} CoreExampleApp)
@@ -30,11 +30,7 @@ find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
 find_package(OpenGL REQUIRED)
 set(CMAKE_AUTOMOC ON)
 add_executable(HelloRadium MACOSX_BUNDLE
-    HelloRadium/main.cpp
-    HelloRadium/minimalapp.cpp
-    HelloRadium/minimalapp.hpp
-    HelloRadium/minimalradium.cpp
-    HelloRadium/minimalradium.hpp)
+    HelloRadium/main.cpp)
 target_include_directories(HelloRadium PRIVATE HelloRadium)
 target_link_libraries(HelloRadium PUBLIC
     Core Engine GuiBase
@@ -43,6 +39,17 @@ target_link_libraries(HelloRadium PUBLIC
 add_dependencies(${PROJECT_NAME} HelloRadium)
 message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME HelloRadium)
+
+add_executable(SimpleSimulationApp MACOSX_BUNDLE
+    SimpleSimulationApp/main.cpp)
+target_include_directories(SimpleSimulationApp PRIVATE SimpleSimulationApp)
+target_link_libraries(SimpleSimulationApp PUBLIC
+    Core Engine GuiBase
+    Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
+    OpenGL::GL)
+add_dependencies(${PROJECT_NAME} SimpleSimulationApp)
+message(STATUS " Installing SimpleSimulationApp into ${CMAKE_INSTALL_PREFIX}")
+configure_radium_app(NAME SimpleSimulationApp)
 
 add_executable(DrawPrimitivesDemo MACOSX_BUNDLE
     DrawPrimitivesApp/main.cpp
@@ -60,11 +67,7 @@ message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME DrawPrimitivesDemo)
 
 add_executable(SimpleAnimationApp MACOSX_BUNDLE
-    SimpleAnimationApp/main.cpp
-    SimpleAnimationApp/minimalapp.cpp
-    SimpleAnimationApp/minimalapp.hpp
-    SimpleAnimationApp/minimalradium.cpp
-    SimpleAnimationApp/minimalradium.hpp)
+    SimpleAnimationApp/main.cpp)
 target_include_directories(SimpleAnimationApp PRIVATE SimpleAnimationApp)
 target_link_libraries(SimpleAnimationApp PUBLIC
     Core Engine GuiBase

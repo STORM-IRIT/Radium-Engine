@@ -73,7 +73,7 @@ struct RenderMeshHelper<Ra::Core::Geometry::PolyMesh> {
  *  - triangles: rw (if deformable)
  */
 template <typename CoreMeshType>
-class RA_ENGINE_API SurfaceMeshComponent : public GeometryComponent
+class SurfaceMeshComponent : public GeometryComponent
 {
     using base = GeometryComponent;
 
