@@ -81,7 +81,7 @@ int getSeparateBSDFComponent( Material material,
 }
 
 float getGGXRoughness( Material material, vec3 texC ) {
-    return 1;
+    return 1.f;
 }
 
 // wi (light direction) and wo (view direction) are in local frame
