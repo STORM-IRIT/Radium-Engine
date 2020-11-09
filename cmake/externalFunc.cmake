@@ -64,7 +64,7 @@ macro(addExternalFolder NAME FOLDER )
         endif ()
 
         execute_process(
-                COMMAND ${CMAKE_COMMAND} --build . -j ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
+                COMMAND ${CMAKE_COMMAND} --build . --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
                 WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
                 RESULT_VARIABLE ret
         )
