@@ -37,19 +37,18 @@ set(RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE NEVER)
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
-if(NOT RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL)
-  include(ProcessorCount)
-  ProcessorCount(N)
-  if(NOT N EQUAL 0)
-    set(CTEST_BUILD_FLAGS -j${N})
-    set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
-    set(RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL ${N})
-  else()
-    set(RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL 1)
-  endif()
+# Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
+if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
+    include(ProcessorCount)
+    ProcessorCount(N)
+    if(NOT N EQUAL 0)
+        set(CTEST_BUILD_FLAGS -j${N})
+        set(ctest_test_args ${ctest_test_args} PARALLEL_LEVEL ${N})
+        set(ENV{CMAKE_BUILD_PARALLEL_LEVEL} ${N})
+    endif()
 endif()
 
-message("Externals will be built with ${RADIUM_BUILD_EXTERNAL_PARALLEL_LEVEL} core(s)")
+message("Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
 
 message(STATUS "")
 message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
@@ -119,14 +118,8 @@ endif()
 
 #------------------------------------------------------------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
-if (CMAKE_GENERATOR MATCHES "Makefiles")
-    # Make it multithreaded
-    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
-        install -- -j WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
-else()
-    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
-        install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
-endif()
+add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
+    install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 #------------------------------------------------------------------------------
 # get changeset id
