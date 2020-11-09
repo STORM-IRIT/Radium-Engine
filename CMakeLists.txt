@@ -119,14 +119,8 @@ endif()
 
 #------------------------------------------------------------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
-if (CMAKE_GENERATOR MATCHES "Makefiles")
-    # Make it multithreaded
-    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
-        install -- -j WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
-else()
-    add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
-        install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
-endif()
+add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
+    install WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 #------------------------------------------------------------------------------
 # get changeset id
