@@ -35,3 +35,9 @@ set(RADIUM_EXTERNAL_CMAKE_OPTIONS
     -DCMAKE_OBJECT_PATH_MAX=${CMAKE_OBJECT_PATH_MAX}
     -DCMAKE_MACOSX_RPATH=TRUE
     )
+
+
+# First message formating function, need other to have better consistency
+macro(StatusMessage MODULE NAME VAR)
+    message(STATUS "${MODULE} Using ${NAME} from ${VAR}")
+endmacro()
