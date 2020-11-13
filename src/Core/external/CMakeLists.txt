@@ -52,7 +52,7 @@ else()
     StatusMessage("[CoreExternal]" "OpenMesh" ${OpenMesh_DIR})
 endif()
 
-if (NOT DEFINED cpplocate_DIR)
+if (NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
     StatusMessage("[CoreExternal]" "cpplocate" "remote git")
     ExternalProject_Add(cpplocate
         GIT_REPOSITORY https://github.com/cginternals/cpplocate.git

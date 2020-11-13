@@ -14,33 +14,50 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-ExternalProject_Add( glm
-    GIT_REPOSITORY https://github.com/g-truc/glm.git
-    GIT_TAG 0.9.9.5
-    GIT_SHALLOW TRUE
-    GIT_PROGRESS TRUE
-    INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-    CMAKE_ARGS
-    ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
-    -DGLM_TEST_ENABLE=OFF
-    -DBUILD_STATIC_LIBS=OFF
-    )
+if (NOT DEFINED glm_DIR)
+    StatusMessage("[EngineExternal]" "glm" "remote git")
+    ExternalProject_Add( glm
+        GIT_REPOSITORY https://github.com/g-truc/glm.git
+        GIT_TAG 0.9.9.5
+        GIT_SHALLOW TRUE
+        GIT_PROGRESS TRUE
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        CMAKE_ARGS
+        ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+        -DGLM_TEST_ENABLE=OFF
+        -DBUILD_STATIC_LIBS=OFF
+        )
+
+    set(glm_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/glm)
+else()
+    #because other might depends on it, but it's already done, define a dummy target
+    add_custom_target(glm)
+    StatusMessage("[EngineExternal]" "glm" "${glm_DIR}")
+endif()
 
 
-ExternalProject_Add(glbinding
-    GIT_REPOSITORY https://github.com/cginternals/glbinding.git
-    GIT_TAG 663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c
-    GIT_SHALLOW FALSE
-    GIT_PROGRESS TRUE
-    PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
-    INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-    CMAKE_ARGS
-    ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
-    -DOPTION_BUILD_TESTS=OFF
-    -DOPTION_BUILD_DOCS=OFF
-    -DOPTION_BUILD_TOOLS=OFF
-    -DOPTION_BUILD_EXAMPLES=OFF
-    )
+if (NOT DEFINED glbinding_DIR)
+    StatusMessage("[EngineExternal]" "glbinding" "remote git")
+    ExternalProject_Add(glbinding
+        GIT_REPOSITORY https://github.com/cginternals/glbinding.git
+        GIT_TAG 663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c
+        GIT_SHALLOW FALSE
+        GIT_PROGRESS TRUE
+        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/glbinding.patch"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        CMAKE_ARGS
+        ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+        -DOPTION_BUILD_TESTS=OFF
+        -DOPTION_BUILD_DOCS=OFF
+        -DOPTION_BUILD_TOOLS=OFF
+        -DOPTION_BUILD_EXAMPLES=OFF
+        )
+
+    set(glbiniding_DIR ${CMAKE_INSTALL_PREFIX})
+else()
+    add_custom_target(glbinding)
+    StatusMessage("[EngineExternal]" "glbinding"  "${glbinding_DIR}")
+endif()
 
 if (NOT DEFINED Eigen3_DIR)
     message(STATUS "[EngineExternal] globjects use bundled eigen3")
@@ -48,32 +65,46 @@ if (NOT DEFINED Eigen3_DIR)
 else ()
     message(STATUS "[EngineExternal] globjects use eigen3 from ${Eigen3_DIR}")
 endif ()
-ExternalProject_Add(globjects
-    GIT_REPOSITORY https://github.com/dlyr/globjects.git
-    GIT_TAG 11c559a07d9e310abb2f53725fd47cfaf538f8b1
-    GIT_PROGRESS TRUE
-    PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
-    INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-    DEPENDS glbinding glm
-    CMAKE_ARGS
-    ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
-    -DOPTION_BUILD_DOCS=OFF
-    -DOPTION_BUILD_EXAMPLES=OFF
-    -DOPTION_USE_EIGEN=ON
-    -Dglbinding_DIR=${CMAKE_INSTALL_PREFIX}
-    # force to use the bundled glm and eigen version
-    -Dglm_DIR=${CMAKE_INSTALL_PREFIX}/lib/cmake/glm
-    -DEigen3_DIR=${Eigen3_DIR}
-    )
 
-ExternalProject_Add( stb
-    GIT_REPOSITORY https://github.com/nothings/stb.git
-    GIT_TAG 1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd
-    GIT_PROGRESS TRUE
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ${CMAKE_COMMAND} -E echo "Installing stb_image.h to ${CMAKE_INSTALL_PREFIX}/include"
-      COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}/include/stb/
-      COMMAND ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/stb_image.h ${CMAKE_INSTALL_PREFIX}/include/stb/
-      COMMAND ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/stb_image_write.h ${CMAKE_INSTALL_PREFIX}/include/stb/
-    INSTALL_COMMAND ""
-    )
+if (NOT DEFINED globjects_DIR)
+    StatusMessage("[EngineExternal]" "globjects" "remote git")
+    ExternalProject_Add(globjects
+        GIT_REPOSITORY https://github.com/dlyr/globjects.git
+        GIT_TAG 11c559a07d9e310abb2f53725fd47cfaf538f8b1
+        GIT_PROGRESS TRUE
+        PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
+        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+        DEPENDS glbinding glm
+        CMAKE_ARGS
+        ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+        -DOPTION_BUILD_DOCS=OFF
+        -DOPTION_BUILD_EXAMPLES=OFF
+        -DOPTION_USE_EIGEN=ON
+        -Dglbinding_DIR=${glbinding_DIR}
+        -Dglm_DIR=${glm_DIR}
+        -DEigen3_DIR=${Eigen3_DIR}
+        )
+else()
+    StatusMessage("[EngineExternal]" "globjects" "${globjects_DIR}")
+endif()
+
+if (NOT DEFINED stb_DIR)
+    StatusMessage("[EngineExternal]" "stb" "remote git")
+    ExternalProject_Add( stb
+        GIT_REPOSITORY https://github.com/nothings/stb.git
+        GIT_TAG 1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd
+        GIT_PROGRESS TRUE
+        CONFIGURE_COMMAND ""
+        BUILD_COMMAND ${CMAKE_COMMAND} -E echo "Installing stb_image.h to ${CMAKE_INSTALL_PREFIX}/include"
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}/include/stb/
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/stb_image.h ${CMAKE_INSTALL_PREFIX}/include/stb/
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/stb_image_write.h ${CMAKE_INSTALL_PREFIX}/include/stb/
+        INSTALL_COMMAND ""
+        )
+else()
+    StatusMessage("[EngineExternal]" "stb" "${stb_DIR}")
+    message(STATUS  "Installing stb_image.h to ${CMAKE_INSTALL_PREFIX}/include")
+    file(COPY ${stb_DIR}/stb_image.h DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/stb/)
+    file(COPY ${stb_DIR}/stb_image_write.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/stb/)
+       
+endif()
