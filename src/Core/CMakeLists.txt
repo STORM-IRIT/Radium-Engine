@@ -32,18 +32,9 @@ add_library(
     ${RA_VERSION_CPP}
 )
 
-macro(checkDep)
-    set(oneValueArgs NAME VALUE)
-    cmake_parse_arguments(CHECKDEP "TOTO" "${oneValueArgs}" "TEST" ${ARGN} )
-    if (NOT ${CHECKDEP_VALUE})
-        set(LocalDependencies "-D${CHECKDEP_NAME}=${CHECKDEP_VALUE}")
-        set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
-    endif ()
-endmacro()
-
-checkDep(NAME "Eigen3_DIR"    VALUE "${Eigen3_DIR}")
-checkDep(NAME "OpenMesh_DIR"  VALUE "${OpenMesh_DIR}")
-checkDep(NAME "cpplocate_DIR" VALUE "${cpplocate_DIR}")
+populateLocalDependencies(NAME "Eigen3_DIR")
+populateLocalDependencies(NAME "OpenMesh_DIR")
+populateLocalDependencies(NAME "cpplocate_DIR")
 
 addExternalFolder(Core ${CMAKE_CURRENT_SOURCE_DIR}/external ${LocalDependencies})
 
