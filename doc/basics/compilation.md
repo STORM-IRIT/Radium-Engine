@@ -9,7 +9,7 @@ All the dependencies are automatically fetched and compiled at build time.
  * [GuiBase] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.10 recommended)
  * stb_image
 
-See @ref develbuildchain for technical details on dependencies management.
+See @ref develbuildchain for technical details on dependencies management and how to provide locally installed dependencies.
 
 Minimal requirements
  * OpenGL 3+ / GLSL 330+
@@ -150,7 +150,8 @@ Our Continuous Integration systems work with *VS 2019 Community* (https://www.vi
 If using earlier versions of Qt (5.5)  or a different toolset you may have to compile Qt yourself.
 You will probaby have to manually point cmake to the Qt folder.
 
-Other dependencies (Eigen, Assimp, glbinding, globjects and glm) are included as a submodule in the git repository.
+Other dependencies (Eigen, Assimp, glbinding, globjects and glm) are fetched and compiled at configure-time if they are not present at this time on the host system (see @ref develbuildchain).
+
 
 ### Getting started with Visual Studio
 

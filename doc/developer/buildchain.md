@@ -89,3 +89,44 @@ OPTION( RADIUM_SKIP_${NAME_UPPER}_EXTERNAL "[addExternalFolder] Skip updating ${
 ~~~
 where `$NAME_UPPER` is `CORE`, `ENGINE`, `GUIBASE`, `PLUGINBASE` or `IO`.
 \note The option `RADIUM_SKIP_${NAME_UPPER}_EXTERNAL` is generated only if `RADIUM_GENERATE_LIB_${NAME_UPPER}` is `ON`.
+
+## User provided external dependencies
+
+You can  use your own installation of a local dependency instead of letting cmake fetch and compile it.
+To this end, just provide the corresponding '*_DIR' to cmake at configuration time (with '-D' option, configuration file or toolchain file, please refer to cmake documentation).
+
+Currently supported (note that these paths must refer to the installation  directory of the corresponding library):
+[//]: # (generated running ./script/list_dep.py from root external directory)
+
+ *  `assimp_DIR`
+ *  `tinyply_DIR`
+ *  `glm_DIR`
+ *  `glbinding_DIR`
+ *  `globjects_DIR`
+ *  `stb_DIR`
+ *  `Eigen3_DIR`
+ *  `OpenMesh_DIR`
+ *  `cpplocate_DIR`
+
+
+Radium in compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
+
+
+ *  assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
+    *  with options `-DASSIMP_BUILD_ASSIMP_TOOLS=False -DASSIMP_BUILD_SAMPLES=False -DASSIMP_BUILD_TESTS=False -DIGNORE_GIT_HASH=True -DASSIMP_NO_EXPORT=True`
+ *  tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],
+    *  with options `-DSHARED_LIB=TRUE`
+ *  glm: https://github.com/g-truc/glm.git, [0.9.9.5],
+    *  with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF`
+ *  glbinding: https://github.com/cginternals/glbinding.git, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],
+    *  with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF`
+ *  globjects: https://github.com/dlyr/globjects.git, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],
+    *  with options `-DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_EXAMPLES=OFF -DOPTION_USE_EIGEN=ON -Dglbinding_DIR=${glbinding_DIR} -Dglm_DIR=${glm_DIR} -DEigen3_DIR=${Eigen3_DIR}`
+ *  stb: https://github.com/nothings/stb.git, [1034f5e5c4809ea0a7f4387e0cd37c5184de3cdd],
+    *  with options `None`
+ *  Eigen3: https://gitlab.com/libeigen/eigen.git, [e80ec243],
+    *  with options `-DEIGEN_TEST_CXX11=OFF -DBUILD_TESTING=OFF`
+ *  OpenMesh: https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git, [tags/OpenMesh-8.1],
+    *  with options `-DBUILD_APPS=OFF`
+ *  cpplocate: https://github.com/cginternals/cpplocate.git, [tags/v2.2.0],
+    *  with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF`
