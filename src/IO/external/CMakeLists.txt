@@ -15,10 +15,12 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 if (RADIUM_IO_ASSIMP)
-    # I found some problems when generating xcode project for Assimp. The debug version is expected even in Release mode.
-    # As Release build does not generate the debug version, the script fail.
-    # For now, only configure in Debug mode to work with xcode
-    ExternalProject_Add(assimp
+    if (NOT DEFINED assimp_DIR)
+        StatusMessage("[IOExternal]" "assimp" "remote git")
+        # I found some problems when generating xcode project for Assimp. The debug version is expected even in Release mode.
+        # As Release build does not generate the debug version, the script fail.
+        # For now, only configure in Debug mode to work with xcode
+        ExternalProject_Add(assimp
             GIT_REPOSITORY https://github.com/assimp/assimp.git
             GIT_TAG tags/v5.0.1
             GIT_SHALLOW TRUE
@@ -32,18 +34,26 @@ if (RADIUM_IO_ASSIMP)
             -DIGNORE_GIT_HASH=True
             -DASSIMP_NO_EXPORT=True
             )
+    else()
+        StatusMessage("[IOExternal]" "assimp" "${assimp_DIR}")
+    endif()
 endif()
 
 
 if(RADIUM_IO_TINYPLY)
-    ExternalProject_Add( tinyply
-        GIT_REPOSITORY https://github.com/ddiakopoulos/tinyply.git
-        GIT_TAG tags/2.3.2
-        GIT_SHALLOW TRUE
-        GIT_PROGRESS TRUE
-        INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        CMAKE_ARGS
-        ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
-        -DSHARED_LIB=TRUE
-        )
+    if (NOT DEFINED tinyply_DIR)
+        StatusMessage("[IOExternal]" "tinyply" "remote git")
+        ExternalProject_Add( tinyply
+            GIT_REPOSITORY https://github.com/ddiakopoulos/tinyply.git
+            GIT_TAG tags/2.3.2
+            GIT_SHALLOW TRUE
+            GIT_PROGRESS TRUE
+            INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
+            CMAKE_ARGS
+            ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+            -DSHARED_LIB=TRUE
+            )
+    else()
+        StatusMessage("[IOExternal]" "tinyply" "${tinyply_DIR}")
+    endif()
 endif()

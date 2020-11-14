@@ -15,11 +15,17 @@ add_library(
     ${io_sources}
     ${io_headers}
     ${io_inlines}
-)
+    )
+
+
+
+#LocalDependencies form parent scope
+populateLocalDependencies(NAME "assimp_DIR")
+populateLocalDependencies(NAME "tinyply_DIR")
 
 addExternalFolder( IO ${CMAKE_CURRENT_SOURCE_DIR}/external
     -DRADIUM_IO_ASSIMP=${RADIUM_IO_ASSIMP}
-    -DRADIUM_IO_TINYPLY=${RADIUM_IO_TINYPLY} )
+    -DRADIUM_IO_TINYPLY=${RADIUM_IO_TINYPLY}  ${LocalDependencies})
 
 if( RADIUM_IO_ASSIMP )
     find_package(assimp 5.0 REQUIRED NO_DEFAULT_PATH )
