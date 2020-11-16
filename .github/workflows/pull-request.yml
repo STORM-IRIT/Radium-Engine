@@ -66,7 +66,7 @@ jobs:
         uses: DoozyX/clang-format-lint-action@v0.6
         with:
           source: '.'
-          exclude: './tests/external ./src/Core/external ./src/Engine/external ./src/IO/external'
+          exclude: './tests/external ./external'
           extensions: 'hpp,inl,cpp,glsl'
           clangFormatVersion: 9
           style: file
