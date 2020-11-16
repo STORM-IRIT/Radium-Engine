@@ -40,6 +40,10 @@ endmacro()
 
 #-----------------------------------------------------------------------------------
 # Include sources
+
+#This var gather local dependencies in subdirectories
+set(LocalDependencies)
+
 if(RADIUM_GENERATE_LIB_CORE)
     add_subdirectory(Core)
 endif()

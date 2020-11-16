@@ -6,9 +6,12 @@ macro(addExternalFolder NAME FOLDER )
     # External resources/repositories are downloaded and built at configuration stage
     message(STATUS "[addExternalFolder] process ${NAME} ${FOLDER}")
 
+    #Working directory relative to binary dir, to shorten folder name see issue 598
+    set(EXT_WORKING_DIR ${CMAKE_BINARY_DIR}/ext/${NAME})
+
     message(STATUS "[addExternalFolder] Create temporary directory")
     execute_process(
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/external/cmake
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${EXT_WORKING_DIR}/cmake
     )
 
     if("${ARGN}" STREQUAL "")
@@ -43,7 +46,7 @@ macro(addExternalFolder NAME FOLDER )
                 ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
                 -Wno-dev
                 ${ARGN}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
+            WORKING_DIRECTORY ${EXT_WORKING_DIR}
             RESULT_VARIABLE ret
         )
         if(NOT ret EQUAL "0")
@@ -65,7 +68,7 @@ macro(addExternalFolder NAME FOLDER )
 
         execute_process(
                 COMMAND ${CMAKE_COMMAND} --build . --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
-                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/external
+                WORKING_DIRECTORY ${EXT_WORKING_DIR}
                 RESULT_VARIABLE ret
         )
 
@@ -76,7 +79,7 @@ macro(addExternalFolder NAME FOLDER )
 
         #Configure package
         if(EXISTS "${FOLDER}/package.cmake")
-            set(EXTERNAL_TARGET_PACKAGE_FILE "${CMAKE_CURRENT_BINARY_DIR}/external/cmake/package-${NAME}.cmake")
+            set(EXTERNAL_TARGET_PACKAGE_FILE "${EXT_WORKING_DIR}/cmake/package-${NAME}.cmake")
             message(STATUS "[addExternalFolder] Configure package file ${EXTERNAL_TARGET_PACKAGE_FILE}")
             configure_file(${FOLDER}/package.cmake "${EXTERNAL_TARGET_PACKAGE_FILE}" COPYONLY)
             include("${EXTERNAL_TARGET_PACKAGE_FILE}")
@@ -94,7 +97,7 @@ macro(addExternalFolder NAME FOLDER )
         list(APPEND external_sources ${FOLDER}/package.cmake)
     endif()
     add_custom_target(External${NAME} ALL SOURCES ${external_sources})
-    include("${CMAKE_CURRENT_BINARY_DIR}/external/cmake/package-${NAME}.cmake")
+    include("${EXT_WORKING_DIR}/cmake/package-${NAME}.cmake")
 
     # Create touch file
     file( TOUCH "${CMAKE_CURRENT_BINARY_DIR}/Radium-${NAME}.touch" )
