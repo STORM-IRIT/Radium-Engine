@@ -130,3 +130,21 @@ Radium in compiled and tested with specific version of dependencies, as given in
     *  with options `-DBUILD_APPS=OFF`
  *  cpplocate: https://github.com/cginternals/cpplocate.git, [tags/v2.2.0],
     *  with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF`
+
+[//]: # (end script copy)
+
+## Building and installing Radium dependencies once for all
+Radium dependencies can be built and installed alone, without building the whole Radium project.
+This will allow to use them as user provided external dependencies for Radium but also to develop other software that will use the same dependencies as Radium.
+
+The file `external/CMakeLists.txt` could be used as a standalone project to install all the Radium dependencies in any location by doing the following :
+~~~{.bash}
+mkdir BuildRadiumDependencies && cd BuildRadiumDependencies
+cmake -DCMAKE_INSTALL_PREFIX=/path/to/install /path/to/Radium/external
+~~~
+
+If not given on the command line, the installation directory is set by default to, `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}`.
+
+Compiling Radium using the pre-installed dependencies should be made as described in the section above.
+
+\warning You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.
