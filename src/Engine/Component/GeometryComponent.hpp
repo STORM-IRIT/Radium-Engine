@@ -152,14 +152,10 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
     PointCloud* getGeometry();
 
     /// set the splat size for rendering
-    void setSplatSize(float s) {
-        m_splatSize = s;
-    }
+    inline void setSplatSize( float s ) { m_splatSize = s; }
 
     /// get the splat size for rendering
-    float getSplatSize() const {
-        return m_splatSize;
-    }
+    inline float getSplatSize() const { return m_splatSize; }
 
   public:
     // Component communication management
@@ -179,7 +175,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
     // directly hold a reference to the displayMesh to simplify accesses in handlers
     std::shared_ptr<PointCloud> m_displayMesh {nullptr};
     // The diameter of the splat when rendered
-    float m_splatSize{ 0.0025 };
+    float m_splatSize {0.0025};
 };
 
 /*-----------------------------------------------------------------------------------------------*/
