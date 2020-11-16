@@ -22,7 +22,14 @@ add_library(
 
 add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
-addExternalFolder( Engine ${CMAKE_CURRENT_SOURCE_DIR}/external )
+
+#LocalDependencies form parent scope
+populateLocalDependencies(NAME "glm_DIR")
+populateLocalDependencies(NAME "glbinding_DIR")
+populateLocalDependencies(NAME "globjects_DIR")
+populateLocalDependencies(NAME "stb_DIR")
+
+addExternalFolder(Engine ${CMAKE_SOURCE_DIR}/external/Engine ${LocalDependencies})
 
 find_package(glbinding REQUIRED NO_DEFAULT_PATH )
 find_package(globjects REQUIRED NO_DEFAULT_PATH )

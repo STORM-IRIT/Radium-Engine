@@ -31,20 +31,24 @@ add_library(
     ${core_inlines}
     ${RA_VERSION_CPP}
 )
-addExternalFolder( Core ${CMAKE_CURRENT_SOURCE_DIR}/external )
+
+populateLocalDependencies(NAME "Eigen3_DIR")
+populateLocalDependencies(NAME "OpenMesh_DIR")
+populateLocalDependencies(NAME "cpplocate_DIR")
+
+addExternalFolder(Core ${CMAKE_SOURCE_DIR}/external/Core ${LocalDependencies})
 
 find_package(Eigen3 3.3
     REQUIRED
     NO_DEFAULT_PATH )
-
 find_package(OpenMesh
     REQUIRED
     COMPONENTS Core Tools
     NO_DEFAULT_PATH )
 
 find_package(cpplocate
-        REQUIRED
-        NO_DEFAULT_PATH)
+    REQUIRED
+    NO_DEFAULT_PATH)
 
 add_dependencies ( ${ra_core_target} versionFileTouchForRebuild) # We want precise time of build in version
 target_include_directories(${ra_core_target} PUBLIC
