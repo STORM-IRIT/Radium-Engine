@@ -1,6 +1,6 @@
-
+# WARNING : if some paths are changed in the following variables, think to change it also in CMakeLists.txt
 if(NOT DEFINED glm_DIR)
-    set(glm_sub_DIR lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake/glm/ CACHE INTERNAL "")
+    set(glm_sub_DIR lib/cmake/glm/ CACHE INTERNAL "")
     set(glm_DIR ${CMAKE_INSTALL_PREFIX}/${glm_sub_DIR})
 endif()
 
