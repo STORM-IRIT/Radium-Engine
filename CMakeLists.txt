@@ -37,6 +37,77 @@ set(RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE NEVER)
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
+set(DISPLAY_WIDTH 80)
+
+function(messageFormat TEXT PRE PRE_LEN POST POST_LEN FILL)
+    set(TEXT_LEN 0)
+    if(TEXT)
+        string(LENGTH ${TEXT} TEXT_LEN)
+    endif()
+    MATH(EXPR LEN "${DISPLAY_WIDTH} - ${TEXT_LEN} - ${PRE_LEN} - ${POST_LEN}")
+    set(FILL1 "")
+    if(LEN LESS 0)
+        set(LEN 0)
+    endif()
+    foreach (i RANGE ${LEN})
+        set(FILL1 "${FILL1}${FILL}")
+    endforeach()
+    
+    message(NOTICE "${PRE}${TEXT}${FILL1}${POST}")
+endfunction()
+
+function(messageInfo INFO)  
+    set(PRE "│ ")
+    set(PRE_LEN 2)
+    set(POST "│")
+    set(POST_LEN 1)
+    messageFormat(${INFO} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} " ")
+endfunction()
+
+function(messageSetting OPTION)
+    set(PRE "│ ")
+    set(PRE_LEN 2)
+    set(POST "│")
+    set(POST_LEN 1)
+
+    string(LENGTH ${OPTION} len)
+    MATH(EXPR len "30-${len}")
+    set(FILL "")
+    foreach (i RANGE ${len})
+        set(FILL "${FILL} ")
+    endforeach()
+
+    set(MSG "${OPTION}${FILL}${${OPTION}}")
+    messageFormat(${MSG} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} " ")
+endfunction()
+
+function(messageTitle TITLE)
+    string(LENGTH ${TITLE} len)
+    MATH(EXPR len "${DISPLAY_WIDTH}-6-${len}")
+    MATH(EXPR len1 "${len}/2")
+    MATH(EXPR len1 "${len1}-1")
+    MATH(EXPR len2 "${len}-${len1}-1")
+    set(FILL1 "")
+    foreach (i RANGE ${len1})
+        set(FILL1 "${FILL1}─")
+    endforeach()
+    set(FILL2 "")
+    
+    foreach (i RANGE ${len2})
+        set(FILL2 "${FILL2}─")
+    endforeach()
+    message(NOTICE "┌${FILL1}┤│${TITLE}│├${FILL2}┐")
+endfunction()
+
+function(messageEnd)
+    set(PRE "└")
+    set(PRE_LEN 1)
+    set(POST "┘")
+    set(POST_LEN 1)
+    messageFormat("" ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} "─")
+endfunction()
+
+
 # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
 if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     include(ProcessorCount)
@@ -48,18 +119,15 @@ if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     endif()
 endif()
 
-message("Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
-
-message(STATUS "")
-message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
-message(STATUS "")
+messageTitle(" ${PROJECT_NAME} Project configuration ")
+messageInfo("Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
 
 #------------------------------------------------------------------------------
 # General settings
 
 
 if(NOT CMAKE_BUILD_TYPE)
-  message(STATUS "No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
+  messageInfo("No CMAKE_BUILD_TYPE, using default CMAKE_BUILD_TYPE=Release")
   set(CMAKE_BUILD_TYPE "Release")
 endif()
 
@@ -78,6 +146,7 @@ include(rpath)
 
 # Use gold linker to speed up linking time, see cmake/useGoldLinker.cmake
 include(useGoldLinker)
+messageInfo("USE_GOLD_LINKER                           ${USE_GOLD_LINKER}")
 
 # Helpful option enable build profiling to identify slowly compiling files
 option(MEASURE_ALL "When enabled all commands will be passed through time command" OFF)
@@ -104,16 +173,7 @@ set(RADIUM_SHADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "${RADIUM_BUNDLE_DIRECTORY}" CACHE PATH
         "Install path prefix, prepended onto install directories." FORCE)
-    message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
-endif()
-
-
-#-------------------------------------------------------------------------------
-# Set default install location to dist folder in build dir
-# we do not want to install to /usr by default
-if (NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE Release )
-    message( "Set default build type to ${CMAKE_BUILD_TYPE}" )
+    messageInfo("Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 endif()
 
 #------------------------------------------------------------------------------
@@ -123,7 +183,7 @@ add_custom_target( Install_ COMMAND "${CMAKE_COMMAND}" --build . --target
 
 #------------------------------------------------------------------------------
 # get changeset id
-find_package(Git)
+find_package(Git QUIET)
 
 if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
     option(RADIUM_GIT_UPDATE_SUBMODULE         "Check submodules during build (will be automatically disabled after run)" ON)
@@ -137,8 +197,9 @@ if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 else()
   set(GIT_CHANGESET "")
 endif()
-message("Git Changeset: ${GIT_CHANGESET}")
+messageInfo("Git Changeset: ${GIT_CHANGESET}")
 
+messageEnd()
 
 #------------------------------------------------------------------------------
 # Dependency management utilities
@@ -184,18 +245,31 @@ install(FILES README.md DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
 
 #-------------------------------------------------------------------------------
 # Wrap up of settings printed on build
-message(STATUS "")
-message(STATUS "    == Final overview for ${PROJECT_NAME} ==")
-message(STATUS "Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
-message(STATUS "Install prefix:        ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "Compiler:              ${CMAKE_CXX_COMPILER}")
-message(STATUS "CMAKE_BUILD_TYPE:      ${CMAKE_BUILD_TYPE}")
-message(STATUS "CMAKE_INSTALL_PREFIX:  ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "RADIUM_ENABLE_TESTING: ${RADIUM_ENABLE_TESTING}")
-message(STATUS "RADIUM_INSTALL_DOC:    ${RADIUM_INSTALL_DOC}")
-message(STATUS "  possible options: Debug Release RelWithDebInfo MinSizeRel")
-message(STATUS "  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
-message(STATUS "")
 
+messageTitle(" Final overview for ${PROJECT_NAME} ")
+messageInfo("Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
+messageInfo("Install prefix: ")
+messageInfo("  ${CMAKE_INSTALL_PREFIX}")
+messageInfo("Compiler:              ${CMAKE_CXX_COMPILER}")
+messageSetting("CMAKE_BUILD_TYPE")
+messageInfo("  possible options: Debug Release RelWithDebInfo MinSizeRel")
+messageInfo("  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
+messageSetting("RADIUM_ENABLE_TESTING")
+messageSetting("RADIUM_GENERATE_LIB_CORE")
+messageSetting("RADIUM_GENERATE_LIB_ENGINE")
+messageSetting("RADIUM_GENERATE_LIB_GUIBASE")
+messageSetting("RADIUM_GENERATE_LIB_IO")
+messageSetting("RADIUM_GENERATE_LIB_PLUGINBASE")
+messageSetting("RADIUM_GIT_UPDATE_SUBMODULE")
+messageSetting("RADIUM_IO_ASSIMP")
+messageSetting("RADIUM_IO_TINYPLY")
+messageSetting("RADIUM_IO_DEPRECATED")
+messageSetting("RADIUM_SKIP_CORE_EXTERNAL")
+messageSetting("RADIUM_SKIP_ENGINE_EXTERNAL")
+messageSetting("RADIUM_SKIP_IO_EXTERNAL")
+messageSetting("RADIUM_INSTALL_DOC")
+messageSetting("RADIUM_UPDATE_VERSION")
+messageSetting("RADIUM_QUIET")
+messageEnd()
 
 set( CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL "Previous value of CMAKE_INSTALL_PREFIX")
