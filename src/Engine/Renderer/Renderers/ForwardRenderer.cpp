@@ -18,10 +18,15 @@
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <globjects/Framebuffer.h>
 
-namespace Ra {
-namespace Engine {
+/* Test Point cloud parameter provider */
+#include <Core/RaCore.hpp>
+#include <Engine/Component/GeometryComponent.hpp>
 
+namespace Ra {
+using namespace Core;
 using namespace Core::Utils; // log
+
+namespace Engine {
 
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
@@ -553,6 +558,30 @@ void ForwardRenderer::resizeInternal() {
     globjects::Framebuffer::unbind();
 }
 
+/* Test Point cloud parameter provider */
+/*
+ * WARNING : this class is here only for testing and experimentation purpose.
+ * It will be replace soon by a better management of the way components could add specific
+ * properties to a rendertechnique
+ * TODO : see PR Draft and gist subShaderBlob
+ */
+class PointCloudParameterProvider : public ShaderParameterProvider
+{
+  public:
+    PointCloudParameterProvider( std::shared_ptr<Material> mat, PointCloudComponent* pointCloud ) :
+        ShaderParameterProvider(), m_displayMaterial( mat ), m_component( pointCloud ) {}
+    ~PointCloudParameterProvider() override = default;
+    void updateGL() override {
+        m_displayMaterial->updateGL();
+        m_renderParameters = m_displayMaterial->getParameters();
+        m_renderParameters.addParameter( "pointCloudSplatRadius", m_component->getSplatSize() );
+    }
+
+  private:
+    std::shared_ptr<Material> m_displayMaterial;
+    PointCloudComponent* m_component;
+};
+
 /*
  * Build renderTechnique for Forward Renderer : this is the default in Radium, so create Default
  * Render Technique
@@ -567,8 +596,15 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     // If renderObject is a point cloud,  add geometry shader for splatting
     auto RenderedGeometry = ro->getMesh().get();
 
+    /*
+     * WARNING : this way of managing specifi geometries is here only for testing and
+     * experimentation purpose. It will be replace soon by a better management of the way components
+     * could add specific properties to a rendertechnique
+     * TODO : see PR Draft and gist subShaderBlob
+     */
     if ( RenderedGeometry && RenderedGeometry->getNumFaces() == 0 )
     {
+
         auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
             if ( rt->hasConfiguration( pass ) )
             {
@@ -583,9 +619,21 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
         addGeomShader( DefaultRenderingPasses::LIGHTING_OPAQUE );
         addGeomShader( DefaultRenderingPasses::LIGHTING_TRANSPARENT );
         addGeomShader( DefaultRenderingPasses::Z_PREPASS );
+        // construct the parameter provider for the technique
+        auto pointCloud = dynamic_cast<PointCloudComponent*>( ro->getComponent() );
+        if ( pointCloud )
+        {
+            auto pr = std::make_shared<PointCloudParameterProvider>( material, pointCloud );
+            rt->setParametersProvider( pr );
+        }
+        else
+        { rt->setParametersProvider( material ); }
     }
-    // make the material the parameter provider for the technique
-    rt->setParametersProvider( material );
+    else
+    {
+        // make the material the parameter provider for the technique
+        rt->setParametersProvider( material );
+    }
     ro->setRenderTechnique( rt );
     return true;
 }
