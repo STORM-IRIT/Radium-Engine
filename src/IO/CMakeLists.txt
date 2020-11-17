@@ -17,8 +17,6 @@ add_library(
     ${io_inlines}
     )
 
-
-
 #LocalDependencies form parent scope
 populateLocalDependencies(NAME "assimp_DIR")
 populateLocalDependencies(NAME "tinyply_DIR")
@@ -43,7 +41,6 @@ if (RADIUM_IO_ASSIMP)
         else ()
             get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_RELEASE)
         endif ()
-        message(STATUS " ASSIMP LINK : ${assimplib}")
         target_link_libraries(${ra_io_target} PUBLIC ${assimplib})
     else ()
         target_link_libraries(${ra_io_target} PUBLIC assimp::assimp)
