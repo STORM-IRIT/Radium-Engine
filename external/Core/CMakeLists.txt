@@ -5,17 +5,18 @@ project (radiumcore-external VERSION 1.0.0)
 include(ExternalProject)
 include(ExternalInclude)
 
-#------------------------------------------------------------------------------
-# Eigen - Linear Algebra library
-
 # force installing by default all the external projects
 set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+list(APPEND CMAKE_MESSAGE_INDENT "[Core] ")
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
 
 if (NOT DEFINED Eigen3_DIR)
-    StatusMessage("[CoreExternal]" "eigen3" "remote git")
+    StatusMessage("" "eigen3" "remote git")
+
     ExternalProject_Add(Eigen3
         GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
         GIT_TAG e80ec243
@@ -26,14 +27,15 @@ if (NOT DEFINED Eigen3_DIR)
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DEIGEN_TEST_CXX11=OFF
         -DBUILD_TESTING=OFF
+        "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
 else ()
-    StatusMessage("[CoreExternal]" "eigen3" ${Eigen3_DIR})
+    StatusMessage("" "eigen3" ${Eigen3_DIR})
 endif ()
 
 
 if (NOT DEFINED OpenMesh_DIR)
-    StatusMessage("[CoreExternal]" "OpenMesh" "remote git")
+    StatusMessage("" "OpenMesh" "remote git")
     # I found some problems when generating xcode project for OpenMesh: the libXXX.dylib link to
     # libXXX.Major.minor.dylib (eg libOpenMesh.2.1.dylib) is not generated and the script failed.
     # Need to generate this link manually.
@@ -47,13 +49,14 @@ if (NOT DEFINED OpenMesh_DIR)
         CMAKE_ARGS
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DBUILD_APPS=OFF
+        "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
 else()
-    StatusMessage("[CoreExternal]" "OpenMesh" ${OpenMesh_DIR})
+    StatusMessage("" "OpenMesh" ${OpenMesh_DIR})
 endif()
 
 if (NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
-    StatusMessage("[CoreExternal]" "cpplocate" "remote git")
+    StatusMessage("" "cpplocate" "remote git")
     ExternalProject_Add(cpplocate
         GIT_REPOSITORY https://github.com/cginternals/cpplocate.git
         GIT_TAG tags/v2.2.0
@@ -65,7 +68,13 @@ if (NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DOPTION_BUILD_TESTS=OFF
         -DOPTION_BUILD_DOCS=OFF
+        -DCMAKE_MESSAGE_INDENT=${indent_string}\;
+
         )
 else()
-    StatusMessage("[CoreExternal]" "cpplocate" ${cpplocate_DIR})
+    StatusMessage("" "cpplocate" ${cpplocate_DIR})
 endif()
+
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+ 

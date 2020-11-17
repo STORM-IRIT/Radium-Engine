@@ -5,19 +5,20 @@ include(ExternalInclude)
 macro(addExternalFolder NAME FOLDER )
     # External resources/repositories are downloaded and built at configuration stage
     message(STATUS "[addExternalFolder] process ${NAME} ${FOLDER}")
+    list(APPEND CMAKE_MESSAGE_INDENT "[External] ")
 
     #Working directory relative to binary dir, to shorten folder name see issue 598
     set(EXT_WORKING_DIR ${CMAKE_BINARY_DIR}/ext/${NAME})
 
-    message(STATUS "[addExternalFolder] Create temporary directory")
+    message(STATUS "Create temporary directory")
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E make_directory ${EXT_WORKING_DIR}/cmake
     )
 
     if("${ARGN}" STREQUAL "")
-        message(STATUS "[addExternalFolder] Configure cmake project")
+        message(STATUS "Configure cmake project")
     else ()
-        message(STATUS "[addExternalFolder] Configure cmake project with options ${ARGN}")
+        message(STATUS "Configure cmake project with options ${ARGN}")
     endif()
 
     string(TOUPPER ${NAME} NAME_UPPER)
@@ -29,66 +30,70 @@ macro(addExternalFolder NAME FOLDER )
     # Check if install prefix has changed. If yes, force installing the externals again
     if( DEFINED CACHED_INSTALL_PREFIX )
         if( NOT "${CACHED_INSTALL_PREFIX}" STREQUAL "${CMAKE_INSTALL_PREFIX}" )
-            message(STATUS "[addExternalFolder] CMAKE_INSTALL_PREFIX has changed (from ${CACHED_INSTALL_PREFIX} to ${CMAKE_INSTALL_PREFIX}), reinstalling dependencies")
+            message(STATUS "CMAKE_INSTALL_PREFIX has changed (from ${CACHED_INSTALL_PREFIX} to ${CMAKE_INSTALL_PREFIX}), reinstalling dependencies")
             set( UPDATE_EXTERNAL ON)
         endif()
     endif()
 
     # Check if the external ${NAME} is installed. If not, force installing the externals again
     if( NOT EXISTS "${CMAKE_INSTALL_PREFIX}/share/Radium-${NAME}.touch" )
-        message(STATUS "[addExternalFolder] CMAKE_INSTALL_PREFIX is empty (${CMAKE_INSTALL_PREFIX}), reinstalling dependencies")
+        message(STATUS "CMAKE_INSTALL_PREFIX is empty (${CMAKE_INSTALL_PREFIX}), reinstalling dependencies")
         set( UPDATE_EXTERNAL ON)
     endif()
 
     if ( UPDATE_EXTERNAL )
+        string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
         execute_process(
             COMMAND ${CMAKE_COMMAND} ${FOLDER}
-                ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
-                -Wno-dev
-                ${ARGN}
+            ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
+            -DCMAKE_MESSAGE_INDENT=${indent_string}\;
+            -Wno-dev
+            ${ARGN}
             WORKING_DIRECTORY ${EXT_WORKING_DIR}
             RESULT_VARIABLE ret
         )
         if(NOT ret EQUAL "0")
-            message(FATAL_ERROR "[addExternalFolder] Cmake configure step failed. ")
+            message(FATAL_ERROR "Cmake configure step failed. ")
         endif ()
-        message(STATUS "[addExternalFolder] Start build")
+        
+        message(STATUS "Start build")
 
         set(RadiumExternalMakeTarget all)
         string(TOLOWER ${CMAKE_GENERATOR} generator_lower)
         if (MSVC AND NOT ${generator_lower} STREQUAL "ninja")
             set(RadiumExternalMakeTarget ALL_BUILD)
-            message(STATUS "[addExternalFolder] Enable compatibility mode for VS Generator")
+            message(STATUS "Enable compatibility mode for VS Generator")
         endif ()
 
         if (APPLE AND ${generator_lower} STREQUAL "xcode")
             set(RadiumExternalMakeTarget ALL_BUILD)
-            message(STATUS "[addExternalFolder] Enable compatibility mode for Xcode Generator")
+            message(STATUS "Enable compatibility mode for Xcode Generator")
         endif ()
 
+                message(STATUS "EXEC")
         execute_process(
-                COMMAND ${CMAKE_COMMAND} --build . --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
+            COMMAND ${CMAKE_COMMAND} --build . --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
                 WORKING_DIRECTORY ${EXT_WORKING_DIR}
                 RESULT_VARIABLE ret
         )
 
         if(NOT ret EQUAL "0")
-            message( FATAL_ERROR "[addExternalFolder] Cmake build step failed. ")
+            message( FATAL_ERROR "Cmake build step failed. ")
         endif()
-        message(STATUS "[addExternalFolder] Build ended")
+        message(STATUS "Build ended")
 
         #Configure package
         if(EXISTS "${FOLDER}/package.cmake")
             set(EXTERNAL_TARGET_PACKAGE_FILE "${EXT_WORKING_DIR}/cmake/package-${NAME}.cmake")
-            message(STATUS "[addExternalFolder] Configure package file ${EXTERNAL_TARGET_PACKAGE_FILE}")
+            message(STATUS "Configure package file ${EXTERNAL_TARGET_PACKAGE_FILE}")
             configure_file(${FOLDER}/package.cmake "${EXTERNAL_TARGET_PACKAGE_FILE}" COPYONLY)
             include("${EXTERNAL_TARGET_PACKAGE_FILE}")
             unset(EXTERNAL_TARGET_PACKAGE_FILE)
         endif()
-        OPTION( RADIUM_SKIP_${NAME_UPPER}_EXTERNAL "[addExternalFolder] Skip updating ${NAME}::external (disable for rebuild)" ON)
+        OPTION( RADIUM_SKIP_${NAME_UPPER}_EXTERNAL "Skip updating ${NAME}::external (disable for rebuild)" ON)
 
     else()
-        message("[addExternalFolder] Skip ${NAME}::external update (use RADIUM_SKIP_${NAME_UPPER}_EXTERNAL to change behavior)")
+        message(STATUS "Skip ${NAME}::external update (use RADIUM_SKIP_${NAME_UPPER}_EXTERNAL to change behavior)")
     endif()
 
     #This dummy target add external/CMakeLists.txt to most IDEs
@@ -107,5 +112,7 @@ macro(addExternalFolder NAME FOLDER )
       DESTINATION
         share/
     )
+    list(POP_BACK CMAKE_MESSAGE_INDENT)
+    message(STATUS "[addExternalFolder] end process ${NAME} ${FOLDER}")
 
 endmacro()
