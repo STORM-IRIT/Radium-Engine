@@ -26,6 +26,7 @@ if (NOT DEFINED glm_DIR)
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DGLM_TEST_ENABLE=OFF
         -DBUILD_STATIC_LIBS=OFF
+        -DCMAKE_INSTALL_LIBDIR=lib
         )
 
     set(glm_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/glm)
@@ -53,7 +54,7 @@ if (NOT DEFINED glbinding_DIR)
         -DOPTION_BUILD_EXAMPLES=OFF
         )
 
-    set(glbiniding_DIR ${CMAKE_INSTALL_PREFIX})
+    set(glbinding_DIR ${CMAKE_INSTALL_PREFIX}/share/glbinding)
 else()
     add_custom_target(glbinding)
     StatusMessage("[EngineExternal]" "glbinding"  "${glbinding_DIR}")
@@ -84,6 +85,8 @@ if (NOT DEFINED globjects_DIR)
         -Dglm_DIR=${glm_DIR}
         -DEigen3_DIR=${Eigen3_DIR}
         )
+
+    set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/share/globjects)
 else()
     StatusMessage("[EngineExternal]" "globjects" "${globjects_DIR}")
 endif()
@@ -106,5 +109,4 @@ else()
     message(STATUS  "Installing stb_image.h to ${CMAKE_INSTALL_PREFIX}/include")
     file(COPY ${stb_DIR}/stb_image.h DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/stb/)
     file(COPY ${stb_DIR}/stb_image_write.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include/stb/)
-       
 endif()
