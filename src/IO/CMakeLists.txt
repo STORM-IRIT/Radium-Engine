@@ -1,4 +1,5 @@
 set(ra_io_target IO)
+list(APPEND CMAKE_MESSAGE_INDENT "[${ra_io_target}] ")
 
 project( ${ra_io_target}
          LANGUAGES CXX
@@ -16,8 +17,6 @@ add_library(
     ${io_headers}
     ${io_inlines}
     )
-
-
 
 #LocalDependencies form parent scope
 populateLocalDependencies(NAME "assimp_DIR")
@@ -43,7 +42,6 @@ if (RADIUM_IO_ASSIMP)
         else ()
             get_target_property(assimplib assimp::assimp IMPORTED_IMPLIB_RELEASE)
         endif ()
-        message(STATUS " ASSIMP LINK : ${assimplib}")
         target_link_libraries(${ra_io_target} PUBLIC ${assimplib})
     else ()
         target_link_libraries(${ra_io_target} PUBLIC assimp::assimp)
@@ -68,3 +66,4 @@ configure_radium_library(
     TARGET ${ra_io_target}
     FILES "${io_headers};${io_inlines}"
 )
+list(POP_BACK CMAKE_MESSAGE_INDENT)
