@@ -94,7 +94,7 @@ if (NOT DEFINED globjects_DIR)
 
     set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/share/globjects)
 else()
-    StatusMessage("[EngineExternal]" "globjects" "${globjects_DIR}")
+    StatusMessage("" "globjects" "${globjects_DIR}")
 endif()
 
 if (NOT DEFINED stb_DIR)
