@@ -5,6 +5,7 @@ project( ${ra_core_target}
          VERSION ${RADIUM_VERSION})
 
 option( RADIUM_QUIET "Disable Radium Log messages" OFF )
+list(APPEND CMAKE_MESSAGE_INDENT "[${ra_core_target}] ")
 
 set(RA_VERSION_CPP "${CMAKE_CURRENT_BINARY_DIR}/Version.cpp")
 configure_file (
@@ -71,3 +72,4 @@ configure_radium_library(
     TARGET ${ra_core_target}
     FILES "${core_headers};${core_inlines}"
 )
+list(POP_BACK CMAKE_MESSAGE_INDENT)

@@ -14,7 +14,6 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-list(APPEND CMAKE_MESSAGE_INDENT "[IO] ")
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
@@ -64,4 +63,3 @@ if(RADIUM_IO_TINYPLY)
     endif()
 endif()
 
-list(POP_BACK CMAKE_MESSAGE_INDENT)

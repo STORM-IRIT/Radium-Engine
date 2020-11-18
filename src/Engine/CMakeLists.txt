@@ -1,4 +1,5 @@
 set(ra_engine_target Engine)
+list(APPEND CMAKE_MESSAGE_INDENT "[${ra_engine_target}] ")
 
 project( ${ra_engine_target}
          LANGUAGES CXX
@@ -56,9 +57,11 @@ configure_radium_library(
     TARGET ${ra_engine_target}
     FILES "${engine_headers};${engine_inlines}"
 )
-message(STATUS "[Engine] installing resources from ${RADIUM_SHADERS_DIR}")
+message(STATUS "installing resources from ${RADIUM_SHADERS_DIR}")
 installTargetResources(
     TARGET ${ra_engine_target}
     DIRECTORY ${RADIUM_SHADERS_DIR}
     FILES ${engine_shaders}
-)
+    )
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)

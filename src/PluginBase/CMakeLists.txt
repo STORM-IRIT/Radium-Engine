@@ -1,4 +1,5 @@
 set(ra_pluginbase_target PluginBase)
+list(APPEND CMAKE_MESSAGE_INDENT "[${ra_pluginbase_target}] ")
 
 project( ${ra_pluginbase_target}
          LANGUAGES CXX
@@ -43,3 +44,5 @@ configure_radium_library(
 #install json configuration files
 install(FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation}
     )
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)
