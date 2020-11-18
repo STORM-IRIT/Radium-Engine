@@ -83,7 +83,11 @@ function(messageSetting OPTION)
         set(FILL "${FILL} ")
     endforeach()
 
-    set(MSG "${OPTION}${FILL}${${OPTION}}")
+    if(DEFINED ${OPTION})
+        set(MSG "${OPTION}${FILL}${${OPTION}}")
+    else()
+        set(MSG "${OPTION}${FILL}[undef]")
+    endif()
     messageFormat(${MSG} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} " ")
 endfunction()
 
@@ -152,7 +156,6 @@ include(rpath)
 
 # Use gold linker to speed up linking time, see cmake/useGoldLinker.cmake
 include(useGoldLinker)
-messageInfo("USE_GOLD_LINKER                           ${USE_GOLD_LINKER}")
 
 # Helpful option enable build profiling to identify slowly compiling files
 option(MEASURE_ALL "When enabled all commands will be passed through time command" OFF)
@@ -276,6 +279,7 @@ messageSetting("RADIUM_SKIP_IO_EXTERNAL")
 messageSetting("RADIUM_INSTALL_DOC")
 messageSetting("RADIUM_UPDATE_VERSION")
 messageSetting("RADIUM_QUIET")
+messageSetting("USE_GOLD_LINKER")
 messageEnd()
 
 set( CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL "Previous value of CMAKE_INSTALL_PREFIX")
