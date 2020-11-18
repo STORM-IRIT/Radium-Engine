@@ -105,6 +105,8 @@ endmacro()
 # Other MISC targets - formating, static analysis
 # format, cppcheck, tidy
 macro(addMiscTargets)
+    list(APPEND CMAKE_MESSAGE_INDENT "[addMiscTargets] ")
+
     file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.cc *.c)
     file(GLOB_RECURSE ALL_HEADER_FILES *.h *.hpp)
 
@@ -166,6 +168,8 @@ macro(addMiscTargets)
     #     -p=./
     #     COMMAND echo ""
     #     )
+    list(POP_BACK CMAKE_MESSAGE_INDENT)
+
 endmacro()
 
 #------------------------------------------------------------------------------

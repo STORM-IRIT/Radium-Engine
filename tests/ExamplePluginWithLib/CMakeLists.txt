@@ -25,7 +25,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 else ()
     set(PLUGIN_DEMO_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Plugins-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})
 endif ()
-message(STATUS " Installing plugin demo into ${PLUGIN_DEMO_DIRECTORY}")
+message(STATUS "Installing plugin demo into ${PLUGIN_DEMO_DIRECTORY}")
 
 set(Radium_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/Radium)
 set(CMAKE_INSTALL_PREFIX ${PLUGIN_DEMO_DIRECTORY})

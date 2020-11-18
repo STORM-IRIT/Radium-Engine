@@ -1,4 +1,4 @@
-
+list(APPEND CMAKE_MESSAGE_INDENT "[Sanitizers] ")
 #------------------------------------------------------------------------------
 # Clang and gcc sanitizers
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -36,3 +36,4 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL
     endif()
 endif()
 
+list(POP_BACK CMAKE_MESSAGE_INDENT)

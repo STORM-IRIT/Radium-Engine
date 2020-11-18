@@ -5,6 +5,8 @@
 #   * PlantUML = for easy generation of custom diagrams
 
 # Helper functions
+list(APPEND CMAKE_MESSAGE_INDENT "[Doc] ")
+
 macro(path_linux_to_win MsysPath ResultingPath)
   string(REGEX REPLACE "^/([a-zA-Z])/" "\\1:/" ${ResultingPath} "${MsysPath}")
 endmacro()
@@ -115,6 +117,4 @@ if(DOXYGEN_FOUND)
     endif()
 endif()
 
-
-
-
+list(POP_BACK CMAKE_MESSAGE_INDENT)

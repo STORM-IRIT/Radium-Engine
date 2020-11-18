@@ -1,4 +1,5 @@
 set(ra_io_target IO)
+list(APPEND CMAKE_MESSAGE_INDENT "[${ra_io_target}] ")
 
 project( ${ra_io_target}
          LANGUAGES CXX
@@ -65,3 +66,4 @@ configure_radium_library(
     TARGET ${ra_io_target}
     FILES "${io_headers};${io_inlines}"
 )
+list(POP_BACK CMAKE_MESSAGE_INDENT)

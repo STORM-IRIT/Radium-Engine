@@ -10,7 +10,6 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-list(APPEND CMAKE_MESSAGE_INDENT "[Core] ")
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
@@ -74,7 +73,3 @@ if (NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
 else()
     StatusMessage("" "cpplocate" ${cpplocate_DIR})
 endif()
-
-
-list(POP_BACK CMAKE_MESSAGE_INDENT)
- 
