@@ -37,7 +37,7 @@ target_link_libraries(HelloRadium PUBLIC
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} HelloRadium)
-message(STATUS " Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME HelloRadium)
 
 add_executable(SimpleSimulationApp MACOSX_BUNDLE
@@ -48,7 +48,7 @@ target_link_libraries(SimpleSimulationApp PUBLIC
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} SimpleSimulationApp)
-message(STATUS " Installing SimpleSimulationApp into ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Installing SimpleSimulationApp into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME SimpleSimulationApp)
 
 add_executable(DrawPrimitivesDemo MACOSX_BUNDLE
@@ -63,7 +63,7 @@ target_link_libraries(DrawPrimitivesDemo PUBLIC
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
-message(STATUS " Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME DrawPrimitivesDemo)
 
 add_executable(SimpleAnimationApp MACOSX_BUNDLE
@@ -74,6 +74,6 @@ target_link_libraries(SimpleAnimationApp PUBLIC
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} SimpleAnimationApp)
-message(STATUS " Installing SimpleAnimationApp into ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Installing SimpleAnimationApp into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME SimpleAnimationApp)
 #endif ()

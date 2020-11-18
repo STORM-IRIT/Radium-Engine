@@ -14,6 +14,9 @@ set_property(DIRECTORY PROPERTY EP_STEP_TARGETS install)
 # Add fPIC for all dependencies
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
+set(indent_string "${indent_string}--")
+
 if (RADIUM_IO_ASSIMP)
     if (NOT DEFINED assimp_DIR)
         StatusMessage("[IOExternal]" "assimp" "remote git")
@@ -33,6 +36,7 @@ if (RADIUM_IO_ASSIMP)
             -DASSIMP_BUILD_TESTS=False
             -DIGNORE_GIT_HASH=True
             -DASSIMP_NO_EXPORT=True
+            "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
             )
     else()
         StatusMessage("[IOExternal]" "assimp" "${assimp_DIR}")
@@ -52,8 +56,10 @@ if(RADIUM_IO_TINYPLY)
             CMAKE_ARGS
             ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
             -DSHARED_LIB=TRUE
+            "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"                   
             )
     else()
         StatusMessage("[IOExternal]" "tinyply" "${tinyply_DIR}")
     endif()
 endif()
+

@@ -1,7 +1,7 @@
 # https://cmake.org/cmake/help/latest/manual/ctest.1.html
 # https://cmake.org/Wiki/CMake/Testing_With_CTest
 # https://cmake.org/cmake/help/latest/command/add_test.html?
-
+list(APPEND CMAKE_MESSAGE_INDENT "[Tests] ")
 include(CTest)
 
 # Adds convenience methods, see cmake/cleanCppExtensions.cmake
@@ -16,7 +16,6 @@ if(MSVC)
 else()
   add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
-
 
 add_subdirectory(external)
 add_subdirectory(unittest)
@@ -49,12 +48,10 @@ add_custom_target(checkVerbose
 
 # basic runnable tests are defined in ExampleApps folder
 
-
-
-
-
 # Add unit test to CTest suite as one of the tests
 # unit test build is located in source/unittest/CMakeLists.txt
 add_test(NAME "catch_unit_tests"
     COMMAND $<TARGET_FILE:unittests>
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)

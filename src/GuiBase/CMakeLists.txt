@@ -1,4 +1,5 @@
 set(ra_guibase_target GuiBase)
+list(APPEND CMAKE_MESSAGE_INDENT "[${ra_guibase_target}] ")
 
 project( ${ra_guibase_target}
          LANGUAGES CXX
@@ -62,8 +63,10 @@ configure_radium_library(
     TARGET ${ra_guibase_target}
     FILES "${guibase_headers};${guibase_inlines}"
 )
-message(STATUS "[GuiBase] installing resources from Configs")
+message(STATUS "installing resources from Configs")
 installTargetResources(
     TARGET ${ra_guibase_target}
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs
 )
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+
