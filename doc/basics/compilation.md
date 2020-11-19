@@ -19,7 +19,7 @@ Minimal requirements
 
 The following platforms and tool chains have been tested and should work :
 
- * *Windows* : MSVC 2017 cmake support, MinGW-32 4.9.2 (with Qt Creator).
+ * *Windows* : IDEs: Visual Studio 2019 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017 or 2019) .
  * *Mac OSX* : gcc 7.1 or higher, Apple clang
  * *Linux* : gcc 7.1  or higher, clang
 
@@ -138,11 +138,13 @@ Note that installation requires write access on the installation directory.
 ## Building on Microsoft Windows with Visual Studio
 
 ### Supported versions of MSVC
-Radium requires MSVC 2017 or superior, as it relies on:
+Radium requires MSVC 2019 or superior, as it relies on:
 * C++11/C++14/C++17 features such as `constexpr`,
 * cmake built-in support
 
-Our Continuous Integration systems work with *VS 2019 Community* (https://www.visualstudio.com/products/visual-studio-community-vs).
+Our Continuous Integration systems uses Microsoft Compiler 2017, in combination with cmake and ninja.
+Using Visual Studio 2017 with cmake support is however not possible: VS is shipped with cmake: 3.12, while Radium requires cmake 3.13 at least. We recommand to use Visual Studio 2019 in that case.
+Qt 5.15+ is distributed with binaries precompiled with MSVC 2019, but Qt binaries precompiled with MSVC2017 does not break the build.
 
 ### Dependencies
 
