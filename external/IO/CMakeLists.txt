@@ -39,14 +39,14 @@ if (RADIUM_IO_ASSIMP)
             "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
             )
     else()
-        StatusMessage("[IOExternal]" "assimp" "${assimp_DIR}")
+        StatusMessage("" "assimp" "${assimp_DIR}")
     endif()
 endif()
 
 
 if(RADIUM_IO_TINYPLY)
     if (NOT DEFINED tinyply_DIR)
-        StatusMessage("[IOExternal]" "tinyply" "remote git")
+        StatusMessage("" "tinyply" "remote git")
         ExternalProject_Add( tinyply
             GIT_REPOSITORY https://github.com/ddiakopoulos/tinyply.git
             GIT_TAG tags/2.3.2
