@@ -1,0 +1,9 @@
+<map id="Ra::GuiBase::Timeline::registerKeyFramedValue" name="Ra::GuiBase::Timeline::registerKeyFramedValue">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1Timeline.html#a953a74aefcec4ba3e2fe60f5e5a8da69" title="Ra::GuiBase::Timeline\l::selectionChanged" alt="" coords="241,137,408,178"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a170dcf7c25367d3922bc4335e57aef4b" title="Ra::Core::Animation\l::KeyFramedValueBase\l::getTimes" alt="" coords="458,5,629,61"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="462,85,625,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Entity.html#a236c7b600cc1bfb88ad1138325b5dd28" title="Ra::Engine::Entity\l::getName" alt="" coords="475,137,612,178"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Component.html#a243a520429e5b78995df4c0a60ee7237" title="Return the component&#39;s name. " alt="" coords="456,202,631,243"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title="Ra::Core::Utils::Index\l::Invalid" alt="" coords="464,267,623,309"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR. " alt="" coords="679,267,837,309"/>
+</map>

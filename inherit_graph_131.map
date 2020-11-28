@@ -1,0 +1,12 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="Ra::Gui::KeyMappingManageable\l\&lt; FlightCameraManipulator \&gt;" alt="" coords="290,5,525,47"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title="A Flight manipulator for Cameras. " alt="" coords="575,81,816,107"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="Ra::Gui::KeyMappingManageable\l\&lt; GizmoManager \&gt;" alt="" coords="5,5,240,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1GizmoManager.html" title="Ra::Gui::GizmoManager" alt="" coords="320,71,495,98"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="Ra::Gui::KeyMappingManageable\l\&lt; TrackballCameraManipulator \&gt;" alt="" coords="288,224,527,265"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras. " alt="" coords="602,157,789,199"/>
+<area shape="rect" id="node7" href="$classQObject.html" title="QObject" alt="" coords="85,122,160,149"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators. " alt="" coords="305,122,510,149"/>
+<area shape="rect" id="node9" href="$classRa_1_1Plugins_1_1Context.html" title="Data passed to the plugin constructor. " alt="" coords="331,173,484,199"/>
+<area shape="rect" id="node10" href="$classRa_1_1GuiBase_1_1TransformEditor.html" title="Ra::GuiBase::TransformEditor" alt="" coords="17,71,229,98"/>
+</map>

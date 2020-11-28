@@ -1,0 +1,8 @@
+<map id="Ra::Gui::FlightCameraManipulator::handleCameraZoom" name="Ra::Gui::FlightCameraManipulator::handleCameraZoom">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="295,5,457,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="301,57,451,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="301,122,451,163"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#abcad4a7bff703dac10998d89a4db130e" title="Return the up vector. " alt="" coords="301,187,451,229"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="523,89,674,130"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="505,154,692,195"/>
+</map>

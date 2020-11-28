@@ -1,0 +1,19 @@
+<map id="Ra::Core::Quadric::Quadric" name="Ra::Core::Quadric::Quadric">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Quadric.html#a1b519985e1e96507441552fe0b989a52" title="Construct an initialized quadric. " alt="" coords="211,5,353,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Quadric.html#a93e75bb96907ca2d73026ef6c4e9dbee" title="Ra::Core::Quadric::\l~Quadric" alt="" coords="211,71,353,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Quadric.html#a2d4814ecceca5b659f5e61a5bedeaae2" title="Getters and setters. " alt="" coords="416,195,589,222"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Quadric.html#ad09c2c1a7f2d46cb554dd48d56b11a5f" title="Ra::Core::Quadric::setA" alt="" coords="196,421,368,447"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Quadric.html#a64752c72c428ebafbc62d28b97b3260e" title="Ra::Core::Quadric::getB" alt="" coords="416,254,589,281"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Quadric.html#a83f5d4f91f2d657cfc31d5285d388d64" title="Ra::Core::Quadric::setB" alt="" coords="196,471,368,498"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Quadric.html#a68b774960e837f9a3960c69f6ffbd124" title="Ra::Core::Quadric::getC" alt="" coords="416,305,589,331"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Quadric.html#aeec1e8b0fb36fc9bab0690b1e4d79b4d" title="Ra::Core::Quadric::setC" alt="" coords="196,522,368,549"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1Core_1_1Containers.html#a83257c42de08d550fe2081a5d8a13331" title="Stores a 3&#45;dimensional hierarchy of meshes of arbitrary type. " alt="" coords="205,573,359,615"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Quadric.html#a11aed72785711bff4f1d738f15ce3e3d" title="Ra::Core::Quadric::\lcompute" alt="" coords="211,639,353,680"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Quadric.html#ac3f77afd295214a049f72026d6d64753" title="Computes eigen values and vectors of matrix A. " alt="" coords="199,704,365,745"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Quadric.html#a2c8ad8a15bbc75c6d78b6c4533fd4bfe" title="Ra::Core::Quadric::\lcomputeEigenVectorsA" alt="" coords="196,769,368,811"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Quadric.html#aff5a0df07f44c436350c368b84579615" title="Operators. " alt="" coords="211,188,353,229"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Quadric.html#a8c0c06178ad000d833a71ed52955d0e9" title="Ra::Core::Quadric::\loperator*" alt="" coords="211,835,353,876"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Quadric.html#ae206cdab05157aeee1e26ee9aace045d" title="Ra::Core::Quadric::\loperator+=" alt="" coords="211,253,353,295"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Quadric.html#a88a5adf148644664524c45150231be74" title="Ra::Core::Quadric::\loperator*=" alt="" coords="211,900,353,941"/>
+<area shape="rect" id="node11" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="421,581,584,607"/>
+</map>

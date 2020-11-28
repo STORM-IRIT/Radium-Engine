@@ -1,0 +1,7 @@
+<map id="Ra::Core::Geometry::PolyLine::projectOnSegment" name="Ra::Core::Geometry::PolyLine::projectOnSegment">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#a749ee9e81862ef200b0b7540cc1f16bc" title="Ra::Core::Geometry\l::projectOnSegment" alt="" coords="297,45,447,86"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c" title="Ra::Core::Geometry\l::PolyLine::getLineParameter" alt="" coords="268,110,476,151"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector. " alt="" coords="524,5,689,32"/>
+<area shape="rect" id="node4" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="547,56,666,83"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67" title="Get the total length of the line . " alt="" coords="531,110,682,151"/>
+</map>

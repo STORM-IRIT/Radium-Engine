@@ -1,0 +1,9 @@
+<map id="Ra::GuiBase::BaseApplication::loadPlugins" name="Ra::GuiBase::BaseApplication::loadPlugins">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title="Ra::Core::Utils::getFileExt" alt="" coords="282,5,469,32"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Utils.html#a99d916309a7c1727e74e630c93e6bdfa" title="Ra::Core::Utils::getBaseName" alt="" coords="268,56,483,83"/>
+<area shape="rect" id="node4" href="$classRa_1_1GuiBase_1_1BaseApplication.html#aa19a984e0783e70237b8050feb1a3d2a" title="Ra::GuiBase::BaseApplication\l::appNeedsToQuit" alt="" coords="268,107,483,149"/>
+<area shape="rect" id="node5" href="$classRa_1_1Plugins_1_1RadiumPluginInterface.html#a2110ad3a554613113b415cf3f7ee9db4" title="Pass arguments for plugin initialization. This method must create and register all the services that ..." alt="" coords="279,173,471,214"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5" title="Ra::Gui::WindowQt::\lisOpenGlInitialized" alt="" coords="299,238,451,279"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title="Ra::Gui::WindowQt::\lmakeCurrent" alt="" coords="299,303,451,345"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title="Ra::Gui::WindowQt::\ldoneCurrent" alt="" coords="299,369,451,410"/>
+</map>

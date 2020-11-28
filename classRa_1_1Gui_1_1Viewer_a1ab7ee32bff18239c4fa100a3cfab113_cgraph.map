@@ -1,0 +1,4 @@
+<map id="Ra::Gui::Viewer::setBackgroundColor" name="Ra::Gui::Viewer::setBackgroundColor">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Renderer.html#a3166160850c466595fe48a74116bc116" title="Ra::Engine::Renderer\l::lockRendering" alt="" coords="280,5,437,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Renderer.html#aa1773ee0f741df643e10d21d968fbcc3" title="Ra::Engine::Renderer\l::unlockRendering" alt="" coords="280,71,437,112"/>
+</map>

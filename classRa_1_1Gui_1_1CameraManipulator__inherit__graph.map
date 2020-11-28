@@ -1,0 +1,5 @@
+<map id="Ra::Gui::CameraManipulator" name="Ra::Gui::CameraManipulator">
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title="A Flight manipulator for Cameras. " alt="" coords="5,953,247,1397"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras. " alt="" coords="271,901,515,1448"/>
+<area shape="rect" id="node2" href="$classQObject.html" title="{QObject\n||}" alt="" coords="222,5,297,83"/>
+</map>

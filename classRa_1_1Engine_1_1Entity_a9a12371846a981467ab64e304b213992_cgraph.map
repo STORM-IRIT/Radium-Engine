@@ -1,0 +1,5 @@
+<map id="Ra::Engine::Entity::addComponent" name="Ra::Engine::Entity::addComponent">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Entity.html#a524712805170bfce52ed0a98f7eee436" title="Get component with a given name. " alt="" coords="209,5,347,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Component.html#a243a520429e5b78995df4c0a60ee7237" title="Return the component&#39;s name. " alt="" coords="191,71,365,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Component.html#a63b26ba33a78358bfa5747f85015c932" title="Set entity the component is part of. This method is called by the entity. " alt="" coords="191,136,365,177"/>
+</map>

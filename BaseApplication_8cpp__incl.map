@@ -1,0 +1,30 @@
+<map id="src/GuiBase/BaseApplication.cpp" name="src/GuiBase/BaseApplication.cpp">
+<area shape="rect" id="node2" href="$BaseApplication_8hpp.html" title="GuiBase/BaseApplication.hpp" alt="" coords="595,80,809,107"/>
+<area shape="rect" id="node10" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="2275,483,2435,509"/>
+<area shape="rect" id="node18" href="$TaskQueue_8hpp.html" title="Core/Tasks/TaskQueue.hpp" alt="" coords="623,251,818,278"/>
+<area shape="rect" id="node20" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="2893,251,3034,278"/>
+<area shape="rect" id="node22" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="2016,333,2137,360"/>
+<area shape="rect" id="node23" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="85,333,236,360"/>
+<area shape="rect" id="node24" href="$RadiumPluginInterface_8hpp.html" title="PluginBase/RadiumPluginInterface.hpp" alt="" coords="943,162,1218,189"/>
+<area shape="rect" id="node25" href="$MainWindowInterface_8hpp.html" title="GuiBase/MainWindowInterface.hpp" alt="" coords="1243,162,1492,189"/>
+<area shape="rect" id="node27" href="$Viewer_8hpp.html" title="GuiBase/Viewer/Viewer.hpp" alt="" coords="2303,80,2504,107"/>
+<area shape="rect" id="node30" href="$RadiumEngine_8hpp.html" title="Engine/RadiumEngine.hpp" alt="" coords="1751,251,1943,278"/>
+<area shape="rect" id="node33" href="$Resources_8hpp.html" title="Core/Resources/Resources.hpp" alt="" coords="2376,333,2596,360"/>
+<area shape="rect" id="node34" href="$Task_8hpp.html" title="Core/Tasks/Task.hpp" alt="" coords="2261,251,2415,278"/>
+<area shape="rect" id="node36" href="$StringUtils_8hpp.html" title="Core/Utils/StringUtils.hpp" alt="" coords="1490,251,1677,278"/>
+<area shape="rect" id="node37" href="$Version_8hpp.html" title="Core/Utils/Version.hpp" alt="" coords="1659,333,1825,360"/>
+<area shape="rect" id="node38" href="$EntityManager_8hpp.html" title="Engine/Managers/EntityManager\l/EntityManager.hpp" alt="" coords="1184,244,1415,285"/>
+<area shape="rect" id="node39" href="$SystemDisplay_8hpp.html" title="Engine/Managers/SystemDisplay\l/SystemDisplay.hpp" alt="" coords="45,155,279,196"/>
+<area shape="rect" id="node40" href="$Camera_8hpp.html" title="Engine/Renderer/Camera\l/Camera.hpp" alt="" coords="3161,155,3344,196"/>
+<area shape="rect" id="node41" href="$RenderObject_8hpp.html" title="Engine/Renderer/RenderObject\l/RenderObject.hpp" alt="" coords="1967,244,2186,285"/>
+<area shape="rect" id="node42" href="$ShaderConfigFactory_8hpp.html" title="Engine/Renderer/RenderTechnique\l/ShaderConfigFactory.hpp" alt="" coords="1870,155,2113,196"/>
+<area shape="rect" id="node43" href="$GeometrySystem_8hpp.html" title="Engine/System/GeometrySystem.hpp" alt="" coords="3263,80,3528,107"/>
+<area shape="rect" id="node44" href="$CameraLoader_8hpp.html" title="IO/CameraLoader/CameraLoader.hpp" alt="" coords="3553,80,3814,107"/>
+<area shape="rect" id="node8" href="$Timer_8hpp.html" title="Core/Utils/Timer.hpp" alt="" coords="493,333,647,360"/>
+<area shape="rect" id="node16" href="$FrameTimerData_8hpp.html" title="GuiBase/TimerData/FrameTimer\lData.hpp" alt="" coords="587,155,817,196"/>
+<area shape="rect" id="node9" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="2011,408,2142,435"/>
+<area shape="rect" id="node17" href="$RaGuiBase_8hpp.html" title="GuiBase/RaGuiBase.hpp" alt="" coords="2490,251,2669,278"/>
+<area shape="rect" id="node21" href="$Renderer_8hpp.html" title="Engine/Renderer/Renderer.hpp" alt="" coords="331,251,548,278"/>
+<area shape="rect" id="node31" href="$KeyMappingManager_8hpp.html" title="GuiBase/Utils/KeyMapping\lManager.hpp" alt="" coords="2791,155,2984,196"/>
+<area shape="rect" id="node32" href="$WindowQt_8hpp.html" title="GuiBase/Viewer/WindowQt.hpp" alt="" coords="2441,162,2665,189"/>
+</map>

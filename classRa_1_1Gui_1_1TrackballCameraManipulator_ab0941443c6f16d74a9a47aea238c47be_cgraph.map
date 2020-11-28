@@ -1,0 +1,20 @@
+<map id="Ra::Gui::TrackballCameraManipulator::handleMouseMoveEvent" name="Ra::Gui::TrackballCameraManipulator::handleMouseMoveEvent">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a1e8db55439659b2ea62aca7437e8dda0" title="Return the width of the viewport. " alt="" coords="365,5,516,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#ad79f6937a35c8b585f33b438525cd09b" title="Return the height of the viewport. " alt="" coords="365,71,516,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#abb2d7eddd3a1d067d79d8963125dbb48" title="Ra::Gui::TrackballCamera\lManipulator::handleCameraRotate" alt="" coords="319,289,563,331"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="866,180,1017,221"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#aa9663752b1f2fbf6fd00eeffe8e9b862" title="Ra::Gui::TrackballCamera\lManipulator::handleCameraPan" alt="" coords="328,355,553,396"/>
+<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#acd8502e9842b5f79c47a6288c3f7fecd" title="Ra::Gui::TrackballCamera\lManipulator::handleCameraZoom" alt="" coords="321,420,561,461"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378" title="Ra::Engine::Light::\lsetPosition" alt="" coords="371,485,510,527"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036" title="Ra::Engine::Light::\lsetDirection" alt="" coords="371,551,510,592"/>
+<area shape="rect" id="node19" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="365,616,516,657"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8" title="Ra::Core::Math::cos" alt="" coords="632,238,779,265"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="624,421,787,447"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#a57df21d814e3e2684ac858ac3296bb37" title="Ra::Engine::Camera\l::getRightVector" alt="" coords="630,289,781,331"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="630,355,781,396"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="848,355,1035,396"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Camera.html#abcad4a7bff703dac10998d89a4db130e" title="Return the up vector. " alt="" coords="630,472,781,513"/>
+<area shape="rect" id="node14" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}. " alt="" coords="629,538,781,565"/>
+<area shape="rect" id="node15" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title="Ra::Core::Math::signum" alt="" coords="855,538,1028,565"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="611,589,800,631"/>
+</map>

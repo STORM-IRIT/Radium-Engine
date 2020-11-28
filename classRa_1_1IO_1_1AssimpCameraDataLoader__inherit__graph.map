@@ -1,0 +1,4 @@
+<map id="Ra::IO::AssimpCameraDataLoader" name="Ra::IO::AssimpCameraDataLoader">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; Core::Asset::CameraData \&gt;\n|# m_verbose\l|+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="13,219,229,369"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; DATA \&gt;\n|# m_verbose\l|+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="19,5,223,156"/>
+</map>

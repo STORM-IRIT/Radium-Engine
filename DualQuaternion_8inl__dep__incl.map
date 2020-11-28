@@ -1,0 +1,8 @@
+<map id="src/Core/Math/DualQuaternion.inl" name="src/Core/Math/DualQuaternion.inl">
+<area shape="rect" id="node2" href="$DualQuaternion_8hpp.html" title="src/Core/Math/DualQuaternion.hpp" alt="" coords="355,80,600,107"/>
+<area shape="rect" id="node3" href="$DualQuaternionSkinning_8hpp.html" title="src/Core/Animation\l/DualQuaternionSkinning.hpp" alt="" coords="237,155,449,196"/>
+<area shape="rect" id="node6" href="$StretchableTwistableBoneSkinning_8hpp.html" title="src/Core/Animation\l/StretchableTwistableBoneSkinning.hpp" alt="" coords="473,155,751,196"/>
+<area shape="rect" id="node4" href="$DualQuaternionSkinning_8cpp.html" title="src/Core/Animation\l/DualQuaternionSkinning.cpp" alt="" coords="5,244,216,285"/>
+<area shape="rect" id="node5" href="$RotationCenterSkinning_8cpp.html" title="src/Core/Animation\l/RotationCenterSkinning.cpp" alt="" coords="241,244,447,285"/>
+<area shape="rect" id="node7" href="$StretchableTwistableBoneSkinning_8cpp.html" title="src/Core/Animation\l/StretchableTwistableBoneSkinning.cpp" alt="" coords="473,244,751,285"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Ra::GuiBase::TreeModel" name="Ra::GuiBase::TreeModel">
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1ItemModel.html" title="{Ra::GuiBase::ItemModel\n|# m_engine\l|+ ItemModel()\l+ getEntry()\l+ findEntryIndex()\l+ addItem()\l+ removeItem()\l# buildModel()\l# getHeaderString()\l}" alt="" coords="5,491,184,656"/>
+<area shape="rect" id="node2" href="$classQAbstractItemModel.html" title="{QAbstractItemModel\n||}" alt="" coords="17,5,172,83"/>
+</map>

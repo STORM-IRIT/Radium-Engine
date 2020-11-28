@@ -1,0 +1,24 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title="Ra::Core::Geometry\l::AbstractGeometry" alt="" coords="39,235,190,276"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" title="Ra::Core::Geometry\l::AbstractVolume" alt="" coords="309,104,460,145"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title="Ra::Core::Geometry\l::AttribArrayGeometry" alt="" coords="301,267,468,308"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html" title="Ra::Core::Geometry\l::AbstractDiscreteVolume" alt="" coords="572,37,759,79"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html" title="Discrete volume data storing values in a regular grid. " alt="" coords="857,5,1007,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html" title="Ra::Core::Geometry\l::VolumeSparse" alt="" coords="857,71,1007,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="Ra::Core::Geometry\l::IndexedGeometry\&lt; Vector1ui \&gt;" alt="" coords="546,233,785,275"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="Ra::Core::Geometry\l::IndexedGeometry\&lt; Vector2ui \&gt;" alt="" coords="546,364,785,405"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="Ra::Core::Geometry\l::IndexedGeometry\&lt; Vector3ui \&gt;" alt="" coords="546,495,785,536"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="Ra::Core::Geometry\l::IndexedGeometry\&lt; VectorNui \&gt;" alt="" coords="545,429,785,471"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title="Ra::Core::Geometry\l::IndexedGeometry\&lt; T \&gt;" alt="" coords="573,299,758,340"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Geometry_1_1LineStrip.html" title="Ra::Core::Geometry\l::LineStrip" alt="" coords="590,168,741,209"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Geometry_1_1PointCloud.html" title="Ra::Core::Geometry\l::PointCloud" alt="" coords="590,103,741,144"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html" title="Ra::Core::Geometry\l::IndexedPointCloud" alt="" coords="856,233,1008,275"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1LineMesh.html" title="Ra::Core::Geometry\l::LineMesh" alt="" coords="857,364,1007,405"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html" title="Ra::Core::Geometry\l::TriangleMesh" alt="" coords="857,495,1007,536"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Geometry_1_1PolyMesh.html" title="Ra::Core::Geometry\l::PolyMesh" alt="" coords="857,429,1007,471"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title="Ra::Core::Utils::Observable\&lt;\&gt;" alt="" coords="5,437,224,463"/>
+<area shape="rect" id="node19" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title="Ra::Core::Utils::ObservableVoid" alt="" coords="272,437,497,463"/>
+<area shape="rect" id="node20" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html" title="Ra::Core::Utils::AttribBase" alt="" coords="570,611,761,638"/>
+<area shape="rect" id="node22" href="$classRa_1_1Gui_1_1KeyMappingManager.html" title="Ra::Gui::KeyMappingManager" alt="" coords="559,561,771,587"/>
+<area shape="rect" id="node21" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html" title="Ra::Core::Utils::Attrib\&lt; T \&gt;" alt="" coords="833,611,1031,638"/>
+</map>

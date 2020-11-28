@@ -1,0 +1,4 @@
+<map id="Ra::Core::Asset::BlinnPhongMaterialData" name="Ra::Core::Asset::BlinnPhongMaterialData">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name..." alt="" coords="5,175,219,325"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title="{Ra::Core::Asset::AssetData\n|# m_name\l|+ AssetData()\l+ AssetData()\l+ ~AssetData()\l+ getName()\l}" alt="" coords="14,5,210,127"/>
+</map>

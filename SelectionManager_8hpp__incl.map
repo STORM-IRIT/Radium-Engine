@@ -1,0 +1,16 @@
+<map id="src/GuiBase/SelectionManager/SelectionManager.hpp" name="src/GuiBase/SelectionManager/SelectionManager.hpp">
+<area shape="rect" id="node2" href="$RaGuiBase_8hpp.html" title="GuiBase/RaGuiBase.hpp" alt="" coords="1673,259,1852,285"/>
+<area shape="rect" id="node14" href="$ItemEntry_8hpp.html" title="Engine/ItemModel/ItemEntry.hpp" alt="" coords="474,184,707,211"/>
+<area shape="rect" id="node22" href="$EntityTreeModel_8hpp.html" title="GuiBase/TreeModel/Entity\lTreeModel.hpp" alt="" coords="1303,95,1491,136"/>
+<area shape="rect" id="node3" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="999,415,1159,442"/>
+<area shape="rect" id="node9" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="811,333,970,360"/>
+<area shape="rect" id="node10" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="610,408,793,449"/>
+<area shape="rect" id="node15" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="84,259,239,285"/>
+<area shape="rect" id="node21" href="$ItemEntry_8inl.html" title="Engine/ItemModel/ItemEntry.inl" alt="" coords="313,259,538,285"/>
+<area shape="rect" id="node16" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="656,333,787,360"/>
+<area shape="rect" id="node18" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="88,333,235,360"/>
+<area shape="rect" id="node23" href="$RadiumEngine_8hpp.html" title="Engine/RadiumEngine.hpp" alt="" coords="951,184,1143,211"/>
+<area shape="rect" id="node32" href="$TreeModel_8hpp.html" title="GuiBase/TreeModel/TreeModel.hpp" alt="" coords="1275,184,1519,211"/>
+<area shape="rect" id="node24" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="986,259,1107,285"/>
+<area shape="rect" id="node28" href="$Singleton_8hpp.html" title="Core/Utils/Singleton.hpp" alt="" coords="644,259,823,285"/>
+</map>

@@ -1,0 +1,51 @@
+<map id="Ra::IO::AssimpFileLoader::loadFile" name="Ra::IO::AssimpFileLoader::loadFile">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Utils.html#a3255c68f2926d6f7f133d6b3c0e996a5" title="Ra::Core::Utils::getDirName" alt="" coords="242,327,445,354"/>
+<area shape="rect" id="node3" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#a14954991f17ce6b8bdce75ac509ecb18" title="LOADING. " alt="" coords="499,37,723,79"/>
+<area shape="rect" id="node12" href="$classRa_1_1IO_1_1AssimpHandleDataLoader.html#ae4cda7d5e392e3f2e98a9efcb34c6996" title="LOAD. " alt="" coords="246,429,441,471"/>
+<area shape="rect" id="node22" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ae70539c711179086512ee305e03fcb92" title="LOADING. " alt="" coords="236,1004,451,1045"/>
+<area shape="rect" id="node43" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#aa6c1ada49b7dbf1ef90fa318c39699f7" title="Convert all the geometry data from scene into data. " alt="" coords="237,743,450,784"/>
+<area shape="rect" id="node4" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#a0df77a64d566421b2a584c31e86e3642" title="QUERY. " alt="" coords="771,71,995,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#ae3b61b7908d0989b73d19d7dd85b3b2a" title="Ra::IO::AssimpLightDataLoader\l::sceneLightSize" alt="" coords="771,5,995,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#a9d0ff5042912203432e3abf6ae1bdece" title="LOADING. " alt="" coords="771,477,995,519"/>
+<area shape="rect" id="node7" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#aeaf37264474d4b2993da6940ce1dd3b2" title="NAME. " alt="" coords="1043,575,1267,616"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title="Ra::IO::assimpToCore" alt="" coords="1331,829,1491,855"/>
+<area shape="rect" id="node9" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#accfdee2d916c9818ffeea0eb93a12c67" title="TYPE. " alt="" coords="1043,444,1267,485"/>
+<area shape="rect" id="node10" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#a7ce7870c915811778f4fdbf8639dd33a" title="Ra::IO::AssimpLightDataLoader\l::loadLightFrame" alt="" coords="1043,509,1267,551"/>
+<area shape="rect" id="node11" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#ad1b8ceeba5c2acfe436f48549e75bac6" title="FRAME. " alt="" coords="1043,379,1267,420"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a9b6aadf86a2a5328c83fc9d17f09893c" title="Ra::Core::Asset::HandleData\l::setType" alt="" coords="507,103,714,144"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#afd1b588bb09b7e6ff3ed39d702d4b042" title="Ra::Core::Asset::HandleData\l::setName" alt="" coords="507,168,714,209"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a583661ca8646175c80bd0964f23abf07" title="Ra::Core::Asset::HandleData\l::setFrame" alt="" coords="507,233,714,275"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a1189e767e22ef4bb93527a724630cc56" title="Ra::Core::Asset::HandleData\l::setNameTable" alt="" coords="507,299,714,340"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#acbae173d72a5e07eaec8e930c9fffecf" title="Ra::Core::Asset::HandleData\l::needEndNodes" alt="" coords="507,364,714,405"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a146c55960a3a801bc295aaa8889df619" title="Ra::Core::Asset::HandleData\l::displayInfo" alt="" coords="507,429,714,471"/>
+<area shape="rect" id="node19" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a23c594326c793c74bf08614d6a810949" title="Ra::Core::Asset::HandleData\l::getComponentData" alt="" coords="507,495,714,536"/>
+<area shape="rect" id="node20" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#ad517df66c4005d5768a68be7ccb29a1f" title="Ra::Core::Asset::HandleData\l::addBindMesh" alt="" coords="507,560,714,601"/>
+<area shape="rect" id="node21" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#aa802ca4fa61afe7764845a6ff93a7d79" title="Ra::Core::Asset::HandleData\l::getEdgeData" alt="" coords="507,625,714,667"/>
+<area shape="rect" id="node23" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a7fd20fa230b2d20ca4725fffe9a10fd9" title="QUERY. " alt="" coords="503,1004,718,1045"/>
+<area shape="rect" id="node25" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#aebe6ef158998fba6b7e4f8f07dfd6293" title="KEY FRAME. " alt="" coords="503,1101,718,1143"/>
+<area shape="rect" id="node24" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a9179b9b54341520c9925633795318f77" title="Ra::IO::AssimpAnimationData\lLoader::sceneAnimationSize" alt="" coords="775,1004,990,1045"/>
+<area shape="rect" id="node26" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ae74ab8122612fa2f4264a0d7bb67d5a8" title="NAME. " alt="" coords="775,1069,990,1111"/>
+<area shape="rect" id="node28" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a613aa15b88bec1218b7078b6de2353dd" title="TIME. " alt="" coords="775,1312,990,1353"/>
+<area shape="rect" id="node34" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#ac1fbf58707a86fb1de042632a3d8f9b0" title="Ra::IO::AssimpAnimationData\lLoader::fetchAnimation" alt="" coords="775,1593,990,1635"/>
+<area shape="rect" id="node40" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a2fd298ecce8aa6a3bc951b4ef2b14c36" title="Ra::Core::Asset::Animation\lData::displayInfo" alt="" coords="785,1135,981,1176"/>
+<area shape="rect" id="node27" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad73e13ac16296d39c830255b0a5888a3" title="Ra::Core::Asset::Animation\lData::setName" alt="" coords="1057,1019,1253,1060"/>
+<area shape="rect" id="node29" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a14af25876f8e122d4d1c8eb8dccd636a" title="Ra::Core::Asset::Animation\lTime::setStart" alt="" coords="1057,1215,1253,1256"/>
+<area shape="rect" id="node30" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor. " alt="" coords="1315,1465,1507,1507"/>
+<area shape="rect" id="node31" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a885a9b6ea9485d5fcbf9c47009bf8d79" title="Ra::Core::Asset::Animation\lTime::setEnd" alt="" coords="1057,1280,1253,1321"/>
+<area shape="rect" id="node32" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#af71f668049bf4cdd1d54d8a496f931f8" title="Ra::Core::Asset::Animation\lData::setTime" alt="" coords="1057,1463,1253,1504"/>
+<area shape="rect" id="node33" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ae3b9cee02a035e89ce06f938e9f756d9" title="Ra::Core::Asset::Animation\lData::setTimeStep" alt="" coords="1057,1345,1253,1387"/>
+<area shape="rect" id="node35" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#ad5e1d378aa4ff5039b8e738651e7b79a" title="Ra::Core::Asset::Animation\lData::getTime" alt="" coords="1057,1593,1253,1635"/>
+<area shape="rect" id="node36" href="$classRa_1_1IO_1_1AssimpAnimationDataLoader.html#a652fe809115e90cbf6c254454f14ce49" title="Ra::IO::AssimpAnimationData\lLoader::fetchHandleAnimation" alt="" coords="1045,1528,1265,1569"/>
+<area shape="rect" id="node37" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a858346531804acd4cd5e88cc15f8b63c" title="Ra::Core::Asset::Animation\lData::getTimeStep" alt="" coords="1057,1659,1253,1700"/>
+<area shape="rect" id="node38" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a415893c202f05c72db0ca782b0da7b9d" title="Ra::Core::Asset::Animation\lTime::extends" alt="" coords="1057,1724,1253,1765"/>
+<area shape="rect" id="node39" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html#a135a614f6ec89a8bf63d6496d074833a" title="Ra::Core::Asset::Animation\lData::setHandleData" alt="" coords="1057,1789,1253,1831"/>
+<area shape="rect" id="node41" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a05706a4836ec061b36cb49d7ab04f9cc" title="Ra::Core::Asset::Animation\lTime::getStart" alt="" coords="1057,1084,1253,1125"/>
+<area shape="rect" id="node42" href="$classRa_1_1Core_1_1Asset_1_1AnimationTime.html#a898a89c655528ebc3892a4739d3a3689" title="Ra::Core::Asset::Animation\lTime::getEnd" alt="" coords="1057,1149,1253,1191"/>
+<area shape="rect" id="node44" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac4a70c22b1d918ba74252a9d0becbafd" title="Return true if the given scene has geometry data. " alt="" coords="504,743,717,784"/>
+<area shape="rect" id="node46" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#ac6c762bcaad871e6771ee2ad4d6c777b" title="Fill data with all the GeometryData from scene. " alt="" coords="504,841,717,883"/>
+<area shape="rect" id="node45" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a5d494bbdf71dd227648375b2c59d74a8" title="Return the number of AssImp geometry data in the given scene. " alt="" coords="776,743,989,784"/>
+<area shape="rect" id="node47" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#af5c15d97fec98d1bbc62de339fab4928" title="Fill data with the GeometryData from mesh. " alt="" coords="776,873,989,915"/>
+<area shape="rect" id="node49" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a60bc6c1f8c09845639f9783a1c59a0fc" title="Fill data with the Material data from material. " alt="" coords="776,939,989,980"/>
+<area shape="rect" id="node50" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a97efd0cc7bfcc4d7af4dcde8960e8e2d" title="Fill data with the transformation data from node and parentFrame. " alt="" coords="776,808,989,849"/>
+<area shape="rect" id="node48" href="$classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a338d8b0b7ce312143ac262cb2cc97e69" title="Ra::IO::AssimpGeometryData\lLoader::fetchName" alt="" coords="1048,851,1261,892"/>
+</map>

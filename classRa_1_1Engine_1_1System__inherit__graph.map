@@ -1,0 +1,7 @@
+<map id="Ra::Engine::System" name="Ra::Engine::System">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1CameraManager.html" title="{Ra::Engine::CameraManager\n|# m_data\l|+ CameraManager()\l+ CameraManager()\l+ operator=()\l+ ~CameraManager()\l+ getCamera()\l+ addCamera()\l+ count()\l+ generateTasks()\l+ handleAssetLoading()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="5,248,217,487"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1GeometrySystem.html" title="{Ra::Engine::GeometrySystem\n||+ GeometrySystem()\l+ ~GeometrySystem()\l+ handleAssetLoading()\l+ generateTasks()\l}" alt="" coords="242,307,455,428"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1LightManager.html" title="{Ra::Engine::LightManager\n|# m_data\l|+ LightManager()\l+ LightManager()\l+ operator=()\l+ ~LightManager()\l+ getLight()\l+ addLight()\l+ count()\l+ generateTasks()\l+ handleAssetLoading()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="480,248,692,487"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras. " alt="" coords="10,535,213,656"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1DefaultLightManager.html" title="DefaultLightManager. A simple Light Manager with a list of lights. " alt="" coords="495,535,677,656"/>
+</map>

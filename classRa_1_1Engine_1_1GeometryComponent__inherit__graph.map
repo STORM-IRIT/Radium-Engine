@@ -1,0 +1,5 @@
+<map id="Ra::Engine::GeometryComponent" name="Ra::Engine::GeometryComponent">
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1PointCloudComponent.html" title="{Ra::Engine::PointCloudComponent\n||+ PointCloudComponent()\l+ PointCloudComponent()\l+ ~PointCloudComponent()\l+ initialize()\l+ getCoreGeometry()\l+ getGeometry()\l+ setSplatSize()\l+ getSplatSize()\l+ setupIO()\l+ setDeformable()\l}" alt="" coords="5,608,249,817"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1SurfaceMeshComponent.html" title="Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh. " alt="" coords="273,623,531,803"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="154,5,375,347"/>
+</map>

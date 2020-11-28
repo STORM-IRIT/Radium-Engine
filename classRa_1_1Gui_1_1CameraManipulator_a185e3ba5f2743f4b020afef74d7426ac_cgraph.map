@@ -1,0 +1,5 @@
+<map id="Ra::Gui::CameraManipulator::setCameraZNear" name="Ra::Gui::CameraManipulator::setCameraZNear">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a92a62d6c690e51b17c9345eaa7959c7e" title="Set the Z Near plane distance to &#39;zNear&#39;. " alt="" coords="259,5,409,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters. " alt="" coords="457,5,608,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="656,13,819,39"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="src/Core/Geometry/TopologicalMesh.inl" name="src/Core/Geometry/TopologicalMesh.inl">
+<area shape="rect" id="node2" href="$TopologicalMesh_8hpp.html" title="src/Core/Geometry/Topological\lMesh.hpp" alt="" coords="355,95,577,136"/>
+<area shape="rect" id="node3" href="$RotationCenterSkinning_8cpp.html" title="src/Core/Animation\l/RotationCenterSkinning.cpp" alt="" coords="5,184,212,225"/>
+<area shape="rect" id="node4" href="$CatmullClarkSubdivider_8hpp.html" title="src/Core/Geometry/Catmull\lClarkSubdivider.hpp" alt="" coords="236,184,435,225"/>
+<area shape="rect" id="node6" href="$LoopSubdivider_8hpp.html" title="src/Core/Geometry/LoopSubdivider.hpp" alt="" coords="459,191,734,218"/>
+<area shape="rect" id="node8" href="$TopologicalMesh_8cpp.html" title="src/Core/Geometry/Topological\lMesh.cpp" alt="" coords="758,184,979,225"/>
+<area shape="rect" id="node5" href="$CatmullClarkSubdivider_8cpp.html" title="src/Core/Geometry/Catmull\lClarkSubdivider.cpp" alt="" coords="236,273,435,315"/>
+<area shape="rect" id="node7" href="$LoopSubdivider_8cpp.html" title="src/Core/Geometry/LoopSubdivider.cpp" alt="" coords="459,281,734,307"/>
+</map>

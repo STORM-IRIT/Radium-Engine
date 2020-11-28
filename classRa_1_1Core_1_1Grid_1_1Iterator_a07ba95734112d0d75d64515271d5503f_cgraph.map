@@ -1,0 +1,6 @@
+<map id="Ra::Core::Grid::Iterator::Iterator" name="Ra::Core::Grid::Iterator::Iterator">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Grid_1_1Iterator.html#a250062d7204bf6ef70867dec136906ee" title="Set an existing iterator to a linear index value. " alt="" coords="231,5,399,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Grid_1_1Iterator.html#ab83d2a531ca68a242f6fd06d7a77235e" title="Constructor from size and linear index. " alt="" coords="231,71,399,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Grid.html#a5caa83769b59f497ce4acaf029ecd5c0" title="Returns the size vector (a D&#45;dimensional vector with the size along each dimension). " alt="" coords="221,137,408,163"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Grid_1_1Iterator.html#a57348c88771de4c988b0f0eabbc8238b" title="Set an existing iterator to a vector index value. " alt="" coords="231,188,399,229"/>
+</map>

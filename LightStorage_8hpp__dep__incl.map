@@ -1,0 +1,8 @@
+<map id="src/Engine/Managers/LightManager/LightStorage.hpp" name="src/Engine/Managers/LightManager/LightStorage.hpp">
+<area shape="rect" id="node2" href="$LightManager_8hpp.html" title="src/Engine/Managers\l/LightManager/LightManager.hpp" alt="" coords="347,95,580,136"/>
+<area shape="rect" id="node3" href="$DefaultLightManager_8hpp.html" title="src/Engine/Managers\l/LightManager/DefaultLight\lManager.hpp" alt="" coords="124,184,323,240"/>
+<area shape="rect" id="node6" href="$LightManager_8cpp.html" title="src/Engine/Managers\l/LightManager/LightManager.cpp" alt="" coords="347,191,579,233"/>
+<area shape="rect" id="node7" href="$Renderer_8cpp.html" title="src/Engine/Renderer\l/Renderer.cpp" alt="" coords="604,191,755,233"/>
+<area shape="rect" id="node4" href="$DefaultLightManager_8cpp.html" title="src/Engine/Managers\l/LightManager/DefaultLight\lManager.cpp" alt="" coords="5,288,204,344"/>
+<area shape="rect" id="node5" href="$ForwardRenderer_8cpp.html" title="src/Engine/Renderer\l/Renderers/ForwardRenderer.cpp" alt="" coords="228,295,459,337"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="Ra::Gui::FlightCameraManipulator::handleCameraRotate" name="Ra::Gui::FlightCameraManipulator::handleCameraRotate">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a57df21d814e3e2684ac858ac3296bb37" title="Ra::Engine::Camera\l::getRightVector" alt="" coords="295,5,445,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="511,87,662,128"/>
+<area shape="rect" id="node4" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="304,122,436,149"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="295,173,445,215"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="295,239,445,280"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="493,173,680,215"/>
+</map>

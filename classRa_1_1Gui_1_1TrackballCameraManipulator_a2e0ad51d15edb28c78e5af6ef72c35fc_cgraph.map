@@ -1,0 +1,23 @@
+<map id="Ra::Gui::TrackballCameraManipulator::fitScene" name="Ra::Gui::TrackballCameraManipulator::fitScene">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd" title="Ra::Gui::TrackballCamera\lManipulator::resetCamera" alt="" coords="240,397,431,438"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#ab8f9fdfba7355b4589c4d9cb39f0b527" title="Set the position of the camera to &#39;position&#39;. " alt="" coords="508,105,659,146"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="994,286,1145,327"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#a2fd3ed37be68acb358df23c3f04b3d81" title="Ra::Engine::Camera\l::setDirection" alt="" coords="508,170,659,211"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="757,257,907,298"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html#ad7880fb45a56841fd743fb3ad80c2592" title="Update the polar coordinates of the Camera w.r.t. the trackball center. " alt="" coords="479,455,688,497"/>
+<area shape="rect" id="node13" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="766,649,898,676"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378" title="Ra::Engine::Light::\lsetPosition" alt="" coords="514,521,653,562"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036" title="Ra::Engine::Light::\lsetDirection" alt="" coords="514,586,653,627"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1Camera.html#a1f376a71e29c68985fb18cb8b275d686" title="Ra::Engine::Camera\l::getFOV" alt="" coords="260,677,411,718"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Camera.html#aad67e7a7e920a608d55f577813747520" title="Return the aspect ratio of the viewport. " alt="" coords="260,742,411,783"/>
+<area shape="rect" id="node19" href="$classRa_1_1Engine_1_1Camera.html#a7c3d760b471a2620c0eadfb32af2f2f4" title="Return the Z Far plane distance from the camera. " alt="" coords="260,807,411,849"/>
+<area shape="rect" id="node20" href="$classRa_1_1Engine_1_1Camera.html#a6c0c48dc4842c871a0544977c79412a1" title="Set the Z Far plane distance to &#39;zFar&#39;. " alt="" coords="260,873,411,914"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#afb2eb1eaed43dfbad89a89f90c067b4e" title="Set the frame of the camera to &#39;frame&#39;. " alt="" coords="508,338,659,379"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="757,170,907,211"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="976,170,1163,211"/>
+<area shape="rect" id="node11" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor. " alt="" coords="736,398,928,439"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Camera.html#a57df21d814e3e2684ac858ac3296bb37" title="Ra::Engine::Camera\l::getRightVector" alt="" coords="757,515,907,557"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="737,581,927,622"/>
+<area shape="rect" id="node21" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters. " alt="" coords="508,873,659,914"/>
+<area shape="rect" id="node22" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="751,880,913,907"/>
+</map>

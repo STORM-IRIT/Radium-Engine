@@ -1,0 +1,4 @@
+<map id="Ra::Gui::Gizmo::addRenderObject" name="Ra::Gui::Gizmo::addRenderObject">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing. " alt="" coords="249,5,424,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager. " alt="" coords="472,5,647,47"/>
+</map>

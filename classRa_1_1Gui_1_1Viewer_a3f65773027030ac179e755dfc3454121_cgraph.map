@@ -1,0 +1,6 @@
+<map id="Ra::Gui::Viewer::mouseReleaseEvent" name="Ra::Gui::Viewer::mouseReleaseEvent">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Viewer.html#a4c4e7539f7a0a060d64cc6c374a98035" title="Ra::Gui::Viewer::handleMouse\lReleaseEvent" alt="" coords="279,39,495,80"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda" title="Ra::Gui::KeyMappingManageable\l\&lt; GizmoManager \&gt;::getContext" alt="" coords="543,5,777,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1GizmoManager.html#a8dc34f80346739e5c33338a5efa39e5b" title="Ra::Gui::GizmoManager\l::handleMouseReleaseEvent" alt="" coords="558,71,762,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected. " alt="" coords="825,78,1059,105"/>
+</map>

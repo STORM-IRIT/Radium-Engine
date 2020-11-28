@@ -1,0 +1,19 @@
+<map id="src/Engine/Renderer/Camera/ViewingParameters.hpp" name="src/Engine/Renderer/Camera/ViewingParameters.hpp">
+<area shape="rect" id="node2" href="$Camera_8hpp.html" title="src/Engine/Renderer\l/Camera/Camera.hpp" alt="" coords="1190,95,1350,136"/>
+<area shape="rect" id="node17" href="$Renderer_8cpp.html" title="src/Engine/Renderer\l/Renderer.cpp" alt="" coords="1375,95,1525,136"/>
+<area shape="rect" id="node18" href="$RenderObject_8cpp.html" title="src/Engine/Renderer\l/RenderObject/RenderObject.cpp" alt="" coords="1549,95,1780,136"/>
+<area shape="rect" id="node3" href="$CameraManager_8cpp.html" title="src/Engine/Managers\l/CameraManager/CameraManager.cpp" alt="" coords="5,191,276,233"/>
+<area shape="rect" id="node4" href="$Camera_8inl.html" title="src/Engine/Renderer\l/Camera/Camera.inl" alt="" coords="301,191,453,233"/>
+<area shape="rect" id="node5" href="$DefaultCameraManager_8hpp.html" title="src/Engine/Managers\l/CameraManager/DefaultCamera\lManager.hpp" alt="" coords="477,184,713,240"/>
+<area shape="rect" id="node8" href="$Camera_8cpp.html" title="src/Engine/Renderer\l/Camera/Camera.cpp" alt="" coords="737,191,896,233"/>
+<area shape="rect" id="node9" href="$BaseApplication_8cpp.html" title="src/GuiBase/BaseApplication.cpp" alt="" coords="921,199,1155,225"/>
+<area shape="rect" id="node10" href="$CameraManipulator_8cpp.html" title="src/GuiBase/Viewer\l/CameraManipulator.cpp" alt="" coords="1180,191,1360,233"/>
+<area shape="rect" id="node11" href="$FlightCameraManipulator_8cpp.html" title="src/GuiBase/Viewer\l/FlightCameraManipulator.cpp" alt="" coords="1385,191,1601,233"/>
+<area shape="rect" id="node12" href="$Gizmo_8cpp.html" title="src/GuiBase/Viewer\l/Gizmo/Gizmo.cpp" alt="" coords="1625,191,1773,233"/>
+<area shape="rect" id="node13" href="$GizmoManager_8cpp.html" title="src/GuiBase/Viewer\l/Gizmo/GizmoManager.cpp" alt="" coords="1797,191,1993,233"/>
+<area shape="rect" id="node14" href="$RotateGizmo_8cpp.html" title="src/GuiBase/Viewer\l/Gizmo/RotateGizmo.cpp" alt="" coords="2017,191,2200,233"/>
+<area shape="rect" id="node15" href="$TrackballCameraManipulator_8cpp.html" title="src/GuiBase/Viewer\l/TrackballCameraManipulator.cpp" alt="" coords="2224,191,2463,233"/>
+<area shape="rect" id="node16" href="$Viewer_8cpp.html" title="src/GuiBase/Viewer\l/Viewer.cpp" alt="" coords="2487,191,2635,233"/>
+<area shape="rect" id="node6" href="$DefaultCameraManager_8cpp.html" title="src/Engine/Managers\l/CameraManager/DefaultCamera\lManager.cpp" alt="" coords="348,288,584,344"/>
+<area shape="rect" id="node7" href="$ForwardRenderer_8cpp.html" title="src/Engine/Renderer\l/Renderers/ForwardRenderer.cpp" alt="" coords="608,295,839,337"/>
+</map>

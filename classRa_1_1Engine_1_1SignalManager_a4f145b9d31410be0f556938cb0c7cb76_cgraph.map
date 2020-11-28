@@ -1,0 +1,5 @@
+<map id="Ra::Engine::SignalManager::fireComponentRemoved" name="Ra::Engine::SignalManager::fireComponentRemoved">
+<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1ItemEntry.html#abf969f288b9f89ed2a268b2cc70fb78a" title="Returns true if the item represents a component. " alt="" coords="248,35,411,76"/>
+<area shape="rect" id="node3" href="$structRa_1_1Engine_1_1ItemEntry.html#acc4d0f03ddd27dce426af9ed9c8993c9" title="Debug checks. " alt="" coords="459,5,621,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID. " alt="" coords="669,35,828,76"/>
+</map>

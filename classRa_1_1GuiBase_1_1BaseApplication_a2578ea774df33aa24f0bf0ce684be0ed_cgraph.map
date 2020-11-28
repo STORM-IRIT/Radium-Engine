@@ -1,0 +1,7 @@
+<map id="Ra::GuiBase::BaseApplication::addBasicShaders" name="Ra::GuiBase::BaseApplication::addBasicShaders">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0" title="Ra::Core::Resources\l::getRadiumResourcesDir" alt="" coords="290,5,477,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1ShaderConfiguration.html#a8ffa1714a9e63a320acaa7873fb99797" title="Ra::Engine::ShaderConfiguration\l::addShader" alt="" coords="268,71,499,112"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#a36842535508a390108fb1205210a5c49" title="Ra::Engine::ShaderConfiguration\lFactory::addConfiguration" alt="" coords="268,136,499,177"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Resources.html#a96e7523ac5a9f47629ee73938db23790" title="Ra::Core::Resources\l::searchPath" alt="" coords="587,5,737,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1ShaderConfiguration.html#a6aefbda787e65960237bb9c0cdc0f627" title="Ra::Engine::ShaderConfiguration\l::getName" alt="" coords="547,136,777,177"/>
+</map>

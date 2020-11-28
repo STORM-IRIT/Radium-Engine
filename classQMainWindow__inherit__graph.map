@@ -1,0 +1,4 @@
+<map id="QMainWindow" name="QMainWindow">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1MainWindowInterface.html" title="{Ra::GuiBase::MainWindowInterface\n||+ MainWindowInterface()\l+ ~MainWindowInterface()\l+ getViewer()\l+ getSelectionManager()\l+ getTimeline()\l+ updateUi()\l+ onFrameComplete()\l+ addRenderer()\l+ postLoadFile()\l+ cleanup()\l}" alt="" coords="5,131,256,340"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1SimpleWindow.html" title="{Ra::GuiBase::SimpleWindow\n||+ getViewer()\l+ getSelectionManager()\l+ getTimeline()\l+ updateUi()\l+ onFrameComplete()\l+ addRenderer()\l+ SimpleWindow()\l+ SimpleWindow()\l+ operator=()\l+ SimpleWindow()\l+ operator=()\l+ ~SimpleWindow()\l+ postLoadFile()\l+ cleanup()\l* SimpleWindow()\l* SimpleWindow()\l* operator=()\l* SimpleWindow()\l* operator=()\l* ~SimpleWindow()\l}" alt="" coords="27,388,234,744"/>
+</map>

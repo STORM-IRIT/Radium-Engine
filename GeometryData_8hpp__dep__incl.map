@@ -1,0 +1,21 @@
+<map id="src/Core/Asset/GeometryData.hpp" name="src/Core/Asset/GeometryData.hpp">
+<area shape="rect" id="node2" href="$FileData_8inl.html" title="src/Core/Asset/FileData.inl" alt="" coords="1132,87,1324,114"/>
+<area shape="rect" id="node6" href="$LightManager_8cpp.html" title="src/Engine/Managers\l/LightManager/LightManager.cpp" alt="" coords="5,259,237,300"/>
+<area shape="rect" id="node9" href="$GeometrySystem_8cpp.html" title="src/Engine/System/Geometry\lSystem.cpp" alt="" coords="1929,259,2140,300"/>
+<area shape="rect" id="node14" href="$GeometryData_8inl.html" title="src/Core/Asset/GeometryData.inl" alt="" coords="1401,87,1636,114"/>
+<area shape="rect" id="node15" href="$GeometryData_8cpp.html" title="src/Core/Asset/GeometryData.cpp" alt="" coords="1660,87,1903,114"/>
+<area shape="rect" id="node16" href="$GeometryComponent_8hpp.html" title="src/Engine/Component\l/GeometryComponent.hpp" alt="" coords="1977,80,2172,121"/>
+<area shape="rect" id="node17" href="$GeometryComponent_8cpp.html" title="src/Engine/Component\l/GeometryComponent.cpp" alt="" coords="1803,169,1997,211"/>
+<area shape="rect" id="node20" href="$AssimpGeometryDataLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpGeometryDataLoader.cpp" alt="" coords="2196,80,2436,121"/>
+<area shape="rect" id="node3" href="$FileData_8hpp.html" title="src/Core/Asset/FileData.hpp" alt="" coords="1127,177,1327,203"/>
+<area shape="rect" id="node4" href="$FileData_8cpp.html" title="src/Core/Asset/FileData.cpp" alt="" coords="262,266,461,293"/>
+<area shape="rect" id="node5" href="$CameraManager_8cpp.html" title="src/Engine/Managers\l/CameraManager/CameraManager.cpp" alt="" coords="485,259,755,300"/>
+<area shape="rect" id="node7" href="$RadiumEngine_8cpp.html" title="src/Engine/RadiumEngine.cpp" alt="" coords="779,266,994,293"/>
+<area shape="rect" id="node8" href="$Renderer_8cpp.html" title="src/Engine/Renderer\l/Renderer.cpp" alt="" coords="1018,259,1169,300"/>
+<area shape="rect" id="node10" href="$Viewer_8cpp.html" title="src/GuiBase/Viewer\l/Viewer.cpp" alt="" coords="1193,259,1341,300"/>
+<area shape="rect" id="node11" href="$AssimpFileLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpFileLoader.cpp" alt="" coords="1365,259,1531,300"/>
+<area shape="rect" id="node12" href="$CameraLoader_8cpp.html" title="src/IO/CameraLoader\l/CameraLoader.cpp" alt="" coords="1555,259,1714,300"/>
+<area shape="rect" id="node13" href="$TinyPlyFileLoader_8cpp.html" title="src/IO/TinyPlyLoader\l/TinyPlyFileLoader.cpp" alt="" coords="1738,259,1905,300"/>
+<area shape="rect" id="node18" href="$GeometryComponent_8inl.html" title="src/Engine/Component\l/GeometryComponent.inl" alt="" coords="2072,169,2259,211"/>
+<area shape="rect" id="node19" href="$ForwardRenderer_8cpp.html" title="src/Engine/Renderer\l/Renderers/ForwardRenderer.cpp" alt="" coords="2283,169,2514,211"/>
+</map>

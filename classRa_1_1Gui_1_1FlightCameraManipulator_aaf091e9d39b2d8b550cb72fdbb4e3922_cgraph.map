@@ -1,0 +1,20 @@
+<map id="Ra::Gui::FlightCameraManipulator::fitScene" name="Ra::Gui::FlightCameraManipulator::fitScene">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4" title="Ra::Gui::FlightCameraManipulator\l::resetCamera" alt="" coords="295,178,536,219"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#ab8f9fdfba7355b4589c4d9cb39f0b527" title="Set the position of the camera to &#39;position&#39;. " alt="" coords="584,302,735,343"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="1038,178,1189,219"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="584,367,735,409"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378" title="Ra::Engine::Light::\lsetPosition" alt="" coords="590,54,729,95"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036" title="Ra::Engine::Light::\lsetDirection" alt="" coords="590,237,729,278"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Camera.html#a1f376a71e29c68985fb18cb8b275d686" title="Ra::Engine::Camera\l::getFOV" alt="" coords="340,462,491,503"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Camera.html#aad67e7a7e920a608d55f577813747520" title="Return the aspect ratio of the viewport. " alt="" coords="340,527,491,569"/>
+<area shape="rect" id="node14" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="349,593,481,620"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1Camera.html#a2fd3ed37be68acb358df23c3f04b3d81" title="Ra::Engine::Camera\l::setDirection" alt="" coords="340,397,491,438"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Camera.html#a7c3d760b471a2620c0eadfb32af2f2f4" title="Return the Z Far plane distance from the camera. " alt="" coords="340,645,491,686"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1Camera.html#a6c0c48dc4842c871a0544977c79412a1" title="Set the Z Far plane distance to &#39;zFar&#39;. " alt="" coords="340,710,491,751"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#afb2eb1eaed43dfbad89a89f90c067b4e" title="Set the frame of the camera to &#39;frame&#39;. " alt="" coords="584,119,735,161"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="802,302,953,343"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="1020,302,1207,343"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="783,54,972,95"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters. " alt="" coords="584,710,735,751"/>
+<area shape="rect" id="node19" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="796,717,959,744"/>
+</map>

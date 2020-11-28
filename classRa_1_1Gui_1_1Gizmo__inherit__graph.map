@@ -1,0 +1,5 @@
+<map id="Ra::Gui::Gizmo" name="Ra::Gui::Gizmo">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1RotateGizmo.html" title="A RotateGizmo manipulates the rotational part of a transformation. " alt="" coords="5,380,167,531"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1ScaleGizmo.html" title="{Ra::Gui::ScaleGizmo\n||+ ScaleGizmo()\l+ updateTransform()\l+ selectConstraint()\l+ isSelected()\l+ setInitialState()\l+ mouseMove()\l}" alt="" coords="191,380,349,531"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TranslateGizmo.html" title="A TranslateGizmo manipulates the translational part of a transformation. " alt="" coords="373,380,551,531"/>
+</map>

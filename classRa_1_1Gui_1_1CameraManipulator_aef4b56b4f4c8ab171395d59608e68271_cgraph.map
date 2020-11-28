@@ -1,0 +1,32 @@
+<map id="Ra::Gui::CameraManipulator::CameraManipulator" name="Ra::Gui::CameraManipulator::CameraManipulator">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#abec46e062874d71bf9cfc9143c889a60" title="Pure virtual method to be overridden by any component. When this method is called you are guaranteed ..." alt="" coords="286,348,437,389"/>
+<area shape="rect" id="node20" href="$classRa_1_1Engine_1_1Camera.html#a4c2aac5ad419cef7720e2a18d93b3703" title="Toggle on/off displaying the Camera. " alt="" coords="560,596,711,637"/>
+<area shape="rect" id="node24" href="$classRa_1_1Gui_1_1CameraManipulator.html#a628cdfc34f5c32874c59011795db317c" title="Ra::Gui::CameraManipulator\l::setCameraFovInDegrees" alt="" coords="259,661,464,703"/>
+<area shape="rect" id="node28" href="$classRa_1_1Gui_1_1CameraManipulator.html#a185e3ba5f2743f4b020afef74d7426ac" title="Ra::Gui::CameraManipulator\l::setCameraZNear" alt="" coords="259,727,464,768"/>
+<area shape="rect" id="node30" href="$classRa_1_1Gui_1_1CameraManipulator.html#ac77a7c75a992261fba709ff10a0835b8" title="Ra::Gui::CameraManipulator\l::setCameraZFar" alt="" coords="259,792,464,833"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices. " alt="" coords="552,202,719,258"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title="Ra::Engine::AttribArrayDisplayable\l::getAttribName" alt="" coords="512,283,759,324"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#ad6fe3c60f8f2b9f9f5d8220ffe4d5ba6" title="Ra::Engine::ShaderConfiguration\lFactory::getConfiguration" alt="" coords="520,348,751,389"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1RenderTechnique.html#a22298207c6e70a98b829d6c5ead1a8e4" title="Ra::Engine::RenderTechnique\l::setConfiguration" alt="" coords="809,348,1019,389"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1RenderTechnique.html#a92778b063ae626dfac4a18d0f69fec5a" title="Ra::Engine::RenderTechnique\l::setParametersProvider" alt="" coords="531,465,740,507"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" title="Ra::Engine::RenderObject\l::createRenderObject" alt="" coords="542,531,729,572"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="542,5,729,47"/>
+<area shape="rect" id="node19" href="$classRa_1_1Engine_1_1RenderObject.html#a6b34af1c9c64f5c9a8fded701cf5bf09" title="Ra::Engine::RenderObject\l::setMaterial" alt="" coords="542,71,729,112"/>
+<area shape="rect" id="node22" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing. " alt="" coords="548,136,723,177"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title="Ra::Core::Utils::AttribManager\l::setAttrib" alt="" coords="807,201,1021,243"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions. " alt="" coords="831,267,997,323"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title="Ra::Core::Utils::AttribManager\l::getAttrib" alt="" coords="1069,275,1284,316"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title="Ra::Engine::RenderTechnique\l::setDirty" alt="" coords="1072,367,1281,408"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="1097,437,1256,479"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1RenderTechnique.html#ad1d5a9d900e46594224f5b8df142081f" title="Ra::Engine::RenderTechnique\l::hasConfiguration" alt="" coords="1072,512,1281,553"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1RenderTechnique.html#a78ba61b1637743a35f058eeefa631f8a" title="Ra::Engine::RenderTechnique\l::addPassProperties" alt="" coords="809,465,1019,507"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" title="Ra::Engine::RenderObject\l::RenderObject" alt="" coords="821,583,1007,624"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1RenderObject.html#a8ea17931e62bea93890d44815bf7fcf5" title="Ra::Engine::RenderObject\l::~RenderObject" alt="" coords="1083,583,1270,624"/>
+<area shape="rect" id="node21" href="$classRa_1_1Engine_1_1RenderObject.html#a62e0eb3a7de5a7d352b565a28260cc06" title="Ra::Engine::RenderObject\l::setVisible" alt="" coords="821,648,1007,689"/>
+<area shape="rect" id="node23" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager. " alt="" coords="827,136,1001,177"/>
+<area shape="rect" id="node25" href="$classRa_1_1Engine_1_1Camera.html#a4b14dc7687e1796d7180b7d567809293" title="Ra::Engine::Camera\l::setFOV" alt="" coords="560,661,711,703"/>
+<area shape="rect" id="node26" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters. " alt="" coords="839,727,989,768"/>
+<area shape="rect" id="node27" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="1095,734,1258,761"/>
+<area shape="rect" id="node29" href="$classRa_1_1Engine_1_1Camera.html#a92a62d6c690e51b17c9345eaa7959c7e" title="Set the Z Near plane distance to &#39;zNear&#39;. " alt="" coords="560,727,711,768"/>
+<area shape="rect" id="node31" href="$classRa_1_1Engine_1_1Camera.html#a6c0c48dc4842c871a0544977c79412a1" title="Set the Z Far plane distance to &#39;zFar&#39;. " alt="" coords="560,792,711,833"/>
+</map>

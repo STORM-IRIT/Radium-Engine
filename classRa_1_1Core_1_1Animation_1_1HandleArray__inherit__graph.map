@@ -1,0 +1,4 @@
+<map id="Ra::Core::Animation::HandleArray" name="Ra::Core::Animation::HandleArray">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1Cage.html" title="{Ra::Core::Animation\l::Cage\n|+ m_triangle\l|+ Cage()\l+ Cage()\l+ Cage()\l+ ~Cage()\l+ clear()\l}" alt="" coords="5,453,157,604"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Animation_1_1Skeleton.html" title="{Ra::Core::Animation\l::Skeleton\n|+ m_graph\l# m_modelSpace\l|+ Skeleton()\l+ Skeleton()\l+ Skeleton()\l+ ~Skeleton()\l+ size()\l+ clear()\l+ getPose()\l+ setPose()\l+ getTransform()\l+ setTransform()\l+ addRoot()\l+ addBone()\l+ getBonePoints()\l+ projectOnBone()\l}" alt="" coords="181,380,333,677"/>
+</map>

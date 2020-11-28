@@ -1,0 +1,6 @@
+<map id="Ra::Engine::CameraManager" name="Ra::Engine::CameraManager">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1System.html" title="{Ra::Engine::System\n||+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="157,572,369,767"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="202,189,331,267"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="357,189,515,267"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1CameraStorage.html" title="{Ra::Engine::CameraStorage\n||+ CameraStorage()\l+ ~CameraStorage()\l+ size()\l+ add()\l+ remove()\l+ clear()\l+ operator[]()\l}" alt="" coords="583,145,783,311"/>
+</map>

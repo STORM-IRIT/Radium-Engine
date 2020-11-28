@@ -1,0 +1,10 @@
+<map id="src/Core/Asset/FileLoaderInterface.hpp" name="src/Core/Asset/FileLoaderInterface.hpp">
+<area shape="rect" id="node2" href="$RadiumEngine_8cpp.html" title="src/Engine/RadiumEngine.cpp" alt="" coords="26,102,241,129"/>
+<area shape="rect" id="node3" href="$CameraLoader_8hpp.html" title="src/IO/CameraLoader\l/CameraLoader.hpp" alt="" coords="265,95,423,136"/>
+<area shape="rect" id="node6" href="$AssimpFileLoader_8hpp.html" title="src/IO/AssimpLoader\l/AssimpFileLoader.hpp" alt="" coords="447,95,614,136"/>
+<area shape="rect" id="node8" href="$TinyPlyFileLoader_8hpp.html" title="src/IO/TinyPlyLoader\l/TinyPlyFileLoader.hpp" alt="" coords="638,95,805,136"/>
+<area shape="rect" id="node4" href="$BaseApplication_8cpp.html" title="src/GuiBase/BaseApplication.cpp" alt="" coords="5,191,240,218"/>
+<area shape="rect" id="node5" href="$CameraLoader_8cpp.html" title="src/IO/CameraLoader\l/CameraLoader.cpp" alt="" coords="265,184,423,225"/>
+<area shape="rect" id="node7" href="$AssimpFileLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpFileLoader.cpp" alt="" coords="447,184,614,225"/>
+<area shape="rect" id="node9" href="$TinyPlyFileLoader_8cpp.html" title="src/IO/TinyPlyLoader\l/TinyPlyFileLoader.cpp" alt="" coords="638,184,805,225"/>
+</map>

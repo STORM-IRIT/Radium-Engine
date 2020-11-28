@@ -1,0 +1,6 @@
+<map id="Ra::Gui::Viewer" name="Ra::Gui::Viewer">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings. " alt="" coords="5,175,200,560"/>
+<area shape="rect" id="node3" href="$classQWindow.html" title="{QWindow\n||}" alt="" coords="61,20,145,97"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\l\&lt; Viewer \&gt;\n|# m_keyMappingContext\l|+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="224,307,459,428"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\&lt; T \&gt;\n|# m_keyMappingContext\l|+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="205,5,478,112"/>
+</map>

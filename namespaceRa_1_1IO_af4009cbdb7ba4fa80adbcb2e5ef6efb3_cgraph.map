@@ -1,0 +1,12 @@
+<map id="Ra::IO::header" name="Ra::IO::header">
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO.html#a966c5896ae38f8116c9a0217fbfca14d" title="INTERFACE. " alt="" coords="202,5,355,32"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1IO.html#a500f44220d3d052530dc956f6de3fea3" title="Ra::IO::importData" alt="" coords="207,56,350,83"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ab39bf689191e11e975554952d2532cb9" title="Erases all data, making the AttribArrayGeometry empty. " alt="" coords="185,107,372,149"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices. " alt="" coords="195,173,362,229"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions. " alt="" coords="461,239,628,295"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title="Ra::Core::Geometry\l::IndexedGeometry::setIndices" alt="" coords="169,305,389,346"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1IO.html#a12ada915ca1c3b7b7dfedb7172d5cfcc" title="Ra::IO::exportData" alt="" coords="207,371,350,397"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title="read only access to indices " alt="" coords="168,422,389,463"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title="Ra::Core::Utils::AttribManager\l::setAttrib" alt="" coords="437,173,652,214"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title="Ra::Core::Utils::AttribManager\l::getAttrib" alt="" coords="700,246,915,287"/>
+</map>

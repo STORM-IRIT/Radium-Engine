@@ -1,0 +1,44 @@
+<map id="src/GuiBase" name="src/GuiBase">
+<area shape="rect" id="node5" href="dir_fde802d0fe976469e8430b6df93e1b9e.html" title="TimerData" alt="" coords="523,159,613,207"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000034_000038.html" title="1" alt="" coords="573,133,582,148"/>
+<area shape="rect" id="node9" href="dir_796a1a15fb9cc23998586ef6281d84e1.html" title="Viewer" alt="" coords="427,159,499,207"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000034_000042.html" title="4" alt="" coords="505,145,514,160"/>
+<area shape="rect" id="node10" href="dir_fae119eb913a40fe8ed97cde8b98911e.html" title="IO" alt="" coords="677,159,749,207"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000034_000044.html" title="1" alt="" coords="662,134,672,149"/>
+<area shape="rect" id="node13" href="dir_1b07f77798358fd74e92420363fd4633.html" title="PluginBase" alt="" coords="790,159,885,207"/>
+<area shape="rect" id="edge13-headlabel" href="dir_000034_000049.html" title="2" alt="" coords="771,144,780,159"/>
+<area shape="rect" id="node2" href="dir_4e2e1cf4f0ba1fe8214a1cc25fac15e2.html" title="RadiumWindow" alt="" coords="341,63,465,111"/>
+<area shape="rect" id="node3" href="dir_0a0d8c554334a5684cc8b98421956a17.html" title="SelectionManager" alt="" coords="237,159,376,207"/>
+<area shape="rect" id="edge27-headlabel" href="dir_000035_000036.html" title="1" alt="" coords="345,144,355,159"/>
+<area shape="rect" id="node7" href="dir_e89aeb6b59063c7bef233057991cda67.html" title="TreeModel" alt="" coords="280,255,368,303"/>
+<area shape="rect" id="edge25-headlabel" href="dir_000035_000040.html" title="2" alt="" coords="367,240,376,254"/>
+<area shape="rect" id="edge26-headlabel" href="dir_000035_000042.html" title="2" alt="" coords="440,131,450,146"/>
+<area shape="rect" id="node12" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html" title="Engine" alt="" coords="207,351,279,399"/>
+<area shape="rect" id="edge28-headlabel" href="dir_000035_000010.html" title="1" alt="" coords="189,341,198,355"/>
+<area shape="rect" id="edge19-headlabel" href="dir_000036_000040.html" title="1" alt="" coords="320,227,329,242"/>
+<area shape="rect" id="node11" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" title="Core" alt="" coords="588,447,660,495"/>
+<area shape="rect" id="edge18-headlabel" href="dir_000036_000001.html" title="1" alt="" coords="642,424,651,439"/>
+<area shape="rect" id="edge20-headlabel" href="dir_000036_000010.html" title="2" alt="" coords="192,333,201,347"/>
+<area shape="rect" id="node4" href="dir_64c76d60c346e3ad5c744bc9a5d9702d.html" title="Timeline" alt="" coords="238,63,317,111"/>
+<area shape="rect" id="edge21-headlabel" href="dir_000037_000001.html" title="7" alt="" coords="566,451,575,465"/>
+<area shape="rect" id="edge22-headlabel" href="dir_000037_000010.html" title="7" alt="" coords="185,350,195,365"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000038_000001.html" title="3" alt="" coords="675,445,685,460"/>
+<area shape="rect" id="edge15-headlabel" href="dir_000038_000010.html" title="1" alt="" coords="244,325,254,339"/>
+<area shape="rect" id="node6" href="dir_db76f3c94886d731af6b7e364cea8b12.html" title="TransformEditor" alt="" coords="488,255,613,303"/>
+<area shape="rect" id="edge16-headlabel" href="dir_000039_000001.html" title="1" alt="" coords="612,419,621,434"/>
+<area shape="rect" id="edge17-headlabel" href="dir_000039_000010.html" title="3" alt="" coords="294,369,303,384"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000040_000001.html" title="1" alt="" coords="571,428,581,443"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000040_000010.html" title="5" alt="" coords="277,334,286,349"/>
+<area shape="rect" id="node8" href="dir_2cea9413440cac76c0711bd520597573.html" title="Utils" alt="" coords="392,255,464,303"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000041_000001.html" title="9" alt="" coords="588,420,597,435"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000041_000010.html" title="1" alt="" coords="294,361,303,376"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000042_000039.html" title="1" alt="" coords="518,228,527,242"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000042_000041.html" title="11" alt="" coords="442,233,460,247"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000042_000001.html" title="31" alt="" coords="653,429,670,444"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000042_000010.html" title="40" alt="" coords="221,323,239,338"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000044_000001.html" title="38" alt="" coords="672,455,689,469"/>
+<area shape="rect" id="edge23-headlabel" href="dir_000010_000001.html" title="128" alt="" coords="559,442,585,456"/>
+<area shape="rect" id="edge24-headlabel" href="dir_000049_000001.html" title="1" alt="" coords="676,458,685,473"/>
+<area shape="rect" id="clust2" href="dir_cb59203ea3f84fc4d67c89730003fed4.html" alt="" coords="227,52,624,313"/>
+<area shape="rect" id="clust1" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html" title="src" alt="" coords="216,16,635,324"/>
+</map>

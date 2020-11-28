@@ -1,0 +1,18 @@
+<map id="src/IO/AssimpLoader/AssimpCameraDataLoader.cpp" name="src/IO/AssimpLoader/AssimpCameraDataLoader.cpp">
+<area shape="rect" id="node2" href="$AssimpCameraDataLoader_8hpp.html" title="IO/AssimpLoader/AssimpCamera\lDataLoader.hpp" alt="" coords="1052,95,1287,136"/>
+<area shape="rect" id="node20" href="$CameraData_8hpp.html" title="Core/Asset/CameraData.hpp" alt="" coords="457,102,663,129"/>
+<area shape="rect" id="node27" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="39,266,180,293"/>
+<area shape="rect" id="node30" href="$AssimpWrapper_8hpp.html" title="IO/AssimpLoader/AssimpWrapper.hpp" alt="" coords="1499,102,1765,129"/>
+<area shape="rect" id="node3" href="$DataLoader_8hpp.html" title="Core/Asset/DataLoader.hpp" alt="" coords="897,184,1095,211"/>
+<area shape="rect" id="node6" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1237,184,1358,211"/>
+<area shape="rect" id="node17" href="$RaIO_8hpp.html" title="IO/RaIO.hpp" alt="" coords="1049,266,1148,293"/>
+<area shape="rect" id="node7" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="469,348,600,375"/>
+<area shape="rect" id="node8" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="681,423,841,449"/>
+<area shape="rect" id="node22" href="$AssetData_8hpp.html" title="Core/Asset/AssetData.hpp" alt="" coords="255,266,446,293"/>
+<area shape="rect" id="node23" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="521,184,753,211"/>
+<area shape="rect" id="node26" href="$CameraData_8inl.html" title="Core/Asset/CameraData.inl" alt="" coords="78,184,277,211"/>
+<area shape="rect" id="node24" href="$AlignedStdVector_8hpp.html" title="Core/Containers/AlignedStd\lVector.hpp" alt="" coords="572,259,772,300"/>
+<area shape="rect" id="node36" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="1394,184,1545,211"/>
+<area shape="rect" id="node37" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="1571,266,1723,293"/>
+<area shape="rect" id="node40" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="1569,348,1713,375"/>
+</map>

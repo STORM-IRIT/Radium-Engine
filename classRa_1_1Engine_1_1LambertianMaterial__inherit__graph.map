@@ -1,0 +1,5 @@
+<map id="Ra::Engine::LambertianMaterial" name="Ra::Engine::LambertianMaterial">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1SimpleMaterial.html" title="{Ra::Engine::SimpleMaterial\n|+ m_color\l+ m_perVertexColor\l|+ SimpleMaterial()\l+ ~SimpleMaterial()\l+ updateGL()\l+ addTexture()\l+ addTexture()\l+ getTexture()\l}" alt="" coords="20,476,217,641"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Material.html" title="{Ra::Engine::Material\n|# m_instanceName\l# m_aspect\l# m_isDirty\l|+ ~Material()\l+ getInstanceName()\l+ getMaterialName()\l+ setMaterialAspect()\l+ getMaterialAspect()\l+ isTransparent()\l+ getPropertyList()\l+ needUpdate()\l# Material()\l}" alt="" coords="36,204,201,428"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1ShaderParameterProvider.html" title="{Ra::Engine::ShaderParameter\lProvider\n|# m_renderParameters\l|+ ~ShaderParameterProvider()\l+ getParameters()\l+ getParameters()\l+ updateGL()\l+ getPropertyList()\l}" alt="" coords="7,5,231,156"/>
+</map>

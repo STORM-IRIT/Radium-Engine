@@ -1,0 +1,12 @@
+<map id="Ra::Gui::Viewer::mousePressEvent" name="Ra::Gui::Viewer::mousePressEvent">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Renderer.html#acba3d1160a0d77f8aff98feade1efb7e" title="Ra::Engine::Renderer\l::setMousePosition" alt="" coords="292,90,449,131"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#a01d6621a24aceef0fe3240986e17f0c5" title="Ra::Gui::Viewer::handleMouse\lPressEvent" alt="" coords="263,155,479,197"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828" title="return the last, still pressed, key code, &#45;1 if no key currently pressed " alt="" coords="573,5,715,32"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID. " alt="" coords="565,57,723,98"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda" title="Ra::Gui::KeyMappingManageable\l::getContext" alt="" coords="527,122,761,163"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1Viewer.html#a40bbbeeea10361efef8ab41917832a44" title="Access to gizmo manager. " alt="" coords="547,187,741,229"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1GizmoManager.html#ab63207c7a3d7afb2dfd735ecf5bd3005" title="Callback when a drawable is picked. " alt="" coords="557,253,731,294"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1Viewer.html#ac97184241ff6e5af1dc1e1a3c0563214" title="Ra::Gui::Viewer::getPickingMode" alt="" coords="527,319,761,345"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Renderer.html#a4c25a5364a90acf6e55b122770a654a2" title="Ra::Engine::Renderer\l::addPickingRequest" alt="" coords="565,370,723,411"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1Gizmo.html#a6ad53eca5654b426a0b467ab716a2704" title="Called when one of the drawables of the gizmo has been selected. " alt="" coords="809,260,1043,287"/>
+</map>

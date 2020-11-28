@@ -1,0 +1,5 @@
+<map id="Ra::Core::Animation::linearInterpolate&lt; Pose &gt;" name="Ra::Core::Animation::linearInterpolate&lt; Pose &gt;">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="205,5,368,32"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Animation.html#aa5e2e11d79318fd2777aaa259f8210db" title="Ra::Core::Animation\l::interpolatePoses" alt="" coords="211,57,363,98"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#affd18dad0b766120172a0e7ac23989fa" title="Ra::Core::Math::linearInterpolate" alt="" coords="416,64,649,91"/>
+</map>

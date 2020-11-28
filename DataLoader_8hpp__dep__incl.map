@@ -1,0 +1,13 @@
+<map id="src/Core/Asset/DataLoader.hpp" name="src/Core/Asset/DataLoader.hpp">
+<area shape="rect" id="node2" href="$AssimpAnimationDataLoader_8hpp.html" title="src/IO/AssimpLoader\l/AssimpAnimationDataLoader.hpp" alt="" coords="193,80,436,121"/>
+<area shape="rect" id="node5" href="$AssimpCameraDataLoader_8hpp.html" title="src/IO/AssimpLoader\l/AssimpCameraDataLoader.hpp" alt="" coords="1205,80,1432,121"/>
+<area shape="rect" id="node7" href="$AssimpGeometryDataLoader_8hpp.html" title="src/IO/AssimpLoader\l/AssimpGeometryDataLoader.hpp" alt="" coords="461,80,702,121"/>
+<area shape="rect" id="node9" href="$AssimpHandleDataLoader_8hpp.html" title="src/IO/AssimpLoader\l/AssimpHandleDataLoader.hpp" alt="" coords="726,80,949,121"/>
+<area shape="rect" id="node11" href="$AssimpLightDataLoader_8hpp.html" title="src/IO/AssimpLoader\l/AssimpLightDataLoader.hpp" alt="" coords="973,80,1181,121"/>
+<area shape="rect" id="node3" href="$AssimpAnimationDataLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpAnimationDataLoader.cpp" alt="" coords="5,169,248,211"/>
+<area shape="rect" id="node4" href="$AssimpFileLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpFileLoader.cpp" alt="" coords="537,169,703,211"/>
+<area shape="rect" id="node6" href="$AssimpCameraDataLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpCameraDataLoader.cpp" alt="" coords="1205,169,1432,211"/>
+<area shape="rect" id="node8" href="$AssimpGeometryDataLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpGeometryDataLoader.cpp" alt="" coords="272,169,512,211"/>
+<area shape="rect" id="node10" href="$AssimpHandleDataLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpHandleDataLoader.cpp" alt="" coords="728,169,949,211"/>
+<area shape="rect" id="node12" href="$AssimpLightDataLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpLightDataLoader.cpp" alt="" coords="974,169,1181,211"/>
+</map>

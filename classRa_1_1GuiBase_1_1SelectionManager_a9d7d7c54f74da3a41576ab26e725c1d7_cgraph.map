@@ -1,0 +1,22 @@
+<map id="Ra::GuiBase::SelectionManager::printSelection" name="Ra::GuiBase::SelectionManager::printSelection">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1SelectionManager.html#a6d3d5b0ccdf844ddd451be8beefb3dff" title="Return the set of selected entries. " alt="" coords="279,5,504,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Engine.html#a318db0d77f9e9b965c12bd100fb8de50" title="Returns the name associated to the given item. " alt="" coords="295,315,488,342"/>
+<area shape="rect" id="node19" href="$classRa_1_1GuiBase_1_1SelectionManager.html#aa569fe01a3d92e7cabeda0cf78fd07bc" title="Ra::GuiBase::SelectionManager\l::currentItem" alt="" coords="279,71,504,112"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1SelectionManager.html#aa35d23c6f1bb1c3d0dde9de0783be5e5" title="Ra::GuiBase::SelectionManager\l::itemModel" alt="" coords="552,5,777,47"/>
+<area shape="rect" id="node5" href="$structRa_1_1Engine_1_1ItemEntry.html#a1339c8b1b1457427d3eeb0ced54bc6a6" title="Returns true if the item represents any valid object. " alt="" coords="583,429,746,471"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Entity.html#a236c7b600cc1bfb88ad1138325b5dd28" title="Ra::Engine::Entity\l::getName" alt="" coords="854,315,991,356"/>
+<area shape="rect" id="node11" href="$structRa_1_1Engine_1_1ItemEntry.html#a34e6a9addd931949e507bff26759f751" title="Returns true if the item represents a render object. " alt="" coords="841,563,1004,604"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1RadiumEngine.html#a28bc0716e719a702079a55a096340d16" title="Manager getters. " alt="" coords="825,249,1020,291"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a13fc919e9fa01bfb36e67bc9011d325f" title="Ra::Engine::RenderObject\lManager::getRenderObject" alt="" coords="567,587,762,628"/>
+<area shape="rect" id="node16" href="$structRa_1_1Engine_1_1ItemEntry.html#abf969f288b9f89ed2a268b2cc70fb78a" title="Returns true if the item represents a component. " alt="" coords="841,132,1004,173"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1Component.html#a243a520429e5b78995df4c0a60ee7237" title="Return the component&#39;s name. " alt="" coords="577,308,752,349"/>
+<area shape="rect" id="node18" href="$structRa_1_1Engine_1_1ItemEntry.html#ae958f5e3bf366fdd8271f0d862e4c8f9" title="Returns true if the item represents an entity. " alt="" coords="583,191,746,232"/>
+<area shape="rect" id="node6" href="$structRa_1_1Engine_1_1ItemEntry.html#acc4d0f03ddd27dce426af9ed9c8993c9" title="Debug checks. " alt="" coords="1068,191,1231,232"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1RadiumEngine.html#a26f952bd9650234940f69053db06d118" title="Ra::Engine::RadiumEngine\l::getEntityManager" alt="" coords="826,432,1019,473"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1EntityManager.html#a34aaf911d9ee2d1c592b260d9614f5bc" title="Check wether an entity with a given name exists or not. " alt="" coords="826,497,1019,539"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a242218228300c8e03481863b9a808dec" title="Ra::Engine::RenderObject\lManager::exists" alt="" coords="829,628,1016,669"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID. " alt="" coords="1279,161,1437,203"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="1070,595,1229,636"/>
+<area shape="rect" id="node20" href="$classRa_1_1GuiBase_1_1ItemModel.html#aeea48df2da43c5c76c1310f397c33d66" title="Ra::GuiBase::ItemModel\l::getEntry" alt="" coords="575,71,754,112"/>
+<area shape="rect" id="node21" href="$classRa_1_1GuiBase_1_1TreeModel.html#a95c8502f8402d2eee372c05308e60232" title="Get the tree item corresponding to the given index. " alt="" coords="835,67,1010,108"/>
+</map>

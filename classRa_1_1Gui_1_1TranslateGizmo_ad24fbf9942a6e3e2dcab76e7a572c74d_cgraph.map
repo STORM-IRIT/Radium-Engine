@@ -1,0 +1,12 @@
+<map id="Ra::Gui::TranslateGizmo::mouseMove" name="Ra::Gui::TranslateGizmo::mouseMove">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html#a9f381cac5f535c0f66b04f02856f057d" title="Find a mouse&#45;designed point on a 3D axis. " alt="" coords="232,104,416,145"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1Gizmo.html#a59f612603ee6c129a563ee6829abbc63" title="Find a mouse&#45;designed point on a 3D plane. " alt="" coords="232,169,416,211"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="465,5,615,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#abcad4a7bff703dac10998d89a4db130e" title="Return the up vector. " alt="" coords="465,71,615,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a0c4e6b238f7fad5f3eb4cbd57b5a967c" title="Ra::Engine::Camera\l::getRayFromScreen" alt="" coords="464,136,616,177"/>
+<area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal. " alt="" coords="465,201,615,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="664,140,815,181"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#af768328fd395865c4fa7b677e3f5326c" title="Return the point on the screen plane (near plane) represented by screen coordinates pix..." alt="" coords="664,75,815,116"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#a26f646767029cf0cd95478bbae9be188" title="Return the projection matrix. " alt="" coords="863,75,1013,116"/>
+<area shape="rect" id="node10" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="680,209,799,235"/>
+</map>

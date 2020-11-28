@@ -1,0 +1,16 @@
+<map id="Ra::Gui::ScaleGizmo::mouseMove" name="Ra::Gui::ScaleGizmo::mouseMove">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html#ad9d1c38f9ce6bc77e087517c2292a926" title="Returns the controler (ShaderParametersProvider) associated to the given gizmo component. " alt="" coords="208,5,416,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a11f8714168f0fc3470ff7c749a91a5d8" title="Set the state of the controler to true. " alt="" coords="211,57,413,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Gizmo_1_1UiSelectionControler.html#a6190ecfbb984d25ff72d80e45a59e9e9" title="Set the state of the controler to false. " alt="" coords="211,122,413,163"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1Gizmo.html#a59f612603ee6c129a563ee6829abbc63" title="Find a mouse&#45;designed point on a 3D plane. " alt="" coords="220,187,404,229"/>
+<area shape="rect" id="node12" href="$classRa_1_1Gui_1_1Gizmo.html#a9f381cac5f535c0f66b04f02856f057d" title="Find a mouse&#45;designed point on a 3D axis. " alt="" coords="220,253,404,294"/>
+<area shape="rect" id="node15" href="$namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31" title="Returns the quaternion q multipled by a scalar factor of k. " alt="" coords="233,319,391,345"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#a0c4e6b238f7fad5f3eb4cbd57b5a967c" title="Ra::Engine::Camera\l::getRayFromScreen" alt="" coords="464,154,616,195"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal. " alt="" coords="465,219,615,261"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="664,158,815,199"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#af768328fd395865c4fa7b677e3f5326c" title="Return the point on the screen plane (near plane) represented by screen coordinates pix..." alt="" coords="664,93,815,134"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Camera.html#a26f646767029cf0cd95478bbae9be188" title="Return the projection matrix. " alt="" coords="863,93,1013,134"/>
+<area shape="rect" id="node11" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="680,227,799,253"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="465,285,615,326"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Camera.html#abcad4a7bff703dac10998d89a4db130e" title="Return the up vector. " alt="" coords="465,350,615,391"/>
+</map>

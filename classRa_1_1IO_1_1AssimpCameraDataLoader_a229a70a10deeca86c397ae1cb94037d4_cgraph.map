@@ -1,0 +1,15 @@
+<map id="Ra::IO::AssimpCameraDataLoader::loadCameraData" name="Ra::IO::AssimpCameraDataLoader::loadCameraData">
+<area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpCameraDataLoader.html#a20cf29c4e71d94bdd70932de6e237383" title="Fill data with the camera name from camera. " alt="" coords="258,65,457,106"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title="Ra::IO::assimpToCore" alt="" coords="536,14,696,40"/>
+<area shape="rect" id="node5" href="$classRa_1_1IO_1_1AssimpCameraDataLoader.html#afa4bdb48e0a1c2e6676c89af01377b9b" title="Return the Camera transformation, in world space, for data from the scene. " alt="" coords="258,130,457,172"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Math.html#ad79b708fb40ed130ff8031d709b78504" title="Ra::Core::Math::lookAt" alt="" coords="274,196,441,223"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#acbe2767b1b53a5eed872f1da26838907" title="Set the transformation of the Camera. " alt="" coords="252,248,463,289"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#afdf2988f7681e3b92b5cd38679fd90e7" title="Set the projection type of the Camera. " alt="" coords="252,313,463,354"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#a02231550febe42855c8a9264cc58cafc" title="Set the Field of View of the Camera. " alt="" coords="252,378,463,420"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#a555285f6e77d3cd9f397275436a84097" title="Set the distance from the near plane to the Camera. " alt="" coords="252,444,463,485"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#aa127ecb3ee25357fd0e5c5b45e7a82d3" title="Set the distance from the far plane to the Camera. " alt="" coords="252,509,463,550"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#ad83e3b6a27c0aa96f0a74381d72a61c1" title="Set the zoom factor of the Camera. " alt="" coords="252,574,463,616"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#a5ab2f2e1d35928672b9359b959ddb378" title="Set the aspect ratio of the Camera. " alt="" coords="252,640,463,681"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html#a2c5be62f627972b17ef114693bcc3637" title="Return the name of the Camera. " alt="" coords="511,65,721,106"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119" title="Acces to the name of the asset. " alt="" coords="518,130,714,172"/>
+</map>

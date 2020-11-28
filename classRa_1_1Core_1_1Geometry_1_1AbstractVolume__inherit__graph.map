@@ -1,0 +1,6 @@
+<map id="Ra::Core::Geometry::AbstractVolume" name="Ra::Core::Geometry::AbstractVolume">
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html" title="{Ra::Core::Geometry\l::AbstractDiscreteVolume\n||+ AbstractDiscreteVolume()\l+ operator=()\l+ ~AbstractDiscreteVolume()\l+ clear()\l+ computeAabb()\l+ size()\l+ setSize()\l+ binSize()\l+ setBinSize()\l+ getBinValue()\l+ getValue()\l+ addToBin()\l# AbstractDiscreteVolume()\l# linearIndex()\l# getBinValue()\l# addToBin()\l# updateStorage()\l}" alt="" coords="60,579,275,905"/>
+<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title="{Ra::Core::Geometry\l::AbstractGeometry\n||+ ~AbstractGeometry()\l+ AbstractGeometry()\l+ AbstractGeometry()\l+ operator=()\l+ clear()\l+ computeAabb()\l}" alt="" coords="79,5,256,171"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html" title="Discrete volume data storing values in a regular grid. " alt="" coords="5,953,156,1177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html" title="{Ra::Core::Geometry\l::VolumeSparse\n||+ VolumeSparse()\l+ VolumeSparse()\l+ operator=()\l+ ~VolumeSparse()\l# getBinValue()\l# addToBin()\l# updateStorage()\l}" alt="" coords="180,975,331,1155"/>
+</map>

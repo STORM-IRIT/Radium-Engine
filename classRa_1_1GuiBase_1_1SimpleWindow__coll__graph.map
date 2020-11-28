@@ -1,0 +1,4 @@
+<map id="Ra::GuiBase::SimpleWindow" name="Ra::GuiBase::SimpleWindow">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1MainWindowInterface.html" title="{Ra::GuiBase::MainWindowInterface\n||+ MainWindowInterface()\l+ ~MainWindowInterface()\l+ getViewer()\l+ getSelectionManager()\l+ getTimeline()\l+ updateUi()\l+ onFrameComplete()\l+ addRenderer()\l+ postLoadFile()\l+ cleanup()\l}" alt="" coords="5,131,256,340"/>
+<area shape="rect" id="node3" href="$classQMainWindow.html" title="{QMainWindow\n||}" alt="" coords="73,5,188,83"/>
+</map>

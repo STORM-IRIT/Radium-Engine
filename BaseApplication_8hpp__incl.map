@@ -1,0 +1,23 @@
+<map id="src/GuiBase/BaseApplication.hpp" name="src/GuiBase/BaseApplication.hpp">
+<area shape="rect" id="node7" href="$Timer_8hpp.html" title="Core/Utils/Timer.hpp" alt="" coords="1075,251,1229,278"/>
+<area shape="rect" id="node15" href="$FrameTimerData_8hpp.html" title="GuiBase/TimerData/FrameTimer\lData.hpp" alt="" coords="1190,80,1421,121"/>
+<area shape="rect" id="node46" href="$RadiumPluginInterface_8hpp.html" title="PluginBase/RadiumPluginInterface.hpp" alt="" coords="2208,169,2483,196"/>
+<area shape="rect" id="node8" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="875,572,1005,599"/>
+<area shape="rect" id="node9" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="1271,647,1431,673"/>
+<area shape="rect" id="node16" href="$RaGuiBase_8hpp.html" title="GuiBase/RaGuiBase.hpp" alt="" coords="1843,251,2021,278"/>
+<area shape="rect" id="node22" href="$TaskQueue_8hpp.html" title="Core/Tasks/TaskQueue.hpp" alt="" coords="717,169,912,196"/>
+<area shape="rect" id="node30" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="173,169,315,196"/>
+<area shape="rect" id="node33" href="$Renderer_8hpp.html" title="Engine/Renderer/Renderer.hpp" alt="" coords="1255,169,1473,196"/>
+<area shape="rect" id="node17" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="1867,333,2026,360"/>
+<area shape="rect" id="node18" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="1910,408,2093,449"/>
+<area shape="rect" id="node27" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="451,251,605,278"/>
+<area shape="rect" id="node29" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="496,333,643,360"/>
+<area shape="rect" id="node35" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1161,415,1282,442"/>
+<area shape="rect" id="node39" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="1427,415,1578,442"/>
+<area shape="rect" id="node42" href="$DisplayableObject_8hpp.html" title="Engine/Renderer/Displayable\l/DisplayableObject.hpp" alt="" coords="1457,244,1666,285"/>
+<area shape="rect" id="node40" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="1427,497,1579,524"/>
+<area shape="rect" id="node44" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="1603,415,1835,442"/>
+<area shape="rect" id="node45" href="$TriangleMesh_8hpp.html" title="Core/Geometry/TriangleMesh.hpp" alt="" coords="1427,333,1666,360"/>
+<area shape="rect" id="node49" href="$PluginContext_8hpp.html" title="PluginBase/PluginContext.hpp" alt="" coords="2249,251,2466,278"/>
+<area shape="rect" id="node50" href="$RaPluginBase_8hpp.html" title="PluginBase/RaPluginBase.hpp" alt="" coords="2283,572,2498,599"/>
+</map>

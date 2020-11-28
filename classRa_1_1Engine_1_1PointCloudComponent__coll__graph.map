@@ -1,0 +1,12 @@
+<map id="Ra::Engine::PointCloudComponent" name="Ra::Engine::PointCloudComponent">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine. " alt="" coords="257,1689,495,1840"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="265,1343,487,1640"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title="{Ra::Core::Utils::Index\n||+ Index()\l+ Index()\l+ operator=()\l+ isValid()\l+ isInvalid()\l+ setInvalid()\l+ getValue()\l+ setValue()\l+ operator IntegerType()\l+ operator=()\l+ operator++()\l+ operator&#45;&#45;()\l+ operator+()\l+ operator+()\l+ operator&#45;()\l+ operator&#45;()\l+ operator==()\l+ operator==()\l+ operator!=()\l+ operator!=()\l+ operator\&lt;()\l+ operator\&lt;()\l+ operator\&lt;=()\l+ operator\&lt;=()\l+ operator\&gt;()\l+ operator\&gt;()\l+ operator\&gt;=()\l+ operator\&gt;=()\l+ Invalid()\l+ Max()\l}" alt="" coords="45,145,227,648"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title="{Ra::Core::Utils::Indexed\lObject\n||+ IndexedObject()\l+ IndexedObject()\l+ ~IndexedObject()\l+ setIndex()\l+ getIndex()\l}" alt="" coords="59,740,234,891"/>
+<area shape="rect" id="node6" href="$classint.html" title="{int\n||}" alt="" coords="117,5,155,83"/>
+<area shape="rect" id="node7" title="STL class. " alt="" coords="490,358,619,435"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1System.html" title="{Ra::Engine::System\n||+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="506,1019,718,1214"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform. " alt="" coords="115,953,307,1280"/>
+<area shape="rect" id="node14" title="STL class. " alt="" coords="742,1078,829,1155"/>
+<area shape="rect" id="node15" title="STL class. " alt="" coords="723,769,861,861"/>
+</map>

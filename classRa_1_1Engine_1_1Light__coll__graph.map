@@ -1,0 +1,11 @@
+<map id="Ra::Engine::Light" name="Ra::Engine::Light">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="186,1343,407,1640"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title="{Ra::Core::Utils::Index\n||+ Index()\l+ Index()\l+ operator=()\l+ isValid()\l+ isInvalid()\l+ setInvalid()\l+ getValue()\l+ setValue()\l+ operator IntegerType()\l+ operator=()\l+ operator++()\l+ operator&#45;&#45;()\l+ operator+()\l+ operator+()\l+ operator&#45;()\l+ operator&#45;()\l+ operator==()\l+ operator==()\l+ operator!=()\l+ operator!=()\l+ operator\&lt;()\l+ operator\&lt;()\l+ operator\&lt;=()\l+ operator\&lt;=()\l+ operator\&gt;()\l+ operator\&gt;()\l+ operator\&gt;=()\l+ operator\&gt;=()\l+ Invalid()\l+ Max()\l}" alt="" coords="48,145,231,648"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title="{Ra::Core::Utils::Indexed\lObject\n||+ IndexedObject()\l+ IndexedObject()\l+ ~IndexedObject()\l+ setIndex()\l+ getIndex()\l}" alt="" coords="5,740,180,891"/>
+<area shape="rect" id="node5" href="$classint.html" title="{int\n||}" alt="" coords="120,5,159,83"/>
+<area shape="rect" id="node6" title="STL class. " alt="" coords="261,358,391,435"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1System.html" title="{Ra::Engine::System\n||+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="427,1019,639,1214"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform. " alt="" coords="23,953,215,1280"/>
+<area shape="rect" id="node13" title="STL class. " alt="" coords="668,1078,755,1155"/>
+<area shape="rect" id="node14" title="STL class. " alt="" coords="645,769,783,861"/>
+</map>

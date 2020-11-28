@@ -1,0 +1,17 @@
+<map id="src/Core/Asset/CameraData.hpp" name="src/Core/Asset/CameraData.hpp">
+<area shape="rect" id="node2" href="$CameraData_8cpp.html" title="src/Core/Asset/CameraData.cpp" alt="" coords="37,87,265,114"/>
+<area shape="rect" id="node3" href="$CameraData_8inl.html" title="src/Core/Asset/CameraData.inl" alt="" coords="290,87,511,114"/>
+<area shape="rect" id="node4" href="$FileData_8inl.html" title="src/Core/Asset/FileData.inl" alt="" coords="586,87,778,114"/>
+<area shape="rect" id="node7" href="$CameraManager_8cpp.html" title="src/Engine/Managers\l/CameraManager/CameraManager.cpp" alt="" coords="5,244,276,285"/>
+<area shape="rect" id="node16" href="$AssimpCameraDataLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpCameraDataLoader.cpp" alt="" coords="802,80,1029,121"/>
+<area shape="rect" id="node5" href="$FileData_8hpp.html" title="src/Core/Asset/FileData.hpp" alt="" coords="994,169,1194,196"/>
+<area shape="rect" id="node6" href="$FileData_8cpp.html" title="src/Core/Asset/FileData.cpp" alt="" coords="300,251,499,278"/>
+<area shape="rect" id="node8" href="$LightManager_8cpp.html" title="src/Engine/Managers\l/LightManager/LightManager.cpp" alt="" coords="523,244,755,285"/>
+<area shape="rect" id="node9" href="$RadiumEngine_8cpp.html" title="src/Engine/RadiumEngine.cpp" alt="" coords="780,251,995,278"/>
+<area shape="rect" id="node10" href="$Renderer_8cpp.html" title="src/Engine/Renderer\l/Renderer.cpp" alt="" coords="1019,244,1169,285"/>
+<area shape="rect" id="node11" href="$GeometrySystem_8cpp.html" title="src/Engine/System/Geometry\lSystem.cpp" alt="" coords="1194,244,1405,285"/>
+<area shape="rect" id="node12" href="$Viewer_8cpp.html" title="src/GuiBase/Viewer\l/Viewer.cpp" alt="" coords="1428,244,1576,285"/>
+<area shape="rect" id="node13" href="$AssimpFileLoader_8cpp.html" title="src/IO/AssimpLoader\l/AssimpFileLoader.cpp" alt="" coords="1600,244,1767,285"/>
+<area shape="rect" id="node14" href="$CameraLoader_8cpp.html" title="src/IO/CameraLoader\l/CameraLoader.cpp" alt="" coords="1791,244,1949,285"/>
+<area shape="rect" id="node15" href="$TinyPlyFileLoader_8cpp.html" title="src/IO/TinyPlyLoader\l/TinyPlyFileLoader.cpp" alt="" coords="1973,244,2140,285"/>
+</map>

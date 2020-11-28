@@ -1,0 +1,19 @@
+<map id="Ra::Engine::VolumeObject::loadGeometry" name="Ra::Engine::VolumeObject::loadGeometry">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html#a3896192c57de6b205245e97f15be2736" title="Return true if the volume is dense (implies isDiscrete to be true) " alt="" coords="271,20,464,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Mesh.html#a5af8256565ff1e10ea58ea1df3c6dcbf" title="Ra::Engine::Mesh::loadGeometry" alt="" coords="250,86,485,113"/>
+<area shape="rect" id="node12" href="$namespaceRa_1_1Core_1_1Geometry.html#a97444ae32c928b107e10c0a30dd4fb96" title="Create an axis&#45;aligned cubic mesh with the given half extents, centered on the origin. " alt="" coords="292,137,443,179"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html#a3f60b11c7b3e07e1017d1e1923492e4b" title="Helper function that calls Ra::Core::CoreGeometry::addAttrib() " alt="" coords="270,203,465,244"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title="Ra::Engine::AttribArrayDisplayable\l::getAttribName" alt="" coords="244,268,491,309"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html#acc43fd53785386c5eaf99372033083cd" title="return the size (number of bins ni each dimension) of the volume " alt="" coords="257,333,478,375"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Displayable.html#a0f15d23a4cdd916d1427966ad883b0fb" title="Returns the name of the mesh. " alt="" coords="279,399,455,440"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html#a2a314c7ff2ae4693dd06a85dec99b64c" title="Direct access to the managed data. " alt="" coords="292,464,443,505"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Texture.html#ae952649b81696fcc7777e9f0d31d181f" title="Ra::Engine::Texture\l::setParameters" alt="" coords="294,529,441,571"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#a12b15018687ca12e6acff71d27d36358" title="Set the render mode. " alt="" coords="539,5,785,47"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices. " alt="" coords="579,71,745,127"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title="Ra::Core::Geometry\l::IndexedGeometry::setIndices" alt="" coords="552,152,772,193"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#af58505fe1067bc667d7abc4333a10d3c" title="Update the picking render mode according to the object render mode. " alt="" coords="833,5,1080,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#a42e9f2bbddad3d877b859ccf4a5ec376" title="Get the render mode. " alt="" coords="1128,5,1375,47"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title="Ra::Core::Utils::AttribManager\l::setAttrib" alt="" coords="849,75,1064,116"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions. " alt="" coords="873,141,1040,197"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title="Ra::Core::Utils::AttribManager\l::getAttrib" alt="" coords="1144,148,1359,189"/>
+</map>

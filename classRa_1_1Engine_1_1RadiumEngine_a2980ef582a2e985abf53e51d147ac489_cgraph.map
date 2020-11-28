@@ -1,0 +1,8 @@
+<map id="Ra::Engine::RadiumEngine::cleanup" name="Ra::Engine::RadiumEngine::cleanup">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1PlainMaterial.html#a6089730e7e3926f090f00f7e9dc7b463" title="Ra::Engine::PlainMaterial\l::unregisterMaterial" alt="" coords="268,5,452,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1BlinnPhongMaterial.html#ac811cdb36c687637bc210a5c32b95d51" title="Ra::Engine::BlinnPhongMaterial\l::unregisterMaterial" alt="" coords="247,201,473,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1LambertianMaterial.html#a693a93ed203338e6a8e677466b1654ba" title="Ra::Engine::LambertianMaterial\l::unregisterMaterial" alt="" coords="247,71,473,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1VolumetricMaterial.html#a36185a2c880b1acf17453410c393ac06" title="Ra::Engine::VolumetricMaterial\l::unregisterMaterial" alt="" coords="249,136,471,177"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a6e2ce86d7ae1f3822819477bf5bd7c74" title="Ra::Engine::EngineRender\lTechniques::removeDefaultTechnique" alt="" coords="523,104,788,145"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Engine_1_1EngineMaterialConverters.html#ac41449ebd949e8a7b1d93ff2a42acf92" title="Ra::Engine::EngineMaterial\lConverters::removeMaterialConverter" alt="" coords="521,201,789,243"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="QFrame" name="QFrame">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1TimelineFrameSelector.html" title="{Ra::GuiBase::TimelineFrame\lSelector\n||+ TimelineFrameSelector()\l+ ~TimelineFrameSelector()\l+ setTimelineUi()\l+ onChangeStart()\l+ onChangeEnd()\l+ onChangeDuration()\l+ onChangeCursor()\l+ onAddingKeyFrame()\l+ onDeletingKeyFrame()\l+ onMoveKeyFrame()\l+ onMoveKeyFrames()\l+ onClearKeyFrames()\l# paintEvent()\l# mousePressEvent()\l# mouseMoveEvent()\l# mouseReleaseEvent()\l}" alt="" coords="5,131,213,443"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1TimelineTimeScale.html" title="{Ra::GuiBase::TimelineTime\lScale\n||+ TimelineTimeScale()\l+ setScrollArea()\l# paintEvent()\l}" alt="" coords="238,226,437,347"/>
+</map>

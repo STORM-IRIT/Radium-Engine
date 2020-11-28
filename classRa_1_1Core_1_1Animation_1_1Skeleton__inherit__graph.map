@@ -1,0 +1,3 @@
+<map id="Ra::Core::Animation::Skeleton" name="Ra::Core::Animation::Skeleton">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Animation_1_1HandleArray.html" title="{Ra::Core::Animation\l::HandleArray\n|+ m_pose\l# m_name\l# m_label\l|+ HandleArray()\l+ HandleArray()\l+ HandleArray()\l+ operator=()\l+ ~HandleArray()\l+ size()\l+ clear()\l+ getPose()\l+ setPose()\l+ getTransform()\l+ setTransform()\l+ getName()\l+ setName()\l+ getLabel()\l+ setLabel()\l}" alt="" coords="5,5,157,332"/>
+</map>

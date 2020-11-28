@@ -1,0 +1,10 @@
+<map id="Ra::Gui::FlightCameraManipulator::handleWheelEvent" name="Ra::Gui::FlightCameraManipulator::handleWheelEvent">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html#a78d619d0a43b8e48b11fbb3ddac4f4f0" title="Ra::Gui::FlightCameraManipulator\l::handleCameraZoom" alt="" coords="295,5,536,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378" title="Ra::Engine::Light::\lsetPosition" alt="" coords="346,71,485,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="340,136,491,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036" title="Ra::Engine::Light::\lsetDirection" alt="" coords="346,201,485,243"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="340,267,491,308"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}. " alt="" coords="603,13,755,39"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title="Ra::Core::Math::signum" alt="" coords="821,13,995,39"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="584,71,773,112"/>
+</map>

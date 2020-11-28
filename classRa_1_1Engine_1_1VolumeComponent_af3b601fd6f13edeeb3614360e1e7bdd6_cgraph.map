@@ -1,0 +1,11 @@
+<map id="Ra::Engine::VolumeComponent::initialize" name="Ra::Engine::VolumeComponent::initialize">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119" title="Acces to the name of the asset. " alt="" coords="289,5,485,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" title="Ra::Engine::RenderObject\l::createRenderObject" alt="" coords="294,71,481,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RenderObject.html#a96ad4a09262781b68118922a41505430" title="Ra::Engine::RenderObject\l::setTransparent" alt="" coords="294,136,481,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1VolumeComponent.html#aa3abdce88bf285a10f03b06c586b15a1" title="Ra::Engine::VolumeComponent\l::setupIO" alt="" coords="276,201,499,243"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing. " alt="" coords="300,267,475,308"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" title="Ra::Engine::RenderObject\l::RenderObject" alt="" coords="547,71,733,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RenderObject.html#a8ea17931e62bea93890d44815bf7fcf5" title="Ra::Engine::RenderObject\l::~RenderObject" alt="" coords="781,71,968,112"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Component.html#a2fea450b5fd9ea6a6e9b0ce1847b9727" title="Return the entity the component belongs to. " alt="" coords="553,201,727,243"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager. " alt="" coords="553,267,727,308"/>
+</map>

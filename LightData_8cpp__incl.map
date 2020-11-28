@@ -1,0 +1,11 @@
+<map id="src/Core/Asset/LightData.cpp" name="src/Core/Asset/LightData.cpp">
+<area shape="rect" id="node2" href="$LightData_8hpp.html" title="Core/Asset/LightData.hpp" alt="" coords="356,80,543,107"/>
+<area shape="rect" id="node6" href="$AssetData_8hpp.html" title="Core/Asset/AssetData.hpp" alt="" coords="158,229,349,256"/>
+<area shape="rect" id="node7" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="313,304,444,331"/>
+<area shape="rect" id="node14" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="694,155,845,181"/>
+<area shape="rect" id="node22" href="$LightData_8inl.html" title="Core/Asset/LightData.inl" alt="" coords="424,155,603,181"/>
+<area shape="rect" id="node8" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="379,379,539,405"/>
+<area shape="rect" id="node15" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="1037,229,1189,256"/>
+<area shape="rect" id="node18" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="1201,304,1345,331"/>
+<area shape="rect" id="node23" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="424,229,565,256"/>
+</map>

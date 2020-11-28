@@ -1,0 +1,5 @@
+<map id="Ra::Core::Utils::Attrib::setData" name="Ra::Core::Utils::Attrib::setData">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#a030ebd538261b64958f73b9fb949c17c" title="Ra::Core::Utils::AttribBase\l::isLocked" alt="" coords="215,5,406,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Attrib.html#a4179dd4435a6d89f2ab3cadace7fca51" title="Read&#45;only acccess to the attribute content. " alt="" coords="231,71,390,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p. " alt="" coords="212,136,409,177"/>
+</map>

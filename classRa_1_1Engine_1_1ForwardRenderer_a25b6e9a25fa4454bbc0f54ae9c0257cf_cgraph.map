@@ -1,0 +1,9 @@
+<map id="Ra::Engine::ForwardRenderer::renderInternal" name="Ra::Engine::ForwardRenderer::renderInternal">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#aaf67b196b10805750f12f3638ae81516" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::Black" alt="" coords="277,5,467,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="277,71,467,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Renderer.html#a2b63e3dbaa253049f44e22468fbafedb" title="Ra::Engine::Renderer\l::getBackgroundColor" alt="" coords="291,136,453,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1ShaderProgramManager.html#a5ddf7b2a65b82380204c6bb5da2127d2" title="Ra::Engine::ShaderProgram\lManager::getShaderProgram" alt="" coords="269,201,475,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1ShaderProgram.html#a33ee6eed267bfedd10ba19f32284d7fe" title="Ra::Engine::ShaderProgram\l::bind" alt="" coords="273,267,471,308"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1aa542da23b498ad86e178271a14fc61" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::Alpha" alt="" coords="277,332,467,373"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1RenderParameters.html#a4c0efbfc2f10757462c095ca080d1b07" title="Ra::Engine::RenderParameters\l::addParameter" alt="" coords="263,397,481,439"/>
+</map>

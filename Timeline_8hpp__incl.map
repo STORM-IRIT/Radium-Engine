@@ -1,0 +1,17 @@
+<map id="src/GuiBase/Timeline/Timeline.hpp" name="src/GuiBase/Timeline/Timeline.hpp">
+<area shape="rect" id="node2" href="$RaGuiBase_8hpp.html" title="GuiBase/RaGuiBase.hpp" alt="" coords="315,191,493,218"/>
+<area shape="rect" id="node14" href="$KeyFramedValue_8hpp.html" title="Core/Animation/KeyFramed\lValue.hpp" alt="" coords="1530,184,1729,225"/>
+<area shape="rect" id="node31" href="$KeyFramedValueController_8hpp.html" title="Core/Animation/KeyFramed\lValueController.hpp" alt="" coords="1598,95,1797,136"/>
+<area shape="rect" id="node32" href="$ItemEntry_8hpp.html" title="Engine/ItemModel/ItemEntry.hpp" alt="" coords="650,191,883,218"/>
+<area shape="rect" id="node3" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="144,445,304,471"/>
+<area shape="rect" id="node9" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="325,273,483,300"/>
+<area shape="rect" id="node10" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="313,348,495,389"/>
+<area shape="rect" id="node17" href="$AlignedAllocator_8hpp.html" title="Core/Containers/AlignedAllocator.hpp" alt="" coords="1497,273,1761,300"/>
+<area shape="rect" id="node23" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="1115,273,1267,300"/>
+<area shape="rect" id="node27" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1351,273,1473,300"/>
+<area shape="rect" id="node18" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="1139,355,1269,382"/>
+<area shape="rect" id="node26" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="971,355,1115,382"/>
+<area shape="rect" id="node33" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="516,273,671,300"/>
+<area shape="rect" id="node38" href="$ItemEntry_8inl.html" title="Engine/ItemModel/ItemEntry.inl" alt="" coords="865,273,1090,300"/>
+<area shape="rect" id="node35" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="520,355,667,382"/>
+</map>

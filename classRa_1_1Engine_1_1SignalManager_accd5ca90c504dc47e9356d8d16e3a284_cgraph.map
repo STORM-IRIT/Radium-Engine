@@ -1,0 +1,6 @@
+<map id="Ra::Engine::SignalManager::fireRenderObjectRemoved" name="Ra::Engine::SignalManager::fireRenderObjectRemoved">
+<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1ItemEntry.html#a34e6a9addd931949e507bff26759f751" title="Returns true if the item represents a render object. " alt="" coords="252,39,415,80"/>
+<area shape="rect" id="node3" href="$structRa_1_1Engine_1_1ItemEntry.html#acc4d0f03ddd27dce426af9ed9c8993c9" title="Debug checks. " alt="" coords="463,5,625,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="465,71,623,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID. " alt="" coords="673,5,832,47"/>
+</map>

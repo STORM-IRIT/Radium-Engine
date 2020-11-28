@@ -1,0 +1,4 @@
+<map id="Ra::Core::Geometry::AbstractDiscreteVolume" name="Ra::Core::Geometry::AbstractDiscreteVolume">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" title="{Ra::Core::Geometry\l::AbstractVolume\n||+ AbstractVolume()\l+ operator=()\l+ ~AbstractVolume()\l+ getType()\l+ getValue()\l+ displayInfo()\l+ isParametric()\l+ isDiscrete()\l+ isDense()\l+ isSparse()\l# AbstractVolume()\l# setType()\l* isParametric()\l* isDiscrete()\l* isDense()\l* isSparse()\l}" alt="" coords="107,233,268,545"/>
+<area shape="rect" id="node3" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title="{Ra::Core::Geometry\l::AbstractGeometry\n||+ ~AbstractGeometry()\l+ AbstractGeometry()\l+ AbstractGeometry()\l+ operator=()\l+ clear()\l+ computeAabb()\l}" alt="" coords="5,5,183,171"/>
+</map>

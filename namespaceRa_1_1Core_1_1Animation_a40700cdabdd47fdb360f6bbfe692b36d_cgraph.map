@@ -1,0 +1,23 @@
+<map id="Ra::Core::Animation::computeCoR" name="Ra::Core::Animation::computeCoR">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a240c93af3b90a3b019c9ef01f7cb2f7b" title="Copy only the geometry and the indices from other, but not the attributes. " alt="" coords="215,5,401,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions. " alt="" coords="1024,103,1191,159"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title="Ra::Core::Geometry\l::TopologicalMesh::halfedge\l_handle" alt="" coords="207,122,409,178"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a5be06e9a973e79d487dad3e570fb5928" title="Ra::Core::Geometry\l::TopologicalMesh::splitEdge" alt="" coords="205,203,411,244"/>
+<area shape="rect" id="node19" href="$namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e" title="Ra::Core::Geometry\l::triangleArea" alt="" coords="233,268,383,309"/>
+<area shape="rect" id="node22" href="$namespaceRa_1_1Core_1_1Animation.html#a71236244c5603a8a5bc63595db9b7717" title="Computes the similarity between two weights vector. " alt="" coords="232,333,384,375"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title="Ra::Core::Utils::AttribManager\l::getAttrib" alt="" coords="1263,111,1477,152"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#afd38c03569ecb100b4f5f5036ce84e17" title="Displays given point shown as the crossing of 3 lines of length &#39;scale&#39;. " alt="" coords="459,205,657,247"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices. " alt="" coords="745,173,912,229"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title="Ra::Core::Geometry\l::IndexedGeometry::setIndices" alt="" coords="719,253,939,295"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671" title="Ra::Core::Geometry\l::AttribArrayGeometry\l::addAttrib" alt="" coords="745,319,912,375"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title="Ra::Engine::AttribArrayDisplayable\l::getAttribName" alt="" coords="705,400,952,441"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title="Ra::Core::Utils::AttribManager\l::setAttrib" alt="" coords="1000,184,1215,225"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8" title="Ra::Core::Utils::AttribManager\l::addAttrib" alt="" coords="1000,327,1215,368"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this. " alt="" coords="1263,293,1477,335"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p. " alt="" coords="1264,359,1476,400"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title="Ra::Core::Utils::AttribHandle\l::attribName" alt="" coords="1525,261,1731,303"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title="Ra::Core::Utils::Index\l::Invalid" alt="" coords="1549,327,1707,368"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR. " alt="" coords="1779,327,1937,368"/>
+<area shape="rect" id="node20" href="$namespaceOpenMesh.html#a71e7f1dd3eac016d2b8245ac408a291c" title="OpenMesh::cross" alt="" coords="492,274,624,301"/>
+<area shape="rect" id="node21" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="492,325,624,351"/>
+</map>

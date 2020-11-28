@@ -1,0 +1,6 @@
+<map id="Ra::Engine::LightManager" name="Ra::Engine::LightManager">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1System.html" title="{Ra::Engine::System\n||+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="157,587,369,781"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="202,197,331,274"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="357,197,515,274"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1LightStorage.html" title="{Ra::Engine::LightStorage\n||+ LightStorage()\l+ ~LightStorage()\l+ upload()\l+ size()\l+ add()\l+ remove()\l+ clear()\l+ operator[]()\l}" alt="" coords="572,145,753,325"/>
+</map>

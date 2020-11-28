@@ -1,0 +1,8 @@
+<map id="Ra::Gui::Gizmo::findPointOnPlane" name="Ra::Gui::Gizmo::findPointOnPlane">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a0c4e6b238f7fad5f3eb4cbd57b5a967c" title="Ra::Engine::Camera\l::getRayFromScreen" alt="" coords="237,67,389,108"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal. " alt="" coords="238,132,389,173"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="437,5,588,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#af768328fd395865c4fa7b677e3f5326c" title="Return the point on the screen plane (near plane) represented by screen coordinates pix..." alt="" coords="437,71,588,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a26f646767029cf0cd95478bbae9be188" title="Return the projection matrix. " alt="" coords="636,71,787,112"/>
+<area shape="rect" id="node7" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="453,139,572,166"/>
+</map>

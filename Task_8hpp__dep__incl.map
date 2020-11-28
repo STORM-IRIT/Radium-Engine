@@ -1,0 +1,7 @@
+<map id="src/Core/Tasks/Task.hpp" name="src/Core/Tasks/Task.hpp">
+<area shape="rect" id="node2" href="$TaskQueue_8cpp.html" title="src/Core/Tasks/TaskQueue.cpp" alt="" coords="5,87,223,114"/>
+<area shape="rect" id="node3" href="$CameraManager_8cpp.html" title="src/Engine/Managers\l/CameraManager/CameraManager.cpp" alt="" coords="247,80,517,121"/>
+<area shape="rect" id="node4" href="$LightManager_8cpp.html" title="src/Engine/Managers\l/LightManager/LightManager.cpp" alt="" coords="542,80,774,121"/>
+<area shape="rect" id="node5" href="$GeometrySystem_8cpp.html" title="src/Engine/System/Geometry\lSystem.cpp" alt="" coords="798,80,1009,121"/>
+<area shape="rect" id="node6" href="$BaseApplication_8cpp.html" title="src/GuiBase/BaseApplication.cpp" alt="" coords="1033,87,1267,114"/>
+</map>

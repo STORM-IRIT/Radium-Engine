@@ -1,0 +1,7 @@
+<map id="Ra::Engine::VolumeObject::updateGL" name="Ra::Engine::VolumeObject::updateGL">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html#a82efcf23c3d3e74189e321dec3793cb5" title="Update (i.e. send to GPU) the buffers marked as dirty. " alt="" coords="244,5,439,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Texture.html#a83f5275422d0c25b40a65027f524f0a0" title="Generate the OpenGL representation of the texture according to the stored TextureData. " alt="" coords="268,71,415,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Texture.html#aa803962552a3ec81d6e74ec62c319f16" title="Ra::Engine::Texture\l::updateParameters" alt="" coords="487,37,636,79"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Texture.html#a08909a335da4997ca59702db73360533" title="Ra::Engine::Texture\l::updateData" alt="" coords="488,103,635,144"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Texture.html#aed13fcb33fe91d0dc9bcaf53b2e5c377" title="Ra::Engine::Texture\l::texels" alt="" coords="684,103,831,144"/>
+</map>

@@ -1,0 +1,20 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Displayable.html" title="Ra::Engine::Displayable" alt="" coords="5,211,181,237"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html" title="Ra::Engine::AttribArrayDisplayable" alt="" coords="229,185,476,212"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1VolumeObject.html" title="Ra::Engine::VolumeObject" alt="" coords="257,236,448,263"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html" title="Ra::Engine::CoreGeometry\lDisplayable\&lt; Core::Geometry\l::LineMesh \&gt;" alt="" coords="524,203,741,259"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html" title="Ra::Engine::CoreGeometry\lDisplayable\&lt; Core::Geometry\l::PointCloud \&gt;" alt="" coords="524,5,741,61"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html" title="Ra::Engine::CoreGeometry\lDisplayable\&lt; Core::Geometry\l::PolyMesh \&gt;" alt="" coords="524,333,741,389"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html" title="Ra::Engine::CoreGeometry\lDisplayable\&lt; Core::Geometry\l::TriangleMesh \&gt;" alt="" coords="524,413,741,469"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh. " alt="" coords="535,86,730,127"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1IndexedAttribArrayDisplayable.html" title="Ra::Engine::IndexedAttrib\lArrayDisplayable\&lt; I \&gt;" alt="" coords="823,177,1010,218"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1IndexedGeometry.html" title="Ra::Engine::IndexedGeometry\l\&lt; Core::Geometry::LineMesh \&gt;" alt="" coords="805,259,1028,301"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh. " alt="" coords="1093,267,1253,293"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1PointCloud.html" title="A PointCloud without indices. " alt="" coords="832,20,1001,47"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1IndexedGeometry.html" title="Ra::Engine::IndexedGeometry\l\&lt; Core::Geometry::PolyMesh \&gt;" alt="" coords="805,325,1029,366"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1PolyMesh.html" title="Ra::Engine::PolyMesh" alt="" coords="1092,332,1253,359"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1IndexedGeometry.html" title="Ra::Engine::IndexedGeometry\l\&lt; Core::Geometry::TriangleMesh \&gt;" alt="" coords="793,397,1040,438"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh. " alt="" coords="1106,404,1239,431"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1IndexedGeometry.html" title="A CoreGeometry, with indices. " alt="" coords="789,109,1044,136"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes. " alt="" coords="548,283,717,309"/>
+</map>

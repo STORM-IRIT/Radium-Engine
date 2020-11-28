@@ -1,0 +1,16 @@
+<map id="Ra::Gui::GizmoManager" name="Ra::Gui::GizmoManager">
+<area shape="rect" id="node2" href="$classQObject.html" title="{QObject\n||}" alt="" coords="259,2011,334,2089"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1TransformEditor.html" title="{Ra::GuiBase::TransformEditor\n||+ TransformEditor()\l+ ~TransformEditor()\l+ setEditable()\l+ updateValues()\l# getTransform()\l# setTransform()\l# canEdit()\l# getWorldTransform()\l}" alt="" coords="461,1960,673,2140"/>
+<area shape="rect" id="node4" href="$structRa_1_1Engine_1_1ItemEntry.html" title="{Ra::Engine::ItemEntry\n||+ ItemEntry()\l+ ItemEntry()\l+ operator==()\l+ isValid()\l+ isSelectable()\l+ isEntityNode()\l+ isComponentNode()\l+ isRoNode()\l+ checkConsistency()\l}" alt="" coords="484,1703,650,1897"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="756,1343,978,1640"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title="{Ra::Core::Utils::Index\n||+ Index()\l+ Index()\l+ operator=()\l+ isValid()\l+ isInvalid()\l+ setInvalid()\l+ getValue()\l+ setValue()\l+ operator IntegerType()\l+ operator=()\l+ operator++()\l+ operator&#45;&#45;()\l+ operator+()\l+ operator+()\l+ operator&#45;()\l+ operator&#45;()\l+ operator==()\l+ operator==()\l+ operator!=()\l+ operator!=()\l+ operator\&lt;()\l+ operator\&lt;()\l+ operator\&lt;=()\l+ operator\&lt;=()\l+ operator\&gt;()\l+ operator\&gt;()\l+ operator\&gt;=()\l+ operator\&gt;=()\l+ Invalid()\l+ Max()\l}" alt="" coords="426,145,609,648"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title="{Ra::Core::Utils::Indexed\lObject\n||+ IndexedObject()\l+ IndexedObject()\l+ ~IndexedObject()\l+ setIndex()\l+ getIndex()\l}" alt="" coords="572,740,746,891"/>
+<area shape="rect" id="node19" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\l\&lt; GizmoManager \&gt;\n||+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="226,1056,460,1177"/>
+<area shape="rect" id="node20" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\&lt; T \&gt;\n||+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="206,762,480,869"/>
+<area shape="rect" id="node8" href="$classint.html" title="{int\n||}" alt="" coords="498,5,537,83"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="980,358,1109,435"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1System.html" title="{Ra::Engine::System\n||+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="1018,1019,1230,1214"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform. " alt="" coords="627,953,819,1280"/>
+<area shape="rect" id="node16" title="STL class. " alt="" coords="1254,1078,1341,1155"/>
+<area shape="rect" id="node17" title="STL class. " alt="" coords="1228,769,1367,861"/>
+</map>

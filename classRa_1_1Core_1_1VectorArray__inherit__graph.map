@@ -1,0 +1,12 @@
+<map id="Ra::Core::VectorArray&lt; V &gt;" name="Ra::Core::VectorArray&lt; V &gt;">
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Vector \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="5,583,167,689"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Ra::Core::Vector3ui \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="191,583,367,689"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Vector2 \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="392,583,553,689"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Vector3 \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="577,583,739,689"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\&lt; T \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="763,590,961,682"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Vector4 \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="985,583,1147,689"/>
+<area shape="rect" id="node2" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\&lt; V \&gt;\n||}" alt="" coords="447,301,682,379"/>
+<area shape="rect" id="node3" title="STL class. " alt="" coords="445,147,641,239"/>
+<area shape="rect" id="node4" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\&lt; T \&gt;\n||}" alt="" coords="666,154,901,231"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="686,5,881,97"/>
+</map>

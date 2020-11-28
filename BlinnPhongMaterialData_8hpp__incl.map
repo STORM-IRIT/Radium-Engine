@@ -1,0 +1,12 @@
+<map id="src/Core/Asset/BlinnPhongMaterialData.hpp" name="src/Core/Asset/BlinnPhongMaterialData.hpp">
+<area shape="rect" id="node2" href="$MaterialData_8hpp.html" title="Core/Asset/MaterialData.hpp" alt="" coords="399,102,607,129"/>
+<area shape="rect" id="node14" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="1013,102,1163,129"/>
+<area shape="rect" id="node22" href="$BlinnPhongMaterialData_8inl.html" title="Core/Asset/BlinnPhongMaterial\lData.inl" alt="" coords="151,95,374,136"/>
+<area shape="rect" id="node5" href="$AssetData_8hpp.html" title="Core/Asset/AssetData.hpp" alt="" coords="222,184,413,211"/>
+<area shape="rect" id="node6" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="387,259,517,285"/>
+<area shape="rect" id="node13" href="$MaterialData_8inl.html" title="Core/Asset/MaterialData.inl" alt="" coords="575,184,775,211"/>
+<area shape="rect" id="node7" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="372,333,532,360"/>
+<area shape="rect" id="node15" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="799,184,951,211"/>
+<area shape="rect" id="node18" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="733,259,877,285"/>
+<area shape="rect" id="node23" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="5,184,147,211"/>
+</map>

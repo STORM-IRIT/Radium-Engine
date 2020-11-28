@@ -1,0 +1,20 @@
+<map id="Ra::Gui::RotateGizmo::isSelected" name="Ra::Gui::RotateGizmo::isSelected">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1RotateGizmo.html#afee12b0bbfe7986d1a569a6ed6fca8d9" title="Ra::Gui::RotateGizmo\l::setInitialState" alt="" coords="215,152,376,193"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1RotateGizmo.html#a72952ef57c154362f7aeffc21344497c" title="Ra::Gui::RotateGizmo\l::mouseMove" alt="" coords="215,217,376,259"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Gizmo.html#a59f612603ee6c129a563ee6829abbc63" title="Find a mouse&#45;designed point on a 3D plane. " alt="" coords="428,49,612,91"/>
+<area shape="rect" id="node11" href="$namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4" title="Ra::Core::Math::angle" alt="" coords="439,115,601,142"/>
+<area shape="rect" id="node12" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}. " alt="" coords="444,166,596,193"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Camera.html#a1765a9ef529f83404c0a9cb6cb437304" title="Return the screen coordinates of the given point p (in world coordinates). " alt="" coords="445,217,595,259"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1Camera.html#a1e8db55439659b2ea62aca7437e8dda0" title="Return the width of the viewport. " alt="" coords="445,283,595,324"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Camera.html#ad79f6937a35c8b585f33b438525cd09b" title="Return the height of the viewport. " alt="" coords="445,348,595,389"/>
+<area shape="rect" id="node19" href="$namespaceRa_1_1Core_1_1Math.html#a46540d56930b4c1ff3b115872cde4893" title="Compare two numbers such that |x&#45;y| &lt; espilon*epsilonBoostFactor. " alt="" coords="424,413,616,455"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a0c4e6b238f7fad5f3eb4cbd57b5a967c" title="Ra::Engine::Camera\l::getRayFromScreen" alt="" coords="675,35,827,76"/>
+<area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal. " alt="" coords="675,100,826,141"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="885,5,1036,47"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#af768328fd395865c4fa7b677e3f5326c" title="Return the point on the screen plane (near plane) represented by screen coordinates pix..." alt="" coords="885,71,1036,112"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#a26f646767029cf0cd95478bbae9be188" title="Return the projection matrix. " alt="" coords="1084,140,1235,181"/>
+<area shape="rect" id="node10" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="901,137,1020,163"/>
+<area shape="rect" id="node13" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title="Ra::Core::Math::signum" alt="" coords="664,166,837,193"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1Camera.html#af376dad1f114633b9ddb0befa7081433" title="Return the view matrix. " alt="" coords="675,268,826,309"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Entity.html#ac2d7e480573cfb14046e430c255a3156" title="Ra::Engine::Entity\l::getTransform" alt="" coords="892,268,1029,309"/>
+</map>

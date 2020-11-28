@@ -1,0 +1,51 @@
+<map id="Ra::GuiBase::BaseApplication::radiumFrame" name="Ra::GuiBase::BaseApplication::radiumFrame">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Utils.html#aa49c969fc840be78b425b79b6c611c56" title="Ra::Core::Utils::getInterval\lSeconds" alt="" coords="283,364,478,405"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html#aeee8e169e5cdca89d16cde152a7f4657" title="Emits signals corresponding to picking requests. " alt="" coords="291,429,471,471"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1Viewer.html#a48210627a598068db2492fc0aad99520" title="Update the internal viewer state to the (application) time dt. " alt="" coords="293,691,468,718"/>
+<area shape="rect" id="node21" href="$classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d" title="Start rendering (potentially asynchronously in a separate thread) " alt="" coords="268,933,493,959"/>
+<area shape="rect" id="node39" href="$classRa_1_1Gui_1_1Viewer.html#a1ffe7aaecf91a91d6b1e98fb9dc75e5a" title="Blocks until rendering is finished. " alt="" coords="275,983,486,1010"/>
+<area shape="rect" id="node41" href="$classRa_1_1Gui_1_1Viewer.html#a80df5b0cc4245c9221ffc8e559d08aca" title="Read&#45;only access to renderer. " alt="" coords="276,1034,485,1061"/>
+<area shape="rect" id="node42" href="$classRa_1_1Engine_1_1Renderer.html#a3aedc94703f1b4f1c6a994acb50146f7" title="Ra::Engine::Renderer\l::getTimerData" alt="" coords="302,1085,459,1127"/>
+<area shape="rect" id="node43" href="$structRa_1_1FrameTimerData.html#a83507e419f57b18c91e0367c6d4eb737" title="Ra::FrameTimerData\l::print" alt="" coords="303,1151,459,1192"/>
+<area shape="rect" id="node45" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a38543f32547a83e36ca0c678ac11be57" title="Ra::GuiBase::BaseApplication\l::recordFrame" alt="" coords="273,1216,488,1257"/>
+<area shape="rect" id="node50" href="$classRa_1_1GuiBase_1_1BaseApplication.html#aa19a984e0783e70237b8050feb1a3d2a" title="Ra::GuiBase::BaseApplication\l::appNeedsToQuit" alt="" coords="273,1281,488,1323"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Renderer.html#a93a33c1359ed3581951a53d5f069803d" title="Ra::Engine::Renderer\l::getPickingQueries" alt="" coords="562,299,719,340"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Renderer.html#a46c624fa0aa3dd9f2851ff0577b3d3d0" title="Ra::Engine::Renderer\l::getPickingResults" alt="" coords="562,364,719,405"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1PickingManager.html#acc32a270073f0496c3f96f880521b07e" title="Ra::Gui::PickingManager\l::setCurrent" alt="" coords="551,429,731,471"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1GizmoManager.html#a2733d1f2a992c50e41b93790b5323fe1" title="Retrieve the transform from the editable and update the gizmos. " alt="" coords="553,495,728,536"/>
+<area shape="rect" id="node9" href="$classRa_1_1GuiBase_1_1TransformEditor.html#a99d8a83f401cfd77451d859b06eaeeb8" title="Ra::GuiBase::TransformEditor\l::canEdit" alt="" coords="1084,136,1296,177"/>
+<area shape="rect" id="node15" href="$classRa_1_1GuiBase_1_1TransformEditor.html#aecdcc853ebf6b4ae1dab2c9ee56c96ef" title="Ra::GuiBase::TransformEditor\l::getTransform" alt="" coords="806,312,1018,353"/>
+<area shape="rect" id="node19" href="$classRa_1_1Gui_1_1Gizmo.html#a2fc380738268508ca2d46ac856c2f98a" title="Called every time the underlying transform may have changed. " alt="" coords="793,502,1031,529"/>
+<area shape="rect" id="node20" href="$classRa_1_1GuiBase_1_1TransformEditor.html#a78be38b71708b7b135d8ea843ecee5da" title="Ra::GuiBase::TransformEditor\l::getWorldTransform" alt="" coords="806,436,1018,477"/>
+<area shape="rect" id="node10" href="$structRa_1_1Engine_1_1ItemEntry.html#a1339c8b1b1457427d3eeb0ced54bc6a6" title="Returns true if the item represents any valid object. " alt="" coords="1350,5,1513,47"/>
+<area shape="rect" id="node12" href="$structRa_1_1Engine_1_1ItemEntry.html#a108d9c35707882970cfa9d3767fa1ec0" title="Returns true if the item can be selected. " alt="" coords="1350,136,1513,177"/>
+<area shape="rect" id="node13" href="$structRa_1_1Engine_1_1ItemEntry.html#ae958f5e3bf366fdd8271f0d862e4c8f9" title="Returns true if the item represents an entity. " alt="" coords="1350,312,1513,353"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Component.html#a3ff8f32ff296fd2515ad4fe80469a20b" title="Returns true if a transform can be edited with the render object index given as a key..." alt="" coords="1344,71,1519,112"/>
+<area shape="rect" id="node11" href="$structRa_1_1Engine_1_1ItemEntry.html#a34e6a9addd931949e507bff26759f751" title="Returns true if the item represents a render object. " alt="" coords="1567,136,1729,177"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Entity.html#ac2d7e480573cfb14046e430c255a3156" title="Ra::Engine::Entity\l::getTransform" alt="" coords="1121,436,1259,477"/>
+<area shape="rect" id="node17" href="$structRa_1_1Engine_1_1ItemEntry.html#abf969f288b9f89ed2a268b2cc70fb78a" title="Returns true if the item represents a component. " alt="" coords="1109,371,1271,412"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Component.html#a903609f559cc620d4770635a70ff9d59" title="Get the transform associated with the given RO index key. " alt="" coords="1103,253,1277,295"/>
+<area shape="rect" id="node22" href="$classRa_1_1Gui_1_1PickingManager.html#a0e09b5c72c23cfc60f0c1d2f0d00a809" title="Ra::Gui::PickingManager\l::clear" alt="" coords="551,680,731,721"/>
+<area shape="rect" id="node25" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title="Ra::Gui::WindowQt::\lmakeCurrent" alt="" coords="836,1259,988,1300"/>
+<area shape="rect" id="node26" href="$classRa_1_1Engine_1_1Renderer.html#a3792150e8242bf3bf7b9a9b610c6dd5c" title="Tell if the renderer has an usable light. " alt="" coords="562,984,719,1025"/>
+<area shape="rect" id="node27" href="$classRa_1_1Engine_1_1Renderer.html#ad8e27588477d7e65666598cdfd1d4fbb" title="Ra::Engine::Renderer\l::addLight" alt="" coords="562,1049,719,1091"/>
+<area shape="rect" id="node28" href="$classRa_1_1Engine_1_1Renderer.html#affc431edcc808c4bd5ca80bfe03a2c55" title="Tell the renderer it needs to render. This method does the following steps : " alt="" coords="562,867,719,908"/>
+<area shape="rect" id="node23" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title="Ra::Core::Utils::Index\l::Invalid" alt="" coords="833,553,991,595"/>
+<area shape="rect" id="node24" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR. " alt="" coords="1111,553,1269,595"/>
+<area shape="rect" id="node29" href="$classRa_1_1Engine_1_1Renderer.html#a54631e8470c2638009457f53628dac57" title="Ra::Engine::Renderer\l::updateStepInternal" alt="" coords="833,997,991,1039"/>
+<area shape="rect" id="node30" href="$classRa_1_1Engine_1_1Renderer.html#a0991bff12be739a189f5a173458b6623" title="All the scene rendering magics basically happens here. " alt="" coords="833,1063,991,1104"/>
+<area shape="rect" id="node31" href="$classRa_1_1Engine_1_1Renderer.html#a75b434244e669f4be43889a820011b79" title="Do all post processing stuff. If you override this method, be careful to fill. " alt="" coords="833,1128,991,1169"/>
+<area shape="rect" id="node32" href="$classRa_1_1Engine_1_1Renderer.html#a4bf7ab27df3a206bcb0b759f28dab716" title="Add the debug layer with useful informations. " alt="" coords="833,1193,991,1235"/>
+<area shape="rect" id="node33" href="$classRa_1_1Engine_1_1Renderer.html#a02f80a1fa78786ad58d68393225aed64" title="Draw the UI data. " alt="" coords="833,619,991,660"/>
+<area shape="rect" id="node34" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a76f7d1a089bdf2e183f8084a2d482940" title="Ra::Engine::RenderObject\lManager::getRenderObjectsByType" alt="" coords="788,684,1036,725"/>
+<area shape="rect" id="node35" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="846,750,978,777"/>
+<area shape="rect" id="node36" href="$classRa_1_1Engine_1_1Texture.html#a7187e6f4f84f56982219ddb9ae915f7e" title="get read access to texture parameters " alt="" coords="839,801,985,843"/>
+<area shape="rect" id="node37" href="$classRa_1_1Engine_1_1ShaderProgramManager.html#a5ddf7b2a65b82380204c6bb5da2127d2" title="Ra::Engine::ShaderProgram\lManager::getShaderProgram" alt="" coords="809,867,1015,908"/>
+<area shape="rect" id="node38" href="$classRa_1_1Engine_1_1ShaderProgram.html#a33ee6eed267bfedd10ba19f32284d7fe" title="Ra::Engine::ShaderProgram\l::bind" alt="" coords="813,932,1011,973"/>
+<area shape="rect" id="node40" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title="Ra::Gui::WindowQt::\ldoneCurrent" alt="" coords="836,1324,988,1365"/>
+<area shape="rect" id="node44" href="$namespaceRa_1_1Core_1_1Utils.html#ad4680945a5efebfe2b7b320e9e2a9a61" title="Ra::Core::Utils::getInterval\lMicro" alt="" coords="543,1167,738,1208"/>
+<area shape="rect" id="node46" href="$classRa_1_1Gui_1_1Viewer.html#ab3854bf1c656d1f6bf7e12e61251e9dc" title="Write the current frame as an image. Supports either BMP or PNG file names. " alt="" coords="541,1331,740,1358"/>
+<area shape="rect" id="node47" href="$classRa_1_1Engine_1_1Renderer.html#a21d45616347cd59cad52af71ec22d9d7" title="Ra::Engine::Renderer\l::grabFrame" alt="" coords="833,1441,991,1483"/>
+<area shape="rect" id="node49" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title="Ra::Core::Utils::getFileExt" alt="" coords="819,1390,1005,1417"/>
+<area shape="rect" id="node48" href="$classRa_1_1Engine_1_1Renderer.html#aab96ff991276b373a626d986bca15243" title="Ra::Engine::Renderer\l::getDisplayTexture" alt="" coords="1111,1441,1269,1483"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="src/Core/Animation/Sequence.inl" name="src/Core/Animation/Sequence.inl">
+<area shape="rect" id="node2" href="$Sequence_8hpp.html" title="Core/Animation/Sequence.hpp" alt="" coords="64,95,283,121"/>
+<area shape="rect" id="node3" href="$Pose_8hpp.html" title="Core/Animation/Pose.hpp" alt="" coords="147,169,333,196"/>
+<area shape="rect" id="node6" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="144,408,304,435"/>
+<area shape="rect" id="node14" href="$CircularIndex_8hpp.html" title="Core/Utils/CircularIndex.hpp" alt="" coords="363,169,567,196"/>
+<area shape="rect" id="node4" href="$AlignedStdVector_8hpp.html" title="Core/Containers/AlignedStd\lVector.hpp" alt="" coords="143,244,343,285"/>
+<area shape="rect" id="node5" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="328,333,459,360"/>
+<area shape="rect" id="node15" href="$CircularIndex_8inl.html" title="Core/Utils/CircularIndex.inl" alt="" coords="367,251,563,278"/>
+</map>

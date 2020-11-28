@@ -1,0 +1,14 @@
+<map id="Ra::Gui::FlightCameraManipulator::setCamera" name="Ra::Gui::FlightCameraManipulator::setCamera">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a2acbb1a258f8d0af86edcd978cfbf3e1" title="Change the viewport size. " alt="" coords="295,5,445,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a1e8db55439659b2ea62aca7437e8dda0" title="Return the width of the viewport. " alt="" coords="295,71,445,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#ad79f6937a35c8b585f33b438525cd09b" title="Return the height of the viewport. " alt="" coords="295,136,445,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="295,201,445,243"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="295,267,445,308"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Camera.html#a4c2aac5ad419cef7720e2a18d93b3703" title="Toggle on/off displaying the Camera. " alt="" coords="295,332,445,373"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378" title="Ra::Engine::Light::\lsetPosition" alt="" coords="301,397,439,439"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036" title="Ra::Engine::Light::\lsetDirection" alt="" coords="301,463,439,504"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters. " alt="" coords="513,5,663,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="731,13,893,39"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RenderObject.html#a62e0eb3a7de5a7d352b565a28260cc06" title="Ra::Engine::RenderObject\l::setVisible" alt="" coords="495,332,681,373"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="493,397,683,439"/>
+</map>

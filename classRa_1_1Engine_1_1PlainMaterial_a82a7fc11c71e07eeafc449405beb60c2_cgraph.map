@@ -1,0 +1,10 @@
+<map id="Ra::Engine::PlainMaterial::registerMaterial" name="Ra::Engine::PlainMaterial::registerMaterial">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0" title="Ra::Core::Resources\l::getRadiumResourcesDir" alt="" coords="277,5,463,47"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#a36842535508a390108fb1205210a5c49" title="Ra::Engine::ShaderConfiguration\lFactory::addConfiguration" alt="" coords="255,71,485,112"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#affc37bf84d5ff81342b5c09587eedc34" title="Ra::Engine::EngineRender\lTechniques::registerDefaultTechnique" alt="" coords="237,136,503,177"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#ad6fe3c60f8f2b9f9f5d8220ffe4d5ba6" title="Ra::Engine::ShaderConfiguration\lFactory::getConfiguration" alt="" coords="255,201,485,243"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1RenderTechnique.html#a22298207c6e70a98b829d6c5ead1a8e4" title="Ra::Engine::RenderTechnique\l::setConfiguration" alt="" coords="265,267,475,308"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Resources.html#a96e7523ac5a9f47629ee73938db23790" title="Ra::Core::Resources\l::searchPath" alt="" coords="591,5,741,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1ShaderConfiguration.html#a6aefbda787e65960237bb9c0cdc0f627" title="Ra::Engine::ShaderConfiguration\l::getName" alt="" coords="551,71,781,112"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title="Ra::Engine::RenderTechnique\l::setDirty" alt="" coords="561,267,771,308"/>
+</map>

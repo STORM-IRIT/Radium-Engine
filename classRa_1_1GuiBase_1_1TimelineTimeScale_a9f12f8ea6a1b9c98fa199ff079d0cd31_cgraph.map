@@ -1,0 +1,5 @@
+<map id="Ra::GuiBase::TimelineTimeScale::paintEvent" name="Ra::GuiBase::TimelineTimeScale::paintEvent">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1TimelineScrollArea.html#a3c9b9d3c167897618ca5fddcd35e8e38" title="Ra::GuiBase::TimelineScroll\lArea::getPixPerSec" alt="" coords="252,5,455,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1TimelineScrollArea.html#aaff41222b58eabe81f2b2fd841d809eb" title="Ra::GuiBase::TimelineScroll\lArea::getStep" alt="" coords="252,71,455,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1GuiBase_1_1TimelineScrollArea.html#a91a5d10ba3a7df74954285abc90883b7" title="Ra::GuiBase::TimelineScroll\lArea::getNbInterval" alt="" coords="252,136,455,177"/>
+</map>

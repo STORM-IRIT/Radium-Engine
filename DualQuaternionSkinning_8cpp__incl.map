@@ -1,0 +1,15 @@
+<map id="src/Core/Animation/DualQuaternionSkinning.cpp" name="src/Core/Animation/DualQuaternionSkinning.cpp">
+<area shape="rect" id="node2" href="$DualQuaternionSkinning_8hpp.html" title="Core/Animation/DualQuaternion\lSkinning.hpp" alt="" coords="249,95,479,136"/>
+<area shape="rect" id="node3" href="$Pose_8hpp.html" title="Core/Animation/Pose.hpp" alt="" coords="64,184,251,211"/>
+<area shape="rect" id="node4" href="$AlignedStdVector_8hpp.html" title="Core/Containers/AlignedStd\lVector.hpp" alt="" coords="188,259,388,300"/>
+<area shape="rect" id="node14" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="325,184,557,211"/>
+<area shape="rect" id="node15" href="$DualQuaternion_8hpp.html" title="Core/Math/DualQuaternion.hpp" alt="" coords="734,184,957,211"/>
+<area shape="rect" id="node5" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="397,512,528,539"/>
+<area shape="rect" id="node6" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="383,587,543,613"/>
+<area shape="rect" id="node16" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1174,430,1295,457"/>
+<area shape="rect" id="node20" href="$DualQuaternion_8inl.html" title="Core/Math/DualQuaternion.inl" alt="" coords="738,266,953,293"/>
+<area shape="rect" id="node21" href="$LinearAlgebra_8hpp.html" title="Core/Math/LinearAlgebra.hpp" alt="" coords="892,348,1103,375"/>
+<area shape="rect" id="node24" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="185,430,337,457"/>
+<area shape="rect" id="node28" href="$LinearAlgebra_8inl.html" title="Core/Math/LinearAlgebra.inl" alt="" coords="896,430,1099,457"/>
+<area shape="rect" id="node27" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="203,512,347,539"/>
+</map>

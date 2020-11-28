@@ -1,0 +1,4 @@
+<map id="Ra::IO::AssimpGeometryDataLoader" name="Ra::IO::AssimpGeometryDataLoader">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; Core::Asset::GeometryData \&gt;\n|# m_verbose\l|+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="13,219,244,369"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; DATA \&gt;\n|# m_verbose\l|+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="27,5,231,156"/>
+</map>

@@ -1,0 +1,18 @@
+<map id="src/Engine/Managers/LightManager/LightManager.hpp" name="src/Engine/Managers/LightManager/LightManager.hpp">
+<area shape="rect" id="node2" href="$LightStorage_8hpp.html" title="Engine/Managers/LightManager\l/LightStorage.hpp" alt="" coords="605,95,830,136"/>
+<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title="../../RaEngine.hpp" alt="" coords="621,363,755,389"/>
+<area shape="rect" id="node33" href="$System_8hpp.html" title="Engine/System/System.hpp" alt="" coords="981,102,1181,129"/>
+<area shape="rect" id="node14" href="$Light_8hpp.html" title="../../Renderer/Light\l/Light.hpp" alt="" coords="647,184,787,225"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="363,534,523,561"/>
+<area shape="rect" id="node10" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="903,437,1086,479"/>
+<area shape="rect" id="node15" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="397,281,547,307"/>
+<area shape="rect" id="node24" href="$Component_8hpp.html" title="Engine/Component/Component.hpp" alt="" coords="971,281,1223,307"/>
+<area shape="rect" id="node32" href="$Light_8inl.html" title="Engine/Renderer/Light\l/Light.inl" alt="" coords="681,273,845,315"/>
+<area shape="rect" id="node16" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="196,363,348,389"/>
+<area shape="rect" id="node17" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="748,445,879,471"/>
+<area shape="rect" id="node20" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="203,445,347,471"/>
+<area shape="rect" id="node25" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="1028,363,1183,389"/>
+<area shape="rect" id="node29" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="882,363,1003,389"/>
+<area shape="rect" id="node31" href="$Component_8inl.html" title="Engine/Component/Component.inl" alt="" coords="1207,363,1451,389"/>
+<area shape="rect" id="node27" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="1324,445,1471,471"/>
+</map>

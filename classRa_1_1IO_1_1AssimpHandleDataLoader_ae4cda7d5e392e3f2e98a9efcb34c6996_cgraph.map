@@ -1,0 +1,12 @@
+<map id="Ra::IO::AssimpHandleDataLoader::loadData" name="Ra::IO::AssimpHandleDataLoader::loadData">
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title="Ra::IO::assimpToCore" alt="" coords="271,5,431,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a9b6aadf86a2a5328c83fc9d17f09893c" title="Ra::Core::Asset::HandleData\l::setType" alt="" coords="248,57,455,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#afd1b588bb09b7e6ff3ed39d702d4b042" title="Ra::Core::Asset::HandleData\l::setName" alt="" coords="248,122,455,163"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a583661ca8646175c80bd0964f23abf07" title="Ra::Core::Asset::HandleData\l::setFrame" alt="" coords="248,187,455,229"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a1189e767e22ef4bb93527a724630cc56" title="Ra::Core::Asset::HandleData\l::setNameTable" alt="" coords="248,253,455,294"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#acbae173d72a5e07eaec8e930c9fffecf" title="Ra::Core::Asset::HandleData\l::needEndNodes" alt="" coords="248,318,455,359"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a146c55960a3a801bc295aaa8889df619" title="Ra::Core::Asset::HandleData\l::displayInfo" alt="" coords="248,383,455,425"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#a23c594326c793c74bf08614d6a810949" title="Ra::Core::Asset::HandleData\l::getComponentData" alt="" coords="248,449,455,490"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#ad517df66c4005d5768a68be7ccb29a1f" title="Ra::Core::Asset::HandleData\l::addBindMesh" alt="" coords="248,514,455,555"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html#aa802ca4fa61afe7764845a6ff93a7d79" title="Ra::Core::Asset::HandleData\l::getEdgeData" alt="" coords="248,579,455,621"/>
+</map>

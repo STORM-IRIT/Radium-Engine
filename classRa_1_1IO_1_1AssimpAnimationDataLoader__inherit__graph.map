@@ -1,0 +1,4 @@
+<map id="Ra::IO::AssimpAnimationDataLoader" name="Ra::IO::AssimpAnimationDataLoader">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; Core::Asset::AnimationData \&gt;\n|# m_verbose\l|+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="13,233,245,384"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; DATA \&gt;\n|# m_verbose\l|+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="27,5,231,156"/>
+</map>

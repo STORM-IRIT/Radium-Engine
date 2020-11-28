@@ -1,0 +1,6 @@
+<map id="Ra::Engine::RenderTechnique::setParametersProvider" name="Ra::Engine::RenderTechnique::setParametersProvider">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="545,5,704,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1RenderTechnique.html#ad1d5a9d900e46594224f5b8df142081f" title="Ra::Engine::RenderTechnique\l::hasConfiguration" alt="" coords="520,136,729,177"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1RenderTechnique.html#a78ba61b1637743a35f058eeefa631f8a" title="Ra::Engine::RenderTechnique\l::addPassProperties" alt="" coords="263,71,472,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title="Ra::Engine::RenderTechnique\l::setDirty" alt="" coords="520,71,729,112"/>
+</map>

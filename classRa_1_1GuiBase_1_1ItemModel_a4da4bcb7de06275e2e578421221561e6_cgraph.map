@@ -1,0 +1,13 @@
+<map id="Ra::GuiBase::ItemModel::findEntryIndex" name="Ra::GuiBase::ItemModel::findEntryIndex">
+<area shape="rect" id="node2" href="$structRa_1_1Engine_1_1ItemEntry.html#a1339c8b1b1457427d3eeb0ced54bc6a6" title="Returns true if the item represents any valid object. " alt="" coords="234,178,397,219"/>
+<area shape="rect" id="node12" href="$classRa_1_1GuiBase_1_1TreeItem.html#ac3174790e692dc24087df37bc3e72489" title="Ra::GuiBase::TreeItem\l::getIndexInParent" alt="" coords="232,243,399,284"/>
+<area shape="rect" id="node3" href="$structRa_1_1Engine_1_1ItemEntry.html#acc4d0f03ddd27dce426af9ed9c8993c9" title="Debug checks. " alt="" coords="689,195,852,236"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RadiumEngine.html#a26f952bd9650234940f69053db06d118" title="Ra::Engine::RadiumEngine\l::getEntityManager" alt="" coords="447,47,641,88"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1EntityManager.html#a34aaf911d9ee2d1c592b260d9614f5bc" title="Check wether an entity with a given name exists or not. " alt="" coords="447,112,641,154"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Entity.html#a236c7b600cc1bfb88ad1138325b5dd28" title="Ra::Engine::Entity\l::getName" alt="" coords="475,178,613,219"/>
+<area shape="rect" id="node8" href="$structRa_1_1Engine_1_1ItemEntry.html#a34e6a9addd931949e507bff26759f751" title="Returns true if the item represents a render object. " alt="" coords="463,243,625,284"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RadiumEngine.html#a28bc0716e719a702079a55a096340d16" title="Manager getters. " alt="" coords="447,308,641,350"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a242218228300c8e03481863b9a808dec" title="Ra::Engine::RenderObject\lManager::exists" alt="" coords="451,374,637,415"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID. " alt="" coords="900,195,1059,236"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="691,292,850,334"/>
+</map>

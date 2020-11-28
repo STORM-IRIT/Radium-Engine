@@ -1,0 +1,6 @@
+<map id="Ra::Engine::LightManager::registerComponent" name="Ra::Engine::LightManager::registerComponent">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1System.html#ad7b2a746c42f08a729b4df9b991293a8" title="Ra::Engine::System\l::registerComponent" alt="" coords="240,71,395,112"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Component.html#a2fea450b5fd9ea6a6e9b0ce1847b9727" title="Return the entity the component belongs to. " alt="" coords="443,5,617,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Component.html#a243a520429e5b78995df4c0a60ee7237" title="Return the component&#39;s name. " alt="" coords="443,71,617,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Component.html#aa9416af3319ba92aa7b532952c75e477" title="Set the system to which the component belongs. " alt="" coords="443,136,617,177"/>
+</map>

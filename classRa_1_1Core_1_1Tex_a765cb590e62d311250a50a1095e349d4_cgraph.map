@@ -1,0 +1,6 @@
+<map id="Ra::Core::Tex::fetch" name="Ra::Core::Tex::fetch">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#aa3b8bd54c48c000e4881728aec39ee7d" title="Component&#45;wise trunc() function on a floating&#45;point vector. " alt="" coords="201,5,360,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Grid.html#a5caa83769b59f497ce4acaf029ecd5c0" title="Returns the size vector (a D&#45;dimensional vector with the size along each dimension). " alt="" coords="211,57,350,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Grid.html#ad511d22e2e199071be30d1741aaf61ab" title="Returns the number of elements stored. " alt="" coords="211,122,350,163"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#a17110e2c83f72420d5b07e308f7f321e" title="Ra::Core::Geometry\l::interpolate" alt="" coords="205,187,356,229"/>
+</map>

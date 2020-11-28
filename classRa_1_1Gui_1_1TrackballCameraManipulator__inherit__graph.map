@@ -1,0 +1,6 @@
+<map id="Ra::Gui::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators. " alt="" coords="5,175,261,897"/>
+<area shape="rect" id="node3" href="$classQObject.html" title="{QObject\n||}" alt="" coords="96,20,171,97"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\l\&lt; TrackballCameraManipulator \&gt;\n|# m_keyMappingContext\l|+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="286,475,525,597"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\&lt; T \&gt;\n|# m_keyMappingContext\l|+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="269,5,542,112"/>
+</map>

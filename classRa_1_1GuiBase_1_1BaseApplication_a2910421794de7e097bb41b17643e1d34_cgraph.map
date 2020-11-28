@@ -1,0 +1,22 @@
+<map id="Ra::GuiBase::BaseApplication::setupScene" name="Ra::GuiBase::BaseApplication::setupScene">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#a70881604443264a7fceb751567eaa5b4" title="Ra::Engine::DrawPrimitives\l::Primitive" alt="" coords="268,159,467,200"/>
+<area shape="rect" id="node15" href="$classRa_1_1Engine_1_1SystemEntity.html#a2b341d35802bc8d3e1b7a49833db9730" title="Access the UI Component. " alt="" coords="274,231,461,272"/>
+<area shape="rect" id="node18" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#aae1fc77011d609ae60212adf315cd630" title="Ra::Engine::DrawPrimitives\l::Grid" alt="" coords="515,323,713,364"/>
+<area shape="rect" id="node19" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::Grey" alt="" coords="273,348,462,389"/>
+<area shape="rect" id="node20" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing. " alt="" coords="280,413,455,455"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#a15f205ad77d9c632523c774b1e958eb9" title="Ra::Engine::DrawPrimitives\l::Primitive" alt="" coords="515,127,713,168"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a5e831d5088144082e9bd3828323aa57a" title="Ra::Engine::EngineRender\lTechniques::getDefaultTechnique" alt="" coords="767,71,1003,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title="Ra::Engine::AttribArrayDisplayable\l::getAttribName" alt="" coords="761,291,1008,332"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RenderTechnique.html#a92778b063ae626dfac4a18d0f69fec5a" title="Ra::Engine::RenderTechnique\l::setParametersProvider" alt="" coords="780,136,989,177"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" title="Ra::Engine::RenderObject\l::createRenderObject" alt="" coords="791,209,978,251"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1RenderObject.html#a6b34af1c9c64f5c9a8fded701cf5bf09" title="Ra::Engine::RenderObject\l::setMaterial" alt="" coords="791,5,978,47"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="1339,43,1497,84"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1RenderTechnique.html#ad1d5a9d900e46594224f5b8df142081f" title="Ra::Engine::RenderTechnique\l::hasConfiguration" alt="" coords="1313,173,1523,215"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1RenderTechnique.html#a78ba61b1637743a35f058eeefa631f8a" title="Ra::Engine::RenderTechnique\l::addPassProperties" alt="" coords="1056,111,1265,152"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title="Ra::Engine::RenderTechnique\l::setDirty" alt="" coords="1313,108,1523,149"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" title="Ra::Engine::RenderObject\l::RenderObject" alt="" coords="1067,233,1254,275"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1RenderObject.html#a8ea17931e62bea93890d44815bf7fcf5" title="Ra::Engine::RenderObject\l::~RenderObject" alt="" coords="1325,239,1511,280"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Entity.html#a6325dcb57427a3d8b52880d3b8ed6df8" title="Ra::Engine::Entity\l::getTransformAsMatrix" alt="" coords="527,257,701,299"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1Entity.html#a524712805170bfce52ed0a98f7eee436" title="Get component with a given name. " alt="" coords="545,192,683,233"/>
+<area shape="rect" id="node21" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager. " alt="" coords="527,413,701,455"/>
+</map>

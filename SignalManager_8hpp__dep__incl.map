@@ -1,0 +1,9 @@
+<map id="src/Engine/Managers/SignalManager/SignalManager.hpp" name="src/Engine/Managers/SignalManager/SignalManager.hpp">
+<area shape="rect" id="node2" href="$Component_8cpp.html" title="src/Engine/Component\l/Component.cpp" alt="" coords="5,102,173,143"/>
+<area shape="rect" id="node3" href="$Entity_8cpp.html" title="src/Engine/Entity/Entity.cpp" alt="" coords="198,109,397,136"/>
+<area shape="rect" id="node4" href="$EntityManager_8cpp.html" title="src/Engine/Managers\l/EntityManager/EntityManager.cpp" alt="" coords="421,102,665,143"/>
+<area shape="rect" id="node5" href="$SignalManager_8cpp.html" title="src/Engine/Managers\l/SignalManager/SignalManager.cpp" alt="" coords="689,102,937,143"/>
+<area shape="rect" id="node6" href="$RadiumEngine_8cpp.html" title="src/Engine/RadiumEngine.cpp" alt="" coords="962,109,1177,136"/>
+<area shape="rect" id="node7" href="$RenderObjectManager_8cpp.html" title="src/Engine/Renderer\l/RenderObject/RenderObject\lManager.cpp" alt="" coords="1201,95,1405,151"/>
+<area shape="rect" id="node8" href="$Timeline_8cpp.html" title="src/GuiBase/Timeline\l/Timeline.cpp" alt="" coords="1429,102,1589,143"/>
+</map>

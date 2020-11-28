@@ -1,0 +1,7 @@
+<map id="QObject" name="QObject">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators. " alt="" coords="131,131,387,853"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1GizmoManager.html" title="{Ra::Gui::GizmoManager\n||+ GizmoManager()\l+ ~GizmoManager()\l+ handleMousePressEvent()\l+ handleMouseReleaseEvent()\l+ handleMouseMoveEvent()\l+ setEditable()\l+ cleanup()\l+ handlePickingResult()\l+ setLocal()\l+ changeGizmoType()\l+ updateValues()\l}" alt="" coords="411,380,633,604"/>
+<area shape="rect" id="node6" href="$classRa_1_1Plugins_1_1Context.html" title="Data passed to the plugin constructor. " alt="" coords="657,417,829,567"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html" title="A Flight manipulator for Cameras. " alt="" coords="5,953,247,1397"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1TrackballCameraManipulator.html" title="A Trackball manipulator for Cameras. " alt="" coords="271,901,515,1448"/>
+</map>

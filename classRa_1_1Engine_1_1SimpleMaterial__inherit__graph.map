@@ -1,0 +1,6 @@
+<map id="Ra::Engine::SimpleMaterial" name="Ra::Engine::SimpleMaterial">
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1LambertianMaterial.html" title="{Ra::Engine::LambertianMaterial\n||+ LambertianMaterial()\l+ ~LambertianMaterial()\l+ registerMaterial()\l+ unregisterMaterial()\l}" alt="" coords="5,689,232,811"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1PlainMaterial.html" title="{Ra::Engine::PlainMaterial\n||+ PlainMaterial()\l+ ~PlainMaterial()\l+ registerMaterial()\l+ unregisterMaterial()\l}" alt="" coords="256,689,440,811"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Material.html" title="{Ra::Engine::Material\n|# m_instanceName\l# m_aspect\l# m_isDirty\l|+ ~Material()\l+ getInstanceName()\l+ getMaterialName()\l+ setMaterialAspect()\l+ getMaterialAspect()\l+ isTransparent()\l+ getPropertyList()\l+ needUpdate()\l# Material()\l}" alt="" coords="151,204,316,428"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1ShaderParameterProvider.html" title="{Ra::Engine::ShaderParameter\lProvider\n|# m_renderParameters\l|+ ~ShaderParameterProvider()\l+ getParameters()\l+ getParameters()\l+ updateGL()\l+ getPropertyList()\l}" alt="" coords="121,5,345,156"/>
+</map>

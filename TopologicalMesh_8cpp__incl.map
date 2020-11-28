@@ -1,0 +1,23 @@
+<map id="src/Core/Geometry/TopologicalMesh.cpp" name="src/Core/Geometry/TopologicalMesh.cpp">
+<area shape="rect" id="node2" href="$TopologicalMesh_8hpp.html" title="Core/Geometry/Topological\lMesh.hpp" alt="" coords="1811,95,2009,136"/>
+<area shape="rect" id="node3" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="1149,512,1279,539"/>
+<area shape="rect" id="node29" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="163,430,305,457"/>
+<area shape="rect" id="node10" href="$OpenMesh_8hpp.html" title="Core/Geometry/OpenMesh.hpp" alt="" coords="2410,348,2631,375"/>
+<area shape="rect" id="node13" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="2163,430,2284,457"/>
+<area shape="rect" id="node17" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="514,348,746,375"/>
+<area shape="rect" id="node21" href="$TriangleMesh_8hpp.html" title="Core/Geometry/TriangleMesh.hpp" alt="" coords="1339,191,1577,218"/>
+<area shape="rect" id="node25" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="770,348,925,375"/>
+<area shape="rect" id="node42" href="$StdOptional_8hpp.html" title="Core/Utils/StdOptional.hpp" alt="" coords="1703,191,1898,218"/>
+<area shape="rect" id="node47" href="$TopologicalMesh_8inl.html" title="Core/Geometry/Topological\lMesh.inl" alt="" coords="2576,184,2775,225"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="1134,587,1294,613"/>
+<area shape="rect" id="node18" href="$AlignedStdVector_8hpp.html" title="Core/Containers/AlignedStd\lVector.hpp" alt="" coords="379,423,579,464"/>
+<area shape="rect" id="node22" href="$AbstractGeometry_8hpp.html" title="Core/Geometry/AbstractGeometry.hpp" alt="" coords="1496,348,1767,375"/>
+<area shape="rect" id="node23" href="$Attribs_8hpp.html" title="Core/Utils/Attribs.hpp" alt="" coords="1097,273,1259,300"/>
+<area shape="rect" id="node28" href="$Observable_8hpp.html" title="Core/Utils/Observable.hpp" alt="" coords="949,348,1141,375"/>
+<area shape="rect" id="node35" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="1791,348,1941,375"/>
+<area shape="rect" id="node40" href="$TriangleMesh_8inl.html" title="Core/Geometry/TriangleMesh.inl" alt="" coords="1597,273,1828,300"/>
+<area shape="rect" id="node34" href="$Attribs_8inl.html" title="Core/Utils/Attribs.inl" alt="" coords="1216,348,1369,375"/>
+<area shape="rect" id="node27" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="755,430,902,457"/>
+<area shape="rect" id="node36" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="1790,430,1942,457"/>
+<area shape="rect" id="node41" href="$TriangleOperation_8hpp.html" title="Core/Geometry/TriangleOperation.hpp" alt="" coords="1965,348,2233,375"/>
+</map>

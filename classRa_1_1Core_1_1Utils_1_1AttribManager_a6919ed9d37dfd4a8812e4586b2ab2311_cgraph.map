@@ -1,0 +1,8 @@
+<map id="Ra::Core::Utils::AttribManager::copyAttributes" name="Ra::Core::Utils::AttribManager::copyAttributes">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this. " alt="" coords="268,37,483,79"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title="Ra::Core::Utils::AttribManager\l::getAttrib" alt="" coords="268,103,483,144"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac6bb36601ef78ccc0997134b5a2df7f0" title="Base copy, does nothing. " alt="" coords="268,168,483,209"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title="Ra::Core::Utils::AttribHandle\l::attribName" alt="" coords="531,5,736,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title="Ra::Core::Utils::Index\l::Invalid" alt="" coords="554,71,713,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR. " alt="" coords="784,71,943,112"/>
+</map>

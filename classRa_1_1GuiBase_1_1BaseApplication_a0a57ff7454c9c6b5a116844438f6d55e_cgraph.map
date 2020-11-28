@@ -1,0 +1,9 @@
+<map id="Ra::GuiBase::BaseApplication::createConnections" name="Ra::GuiBase::BaseApplication::createConnections">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1BaseApplication.html#aa19a984e0783e70237b8050feb1a3d2a" title="Ra::GuiBase::BaseApplication\l::appNeedsToQuit" alt="" coords="268,5,483,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a525be12318745eae6c4730dd7570c7bf" title="Ra::GuiBase::BaseApplication\l::initializeOpenGlPlugins" alt="" coords="268,71,483,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d" title="call deinitializeGL if needed, with context activated " alt="" coords="299,136,451,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a084cf89dbf7dc52fd77286b573069458" title="Ra::GuiBase::BaseApplication\l::askForUpdate" alt="" coords="268,201,483,243"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title="Ra::Gui::WindowQt::\lmakeCurrent" alt="" coords="531,136,683,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title="Ra::Gui::WindowQt::\ldoneCurrent" alt="" coords="531,71,683,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c" title="Ra::Gui::WindowQt::\ldeinitializeGL" alt="" coords="531,201,683,243"/>
+</map>

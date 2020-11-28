@@ -1,0 +1,12 @@
+<map id="src/GuiBase/TransformEditor/TransformEditor.hpp" name="src/GuiBase/TransformEditor/TransformEditor.hpp">
+<area shape="rect" id="node2" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1455,95,1576,121"/>
+<area shape="rect" id="node13" href="$ItemEntry_8hpp.html" title="Engine/ItemModel/ItemEntry.hpp" alt="" coords="716,95,949,121"/>
+<area shape="rect" id="node25" href="$RaGuiBase_8hpp.html" title="GuiBase/RaGuiBase.hpp" alt="" coords="513,95,691,121"/>
+<area shape="rect" id="node3" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="1325,251,1455,278"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="562,341,722,367"/>
+<area shape="rect" id="node14" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="529,169,688,196"/>
+<area shape="rect" id="node19" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="1131,169,1286,196"/>
+<area shape="rect" id="node24" href="$ItemEntry_8inl.html" title="Engine/ItemModel/ItemEntry.inl" alt="" coords="883,169,1108,196"/>
+<area shape="rect" id="node15" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="239,244,421,285"/>
+<area shape="rect" id="node21" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="1071,251,1218,278"/>
+</map>

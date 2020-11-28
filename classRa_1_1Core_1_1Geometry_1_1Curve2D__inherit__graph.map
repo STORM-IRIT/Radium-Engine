@@ -1,0 +1,6 @@
+<map id="Ra::Core::Geometry::Curve2D" name="Ra::Core::Geometry::Curve2D">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1CubicBezier.html" title="{Ra::Core::Geometry\l::CubicBezier\n||+ CubicBezier()\l+ CubicBezier()\l+ ~CubicBezier()\l+ addPoint()\l+ f()\l+ df()\l+ fdf()\l}" alt="" coords="5,204,156,384"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1Line.html" title="{Ra::Core::Geometry\l::Line\n||+ Line()\l+ Line()\l+ ~Line()\l+ addPoint()\l+ f()\l+ df()\l+ fdf()\l}" alt="" coords="180,204,331,384"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html" title="{Ra::Core::Geometry\l::QuadraSpline\n||+ QuadraSpline()\l+ QuadraSpline()\l+ ~QuadraSpline()\l+ addPoint()\l+ f()\l+ df()\l+ fdf()\l}" alt="" coords="355,204,505,384"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1SplineCurve.html" title="{Ra::Core::Geometry\l::SplineCurve\n||+ SplineCurve()\l+ SplineCurve()\l+ ~SplineCurve()\l+ addPoint()\l+ f()\l+ df()\l+ fdf()\l}" alt="" coords="529,204,680,384"/>
+</map>

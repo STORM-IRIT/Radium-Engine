@@ -1,0 +1,28 @@
+<map id="src/GuiBase/Viewer/TrackballCameraManipulator.cpp" name="src/GuiBase/Viewer/TrackballCameraManipulator.cpp">
+<area shape="rect" id="node2" href="$TrackballCameraManipulator_8hpp.html" title="GuiBase/Viewer/Trackball\lCameraManipulator.hpp" alt="" coords="1235,95,1421,136"/>
+<area shape="rect" id="node19" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="889,452,1031,479"/>
+<area shape="rect" id="node23" href="$KeyMappingManager_8hpp.html" title="GuiBase/Utils/KeyMapping\lManager.hpp" alt="" coords="751,273,945,315"/>
+<area shape="rect" id="node33" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="2716,452,2868,479"/>
+<area shape="rect" id="node37" href="$Camera_8hpp.html" title="Engine/Renderer/Camera\l/Camera.hpp" alt="" coords="1993,184,2175,225"/>
+<area shape="rect" id="node44" href="$Light_8hpp.html" title="Engine/Renderer/Light\l/Light.hpp" alt="" coords="2302,273,2466,315"/>
+<area shape="rect" id="node48" href="$Keyboard_8hpp.html" title="GuiBase/Utils/Keyboard.hpp" alt="" coords="885,191,1088,218"/>
+<area shape="rect" id="node3" href="$RaGuiBase_8hpp.html" title="GuiBase/RaGuiBase.hpp" alt="" coords="1099,370,1277,397"/>
+<area shape="rect" id="node9" href="$CameraManipulator_8hpp.html" title="GuiBase/Viewer/CameraManipulator.hpp" alt="" coords="1186,191,1470,218"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="1133,616,1293,643"/>
+<area shape="rect" id="node7" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="1683,452,1842,479"/>
+<area shape="rect" id="node8" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="1710,527,1893,568"/>
+<area shape="rect" id="node14" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1866,452,1987,479"/>
+<area shape="rect" id="node15" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="1504,534,1635,561"/>
+<area shape="rect" id="node28" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="1301,452,1456,479"/>
+<area shape="rect" id="node31" href="$Observable_8hpp.html" title="Core/Utils/Observable.hpp" alt="" coords="93,370,285,397"/>
+<area shape="rect" id="node32" href="$Singleton_8hpp.html" title="Core/Utils/Singleton.hpp" alt="" coords="1480,452,1659,479"/>
+<area shape="rect" id="node30" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="1251,534,1397,561"/>
+<area shape="rect" id="node36" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="2620,534,2764,561"/>
+<area shape="rect" id="node38" href="$Component_8hpp.html" title="Engine/Component/Component.hpp" alt="" coords="2139,370,2391,397"/>
+<area shape="rect" id="node41" href="$ViewingParameters_8hpp.html" title="Engine/Renderer/Camera\l/ViewingParameters.hpp" alt="" coords="1993,273,2175,315"/>
+<area shape="rect" id="node42" href="$Camera_8inl.html" title="Engine/Renderer/Camera\l/Camera.inl" alt="" coords="1786,273,1969,315"/>
+<area shape="rect" id="node40" href="$Component_8inl.html" title="Engine/Component/Component.inl" alt="" coords="2098,452,2342,479"/>
+<area shape="rect" id="node43" href="$Entity_8hpp.html" title="Engine/Entity/Entity.hpp" alt="" coords="1787,370,1963,397"/>
+<area shape="rect" id="node45" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="2415,370,2566,397"/>
+<area shape="rect" id="node47" href="$Light_8inl.html" title="Engine/Renderer/Light\l/Light.inl" alt="" coords="2590,363,2754,404"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="src/Core/Asset/CameraData.inl" name="src/Core/Asset/CameraData.inl">
+<area shape="rect" id="node2" href="$CameraData_8hpp.html" title="Core/Asset/CameraData.hpp" alt="" coords="496,80,703,107"/>
+<area shape="rect" id="node21" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="977,155,1118,181"/>
+<area shape="rect" id="node6" href="$AssetData_8hpp.html" title="Core/Asset/AssetData.hpp" alt="" coords="321,155,512,181"/>
+<area shape="rect" id="node7" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="419,319,550,345"/>
+<area shape="rect" id="node14" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="65,155,297,181"/>
+<area shape="rect" id="node17" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="588,155,709,181"/>
+<area shape="rect" id="node8" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="539,393,699,420"/>
+<area shape="rect" id="node15" href="$AlignedStdVector_8hpp.html" title="Core/Containers/AlignedStd\lVector.hpp" alt="" coords="63,229,263,271"/>
+</map>

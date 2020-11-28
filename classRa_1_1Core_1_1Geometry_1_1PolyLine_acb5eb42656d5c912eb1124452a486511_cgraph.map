@@ -1,0 +1,9 @@
+<map id="Ra::Core::Geometry::PolyLine::project" name="Ra::Core::Geometry::PolyLine::project">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#a749ee9e81862ef200b0b7540cc1f16bc" title="Ra::Core::Geometry\l::projectOnSegment" alt="" coords="233,23,383,65"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="227,89,389,116"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053" title="Ra::Core::Math::cotan" alt="" coords="227,140,389,167"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#aae02568a84d24193c5f129f4dd60933c" title="Ra::Core::Geometry\l::PolyLine::getLineParameter" alt="" coords="204,191,412,233"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector. " alt="" coords="460,5,625,32"/>
+<area shape="rect" id="node4" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="483,56,602,83"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67" title="Get the total length of the line . " alt="" coords="467,191,618,233"/>
+</map>

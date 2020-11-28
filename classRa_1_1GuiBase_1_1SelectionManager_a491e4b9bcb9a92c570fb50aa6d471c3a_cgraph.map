@@ -1,0 +1,18 @@
+<map id="Ra::GuiBase::SelectionManager::select" name="Ra::GuiBase::SelectionManager::select">
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1SelectionManager.html#aa35d23c6f1bb1c3d0dde9de0783be5e5" title="Ra::GuiBase::SelectionManager\l::itemModel" alt="" coords="279,125,504,167"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1ItemModel.html#a4da4bcb7de06275e2e578421221561e6" title="Ra::GuiBase::ItemModel\l::findEntryIndex" alt="" coords="302,191,481,232"/>
+<area shape="rect" id="node15" href="$structRa_1_1Engine_1_1ItemEntry.html#a108d9c35707882970cfa9d3767fa1ec0" title="Returns true if the item can be selected. " alt="" coords="310,308,473,349"/>
+<area shape="rect" id="node4" href="$structRa_1_1Engine_1_1ItemEntry.html#a1339c8b1b1457427d3eeb0ced54bc6a6" title="Returns true if the item represents any valid object. " alt="" coords="568,125,731,167"/>
+<area shape="rect" id="node14" href="$classRa_1_1GuiBase_1_1TreeItem.html#ac3174790e692dc24087df37bc3e72489" title="Ra::GuiBase::TreeItem\l::getIndexInParent" alt="" coords="566,191,733,232"/>
+<area shape="rect" id="node5" href="$structRa_1_1Engine_1_1ItemEntry.html#acc4d0f03ddd27dce426af9ed9c8993c9" title="Debug checks. " alt="" coords="1037,176,1200,217"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RadiumEngine.html#a26f952bd9650234940f69053db06d118" title="Ra::Engine::RadiumEngine\l::getEntityManager" alt="" coords="795,123,989,164"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1EntityManager.html#a34aaf911d9ee2d1c592b260d9614f5bc" title="Check wether an entity with a given name exists or not. " alt="" coords="795,188,989,229"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Entity.html#a236c7b600cc1bfb88ad1138325b5dd28" title="Ra::Engine::Entity\l::getName" alt="" coords="823,5,961,47"/>
+<area shape="rect" id="node10" href="$structRa_1_1Engine_1_1ItemEntry.html#a34e6a9addd931949e507bff26759f751" title="Returns true if the item represents a render object. " alt="" coords="811,319,973,360"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1RadiumEngine.html#a28bc0716e719a702079a55a096340d16" title="Manager getters. " alt="" coords="795,253,989,295"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a242218228300c8e03481863b9a808dec" title="Ra::Engine::RenderObject\lManager::exists" alt="" coords="799,384,985,425"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID. " alt="" coords="1248,176,1407,217"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="1039,352,1198,393"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html#a4c1e2cbb7ba93d4ef2edf23b693cc643" title="Ra::Core::Utils::Indexed\lObject::getIndex" alt="" coords="562,308,737,349"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a13fc919e9fa01bfb36e67bc9011d325f" title="Ra::Engine::RenderObject\lManager::getRenderObject" alt="" coords="552,425,747,467"/>
+</map>

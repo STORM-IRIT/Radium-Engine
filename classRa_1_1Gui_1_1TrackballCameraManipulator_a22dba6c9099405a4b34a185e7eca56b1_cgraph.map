@@ -1,0 +1,13 @@
+<map id="Ra::Gui::TrackballCameraManipulator::handleCameraZoom" name="Ra::Gui::TrackballCameraManipulator::handleCameraZoom">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a0ba899f4c1c4d0c4cfe9336b7758a2d4" title="Return the zoom factor. " alt="" coords="301,5,451,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#a6c6f55e7821123b64e4b84bdeacf12ea" title="Set the zoom factor to &#39;zoomFactor&#39;. " alt="" coords="301,71,451,112"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="741,107,904,134"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector. " alt="" coords="293,187,459,214"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="525,317,675,359"/>
+<area shape="rect" id="node8" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="310,289,442,315"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Camera.html#a34c40b417b56facb5b4e52818a4a0a76" title="Ra::Engine::Camera\l::getZNear" alt="" coords="301,340,451,381"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="301,405,451,447"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="301,471,451,512"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters. " alt="" coords="525,71,675,112"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="507,471,693,512"/>
+</map>

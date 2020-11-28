@@ -1,0 +1,19 @@
+<map id="Ra::Core::Geometry::TopologicalMesh::WedgeData" name="Ra::Core::Geometry::TopologicalMesh::WedgeData">
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Vector4 \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="405,964,566,1071"/>
+<area shape="rect" id="node4" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\l\&lt; Vector4 \&gt;\n||}" alt="" coords="535,576,731,668"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="467,276,650,383"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="591,153,785,245"/>
+<area shape="rect" id="node11" title="STL class. " alt="" coords="265,283,461,375"/>
+<area shape="rect" id="node14" title="STL class. " alt="" coords="965,145,1147,252"/>
+<area shape="rect" id="node17" title="STL class. " alt="" coords="74,276,257,383"/>
+<area shape="rect" id="node20" title="STL class. " alt="" coords="841,407,1023,513"/>
+<area shape="rect" id="node7" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\&lt; T \&gt;\n||}" alt="" coords="567,421,801,499"/>
+<area shape="rect" id="node10" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\&lt; V \&gt;\n||}" alt="" coords="276,583,511,661"/>
+<area shape="rect" id="node13" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\l\&lt; Scalar \&gt;\n||}" alt="" coords="975,576,1171,668"/>
+<area shape="rect" id="node16" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\l\&lt; Vector2 \&gt;\n||}" alt="" coords="55,576,251,668"/>
+<area shape="rect" id="node19" href="$structRa_1_1Core_1_1AlignedStdVector.html" title="{Ra::Core::AlignedStdVector\l\&lt; Vector3 \&gt;\n||}" alt="" coords="755,576,951,668"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\&lt; V \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="309,717,509,809"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Vector2 \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="219,964,381,1071"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1VectorArray.html" title="{Ra::Core::VectorArray\l\&lt; Vector3 \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="590,964,751,1071"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1VectorArray_3_01Scalar_01_4.html" title="{Ra::Core::VectorArray\l\&lt; Scalar \&gt;\n||+ getMap()\l+ getMap()\l}" alt="" coords="787,833,949,940"/>
+</map>

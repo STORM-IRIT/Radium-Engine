@@ -1,0 +1,7 @@
+<map id="Ra::Core::Geometry::barycentricArea" name="Ra::Core::Geometry::barycentricArea">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#ac7699468390d5560fbe9f11c5c85fc65" title="GLOBAL MATRIX ///. " alt="" coords="204,27,355,69"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="403,5,565,32"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Geometry.html#a178f2b7309fe2ea5bc31a3abcb25368e" title="Ra::Core::Geometry\l::triangleArea" alt="" coords="409,57,559,98"/>
+<area shape="rect" id="node5" href="$namespaceOpenMesh.html#a71e7f1dd3eac016d2b8245ac408a291c" title="OpenMesh::cross" alt="" coords="613,39,745,65"/>
+<area shape="rect" id="node6" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="613,89,745,116"/>
+</map>

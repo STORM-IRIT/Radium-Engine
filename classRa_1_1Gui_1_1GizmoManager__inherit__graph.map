@@ -1,0 +1,6 @@
+<map id="Ra::Gui::GizmoManager" name="Ra::Gui::GizmoManager">
+<area shape="rect" id="node2" href="$classQObject.html" title="{QObject\n||}" alt="" coords="5,233,80,311"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1TransformEditor.html" title="{Ra::GuiBase::TransformEditor\n|# m_transform\l# m_currentEdit\l|+ TransformEditor()\l+ ~TransformEditor()\l+ setEditable()\l+ updateValues()\l# getTransform()\l# setTransform()\l# canEdit()\l# getWorldTransform()\l}" alt="" coords="103,175,315,369"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\l\&lt; GizmoManager \&gt;\n|# m_keyMappingContext\l|+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="339,211,573,333"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title="{Ra::Gui::KeyMappingManageable\&lt; T \&gt;\n|# m_keyMappingContext\l|+ getContext()\l+ configureKeyMapping()\l# self()\l}" alt="" coords="319,5,593,112"/>
+</map>

@@ -1,0 +1,33 @@
+<map id="src/IO/AssimpLoader/AssimpFileLoader.cpp" name="src/IO/AssimpLoader/AssimpFileLoader.cpp">
+<area shape="rect" id="node2" href="$AssimpFileLoader_8hpp.html" title="IO/AssimpLoader/AssimpFile\lLoader.hpp" alt="" coords="581,169,787,211"/>
+<area shape="rect" id="node15" href="$FileData_8hpp.html" title="Core/Asset/FileData.hpp" alt="" coords="2390,95,2567,121"/>
+<area shape="rect" id="node43" href="$StringUtils_8hpp.html" title="Core/Utils/StringUtils.hpp" alt="" coords="1333,341,1520,367"/>
+<area shape="rect" id="node46" href="$AssimpAnimationDataLoader_8hpp.html" title="IO/AssimpLoader/AssimpAnimation\lDataLoader.hpp" alt="" coords="3649,169,3900,211"/>
+<area shape="rect" id="node48" href="$AssimpGeometryDataLoader_8hpp.html" title="IO/AssimpLoader/AssimpGeometry\lDataLoader.hpp" alt="" coords="3925,169,4174,211"/>
+<area shape="rect" id="node49" href="$AssimpHandleDataLoader_8hpp.html" title="IO/AssimpLoader/AssimpHandle\lDataLoader.hpp" alt="" coords="4198,169,4429,211"/>
+<area shape="rect" id="node50" href="$AssimpLightDataLoader_8hpp.html" title="IO/AssimpLoader/AssimpLight\lDataLoader.hpp" alt="" coords="3409,169,3625,211"/>
+<area shape="rect" id="node4" href="$FileLoaderInterface_8hpp.html" title="Core/Asset/FileLoaderInterface.hpp" alt="" coords="1061,341,1309,367"/>
+<area shape="rect" id="node14" href="$RaIO_8hpp.html" title="IO/RaIO.hpp" alt="" coords="3703,259,3801,285"/>
+<area shape="rect" id="node7" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="2423,497,2553,524"/>
+<area shape="rect" id="node8" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="3932,572,4092,599"/>
+<area shape="rect" id="node17" href="$FileData_8inl.html" title="Core/Asset/FileData.inl" alt="" coords="2089,177,2258,203"/>
+<area shape="rect" id="node18" href="$AnimationData_8hpp.html" title="Core/Asset/AnimationData.hpp" alt="" coords="1334,259,1557,285"/>
+<area shape="rect" id="node31" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="491,423,632,449"/>
+<area shape="rect" id="node32" href="$CameraData_8hpp.html" title="Core/Asset/CameraData.hpp" alt="" coords="1581,259,1787,285"/>
+<area shape="rect" id="node35" href="$GeometryData_8hpp.html" title="Core/Asset/GeometryData.hpp" alt="" coords="2191,259,2411,285"/>
+<area shape="rect" id="node38" href="$HandleData_8hpp.html" title="Core/Asset/HandleData.hpp" alt="" coords="3169,341,3370,367"/>
+<area shape="rect" id="node39" href="$LightData_8hpp.html" title="Core/Asset/LightData.hpp" alt="" coords="1932,259,2119,285"/>
+<area shape="rect" id="node42" href="$VolumeData_8hpp.html" title="Core/Asset/VolumeData.hpp" alt="" coords="3819,341,4023,367"/>
+<area shape="rect" id="node19" href="$KeyFramedValue_8hpp.html" title="Core/Animation/KeyFramed\lValue.hpp" alt="" coords="3495,333,3694,375"/>
+<area shape="rect" id="node26" href="$AnimationTime_8hpp.html" title="Core/Asset/AnimationTime.hpp" alt="" coords="2768,341,2992,367"/>
+<area shape="rect" id="node29" href="$AssetData_8hpp.html" title="Core/Asset/AssetData.hpp" alt="" coords="1867,423,2058,449"/>
+<area shape="rect" id="node30" href="$AnimationData_8inl.html" title="Core/Asset/AnimationData.inl" alt="" coords="145,341,359,367"/>
+<area shape="rect" id="node22" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="3721,423,3842,449"/>
+<area shape="rect" id="node33" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="2232,341,2464,367"/>
+<area shape="rect" id="node34" href="$CameraData_8inl.html" title="Core/Asset/CameraData.inl" alt="" coords="434,341,633,367"/>
+<area shape="rect" id="node36" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="2589,341,2744,367"/>
+<area shape="rect" id="node37" href="$MaterialData_8hpp.html" title="Core/Asset/MaterialData.hpp" alt="" coords="2000,341,2208,367"/>
+<area shape="rect" id="node40" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="3866,423,4017,449"/>
+<area shape="rect" id="node41" href="$LightData_8inl.html" title="Core/Asset/LightData.inl" alt="" coords="757,341,936,367"/>
+<area shape="rect" id="node47" href="$DataLoader_8hpp.html" title="Core/Asset/DataLoader.hpp" alt="" coords="3826,259,4025,285"/>
+</map>

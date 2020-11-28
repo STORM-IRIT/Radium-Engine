@@ -1,0 +1,33 @@
+<map id="src/Engine/ItemModel/ItemEntry.cpp" name="src/Engine/ItemModel/ItemEntry.cpp">
+<area shape="rect" id="node2" href="$ItemEntry_8hpp.html" title="Engine/ItemModel/ItemEntry.hpp" alt="" coords="1920,281,2153,307"/>
+<area shape="rect" id="node14" href="$RadiumEngine_8hpp.html" title="Engine/RadiumEngine.hpp" alt="" coords="2323,191,2515,218"/>
+<area shape="rect" id="node23" href="$EntityManager_8hpp.html" title="Engine/Managers/EntityManager\l/EntityManager.hpp" alt="" coords="2609,184,2840,225"/>
+<area shape="rect" id="node29" href="$SystemDisplay_8hpp.html" title="Engine/Managers/SystemDisplay\l/SystemDisplay.hpp" alt="" coords="999,95,1234,136"/>
+<area shape="rect" id="node42" href="$RenderObject_8hpp.html" title="Engine/Renderer/RenderObject\l/RenderObject.hpp" alt="" coords="2866,95,3085,136"/>
+<area shape="rect" id="node50" href="$RenderObjectManager_8hpp.html" title="Engine/Renderer/RenderObject\l/RenderObjectManager.hpp" alt="" coords="3829,184,4047,225"/>
+<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="1356,363,1515,389"/>
+<area shape="rect" id="node7" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="3749,363,3903,389"/>
+<area shape="rect" id="node13" href="$ItemEntry_8inl.html" title="Engine/ItemModel/ItemEntry.inl" alt="" coords="1924,363,2149,389"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="802,527,962,553"/>
+<area shape="rect" id="node6" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="1344,437,1527,479"/>
+<area shape="rect" id="node8" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="1682,445,1813,471"/>
+<area shape="rect" id="node10" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="3753,445,3899,471"/>
+<area shape="rect" id="node15" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="907,281,1028,307"/>
+<area shape="rect" id="node19" href="$Singleton_8hpp.html" title="Core/Utils/Singleton.hpp" alt="" coords="2463,281,2642,307"/>
+<area shape="rect" id="node24" href="$IndexMap_8hpp.html" title="Core/Utils/IndexMap.hpp" alt="" coords="4215,281,4397,307"/>
+<area shape="rect" id="node28" href="$IndexMap_8inl.html" title="Core/Utils/IndexMap.inl" alt="" coords="4362,363,4535,389"/>
+<area shape="rect" id="node30" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="325,281,476,307"/>
+<area shape="rect" id="node33" href="$Component_8hpp.html" title="Engine/Component/Component.hpp" alt="" coords="579,191,831,218"/>
+<area shape="rect" id="node35" href="$Entity_8hpp.html" title="Engine/Entity/Entity.hpp" alt="" coords="1205,191,1381,218"/>
+<area shape="rect" id="node39" href="$DrawPrimitives_8hpp.html" title="Engine/Renderer/RenderObject\l/Primitives/DrawPrimitives.hpp" alt="" coords="855,184,1079,225"/>
+<area shape="rect" id="node31" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="471,363,623,389"/>
+<area shape="rect" id="node34" href="$Component_8inl.html" title="Engine/Component/Component.inl" alt="" coords="5,281,249,307"/>
+<area shape="rect" id="node37" href="$IndexedObject_8hpp.html" title="Core/Utils/IndexedObject.hpp" alt="" coords="3777,281,3989,307"/>
+<area shape="rect" id="node38" href="$Entity_8inl.html" title="Engine/Entity/Entity.inl" alt="" coords="1205,281,1373,307"/>
+<area shape="rect" id="node40" href="$Obb_8hpp.html" title="Core/Geometry/Obb.hpp" alt="" coords="602,281,781,307"/>
+<area shape="rect" id="node41" href="$Spline_8hpp.html" title="Core/Geometry/Spline.hpp" alt="" coords="1651,281,1844,307"/>
+<area shape="rect" id="node43" href="$RenderObjectTypes_8hpp.html" title="Engine/Renderer/RenderObject\l/RenderObjectTypes.hpp" alt="" coords="4421,273,4639,315"/>
+<area shape="rect" id="node44" href="$RenderTechnique_8hpp.html" title="Engine/Renderer/RenderTechnique\l/RenderTechnique.hpp" alt="" coords="3047,184,3290,225"/>
+<area shape="rect" id="node45" href="$ShaderConfiguration_8hpp.html" title="Engine/Renderer/RenderTechnique\l/ShaderConfiguration.hpp" alt="" coords="3082,273,3325,315"/>
+<area shape="rect" id="node49" href="$RenderTechnique_8inl.html" title="Engine/Renderer/RenderTechnique\l/RenderTechnique.inl" alt="" coords="3461,273,3703,315"/>
+</map>

@@ -1,0 +1,51 @@
+<map id="Ra::GuiBase::BaseApplication::BaseApplication" name="Ra::GuiBase::BaseApplication::BaseApplication">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Resources.html#abf62276f3d6fe4fe4455e012661fdf69" title="Ra::Core::Resources\l::getRadiumPluginsDir" alt="" coords="315,200,481,241"/>
+<area shape="rect" id="node4" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a994127574934da53c606740018029c4b" title="Ra::GuiBase::BaseApplication\l::setContinuousUpdate" alt="" coords="291,135,505,176"/>
+<area shape="rect" id="node5" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a2578ea774df33aa24f0bf0ce684be0ed" title="Ra::GuiBase::BaseApplication\l::addBasicShaders" alt="" coords="291,69,505,111"/>
+<area shape="rect" id="node10" href="$classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html#a696337774144e7c72871cda5f297eed3" title="Ra::GuiBase::BaseApplication\l::WindowFactory::createMainWindow" alt="" coords="268,265,528,307"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d" title="add observers to keyMappingManager for gizmo, camera and viewer. " alt="" coords="303,331,493,372"/>
+<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8" title="Access to the OpenGL context of the Viewer. " alt="" coords="297,397,499,423"/>
+<area shape="rect" id="node14" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a0a57ff7454c9c6b5a116844438f6d55e" title="Create signal / slots connections. " alt="" coords="291,499,505,540"/>
+<area shape="rect" id="node21" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a084cf89dbf7dc52fd77286b573069458" title="Ra::GuiBase::BaseApplication\l::askForUpdate" alt="" coords="586,353,801,395"/>
+<area shape="rect" id="node22" href="$classRa_1_1Gui_1_1Viewer.html#a17094c0201376a4beedb86fa39cf3fa2" title="Access to the feature picking manager. " alt="" coords="299,564,497,605"/>
+<area shape="rect" id="node23" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a6e2e0e0982bf3edeee66fd79ce5a76ae" title="Ra::GuiBase::BaseApplication\l::loadPlugins" alt="" coords="291,696,505,737"/>
+<area shape="rect" id="node28" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a2910421794de7e097bb41b17643e1d34" title="Ra::GuiBase::BaseApplication\l::setupScene" alt="" coords="291,951,505,992"/>
+<area shape="rect" id="node48" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a3c772ae61fd47517427897752ef2c544" title="Ra::GuiBase::BaseApplication\l::loadFile" alt="" coords="291,1016,505,1057"/>
+<area shape="rect" id="node49" href="$classRa_1_1Gui_1_1Viewer.html#a1b8fa28801f526e43b17171dcb8c54e5" title="Set the camera managed by the cameraInterface. " alt="" coords="297,1082,499,1109"/>
+<area shape="rect" id="node50" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a7ffbf14248b4b4f8dffeffffa8ffd795" title="Ra::GuiBase::BaseApplication\l::updateRadiumFrameIfNeeded" alt="" coords="286,1133,510,1175"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Resources.html#a96e7523ac5a9f47629ee73938db23790" title="Ra::Core::Resources\l::searchPath" alt="" coords="899,135,1049,176"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0" title="Ra::Core::Resources\l::getRadiumResourcesDir" alt="" coords="600,71,787,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1ShaderConfiguration.html#a8ffa1714a9e63a320acaa7873fb99797" title="Ra::Engine::ShaderConfiguration\l::addShader" alt="" coords="578,136,809,177"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#a36842535508a390108fb1205210a5c49" title="Ra::Engine::ShaderConfiguration\lFactory::addConfiguration" alt="" coords="578,5,809,47"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1ShaderConfiguration.html#a6aefbda787e65960237bb9c0cdc0f627" title="Ra::Engine::ShaderConfiguration\l::getName" alt="" coords="859,5,1089,47"/>
+<area shape="rect" id="node12" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec" title="Ra::Gui::KeyMappingManageable\l\&lt; TrackballCameraManipulator\l \&gt;::configureKeyMapping" alt="" coords="576,273,811,329"/>
+<area shape="rect" id="node15" href="$classRa_1_1GuiBase_1_1BaseApplication.html#aa19a984e0783e70237b8050feb1a3d2a" title="Ra::GuiBase::BaseApplication\l::appNeedsToQuit" alt="" coords="586,549,801,591"/>
+<area shape="rect" id="node16" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a525be12318745eae6c4730dd7570c7bf" title="Ra::GuiBase::BaseApplication\l::initializeOpenGlPlugins" alt="" coords="586,484,801,525"/>
+<area shape="rect" id="node19" href="$classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d" title="call deinitializeGL if needed, with context activated " alt="" coords="617,419,769,460"/>
+<area shape="rect" id="node17" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title="Ra::Gui::WindowQt::\lmakeCurrent" alt="" coords="898,484,1050,525"/>
+<area shape="rect" id="node18" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title="Ra::Gui::WindowQt::\ldoneCurrent" alt="" coords="898,549,1050,591"/>
+<area shape="rect" id="node20" href="$classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c" title="Ra::Gui::WindowQt::\ldeinitializeGL" alt="" coords="898,419,1050,460"/>
+<area shape="rect" id="node24" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title="Ra::Core::Utils::getFileExt" alt="" coords="600,783,787,810"/>
+<area shape="rect" id="node25" href="$namespaceRa_1_1Core_1_1Utils.html#a99d916309a7c1727e74e630c93e6bdfa" title="Ra::Core::Utils::getBaseName" alt="" coords="586,834,801,861"/>
+<area shape="rect" id="node26" href="$classRa_1_1Plugins_1_1RadiumPluginInterface.html#a2110ad3a554613113b415cf3f7ee9db4" title="Pass arguments for plugin initialization. This method must create and register all the services that ..." alt="" coords="597,885,789,927"/>
+<area shape="rect" id="node27" href="$classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5" title="Ra::Gui::WindowQt::\lisOpenGlInitialized" alt="" coords="617,667,769,708"/>
+<area shape="rect" id="node29" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#a70881604443264a7fceb751567eaa5b4" title="Ra::Engine::DrawPrimitives\l::Primitive" alt="" coords="594,951,793,992"/>
+<area shape="rect" id="node41" href="$classRa_1_1Engine_1_1SystemEntity.html#a2b341d35802bc8d3e1b7a49833db9730" title="Access the UI Component. " alt="" coords="600,1016,787,1057"/>
+<area shape="rect" id="node44" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#aae1fc77011d609ae60212adf315cd630" title="Ra::Engine::DrawPrimitives\l::Grid" alt="" coords="875,1107,1073,1148"/>
+<area shape="rect" id="node45" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::Grey" alt="" coords="599,1133,788,1175"/>
+<area shape="rect" id="node46" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing. " alt="" coords="606,1199,781,1240"/>
+<area shape="rect" id="node30" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#a15f205ad77d9c632523c774b1e958eb9" title="Ra::Engine::DrawPrimitives\l::Primitive" alt="" coords="875,911,1073,952"/>
+<area shape="rect" id="node31" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a5e831d5088144082e9bd3828323aa57a" title="Ra::Engine::EngineRender\lTechniques::getDefaultTechnique" alt="" coords="1143,993,1379,1035"/>
+<area shape="rect" id="node32" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title="Ra::Engine::AttribArrayDisplayable\l::getAttribName" alt="" coords="1137,1075,1384,1116"/>
+<area shape="rect" id="node33" href="$classRa_1_1Engine_1_1RenderTechnique.html#a92778b063ae626dfac4a18d0f69fec5a" title="Ra::Engine::RenderTechnique\l::setParametersProvider" alt="" coords="1156,772,1365,813"/>
+<area shape="rect" id="node38" href="$classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" title="Ra::Engine::RenderObject\l::createRenderObject" alt="" coords="1167,863,1354,904"/>
+<area shape="rect" id="node40" href="$classRa_1_1Engine_1_1RenderObject.html#a6b34af1c9c64f5c9a8fded701cf5bf09" title="Ra::Engine::RenderObject\l::setMaterial" alt="" coords="1167,928,1354,969"/>
+<area shape="rect" id="node34" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID. " alt="" coords="1715,824,1873,865"/>
+<area shape="rect" id="node35" href="$classRa_1_1Engine_1_1RenderTechnique.html#ad1d5a9d900e46594224f5b8df142081f" title="Ra::Engine::RenderTechnique\l::hasConfiguration" alt="" coords="1689,693,1899,735"/>
+<area shape="rect" id="node36" href="$classRa_1_1Engine_1_1RenderTechnique.html#a78ba61b1637743a35f058eeefa631f8a" title="Ra::Engine::RenderTechnique\l::addPassProperties" alt="" coords="1432,759,1641,800"/>
+<area shape="rect" id="node37" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title="Ra::Engine::RenderTechnique\l::setDirty" alt="" coords="1689,759,1899,800"/>
+<area shape="rect" id="node39" href="$classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" title="Ra::Engine::RenderObject\l::RenderObject" alt="" coords="1443,876,1630,917"/>
+<area shape="rect" id="node42" href="$classRa_1_1Engine_1_1Entity.html#a6325dcb57427a3d8b52880d3b8ed6df8" title="Ra::Engine::Entity\l::getTransformAsMatrix" alt="" coords="887,976,1061,1017"/>
+<area shape="rect" id="node43" href="$classRa_1_1Engine_1_1Entity.html#a524712805170bfce52ed0a98f7eee436" title="Get component with a given name. " alt="" coords="905,1041,1043,1083"/>
+<area shape="rect" id="node47" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager. " alt="" coords="887,1199,1061,1240"/>
+</map>

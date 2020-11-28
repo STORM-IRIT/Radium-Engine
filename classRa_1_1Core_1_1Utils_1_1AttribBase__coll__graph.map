@@ -1,0 +1,5 @@
+<map id="Ra::Core::Utils::AttribBase" name="Ra::Core::Utils::AttribBase">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title="{Ra::Core::Utils::ObservableVoid\n||}" alt="" coords="5,551,231,628"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title="{Ra::Core::Utils::Observable\&lt;\&gt;\n||+ Observable()\l+ Observable()\l+ operator=()\l+ ~Observable()\l+ copyObserversTo()\l+ attach()\l+ attachMember()\l+ notify()\l+ detachAll()\l+ detach()\l}" alt="" coords="9,292,227,501"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title="{Ra::Core::Utils::Observable\l\&lt; Args \&gt;\n||+ Observable()\l+ Observable()\l+ operator=()\l+ ~Observable()\l+ copyObserversTo()\l+ attach()\l+ attachMember()\l+ notify()\l+ detachAll()\l+ detach()\l}" alt="" coords="19,5,217,229"/>
+</map>

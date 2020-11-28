@@ -1,0 +1,17 @@
+<map id="src/Core/Animation/Skeleton.cpp" name="src/Core/Animation/Skeleton.cpp">
+<area shape="rect" id="node2" href="$Skeleton_8hpp.html" title="Core/Animation/Skeleton.hpp" alt="" coords="890,95,1102,121"/>
+<area shape="rect" id="node23" href="$LinearAlgebra_8hpp.html" title="Core/Math/LinearAlgebra.hpp" alt="" coords="1536,177,1747,203"/>
+<area shape="rect" id="node3" href="$HandleArray_8hpp.html" title="Core/Animation/HandleArray.hpp" alt="" coords="879,177,1113,203"/>
+<area shape="rect" id="node20" href="$AdjacencyList_8hpp.html" title="Core/Containers/Adjacency\lList.hpp" alt="" coords="93,169,291,211"/>
+<area shape="rect" id="node4" href="$Pose_8hpp.html" title="Core/Animation/Pose.hpp" alt="" coords="315,266,501,293"/>
+<area shape="rect" id="node6" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="780,437,911,464"/>
+<area shape="rect" id="node15" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1185,266,1306,293"/>
+<area shape="rect" id="node19" href="$HandleArray_8inl.html" title="Core/Animation/HandleArray.inl" alt="" coords="883,266,1109,293"/>
+<area shape="rect" id="node5" href="$AlignedStdVector_8hpp.html" title="Core/Containers/AlignedStd\lVector.hpp" alt="" coords="356,348,556,389"/>
+<area shape="rect" id="node7" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="645,512,805,539"/>
+<area shape="rect" id="node21" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="525,266,757,293"/>
+<area shape="rect" id="node22" href="$AdjacencyList_8inl.html" title="Core/Containers/Adjacency\lList.inl" alt="" coords="93,259,291,300"/>
+<area shape="rect" id="node26" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="2041,266,2193,293"/>
+<area shape="rect" id="node30" href="$LinearAlgebra_8inl.html" title="Core/Math/LinearAlgebra.inl" alt="" coords="1764,266,1967,293"/>
+<area shape="rect" id="node29" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="2109,355,2253,382"/>
+</map>

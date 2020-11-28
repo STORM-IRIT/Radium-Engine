@@ -1,0 +1,7 @@
+<map id="Ra::Gui::FlightCameraManipulator::handleCameraPan" name="Ra::Gui::FlightCameraManipulator::handleCameraPan">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a57df21d814e3e2684ac858ac3296bb37" title="Ra::Engine::Camera\l::getRightVector" alt="" coords="301,5,451,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="295,71,457,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="301,123,451,164"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="523,89,674,131"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="505,155,692,196"/>
+</map>

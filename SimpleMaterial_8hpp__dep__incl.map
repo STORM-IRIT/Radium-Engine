@@ -1,0 +1,11 @@
+<map id="src/Engine/Renderer/Material/SimpleMaterial.hpp" name="src/Engine/Renderer/Material/SimpleMaterial.hpp">
+<area shape="rect" id="node2" href="$LambertianMaterial_8hpp.html" title="src/Engine/Renderer\l/Material/LambertianMaterial.hpp" alt="" coords="255,95,494,136"/>
+<area shape="rect" id="node5" href="$PlainMaterial_8hpp.html" title="src/Engine/Renderer\l/Material/PlainMaterial.hpp" alt="" coords="603,95,799,136"/>
+<area shape="rect" id="node10" href="$SimpleMaterial_8cpp.html" title="src/Engine/Renderer\l/Material/SimpleMaterial.cpp" alt="" coords="824,95,1032,136"/>
+<area shape="rect" id="node3" href="$RadiumEngine_8cpp.html" title="src/Engine/RadiumEngine.cpp" alt="" coords="267,199,482,225"/>
+<area shape="rect" id="node4" href="$LambertianMaterial_8cpp.html" title="src/Engine/Renderer\l/Material/LambertianMaterial.cpp" alt="" coords="5,191,243,233"/>
+<area shape="rect" id="node6" href="$Camera_8cpp.html" title="src/Engine/Renderer\l/Camera/Camera.cpp" alt="" coords="506,191,665,233"/>
+<area shape="rect" id="node7" href="$PlainMaterial_8cpp.html" title="src/Engine/Renderer\l/Material/PlainMaterial.cpp" alt="" coords="689,191,884,233"/>
+<area shape="rect" id="node8" href="$DrawPrimitives_8cpp.html" title="src/Engine/Renderer\l/RenderObject/Primitives\l/DrawPrimitives.cpp" alt="" coords="909,184,1091,240"/>
+<area shape="rect" id="node9" href="$Gizmo_8cpp.html" title="src/GuiBase/Viewer\l/Gizmo/Gizmo.cpp" alt="" coords="1115,191,1263,233"/>
+</map>

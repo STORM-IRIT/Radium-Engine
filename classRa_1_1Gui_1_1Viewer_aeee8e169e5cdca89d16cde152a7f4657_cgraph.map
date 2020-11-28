@@ -1,0 +1,5 @@
+<map id="Ra::Gui::Viewer::processPicking" name="Ra::Gui::Viewer::processPicking">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Renderer.html#a93a33c1359ed3581951a53d5f069803d" title="Ra::Engine::Renderer\l::getPickingQueries" alt="" coords="245,5,402,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Renderer.html#a46c624fa0aa3dd9f2851ff0577b3d3d0" title="Ra::Engine::Renderer\l::getPickingResults" alt="" coords="245,71,402,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1PickingManager.html#acc32a270073f0496c3f96f880521b07e" title="Ra::Gui::PickingManager\l::setCurrent" alt="" coords="233,136,413,177"/>
+</map>

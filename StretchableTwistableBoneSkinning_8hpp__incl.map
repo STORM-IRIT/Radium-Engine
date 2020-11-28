@@ -1,0 +1,20 @@
+<map id="src/Core/Animation/StretchableTwistableBoneSkinning.hpp" name="src/Core/Animation/StretchableTwistableBoneSkinning.hpp">
+<area shape="rect" id="node2" href="$HandleWeight_8hpp.html" title="Core/Animation/HandleWeight.hpp" alt="" coords="25,266,272,293"/>
+<area shape="rect" id="node3" href="$AlignedStdVector_8hpp.html" title="Core/Containers/AlignedStd\lVector.hpp" alt="" coords="274,348,474,389"/>
+<area shape="rect" id="node13" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="1288,355,1409,382"/>
+<area shape="rect" id="node18" href="$Pose_8hpp.html" title="Core/Animation/Pose.hpp" alt="" coords="346,266,532,293"/>
+<area shape="rect" id="node19" href="$Skeleton_8hpp.html" title="Core/Animation/Skeleton.hpp" alt="" coords="788,95,1000,121"/>
+<area shape="rect" id="node23" href="$VectorArray_8hpp.html" title="Core/Containers/VectorArray.hpp" alt="" coords="556,266,788,293"/>
+<area shape="rect" id="node25" href="$DualQuaternion_8hpp.html" title="Core/Math/DualQuaternion.hpp" alt="" coords="1537,95,1760,121"/>
+<area shape="rect" id="node4" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="1108,437,1239,464"/>
+<area shape="rect" id="node5" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="1051,512,1211,539"/>
+<area shape="rect" id="node20" href="$HandleArray_8hpp.html" title="Core/Animation/HandleArray.hpp" alt="" coords="1107,177,1342,203"/>
+<area shape="rect" id="node22" href="$AdjacencyList_8hpp.html" title="Core/Containers/Adjacency\lList.hpp" alt="" coords="795,169,992,211"/>
+<area shape="rect" id="node21" href="$HandleArray_8inl.html" title="Core/Animation/HandleArray.inl" alt="" coords="1186,266,1412,293"/>
+<area shape="rect" id="node24" href="$AdjacencyList_8inl.html" title="Core/Containers/Adjacency\lList.inl" alt="" coords="863,259,1060,300"/>
+<area shape="rect" id="node26" href="$DualQuaternion_8inl.html" title="Core/Math/DualQuaternion.inl" alt="" coords="1640,177,1854,203"/>
+<area shape="rect" id="node27" href="$LinearAlgebra_8hpp.html" title="Core/Math/LinearAlgebra.hpp" alt="" coords="1642,266,1852,293"/>
+<area shape="rect" id="node30" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="2195,355,2347,382"/>
+<area shape="rect" id="node34" href="$LinearAlgebra_8inl.html" title="Core/Math/LinearAlgebra.inl" alt="" coords="1535,355,1738,382"/>
+<area shape="rect" id="node33" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="2130,437,2274,464"/>
+</map>

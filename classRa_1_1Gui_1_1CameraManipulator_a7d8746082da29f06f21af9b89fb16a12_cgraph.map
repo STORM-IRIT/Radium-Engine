@@ -1,0 +1,9 @@
+<map id="Ra::Gui::CameraManipulator::resetToDefaultCamera" name="Ra::Gui::CameraManipulator::resetToDefaultCamera">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a1e8db55439659b2ea62aca7437e8dda0" title="Return the width of the viewport. " alt="" coords="259,5,409,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#ad79f6937a35c8b585f33b438525cd09b" title="Return the height of the viewport. " alt="" coords="259,71,409,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#a2acbb1a258f8d0af86edcd978cfbf3e1" title="Change the viewport size. " alt="" coords="259,136,409,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#a4c2aac5ad419cef7720e2a18d93b3703" title="Toggle on/off displaying the Camera. " alt="" coords="259,201,409,243"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters. " alt="" coords="475,136,626,177"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="692,143,855,170"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1RenderObject.html#a62e0eb3a7de5a7d352b565a28260cc06" title="Ra::Engine::RenderObject\l::setVisible" alt="" coords="457,201,644,243"/>
+</map>

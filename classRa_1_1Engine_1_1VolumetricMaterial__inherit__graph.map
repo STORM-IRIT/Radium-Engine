@@ -1,0 +1,4 @@
+<map id="Ra::Engine::VolumetricMaterial" name="Ra::Engine::VolumetricMaterial">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Material.html" title="{Ra::Engine::Material\n|# m_instanceName\l# m_aspect\l# m_isDirty\l|+ ~Material()\l+ getInstanceName()\l+ getMaterialName()\l+ setMaterialAspect()\l+ getMaterialAspect()\l+ isTransparent()\l+ getPropertyList()\l+ needUpdate()\l# Material()\l}" alt="" coords="35,204,200,428"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1ShaderParameterProvider.html" title="{Ra::Engine::ShaderParameter\lProvider\n|# m_renderParameters\l|+ ~ShaderParameterProvider()\l+ getParameters()\l+ getParameters()\l+ updateGL()\l+ getPropertyList()\l}" alt="" coords="5,5,229,156"/>
+</map>

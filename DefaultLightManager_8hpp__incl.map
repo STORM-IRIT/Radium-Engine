@@ -1,0 +1,21 @@
+<map id="src/Engine/Managers/LightManager/DefaultLightManager.hpp" name="src/Engine/Managers/LightManager/DefaultLightManager.hpp">
+<area shape="rect" id="node2" href="$LightManager_8hpp.html" title="Engine/Managers/LightManager\l/LightManager.hpp" alt="" coords="1195,109,1420,151"/>
+<area shape="rect" id="node15" href="$Light_8hpp.html" title="../../Renderer/Light\l/Light.hpp" alt="" coords="884,288,1024,329"/>
+<area shape="rect" id="node36" href="$RadiumEngine_8hpp.html" title="Engine/RadiumEngine.hpp" alt="" coords="1533,385,1725,411"/>
+<area shape="rect" id="node3" href="$LightStorage_8hpp.html" title="Engine/Managers/LightManager\l/LightStorage.hpp" alt="" coords="1007,199,1232,240"/>
+<area shape="rect" id="node4" href="$RaEngine_8hpp.html" title="../../RaEngine.hpp" alt="" coords="1267,467,1401,493"/>
+<area shape="rect" id="node34" href="$System_8hpp.html" title="Engine/System/System.hpp" alt="" coords="1157,385,1357,411"/>
+<area shape="rect" id="node5" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="1209,638,1369,665"/>
+<area shape="rect" id="node11" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="1517,541,1700,583"/>
+<area shape="rect" id="node16" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="640,385,791,411"/>
+<area shape="rect" id="node25" href="$Component_8hpp.html" title="Engine/Component/Component.hpp" alt="" coords="364,385,616,411"/>
+<area shape="rect" id="node33" href="$Light_8inl.html" title="Engine/Renderer/Light\l/Light.inl" alt="" coords="867,377,1031,419"/>
+<area shape="rect" id="node17" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="937,467,1089,493"/>
+<area shape="rect" id="node18" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="802,549,933,575"/>
+<area shape="rect" id="node21" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="1154,549,1298,575"/>
+<area shape="rect" id="node26" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="274,467,429,493"/>
+<area shape="rect" id="node30" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="752,467,873,493"/>
+<area shape="rect" id="node32" href="$Component_8inl.html" title="Engine/Component/Component.inl" alt="" coords="5,467,249,493"/>
+<area shape="rect" id="node28" href="$Index_8inl.html" title="Core/Utils/Index.inl" alt="" coords="233,549,379,575"/>
+<area shape="rect" id="node37" href="$Singleton_8hpp.html" title="Core/Utils/Singleton.hpp" alt="" coords="1527,467,1706,493"/>
+</map>

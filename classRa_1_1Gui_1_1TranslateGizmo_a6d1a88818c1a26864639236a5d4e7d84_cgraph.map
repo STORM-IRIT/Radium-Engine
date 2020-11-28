@@ -1,0 +1,14 @@
+<map id="Ra::Gui::TranslateGizmo::isSelected" name="Ra::Gui::TranslateGizmo::isSelected">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1TranslateGizmo.html#a922da7a85899fd0f41d01ff3647ea52b" title="Ra::Gui::TranslateGizmo\l::setInitialState" alt="" coords="232,72,411,113"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TranslateGizmo.html#ad24fbf9942a6e3e2dcab76e7a572c74d" title="Ra::Gui::TranslateGizmo\l::mouseMove" alt="" coords="232,137,411,179"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1Gizmo.html#a9f381cac5f535c0f66b04f02856f057d" title="Find a mouse&#45;designed point on a 3D axis. " alt="" coords="459,104,643,145"/>
+<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1Gizmo.html#a59f612603ee6c129a563ee6829abbc63" title="Find a mouse&#45;designed point on a 3D plane. " alt="" coords="459,169,643,211"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="691,5,842,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#abcad4a7bff703dac10998d89a4db130e" title="Return the up vector. " alt="" coords="691,71,842,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Camera.html#a0c4e6b238f7fad5f3eb4cbd57b5a967c" title="Ra::Engine::Camera\l::getRayFromScreen" alt="" coords="691,136,843,177"/>
+<area shape="rect" id="node11" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal. " alt="" coords="691,201,842,243"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="891,140,1041,181"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Camera.html#af768328fd395865c4fa7b677e3f5326c" title="Return the point on the screen plane (near plane) represented by screen coordinates pix..." alt="" coords="891,75,1041,116"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Camera.html#a26f646767029cf0cd95478bbae9be188" title="Return the projection matrix. " alt="" coords="1089,75,1240,116"/>
+<area shape="rect" id="node12" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="907,209,1025,235"/>
+</map>

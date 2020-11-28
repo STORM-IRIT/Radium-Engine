@@ -1,0 +1,10 @@
+<map id="Ra::IO::AssimpLightDataLoader::loadData" name="Ra::IO::AssimpLightDataLoader::loadData">
+<area shape="rect" id="node2" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#a0df77a64d566421b2a584c31e86e3642" title="QUERY. " alt="" coords="277,5,501,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#ae3b61b7908d0989b73d19d7dd85b3b2a" title="Ra::IO::AssimpLightDataLoader\l::sceneLightSize" alt="" coords="277,71,501,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#a9d0ff5042912203432e3abf6ae1bdece" title="LOADING. " alt="" coords="277,136,501,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#aeaf37264474d4b2993da6940ce1dd3b2" title="NAME. " alt="" coords="549,19,773,60"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title="Ra::IO::assimpToCore" alt="" coords="821,55,981,82"/>
+<area shape="rect" id="node7" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#accfdee2d916c9818ffeea0eb93a12c67" title="TYPE. " alt="" coords="549,136,773,177"/>
+<area shape="rect" id="node8" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#a7ce7870c915811778f4fdbf8639dd33a" title="Ra::IO::AssimpLightDataLoader\l::loadLightFrame" alt="" coords="549,201,773,243"/>
+<area shape="rect" id="node9" href="$classRa_1_1IO_1_1AssimpLightDataLoader.html#ad1b8ceeba5c2acfe436f48549e75bac6" title="FRAME. " alt="" coords="549,267,773,308"/>
+</map>

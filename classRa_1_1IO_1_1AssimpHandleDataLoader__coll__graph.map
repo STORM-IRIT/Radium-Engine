@@ -1,0 +1,5 @@
+<map id="Ra::IO::AssimpHandleDataLoader" name="Ra::IO::AssimpHandleDataLoader">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; Core::Asset::HandleData \&gt;\n||+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="13,359,224,509"/>
+<area shape="rect" id="node3" href="$classbool.html" title="{bool\n||}" alt="" coords="93,5,144,83"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1DataLoader.html" title="{Ra::Core::Asset::DataLoader\l\&lt; DATA \&gt;\n||+ DataLoader()\l+ ~DataLoader()\l+ loadData()\l+ isVerbose()\l+ setVerbose()\l}" alt="" coords="210,145,414,296"/>
+</map>

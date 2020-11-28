@@ -1,0 +1,4 @@
+<map id="Ra::GuiBase::ItemModel::buildModel" name="Ra::GuiBase::ItemModel::buildModel">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1RadiumEngine.html#a26f952bd9650234940f69053db06d118" title="Ra::Engine::RadiumEngine\l::getEntityManager" alt="" coords="232,5,425,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1EntityManager.html#af453ac227ddbe188dceba66cb3d7081f" title="Get all entities from the manager. This might be usefull to be able to display and navigate through t..." alt="" coords="232,71,425,112"/>
+</map>

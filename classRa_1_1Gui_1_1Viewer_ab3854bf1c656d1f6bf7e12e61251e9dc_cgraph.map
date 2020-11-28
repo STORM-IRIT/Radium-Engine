@@ -1,0 +1,11 @@
+<map id="Ra::Gui::Viewer::grabFrame" name="Ra::Gui::Viewer::grabFrame">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title="Ra::Gui::WindowQt::\lmakeCurrent" alt="" coords="269,71,421,112"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Renderer.html#a21d45616347cd59cad52af71ec22d9d7" title="Ra::Engine::Renderer\l::grabFrame" alt="" coords="267,136,424,177"/>
+<area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title="Ra::Core::Utils::getFileExt" alt="" coords="252,202,439,229"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title="Ra::Gui::WindowQt::\ldoneCurrent" alt="" coords="269,253,421,295"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Renderer.html#aab96ff991276b373a626d986bca15243" title="Ra::Engine::Renderer\l::getDisplayTexture" alt="" coords="491,5,648,47"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Texture.html#a9ba7fb88d2b2b023ad5e68f2d4f3f1bb" title="Bind the texture to enable its use in a shader. " alt="" coords="496,71,643,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Texture.html#a92e91423bf41fc81ec2abe314baf7790" title="Ra::Engine::Texture\l::width" alt="" coords="496,136,643,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Texture.html#a89e0e99f44bc5a286c0174889ad515d8" title="Ra::Engine::Texture\l::height" alt="" coords="496,201,643,243"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector. " alt="" coords="487,267,652,294"/>
+</map>

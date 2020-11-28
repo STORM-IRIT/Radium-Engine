@@ -1,0 +1,12 @@
+<map id="Ra::Gui::Viewer::changeRenderer" name="Ra::Gui::Viewer::changeRenderer">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title="Ra::Gui::WindowQt::\lmakeCurrent" alt="" coords="310,5,462,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Renderer.html#a3166160850c466595fe48a74116bc116" title="Ra::Engine::Renderer\l::lockRendering" alt="" coords="307,71,465,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Renderer.html#a7343dbeb04c9699cc2abf2690c9941ee" title="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som..." alt="" coords="307,136,465,177"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Renderer.html#a3d6dda14df9918e34ef9f12596bfaae0" title="Ra::Engine::Renderer\l::buildAllRenderTechniques" alt="" coords="288,201,484,243"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Renderer.html#aa1773ee0f741df643e10d21d968fbcc3" title="Ra::Engine::Renderer\l::unlockRendering" alt="" coords="307,267,465,308"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Renderer.html#a56fec7b4244e68e76d80ce48cacb61eb" title="Get the name of the renderer, e.g to be displayed in the UI. " alt="" coords="307,332,465,373"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title="Ra::Gui::WindowQt::\ldoneCurrent" alt="" coords="310,397,462,439"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Renderer.html#a18a293f1c7c6864e4f1de7f6b88b0f4a" title="Ra::Engine::Renderer\l::resizeInternal" alt="" coords="577,136,735,177"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a76f7d1a089bdf2e183f8084a2d482940" title="Ra::Engine::RenderObject\lManager::getRenderObjectsByType" alt="" coords="532,201,780,243"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Renderer.html#af4762bd540984f8a42bce6daeb856758" title="Ra::Engine::Renderer\l::buildRenderTechnique" alt="" coords="570,267,742,308"/>
+</map>

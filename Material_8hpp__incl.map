@@ -1,0 +1,18 @@
+<map id="src/Engine/Renderer/Material/Material.hpp" name="src/Engine/Renderer/Material/Material.hpp">
+<area shape="rect" id="node2" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="1918,452,2076,479"/>
+<area shape="rect" id="node15" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="774,370,895,397"/>
+<area shape="rect" id="node20" href="$RenderParameters_8hpp.html" title="Engine/Renderer/RenderTechnique\l/RenderParameters.hpp" alt="" coords="1162,95,1405,136"/>
+<area shape="rect" id="node45" href="$Material_8inl.html" title="Engine/Renderer/Material\l/Material.inl" alt="" coords="2111,95,2296,136"/>
+<area shape="rect" id="node3" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="368,534,528,561"/>
+<area shape="rect" id="node9" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="1906,527,2088,568"/>
+<area shape="rect" id="node16" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="616,452,746,479"/>
+<area shape="rect" id="node23" href="$AlignedAllocator_8hpp.html" title="Core/Containers/AlignedAllocator.hpp" alt="" coords="864,191,1128,218"/>
+<area shape="rect" id="node28" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="492,281,643,307"/>
+<area shape="rect" id="node34" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="34,370,176,397"/>
+<area shape="rect" id="node37" href="$RenderParameters_8inl.html" title="Engine/Renderer/RenderTechnique\l/RenderParameters.inl" alt="" coords="1242,184,1485,225"/>
+<area shape="rect" id="node29" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="345,370,497,397"/>
+<area shape="rect" id="node32" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="250,452,394,479"/>
+<area shape="rect" id="node38" href="$ShaderProgram_8hpp.html" title="Engine/Renderer/RenderTechnique\l/ShaderProgram.hpp" alt="" coords="1458,273,1701,315"/>
+<area shape="rect" id="node39" href="$ShaderConfiguration_8hpp.html" title="Engine/Renderer/RenderTechnique\l/ShaderConfiguration.hpp" alt="" coords="1321,363,1564,404"/>
+<area shape="rect" id="node43" href="$ShaderProgram_8inl.html" title="ShaderProgram.inl" alt="" coords="1791,370,1934,397"/>
+</map>

@@ -1,0 +1,20 @@
+<map id="Ra::Engine::DebugRender::addCircle" name="Ra::Engine::DebugRender::addCircle">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#a80e6b453e8ebd8cb6874bf7ac89e2e5e" title="Ra::Engine::DrawPrimitives\l::Circle" alt="" coords="240,195,439,236"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title="Ra::Core::Math::getOrthogonal\lVectors" alt="" coords="501,5,719,47"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8" title="Ra::Core::Math::cos" alt="" coords="537,71,683,98"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices. " alt="" coords="527,122,693,178"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions. " alt="" coords="805,187,972,243"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title="Ra::Core::Geometry\l::IndexedGeometry::setIndices" alt="" coords="500,253,720,295"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671" title="Ra::Core::Geometry\l::AttribArrayGeometry\l::addAttrib" alt="" coords="527,319,693,375"/>
+<area shape="rect" id="node19" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title="Ra::Engine::AttribArrayDisplayable\l::getAttribName" alt="" coords="487,400,733,441"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}. " alt="" coords="813,13,965,39"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title="Ra::Core::Math::signum" alt="" coords="1065,13,1238,39"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title="Ra::Core::Utils::AttribManager\l::setAttrib" alt="" coords="781,121,996,163"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title="Ra::Core::Utils::AttribManager\l::getAttrib" alt="" coords="1044,195,1259,236"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8" title="Ra::Core::Utils::AttribManager\l::addAttrib" alt="" coords="781,327,996,368"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this. " alt="" coords="1044,293,1259,335"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p. " alt="" coords="1045,359,1257,400"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title="Ra::Core::Utils::AttribHandle\l::attribName" alt="" coords="1307,261,1512,303"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title="Ra::Core::Utils::Index\l::Invalid" alt="" coords="1330,327,1489,368"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR. " alt="" coords="1560,327,1719,368"/>
+</map>

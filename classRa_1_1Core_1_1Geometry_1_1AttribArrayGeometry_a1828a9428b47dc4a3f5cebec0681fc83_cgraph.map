@@ -1,0 +1,5 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::copyBaseGeometry" name="Ra::Core::Geometry::AttribArrayGeometry::copyBaseGeometry">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a75f68d38992c5b5554ce6ebd852fac5f" title="Erases all data, making the AttribArrayGeometry empty. " alt="" coords="244,5,411,61"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac6bb36601ef78ccc0997134b5a2df7f0" title="Base copy, does nothing. " alt="" coords="220,86,435,127"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae99bb77d3d29e9d99b4bcc257919ecda" title="clear all attribs, invalidate handles. " alt="" coords="483,13,697,54"/>
+</map>

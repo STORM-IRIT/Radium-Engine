@@ -1,0 +1,6 @@
+<map id="Ra::Engine::VolumetricMaterial::updateGL" name="Ra::Engine::VolumetricMaterial::updateGL">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1RenderParameters.html#a4c0efbfc2f10757462c095ca080d1b07" title="Ra::Engine::RenderParameters\l::addParameter" alt="" coords="276,5,495,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Texture.html#a92e91423bf41fc81ec2abe314baf7790" title="Ra::Engine::Texture\l::width" alt="" coords="312,71,459,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Texture.html#a89e0e99f44bc5a286c0174889ad515d8" title="Ra::Engine::Texture\l::height" alt="" coords="312,136,459,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Texture.html#a2a345793bfe95852cba88dcd4b046979" title="Ra::Engine::Texture\l::depth" alt="" coords="312,201,459,243"/>
+</map>

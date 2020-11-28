@@ -1,0 +1,28 @@
+<map id="src/Engine/Managers/EntityManager/EntityManager.cpp" name="src/Engine/Managers/EntityManager/EntityManager.cpp">
+<area shape="rect" id="node2" href="$EntityManager_8hpp.html" title="Engine/Managers/EntityManager\l/EntityManager.hpp" alt="" coords="2163,184,2394,225"/>
+<area shape="rect" id="node25" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="3283,191,3424,218"/>
+<area shape="rect" id="node28" href="$SignalManager_8hpp.html" title="Engine/Managers/SignalManager\l/SignalManager.hpp" alt="" coords="2634,95,2867,136"/>
+<area shape="rect" id="node33" href="$SystemDisplay_8hpp.html" title="Engine/Managers/SystemDisplay\l/SystemDisplay.hpp" alt="" coords="1459,95,1693,136"/>
+<area shape="rect" id="node49" href="$RadiumEngine_8hpp.html" title="Engine/RadiumEngine.hpp" alt="" coords="2419,191,2611,218"/>
+<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title="Engine/RaEngine.hpp" alt="" coords="1845,273,2003,300"/>
+<area shape="rect" id="node17" href="$IndexMap_8hpp.html" title="Core/Utils/IndexMap.hpp" alt="" coords="2028,273,2209,300"/>
+<area shape="rect" id="node24" href="$Singleton_8hpp.html" title="Core/Utils/Singleton.hpp" alt="" coords="2593,273,2772,300"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="1367,512,1527,539"/>
+<area shape="rect" id="node10" href="$OpenGL_8hpp.html" title="Engine/Renderer/OpenGL\l/OpenGL.hpp" alt="" coords="1765,348,1947,389"/>
+<area shape="rect" id="node18" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="1381,437,1512,464"/>
+<area shape="rect" id="node22" href="$Index_8hpp.html" title="Core/Utils/Index.hpp" alt="" coords="1484,355,1639,382"/>
+<area shape="rect" id="node23" href="$IndexMap_8inl.html" title="Core/Utils/IndexMap.inl" alt="" coords="2159,355,2332,382"/>
+<area shape="rect" id="node31" href="$ItemEntry_8hpp.html" title="Engine/ItemModel/ItemEntry.hpp" alt="" coords="2709,191,2942,218"/>
+<area shape="rect" id="node32" href="$ItemEntry_8inl.html" title="Engine/ItemModel/ItemEntry.inl" alt="" coords="2929,273,3154,300"/>
+<area shape="rect" id="node34" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="14,273,165,300"/>
+<area shape="rect" id="node39" href="$Component_8hpp.html" title="Engine/Component/Component.hpp" alt="" coords="963,191,1215,218"/>
+<area shape="rect" id="node43" href="$Entity_8hpp.html" title="Engine/Entity/Entity.hpp" alt="" coords="1488,191,1664,218"/>
+<area shape="rect" id="node46" href="$DrawPrimitives_8hpp.html" title="Engine/Renderer/RenderObject\l/Primitives/DrawPrimitives.hpp" alt="" coords="715,184,939,225"/>
+<area shape="rect" id="node35" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="25,355,177,382"/>
+<area shape="rect" id="node40" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="979,273,1101,300"/>
+<area shape="rect" id="node42" href="$Component_8inl.html" title="Engine/Component/Component.inl" alt="" coords="711,273,955,300"/>
+<area shape="rect" id="node44" href="$IndexedObject_8hpp.html" title="Core/Utils/IndexedObject.hpp" alt="" coords="1470,273,1682,300"/>
+<area shape="rect" id="node45" href="$Entity_8inl.html" title="Engine/Entity/Entity.inl" alt="" coords="1277,273,1445,300"/>
+<area shape="rect" id="node47" href="$Obb_8hpp.html" title="Core/Geometry/Obb.hpp" alt="" coords="189,273,368,300"/>
+<area shape="rect" id="node48" href="$Spline_8hpp.html" title="Core/Geometry/Spline.hpp" alt="" coords="494,273,687,300"/>
+</map>

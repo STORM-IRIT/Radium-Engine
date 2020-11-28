@@ -1,0 +1,19 @@
+<map id="Ra::Gui::FlightCameraManipulator::handleMouseMoveEvent" name="Ra::Gui::FlightCameraManipulator::handleMouseMoveEvent">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a1e8db55439659b2ea62aca7437e8dda0" title="Return the width of the viewport. " alt="" coords="340,5,491,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#ad79f6937a35c8b585f33b438525cd09b" title="Return the height of the viewport. " alt="" coords="340,71,491,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html#ace422826ba3eac87009690230dbc3b9f" title="Ra::Gui::FlightCameraManipulator\l::handleCameraRotate" alt="" coords="295,295,536,336"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="839,295,990,336"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="603,188,754,229"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html#a78daa8f429f3e40281d565569734703d" title="Ra::Gui::FlightCameraManipulator\l::handleCameraPan" alt="" coords="295,360,536,401"/>
+<area shape="rect" id="node13" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html#a78d619d0a43b8e48b11fbb3ddac4f4f0" title="Ra::Gui::FlightCameraManipulator\l::handleCameraZoom" alt="" coords="295,425,536,467"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378" title="Ra::Engine::Light::\lsetPosition" alt="" coords="346,491,485,532"/>
+<area shape="rect" id="node18" href="$classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036" title="Ra::Engine::Light::\lsetDirection" alt="" coords="346,556,485,597"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a57df21d814e3e2684ac858ac3296bb37" title="Ra::Engine::Camera\l::getRightVector" alt="" coords="603,421,754,463"/>
+<area shape="rect" id="node7" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="613,254,745,281"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="603,356,754,397"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="821,360,1008,401"/>
+<area shape="rect" id="node12" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="597,487,760,514"/>
+<area shape="rect" id="node14" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}. " alt="" coords="603,538,755,565"/>
+<area shape="rect" id="node15" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title="Ra::Core::Math::signum" alt="" coords="828,538,1001,565"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="584,589,773,631"/>
+</map>

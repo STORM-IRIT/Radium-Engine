@@ -1,0 +1,5 @@
+<map id="Ra::Core::Geometry::CatmullClarkSubdivider::recompute" name="Ra::Core::Geometry::CatmullClarkSubdivider::recompute">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa3ea268f1828a54153b4fc653c1d3a38" title="Ra::Core::Geometry\l::TopologicalMesh::getInput\lTriangleMeshIndexPropHandle" alt="" coords="237,5,456,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title="Ra::Core::Geometry\l::TopologicalMesh::halfedge\l_handle" alt="" coords="245,85,448,141"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab9db8ffcd07686111a853b67eb85b2f6" title="Ra::Core::Geometry\l::TopologicalMesh::getOutput\lTriangleMeshIndexPropHandle" alt="" coords="237,165,456,221"/>
+</map>

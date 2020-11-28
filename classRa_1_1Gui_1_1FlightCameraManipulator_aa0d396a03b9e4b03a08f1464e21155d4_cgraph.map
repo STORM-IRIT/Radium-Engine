@@ -1,0 +1,12 @@
+<map id="Ra::Gui::FlightCameraManipulator::FlightCameraManipulator" name="Ra::Gui::FlightCameraManipulator::FlightCameraManipulator">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4" title="Ra::Gui::FlightCameraManipulator\l::resetCamera" alt="" coords="295,159,536,200"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#afb2eb1eaed43dfbad89a89f90c067b4e" title="Set the frame of the camera to &#39;frame&#39;. " alt="" coords="584,5,735,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#ab8f9fdfba7355b4589c4d9cb39f0b527" title="Set the position of the camera to &#39;position&#39;. " alt="" coords="584,71,735,112"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position. " alt="" coords="1038,129,1189,171"/>
+<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1Camera.html#ac9ecb8c6005733f286734e1c841d9038" title="Return the direction the camera is looking at. " alt="" coords="584,188,735,229"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378" title="Ra::Engine::Light::\lsetPosition" alt="" coords="590,253,729,295"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036" title="Ra::Engine::Light::\lsetDirection" alt="" coords="590,319,729,360"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Camera.html#a7a2c1c84e3063c6c3f09d490477abb0f" title="Apply the local transformation &#39;T&#39; to the camera. " alt="" coords="802,71,953,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title="Ra::Engine::RenderObject\l::setLocalTransform" alt="" coords="1020,64,1207,105"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a467dad42627c64495356c4fd21b3ac81" title="Ra::Core::Utils::ColorBase\l\&lt; Scalar \&gt;::White" alt="" coords="783,253,972,295"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Ra::Engine::CameraManager" name="Ra::Engine::CameraManager">
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras. " alt="" coords="10,535,213,656"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1System.html" title="{Ra::Engine::System\n|# m_components\l|+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="5,5,217,200"/>
+</map>

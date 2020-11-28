@@ -1,0 +1,4 @@
+<map id="Ra::Engine::SpotLight" name="Ra::Engine::SpotLight">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Light.html" title="{Ra::Engine::Light\n||+ Light()\l+ ~Light()\l+ getColor()\l+ setColor()\l+ setDirection()\l+ setPosition()\l+ getType()\l+ getRenderParameters()\l+ getShaderInclude()\l+ initialize()\l}" alt="" coords="23,395,209,604"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="5,5,227,347"/>
+</map>

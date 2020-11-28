@@ -1,0 +1,12 @@
+<map id="Ra::Core::Geometry::AttribArrayGeometry::normalsUnlock" name="Ra::Core::Geometry::AttribArrayGeometry::normalsUnlock">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title="Ra::Core::Utils::AttribManager\l::getAttrib" alt="" coords="220,5,435,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8" title="Ra::Core::Utils::AttribManager\l::addAttrib" alt="" coords="220,71,435,112"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#af89047a2747bc4e08144bbb3477e1d8e" title="findAttrib Grab an attribute handler by name. " alt="" coords="220,136,435,177"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae2dd0a9753d036b781460b05348c13ca" title="Return the attribute&#39;s name. " alt="" coords="232,201,423,243"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#abda7afaabfc16d1b5f9ea51ce0f391fd" title="Downcast from AttribBase to Attrib&lt;T&gt;. " alt="" coords="232,267,423,308"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this. " alt="" coords="483,39,697,80"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p. " alt="" coords="484,104,696,145"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title="Ra::Core::Utils::AttribHandle\l::attribName" alt="" coords="745,7,951,48"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title="Ra::Core::Utils::Index\l::Invalid" alt="" coords="769,72,927,113"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR. " alt="" coords="999,72,1157,113"/>
+</map>

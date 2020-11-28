@@ -1,0 +1,32 @@
+<map id="Ra::Engine::SurfaceMeshComponent::SurfaceMeshComponent" name="Ra::Engine::SurfaceMeshComponent::SurfaceMeshComponent">
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1GeometryComponent.html#a710572c93084edcc03233025d5e08f64" title="Ra::Engine::GeometryComponent\l::setContentName" alt="" coords="320,5,559,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html#a45d10620e8b4afeadcbd70da2fa8b119" title="Acces to the name of the asset. " alt="" coords="341,71,537,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6d428e893d8214e7d25cfe8302d6e39" title="Return the number of vertices. " alt="" coords="342,136,537,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a343a1ef88bb043988108858b6c6de313" title="Return the list of vertices. " alt="" coords="342,201,537,243"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac6a98d1d64d63da77c59b9e9c9b87112" title="Return true if the object has vertex normals. " alt="" coords="342,267,537,308"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#acf6f7d15ee8d3a23a286fc463f326ae5" title="Return the list of vertex normals. " alt="" coords="342,332,537,373"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab6a1417d3aea242d4be51240e8c662a5" title="Ra::Core::Asset::Geometry\lData::getFaces" alt="" coords="342,397,537,439"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#af2915cec9f0eda10e9469bf26fd755af" title="Return true if the object has vertex tangent vectors. " alt="" coords="342,463,537,504"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title="Ra::Engine::AttribArrayDisplayable\l::getAttribName" alt="" coords="316,528,563,569"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae06b77a36b83e92e1fb73c0feff970de" title="Return the list of vertex tangent vectors. " alt="" coords="342,593,537,635"/>
+<area shape="rect" id="node12" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ae1380c755066e114a74c184af2333bca" title="Return true if the object has vertex bitangent vectors. " alt="" coords="342,659,537,700"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a445eb7beaa898a5c2177a2e114361349" title="Return the list of vertex bitangent vectors. " alt="" coords="342,724,537,765"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4613a77be8c92ae9d1ea906b0d9b5d9d" title="Return true if the object has vertex texture coordinates. " alt="" coords="334,789,545,831"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4135cc230509ac75f9849fd3d26b6b4a" title="Return the list of vertex texture coordinates. " alt="" coords="342,855,537,896"/>
+<area shape="rect" id="node16" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#adecd896759aa64c31e07559d158ead31" title="Return true if the object has vertex colors. " alt="" coords="342,920,537,961"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#aa3dd156b0cc006ba40882908e484ef43" title="Return the list of vertex colors. " alt="" coords="342,985,537,1027"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac64d8907e104153c3a5f2b988a3c010c" title="Return true if the object has MaterialData. " alt="" coords="342,1051,537,1092"/>
+<area shape="rect" id="node19" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a46bf8bc9927a32a66c4cde6b92731ef2" title="Return the MaterialData associated to the objet. " alt="" coords="342,1116,537,1157"/>
+<area shape="rect" id="node20" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac5f327cf5c09a41022e76c439f882937" title="Return the Transform of the object. " alt="" coords="342,1181,537,1223"/>
+<area shape="rect" id="node21" href="$namespaceRa_1_1Engine_1_1EngineMaterialConverters.html#ad440019d5fdaa657b3a483a705dc3657" title="Ra::Engine::EngineMaterial\lConverters::getMaterialConverter" alt="" coords="320,1247,559,1288"/>
+<area shape="rect" id="node22" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html#aca3bb0601cd8a60732bfa08205576c57" title="TYPE. " alt="" coords="348,1312,531,1353"/>
+<area shape="rect" id="node23" href="$classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" title="Ra::Engine::RenderObject\l::createRenderObject" alt="" coords="346,1377,533,1419"/>
+<area shape="rect" id="node26" href="$classRa_1_1Engine_1_1RenderObject.html#a96ad4a09262781b68118922a41505430" title="Ra::Engine::RenderObject\l::setTransparent" alt="" coords="346,1443,533,1484"/>
+<area shape="rect" id="node27" href="$classRa_1_1Engine_1_1SurfaceMeshComponent.html#ae52619461fdf30546c6f63cb56894a7b" title="Ra::Engine::SurfaceMeshComponent\l::setupIO" alt="" coords="311,1508,568,1549"/>
+<area shape="rect" id="node30" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing. " alt="" coords="352,1573,527,1615"/>
+<area shape="rect" id="node24" href="$classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" title="Ra::Engine::RenderObject\l::RenderObject" alt="" coords="642,1377,829,1419"/>
+<area shape="rect" id="node25" href="$classRa_1_1Engine_1_1RenderObject.html#a8ea17931e62bea93890d44815bf7fcf5" title="Ra::Engine::RenderObject\l::~RenderObject" alt="" coords="903,1377,1089,1419"/>
+<area shape="rect" id="node28" href="$classRa_1_1Engine_1_1Component.html#a2fea450b5fd9ea6a6e9b0ce1847b9727" title="Return the entity the component belongs to. " alt="" coords="648,1443,823,1484"/>
+<area shape="rect" id="node29" href="$classRa_1_1Engine_1_1GeometryComponent.html#acd66e05ec26dd556df24c544cee48440" title="Ra::Engine::GeometryComponent\l::setupIO" alt="" coords="616,1508,855,1549"/>
+<area shape="rect" id="node31" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager. " alt="" coords="648,1573,823,1615"/>
+</map>

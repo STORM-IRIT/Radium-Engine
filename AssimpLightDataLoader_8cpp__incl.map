@@ -1,0 +1,16 @@
+<map id="src/IO/AssimpLoader/AssimpLightDataLoader.cpp" name="src/IO/AssimpLoader/AssimpLightDataLoader.cpp">
+<area shape="rect" id="node2" href="$AssimpLightDataLoader_8hpp.html" title="IO/AssimpLoader/AssimpLight\lDataLoader.hpp" alt="" coords="325,95,541,136"/>
+<area shape="rect" id="node25" href="$Log_8hpp.html" title="Core/Utils/Log.hpp" alt="" coords="137,333,278,360"/>
+<area shape="rect" id="node33" href="$AssimpWrapper_8hpp.html" title="IO/AssimpLoader/AssimpWrapper.hpp" alt="" coords="1309,184,1575,211"/>
+<area shape="rect" id="node3" href="$DataLoader_8hpp.html" title="Core/Asset/DataLoader.hpp" alt="" coords="111,184,309,211"/>
+<area shape="rect" id="node6" href="$LightData_8hpp.html" title="Core/Asset/LightData.hpp" alt="" coords="339,184,526,211"/>
+<area shape="rect" id="node28" href="$Types_8hpp.html" title="Core/Types.hpp" alt="" coords="957,259,1079,285"/>
+<area shape="rect" id="node30" href="$RaIO_8hpp.html" title="IO/RaIO.hpp" alt="" coords="1114,184,1213,211"/>
+<area shape="rect" id="node8" href="$AssetData_8hpp.html" title="Core/Asset/AssetData.hpp" alt="" coords="353,333,544,360"/>
+<area shape="rect" id="node9" href="$RaCore_8hpp.html" title="Core/RaCore.hpp" alt="" coords="538,408,669,435"/>
+<area shape="rect" id="node16" href="$Color_8hpp.html" title="Core/Utils/Color.hpp" alt="" coords="755,259,905,285"/>
+<area shape="rect" id="node24" href="$LightData_8inl.html" title="Core/Asset/LightData.inl" alt="" coords="223,259,402,285"/>
+<area shape="rect" id="node10" href="$CoreMacros_8hpp.html" title="Core/CoreMacros.hpp" alt="" coords="597,483,757,509"/>
+<area shape="rect" id="node17" href="$Math_8hpp.html" title="Core/Math/Math.hpp" alt="" coords="1085,333,1237,360"/>
+<area shape="rect" id="node20" href="$Math_8inl.html" title="Core/Math/Math.inl" alt="" coords="987,408,1131,435"/>
+</map>

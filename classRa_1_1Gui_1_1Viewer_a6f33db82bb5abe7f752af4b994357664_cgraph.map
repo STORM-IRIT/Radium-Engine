@@ -1,0 +1,8 @@
+<map id="Ra::Gui::Viewer::handleWheelEvent" name="Ra::Gui::Viewer::handleWheelEvent">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828" title="return the last, still pressed, key code, &#45;1 if no key currently pressed " alt="" coords="315,5,456,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda" title="Ra::Gui::KeyMappingManageable\l::getContext" alt="" coords="268,57,503,98"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Renderer.html#a1165d48bd1c1d3e77579f326f978d59f" title="Ra::Engine::Renderer\l::setBrushRadius" alt="" coords="307,122,464,163"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title="Ra::Gui::WindowQt::\lmakeCurrent" alt="" coords="309,187,461,229"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Renderer.html#ad305540d63cd086f9e99ef6990978244" title="Ra::Engine::Renderer\l::doPickingNow" alt="" coords="307,253,464,294"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title="Ra::Gui::WindowQt::\ldoneCurrent" alt="" coords="309,318,461,359"/>
+</map>

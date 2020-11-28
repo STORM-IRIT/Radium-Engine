@@ -1,0 +1,13 @@
+<map id="Ra::Gui::RotateGizmo" name="Ra::Gui::RotateGizmo">
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1Gizmo.html" title="{Ra::Gui::Gizmo\n||+ Gizmo()\l+ ~Gizmo()\l+ show()\l+ updateTransform()\l+ selectConstraint()\l+ isSelected()\l+ setInitialState()\l+ mouseMove()\l# ros()\l# addRenderObject()\l# getControler()\l# findPointOnAxis()\l# findPointOnPlane()\l# makeRenderTechnique()\l}" alt="" coords="555,1717,750,1985"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="386,1343,607,1640"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title="{Ra::Core::Utils::Index\n||+ Index()\l+ Index()\l+ operator=()\l+ isValid()\l+ isInvalid()\l+ setInvalid()\l+ getValue()\l+ setValue()\l+ operator IntegerType()\l+ operator=()\l+ operator++()\l+ operator&#45;&#45;()\l+ operator+()\l+ operator+()\l+ operator&#45;()\l+ operator&#45;()\l+ operator==()\l+ operator==()\l+ operator!=()\l+ operator!=()\l+ operator\&lt;()\l+ operator\&lt;()\l+ operator\&lt;=()\l+ operator\&lt;=()\l+ operator\&gt;()\l+ operator\&gt;()\l+ operator\&gt;=()\l+ operator\&gt;=()\l+ Invalid()\l+ Max()\l}" alt="" coords="49,145,232,648"/>
+<area shape="rect" id="node14" href="$classRa_1_1Core_1_1Utils_1_1IndexedObject.html" title="{Ra::Core::Utils::Indexed\lObject\n||+ IndexedObject()\l+ IndexedObject()\l+ ~IndexedObject()\l+ setIndex()\l+ getIndex()\l}" alt="" coords="192,740,367,891"/>
+<area shape="rect" id="node7" href="$classint.html" title="{int\n||}" alt="" coords="121,5,160,83"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="368,358,497,435"/>
+<area shape="rect" id="node20" title="STL class. " alt="" coords="982,358,1105,435"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1System.html" title="{Ra::Engine::System\n||+ System()\l+ ~System()\l+ handleAssetLoading()\l+ generateTasks()\l+ getEntityComponents()\l+ addComponent()\l# registerComponent()\l# unregisterComponent()\l# unregisterAllComponents()\l}" alt="" coords="564,1019,776,1214"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform. " alt="" coords="237,953,429,1280"/>
+<area shape="rect" id="node15" title="STL class. " alt="" coords="453,1078,540,1155"/>
+<area shape="rect" id="node16" title="STL class. " alt="" coords="391,769,530,861"/>
+</map>

@@ -1,0 +1,24 @@
+<map id="Ra::Core::Math::checkInvalidNumbers" name="Ra::Core::Math::checkInvalidNumbers">
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#a5f25a31a29b0688e349dc35a353b9766" title="Ra::Core::Math::getOrthogonal\lVectors" alt="" coords="260,5,479,47"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#a5306cf8ea65c31d4bbe0560ec7bb6bb4" title="Ra::Core::Math::angle" alt="" coords="531,155,693,182"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a5130d4a8434d4ccc82fa04bcba73d2f0" title="Ra::Core::Math::slerp" alt="" coords="291,239,448,266"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8" title="Ra::Core::Math::cos" alt="" coords="539,282,685,309"/>
+<area shape="rect" id="node9" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title="Ra::Core::Geometry::t" alt="" coords="288,341,451,367"/>
+<area shape="rect" id="node10" href="$namespaceRa_1_1Core_1_1Math.html#ab5addcd796ee2477977a4e219145ea85" title="Ra::Core::Math::projectOn\lPlane" alt="" coords="275,173,463,215"/>
+<area shape="rect" id="node11" href="$namespaceRa_1_1Core_1_1Math.html#a8667e211f2182821346ba4bcfe07b053" title="Ra::Core::Math::cotan" alt="" coords="289,391,450,418"/>
+<area shape="rect" id="node12" href="$namespaceRa_1_1Core_1_1Math.html#a19a397c8570c4f1df64d6c055d215659" title="Ra::Core::Math::getNormAnd\lNormalize" alt="" coords="266,443,473,484"/>
+<area shape="rect" id="node14" href="$namespaceRa_1_1Core_1_1Math.html#add677f0ab64a79b894bd36d7aa6987f1" title="Ra::Core::Math::getNormAnd\lNormalizeSafe" alt="" coords="266,508,473,549"/>
+<area shape="rect" id="node15" href="$namespaceRa_1_1Core_1_1Math.html#a15598e77958bb1790082f621851bddef" title="Ra::Core::Math::transformRay" alt="" coords="262,639,477,666"/>
+<area shape="rect" id="node16" href="$namespaceRa_1_1Core_1_1Math.html#ad79b708fb40ed130ff8031d709b78504" title="Ra::Core::Math::lookAt" alt="" coords="286,690,453,717"/>
+<area shape="rect" id="node17" href="$namespaceRa_1_1Core_1_1Math.html#ab5436769ec59975b2a35b83a86defd2c" title="Ra::Core::Math::perspective" alt="" coords="269,741,470,767"/>
+<area shape="rect" id="node18" href="$namespaceRa_1_1Core_1_1Math.html#a8b773ee57d017ddd6a3d2612dd426f71" title="Ra::Core::Math::orthographic" alt="" coords="266,791,473,818"/>
+<area shape="rect" id="node19" href="$namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31" title="Returns the quaternion q multipled by a scalar factor of k. " alt="" coords="290,842,449,869"/>
+<area shape="rect" id="node20" href="$namespaceRa_1_1Core_1_1Math.html#a0523a53d2d94a623e194830837863c4c" title="Returns the sum of two quaternions. " alt="" coords="295,893,444,919"/>
+<area shape="rect" id="node21" href="$namespaceRa_1_1Core_1_1Math.html#aa5c9bddd5fdbbdbcdb661348982ff204" title="Ra::Core::Math::addQlerp" alt="" coords="277,71,461,98"/>
+<area shape="rect" id="node23" href="$namespaceRa_1_1Core_1_1Math.html#aa5414be6d83af5b67fb48c22e4f49679" title="Ra::Core::Math::getSwing\lTwist" alt="" coords="277,573,462,615"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}. " alt="" coords="536,17,688,43"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title="Ra::Core::Math::signum" alt="" coords="745,17,919,43"/>
+<area shape="rect" id="node7" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title="OpenMesh::dot" alt="" coords="553,223,671,250"/>
+<area shape="rect" id="node13" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title="OpenMesh::norm" alt="" coords="546,515,678,542"/>
+<area shape="rect" id="node22" href="$namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0" title="Ra::Core::Math::signNZ" alt="" coords="527,71,697,98"/>
+</map>

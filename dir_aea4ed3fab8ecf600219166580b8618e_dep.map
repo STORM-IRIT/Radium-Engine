@@ -1,0 +1,28 @@
+<map id="src/Engine/Managers/LightManager" name="src/Engine/Managers/LightManager">
+<area shape="rect" id="node1" href="dir_aea4ed3fab8ecf600219166580b8618e.html" title="LightManager" alt="" coords="134,52,244,100"/>
+<area shape="rect" id="node2" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html" title="Core" alt="" coords="237,340,309,388"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000018_000001.html" title="4" alt="" coords="216,341,225,355"/>
+<area shape="rect" id="node3" href="dir_7205f054df4e14abb60715afe3e7e90c.html" title="Entity" alt="" coords="274,244,346,292"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000018_000012.html" title="1" alt="" coords="286,216,295,231"/>
+<area shape="rect" id="node4" href="dir_eecdbbfa89a6d9af25d920c499e6f44e.html" title="System" alt="" coords="128,148,200,196"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000018_000033.html" title="1" alt="" coords="178,125,188,139"/>
+<area shape="rect" id="node5" href="dir_54018506bb725509c19b38b6d9bcf0f6.html" title="Renderer" alt="" coords="294,52,374,100"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000018_000021.html" title="5" alt="" coords="271,60,281,75"/>
+<area shape="rect" id="node6" href="dir_5a1bd30bc9919aca01fcd3709dbd4eb3.html" title="SystemDisplay" alt="" coords="274,148,394,196"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000018_000020.html" title="1" alt="" coords="283,123,292,138"/>
+<area shape="rect" id="node7" href="dir_f60fd3cff26f751d5a136115ec0dccfa.html" title="ComponentMessenger" alt="" coords="32,244,199,292"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000018_000016.html" title="1" alt="" coords="112,217,121,232"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000012_000001.html" title="3" alt="" coords="292,318,302,333"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000033_000001.html" title="4" alt="" coords="256,312,265,327"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000033_000012.html" title="2" alt="" coords="259,220,268,235"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000033_000016.html" title="1" alt="" coords="139,224,148,238"/>
+<area shape="rect" id="edge13-headlabel" href="dir_000021_000018.html" title="2" alt="" coords="258,77,268,92"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000021_000001.html" title="84" alt="" coords="321,337,338,351"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000021_000012.html" title="3" alt="" coords="362,242,371,257"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000021_000020.html" title="1" alt="" coords="329,121,338,136"/>
+<area shape="rect" id="edge15-headlabel" href="dir_000020_000001.html" title="2" alt="" coords="324,333,334,348"/>
+<area shape="rect" id="edge16-headlabel" href="dir_000020_000012.html" title="1" alt="" coords="325,221,334,235"/>
+<area shape="rect" id="edge17-headlabel" href="dir_000020_000021.html" title="2" alt="" coords="330,112,340,126"/>
+<area shape="rect" id="edge18-headlabel" href="dir_000016_000001.html" title="2" alt="" coords="221,318,230,332"/>
+<area shape="rect" id="clust1" href="dir_06113b60808b1bbb52a01dfd2c3a8657.html" title="Managers" alt="" coords="122,16,256,111"/>
+</map>

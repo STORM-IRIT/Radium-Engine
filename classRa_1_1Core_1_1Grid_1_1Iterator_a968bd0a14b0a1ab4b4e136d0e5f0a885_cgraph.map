@@ -1,0 +1,6 @@
+<map id="Ra::Core::Grid::Iterator::operator&#45;=" name="Ra::Core::Grid::Iterator::operator&#45;=">
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Grid_1_1Iterator.html#a99aa53eb59bfd42a83b704469d23091d" title="Advance the iterator with an offset of i elements. " alt="" coords="221,5,389,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Grid_1_1Iterator.html#a64aec1d2f73f98c392a73c58e775f398" title="Ra::Core::Grid::Iterator\l::isValidOffset" alt="" coords="221,71,389,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Grid_1_1Iterator.html#a188b8a570ca3e60c4b7272fb2f7be38e" title="Get the current vector index. " alt="" coords="437,100,605,141"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Grid_1_1Iterator.html#a57348c88771de4c988b0f0eabbc8238b" title="Set an existing iterator to a vector index value. " alt="" coords="221,188,389,229"/>
+</map>
