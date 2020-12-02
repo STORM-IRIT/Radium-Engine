@@ -30,15 +30,6 @@ else()
       endif()
   endif()
 
-
-  # Ensure that eexternal dependencies built as standalone are not installed int of subdir of Radium source tree
-  string(LENGTH ${CMAKE_SOURCE_DIR} SourceDirLength)
-  math(EXPR RadiumPrefixLength " ${SourceDirLength} - 9")
-  string(SUBSTRING ${CMAKE_SOURCE_DIR} 0 ${RadiumPrefixLength} RadiumPREFIX)
-  string(FIND ${CMAKE_INSTALL_PREFIX} ${RadiumPREFIX} IsPrefix)
-  if ( ${IsPrefix} GREATER -1)
-      message(FATAL_ERROR "Externals can't be installed into a subdirectory of Radium source tree.")
-  endif()
   message(STATUS "")
   message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
   message(STATUS "")
@@ -67,6 +58,17 @@ else()
       set(CMAKE_INSTALL_PREFIX "${RADIUM_EXTERNAL_INSTALL}" CACHE PATH
           "Install path prefix, prepended onto install directories." FORCE)
   endif()
+
+  # Ensure that external dependencies built as standalone are not installed in a subdir of Radium source tree
+  string(LENGTH ${CMAKE_SOURCE_DIR} SourceDirLength)
+  string(LENGTH "external/" ExternalDirLength)
+  math(EXPR RadiumPrefixLength " ${SourceDirLength} - ${ExternalDirLength}")
+  string(SUBSTRING ${CMAKE_SOURCE_DIR} 0 ${RadiumPrefixLength} RadiumPREFIX)
+  string(FIND ${CMAKE_INSTALL_PREFIX} ${RadiumPREFIX} IsPrefix)
+  if ( ${IsPrefix} GREATER -1)
+      message(FATAL_ERROR "Externals can't be installed into a subdirectory of Radium source tree.")
+  endif()
+
   message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 
   # add core_dependencies
