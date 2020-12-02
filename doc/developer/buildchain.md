@@ -94,9 +94,10 @@ where `$NAME_UPPER` is `CORE`, `ENGINE`, `GUIBASE`, `PLUGINBASE` or `IO`.
 
 You can  use your own installation of a local dependency instead of letting cmake fetch and compile it.
 To this end, just provide the corresponding '*_DIR' to cmake at configuration time (with '-D' option, configuration file or toolchain file, please refer to cmake documentation).
+One easy way to do this is explained in the next section.
 
 Currently supported (note that these paths must refer to the installation  directory of the corresponding library):
-[//]: # (generated running ./script/list_dep.py from root external directory)
+[//]: # (generated running ../script/list_dep.py from Radium-Engine/external directory)
 
  *  `assimp_DIR`
  *  `tinyply_DIR`
@@ -109,7 +110,7 @@ Currently supported (note that these paths must refer to the installation  direc
  *  `cpplocate_DIR`
 
 
-Radium in compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
+Radium is compiled and tested with specific version of dependencies, as given in the external's folder CMakeLists.txt and state here for the record
 
 
  *  assimp: https://github.com/assimp/assimp.git, [tags/v5.0.1],
@@ -117,7 +118,7 @@ Radium in compiled and tested with specific version of dependencies, as given in
  *  tinyply: https://github.com/ddiakopoulos/tinyply.git, [tags/2.3.2],
     *  with options `-DSHARED_LIB=TRUE`
  *  glm: https://github.com/g-truc/glm.git, [0.9.9.5],
-    *  with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF`
+    *  with options `-DGLM_TEST_ENABLE=OFF -DBUILD_STATIC_LIBS=OFF -DCMAKE_INSTALL_LIBDIR=lib`
  *  glbinding: https://github.com/cginternals/glbinding.git, [663e19cf1ae6a5fa1acfb1bd952fc43f647ca79c],
     *  with options `-DOPTION_BUILD_TESTS=OFF -DOPTION_BUILD_DOCS=OFF -DOPTION_BUILD_TOOLS=OFF -DOPTION_BUILD_EXAMPLES=OFF`
  *  globjects: https://github.com/dlyr/globjects.git, [11c559a07d9e310abb2f53725fd47cfaf538f8b1],
@@ -135,16 +136,28 @@ Radium in compiled and tested with specific version of dependencies, as given in
 
 ## Building and installing Radium dependencies once for all
 Radium dependencies can be built and installed alone, without building the whole Radium project.
-This will allow to use them as user provided external dependencies for Radium but also to develop other software that will use the same dependencies as Radium.
 
-The file `external/CMakeLists.txt` could be used as a standalone project to install all the Radium dependencies in any location by doing the following :
+The file `external/CMakeLists.txt` could be used as a standalone project to install all the Radium dependencies in any location _outside Radium-Engine source dir_ (if you try to build and install external as a subdir of Radium-Engine source, cmake configuration may fail).
+
+Configure dependencies build with :
 ~~~{.bash}
 mkdir BuildRadiumDependencies && cd BuildRadiumDependencies
-cmake -DCMAKE_INSTALL_PREFIX=/path/to/install /path/to/Radium/external
+cmake -DCMAKE_INSTALL_PREFIX=/path/to/external/install /path/to/Radium/external
 ~~~
 
 If not given on the command line, the installation directory is set by default to, `{CMAKE_CURRENT_BINARY_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE}`.
 
-Compiling Radium using the pre-installed dependencies should be made as described in the section above.
+Compiling Radium using the pre-installed dependencies should be made as described in the section above, with:
+~~~{.bash}
+-DEigen3_DIR      /path/to/external/install/share/eigen3/cmake/
+-DOpenMesh_DIR    /path/to/external/install/share/OpenMesh/cmake/
+-Dcpplocate_DIR   /path/to/external/install/share/cpplocate/
+-Dglm_DIR         /path/to/external/install/lib/cmake/glm/
+-Dglbinding_DIR   /path/to/external/install/share/glbinding/
+-Dglobjects_DIR   /path/to/external/install/share/globjects/
+-Dstb_DIR         /path/to/external/install/include/stb/
+-Dassimp_DIR      /path/to/external/install/lib/cmake/assimp-5.0/
+-Dtinyply_DIR     /path/to/external/install/lib/cmake/tinyply/
+~~~
 
 \warning You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.
