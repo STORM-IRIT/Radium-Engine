@@ -125,7 +125,7 @@ if(IO_FOUND)
     endif()
     if( depTinyPLYFound GREATER_EQUAL "0")
         if ("@tinyply_DIR@" STREQUAL "")
-            set(tinyply_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../@tiniply_sub_DIR@")
+            set(tinyply_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../@tinyply_sub_DIR@")
         else()
             set(tinyply_DIR "@tinyply_DIR@")
         endif()
@@ -164,4 +164,3 @@ set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
 set(RADIUM_PLUGINS_DIR "${SELF_DIR}/Plugins")
 
 include(${CMAKE_CURRENT_LIST_DIR}/radium_setup_functions.cmake)
-
