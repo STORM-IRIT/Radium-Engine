@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # run from Radium-Engine/external directory
+# This files generates information about Radium externals, and is used to generate the Documentation,
 
 from pathlib import Path
 import re
@@ -48,5 +49,4 @@ print("\n\nConfigure your Radium build with:")
 
 for key in dep:
     print(f"{key} {dep[key]['installdir']}")
-
 
