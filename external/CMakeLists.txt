@@ -30,18 +30,17 @@ else()
       endif()
   endif()
 
-  message("Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
-
   message(STATUS "")
   message(STATUS "    == ${PROJECT_NAME} Project configuration ==")
   message(STATUS "")
+  message(STATUS "Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
 
   #-----------------------------------------------------------------------------
   # Set default install location to dist folder in build dir
   # we do not want to install to /usr by default
   if (NOT CMAKE_BUILD_TYPE)
       set (CMAKE_BUILD_TYPE Release )
-      message( "Set default build type to ${CMAKE_BUILD_TYPE}" )
+      message(STATUS  "Set default build type to ${CMAKE_BUILD_TYPE}" )
   endif()
 
   #-----------------------------------------------------------------------------
@@ -54,13 +53,22 @@ else()
   endif ()
 
   #-----------------------------------------------------------------------------
-  message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
-
   # we do not want to install to /usr by default
   if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
       set(CMAKE_INSTALL_PREFIX "${RADIUM_EXTERNAL_INSTALL}" CACHE PATH
           "Install path prefix, prepended onto install directories." FORCE)
   endif()
+
+  # Ensure that external dependencies built as standalone are not installed in a subdir of Radium source tree
+  string(LENGTH ${CMAKE_SOURCE_DIR} SourceDirLength)
+  string(LENGTH "external/" ExternalDirLength)
+  math(EXPR RadiumPrefixLength " ${SourceDirLength} - ${ExternalDirLength}")
+  string(SUBSTRING ${CMAKE_SOURCE_DIR} 0 ${RadiumPrefixLength} RadiumPREFIX)
+  string(FIND ${CMAKE_INSTALL_PREFIX} ${RadiumPREFIX} IsPrefix)
+  if ( ${IsPrefix} GREATER -1)
+      message(FATAL_ERROR "Externals can't be installed into a subdirectory of Radium source tree.")
+  endif()
+
   message(STATUS "Set install prefix to ${CMAKE_INSTALL_PREFIX}")
 
   # add core_dependencies
