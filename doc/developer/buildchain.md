@@ -109,7 +109,7 @@ where `$NAME_UPPER` is `CORE`, `ENGINE`, `GUIBASE`, `PLUGINBASE` or `IO`.
 ## Building and installing Radium dependencies once for all
 Radium dependencies can be built and installed alone, without building the whole Radium project.
 
-The file `external/CMakeLists.txt` could be used as a standalone project to install all the Radium dependencies in any location _outside Radium-Engine source dir_ (if you try to build and install external as a subdir of Radium-Engine source, cmake configuration will ).
+The file `external/CMakeLists.txt` could be used as a standalone project to install all the Radium dependencies in any location _outside Radium-Engine source dir_ (if you try to build and install external as a subdir of Radium-Engine source, cmake configuration will fail).
 
 Configure dependencies build with :
 
@@ -203,4 +203,3 @@ Radium is compiled and tested with specific version of dependencies, as given in
 [//]: # (end script copy)
 
 \warning You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.
-
