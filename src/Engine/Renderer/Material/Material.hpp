@@ -47,6 +47,11 @@ class RA_ENGINE_API Material : public ShaderParameterProvider
                        const std::string& materialName,
                        MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );
 
+    /** Change the Material Name
+     * @note This method should be used carefully as the name is a key for render technique factory
+     */
+    inline void setMaterialName( std::string newName );
+
   public:
     virtual ~Material() = default;
 
@@ -104,8 +109,8 @@ class RA_ENGINE_API Material : public ShaderParameterProvider
     bool m_isDirty {true};
 
   private:
-    /// Unique material name that can be used to identify the material
-    const std::string m_materialName;
+    /// Unique material name that can be used to identify the material class
+    std::string m_materialName;
 };
 
 } // namespace Engine

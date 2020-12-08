@@ -226,8 +226,8 @@ class RA_ENGINE_API ShaderParameterProvider
 {
   public:
     virtual ~ShaderParameterProvider() = default;
-    RenderParameters& getParameters() { return m_renderParameters; }
-    const RenderParameters& getParameters() const { return m_renderParameters; }
+    virtual RenderParameters& getParameters() { return m_renderParameters; }
+    virtual const RenderParameters& getParameters() const { return m_renderParameters; }
     /**
      * Update the OpenGL states used by the ShaderParameterProvider.
      * These state could be the ones from an associated material (textures, precomputed tables or
