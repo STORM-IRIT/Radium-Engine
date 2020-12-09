@@ -4,10 +4,9 @@
 #include <iostream>
 #include <queue>
 
-#include <Core/Animation/KeyPose.hpp>
-#include <Core/Animation/KeyTransform.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Asset/HandleToSkeleton.hpp>
+#include <Core/Asset/AnimationTime.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
@@ -19,7 +18,6 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 
-using Ra::Core::Animation::Animation;
 using Ra::Core::Animation::HandleArray;
 using Ra::Core::Animation::RefPose;
 using Ra::Core::Animation::Skeleton;
@@ -109,45 +107,45 @@ void SkeletonComponent::handleAnimationLoading(
     for ( uint n = 0; n < data.size(); ++n )
     {
         std::map<uint, uint> table;
-        std::set<Ra::Core::Animation::Time> keyTime;
-        auto handleAnim = data[n]->getFrames();
+        // std::set<Ra::Core::AnimationTime> keyTime;
+        // auto handleAnim = data[n]->getFrames();
         for ( uint i = 0; i < m_skel.size(); ++i )
         {
-            for ( uint j = 0; j < handleAnim.size(); ++j )
-            {
-                if ( m_skel.getLabel( i ) == handleAnim[j].m_name )
-                {
-                    table[j] = i;
-                    auto set = handleAnim[j].m_anim.timeSchedule();
-                    keyTime.insert( set.begin(), set.end() );
-                }
-            }
+            // for ( uint j = 0; j < handleAnim.size(); ++j )
+            // {
+            //     if ( m_skel.getLabel( i ) == handleAnim[j].m_name )
+            //     {
+            //         table[j] = i;
+            //         auto set = handleAnim[j].m_anim.timeSchedule();
+            //         keyTime.insert( set.begin(), set.end() );
+            //     }
+            // }
         }
 
-        if ( keyTime.empty() ) { continue; }
+        // if ( keyTime.empty() ) { continue; }
 
-        Ra::Core::Animation::KeyPose keypose;
+        // Ra::Core::Animation::KeyPose keypose;
         Ra::Core::Animation::Pose pose = m_skel.m_pose;
 
-        m_animations.push_back( Ra::Core::Animation::Animation() );
-        for ( const auto& t : keyTime )
-        {
-            for ( const auto& it : table )
-            {
-                // pose[it.second] = ( m_skel.m_graph.isRoot( it.second ) ) ?
-                // m_skel.m_pose[it.second] : handleAnim[it.first].m_anim.at( t );
-                pose[it.second] = handleAnim[it.first].m_anim.at( t );
-            }
-            m_animations.back().addKeyPose( pose, t );
-            keypose.insertKeyFrame( t, pose );
-        }
+        // m_animations.push_back( Ra::Core::Animation::Animation() );
+        // for ( const auto& t : keyTime )
+        // {
+        //     for ( const auto& it : table )
+        //     {
+        //         // pose[it.second] = ( m_skel.m_graph.isRoot( it.second ) ) ?
+        //         // m_skel.m_pose[it.second] : handleAnim[it.first].m_anim.at( t );
+        //         pose[it.second] = handleAnim[it.first].m_anim.at( t );
+        //     }
+        //     m_animations.back().addKeyPose( pose, t );
+        //     keypose.insertKeyFrame( t, pose );
+        // }
 
         m_dt.push_back( data[n]->getTimeStep() );
     }
     if ( m_animations.size() == 0 )
     {
-        m_animations.emplace_back();
-        m_animations[0].addKeyPose( m_skel.getPose( SpaceType::LOCAL ), 0_ra );
+        // m_animations.emplace_back();
+        // m_animations[0].addKeyPose( m_skel.getPose( SpaceType::LOCAL ), 0_ra );
     }
     m_animationID   = 0;
     m_animationTime = 0_ra;
@@ -162,8 +160,8 @@ void SkeletonComponent::setSkeleton( const Skeleton& skel ) {
 }
 
 SkeletonComponent::Animation& SkeletonComponent::addNewAnimation() {
-    m_animations.emplace_back();
-    m_animations.back().addKeyPose( m_skel.getPose( SpaceType::LOCAL ), 0_ra );
+    // m_animations.emplace_back();
+    // m_animations.back().addKeyPose( m_skel.getPose( SpaceType::LOCAL ), 0_ra );
     return m_animations.back();
 }
 
@@ -224,7 +222,7 @@ void SkeletonComponent::goTo( Scalar t ) {
     //    instance) if ( !m_animationTimeStep && ( t > 0.5_ra ) ) { t = 0_ra; }
 
     m_animationTime = m_speed * t;
-    Scalar lastTime = m_animations[m_animationID].getDuration();
+    Scalar lastTime = 0_ra; //m_animations[m_animationID].getDuration();
     if ( m_autoRepeat )
     {
         if ( !m_pingPong ) { m_animationTime = std::fmod( m_animationTime, lastTime ); }
@@ -243,7 +241,9 @@ void SkeletonComponent::goTo( Scalar t ) {
 
     // get the current pose from the animation
     Ra::Core::Animation::Pose pose = m_skel.getPose( SpaceType::LOCAL );
-    if ( !m_animations.empty() ) { pose = m_animations[m_animationID].getPose( m_animationTime ); }
+    if ( !m_animations.empty() ) { 
+        // pose = m_animations[m_animationID].getPose( m_animationTime ); 
+    }
     else
     { pose = m_refPose; }
     m_skel.setPose( pose, SpaceType::LOCAL );
@@ -254,8 +254,9 @@ Scalar SkeletonComponent::getAnimationTime() const {
 }
 
 Scalar SkeletonComponent::getAnimationDuration() const {
-    if ( m_animations.empty() ) { return 0_ra; }
-    return m_animations[m_animationID].getDuration();
+    // if ( m_animations.empty() ) { return 0_ra; }
+    // return m_animations[m_animationID].getDuration();
+    return 0_ra;
 }
 
 void SkeletonComponent::toggleAnimationTimeStep( const bool status ) {
@@ -379,14 +380,14 @@ Ra::Core::Geometry::TriangleMesh makeBoneShape() {
                       Ra::Core::Vector3( 0, -1, 0 ),
                       Ra::Core::Vector3( -1, 0, 0 )} );
 
-    mesh.m_indices = {Ra::Core::Vector3ui( 0, 2, 3 ),
+    mesh.setIndices( {Ra::Core::Vector3ui( 0, 2, 3 ),
                       Ra::Core::Vector3ui( 0, 5, 2 ),
                       Ra::Core::Vector3ui( 0, 3, 4 ),
                       Ra::Core::Vector3ui( 0, 4, 5 ),
                       Ra::Core::Vector3ui( 1, 3, 2 ),
                       Ra::Core::Vector3ui( 1, 2, 5 ),
                       Ra::Core::Vector3ui( 1, 4, 3 ),
-                      Ra::Core::Vector3ui( 1, 5, 4 )};
+                      Ra::Core::Vector3ui( 1, 5, 4 )} );
     return mesh;
 }
 

@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include <Core/Animation/Animation.hpp>
+#include <Core/Animation/KeyFramedValue.hpp>
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
 #include <Core/Animation/Skeleton.hpp>
@@ -39,7 +39,7 @@ class RA_ENGINE_API SkeletonComponent : public Ra::Engine::Component
   public:
     friend class SkeletonBasedAnimationSystem;
 
-    using Animation = Ra::Core::Animation::Animation;
+    using Animation = Ra::Core::Animation::KeyFramedValue<Ra::Core::Transform>;
 
     SkeletonComponent( const std::string& name, Ra::Engine::Entity* entity );
     ~SkeletonComponent() override;
@@ -288,7 +288,7 @@ class RA_ENGINE_API SkeletonComponent : public Ra::Engine::Component
     Ra::Core::Animation::RefPose m_refPose;
 
     /// The animations.
-    std::vector<Animation> m_animations;
+    std::vector<Core::Animation::KeyFramedValue<Ra::Core::Transform>> m_animations;
 
     /// Bones ROs.
     std::vector<RenderObject*> m_boneDrawables;

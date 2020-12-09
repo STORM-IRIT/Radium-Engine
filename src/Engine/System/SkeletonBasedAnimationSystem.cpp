@@ -17,7 +17,7 @@ namespace Ra {
 namespace Engine {
 
 SkeletonBasedAnimationSystem::SkeletonBasedAnimationSystem() :
-    Ra::Engine::AbstractTimedSystem(),
+    Ra::Engine::System(),
     m_xrayOn( false ) {}
 
 // System Interface
@@ -97,33 +97,33 @@ void SkeletonBasedAnimationSystem::handleAssetLoading( Ra::Engine::Entity* entit
 
 // AbstractTimedSystem Interface
 
-void SkeletonBasedAnimationSystem::goTo( Scalar t ) {
-    for ( auto& comp : m_components )
-    {
-        if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
-        { static_cast<SkeletonComponent*>( comp.second )->goTo( t ); }
-    }
-}
+// void SkeletonBasedAnimationSystem::goTo( Scalar t ) {
+//     for ( auto& comp : m_components )
+//     {
+//         if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
+//         { static_cast<SkeletonComponent*>( comp.second )->goTo( t ); }
+//     }
+// }
 
-void SkeletonBasedAnimationSystem::cacheFrame( const std::string& dir, uint frameID ) const {
-    for ( const auto& comp : m_components )
-    {
-        if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
-        { static_cast<SkeletonComponent*>( comp.second )->cacheFrame( dir, frameID ); }
-    }
-}
+// void SkeletonBasedAnimationSystem::cacheFrame( const std::string& dir, uint frameID ) const {
+//     for ( const auto& comp : m_components )
+//     {
+//         if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
+//         { static_cast<SkeletonComponent*>( comp.second )->cacheFrame( dir, frameID ); }
+//     }
+// }
 
-bool SkeletonBasedAnimationSystem::restoreFrame( const std::string& dir, uint frameId ) {
-    bool success = true;
-    for ( const auto& comp : m_components )
-    {
-        if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
-        {
-            success &= static_cast<SkeletonComponent*>( comp.second )->restoreFrame( dir, frameId );
-        }
-    }
-    return success;
-}
+// bool SkeletonBasedAnimationSystem::restoreFrame( const std::string& dir, uint frameId ) {
+//     bool success = true;
+//     for ( const auto& comp : m_components )
+//     {
+//         if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
+//         {
+//             success &= static_cast<SkeletonComponent*>( comp.second )->restoreFrame( dir, frameId );
+//         }
+//     }
+//     return success;
+// }
 
 // Skeleton display
 

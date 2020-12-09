@@ -2,7 +2,7 @@
 
 #include <Engine/ItemModel/ItemEntry.hpp>
 #include <Engine/RaEngine.hpp>
-#include <Engine/System/TimedSystem.hpp>
+#include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -11,7 +11,7 @@ namespace Engine {
  * The SkeletonBasedAnimationSystem manages both SkeletonComponents and SkinningComponents.
  * It is also responsible for transmitting calls to/from animation-related processes.
  */
-class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::AbstractTimedSystem
+class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::System
 {
   public:
     /// Create a new animation system
@@ -54,11 +54,11 @@ class RA_ENGINE_API SkeletonBasedAnimationSystem : public Ra::Engine::AbstractTi
     /// \name AbstractTimedSystem Interface
     /// \{
 
-    void goTo( Scalar t ) override;
+    // void goTo( Scalar t ) override;
 
-    void cacheFrame( const std::string& dir, uint frameID ) const override;
+    // void cacheFrame( const std::string& dir, uint frameID ) const override;
 
-    bool restoreFrame( const std::string& dir, uint frameID ) override;
+    // bool restoreFrame( const std::string& dir, uint frameID ) override;
     /// \}
 
     /// \name Skeleton display
