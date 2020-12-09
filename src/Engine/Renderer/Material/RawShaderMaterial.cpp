@@ -80,9 +80,9 @@ void RawShaderMaterial::updateShaders(
     std::shared_ptr<Ra::Engine::ShaderParameterProvider> paramProvider ) {
     Ra::Engine::ShaderConfigurationFactory::removeConfiguration( m_materialKey );
     Ra::Engine::EngineRenderTechniques::removeDefaultTechnique( m_materialKey );
-    m_shaders       = shaders;
-    m_paramProvider = std::move( paramProvider );
-    m_materialKey   = computeKey();
+    m_shaders = shaders;
+    if ( paramProvider ) { m_paramProvider = std::move( paramProvider ); }
+    m_materialKey = computeKey();
     setMaterialName( m_materialKey );
     registerDefaultTechnique();
 }

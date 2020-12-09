@@ -116,10 +116,12 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      * @param instanceName The name of the material instance
      * @param shaders The shaders to use for each pipeline stage (only one source per stage is
      * allowed)
-     * @param paramProvider The parameter provider for the resulting program
+     * @param paramProvider The parameter provider for the resulting program. If not given, the old
+     * provider will be kept.
      */
-    void updateShaders( const std::vector<std::pair<Ra::Engine::ShaderType, std::string>>& shaders,
-                        std::shared_ptr<Ra::Engine::ShaderParameterProvider> paramProvider );
+    void
+    updateShaders( const std::vector<std::pair<Ra::Engine::ShaderType, std::string>>& shaders,
+                   std::shared_ptr<Ra::Engine::ShaderParameterProvider> paramProvider = nullptr );
 
     /**
      * Update the openGL state of the material.
