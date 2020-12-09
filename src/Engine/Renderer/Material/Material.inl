@@ -2,7 +2,7 @@
 namespace Ra {
 namespace Engine {
 
-inline void Material::setMaterialName(std::string newName) {
+inline void Material::setMaterialName( std::string newName ) {
     m_materialName = std::move( newName );
 }
 
