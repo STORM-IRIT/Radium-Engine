@@ -33,24 +33,26 @@ const std::string _vertexShaderSource {"#include \"TransformStructs.glsl\"\n"
                                        "    gl_Position = mvp*vec4(in_position.xyz, 1.0);\n"
                                        "}\n"};
 // Fragment shader source code
-const std::string _fragmentShaderSource {"layout (location = 0) in  vec3 in_pos;\n"
-                                         "layout (location = 0) out vec4 out_color;\n"
-                                         "uniform vec4 aColorUniform;\n"
-                                         "uniform float aScalarUniform;\n"
-                                         "void main(void)\n"
-                                         "{\n"
-                                         "    out_color =  ( 1 + cos( 20 * ( in_pos.x + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
-                                         "}\n"};
+const std::string _fragmentShaderSource {
+    "layout (location = 0) in  vec3 in_pos;\n"
+    "layout (location = 0) out vec4 out_color;\n"
+    "uniform vec4 aColorUniform;\n"
+    "uniform float aScalarUniform;\n"
+    "void main(void)\n"
+    "{\n"
+    "    out_color =  ( 1 + cos( 20 * ( in_pos.x + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
+    "}\n"};
 
 // Fragment shader source code
-const std::string _fragmentShaderSource2 {"layout (location = 0) in  vec3 in_pos;\n"
-                                          "layout (location = 0) out vec4 out_color;\n"
-                                          "uniform vec4 aColorUniform;\n"
-                                          "uniform float aScalarUniform;\n"
-                                          "void main(void)\n"
-                                          "{\n"
-                                          "    out_color =  ( 1 + sin( 20 * ( in_pos.y + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
-                                          "}\n"};
+const std::string _fragmentShaderSource2 {
+    "layout (location = 0) in  vec3 in_pos;\n"
+    "layout (location = 0) out vec4 out_color;\n"
+    "uniform vec4 aColorUniform;\n"
+    "uniform float aScalarUniform;\n"
+    "void main(void)\n"
+    "{\n"
+    "    out_color =  ( 1 + sin( 20 * ( in_pos.y + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
+    "}\n"};
 
 const std::vector<std::pair<Ra::Engine::ShaderType, std::string>> _config1 {
     {Ra::Engine::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
@@ -132,7 +134,7 @@ int main( int argc, char* argv[] ) {
     changeTimer->setInterval( 3000 );
     QObject::connect( changeTimer, &QTimer::timeout, [ro, renderer]() {
         auto paramProvider = std::make_shared<MyParameterProvider>();
-        auto mat = static_cast<Ra::Engine::RawShaderMaterial*>( ro->getMaterial().get() );
+        auto mat           = static_cast<Ra::Engine::RawShaderMaterial*>( ro->getMaterial().get() );
         mat->updateShaders( _config2, paramProvider );
         renderer->buildRenderTechnique( ro.get() );
     } );
