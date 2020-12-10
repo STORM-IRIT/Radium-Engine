@@ -34,7 +34,7 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
         const std::string& instanceName,
         const std::vector<std::pair<Ra::Engine::ShaderType, std::string>>& shaders,
         std::shared_ptr<Ra::Engine::ShaderParameterProvider> paramProvider ) :
-        MaterialData( instanceName, "Ra::Engine::ShaderMaterialData" ),
+        MaterialData( instanceName, "Ra::Engine::RawShaderMaterialData" ),
         m_shaders {shaders},
         m_paramProvider {std::move( paramProvider )} {}
     RawShaderMaterialData()                               = delete;
