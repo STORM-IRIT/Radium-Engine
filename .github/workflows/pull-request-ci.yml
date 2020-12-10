@@ -46,6 +46,7 @@ jobs:
          cmake --build . --parallel --config Release --target install
 
      - name: Run unit tests
+       if: runner.os != 'Windows'
        run: |
          cd build/Radium-Engine
          cmake --build . --parallel --config Release --target check
