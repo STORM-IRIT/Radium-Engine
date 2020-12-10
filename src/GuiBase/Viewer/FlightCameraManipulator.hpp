@@ -71,6 +71,7 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
     Scalar m_flightSpeed {1._ra};
     static void configureKeyMapping_impl();
 
+  protected:
 #define KeyMappingFlightManipulator      \
     KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
     KMA_VALUE( FLIGHTMODECAMERA_PAN )    \
