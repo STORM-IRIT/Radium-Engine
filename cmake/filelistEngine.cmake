@@ -23,6 +23,7 @@ set( engine_sources
     Renderer/Material/MaterialConverters.cpp
     Renderer/Material/Material.cpp
     Renderer/Material/PlainMaterial.cpp
+    Renderer/Material/RawShaderMaterial.cpp
     Renderer/Material/SimpleMaterial.cpp
     Renderer/Material/VolumetricMaterial.cpp
     Renderer/Mesh/Mesh.cpp
@@ -75,6 +76,7 @@ set( engine_headers
     Renderer/Material/MaterialConverters.hpp
     Renderer/Material/Material.hpp
     Renderer/Material/PlainMaterial.hpp
+    Renderer/Material/RawShaderMaterial.hpp
     Renderer/Material/SimpleMaterial.hpp
     Renderer/Material/VolumetricMaterial.hpp
     Renderer/Mesh/Mesh.hpp
@@ -112,6 +114,7 @@ set( engine_inlines
     Renderer/Light/PointLight.inl
     Renderer/Light/SpotLight.inl
     Renderer/Material/BlinnPhongMaterial.inl
+    Renderer/Material/RawShaderMaterial.inl
     Renderer/Material/Material.inl
     Renderer/Material/SimpleMaterial.inl
     Renderer/Material/VolumetricMaterial.inl
