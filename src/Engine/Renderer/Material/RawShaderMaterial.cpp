@@ -29,7 +29,7 @@ std::string RawShaderMaterial::computeKey() {
     for ( const auto& p : m_shaders )
     {
         content += p.second;
-        std::to_string( std::size_t( this ) );
+        content += std::to_string( std::size_t( this ) );
     }
     return std::to_string( std::hash<std::string> {}( content ) );
 }
