@@ -1,0 +1,53 @@
+name: Compile and Test Radium libraries
+
+defaults:
+  run:
+    shell: bash
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", assimp: "OFF" }
+          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc", cxx: "g++", assimp: "ON" }
+          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", assimp: "ON" }
+
+    steps:
+     - uses: seanmiddleditch/gha-setup-ninja@master
+
+     - name: Add msbuild to PATH
+       uses: seanmiddleditch/gha-setup-vsdevenv@master
+       if: runner.os == 'Windows'
+
+     - name: Install Qt
+       uses: jurplel/install-qt-action@v2
+       with:
+         cached: false
+
+     - name: Clone Radium
+       run: |
+         mkdir -p install/
+         mkdir -p src && cd src && git clone https://github.com/STORM-IRIT/Radium-Engine.git --single-branch && cd ..
+         mkdir -p build/Radium-Engine
+
+     - name: Configure Radium
+       run: |
+         cd build/Radium-Engine
+         cmake ../../src/Radium-Engine -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../install/ -DRADIUM_IO_ASSIMP=${{ matrix.config.assimp }} -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY
+
+     - name: Build Radium
+       run: |
+         cd build/Radium-Engine
+         cmake --build . --parallel --config Release --target install
+
+     - name: Run unit tests
+       run: |
+         cd build/Radium-Engine
+         cmake --build . --parallel --config Release --target check
+
+
