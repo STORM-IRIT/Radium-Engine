@@ -30,6 +30,16 @@ void addConfiguration( const ShaderConfiguration& config ) {
     }
 }
 
+bool removeConfiguration( const std::string& configName ) {
+    auto found = configs.find( configName );
+    if ( found != configs.end() )
+    {
+        configs.erase( found );
+        return true;
+    }
+    return false;
+}
+
 Core::Utils::optional<ShaderConfiguration> getConfiguration( const std::string& name ) {
     if ( name.empty() )
     {

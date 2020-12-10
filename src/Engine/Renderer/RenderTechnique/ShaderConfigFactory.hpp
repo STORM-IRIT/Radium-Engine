@@ -20,6 +20,14 @@ namespace ShaderConfigurationFactory {
  * @param config
  */
 RA_ENGINE_API void addConfiguration( const ShaderConfiguration& config );
+
+/**
+ * Remove a configuration from the factory
+ * @param config
+ * @return true if the configuration was found and removed, else false
+ */
+RA_ENGINE_API bool removeConfiguration( const std::string& configName );
+
 /**
  * Get a configuration from the factory
  * @param name The configuration to get

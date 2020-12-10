@@ -76,4 +76,14 @@ target_link_libraries(SimpleAnimationApp PUBLIC
 add_dependencies(${PROJECT_NAME} SimpleAnimationApp)
 message(STATUS "Installing SimpleAnimationApp into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME SimpleAnimationApp)
+
+add_executable(RawShaderMaterial MACOSX_BUNDLE
+    RawShaderMaterial/main.cpp)
+target_link_libraries(RawShaderMaterial PUBLIC
+    Core Engine GuiBase
+    Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
+    OpenGL::GL)
+add_dependencies(${PROJECT_NAME} RawShaderMaterial)
+message(STATUS "Installing RawShaderMaterial into ${CMAKE_INSTALL_PREFIX}")
+configure_radium_app(NAME RawShaderMaterial)
 #endif ()
