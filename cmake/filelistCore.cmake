@@ -40,6 +40,7 @@ set( core_sources
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
     Utils/CircularIndex.cpp
+    Utils/StackTrace.cpp
     Utils/StringUtils.cpp
 )
 
@@ -129,6 +130,7 @@ set( core_headers
     Utils/Log.hpp
     Utils/Observable.hpp
     Utils/Singleton.hpp
+    Utils/StackTrace.hpp
     Utils/StdOptional.hpp
     Utils/StdUtils.hpp
     Utils/StringUtils.hpp
