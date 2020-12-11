@@ -156,7 +156,6 @@ void ShaderProgram::loadShader( ShaderType type,
     std::unique_ptr<globjects::StaticStringSource> fullsource {nullptr};
     if ( fromFile )
     {
-        LOG( logDEBUG ) << "Loading shader " << name;
         auto loadedSource = globjects::Shader::sourceFromFile( name );
         fullsource = globjects::Shader::sourceFromString( shaderHeader + loadedSource->string() );
     }

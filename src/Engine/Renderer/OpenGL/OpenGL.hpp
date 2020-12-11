@@ -72,6 +72,7 @@ inline const char* glErrorString( gl::GLenum err ) {
 
 #ifdef _DEBUG
 #    include <Core/Utils/Log.hpp>
+#    include <Core/Utils/StackTrace.hpp>
 #    define GL_ASSERT( x )                                                                       \
         x;                                                                                       \
         {                                                                                        \
@@ -97,7 +98,8 @@ inline const char* glErrorString( gl::GLenum err ) {
                 LOG( Ra::Core::Utils::logERROR )                                             \
                     << "OpenGL error (" << __FILE__ << ":" << __LINE__                       \
                     << ", glCheckError()) : " << errBuf << "(" << err << " : 0x" << std::hex \
-                    << err << std::dec << ").";                                              \
+                    << err << std::dec << ")." << '\n'                                       \
+                    << Ra::Core::Utils::StackTrace();                                        \
                 BREAKPOINT( 0 );                                                             \
             }                                                                                \
         }
