@@ -102,6 +102,7 @@ class RA_GUIBASE_API TrackballCameraManipulator
     bool checkIntegrity( const std::string& mess ) const;
     static void configureKeyMapping_impl();
 
+  protected:
 #define KeyMappingCamera                \
     KMA_VALUE( TRACKBALLCAMERA_ROTATE ) \
     KMA_VALUE( TRACKBALLCAMERA_PAN )    \
