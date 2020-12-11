@@ -138,13 +138,16 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
         explicit AttribObserver( AttribArrayDisplayable* displayable, int idx ) :
             m_displayable( displayable ), m_idx( idx ) {}
         void operator()() {
-            if ( m_idx < m_displayable->m_dataDirty.size() )
+            if ( m_idx < int( m_displayable->m_dataDirty.size() ) )
             {
                 m_displayable->m_dataDirty[m_idx] = true;
                 m_displayable->m_isDirty          = true;
             }
             else
-                LOG( logDEBUG ) << "Invalid dirty bit notified"; /// \fixme Should never be here
+            {
+                /// \fixme Should never be here
+                LOG( logDEBUG ) << "Invalid dirty bit notified on " << m_displayable->getName();
+            }
         }
 
       private:
