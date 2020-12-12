@@ -217,8 +217,12 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
     inline void addAttrib( const std::string& name,
                            const typename Ra::Core ::Utils::Attrib<T>::Container&& data );
     inline void updateGL() override;
-    inline void autoVertexAttribPointer( const ShaderProgram* prog );
+
     inline void render( const ShaderProgram* prog ) override;
+
+  protected:
+    /// assume m_vao is bound.
+    inline void autoVertexAttribPointer( const ShaderProgram* prog );
     IndexContainerType m_cpu_indices;
     AttribManager m_attribManager;
 };
@@ -287,6 +291,8 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
 
     void loadGeometry_common( CoreGeometry&& mesh );
     void setupCoreMeshObservers();
+
+    /// assume m_vao is bound.
     void autoVertexAttribPointer( const ShaderProgram* prog );
 
     /// m_mesh Observer method, called whenever an attrib is added or removed from
