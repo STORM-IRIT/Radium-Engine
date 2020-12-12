@@ -597,7 +597,7 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     auto RenderedGeometry = ro->getMesh().get();
 
     /*
-     * WARNING : this way of managing specifi geometries is here only for testing and
+     * WARNING : this way of managing specific geometries is here only for testing and
      * experimentation purpose. It will be replace soon by a better management of the way components
      * could add specific properties to a rendertechnique
      * TODO : see PR Draft and gist subShaderBlob
