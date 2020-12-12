@@ -1,7 +1,4 @@
 #include <Core/Utils/StackTrace.hpp>
-namespace Ra {
-namespace Core {
-namespace Utils {
 
 #ifndef OS_WINDOWS
 
@@ -10,7 +7,7 @@ namespace Utils {
 #    include <dlfcn.h>    // for dladdr
 #    include <execinfo.h> // for backtrace
 #    include <sstream>
-#    include <string>
+
 #    if defined( COMPILER_CLANG )
 #        pragma clang diagnostic ignored "-Wformat"
 #        pragma clang diagnostic ignored "-Wformat-extra-args"
@@ -19,7 +16,14 @@ namespace Utils {
 #        pragma GCC diagnostic ignored "-Wformat-extra-args"
 #    endif
 
+#endif
+
+namespace Ra {
+namespace Core {
+namespace Utils {
+
 std::string StackTrace( int skip ) {
+#ifndef OS_WINDOWS
     void* callstack[128];
     const int nMaxFrames = sizeof( callstack ) / sizeof( callstack[0] );
     char buf[1024];
@@ -57,15 +61,10 @@ std::string StackTrace( int skip ) {
     }
     if ( nFrames == nMaxFrames ) trace_buf << "  [truncated]\n";
     return trace_buf.str();
-}
-
 #else
-
-inline std::string Backtrace( int skip = 1 ) {
     return "No execution stack trace on windows.";
-}
-
 #endif
+}
 
 } // namespace Utils
 } // namespace Core
