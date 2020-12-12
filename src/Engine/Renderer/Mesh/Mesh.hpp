@@ -391,17 +391,19 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
 /// Simple triangulation is performed on the fly before sending data to the GPU.
 class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 {
-    using base = IndexedGeometry<Core::Geometry::PolyMesh>;
+    using base      = IndexedGeometry<Core::Geometry::PolyMesh>;
+    using IndexType = Core::Vector3ui;
 
   public:
     using base::IndexedGeometry;
+    inline size_t getNumFaces() const override;
 
   protected:
     inline void updateGL_specific_impl() override;
 
   private:
     inline void triangulate();
-    Core::AlignedStdVector<Core::Vector3ui> m_triangleIndices;
+    Core::AlignedStdVector<IndexType> m_triangleIndices;
 };
 
 } // namespace Engine
