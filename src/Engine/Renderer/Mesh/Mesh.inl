@@ -478,6 +478,10 @@ LineMesh::LineMesh( const std::string& name,
 
 /////////  PolyMesh ///////////
 
+size_t PolyMesh::getNumFaces() const {
+    return getCoreGeometry().getIndices().size();
+}
+
 void PolyMesh::updateGL_specific_impl() {
     if ( !m_indices )
     {
@@ -489,11 +493,10 @@ void PolyMesh::updateGL_specific_impl() {
         triangulate();
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
-        m_numElements = m_triangleIndices.size() * Core::Vector3ui::RowsAtCompileTime;
+        m_numElements = m_triangleIndices.size() * PolyMesh::IndexType::RowsAtCompileTime;
 
         m_indices->setData(
-            static_cast<gl::GLsizeiptr>( m_triangleIndices.size() *
-                                         sizeof( typename base::CoreGeometry::IndexType ) ),
+            static_cast<gl::GLsizeiptr>( m_triangleIndices.size() * sizeof( PolyMesh::IndexType ) ),
             m_triangleIndices.data(),
             GL_STATIC_DRAW );
         m_indicesDirty = false;
