@@ -12,7 +12,7 @@ namespace Asset {
 class AnimationData;
 class CameraData;
 class GeometryData;
-class VolumeData;
+struct VolumeData;
 class HandleData;
 class LightData;
 
