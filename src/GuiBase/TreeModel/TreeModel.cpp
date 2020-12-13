@@ -94,7 +94,7 @@ QModelIndex TreeModel::parent( const QModelIndex& child ) const {
 Qt::ItemFlags TreeModel::flags( const QModelIndex& index ) const {
     return index.isValid() && getItem( index )->isValid() && getItem( index )->isSelectable()
                ? QAbstractItemModel::flags( index ) | Qt::ItemIsUserCheckable
-               : Qt::ItemFlags( 0 );
+               : Qt::ItemFlags();
 }
 
 void TreeModel::rebuildModel() {
