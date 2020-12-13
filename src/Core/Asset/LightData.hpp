@@ -181,28 +181,33 @@ class RA_CORE_API LightData : public AssetData
   public:
     Core::Utils::Color m_color;
 
+    struct DirLight {
+        Eigen::Matrix<Scalar, 3, 1> direction;
+    };
+    struct PointLight {
+        Eigen::Matrix<Scalar, 3, 1> position;
+        LightAttenuation attenuation;
+    };
+    struct SpotLight {
+        Eigen::Matrix<Scalar, 3, 1> position;
+        Eigen::Matrix<Scalar, 3, 1> direction;
+        Scalar innerAngle;
+        Scalar outerAngle;
+        LightAttenuation attenuation;
+    };
+    struct AreaLight {
+        // TODO : this representation is usefull but might be improved
+        Eigen::Matrix<Scalar, 3, 1> position;
+        Eigen::Matrix<Scalar, 3, 3> spatialCovariance;
+        Eigen::Matrix<Scalar, 3, 3> normalCovariance;
+        LightAttenuation attenuation;
+    };
+
     union {
-        struct {
-            Eigen::Matrix<Scalar, 3, 1> direction;
-        } m_dirlight;
-        struct {
-            Eigen::Matrix<Scalar, 3, 1> position;
-            LightAttenuation attenuation;
-        } m_pointlight;
-        struct {
-            Eigen::Matrix<Scalar, 3, 1> position;
-            Eigen::Matrix<Scalar, 3, 1> direction;
-            Scalar innerAngle;
-            Scalar outerAngle;
-            LightAttenuation attenuation;
-        } m_spotlight;
-        struct {
-            // TODO : this representation is usefull but might be improved
-            Eigen::Matrix<Scalar, 3, 1> position;
-            Eigen::Matrix<Scalar, 3, 3> spatialCovariance;
-            Eigen::Matrix<Scalar, 3, 3> normalCovariance;
-            LightAttenuation attenuation;
-        } m_arealight;
+        DirLight m_dirlight;
+        PointLight m_pointlight;
+        SpotLight m_spotlight;
+        AreaLight m_arealight;
     };
 };
 
