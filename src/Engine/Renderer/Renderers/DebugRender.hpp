@@ -95,17 +95,6 @@ class RA_ENGINE_API DebugRender final
     const ShaderProgram* m_pointProg {nullptr};
     const ShaderProgram* m_meshProg {nullptr};
 
-    uint m_modelLineLoc;
-    uint m_viewLineLoc;
-    uint m_projLineLoc;
-
-    uint m_modelMeshLoc;
-    uint m_viewMeshLoc;
-    uint m_projMeshLoc;
-
-    uint m_viewPointLoc;
-    uint m_projPointLoc;
-
     std::vector<Line> m_lines;
     std::vector<DbgMesh> m_meshes;
 
