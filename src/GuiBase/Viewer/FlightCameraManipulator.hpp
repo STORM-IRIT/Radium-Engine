@@ -20,7 +20,7 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
     explicit FlightCameraManipulator( const CameraManipulator& other );
     virtual ~FlightCameraManipulator();
 
-    KeyMappingManager::Context mappingContext();
+    KeyMappingManager::Context mappingContext() override;
     bool handleMousePressEvent( QMouseEvent* event,
                                 const Qt::MouseButtons& buttons,
                                 const Qt::KeyboardModifiers& modifiers,
