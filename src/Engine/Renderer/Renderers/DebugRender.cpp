@@ -182,6 +182,7 @@ void DebugRender::renderPoints( const Core::Matrix4f& viewMatrix,
     uint size = m_points.size();
     if ( 0 == size ) { return; }
 
+    ///\todo use Engine::Mesh
     GLuint vao, vbo;
     glGenVertexArrays( 1, &vao );
 
@@ -237,10 +238,9 @@ void DebugRender::renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f
 
     for ( uint i = 0; i < idx; ++i )
     {
-        Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
-        glUniformMatrix4fv( m_modelLineLoc, 1, GL_FALSE, model.data() );
+        m_lineProg->setUniform( "model", m_meshes[i].transform.matrix() );
         m_meshes[i].mesh->updateGL();
-        // m_meshes[i].mesh->render();
+        m_meshes[i].mesh->render( m_lineProg );
     }
 
     m_meshProg->bind();
@@ -249,10 +249,9 @@ void DebugRender::renderMeshes( const Core::Matrix4f& view, const Core::Matrix4f
 
     for ( uint i = idx; i < m_meshes.size(); ++i )
     {
-        Core::Matrix4f model = m_meshes[i].transform.matrix().cast<float>();
-        glUniformMatrix4fv( m_modelMeshLoc, 1, GL_FALSE, model.data() );
+        m_meshProg->setUniform( "model", m_meshes[i].transform.matrix() );
         m_meshes[i].mesh->updateGL();
-        // m_meshes[i].mesh->render();
+        m_meshes[i].mesh->render( m_meshProg );
     }
 
     m_meshes.clear();
