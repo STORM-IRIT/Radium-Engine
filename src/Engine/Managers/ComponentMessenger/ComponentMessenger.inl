@@ -144,6 +144,7 @@ ComponentMessenger::registerInput( const Entity* entity,
                                    const std::string& id,
                                    const typename CallbackTypes<ReturnType>::Setter& cb ) {
     CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
+    CORE_UNUSED( comp );
     // Will insert a new entity entry if it doesn't exist.
     CallbackMap& entityList = m_entitySetLists[entity];
 
