@@ -217,8 +217,12 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
     inline void addAttrib( const std::string& name,
                            const typename Ra::Core ::Utils::Attrib<T>::Container&& data );
     inline void updateGL() override;
-    inline void autoVertexAttribPointer( const ShaderProgram* prog );
+
     inline void render( const ShaderProgram* prog ) override;
+
+  protected:
+    /// assume m_vao is bound.
+    inline void autoVertexAttribPointer( const ShaderProgram* prog );
     IndexContainerType m_cpu_indices;
     AttribManager m_attribManager;
 };
@@ -287,6 +291,8 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
 
     void loadGeometry_common( CoreGeometry&& mesh );
     void setupCoreMeshObservers();
+
+    /// assume m_vao is bound.
     void autoVertexAttribPointer( const ShaderProgram* prog );
 
     /// m_mesh Observer method, called whenever an attrib is added or removed from
@@ -391,17 +397,19 @@ class RA_ENGINE_API Mesh : public IndexedGeometry<Core::Geometry::TriangleMesh>
 /// Simple triangulation is performed on the fly before sending data to the GPU.
 class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 {
-    using base = IndexedGeometry<Core::Geometry::PolyMesh>;
+    using base      = IndexedGeometry<Core::Geometry::PolyMesh>;
+    using IndexType = Core::Vector3ui;
 
   public:
     using base::IndexedGeometry;
+    inline size_t getNumFaces() const override;
 
   protected:
     inline void updateGL_specific_impl() override;
 
   private:
     inline void triangulate();
-    Core::AlignedStdVector<Core::Vector3ui> m_triangleIndices;
+    Core::AlignedStdVector<IndexType> m_triangleIndices;
 };
 
 } // namespace Engine
