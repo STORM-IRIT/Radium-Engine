@@ -100,11 +100,10 @@ inline bool ComponentMessenger::canRw( const Entity* entity, const std::string& 
 template <typename ReturnType>
 inline void
 ComponentMessenger::registerOutput( const Entity* entity,
-                                    Component* comp,
+                                    Component*,
                                     const std::string& id,
                                     const typename CallbackTypes<ReturnType>::Getter& cb ) {
     CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
-    CORE_UNUSED( comp );
     // Will insert a new entity entry if it doesn't exist.
     CallbackMap& entityList = m_entityGetLists[entity];
 
@@ -120,11 +119,10 @@ ComponentMessenger::registerOutput( const Entity* entity,
 template <typename ReturnType>
 inline void
 ComponentMessenger::registerReadWrite( const Entity* entity,
-                                       Component* comp,
+                                       Component*,
                                        const std::string& id,
                                        const typename CallbackTypes<ReturnType>::ReadWrite& cb ) {
     CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );
-    CORE_UNUSED( comp );
     // Will insert a new entity entry if it doesn't exist.
     CallbackMap& entityList = m_entityRwLists[entity];
 
@@ -140,7 +138,7 @@ ComponentMessenger::registerReadWrite( const Entity* entity,
 template <typename ReturnType>
 inline void
 ComponentMessenger::registerInput( const Entity* entity,
-                                   Component* comp,
+                                   Component*,
                                    const std::string& id,
                                    const typename CallbackTypes<ReturnType>::Setter& cb ) {
     CORE_ASSERT( entity && comp->getEntity() == entity, "Component not added to entity" );

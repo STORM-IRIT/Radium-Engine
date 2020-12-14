@@ -20,7 +20,7 @@ void TimelineTimeScale::paintEvent( QPaintEvent* event ) {
     }
 
     QPainter painter( this );
-    painter.setRenderHint( QPainter::HighQualityAntialiasing );
+    painter.setRenderHint( QPainter::Antialiasing );
 
     painter.drawText( 0, 11, "sec" );
     Scalar pixPerSec = m_scrollArea->getPixPerSec();
