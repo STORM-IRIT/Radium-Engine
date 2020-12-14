@@ -42,8 +42,12 @@ function(windeployqt target directory)
     add_custom_command(TARGET ${target}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/windeployqt"
-		COMMAND set PATH="${_qt_bin_dir}"
+        COMMAND set PATH="${_qt_bin_dir}"
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/windeployqt"
         COMMAND "${WINDEPLOYQT_EXECUTABLE}" --dir "${CMAKE_CURRENT_BINARY_DIR}/windeployqt" --verbose 0 --no-compiler-runtime --no-translations --no-angle --release --no-opengl-sw "$<TARGET_FILE:${target}>"
+        COMMENT "Run WinQTDeploy on ${target}"
+        USES_TERMINAL
+        COMMAND_EXPAND_LISTS
     )
 
 	# copy deployment directory during installation
