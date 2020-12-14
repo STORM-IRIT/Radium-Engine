@@ -175,7 +175,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
     // directly hold a reference to the displayMesh to simplify accesses in handlers
     std::shared_ptr<PointCloud> m_displayMesh {nullptr};
     // The diameter of the splat when rendered
-    float m_splatSize {0.0025};
+    float m_splatSize {0.0025f};
 };
 
 /*-----------------------------------------------------------------------------------------------*/

@@ -131,7 +131,7 @@ class Gizmo
         UiSelectionControler( const UiSelectionControler& ) = delete;
         ~UiSelectionControler() override                    = default;
         /// Inherited
-        void updateGL();
+        void updateGL() override;
         /// Swap the state of the controler
         void toggleState();
         /// Set the state of the controler to true

@@ -426,11 +426,6 @@ class RA_ENGINE_API Renderer
     std::map<std::string, Texture*> m_secondaryTextures;
 
   private:
-    // Qt has the nice idea to bind an fbo before giving you the opengl context,
-    // this flag is used to save it (and render the final screen on it)
-    int m_qtPlz;
-    int m_qtViewport[4];
-
     // Renderer timings data
     TimerData m_timerData;
 

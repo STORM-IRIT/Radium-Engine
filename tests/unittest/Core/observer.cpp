@@ -31,8 +31,9 @@ TEST_CASE( "Core/Utils/Observable", "[Core][Core/Utils][Observable]" ) {
     int c  = 0;
     A::m_b = 0;
 
-    using Observer  = std::function<void( void )>;
-    using Observer2 = std::function<void( int )>;
+    using Observer = std::function<void( void )>;
+    ///\todo add more tests with
+    // using Observer2 = std::function<void( int )>;
 
     auto bf = std::bind( &A::f, &a );
 

@@ -226,7 +226,7 @@ class RA_CORE_API VolumeGrid : public AbstractDiscreteVolume
     }
 
   private:
-    const ValueType m_defaultValue;
+    ValueType m_defaultValue;
     Container m_data;
 }; // class VolumeGrid
 
