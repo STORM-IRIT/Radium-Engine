@@ -118,7 +118,6 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProg
     auto glprog           = prog->getProgramObject();
     gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
 
-    m_vao->bind();
     for ( GLint idx = 0; idx < attribCount; ++idx )
     {
         const gl::GLsizei bufSize = 256;
@@ -145,8 +144,6 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProg
         else
         { m_vao->disable( loc ); }
     }
-
-    m_vao->unbind();
 }
 
 template <typename I>
@@ -247,7 +244,6 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
     auto glprog           = prog->getProgramObject();
     gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
 
-    m_vao->bind();
     for ( GLint idx = 0; idx < attribCount; ++idx )
     {
         const gl::GLsizei bufSize = 256;
@@ -274,8 +270,6 @@ void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const Shade
         else
         { m_vao->disable( loc ); }
     }
-
-    m_vao->unbind();
 }
 
 template <typename T>
@@ -446,9 +440,9 @@ template <typename T>
 void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
     if ( base::m_vao )
     {
-        base::autoVertexAttribPointer( prog );
         GL_CHECK_ERROR;
         base::m_vao->bind();
+        base::autoVertexAttribPointer( prog );
         GL_CHECK_ERROR;
         base::m_vao->drawElements( static_cast<GLenum>( base::m_renderMode ),
                                    GLsizei( m_numElements ),
@@ -478,6 +472,10 @@ LineMesh::LineMesh( const std::string& name,
 
 /////////  PolyMesh ///////////
 
+size_t PolyMesh::getNumFaces() const {
+    return getCoreGeometry().getIndices().size();
+}
+
 void PolyMesh::updateGL_specific_impl() {
     if ( !m_indices )
     {
@@ -489,11 +487,10 @@ void PolyMesh::updateGL_specific_impl() {
         triangulate();
         /// this one do not work since m_indices is not a std::vector
         // m_indices->setData( m_mesh.m_indices, GL_DYNAMIC_DRAW );
-        m_numElements = m_triangleIndices.size() * Core::Vector3ui::RowsAtCompileTime;
+        m_numElements = m_triangleIndices.size() * PolyMesh::IndexType::RowsAtCompileTime;
 
         m_indices->setData(
-            static_cast<gl::GLsizeiptr>( m_triangleIndices.size() *
-                                         sizeof( typename base::CoreGeometry::IndexType ) ),
+            static_cast<gl::GLsizeiptr>( m_triangleIndices.size() * sizeof( PolyMesh::IndexType ) ),
             m_triangleIndices.data(),
             GL_STATIC_DRAW );
         m_indicesDirty = false;

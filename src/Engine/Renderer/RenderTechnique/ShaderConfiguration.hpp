@@ -131,6 +131,7 @@ class RA_ENGINE_API ShaderConfiguration final
 
     const std::string& getName() const { return m_name; }
     const std::string& getVersion() const { return m_version; }
+    friend std::ostream& operator<<( std::ostream& stream, const ShaderConfiguration& config );
 
   private:
     std::string m_name {};

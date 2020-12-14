@@ -15,6 +15,31 @@ static const std::string defaultFragmentShader {Ra::Core::Resources::getRadiumRe
 namespace Ra {
 namespace Engine {
 
+std::ostream& operator<<( std::ostream& stream, const ShaderConfiguration& config ) {
+
+    stream << " -- shader configuration [" << config.m_name << "]\n";
+
+    for ( const auto& s : config.m_shaders )
+    {
+        stream << " shaders  [" << s.first << " " << s.second << " ]\n";
+    }
+
+    for ( const auto& s : config.m_properties )
+    {
+        stream << "props  [" << s << "]\n";
+    }
+
+    for ( const auto& s : config.m_includes )
+    {
+        stream << "inc  [" << s.first << "]\n";
+    }
+    for ( const auto& s : config.m_named_strings )
+    {
+        stream << "props  [" << s.first << "]\n";
+    }
+    return stream;
+}
+
 ShaderConfiguration ShaderConfiguration::m_defaultShaderConfig( "Default Program",
                                                                 defaultVertexShader,
                                                                 defaultFragmentShader );
