@@ -159,8 +159,8 @@ jobs:
         if: ${{ failure() &&  github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
-          auth: ${{ secrets.GIST_BADGES_SECRET }}
-          gistID: 41fbddac0a090d541dac83c587681892
+          auth: ${{ secrets.GIST_BADGES_TOKEN }}
+          gistID: ${{ secrets.GIST_BADGES_SECRET }}
           filename: format.json
           label: format
           message: 'not conform'
@@ -170,8 +170,8 @@ jobs:
         if: ${{ success() &&  github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
-          auth: ${{ secrets.GIST_BADGES_SECRET }}
-          gistID: 41fbddac0a090d541dac83c587681892
+          auth: ${{ secrets.GIST_BADGES_TOKEN }}
+          gistID: ${{ secrets.GIST_BADGES_SECRET }}
           filename: format.json
           label: format
           message: conform
