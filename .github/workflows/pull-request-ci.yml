@@ -4,7 +4,13 @@ defaults:
   run:
     shell: bash
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -13,47 +19,62 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", assimp: "OFF" }
-          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc", cxx: "g++", assimp: "ON" }
-          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", assimp: "ON" }
-
+          - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", assimp: "OFF", icon: "Windows"}
+          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc", cxx: "g++", assimp: "ON", icon: "Linux" }
+          - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", assimp: "ON", icon: "Apple" }
     steps:
-     - uses: seanmiddleditch/gha-setup-ninja@master
-
-     - name: Add msbuild to PATH
-       uses: seanmiddleditch/gha-setup-vsdevenv@master
-       if: runner.os == 'Windows'
-
-     - name: Install Qt
-       uses: jurplel/install-qt-action@v2
-       with:
-         cached: false
-
-     - name: Prepare directories
-       run: |
-         mkdir -p install/
-         mkdir -p src/Radium-Engine
-         mkdir -p build/Radium-Engine
-         
-     - name: Checkout remote head
-       uses: actions/checkout@master
-       with:
-         path: src/Radium-Engine
-
-     - name: Configure Radium
-       run: |
-         cd build/Radium-Engine
-         cmake ../../src/Radium-Engine -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../install/ -DRADIUM_IO_ASSIMP=${{ matrix.config.assimp }} -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY
-
-     - name: Build Radium
-       run: |
-         cd build/Radium-Engine
-         cmake --build . --parallel --config Release --target install
-
-     - name: Run unit tests
-       if: runner.os != 'Windows'
-       run: |
-         cd build/Radium-Engine
-         cmake --build . --parallel --config Release --target check
-
+      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Add msbuild to PATH
+        uses: seanmiddleditch/gha-setup-vsdevenv@master
+        if: runner.os == 'Windows'
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          cached: false
+      - name: Prepare directories
+        run: |
+          mkdir -p install/
+          mkdir -p src/Radium-Engine
+          mkdir -p build/Radium-Engine
+      - name: Checkout remote head
+        uses: actions/checkout@master
+        with:
+          path: src/Radium-Engine
+      - name: Configure Radium
+        run: |
+          cd build/Radium-Engine
+          cmake ../../src/Radium-Engine -GNinja -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../../install/ -DRADIUM_IO_ASSIMP=${{ matrix.config.assimp }} -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY
+      - name: Build Radium
+        run: |
+          cd build/Radium-Engine
+          cmake --build . --parallel --config Release --target install
+      - name: Run unit tests
+        if: runner.os != 'Windows'
+        run: |
+          cd build/Radium-Engine
+          cmake --build . --parallel --config Release --target check
+      - name: Update badge on merge (failure)
+        if: ${{ failure() && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_BADGES_TOKEN }}
+          gistID: ${{ secrets.GIST_BADGES_SECRET }}
+          filename: "${{ matrix.config.os }}.json"
+          label: CI
+          message: 'falling'
+          namedLogo: ${{ matrix.config.icon }}
+          logoColor: white
+          color: CC1B1B
+      - name: Update badge on merge (success)
+        if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_BADGES_TOKEN }}
+          gistID: ${{ secrets.GIST_BADGES_SECRET }}
+          filename: "${{ matrix.config.os }}.json"
+          label: CI
+          message: 'passing'
+          namedLogo: ${{ matrix.config.icon }}
+          logoColor: white
+          color: 1BCC1B
 
