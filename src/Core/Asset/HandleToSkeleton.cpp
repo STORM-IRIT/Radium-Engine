@@ -88,7 +88,7 @@ void createSkeleton( const Ra::Core::Asset::HandleData& data, Core::Animation::S
         }
         for ( const auto& l : leaves )
         {
-            const auto& dd = data.getComponentData()[l];
+            const auto& dd = component[l];
             if ( dd.m_weights.size() )
             {
                 LOG( logDEBUG ) << "Adding end-bone at " << dd.m_name << ".";

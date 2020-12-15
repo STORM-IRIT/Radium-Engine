@@ -28,12 +28,14 @@ TaskQueue::~TaskQueue() {
 }
 
 TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
+    TimerData tdata;
+    // init tdata with task name before moving ownership
+    tdata.taskName = task->getName();
+    m_timerData.push_back( tdata );
+
     m_tasks.emplace_back( std::unique_ptr<Task>( task ) );
     m_dependencies.push_back( std::vector<TaskId>() );
     m_remainingDependencies.push_back( 0 );
-    TimerData tdata;
-    tdata.taskName = task->getName();
-    m_timerData.push_back( tdata );
 
     CORE_ASSERT( m_tasks.size() == m_dependencies.size(), "Inconsistent task list" );
     CORE_ASSERT( m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list" );
