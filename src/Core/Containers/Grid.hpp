@@ -35,13 +35,13 @@ class Grid
         //
 
         /// Constructor from size and linear index.
-        Iterator( const IdxVector& size, uint startIdx = 0 );
+        explicit Iterator( const IdxVector& size, uint startIdx = 0 );
 
         /// Constructor from size and vector index.
         Iterator( const IdxVector& size, const IdxVector& startIdx );
 
         /// Constructor from grid and linear index.
-        Iterator( const Grid<T, D>& grid, uint startIdx = 0 );
+        explicit Iterator( const Grid<T, D>& grid, uint startIdx = 0 );
 
         /// Constructor from grid and vector index.
         Iterator( const Grid<T, D>& grid, const IdxVector& startIdx );

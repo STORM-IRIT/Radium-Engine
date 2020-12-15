@@ -61,7 +61,7 @@ class RA_GUIBASE_API TreeItem
     // Tree structure variables
 
     /// Parent object of item.
-    TreeItem* m_parent;
+    TreeItem* m_parent {nullptr};
 
     /// Children of item in the tree.
     std::vector<std::unique_ptr<TreeItem>> m_children;
