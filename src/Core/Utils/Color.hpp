@@ -31,7 +31,7 @@ class ColorBase : public Eigen::Matrix<_Scalar, 4, 1>
   public:
     using VectorType = Eigen::Matrix<_Scalar, 4, 1>;
 
-    inline ColorBase() : ColorBase( _Scalar( 1. ), _Scalar( 1. ), _Scalar( 1. ) ) {}
+    explicit inline ColorBase() : ColorBase( _Scalar( 1. ), _Scalar( 1. ), _Scalar( 1. ) ) {}
 
     template <typename S2>
     inline ColorBase( S2 r, S2 g, S2 b, S2 alpha = S2( 1 ) ) :
