@@ -29,7 +29,7 @@ class DualQuaternion
 
     /// Construct a dual-quaternion from a rigid transform
     /// Any non-rigid component (e.g. scale and shear) will be ignored.
-    inline DualQuaternion( const Core::Transform& tr );
+    explicit inline DualQuaternion( const Core::Transform& tr );
 
     /// Default copy constructor and assignment operator.
     DualQuaternion( const DualQuaternion& other ) = default;

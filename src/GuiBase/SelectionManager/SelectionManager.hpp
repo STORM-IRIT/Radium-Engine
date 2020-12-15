@@ -20,7 +20,7 @@ class RA_GUIBASE_API SelectionManager : public QItemSelectionModel
 {
     Q_OBJECT
   public:
-    SelectionManager( ItemModel* model, QObject* parent = nullptr );
+    explicit SelectionManager( ItemModel* model, QObject* parent = nullptr );
 
     // The following functions adapt QItemSelectionModel functions to
     // operate with ItemEntries instead of model indices.
