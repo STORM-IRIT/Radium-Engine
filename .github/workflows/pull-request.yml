@@ -1,9 +1,16 @@
 name: Guideline Checks
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 jobs:
   hitory:
+    if: ${{ github.event_name != 'push' }}
     name: Check linear history
     runs-on: ubuntu-latest
     steps:
@@ -147,3 +154,26 @@ jobs:
             echo git reset --hard gh-formatter
             echo git push
             echo 
+
+      - name: Update badge en merge (failure)
+        if: ${{ failure() &&  github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_BADGES_SECRET }}
+          gistID: 41fbddac0a090d541dac83c587681892
+          filename: format.json
+          label: format
+          message: 'not conform'
+          namedLogo: C++
+          color: CC1B1B
+      - name: Update badge en merge (success)
+        if: ${{ success() &&  github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_BADGES_SECRET }}
+          gistID: 41fbddac0a090d541dac83c587681892
+          filename: format.json
+          label: format
+          message: conform
+          namedLogo: C++
+          color: 1BCC1B
