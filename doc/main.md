@@ -6,11 +6,12 @@ Devopped and maintained by the [STORM research group](https://www.irit.fr/STORM/
 The source code is hosted on github: https://github.com/STORM-IRIT/Radium-Engine
 
 # Badges
-   Status     |    Tool used
-------------- | -------------
-![Build Status (linux-macosx)](https://travis-ci.com/STORM-IRIT/Radium-Engine.svg?branch=master)  | [CI on MacOSx and Linux with TravisCI](https://travis-ci.com/STORM-IRIT/Radium-Engine)
-![Build status(windows)](https://ci.appveyor.com/api/projects/status/y782apb6urx0krj3/branch/master?svg=true) | [CI on Windows with Appveyor](https://ci.appveyor.com/project/nmellado/radium-engine/branch/master)
-![Codacy Badge](https://api.codacy.com/project/badge/Grade/faf8701c9fb142f7b6215871ec40c5fe)| [Automated code review with codacy](https://app.codacy.com/app/STORM/Radium-Engine?utm_source=github.com&utm_medium=referral&utm_content=STORM-IRIT/Radium-Engine&utm_campaign=Badge_Grade_Dashboard)
+
+![CI linux badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/dlyr/41fbddac0a090d541dac83c587681892/raw/ubuntu-latest.json)
+![CI macos badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/dlyr/41fbddac0a090d541dac83c587681892/raw/macos-latest.json)
+![CI windows  badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/dlyr/41fbddac0a090d541dac83c587681892/raw/windows-latest.json)
+![source format badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/dlyr/41fbddac0a090d541dac83c587681892/raw/format.json)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/faf8701c9fb142f7b6215871ec40c5fe)](https://app.codacy.com/app/STORM/Radium-Engine?utm_source=github.com&utm_medium=referral&utm_content=STORM-IRIT/Radium-Engine&utm_campaign=Badge_Grade_Dashboard)
 
 # Overview
 
