@@ -6,14 +6,14 @@ All the dependencies are automatically fetched and compiled at build time.
  * [Core] Eigen, OpenMesh
  * [Engine] glm, globjects, glbindings
  * [IO] Assimp
- * [GuiBase] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.10 recommended)
+ * [GuiBase] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 recommended)
  * stb_image
 
 See @ref develbuildchain for technical details on dependencies management and how to provide locally installed dependencies.
 
 Minimal requirements
  * OpenGL 3+ / GLSL 330+
- * CMake 3.0.+
+ * CMake 3.15.7+
 
 # Supported compiler and platforms
 
@@ -115,6 +115,8 @@ RADIUM_UPDATE_VERSION:BOOL=ON
 ~~~
 
 All radium related cmake options (with their current values) can be printed with `cmake -LAH | grep -B1 RADIUM` (on linux like system)
+
+\warning For computers with low RAM capacities (under 12G) we recommend to set the `CMAKE_BUILD_PARALLEL_LEVEL` environment variable to a reasonable value (i.e. 2) to prevent the computer from swapping.
 
 ##  Building on Linux/MacOS (command line instruction)
 
