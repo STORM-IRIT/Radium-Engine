@@ -334,10 +334,10 @@ class RA_ENGINE_API RadiumEngine
 
     struct TimeData {
         /**
-         * Update the current time from the current frame number, according to the
+         * Update the current time from the current time delta, according to the
          * time flow policy (ForwardBackward or loop around).
          */
-        void updateTime();
+        void updateTime( Scalar dt );
 
         Scalar m_dt {1_ra / 60_ra}; ///< The time delta between 2 consecutive frames.
         Scalar m_startTime {0_ra};  ///< The `start` time for the time window.
@@ -347,6 +347,7 @@ class RA_ENGINE_API RadiumEngine
         bool m_singleStep {true};   ///< Shall time flow for only one frame.
         bool m_realTime {false};    ///< Whether we use the effective time flow or the constant one.
         bool m_forwardBackward {false}; ///< Is PingPong mode enabled.
+        bool m_isBackward {false};      ///< Whether time is going backwards.
     };
 
     TimeData m_timeData;
