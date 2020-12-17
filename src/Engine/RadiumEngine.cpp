@@ -117,8 +117,7 @@ void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
 
     if ( m_timeData.m_play || m_timeData.m_singleStep )
     {
-        m_timeData.m_time += m_timeData.m_realTime ? dt : m_timeData.m_dt;
-        m_timeData.updateTime();
+        m_timeData.updateTime( dt );
         m_timeData.m_singleStep = false;
     }
 
@@ -373,6 +372,8 @@ Scalar RadiumEngine::getEndTime() const {
 
 void RadiumEngine::setForwardBackward( bool mode ) {
     m_timeData.m_forwardBackward = mode;
+    // if just disabled forward-backward mode, then going forward
+    if ( !m_timeData.m_forwardBackward ) { m_timeData.m_isBackward = false; }
 }
 
 Scalar RadiumEngine::getTime() const {
@@ -383,27 +384,46 @@ uint RadiumEngine::getFrame() const {
     return uint( std::ceil( m_timeData.m_time / m_timeData.m_dt ) );
 }
 
-void RadiumEngine::TimeData::updateTime() {
-    if ( m_time < m_startTime )
+void RadiumEngine::TimeData::updateTime( Scalar dt ) {
+    dt += m_realTime ? dt : m_dt;
+    // update the time w.r.t. the time flow policy
+    if ( m_forwardBackward && m_isBackward ) { m_time -= dt; }
+    else
+    { m_time += dt; }
+    // special case: empty time window => forever mode
+    if ( m_endTime < 0 || m_startTime >= m_endTime )
     {
-        // reset
-        m_time = m_startTime;
-    }
-    if ( m_endTime < 0 || m_startTime > m_endTime )
-    {
-        // just run
+        // just run forever
+        m_isBackward = false;
         return;
     }
-    if ( ( !m_forwardBackward && m_time > m_endTime ) ||
-         ( m_forwardBackward && m_time > 2 * m_endTime - m_startTime ) )
+    // special case: m_time before time window
+    if ( m_time < m_startTime )
     {
-        // loop around
-        m_time = m_startTime + m_time - m_endTime;
+        // reset whatever the mode
+        m_time = m_startTime;
+        // and go forward from now on
+        m_isBackward = false;
+        return;
     }
+    // special case: m_time after time window in loop mode
+    if ( !m_forwardBackward && m_time > m_endTime )
+    {
+        // compute the overload of time
+        dt = Scalar( fmod( double( m_time - m_startTime ), double( m_endTime - m_startTime ) ) );
+        // loop around, applying the overload of time
+        m_time = m_startTime + dt;
+        return;
+    }
+    // special case: m_time after time window in forward-backward mode
     if ( m_forwardBackward && m_time > m_endTime )
     {
-        // ping pong
-        m_time = 2 * m_endTime - m_time;
+        if ( !m_isBackward ) // start backwards
+        { m_time = 2 * m_endTime - m_time; }
+        else // restart backward from the end of the time window
+        { m_time = m_endTime; }
+        m_isBackward = true;
+        return;
     }
 }
 
