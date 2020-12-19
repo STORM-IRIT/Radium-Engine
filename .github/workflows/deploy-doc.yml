@@ -1,0 +1,35 @@
+name: Deploy documentation to gh-pages
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy-doc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare directories
+        run: |
+          mkdir -p src/Radium-Engine
+          mkdir -p build/Radium-Engine
+      - name: Checkout remote head
+        uses: actions/checkout@master
+        with:
+          path: src/Radium-Engine
+  xapian-tools
+      - name: Install packages
+        run : |
+          sudo apt-get install doxygen graphviz
+      - name: Configure Doc
+        run: |
+          cd build/Radium-Engine
+          cmake ../../src/Radium-Engine/doc -DRADIUM_IO_ASSIMP=ON -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY
+      - name: Build Doc
+        run: |
+          cd build/Radium-Engine 
+          cmake --build . --target RadiumDoc
+      - name: Deploy Doc
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          publish_dir: 'build/Radium-Engine/html'
