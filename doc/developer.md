@@ -35,5 +35,7 @@
 \page extensions Developing using Radium
 - \subpage cmakeutilities
 - \subpage develplugin
-- \subpage apps [TODO] Application dev
+- \subpage apps
+
+\page apps [TODO] Application dev
 \todo write application dev doc, merging ExampleApp and Apps docs.

@@ -95,7 +95,7 @@ configure_radium_library(
 ~~~
 This cmake function configures the `<TARGET>` for installation and for further import in client project using `find_package(<TARGET>)`.
 In order to use the library either through an imported target from an installed binary or as a project target in another component on the same build tree, this function defines an alias target with the same name than the imported one.
-This function also defines the symbol <TARGET>_EXPORTS so that, it could be used to allow symbol import/export from dynamic library.
+This function also defines the symbol `<TARGET>`_EXPORTS so that, it could be used to allow symbol import/export from dynamic library.
 
 This function takes the following parameters:
 
@@ -279,7 +279,7 @@ This function is called implicitly, when defining a single component package, wh
 
 This function also allows to define multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command when called explicitly with an appropriate `PACKAGE_CONFIG` parameter.
  
-### Function `radium_exported_resources` {#radium_exported_resources)}
+### Function `radium_exported_resources` {#radium_exported_resources}
 
 ~~~{.cmake}
 radium_exported_resources(
