@@ -36,7 +36,6 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f116fbc75c7849827a65d583c02af72a8b0610f1</span>
    </div>
   </td>
  </tr>
@@ -92,14 +91,14 @@ $(document).ready(function(){initNavTree('develplugin.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md93">Setting a CMakeLists.txt for a Radium plugin</a></li>
-<li class="level1"><a href="#autotoc_md94">Configuring the plugin</a></li>
-<li class="level1"><a href="#autotoc_md95">Using the Plugin</a></li>
+<ul><li class="level1"><a href="#autotoc_md95">Setting a CMakeLists.txt for a Radium plugin</a></li>
+<li class="level1"><a href="#autotoc_md96">Configuring the plugin</a></li>
+<li class="level1"><a href="#autotoc_md97">Using the Plugin</a></li>
 </ul>
 </div>
-<div class="textblock"><p>Custom plugins can be easily added to Radium ecosystem. In addition to the <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html" title="Interface class for Radiums plugins. ">Ra::Plugins::RadiumPluginInterface</a> API, Radium provides a set of tools simplifying the deployment of plugins, which among other things take care of the portability and relocatability of the binaries.</p>
+<div class="textblock"><p>Custom plugins can be easily added to Radium ecosystem. In addition to the Ra::Plugins::RadiumPluginInterface API, Radium provides a set of tools simplifying the deployment of plugins, which among other things take care of the portability and relocatability of the binaries.</p>
 <p>This manual describes how to configure, compile and use your plugin with any Radium-Plugin compatible application.</p>
-<h1><a class="anchor" id="autotoc_md93"></a>
+<h1><a class="anchor" id="autotoc_md95"></a>
 Setting a CMakeLists.txt for a Radium plugin</h1>
 <p>To compile and use a plugin, the Radium environment must be configured, compiled and installed beforehand.</p>
 <p>The main CMakeLists.txt file for compiling a Radium plugin could be as simple as</p>
@@ -112,7 +111,7 @@ Setting a CMakeLists.txt for a Radium plugin</h1>
 <li><code>INSTALL_IN_RADIUM_BUNDLE</code> : this parameter, optional, will install the plugin and its associated resources directly into the Radium Bundle installation directory. This will allow to have Plugins relocatable at the same time than the Radium Bundle. If this parameter is given, it replace the install location configuration that uses the cmake standard option <code>-DCMAKE_INSTALL_PREFIX=whereToInstallThings</code></li>
 </ul>
 <p>Note that, as it is the case for applications, Plugins does not need to be installed to be used by any applications. Plugins could be loaded and used from their build-trees.</p>
-<h1><a class="anchor" id="autotoc_md94"></a>
+<h1><a class="anchor" id="autotoc_md96"></a>
 Configuring the plugin</h1>
 <p>Configuring the plugin for compilation and install depends on several use cases that might evolve during the plugin development.</p>
 <p>There are three main uses cases we can identify :</p>
@@ -127,11 +126,11 @@ Configuring the plugin</h1>
 <div class="fragment"><div class="line">cmake ../ -DRadium_DIR=pathToRadiumInstallation/lib/cmake/Radium</div><div class="line">cmake --build .</div></div><!-- fragment --><p>If you just want to use the plugin directly from its build-tree, the resulting dynamic library will be found in the <code>build-release/Plugins/lib</code> directory and the associated resources will be linked (or copied on systems that do not support symbolic links) in the directory <code>build-release/Plugins/Resources</code>. In this case, note that the plugin from the buildtree could generally not be moved as it is linked to used libraries using relative paths.</p>
 <p>If you install the plugin, execute the command <code>cmake --install</code> that will install the plugin according to your configuration choice as described above (default installation destination, user defined installation directory or Radium Bundle installation). The dynamic library will then be copied into <code>pathToInstallPlugins/lib</code> and the Resources will be copied into <code>pathToInstallPlugins/Resources</code>.</p>
 <p>Remember that resources associated with the plugin using the option <code>RESOURCES ListOfResourcesDirectory</code> of the <code>configure_radium_plugin</code> command are <em>linked</em> into the buildtree (on systems supporting symbolic links) and <em>copied</em> into the installed locations.</p>
-<h1><a class="anchor" id="autotoc_md95"></a>
+<h1><a class="anchor" id="autotoc_md97"></a>
 Using the Plugin</h1>
-<p>Any application that inherits from <code><a class="el" href="classRa_1_1GuiBase_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI. ">Ra::GuiBase::BaseApplication</a></code> could use any Plugin developped using the Radium Engine. As plugins are Qt objects that implement specific interface, it is also permitted to have any Qt Application to use plugins. Meanwhile, the following documentation is related to the Radium BaseApplication derived applications.</p>
+<p>Any application that inherits from <code>Ra::GuiBase::BaseApplication</code> could use any Plugin developped using the Radium Engine. As plugins are Qt objects that implement specific interface, it is also permitted to have any Qt Application to use plugins. Meanwhile, the following documentation is related to the Radium BaseApplication derived applications.</p>
 <p>If the plugin is installed in the Radium Bundle directory, it will be automatically loaded by any plugin-aware application. But, when developping a plugin, the installation in the Radium bundle directory is not always permitted nor efficient.</p>
-<p>It could then be useful to use the Plugin from its own installation directory or directly from its build-tree. To do that, the application could register the plugin directory location by calling the <code><a class="el" href="classRa_1_1GuiBase_1_1BaseApplication.html#aa7896f814da3cc73941265caaa11bb1e">Ra::GuiBase::BaseApplication::addPluginDirectory( const std::string&amp; pluginDir )</a>;</code> method that will record, in the QSettings file associated with the application, the directory in which the Radium Engine will look for plugins. Once this directory is registered, any plugin that will be found in this directory will be loaded at each application startup if the build type of the plugin is compatible with the build type of the application (release, debug, ...). If the plugin location that is registered correspond to the build tree location of the plugin, there is no need to instal it.</p>
+<p>It could then be useful to use the Plugin from its own installation directory or directly from its build-tree. To do that, the application could register the plugin directory location by calling the <code>Ra::GuiBase::BaseApplication::addPluginDirectory( const std::string&amp; pluginDir );</code> method that will record, in the QSettings file associated with the application, the directory in which the Radium Engine will look for plugins. Once this directory is registered, any plugin that will be found in this directory will be loaded at each application startup if the build type of the plugin is compatible with the build type of the application (release, debug, ...). If the plugin location that is registered correspond to the build tree location of the plugin, there is no need to instal it.</p>
 <p>Note that the main Radium demonstration application (<code>main-app</code>) offer a menu entry (<code>File/Plugins/Add plugin path)</code> that call the registration method once the user has selected a plugin location. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
@@ -139,7 +138,7 @@ Using the Plugin</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="extensions.html">Developing using Radium</a></li>
-    <li class="footer">Generated on Sat Nov 28 2020 14:44:15 for Radium Engine by
+    <li class="footer">Generated on Sat Dec 19 2020 11:45:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

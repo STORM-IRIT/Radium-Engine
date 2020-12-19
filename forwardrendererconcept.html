@@ -36,7 +36,6 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f116fbc75c7849827a65d583c02af72a8b0610f1</span>
    </div>
   </td>
  </tr>
@@ -100,8 +99,8 @@ $(document).ready(function(){initNavTree('forwardrendererconcept.html','');});
 <li class="level1"><a href="#autotoc_md26">6. Write final texture to framebuffer / backbuffer</a></li>
 </ul>
 </div>
-<div class="textblock"><p>The main renderer of Radium, implemented in the class <a class="el" href="classRa_1_1Engine_1_1ForwardRenderer.html">Ra::Engine::ForwardRenderer</a> implements a Z-pre-pass forward rendering loop. Even if the material association to a drawable object, realized by the so called <a class="el" href="classRa_1_1Engine_1_1RenderTechnique.html">Ra::Engine::RenderTechnique</a> is tightly coupled with the main rendering loop, Plugins might define new renderers and interact differently with shader and materials properties (see chapter on <a class="el" href="develmaterials.html">Materials</a> ).</p>
-<p>Here is a summary of the different passes of the <a class="el" href="classRa_1_1Engine_1_1ForwardRenderer.html">Ra::Engine::ForwardRenderer</a></p>
+<div class="textblock"><p>The main renderer of Radium, implemented in the class Ra::Engine::ForwardRenderer implements a Z-pre-pass forward rendering loop. Even if the material association to a drawable object, realized by the so called Ra::Engine::RenderTechnique is tightly coupled with the main rendering loop, Plugins might define new renderers and interact differently with shader and materials properties (see chapter on <a class="el" href="develmaterials.html">Materials</a> ).</p>
+<p>Here is a summary of the different passes of the Ra::Engine::ForwardRenderer</p>
 <h1><a class="anchor" id="autotoc_md21"></a>
 1. Depth, ambient color and "deferred info" pass</h1>
 <p>This pass</p><ul>
@@ -114,12 +113,12 @@ $(document).ready(function(){initNavTree('forwardrendererconcept.html','');});
 </ul>
 </li>
 </ul>
-<p>In this pass, each <a class="el" href="classRa_1_1Engine_1_1RenderObject.html">Ra::Engine::RenderObject</a> is drawn with the <a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aa1e9cbadaa169fba4449aa3547fa8d05e">Ra::Engine::Z_PREPASS</a> argument so that the corresponding shader (if it exists) will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::Z_PREPASS );</code>)</p>
-<p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aa1e9cbadaa169fba4449aa3547fa8d05e">Ra::Engine::Z_PREPASS</a> pass must draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
+<p>In this pass, each Ra::Engine::RenderObject is drawn with the Ra::Engine::Z_PREPASS argument so that the corresponding shader (if it exists) will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::Z_PREPASS );</code>)</p>
+<p>Note that the shader associated to the Ra::Engine::Z_PREPASS pass must draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
 <h1><a class="anchor" id="autotoc_md22"></a>
 2. Lighting pass</h1>
-<p>This pass is a classic forward lighting pass that accumulates the color of each light source. Before this pass, blending (one, one) is enabled and it does </p><div class="fragment"><div class="line">for each light do</div><div class="line">  Get light parameters</div><div class="line">  for each object</div><div class="line">    bind shader</div><div class="line">    bind material &amp; light</div><div class="line">    render mesh</div><div class="line">  done</div><div class="line">done</div></div><!-- fragment --><p>In this pass, each RenderObject drawn with the <a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aa3ff0ae60cd426d7a2f272a7c652837d7">Ra::Engine::LIGHTING_OPAQUE</a> argument so that the corresponding shader will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::LIGHTING_OPAQUE );</code>)</p>
-<p>Note that the shader associated to the <a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aa3ff0ae60cd426d7a2f272a7c652837d7">Ra::Engine::LIGHTING_OPAQUE</a> pass must lit and draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
+<p>This pass is a classic forward lighting pass that accumulates the color of each light source. Before this pass, blending (one, one) is enabled and it does </p><div class="fragment"><div class="line">for each light do</div><div class="line">  Get light parameters</div><div class="line">  for each object</div><div class="line">    bind shader</div><div class="line">    bind material &amp; light</div><div class="line">    render mesh</div><div class="line">  done</div><div class="line">done</div></div><!-- fragment --><p>In this pass, each RenderObject drawn with the Ra::Engine::LIGHTING_OPAQUE argument so that the corresponding shader will be activated before draw call. (<code>ro-&gt;render( renderParameters, viewingParameters, DefaultRenderingPasses::LIGHTING_OPAQUE );</code>)</p>
+<p>Note that the shader associated to the Ra::Engine::LIGHTING_OPAQUE pass must lit and draw only fully opaque fragments. Fully transparent ones (rejected by a masking information such as mask texture) and blend-able ones (those with an opacity factor alpha les than one) must be discarded.</p>
 <h1><a class="anchor" id="autotoc_md23"></a>
 3. Ordered independent transparency</h1>
 <p>Rendering transparent objects in Radium is done according to the algorithm described in</p><ul>
@@ -148,7 +147,7 @@ $(document).ready(function(){initNavTree('forwardrendererconcept.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="conceptsmanual.html">Radium Concepts</a></li>
-    <li class="footer">Generated on Sat Nov 28 2020 14:44:15 for Radium Engine by
+    <li class="footer">Generated on Sat Dec 19 2020 11:45:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

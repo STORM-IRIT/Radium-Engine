@@ -36,7 +36,6 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f116fbc75c7849827a65d583c02af72a8b0610f1</span>
    </div>
   </td>
  </tr>
@@ -92,14 +91,14 @@ $(document).ready(function(){initNavTree('develWithRadium.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md54">Radium Plugin</a></li>
-<li class="level1"><a href="#autotoc_md55">Radium Application</a></li>
-<li class="level1"><a href="#autotoc_md56">Radium libraries</a></li>
-<li class="level1"><a href="#autotoc_md57">Radium coding style</a></li>
-<li class="level1"><a href="#autotoc_md58">Radium test suite</a><ul><li class="level2"><a href="#autotoc_md59">Preliminaries</a></li>
-<li class="level2"><a href="#autotoc_md60">How to write tests</a></li>
-<li class="level2"><a href="#autotoc_md61">How to add a test to the testing suite</a></li>
-<li class="level2"><a href="#autotoc_md62">How to run tests locally and on the CI systems</a></li>
+<ul><li class="level1"><a href="#autotoc_md56">Radium Plugin</a></li>
+<li class="level1"><a href="#autotoc_md57">Radium Application</a></li>
+<li class="level1"><a href="#autotoc_md58">Radium libraries</a></li>
+<li class="level1"><a href="#autotoc_md59">Radium coding style</a></li>
+<li class="level1"><a href="#autotoc_md60">Radium test suite</a><ul><li class="level2"><a href="#autotoc_md61">Preliminaries</a></li>
+<li class="level2"><a href="#autotoc_md62">How to write tests</a></li>
+<li class="level2"><a href="#autotoc_md63">How to add a test to the testing suite</a></li>
+<li class="level2"><a href="#autotoc_md64">How to run tests locally and on the CI systems</a></li>
 </ul>
 </li>
 </ul>
@@ -111,45 +110,45 @@ $(document).ready(function(){initNavTree('develWithRadium.html','');});
 <li>Testing: extend radium tests to improve testing coverage or when adding new functionality.</li>
 </ol>
 <p>Once installed, Radium offers several cmake functions to configure and build your extension. You can access documentation and how-to about these cmake function in the <a class="el" href="cmakeutilities.html">Radium cmake utilities</a> documentation.</p>
-<h1><a class="anchor" id="autotoc_md54"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 Radium Plugin</h1>
 <p>Tutorial and documentation here: <a href="https://github.com/STORM-IRIT/Radium-PluginExample">https://github.com/STORM-IRIT/Radium-PluginExample</a></p>
-<h1><a class="anchor" id="autotoc_md55"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 Radium Application</h1>
 <p>Tutorial here: <a href="https://github.com/STORM-IRIT/Radium-AppExample">https://github.com/STORM-IRIT/Radium-AppExample</a></p>
-<h1><a class="anchor" id="autotoc_md56"></a>
+<h1><a class="anchor" id="autotoc_md58"></a>
 Radium libraries</h1>
 <p>Direct contributions to master are closed. Please submit your pull request.</p>
-<h1><a class="anchor" id="autotoc_md57"></a>
+<h1><a class="anchor" id="autotoc_md59"></a>
 Radium coding style</h1>
 <p>Please follow the scripts/clang-format coding style (tested <code>with clang-format 9.0</code>). We also provide a pre commit hook that checks the committed files are correctly formatted. To install both hooks and clang-format, simply run <code>./scripts/install-scripts-linux.sh</code> on linux, or adapt to your OS.</p>
-<h1><a class="anchor" id="autotoc_md58"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 Radium test suite</h1>
-<h2><a class="anchor" id="autotoc_md59"></a>
+<h2><a class="anchor" id="autotoc_md61"></a>
 Preliminaries</h2>
 <p>Radium testing is done using two tools:</p><ul>
 <li>CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.</li>
 <li>Continuous Integration system: Travis.ci and AppVeyor. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.</li>
 </ul>
 <p>As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically. In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.</p>
-<h2><a class="anchor" id="autotoc_md60"></a>
+<h2><a class="anchor" id="autotoc_md62"></a>
 How to write tests</h2>
 <p>Tests are C++ executables, expected to set their return value accordingly to the test result, e.g. <code>return EXIT_FAILURE;</code> or by calling <code>abort();</code> in case of failure.</p>
 <p>Their source code is stored in <code>Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src</code>.</p>
 <p>We provide in <code>Radium-Engine/tests/Tests.hpp</code> some utility functions to ease tests implementation.</p>
 <p>Let's consider the following snippet:`</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="LinearAlgebra_8hpp.html">Core/Math/LinearAlgebra.hpp</a>&gt;</span>                        <span class="comment">// include path contains Radium sources,</span></div><div class="line"><span class="preprocessor">#include &lt;OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh&gt;</span> <span class="comment">// Radium&#39;s dependencies</span></div><div class="line"><span class="preprocessor">#include &lt;Tests.hpp&gt;</span>                                          <span class="comment">// and the testing tools</span></div><div class="line"></div><div class="line"><span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div><div class="line"><span class="keyword">namespace </span>Testing {</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> run() {</div><div class="line">    <span class="keywordtype">bool</span> condition = <span class="keyword">true</span>;</div><div class="line">    RA_VERIFY( condition, <span class="stringliteral">&quot;This test is passing&quot;</span> );</div><div class="line">    <span class="comment">// RA_VERIFY( ! condition, &quot;This test does not pass&quot; );</span></div><div class="line">}</div><div class="line"></div><div class="line">} <span class="comment">// namespace Testing</span></div><div class="line">} <span class="comment">// namespace Ra</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv) {</div><div class="line">   <span class="keyword">using namespace </span><a class="code" href="namespaceRa.html">Ra</a>;</div><div class="line"></div><div class="line">   <span class="keywordflow">if</span>(!Testing::init_testing(1, argv))</div><div class="line">   {</div><div class="line">        <span class="keywordflow">return</span> EXIT_FAILURE;</div><div class="line">   }</div><div class="line"></div><div class="line"><span class="preprocessor">   #pragma omp parallel for</span></div><div class="line">   <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; Testing::g_repeat; ++i)</div><div class="line">   {</div><div class="line">       CALL_SUBTEST(( Testing::run() ));</div><div class="line">   }</div><div class="line"></div><div class="line">   <span class="keywordflow">return</span> EXIT_SUCCESS;</div><div class="line">}</div></div><!-- fragment --><p>The <code>Ra::Testing::run()</code> method is performing the tests, and use the macro <code>RA_VERIFY</code> to abort the execution if the condition fails. This macro is provided in <code>&lt;Tests.hpp&gt;</code>.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span>                        <span class="comment">// include path contains Radium sources,</span></div><div class="line"><span class="preprocessor">#include &lt;OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh&gt;</span> <span class="comment">// Radium&#39;s dependencies</span></div><div class="line"><span class="preprocessor">#include &lt;Tests.hpp&gt;</span>                                          <span class="comment">// and the testing tools</span></div><div class="line"></div><div class="line"><span class="keyword">namespace </span>Ra {</div><div class="line"><span class="keyword">namespace </span>Testing {</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> run() {</div><div class="line">    <span class="keywordtype">bool</span> condition = <span class="keyword">true</span>;</div><div class="line">    RA_VERIFY( condition, <span class="stringliteral">&quot;This test is passing&quot;</span> );</div><div class="line">    <span class="comment">// RA_VERIFY( ! condition, &quot;This test does not pass&quot; );</span></div><div class="line">}</div><div class="line"></div><div class="line">} <span class="comment">// namespace Testing</span></div><div class="line">} <span class="comment">// namespace Ra</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv) {</div><div class="line">   <span class="keyword">using namespace </span>Ra;</div><div class="line"></div><div class="line">   <span class="keywordflow">if</span>(!Testing::init_testing(1, argv))</div><div class="line">   {</div><div class="line">        <span class="keywordflow">return</span> EXIT_FAILURE;</div><div class="line">   }</div><div class="line"></div><div class="line"><span class="preprocessor">   #pragma omp parallel for</span></div><div class="line">   <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; Testing::g_repeat; ++i)</div><div class="line">   {</div><div class="line">       CALL_SUBTEST(( Testing::run() ));</div><div class="line">   }</div><div class="line"></div><div class="line">   <span class="keywordflow">return</span> EXIT_SUCCESS;</div><div class="line">}</div></div><!-- fragment --><p>The <code>Ra::Testing::run()</code> method is performing the tests, and use the macro <code>RA_VERIFY</code> to abort the execution if the condition fails. This macro is provided in <code>&lt;Tests.hpp&gt;</code>.</p>
 <p>The <code>main()</code> is simple is should not vary to much across tests. It first initializes the testing helpers (including random number generation), and then call the testing function <code>g_repeat</code> times. Repetition is strongly encouraged, especially to test or detect piece of codes involving non-deterministic behavior. Of course, multiple functions can be called in place of the <code>run()</code> function shown in this example. A standard use case is:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#pragma omp parallel for</span></div><div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; Testing::g_repeat; ++i)</div><div class="line">{</div><div class="line">     CALL_SUBTEST(( Testing::run&lt;float&gt;() ));</div><div class="line">     CALL_SUBTEST(( Testing::run&lt;double&gt;() ));</div><div class="line">     <span class="comment">// ... other types</span></div><div class="line">}</div></div><!-- fragment --><p>Note that we target Unit Tests, which can be defined as: </p><blockquote class="doxtable">
 <p>The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software, independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every single part works correctly.</p>
 <p>Source: <a href="https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters">https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters</a> </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md61"></a>
+<h2><a class="anchor" id="autotoc_md63"></a>
 How to add a test to the testing suite</h2>
 <p>The testing suite is handled by <code>cmake</code>: tests need to be added with their sources and dependencies. We provide a <code>cmake</code> helper function to add a test easily:</p>
 <div class="fragment"><div class="line">radium_add_test( TARGET my_test_name SRC src/my_test.cpp LIBS radiumCore radiumEngine )</div></div><!-- fragment --><p>See <code>Radium-Engine/cmake/ConfigureTesting.cmake</code> for the implementation of this function, and <code>Radium-Engine/tests/CoreTests/CMakeLists.txt</code> for an usage example.</p>
 <p>Tests are located in <code>Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src</code>. Currently <code>cmake</code> scripts are configured only for <code>Core</code>, you might need to copy and adapt them in case you add tests for the others packages (this is what you should do ! ;) ).</p>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h2><a class="anchor" id="autotoc_md64"></a>
 How to run tests locally and on the CI systems</h2>
 <p>First, you need to have the <code>cmake</code> option <code>RADIUM_COMPILE_TESTS</code> set to <code>ON</code> (the default).</p>
 <p>To run the tests locally, you first need to compile them (<code>make buildtests</code>) and then call CTest (<code>make test</code>). You should get something like: </p><div class="fragment"><div class="line">$ make test</div><div class="line">Running tests...</div><div class="line">Test project /home/me/build-Radium-Engine-Desktop-Release</div><div class="line">      Start  1: test_core_algebra</div><div class="line"> 1/11 Test  #1: test_core_algebra ................   Passed    0.00 sec</div><div class="line">      Start  2: test_core_animation</div><div class="line"> 2/11 Test  #2: test_core_animation ..............   Passed    0.01 sec</div><div class="line">      Start  3: test_core_containers</div><div class="line"> 3/11 Test  #3: test_core_containers .............   Passed    0.00 sec</div><div class="line">      Start  4: test_core_distance</div><div class="line"> 4/11 Test  #4: test_core_distance ...............   Passed    0.00 sec</div><div class="line">      Start  5: test_core_geometry</div><div class="line"> 5/11 Test  #5: test_core_geometry ...............   Passed    0.00 sec</div><div class="line">      Start  6: test_core_indexmap</div><div class="line"> 6/11 Test  #6: test_core_indexmap ...............   Passed    0.00 sec</div><div class="line">      Start  7: test_core_mesh</div><div class="line"> 7/11 Test  #7: test_core_mesh ...................   Passed    0.00 sec</div><div class="line">      Start  8: test_core_raycast</div><div class="line"> 8/11 Test  #8: test_core_raycast ................   Passed    0.01 sec</div><div class="line">      Start  9: test_core_string</div><div class="line"> 9/11 Test  #9: test_core_string .................   Passed    0.00 sec</div><div class="line">      Start 10: test_core_topomesh</div><div class="line">10/11 Test #10: test_core_topomesh ...............   Passed    0.01 sec</div><div class="line">      Start 11: test_core_polyline</div><div class="line">11/11 Test #11: test_core_polyline ...............   Passed    0.00 sec</div><div class="line"></div><div class="line">100% tests passed, 0 tests failed out of 11</div><div class="line"></div><div class="line">Total Test time (real) =   0.06 sec</div></div><!-- fragment --><p>The standard output is not printed when using CTest. To debug a test, you might need to run it directly. Tests binaries are located in <code>CMAKE_BUILD_PATH/tests/</code>.</p>
@@ -159,7 +158,7 @@ How to run tests locally and on the CI systems</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sat Nov 28 2020 14:44:15 for Radium Engine by
+    <li class="footer">Generated on Sat Dec 19 2020 11:45:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

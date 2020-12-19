@@ -36,7 +36,6 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f116fbc75c7849827a65d583c02af72a8b0610f1</span>
    </div>
   </td>
  </tr>
@@ -92,29 +91,29 @@ $(document).ready(function(){initNavTree('develpicking.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md63">Usage</a></li>
-<li class="level1"><a href="#autotoc_md64">MeshFeatureTracking Plugin</a></li>
-<li class="level1"><a href="#autotoc_md65">MeshPaint Plugin</a></li>
+<ul><li class="level1"><a href="#autotoc_md65">Usage</a></li>
+<li class="level1"><a href="#autotoc_md66">MeshFeatureTracking Plugin</a></li>
+<li class="level1"><a href="#autotoc_md67">MeshPaint Plugin</a></li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md63"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md65"></a>
 Usage</h1>
-<p>The RadiumEngine's <a class="el" href="classRa_1_1Engine_1_1Renderer.html">Ra::Engine::Renderer</a> provides a picking method for <a class="el" href="classRa_1_1Engine_1_1RenderObject.html">Ra::Engine::RenderObject</a> selection.</p>
-<p>The <code>FeaturePicking</code> feature enables to enhance the selection process up to selecting vertices, edges and triangles. The result of a <a class="el" href="structRa_1_1Engine_1_1Renderer_1_1PickingQuery.html">Ra::Engine::Renderer::PickingQuery</a> is a <a class="el" href="structRa_1_1Engine_1_1Renderer_1_1PickingResult.html">Ra::Engine::Renderer::PickingResult</a> containing the following data:</p><ul>
-<li>the picking mode: either <a class="el" href="classRa_1_1Engine_1_1Renderer.html#a4d2fd0fad9ac068a2807b6437bc6c622ad272b5b6d2528f3601b9d9d0695a02c8" title="Pick a mesh. ">Ra::Engine::Renderer::RO</a>, <a class="el" href="classRa_1_1Engine_1_1Renderer.html#a4d2fd0fad9ac068a2807b6437bc6c622a76bedaaad4d1c3598d5faf824bb40153" title="Pick a vertex of a mesh. ">Ra::Engine::Renderer::VERTEX</a>, <a class="el" href="classRa_1_1Engine_1_1Renderer.html#a4d2fd0fad9ac068a2807b6437bc6c622ac3f28f174580c5783889d803ad6e4687" title="Pick an edge of a mesh. ">Ra::Engine::Renderer::EDGE</a>, <a class="el" href="classRa_1_1Engine_1_1Renderer.html#a4d2fd0fad9ac068a2807b6437bc6c622a9c182c1ee68fe3df610ec624a5f88a45" title="Pick a triangle of a mesh. ">Ra::Engine::Renderer::TRIANGLE</a> for simple feature selection and either <a class="el" href="classRa_1_1Engine_1_1Renderer.html#a4d2fd0fad9ac068a2807b6437bc6c622a90941b9d49adf8a5f2b958084365ee65" title="Picks all vertices of a mesh within a screen space circle. ">Ra::Engine::Renderer::C_VERTEX</a>, <a class="el" href="classRa_1_1Engine_1_1Renderer.html#a4d2fd0fad9ac068a2807b6437bc6c622a792d370adf3fff44597470839dc2395b" title="Picks all edges of a mesh within a screen space circle. ">Ra::Engine::Renderer::C_EDGE</a> or <a class="el" href="classRa_1_1Engine_1_1Renderer.html#a4d2fd0fad9ac068a2807b6437bc6c622a6097e763cd423625c39f12fb6f5cec4b" title="Picks all triangles of a mesh within a screen space circle. ">Ra::Engine::Renderer::C_TRIANGLE</a> for multiple selection;</li>
+<p>The RadiumEngine's Ra::Engine::Renderer provides a picking method for Ra::Engine::RenderObject selection.</p>
+<p>The <code>FeaturePicking</code> feature enables to enhance the selection process up to selecting vertices, edges and triangles. The result of a Ra::Engine::Renderer::PickingQuery is a Ra::Engine::Renderer::PickingResult containing the following data:</p><ul>
+<li>the picking mode: either Ra::Engine::Renderer::RO, Ra::Engine::Renderer::VERTEX, Ra::Engine::Renderer::EDGE, Ra::Engine::Renderer::TRIANGLE for simple feature selection and either Ra::Engine::Renderer::C_VERTEX, Ra::Engine::Renderer::C_EDGE or Ra::Engine::Renderer::C_TRIANGLE for multiple selection;</li>
 <li>the index of the RO the selection is for ;</li>
 <li>the list of selected vertices indices given w.r.t. the corresponding selected element ;</li>
 <li>the list of selected element indices, either points for point clouds or triangles for meshes ;</li>
 <li>the list of selected edge's opposite vertex indices given w.r.t. the corresponding selected triangle.</li>
 </ul>
-<p>Right after a selection, the <a class="el" href="structRa_1_1Engine_1_1Renderer_1_1PickingResult.html">Ra::Engine::Renderer::PickingResult</a> are stored in the <a class="el" href="classRa_1_1Gui_1_1PickingManager.html">Ra::Gui::PickingManager</a> and the <a class="el" href="classRa_1_1GuiBase_1_1SelectionManager.html">Ra::GuiBase::SelectionManager</a> emits Ra::GuiBase::SelectionManager::currentChanged signal so that Plugins are told a new selection has been made.</p>
+<p>Right after a selection, the Ra::Engine::Renderer::PickingResult are stored in the Ra::Gui::PickingManager and the Ra::GuiBase::SelectionManager emits Ra::GuiBase::SelectionManager::currentChanged signal so that Plugins are told a new selection has been made.</p>
 <p>The selection of a mesh feature is activated by holding a specific key while selecting the object (see the <code>KeyMappingManager</code> configuration file for those). Multiple selection activation can be activated/de-activated by pressing the corresponding key, which would also make a circle shape, representing the selection area, appear on the screen.</p>
-<h1><a class="anchor" id="autotoc_md64"></a>
+<h1><a class="anchor" id="autotoc_md66"></a>
 MeshFeatureTracking Plugin</h1>
 <p>The <code>MeshFeatureTracking</code> Plugin (<b>Radium Official Plugins</b> (<a href="https://gitlab.com/Storm-IRIT/radium-official-plugins">https://gitlab.com/Storm-IRIT/radium-official-plugins</a>)) is an example of how mesh features information can be displayed either through the <code>Gui</code> or as displayed objects. The <code>SelectionManager</code>'s <code>currentChanged</code> signal is connected to the slot <code>onCurrentChanged</code>.</p>
 <p>When this slot is triggered, the <code>MeshFeatureTracking</code> Plugin accesses the picking data through the <code>PickingManager</code> and updates both its information widget with the new picking data and the tracking sphere. The <code>MeshFeatureTracking</code> plugin also keeps its information widget updated at the end of each frame.</p>
 <p>The <code>MeshFeatureTracking</code> plugin only manage simple feature selection. For an example on how to deal with multiple selection, please see the <code>MeshPaint</code> Plugin.</p>
-<h1><a class="anchor" id="autotoc_md65"></a>
+<h1><a class="anchor" id="autotoc_md67"></a>
 MeshPaint Plugin</h1>
 <p>The <code>MeshPaint</code> Plugin (<b>Radium Official Plugins</b> (<a href="https://gitlab.com/Storm-IRIT/radium-official-plugins">https://gitlab.com/Storm-IRIT/radium-official-plugins</a>)) is an example of how to use mesh feature multi-selection. Here again, the <code>SelectionManager</code>'s <code>currentChanged</code> signal is connected to the slot <code>onCurrentChanged</code>.</p>
 <p>When this slot is triggered, and if the painting is enabled, the <code>MeshPaint</code> Plugin directly changes the render color of the vertices corresponding to the current picking data. </p>
@@ -124,7 +123,7 @@ MeshPaint Plugin</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Sat Nov 28 2020 14:44:15 for Radium Engine by
+    <li class="footer">Generated on Sat Dec 19 2020 11:45:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

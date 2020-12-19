@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: doc/developer/lightmanagement.md Source File</title>
+<title>Radium Engine: developer/lightmanagement.md Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -36,7 +36,6 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f116fbc75c7849827a65d583c02af72a8b0610f1</span>
    </div>
   </td>
  </tr>
@@ -88,7 +87,7 @@ $(document).ready(function(){initNavTree('lightmanagement_8md.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">doc/developer/lightmanagement.md</div>  </div>
+<div class="title">developer/lightmanagement.md</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="lightmanagement_8md.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;\page develLights API: Lights</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;[TOC]</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;- Lights are components associated with an entity.</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;- Lights can be attached to any of the entities of a given scene.</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;- Lights are loaded by a LightManager system. If no system is able to load lights, there will be no lights in the scene</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;except to one that can be attached to the camera.</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;- The way lights are used in the engine is specific to the renderer.</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;- A renderer must, in its initializeInternal method, create and register a lightManager system.</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;- The system will receive fileData at loading and will be polled by the renderer to get light to render.</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;# Light Manager</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;# Loading lights</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;Light are loaded by the active file loader and transformed to a LightData vector in th FileData constructed by the loader.</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;# Using light</div></div><!-- fragment --></div><!-- contents -->
@@ -97,7 +96,7 @@ $(document).ready(function(){initNavTree('lightmanagement_8md.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="lightmanagement_8md.html">lightmanagement.md</a></li>
-    <li class="footer">Generated on Sat Nov 28 2020 14:44:13 for Radium Engine by
+    <li class="footer">Generated on Sat Dec 19 2020 11:45:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

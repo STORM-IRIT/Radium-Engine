@@ -36,7 +36,6 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f116fbc75c7849827a65d583c02af72a8b0610f1</span>
    </div>
   </td>
  </tr>
@@ -92,18 +91,18 @@ $(document).ready(function(){initNavTree('develCodingConvention.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md46">Headers</a></li>
-<li class="level1"><a href="#autotoc_md47">Functions</a></li>
-<li class="level1"><a href="#autotoc_md48">Scope and names</a></li>
-<li class="level1"><a href="#autotoc_md49">Variables</a></li>
-<li class="level1"><a href="#autotoc_md50">Scalar types</a></li>
-<li class="level1"><a href="#autotoc_md51">Code style</a></li>
-<li class="level1"><a href="#autotoc_md52">Class design</a></li>
-<li class="level1"><a href="#autotoc_md53">Non-negociable</a></li>
+<ul><li class="level1"><a href="#autotoc_md48">Headers</a></li>
+<li class="level1"><a href="#autotoc_md49">Functions</a></li>
+<li class="level1"><a href="#autotoc_md50">Scope and names</a></li>
+<li class="level1"><a href="#autotoc_md51">Variables</a></li>
+<li class="level1"><a href="#autotoc_md52">Scalar types</a></li>
+<li class="level1"><a href="#autotoc_md53">Code style</a></li>
+<li class="level1"><a href="#autotoc_md54">Class design</a></li>
+<li class="level1"><a href="#autotoc_md55">Non-negociable</a></li>
 </ul>
 </div>
 <div class="textblock"><p>Mainly inspired by <a href="https://google-styleguide.googlecode.com/svn/trunk/cppguide.html">https://google-styleguide.googlecode.com/svn/trunk/cppguide.html</a></p>
-<h1><a class="anchor" id="autotoc_md46"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 Headers</h1>
 <ul>
 <li>Every .cpp must have an associated .hpp file</li>
@@ -118,24 +117,24 @@ Headers</h1>
 <li>Keep headers in order : Class header, system libraries, other libraries, other headers from project.</li>
 <li>forward declare as much as you can</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 Functions</h1>
 <ul>
 <li>use const reference or value to pass input parameters</li>
 <li>use references for passing output parameters</li>
 <li>output parameters appear last.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md48"></a>
+<h1><a class="anchor" id="autotoc_md50"></a>
 Scope and names</h1>
 <ul>
 <li>use anonymous namespaces for file local variables / functions. no classes with only static functions !</li>
-<li>Use <code>namespace <a class="el" href="namespaceRa.html" title="This file contains definitions of aliases for basic vector classes and functions. ...">Ra</a> { }</code> for all radium engine code, plus a sub-namespace for each module (e.g. <code>Ra::Physics</code>)</li>
+<li>Use <code>namespace Ra { }</code> for all radium engine code, plus a sub-namespace for each module (e.g. <code>Ra::Physics</code>)</li>
 <li>never use the <code>using</code> instruction for a whole namespace</li>
 <li>put all non member functions in a namespace (no top level global functions)</li>
 <li>declare pointers and ref attached to their type : <code>void* a</code>, <code>const Foo&amp; bar</code></li>
 <li>macros and defined constants should be in capitals.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md49"></a>
+<h1><a class="anchor" id="autotoc_md51"></a>
 Variables</h1>
 <ul>
 <li>declarations should always be made on separate lines; (no <code>int a, b, c;</code>)</li>
@@ -144,15 +143,15 @@ Variables</h1>
 <li>use C++11 <code>nullptr</code> for null pointers.</li>
 <li>use <code>auto</code> only when it helps readability.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md50"></a>
+<h1><a class="anchor" id="autotoc_md52"></a>
 Scalar types</h1>
 <ul>
 <li>Radium defines a default type <code>Scalar</code>, set either as <code>float</code> or <code>double</code> depending on the cmake option <code>RADIUM_WITH_DOUBLE_PRECISION</code></li>
 <li>Always use <code>Scalar</code> type to represent floating point numbers, except when interfacing with external libraries using a fixed floating point type (e.g. Qt).</li>
-<li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar()</a></code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
-<li>Equality between Scalar values needs to be computed using <code>Ra::almost_equals</code> (see <a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a>).</li>
+<li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code>Scalar()</code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
+<li>Equality between Scalar values needs to be computed using <code>Ra::almost_equals</code> (see CoreMacros.hpp).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<h1><a class="anchor" id="autotoc_md53"></a>
 Code style</h1>
 <ul>
 <li>Indentation style : 4-spaces</li>
@@ -168,7 +167,7 @@ Code style</h1>
 <li>line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)</li>
 <li>no need for () for a return statement.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md52"></a>
+<h1><a class="anchor" id="autotoc_md54"></a>
 Class design</h1>
 <ul>
 <li>Constructors should be trival. All complex work goes in an <code>init()</code> function</li>
@@ -193,7 +192,7 @@ Class design</h1>
 <li>avoid <code>mutable</code></li>
 <li>getters and setter should have a consistent name with the variable.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md53"></a>
+<h1><a class="anchor" id="autotoc_md55"></a>
 Non-negociable</h1>
 <ul>
 <li>No exceptions, no RTTI, no dynamic cast, no gotos. </li>
@@ -204,7 +203,7 @@ Non-negociable</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sat Nov 28 2020 14:44:15 for Radium Engine by
+    <li class="footer">Generated on Sat Dec 19 2020 11:45:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
