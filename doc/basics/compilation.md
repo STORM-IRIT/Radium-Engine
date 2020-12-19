@@ -202,8 +202,8 @@ To fix it, edit `CMakeSettings.json`, such that
 
 ### Compilation
 
-Right click on CMakeList.txt > build > all.
-To install, you need to run any installation target, e.g. `Engine.dll (install)` or to select the menu <Build>/<Install radiumproject>
+Right click on `CMakeList.txt > build > all`.
+To install, you need to run any installation target, e.g. `Engine.dll (install)` or to select the menu `<Build>/<Install radiumproject>`
 
 ## Building with QtCreator
 
