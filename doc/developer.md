@@ -6,7 +6,6 @@
 - \subpage develbuildchain
 - \subpage api
 - \subpage extensions
-- \subpage apps
 - \subpage develoldmanual
 
 \page api API
@@ -24,6 +23,7 @@
 - \subpage develLights
 - \subpage develpicking
 - \subpage develanimation
+- \subpage develtimeline
 
 \page gui Gui
 - \subpage develkeymapping
