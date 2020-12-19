@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@master
         with:
           path: src/Radium-Engine
-  xapian-tools
       - name: Install packages
         run : |
           sudo apt-get install doxygen graphviz
