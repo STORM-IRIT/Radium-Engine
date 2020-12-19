@@ -6,7 +6,6 @@
 - \subpage develbuildchain
 - \subpage api
 - \subpage extensions
-- \subpage apps
 - \subpage develoldmanual
 
 \page api API
@@ -24,6 +23,7 @@
 - \subpage develLights
 - \subpage develpicking
 - \subpage develanimation
+- \subpage develtimeline
 
 \page gui Gui
 - \subpage develkeymapping
@@ -35,5 +35,7 @@
 \page extensions Developing using Radium
 - \subpage cmakeutilities
 - \subpage develplugin
-- \subpage apps [TODO] Application dev
+- \subpage apps
+
+\page apps [TODO] Application dev
 \todo write application dev doc, merging ExampleApp and Apps docs.
