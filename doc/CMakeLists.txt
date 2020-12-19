@@ -47,7 +47,7 @@ if(DOXYGEN_FOUND)
     set(RADIUM_PROJECT_NUMBER ${GIT_CHANGESET})
 
     # be nice with IDE: add .md files
-    file(GLOB_RECURSE md_files ${CMAKE_CURRENT_SOURCE_DIR}/*.md)
+    file(GLOB_RECURSE md_files ${CMAKE_CURRENT_SOURCE_DIR}/*/*.md)
 
     set(md_pages_order
         "${CMAKE_CURRENT_SOURCE_DIR}/main.md"
