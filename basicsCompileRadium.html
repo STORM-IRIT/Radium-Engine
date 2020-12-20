@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -111,7 +112,7 @@ $(document).ready(function(){initNavTree('basicsCompileRadium.html',''); initRes
 <div class="textblock"><h1><a class="anchor" id="autotoc_md9"></a>
 Dependencies</h1>
 <p>All the dependencies are automatically fetched and compiled at build time.</p><ul>
-<li>[Core] Eigen, OpenMesh</li>
+<li>[Core] <a class="el" href="namespaceEigen.html">Eigen</a>, <a class="el" href="namespaceOpenMesh.html">OpenMesh</a></li>
 <li>[Engine] glm, globjects, glbindings</li>
 <li>[IO] Assimp</li>
 <li>[GuiBase] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 recommended)</li>
@@ -217,7 +218,7 @@ Building on Microsoft Windows with Visual Studio</h2>
 <p>Our Continuous Integration systems uses Microsoft Compiler 2017, in combination with cmake and ninja. Using Visual Studio 2017 with cmake support is however not possible: VS is shipped with cmake: 3.12, while Radium requires cmake 3.13 at least. We recommand to use Visual Studio 2019 in that case. Qt 5.15+ is distributed with binaries precompiled with MSVC 2019, but Qt binaries precompiled with MSVC2017 does not break the build.</p>
 <h3>Dependencies</h3>
 <p><em>Qt</em> distributes precompiled libraries for VS 2017 - 64 bits (tested with 5.10 and 5.12). If using earlier versions of Qt (5.5) or a different toolset you may have to compile Qt yourself. You will probaby have to manually point cmake to the Qt folder.</p>
-<p>Other dependencies (Eigen, Assimp, glbinding, globjects and glm) are fetched and compiled at configure-time if they are not present at this time on the host system (see <a class="el" href="develbuildchain.html">Radium Build Chain</a>).</p>
+<p>Other dependencies (<a class="el" href="namespaceEigen.html">Eigen</a>, Assimp, glbinding, globjects and glm) are fetched and compiled at configure-time if they are not present at this time on the host system (see <a class="el" href="develbuildchain.html">Radium Build Chain</a>).</p>
 <h3>Getting started with Visual Studio</h3>
 <p>Thanks to the integrated support of CMake in Visual Studio, you don't need a VS solution to build your project: open the Radium folder (via <em>File</em> &gt; <em>Open</em> &gt; <em>Folder ...</em> or <code>devenv.exe &lt;foldername&gt;</code>). VS should run cmake, generate the target builds (Debug and Release by default). Other build types can be added by editing <code>CMakeSettings.json</code>.</p>
 <p>You may have Cmake errors occuring at the first run. To fix them, you need to edit the VS-specific file <code>CMakeSettings.json</code>, via <em>CMake</em> &gt; <em>Change CMake Settings</em> &gt; path-to-CMakeLists (configuration-name) from the main menu. For instance, it usually requires to set cmake build types manually, and to give path to Qt libraries. To fix it, edit <code>CMakeSettings.json</code>, such that </p><div class="fragment"><div class="line">{</div>
@@ -260,7 +261,7 @@ Building with QtCreator</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:20 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

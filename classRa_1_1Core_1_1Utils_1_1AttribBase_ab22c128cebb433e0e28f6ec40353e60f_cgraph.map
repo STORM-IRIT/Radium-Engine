@@ -1,0 +1,5 @@
+<map id="Ra::Core::Utils::AttribBase::lock" name="Ra::Core::Utils::AttribBase::lock">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,196,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribBase.html#a030ebd538261b64958f73b9fb949c17c" title=" " alt="" coords="247,5,438,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="244,71,441,112"/>
+</map>

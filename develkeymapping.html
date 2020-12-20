@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -156,7 +157,7 @@ Usage</h1>
 <div class="line"><span class="keywordtype">void</span> MyClass::configureKeyMapping() {</div>
 <div class="line">    m_keyMappingContext = Gui::KeyMappingManager::getInstance()-&gt;getContext( <span class="stringliteral">&quot;MyClassContext&quot;</span> );</div>
 <div class="line">    <span class="keywordflow">if</span> ( m_keyMappingContext.isInvalid() )</div>
-<div class="line">        LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;MyClassContext not defined (maybe the configuration file does not contain it&quot;</span>;</div>
+<div class="line">        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;MyClassContext not defined (maybe the configuration file does not contain it&quot;</span>;</div>
 <div class="line"><span class="preprocessor">#define KMA_VALUE( XX ) \</span></div>
 <div class="line"><span class="preprocessor">    XX = Gui::KeyMappingManager::getInstance()-&gt;getActionIndex( m_keyMappingContext, #XX );</span></div>
 <div class="line">    KeyMappingMyClass</div>
@@ -165,11 +166,11 @@ Usage</h1>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md70"></a>
 Implementation note</h1>
 <p>The viewer is the main entry point to dispatch key and mouse event. The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.</p>
-<p>For instance see <code>Viewer.cpp</code> <code>Viewer::mousePressEvent</code></p>
+<p>For instance see <code><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></code> <code>Viewer::mousePressEvent</code></p>
 <div class="fragment"><div class="line"><span class="comment">//[...]</span></div>
 <div class="line">    <span class="keyword">auto</span> buttons   = <span class="keyword">event</span>-&gt;buttons();</div>
 <div class="line">    <span class="keyword">auto</span> modifiers = <span class="keyword">event</span>-&gt;modifiers();</div>
-<div class="line">    <span class="keyword">auto</span> key       = activeKey();</div>
+<div class="line">    <span class="keyword">auto</span> key       = <a class="code" href="namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828">activeKey</a>();</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// nothing under mouse ? juste move the camera ...</span></div>
 <div class="line">    <span class="keywordflow">if</span> ( result.m_roIdx.isInvalid() )</div>
@@ -186,12 +187,12 @@ Key mapping and inheritence.</h1>
 <li>Derived <code>setupKeymappingcallbacks</code> should call base <code>setupKeymappingcallbacks</code>, hence derived <code>configureKeymapping_impl</code> should only care about its own <code>KeyMappingAction</code>.</li>
 </ul>
 <p>Here is an example snippets.</p>
-<div class="fragment"><div class="line"><span class="keyword">class </span>MyViewer : <span class="keyword">public</span> Ra::Gui::Viewer, <span class="keyword">public</span> Ra::Gui::KeyMappingManageable&lt;MyViewer&gt;</div>
+<div class="fragment"><div class="line"><span class="keyword">class </span>MyViewer : <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>, <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt;MyViewer&gt;</div>
 <div class="line">{</div>
-<div class="line">    <span class="keyword">using</span> baseKeyMapping = Ra::Gui::KeyMappingManageable&lt;Ra::Gui::Viewer&gt;;</div>
-<div class="line">    <span class="keyword">using</span> thisKeyMapping = Ra::Gui::KeyMappingManageable&lt;MyViewer&gt;;</div>
-<div class="line">    <span class="keywordtype">void</span> setupKeyMappingCallbacks() <span class="keyword">override</span>;</div>
-<div class="line">    <span class="keyword">friend</span> <span class="keyword">class </span>Ra::Gui::KeyMappingManageable&lt;MyViewer&gt;;</div>
+<div class="line">    <span class="keyword">using</span> baseKeyMapping = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt;Ra::Gui::Viewer&gt;</a>;</div>
+<div class="line">    <span class="keyword">using</span> thisKeyMapping = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable&lt;MyViewer&gt;</a>;</div>
+<div class="line">    <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d">setupKeyMappingCallbacks</a>() <span class="keyword">override</span>;</div>
+<div class="line">    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a>&lt;MyViewer&gt;;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">//[...]</span></div>
 <div class="line"><span class="preprocessor">#define KeyMappingMyViewer \</span></div>
@@ -213,7 +214,7 @@ Key mapping and inheritence.</h1>
 <div class="line">    thisKeyMapping::m_keyMappingContext = keyMappingManager-&gt;getContext( <span class="stringliteral">&quot;MyViewerContext&quot;</span> );</div>
 <div class="line">    <span class="keywordflow">if</span> ( thisKeyMapping::m_keyMappingContext.isInvalid() )</div>
 <div class="line">    {</div>
-<div class="line">        LOG( logINFO ) &lt;&lt; <span class="stringliteral">&quot;MyViewerContext not defined (maybe the configuration file do not contains it)&quot;</span>;</div>
+<div class="line">        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;MyViewerContext not defined (maybe the configuration file do not contains it)&quot;</span>;</div>
 <div class="line">        <span class="keywordflow">return</span>;</div>
 <div class="line">    }</div>
 <div class="line"> </div>
@@ -231,11 +232,17 @@ Limits</h1>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aaae0a0c0c419bd1dc8f0296214120a7d"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d">Ra::Gui::Viewer::setupKeyMappingCallbacks</a></div><div class="ttdeci">virtual void setupKeyMappingCallbacks()</div><div class="ttdoc">add observers to keyMappingManager for gizmo, camera and viewer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00065">Viewer.cpp:65</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">Ra::Core::Utils::logINFO</a></div><div class="ttdeci">@ logINFO</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00019">Log.hpp:19</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00194">KeyMappingManager.hpp:194</a></div></div>
+<div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00151">Log.hpp:151</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00054">Viewer.hpp:54</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Gui_html_abfd4441bc81a4a3a08a755c28ae9b828"><div class="ttname"><a href="namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828">Ra::Gui::activeKey</a></div><div class="ttdeci">int activeKey()</div><div class="ttdoc">return the last, still pressed, key code, -1 if no key currently pressed</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00030">Keyboard.cpp:30</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:21 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

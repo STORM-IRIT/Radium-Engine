@@ -1,0 +1,6 @@
+<map id="Ra::Core::Geometry::SplineCurve::df" name="Ra::Core::Geometry::SplineCurve::df">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,156,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1Spline.html#aac14f330817f2e52952c6369300192ec" title="Evaluate speed of the spline." alt="" coords="209,5,360,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1Spline.html#aa9b2549bafa3c74c109c6e4dfc8b90b2" title="Set the position of the spline control points." alt="" coords="204,71,365,112"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="413,13,580,39"/>
+</map>

@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -206,7 +207,7 @@ Function &lt;tt&gt;configure_radium_library&lt;/tt&gt;</h3>
 <p>Note that the parameters <code>&lt;PACKAGE_CONFIG&gt;</code> and <code>&lt;PACKAGE_DIR&gt;</code> could be omitted as the associated cmake package module could be generated using the function <a href="#configure_radium_package"><code>configure_radium_package</code></a> documented below. If these parameter are given here, they will be forwarded to this function.</p>
 <p>In order to allow usage of installed library in all supported systems (Linux, MacOs, Windows), one of the public header, that might be named, e.g. <code>&lt;TARGET&gt;Macros.hpp</code> and included all the public or private headers, should contain the following :</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#pragma once</span></div>
-<div class="line"><span class="preprocessor">#include &lt;Core/RaCore.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#if defined &lt;TARGET&gt;_EXPORTS</span></div>
 <div class="line"><span class="preprocessor">#    define &lt;TARGET&gt;_API DLL_EXPORT</span></div>
 <div class="line"><span class="preprocessor">#else</span></div>
@@ -214,7 +215,7 @@ Function &lt;tt&gt;configure_radium_library&lt;/tt&gt;</h3>
 <div class="line"><span class="preprocessor">#endif</span></div>
 </div><!-- fragment --><p>Then, in the library source code, each exported symbol should be prefixed by <code>&lt;TARGET&gt;_API</code> e.g. </p><div class="fragment"><div class="line"><span class="preprocessor">#pragma once</span></div>
 <div class="line"><span class="preprocessor">#include &lt; &lt;TARGET&gt;</span>/&lt;TARGET&gt;Macros.hpp &gt;</div>
-<div class="line">class &lt;TARGET&gt;_API MyAwesomeMaterial : <span class="keyword">public</span> Ra::Engine::Material</div>
+<div class="line">class &lt;TARGET&gt;_API MyAwesomeMaterial : <span class="keyword">public</span> <a class="code" href="classRa_1_1Engine_1_1Material.html">Ra::Engine::Material</a></div>
 <div class="line">{</div>
 <div class="line">    ...</div>
 <div class="line">};</div>
@@ -275,7 +276,7 @@ Function &lt;tt&gt;installTargetResources&lt;/tt&gt;</h3>
 <li>Images used internally as textures or source of data.</li>
 <li>Precomputed data, stored in whatever format.</li>
 </ul>
-<p>To access resources, the component might rely on a Ra::Core::Resources::ResourcesLocator object. Such an object allows to access files located in some predefined directories:</p><ul>
+<p>To access resources, the component might rely on a <a class="el" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html" title="allow to manage several resource locators">Ra::Core::Resources::ResourcesLocator</a> object. Such an object allows to access files located in some predefined directories:</p><ul>
 <li>Radium default resource directory. This directory is located at <code>&lt;prefix&gt;/Resources</code> where <code>&lt;prefix&gt;</code> is the Radium installation directory.</li>
 <li>Current executable directory. This directory is where the currently running executable is located.</li>
 </ul>
@@ -298,13 +299,13 @@ Function &lt;tt&gt;installTargetResources&lt;/tt&gt;</h3>
 <div class="line">|   ├── Shaders/</div>
 <div class="line">|   ├── Config/</div>
 <div class="line">|   ...</div>
-</div><!-- fragment --><p>In this hierarchy, Resources are located in the relative path <code>../Resources/</code> from any binary (executable or lib). The source code structure of the Radium libraries allows to have the same property on the build tree. When a Radium component needs to access some resources, it could either use the Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir() method or search for the resource relatively to a symbol defined in the component.</p>
+</div><!-- fragment --><p>In this hierarchy, Resources are located in the relative path <code>../Resources/</code> from any binary (executable or lib). The source code structure of the Radium libraries allows to have the same property on the build tree. When a Radium component needs to access some resources, it could either use the <a class="el" href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir()</a> method or search for the resource relatively to a symbol defined in the component.</p>
 <p>To do this, the source code (.cpp file) of the component could contain the following. </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;MyComponent.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">int</span> MyComponentMagick = 0x0F0F0F0F;</div>
 <div class="line">...</div>
 <div class="line"><span class="comment">// get the resource path relatively to the current location of the binary </span></div>
-<div class="line">auto resourcesPath = Ra::Core::Resources::ResourcesLocator(</div>
+<div class="line">auto resourcesPath = <a class="code" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">Ra::Core::Resources::ResourcesLocator</a>(</div>
 <div class="line">                    <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>( &amp;MyComponentMagick ), </div>
 <div class="line">                    <span class="stringliteral">&quot;/Resources/MyComponentResources/&quot;</span>, </div>
 <div class="line">                    <span class="stringliteral">&quot;../&quot;</span> );</div>
@@ -392,7 +393,7 @@ Function &lt;tt&gt;configure_radium_plugin&lt;/tt&gt;</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>[INSTALL_IN_RADIUM_BUNDLE]</code> </td><td class="markdownTableBodyNone">Optional. If given, the plugin is installed in the Radium general bundle (<code>${RADIUM_ROOT_DIR}/Plugins</code>) instead of being installed in the <code>${CMAKE_INSTALL_PREFIX}</code>  </td></tr>
 </table>
-<p>The <code>pluginName</code> target must be a dynamic library that exports a class inheriting from <code>QObject</code> and Ra::Plugins::RadiumPluginInterface. The optional resources associated with the plugin are own resources that the plugin needs to be functional and will be installed as described below. The optional helper libraries can be local targets, configured in the same build tree, or imported targets, resulting from a <code>find_package(...)</code>. If an helper library need to access its own resources, it must be configured using using <a href="#configure_radium_library"><code>configure_radium_library</code></a> if it is a local target or imported from an installed target configured the same way.</p>
+<p>The <code>pluginName</code> target must be a dynamic library that exports a class inheriting from <code><a class="el" href="classQObject.html">QObject</a></code> and <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html" title="Interface class for Radiums plugins.">Ra::Plugins::RadiumPluginInterface</a>. The optional resources associated with the plugin are own resources that the plugin needs to be functional and will be installed as described below. The optional helper libraries can be local targets, configured in the same build tree, or imported targets, resulting from a <code>find_package(...)</code>. If an helper library need to access its own resources, it must be configured using using <a href="#configure_radium_library"><code>configure_radium_library</code></a> if it is a local target or imported from an installed target configured the same way.</p>
 <p>The directory hierarchy in which a plugin will be installed (or where the build target will be) is the following: </p><div class="fragment"><div class="line">&lt;prefix&gt;/</div>
 <div class="line">├── lib/</div>
 <div class="line">|   ├──  libpluginName.so (or.dylib, .dll)</div>
@@ -626,11 +627,14 @@ Configuring an application plugin</h2>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
+<div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Resources_1_1ResourcesLocator_html"><div class="ttname"><a href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">Ra::Core::Resources::ResourcesLocator</a></div><div class="ttdoc">allow to manage several resource locators</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8hpp_source.html#l00039">Resources.hpp:39</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Material_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Material.html">Ra::Engine::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00023">Material.hpp:23</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="extensions.html">Developing using Radium</a></li>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:21 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

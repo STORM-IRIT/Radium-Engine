@@ -1,0 +1,5 @@
+<map id="Ra::GuiBase::TreeModel::setItemChecked" name="Ra::GuiBase::TreeModel::setItemChecked">
+<area shape="rect" id="node1" title="Set the check state of one item and all of its children." alt="" coords="5,39,181,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1TreeItem.html#a9c73e2634e9500f6be194c211480d7cb" title="Return true if the represented object can be selected." alt="" coords="229,5,396,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1TreeItem.html#ad8bd226c66a7e5f91c883b939c976f12" title=" " alt="" coords="229,71,396,112"/>
+</map>

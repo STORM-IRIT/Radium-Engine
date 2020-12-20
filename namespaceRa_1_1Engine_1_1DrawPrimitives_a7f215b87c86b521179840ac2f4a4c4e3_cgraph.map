@@ -1,0 +1,8 @@
+<map id="Ra::Engine::DrawPrimitives::Frame" name="Ra::Engine::DrawPrimitives::Frame">
+<area shape="rect" id="node1" title=" " alt="" coords="5,136,204,177"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#aed9cce82f3b09c3ec32a9fdc898d3b7f" title=" " alt="" coords="281,5,470,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title=" " alt="" coords="252,71,499,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a54193413c10301c1edf46fc41fb09dfb" title=" " alt="" coords="281,136,470,177"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a1b7a2d694cf0fe9382aa80868253f0d1" title=" " alt="" coords="281,201,470,243"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31" title="Returns the quaternion q multipled by a scalar factor of k." alt="" coords="295,267,455,294"/>
+</map>

@@ -1,0 +1,35 @@
+<map id="Ra::Gui::CameraManipulator::CameraManipulator" name="Ra::Gui::CameraManipulator::CameraManipulator">
+<area shape="rect" id="node1" title="Initializes a manipulator for a given viewport size." alt="" coords="5,673,212,715"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#abec46e062874d71bf9cfc9143c889a60" title="Pure virtual method to be overridden by any component. When this method is called you are guaranteed ..." alt="" coords="288,428,439,469"/>
+<area shape="rect" id="node29" href="$classRa_1_1Engine_1_1Camera.html#a4c2aac5ad419cef7720e2a18d93b3703" title="Toggle on/off displaying the Camera." alt="" coords="563,741,713,783"/>
+<area shape="rect" id="node31" href="$classRa_1_1Gui_1_1CameraManipulator.html#a628cdfc34f5c32874c59011795db317c" title=" " alt="" coords="260,673,467,715"/>
+<area shape="rect" id="node32" href="$classRa_1_1Gui_1_1CameraManipulator.html#ac77a7c75a992261fba709ff10a0835b8" title=" " alt="" coords="260,739,467,780"/>
+<area shape="rect" id="node33" href="$classRa_1_1Gui_1_1CameraManipulator.html#a185e3ba5f2743f4b020afef74d7426ac" title=" " alt="" coords="260,804,467,845"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671" title=" " alt="" coords="555,217,721,273"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing." alt="" coords="551,297,725,339"/>
+<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" title=" " alt="" coords="545,363,731,404"/>
+<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title=" " alt="" coords="515,428,761,469"/>
+<area shape="rect" id="node15" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#ad6fe3c60f8f2b9f9f5d8220ffe4d5ba6" title=" " alt="" coords="523,493,753,535"/>
+<area shape="rect" id="node16" href="$classRa_1_1Engine_1_1RenderTechnique.html#a22298207c6e70a98b829d6c5ead1a8e4" title=" " alt="" coords="812,500,1023,541"/>
+<area shape="rect" id="node18" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="529,676,747,717"/>
+<area shape="rect" id="node19" href="$classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" title=" " alt="" coords="545,5,731,47"/>
+<area shape="rect" id="node20" href="$classRa_1_1Engine_1_1RenderObject.html#a6b34af1c9c64f5c9a8fded701cf5bf09" title=" " alt="" coords="545,71,731,112"/>
+<area shape="rect" id="node21" href="$classRa_1_1Engine_1_1RenderTechnique.html#a92778b063ae626dfac4a18d0f69fec5a" title=" " alt="" coords="533,611,743,652"/>
+<area shape="rect" id="node25" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="555,137,721,193"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8" title=" " alt="" coords="809,224,1025,265"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" title="Return true if h correspond to an existing attribute in *this." alt="" coords="1073,296,1289,337"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" title="Notify (i.e. call) each attached observer with argument p." alt="" coords="1083,215,1280,271"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" title=" " alt="" coords="1337,264,1543,305"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" title=" " alt="" coords="1361,329,1519,371"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" title="CONSTRUCTOR." alt="" coords="1591,329,1749,371"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager." alt="" coords="830,297,1005,339"/>
+<area shape="rect" id="node13" href="$classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" title=" " alt="" coords="824,363,1011,404"/>
+<area shape="rect" id="node17" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title=" " alt="" coords="1076,523,1287,564"/>
+<area shape="rect" id="node22" href="$classRa_1_1Engine_1_1RenderTechnique.html#a78ba61b1637743a35f058eeefa631f8a" title=" " alt="" coords="812,617,1023,659"/>
+<area shape="rect" id="node23" href="$classRa_1_1Engine_1_1RenderTechnique.html#ad1d5a9d900e46594224f5b8df142081f" title=" " alt="" coords="1076,593,1287,635"/>
+<area shape="rect" id="node24" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="1102,669,1261,711"/>
+<area shape="rect" id="node26" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="809,73,1025,115"/>
+<area shape="rect" id="node27" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="834,139,1001,195"/>
+<area shape="rect" id="node28" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="1073,147,1289,188"/>
+<area shape="rect" id="node30" href="$classRa_1_1Engine_1_1RenderObject.html#a62e0eb3a7de5a7d352b565a28260cc06" title=" " alt="" coords="824,741,1011,783"/>
+</map>

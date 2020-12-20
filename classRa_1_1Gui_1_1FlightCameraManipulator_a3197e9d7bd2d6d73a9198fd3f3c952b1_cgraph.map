@@ -1,0 +1,7 @@
+<map id="Ra::Gui::FlightCameraManipulator::setCamera" name="Ra::Gui::FlightCameraManipulator::setCamera">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,248,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position." alt="" coords="296,5,447,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Camera.html#a2acbb1a258f8d0af86edcd978cfbf3e1" title="Change the viewport size." alt="" coords="296,71,447,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters." alt="" coords="495,71,645,112"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="693,78,856,105"/>
+</map>

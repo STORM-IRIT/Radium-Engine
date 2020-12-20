@@ -1,0 +1,5 @@
+<map id="Ra::Core::Geometry::lineToTriSq" name="Ra::Core::Geometry::lineToTriSq">
+<area shape="rect" id="node1" title="Computes the squared distance from a query line to the triangle v." alt="" coords="5,27,156,69"/>
+<area shape="rect" id="node2" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="219,5,339,32"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa4833c49439649db22e7108f976a0c8d" title="Computes the squared distance from a query line to a segment." alt="" coords="204,57,355,98"/>
+</map>

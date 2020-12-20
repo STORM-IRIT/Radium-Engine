@@ -1,0 +1,7 @@
+<map id="Ra::Core::Geometry::PolyLine::getSegmentIndex" name="Ra::Core::Geometry::PolyLine::getSegmentIndex">
+<area shape="rect" id="node1" title="Returns the index of the segment to which t belons." alt="" coords="5,64,213,105"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1PolyLine.html#ad9ec64926bd98bb0417655c31e639a67" title="Get the total length of the line ." alt="" coords="276,5,427,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#ac59d3507a0a632719542d21a16a11bba" title="Clamps the value between 0 and 1." alt="" coords="261,71,441,98"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="270,122,433,149"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="489,71,656,98"/>
+</map>

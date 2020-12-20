@@ -1,0 +1,4 @@
+<map id="Ra::Core::Geometry::Spline::df" name="Ra::Core::Geometry::Spline::df">
+<area shape="rect" id="node1" title="Evaluate speed of the spline." alt="" coords="5,5,156,47"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="204,13,371,39"/>
+</map>

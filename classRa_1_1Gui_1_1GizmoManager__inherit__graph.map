@@ -1,0 +1,7 @@
+<map id="Ra::Gui::GizmoManager" name="Ra::Gui::GizmoManager">
+<area shape="rect" id="node1" title=" " alt="" coords="98,419,321,643"/>
+<area shape="rect" id="node2" href="$classQObject.html" title=" " alt="" coords="5,233,80,311"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1TransformEditor.html" title=" " alt="" coords="103,175,315,369"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="339,211,576,333"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="320,5,595,112"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Ra::GuiBase::TransformEditor::getWorldTransform" name="Ra::GuiBase::TransformEditor::getWorldTransform">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,217,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Entity.html#ac2d7e480573cfb14046e430c255a3156" title=" " alt="" coords="278,5,415,47"/>
+<area shape="rect" id="node3" href="$structRa_1_1Engine_1_1ItemEntry.html#ae958f5e3bf366fdd8271f0d862e4c8f9" title="Returns true if the item represents an entity." alt="" coords="265,71,428,112"/>
+<area shape="rect" id="node4" href="$structRa_1_1Engine_1_1ItemEntry.html#acc4d0f03ddd27dce426af9ed9c8993c9" title="Debug checks." alt="" coords="476,71,639,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1Index.html#a752c4d2e38168a3b1977100caa21b1b8" title="INVALID." alt="" coords="687,71,845,112"/>
+</map>

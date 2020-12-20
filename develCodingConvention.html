@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -131,7 +132,7 @@ Functions</h1>
 Scope and names</h1>
 <ul>
 <li>use anonymous namespaces for file local variables / functions. no classes with only static functions !</li>
-<li>Use <code>namespace Ra { }</code> for all radium engine code, plus a sub-namespace for each module (e.g. <code>Ra::Physics</code>)</li>
+<li>Use <code>namespace <a class="el" href="namespaceRa.html" title="This file contains definitions of aliases for basic vector classes and functions.">Ra</a> { }</code> for all radium engine code, plus a sub-namespace for each module (e.g. <code>Ra::Physics</code>)</li>
 <li>never use the <code>using</code> instruction for a whole namespace</li>
 <li>put all non member functions in a namespace (no top level global functions)</li>
 <li>declare pointers and ref attached to their type : <code>void* a</code>, <code>const Foo&amp; bar</code></li>
@@ -151,8 +152,8 @@ Scalar types</h1>
 <ul>
 <li>Radium defines a default type <code>Scalar</code>, set either as <code>float</code> or <code>double</code> depending on the cmake option <code>RADIUM_WITH_DOUBLE_PRECISION</code></li>
 <li>Always use <code>Scalar</code> type to represent floating point numbers, except when interfacing with external libraries using a fixed floating point type (e.g. Qt).</li>
-<li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code>Scalar()</code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
-<li>Equality between Scalar values needs to be computed using <code>Ra::almost_equals</code> (see CoreMacros.hpp).</li>
+<li>Radium offers operators to create <code>Scalar</code> from integer and floating point numbers: always use <code><a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar()</a></code> or <code>_ra</code> suffix when defining numbers from literals (e.g. <code>auto a = .5_ra;</code>, <code>Scalar b = a * Scalar( 2 );</code> or <code>Scalar c = a / 2_ra;</code>).</li>
+<li>Equality between Scalar values needs to be computed using <code>Ra::almost_equals</code> (see <a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a>).</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md54"></a>
 Code style</h1>
@@ -207,7 +208,7 @@ Non-negociable</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:21 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

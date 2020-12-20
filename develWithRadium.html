@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -140,11 +141,11 @@ How to write tests</h2>
 <p>Their source code is stored in <code>Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src</code>.</p>
 <p>We provide in <code>Radium-Engine/tests/Tests.hpp</code> some utility functions to ease tests implementation.</p>
 <p>Let's consider the following snippet:`</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Core/Math/LinearAlgebra.hpp&gt;</span>                        <span class="comment">// include path contains Radium sources,</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="LinearAlgebra_8hpp.html">Core/Math/LinearAlgebra.hpp</a>&gt;</span>                        <span class="comment">// include path contains Radium sources,</span></div>
 <div class="line"><span class="preprocessor">#include &lt;OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh&gt;</span> <span class="comment">// Radium&#39;s dependencies</span></div>
 <div class="line"><span class="preprocessor">#include &lt;Tests.hpp&gt;</span>                                          <span class="comment">// and the testing tools</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">namespace </span>Ra {</div>
+<div class="line"><span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><span class="keyword">namespace </span>Testing {</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> run() {</div>
@@ -158,7 +159,7 @@ How to write tests</h2>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv) {</div>
-<div class="line">   <span class="keyword">using namespace </span>Ra;</div>
+<div class="line">   <span class="keyword">using namespace </span><a class="code" href="namespaceRa.html">Ra</a>;</div>
 <div class="line"> </div>
 <div class="line">   <span class="keywordflow">if</span>(!Testing::init_testing(1, argv))</div>
 <div class="line">   {</div>
@@ -231,11 +232,13 @@ How to run tests locally and on the CI systems</h2>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
+<div class="ttc" id="aLinearAlgebra_8hpp_html"><div class="ttname"><a href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:21 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

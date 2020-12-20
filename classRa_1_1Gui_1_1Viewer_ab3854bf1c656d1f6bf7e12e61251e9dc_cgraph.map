@@ -1,0 +1,4 @@
+<map id="Ra::Gui::Viewer::grabFrame" name="Ra::Gui::Viewer::grabFrame">
+<area shape="rect" id="node1" title="Write the current frame as an image. Supports either BMP or PNG file names." alt="" coords="5,5,205,32"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title=" " alt="" coords="253,5,441,32"/>
+</map>

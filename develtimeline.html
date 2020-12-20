@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -102,7 +103,7 @@ $(document).ready(function(){initNavTree('develtimeline.html',''); initResizable
 </div>
 <div class="textblock"><h1><a class="anchor" id="autotoc_md105"></a>
 Timeline And Keyframes</h1>
-<p>The <code>Ra::GuiBase::Timeline</code> class provides display and management of <code>Ra::Core::Animation::KeyFramedValue</code>s through the <code>Ra::Core::Animation::KeyFramedValueController</code> class.</p>
+<p>The <code><a class="el" href="classRa_1_1GuiBase_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::GuiBase::Timeline</a></code> class provides display and management of <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s through the <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code> class.</p>
 <h2><a class="anchor" id="autotoc_md106"></a>
 The Timeline UI</h2>
 <p>The Timeline UI is a widget allowing to manipulate time and display animation keyframes: <img src="../images/timeline_ui.png" alt="Timeline UI" class="inline"/> The central part of the UI shows the time space, in which we have:</p><ul>
@@ -133,9 +134,9 @@ The Timeline UI</h2>
 <p><img src="../images/timeline_help.png" alt="Timeline Help" class="inline"/></p>
 <h2><a class="anchor" id="autotoc_md107"></a>
 Display animated data using the Timeline</h2>
-<p><code>Ra::Core::Animation::KeyFramedValueController</code>s must be registered into the <code>Ra::GuiBase::Timeline</code>, which can be done using the <code>Ra::GuiBase::Timeline::registerKeyFramedValue</code> methods, binding them to the <code>Ra::Engine::Entity</code>, <code>Ra::Engine::Component</code> or <code>Ra::Engine::RenderObject</code> they belong to.</p>
+<p><code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></code>s must be registered into the <code><a class="el" href="classRa_1_1GuiBase_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::GuiBase::Timeline</a></code>, which can be done using the <code><a class="el" href="classRa_1_1GuiBase_1_1Timeline.html#aec107da7b06521ac93a54c081a1c76ae">Ra::GuiBase::Timeline::registerKeyFramedValue</a></code> methods, binding them to the <code><a class="el" href="classRa_1_1Engine_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform.">Ra::Engine::Entity</a></code>, <code><a class="el" href="classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Component</a></code> or <code><a class="el" href="classRa_1_1Engine_1_1RenderObject.html">Ra::Engine::RenderObject</a></code> they belong to.</p>
 <h3>Binding "Static" KeyFramedValue</h3>
-<p>Those are <code>Ra::Core::Animation::KeyFramedValue</code>s that are an explicit part of a <code>Ra::Engine::Entity</code>, <code>Ra::Engine::Component</code> or <code>Ra::Engine::RenderObject</code> data, either filled upon construction or through the <code>Ra::GuiBase::Timeline</code>. Static <code>Ra::Core::Animation::KeyFramedValue</code>s must be registered in the <code>Ra::GuiBase::Timeline</code> after the object's construction. They usually are not bound to an <em>UpdateCallback</em> function since the object they belong to usually calls <code>Ra::Core::Animation::KeyFramedValue::at</code> to query the current value.</p>
+<p>Those are <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s that are an explicit part of a <code><a class="el" href="classRa_1_1Engine_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform.">Ra::Engine::Entity</a></code>, <code><a class="el" href="classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Component</a></code> or <code><a class="el" href="classRa_1_1Engine_1_1RenderObject.html">Ra::Engine::RenderObject</a></code> data, either filled upon construction or through the <code><a class="el" href="classRa_1_1GuiBase_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::GuiBase::Timeline</a></code>. Static <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s must be registered in the <code><a class="el" href="classRa_1_1GuiBase_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::GuiBase::Timeline</a></code> after the object's construction. They usually are not bound to an <em>UpdateCallback</em> function since the object they belong to usually calls <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html#a9f68af7750684a100f2fd3ca9d6bd131">Ra::Core::Animation::KeyFramedValue::at</a></code> to query the current value.</p>
 <p>Example Usage: </p><div class="fragment"><div class="line"> {c++}</div>
 <div class="line">using KeyFramedValue = Ra::Core::Animation::KeyFramedValue&lt;Scalar&gt;;</div>
 <div class="line">using KeyFramedValueController = Ra::Core::Animation::KeyFramedValueController;</div>
@@ -203,7 +204,7 @@ Display animated data using the Timeline</h2>
 <div class="line">   Ra::GuiBase::Timeline* m_timeline{nullptr};</div>
 <div class="line">};</div>
 </div><!-- fragment --><h3>Binding "Dynamic" KeyFramedValues:</h3>
-<p>Those are <code>Ra::Core::Animation::KeyFramedValue</code>s that are not part of an <code>Ra::Engine::Entity</code>, <code>Ra::Engine::Component</code> or <code>Ra::Engine::RenderObject</code> data, but are used to keyframe some of its data. Dynamic <code>Ra::Core::Animation::KeyFramedValue</code>s must be created for and owned by the UI, and registered in the <code>Ra::GuiBase::Timeline</code>. They are usually bound to an UpdateCallback function since they have to update the object's data they are linked to.</p>
+<p>Those are <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s that are not part of an <code><a class="el" href="classRa_1_1Engine_1_1Entity.html" title="An entity is an scene element. It ties together components with a transform.">Ra::Engine::Entity</a></code>, <code><a class="el" href="classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components...">Ra::Engine::Component</a></code> or <code><a class="el" href="classRa_1_1Engine_1_1RenderObject.html">Ra::Engine::RenderObject</a></code> data, but are used to keyframe some of its data. Dynamic <code><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">Ra::Core::Animation::KeyFramedValue</a></code>s must be created for and owned by the UI, and registered in the <code><a class="el" href="classRa_1_1GuiBase_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes.">Ra::GuiBase::Timeline</a></code>. They are usually bound to an UpdateCallback function since they have to update the object's data they are linked to.</p>
 <p>Example Usage: </p><div class="fragment"><div class="line"> {c++}</div>
 <div class="line">/// Let&#39;s say there is a Component class defined as:</div>
 <div class="line">struct MyComponent : public Component {</div>
@@ -319,7 +320,7 @@ Display animated data using the Timeline</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:21 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

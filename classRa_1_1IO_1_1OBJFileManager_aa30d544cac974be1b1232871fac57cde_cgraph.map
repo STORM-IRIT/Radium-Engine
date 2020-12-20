@@ -1,0 +1,12 @@
+<map id="Ra::IO::OBJFileManager::importData" name="Ra::IO::OBJFileManager::importData">
+<area shape="rect" id="node1" title=" " alt="" coords="5,151,177,193"/>
+<area shape="rect" id="node2" href="$classRa_1_1IO_1_1FileManager.html#a2b788483f09e07553e4cb4ca768063b4" title=" " alt="" coords="235,5,434,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ab39bf689191e11e975554952d2532cb9" title="Erases all data, making the AttribArrayGeometry empty." alt="" coords="242,86,427,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" title=" " alt="" coords="225,151,444,193"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a646faabae9b936589fe03d8a9d2002e9" title="Set normals." alt="" coords="251,217,418,273"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" title="Set vertices." alt="" coords="251,297,418,353"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="517,184,683,240"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" title=" " alt="" coords="492,265,708,306"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="756,265,972,306"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="517,331,683,387"/>
+</map>

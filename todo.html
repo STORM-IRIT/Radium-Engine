@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -99,7 +100,103 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>Page <a class="el" href="io.html">[TODO] IO</a>  </dt>
 <dd><a class="anchor" id="_todo000001"></a>write IO doc  </dd>
 <dt>Page <a class="el" href="develmeshes.html">API: 3D objects (a.k.a. Meshes)</a>  </dt>
-<dd><a class="anchor" id="_todo000003"></a>TopologicalMesh::mergeEqualWedges&lt;p&gt; <a class="anchor" id="_todo000004"></a>make OpenMesh inheritance private.</dd>
+<dd><a class="anchor" id="_todo000003"></a>TopologicalMesh::mergeEqualWedges&lt;p&gt; <a class="anchor" id="_todo000004"></a>make <a class="el" href="namespaceOpenMesh.html">OpenMesh</a> inheritance private. </dd>
+<dt>Member <a class="el" href="GizmoManager_8cpp.html#ab1478fa43039cf1b62157b0375df9960">KMA_VALUE</a>  (XX)</dt>
+<dd><a class="anchor" id="_todo000052"></a>If a macro expert could write a recursive marco to have something like KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)  </dd>
+<dt>Class <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000007"></a>rename methods to respect Radium guideline (get/set/is, camelCase) </p>
+<p class="enddd">private inheritance from <a class="el" href="namespaceOpenMesh.html">OpenMesh</a>, and import relevant methods.  </p>
+</dd>
+<dt>Member <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2d19226bcd3cd2ae4ed6a8363ab0ba06">Ra::Core::Geometry::TopologicalMesh::initWithWedge</a>  (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a> &amp;triMesh)</dt>
+<dd><a class="anchor" id="_todo000005"></a>use a kdtree  </dd>
+<dt>Member <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a33f49b5e6bcec6a87ec7fdbff9caa457">Ra::Core::Geometry::TopologicalMesh::updateTriangleMesh</a>  (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a> &amp;mesh)</dt>
+<dd><a class="anchor" id="_todo000006"></a>;)  </dd>
+<dt>Member <a class="el" href="namespaceRa_1_1Core_1_1Math.html#a4f441ac6a56092d52849a4f48e274aa8">Ra::Core::Math::cos</a>  (const Vector_ &amp;v1, const Vector_ &amp;v2)</dt>
+<dd><a class="anchor" id="_todo000010"></a>use dot instead  </dd>
+<dt>Namespace <a class="el" href="namespaceRa_1_1Core_1_1Resources.html">Ra::Core::Resources</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000011"></a>ensure that resources are installed or linked in the parent directory of the libRadiumCore dynamic library.</p>
+<p class="enddd"><a class="anchor" id="_todo000012"></a>Generalize the locator such that one can find an offsetted directory from a dynamic library containing an arbitrary symbol. (easy with cpplocate)  </p>
+</dd>
+<dt>Member <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribBase.html#ae3368b25d8113148b27e5d5119eaeec1">Ra::Core::Utils::AttribBase::getElementSize</a>  () const =0</dt>
+<dd><a class="anchor" id="_todo000013"></a>rename getNumberOfComponent ?  </dd>
+<dt>Member <a class="el" href="classRa_1_1Core_1_1Utils_1_1Index.html#adcec617c80fae8061dbe6a5d5e12bd74">Ra::Core::Utils::Index::operator IntegerType</a>  () const</dt>
+<dd><a class="anchor" id="_todo000014"></a>manage other types ? like unsigned with an assert if invalid ?  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1BlinnPhongMaterial.html">Ra::Engine::BlinnPhongMaterial</a>  </dt>
+<dd><a class="anchor" id="_todo000024"></a>due to "Material.glsl" interface modification, must test this version with all plugins, apps, ... that uses Radium <a class="el" href="classRa_1_1Engine_1_1Renderer.html">Renderer</a>  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Camera.html#abec46e062874d71bf9cfc9143c889a60">Ra::Engine::Camera::initialize</a>  () override</dt>
+<dd><a class="anchor" id="_todo000017"></a>switch to "mat-&gt;m_color          = {.2_ra, .2_ra, .2_ra, 1_ra};"  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1CoreGeometryDisplayable.html#a625804ee40085ca3c0e9e8a8fc42cc5b">Ra::Engine::CoreGeometryDisplayable&lt; T &gt;::loadGeometry</a>  (CoreGeometry &amp;&amp;mesh)</dt>
+<dd><a class="anchor" id="_todo000032"></a>add observer mecanism for indices.  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1DebugRender.html">Ra::Engine::DebugRender</a>  </dt>
+<dd><a class="anchor" id="_todo000036"></a>: port this to a more Radium-style code  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1DebugRender.html#aa1cbad392fbfb4924d45ca4992a425d6">Ra::Engine::DebugRender::initialize</a>  ()</dt>
+<dd><a class="anchor" id="_todo000033"></a>FIXED but not tested  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Displayable.html#a66e02e9b3b2abb1905d8df0ed77db017">Ra::Engine::Displayable::getAbstractGeometry</a>  () const =0</dt>
+<dd><a class="anchor" id="_todo000018"></a>not sure the displayable must have an abstract geometry ...  </dd>
+<dt>Member <a class="el" href="namespaceRa_1_1Engine_1_1DrawPrimitives.html#a80e6b453e8ebd8cb6874bf7ac89e2e5e">Ra::Engine::DrawPrimitives::Circle</a>  (const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;center, const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;normal, Scalar radius, uint segments, const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;color)</dt>
+<dd><a class="anchor" id="_todo000038"></a>refer to class typedef instaed of core types/  </dd>
+<dt>Member <a class="el" href="namespaceRa_1_1Engine_1_1DrawPrimitives.html#aa88551d8fc4a3251dfd84fcaa05b018e">Ra::Engine::DrawPrimitives::QuadStrip</a>  (const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;a, const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;x, const <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Core::Vector3</a> &amp;y, uint quads, const <a class="el" href="namespaceRa_1_1Core_1_1Utils.html#a847b1262d9272f37005c731601da5580">Core::Utils::Color</a> &amp;color)</dt>
+<dd><a class="anchor" id="_todo000037"></a>continue to convert mesh creation and remove call to deprecated <a class="el" href="classRa_1_1Engine_1_1Mesh.html#a5af8256565ff1e10ea58ea1df3c6dcbf">Mesh::loadGeometry</a>  </dd>
+<dt>Class <a class="el" href="structRa_1_1Engine_1_1Light_1_1Attenuation.html">Ra::Engine::Light::Attenuation</a>  </dt>
+<dd><a class="anchor" id="_todo000021"></a>for the moment, the attenuation is non physically coherent. make attenuation be quadratic by default  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Light.html#a8985c4e8c4b16afe5dea59d0267dfe0f">Ra::Engine::Light::LightType</a>  </dt>
+<dd><a class="anchor" id="_todo000020"></a>: replace this enum by something extensible as we plan to add new light type by plugins  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Light.html#a24e11b300dfe4e2a785d87b6de74b036">Ra::Engine::Light::setDirection</a>  (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</dt>
+<dd><a class="anchor" id="_todo000022"></a>put this only on directional and spot light sources  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Light.html#a1bf2c510e62b2a99f0012a39ad218378">Ra::Engine::Light::setPosition</a>  (const Eigen::Matrix&lt; Scalar, 3, 1 &gt; &amp;)</dt>
+<dd><a class="anchor" id="_todo000023"></a>put this only on point and spot light sources  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Material.html#a1b359528f20678d50500a1329eef3c16">Ra::Engine::Material::getPropertyList</a>  () const override</dt>
+<dd><a class="anchor" id="_todo000025"></a>: Validate this proposal  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Mesh.html#a42d52db86eb855dda07e2349ad0dce41">Ra::Engine::Mesh::getNumFaces</a>  () const override</dt>
+<dd><a class="anchor" id="_todo000027"></a>fix this once we have explicit triangle fan and strip management.  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1Mesh.html#a5af8256565ff1e10ea58ea1df3c6dcbf">Ra::Engine::Mesh::loadGeometry</a>  (const Core::Vector3Array &amp;vertices, const std::vector&lt; uint &gt; &amp;indices)</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000028"></a>find an alternative </p>
+<p class="enddd"><a class="anchor" id="_todo000029"></a>check line vs triangle here is a bug  </p>
+</dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1PointCloudComponent.html">Ra::Engine::PointCloudComponent</a>  </dt>
+<dd><a class="anchor" id="_todo000015"></a>doc.  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a81d735943b3a3a969a2370cfe46e3a44">Ra::Engine::RadiumEngine::registerDefaultPrograms</a>  ()</dt>
+<dd><a class="anchor" id="_todo000016"></a>find a way to integrate "Line" material into Radium <a class="el" href="classRa_1_1Engine_1_1Material.html">Material</a> <a class="el" href="classRa_1_1Engine_1_1System.html">System</a>  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1RenderParameters.html#ae523454cdd254d7dc1d9f950144a1092">Ra::Engine::RenderParameters::IntParameter</a>  </dt>
+<dd><a class="anchor" id="_todo000040"></a>use array of parameter to templated uniform, as in globjects ? <a class="el" href="classRa_1_1Engine_1_1RenderParameters_1_1Parameter.html">Parameter</a> of type int  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1RenderParameters_1_1Parameter.html">Ra::Engine::RenderParameters::Parameter</a>  </dt>
+<dd><a class="anchor" id="_todo000039"></a>use globjects Uniform directly (which seems to correspond to the same data/purpose, even if not well documented  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1ShaderConfiguration.html">Ra::Engine::ShaderConfiguration</a>  </dt>
+<dd><a class="anchor" id="_todo000043"></a>: make configuration and program (in the OpenGL sense) be packed. A shader configuration might contains a <a class="el" href="classRa_1_1Engine_1_1ShaderProgram.html">ShaderProgram</a> after compiling. This will remove the need for <a class="el" href="namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> as ShaderManager will offer the same services. Actually, there is redundancy between <a class="el" href="namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html">ShaderConfigurationFactory</a> and <a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a> </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1ShaderParameterProvider.html#a92a8e0ddb182908797e27e61d89a414c">Ra::Engine::ShaderParameterProvider::getPropertyList</a>  () const</dt>
+<dd><a class="anchor" id="_todo000042"></a>: Validate this proposal  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1ShaderProgram.html#ae8dd845a26becdab303187a074623708">Ra::Engine::ShaderProgram::addShaderFromSource</a>  (ShaderType type, std::unique_ptr&lt; globjects::StaticStringSource &gt; &amp;&amp;source, const std::string &amp;name="", bool fromFile=true)</dt>
+<dd><a class="anchor" id="_todo000045"></a>go private, and update <a class="el" href="classRa_1_1Engine_1_1ShaderConfiguration.html">ShaderConfiguration</a> to add from source !  </dd>
+<dt>Member <a class="el" href="classRa_1_1Engine_1_1ShaderProgram.html#ab41bce4eddc74c208055120ed5237c7b">Ra::Engine::ShaderProgram::link</a>  ()</dt>
+<dd><a class="anchor" id="_todo000044"></a>add other sampler type (or manage all type of sampler automatically)  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1TextureManager.html">Ra::Engine::TextureManager</a>  </dt>
+<dd><a class="anchor" id="_todo000046"></a>(for Radium-V2) Allow to share the same image data between different instances of a texture. Instances could be differentiated by the sampler parameter and the mip-map availability.  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1VaoIndices_1_1IndicesObserver.html">Ra::Engine::VaoIndices::IndicesObserver</a>  </dt>
+<dd><a class="anchor" id="_todo000031"></a>Add test for Indices observer  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1VolumeObject.html">Ra::Engine::VolumeObject</a>  </dt>
+<dd><a class="anchor" id="_todo000019"></a>Right now, a volumeObject define both the geometry (a parallelepiped) and the material (a density grid) This should be modified to handle density grids deleimited by a general geometry.  </dd>
+<dt>Class <a class="el" href="classRa_1_1Engine_1_1VolumetricMaterial.html">Ra::Engine::VolumetricMaterial</a>  </dt>
+<dd><a class="anchor" id="_todo000026"></a>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed.  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d8746082da29f06f21af9b89fb16a12">Ra::Gui::CameraManipulator::resetToDefaultCamera</a>  ()</dt>
+<dd><a class="anchor" id="_todo000051"></a>have a cleaner camera management and control in the <a class="el" href="namespaceRa_1_1GuiBase.html">GuiBase</a> Radium library. <a class="el" href="namespaceRa_1_1GuiBase.html">GuiBase</a> Camera interface Must define a clean interface between the application and the <a class="el" href="namespaceRa_1_1Engine.html">Engine</a>. This method is similar to the getCameraFromViewer, it should not be there ...  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1GizmoManager.html#aeb11c8ca78b0a6b957c3551aa99b29c5">Ra::Gui::GizmoManager::handleMouseMoveEvent</a>  (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key)</dt>
+<dd><a class="anchor" id="_todo000053"></a>what about if someone start a motion with a key, and then release it while moving the mouse ?  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a929548f74f967115fc31200370b45933">Ra::Gui::KeyMappingManager::addAction</a>  (const std::string &amp;context, const std::string &amp;keyString, const std::string &amp;modifiersString, const std::string &amp;buttonsString, const std::string &amp;wheelString, const std::string &amp;actionString)</dt>
+<dd><a class="anchor" id="_todo000050"></a>write the configuration in the configFile to be later reused or modified ?  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a01d6621a24aceef0fe3240986e17f0c5">Ra::Gui::Viewer::handleMousePressEvent</a>  (QMouseEvent *event, <a class="el" href="structRa_1_1Engine_1_1Renderer_1_1PickingResult.html">Ra::Engine::Renderer::PickingResult</a> &amp;result)</dt>
+<dd><a class="anchor" id="_todo000055"></a>something like explained here  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af2c9de9be1eadeb44b15b063f869e189">Ra::Gui::Viewer::m_renderers</a>  </dt>
+<dd><a class="anchor" id="_todo000056"></a>make the following private: Owning pointer to the renderers.  </dd>
+<dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af993e161d72ea7e41a3bc49a9671a74e">Ra::Gui::Viewer::showEvent</a>  (QShowEvent *ev) override</dt>
+<dd><a class="anchor" id="_todo000054"></a>remove this commented code when camera init in ctr is tested on other arch.  </dd>
+<dt>Member <a class="el" href="classRa_1_1GuiBase_1_1BaseApplication.html#a2578ea774df33aa24f0bf0ce684be0ed">Ra::GuiBase::BaseApplication::addBasicShaders</a>  ()</dt>
+<dd><a class="anchor" id="_todo000047"></a>Are these shaders used somewhere ? Why loading them in the applicaiton and not in the engine or in the Plugin ?  </dd>
+<dt>Member <a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a015c0e61580e9cf1b72ae9751844df68">Ra::IO::AssimpGeometryDataLoader::fetchVertices</a>  (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data)</dt>
+<dd><a class="anchor" id="_todo000057"></a>have something like template &lt;typename I, typename TYPE, int DIM&gt; void fetchVectorData( size_t sz, const I&amp; input, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt;Eigen::Matrix&lt;TYPE, DIM, 1&gt;&gt;&amp; output ) { const auto size = int( sz ); output.resize( sz ); </dd>
+<dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a860bb59fee16633501bc63271fe397ab">Ra::Plugins::RadiumPluginInterface::getMenu</a>  ()=0</dt>
+<dd><a class="anchor" id="_todo000059"></a>Find a better name ?  </dd>
+<dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a460d1df9a097719b389d6571904be142">Ra::Plugins::RadiumPluginInterface::getWidget</a>  ()=0</dt>
+<dd><a class="anchor" id="_todo000058"></a>Find a better name for this ? </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -107,7 +204,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:21 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

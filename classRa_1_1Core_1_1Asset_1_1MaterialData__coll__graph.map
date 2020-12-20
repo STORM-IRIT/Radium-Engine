@@ -1,0 +1,6 @@
+<map id="Ra::Core::Asset::MaterialData" name="Ra::Core::Asset::MaterialData">
+<area shape="rect" id="node1" title="represent material data loaded by a file loader. Material data must be identified by a unique name...." alt="" coords="5,457,220,608"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AssetData.html" title=" " alt="" coords="15,287,211,408"/>
+<area shape="rect" id="node3" title="STL class." alt="" coords="69,147,156,224"/>
+<area shape="rect" id="node4" title="STL class." alt="" coords="43,5,182,97"/>
+</map>

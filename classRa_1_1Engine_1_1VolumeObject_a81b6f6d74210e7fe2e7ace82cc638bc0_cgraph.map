@@ -1,0 +1,4 @@
+<map id="Ra::Engine::VolumeObject::loadGeometry" name="Ra::Engine::VolumeObject::loadGeometry">
+<area shape="rect" id="node1" title="Use the given volume for display." alt="" coords="5,13,196,54"/>
+<area shape="rect" id="node2" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html#a11061b6def49014daf70728b389398f5" title="Compute bounding box." alt="" coords="244,5,400,61"/>
+</map>

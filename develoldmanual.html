@@ -34,6 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
+   &#160;<span id="projectnumber">516c298c02b1cc3660959f8f026bce1df40712d2</span>
    </div>
   </td>
  </tr>
@@ -129,13 +130,13 @@ Source code organization</h1>
 </ul>
 <h2><a class="anchor" id="autotoc_md83"></a>
 Import and export</h2>
-<p>Core and Engine (and the plugins) are compiled as dynamic libraries, therefore you must be careful about which symbols need exporting, especially on Windows. Every module has a specific header file (<code>RaCore.hpp</code> for Core) which must be included first in all other headers of the module. In particular it defines the <code>*_API</code> macros which help exporting and importing symbols on Windows.</p>
+<p>Core and Engine (and the plugins) are compiled as dynamic libraries, therefore you must be careful about which symbols need exporting, especially on Windows. Every module has a specific header file (<code><a class="el" href="RaCore_8hpp.html">RaCore.hpp</a></code> for Core) which must be included first in all other headers of the module. In particular it defines the <code>*_API</code> macros which help exporting and importing symbols on Windows.</p>
 <h1><a class="anchor" id="autotoc_md84"></a>
 Core Libs</h1>
 <p><code>Core</code> contains most of the basic code on which the rest of the software is built.</p><ul>
-<li><code>CoreMacros.hpp</code> has definitions of basic types, build configuration and useful macros.</li>
-<li><code>Math</code> is our math library, which is a wrapper around <em>Eigen</em>. The most useful files are <code>Math.hpp</code> which has mathematical constants and simple functions, and <code>LinearAlgebra.hpp</code> which contains the type definitions of most basic vector and matrix types.</li>
-<li><code>Containers</code> has some specially useful std-like containers, most importantly <code>VectorArray.hpp</code> which defines a dynamic array of vectors with both a<code>std::vector</code>-like interface and compatibility with Eigen.</li>
+<li><code><a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a></code> has definitions of basic types, build configuration and useful macros.</li>
+<li><code>Math</code> is our math library, which is a wrapper around <em><a class="el" href="namespaceEigen.html">Eigen</a></em>. The most useful files are <code><a class="el" href="Math_8hpp.html">Math.hpp</a></code> which has mathematical constants and simple functions, and <code><a class="el" href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></code> which contains the type definitions of most basic vector and matrix types.</li>
+<li><code>Containers</code> has some specially useful std-like containers, most importantly <code><a class="el" href="VectorArray_8hpp.html">VectorArray.hpp</a></code> which defines a dynamic array of vectors with both a<code>std::vector</code>-like interface and compatibility with <a class="el" href="namespaceEigen.html">Eigen</a>.</li>
 <li><code>Mesh</code> contains our basic mesh geometry primitives, including the representation of a simple triangle mesh and many functions to operate on geometry.</li>
 <li><code>String</code> contains utilities extending <code>std::string</code>.</li>
 <li><code>Log</code> is a wrapper around the header-only <em>EasyLogger</em> library which allows us to log various events.</li>
@@ -149,11 +150,11 @@ Engine Object Model</h1>
 Entities</h2>
 <p><em>Entities</em> are the base object manipulated by the engine. You can think of them as "game objects", something that represent an object in the scene. Entity data include a world space to object space transform and a list of <em>Components</em></p>
 <p>The entity's role is only to hold together this transform and the list of components. The entity uses double buffering to prevent transforms from being updated more than once per frame.</p>
-<p>When creating an entity, if you set its transform, <em>do not forget</em> to call <code>Entity::swapTransformBuffers</code>, this might prevent you some headache. Example : </p><div class="fragment"><div class="line">Ra::Engine::Entity* entity = theEntityManager-&gt;getOrCreate( <span class="stringliteral">&quot;MyEntity&quot;</span> );</div>
-<div class="line">Ra::Core::Transform transform( Ra::Core::Transform::Identity() );</div>
-<div class="line">transform.translation = Ra::Core::Vector3( 42, 13, 37 );</div>
-<div class="line">entity-&gt;setTransform( transform );</div>
-<div class="line">entity-&gt;swapTransformBuffers();</div>
+<p>When creating an entity, if you set its transform, <em>do not forget</em> to call <code>Entity::swapTransformBuffers</code>, this might prevent you some headache. Example : </p><div class="fragment"><div class="line"><a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* entity = theEntityManager-&gt;getOrCreate( <span class="stringliteral">&quot;MyEntity&quot;</span> );</div>
+<div class="line"><a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a> transform( Ra::Core::Transform::Identity() );</div>
+<div class="line">transform.translation = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 42, 13, 37 );</div>
+<div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Entity.html#a0555082e814666f1ec051e65b727930d">setTransform</a>( transform );</div>
+<div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Entity.html#a316ef3994a1181d235a341426b3d0c6f">swapTransformBuffers</a>();</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md87"></a>
 Systems and Components</h2>
 <p>Each <em>Component</em> represent an aspect of an <em>Entity</em> to a particular engine subsystem. For example, an animated character may have a skeleton(animation component), a high-resolution mesh (display component) and simplified convex shape for collision detection (physics component).</p>
@@ -213,11 +214,16 @@ Default plugins</h2>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
+<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00083">Types.hpp:83</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html_a0555082e814666f1ec051e65b727930d"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html#a0555082e814666f1ec051e65b727930d">Ra::Engine::Entity::setTransform</a></div><div class="ttdeci">void setTransform(const Core::Transform &amp;transform)</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8inl_source.html#l00014">Entity.inl:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00025">Entity.hpp:25</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00025">Types.hpp:25</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html_a316ef3994a1181d235a341426b3d0c6f"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html#a316ef3994a1181d235a341426b3d0c6f">Ra::Engine::Entity::swapTransformBuffers</a></div><div class="ttdeci">void swapTransformBuffers()</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00064">Entity.cpp:64</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sat Dec 19 2020 19:46:21 for Radium Engine by
+    <li class="footer">Generated on Sun Dec 20 2020 10:03:30 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

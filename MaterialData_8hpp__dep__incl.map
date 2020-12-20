@@ -1,0 +1,32 @@
+<map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Asset/MaterialData.hpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Asset/MaterialData.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="1552,5,1775,76"/>
+<area shape="rect" id="node2" href="$BlinnPhongMaterialData_8hpp.html" title=" " alt="" coords="613,124,836,195"/>
+<area shape="rect" id="node7" href="$MaterialData_8inl.html" title=" " alt="" coords="1429,124,1652,195"/>
+<area shape="rect" id="node8" href="$GeometryData_8hpp.html" title=" " alt="" coords="1676,124,1899,195"/>
+<area shape="rect" id="node27" href="$MaterialData_8cpp.html" title=" " alt="" coords="1923,124,2145,195"/>
+<area shape="rect" id="node28" href="$RawShaderMaterial_8hpp.html" title=" " alt="" coords="2679,124,2981,195"/>
+<area shape="rect" id="node3" href="$BlinnPhongMaterialData_8cpp.html" title=" " alt="" coords="223,243,445,313"/>
+<area shape="rect" id="node4" href="$BlinnPhongMaterialData_8inl.html" title=" " alt="" coords="469,243,692,313"/>
+<area shape="rect" id="node5" href="$BlinnPhongMaterial_8cpp.html" title=" " alt="" coords="717,243,1018,313"/>
+<area shape="rect" id="node6" href="$AssimpGeometryDataLoader_8cpp.html" title=" " alt="" coords="1043,243,1305,313"/>
+<area shape="rect" id="node9" href="$FileData_8inl.html" title=" " alt="" coords="1380,243,1603,313"/>
+<area shape="rect" id="node13" href="$LightManager_8cpp.html" title=" " alt="" coords="5,480,308,551"/>
+<area shape="rect" id="node16" href="$GeometrySystem_8cpp.html" title=" " alt="" coords="2481,480,2701,551"/>
+<area shape="rect" id="node21" href="$GeometryData_8inl.html" title=" " alt="" coords="1676,243,1899,313"/>
+<area shape="rect" id="node22" href="$GeometryData_8cpp.html" title=" " alt="" coords="1923,243,2145,313"/>
+<area shape="rect" id="node23" href="$GeometryComponent_8hpp.html" title=" " alt="" coords="2220,243,2493,313"/>
+<area shape="rect" id="node24" href="$GeometryComponent_8cpp.html" title=" " alt="" coords="2046,361,2318,432"/>
+<area shape="rect" id="node10" href="$FileData_8hpp.html" title=" " alt="" coords="1380,361,1603,432"/>
+<area shape="rect" id="node11" href="$FileData_8cpp.html" title=" " alt="" coords="332,480,555,551"/>
+<area shape="rect" id="node12" href="$CameraManager_8cpp.html" title=" " alt="" coords="579,480,919,551"/>
+<area shape="rect" id="node14" href="$RadiumEngine_8cpp.html" title=" " alt="" coords="943,480,1141,551"/>
+<area shape="rect" id="node15" href="$Renderer_8cpp.html" title=" " alt="" coords="1165,480,1364,551"/>
+<area shape="rect" id="node17" href="$Viewer_8cpp.html" title=" " alt="" coords="1388,480,1595,551"/>
+<area shape="rect" id="node18" href="$AssimpFileLoader_8cpp.html" title=" " alt="" coords="1619,480,1881,551"/>
+<area shape="rect" id="node19" href="$CameraLoader_8cpp.html" title=" " alt="" coords="1905,480,2171,551"/>
+<area shape="rect" id="node20" href="$TinyPlyFileLoader_8cpp.html" title=" " alt="" coords="2195,480,2457,551"/>
+<area shape="rect" id="node25" href="$GeometryComponent_8inl.html" title=" " alt="" coords="2393,361,2659,432"/>
+<area shape="rect" id="node26" href="$ForwardRenderer_8cpp.html" title=" " alt="" coords="2683,361,2979,432"/>
+<area shape="rect" id="node29" href="$RawShaderMaterial_8cpp.html" title=" " alt="" coords="2518,243,2819,313"/>
+<area shape="rect" id="node30" href="$RawShaderMaterial_8inl.html" title=" " alt="" coords="2844,243,3139,313"/>
+</map>

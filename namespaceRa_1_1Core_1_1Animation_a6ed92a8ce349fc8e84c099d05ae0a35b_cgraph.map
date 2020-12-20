@@ -1,0 +1,9 @@
+<map id="Ra::Core::Animation::corSkinning" name="Ra::Core::Animation::corSkinning">
+<area shape="rect" id="node1" title="Skin the vertices with the optimal centers of rotation." alt="" coords="5,82,157,123"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Animation.html#aeee390b619e41b72639ee6d3c27ae613" title=" " alt="" coords="209,49,361,90"/>
+<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Animation.html#a19bc7bcc26d8a3662f182f6d9a61764d" title=" " alt="" coords="205,114,365,155"/>
+<area shape="rect" id="node3" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="439,5,559,32"/>
+<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Math.html#a90f0fe9079f5bb86c721ea4b61738470" title="Returns the sign of any numeric type as { &#45;1, 0, 1}." alt="" coords="423,56,576,83"/>
+<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Math.html#a810d6d50b61cc01cda1d54527de864d0" title=" " alt="" coords="413,107,585,133"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Math.html#a1e6a5327cb1c73b29e0c6539576d02b0" title=" " alt="" coords="633,56,808,83"/>
+</map>

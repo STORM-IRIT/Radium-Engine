@@ -1,0 +1,6 @@
+<map id="Ra::Core::Asset::LightData::SpotLight" name="Ra::Core::Asset::LightData::SpotLight">
+<area shape="rect" id="node1" title=" " alt="" coords="125,344,317,436"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,182,172,259"/>
+<area shape="rect" id="node3" title=" " alt="" coords="217,5,267,83"/>
+<area shape="rect" id="node4" href="$structRa_1_1Core_1_1Asset_1_1LightData_1_1LightAttenuation.html" title=" " alt="" coords="330,175,522,267"/>
+</map>

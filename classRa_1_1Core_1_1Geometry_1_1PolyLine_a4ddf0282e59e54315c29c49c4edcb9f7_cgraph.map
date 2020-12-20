@@ -1,0 +1,6 @@
+<map id="Ra::Core::Geometry::PolyLine::getNearestSegment" name="Ra::Core::Geometry::PolyLine::getNearestSegment">
+<area shape="rect" id="node1" title="Returns the index of the nearest segment." alt="" coords="5,23,228,65"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Geometry.html#a749ee9e81862ef200b0b7540cc1f16bc" title=" " alt="" coords="276,23,427,65"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Math.html#acc9f6f3b880b60bf0ee7723afabaf180" title="Component&#45;wise clamp() function on a floating&#45;point vector." alt="" coords="475,5,641,32"/>
+<area shape="rect" id="node4" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="498,56,618,83"/>
+</map>

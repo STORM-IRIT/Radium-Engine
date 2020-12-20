@@ -1,0 +1,5 @@
+<map id="Ra::IO::AssimpGeometryDataLoader::fetchTextureCoordinates" name="Ra::IO::AssimpGeometryDataLoader::fetchTextureCoordinates">
+<area shape="rect" id="node1" title="Fill data with the vertex texture coordinates from mesh." alt="" coords="5,27,239,69"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34" title=" " alt="" coords="304,5,464,32"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html#a401dc38d3ba67efbb915efcf6e30cc6a" title="Return the list of vertex texture coordinates." alt="" coords="287,57,481,98"/>
+</map>
