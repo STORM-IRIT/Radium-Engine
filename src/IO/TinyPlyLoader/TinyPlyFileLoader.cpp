@@ -89,7 +89,8 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         LOG( logERROR ) << "[TinyPLY] " << e.what();
     }
 
-    if ( vertBuffer && vertBuffer->count == 0 )
+    // if there is no vertex prop, or their count is 0, then quit.
+    if ( !vertBuffer || vertBuffer->count == 0 )
     {
         delete fileData;
         LOG( logINFO ) << "[TinyPLY] No vertice found";
@@ -134,6 +135,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     file.read( ss );
 
+    if ( vertBuffer && vertBuffer->count != 0 )
     {
         const size_t numVerticesBytes = vertBuffer->buffer.size_bytes();
         std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> verts( vertBuffer->count );
