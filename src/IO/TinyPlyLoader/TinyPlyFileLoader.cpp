@@ -61,9 +61,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     if ( fileData->isVerbose() )
     {
         LOG( logINFO ) << "[TinyPLY] File Loading begin...";
-
-        LOG( logINFO )
-            << "........................................................................\n";
+        LOG( logINFO ) << "....................................................................\n";
         for ( auto c : file.get_comments() )
             std::cout << "Comment: " << c;
         for ( auto e : file.get_elements() )
@@ -73,21 +71,27 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
                 std::cout << "\tproperty - " << p.name << " ("
                           << tinyply::PropertyTable[p.propertyType].str << ")";
         }
-        LOG( logINFO )
-            << "........................................................................\n";
+        LOG( logINFO ) << "....................................................................\n";
     }
 
     // The count returns the number of instances of the property group. The vectors
     // above will be resized into a multiple of the property group size as
     // they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
-    std::shared_ptr<tinyply::PlyData> vertBuffer;
-    try
-    { vertBuffer = file.request_properties_from_element( "vertex", {"x", "y", "z"} ); }
-    catch ( const std::exception& e )
-    {
-        vertBuffer = nullptr;
-        LOG( logERROR ) << "[TinyPLY] " << e.what();
-    }
+
+    auto initBuffer = [&file]( const std::string& elementKey,
+                               const std::vector<std::string> propertyKeys ) {
+        std::shared_ptr<tinyply::PlyData> ret;
+        try
+        { ret = file.request_properties_from_element( elementKey, propertyKeys ); }
+        catch ( const std::exception& e )
+        {
+            ret = nullptr;
+            LOG( logERROR ) << "[TinyPLY] " << e.what();
+        }
+        return ret;
+    };
+
+    auto vertBuffer {initBuffer( "vertex", {"x", "y", "z"} )};
 
     // if there is no vertex prop, or their count is 0, then quit.
     if ( !vertBuffer || vertBuffer->count == 0 )
@@ -105,34 +109,9 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
                                                     GeometryData::POINT_CLOUD );
     geometry->setFrame( Core::Transform::Identity() );
 
-    std::shared_ptr<tinyply::PlyData> normalBuffer( nullptr );
-    std::shared_ptr<tinyply::PlyData> alphaBuffer( nullptr );
-    std::shared_ptr<tinyply::PlyData> colorBuffer( nullptr );
-
-    // check which buffers are available from file header
-    try
-    { normalBuffer = file.request_properties_from_element( "vertex", {"nx", "ny", "nz"} ); }
-    catch ( const std::exception& e )
-    {
-        normalBuffer = nullptr;
-        LOG( logERROR ) << "[TinyPLY] " << e.what();
-    }
-
-    try
-    { alphaBuffer = file.request_properties_from_element( "vertex", {"alpha"} ); }
-    catch ( const std::exception& e )
-    {
-        alphaBuffer = nullptr;
-        LOG( logERROR ) << "[TinyPLY] " << e.what();
-    }
-
-    try
-    { colorBuffer = file.request_properties_from_element( "vertex", {"red", "green", "blue"} ); }
-    catch ( const std::exception& e )
-    {
-        colorBuffer = nullptr;
-        LOG( logERROR ) << "[TinyPLY] " << e.what();
-    }
+    auto normalBuffer {initBuffer( "vertex", {"nx", "ny", "nz"} )};
+    auto alphaBuffer {initBuffer( "vertex", {"alpha"} )};
+    auto colorBuffer {initBuffer( "vertex", {"red", "green", "blue"} )};
 
     // read buffer data from file content
     file.read( ss );
@@ -152,7 +131,9 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 )
     {
+
         std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>> colors( colorBuffer->count );
+
         std::memcpy( colors.data(), colorBuffer->buffer.get(), colorBuffer->buffer.size_bytes() );
         auto* cols = colors.data();
 
@@ -166,8 +147,8 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
             {
                 c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra,
                                                  Scalar( *al ) / 255_ra );
-                cols++;
-                al++;
+                ++cols;
+                ++al;
             }
         }
         else
@@ -175,7 +156,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
             for ( auto& c : container )
             {
                 c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra );
-                cols++;
+                ++cols;
             }
         }
     }
@@ -189,7 +170,6 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     if ( fileData->isVerbose() )
     {
         LOG( logINFO ) << "[TinyPLY] File Loading end.";
-
         fileData->displayInfo();
     }
 
