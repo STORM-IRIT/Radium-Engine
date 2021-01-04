@@ -97,17 +97,19 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         return nullptr;
     }
 
-    fileData->m_geometryData.clear();
-    fileData->m_geometryData.reserve( 1 );
+    auto startTime {std::clock()};
 
-    static int nameId = 0;
     // a unique name is required by the component messaging system
+    static int nameId {0};
     auto geometry = std::make_unique<GeometryData>( "PC_" + std::to_string( ++nameId ),
                                                     GeometryData::POINT_CLOUD );
     geometry->setFrame( Core::Transform::Identity() );
 
-    std::shared_ptr<tinyply::PlyData> normalBuffer( nullptr ), alphaBuffer( nullptr ),
-        colorBuffer( nullptr );
+    std::shared_ptr<tinyply::PlyData> normalBuffer( nullptr );
+    std::shared_ptr<tinyply::PlyData> alphaBuffer( nullptr );
+    std::shared_ptr<tinyply::PlyData> colorBuffer( nullptr );
+
+    // check which buffers are available from file header
     try
     { normalBuffer = file.request_properties_from_element( "vertex", {"nx", "ny", "nz"} ); }
     catch ( const std::exception& e )
@@ -115,6 +117,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         normalBuffer = nullptr;
         LOG( logERROR ) << "[TinyPLY] " << e.what();
     }
+
     try
     { alphaBuffer = file.request_properties_from_element( "vertex", {"alpha"} ); }
     catch ( const std::exception& e )
@@ -122,6 +125,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         alphaBuffer = nullptr;
         LOG( logERROR ) << "[TinyPLY] " << e.what();
     }
+
     try
     { colorBuffer = file.request_properties_from_element( "vertex", {"red", "green", "blue"} ); }
     catch ( const std::exception& e )
@@ -130,38 +134,30 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         LOG( logERROR ) << "[TinyPLY] " << e.what();
     }
 
-    std::clock_t startTime;
-    startTime = std::clock();
-
+    // read buffer data from file content
     file.read( ss );
 
-    if ( vertBuffer && vertBuffer->count != 0 )
-    {
-        const size_t numVerticesBytes = vertBuffer->buffer.size_bytes();
-        std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> verts( vertBuffer->count );
-        std::memcpy( verts.data(), vertBuffer->buffer.get(), numVerticesBytes );
-        geometry->setVertices( verts );
-    }
+    std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> verts( vertBuffer->count );
+    std::memcpy( verts.data(), vertBuffer->buffer.get(), vertBuffer->buffer.size_bytes() );
+    geometry->setVertices( verts );
 
     if ( normalBuffer && normalBuffer->count != 0 )
     {
-        const size_t numVerticesBytes = normalBuffer->buffer.size_bytes();
         std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> normals( normalBuffer->count );
-        std::memcpy( normals.data(), normalBuffer->buffer.get(), numVerticesBytes );
+        std::memcpy(
+            normals.data(), normalBuffer->buffer.get(), normalBuffer->buffer.size_bytes() );
         geometry->setNormals( normals );
     }
 
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 )
     {
+        std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>> colors( colorBuffer->count );
+        std::memcpy( colors.data(), colorBuffer->buffer.get(), colorBuffer->buffer.size_bytes() );
+        auto* cols = colors.data();
+
         auto& container = geometry->getColors();
         container.resize( colorCount );
-
-        const size_t numVerticesBytes = colorBuffer->buffer.size_bytes();
-        std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>> colors( colorBuffer->count );
-        std::memcpy( colors.data(), colorBuffer->buffer.get(), numVerticesBytes );
-
-        auto* cols = colors.data();
 
         if ( alphaBuffer && alphaBuffer->count == colorCount )
         {
@@ -184,9 +180,11 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         }
     }
 
-    fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
-
+    fileData->m_geometryData.clear();
+    fileData->m_geometryData.reserve( 1 );
     fileData->m_geometryData.push_back( std::move( geometry ) );
+
+    fileData->m_loadingTime = ( std::clock() - startTime ) / Scalar( CLOCKS_PER_SEC );
 
     if ( fileData->isVerbose() )
     {
