@@ -27,16 +27,80 @@ std::vector<std::string> TinyPlyFileLoader::getFileExtensions() const {
 bool TinyPlyFileLoader::handleFileExtension( const std::string& extension ) const {
     return extension.compare( plyExt ) == 0;
 }
+// from https://github.com/ddiakopoulos/tinyply/blob/master/source/example-utils.hpp
+
+struct memory_buffer : public std::streambuf {
+    char* p_start {nullptr};
+    char* p_end {nullptr};
+    size_t size;
+
+    memory_buffer( char const* first_elem, size_t size_ ) :
+        p_start( const_cast<char*>( first_elem ) ), p_end( p_start + size_ ), size( size_ ) {
+        setg( p_start, p_start, p_end );
+    }
+
+    pos_type seekoff( off_type off, std::ios_base::seekdir dir, std::ios_base::openmode ) override {
+        if ( dir == std::ios_base::cur )
+            gbump( static_cast<int>( off ) );
+        else
+            setg( p_start, ( dir == std::ios_base::beg ? p_start : p_end ) + off, p_end );
+        return gptr() - p_start;
+    }
+
+    pos_type seekpos( pos_type pos, std::ios_base::openmode which ) override {
+        return seekoff( pos, std::ios_base::beg, which );
+    }
+};
+
+inline std::vector<uint8_t> read_file_binary( const std::string& pathToFile ) {
+    std::ifstream file( pathToFile, std::ios::binary );
+    std::vector<uint8_t> fileBufferBytes;
+
+    if ( file.is_open() )
+    {
+        file.seekg( 0, std::ios::end );
+        size_t sizeBytes = file.tellg();
+        file.seekg( 0, std::ios::beg );
+        fileBufferBytes.resize( sizeBytes );
+        if ( file.read( (char*)fileBufferBytes.data(), sizeBytes ) ) return fileBufferBytes;
+    }
+    else
+        throw std::runtime_error( "could not open binary ifstream to path " + pathToFile );
+    return fileBufferBytes;
+}
+
+struct memory_stream : virtual memory_buffer, public std::istream {
+    memory_stream( char const* first_elem, size_t size ) :
+        memory_buffer( first_elem, size ), std::istream( static_cast<std::streambuf*>( this ) ) {}
+};
 
 FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
-    // Read the file and create a std::istringstream suitable
-    // for the lib -- tinyply does not perform any file i/o.
-    std::ifstream ss( filename, std::ios::binary );
+    std::unique_ptr<std::istream> file_stream;
+    std::vector<uint8_t> byte_buffer;
+
+    // from https://github.com/ddiakopoulos/tinyply/blob/master/source/example.cpp
+    // For most files < 1gb, pre-loading the entire file upfront and wrapping it into a
+    // stream is a net win for parsing speed, about 40% faster.
+    const bool preload_into_memory = true;
+    if ( preload_into_memory )
+    {
+        byte_buffer = read_file_binary( filename );
+        file_stream.reset( new memory_stream( (char*)byte_buffer.data(), byte_buffer.size() ) );
+    }
+    else
+    { file_stream.reset( new std::ifstream( filename, std::ios::binary ) ); }
+
+    if ( !file_stream || file_stream->fail() )
+    {
+        LOG( logINFO ) << "[TinyPLY] Could not open file [" << filename << "] Aborting"
+                       << std::endl;
+        return nullptr;
+    }
 
     // Parse the ASCII header fields
     tinyply::PlyFile file;
-    file.parse_header( ss );
+    file.parse_header( *file_stream );
 
     auto elements = file.get_elements();
     if ( std::any_of( elements.begin(), elements.end(), []( const auto& e ) -> bool {
@@ -114,7 +178,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     auto colorBuffer {initBuffer( "vertex", {"red", "green", "blue"} )};
 
     // read buffer data from file content
-    file.read( ss );
+    file.read( *file_stream );
 
     auto copyBufferToGeometry = []( const std::shared_ptr<tinyply::PlyData>& buffer,
                                     Ra::Core::Vector3Array& container ) {
