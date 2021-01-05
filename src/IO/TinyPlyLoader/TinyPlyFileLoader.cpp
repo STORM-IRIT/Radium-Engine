@@ -116,47 +116,50 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // read buffer data from file content
     file.read( ss );
 
-    std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> verts( vertBuffer->count );
-    std::memcpy( verts.data(), vertBuffer->buffer.get(), vertBuffer->buffer.size_bytes() );
-    geometry->setVertices( verts );
+    auto copyBufferToGeometry = []( const std::shared_ptr<tinyply::PlyData>& buffer,
+                                    Ra::Core::Vector3Array& container ) {
+        if ( buffer && buffer->count != 0 )
+        {
+            auto floatBuffer = reinterpret_cast<float*>( buffer->buffer.get() );
+            container.reserve( buffer->count );
+            for ( size_t i = 0; i < buffer->count; ++i )
+            {
+                container.emplace_back(
+                    floatBuffer[i * 3 + 0], floatBuffer[i * 3 + 1], floatBuffer[i * 3 + 2] );
+            }
+        }
+    };
 
-    if ( normalBuffer && normalBuffer->count != 0 )
-    {
-        std::vector<Eigen::Matrix<float, 3, 1, Eigen::DontAlign>> normals( normalBuffer->count );
-        std::memcpy(
-            normals.data(), normalBuffer->buffer.get(), normalBuffer->buffer.size_bytes() );
-        geometry->setNormals( normals );
-    }
+    copyBufferToGeometry( vertBuffer, geometry->getVertices() );
+    copyBufferToGeometry( normalBuffer, geometry->getNormals() );
 
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 )
     {
-
-        std::vector<Eigen::Matrix<uint8_t, 3, 1, Eigen::DontAlign>> colors( colorBuffer->count );
-
-        std::memcpy( colors.data(), colorBuffer->buffer.get(), colorBuffer->buffer.size_bytes() );
-        auto* cols = colors.data();
-
         auto& container = geometry->getColors();
-        container.resize( colorCount );
+        container.reserve( colorCount );
 
         if ( alphaBuffer && alphaBuffer->count == colorCount )
         {
-            uint8_t* al = alphaBuffer->buffer.get();
-            for ( auto& c : container )
+            uint8_t* al     = alphaBuffer->buffer.get();
+            uint8_t* colors = colorBuffer->buffer.get();
+            for ( size_t i = 0; i < colorCount; ++i, al++, colors += 3 )
             {
-                c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra,
-                                                 Scalar( *al ) / 255_ra );
-                ++cols;
-                ++al;
+                container.emplace_back( Scalar( colors[0] ) / 255_ra,
+                                        Scalar( colors[1] ) / 255_ra,
+                                        Scalar( colors[2] ) / 255_ra,
+                                        Scalar( *al ) / 255_ra );
             }
         }
         else
         {
-            for ( auto& c : container )
+            uint8_t* colors = colorBuffer->buffer.get();
+            for ( size_t i = 0; i < colorCount; ++i, colors += 3 )
             {
-                c = Core::Utils::Color::fromRGB( ( *cols ).cast<Scalar>() / 255_ra );
-                ++cols;
+                container.emplace_back( Scalar( colors[0] ) / 255_ra,
+                                        Scalar( colors[1] ) / 255_ra,
+                                        Scalar( colors[2] ) / 255_ra,
+                                        1_ra );
             }
         }
     }
