@@ -1,0 +1,25 @@
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ element - vertex (3)
+ 	property - x (float)
+ 	property - y (float)
+ 	property - z (float)
+ ....................................................................
+ [TinyPLY] the following property keys were not found in the header: nx, ny, nz, 
+ [TinyPLY] the following property keys were not found in the header: alpha, 
+ [TinyPLY] the following property keys were not found in the header: red, green, blue, 
+ [TinyPLY] File Loading end.
+ ======== LOADING SUMMARY ========
+ Mesh loaded        : 1
+ Total vertex count : 3
+ Handle loaded      : 0
+ Animation loaded   : 0
+ Volume loaded        : 0
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ element - vertex (3)
+ 	property - x (float)
+ 	property - z (float)
+ ....................................................................
+ [TinyPLY] the following property keys were not found in the header: y, 
+ [TinyPLY] No vertice found

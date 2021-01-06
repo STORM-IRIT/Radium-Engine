@@ -19,6 +19,7 @@ endif()
 
 add_subdirectory(external)
 add_subdirectory(unittest)
+add_subdirectory(integration)
 add_subdirectory(ExampleApps)
 add_subdirectory(ExamplePluginWithLib EXCLUDE_FROM_ALL)
 
@@ -28,13 +29,13 @@ add_custom_target(check
     COMMAND echo [----] Running tests
     USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND}  --output-on-failure -C Debug
-    DEPENDS RadiumExampleApps unittests)
+    DEPENDS RadiumExampleApps unittests integration)
 
-add_custom_target(checkVerbose
+add_custom_target(check_verbose
     COMMAND echo [----] Running tests
     USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure -C Debug
-    DEPENDS RadiumExampleApps unittests)
+    DEPENDS RadiumExampleApps unittests integration)
 
 #------------------------------------------------------------------------------
 # CTest test suite
