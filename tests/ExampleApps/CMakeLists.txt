@@ -4,7 +4,6 @@
 project(RadiumExampleApps)
 
 # short convenience target from cmake/cleanCpppExtensions.cpp
-add_custom_target(test-run)
 add_custom_target(${PROJECT_NAME})
 
 # These variable are normally set by the find_package(Radium) for client applications
@@ -24,6 +23,7 @@ add_executable(CoreExampleApp
 target_link_libraries(CoreExampleApp PUBLIC Core)
 configure_radium_app(NAME CoreExampleApp)
 add_dependencies(${PROJECT_NAME} CoreExampleApp)
+addRunAndDebugTargets(CoreExampleApp)
 
 #if (RADIUM_GENERATE_LIB_ENGINE)
 find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
@@ -39,6 +39,7 @@ target_link_libraries(HelloRadium PUBLIC
 add_dependencies(${PROJECT_NAME} HelloRadium)
 message(STATUS "Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME HelloRadium)
+addRunAndDebugTargets(HelloRadium)
 
 add_executable(SimpleSimulationApp MACOSX_BUNDLE
     SimpleSimulationApp/main.cpp)
