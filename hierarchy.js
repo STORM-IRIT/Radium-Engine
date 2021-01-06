@@ -179,6 +179,15 @@ var hierarchy =
     [ "Ra::Core::Utils::IndexMap< std::shared_ptr< Ra::Engine::RenderObject > >", "classRa_1_1Core_1_1Utils_1_1IndexMap.html", null ],
     [ "Ra::Core::Utils::IndexMap< std::unique_ptr< Ra::Engine::Entity > >", "classRa_1_1Core_1_1Utils_1_1IndexMap.html", null ],
     [ "Ra::Engine::VaoIndices::IndicesObserver", "classRa_1_1Engine_1_1VaoIndices_1_1IndicesObserver.html", null ],
+    [ "std::ios_base", null, [
+      [ "std::basic_ios< Char >", null, [
+        [ "std::basic_istream< Char >", null, [
+          [ "std::istream", null, [
+            [ "Ra::IO::memory_stream", "structRa_1_1IO_1_1memory__stream.html", null ]
+          ] ]
+        ] ]
+      ] ]
+    ] ],
     [ "Ra::Engine::ItemEntry", "structRa_1_1Engine_1_1ItemEntry.html", null ],
     [ "Ra::Core::Grid< T, D >::Iterator", "classRa_1_1Core_1_1Grid_1_1Iterator.html", null ],
     [ "Ra::Core::Animation::KeyFramedValueBase", "classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html", [
@@ -330,6 +339,11 @@ var hierarchy =
     [ "compile_time_utils::size< x >", "structcompile__time__utils_1_1size.html", null ],
     [ "Ra::Core::Geometry::Spline< D, K >", "classRa_1_1Core_1_1Geometry_1_1Spline.html", null ],
     [ "Ra::Core::Asset::LightData::SpotLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html", null ],
+    [ "streambuf", null, [
+      [ "Ra::IO::memory_buffer", "structRa_1_1IO_1_1memory__buffer.html", [
+        [ "Ra::IO::memory_stream", "structRa_1_1IO_1_1memory__stream.html", null ]
+      ] ]
+    ] ],
     [ "SubdividerT", null, [
       [ "Ra::Core::Geometry::CatmullClarkSubdivider", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html", null ],
       [ "Ra::Core::Geometry::LoopSubdivider", "classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html", null ]
@@ -350,8 +364,8 @@ var hierarchy =
     [ "Ra::Engine::Texture", "classRa_1_1Engine_1_1Texture.html", null ],
     [ "Ra::Engine::TextureManager", "classRa_1_1Engine_1_1TextureManager.html", null ],
     [ "Ra::Engine::TextureParameters", "structRa_1_1Engine_1_1TextureParameters.html", null ],
-    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Engine::Renderer::TimerData", "structRa_1_1Engine_1_1Renderer_1_1TimerData.html", null ],
+    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::GuiBase::TransformEditor", "classRa_1_1GuiBase_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

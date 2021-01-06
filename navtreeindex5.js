@@ -45,7 +45,8 @@ var NAVTREEINDEX5 =
 "Timer_8hpp.html#ad4680945a5efebfe2b7b320e9e2a9a61":[10,0,3,0,7,22,2],
 "Timer_8hpp_source.html":[10,0,3,0,7,22],
 "TinyPlyFileLoader_8cpp.html":[10,0,3,3,3,0],
-"TinyPlyFileLoader_8cpp.html#a211c2c2808c72f7715081c58c1c4ace7":[10,0,3,3,3,0,0],
+"TinyPlyFileLoader_8cpp.html#a211c2c2808c72f7715081c58c1c4ace7":[10,0,3,3,3,0,2],
+"TinyPlyFileLoader_8cpp.html#aa1ce9d4e01a51f9464c1f05767584b18":[10,0,3,3,3,0,3],
 "TinyPlyFileLoader_8cpp_source.html":[10,0,3,3,3,0],
 "TinyPlyFileLoader_8hpp.html":[10,0,3,3,3,1],
 "TinyPlyFileLoader_8hpp_source.html":[10,0,3,3,3,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX5 =
 "basicsRadiumSubmodule.html":[2,1],
 "basicsTroubleshooting.html":[2,2],
 "basicsTroubleshooting.html#autotoc_md19":[2,2,0],
-"basicsTroubleshooting.html#autotoc_md20":[2,2,1],
-"basicsmanual.html":[2]
+"basicsTroubleshooting.html#autotoc_md20":[2,2,1]
 };
