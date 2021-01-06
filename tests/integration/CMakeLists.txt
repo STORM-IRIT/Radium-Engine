@@ -1,7 +1,10 @@
 
 add_custom_target(integration)
+
+# this target generates all references files with HEAD version of the source code, use it when updating the tests while not updating the libs
 add_custom_target(integration_create_ref)
 
+# read tinyply tests
 add_executable(tinyply-info
     tinyply-info/main.cpp)
 target_link_libraries(tinyply-info PUBLIC Core IO)
