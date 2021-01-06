@@ -30,16 +30,13 @@ add_dependencies(unittests Catch2 Core)
 target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # convenience target for running only the unit tests
-add_custom_target(unit
-    #this way we can use faux data from /test dir (if we have any):
+add_custom_target(run_unittests
+    #this way we can use fake data from /test dir (if we have any):
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests
     COMMAND $<TARGET_FILE:unittests>
     DEPENDS unittests)
 # Verbose printing of results
-add_custom_target(unitall
+add_custom_target(run_unittests_verbose
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests
     COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
     DEPENDS unittests)
-
-
-
