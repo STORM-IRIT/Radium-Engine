@@ -114,6 +114,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     // we are now sure to have a point-cloud
     FileData* fileData = new FileData( filename );
+    fileData->setVerbose( true );
 
     if ( !fileData->isInitialized() )
     {
@@ -125,17 +126,17 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     if ( fileData->isVerbose() )
     {
         LOG( logINFO ) << "[TinyPLY] File Loading begin...";
-        LOG( logINFO ) << "....................................................................\n";
+        LOG( logINFO ) << "....................................................................";
         for ( auto c : file.get_comments() )
-            std::cout << "Comment: " << c;
+            LOG( logINFO ) << "Comment: " << c;
         for ( auto e : file.get_elements() )
         {
             LOG( logINFO ) << "element - " << e.name << " (" << e.size << ")";
             for ( auto p : e.properties )
-                std::cout << "\tproperty - " << p.name << " ("
-                          << tinyply::PropertyTable[p.propertyType].str << ")";
+                LOG( logINFO ) << "\tproperty - " << p.name << " ("
+                               << tinyply::PropertyTable[p.propertyType].str << ")";
         }
-        LOG( logINFO ) << "....................................................................\n";
+        LOG( logINFO ) << "....................................................................";
     }
 
     // The count returns the number of instances of the property group. The vectors
@@ -150,7 +151,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         catch ( const std::exception& e )
         {
             ret = nullptr;
-            LOG( logERROR ) << "[TinyPLY] " << e.what();
+            LOG( logINFO ) << "[TinyPLY] " << e.what();
         }
         return ret;
     };
