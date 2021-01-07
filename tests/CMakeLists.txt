@@ -2,7 +2,6 @@
 # https://cmake.org/Wiki/CMake/Testing_With_CTest
 # https://cmake.org/cmake/help/latest/command/add_test.html
 list(APPEND CMAKE_MESSAGE_INDENT "[Tests] ")
-include(CTest)
 
 # Adds convenience methods, see cmake/cleanCppExtensions.cmake
 include(cleanCppExtensions)
