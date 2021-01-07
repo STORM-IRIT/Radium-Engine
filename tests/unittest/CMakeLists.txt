@@ -1,11 +1,9 @@
-
 #------------------------------------------------------------------------------
 # Unit tests via Catch framework
 #
 # For testing on the function/class level.
 
 # -----------------------------------------------------------------------------
-
 
 add_executable(unittests
     unittest.cpp
@@ -22,8 +20,8 @@ add_executable(unittests
     Core/polyline.cpp
     Core/raycast.cpp
     Core/string.cpp
-    Core/topomesh.cpp
-    )
+    Core/topomesh.cpp)
+
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
 target_link_libraries(unittests PRIVATE Catch2 Core)
 add_dependencies(unittests Catch2 Core)
@@ -35,6 +33,7 @@ add_custom_target(run_unittests
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests
     COMMAND $<TARGET_FILE:unittests>
     DEPENDS unittests)
+
 # Verbose printing of results
 add_custom_target(run_unittests_verbose
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests
