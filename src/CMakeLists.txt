@@ -41,9 +41,6 @@ endmacro()
 #-----------------------------------------------------------------------------------
 # Include sources
 
-#This var gather local dependencies in subdirectories
-set(LocalDependencies)
-
 if(RADIUM_GENERATE_LIB_CORE)
     add_subdirectory(Core)
 endif()
@@ -59,6 +56,9 @@ endif()
 if(RADIUM_GENERATE_LIB_PLUGINBASE)
     add_subdirectory(PluginBase)
 endif()
+
+# propagate global to parent
+set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
 
 
 #-----------------------------------------------------------------------------------
