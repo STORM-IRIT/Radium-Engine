@@ -1,6 +1,6 @@
 # https://cmake.org/cmake/help/latest/manual/ctest.1.html
 # https://cmake.org/Wiki/CMake/Testing_With_CTest
-# https://cmake.org/cmake/help/latest/command/add_test.html?
+# https://cmake.org/cmake/help/latest/command/add_test.html
 list(APPEND CMAKE_MESSAGE_INDENT "[Tests] ")
 include(CTest)
 
@@ -17,11 +17,28 @@ else()
   add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
+
+#------------------------------------------------------------------------------
+# CTest test suite
+# use add_test() to add a new test to the test suit.
+# When executed test fails (returns not 0), test failed. There are more options, check CMake documentation.
+#
+# the add_test() are done in subfolder's CMakeLists.txt
+
 add_subdirectory(external)
+
+# unittest use catch2 to define unittests on low level functions 
 add_subdirectory(unittest)
+
+# integration run whole program with parameters,
+# check if it will crash, produce correct results, etc.
 add_subdirectory(integration)
+
+# example apps are simple complete application, no test for now.
+# TODO : we can imagine to capture screen output and compare to refs 
 add_subdirectory(ExampleApps)
 add_subdirectory(ExamplePluginWithLib EXCLUDE_FROM_ALL)
+
 
 # Convenience targets for fast testing, they depends on binaries (so the build
 # is triggered, when sources were changed).
@@ -36,23 +53,5 @@ add_custom_target(check_verbose
     USES_TERMINAL
     COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure -C Debug
     DEPENDS RadiumExampleApps unittests integration)
-
-#------------------------------------------------------------------------------
-# CTest test suite
-#
-# Test suite is defined here, when executed test fails (returns not 0), test
-# failed. There are more options, check CMake documentation.
-#
-# Good to use to integration test, run whole program with parameters,
-# check if it will crash, produce correct results, etc.
-
-
-# basic runnable tests are defined in ExampleApps folder
-
-# Add unit test to CTest suite as one of the tests
-# unit test build is located in source/unittest/CMakeLists.txt
-add_test(NAME "catch_unit_tests"
-    COMMAND $<TARGET_FILE:unittests>
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 list(POP_BACK CMAKE_MESSAGE_INDENT)

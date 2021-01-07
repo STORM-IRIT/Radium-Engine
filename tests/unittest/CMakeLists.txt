@@ -39,3 +39,9 @@ add_custom_target(run_unittests_verbose
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests
     COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
     DEPENDS unittests)
+
+
+# Add unit test to CTest suite as one of the tests
+add_test(NAME "catch_unit_tests"
+    COMMAND $<TARGET_FILE:unittests>
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
