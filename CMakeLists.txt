@@ -233,6 +233,10 @@ include(radium_setup_functions)
 # Documentation build
 add_subdirectory(doc)
 
+
+# This var gather local dependencies in subdirectories
+set(LocalDependencies)
+
 # Images, databases and other data which needs to be installed for project
 #add_subdirectory(data)
 
@@ -299,3 +303,5 @@ messageSetting("USE_GOLD_LINKER")
 messageEnd()
 
 set( CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL "Previous value of CMAKE_INSTALL_PREFIX")
+
+

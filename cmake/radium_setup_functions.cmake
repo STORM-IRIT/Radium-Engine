@@ -77,7 +77,7 @@ function(configure_cmdline_Radium_app)
     install(
         TARGETS ${ARGS_NAME}
         RUNTIME DESTINATION bin
-    )
+        )
     # TODO, this Windows only bundle fix might be adapted to Linux also ... perhaps with the same code ?
     if (MSVC OR MSVC_IDE OR MINGW)
         # Construction of the  dependency paths
@@ -774,3 +774,52 @@ macro(populateLocalDependencies)
         set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
     endif ()
 endmacro()
+
+# https://stackoverflow.com/questions/32183975/how-to-print-all-the-properties-of-a-target-in-cmake
+function(print_target_properties tgt)
+    # Get all propreties that cmake supports
+    execute_process(COMMAND cmake --help-property-list OUTPUT_VARIABLE CMAKE_PROPERTY_LIST)
+    
+    # Convert command output into a CMake list
+    STRING(REGEX REPLACE ";" "\\\\;" CMAKE_PROPERTY_LIST "${CMAKE_PROPERTY_LIST}")
+    STRING(REGEX REPLACE "\n" ";" CMAKE_PROPERTY_LIST "${CMAKE_PROPERTY_LIST}")
+    # Fix https://stackoverflow.com/questions/32197663/how-can-i-remove-the-the-location-property-may-not-be-read-from-target-error-i
+    #list(FILTER CMAKE_PROPERTY_LIST EXCLUDE REGEX "^LOCATION$|^LOCATION_|_LOCATION$")
+    # For some reason, "TYPE" shows up twice - others might too?
+    list(REMOVE_DUPLICATES CMAKE_PROPERTY_LIST)
+
+    unset(CMAKE_WHITELISTED_PROPERTY_LIST)
+    foreach(prop ${CMAKE_PROPERTY_LIST})
+        if(prop MATCHES "^(INTERFACE|[_a-z]|IMPORTED_LIBNAME_|MAP_IMPORTED_CONFIG_)|^(COMPATIBLE_INTERFACE_(BOOL|NUMBER_MAX|NUMBER_MIN|STRING)|EXPORT_NAME|IMPORTED(_GLOBAL|_CONFIGURATIONS|_LIBNAME)?|NAME|TYPE|NO_SYSTEM_FROM_IMPORTED)$")
+            list(APPEND CMAKE_WHITELISTED_PROPERTY_LIST ${prop})
+        endif()
+    endforeach(prop)
+
+    #    message ("CMAKE_PROPERTY_LIST = ${CMAKE_PROPERTY_LIST}")
+    #    message ("CMAKE_WHITELISTED_PROPERTY_LIST = ${CMAKE_WHITELISTED_PROPERTY_LIST}")
+
+    if(NOT TARGET ${tgt})
+      message("There is no target named '${tgt}'")
+      return()
+    endif()
+
+    get_target_property(target_type ${tgt} TYPE)
+    if(target_type STREQUAL "INTERFACE_LIBRARY")
+        set(PROP_LIST ${CMAKE_WHITELISTED_PROPERTY_LIST})
+    else()
+        set(PROP_LIST ${CMAKE_PROPERTY_LIST})
+    endif()
+
+    list(APPEND PROP_LIST "IMPORTED_LOCATION")
+    list(APPEND PROP_LIST "IMPORTED_LOCATION_RELEASE")
+
+    foreach (prop ${PROP_LIST})
+        string(REPLACE "<CONFIG>" "${CMAKE_BUILD_TYPE}" prop ${prop})
+        # message ("Checking ${prop}")
+        get_property(propval TARGET ${tgt} PROPERTY ${prop} SET)
+        if (propval)
+            get_target_property(propval ${tgt} ${prop})
+            message ("${tgt} ${prop} = ${propval}")
+        endif()
+    endforeach(prop)
+endfunction(print_target_properties)
