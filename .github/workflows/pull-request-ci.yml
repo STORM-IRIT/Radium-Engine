@@ -78,3 +78,40 @@ jobs:
           logoColor: white
           color: 1BCC1B
 
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          cached: false
+      - name: Install lcov
+        run: sudo apt-get install -y lcov
+      - name: Prepare directories
+        run: |
+          mkdir -p install/
+          mkdir -p src/Radium-Engine
+          mkdir -p build/Radium-Engine
+      - name: Checkout remote head
+        uses: actions/checkout@master
+        with:
+          path: src/Radium-Engine
+      - name: Configure Radium
+        run: |
+          cd build/Radium-Engine
+          cmake ../../src/Radium-Engine -GNinja -DCMAKE_BUILD_TYPE=Debug -DRADIUM_ENABLE_TESTING=ON -DRADIUM_ENABLE_COVERAGE=ON -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc -DCMAKE_INSTALL_PREFIX=../../install/ -DRADIUM_IO_ASSIMP=ON -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY
+      - name: Build Radium and run tests
+        run: |
+          cd build/Radium-Engine
+          cmake --build . --parallel --config Debug
+          lcov --initial --capture --directory . --output-file zero.info
+          lcov --remove zero.info '/usr/*' '*/external/install/*' '*/Catch2/*' '*_autogen/*' '*build*' --output-file zero.info
+          cmake --build . --parallel --config Debug --target check
+          lcov --capture --directory . --output-file coverage.info
+          lcov --remove coverage.info '/usr/*' '*/external/install/*' '*/Catch2/*' '*_autogen/*' '*build*' --output-file coverage.info
+          lcov --list coverage.info
+          lcov -a zero.info -a coverage.info -o total.info
+          lcov --list total.info
+          # Uploading report to CodeCov
+          bash <(curl -s https://codecov.io/bash) -f total.info -R ../../src/Radium-Engine || echo "Codecov did not collect coverage reports"

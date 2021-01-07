@@ -23,7 +23,8 @@ set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
 set(RADIUM_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
-option(RADIUM_ENABLE_TESTING          "Enable testing. Tests are automatically built with target all" ON)
+option(RADIUM_ENABLE_TESTING          "Enable testing. Tests are automatically built with target all, run with target check or test" ON)
+option(RADIUM_ENABLE_COVERAGE         "Enable coverage, gcc only. Experimental, need ENABLE_TESTING" OFF)
 option(RADIUM_GENERATE_LIB_CORE       "Include Radium::Core in CMake project" ON)
 option(RADIUM_GENERATE_LIB_IO         "Include Radium::IO in CMake project" ON)
 option(RADIUM_GENERATE_LIB_ENGINE     "Include Radium::Engine in CMake project" ON)
@@ -210,6 +211,19 @@ messageInfo("Git Changeset: ${GIT_CHANGESET}")
 
 messageEnd()
 
+
+if(RADIUM_ENABLE_COVERAGE)
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message( STATUS "[Tests] Enable Coverage ¡Warning! slow down execution ¡Warning!")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}-fprofile-arcs -ftest-coverage")
+    else(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message( NOTICE "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not activated.")
+        message( NOTICE "[Tests] Coverage only supported in DEBUG with GCC.")
+    endif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+endif(RADIUM_ENABLE_COVERAGE)
+
 #------------------------------------------------------------------------------
 # Dependency management utilities
 include(externalFunc)
@@ -241,6 +255,7 @@ add_custom_target(ForceRadiumInstallation
 # Testing
 if (RADIUM_ENABLE_TESTING)
     enable_testing()
+    include(CTest)
     add_subdirectory(tests)
     add_dependencies(RadiumLibs CoreExampleApp RadiumExampleApps)
 endif ()
@@ -264,6 +279,7 @@ messageSetting("CMAKE_BUILD_TYPE")
 messageInfo("  possible options: Debug Release RelWithDebInfo MinSizeRel")
 messageInfo("  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")
 messageSetting("RADIUM_ENABLE_TESTING")
+messageSetting("RADIUM_ENABLE_COVERAGE")
 messageSetting("RADIUM_GENERATE_LIB_CORE")
 messageSetting("RADIUM_GENERATE_LIB_ENGINE")
 messageSetting("RADIUM_GENERATE_LIB_GUIBASE")
