@@ -10,6 +10,7 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 class Mesh;
+class LineMesh;
 class PolyMesh;
 class PointCloud;
 class VolumeObject;
@@ -35,8 +36,6 @@ class RA_ENGINE_API GeometryComponent : public Component
     /// Returns the index of the associated RO (the display mesh)
     //    Ra::Core::Utils::Index getRenderObjectIndex() const;
   protected:
-    const std::string& getContentName() const { return m_contentName; }
-
   private:
     const Ra::Core::Utils::Index* roIndexRead() const;
 
@@ -51,6 +50,10 @@ namespace SurfaceMeshComponentInternal {
 template <class CoreMeshT>
 struct RenderMeshHelper {};
 
+template <>
+struct RenderMeshHelper<Ra::Core::Geometry::LineMesh> {
+    using Type = Ra::Engine::Data::LineMesh;
+};
 template <>
 struct RenderMeshHelper<Ra::Core::Geometry::TriangleMesh> {
     using Type = Ra::Engine::Data::Mesh;
