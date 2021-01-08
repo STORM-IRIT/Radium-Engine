@@ -104,10 +104,10 @@ jobs:
       - name: Build Radium and run tests
         run: |
           cd build/Radium-Engine
-          cmake --build . --parallel --config Debug
+          cmake --build . --config Debug
           lcov --initial --capture --directory . --output-file zero.info
           lcov --remove zero.info '/usr/*' '*/external/install/*' '*/Catch2/*' '*_autogen/*' '*build*' --output-file zero.info
-          cmake --build . --parallel --config Debug --target check
+          cmake --build . --config Debug --target check
           lcov --capture --directory . --output-file coverage.info
           lcov --remove coverage.info '/usr/*' '*/external/install/*' '*/Catch2/*' '*_autogen/*' '*build*' --output-file coverage.info
           lcov --list coverage.info
