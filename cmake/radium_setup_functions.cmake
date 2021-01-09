@@ -84,6 +84,8 @@ function(configure_cmdline_Radium_app)
         set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
         # Add the Qt bin dir ...
         list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
+        # Add the Radium externals's dll location 
+        list(APPEND FIX_LIBRARY_DIR "${RadiumExternalDlls_location}")
         # Fix the bundled directory
         install(CODE "message(STATUS \"Fixing application with Qt base directory at ${FIX_LIBRARY_DIR} !!\")
                        include(BundleUtilities)
@@ -761,8 +763,6 @@ function(configure_radium_library)
     endforeach ()
 endfunction()
 
-
-
 # Simple macro to populate LocalDependencies variable according to cmake args
 # NAME is the name of the variable to test, e.g. "Eigen3_DIR"
 macro(populateLocalDependencies)
@@ -775,6 +775,7 @@ macro(populateLocalDependencies)
     endif ()
 endmacro()
 
+# cmake debug helper function to list "all" target properties
 # https://stackoverflow.com/questions/32183975/how-to-print-all-the-properties-of-a-target-in-cmake
 function(print_target_properties tgt)
     # Get all propreties that cmake supports
@@ -823,3 +824,28 @@ function(print_target_properties tgt)
         endif()
     endforeach(prop)
 endfunction(print_target_properties)
+
+# Add the directory location of a target to a variable
+# usage addImportedDir( FROM targetName TO varName)
+# do nothing if either targetName or varName is not defined
+function(addImportedDir)
+    # "declare" and parse parameters
+    cmake_parse_arguments(
+        ARG
+        ""
+        "FROM" # name of a target to get the location
+        "TO" # name of the variable where to add the location
+        ${ARGN}
+    )
+    if (ARG_FROM)
+        if (ARG_TO)
+             message(NOTICE "Add location of target ${ARG_FROM} into the variable ${ARG_TO}" )
+             get_target_property(tmp ${ARG_FROM} LOCATION)
+             get_filename_component(tmp "${tmp}" DIRECTORY)
+             list(APPEND ${ARG_TO} ${tmp})
+             list(REMOVE_DUPLICATES ${ARG_TO})
+             message(NOTICE "New value of ${ARG_TO} is ${${ARG_TO}} ( ${tmp} )" )
+             set(${ARG_TO} ${${ARG_TO}} PARENT_SCOPE)
+        endif()
+    endif ()
+endfunction()

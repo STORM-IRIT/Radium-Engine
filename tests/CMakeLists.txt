@@ -16,7 +16,24 @@ else()
   add_compile_options(-std=c++17 -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused -pedantic)
 endif()
 
-
+if (MSVC OR MSVC_IDE OR MINGW)
+    # must find the RadiumExternal directory. This will be set by RadiumConfig.cmake after install
+    # 
+    # TODO : find a way to that more efficiently
+    find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
+    find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
+    find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
+    if(RADIUM_IO_TINYPLY)
+        find_dependency(tinyply REQUIRED NO_DEFAULT_PATH)
+    endif()
+    set(RadiumExternalDlls_location "")
+    addImportedDir( FROM cpplocate::cpplocate TO RadiumExternalDlls_location) 
+    addImportedDir( FROM glbinding::glbinding TO RadiumExternalDlls_location) 
+    addImportedDir( FROM globjects::globjects TO RadiumExternalDlls_location)
+    if(RADIUM_IO_TINYPLY)
+        addImportedDir( FROM tinyply TO RadiumExternalDlls_location)
+    endif()
+endif()
 #------------------------------------------------------------------------------
 # CTest test suite
 # use add_test() to add a new test to the test suit.
