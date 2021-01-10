@@ -45,10 +45,14 @@ if ("@cpplocate_DIR@" STREQUAL "")
 else()
     set(cpplocate_DIR "@cpplocate_DIR@")
 endif()
+set(RadiumExternalDlls_location "")
 
 find_dependency(Eigen3    REQUIRED NO_DEFAULT_PATH)
 find_dependency(OpenMesh  REQUIRED NO_DEFAULT_PATH)
 find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
+if (MSVC OR MSVC_IDE OR MINGW)
+    addImportedDir( FROM cpplocate::cpplocate TO RadiumExternalDlls_location) 
+endif()
 
 set(_supported_components Core)
 
@@ -96,7 +100,10 @@ if(Engine_FOUND)
     find_dependency(glm       REQUIRED NO_DEFAULT_PATH)
     find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
     find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
-
+    if (MSVC OR MSVC_IDE OR MINGW)
+        addImportedDir( FROM glbinding::glbinding TO RadiumExternalDlls_location) 
+        addImportedDir( FROM globjects::globjects TO RadiumExternalDlls_location)
+    endif()
     include("${CMAKE_CURRENT_LIST_DIR}/EngineTargets.cmake" )
 endif()
 
@@ -121,7 +128,9 @@ if(IO_FOUND)
           MAP_IMPORTED_CONFIG_MINSIZEREL Release
           MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
         )
-
+        if (MSVC OR MSVC_IDE OR MINGW)
+            addImportedDir( FROM assimp::assimp TO RadiumExternalDlls_location)
+        endif()
     endif()
     if( depTinyPLYFound GREATER_EQUAL "0")
         if ("@tinyply_DIR@" STREQUAL "")
@@ -130,6 +139,9 @@ if(IO_FOUND)
             set(tinyply_DIR "@tinyply_DIR@")
         endif()
         find_dependency(tinyply REQUIRED NO_DEFAULT_PATH)
+        if (MSVC OR MSVC_IDE OR MINGW)
+            addImportedDir( FROM tinyply TO RadiumExternalDlls_location)
+        endif()
     endif()
 
 endif()

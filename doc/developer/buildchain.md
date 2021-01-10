@@ -203,3 +203,11 @@ Radium is compiled and tested with specific version of dependencies, as given in
 [//]: # (end script copy)
 
 \warning You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.
+
+# Coverage
+
+You can generate [`lcov`](http://ltp.sourceforge.net/coverage/lcov.php) output files to check tests coverage.
+To this end, both `RADIUM_ENABLE_TESTING=ON` and `RADIUM_ENABLE_COVERAGE=ON` have to be passed to cmake, works on Linux in Debug.
+Then the target `lcov-capture` builds and run all the necessary steps and produce a file `total.info` in your build dir.
+Please check CMakeLists.txt for the detailed steps, and `lcov documentation` for further processing of `total.info` to generate an html report.
+
