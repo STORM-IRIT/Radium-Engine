@@ -42,6 +42,7 @@ addExternalFolder(Core ${CMAKE_SOURCE_DIR}/external/Core ${LocalDependencies})
 find_package(Eigen3 3.3
     REQUIRED
     NO_DEFAULT_PATH )
+
 find_package(OpenMesh
     REQUIRED
     COMPONENTS Core Tools
@@ -71,5 +72,6 @@ configureTargetWithDefaultRaSettings(${ra_core_target})
 configure_radium_library(
     TARGET ${ra_core_target}
     FILES "${core_headers};${core_inlines}"
-)
+    )
+
 list(POP_BACK CMAKE_MESSAGE_INDENT)

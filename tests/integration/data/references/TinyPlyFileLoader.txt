@@ -1,0 +1,112 @@
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ element - vertex (3)
+ 	property - x (float)
+ 	property - y (float)
+ 	property - z (float)
+ ....................................................................
+ [TinyPLY] the following property keys were not found in the header: nx, ny, nz, 
+ [TinyPLY] the following property keys were not found in the header: alpha, 
+ [TinyPLY] the following property keys were not found in the header: red, green, blue, 
+ [TinyPLY] File Loading end.
+ ======== LOADING SUMMARY ========
+ Mesh loaded        : 1
+ Total vertex count : 3
+ Handle loaded      : 0
+ Animation loaded   : 0
+ Volume loaded        : 0
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ element - vertex (3)
+ 	property - x (float)
+ 	property - y (float)
+ 	property - z (float)
+ 	property - nx (float)
+ 	property - ny (float)
+ 	property - nz (float)
+ ....................................................................
+ [TinyPLY] the following property keys were not found in the header: alpha, 
+ [TinyPLY] the following property keys were not found in the header: red, green, blue, 
+ [TinyPLY] File Loading end.
+ ======== LOADING SUMMARY ========
+ Mesh loaded        : 1
+ Total vertex count : 3
+ Handle loaded      : 0
+ Animation loaded   : 0
+ Volume loaded        : 0
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ element - vertex (3)
+ 	property - x (float)
+ 	property - z (float)
+ ....................................................................
+ [TinyPLY] the following property keys were not found in the header: y, 
+ [TinyPLY] No vertice found
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ Comment: VCGLIB generated
+ element - vertex (66049)
+ 	property - x (float)
+ 	property - y (float)
+ 	property - z (float)
+ 	property - red (uchar)
+ 	property - green (uchar)
+ 	property - blue (uchar)
+ 	property - alpha (uchar)
+ element - face (0)
+ 	property - vertex_indices (int)
+ ....................................................................
+ [TinyPLY] the following property keys were not found in the header: nx, ny, nz, 
+ [TinyPLY] File Loading end.
+ ======== LOADING SUMMARY ========
+ Mesh loaded        : 1
+ Total vertex count : 66049
+ Handle loaded      : 0
+ Animation loaded   : 0
+ Volume loaded        : 0
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ Comment: VCGLIB generated
+ element - vertex (66049)
+ 	property - x (float)
+ 	property - y (float)
+ 	property - z (float)
+ 	property - nx (float)
+ 	property - ny (float)
+ 	property - nz (float)
+ 	property - red (uchar)
+ 	property - green (uchar)
+ 	property - blue (uchar)
+ 	property - alpha (uchar)
+ element - face (0)
+ 	property - vertex_indices (int)
+ ....................................................................
+ [TinyPLY] File Loading end.
+ ======== LOADING SUMMARY ========
+ Mesh loaded        : 1
+ Total vertex count : 66049
+ Handle loaded      : 0
+ Animation loaded   : 0
+ Volume loaded        : 0
+ [TinyPLY] File Loading begin...
+ ....................................................................
+ Comment: VCGLIB generated
+ element - vertex (66049)
+ 	property - x (float)
+ 	property - y (float)
+ 	property - z (float)
+ 	property - nx (float)
+ 	property - ny (float)
+ 	property - nz (float)
+ element - face (0)
+ 	property - vertex_indices (int)
+ ....................................................................
+ [TinyPLY] the following property keys were not found in the header: alpha, 
+ [TinyPLY] the following property keys were not found in the header: red, green, blue, 
+ [TinyPLY] File Loading end.
+ ======== LOADING SUMMARY ========
+ Mesh loaded        : 1
+ Total vertex count : 66049
+ Handle loaded      : 0
+ Animation loaded   : 0
+ Volume loaded        : 0

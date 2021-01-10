@@ -4,7 +4,6 @@
 project(RadiumExampleApps)
 
 # short convenience target from cmake/cleanCpppExtensions.cpp
-add_custom_target(test-run)
 add_custom_target(${PROJECT_NAME})
 
 # These variable are normally set by the find_package(Radium) for client applications
@@ -12,11 +11,13 @@ set(RADIUM_ROOT_DIR "${CMAKE_INSTALL_PREFIX}/")
 set(RADIUM_RESOURCES_DIR "${CMAKE_INSTALL_PREFIX}/Resources")
 set(RADIUM_PLUGINS_DIR "${CMAKE_INSTALL_PREFIX}/Plugins")
 
-# must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
-# TODO : find a way to that more efficiently
-find_dependency(Qt5 COMPONENTS Core REQUIRED)
-get_target_property(QtCore_Dll Qt5::Core LOCATION)
-get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
+if (MSVC OR MSVC_IDE OR MINGW)
+    # must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
+    # TODO : find a way to that more efficiently
+    find_dependency(Qt5 COMPONENTS Core REQUIRED)
+    addImportedDir(FROM Qt5::Core TO QtDlls_location)
+endif()
+
 include(radium_setup_functions)
 
 add_executable(CoreExampleApp
@@ -24,6 +25,7 @@ add_executable(CoreExampleApp
 target_link_libraries(CoreExampleApp PUBLIC Core)
 configure_radium_app(NAME CoreExampleApp)
 add_dependencies(${PROJECT_NAME} CoreExampleApp)
+addRunAndDebugTargets(CoreExampleApp)
 
 #if (RADIUM_GENERATE_LIB_ENGINE)
 find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
@@ -39,6 +41,7 @@ target_link_libraries(HelloRadium PUBLIC
 add_dependencies(${PROJECT_NAME} HelloRadium)
 message(STATUS "Installing HelloRadium into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME HelloRadium)
+addRunAndDebugTargets(HelloRadium)
 
 add_executable(SimpleSimulationApp MACOSX_BUNDLE
     SimpleSimulationApp/main.cpp)

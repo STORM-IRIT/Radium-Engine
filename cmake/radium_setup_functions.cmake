@@ -77,13 +77,15 @@ function(configure_cmdline_Radium_app)
     install(
         TARGETS ${ARGS_NAME}
         RUNTIME DESTINATION bin
-    )
+        )
     # TODO, this Windows only bundle fix might be adapted to Linux also ... perhaps with the same code ?
     if (MSVC OR MSVC_IDE OR MINGW)
         # Construction of the  dependency paths
         set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
         # Add the Qt bin dir ...
         list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
+        # Add the Radium externals's dll location 
+        list(APPEND FIX_LIBRARY_DIR "${RadiumExternalDlls_location}")
         # Fix the bundled directory
         install(CODE "message(STATUS \"Fixing application with Qt base directory at ${FIX_LIBRARY_DIR} !!\")
                        include(BundleUtilities)
@@ -761,15 +763,89 @@ function(configure_radium_library)
     endforeach ()
 endfunction()
 
-
-
 # Simple macro to populate LocalDependencies variable according to cmake args
 # NAME is the name of the variable to test, e.g. "Eigen3_DIR"
 macro(populateLocalDependencies)
     set(oneValueArgs NAME)
     cmake_parse_arguments(CHECKDEP "DUMMY_OPTION" "${oneValueArgs}" "DUMMY_MULTI" ${ARGN} )   
     if (${CHECKDEP_NAME})
-        set(LocalDependencies "${LocalDependencies};-D${CHECKDEP_NAME}=${${CHECKDEP_NAME}}")
+        string(REPLACE "\\" "/" CHECKDEP_STRING ${${CHECKDEP_NAME}})
+        set(LocalDependencies "${LocalDependencies};-D${CHECKDEP_NAME}=${CHECKDEP_STRING}")
         set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
     endif ()
 endmacro()
+
+# cmake debug helper function to list "all" target properties
+# https://stackoverflow.com/questions/32183975/how-to-print-all-the-properties-of-a-target-in-cmake
+function(print_target_properties tgt)
+    # Get all propreties that cmake supports
+    execute_process(COMMAND cmake --help-property-list OUTPUT_VARIABLE CMAKE_PROPERTY_LIST)
+    
+    # Convert command output into a CMake list
+    STRING(REGEX REPLACE ";" "\\\\;" CMAKE_PROPERTY_LIST "${CMAKE_PROPERTY_LIST}")
+    STRING(REGEX REPLACE "\n" ";" CMAKE_PROPERTY_LIST "${CMAKE_PROPERTY_LIST}")
+    # Fix https://stackoverflow.com/questions/32197663/how-can-i-remove-the-the-location-property-may-not-be-read-from-target-error-i
+    #list(FILTER CMAKE_PROPERTY_LIST EXCLUDE REGEX "^LOCATION$|^LOCATION_|_LOCATION$")
+    # For some reason, "TYPE" shows up twice - others might too?
+    list(REMOVE_DUPLICATES CMAKE_PROPERTY_LIST)
+
+    unset(CMAKE_WHITELISTED_PROPERTY_LIST)
+    foreach(prop ${CMAKE_PROPERTY_LIST})
+        if(prop MATCHES "^(INTERFACE|[_a-z]|IMPORTED_LIBNAME_|MAP_IMPORTED_CONFIG_)|^(COMPATIBLE_INTERFACE_(BOOL|NUMBER_MAX|NUMBER_MIN|STRING)|EXPORT_NAME|IMPORTED(_GLOBAL|_CONFIGURATIONS|_LIBNAME)?|NAME|TYPE|NO_SYSTEM_FROM_IMPORTED)$")
+            list(APPEND CMAKE_WHITELISTED_PROPERTY_LIST ${prop})
+        endif()
+    endforeach(prop)
+
+    #    message ("CMAKE_PROPERTY_LIST = ${CMAKE_PROPERTY_LIST}")
+    #    message ("CMAKE_WHITELISTED_PROPERTY_LIST = ${CMAKE_WHITELISTED_PROPERTY_LIST}")
+
+    if(NOT TARGET ${tgt})
+      message("There is no target named '${tgt}'")
+      return()
+    endif()
+
+    get_target_property(target_type ${tgt} TYPE)
+    if(target_type STREQUAL "INTERFACE_LIBRARY")
+        set(PROP_LIST ${CMAKE_WHITELISTED_PROPERTY_LIST})
+    else()
+        set(PROP_LIST ${CMAKE_PROPERTY_LIST})
+    endif()
+
+    list(APPEND PROP_LIST "IMPORTED_LOCATION")
+    list(APPEND PROP_LIST "IMPORTED_LOCATION_RELEASE")
+
+    foreach (prop ${PROP_LIST})
+        string(REPLACE "<CONFIG>" "${CMAKE_BUILD_TYPE}" prop ${prop})
+        # message ("Checking ${prop}")
+        get_property(propval TARGET ${tgt} PROPERTY ${prop} SET)
+        if (propval)
+            get_target_property(propval ${tgt} ${prop})
+            message ("${tgt} ${prop} = ${propval}")
+        endif()
+    endforeach(prop)
+endfunction(print_target_properties)
+
+# Add the directory location of a target to a variable
+# usage addImportedDir( FROM targetName TO varName)
+# do nothing if either targetName or varName is not defined
+function(addImportedDir)
+    # "declare" and parse parameters
+    cmake_parse_arguments(
+        ARG
+        ""
+        "FROM" # name of a target to get the location
+        "TO" # name of the variable where to add the location
+        ${ARGN}
+    )
+    if (ARG_FROM)
+        if (ARG_TO)
+             message(NOTICE "Add location of target ${ARG_FROM} into the variable ${ARG_TO}" )
+             get_target_property(tmp ${ARG_FROM} LOCATION)
+             get_filename_component(tmp "${tmp}" DIRECTORY)
+             list(APPEND ${ARG_TO} ${tmp})
+             list(REMOVE_DUPLICATES ${ARG_TO})
+             message(NOTICE "New value of ${ARG_TO} is ${${ARG_TO}} ( ${tmp} )" )
+             set(${ARG_TO} ${${ARG_TO}} PARENT_SCOPE)
+        endif()
+    endif ()
+endfunction()

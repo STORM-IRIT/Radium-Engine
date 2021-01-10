@@ -3,7 +3,7 @@ find_program(GDB_PATH gdb)
 
 # Adds -run and -dbg targets
 macro(addRunAndDebugTargets TARGET)
-    add_custom_target(${TARGET}-run
+    add_custom_target(run_${TARGET}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         USES_TERMINAL
         DEPENDS ${TARGET}
@@ -11,7 +11,7 @@ macro(addRunAndDebugTargets TARGET)
 
     # convenience run gdb target
     if(GDB_PATH)
-        add_custom_target(${TARGET}-gdb
+        add_custom_target(gdb_${TARGET}
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
             USES_TERMINAL
             DEPENDS ${TARGET}
