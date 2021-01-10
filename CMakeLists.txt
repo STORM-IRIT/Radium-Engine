@@ -210,14 +210,21 @@ endif()
 messageInfo("Git Changeset: ${GIT_CHANGESET}")
 
 messageEnd()
-
-
+set(ENABLE_COVERAGE "")
 if(RADIUM_ENABLE_COVERAGE)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
         message( STATUS "[Tests] Enable Coverage ¡Warning! slow down execution ¡Warning!")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}-fprofile-arcs -ftest-coverage")
+
+        find_program(LCOV_BIN lcov)
+
+        if(NOT LCOV_BIN)
+            message( FATAL_ERROR "lcov binary not found, while asking for coverage computation (RADIUM_ENABLE_COVERAGE=${RADIUM_ENABLE_COVERAGE}). Abort")
+        endif()
+
+        set(ENABLE_COVERAGE "ON")
     else(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
         message( NOTICE "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not activated.")
         message( NOTICE "[Tests] Coverage only supported in DEBUG with GCC.")
@@ -267,6 +274,54 @@ endif ()
 # Packaging stuff (deb, rpm, windows installer)
 #add_subdirectory(packaging)
 
+# https://stackoverflow.com/questions/37434946/how-do-i-iterate-over-all-cmake-targets-programmatically
+function(get_all_targets var)
+    set(targets)
+    get_all_targets_recursive(targets ${CMAKE_CURRENT_SOURCE_DIR})
+    set(${var} ${targets} PARENT_SCOPE)
+endfunction()
+
+macro(get_all_targets_recursive targets dir)
+    get_property(subdirectories DIRECTORY ${dir} PROPERTY SUBDIRECTORIES)
+    foreach(subdir ${subdirectories})
+        get_all_targets_recursive(${targets} ${subdir})
+    endforeach()
+
+    get_property(current_targets DIRECTORY ${dir} PROPERTY BUILDSYSTEM_TARGETS)
+
+    foreach(target ${current_targets})
+        get_target_property(type ${target} TYPE)
+        if(${type} STREQUAL "EXECUTABLE" OR ${type} STREQUAL "SHARED_LIBRARY")
+            list(APPEND ${targets} ${target})
+        endif()
+    endforeach()
+endmacro()
+
+
+if(ENABLE_COVERAGE)
+    get_all_targets(all_targets)
+    set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
+    add_custom_target(lcov-init
+        COMMAND ${LCOV_BIN} --initial --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/init.info
+        COMMAND ${LCOV_BIN} --remove ${CMAKE_BINARY_DIR}/init.info ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/init.info
+        DEPENDS ${all_targets}
+        BYPRODUCTS ${CMAKE_BINARY_DIR}/init.info)
+    add_custom_target(lcov-zerocounter
+        COMMAND ${LCOV_BIN} --zerocounter --directory ${CMAKE_BINARY_DIR}
+        DEPENDS lcov-init)
+    add_custom_target(lcov-capture
+        COMMAND ${LCOV_BIN} --capture --directory . --output-file  ${CMAKE_BINARY_DIR}/coverage.info
+        COMMAND ${LCOV_BIN} --remove coverage.info  ${LCOV_REMOVES} --output-file  ${CMAKE_BINARY_DIR}/coverage.info
+        COMMAND ${LCOV_BIN} -a ${CMAKE_BINARY_DIR}/init.info -a ${CMAKE_BINARY_DIR}/coverage.info -o ${CMAKE_BINARY_DIR}/total.info
+        DEPENDS lcov-zerocounter
+        BYPRODUCTS ${CMAKE_BINARY_DIR}/total.info)
+    add_custom_target(lcov-list
+        COMMAND ${LCOV_BIN} --list ${CMAKE_BINARY_DIR}/total.info
+        SOURCES  ${CMAKE_BINARY_DIR}/total.info)
+
+    add_dependencies(check lcov-zerocounter)
+    add_dependencies(lcov-capture check)
+endif()
 
 install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
 install(FILES README.md DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
