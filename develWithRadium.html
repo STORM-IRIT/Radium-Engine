@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">696080cf7c25edd2f432158c563a2b38af794d51</span>
+   &#160;<span id="projectnumber">05202fef0c1b0f88b3ca31e8b07dd335a6c7b086</span>
    </div>
   </td>
  </tr>
@@ -95,14 +95,14 @@ $(document).ready(function(){initNavTree('develWithRadium.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md57">Radium Plugin</a></li>
-<li class="level1"><a href="#autotoc_md58">Radium Application</a></li>
-<li class="level1"><a href="#autotoc_md59">Radium libraries</a></li>
-<li class="level1"><a href="#autotoc_md60">Radium coding style</a></li>
-<li class="level1"><a href="#autotoc_md61">Radium test suite</a><ul><li class="level2"><a href="#autotoc_md62">Preliminaries</a></li>
-<li class="level2"><a href="#autotoc_md63">How to write tests</a></li>
-<li class="level2"><a href="#autotoc_md64">How to add a test to the testing suite</a></li>
-<li class="level2"><a href="#autotoc_md65">How to run tests locally and on the CI systems</a></li>
+<ul><li class="level1"><a href="#autotoc_md58">Radium Plugin</a></li>
+<li class="level1"><a href="#autotoc_md59">Radium Application</a></li>
+<li class="level1"><a href="#autotoc_md60">Radium libraries</a></li>
+<li class="level1"><a href="#autotoc_md61">Radium coding style</a></li>
+<li class="level1"><a href="#autotoc_md62">Radium test suite</a><ul><li class="level2"><a href="#autotoc_md63">Preliminaries</a></li>
+<li class="level2"><a href="#autotoc_md64">How to write tests</a></li>
+<li class="level2"><a href="#autotoc_md65">How to add a test to the testing suite</a></li>
+<li class="level2"><a href="#autotoc_md66">How to run tests locally and on the CI systems</a></li>
 </ul>
 </li>
 </ul>
@@ -114,28 +114,28 @@ $(document).ready(function(){initNavTree('develWithRadium.html',''); initResizab
 <li>Testing: extend radium tests to improve testing coverage or when adding new functionality.</li>
 </ol>
 <p>Once installed, Radium offers several cmake functions to configure and build your extension. You can access documentation and how-to about these cmake function in the <a class="el" href="cmakeutilities.html">Radium cmake utilities</a> documentation.</p>
-<h1><a class="anchor" id="autotoc_md57"></a>
+<h1><a class="anchor" id="autotoc_md58"></a>
 Radium Plugin</h1>
 <p>Tutorial and documentation here: <a href="https://github.com/STORM-IRIT/Radium-PluginExample">https://github.com/STORM-IRIT/Radium-PluginExample</a></p>
-<h1><a class="anchor" id="autotoc_md58"></a>
+<h1><a class="anchor" id="autotoc_md59"></a>
 Radium Application</h1>
 <p>Tutorial here: <a href="https://github.com/STORM-IRIT/Radium-AppExample">https://github.com/STORM-IRIT/Radium-AppExample</a></p>
-<h1><a class="anchor" id="autotoc_md59"></a>
+<h1><a class="anchor" id="autotoc_md60"></a>
 Radium libraries</h1>
 <p>Direct contributions to master are closed. Please submit your pull request.</p>
-<h1><a class="anchor" id="autotoc_md60"></a>
+<h1><a class="anchor" id="autotoc_md61"></a>
 Radium coding style</h1>
 <p>Please follow the scripts/clang-format coding style (tested <code>with clang-format 9.0</code>). We also provide a pre commit hook that checks the committed files are correctly formatted. To install both hooks and clang-format, simply run <code>./scripts/install-scripts-linux.sh</code> on linux, or adapt to your OS.</p>
-<h1><a class="anchor" id="autotoc_md61"></a>
+<h1><a class="anchor" id="autotoc_md62"></a>
 Radium test suite</h1>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h2><a class="anchor" id="autotoc_md63"></a>
 Preliminaries</h2>
 <p>Radium testing is done using two tools:</p><ul>
 <li>CTest: the test system by CMake. It provides compilation, running and basic reporting mechanisms for tests.</li>
 <li>Continuous Integration system: Travis.ci and AppVeyor. We use these services to call CTest on several platforms (windows, ubuntu and MacOs) with several compilers, and validate any change made to the main repository.</li>
 </ul>
 <p>As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically. In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.</p>
-<h2><a class="anchor" id="autotoc_md63"></a>
+<h2><a class="anchor" id="autotoc_md64"></a>
 How to write tests</h2>
 <p>Tests are C++ executables, expected to set their return value accordingly to the test result, e.g. <code>return EXIT_FAILURE;</code> or by calling <code>abort();</code> in case of failure.</p>
 <p>Their source code is stored in <code>Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src</code>.</p>
@@ -187,13 +187,13 @@ How to write tests</h2>
 <p>The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software, independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every single part works correctly.</p>
 <p>Source: <a href="https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters">https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters</a> </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md64"></a>
+<h2><a class="anchor" id="autotoc_md65"></a>
 How to add a test to the testing suite</h2>
 <p>The testing suite is handled by <code>cmake</code>: tests need to be added with their sources and dependencies. We provide a <code>cmake</code> helper function to add a test easily:</p>
 <div class="fragment"><div class="line">radium_add_test( TARGET my_test_name SRC src/my_test.cpp LIBS radiumCore radiumEngine )</div>
 </div><!-- fragment --><p>See <code>Radium-Engine/cmake/ConfigureTesting.cmake</code> for the implementation of this function, and <code>Radium-Engine/tests/CoreTests/CMakeLists.txt</code> for an usage example.</p>
 <p>Tests are located in <code>Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src</code>. Currently <code>cmake</code> scripts are configured only for <code>Core</code>, you might need to copy and adapt them in case you add tests for the others packages (this is what you should do ! ;) ).</p>
-<h2><a class="anchor" id="autotoc_md65"></a>
+<h2><a class="anchor" id="autotoc_md66"></a>
 How to run tests locally and on the CI systems</h2>
 <p>First, you need to have the <code>cmake</code> option <code>RADIUM_COMPILE_TESTS</code> set to <code>ON</code> (the default).</p>
 <p>To run the tests locally, you first need to compile them (<code>make buildtests</code>) and then call CTest (<code>make test</code>). You should get something like: </p><div class="fragment"><div class="line">$ make test</div>
@@ -238,7 +238,7 @@ How to run tests locally and on the CI systems</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Wed Jan 6 2021 16:07:55 for Radium Engine by
+    <li class="footer">Generated on Sun Jan 10 2021 13:45:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
