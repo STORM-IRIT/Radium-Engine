@@ -24,6 +24,9 @@ ENDIF("${isSystemDir}" STREQUAL "-1")
 
 #--------------------------- Configuration of the Radium exported targets and definitions ---------------------------
 
+# Load Radium cmake functions
+include(${CMAKE_CURRENT_LIST_DIR}/radium_setup_functions.cmake)
+
 include(CMakeFindDependencyMacro)
 find_dependency(Threads REQUIRED)
 if(@OPENMP_FOUND@) # Indicates if OpenMP has been used when compiling the Radium libraries
@@ -174,5 +177,3 @@ endwhile()
 set(RADIUM_ROOT_DIR "${SELF_DIR}")
 set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
 set(RADIUM_PLUGINS_DIR "${SELF_DIR}/Plugins")
-
-include(${CMAKE_CURRENT_LIST_DIR}/radium_setup_functions.cmake)
