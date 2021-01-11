@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">b2bad13a9059ee0348a4eb9de263a55138f47b83</span>
+   &#160;<span id="projectnumber">616db8d0450d81c272a049044e692ca941cd66e7</span>
    </div>
   </td>
  </tr>
@@ -465,21 +465,22 @@ $(document).ready(function(){initNavTree('CoreMacros_8hpp_source.html',''); init
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4244) // Conversion from double to float loses data.</span></div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4251) // stl dllexports</span></div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4267) // conversion from size_t to uint</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4577) // noexcept used with no exception handling mode</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4838) // conversion from enum to uint.</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4996) // sprintf unsafe</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4503) // Truncated decorated name</span></div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="preprocessor">    #ifndef NOMINMAX</span></div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor">    #define NOMINMAX</span></div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="preprocessor">    #endif</span></div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="preprocessor">    #include &lt;windows.h&gt;</span></div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="preprocessor">#ifndef eigen_assert</span></div>
-<div class="line"><a name="l00399"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#ac51a3721011bc243b7c656c9b309c508">  399</a></span>&#160;<span class="preprocessor">#define eigen_assert(XXX) CORE_ASSERT(XXX, &quot;Eigen Assert&quot;);</span></div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment">// clang-format on</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_CORE_HPP</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4275) // non - DLL-interface class &#39;class_1&#39; used as base for DLL-interface class &#39;class_2&#39;</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4577) // noexcept used with no exception handling mode</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4838) // conversion from enum to uint.</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4996) // sprintf unsafe</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="preprocessor">    #pragma warning(disable: 4503) // Truncated decorated name</span></div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="preprocessor">    #ifndef NOMINMAX</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="preprocessor">    #define NOMINMAX</span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="preprocessor">    #endif</span></div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="preprocessor">    #include &lt;windows.h&gt;</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="preprocessor">#ifndef eigen_assert</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno"><a class="line" href="CoreMacros_8hpp.html#ac51a3721011bc243b7c656c9b309c508">  400</a></span>&#160;<span class="preprocessor">#define eigen_assert(XXX) CORE_ASSERT(XXX, &quot;Eigen Assert&quot;);</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">// clang-format on</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_CORE_HPP</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00250">CoreMacros.hpp:250</a></div></div>
@@ -494,7 +495,7 @@ $(document).ready(function(){initNavTree('CoreMacros_8hpp_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="CoreMacros_8hpp.html">CoreMacros.hpp</a></li>
-    <li class="footer">Generated on Mon Jan 11 2021 08:50:24 for Radium Engine by
+    <li class="footer">Generated on Mon Jan 11 2021 09:21:43 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
