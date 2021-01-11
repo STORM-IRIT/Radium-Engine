@@ -34,7 +34,6 @@ addExternalFolder(Engine ${CMAKE_SOURCE_DIR}/external/Engine ${LocalDependencies
 
 find_package(glbinding REQUIRED NO_DEFAULT_PATH )
 find_package(globjects REQUIRED NO_DEFAULT_PATH )
-
 find_package(Eigen3 REQUIRED  NO_DEFAULT_PATH )
 
 #This one should be extracted directly from external project properties.

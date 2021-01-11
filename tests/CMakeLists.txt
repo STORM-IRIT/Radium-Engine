@@ -18,19 +18,31 @@ endif()
 
 if (MSVC OR MSVC_IDE OR MINGW)
     # must find the RadiumExternal directory. This will be set by RadiumConfig.cmake after install
-    # 
+    #
     # TODO : find a way to that more efficiently
-    find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
-    find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
-    find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
-    if(RADIUM_IO_TINYPLY)
+    if(DEFINED cpplocate_DIR)
+        find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
+    endif()
+    if(DEFINED glbinding_DIR)
+        find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
+    endif()
+    if(DEFINED globjects_DIR)
+        find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
+    endif()
+    if(RADIUM_IO_TINYPLY AND DEFINED tinyply_DIR)
         find_dependency(tinyply REQUIRED NO_DEFAULT_PATH)
     endif()
     set(RadiumExternalDlls_location "")
-    addImportedDir( FROM cpplocate::cpplocate TO RadiumExternalDlls_location) 
-    addImportedDir( FROM glbinding::glbinding TO RadiumExternalDlls_location) 
-    addImportedDir( FROM globjects::globjects TO RadiumExternalDlls_location)
-    if(RADIUM_IO_TINYPLY)
+    if(cpplocate_DIR)
+        addImportedDir( FROM cpplocate::cpplocate TO RadiumExternalDlls_location)
+    endif()
+    if(glbinding_DIR)
+        addImportedDir( FROM glbinding::glbinding TO RadiumExternalDlls_location)
+    endif()
+    if(DEFINED globjects_DIR)
+        addImportedDir( FROM globjects::globjects TO RadiumExternalDlls_location)
+    endif()
+    if(RADIUM_IO_TINYPLY AND DEFINED tinyply_DIR)
         addImportedDir( FROM tinyply TO RadiumExternalDlls_location)
     endif()
 endif()
@@ -43,7 +55,7 @@ endif()
 
 add_subdirectory(external)
 
-# unittest use catch2 to define unittests on low level functions 
+# unittest use catch2 to define unittests on low level functions
 add_subdirectory(unittest)
 
 # integration run whole program with parameters,
@@ -51,7 +63,7 @@ add_subdirectory(unittest)
 add_subdirectory(integration)
 
 # example apps are simple complete application, no test for now.
-# TODO : we can imagine to capture screen output and compare to refs 
+# TODO : we can imagine to capture screen output and compare to refs
 add_subdirectory(ExampleApps)
 add_subdirectory(ExamplePluginWithLib EXCLUDE_FROM_ALL)
 
