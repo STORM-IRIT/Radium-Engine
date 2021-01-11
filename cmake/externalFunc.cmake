@@ -70,7 +70,7 @@ macro(addExternalFolder NAME FOLDER )
             message(STATUS "Enable compatibility mode for Xcode Generator")
         endif ()
 
-                message(STATUS "EXEC")
+        message(STATUS "EXEC")
         execute_process(
             COMMAND ${CMAKE_COMMAND} --build . --config ${CMAKE_BUILD_TYPE} --target ${RadiumExternalMakeTarget}
                 WORKING_DIRECTORY ${EXT_WORKING_DIR}
