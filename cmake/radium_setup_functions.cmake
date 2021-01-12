@@ -318,7 +318,8 @@ endfunction()
 # Add resources to an exported target
 # this will allow to access the resources in the installation tree of the exported target from any import of this target
 # To be called with
-# installTargetResources( TARGET theTarget
+# radium_exported_resources( TARGET theTarget
+#                   ACCESS_FROM_PACKAGE pathFromConfigPackageFileToResources
 #                  [PREFIX TargetResourcePathPrefix]
 # )
 #
@@ -469,6 +470,52 @@ function(installTargetResources)
     endif ()
 endfunction()
 
+# Configuration of the build and installation procedure for bundled Radium application on windows
+# Allows to install application with dependent resources
+# usage :
+#   configure_Windows_Radium_app(
+#         NAME theTargetName # <- this must be an executable
+#         RESOURCES ResourceDir1 ResourceDir2 # <- accept a list of directories
+#         [USE_PLUGIN] # set this option if Plugins from Radium bundle must be imported in the application bundle
+# )
+function(configure_Windows_Radium_app)
+    # "declare" and parse parameters
+    cmake_parse_arguments(
+        ARGS
+        "USE_PLUGINS"
+        "NAME"
+        "RESOURCES" # list of directories containing the resources to install - optional
+        ${ARGN}
+    )
+    if (NOT ARGS_NAME)
+        message(FATAL_ERROR "[configure_Windows_Radium_app] You must provide the main target of the application")
+    endif ()
+
+    # Configure the executable installation
+    install(
+        TARGETS ${ARGS_NAME}
+        BUNDLE DESTINATION "bin/"
+    )
+    configure_cmdline_Radium_app(${ARGN})
+    # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html)
+    get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
+    list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
+    if(NOT QTCOREIDX EQUAL -1)
+        message(STATUS "[configure_Windows_Radium_app] Preparing call to WinDeployQT for application ${ARGS_NAME}")
+        windeployqt( ${ARGS_NAME} bin )
+    endif()
+
+    #install Radium plugins
+    if (ARGS_USE_PLUGINS)
+         message(STATUS "[configure_Windows_Radium_app] Plugins are not yet supported for windows app ${ARGS_NAME} ")
+    endif ()
+    if (NOT ${RADIUM_RESOURCES_DIR} STREQUAL "${CMAKE_INSTALL_PREFIX}/Resources")
+        # Configure the resources installation
+        # TODO : do we have to call installTargetResources here ?
+        install(DIRECTORY ${RADIUM_RESOURCES_DIR}  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+    endif()
+endfunction()
+
 
 # Configuration of the build and installation procedure for Radium application
 # Allows to install application with dependent resources
@@ -499,17 +546,14 @@ function(configure_radium_app)
         else ()
             configure_cmdline_Radium_app(${ARGN})
         endif ()
-    else ()
+    elseif (MSVC OR MSVC_IDE OR MINGW)
+        configure_Windows_Radium_app(${ARGN})
+    else()
         configure_cmdline_Radium_app(${ARGN})
         get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
         list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
         if(NOT QTCOREIDX EQUAL -1)
-            if (MSVC OR MSVC_IDE OR MINGW)
-                message(STATUS "[configure_radium_app] Preparing call to WinDeployQT for application ${ARGS_NAME}")
-                windeployqt( ${ARGS_NAME} bin )
-            else()
-                message(STATUS "[configure_radium_app] Deploying QT is not yet supported for application ${ARGS_NAME} on ${CMAKE_SYSTEM_NAME}")
-            endif ()
+            message(STATUS "[configure_radium_app] Deploying QT is not yet supported for application ${ARGS_NAME} on ${CMAKE_SYSTEM_NAME}")
         endif ()
     endif ()
 endfunction()
