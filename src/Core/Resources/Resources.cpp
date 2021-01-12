@@ -27,13 +27,13 @@ std::string searchPath( std::string pattern, std::string offset, void* libSymbol
 std::string getRadiumResourcesDir() {
     const std::string baseDir = searchPath(
         "Resources/Shaders", "../..", reinterpret_cast<void*>( getRadiumResourcesDir ) );
-    return baseDir + "Resources/";
+    return baseDir + "/Resources/";
 }
 
 std::string getRadiumPluginsDir() {
     const std::string baseDir =
         searchPath( "Plugins/lib", "../../..", reinterpret_cast<void*>( getRadiumPluginsDir ) );
-    return baseDir + "Plugins/lib/";
+    return baseDir + "/Plugins/lib/";
 }
 
 std::string getBaseDir() {
