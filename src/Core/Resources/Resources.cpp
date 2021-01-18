@@ -16,24 +16,25 @@ std::filesystem::path searchPath( std::string pattern, std::string offset, void*
     return std::filesystem::canonical( p );
 }
 
-std::string getRadiumResourcesDir() {
+std::string getRadiumResourcesPath() {
     auto basePath =
-        searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesDir ) );
+        searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesPath ) );
     auto resourcesPath = basePath / "Resources" / "";
     return resourcesPath.string();
 }
 
-std::string getRadiumPluginsDir() {
-    auto basePath = searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsDir ) );
+std::string getRadiumPluginsPath() {
+    auto basePath =
+        searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsPath ) );
     auto pluginsPath = basePath / "Plugins" / "lib" / "";
     return pluginsPath.string();
 }
 
-std::string getBaseDir() {
+std::string getBasePath() {
     return cpplocate::getModulePath();
 }
 
-std::string getBaseResourcesDir() {
+std::string getBaseResourcesPath() {
     auto baseDir = cpplocate::locatePath( "Resources", "", nullptr );
     return baseDir + "Resources/";
 }

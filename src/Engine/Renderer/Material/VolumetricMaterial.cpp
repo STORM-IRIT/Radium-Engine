@@ -50,7 +50,7 @@ bool VolumetricMaterial::isTransparent() const {
 
 void VolumetricMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesPath()};
 
     ShaderProgramManager::getInstance()->addShaderProgram(
         {{"ComposeVolume"},
