@@ -22,6 +22,7 @@ else()
 endif()
 
 find_package( Threads REQUIRED )
+find_package( Filesystem COMPONENTS Final Experimental REQUIRED )
 
 include( filelistCore )
 
@@ -56,9 +57,12 @@ add_dependencies ( ${ra_core_target} versionFileTouchForRebuild) # We want preci
 target_include_directories(${ra_core_target} PUBLIC
     $<BUILD_INTERFACE:${OPENMESH_INCLUDE_DIR}>
     $<BUILD_INTERFACE:${EIGEN_INCLUDE_DIR}> )
-target_link_libraries(${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen cpplocate::cpplocate)
+target_link_libraries(${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Threads::Threads Eigen3::Eigen cpplocate::cpplocate PRIVATE std::filesystem)
 
 target_compile_definitions(${ra_core_target} PRIVATE RA_CORE_EXPORTS)
+target_compile_definitions(${ra_core_target} PRIVATE -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}> -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
+
+
 if (WIN_32)
     target_compile_definitions(${ra_core_target} PUBLIC _USE_MATH_DEFINES) ##OpenMesh
 endif ()
