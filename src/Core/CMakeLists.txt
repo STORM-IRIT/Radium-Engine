@@ -22,7 +22,7 @@ else()
 endif()
 
 find_package( Threads REQUIRED )
-find_package( Filesystem REQUIRED)
+find_package( Filesystem COMPONENTS Final REQUIRED )
 
 include( filelistCore )
 
