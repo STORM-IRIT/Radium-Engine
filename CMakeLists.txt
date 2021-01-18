@@ -223,12 +223,13 @@ if(RADIUM_ENABLE_COVERAGE)
         if(NOT LCOV_BIN)
             message( FATAL_ERROR "lcov binary not found, while asking for coverage computation (RADIUM_ENABLE_COVERAGE=${RADIUM_ENABLE_COVERAGE}). Abort")
         endif()
+        set(RADIUM_ENABLE_TESTING "ON")
 
         set(ENABLE_COVERAGE "ON")
-    else(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-        message( NOTICE "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not activated.")
-        message( NOTICE "[Tests] Coverage only supported in DEBUG with GCC.")
-    endif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+    else()
+        message( WARNING "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not activated.")
+        message( WARNING "[Tests] Coverage only supported in DEBUG with GCC.")
+    endif()
 endif(RADIUM_ENABLE_COVERAGE)
 
 #------------------------------------------------------------------------------
