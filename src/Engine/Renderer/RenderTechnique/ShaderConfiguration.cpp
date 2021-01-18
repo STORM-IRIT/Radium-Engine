@@ -7,9 +7,9 @@
 /**
  * Plain will be the default shader program
  */
-static const std::string defaultVertexShader {Ra::Core::Resources::getRadiumResourcesDir() +
+static const std::string defaultVertexShader {Ra::Core::Resources::getRadiumResourcesPath() +
                                               "Shaders/Materials/Plain/Plain.vert.glsl"};
-static const std::string defaultFragmentShader {Ra::Core::Resources::getRadiumResourcesDir() +
+static const std::string defaultFragmentShader {Ra::Core::Resources::getRadiumResourcesPath() +
                                                 "Shaders/Materials/Plain/Plain.frag.glsl"};
 
 namespace Ra {

@@ -101,7 +101,7 @@ bool BlinnPhongMaterial::isTransparent() const {
 
 void BlinnPhongMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesPath()};
 
     // Defining the material converter
     EngineMaterialConverters::registerMaterialConverter( materialName,
