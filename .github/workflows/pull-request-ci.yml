@@ -135,7 +135,7 @@ jobs:
       - name: Create and upload coverage report 
         run: |
           cd build/Radium-Engine
-          cmake --build . --config Debug --target lcov-capture
+          cmake --build . --config Debug --target lcov
           # show report for debug purpose
           lcov --list total.info
           # Uploading report to CodeCov

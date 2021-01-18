@@ -217,14 +217,12 @@ if(RADIUM_ENABLE_COVERAGE)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}-fprofile-arcs -ftest-coverage")
-
         find_program(LCOV_BIN lcov)
 
         if(NOT LCOV_BIN)
             message( FATAL_ERROR "lcov binary not found, while asking for coverage computation (RADIUM_ENABLE_COVERAGE=${RADIUM_ENABLE_COVERAGE}). Abort")
         endif()
         set(RADIUM_ENABLE_TESTING "ON")
-
         set(ENABLE_COVERAGE "ON")
     else()
         message( WARNING "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not activated.")
@@ -300,28 +298,27 @@ endmacro()
 
 
 if(ENABLE_COVERAGE)
-    get_all_targets(all_targets)
     set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
     add_custom_target(lcov-init
         COMMAND ${LCOV_BIN} --initial --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/init.info
         COMMAND ${LCOV_BIN} --remove ${CMAKE_BINARY_DIR}/init.info ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/init.info
-        DEPENDS ${all_targets}
         BYPRODUCTS ${CMAKE_BINARY_DIR}/init.info)
     add_custom_target(lcov-zerocounter
-        COMMAND ${LCOV_BIN} --zerocounter --directory ${CMAKE_BINARY_DIR}
-        DEPENDS lcov-init)
+        COMMAND ${LCOV_BIN} --zerocounter --directory ${CMAKE_BINARY_DIR})
     add_custom_target(lcov-capture
         COMMAND ${LCOV_BIN} --capture --directory . --output-file  ${CMAKE_BINARY_DIR}/coverage.info
         COMMAND ${LCOV_BIN} --remove coverage.info  ${LCOV_REMOVES} --output-file  ${CMAKE_BINARY_DIR}/coverage.info
         COMMAND ${LCOV_BIN} -a ${CMAKE_BINARY_DIR}/init.info -a ${CMAKE_BINARY_DIR}/coverage.info -o ${CMAKE_BINARY_DIR}/total.info
-        DEPENDS lcov-zerocounter
         BYPRODUCTS ${CMAKE_BINARY_DIR}/total.info)
     add_custom_target(lcov-list
         COMMAND ${LCOV_BIN} --list ${CMAKE_BINARY_DIR}/total.info
         SOURCES  ${CMAKE_BINARY_DIR}/total.info)
-
-    add_dependencies(check lcov-zerocounter)
-    add_dependencies(lcov-capture check)
+    add_custom_target(lcov
+        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all --parallel
+        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-init --parallel
+        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-zerocounter --parallel
+        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target check --parallel
+        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-capture --parallel)
 endif()
 
 install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
