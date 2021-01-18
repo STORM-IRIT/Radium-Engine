@@ -36,22 +36,15 @@ RA_CORE_API std::string getRadiumPluginsDir();
 RA_CORE_API std::string getBaseDir();
 RA_CORE_API std::string getBaseResourcesDir();
 
-/// allow to manage several resource locators
-class RA_CORE_API ResourcesLocator
-{
-  public:
-    /// Construct a resource locator that will offset the path to the dynamic library that contains
-    /// the given symbol by the given offset.
-    explicit ResourcesLocator( void* symbol, const std::string& offset = "../" );
-    /// Construct a resource locator that will search for the given pattern starting from the offset
-    /// the path to the dynamic library or executable that contains the given symbol.
-    explicit ResourcesLocator( void* symbol, std::string pattern, const std::string& offset );
-    /// Return the base path corresponding of the locator execution
-    const std::string& getBasePath();
+/// Get a resource path that offsets the path to the dynamic library that contains
+/// the given symbol by the given offset.
+RA_CORE_API std::string getResourcesPath( void* symbol, const std::string& offset = "../" );
 
-  private:
-    std::string m_basePath;
-};
+/// Get a resource path that corresponds to the  search of the given pattern starting from the
+/// offset fromt the path to the dynamic library or executable that contains the given symbol.
+RA_CORE_API std::string
+getResourcesPath( void* symbol, const std::string& pattern, const std::string& offset );
+
 } // namespace Resources
 } // namespace Core
 } // namespace Ra
