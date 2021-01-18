@@ -3,37 +3,30 @@
 #include <Core/Utils/Log.hpp>
 #include <algorithm>
 #include <cpplocate/cpplocate.h>
+#include <filesystem>
 
 namespace Ra {
 namespace Core {
 namespace Resources {
 
-std::string searchPath( std::string pattern, std::string offset, void* libSymbol ) {
+using namespace Ra::Core::Utils;
+std::filesystem::path searchPath( std::string pattern, std::string offset, void* libSymbol ) {
     std::string baseDir = cpplocate::locatePath( pattern, offset, libSymbol );
-    std::replace( baseDir.begin(), baseDir.end(), '\\', '/' );
-    int nup = 0;
-    while ( baseDir.rfind( "../", baseDir.size() - 1 - 3 * nup ) != std::string::npos )
-    {
-        ++nup;
-    }
-    baseDir = baseDir.substr( 0, baseDir.size() - 3 * nup - 1 );
-    while ( nup-- )
-    {
-        baseDir = baseDir.substr( 0, baseDir.find_last_of( '/' ) + 1 );
-    }
-    return baseDir;
+    std::filesystem::path p( baseDir );
+    return std::filesystem::canonical( p );
 }
 
 std::string getRadiumResourcesDir() {
-    const std::string baseDir = searchPath(
-        "Resources/Shaders", "../..", reinterpret_cast<void*>( getRadiumResourcesDir ) );
-    return baseDir + "/Resources/";
+    auto basePath =
+        searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesDir ) );
+    auto resourcesPath = basePath / "Resources" / "";
+    return resourcesPath.string();
 }
 
 std::string getRadiumPluginsDir() {
-    const std::string baseDir =
-        searchPath( "Plugins/lib", "../../..", reinterpret_cast<void*>( getRadiumPluginsDir ) );
-    return baseDir + "/Plugins/lib/";
+    auto basePath = searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsDir ) );
+    auto pluginsPath = basePath / "Plugins" / "lib" / "";
+    return pluginsPath.string();
 }
 
 std::string getBaseDir() {
