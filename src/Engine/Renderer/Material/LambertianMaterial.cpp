@@ -20,7 +20,7 @@ LambertianMaterial::~LambertianMaterial() {}
 
 void LambertianMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesPath()};
 
     ShaderProgramManager::getInstance()->addNamedString(
         "/Lambertian.glsl", resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.glsl" );
