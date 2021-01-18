@@ -9,25 +9,22 @@ namespace Ra {
 namespace Core {
 namespace Resources {
 
-using namespace Ra::Core::Utils;
-std::filesystem::path searchPath( std::string pattern, std::string offset, void* libSymbol ) {
-    std::string baseDir = cpplocate::locatePath( pattern, offset, libSymbol );
-    std::filesystem::path p( baseDir );
-    return std::filesystem::canonical( p );
+std::filesystem::path
+searchPath( const std::string& pattern, const std::string& offset, void* libSymbol ) {
+    std::string basePath = cpplocate::locatePath( pattern, offset, libSymbol );
+    return std::filesystem::canonical( std::filesystem::path( basePath ) );
 }
 
 std::string getRadiumResourcesPath() {
     auto basePath =
         searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesPath ) );
-    auto resourcesPath = basePath / "Resources" / "";
-    return resourcesPath.string();
+    return ( basePath / "Resources" / "" ).string();
 }
 
 std::string getRadiumPluginsPath() {
     auto basePath =
         searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsPath ) );
-    auto pluginsPath = basePath / "Plugins" / "lib" / "";
-    return pluginsPath.string();
+    return ( basePath / "Plugins" / "lib" / "" ).string();
 }
 
 std::string getBasePath() {
@@ -35,8 +32,8 @@ std::string getBasePath() {
 }
 
 std::string getBaseResourcesPath() {
-    auto baseDir = cpplocate::locatePath( "Resources", "", nullptr );
-    return baseDir + "Resources/";
+    auto baseDir = searchPath( "Resources", "", nullptr );
+    return ( baseDir / "Resources" / "" ).string();
 }
 
 std::string getResourcesPath( void* symbol, const std::string& offset ) {
