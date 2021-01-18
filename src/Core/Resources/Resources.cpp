@@ -38,17 +38,14 @@ std::string getBaseResourcesDir() {
     return baseDir + "Resources/";
 }
 
-ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath {""} {
-    m_basePath = searchPath( "/", "", symbol ) + offset;
+std::string getResourcesPath( void* symbol, const std::string& offset ) {
+    return ( searchPath( "/", "", symbol ) / offset ).string();
 }
 
-ResourcesLocator::ResourcesLocator( void* symbol, std::string pattern, const std::string& offset ) {
-    m_basePath = searchPath( pattern, offset, symbol ) + pattern;
+std::string getResourcesPath( void* symbol, std::string pattern, const std::string& offset ) {
+    return ( searchPath( pattern, offset, symbol ) / pattern ).string();
 }
 
-const std::string& ResourcesLocator::getBasePath() {
-    return m_basePath;
-}
 } // namespace Resources
 } // namespace Core
 } // namespace Ra
