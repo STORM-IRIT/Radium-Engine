@@ -26,7 +26,8 @@ namespace Resources {
 std::filesystem::path
 searchPath( const std::string& pattern, const std::string& offset, void* libSymbol ) {
     std::string basePath = cpplocate::locatePath( pattern, offset, libSymbol );
-    return std::filesystem::canonical( std::filesystem::path( basePath ) );
+    return std::filesystem::path( basePath ).lexically_normal();
+    ;
 }
 
 std::string getRadiumResourcesPath() {
