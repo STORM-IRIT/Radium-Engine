@@ -27,8 +27,7 @@ jobs:
       - name: Build Doc
         uses: mattnotmitt/doxygen-action@v1
         with:
-          working-directory: 'build/'
-          doxyfile-path: 'Doxyfile.RadiumDoc'
+          doxyfile-path: 'build/Doxyfile.RadiumDoc'
 #      - name: Deploy Doc
 #        uses: peaceiris/actions-gh-pages@v3
 #        with:
