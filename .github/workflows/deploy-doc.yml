@@ -3,6 +3,11 @@ name: Deploy documentation to gh-pages
 on:
   push:
     branches: [ master ]
+# for testing
+  pull_request:
+    branches:
+      - master
+
 
 jobs:
   deploy-doc:
@@ -22,13 +27,14 @@ jobs:
       - name: Configure Doc
         run: |
           cd build/Radium-Engine
-          cmake ../../src/Radium-Engine/doc -DRADIUM_IO_ASSIMP=ON -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=LAZY
+          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
       - name: Build Doc
-        run: |
-          cd build/Radium-Engine 
-          cmake --build . --target RadiumDoc
-      - name: Deploy Doc
-        uses: peaceiris/actions-gh-pages@v3
+        uses: mattnotmitt/doxygen-action@v1
         with:
-          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          publish_dir: 'build/Radium-Engine/html'
+          working-directory: 'build/Radium-Engine/'
+          doxyfile-path: 'Doxyfile.RadiumDoc'
+#      - name: Deploy Doc
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+#          publish_dir: 'build/Radium-Engine/html'
