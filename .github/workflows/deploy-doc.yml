@@ -24,6 +24,7 @@ jobs:
           cd build/
           cmake ../doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
           cat Doxyfile.RadiumDoc
+          make RadiumDoc
       - name: Build Doc
         uses: mattnotmitt/doxygen-action@v1
         with:
