@@ -18,13 +18,10 @@ jobs:
           mkdir -p build/
       - name: Checkout remote head
         uses: actions/checkout@master
-      - name: Install packages
-        run : |
-          sudo apt-get install doxygen graphviz
       - name: Configure Doc
         run: |
           cd build/
-          cmake ../doc/ -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
+          cmake ../Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
           cat Doxyfile.RadiumDoc
       - name: Build Doc
         uses: mattnotmitt/doxygen-action@v1
