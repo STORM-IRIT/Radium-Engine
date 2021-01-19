@@ -13,18 +13,26 @@ jobs:
   deploy-doc:
     runs-on: ubuntu-20.04
     steps:
+      - name: Prepare directories
+        run: |
+          mkdir -p src/Radium-Engine
+          mkdir -p build/Radium-Engine
       - name: Checkout remote head
         uses: actions/checkout@master
+        with:
+          path: src/Radium-Engine
+      - name: Install packages
+        run : |
+          sudo apt-get install doxygen graphviz
       - name: Configure Doc
         run: |
-          mkdir -p build/
-          cd build/
-          cmake ../doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
+          cd build/Radium-Engine
+          cmake ../../src/Radium-Engine/doc -DCMAKE_EXECUTE_PROCESS_COMMAND_ECHO=STDOUT
           cat Doxyfile.RadiumDoc
       - name: Build Doc
         uses: mattnotmitt/doxygen-action@v1
         with:
-          working-directory: 'build/'
+          working-directory: 'build/Radium-Engine/'
           doxyfile-path: 'Doxyfile.RadiumDoc'
 #      - name: Deploy Doc
 #        uses: peaceiris/actions-gh-pages@v3
