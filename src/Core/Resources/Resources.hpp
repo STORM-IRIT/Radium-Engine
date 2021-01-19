@@ -1,5 +1,6 @@
 #pragma once
 #include <Core/RaCore.hpp>
+#include <Core/Utils/StdOptional.hpp>
 
 namespace Ra {
 namespace Core {
@@ -18,26 +19,26 @@ namespace Core {
  *   library containing an arbitrary symbol. (easy with cpplocate)
  */
 namespace Resources {
-
+using namespace Ra::Core::Utils;
 /// Radium resources are locate in Resources directory, searched from Radium lib location.
-/// @return the path to access Radium Resources. empty string if not found
+/// @return the path to access Radium Resources if found, otherwise !has_value
 /// @note the pattern searched is "Resrouces/Shaders" since it's the basic resources dir.
-RA_CORE_API std::string getRadiumResourcesPath();
+RA_CORE_API optional<std::string> getRadiumResourcesPath();
 
 /// Radium plugins are locate in Plugins directory, searched from Radium lib location.
 /// @return the path to access Radium Plugins. empty string if not found
 /// @note the pattern searched is "Plugins/lib" since it's the basic resources dir.
-RA_CORE_API std::string getRadiumPluginsPath();
+RA_CORE_API optional<std::string> getRadiumPluginsPath();
 
-/// @return the path prefix to access the current executable.
-RA_CORE_API std::string getBasePath();
+/// @return the path prefix to access the current executable (always found)
+RA_CORE_API optional<std::string> getBasePath();
 
 /// Search for an accesible Resources (or pattern if given) directory in the current executable (or
 /// symbol if != nullptr) path or its parents.
-/// @return the pattern path of the dynamic library or exec that contains the given symbol, empty
-/// string if not found.
-RA_CORE_API std::string getResourcesPath( void* symbol               = nullptr,
-                                          const std::string& pattern = "Resources" );
+/// @return the pattern path of the dynamic library or exec that contains the given symbol if found,
+/// otherwise !has_value
+RA_CORE_API optional<std::string> getResourcesPath( void* symbol               = nullptr,
+                                                    const std::string& pattern = "Resources" );
 
 } // namespace Resources
 } // namespace Core

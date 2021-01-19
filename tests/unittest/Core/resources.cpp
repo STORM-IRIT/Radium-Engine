@@ -6,30 +6,25 @@ int dummy() {
 }
 TEST_CASE( "Core/Resources", "[Core]" ) {
     using namespace Ra::Core::Resources;
-    std::string radiumResourcesPath = getRadiumResourcesPath();
-    std::string radiumPluginPath    = getRadiumPluginsPath();
-    std::string basePath            = getBasePath();
-    std::string baseResourcesPath   = getResourcesPath();
-    std::string baseResourcesPath1 =
+    auto radiumResourcesPath = getRadiumResourcesPath();
+    auto radiumPluginPath    = getRadiumPluginsPath();
+    auto basePath            = getBasePath();
+    auto baseResourcesPath   = getResourcesPath();
+    auto baseResourcesPath1 =
         getResourcesPath( reinterpret_cast<void*>( getRadiumResourcesPath ), "Resources" );
-    std::string baseResourcesPath2 = getResourcesPath( reinterpret_cast<void*>( dummy ), "" );
-    std::string baseResourcesPath3 = getResourcesPath( nullptr, "" );
-    std::string baseResourcesPath4 =
-        getResourcesPath( nullptr, "hopeYouDontHaveAPathWithThisName" );
+    auto baseResourcesPath2 = getResourcesPath( reinterpret_cast<void*>( dummy ), "" );
+    auto baseResourcesPath3 = getResourcesPath( nullptr, "" );
+    auto baseResourcesPath4 = getResourcesPath( nullptr, "hopeYouDontHaveAPathWithThisName" );
 
-    std::cout << radiumResourcesPath << "\n"
-              << radiumPluginPath << "\n"
-              << basePath << "\n"
-              << baseResourcesPath << "\n"
-              << baseResourcesPath1 << "\n"
-              << baseResourcesPath2 << "\n";
+    std::cout << radiumResourcesPath.value_or( "not found" ) << "\n"
+              << radiumPluginPath.value_or( "not found" ) << "\n"
+              << basePath.value_or( "not found" ) << "\n"
+              << baseResourcesPath.value_or( "not found" ) << "\n"
+              << baseResourcesPath1.value_or( "not found" ) << "\n"
+              << baseResourcesPath2.value_or( "not found" ) << "\n";
 
     REQUIRE( baseResourcesPath1 == radiumResourcesPath );
     REQUIRE( baseResourcesPath2 == basePath );
     REQUIRE( baseResourcesPath2 == baseResourcesPath3 );
-    REQUIRE( "" == baseResourcesPath4 );
-
-    //    auto resourcesPath1 = getResourcesPath( void* symbol, const std::string& offset );
-    //    auto resourcePath2 =
-    //        getResourcesPath( void* symbol, std::string pattern, const std::string& offset );
+    REQUIRE( !baseResourcesPath4 );
 }

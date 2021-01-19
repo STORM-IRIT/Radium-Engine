@@ -10,7 +10,8 @@ namespace Ra::Gui {
 using namespace Core::Utils; // log
 
 KeyMappingManager::KeyMappingManager() :
-    m_defaultConfigFile( std::string( Core::Resources::getRadiumResourcesPath() ) +
+    ///\todo how to check here ?
+    m_defaultConfigFile( *Core::Resources::getRadiumResourcesPath() +
 #ifndef OS_MACOS
                          std::string( "Configs/default.xml" ) ),
 #else

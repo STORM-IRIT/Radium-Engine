@@ -81,8 +81,8 @@ BaseApplication::BaseApplication( int& argc,
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
-    std::string pluginsPath = std::string {Core::Resources::getRadiumPluginsPath()};
-
+    auto pluginsPath {*Core::Resources::getRadiumPluginsPath()};
+    ///\todo check optional
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
     parser.addHelpOption();
@@ -374,7 +374,7 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 void BaseApplication::addBasicShaders() {
     using namespace Ra::Engine;
     /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesPath()};
+    auto resourcesRootDir {*Core::Resources::getRadiumResourcesPath()};
 
     /// @todo Are these shaders used somewhere ?
     /// Why loading them in the applicaiton and not in the engine or in the Plugin ?

@@ -1,16 +1,18 @@
-#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
-
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-
 #include <Core/Resources/Resources.hpp>
-
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 /**
  * Plain will be the default shader program
  */
-static const std::string defaultVertexShader {Ra::Core::Resources::getRadiumResourcesPath() +
-                                              "Shaders/Materials/Plain/Plain.vert.glsl"};
-static const std::string defaultFragmentShader {Ra::Core::Resources::getRadiumResourcesPath() +
-                                                "Shaders/Materials/Plain/Plain.frag.glsl"};
+static const std::string defaultVertexShader {
+    Ra::Core::Resources::getRadiumResourcesPath().value_or(
+        "[[Default resrouces path not found]]" ) +
+    "Shaders/Materials/Plain/Plain.vert.glsl"};
+static const std::string defaultFragmentShader {
+    Ra::Core::Resources::getRadiumResourcesPath().value_or(
+        "[[Default resrouces path not found]]" ) +
+    "Shaders/Materials/Plain/Plain.frag.glsl"};
 
 namespace Ra {
 namespace Engine {
