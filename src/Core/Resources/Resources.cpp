@@ -24,39 +24,43 @@ namespace Core {
 namespace Resources {
 
 std::filesystem::path
-searchPath( const std::string& pattern, const std::string& offset, void* libSymbol ) {
-    std::string basePath = cpplocate::locatePath( pattern, offset, libSymbol );
+searchPath( const std::string& pattern, const std::string& system, void* libSymbol ) {
+    std::string basePath = cpplocate::locatePath( pattern, system, libSymbol );
     return std::filesystem::path( basePath ).lexically_normal();
-    ;
+}
+
+// add a trailing "/" if path point to an existing directory.
+std::filesystem::path clean( const std::filesystem::path& path ) {
+    auto status = std::filesystem::status( path );
+    if ( status.type() == std::filesystem::file_type::not_found ) return "";
+    if ( status.type() == std::filesystem::file_type::directory ) return path / "";
+    return path;
 }
 
 std::string getRadiumResourcesPath() {
     auto basePath =
         searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesPath ) );
-    return ( basePath / "Resources" / "" ).string();
+
+    basePath = clean( basePath / "Resources" );
+
+    return ( basePath ).string();
 }
 
 std::string getRadiumPluginsPath() {
     auto basePath =
         searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsPath ) );
-    return ( basePath / "Plugins" / "lib" / "" ).string();
+    basePath = clean( basePath / "Plugins" / "lib" );
+    return basePath.string();
 }
 
 std::string getBasePath() {
-    return cpplocate::getModulePath();
+    return clean( cpplocate::getModulePath() );
 }
 
-std::string getBaseResourcesPath() {
-    auto baseDir = searchPath( "Resources", "", nullptr );
-    return ( baseDir / "Resources" / "" ).string();
-}
-
-std::string getResourcesPath( void* symbol, const std::string& offset ) {
-    return ( searchPath( "/", "", symbol ) / offset ).string();
-}
-
-std::string getResourcesPath( void* symbol, std::string pattern, const std::string& offset ) {
-    return ( searchPath( pattern, offset, symbol ) / pattern ).string();
+std::string getResourcesPath( void* symbol, const std::string& pattern ) {
+    auto basePath = searchPath( pattern, "", symbol );
+    basePath      = clean( basePath / pattern );
+    return ( basePath ).string();
 }
 
 } // namespace Resources

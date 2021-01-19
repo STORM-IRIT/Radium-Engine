@@ -18,32 +18,26 @@ namespace Core {
  *   library containing an arbitrary symbol. (easy with cpplocate)
  */
 namespace Resources {
-/// Get the path prefix to access Radium resources in a filesystem.
-/// This prefix is the parent directory of the directory containing libRadiumCore, appended
-/// with /Resources/ as all Radium resources will be installed, bundled or linked for the buildtree
-/// in such a directory
+
+/// Radium resources are locate in Resources directory, searched from Radium lib location.
+/// @return the path to access Radium Resources. empty string if not found
+/// @note the pattern searched is "Resrouces/Shaders" since it's the basic resources dir.
 RA_CORE_API std::string getRadiumResourcesPath();
 
-/// Get the path to access Radium plugins in a filesystem.
-/// This base prefix is the parent directory of the directory containing
-/// libRadiumCore, appended with /Plugins/lib as all Radium plugins will be installed, bundled or
-/// linked for the buildtree in such a directory
+/// Radium plugins are locate in Plugins directory, searched from Radium lib location.
+/// @return the path to access Radium Plugins. empty string if not found
+/// @note the pattern searched is "Plugins/lib" since it's the basic resources dir.
 RA_CORE_API std::string getRadiumPluginsPath();
 
-/// Get the path prefix to access the current executable.
+/// @return the path prefix to access the current executable.
 RA_CORE_API std::string getBasePath();
 
-/// Get the resource path of the current executable.
-RA_CORE_API std::string getBaseResourcesPath();
-
-/// Get a resource path that offsets the path to the dynamic library that contains
-/// the given symbol by the given offset.
-RA_CORE_API std::string getResourcesPath( void* symbol, const std::string& offset = "../" );
-
-/// Get a resource path that corresponds to the search of the given pattern starting from the
-/// offset fromt the path to the dynamic library or executable that contains the given symbol.
-RA_CORE_API std::string
-getResourcesPath( void* symbol, const std::string& pattern, const std::string& offset );
+/// Search for an accesible Resources (or pattern if given) directory in the current executable (or
+/// symbol if != nullptr) path or its parents.
+/// @return the pattern path of the dynamic library or exec that contains the given symbol, empty
+/// string if not found.
+RA_CORE_API std::string getResourcesPath( void* symbol               = nullptr,
+                                          const std::string& pattern = "Resources" );
 
 } // namespace Resources
 } // namespace Core
