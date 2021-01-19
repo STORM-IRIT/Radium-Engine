@@ -1,12 +1,11 @@
 #include <Engine/Renderer/Material/LambertianMaterial.hpp>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
-
-#include <Core/Resources/Resources.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -20,7 +19,7 @@ LambertianMaterial::~LambertianMaterial() {}
 
 void LambertianMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesPath()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getRadiumResourcesDir()};
 
     ShaderProgramManager::getInstance()->addNamedString(
         "/Lambertian.glsl", resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.glsl" );
