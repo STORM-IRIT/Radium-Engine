@@ -99,7 +99,7 @@ bool BlinnPhongMaterial::isTransparent() const {
 
 void BlinnPhongMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
-    auto resourcesRootDir {RadiumEngine::getInstance()->getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
     // Defining the material converter
     EngineMaterialConverters::registerMaterialConverter( materialName,
