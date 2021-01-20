@@ -8,8 +8,8 @@
 #include <GuiBase/TimerData/FrameTimerData.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Scene/EntityManager.hpp>
 
 #include <minimalapp.hpp>
 #include <minimalradium.hpp>

@@ -4,9 +4,9 @@
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Engine/Component/GeometryComponent.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/System/GeometrySystem.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
+#include <Engine/Scene/GeometrySystem.hpp>
 
 #include <QTimer>
 

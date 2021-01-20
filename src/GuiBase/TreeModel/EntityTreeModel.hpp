@@ -2,8 +2,8 @@
 
 #include <GuiBase/RaGuiBase.hpp>
 
-#include <Engine/ItemModel/ItemEntry.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Scene/ItemEntry.hpp>
 
 #include <GuiBase/TreeModel/TreeModel.hpp>
 namespace Ra {

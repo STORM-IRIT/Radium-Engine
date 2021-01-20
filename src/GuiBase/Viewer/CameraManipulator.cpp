@@ -2,9 +2,9 @@
 
 #include <Core/Math/Math.hpp>
 
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Renderer/Light/Light.hpp>
+#include <Engine/Data/Camera.hpp>
+#include <Engine/Data/Light.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 
 #include <GuiBase/Viewer/Viewer.hpp>
 

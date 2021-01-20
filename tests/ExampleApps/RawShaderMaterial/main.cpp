@@ -4,13 +4,13 @@
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Engine/Component/GeometryComponent.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/System/GeometrySystem.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
+#include <Engine/Scene/GeometrySystem.hpp>
+#include <Engine/Scene/RenderObjectManager.hpp>
 
 // include the custom material definition
-#include <Engine/Renderer/Material/RawShaderMaterial.hpp>
+#include <Engine/Data/RawShaderMaterial.hpp>
 
 // include the Viewer to demonstrate dynamic edition of materials
 #include <GuiBase/Viewer/Viewer.hpp>

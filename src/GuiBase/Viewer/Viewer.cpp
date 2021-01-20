@@ -33,15 +33,15 @@
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
-#include <Engine/Component/Component.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Renderer/Light/DirLight.hpp>
+#include <Engine/Data/Camera.hpp>
+#include <Engine/Data/DirLight.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Scene/Component.hpp>
 
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+#include <Engine/Renderer/ForwardRenderer.hpp>
+#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>

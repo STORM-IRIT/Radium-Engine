@@ -2,8 +2,8 @@
 
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Log.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Renderer/Light/Light.hpp>
+#include <Engine/Data/Camera.hpp>
+#include <Engine/Data/Light.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 
 #include <GuiBase/Utils/KeyMappingManager.hpp>

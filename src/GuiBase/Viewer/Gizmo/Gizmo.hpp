@@ -7,7 +7,7 @@
 #include <Core/Utils/Index.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
+#include <Engine/Renderer/RenderParameters.hpp>
 
 namespace Ra {
 namespace Engine {

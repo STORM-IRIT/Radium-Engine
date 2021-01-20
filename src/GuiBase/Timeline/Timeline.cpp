@@ -11,12 +11,12 @@
 #include <Core/Animation/KeyFramedValueInterpolators.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <Engine/Component/Component.hpp>
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Managers/SignalManager/SignalManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Scene/Component.hpp>
+#include <Engine/Scene/Entity.hpp>
+#include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Scene/SignalManager.hpp>
 
 #include <GuiBase/Timeline/HelpDialog.hpp>
 
