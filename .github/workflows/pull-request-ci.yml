@@ -29,10 +29,16 @@ jobs:
       - name: Add msbuild to PATH
         uses: seanmiddleditch/gha-setup-vsdevenv@master
         if: runner.os == 'Windows'
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v2
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
-          cached: false
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
           mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
       - name: Prepare directories
         run: |
@@ -99,10 +105,16 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v2
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
-          cached: false
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
           mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
       - name: Install lcov
         run: sudo apt-get install -y lcov
