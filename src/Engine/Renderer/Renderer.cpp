@@ -54,7 +54,7 @@ Renderer::~Renderer() {
 
 void Renderer::initialize( uint width, uint height ) {
     /// For internal resources management in a filesystem
-    auto resourcesRootDir {RadiumEngine::getInstance()->getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
     m_width  = width;
     m_height = height;

@@ -19,7 +19,7 @@ PlainMaterial::~PlainMaterial() = default;
 
 void PlainMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem
-    auto resourcesRootDir {RadiumEngine::getInstance()->getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
     ShaderProgramManager::getInstance()->addNamedString(
         "/Plain.glsl", resourcesRootDir + "Shaders/Materials/Plain/Plain.glsl" );

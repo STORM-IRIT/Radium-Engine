@@ -64,7 +64,7 @@ void ForwardRenderer::initializeInternal() {
 
 void ForwardRenderer::initShaders() {
     /// For internal resources management in a filesystem
-    auto resourcesRootDir {RadiumEngine::getInstance()->getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
     m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
                                     resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
                                     resourcesRootDir + "Shaders/2DShaders/Hdr2Ldr.frag.glsl"} );
@@ -610,7 +610,7 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
             {
                 ShaderConfiguration config = rt->getConfiguration( pass );
                 config.addShader( ShaderType_GEOMETRY,
-                                  RadiumEngine::getInstance()->getRadiumResourcesDir() +
+                                  RadiumEngine::getInstance()->getResourcesDir() +
                                       "Shaders/Points/PointCloud.geom.glsl" );
                 rt->setConfiguration( config, pass );
             }

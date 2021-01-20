@@ -289,7 +289,7 @@ class RA_ENGINE_API RadiumEngine
     uint getFrame() const;
     /// \}
 
-    std::string getRadiumResourcesDir() { return m_resourcesRootDir; }
+    std::string getResourcesDir() { return m_resourcesRootDir; }
 
   private:
     using Priority  = int;
