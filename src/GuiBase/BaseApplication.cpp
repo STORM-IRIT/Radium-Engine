@@ -81,7 +81,8 @@ BaseApplication::BaseApplication( int& argc,
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
-    auto pluginsPath {*Core::Resources::getRadiumPluginsPath()};
+    auto pluginsPathOptional {Core::Resources::getRadiumPluginsPath()};
+    auto pluginsPath = pluginsPathOptional.value_or( "[[Default plugin path not found]]" );
     ///\todo check optional
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
@@ -374,7 +375,14 @@ void BaseApplication::framesCountForStatsChanged( uint count ) {
 void BaseApplication::addBasicShaders() {
     using namespace Ra::Engine;
     /// For internal resources management in a filesystem
-    auto resourcesRootDir {*Core::Resources::getRadiumResourcesPath()};
+    auto resourcesRootDirOptional {Core::Resources::getRadiumResourcesPath()};
+    if ( !resourcesRootDirOptional )
+    {
+        QMessageBox::critical( 0, tr( "Critical Error" ), "Resources dir not found" );
+        appNeedsToQuit();
+        return;
+    }
+    auto resourcesRootDir = *resourcesRootDirOptional;
 
     /// @todo Are these shaders used somewhere ?
     /// Why loading them in the applicaiton and not in the engine or in the Plugin ?
