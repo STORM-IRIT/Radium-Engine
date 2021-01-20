@@ -1,6 +1,6 @@
 // Include Radium base application and its simple Gui
-#include <GuiBase/BaseApplication.hpp>
-#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
@@ -12,8 +12,8 @@
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv );
-    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //! [Creating the cube]

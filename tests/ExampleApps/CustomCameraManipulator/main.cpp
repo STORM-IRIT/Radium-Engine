@@ -1,17 +1,15 @@
-// Include Radium base application and its simple Gui
-#include <GuiBase/BaseApplication.hpp>
-#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
-
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
+// Include Radium base application and its simple Gui
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/Viewer/TrackballCameraManipulator.hpp>
+#include <Gui/Viewer/Viewer.hpp>
 
 #include <QTimer>
-
-#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
-#include <GuiBase/Viewer/Viewer.hpp>
 
 //! [extend trackball]
 // Add simple Camera Manipulator with only translation and zoom
@@ -56,8 +54,8 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv );
-    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //! [Creating the cube]

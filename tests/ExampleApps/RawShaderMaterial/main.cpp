@@ -1,6 +1,6 @@
 // Include Radium base application and its simple Gui
-#include <GuiBase/BaseApplication.hpp>
-#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
@@ -13,7 +13,7 @@
 #include <Engine/Data/RawShaderMaterial.hpp>
 
 // include the Viewer to demonstrate dynamic edition of materials
-#include <GuiBase/Viewer/Viewer.hpp>
+#include <Gui/Viewer/Viewer.hpp>
 
 // Qt
 #include <QTimer>
@@ -89,7 +89,7 @@ class MyParameterProvider : public Ra::Engine::ShaderParameterProvider
  * @param app
  * @return The renderObject associated to the created component.
  */
-std::shared_ptr<Ra::Engine::RenderObject> initQuad( Ra::GuiBase::BaseApplication& app ) {
+std::shared_ptr<Ra::Engine::RenderObject> initQuad( Ra::Gui::BaseApplication& app ) {
     //! [Creating the quad]
     auto quad = Ra::Core::Geometry::makeZNormalQuad( {1_ra, 1_ra} );
 
@@ -121,8 +121,8 @@ std::shared_ptr<Ra::Engine::RenderObject> initQuad( Ra::GuiBase::BaseApplication
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv );
-    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //! [add the custom material to the material system]

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" -ne 1 ]; then
-    echo "Please provide one and only one module name among [Core|Engine|IO|GuiBase]"
+    echo "Please provide one and only one module name among [Core|Engine|IO|Gui]"
     exit 2
 fi
 
