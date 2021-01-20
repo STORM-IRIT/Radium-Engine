@@ -2,8 +2,8 @@
 #include <Engine/Renderer/ShaderConfigFactory.hpp>
 #include <minimalapp.hpp>
 
-#include <GuiBase/Utils/KeyMappingManager.hpp>
-#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
+#include <Gui/Utils/KeyMappingManager.hpp>
+#include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
 MinimalApp::MinimalApp( int& argc, char** argv ) :
     QApplication( argc, argv ),

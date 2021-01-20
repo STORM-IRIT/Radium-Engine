@@ -5,8 +5,8 @@
 
 #include <QOpenGLContext>
 
-#include <GuiBase/TimerData/FrameTimerData.hpp>
-#include <GuiBase/Viewer/Viewer.hpp>
+#include <Gui/TimerData/FrameTimerData.hpp>
+#include <Gui/Viewer/Viewer.hpp>
 
 #include <Engine/Renderer/ShaderConfigFactory.hpp>
 #include <Engine/Scene/EntityManager.hpp>

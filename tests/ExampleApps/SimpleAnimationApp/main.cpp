@@ -1,6 +1,6 @@
 // Include Radium base application and its simple Gui
-#include <GuiBase/BaseApplication.hpp>
-#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the core geometry/appearance interface
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
@@ -125,8 +125,8 @@ class SimpleAnimationSystem : public Ra::Engine::System
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv );
-    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
 
     //![Parameterize the Engine  time loop]
     app.m_engine->setEndTime( 3_ra ); // <-- 3 relates to the keyframes of the demo component.
