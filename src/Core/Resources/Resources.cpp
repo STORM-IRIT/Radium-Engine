@@ -24,50 +24,48 @@ namespace Core {
 namespace Resources {
 
 using namespace Ra::Core::Utils;
+namespace fs = ::std::filesystem;
 
-std::filesystem::path
-searchPath( const std::string& pattern, const std::string& system, void* libSymbol ) {
-    std::string basePath = cpplocate::locatePath( pattern, system, libSymbol );
-    return std::filesystem::path( basePath ).lexically_normal();
+fs::path searchPath( const std::string& pattern, const std::string& system, void* libSymbol ) {
+    std::string p = cpplocate::locatePath( pattern, system, libSymbol );
+    return fs::path( p ).lexically_normal();
 }
 
 // add a trailing "/" if path point to an existing directory.
-std::filesystem::path clean( const std::filesystem::path& path ) {
-    auto status = std::filesystem::status( path );
-    if ( status.type() == std::filesystem::file_type::not_found ) return "";
-    if ( status.type() == std::filesystem::file_type::directory ) return path / "";
+fs::path clean( const fs::path& path ) {
+    auto status = fs::status( path );
+    if ( status.type() == fs::file_type::not_found ) return "";
+    if ( status.type() == fs::file_type::directory ) return path / "";
     return path;
 }
 
 optional<std::string> getRadiumResourcesPath() {
-    auto basePath =
+    auto p =
         searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesPath ) );
+    p = clean( p / "Resources" );
 
-    basePath = clean( basePath / "Resources" );
-
-    // first option
-    if ( basePath.empty() ) return {};
-    return ( basePath ).string();
+    if ( p.empty() ) return {};
+    return p.string();
 }
 
 optional<std::string> getRadiumPluginsPath() {
-    auto basePath =
-        searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsPath ) );
-    basePath = clean( basePath / "Plugins" / "lib" );
-    // second option
-    return basePath.empty() ? std::nullopt : std::optional<std::string>( basePath.string() );
+    auto p = searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsPath ) );
+    p      = clean( p / "Plugins" / "lib" );
+
+    if ( p.empty() ) return {};
+    return p.string();
 }
 
 /// this one is always found, use optional for consistency ?
 optional<std::string> getBasePath() {
-    return clean( cpplocate::getModulePath() );
+    return clean( cpplocate::getModulePath() ).string();
 }
 
 optional<std::string> getResourcesPath( void* symbol, const std::string& pattern ) {
-    auto basePath = searchPath( pattern, "", symbol );
-    basePath      = clean( basePath / pattern );
-    if ( basePath.empty() ) return {};
-    return ( basePath ).string();
+    auto p = searchPath( pattern, "", symbol );
+    p      = clean( p / pattern );
+    if ( p.empty() ) return {};
+    return p.string();
 }
 
 } // namespace Resources
