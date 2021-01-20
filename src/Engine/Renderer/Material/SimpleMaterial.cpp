@@ -1,3 +1,4 @@
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Material/SimpleMaterial.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
@@ -38,7 +39,7 @@ void SimpleMaterial::updateRenderingParameters() {
 void SimpleMaterial::updateGL() {
     if ( !m_isDirty ) { return; }
     // Load textures
-    TextureManager* texManager = TextureManager::getInstance();
+    TextureManager* texManager = RadiumEngine::getInstance()->getTextureManager();
     for ( const auto& tex : m_pendingTextures )
     {
         // ask to convert color textures from sRGB to Linear RGB

@@ -62,7 +62,8 @@ void Renderer::initialize( uint width, uint height ) {
     // Initialize managers
     m_shaderMgr = ShaderProgramManager::getInstance();
     m_roMgr     = RadiumEngine::getInstance()->getRenderObjectManager();
-    TextureManager::createInstance();
+
+    // TMR    TextureManager::createInstance();
 
     m_shaderMgr->addShaderProgram( {{"DrawScreen"},
                                     resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
