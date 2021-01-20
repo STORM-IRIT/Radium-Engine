@@ -139,7 +139,6 @@ class RA_GUIBASE_API BaseApplication : public QApplication
                       const QStringList& ignoreList );
 
     void setupScene();
-    void addBasicShaders();
 
     /// check wheter someone ask for update
     bool isUpdateNeeded() { return m_isUpdateNeeded.load(); }
