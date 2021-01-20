@@ -1,7 +1,7 @@
 #include <GuiBase/TransformEditor/TransformEditor.hpp>
 
-#include <Engine/Component/Component.hpp>
-#include <Engine/Entity/Entity.hpp>
+#include <Engine/Scene/Component.hpp>
+#include <Engine/Scene/Entity.hpp>
 
 namespace Ra {
 namespace GuiBase {

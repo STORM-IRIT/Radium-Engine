@@ -1,6 +1,6 @@
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Data/Camera.hpp>
+#include <Engine/OpenGL.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 #include <GuiBase/Utils/Keyboard.hpp>
 #include <GuiBase/Viewer/CameraManipulator.hpp>
 #include <GuiBase/Viewer/Gizmo/GizmoManager.hpp>

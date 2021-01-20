@@ -13,7 +13,7 @@
 
 #include <Core/Animation/KeyFramedValue.hpp>
 #include <Core/Animation/KeyFramedValueController.hpp>
-#include <Engine/ItemModel/ItemEntry.hpp>
+#include <Engine/Scene/ItemEntry.hpp>
 
 #include <QDialog>
 #include <QObject>

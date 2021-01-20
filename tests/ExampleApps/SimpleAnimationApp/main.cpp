@@ -7,10 +7,10 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 
 // include the Engine/entity/component/system/animation interface
-#include <Engine/Component/GeometryComponent.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
+#include <Engine/Scene/System.hpp>
 
 // include the keyframe animation interface
 #include <Core/Animation/KeyFramedValueController.hpp>
@@ -18,7 +18,7 @@
 #include <Core/Tasks/Task.hpp>
 
 // include the render object interface to keyframe the material
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Scene/RenderObjectManager.hpp>
 
 // To terminate the demo after 4 seconds
 #include <QTimer>

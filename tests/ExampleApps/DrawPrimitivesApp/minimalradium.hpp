@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Engine/Entity/Entity.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Scene/Entity.hpp>
+#include <Engine/Scene/System.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 
 /* This file contains a minimal radium/qt application which shows the
 classic "Spinning Cube" demo. */

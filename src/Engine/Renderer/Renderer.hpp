@@ -11,7 +11,7 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Timer.hpp>
-#include <Engine/Renderer/Displayable/DisplayableObject.hpp>
+#include <Engine/Data/DisplayableObject.hpp>
 
 namespace Ra {
 

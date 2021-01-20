@@ -14,22 +14,23 @@
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
-#include <Engine/Entity/Entity.hpp>
+#include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/LambertianMaterial.hpp>
+#include <Engine/Data/MaterialConverters.hpp>
+#include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/VolumetricMaterial.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Managers/SignalManager/SignalManager.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-#include <Engine/Renderer/Material/LambertianMaterial.hpp>
-#include <Engine/Renderer/Material/PlainMaterial.hpp>
-#include <Engine/Renderer/Material/VolumetricMaterial.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Texture/TextureManager.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Scene/ComponentMessenger.hpp>
+#include <Engine/Scene/Entity.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Scene/SignalManager.hpp>
+#include <Engine/Scene/System.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
+#include <Engine/Scene/TextureManager.hpp>
 
 namespace Ra {
 namespace Engine {

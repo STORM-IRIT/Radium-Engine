@@ -1,15 +1,15 @@
 #include <GuiBase/Viewer/Gizmo/Gizmo.hpp>
 
 #include <Core/Geometry/RayCast.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Data/Camera.hpp>
+#include <Engine/Data/Mesh.hpp>
+#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Scene/RenderObjectManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Engine/Renderer/Material/PlainMaterial.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Renderer/RenderTechnique.hpp>
+#include <Engine/Renderer/ShaderConfigFactory.hpp>
 
 namespace Ra {
 namespace Gui {

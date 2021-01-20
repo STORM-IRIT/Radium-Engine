@@ -2,10 +2,10 @@
 
 #include <stack>
 
-#include <Engine/Component/Component.hpp>
-#include <Engine/Entity/Entity.hpp>
+#include <Engine/Scene/Component.hpp>
+#include <Engine/Scene/Entity.hpp>
 
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
+#include <Engine/Scene/EntityManager.hpp>
 
 using Ra::Engine::ItemEntry;
 

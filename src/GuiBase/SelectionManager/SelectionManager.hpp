@@ -1,7 +1,7 @@
 #pragma once
 #include <GuiBase/RaGuiBase.hpp>
 
-#include <Engine/ItemModel/ItemEntry.hpp>
+#include <Engine/Scene/ItemEntry.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <QItemSelectionModel>
 

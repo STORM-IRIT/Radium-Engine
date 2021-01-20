@@ -1,6 +1,6 @@
 #include <GuiBase/RadiumWindow/SimpleWindow.hpp>
 
-#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+#include <Engine/Renderer/ForwardRenderer.hpp>
 #include <GuiBase/SelectionManager/SelectionManager.hpp>
 #include <GuiBase/TreeModel/EntityTreeModel.hpp>
 #include <GuiBase/Viewer/CameraManipulator.hpp>

@@ -7,14 +7,14 @@
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
 
+#include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/LambertianMaterial.hpp>
+#include <Engine/Data/Mesh.hpp>
+#include <Engine/Data/PlainMaterial.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-#include <Engine/Renderer/Material/LambertianMaterial.hpp>
-#include <Engine/Renderer/Material/PlainMaterial.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Scene/RenderObjectManager.hpp>
 
 #include <random>
 

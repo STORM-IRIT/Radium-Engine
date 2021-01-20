@@ -3,11 +3,11 @@ set( guibase_sources
     RadiumWindow/SimpleWindow.cpp
     SelectionManager/SelectionManager.cpp
     Timeline/HelpDialog.cpp
-    Timeline/TimelineFrameSelector.cpp
-    Timeline/TimelineTimeScale.cpp
-    Timeline/TimelineSlider.cpp
-    Timeline/TimelineScrollArea.cpp
     Timeline/Timeline.cpp
+    Timeline/TimelineFrameSelector.cpp
+    Timeline/TimelineScrollArea.cpp
+    Timeline/TimelineSlider.cpp
+    Timeline/TimelineTimeScale.cpp
     TimerData/FrameTimerData.cpp
     TransformEditor/TransformEditor.cpp
     TreeModel/EntityTreeModel.cpp
@@ -27,20 +27,20 @@ set( guibase_sources
     Viewer/WindowQt.cpp
 )
 
-set(guibase_headers
+set( guibase_headers
     BaseApplication.hpp
     MainWindowInterface.hpp
-    RaGuiBase.hpp
-    RadiumWindow/SimpleWindow.hpp
     RadiumWindow/SimpleWindowFactory.hpp
+    RadiumWindow/SimpleWindow.hpp
+    RaGuiBase.hpp
     SelectionManager/SelectionManager.hpp
-    Timeline/HelpDialog.hpp
     Timeline/Configurations.hpp
+    Timeline/HelpDialog.hpp
     Timeline/TimelineFrameSelector.hpp
-    Timeline/TimelineTimeScale.hpp
-    Timeline/TimelineSlider.hpp
-    Timeline/TimelineScrollArea.hpp
     Timeline/Timeline.hpp
+    Timeline/TimelineScrollArea.hpp
+    Timeline/TimelineSlider.hpp
+    Timeline/TimelineTimeScale.hpp
     TimerData/FrameTimerData.hpp
     TransformEditor/TransformEditor.hpp
     TreeModel/EntityTreeModel.hpp

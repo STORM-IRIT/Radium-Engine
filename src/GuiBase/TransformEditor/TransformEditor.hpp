@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/Types.hpp>
-#include <Engine/ItemModel/ItemEntry.hpp>
+#include <Engine/Scene/ItemEntry.hpp>
 #include <GuiBase/RaGuiBase.hpp>
 namespace Ra {
 namespace GuiBase {
