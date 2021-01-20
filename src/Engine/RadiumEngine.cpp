@@ -68,6 +68,7 @@ void RadiumEngine::registerDefaultPrograms() {
     // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
     // Radium V2 : are these initialization required here ? They will be better in
     // Engine::Initialize .... Define a better ressources management and initialization
+    // Add named string require opengl context, must be init before (e.g. by viewer)
     /* Default definiton of a transformation matrices struct */
     shaderProgramManager->addNamedString(
         "/TransformStructs.glsl", m_resourcesRootDir + "Shaders/Transform/TransformStructs.glsl" );
@@ -85,6 +86,20 @@ void RadiumEngine::registerDefaultPrograms() {
     lConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
     lConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( lConfig );
+
+    ShaderConfiguration lgConfig( "LinesGeom" );
+    lgConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lgConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
+    lgConfig.addShader( ShaderType_GEOMETRY, m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
+    ShaderConfigurationFactory::addConfiguration( lgConfig );
+
+    ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
+    lagConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lagConfig.addShader( ShaderType_FRAGMENT,
+                         m_resourcesRootDir + "Shaders/Lines/LinesAdjacency.frag.glsl" );
+    lagConfig.addShader( ShaderType_GEOMETRY,
+                         m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
+    ShaderConfigurationFactory::addConfiguration( lagConfig );
 
     // Plain is flat or diffuse
     PlainMaterial::registerMaterial();
