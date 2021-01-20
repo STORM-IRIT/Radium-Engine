@@ -40,85 +40,6 @@ set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
 set(DISPLAY_WIDTH 80)
 
-function(messageFormat TEXT PRE PRE_LEN POST POST_LEN FILL)
-    set(TEXT_LEN 0)
-    if(TEXT)
-        string(LENGTH ${TEXT} TEXT_LEN)
-    endif()
-    MATH(EXPR LEN "${DISPLAY_WIDTH} - ${TEXT_LEN} - ${PRE_LEN} - ${POST_LEN}")
-    set(FILL1 "")
-    if(LEN LESS 0)
-        MATH(EXPR SUBLEN "${DISPLAY_WIDTH} - ${PRE_LEN} - ${POST_LEN}-1")
-        string(SUBSTRING ${TEXT} 0  ${SUBLEN} STRING1)
-        MATH(EXPR PL2 "${POST_LEN}+1")
-        messageFormat(${STRING1} ${PRE} ${PRE_LEN} "⏎${POST}" ${PL2} ${FILL})
-        string(SUBSTRING ${TEXT} ${SUBLEN} -1 STRING2)
-        messageFormat(${STRING2} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} ${FILL})
-    else()
-        foreach (i RANGE ${LEN})
-            set(FILL1 "${FILL1}${FILL}")
-        endforeach()
-    
-        message(NOTICE "${PRE}${TEXT}${FILL1}${POST}")
-    endif()
-endfunction()
-
-function(messageInfo INFO)  
-    set(PRE "│ ")
-    set(PRE_LEN 2)
-    set(POST "│")
-    set(POST_LEN 1)
-    messageFormat(${INFO} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} " ")
-endfunction()
-
-function(messageSetting OPTION)
-    set(PRE "│ ")
-    set(PRE_LEN 2)
-    set(POST "│")
-    set(POST_LEN 1)
-
-    string(LENGTH ${OPTION} len)
-    MATH(EXPR len "30-${len}")
-    set(FILL "")
-    foreach (i RANGE ${len})
-        set(FILL "${FILL} ")
-    endforeach()
-
-    if(DEFINED ${OPTION})
-        set(MSG "${OPTION}${FILL}${${OPTION}}")
-    else()
-        set(MSG "${OPTION}${FILL}[undef]")
-    endif()
-    messageFormat(${MSG} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} " ")
-endfunction()
-
-function(messageTitle TITLE)
-    string(LENGTH ${TITLE} len)
-    MATH(EXPR len "${DISPLAY_WIDTH}-6-${len}")
-    MATH(EXPR len1 "${len}/2")
-    MATH(EXPR len1 "${len1}-1")
-    MATH(EXPR len2 "${len}-${len1}-1")
-    set(FILL1 "")
-    foreach (i RANGE ${len1})
-        set(FILL1 "${FILL1}─")
-    endforeach()
-    set(FILL2 "")
-    
-    foreach (i RANGE ${len2})
-        set(FILL2 "${FILL2}─")
-    endforeach()
-    message(NOTICE "┌${FILL1}┤│${TITLE}│├${FILL2}┐")
-endfunction()
-
-function(messageEnd)
-    set(PRE "└")
-    set(PRE_LEN 1)
-    set(POST "┘")
-    set(POST_LEN 1)
-    messageFormat("" ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} "─")
-endfunction()
-
-
 # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
 if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     include(ProcessorCount)
@@ -130,6 +51,10 @@ if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     endif()
 endif()
 
+# We can use include() and find_package() for our scripts in there
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+include(messageFunc)
 messageTitle(" ${PROJECT_NAME} Project configuration ")
 messageInfo("Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
 
@@ -148,9 +73,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Be nice and export compile commands by default, this is handy for clang-tidy
 # and for other tools.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# We can use include() and find_package() for our scripts in there
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Configure rpath, see cmake/rpath.cmake
 include(rpath)
