@@ -22,13 +22,13 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/LambertianMaterial.hpp>
-#include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/Material/VolumetricMaterial.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/System/System.hpp>
 
 namespace Ra {
@@ -53,6 +53,7 @@ void RadiumEngine::initialize() {
     m_signalManager       = std::make_unique<SignalManager>();
     m_entityManager       = std::make_unique<EntityManager>();
     m_renderObjectManager = std::make_unique<RenderObjectManager>();
+    m_textureManager      = std::make_unique<TextureManager>();
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
     m_loadingState = false;
@@ -272,6 +273,10 @@ EntityManager* RadiumEngine::getEntityManager() const {
 
 SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
+}
+
+TextureManager* RadiumEngine::getTextureManager() const {
+    return m_textureManager.get();
 }
 
 void RadiumEngine::registerFileLoader( std::shared_ptr<FileLoaderInterface> fileLoader ) {

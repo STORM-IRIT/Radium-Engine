@@ -5,8 +5,6 @@
 #include <map>
 #include <string>
 
-#include <Core/Utils/Singleton.hpp>
-
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/Texture/Texture.hpp>
 namespace Ra {
@@ -19,7 +17,6 @@ namespace Engine {
  */
 class RA_ENGINE_API TextureManager final
 {
-    RA_SINGLETON_INTERFACE( TextureManager );
 
   private:
     using TexturePair = std::pair<std::string, Texture*>;
@@ -101,7 +98,7 @@ class RA_ENGINE_API TextureManager final
      */
     void loadTextureImage( TextureParameters& texParameters );
 
-  private:
+  public:
     TextureManager();
     ~TextureManager();
 
