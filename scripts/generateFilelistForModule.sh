@@ -36,6 +36,17 @@ if [ "$BASE" = "Engine" ]; then
     echo ")"  >> ${OUTPUT}
 fi
 
+if [ "$BASE" = "Gui" ]; then
+    echo ""  >> ${OUTPUT}
+    echo  "set( ${LOWBASE}_uis"  >> ${OUTPUT}
+    find  ../src/${BASE}/ -name \*.ui | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> ${OUTPUT}
+    echo ")"  >> ${OUTPUT}
+    echo ""  >> ${OUTPUT}
+    echo  "set( ${LOWBASE}_resources"  >> ${OUTPUT}
+    find  ../src/${BASE}/ -name \*.qrc | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> ${OUTPUT}
+    echo ")"  >> ${OUTPUT}
+fi
+
 if [ "$BASE" = "IO" ]; then
     echo  "set( ${LOWBASE}_sources"  >> ${OUTPUT}
     find  ../src/${BASE}/ -name \*.cpp | grep -v deprecated | grep -v AssimpLoader | grep -v TinyPlyLoader | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> ${OUTPUT}
