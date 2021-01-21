@@ -1,11 +1,9 @@
 <map id="Ra::Engine::ForwardRenderer::buildRenderTechnique" name="Ra::Engine::ForwardRenderer::buildRenderTechnique">
-<area shape="rect" id="node1" title=" " alt="" coords="5,201,216,243"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,169,216,211"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1ShaderConfiguration.html#a8ffa1714a9e63a320acaa7873fb99797" title=" " alt="" coords="267,5,497,47"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1RenderObject.html#a1220687f3916777c06ab79fe29925ad7" title=" " alt="" coords="289,71,475,112"/>
 <area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a5e831d5088144082e9bd3828323aa57a" title=" " alt="" coords="264,136,500,177"/>
 <area shape="rect" id="node5" href="$classRa_1_1Engine_1_1RenderObject.html#a7c48c27481b8a18916c2a66813a77feb" title=" " alt="" coords="289,201,475,243"/>
 <area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RenderObject.html#a40b572e70bc9110c2069e53b603bac47" title=" " alt="" coords="289,267,475,308"/>
-<area shape="rect" id="node7" href="$namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0" title=" " alt="" coords="289,332,475,373"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1RenderObject.html#a6fe6a73063c5cf048f2660857d6cbaa8" title=" " alt="" coords="289,397,475,439"/>
-<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Resources.html#a96e7523ac5a9f47629ee73938db23790" title=" " alt="" coords="548,332,700,373"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RenderObject.html#a6fe6a73063c5cf048f2660857d6cbaa8" title=" " alt="" coords="289,332,475,373"/>
 </map>

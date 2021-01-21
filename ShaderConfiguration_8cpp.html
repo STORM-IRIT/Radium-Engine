@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">4dcd0ef794a6d9f48e4dc7faf72472f9e9e6ee10</span>
+   &#160;<span id="projectnumber">31523ca27aaa231751b9dff4e2c4343225ee2c00</span>
    </div>
   </td>
  </tr>
@@ -98,9 +98,10 @@ $(document).ready(function(){initNavTree('ShaderConfiguration_8cpp.html',''); in
 <div class="title">ShaderConfiguration.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="ShaderConfiguration_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="Resources_8hpp_source.html">Core/Resources/Resources.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RadiumEngine_8hpp_source.html">Engine/RadiumEngine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderConfiguration_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ShaderProgramManager_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Resources_8hpp_source.html">Core/Resources/Resources.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for ShaderConfiguration.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -152,8 +153,10 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{<a class="code" href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">Ra::Core::Resources::getRadiumResourcesDir</a>() +</div>
-<div class="line">                                                <span class="stringliteral">&quot;Shaders/Materials/Plain/Plain.frag.glsl&quot;</span>}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">    <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a>().value_or(</div>
+<div class="line">        <span class="stringliteral">&quot;[[Default resrouces path not found]]&quot;</span> ) +</div>
+<div class="line">    <span class="stringliteral">&quot;Shaders/Materials/Plain/Plain.frag.glsl&quot;</span>}</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00012">12</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
@@ -178,22 +181,24 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{<a class="code" href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">Ra::Core::Resources::getRadiumResourcesDir</a>() +</div>
-<div class="line">                                              <span class="stringliteral">&quot;Shaders/Materials/Plain/Plain.vert.glsl&quot;</span>}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">    <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a>().value_or(</div>
+<div class="line">        <span class="stringliteral">&quot;[[Default resrouces path not found]]&quot;</span> ) +</div>
+<div class="line">    <span class="stringliteral">&quot;Shaders/Materials/Plain/Plain.vert.glsl&quot;</span>}</div>
 </div><!-- fragment --><p>Plain will be the default shader program </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00010">10</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderConfiguration_8cpp_source.html#l00008">8</a> of file <a class="el" href="ShaderConfiguration_8cpp_source.html">ShaderConfiguration.cpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_aefb858008bce4916fa3cfcef244aeda0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">Ra::Core::Resources::getRadiumResourcesDir</a></div><div class="ttdeci">std::string getRadiumResourcesDir()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00027">Resources.cpp:27</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_af434c5b44164970395428b4a00e7729c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumResourcesPath()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00042">Resources.cpp:42</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_6bc97c5ccce2964f7b25f8377ac95818.html">RenderTechnique</a></li><li class="navelem"><a class="el" href="ShaderConfiguration_8cpp.html">ShaderConfiguration.cpp</a></li>
-    <li class="footer">Generated on Tue Jan 12 2021 10:25:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jan 21 2021 19:44:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">4dcd0ef794a6d9f48e4dc7faf72472f9e9e6ee10</span>
+   &#160;<span id="projectnumber">31523ca27aaa231751b9dff4e2c4343225ee2c00</span>
    </div>
   </td>
  </tr>
@@ -96,46 +96,41 @@ $(document).ready(function(){initNavTree('Resources_8hpp_source.html',''); initR
 <div class="contents">
 <a href="Resources_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>Resources {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">getRadiumResourcesDir</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#abf62276f3d6fe4fe4455e012661fdf69">getRadiumPluginsDir</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ad14f48d62638543b5bdb58c694d40cb0">getBaseDir</a>();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> std::string <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ae617c4347f5e941ce5074f17c2484f55">getBaseResourcesDir</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">ResourcesLocator</a></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">ResourcesLocator</a>( <span class="keywordtype">void</span>* symbol, <span class="keyword">const</span> std::string&amp; offset = <span class="stringliteral">&quot;../&quot;</span> );</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">ResourcesLocator</a>( <span class="keywordtype">void</span>* symbol, std::string pattern, <span class="keyword">const</span> std::string&amp; offset );</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">const</span> std::string&amp; getBasePath();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::string m_basePath;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace Resources</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="StdOptional_8hpp.html">Core/Utils/StdOptional.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>Resources {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceRa_1_1Core_1_1Utils.html">Ra::Core::Utils</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">getRadiumResourcesPath</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">getRadiumPluginsPath</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">getBasePath</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">getResourcesPath</a>( <span class="keywordtype">void</span>* symbol               = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                                    <span class="keyword">const</span> std::string&amp; pattern = <span class="stringliteral">&quot;Resources&quot;</span> );</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace Resources</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_ae617c4347f5e941ce5074f17c2484f55"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#ae617c4347f5e941ce5074f17c2484f55">Ra::Core::Resources::getBaseResourcesDir</a></div><div class="ttdeci">std::string getBaseResourcesDir()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00043">Resources.cpp:43</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a49a62b95fba90756b4c2777238c2e032"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">Ra::Core::Resources::getBasePath</a></div><div class="ttdeci">optional&lt; std::string &gt; getBasePath()</div><div class="ttdoc">this one is always found, use optional for consistency ?</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00060">Resources.cpp:60</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_ad14f48d62638543b5bdb58c694d40cb0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#ad14f48d62638543b5bdb58c694d40cb0">Ra::Core::Resources::getBaseDir</a></div><div class="ttdeci">std::string getBaseDir()</div><div class="ttdoc">Get the path prefix to access the current executable in a filesystem.</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00039">Resources.cpp:39</a></div></div>
 <div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00012">RaCore.hpp:12</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html">Ra::Core::Utils</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00007">Attribs.cpp:7</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a3cb536c70ed3e05e6ed8c0da51670cb2"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">Ra::Core::Resources::getRadiumPluginsPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumPluginsPath()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00051">Resources.cpp:51</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_af434c5b44164970395428b4a00e7729c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumResourcesPath()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00042">Resources.cpp:42</a></div></div>
 <div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_abf62276f3d6fe4fe4455e012661fdf69"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#abf62276f3d6fe4fe4455e012661fdf69">Ra::Core::Resources::getRadiumPluginsDir</a></div><div class="ttdeci">std::string getRadiumPluginsDir()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00033">Resources.cpp:33</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Resources_1_1ResourcesLocator_html"><div class="ttname"><a href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">Ra::Core::Resources::ResourcesLocator</a></div><div class="ttdoc">allow to manage several resource locators</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8hpp_source.html#l00039">Resources.hpp:39</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_aefb858008bce4916fa3cfcef244aeda0"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">Ra::Core::Resources::getRadiumResourcesDir</a></div><div class="ttdeci">std::string getRadiumResourcesDir()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00027">Resources.cpp:27</a></div></div>
+<div class="ttc" id="aStdOptional_8hpp_html"><div class="ttname"><a href="StdOptional_8hpp.html">StdOptional.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_ad157b4daee76752dc0af8d042619cf6c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">Ra::Core::Resources::getResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getResourcesPath(void *symbol, const std::string &amp;pattern)</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00064">Resources.cpp:64</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_05ad645af30ba5694f9d87fa8078b2c2.html">Resources</a></li><li class="navelem"><a class="el" href="Resources_8hpp.html">Resources.hpp</a></li>
-    <li class="footer">Generated on Tue Jan 12 2021 10:25:29 for Radium Engine by
+    <li class="footer">Generated on Thu Jan 21 2021 19:44:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

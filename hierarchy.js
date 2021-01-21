@@ -315,7 +315,6 @@ var hierarchy =
     [ "Ra::Engine::RenderObjectManager", "classRa_1_1Engine_1_1RenderObjectManager.html", null ],
     [ "Ra::Engine::RenderParameters", "classRa_1_1Engine_1_1RenderParameters.html", null ],
     [ "Ra::Engine::RenderTechnique", "classRa_1_1Engine_1_1RenderTechnique.html", null ],
-    [ "Ra::Core::Resources::ResourcesLocator", "classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html", null ],
     [ "Ra::Core::Geometry::VolumeSparse::SampleType", "structRa_1_1Core_1_1Geometry_1_1VolumeSparse_1_1SampleType.html", null ],
     [ "Ra::Core::Geometry::SegmentToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1SegmentToTriangleOutput.html", null ],
     [ "Ra::Core::Animation::Sequence", "classRa_1_1Core_1_1Animation_1_1Sequence.html", null ],
@@ -364,8 +363,8 @@ var hierarchy =
     [ "Ra::Engine::Texture", "classRa_1_1Engine_1_1Texture.html", null ],
     [ "Ra::Engine::TextureManager", "classRa_1_1Engine_1_1TextureManager.html", null ],
     [ "Ra::Engine::TextureParameters", "structRa_1_1Engine_1_1TextureParameters.html", null ],
-    [ "Ra::Engine::Renderer::TimerData", "structRa_1_1Engine_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
+    [ "Ra::Engine::Renderer::TimerData", "structRa_1_1Engine_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::GuiBase::TransformEditor", "classRa_1_1GuiBase_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

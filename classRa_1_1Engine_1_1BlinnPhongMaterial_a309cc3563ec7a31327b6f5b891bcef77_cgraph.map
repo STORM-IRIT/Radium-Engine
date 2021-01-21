@@ -1,4 +1,6 @@
 <map id="Ra::Engine::BlinnPhongMaterial::updateGL" name="Ra::Engine::BlinnPhongMaterial::updateGL">
 <area shape="rect" id="node1" title=" " alt="" coords="5,5,232,47"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1TextureManager.html#a07cc08deff267a126f860b3e08acd3bb" title=" " alt="" coords="280,5,484,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1TextureManager.html#a42a343bdb5f4b1b18d67ae2997eb1e9c" title=" " alt="" coords="532,5,736,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1TextureManager.html#a23e27c7f9ae5126cc5c78b8c342964a1" title=" " alt="" coords="784,5,988,47"/>
 </map>

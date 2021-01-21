@@ -3,7 +3,6 @@ var classRa_1_1GuiBase_1_1BaseApplication =
     [ "WindowFactory", "classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html", "classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory" ],
     [ "BaseApplication", "classRa_1_1GuiBase_1_1BaseApplication.html#ad4115b640845ebd74b3993bfaee7c573", null ],
     [ "~BaseApplication", "classRa_1_1GuiBase_1_1BaseApplication.html#a60acaa9c6457c21d1cfc84a4fc8b9a03", null ],
-    [ "addBasicShaders", "classRa_1_1GuiBase_1_1BaseApplication.html#a2578ea774df33aa24f0bf0ce684be0ed", null ],
     [ "addPluginDirectory", "classRa_1_1GuiBase_1_1BaseApplication.html#aa7896f814da3cc73941265caaa11bb1e", null ],
     [ "appNeedsToQuit", "classRa_1_1GuiBase_1_1BaseApplication.html#aa19a984e0783e70237b8050feb1a3d2a", null ],
     [ "askForUpdate", "classRa_1_1GuiBase_1_1BaseApplication.html#a084cf89dbf7dc52fd77286b573069458", null ],

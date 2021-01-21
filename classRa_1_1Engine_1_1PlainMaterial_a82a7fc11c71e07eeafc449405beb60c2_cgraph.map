@@ -1,11 +1,9 @@
 <map id="Ra::Engine::PlainMaterial::registerMaterial" name="Ra::Engine::PlainMaterial::registerMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,136,191,177"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,191,145"/>
 <area shape="rect" id="node2" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#a36842535508a390108fb1205210a5c49" title=" " alt="" coords="256,5,487,47"/>
 <area shape="rect" id="node4" href="$namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#ad6fe3c60f8f2b9f9f5d8220ffe4d5ba6" title=" " alt="" coords="256,71,487,112"/>
-<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0" title=" " alt="" coords="278,136,465,177"/>
-<area shape="rect" id="node7" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#affc37bf84d5ff81342b5c09587eedc34" title=" " alt="" coords="239,201,504,243"/>
-<area shape="rect" id="node8" href="$classRa_1_1Engine_1_1RenderTechnique.html#a22298207c6e70a98b829d6c5ead1a8e4" title=" " alt="" coords="266,267,477,308"/>
+<area shape="rect" id="node5" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#affc37bf84d5ff81342b5c09587eedc34" title=" " alt="" coords="239,136,504,177"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1RenderTechnique.html#a22298207c6e70a98b829d6c5ead1a8e4" title=" " alt="" coords="266,201,477,243"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1ShaderConfiguration.html#a6aefbda787e65960237bb9c0cdc0f627" title=" " alt="" coords="552,5,783,47"/>
-<area shape="rect" id="node6" href="$namespaceRa_1_1Core_1_1Resources.html#a96e7523ac5a9f47629ee73938db23790" title=" " alt="" coords="591,136,743,177"/>
-<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title=" " alt="" coords="562,267,773,308"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title=" " alt="" coords="562,201,773,243"/>
 </map>

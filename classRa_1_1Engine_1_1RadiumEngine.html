@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">4dcd0ef794a6d9f48e4dc7faf72472f9e9e6ee10</span>
+   &#160;<span id="projectnumber">31523ca27aaa231751b9dff4e2c4343225ee2c00</span>
    </div>
   </td>
  </tr>
@@ -144,6 +144,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a26f952bd9650234940f69053db06d118"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa597697d6f39ad5f64c76a50831bb4fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1SignalManager.html">SignalManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#aa597697d6f39ad5f64c76a50831bb4fb">getSignalManager</a> () const</td></tr>
 <tr class="separator:aa597697d6f39ad5f64c76a50831bb4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36158f9035ccb68ec9f945382dd6a504"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a36158f9035ccb68ec9f945382dd6a504">getTextureManager</a> () const</td></tr>
+<tr class="separator:a36158f9035ccb68ec9f945382dd6a504"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90204861f4fe8ed044208eb05695afe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a90204861f4fe8ed044208eb05695afe0">registerFileLoader</a> (std::shared_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html">Core::Asset::FileLoaderInterface</a> &gt; fileLoader)</td></tr>
 <tr class="separator:a90204861f4fe8ed044208eb05695afe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b6df960b512989fda34e3012e7116cf"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classRa_1_1Core_1_1Asset_1_1FileLoaderInterface.html">Core::Asset::FileLoaderInterface</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a3b6df960b512989fda34e3012e7116cf">getFileLoaders</a> () const</td></tr>
@@ -154,6 +156,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9f5d83e1b826c6da7f5708fc9a65512a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accdc1226ff4bba11e82f46df8a788b61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#accdc1226ff4bba11e82f46df8a788b61">popFboAndViewport</a> ()</td></tr>
 <tr class="separator:accdc1226ff4bba11e82f46df8a788b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2584c15750fd8403df49d8b7fdaf902"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#aa2584c15750fd8403df49d8b7fdaf902">getResourcesDir</a> ()</td></tr>
+<tr class="separator:aa2584c15750fd8403df49d8b7fdaf902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Time Management.</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>{ </p>
 </div></td></tr>
@@ -196,7 +200,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="namespaceRa_1_1Engine.html">Engine</a> main class : Manage all the systems and managers that are used by the engine module. </p><dl class="section see"><dt>See also</dt><dd>Documentation on <a class="el" href="namespaceRa_1_1Engine.html">Engine</a> Object Model </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8hpp_source.html#l00037">37</a> of file <a class="el" href="RadiumEngine_8hpp_source.html">RadiumEngine.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8hpp_source.html#l00038">38</a> of file <a class="el" href="RadiumEngine_8hpp_source.html">RadiumEngine.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad80fa9eb5edd34c72cfbcd4e31b49851"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad80fa9eb5edd34c72cfbcd4e31b49851">&#9670;&nbsp;</a></span>RadiumEngine()</h2>
@@ -265,7 +269,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Free all resources acquired during initialize </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00090">90</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00112">112</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -293,7 +297,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Compute the aabb of the scene by aggregating aabb from entity. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00284">284</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00310">310</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -313,7 +317,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Is called at the end of the frame to synchronize any data that may have been updated during the frame's multithreaded processing. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00110">110</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00132">132</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -333,7 +337,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the <code>end</code> time for the time window. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00369">369</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00395">395</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -354,7 +358,7 @@ Public Member Functions</h2></td></tr>
 <p>Get the entity manager attached to the engine. </p><dl class="section note"><dt>Note</dt><dd>, the engine keep ownership on the pointer returned </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the entity manager </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00248">248</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00270">270</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -375,7 +379,7 @@ Public Member Functions</h2></td></tr>
 <p>Access to the content of the loaded file. Access to the content is only available at loading time. As soon as the loaded file is released, its content is no more available outside the Entity/Component architecture. </p><dl class="section pre"><dt>Precondition</dt><dd>The <a class="el" href="namespaceRa_1_1Engine.html">Engine</a> must be in "loading state". </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00266">266</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00292">292</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -395,7 +399,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the active file loaders from the engine </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00260">260</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00286">286</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -415,7 +419,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the current frame. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00383">383</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00409">409</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -461,7 +465,7 @@ Public Member Functions</h2></td></tr>
 <p>Convenience function returning a <a class="el" href="classRa_1_1Engine_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a> from its entity and component names. When no <a class="el" href="classRa_1_1Engine_1_1RenderObject.html">RenderObject</a> name is given, returns the mesh associated to the first render object. </p><dl class="section note"><dt>Note</dt><dd>: mark as deprecated as it must be either removed or reimplemented </dd></dl>
 <dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>Will be removed from this class in the next release. A <a class="el" href="classRa_1_1Engine_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a> manager, that could serve mesh by name will be implemented. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00154">154</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00176">176</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,7 +488,34 @@ Public Member Functions</h2></td></tr>
 <p>Get the <a class="el" href="classRa_1_1Engine_1_1RenderObject.html">RenderObject</a> manager attached to the engine. </p><dl class="section note"><dt>Note</dt><dd>, the engine keep ownership on the pointer returned </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the object manager </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00244">244</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00266">266</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa2584c15750fd8403df49d8b7fdaf902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2584c15750fd8403df49d8b7fdaf902">&#9670;&nbsp;</a></span>getResourcesDir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ra::Engine::RadiumEngine::getResourcesDir </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8hpp_source.html#l00300">300</a> of file <a class="el" href="RadiumEngine_8hpp_source.html">RadiumEngine.hpp</a>.</p>
 
 </div>
 </div>
@@ -505,7 +536,7 @@ Public Member Functions</h2></td></tr>
 <p>Get the signal manager attached to the engine. </p><dl class="section note"><dt>Note</dt><dd>, the engine keep ownership on the pointer returned </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>the signal manager </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00252">252</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00274">274</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -525,7 +556,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the <code>start</code> time for the time window. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00361">361</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00387">387</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -552,7 +583,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00145">145</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00167">167</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -591,7 +622,28 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00115">115</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00137">137</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a36158f9035ccb68ec9f945382dd6a504"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36158f9035ccb68ec9f945382dd6a504">&#9670;&nbsp;</a></span>getTextureManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a> * Ra::Engine::RadiumEngine::getTextureManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the texture manager attached to the engine. </p><dl class="section note"><dt>Note</dt><dd>, the engine keep ownership on the pointer returned </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the texture manager </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00278">278</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -611,7 +663,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the current time. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00379">379</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00405">405</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -637,7 +689,7 @@ Public Member Functions</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1RadiumEngine_a8d2085dbc31206d0bbdfc6014d247471_cgraph.svg" width="639" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1RadiumEngine_a8d2085dbc31206d0bbdfc6014d247471_cgraph.svg" width="648" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -661,7 +713,7 @@ Public Member Functions</h2></td></tr>
 <p>Indicates if Constant-time time flow is on (Real-time is off) . </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a3a9df359d36b8ee6525ec4bf6e2d9fb1" title="Indicates if Real-time time flow is on (Constant-time is off) .">isRealTime</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00329">329</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00355">355</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -683,7 +735,7 @@ Public Member Functions</h2></td></tr>
 <p>Indicates if Real-time time flow is on (Constant-time is off) . </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#ae62311f30f31139f88940a4bf1fd8768" title="Indicates if Constant-time time flow is on (Real-time is off) .">isConstantTime</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00325">325</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00351">351</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -711,7 +763,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if file is loaded, false else. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00188">188</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00210">210</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -740,7 +792,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Activates or stops time flow. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00339">339</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00365">365</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -760,7 +812,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Restore OpenGL Framebuffer and viewport from the internal <a class="el" href="namespaceRa_1_1Engine.html">Engine</a> stack. The state have to be previously saved with <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a9f5d83e1b826c6da7f5708fc9a65512a">pushFboAndViewport()</a> Error message if stack is empty. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00308">308</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00334">334</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -780,7 +832,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Save currently bound OpenGL Framebuffer and viewport on the internal <a class="el" href="namespaceRa_1_1Engine.html">Engine</a> stack. You can restore the state afterward with <a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#accdc1226ff4bba11e82f46df8a788b61">popFboAndViewport()</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00297">297</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00323">323</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -801,7 +853,7 @@ Public Member Functions</h2></td></tr>
 <p>Register default shaders, materials and named strings </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>find a way to integrate "Line" material into Radium <a class="el" href="classRa_1_1Engine_1_1Material.html">Material</a> <a class="el" href="classRa_1_1Engine_1_1System.html">System</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00055">55</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00062">62</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -835,7 +887,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00256">256</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00282">282</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -886,7 +938,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00132">132</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00154">154</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -912,7 +964,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Calling this method set the engine out of the "loading state". </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00239">239</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00261">261</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -932,7 +984,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Resets time to the <code>start</code> time of the time window. </p><dl class="section note"><dt>Note</dt><dd>Also stops time flow. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00347">347</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00373">373</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -972,7 +1024,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true if Constant-time flow is used. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#ae62311f30f31139f88940a4bf1fd8768" title="Indicates if Constant-time time flow is on (Real-time is off) .">isConstantTime</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00333">333</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00359">359</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -995,7 +1047,7 @@ Public Member Functions</h2></td></tr>
 <dd>
 If the <code>start</code> time comes after the <code>end</code> time, then time will flow indefinitely. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00365">365</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00391">391</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -1026,7 +1078,7 @@ If the <code>start</code> time comes after the <code>end</code> time, then time 
 <p>Activates or disables ForwardBackward time flow. </p>
 <p>When ForwardBackward mode is disabled (default), time will flow through the time window and restart over. When ForwardBackward mode is enabled, time will flow back and forth in the time window. </p><dl class="section note"><dt>Note</dt><dd>If <code>end</code> time is negative, the ForwardBackward mode doesn't apply and time just flows indefinitely. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00373">373</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00399">399</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -1049,7 +1101,7 @@ If the <code>start</code> time comes after the <code>end</code> time, then time 
 <p>Toggles Real-time (on) or Constant (off) time flow. </p>
 <p>In Real-time mode, time flows according to the actually elapsed time between consecutive frames, while in constant mode time flows according to a fixed time step. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00321">321</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00347">347</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -1072,7 +1124,7 @@ If the <code>start</code> time comes after the <code>end</code> time, then time 
 <dd>
 If the <code>start</code> time comes after the <code>end</code> time, then time will flow indefinitely. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00357">357</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00383">383</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -1101,7 +1153,7 @@ If the <code>start</code> time comes after the <code>end</code> time, then time 
 </div><div class="memdoc">
 <p>Sets time to <code>t</code>. </p><dl class="section note"><dt>Note</dt><dd><code>t</code> can be any time value, regardless of the time window or time flow modes. However as soon as time flows, <code>t</code> will be adapted. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00353">353</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00379">379</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 <div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
@@ -1129,7 +1181,7 @@ If the <code>start</code> time comes after the <code>end</code> time, then time 
 </div><div class="memdoc">
 <p>Activates time flow for one frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00343">343</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumEngine_8cpp_source.html#l00369">369</a> of file <a class="el" href="RadiumEngine_8cpp_source.html">RadiumEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -1143,7 +1195,7 @@ If the <code>start</code> time comes after the <code>end</code> time, then time 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html">RadiumEngine</a></li>
-    <li class="footer">Generated on Tue Jan 12 2021 10:25:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jan 21 2021 19:44:39 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

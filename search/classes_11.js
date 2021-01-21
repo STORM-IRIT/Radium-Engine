@@ -17,7 +17,7 @@ var searchData=
   ['skeleton_3081',['Skeleton',['../classRa_1_1Core_1_1Animation_1_1Skeleton.html',1,'Ra::Core::Animation']]],
   ['spline_3082',['Spline',['../classRa_1_1Core_1_1Geometry_1_1Spline.html',1,'Ra::Core::Geometry']]],
   ['splinecurve_3083',['SplineCurve',['../classRa_1_1Core_1_1Geometry_1_1SplineCurve.html',1,'Ra::Core::Geometry']]],
-  ['spotlight_3084',['SpotLight',['../structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html',1,'Ra::Core::Asset::LightData::SpotLight'],['../classRa_1_1Engine_1_1SpotLight.html',1,'Ra::Engine::SpotLight']]],
+  ['spotlight_3084',['SpotLight',['../classRa_1_1Engine_1_1SpotLight.html',1,'Ra::Engine::SpotLight'],['../structRa_1_1Core_1_1Asset_1_1LightData_1_1SpotLight.html',1,'Ra::Core::Asset::LightData::SpotLight']]],
   ['surfacemeshcomponent_3085',['SurfaceMeshComponent',['../classRa_1_1Engine_1_1SurfaceMeshComponent.html',1,'Ra::Engine']]],
   ['system_3086',['System',['../classRa_1_1Engine_1_1System.html',1,'Ra::Engine']]],
   ['systementity_3087',['SystemEntity',['../classRa_1_1Engine_1_1SystemEntity.html',1,'Ra::Engine']]]

@@ -12,11 +12,11 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structRa_1_1Engine_1_1SurfaceMeshComponentInternal_1_1RenderMeshHelper.html" target="_top" xlink:title=" ">
+<g id="a_node1"><a xlink:href="structRa_1_1Engine_1_1SurfaceMeshComponentInternal_1_1RenderMeshHelper_3_01Ra_1_1Core_1_1Geometry_1_1PolyMesh_01_4.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-41.5 194,-41.5 194,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::SurfaceMeshComponent</text>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Internal::RenderMeshHelper</text>
-<text text-anchor="middle" x="97" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; CoreMeshT &gt;</text>
+<text text-anchor="middle" x="97" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; Ra::Core::Geometry::PolyMesh &gt;</text>
 </a>
 </g>
 </g>

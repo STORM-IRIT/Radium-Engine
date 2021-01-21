@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">4dcd0ef794a6d9f48e4dc7faf72472f9e9e6ee10</span>
+   &#160;<span id="projectnumber">31523ca27aaa231751b9dff4e2c4343225ee2c00</span>
    </div>
   </td>
  </tr>
@@ -101,6 +101,7 @@ $(document).ready(function(){initNavTree('Resources_8cpp.html',''); initResizabl
 <code>#include &lt;<a class="el" href="Log_8hpp_source.html">Core/Utils/Log.hpp</a>&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cpplocate/cpplocate.h&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for Resources.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -124,17 +125,19 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a96e7523ac5a9f47629ee73938db23790"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a96e7523ac5a9f47629ee73938db23790">Ra::Core::Resources::searchPath</a> (std::string pattern, std::string offset, void *libSymbol)</td></tr>
-<tr class="separator:a96e7523ac5a9f47629ee73938db23790"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb858008bce4916fa3cfcef244aeda0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">Ra::Core::Resources::getRadiumResourcesDir</a> ()</td></tr>
-<tr class="separator:aefb858008bce4916fa3cfcef244aeda0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf62276f3d6fe4fe4455e012661fdf69"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#abf62276f3d6fe4fe4455e012661fdf69">Ra::Core::Resources::getRadiumPluginsDir</a> ()</td></tr>
-<tr class="separator:abf62276f3d6fe4fe4455e012661fdf69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad14f48d62638543b5bdb58c694d40cb0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ad14f48d62638543b5bdb58c694d40cb0">Ra::Core::Resources::getBaseDir</a> ()</td></tr>
-<tr class="memdesc:ad14f48d62638543b5bdb58c694d40cb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the path prefix to access the current executable in a filesystem.  <a href="namespaceRa_1_1Core_1_1Resources.html#ad14f48d62638543b5bdb58c694d40cb0">More...</a><br /></td></tr>
-<tr class="separator:ad14f48d62638543b5bdb58c694d40cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae617c4347f5e941ce5074f17c2484f55"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ae617c4347f5e941ce5074f17c2484f55">Ra::Core::Resources::getBaseResourcesDir</a> ()</td></tr>
-<tr class="separator:ae617c4347f5e941ce5074f17c2484f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab95f03e3ca56365db3cfbb3aa0e376b4"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">Ra::Core::Resources::searchPath</a> (const std::string &amp;pattern, const std::string &amp;system, void *libSymbol)</td></tr>
+<tr class="separator:ab95f03e3ca56365db3cfbb3aa0e376b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90bbf2a2d93d6d69d393a46d4488a300"><td class="memItemLeft" align="right" valign="top">fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">Ra::Core::Resources::clean</a> (const fs::path &amp;path)</td></tr>
+<tr class="separator:a90bbf2a2d93d6d69d393a46d4488a300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af434c5b44164970395428b4a00e7729c"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a> ()</td></tr>
+<tr class="separator:af434c5b44164970395428b4a00e7729c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb536c70ed3e05e6ed8c0da51670cb2"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">Ra::Core::Resources::getRadiumPluginsPath</a> ()</td></tr>
+<tr class="separator:a3cb536c70ed3e05e6ed8c0da51670cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49a62b95fba90756b4c2777238c2e032"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">Ra::Core::Resources::getBasePath</a> ()</td></tr>
+<tr class="memdesc:a49a62b95fba90756b4c2777238c2e032"><td class="mdescLeft">&#160;</td><td class="mdescRight">this one is always found, use optional for consistency ?  <a href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">More...</a><br /></td></tr>
+<tr class="separator:a49a62b95fba90756b4c2777238c2e032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad157b4daee76752dc0af8d042619cf6c"><td class="memItemLeft" align="right" valign="top">optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">Ra::Core::Resources::getResourcesPath</a> (void *symbol, const std::string &amp;pattern)</td></tr>
+<tr class="separator:ad157b4daee76752dc0af8d042619cf6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -142,7 +145,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_05ad645af30ba5694f9d87fa8078b2c2.html">Resources</a></li><li class="navelem"><a class="el" href="Resources_8cpp.html">Resources.cpp</a></li>
-    <li class="footer">Generated on Tue Jan 12 2021 10:25:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jan 21 2021 19:44:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

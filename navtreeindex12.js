@@ -1,9 +1,5 @@
 var NAVTREEINDEX12 =
 {
-"classRa_1_1Engine_1_1DefaultCameraStorage.html#acee2252d9f40b9cd8e41b225d34545e1":[9,0,2,1,14,1],
-"classRa_1_1Engine_1_1DefaultCameraStorage.html#ad47e60a5db78b87073011ca6e0e4d0f7":[9,0,2,1,14,2],
-"classRa_1_1Engine_1_1DefaultLightManager.html":[9,0,2,1,15],
-"classRa_1_1Engine_1_1DefaultLightManager.html#a14e5d7f4ff809b8a8af69d3beedc351a":[9,0,2,1,15,0],
 "classRa_1_1Engine_1_1DefaultLightManager.html#a42f24dfe20e1618a6ce4ef28741f7b37":[9,0,2,1,15,1],
 "classRa_1_1Engine_1_1DefaultLightManager.html#a4a1a83f5f4c7d31cb8380eefb2772213":[9,0,2,1,15,2],
 "classRa_1_1Engine_1_1DefaultLightStorage.html":[9,0,2,1,16],
@@ -241,13 +237,17 @@ var NAVTREEINDEX12 =
 "classRa_1_1Engine_1_1PolyMesh.html#ada38ef308e12baf280178d52c9500f56":[9,0,2,1,40,1],
 "classRa_1_1Engine_1_1RadiumEngine.html":[9,0,2,1,41],
 "classRa_1_1Engine_1_1RadiumEngine.html#a00a5eceb9b5ebc38371e1148a4a61d91":[9,0,2,1,41,7],
-"classRa_1_1Engine_1_1RadiumEngine.html#a162b27fe8ad8d5952cb29e71329ef2dd":[9,0,2,1,41,16],
-"classRa_1_1Engine_1_1RadiumEngine.html#a1a93b0c75d22abb85f2e03ac658db21b":[9,0,2,1,41,20],
-"classRa_1_1Engine_1_1RadiumEngine.html#a24b6f3a111091bc4ba4b6f2b6a41498b":[9,0,2,1,41,35],
+"classRa_1_1Engine_1_1RadiumEngine.html#a162b27fe8ad8d5952cb29e71329ef2dd":[9,0,2,1,41,18],
+"classRa_1_1Engine_1_1RadiumEngine.html#a1a93b0c75d22abb85f2e03ac658db21b":[9,0,2,1,41,22],
+"classRa_1_1Engine_1_1RadiumEngine.html#a24b6f3a111091bc4ba4b6f2b6a41498b":[9,0,2,1,41,37],
 "classRa_1_1Engine_1_1RadiumEngine.html#a26f952bd9650234940f69053db06d118":[9,0,2,1,41,6],
 "classRa_1_1Engine_1_1RadiumEngine.html#a28bc0716e719a702079a55a096340d16":[9,0,2,1,41,11],
 "classRa_1_1Engine_1_1RadiumEngine.html#a2980ef582a2e985abf53e51d147ac489":[9,0,2,1,41,2],
-"classRa_1_1Engine_1_1RadiumEngine.html#a2c1a5415ad3e2e559cc52fefe1efb323":[9,0,2,1,41,30],
+"classRa_1_1Engine_1_1RadiumEngine.html#a2c1a5415ad3e2e559cc52fefe1efb323":[9,0,2,1,41,32],
 "classRa_1_1Engine_1_1RadiumEngine.html#a2df2b800d2107e02e1fe7e5da5b6fd6a":[9,0,2,1,41,1],
-"classRa_1_1Engine_1_1RadiumEngine.html#a2e7dda410ae23e2e3441775aade25e64":[9,0,2,1,41,33]
+"classRa_1_1Engine_1_1RadiumEngine.html#a2e7dda410ae23e2e3441775aade25e64":[9,0,2,1,41,35],
+"classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744":[9,0,2,1,41,16],
+"classRa_1_1Engine_1_1RadiumEngine.html#a36158f9035ccb68ec9f945382dd6a504":[9,0,2,1,41,17],
+"classRa_1_1Engine_1_1RadiumEngine.html#a371903ba74352b06c2f97b8f6d6a506a":[9,0,2,1,41,36],
+"classRa_1_1Engine_1_1RadiumEngine.html#a3a9df359d36b8ee6525ec4bf6e2d9fb1":[9,0,2,1,41,21]
 };

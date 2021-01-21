@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">4dcd0ef794a6d9f48e4dc7faf72472f9e9e6ee10</span>
+   &#160;<span id="projectnumber">31523ca27aaa231751b9dff4e2c4343225ee2c00</span>
    </div>
   </td>
  </tr>
@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>Page <a class="el" href="develmeshes.html">API: 3D objects (a.k.a. Meshes)</a>  </dt>
 <dd><a class="anchor" id="_todo000003"></a>TopologicalMesh::mergeEqualWedges&lt;p&gt; <a class="anchor" id="_todo000004"></a>make <a class="el" href="namespaceOpenMesh.html">OpenMesh</a> inheritance private. </dd>
 <dt>Member <a class="el" href="GizmoManager_8cpp.html#ab1478fa43039cf1b62157b0375df9960">KMA_VALUE</a>  (XX)</dt>
-<dd><a class="anchor" id="_todo000052"></a>If a macro expert could write a recursive marco to have something like KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)  </dd>
+<dd><a class="anchor" id="_todo000053"></a>If a macro expert could write a recursive marco to have something like KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)  </dd>
 <dt>Class <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a>  </dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000007"></a>rename methods to respect Radium guideline (get/set/is, camelCase) </p>
 <p class="enddd">private inheritance from <a class="el" href="namespaceOpenMesh.html">OpenMesh</a>, and import relevant methods.  </p>
@@ -178,25 +178,25 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>Class <a class="el" href="classRa_1_1Engine_1_1VolumetricMaterial.html">Ra::Engine::VolumetricMaterial</a>  </dt>
 <dd><a class="anchor" id="_todo000026"></a>This material does not implement the MaterialGLSL interface. Shader compositing is not allowed.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1CameraManipulator.html#a7d8746082da29f06f21af9b89fb16a12">Ra::Gui::CameraManipulator::resetToDefaultCamera</a>  ()</dt>
-<dd><a class="anchor" id="_todo000051"></a>have a cleaner camera management and control in the <a class="el" href="namespaceRa_1_1GuiBase.html">GuiBase</a> Radium library. <a class="el" href="namespaceRa_1_1GuiBase.html">GuiBase</a> Camera interface Must define a clean interface between the application and the <a class="el" href="namespaceRa_1_1Engine.html">Engine</a>. This method is similar to the getCameraFromViewer, it should not be there ...  </dd>
+<dd><a class="anchor" id="_todo000052"></a>have a cleaner camera management and control in the <a class="el" href="namespaceRa_1_1GuiBase.html">GuiBase</a> Radium library. <a class="el" href="namespaceRa_1_1GuiBase.html">GuiBase</a> Camera interface Must define a clean interface between the application and the <a class="el" href="namespaceRa_1_1Engine.html">Engine</a>. This method is similar to the getCameraFromViewer, it should not be there ...  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1GizmoManager.html#aeb11c8ca78b0a6b957c3551aa99b29c5">Ra::Gui::GizmoManager::handleMouseMoveEvent</a>  (QMouseEvent *event, const Qt::MouseButtons &amp;buttons, const Qt::KeyboardModifiers &amp;modifiers, int key)</dt>
-<dd><a class="anchor" id="_todo000053"></a>what about if someone start a motion with a key, and then release it while moving the mouse ?  </dd>
+<dd><a class="anchor" id="_todo000054"></a>what about if someone start a motion with a key, and then release it while moving the mouse ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1KeyMappingManager.html#a929548f74f967115fc31200370b45933">Ra::Gui::KeyMappingManager::addAction</a>  (const std::string &amp;context, const std::string &amp;keyString, const std::string &amp;modifiersString, const std::string &amp;buttonsString, const std::string &amp;wheelString, const std::string &amp;actionString)</dt>
-<dd><a class="anchor" id="_todo000050"></a>write the configuration in the configFile to be later reused or modified ?  </dd>
+<dd><a class="anchor" id="_todo000051"></a>write the configuration in the configFile to be later reused or modified ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a01d6621a24aceef0fe3240986e17f0c5">Ra::Gui::Viewer::handleMousePressEvent</a>  (QMouseEvent *event, <a class="el" href="structRa_1_1Engine_1_1Renderer_1_1PickingResult.html">Ra::Engine::Renderer::PickingResult</a> &amp;result)</dt>
-<dd><a class="anchor" id="_todo000055"></a>something like explained here  </dd>
+<dd><a class="anchor" id="_todo000056"></a>something like explained here  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af2c9de9be1eadeb44b15b063f869e189">Ra::Gui::Viewer::m_renderers</a>  </dt>
-<dd><a class="anchor" id="_todo000056"></a>make the following private: Owning pointer to the renderers.  </dd>
+<dd><a class="anchor" id="_todo000057"></a>make the following private: Owning pointer to the renderers.  </dd>
 <dt>Member <a class="el" href="classRa_1_1Gui_1_1Viewer.html#af993e161d72ea7e41a3bc49a9671a74e">Ra::Gui::Viewer::showEvent</a>  (QShowEvent *ev) override</dt>
-<dd><a class="anchor" id="_todo000054"></a>remove this commented code when camera init in ctr is tested on other arch.  </dd>
-<dt>Member <a class="el" href="classRa_1_1GuiBase_1_1BaseApplication.html#a2578ea774df33aa24f0bf0ce684be0ed">Ra::GuiBase::BaseApplication::addBasicShaders</a>  ()</dt>
-<dd><a class="anchor" id="_todo000047"></a>Are these shaders used somewhere ? Why loading them in the applicaiton and not in the engine or in the Plugin ?  </dd>
+<dd><a class="anchor" id="_todo000055"></a>remove this commented code when camera init in ctr is tested on other arch.  </dd>
+<dt>Member <a class="el" href="classRa_1_1GuiBase_1_1BaseApplication.html#ad4115b640845ebd74b3993bfaee7c573">Ra::GuiBase::BaseApplication::BaseApplication</a>  (int &amp;argc, char **argv, const <a class="el" href="classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html">WindowFactory</a> &amp;factory, QString applicationName="RadiumEngine", QString organizationName="STORM-IRIT")</dt>
+<dd><a class="anchor" id="_todo000047"></a>check optional  </dd>
 <dt>Member <a class="el" href="classRa_1_1IO_1_1AssimpGeometryDataLoader.html#a015c0e61580e9cf1b72ae9751844df68">Ra::IO::AssimpGeometryDataLoader::fetchVertices</a>  (const aiMesh &amp;mesh, <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Core::Asset::GeometryData</a> &amp;data)</dt>
-<dd><a class="anchor" id="_todo000057"></a>have something like template &lt;typename I, typename TYPE, int DIM&gt; void fetchVectorData( size_t sz, const I&amp; input, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt;Eigen::Matrix&lt;TYPE, DIM, 1&gt;&gt;&amp; output ) { const auto size = int( sz ); output.resize( sz ); </dd>
+<dd><a class="anchor" id="_todo000058"></a>have something like template &lt;typename I, typename TYPE, int DIM&gt; void fetchVectorData( size_t sz, const I&amp; input, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">Core::VectorArray</a>&lt;Eigen::Matrix&lt;TYPE, DIM, 1&gt;&gt;&amp; output ) { const auto size = int( sz ); output.resize( sz ); </dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a860bb59fee16633501bc63271fe397ab">Ra::Plugins::RadiumPluginInterface::getMenu</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000059"></a>Find a better name ?  </dd>
+<dd><a class="anchor" id="_todo000060"></a>Find a better name ?  </dd>
 <dt>Member <a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a460d1df9a097719b389d6571904be142">Ra::Plugins::RadiumPluginInterface::getWidget</a>  ()=0</dt>
-<dd><a class="anchor" id="_todo000058"></a>Find a better name for this ? </dd>
+<dd><a class="anchor" id="_todo000059"></a>Find a better name for this ? </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -204,7 +204,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jan 12 2021 10:25:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jan 21 2021 19:44:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

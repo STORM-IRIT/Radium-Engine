@@ -1,5 +1,7 @@
 var classRa_1_1Engine_1_1TextureManager =
 [
+    [ "TextureManager", "classRa_1_1Engine_1_1TextureManager.html#a956b9260b852c8c3c1ac1b6f9731a09e", null ],
+    [ "~TextureManager", "classRa_1_1Engine_1_1TextureManager.html#a60721381ee4e6097649a84cb749637fb", null ],
     [ "addTexture", "classRa_1_1Engine_1_1TextureManager.html#a8b1c5990ad9f52ee038779fcefe72374", null ],
     [ "deleteTexture", "classRa_1_1Engine_1_1TextureManager.html#a4f74049c58421e42af0ccd1fe2fb80c4", null ],
     [ "deleteTexture", "classRa_1_1Engine_1_1TextureManager.html#a60873f23543890127e18e64c3d486503", null ],

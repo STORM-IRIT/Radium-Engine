@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">4dcd0ef794a6d9f48e4dc7faf72472f9e9e6ee10</span>
+   &#160;<span id="projectnumber">31523ca27aaa231751b9dff4e2c4343225ee2c00</span>
    </div>
   </td>
  </tr>
@@ -276,7 +276,7 @@ Function &lt;tt&gt;installTargetResources&lt;/tt&gt;</h3>
 <li>Images used internally as textures or source of data.</li>
 <li>Precomputed data, stored in whatever format.</li>
 </ul>
-<p>To access resources, the component might rely on a <a class="el" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html" title="allow to manage several resource locators">Ra::Core::Resources::ResourcesLocator</a> object. Such an object allows to access files located in some predefined directories:</p><ul>
+<p>To access resources, the component might rely on a Ra::Core::Resources::ResourcesLocator object. Such an object allows to access files located in some predefined directories:</p><ul>
 <li>Radium default resource directory. This directory is located at <code>&lt;prefix&gt;/Resources</code> where <code>&lt;prefix&gt;</code> is the Radium installation directory.</li>
 <li>Current executable directory. This directory is where the currently running executable is located.</li>
 </ul>
@@ -299,13 +299,13 @@ Function &lt;tt&gt;installTargetResources&lt;/tt&gt;</h3>
 <div class="line">|   ├── Shaders/</div>
 <div class="line">|   ├── Config/</div>
 <div class="line">|   ...</div>
-</div><!-- fragment --><p>In this hierarchy, Resources are located in the relative path <code>../Resources/</code> from any binary (executable or lib). The source code structure of the Radium libraries allows to have the same property on the build tree. When a Radium component needs to access some resources, it could either use the <a class="el" href="namespaceRa_1_1Core_1_1Resources.html#aefb858008bce4916fa3cfcef244aeda0">Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir()</a> method or search for the resource relatively to a symbol defined in the component.</p>
+</div><!-- fragment --><p>In this hierarchy, Resources are located in the relative path <code>../Resources/</code> from any binary (executable or lib). The source code structure of the Radium libraries allows to have the same property on the build tree. When a Radium component needs to access some resources, it could either use the Ra::Core::Resources::ResourcesLocator::getRadiumResourcesDir() method or search for the resource relatively to a symbol defined in the component.</p>
 <p>To do this, the source code (.cpp file) of the component could contain the following. </p><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;MyComponent.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">int</span> MyComponentMagick = 0x0F0F0F0F;</div>
 <div class="line">...</div>
 <div class="line"><span class="comment">// get the resource path relatively to the current location of the binary </span></div>
-<div class="line">auto resourcesPath = <a class="code" href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">Ra::Core::Resources::ResourcesLocator</a>(</div>
+<div class="line">auto resourcesPath = Ra::Core::Resources::ResourcesLocator(</div>
 <div class="line">                    <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>( &amp;MyComponentMagick ), </div>
 <div class="line">                    <span class="stringliteral">&quot;/Resources/MyComponentResources/&quot;</span>, </div>
 <div class="line">                    <span class="stringliteral">&quot;../&quot;</span> );</div>
@@ -628,13 +628,12 @@ Configuring an application plugin</h2>
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Resources_1_1ResourcesLocator_html"><div class="ttname"><a href="classRa_1_1Core_1_1Resources_1_1ResourcesLocator.html">Ra::Core::Resources::ResourcesLocator</a></div><div class="ttdoc">allow to manage several resource locators</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8hpp_source.html#l00039">Resources.hpp:39</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Material_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Material.html">Ra::Engine::Material</a></div><div class="ttdef"><b>Definition:</b> <a href="Material_8hpp_source.html#l00023">Material.hpp:23</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="extensions.html">Developing using Radium</a></li>
-    <li class="footer">Generated on Tue Jan 12 2021 10:25:30 for Radium Engine by
+    <li class="footer">Generated on Thu Jan 21 2021 19:44:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

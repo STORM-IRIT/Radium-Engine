@@ -1,12 +1,12 @@
 <map id="Ra::GuiBase::ItemModel" name="Ra::GuiBase::ItemModel">
-<area shape="rect" id="node1" title=" " alt="" coords="157,1398,336,1563"/>
-<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1TreeModel.html" title=" " alt="" coords="5,752,181,1064"/>
+<area shape="rect" id="node1" title=" " alt="" coords="157,1427,336,1593"/>
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1TreeModel.html" title=" " alt="" coords="5,767,181,1079"/>
 <area shape="rect" id="node3" href="$classQAbstractItemModel.html" title=" " alt="" coords="15,355,171,433"/>
 <area shape="rect" id="node4" title=" " alt="" coords="347,348,511,440"/>
-<area shape="rect" id="node6" title=" " alt="" coords="525,862,761,954"/>
-<area shape="rect" id="node5" href="$classRa_1_1GuiBase_1_1TreeItem.html" title=" " alt="" coords="438,1376,605,1585"/>
+<area shape="rect" id="node6" title=" " alt="" coords="525,877,761,969"/>
+<area shape="rect" id="node5" href="$classRa_1_1GuiBase_1_1TreeItem.html" title=" " alt="" coords="438,1405,605,1615"/>
 <area shape="rect" id="node7" title="STL class." alt="" coords="606,247,735,324"/>
 <area shape="rect" id="node8" title=" " alt="" coords="559,5,598,83"/>
 <area shape="rect" id="node9" title="STL class." alt="" coords="408,145,565,223"/>
-<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="205,503,419,1313"/>
+<area shape="rect" id="node10" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="205,503,419,1343"/>
 </map>

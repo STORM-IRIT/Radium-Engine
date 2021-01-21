@@ -1,5 +1,5 @@
 <map id="Ra::GuiBase::BaseApplication" name="Ra::GuiBase::BaseApplication">
-<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="1641,3035,1884,3508"/>
+<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="1641,3035,1884,3493"/>
 <area shape="rect" id="node2" href="$classQApplication.html" title=" " alt="" coords="211,2887,317,2965"/>
 <area shape="rect" id="node3" title=" " alt="" coords="794,872,937,949"/>
 <area shape="rect" id="node4" href="$classint.html" title=" " alt="" coords="3405,13,3443,90"/>
@@ -17,7 +17,7 @@
 <area shape="rect" id="node38" title=" " alt="" coords="1206,1061,1434,1153"/>
 <area shape="rect" id="node46" title=" " alt="" coords="4011,865,4221,957"/>
 <area shape="rect" id="node10" title=" " alt="" coords="1342,2880,1533,2972"/>
-<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="1981,1933,2195,2744"/>
+<area shape="rect" id="node11" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="1981,1919,2195,2759"/>
 <area shape="rect" id="node42" href="$classRa_1_1Plugins_1_1Context.html" title="Data passed to the plugin constructor." alt="" coords="3311,2887,3465,2965"/>
 <area shape="rect" id="node13" title=" " alt="" coords="70,865,319,957"/>
 <area shape="rect" id="node19" title=" " alt="" coords="1227,872,1488,949"/>

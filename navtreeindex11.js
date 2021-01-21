@@ -1,9 +1,5 @@
 var NAVTREEINDEX11 =
 {
-"classRa_1_1Engine_1_1AttribArrayDisplayable.html#a04f140d8ea79b257a8318b0cc295a201":[9,0,2,1,1,20],
-"classRa_1_1Engine_1_1AttribArrayDisplayable.html#a066d78f43bb4de972ea6e8a14a9bf820":[9,0,2,1,1,22],
-"classRa_1_1Engine_1_1AttribArrayDisplayable.html#a0afa629cfb2deacf14aeb4809d199b17":[9,0,2,1,1,1],
-"classRa_1_1Engine_1_1AttribArrayDisplayable.html#a0afa629cfb2deacf14aeb4809d199b17a2d1ee895c1b14f8211249eb8b40a3023":[9,0,2,1,1,1,5],
 "classRa_1_1Engine_1_1AttribArrayDisplayable.html#a0afa629cfb2deacf14aeb4809d199b17a405597ecffbab9e4d4d5fa579e2757f5":[9,0,2,1,1,1,0],
 "classRa_1_1Engine_1_1AttribArrayDisplayable.html#a0afa629cfb2deacf14aeb4809d199b17a769e112d1ac73cf59d3f8c832b12147c":[9,0,2,1,1,1,1],
 "classRa_1_1Engine_1_1AttribArrayDisplayable.html#a0afa629cfb2deacf14aeb4809d199b17a7e6a7e2a53c91ae4f8847e67d024d9b1":[9,0,2,1,1,1,7],
@@ -249,5 +245,9 @@ var NAVTREEINDEX11 =
 "classRa_1_1Engine_1_1DefaultCameraStorage.html#a116d4f5fae395cef63f58fceedb3ce2f":[9,0,2,1,14,3],
 "classRa_1_1Engine_1_1DefaultCameraStorage.html#a393e7d04b3b608e4f3aa0ab57f311347":[9,0,2,1,14,4],
 "classRa_1_1Engine_1_1DefaultCameraStorage.html#a606e7f1b544d57b294c6e2e393c7b2d8":[9,0,2,1,14,0],
-"classRa_1_1Engine_1_1DefaultCameraStorage.html#a81af8dd936f5ac2aabfa4c6d141f47a7":[9,0,2,1,14,5]
+"classRa_1_1Engine_1_1DefaultCameraStorage.html#a81af8dd936f5ac2aabfa4c6d141f47a7":[9,0,2,1,14,5],
+"classRa_1_1Engine_1_1DefaultCameraStorage.html#acee2252d9f40b9cd8e41b225d34545e1":[9,0,2,1,14,1],
+"classRa_1_1Engine_1_1DefaultCameraStorage.html#ad47e60a5db78b87073011ca6e0e4d0f7":[9,0,2,1,14,2],
+"classRa_1_1Engine_1_1DefaultLightManager.html":[9,0,2,1,15],
+"classRa_1_1Engine_1_1DefaultLightManager.html#a14e5d7f4ff809b8a8af69d3beedc351a":[9,0,2,1,15,0]
 };
