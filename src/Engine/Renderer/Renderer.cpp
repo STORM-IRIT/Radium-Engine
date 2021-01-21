@@ -6,13 +6,13 @@
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
-#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject.hpp>
 #include <Engine/Renderer/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/ShaderProgram.hpp>
 #include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Renderer/ViewingParameters.hpp>
 #include <Engine/Scene/LightManager.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 #include <Engine/Scene/TextureManager.hpp>

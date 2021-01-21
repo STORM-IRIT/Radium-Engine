@@ -8,12 +8,12 @@
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
-#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/Renderer/DebugRender.hpp>
 #include <Engine/Renderer/RenderObject.hpp>
 #include <Engine/Renderer/RenderParameters.hpp>
 #include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Renderer/ViewingParameters.hpp>
 #include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
 #include <globjects/Framebuffer.h>

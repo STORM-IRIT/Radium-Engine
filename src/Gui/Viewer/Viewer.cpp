@@ -35,8 +35,8 @@
 
 #include <Engine/Data/Camera.hpp>
 #include <Engine/Data/DirLight.hpp>
-#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/ViewingParameters.hpp>
 #include <Engine/Scene/Component.hpp>
 
 #include <Engine/Renderer/ForwardRenderer.hpp>
