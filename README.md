@@ -5,6 +5,9 @@ It is developed and maintained by the [STORM research group](https://www.irit.fr
 <p align="center">
   <b>
   [<a href="https://github.com/STORM-IRIT/Radium-Releases/releases">Click here to download Precompiled binaries</a>]
+  </b><br/>
+   <b>
+  [<a href="https://storm-irit.github.io/Radium-Engine/">Click here for API documentation</a>]
   </b>
  </p>
 
