@@ -19,6 +19,7 @@ add_executable(unittests
     Core/obb.cpp
     Core/polyline.cpp
     Core/raycast.cpp
+    Core/resources.cpp
     Core/string.cpp
     Core/topomesh.cpp)
 

@@ -1,14 +1,13 @@
 #include <Engine/Renderer/Material/VolumetricMaterial.hpp>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-
 #include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
-#include <Core/Resources/Resources.hpp>
 namespace Ra {
 namespace Engine {
 
@@ -50,7 +49,7 @@ bool VolumetricMaterial::isTransparent() const {
 
 void VolumetricMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
     ShaderProgramManager::getInstance()->addShaderProgram(
         {{"ComposeVolume"},

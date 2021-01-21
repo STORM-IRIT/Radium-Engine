@@ -1,15 +1,11 @@
+#include <Core/Asset/BlinnPhongMaterialData.hpp>
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-
-#include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
-
-#include <Core/Asset/BlinnPhongMaterialData.hpp>
-#include <Core/Resources/Resources.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -77,7 +73,7 @@ void BlinnPhongMaterial::updateGL() {
     if ( !m_isDirty ) { return; }
 
     // Load textures
-    TextureManager* texManager = TextureManager::getInstance();
+    TextureManager* texManager = RadiumEngine::getInstance()->getTextureManager();
     for ( const auto& tex : m_pendingTextures )
     {
         // ask to convert color textures from sRGB to Linear RGB
@@ -101,7 +97,7 @@ bool BlinnPhongMaterial::isTransparent() const {
 
 void BlinnPhongMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
     // Defining the material converter
     EngineMaterialConverters::registerMaterialConverter( materialName,

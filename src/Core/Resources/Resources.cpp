@@ -4,58 +4,70 @@
 #include <algorithm>
 #include <cpplocate/cpplocate.h>
 
+#ifndef CXX_FILESYSTEM_HAVE_FS
+#    error std::filesystem is required to compile this file
+#endif
+#if CXX_FILESYSTEM_IS_EXPERIMENTAL
+#    include <experimental/filesystem>
+
+// We need the alias from std::experimental::filesystem to std::filesystem
+namespace std {
+namespace filesystem = experimental::filesystem;
+}
+
+#else
+#    include <filesystem>
+#endif
+
 namespace Ra {
 namespace Core {
 namespace Resources {
 
-std::string searchPath( std::string pattern, std::string offset, void* libSymbol ) {
-    std::string baseDir = cpplocate::locatePath( pattern, offset, libSymbol );
-    std::replace( baseDir.begin(), baseDir.end(), '\\', '/' );
-    int nup = 0;
-    while ( baseDir.rfind( "../", baseDir.size() - 1 - 3 * nup ) != std::string::npos )
-    {
-        ++nup;
-    }
-    baseDir = baseDir.substr( 0, baseDir.size() - 3 * nup - 1 );
-    while ( nup-- )
-    {
-        baseDir = baseDir.substr( 0, baseDir.find_last_of( '/' ) + 1 );
-    }
-    return baseDir;
+using namespace Ra::Core::Utils;
+namespace fs = ::std::filesystem;
+
+fs::path searchPath( const std::string& pattern, const std::string& system, void* libSymbol ) {
+    std::string p = cpplocate::locatePath( pattern, system, libSymbol );
+    return fs::path( p ).lexically_normal();
 }
 
-std::string getRadiumResourcesDir() {
-    const std::string baseDir = searchPath(
-        "Resources/Shaders", "../..", reinterpret_cast<void*>( getRadiumResourcesDir ) );
-    return baseDir + "/Resources/";
+// add a trailing "/" if path point to an existing directory.
+fs::path clean( const fs::path& path ) {
+    auto status = fs::status( path );
+    if ( status.type() == fs::file_type::not_found ) return "";
+    if ( status.type() == fs::file_type::directory ) return path / "";
+    return path;
 }
 
-std::string getRadiumPluginsDir() {
-    const std::string baseDir =
-        searchPath( "Plugins/lib", "../../..", reinterpret_cast<void*>( getRadiumPluginsDir ) );
-    return baseDir + "/Plugins/lib/";
+optional<std::string> getRadiumResourcesPath() {
+    auto p =
+        searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesPath ) );
+    p = clean( p / "Resources" );
+
+    if ( p.empty() ) return {};
+    return p.string();
 }
 
-std::string getBaseDir() {
-    return cpplocate::getModulePath();
+optional<std::string> getRadiumPluginsPath() {
+    auto p = searchPath( "Plugins/lib", "", reinterpret_cast<void*>( getRadiumPluginsPath ) );
+    p      = clean( p / "Plugins" / "lib" );
+
+    if ( p.empty() ) return {};
+    return p.string();
 }
 
-std::string getBaseResourcesDir() {
-    auto baseDir = cpplocate::locatePath( "Resources", "", nullptr );
-    return baseDir + "Resources/";
+/// this one is always found, use optional for consistency ?
+optional<std::string> getBasePath() {
+    return clean( cpplocate::getModulePath() ).string();
 }
 
-ResourcesLocator::ResourcesLocator( void* symbol, const std::string& offset ) : m_basePath {""} {
-    m_basePath = searchPath( "/", "", symbol ) + offset;
+optional<std::string> getResourcesPath( void* symbol, const std::string& pattern ) {
+    auto p = searchPath( pattern, "", symbol );
+    p      = clean( p / pattern );
+    if ( p.empty() ) return {};
+    return p.string();
 }
 
-ResourcesLocator::ResourcesLocator( void* symbol, std::string pattern, const std::string& offset ) {
-    m_basePath = searchPath( pattern, offset, symbol ) + pattern;
-}
-
-const std::string& ResourcesLocator::getBasePath() {
-    return m_basePath;
-}
 } // namespace Resources
 } // namespace Core
 } // namespace Ra

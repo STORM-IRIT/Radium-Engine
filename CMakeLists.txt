@@ -40,85 +40,6 @@ set(RADIUM_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 
 set(DISPLAY_WIDTH 80)
 
-function(messageFormat TEXT PRE PRE_LEN POST POST_LEN FILL)
-    set(TEXT_LEN 0)
-    if(TEXT)
-        string(LENGTH ${TEXT} TEXT_LEN)
-    endif()
-    MATH(EXPR LEN "${DISPLAY_WIDTH} - ${TEXT_LEN} - ${PRE_LEN} - ${POST_LEN}")
-    set(FILL1 "")
-    if(LEN LESS 0)
-        MATH(EXPR SUBLEN "${DISPLAY_WIDTH} - ${PRE_LEN} - ${POST_LEN}-1")
-        string(SUBSTRING ${TEXT} 0  ${SUBLEN} STRING1)
-        MATH(EXPR PL2 "${POST_LEN}+1")
-        messageFormat(${STRING1} ${PRE} ${PRE_LEN} "⏎${POST}" ${PL2} ${FILL})
-        string(SUBSTRING ${TEXT} ${SUBLEN} -1 STRING2)
-        messageFormat(${STRING2} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} ${FILL})
-    else()
-        foreach (i RANGE ${LEN})
-            set(FILL1 "${FILL1}${FILL}")
-        endforeach()
-    
-        message(NOTICE "${PRE}${TEXT}${FILL1}${POST}")
-    endif()
-endfunction()
-
-function(messageInfo INFO)  
-    set(PRE "│ ")
-    set(PRE_LEN 2)
-    set(POST "│")
-    set(POST_LEN 1)
-    messageFormat(${INFO} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} " ")
-endfunction()
-
-function(messageSetting OPTION)
-    set(PRE "│ ")
-    set(PRE_LEN 2)
-    set(POST "│")
-    set(POST_LEN 1)
-
-    string(LENGTH ${OPTION} len)
-    MATH(EXPR len "30-${len}")
-    set(FILL "")
-    foreach (i RANGE ${len})
-        set(FILL "${FILL} ")
-    endforeach()
-
-    if(DEFINED ${OPTION})
-        set(MSG "${OPTION}${FILL}${${OPTION}}")
-    else()
-        set(MSG "${OPTION}${FILL}[undef]")
-    endif()
-    messageFormat(${MSG} ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} " ")
-endfunction()
-
-function(messageTitle TITLE)
-    string(LENGTH ${TITLE} len)
-    MATH(EXPR len "${DISPLAY_WIDTH}-6-${len}")
-    MATH(EXPR len1 "${len}/2")
-    MATH(EXPR len1 "${len1}-1")
-    MATH(EXPR len2 "${len}-${len1}-1")
-    set(FILL1 "")
-    foreach (i RANGE ${len1})
-        set(FILL1 "${FILL1}─")
-    endforeach()
-    set(FILL2 "")
-    
-    foreach (i RANGE ${len2})
-        set(FILL2 "${FILL2}─")
-    endforeach()
-    message(NOTICE "┌${FILL1}┤│${TITLE}│├${FILL2}┐")
-endfunction()
-
-function(messageEnd)
-    set(PRE "└")
-    set(PRE_LEN 1)
-    set(POST "┘")
-    set(POST_LEN 1)
-    messageFormat("" ${PRE} ${PRE_LEN} ${POST} ${POST_LEN} "─")
-endfunction()
-
-
 # Changing the default value for CMAKE_BUILD_PARALLEL_LEVEL
 if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     include(ProcessorCount)
@@ -130,6 +51,10 @@ if(NOT DEFINED ENV{CMAKE_BUILD_PARALLEL_LEVEL})
     endif()
 endif()
 
+# We can use include() and find_package() for our scripts in there
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+include(messageFunc)
 messageTitle(" ${PROJECT_NAME} Project configuration ")
 messageInfo("Externals will be built with $ENV{CMAKE_BUILD_PARALLEL_LEVEL} core(s)")
 
@@ -148,9 +73,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Be nice and export compile commands by default, this is handy for clang-tidy
 # and for other tools.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# We can use include() and find_package() for our scripts in there
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Configure rpath, see cmake/rpath.cmake
 include(rpath)
@@ -211,24 +133,11 @@ messageInfo("Git Changeset: ${GIT_CHANGESET}")
 
 messageEnd()
 set(ENABLE_COVERAGE "")
+mark_as_advanced(ENABLE_COVERAGE)
 if(RADIUM_ENABLE_COVERAGE)
-    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-        message( STATUS "[Tests] Enable Coverage ¡Warning! slow down execution ¡Warning!")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}-fprofile-arcs -ftest-coverage")
-
-        find_program(LCOV_BIN lcov)
-
-        if(NOT LCOV_BIN)
-            message( FATAL_ERROR "lcov binary not found, while asking for coverage computation (RADIUM_ENABLE_COVERAGE=${RADIUM_ENABLE_COVERAGE}). Abort")
-        endif()
-
-        set(ENABLE_COVERAGE "ON")
-    else(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-        message( NOTICE "[Tests] Coverage requested (RADIUM_ENABLE_COVERAGE), but not activated.")
-        message( NOTICE "[Tests] Coverage only supported in DEBUG with GCC.")
-    endif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+    include(coverageFunc)
+    #sets ENABLE_COVERAGE to ON if ok
+    setup_coverage()
 endif(RADIUM_ENABLE_COVERAGE)
 
 #------------------------------------------------------------------------------
@@ -239,7 +148,6 @@ include(radium_setup_functions)
 
 # Documentation build
 add_subdirectory(doc)
-
 
 # This var gather local dependencies in subdirectories
 set(LocalDependencies)
@@ -259,6 +167,7 @@ set(RadiumForceInstallCommutators "")
 if (MSVC)
         set(RadiumForceInstallCommutators "/p:Configuration=${CMAKE_BUILD_TYPE}")
 endif(MSVC)
+
 add_custom_target(ForceRadiumInstallation
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target install -- ${RadiumForceInstallCommutators}
     COMMENT "Forcing Radium installation")
@@ -271,57 +180,13 @@ if (RADIUM_ENABLE_TESTING)
     add_dependencies(RadiumLibs CoreExampleApp RadiumExampleApps)
 endif ()
 
+if(ENABLE_COVERAGE)
+    set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
+    setup_coverage_targets(ENABLE_COVERAGE LCOV_REMOVES)
+endif()
+
 # Packaging stuff (deb, rpm, windows installer)
 #add_subdirectory(packaging)
-
-# https://stackoverflow.com/questions/37434946/how-do-i-iterate-over-all-cmake-targets-programmatically
-function(get_all_targets var)
-    set(targets)
-    get_all_targets_recursive(targets ${CMAKE_CURRENT_SOURCE_DIR})
-    set(${var} ${targets} PARENT_SCOPE)
-endfunction()
-
-macro(get_all_targets_recursive targets dir)
-    get_property(subdirectories DIRECTORY ${dir} PROPERTY SUBDIRECTORIES)
-    foreach(subdir ${subdirectories})
-        get_all_targets_recursive(${targets} ${subdir})
-    endforeach()
-
-    get_property(current_targets DIRECTORY ${dir} PROPERTY BUILDSYSTEM_TARGETS)
-
-    foreach(target ${current_targets})
-        get_target_property(type ${target} TYPE)
-        if(${type} STREQUAL "EXECUTABLE" OR ${type} STREQUAL "SHARED_LIBRARY")
-            list(APPEND ${targets} ${target})
-        endif()
-    endforeach()
-endmacro()
-
-
-if(ENABLE_COVERAGE)
-    get_all_targets(all_targets)
-    set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
-    add_custom_target(lcov-init
-        COMMAND ${LCOV_BIN} --initial --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/init.info
-        COMMAND ${LCOV_BIN} --remove ${CMAKE_BINARY_DIR}/init.info ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/init.info
-        DEPENDS ${all_targets}
-        BYPRODUCTS ${CMAKE_BINARY_DIR}/init.info)
-    add_custom_target(lcov-zerocounter
-        COMMAND ${LCOV_BIN} --zerocounter --directory ${CMAKE_BINARY_DIR}
-        DEPENDS lcov-init)
-    add_custom_target(lcov-capture
-        COMMAND ${LCOV_BIN} --capture --directory . --output-file  ${CMAKE_BINARY_DIR}/coverage.info
-        COMMAND ${LCOV_BIN} --remove coverage.info  ${LCOV_REMOVES} --output-file  ${CMAKE_BINARY_DIR}/coverage.info
-        COMMAND ${LCOV_BIN} -a ${CMAKE_BINARY_DIR}/init.info -a ${CMAKE_BINARY_DIR}/coverage.info -o ${CMAKE_BINARY_DIR}/total.info
-        DEPENDS lcov-zerocounter
-        BYPRODUCTS ${CMAKE_BINARY_DIR}/total.info)
-    add_custom_target(lcov-list
-        COMMAND ${LCOV_BIN} --list ${CMAKE_BINARY_DIR}/total.info
-        SOURCES  ${CMAKE_BINARY_DIR}/total.info)
-
-    add_dependencies(check lcov-zerocounter)
-    add_dependencies(lcov-capture check)
-endif()
 
 install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
 install(FILES README.md DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
@@ -358,5 +223,4 @@ messageSetting("USE_GOLD_LINKER")
 messageEnd()
 
 set( CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL "Previous value of CMAKE_INSTALL_PREFIX")
-
 

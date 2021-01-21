@@ -3,6 +3,7 @@
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
 
+#include <QMessageBox>
 #include <QtGlobal> //QT_VERSION, QT_VERSION_CHECK
 
 namespace Ra::Gui {
@@ -10,15 +11,22 @@ namespace Ra::Gui {
 using namespace Core::Utils; // log
 
 KeyMappingManager::KeyMappingManager() :
-    m_defaultConfigFile( std::string( Core::Resources::getRadiumResourcesDir() ) +
-#ifndef OS_MACOS
-                         std::string( "Configs/default.xml" ) ),
-#else
-                         std::string( "Configs/macos.xml" ) ),
-#endif
     m_domDocument( "Key Mapping QDomDocument" ),
     m_metaEnumKey( QMetaEnum::fromType<Qt::Key>() ),
     m_file( nullptr ) {
+
+    auto optionalPath {Core::Resources::getRadiumResourcesPath()};
+    auto resourcesRootDir {optionalPath.value_or( "[[Default resrouces path not found]]" )};
+
+    ///\todo how to check here ?
+    m_defaultConfigFile = resourcesRootDir +
+#ifndef OS_MACOS
+                          std::string( "Configs/default.xml" )
+#else
+                          std::string( "Configs/macos.xml" )
+#endif
+        ;
+
     QSettings settings;
     QString keyMappingFilename =
         settings.value( "keymapping/config", m_defaultConfigFile.c_str() ).toString();

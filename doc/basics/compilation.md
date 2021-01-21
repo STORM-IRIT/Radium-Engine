@@ -20,12 +20,11 @@ Minimal requirements
 The following platforms and tool chains have been tested and should work :
 
  * *Windows* : IDEs: Visual Studio 2019 (2017 is not supported due to embedded cmake version), QtCreator. Command Line: cmake+ninja+MSVC(2017 or 2019) .
- * *Mac OSX* : gcc 7.1 or higher, Apple clang
- * *Linux* : gcc 7.1  or higher, clang
+ * *Mac OSX* : gcc 8 or higher, Apple clang
+ * *Linux* : gcc 8  or higher, clang
 
 ## Continuous Integration:
- * *Linux (clang 5, gcc7) and Mac OSX* : https://travis-ci.org/STORM-IRIT/Radium-Engine
- * *Windows* (MSVC 2017): https://ci.appveyor.com/project/nmellado/radium-engine
+ * *Linux (gcc8), Windows (MSVC 19.28.29335.0), and Mac OSX (AppleClang 12)* https://github.com/STORM-IRIT/Radium-Engine/actions 
 
 # Build instructions
 

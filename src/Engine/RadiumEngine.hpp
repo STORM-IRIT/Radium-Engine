@@ -27,6 +27,7 @@ class Displayable;
 class RenderObjectManager;
 class EntityManager;
 class SignalManager;
+class TextureManager;
 } // namespace Engine
 
 namespace Engine {
@@ -151,6 +152,13 @@ class RA_ENGINE_API RadiumEngine
      * @return the signal manager
      */
     SignalManager* getSignalManager() const;
+
+    /**
+     * Get the texture manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the texture manager
+     */
+    TextureManager* getTextureManager() const;
 
     /**
      * Register a new file loader to the engine.
@@ -289,6 +297,8 @@ class RA_ENGINE_API RadiumEngine
     uint getFrame() const;
     /// \}
 
+    std::string getResourcesDir() { return m_resourcesRootDir; }
+
   private:
     using Priority  = int;
     using SystemKey = std::pair<Priority, std::string>;
@@ -310,6 +320,7 @@ class RA_ENGINE_API RadiumEngine
     std::unique_ptr<RenderObjectManager> m_renderObjectManager;
     std::unique_ptr<EntityManager> m_entityManager;
     std::unique_ptr<SignalManager> m_signalManager;
+    std::unique_ptr<TextureManager> m_textureManager;
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
     bool m_loadingState {false};
