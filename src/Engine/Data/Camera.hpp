@@ -2,7 +2,6 @@
 
 #include <Core/Math/Math.hpp>
 #include <Core/Types.hpp>
-#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/Component.hpp>
 
