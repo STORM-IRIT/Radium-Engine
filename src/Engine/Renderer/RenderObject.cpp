@@ -14,7 +14,7 @@
 #include <Engine/Scene/Entity.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Engine/Data/ViewingParameters.hpp>
+#include <Engine/Renderer/ViewingParameters.hpp>
 
 namespace Ra {
 namespace Engine {

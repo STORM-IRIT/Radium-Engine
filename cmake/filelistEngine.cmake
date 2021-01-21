@@ -62,7 +62,6 @@ set( engine_headers
     Data/SimpleMaterial.hpp
     Data/SpotLight.hpp
     Data/Texture.hpp
-    Data/ViewingParameters.hpp
     Data/VolumeObject.hpp
     Data/VolumetricMaterial.hpp
     FrameInfo.hpp
@@ -80,6 +79,7 @@ set( engine_headers
     Renderer/ShaderConfiguration.hpp
     Renderer/ShaderProgram.hpp
     Renderer/ShaderProgramManager.hpp
+    Renderer/ViewingParameters.hpp
     Scene/CameraManager.hpp
     Scene/CameraStorage.hpp
     Scene/Component.hpp
