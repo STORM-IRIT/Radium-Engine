@@ -6,27 +6,20 @@
 #include <memory>
 
 namespace Ra {
-namespace Gui {
-class Viewer;
+namespace Engine {
+namespace Renderer {
+class Renderer;
 }
-
-namespace Gui {
-class SelectionManager;
-class Timeline;
-} // namespace Gui
+} // namespace Engine
 
 namespace Plugins {
 class RadiumPluginInterface;
 }
 
-namespace Engine {
-class Renderer;
-}
-
-} // namespace Ra
-
-namespace Ra {
 namespace Gui {
+class Viewer;
+class SelectionManager;
+class Timeline;
 
 /// Interface class for MainWindow
 /// contains abstract methods that MainApplication uses.
@@ -52,11 +45,12 @@ class RA_GUI_API MainWindowInterface : public QMainWindow
     virtual void updateUi( Plugins::RadiumPluginInterface* plugin ) = 0;
 
     /// Update the UI ( most importantly gizmos ) to the modifications of the
-    /// engine/
+    /// engine
     virtual void onFrameComplete() = 0;
 
     /// Add render in the application: UI, viewer.
-    virtual void addRenderer( const std::string& name, std::shared_ptr<Engine::Renderer> e ) = 0;
+    virtual void addRenderer( const std::string& name,
+                              std::shared_ptr<Engine::Renderer::Renderer> e ) = 0;
 
   public slots:
     /// Call after loading a new file to let the window resetview for instance.
@@ -71,5 +65,6 @@ class RA_GUI_API MainWindowInterface : public QMainWindow
     /// Emitted when the viewer request OpenGL initialization of the engine
     void requestEngineOpenGLInitialization();
 };
+
 } // namespace Gui
 } // namespace Ra

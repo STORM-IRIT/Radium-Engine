@@ -1,4 +1,11 @@
 #pragma once
+
+#include "RenderTechnique.hpp"
+
+namespace Ra {
+namespace Engine {
+namespace Renderer {
+
 /**
  * Test if the given pass is dirty (openGL state not updated)
  * @param pass The index of the pass
@@ -36,3 +43,7 @@ inline const ShaderConfiguration&
 RenderTechnique::getConfiguration( Core::Utils::Index pass ) const {
     return m_activePasses[pass].first;
 }
+
+} // namespace Renderer
+} // namespace Engine
+} // namespace Ra

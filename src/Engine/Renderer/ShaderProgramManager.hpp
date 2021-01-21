@@ -17,13 +17,9 @@ class NamedString;
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 class ShaderProgram;
 class ShaderConfiguration;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /**
  * Manage the set of shaders used by Radium Engine for rendering.
@@ -117,5 +113,6 @@ class RA_ENGINE_API ShaderProgramManager final
         m_namedStrings;
 };
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

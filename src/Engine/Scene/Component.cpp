@@ -12,6 +12,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 using namespace Core::Utils; // log
 
@@ -33,7 +34,7 @@ RenderObjectManager* Component::getRoMgr() {
     return RadiumEngine::getInstance()->getRenderObjectManager();
 }
 
-Core::Utils::Index Component::addRenderObject( RenderObject* renderObject ) {
+Core::Utils::Index Component::addRenderObject( Renderer::RenderObject* renderObject ) {
     m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
     return m_renderObjects.back();
 }
@@ -66,5 +67,6 @@ Core::Aabb Component::computeAabb() const {
     return aabb;
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

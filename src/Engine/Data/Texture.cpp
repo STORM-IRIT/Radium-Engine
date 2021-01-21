@@ -8,7 +8,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 using namespace Core::Utils; // log
 
 Texture::Texture( const TextureParameters& texParameters ) :
@@ -326,5 +326,6 @@ void Texture::linearizeCubeMap( uint numCommponent, bool hasAlphaChannel ) {
     }
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

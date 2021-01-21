@@ -9,8 +9,14 @@
 namespace Ra {
 namespace Engine {
 
+namespace Scene {
+class Entity;
+}
+
+namespace Data {
+
 /// A Camera is an Engine Component storing a Camera object.
-class RA_ENGINE_API Camera : public Component
+class RA_ENGINE_API Camera : public Scene::Component
 {
   public:
     /// Define the projection type.
@@ -18,7 +24,7 @@ class RA_ENGINE_API Camera : public Component
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    Camera( Entity* entity, const std::string& name, Scalar height, Scalar width );
+    Camera( Scene::Entity* entity, const std::string& name, Scalar height, Scalar width );
 
     ~Camera() override;
 
@@ -145,7 +151,7 @@ class RA_ENGINE_API Camera : public Component
     ///@}
 
     /// Duplicate the camera under a different Entity and a different name
-    virtual Camera* duplicate( Entity* cloneEntity, const std::string& cloneName ) const;
+    virtual Camera* duplicate( Scene::Entity* cloneEntity, const std::string& cloneName ) const;
 
     /// Fit the Z-range of the camera to the scene's aabb. This will maximize z-buffer precision
     virtual void fitZRange( const Core::Aabb& aabb );
@@ -159,7 +165,7 @@ class RA_ENGINE_API Camera : public Component
     Scalar m_zoomFactor {1};                      ///< Zoom factor (modifies the field of view)
     Scalar m_fov {Core::Math::PiDiv4};            ///< Field of view
 
-    RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
+    Renderer::RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
 
     /// \name To be deprecated
     /// Currently, only the CameraManipulator (i.e. TrackballCameraManipulator) accesses these
@@ -174,6 +180,7 @@ class RA_ENGINE_API Camera : public Component
     ///@}
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
 

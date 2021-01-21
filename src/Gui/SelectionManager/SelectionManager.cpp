@@ -3,7 +3,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/RadiumEngine.hpp>
 
-using Ra::Engine::ItemEntry;
+using Ra::Engine::Scene::ItemEntry;
 
 namespace Ra {
 namespace Gui {

@@ -10,13 +10,12 @@
 namespace Ra {
 namespace Engine {
 class RadiumEngine;
+
+namespace Scene {
+
 class Entity;
 class Component;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
 /// This represent a handle for an entity, component or render object.
 /// There are 4 possible states for this object :
 /// * All members are invalid -> No object.
@@ -31,9 +30,9 @@ struct RA_ENGINE_API ItemEntry {
     /// ItemEntry(entity) creates an entity entry.
     /// ItemEntry(entity, component) creates a component entry
     /// ItemEntry(entity, component, RO) creates a render object entity.
-    explicit ItemEntry( Ra::Engine::Entity* ent,
-                        Ra::Engine::Component* comp = nullptr,
-                        Ra::Core::Utils::Index ro   = Ra::Core::Utils::Index::Invalid() ) :
+    explicit ItemEntry( Entity* ent,
+                        Component* comp           = nullptr,
+                        Ra::Core::Utils::Index ro = Ra::Core::Utils::Index::Invalid() ) :
         m_entity {ent}, m_component {comp}, m_roIndex {ro} {}
 
     /// Compare two items.
@@ -58,11 +57,11 @@ struct RA_ENGINE_API ItemEntry {
     inline void checkConsistency() const;
 
     /// The entity represented by the item, or owning the object represented.
-    Ra::Engine::Entity* m_entity {nullptr};
+    Entity* m_entity {nullptr};
 
     /// Component represented by the item or owning the represented RO.
     /// If null, the item represents an entity.
-    Ra::Engine::Component* m_component {nullptr};
+    Component* m_component {nullptr};
 
     /// RO index of the represented object.
     Ra::Core::Utils::Index m_roIndex {};
@@ -77,6 +76,7 @@ RA_ENGINE_API std::string getEntryName( const Engine::RadiumEngine* engine, cons
 /// Entity item : all ROs from all compoents of given entity.
 RA_ENGINE_API std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::RadiumEngine* engine,
                                                               const ItemEntry& ent );
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 

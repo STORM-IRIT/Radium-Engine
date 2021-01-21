@@ -6,6 +6,11 @@
 namespace Ra {
 namespace Engine {
 
+namespace Scene {
+class Entity;
+}
+
+namespace Data {
 /** Point light for rendering
  *
  */
@@ -14,10 +19,10 @@ class RA_ENGINE_API PointLight final : public Light
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    explicit PointLight( Entity* entity, const std::string& name = "pointlight" );
+    explicit PointLight( Scene::Entity* entity, const std::string& name = "pointlight" );
     ~PointLight() override = default;
 
-    void getRenderParameters( RenderParameters& params ) const override;
+    void getRenderParameters( Renderer::RenderParameters& params ) const override;
 
     void setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
@@ -34,7 +39,7 @@ class RA_ENGINE_API PointLight final : public Light
     Attenuation m_attenuation {1, 0, 0};
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
-
 #include <Engine/Data/PointLight.inl>

@@ -23,8 +23,8 @@ classic "Spinning Cube" demo. */
 
 /// This is a very basic component which holds a spinning cube.
 
-MinimalComponent::MinimalComponent( Ra::Engine::Entity* entity ) :
-    Ra::Engine::Component( "Minimal Component", entity ) {}
+MinimalComponent::MinimalComponent( Ra::Engine::Scene::Entity* entity ) :
+    Ra::Engine::Scene::Component( "Minimal Component", entity ) {}
 
 /// This function is called when the component is properly
 /// setup, i.e. it has an entity.
@@ -32,6 +32,9 @@ void MinimalComponent::initialize() {
 
     using namespace Ra::Core;
     using namespace Ra::Engine;
+    using namespace Ra::Engine::Renderer;
+    using namespace Ra::Engine::Data;
+    using namespace Ra::Engine::Scene;
 
     ///
     // basic render technique associated with all object here, they use per vertex kd.
@@ -42,7 +45,7 @@ void MinimalComponent::initialize() {
         mat->m_ks             = Utils::Color::White();
         mat->m_ns             = 100_ra;
 
-        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
+        auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
         builder.second( shadedRt, false );
         shadedRt.setParametersProvider( mat );
     }
@@ -51,7 +54,7 @@ void MinimalComponent::initialize() {
         auto mat              = make_shared<PlainMaterial>( "Plain Material" );
         mat->m_perVertexColor = true;
 
-        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "Plain" );
+        auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
         builder.second( plainRt, false );
         plainRt.setParametersProvider( mat );
     }
@@ -60,7 +63,7 @@ void MinimalComponent::initialize() {
         auto mat              = make_shared<LambertianMaterial>( "Lambertian Material" );
         mat->m_perVertexColor = true;
 
-        auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "Lambertian" );
+        auto builder = EngineRenderTechniques::getDefaultTechnique( "Lambertian" );
         builder.second( lambertianRt, false );
         lambertianRt.setParametersProvider( mat );
     }
@@ -103,7 +106,7 @@ void MinimalComponent::initialize() {
 
     //// CUBES ////
     {
-        std::shared_ptr<Ra::Engine::Mesh> cube1( new Ra::Engine::Mesh( "Cube" ) );
+        std::shared_ptr<Mesh> cube1( new Mesh( "Cube" ) );
         cube1->loadGeometry( Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
         cube1->getCoreGeometry().addAttrib(
             "in_color", Vector4Array {cube1->getNumVertices(), Utils::Color::Green()} );
@@ -116,7 +119,7 @@ void MinimalComponent::initialize() {
         addRenderObject( renderObject1 );
 
         // another cube
-        std::shared_ptr<Ra::Engine::Mesh> cube2( new Ra::Engine::Mesh( "Cube" ) );
+        std::shared_ptr<Mesh> cube2( new Mesh( "Cube" ) );
         cube2->loadGeometry( Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
         cube2->getCoreGeometry().addAttrib(
             "colour", Vector4Array {cube2->getNumVertices(), Utils::Color::Red()} );
@@ -528,8 +531,7 @@ void MinimalComponent::initialize() {
         degen2 << 14, 13, 12, 11, 10, 9, 17, 18, 16, 15;
         polyMesh.setIndices( {quad, hepta, degen, degen2} );
 
-        std::shared_ptr<Ra::Engine::PolyMesh> poly1(
-            new Ra::Engine::PolyMesh( "Poly", std::move( polyMesh ) ) );
+        std::shared_ptr<PolyMesh> poly1( new PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
             "in_color",
             Vector4Array {poly1->getNumVertices(),
@@ -556,6 +558,6 @@ void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::Fra
     //    MinimalComponent* c = static_cast<MinimalComponent*>( m_components[0].second );
 }
 
-void MinimalSystem::addComponent( Ra::Engine::Entity* ent, MinimalComponent* comp ) {
+void MinimalSystem::addComponent( Ra::Engine::Scene::Entity* ent, MinimalComponent* comp ) {
     registerComponent( ent, comp );
 }

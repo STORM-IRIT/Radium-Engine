@@ -12,15 +12,16 @@
 namespace Ra {
 
 namespace Engine {
+
+namespace Renderer {
+class RenderObject;
+}
+namespace Scene {
+class RenderObjectManager;
+}
+namespace Scene {
 class System;
 class Entity;
-class RenderObject;
-class RenderObjectManager;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /**
  * @brief A component is an element that can be updated by a system.
@@ -62,7 +63,7 @@ class RA_ENGINE_API Component
     virtual System* getSystem() const;
 
     /// Add a new render object to the component. This adds the RO to the manager for drawing.
-    Core::Utils::Index addRenderObject( RenderObject* renderObject );
+    Core::Utils::Index addRenderObject( Renderer::RenderObject* renderObject );
 
     /// Remove the render object from the component.
     void removeRenderObject( const Core::Utils::Index& roIdx );
@@ -102,6 +103,7 @@ class RA_ENGINE_API Component
     System* m_system {nullptr};
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 

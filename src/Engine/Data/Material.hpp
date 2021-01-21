@@ -13,14 +13,14 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 /**
  * Base class for materials/
  * Do not assume a given Material representation but only make the difference between opaque and
  * transparent materials.
  *
  */
-class RA_ENGINE_API Material : public ShaderParameterProvider
+class RA_ENGINE_API Material : public Renderer::ShaderParameterProvider
 {
   public:
     /**
@@ -113,7 +113,7 @@ class RA_ENGINE_API Material : public ShaderParameterProvider
     std::string m_materialName;
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
-
 #include <Engine/Data/Material.inl>

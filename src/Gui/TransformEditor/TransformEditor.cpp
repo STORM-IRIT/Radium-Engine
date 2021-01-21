@@ -5,7 +5,7 @@
 
 namespace Ra {
 namespace Gui {
-void TransformEditor::setEditable( const Engine::ItemEntry& ent ) {
+void TransformEditor::setEditable( const Engine::Scene::ItemEntry& ent ) {
     m_currentEdit = ent;
     getTransform();
 }
@@ -41,7 +41,7 @@ Core::Transform TransformEditor::getWorldTransform() const {
 }
 
 TransformEditor::~TransformEditor() {
-    setEditable( Engine::ItemEntry() );
+    setEditable( Engine::Scene::ItemEntry() );
 }
 } // namespace Gui
 } // namespace Ra

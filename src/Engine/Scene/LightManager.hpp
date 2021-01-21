@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 /**
  * Interface providing functions to manage a group or type of lights
@@ -27,14 +28,14 @@ class RA_ENGINE_API LightManager : public System
     ~LightManager() override;
 
     /// Get a pointer to the li-th Light.
-    virtual const Light* getLight( size_t li ) const = 0;
+    virtual const Data::Light* getLight( size_t li ) const = 0;
 
     /** Add a light to the manager ...
      * Consider the component is already registered. The light manager will not take ownership of
      * the added light, it will just push the light on the storage ...
      * @param li The (already registered) light to add.
      */
-    virtual void addLight( const Light* li ) = 0;
+    virtual void addLight( const Data::Light* li ) = 0;
 
     //
     // Calls for the Renderer. Note that
@@ -75,5 +76,6 @@ class RA_ENGINE_API LightManager : public System
     std::unique_ptr<LightStorage> m_data {nullptr};
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

@@ -24,6 +24,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 
 using namespace Core::Utils; // log
 
@@ -92,7 +93,7 @@ void Renderer::initialize( uint width, uint height ) {
     {
         auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingPointsConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for points" );
-        m_pickingShaders[Displayable::PKM_POINTS] = *pickingShader;
+        m_pickingShaders[Data::Displayable::PKM_POINTS] = *pickingShader;
     }
 
     ShaderConfiguration pickingLinesConfig( "PickingLines" );
@@ -106,7 +107,7 @@ void Renderer::initialize( uint width, uint height ) {
     {
         auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingLinesConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for lines" );
-        m_pickingShaders[Displayable::PKM_LINES] = *pickingShader;
+        m_pickingShaders[Data::Displayable::PKM_LINES] = *pickingShader;
     }
 
     ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
@@ -121,7 +122,7 @@ void Renderer::initialize( uint width, uint height ) {
         auto pickingShader =
             m_shaderProgramManager->addShaderProgram( pickingLinesAdjacencyConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for lines adjacency" );
-        m_pickingShaders[Displayable::PKM_LINE_ADJ] = *pickingShader;
+        m_pickingShaders[Data::Displayable::PKM_LINE_ADJ] = *pickingShader;
     }
 
     ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
@@ -135,10 +136,10 @@ void Renderer::initialize( uint width, uint height ) {
     {
         auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingTrianglesConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for triangles" );
-        m_pickingShaders[Displayable::PKM_TRI] = *pickingShader;
+        m_pickingShaders[Data::Displayable::PKM_TRI] = *pickingShader;
     }
 
-    TextureParameters texparams;
+    Data::TextureParameters texparams;
     texparams.width     = m_width;
     texparams.height    = m_height;
     texparams.target    = GL_TEXTURE_2D;
@@ -149,21 +150,21 @@ void Renderer::initialize( uint width, uint height ) {
     texparams.internalFormat = GL_DEPTH_COMPONENT24;
     texparams.format         = GL_DEPTH_COMPONENT;
     texparams.type           = GL_UNSIGNED_INT;
-    m_depthTexture           = std::make_unique<Texture>( texparams );
+    m_depthTexture           = std::make_unique<Data::Texture>( texparams );
 
     m_pickingFbo             = std::make_unique<globjects::Framebuffer>();
     texparams.name           = "Picking";
     texparams.internalFormat = GL_RGBA32I;
     texparams.format         = GL_RGBA_INTEGER;
     texparams.type           = GL_INT;
-    m_pickingTexture         = std::make_unique<Texture>( texparams );
+    m_pickingTexture         = std::make_unique<Data::Texture>( texparams );
 
     // Final texture
     texparams.name           = "Final image";
     texparams.internalFormat = GL_RGBA32F;
     texparams.format         = GL_RGBA;
     texparams.type           = GL_FLOAT;
-    m_fancyTexture           = std::make_unique<Texture>( texparams );
+    m_fancyTexture           = std::make_unique<Data::Texture>( texparams );
 
     m_displayedTexture                     = m_fancyTexture.get();
     m_secondaryTextures["Picking Texture"] = m_pickingTexture.get();
@@ -172,7 +173,7 @@ void Renderer::initialize( uint width, uint height ) {
     Core::Geometry::TriangleMesh mesh =
         Core::Geometry::makeZNormalQuad( Core::Vector2( -1.f, 1.f ) );
 
-    auto qm = std::make_unique<Mesh>( "quad" );
+    auto qm = std::make_unique<Data::Mesh>( "quad" );
     qm->loadGeometry( std::move( mesh ) );
     m_quadMesh = std::move( qm ); // we need to move, as loadGeometry is not a member of Displayable
     m_quadMesh->updateGL();
@@ -183,7 +184,7 @@ void Renderer::initialize( uint width, uint height ) {
 }
 
 Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
-                                                const ViewingParameters& renderData ) {
+                                                const Data::ViewingParameters& renderData ) {
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
 
     PickingResult result;
@@ -234,7 +235,7 @@ Renderer::PickingResult Renderer::doPickingNow( const PickingQuery& query,
     return result;
 } // namespace Engine
 
-void Renderer::render( const ViewingParameters& data ) {
+void Renderer::render( const Data::ViewingParameters& data ) {
     CORE_ASSERT( RadiumEngine::getInstance() != nullptr, "Engine is not initialized." );
 
     std::lock_guard<std::mutex> renderLock( m_renderMutex );
@@ -300,7 +301,7 @@ void Renderer::saveExternalFBOInternal() {
     glViewport( 0, 0, int( m_width ), int( m_height ) );
 }
 
-void Renderer::updateRenderObjectsInternal( const ViewingParameters& /*renderData*/ ) {
+void Renderer::updateRenderObjectsInternal( const Data::ViewingParameters& /*renderData*/ ) {
     for ( auto& ro : m_fancyRenderObjects )
     {
         ro->updateGL();
@@ -319,7 +320,7 @@ void Renderer::updateRenderObjectsInternal( const ViewingParameters& /*renderDat
     }
 }
 
-void Renderer::feedRenderQueuesInternal( const ViewingParameters& /*renderData*/ ) {
+void Renderer::feedRenderQueuesInternal( const Data::ViewingParameters& /*renderData*/ ) {
     m_fancyRenderObjects.clear();
     m_debugRenderObjects.clear();
     m_uiRenderObjects.clear();
@@ -377,12 +378,12 @@ void Renderer::splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
     for ( auto& roPtr : renderQueue )
     {
         auto mode = roPtr->getMesh()->pickingRenderMode();
-        if ( mode != Displayable::NO_PICKING )
+        if ( mode != Data::Displayable::NO_PICKING )
             renderQueuePicking[size_t( mode )].push_back( roPtr );
     }
 }
 
-void Renderer::splitRenderQueuesForPicking( const ViewingParameters& /*renderData*/ ) {
+void Renderer::splitRenderQueuesForPicking( const Data::ViewingParameters& /*renderData*/ ) {
     splitRQ( m_fancyRenderObjects, m_fancyRenderObjectsPicking );
     splitRQ( m_debugRenderObjects, m_debugRenderObjectsPicking );
     splitRQ( m_uiRenderObjects, m_uiRenderObjectsPicking );
@@ -391,7 +392,7 @@ void Renderer::splitRenderQueuesForPicking( const ViewingParameters& /*renderDat
 
 // subroutine to Renderer::doPicking()
 void Renderer::renderForPicking(
-    const ViewingParameters& renderData,
+    const Data::ViewingParameters& renderData,
     const std::array<const ShaderProgram*, 4>& pickingShaders,
     const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     for ( uint i = 0; i < pickingShaders.size(); ++i )
@@ -416,7 +417,7 @@ void Renderer::renderForPicking(
     }
 }
 
-void Renderer::doPicking( const ViewingParameters& renderData ) {
+void Renderer::doPicking( const Data::ViewingParameters& renderData ) {
     m_pickingResults.reserve( m_pickingQueries.size() );
 
     m_pickingFbo->bind();
@@ -490,7 +491,7 @@ void Renderer::doPicking( const ViewingParameters& renderData ) {
 
     m_pickingFbo->unbind();
 }
-void Renderer::preparePicking( const ViewingParameters& renderData ) {
+void Renderer::preparePicking( const Data::ViewingParameters& renderData ) {
 
     GL_ASSERT( glDepthMask( GL_TRUE ) );
     GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
@@ -653,7 +654,7 @@ std::vector<std::string> Renderer::getAvailableTextures() const {
     std::transform( m_secondaryTextures.begin(),
                     m_secondaryTextures.end(),
                     std::back_inserter( ret ),
-                    []( const std::pair<std::string, Texture*> tex ) { return tex.first; } );
+                    []( const std::pair<std::string, Data::Texture*> tex ) { return tex.first; } );
     return ret;
 }
 
@@ -662,7 +663,7 @@ void Renderer::reloadShaders() {
 }
 
 std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
-    Engine::Texture* tex = getDisplayTexture();
+    Data::Texture* tex = getDisplayTexture();
     tex->bind();
 
     // Get a buffer to store the pixels of the OpenGL texture (in float format)
@@ -696,7 +697,7 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
     return writtenPixels;
 }
 
-void Renderer::addLight( const Light* light ) {
+void Renderer::addLight( const Data::Light* light ) {
     for ( auto m : m_lightmanagers )
         m->addLight( light );
 }
@@ -720,5 +721,7 @@ int Renderer::buildAllRenderTechniques() const {
     }
     return 0;
 }
+
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

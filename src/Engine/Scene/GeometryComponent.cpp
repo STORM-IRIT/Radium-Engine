@@ -28,6 +28,7 @@ using namespace Ra::Core::Utils;
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 void GeometryComponent::setupIO( const std::string& id ) {
     const auto& cm = ComponentMessenger::getInstance();
@@ -55,7 +56,7 @@ PointCloudComponent::PointCloudComponent( const std::string& name,
                                           Core::Geometry::PointCloud&& mesh,
                                           Core::Asset::MaterialData* mat ) :
     GeometryComponent( name, entity ),
-    m_displayMesh( new Engine::PointCloud( name, std::move( mesh ) ) ) {
+    m_displayMesh( new Data::PointCloud( name, std::move( mesh ) ) ) {
     finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
 
@@ -68,8 +69,8 @@ void PointCloudComponent::initialize() {}
 
 void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryData* data ) {
     m_contentName = data->getName();
-    m_displayMesh = Ra::Core::make_shared<PointCloud>( m_contentName );
-    m_displayMesh->setRenderMode( AttribArrayDisplayable::RM_POINTS );
+    m_displayMesh = Ra::Core::make_shared<Data::PointCloud>( m_contentName );
+    m_displayMesh->setRenderMode( Data::AttribArrayDisplayable::RM_POINTS );
 
     Ra::Core::Geometry::PointCloud mesh;
     Ra::Core::Geometry::PointCloud::PointAttribHandle::Container vertices;
@@ -90,19 +91,30 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
     mesh.setNormals( std::move( normals ) );
 
     if ( data->hasTangents() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TANGENT ), data->getTangents() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
+                        data->getTangents() );
+    }
 
     if ( data->hasBiTangents() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_BITANGENT ), data->getBiTangents() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
+                        data->getBiTangents() );
+    }
 
     if ( data->hasTextureCoordinates() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TEXCOORD ), data->getTexCoords() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
+                        data->getTexCoords() );
+    }
 
     if ( data->hasColors() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), data->getColors() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
+    }
 
     // To be discussed: Should not weights be part of the geometry ?
-    //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
+    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
@@ -113,26 +125,29 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
 void PointCloudComponent::finalizeROFromGeometry( const Core::Asset::MaterialData* data,
                                                   Core::Transform transform ) {
     // The technique for rendering this component
-    std::shared_ptr<Material> roMaterial;
+    std::shared_ptr<Data::Material> roMaterial;
     // First extract the material from asset or create a default one
     if ( data != nullptr )
     {
-        auto converter = EngineMaterialConverters::getMaterialConverter( data->getType() );
+        auto converter = Data::EngineMaterialConverters::getMaterialConverter( data->getType() );
         auto mat       = converter.second( data );
         roMaterial.reset( mat );
     }
     else
     {
-        auto mat             = new BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
+        auto mat             = new Data::BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
         mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
-        mat->m_perVertexColor =
-            m_displayMesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+        mat->m_perVertexColor = m_displayMesh->getCoreGeometry().hasAttrib(
+            Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ) );
         roMaterial.reset( mat );
     }
     // initialize with a default rendertechique that draws nothing
     std::string roName( m_name + "_" + m_contentName + "_RO" );
-    auto ro = RenderObject::createRenderObject(
-        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique {} );
+    auto ro = Renderer::RenderObject::createRenderObject( roName,
+                                                          this,
+                                                          Renderer::RenderObjectType::Geometry,
+                                                          m_displayMesh,
+                                                          Renderer::RenderTechnique {} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
@@ -145,7 +160,7 @@ const Ra::Core::Geometry::PointCloud& PointCloudComponent::getCoreGeometry() con
     return m_displayMesh->getCoreGeometry();
 }
 
-PointCloud* PointCloudComponent::getGeometry() {
+Data::PointCloud* PointCloudComponent::getGeometry() {
     CHECK_MESH_NOT_NULL;
     return m_displayMesh.get();
 }
@@ -188,18 +203,22 @@ void VolumeComponent::initialize() {}
 
 void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* data ) {
     m_contentName   = data->getName();
-    m_displayVolume = Ra::Core::make_shared<VolumeObject>( m_contentName );
+    m_displayVolume = Ra::Core::make_shared<Data::VolumeObject>( m_contentName );
     m_displayVolume->loadGeometry( data->volume, data->boundingBox );
 
-    auto roMaterial = Ra::Core::make_shared<VolumetricMaterial>( data->getName() + "_VolMat" );
-    roMaterial->setTexture( const_cast<Texture*>( &( m_displayVolume->getDataTexture() ) ) );
+    auto roMaterial =
+        Ra::Core::make_shared<Data::VolumetricMaterial>( data->getName() + "_VolMat" );
+    roMaterial->setTexture( const_cast<Data::Texture*>( &( m_displayVolume->getDataTexture() ) ) );
     roMaterial->m_sigma_a       = data->sigma_a;
     roMaterial->m_sigma_s       = data->sigma_s;
     roMaterial->m_modelToMedium = data->densityToModel.inverse();
 
     std::string roName( m_name + "_" + m_contentName + "_RO" );
-    auto ro = RenderObject::createRenderObject(
-        roName, this, RenderObjectType::Geometry, m_displayVolume, RenderTechnique {} );
+    auto ro = Renderer::RenderObject::createRenderObject( roName,
+                                                          this,
+                                                          Renderer::RenderObjectType::Geometry,
+                                                          m_displayVolume,
+                                                          Renderer::RenderTechnique {} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     ro->setLocalTransform( data->modelToWorld );
@@ -212,7 +231,7 @@ void VolumeComponent::generateVolumeRender( const Ra::Core::Asset::VolumeData* d
     CORE_ASSERT( m_displayVolume != nullptr, \
                  "DisplayVolume should exist while component is alive" );
 
-VolumeObject* VolumeComponent::getDisplayVolume() {
+Data::VolumeObject* VolumeComponent::getDisplayVolume() {
     CHECK_VOL_NOT_NULL;
     return m_displayVolume.get();
 }
@@ -254,5 +273,6 @@ Ra::Core::Geometry::AbstractVolume* VolumeComponent::getVolumeRw() {
     return &m_displayVolume->getVolume();
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

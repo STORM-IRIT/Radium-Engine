@@ -17,8 +17,11 @@ class MaterialData;
 } // namespace Core
 namespace Engine {
 
+namespace Renderer {
 class ShaderProgram;
+}
 
+namespace Data {
 /**
  * Implementation of the Blinn-Phong Material BSDF.
  * @todo due to "Material.glsl" interface modification, must test this version with all plugins,
@@ -123,7 +126,7 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final
 
     Material* operator()( const Ra::Core::Asset::MaterialData* toconvert );
 };
-
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
 

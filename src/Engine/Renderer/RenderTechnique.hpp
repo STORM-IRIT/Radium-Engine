@@ -11,14 +11,15 @@
 
 namespace Ra {
 namespace Engine {
-class ShaderProgram;
+namespace Data {
 class Material;
-class ShaderParameterProvider;
-} // namespace Engine
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
+}
+
+namespace Renderer {
+class ShaderProgram;
+class ShaderParameterProvider;
+
 /**
  * Default render pass ids
  */
@@ -173,7 +174,7 @@ class RA_ENGINE_API RenderTechnique final
      *  pass 2 --> LIGHTING_TRANSPARENT
      * @return the default technique
      */
-    static Ra::Engine::RenderTechnique createDefaultRenderTechnique();
+    static RenderTechnique createDefaultRenderTechnique();
 
   private:
     /// Maximum number of passses in the technique
@@ -236,6 +237,8 @@ getDefaultTechnique( const std::string& name );
 RA_ENGINE_API bool cleanup();
 } // namespace EngineRenderTechniques
 
-#include <Engine/Renderer/RenderTechnique.inl>
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra
+
+#include <Engine/Renderer/RenderTechnique.inl>

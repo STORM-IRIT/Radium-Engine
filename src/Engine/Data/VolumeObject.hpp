@@ -12,7 +12,7 @@ class AbstractVolume;
 } // namespace Geometry
 } // namespace Core
 namespace Engine {
-
+namespace Data {
 /**
  * A class representing an openGL volume
  *
@@ -60,7 +60,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
     void updateGL() override;
 
     /// Draw the mesh.
-    void render( const ShaderProgram* prog ) override;
+    void render( const Renderer::ShaderProgram* prog ) override;
 
     /// 6 quad faces of the cube, thus 12 triangles.
     size_t getNumFaces() const override { return 12; }
@@ -77,6 +77,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
     bool m_isDirty {false};
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
 

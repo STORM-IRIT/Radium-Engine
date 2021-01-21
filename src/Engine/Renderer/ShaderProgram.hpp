@@ -19,7 +19,13 @@ class StaticStringSource;
 
 namespace Ra {
 namespace Engine {
+namespace Data {
+
 class Texture;
+
+}
+
+namespace Renderer {
 
 /**
  * Abstraction of OpenGL Shader Program
@@ -46,13 +52,13 @@ class RA_ENGINE_API ShaderProgram final
     template <typename T>
     void setUniform( const char* name, const T& value ) const;
 
-    void setUniform( const char* name, Texture* tex, int texUnit ) const;
+    void setUniform( const char* name, Data::Texture* tex, int texUnit ) const;
 
     //! use automatic texture unit computation
     //! if you want to send a particular texture unit, use setUniform.
     //! It binds tex on an "arbitrary" tex unit.
     //! @warning, call a std::map::find (in O(log(active tex unit in the shader)))
-    void setUniformTexture( const char* name, Texture* tex ) const;
+    void setUniformTexture( const char* name, Data::Texture* tex ) const;
 
     globjects::Program* getProgramObject() const;
 
@@ -96,6 +102,7 @@ class RA_ENGINE_API ShaderProgram final
     std::unique_ptr<globjects::Program> m_program;
 };
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra
 

@@ -19,6 +19,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 
 using namespace Core::Utils; // log
 
@@ -33,9 +34,9 @@ void DebugRender::initialize() {
                          const std::string& configName,
                          const char* vertexShader,
                          const char* fragmentShader ) -> const ShaderProgram* {
-        Ra::Engine::ShaderConfiguration config {configName};
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, vertexShader );
-        config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, fragmentShader );
+        ShaderConfiguration config {configName};
+        config.addShaderSource( ShaderType::ShaderType_VERTEX, vertexShader );
+        config.addShaderSource( ShaderType::ShaderType_FRAGMENT, fragmentShader );
         auto added = manager->addShaderProgram( config );
         if ( added ) { return *added; }
         else
@@ -166,9 +167,9 @@ void DebugRender::renderLines( const Core::Matrix4f& viewMatrix,
         Core::Geometry::LineMesh geom;
         geom.setVertices( vertices );
         geom.setIndices( std::move( indices ) );
-        geom.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), colors );
+        geom.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), colors );
 
-        LineMesh mesh( "temp", std::move( geom ) );
+        Data::LineMesh mesh( "temp", std::move( geom ) );
 
         mesh.updateGL();
         ///\todo
@@ -284,7 +285,7 @@ void DebugRender::addPoints( const Core::Vector3Array& p, const Core::Vector4Arr
     }
 }
 
-void DebugRender::addMesh( const std::shared_ptr<AttribArrayDisplayable>& mesh,
+void DebugRender::addMesh( const std::shared_ptr<Data::AttribArrayDisplayable>& mesh,
                            const Core::Transform& transform ) {
     m_meshes.push_back( {mesh, transform} );
 }
@@ -308,37 +309,39 @@ void DebugRender::addCross( const Core::Vector3& position,
 void DebugRender::addSphere( const Core::Vector3& center,
                              Scalar radius,
                              const Core::Utils::Color& color ) {
-    addMesh( DrawPrimitives::Sphere( center, radius, color ) );
+    addMesh( Data::DrawPrimitives::Sphere( center, radius, color ) );
 }
 
 void DebugRender::addCircle( const Core::Vector3& center,
                              const Core::Vector3& normal,
                              Scalar radius,
                              const Core::Utils::Color& color ) {
-    addMesh( DrawPrimitives::Circle( center, normal, radius, 64, color ) );
+    addMesh( Data::DrawPrimitives::Circle( center, normal, radius, 64, color ) );
 }
 
 void DebugRender::addFrame( const Core::Transform& transform, Scalar size ) {
-    addMesh( DrawPrimitives::Frame( transform, size ) );
+    addMesh( Data::DrawPrimitives::Frame( transform, size ) );
 }
 
 void DebugRender::addTriangle( const Core::Vector3& p0,
                                const Core::Vector3& p1,
                                const Core::Vector3& p2,
                                const Core::Utils::Color& color ) {
-    addMesh( DrawPrimitives::Triangle( p0, p1, p2, color ) );
+    addMesh( Data::DrawPrimitives::Triangle( p0, p1, p2, color ) );
 }
 
 void DebugRender::addAABB( const Core::Aabb& box, const Core::Utils::Color& color ) {
-    addMesh( DrawPrimitives::AABB( box, color ) );
+    addMesh( Data::DrawPrimitives::AABB( box, color ) );
 }
 
 void DebugRender::addOBB( const Core::Aabb& box,
                           const Core::Transform& transform,
                           const Core::Utils::Color& color ) {
-    addMesh( DrawPrimitives::AABB( box, color ), transform );
+    addMesh( Data::DrawPrimitives::AABB( box, color ), transform );
 }
 
 RA_SINGLETON_IMPLEMENTATION( DebugRender );
+
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

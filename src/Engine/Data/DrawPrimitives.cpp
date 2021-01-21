@@ -20,29 +20,29 @@ using namespace Core;
 using namespace Core::Geometry;
 
 namespace Engine {
+namespace Data {
 namespace DrawPrimitives {
 
-RenderObject* Primitive( Component* component, const MeshPtr& mesh ) {
-    return Primitive( component,
-                      std::dynamic_pointer_cast<Ra::Engine::AttribArrayDisplayable>( mesh ) );
+Renderer::RenderObject* Primitive( Scene::Component* component, const MeshPtr& mesh ) {
+    return Primitive( component, std::dynamic_pointer_cast<Data::AttribArrayDisplayable>( mesh ) );
 }
 
-RenderObject* Primitive( Component* component, const LineMeshPtr& mesh ) {
-    return Primitive( component,
-                      std::dynamic_pointer_cast<Ra::Engine::AttribArrayDisplayable>( mesh ) );
+Renderer::RenderObject* Primitive( Scene::Component* component, const LineMeshPtr& mesh ) {
+    return Primitive( component, std::dynamic_pointer_cast<Data::AttribArrayDisplayable>( mesh ) );
 }
 
-RenderObject* Primitive( Component* component, const AttribArrayDisplayablePtr& mesh ) {
-    RenderTechnique rt;
-    auto builder = EngineRenderTechniques::getDefaultTechnique( "Plain" );
+Renderer::RenderObject* Primitive( Scene::Component* component,
+                                   const AttribArrayDisplayablePtr& mesh ) {
+    Renderer::RenderTechnique rt;
+    auto builder = Renderer::EngineRenderTechniques::getDefaultTechnique( "Plain" );
     builder.second( rt, false );
     auto roMaterial = Core::make_shared<PlainMaterial>( "Default material" );
     roMaterial->m_perVertexColor =
         mesh->getAttribArrayGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
     rt.setParametersProvider( roMaterial );
 
-    auto ro = RenderObject::createRenderObject(
-        mesh->getName(), component, RenderObjectType::Debug, mesh, rt );
+    auto ro = Renderer::RenderObject::createRenderObject(
+        mesh->getName(), component, Renderer::RenderObjectType::Debug, mesh, rt );
     ro->setMaterial( roMaterial );
     return ro;
 }
@@ -544,5 +544,6 @@ MeshPtr LineStrip( const Core::Vector3Array& vertices, const Core::Vector4Array&
     return mesh;
 }
 } // namespace DrawPrimitives
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

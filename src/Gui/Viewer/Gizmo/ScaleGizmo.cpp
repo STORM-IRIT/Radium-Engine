@@ -13,7 +13,7 @@ namespace Gui {
 
 using namespace Ra::Core::Utils;
 
-ScaleGizmo::ScaleGizmo( Engine::Component* c,
+ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
                         const Core::Transform& worldTo,
                         const Core::Transform& t,
                         Mode mode ) :
@@ -41,12 +41,12 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c,
         Core::Geometry::TriangleMesh box = Core::Geometry::makeSharpBox( boxBounds );
         cylinder.append( box );
 
-        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Scale Gizmo Arrow" ) );
+        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Scale Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( cylinder ) );
 
-        Engine::RenderObject* arrowDrawable =
-            new Engine::RenderObject( "Scale Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
+        Engine::Renderer::RenderObject* arrowDrawable = new Engine::Renderer::RenderObject(
+            "Scale Gizmo Arrow", m_comp, Engine::Renderer::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
         addRenderObject( arrowDrawable );
@@ -69,12 +69,12 @@ ScaleGizmo::ScaleGizmo( Engine::Component* c,
         normals.getMap().fill( 0_ra );
         plane.normalsUnlock();
 
-        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Plane" ) );
+        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Gizmo Plane" ) );
         mesh->loadGeometry( std::move( plane ) );
 
-        Engine::RenderObject* planeDrawable =
-            new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
+        Engine::Renderer::RenderObject* planeDrawable = new Engine::Renderer::RenderObject(
+            "Gizmo Plane", m_comp, Engine::Renderer::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
         planeDrawable->setRenderTechnique( rt );
         planeDrawable->setMesh( mesh );
         addRenderObject( planeDrawable );
@@ -136,7 +136,7 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam,
+Core::Transform ScaleGizmo::mouseMove( const Engine::Data::Camera& cam,
                                        const Core::Vector2& nextXY,
                                        bool stepped,
                                        bool whole ) {
@@ -228,7 +228,7 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Camera& cam,
     return m_transform;
 }
 
-void ScaleGizmo::setInitialState( const Engine::Camera& /*cam*/,
+void ScaleGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
                                   const Core::Vector2& /*initialXY*/ ) {
     m_initialPix = Core::Vector2::Zero();
     m_start      = false;

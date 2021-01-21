@@ -2,6 +2,7 @@
 #include <Engine/Scene/SystemDisplay.hpp>
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 SystemEntity::SystemEntity() : Entity( "System Display Entity" ) {
     /*
@@ -27,11 +28,13 @@ DebugComponent* SystemEntity::dbgCmp() {
     return static_cast<DebugComponent*>( instance->getComponent( "Debug" ) );
 }
 
-RenderObject* DebugComponent::getRenderObject( Core::Utils::Index idx ) {
+Renderer::RenderObject* DebugComponent::getRenderObject( Core::Utils::Index idx ) {
     return getRoMgr()->getRenderObject( idx ).get();
 }
 #endif
 
 RA_SINGLETON_IMPLEMENTATION( SystemEntity );
+
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

@@ -57,7 +57,8 @@ void MinimalApp::onGLInitialized() {
     // initialize here the OpenGL part of the engine used by the application
     m_engine->initializeGL();
     // add the renderer
-    std::shared_ptr<Ra::Engine::Renderer> e( new Ra::Engine::ForwardRenderer() );
+    std::shared_ptr<Ra::Engine::Renderer::Renderer> e(
+        new Ra::Engine::Renderer::ForwardRenderer() );
     m_viewer->addRenderer( e );
     connect( m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame );
 }

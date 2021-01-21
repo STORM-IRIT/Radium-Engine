@@ -4,16 +4,17 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 DefaultLightManager::DefaultLightManager() {
     m_data = std::make_unique<DefaultLightStorage>();
 }
 
-const Light* DefaultLightManager::getLight( size_t li ) const {
+const Data::Light* DefaultLightManager::getLight( size_t li ) const {
     return ( *m_data )[li];
 }
 
-void DefaultLightManager::addLight( const Light* li ) {
+void DefaultLightManager::addLight( const Data::Light* li ) {
     m_data->add( li );
 }
 
@@ -21,11 +22,11 @@ DefaultLightStorage::DefaultLightStorage() = default;
 
 void DefaultLightStorage::upload() const {}
 
-void DefaultLightStorage::add( const Light* li ) {
+void DefaultLightStorage::add( const Data::Light* li ) {
     m_lights.emplace( li->getType(), li );
 }
 
-void DefaultLightStorage::remove( const Light* li ) {
+void DefaultLightStorage::remove( const Data::Light* li ) {
     auto range = m_lights.equal_range( li->getType() );
     for ( auto i = range.first; i != range.second; ++i )
     {
@@ -45,10 +46,11 @@ void DefaultLightStorage::clear() {
     m_lights.clear();
 }
 
-const Light* DefaultLightStorage::operator[]( unsigned int n ) {
+const Data::Light* DefaultLightStorage::operator[]( unsigned int n ) {
     auto iterator = m_lights.begin();
     std::advance( iterator, n );
     return iterator->second;
 }
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

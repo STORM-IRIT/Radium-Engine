@@ -15,7 +15,7 @@ class ScaleGizmo : public Gizmo
 {
   public:
     // Draw a frame with : 3 RGB cube-shaped arrows and 3 RGB squares
-    ScaleGizmo( Engine::Component* c,
+    ScaleGizmo( Engine::Scene::Component* c,
                 const Core::Transform& worldTo,
                 const Core::Transform& t,
                 Mode mode );
@@ -25,8 +25,9 @@ class ScaleGizmo : public Gizmo
                           const Core::Transform& t ) override;
     void selectConstraint( int drawableIndex ) override;
     bool isSelected() override { return m_selectedAxis != -1 || m_selectedPlane != -1; }
-    void setInitialState( const Engine::Camera& cam, const Core::Vector2& initialXY ) override;
-    Core::Transform mouseMove( const Engine::Camera& cam,
+    void setInitialState( const Engine::Data::Camera& cam,
+                          const Core::Vector2& initialXY ) override;
+    Core::Transform mouseMove( const Engine::Data::Camera& cam,
                                const Core::Vector2& nextXY,
                                bool stepped,
                                bool whole ) override;

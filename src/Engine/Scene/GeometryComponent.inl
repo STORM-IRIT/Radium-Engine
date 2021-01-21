@@ -14,6 +14,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 template <typename CoreMeshType>
 SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent(
@@ -29,8 +30,7 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& nam
                                                           Entity* entity,
                                                           CoreMeshType&& mesh,
                                                           Core::Asset::MaterialData* mat ) :
-    GeometryComponent( name, entity ),
-    m_displayMesh( new Engine::Mesh( name, std::move( mesh ) ) ) {
+    GeometryComponent( name, entity ), m_displayMesh( new Data::Mesh( name, std::move( mesh ) ) ) {
     setContentName( name );
     finalizeROFromGeometry( mat, Core::Transform::Identity() );
 }
@@ -63,19 +63,30 @@ void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::Ge
     mesh.setNormals( std::move( normals ) );
 
     if ( data->hasTangents() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TANGENT ), data->getTangents() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
+                        data->getTangents() );
+    }
 
     if ( data->hasBiTangents() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_BITANGENT ), data->getBiTangents() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
+                        data->getBiTangents() );
+    }
 
     if ( data->hasTextureCoordinates() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_TEXCOORD ), data->getTexCoords() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
+                        data->getTexCoords() );
+    }
 
     if ( data->hasColors() )
-    { mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), data->getColors() ); }
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
+    }
 
     // To be discussed: Should not weights be part of the geometry ?
-    //        mesh->addData( Mesh::VERTEX_WEIGHTS, meshData.weights );
+    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
     mesh.setIndices( std::move( indices ) );
 
@@ -90,26 +101,29 @@ void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
     const Core::Asset::MaterialData* data,
     Core::Transform transform ) {
     // The technique for rendering this component
-    std::shared_ptr<Material> roMaterial;
+    std::shared_ptr<Data::Material> roMaterial;
     // First extract the material from asset or create a default one
     if ( data != nullptr )
     {
-        auto converter = EngineMaterialConverters::getMaterialConverter( data->getType() );
+        auto converter = Data::EngineMaterialConverters::getMaterialConverter( data->getType() );
         auto mat       = converter.second( data );
         roMaterial.reset( mat );
     }
     else
     {
-        auto mat             = new BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
+        auto mat             = new Data::BlinnPhongMaterial( m_contentName + "_DefaultBPMaterial" );
         mat->m_renderAsSplat = m_displayMesh->getNumFaces() == 0;
-        mat->m_perVertexColor =
-            m_displayMesh->getCoreGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
+        mat->m_perVertexColor = m_displayMesh->getCoreGeometry().hasAttrib(
+            Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ) );
         roMaterial.reset( mat );
     }
     // initialize with a default rendertechique that draws nothing
     std::string roName( m_name + "_" + m_contentName + "_RO" );
-    auto ro = RenderObject::createRenderObject(
-        roName, this, RenderObjectType::Geometry, m_displayMesh, RenderTechnique {} );
+    auto ro = Renderer::RenderObject::createRenderObject( roName,
+                                                          this,
+                                                          Renderer::RenderObjectType::Geometry,
+                                                          m_displayMesh,
+                                                          Renderer::RenderTechnique {} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );
@@ -167,5 +181,6 @@ CoreMeshType* SurfaceMeshComponent<CoreMeshType>::getMeshRw() {
 #    undef CHECK_MESH_NOT_NULL
 #endif
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

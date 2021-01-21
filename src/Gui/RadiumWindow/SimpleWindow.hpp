@@ -45,7 +45,8 @@ class RA_GUI_API SimpleWindow : public Ra::Gui::MainWindowInterface
     void onFrameComplete() override;
 
     /// Add render in the application: UI, viewer - this method does not associate a control panel.
-    void addRenderer( const std::string& name, std::shared_ptr<Ra::Engine::Renderer> e ) override;
+    void addRenderer( const std::string& name,
+                      std::shared_ptr<Ra::Engine::Renderer::Renderer> e ) override;
 
   public slots:
     /// Call after loading a new file to let the window resetview for instance.

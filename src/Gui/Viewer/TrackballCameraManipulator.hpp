@@ -43,7 +43,7 @@ class RA_GUI_API TrackballCameraManipulator
     bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void toggleRotateAround();
-    void setCamera( Engine::Camera* camera ) override;
+    void setCamera( Engine::Data::Camera* camera ) override;
 
     /// Set the distance from the camera to the target point.
     /// \note doesn't modify the camera.

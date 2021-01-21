@@ -4,11 +4,11 @@
 
 namespace Ra {
 namespace Engine {
-
-PointLight::PointLight( Entity* entity, const std::string& name ) :
+namespace Data {
+PointLight::PointLight( Scene::Entity* entity, const std::string& name ) :
     Light( entity, Light::POINT, name ) {}
 
-void PointLight::getRenderParameters( RenderParameters& params ) const {
+void PointLight::getRenderParameters( Renderer::RenderParameters& params ) const {
     Light::getRenderParameters( params );
 
     params.addParameter( "light.point.position", m_position );
@@ -21,5 +21,6 @@ std::string PointLight::getShaderInclude() const {
     return "Point";
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

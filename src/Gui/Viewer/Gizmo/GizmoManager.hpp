@@ -47,7 +47,7 @@ class RA_GUI_API GizmoManager : public QObject,
 
   public slots:
     /// Set the object being currently edited
-    void setEditable( const Engine::ItemEntry& ent ) override;
+    void setEditable( const Engine::Scene::ItemEntry& ent ) override;
 
     /// Destroy all gizmos
     void cleanup();

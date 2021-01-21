@@ -56,19 +56,25 @@ bool GizmoManager::isValidAction( const Gui::KeyMappingManager::KeyMappingAction
  */
 GizmoManager::GizmoManager( QObject* parent ) :
     QObject( parent ), m_currentGizmoType( NONE ), m_mode( Gizmo::GLOBAL ) {
-    m_gizmos[0].reset( new TranslateGizmo(
-        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
-    m_gizmos[1].reset( new RotateGizmo(
-        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
-    m_gizmos[2].reset( new ScaleGizmo(
-        Engine::SystemEntity::uiCmp(), Ra::Core::Transform::Identity(), m_transform, m_mode ) );
+    m_gizmos[0].reset( new TranslateGizmo( Engine::Scene::SystemEntity::uiCmp(),
+                                           Ra::Core::Transform::Identity(),
+                                           m_transform,
+                                           m_mode ) );
+    m_gizmos[1].reset( new RotateGizmo( Engine::Scene::SystemEntity::uiCmp(),
+                                        Ra::Core::Transform::Identity(),
+                                        m_transform,
+                                        m_mode ) );
+    m_gizmos[2].reset( new ScaleGizmo( Engine::Scene::SystemEntity::uiCmp(),
+                                       Ra::Core::Transform::Identity(),
+                                       m_transform,
+                                       m_mode ) );
     for ( auto& g : m_gizmos )
     {
         if ( g ) { g->show( false ); }
     }
 }
 
-void GizmoManager::setEditable( const Engine::ItemEntry& ent ) {
+void GizmoManager::setEditable( const Engine::Scene::ItemEntry& ent ) {
     TransformEditor::setEditable( ent );
     updateGizmo();
 }
@@ -122,7 +128,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
-    const Engine::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
+    const Engine::Data::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
     return true;
@@ -146,7 +152,7 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
          currentGizmo()->isSelected() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        const Engine::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
+        const Engine::Data::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
         bool step  = action == GIZMOMANAGER_STEP || action == GIZMOMANAGER_STEP_WHOLE;
         bool whole = action == GIZMOMANAGER_WHOLE || action == GIZMOMANAGER_STEP_WHOLE;
 

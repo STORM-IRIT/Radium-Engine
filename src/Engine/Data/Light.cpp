@@ -5,11 +5,11 @@
 
 namespace Ra {
 namespace Engine {
-
-Light::Light( Entity* entity, const LightType& type, const std::string& name ) :
+namespace Data {
+Light::Light( Scene::Entity* entity, const LightType& type, const std::string& name ) :
     Component( name, entity ), m_type( type ) {}
 
-void Light::getRenderParameters( RenderParameters& params ) const {
+void Light::getRenderParameters( Renderer::RenderParameters& params ) const {
     params.addParameter( "light.color", m_color );
     params.addParameter( "light.type", m_type );
 }
@@ -22,5 +22,6 @@ std::string Light::getShaderInclude() const {
     return {};
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

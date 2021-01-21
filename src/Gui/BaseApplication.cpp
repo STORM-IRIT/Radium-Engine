@@ -313,7 +313,7 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
         if ( loadFile( parser.value( "camera" ) ) )
         {
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
-            auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
+            auto camera = static_cast<Engine::Data::Camera*>( entity->getComponents()[0].get() );
             m_viewer->setCamera( camera );
         }
     }
@@ -328,7 +328,7 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
 void BaseApplication::engineBaseInitialization() {
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem(
-        "GeometrySystem", new Ra::Engine::GeometrySystem, defaultSystemPriority );
+            "GeometrySystem", new Ra::Engine::Scene::GeometrySystem, defaultSystemPriority );
     // Register the TimeSystem managing time dependant systems
     Scalar dt = ( m_targetFPS == 0 ? 1_ra / 60_ra : 1_ra / m_targetFPS );
     m_engine->setConstantTimeStep( dt );
@@ -356,20 +356,20 @@ void BaseApplication::createConnections() {
 
 void BaseApplication::setupScene() {
 
-    using namespace Engine::DrawPrimitives;
+    using namespace Engine::Data::DrawPrimitives;
 
-    auto grid = Primitive( Engine::SystemEntity::uiCmp(),
+    auto grid = Primitive( Engine::Scene::SystemEntity::uiCmp(),
                            Grid( Core::Vector3::Zero(),
                                  Core::Vector3::UnitX(),
                                  Core::Vector3::UnitZ(),
                                  Core::Utils::Color::Grey( 0.6f ) ) );
     grid->setPickable( false );
-    Engine::SystemEntity::uiCmp()->addRenderObject( grid );
+    Engine::Scene::SystemEntity::uiCmp()->addRenderObject( grid );
 
-    auto frame =
-        Primitive( Engine::SystemEntity::uiCmp(), Frame( Ra::Core::Transform::Identity(), 0.05f ) );
+    auto frame = Primitive( Engine::Scene::SystemEntity::uiCmp(),
+                            Frame( Ra::Core::Transform::Identity(), 0.05f ) );
     frame->setPickable( false );
-    Engine::SystemEntity::uiCmp()->addRenderObject( frame );
+    Engine::Scene::SystemEntity::uiCmp()->addRenderObject( frame );
 }
 
 bool BaseApplication::loadFile( QString path ) {
@@ -609,7 +609,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
 
                         if ( loadedPlugin->doAddRenderer() )
                         {
-                            std::vector<std::shared_ptr<Engine::Renderer>> tmpR;
+                            std::vector<std::shared_ptr<Engine::Renderer::Renderer>> tmpR;
                             loadedPlugin->addRenderers( &tmpR );
                             CORE_ASSERT( !tmpR.empty(),
                                          "This plugin is expected to add a renderer" );

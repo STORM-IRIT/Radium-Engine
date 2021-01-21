@@ -11,9 +11,10 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Renderer {
 class ShaderProgram;
-
+}
+namespace Data {
 /**
  * Base class of any displayable object.
  */
@@ -54,7 +55,7 @@ class RA_ENGINE_API Displayable
 
     /// Draw the mesh. Prog is used to set VertexAttribBinding, but it has to be
     /// already binded
-    virtual void render( const ShaderProgram* prog ) = 0;
+    virtual void render( const Renderer::ShaderProgram* prog ) = 0;
 
     //// Utility methods, used to display statistics
     virtual size_t getNumFaces() const { return 0; }
@@ -67,5 +68,6 @@ class RA_ENGINE_API Displayable
     std::string m_name {}; /// Name of the mesh.
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

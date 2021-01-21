@@ -9,7 +9,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 VolumeObject::VolumeObject( const std::string& name ) :
     Displayable( name ), m_tex( {} ), m_mesh( name + "_internal" ) {}
 
@@ -87,7 +87,7 @@ void VolumeObject::updateGL() {
     }
 }
 
-void VolumeObject::render( const ShaderProgram* prog ) {
+void VolumeObject::render( const Renderer::ShaderProgram* prog ) {
     GL_CHECK_ERROR;
     // Cull faces
 
@@ -107,5 +107,6 @@ void VolumeObject::render( const ShaderProgram* prog ) {
     GL_CHECK_ERROR;
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

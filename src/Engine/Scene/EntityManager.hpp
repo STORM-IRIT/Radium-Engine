@@ -12,12 +12,9 @@
 
 namespace Ra {
 namespace Engine {
-class Entity;
-}
-} // namespace Ra
+namespace Scene {
 
-namespace Ra {
-namespace Engine {
+class Entity;
 
 class RA_ENGINE_API EntityManager
 {
@@ -93,5 +90,6 @@ class RA_ENGINE_API EntityManager
     std::map<std::string, Core::Utils::Index> m_entitiesName;
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

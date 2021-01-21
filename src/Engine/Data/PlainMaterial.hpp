@@ -4,7 +4,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 /**
  * Implementation of the Plain Material BSDF.
  * This material implements a flat color rendering.
@@ -46,5 +46,6 @@ class RA_ENGINE_API PlainMaterial final : public SimpleMaterial
     static void unregisterMaterial();
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

@@ -11,6 +11,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 
 using namespace Core::Utils; // log
 using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
@@ -149,5 +150,7 @@ void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
     m_shaderPrograms.insert( {config, shader} );
 }
 
+
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

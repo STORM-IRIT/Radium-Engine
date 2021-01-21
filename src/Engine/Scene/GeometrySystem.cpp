@@ -12,10 +12,11 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
-GeometrySystem::GeometrySystem() : Ra::Engine::System() {}
+GeometrySystem::GeometrySystem() : System() {}
 
-void GeometrySystem::handleAssetLoading( Ra::Engine::Entity* entity,
+void GeometrySystem::handleAssetLoading( Entity* entity,
                                          const Ra::Core::Asset::FileData* fileData ) {
     auto geomData = fileData->getGeometryData();
 
@@ -66,5 +67,6 @@ void GeometrySystem::generateTasks( Ra::Core::TaskQueue* /*taskQueue*/,
     // Do nothing, as this system only displays meshes.
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

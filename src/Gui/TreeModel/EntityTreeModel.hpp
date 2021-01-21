@@ -21,7 +21,7 @@ class RA_GUI_API EngineTreeItem : public TreeItem
     bool isSelectable() const override { return m_entry.isSelectable(); }
 
   public:
-    Engine::ItemEntry m_entry;
+    Engine::Scene::ItemEntry m_entry;
 };
 
 /// Implementation of QAbstractItemModel to show the engine objects
@@ -40,17 +40,17 @@ class RA_GUI_API ItemModel : public TreeModel
 
     /// Returns the entry corresponding to a given index or an invalid entry
     /// if the index doesn't match any entry.
-    const Engine::ItemEntry& getEntry( const QModelIndex& index ) const;
+    const Engine::Scene::ItemEntry& getEntry( const QModelIndex& index ) const;
 
     /// Returns the index corresponding to the given entry if it exists in the
     /// model, or an invalid index if not found.
-    QModelIndex findEntryIndex( const Engine::ItemEntry& entry ) const;
+    QModelIndex findEntryIndex( const Engine::Scene::ItemEntry& entry ) const;
 
   public slots:
 
-    void addItem( const Engine::ItemEntry& ent );
+    void addItem( const Engine::Scene::ItemEntry& ent );
 
-    void removeItem( const Engine::ItemEntry& ent );
+    void removeItem( const Engine::Scene::ItemEntry& ent );
 
   private slots:
 

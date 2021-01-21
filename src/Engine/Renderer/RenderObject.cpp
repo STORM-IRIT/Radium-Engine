@@ -18,8 +18,10 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
+
 RenderObject::RenderObject( const std::string& name,
-                            Component* comp,
+                            Scene::Component* comp,
                             const RenderObjectType& type,
                             int lifetime ) :
     IndexedObject(),
@@ -33,9 +35,9 @@ RenderObject::RenderObject( const std::string& name,
 RenderObject::~RenderObject() = default;
 
 RenderObject* RenderObject::createRenderObject( const std::string& name,
-                                                Component* comp,
+                                                Scene::Component* comp,
                                                 const RenderObjectType& type,
-                                                std::shared_ptr<Displayable> mesh,
+                                                std::shared_ptr<Data::Displayable> mesh,
                                                 const RenderTechnique& techniqueConfig ) {
     auto obj = new RenderObject( name, comp, type );
     obj->setMesh( mesh );
@@ -120,11 +122,11 @@ bool RenderObject::isDirty() const {
     return m_dirty;
 }
 
-const Component* RenderObject::getComponent() const {
+const Scene::Component* RenderObject::getComponent() const {
     return m_component;
 }
 
-Component* RenderObject::getComponent() {
+Scene::Component* RenderObject::getComponent() {
     return m_component;
 }
 
@@ -141,27 +143,27 @@ std::shared_ptr<RenderTechnique> RenderObject::getRenderTechnique() {
     return m_renderTechnique;
 }
 
-void RenderObject::setMaterial( std::shared_ptr<Material> material ) {
+void RenderObject::setMaterial( std::shared_ptr<Data::Material> material ) {
     m_material = material;
 }
 
-std::shared_ptr<const Material> RenderObject::getMaterial() const {
+std::shared_ptr<const Data::Material> RenderObject::getMaterial() const {
     return m_material;
 }
 
-std::shared_ptr<Material> RenderObject::getMaterial() {
+std::shared_ptr<Data::Material> RenderObject::getMaterial() {
     return m_material;
 }
 
-void RenderObject::setMesh( std::shared_ptr<Displayable> mesh ) {
+void RenderObject::setMesh( std::shared_ptr<Data::Displayable> mesh ) {
     m_mesh = mesh;
 }
 
-std::shared_ptr<const Displayable> RenderObject::getMesh() const {
+std::shared_ptr<const Data::Displayable> RenderObject::getMesh() const {
     return m_mesh;
 }
 
-const std::shared_ptr<Displayable>& RenderObject::getMesh() {
+const std::shared_ptr<Data::Displayable>& RenderObject::getMesh() {
     return m_mesh;
 }
 
@@ -214,10 +216,10 @@ void RenderObject::hasExpired() {
     m_component->notifyRenderObjectExpired( m_idx );
 }
 
-void RenderObject::render( const RenderParameters& lightParams,
-                           const ViewingParameters& viewParams,
+void RenderObject::render( const Renderer::RenderParameters& lightParams,
+                           const Data::ViewingParameters& viewParams,
                            const ShaderProgram* shader,
-                           const RenderParameters& shaderParams ) {
+                           const Renderer::RenderParameters& shaderParams ) {
     if ( !m_visible || !shader ) { return; }
     // Radium V2 : avoid this temporary
     Core::Matrix4 modelMatrix  = getTransformAsMatrix();
@@ -240,7 +242,7 @@ void RenderObject::render( const RenderParameters& lightParams,
 }
 
 void RenderObject::render( const RenderParameters& lightParams,
-                           const ViewingParameters& viewParams,
+                           const Data::ViewingParameters& viewParams,
                            Core::Utils::Index passId ) {
     if ( m_visible )
     {
@@ -255,5 +257,6 @@ void RenderObject::render( const RenderParameters& lightParams,
     }
 }
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

@@ -3,7 +3,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 const Core::Geometry::AbstractGeometry& VolumeObject::getAbstractGeometry() const {
     CORE_ASSERT( m_volume, "Volume is not initialized" );
     return *(Core::Geometry::AbstractGeometry*)( m_volume.get() );
@@ -25,5 +25,6 @@ Core::Geometry::AbstractVolume& VolumeObject::getVolume() {
     return *m_volume.get();
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

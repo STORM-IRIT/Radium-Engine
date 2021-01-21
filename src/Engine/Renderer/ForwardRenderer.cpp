@@ -26,7 +26,7 @@ using namespace Core;
 using namespace Core::Utils; // log
 
 namespace Engine {
-
+namespace Renderer {
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
                           GL_COLOR_ATTACHMENT1,
@@ -46,11 +46,11 @@ void ForwardRenderer::initializeInternal() {
     initShaders();
     initBuffers();
 
-    auto cameraManager = new DefaultCameraManager();
+    auto cameraManager = new Scene::DefaultCameraManager();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
                                                              cameraManager );
 
-    auto lightManager = new DefaultLightManager();
+    auto lightManager = new Scene::DefaultLightManager();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultLightManager", lightManager );
     m_lightmanagers.push_back( lightManager );
 
@@ -82,7 +82,7 @@ void ForwardRenderer::initBuffers() {
     m_volumeFbo      = std::make_unique<globjects::Framebuffer>();
     // Forward renderer internal textures texture
 
-    TextureParameters texparams;
+    Data::TextureParameters texparams;
     texparams.width  = m_width;
     texparams.height = m_height;
     texparams.target = GL_TEXTURE_2D;
@@ -94,7 +94,7 @@ void ForwardRenderer::initBuffers() {
     texparams.format                   = GL_DEPTH_COMPONENT;
     texparams.type                     = GL_UNSIGNED_INT;
     texparams.name                     = "Depth (fw renderer)";
-    m_textures[RendererTextures_Depth] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_Depth] = std::make_unique<Data::Texture>( texparams );
 
     // Color texture
     texparams.internalFormat = GL_RGBA32F;
@@ -104,25 +104,25 @@ void ForwardRenderer::initBuffers() {
     texparams.magFilter      = GL_LINEAR;
 
     texparams.name                   = "HDR";
-    m_textures[RendererTextures_HDR] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_HDR] = std::make_unique<Data::Texture>( texparams );
 
     texparams.name                      = "Normal";
-    m_textures[RendererTextures_Normal] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_Normal] = std::make_unique<Data::Texture>( texparams );
 
     texparams.name                       = "Diffuse";
-    m_textures[RendererTextures_Diffuse] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_Diffuse] = std::make_unique<Data::Texture>( texparams );
 
     texparams.name                        = "Specular";
-    m_textures[RendererTextures_Specular] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_Specular] = std::make_unique<Data::Texture>( texparams );
 
     texparams.name                        = "OIT Accum";
-    m_textures[RendererTextures_OITAccum] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_OITAccum] = std::make_unique<Data::Texture>( texparams );
 
     texparams.name                            = "OIT Revealage";
-    m_textures[RendererTextures_OITRevealage] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_OITRevealage] = std::make_unique<Data::Texture>( texparams );
 
     texparams.name                      = "Volume";
-    m_textures[RendererTextures_Volume] = std::make_unique<Texture>( texparams );
+    m_textures[RendererTextures_Volume] = std::make_unique<Data::Texture>( texparams );
 
     m_secondaryTextures["Depth (fw)"]       = m_textures[RendererTextures_Depth].get();
     m_secondaryTextures["HDR Texture"]      = m_textures[RendererTextures_HDR].get();
@@ -136,7 +136,7 @@ void ForwardRenderer::initBuffers() {
     m_secondaryTextures["Volume"] = m_textures[RendererTextures_Volume].get();
 }
 
-void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) {
+void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderData ) {
     CORE_UNUSED( renderData );
 
     m_transparentRenderObjects.clear();
@@ -152,7 +152,7 @@ void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) 
         {
             auto material = ( *it )->getMaterial();
             if ( material &&
-                 material->getMaterialAspect() == Material::MaterialAspect::MAT_DENSITY )
+                 material->getMaterialAspect() == Data::Material::MaterialAspect::MAT_DENSITY )
             {
                 m_volumetricRenderObjects.push_back( *it );
                 it = m_fancyRenderObjects.erase( it );
@@ -165,7 +165,7 @@ void ForwardRenderer::updateStepInternal( const ViewingParameters& renderData ) 
     m_fancyVolumetricCount  = m_volumetricRenderObjects.size();
 }
 
-void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
+void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
 
     m_fbo->bind();
 
@@ -392,7 +392,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
 }
 
 // Draw debug stuff, do not overwrite depth map but do depth testing
-void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
+void ForwardRenderer::debugInternal( const Data::ViewingParameters& renderData ) {
     if ( m_drawDebug )
     {
         m_postprocessFbo->bind();
@@ -418,7 +418,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
         RenderParameters xrayLightParams;
         xrayLightParams.addParameter( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
-        xrayLightParams.addParameter( "light.type", Light::LightType::DIRECTIONAL );
+        xrayLightParams.addParameter( "light.type", Data::Light::LightType::DIRECTIONAL );
         xrayLightParams.addParameter( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
         for ( const auto& ro : m_xrayRenderObjects )
         {
@@ -429,7 +429,7 @@ void ForwardRenderer::debugInternal( const ViewingParameters& renderData ) {
 }
 
 // Draw UI stuff, always drawn on top of everything else + clear ZMask
-void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
+void ForwardRenderer::uiInternal( const Data::ViewingParameters& renderData ) {
 
     m_uiXrayFbo->bind();
     glDrawBuffers( 1, buffers );
@@ -471,7 +471,7 @@ void ForwardRenderer::uiInternal( const ViewingParameters& renderData ) {
     m_uiXrayFbo->unbind();
 }
 
-void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData ) {
+void ForwardRenderer::postProcessInternal( const Data::ViewingParameters& renderData ) {
     CORE_UNUSED( renderData );
 
     m_postprocessFbo->bind();
@@ -569,7 +569,8 @@ void ForwardRenderer::resizeInternal() {
 class PointCloudParameterProvider : public ShaderParameterProvider
 {
   public:
-    PointCloudParameterProvider( std::shared_ptr<Material> mat, PointCloudComponent* pointCloud ) :
+    PointCloudParameterProvider( std::shared_ptr<Data::Material> mat,
+                                 Scene::PointCloudComponent* pointCloud ) :
         ShaderParameterProvider(), m_displayMaterial( mat ), m_component( pointCloud ) {}
     ~PointCloudParameterProvider() override = default;
     void updateGL() override {
@@ -579,8 +580,8 @@ class PointCloudParameterProvider : public ShaderParameterProvider
     }
 
   private:
-    std::shared_ptr<Material> m_displayMaterial;
-    PointCloudComponent* m_component;
+    std::shared_ptr<Data::Material> m_displayMaterial;
+    Scene::PointCloudComponent* m_component;
 };
 
 /*
@@ -621,7 +622,7 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
         addGeomShader( DefaultRenderingPasses::LIGHTING_TRANSPARENT );
         addGeomShader( DefaultRenderingPasses::Z_PREPASS );
         // construct the parameter provider for the technique
-        auto pointCloud = dynamic_cast<PointCloudComponent*>( ro->getComponent() );
+        auto pointCloud = dynamic_cast<Scene::PointCloudComponent*>( ro->getComponent() );
         if ( pointCloud )
         {
             auto pr = std::make_shared<PointCloudParameterProvider>( material, pointCloud );
@@ -643,5 +644,6 @@ void ForwardRenderer::updateShadowMaps() {
     // Radium V2 : implement shadow mapping
 }
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

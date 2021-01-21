@@ -8,6 +8,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 using namespace Core::Utils; // log
 
@@ -21,9 +22,9 @@ TextureManager::~TextureManager() {
     m_textures.clear();
 }
 
-TextureParameters&
+Data::TextureParameters&
 TextureManager::addTexture( const std::string& name, uint width, uint height, void* data ) {
-    TextureParameters texData;
+    Data::TextureParameters texData;
     texData.name   = name;
     texData.width  = width;
     texData.height = height;
@@ -34,7 +35,7 @@ TextureManager::addTexture( const std::string& name, uint width, uint height, vo
     return m_pendingTextures[name];
 }
 
-void TextureManager::loadTextureImage( TextureParameters& texParameters ) {
+void TextureManager::loadTextureImage( Data::TextureParameters& texParameters ) {
     stbi_set_flip_vertically_on_load( true );
     int n;
     unsigned char* data = stbi_load( texParameters.name.c_str(),
@@ -97,8 +98,9 @@ void TextureManager::loadTextureImage( TextureParameters& texParameters ) {
     texParameters.type   = GL_UNSIGNED_BYTE;
 }
 
-Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bool linearize ) {
-    TextureParameters texparams = texParameters;
+Data::Texture* TextureManager::loadTexture( const Data::TextureParameters& texParameters,
+                                            bool linearize ) {
+    Data::TextureParameters texparams = texParameters;
     // TODO : allow to keep texels in texture parameters with automatic lifetime management.
     bool freeTexels = false;
     if ( texparams.texels == nullptr )
@@ -106,7 +108,7 @@ Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bo
         loadTextureImage( texparams );
         freeTexels = true;
     }
-    auto ret = new Texture( texparams );
+    auto ret = new Data::Texture( texparams );
     ret->initializeGL( linearize );
 
     if ( freeTexels )
@@ -117,8 +119,8 @@ Texture* TextureManager::loadTexture( const TextureParameters& texParameters, bo
     return ret;
 }
 
-Texture* TextureManager::getOrLoadTexture( const TextureParameters& texParameters,
-                                           bool linearize ) {
+Data::Texture* TextureManager::getOrLoadTexture( const Data::TextureParameters& texParameters,
+                                                 bool linearize ) {
     auto it = m_textures.find( texParameters.name );
     if ( it != m_textures.end() ) { return it->second; }
 
@@ -138,7 +140,7 @@ void TextureManager::deleteTexture( const std::string& filename ) {
     }
 }
 
-void TextureManager::deleteTexture( Texture* texture ) {
+void TextureManager::deleteTexture( Data::Texture* texture ) {
     deleteTexture( texture->getName() );
 }
 
@@ -159,5 +161,6 @@ void TextureManager::updatePendingTextures() {
     m_pendingData.clear();
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

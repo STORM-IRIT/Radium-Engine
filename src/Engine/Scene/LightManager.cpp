@@ -18,6 +18,7 @@
 namespace Ra {
 
 namespace Engine {
+namespace Scene {
 
 using namespace Core::Utils; // log
 using namespace Core::Asset;
@@ -52,7 +53,7 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
     for ( size_t i = 0; i < m_data->size(); )
     {
         auto l = ( *m_data )[i];
-        if ( l->getEntity() == Ra::Engine::SystemEntity::getInstance() ) { m_data->remove( l ); }
+        if ( l->getEntity() == SystemEntity::getInstance() ) { m_data->remove( l ); }
         else
         { ++i; }
     }
@@ -61,20 +62,20 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
     {
         std::string componentName =
             "LIGHT_" + data->getName() + " (" + std::to_string( id++ ) + ")";
-        Light* comp = nullptr;
+        Data::Light* comp = nullptr;
 
         switch ( data->getType() )
         {
         case LightData::DIRECTIONAL_LIGHT: {
 
-            auto thelight = new Engine::DirectionalLight( entity, componentName );
+            auto thelight = new Data::DirectionalLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setDirection( data->m_dirlight.direction );
             comp = thelight;
             break;
         }
         case LightData::POINT_LIGHT: {
-            auto thelight = new Engine::PointLight( entity, componentName );
+            auto thelight = new Data::PointLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_pointlight.position );
             thelight->setAttenuation( data->m_pointlight.attenuation.constant,
@@ -84,7 +85,7 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
             break;
         }
         case LightData::SPOT_LIGHT: {
-            auto thelight = new Engine::SpotLight( entity, componentName );
+            auto thelight = new Data::SpotLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_spotlight.position );
             thelight->setDirection( data->m_spotlight.direction );
@@ -99,7 +100,7 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
         case LightData::AREA_LIGHT: {
             // Radium-V2 : manage real area light. For the moment, transform them in point light
             // using given position
-            auto thelight = new Engine::PointLight( entity, componentName );
+            auto thelight = new Data::PointLight( entity, componentName );
             thelight->setColor( data->m_color );
             thelight->setPosition( data->m_arealight.position );
             thelight->setAttenuation( data->m_arealight.attenuation.constant,
@@ -122,21 +123,23 @@ void LightManager::handleAssetLoading( Entity* entity, const FileData* filedata 
 
 void LightManager::registerComponent( const Entity* entity, Component* component ) {
     System::registerComponent( entity, component );
-    m_data->add( reinterpret_cast<Light*>( component ) );
+    m_data->add( reinterpret_cast<Data::Light*>( component ) );
 }
 
 void LightManager::unregisterComponent( const Entity* entity, Component* component ) {
     System::unregisterComponent( entity, component );
-    m_data->remove( reinterpret_cast<Light*>( component ) );
+    m_data->remove( reinterpret_cast<Data::Light*>( component ) );
 }
 
 void LightManager::unregisterAllComponents( const Entity* entity ) {
     for ( const auto& comp : this->m_components )
     {
-        if ( comp.first == entity ) { m_data->remove( reinterpret_cast<Light*>( comp.second ) ); }
+        if ( comp.first == entity )
+        { m_data->remove( reinterpret_cast<Data::Light*>( comp.second ) ); }
     }
     System::unregisterAllComponents( entity );
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

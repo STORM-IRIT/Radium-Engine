@@ -11,7 +11,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 /**
  * Base implementation for simple, monocolored, materials.
  * This material could not be used as is. Only derived class could be used by a renderer.
@@ -90,6 +90,7 @@ class RA_ENGINE_API SimpleMaterial : public Material
     std::map<TextureSemantic, TextureParameters> m_pendingTextures;
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
 

@@ -2,7 +2,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Renderer {
 /**
  * Defines the families of objects for rendering.
  */
@@ -16,5 +16,8 @@ enum class RenderObjectType {
 
     Count
 };
+
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra
+

@@ -7,7 +7,7 @@
 
 #include <Engine/Scene/EntityManager.hpp>
 
-using Ra::Engine::ItemEntry;
+using Ra::Engine::Scene::ItemEntry;
 
 namespace Ra {
 namespace Gui {
@@ -69,7 +69,7 @@ QModelIndex ItemModel::findEntryIndex( const ItemEntry& entry ) const {
     return QModelIndex();
 }
 
-void ItemModel::addItem( const Engine::ItemEntry& ent ) {
+void ItemModel::addItem( const Engine::Scene::ItemEntry& ent ) {
     CORE_ASSERT( ent.isValid(), "Inserting invalid entry" );
     CORE_ASSERT( !findEntryIndex( ent ).isValid(), "Entry already in model" );
     if ( !findEntryIndex( ent ).isValid() )
@@ -100,7 +100,7 @@ void ItemModel::addItem( const Engine::ItemEntry& ent ) {
     }
 }
 
-void ItemModel::removeItem( const Engine::ItemEntry& ent ) {
+void ItemModel::removeItem( const Engine::Scene::ItemEntry& ent ) {
     QModelIndex entryIndex = findEntryIndex( ent );
     CORE_ASSERT( ent.isValid(), "Removing invalid entry" );
     CORE_ASSERT( entryIndex.isValid(), "Entry not in model" );

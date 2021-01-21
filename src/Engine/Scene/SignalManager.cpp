@@ -2,6 +2,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 void SignalManager::fireEntityCreated( const ItemEntry& entity ) const {
     CORE_ASSERT( entity.isEntityNode(), "Invalid entry" );
@@ -49,5 +50,7 @@ void SignalManager::fireFrameEnded() const {
         f();
     }
 }
+
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

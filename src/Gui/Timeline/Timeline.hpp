@@ -51,31 +51,31 @@ class RA_GUI_API Timeline : public QDialog
     /**
      * Updates the keyframes display according to \p ent.
      */
-    void selectionChanged( const Ra::Engine::ItemEntry& ent );
+    void selectionChanged( const Ra::Engine::Scene::ItemEntry& ent );
 
     /**
      * Registers \p value as a new KeyFramedValue for \p ent with the given name.
      */
     void registerKeyFramedValue(
-        Ra::Engine::Entity* ent,
+        Ra::Engine::Scene::Entity* ent,
         const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController );
 
     /**
      * Unregisters the KeyFramedValue for \p ent with the given name.
      */
-    void unregisterKeyFramedValue( Ra::Engine::Entity* ent, const std::string& name );
+    void unregisterKeyFramedValue( Ra::Engine::Scene::Entity* ent, const std::string& name );
 
     /**
      * Registers \p value as a new KeyFramedValue for \p comp with the given name.
      */
     void registerKeyFramedValue(
-        Ra::Engine::Component* comp,
+        Ra::Engine::Scene::Component* comp,
         const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController );
 
     /**
      * Unregisters the KeyFramedValue for \p comp with the given name.
      */
-    void unregisterKeyFramedValue( Ra::Engine::Component* comp, const std::string& name );
+    void unregisterKeyFramedValue( Ra::Engine::Scene::Component* comp, const std::string& name );
 
     /**
      * Registers \p value as a new KeyFramedValue for \p roIdx with the given name.
@@ -256,11 +256,12 @@ class RA_GUI_API Timeline : public QDialog
     Ui::Timeline* ui;
 
     /// The per-Entity keyframes.
-    std::map<Ra::Engine::Entity*, std::vector<Ra::Core::Animation::KeyFramedValueController>>
+    std::map<Ra::Engine::Scene::Entity*, std::vector<Ra::Core::Animation::KeyFramedValueController>>
         m_entityKeyFrames;
 
     /// The per-Component keyframes.
-    std::map<Ra::Engine::Component*, std::vector<Ra::Core::Animation::KeyFramedValueController>>
+    std::map<Ra::Engine::Scene::Component*,
+             std::vector<Ra::Core::Animation::KeyFramedValueController>>
         m_componentKeyFrames;
 
     /// The per-RenderObject keyframes.

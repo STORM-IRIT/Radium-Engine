@@ -15,12 +15,12 @@
 
 namespace Ra {
 namespace Engine {
+namespace Data {
 class Camera;
 class Light;
+} // namespace Data
 } // namespace Engine
-} // namespace Ra
 
-namespace Ra {
 namespace Gui {
 
 /// The CameraManipulator class is the generic class for camera manipulators.
@@ -76,17 +76,17 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
     /// Pointer access to the camera.
-    const Engine::Camera* getCamera() const { return m_camera; }
+    const Engine::Data::Camera* getCamera() const { return m_camera; }
 
     /// Pointer access to the camera.
-    Engine::Camera* getCamera() { return m_camera; }
+    Engine::Data::Camera* getCamera() { return m_camera; }
 
     /// Set the Camera to be manipulated.
     /// \note CameraManipulator doesn't have ownership.
-    virtual void setCamera( Engine::Camera* camera ) = 0;
+    virtual void setCamera( Engine::Data::Camera* camera ) = 0;
 
     /**
-     * Set the Engine::Camera used to the default one.
+     * Set the Engine::Data::Camera used to the default one.
      * This method allow to have a quick fix of issue #378 before switching to Radium v2
      * development. \todo have a cleaner camera management and control in the Gui Radium
      * library. Gui Camera interface Must define a clean interface between the application and
@@ -96,17 +96,17 @@ class RA_GUI_API CameraManipulator : public QObject
 
     /// Set the Light attached to the camera.
     /// \note CameraManipulator doesn't have ownership.
-    void attachLight( Engine::Light* light );
+    void attachLight( Engine::Data::Light* light );
 
     /// @return true if a Light is attached to the camera, false otherwise.
     bool hasLightAttached() const { return m_light != nullptr; }
 
     /// pointer acces to the attached light if it exists, returns nullptr otherwise.
-    Engine::Light* getLight() { return m_light; }
+    Engine::Data::Light* getLight() { return m_light; }
 
     /// Static method to get the Camera from the given viewer.
     // FIXME: shouldn't be here!
-    static const Engine::Camera& getCameraFromViewer( QObject* v );
+    static const Engine::Data::Camera& getCameraFromViewer( QObject* v );
 
   public slots:
     /// \name Camera properties setters
@@ -164,8 +164,8 @@ class RA_GUI_API CameraManipulator : public QObject
     /// used as a "focus" point by a manipulator.
     Core::Vector3 m_target;
 
-    Engine::Camera* m_camera; ///< The Camera.
-    Engine::Light* m_light;   ///< The light attached to the Camera.
+    Engine::Data::Camera* m_camera; ///< The Camera.
+    Engine::Data::Light* m_light;   ///< The light attached to the Camera.
 };
 
 } // namespace Gui

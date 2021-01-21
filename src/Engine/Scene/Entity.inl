@@ -3,6 +3,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 inline const std::string& Entity::getName() const {
     return m_name;
@@ -36,6 +37,7 @@ inline const Core::Matrix4& Entity::getTransformAsMatrix() const {
 inline uint Entity::getNumComponents() const {
     return uint( m_components.size() );
 }
-} // namespace Engine
 
+} // namespace Scene
+} // namespace Engine
 } // namespace Ra

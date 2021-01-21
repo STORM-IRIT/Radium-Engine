@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 
 /** Factory that manage the set of named shader configurations
  * Usefull for the management of shader libraries where a shader configuration (source code,
@@ -36,5 +37,6 @@ RA_ENGINE_API Core::Utils::optional<ShaderConfiguration>
 getConfiguration( const std::string& name );
 } // namespace ShaderConfigurationFactory
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

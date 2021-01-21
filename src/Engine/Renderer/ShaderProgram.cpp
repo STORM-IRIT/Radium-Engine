@@ -22,6 +22,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 
 using namespace Core::Utils; // log
 
@@ -344,13 +345,13 @@ template <>
 void ShaderProgram::setUniform( const char* name, const Core::Matrix4d& value ) const {
     m_program->setUniform( name, value.cast<float>().eval() );
 }
-void ShaderProgram::setUniform( const char* name, Texture* tex, int texUnit ) const {
+void ShaderProgram::setUniform( const char* name, Data::Texture* tex, int texUnit ) const {
     tex->bind( texUnit );
 
     m_program->setUniform( name, texUnit );
 }
 
-void ShaderProgram::setUniformTexture( const char* name, Texture* tex ) const {
+void ShaderProgram::setUniformTexture( const char* name, Data::Texture* tex ) const {
     auto itr = textureUnits.find( std::string( name ) );
     if ( itr != textureUnits.end() )
     {
@@ -440,5 +441,6 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name,
     return result;
 }
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

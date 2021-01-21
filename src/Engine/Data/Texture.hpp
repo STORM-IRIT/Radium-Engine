@@ -15,7 +15,7 @@ class Texture;
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 /**
  * Describes the content and parameters of a texture.
  * This structures encapsulates all the states used for creating an OpenGL texture.
@@ -279,5 +279,6 @@ class RA_ENGINE_API Texture final
     void generateCube( bool linearize = false );
 #endif
 };
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
