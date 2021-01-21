@@ -68,9 +68,8 @@ set( gui_inlines
 set( gui_uis
     Timeline/HelpDialog.ui
     Timeline/Timeline.ui
-    )
+)
 
 set( gui_resources
     Timeline/timeline.qrc
-    )
-
+)
