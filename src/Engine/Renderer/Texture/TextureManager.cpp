@@ -159,6 +159,5 @@ void TextureManager::updatePendingTextures() {
     m_pendingData.clear();
 }
 
-RA_SINGLETON_IMPLEMENTATION( TextureManager );
 } // namespace Engine
 } // namespace Ra

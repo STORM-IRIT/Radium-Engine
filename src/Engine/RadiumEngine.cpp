@@ -22,13 +22,13 @@
 #include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/Material/LambertianMaterial.hpp>
-#include <Engine/Renderer/Material/MaterialConverters.hpp>
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
 #include <Engine/Renderer/Material/VolumetricMaterial.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
+#include <Engine/Renderer/Texture/TextureManager.hpp>
 #include <Engine/System/System.hpp>
 
 namespace Ra {
@@ -43,10 +43,17 @@ RadiumEngine::~RadiumEngine() = default;
 
 void RadiumEngine::initialize() {
     LOG( logINFO ) << "*** Radium Engine ***";
-    m_resourcesRootDir    = {Core::Resources::getRadiumResourcesDir()};
+    auto resourceDir {Core::Resources::getRadiumResourcesPath()};
+    if ( !resourceDir )
+    {
+        LOG( logERROR ) << "Default resources dir not found.";
+        exit( -1 );
+    }
+    m_resourcesRootDir    = *resourceDir;
     m_signalManager       = std::make_unique<SignalManager>();
     m_entityManager       = std::make_unique<EntityManager>();
     m_renderObjectManager = std::make_unique<RenderObjectManager>();
+    m_textureManager      = std::make_unique<TextureManager>();
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
     m_loadingState = false;
@@ -62,6 +69,7 @@ void RadiumEngine::registerDefaultPrograms() {
     // SURE that the name (first parameter) begin with a "/", otherwise it won't work !
     // Radium V2 : are these initialization required here ? They will be better in
     // Engine::Initialize .... Define a better ressources management and initialization
+    // Add named string require opengl context, must be init before (e.g. by viewer)
     /* Default definiton of a transformation matrices struct */
     shaderProgramManager->addNamedString(
         "/TransformStructs.glsl", m_resourcesRootDir + "Shaders/Transform/TransformStructs.glsl" );
@@ -79,6 +87,20 @@ void RadiumEngine::registerDefaultPrograms() {
     lConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
     lConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( lConfig );
+
+    ShaderConfiguration lgConfig( "LinesGeom" );
+    lgConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lgConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
+    lgConfig.addShader( ShaderType_GEOMETRY, m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
+    ShaderConfigurationFactory::addConfiguration( lgConfig );
+
+    ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
+    lagConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lagConfig.addShader( ShaderType_FRAGMENT,
+                         m_resourcesRootDir + "Shaders/Lines/LinesAdjacency.frag.glsl" );
+    lagConfig.addShader( ShaderType_GEOMETRY,
+                         m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
+    ShaderConfigurationFactory::addConfiguration( lagConfig );
 
     // Plain is flat or diffuse
     PlainMaterial::registerMaterial();
@@ -251,6 +273,10 @@ EntityManager* RadiumEngine::getEntityManager() const {
 
 SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
+}
+
+TextureManager* RadiumEngine::getTextureManager() const {
+    return m_textureManager.get();
 }
 
 void RadiumEngine::registerFileLoader( std::shared_ptr<FileLoaderInterface> fileLoader ) {

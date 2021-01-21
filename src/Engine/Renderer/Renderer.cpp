@@ -54,7 +54,7 @@ Renderer::~Renderer() {
 
 void Renderer::initialize( uint width, uint height ) {
     /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
     m_width  = width;
     m_height = height;
@@ -62,7 +62,6 @@ void Renderer::initialize( uint width, uint height ) {
     // Initialize managers
     m_shaderMgr = ShaderProgramManager::getInstance();
     m_roMgr     = RadiumEngine::getInstance()->getRenderObjectManager();
-    TextureManager::createInstance();
 
     m_shaderMgr->addShaderProgram( {{"DrawScreen"},
                                     resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",

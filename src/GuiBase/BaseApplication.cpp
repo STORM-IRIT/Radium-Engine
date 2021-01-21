@@ -81,8 +81,9 @@ BaseApplication::BaseApplication( int& argc,
 
     m_targetFPS = 60; // Default
     // TODO at startup, only load "standard plugins". This must be extended.
-    std::string pluginsPath = std::string {Core::Resources::getRadiumPluginsDir()};
-
+    auto pluginsPathOptional {Core::Resources::getRadiumPluginsPath()};
+    auto pluginsPath = pluginsPathOptional.value_or( "[[Default plugin path not found]]" );
+    ///\todo check optional
     QCommandLineParser parser;
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
     parser.addHelpOption();
@@ -215,7 +216,6 @@ BaseApplication::BaseApplication( int& argc,
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
-    addBasicShaders();
 
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem(
@@ -369,27 +369,6 @@ bool BaseApplication::loadFile( QString path ) {
 
 void BaseApplication::framesCountForStatsChanged( uint count ) {
     m_frameCountBeforeUpdate = count;
-}
-
-void BaseApplication::addBasicShaders() {
-    using namespace Ra::Engine;
-    /// For internal resources management in a filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
-
-    /// @todo Are these shaders used somewhere ?
-    /// Why loading them in the applicaiton and not in the engine or in the Plugin ?
-    ShaderConfiguration lgConfig( "LinesGeom" );
-    lgConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lgConfig.addShader( ShaderType_FRAGMENT, resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
-    lgConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
-    ShaderConfigurationFactory::addConfiguration( lgConfig );
-
-    ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
-    lagConfig.addShader( ShaderType_VERTEX, resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lagConfig.addShader( ShaderType_FRAGMENT,
-                         resourcesRootDir + "Shaders/Lines/LinesAdjacency.frag.glsl" );
-    lagConfig.addShader( ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
-    ShaderConfigurationFactory::addConfiguration( lagConfig );
 }
 
 void BaseApplication::radiumFrame() {

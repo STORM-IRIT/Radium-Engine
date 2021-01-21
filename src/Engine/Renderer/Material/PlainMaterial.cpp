@@ -1,12 +1,11 @@
 #include <Engine/Renderer/Material/PlainMaterial.hpp>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
-
-#include <Core/Resources/Resources.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -20,7 +19,7 @@ PlainMaterial::~PlainMaterial() = default;
 
 void PlainMaterial::registerMaterial() {
     // Get the Radium Resource location on the filesystem
-    std::string resourcesRootDir = {Core::Resources::getRadiumResourcesDir()};
+    auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
     ShaderProgramManager::getInstance()->addNamedString(
         "/Plain.glsl", resourcesRootDir + "Shaders/Materials/Plain/Plain.glsl" );
