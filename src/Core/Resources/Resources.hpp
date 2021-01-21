@@ -20,12 +20,12 @@ namespace Core {
  */
 namespace Resources {
 using namespace Ra::Core::Utils;
-/// Radium resources are locate in Resources directory, searched from Radium lib location.
+/// Radium resources are located in the Resources directory, searched from Radium lib location.
 /// @return the path to access Radium Resources if found, otherwise !has_value
-/// @note the pattern searched is "Resrouces/Shaders" since it's the basic resources dir.
+/// @note the pattern searched is "Resources/Shaders" since it's the basic resources dir.
 RA_CORE_API optional<std::string> getRadiumResourcesPath();
 
-/// Radium plugins are locate in Plugins directory, searched from Radium lib location.
+/// Radium plugins are located in the Plugins directory, searched from Radium lib location.
 /// @return the path to access Radium Plugins. empty string if not found
 /// @note the pattern searched is "Plugins/lib" since it's the basic resources dir.
 RA_CORE_API optional<std::string> getRadiumPluginsPath();
@@ -33,7 +33,7 @@ RA_CORE_API optional<std::string> getRadiumPluginsPath();
 /// @return the path prefix to access the current executable (always found)
 RA_CORE_API optional<std::string> getBasePath();
 
-/// Search for an accesible Resources (or pattern if given) directory in the current executable (or
+/// Search for an accessible Resources (or pattern if given) directory in the current executable (or
 /// symbol if != nullptr) path or its parents.
 /// @return the pattern path of the dynamic library or exec that contains the given symbol if found,
 /// otherwise !has_value
