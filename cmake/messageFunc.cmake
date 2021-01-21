@@ -1,4 +1,38 @@
+# these functions are to print nice messages in some boxes ...
 
+# you can control the output width with the DISPLAY_WIDTH var
+# which as a default value set to set(DISPLAY_WIDTH 80)
+
+# For instance
+
+# messageTitle(" Example ")
+# messageInfo(" Some information")
+# messageSetting("DISPLAY_WIDTH")
+# messageEnd()
+
+# Outputs
+
+# ┌────────────────────────────────┤│ Example │├──────────────────────────────────┐
+# │  Some information                                                             │
+# │ DISPLAY_WIDTH                  80                                             │
+# └───────────────────────────────────────────────────────────────────────────────┘
+
+# Or outputs
+
+# ┌──┤│ Example │├────┐
+# │  Some information │
+# │ DISPLAY_WIDTH    ⏎│
+# │                20 │
+# └───────────────────┘
+
+# Depending of the DISPLAY_WIDTH value
+
+#set default value
+if(NOT DEFINED DISPLAY_WIDTH)
+    set(DISPLAY_WIDTH 80)
+endif()
+
+# messageFormat used internally
 function(messageFormat TEXT PRE PRE_LEN POST POST_LEN FILL)
     set(TEXT_LEN 0)
     if(TEXT)

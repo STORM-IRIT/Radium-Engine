@@ -1,5 +1,7 @@
+
+# setup coverage 
 macro(setup_coverage)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+    if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
         message( STATUS "[Tests] Enable Coverage ¡Warning! slow down execution ¡Warning!")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
@@ -20,7 +22,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
 		    # version appended as gcov-x. To find this binary we'll build the
 		    # suggested binary name with the compiler version.
 		    string(REGEX MATCH "^[0-9]+" GCC_VERSION
-			"${CMAKE_${LANG}_COMPILER_VERSION}")
+	 "${CMAKE_${LANG}_COMPILER_VERSION}")
 
 		    find_program(GCOV_BIN NAMES gcov-${GCC_VERSION} gcov
 			HINTS ${COMPILER_PATH})
@@ -88,25 +90,53 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     endif()
 endmacro()
 
-macro(setup_coverage_targets)
-    add_custom_target(lcov-init
-        COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --initial --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/init.info
-        COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove ${CMAKE_BINARY_DIR}/init.info ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/init.info
-        BYPRODUCTS ${CMAKE_BINARY_DIR}/init.info)
-    add_custom_target(lcov-zerocounter
-        COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --zerocounter --directory ${CMAKE_BINARY_DIR})
-    add_custom_target(lcov-capture
-        COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --capture --directory . --output-file  ${CMAKE_BINARY_DIR}/coverage.info
-        COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove coverage.info  ${LCOV_REMOVES} --output-file  ${CMAKE_BINARY_DIR}/coverage.info
-        COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} -a ${CMAKE_BINARY_DIR}/init.info -a ${CMAKE_BINARY_DIR}/coverage.info -o ${CMAKE_BINARY_DIR}/total.info
-        BYPRODUCTS ${CMAKE_BINARY_DIR}/total.info)
-    add_custom_target(lcov-list
-        COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --list ${CMAKE_BINARY_DIR}/total.info
-        SOURCES  ${CMAKE_BINARY_DIR}/total.info)
-    add_custom_target(lcov
-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all --parallel
-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-init --parallel
-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-zerocounter --parallel
-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target check --parallel
-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-capture --parallel)
+
+# might be needed, was needed ...
+# https://stackoverflow.com/questions/37434946/how-do-i-iterate-over-all-cmake-targets-programmatically
+function(get_all_targets var)
+    set(targets)
+    get_all_targets_recursive(targets ${CMAKE_CURRENT_SOURCE_DIR})
+    set(${var} ${targets} PARENT_SCOPE)
+endfunction()
+
+macro(get_all_targets_recursive targets dir)
+    get_property(subdirectories DIRECTORY ${dir} PROPERTY SUBDIRECTORIES)
+    foreach(subdir ${subdirectories})
+        get_all_targets_recursive(${targets} ${subdir})
+    endforeach()
+
+    get_property(current_targets DIRECTORY ${dir} PROPERTY BUILDSYSTEM_TARGETS)
+
+    foreach(target ${current_targets})
+        get_target_property(type ${target} TYPE)
+        if(${type} STREQUAL "EXECUTABLE" OR ${type} STREQUAL "SHARED_LIBRARY")
+            list(APPEND ${targets} ${target})
+        endif()
+    endforeach()
+endmacro()
+
+
+macro(setup_coverage_targets ENABLE_COVERAGE LCOV_REMOVES)
+    if(ENABLE_COVERAGE)
+        add_custom_target(lcov-init
+            COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --initial --capture --directory ${CMAKE_BINARY_DIR} --output-file ${CMAKE_BINARY_DIR}/init.info
+            COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove ${CMAKE_BINARY_DIR}/init.info ${LCOV_REMOVES} --output-file ${CMAKE_BINARY_DIR}/init.info
+            BYPRODUCTS ${CMAKE_BINARY_DIR}/init.info)
+        add_custom_target(lcov-zerocounter
+            COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --zerocounter --directory ${CMAKE_BINARY_DIR})
+        add_custom_target(lcov-capture
+            COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --capture --directory . --output-file  ${CMAKE_BINARY_DIR}/coverage.info
+            COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --remove coverage.info  ${LCOV_REMOVES} --output-file  ${CMAKE_BINARY_DIR}/coverage.info
+            COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} -a ${CMAKE_BINARY_DIR}/init.info -a ${CMAKE_BINARY_DIR}/coverage.info -o ${CMAKE_BINARY_DIR}/total.info
+            BYPRODUCTS ${CMAKE_BINARY_DIR}/total.info)
+        add_custom_target(lcov-list
+            COMMAND ${LCOV_BIN} --gcov-tool ${GCOV_BIN_FOR_LCOV} --list ${CMAKE_BINARY_DIR}/total.info
+            SOURCES  ${CMAKE_BINARY_DIR}/total.info)
+        add_custom_target(lcov
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target all --parallel
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-init --parallel
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-zerocounter --parallel
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target check --parallel
+            COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target lcov-capture --parallel)
+    endif()
 endmacro()

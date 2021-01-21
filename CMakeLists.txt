@@ -133,8 +133,10 @@ messageInfo("Git Changeset: ${GIT_CHANGESET}")
 
 messageEnd()
 set(ENABLE_COVERAGE "")
+mark_as_advanced(ENABLE_COVERAGE)
 if(RADIUM_ENABLE_COVERAGE)
     include(coverageFunc)
+    #sets ENABLE_COVERAGE to ON if ok
     setup_coverage()
 endif(RADIUM_ENABLE_COVERAGE)
 
@@ -146,7 +148,6 @@ include(radium_setup_functions)
 
 # Documentation build
 add_subdirectory(doc)
-
 
 # This var gather local dependencies in subdirectories
 set(LocalDependencies)
@@ -166,6 +167,7 @@ set(RadiumForceInstallCommutators "")
 if (MSVC)
         set(RadiumForceInstallCommutators "/p:Configuration=${CMAKE_BUILD_TYPE}")
 endif(MSVC)
+
 add_custom_target(ForceRadiumInstallation
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target install -- ${RadiumForceInstallCommutators}
     COMMENT "Forcing Radium installation")
@@ -178,37 +180,13 @@ if (RADIUM_ENABLE_TESTING)
     add_dependencies(RadiumLibs CoreExampleApp RadiumExampleApps)
 endif ()
 
-# Packaging stuff (deb, rpm, windows installer)
-#add_subdirectory(packaging)
-
-# https://stackoverflow.com/questions/37434946/how-do-i-iterate-over-all-cmake-targets-programmatically
-function(get_all_targets var)
-    set(targets)
-    get_all_targets_recursive(targets ${CMAKE_CURRENT_SOURCE_DIR})
-    set(${var} ${targets} PARENT_SCOPE)
-endfunction()
-
-macro(get_all_targets_recursive targets dir)
-    get_property(subdirectories DIRECTORY ${dir} PROPERTY SUBDIRECTORIES)
-    foreach(subdir ${subdirectories})
-        get_all_targets_recursive(${targets} ${subdir})
-    endforeach()
-
-    get_property(current_targets DIRECTORY ${dir} PROPERTY BUILDSYSTEM_TARGETS)
-
-    foreach(target ${current_targets})
-        get_target_property(type ${target} TYPE)
-        if(${type} STREQUAL "EXECUTABLE" OR ${type} STREQUAL "SHARED_LIBRARY")
-            list(APPEND ${targets} ${target})
-        endif()
-    endforeach()
-endmacro()
-
-
 if(ENABLE_COVERAGE)
     set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
-    setup_coverage_targets()
+    setup_coverage_targets(ENABLE_COVERAGE LCOV_REMOVES)
 endif()
+
+# Packaging stuff (deb, rpm, windows installer)
+#add_subdirectory(packaging)
 
 install(FILES LICENSE DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
 install(FILES README.md DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT meta)
@@ -245,5 +223,4 @@ messageSetting("USE_GOLD_LINKER")
 messageEnd()
 
 set( CACHED_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE INTERNAL "Previous value of CMAKE_INSTALL_PREFIX")
-
 
