@@ -5,7 +5,6 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-//#include <Engine/Renderer/Texture/Texture.hpp>
 #include <Engine/Renderer/Texture/TextureManager.hpp>
 
 namespace Ra {
