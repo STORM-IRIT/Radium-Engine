@@ -10,6 +10,8 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
+
 /** This class is used to inform the external world of events happening in the engine.
  * You can register a callback function which will be called any time the event happens.
  * Signals are fired when an object of the engine (entity, component or render object)
@@ -60,5 +62,6 @@ class SignalManager
     std::vector<Callback> m_roRemovedCallbacks;
     std::vector<EoFCallback> m_frameEndCallbacks;
 };
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

@@ -8,6 +8,7 @@
 #include <Engine/OpenGL.hpp>
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 /**
  * Manage Texture loading and registration.
@@ -18,7 +19,7 @@ class RA_ENGINE_API TextureManager final
 {
 
   private:
-    using TexturePair = std::pair<std::string, Texture*>;
+    using TexturePair = std::pair<std::string, Data::Texture*>;
 
   public:
     /** Add a texture giving its name, dimension and content.
@@ -32,7 +33,8 @@ class RA_ENGINE_API TextureManager final
      * @return a texture descriptor that could be further specialized (filtering parameters ..)
      * before the texture is inserted into Radium OpenGL system by getOrLoadTexture
      */
-    TextureParameters& addTexture( const std::string& name, uint width, uint height, void* data );
+    Data::TextureParameters&
+    addTexture( const std::string& name, uint width, uint height, void* data );
 
     /**
      * Get or load a named texture.
@@ -53,13 +55,15 @@ class RA_ENGINE_API TextureManager final
      * sRGB to LinearRGB
      * @return The texture as inserted into the Radium available openGL system
      */
-    Texture* getOrLoadTexture( const TextureParameters& texParameters, bool linearize = false );
+    Data::Texture* getOrLoadTexture( const Data::TextureParameters& texParameters,
+                                     bool linearize = false );
 
     /**
      * Helper function, load the texture without adding it to the manager.
      * @see getOrLoadTexture() for parameters description.
      */
-    Texture* loadTexture( const TextureParameters& texParameters, bool linearize = false );
+    Data::Texture* loadTexture( const Data::TextureParameters& texParameters,
+                                bool linearize = false );
 
     /**
      * Delete a named texture from the manager
@@ -70,7 +74,7 @@ class RA_ENGINE_API TextureManager final
      * Delete a texture from the manager
      * @param texture
      */
-    void deleteTexture( Texture* texture );
+    void deleteTexture( Data::Texture* texture );
 
     /**
      * Lazy update the texture content from the raw pointer content.
@@ -95,19 +99,20 @@ class RA_ENGINE_API TextureManager final
      * @param texParameters parameters describing the texture to laod. This paremeters will be
      * updated (width, height, ...) according to the loaded file properties.
      */
-    void loadTextureImage( TextureParameters& texParameters );
+    void loadTextureImage( Data::TextureParameters& texParameters );
 
   public:
     TextureManager();
     ~TextureManager();
 
   private:
-    std::map<std::string, Texture*> m_textures;
-    std::map<std::string, TextureParameters> m_pendingTextures;
+    std::map<std::string, Data::Texture*> m_textures;
+    std::map<std::string, Data::TextureParameters> m_pendingTextures;
     std::map<std::string, void*> m_pendingData;
 
     bool m_verbose;
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

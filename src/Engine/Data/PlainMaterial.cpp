@@ -9,7 +9,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 static const std::string materialName {"Plain"};
 
 PlainMaterial::PlainMaterial( const std::string& instanceName ) :
@@ -25,35 +25,36 @@ void PlainMaterial::registerMaterial() {
     shaderProgramManager->addNamedString( "/Plain.glsl",
                                           resourcesRootDir + "Shaders/Materials/Plain/Plain.glsl" );
     // registering re-usable shaders
-    Ra::Engine::ShaderConfiguration lpconfig(
+    Renderer::ShaderConfiguration lpconfig(
         "Plain",
         resourcesRootDir + "Shaders/Materials/Plain/Plain.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Plain/Plain.frag.glsl" );
 
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Renderer::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
-    Ra::Engine::ShaderConfiguration zprepassconfig(
+    Renderer::ShaderConfiguration zprepassconfig(
         "ZprepassPlain",
         resourcesRootDir + "Shaders/Materials/Plain/Plain.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Plain/PlainZPrepass.frag.glsl" );
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+    Renderer::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
     // Registering technique
-    Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
-        materialName, []( Ra::Engine::RenderTechnique& rt, bool ) {
+    Renderer::EngineRenderTechniques::registerDefaultTechnique(
+        materialName, []( Renderer::RenderTechnique& rt, bool ) {
             // Lighting pass
-            auto lightpass = Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
-            rt.setConfiguration( *lightpass, DefaultRenderingPasses::LIGHTING_OPAQUE );
+            auto lightpass = Renderer::ShaderConfigurationFactory::getConfiguration( "Plain" );
+            rt.setConfiguration( *lightpass, Renderer::DefaultRenderingPasses::LIGHTING_OPAQUE );
             // Z prepass
             auto zprepass =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
-            rt.setConfiguration( *zprepass, DefaultRenderingPasses::Z_PREPASS );
+                Renderer::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
+            rt.setConfiguration( *zprepass, Renderer::DefaultRenderingPasses::Z_PREPASS );
         } );
 }
 
 void PlainMaterial::unregisterMaterial() {
-    EngineRenderTechniques::removeDefaultTechnique( "Plain" );
+    Renderer::EngineRenderTechniques::removeDefaultTechnique( "Plain" );
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

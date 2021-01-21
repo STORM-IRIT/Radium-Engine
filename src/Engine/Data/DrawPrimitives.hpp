@@ -11,8 +11,16 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 class RenderObject;
+
+}
+
+namespace Scene {
 class Component;
+}
+
+namespace Data {
 class Mesh;
 class AttribArrayDisplayable;
 class LineMesh;
@@ -27,9 +35,10 @@ using AttribArrayDisplayablePtr = std::shared_ptr<AttribArrayDisplayable>;
 
 ///@{
 /// Renturn a render object to display the given geometry
-RA_ENGINE_API RenderObject* Primitive( Component* comp, const MeshPtr& mesh );
-RA_ENGINE_API RenderObject* Primitive( Component* comp, const LineMeshPtr& mesh );
-RA_ENGINE_API RenderObject* Primitive( Component* comp, const AttribArrayDisplayablePtr& mesh );
+RA_ENGINE_API Renderer::RenderObject* Primitive( Scene::Component* comp, const MeshPtr& mesh );
+RA_ENGINE_API Renderer::RenderObject* Primitive( Scene::Component* comp, const LineMeshPtr& mesh );
+RA_ENGINE_API Renderer::RenderObject* Primitive( Scene::Component* comp,
+                                                 const AttribArrayDisplayablePtr& mesh );
 ///@}
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'
@@ -145,5 +154,6 @@ RA_ENGINE_API MeshPtr LineStrip( const Core::Vector3Array& vertices,
                                  const Core::Vector4Array& colors );
 
 } // namespace DrawPrimitives
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

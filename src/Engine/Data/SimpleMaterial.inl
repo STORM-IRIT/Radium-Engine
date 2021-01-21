@@ -2,7 +2,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 // Add a texture as material parameter from an already existing Radium Texture
 inline void SimpleMaterial::addTexture( const TextureSemantic& semantic, Texture* texture ) {
     m_textures[semantic] = texture;
@@ -28,5 +28,7 @@ inline Texture* SimpleMaterial::getTexture( const TextureSemantic& semantic ) co
 
     return tex;
 }
+
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

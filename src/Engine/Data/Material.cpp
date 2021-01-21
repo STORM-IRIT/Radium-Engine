@@ -2,7 +2,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 Material::Material( const std::string& instanceName,
                     const std::string& materialName,
                     MaterialAspect aspect ) :
@@ -18,5 +18,6 @@ bool Material::isTransparent() const {
 std::list<std::string> Material::getPropertyList() const {
     return ShaderParameterProvider::getPropertyList();
 }
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

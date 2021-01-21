@@ -20,6 +20,8 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
+
 #ifndef RA_DISABLE_DEBUG_DISPLAY
 
 /// Component for debug drawing. @see SystemEntity.
@@ -31,7 +33,7 @@ class RA_ENGINE_API DebugComponent : public Component
     void initialize() override {};
 
     /// Access render object through RO manager
-    RenderObject* getRenderObject( Core::Utils::Index idx );
+    Renderer::RenderObject* getRenderObject( Core::Utils::Index idx );
 };
 
 #endif
@@ -65,6 +67,7 @@ class RA_ENGINE_API SystemEntity : public Entity
     static UiComponent* uiCmp();
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 

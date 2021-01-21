@@ -10,10 +10,11 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 
 using namespace Core::Utils; // log
 
-std::shared_ptr<Ra::Engine::RenderTechnique> RadiumDefaultRenderTechnique {nullptr};
+std::shared_ptr<Ra::Engine::Renderer::RenderTechnique> RadiumDefaultRenderTechnique {nullptr};
 
 RenderTechnique::RenderTechnique() : m_numActivePass {0} {
     for ( auto p = Index( 0 ); p < s_maxNbPasses; ++p )
@@ -124,11 +125,11 @@ void RenderTechnique::updateGL() {
 }
 
 ///////////////////////////////////////////////
-Ra::Engine::RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
+RenderTechnique RenderTechnique::createDefaultRenderTechnique() {
     if ( RadiumDefaultRenderTechnique != nullptr )
     { return *( RadiumDefaultRenderTechnique.get() ); }
-    std::shared_ptr<Material> mat( new BlinnPhongMaterial( "DefaultGray" ) );
-    auto rt      = new Ra::Engine::RenderTechnique;
+    std::shared_ptr<Data::Material> mat( new Data::BlinnPhongMaterial( "DefaultGray" ) );
+    auto rt      = new RenderTechnique;
     auto builder = EngineRenderTechniques::getDefaultTechnique( "BlinnPhong" );
     if ( !builder.first )
     {
@@ -185,5 +186,6 @@ bool cleanup() {
 
 } // namespace EngineRenderTechniques
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

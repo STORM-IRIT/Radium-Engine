@@ -7,8 +7,10 @@
 
 namespace Ra {
 namespace Engine {
+namespace Data {
 class Material;
 }
+} // namespace Engine
 namespace Core {
 namespace Asset {
 class MaterialData;
@@ -20,7 +22,7 @@ class MaterialData;
 ///////////////////////////////////////////////
 
 namespace Engine {
-
+namespace Data {
 ///////////////////////////////////////////////
 ////        Radium Material converters      ///
 ///////////////////////////////////////////////
@@ -44,7 +46,7 @@ using AssetMaterialPtr = const Ra::Core::Asset::MaterialData*;
 /**
  * Type of a pointer to an Engine representation of the material
  */
-using RadiumMaterialPtr = Ra::Engine::Material*;
+using RadiumMaterialPtr = Ra::Engine::Data::Material*;
 
 /**
  * Type of the conversion functor from IO/ASSET representation to Engine representation
@@ -72,5 +74,6 @@ RA_ENGINE_API std::pair<bool, ConverterFunction> getMaterialConverter( const std
 
 RA_ENGINE_API bool cleanup();
 } // namespace EngineMaterialConverters
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

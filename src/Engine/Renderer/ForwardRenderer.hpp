@@ -8,12 +8,11 @@ class Framebuffer;
 
 namespace Ra {
 namespace Engine {
+namespace Data {
 class Texture;
 }
-} // namespace Ra
+namespace Renderer {
 
-namespace Ra {
-namespace Engine {
 /** Default renderer for the Radium Engine
  * This classe implements aforward rendering algorithm with Z-prepass, multipass light accumulation
  * for opaque and transperent objects. Once renderer, the final is composited with Ui, debug and
@@ -34,12 +33,12 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     void initializeInternal() override;
     void resizeInternal() override;
 
-    void updateStepInternal( const ViewingParameters& renderData ) override;
+    void updateStepInternal( const Data::ViewingParameters& renderData ) override;
 
-    void postProcessInternal( const ViewingParameters& renderData ) override;
-    void renderInternal( const ViewingParameters& renderData ) override;
-    void debugInternal( const ViewingParameters& renderData ) override;
-    void uiInternal( const ViewingParameters& renderData ) override;
+    void postProcessInternal( const Data::ViewingParameters& renderData ) override;
+    void renderInternal( const Data::ViewingParameters& renderData ) override;
+    void debugInternal( const Data::ViewingParameters& renderData ) override;
+    void uiInternal( const Data::ViewingParameters& renderData ) override;
 
   private:
     void initShaders();
@@ -75,12 +74,13 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
 
     size_t m_pingPongSize {0};
 
-    std::array<std::unique_ptr<Texture>, RendererTexture_Count> m_textures;
+    std::array<std::unique_ptr<Data::Texture>, RendererTexture_Count> m_textures;
 
     static const size_t ShadowMapSize {1024};
-    std::vector<std::shared_ptr<Texture>> m_shadowMaps;
+    std::vector<std::shared_ptr<Data::Texture>> m_shadowMaps;
     std::vector<Core::Matrix4> m_lightMatrices;
 };
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

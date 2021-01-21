@@ -10,7 +10,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 using namespace Core::Utils; // log
 
 ///////////////////////////////////////////////
@@ -48,5 +48,6 @@ bool cleanup() {
 }
 
 } // namespace EngineMaterialConverters
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

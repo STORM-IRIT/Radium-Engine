@@ -12,7 +12,7 @@
 namespace Ra {
 namespace Gui {
 
-RotateGizmo::RotateGizmo( Engine::Component* c,
+RotateGizmo::RotateGizmo( Engine::Scene::Component* c,
                           const Core::Transform& worldTo,
                           const Core::Transform& t,
                           Mode mode ) :
@@ -33,12 +33,12 @@ RotateGizmo::RotateGizmo( Engine::Component* c,
         }
         torus.verticesUnlock();
 
-        auto mesh = std::shared_ptr<Engine::Mesh>( new Engine::Mesh( "Gizmo Torus" ) );
+        auto mesh = std::shared_ptr<Engine::Data::Mesh>( new Engine::Data::Mesh( "Gizmo Torus" ) );
         mesh->loadGeometry( std::move( torus ) );
 
-        auto torusDrawable =
-            new Engine::RenderObject( "Gizmo Torus", m_comp, Engine::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
+        auto torusDrawable = new Engine::Renderer::RenderObject(
+            "Gizmo Torus", m_comp, Engine::Renderer::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
         torusDrawable->setRenderTechnique( rt );
         torusDrawable->setMesh( mesh );
         addRenderObject( torusDrawable );
@@ -90,7 +90,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam,
+Core::Transform RotateGizmo::mouseMove( const Engine::Data::Camera& cam,
                                         const Core::Vector2& nextXY,
                                         bool stepped,
                                         bool /*whole*/ ) {
@@ -179,7 +179,8 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Camera& cam,
     return m_transform;
 }
 
-void RotateGizmo::setInitialState( const Engine::Camera& /*cam*/, const Core::Vector2& initialXY ) {
+void RotateGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
+                                   const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
     m_start      = false;
     m_stepped    = false;

@@ -19,7 +19,7 @@ struct RA_GUI_API FrameTimerData {
     Core::Utils::TimePoint tasksStart;
     Core::Utils::TimePoint tasksEnd;
     Core::Utils::TimePoint frameEnd;
-    Engine::Renderer::TimerData renderData;
+    Engine::Renderer::Renderer::TimerData renderData;
     std::vector<Core::TaskQueue::TimerData> taskData;
 
     void print( std::ostream& ostream ) const;

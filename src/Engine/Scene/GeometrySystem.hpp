@@ -4,6 +4,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 class RA_ENGINE_API GeometrySystem : public System
 {
@@ -16,5 +17,6 @@ class RA_ENGINE_API GeometrySystem : public System
     void generateTasks( Ra::Core::TaskQueue* taskQueue, const FrameInfo& frameInfo ) override;
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

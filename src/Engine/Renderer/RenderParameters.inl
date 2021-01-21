@@ -1,9 +1,11 @@
 #pragma once
+#include "RenderParameters.hpp"
+
 #include <Engine/Renderer/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {
-
+namespace Renderer {
 template <typename T>
 inline void RenderParameters::UniformBindableSet<T>::bind( const ShaderProgram* shader ) const {
     for ( const auto& value : *this )
@@ -119,5 +121,6 @@ RenderParameters::getParameterSet() const {
     return m_texParamsVector;
 }
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

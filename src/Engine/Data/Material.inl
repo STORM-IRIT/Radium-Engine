@@ -2,7 +2,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 inline void Material::setMaterialName( std::string newName ) {
     m_materialName = std::move( newName );
 }
@@ -26,5 +26,6 @@ const Material::MaterialAspect& Material::getMaterialAspect() const {
 void Material::needUpdate() {
     m_isDirty = true;
 }
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

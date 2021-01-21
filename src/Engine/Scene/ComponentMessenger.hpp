@@ -14,6 +14,8 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
+
 class Entity;
 class Component;
 
@@ -168,6 +170,7 @@ class RA_ENGINE_API ComponentMessenger
         m_entityRwLists; /// Per-entity callback read-write list.
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 

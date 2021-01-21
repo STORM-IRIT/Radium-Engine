@@ -14,9 +14,9 @@
 namespace Ra {
 namespace Gui {
 
-std::array<std::shared_ptr<Ra::Engine::PlainMaterial>, 3> Gizmo::s_material;
+std::array<std::shared_ptr<Ra::Engine::Data::PlainMaterial>, 3> Gizmo::s_material;
 
-Gizmo::Gizmo( Engine::Component* c,
+Gizmo::Gizmo( Engine::Scene::Component* c,
               const Core::Transform& worldTo,
               const Core::Transform& t,
               Mode mode ) :
@@ -24,13 +24,13 @@ Gizmo::Gizmo( Engine::Component* c,
     using namespace Core::Utils;
     if ( !s_material[0] )
     {
-        auto mat      = Core::make_shared<Engine::PlainMaterial>( "GizmoRedMaterial" );
+        auto mat      = Core::make_shared<Engine::Data::PlainMaterial>( "GizmoRedMaterial" );
         mat->m_color  = Color::Red();
         s_material[0] = mat;
-        mat           = Core::make_shared<Engine::PlainMaterial>( "GizmoGreenMaterial" );
+        mat           = Core::make_shared<Engine::Data::PlainMaterial>( "GizmoGreenMaterial" );
         mat->m_color  = Color::Green();
         s_material[1] = mat;
-        mat           = Core::make_shared<Engine::PlainMaterial>( "GizmoBlueMaterial" );
+        mat           = Core::make_shared<Engine::Data::PlainMaterial>( "GizmoBlueMaterial" );
         mat->m_color  = Color::Blue();
         s_material[2] = mat;
     }
@@ -50,7 +50,7 @@ void Gizmo::show( bool on ) {
     }
 }
 
-bool Gizmo::findPointOnAxis( const Engine::Camera& cam,
+bool Gizmo::findPointOnAxis( const Engine::Data::Camera& cam,
                              const Core::Vector3& origin,
                              const Core::Vector3& axis,
                              const Core::Vector2& pix,
@@ -69,7 +69,7 @@ bool Gizmo::findPointOnAxis( const Engine::Camera& cam,
     return hasHit;
 }
 
-bool Gizmo::findPointOnPlane( const Engine::Camera& cam,
+bool Gizmo::findPointOnPlane( const Engine::Data::Camera& cam,
                               const Core::Vector3& origin,
                               const Core::Vector3& axis,
                               const Core::Vector2& pix,
@@ -82,17 +82,18 @@ bool Gizmo::findPointOnPlane( const Engine::Camera& cam,
     return hasHit;
 }
 
-void Gizmo::addRenderObject( Engine::RenderObject* ro ) {
+void Gizmo::addRenderObject( Engine::Renderer::RenderObject* ro ) {
     m_comp->addRenderObject( ro );
     m_ros.push_back( ro );
 }
 
-std::shared_ptr<Engine::RenderTechnique> Gizmo::makeRenderTechnique( int color ) {
-    auto rt       = Core::make_shared<Engine::RenderTechnique>();
-    auto plaincfg = Engine::ShaderConfigurationFactory::getConfiguration( "Plain" );
+std::shared_ptr<Engine::Renderer::RenderTechnique> Gizmo::makeRenderTechnique( int color ) {
+    auto rt       = Core::make_shared<Engine::Renderer::RenderTechnique>();
+    auto plaincfg = Ra::Engine::Renderer::ShaderConfigurationFactory::getConfiguration( "Plain" );
     auto provider = new Gizmo::UiSelectionControler( s_material[color] );
     rt->setConfiguration( *plaincfg );
-    rt->setParametersProvider( std::shared_ptr<Engine::ShaderParameterProvider>( provider ) );
+    rt->setParametersProvider(
+        std::shared_ptr<Engine::Renderer::ShaderParameterProvider>( provider ) );
     return rt;
 }
 
@@ -105,7 +106,7 @@ Gizmo::UiSelectionControler* Gizmo::getControler( int ro ) {
 }
 
 Gizmo::UiSelectionControler::UiSelectionControler(
-    std::shared_ptr<Ra::Engine::PlainMaterial>& material,
+    std::shared_ptr<Ra::Engine::Data::PlainMaterial>& material,
     const Core::Utils::Color& selectedColor ) :
     ShaderParameterProvider(), m_associatedMaterial( material ), m_selectedColor( selectedColor ) {}
 

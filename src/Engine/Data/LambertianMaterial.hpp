@@ -4,7 +4,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 /**
  * Implementation of the Lambertian Material BSDF.
  * This material implements a lambertian diffuse BSDF.
@@ -46,5 +46,6 @@ class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial
     static void unregisterMaterial();
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

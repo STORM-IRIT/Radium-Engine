@@ -9,6 +9,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 /**
  * Associated class.
@@ -17,16 +18,16 @@ class RA_ENGINE_API DefaultLightStorage : public LightStorage
 {
   public:
     DefaultLightStorage();
-    void add( const Light* i ) override;
-    void remove( const Light* li ) override;
+    void add( const Data::Light* i ) override;
+    void remove( const Data::Light* li ) override;
     void upload() const override;
     size_t size() const override;
     void clear() override;
-    const Light* operator[]( unsigned int n ) override;
+    const Data::Light* operator[]( unsigned int n ) override;
 
   private:
     /** Multimap (by light type) of light references. */
-    std::multimap<Ra::Engine::Light::LightType, const Ra::Engine::Light*> m_lights;
+    std::multimap<Data::Light::LightType, const Data::Light*> m_lights;
 };
 
 /**
@@ -37,9 +38,10 @@ class RA_ENGINE_API DefaultLightManager : public LightManager
   public:
     DefaultLightManager();
 
-    const Light* getLight( size_t li ) const override;
-    void addLight( const Light* li ) override;
+    const Data::Light* getLight( size_t li ) const override;
+    void addLight( const Data::Light* li ) override;
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

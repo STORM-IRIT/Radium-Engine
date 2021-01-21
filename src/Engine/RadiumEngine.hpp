@@ -20,18 +20,24 @@ class FileData;
 } // namespace Core
 
 namespace Engine {
+namespace Scene {
 class System;
 class Entity;
 class Component;
-class Displayable;
 class RenderObjectManager;
 class EntityManager;
 class SignalManager;
 class TextureManager;
-class ShaderProgramManager;
-} // namespace Engine
+} // namespace Scene
 
-namespace Engine {
+namespace Renderer{
+class ShaderProgramManager;
+}
+
+namespace Data {
+class Displayable;
+}
+
 /**
  * Engine main class : Manage all the systems and managers that are used by the engine module.
  * @see Documentation on Engine Object Model
@@ -85,14 +91,14 @@ class RA_ENGINE_API RadiumEngine
      * @param system
      * @param priority
      */
-    bool registerSystem( const std::string& name, System* system, int priority = 1 );
+    bool registerSystem( const std::string& name, Scene::System* system, int priority = 1 );
 
     /**
      * Get the named system
      * @param system
      * @return
      */
-    System* getSystem( const std::string& system ) const;
+    Scene::System* getSystem( const std::string& system ) const;
 
     /** Convenience function returning a Mesh from its entity and
      * component names.
@@ -102,7 +108,7 @@ class RA_ENGINE_API RadiumEngine
      * @deprecated Will be removed from this class in the next release. A Mesh manager, that could
      * serve mesh by name will be implemented.
      */
-    [[deprecated]] Displayable* getMesh( const std::string& entityName,
+    [[deprecated]] Data::Displayable* getMesh( const std::string& entityName,
                                          const std::string& componentName,
                                          const std::string& roName = std::string() ) const;
 
@@ -144,34 +150,34 @@ class RA_ENGINE_API RadiumEngine
      * @note, the engine keep ownership on the pointer returned
      * @return the object manager
      */
-    RenderObjectManager* getRenderObjectManager() const;
+    Scene::RenderObjectManager* getRenderObjectManager() const;
     /**
      * Get the entity manager attached to the engine.
      * @note, the engine keep ownership on the pointer returned
      * @return the entity manager
      */
-    EntityManager* getEntityManager() const;
+    Scene::EntityManager* getEntityManager() const;
 
     /**
      * Get the signal manager attached to the engine.
      * @note, the engine keep ownership on the pointer returned
      * @return the signal manager
      */
-    SignalManager* getSignalManager() const;
+    Scene::SignalManager* getSignalManager() const;
 
     /**
      * Get the texture manager attached to the engine.
      * @note, the engine keep ownership on the pointer returned
      * @return the texture manager
      */
-    TextureManager* getTextureManager() const;
+    Scene::TextureManager* getTextureManager() const;
 
     /**
      * Get the shader program manager attached to the engine.
      * @note, the engine keep ownership on the pointer returned
      * @return the shader program manager
      */
-    ShaderProgramManager* getShaderProgramManager() const;
+    Renderer::ShaderProgramManager* getShaderProgramManager() const;
 
     /**
      * Register a new file loader to the engine.
@@ -322,7 +328,7 @@ class RA_ENGINE_API RadiumEngine
     using SystemKey = std::pair<Priority, std::string>;
     // use transparent functors :
     // https://clang.llvm.org/extra/clang-tidy/checks/modernize-use-transparent-functors.html
-    using SystemContainer = std::map<SystemKey, std::shared_ptr<System>, std::greater<>>;
+    using SystemContainer = std::map<SystemKey, std::shared_ptr<Scene::System>, std::greater<>>;
 
     SystemContainer::const_iterator findSystem( const std::string& name ) const;
     SystemContainer::iterator findSystem( const std::string& name );
@@ -335,11 +341,11 @@ class RA_ENGINE_API RadiumEngine
 
     std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
 
-    std::unique_ptr<RenderObjectManager> m_renderObjectManager;
-    std::unique_ptr<EntityManager> m_entityManager;
-    std::unique_ptr<SignalManager> m_signalManager;
-    std::unique_ptr<TextureManager> m_textureManager;
-    std::unique_ptr<ShaderProgramManager> m_shaderProgramManager;
+    std::unique_ptr<Scene::RenderObjectManager> m_renderObjectManager;
+    std::unique_ptr<Scene::EntityManager> m_entityManager;
+    std::unique_ptr<Scene::SignalManager> m_signalManager;
+    std::unique_ptr<Scene::TextureManager> m_textureManager;
+    std::unique_ptr<Renderer::ShaderProgramManager> m_shaderProgramManager;
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
     bool m_loadingState {false};
@@ -382,6 +388,5 @@ class RA_ENGINE_API RadiumEngine
 
     TimeData m_timeData;
 };
-
 } // namespace Engine
 } // namespace Ra

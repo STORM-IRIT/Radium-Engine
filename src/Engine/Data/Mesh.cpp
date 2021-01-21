@@ -15,7 +15,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 using namespace Ra::Core::Utils;
 
 // Dirty is initializes as false so that we do not create the vao while
@@ -160,7 +160,7 @@ void AttribArrayDisplayable::setDirty( const AttribArrayDisplayable::MeshData& t
     m_isDirty = true;
 }
 
-void PointCloud::render( const ShaderProgram* prog ) {
+void PointCloud::render( const Renderer::ShaderProgram* prog ) {
     if ( m_vao )
     {
         autoVertexAttribPointer( prog );
@@ -179,5 +179,6 @@ void PointCloud::updateGL_specific_impl() {
     if ( !m_vao ) { m_vao = globjects::VertexArray::create(); }
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

@@ -12,13 +12,12 @@
 
 namespace Ra {
 namespace Engine {
+namespace Data {
 class Texture;
-class ShaderProgram;
-} // namespace Engine
-} // namespace Ra
+}
 
-namespace Ra {
-namespace Engine {
+namespace Renderer {
+class ShaderProgram;
 
 /**
  * Management of shader parameters with automatic binding of a named parameter to the corresponding
@@ -71,13 +70,13 @@ class RA_ENGINE_API RenderParameters final
     {
       public:
         TextureParameter() = default;
-        TextureParameter( const std::string& name, Texture* tex, int texUnit ) :
+        TextureParameter( const std::string& name, Data::Texture* tex, int texUnit ) :
             Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
         ~TextureParameter() override = default;
         void bind( const ShaderProgram* shader ) const override;
 
         /// The texture object
-        Texture* m_texture {nullptr};
+        Data::Texture* m_texture {nullptr};
         /// The texture unit where to bind the parameter
         int m_texUnit {-1};
     };
@@ -165,7 +164,7 @@ class RA_ENGINE_API RenderParameters final
      * texture unit associated with the named sampler.
      * If texUnit is given, then uniform binding will be made at this explicit location.
      */
-    void addParameter( const std::string& name, Texture* tex, int texUnit = -1 );
+    void addParameter( const std::string& name, Data::Texture* tex, int texUnit = -1 );
     /**@}*/
     /***
      * Concatenates two RenderParameters
@@ -252,6 +251,7 @@ class RA_ENGINE_API ShaderParameterProvider
     RenderParameters m_renderParameters;
 };
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra
 

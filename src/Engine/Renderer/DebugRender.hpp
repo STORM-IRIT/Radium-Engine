@@ -12,13 +12,13 @@
 
 namespace Ra {
 namespace Engine {
-class ShaderProgram;
+namespace Data {
 class AttribArrayDisplayable;
-} // namespace Engine
-} // namespace Ra
+} // namespace Data
 
-namespace Ra {
-namespace Engine {
+namespace Renderer {
+class ShaderProgram;
+
 /** This allow to draw debug objects.
  * @todo : port this to a more Radium-style code
  */
@@ -38,7 +38,7 @@ class RA_ENGINE_API DebugRender final
     void addPoint( const Core::Vector3& p, const Core::Utils::Color& color );
     void addPoints( const Core::Vector3Array& p, const Core::Utils::Color& color );
     void addPoints( const Core::Vector3Array& p, const Core::Vector4Array& colors );
-    void addMesh( const std::shared_ptr<AttribArrayDisplayable>& mesh,
+    void addMesh( const std::shared_ptr<Data::AttribArrayDisplayable>& mesh,
                   const Core::Transform& transform = Core::Transform::Identity() );
 
     // Shortcuts
@@ -79,7 +79,7 @@ class RA_ENGINE_API DebugRender final
     };
 
     struct DbgMesh {
-        std::shared_ptr<AttribArrayDisplayable> mesh;
+        std::shared_ptr<Data::AttribArrayDisplayable> mesh;
         Core::Transform transform;
     };
 
@@ -99,5 +99,7 @@ class RA_ENGINE_API DebugRender final
 
     std::vector<Point> m_points;
 };
+
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

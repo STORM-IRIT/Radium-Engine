@@ -8,6 +8,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 using namespace Core::Utils; // log
 
@@ -119,5 +120,6 @@ void EntityManager::deleteEntities() {
         removeEntity( idx );
     }
 }
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

@@ -8,6 +8,12 @@
 namespace Ra {
 namespace Engine {
 
+namespace Scene {
+class Entity;
+}
+
+namespace Data {
+
 /** Spot light for rendering.
  *
  */
@@ -17,10 +23,10 @@ class RA_ENGINE_API SpotLight final : public Light
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
+    explicit SpotLight( Scene::Entity* entity, const std::string& name = "spotlight" );
     ~SpotLight() override = default;
 
-    void getRenderParameters( RenderParameters& params ) const override;
+    void getRenderParameters( Renderer::RenderParameters& params ) const override;
 
     void setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;
@@ -52,6 +58,7 @@ class RA_ENGINE_API SpotLight final : public Light
     Attenuation m_attenuation {1, 0, 0};
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
 

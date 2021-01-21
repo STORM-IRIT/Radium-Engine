@@ -33,17 +33,17 @@ Gui::CameraManipulator::CameraManipulator( uint width, uint height ) :
     m_camera( nullptr ),
     m_light( nullptr ) {
     auto it = std::find_if(
-        Engine::SystemEntity::getInstance()->getComponents().cbegin(),
-        Engine::SystemEntity::getInstance()->getComponents().cend(),
+        Engine::Scene::SystemEntity::getInstance()->getComponents().cbegin(),
+        Engine::Scene::SystemEntity::getInstance()->getComponents().cend(),
         []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
-    if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
-    { m_camera = static_cast<Engine::Camera*>( ( *it ).get() ); }
+    if ( it != Engine::Scene::SystemEntity::getInstance()->getComponents().cend() )
+    { m_camera = static_cast<Engine::Data::Camera*>( ( *it ).get() ); }
     else
     {
-        m_camera = new Engine::Camera( Engine::SystemEntity::getInstance(),
-                                       "CAMERA_DEFAULT",
-                                       Scalar( height ),
-                                       Scalar( width ) );
+        m_camera = new Engine::Data::Camera( Engine::Scene::SystemEntity::getInstance(),
+                                             "CAMERA_DEFAULT",
+                                             Scalar( height ),
+                                             Scalar( width ) );
         m_camera->initialize();
         m_camera->show( false );
 
@@ -59,12 +59,12 @@ void Gui::CameraManipulator::resetToDefaultCamera() {
     Scalar w = m_camera->getWidth();
     Scalar h = m_camera->getHeight();
     auto it  = std::find_if(
-        Engine::SystemEntity::getInstance()->getComponents().cbegin(),
-        Engine::SystemEntity::getInstance()->getComponents().cend(),
+        Engine::Scene::SystemEntity::getInstance()->getComponents().cbegin(),
+        Engine::Scene::SystemEntity::getInstance()->getComponents().cend(),
         []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
-    if ( it != Engine::SystemEntity::getInstance()->getComponents().cend() )
+    if ( it != Engine::Scene::SystemEntity::getInstance()->getComponents().cend() )
     {
-        m_camera = static_cast<Engine::Camera*>( ( *it ).get() );
+        m_camera = static_cast<Engine::Data::Camera*>( ( *it ).get() );
         m_camera->resize( w, h );
         m_camera->show( false );
     }
@@ -119,7 +119,7 @@ void Gui::CameraManipulator::unmapCameraBehaviourToAabb() {
     m_mapCameraBahaviourToAabb = false;
 }
 
-void Gui::CameraManipulator::attachLight( Engine::Light* light ) {
+void Gui::CameraManipulator::attachLight( Engine::Data::Light* light ) {
     m_light = light;
     m_light->setDirection( m_camera->getDirection() );
 }
@@ -128,7 +128,7 @@ Gui::KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }
 
-const Engine::Camera& Gui::CameraManipulator::getCameraFromViewer( QObject* v ) {
+const Engine::Data::Camera& Gui::CameraManipulator::getCameraFromViewer( QObject* v ) {
     return *static_cast<Gui::Viewer*>( v )->getCameraManipulator()->getCamera();
 }
 

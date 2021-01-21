@@ -15,11 +15,11 @@ class FileData;
 
 namespace Engine {
 struct FrameInfo;
+
+namespace Scene {
+
 class Component;
 class Entity;
-} // namespace Engine
-
-namespace Engine {
 
 /** Systems are responsible of updating a specific subset of the components of each entity.
  * They can provide factory methods to create components, but their main role is to keep a
@@ -103,5 +103,6 @@ class RA_ENGINE_API System
     std::vector<std::pair<const Entity*, Component*>> m_components;
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

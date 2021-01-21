@@ -9,7 +9,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 ////////////////  AttribArrayDisplayable ///////////////////////////////
 
 void AttribArrayDisplayable::setRenderMode( MeshRenderMode mode ) {
@@ -114,7 +114,8 @@ void IndexedAttribArrayDisplayable<I>::updateGL() {
 }
 
 template <typename I>
-void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProgram* prog ) {
+void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer(
+    const Renderer::ShaderProgram* prog ) {
 
     auto glprog           = prog->getProgramObject();
     gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
@@ -148,7 +149,7 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProg
 }
 
 template <typename I>
-void IndexedAttribArrayDisplayable<I>::render( const ShaderProgram* prog ) {
+void IndexedAttribArrayDisplayable<I>::render( const Renderer::ShaderProgram* prog ) {
     if ( m_vao )
     {
         autoVertexAttribPointer( prog );
@@ -240,7 +241,8 @@ void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string
 }
 
 template <typename CoreGeometry>
-void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const ShaderProgram* prog ) {
+void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer(
+    const Renderer::ShaderProgram* prog ) {
 
     auto glprog           = prog->getProgramObject();
     gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
@@ -438,7 +440,7 @@ void IndexedGeometry<T>::updateGL_specific_impl() {
 }
 
 template <typename T>
-void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
+void IndexedGeometry<T>::render( const Renderer::ShaderProgram* prog ) {
     if ( base::m_vao )
     {
         GL_CHECK_ERROR;
@@ -530,5 +532,6 @@ void PolyMesh::triangulate() {
     }
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

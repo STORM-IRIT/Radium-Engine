@@ -78,16 +78,16 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     CameraManipulator* getCameraManipulator();
 
     /// Set the camera managed by the cameraInterface
-    void setCamera( Engine::Camera* camera );
+    void setCamera( Engine::Data::Camera* camera );
 
     /// Access to gizmo manager
     GizmoManager* getGizmoManager();
 
     /// Read-only access to renderer
-    const Engine::Renderer* getRenderer() const;
+    const Engine::Renderer::Renderer* getRenderer() const;
 
     /// Read-write access to renderer
-    Engine::Renderer* getRenderer();
+    Engine::Renderer::Renderer* getRenderer();
 
     /** Add a renderer and return its index. Need to be called when catching
      * \param e : your own renderer
@@ -96,11 +96,11 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
      * int rendererId = addRenderer(new MyRenderer(width(), height()));
      * changeRenderer(rendererId);
      * getRenderer()->initialize();
-     * auto light = Ra::Core::make_shared<Engine::DirectionalLight>();
+     * auto light = Ra::Core::make_shared<Engine::Data::DirectionalLight>();
      * m_camera->attachLight( light );
      * \endcode
      */
-    int addRenderer( const std::shared_ptr<Engine::Renderer>& e );
+    int addRenderer( const std::shared_ptr<Engine::Renderer::Renderer>& e );
 
     /// Access to the feature picking manager
     PickingManager* getPickingManager();
@@ -147,7 +147,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     void requestEngineOpenGLInitialization();
     bool glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
     void rendererReady(); //! Emitted when the rendered is correctly initialized
-    void rightClickPicking( const Ra::Engine::Renderer::PickingResult& result );
+    void rightClickPicking( const Ra::Engine::Renderer::Renderer::PickingResult& result );
     //! Emitted when the resut of a right click picking is known (for selection)
 
     void toggleBrushPicking(
@@ -185,7 +185,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     void createGizmoManager();
 
     /// Initialize renderer internal state + configure lights.
-    void initializeRenderer( Engine::Renderer* renderer );
+    void initializeRenderer( Engine::Renderer::Renderer* renderer );
 
     /// Initialize openGL. Called on by the first "show" call to the main window.
     /// \warning This function is NOT reentrant, and may behave incorrectly
@@ -196,7 +196,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// Resize the view port and the camera. Called by the resize event.
     void resizeGL( QResizeEvent* event ) override;
 
-    Engine::Renderer::PickingMode
+    Engine::Renderer::Renderer::PickingMode
     getPickingMode( const Ra::Gui::KeyMappingManager::KeyMappingAction& action ) const;
 
     /// @name
@@ -223,10 +223,10 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     ///@{
     virtual void handleKeyPressEvent( QKeyEvent* event );
     virtual void handleMousePressEvent( QMouseEvent* event,
-                                        Ra::Engine::Renderer::PickingResult& result );
+                                        Ra::Engine::Renderer::Renderer::PickingResult& result );
     virtual void handleMouseReleaseEvent( QMouseEvent* event );
     virtual void handleMouseMoveEvent( QMouseEvent* event,
-                                       Ra::Engine::Renderer::PickingResult& result );
+                                       Ra::Engine::Renderer::Renderer::PickingResult& result );
     virtual void handleWheelEvent( QWheelEvent* event );
     ///@}
   private:
@@ -236,13 +236,13 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// Called with KeyManageable::configureKeyMapping
     static void configureKeyMapping_impl();
 
-    Ra::Engine::Renderer::PickingResult pickAtPosition( Core::Vector2 position );
+    Ra::Engine::Renderer::Renderer::PickingResult pickAtPosition( Core::Vector2 position );
 
   protected:
     ///\todo make the following  private:
     /// Owning pointer to the renderers.
-    std::vector<std::shared_ptr<Engine::Renderer>> m_renderers;
-    Engine::Renderer* m_currentRenderer;
+    std::vector<std::shared_ptr<Engine::Renderer::Renderer>> m_renderers;
+    Engine::Renderer::Renderer* m_currentRenderer;
 
     /// Owning Pointer to the feature picking manager.
     PickingManager* m_pickingManager;

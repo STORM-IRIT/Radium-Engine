@@ -14,6 +14,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 using namespace Core::Utils; // log
 using namespace Core::Asset;
@@ -32,15 +33,15 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
-        auto comp                 = new Camera( entity, componentName, 100, 100 );
+        auto comp                 = new Data::Camera( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
         case CameraData::ORTHOGRAPHIC: {
-            comp->setType( Camera::ProjType::ORTHOGRAPHIC );
+            comp->setType( Data::Camera::ProjType::ORTHOGRAPHIC );
             break;
         }
         case CameraData::PERSPECTIVE: {
-            comp->setType( Camera::ProjType::PERSPECTIVE );
+            comp->setType( Data::Camera::ProjType::PERSPECTIVE );
             break;
         }
         }
@@ -60,21 +61,23 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
 
 void CameraManager::registerComponent( const Entity* entity, Component* component ) {
     System::registerComponent( entity, component );
-    m_data->add( reinterpret_cast<Camera*>( component ) );
+    m_data->add( reinterpret_cast<Data::Camera*>( component ) );
 }
 
 void CameraManager::unregisterComponent( const Entity* entity, Component* component ) {
     System::unregisterComponent( entity, component );
-    m_data->remove( reinterpret_cast<Camera*>( component ) );
+    m_data->remove( reinterpret_cast<Data::Camera*>( component ) );
 }
 
 void CameraManager::unregisterAllComponents( const Entity* entity ) {
     for ( const auto& comp : this->m_components )
     {
-        if ( comp.first == entity ) { m_data->remove( reinterpret_cast<Camera*>( comp.second ) ); }
+        if ( comp.first == entity )
+        { m_data->remove( reinterpret_cast<Data::Camera*>( comp.second ) ); }
     }
     System::unregisterAllComponents( entity );
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

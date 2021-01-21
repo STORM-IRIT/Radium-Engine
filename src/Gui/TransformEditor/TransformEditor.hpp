@@ -14,7 +14,7 @@ class RA_GUI_API TransformEditor
     virtual ~TransformEditor();
 
     /// Change the current editable object,
-    virtual void setEditable( const Engine::ItemEntry& entry );
+    virtual void setEditable( const Engine::Scene::ItemEntry& entry );
 
     /// Retrieve the transform from the editable and update the editor.
     virtual void updateValues() = 0;
@@ -31,8 +31,8 @@ class RA_GUI_API TransformEditor
     Core::Transform getWorldTransform() const;
 
   protected:
-    Core::Transform m_transform;     //! The transform being edited.
-    Engine::ItemEntry m_currentEdit; //! The current item being edited.
+    Core::Transform m_transform;            //! The transform being edited.
+    Engine::Scene::ItemEntry m_currentEdit; //! The current item being edited.
 };
 } // namespace Gui
 } // namespace Ra

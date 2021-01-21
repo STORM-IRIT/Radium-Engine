@@ -12,13 +12,10 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
+
 class Component;
 class System;
-} // namespace Engine
-} // namespace Ra
-
-namespace Ra {
-namespace Engine {
 
 /// An entity is an scene element. It ties together components with a transform.
 class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
@@ -76,6 +73,7 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
     bool m_transformChanged {false};
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 

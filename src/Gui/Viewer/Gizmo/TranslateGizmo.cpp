@@ -11,7 +11,7 @@
 namespace Ra {
 namespace Gui {
 
-TranslateGizmo::TranslateGizmo( Engine::Component* c,
+TranslateGizmo::TranslateGizmo( Engine::Scene::Component* c,
                                 const Core::Transform& worldTo,
                                 const Core::Transform& t,
                                 Mode mode ) :
@@ -36,12 +36,13 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
             arrowScale * cylinderEnd, arrowScale * arrowEnd, arrowScale * arrowFrac / 2_ra, 32 );
         cylinder.append( cone );
 
-        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Translate Gizmo Arrow" ) );
+        std::shared_ptr<Engine::Data::Mesh> mesh(
+            new Engine::Data::Mesh( "Translate Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( cylinder ) );
 
-        Engine::RenderObject* arrowDrawable = new Engine::RenderObject(
-            "Translate Gizmo Arrow", m_comp, Engine::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
+        Engine::Renderer::RenderObject* arrowDrawable = new Engine::Renderer::RenderObject(
+            "Translate Gizmo Arrow", m_comp, Engine::Renderer::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
         addRenderObject( arrowDrawable );
@@ -65,12 +66,12 @@ TranslateGizmo::TranslateGizmo( Engine::Component* c,
         normals.getMap().fill( 0_ra );
         plane.normalsUnlock();
 
-        std::shared_ptr<Engine::Mesh> mesh( new Engine::Mesh( "Gizmo Plane" ) );
+        std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Gizmo Plane" ) );
         mesh->loadGeometry( std::move( plane ) );
 
-        Engine::RenderObject* planeDrawable =
-            new Engine::RenderObject( "Gizmo Plane", m_comp, Engine::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::RenderTechnique>( makeRenderTechnique( i ) );
+        Engine::Renderer::RenderObject* planeDrawable = new Engine::Renderer::RenderObject(
+            "Gizmo Plane", m_comp, Engine::Renderer::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
         planeDrawable->setRenderTechnique( rt );
         planeDrawable->setMesh( mesh );
         addRenderObject( planeDrawable );
@@ -139,7 +140,7 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam,
+Core::Transform TranslateGizmo::mouseMove( const Engine::Data::Camera& cam,
                                            const Core::Vector2& nextXY,
                                            bool stepped,
                                            bool whole ) {
@@ -189,7 +190,7 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Camera& cam,
     return m_transform;
 }
 
-void TranslateGizmo::setInitialState( const Engine::Camera& /*cam*/,
+void TranslateGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
                                       const Core::Vector2& /*initialXY*/ ) {
     m_initialPix = Core::Vector2::Zero();
     m_start      = false;

@@ -5,6 +5,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 void System::registerComponent( const Entity* ent, Component* component ) {
     // Perform checks on debug
@@ -57,5 +58,7 @@ std::vector<Component*> System::getEntityComponents( const Entity* entity ) {
     }
     return comps;
 }
+
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

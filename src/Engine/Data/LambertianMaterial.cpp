@@ -9,7 +9,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 static const std::string materialName {"Lambertian"};
 
 LambertianMaterial::LambertianMaterial( const std::string& instanceName ) :
@@ -25,36 +25,36 @@ void LambertianMaterial::registerMaterial() {
     shaderProgramManager->addNamedString(
         "/Lambertian.glsl", resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.glsl" );
     // registering re-usable shaders
-    Ra::Engine::ShaderConfiguration lpconfig(
+    Renderer::ShaderConfiguration lpconfig(
         "Lambertian",
         resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.frag.glsl" );
 
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Renderer::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
-    Ra::Engine::ShaderConfiguration zprepassconfig(
+    Renderer::ShaderConfiguration zprepassconfig(
         "ZprepassLambertian",
         resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Lambertian/LambertianZPrepass.frag.glsl" );
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+    Renderer::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
     // Registering technique
-    Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
-        materialName, []( Ra::Engine::RenderTechnique& rt, bool ) {
+    Renderer::EngineRenderTechniques::registerDefaultTechnique(
+        materialName, []( Renderer::RenderTechnique& rt, bool ) {
             // Lighting pass
-            auto lightpass =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Lambertian" );
-            rt.setConfiguration( *lightpass, DefaultRenderingPasses::LIGHTING_OPAQUE );
+            auto lightpass = Renderer::ShaderConfigurationFactory::getConfiguration( "Lambertian" );
+            rt.setConfiguration( *lightpass, Renderer::DefaultRenderingPasses::LIGHTING_OPAQUE );
             // Z prepass
             auto zprepass =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "ZprepassLambertian" );
-            rt.setConfiguration( *zprepass, DefaultRenderingPasses::Z_PREPASS );
+                Renderer::ShaderConfigurationFactory::getConfiguration( "ZprepassLambertian" );
+            rt.setConfiguration( *zprepass, Renderer::DefaultRenderingPasses::Z_PREPASS );
         } );
 }
 
 void LambertianMaterial::unregisterMaterial() {
-    EngineRenderTechniques::removeDefaultTechnique( materialName );
+    Renderer::EngineRenderTechniques::removeDefaultTechnique( materialName );
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

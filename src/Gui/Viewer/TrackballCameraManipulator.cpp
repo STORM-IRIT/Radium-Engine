@@ -214,7 +214,7 @@ bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) 
     return false;
 }
 
-void Gui::TrackballCameraManipulator::setCamera( Engine::Camera* camera ) {
+void Gui::TrackballCameraManipulator::setCamera( Engine::Data::Camera* camera ) {
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera         = camera;

@@ -14,9 +14,13 @@ using Core::Math::PiDiv2;
 using Core::Math::PiDiv4;
 
 namespace Engine {
+namespace Data {
 
-Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
-    Component( name, entity ), m_width {width}, m_height {height}, m_aspect {width / height} {}
+Camera::Camera( Scene::Entity* entity, const std::string& name, Scalar height, Scalar width ) :
+    Scene::Component( name, entity ),
+    m_width {width},
+    m_height {height},
+    m_aspect {width / height} {}
 
 Camera::~Camera() = default;
 
@@ -43,11 +47,12 @@ void Camera::initialize() {
     auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );
     /// \todo switch to "mat->m_color          = {.2_ra, .2_ra, .2_ra, 1_ra};"
     mat->m_perVertexColor = true;
-    RenderTechnique rt;
-    auto cfg = ShaderConfigurationFactory::getConfiguration( "Plain" );
+    Renderer::RenderTechnique rt;
+    auto cfg = Renderer::ShaderConfigurationFactory::getConfiguration( "Plain" );
     rt.setConfiguration( *cfg );
     rt.setParametersProvider( mat );
-    m_RO = RenderObject::createRenderObject( m_name + "_RO", this, RenderObjectType::Debug, m, rt );
+    m_RO = Renderer::RenderObject::createRenderObject(
+        m_name + "_RO", this, Renderer::RenderObjectType::Debug, m, rt );
     m_RO->setLocalTransform( m_frame );
     m_RO->setMaterial( mat );
     show( false );
@@ -123,7 +128,7 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
 
-Camera* Camera::duplicate( Entity* cloneEntity, const std::string& cloneName ) const {
+Camera* Camera::duplicate( Scene::Entity* cloneEntity, const std::string& cloneName ) const {
     auto cam          = new Camera( cloneEntity, cloneName, m_width, m_height );
     cam->m_frame      = m_frame;
     cam->m_projMatrix = m_projMatrix;
@@ -167,5 +172,6 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
     updateProjMatrix();
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

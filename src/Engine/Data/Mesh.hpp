@@ -18,8 +18,10 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Renderer {
 class ShaderProgram;
+}
+namespace Data {
 using namespace Ra::Core::Utils;
 
 /// VAO + VBO attributes management,
@@ -217,11 +219,11 @@ class IndexedAttribArrayDisplayable : public AttribArrayDisplayable, public VaoI
                            const typename Ra::Core ::Utils::Attrib<T>::Container&& data );
     inline void updateGL() override;
 
-    inline void render( const ShaderProgram* prog ) override;
+    inline void render( const Renderer::ShaderProgram* prog ) override;
 
   protected:
     /// assume m_vao is bound.
-    inline void autoVertexAttribPointer( const ShaderProgram* prog );
+    inline void autoVertexAttribPointer( const Renderer::ShaderProgram* prog );
     IndexContainerType m_cpu_indices;
     AttribManager m_attribManager;
 };
@@ -292,7 +294,7 @@ class CoreGeometryDisplayable : public AttribArrayDisplayable
     void setupCoreMeshObservers();
 
     /// assume m_vao is bound.
-    void autoVertexAttribPointer( const ShaderProgram* prog );
+    void autoVertexAttribPointer( const Renderer::ShaderProgram* prog );
 
     /// m_mesh Observer method, called whenever an attrib is added or removed from
     /// m_mesh.
@@ -322,7 +324,7 @@ class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::
         typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_POINTS );
 
     /// use glDrawArrays to draw all the points in the point cloud
-    void render( const ShaderProgram* prog ) override;
+    void render( const Renderer::ShaderProgram* prog ) override;
 
     void loadGeometry( Core::Geometry::PointCloud&& mesh ) override;
 
@@ -342,7 +344,7 @@ class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
         typename base::CoreGeometry&& geom,
         typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_TRIANGLES );
 
-    void render( const ShaderProgram* prog ) override;
+    void render( const Renderer::ShaderProgram* prog ) override;
 
     void loadGeometry( T&& mesh ) override;
 
@@ -411,7 +413,7 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
     Core::AlignedStdVector<IndexType> m_triangleIndices;
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
-
 #include <Engine/Data/Mesh.inl>

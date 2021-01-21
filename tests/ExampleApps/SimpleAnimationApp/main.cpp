@@ -39,7 +39,7 @@
  *      - Add the animation component to the animation system
  *
  */
-class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
+class KeyFramedGeometryComponent : public Ra::Engine::Scene::TriangleMeshComponent
 {
   public:
     /*!
@@ -47,12 +47,12 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
      * \warning Moves the mesh and takes its ownership
      */
     inline KeyFramedGeometryComponent( const std::string& name,
-                                       Ra::Engine::Entity* entity,
+                                       Ra::Engine::Scene::Entity* entity,
                                        Ra::Core::Geometry::TriangleMesh&& mesh ) :
-        Ra::Engine::TriangleMeshComponent( name,
-                                           entity,
-                                           std::move( mesh ),
-                                           new Ra::Core::Asset::BlinnPhongMaterialData {} ),
+        Ra::Engine::Scene::TriangleMeshComponent( name,
+                                                  entity,
+                                                  std::move( mesh ),
+                                                  new Ra::Core::Asset::BlinnPhongMaterialData {} ),
         m_transform( Ra::Core::Transform::Identity(), 0_ra ) {
         //! [Creating the transform KeyFrames]
         Ra::Core::Transform T = Ra::Core::Transform::Identity();
@@ -72,7 +72,8 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
         //! [Attach the color KeyFrames to a controller of the Render object material]
         m_colorController.m_value = colors;
         m_ro                      = getRoMgr()->getRenderObject( m_roIndex );
-        auto material = dynamic_cast<Ra::Engine::BlinnPhongMaterial*>( m_ro->getMaterial().get() );
+        auto material =
+            dynamic_cast<Ra::Engine::Data::BlinnPhongMaterial*>( m_ro->getMaterial().get() );
         m_colorController.m_updater = [colors, material]( const Scalar& t ) {
             auto C =
                 colors->at( t, Ra::Core::Animation::linearInterpolate<Ra::Core::Utils::Color> );
@@ -95,7 +96,7 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
     }
 
     /// The render object to animate
-    std::shared_ptr<Ra::Engine::RenderObject> m_ro;
+    std::shared_ptr<Ra::Engine::Renderer::RenderObject> m_ro;
 
     /// The Keyframes for the render object's tranform.
     Ra::Core::Animation::KeyFramedValue<Ra::Core::Transform> m_transform;
@@ -109,7 +110,7 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
 /// This system will be added to the engine. Every frame it will
 /// add a task to be executed, calling the update function of the component.
 /// \note This system makes time loop around.
-class SimpleAnimationSystem : public Ra::Engine::System
+class SimpleAnimationSystem : public Ra::Engine::Scene::System
 {
   public:
     virtual void generateTasks( Ra::Core::TaskQueue* q,

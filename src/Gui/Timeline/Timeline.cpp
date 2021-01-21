@@ -75,7 +75,8 @@ Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline 
     // --- DEAL WITH OBJET REMOVAL ---
     Ra::Engine::RadiumEngine::getInstance()
         ->getSignalManager()
-        ->m_entityDestroyedCallbacks.push_back( [this]( const Ra::Engine::ItemEntry& entry ) {
+        ->m_entityDestroyedCallbacks.push_back( [this](
+                                                    const Ra::Engine::Scene::ItemEntry& entry ) {
             auto it = std::find_if(
                 m_entityKeyFrames.begin(), m_entityKeyFrames.end(), [entry]( const auto& frames ) {
                     return entry.m_entity == frames.first;
@@ -84,15 +85,16 @@ Timeline::Timeline( QWidget* parent ) : QDialog( parent ), ui( new Ui::Timeline 
         } );
     Ra::Engine::RadiumEngine::getInstance()
         ->getSignalManager()
-        ->m_componentRemovedCallbacks.push_back( [this]( const Ra::Engine::ItemEntry& entry ) {
-            auto it = std::find_if(
-                m_componentKeyFrames.begin(),
-                m_componentKeyFrames.end(),
-                [entry]( const auto& frames ) { return entry.m_component == frames.first; } );
-            if ( it != m_componentKeyFrames.end() ) { m_componentKeyFrames.erase( it ); }
-        } );
+        ->m_componentRemovedCallbacks.push_back(
+            [this]( const Ra::Engine::Scene::ItemEntry& entry ) {
+                auto it = std::find_if(
+                    m_componentKeyFrames.begin(),
+                    m_componentKeyFrames.end(),
+                    [entry]( const auto& frames ) { return entry.m_component == frames.first; } );
+                if ( it != m_componentKeyFrames.end() ) { m_componentKeyFrames.erase( it ); }
+            } );
     Ra::Engine::RadiumEngine::getInstance()->getSignalManager()->m_roRemovedCallbacks.push_back(
-        [this]( const Ra::Engine::ItemEntry& entry ) {
+        [this]( const Ra::Engine::Scene::ItemEntry& entry ) {
             auto it = std::find_if(
                 m_renderObjectKeyFrames.begin(),
                 m_renderObjectKeyFrames.end(),
@@ -105,7 +107,7 @@ Timeline::~Timeline() {
     delete ui;
 }
 
-void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
+void Timeline::selectionChanged( const Ra::Engine::Scene::ItemEntry& ent ) {
     // enables ui if any keyframe
     auto enableUI = [this]( bool enable ) {
         ui->comboBox_attribute->setEnabled( enable );
@@ -182,7 +184,7 @@ void Timeline::selectionChanged( const Ra::Engine::ItemEntry& ent ) {
 }
 
 void Timeline::registerKeyFramedValue(
-    Ra::Engine::Entity* ent,
+    Ra::Engine::Scene::Entity* ent,
     const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController ) {
     auto& values = m_entityKeyFrames[ent];
     auto& name   = keyFramedValueController.m_name;
@@ -197,10 +199,10 @@ void Timeline::registerKeyFramedValue(
         return;
     }
     values.push_back( keyFramedValueController );
-    selectionChanged( Engine::ItemEntry( ent ) );
+    selectionChanged( Engine::Scene::ItemEntry( ent ) );
 }
 
-void Timeline::unregisterKeyFramedValue( Ra::Engine::Entity* ent, const std::string& name ) {
+void Timeline::unregisterKeyFramedValue( Ra::Engine::Scene::Entity* ent, const std::string& name ) {
     auto& values = m_entityKeyFrames[ent];
     auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
         return frame.m_name == name;
@@ -209,7 +211,7 @@ void Timeline::unregisterKeyFramedValue( Ra::Engine::Entity* ent, const std::str
 }
 
 void Timeline::registerKeyFramedValue(
-    Ra::Engine::Component* comp,
+    Ra::Engine::Scene::Component* comp,
     const Ra::Core::Animation::KeyFramedValueController& keyFramedValueController ) {
     auto& values = m_componentKeyFrames[comp];
     auto name    = keyFramedValueController.m_name;
@@ -224,10 +226,11 @@ void Timeline::registerKeyFramedValue(
         return;
     }
     values.push_back( keyFramedValueController );
-    selectionChanged( Engine::ItemEntry( comp->getEntity(), comp ) );
+    selectionChanged( Engine::Scene::ItemEntry( comp->getEntity(), comp ) );
 }
 
-void Timeline::unregisterKeyFramedValue( Ra::Engine::Component* comp, const std::string& name ) {
+void Timeline::unregisterKeyFramedValue( Ra::Engine::Scene::Component* comp,
+                                         const std::string& name ) {
     auto& values = m_componentKeyFrames[comp];
     auto it      = std::find_if( values.begin(), values.end(), [&name]( const auto& frame ) {
         return frame.m_name == name;
@@ -254,7 +257,7 @@ void Timeline::registerKeyFramedValue(
     auto roMgr = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
     auto RO    = roMgr->getRenderObject( roIdx );
     auto comp  = RO->getComponent();
-    selectionChanged( Engine::ItemEntry( comp->getEntity(), comp, roIdx ) );
+    selectionChanged( Engine::Scene::ItemEntry( comp->getEntity(), comp, roIdx ) );
 }
 
 void Timeline::unregisterKeyFramedValue( Ra::Core::Utils::Index roIdx, const std::string& name ) {

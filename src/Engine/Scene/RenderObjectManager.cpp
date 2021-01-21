@@ -12,8 +12,11 @@
 #include <Engine/Scene/SignalManager.hpp>
 
 #include <numeric> // for reduce
+
 namespace Ra {
 namespace Engine {
+namespace Scene {
+
 RenderObjectManager::RenderObjectManager() = default;
 
 RenderObjectManager::~RenderObjectManager() = default;
@@ -22,11 +25,11 @@ bool RenderObjectManager::exists( const Core::Utils::Index& index ) const {
     return ( index.isValid() && m_renderObjects.contains( index ) );
 }
 
-Core::Utils::Index RenderObjectManager::addRenderObject( RenderObject* renderObject ) {
+Core::Utils::Index RenderObjectManager::addRenderObject( Renderer::RenderObject* renderObject ) {
     // Avoid data race in the std::maps
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
-    std::shared_ptr<RenderObject> newRenderObject( renderObject );
+    std::shared_ptr<Renderer::RenderObject> newRenderObject( renderObject );
     Core::Utils::Index index = m_renderObjects.insert( newRenderObject );
 
     newRenderObject->setIndex( index );
@@ -44,7 +47,7 @@ void RenderObjectManager::removeRenderObject( const Core::Utils::Index& index ) 
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
 
     // FIXME : Should we check if the render object is in the double buffer map ?
-    std::shared_ptr<RenderObject> renderObject = m_renderObjects.at( index );
+    std::shared_ptr<Renderer::RenderObject> renderObject = m_renderObjects.at( index );
 
     Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved( ItemEntry(
         renderObject->getComponent()->getEntity(), renderObject->getComponent(), index ) );
@@ -62,20 +65,20 @@ size_t RenderObjectManager::getRenderObjectsCount() {
     return m_renderObjects.size();
 }
 
-std::shared_ptr<RenderObject>
+std::shared_ptr<Renderer::RenderObject>
 RenderObjectManager::getRenderObject( const Core::Utils::Index& index ) {
     CORE_ASSERT( exists( index ), "Trying to access a render object which doesn't exist" );
     return m_renderObjects.at( index );
 }
 
-const Core::Utils::IndexMap<std::shared_ptr<RenderObject>>&
+const Core::Utils::IndexMap<std::shared_ptr<Renderer::RenderObject>>&
 RenderObjectManager::getRenderObjects() const {
     return m_renderObjects;
 }
 
 void RenderObjectManager::getRenderObjectsByType(
-    std::vector<std::shared_ptr<RenderObject>>& objectsOut,
-    const RenderObjectType& type ) const {
+    std::vector<std::shared_ptr<Renderer::RenderObject>>& objectsOut,
+    const Renderer::RenderObjectType& type ) const {
     // Take the mutex
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
 
@@ -108,8 +111,8 @@ size_t RenderObjectManager::getNumFaces() const {
         m_renderObjects.begin(),
         m_renderObjects.end(),
         size_t( 0 ),
-        []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
-            if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
+        []( size_t a, const std::shared_ptr<Renderer::RenderObject>& ro ) -> size_t {
+            if ( ro->isVisible() && ro->getType() == Renderer::RenderObjectType::Geometry )
             { return a + ro->getMesh()->getNumFaces(); }
             else
             { return a; }
@@ -123,8 +126,8 @@ size_t RenderObjectManager::getNumVertices() const {
         m_renderObjects.begin(),
         m_renderObjects.end(),
         size_t( 0 ),
-        []( size_t a, const std::shared_ptr<RenderObject>& ro ) -> size_t {
-            if ( ro->isVisible() && ro->getType() == Ra::Engine::RenderObjectType::Geometry )
+        []( size_t a, const std::shared_ptr<Renderer::RenderObject>& ro ) -> size_t {
+            if ( ro->isVisible() && ro->getType() == Renderer::RenderObjectType::Geometry )
             { return a + ro->getMesh()->getNumVertices(); }
             else
             { return a; }
@@ -132,5 +135,6 @@ size_t RenderObjectManager::getNumVertices() const {
     return result;
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

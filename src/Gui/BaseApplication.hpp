@@ -15,23 +15,16 @@ class QCommandLineParser;
 namespace Ra {
 namespace Engine {
 class RadiumEngine;
+namespace Scene {
 class GeometrySystem;
 struct ItemEntry;
+} // namespace Scene
 } // namespace Engine
-} // namespace Ra
 
-namespace Ra {
 namespace Gui {
 class Viewer;
-}
-
-namespace Gui {
 class MainWindowInterface;
-}
-} // namespace Ra
 
-namespace Ra {
-namespace Gui {
 /// This class contains the main application logic. It owns the engine and the GUI.
 class RA_GUI_API BaseApplication : public QApplication
 {
@@ -147,7 +140,7 @@ class RA_GUI_API BaseApplication : public QApplication
 
     void loadComplete();
 
-    void selectedItem( const Ra::Engine::ItemEntry& entry );
+    void selectedItem( const Ra::Engine::Scene::ItemEntry& entry );
 
   public slots:
 
@@ -180,7 +173,7 @@ class RA_GUI_API BaseApplication : public QApplication
 
     void recordFrame();
 
-    void onSelectedItem( const Ra::Engine::ItemEntry& entry ) { emit selectedItem( entry ); }
+    void onSelectedItem( const Ra::Engine::Scene::ItemEntry& entry ) { emit selectedItem( entry ); }
 
     void setContinuousUpdate( bool b ) {
         b ? m_continuousUpdateRequest++ : m_continuousUpdateRequest--;

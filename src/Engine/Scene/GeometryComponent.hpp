@@ -8,16 +8,14 @@
 
 namespace Ra {
 namespace Engine {
+namespace Data {
 class Mesh;
 class PolyMesh;
 class PointCloud;
 class VolumeObject;
-} // namespace Engine
-} // namespace Ra
+} // namespace Data
 
-namespace Ra {
-namespace Engine {
-
+namespace Scene {
 /// Abstract interface of a geometric compoennet in the Engine.
 class RA_ENGINE_API GeometryComponent : public Component
 {
@@ -55,11 +53,11 @@ struct RenderMeshHelper {};
 
 template <>
 struct RenderMeshHelper<Ra::Core::Geometry::TriangleMesh> {
-    using Type = Ra::Engine::Mesh;
+    using Type = Ra::Engine::Data::Mesh;
 };
 template <>
 struct RenderMeshHelper<Ra::Core::Geometry::PolyMesh> {
-    using Type = Ra::Engine::PolyMesh;
+    using Type = Ra::Engine::Data::PolyMesh;
 };
 } // namespace SurfaceMeshComponentInternal
 
@@ -149,7 +147,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
 
     /// Returns the current display geometry.
     const Ra::Core::Geometry::PointCloud& getCoreGeometry() const;
-    PointCloud* getGeometry();
+    Data::PointCloud* getGeometry();
 
     /// set the splat size for rendering
     inline void setSplatSize( float s ) { m_splatSize = s; }
@@ -173,7 +171,7 @@ class RA_ENGINE_API PointCloudComponent : public GeometryComponent
 
   private:
     // directly hold a reference to the displayMesh to simplify accesses in handlers
-    std::shared_ptr<PointCloud> m_displayMesh {nullptr};
+    std::shared_ptr<Data::PointCloud> m_displayMesh {nullptr};
     // The diameter of the splat when rendered
     float m_splatSize {0.0025f};
 };
@@ -203,7 +201,7 @@ class RA_ENGINE_API VolumeComponent : public Component
 
     /// Returns the index of the associated RO (the display volume)
     Ra::Core::Utils::Index getRenderObjectIndex() const;
-    VolumeObject* getDisplayVolume();
+    Data::VolumeObject* getDisplayVolume();
 
   private:
     void generateVolumeRender( const Ra::Core::Asset::VolumeData* data );
@@ -216,9 +214,10 @@ class RA_ENGINE_API VolumeComponent : public Component
   private:
     Ra::Core::Utils::Index m_volumeIndex {};
     std::string m_contentName {};
-    std::shared_ptr<Engine::VolumeObject> m_displayVolume {nullptr};
+    std::shared_ptr<Data::VolumeObject> m_displayVolume {nullptr};
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 

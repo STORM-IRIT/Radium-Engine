@@ -3,6 +3,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Renderer {
 void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_boolParamsVector.bind( shader );
     m_intParamsVector.bind( shader );
@@ -81,7 +82,7 @@ void RenderParameters::addParameter( const std::string& name, const Core::Matrix
     m_mat4ParamsVector[name] = Mat4Parameter( name, value );
 }
 
-void RenderParameters::addParameter( const std::string& name, Texture* tex, int texUnit ) {
+void RenderParameters::addParameter( const std::string& name, Data::Texture* tex, int texUnit ) {
     m_texParamsVector[name] = TextureParameter( name, tex, texUnit );
 }
 
@@ -137,5 +138,6 @@ void RenderParameters::concatParameters( const RenderParameters& params ) {
     }
 }
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

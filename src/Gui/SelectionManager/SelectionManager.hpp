@@ -29,24 +29,24 @@ class RA_GUI_API SelectionManager : public QItemSelectionModel
      * @param ent
      * @return
      */
-    bool isSelected( const Engine::ItemEntry& ent ) const;
+    bool isSelected( const Engine::Scene::ItemEntry& ent ) const;
 
     /// Return the set of selected entries. @see selectedIndexes()
-    std::vector<Engine::ItemEntry> selectedEntries() const;
+    std::vector<Engine::Scene::ItemEntry> selectedEntries() const;
 
     /** Return the current selected item, or an invalid entry if there is no current item.
      * @seeCurrentIndex;
      *
      * @return
      */
-    const Engine::ItemEntry& currentItem() const;
+    const Engine::Scene::ItemEntry& currentItem() const;
 
     /** Select an item through an item entry. @see QItemSelectionModel::Select
      *
      * @param ent
      * @param command
      */
-    virtual void select( const Engine::ItemEntry& ent,
+    virtual void select( const Engine::Scene::ItemEntry& ent,
                          QItemSelectionModel::SelectionFlags command );
 
     /** Set an item as current through an item entry. @see QItemSelectionModel::setCurrent
@@ -54,7 +54,7 @@ class RA_GUI_API SelectionManager : public QItemSelectionModel
      * @param ent
      * @param command
      */
-    void setCurrentEntry( const Engine::ItemEntry& ent,
+    void setCurrentEntry( const Engine::Scene::ItemEntry& ent,
                           QItemSelectionModel::SelectionFlags command );
 
   protected slots:

@@ -4,7 +4,7 @@
 
 namespace Ra {
 namespace Engine {
-
+namespace Data {
 SimpleMaterial::SimpleMaterial( const std::string& instanceName,
                                 const std::string& materialName,
                                 MaterialAspect aspect ) :
@@ -39,7 +39,7 @@ void SimpleMaterial::updateRenderingParameters() {
 void SimpleMaterial::updateGL() {
     if ( !m_isDirty ) { return; }
     // Load textures
-    TextureManager* texManager = RadiumEngine::getInstance()->getTextureManager();
+    Scene::TextureManager* texManager = RadiumEngine::getInstance()->getTextureManager();
     for ( const auto& tex : m_pendingTextures )
     {
         // ask to convert color textures from sRGB to Linear RGB
@@ -53,5 +53,6 @@ void SimpleMaterial::updateGL() {
     updateRenderingParameters();
 }
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

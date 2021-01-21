@@ -11,6 +11,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 std::string getEntryName( const Engine::RadiumEngine* engine, const ItemEntry& ent ) {
     if ( ent.isValid() )
@@ -57,21 +58,22 @@ bool ItemEntry::isValid() const {
 bool ItemEntry::isSelectable() const {
     Engine::RadiumEngine* engine = Engine::RadiumEngine::getInstance();
 
-    if ( m_entity->getIndex() == Engine::SystemEntity::getInstance()->getIndex() ) { return false; }
+    if ( m_entity->getIndex() == SystemEntity::getInstance()->getIndex() ) { return false; }
 
     if ( isRoNode() )
     {
         const bool isUI =
             engine->getRenderObjectManager()->getRenderObject( m_roIndex )->getType() ==
-            Engine::RenderObjectType::UI;
+            Renderer::RenderObjectType::UI;
         const bool isDebug =
             engine->getRenderObjectManager()->getRenderObject( m_roIndex )->getType() ==
-            Engine::RenderObjectType::Debug;
+            Renderer::RenderObjectType::Debug;
         return ( !( isUI || isDebug ) );
     }
 
     return true;
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

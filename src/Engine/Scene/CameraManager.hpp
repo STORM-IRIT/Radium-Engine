@@ -8,13 +8,11 @@
 
 namespace Ra {
 namespace Engine {
+namespace Data {
 class Camera;
-} // namespace Engine
-} // namespace Ra
+}
 
-namespace Ra {
-namespace Engine {
-
+namespace Scene {
 /**
  * Interface providing functions to manage a group or type of Cameras
  * in a specific way.
@@ -34,10 +32,10 @@ class RA_ENGINE_API CameraManager : public System
     ~CameraManager() override = default;
 
     /// Get a pointer to the cam-th Camera.
-    virtual const Camera* getCamera( size_t cam ) const = 0;
+    virtual const Data::Camera* getCamera( size_t cam ) const = 0;
 
     /// Add a Camera to the manager ...
-    virtual void addCamera( Camera* cam ) = 0;
+    virtual void addCamera( Data::Camera* cam ) = 0;
 
     //
     // Calls for the Renderer
@@ -77,5 +75,6 @@ class RA_ENGINE_API CameraManager : public System
     std::unique_ptr<CameraStorage> m_data {nullptr};
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

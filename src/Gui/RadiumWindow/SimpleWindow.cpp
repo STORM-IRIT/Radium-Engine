@@ -9,6 +9,7 @@
 namespace Ra {
 using namespace Gui;
 using namespace Engine;
+using namespace Engine::Renderer;
 
 namespace Gui {
 
@@ -54,7 +55,8 @@ void SimpleWindow::updateUi( Ra::Plugins::RadiumPluginInterface* ) {
 
 void SimpleWindow::onFrameComplete() {}
 
-void SimpleWindow::addRenderer( const std::string&, std::shared_ptr<Ra::Engine::Renderer> e ) {
+void SimpleWindow::addRenderer( const std::string&,
+                                std::shared_ptr<Ra::Engine::Renderer::Renderer> e ) {
     m_viewer->addRenderer( e );
 }
 

@@ -54,15 +54,15 @@ const std::string _fragmentShaderSource2 {
     "    out_color =  ( 1 + sin( 20 * ( in_pos.y + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
     "}\n"};
 
-const std::vector<std::pair<Ra::Engine::ShaderType, std::string>> _config1 {
-    {Ra::Engine::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
-    {Ra::Engine::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource}};
+const std::vector<std::pair<Ra::Engine::Renderer::ShaderType, std::string>> _config1 {
+    {Ra::Engine::Renderer::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
+    {Ra::Engine::Renderer::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource}};
 
-const std::vector<std::pair<Ra::Engine::ShaderType, std::string>> _config2 {
-    {Ra::Engine::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
-    {Ra::Engine::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource2}};
+const std::vector<std::pair<Ra::Engine::Renderer::ShaderType, std::string>> _config2 {
+    {Ra::Engine::Renderer::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
+    {Ra::Engine::Renderer::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource2}};
 
-class MyParameterProvider : public Ra::Engine::ShaderParameterProvider
+class MyParameterProvider : public Ra::Engine::Renderer::ShaderParameterProvider
 {
   public:
     MyParameterProvider() {}
@@ -89,7 +89,7 @@ class MyParameterProvider : public Ra::Engine::ShaderParameterProvider
  * @param app
  * @return The renderObject associated to the created component.
  */
-std::shared_ptr<Ra::Engine::RenderObject> initQuad( Ra::Gui::BaseApplication& app ) {
+std::shared_ptr<Ra::Engine::Renderer::RenderObject> initQuad( Ra::Gui::BaseApplication& app ) {
     //! [Creating the quad]
     auto quad = Ra::Core::Geometry::makeZNormalQuad( {1_ra, 1_ra} );
 
@@ -104,7 +104,8 @@ std::shared_ptr<Ra::Engine::RenderObject> initQuad( Ra::Gui::BaseApplication& ap
     Ra::Core::Asset::RawShaderMaterialData mat {"Quad Material", _config1, paramProvider};
 
     //! [Create a geometry component using the custom material]
-    auto c = new Ra::Engine::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), &mat );
+    auto c =
+        new Ra::Engine::Scene::TriangleMeshComponent( "Quad Mesh", e, std::move( quad ), &mat );
 
     //! [Register the entity/component association to the geometry system ]
     auto system = app.m_engine->getSystem( "GeometrySystem" );
@@ -126,7 +127,7 @@ int main( int argc, char* argv[] ) {
     //! [Creating the application]
 
     //! [add the custom material to the material system]
-    Ra::Engine::RawShaderMaterial::registerMaterial();
+    Ra::Engine::Data::RawShaderMaterial::registerMaterial();
 
     //! [Populate the Radium ecosystem]
     auto ro = initQuad( app );
@@ -137,7 +138,7 @@ int main( int argc, char* argv[] ) {
     changeTimer->setInterval( 3000 );
     QObject::connect( changeTimer, &QTimer::timeout, [ro, renderer]() {
         auto paramProvider = std::make_shared<MyParameterProvider>();
-        auto mat           = static_cast<Ra::Engine::RawShaderMaterial*>( ro->getMaterial().get() );
+        auto mat = static_cast<Ra::Engine::Data::RawShaderMaterial*>( ro->getMaterial().get() );
         mat->updateShaders( _config2, paramProvider );
         renderer->buildRenderTechnique( ro.get() );
     } );

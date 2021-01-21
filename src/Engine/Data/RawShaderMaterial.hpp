@@ -7,8 +7,10 @@
 
 namespace Ra {
 namespace Engine {
+namespace Data {
 // Predeclare the External/Internal material representation converter
 class RawShaderMaterialConverter;
+} // namespace Data
 } // namespace Engine
 
 namespace Core {
@@ -20,7 +22,7 @@ namespace Asset {
 class RA_ENGINE_API RawShaderMaterialData : public MaterialData
 {
     /// allow converter to access private members
-    friend class Ra::Engine::RawShaderMaterialConverter;
+    friend class Ra::Engine::Data::RawShaderMaterialConverter;
 
   public:
     /**
@@ -32,8 +34,8 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
      */
     RawShaderMaterialData(
         const std::string& instanceName,
-        const std::vector<std::pair<Ra::Engine::ShaderType, std::string>>& shaders,
-        std::shared_ptr<Ra::Engine::ShaderParameterProvider> paramProvider ) :
+        const std::vector<std::pair<Ra::Engine::Renderer::ShaderType, std::string>>& shaders,
+        std::shared_ptr<Ra::Engine::Renderer::ShaderParameterProvider> paramProvider ) :
         MaterialData( instanceName, "Ra::Engine::RawShaderMaterialData" ),
         m_shaders {shaders},
         m_paramProvider {std::move( paramProvider )} {}
@@ -42,15 +44,15 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
     ~RawShaderMaterialData()                              = default;
 
   private:
-    std::vector<std::pair<Ra::Engine::ShaderType, std::string>> m_shaders;
-    std::shared_ptr<Ra::Engine::ShaderParameterProvider> m_paramProvider;
+    std::vector<std::pair<Ra::Engine::Renderer::ShaderType, std::string>> m_shaders;
+    std::shared_ptr<Ra::Engine::Renderer::ShaderParameterProvider> m_paramProvider;
 };
 
 } // namespace Asset
 } // namespace Core
 
 namespace Engine {
-
+namespace Data {
 /**
  * Converter from an external representation (comming from IO or ...) to internal representation.
  * Such a converter is used when initializing the RenderObjects from external representation of
@@ -80,8 +82,8 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      */
     explicit RawShaderMaterial(
         const std::string& instanceName,
-        const std::vector<std::pair<Ra::Engine::ShaderType, std::string>>& shaders,
-        std::shared_ptr<Ra::Engine::ShaderParameterProvider> paramProvider );
+        const std::vector<std::pair<Renderer::ShaderType, std::string>>& shaders,
+        std::shared_ptr<Renderer::ShaderParameterProvider> paramProvider );
 
     /**
      * Destructor.
@@ -97,13 +99,13 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      * Override of the `getParameters()` method from Material
      * @return
      */
-    inline RenderParameters& getParameters() override;
+    inline Renderer::RenderParameters& getParameters() override;
 
     /**
      * Override of the `const getParameters() const` method from Material
      * @return
      */
-    inline const RenderParameters& getParameters() const override;
+    inline const Renderer::RenderParameters& getParameters() const override;
 
     /**
      * Register shader configuration and the ForwardRenderer (default) technique for this instance
@@ -120,8 +122,8 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      * provider will be kept.
      */
     void
-    updateShaders( const std::vector<std::pair<Ra::Engine::ShaderType, std::string>>& shaders,
-                   std::shared_ptr<Ra::Engine::ShaderParameterProvider> paramProvider = nullptr );
+    updateShaders( const std::vector<std::pair<Renderer::ShaderType, std::string>>& shaders,
+                   std::shared_ptr<Renderer::ShaderParameterProvider> paramProvider = nullptr );
 
     /**
      * Update the openGL state of the material.
@@ -149,12 +151,12 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      */
     std::string computeKey();
 
-    std::vector<std::pair<Ra::Engine::ShaderType, std::string>> m_shaders;
-    std::shared_ptr<Ra::Engine::ShaderParameterProvider> m_paramProvider;
+    std::vector<std::pair<Renderer::ShaderType, std::string>> m_shaders;
+    std::shared_ptr<Renderer::ShaderParameterProvider> m_paramProvider;
     std::string m_materialKey {};
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
-
 #include <Engine/Data/RawShaderMaterial.inl>

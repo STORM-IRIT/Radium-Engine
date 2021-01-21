@@ -5,12 +5,12 @@
 
 namespace Ra {
 namespace Engine {
+
+namespace Renderer {
 class RenderParameters;
 }
-} // namespace Ra
 
-namespace Ra {
-namespace Engine {
+namespace Scene {
 
 /**
  * Interface providing functions to access and store lights in
@@ -37,17 +37,18 @@ class RA_ENGINE_API LightStorage
     virtual size_t size() const = 0;
 
     /// Add a Light to the container.
-    virtual void add( const Light* li ) = 0;
+    virtual void add( const Data::Light* li ) = 0;
 
     /// Remove a Light from the container.
-    virtual void remove( const Light* li ) = 0;
+    virtual void remove( const Data::Light* li ) = 0;
 
     /// Clear the container.
     virtual void clear() = 0;
 
     /// Access the container.
-    virtual const Light* operator[]( unsigned int n ) = 0;
+    virtual const Data::Light* operator[]( unsigned int n ) = 0;
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

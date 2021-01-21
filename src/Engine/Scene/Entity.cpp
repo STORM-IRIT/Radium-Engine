@@ -7,6 +7,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 Entity::Entity( const std::string& name ) :
     Core::Utils::IndexedObject(),
@@ -21,7 +22,7 @@ Entity::~Entity() {
     RadiumEngine::getInstance()->getSignalManager()->fireEntityDestroyed( ItemEntry( this ) );
 }
 
-void Entity::addComponent( Engine::Component* component ) {
+void Entity::addComponent( Component* component ) {
     CORE_ASSERT( getComponent( component->getName() ) == nullptr,
                  "Component \"" << component->getName()
                                 << "\" has already been added to the entity." );
@@ -81,6 +82,6 @@ Core::Aabb Entity::computeAabb() const {
     return aabb;
 }
 
+} // namespace Scene
 } // namespace Engine
-
 } // namespace Ra

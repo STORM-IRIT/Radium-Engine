@@ -3,6 +3,7 @@
 #include <Core/Utils/StdUtils.hpp>
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 inline std::size_t ComponentMessenger::HashFunc::operator()( const Key& k ) const {
     return Core::Utils::hash( k );
@@ -158,5 +159,6 @@ ComponentMessenger::registerInput( const Entity* entity,
     entityList[key].reset( setter );
 }
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

@@ -14,16 +14,19 @@
 
 namespace Ra {
 namespace Engine {
+
+namespace Scene {
 class Component;
+} // namespace Scene
+
+namespace Data {
 class Displayable;
 class Material;
-class RenderParameters;
 struct ViewingParameters;
-} // namespace Engine
-} // namespace Ra
+} // namespace Data
 
-namespace Ra {
-namespace Engine {
+namespace Renderer {
+class RenderParameters;
 
 /**
  * Class to manage renderable objects.
@@ -46,7 +49,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      *        any other positive value will be taken into account.
      */
     RenderObject( const std::string& name,
-                  Component* comp,
+                  Scene::Component* comp,
                   const RenderObjectType& type,
                   int lifetime = -1 );
 
@@ -80,9 +83,9 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      */
     static RenderObject* createRenderObject(
         const std::string& name,
-        Component* comp,
+        Scene::Component* comp,
         const RenderObjectType& type,
-        std::shared_ptr<Displayable> mesh,
+        std::shared_ptr<Data::Displayable> mesh,
         const RenderTechnique& techniqueConfig = RenderTechnique::createDefaultRenderTechnique() );
 
     /**
@@ -93,8 +96,8 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     /// Getters and setters.
     ///@{
     const std::string& getName() const;
-    const Component* getComponent() const;
-    Component* getComponent();
+    const Scene::Component* getComponent() const;
+    Scene::Component* getComponent();
 
     const RenderObjectType& getType() const;
     void setType( const RenderObjectType& t );
@@ -121,13 +124,13 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     std::shared_ptr<const RenderTechnique> getRenderTechnique() const;
     std::shared_ptr<RenderTechnique> getRenderTechnique();
 
-    void setMaterial( std::shared_ptr<Material> material );
-    std::shared_ptr<const Material> getMaterial() const;
-    std::shared_ptr<Material> getMaterial();
+    void setMaterial( std::shared_ptr<Data::Material> material );
+    std::shared_ptr<const Data::Material> getMaterial() const;
+    std::shared_ptr<Data::Material> getMaterial();
 
-    void setMesh( std::shared_ptr<Displayable> mesh );
-    std::shared_ptr<const Displayable> getMesh() const;
-    const std::shared_ptr<Displayable>& getMesh();
+    void setMesh( std::shared_ptr<Data::Displayable> mesh );
+    std::shared_ptr<const Data::Displayable> getMesh() const;
+    const std::shared_ptr<Data::Displayable>& getMesh();
 
     Core::Transform getTransform() const;
     Core::Matrix4 getTransformAsMatrix() const;
@@ -156,7 +159,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param shader shader to use for this rendering
      */
     void render( const RenderParameters& lightParams,
-                 const ViewingParameters& viewParams,
+                 const Data::ViewingParameters& viewParams,
                  const ShaderProgram* shader,
                  const RenderParameters& shaderParams );
 
@@ -168,19 +171,19 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param passname RenderTechnique pass name
      */
     void render( const RenderParameters& lightParams,
-                 const ViewingParameters& viewParams,
+                 const Data::ViewingParameters& viewParams,
                  Core::Utils::Index passId = DefaultRenderingPasses::LIGHTING_OPAQUE );
 
   private:
     Core::Transform m_localTransform {Core::Transform::Identity()};
 
-    Component* m_component {nullptr};
+    Scene::Component* m_component {nullptr};
     std::string m_name {};
 
     RenderObjectType m_type {RenderObjectType::Geometry};
     std::shared_ptr<RenderTechnique> m_renderTechnique {nullptr};
-    std::shared_ptr<Displayable> m_mesh {nullptr};
-    std::shared_ptr<Material> m_material {nullptr};
+    std::shared_ptr<Data::Displayable> m_mesh {nullptr};
+    std::shared_ptr<Data::Material> m_material {nullptr};
 
     mutable std::mutex m_updateMutex;
 
@@ -193,5 +196,6 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     bool m_hasLifetime {false};
 };
 
+} // namespace Renderer
 } // namespace Engine
 } // namespace Ra

@@ -227,7 +227,7 @@ bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
 }
 
-void Gui::FlightCameraManipulator::setCamera( Engine::Camera* camera ) {
+void Gui::FlightCameraManipulator::setCamera( Engine::Data::Camera* camera ) {
 
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );

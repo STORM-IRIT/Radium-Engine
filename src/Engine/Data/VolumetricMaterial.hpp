@@ -11,9 +11,11 @@
 namespace Ra {
 
 namespace Engine {
-
+namespace Renderer {
 class ShaderProgram;
+}
 
+namespace Data {
 /**
  * Implementation of a simple Volumetric Material.
  * Based on a 3D texture defining the density distribution in the volume, perform ray-marching
@@ -94,6 +96,7 @@ class RA_ENGINE_API VolumetricMaterial final : public Material
     void updateRenderingParameters();
 };
 
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
 

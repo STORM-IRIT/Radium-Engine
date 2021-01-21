@@ -8,6 +8,7 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 
 /// Base class for systems coupling multiple subsystems.
 ///
@@ -129,5 +130,6 @@ class BaseCouplingSystem : public _BaseAbstractSystem
     std::vector<std::unique_ptr<BaseAbstractSystem>> m_systems;
 };
 
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
