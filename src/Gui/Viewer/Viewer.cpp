@@ -35,6 +35,7 @@
 
 #include <Engine/Data/Camera.hpp>
 #include <Engine/Data/DirLight.hpp>
+#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Scene/Component.hpp>
 
@@ -203,8 +204,6 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     }
 #endif
 
-    Engine::Data::ViewingParameters data {m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
-
     // FIXME : move this outside of the rendering loop. must be done once per renderer ...
     // if there is no light on the renderer, add the head light attached to the camera ...
     if ( !m_currentRenderer->hasLight() )
@@ -214,6 +213,7 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
         else
             LOG( logDEBUG ) << "Unable to attach the head light!";
     }
+    Engine::Data::ViewingParameters data {m_camera->getViewMatrix(), m_camera->getProjMatrix(), dt};
     m_currentRenderer->render( data );
 }
 

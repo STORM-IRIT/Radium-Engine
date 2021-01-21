@@ -8,6 +8,7 @@
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/Renderer/DebugRender.hpp>
 #include <Engine/Renderer/RenderObject.hpp>
