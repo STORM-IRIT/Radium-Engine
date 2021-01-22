@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">463002b1a39f6f39b33df1306b21a08516868bb9</span>
+   &#160;<span id="projectnumber">5894fe27838099df8b4b0cd5a0935789d5e450fb</span>
    </div>
   </td>
  </tr>
@@ -164,42 +164,42 @@ Mesh creation</h1>
 <li><a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html#a36eee2128af8869a7dafebb8fc60690f">Ra::Core::Utils::Attrib::getDataWithLock</a> to get a writable reference to the data array</li>
 <li>Ra::Core::Utils::Attrib::unlock to release the writable reference</li>
 </ul>
-<p>For instance</p>
-<div class="fragment"><div class="line"><span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a>;</div>
-<div class="line">TriangleMesh m;</div>
-<div class="line">TriangleMesh::PointAttribHandle::Container vertices;</div>
-<div class="line">TriangleMesh::NormalAttribHandle::Container normals;</div>
-<div class="line">    </div>
-<div class="line">vertices.push_back( {0, 0, 0} );</div>
-<div class="line">vertices.push_back( {1, 0, 0} );</div>
-<div class="line">vertices.push_back( {0, 2, 0} );</div>
-<div class="line">normals.push_back( {0, 0, 1} );</div>
-<div class="line">normals.push_back( {0, 0, 1} );</div>
-<div class="line">normals.push_back( {0, 0, 1} );</div>
-<div class="line">    </div>
-<div class="line">m.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a">setVertices</a>( std::move( vertices ) );</div>
-<div class="line">m.setNormals( std::move( normals ) );</div>
+<p>For instance </p><div class="fragment"><div class="line">    <span class="keyword">using</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Ra::Core::Geometry::TriangleMesh</a>;</div>
+<div class="line">    TriangleMesh m;</div>
+<div class="line">    TriangleMesh::PointAttribHandle::Container vertices;</div>
+<div class="line">    TriangleMesh::NormalAttribHandle::Container normals;</div>
+<div class="line">    TriangleMesh::IndexContainerType indices;</div>
 <div class="line"> </div>
-<div class="line">m.setIndices( {0, 1, 2} );</div>
+<div class="line">    vertices.push_back( {0, 0, 0} );</div>
+<div class="line">    vertices.push_back( {1, 0, 0} );</div>
+<div class="line">    vertices.push_back( {0, 2, 0} );</div>
+<div class="line">    normals.push_back( {0, 0, 1} );</div>
+<div class="line">    normals.push_back( {0, 0, 1} );</div>
+<div class="line">    normals.push_back( {0, 0, 1} );</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">auto</span> handle1  = m.addAttrib&lt;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&gt;( <span class="stringliteral">&quot;vector3_attrib&quot;</span> );</div>
-<div class="line"><span class="keyword">auto</span>&amp; attrib1 = m.getAttrib( handle1 );</div>
-<div class="line"><span class="keyword">auto</span>&amp; buf     = attrib1.getDataWithLock();</div>
-<div class="line">    </div>
-<div class="line">buf.reserve( 3 );</div>
-<div class="line">buf.push_back( {1, 1, 1} );</div>
-<div class="line">buf.push_back( {2, 2, 2} );</div>
-<div class="line">buf.push_back( {3, 3, 3} );</div>
-<div class="line">attrib1.unlock();</div>
-<div class="line">    </div>
-<div class="line"><span class="keyword">auto</span> handle2  = m.addAttrib&lt;<span class="keywordtype">float</span>&gt;( <span class="stringliteral">&quot;float_attrib&quot;</span> );</div>
-<div class="line"><span class="keyword">auto</span>&amp; attrib2 = m.getAttrib( handle2 );</div>
-<div class="line">attrib2.setData( {1.f, 2.f, 3.f} );</div>
-<div class="line">    </div>
-<div class="line">TriangleMesh m2;</div>
-<div class="line">m2.copyBaseGeometry( m );</div>
-<div class="line">m2.copyAttributes( m, handle1 );</div>
-</div><!-- fragment --><p>Other examples are provided in <a class="el" href="DrawPrimitives_8cpp.html">DrawPrimitives.cpp</a></p>
+<div class="line">    m.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a">setVertices</a>( std::move( vertices ) );</div>
+<div class="line">    m.setNormals( std::move( normals ) );</div>
+<div class="line"> </div>
+<div class="line">    m.setIndices( {{0, 1, 2}} );</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">auto</span> handle1  = m.addAttrib&lt;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&gt;( <span class="stringliteral">&quot;vector3_attrib&quot;</span> );</div>
+<div class="line">    <span class="keyword">auto</span>&amp; attrib1 = m.getAttrib( handle1 );</div>
+<div class="line">    <span class="keyword">auto</span>&amp; buf     = attrib1.getDataWithLock();</div>
+<div class="line"> </div>
+<div class="line">    buf.reserve( 3 );</div>
+<div class="line">    buf.push_back( {1, 1, 1} );</div>
+<div class="line">    buf.push_back( {2, 2, 2} );</div>
+<div class="line">    buf.push_back( {3, 3, 3} );</div>
+<div class="line">    attrib1.unlock();</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">auto</span> handle2  = m.addAttrib&lt;<span class="keywordtype">float</span>&gt;( <span class="stringliteral">&quot;float_attrib&quot;</span> );</div>
+<div class="line">    <span class="keyword">auto</span>&amp; attrib2 = m.getAttrib( handle2 );</div>
+<div class="line">    attrib2.setData( {1.f, 2.f, 3.f} );</div>
+<div class="line"> </div>
+<div class="line">    TriangleMesh m2;</div>
+<div class="line">    m2.copyBaseGeometry( m );</div>
+<div class="line">    m2.copyAttributes( m, handle1 );</div>
+</div><!-- fragment --><p> Other examples are provided in <a class="el" href="DrawPrimitives_8cpp.html">DrawPrimitives.cpp</a></p>
 <h2><a class="anchor" id="wedges"></a>
 Wedges</h2>
 <div class="image">
@@ -239,7 +239,7 @@ Halfedge collapse and wedge.</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Fri Jan 22 2021 08:06:30 for Radium Engine by
+    <li class="footer">Generated on Fri Jan 22 2021 18:19:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
