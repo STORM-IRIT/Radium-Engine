@@ -182,7 +182,7 @@ endif ()
 
 if(ENABLE_COVERAGE)
     set(LCOV_REMOVES "'/usr/*';'*external*';'*install*';'*/Catch2/*';'*_autogen/*';'*build*'")
-    setup_coverage_targets(ENABLE_COVERAGE LCOV_REMOVES)
+    setup_coverage_targets(${ENABLE_COVERAGE} "${LCOV_REMOVES}")
 endif()
 
 # Packaging stuff (deb, rpm, windows installer)
