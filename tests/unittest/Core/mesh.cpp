@@ -66,40 +66,41 @@ TEST_CASE( "Core/Geometry/TriangleMesh", "[Core][Core/Geometry][TriangleMesh]" )
     REQUIRE( !meshCopy.vertices()[0].isApprox( v0 ) );
 
     // For the documentation in doc/developer/mesh.md
-    {
-        TriangleMesh m;
-        TriangleMesh::PointAttribHandle::Container vertices;
-        TriangleMesh::NormalAttribHandle::Container normals;
-        TriangleMesh::IndexContainerType indices;
+    //! [create TriangleMesh]
+    using Ra::Core::Geometry::TriangleMesh;
+    TriangleMesh m;
+    TriangleMesh::PointAttribHandle::Container vertices;
+    TriangleMesh::NormalAttribHandle::Container normals;
+    TriangleMesh::IndexContainerType indices;
 
-        vertices.push_back( {0, 0, 0} );
-        vertices.push_back( {1, 0, 0} );
-        vertices.push_back( {0, 2, 0} );
-        normals.push_back( {0, 0, 1} );
-        normals.push_back( {0, 0, 1} );
-        normals.push_back( {0, 0, 1} );
+    vertices.push_back( {0, 0, 0} );
+    vertices.push_back( {1, 0, 0} );
+    vertices.push_back( {0, 2, 0} );
+    normals.push_back( {0, 0, 1} );
+    normals.push_back( {0, 0, 1} );
+    normals.push_back( {0, 0, 1} );
 
-        m.setVertices( std::move( vertices ) );
-        m.setNormals( std::move( normals ) );
+    m.setVertices( std::move( vertices ) );
+    m.setNormals( std::move( normals ) );
 
-        m.setIndices( {{0, 1, 2}} );
+    m.setIndices( {{0, 1, 2}} );
 
-        auto handle1  = m.addAttrib<Vector3>( "vector3_attrib" );
-        auto& attrib1 = m.getAttrib( handle1 );
-        auto& buf     = attrib1.getDataWithLock();
+    auto handle1  = m.addAttrib<Vector3>( "vector3_attrib" );
+    auto& attrib1 = m.getAttrib( handle1 );
+    auto& buf     = attrib1.getDataWithLock();
 
-        buf.reserve( 3 );
-        buf.push_back( {1, 1, 1} );
-        buf.push_back( {2, 2, 2} );
-        buf.push_back( {3, 3, 3} );
-        attrib1.unlock();
+    buf.reserve( 3 );
+    buf.push_back( {1, 1, 1} );
+    buf.push_back( {2, 2, 2} );
+    buf.push_back( {3, 3, 3} );
+    attrib1.unlock();
 
-        auto handle2  = m.addAttrib<float>( "float_attrib" );
-        auto& attrib2 = m.getAttrib( handle2 );
-        attrib2.setData( {1.f, 2.f, 3.f} );
+    auto handle2  = m.addAttrib<float>( "float_attrib" );
+    auto& attrib2 = m.getAttrib( handle2 );
+    attrib2.setData( {1.f, 2.f, 3.f} );
 
-        TriangleMesh m2;
-        m2.copyBaseGeometry( m );
-        m2.copyAttributes( m, handle1 );
-    }
+    TriangleMesh m2;
+    m2.copyBaseGeometry( m );
+    m2.copyAttributes( m, handle1 );
+    //! [create TriangleMesh]
 }
