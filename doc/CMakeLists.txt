@@ -4,6 +4,13 @@
 #   * dot = for automatically generated UML diagrams (class, include, caller, call, collaboration)
 #   * PlantUML = for easy generation of custom diagrams
 
+cmake_minimum_required(VERSION 3.13)
+project(radium-doc)
+
+
+if(POLICY CMP0077)
+  cmake_policy(SET CMP0077 NEW)
+endif()
 # Helper functions
 list(APPEND CMAKE_MESSAGE_INDENT "[Doc] ")
 
