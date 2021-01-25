@@ -1,4 +1,4 @@
-#include <Engine/Data/Camera.hpp>
+#include <Engine/Scene/Camera.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Math/Math.hpp>

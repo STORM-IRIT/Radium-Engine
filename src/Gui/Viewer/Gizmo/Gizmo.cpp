@@ -1,9 +1,9 @@
 #include <Gui/Viewer/Gizmo/Gizmo.hpp>
 
 #include <Core/Geometry/RayCast.hpp>
-#include <Engine/Data/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>

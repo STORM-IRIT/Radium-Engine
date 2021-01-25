@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Data/Camera.hpp>
+#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Entity.hpp>
 
 namespace Ra {
