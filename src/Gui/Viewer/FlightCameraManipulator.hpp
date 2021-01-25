@@ -1,6 +1,7 @@
 #pragma once
 #include <Gui/RaGui.hpp>
 
+#include <Engine/Scene/Camera.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
 
 namespace Ra {
@@ -38,7 +39,7 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
     bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void toggleRotateAround();
-    void setCamera( Engine::Data::Camera* camera ) override;
+    void setCamera( Engine::Scene::Camera* camera ) override;
 
   public slots:
     void setCameraPosition( const Core::Vector3& position ) override;

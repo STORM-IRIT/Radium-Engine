@@ -8,6 +8,7 @@
 
 #include <Gui/Utils/KeyMappingManager.hpp>
 
+#include <Engine/Scene/Camera.hpp>
 #include <QApplication>
 #include <QMessageBox>
 #include <algorithm>
@@ -227,7 +228,7 @@ bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
 }
 
-void Gui::FlightCameraManipulator::setCamera( Engine::Data::Camera* camera ) {
+void Gui::FlightCameraManipulator::setCamera( Engine::Scene::Camera* camera ) {
 
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );

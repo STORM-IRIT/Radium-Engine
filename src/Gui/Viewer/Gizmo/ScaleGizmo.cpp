@@ -7,6 +7,7 @@
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Renderer/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique.hpp>
+#include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -136,7 +137,7 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform ScaleGizmo::mouseMove( const Engine::Data::Camera& cam,
+Core::Transform ScaleGizmo::mouseMove( const Engine::Scene::Camera& cam,
                                        const Core::Vector2& nextXY,
                                        bool stepped,
                                        bool whole ) {
@@ -228,7 +229,7 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Data::Camera& cam,
     return m_transform;
 }
 
-void ScaleGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
+void ScaleGizmo::setInitialState( const Engine::Scene::Camera& /*cam*/,
                                   const Core::Vector2& /*initialXY*/ ) {
     m_initialPix = Core::Vector2::Zero();
     m_start      = false;

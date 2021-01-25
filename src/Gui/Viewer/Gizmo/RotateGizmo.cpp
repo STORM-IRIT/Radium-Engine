@@ -90,7 +90,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform RotateGizmo::mouseMove( const Engine::Data::Camera& cam,
+Core::Transform RotateGizmo::mouseMove( const Engine::Scene::Camera& cam,
                                         const Core::Vector2& nextXY,
                                         bool stepped,
                                         bool /*whole*/ ) {
@@ -179,7 +179,7 @@ Core::Transform RotateGizmo::mouseMove( const Engine::Data::Camera& cam,
     return m_transform;
 }
 
-void RotateGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
+void RotateGizmo::setInitialState( const Engine::Scene::Camera& /*cam*/,
                                    const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
     m_start      = false;
