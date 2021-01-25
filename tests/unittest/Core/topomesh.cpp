@@ -228,6 +228,16 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
     REQUIRE( topologicalMesh.checkIntegrity() );
 
+    mesh            = Ra::Core::Geometry::makeSharpBox();
+    topologicalMesh = TopologicalMesh();
+    topologicalMesh.initWithWedge( mesh );
+    newMesh  = topologicalMesh.toTriangleMesh();
+    newMesh2 = topologicalMesh.toTriangleMeshFromWedges();
+    REQUIRE( isSameMesh( mesh, newMesh ) );
+    REQUIRE( isSameMesh( mesh, newMesh2 ) );
+    REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
+    REQUIRE( topologicalMesh.checkIntegrity() );
+
     // Test for mesh with boundaries
     mesh            = Ra::Core::Geometry::makePlaneGrid( 2, 2 );
     topologicalMesh = TopologicalMesh( mesh );
