@@ -470,7 +470,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
         w.setWedgeData( std::move( wd ) );
         // the newly added wedge is not referenced yet, will be done with `newReference` when
         // creating faces just below
-        m_wedges.m_data.emplace_back( w );
+        m_wedges.m_data.push_back( w );
     }
 
     LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.size() << " wedges ";
