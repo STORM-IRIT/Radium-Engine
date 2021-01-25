@@ -481,6 +481,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         explicit Wedge( const WedgeData& wd ) : m_wedgeData {wd}, m_refCount {1} {};
         const WedgeData& getWedgeData() const { return m_wedgeData; }
         void setWedgeData( const WedgeData& wedgeData ) { m_wedgeData = wedgeData; }
+        void setWedgeData( WedgeData&& wedgeData ) { m_wedgeData = std::move( wedgeData ); }
         void incrementRefCount() { ++m_refCount; }
         void decrementRefCount() {
             if ( m_refCount ) --m_refCount;
