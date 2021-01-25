@@ -47,6 +47,7 @@
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Utils/PickingManager.hpp>
 
+#include <Engine/Scene/Camera.hpp>
 #include <Gui/Viewer/Gizmo/GizmoManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
@@ -124,7 +125,7 @@ Gui::CameraManipulator* Gui::Viewer::getCameraManipulator() {
     return m_camera.get();
 }
 
-void Gui::Viewer::setCamera( Engine::Data::Camera* camera ) {
+void Gui::Viewer::setCamera( Engine::Scene::Camera* camera ) {
     m_camera->setCamera( camera );
 }
 

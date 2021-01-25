@@ -128,7 +128,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
-    const Engine::Data::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
+    const Engine::Scene::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
     return true;
@@ -152,7 +152,7 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
          currentGizmo()->isSelected() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        const Engine::Data::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
+        const Engine::Scene::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
         bool step  = action == GIZMOMANAGER_STEP || action == GIZMOMANAGER_STEP_WHOLE;
         bool whole = action == GIZMOMANAGER_WHOLE || action == GIZMOMANAGER_STEP_WHOLE;
 

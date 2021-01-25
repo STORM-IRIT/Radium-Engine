@@ -4,6 +4,7 @@
 #include <Engine/Scene/CameraStorage.hpp>
 #include <Engine/Scene/System.hpp>
 
+#include <Engine/Scene/Camera.hpp>
 #include <memory>
 
 namespace Ra {
@@ -32,10 +33,10 @@ class RA_ENGINE_API CameraManager : public System
     ~CameraManager() override = default;
 
     /// Get a pointer to the cam-th Camera.
-    virtual const Data::Camera* getCamera( size_t cam ) const = 0;
+    virtual const Camera* getCamera( size_t cam ) const = 0;
 
     /// Add a Camera to the manager ...
-    virtual void addCamera( Data::Camera* cam ) = 0;
+    virtual void addCamera( Camera* cam ) = 0;
 
     //
     // Calls for the Renderer

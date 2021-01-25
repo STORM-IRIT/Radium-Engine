@@ -15,6 +15,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 
+#include <Engine/Scene/Camera.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/WindowQt.hpp>
 
@@ -79,7 +80,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     CameraManipulator* getCameraManipulator();
 
     /// Set the camera managed by the cameraInterface
-    void setCamera( Engine::Data::Camera* camera );
+    void setCamera( Engine::Scene::Camera* camera );
 
     /// Access to gizmo manager
     GizmoManager* getGizmoManager();

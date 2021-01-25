@@ -1,6 +1,7 @@
 #pragma once
 #include <Gui/RaGui.hpp>
 
+#include <Engine/Scene/Camera.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
 
 namespace Ra {
@@ -43,7 +44,7 @@ class RA_GUI_API TrackballCameraManipulator
     bool handleKeyReleaseEvent( QKeyEvent* event ) override;
 
     void toggleRotateAround();
-    void setCamera( Engine::Data::Camera* camera ) override;
+    void setCamera( Engine::Scene::Camera* camera ) override;
 
     /// Set the distance from the camera to the target point.
     /// \note doesn't modify the camera.

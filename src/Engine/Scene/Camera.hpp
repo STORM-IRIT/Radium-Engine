@@ -10,10 +10,6 @@ namespace Engine {
 
 namespace Scene {
 class Entity;
-}
-
-namespace Data {
-
 /// A Camera is an Engine Component storing a Camera object.
 class RA_ENGINE_API Camera : public Scene::Component
 {
@@ -23,7 +19,7 @@ class RA_ENGINE_API Camera : public Scene::Component
 
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    Camera( Scene::Entity* entity, const std::string& name, Scalar height, Scalar width );
+    Camera( Entity* entity, const std::string& name, Scalar height, Scalar width );
 
     ~Camera() override;
 
@@ -150,7 +146,7 @@ class RA_ENGINE_API Camera : public Scene::Component
     ///@}
 
     /// Duplicate the camera under a different Entity and a different name
-    virtual Camera* duplicate( Scene::Entity* cloneEntity, const std::string& cloneName ) const;
+    virtual Camera* duplicate( Entity* cloneEntity, const std::string& cloneName ) const;
 
     /// Fit the Z-range of the camera to the scene's aabb. This will maximize z-buffer precision
     virtual void fitZRange( const Core::Aabb& aabb );
@@ -178,8 +174,7 @@ class RA_ENGINE_API Camera : public Scene::Component
     Scalar m_aspect {1_ra};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
     ///@}
 };
-
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 

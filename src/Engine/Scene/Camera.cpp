@@ -14,17 +14,17 @@ using Core::Math::PiDiv2;
 using Core::Math::PiDiv4;
 
 namespace Engine {
-namespace Data {
+namespace Scene {
 
-Camera::Camera( Scene::Entity* entity, const std::string& name, Scalar height, Scalar width ) :
-    Scene::Component( name, entity ),
-    m_width {width},
-    m_height {height},
-    m_aspect {width / height} {}
+Camera::Camera( Entity* entity, const std::string& name, Scalar height, Scalar width ) :
+    Component( name, entity ), m_width {width}, m_height {height}, m_aspect {width / height} {}
 
 Camera::~Camera() = default;
 
 void Camera::initialize() {
+    using Data::Material;
+    using Data::Mesh;
+    using Data::PlainMaterial;
     if ( !m_renderObjects.empty() ) return;
     // Create the render mesh for the camera
     auto m = std::make_shared<Mesh>( m_name + "_mesh" );
@@ -128,7 +128,7 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
 
-Camera* Camera::duplicate( Scene::Entity* cloneEntity, const std::string& cloneName ) const {
+Camera* Camera::duplicate( Entity* cloneEntity, const std::string& cloneName ) const {
     auto cam          = new Camera( cloneEntity, cloneName, m_width, m_height );
     cam->m_frame      = m_frame;
     cam->m_projMatrix = m_projMatrix;
@@ -172,6 +172,6 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
     updateProjMatrix();
 }
 
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
