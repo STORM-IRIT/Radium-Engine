@@ -2,7 +2,7 @@
 
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Log.hpp>
-#include <Engine/Data/Camera.hpp>
+#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 

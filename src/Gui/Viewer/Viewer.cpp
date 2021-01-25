@@ -33,11 +33,11 @@
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
-#include <Engine/Data/Camera.hpp>
 #include <Engine/Renderer/ForwardRenderer.hpp>
 #include <Engine/Renderer/Renderer.hpp>
 #include <Engine/Renderer/ShaderProgramManager.hpp>
 #include <Engine/Renderer/ViewingParameters.hpp>
+#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>

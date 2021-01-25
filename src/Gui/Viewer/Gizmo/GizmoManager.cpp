@@ -1,5 +1,5 @@
-#include <Engine/Data/Camera.hpp>
 #include <Engine/OpenGL.hpp>
+#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>

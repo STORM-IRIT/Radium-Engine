@@ -1,6 +1,5 @@
 set( engine_sources
     Data/BlinnPhongMaterial.cpp
-    Data/Camera.cpp
     Data/DrawPrimitives.cpp
     Data/LambertianMaterial.cpp
     Data/MaterialConverters.cpp
@@ -23,6 +22,7 @@ set( engine_sources
     Renderer/ShaderConfiguration.cpp
     Renderer/ShaderProgram.cpp
     Renderer/ShaderProgramManager.cpp
+    Scene/Camera.cpp
     Scene/CameraManager.cpp
     Scene/Component.cpp
     Scene/ComponentMessenger.cpp
@@ -47,7 +47,6 @@ set( engine_sources
 
 set( engine_headers
     Data/BlinnPhongMaterial.hpp
-    Data/Camera.hpp
     Data/DisplayableObject.hpp
     Data/DrawPrimitives.hpp
     Data/LambertianMaterial.hpp
@@ -76,6 +75,7 @@ set( engine_headers
     Renderer/ShaderProgram.hpp
     Renderer/ShaderProgramManager.hpp
     Renderer/ViewingParameters.hpp
+    Scene/Camera.hpp
     Scene/CameraManager.hpp
     Scene/CameraStorage.hpp
     Scene/Component.hpp
@@ -103,7 +103,6 @@ set( engine_headers
 
 set( engine_inlines
     Data/BlinnPhongMaterial.inl
-    Data/Camera.inl
     Data/Material.inl
     Data/Mesh.inl
     Data/RawShaderMaterial.inl
@@ -113,6 +112,7 @@ set( engine_inlines
     Renderer/RenderParameters.inl
     Renderer/RenderTechnique.inl
     Renderer/ShaderProgram.inl
+    Scene/Camera.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl
     Scene/DirLight.inl

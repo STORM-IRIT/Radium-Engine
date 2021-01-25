@@ -4,10 +4,10 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Engine/Data/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Renderer/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique.hpp>
+#include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
 namespace Gui {

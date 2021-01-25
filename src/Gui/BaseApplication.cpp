@@ -12,10 +12,10 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
 
-#include <Engine/Data/Camera.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderObject.hpp>
 #include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
