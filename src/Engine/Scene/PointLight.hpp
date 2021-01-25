@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine/Data/Light.hpp>
+#include <Engine/Scene/Light.hpp>
 #include <Engine/RaEngine.hpp>
 
 namespace Ra {
@@ -8,18 +8,15 @@ namespace Engine {
 
 namespace Scene {
 class Entity;
-}
-
-namespace Data {
 /** Point light for rendering
  *
  */
-class RA_ENGINE_API PointLight final : public Light
+class RA_ENGINE_API PointLight final : public Ra::Engine::Scene::Light
 {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    explicit PointLight( Scene::Entity* entity, const std::string& name = "pointlight" );
+    explicit PointLight( Entity* entity, const std::string& name = "pointlight" );
     ~PointLight() override = default;
 
     void getRenderParameters( Renderer::RenderParameters& params ) const override;
@@ -38,8 +35,7 @@ class RA_ENGINE_API PointLight final : public Light
 
     Attenuation m_attenuation {1, 0, 0};
 };
-
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
-#include <Engine/Data/PointLight.inl>
+#include "PointLight.inl"

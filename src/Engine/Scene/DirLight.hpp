@@ -1,25 +1,23 @@
 #pragma once
 
-#include <Engine/Data/Light.hpp>
 #include <Engine/RaEngine.hpp>
+#include <Engine/Scene/Light.hpp>
 
 namespace Ra {
 namespace Engine {
-
 namespace Scene {
-class Entity;
-}
 
-namespace Data {
+class Entity;
+
 /** Directional light for rendering
  *
  */
-class RA_ENGINE_API DirectionalLight final : public Light
+class RA_ENGINE_API DirectionalLight final : public Ra::Engine::Scene::Light
 {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    explicit DirectionalLight( Scene::Entity* entity, const std::string& name = "dirlight" );
+    explicit DirectionalLight( Entity* entity, const std::string& name = "dirlight" );
     ~DirectionalLight() override = default;
 
     void getRenderParameters( Renderer::RenderParameters& params ) const override;
@@ -32,8 +30,8 @@ class RA_ENGINE_API DirectionalLight final : public Light
   private:
     Eigen::Matrix<Scalar, 3, 1> m_direction {0, -1, 0};
 };
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Data/DirLight.inl>
+#include "DirLight.inl"

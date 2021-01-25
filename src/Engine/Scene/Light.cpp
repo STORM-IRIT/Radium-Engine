@@ -1,11 +1,11 @@
-#include <Engine/Data/Light.hpp>
+#include <Engine/Scene/Light.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/RenderParameters.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Data {
+namespace Scene {
 Light::Light( Scene::Entity* entity, const LightType& type, const std::string& name ) :
     Component( name, entity ), m_type( type ) {}
 
@@ -22,6 +22,6 @@ std::string Light::getShaderInclude() const {
     return {};
 }
 
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

@@ -17,6 +17,7 @@
 
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/WindowQt.hpp>
+
 // Forward declarations
 class QOpenGLContext;
 class QSurfaceFormat;

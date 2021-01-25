@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Engine/Data/Light.hpp>
 #include <Engine/RaEngine.hpp>
+#include <Engine/Scene/Light.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -37,16 +37,16 @@ class RA_ENGINE_API LightStorage
     virtual size_t size() const = 0;
 
     /// Add a Light to the container.
-    virtual void add( const Data::Light* li ) = 0;
+    virtual void add( const Scene::Light* li ) = 0;
 
     /// Remove a Light from the container.
-    virtual void remove( const Data::Light* li ) = 0;
+    virtual void remove( const Scene::Light* li ) = 0;
 
     /// Clear the container.
     virtual void clear() = 0;
 
     /// Access the container.
-    virtual const Data::Light* operator[]( unsigned int n ) = 0;
+    virtual const Scene::Light* operator[]( unsigned int n ) = 0;
 };
 
 } // namespace Scene

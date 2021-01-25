@@ -1,18 +1,14 @@
 set( engine_sources
     Data/BlinnPhongMaterial.cpp
     Data/Camera.cpp
-    Data/DirLight.cpp
     Data/DrawPrimitives.cpp
     Data/LambertianMaterial.cpp
-    Data/Light.cpp
     Data/MaterialConverters.cpp
     Data/Material.cpp
     Data/Mesh.cpp
     Data/PlainMaterial.cpp
-    Data/PointLight.cpp
     Data/RawShaderMaterial.cpp
     Data/SimpleMaterial.cpp
-    Data/SpotLight.cpp
     Data/Texture.cpp
     Data/VolumeObject.cpp
     Data/VolumetricMaterial.cpp
@@ -32,14 +28,18 @@ set( engine_sources
     Scene/ComponentMessenger.cpp
     Scene/DefaultCameraManager.cpp
     Scene/DefaultLightManager.cpp
+    Scene/DirLight.cpp
     Scene/Entity.cpp
     Scene/EntityManager.cpp
     Scene/GeometryComponent.cpp
     Scene/GeometrySystem.cpp
     Scene/ItemEntry.cpp
+    Scene/Light.cpp
     Scene/LightManager.cpp
+    Scene/PointLight.cpp
     Scene/RenderObjectManager.cpp
     Scene/SignalManager.cpp
+    Scene/SpotLight.cpp
     Scene/System.cpp
     Scene/SystemDisplay.cpp
     Scene/TextureManager.cpp
@@ -48,19 +48,15 @@ set( engine_sources
 set( engine_headers
     Data/BlinnPhongMaterial.hpp
     Data/Camera.hpp
-    Data/DirLight.hpp
     Data/DisplayableObject.hpp
     Data/DrawPrimitives.hpp
     Data/LambertianMaterial.hpp
-    Data/Light.hpp
     Data/MaterialConverters.hpp
     Data/Material.hpp
     Data/Mesh.hpp
     Data/PlainMaterial.hpp
-    Data/PointLight.hpp
     Data/RawShaderMaterial.hpp
     Data/SimpleMaterial.hpp
-    Data/SpotLight.hpp
     Data/Texture.hpp
     Data/VolumeObject.hpp
     Data/VolumetricMaterial.hpp
@@ -87,15 +83,19 @@ set( engine_headers
     Scene/CouplingSystem.hpp
     Scene/DefaultCameraManager.hpp
     Scene/DefaultLightManager.hpp
+    Scene/DirLight.hpp
     Scene/Entity.hpp
     Scene/EntityManager.hpp
     Scene/GeometryComponent.hpp
     Scene/GeometrySystem.hpp
     Scene/ItemEntry.hpp
+    Scene/Light.hpp
     Scene/LightManager.hpp
     Scene/LightStorage.hpp
+    Scene/PointLight.hpp
     Scene/RenderObjectManager.hpp
     Scene/SignalManager.hpp
+    Scene/SpotLight.hpp
     Scene/SystemDisplay.hpp
     Scene/System.hpp
     Scene/TextureManager.hpp
@@ -104,14 +104,10 @@ set( engine_headers
 set( engine_inlines
     Data/BlinnPhongMaterial.inl
     Data/Camera.inl
-    Data/DirLight.inl
-    Data/Light.inl
     Data/Material.inl
     Data/Mesh.inl
-    Data/PointLight.inl
     Data/RawShaderMaterial.inl
     Data/SimpleMaterial.inl
-    Data/SpotLight.inl
     Data/VolumeObject.inl
     Data/VolumetricMaterial.inl
     Renderer/RenderParameters.inl
@@ -119,9 +115,13 @@ set( engine_inlines
     Renderer/ShaderProgram.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl
+    Scene/DirLight.inl
     Scene/Entity.inl
     Scene/GeometryComponent.inl
     Scene/ItemEntry.inl
+    Scene/Light.inl
+    Scene/PointLight.inl
+    Scene/SpotLight.inl
 )
 
 set(engine_shaders

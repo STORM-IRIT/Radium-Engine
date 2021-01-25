@@ -697,7 +697,7 @@ std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
     return writtenPixels;
 }
 
-void Renderer::addLight( const Data::Light* light ) {
+void Renderer::addLight( const Scene::Light* light ) {
     for ( auto m : m_lightmanagers )
         m->addLight( light );
 }

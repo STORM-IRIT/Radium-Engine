@@ -3,7 +3,7 @@
 #include <Core/Math/Math.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Camera.hpp>
-#include <Engine/Data/Light.hpp>
+#include <Engine/Scene/Light.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>

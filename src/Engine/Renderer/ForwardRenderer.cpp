@@ -4,7 +4,6 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <Engine/Data/Light.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
@@ -16,6 +15,7 @@
 #include <Engine/Renderer/ViewingParameters.hpp>
 #include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
+#include <Engine/Scene/Light.hpp>
 #include <globjects/Framebuffer.h>
 
 /* Test Point cloud parameter provider */
@@ -419,7 +419,7 @@ void ForwardRenderer::debugInternal( const Data::ViewingParameters& renderData )
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
         RenderParameters xrayLightParams;
         xrayLightParams.addParameter( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
-        xrayLightParams.addParameter( "light.type", Data::Light::LightType::DIRECTIONAL );
+        xrayLightParams.addParameter( "light.type", Scene::Light::LightType::DIRECTIONAL );
         xrayLightParams.addParameter( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
         for ( const auto& ro : m_xrayRenderObjects )
         {

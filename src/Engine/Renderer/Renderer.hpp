@@ -26,13 +26,13 @@ namespace Engine {
 
 namespace Data {
 class Camera;
-class Light;
 class Texture;
 struct ViewingParameters;
 } // namespace Data
 
 namespace Scene {
 class TextureManager;
+class Light;
 class RenderObjectManager;
 class LightManager;
 } // namespace Scene
@@ -255,7 +255,7 @@ class RA_ENGINE_API Renderer
      * renderer ...
      * @param light
      */
-    virtual void addLight( const Data::Light* light );
+    virtual void addLight( const Scene::Light* light );
 
     /**
      * Reload, recompile and relink all shaders and programmed internally used by the renderer.

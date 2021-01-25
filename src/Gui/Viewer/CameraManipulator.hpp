@@ -17,8 +17,11 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 class Camera;
-class Light;
 } // namespace Data
+namespace Scene {
+class Light;
+}
+
 } // namespace Engine
 
 namespace Gui {
@@ -96,13 +99,13 @@ class RA_GUI_API CameraManipulator : public QObject
 
     /// Set the Light attached to the camera.
     /// \note CameraManipulator doesn't have ownership.
-    void attachLight( Engine::Data::Light* light );
+    void attachLight( Engine::Scene::Light* light );
 
     /// @return true if a Light is attached to the camera, false otherwise.
     bool hasLightAttached() const { return m_light != nullptr; }
 
     /// pointer acces to the attached light if it exists, returns nullptr otherwise.
-    Engine::Data::Light* getLight() { return m_light; }
+    Engine::Scene::Light* getLight() { return m_light; }
 
     /// Static method to get the Camera from the given viewer.
     // FIXME: shouldn't be here!
@@ -165,7 +168,7 @@ class RA_GUI_API CameraManipulator : public QObject
     Core::Vector3 m_target;
 
     Engine::Data::Camera* m_camera; ///< The Camera.
-    Engine::Data::Light* m_light;   ///< The light attached to the Camera.
+    Engine::Scene::Light* m_light;  ///< The light attached to the Camera.
 };
 
 } // namespace Gui
