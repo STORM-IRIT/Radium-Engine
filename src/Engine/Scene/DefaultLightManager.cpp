@@ -10,11 +10,11 @@ DefaultLightManager::DefaultLightManager() {
     m_data = std::make_unique<DefaultLightStorage>();
 }
 
-const Data::Light* DefaultLightManager::getLight( size_t li ) const {
+const Scene::Light* DefaultLightManager::getLight( size_t li ) const {
     return ( *m_data )[li];
 }
 
-void DefaultLightManager::addLight( const Data::Light* li ) {
+void DefaultLightManager::addLight( const Scene::Light* li ) {
     m_data->add( li );
 }
 
@@ -22,11 +22,11 @@ DefaultLightStorage::DefaultLightStorage() = default;
 
 void DefaultLightStorage::upload() const {}
 
-void DefaultLightStorage::add( const Data::Light* li ) {
+void DefaultLightStorage::add( const Scene::Light* li ) {
     m_lights.emplace( li->getType(), li );
 }
 
-void DefaultLightStorage::remove( const Data::Light* li ) {
+void DefaultLightStorage::remove( const Scene::Light* li ) {
     auto range = m_lights.equal_range( li->getType() );
     for ( auto i = range.first; i != range.second; ++i )
     {
@@ -46,7 +46,7 @@ void DefaultLightStorage::clear() {
     m_lights.clear();
 }
 
-const Data::Light* DefaultLightStorage::operator[]( unsigned int n ) {
+const Scene::Light* DefaultLightStorage::operator[]( unsigned int n ) {
     auto iterator = m_lights.begin();
     std::advance( iterator, n );
     return iterator->second;

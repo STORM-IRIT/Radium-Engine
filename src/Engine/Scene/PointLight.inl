@@ -3,7 +3,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Data {
+namespace Scene {
 
 inline void PointLight::setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) {
     m_position = pos;
@@ -27,6 +27,6 @@ inline const PointLight::Attenuation& PointLight::getAttenuation() const {
     return m_attenuation;
 }
 
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

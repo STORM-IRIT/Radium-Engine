@@ -1,9 +1,8 @@
 #include <Gui/Viewer/CameraManipulator.hpp>
 
 #include <Core/Math/Math.hpp>
-
 #include <Engine/Data/Camera.hpp>
-#include <Engine/Data/Light.hpp>
+#include <Engine/Scene/Light.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
 #include <Gui/Viewer/Viewer.hpp>
@@ -119,7 +118,7 @@ void Gui::CameraManipulator::unmapCameraBehaviourToAabb() {
     m_mapCameraBahaviourToAabb = false;
 }
 
-void Gui::CameraManipulator::attachLight( Engine::Data::Light* light ) {
+void Gui::CameraManipulator::attachLight( Engine::Scene::Light* light ) {
     m_light = light;
     m_light->setDirection( m_camera->getDirection() );
 }

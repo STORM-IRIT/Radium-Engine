@@ -1,11 +1,10 @@
-#include <Engine/Data/SpotLight.hpp>
-
 #include <Engine/Renderer/RenderParameters.hpp>
+#include <Engine/Scene/SpotLight.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Data {
-SpotLight::SpotLight( Scene::Entity* entity, const std::string& name ) :
+namespace Scene {
+SpotLight::SpotLight( Entity* entity, const std::string& name ) :
     Light( entity, Light::SPOT, name ) {}
 
 void SpotLight::getRenderParameters( Renderer::RenderParameters& params ) const {
@@ -24,6 +23,6 @@ std::string SpotLight::getShaderInclude() const {
     return "Spot";
 }
 
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

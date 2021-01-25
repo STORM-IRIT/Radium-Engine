@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Engine/Data/Light.hpp>
 #include <Engine/RadiumEngine.hpp>
+#include <Engine/Scene/Light.hpp>
 #include <Engine/Scene/LightManager.hpp>
 
 #include <memory>
@@ -18,16 +18,16 @@ class RA_ENGINE_API DefaultLightStorage : public LightStorage
 {
   public:
     DefaultLightStorage();
-    void add( const Data::Light* i ) override;
-    void remove( const Data::Light* li ) override;
+    void add( const Scene::Light* i ) override;
+    void remove( const Scene::Light* li ) override;
     void upload() const override;
     size_t size() const override;
     void clear() override;
-    const Data::Light* operator[]( unsigned int n ) override;
+    const Scene::Light* operator[]( unsigned int n ) override;
 
   private:
     /** Multimap (by light type) of light references. */
-    std::multimap<Data::Light::LightType, const Data::Light*> m_lights;
+    std::multimap<Scene::Light::LightType, const Scene::Light*> m_lights;
 };
 
 /**
@@ -38,8 +38,8 @@ class RA_ENGINE_API DefaultLightManager : public LightManager
   public:
     DefaultLightManager();
 
-    const Data::Light* getLight( size_t li ) const override;
-    void addLight( const Data::Light* li ) override;
+    const Scene::Light* getLight( size_t li ) const override;
+    void addLight( const Scene::Light* li ) override;
 };
 
 } // namespace Scene

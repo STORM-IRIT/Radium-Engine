@@ -1,13 +1,15 @@
 #pragma once
 
+#include "SpotLight.hpp"
+
 namespace Ra {
 namespace Engine {
-namespace Data {
+namespace Scene {
 inline void SpotLight::setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) {
     m_position = position;
 }
 
-inline const Eigen::Matrix<Scalar, 3, 1>& SpotLight::getPosition() const {
+inline const Eigen::Matrix<Scalar, 3, 1>& Scene::SpotLight::getPosition() const {
     return m_position;
 }
 
@@ -55,6 +57,6 @@ inline const SpotLight::Attenuation& SpotLight::getAttenuation() const {
     return m_attenuation;
 }
 
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

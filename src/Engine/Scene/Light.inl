@@ -1,9 +1,11 @@
 #pragma once
+
 #include "Light.hpp"
 
 namespace Ra {
 namespace Engine {
-namespace Data {
+namespace Scene {
+
 inline const Core::Utils::Color& Light::getColor() const {
     return m_color;
 }
@@ -16,6 +18,6 @@ inline const Light::LightType& Light::getType() const {
     return m_type;
 }
 
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

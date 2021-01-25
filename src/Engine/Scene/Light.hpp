@@ -6,22 +6,20 @@
 
 namespace Ra {
 namespace Engine {
-
 namespace Renderer {
 class RenderParameters;
 }
 
 namespace Scene {
-class Entity;
-}
 
-namespace Data {
+class Entity;
+
 // Radium-V2 : this class could totally be renamed LightComponent and get a Light struct embedded.
 // Thoughts are welcome !
 /**
- * Light base classe for rendering
+ * Light base class for rendering
  */
-class RA_ENGINE_API Light : public Scene::Component
+class RA_ENGINE_API Light : public Component
 {
   public:
     /** supported light type.
@@ -51,7 +49,7 @@ class RA_ENGINE_API Light : public Scene::Component
      * @param type
      * @param name
      */
-    Light( Scene::Entity* entity, const LightType& type, const std::string& name = "light" );
+    Light( Entity* entity, const LightType& type, const std::string& name = "light" );
     ~Light() override = default;
 
     /**
@@ -111,8 +109,8 @@ class RA_ENGINE_API Light : public Scene::Component
     LightType m_type {LightType::DIRECTIONAL};
 };
 
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Data/Light.inl>
+#include "Light.inl"

@@ -34,13 +34,12 @@
 #include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Data/Camera.hpp>
-#include <Engine/Data/DirLight.hpp>
+#include <Engine/Renderer/ForwardRenderer.hpp>
 #include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/ShaderProgramManager.hpp>
 #include <Engine/Renderer/ViewingParameters.hpp>
 #include <Engine/Scene/Component.hpp>
-
-#include <Engine/Renderer/ForwardRenderer.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
@@ -436,8 +435,8 @@ bool Gui::Viewer::initializeGL() {
 
     createGizmoManager();
     // create default camera interface : trackball
-    m_camera = std::make_unique<Gui::TrackballCameraManipulator>( width(), height() );
-    auto headlight = new Engine::Data::DirectionalLight(
+    m_camera       = std::make_unique<Gui::TrackballCameraManipulator>( width(), height() );
+    auto headlight = new Engine::Scene::DirectionalLight(
         Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
     headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
     m_camera->attachLight( headlight );

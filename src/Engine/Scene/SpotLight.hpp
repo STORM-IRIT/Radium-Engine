@@ -1,29 +1,24 @@
 #pragma once
 
-#include <Engine/RaEngine.hpp>
-
 #include <Core/Math/Math.hpp>
-#include <Engine/Data/Light.hpp>
+#include <Engine/RaEngine.hpp>
+#include <Engine/Scene/Light.hpp>
 
 namespace Ra {
 namespace Engine {
 
 namespace Scene {
 class Entity;
-}
-
-namespace Data {
-
 /** Spot light for rendering.
  *
  */
-class RA_ENGINE_API SpotLight final : public Light
+class RA_ENGINE_API SpotLight final : public Ra::Engine::Scene::Light
 {
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    explicit SpotLight( Scene::Entity* entity, const std::string& name = "spotlight" );
+    explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
     ~SpotLight() override = default;
 
     void getRenderParameters( Renderer::RenderParameters& params ) const override;
@@ -57,9 +52,8 @@ class RA_ENGINE_API SpotLight final : public Light
 
     Attenuation m_attenuation {1, 0, 0};
 };
-
-} // namespace Data
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Data/SpotLight.inl>
+#include "SpotLight.inl"

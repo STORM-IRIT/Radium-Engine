@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/LightStorage.hpp>
 #include <Engine/Scene/System.hpp>
@@ -28,14 +29,14 @@ class RA_ENGINE_API LightManager : public System
     ~LightManager() override;
 
     /// Get a pointer to the li-th Light.
-    virtual const Data::Light* getLight( size_t li ) const = 0;
+    virtual const Scene::Light* getLight( size_t li ) const = 0;
 
     /** Add a light to the manager ...
      * Consider the component is already registered. The light manager will not take ownership of
      * the added light, it will just push the light on the storage ...
      * @param li The (already registered) light to add.
      */
-    virtual void addLight( const Data::Light* li ) = 0;
+    virtual void addLight( const Scene::Light* li ) = 0;
 
     //
     // Calls for the Renderer. Note that
