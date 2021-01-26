@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_GLMADAPTERS_H
-#define RADIUMENGINE_GLMADAPTERS_H
+#    define RADIUMENGINE_GLMADAPTERS_H
 
-#include <glm/glm.hpp>
+#    include <glm/glm.hpp>
 
-#include <Core/Types.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

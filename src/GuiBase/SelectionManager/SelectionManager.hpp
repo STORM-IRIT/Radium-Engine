@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_SELECTION_MANAGER_HPP_
-#define RADIUMENGINE_SELECTION_MANAGER_HPP_
-#include <GuiBase/RaGuiBase.hpp>
+#    define RADIUMENGINE_SELECTION_MANAGER_HPP_
+#    include <GuiBase/RaGuiBase.hpp>
 
-#include <Engine/ItemModel/ItemEntry.hpp>
-#include <GuiBase/TreeModel/EntityTreeModel.hpp>
-#include <QItemSelectionModel>
+#    include <Engine/ItemModel/ItemEntry.hpp>
+#    include <GuiBase/TreeModel/EntityTreeModel.hpp>
+#    include <QItemSelectionModel>
 
 namespace Ra {
 namespace Engine {

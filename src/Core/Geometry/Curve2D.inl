@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Geometry/Curve2D.hpp>
 
 namespace Ra {

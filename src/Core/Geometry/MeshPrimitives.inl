@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::pi
 

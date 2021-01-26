@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_VECTORARRAY_HPP
-#define RADIUMENGINE_VECTORARRAY_HPP
+#    define RADIUMENGINE_VECTORARRAY_HPP
 
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/RaCore.hpp>
+#    include <Core/Containers/AlignedStdVector.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -67,8 +68,8 @@ class VectorArray<Scalar> : public AlignedStdVector<Scalar>
 
 // Convenience aliases
 using Vector1Array = VectorArray<Scalar>;
-#define DEFINE_CONVENIENCE_MATRIX_ALIAS( NAME, TYPE, DIM ) \
-    using NAME = VectorArray<Eigen::Matrix<TYPE, DIM, 1>>;
+#    define DEFINE_CONVENIENCE_MATRIX_ALIAS( NAME, TYPE, DIM ) \
+        using NAME = VectorArray<Eigen::Matrix<TYPE, DIM, 1>>;
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2Array, Scalar, 2 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3Array, Scalar, 3 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4Array, Scalar, 4 )
@@ -83,7 +84,7 @@ DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector2uArray, uint, 2 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector3uArray, uint, 3 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( Vector4uArray, uint, 4 )
 DEFINE_CONVENIENCE_MATRIX_ALIAS( VectorNuArray, uint, Eigen::Dynamic )
-#undef DEFINE_CONVENIENCE_MATRIX_ALIAS
+#    undef DEFINE_CONVENIENCE_MATRIX_ALIAS
 
 // Notes :
 // Using a map for eigen integration was recommended by [1].

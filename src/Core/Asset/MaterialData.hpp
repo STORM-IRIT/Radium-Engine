@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_MATERIALDATA_HPP
-#define RADIUMENGINE_MATERIALDATA_HPP
-#include <string>
-#include <vector>
+#    define RADIUMENGINE_MATERIALDATA_HPP
+#    include <string>
+#    include <vector>
 
-#include <Core/Asset/AssetData.hpp>
-#include <Core/RaCore.hpp>
+#    include <Core/Asset/AssetData.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -63,6 +64,6 @@ class RA_CORE_API MaterialData : public AssetData
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Asset/MaterialData.inl>
+#    include <Core/Asset/MaterialData.inl>
 
 #endif // RADIUMENGINE_MATERIALDATA_HPP

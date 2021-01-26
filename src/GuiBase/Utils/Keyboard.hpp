@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_KEYBOARD_HPP
-#define RADIUMENGINE_KEYBOARD_HPP
+#    define RADIUMENGINE_KEYBOARD_HPP
 
-#include <GuiBase/RaGuiBase.hpp>
+#    include <GuiBase/RaGuiBase.hpp>
 
 namespace Ra {
 namespace Gui {

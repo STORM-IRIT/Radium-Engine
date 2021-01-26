@@ -1,3 +1,4 @@
+#pragma once
 /*  ========================================================================= *
  *                              CoreMacros.hpp                                *
  *             core helper functions and macros for C and C++                 *

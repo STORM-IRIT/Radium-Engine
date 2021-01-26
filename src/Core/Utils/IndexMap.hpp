@@ -1,13 +1,14 @@
+#pragma once
 #ifndef INDEXMAP_HPP
-#define INDEXMAP_HPP
+#    define INDEXMAP_HPP
 
-#include <Core/RaCore.hpp>
+#    include <Core/RaCore.hpp>
 
-#include <algorithm>
-#include <assert.h>
-#include <deque>
+#    include <algorithm>
+#    include <assert.h>
+#    include <deque>
 
-#include <Core/Utils/Index.hpp>
+#    include <Core/Utils/Index.hpp>
 
 namespace Ra {
 namespace Core {
@@ -152,6 +153,6 @@ class IndexMap
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Utils/IndexMap.inl>
+#    include <Core/Utils/IndexMap.inl>
 
 #endif // INDEXMAP_HPP

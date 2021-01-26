@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_RAY_CAST_HPP_
-#define RADIUMENGINE_RAY_CAST_HPP_
+#    define RADIUMENGINE_RAY_CAST_HPP_
 
-#include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
-#include <Eigen/Core>
-#include <vector>
+#    include <Core/RaCore.hpp>
+#    include <Core/Types.hpp>
+#    include <Eigen/Core>
+#    include <vector>
 
 // useful : http://www.realtimerendering.com/intersections.html
 

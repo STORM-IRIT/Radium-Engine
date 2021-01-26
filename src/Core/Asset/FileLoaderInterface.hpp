@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_FILELOADERINTERFACE_HPP
-#define RADIUMENGINE_FILELOADERINTERFACE_HPP
+#    define RADIUMENGINE_FILELOADERINTERFACE_HPP
 
-#include <string>
-#include <vector>
+#    include <string>
+#    include <vector>
 
-#include <Core/RaCore.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {

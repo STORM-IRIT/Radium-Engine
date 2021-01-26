@@ -1,3 +1,4 @@
+#pragma once
 /*!
  * \brief Custom Qt widget for animation (timeline)
  * \author Gauthier Bouyjou (email : gauthierbouyjou@aol.com)
@@ -9,16 +10,16 @@
  */
 
 #ifndef RADIUMENGINE_TIMELINE_H
-#define RADIUMENGINE_TIMELINE_H
+#    define RADIUMENGINE_TIMELINE_H
 
-#include <GuiBase/RaGuiBase.hpp>
+#    include <GuiBase/RaGuiBase.hpp>
 
-#include <Core/Animation/KeyFramedValue.hpp>
-#include <Core/Animation/KeyFramedValueController.hpp>
-#include <Engine/ItemModel/ItemEntry.hpp>
+#    include <Core/Animation/KeyFramedValue.hpp>
+#    include <Core/Animation/KeyFramedValueController.hpp>
+#    include <Engine/ItemModel/ItemEntry.hpp>
 
-#include <QDialog>
-#include <QObject>
+#    include <QDialog>
+#    include <QObject>
 
 namespace Ui {
 class Timeline;

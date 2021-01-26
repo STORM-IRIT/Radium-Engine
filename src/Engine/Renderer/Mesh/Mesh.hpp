@@ -1,21 +1,22 @@
+#pragma once
 #ifndef RADIUMENGINE_MESH_HPP
-#define RADIUMENGINE_MESH_HPP
+#    define RADIUMENGINE_MESH_HPP
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
-#include <Engine/Renderer/Displayable/DisplayableObject.hpp>
+#    include <Engine/Renderer/Displayable/DisplayableObject.hpp>
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/Utils/Color.hpp>
-#include <Core/Utils/Log.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/Geometry/TriangleMesh.hpp>
+#    include <Core/Utils/Color.hpp>
+#    include <Core/Utils/Log.hpp>
 
-#include <globjects/Buffer.h>
-#include <globjects/VertexArray.h>
+#    include <globjects/Buffer.h>
+#    include <globjects/VertexArray.h>
 
-#include <array>
-#include <map>
-#include <vector>
+#    include <array>
+#    include <map>
+#    include <vector>
 
 namespace Ra {
 namespace Engine {
@@ -415,6 +416,6 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/Mesh/Mesh.inl>
+#    include <Engine/Renderer/Mesh/Mesh.inl>
 
 #endif // RADIUMENGINE_MESH_HPP

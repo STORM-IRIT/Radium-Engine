@@ -1,15 +1,16 @@
+#pragma once
 #ifndef RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_
-#define RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_
-#include <Core/RaCore.hpp>
+#    define RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_
+#    include <Core/RaCore.hpp>
 
-#ifdef _WIN32
-#    include <malloc.h>
-#else
-#    include <mm_malloc.h>
-#endif
-#include <cstddef>
-#include <cstdint>
-#include <cstdlib>
+#    ifdef _WIN32
+#        include <malloc.h>
+#    else
+#        include <mm_malloc.h>
+#    endif
+#    include <cstddef>
+#    include <cstdint>
+#    include <cstdlib>
 
 namespace Ra {
 namespace Core {

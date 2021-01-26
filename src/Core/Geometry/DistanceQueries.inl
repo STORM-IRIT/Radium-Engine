@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Geometry/DistanceQueries.hpp>
 
 #include <algorithm>

@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_INDEXEDOBJECT_HPP
-#define RADIUMENGINE_INDEXEDOBJECT_HPP
+#    define RADIUMENGINE_INDEXEDOBJECT_HPP
 
-#include <Core/RaCore.hpp>
-#include <Core/Utils/Index.hpp>
+#    include <Core/RaCore.hpp>
+#    include <Core/Utils/Index.hpp>
 
 namespace Ra {
 namespace Core {

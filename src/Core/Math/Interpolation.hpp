@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_INTERPOLATION_HPP
-#define RADIUMENGINE_INTERPOLATION_HPP
+#    define RADIUMENGINE_INTERPOLATION_HPP
 
-#include <Core/Types.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

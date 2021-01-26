@@ -1,15 +1,16 @@
+#pragma once
 #ifndef RADIUMENGINE_FRAME_TIMER_DATA_HPP
-#define RADIUMENGINE_FRAME_TIMER_DATA_HPP
+#    define RADIUMENGINE_FRAME_TIMER_DATA_HPP
 
-#include <GuiBase/RaGuiBase.hpp>
+#    include <GuiBase/RaGuiBase.hpp>
 
-#include <iomanip>
-#include <iostream>
+#    include <iomanip>
+#    include <iostream>
 
-#include <Core/Tasks/TaskQueue.hpp>
-#include <Core/Utils/Log.hpp>
-#include <Core/Utils/Timer.hpp>
-#include <Engine/Renderer/Renderer.hpp>
+#    include <Core/Tasks/TaskQueue.hpp>
+#    include <Core/Utils/Log.hpp>
+#    include <Core/Utils/Timer.hpp>
+#    include <Engine/Renderer/Renderer.hpp>
 
 namespace Ra {
 
@@ -26,7 +27,7 @@ struct RA_GUIBASE_API FrameTimerData {
     void print( std::ostream& ostream ) const;
 };
 
-#if 0
+#    if 0
     class LoggableFrameTimerData
     {
     public:
@@ -45,7 +46,7 @@ struct RA_GUIBASE_API FrameTimerData {
         mutable std::vector<FrameTimerData> m_frames;
         uint m_average;
     };
-#endif
+#    endif
 
 } // namespace Ra
 

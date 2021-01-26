@@ -1,13 +1,14 @@
+#pragma once
 #ifndef RADIUM_RADIUMPLUGININTERFACE_HPP
-#define RADIUM_RADIUMPLUGININTERFACE_HPP
+#    define RADIUM_RADIUMPLUGININTERFACE_HPP
 
-#include <memory>
-#include <vector>
+#    include <memory>
+#    include <vector>
 
-#include <QObject>
-#include <QtPlugin>
+#    include <QObject>
+#    include <QtPlugin>
 
-#include <PluginBase/PluginContext.hpp> // do not use forward declaration to ease usage in Plugin
+#    include <PluginBase/PluginContext.hpp> // do not use forward declaration to ease usage in Plugin
 
 class QWidget;
 class QMenu;
@@ -191,7 +192,7 @@ class RadiumPluginInterface
 } // namespace Plugins
 } // namespace Ra
 
-#define RadiumPluginInterface_IID "RadiumEngine.PluginInterface"
+#    define RadiumPluginInterface_IID "RadiumEngine.PluginInterface"
 Q_DECLARE_INTERFACE( Ra::Plugins::RadiumPluginInterface, RadiumPluginInterface_IID )
 
 #endif // RADIUM_RADIUMPLUGININTERFACE_HPP

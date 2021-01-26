@@ -1,9 +1,10 @@
+#pragma once
 #ifndef ADJACENCY_DEFINITION
-#define ADJACENCY_DEFINITION
+#    define ADJACENCY_DEFINITION
 
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Types.hpp>
+#    include <Core/Containers/AlignedStdVector.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

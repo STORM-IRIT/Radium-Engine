@@ -1,14 +1,15 @@
+#pragma once
 #ifndef RADIUMENGINE_BLINNPHONGMATERIAL_HPP
-#define RADIUMENGINE_BLINNPHONGMATERIAL_HPP
+#    define RADIUMENGINE_BLINNPHONGMATERIAL_HPP
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
-#include <map>
-#include <string>
+#    include <map>
+#    include <string>
 
-#include <Core/Utils/Color.hpp>
-#include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Texture/Texture.hpp>
+#    include <Core/Utils/Color.hpp>
+#    include <Engine/Renderer/Material/Material.hpp>
+#    include <Engine/Renderer/Texture/Texture.hpp>
 
 namespace Ra {
 namespace Core {
@@ -128,5 +129,5 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/Material/BlinnPhongMaterial.inl>
+#    include <Engine/Renderer/Material/BlinnPhongMaterial.inl>
 #endif // RADIUMENGINE_BLINNPHONGMATERIAL_HPP

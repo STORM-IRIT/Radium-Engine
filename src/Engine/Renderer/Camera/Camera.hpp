@@ -1,11 +1,12 @@
+#pragma once
 #ifndef RADIUMENGINE_CAMERA_HPP
-#define RADIUMENGINE_CAMERA_HPP
+#    define RADIUMENGINE_CAMERA_HPP
 
-#include <Core/Math/Math.hpp>
-#include <Core/Types.hpp>
-#include <Engine/Component/Component.hpp>
-#include <Engine/RaEngine.hpp>
-#include <Engine/Renderer/Camera/ViewingParameters.hpp>
+#    include <Core/Math/Math.hpp>
+#    include <Core/Types.hpp>
+#    include <Engine/Component/Component.hpp>
+#    include <Engine/RaEngine.hpp>
+#    include <Engine/Renderer/Camera/ViewingParameters.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -178,6 +179,6 @@ class RA_ENGINE_API Camera : public Component
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/Camera/Camera.inl>
+#    include <Engine/Renderer/Camera/Camera.inl>
 
 #endif // RADIUMENGINE_CAMERA_HPP

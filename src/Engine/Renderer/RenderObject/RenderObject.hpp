@@ -1,17 +1,18 @@
+#pragma once
 #ifndef RADIUMENGINE_RENDEROBJECT_HPP
-#define RADIUMENGINE_RENDEROBJECT_HPP
+#    define RADIUMENGINE_RENDEROBJECT_HPP
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
-#include <memory>
-#include <mutex>
-#include <string>
+#    include <memory>
+#    include <mutex>
+#    include <string>
 
-#include <Core/Types.hpp>
-#include <Core/Utils/IndexedObject.hpp>
+#    include <Core/Types.hpp>
+#    include <Core/Utils/IndexedObject.hpp>
 
-#include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
-#include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
+#    include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
+#    include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
 namespace Ra {
 namespace Engine {

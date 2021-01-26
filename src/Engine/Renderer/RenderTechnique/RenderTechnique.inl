@@ -1,3 +1,4 @@
+#pragma once
 /**
  * Test if the given pass is dirty (openGL state not updated)
  * @param pass The index of the pass

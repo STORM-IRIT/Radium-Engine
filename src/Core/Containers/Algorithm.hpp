@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_ALGORITHM_HPP
-#define RADIUMENGINE_ALGORITHM_HPP
+#    define RADIUMENGINE_ALGORITHM_HPP
 
-#include <algorithm>
+#    include <algorithm>
 
 namespace Ra {
 namespace Core {

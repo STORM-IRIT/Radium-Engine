@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_POLYLINE_HPP_
-#define RADIUMENGINE_POLYLINE_HPP_
+#    define RADIUMENGINE_POLYLINE_HPP_
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Geometry/DistanceQueries.hpp>
-#include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/Geometry/DistanceQueries.hpp>
+#    include <Core/RaCore.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -81,6 +82,6 @@ class RA_CORE_API PolyLine
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-#include <Core/Geometry/PolyLine.inl>
+#    include <Core/Geometry/PolyLine.inl>
 
 #endif // RADIUMENGINE_POLYLINE_HPP_

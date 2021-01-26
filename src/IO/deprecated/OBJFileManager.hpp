@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_OBJ_FILE_MANAGER_HPP
-#define RADIUMENGINE_OBJ_FILE_MANAGER_HPP
-#include <Core/Geometry/TriangleMesh.hpp>
-#include <IO/RaIO.hpp>
-#include <IO/deprecated/FileManager.hpp>
+#    define RADIUMENGINE_OBJ_FILE_MANAGER_HPP
+#    include <Core/Geometry/TriangleMesh.hpp>
+#    include <IO/RaIO.hpp>
+#    include <IO/deprecated/FileManager.hpp>
 
 namespace Ra {
 namespace IO {

@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_SEQUENCE_HPP
-#define RADIUMENGINE_SEQUENCE_HPP
+#    define RADIUMENGINE_SEQUENCE_HPP
 
-#include <Core/Animation/Pose.hpp>
-#include <Core/CoreMacros.hpp>
-#include <Core/Utils/CircularIndex.hpp>
-#include <vector>
+#    include <Core/Animation/Pose.hpp>
+#    include <Core/CoreMacros.hpp>
+#    include <Core/Utils/CircularIndex.hpp>
+#    include <vector>
 
 namespace Ra {
 namespace Core {

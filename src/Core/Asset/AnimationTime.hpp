@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_ANIMATION_TIME_HPP
-#define RADIUMENGINE_ANIMATION_TIME_HPP
+#    define RADIUMENGINE_ANIMATION_TIME_HPP
 
-#include <Core/RaCore.hpp>
-#include <algorithm>
-#include <limits>
+#    include <Core/RaCore.hpp>
+#    include <algorithm>
+#    include <limits>
 
 namespace Ra {
 namespace Core {

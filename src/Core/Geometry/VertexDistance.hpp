@@ -1,8 +1,9 @@
+#pragma once
 #ifndef DISTANCE_OPERATION
-#define DISTANCE_OPERATION
+#    define DISTANCE_OPERATION
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Types.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

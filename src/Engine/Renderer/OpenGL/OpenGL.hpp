@@ -1,5 +1,6 @@
+#pragma once
 #ifndef RADIUMENGINE_OPENGL_HPP
-#define RADIUMENGINE_OPENGL_HPP
+#    define RADIUMENGINE_OPENGL_HPP
 
 /// This file provides portable inclusion of OpenGL headers.
 /// In addition it defines the following debug macros
@@ -7,8 +8,8 @@
 /// GL_CHECK_ERROR : queries the last openGL error in debug (no effect in release)
 /// glFlushError() : Ignores the previous openGL errors (no effect in release).
 
-#include <glbinding/gl45core/gl.h>
-#include <glbinding/gl45ext/gl.h>
+#    include <glbinding/gl45core/gl.h>
+#    include <glbinding/gl45ext/gl.h>
 namespace Ra {
 namespace Engine {
 // use glbinding namespace only in Ra::Engine to avoid namespace clash with e.g. Qt.
@@ -18,13 +19,13 @@ using namespace gl;
 } // namespace Engine
 } // namespace Ra
 
-#include <glbinding-aux/types_to_string.h>
+#    include <glbinding-aux/types_to_string.h>
 
-#ifndef CORE_USE_DOUBLE
-#    define GL_SCALAR GL_FLOAT
-#else
-#    define GL_SCALAR GL_DOUBLE
-#endif
+#    ifndef CORE_USE_DOUBLE
+#        define GL_SCALAR GL_FLOAT
+#    else
+#        define GL_SCALAR GL_DOUBLE
+#    endif
 
 /// Checks that an openGLContext is available (mostly for debug checks and asserts).
 inline bool checkOpenGLContext() {
@@ -70,49 +71,49 @@ inline const char* glErrorString( gl::GLenum err ) {
     }
 }
 
-#ifdef _DEBUG
-#    include <Core/Utils/Log.hpp>
-#    include <Core/Utils/StackTrace.hpp>
-#    define GL_ASSERT( x )                                                                       \
-        x;                                                                                       \
-        {                                                                                        \
-            gl::GLenum err = glGetError();                                                       \
-            if ( err != gl::GL_NO_ERROR )                                                        \
-            {                                                                                    \
-                const char* errBuf = glErrorString( err );                                       \
-                LOG( Ra::Core::Utils::logERROR )                                                 \
-                    << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", " << STRINGIFY( x ) \
-                    << ") : " << errBuf << "(" << err << " : 0x" << std::hex << err << std::dec  \
-                    << ").";                                                                     \
-                BREAKPOINT( 0 );                                                                 \
-            }                                                                                    \
-        }
+#    ifdef _DEBUG
+#        include <Core/Utils/Log.hpp>
+#        include <Core/Utils/StackTrace.hpp>
+#        define GL_ASSERT( x )                                                                     \
+            x;                                                                                     \
+            {                                                                                      \
+                gl::GLenum err = glGetError();                                                     \
+                if ( err != gl::GL_NO_ERROR )                                                      \
+                {                                                                                  \
+                    const char* errBuf = glErrorString( err );                                     \
+                    LOG( Ra::Core::Utils::logERROR )                                               \
+                        << "OpenGL error (" << __FILE__ << ":" << __LINE__ << ", "                 \
+                        << STRINGIFY( x ) << ") : " << errBuf << "(" << err << " : 0x" << std::hex \
+                        << err << std::dec << ").";                                                \
+                    BREAKPOINT( 0 );                                                               \
+                }                                                                                  \
+            }
 
 /// This macro will query the last openGL error.
-#    define GL_CHECK_ERROR                                                                   \
-        {                                                                                    \
-            gl::GLenum err = glGetError();                                                   \
-            if ( err != gl::GL_NO_ERROR )                                                    \
-            {                                                                                \
-                const char* errBuf = glErrorString( err );                                   \
-                LOG( Ra::Core::Utils::logERROR )                                             \
-                    << "OpenGL error (" << __FILE__ << ":" << __LINE__                       \
-                    << ", glCheckError()) : " << errBuf << "(" << err << " : 0x" << std::hex \
-                    << err << std::dec << ")." << '\n'                                       \
-                    << Ra::Core::Utils::StackTrace();                                        \
-                BREAKPOINT( 0 );                                                             \
-            }                                                                                \
-        }
+#        define GL_CHECK_ERROR                                                                   \
+            {                                                                                    \
+                gl::GLenum err = glGetError();                                                   \
+                if ( err != gl::GL_NO_ERROR )                                                    \
+                {                                                                                \
+                    const char* errBuf = glErrorString( err );                                   \
+                    LOG( Ra::Core::Utils::logERROR )                                             \
+                        << "OpenGL error (" << __FILE__ << ":" << __LINE__                       \
+                        << ", glCheckError()) : " << errBuf << "(" << err << " : 0x" << std::hex \
+                        << err << std::dec << ")." << '\n'                                       \
+                        << Ra::Core::Utils::StackTrace();                                        \
+                    BREAKPOINT( 0 );                                                             \
+                }                                                                                \
+            }
 
 /// Ignore the previous openGL errors.
-#    define glFlushError() glGetError()
+#        define glFlushError() glGetError()
 
-#else // Release version ignores the checks and errors.
-#    define GL_ASSERT( x ) x
-#    define GL_CHECK_ERROR \
-        {}
-#    define glFlushError() \
-        {}
-#endif // _DEBUG
+#    else // Release version ignores the checks and errors.
+#        define GL_ASSERT( x ) x
+#        define GL_CHECK_ERROR \
+            {}
+#        define glFlushError() \
+            {}
+#    endif // _DEBUG
 
 #endif // RADIUMENGINE_OPENGL_HPP

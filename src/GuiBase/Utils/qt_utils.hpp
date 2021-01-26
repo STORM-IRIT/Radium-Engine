@@ -1,9 +1,10 @@
+#pragma once
 #ifndef QT_UTILS_HPP
-#define QT_UTILS_HPP
+#    define QT_UTILS_HPP
 
-#include <QKeyEvent>
-#include <QLayout>
-#include <QWidget>
+#    include <QKeyEvent>
+#    include <QLayout>
+#    include <QWidget>
 
 // ============================================================================
 namespace Qt_utils {

@@ -1,13 +1,14 @@
+#pragma once
 #ifndef RADIUMENGINE_ANIMATION_DATA_HPP
-#define RADIUMENGINE_ANIMATION_DATA_HPP
+#    define RADIUMENGINE_ANIMATION_DATA_HPP
 
-#include <string>
-#include <vector>
+#    include <string>
+#    include <vector>
 
-#include <Core/Animation/KeyFramedValue.hpp>
-#include <Core/Asset/AnimationTime.hpp>
-#include <Core/Asset/AssetData.hpp>
-#include <Core/RaCore.hpp>
+#    include <Core/Animation/KeyFramedValue.hpp>
+#    include <Core/Asset/AnimationTime.hpp>
+#    include <Core/Asset/AssetData.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -109,6 +110,6 @@ class RA_CORE_API AnimationData : public AssetData
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Asset/AnimationData.inl>
+#    include <Core/Asset/AnimationData.inl>
 
 #endif // RADIUMENGINE_ANIMATION_DATA_HPP

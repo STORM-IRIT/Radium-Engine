@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_ABSTRACTGEOMETRY_HPP
-#define RADIUMENGINE_ABSTRACTGEOMETRY_HPP
+#    define RADIUMENGINE_ABSTRACTGEOMETRY_HPP
 
-#include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
+#    include <Core/RaCore.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

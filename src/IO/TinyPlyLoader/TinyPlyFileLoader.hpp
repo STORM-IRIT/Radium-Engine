@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_TINYPLYFILELOADER_HPP
-#define RADIUMENGINE_TINYPLYFILELOADER_HPP
+#    define RADIUMENGINE_TINYPLYFILELOADER_HPP
 
-#include <Core/Asset/FileLoaderInterface.hpp>
-#include <IO/RaIO.hpp>
+#    include <Core/Asset/FileLoaderInterface.hpp>
+#    include <IO/RaIO.hpp>
 
 namespace Ra {
 namespace IO {

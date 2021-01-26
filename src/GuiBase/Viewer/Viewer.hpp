@@ -1,23 +1,24 @@
+#pragma once
 #ifndef RADIUMENGINE_VIEWER_HPP
-#define RADIUMENGINE_VIEWER_HPP
+#    define RADIUMENGINE_VIEWER_HPP
 
-#include <GuiBase/RaGuiBase.hpp>
+#    include <GuiBase/RaGuiBase.hpp>
 
-#include <atomic>
-#include <memory>
+#    include <atomic>
+#    include <memory>
 
-#include <QWindow>
+#    include <QWindow>
 
-#include <QThread>
+#    include <QThread>
 
-#include <Core/CoreMacros.hpp>
-#include <Core/Types.hpp>
+#    include <Core/CoreMacros.hpp>
+#    include <Core/Types.hpp>
 
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/Renderer.hpp>
+#    include <Engine/RadiumEngine.hpp>
+#    include <Engine/Renderer/Renderer.hpp>
 
-#include <GuiBase/Utils/KeyMappingManager.hpp>
-#include <GuiBase/Viewer/WindowQt.hpp>
+#    include <GuiBase/Utils/KeyMappingManager.hpp>
+#    include <GuiBase/Viewer/WindowQt.hpp>
 // Forward declarations
 class QOpenGLContext;
 class QSurfaceFormat;
@@ -259,29 +260,29 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Owning (QObject child) pointer to gizmo manager.
     GizmoManager* m_gizmoManager;
 
-#ifdef RADIUM_MULTITHREAD_RENDERING
+#    ifdef RADIUM_MULTITHREAD_RENDERING
     // TODO are we really use this ? Remove if we do not plan to do multi thread rendering
     /// Thread in which rendering is done.
     [[deprecated]] QThread* m_renderThread = nullptr; // We have to use a QThread for MT rendering
-#endif
+#    endif
 
     Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 
     KeyMappingManager::Context m_activeContext {};
-#define KeyMappingViewer                     \
-    KMA_VALUE( VIEWER_PICKING )              \
-    KMA_VALUE( VIEWER_PICKING_VERTEX )       \
-    KMA_VALUE( VIEWER_PICKING_EDGE )         \
-    KMA_VALUE( VIEWER_PICKING_TRIANGLE )     \
-    KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE ) \
-    KMA_VALUE( VIEWER_RAYCAST )              \
-    KMA_VALUE( VIEWER_SCALE_BRUSH )          \
-    KMA_VALUE( VIEWER_RELOAD_SHADERS )       \
-    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )
+#    define KeyMappingViewer                     \
+        KMA_VALUE( VIEWER_PICKING )              \
+        KMA_VALUE( VIEWER_PICKING_VERTEX )       \
+        KMA_VALUE( VIEWER_PICKING_EDGE )         \
+        KMA_VALUE( VIEWER_PICKING_TRIANGLE )     \
+        KMA_VALUE( VIEWER_PICKING_MULTI_CIRCLE ) \
+        KMA_VALUE( VIEWER_RAYCAST )              \
+        KMA_VALUE( VIEWER_SCALE_BRUSH )          \
+        KMA_VALUE( VIEWER_RELOAD_SHADERS )       \
+        KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )
 
-#define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
+#    define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer
-#undef KMA_VALUE
+#    undef KMA_VALUE
 };
 
 } // namespace Gui

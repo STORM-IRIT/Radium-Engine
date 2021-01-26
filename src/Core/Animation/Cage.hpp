@@ -1,9 +1,10 @@
+#pragma once
 #ifndef CAGE_HANDLE_H
-#define CAGE_HANDLE_H
+#    define CAGE_HANDLE_H
 
-#include <Core/Animation/HandleArray.hpp>
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/RaCore.hpp>
+#    include <Core/Animation/HandleArray.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {

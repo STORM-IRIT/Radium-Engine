@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_CHRONOMETER_DEFINITION
-#define RADIUMENGINE_CHRONOMETER_DEFINITION
+#    define RADIUMENGINE_CHRONOMETER_DEFINITION
 
-#include <Core/Utils/Timer.hpp>
+#    include <Core/Utils/Timer.hpp>
 
 namespace Ra {
 namespace Core {

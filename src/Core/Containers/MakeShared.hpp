@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_MAKESHARED_HPP_
-#define RADIUMENGINE_MAKESHARED_HPP_
+#    define RADIUMENGINE_MAKESHARED_HPP_
 
-#include <memory>
+#    include <memory>
 
 namespace Ra {
 namespace Core {
@@ -15,15 +16,15 @@ namespace Core {
 /// in our case we ditch std::make_shared and use a replacement.
 template <typename T, class... Args>
 inline std::shared_ptr<T> make_shared( Args&&... args ) {
-#if 0 // use std::make_shared
+#    if 0 // use std::make_shared
 
             return std::make_shared<T>(args...);
 
-#else // use new and shared_ptr constructor.
+#    else // use new and shared_ptr constructor.
 
     return std::shared_ptr<T>( new T( std::forward<Args>( args )... ) );
 
-#endif
+#    endif
 }
 } // namespace Core
 } // namespace Ra
