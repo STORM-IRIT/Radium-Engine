@@ -39,7 +39,6 @@ jobs:
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
       - name: Prepare directories
         run: |
           mkdir -p install/
@@ -115,7 +114,6 @@ jobs:
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
       - name: Install lcov
         run: sudo apt-get install -y lcov
       - name: Prepare directories
