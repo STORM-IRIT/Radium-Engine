@@ -1,8 +1,6 @@
 #pragma once
-#ifndef RADIUMENGINE_INTERPOLATION_HPP
-#    define RADIUMENGINE_INTERPOLATION_HPP
 
-#    include <Core/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -62,5 +60,3 @@ inline Core::Transform linearInterpolate<Core::Transform>( const Core::Transform
 } // namespace Math
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_INTERPOLATION_HPP

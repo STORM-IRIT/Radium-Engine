@@ -1,10 +1,8 @@
 #pragma once
-#ifndef QT_UTILS_HPP
-#    define QT_UTILS_HPP
 
-#    include <QKeyEvent>
-#    include <QLayout>
-#    include <QWidget>
+#include <QKeyEvent>
+#include <QLayout>
+#include <QWidget>
 
 // ============================================================================
 namespace Qt_utils {
@@ -22,5 +20,3 @@ static inline void rec_set_visible( const QLayout& layout, bool visible ) {
 }
 
 } // namespace Qt_utils
-
-#endif // QT_UTILS_HPP

@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_MATERIALCONVERTERS_HPP
-#    define RADIUMENGINE_MATERIALCONVERTERS_HPP
 
-#    include <Engine/RaEngine.hpp>
+#include <Engine/RaEngine.hpp>
 
-#    include <functional>
-#    include <string>
+#include <functional>
+#include <string>
 
 namespace Ra {
 namespace Engine {
@@ -76,5 +74,3 @@ RA_ENGINE_API bool cleanup();
 } // namespace EngineMaterialConverters
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_MATERIALCONVERTERS_HPP

@@ -1,9 +1,7 @@
 #pragma once
-#ifndef RADIUMENGINE_ABSTRACTGEOMETRY_HPP
-#    define RADIUMENGINE_ABSTRACTGEOMETRY_HPP
 
-#    include <Core/RaCore.hpp>
-#    include <Core/Types.hpp>
+#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -40,5 +38,3 @@ struct RA_CORE_API AbstractGeometry {
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_ABSTRACTGEOMETRY_HPP

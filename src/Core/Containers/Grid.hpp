@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_GRID_HPP
-#    define RADIUMENGINE_GRID_HPP
 
-#    include <vector>
+#include <vector>
 
-#    include <Core/RaCore.hpp>
-#    include <Eigen/Core>
+#include <Core/RaCore.hpp>
+#include <Eigen/Core>
 
 namespace Ra {
 namespace Core {
@@ -239,6 +237,4 @@ class Grid
 } // namespace Core
 } // namespace Ra
 
-#    include <Core/Containers/Grid.inl>
-
-#endif // RADIUMENGINE_GRID_HPP
+#include <Core/Containers/Grid.inl>

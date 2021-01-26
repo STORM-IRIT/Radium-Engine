@@ -1,11 +1,9 @@
 #pragma once
-#ifndef QUADRIC_H
-#    define QUADRIC_H
 
-#    include <Core/RaCore.hpp>
-#    include <Core/Types.hpp>
+#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
-#    include <Eigen/Eigenvalues>
+#include <Eigen/Eigenvalues>
 
 namespace Ra {
 namespace Core {
@@ -87,6 +85,4 @@ class Quadric
 
 } // namespace Ra
 
-#    include <Core/Math/Quadric.inl>
-
-#endif // QUADRIC_H
+#include <Core/Math/Quadric.inl>

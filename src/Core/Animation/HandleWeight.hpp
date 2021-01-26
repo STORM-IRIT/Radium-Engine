@@ -1,10 +1,8 @@
 #pragma once
-#ifndef HANDLE_WEIGHT_H
-#    define HANDLE_WEIGHT_H
 
-#    include <Core/Containers/AlignedStdVector.hpp>
-#    include <Core/Types.hpp>
-#    include <map>
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/Types.hpp>
+#include <map>
 
 namespace Ra {
 namespace Core {
@@ -38,5 +36,3 @@ using WeightMatrix = Ra::Core::Sparse;
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
-
-#endif // HANDLE_WEIGHT_H

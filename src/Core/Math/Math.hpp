@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_MATH_HPP
-#    define RADIUMENGINE_MATH_HPP
 
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
-#    include <algorithm>
-#    include <cmath>
+#include <algorithm>
+#include <cmath>
 namespace Ra {
 namespace Core {
 namespace Math {
@@ -78,6 +76,4 @@ inline constexpr T lerp( const T& a, const T& b, Scalar t );
 } // namespace Core
 } // namespace Ra
 
-#    include <Core/Math/Math.inl>
-
-#endif // RADIUMENGINE_MATH_HPP
+#include <Core/Math/Math.inl>

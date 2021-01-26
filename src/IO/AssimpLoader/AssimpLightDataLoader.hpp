@@ -1,13 +1,11 @@
 #pragma once
-#ifndef RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
-#    define RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
 
-#    include <Core/Asset/DataLoader.hpp>
-#    include <Core/Asset/LightData.hpp>
-#    include <Core/Types.hpp>
-#    include <IO/RaIO.hpp>
+#include <Core/Asset/DataLoader.hpp>
+#include <Core/Asset/LightData.hpp>
+#include <Core/Types.hpp>
+#include <IO/RaIO.hpp>
 
-#    include <set>
+#include <set>
 
 struct aiScene;
 struct aiLight;
@@ -68,5 +66,3 @@ class RA_IO_API AssimpLightDataLoader : public Core::Asset::DataLoader<Core::Ass
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP

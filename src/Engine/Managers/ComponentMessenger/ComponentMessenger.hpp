@@ -1,18 +1,16 @@
 #pragma once
-#ifndef RADIUMENGINE_COMPONENTMESSENGER_H__
-#    define RADIUMENGINE_COMPONENTMESSENGER_H__
 
-#    include <Engine/RaEngine.hpp>
+#include <Engine/RaEngine.hpp>
 
-#    include <functional>
-#    include <iostream>
-#    include <memory>
-#    include <typeindex>
-#    include <unordered_map>
-#    include <vector>
+#include <functional>
+#include <iostream>
+#include <memory>
+#include <typeindex>
+#include <unordered_map>
+#include <vector>
 
-#    include <Core/Utils/Singleton.hpp>
-#    include <Engine/Component/Component.hpp>
+#include <Core/Utils/Singleton.hpp>
+#include <Engine/Component/Component.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -173,6 +171,4 @@ class RA_ENGINE_API ComponentMessenger
 } // namespace Engine
 } // namespace Ra
 
-#    include <Engine/Managers/ComponentMessenger/ComponentMessenger.inl>
-
-#endif // RADIUMENGINE_COMPONENTMESSENGER_H__
+#include <Engine/Managers/ComponentMessenger/ComponentMessenger.inl>

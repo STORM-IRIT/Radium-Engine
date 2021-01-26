@@ -1,14 +1,12 @@
 #pragma once
-#ifndef RADIUMENGINE_TREEMODEL_HPP
-#    define RADIUMENGINE_TREEMODEL_HPP
 
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <memory>
-#    include <vector>
+#include <memory>
+#include <vector>
 
-#    include <QAbstractItemModel>
-#    include <QVariant>
+#include <QAbstractItemModel>
+#include <QVariant>
 
 /// This file contains a basic implementation of a tree model object with QAbstractItemModel
 /// See http://doc.qt.io/qt-5/qtwidgets-itemviews-simpletreemodel-example.html
@@ -181,4 +179,3 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel
 };
 } // namespace GuiBase
 } // namespace Ra
-#endif // RADIUMENGINE_TREEMODEL_HPP_

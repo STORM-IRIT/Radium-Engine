@@ -1,15 +1,13 @@
 #pragma once
-#ifndef RADIUMENGINE_CAMERA_DATA_HPP
-#    define RADIUMENGINE_CAMERA_DATA_HPP
 
-#    include <memory>
-#    include <string>
-#    include <vector>
+#include <memory>
+#include <string>
+#include <vector>
 
-#    include <Core/Asset/AssetData.hpp>
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Core/RaCore.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Asset/AssetData.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -113,6 +111,4 @@ class RA_CORE_API CameraData : public AssetData
 } // namespace Core
 } // namespace Ra
 
-#    include <Core/Asset/CameraData.inl>
-
-#endif // RADIUMENGINE_CAMERA_DATA_HPP
+#include <Core/Asset/CameraData.inl>

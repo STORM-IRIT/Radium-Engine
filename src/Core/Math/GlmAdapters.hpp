@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_GLMADAPTERS_H
-#    define RADIUMENGINE_GLMADAPTERS_H
 
-#    include <glm/glm.hpp>
+#include <glm/glm.hpp>
 
-#    include <Core/Types.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -323,5 +321,3 @@ inline Eigen::Matrix<Scalar, 4, 3> fromGlm( const glm::mat4x3& m ) {
 }
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_GLMADAPTERS_H

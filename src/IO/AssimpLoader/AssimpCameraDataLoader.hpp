@@ -1,12 +1,10 @@
 #pragma once
-#ifndef RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP
-#    define RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP
 
-#    include <Core/Asset/DataLoader.hpp>
-#    include <Core/Types.hpp>
-#    include <IO/RaIO.hpp>
+#include <Core/Asset/DataLoader.hpp>
+#include <Core/Types.hpp>
+#include <IO/RaIO.hpp>
 
-#    include <set>
+#include <set>
 
 struct aiScene;
 struct aiCamera;
@@ -60,5 +58,3 @@ class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::As
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP

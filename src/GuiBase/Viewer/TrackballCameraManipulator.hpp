@@ -1,9 +1,7 @@
 #pragma once
-#ifndef RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP
-#    define RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <GuiBase/Viewer/CameraManipulator.hpp>
+#include <GuiBase/Viewer/CameraManipulator.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -104,18 +102,16 @@ class RA_GUIBASE_API TrackballCameraManipulator
     static void configureKeyMapping_impl();
 
   protected:
-#    define KeyMappingCamera                \
-        KMA_VALUE( TRACKBALLCAMERA_ROTATE ) \
-        KMA_VALUE( TRACKBALLCAMERA_PAN )    \
-        KMA_VALUE( TRACKBALLCAMERA_ZOOM )   \
-        KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND )
+#define KeyMappingCamera                \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE ) \
+    KMA_VALUE( TRACKBALLCAMERA_PAN )    \
+    KMA_VALUE( TRACKBALLCAMERA_ZOOM )   \
+    KMA_VALUE( TRACKBALLCAMERA_ROTATE_AROUND )
 
-#    define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
+#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
     KeyMappingCamera
-#    undef KMA_VALUE
+#undef KMA_VALUE
 };
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_TRACKBALLCAMERAMANIPULATOR_HPP

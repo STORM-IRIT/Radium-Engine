@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_TRANSFORM_EDITOR_HPP_
-#    define RADIUMENGINE_TRANSFORM_EDITOR_HPP_
 
-#    include <Core/Types.hpp>
-#    include <Engine/ItemModel/ItemEntry.hpp>
-#    include <GuiBase/RaGuiBase.hpp>
+#include <Core/Types.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 namespace Ra {
 namespace GuiBase {
 class RA_GUIBASE_API TransformEditor
@@ -38,4 +36,3 @@ class RA_GUIBASE_API TransformEditor
 };
 } // namespace GuiBase
 } // namespace Ra
-#endif // RADIUMENGINE_TRANSFORM_EDITOR_HPP_

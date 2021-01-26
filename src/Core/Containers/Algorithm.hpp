@@ -1,8 +1,6 @@
 #pragma once
-#ifndef RADIUMENGINE_ALGORITHM_HPP
-#    define RADIUMENGINE_ALGORITHM_HPP
 
-#    include <algorithm>
+#include <algorithm>
 
 namespace Ra {
 namespace Core {
@@ -16,5 +14,3 @@ inline void remove_copy_if( Container& in, Container& out, Pred pred ) {
 }
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_ALGORITHM_HPP

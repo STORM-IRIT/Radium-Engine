@@ -1,13 +1,11 @@
 #pragma once
-#ifndef RADIUMENGINE_CORE_TYPES_HPP
-#    define RADIUMENGINE_CORE_TYPES_HPP
 
 /// This file contains definitions of aliases for basic vector classes
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
-#    include <Eigen/Core>
-#    include <Eigen/Geometry>
-#    include <Eigen/Sparse>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include <Eigen/Sparse>
 
 namespace Ra {
 namespace Core {
@@ -99,5 +97,3 @@ using Translationd = Eigen::Translation3d;
 
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_LINEARALGEBRA_HPP

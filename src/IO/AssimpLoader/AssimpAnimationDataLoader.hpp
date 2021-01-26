@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
-#    define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
 
-#    include <Core/Asset/AnimationTime.hpp>
-#    include <Core/Asset/DataLoader.hpp>
-#    include <IO/RaIO.hpp>
+#include <Core/Asset/AnimationTime.hpp>
+#include <Core/Asset/DataLoader.hpp>
+#include <IO/RaIO.hpp>
 
 struct aiScene;
 struct aiAnimation;
@@ -78,5 +76,3 @@ class RA_IO_API AssimpAnimationDataLoader
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP

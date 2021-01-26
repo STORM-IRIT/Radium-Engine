@@ -1,11 +1,9 @@
 #pragma once
-#ifndef TOPOLOGICALMESH_OPENMESH_H
-#    define TOPOLOGICALMESH_OPENMESH_H
 
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
-#    include <Eigen/Core>
-#    include <Eigen/Geometry>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 
 // We use Eigen::Matrix as base type to represent matrices in OpenMesh.
 // This is not standard, and several namespace functions are not available in OpenMesh
@@ -49,10 +47,10 @@ cross( Eigen::MatrixBase<Derived> const& v1, Eigen::MatrixBase<Derived> const& v
 
 } // namespace OpenMesh
 
-#    include <Core/Types.hpp>
+#include <Core/Types.hpp>
 
-#    include <OpenMesh/Core/Mesh/Traits.hh>
-#    include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
+#include <OpenMesh/Core/Mesh/Traits.hh>
+#include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 
 namespace OpenMesh {
 template <>
@@ -64,4 +62,3 @@ struct vector_traits<Ra::Core::Vector3> {
 };
 
 } // namespace OpenMesh
-#endif // TOPOLOGICALMESH_OPENMESH_H

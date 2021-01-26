@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_LIGHT_HPP
-#    define RADIUMENGINE_LIGHT_HPP
 
-#    include <Core/Utils/Color.hpp>
-#    include <Engine/Component/Component.hpp>
-#    include <Engine/RaEngine.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Engine/Component/Component.hpp>
+#include <Engine/RaEngine.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -113,6 +111,4 @@ class RA_ENGINE_API Light : public Component
 } // namespace Engine
 } // namespace Ra
 
-#    include <Engine/Renderer/Light/Light.inl>
-
-#endif // RADIUMENGINE_LIGHT_HPP
+#include <Engine/Renderer/Light/Light.inl>

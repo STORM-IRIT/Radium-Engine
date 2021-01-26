@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUM_OBB_HPP_
-#    define RADIUM_OBB_HPP_
 
-#    include <Core/RaCore.hpp>
-#    include <Eigen/Core>
-#    include <Eigen/Geometry>
+#include <Core/RaCore.hpp>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 
 namespace Ra {
 namespace Core {
@@ -69,5 +67,3 @@ class Obb
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUM_OBB_HPP_

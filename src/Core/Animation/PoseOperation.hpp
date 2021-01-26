@@ -1,9 +1,7 @@
 #pragma once
-#ifndef POSE_OPERATION_H
-#    define POSE_OPERATION_H
 
-#    include <Core/Animation/Pose.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -48,5 +46,3 @@ RA_CORE_API Pose interpolatePoses( const Pose& a, const Pose& b, const Scalar t 
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // POSE_OPERATION_H

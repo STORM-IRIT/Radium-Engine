@@ -1,12 +1,10 @@
 #pragma once
-#ifndef RADIUMENGINE_COLOR_HPP_
-#    define RADIUMENGINE_COLOR_HPP_
 
-#    include <Core/CoreMacros.hpp>
-#    include <Core/Math/Math.hpp>
-#    include <Eigen/Core>
-#    include <Eigen/Geometry> //homogeneous
-#    include <random>
+#include <Core/CoreMacros.hpp>
+#include <Core/Math/Math.hpp>
+#include <Eigen/Core>
+#include <Eigen/Geometry> //homogeneous
+#include <random>
 
 namespace Ra {
 namespace Core {
@@ -253,5 +251,3 @@ using Colord = ColorBase<double>;
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_COLOR_PRESET_HPP_

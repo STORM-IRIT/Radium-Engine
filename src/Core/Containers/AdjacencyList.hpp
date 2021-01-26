@@ -1,11 +1,9 @@
 #pragma once
-#ifndef ADJACENCY_LIST_H
-#    define ADJACENCY_LIST_H
 
-#    include <Core/Containers/AlignedStdVector.hpp>
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Eigen/Core>
-#    include <iostream>
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Eigen/Core>
+#include <iostream>
 
 namespace Ra {
 namespace Core {
@@ -109,6 +107,4 @@ RA_CORE_API std::ofstream& operator<<( std::ofstream& ofs, const AdjacencyList& 
 } // namespace Core
 } // namespace Ra
 
-#    include <Core/Containers/AdjacencyList.inl>
-
-#endif // ADJACENCY_LIST_H
+#include <Core/Containers/AdjacencyList.inl>

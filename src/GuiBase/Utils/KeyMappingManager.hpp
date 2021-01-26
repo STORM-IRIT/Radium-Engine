@@ -1,18 +1,16 @@
 #pragma once
-#ifndef RADIUMENGINE_KEYMAPPINGMANAGER_HPP
-#    define RADIUMENGINE_KEYMAPPINGMANAGER_HPP
 
-#    include <QXmlStreamWriter>
-#    include <QtGui/QKeyEvent>
-#    include <QtGui/QMouseEvent>
-#    include <QtXml/QtXml>
+#include <QXmlStreamWriter>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QMouseEvent>
+#include <QtXml/QtXml>
 
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <Core/Utils/Index.hpp>
-#    include <Core/Utils/Log.hpp>
-#    include <Core/Utils/Observable.hpp>
-#    include <Core/Utils/Singleton.hpp>
+#include <Core/Utils/Index.hpp>
+#include <Core/Utils/Log.hpp>
+#include <Core/Utils/Observable.hpp>
+#include <Core/Utils/Singleton.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -212,5 +210,3 @@ KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_KEYMAPPINGMANAGER_HPP

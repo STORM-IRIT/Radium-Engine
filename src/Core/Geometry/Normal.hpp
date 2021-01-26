@@ -1,9 +1,7 @@
 #pragma once
-#ifndef NORMAL_DEFINITION
-#    define NORMAL_DEFINITION
 
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -99,5 +97,3 @@ Vector3 RA_CORE_API areaWeightedNormal( const Vector3& v, const VectorArray<Vect
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // NORMAL_DEFINITION

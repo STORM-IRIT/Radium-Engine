@@ -1,19 +1,17 @@
 #pragma once
-#ifndef RADIUMENGINE_LINEARALGEBRA_HPP
-#    define RADIUMENGINE_LINEARALGEBRA_HPP
 
 /// This file contains definitions of aliases for basic vector classes and functions
 
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
-#    include <Eigen/Core>
-#    include <Eigen/Geometry>
-#    include <Eigen/Sparse>
-#    include <functional>
-#    include <unsupported/Eigen/AlignedVector3>
+#include <Eigen/Core>
+#include <Eigen/Geometry>
+#include <Eigen/Sparse>
+#include <functional>
+#include <unsupported/Eigen/AlignedVector3>
 
-#    include <Core/Math/Math.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Math/Math.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -160,6 +158,4 @@ inline void getSwingTwist( const Quaternion& in, Quaternion& swingOut, Quaternio
 } // namespace Math
 } // namespace Core
 } // namespace Ra
-#    include <Core/Math/LinearAlgebra.inl>
-
-#endif // RADIUMENGINE_LINEARALGEBRA_HPP
+#include <Core/Math/LinearAlgebra.inl>

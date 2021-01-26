@@ -1,16 +1,14 @@
 #pragma once
-#ifndef RADIUMENGINE_DEBUGRENDERER_HPP
-#    define RADIUMENGINE_DEBUGRENDERER_HPP
 
-#    include <Engine/RaEngine.hpp>
+#include <Engine/RaEngine.hpp>
 
-#    include <memory>
-#    include <vector>
+#include <memory>
+#include <vector>
 
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Core/Types.hpp>
-#    include <Core/Utils/Color.hpp>
-#    include <Core/Utils/Singleton.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Color.hpp>
+#include <Core/Utils/Singleton.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -103,5 +101,3 @@ class RA_ENGINE_API DebugRender final
 };
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_DEBUGRENDERER_HPP

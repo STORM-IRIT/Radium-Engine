@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_STRINGUTILS_HPP
-#    define RADIUMENGINE_STRINGUTILS_HPP
 
-#    include <Core/RaCore.hpp>
-#    include <string>
-#    include <vector>
+#include <Core/RaCore.hpp>
+#include <string>
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -33,5 +31,3 @@ RA_CORE_API std::string getBaseName( const std::string& path, bool keepExtension
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_STRINGUTILS_HPP

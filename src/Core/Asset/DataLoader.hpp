@@ -1,9 +1,7 @@
 #pragma once
-#ifndef RADIUMENGINE_DATA_LOADER_HPP
-#    define RADIUMENGINE_DATA_LOADER_HPP
 
-#    include <memory>
-#    include <vector>
+#include <memory>
+#include <vector>
 
 struct aiScene;
 
@@ -34,5 +32,3 @@ class DataLoader
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_DATA_LOADER_HPP
