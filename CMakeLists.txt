@@ -16,6 +16,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support
 project (radiumproject VERSION 1.0.0)
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilerVersion.cmake)
+
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
 set(VERSION_HOST "${VERSION_HOST}" CACHE STRING "host of build" FORCE)
@@ -198,7 +201,7 @@ messageTitle(" Final overview for ${PROJECT_NAME} ")
 messageInfo("Version:               ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH} ${VERSION_TYPE} @ ${VERSION_HOST}")
 messageInfo("Install prefix: ")
 messageInfo("  ${CMAKE_INSTALL_PREFIX}")
-messageInfo("Compiler:              ${CMAKE_CXX_COMPILER}")
+messageInfo("Compiler: ${CMAKE_CXX_COMPILER} - ${CMAKE_CXX_COMPILER_ID} in version ${CMAKE_CXX_COMPILER_VERSION}.")
 messageSetting("CMAKE_BUILD_TYPE")
 messageInfo("  possible options: Debug Release RelWithDebInfo MinSizeRel")
 messageInfo("  set with ` cmake -DCMAKE_BUILD_TYPE=Debug .. `")

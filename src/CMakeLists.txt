@@ -62,10 +62,23 @@ set(LocalDependencies ${LocalDependencies} PARENT_SCOPE)
 
 
 #-----------------------------------------------------------------------------------
+function(cat IN_FILE OUT_FILE)
+    file(READ ${IN_FILE} CONTENTS)
+    file(APPEND ${OUT_FILE} "${CONTENTS}")
+endfunction()
+
+# Prepare the RadiumConfigTemplate.in file:
+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in "")
+
+# Fill the RadiumConfigTemplate.in
+
+cat(../cmake/compilerVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
+cat(../cmake/Config.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in)
+#-----------------------------------------------------------------------------------
 # Generate cmake package
 configure_radium_package(
     NAME Radium
-    PACKAGE_CONFIG ../cmake/Config.cmake.in
+    PACKAGE_CONFIG ${CMAKE_CURRENT_BINARY_DIR}/RadiumConfigTemplate.in
 )
 
 #install general scripts
