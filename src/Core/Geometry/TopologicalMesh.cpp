@@ -454,6 +454,9 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
 
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
     {
+        // create an empty wedge, with 0 ref
+        Wedge w;
+
         WedgeData wd;
         wd.m_position = triMesh.vertices()[i];
         copyMeshToWedgeData( triMesh,
@@ -463,8 +466,11 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
                              m_wedges.m_wedgeVector3AttribHandles,
                              m_wedges.m_wedgeVector4AttribHandles,
                              &wd );
-
-        m_wedges.m_data.emplace_back( wd );
+        // here ref is not incremented
+        w.setWedgeData( std::move( wd ) );
+        // the newly added wedge is not referenced yet, will be done with `newReference` when
+        // creating faces just below
+        m_wedges.m_data.push_back( w );
     }
 
     LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.size() << " wedges ";
@@ -473,7 +479,6 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
     {
         std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
         std::vector<TopologicalMesh::Normal> face_normals( 3 );
-        std::vector<unsigned int> face_vertexIndex( 3 );
         std::vector<WedgeIndex> face_wedges( 3 );
         const auto& triangle = triMesh.getIndices()[i];
 
@@ -493,10 +498,10 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
             else
             { vh = vtr->second; }
 
-            face_vhandles[j]    = vh;
-            face_normals[j]     = n;
-            face_vertexIndex[j] = inMeshVertexIndex;
-            face_wedges[j]      = WedgeIndex {int( i )};
+            face_vhandles[j] = vh;
+            face_normals[j]  = n;
+            face_wedges[j] =
+                WedgeIndex {static_cast<WedgeIndex::Index::IntegerType>( inMeshVertexIndex )};
         }
 
         // Add the face, then add attribs to vh
@@ -514,7 +519,6 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
         { LOG( logWARNING ) << "Invalid face handle returned : face not added (2)"; }
         face_vhandles.clear();
         face_normals.clear();
-        face_vertexIndex.clear();
     }
     LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
 }
