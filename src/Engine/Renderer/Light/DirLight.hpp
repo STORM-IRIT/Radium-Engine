@@ -1,9 +1,7 @@
 #pragma once
-#ifndef RADIUMENGINE_DIRLIGHT_HPP
-#    define RADIUMENGINE_DIRLIGHT_HPP
 
-#    include <Engine/RaEngine.hpp>
-#    include <Engine/Renderer/Light/Light.hpp>
+#include <Engine/RaEngine.hpp>
+#include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -33,6 +31,4 @@ class RA_ENGINE_API DirectionalLight final : public Light
 } // namespace Engine
 } // namespace Ra
 
-#    include <Engine/Renderer/Light/DirLight.inl>
-
-#endif // RADIUMENGINE_POINTLIGHT_HPP
+#include <Engine/Renderer/Light/DirLight.inl>

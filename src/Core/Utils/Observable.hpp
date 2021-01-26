@@ -1,5 +1,3 @@
-#ifndef RADIIUMENIGNE_OBSERVABLE_HPP
-#define RADIIUMENIGNE_OBSERVABLE_HPP
 #pragma once
 
 #include <Core/Utils/Log.hpp>
@@ -91,4 +89,3 @@ class RA_CORE_API ObservableVoid : public Observable<>
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-#endif

@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_SELECTION_MANAGER_HPP_
-#    define RADIUMENGINE_SELECTION_MANAGER_HPP_
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <Engine/ItemModel/ItemEntry.hpp>
-#    include <GuiBase/TreeModel/EntityTreeModel.hpp>
-#    include <QItemSelectionModel>
+#include <Engine/ItemModel/ItemEntry.hpp>
+#include <GuiBase/TreeModel/EntityTreeModel.hpp>
+#include <QItemSelectionModel>
 
 namespace Ra {
 namespace Engine {
@@ -71,5 +69,3 @@ class RA_GUIBASE_API SelectionManager : public QItemSelectionModel
 
 } // namespace GuiBase
 } // namespace Ra
-
-#endif //  RADIUMENGINE_SELECTION_MANAGER_HPP_

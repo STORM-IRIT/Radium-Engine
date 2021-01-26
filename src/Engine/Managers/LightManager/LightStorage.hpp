@@ -1,9 +1,7 @@
 #pragma once
-#ifndef RADIUMENGINE_LIGHTSTORAGE_HPP
-#    define RADIUMENGINE_LIGHTSTORAGE_HPP
 
-#    include "../../RaEngine.hpp"
-#    include "../../Renderer/Light/Light.hpp"
+#include "../../RaEngine.hpp"
+#include "../../Renderer/Light/Light.hpp"
 
 namespace Ra {
 namespace Engine {
@@ -53,5 +51,3 @@ class RA_ENGINE_API LightStorage
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_LIGHTSTORAGE_HPP

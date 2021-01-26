@@ -1,8 +1,6 @@
 #pragma once
-#ifndef HANDLE_WEIGHT_OPERATION
-#    define HANDLE_WEIGHT_OPERATION
 
-#    include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/HandleWeight.hpp>
 
 namespace Ra {
 namespace Core {
@@ -58,5 +56,3 @@ RA_CORE_API bool normalizeWeights( Eigen::Ref<WeightMatrix> matrix, const bool M
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
-
-#endif // HANDLE_WEIGHT_OPERATION

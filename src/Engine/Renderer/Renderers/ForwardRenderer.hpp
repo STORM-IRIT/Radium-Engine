@@ -1,8 +1,6 @@
 #pragma once
-#ifndef RADIUMENGINE_FORWARDRENDERER_HPP
-#    define RADIUMENGINE_FORWARDRENDERER_HPP
 
-#    include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Renderer/Renderer.hpp>
 
 namespace globjects {
 class Framebuffer;
@@ -86,5 +84,3 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_FORWARDRENDERER_HPP

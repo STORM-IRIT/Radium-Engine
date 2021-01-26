@@ -1,11 +1,9 @@
 #pragma once
-#ifndef HEAT_DIFFUSION
-#    define HEAT_DIFFUSION
 
-#    include <Core/Containers/VectorArray.hpp> // VectorArray
-#    include <Core/Geometry/Area.hpp>          // Geometry::AreaMatrix
-#    include <Core/Geometry/Laplacian.hpp>     // Geometry::LaplacianMatrix
-#    include <Core/RaCore.hpp>
+#include <Core/Containers/VectorArray.hpp> // VectorArray
+#include <Core/Geometry/Area.hpp>          // Geometry::AreaMatrix
+#include <Core/Geometry/Laplacian.hpp>     // Geometry::LaplacianMatrix
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -66,5 +64,3 @@ RA_CORE_API Heat heat( const AreaMatrix& A,
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // HEAT_DIFFUSION

@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_STDUTILS_HPP_
-#    define RADIUMENGINE_STDUTILS_HPP_
 
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
-#    include <functional>
+#include <functional>
 
 /// This file contains utilities and wrapper to the standard library
 /// that didn't fit into any other category (see Containers)
@@ -31,5 +29,3 @@ inline std::size_t hash( const std::pair<T1, T2>& p ) {
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif

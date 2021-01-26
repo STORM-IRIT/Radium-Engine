@@ -1,13 +1,11 @@
 #pragma once
-#ifndef RADIUMENGINE_TEXTUREMANAGER_HPP
-#    define RADIUMENGINE_TEXTUREMANAGER_HPP
 
-#    include <Engine/RaEngine.hpp>
-#    include <map>
-#    include <string>
+#include <Engine/RaEngine.hpp>
+#include <map>
+#include <string>
 
-#    include <Engine/Renderer/OpenGL/OpenGL.hpp>
-#    include <Engine/Renderer/Texture/Texture.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/Texture/Texture.hpp>
 namespace Ra {
 namespace Engine {
 
@@ -113,5 +111,3 @@ class RA_ENGINE_API TextureManager final
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_TEXTUREMANAGER_HPP

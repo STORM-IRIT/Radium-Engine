@@ -1,20 +1,18 @@
 #pragma once
-#ifndef RADIUMENGINE_RENDEROBJECTMANAGER_HPP
-#    define RADIUMENGINE_RENDEROBJECTMANAGER_HPP
 
-#    include <Engine/RaEngine.hpp>
+#include <Engine/RaEngine.hpp>
 
-#    include <array>
-#    include <memory>
-#    include <mutex>
-#    include <set>
-#    include <vector>
+#include <array>
+#include <memory>
+#include <mutex>
+#include <set>
+#include <vector>
 
-#    include <Core/Utils/Index.hpp>
-#    include <Core/Utils/IndexMap.hpp>
+#include <Core/Utils/Index.hpp>
+#include <Core/Utils/IndexMap.hpp>
 
-#    include <Core/Types.hpp>
-#    include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
+#include <Core/Types.hpp>
+#include <Engine/Renderer/RenderObject/RenderObjectTypes.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -83,5 +81,3 @@ class RA_ENGINE_API RenderObjectManager final
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_RENDEROBJECTMANAGER_HPP

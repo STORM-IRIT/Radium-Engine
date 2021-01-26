@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP
-#    define RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP
 
-#    include <Core/Animation/Pose.hpp>
-#    include <Core/Containers/AlignedStdVector.hpp>
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Core/Math/DualQuaternion.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Containers/AlignedStdVector.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/Math/DualQuaternion.hpp>
 
 namespace Ra {
 namespace Core {
@@ -38,5 +36,3 @@ void RA_CORE_API dualQuaternionSkinning( const Ra::Core::Vector3Array& input,
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP

@@ -1,13 +1,11 @@
 #pragma once
-#ifndef RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
-#    define RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
 
-#    include <map>
-#    include <set>
+#include <map>
+#include <set>
 
-#    include <Core/Asset/DataLoader.hpp>
-#    include <Core/Types.hpp>
-#    include <IO/RaIO.hpp>
+#include <Core/Asset/DataLoader.hpp>
+#include <Core/Types.hpp>
+#include <IO/RaIO.hpp>
 
 struct aiScene;
 struct aiNode;
@@ -58,5 +56,3 @@ class RA_IO_API AssimpHandleDataLoader : public Core::Asset::DataLoader<Core::As
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP

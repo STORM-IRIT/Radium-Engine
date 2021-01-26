@@ -1,13 +1,11 @@
 #pragma once
-#ifndef RADIUMENGINE_ENTITYTREEMODEL_HPP
-#    define RADIUMENGINE_ENTITYTREEMODEL_HPP
 
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <Engine/ItemModel/ItemEntry.hpp>
-#    include <Engine/RadiumEngine.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
+#include <Engine/RadiumEngine.hpp>
 
-#    include <GuiBase/TreeModel/TreeModel.hpp>
+#include <GuiBase/TreeModel/TreeModel.hpp>
 namespace Ra {
 namespace GuiBase {
 
@@ -77,5 +75,3 @@ class RA_GUIBASE_API ItemModel : public TreeModel
 
 } // namespace GuiBase
 } // namespace Ra
-
-#endif // RADIUMENGINE_ENTITYTREEMODEL_HPP

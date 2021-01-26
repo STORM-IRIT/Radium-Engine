@@ -1,9 +1,7 @@
 #pragma once
-#ifndef RADIUMENGINE_ASSET_DATA_HPP
-#    define RADIUMENGINE_ASSET_DATA_HPP
 
-#    include <Core/RaCore.hpp>
-#    include <string>
+#include <Core/RaCore.hpp>
+#include <string>
 
 namespace Ra {
 namespace Core {
@@ -37,5 +35,3 @@ class RA_CORE_API AssetData
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_GEOMETRY_DATA_HPP

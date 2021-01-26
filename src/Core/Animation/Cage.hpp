@@ -1,10 +1,8 @@
 #pragma once
-#ifndef CAGE_HANDLE_H
-#    define CAGE_HANDLE_H
 
-#    include <Core/Animation/HandleArray.hpp>
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Core/RaCore.hpp>
+#include <Core/Animation/HandleArray.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -39,5 +37,3 @@ class RA_CORE_API Cage : public HandleArray
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
-
-#endif // CAGE_HANDLE_H

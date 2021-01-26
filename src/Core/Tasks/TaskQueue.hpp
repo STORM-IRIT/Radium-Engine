@@ -1,18 +1,16 @@
 #pragma once
-#ifndef RADIUMENGINE_TASK_QUEUE_HPP_
-#    define RADIUMENGINE_TASK_QUEUE_HPP_
 
-#    include <Core/RaCore.hpp>
-#    include <condition_variable>
-#    include <deque>
-#    include <memory>
-#    include <mutex>
-#    include <string>
-#    include <thread>
-#    include <vector>
+#include <Core/RaCore.hpp>
+#include <condition_variable>
+#include <deque>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <thread>
+#include <vector>
 
-#    include <Core/Utils/Index.hpp>
-#    include <Core/Utils/Timer.hpp> // Ra::Core::TimePoint
+#include <Core/Utils/Index.hpp>
+#include <Core/Utils/Timer.hpp> // Ra::Core::TimePoint
 
 namespace Ra {
 namespace Core {
@@ -145,5 +143,3 @@ class RA_CORE_API TaskQueue
 
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_TASK_QUEUE_HPP_

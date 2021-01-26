@@ -1,12 +1,10 @@
 #pragma once
-#ifndef RADIUMENGINE_SKINNING_DATA_HPP_
-#    define RADIUMENGINE_SKINNING_DATA_HPP_
 
-#    include <Core/Animation/HandleWeight.hpp>
-#    include <Core/Animation/Pose.hpp>
-#    include <Core/Animation/Skeleton.hpp>
-#    include <Core/Geometry/TriangleMesh.hpp>
-#    include <Core/RaCore.hpp>
+#include <Core/Animation/HandleWeight.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Animation/Skeleton.hpp>
+#include <Core/Geometry/TriangleMesh.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -71,5 +69,3 @@ struct FrameData {
 } // namespace Skinning
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_SKINNING_DATA_HPP_

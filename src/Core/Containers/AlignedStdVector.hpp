@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_
-#    define RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
-#    include <Eigen/StdVector>
-#    include <vector>
+#include <Eigen/StdVector>
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -18,4 +16,3 @@ struct AlignedStdVector : public std::vector<T, Eigen::aligned_allocator<T>> {
 };
 } // namespace Core
 } // namespace Ra
-#endif // RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_

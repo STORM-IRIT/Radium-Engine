@@ -1,14 +1,12 @@
-#pragma once
-#ifndef RADIUMENGINE_BVH_HPP
-#    define RADIUMENGINE_BVH_HPP
+#define RADIUMENGINE_BVH_HPP
 
-#    include <Core/RaCore.hpp>
-#    include <Eigen/Geometry>
+#include <Core/RaCore.hpp>
+#include <Eigen/Geometry>
 
-#    include <Core/Geometry/Frustum.hpp>
+#include <Core/Geometry/Frustum.hpp>
 
-#    include <memory>
-#    include <vector>
+#include <memory>
+#include <vector>
 
 namespace Ra {
 namespace Core {
@@ -93,6 +91,4 @@ class [[deprecated( "Neither used nor tested" )]] BVH {
 } // namespace Core
 } // namespace Ra
 
-#    include <Core/Containers/BVH.inl>
-
-#endif // RADIUMENGINE_BVH_HPP
+#include <Core/Containers/BVH.inl>

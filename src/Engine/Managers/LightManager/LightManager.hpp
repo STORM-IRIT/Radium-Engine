@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_LIGHTMANAGER_H
-#    define RADIUMENGINE_LIGHTMANAGER_H
-#    include <Engine/Managers/LightManager/LightStorage.hpp>
-#    include <Engine/RaEngine.hpp>
-#    include <Engine/System/System.hpp>
+#include <Engine/Managers/LightManager/LightStorage.hpp>
+#include <Engine/RaEngine.hpp>
+#include <Engine/System/System.hpp>
 
-#    include <memory>
+#include <memory>
 
 namespace Ra {
 namespace Engine {
@@ -79,5 +77,3 @@ class RA_ENGINE_API LightManager : public System
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_LIGHTMANAGER_H

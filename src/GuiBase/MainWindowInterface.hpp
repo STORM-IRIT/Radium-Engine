@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_MAINWINDOWINTERFACE_HPP_
-#    define RADIUMENGINE_MAINWINDOWINTERFACE_HPP_
 
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <QMainWindow>
-#    include <memory>
+#include <QMainWindow>
+#include <memory>
 
 namespace Ra {
 namespace Gui {
@@ -72,5 +70,3 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow
 };
 } // namespace GuiBase
 } // namespace Ra
-
-#endif // RADIUMENGINE_MAINWINDOWINTERFACE_HPP_

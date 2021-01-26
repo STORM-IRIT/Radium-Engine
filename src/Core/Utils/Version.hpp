@@ -1,8 +1,6 @@
 #pragma once
-#ifndef RADIUMENGINE_VERSION_HPP
-#    define RADIUMENGINE_VERSION_HPP
 
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Version {
@@ -20,5 +18,3 @@ RA_CORE_API extern const char* gitChangeSet;
 // extern const char* versionName;
 } // namespace Version
 } // namespace Ra
-
-#endif // RADIUMENGINE_VERSION_HPP

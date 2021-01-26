@@ -1,8 +1,6 @@
 #pragma once
-#ifndef CIRCULAR_INDEX_H
-#    define CIRCULAR_INDEX_H
 
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -49,6 +47,4 @@ class RA_CORE_API CircularIndex
 } // namespace Core
 } // namespace Ra
 
-#    include <Core/Utils/CircularIndex.inl>
-
-#endif // CIRCULAR_INDEX_H
+#include <Core/Utils/CircularIndex.inl>

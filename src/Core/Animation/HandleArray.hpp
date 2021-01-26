@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_HANDLE_SYSTEM
-#    define RADIUMENGINE_HANDLE_SYSTEM
 
-#    include <Core/Animation/Pose.hpp>
-#    include <Core/RaCore.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/RaCore.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -107,6 +105,4 @@ class RA_CORE_API HandleArray
 } // Namespace Core
 } // Namespace Ra
 
-#    include <Core/Animation/HandleArray.inl>
-
-#endif // RADIUMENGINE_HANDLE_SYSTEM
+#include <Core/Animation/HandleArray.inl>

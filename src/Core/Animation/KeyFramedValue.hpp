@@ -1,13 +1,11 @@
 #pragma once
-#ifndef RADIUMENGINE_KEYFRAMEDVALUE_HPP
-#    define RADIUMENGINE_KEYFRAMEDVALUE_HPP
 
-#    include <map>
-#    include <set>
+#include <map>
+#include <set>
 
-#    include <Core/Containers/AlignedAllocator.hpp>
-#    include <Core/Math/Math.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Containers/AlignedAllocator.hpp>
+#include <Core/Math/Math.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -87,7 +85,7 @@ class KeyFramedValue : public KeyFramedValueBase
 
     inline std::vector<Scalar> getTimes() const override {
         std::vector<Scalar> times( m_keyframes.size() );
-#    pragma omp parallel for
+#pragma omp parallel for
         for ( int i = 0; i < int( m_keyframes.size() ); ++i )
         {
             times[i] = m_keyframes[i].first;
@@ -243,5 +241,3 @@ class KeyFramedValue : public KeyFramedValueBase
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_KEYFRAMEDVALUE_HPP

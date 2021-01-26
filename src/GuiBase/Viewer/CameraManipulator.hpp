@@ -1,19 +1,17 @@
 #pragma once
-#ifndef RADIUMENGINE_CAMERAMANIPULATOR_HPP
-#    define RADIUMENGINE_CAMERAMANIPULATOR_HPP
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <memory>
+#include <memory>
 
-#    include <QKeyEvent>
-#    include <QMouseEvent>
-#    include <QObject>
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QObject>
 
-#    include <Core/CoreMacros.hpp>
-#    include <Core/Types.hpp>
-#    include <Core/Utils/Log.hpp>
+#include <Core/CoreMacros.hpp>
+#include <Core/Types.hpp>
+#include <Core/Utils/Log.hpp>
 
-#    include <GuiBase/Utils/KeyMappingManager.hpp>
+#include <GuiBase/Utils/KeyMappingManager.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -172,5 +170,3 @@ class RA_GUIBASE_API CameraManipulator : public QObject
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_CAMERAMANIPULATOR_HPP

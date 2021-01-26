@@ -1,10 +1,8 @@
 #pragma once
-#ifndef RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
-#    define RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
 
-#    include <map>
+#include <map>
 
-#    include <Core/RaCore.hpp>
+#include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -27,5 +25,3 @@ void RA_CORE_API createSkeleton( const Ra::Core::Asset::HandleData& data,
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_HANDLE_TO_SKELETON_HPP_

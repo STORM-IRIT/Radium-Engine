@@ -1,8 +1,6 @@
 #pragma once
-#ifndef RADIUMENGINE_CHRONOMETER_DEFINITION
-#    define RADIUMENGINE_CHRONOMETER_DEFINITION
 
-#    include <Core/Utils/Timer.hpp>
+#include <Core/Utils/Timer.hpp>
 
 namespace Ra {
 namespace Core {
@@ -167,5 +165,3 @@ class RA_CORE_API Chrono
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_CHRONOMETER_DEFINITION

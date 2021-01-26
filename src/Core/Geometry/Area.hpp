@@ -1,9 +1,7 @@
 #pragma once
-#ifndef AREA_DEFINITION
-#    define AREA_DEFINITION
 
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -144,5 +142,3 @@ Scalar mixedArea( const Vector3& v, const VectorArray<Vector3>& p );
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // AREA_DEFINITION

@@ -1,9 +1,7 @@
 #pragma once
-#ifndef RADIUMENGINE_INDEX_HPP
-#    define RADIUMENGINE_INDEX_HPP
 
-#    include <Core/RaCore.hpp>
-#    include <limits>
+#include <Core/RaCore.hpp>
+#include <limits>
 
 namespace Ra {
 namespace Core {
@@ -90,6 +88,4 @@ class RA_CORE_API Index
 } // namespace Core
 } // namespace Ra
 
-#    include <Core/Utils/Index.inl>
-
-#endif // RADIUMENGINE_INDEX_HPP
+#include <Core/Utils/Index.inl>

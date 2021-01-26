@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
-#    define RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP
 
-#    include <Core/Animation/Pose.hpp>
-#    include <Core/Containers/AdjacencyList.hpp>
-#    include <Core/Containers/VectorArray.hpp>
-#    include <Core/Types.hpp>
+#include <Core/Animation/Pose.hpp>
+#include <Core/Containers/AdjacencyList.hpp>
+#include <Core/Containers/VectorArray.hpp>
+#include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {
@@ -40,5 +38,3 @@ void findCorrectionData( const Vector3Array& mesh,
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_BULGE_CORRECTION_DEFINITION_HPP

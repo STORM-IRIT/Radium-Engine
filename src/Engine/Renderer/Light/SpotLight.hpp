@@ -1,11 +1,9 @@
 #pragma once
-#ifndef RADIUMENGINE_SPOTLIGHT_HPP
-#    define RADIUMENGINE_SPOTLIGHT_HPP
 
-#    include <Engine/RaEngine.hpp>
+#include <Engine/RaEngine.hpp>
 
-#    include <Core/Math/Math.hpp>
-#    include <Engine/Renderer/Light/Light.hpp>
+#include <Core/Math/Math.hpp>
+#include <Engine/Renderer/Light/Light.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -57,6 +55,4 @@ class RA_ENGINE_API SpotLight final : public Light
 } // namespace Engine
 } // namespace Ra
 
-#    include <Engine/Renderer/Light/SpotLight.inl>
-
-#endif // RADIUMENGINE_SPOTLIGHT_HPP
+#include <Engine/Renderer/Light/SpotLight.inl>

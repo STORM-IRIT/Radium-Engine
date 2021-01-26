@@ -9,17 +9,14 @@
  * current commit id : aaa363ee8ec0247e9299a8949e5bd334b10dc413
  */
 
-#ifndef RADIUMENGINE_TIMELINE_H
-#    define RADIUMENGINE_TIMELINE_H
+#include <GuiBase/RaGuiBase.hpp>
 
-#    include <GuiBase/RaGuiBase.hpp>
+#include <Core/Animation/KeyFramedValue.hpp>
+#include <Core/Animation/KeyFramedValueController.hpp>
+#include <Engine/ItemModel/ItemEntry.hpp>
 
-#    include <Core/Animation/KeyFramedValue.hpp>
-#    include <Core/Animation/KeyFramedValueController.hpp>
-#    include <Engine/ItemModel/ItemEntry.hpp>
-
-#    include <QDialog>
-#    include <QObject>
+#include <QDialog>
+#include <QObject>
 
 namespace Ui {
 class Timeline;
@@ -275,5 +272,3 @@ class RA_GUIBASE_API Timeline : public QDialog
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_TIMELINE_H

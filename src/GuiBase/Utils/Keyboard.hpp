@@ -1,8 +1,6 @@
 #pragma once
-#ifndef RADIUMENGINE_KEYBOARD_HPP
-#    define RADIUMENGINE_KEYBOARD_HPP
 
-#    include <GuiBase/RaGuiBase.hpp>
+#include <GuiBase/RaGuiBase.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -15,5 +13,3 @@ RA_GUIBASE_API void
 keyReleased( int code ); ///< set the key corresponding to \param code as released
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_KEYBOARD_HPP

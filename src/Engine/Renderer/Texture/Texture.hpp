@@ -1,15 +1,13 @@
 #pragma once
-#ifndef RADIUMENGINE_TEXTURE_HPP
-#    define RADIUMENGINE_TEXTURE_HPP
 
-#    include <Engine/RaEngine.hpp>
+#include <Engine/RaEngine.hpp>
 
-#    include <memory>
-#    include <string>
+#include <memory>
+#include <string>
 
-#    include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/Renderer/OpenGL/OpenGL.hpp>
 
-#    include <Core/Utils/Color.hpp>
+#include <Core/Utils/Color.hpp>
 
 namespace globjects {
 class Texture;
@@ -248,7 +246,7 @@ class RA_ENGINE_API Texture final
     /// Is the texture in LinearRGB ?
     bool m_isLinear {false};
 
-#    if 0
+#if 0
     /**
   * @brief Init the textures needed for the cubemap from OpenGL point of view.
   *
@@ -279,9 +277,7 @@ class RA_ENGINE_API Texture final
   * @todo integrate this method in the same workflow than other textures ...
   */
     void generateCube( bool linearize = false );
-#    endif
+#endif
 };
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_TEXTURE_HPP
