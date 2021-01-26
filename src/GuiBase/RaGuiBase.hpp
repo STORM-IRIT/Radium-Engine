@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/CoreMacros.hpp>
 #include <Engine/RaEngine.hpp>
 

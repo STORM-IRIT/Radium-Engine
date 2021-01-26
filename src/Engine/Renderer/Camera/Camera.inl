@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/Entity/Entity.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
 

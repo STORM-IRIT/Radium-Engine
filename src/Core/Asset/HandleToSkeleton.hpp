@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
-#define RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
+#    define RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
 
-#include <map>
+#    include <map>
 
-#include <Core/RaCore.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {

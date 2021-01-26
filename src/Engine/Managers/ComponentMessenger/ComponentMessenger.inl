@@ -1,3 +1,4 @@
+#pragma once
 #include "ComponentMessenger.hpp"
 #include <Core/Utils/StdUtils.hpp>
 namespace Ra {

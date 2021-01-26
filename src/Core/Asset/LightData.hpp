@@ -1,13 +1,14 @@
+#pragma once
 #ifndef RADIUMENGINE_LIGHT_DATA_HPP
-#define RADIUMENGINE_LIGHT_DATA_HPP
+#    define RADIUMENGINE_LIGHT_DATA_HPP
 
-#include <memory>
-#include <string>
-#include <vector>
+#    include <memory>
+#    include <string>
+#    include <vector>
 
-#include <Core/Asset/AssetData.hpp>
-#include <Core/RaCore.hpp>
-#include <Core/Utils/Color.hpp>
+#    include <Core/Asset/AssetData.hpp>
+#    include <Core/RaCore.hpp>
+#    include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace Core {
@@ -215,6 +216,6 @@ class RA_CORE_API LightData : public AssetData
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Asset/LightData.inl>
+#    include <Core/Asset/LightData.inl>
 
 #endif // RADIUMENGINE_LIGHT_DATA_HPP

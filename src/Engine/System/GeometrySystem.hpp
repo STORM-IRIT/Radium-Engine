@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_GEOMETRY_SYSTEM_HPP
-#define RADIUMENGINE_GEOMETRY_SYSTEM_HPP
+#    define RADIUMENGINE_GEOMETRY_SYSTEM_HPP
 
-#include <Engine/System/System.hpp>
+#    include <Engine/System/System.hpp>
 
 namespace Ra {
 namespace Engine {

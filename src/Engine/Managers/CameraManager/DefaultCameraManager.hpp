@@ -1,11 +1,12 @@
+#pragma once
 #ifndef RADIUMENGINE_DUMMYCAMERAMANAGER_HPP
-#define RADIUMENGINE_DUMMYCAMERAMANAGER_HPP
+#    define RADIUMENGINE_DUMMYCAMERAMANAGER_HPP
 
-#include <Engine/Managers/CameraManager/CameraManager.hpp>
-#include <Engine/Renderer/Camera/Camera.hpp>
+#    include <Engine/Managers/CameraManager/CameraManager.hpp>
+#    include <Engine/Renderer/Camera/Camera.hpp>
 
-#include <memory>
-#include <vector>
+#    include <memory>
+#    include <vector>
 
 namespace Ra {
 namespace Engine {

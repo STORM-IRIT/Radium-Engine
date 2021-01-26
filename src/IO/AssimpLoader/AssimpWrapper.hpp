@@ -1,14 +1,15 @@
+#pragma once
 #ifndef RADIUMENGINE_ASSIMP_WRAPPER_HPP
-#define RADIUMENGINE_ASSIMP_WRAPPER_HPP
+#    define RADIUMENGINE_ASSIMP_WRAPPER_HPP
 
-#include <assimp/color4.h>
-#include <assimp/matrix4x4.h>
-#include <assimp/quaternion.h>
-#include <assimp/types.h>
-#include <assimp/vector3.h>
+#    include <assimp/color4.h>
+#    include <assimp/matrix4x4.h>
+#    include <assimp/quaternion.h>
+#    include <assimp/types.h>
+#    include <assimp/vector3.h>
 
-#include <Core/Types.hpp>
-#include <Core/Utils/Color.hpp>
+#    include <Core/Types.hpp>
+#    include <Core/Utils/Color.hpp>
 
 namespace Ra {
 namespace IO {

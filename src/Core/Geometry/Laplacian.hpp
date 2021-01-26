@@ -1,10 +1,11 @@
+#pragma once
 #ifndef LAPLACIAN_DEFINITION
-#define LAPLACIAN_DEFINITION
+#    define LAPLACIAN_DEFINITION
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Types.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/Types.hpp>
 
-#include <Core/Geometry/Adjacency.hpp>
+#    include <Core/Geometry/Adjacency.hpp>
 
 namespace Ra {
 namespace Core {

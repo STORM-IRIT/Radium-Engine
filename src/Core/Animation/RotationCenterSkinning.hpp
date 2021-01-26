@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_ROTATION_CENTER_SKINNING_HPP_
-#define RADIUMENGINE_ROTATION_CENTER_SKINNING_HPP_
+#    define RADIUMENGINE_ROTATION_CENTER_SKINNING_HPP_
 
-#include <Core/RaCore.hpp>
+#    include <Core/RaCore.hpp>
 
-#include <Core/Animation/SkinningData.hpp>
+#    include <Core/Animation/SkinningData.hpp>
 
 namespace Ra {
 namespace Core {

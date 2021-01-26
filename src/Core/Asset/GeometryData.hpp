@@ -1,17 +1,18 @@
+#pragma once
 #ifndef RADIUMENGINE_GEOMETRY_DATA_HPP
-#define RADIUMENGINE_GEOMETRY_DATA_HPP
+#    define RADIUMENGINE_GEOMETRY_DATA_HPP
 
-#include <memory>
-#include <string>
-#include <vector>
+#    include <memory>
+#    include <string>
+#    include <vector>
 
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
-#include <Core/Utils/Index.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/RaCore.hpp>
+#    include <Core/Types.hpp>
+#    include <Core/Utils/Index.hpp>
 
-#include <Core/Asset/AssetData.hpp>
-#include <Core/Asset/MaterialData.hpp>
+#    include <Core/Asset/AssetData.hpp>
+#    include <Core/Asset/MaterialData.hpp>
 
 namespace Ra {
 namespace Core {
@@ -288,6 +289,6 @@ class RA_CORE_API GeometryData : public AssetData
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Asset/GeometryData.inl>
+#    include <Core/Asset/GeometryData.inl>
 
 #endif // RADIUMENGINE_GEOMETRY_DATA_HPP

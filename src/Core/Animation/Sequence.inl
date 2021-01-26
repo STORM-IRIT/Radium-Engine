@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Animation/Sequence.hpp>
 
 namespace Ra {

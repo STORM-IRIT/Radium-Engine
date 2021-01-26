@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Asset/CameraData.hpp>
 
 #include "CameraData.hpp"

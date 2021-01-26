@@ -1,16 +1,17 @@
+#pragma once
 #ifndef RADIUMENGINE_HANDLE_DATA_HPP
-#define RADIUMENGINE_HANDLE_DATA_HPP
+#    define RADIUMENGINE_HANDLE_DATA_HPP
 
-#include <map>
-#include <set>
-#include <string>
-#include <vector>
+#    include <map>
+#    include <set>
+#    include <string>
+#    include <vector>
 
-#include <Core/Containers/AlignedStdVector.hpp>
-#include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
+#    include <Core/Containers/AlignedStdVector.hpp>
+#    include <Core/RaCore.hpp>
+#    include <Core/Types.hpp>
 
-#include <Core/Asset/AssetData.hpp>
+#    include <Core/Asset/AssetData.hpp>
 
 namespace Ra {
 namespace Core {
@@ -267,6 +268,6 @@ class RA_CORE_API HandleData : public AssetData
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Asset/HandleData.inl>
+#    include <Core/Asset/HandleData.inl>
 
 #endif // RADIUMENGINE_HANDLE_DATA_HPP

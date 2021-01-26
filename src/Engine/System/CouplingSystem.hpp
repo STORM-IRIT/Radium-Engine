@@ -1,11 +1,12 @@
+#pragma once
 #ifndef RADIUMENGINE_COUPLING_SYSTEM_HPP
-#define RADIUMENGINE_COUPLING_SYSTEM_HPP
+#    define RADIUMENGINE_COUPLING_SYSTEM_HPP
 
-#include <Engine/RaEngine.hpp>      // RA_ENGINE_API
-#include <Engine/System/System.hpp> // System methods declaration
-#include <memory>                   // std::unique_ptr
-#include <type_traits>              // std::is_base_of
-#include <vector>                   // std::vector
+#    include <Engine/RaEngine.hpp>      // RA_ENGINE_API
+#    include <Engine/System/System.hpp> // System methods declaration
+#    include <memory>                   // std::unique_ptr
+#    include <type_traits>              // std::is_base_of
+#    include <vector>                   // std::vector
 
 namespace Ra {
 namespace Engine {

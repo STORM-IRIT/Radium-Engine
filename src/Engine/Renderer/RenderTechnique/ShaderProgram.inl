@@ -1,3 +1,4 @@
+#pragma once
 #include <globjects/Program.h>
 
 namespace Ra {

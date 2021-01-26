@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_LINEAR_BLENDING_SKINNING_HPP
-#define RADIUMENGINE_LINEAR_BLENDING_SKINNING_HPP
+#    define RADIUMENGINE_LINEAR_BLENDING_SKINNING_HPP
 
-#include <Core/Animation/HandleWeight.hpp>
-#include <Core/Animation/Pose.hpp>
-#include <Core/Containers/VectorArray.hpp>
-#include <Core/Types.hpp>
+#    include <Core/Animation/HandleWeight.hpp>
+#    include <Core/Animation/Pose.hpp>
+#    include <Core/Containers/VectorArray.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

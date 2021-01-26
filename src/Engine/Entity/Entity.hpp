@@ -1,15 +1,16 @@
+#pragma once
 #ifndef RADIUMENGINE_ENTITY_HPP
-#define RADIUMENGINE_ENTITY_HPP
+#    define RADIUMENGINE_ENTITY_HPP
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
-#include <mutex>
-#include <string>
-#include <thread>
-#include <vector>
+#    include <mutex>
+#    include <string>
+#    include <thread>
+#    include <vector>
 
-#include <Core/Types.hpp>
-#include <Core/Utils/IndexedObject.hpp>
+#    include <Core/Types.hpp>
+#    include <Core/Utils/IndexedObject.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -80,6 +81,6 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Entity/Entity.inl>
+#    include <Engine/Entity/Entity.inl>
 
 #endif // RADIUMENGINE_ENTITY_HPP

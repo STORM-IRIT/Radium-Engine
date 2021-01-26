@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_FRAME_INFO_HPP
-#define RADIUMENGINE_FRAME_INFO_HPP
+#    define RADIUMENGINE_FRAME_INFO_HPP
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
 namespace Ra {
 namespace Engine {

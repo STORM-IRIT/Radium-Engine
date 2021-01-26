@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_FRUSTUM_HPP
-#define RADIUMENGINE_FRUSTUM_HPP
+#    define RADIUMENGINE_FRUSTUM_HPP
 
-#include <Core/RaCore.hpp>
-#include <Eigen/Core>
+#    include <Core/RaCore.hpp>
+#    include <Eigen/Core>
 
 namespace Ra {
 namespace Core {

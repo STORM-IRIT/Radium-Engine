@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_VERSION_HPP
-#define RADIUMENGINE_VERSION_HPP
+#    define RADIUMENGINE_VERSION_HPP
 
-#include <Core/RaCore.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Version {

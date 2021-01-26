@@ -1,15 +1,16 @@
+#pragma once
 #ifndef RADIUMENGINE_BASEAPPLICATION_HPP_
-#define RADIUMENGINE_BASEAPPLICATION_HPP_
-#include <atomic>
-#include <chrono>
-#include <memory>
-#include <vector>
+#    define RADIUMENGINE_BASEAPPLICATION_HPP_
+#    include <atomic>
+#    include <chrono>
+#    include <memory>
+#    include <vector>
 
-#include <QApplication>
+#    include <QApplication>
 
-#include <Core/Utils/Timer.hpp>
-#include <GuiBase/TimerData/FrameTimerData.hpp>
-#include <PluginBase/RadiumPluginInterface.hpp>
+#    include <Core/Utils/Timer.hpp>
+#    include <GuiBase/TimerData/FrameTimerData.hpp>
+#    include <PluginBase/RadiumPluginInterface.hpp>
 
 class QTimer;
 

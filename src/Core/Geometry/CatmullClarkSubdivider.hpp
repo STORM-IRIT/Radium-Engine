@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
-#define RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
+#    define RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
 
-#include <Core/Geometry/TopologicalMesh.hpp>
+#    include <Core/Geometry/TopologicalMesh.hpp>
 
-#include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
+#    include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
 
 namespace Ra {
 namespace Core {

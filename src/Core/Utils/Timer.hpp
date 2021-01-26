@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_TIMER_HPP_
-#define RADIUMENGINE_TIMER_HPP_
+#    define RADIUMENGINE_TIMER_HPP_
 
-#include <Core/RaCore.hpp>
-#include <chrono>
+#    include <Core/RaCore.hpp>
+#    include <chrono>
 
 namespace Ra {
 namespace Core {

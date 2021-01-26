@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_TEX3D_HPP_
-#define RADIUMENGINE_TEX3D_HPP_
+#    define RADIUMENGINE_TEX3D_HPP_
 
-#include <Eigen/Core>
+#    include <Eigen/Core>
 
-#include <Core/Containers/Grid.hpp>
-#include <Core/RaCore.hpp>
+#    include <Core/Containers/Grid.hpp>
+#    include <Core/RaCore.hpp>
 
 namespace Ra {
 namespace Core {
@@ -51,5 +52,5 @@ template <typename T>
 using Tex3D = Tex<T, 3>;
 } // namespace Core
 } // namespace Ra
-#include <Core/Containers/Tex.inl>
+#    include <Core/Containers/Tex.inl>
 #endif // RADIUMENGINE_TEX3D_HPP

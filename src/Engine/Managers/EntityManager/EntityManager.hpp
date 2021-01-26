@@ -1,15 +1,16 @@
+#pragma once
 #ifndef RADIUMENGINE_ENTITYMANAGER_HPP
-#define RADIUMENGINE_ENTITYMANAGER_HPP
+#    define RADIUMENGINE_ENTITYMANAGER_HPP
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
-#include <map>
-#include <memory>
-#include <string>
-#include <vector>
+#    include <map>
+#    include <memory>
+#    include <string>
+#    include <vector>
 
-#include <Core/Utils/IndexMap.hpp>
-#include <Core/Utils/Singleton.hpp>
+#    include <Core/Utils/IndexMap.hpp>
+#    include <Core/Utils/Singleton.hpp>
 
 namespace Ra {
 namespace Engine {

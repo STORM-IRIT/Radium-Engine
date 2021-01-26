@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_CAMERASTORAGE_HPP
-#define RADIUMENGINE_CAMERASTORAGE_HPP
+#    define RADIUMENGINE_CAMERASTORAGE_HPP
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
 namespace Ra {
 namespace Engine {

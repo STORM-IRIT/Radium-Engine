@@ -1,7 +1,8 @@
+#pragma once
 #ifndef TRIANGLE_OPERATION
-#define TRIANGLE_OPERATION
+#    define TRIANGLE_OPERATION
 
-#include <Core/Types.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

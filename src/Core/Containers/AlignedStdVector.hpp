@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_
-#define RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_
-#include <Core/RaCore.hpp>
+#    define RADIUMENGINE_CORE_ALIGNED_STD_VECTOR_HPP_
+#    include <Core/RaCore.hpp>
 
-#include <Eigen/StdVector>
-#include <vector>
+#    include <Eigen/StdVector>
+#    include <vector>
 
 namespace Ra {
 namespace Core {

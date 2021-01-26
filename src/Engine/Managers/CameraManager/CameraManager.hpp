@@ -1,11 +1,12 @@
+#pragma once
 #ifndef RADIUMENGINE_CAMERAMANAGER_H
-#define RADIUMENGINE_CAMERAMANAGER_H
+#    define RADIUMENGINE_CAMERAMANAGER_H
 
-#include <Engine/Managers/CameraManager/CameraStorage.hpp>
-#include <Engine/RaEngine.hpp>
-#include <Engine/System/System.hpp>
+#    include <Engine/Managers/CameraManager/CameraStorage.hpp>
+#    include <Engine/RaEngine.hpp>
+#    include <Engine/System/System.hpp>
 
-#include <memory>
+#    include <memory>
 
 namespace Ra {
 namespace Engine {

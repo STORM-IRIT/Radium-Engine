@@ -1,5 +1,6 @@
+#pragma once
 #ifndef RADIUMENGINE_ITERATORS_HPP
-#define RADIUMENGINE_ITERATORS_HPP
+#    define RADIUMENGINE_ITERATORS_HPP
 
 namespace Ra {
 namespace Core {

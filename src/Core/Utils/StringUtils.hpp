@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_STRINGUTILS_HPP
-#define RADIUMENGINE_STRINGUTILS_HPP
+#    define RADIUMENGINE_STRINGUTILS_HPP
 
-#include <Core/RaCore.hpp>
-#include <string>
-#include <vector>
+#    include <Core/RaCore.hpp>
+#    include <string>
+#    include <vector>
 
 namespace Ra {
 namespace Core {

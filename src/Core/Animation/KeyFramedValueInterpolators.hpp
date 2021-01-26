@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_KEYFRAMEDVALUE_INTERPOLATOR_HPP
-#define RADIUMENGINE_KEYFRAMEDVALUE_INTERPOLATOR_HPP
+#    define RADIUMENGINE_KEYFRAMEDVALUE_INTERPOLATOR_HPP
 
-#include <Core/Animation/KeyFramedValue.hpp>
-#include <Core/Animation/Pose.hpp>
-#include <Core/Animation/PoseOperation.hpp>
-#include <Core/Math/Interpolation.hpp>
+#    include <Core/Animation/KeyFramedValue.hpp>
+#    include <Core/Animation/Pose.hpp>
+#    include <Core/Animation/PoseOperation.hpp>
+#    include <Core/Math/Interpolation.hpp>
 
 namespace Ra {
 namespace Core {

@@ -1,8 +1,9 @@
+#pragma once
 #ifndef POSE_OPERATION_H
-#define POSE_OPERATION_H
+#    define POSE_OPERATION_H
 
-#include <Core/Animation/Pose.hpp>
-#include <Core/Types.hpp>
+#    include <Core/Animation/Pose.hpp>
+#    include <Core/Types.hpp>
 
 namespace Ra {
 namespace Core {

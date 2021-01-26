@@ -1,12 +1,13 @@
+#pragma once
 #ifndef RADIUMENGINE_DUMMYLIGHTMANAGER_HPP
-#define RADIUMENGINE_DUMMYLIGHTMANAGER_HPP
+#    define RADIUMENGINE_DUMMYLIGHTMANAGER_HPP
 
-#include <Engine/Managers/LightManager/LightManager.hpp>
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/Light/Light.hpp>
+#    include <Engine/Managers/LightManager/LightManager.hpp>
+#    include <Engine/RadiumEngine.hpp>
+#    include <Engine/Renderer/Light/Light.hpp>
 
-#include <memory>
-#include <vector>
+#    include <memory>
+#    include <vector>
 
 namespace Ra {
 namespace Engine {

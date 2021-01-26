@@ -1,7 +1,8 @@
+#pragma once
 #ifndef RADIUMENGINE_FORWARDRENDERER_HPP
-#define RADIUMENGINE_FORWARDRENDERER_HPP
+#    define RADIUMENGINE_FORWARDRENDERER_HPP
 
-#include <Engine/Renderer/Renderer.hpp>
+#    include <Engine/Renderer/Renderer.hpp>
 
 namespace globjects {
 class Framebuffer;

@@ -1,9 +1,10 @@
+#pragma once
 #ifndef RADIUMENGINE_TASK_HPP_
-#define RADIUMENGINE_TASK_HPP_
+#    define RADIUMENGINE_TASK_HPP_
 
-#include <Core/RaCore.hpp>
-#include <functional>
-#include <string>
+#    include <Core/RaCore.hpp>
+#    include <functional>
+#    include <string>
 
 namespace Ra {
 namespace Core {

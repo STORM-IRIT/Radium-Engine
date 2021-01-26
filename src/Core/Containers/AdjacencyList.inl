@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Containers/AdjacencyList.hpp>
 
 namespace Ra {

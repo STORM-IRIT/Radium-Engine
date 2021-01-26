@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_ASSIMPFILELOADER_HPP
-#define RADIUMENGINE_ASSIMPFILELOADER_HPP
+#    define RADIUMENGINE_ASSIMPFILELOADER_HPP
 
-#include <assimp/Importer.hpp>
+#    include <assimp/Importer.hpp>
 
-#include <Core/Asset/FileLoaderInterface.hpp>
-#include <IO/RaIO.hpp>
+#    include <Core/Asset/FileLoaderInterface.hpp>
+#    include <IO/RaIO.hpp>
 
 namespace Ra {
 namespace IO {

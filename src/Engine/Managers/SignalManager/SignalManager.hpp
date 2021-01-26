@@ -1,13 +1,14 @@
+#pragma once
 #ifndef RADIUMENGINE_SIGNAL_MANAGER_HPP_
-#define RADIUMENGINE_SIGNAL_MANAGER_HPP_
+#    define RADIUMENGINE_SIGNAL_MANAGER_HPP_
 
-#include <Engine/RaEngine.hpp>
+#    include <Engine/RaEngine.hpp>
 
-#include <functional>
-#include <mutex>
-#include <vector>
+#    include <functional>
+#    include <mutex>
+#    include <vector>
 
-#include <Engine/ItemModel/ItemEntry.hpp>
+#    include <Engine/ItemModel/ItemEntry.hpp>
 
 namespace Ra {
 namespace Engine {

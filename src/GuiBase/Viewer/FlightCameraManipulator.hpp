@@ -1,8 +1,9 @@
+#pragma once
 #ifndef RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
-#define RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
-#include <GuiBase/RaGuiBase.hpp>
+#    define RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
+#    include <GuiBase/RaGuiBase.hpp>
 
-#include <GuiBase/Viewer/CameraManipulator.hpp>
+#    include <GuiBase/Viewer/CameraManipulator.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -72,15 +73,15 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
     static void configureKeyMapping_impl();
 
   protected:
-#define KeyMappingFlightManipulator      \
-    KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
-    KMA_VALUE( FLIGHTMODECAMERA_PAN )    \
-    KMA_VALUE( FLIGHTMODECAMERA_ZOOM )   \
-    KMA_VALUE( FLIGHTMODECAMERA_ROTATE_AROUND )
+#    define KeyMappingFlightManipulator      \
+        KMA_VALUE( FLIGHTMODECAMERA_ROTATE ) \
+        KMA_VALUE( FLIGHTMODECAMERA_PAN )    \
+        KMA_VALUE( FLIGHTMODECAMERA_ZOOM )   \
+        KMA_VALUE( FLIGHTMODECAMERA_ROTATE_AROUND )
 
-#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
+#    define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
     KeyMappingFlightManipulator
-#undef KMA_VALUE
+#    undef KMA_VALUE
 };
 
 } // namespace Gui

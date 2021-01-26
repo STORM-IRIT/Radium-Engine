@@ -1,10 +1,11 @@
+#pragma once
 #ifndef RADIUMENGINE_DISTANCE_QUERIES_HPP_
-#define RADIUMENGINE_DISTANCE_QUERIES_HPP_
+#    define RADIUMENGINE_DISTANCE_QUERIES_HPP_
 
-#include <Core/Geometry/TriangleMesh.hpp>
-#include <Core/RaCore.hpp>
-#include <Core/Types.hpp>
-#include <limits>
+#    include <Core/Geometry/TriangleMesh.hpp>
+#    include <Core/RaCore.hpp>
+#    include <Core/Types.hpp>
+#    include <limits>
 
 /// Functions in this file are utilities to compute the distance between various geometric sets.
 /// They always return the squared distance.
@@ -133,6 +134,6 @@ inline RA_CORE_API TriangleToTriangleOutput triangleToTriSq( const Vector3 v1[3]
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Geometry/DistanceQueries.inl>
+#    include <Core/Geometry/DistanceQueries.inl>
 
 #endif // RADIUMENGINE_DISTANCE_QUERIES_HPP_

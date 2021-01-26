@@ -1,5 +1,6 @@
+#pragma once
 #ifndef RADIUMENGINE_RENDEROBJECTTYPES_HPP
-#define RADIUMENGINE_RENDEROBJECTTYPES_HPP
+#    define RADIUMENGINE_RENDEROBJECTTYPES_HPP
 
 namespace Ra {
 namespace Engine {
