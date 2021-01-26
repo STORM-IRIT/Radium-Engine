@@ -1,3 +1,21 @@
+#------------------------------------- Test for required compiler version -------------------------------------
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "8.0")
+        message(FATAL_ERROR "Insufficient gcc version. Found ${CMAKE_CXX_COMPILER_VERSION}, requires >= 8.0")
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.28.29335.0")
+        message(FATAL_ERROR "Insufficient msvc version. Found ${CMAKE_CXX_COMPILER_VERSION}, requires >= 9.28.29335")
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "12.0.0.0")
+        message(FATAL_ERROR "Insufficient AppleClang version. Found ${CMAKE_CXX_COMPILER_VERSION}, requires >= 12.0")
+    endif()
+elseif(...)
+    message(FATAL_ERROR "You are using an unsupported compiler (${CMAKE_CXX_COMPILER_ID}-${CMAKE_CXX_COMPILER_VERSION})! Compilation has only been tested with GCC>=8.0, AppleClang>=12.0 and MSVC>=9.28")
+endif()
+
+
 #--------------------------- Base configuration for installation and rpath settings ---------------------------
 # Custom Install target, used in run target in source/CMakeLists.txt
 add_custom_target( Install_${PROJECT_NAME} COMMAND "${CMAKE_COMMAND}" --build . --target
