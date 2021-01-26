@@ -17,21 +17,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Note: keep the project name lower case only for easy linux packaging support
 project (radiumproject VERSION 1.0.0)
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "8.0")
-        message(FATAL_ERROR "Insufficient gcc version. Found ${CMAKE_CXX_COMPILER_VERSION}, requires >= 8.0")
-    endif()
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "9.28.29335.0")
-        message(FATAL_ERROR "Insufficient msvc version. Found ${CMAKE_CXX_COMPILER_VERSION}, requires >= 9.28.29335")
-    endif()
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS "12.0.0.0")
-        message(FATAL_ERROR "Insufficient AppleClang version. Found ${CMAKE_CXX_COMPILER_VERSION}, requires >= 12.0")
-    endif()
-elseif(...)
-    message(FATAL_ERROR "You are using an unsupported compiler! Compilation has only been tested with GCC, AppleClang and MSVC.")
-endif()
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilerVersion.cmake)
 
 set(VERSION_TYPE "beta" CACHE STRING "version type" FORCE)
 site_name(VERSION_HOST) # read hostname to VERSION_HOST
