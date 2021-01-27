@@ -1,6 +1,12 @@
 set( guibase_sources
     BaseApplication.cpp
     RadiumWindow/SimpleWindow.cpp
+    KeyFrameEditor/KeyFrameEditor.cpp
+    KeyFrameEditor/KeyFrameEditorFrame.cpp
+    KeyFrameEditor/KeyFrameEditorFrameScale.cpp
+    KeyFrameEditor/KeyFrameEditorScrollArea.cpp
+    KeyFrameEditor/KeyFrameEditorTimeScale.cpp
+    KeyFrameEditor/KeyFrameEditorValueScale.cpp
     SelectionManager/SelectionManager.cpp
     Timeline/HelpDialog.cpp
     Timeline/TimelineFrameSelector.cpp
@@ -33,6 +39,12 @@ set(guibase_headers
     RaGuiBase.hpp
     RadiumWindow/SimpleWindow.hpp
     RadiumWindow/SimpleWindowFactory.hpp
+    KeyFrameEditor/KeyFrameEditor.hpp
+    KeyFrameEditor/KeyFrameEditorFrame.hpp
+    KeyFrameEditor/KeyFrameEditorFrameScale.hpp
+    KeyFrameEditor/KeyFrameEditorScrollArea.hpp
+    KeyFrameEditor/KeyFrameEditorTimeScale.hpp
+    KeyFrameEditor/KeyFrameEditorValueScale.hpp
     SelectionManager/SelectionManager.hpp
     Timeline/HelpDialog.hpp
     Timeline/Configurations.hpp
@@ -66,6 +78,7 @@ set( guibase_inlines
 )
 
 set( guibase_uis
+    KeyFrameEditor/KeyFrameEditor.ui
     Timeline/HelpDialog.ui
     Timeline/Timeline.ui
     )

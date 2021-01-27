@@ -18,6 +18,7 @@
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
 
+#include <GuiBase/KeyFrameEditor/KeyFrameEditor.hpp>
 #include <GuiBase/Timeline/HelpDialog.hpp>
 
 using namespace Ra::Core::Utils;
@@ -427,7 +428,8 @@ void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) 
 
     switch ( names.size() )
     {
-    case 2: {
+    case 2:
+    {
         const std::string entityName = names.at( 0 ).toStdString();
         const std::string frameName  = names.at( 1 ).toStdString();
         auto lambda                  = [entityName]( const auto& frame ) {
@@ -437,7 +439,8 @@ void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) 
         GET_KEYFRAMEDVALUE( list, frameName );
     }
     break;
-    case 3: {
+    case 3:
+    {
         const std::string compName  = names.at( 1 ).toStdString();
         const std::string frameName = names.at( 2 ).toStdString();
         auto lambda                 = [compName]( const auto& frame ) {
@@ -447,7 +450,8 @@ void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) 
         GET_KEYFRAMEDVALUE( list, frameName );
     }
     break;
-    case 4: {
+    case 4:
+    {
         const QStringList fullRoName = names.at( 2 ).split( '_' );
         bool ok;
         const auto roIdx = fullRoName.last().toInt( &ok );
@@ -474,7 +478,74 @@ void Timeline::on_comboBox_attribute_currentIndexChanged( const QString& arg1 ) 
 }
 
 void Timeline::on_pushButton_editAttribute_clicked() {
-    // TODO
+    if ( m_keyFrameEditor == nullptr )
+    {
+        m_keyFrameEditor = new KeyFrameEditor( Scalar( ui->m_durationSpin->value() ), this );
+        // FROM TIMELINE TO EDITOR
+        connect( ui->frame_selector,
+                 &TimelineFrameSelector::cursorChanged,
+                 m_keyFrameEditor,
+                 &KeyFrameEditor::onChangeCursor );
+        connect( ui->frame_selector,
+                 &TimelineFrameSelector::durationChanged,
+                 m_keyFrameEditor,
+                 &KeyFrameEditor::onChangeDuration );
+
+        connect( ui->frame_selector, &TimelineFrameSelector::keyFrameAdded, [this]( Scalar t ) {
+            m_keyFrameEditor->onUpdateKeyFrames( t );
+        } );
+        connect( ui->frame_selector, &TimelineFrameSelector::keyFrameDeleted, [this]( Scalar t ) {
+            m_keyFrameEditor->onUpdateKeyFrames( t );
+        } );
+        connect(
+            ui->frame_selector,
+            &TimelineFrameSelector::keyFrameMoved,
+            [this]( Scalar /*t0*/, Scalar t1 ) { m_keyFrameEditor->onUpdateKeyFrames( t1 ); } );
+        connect( ui->frame_selector,
+                 &TimelineFrameSelector::keyFramesMoved,
+                 [this]( Scalar t, Scalar offset ) {
+                     m_keyFrameEditor->onUpdateKeyFrames( t + offset );
+                 } );
+
+        // FROM EDITOR TO TIMELINE
+        connect(
+            m_keyFrameEditor, &KeyFrameEditor::cursorChanged, this, &Timeline::onChangeCursor );
+        connect( m_keyFrameEditor, &KeyFrameEditor::cursorChanged, this, &Timeline::cursorChanged );
+        connect( m_keyFrameEditor, &KeyFrameEditor::keyFrameChanged, [this]( double ) {
+            updateKeyFrames( Scalar( ui->m_cursorSpin->value() ) );
+            emit keyFrameChanged( Scalar( ui->m_cursorSpin->value() ) );
+            emit cursorChanged( Scalar( ui->m_cursorSpin->value() ) );
+        } );
+
+        connect( m_keyFrameEditor, &KeyFrameEditor::keyFrameAdded, [=]( Scalar t ) {
+            ui->frame_selector->onAddingKeyFrame( t, false );
+        } );
+        connect(
+            m_keyFrameEditor, &KeyFrameEditor::keyFrameAdded, this, &Timeline::onAddingKeyFrame );
+        connect( m_keyFrameEditor, &KeyFrameEditor::keyFrameDeleted, [=]( Scalar time ) {
+            ui->frame_selector->onChangeCursor( time ); // make sure we are on the right spot
+            ui->frame_selector->onDeletingKeyFrame( false );
+        } );
+        connect( m_keyFrameEditor,
+                 &KeyFrameEditor::keyFrameDeleted,
+                 this,
+                 &Timeline::onRemovingKeyFrame );
+        connect( m_keyFrameEditor, &KeyFrameEditor::keyFrameMoved, [=]( Scalar t0, Scalar t1 ) {
+            ui->frame_selector->onMoveKeyFrame( t0, t1, false );
+        } );
+        connect(
+            m_keyFrameEditor, &KeyFrameEditor::keyFrameMoved, this, &Timeline::onMovingKeyFrame );
+        connect(
+            m_keyFrameEditor, &KeyFrameEditor::keyFramesMoved, [=]( Scalar time, Scalar offset ) {
+                ui->frame_selector->onMoveKeyFrames( time, offset, false );
+            } );
+        connect(
+            m_keyFrameEditor, &KeyFrameEditor::keyFramesMoved, this, &Timeline::onMovingKeyFrames );
+    }
+
+    m_keyFrameEditor->setKeyFramedValue( m_current.m_name, m_current.m_value );
+    m_keyFrameEditor->onChangeCursor( Scalar( ui->m_cursorSpin->value() ) );
+    m_keyFrameEditor->show();
 }
 
 void Timeline::on_toolButton_help_clicked() {
