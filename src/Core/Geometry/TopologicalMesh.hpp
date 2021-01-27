@@ -2,9 +2,8 @@
 
 #include <Core/RaCore.hpp>
 
-#include <Core/Geometry/OpenMesh.hpp>
-
 #include <Core/Containers/VectorArray.hpp>
+#include <Core/Geometry/OpenMesh.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Index.hpp>

@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/Renderer/Displayable/VolumeObject.hpp>
 
 namespace Ra {

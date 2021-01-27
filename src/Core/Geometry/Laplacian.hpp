@@ -1,5 +1,4 @@
-#ifndef LAPLACIAN_DEFINITION
-#define LAPLACIAN_DEFINITION
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>
@@ -126,5 +125,3 @@ Vector3 RA_CORE_API cotangentWeightLaplacian( const Vector3& v, const VectorArra
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // LAPLACIAN_DEFINITION

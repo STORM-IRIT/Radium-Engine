@@ -1,5 +1,4 @@
-#ifndef CAGE_HANDLE_H
-#define CAGE_HANDLE_H
+#pragma once
 
 #include <Core/Animation/HandleArray.hpp>
 #include <Core/Containers/VectorArray.hpp>
@@ -38,5 +37,3 @@ class RA_CORE_API Cage : public HandleArray
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
-
-#endif // CAGE_HANDLE_H

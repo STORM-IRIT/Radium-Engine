@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_OFF_FILE_MANAGER_HPP
-#define RADIUMENGINE_OFF_FILE_MANAGER_HPP
+#pragma once
 
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <IO/RaIO.hpp>
@@ -33,5 +32,3 @@ class RA_IO_API [[deprecated]] OFFFileManager : public FileManager<Core::Geometr
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_OFF_FILE_MANAGER_HPP

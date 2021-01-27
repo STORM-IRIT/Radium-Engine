@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_MATERIALDATA_HPP
-#define RADIUMENGINE_MATERIALDATA_HPP
+#pragma once
 #include <string>
 #include <vector>
 
@@ -64,5 +63,3 @@ class RA_CORE_API MaterialData : public AssetData
 } // namespace Ra
 
 #include <Core/Asset/MaterialData.inl>
-
-#endif // RADIUMENGINE_MATERIALDATA_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TREEMODEL_HPP
-#define RADIUMENGINE_TREEMODEL_HPP
+#pragma once
 
 #include <GuiBase/RaGuiBase.hpp>
 
@@ -180,4 +179,3 @@ class RA_GUIBASE_API TreeModel : public QAbstractItemModel
 };
 } // namespace GuiBase
 } // namespace Ra
-#endif // RADIUMENGINE_TREEMODEL_HPP_

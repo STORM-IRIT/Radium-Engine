@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SHADERCONFIGFACTORY_HPP
-#define RADIUMENGINE_SHADERCONFIGFACTORY_HPP
+#pragma once
 
 #include <Core/Utils/StdOptional.hpp>
 #include <string>
@@ -39,5 +38,3 @@ getConfiguration( const std::string& name );
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_SHADERCONFIGFACTORY_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP
-#define RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP
+#pragma once
 
 #include <Core/Asset/DataLoader.hpp>
 #include <Core/Types.hpp>
@@ -59,5 +58,3 @@ class RA_IO_API AssimpCameraDataLoader : public Core::Asset::DataLoader<Core::As
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_CAMERA_DATA_LOADER_HPP

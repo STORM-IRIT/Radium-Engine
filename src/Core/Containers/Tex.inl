@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Containers/Tex.hpp>
 #include <Core/Math/LinearAlgebra.hpp>
 #include <Core/Types.hpp>

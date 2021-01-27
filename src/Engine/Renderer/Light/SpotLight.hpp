@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SPOTLIGHT_HPP
-#define RADIUMENGINE_SPOTLIGHT_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -57,5 +56,3 @@ class RA_ENGINE_API SpotLight final : public Light
 } // namespace Ra
 
 #include <Engine/Renderer/Light/SpotLight.inl>
-
-#endif // RADIUMENGINE_SPOTLIGHT_HPP

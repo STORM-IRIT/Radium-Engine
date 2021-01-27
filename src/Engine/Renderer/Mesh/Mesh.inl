@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ANIMATION_TIME_HPP
-#define RADIUMENGINE_ANIMATION_TIME_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <algorithm>
@@ -138,5 +137,3 @@ class RA_CORE_API AnimationTime
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_ANIMATION_TIME_HPP

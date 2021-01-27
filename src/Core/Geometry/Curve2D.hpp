@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_CURVE2D_HPP_
-#define RADIUMENGINE_CURVE2D_HPP_
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/Spline.hpp>
@@ -113,4 +112,3 @@ class SplineCurve : public Curve2D
 } // namespace Ra
 
 #include <Core/Geometry/Curve2D.inl>
-#endif // RADIUMENGINE_CURVE2D_HPP_

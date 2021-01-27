@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
-#define RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP
+#pragma once
 
 #include <Core/Asset/DataLoader.hpp>
 #include <Core/Asset/LightData.hpp>
@@ -67,5 +66,3 @@ class RA_IO_API AssimpLightDataLoader : public Core::Asset::DataLoader<Core::Ass
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_LIGHT_DATA_LOADER_HPP

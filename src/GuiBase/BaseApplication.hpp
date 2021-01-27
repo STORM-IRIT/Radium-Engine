@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_BASEAPPLICATION_HPP_
-#define RADIUMENGINE_BASEAPPLICATION_HPP_
+#pragma once
 #include <atomic>
 #include <chrono>
 #include <memory>
@@ -206,4 +205,3 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 };
 } // namespace GuiBase
 } // namespace Ra
-#endif // RADIUMENGINE_BASEAPPLICATION_HPP_

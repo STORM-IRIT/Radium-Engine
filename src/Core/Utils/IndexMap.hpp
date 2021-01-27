@@ -1,5 +1,4 @@
-#ifndef INDEXMAP_HPP
-#define INDEXMAP_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 
@@ -153,5 +152,3 @@ class IndexMap
 } // namespace Ra
 
 #include <Core/Utils/IndexMap.inl>
-
-#endif // INDEXMAP_HPP

@@ -1,5 +1,4 @@
-#ifndef DISTANCE_OPERATION
-#define DISTANCE_OPERATION
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>
@@ -27,5 +26,3 @@ Scalar vertexDistance( const VectorArray<Vector3>& v0, const VectorArray<Vector3
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // DISTANCE_OPERATION

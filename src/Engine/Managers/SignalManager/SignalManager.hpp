@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SIGNAL_MANAGER_HPP_
-#define RADIUMENGINE_SIGNAL_MANAGER_HPP_
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -63,5 +62,3 @@ class SignalManager
 };
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_SIGNAL_MANAGER_HPP_

@@ -1,5 +1,4 @@
-#ifndef ADJACENCY_DEFINITION
-#define ADJACENCY_DEFINITION
+#pragma once
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/VectorArray.hpp>
@@ -102,5 +101,3 @@ RA_CORE_API DegreeMatrix adjacencyDegree( const AdjacencyMatrix& A );
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // ADJACENCY_DEFINITION

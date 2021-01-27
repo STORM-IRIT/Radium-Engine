@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DUALQUATERNION_HPP
-#define RADIUMENGINE_DUALQUATERNION_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
@@ -86,5 +85,3 @@ inline DualQuaternion operator*( Scalar scalar, const DualQuaternion& dq );
 } // namespace Ra
 
 #include <Core/Math/DualQuaternion.inl>
-
-#endif // RADIUMENGINE_DUALQUATERNION_HPP

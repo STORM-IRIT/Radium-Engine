@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SEQUENCE_HPP
-#define RADIUMENGINE_SEQUENCE_HPP
+#pragma once
 
 #include <Core/Animation/Pose.hpp>
 #include <Core/CoreMacros.hpp>
@@ -98,5 +97,3 @@ class Sequence
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_SEQUENCE_HPP

@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Core/Utils/Log.hpp>
 

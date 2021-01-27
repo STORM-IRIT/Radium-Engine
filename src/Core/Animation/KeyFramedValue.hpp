@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAMEDVALUE_HPP
-#define RADIUMENGINE_KEYFRAMEDVALUE_HPP
+#pragma once
 
 #include <map>
 #include <set>
@@ -242,5 +241,3 @@ class KeyFramedValue : public KeyFramedValueBase
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_KEYFRAMEDVALUE_HPP

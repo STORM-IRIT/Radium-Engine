@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_FILE_MANAGER_HPP
-#define RADIUMENGINE_FILE_MANAGER_HPP
+#pragma once
 
 #include <fstream>
 #include <string>
@@ -71,5 +70,3 @@ class [[deprecated]] FileManager {
 } // namespace Ra
 
 #include <IO/deprecated/FileManager.inl>
-
-#endif // RADIUMENGINE_FILE_MANAGER_HPP

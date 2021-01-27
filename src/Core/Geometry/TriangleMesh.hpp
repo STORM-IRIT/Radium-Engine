@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TRIANGLEMESH_HPP
-#define RADIUMENGINE_TRIANGLEMESH_HPP
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/AbstractGeometry.hpp>
@@ -288,5 +287,3 @@ class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
 } // namespace Ra
 
 #include <Core/Geometry/TriangleMesh.inl>
-
-#endif // RADIUMENGINE_TRIANGLEMESH_HPP

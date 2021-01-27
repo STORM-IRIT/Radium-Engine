@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_STBS_HPP
-#define RADIUMENGINE_STBS_HPP
+#pragma once
 
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
@@ -51,5 +50,3 @@ void RA_CORE_API computeDQSTBS( const Pose& pose,
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_STBS_HPP

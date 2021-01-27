@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ASSIMP_WRAPPER_HPP
-#define RADIUMENGINE_ASSIMP_WRAPPER_HPP
+#pragma once
 
 #include <assimp/color4.h>
 #include <assimp/matrix4x4.h>
@@ -76,5 +75,3 @@ inline Core::VectorNi assimpToCore( const uint* index, const uint size ) {
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_WRAPPER_HPP

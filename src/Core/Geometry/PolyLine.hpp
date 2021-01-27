@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_POLYLINE_HPP_
-#define RADIUMENGINE_POLYLINE_HPP_
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/DistanceQueries.hpp>
@@ -82,5 +81,3 @@ class RA_CORE_API PolyLine
 } // namespace Core
 } // namespace Ra
 #include <Core/Geometry/PolyLine.inl>
-
-#endif // RADIUMENGINE_POLYLINE_HPP_

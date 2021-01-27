@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_LINEAR_BLENDING_SKINNING_HPP
-#define RADIUMENGINE_LINEAR_BLENDING_SKINNING_HPP
+#pragma once
 
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
@@ -18,5 +17,3 @@ void RA_CORE_API linearBlendSkinning( const Vector3Array& inMesh,
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_LINEAR_BLENDING_SKINNING_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TINYPLYFILELOADER_HPP
-#define RADIUMENGINE_TINYPLYFILELOADER_HPP
+#pragma once
 
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <IO/RaIO.hpp>
@@ -22,5 +21,3 @@ class RA_IO_API TinyPlyFileLoader : public Core::Asset::FileLoaderInterface
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMPFILELOADER_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_LOOPSUBDIVIDER_H
-#define RADIUMENGINE_LOOPSUBDIVIDER_H
+#pragma once
 
 #include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::pi
@@ -143,5 +142,3 @@ class RA_CORE_API LoopSubdivider
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_LOOPSUBDIVIDER_H

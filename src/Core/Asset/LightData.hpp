@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_LIGHT_DATA_HPP
-#define RADIUMENGINE_LIGHT_DATA_HPP
+#pragma once
 
 #include <memory>
 #include <string>
@@ -216,5 +215,3 @@ class RA_CORE_API LightData : public AssetData
 } // namespace Ra
 
 #include <Core/Asset/LightData.inl>
-
-#endif // RADIUMENGINE_LIGHT_DATA_HPP

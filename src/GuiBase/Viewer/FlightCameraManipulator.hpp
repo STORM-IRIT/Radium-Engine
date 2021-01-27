@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
-#define RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP
+#pragma once
 #include <GuiBase/RaGuiBase.hpp>
 
 #include <GuiBase/Viewer/CameraManipulator.hpp>
@@ -85,5 +84,3 @@ class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_FLIGHTCAMERAMANIPULATOR_HPP

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TopologicalMesh.hpp"
 
 #include <typeinfo>

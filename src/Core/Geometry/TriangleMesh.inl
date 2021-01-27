@@ -1,3 +1,4 @@
+#pragma once
 #include "TriangleMesh.hpp"
 #include <Core/Geometry/TriangleOperation.hpp> // triangleArea
 

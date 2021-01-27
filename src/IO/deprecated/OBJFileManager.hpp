@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_OBJ_FILE_MANAGER_HPP
-#define RADIUMENGINE_OBJ_FILE_MANAGER_HPP
+#pragma once
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <IO/RaIO.hpp>
 #include <IO/deprecated/FileManager.hpp>
@@ -24,5 +23,3 @@ class RA_IO_API [[deprecated]] OBJFileManager : public FileManager<Core::Geometr
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_OBJ_FILE_MANAGER_HPP

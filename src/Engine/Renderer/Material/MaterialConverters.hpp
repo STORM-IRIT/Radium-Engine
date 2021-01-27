@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_MATERIALCONVERTERS_HPP
-#define RADIUMENGINE_MATERIALCONVERTERS_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -75,5 +74,3 @@ RA_ENGINE_API bool cleanup();
 } // namespace EngineMaterialConverters
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_MATERIALCONVERTERS_HPP

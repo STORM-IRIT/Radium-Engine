@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_FILELOADERINTERFACE_HPP
-#define RADIUMENGINE_FILELOADERINTERFACE_HPP
+#pragma once
 
 #include <string>
 #include <vector>
@@ -30,5 +29,3 @@ class FileLoaderInterface
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_FILELOADER_HPP

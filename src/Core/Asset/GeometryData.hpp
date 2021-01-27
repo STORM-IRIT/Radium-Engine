@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_GEOMETRY_DATA_HPP
-#define RADIUMENGINE_GEOMETRY_DATA_HPP
+#pragma once
 
 #include <memory>
 #include <string>
@@ -289,5 +288,3 @@ class RA_CORE_API GeometryData : public AssetData
 } // namespace Ra
 
 #include <Core/Asset/GeometryData.inl>
-
-#endif // RADIUMENGINE_GEOMETRY_DATA_HPP

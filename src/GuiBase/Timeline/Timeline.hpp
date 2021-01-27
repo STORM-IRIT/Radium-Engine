@@ -1,3 +1,4 @@
+#pragma once
 /*!
  * \brief Custom Qt widget for animation (timeline)
  * \author Gauthier Bouyjou (email : gauthierbouyjou@aol.com)
@@ -7,9 +8,6 @@
  * github repo : https://github.com/hiergaut/AnimTimeline.git
  * current commit id : aaa363ee8ec0247e9299a8949e5bd334b10dc413
  */
-
-#ifndef RADIUMENGINE_TIMELINE_H
-#define RADIUMENGINE_TIMELINE_H
 
 #include <GuiBase/RaGuiBase.hpp>
 
@@ -274,5 +272,3 @@ class RA_GUIBASE_API Timeline : public QDialog
 };
 
 } // namespace Ra::GuiBase
-
-#endif // RADIUMENGINE_TIMELINE_H

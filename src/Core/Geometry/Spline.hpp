@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SPLINE_HPP_
-#define RADIUMENGINE_SPLINE_HPP_
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
@@ -103,5 +102,3 @@ class Spline
 } // namespace Ra
 
 #include <Core/Geometry/Spline.inl>
-
-#endif

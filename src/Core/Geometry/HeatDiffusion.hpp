@@ -1,5 +1,4 @@
-#ifndef HEAT_DIFFUSION
-#define HEAT_DIFFUSION
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp> // VectorArray
 #include <Core/Geometry/Area.hpp>          // Geometry::AreaMatrix
@@ -65,5 +64,3 @@ RA_CORE_API Heat heat( const AreaMatrix& A,
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // HEAT_DIFFUSION

@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Asset/AnimationData.hpp>
 
 #include <Core/Utils/Log.hpp>

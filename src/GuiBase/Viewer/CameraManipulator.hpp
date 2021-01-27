@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_CAMERAMANIPULATOR_HPP
-#define RADIUMENGINE_CAMERAMANIPULATOR_HPP
+#pragma once
 #include <GuiBase/RaGuiBase.hpp>
 
 #include <memory>
@@ -171,5 +170,3 @@ class RA_GUIBASE_API CameraManipulator : public QObject
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_CAMERAMANIPULATOR_HPP

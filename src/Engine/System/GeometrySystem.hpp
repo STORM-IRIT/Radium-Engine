@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_GEOMETRY_SYSTEM_HPP
-#define RADIUMENGINE_GEOMETRY_SYSTEM_HPP
+#pragma once
 
 #include <Engine/System/System.hpp>
 
@@ -19,5 +18,3 @@ class RA_ENGINE_API GeometrySystem : public System
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_GEOMETRY_SYSTEM_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYMAPPINGMANAGER_HPP
-#define RADIUMENGINE_KEYMAPPINGMANAGER_HPP
+#pragma once
 
 #include <QXmlStreamWriter>
 #include <QtGui/QKeyEvent>
@@ -211,5 +210,3 @@ KeyMappingManager::Context KeyMappingManageable<T>::m_keyMappingContext;
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_KEYMAPPINGMANAGER_HPP

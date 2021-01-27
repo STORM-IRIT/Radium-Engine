@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_VECTORARRAY_HPP
-#define RADIUMENGINE_VECTORARRAY_HPP
+#pragma once
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/RaCore.hpp>
@@ -99,5 +98,3 @@ DEFINE_CONVENIENCE_MATRIX_ALIAS( VectorNuArray, uint, Eigen::Dynamic )
 
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_VECTORARRAY_HPP

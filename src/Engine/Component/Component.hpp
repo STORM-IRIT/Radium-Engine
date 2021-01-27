@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_COMPONENT_HPP
-#define RADIUMENGINE_COMPONENT_HPP
+#pragma once
 
 #include <Core/Utils/Index.hpp>
 #include <Eigen/Core>
@@ -107,5 +106,3 @@ class RA_ENGINE_API Component
 } // namespace Ra
 
 #include <Engine/Component/Component.inl>
-
-#endif // RADIUMENGINE_COMPONENT_HPP

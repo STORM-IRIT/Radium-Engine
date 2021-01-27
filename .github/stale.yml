@@ -54,9 +54,12 @@ pulls:
     This pull request has been automatically marked as stale because it has not had
     recent activity. It will be closed in 7 days if no further activity occurs. Thank you
     for your contributions.
+  exemptLabels:
+    - "Delayed PR"
+    - WIP
 
 issues:
   exemptLabels:
-  - "Delayed PR"
-  - WIP
-  - bug
+    - WIP
+    - bug
+    - todo

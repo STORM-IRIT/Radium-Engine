@@ -1,5 +1,4 @@
-#ifndef HANDLE_WEIGHT_OPERATION
-#define HANDLE_WEIGHT_OPERATION
+#pragma once
 
 #include <Core/Animation/HandleWeight.hpp>
 
@@ -57,5 +56,3 @@ RA_CORE_API bool normalizeWeights( Eigen::Ref<WeightMatrix> matrix, const bool M
 } // namespace Animation
 } // Namespace Core
 } // Namespace Ra
-
-#endif // HANDLE_WEIGHT_OPERATION

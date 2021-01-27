@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_MATH_HPP
-#define RADIUMENGINE_MATH_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 
@@ -78,5 +77,3 @@ inline constexpr T lerp( const T& a, const T& b, Scalar t );
 } // namespace Ra
 
 #include <Core/Math/Math.inl>
-
-#endif // RADIUMENGINE_MATH_HPP

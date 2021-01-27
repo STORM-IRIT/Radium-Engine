@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_COLOR_HPP_
-#define RADIUMENGINE_COLOR_HPP_
+#pragma once
 
 #include <Core/CoreMacros.hpp>
 #include <Core/Math/Math.hpp>
@@ -252,5 +251,3 @@ using Colord = ColorBase<double>;
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_COLOR_PRESET_HPP_

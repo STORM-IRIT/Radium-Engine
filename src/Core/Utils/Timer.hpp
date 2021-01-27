@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TIMER_HPP_
-#define RADIUMENGINE_TIMER_HPP_
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <chrono>
@@ -25,5 +24,3 @@ inline Scalar RA_CORE_API getIntervalSeconds( const TimePoint& start, const Time
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_TIMER_HPP_

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_FRUSTUM_HPP
-#define RADIUMENGINE_FRUSTUM_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <Eigen/Core>
@@ -45,5 +44,3 @@ struct Frustum {
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_RAY_HPP

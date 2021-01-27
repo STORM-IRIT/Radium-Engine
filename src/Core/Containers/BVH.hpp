@@ -1,4 +1,3 @@
-#ifndef RADIUMENGINE_BVH_HPP
 #define RADIUMENGINE_BVH_HPP
 
 #include <Core/RaCore.hpp>
@@ -93,5 +92,3 @@ class [[deprecated( "Neither used nor tested" )]] BVH {
 } // namespace Ra
 
 #include <Core/Containers/BVH.inl>
-
-#endif // RADIUMENGINE_BVH_HPP

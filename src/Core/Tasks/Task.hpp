@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TASK_HPP_
-#define RADIUMENGINE_TASK_HPP_
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <functional>
@@ -47,5 +46,3 @@ class RA_CORE_API FunctionTask : public Task
 
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_TASK_HPP_

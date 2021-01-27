@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_CAMERASTORAGE_HPP
-#define RADIUMENGINE_CAMERASTORAGE_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -45,5 +44,3 @@ class RA_ENGINE_API CameraStorage
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_CAMERASTORAGE_HPP

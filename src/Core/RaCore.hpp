@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_RA_CORE_HPP_
-#define RADIUMENGINE_RA_CORE_HPP_
+#pragma once
 
 #include <Core/CoreMacros.hpp>
 
@@ -11,5 +10,3 @@
 #else
 #    define RA_CORE_API DLL_IMPORT
 #endif
-
-#endif // RADIUMENGINE_RA_CORE_HPP_

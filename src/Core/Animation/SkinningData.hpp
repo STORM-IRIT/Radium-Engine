@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SKINNING_DATA_HPP_
-#define RADIUMENGINE_SKINNING_DATA_HPP_
+#pragma once
 
 #include <Core/Animation/HandleWeight.hpp>
 #include <Core/Animation/Pose.hpp>
@@ -70,5 +69,3 @@ struct FrameData {
 } // namespace Skinning
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_SKINNING_DATA_HPP_

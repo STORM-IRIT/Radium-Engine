@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/Renderer/Material/VolumetricMaterial.hpp>
 
 namespace Ra {

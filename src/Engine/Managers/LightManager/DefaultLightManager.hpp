@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DUMMYLIGHTMANAGER_HPP
-#define RADIUMENGINE_DUMMYLIGHTMANAGER_HPP
+#pragma once
 
 #include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -44,5 +43,3 @@ class RA_ENGINE_API DefaultLightManager : public LightManager
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // DUMMYLIGHTMANAGER_HPP

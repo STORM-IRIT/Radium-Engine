@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_BLINNPHONGMATERIALDATA_HPP
-#define RADIUMENGINE_BLINNPHONGMATERIALDATA_HPP
+#pragma once
 
 #include <Core/Asset/MaterialData.hpp>
 #include <Core/Utils/Color.hpp>
@@ -62,5 +61,3 @@ class RA_CORE_API BlinnPhongMaterialData : public MaterialData
 } // namespace Ra
 
 #include <Core/Asset/BlinnPhongMaterialData.inl>
-
-#endif // RADIUMENGINE_BLINNPHONGMATERIALDATA_HPP

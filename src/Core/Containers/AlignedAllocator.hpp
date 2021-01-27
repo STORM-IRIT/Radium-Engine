@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_
-#define RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_
+#pragma once
 #include <Core/RaCore.hpp>
 
 #ifdef _WIN32
@@ -120,5 +119,3 @@ class AlignedAllocator
 
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_ALIGNED_ALLOCATOR_HPP_

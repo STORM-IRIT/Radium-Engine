@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_MESH_HPP
-#define RADIUMENGINE_MESH_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -416,5 +415,3 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 } // namespace Ra
 
 #include <Engine/Renderer/Mesh/Mesh.inl>
-
-#endif // RADIUMENGINE_MESH_HPP

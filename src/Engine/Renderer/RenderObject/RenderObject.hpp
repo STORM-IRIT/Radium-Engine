@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_RENDEROBJECT_HPP
-#define RADIUMENGINE_RENDEROBJECT_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -196,5 +195,3 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_RENDEROBJECT_HPP
