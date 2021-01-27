@@ -1,3 +1,4 @@
+#pragma once
 #include "Spline.hpp"
 
 #include <Core/Math/Math.hpp>

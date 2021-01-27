@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Math/DualQuaternion.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Quaternion operators
 

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_CAMERAMANAGER_H
-#define RADIUMENGINE_CAMERAMANAGER_H
+#pragma once
 
 #include <Engine/Managers/CameraManager/CameraStorage.hpp>
 #include <Engine/RaEngine.hpp>
@@ -80,5 +79,3 @@ class RA_ENGINE_API CameraManager : public System
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_CAMERAMANAGER_H

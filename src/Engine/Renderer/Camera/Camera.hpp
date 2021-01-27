@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_CAMERA_HPP
-#define RADIUMENGINE_CAMERA_HPP
+#pragma once
 
 #include <Core/Math/Math.hpp>
 #include <Core/Types.hpp>
@@ -179,5 +178,3 @@ class RA_ENGINE_API Camera : public Component
 } // namespace Ra
 
 #include <Engine/Renderer/Camera/Camera.inl>
-
-#endif // RADIUMENGINE_CAMERA_HPP

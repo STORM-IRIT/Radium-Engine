@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
-#define RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP
+#pragma once
 
 #include <Core/Asset/AnimationTime.hpp>
 #include <Core/Asset/DataLoader.hpp>
@@ -77,5 +76,3 @@ class RA_IO_API AssimpAnimationDataLoader
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_ANIMATION_DATA_LOADER_HPP

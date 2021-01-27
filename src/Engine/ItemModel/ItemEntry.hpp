@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ITEM_ENTRY_HPP_
-#define RADIUMENGINE_ITEM_ENTRY_HPP_
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -82,5 +81,3 @@ RA_ENGINE_API std::vector<Ra::Core::Utils::Index> getItemROs( const Engine::Radi
 } // namespace Ra
 
 #include <Engine/ItemModel/ItemEntry.inl>
-
-#endif // RADIUMENGINE_ITEM_ENTRY_HPP_

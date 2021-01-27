@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_HANDLE_DATA_HPP
-#define RADIUMENGINE_HANDLE_DATA_HPP
+#pragma once
 
 #include <map>
 #include <set>
@@ -268,5 +267,3 @@ class RA_CORE_API HandleData : public AssetData
 } // namespace Ra
 
 #include <Core/Asset/HandleData.inl>
-
-#endif // RADIUMENGINE_HANDLE_DATA_HPP

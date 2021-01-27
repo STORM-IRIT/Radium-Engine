@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_COMPONENTMESSENGER_H__
-#define RADIUMENGINE_COMPONENTMESSENGER_H__
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -173,5 +172,3 @@ class RA_ENGINE_API ComponentMessenger
 } // namespace Ra
 
 #include <Engine/Managers/ComponentMessenger/ComponentMessenger.inl>
-
-#endif // RADIUMENGINE_COMPONENTMESSENGER_H__

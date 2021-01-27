@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_FRAME_TIMER_DATA_HPP
-#define RADIUMENGINE_FRAME_TIMER_DATA_HPP
+#pragma once
 
 #include <GuiBase/RaGuiBase.hpp>
 
@@ -48,5 +47,3 @@ struct RA_GUIBASE_API FrameTimerData {
 #endif
 
 } // namespace Ra
-
-#endif // RADIUMENGINE_FRAME_TIMER_DATA_HPP_

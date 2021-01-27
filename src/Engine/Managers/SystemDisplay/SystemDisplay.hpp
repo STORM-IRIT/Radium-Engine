@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DEBUG_DISPLAY_HPP_
-#define RADIUMENGINE_DEBUG_DISPLAY_HPP_
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -157,5 +156,3 @@ class RA_ENGINE_API SystemEntity : public Entity
 #    define RA_DISPLAY_LINE( a, b, color )          // ...
 
 #endif //! defined DISABLED_DEBUG_DISPLAY
-
-#endif // RADIUMENGINE_DEBUG_DISPLAY_HPP_

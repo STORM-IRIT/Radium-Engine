@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_LINEARALGEBRA_HPP
-#define RADIUMENGINE_LINEARALGEBRA_HPP
+#pragma once
 
 /// This file contains definitions of aliases for basic vector classes and functions
 
@@ -160,5 +159,3 @@ inline void getSwingTwist( const Quaternion& in, Quaternion& swingOut, Quaternio
 } // namespace Core
 } // namespace Ra
 #include <Core/Math/LinearAlgebra.inl>
-
-#endif // RADIUMENGINE_LINEARALGEBRA_HPP

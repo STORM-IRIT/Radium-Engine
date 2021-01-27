@@ -1,5 +1,4 @@
-#ifndef RADIUM_RADIUMPLUGININTERFACE_HPP
-#define RADIUM_RADIUMPLUGININTERFACE_HPP
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -193,5 +192,3 @@ class RadiumPluginInterface
 
 #define RadiumPluginInterface_IID "RadiumEngine.PluginInterface"
 Q_DECLARE_INTERFACE( Ra::Plugins::RadiumPluginInterface, RadiumPluginInterface_IID )
-
-#endif // RADIUM_RADIUMPLUGININTERFACE_HPP

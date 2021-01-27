@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_INDEX_HPP
-#define RADIUMENGINE_INDEX_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <limits>
@@ -90,5 +89,3 @@ class RA_CORE_API Index
 } // namespace Ra
 
 #include <Core/Utils/Index.inl>
-
-#endif // RADIUMENGINE_INDEX_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_KEYFRAMEDVALUE_INTERPOLATOR_HPP
-#define RADIUMENGINE_KEYFRAMEDVALUE_INTERPOLATOR_HPP
+#pragma once
 
 #include <Core/Animation/KeyFramedValue.hpp>
 #include <Core/Animation/Pose.hpp>
@@ -55,5 +54,3 @@ inline Pose linearInterpolate<Pose>( const KeyFramedValue<Pose>& keyframes, Scal
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_KEYFRAMEDVALUE_INTERPOLATOR_HPP

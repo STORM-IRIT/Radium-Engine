@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ROTATION_CENTER_SKINNING_HPP_
-#define RADIUMENGINE_ROTATION_CENTER_SKINNING_HPP_
+#pragma once
 
 #include <Core/RaCore.hpp>
 
@@ -33,4 +32,3 @@ void RA_CORE_API corSkinning( const Vector3Array& input,
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-#endif // RADIUMENGINE_ROTATION_CENTER_SKINNING_HPP_

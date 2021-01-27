@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
-#define RADIUMENGINE_HANDLE_TO_SKELETON_HPP_
+#pragma once
 
 #include <map>
 
@@ -26,5 +25,3 @@ void RA_CORE_API createSkeleton( const Ra::Core::Asset::HandleData& data,
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_HANDLE_TO_SKELETON_HPP_

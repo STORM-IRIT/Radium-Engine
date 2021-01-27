@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Containers/BVH.hpp>
 
 #include <iostream>

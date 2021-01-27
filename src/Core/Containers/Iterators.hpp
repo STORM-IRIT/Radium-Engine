@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ITERATORS_HPP
-#define RADIUMENGINE_ITERATORS_HPP
+#pragma once
 
 namespace Ra {
 namespace Core {
@@ -50,5 +49,3 @@ auto end( Ra::Core::_internalIterator::_creversed<T> const& cr ) -> decltype( cr
     return cr.t.rend();
 }
 } // namespace std
-
-#endif // RADIUMENGINE_ALGORITHM_HPP

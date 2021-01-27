@@ -1,3 +1,4 @@
+#pragma once
 #include "Grid.hpp"
 
 namespace Ra {

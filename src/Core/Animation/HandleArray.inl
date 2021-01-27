@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Animation/HandleArray.hpp>
 
 namespace Ra {

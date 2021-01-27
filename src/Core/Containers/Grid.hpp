@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_GRID_HPP
-#define RADIUMENGINE_GRID_HPP
+#pragma once
 
 #include <vector>
 
@@ -239,5 +238,3 @@ class Grid
 } // namespace Ra
 
 #include <Core/Containers/Grid.inl>
-
-#endif // RADIUMENGINE_GRID_HPP

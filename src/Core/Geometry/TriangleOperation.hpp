@@ -1,5 +1,4 @@
-#ifndef TRIANGLE_OPERATION
-#define TRIANGLE_OPERATION
+#pragma once
 
 #include <Core/Types.hpp>
 
@@ -62,5 +61,3 @@ RA_CORE_API Vector3 barycentricCoordinate( const Vector3& v,
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // TRIANGLE_OPERATION

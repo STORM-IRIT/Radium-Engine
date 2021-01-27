@@ -1,5 +1,4 @@
-#ifndef TOPOLOGICALMESH_OPENMESH_H
-#define TOPOLOGICALMESH_OPENMESH_H
+#pragma once
 
 #include <Core/RaCore.hpp>
 
@@ -63,4 +62,3 @@ struct vector_traits<Ra::Core::Vector3> {
 };
 
 } // namespace OpenMesh
-#endif // TOPOLOGICALMESH_OPENMESH_H

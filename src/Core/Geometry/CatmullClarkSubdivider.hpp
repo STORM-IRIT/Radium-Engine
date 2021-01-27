@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
-#define RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H
+#pragma once
 
 #include <Core/Geometry/TopologicalMesh.hpp>
 
@@ -128,5 +127,3 @@ class RA_CORE_API CatmullClarkSubdivider
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_CATMULLCLARKSUBDIVIDER_H

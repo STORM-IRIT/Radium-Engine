@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_OPENGL_HPP
-#define RADIUMENGINE_OPENGL_HPP
+#pragma once
 
 /// This file provides portable inclusion of OpenGL headers.
 /// In addition it defines the following debug macros
@@ -114,5 +113,3 @@ inline const char* glErrorString( gl::GLenum err ) {
 #    define glFlushError() \
         {}
 #endif // _DEBUG
-
-#endif // RADIUMENGINE_OPENGL_HPP

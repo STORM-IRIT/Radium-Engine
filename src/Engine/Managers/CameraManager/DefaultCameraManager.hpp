@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DUMMYCAMERAMANAGER_HPP
-#define RADIUMENGINE_DUMMYCAMERAMANAGER_HPP
+#pragma once
 
 #include <Engine/Managers/CameraManager/CameraManager.hpp>
 #include <Engine/Renderer/Camera/Camera.hpp>
@@ -45,5 +44,3 @@ class RA_ENGINE_API DefaultCameraManager : public CameraManager
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // DUMMYCAMERAMANAGER_HPP

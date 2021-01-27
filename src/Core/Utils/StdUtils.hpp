@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_STDUTILS_HPP_
-#define RADIUMENGINE_STDUTILS_HPP_
+#pragma once
 
 #include <Core/RaCore.hpp>
 
@@ -30,5 +29,3 @@ inline std::size_t hash( const std::pair<T1, T2>& p ) {
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif

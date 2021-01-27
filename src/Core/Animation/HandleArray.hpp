@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_HANDLE_SYSTEM
-#define RADIUMENGINE_HANDLE_SYSTEM
+#pragma once
 
 #include <Core/Animation/Pose.hpp>
 #include <Core/RaCore.hpp>
@@ -107,5 +106,3 @@ class RA_CORE_API HandleArray
 } // Namespace Ra
 
 #include <Core/Animation/HandleArray.inl>
-
-#endif // RADIUMENGINE_HANDLE_SYSTEM

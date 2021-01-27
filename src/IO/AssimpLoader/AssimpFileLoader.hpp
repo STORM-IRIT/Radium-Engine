@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ASSIMPFILELOADER_HPP
-#define RADIUMENGINE_ASSIMPFILELOADER_HPP
+#pragma once
 
 #include <assimp/Importer.hpp>
 
@@ -28,5 +27,3 @@ class RA_IO_API AssimpFileLoader : public Core::Asset::FileLoaderInterface
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMPFILELOADER_HPP

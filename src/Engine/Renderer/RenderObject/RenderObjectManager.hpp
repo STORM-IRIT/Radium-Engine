@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_RENDEROBJECTMANAGER_HPP
-#define RADIUMENGINE_RENDEROBJECTMANAGER_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -82,5 +81,3 @@ class RA_ENGINE_API RenderObjectManager final
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_RENDEROBJECTMANAGER_HPP

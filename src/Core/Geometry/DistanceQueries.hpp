@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DISTANCE_QUERIES_HPP_
-#define RADIUMENGINE_DISTANCE_QUERIES_HPP_
+#pragma once
 
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
@@ -134,5 +133,3 @@ inline RA_CORE_API TriangleToTriangleOutput triangleToTriSq( const Vector3 v1[3]
 } // namespace Ra
 
 #include <Core/Geometry/DistanceQueries.inl>
-
-#endif // RADIUMENGINE_DISTANCE_QUERIES_HPP_

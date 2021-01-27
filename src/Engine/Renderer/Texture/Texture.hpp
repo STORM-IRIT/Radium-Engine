@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TEXTURE_HPP
-#define RADIUMENGINE_TEXTURE_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -282,5 +281,3 @@ class RA_ENGINE_API Texture final
 };
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_TEXTURE_HPP

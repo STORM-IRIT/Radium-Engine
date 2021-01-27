@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_COUPLING_SYSTEM_HPP
-#define RADIUMENGINE_COUPLING_SYSTEM_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>      // RA_ENGINE_API
 #include <Engine/System/System.hpp> // System methods declaration
@@ -132,5 +131,3 @@ class BaseCouplingSystem : public _BaseAbstractSystem
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_COUPLING_SYSTEM_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_FORWARDRENDERER_HPP
-#define RADIUMENGINE_FORWARDRENDERER_HPP
+#pragma once
 
 #include <Engine/Renderer/Renderer.hpp>
 
@@ -85,5 +84,3 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_FORWARDRENDERER_HPP

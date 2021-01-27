@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_LIGHTSTORAGE_HPP
-#define RADIUMENGINE_LIGHTSTORAGE_HPP
+#pragma once
 
 #include "../../RaEngine.hpp"
 #include "../../Renderer/Light/Light.hpp"
@@ -52,5 +51,3 @@ class RA_ENGINE_API LightStorage
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_LIGHTSTORAGE_HPP

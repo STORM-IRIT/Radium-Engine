@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Math/LinearAlgebra.hpp>
 
 namespace Ra {

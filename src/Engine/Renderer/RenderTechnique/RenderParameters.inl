@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 
 namespace Ra {

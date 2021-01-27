@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_MAKESHARED_HPP_
-#define RADIUMENGINE_MAKESHARED_HPP_
+#pragma once
 
 #include <memory>
 
@@ -27,5 +26,3 @@ inline std::shared_ptr<T> make_shared( Args&&... args ) {
 }
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_MAKESHARED_HPP_

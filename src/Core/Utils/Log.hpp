@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_LOG_HPP
-#define RADIUMENGINE_LOG_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <ctime>
@@ -150,5 +149,3 @@ inline std::string NowTime() {
 #else
 #    define LOG( level ) FILE_LOG( level )
 #endif
-
-#endif // RADIUMENGINE_LOG_HPP

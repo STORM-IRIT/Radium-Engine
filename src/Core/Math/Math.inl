@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Math/Math.hpp>
 
 namespace Ra {

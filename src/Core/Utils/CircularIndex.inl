@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Utils/CircularIndex.hpp>
 
 namespace Ra {

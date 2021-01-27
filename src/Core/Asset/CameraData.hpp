@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_CAMERA_DATA_HPP
-#define RADIUMENGINE_CAMERA_DATA_HPP
+#pragma once
 
 #include <memory>
 #include <string>
@@ -113,5 +112,3 @@ class RA_CORE_API CameraData : public AssetData
 } // namespace Ra
 
 #include <Core/Asset/CameraData.inl>
-
-#endif // RADIUMENGINE_CAMERA_DATA_HPP

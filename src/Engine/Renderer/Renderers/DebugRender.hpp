@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DEBUGRENDERER_HPP
-#define RADIUMENGINE_DEBUGRENDERER_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -102,5 +101,3 @@ class RA_ENGINE_API DebugRender final
 };
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_DEBUGRENDERER_HPP

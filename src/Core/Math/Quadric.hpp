@@ -1,5 +1,4 @@
-#ifndef QUADRIC_H
-#define QUADRIC_H
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
@@ -87,5 +86,3 @@ class Quadric
 } // namespace Ra
 
 #include <Core/Math/Quadric.inl>
-
-#endif // QUADRIC_H

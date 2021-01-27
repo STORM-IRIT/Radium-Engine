@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TEX3D_HPP_
-#define RADIUMENGINE_TEX3D_HPP_
+#pragma once
 
 #include <Eigen/Core>
 
@@ -52,4 +51,3 @@ using Tex3D = Tex<T, 3>;
 } // namespace Core
 } // namespace Ra
 #include <Core/Containers/Tex.inl>
-#endif // RADIUMENGINE_TEX3D_HPP

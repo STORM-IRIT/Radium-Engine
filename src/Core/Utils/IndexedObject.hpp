@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_INDEXEDOBJECT_HPP
-#define RADIUMENGINE_INDEXEDOBJECT_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Index.hpp>
@@ -30,5 +29,3 @@ class IndexedObject
 } // namespace Utils
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_INDEXEDOBJECT_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ANIMATION_DATA_HPP
-#define RADIUMENGINE_ANIMATION_DATA_HPP
+#pragma once
 
 #include <string>
 #include <vector>
@@ -110,5 +109,3 @@ class RA_CORE_API AnimationData : public AssetData
 } // namespace Ra
 
 #include <Core/Asset/AnimationData.inl>
-
-#endif // RADIUMENGINE_ANIMATION_DATA_HPP

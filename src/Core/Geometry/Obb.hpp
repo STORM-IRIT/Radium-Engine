@@ -1,5 +1,4 @@
-#ifndef RADIUM_OBB_HPP_
-#define RADIUM_OBB_HPP_
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <Eigen/Core>
@@ -68,5 +67,3 @@ class Obb
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUM_OBB_HPP_

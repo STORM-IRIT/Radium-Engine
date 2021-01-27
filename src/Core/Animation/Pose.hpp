@@ -1,5 +1,4 @@
-#ifndef POSE_H
-#define POSE_H
+#pragma once
 
 #include <Core/Containers/AlignedStdVector.hpp>
 
@@ -28,5 +27,3 @@ using RelativePose = Pose;
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // POSE_H

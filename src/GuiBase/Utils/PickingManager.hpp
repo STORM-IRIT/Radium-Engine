@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_PICKINGMANAGER_HPP
-#define RADIUMENGINE_PICKINGMANAGER_HPP
+#pragma once
 
 #include <GuiBase/RaGuiBase.hpp>
 
@@ -25,5 +24,3 @@ class RA_GUIBASE_API PickingManager
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_PICKINGMANAGER_HPP

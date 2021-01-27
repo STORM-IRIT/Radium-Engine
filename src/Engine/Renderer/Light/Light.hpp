@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_LIGHT_HPP
-#define RADIUMENGINE_LIGHT_HPP
+#pragma once
 
 #include <Core/Utils/Color.hpp>
 #include <Engine/Component/Component.hpp>
@@ -113,5 +112,3 @@ class RA_ENGINE_API Light : public Component
 } // namespace Ra
 
 #include <Engine/Renderer/Light/Light.inl>
-
-#endif // RADIUMENGINE_LIGHT_HPP

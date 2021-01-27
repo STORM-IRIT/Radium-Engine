@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TEXTUREMANAGER_HPP
-#define RADIUMENGINE_TEXTUREMANAGER_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 #include <map>
@@ -112,5 +111,3 @@ class RA_ENGINE_API TextureManager final
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_TEXTUREMANAGER_HPP

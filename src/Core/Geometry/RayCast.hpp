@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_RAY_CAST_HPP_
-#define RADIUMENGINE_RAY_CAST_HPP_
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
@@ -56,5 +55,3 @@ bool RA_CORE_API RayCastTriangleMesh( const Ray& r,
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_RAY_CAST_HPP_

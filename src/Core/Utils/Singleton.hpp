@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_SINGLETON_HPP
-#define RADIUMENGINE_SINGLETON_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 
@@ -51,5 +50,3 @@
     }                                                          \
     class TYPE
 // The line above is just there to make the macro end with a ;
-
-#endif // RADIUMENGINE_SINGLETON_HPP

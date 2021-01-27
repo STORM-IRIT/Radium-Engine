@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ENTITY_HPP
-#define RADIUMENGINE_ENTITY_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -81,5 +80,3 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 } // namespace Ra
 
 #include <Engine/Entity/Entity.inl>
-
-#endif // RADIUMENGINE_ENTITY_HPP

@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DATA_LOADER_HPP
-#define RADIUMENGINE_DATA_LOADER_HPP
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -33,5 +32,3 @@ class DataLoader
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_DATA_LOADER_HPP

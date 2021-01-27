@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_TASK_QUEUE_HPP_
-#define RADIUMENGINE_TASK_QUEUE_HPP_
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <condition_variable>
@@ -144,5 +143,3 @@ class RA_CORE_API TaskQueue
 
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_TASK_QUEUE_HPP_

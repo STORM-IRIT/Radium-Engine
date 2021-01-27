@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_BLINNPHONGMATERIAL_HPP
-#define RADIUMENGINE_BLINNPHONGMATERIAL_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -129,4 +128,3 @@ class RA_ENGINE_API BlinnPhongMaterialConverter final
 } // namespace Ra
 
 #include <Engine/Renderer/Material/BlinnPhongMaterial.inl>
-#endif // RADIUMENGINE_BLINNPHONGMATERIAL_HPP

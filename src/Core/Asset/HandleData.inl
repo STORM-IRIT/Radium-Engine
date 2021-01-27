@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Asset/HandleData.hpp>
 
 #include <Core/Utils/Log.hpp>

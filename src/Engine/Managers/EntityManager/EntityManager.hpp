@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ENTITYMANAGER_HPP
-#define RADIUMENGINE_ENTITYMANAGER_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 
@@ -96,5 +95,3 @@ class RA_ENGINE_API EntityManager
 
 } // namespace Engine
 } // namespace Ra
-
-#endif // RADIUMENGINE_ENTITYMANAGER_HPP

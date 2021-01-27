@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
-#define RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP
+#pragma once
 
 #include <map>
 #include <set>
@@ -57,5 +56,3 @@ class RA_IO_API AssimpHandleDataLoader : public Core::Asset::DataLoader<Core::As
 
 } // namespace IO
 } // namespace Ra
-
-#endif // RADIUMENGINE_ASSIMP_HANDLE_DATA_LOADER_HPP

@@ -1,5 +1,4 @@
-#ifndef AREA_DEFINITION
-#define AREA_DEFINITION
+#pragma once
 
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Types.hpp>
@@ -143,5 +142,3 @@ Scalar mixedArea( const Vector3& v, const VectorArray<Vector3>& p );
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-
-#endif // AREA_DEFINITION

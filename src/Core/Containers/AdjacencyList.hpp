@@ -1,5 +1,4 @@
-#ifndef ADJACENCY_LIST_H
-#define ADJACENCY_LIST_H
+#pragma once
 
 #include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Containers/VectorArray.hpp>
@@ -109,5 +108,3 @@ RA_CORE_API std::ofstream& operator<<( std::ofstream& ofs, const AdjacencyList& 
 } // namespace Ra
 
 #include <Core/Containers/AdjacencyList.inl>
-
-#endif // ADJACENCY_LIST_H

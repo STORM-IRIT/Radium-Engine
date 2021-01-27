@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_MAINWINDOWINTERFACE_HPP_
-#define RADIUMENGINE_MAINWINDOWINTERFACE_HPP_
+#pragma once
 
 #include <GuiBase/RaGuiBase.hpp>
 
@@ -71,5 +70,3 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow
 };
 } // namespace GuiBase
 } // namespace Ra
-
-#endif // RADIUMENGINE_MAINWINDOWINTERFACE_HPP_

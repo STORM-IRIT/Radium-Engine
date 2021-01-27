@@ -1,3 +1,4 @@
+#pragma once
 #include <Core/Utils/IndexMap.hpp>
 
 namespace Ra {

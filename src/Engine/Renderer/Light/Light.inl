@@ -1,3 +1,4 @@
+#pragma once
 namespace Ra {
 
 inline const Core::Utils::Color& Engine::Light::getColor() const {

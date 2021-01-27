@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP
-#define RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP
+#pragma once
 
 #include <Core/Animation/Pose.hpp>
 #include <Core/Containers/AlignedStdVector.hpp>
@@ -37,5 +36,3 @@ void RA_CORE_API dualQuaternionSkinning( const Ra::Core::Vector3Array& input,
 } // namespace Animation
 } // namespace Core
 } // namespace Ra
-
-#endif // RADIUMENGINE_DUAL_QUATERNION_SKINNING_HPP

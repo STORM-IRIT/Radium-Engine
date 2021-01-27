@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_POINTLIGHT_HPP
-#define RADIUMENGINE_POINTLIGHT_HPP
+#pragma once
 
 #include <Engine/RaEngine.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
@@ -39,5 +38,3 @@ class RA_ENGINE_API PointLight final : public Light
 } // namespace Ra
 
 #include <Engine/Renderer/Light/PointLight.inl>
-
-#endif // RADIUMENGINE_POINTLIGHT_HPP

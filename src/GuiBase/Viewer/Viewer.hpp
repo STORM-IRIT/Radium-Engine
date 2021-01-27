@@ -1,5 +1,4 @@
-#ifndef RADIUMENGINE_VIEWER_HPP
-#define RADIUMENGINE_VIEWER_HPP
+#pragma once
 
 #include <GuiBase/RaGuiBase.hpp>
 
@@ -286,5 +285,3 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
 
 } // namespace Gui
 } // namespace Ra
-
-#endif // RADIUMENGINE_VIEWER_HPP

@@ -1,6 +1,4 @@
-#ifndef RADIUMENGINE_MESH_PRIMITIVES_HPP_
-#define RADIUMENGINE_MESH_PRIMITIVES_HPP_
-
+#pragma once
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Utils/Color.hpp>
@@ -111,4 +109,3 @@ RA_CORE_API TriangleMesh makeCone( const Vector3& base,
 } // namespace Ra
 
 #include <Core/Geometry/MeshPrimitives.inl>
-#endif // RADIUMENGINE_MESH_PRIMITIVES_HPP_

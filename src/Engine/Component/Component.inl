@@ -1,3 +1,4 @@
+#pragma once
 #include <Engine/Component/Component.hpp>
 
 namespace Ra {
