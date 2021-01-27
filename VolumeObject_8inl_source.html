@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,47 +94,48 @@ $(document).ready(function(){initNavTree('VolumeObject_8inl_source.html',''); in
 <div class="title">VolumeObject.inl</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="VolumeObject_8inl.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VolumeObject_8hpp.html">Engine/Renderer/Displayable/VolumeObject.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">    6</a></span>&#160;<span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">VolumeObject::getAbstractGeometry</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">return</span> *(<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>*)( m_volume.get() );</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">VolumeObject::getAbstractGeometry</a>() {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">return</span> *(<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>*)( m_volume.get() );</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">   17</a></span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">Core::Geometry::AbstractVolume</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">VolumeObject::getVolume</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> *m_volume.get();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">Core::Geometry::AbstractVolume</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">VolumeObject::getVolume</a>() {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> *m_volume.get();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<a href="VolumeObject_8inl.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VolumeObject_8hpp.html">Engine/Renderer/Displayable/VolumeObject.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">    7</a></span>&#160;<span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">VolumeObject::getAbstractGeometry</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keywordflow">return</span> *(<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>*)( m_volume.get() );</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">VolumeObject::getAbstractGeometry</a>() {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">return</span> *(<a class="code" href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Core::Geometry::AbstractGeometry</a>*)( m_volume.get() );</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">   18</a></span>&#160;<span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">Core::Geometry::AbstractVolume</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">VolumeObject::getVolume</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> *m_volume.get();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">Core::Geometry::AbstractVolume</a>&amp; <a class="code" href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">VolumeObject::getVolume</a>() {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( m_volume, <span class="stringliteral">&quot;Volume is not initialized&quot;</span> );</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> *m_volume.get();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1VolumeObject_html_a1720475b8765c024f037a306b9a97035"><div class="ttname"><a href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">Ra::Engine::VolumeObject::getAbstractGeometry</a></div><div class="ttdeci">const Core::Geometry::AbstractGeometry &amp; getAbstractGeometry() const override</div><div class="ttdef"><b>Definition:</b> <a href="VolumeObject_8inl_source.html#l00006">VolumeObject.inl:6</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1VolumeObject_html_a1720475b8765c024f037a306b9a97035"><div class="ttname"><a href="classRa_1_1Engine_1_1VolumeObject.html#a1720475b8765c024f037a306b9a97035">Ra::Engine::VolumeObject::getAbstractGeometry</a></div><div class="ttdeci">const Core::Geometry::AbstractGeometry &amp; getAbstractGeometry() const override</div><div class="ttdef"><b>Definition:</b> <a href="VolumeObject_8inl_source.html#l00007">VolumeObject.inl:7</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1AbstractVolume_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html">Ra::Core::Geometry::AbstractVolume</a></div><div class="ttdef"><b>Definition:</b> <a href="Volume_8hpp_source.html#l00030">Volume.hpp:30</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1VolumeObject_html_a96e17ccdea2dd3217c4422532a27d95c"><div class="ttname"><a href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">Ra::Engine::VolumeObject::getVolume</a></div><div class="ttdeci">const Core::Geometry::AbstractVolume &amp; getVolume() const</div><div class="ttdoc">Returns the underlying AbstractVolume.</div><div class="ttdef"><b>Definition:</b> <a href="VolumeObject_8inl_source.html#l00017">VolumeObject.inl:17</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1AbstractGeometry_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="AbstractGeometry_8hpp_source.html#l00017">AbstractGeometry.hpp:17</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1VolumeObject_html_a96e17ccdea2dd3217c4422532a27d95c"><div class="ttname"><a href="classRa_1_1Engine_1_1VolumeObject.html#a96e17ccdea2dd3217c4422532a27d95c">Ra::Engine::VolumeObject::getVolume</a></div><div class="ttdeci">const Core::Geometry::AbstractVolume &amp; getVolume() const</div><div class="ttdoc">Returns the underlying AbstractVolume.</div><div class="ttdef"><b>Definition:</b> <a href="VolumeObject_8inl_source.html#l00018">VolumeObject.inl:18</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1Geometry_1_1AbstractGeometry_html"><div class="ttname"><a href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html">Ra::Core::Geometry::AbstractGeometry</a></div><div class="ttdef"><b>Definition:</b> <a href="AbstractGeometry_8hpp_source.html#l00016">AbstractGeometry.hpp:16</a></div></div>
 <div class="ttc" id="aVolumeObject_8hpp_html"><div class="ttname"><a href="VolumeObject_8hpp.html">VolumeObject.hpp</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00348">CoreMacros.hpp:348</a></div></div>
+<div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00347">CoreMacros.hpp:347</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_f4b8f2947224e6f7be5f71dabf25859e.html">Displayable</a></li><li class="navelem"><a class="el" href="VolumeObject_8inl.html">VolumeObject.inl</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:32 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:17 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

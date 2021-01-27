@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,86 +94,83 @@ $(document).ready(function(){initNavTree('ItemEntry_8hpp_source.html',''); initR
 <div class="title">ItemEntry.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="ItemEntry_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_ITEM_ENTRY_HPP_</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RADIUMENGINE_ITEM_ENTRY_HPP_</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Index_8hpp.html">Core/Utils/Index.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>RadiumEngine;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Entity;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>Component;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html">   27</a></span>&#160;<span class="keyword">struct </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#aed1cab7a91a3e4be9ce8075d8ad74a05">   35</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html#aed1cab7a91a3e4be9ce8075d8ad74a05">ItemEntry</a>( <a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* ent,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                        <a class="code" href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a>* comp = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                        <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> ro   = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a>() ) :</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        m_entity {ent}, m_component {comp}, m_roIndex {ro} {}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==( <span class="keyword">const</span> ItemEntry&amp; rhs ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> isValid() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">bool</span> isSelectable() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isEntityNode() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isComponentNode() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isRoNode() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> checkConsistency() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#a8743fe7d91f6231df4c21cade2f8a0b8">   62</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* m_entity {<span class="keyword">nullptr</span>};</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#a72a07077754d6e6072b764f74e5e38da">   66</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a>* m_component {<span class="keyword">nullptr</span>};</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#a29dade088a0cf13038071a369a27d464">   69</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> m_roIndex {};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> std::string <a class="code" href="namespaceRa_1_1Engine.html#a318db0d77f9e9b965c12bd100fb8de50">getEntryName</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine, <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a>&amp; ent );</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> std::vector&lt;Ra::Core::Utils::Index&gt; <a class="code" href="namespaceRa_1_1Engine.html#a4e69e485a123c20126606f2552f51bb8">getItemROs</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                                              <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a>&amp; ent );</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ItemEntry_8inl.html">Engine/ItemModel/ItemEntry.inl</a>&gt;</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_ITEM_ENTRY_HPP_</span></div>
+<a href="ItemEntry_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Index_8hpp.html">Core/Utils/Index.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>RadiumEngine;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Entity;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Component;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html">   26</a></span>&#160;<span class="keyword">struct </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a> {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#aed1cab7a91a3e4be9ce8075d8ad74a05">   34</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html#aed1cab7a91a3e4be9ce8075d8ad74a05">ItemEntry</a>( <a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* ent,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                        <a class="code" href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a>* comp = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                        <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> ro   = <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a>() ) :</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        m_entity {ent}, m_component {comp}, m_roIndex {ro} {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> operator==( <span class="keyword">const</span> ItemEntry&amp; rhs ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> isValid() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> isSelectable() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isEntityNode() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isComponentNode() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> isRoNode() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> checkConsistency() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#a8743fe7d91f6231df4c21cade2f8a0b8">   61</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* m_entity {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#a72a07077754d6e6072b764f74e5e38da">   65</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a>* m_component {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ItemEntry.html#a29dade088a0cf13038071a369a27d464">   68</a></span>&#160;    <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> m_roIndex {};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> std::string <a class="code" href="namespaceRa_1_1Engine.html#a318db0d77f9e9b965c12bd100fb8de50">getEntryName</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine, <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a>&amp; ent );</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> std::vector&lt;Ra::Core::Utils::Index&gt; <a class="code" href="namespaceRa_1_1Engine.html#a4e69e485a123c20126606f2552f51bb8">getItemROs</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1RadiumEngine.html">Engine::RadiumEngine</a>* engine,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                                              <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">ItemEntry</a>&amp; ent );</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ItemEntry_8inl.html">Engine/ItemModel/ItemEntry.inl</a>&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ItemEntry_html_aed1cab7a91a3e4be9ce8075d8ad74a05"><div class="ttname"><a href="structRa_1_1Engine_1_1ItemEntry.html#aed1cab7a91a3e4be9ce8075d8ad74a05">Ra::Engine::ItemEntry::ItemEntry</a></div><div class="ttdeci">ItemEntry(Ra::Engine::Entity *ent, Ra::Engine::Component *comp=nullptr, Ra::Core::Utils::Index ro=Ra::Core::Utils::Index::Invalid())</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00035">ItemEntry.hpp:35</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1ItemEntry_html_aed1cab7a91a3e4be9ce8075d8ad74a05"><div class="ttname"><a href="structRa_1_1Engine_1_1ItemEntry.html#aed1cab7a91a3e4be9ce8075d8ad74a05">Ra::Engine::ItemEntry::ItemEntry</a></div><div class="ttdeci">ItemEntry(Ra::Engine::Entity *ent, Ra::Engine::Component *comp=nullptr, Ra::Core::Utils::Index ro=Ra::Core::Utils::Index::Invalid())</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00034">ItemEntry.hpp:34</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1RadiumEngine_html"><div class="ttname"><a href="classRa_1_1Engine_1_1RadiumEngine.html">Ra::Engine::RadiumEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="RadiumEngine_8hpp_source.html#l00038">RadiumEngine.hpp:38</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_a771f93efd49538950e3cb9e57e46fbaf"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a></div><div class="ttdeci">static constexpr Index Invalid()</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00027">Index.inl:27</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00011">RaEngine.hpp:11</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html_a771f93efd49538950e3cb9e57e46fbaf"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf">Ra::Core::Utils::Index::Invalid</a></div><div class="ttdeci">static constexpr Index Invalid()</div><div class="ttdef"><b>Definition:</b> <a href="Index_8inl_source.html#l00028">Index.inl:28</a></div></div>
+<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_html_a4e69e485a123c20126606f2552f51bb8"><div class="ttname"><a href="namespaceRa_1_1Engine.html#a4e69e485a123c20126606f2552f51bb8">Ra::Engine::getItemROs</a></div><div class="ttdeci">std::vector&lt; Ra::Core::Utils::Index &gt; getItemROs(const Engine::RadiumEngine *, const ItemEntry &amp;ent)</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8cpp_source.html#l00028">ItemEntry.cpp:28</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00025">Entity.hpp:25</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00024">Entity.hpp:24</a></div></div>
 <div class="ttc" id="aIndex_8hpp_html"><div class="ttname"><a href="Index_8hpp.html">Index.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00011">Index.hpp:11</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aItemEntry_8inl_html"><div class="ttname"><a href="ItemEntry_8inl.html">ItemEntry.inl</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00031">Component.hpp:31</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1ItemEntry.html">Ra::Engine::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00027">ItemEntry.hpp:27</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1ItemEntry.html">Ra::Engine::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00026">ItemEntry.hpp:26</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_html_a318db0d77f9e9b965c12bd100fb8de50"><div class="ttname"><a href="namespaceRa_1_1Engine.html#a318db0d77f9e9b965c12bd100fb8de50">Ra::Engine::getEntryName</a></div><div class="ttdeci">std::string getEntryName(const Engine::RadiumEngine *engine, const ItemEntry &amp;ent)</div><div class="ttdoc">Returns the name associated to the given item.</div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8cpp_source.html#l00015">ItemEntry.cpp:15</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_d3d507863844f6311a74cf28116d817e.html">ItemModel</a></li><li class="navelem"><a class="el" href="ItemEntry_8hpp.html">ItemEntry.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:32 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:17 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

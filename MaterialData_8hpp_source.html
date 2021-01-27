@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,57 +94,54 @@ $(document).ready(function(){initNavTree('MaterialData_8hpp_source.html',''); in
 <div class="title">MaterialData.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="MaterialData_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_MATERIALDATA_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RADIUMENGINE_MATERIALDATA_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssetData_8hpp.html">Core/Asset/AssetData.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Asset {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">   40</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a>( <span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> std::string&amp; type = <span class="stringliteral">&quot;AbstractMaterial&quot;</span> );</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setName( <span class="keyword">const</span> std::string&amp; name );</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">inline</span> std::string getType() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setType( <span class="keyword">const</span> std::string&amp; type );</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> displayInfo() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    std::string m_type;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace Asset</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="MaterialData_8inl.html">Core/Asset/MaterialData.inl</a>&gt;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_MATERIALDATA_HPP</span></div>
+<a href="MaterialData_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="AssetData_8hpp.html">Core/Asset/AssetData.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaCore_8hpp.html">Core/RaCore.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Asset {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1AssetData.html">AssetData</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a>( <span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> std::string&amp; type = <span class="stringliteral">&quot;AbstractMaterial&quot;</span> );</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setName( <span class="keyword">const</span> std::string&amp; name );</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">inline</span> std::string getType() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setType( <span class="keyword">const</span> std::string&amp; type );</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> displayInfo() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::string m_type;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace Asset</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="MaterialData_8inl.html">Core/Asset/MaterialData.inl</a>&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aAssetData_8hpp_html"><div class="ttname"><a href="AssetData_8hpp.html">AssetData.hpp</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00012">RaCore.hpp:12</a></div></div>
+<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="aRaCore_8hpp_html"><div class="ttname"><a href="RaCore_8hpp.html">RaCore.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">Ra::Core::Asset::MaterialData</a></div><div class="ttdoc">represent material data loaded by a file loader. Material data must be identified by a unique name....</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8hpp_source.html#l00040">MaterialData.hpp:40</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00017">AssetData.hpp:17</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1MaterialData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">Ra::Core::Asset::MaterialData</a></div><div class="ttdoc">represent material data loaded by a file loader. Material data must be identified by a unique name....</div><div class="ttdef"><b>Definition:</b> <a href="MaterialData_8hpp_source.html#l00039">MaterialData.hpp:39</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1AssetData_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1AssetData.html">Ra::Core::Asset::AssetData</a></div><div class="ttdef"><b>Definition:</b> <a href="AssetData_8hpp_source.html#l00016">AssetData.hpp:16</a></div></div>
 <div class="ttc" id="aMaterialData_8inl_html"><div class="ttname"><a href="MaterialData_8inl.html">MaterialData.inl</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="MaterialData_8hpp.html">MaterialData.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:31 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:17 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

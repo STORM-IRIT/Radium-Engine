@@ -1,5 +1,6 @@
 var NAVTREEINDEX17 =
 {
+"classRa_1_1Gui_1_1WindowQt.html#ac6edbd05736a56854c8f9348d18ffc87":[9,0,2,2,12,12],
 "classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964":[9,0,2,2,12,5],
 "classRa_1_1Gui_1_1WindowQt.html#ad3274b69a7a5d5c36ce74f44a1a5d1de":[9,0,2,2,12,3],
 "classRa_1_1Gui_1_1WindowQt.html#aeaf44d6f885ecf78f4c44045ef69aeea":[9,0,2,2,12,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX17 =
 "develplugin.html#autotoc_md98":[4,4,1,1],
 "develplugin.html#autotoc_md99":[4,4,1,2],
 "develrendering.html":[4,3,1,0],
-"develrendering.html#autotoc_md100":[4,3,1,0,0],
-"develrendering.html#autotoc_md101":[4,3,1,0,0,0]
+"develrendering.html#autotoc_md100":[4,3,1,0,0]
 };

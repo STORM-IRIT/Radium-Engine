@@ -11,9 +11,7 @@ var dir_1456dd235032e023892318efbecb420b =
     [ "AlignedStdVector.hpp", "AlignedStdVector_8hpp.html", [
       [ "AlignedStdVector", "structRa_1_1Core_1_1AlignedStdVector.html", null ]
     ] ],
-    [ "BVH.hpp", "BVH_8hpp.html", [
-      [ "BVH", "classRa_1_1Core_1_1Containers_1_1BVH.html", "classRa_1_1Core_1_1Containers_1_1BVH" ]
-    ] ],
+    [ "BVH.hpp", "BVH_8hpp.html", "BVH_8hpp" ],
     [ "BVH.inl", "BVH_8inl.html", null ],
     [ "Grid.hpp", "Grid_8hpp.html", [
       [ "Grid", "classRa_1_1Core_1_1Grid.html", "classRa_1_1Core_1_1Grid" ],

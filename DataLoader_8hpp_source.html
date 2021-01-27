@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,54 +94,51 @@ $(document).ready(function(){initNavTree('DataLoader_8hpp_source.html',''); init
 <div class="title">DataLoader.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="DataLoader_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_DATA_LOADER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RADIUMENGINE_DATA_LOADER_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">struct </span>aiScene;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Asset {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> DATA&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">DataLoader</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">   17</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">DataLoader</a>( <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE = <span class="keyword">false</span> ) : <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a>( VERBOSE_MODE ) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a166aadc9a0a2d9cff4b99b082c42638a">~DataLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a88cbbb91eb8688abd48139dc8a6bc3da">loadData</a>( <span class="keyword">const</span> aiScene* scene, std::vector&lt;std::unique_ptr&lt;DATA&gt;&gt;&amp; data ) = 0;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">   26</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">isVerbose</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a>; }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a62690d7a19221ba23e3c95ac199c40bb">   28</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a62690d7a19221ba23e3c95ac199c40bb">setVerbose</a>( <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE ) { <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a> = VERBOSE_MODE; }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">   31</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace Asset</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_DATA_LOADER_HPP</span></div>
+<a href="DataLoader_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">struct </span>aiScene;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Asset {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> DATA&gt;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">DataLoader</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">   16</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">DataLoader</a>( <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE = <span class="keyword">false</span> ) : <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a>( VERBOSE_MODE ) {}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a166aadc9a0a2d9cff4b99b082c42638a">~DataLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a88cbbb91eb8688abd48139dc8a6bc3da">loadData</a>( <span class="keyword">const</span> aiScene* scene, std::vector&lt;std::unique_ptr&lt;DATA&gt;&gt;&amp; data ) = 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">   25</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">isVerbose</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a>; }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a62690d7a19221ba23e3c95ac199c40bb">   27</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a62690d7a19221ba23e3c95ac199c40bb">setVerbose</a>( <span class="keyword">const</span> <span class="keywordtype">bool</span> VERBOSE_MODE ) { <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a> = VERBOSE_MODE; }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">   30</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace Asset</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a88cbbb91eb8688abd48139dc8a6bc3da"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a88cbbb91eb8688abd48139dc8a6bc3da">Ra::Core::Asset::DataLoader::loadData</a></div><div class="ttdeci">virtual void loadData(const aiScene *scene, std::vector&lt; std::unique_ptr&lt; DATA &gt;&gt; &amp;data)=0</div><div class="ttdoc">INTERFACE.</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a64e2a801c2efdc31b83683e8f69885fe"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">Ra::Core::Asset::DataLoader::m_verbose</a></div><div class="ttdeci">bool m_verbose</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00031">DataLoader.hpp:31</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a90d41626cc50ed6b29d65059bfe3b579"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">Ra::Core::Asset::DataLoader::DataLoader</a></div><div class="ttdeci">DataLoader(const bool VERBOSE_MODE=false)</div><div class="ttdoc">CONSTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00017">DataLoader.hpp:17</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a64e2a801c2efdc31b83683e8f69885fe"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">Ra::Core::Asset::DataLoader::m_verbose</a></div><div class="ttdeci">bool m_verbose</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00030">DataLoader.hpp:30</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a90d41626cc50ed6b29d65059bfe3b579"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a90d41626cc50ed6b29d65059bfe3b579">Ra::Core::Asset::DataLoader::DataLoader</a></div><div class="ttdeci">DataLoader(const bool VERBOSE_MODE=false)</div><div class="ttdoc">CONSTRUCTOR.</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00016">DataLoader.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a166aadc9a0a2d9cff4b99b082c42638a"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a166aadc9a0a2d9cff4b99b082c42638a">Ra::Core::Asset::DataLoader::~DataLoader</a></div><div class="ttdeci">virtual ~DataLoader()=default</div><div class="ttdoc">DESTRUCTOR.</div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a822057bdad414151dc84e937ba17bc25"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">Ra::Core::Asset::DataLoader::isVerbose</a></div><div class="ttdeci">bool isVerbose() const</div><div class="ttdoc">VERBOSE.</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00026">DataLoader.hpp:26</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a62690d7a19221ba23e3c95ac199c40bb"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a62690d7a19221ba23e3c95ac199c40bb">Ra::Core::Asset::DataLoader::setVerbose</a></div><div class="ttdeci">void setVerbose(const bool VERBOSE_MODE)</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00028">DataLoader.hpp:28</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">Ra::Core::Asset::DataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00013">DataLoader.hpp:13</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a822057bdad414151dc84e937ba17bc25"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a822057bdad414151dc84e937ba17bc25">Ra::Core::Asset::DataLoader::isVerbose</a></div><div class="ttdeci">bool isVerbose() const</div><div class="ttdoc">VERBOSE.</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00025">DataLoader.hpp:25</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html_a62690d7a19221ba23e3c95ac199c40bb"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a62690d7a19221ba23e3c95ac199c40bb">Ra::Core::Asset::DataLoader::setVerbose</a></div><div class="ttdeci">void setVerbose(const bool VERBOSE_MODE)</div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00027">DataLoader.hpp:27</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">Ra::Core::Asset::DataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00012">DataLoader.hpp:12</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_486288e78e9dc8c89d3d526bcb77146e.html">Asset</a></li><li class="navelem"><a class="el" href="DataLoader_8hpp.html">DataLoader.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:31 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:17 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

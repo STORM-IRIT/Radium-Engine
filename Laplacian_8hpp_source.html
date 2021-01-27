@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,131 +94,128 @@ $(document).ready(function(){initNavTree('Laplacian_8hpp_source.html',''); initR
 <div class="title">Laplacian.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Laplacian_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef LAPLACIAN_DEFINITION</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define LAPLACIAN_DEFINITION</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Adjacency_8hpp.html">Core/Geometry/Adjacency.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Engine.html#ad6bd78a7bc92ffea3c8514ef97b43ea7ad9c6333623e6357515fcbf17be806273">Geometry</a> {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">// Defining the LaplacianMatrix as the sparse matrix such that:</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//      L = f( D, A )</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// where f( D, A ) is a function taking in input a DegreeMatrix and an AdjacencyMatrix</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">   41</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> = <a class="code" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * Return the LaplacianMatrix from the given matrices D and A.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * If POSITIVE_SEMI_DEFINITE is true then:</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> *        L = D - A</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> * where L could/should be a positive semi-definite matrix.</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> * If POSITIVE_SEMI_DEFINITE is false then:</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> *        L = A - D</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> * where L could/should be a negative semi-definite matrix.</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a409d7f143cd4bd069c3b410e76d16f1f">standardLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a>&amp; D,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                               <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                               <span class="keyword">const</span> <span class="keywordtype">bool</span> POSITIVE_SEMI_DEFINITE = <span class="keyword">true</span> );</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"> * Return the LaplacianMatrix from the given matrices D and A.</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> * The LaplacianMatrix is defined as:</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"> *       L = I - D^-1/2 A D^-1/2</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> * where I is the identity matrix.</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2251f662a06657b2497b13385263b2a8">symmetricNormalizedLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a>&amp; D,</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                                          <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A );</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> * Return the LaplacianMatrix from the given matrices D and A.</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> * The LaplacianMatrix is defined as:</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> *       L = I - D^-1 A</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> * where I is the identity matrix.</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a7b54ea88d15845749e0e3ad505e82692">randomWalkNormalizedLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a>&amp; D,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                                           <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A );</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment"> * Return the LaplacianMatrix computed as the k-power of the matrix L.</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> * The definition was taken from:</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"> * &quot;Remeshing for Multiresolution Modeling&quot;</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment"> * [ Mario Botsch, Leif Kobbelt ]</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment"> * Eurographics 2004</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aed8580d80ae69f49c1cc709f9828b845">powerLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a>&amp; L, <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k );</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment"> * Return the LaplacianMatrix vector for the given set of points and triangles.</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment"> * The LaplacianMatrix is defined as:</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment"> *       L( i, j ) = -0.5 * sum( cot( alpha_ij ) + cot( beta_ij ) )  , with i != j and exist edge {</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment"> * i, j } L( i, i ) =  0.5 * sum( L( i, j ) )                         , with i != j where alpha_ij</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment"> * and beta_ij are the angles opposite the edge { i, j }, and L could/should be a positive</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment"> * semi-definite matrix.</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a408242b6be1450db90852886ba95ccf7">cotangentWeightLaplacian</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                                      <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T );</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment"> * Return the Laplacian vector for the given point v and its one-ring.</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"> * The Laplacian vector is defined as:</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"> *       L = sum( ( v - p_j ) )</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a785f4a4758d01b3b8a269674b5d669ac">uniformLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p );</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">/*</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"> * Return the Laplacian vector for the given point v and its one-ring.</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment"> * The Laplacian vector is defined as:</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment"> *       L = 0.5 * sum( ( cot( alpha_vj ) + cot( beta_vj ) ) * ( v - p_j ) )</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment"> * where alpha_ij and beta_ij are the angles opposite the edge { v, p_j }</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a408242b6be1450db90852886ba95ccf7">cotangentWeightLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p );</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace Geometry</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif // LAPLACIAN_DEFINITION</span></div>
+<a href="Laplacian_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="VectorArray_8hpp.html">Core/Containers/VectorArray.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Adjacency_8hpp.html">Core/Geometry/Adjacency.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Engine.html#ad6bd78a7bc92ffea3c8514ef97b43ea7ad9c6333623e6357515fcbf17be806273">Geometry</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// Defining the LaplacianMatrix as the sparse matrix such that:</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//      L = f( D, A )</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">// where f( D, A ) is a function taking in input a DegreeMatrix and an AdjacencyMatrix</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">   40</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> = <a class="code" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * Return the LaplacianMatrix from the given matrices D and A.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * If POSITIVE_SEMI_DEFINITE is true then:</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> *        L = D - A</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * where L could/should be a positive semi-definite matrix.</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> * If POSITIVE_SEMI_DEFINITE is false then:</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> *        L = A - D</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> * where L could/should be a negative semi-definite matrix.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a409d7f143cd4bd069c3b410e76d16f1f">standardLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a>&amp; D,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                                               <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                               <span class="keyword">const</span> <span class="keywordtype">bool</span> POSITIVE_SEMI_DEFINITE = <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"> * Return the LaplacianMatrix from the given matrices D and A.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> * The LaplacianMatrix is defined as:</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> *       L = I - D^-1/2 A D^-1/2</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"> * where I is the identity matrix.</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a2251f662a06657b2497b13385263b2a8">symmetricNormalizedLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a>&amp; D,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                                          <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A );</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> * Return the LaplacianMatrix from the given matrices D and A.</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> * The LaplacianMatrix is defined as:</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> *       L = I - D^-1 A</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> * where I is the identity matrix.</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a7b54ea88d15845749e0e3ad505e82692">randomWalkNormalizedLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">DegreeMatrix</a>&amp; D,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                                           <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">AdjacencyMatrix</a>&amp; A );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"> * Return the LaplacianMatrix computed as the k-power of the matrix L.</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment"> * The definition was taken from:</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> * &quot;Remeshing for Multiresolution Modeling&quot;</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"> * [ Mario Botsch, Leif Kobbelt ]</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment"> * Eurographics 2004</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aed8580d80ae69f49c1cc709f9828b845">powerLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a>&amp; L, <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> k );</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment"> * Return the LaplacianMatrix vector for the given set of points and triangles.</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment"> * The LaplacianMatrix is defined as:</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment"> *       L( i, j ) = -0.5 * sum( cot( alpha_ij ) + cot( beta_ij ) )  , with i != j and exist edge {</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment"> * i, j } L( i, i ) =  0.5 * sum( L( i, j ) )                         , with i != j where alpha_ij</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment"> * and beta_ij are the angles opposite the edge { i, j }, and L could/should be a positive</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment"> * semi-definite matrix.</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a408242b6be1450db90852886ba95ccf7">cotangentWeightLaplacian</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                                                      <span class="keyword">const</span> <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector&lt;Vector3ui&gt;</a>&amp; T );</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment"> * Return the Laplacian vector for the given point v and its one-ring.</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment"> * The Laplacian vector is defined as:</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"> *       L = sum( ( v - p_j ) )</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a785f4a4758d01b3b8a269674b5d669ac">uniformLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p );</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"> * Return the Laplacian vector for the given point v and its one-ring.</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment"> * The Laplacian vector is defined as:</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment"> *       L = 0.5 * sum( ( cot( alpha_vj ) + cot( beta_vj ) ) * ( v - p_j ) )</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment"> * where alpha_ij and beta_ij are the angles opposite the edge { v, p_j }</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> <a class="code" href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a408242b6be1450db90852886ba95ccf7">cotangentWeightLaplacian</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; v, <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1VectorArray.html">VectorArray&lt;Vector3&gt;</a>&amp; p );</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace Geometry</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aAdjacency_8hpp_html"><div class="ttname"><a href="Adjacency_8hpp.html">Adjacency.hpp</a></div></div>
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00250">CoreMacros.hpp:250</a></div></div>
+<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
 <div class="ttc" id="aVectorArray_8hpp_html"><div class="ttname"><a href="VectorArray_8hpp.html">VectorArray.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a408242b6be1450db90852886ba95ccf7"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a408242b6be1450db90852886ba95ccf7">Ra::Core::Geometry::cotangentWeightLaplacian</a></div><div class="ttdeci">LaplacianMatrix cotangentWeightLaplacian(const VectorArray&lt; Vector3 &gt; &amp;p, const AlignedStdVector&lt; Vector3ui &gt; &amp;T)</div><div class="ttdoc">WARNING: THIS IMPLEMENTATION IS FASTER THAN DOING L = D - A.</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8cpp_source.html#l00041">Laplacian.cpp:41</a></div></div>
-<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00012">RaCore.hpp:12</a></div></div>
+<div class="ttc" id="aRaCore_8hpp_html_aa9257f423326d94574be80ac5b92a2e5"><div class="ttname"><a href="RaCore_8hpp.html#aa9257f423326d94574be80ac5b92a2e5">RA_CORE_API</a></div><div class="ttdeci">#define RA_CORE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaCore_8hpp_source.html#l00011">RaCore.hpp:11</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a7b54ea88d15845749e0e3ad505e82692"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a7b54ea88d15845749e0e3ad505e82692">Ra::Core::Geometry::randomWalkNormalizedLaplacian</a></div><div class="ttdeci">LaplacianMatrix randomWalkNormalizedLaplacian(const DegreeMatrix &amp;D, const AdjacencyMatrix &amp;A)</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8cpp_source.html#l00027">Laplacian.cpp:27</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_af92c7779fab4fbe6087e668e5dae8735"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">Ra::Core::Geometry::AdjacencyMatrix</a></div><div class="ttdeci">Ra::Core::Sparse AdjacencyMatrix</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00024">Adjacency.hpp:24</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_af92c7779fab4fbe6087e668e5dae8735"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#af92c7779fab4fbe6087e668e5dae8735">Ra::Core::Geometry::AdjacencyMatrix</a></div><div class="ttdeci">Ra::Core::Sparse AdjacencyMatrix</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00023">Adjacency.hpp:23</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a2251f662a06657b2497b13385263b2a8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a2251f662a06657b2497b13385263b2a8">Ra::Core::Geometry::symmetricNormalizedLaplacian</a></div><div class="ttdeci">LaplacianMatrix symmetricNormalizedLaplacian(const DegreeMatrix &amp;D, const AdjacencyMatrix &amp;A)</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8cpp_source.html#l00020">Laplacian.cpp:20</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a785f4a4758d01b3b8a269674b5d669ac"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a785f4a4758d01b3b8a269674b5d669ac">Ra::Core::Geometry::uniformLaplacian</a></div><div class="ttdeci">Vector3 uniformLaplacian(const Vector3 &amp;v, const VectorArray&lt; Vector3 &gt; &amp;p)</div><div class="ttdoc">ONE RING ///.</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8cpp_source.html#l00072">Laplacian.cpp:72</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aed8580d80ae69f49c1cc709f9828b845"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aed8580d80ae69f49c1cc709f9828b845">Ra::Core::Geometry::powerLaplacian</a></div><div class="ttdeci">LaplacianMatrix powerLaplacian(const LaplacianMatrix &amp;L, const uint k)</div><div class="ttdoc">WARNING: THE IMPLEMENTATION COULD BE WRONG.</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8cpp_source.html#l00031">Laplacian.cpp:31</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; Vector3 &gt;</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a409d7f143cd4bd069c3b410e76d16f1f"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a409d7f143cd4bd069c3b410e76d16f1f">Ra::Core::Geometry::standardLaplacian</a></div><div class="ttdeci">LaplacianMatrix standardLaplacian(const DegreeMatrix &amp;D, const AdjacencyMatrix &amp;A, const bool POSITIVE_SEMI_DEFINITE)</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8cpp_source.html#l00013">Laplacian.cpp:13</a></div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00015">AlignedStdVector.hpp:15</a></div></div>
+<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector</a></div><div class="ttdef"><b>Definition:</b> <a href="AlignedStdVector_8hpp_source.html#l00014">AlignedStdVector.hpp:14</a></div></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00025">Types.hpp:25</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a5dfd567b8393406acccb48683482e9d8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">Ra::Core::Geometry::DegreeMatrix</a></div><div class="ttdeci">Diagonal DegreeMatrix</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00084">Adjacency.hpp:84</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a5dfd567b8393406acccb48683482e9d8"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a5dfd567b8393406acccb48683482e9d8">Ra::Core::Geometry::DegreeMatrix</a></div><div class="ttdeci">Diagonal DegreeMatrix</div><div class="ttdef"><b>Definition:</b> <a href="Adjacency_8hpp_source.html#l00083">Adjacency.hpp:83</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_html_ad6bd78a7bc92ffea3c8514ef97b43ea7ad9c6333623e6357515fcbf17be806273"><div class="ttname"><a href="namespaceRa_1_1Engine.html#ad6bd78a7bc92ffea3c8514ef97b43ea7ad9c6333623e6357515fcbf17be806273">Ra::Engine::RenderObjectType::Geometry</a></div><div class="ttdeci">@ Geometry</div><div class="ttdoc">&quot;Geometry&quot; render objects are those loaded using Radium::IO and generated by GeometrySystem</div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a4a7dea220b0d39682a797fcbcedce712"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">Ra::Core::Geometry::LaplacianMatrix</a></div><div class="ttdeci">Sparse LaplacianMatrix</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8hpp_source.html#l00041">Laplacian.hpp:41</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a2d49896125fe4ece22bcf8449f9c1423"><div class="ttname"><a href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Ra::Core::Sparse</a></div><div class="ttdeci">Eigen::SparseMatrix&lt; Scalar &gt; Sparse</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00073">Types.hpp:73</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a4a7dea220b0d39682a797fcbcedce712"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">Ra::Core::Geometry::LaplacianMatrix</a></div><div class="ttdeci">Sparse LaplacianMatrix</div><div class="ttdoc">GLOBAL MATRIX ///.</div><div class="ttdef"><b>Definition:</b> <a href="Laplacian_8hpp_source.html#l00040">Laplacian.hpp:40</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a2d49896125fe4ece22bcf8449f9c1423"><div class="ttname"><a href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Ra::Core::Sparse</a></div><div class="ttdeci">Eigen::SparseMatrix&lt; Scalar &gt; Sparse</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00072">Types.hpp:72</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="Laplacian_8hpp.html">Laplacian.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:31 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:17 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

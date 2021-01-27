@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,32 +94,29 @@ $(document).ready(function(){initNavTree('Algorithm_8hpp_source.html',''); initR
 <div class="title">Algorithm.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Algorithm_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_ALGORITHM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RADIUMENGINE_ALGORITHM_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Container, <span class="keyword">typename</span> Pred&gt;</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core.html#aa0fd285cd7f7dd4ff3ea0a34f5534f82">   11</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core.html#aa0fd285cd7f7dd4ff3ea0a34f5534f82">remove_copy_if</a>( Container&amp; in, Container&amp; out, Pred pred ) {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">auto</span> it = std::remove_if( in.begin(), in.end(), pred );</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    std::copy( it, in.end(), std::back_insert_iterator&lt;Container&gt;( out ) );</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    in.erase( it, in.end() );</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_ALGORITHM_HPP</span></div>
+<a href="Algorithm_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Container, <span class="keyword">typename</span> Pred&gt;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core.html#aa0fd285cd7f7dd4ff3ea0a34f5534f82">   10</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Core.html#aa0fd285cd7f7dd4ff3ea0a34f5534f82">remove_copy_if</a>( Container&amp; in, Container&amp; out, Pred pred ) {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">auto</span> it = std::remove_if( in.begin(), in.end(), pred );</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    std::copy( it, in.end(), std::back_insert_iterator&lt;Container&gt;( out ) );</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    in.erase( it, in.end() );</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_aa0fd285cd7f7dd4ff3ea0a34f5534f82"><div class="ttname"><a href="namespaceRa_1_1Core.html#aa0fd285cd7f7dd4ff3ea0a34f5534f82">Ra::Core::remove_copy_if</a></div><div class="ttdeci">void remove_copy_if(Container &amp;in, Container &amp;out, Pred pred)</div><div class="ttdef"><b>Definition:</b> <a href="Algorithm_8hpp_source.html#l00011">Algorithm.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_aa0fd285cd7f7dd4ff3ea0a34f5534f82"><div class="ttname"><a href="namespaceRa_1_1Core.html#aa0fd285cd7f7dd4ff3ea0a34f5534f82">Ra::Core::remove_copy_if</a></div><div class="ttdeci">void remove_copy_if(Container &amp;in, Container &amp;out, Pred pred)</div><div class="ttdef"><b>Definition:</b> <a href="Algorithm_8hpp_source.html#l00010">Algorithm.hpp:10</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_1456dd235032e023892318efbecb420b.html">Containers</a></li><li class="navelem"><a class="el" href="Algorithm_8hpp.html">Algorithm.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:31 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:17 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

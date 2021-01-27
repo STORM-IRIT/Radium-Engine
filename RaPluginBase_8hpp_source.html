@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,26 +94,24 @@ $(document).ready(function(){initNavTree('RaPluginBase_8hpp_source.html',''); in
 <div class="title">RaPluginBase.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="RaPluginBase_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CoreMacros_8hpp.html">Core/CoreMacros.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_RA_PLUGINBASE_HPP_</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#    define RADIUMENGINE_RA_PLUGINBASE_HPP_</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#    if defined RA_PLUGINBASE_EXPORTS</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#        define RA_PLUGINBASE_API DLL_EXPORT</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#    elif defined RA_PLUGINBASE_STATIC</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#        define RA_PLUGINBASE_API</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#    else</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="RaPluginBase_8hpp.html#ac3a45a4ecf1e0c59cf170c721b8cdce2">   11</a></span>&#160;<span class="preprocessor">#        define RA_PLUGINBASE_API DLL_IMPORT</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#    endif</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_RA_PLUGINBASE_HPP_</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#ifdef PLUGIN_IS_COMPILED_WITH_DEBUG_INFO</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#    define Q_RADIUM_PLUGIN_METADATA \</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">        Q_PLUGIN_METADATA( IID &quot;RadiumEngine.PluginInterface&quot; FILE &quot;pluginMetaDataDebug.json&quot; )</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="RaPluginBase_8hpp.html#a85cc111f8d15ca85003a5a1e38a1c5e2">   25</a></span>&#160;<span class="preprocessor">#    define Q_RADIUM_PLUGIN_METADATA \</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">        Q_PLUGIN_METADATA( IID &quot;RadiumEngine.PluginInterface&quot; FILE &quot;pluginMetaDataRelease.json&quot; )</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
+<a href="RaPluginBase_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="CoreMacros_8hpp.html">Core/CoreMacros.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#if defined RA_PLUGINBASE_EXPORTS</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#    define RA_PLUGINBASE_API DLL_EXPORT</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#elif defined RA_PLUGINBASE_STATIC</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#    define RA_PLUGINBASE_API</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="RaPluginBase_8hpp.html#ac3a45a4ecf1e0c59cf170c721b8cdce2">   10</a></span>&#160;<span class="preprocessor">#    define RA_PLUGINBASE_API DLL_IMPORT</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifdef PLUGIN_IS_COMPILED_WITH_DEBUG_INFO</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#    define Q_RADIUM_PLUGIN_METADATA \</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">        Q_PLUGIN_METADATA( IID &quot;RadiumEngine.PluginInterface&quot; FILE &quot;pluginMetaDataDebug.json&quot; )</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="RaPluginBase_8hpp.html#a85cc111f8d15ca85003a5a1e38a1c5e2">   23</a></span>&#160;<span class="preprocessor">#    define Q_RADIUM_PLUGIN_METADATA \</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">        Q_PLUGIN_METADATA( IID &quot;RadiumEngine.PluginInterface&quot; FILE &quot;pluginMetaDataRelease.json&quot; )</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html"><div class="ttname"><a href="CoreMacros_8hpp.html">CoreMacros.hpp</a></div></div>
@@ -121,7 +119,7 @@ $(document).ready(function(){initNavTree('RaPluginBase_8hpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_1b07f77798358fd74e92420363fd4633.html">PluginBase</a></li><li class="navelem"><a class="el" href="RaPluginBase_8hpp.html">RaPluginBase.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:32 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:18 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

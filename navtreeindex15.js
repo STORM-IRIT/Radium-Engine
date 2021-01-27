@@ -1,5 +1,6 @@
 var NAVTREEINDEX15 =
 {
+"classRa_1_1GuiBase_1_1BaseApplication.html#aa7896f814da3cc73941265caaa11bb1e":[9,0,2,3,0,3],
 "classRa_1_1GuiBase_1_1BaseApplication.html#aac744245dc38de077ed55186fb69dbfe":[9,0,2,3,0,55],
 "classRa_1_1GuiBase_1_1BaseApplication.html#ab4eb41d1797caa39c247da1e30d6bf36":[9,0,2,3,0,32],
 "classRa_1_1GuiBase_1_1BaseApplication.html#ab830d286c94da82ad1a7850590699e21":[9,0,2,3,0,53],
@@ -248,6 +249,5 @@ var NAVTREEINDEX15 =
 "classRa_1_1Gui_1_1CameraManipulator.html#aa1bac9ac477689403478286d1f5f51cc":[9,0,2,2,0,8],
 "classRa_1_1Gui_1_1CameraManipulator.html#aa8103ed8aec874dd2d6927e857fcd6d3":[9,0,2,2,0,7],
 "classRa_1_1Gui_1_1CameraManipulator.html#aa9b666189d2610e3d07f0d0c27a09e05":[9,0,2,2,0,29],
-"classRa_1_1Gui_1_1CameraManipulator.html#aaad6b4eec464455b947e2d184b59bae5":[9,0,2,2,0,1],
-"classRa_1_1Gui_1_1CameraManipulator.html#aaca8dcd036f910bbd02d926ad94adf0a":[9,0,2,2,0,20]
+"classRa_1_1Gui_1_1CameraManipulator.html#aaad6b4eec464455b947e2d184b59bae5":[9,0,2,2,0,1]
 };

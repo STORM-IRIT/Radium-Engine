@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -180,7 +180,7 @@ Public Member Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00071">71</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00070">70</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad8ab2898d0e4c4da7fdf90abd2a14c34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8ab2898d0e4c4da7fdf90abd2a14c34">&#9670;&nbsp;</a></span>~RadiumPluginInterface()</h2>
@@ -205,7 +205,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00075">75</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00074">74</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 
 </div>
 </div>
@@ -240,7 +240,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00160">160</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00159">159</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 
 </div>
 </div>
@@ -277,7 +277,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section warning"><dt>Warning</dt><dd>Allocated renderers are given to the application that takes ownership. They MUST not be destroyed by the plugin </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00147">147</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00146">146</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 
 </div>
 </div>
@@ -340,7 +340,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Tells if the system will add a file loader </p><dl class="section return"><dt>Returns</dt><dd>true if a file loader service is offered </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00153">153</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00152">152</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 
 </div>
 </div>
@@ -396,7 +396,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Tells if the plugin will add a renderer </p><dl class="section return"><dt>Returns</dt><dd>true if the plugin offer rendering service </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00138">138</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00137">137</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 
 </div>
 </div>
@@ -424,7 +424,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Tells if the plugin offer OpenGL based services that need to be initialized after the OpenGL context is created. </p><dl class="section return"><dt>Returns</dt><dd>true if plugin offers OppenGL services </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00189">189</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00188">188</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 
 </div>
 </div>
@@ -589,7 +589,7 @@ Public Member Functions</h2></td></tr>
 When this function is called from the application, The active OpenGL <a class="el" href="classRa_1_1Plugins_1_1Context.html" title="Data passed to the plugin constructor.">Context</a> is the one that will be used for rendering.</dd></dl>
 <p>Developers of plugins that need to manage OpenGL resources in a direct way (recommended for plugins that manage OpenGL resources for rendering or interaction with rendering) must implement this method and memorize the viewer of the PluginContext. Each time they need to create or destroy an OpenGL resource, they must activate this context (viewer-&gt;makeCurrent()) and realease it after usage (viewer-&gt;doneCurrent()) </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00182">182</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RadiumPluginInterface_8hpp_source.html#l00181">181</a> of file <a class="el" href="RadiumPluginInterface_8hpp_source.html">RadiumPluginInterface.hpp</a>.</p>
 
 </div>
 </div>
@@ -635,8 +635,8 @@ When this function is called from the application, The active OpenGL <a class="e
 <div class="ttc" id="aclassQObject_html"><div class="ttname"><a href="classQObject.html">QObject</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a2110ad3a554613113b415cf3f7ee9db4"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a2110ad3a554613113b415cf3f7ee9db4">Ra::Plugins::RadiumPluginInterface::registerPlugin</a></div><div class="ttdeci">virtual void registerPlugin(const Context &amp;context)=0</div><div class="ttdoc">Pass arguments for plugin initialization. This method must create and register all the services that ...</div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a60fb20080ecfa1fd75acf4b9389cd141"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a60fb20080ecfa1fd75acf4b9389cd141">Ra::Plugins::RadiumPluginInterface::doAddWidget</a></div><div class="ttdeci">virtual bool doAddWidget(QString &amp;name)=0</div><div class="ttdoc">Tells wether the plugin wants to add a widget (inside the UI tab widget) or not. If it does,...</div></div>
-<div class="ttc" id="aRaPluginBase_8hpp_html_a85cc111f8d15ca85003a5a1e38a1c5e2"><div class="ttname"><a href="RaPluginBase_8hpp.html#a85cc111f8d15ca85003a5a1e38a1c5e2">Q_RADIUM_PLUGIN_METADATA</a></div><div class="ttdeci">#define Q_RADIUM_PLUGIN_METADATA</div><div class="ttdef"><b>Definition:</b> <a href="RaPluginBase_8hpp_source.html#l00025">RaPluginBase.hpp:25</a></div></div>
-<div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a></div><div class="ttdoc">Interface class for Radiums plugins.</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00071">RadiumPluginInterface.hpp:71</a></div></div>
+<div class="ttc" id="aRaPluginBase_8hpp_html_a85cc111f8d15ca85003a5a1e38a1c5e2"><div class="ttname"><a href="RaPluginBase_8hpp.html#a85cc111f8d15ca85003a5a1e38a1c5e2">Q_RADIUM_PLUGIN_METADATA</a></div><div class="ttdeci">#define Q_RADIUM_PLUGIN_METADATA</div><div class="ttdef"><b>Definition:</b> <a href="RaPluginBase_8hpp_source.html#l00023">RaPluginBase.hpp:23</a></div></div>
+<div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a></div><div class="ttdoc">Interface class for Radiums plugins.</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00070">RadiumPluginInterface.hpp:70</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a460d1df9a097719b389d6571904be142"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a460d1df9a097719b389d6571904be142">Ra::Plugins::RadiumPluginInterface::getWidget</a></div><div class="ttdeci">virtual QWidget * getWidget()=0</div><div class="ttdoc">Creates the widget to be added to the ui and then returns it. If connections are needed (between plug...</div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1Context_html"><div class="ttname"><a href="classRa_1_1Plugins_1_1Context.html">Ra::Plugins::Context</a></div><div class="ttdoc">Data passed to the plugin constructor.</div><div class="ttdef"><b>Definition:</b> <a href="PluginContext_8hpp_source.html#l00022">PluginContext.hpp:22</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html_a24825e7a7362d37526b67a5be1db14b9"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html#a24825e7a7362d37526b67a5be1db14b9">Ra::Plugins::RadiumPluginInterface::getAction</a></div><div class="ttdeci">virtual QAction * getAction(int id)=0</div><div class="ttdoc">Returns the action to be added to the ui and then returns it.</div></div>
@@ -647,7 +647,7 @@ When this function is called from the application, The active OpenGL <a class="e
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Plugins.html">Plugins</a></li><li class="navelem"><a class="el" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">RadiumPluginInterface</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:34 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:19 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

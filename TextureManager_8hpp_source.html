@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,72 +94,69 @@ $(document).ready(function(){initNavTree('TextureManager_8hpp_source.html',''); 
 <div class="title">TextureManager.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="TextureManager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_TEXTUREMANAGER_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RADIUMENGINE_TEXTUREMANAGER_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="OpenGL_8hpp.html">Engine/Renderer/OpenGL/OpenGL.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Texture_8hpp.html">Engine/Renderer/Texture/Texture.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1TextureManager.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a> final</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">using</span> TexturePair = std::pair&lt;std::string, Texture*&gt;;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; addTexture( <span class="keyword">const</span> std::string&amp; name, <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> width, <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> height, <span class="keywordtype">void</span>* data );</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Texture.html">Texture</a>* getOrLoadTexture( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; texParameters, <span class="keywordtype">bool</span> linearize = <span class="keyword">false</span> );</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Texture.html">Texture</a>* loadTexture( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; texParameters, <span class="keywordtype">bool</span> linearize = <span class="keyword">false</span> );</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> deleteTexture( <span class="keyword">const</span> std::string&amp; filename );</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> deleteTexture( <a class="code" href="classRa_1_1Engine_1_1Texture.html">Texture</a>* texture );</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> updateTextureContent( <span class="keyword">const</span> std::string&amp; texture, <span class="keywordtype">void</span>* content );</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> updatePendingTextures();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> loadTextureImage( <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; texParameters );</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a>();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a>();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::map&lt;std::string, Texture*&gt; m_textures;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::map&lt;std::string, TextureParameters&gt; m_pendingTextures;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::map&lt;std::string, void*&gt; m_pendingData;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">bool</span> m_verbose;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_TEXTUREMANAGER_HPP</span></div>
+<a href="TextureManager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="OpenGL_8hpp.html">Engine/Renderer/OpenGL/OpenGL.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Texture_8hpp.html">Engine/Renderer/Texture/Texture.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1TextureManager.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a> final</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">using</span> TexturePair = std::pair&lt;std::string, Texture*&gt;;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; addTexture( <span class="keyword">const</span> std::string&amp; name, <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> width, <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> height, <span class="keywordtype">void</span>* data );</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Texture.html">Texture</a>* getOrLoadTexture( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; texParameters, <span class="keywordtype">bool</span> linearize = <span class="keyword">false</span> );</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Texture.html">Texture</a>* loadTexture( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; texParameters, <span class="keywordtype">bool</span> linearize = <span class="keyword">false</span> );</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> deleteTexture( <span class="keyword">const</span> std::string&amp; filename );</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> deleteTexture( <a class="code" href="classRa_1_1Engine_1_1Texture.html">Texture</a>* texture );</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> updateTextureContent( <span class="keyword">const</span> std::string&amp; texture, <span class="keywordtype">void</span>* content );</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> updatePendingTextures();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">void</span> loadTextureImage( <a class="code" href="structRa_1_1Engine_1_1TextureParameters.html">TextureParameters</a>&amp; texParameters );</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a>();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1TextureManager.html">TextureManager</a>();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    std::map&lt;std::string, Texture*&gt; m_textures;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::map&lt;std::string, TextureParameters&gt; m_pendingTextures;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::map&lt;std::string, void*&gt; m_pendingData;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">bool</span> m_verbose;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;};</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00250">CoreMacros.hpp:250</a></div></div>
+<div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00011">RaEngine.hpp:11</a></div></div>
+<div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
 <div class="ttc" id="aTexture_8hpp_html"><div class="ttname"><a href="Texture_8hpp.html">Texture.hpp</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1TextureParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1TextureParameters.html">Ra::Engine::TextureParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00043">Texture.hpp:43</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1TextureManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1TextureManager.html">Ra::Engine::TextureManager</a></div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8hpp_source.html#l00018">TextureManager.hpp:18</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Texture.html">Ra::Engine::Texture</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00085">Texture.hpp:85</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1TextureParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1TextureParameters.html">Ra::Engine::TextureParameters</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00042">Texture.hpp:42</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1TextureManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1TextureManager.html">Ra::Engine::TextureManager</a></div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8hpp_source.html#l00017">TextureManager.hpp:17</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Texture_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Texture.html">Ra::Engine::Texture</a></div><div class="ttdef"><b>Definition:</b> <a href="Texture_8hpp_source.html#l00084">Texture.hpp:84</a></div></div>
 <div class="ttc" id="aOpenGL_8hpp_html"><div class="ttname"><a href="OpenGL_8hpp.html">OpenGL.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_8efb2e226a329d96dc3bcfc9eaf1a998.html">Texture</a></li><li class="navelem"><a class="el" href="TextureManager_8hpp.html">TextureManager.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:32 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:17 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

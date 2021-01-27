@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,61 +94,59 @@ $(document).ready(function(){initNavTree('TransformEditor_8hpp_source.html','');
 <div class="title">TransformEditor.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="TransformEditor_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_TRANSFORM_EDITOR_HPP_</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RADIUMENGINE_TRANSFORM_EDITOR_HPP_</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ItemEntry_8hpp.html">Engine/ItemModel/ItemEntry.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGuiBase_8hpp.html">GuiBase/RaGuiBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>GuiBase {</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html">TransformEditor</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html#aaf506acf33bc1048d92b3e9169e318cc">   14</a></span>&#160;    <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html#aaf506acf33bc1048d92b3e9169e318cc">TransformEditor</a>() : m_transform( Core::<a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Transform</a>::Identity() ) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html">TransformEditor</a>();</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setEditable( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">Engine::ItemEntry</a>&amp; entry );</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> updateValues() = 0;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// Helper to get the transform property from the editable.</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> getTransform();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> setTransform( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a>&amp; tr );</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">bool</span> canEdit() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> getWorldTransform() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html#ae55ef8de5e8249b5bc5047c5d9039b76">   35</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html#ae55ef8de5e8249b5bc5047c5d9039b76">m_transform</a>;     </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html#ab45a37df2c57621e521a63c4ba09699e">   36</a></span>&#160;    <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">Engine::ItemEntry</a> <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html#ab45a37df2c57621e521a63c4ba09699e">m_currentEdit</a>; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace GuiBase</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_TRANSFORM_EDITOR_HPP_</span></div>
+<a href="TransformEditor_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ItemEntry_8hpp.html">Engine/ItemModel/ItemEntry.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGuiBase_8hpp.html">GuiBase/RaGuiBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>GuiBase {</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html">TransformEditor</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html#aaf506acf33bc1048d92b3e9169e318cc">   13</a></span>&#160;    <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html#aaf506acf33bc1048d92b3e9169e318cc">TransformEditor</a>() : m_transform( Core::<a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Transform</a>::Identity() ) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html">TransformEditor</a>();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setEditable( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">Engine::ItemEntry</a>&amp; entry );</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> updateValues() = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// Helper to get the transform property from the editable.</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> getTransform();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> setTransform( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a>&amp; tr );</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">bool</span> canEdit() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> getWorldTransform() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html#ae55ef8de5e8249b5bc5047c5d9039b76">   34</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Core::Transform</a> <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html#ae55ef8de5e8249b5bc5047c5d9039b76">m_transform</a>;     </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1TransformEditor.html#ab45a37df2c57621e521a63c4ba09699e">   35</a></span>&#160;    <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">Engine::ItemEntry</a> <a class="code" href="classRa_1_1GuiBase_1_1TransformEditor.html#ab45a37df2c57621e521a63c4ba09699e">m_currentEdit</a>; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace GuiBase</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html_aaf506acf33bc1048d92b3e9169e318cc"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html#aaf506acf33bc1048d92b3e9169e318cc">Ra::GuiBase::TransformEditor::TransformEditor</a></div><div class="ttdeci">EIGEN_MAKE_ALIGNED_OPERATOR_NEW TransformEditor()</div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00014">TransformEditor.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html_aaf506acf33bc1048d92b3e9169e318cc"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html#aaf506acf33bc1048d92b3e9169e318cc">Ra::GuiBase::TransformEditor::TransformEditor</a></div><div class="ttdeci">EIGEN_MAKE_ALIGNED_OPERATOR_NEW TransformEditor()</div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00013">TransformEditor.hpp:13</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html_ae55ef8de5e8249b5bc5047c5d9039b76"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html#ae55ef8de5e8249b5bc5047c5d9039b76">Ra::GuiBase::TransformEditor::m_transform</a></div><div class="ttdeci">Core::Transform m_transform</div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00035">TransformEditor.hpp:35</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00083">Types.hpp:83</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html_ae55ef8de5e8249b5bc5047c5d9039b76"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html#ae55ef8de5e8249b5bc5047c5d9039b76">Ra::GuiBase::TransformEditor::m_transform</a></div><div class="ttdeci">Core::Transform m_transform</div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00034">TransformEditor.hpp:34</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
 <div class="ttc" id="aRaGuiBase_8hpp_html"><div class="ttname"><a href="RaGuiBase_8hpp.html">RaGuiBase.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html">Ra::GuiBase::TransformEditor</a></div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00009">TransformEditor.hpp:9</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html">Ra::GuiBase::TransformEditor</a></div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00008">TransformEditor.hpp:8</a></div></div>
 <div class="ttc" id="aItemEntry_8hpp_html"><div class="ttname"><a href="ItemEntry_8hpp.html">ItemEntry.hpp</a></div></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html_ab45a37df2c57621e521a63c4ba09699e"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html#ab45a37df2c57621e521a63c4ba09699e">Ra::GuiBase::TransformEditor::m_currentEdit</a></div><div class="ttdeci">Engine::ItemEntry m_currentEdit</div><div class="ttdoc">The transform being edited.</div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00036">TransformEditor.hpp:36</a></div></div>
-<div class="ttc" id="aRaGuiBase_8hpp_html_a488a6591ba8e25137ef4a512659e12f3"><div class="ttname"><a href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a></div><div class="ttdeci">#define RA_GUIBASE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGuiBase_8hpp_source.html#l00013">RaGuiBase.hpp:13</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1ItemEntry.html">Ra::Engine::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00027">ItemEntry.hpp:27</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1TransformEditor_html_ab45a37df2c57621e521a63c4ba09699e"><div class="ttname"><a href="classRa_1_1GuiBase_1_1TransformEditor.html#ab45a37df2c57621e521a63c4ba09699e">Ra::GuiBase::TransformEditor::m_currentEdit</a></div><div class="ttdeci">Engine::ItemEntry m_currentEdit</div><div class="ttdoc">The transform being edited.</div><div class="ttdef"><b>Definition:</b> <a href="TransformEditor_8hpp_source.html#l00035">TransformEditor.hpp:35</a></div></div>
+<div class="ttc" id="aRaGuiBase_8hpp_html_a488a6591ba8e25137ef4a512659e12f3"><div class="ttname"><a href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a></div><div class="ttdeci">#define RA_GUIBASE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGuiBase_8hpp_source.html#l00011">RaGuiBase.hpp:11</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1ItemEntry.html">Ra::Engine::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00026">ItemEntry.hpp:26</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_db76f3c94886d731af6b7e364cea8b12.html">TransformEditor</a></li><li class="navelem"><a class="el" href="TransformEditor_8hpp.html">TransformEditor.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:32 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:18 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX12 =
 {
+"classRa_1_1Engine_1_1DefaultLightManager.html#a14e5d7f4ff809b8a8af69d3beedc351a":[9,0,2,1,15,0],
 "classRa_1_1Engine_1_1DefaultLightManager.html#a42f24dfe20e1618a6ce4ef28741f7b37":[9,0,2,1,15,1],
 "classRa_1_1Engine_1_1DefaultLightManager.html#a4a1a83f5f4c7d31cb8380eefb2772213":[9,0,2,1,15,2],
 "classRa_1_1Engine_1_1DefaultLightStorage.html":[9,0,2,1,16],
@@ -248,6 +249,5 @@ var NAVTREEINDEX12 =
 "classRa_1_1Engine_1_1RadiumEngine.html#a2e7dda410ae23e2e3441775aade25e64":[9,0,2,1,41,35],
 "classRa_1_1Engine_1_1RadiumEngine.html#a35e421132933b7c8d1a977ec3ea0b744":[9,0,2,1,41,16],
 "classRa_1_1Engine_1_1RadiumEngine.html#a36158f9035ccb68ec9f945382dd6a504":[9,0,2,1,41,17],
-"classRa_1_1Engine_1_1RadiumEngine.html#a371903ba74352b06c2f97b8f6d6a506a":[9,0,2,1,41,36],
-"classRa_1_1Engine_1_1RadiumEngine.html#a3a9df359d36b8ee6525ec4bf6e2d9fb1":[9,0,2,1,41,21]
+"classRa_1_1Engine_1_1RadiumEngine.html#a371903ba74352b06c2f97b8f6d6a506a":[9,0,2,1,41,36]
 };

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9ac489da47ad1569da36980c3386243df63c605a</span>
+   &#160;<span id="projectnumber">ce6c75d03d18679d0072ca575d46740978ebb912</span>
    </div>
   </td>
  </tr>
@@ -94,24 +94,21 @@ $(document).ready(function(){initNavTree('Keyboard_8hpp_source.html',''); initRe
 <div class="title">Keyboard.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Keyboard_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef RADIUMENGINE_KEYBOARD_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define RADIUMENGINE_KEYBOARD_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGuiBase_8hpp.html">GuiBase/RaGuiBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Gui {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">bool</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<a class="code" href="namespaceRa_1_1Gui.html#a3f66d2c009c0f1242c97a7178ccb10fb">isKeyPressed</a>( <span class="keywordtype">int</span> code ); </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">int</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<a class="code" href="namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828">activeKey</a>(); </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Gui.html#adfd2f2313117fd00a838954c5a8cb473">keyPressed</a>( <span class="keywordtype">int</span> code ); </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<a class="code" href="namespaceRa_1_1Gui.html#a448a9ecc787f7d9bad0adc4465087821">keyReleased</a>( <span class="keywordtype">int</span> code ); </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif // RADIUMENGINE_KEYBOARD_HPP</span></div>
+<a href="Keyboard_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGuiBase_8hpp.html">GuiBase/RaGuiBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Gui {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">bool</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<a class="code" href="namespaceRa_1_1Gui.html#a3f66d2c009c0f1242c97a7178ccb10fb">isKeyPressed</a>( <span class="keywordtype">int</span> code ); </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">int</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<a class="code" href="namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828">activeKey</a>(); </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">void</span> <a class="code" href="namespaceRa_1_1Gui.html#adfd2f2313117fd00a838954c5a8cb473">keyPressed</a>( <span class="keywordtype">int</span> code ); </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="namespaceRa_1_1Gui.html#a448a9ecc787f7d9bad0adc4465087821">keyReleased</a>( <span class="keywordtype">int</span> code ); </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
@@ -119,13 +116,13 @@ $(document).ready(function(){initNavTree('Keyboard_8hpp_source.html',''); initRe
 <div class="ttc" id="anamespaceRa_1_1Gui_html_a448a9ecc787f7d9bad0adc4465087821"><div class="ttname"><a href="namespaceRa_1_1Gui.html#a448a9ecc787f7d9bad0adc4465087821">Ra::Gui::keyReleased</a></div><div class="ttdeci">void keyReleased(int code)</div><div class="ttdoc">set the key corresponding to</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00020">Keyboard.cpp:20</a></div></div>
 <div class="ttc" id="aRaGuiBase_8hpp_html"><div class="ttname"><a href="RaGuiBase_8hpp.html">RaGuiBase.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Gui_html_a3f66d2c009c0f1242c97a7178ccb10fb"><div class="ttname"><a href="namespaceRa_1_1Gui.html#a3f66d2c009c0f1242c97a7178ccb10fb">Ra::Gui::isKeyPressed</a></div><div class="ttdeci">bool isKeyPressed(int code)</div><div class="ttdoc">is the key corresponding to</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00025">Keyboard.cpp:25</a></div></div>
-<div class="ttc" id="aRaGuiBase_8hpp_html_a488a6591ba8e25137ef4a512659e12f3"><div class="ttname"><a href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a></div><div class="ttdeci">#define RA_GUIBASE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGuiBase_8hpp_source.html#l00013">RaGuiBase.hpp:13</a></div></div>
+<div class="ttc" id="aRaGuiBase_8hpp_html_a488a6591ba8e25137ef4a512659e12f3"><div class="ttname"><a href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a></div><div class="ttdeci">#define RA_GUIBASE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGuiBase_8hpp_source.html#l00011">RaGuiBase.hpp:11</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Gui_html_adfd2f2313117fd00a838954c5a8cb473"><div class="ttname"><a href="namespaceRa_1_1Gui.html#adfd2f2313117fd00a838954c5a8cb473">Ra::Gui::keyPressed</a></div><div class="ttdeci">void keyPressed(int code)</div><div class="ttdoc">set the key corresponding to</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00015">Keyboard.cpp:15</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_2cea9413440cac76c0711bd520597573.html">Utils</a></li><li class="navelem"><a class="el" href="Keyboard_8hpp.html">Keyboard.hpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 08:44:32 for Radium Engine by
+    <li class="footer">Generated on Wed Jan 27 2021 11:38:18 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
