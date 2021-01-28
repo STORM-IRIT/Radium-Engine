@@ -55,6 +55,8 @@ namespace Ra {
 using namespace Core::Utils; // log
 using namespace glbinding;
 
+using ViewerMapping = Gui::KeyMappingManageable<Gui::Viewer>;
+
 #define KMA_VALUE( x ) Gui::KeyMappingManager::KeyMappingAction Gui::Viewer::x;
 KeyMappingViewer
 #undef KMA_VALUE
@@ -74,8 +76,8 @@ KeyMappingViewer
 
 void Gui::Viewer::configureKeyMapping_impl() {
     auto keyMappingManager = Gui::KeyMappingManager::getInstance();
-    m_keyMappingContext    = keyMappingManager->getContext( "ViewerContext" );
-    if ( m_keyMappingContext.isInvalid() )
+    ViewerMapping::setContext( keyMappingManager->getContext( "ViewerContext" ) );
+    if ( ViewerMapping::getContext().isInvalid() )
     {
         LOG( logINFO )
             << "ViewerContext not defined (maybe the configuration file do not contains it)";
@@ -83,7 +85,7 @@ void Gui::Viewer::configureKeyMapping_impl() {
         return;
     }
 
-#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( m_keyMappingContext, #XX );
+#define KMA_VALUE( XX ) XX = keyMappingManager->getActionIndex( ViewerMapping::getContext(), #XX );
     KeyMappingViewer
 #undef KMA_VALUE
 }
