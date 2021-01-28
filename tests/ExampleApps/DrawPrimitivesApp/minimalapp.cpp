@@ -34,7 +34,10 @@ MinimalApp::MinimalApp( int& argc, char** argv ) :
     m_viewer.reset( new Ra::Gui::Viewer );
 
     CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    connect( m_viewer.get(), &Ra::Gui::Viewer::glInitialized, this, &MinimalApp::onGLInitialized );
+    connect( m_viewer.get(),
+             &Ra::Gui::Viewer::requestEngineOpenGLInitialization,
+             this,
+             &MinimalApp::onGLInitialized );
     m_viewer->setupKeyMappingCallbacks();
 
     // Initialize timer for the spinning cube.
@@ -51,6 +54,9 @@ MinimalApp::~MinimalApp() {
 }
 
 void MinimalApp::onGLInitialized() {
+    // initialize here the OpenGL part of the engine used by the application
+    m_engine->initializeGL();
+    // add the renderer
     std::shared_ptr<Ra::Engine::Renderer> e( new Ra::Engine::ForwardRenderer() );
     m_viewer->addRenderer( e );
     connect( m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame );

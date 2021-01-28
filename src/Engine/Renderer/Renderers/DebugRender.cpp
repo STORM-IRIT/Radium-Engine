@@ -1,5 +1,6 @@
 #include <Engine/Renderer/Renderers/DebugRender.hpp>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderObject/Primitives/DrawPrimitives.hpp>
@@ -41,7 +42,7 @@ void DebugRender::initialize() {
         { return nullptr; }
     };
 
-    auto shaderMgr = ShaderProgramManager::getInstance();
+    auto shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();
 
     const char* lineVertStr = R"(
                 layout (location = 0) in vec3 in_pos;
@@ -122,9 +123,9 @@ void DebugRender::initialize() {
                 }
                 )";
 
-    m_lineProg  = setShader( shaderMgr, "dbgLineShader", lineVertStr, lineFragStr );
-    m_pointProg = setShader( shaderMgr, "dbgPointShader", pointVertStr, pointFragStr );
-    m_meshProg  = setShader( shaderMgr, "dbgMeshShader", meshVertStr, meshFragStr );
+    m_lineProg  = setShader( shaderProgramManager, "dbgLineShader", lineVertStr, lineFragStr );
+    m_pointProg = setShader( shaderProgramManager, "dbgPointShader", pointVertStr, pointFragStr );
+    m_meshProg  = setShader( shaderProgramManager, "dbgMeshShader", meshVertStr, meshFragStr );
 
     GL_CHECK_ERROR;
 }

@@ -149,6 +149,5 @@ void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
     m_shaderPrograms.insert( {config, shader} );
 }
 
-RA_SINGLETON_IMPLEMENTATION( ShaderProgramManager );
 } // namespace Engine
 } // namespace Ra

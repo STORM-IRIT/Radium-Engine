@@ -125,7 +125,8 @@ class SimpleAnimationSystem : public Ra::Engine::System
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv, Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::GuiBase::BaseApplication app( argc, argv );
+    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
 
     //![Parameterize the Engine  time loop]
     app.m_engine->setEndTime( 3_ra ); // <-- 3 relates to the keyframes of the demo component.
