@@ -17,6 +17,8 @@ namespace Ra {
 namespace Gui {
 using Core::Math::Pi;
 
+using FlightCameraKeyMapping = KeyMappingManageable<FlightCameraManipulator>;
+
 #define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Gui::FlightCameraManipulator::XX;
 KeyMappingFlightManipulator
 #undef KMA_VALUE
@@ -24,9 +26,9 @@ KeyMappingFlightManipulator
     void
     Gui::FlightCameraManipulator::configureKeyMapping_impl() {
 
-    m_keyMappingContext =
-        Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" );
-    if ( m_keyMappingContext.isInvalid() )
+    FlightCameraKeyMapping::setContext(
+        Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" ) );
+    if ( FlightCameraKeyMapping::getContext().isInvalid() )
     {
         LOG( Ra::Core::Utils::logWARNING ) << "FlightManipulatorContext not defined (maybe the "
                                               "configuration file do not contains it). Adding "
@@ -48,18 +50,18 @@ KeyMappingFlightManipulator
                                                           "FLIGHTMODECAMERA_ZOOM" );
         Gui::KeyMappingManager::getInstance()->addAction(
             "FlightManipulatorContext", "Key_A", "", "", "", "FLIGHTMODECAMERA_ROTATE_AROUND" );
-        m_keyMappingContext =
-            Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" );
+        FlightCameraKeyMapping::setContext(
+            Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" ) );
     }
 
 #define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
+    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( FlightCameraKeyMapping::getContext(), #XX );
     KeyMappingFlightManipulator
 #undef KMA_VALUE
 }
 
 KeyMappingManager::Context Gui::FlightCameraManipulator::mappingContext() {
-    return m_keyMappingContext;
+    return FlightCameraKeyMapping::getContext();
 }
 
 Gui::FlightCameraManipulator::FlightCameraManipulator( uint width, uint height ) :
@@ -118,7 +120,7 @@ bool Gui::FlightCameraManipulator::handleMousePressEvent( QMouseEvent* event,
     m_lastMouseY = event->pos().y();
 
     auto action = KeyMappingManager::getInstance()->getAction(
-        m_keyMappingContext, buttons, modifiers, key, false );
+        FlightCameraKeyMapping::getContext(), buttons, modifiers, key, false );
 
     if ( action == FLIGHTMODECAMERA_ROTATE )
     {
