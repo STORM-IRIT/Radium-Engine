@@ -28,6 +28,7 @@ class RenderObjectManager;
 class EntityManager;
 class SignalManager;
 class TextureManager;
+class ShaderProgramManager;
 } // namespace Engine
 
 namespace Engine {
@@ -50,9 +51,14 @@ class RA_ENGINE_API RadiumEngine
     void initialize();
 
     /**
-     * Register default shaders, materials and named strings
+     * Initialize all the OpenGL functionalities of the Engine.
+     *   Shader set : reusable shaders, materials and named strings
+     *   Texture set : reusable textures
+     *
+     *   @note When calling this function, caller must ensures that a valid openGL context is bound.
+     *   All initialisations will be done in the bound openGl context.
      */
-    void registerDefaultPrograms();
+    void initializeGL();
 
     /**
      * Free all resources acquired during initialize
@@ -159,6 +165,13 @@ class RA_ENGINE_API RadiumEngine
      * @return the texture manager
      */
     TextureManager* getTextureManager() const;
+
+    /**
+     * Get the shader program manager attached to the engine.
+     * @note, the engine keep ownership on the pointer returned
+     * @return the shader program manager
+     */
+    ShaderProgramManager* getShaderProgramManager() const;
 
     /**
      * Register a new file loader to the engine.
@@ -300,6 +313,11 @@ class RA_ENGINE_API RadiumEngine
     std::string getResourcesDir() { return m_resourcesRootDir; }
 
   private:
+    /**
+     * Register default shaders, materials and named strings
+     */
+    void registerDefaultPrograms();
+
     using Priority  = int;
     using SystemKey = std::pair<Priority, std::string>;
     // use transparent functors :
@@ -321,6 +339,7 @@ class RA_ENGINE_API RadiumEngine
     std::unique_ptr<EntityManager> m_entityManager;
     std::unique_ptr<SignalManager> m_signalManager;
     std::unique_ptr<TextureManager> m_textureManager;
+    std::unique_ptr<ShaderProgramManager> m_shaderProgramManager;
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
     bool m_loadingState {false};

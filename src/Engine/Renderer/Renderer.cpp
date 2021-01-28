@@ -2,7 +2,6 @@
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Managers/LightManager/LightManager.hpp>
 #include <Engine/RadiumEngine.hpp>
@@ -48,31 +47,36 @@ Renderer::Renderer() :
     GL_CHECK_ERROR;
 }
 
-Renderer::~Renderer() {
-    ShaderProgramManager::destroyInstance();
-}
+Renderer::~Renderer() = default;
 
 void Renderer::initialize( uint width, uint height ) {
     /// For internal resources management in a filesystem
     auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
 
+    // Get aliases on frequently used managers from the Engine
+    // Not that ownership is never transfered when using raw pointers
+    // See :
+    // https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-raw
+    // https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr
+    m_renderObjectManager  = RadiumEngine::getInstance()->getRenderObjectManager();
+    m_shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();
+
     m_width  = width;
     m_height = height;
 
-    // Initialize managers
-    m_shaderMgr = ShaderProgramManager::getInstance();
-    m_roMgr     = RadiumEngine::getInstance()->getRenderObjectManager();
-
-    m_shaderMgr->addShaderProgram( {{"DrawScreen"},
-                                    resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
-                                    resourcesRootDir + "Shaders/2DShaders/DrawScreen.frag.glsl"} );
-    m_shaderMgr->addShaderProgram( {{"DrawScreenI"},
-                                    resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
-                                    resourcesRootDir + "Shaders/2DShaders/DrawScreenI.frag.glsl"} );
-    m_shaderMgr->addShaderProgram( {{"CircleBrush"},
-                                    resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
-                                    resourcesRootDir + "Shaders/2DShaders/CircleBrush.frag.glsl"} );
-    m_shaderMgr->addShaderProgram(
+    m_shaderProgramManager->addShaderProgram(
+        {{"DrawScreen"},
+         resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+         resourcesRootDir + "Shaders/2DShaders/DrawScreen.frag.glsl"} );
+    m_shaderProgramManager->addShaderProgram(
+        {{"DrawScreenI"},
+         resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+         resourcesRootDir + "Shaders/2DShaders/DrawScreenI.frag.glsl"} );
+    m_shaderProgramManager->addShaderProgram(
+        {{"CircleBrush"},
+         resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+         resourcesRootDir + "Shaders/2DShaders/CircleBrush.frag.glsl"} );
+    m_shaderProgramManager->addShaderProgram(
         {{"DisplayDepthBuffer"},
          resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
          resourcesRootDir + "Shaders/2DShaders//DepthDisplay.frag.glsl"} );
@@ -86,7 +90,7 @@ void Renderer::initialize( uint width, uint height ) {
                                    resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram( pickingPointsConfig );
+        auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingPointsConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for points" );
         m_pickingShaders[Displayable::PKM_POINTS] = *pickingShader;
     }
@@ -100,7 +104,7 @@ void Renderer::initialize( uint width, uint height ) {
                                   resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesConfig );
+        auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingLinesConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for lines" );
         m_pickingShaders[Displayable::PKM_LINES] = *pickingShader;
     }
@@ -114,7 +118,8 @@ void Renderer::initialize( uint width, uint height ) {
                                            resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram( pickingLinesAdjacencyConfig );
+        auto pickingShader =
+            m_shaderProgramManager->addShaderProgram( pickingLinesAdjacencyConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for lines adjacency" );
         m_pickingShaders[Displayable::PKM_LINE_ADJ] = *pickingShader;
     }
@@ -128,7 +133,7 @@ void Renderer::initialize( uint width, uint height ) {
                                       resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
     ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
     {
-        auto pickingShader = m_shaderMgr->addShaderProgram( pickingTrianglesConfig );
+        auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingTrianglesConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for triangles" );
         m_pickingShaders[Displayable::PKM_TRI] = *pickingShader;
     }
@@ -320,9 +325,10 @@ void Renderer::feedRenderQueuesInternal( const ViewingParameters& /*renderData*/
     m_uiRenderObjects.clear();
     m_xrayRenderObjects.clear();
 
-    m_roMgr->getRenderObjectsByType( m_fancyRenderObjects, RenderObjectType::Geometry );
-    m_roMgr->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug );
-    m_roMgr->getRenderObjectsByType( m_uiRenderObjects, RenderObjectType::UI );
+    m_renderObjectManager->getRenderObjectsByType( m_fancyRenderObjects,
+                                                   RenderObjectType::Geometry );
+    m_renderObjectManager->getRenderObjectsByType( m_debugRenderObjects, RenderObjectType::Debug );
+    m_renderObjectManager->getRenderObjectsByType( m_uiRenderObjects, RenderObjectType::UI );
 
     for ( auto it = m_fancyRenderObjects.begin(); it != m_fancyRenderObjects.end(); )
     {
@@ -564,9 +570,9 @@ void Renderer::drawScreenInternal() {
         auto shader = ( m_displayedTexture->getParameters().type == GL_INT ||
                         m_displayedTexture->getParameters().type == GL_UNSIGNED_INT )
                           ? ( m_displayedTexture->getParameters().format == GL_DEPTH_COMPONENT
-                                  ? m_shaderMgr->getShaderProgram( "DisplayDepthBuffer" )
-                                  : m_shaderMgr->getShaderProgram( "DrawScreenI" ) )
-                          : m_shaderMgr->getShaderProgram( "DrawScreen" );
+                                  ? m_shaderProgramManager->getShaderProgram( "DisplayDepthBuffer" )
+                                  : m_shaderProgramManager->getShaderProgram( "DrawScreenI" ) )
+                          : m_shaderProgramManager->getShaderProgram( "DrawScreen" );
         shader->bind();
         shader->setUniform( "screenTexture", m_displayedTexture, 0 );
         m_quadMesh->render( shader );
@@ -578,7 +584,7 @@ void Renderer::drawScreenInternal() {
     {
         GL_ASSERT( glDisable( GL_BLEND ) );
         GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
-        auto shader = m_shaderMgr->getShaderProgram( "CircleBrush" );
+        auto shader = m_shaderProgramManager->getShaderProgram( "CircleBrush" );
         shader->bind();
         shader->setUniform( "mousePosition", m_mousePosition );
         shader->setUniform( "brushRadius", m_brushRadius );
@@ -652,7 +658,7 @@ std::vector<std::string> Renderer::getAvailableTextures() const {
 }
 
 void Renderer::reloadShaders() {
-    ShaderProgramManager::getInstance()->reloadAllShaderPrograms();
+    m_shaderProgramManager->reloadAllShaderPrograms();
 }
 
 std::unique_ptr<uchar[]> Renderer::grabFrame( size_t& w, size_t& h ) const {
@@ -704,7 +710,7 @@ bool Renderer::hasLight() const {
 
 int Renderer::buildAllRenderTechniques() const {
     std::vector<RenderObjectPtr> renderObjects;
-    m_roMgr->getRenderObjectsByType( renderObjects, RenderObjectType::Geometry );
+    m_renderObjectManager->getRenderObjectsByType( renderObjects, RenderObjectType::Geometry );
     if ( renderObjects.size() > 0 )
     {
         for ( auto& ro : renderObjects )

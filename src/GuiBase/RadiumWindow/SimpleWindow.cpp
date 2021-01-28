@@ -18,7 +18,6 @@ SimpleWindow::SimpleWindow( uint w, uint h, QWidget* parent ) : MainWindowInterf
 
     // Initialize the minimum tools for a Radium-Guibased Application
     m_viewer = std::make_unique<Viewer>();
-    connect( m_viewer.get(), &Viewer::glInitialized, this, &SimpleWindow::onGLInitialized );
     m_viewer->setObjectName( QStringLiteral( "m_viewer" ) );
 
     // Initialize the scene interactive representation
@@ -77,11 +76,6 @@ void SimpleWindow::cleanup() {
 }
 
 void SimpleWindow::createConnections() {}
-
-void SimpleWindow::onGLInitialized() {
-    auto forwardRenderer = std::make_shared<ForwardRenderer>();
-    addRenderer( "Forward renderer (default)", forwardRenderer );
-}
 
 } // namespace GuiBase
 } // namespace Ra

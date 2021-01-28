@@ -1,7 +1,6 @@
 #include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Core/Resources/Resources.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
@@ -9,7 +8,6 @@
 #include <Engine/Managers/LightManager/DefaultLightManager.hpp>
 #include <Engine/Renderer/Light/Light.hpp>
 #include <Engine/Renderer/Material/Material.hpp>
-#include <Engine/Renderer/Mesh/Mesh.hpp>
 #include <Engine/Renderer/OpenGL/OpenGL.hpp>
 #include <Engine/Renderer/RenderObject/RenderObject.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
@@ -41,7 +39,7 @@ const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
 
 ForwardRenderer::ForwardRenderer() : Renderer() {}
 
-ForwardRenderer::~ForwardRenderer() {}
+ForwardRenderer::~ForwardRenderer() = default;
 
 void ForwardRenderer::initializeInternal() {
     initShaders();
@@ -65,12 +63,14 @@ void ForwardRenderer::initializeInternal() {
 void ForwardRenderer::initShaders() {
     /// For internal resources management in a filesystem
     auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
-    m_shaderMgr->addShaderProgram( {{"Hdr2Ldr"},
-                                    resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
-                                    resourcesRootDir + "Shaders/2DShaders/Hdr2Ldr.frag.glsl"} );
-    m_shaderMgr->addShaderProgram( {{"ComposeOIT"},
-                                    resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
-                                    resourcesRootDir + "Shaders/2DShaders/ComposeOIT.frag.glsl"} );
+    m_shaderProgramManager->addShaderProgram(
+        {{"Hdr2Ldr"},
+         resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+         resourcesRootDir + "Shaders/2DShaders/Hdr2Ldr.frag.glsl"} );
+    m_shaderProgramManager->addShaderProgram(
+        {{"ComposeOIT"},
+         resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
+         resourcesRootDir + "Shaders/2DShaders/ComposeOIT.frag.glsl"} );
 }
 
 void ForwardRenderer::initBuffers() {
@@ -287,7 +287,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
         GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
         GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
         {
-            auto shader = m_shaderMgr->getShaderProgram( "ComposeOIT" );
+            auto shader = m_shaderProgramManager->getShaderProgram( "ComposeOIT" );
             shader->bind();
             shader->setUniform( "u_OITSumColor", m_textures[RendererTextures_OITAccum].get(), 0 );
             shader->setUniform(
@@ -328,7 +328,7 @@ void ForwardRenderer::renderInternal( const ViewingParameters& renderData ) {
         GL_ASSERT( glEnable( GL_BLEND ) );
         GL_ASSERT( glBlendFunc( GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA ) );
         {
-            auto shader = m_shaderMgr->getShaderProgram( "ComposeVolume" );
+            auto shader = m_shaderProgramManager->getShaderProgram( "ComposeVolume" );
             shader->bind();
             shader->setUniform( "volumeImage", m_textures[RendererTextures_Volume].get(), 0 );
             m_quadMesh->render( shader );
@@ -480,7 +480,7 @@ void ForwardRenderer::postProcessInternal( const ViewingParameters& renderData )
     GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
     GL_ASSERT( glDepthMask( GL_FALSE ) );
 
-    const ShaderProgram* shader = m_shaderMgr->getShaderProgram( "Hdr2Ldr" );
+    const ShaderProgram* shader = m_shaderProgramManager->getShaderProgram( "Hdr2Ldr" );
     shader->bind();
     shader->setUniform( "screenTexture", m_textures[RendererTextures_HDR].get(), 0 );
     m_quadMesh->render( shader );

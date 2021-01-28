@@ -49,19 +49,25 @@ void RadiumEngine::initialize() {
         LOG( logERROR ) << "Default resources dir not found.";
         exit( -1 );
     }
-    m_resourcesRootDir    = *resourceDir;
-    m_signalManager       = std::make_unique<SignalManager>();
-    m_entityManager       = std::make_unique<EntityManager>();
-    m_renderObjectManager = std::make_unique<RenderObjectManager>();
-    m_textureManager      = std::make_unique<TextureManager>();
+    m_resourcesRootDir     = *resourceDir;
+    m_signalManager        = std::make_unique<SignalManager>();
+    m_entityManager        = std::make_unique<EntityManager>();
+    m_renderObjectManager  = std::make_unique<RenderObjectManager>();
+    m_textureManager       = std::make_unique<TextureManager>();
+    m_shaderProgramManager = std::make_unique<ShaderProgramManager>();
+
     m_loadedFile.reset();
     ComponentMessenger::createInstance();
     m_loadingState = false;
 }
 
+void RadiumEngine::initializeGL() {
+    registerDefaultPrograms();
+}
+
 void RadiumEngine::registerDefaultPrograms() {
-    auto shaderProgramManager = ShaderProgramManager::getInstance();
-    CORE_ASSERT( shaderProgramManager != nullptr,
+
+    CORE_ASSERT( m_shaderProgramManager != nullptr,
                  "ShaderProgramManager needs to be created first" );
 
     // Create named strings which correspond to shader files that you want to use in shaders's
@@ -71,13 +77,13 @@ void RadiumEngine::registerDefaultPrograms() {
     // Engine::Initialize .... Define a better ressources management and initialization
     // Add named string require opengl context, must be init before (e.g. by viewer)
     /* Default definiton of a transformation matrices struct */
-    shaderProgramManager->addNamedString(
+    m_shaderProgramManager->addNamedString(
         "/TransformStructs.glsl", m_resourcesRootDir + "Shaders/Transform/TransformStructs.glsl" );
-    shaderProgramManager->addNamedString( "/DefaultLight.glsl",
-                                          m_resourcesRootDir + "Shaders/Lights/DefaultLight.glsl" );
+    m_shaderProgramManager->addNamedString(
+        "/DefaultLight.glsl", m_resourcesRootDir + "Shaders/Lights/DefaultLight.glsl" );
 
     // VertexAttribInterface :add this name string so that each material could include the same code
-    ShaderProgramManager::getInstance()->addNamedString(
+    m_shaderProgramManager->addNamedString(
         "/VertexAttribInterface.frag.glsl",
         m_resourcesRootDir + "Shaders/Materials/VertexAttribInterface.frag.glsl" );
 
@@ -117,6 +123,9 @@ void RadiumEngine::cleanup() {
     m_signalManager->setOn( false );
     m_entityManager.reset();
     m_renderObjectManager.reset();
+    m_textureManager.reset( nullptr );
+    m_shaderProgramManager.reset( nullptr );
+
     m_loadedFile.reset();
 
     for ( auto& system : m_systems )
@@ -125,7 +134,7 @@ void RadiumEngine::cleanup() {
     }
 
     ComponentMessenger::destroyInstance();
-    ShaderProgramManager::destroyInstance();
+
     m_loadingState = false;
 }
 
@@ -277,6 +286,10 @@ SignalManager* RadiumEngine::getSignalManager() const {
 
 TextureManager* RadiumEngine::getTextureManager() const {
     return m_textureManager.get();
+}
+
+ShaderProgramManager* RadiumEngine::getShaderProgramManager() const {
+    return m_shaderProgramManager.get();
 }
 
 void RadiumEngine::registerFileLoader( std::shared_ptr<FileLoaderInterface> fileLoader ) {

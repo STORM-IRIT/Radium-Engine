@@ -38,9 +38,12 @@ namespace Engine {
  */
 class RA_ENGINE_API ShaderProgramManager final
 {
-    RA_SINGLETON_INTERFACE( ShaderProgramManager );
 
   public:
+    /// TODO ? need Initialization after ctr and before use
+    ShaderProgramManager();
+    ~ShaderProgramManager();
+
     /**
      * Add a shader program to the program collection according to the given configuration.
      * This method must be called only once an opeGL context is bound.
@@ -99,9 +102,6 @@ class RA_ENGINE_API ShaderProgramManager final
     void reloadNamedString();
 
   private:
-    /// need Initialization after ctr and before use
-    ShaderProgramManager();
-    ~ShaderProgramManager();
     void insertShader( const ShaderConfiguration& config,
                        const std::shared_ptr<ShaderProgram>& shader );
 

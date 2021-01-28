@@ -55,7 +55,6 @@ constexpr int defaultSystemPriority = 1000;
 
 BaseApplication::BaseApplication( int& argc,
                                   char** argv,
-                                  const WindowFactory& factory,
                                   QString applicationName,
                                   QString organizationName ) :
     QApplication( argc, argv ),
@@ -80,11 +79,10 @@ BaseApplication::BaseApplication( int& argc,
     QCoreApplication::setApplicationName( applicationName );
 
     m_targetFPS = 60; // Default
-    // TODO at startup, only load "standard plugins". This must be extended.
-    auto pluginsPathOptional {Core::Resources::getRadiumPluginsPath()};
-    auto pluginsPath = pluginsPathOptional.value_or( "[[Default plugin path not found]]" );
     ///\todo check optional
-    QCommandLineParser parser;
+    m_parser = new QCommandLineParser;
+
+    QCommandLineParser& parser {*m_parser};
     parser.setApplicationDescription( "Radium Engine RPZ, TMTC" );
     parser.addHelpOption();
     parser.addVersionOption();
@@ -137,7 +135,7 @@ BaseApplication::BaseApplication( int& argc,
     parser.process( *this );
 
     if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
-    if ( parser.isSet( pluginOpt ) ) pluginsPath = parser.value( pluginOpt ).toStdString();
+    if ( parser.isSet( pluginOpt ) ) m_pluginPath = parser.value( pluginOpt ).toStdString();
     if ( parser.isSet( numFramesOpt ) ) m_numFrames = parser.value( numFramesOpt ).toUInt();
     if ( parser.isSet( maxThreadsOpt ) ) m_maxThreads = parser.value( maxThreadsOpt ).toUInt();
     if ( parser.isSet( recordOpt ) )
@@ -198,6 +196,12 @@ BaseApplication::BaseApplication( int& argc,
 
     LOG( logINFO ) << "Max Thread: " << m_maxThreads;
 
+    // Create the instance of the keymapping manager, before creating
+    // Qt main windows, which may throw events on Microsoft Windows
+    Gui::KeyMappingManager::createInstance();
+}
+
+void BaseApplication::initialize( const WindowFactory& factory ) {
     // Create default format for Qt.
     QSurfaceFormat format;
     format.setVersion( 4, 4 );
@@ -209,37 +213,31 @@ BaseApplication::BaseApplication( int& argc,
     format.setSwapInterval( 0 );
     QSurfaceFormat::setDefaultFormat( format );
 
-    // Create the instance of the keymapping manager, before creating
-    // Qt main windows, which may throw events on Microsoft Windows
-    Gui::KeyMappingManager::createInstance();
-
+    // == Configure Engine and basic scene services //
     // Create engine
     m_engine.reset( Engine::RadiumEngine::createInstance() );
     m_engine->initialize();
 
-    // Register the GeometrySystem converting loaded assets to meshes
-    m_engine->registerSystem(
-        "GeometrySystem", new Ra::Engine::GeometrySystem, defaultSystemPriority );
-    // Register the TimeSystem managing time dependant systems
-    Scalar dt = ( m_targetFPS == 0 ? 1_ra / 60_ra : 1_ra / m_targetFPS );
-    m_engine->setConstantTimeStep( dt );
+    // Configure Engine basic scene services (non openGL dependant)
+    engineBaseInitialization();
 
+    // == Configure OpenGL context and drawing/application window //
     // Create main window.
     m_mainWindow.reset( factory.createMainWindow() );
-    m_mainWindow->show();
-
     m_viewer = m_mainWindow->getViewer();
+    CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
     m_viewer->setupKeyMappingCallbacks();
 
-    CORE_ASSERT( m_viewer != nullptr, "GUI was not initialized" );
-    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
-    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
-
+    // == Configure event management on the drawing/application window
     // Connect the signals and allow all pending events to be processed
     // (thus the viewer should have initialized the OpenGL context..)
     createConnections();
-    processEvents();
+    m_mainWindow->show();
+    // processEvents();
+    CORE_ASSERT( m_viewer->getContext() != nullptr, "OpenGL context was not created" );
+    CORE_ASSERT( m_viewer->getContext()->isValid(), "OpenGL was not initialized" );
 
+    // == Configure Application plugins == //
     // Initialize plugin context
     m_pluginContext.m_engine           = m_engine.get();
     m_pluginContext.m_selectionManager = m_mainWindow->getSelectionManager();
@@ -255,9 +253,14 @@ BaseApplication::BaseApplication( int& argc,
     connect(
         &m_pluginContext, &Plugins::Context::askForUpdate, this, &BaseApplication::askForUpdate );
 
+    QCommandLineParser& parser {*m_parser};
+    // TODO at startup, only load "standard plugins". This must be extended.
+    auto pluginsPathOptional {Core::Resources::getRadiumPluginsPath()};
+    auto pluginsPath = pluginsPathOptional.value_or( "[[Default plugin path not found]]" );
+
     // Load installed plugins plugins
     if ( !loadPlugins(
-             pluginsPath, parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) ) )
+             pluginsPath, parser.values( "loadPlugin" ), parser.values( "ignorePlugin" ) ) )
     { LOG( logDEBUG ) << "No plugin found in default path " << pluginsPath; }
     // load supplemental plugins
     {
@@ -266,10 +269,10 @@ BaseApplication::BaseApplication( int& argc,
         for ( const auto s : plunginPaths )
         {
             loadPlugins(
-                s.toStdString(), parser.values( pluginLoadOpt ), parser.values( pluginIgnoreOpt ) );
+                s.toStdString(), parser.values( "loadPlugin" ), parser.values( "ignorePlugin" ) );
         }
     }
-
+    // == Configure bundled Radium::IO services == //
     // Make builtin loaders the fallback if no plugins can load some file format
 #ifdef IO_USE_TINYPLY
     // Register before AssimpFileLoader, in order to ease override of such
@@ -284,6 +287,9 @@ BaseApplication::BaseApplication( int& argc,
         std::shared_ptr<FileLoaderInterface>( new IO::AssimpFileLoader() ) );
 #endif
 
+    // Allow derived application to add custom plugins and services
+    addApplicationExtension();
+
     // Create task queue with N-1 threads (we keep one for rendering),
     // unless monothread CPU
     uint numThreads =
@@ -294,17 +300,17 @@ BaseApplication::BaseApplication( int& argc,
     emit starting();
 
     // Files have been required, load them.
-    if ( parser.isSet( fileOpt ) )
+    if ( parser.isSet( "scene" ) )
     {
-        for ( const auto& filename : parser.values( fileOpt ) )
+        for ( const auto& filename : parser.values( "scene" ) )
         {
             loadFile( filename );
         }
     }
     // A camera has been required, load it.
-    if ( parser.isSet( camOpt ) )
+    if ( parser.isSet( "camera" ) )
     {
-        if ( loadFile( parser.value( camOpt ) ) )
+        if ( loadFile( parser.value( "camera" ) ) )
         {
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
             auto camera = static_cast<Engine::Camera*>( entity->getComponents()[0].get() );
@@ -319,11 +325,30 @@ BaseApplication::BaseApplication( int& argc,
     m_frameTimer->start( deltaTime );
 }
 
+void BaseApplication::engineBaseInitialization() {
+    // Register the GeometrySystem converting loaded assets to meshes
+    m_engine->registerSystem(
+        "GeometrySystem", new Ra::Engine::GeometrySystem, defaultSystemPriority );
+    // Register the TimeSystem managing time dependant systems
+    Scalar dt = ( m_targetFPS == 0 ? 1_ra / 60_ra : 1_ra / m_targetFPS );
+    m_engine->setConstantTimeStep( dt );
+}
+void BaseApplication::engineOpenGLInitialize() {
+    // initialize here the OpenGL part of the engine used by the application
+    m_engine->initializeGL();
+}
+
 void BaseApplication::createConnections() {
+    // Connect the signals to lambda calling virtual methods
+    // connect( m_viewer, &Gui::Viewer::requestEngineOpenGLInitialization, this,
+    // &BaseApplication::engineOpenGLInitialize );
+    connect( m_viewer, &Gui::Viewer::requestEngineOpenGLInitialization, [this]() {
+        this->engineOpenGLInitialize();
+    } );
+    connect( m_viewer, &Gui::Viewer::glInitialized, this, &BaseApplication::initializeGl );
+
     connect(
         m_mainWindow.get(), &MainWindowInterface::closed, this, &BaseApplication::appNeedsToQuit );
-    connect(
-        m_viewer, &Gui::Viewer::glInitialized, this, &BaseApplication::initializeOpenGlPlugins );
     connect( this, &QGuiApplication::lastWindowClosed, m_viewer, &Gui::WindowQt::cleanupGL );
 
     connect( m_viewer, &Gui::Viewer::needUpdate, this, &BaseApplication::askForUpdate );
@@ -448,15 +473,14 @@ void BaseApplication::appNeedsToQuit() {
     m_isAboutToQuit = true;
 }
 
-void BaseApplication::initializeOpenGlPlugins() {
-    // Initialize plugins that depends on Initialized OpenGL (if any)
+void BaseApplication::initializeGl() {
+    // Initialize opengl plugins added before openGL was ready
     if ( !m_openGLPlugins.empty() )
     {
         for ( auto plugin : m_openGLPlugins )
         {
-            m_viewer->makeCurrent();
+
             plugin->openGlInitialize( m_pluginContext );
-            m_viewer->doneCurrent();
         }
         m_openGLPlugins.clear();
     }

@@ -144,6 +144,7 @@ int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Renderer>& e ) {
     // initial state and lighting (deferred if GL is not ready yet)
     if ( m_glInitialized.load() )
     {
+        LOG( logINFO ) << "[Viewer] New Renderer (" << e->getRendererName() << ") added.";
         makeCurrent();
         initializeRenderer( e.get() );
         doneCurrent();
@@ -151,7 +152,7 @@ int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Renderer>& e ) {
     else
     {
         LOG( logINFO ) << "[Viewer] New Renderer (" << e->getRendererName()
-                       << ") added before GL being Ready: deferring initialization...";
+                       << ") added with deferred init.";
     }
 
     m_renderers.push_back( e );
@@ -301,14 +302,12 @@ void Gui::Viewer::enableDebug() {
 void Gui::Viewer::reloadShaders() {
     CORE_ASSERT( m_glInitialized.load(), "OpenGL needs to be initialized reload shaders." );
 
+    makeCurrent();
     // FIXME : check thread-saefty of this.
     m_currentRenderer->lockRendering();
-
-    makeCurrent();
     m_currentRenderer->reloadShaders();
-    doneCurrent();
-
     m_currentRenderer->unlockRendering();
+    doneCurrent();
 
     emit needUpdate();
 }
@@ -405,7 +404,8 @@ void Gui::Viewer::initializeRenderer( Engine::Renderer* renderer ) {
     renderer->initialize( width(), height() );
     renderer->setBackgroundColor( m_backgroundColor );
     // resize camera viewport since it might be 0x0
-    m_camera->resizeViewport( width(), height() );
+    // Why this line ?TODO -- Move this at the right place
+    // m_camera->resizeViewport( width(), height() );
     // do this only when the renderer has something to render and that there is no lights
     /*
     if ( m_camera->hasLightAttached() )
@@ -427,8 +427,11 @@ bool Gui::Viewer::initializeGL() {
     LOG( logINFO ) << "GLSL                 : "
                    << gl::glGetString( gl::GLenum( GL_SHADING_LANGUAGE_VERSION ) );
 
-    Engine::ShaderProgramManager::createInstance();
-    Engine::RadiumEngine::getInstance()->registerDefaultPrograms();
+    // emit the signal so that the application might initialize the OpenGL part of the Engine
+    emit requestEngineOpenGLInitialization();
+
+    // Configure the viewer services
+    LOG( logINFO ) << "*** Radium Engine Viewer ***";
 
     createGizmoManager();
     // create default camera interface : trackball
@@ -438,36 +441,22 @@ bool Gui::Viewer::initializeGL() {
     headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
     m_camera->attachLight( headlight );
 
+    emit glInitialized();
     m_glInitialized = true;
-    makeCurrent();
 
-    LOG( logINFO ) << "*** Radium Engine Viewer ***";
-
-    // initialize renderers added before GL was ready
-    if ( !m_renderers.empty() )
+    if ( m_renderers.empty() )
     {
+        LOG( logINFO ) << "[Viewer] No renderer added, adding default (Forward Renderer)";
+        std::shared_ptr<Ra::Engine::Renderer> e( new Ra::Engine::ForwardRenderer() );
+        addRenderer( e );
+    }
+    else
+    {
+        // initialize renderers already added
         for ( auto& rptr : m_renderers )
         {
             initializeRenderer( rptr.get() );
-            LOG( logINFO ) << "[Viewer] Deferred initialization of " << rptr->getRendererName();
         }
-    }
-
-    emit glInitialized();
-    doneCurrent();
-
-    // this code is usefull only if glInitialized() connected slot does not add a renderer
-    // On Windows, actually, the signal seems to be not fired (DLL_IMPORT/EXPORT problem ?
-    if ( m_renderers.empty() )
-    {
-        LOG( logINFO )
-            << "Renderers fallback: no renderer added, enabling default (Forward Renderer)";
-
-        makeCurrent();
-        std::shared_ptr<Ra::Engine::Renderer> e( new Ra::Engine::ForwardRenderer() );
-        doneCurrent();
-
-        addRenderer( e );
     }
 
     if ( m_currentRenderer == nullptr ) { changeRenderer( 0 ); }
@@ -479,13 +468,11 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
     int width  = event->size().width();
     int height = event->size().height();
     // Renderer should have been locked by previous events.
-    makeCurrent();
 #ifndef OS_MACOS
     gl::glViewport( 0, 0, width, height );
 #endif
     m_camera->resizeViewport( width, height );
     m_currentRenderer->resize( width, height );
-    doneCurrent();
     emit needUpdate();
 }
 
