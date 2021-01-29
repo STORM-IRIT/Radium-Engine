@@ -93,8 +93,7 @@ std::shared_ptr<Engine::Rendering::RenderTechnique> Gizmo::makeRenderTechnique( 
     auto plaincfg = Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "Plain" );
     auto provider = new Gizmo::UiSelectionControler( s_material[color] );
     rt->setConfiguration( *plaincfg );
-    rt->setParametersProvider(
-        std::shared_ptr<Engine::Rendering::ShaderParameterProvider>( provider ) );
+    rt->setParametersProvider( std::shared_ptr<Engine::Data::ShaderParameterProvider>( provider ) );
     return rt;
 }
 

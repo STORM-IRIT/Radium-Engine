@@ -1,12 +1,11 @@
 #pragma once
-#include "RenderParameters.hpp"
-#include <Engine/Data/ShaderProgram.hpp>
-
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
+namespace Data {
+
 template <typename T>
 inline void
 RenderParameters::UniformBindableSet<T>::bind( const Data::ShaderProgram* shader ) const {
@@ -123,6 +122,6 @@ RenderParameters::getParameterSet() const {
     return m_texParamsVector;
 }
 
-} // namespace Rendering
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

@@ -17,7 +17,7 @@ class Texture;
 class ShaderProgram;
 } // namespace Data
 
-namespace Rendering {
+namespace Data {
 
 /**
  * Management of shader parameters with automatic binding of a named parameter to the corresponding
@@ -251,9 +251,8 @@ class RA_ENGINE_API ShaderParameterProvider
     RenderParameters m_renderParameters;
 };
 
-} // namespace Rendering
+} // namespace Data
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Data/ShaderProgram.hpp>
-#include <Engine/Rendering/RenderParameters.inl>
+#include <Engine/Data/RenderParameters.inl>

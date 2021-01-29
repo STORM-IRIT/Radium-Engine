@@ -14,10 +14,10 @@ namespace Engine {
 namespace Data {
 class Material;
 class ShaderProgram;
+class ShaderParameterProvider;
 } // namespace Data
 
 namespace Rendering {
-class ShaderParameterProvider;
 
 /**
  * Default render pass ids
@@ -124,15 +124,15 @@ class RA_ENGINE_API RenderTechnique final
      * @param pass The index of the pass to set. If this -1, all active passes will share the same
      * provider.
      */
-    void setParametersProvider( std::shared_ptr<ShaderParameterProvider> provider,
+    void setParametersProvider( std::shared_ptr<Data::ShaderParameterProvider> provider,
                                 Core::Utils::Index pass = Core::Utils::Index( -1 ) );
 
     /**
      * Get the Data::ShaderProgram parameters associated with the pass
      * @param pass The index of the pass
-     * @return  The pass ShaderParameterProvider if the pass is configured, nullptr otherwise.
+     * @return  The pass Data::ShaderParameterProvider if the pass is configured, nullptr otherwise.
      */
-    const ShaderParameterProvider* getParametersProvider(
+    const Data::ShaderParameterProvider* getParametersProvider(
         Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
 
     /**
@@ -184,7 +184,8 @@ class RA_ENGINE_API RenderTechnique final
     /// A Configuration set is a fixed-sized array of m_maxNbPasses (32) passes
     using ConfigurationSet = std::array<PassConfiguration, s_maxNbPasses>;
     /// Rendering parameters associated to the configurationSet
-    using PassesParameters = std::array<std::shared_ptr<ShaderParameterProvider>, s_maxNbPasses>;
+    using PassesParameters =
+        std::array<std::shared_ptr<Data::ShaderParameterProvider>, s_maxNbPasses>;
 
     /// Configuration for all active passes of the technique
     ConfigurationSet m_activePasses;

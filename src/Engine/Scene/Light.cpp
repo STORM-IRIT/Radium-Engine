@@ -1,7 +1,7 @@
 #include <Engine/Scene/Light.hpp>
 
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Rendering/RenderParameters.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -9,7 +9,7 @@ namespace Scene {
 Light::Light( Scene::Entity* entity, const LightType& type, const std::string& name ) :
     Component( name, entity ), m_type( type ) {}
 
-void Light::getRenderParameters( Rendering::RenderParameters& params ) const {
+void Light::getRenderParameters( Data::RenderParameters& params ) const {
     params.addParameter( "light.color", m_color );
     params.addParameter( "light.type", m_type );
 }

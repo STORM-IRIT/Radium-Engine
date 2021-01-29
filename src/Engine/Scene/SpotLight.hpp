@@ -21,7 +21,7 @@ class RA_ENGINE_API SpotLight final : public Ra::Engine::Scene::Light
     explicit SpotLight( Entity* entity, const std::string& name = "spotlight" );
     ~SpotLight() override = default;
 
-    void getRenderParameters( Rendering::RenderParameters& params ) const override;
+    void getRenderParameters( Data::RenderParameters& params ) const override;
 
     void setPosition( const Eigen::Matrix<Scalar, 3, 1>& position ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;

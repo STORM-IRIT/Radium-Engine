@@ -1,6 +1,6 @@
 #include <Engine/Data/SimpleMaterial.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Scene/TextureManager.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -39,7 +39,7 @@ void SimpleMaterial::updateRenderingParameters() {
 void SimpleMaterial::updateGL() {
     if ( !m_isDirty ) { return; }
     // Load textures
-    Scene::TextureManager* texManager = RadiumEngine::getInstance()->getTextureManager();
+    Data::TextureManager* texManager = RadiumEngine::getInstance()->getTextureManager();
     for ( const auto& tex : m_pendingTextures )
     {
         // ask to convert color textures from sRGB to Linear RGB

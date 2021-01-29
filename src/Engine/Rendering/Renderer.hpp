@@ -29,13 +29,13 @@ class Camera;
 class Texture;
 struct ViewingParameters;
 class ShaderProgram;
+class ShaderProgramManager;
+class TextureManager;
 } // namespace Data
 
 namespace Scene {
-class TextureManager;
 class Light;
 class LightManager;
-class ShaderProgramManager;
 } // namespace Scene
 
 namespace Rendering {
@@ -394,7 +394,7 @@ class RA_ENGINE_API Renderer
     /// It is guaranteed that the lifetime of the engine is longer than the lifetime of a Renderer.
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-raw
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr
-    Scene::ShaderProgramManager* m_shaderProgramManager {nullptr};
+    Data::ShaderProgramManager* m_shaderProgramManager {nullptr};
 
     /// This raw pointer is used as an alias to a std::unique_ptr own by the engine.
     /// It is guaranteed that the lifetime of the engine is longer than the lifetime of a Renderer.

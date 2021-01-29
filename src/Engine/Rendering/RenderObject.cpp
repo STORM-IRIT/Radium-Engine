@@ -4,9 +4,9 @@
 
 #include <Engine/Data/DisplayableObject.hpp>
 #include <Engine/Data/Material.hpp>
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
-#include <Engine/Rendering/RenderParameters.hpp>
 #include <Engine/Scene/Component.hpp>
 
 // STRANGE : only needed to access to the entity and its transform for components --> refactor
@@ -217,10 +217,10 @@ void RenderObject::hasExpired() {
     m_component->notifyRenderObjectExpired( m_idx );
 }
 
-void RenderObject::render( const Rendering::RenderParameters& lightParams,
+void RenderObject::render( const Data::RenderParameters& lightParams,
                            const Data::ViewingParameters& viewParams,
                            const Data::ShaderProgram* shader,
-                           const Rendering::RenderParameters& shaderParams ) {
+                           const Data::RenderParameters& shaderParams ) {
     if ( !m_visible || !shader ) { return; }
     // Radium V2 : avoid this temporary
     Core::Matrix4 modelMatrix  = getTransformAsMatrix();
@@ -242,7 +242,7 @@ void RenderObject::render( const Rendering::RenderParameters& lightParams,
     m_mesh->render( shader );
 }
 
-void RenderObject::render( const RenderParameters& lightParams,
+void RenderObject::render( const Data::RenderParameters& lightParams,
                            const Data::ViewingParameters& viewParams,
                            Core::Utils::Index passId ) {
     if ( m_visible )
@@ -254,7 +254,7 @@ void RenderObject::render( const RenderParameters& lightParams,
         render( lightParams,
                 viewParams,
                 shader,
-                paramsProvider ? paramsProvider->getParameters() : RenderParameters() );
+                paramsProvider ? paramsProvider->getParameters() : Data::RenderParameters() );
     }
 }
 

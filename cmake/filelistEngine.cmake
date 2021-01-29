@@ -7,11 +7,14 @@ set( engine_sources
     Data/Mesh.cpp
     Data/PlainMaterial.cpp
     Data/RawShaderMaterial.cpp
+    Data/RenderParameters.cpp
     Data/ShaderConfigFactory.cpp
     Data/ShaderConfiguration.cpp
     Data/ShaderProgram.cpp
+    Data/ShaderProgramManager.cpp
     Data/SimpleMaterial.cpp
     Data/Texture.cpp
+    Data/TextureManager.cpp
     Data/VolumeObject.cpp
     Data/VolumetricMaterial.cpp
     RadiumEngine.cpp
@@ -20,7 +23,6 @@ set( engine_sources
     Rendering/Renderer.cpp
     Rendering/RenderObject.cpp
     Rendering/RenderObjectManager.cpp
-    Rendering/RenderParameters.cpp
     Rendering/RenderTechnique.cpp
     Scene/Camera.cpp
     Scene/CameraManager.cpp
@@ -37,12 +39,10 @@ set( engine_sources
     Scene/Light.cpp
     Scene/LightManager.cpp
     Scene/PointLight.cpp
-    Scene/ShaderProgramManager.cpp
     Scene/SignalManager.cpp
     Scene/SpotLight.cpp
     Scene/System.cpp
     Scene/SystemDisplay.cpp
-    Scene/TextureManager.cpp
 )
 
 set( engine_headers
@@ -55,11 +55,14 @@ set( engine_headers
     Data/Mesh.hpp
     Data/PlainMaterial.hpp
     Data/RawShaderMaterial.hpp
+    Data/RenderParameters.hpp
     Data/ShaderConfigFactory.hpp
     Data/ShaderConfiguration.hpp
     Data/ShaderProgram.hpp
+    Data/ShaderProgramManager.hpp
     Data/SimpleMaterial.hpp
     Data/Texture.hpp
+    Data/TextureManager.hpp
     Data/VolumeObject.hpp
     Data/VolumetricMaterial.hpp
     FrameInfo.hpp
@@ -72,7 +75,6 @@ set( engine_headers
     Rendering/RenderObject.hpp
     Rendering/RenderObjectManager.hpp
     Rendering/RenderObjectTypes.hpp
-    Rendering/RenderParameters.hpp
     Rendering/RenderTechnique.hpp
     Rendering/ViewingParameters.hpp
     Scene/Camera.hpp
@@ -93,12 +95,10 @@ set( engine_headers
     Scene/LightManager.hpp
     Scene/LightStorage.hpp
     Scene/PointLight.hpp
-    Scene/ShaderProgramManager.hpp
     Scene/SignalManager.hpp
     Scene/SpotLight.hpp
     Scene/SystemDisplay.hpp
     Scene/System.hpp
-    Scene/TextureManager.hpp
 )
 
 set( engine_inlines
@@ -106,11 +106,11 @@ set( engine_inlines
     Data/Material.inl
     Data/Mesh.inl
     Data/RawShaderMaterial.inl
+    Data/RenderParameters.inl
     Data/ShaderProgram.inl
     Data/SimpleMaterial.inl
     Data/VolumeObject.inl
     Data/VolumetricMaterial.inl
-    Rendering/RenderParameters.inl
     Rendering/RenderTechnique.inl
     Scene/Camera.inl
     Scene/Component.inl

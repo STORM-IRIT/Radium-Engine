@@ -3,9 +3,9 @@
 #include <Engine/Data/DrawPrimitives.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Scene/ShaderProgramManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
@@ -31,7 +31,7 @@ DebugRender::~DebugRender() = default;
 void DebugRender::initialize() {
     /// FIXME : this was not ported to globject ...
     /// \todo FIXED but not tested
-    auto setShader = []( Scene::ShaderProgramManager* manager,
+    auto setShader = []( Data::ShaderProgramManager* manager,
                          const std::string& configName,
                          const char* vertexShader,
                          const char* fragmentShader ) -> const Data::ShaderProgram* {

@@ -2,14 +2,15 @@
 
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/Data/ShaderProgramManager.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
-#include <Engine/Scene/ShaderProgramManager.hpp>
-#include <Engine/Scene/TextureManager.hpp>
 
 namespace Ra {
 namespace Engine {
 namespace Data {
+
 static const std::string materialName {"Plain"};
 
 PlainMaterial::PlainMaterial( const std::string& instanceName ) :
