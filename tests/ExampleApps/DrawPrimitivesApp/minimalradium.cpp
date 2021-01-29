@@ -12,8 +12,8 @@
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 
 #include <random>
@@ -32,7 +32,7 @@ void MinimalComponent::initialize() {
 
     using namespace Ra::Core;
     using namespace Ra::Engine;
-    using namespace Ra::Engine::Renderer;
+    using namespace Ra::Engine::Rendering;
     using namespace Ra::Engine::Data;
     using namespace Ra::Engine::Scene;
 

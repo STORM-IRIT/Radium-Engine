@@ -2,14 +2,14 @@
 
 #include <Core/Geometry/RayCast.hpp>
 #include <Engine/Data/Mesh.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
-#include <Engine/Renderer/RenderTechnique.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
 #include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
@@ -83,18 +83,18 @@ bool Gizmo::findPointOnPlane( const Engine::Scene::Camera& cam,
     return hasHit;
 }
 
-void Gizmo::addRenderObject( Engine::Renderer::RenderObject* ro ) {
+void Gizmo::addRenderObject( Engine::Rendering::RenderObject* ro ) {
     m_comp->addRenderObject( ro );
     m_ros.push_back( ro );
 }
 
-std::shared_ptr<Engine::Renderer::RenderTechnique> Gizmo::makeRenderTechnique( int color ) {
-    auto rt       = Core::make_shared<Engine::Renderer::RenderTechnique>();
-    auto plaincfg = Ra::Engine::Renderer::ShaderConfigurationFactory::getConfiguration( "Plain" );
+std::shared_ptr<Engine::Rendering::RenderTechnique> Gizmo::makeRenderTechnique( int color ) {
+    auto rt       = Core::make_shared<Engine::Rendering::RenderTechnique>();
+    auto plaincfg = Ra::Engine::Rendering::ShaderConfigurationFactory::getConfiguration( "Plain" );
     auto provider = new Gizmo::UiSelectionControler( s_material[color] );
     rt->setConfiguration( *plaincfg );
     rt->setParametersProvider(
-        std::shared_ptr<Engine::Renderer::ShaderParameterProvider>( provider ) );
+        std::shared_ptr<Engine::Rendering::ShaderParameterProvider>( provider ) );
     return rt;
 }
 

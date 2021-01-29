@@ -1,6 +1,6 @@
 #include <Core/Resources/Resources.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/ShaderConfiguration.hpp>
+#include <Engine/Rendering/ShaderConfiguration.hpp>
 /**
  * Plain will be the default shader program
  */
@@ -15,7 +15,7 @@ static const std::string defaultFragmentShader {
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 std::ostream& operator<<( std::ostream& stream, const ShaderConfiguration& config ) {
 
@@ -168,6 +168,6 @@ ShaderConfiguration::getNamedStrings() const {
     return m_named_strings;
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

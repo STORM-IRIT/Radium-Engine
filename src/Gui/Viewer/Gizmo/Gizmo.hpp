@@ -7,8 +7,8 @@
 #include <Core/Utils/Index.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/RenderParameters.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderParameters.hpp>
 #include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
@@ -24,7 +24,7 @@ namespace Scene {
 class Component;
 } // namespace Scene
 
-namespace Renderer {
+namespace Rendering {
 class RenderTechnique;
 }
 } // namespace Engine
@@ -98,10 +98,10 @@ class Gizmo
                                   std::vector<Scalar>& hits );
 
     /// read access to the gizmo render objects id
-    inline const std::vector<Engine::Renderer::RenderObject*>& ros() const { return m_ros; }
+    inline const std::vector<Engine::Rendering::RenderObject*>& ros() const { return m_ros; }
 
     /// add a render object to display the Gizmo
-    void addRenderObject( Engine::Renderer::RenderObject* ro );
+    void addRenderObject( Engine::Rendering::RenderObject* ro );
 
     /** Generate a the rendertechnique to draw the gizmo using the required color :
      * 0-Red, 1-Green, 2-Blue.
@@ -109,7 +109,7 @@ class Gizmo
      * configuration used to draw the gizmo. It is this provider that manage the appeartance
      * changes when the selection state changes on the gizmo.
      */
-    static std::shared_ptr<Engine::Renderer::RenderTechnique> makeRenderTechnique( int color );
+    static std::shared_ptr<Engine::Rendering::RenderTechnique> makeRenderTechnique( int color );
 
     /** The Materials used to diplay the gizmo: 0-Red, 1-Green, 2-Blue.
      *  The material are shared accros gizmos. This might allow coherent dynamic style for
@@ -132,7 +132,7 @@ class Gizmo
      * When the selection state of a gizmo component changes, notify its rendertechnique through
      * a call to toggleState.
      */
-    class UiSelectionControler final : public Engine::Renderer::ShaderParameterProvider
+    class UiSelectionControler final : public Engine::Rendering::ShaderParameterProvider
     {
       public:
         /// Construct a controler given a material and the color to used when selected
@@ -164,7 +164,7 @@ class Gizmo
     Gizmo::UiSelectionControler* getControler( int ro );
 
   private:
-    std::vector<Engine::Renderer::RenderObject*> m_ros; ///< ros for the gizmo.
+    std::vector<Engine::Rendering::RenderObject*> m_ros; ///< ros for the gizmo.
 };
 } // namespace Gui
 } // namespace Ra

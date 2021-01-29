@@ -2,10 +2,10 @@
 
 #include <Engine/Data/Texture.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderTechnique.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ShaderProgram.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
 #include <Engine/Scene/TextureManager.hpp>
 
 namespace Ra {
@@ -63,18 +63,18 @@ void VolumetricMaterial::registerMaterial() {
         "/Volumetric.glsl", resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.glsl" );
 
     // registering re-usable shaders
-    Renderer::ShaderConfiguration lpconfig(
+    Rendering::ShaderConfiguration lpconfig(
         "Volumetric",
         resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.frag.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     // registering re-usable shaders
-    Renderer::ShaderConfiguration trconfig(
+    Rendering::ShaderConfiguration trconfig(
         "VolumetricOIT",
         resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Volumetric/VolumetricOIT.frag.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( trconfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( trconfig );
 
     //    Ra::Engine::ShaderConfiguration zprepassconfig(
     //        "ZprepassRayMarching", "Shaders/Materials/RayMarching/RayMarching.vert.glsl",
@@ -87,10 +87,10 @@ void VolumetricMaterial::registerMaterial() {
     //    Ra::Engine::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
 
     // Registering technique
-    Renderer::EngineRenderTechniques::registerDefaultTechnique(
+    Rendering::EngineRenderTechniques::registerDefaultTechnique(
         "Volumetric",
 
-        []( Renderer::RenderTechnique& rt, bool /*isTransparent*/ ) {
+        []( Rendering::RenderTechnique& rt, bool /*isTransparent*/ ) {
             /*
             auto lightpassconfig =
                 Ra::Engine::ShaderConfigurationFactory::getConfiguration( "Volumetric" );
@@ -98,14 +98,14 @@ void VolumetricMaterial::registerMaterial() {
                                  DefaultRenderingPasses::LIGHTING_OPAQUE );
             */
             auto passconfig =
-                Renderer::ShaderConfigurationFactory::getConfiguration( "Volumetric" );
+                Rendering::ShaderConfigurationFactory::getConfiguration( "Volumetric" );
             rt.setConfiguration( *passconfig,
-                                 Renderer::DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
+                                 Rendering::DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
         } );
 }
 
 void VolumetricMaterial::unregisterMaterial() {
-    Renderer::EngineRenderTechniques::removeDefaultTechnique( "Volumetric" );
+    Rendering::EngineRenderTechniques::removeDefaultTechnique( "Volumetric" );
 }
 
 } // namespace Data

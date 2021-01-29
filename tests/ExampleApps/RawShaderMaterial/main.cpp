@@ -54,15 +54,15 @@ const std::string _fragmentShaderSource2 {
     "    out_color =  ( 1 + sin( 20 * ( in_pos.y + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
     "}\n"};
 
-const std::vector<std::pair<Ra::Engine::Renderer::ShaderType, std::string>> _config1 {
-    {Ra::Engine::Renderer::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
-    {Ra::Engine::Renderer::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource}};
+const std::vector<std::pair<Ra::Engine::Rendering::ShaderType, std::string>> _config1 {
+    {Ra::Engine::Rendering::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
+    {Ra::Engine::Rendering::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource}};
 
-const std::vector<std::pair<Ra::Engine::Renderer::ShaderType, std::string>> _config2 {
-    {Ra::Engine::Renderer::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
-    {Ra::Engine::Renderer::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource2}};
+const std::vector<std::pair<Ra::Engine::Rendering::ShaderType, std::string>> _config2 {
+    {Ra::Engine::Rendering::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
+    {Ra::Engine::Rendering::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource2}};
 
-class MyParameterProvider : public Ra::Engine::Renderer::ShaderParameterProvider
+class MyParameterProvider : public Ra::Engine::Rendering::ShaderParameterProvider
 {
   public:
     MyParameterProvider() {}
@@ -89,7 +89,7 @@ class MyParameterProvider : public Ra::Engine::Renderer::ShaderParameterProvider
  * @param app
  * @return The renderObject associated to the created component.
  */
-std::shared_ptr<Ra::Engine::Renderer::RenderObject> initQuad( Ra::Gui::BaseApplication& app ) {
+std::shared_ptr<Ra::Engine::Rendering::RenderObject> initQuad( Ra::Gui::BaseApplication& app ) {
     //! [Creating the quad]
     auto quad = Ra::Core::Geometry::makeZNormalQuad( {1_ra, 1_ra} );
 

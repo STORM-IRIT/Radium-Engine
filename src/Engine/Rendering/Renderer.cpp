@@ -1,4 +1,4 @@
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Rendering/Renderer.hpp>
 
 #include <Core/Asset/FileData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
@@ -8,11 +8,11 @@
 #include <Engine/Data/Texture.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
-#include <Engine/Renderer/ViewingParameters.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ShaderProgram.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
+#include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/LightManager.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 #include <Engine/Scene/TextureManager.hpp>
@@ -24,7 +24,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 using namespace Core::Utils; // log
 
@@ -722,6 +722,6 @@ int Renderer::buildAllRenderTechniques() const {
     return 0;
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

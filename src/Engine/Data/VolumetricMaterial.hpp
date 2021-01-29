@@ -11,7 +11,7 @@
 namespace Ra {
 
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 class ShaderProgram;
 }
 

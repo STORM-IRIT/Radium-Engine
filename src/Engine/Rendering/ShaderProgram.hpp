@@ -4,7 +4,7 @@
 
 #include <Core/Types.hpp>
 
-#include <Engine/Renderer/ShaderConfiguration.hpp>
+#include <Engine/Rendering/ShaderConfiguration.hpp>
 
 #include <array>
 #include <memory>
@@ -25,7 +25,7 @@ class Texture;
 
 }
 
-namespace Renderer {
+namespace Rendering {
 
 /**
  * Abstraction of OpenGL Shader Program
@@ -102,7 +102,7 @@ class RA_ENGINE_API ShaderProgram final
     std::unique_ptr<globjects::Program> m_program;
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra
 

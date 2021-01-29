@@ -12,7 +12,7 @@
 #include <Core/Utils/Log.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>

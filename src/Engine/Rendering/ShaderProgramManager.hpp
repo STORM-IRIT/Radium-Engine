@@ -17,7 +17,7 @@ class NamedString;
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 class ShaderProgram;
 class ShaderConfiguration;
 
@@ -113,6 +113,6 @@ class RA_ENGINE_API ShaderProgramManager final
         m_namedStrings;
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

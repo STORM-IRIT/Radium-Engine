@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Engine/Scene/Light.hpp>
 #include <Engine/RaEngine.hpp>
+#include <Engine/Scene/Light.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -19,7 +19,7 @@ class RA_ENGINE_API PointLight final : public Ra::Engine::Scene::Light
     explicit PointLight( Entity* entity, const std::string& name = "pointlight" );
     ~PointLight() override = default;
 
-    void getRenderParameters( Renderer::RenderParameters& params ) const override;
+    void getRenderParameters( Rendering::RenderParameters& params ) const override;
 
     void setPosition( const Eigen::Matrix<Scalar, 3, 1>& pos ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getPosition() const;

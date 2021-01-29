@@ -5,8 +5,8 @@
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Data/Mesh.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/RenderTechnique.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
 #include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
@@ -45,9 +45,9 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Scale Gizmo Arrow" ) );
         mesh->loadGeometry( std::move( cylinder ) );
 
-        Engine::Renderer::RenderObject* arrowDrawable = new Engine::Renderer::RenderObject(
-            "Scale Gizmo Arrow", m_comp, Engine::Renderer::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
+        Engine::Rendering::RenderObject* arrowDrawable = new Engine::Rendering::RenderObject(
+            "Scale Gizmo Arrow", m_comp, Engine::Rendering::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Rendering::RenderTechnique>( makeRenderTechnique( i ) );
         arrowDrawable->setRenderTechnique( rt );
         arrowDrawable->setMesh( mesh );
         addRenderObject( arrowDrawable );
@@ -73,9 +73,9 @@ ScaleGizmo::ScaleGizmo( Engine::Scene::Component* c,
         std::shared_ptr<Engine::Data::Mesh> mesh( new Engine::Data::Mesh( "Gizmo Plane" ) );
         mesh->loadGeometry( std::move( plane ) );
 
-        Engine::Renderer::RenderObject* planeDrawable = new Engine::Renderer::RenderObject(
-            "Gizmo Plane", m_comp, Engine::Renderer::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
+        Engine::Rendering::RenderObject* planeDrawable = new Engine::Rendering::RenderObject(
+            "Gizmo Plane", m_comp, Engine::Rendering::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Rendering::RenderTechnique>( makeRenderTechnique( i ) );
         planeDrawable->setRenderTechnique( rt );
         planeDrawable->setMesh( mesh );
         addRenderObject( planeDrawable );

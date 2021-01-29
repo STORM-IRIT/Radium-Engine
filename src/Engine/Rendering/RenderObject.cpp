@@ -1,11 +1,11 @@
-#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 
 #include <Engine/Data/DisplayableObject.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/OpenGL.hpp>
-#include <Engine/Renderer/RenderParameters.hpp>
+#include <Engine/Rendering/RenderParameters.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 
@@ -14,11 +14,11 @@
 #include <Engine/Scene/Entity.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
-#include <Engine/Renderer/ViewingParameters.hpp>
+#include <Engine/Rendering/ViewingParameters.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 RenderObject::RenderObject( const std::string& name,
                             Scene::Component* comp,
@@ -216,10 +216,10 @@ void RenderObject::hasExpired() {
     m_component->notifyRenderObjectExpired( m_idx );
 }
 
-void RenderObject::render( const Renderer::RenderParameters& lightParams,
+void RenderObject::render( const Rendering::RenderParameters& lightParams,
                            const Data::ViewingParameters& viewParams,
                            const ShaderProgram* shader,
-                           const Renderer::RenderParameters& shaderParams ) {
+                           const Rendering::RenderParameters& shaderParams ) {
     if ( !m_visible || !shader ) { return; }
     // Radium V2 : avoid this temporary
     Core::Matrix4 modelMatrix  = getTransformAsMatrix();
@@ -257,6 +257,6 @@ void RenderObject::render( const RenderParameters& lightParams,
     }
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

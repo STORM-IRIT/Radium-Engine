@@ -10,7 +10,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 /**
  * Available shader type
@@ -152,6 +152,6 @@ class RA_ENGINE_API ShaderConfiguration final
     static ShaderConfiguration m_defaultShaderConfig;
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

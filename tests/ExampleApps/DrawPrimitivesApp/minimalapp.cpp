@@ -1,5 +1,5 @@
-#include <Engine/Renderer/ForwardRenderer.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ForwardRenderer.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
 #include <minimalapp.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>
@@ -57,8 +57,8 @@ void MinimalApp::onGLInitialized() {
     // initialize here the OpenGL part of the engine used by the application
     m_engine->initializeGL();
     // add the renderer
-    std::shared_ptr<Ra::Engine::Renderer::Renderer> e(
-        new Ra::Engine::Renderer::ForwardRenderer() );
+    std::shared_ptr<Ra::Engine::Rendering::Renderer> e(
+        new Ra::Engine::Rendering::ForwardRenderer() );
     m_viewer->addRenderer( e );
     connect( m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame );
 }

@@ -9,8 +9,8 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/IndexedObject.hpp>
 
-#include <Engine/Renderer/RenderObjectTypes.hpp>
-#include <Engine/Renderer/RenderTechnique.hpp>
+#include <Engine/Rendering/RenderObjectTypes.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -25,7 +25,7 @@ class Material;
 struct ViewingParameters;
 } // namespace Data
 
-namespace Renderer {
+namespace Rendering {
 class RenderParameters;
 
 /**
@@ -196,6 +196,6 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
     bool m_hasLifetime {false};
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

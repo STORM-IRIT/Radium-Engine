@@ -12,11 +12,11 @@
 #include <Core/Utils/IndexMap.hpp>
 
 #include <Core/Types.hpp>
-#include <Engine/Renderer/RenderObjectTypes.hpp>
+#include <Engine/Rendering/RenderObjectTypes.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 class RenderObject;
 
@@ -30,27 +30,27 @@ class RA_ENGINE_API RenderObjectManager final
     RenderObjectManager();
     ~RenderObjectManager();
 
-    Core::Utils::Index addRenderObject( Renderer::RenderObject* renderObject );
+    Core::Utils::Index addRenderObject( Rendering::RenderObject* renderObject );
     void removeRenderObject( const Core::Utils::Index& index );
 
     size_t getRenderObjectsCount();
 
     /// Returns the render object corresponding to the given index. Will assert
     /// if the index does not match to an existing render object. See exists()
-    std::shared_ptr<Renderer::RenderObject> getRenderObject( const Core::Utils::Index& index );
+    std::shared_ptr<Rendering::RenderObject> getRenderObject( const Core::Utils::Index& index );
 
     /**
      * @brief Get all render objects.
      */
-    const Core::Utils::IndexMap<std::shared_ptr<Renderer::RenderObject>>& getRenderObjects() const;
+    const Core::Utils::IndexMap<std::shared_ptr<Rendering::RenderObject>>& getRenderObjects() const;
 
     /**
      * Get all render objects of the given type, the vector is assumed to be empty whan called
      * @param objectsOut
      * @param type
      */
-    void getRenderObjectsByType( std::vector<std::shared_ptr<Renderer::RenderObject>>& objectsOut,
-                                 const Renderer::RenderObjectType& type ) const;
+    void getRenderObjectsByType( std::vector<std::shared_ptr<Rendering::RenderObject>>& objectsOut,
+                                 const Rendering::RenderObjectType& type ) const;
 
     /** Returns true if the index points to a valid render object.
      *
@@ -78,9 +78,9 @@ class RA_ENGINE_API RenderObjectManager final
     size_t getNumVertices() const;
 
   private:
-    Core::Utils::IndexMap<std::shared_ptr<Renderer::RenderObject>> m_renderObjects;
+    Core::Utils::IndexMap<std::shared_ptr<Rendering::RenderObject>> m_renderObjects;
 
-    std::array<std::set<Core::Utils::Index>, (int)Renderer::RenderObjectType::Count>
+    std::array<std::set<Core::Utils::Index>, (int)Rendering::RenderObjectType::Count>
         m_renderObjectByType;
 
     mutable std::mutex m_doubleBufferMutex;

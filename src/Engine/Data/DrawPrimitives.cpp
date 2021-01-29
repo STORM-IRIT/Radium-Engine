@@ -4,9 +4,9 @@
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Data/Mesh.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/RenderTechnique.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
@@ -23,26 +23,26 @@ namespace Engine {
 namespace Data {
 namespace DrawPrimitives {
 
-Renderer::RenderObject* Primitive( Scene::Component* component, const MeshPtr& mesh ) {
+Rendering::RenderObject* Primitive( Scene::Component* component, const MeshPtr& mesh ) {
     return Primitive( component, std::dynamic_pointer_cast<Data::AttribArrayDisplayable>( mesh ) );
 }
 
-Renderer::RenderObject* Primitive( Scene::Component* component, const LineMeshPtr& mesh ) {
+Rendering::RenderObject* Primitive( Scene::Component* component, const LineMeshPtr& mesh ) {
     return Primitive( component, std::dynamic_pointer_cast<Data::AttribArrayDisplayable>( mesh ) );
 }
 
-Renderer::RenderObject* Primitive( Scene::Component* component,
-                                   const AttribArrayDisplayablePtr& mesh ) {
-    Renderer::RenderTechnique rt;
-    auto builder = Renderer::EngineRenderTechniques::getDefaultTechnique( "Plain" );
+Rendering::RenderObject* Primitive( Scene::Component* component,
+                                    const AttribArrayDisplayablePtr& mesh ) {
+    Rendering::RenderTechnique rt;
+    auto builder = Rendering::EngineRenderTechniques::getDefaultTechnique( "Plain" );
     builder.second( rt, false );
     auto roMaterial = Core::make_shared<PlainMaterial>( "Default material" );
     roMaterial->m_perVertexColor =
         mesh->getAttribArrayGeometry().hasAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ) );
     rt.setParametersProvider( roMaterial );
 
-    auto ro = Renderer::RenderObject::createRenderObject(
-        mesh->getName(), component, Renderer::RenderObjectType::Debug, mesh, rt );
+    auto ro = Rendering::RenderObject::createRenderObject(
+        mesh->getName(), component, Rendering::RenderObjectType::Debug, mesh, rt );
     ro->setMaterial( roMaterial );
     return ro;
 }

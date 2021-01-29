@@ -28,7 +28,7 @@ DebugComponent* SystemEntity::dbgCmp() {
     return static_cast<DebugComponent*>( instance->getComponent( "Debug" ) );
 }
 
-Renderer::RenderObject* DebugComponent::getRenderObject( Core::Utils::Index idx ) {
+Rendering::RenderObject* DebugComponent::getRenderObject( Core::Utils::Index idx ) {
     return getRoMgr()->getRenderObject( idx ).get();
 }
 #endif

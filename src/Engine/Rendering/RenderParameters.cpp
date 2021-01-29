@@ -1,9 +1,9 @@
 #include <Core/Utils/Log.hpp>
-#include <Engine/Renderer/RenderParameters.hpp>
+#include <Engine/Rendering/RenderParameters.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 void RenderParameters::bind( const ShaderProgram* shader ) const {
     m_boolParamsVector.bind( shader );
     m_intParamsVector.bind( shader );
@@ -138,6 +138,6 @@ void RenderParameters::concatParameters( const RenderParameters& params ) {
     }
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

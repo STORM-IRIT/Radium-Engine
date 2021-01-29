@@ -16,7 +16,7 @@ namespace Data {
 class Texture;
 }
 
-namespace Renderer {
+namespace Rendering {
 class ShaderProgram;
 
 /**
@@ -251,8 +251,8 @@ class RA_ENGINE_API ShaderParameterProvider
     RenderParameters m_renderParameters;
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/RenderParameters.inl>
+#include <Engine/Rendering/RenderParameters.inl>

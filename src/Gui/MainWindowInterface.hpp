@@ -7,7 +7,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 class Renderer;
 }
 } // namespace Engine
@@ -50,7 +50,7 @@ class RA_GUI_API MainWindowInterface : public QMainWindow
 
     /// Add render in the application: UI, viewer.
     virtual void addRenderer( const std::string& name,
-                              std::shared_ptr<Engine::Renderer::Renderer> e ) = 0;
+                              std::shared_ptr<Engine::Rendering::Renderer> e ) = 0;
 
   public slots:
     /// Call after loading a new file to let the window resetview for instance.

@@ -87,7 +87,7 @@ void VolumeObject::updateGL() {
     }
 }
 
-void VolumeObject::render( const Renderer::ShaderProgram* prog ) {
+void VolumeObject::render( const Rendering::ShaderProgram* prog ) {
     GL_CHECK_ERROR;
     // Cull faces
 

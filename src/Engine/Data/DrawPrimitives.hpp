@@ -11,7 +11,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 class RenderObject;
 
 }
@@ -35,10 +35,10 @@ using AttribArrayDisplayablePtr = std::shared_ptr<AttribArrayDisplayable>;
 
 ///@{
 /// Renturn a render object to display the given geometry
-RA_ENGINE_API Renderer::RenderObject* Primitive( Scene::Component* comp, const MeshPtr& mesh );
-RA_ENGINE_API Renderer::RenderObject* Primitive( Scene::Component* comp, const LineMeshPtr& mesh );
-RA_ENGINE_API Renderer::RenderObject* Primitive( Scene::Component* comp,
-                                                 const AttribArrayDisplayablePtr& mesh );
+RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp, const MeshPtr& mesh );
+RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp, const LineMeshPtr& mesh );
+RA_ENGINE_API Rendering::RenderObject* Primitive( Scene::Component* comp,
+                                                  const AttribArrayDisplayablePtr& mesh );
 ///@}
 
 /// Displays given point shown as the crossing of 3 lines of length 'scale'

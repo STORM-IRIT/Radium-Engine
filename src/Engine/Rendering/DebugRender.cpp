@@ -1,11 +1,11 @@
-#include <Engine/Renderer/DebugRender.hpp>
+#include <Engine/Rendering/DebugRender.hpp>
 
 #include <Engine/Data/DrawPrimitives.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Rendering/ShaderProgram.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
@@ -19,7 +19,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 using namespace Core::Utils; // log
 
@@ -342,6 +342,6 @@ void DebugRender::addOBB( const Core::Aabb& box,
 
 RA_SINGLETON_IMPLEMENTATION( DebugRender );
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

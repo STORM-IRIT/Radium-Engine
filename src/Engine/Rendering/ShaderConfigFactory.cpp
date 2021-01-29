@@ -1,4 +1,4 @@
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
 
 #include <map>
 
@@ -6,7 +6,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 namespace ShaderConfigurationFactory {
 
 using namespace Core::Utils; // log
@@ -55,6 +55,6 @@ Core::Utils::optional<ShaderConfiguration> getConfiguration( const std::string& 
 }
 
 } // namespace ShaderConfigurationFactory
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

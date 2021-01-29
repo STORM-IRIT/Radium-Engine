@@ -4,7 +4,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 /**
  * Test if the given pass is dirty (openGL state not updated)
@@ -44,6 +44,6 @@ RenderTechnique::getConfiguration( Core::Utils::Index pass ) const {
     return m_activePasses[pass].first;
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

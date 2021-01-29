@@ -13,8 +13,8 @@
 #include <Core/Utils/Version.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
 #include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
@@ -329,7 +329,7 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
 void BaseApplication::engineBaseInitialization() {
     // Register the GeometrySystem converting loaded assets to meshes
     m_engine->registerSystem(
-            "GeometrySystem", new Ra::Engine::Scene::GeometrySystem, defaultSystemPriority );
+        "GeometrySystem", new Ra::Engine::Scene::GeometrySystem, defaultSystemPriority );
     // Register the TimeSystem managing time dependant systems
     Scalar dt = ( m_targetFPS == 0 ? 1_ra / 60_ra : 1_ra / m_targetFPS );
     m_engine->setConstantTimeStep( dt );
@@ -610,7 +610,7 @@ bool BaseApplication::loadPlugins( const std::string& pluginsPath,
 
                         if ( loadedPlugin->doAddRenderer() )
                         {
-                            std::vector<std::shared_ptr<Engine::Renderer::Renderer>> tmpR;
+                            std::vector<std::shared_ptr<Engine::Rendering::Renderer>> tmpR;
                             loadedPlugin->addRenderers( &tmpR );
                             CORE_ASSERT( !tmpR.empty(),
                                          "This plugin is expected to add a renderer" );

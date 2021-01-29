@@ -1,6 +1,6 @@
-#include <Engine/Renderer/ShaderConfiguration.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Rendering/ShaderConfiguration.hpp>
+#include <Engine/Rendering/ShaderProgram.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Utils/Log.hpp>
@@ -11,7 +11,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 using namespace Core::Utils; // log
 using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
@@ -150,7 +150,6 @@ void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
     m_shaderPrograms.insert( {config, shader} );
 }
 
-
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra
