@@ -14,10 +14,10 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 class Texture;
-}
+class ShaderProgram;
+} // namespace Data
 
 namespace Rendering {
-class ShaderProgram;
 
 /**
  * Management of shader parameters with automatic binding of a named parameter to the corresponding
@@ -39,7 +39,7 @@ class RA_ENGINE_API RenderParameters final
          *
          * @param shader The shader to bind to.
          */
-        virtual void bind( const ShaderProgram* shader ) const = 0;
+        virtual void bind( const Data::ShaderProgram* shader ) const = 0;
         /** The name of the parameter.
          * This must correspond to the name of a Uniform in the shader the Parameter is bound to.
          */
@@ -58,7 +58,7 @@ class RA_ENGINE_API RenderParameters final
         TParameter( const std::string& name, const T& value ) :
             Parameter( name ), m_value( value ) {}
         ~TParameter() override = default;
-        void bind( const ShaderProgram* shader ) const override;
+        void bind( const Data::ShaderProgram* shader ) const override;
         /// The value of the parameter
         T m_value {};
     };
@@ -73,7 +73,7 @@ class RA_ENGINE_API RenderParameters final
         TextureParameter( const std::string& name, Data::Texture* tex, int texUnit ) :
             Parameter( name ), m_texture( tex ), m_texUnit( texUnit ) {}
         ~TextureParameter() override = default;
-        void bind( const ShaderProgram* shader ) const override;
+        void bind( const Data::ShaderProgram* shader ) const override;
 
         /// The texture object
         Data::Texture* m_texture {nullptr};
@@ -99,7 +99,7 @@ class RA_ENGINE_API RenderParameters final
          *
          * @param shader The shader to bind to.
          */
-        void bind( const ShaderProgram* shader ) const;
+        void bind( const Data::ShaderProgram* shader ) const;
     };
 
     ///\todo use array of parameter to templated uniform, as in globjects ?
@@ -176,7 +176,7 @@ class RA_ENGINE_API RenderParameters final
      *
      * @param shader The shader to bind to.
      */
-    void bind( const ShaderProgram* shader ) const;
+    void bind( const Data::ShaderProgram* shader ) const;
 
     /**
      * Get a typed parameter set
@@ -255,4 +255,5 @@ class RA_ENGINE_API ShaderParameterProvider
 } // namespace Engine
 } // namespace Ra
 
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Rendering/RenderParameters.inl>

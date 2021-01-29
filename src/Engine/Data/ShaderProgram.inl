@@ -1,11 +1,11 @@
 #pragma once
-#include "ShaderProgram.hpp"
+#include <Engine/Data/ShaderProgram.hpp>
 
 #include <globjects/Program.h>
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
+namespace Data {
 
 // declare specialization, definied in .cpp
 template <>
@@ -32,6 +32,6 @@ inline void ShaderProgram::setUniform( const char* name, const T& value ) const 
     m_program->setUniform<T>( name, value );
 }
 
-} // namespace Rendering
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

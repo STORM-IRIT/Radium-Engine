@@ -18,7 +18,7 @@
 #include <Core/Tasks/Task.hpp>
 
 // include the render object interface to keyframe the material
-#include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 
 // To terminate the demo after 4 seconds
 #include <QTimer>

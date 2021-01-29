@@ -1,10 +1,11 @@
 #include <Core/Utils/Log.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Rendering/RenderParameters.hpp>
 
 namespace Ra {
 namespace Engine {
 namespace Rendering {
-void RenderParameters::bind( const ShaderProgram* shader ) const {
+void RenderParameters::bind( const Data::ShaderProgram* shader ) const {
     m_boolParamsVector.bind( shader );
     m_intParamsVector.bind( shader );
     m_uintParamsVector.bind( shader );

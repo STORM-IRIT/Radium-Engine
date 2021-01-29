@@ -15,10 +15,10 @@
 #include <Engine/Data/VolumeObject.hpp>
 #include <Engine/Data/VolumetricMaterial.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Rendering/RenderObjectTypes.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
 
 #define CHECK_MESH_NOT_NULL \
     CORE_ASSERT( m_displayMesh != nullptr, "DisplayMesh should exist while component is alive" );

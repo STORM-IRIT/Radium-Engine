@@ -39,7 +39,7 @@ inline void RenderTechnique::clearConfiguration( Core::Utils::Index pass ) {
     m_setPasses &= ~( 1 << pass );
 }
 
-inline const ShaderConfiguration&
+inline const Data::ShaderConfiguration&
 RenderTechnique::getConfiguration( Core::Utils::Index pass ) const {
     return m_activePasses[pass].first;
 }

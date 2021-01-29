@@ -1,4 +1,4 @@
-#include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 
 #include <Engine/RadiumEngine.hpp>
 
@@ -15,7 +15,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Scene {
+namespace Rendering {
 
 RenderObjectManager::RenderObjectManager() = default;
 
@@ -38,8 +38,9 @@ Core::Utils::Index RenderObjectManager::addRenderObject( Rendering::RenderObject
 
     m_renderObjectByType[(int)type].insert( index );
 
-    Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectAdded( ItemEntry(
-        renderObject->getComponent()->getEntity(), renderObject->getComponent(), index ) );
+    Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectAdded(
+        Scene::ItemEntry(
+            renderObject->getComponent()->getEntity(), renderObject->getComponent(), index ) );
     return index;
 }
 
@@ -49,8 +50,9 @@ void RenderObjectManager::removeRenderObject( const Core::Utils::Index& index ) 
     // FIXME : Should we check if the render object is in the double buffer map ?
     std::shared_ptr<Rendering::RenderObject> renderObject = m_renderObjects.at( index );
 
-    Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved( ItemEntry(
-        renderObject->getComponent()->getEntity(), renderObject->getComponent(), index ) );
+    Engine::RadiumEngine::getInstance()->getSignalManager()->fireRenderObjectRemoved(
+        Scene::ItemEntry(
+            renderObject->getComponent()->getEntity(), renderObject->getComponent(), index ) );
 
     // Lock after signal has been fired (as this signal can cause another RO to be deleted)
     std::lock_guard<std::mutex> lock( m_doubleBufferMutex );
@@ -135,6 +137,6 @@ size_t RenderObjectManager::getNumVertices() const {
     return result;
 }
 
-} // namespace Scene
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

@@ -5,15 +5,16 @@
 #include <Engine/Data/DisplayableObject.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/OpenGL.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Rendering/RenderParameters.hpp>
 #include <Engine/Scene/Component.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
 
 // STRANGE : only needed to access to the entity and its transform for components --> refactor
 // component to give this directly ?
 #include <Engine/Scene/Entity.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Rendering/ViewingParameters.hpp>
 
 namespace Ra {
@@ -218,7 +219,7 @@ void RenderObject::hasExpired() {
 
 void RenderObject::render( const Rendering::RenderParameters& lightParams,
                            const Data::ViewingParameters& viewParams,
-                           const ShaderProgram* shader,
+                           const Data::ShaderProgram* shader,
                            const Rendering::RenderParameters& shaderParams ) {
     if ( !m_visible || !shader ) { return; }
     // Radium V2 : avoid this temporary

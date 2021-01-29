@@ -20,6 +20,7 @@
 
 /* Test Point cloud parameter provider */
 #include <Core/RaCore.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 
 namespace Ra {
@@ -482,7 +483,7 @@ void ForwardRenderer::postProcessInternal( const Data::ViewingParameters& render
     GL_ASSERT( glDisable( GL_DEPTH_TEST ) );
     GL_ASSERT( glDepthMask( GL_FALSE ) );
 
-    const ShaderProgram* shader = m_shaderProgramManager->getShaderProgram( "Hdr2Ldr" );
+    const Data::ShaderProgram* shader = m_shaderProgramManager->getShaderProgram( "Hdr2Ldr" );
     shader->bind();
     shader->setUniform( "screenTexture", m_textures[RendererTextures_HDR].get(), 0 );
     m_quadMesh->render( shader );
@@ -611,8 +612,8 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
         auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
             if ( rt->hasConfiguration( pass ) )
             {
-                ShaderConfiguration config = rt->getConfiguration( pass );
-                config.addShader( ShaderType_GEOMETRY,
+                Data::ShaderConfiguration config = rt->getConfiguration( pass );
+                config.addShader( Data::ShaderType_GEOMETRY,
                                   RadiumEngine::getInstance()->getResourcesDir() +
                                       "Shaders/Points/PointCloud.geom.glsl" );
                 rt->setConfiguration( config, pass );

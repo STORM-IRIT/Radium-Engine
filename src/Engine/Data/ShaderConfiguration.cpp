@@ -16,7 +16,7 @@ static const std::string defaultFragmentShader {
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
+namespace Data {
 
 std::ostream& operator<<( std::ostream& stream, const ShaderConfiguration& config ) {
 
@@ -169,6 +169,6 @@ ShaderConfiguration::getNamedStrings() const {
     return m_named_strings;
 }
 
-} // namespace Rendering
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

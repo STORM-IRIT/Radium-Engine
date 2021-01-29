@@ -6,6 +6,7 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -87,7 +88,7 @@ void VolumeObject::updateGL() {
     }
 }
 
-void VolumeObject::render( const Rendering::ShaderProgram* prog ) {
+void VolumeObject::render( const ShaderProgram* prog ) {
     GL_CHECK_ERROR;
     // Cull faces
 

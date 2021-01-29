@@ -9,6 +9,7 @@
 
 #include <globjects/Program.h>
 
+#include <Engine/Data/ShaderProgram.hpp>
 #include <globjects/Buffer.h>
 #include <globjects/VertexArray.h>
 #include <globjects/VertexAttributeBinding.h>
@@ -160,7 +161,7 @@ void AttribArrayDisplayable::setDirty( const AttribArrayDisplayable::MeshData& t
     m_isDirty = true;
 }
 
-void PointCloud::render( const Rendering::ShaderProgram* prog ) {
+void PointCloud::render( const ShaderProgram* prog ) {
     if ( m_vao )
     {
         autoVertexAttribPointer( prog );

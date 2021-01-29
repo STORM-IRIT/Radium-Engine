@@ -14,7 +14,7 @@
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 
 #include <random>
 

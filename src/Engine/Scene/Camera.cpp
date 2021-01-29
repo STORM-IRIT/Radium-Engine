@@ -48,7 +48,7 @@ void Camera::initialize() {
     /// \todo switch to "mat->m_color          = {.2_ra, .2_ra, .2_ra, 1_ra};"
     mat->m_perVertexColor = true;
     Rendering::RenderTechnique rt;
-    auto cfg = Rendering::ShaderConfigurationFactory::getConfiguration( "Plain" );
+    auto cfg = Data::ShaderConfigurationFactory::getConfiguration( "Plain" );
     rt.setConfiguration( *cfg );
     rt.setParametersProvider( mat );
     m_RO = Rendering::RenderObject::createRenderObject(

@@ -28,19 +28,19 @@ namespace Data {
 class Camera;
 class Texture;
 struct ViewingParameters;
+class ShaderProgram;
 } // namespace Data
 
 namespace Scene {
 class TextureManager;
 class Light;
-class RenderObjectManager;
 class LightManager;
+class ShaderProgramManager;
 } // namespace Scene
 
 namespace Rendering {
 class RenderObject;
-class ShaderProgram;
-class ShaderProgramManager;
+class RenderObjectManager;
 
 /**
  * Abstract renderer for the engine.
@@ -375,7 +375,7 @@ class RA_ENGINE_API Renderer
     void splitRQ( const std::vector<RenderObjectPtr>& renderQueue,
                   std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
     void renderForPicking( const Data::ViewingParameters& renderData,
-                           const std::array<const ShaderProgram*, 4>& pickingShaders,
+                           const std::array<const Data::ShaderProgram*, 4>& pickingShaders,
                            const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking );
 
     void doPicking( const Data::ViewingParameters& renderData );
@@ -394,13 +394,13 @@ class RA_ENGINE_API Renderer
     /// It is guaranteed that the lifetime of the engine is longer than the lifetime of a Renderer.
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-raw
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr
-    ShaderProgramManager* m_shaderProgramManager {nullptr};
+    Scene::ShaderProgramManager* m_shaderProgramManager {nullptr};
 
     /// This raw pointer is used as an alias to a std::unique_ptr own by the engine.
     /// It is guaranteed that the lifetime of the engine is longer than the lifetime of a Renderer.
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-raw
     /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr
-    Scene::RenderObjectManager* m_renderObjectManager {nullptr};
+    RenderObjectManager* m_renderObjectManager {nullptr};
 
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.
@@ -454,7 +454,7 @@ class RA_ENGINE_API Renderer
     std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_debugRenderObjectsPicking;
     std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_xrayRenderObjectsPicking;
     std::array<std::vector<RenderObjectPtr>, NoPickingRenderMode> m_uiRenderObjectsPicking;
-    std::array<const ShaderProgram*, NoPickingRenderMode> m_pickingShaders;
+    std::array<const Data::ShaderProgram*, NoPickingRenderMode> m_pickingShaders;
 
     std::vector<PickingQuery> m_pickingQueries;
     std::vector<PickingQuery> m_lastFramePickingQueries;

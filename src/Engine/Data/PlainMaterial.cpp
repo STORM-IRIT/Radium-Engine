@@ -25,28 +25,27 @@ void PlainMaterial::registerMaterial() {
     shaderProgramManager->addNamedString( "/Plain.glsl",
                                           resourcesRootDir + "Shaders/Materials/Plain/Plain.glsl" );
     // registering re-usable shaders
-    Rendering::ShaderConfiguration lpconfig(
+    Data::ShaderConfiguration lpconfig(
         "Plain",
         resourcesRootDir + "Shaders/Materials/Plain/Plain.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Plain/Plain.frag.glsl" );
 
-    Rendering::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
-    Rendering::ShaderConfiguration zprepassconfig(
+    Data::ShaderConfiguration zprepassconfig(
         "ZprepassPlain",
         resourcesRootDir + "Shaders/Materials/Plain/Plain.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Plain/PlainZPrepass.frag.glsl" );
-    Rendering::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
     // Registering technique
     Rendering::EngineRenderTechniques::registerDefaultTechnique(
         materialName, []( Rendering::RenderTechnique& rt, bool ) {
             // Lighting pass
-            auto lightpass = Rendering::ShaderConfigurationFactory::getConfiguration( "Plain" );
+            auto lightpass = Data::ShaderConfigurationFactory::getConfiguration( "Plain" );
             rt.setConfiguration( *lightpass, Rendering::DefaultRenderingPasses::LIGHTING_OPAQUE );
             // Z prepass
-            auto zprepass =
-                Rendering::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
+            auto zprepass = Data::ShaderConfigurationFactory::getConfiguration( "ZprepassPlain" );
             rt.setConfiguration( *zprepass, Rendering::DefaultRenderingPasses::Z_PREPASS );
         } );
 }

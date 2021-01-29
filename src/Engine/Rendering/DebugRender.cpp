@@ -15,6 +15,7 @@
 #include <globjects/Shader.h>
 #include <globjects/base/StaticStringSource.h>
 
+#include <Engine/Data/ShaderProgram.hpp>
 #include <fstream>
 
 namespace Ra {
@@ -30,13 +31,13 @@ DebugRender::~DebugRender() = default;
 void DebugRender::initialize() {
     /// FIXME : this was not ported to globject ...
     /// \todo FIXED but not tested
-    auto setShader = []( ShaderProgramManager* manager,
+    auto setShader = []( Scene::ShaderProgramManager* manager,
                          const std::string& configName,
                          const char* vertexShader,
-                         const char* fragmentShader ) -> const ShaderProgram* {
-        ShaderConfiguration config {configName};
-        config.addShaderSource( ShaderType::ShaderType_VERTEX, vertexShader );
-        config.addShaderSource( ShaderType::ShaderType_FRAGMENT, fragmentShader );
+                         const char* fragmentShader ) -> const Data::ShaderProgram* {
+        Data::ShaderConfiguration config {configName};
+        config.addShaderSource( Data::ShaderType::ShaderType_VERTEX, vertexShader );
+        config.addShaderSource( Data::ShaderType::ShaderType_FRAGMENT, fragmentShader );
         auto added = manager->addShaderProgram( config );
         if ( added ) { return *added; }
         else

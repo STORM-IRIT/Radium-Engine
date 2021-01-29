@@ -8,6 +8,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -55,7 +56,7 @@ class RA_ENGINE_API Displayable
 
     /// Draw the mesh. Prog is used to set VertexAttribBinding, but it has to be
     /// already binded
-    virtual void render( const Rendering::ShaderProgram* prog ) = 0;
+    virtual void render( const ShaderProgram* prog ) = 0;
 
     //// Utility methods, used to display statistics
     virtual size_t getNumFaces() const { return 0; }
