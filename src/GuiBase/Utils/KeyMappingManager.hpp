@@ -201,6 +201,11 @@ class KeyMappingManageable
 
   protected:
     T& self() { return static_cast<T&>( *this ); }
+    static inline void setContext( const KeyMappingManager::Context& c ) {
+        m_keyMappingContext = c;
+    }
+
+  private:
     static KeyMappingManager::Context m_keyMappingContext;
 };
 

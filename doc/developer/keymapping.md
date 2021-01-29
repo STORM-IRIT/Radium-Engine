@@ -4,7 +4,7 @@
 
 # Usage
 
-You first need to add into every configuration file (in `Configs/` folder) an entry which will bind your action to a key.
+You first need to add into every configuration file (located in the `install_dir/Configs/` folder) an entry which will bind your action to a key.
 This file as an only `keymaps` node, with `keymap` per binding.
 
 ~~~{.xml}
@@ -35,50 +35,52 @@ Then you need to define your specific actions as static member of your class
 
 ~~~{.cpp}
 class MyClass :public KeyManageable<MyClass> {
-    friend class KeyMappingManageable<MyClass>;
+    friend class Ra::Gui::KeyMappingManageable<MyClass>;
 
 // callback when a configuration file is loaded, could check if the context and action are present.
 static void configureKeyMapping(){
-    m_keyMappingContext = KeyMappingManager::getInstance()->getContext( "MyClassContext" );
-    m_myAction =  KeyMappingManager::getInstance()->getActionIndex( "MyActionName" );
+    Ra::Gui::KeyMappingManageable<MyClass>::setContext( Ra::Gui::KeyMappingManager::getInstance()->getContext( "MyClassContext" ) );
+    m_myAction =  Ra::Gui::KeyMappingManager::getInstance()->getActionIndex( "MyActionName" );
 }
 
 //[...]
-static KeyMappingManager::KeyMappingAction m_myAction;
+static Ra::Gui::KeyMappingManager::KeyMappingAction m_myAction;
 // [...]
 };
 
 
 // typically in .ccp  file
-KeyMappingManager::KeyMappingAction m_myAction;
+Ra::Gui::KeyMappingManager::KeyMappingAction m_myAction;
 
 // then typically in main baseApplication ctor or Viewer ctor, but after KeyMappingManager instance is created :
-KeyMappingManager::getInstance()->addListener(MyClass:configureKeyMapping);
+Ra::Gui::KeyMappingManager::getInstance()->addListener(MyClass:configureKeyMapping);
 
 ~~~
 
-It could be done with a specific macro :
+It can be done with a specific macro :
 
 ~~~{.cpp}
 // in header
 #define KeyMappingMyClass \
     KMA_VALUE( MY_ACTION )
 
-#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
+#define KMA_VALUE( XX ) static Ra::Gui::KeyMappingManager::KeyMappingAction XX;
     KeyMappingMyClass
 #undef KMA_VALUE
 
 // in source
-#define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction MyClass::XX;
+using MyKeyMapping = Ra::Gui::KeyMappingManageable<MyClass>;
+
+#define KMA_VALUE( XX ) Ra::Gui::KeyMappingManager::KeyMappingAction MyClass::XX;
 KeyMappingMyClass
 #undef KMA_VALUE
 
 void MyClass::configureKeyMapping() {
-    m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "MyClassContext" );
-    if ( m_keyMappingContext.isInvalid() )
+    MyKeyMapping::setContext( Ra::Gui::KeyMappingManager::getInstance()->getContext( "MyClassContext" ) );
+    if ( MyKeyMapping::getContext().isInvalid() )
         LOG( logINFO ) << "MyClassContext not defined (maybe the configuration file does not contain it";
 #define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
+    XX = Ra::Gui::KeyMappingManager::getInstance()->getActionIndex( MyKeyMapping::getContext(), #XX );
     KeyMappingMyClass
 #undef KMA_VALUE
 }
@@ -90,22 +92,8 @@ void MyClass::configureKeyMapping() {
 The viewer is the main entry point to dispatch key and mouse event.
 The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.
 
-For instance see `Viewer.cpp` `Viewer::mousePressEvent`
-
-~~~{.cpp}
-//[...]
-    auto buttons   = event->buttons();
-    auto modifiers = event->modifiers();
-    auto key       = activeKey();
-
-    // nothing under mouse ? juste move the camera ...
-    if ( result.m_roIdx.isInvalid() )
-    {
-        auto accepted = m_camera->handleMousePressEvent( event, buttons, modifiers, key );
-        if ( accepted ) { m_activeContext = m_camera->getContext(); }
-        else
-  //[...]
-~~~
+For instance see `Viewer.cpp` `Viewer::mousePressEvent`:
+ \snippet GuiBase/Viewer/Viewer.cpp event dispatch
 
 # Key mapping and inheritence.
 If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:
