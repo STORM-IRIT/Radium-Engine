@@ -1,7 +1,7 @@
 <map id="Ra::Gui::TrackballCameraManipulator" name="Ra::Gui::TrackballCameraManipulator">
-<area shape="rect" id="node1" title="A Trackball manipulator for Cameras." alt="" coords="145,947,391,1493"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="5,175,261,897"/>
-<area shape="rect" id="node3" href="$classQObject.html" title=" " alt="" coords="96,20,171,97"/>
-<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="286,475,525,597"/>
-<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="268,5,543,112"/>
+<area shape="rect" id="node1" title="A Trackball manipulator for Cameras." alt="" coords="145,961,391,1508"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="5,189,261,912"/>
+<area shape="rect" id="node3" href="$classQObject.html" title=" " alt="" coords="96,27,171,105"/>
+<area shape="rect" id="node4" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="286,483,525,619"/>
+<area shape="rect" id="node5" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="268,5,543,127"/>
 </map>

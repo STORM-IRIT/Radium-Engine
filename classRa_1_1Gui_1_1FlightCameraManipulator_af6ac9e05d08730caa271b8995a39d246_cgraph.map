@@ -1,5 +1,5 @@
 <map id="Ra::Gui::FlightCameraManipulator::FlightCameraManipulator" name="Ra::Gui::FlightCameraManipulator::FlightCameraManipulator">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,248,76"/>
+<area shape="rect" id="node1" title="[Constructor]" alt="" coords="5,35,248,76"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a21b3924c926f5ca72551ddbe313cb785" title="Return the position." alt="" coords="296,5,447,47"/>
 <area shape="rect" id="node3" href="$namespaceOpenMesh.html#a8205f789ce08919bc11c58383574596c" title=" " alt="" coords="305,71,438,98"/>
 </map>

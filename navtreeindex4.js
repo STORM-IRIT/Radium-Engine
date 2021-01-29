@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"RadiumPluginInterface_8hpp_source.html":[10,0,3,4,2],
+"RawShaderMaterial_8cpp.html":[10,0,3,1,4,3,12],
 "RawShaderMaterial_8cpp_source.html":[10,0,3,1,4,3,12],
 "RawShaderMaterial_8hpp.html":[10,0,3,1,4,3,13],
 "RawShaderMaterial_8hpp_source.html":[10,0,3,1,4,3,13],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "TaskQueue_8cpp_source.html":[10,0,3,0,6,1],
 "TaskQueue_8hpp.html":[10,0,3,0,6,2],
 "TaskQueue_8hpp_source.html":[10,0,3,0,6,2],
-"Task_8hpp.html":[10,0,3,0,6,0],
-"Task_8hpp_source.html":[10,0,3,0,6,0],
-"Tex_8hpp.html":[10,0,3,0,2,12]
+"Task_8hpp.html":[10,0,3,0,6,0]
 };

@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
+<g id="a_node1"><a xlink:title="[Constructor]">
 <polygon fill="#bfbfbf" stroke="black" points="0,-17 0,-47 182,-47 182,-17 0,-17"/>
 <text text-anchor="start" x="8" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::FlightCameraManipulator</text>
 <text text-anchor="middle" x="91" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">::FlightCameraManipulator</text>

@@ -141,7 +141,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classRa_1_1Gui_1_1FlightCameraManipulator.html" target="_top" xlink:title="A Flight manipulator for Cameras.">
+<g id="a_node3"><a xlink:href="classRa_1_1Gui_1_1FlightCameraManipulator.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-39 0,-371 182,-371 182,-39 0,-39"/>
 <text text-anchor="middle" x="91" y="-359" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::FlightCameraManipulator</text>
 <polyline fill="none" stroke="black" points="0,-352 182,-352 "/>

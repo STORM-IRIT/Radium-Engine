@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">fd9e7909fbe48ed62b8ba2926782071167107f59</span>
+   &#160;<span id="projectnumber">6e143f1f80a8ee716765eca971984897e9a2894d</span>
    </div>
   </td>
  </tr>
@@ -92,7 +92,8 @@ $(document).ready(function(){initNavTree('Viewer_8cpp.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">Viewer.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -155,8 +156,13 @@ Macros</h2></td></tr>
 <tr class="separator:aefe397a94e8feddc652f92ef40ce9597"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3939ec33e0cb280a33715cae09cf6512"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8cpp.html#a3939ec33e0cb280a33715cae09cf6512">KMA_VALUE</a>(x)&#160;&#160;&#160;Gui::KeyMappingManager::KeyMappingAction Gui::Viewer::x;</td></tr>
 <tr class="separator:a3939ec33e0cb280a33715cae09cf6512"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1478fa43039cf1b62157b0375df9960"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8cpp.html#ab1478fa43039cf1b62157b0375df9960">KMA_VALUE</a>(XX)&#160;&#160;&#160;XX = keyMappingManager-&gt;getActionIndex( m_keyMappingContext, #XX );</td></tr>
+<tr class="memitem:ab1478fa43039cf1b62157b0375df9960"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Viewer_8cpp.html#ab1478fa43039cf1b62157b0375df9960">KMA_VALUE</a>(XX)&#160;&#160;&#160;XX = keyMappingManager-&gt;getActionIndex( ViewerMapping::getContext(), #XX );</td></tr>
 <tr class="separator:ab1478fa43039cf1b62157b0375df9960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aea44796e0c0aa338b2192996812552b8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa.html#aea44796e0c0aa338b2192996812552b8">Ra::ViewerMapping</a> = Gui::KeyMappingManageable&lt; Gui::Viewer &gt;</td></tr>
+<tr class="separator:aea44796e0c0aa338b2192996812552b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3939ec33e0cb280a33715cae09cf6512"></a>
@@ -175,7 +181,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00058">58</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00060">60</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -190,12 +196,12 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">XX</td><td>)</td>
-          <td>&#160;&#160;&#160;XX = keyMappingManager-&gt;getActionIndex( m_keyMappingContext, #XX );</td>
+          <td>&#160;&#160;&#160;XX = keyMappingManager-&gt;getActionIndex( ViewerMapping::getContext(), #XX );</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00058">58</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8cpp_source.html#l00060">60</a> of file <a class="el" href="Viewer_8cpp_source.html">Viewer.cpp</a>.</p>
 
 </div>
 </div>
@@ -221,7 +227,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_796a1a15fb9cc23998586ef6281d84e1.html">Viewer</a></li><li class="navelem"><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 14:06:11 for Radium Engine by
+    <li class="footer">Generated on Fri Jan 29 2021 14:42:46 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">fd9e7909fbe48ed62b8ba2926782071167107f59</span>
+   &#160;<span id="projectnumber">6e143f1f80a8ee716765eca971984897e9a2894d</span>
    </div>
   </td>
  </tr>
@@ -95,15 +95,15 @@ $(document).ready(function(){initNavTree('cmakeutilities.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md41">Radium cmake utilities</a><ul><li class="level2"><a href="#autotoc_md42">Client application configuration</a></li>
-<li class="level2"><a href="#autotoc_md43">Extending Radium through libraries</a></li>
-<li class="level2"><a href="#autotoc_md44">Extending Radium through plugins</a></li>
+<ul><li class="level1"><a href="#autotoc_md42">Radium cmake utilities</a><ul><li class="level2"><a href="#autotoc_md43">Client application configuration</a></li>
+<li class="level2"><a href="#autotoc_md44">Extending Radium through libraries</a></li>
+<li class="level2"><a href="#autotoc_md45">Extending Radium through plugins</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md45">How to write your CMakeLists.txt</a><ul><li class="level2"><a href="#autotoc_md46">General cmake preamble</a></li>
-<li class="level2"><a href="#autotoc_md47">Configuring client application</a></li>
-<li class="level2"><a href="#autotoc_md48">Configuring client and extension libraries</a></li>
-<li class="level2"><a href="#autotoc_md49">Configuring an application plugin</a></li>
+<li class="level1"><a href="#autotoc_md46">How to write your CMakeLists.txt</a><ul><li class="level2"><a href="#autotoc_md47">General cmake preamble</a></li>
+<li class="level2"><a href="#autotoc_md48">Configuring client application</a></li>
+<li class="level2"><a href="#autotoc_md49">Configuring client and extension libraries</a></li>
+<li class="level2"><a href="#autotoc_md50">Configuring an application plugin</a></li>
 </ul>
 </li>
 </ul>
@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('cmakeutilities.html',''); initResizabl
 </ol>
 <p>As Radium relies on the <a href="https://cmake.org/documentation/">cmake</a> build and configuration system, this documentation focuses on how to configure your build system to use and extend Radium using Radium cmake utilities.</p>
 <p>Complete functional examples using these cmake scripts are accessible in the <code>src/tests/ExampleApps</code> and <code>src/tests/ExamplePluginWithLib</code> directories of the <a href="https://github.com/STORM-IRIT/Radium-Engine">Radium source distribution</a>.</p>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 Radium cmake utilities</h1>
 <p>Once installed, either from source or from pre-built binaries, Radium could be used and extended in any application, library or plugin as a cmake package.</p>
 <p>To integrate the Radium libraries into your build-chain configuration, you have to ask cmake to find the Radium package. As for any cmake package, this could be done by adding the following line into your <code>CMakeLists.txt</code> file: </p><div class="fragment"><div class="line">find_package(Radium REQUIRED Core Engine)</div>
@@ -139,7 +139,7 @@ Radium cmake utilities</h1>
 </ul>
 </li>
 </ol>
-<h2><a class="anchor" id="autotoc_md42"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 Client application configuration</h2>
 <h3><a class="anchor" id="configure_radium_app"></a>
 Function &lt;tt&gt;configure_radium_app&lt;/tt&gt;</h3>
@@ -174,7 +174,7 @@ Function &lt;tt&gt;configure_radium_app&lt;/tt&gt;</h3>
 <li>Linux application can be relocated only on the build system.</li>
 </ul>
 <p>To get relocatable packages, download pre-built binaries here: <a href="https://github.com/STORM-IRIT/Radium-Releases/releases">https://github.com/STORM-IRIT/Radium-Releases/releases</a></p>
-<h2><a class="anchor" id="autotoc_md43"></a>
+<h2><a class="anchor" id="autotoc_md44"></a>
 Extending Radium through libraries</h2>
 <h3><a class="anchor" id="configure_radium_library"></a>
 Function &lt;tt&gt;configure_radium_library&lt;/tt&gt;</h3>
@@ -370,7 +370,7 @@ Function &lt;tt&gt;radium_exported_resources&lt;/tt&gt;</h3>
 <div class="line">|   ├── resourcesPrefix</div>
 </div><!-- fragment --><p>where <code>target</code> is the name of the exported target, <code>targetConfig.cmake</code> the cmake package module installed when installing the target and <code>resourcesPrefix</code> the resource prefix defined when installing the resources for the target (can be empty).</p>
 <p>In the above example, the <code>&lt;ACCESS_FROM_PACKAGE&gt; path</code> parameter of the function <a href="#radium_exported_resources"><code>radium_exported_resources</code></a> should be set to <code>"../.."</code> This parameter must contain the relative path that start from the package module installation directory, here <code>&lt;prefix&gt;/lib/cmake</code>, to the resources installation directory, here <code>&lt;prefix&gt;/Resources</code>.</p>
-<h2><a class="anchor" id="autotoc_md44"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 Extending Radium through plugins</h2>
 <h3><a class="anchor" id="configure_radium_plugin"></a>
 Function &lt;tt&gt;configure_radium_plugin&lt;/tt&gt;</h3>
@@ -409,10 +409,10 @@ Function &lt;tt&gt;configure_radium_plugin&lt;/tt&gt;</h3>
 <li>When installed in the user specified install location, <code>&lt;prefix&gt;</code> refers to <code>${CMAKE_INSTALL_PREFIX}</code>. Optional resources directories are copied into <code>Resources</code> directory.</li>
 </ul>
 <p>When a plugin is installed and depends on an helper library that embed its own resources, the helper resources are copied into the <code>&lt;prefix&gt;/Resources</code> directory so that the helper lib could find its resources as described in the section <a href="#installTargetResources"><code>installTargetResources</code></a>. In this hierarchy, a plugin will access to its resources in a way very similar than any other library. Only one level of hierarchy, whose name is the plugin name, will be added.</p>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md46"></a>
 How to write your CMakeLists.txt</h1>
 <p>When writing your cmake configuration script <code>CMakeLists.txt</code>, you might rely on the following guideline to configure the project <code>ProjectName</code>. Note that these are only guidelines and that you can always write your cmake script from scratch, assuming you understand what you do.</p>
-<h2><a class="anchor" id="autotoc_md46"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 General cmake preamble</h2>
 <div class="fragment"><div class="line"># -------------------------------------------------------</div>
 <div class="line"># Recommended preamble for cmake configuration</div>
@@ -439,7 +439,7 @@ General cmake preamble</h2>
 <div class="line"> </div>
 <div class="line">...</div>
 </div><!-- fragment --><p>Then, according to the type of the targets defined in your project (application, single library, set of libraries, plugin, mix of them), you might configure your project according to the following guidelines.</p>
-<h2><a class="anchor" id="autotoc_md47"></a>
+<h2><a class="anchor" id="autotoc_md48"></a>
 Configuring client application</h2>
 <p>Configuring an installable and relocatable application is very easy with Radium cmake scripts. First, an executable target that depends on Radium libraries (internal Radium libraries or client libraries) should be configured with a cmake script such as </p><div class="fragment"><div class="line">...</div>
 <div class="line"># Configure an relocatable executable target (here a bundle on MacOsX)</div>
@@ -455,7 +455,7 @@ Configuring client application</h2>
 </div><!-- fragment --><p>Once compiled and installed, the directory <code>&lt;${CMAKE_INSTALL_PREFIX}&gt;</code>, set to <code>installed-&lt;COMPILER_ID&gt;-&lt;CONFIGURATION&gt;</code> into the root of the build tree if not specified at configure time, is a relocatable directory that contains the bundled application and associated resources.</p>
 <p>Note that, on MacOsX, if the executable target is configured using the <code>MACOSX_BUNDLE</code> option, only the <code>bin</code> directory is created into this bundle and it contains the relocatable <code>.app</code> bundle. If the option <code>MACOSX_BUNDLE</code> is not given, the executable will not be a bundled MacOs <code>.app</code> but a command line application and will be installed as any application on Linux.</p>
 <p>The resources associated to an application are installed using the <a href="#installTargetResources"><code>installTargetResources</code></a>.</p>
-<h2><a class="anchor" id="autotoc_md48"></a>
+<h2><a class="anchor" id="autotoc_md49"></a>
 Configuring client and extension libraries</h2>
 <h3>Configuring the library target</h3>
 <p>An installable library could be used to add functionalities built over the Radium libraries and to make these functionalities available to developers. Once installed, a library consists in:</p><ul>
@@ -621,7 +621,7 @@ Configuring client and extension libraries</h2>
 <div class="line">    PREFIX &lt;resourcesPrefix&gt;</div>
 <div class="line">)</div>
 </div><!-- fragment --><p>where <code>&lt;resourcesPrefix&gt;</code> corresponds to the parameter <code>PREFIX</code> used when installing the resources for the target <code>&lt;namespace&gt;::&lt;libtarget&gt;</code>.</p>
-<h2><a class="anchor" id="autotoc_md49"></a>
+<h2><a class="anchor" id="autotoc_md50"></a>
 Configuring an application plugin</h2>
 <p>See the dedicated how to <a class="el" href="develplugin.html">How to write your own plugin</a>. </p>
 </div></div><!-- contents -->
@@ -633,7 +633,7 @@ Configuring an application plugin</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="extensions.html">Developing using Radium</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 14:06:12 for Radium Engine by
+    <li class="footer">Generated on Fri Jan 29 2021 14:42:46 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

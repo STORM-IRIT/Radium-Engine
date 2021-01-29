@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">fd9e7909fbe48ed62b8ba2926782071167107f59</span>
+   &#160;<span id="projectnumber">6e143f1f80a8ee716765eca971984897e9a2894d</span>
    </div>
   </td>
  </tr>
@@ -95,11 +95,11 @@ $(document).ready(function(){initNavTree('develmaterials.html',''); initResizabl
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md77">Content of the Radium Material Library</a></li>
+<ul><li class="level1"><a href="#autotoc_md78">Content of the Radium Material Library</a></li>
 <li class="level1"><a href="#simple-mtl-usage">Simple usage of materials</a></li>
 <li class="level1"><a href="#extend-mtl-lib">Extending the Radium Material Library</a><ul><li class="level2"><a href="#cpp-mtl-lib">C++ interface</a></li>
 <li class="level2"><a href="#glsl-mtl-lib">GLSL interface</a></li>
-<li class="level2"><a href="#autotoc_md78">Appearance computation needs</a></li>
+<li class="level2"><a href="#autotoc_md79">Appearance computation needs</a></li>
 <li class="level2"><a href="#registration-mtl-lib">Material registration into the Engine</a></li>
 <li class="level2"><a href="#non-bsdf-rendering">Rendering without using Materials</a></li>
 </ul>
@@ -111,7 +111,7 @@ $(document).ready(function(){initNavTree('develmaterials.html',''); initResizabl
 <p>A <a class="el" href="classRa_1_1Engine_1_1RenderTechnique.html">Ra::Engine::RenderTechnique</a> describes how to use a <a class="el" href="classRa_1_1Engine_1_1Material.html">Ra::Engine::Material</a> to render an object in OpenGL and consists in a set of named <a class="el" href="classRa_1_1Engine_1_1ShaderConfiguration.html">Ra::Engine::ShaderConfiguration</a> that encompass the OpenGL representation of a Material (glsl code and associated data) with, at least, vertex and fragment shaders. The name of each <a class="el" href="classRa_1_1Engine_1_1ShaderConfiguration.html">Ra::Engine::ShaderConfiguration</a> corresponds to the way a <a class="el" href="classRa_1_1Engine_1_1Renderer.html">Ra::Engine::Renderer</a> manages its rendering loop.</p>
 <p>A <a class="el" href="classRa_1_1Engine_1_1ShaderConfiguration.html">Ra::Engine::ShaderConfiguration</a> is associated with a <a class="el" href="classRa_1_1Engine_1_1ShaderProgram.html">Ra::Engine::ShaderProgram</a> bound by the <a class="el" href="classRa_1_1Engine_1_1Renderer.html">Ra::Engine::Renderer</a> when rendering an object.</p>
 <p>The Radium Engine exposes some predefined materials, the <em>Radium Material Library</em>, with render techniques corresponding to the <a class="el" href="classRa_1_1Engine_1_1ForwardRenderer.html">Ra::Engine::ForwardRenderer</a> default renderer.</p>
-<h1><a class="anchor" id="autotoc_md77"></a>
+<h1><a class="anchor" id="autotoc_md78"></a>
 Content of the Radium Material Library</h1>
 <p>The Radium Material Library defines two default material :</p><ul>
 <li>BlinnPhong, <a class="el" href="classRa_1_1Engine_1_1BlinnPhongMaterial.html">Ra::Engine::BlinnPhongMaterial</a>, corresponding to the Blinn-Phong BSDF.</li>
@@ -163,7 +163,7 @@ C++ interface</h2>
 <h2><a class="anchor" id="glsl-mtl-lib"></a>
 GLSL interface</h2>
 <p>Being able to compose shaders in a specific renderer while taking profit of Radium Material Library (either included in the base engine or defined in plugins) require a clean definition of appearance computation process and the definition of a glsl interface.</p>
-<h2><a class="anchor" id="autotoc_md78"></a>
+<h2><a class="anchor" id="autotoc_md79"></a>
 Appearance computation needs</h2>
 <p>In order to compute the appearance of an object, and according to the OpenGL/GLSL approach of rendering, several aspects might be taken into account and might be integrated into the interface definition to make a material renderer-agnostic.</p>
 <p>The user or the implementer could rely on default implementation, provided by the <em>Radium Material Library</em> of most of these functionalities and concentrate its effort in developing the required functionalities for its material/renderer.</p>
@@ -469,7 +469,7 @@ Rendering without using Materials</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="engine.html">Engine</a></li>
-    <li class="footer">Generated on Wed Jan 27 2021 14:06:12 for Radium Engine by
+    <li class="footer">Generated on Fri Jan 29 2021 14:42:46 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
