@@ -17,6 +17,8 @@ namespace Ra {
 namespace Gui {
 using Core::Math::Pi;
 
+using TrackballCameraMapping = KeyMappingManageable<TrackballCameraManipulator>;
+
 #define KMA_VALUE( XX ) \
     Gui::KeyMappingManager::KeyMappingAction Gui::TrackballCameraManipulator::XX;
 KeyMappingCamera
@@ -25,8 +27,9 @@ KeyMappingCamera
     void
     Gui::TrackballCameraManipulator::configureKeyMapping_impl() {
 
-    m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "CameraContext" );
-    if ( m_keyMappingContext.isInvalid() )
+    TrackballCameraMapping::setContext(
+        Gui::KeyMappingManager::getInstance()->getContext( "CameraContext" ) );
+    if ( TrackballCameraMapping::getContext().isInvalid() )
     {
         LOG( Ra::Core::Utils::logINFO )
             << "CameraContext not defined (maybe the configuration file do not contains it)";
@@ -34,8 +37,9 @@ KeyMappingCamera
         return;
     }
 
-#define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
+#define KMA_VALUE( XX )                                         \
+    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( \
+        TrackballCameraMapping::getContext(), #XX );
     KeyMappingCamera
 #undef KMA_VALUE
 }
@@ -107,7 +111,7 @@ bool Gui::TrackballCameraManipulator::handleMousePressEvent( QMouseEvent* event,
     m_lastMouseY = event->pos().y();
 
     auto action = KeyMappingManager::getInstance()->getAction(
-        m_keyMappingContext, buttons, modifiers, key, false );
+        TrackballCameraMapping::getContext(), buttons, modifiers, key, false );
 
     if ( action == TRACKBALLCAMERA_ROTATE )
     {

@@ -11,6 +11,8 @@
 namespace Ra {
 namespace Gui {
 
+using GizmoMapping = KeyMappingManageable<GizmoManager>;
+
 ///\todo If a macro expert could write a recursive marco to have something like
 /// KM_DEFINE_STATICS(GizmoManager, KeyMappingGizmo)
 #define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction GizmoManager::XX;
@@ -19,8 +21,8 @@ KeyMappingGizmo
 
     void
     GizmoManager::configureKeyMapping_impl() {
-    m_keyMappingContext = Gui::KeyMappingManager::getInstance()->getContext( "GizmoContext" );
-    if ( m_keyMappingContext.isInvalid() )
+    GizmoMapping::setContext( Gui::KeyMappingManager::getInstance()->getContext( "GizmoContext" ) );
+    if ( GizmoMapping::getContext().isInvalid() )
     {
         LOG( Ra::Core::Utils::logINFO )
             << "GizmoContext not defined (maybe the configuration file do not contains it)";
@@ -28,7 +30,7 @@ KeyMappingGizmo
         return;
     }
 #define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( m_keyMappingContext, #XX );
+    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( GizmoMapping::getContext(), #XX );
     KeyMappingGizmo
 #undef KMA_VALUE
 }
@@ -116,7 +118,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
     if ( !canEdit() || m_currentGizmoType == NONE || !currentGizmo()->isSelected() )
     { return false; }
     auto action = KeyMappingManager::getInstance()->getAction(
-        m_keyMappingContext, buttons, modifiers, key, false );
+        GizmoMapping::getContext(), buttons, modifiers, key, false );
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
@@ -138,7 +140,7 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
     ///\todo what about if someone start a motion with a key, and then release it while moving the
     /// mouse ?
     auto action = KeyMappingManager::getInstance()->getAction(
-        m_keyMappingContext, buttons, modifiers, key, false );
+        GizmoMapping::getContext(), buttons, modifiers, key, false );
 
     if ( m_currentGizmoType != NONE && canEdit() && isValidAction( action ) && currentGizmo() &&
          currentGizmo()->isSelected() )

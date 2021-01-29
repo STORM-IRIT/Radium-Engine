@@ -7,10 +7,13 @@ namespace Ra {
 namespace Gui {
 
 /// A Flight manipulator for Cameras.
-class RA_GUIBASE_API FlightCameraManipulator : public CameraManipulator,
-                                               public KeyMappingManageable<FlightCameraManipulator>
+//! [Declare class]
+class RA_GUIBASE_API FlightCameraManipulator
+    : public Ra::Gui::CameraManipulator,
+      public Ra::Gui::KeyMappingManageable<FlightCameraManipulator>
 {
     Q_OBJECT
+    //! [Declare class]
     friend class KeyMappingManageable<FlightCameraManipulator>;
 
   public:

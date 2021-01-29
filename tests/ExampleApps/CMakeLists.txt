@@ -89,4 +89,14 @@ target_link_libraries(RawShaderMaterial PUBLIC
 add_dependencies(${PROJECT_NAME} RawShaderMaterial)
 message(STATUS "Installing RawShaderMaterial into ${CMAKE_INSTALL_PREFIX}")
 configure_radium_app(NAME RawShaderMaterial)
+
+add_executable(CustomCameraManipulator MACOSX_BUNDLE
+CustomCameraManipulator/main.cpp)
+target_link_libraries(CustomCameraManipulator PUBLIC
+    Core Engine GuiBase
+    Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
+    OpenGL::GL)
+add_dependencies(${PROJECT_NAME} CustomCameraManipulator)
+message(STATUS "Installing CustomCameraManipulator into ${CMAKE_INSTALL_PREFIX}")
+configure_radium_app(NAME CustomCameraManipulator)
 #endif ()
