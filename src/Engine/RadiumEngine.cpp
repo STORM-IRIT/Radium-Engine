@@ -20,9 +20,9 @@
 #include <Engine/Data/PlainMaterial.hpp>
 #include <Engine/Data/VolumetricMaterial.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/EntityManager.hpp>
@@ -50,12 +50,12 @@ void RadiumEngine::initialize() {
         LOG( logERROR ) << "Default resources dir not found.";
         exit( -1 );
     }
-    m_resourcesRootDir    = *resourceDir;
-    m_signalManager       = std::make_unique<Scene::SignalManager>();
-    m_entityManager       = std::make_unique<Scene::EntityManager>();
-    m_renderObjectManager = std::make_unique<Scene::RenderObjectManager>();
-    m_textureManager      = std::make_unique<Scene::TextureManager>();
-    m_shaderProgramManager = std::make_unique<Renderer::ShaderProgramManager>();
+    m_resourcesRootDir     = *resourceDir;
+    m_signalManager        = std::make_unique<Scene::SignalManager>();
+    m_entityManager        = std::make_unique<Scene::EntityManager>();
+    m_renderObjectManager  = std::make_unique<Scene::RenderObjectManager>();
+    m_textureManager       = std::make_unique<Scene::TextureManager>();
+    m_shaderProgramManager = std::make_unique<Rendering::ShaderProgramManager>();
 
     m_loadedFile.reset();
     Scene::ComponentMessenger::createInstance();
@@ -90,30 +90,30 @@ void RadiumEngine::registerDefaultPrograms() {
 
     // Engine support some built-in materials. Register here
     /// @todo find a way to integrate "Line" material into Radium Material System
-    Renderer::ShaderConfiguration lConfig( "Lines" );
-    lConfig.addShader( Renderer::ShaderType_VERTEX,
+    Rendering::ShaderConfiguration lConfig( "Lines" );
+    lConfig.addShader( Rendering::ShaderType_VERTEX,
                        m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lConfig.addShader( Renderer::ShaderType_FRAGMENT,
+    lConfig.addShader( Rendering::ShaderType_FRAGMENT,
                        m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( lConfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( lConfig );
 
-    Renderer::ShaderConfiguration lgConfig( "LinesGeom" );
-    lgConfig.addShader( Renderer::ShaderType_VERTEX,
+    Rendering::ShaderConfiguration lgConfig( "LinesGeom" );
+    lgConfig.addShader( Rendering::ShaderType_VERTEX,
                         m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lgConfig.addShader( Renderer::ShaderType_FRAGMENT,
+    lgConfig.addShader( Rendering::ShaderType_FRAGMENT,
                         m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
-    lgConfig.addShader( Renderer::ShaderType_GEOMETRY,
+    lgConfig.addShader( Rendering::ShaderType_GEOMETRY,
                         m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( lgConfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( lgConfig );
 
-    Renderer::ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
-    lagConfig.addShader( Renderer::ShaderType_VERTEX,
+    Rendering::ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
+    lagConfig.addShader( Rendering::ShaderType_VERTEX,
                          m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lagConfig.addShader( Renderer::ShaderType_FRAGMENT,
+    lagConfig.addShader( Rendering::ShaderType_FRAGMENT,
                          m_resourcesRootDir + "Shaders/Lines/LinesAdjacency.frag.glsl" );
-    lagConfig.addShader( Renderer::ShaderType_GEOMETRY,
+    lagConfig.addShader( Rendering::ShaderType_GEOMETRY,
                          m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( lagConfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( lagConfig );
 
     // Plain is flat or diffuse
     Data::PlainMaterial::registerMaterial();
@@ -182,7 +182,7 @@ bool RadiumEngine::registerSystem( const std::string& name, Scene::System* syste
 
 Scene::System* RadiumEngine::getSystem( const std::string& system ) const {
     Scene::System* sys = nullptr;
-    auto it     = findSystem( system );
+    auto it            = findSystem( system );
 
     if ( it != m_systems.end() ) { sys = it->second.get(); }
 
@@ -190,8 +190,8 @@ Scene::System* RadiumEngine::getSystem( const std::string& system ) const {
 }
 
 Data::Displayable* RadiumEngine::getMesh( const std::string& entityName,
-                                    const std::string& componentName,
-                                    const std::string& roName ) const {
+                                          const std::string& componentName,
+                                          const std::string& roName ) const {
 
     // 1) Get entity
     if ( m_entityManager->entityExists( entityName ) )
@@ -295,7 +295,7 @@ Scene::TextureManager* RadiumEngine::getTextureManager() const {
     return m_textureManager.get();
 }
 
-Renderer::ShaderProgramManager* RadiumEngine::getShaderProgramManager() const {
+Rendering::ShaderProgramManager* RadiumEngine::getShaderProgramManager() const {
     return m_shaderProgramManager.get();
 }
 

@@ -1,6 +1,6 @@
 #include <Gui/RadiumWindow/SimpleWindow.hpp>
 
-#include <Engine/Renderer/ForwardRenderer.hpp>
+#include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Gui/SelectionManager/SelectionManager.hpp>
 #include <Gui/TreeModel/EntityTreeModel.hpp>
 #include <Gui/Viewer/CameraManipulator.hpp>
@@ -9,7 +9,7 @@
 namespace Ra {
 using namespace Gui;
 using namespace Engine;
-using namespace Engine::Renderer;
+using namespace Engine::Rendering;
 
 namespace Gui {
 
@@ -56,7 +56,7 @@ void SimpleWindow::updateUi( Ra::Plugins::RadiumPluginInterface* ) {
 void SimpleWindow::onFrameComplete() {}
 
 void SimpleWindow::addRenderer( const std::string&,
-                                std::shared_ptr<Ra::Engine::Renderer::Renderer> e ) {
+                                std::shared_ptr<Ra::Engine::Rendering::Renderer> e ) {
     m_viewer->addRenderer( e );
 }
 

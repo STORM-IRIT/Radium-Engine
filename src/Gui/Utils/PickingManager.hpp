@@ -2,7 +2,7 @@
 
 #include <Gui/RaGui.hpp>
 
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Rendering/Renderer.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -12,14 +12,14 @@ class RA_GUI_API PickingManager
     PickingManager();
     ~PickingManager();
 
-    void setCurrent( const Engine::Renderer::Renderer::PickingResult& pr );
-    const Engine::Renderer::Renderer::PickingResult& getCurrent() const;
+    void setCurrent( const Engine::Rendering::Renderer::PickingResult& pr );
+    const Engine::Rendering::Renderer::PickingResult& getCurrent() const;
 
     void clear();
 
   private:
     /// The selected feature data.
-    Engine::Renderer::Renderer::PickingResult m_pickingResult;
+    Engine::Rendering::Renderer::PickingResult m_pickingResult;
 };
 
 } // namespace Gui

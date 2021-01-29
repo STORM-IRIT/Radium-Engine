@@ -60,7 +60,7 @@ class RA_ENGINE_API VolumeObject : public Displayable
     void updateGL() override;
 
     /// Draw the mesh.
-    void render( const Renderer::ShaderProgram* prog ) override;
+    void render( const Rendering::ShaderProgram* prog ) override;
 
     /// 6 quad faces of the cube, thus 12 triangles.
     size_t getNumFaces() const override { return 12; }

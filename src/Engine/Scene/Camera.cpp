@@ -4,8 +4,8 @@
 #include <Core/Math/Math.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
 
 namespace Ra {
 
@@ -47,12 +47,12 @@ void Camera::initialize() {
     auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );
     /// \todo switch to "mat->m_color          = {.2_ra, .2_ra, .2_ra, 1_ra};"
     mat->m_perVertexColor = true;
-    Renderer::RenderTechnique rt;
-    auto cfg = Renderer::ShaderConfigurationFactory::getConfiguration( "Plain" );
+    Rendering::RenderTechnique rt;
+    auto cfg = Rendering::ShaderConfigurationFactory::getConfiguration( "Plain" );
     rt.setConfiguration( *cfg );
     rt.setParametersProvider( mat );
-    m_RO = Renderer::RenderObject::createRenderObject(
-        m_name + "_RO", this, Renderer::RenderObjectType::Debug, m, rt );
+    m_RO = Rendering::RenderObject::createRenderObject(
+        m_name + "_RO", this, Rendering::RenderObjectType::Debug, m, rt );
     m_RO->setLocalTransform( m_frame );
     m_RO->setMaterial( mat );
     show( false );

@@ -20,7 +20,7 @@ class RA_ENGINE_API DirectionalLight final : public Ra::Engine::Scene::Light
     explicit DirectionalLight( Entity* entity, const std::string& name = "dirlight" );
     ~DirectionalLight() override = default;
 
-    void getRenderParameters( Renderer::RenderParameters& params ) const override;
+    void getRenderParameters( Rendering::RenderParameters& params ) const override;
 
     void setDirection( const Eigen::Matrix<Scalar, 3, 1>& dir ) override;
     inline const Eigen::Matrix<Scalar, 3, 1>& getDirection() const;

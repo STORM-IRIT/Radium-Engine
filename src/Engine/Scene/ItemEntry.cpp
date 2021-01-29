@@ -6,7 +6,7 @@
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 
 namespace Ra {
@@ -64,10 +64,10 @@ bool ItemEntry::isSelectable() const {
     {
         const bool isUI =
             engine->getRenderObjectManager()->getRenderObject( m_roIndex )->getType() ==
-            Renderer::RenderObjectType::UI;
+            Rendering::RenderObjectType::UI;
         const bool isDebug =
             engine->getRenderObjectManager()->getRenderObject( m_roIndex )->getType() ==
-            Renderer::RenderObjectType::Debug;
+            Rendering::RenderObjectType::Debug;
         return ( !( isUI || isDebug ) );
     }
 

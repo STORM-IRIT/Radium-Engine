@@ -3,11 +3,11 @@
 #include <Core/Utils/StdOptional.hpp>
 #include <string>
 
-#include <Engine/Renderer/ShaderConfiguration.hpp>
+#include <Engine/Rendering/ShaderConfiguration.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 /** Factory that manage the set of named shader configurations
  * Usefull for the management of shader libraries where a shader configuration (source code,
@@ -37,6 +37,6 @@ RA_ENGINE_API Core::Utils::optional<ShaderConfiguration>
 getConfiguration( const std::string& name );
 } // namespace ShaderConfigurationFactory
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

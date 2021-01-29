@@ -1,37 +1,37 @@
 \page develmaterials API: Material management
 [TOC]
 
-A Ra::Engine::Material is a way to control the appearance of an object when rendering. 
-A Ra::Engine::Material defines the _Bidirectional Scattering Distribution function (BSDF)_ to be applied on an object. 
+A Ra::Engine::Data::Material is a way to control the appearance of an object when rendering. 
+A Ra::Engine::Data::Material defines the _Bidirectional Scattering Distribution function (BSDF)_ to be applied on an object. 
 
-A material is associated to the render geometry of an object (a Ra::Engine::RenderObject) through a
-Ra::Engine::RenderTechnique. 
+A material is associated to the render geometry of an object (a Ra::Engine::Rendering::RenderObject) through a
+Ra::Engine::Rendering::RenderTechnique. 
 
-A Ra::Engine::RenderTechnique describes how to use a Ra::Engine::Material to render an object in OpenGL and consists in 
-a set of named Ra::Engine::ShaderConfiguration that encompass the OpenGL representation of a Material (glsl code and 
-associated data) with, at least, vertex and fragment shaders. The name of each Ra::Engine::ShaderConfiguration 
-corresponds to the way a Ra::Engine::Renderer manages its rendering loop.
+A Ra::Engine::Rendering::RenderTechnique describes how to use a Ra::Engine::Data::Material to render an object in OpenGL and consists in 
+a set of named Ra::Engine::Data::ShaderConfiguration that encompass the OpenGL representation of a Material (glsl code and 
+associated data) with, at least, vertex and fragment shaders. The name of each Ra::Engine::Data::ShaderConfiguration 
+corresponds to the way a Ra::Engine::Rendering::Renderer manages its rendering loop.
 
-A Ra::Engine::ShaderConfiguration is associated with a Ra::Engine::ShaderProgram bound by the Ra::Engine::Renderer 
+A Ra::Engine::Data::ShaderConfiguration is associated with a Ra::Engine::Data::ShaderProgram bound by the Ra::Engine::Rendering::Renderer 
 when rendering an object.
 
 The Radium Engine exposes some predefined materials, the _Radium Material Library_, with render techniques corresponding
-to the Ra::Engine::ForwardRenderer default renderer. 
+to the Ra::Engine::Rendering::ForwardRenderer default renderer. 
 
 # Content of the Radium Material Library
 The Radium Material Library defines two default material :
-  - BlinnPhong, Ra::Engine::BlinnPhongMaterial, corresponding to the Blinn-Phong BSDF.
-  - Plain, Ra::Engine::PlainMaterial, corresponding to a diffuse, lambertian BSDF.
+  - BlinnPhong, Ra::Engine::Data::BlinnPhongMaterial, corresponding to the Blinn-Phong BSDF.
+  - Plain, Ra::Engine::Data::PlainMaterial, corresponding to a diffuse, lambertian BSDF.
 
 The _Radium Material Library_ can be used as this by any Radium Application or can be extended by an application or a 
 Radium Plugin by implementing the corresponding interfaces as described in the 
 [Extending the _Radium Material Library](#extend-mtl-lib).
 
-For each material of the library, a default Ra::Engine::RenderTechnique, corresponding to the standard usage of the 
-material by the Ra::engine::ForwardRenderer and an optional Ra::Engine::EngineMaterialConverters::ConverterFunction, 
+For each material of the library, a default Ra::Engine::Rendering::RenderTechnique, corresponding to the standard usage of the 
+material by the Ra::engine::ForwardRenderer and an optional Ra::Engine::Data::EngineMaterialConverters::ConverterFunction, 
 used when loading files to convert file representation of a Material to Radium representation of this material, are 
-made available through the dedicated factories Ra::Engine::EngineRenderTechniques and 
-Ra::Engine::EngineMaterialConverters.
+made available through the dedicated factories Ra::Engine::Rendering::EngineRenderTechniques and 
+Ra::Engine::Data::EngineMaterialConverters.
 
 See the [Material registration into the Engine](#registration-mtl-lib) section of this documentation to learn more about
 these factories.
@@ -40,31 +40,31 @@ these factories.
 
 A simple usage of material is demonstrated in the [HelloRadium Application](https://github.com/STORM-IRIT/Radium-Apps).
 
-When building scene to render, a Ra::Engine::Component must be added to a system as described into the 
+When building scene to render, a Ra::Engine::Scene::Component must be added to a system as described into the 
 _Radium Engine programmer manual_.
-A component holds one or several Ra::Engine::RenderObject that will be drawn when rendering.
+A component holds one or several Ra::Engine::Rendering::RenderObject that will be drawn when rendering.
 
-To define a Ra::Engine::RenderObject and add it to the component, the geometry of a 3D object (a Ra::Engine::Mesh) 
-must be associated with a Ra::Engine::RenderTechnique that links to the required Ra::Engine::Material.
+To define a Ra::Engine::Rendering::RenderObject and add it to the component, the geometry of a 3D object (a Ra::Engine::Mesh) 
+must be associated with a Ra::Engine::Rendering::RenderTechnique that links to the required Ra::Engine::Data::Material.
  
 To do that, the following steps must be done :
-1. Create the Ra::Engine::Mesh (see the [documentation about Meshes](@ref develmeshes))
+1. Create the Ra::Engine::Data::Mesh (see the [documentation about Meshes](@ref develmeshes))
 \snippet HelloRadium/minimalradium.cpp Creating the Engine Mesh
 
-2. Create the Ra::Engine::Material
+2. Create the Ra::Engine::Data::Material
 \snippet HelloRadium/minimalradium.cpp Creating the Material
 
-3. Create the Ra::Engine::RenderTechnique, here using the Ra::Engine::EngineRenderTechniques factory, and associate it 
+3. Create the Ra::Engine::Rendering::RenderTechnique, here using the Ra::Engine::Rendering::EngineRenderTechniques factory, and associate it 
 to the material
 \snippet HelloRadium/minimalradium.cpp Creating the RenderTechnique
 
-4. Create the Ra::Engine::RenderObject and add it to the Ra::Engine::Component
+4. Create the Ra::Engine::Rendering::RenderObject and add it to the Ra::Engine::Scene::Component
 \snippet HelloRadium/minimalradium.cpp Creating the RenderObject
 
 Note that this way of using the _Radium Material Library_ is very related to the default Radium rendering capabilities
 exposed by the [Radium forward renderer](@ref forwardrendererconcept). 
 See the [Render technique management](./rendertechnique) documentation to learn how to create your own 
-Ra::Engine::RenderTechnique, potentially without associated material.
+Ra::Engine::Rendering::RenderTechnique, potentially without associated material.
 
 If one wants to render objects without BSDF computation but with a specific color computation for the fragment, 
 follow the guidelines from [the dedicated section](#non-bsdf-rendering) of this documentation.
@@ -76,7 +76,7 @@ The _Radium Material Library_ could be extended to handle several _Bidirectional
 In order to make these extensions available to each Radium developer, the _Radium Material Library_ defines several 
 interfaces and factories for material management. 
 
-A material is defined by two programming interfaces. The Ra::Engine::Material that defines the 
+A material is defined by two programming interfaces. The Ra::Engine::Data::Material that defines the 
 [C++ interface](#cpp-mtl-lib) made available for applications and plugins and a [GLSL interface](#glsl-mtl-lib) that 
 allows shader reuse and composition for OpenGL rendering.
 
@@ -94,18 +94,18 @@ give one for the Radium default renderer.
 renderer-specific and the programmer must at least give one for the Radium default renderer.
 
 ## C++ interface {#cpp-mtl-lib}
-The Ra::Engine::Material interface defines the internal abstract representation of a Material. 
+The Ra::Engine::Data::Material interface defines the internal abstract representation of a Material. 
 This interface defines all the methods required to parametrized the OpenGL pipeline for rendering and will be used 
-mainly by the Ra::Engine::RenderTechnique and the Ra::Engine::Renderer classes.
+mainly by the Ra::Engine::Rendering::RenderTechnique and the Ra::Engine::Rendering::Renderer classes.
 
 When implementing this interface, and in order to make the material available to all applications or plugins,
 two static methods to register and unregister the material into the _Radium Material Library_ must also be developed.
 These method will populate the _Radium Material Library_ factories with specific helper functions to use the material
 in the default Radium forward renderer.
 Mainly, the `registerMaterial()` method will record an helper function to build a material-related 
-Ra::Engine::RenderTechnique dedicated to the Radium forward renderer.
+Ra::Engine::Rendering::RenderTechnique dedicated to the Radium forward renderer.
 ~~~{.cpp}
-class MyMaterial : public Ra::Engine::Material {
+class MyMaterial : public Ra::Engine::Data::Material {
 public:
     // implementation of the abstract interface
     ...
@@ -238,7 +238,7 @@ bool toDiscard(Material material, vec4 color);
 
 
 ### BSDF interface {#bsdf-interface}
-Implementing or using the GLSL BSDF interface is based on the fact that the method Ra::Engine::Material::getMaterialName()
+Implementing or using the GLSL BSDF interface is based on the fact that the method Ra::Engine::Data::Material::getMaterialName()
  must return a string that contains the `name_of_the_BSDF` implemented in a file named `name_of_the_BSDF.glsl`.
 This file is preloaded at [material registration](#registration-mtl-lib) into a `glNamedString` to allow inclusion by others.
 
@@ -329,13 +329,13 @@ rendering step.
 3. Render Technique factory : defining which Program configurations must be used for each renderer-specific task.
 
 a fourth part, optional, could be defined to convert a Ra::Core::Asset:MaterialData (file representation of a material)
-to a Ra::Engine::Material.
+to a Ra::Engine::Data::Material.
 
 ### Registration of OpenGL/GLSL named string
 Relying on already developed GLSL component require that this component could be included in the client code.
 In GLSL, this is done using the preprocessor directive ``#include </ComponentPath/ComponentName.glsl>``.
 As specified by the ARB_shading_language_include specification, included files must be preloaded in a 
-GlNamedString object. The Ra::Engine::ShaderManager provide a way to populate the GLNamedString ecosystem.
+GlNamedString object. The Ra::Engine::Data::ShaderManager provide a way to populate the GLNamedString ecosystem.
 
 To register a GLSL component, from a file named ``SharedComponent.glsl``, so that it could be included in others GLSL files
 by ``#include </SharedComponent.glsl>``, one just need to do the following
@@ -353,61 +353,61 @@ A vertex shader and a fragment shader stage are mandatory whereas tesselation en
 depends only of the way one want to configure its pipeline for rendering.
  
 To describe the OpenGL program configuration, and make it reusable, the configuration must be registered in the 
-Ra::Engine::ShaderConfigurationFactory. To do that, for each reusable configuration, one just need to do the following
+Ra::Engine::Data::ShaderConfigurationFactory. To do that, for each reusable configuration, one just need to do the following
 ~~~{.cpp}
     // build the configuration
-    Ra::Engine::ShaderConfiguration myConfig(
+    Ra::Engine::Data::ShaderConfiguration myConfig(
         "ConfigName",
         "absolute/path/to/vertexshader.vert.glsl",
         "absolute/path/to/fragmentshader.vert.glsl", );
     // add optional components of the configuration (#define, geometry shaders, ...
     ...
     // Register the configuration to the factory
-    Ra::Engine::ShaderConfigurationFactory::addConfiguration( myConfig );
+    Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration( myConfig );
 ~~~
 
 once registered, a shader configuration could be fetched from the factory by its name :
 ~~~{.cpp}
 auto theConfig =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "ConfigName" );
+                Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "ConfigName" );
 ~~~
 
 ### Registering a RenderTechnique
-A Ra::Engine::RenderTechnique describes which Ra::Engine::ShaderConfiguration a renderer will use for each of its 
-rendering passes. Such a render technique could encompass a Ra::Engine::Material but its meaning is larger than just 
+A Ra::Engine::Rendering::RenderTechnique describes which Ra::Engine::Data::ShaderConfiguration a renderer will use for each of its 
+rendering passes. Such a render technique could encompass a Ra::Engine::Data::Material but its meaning is larger than just 
 computing the BSDF. 
 In order to make a GLSL component that compute the appearance of a 3D object usable by a the default Radium renderer,
 one must define which shader configuration to use for each pass of the renderer.  
 A Render technique will be used to configure the rendering of a geometry and the association between the geometry and 
-the render technique is made in a Ra::Engine::RenderObject.
-Making a GLSL component available for the Ra::Engine::ForwardRenderer default renderer in Radium, on must define which
-Ra::Engine::ShaderConfiguration to use for the passes Ra::Engine::DefaultRenderingPasses::LIGHTING_OPAQUE, 
-Ra::Engine::DefaultRenderingPasses::Z_PREPASS and, if the appearance might be transparent, 
-Ra::Engine::DefaultRenderingPasses::LIGHTING_TRANSPARENT.
+the render technique is made in a Ra::Engine::Rendering::RenderObject.
+Making a GLSL component available for the Ra::Engine::Rendering::ForwardRenderer default renderer in Radium, on must define which
+Ra::Engine::Data::ShaderConfiguration to use for the passes Ra::Engine::Rendering::DefaultRenderingPasses::LIGHTING_OPAQUE, 
+Ra::Engine::Rendering::DefaultRenderingPasses::Z_PREPASS and, if the appearance might be transparent, 
+Ra::Engine::Rendering::DefaultRenderingPasses::LIGHTING_TRANSPARENT.
 
-To do that, the Default render technique, the one that wil be used by Ra::Engine::ForwardRenderer must be registered
-into the Ra::Engine::EngineRenderTechniques factory. This is done according to the following
+To do that, the Default render technique, the one that wil be used by Ra::Engine::Rendering::ForwardRenderer must be registered
+into the Ra::Engine::Rendering::EngineRenderTechniques factory. This is done according to the following
 
 ~~~{.cpp}
-Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
+Ra::Engine::Rendering::EngineRenderTechniques::registerDefaultTechnique(
         // This name will be used to query the RenderTechnique when rendering
         "NameOfTheTechnique", 
         // This lambda will be executed to configure the rendering technique for a RenderObject
-        []( Ra::Engine::RenderTechnique& rt, bool isTransparent ) {
+        []( Ra::Engine::Rendering::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object at the mandatory pass
             auto lightpass =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "MyTechniqueOpaque" );
+                Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "MyTechniqueOpaque" );
             rt.setConfiguration( lightpass, DefaultRenderingPasses::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended) : 
             auto zprepass =
-                Ra::Engine::ShaderConfigurationFactory::getConfiguration( "MyTechniqueZprepass" );
+                Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "MyTechniqueZprepass" );
             rt.setConfiguration( zprepass, DefaultRenderingPasses::Z_PREPASS );
             // Transparent pass (0ptional) : If Transparent ... add LitOIT
             if ( isTransparent )
             {
                 auto transparentpass =
-                    Ra::Engine::ShaderConfigurationFactory::getConfiguration( "MyTechiqueTransparent" );
+                    Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "MyTechiqueTransparent" );
                 rt.setConfiguration( transparentpass,
                                      DefaultRenderingPasses::LIGHTING_TRANSPARENT );
             }
@@ -416,19 +416,19 @@ Ra::Engine::EngineRenderTechniques::registerDefaultTechnique(
 
 once registered, the render technique could then be associated with any render object using the following principle :
 ~~~{.cpp}
-// Construct and initialize a Ra::Engine::RenderTechnique object
-Ra::Engine::RenderTechnique rt;
+// Construct and initialize a Ra::Engine::Rendering::RenderTechnique object
+Ra::Engine::Rendering::RenderTechnique rt;
 // Associate a Ra::engine::Material with the render technique if needed
 bool isMaterialTransparent = false;
 if ( haveMaterial ) {
-    std::shared_ptr<Ra::Engine::Material> radiumMaterial( new MyMaterial(...) );
+    std::shared_ptr<Ra::Engine::Data::Material> radiumMaterial( new MyMaterial(...) );
     isMaterialTransparent = radiumMaterial->isTransparent();
     rt.setMaterial( radiumMaterial );
 } else {
     rt.setMaterial( nullptr );
 }
 // configure the render technique for rendering this material with the default renderer
-auto builder = Ra::Engine::EngineRenderTechniques::getDefaultTechnique( "NameOfTheTechnique" );
+auto builder = Ra::Engine::Rendering::EngineRenderTechniques::getDefaultTechnique( "NameOfTheTechnique" );
 builder.second( rt, isMaterialTransparent );
 ~~~
 
@@ -441,20 +441,20 @@ When rendering, it is sometime useful to compute the final color of an object th
 To define a custom fragment's color computation shader and use it with application provided parameters, the following steps are required :
 
 1. Develop specific vertex and fragment shaders to compute the fragment color
-2. Build a Ra::Engine::ShaderConfiguration that uses these shaders
+2. Build a Ra::Engine::Data::ShaderConfiguration that uses these shaders
 3. Build a render technique that use this configuration
-4. If the shaders have uniform parameters, implement a specific Ra::Engine::ShaderParameterProvider and associate an instance of the parameter provider to the render technique.
-5. Associate the render technique with a geometry in a Ra::Engine::RenderObject
+4. If the shaders have uniform parameters, implement a specific Ra::Engine::Data::ShaderParameterProvider and associate an instance of the parameter provider to the render technique.
+5. Associate the render technique with a geometry in a Ra::Engine::Rendering::RenderObject
 
 Here is an example snippet.
 ~~~{.cpp}
 // 1. Implement a parameter provider to provide the uniforms for the shader
-class MyParameterProvider : public Ra:Engine::ShaderParameterProvider {
+class MyParameterProvider : public Ra:Engine::Data::ShaderParameterProvider {
 public:
   MyParameterProvider() {}
   ~MyParameterProvider() {}
   void updateGL() override {
-    // Method called before drawing each frame in Renderer::updateRenderObjectsInternal.
+    // Method called before drawing each frame in Rendering::updateRenderObjectsInternal.
     // The name of the parameter corresponds to the shader's uniform name.
     m_renderParameters.addParameter( "aColorUniform", m_colorParameter );
     m_renderParameters.addParameter( "aScalarUniform", m_scalarParameter );
@@ -491,14 +491,14 @@ const std::string fragmentShaderSource{
     "    out_color =  aColorUniform*aScalarUniform;\n"
     "}\n"};
 
-// 3. Setup a Ra::Engine::ShaderConfiguration that uses these shaders
-Ra::Engine::ShaderConfiguration myConfig{"MyColorComputation"};
-config.addShaderSource( Ra::Engine::ShaderType::ShaderType_VERTEX, vertexShaderSource );
-config.addShaderSource( Ra::Engine::ShaderType::ShaderType_FRAGMENT, fragmentShaderSource );
-Ra::Engine::ShaderConfigurationFactory::addConfiguration( myConfig );
+// 3. Setup a Ra::Engine::Data::ShaderConfiguration that uses these shaders
+Ra::Engine::Data::ShaderConfiguration myConfig{"MyColorComputation"};
+config.addShaderSource( Ra::Engine::Data::ShaderType::ShaderType_VERTEX, vertexShaderSource );
+config.addShaderSource( Ra::Engine::Data::ShaderType::ShaderType_FRAGMENT, fragmentShaderSource );
+Ra::Engine::Data::ShaderConfigurationFactory::addConfiguration( myConfig );
 
 // 4. Build a render technique that use this configuration
-Ra::Engine::RenderTechnique renderTechnique;
+Ra::Engine::Rendering::RenderTechnique renderTechnique;
 renderTechnique.setConfiguration( myConfig, DefaultRenderingPasses::LIGHTING_OPAQUE );
 
 // 5. Create and associate the parameter provider with the RenderTechnique
@@ -506,12 +506,12 @@ auto parameterProvider = std::make_shared<MyParameterProvider>();
 parameterProvider->setOrComputeTheParameterValues();
 renderTechnique.setParametersProvider(parameterProvider);
 
-// 6. Associate the render technique with a geometry in a Ra::Engine::RenderObject
-std::shared_ptr<Ra::Engine::Mesh> mesh( new Ra::Engine::Mesh( "my mesh" ) );
+// 6. Associate the render technique with a geometry in a Ra::Engine::Rendering::RenderObject
+std::shared_ptr<Ra::Engine::Data::Mesh> mesh( new Ra::Engine::Data::Mesh( "my mesh" ) );
 mesh->loadGeometry( Ra::Core::Geometry::makeSharpBox( {0.1f, 0.1f, 0.1f} ) );
-auto renderObject = Ra::Engine::RenderObject::createRenderObject(
+auto renderObject = Ra::Engine::Rendering::RenderObject::createRenderObject(
     "myRenderObject", radiumComponent,
-    Ra::Engine::RenderObjectType::Geometry, mesh, renderTechnique );
+    Ra::Engine::Rendering::RenderObjectType::Geometry, mesh, renderTechnique );
 addRenderObject( renderObject );
 // where radiumComponent is a component of the scene.
 ~~~

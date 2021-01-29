@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine/Renderer/Renderer.hpp>
+#include <Engine/Rendering/Renderer.hpp>
 
 namespace globjects {
 class Framebuffer;
@@ -11,7 +11,7 @@ namespace Engine {
 namespace Data {
 class Texture;
 }
-namespace Renderer {
+namespace Rendering {
 
 /** Default renderer for the Radium Engine
  * This classe implements aforward rendering algorithm with Z-prepass, multipass light accumulation
@@ -81,6 +81,6 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     std::vector<Core::Matrix4> m_lightMatrices;
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

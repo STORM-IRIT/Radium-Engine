@@ -5,7 +5,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 // declare specialization, definied in .cpp
 template <>
@@ -32,6 +32,6 @@ inline void ShaderProgram::setUniform( const char* name, const T& value ) const 
     m_program->setUniform<T>( name, value );
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

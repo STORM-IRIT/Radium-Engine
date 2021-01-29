@@ -7,8 +7,8 @@
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/Mesh.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/RenderParameters.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderParameters.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 
@@ -119,11 +119,11 @@ void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
     }
     // initialize with a default rendertechique that draws nothing
     std::string roName( m_name + "_" + m_contentName + "_RO" );
-    auto ro = Renderer::RenderObject::createRenderObject( roName,
-                                                          this,
-                                                          Renderer::RenderObjectType::Geometry,
-                                                          m_displayMesh,
-                                                          Renderer::RenderTechnique {} );
+    auto ro = Rendering::RenderObject::createRenderObject( roName,
+                                                           this,
+                                                           Rendering::RenderObjectType::Geometry,
+                                                           m_displayMesh,
+                                                           Rendering::RenderTechnique {} );
     ro->setTransparent( roMaterial->isTransparent() );
     ro->setMaterial( roMaterial );
     setupIO( m_contentName );

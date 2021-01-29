@@ -12,16 +12,16 @@ set( engine_sources
     Data/VolumeObject.cpp
     Data/VolumetricMaterial.cpp
     RadiumEngine.cpp
-    Renderer/DebugRender.cpp
-    Renderer/ForwardRenderer.cpp
-    Renderer/Renderer.cpp
-    Renderer/RenderObject.cpp
-    Renderer/RenderParameters.cpp
-    Renderer/RenderTechnique.cpp
-    Renderer/ShaderConfigFactory.cpp
-    Renderer/ShaderConfiguration.cpp
-    Renderer/ShaderProgram.cpp
-    Renderer/ShaderProgramManager.cpp
+    Rendering/DebugRender.cpp
+    Rendering/ForwardRenderer.cpp
+    Rendering/Renderer.cpp
+    Rendering/RenderObject.cpp
+    Rendering/RenderParameters.cpp
+    Rendering/RenderTechnique.cpp
+    Rendering/ShaderConfigFactory.cpp
+    Rendering/ShaderConfiguration.cpp
+    Rendering/ShaderProgram.cpp
+    Rendering/ShaderProgramManager.cpp
     Scene/Camera.cpp
     Scene/CameraManager.cpp
     Scene/Component.cpp
@@ -63,18 +63,18 @@ set( engine_headers
     OpenGL.hpp
     RadiumEngine.hpp
     RaEngine.hpp
-    Renderer/DebugRender.hpp
-    Renderer/ForwardRenderer.hpp
-    Renderer/Renderer.hpp
-    Renderer/RenderObject.hpp
-    Renderer/RenderObjectTypes.hpp
-    Renderer/RenderParameters.hpp
-    Renderer/RenderTechnique.hpp
-    Renderer/ShaderConfigFactory.hpp
-    Renderer/ShaderConfiguration.hpp
-    Renderer/ShaderProgram.hpp
-    Renderer/ShaderProgramManager.hpp
-    Renderer/ViewingParameters.hpp
+    Rendering/DebugRender.hpp
+    Rendering/ForwardRenderer.hpp
+    Rendering/Renderer.hpp
+    Rendering/RenderObject.hpp
+    Rendering/RenderObjectTypes.hpp
+    Rendering/RenderParameters.hpp
+    Rendering/RenderTechnique.hpp
+    Rendering/ShaderConfigFactory.hpp
+    Rendering/ShaderConfiguration.hpp
+    Rendering/ShaderProgram.hpp
+    Rendering/ShaderProgramManager.hpp
+    Rendering/ViewingParameters.hpp
     Scene/Camera.hpp
     Scene/CameraManager.hpp
     Scene/CameraStorage.hpp
@@ -109,9 +109,9 @@ set( engine_inlines
     Data/SimpleMaterial.inl
     Data/VolumeObject.inl
     Data/VolumetricMaterial.inl
-    Renderer/RenderParameters.inl
-    Renderer/RenderTechnique.inl
-    Renderer/ShaderProgram.inl
+    Rendering/RenderParameters.inl
+    Rendering/RenderTechnique.inl
+    Rendering/ShaderProgram.inl
     Scene/Camera.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl

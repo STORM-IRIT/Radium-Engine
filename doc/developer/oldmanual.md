@@ -53,7 +53,7 @@ more than once per frame.
 When creating an entity, if you set its transform, _do not forget_ to call
 `Entity::swapTransformBuffers`, this might prevent you some headache. Example :
 ~~~{.cpp}
-Ra::Engine::Entity* entity = theEntityManager->getOrCreate( "MyEntity" );
+Ra::Engine::Scene::Entity* entity = theEntityManager->getOrCreate( "MyEntity" );
 Ra::Core::Transform transform( Ra::Core::Transform::Identity() );
 transform.translation = Ra::Core::Vector3( 42, 13, 37 );
 entity->setTransform( transform );
@@ -151,7 +151,7 @@ For this automated build to work the plugins are required to follow these requir
     *   Plugin code must be in `namespace BaseNamePlugin`
     *   The system defined by the plugin must be named `BaseNamePlugin::BaseNameSystem`
     *   It must be defined in a header located at the top of the plugin sub-folder, named `BaseNameSystem.hpp` (its full path should be `src/Plugins/Basename/BasenameSystem.hpp`)
-    *   The system must inherit from `Engine::System` and have a default empty constructor.
+    *   The system must inherit from `Engine::Scene::System` and have a default empty constructor.
 
 ## Default plugins
 

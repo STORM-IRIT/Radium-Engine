@@ -5,8 +5,8 @@
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Data/Mesh.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/RenderTechnique.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
 #include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
@@ -36,9 +36,9 @@ RotateGizmo::RotateGizmo( Engine::Scene::Component* c,
         auto mesh = std::shared_ptr<Engine::Data::Mesh>( new Engine::Data::Mesh( "Gizmo Torus" ) );
         mesh->loadGeometry( std::move( torus ) );
 
-        auto torusDrawable = new Engine::Renderer::RenderObject(
-            "Gizmo Torus", m_comp, Engine::Renderer::RenderObjectType::UI );
-        auto rt = std::shared_ptr<Engine::Renderer::RenderTechnique>( makeRenderTechnique( i ) );
+        auto torusDrawable = new Engine::Rendering::RenderObject(
+            "Gizmo Torus", m_comp, Engine::Rendering::RenderObjectType::UI );
+        auto rt = std::shared_ptr<Engine::Rendering::RenderTechnique>( makeRenderTechnique( i ) );
         torusDrawable->setRenderTechnique( rt );
         torusDrawable->setMesh( mesh );
         addRenderObject( torusDrawable );

@@ -4,10 +4,10 @@
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderTechnique.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/ShaderProgram.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ShaderProgram.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
 #include <Engine/Scene/TextureManager.hpp>
 
 namespace Ra {
@@ -111,52 +111,53 @@ void BlinnPhongMaterial::registerMaterial() {
     shaderProgramManager->addNamedString(
         "/BlinnPhong.glsl", resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.glsl" );
     // registering re-usable shaders
-    Renderer::ShaderConfiguration lpconfig(
+    Rendering::ShaderConfiguration lpconfig(
         "BlinnPhong",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
-    Renderer::ShaderConfiguration zprepassconfig(
+    Rendering::ShaderConfiguration zprepassconfig(
         "ZprepassBlinnPhong",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhongZPrepass.frag.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
-    Renderer::ShaderConfiguration transparentpassconfig(
+    Rendering::ShaderConfiguration transparentpassconfig(
         "LitOITBlinnPhong",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
-    Renderer::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
+    Rendering::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
 
     // Registering technique
-    Renderer::EngineRenderTechniques::registerDefaultTechnique(
+    Rendering::EngineRenderTechniques::registerDefaultTechnique(
         materialName,
 
-        []( Renderer::RenderTechnique& rt, bool isTransparent ) {
+        []( Rendering::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : BlinnPhong
-            auto lightpass = Renderer::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
-            rt.setConfiguration( *lightpass, Renderer::DefaultRenderingPasses::LIGHTING_OPAQUE );
+            auto lightpass =
+                Rendering::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
+            rt.setConfiguration( *lightpass, Rendering::DefaultRenderingPasses::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended) : DepthAmbiantPass
             auto zprepass =
-                Renderer::ShaderConfigurationFactory::getConfiguration( "ZprepassBlinnPhong" );
-            rt.setConfiguration( *zprepass, Renderer::DefaultRenderingPasses::Z_PREPASS );
+                Rendering::ShaderConfigurationFactory::getConfiguration( "ZprepassBlinnPhong" );
+            rt.setConfiguration( *zprepass, Rendering::DefaultRenderingPasses::Z_PREPASS );
             // Transparent pass (0ptional) : If Transparent ... add LitOIT
             if ( isTransparent )
             {
                 auto transparentpass =
-                    Renderer::ShaderConfigurationFactory::getConfiguration( "LitOITBlinnPhong" );
+                    Rendering::ShaderConfigurationFactory::getConfiguration( "LitOITBlinnPhong" );
                 rt.setConfiguration( *transparentpass,
-                                     Renderer::DefaultRenderingPasses::LIGHTING_TRANSPARENT );
+                                     Rendering::DefaultRenderingPasses::LIGHTING_TRANSPARENT );
             }
         } );
 }
 
 void BlinnPhongMaterial::unregisterMaterial() {
     EngineMaterialConverters::removeMaterialConverter( materialName );
-    Renderer::EngineRenderTechniques::removeDefaultTechnique( materialName );
+    Rendering::EngineRenderTechniques::removeDefaultTechnique( materialName );
 }
 
 Material*

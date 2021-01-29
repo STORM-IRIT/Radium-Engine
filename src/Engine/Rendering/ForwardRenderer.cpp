@@ -1,4 +1,4 @@
-#include <Engine/Renderer/ForwardRenderer.hpp>
+#include <Engine/Rendering/ForwardRenderer.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Utils/Color.hpp>
@@ -8,11 +8,11 @@
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/OpenGL.hpp>
-#include <Engine/Renderer/DebugRender.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
-#include <Engine/Renderer/RenderParameters.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
-#include <Engine/Renderer/ViewingParameters.hpp>
+#include <Engine/Rendering/DebugRender.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderParameters.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
+#include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
 #include <Engine/Scene/Light.hpp>
@@ -27,7 +27,7 @@ using namespace Core;
 using namespace Core::Utils; // log
 
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 namespace {
 const GLenum buffers[] = {GL_COLOR_ATTACHMENT0,
                           GL_COLOR_ATTACHMENT1,
@@ -645,6 +645,6 @@ void ForwardRenderer::updateShadowMaps() {
     // Radium V2 : implement shadow mapping
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

@@ -160,7 +160,7 @@ class RA_ENGINE_API Camera : public Scene::Component
     Scalar m_zoomFactor {1};                      ///< Zoom factor (modifies the field of view)
     Scalar m_fov {Core::Math::PiDiv4};            ///< Field of view
 
-    Renderer::RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
+    Rendering::RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
 
     /// \name To be deprecated
     /// Currently, only the CameraManipulator (i.e. TrackballCameraManipulator) accesses these

@@ -30,7 +30,7 @@ class SignalManager;
 class TextureManager;
 } // namespace Scene
 
-namespace Renderer{
+namespace Rendering {
 class ShaderProgramManager;
 }
 
@@ -109,8 +109,8 @@ class RA_ENGINE_API RadiumEngine
      * serve mesh by name will be implemented.
      */
     [[deprecated]] Data::Displayable* getMesh( const std::string& entityName,
-                                         const std::string& componentName,
-                                         const std::string& roName = std::string() ) const;
+                                               const std::string& componentName,
+                                               const std::string& roName = std::string() ) const;
 
     /**
      * Try to loads the given file.
@@ -177,7 +177,7 @@ class RA_ENGINE_API RadiumEngine
      * @note, the engine keep ownership on the pointer returned
      * @return the shader program manager
      */
-    Renderer::ShaderProgramManager* getShaderProgramManager() const;
+    Rendering::ShaderProgramManager* getShaderProgramManager() const;
 
     /**
      * Register a new file loader to the engine.
@@ -345,7 +345,7 @@ class RA_ENGINE_API RadiumEngine
     std::unique_ptr<Scene::EntityManager> m_entityManager;
     std::unique_ptr<Scene::SignalManager> m_signalManager;
     std::unique_ptr<Scene::TextureManager> m_textureManager;
-    std::unique_ptr<Renderer::ShaderProgramManager> m_shaderProgramManager;
+    std::unique_ptr<Rendering::ShaderProgramManager> m_shaderProgramManager;
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
     bool m_loadingState {false};

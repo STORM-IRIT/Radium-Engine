@@ -9,7 +9,7 @@
 // Need to be separated to reduce compilation time
 #include <Core/Types.hpp>
 
-#include <Engine/Renderer/RenderParameters.hpp>
+#include <Engine/Rendering/RenderParameters.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -20,7 +20,7 @@ namespace Data {
  * transparent materials.
  *
  */
-class RA_ENGINE_API Material : public Renderer::ShaderParameterProvider
+class RA_ENGINE_API Material : public Rendering::ShaderParameterProvider
 {
   public:
     /**

@@ -10,11 +10,11 @@ RawShaderMaterialConverter::operator()( const Ra::Core::Asset::MaterialData* toc
     return new RawShaderMaterial( mat->getName(), mat->m_shaders, mat->m_paramProvider );
 }
 
-inline Renderer::RenderParameters& RawShaderMaterial::getParameters() {
+inline Rendering::RenderParameters& RawShaderMaterial::getParameters() {
     return m_paramProvider->getParameters();
 }
 
-inline const Renderer::RenderParameters& RawShaderMaterial::getParameters() const {
+inline const Rendering::RenderParameters& RawShaderMaterial::getParameters() const {
     return m_paramProvider->getParameters();
 }
 

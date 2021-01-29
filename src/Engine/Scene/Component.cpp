@@ -4,7 +4,7 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderObject.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
 #include <Engine/Scene/SignalManager.hpp>
@@ -34,7 +34,7 @@ RenderObjectManager* Component::getRoMgr() {
     return RadiumEngine::getInstance()->getRenderObjectManager();
 }
 
-Core::Utils::Index Component::addRenderObject( Renderer::RenderObject* renderObject ) {
+Core::Utils::Index Component::addRenderObject( Rendering::RenderObject* renderObject ) {
     m_renderObjects.push_back( getRoMgr()->addRenderObject( renderObject ) );
     return m_renderObjects.back();
 }

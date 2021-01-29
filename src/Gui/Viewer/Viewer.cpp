@@ -33,10 +33,10 @@
 #include <Core/Utils/Log.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
-#include <Engine/Renderer/ForwardRenderer.hpp>
-#include <Engine/Renderer/Renderer.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
-#include <Engine/Renderer/ViewingParameters.hpp>
+#include <Engine/Rendering/ForwardRenderer.hpp>
+#include <Engine/Rendering/Renderer.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
+#include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/DirLight.hpp>
@@ -133,15 +133,15 @@ Gui::GizmoManager* Gui::Viewer::getGizmoManager() {
     return m_gizmoManager;
 }
 
-const Engine::Renderer::Renderer* Gui::Viewer::getRenderer() const {
+const Engine::Rendering::Renderer* Gui::Viewer::getRenderer() const {
     return m_currentRenderer;
 }
 
-Engine::Renderer::Renderer* Gui::Viewer::getRenderer() {
+Engine::Rendering::Renderer* Gui::Viewer::getRenderer() {
     return m_currentRenderer;
 }
 
-int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Renderer::Renderer>& e ) {
+int Gui::Viewer::addRenderer( const std::shared_ptr<Engine::Rendering::Renderer>& e ) {
     // initial state and lighting (deferred if GL is not ready yet)
     if ( m_glInitialized.load() )
     {
@@ -233,10 +233,10 @@ void Gui::Viewer::processPicking() {
 
     for ( uint i = 0; i < m_currentRenderer->getPickingQueries().size(); ++i )
     {
-        const Engine::Renderer::Renderer::PickingQuery& query =
+        const Engine::Rendering::Renderer::PickingQuery& query =
             m_currentRenderer->getPickingQueries()[i];
 
-        if ( query.m_purpose == Engine::Renderer::Renderer::PickingPurpose::MANIPULATION )
+        if ( query.m_purpose == Engine::Rendering::Renderer::PickingPurpose::MANIPULATION )
         {
             const auto& result = m_currentRenderer->getPickingResults()[i];
             m_pickingManager->setCurrent( result );
@@ -396,7 +396,7 @@ void Gui::Viewer::createGizmoManager() {
     if ( m_gizmoManager == nullptr ) { m_gizmoManager = new GizmoManager( this ); }
 }
 
-void Gui::Viewer::initializeRenderer( Engine::Renderer::Renderer* renderer ) {
+void Gui::Viewer::initializeRenderer( Engine::Rendering::Renderer* renderer ) {
     // see issue #261 Qt Event order and default viewport management (Viewer.cpp)
     // https://github.com/STORM-IRIT/Radium-Engine/issues/261
 #ifndef OS_MACOS
@@ -448,7 +448,8 @@ bool Gui::Viewer::initializeGL() {
     if ( m_renderers.empty() )
     {
         LOG( logINFO ) << "[Viewer] No renderer added, adding default (Forward Renderer)";
-        std::shared_ptr<Ra::Engine::Renderer::Renderer> e( new Ra::Engine::Renderer::ForwardRenderer() );
+        std::shared_ptr<Ra::Engine::Rendering::Renderer> e(
+            new Ra::Engine::Rendering::ForwardRenderer() );
         addRenderer( e );
     }
     else
@@ -477,25 +478,25 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
     emit needUpdate();
 }
 
-Engine::Renderer::Renderer::Renderer::PickingMode
+Engine::Rendering::Renderer::PickingMode
 Gui::Viewer::getPickingMode( const KeyMappingManager::KeyMappingAction& action ) const {
     if ( action == VIEWER_PICKING_VERTEX )
     {
-        return m_isBrushPickingEnabled ? Engine::Renderer::Renderer::C_VERTEX
-                                       : Engine::Renderer::Renderer::VERTEX;
+        return m_isBrushPickingEnabled ? Engine::Rendering::Renderer::C_VERTEX
+                                       : Engine::Rendering::Renderer::VERTEX;
     }
     if ( action == VIEWER_PICKING_EDGE )
     {
-        return m_isBrushPickingEnabled ? Engine::Renderer::Renderer::C_EDGE
-                                       : Engine::Renderer::Renderer::EDGE;
+        return m_isBrushPickingEnabled ? Engine::Rendering::Renderer::C_EDGE
+                                       : Engine::Rendering::Renderer::EDGE;
     }
     if ( action == VIEWER_PICKING_TRIANGLE )
     {
-        return m_isBrushPickingEnabled ? Engine::Renderer::Renderer::C_TRIANGLE
-                                       : Engine::Renderer::Renderer::TRIANGLE;
+        return m_isBrushPickingEnabled ? Engine::Rendering::Renderer::C_TRIANGLE
+                                       : Engine::Rendering::Renderer::TRIANGLE;
     }
-    if ( action == VIEWER_PICKING ) { return Engine::Renderer::Renderer::Renderer::RO; }
-    return Engine::Renderer::Renderer::NONE;
+    if ( action == VIEWER_PICKING ) { return Engine::Rendering::Renderer::RO; }
+    return Engine::Rendering::Renderer::NONE;
 }
 
 void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
@@ -617,7 +618,7 @@ void Gui::Viewer::handleKeyPressEvent( QKeyEvent* event ) {
 }
 
 void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
-                                         Ra::Engine::Renderer::Renderer::PickingResult& result ) {
+                                         Ra::Engine::Rendering::Renderer::PickingResult& result ) {
 
     ///\todo something like explained here
     // if under mouse objects grabs the action, just send it to the object
@@ -630,7 +631,7 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
     // for now just handle one active context
     m_activeContext = -1;
 
-    auto keyMap    = Gui::KeyMappingManager::getInstance();
+    auto keyMap = Gui::KeyMappingManager::getInstance();
     //! [event dispatch]
     auto buttons   = event->buttons();
     auto modifiers = event->modifiers();
@@ -662,12 +663,12 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
             auto action      = keyMap->getAction( m_activeContext, buttons, modifiers, key );
             auto pickingMode = getPickingMode( action );
 
-            if ( pickingMode != Ra::Engine::Renderer::Renderer::NONE )
+            if ( pickingMode != Ra::Engine::Rendering::Renderer::NONE )
             {
                 // Push query, we may also do it here ...
-                Engine::Renderer::Renderer::PickingQuery query = {
+                Engine::Rendering::Renderer::PickingQuery query = {
                     Core::Vector2( event->x(), ( height() - event->y() ) ),
-                    Engine::Renderer::Renderer::PickingPurpose::MANIPULATION,
+                    Engine::Rendering::Renderer::PickingPurpose::MANIPULATION,
                     pickingMode};
                 m_currentRenderer->addPickingRequest( query );
             }
@@ -690,7 +691,7 @@ void Gui::Viewer::handleMouseReleaseEvent( QMouseEvent* event ) {
 }
 
 void Gui::Viewer::handleMouseMoveEvent( QMouseEvent* event,
-                                        Ra::Engine::Renderer::Renderer::PickingResult& result ) {
+                                        Ra::Engine::Rendering::Renderer::PickingResult& result ) {
 
     auto keyMap    = Gui::KeyMappingManager::getInstance();
     auto buttons   = event->buttons();
@@ -707,11 +708,11 @@ void Gui::Viewer::handleMouseMoveEvent( QMouseEvent* event,
     {
         auto action      = keyMap->getAction( m_activeContext, buttons, modifiers, key );
         auto pickingMode = getPickingMode( action );
-        if ( pickingMode != Ra::Engine::Renderer::Renderer::NONE )
+        if ( pickingMode != Ra::Engine::Rendering::Renderer::NONE )
         {
-            Engine::Renderer::Renderer::PickingQuery query = {
+            Engine::Rendering::Renderer::PickingQuery query = {
                 Core::Vector2( event->x(), ( height() - event->y() ) ),
-                Engine::Renderer::Renderer::PickingPurpose::MANIPULATION,
+                Engine::Rendering::Renderer::PickingPurpose::MANIPULATION,
                 pickingMode};
             m_currentRenderer->addPickingRequest( query );
         }
@@ -740,13 +741,13 @@ void Gui::Viewer::handleWheelEvent( QWheelEvent* event ) {
     { m_camera->handleWheelEvent( event ); }
 }
 
-Ra::Engine::Renderer::Renderer::PickingResult
+Ra::Engine::Rendering::Renderer::PickingResult
 Gui::Viewer::pickAtPosition( Core::Vector2 position ) {
     makeCurrent();
     auto result = m_currentRenderer->doPickingNow(
         {position,
-         Engine::Renderer::Renderer::PickingPurpose::SELECTION,
-         Engine::Renderer::Renderer::RO},
+         Engine::Rendering::Renderer::PickingPurpose::SELECTION,
+         Engine::Rendering::Renderer::RO},
         {m_camera->getViewMatrix(), m_camera->getProjMatrix(), 0.} );
 
     doneCurrent();

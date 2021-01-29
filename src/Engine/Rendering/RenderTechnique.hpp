@@ -3,7 +3,7 @@
 #include <Core/Utils/Index.hpp>
 #include <Engine/RaEngine.hpp>
 
-#include <Engine/Renderer/ShaderConfiguration.hpp>
+#include <Engine/Rendering/ShaderConfiguration.hpp>
 
 #include <functional>
 #include <map>
@@ -16,7 +16,7 @@ class Material;
 
 }
 
-namespace Renderer {
+namespace Rendering {
 class ShaderProgram;
 class ShaderParameterProvider;
 
@@ -237,8 +237,8 @@ getDefaultTechnique( const std::string& name );
 RA_ENGINE_API bool cleanup();
 } // namespace EngineRenderTechniques
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Renderer/RenderTechnique.inl>
+#include <Engine/Rendering/RenderTechnique.inl>

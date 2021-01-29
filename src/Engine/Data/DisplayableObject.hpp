@@ -11,7 +11,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 class ShaderProgram;
 }
 namespace Data {
@@ -55,7 +55,7 @@ class RA_ENGINE_API Displayable
 
     /// Draw the mesh. Prog is used to set VertexAttribBinding, but it has to be
     /// already binded
-    virtual void render( const Renderer::ShaderProgram* prog ) = 0;
+    virtual void render( const Rendering::ShaderProgram* prog ) = 0;
 
     //// Utility methods, used to display statistics
     virtual size_t getNumFaces() const { return 0; }

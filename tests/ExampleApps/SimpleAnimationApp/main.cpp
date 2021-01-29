@@ -96,7 +96,7 @@ class KeyFramedGeometryComponent : public Ra::Engine::Scene::TriangleMeshCompone
     }
 
     /// The render object to animate
-    std::shared_ptr<Ra::Engine::Renderer::RenderObject> m_ro;
+    std::shared_ptr<Ra::Engine::Rendering::RenderObject> m_ro;
 
     /// The Keyframes for the render object's tranform.
     Ra::Core::Animation::KeyFramedValue<Ra::Core::Transform> m_transform;

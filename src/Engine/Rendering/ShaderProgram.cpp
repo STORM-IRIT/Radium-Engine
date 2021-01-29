@@ -1,4 +1,4 @@
-#include <Engine/Renderer/ShaderProgram.hpp>
+#include <Engine/Rendering/ShaderProgram.hpp>
 
 #include <Core/Utils/StringUtils.hpp>
 
@@ -22,7 +22,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 using namespace Core::Utils; // log
 
@@ -441,6 +441,6 @@ std::string ShaderProgram::preprocessIncludes( const std::string& name,
     return result;
 }
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

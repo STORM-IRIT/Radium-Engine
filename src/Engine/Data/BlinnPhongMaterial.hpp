@@ -17,7 +17,7 @@ class MaterialData;
 } // namespace Core
 namespace Engine {
 
-namespace Renderer {
+namespace Rendering {
 class ShaderProgram;
 }
 

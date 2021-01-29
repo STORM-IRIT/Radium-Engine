@@ -1,20 +1,20 @@
-#include <Engine/Renderer/RenderTechnique.hpp>
+#include <Engine/Rendering/RenderTechnique.hpp>
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Renderer/RenderParameters.hpp>
-#include <Engine/Renderer/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/ShaderProgramManager.hpp>
+#include <Engine/Rendering/RenderParameters.hpp>
+#include <Engine/Rendering/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ShaderProgramManager.hpp>
 
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Renderer {
+namespace Rendering {
 
 using namespace Core::Utils; // log
 
-std::shared_ptr<Ra::Engine::Renderer::RenderTechnique> RadiumDefaultRenderTechnique {nullptr};
+std::shared_ptr<Ra::Engine::Rendering::RenderTechnique> RadiumDefaultRenderTechnique {nullptr};
 
 RenderTechnique::RenderTechnique() : m_numActivePass {0} {
     for ( auto p = Index( 0 ); p < s_maxNbPasses; ++p )
@@ -186,6 +186,6 @@ bool cleanup() {
 
 } // namespace EngineRenderTechniques
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

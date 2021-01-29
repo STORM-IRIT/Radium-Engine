@@ -20,7 +20,7 @@ class Framebuffer;
 namespace Ra {
 namespace Asset {
 class FileData;
-} // namespace Asset
+}
 
 namespace Engine {
 
@@ -37,7 +37,7 @@ class RenderObjectManager;
 class LightManager;
 } // namespace Scene
 
-namespace Renderer {
+namespace Rendering {
 class RenderObject;
 class ShaderProgram;
 class ShaderProgramManager;
@@ -464,6 +464,6 @@ class RA_ENGINE_API Renderer
     void preparePicking( const Data::ViewingParameters& renderData );
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

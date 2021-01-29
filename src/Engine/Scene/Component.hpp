@@ -13,7 +13,7 @@ namespace Ra {
 
 namespace Engine {
 
-namespace Renderer {
+namespace Rendering {
 class RenderObject;
 }
 namespace Scene {
@@ -63,7 +63,7 @@ class RA_ENGINE_API Component
     virtual System* getSystem() const;
 
     /// Add a new render object to the component. This adds the RO to the manager for drawing.
-    Core::Utils::Index addRenderObject( Renderer::RenderObject* renderObject );
+    Core::Utils::Index addRenderObject( Rendering::RenderObject* renderObject );
 
     /// Remove the render object from the component.
     void removeRenderObject( const Core::Utils::Index& roIdx );

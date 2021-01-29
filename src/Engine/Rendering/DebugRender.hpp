@@ -16,7 +16,7 @@ namespace Data {
 class AttribArrayDisplayable;
 } // namespace Data
 
-namespace Renderer {
+namespace Rendering {
 class ShaderProgram;
 
 /** This allow to draw debug objects.
@@ -100,6 +100,6 @@ class RA_ENGINE_API DebugRender final
     std::vector<Point> m_points;
 };
 
-} // namespace Renderer
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra
