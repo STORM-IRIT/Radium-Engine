@@ -4,8 +4,8 @@
 #include <Core/Math/Math.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
 
 namespace Ra {
 

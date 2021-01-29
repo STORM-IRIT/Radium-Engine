@@ -11,11 +11,11 @@
 #include <Engine/Rendering/DebugRender.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderParameters.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
 #include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
 #include <Engine/Scene/Light.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 #include <globjects/Framebuffer.h>
 
 /* Test Point cloud parameter provider */

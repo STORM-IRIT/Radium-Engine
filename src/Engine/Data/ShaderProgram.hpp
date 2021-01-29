@@ -4,7 +4,7 @@
 
 #include <Core/Types.hpp>
 
-#include <Engine/Rendering/ShaderConfiguration.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
 
 #include <array>
 #include <memory>

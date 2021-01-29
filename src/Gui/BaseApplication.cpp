@@ -12,9 +12,9 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
 
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
 #include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>

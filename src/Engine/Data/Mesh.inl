@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/Data/Mesh.hpp>
 
-#include <Engine/Rendering/ShaderProgram.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 
 #include <globjects/Buffer.h>
 #include <globjects/Program.h>

@@ -5,16 +5,16 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Mesh.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
-#include <Engine/Rendering/ShaderProgram.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
 #include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/LightManager.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 #include <Engine/Scene/TextureManager.hpp>
 
 #include <globjects/Framebuffer.h>

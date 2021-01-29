@@ -1,5 +1,5 @@
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
 #include <minimalapp.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>

@@ -3,7 +3,7 @@
 #include <Core/Utils/Index.hpp>
 #include <Engine/RaEngine.hpp>
 
-#include <Engine/Rendering/ShaderConfiguration.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
 
 #include <functional>
 #include <map>

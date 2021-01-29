@@ -4,9 +4,9 @@
 #include <Core/Utils/Color.hpp>
 
 #include <Engine/Data/Mesh.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/PlainMaterial.hpp>

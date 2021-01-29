@@ -1,10 +1,10 @@
 #include <Engine/Rendering/RenderTechnique.hpp>
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderParameters.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 
 #include <Core/Utils/Log.hpp>
 

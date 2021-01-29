@@ -4,8 +4,8 @@
 
 #include <Core/Utils/Attribs.hpp>
 #include <Core/Utils/Log.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/OpenGL.hpp>
-#include <Engine/Rendering/ShaderProgram.hpp>
 
 #include <globjects/Program.h>
 

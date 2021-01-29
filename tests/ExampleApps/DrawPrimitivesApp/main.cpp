@@ -8,7 +8,7 @@
 #include <Gui/TimerData/FrameTimerData.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 
 #include <minimalapp.hpp>

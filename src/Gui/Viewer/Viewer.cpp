@@ -35,12 +35,12 @@
 
 #include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Engine/Rendering/Renderer.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
 #include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>
