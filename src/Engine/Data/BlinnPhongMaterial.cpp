@@ -111,23 +111,23 @@ void BlinnPhongMaterial::registerMaterial() {
     shaderProgramManager->addNamedString(
         "/BlinnPhong.glsl", resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.glsl" );
     // registering re-usable shaders
-    Rendering::ShaderConfiguration lpconfig(
+    Data::ShaderConfiguration lpconfig(
         "BlinnPhong",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.frag.glsl" );
-    Rendering::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
-    Rendering::ShaderConfiguration zprepassconfig(
+    Data::ShaderConfiguration zprepassconfig(
         "ZprepassBlinnPhong",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhongZPrepass.frag.glsl" );
-    Rendering::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
-    Rendering::ShaderConfiguration transparentpassconfig(
+    Data::ShaderConfiguration transparentpassconfig(
         "LitOITBlinnPhong",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.vert.glsl",
         resourcesRootDir + "Shaders/Materials/BlinnPhong/LitOITBlinnPhong.frag.glsl" );
-    Rendering::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( transparentpassconfig );
 
     // Registering technique
     Rendering::EngineRenderTechniques::registerDefaultTechnique(
@@ -136,19 +136,18 @@ void BlinnPhongMaterial::registerMaterial() {
         []( Rendering::RenderTechnique& rt, bool isTransparent ) {
             // Configure the technique to render this object using forward Renderer or any
             // compatible one Main pass (Mandatory) : BlinnPhong
-            auto lightpass =
-                Rendering::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
+            auto lightpass = Data::ShaderConfigurationFactory::getConfiguration( "BlinnPhong" );
             rt.setConfiguration( *lightpass, Rendering::DefaultRenderingPasses::LIGHTING_OPAQUE );
 
             // Z prepass (Recommended) : DepthAmbiantPass
             auto zprepass =
-                Rendering::ShaderConfigurationFactory::getConfiguration( "ZprepassBlinnPhong" );
+                Data::ShaderConfigurationFactory::getConfiguration( "ZprepassBlinnPhong" );
             rt.setConfiguration( *zprepass, Rendering::DefaultRenderingPasses::Z_PREPASS );
             // Transparent pass (0ptional) : If Transparent ... add LitOIT
             if ( isTransparent )
             {
                 auto transparentpass =
-                    Rendering::ShaderConfigurationFactory::getConfiguration( "LitOITBlinnPhong" );
+                    Data::ShaderConfigurationFactory::getConfiguration( "LitOITBlinnPhong" );
                 rt.setConfiguration( *transparentpass,
                                      Rendering::DefaultRenderingPasses::LIGHTING_TRANSPARENT );
             }

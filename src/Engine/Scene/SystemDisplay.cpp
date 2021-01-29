@@ -1,4 +1,4 @@
-#include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 namespace Ra {
 namespace Engine {

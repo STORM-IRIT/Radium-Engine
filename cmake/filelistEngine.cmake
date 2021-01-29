@@ -19,6 +19,7 @@ set( engine_sources
     Rendering/ForwardRenderer.cpp
     Rendering/Renderer.cpp
     Rendering/RenderObject.cpp
+    Rendering/RenderObjectManager.cpp
     Rendering/RenderParameters.cpp
     Rendering/RenderTechnique.cpp
     Scene/Camera.cpp
@@ -36,7 +37,6 @@ set( engine_sources
     Scene/Light.cpp
     Scene/LightManager.cpp
     Scene/PointLight.cpp
-    Scene/RenderObjectManager.cpp
     Scene/ShaderProgramManager.cpp
     Scene/SignalManager.cpp
     Scene/SpotLight.cpp
@@ -70,6 +70,7 @@ set( engine_headers
     Rendering/ForwardRenderer.hpp
     Rendering/Renderer.hpp
     Rendering/RenderObject.hpp
+    Rendering/RenderObjectManager.hpp
     Rendering/RenderObjectTypes.hpp
     Rendering/RenderParameters.hpp
     Rendering/RenderTechnique.hpp
@@ -92,7 +93,6 @@ set( engine_headers
     Scene/LightManager.hpp
     Scene/LightStorage.hpp
     Scene/PointLight.hpp
-    Scene/RenderObjectManager.hpp
     Scene/ShaderProgramManager.hpp
     Scene/SignalManager.hpp
     Scene/SpotLight.hpp

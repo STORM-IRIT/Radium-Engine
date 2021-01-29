@@ -13,11 +13,10 @@ namespace Ra {
 namespace Engine {
 namespace Data {
 class Material;
-
-}
+class ShaderProgram;
+} // namespace Data
 
 namespace Rendering {
-class ShaderProgram;
 class ShaderParameterProvider;
 
 /**
@@ -76,7 +75,7 @@ class RA_ENGINE_API RenderTechnique final
      * @param newConfig The pass shader configuration
      * @param pass The index of the pass to set
      */
-    void setConfiguration( const ShaderConfiguration& newConfig,
+    void setConfiguration( const Data::ShaderConfiguration& newConfig,
                            Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE );
 
     /**
@@ -106,15 +105,15 @@ class RA_ENGINE_API RenderTechnique final
      * @param pass The index of the pass
      * @return The pass shader configuration
      */
-    inline const ShaderConfiguration&
+    inline const Data::ShaderConfiguration&
     getConfiguration( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
 
     /**
-     * Get the ShaderProgram associated with the pass
+     * Get the Data::ShaderProgram associated with the pass
      * @param pass The index of the pass
      * @return  The pass shader program if the pass is configured, nullptr otherwise.
      */
-    const ShaderProgram*
+    const Data::ShaderProgram*
     getShader( Core::Utils::Index pass = DefaultRenderingPasses::LIGHTING_OPAQUE ) const;
 
     /**
@@ -129,7 +128,7 @@ class RA_ENGINE_API RenderTechnique final
                                 Core::Utils::Index pass = Core::Utils::Index( -1 ) );
 
     /**
-     * Get the ShaderProgram parameters associated with the pass
+     * Get the Data::ShaderProgram parameters associated with the pass
      * @param pass The index of the pass
      * @return  The pass ShaderParameterProvider if the pass is configured, nullptr otherwise.
      */
@@ -180,8 +179,8 @@ class RA_ENGINE_API RenderTechnique final
     /// Maximum number of passses in the technique
     static constexpr int s_maxNbPasses {32};
 
-    /// A pass configuration is a pair of ShaderConfiguration and a ShaderProgram
-    using PassConfiguration = std::pair<ShaderConfiguration, const ShaderProgram*>;
+    /// A pass configuration is a pair of Data::ShaderConfiguration and a Data::ShaderProgram
+    using PassConfiguration = std::pair<Data::ShaderConfiguration, const Data::ShaderProgram*>;
     /// A Configuration set is a fixed-sized array of m_maxNbPasses (32) passes
     using ConfigurationSet = std::array<PassConfiguration, s_maxNbPasses>;
     /// Rendering parameters associated to the configurationSet

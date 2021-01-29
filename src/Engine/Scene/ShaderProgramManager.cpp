@@ -5,16 +5,17 @@
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Utils/Log.hpp>
 
+#include <Engine/Data/ShaderProgram.hpp>
 #include <globjects/NamedString.h>
 #include <globjects/Shader.h>
 #include <globjects/base/File.h>
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
+namespace Scene {
 
 using namespace Core::Utils; // log
-using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
+using ShaderProgramPtr = std::shared_ptr<Data::ShaderProgram>;
 
 ShaderProgramManager::ShaderProgramManager() {}
 
@@ -58,8 +59,8 @@ void ShaderProgramManager::reloadNamedString() {
     }
 }
 
-Core::Utils::optional<const ShaderProgram*>
-ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
+Core::Utils::optional<const Data::ShaderProgram*>
+ShaderProgramManager::addShaderProgram( const Data::ShaderConfiguration& config ) {
     auto found = m_shaderPrograms.find( config );
 
     if ( found != m_shaderPrograms.end() ) { return found->second.get(); }
@@ -71,7 +72,7 @@ ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
     }
 
     // Try to load the shader
-    auto prog = Core::make_shared<ShaderProgram>( config );
+    auto prog = Core::make_shared<Data::ShaderProgram>( config );
 
     if ( prog->getProgramObject()->isLinked() )
     {
@@ -104,14 +105,15 @@ ShaderProgramManager::addShaderProgram( const ShaderConfiguration& config ) {
     }
 }
 
-const ShaderProgram* ShaderProgramManager::getShaderProgram( const std::string& id ) {
+const Data::ShaderProgram* ShaderProgramManager::getShaderProgram( const std::string& id ) {
     auto found = m_shaderProgramIds.find( id );
 
     if ( found != m_shaderProgramIds.end() ) { return getShaderProgram( found->second ); }
     return nullptr;
 }
 
-const ShaderProgram* ShaderProgramManager::getShaderProgram( const ShaderConfiguration& config ) {
+const Data::ShaderProgram*
+ShaderProgramManager::getShaderProgram( const Data::ShaderConfiguration& config ) {
     auto res = addShaderProgram( config );
     return bool( res ) ? *res : nullptr;
 }
@@ -134,7 +136,7 @@ void ShaderProgramManager::reloadNotCompiledShaderPrograms() {
     // for each shader in the failed map, try to reload
     for ( const auto& conf : m_shaderFailedConfs )
     {
-        auto prog = Core::make_shared<ShaderProgram>( conf );
+        auto prog = Core::make_shared<Data::ShaderProgram>( conf );
 
         if ( prog->getProgramObject()->isValid() )
         {
@@ -144,12 +146,12 @@ void ShaderProgramManager::reloadNotCompiledShaderPrograms() {
     }
 }
 
-void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
+void ShaderProgramManager::insertShader( const Data::ShaderConfiguration& config,
                                          const ShaderProgramPtr& shader ) {
     m_shaderProgramIds.insert( {config.getName(), config} );
     m_shaderPrograms.insert( {config, shader} );
 }
 
-} // namespace Rendering
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

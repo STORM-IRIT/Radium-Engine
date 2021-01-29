@@ -17,9 +17,12 @@ class NamedString;
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
+namespace Data {
 class ShaderProgram;
 class ShaderConfiguration;
+} // namespace Data
+
+namespace Scene {
 
 /**
  * Manage the set of shaders used by Radium Engine for rendering.
@@ -53,15 +56,15 @@ class RA_ENGINE_API ShaderProgramManager final
      * @note ownership on the returned pointer is keep by the manager.
      * @warning this method is *not* reentrant
      */
-    Core::Utils::optional<const ShaderProgram*>
-    addShaderProgram( const ShaderConfiguration& config );
+    Core::Utils::optional<const Data::ShaderProgram*>
+    addShaderProgram( const Data::ShaderConfiguration& config );
 
     /**
      * Get the shader programm corresponding to the given id
      * @param id Name of the programm to retrieve
      * @return the shader programm retrieved, nullptr if the program was not in the collection
      */
-    const ShaderProgram* getShaderProgram( const std::string& id );
+    const Data::ShaderProgram* getShaderProgram( const std::string& id );
 
     /**
      * Get the shader programm corresponding to the given configuration
@@ -69,7 +72,7 @@ class RA_ENGINE_API ShaderProgramManager final
      * @return the shader programm retrieved, or nullptr when no shader programm corresponding to
      * the configuration is found.
      */
-    const ShaderProgram* getShaderProgram( const ShaderConfiguration& config );
+    const Data::ShaderProgram* getShaderProgram( const Data::ShaderConfiguration& config );
 
     /**
      * Reload source, recompile, link and validate all the managed programms.
@@ -100,19 +103,19 @@ class RA_ENGINE_API ShaderProgramManager final
     void reloadNamedString();
 
   private:
-    void insertShader( const ShaderConfiguration& config,
-                       const std::shared_ptr<ShaderProgram>& shader );
+    void insertShader( const Data::ShaderConfiguration& config,
+                       const std::shared_ptr<Data::ShaderProgram>& shader );
 
   private:
-    std::map<std::string, ShaderConfiguration> m_shaderProgramIds;
-    std::map<ShaderConfiguration, std::shared_ptr<ShaderProgram>> m_shaderPrograms;
-    std::vector<ShaderConfiguration> m_shaderFailedConfs;
+    std::map<std::string, Data::ShaderConfiguration> m_shaderProgramIds;
+    std::map<Data::ShaderConfiguration, std::shared_ptr<Data::ShaderProgram>> m_shaderPrograms;
+    std::vector<Data::ShaderConfiguration> m_shaderFailedConfs;
 
     std::map<std::string,
              std::pair<std::unique_ptr<globjects::File>, std::unique_ptr<globjects::NamedString>>>
         m_namedStrings;
 };
 
-} // namespace Rendering
+} // namespace Scene
 } // namespace Engine
 } // namespace Ra

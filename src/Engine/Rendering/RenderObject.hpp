@@ -9,6 +9,7 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/IndexedObject.hpp>
 
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Rendering/RenderObjectTypes.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
 
@@ -160,7 +161,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      */
     void render( const RenderParameters& lightParams,
                  const Data::ViewingParameters& viewParams,
-                 const ShaderProgram* shader,
+                 const Data::ShaderProgram* shader,
                  const RenderParameters& shaderParams );
 
     /**

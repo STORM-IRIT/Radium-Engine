@@ -9,15 +9,16 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Singleton.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {
 namespace Data {
 class AttribArrayDisplayable;
+class ShaderProgram;
 } // namespace Data
 
 namespace Rendering {
-class ShaderProgram;
 
 /** This allow to draw debug objects.
  * @todo : port this to a more Radium-style code
@@ -90,9 +91,9 @@ class RA_ENGINE_API DebugRender final
   private:
     // these shaders are owned by the manager, just keep a raw copy, since the
     // manager is available during whole execution.
-    const ShaderProgram* m_lineProg {nullptr};
-    const ShaderProgram* m_pointProg {nullptr};
-    const ShaderProgram* m_meshProg {nullptr};
+    const Data::ShaderProgram* m_lineProg {nullptr};
+    const Data::ShaderProgram* m_pointProg {nullptr};
+    const Data::ShaderProgram* m_meshProg {nullptr};
 
     std::vector<Line> m_lines;
     std::vector<DbgMesh> m_meshes;

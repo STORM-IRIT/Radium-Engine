@@ -7,7 +7,7 @@
 #include <Engine/Scene/SystemDisplay.hpp>
 
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 
 namespace Ra {
 namespace Engine {

@@ -15,10 +15,9 @@ namespace Engine {
 
 namespace Rendering {
 class RenderObject;
-}
-namespace Scene {
 class RenderObjectManager;
-}
+} // namespace Rendering
+
 namespace Scene {
 class System;
 class Entity;
@@ -92,7 +91,7 @@ class RA_ENGINE_API Component
 
   protected:
     /// Shortcut to access the render object manager.
-    static RenderObjectManager* getRoMgr();
+    static Rendering::RenderObjectManager* getRoMgr();
 
   public:
     std::vector<Core::Utils::Index> m_renderObjects;

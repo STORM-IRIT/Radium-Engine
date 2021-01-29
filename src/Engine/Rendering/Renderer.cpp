@@ -11,9 +11,9 @@
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/LightManager.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
 #include <Engine/Scene/ShaderProgramManager.hpp>
 #include <Engine/Scene/TextureManager.hpp>
 
@@ -82,42 +82,43 @@ void Renderer::initialize( uint width, uint height ) {
          resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
          resourcesRootDir + "Shaders/2DShaders//DepthDisplay.frag.glsl"} );
 
-    ShaderConfiguration pickingPointsConfig( "PickingPoints" );
-    pickingPointsConfig.addShader( ShaderType_VERTEX,
+    Data::ShaderConfiguration pickingPointsConfig( "PickingPoints" );
+    pickingPointsConfig.addShader( Data::ShaderType_VERTEX,
                                    resourcesRootDir + "Shaders/Picking/Picking.vert.glsl" );
-    pickingPointsConfig.addShader( ShaderType_GEOMETRY,
+    pickingPointsConfig.addShader( Data::ShaderType_GEOMETRY,
                                    resourcesRootDir + "Shaders/Picking/PickingPoints.geom.glsl" );
-    pickingPointsConfig.addShader( ShaderType_FRAGMENT,
+    pickingPointsConfig.addShader( Data::ShaderType_FRAGMENT,
                                    resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
+    Data::ShaderConfigurationFactory::addConfiguration( pickingPointsConfig );
     {
         auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingPointsConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for points" );
         m_pickingShaders[Data::Displayable::PKM_POINTS] = *pickingShader;
     }
 
-    ShaderConfiguration pickingLinesConfig( "PickingLines" );
-    pickingLinesConfig.addShader( ShaderType_VERTEX,
+    Data::ShaderConfiguration pickingLinesConfig( "PickingLines" );
+    pickingLinesConfig.addShader( Data::ShaderType_VERTEX,
                                   resourcesRootDir + "Shaders/Picking/Picking.vert.glsl" );
-    pickingLinesConfig.addShader( ShaderType_GEOMETRY,
+    pickingLinesConfig.addShader( Data::ShaderType_GEOMETRY,
                                   resourcesRootDir + "Shaders/Picking/PickingLines.geom.glsl" );
-    pickingLinesConfig.addShader( ShaderType_FRAGMENT,
+    pickingLinesConfig.addShader( Data::ShaderType_FRAGMENT,
                                   resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
+    Data::ShaderConfigurationFactory::addConfiguration( pickingLinesConfig );
     {
         auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingLinesConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for lines" );
         m_pickingShaders[Data::Displayable::PKM_LINES] = *pickingShader;
     }
 
-    ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
-    pickingLinesAdjacencyConfig.addShader( ShaderType_VERTEX,
+    Data::ShaderConfiguration pickingLinesAdjacencyConfig( "PickingLinesAdjacency" );
+    pickingLinesAdjacencyConfig.addShader( Data::ShaderType_VERTEX,
                                            resourcesRootDir + "Shaders/Picking/Picking.vert.glsl" );
-    pickingLinesAdjacencyConfig.addShader(
-        ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Picking/PickingLinesAdjacency.geom.glsl" );
-    pickingLinesAdjacencyConfig.addShader( ShaderType_FRAGMENT,
+    pickingLinesAdjacencyConfig.addShader( Data::ShaderType_GEOMETRY,
+                                           resourcesRootDir +
+                                               "Shaders/Picking/PickingLinesAdjacency.geom.glsl" );
+    pickingLinesAdjacencyConfig.addShader( Data::ShaderType_FRAGMENT,
                                            resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
+    Data::ShaderConfigurationFactory::addConfiguration( pickingLinesAdjacencyConfig );
     {
         auto pickingShader =
             m_shaderProgramManager->addShaderProgram( pickingLinesAdjacencyConfig );
@@ -125,14 +126,15 @@ void Renderer::initialize( uint width, uint height ) {
         m_pickingShaders[Data::Displayable::PKM_LINE_ADJ] = *pickingShader;
     }
 
-    ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
-    pickingTrianglesConfig.addShader( ShaderType_VERTEX,
+    Data::ShaderConfiguration pickingTrianglesConfig( "PickingTriangles" );
+    pickingTrianglesConfig.addShader( Data::ShaderType_VERTEX,
                                       resourcesRootDir + "Shaders/Picking/Picking.vert.glsl" );
-    pickingTrianglesConfig.addShader(
-        ShaderType_GEOMETRY, resourcesRootDir + "Shaders/Picking/PickingTriangles.geom.glsl" );
-    pickingTrianglesConfig.addShader( ShaderType_FRAGMENT,
+    pickingTrianglesConfig.addShader( Data::ShaderType_GEOMETRY,
+                                      resourcesRootDir +
+                                          "Shaders/Picking/PickingTriangles.geom.glsl" );
+    pickingTrianglesConfig.addShader( Data::ShaderType_FRAGMENT,
                                       resourcesRootDir + "Shaders/Picking/Picking.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
+    Data::ShaderConfigurationFactory::addConfiguration( pickingTrianglesConfig );
     {
         auto pickingShader = m_shaderProgramManager->addShaderProgram( pickingTrianglesConfig );
         CORE_ASSERT( pickingShader, "Picking Shader is required for triangles" );
@@ -393,7 +395,7 @@ void Renderer::splitRenderQueuesForPicking( const Data::ViewingParameters& /*ren
 // subroutine to Renderer::doPicking()
 void Renderer::renderForPicking(
     const Data::ViewingParameters& renderData,
-    const std::array<const ShaderProgram*, 4>& pickingShaders,
+    const std::array<const Data::ShaderProgram*, 4>& pickingShaders,
     const std::array<std::vector<RenderObjectPtr>, 4>& renderQueuePicking ) {
     for ( uint i = 0; i < pickingShaders.size(); ++i )
     {

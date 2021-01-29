@@ -7,7 +7,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
+namespace Data {
 
 /** Factory that manage the set of named shader configurations
  * Usefull for the management of shader libraries where a shader configuration (source code,
@@ -19,7 +19,7 @@ namespace ShaderConfigurationFactory {
  * @note In case of name collision, the configuration is not added to the factory
  * @param config
  */
-RA_ENGINE_API void addConfiguration( const ShaderConfiguration& config );
+RA_ENGINE_API void addConfiguration( const Data::ShaderConfiguration& config );
 
 /**
  * Remove a configuration from the factory
@@ -33,10 +33,10 @@ RA_ENGINE_API bool removeConfiguration( const std::string& configName );
  * @param name The configuration to get
  * @return The configuration if it exists, std::nullopt otherwise
  */
-RA_ENGINE_API Core::Utils::optional<ShaderConfiguration>
+RA_ENGINE_API Core::Utils::optional<Data::ShaderConfiguration>
 getConfiguration( const std::string& name );
 } // namespace ShaderConfigurationFactory
 
-} // namespace Rendering
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

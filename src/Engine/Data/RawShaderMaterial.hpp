@@ -34,7 +34,7 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
      */
     RawShaderMaterialData(
         const std::string& instanceName,
-        const std::vector<std::pair<Ra::Engine::Rendering::ShaderType, std::string>>& shaders,
+        const std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>>& shaders,
         std::shared_ptr<Ra::Engine::Rendering::ShaderParameterProvider> paramProvider ) :
         MaterialData( instanceName, "Ra::Engine::RawShaderMaterialData" ),
         m_shaders {shaders},
@@ -44,7 +44,7 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
     ~RawShaderMaterialData()                              = default;
 
   private:
-    std::vector<std::pair<Ra::Engine::Rendering::ShaderType, std::string>> m_shaders;
+    std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>> m_shaders;
     std::shared_ptr<Ra::Engine::Rendering::ShaderParameterProvider> m_paramProvider;
 };
 
@@ -82,7 +82,7 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      */
     explicit RawShaderMaterial(
         const std::string& instanceName,
-        const std::vector<std::pair<Rendering::ShaderType, std::string>>& shaders,
+        const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
         std::shared_ptr<Rendering::ShaderParameterProvider> paramProvider );
 
     /**
@@ -122,7 +122,7 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      * provider will be kept.
      */
     void
-    updateShaders( const std::vector<std::pair<Rendering::ShaderType, std::string>>& shaders,
+    updateShaders( const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
                    std::shared_ptr<Rendering::ShaderParameterProvider> paramProvider = nullptr );
 
     /**
@@ -151,7 +151,7 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      */
     std::string computeKey();
 
-    std::vector<std::pair<Rendering::ShaderType, std::string>> m_shaders;
+    std::vector<std::pair<Data::ShaderType, std::string>> m_shaders;
     std::shared_ptr<Rendering::ShaderParameterProvider> m_paramProvider;
     std::string m_materialKey {};
 };

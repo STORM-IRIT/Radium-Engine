@@ -3,6 +3,7 @@
 
 #include <Engine/Data/ShaderProgram.hpp>
 
+#include <Engine/Data/ShaderProgram.hpp>
 #include <globjects/Buffer.h>
 #include <globjects/Program.h>
 #include <globjects/VertexAttributeBinding.h>
@@ -114,8 +115,7 @@ void IndexedAttribArrayDisplayable<I>::updateGL() {
 }
 
 template <typename I>
-void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer(
-    const Rendering::ShaderProgram* prog ) {
+void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer( const ShaderProgram* prog ) {
 
     auto glprog           = prog->getProgramObject();
     gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
@@ -149,7 +149,7 @@ void IndexedAttribArrayDisplayable<I>::autoVertexAttribPointer(
 }
 
 template <typename I>
-void IndexedAttribArrayDisplayable<I>::render( const Rendering::ShaderProgram* prog ) {
+void IndexedAttribArrayDisplayable<I>::render( const ShaderProgram* prog ) {
     if ( m_vao )
     {
         autoVertexAttribPointer( prog );
@@ -241,8 +241,7 @@ void CoreGeometryDisplayable<CoreGeometry>::addAttribObserver( const std::string
 }
 
 template <typename CoreGeometry>
-void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer(
-    const Rendering::ShaderProgram* prog ) {
+void CoreGeometryDisplayable<CoreGeometry>::autoVertexAttribPointer( const ShaderProgram* prog ) {
 
     auto glprog           = prog->getProgramObject();
     gl::GLint attribCount = glprog->get( GL_ACTIVE_ATTRIBUTES );
@@ -440,7 +439,7 @@ void IndexedGeometry<T>::updateGL_specific_impl() {
 }
 
 template <typename T>
-void IndexedGeometry<T>::render( const Rendering::ShaderProgram* prog ) {
+void IndexedGeometry<T>::render( const ShaderProgram* prog ) {
     if ( base::m_vao )
     {
         GL_CHECK_ERROR;

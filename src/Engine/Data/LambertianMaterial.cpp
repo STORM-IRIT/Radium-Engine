@@ -25,29 +25,28 @@ void LambertianMaterial::registerMaterial() {
     shaderProgramManager->addNamedString(
         "/Lambertian.glsl", resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.glsl" );
     // registering re-usable shaders
-    Rendering::ShaderConfiguration lpconfig(
+    Data::ShaderConfiguration lpconfig(
         "Lambertian",
         resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.frag.glsl" );
 
-    Rendering::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
-    Rendering::ShaderConfiguration zprepassconfig(
+    Data::ShaderConfiguration zprepassconfig(
         "ZprepassLambertian",
         resourcesRootDir + "Shaders/Materials/Lambertian/Lambertian.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Lambertian/LambertianZPrepass.frag.glsl" );
-    Rendering::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( zprepassconfig );
 
     // Registering technique
     Rendering::EngineRenderTechniques::registerDefaultTechnique(
         materialName, []( Rendering::RenderTechnique& rt, bool ) {
             // Lighting pass
-            auto lightpass =
-                Rendering::ShaderConfigurationFactory::getConfiguration( "Lambertian" );
+            auto lightpass = Data::ShaderConfigurationFactory::getConfiguration( "Lambertian" );
             rt.setConfiguration( *lightpass, Rendering::DefaultRenderingPasses::LIGHTING_OPAQUE );
             // Z prepass
             auto zprepass =
-                Rendering::ShaderConfigurationFactory::getConfiguration( "ZprepassLambertian" );
+                Data::ShaderConfigurationFactory::getConfiguration( "ZprepassLambertian" );
             rt.setConfiguration( *zprepass, Rendering::DefaultRenderingPasses::Z_PREPASS );
         } );
 }

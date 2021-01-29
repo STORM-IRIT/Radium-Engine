@@ -24,18 +24,21 @@ namespace Scene {
 class System;
 class Entity;
 class Component;
-class RenderObjectManager;
 class EntityManager;
 class SignalManager;
 class TextureManager;
 } // namespace Scene
 
-namespace Rendering {
+namespace Scene {
 class ShaderProgramManager;
 }
 
 namespace Data {
 class Displayable;
+}
+namespace Rendering {
+
+class RenderObjectManager;
 }
 
 /**
@@ -150,7 +153,7 @@ class RA_ENGINE_API RadiumEngine
      * @note, the engine keep ownership on the pointer returned
      * @return the object manager
      */
-    Scene::RenderObjectManager* getRenderObjectManager() const;
+    Rendering::RenderObjectManager* getRenderObjectManager() const;
     /**
      * Get the entity manager attached to the engine.
      * @note, the engine keep ownership on the pointer returned
@@ -177,7 +180,7 @@ class RA_ENGINE_API RadiumEngine
      * @note, the engine keep ownership on the pointer returned
      * @return the shader program manager
      */
-    Rendering::ShaderProgramManager* getShaderProgramManager() const;
+    Scene::ShaderProgramManager* getShaderProgramManager() const;
 
     /**
      * Register a new file loader to the engine.
@@ -341,11 +344,11 @@ class RA_ENGINE_API RadiumEngine
 
     std::vector<std::shared_ptr<Core::Asset::FileLoaderInterface>> m_fileLoaders;
 
-    std::unique_ptr<Scene::RenderObjectManager> m_renderObjectManager;
+    std::unique_ptr<Rendering::RenderObjectManager> m_renderObjectManager;
     std::unique_ptr<Scene::EntityManager> m_entityManager;
     std::unique_ptr<Scene::SignalManager> m_signalManager;
     std::unique_ptr<Scene::TextureManager> m_textureManager;
-    std::unique_ptr<Rendering::ShaderProgramManager> m_shaderProgramManager;
+    std::unique_ptr<Scene::ShaderProgramManager> m_shaderProgramManager;
     std::unique_ptr<Core::Asset::FileData> m_loadedFile;
 
     bool m_loadingState {false};

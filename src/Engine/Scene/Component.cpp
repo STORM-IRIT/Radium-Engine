@@ -5,8 +5,8 @@
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/Entity.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
 #include <Engine/Scene/SignalManager.hpp>
 #include <Engine/Scene/System.hpp>
 
@@ -30,7 +30,7 @@ Component::~Component() {
         ItemEntry( getEntity(), this ) );
 }
 
-RenderObjectManager* Component::getRoMgr() {
+Rendering::RenderObjectManager* Component::getRoMgr() {
     return RadiumEngine::getInstance()->getRenderObjectManager();
 }
 

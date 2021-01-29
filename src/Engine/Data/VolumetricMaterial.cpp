@@ -63,18 +63,18 @@ void VolumetricMaterial::registerMaterial() {
         "/Volumetric.glsl", resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.glsl" );
 
     // registering re-usable shaders
-    Rendering::ShaderConfiguration lpconfig(
+    Data::ShaderConfiguration lpconfig(
         "Volumetric",
         resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.frag.glsl" );
-    Rendering::ShaderConfigurationFactory::addConfiguration( lpconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( lpconfig );
 
     // registering re-usable shaders
-    Rendering::ShaderConfiguration trconfig(
+    Data::ShaderConfiguration trconfig(
         "VolumetricOIT",
         resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.vert.glsl",
         resourcesRootDir + "Shaders/Materials/Volumetric/VolumetricOIT.frag.glsl" );
-    Rendering::ShaderConfigurationFactory::addConfiguration( trconfig );
+    Data::ShaderConfigurationFactory::addConfiguration( trconfig );
 
     //    Ra::Engine::ShaderConfiguration zprepassconfig(
     //        "ZprepassRayMarching", "Shaders/Materials/RayMarching/RayMarching.vert.glsl",
@@ -97,8 +97,7 @@ void VolumetricMaterial::registerMaterial() {
             rt.setConfiguration( *lightpassconfig,
                                  DefaultRenderingPasses::LIGHTING_OPAQUE );
             */
-            auto passconfig =
-                Rendering::ShaderConfigurationFactory::getConfiguration( "Volumetric" );
+            auto passconfig = Data::ShaderConfigurationFactory::getConfiguration( "Volumetric" );
             rt.setConfiguration( *passconfig,
                                  Rendering::DefaultRenderingPasses::LIGHTING_VOLUMETRIC );
         } );

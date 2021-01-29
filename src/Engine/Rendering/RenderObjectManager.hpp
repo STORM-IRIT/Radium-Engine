@@ -20,10 +20,6 @@ namespace Rendering {
 
 class RenderObject;
 
-}
-
-namespace Scene {
-
 class RA_ENGINE_API RenderObjectManager final
 {
   public:
@@ -86,6 +82,6 @@ class RA_ENGINE_API RenderObjectManager final
     mutable std::mutex m_doubleBufferMutex;
 };
 
-} // namespace Scene
+} // namespace Rendering
 } // namespace Engine
 } // namespace Ra

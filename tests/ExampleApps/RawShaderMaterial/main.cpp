@@ -4,10 +4,10 @@
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
 
 // include the custom material definition
 #include <Engine/Data/RawShaderMaterial.hpp>
@@ -54,13 +54,13 @@ const std::string _fragmentShaderSource2 {
     "    out_color =  ( 1 + sin( 20 * ( in_pos.y + aScalarUniform ) ) ) * 0.5 * aColorUniform;\n"
     "}\n"};
 
-const std::vector<std::pair<Ra::Engine::Rendering::ShaderType, std::string>> _config1 {
-    {Ra::Engine::Rendering::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
-    {Ra::Engine::Rendering::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource}};
+const std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>> _config1 {
+    {Ra::Engine::Data::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
+    {Ra::Engine::Data::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource}};
 
-const std::vector<std::pair<Ra::Engine::Rendering::ShaderType, std::string>> _config2 {
-    {Ra::Engine::Rendering::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
-    {Ra::Engine::Rendering::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource2}};
+const std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>> _config2 {
+    {Ra::Engine::Data::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
+    {Ra::Engine::Data::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource2}};
 
 class MyParameterProvider : public Ra::Engine::Rendering::ShaderParameterProvider
 {

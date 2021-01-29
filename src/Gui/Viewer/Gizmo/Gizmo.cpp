@@ -3,8 +3,8 @@
 #include <Core/Geometry/RayCast.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/Camera.hpp>
-#include <Engine/Scene/RenderObjectManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
@@ -90,7 +90,7 @@ void Gizmo::addRenderObject( Engine::Rendering::RenderObject* ro ) {
 
 std::shared_ptr<Engine::Rendering::RenderTechnique> Gizmo::makeRenderTechnique( int color ) {
     auto rt       = Core::make_shared<Engine::Rendering::RenderTechnique>();
-    auto plaincfg = Ra::Engine::Rendering::ShaderConfigurationFactory::getConfiguration( "Plain" );
+    auto plaincfg = Ra::Engine::Data::ShaderConfigurationFactory::getConfiguration( "Plain" );
     auto provider = new Gizmo::UiSelectionControler( s_material[color] );
     rt->setConfiguration( *plaincfg );
     rt->setParametersProvider(

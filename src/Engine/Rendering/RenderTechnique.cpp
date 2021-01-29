@@ -19,7 +19,7 @@ std::shared_ptr<Ra::Engine::Rendering::RenderTechnique> RadiumDefaultRenderTechn
 RenderTechnique::RenderTechnique() : m_numActivePass {0} {
     for ( auto p = Index( 0 ); p < s_maxNbPasses; ++p )
     {
-        m_activePasses[p]     = PassConfiguration( ShaderConfiguration(), nullptr );
+        m_activePasses[p]     = PassConfiguration( Data::ShaderConfiguration(), nullptr );
         m_passesParameters[p] = nullptr;
     }
 }
@@ -38,7 +38,7 @@ RenderTechnique::RenderTechnique( const RenderTechnique& o ) :
 
 RenderTechnique::~RenderTechnique() = default;
 
-void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig,
+void RenderTechnique::setConfiguration( const Data::ShaderConfiguration& newConfig,
                                         Core::Utils::Index pass ) {
     m_numActivePass      = std::max( m_numActivePass, pass + 1 );
     m_activePasses[pass] = PassConfiguration( newConfig, nullptr );
@@ -46,7 +46,7 @@ void RenderTechnique::setConfiguration( const ShaderConfiguration& newConfig,
     setConfiguration( pass );
 }
 
-const ShaderProgram* RenderTechnique::getShader( Core::Utils::Index pass ) const {
+const Data::ShaderProgram* RenderTechnique::getShader( Core::Utils::Index pass ) const {
     if ( hasConfiguration( pass ) ) { return m_activePasses[pass].second; }
     return nullptr;
 }
