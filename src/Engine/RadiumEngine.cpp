@@ -19,6 +19,8 @@
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderProgramManager.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/Data/VolumetricMaterial.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
@@ -26,11 +28,9 @@
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/EntityManager.hpp>
-#include <Engine/Scene/ShaderProgramManager.hpp>
 #include <Engine/Scene/SignalManager.hpp>
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
-#include <Engine/Scene/TextureManager.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -54,8 +54,8 @@ void RadiumEngine::initialize() {
     m_signalManager        = std::make_unique<Scene::SignalManager>();
     m_entityManager        = std::make_unique<Scene::EntityManager>();
     m_renderObjectManager  = std::make_unique<Rendering::RenderObjectManager>();
-    m_textureManager       = std::make_unique<Scene::TextureManager>();
-    m_shaderProgramManager = std::make_unique<Scene::ShaderProgramManager>();
+    m_textureManager       = std::make_unique<Data::TextureManager>();
+    m_shaderProgramManager = std::make_unique<Data::ShaderProgramManager>();
 
     m_loadedFile.reset();
     Scene::ComponentMessenger::createInstance();
@@ -291,11 +291,11 @@ Scene::SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
 }
 
-Scene::TextureManager* RadiumEngine::getTextureManager() const {
+Data::TextureManager* RadiumEngine::getTextureManager() const {
     return m_textureManager.get();
 }
 
-Scene::ShaderProgramManager* RadiumEngine::getShaderProgramManager() const {
+Data::ShaderProgramManager* RadiumEngine::getShaderProgramManager() const {
     return m_shaderProgramManager.get();
 }
 

@@ -1,10 +1,10 @@
 #include <Engine/Rendering/RenderTechnique.hpp>
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Rendering/RenderParameters.hpp>
-#include <Engine/Scene/ShaderProgramManager.hpp>
 
 #include <Core/Utils/Log.hpp>
 
@@ -51,8 +51,9 @@ const Data::ShaderProgram* RenderTechnique::getShader( Core::Utils::Index pass )
     return nullptr;
 }
 
-void RenderTechnique::setParametersProvider( std::shared_ptr<ShaderParameterProvider> provider,
-                                             Core::Utils::Index pass ) {
+void RenderTechnique::setParametersProvider(
+    std::shared_ptr<Data::ShaderParameterProvider> provider,
+    Core::Utils::Index pass ) {
     if ( m_numActivePass == 0 )
     {
         LOG( logERROR )
@@ -100,7 +101,7 @@ void RenderTechnique::addPassProperties( const std::list<std::string>& props,
     }
 }
 
-const ShaderParameterProvider*
+const Data::ShaderParameterProvider*
 RenderTechnique::getParametersProvider( Core::Utils::Index pass ) const {
     if ( hasConfiguration( pass ) ) { return m_passesParameters[pass].get(); }
     return nullptr;

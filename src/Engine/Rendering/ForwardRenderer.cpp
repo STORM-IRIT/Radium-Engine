@@ -6,16 +6,16 @@
 
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/Mesh.hpp>
+#include <Engine/Data/RenderParameters.hpp>
+#include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/Rendering/DebugRender.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/RenderParameters.hpp>
 #include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
 #include <Engine/Scene/Light.hpp>
-#include <Engine/Scene/ShaderProgramManager.hpp>
 #include <globjects/Framebuffer.h>
 
 /* Test Point cloud parameter provider */
@@ -194,7 +194,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
 
     // Set in RenderParam the configuration about ambiant lighting (instead of hard constant
     // direclty in shaders)
-    RenderParameters zprepassParams;
+    Data::RenderParameters zprepassParams;
     for ( const auto& ro : m_fancyRenderObjects )
     {
         ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
@@ -225,7 +225,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
         {
             const auto l = m_lightmanagers[0]->getLight( i );
-            RenderParameters lightingpassParams;
+            Data::RenderParameters lightingpassParams;
             l->getRenderParameters( lightingpassParams );
 
             for ( const auto& ro : m_fancyRenderObjects )
@@ -269,7 +269,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
             {
                 const auto l = m_lightmanagers[0]->getLight( i );
-                RenderParameters trasparencypassParams;
+                Data::RenderParameters trasparencypassParams;
                 l->getRenderParameters( trasparencypassParams );
 
                 for ( const auto& ro : m_transparentRenderObjects )
@@ -313,7 +313,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
         {
             const auto l = m_lightmanagers[0]->getLight( i );
-            RenderParameters passParams;
+            Data::RenderParameters passParams;
             l->getRenderParameters( passParams );
             passParams.addParameter( "imageColor", m_textures[RendererTextures_HDR].get() );
             passParams.addParameter( "imageDepth", m_textures[RendererTextures_Depth].get() );
@@ -362,7 +362,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
             for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
             {
                 const auto l = m_lightmanagers[0]->getLight( i );
-                RenderParameters wireframepassParams;
+                Data::RenderParameters wireframepassParams;
                 l->getRenderParameters( wireframepassParams );
 
                 for ( const auto& ro : m_fancyRenderObjects )
@@ -407,7 +407,7 @@ void ForwardRenderer::debugInternal( const Data::ViewingParameters& renderData )
 
         for ( const auto& ro : m_debugRenderObjects )
         {
-            ro->render( RenderParameters {}, renderData );
+            ro->render( Data::RenderParameters {}, renderData );
         }
 
         DebugRender::getInstance()->render( renderData.viewMatrix, renderData.projMatrix );
@@ -418,7 +418,7 @@ void ForwardRenderer::debugInternal( const Data::ViewingParameters& renderData )
         // Draw X rayed objects always on top of normal objects
         GL_ASSERT( glDepthMask( GL_TRUE ) );
         GL_ASSERT( glClear( GL_DEPTH_BUFFER_BIT ) );
-        RenderParameters xrayLightParams;
+        Data::RenderParameters xrayLightParams;
         xrayLightParams.addParameter( "light.color", Ra::Core::Utils::Color::Grey( 5.0 ) );
         xrayLightParams.addParameter( "light.type", Scene::Light::LightType::DIRECTIONAL );
         xrayLightParams.addParameter( "light.directional.direction", Core::Vector3( 0, -1, 0 ) );
@@ -568,7 +568,7 @@ void ForwardRenderer::resizeInternal() {
  * properties to a rendertechnique
  * TODO : see PR Draft and gist subShaderBlob
  */
-class PointCloudParameterProvider : public ShaderParameterProvider
+class PointCloudParameterProvider : public Data::ShaderParameterProvider
 {
   public:
     PointCloudParameterProvider( std::shared_ptr<Data::Material> mat,

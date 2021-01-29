@@ -35,7 +35,7 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
     RawShaderMaterialData(
         const std::string& instanceName,
         const std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>>& shaders,
-        std::shared_ptr<Ra::Engine::Rendering::ShaderParameterProvider> paramProvider ) :
+        std::shared_ptr<Ra::Engine::Data::ShaderParameterProvider> paramProvider ) :
         MaterialData( instanceName, "Ra::Engine::RawShaderMaterialData" ),
         m_shaders {shaders},
         m_paramProvider {std::move( paramProvider )} {}
@@ -45,7 +45,7 @@ class RA_ENGINE_API RawShaderMaterialData : public MaterialData
 
   private:
     std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>> m_shaders;
-    std::shared_ptr<Ra::Engine::Rendering::ShaderParameterProvider> m_paramProvider;
+    std::shared_ptr<Ra::Engine::Data::ShaderParameterProvider> m_paramProvider;
 };
 
 } // namespace Asset
@@ -83,7 +83,7 @@ class RA_ENGINE_API RawShaderMaterial : public Material
     explicit RawShaderMaterial(
         const std::string& instanceName,
         const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
-        std::shared_ptr<Rendering::ShaderParameterProvider> paramProvider );
+        std::shared_ptr<Data::ShaderParameterProvider> paramProvider );
 
     /**
      * Destructor.
@@ -99,13 +99,13 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      * Override of the `getParameters()` method from Material
      * @return
      */
-    inline Rendering::RenderParameters& getParameters() override;
+    inline Data::RenderParameters& getParameters() override;
 
     /**
      * Override of the `const getParameters() const` method from Material
      * @return
      */
-    inline const Rendering::RenderParameters& getParameters() const override;
+    inline const Data::RenderParameters& getParameters() const override;
 
     /**
      * Register shader configuration and the ForwardRenderer (default) technique for this instance
@@ -121,9 +121,8 @@ class RA_ENGINE_API RawShaderMaterial : public Material
      * @param paramProvider The parameter provider for the resulting program. If not given, the old
      * provider will be kept.
      */
-    void
-    updateShaders( const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
-                   std::shared_ptr<Rendering::ShaderParameterProvider> paramProvider = nullptr );
+    void updateShaders( const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
+                        std::shared_ptr<Data::ShaderParameterProvider> paramProvider = nullptr );
 
     /**
      * Update the openGL state of the material.
@@ -152,7 +151,7 @@ class RA_ENGINE_API RawShaderMaterial : public Material
     std::string computeKey();
 
     std::vector<std::pair<Data::ShaderType, std::string>> m_shaders;
-    std::shared_ptr<Rendering::ShaderParameterProvider> m_paramProvider;
+    std::shared_ptr<Data::ShaderParameterProvider> m_paramProvider;
     std::string m_materialKey {};
 };
 

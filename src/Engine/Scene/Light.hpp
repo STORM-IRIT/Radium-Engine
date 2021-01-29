@@ -6,7 +6,7 @@
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
+namespace Data {
 class RenderParameters;
 }
 
@@ -88,7 +88,7 @@ class RA_ENGINE_API Light : public Component
      * this light.
      * @param params
      */
-    virtual void getRenderParameters( Rendering::RenderParameters& params ) const;
+    virtual void getRenderParameters( Data::RenderParameters& params ) const;
 
     /**
      * Abstract method that define the glsl code that manage this light type

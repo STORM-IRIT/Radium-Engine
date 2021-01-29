@@ -10,7 +10,7 @@ namespace Data {
 RawShaderMaterial::RawShaderMaterial(
     const std::string& instanceName,
     const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
-    std::shared_ptr<Rendering::ShaderParameterProvider> paramProvider ) :
+    std::shared_ptr<Data::ShaderParameterProvider> paramProvider ) :
     Material( instanceName, instanceName, Material::MaterialAspect::MAT_OPAQUE ),
     m_shaders {shaders},
     m_paramProvider {std::move( paramProvider )} {
@@ -77,7 +77,7 @@ void RawShaderMaterial::updateGL() {
 
 void RawShaderMaterial::updateShaders(
     const std::vector<std::pair<Data::ShaderType, std::string>>& shaders,
-    std::shared_ptr<Rendering::ShaderParameterProvider> paramProvider ) {
+    std::shared_ptr<Data::ShaderParameterProvider> paramProvider ) {
     Data::ShaderConfigurationFactory::removeConfiguration( m_materialKey );
     Rendering::EngineRenderTechniques::removeDefaultTechnique( m_materialKey );
     m_shaders = shaders;

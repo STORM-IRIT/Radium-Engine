@@ -20,9 +20,6 @@ namespace Engine {
 namespace Data {
 class ShaderProgram;
 class ShaderConfiguration;
-} // namespace Data
-
-namespace Scene {
 
 /**
  * Manage the set of shaders used by Radium Engine for rendering.
@@ -116,6 +113,6 @@ class RA_ENGINE_API ShaderProgramManager final
         m_namedStrings;
 };
 
-} // namespace Scene
+} // namespace Data
 } // namespace Engine
 } // namespace Ra

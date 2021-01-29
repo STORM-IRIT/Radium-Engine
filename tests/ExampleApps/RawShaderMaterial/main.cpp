@@ -62,7 +62,7 @@ const std::vector<std::pair<Ra::Engine::Data::ShaderType, std::string>> _config2
     {Ra::Engine::Data::ShaderType::ShaderType_VERTEX, _vertexShaderSource},
     {Ra::Engine::Data::ShaderType::ShaderType_FRAGMENT, _fragmentShaderSource2}};
 
-class MyParameterProvider : public Ra::Engine::Rendering::ShaderParameterProvider
+class MyParameterProvider : public Ra::Engine::Data::ShaderParameterProvider
 {
   public:
     MyParameterProvider() {}

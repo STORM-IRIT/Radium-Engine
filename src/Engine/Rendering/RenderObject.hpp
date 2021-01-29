@@ -24,10 +24,10 @@ namespace Data {
 class Displayable;
 class Material;
 struct ViewingParameters;
+class RenderParameters;
 } // namespace Data
 
 namespace Rendering {
-class RenderParameters;
 
 /**
  * Class to manage renderable objects.
@@ -159,10 +159,10 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param viewParams  viewing parameters for this rendering
      * @param shader shader to use for this rendering
      */
-    void render( const RenderParameters& lightParams,
+    void render( const Data::RenderParameters& lightParams,
                  const Data::ViewingParameters& viewParams,
                  const Data::ShaderProgram* shader,
-                 const RenderParameters& shaderParams );
+                 const Data::RenderParameters& shaderParams );
 
     /**
      * Render the object for the given rendering environment defined by the lighting parameters, the
@@ -171,7 +171,7 @@ class RA_ENGINE_API RenderObject final : public Core::Utils::IndexedObject
      * @param viewParams viewing parameters for this rendering
      * @param passname RenderTechnique pass name
      */
-    void render( const RenderParameters& lightParams,
+    void render( const Data::RenderParameters& lightParams,
                  const Data::ViewingParameters& viewParams,
                  Core::Utils::Index passId = DefaultRenderingPasses::LIGHTING_OPAQUE );
 

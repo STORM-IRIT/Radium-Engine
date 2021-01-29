@@ -6,9 +6,9 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Index.hpp>
 
+#include <Engine/Data/RenderParameters.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/RenderParameters.hpp>
 #include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
@@ -132,7 +132,7 @@ class Gizmo
      * When the selection state of a gizmo component changes, notify its rendertechnique through
      * a call to toggleState.
      */
-    class UiSelectionControler final : public Engine::Rendering::ShaderParameterProvider
+    class UiSelectionControler final : public Engine::Data::ShaderParameterProvider
     {
       public:
         /// Construct a controler given a material and the color to used when selected
