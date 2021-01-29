@@ -1,6 +1,6 @@
-#include <Engine/Rendering/ShaderConfiguration.hpp>
-#include <Engine/Rendering/ShaderProgram.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Utils/Log.hpp>

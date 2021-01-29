@@ -3,7 +3,7 @@
 #include <Core/Utils/StdOptional.hpp>
 #include <string>
 
-#include <Engine/Rendering/ShaderConfiguration.hpp>
+#include <Engine/Data/ShaderConfiguration.hpp>
 
 namespace Ra {
 namespace Engine {

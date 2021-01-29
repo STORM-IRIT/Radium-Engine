@@ -7,6 +7,9 @@ set( engine_sources
     Data/Mesh.cpp
     Data/PlainMaterial.cpp
     Data/RawShaderMaterial.cpp
+    Data/ShaderConfigFactory.cpp
+    Data/ShaderConfiguration.cpp
+    Data/ShaderProgram.cpp
     Data/SimpleMaterial.cpp
     Data/Texture.cpp
     Data/VolumeObject.cpp
@@ -18,10 +21,6 @@ set( engine_sources
     Rendering/RenderObject.cpp
     Rendering/RenderParameters.cpp
     Rendering/RenderTechnique.cpp
-    Rendering/ShaderConfigFactory.cpp
-    Rendering/ShaderConfiguration.cpp
-    Rendering/ShaderProgram.cpp
-    Rendering/ShaderProgramManager.cpp
     Scene/Camera.cpp
     Scene/CameraManager.cpp
     Scene/Component.cpp
@@ -38,6 +37,7 @@ set( engine_sources
     Scene/LightManager.cpp
     Scene/PointLight.cpp
     Scene/RenderObjectManager.cpp
+    Scene/ShaderProgramManager.cpp
     Scene/SignalManager.cpp
     Scene/SpotLight.cpp
     Scene/System.cpp
@@ -55,6 +55,9 @@ set( engine_headers
     Data/Mesh.hpp
     Data/PlainMaterial.hpp
     Data/RawShaderMaterial.hpp
+    Data/ShaderConfigFactory.hpp
+    Data/ShaderConfiguration.hpp
+    Data/ShaderProgram.hpp
     Data/SimpleMaterial.hpp
     Data/Texture.hpp
     Data/VolumeObject.hpp
@@ -70,10 +73,6 @@ set( engine_headers
     Rendering/RenderObjectTypes.hpp
     Rendering/RenderParameters.hpp
     Rendering/RenderTechnique.hpp
-    Rendering/ShaderConfigFactory.hpp
-    Rendering/ShaderConfiguration.hpp
-    Rendering/ShaderProgram.hpp
-    Rendering/ShaderProgramManager.hpp
     Rendering/ViewingParameters.hpp
     Scene/Camera.hpp
     Scene/CameraManager.hpp
@@ -94,6 +93,7 @@ set( engine_headers
     Scene/LightStorage.hpp
     Scene/PointLight.hpp
     Scene/RenderObjectManager.hpp
+    Scene/ShaderProgramManager.hpp
     Scene/SignalManager.hpp
     Scene/SpotLight.hpp
     Scene/SystemDisplay.hpp
@@ -106,12 +106,12 @@ set( engine_inlines
     Data/Material.inl
     Data/Mesh.inl
     Data/RawShaderMaterial.inl
+    Data/ShaderProgram.inl
     Data/SimpleMaterial.inl
     Data/VolumeObject.inl
     Data/VolumetricMaterial.inl
     Rendering/RenderParameters.inl
     Rendering/RenderTechnique.inl
-    Rendering/ShaderProgram.inl
     Scene/Camera.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl

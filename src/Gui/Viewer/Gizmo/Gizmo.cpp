@@ -8,8 +8,8 @@
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
 #include <Engine/Scene/Camera.hpp>
 
 namespace Ra {

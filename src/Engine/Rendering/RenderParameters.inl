@@ -1,7 +1,7 @@
 #pragma once
 #include "RenderParameters.hpp"
 
-#include <Engine/Rendering/ShaderProgram.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {

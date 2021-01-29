@@ -2,10 +2,10 @@
 
 #include <Engine/Data/DrawPrimitives.hpp>
 #include <Engine/Data/Mesh.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Rendering/ShaderProgram.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>

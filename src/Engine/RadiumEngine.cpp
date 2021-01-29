@@ -18,15 +18,15 @@
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Data/VolumetricMaterial.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/RenderObjectManager.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 #include <Engine/Scene/SignalManager.hpp>
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>

@@ -2,12 +2,12 @@
 
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
-#include <Engine/Rendering/ShaderConfigFactory.hpp>
-#include <Engine/Rendering/ShaderProgram.hpp>
-#include <Engine/Rendering/ShaderProgramManager.hpp>
+#include <Engine/Scene/ShaderProgramManager.hpp>
 #include <Engine/Scene/TextureManager.hpp>
 
 namespace Ra {
