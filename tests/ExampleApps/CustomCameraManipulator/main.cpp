@@ -13,6 +13,7 @@
 #include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
 #include <GuiBase/Viewer/Viewer.hpp>
 
+//! [extend trackball]
 // Add simple Camera Manipulator with only translation and zoom
 class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
 {
@@ -51,6 +52,7 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
         return handled;
     }
 };
+//! [extend trackball]
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]

@@ -635,7 +635,8 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
     // for now just handle one active context
     m_activeContext = -1;
 
-    auto keyMap    = Gui::KeyMappingManager::getInstance();
+    auto keyMap = Gui::KeyMappingManager::getInstance();
+    //! [event dispatch]
     auto buttons   = event->buttons();
     auto modifiers = event->modifiers();
     auto key       = activeKey();
@@ -651,6 +652,7 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
             m_activeContext = KeyMappingManageable::getContext();
         }
     }
+    //! [event dispatch]
     else
     {
         // something under the mouse, let's check if it's a gizmo ro

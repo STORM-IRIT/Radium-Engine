@@ -37,8 +37,9 @@ KeyMappingCamera
         return;
     }
 
-#define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( TrackballCameraMapping::getContext(), #XX );
+#define KMA_VALUE( XX )                                         \
+    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( \
+        TrackballCameraMapping::getContext(), #XX );
     KeyMappingCamera
 #undef KMA_VALUE
 }

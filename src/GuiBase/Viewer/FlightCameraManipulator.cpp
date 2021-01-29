@@ -17,7 +17,8 @@ namespace Ra {
 namespace Gui {
 using Core::Math::Pi;
 
-using FlightCameraKeyMapping = KeyMappingManageable<FlightCameraManipulator>;
+//! [Implement KeyMappingManageable]
+using FlightCameraKeyMapping = Ra::Gui::KeyMappingManageable<FlightCameraManipulator>;
 
 #define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Gui::FlightCameraManipulator::XX;
 KeyMappingFlightManipulator
@@ -54,11 +55,13 @@ KeyMappingFlightManipulator
             Gui::KeyMappingManager::getInstance()->getContext( "FlightManipulatorContext" ) );
     }
 
-#define KMA_VALUE( XX ) \
-    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( FlightCameraKeyMapping::getContext(), #XX );
+#define KMA_VALUE( XX )                                         \
+    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( \
+        FlightCameraKeyMapping::getContext(), #XX );
     KeyMappingFlightManipulator
 #undef KMA_VALUE
 }
+//! [Implement KeyMappingManageable]
 
 KeyMappingManager::Context Gui::FlightCameraManipulator::mappingContext() {
     return FlightCameraKeyMapping::getContext();
@@ -82,6 +85,7 @@ Gui::FlightCameraManipulator::FlightCameraManipulator( const FlightCameraManipul
     m_fixUpVector( other.m_fixUpVector ),
     m_flightSpeed( other.m_flightSpeed ) {}
 
+//! [Constructor]
 Gui::FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator& other ) :
     CameraManipulator( other ),
     m_rotateAround( true ),
@@ -91,6 +95,7 @@ Gui::FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator& 
     m_flightSpeed = ( m_target - m_camera->getPosition() ).norm() / 10_ra;
     initializeFixedUpVector();
 }
+//! [Constructor]
 
 Gui::FlightCameraManipulator::~FlightCameraManipulator() = default;
 
