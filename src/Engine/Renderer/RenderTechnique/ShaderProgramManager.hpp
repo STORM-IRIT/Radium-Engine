@@ -40,9 +40,11 @@ class RA_ENGINE_API ShaderProgramManager final
 {
 
   public:
-    /// TODO ? need Initialization after ctr and before use
+    /// Rule of three needed here to prevent copy on this manager (only movable)
     ShaderProgramManager();
     ~ShaderProgramManager();
+    ShaderProgramManager( const ShaderProgramManager& ) = delete;
+    ShaderProgramManager& operator=( const ShaderProgramManager& ) = delete;
 
     /**
      * Add a shader program to the program collection according to the given configuration.

@@ -82,10 +82,12 @@ function(configure_cmdline_Radium_app)
     if (MSVC OR MSVC_IDE OR MINGW)
         # Construction of the  dependency paths
         set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
+        list(APPEND FIX_LIBRARY_DIR "${RadiumDlls_Location}")
         # Add the Qt bin dir ...
         list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
         # Add the Radium externals's dll location 
         list(APPEND FIX_LIBRARY_DIR "${RadiumExternalDlls_location}")
+        list(REMOVE_DUPLICATES FIX_LIBRARY_DIR)
         # Fix the bundled directory
         install(CODE "message(STATUS \"Fixing application with Qt base directory at ${FIX_LIBRARY_DIR} !!\")
                        include(BundleUtilities)
@@ -496,6 +498,8 @@ function(configure_Windows_Radium_app)
         TARGETS ${ARGS_NAME}
         BUNDLE DESTINATION "bin/"
     )
+    message(STATUS "[configure_Windows_Radium_app] Installing  ${ARGS_NAME} (Radium dll from ${RADIUM_ROOT_DIR}/bin)")
+    SET(RadiumDlls_Location ${RADIUM_ROOT_DIR}/bin)
     configure_cmdline_Radium_app(${ARGN})
     # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html)
     get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
