@@ -153,6 +153,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
     /// slot called when the OpenGL need to be initialized
     virtual void engineOpenGLInitialize();
+
     /// slot called once the application window and its OpenGL services are ready.
     /// TODO : rename this to be more representative of post opengl & gui operations
     virtual void initializeGl();
