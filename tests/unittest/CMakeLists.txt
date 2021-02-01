@@ -21,12 +21,31 @@ add_executable(unittests
     Core/raycast.cpp
     Core/resources.cpp
     Core/string.cpp
-    Core/topomesh.cpp)
+    Core/topomesh.cpp
+    Gui/keymapping.cpp
+    )
 
 target_compile_definitions(unittests PRIVATE UNIT_TESTS) # add -DUNIT_TESTS define
-target_link_libraries(unittests PRIVATE Catch2 Core)
+target_link_libraries(unittests PRIVATE Catch2 Core Gui)
 add_dependencies(unittests Catch2 Core)
 target_include_directories(unittests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+
+
+if(Qt5Core_VERSION VERSION_LESS 5.5)
+    message(FATAL_ERROR "Qt5 or superior required (found ${Qt5Core_VERSION}).")
+else ()
+    message(STATUS "QT ${Qt5Core_VERSION} found." )
+endif()
+
+# Qt5
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+target_link_libraries (unittests PRIVATE ${Qt5_LIBRARIES} PRIVATE std::filesystem)
+target_compile_definitions(unittests PRIVATE -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}> -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
+
 
 # convenience target for running only the unit tests
 add_custom_target(run_unittests
