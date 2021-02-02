@@ -1,5 +1,6 @@
 #include <Engine/Renderer/RenderTechnique/RenderTechnique.hpp>
 
+#include <Engine/RadiumEngine.hpp>
 #include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
 #include <Engine/Renderer/RenderTechnique/RenderParameters.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
@@ -105,12 +106,14 @@ RenderTechnique::getParametersProvider( Core::Utils::Index pass ) const {
 }
 
 void RenderTechnique::updateGL() {
+    auto shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();
+
     for ( auto p = Index( 0 ); p < m_numActivePass; ++p )
     {
         if ( hasConfiguration( p ) && ( ( nullptr == m_activePasses[p].second ) || isDirty( p ) ) )
         {
             m_activePasses[p].second =
-                ShaderProgramManager::getInstance()->getShaderProgram( m_activePasses[p].first );
+                shaderProgramManager->getShaderProgram( m_activePasses[p].first );
             clearDirty( p );
         }
     }

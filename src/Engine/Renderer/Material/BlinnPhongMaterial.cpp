@@ -98,13 +98,14 @@ bool BlinnPhongMaterial::isTransparent() const {
 void BlinnPhongMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
     auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
+    auto shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();
 
     // Defining the material converter
     EngineMaterialConverters::registerMaterialConverter( materialName,
                                                          BlinnPhongMaterialConverter() );
 
     // adding the material glsl implementation file
-    ShaderProgramManager::getInstance()->addNamedString(
+    shaderProgramManager->addNamedString(
         "/BlinnPhong.glsl", resourcesRootDir + "Shaders/Materials/BlinnPhong/BlinnPhong.glsl" );
     // registering re-usable shaders
     Ra::Engine::ShaderConfiguration lpconfig(

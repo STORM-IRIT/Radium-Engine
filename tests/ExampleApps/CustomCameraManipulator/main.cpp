@@ -56,7 +56,8 @@ class CameraManipulator2D : public Ra::Gui::TrackballCameraManipulator
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv, Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::GuiBase::BaseApplication app( argc, argv );
+    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //! [Creating the cube]

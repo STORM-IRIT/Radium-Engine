@@ -50,14 +50,15 @@ bool VolumetricMaterial::isTransparent() const {
 void VolumetricMaterial::registerMaterial() {
     // For resources access (glsl files) in a filesystem
     auto resourcesRootDir {RadiumEngine::getInstance()->getResourcesDir()};
+    auto shaderProgramManager = RadiumEngine::getInstance()->getShaderProgramManager();
 
-    ShaderProgramManager::getInstance()->addShaderProgram(
+    shaderProgramManager->addShaderProgram(
         {{"ComposeVolume"},
          resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
          resourcesRootDir + "Shaders/Materials/Volumetric/ComposeVolumeRender.frag.glsl"} );
 
     // adding the material glsl implementation file
-    ShaderProgramManager::getInstance()->addNamedString(
+    shaderProgramManager->addNamedString(
         "/Volumetric.glsl", resourcesRootDir + "Shaders/Materials/Volumetric/Volumetric.glsl" );
 
     // registering re-usable shaders

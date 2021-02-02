@@ -71,10 +71,6 @@ class RA_GUIBASE_API SimpleWindow : public Ra::GuiBase::MainWindowInterface
 
     /// Stores the internal model of engine objects for selection and visibility.
     std::unique_ptr<Ra::GuiBase::ItemModel> m_sceneModel;
-
-  private slots:
-    /// Slot to init renderers once gl is ready
-    void onGLInitialized();
 };
 
 } // namespace GuiBase

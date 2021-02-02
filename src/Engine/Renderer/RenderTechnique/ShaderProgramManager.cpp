@@ -1,3 +1,4 @@
+#include <Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
 #include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
 
@@ -5,7 +6,6 @@
 #include <Core/Utils/Log.hpp>
 
 #include <globjects/NamedString.h>
-#include <globjects/Program.h>
 #include <globjects/Shader.h>
 #include <globjects/base/File.h>
 
@@ -41,9 +41,10 @@ bool ShaderProgramManager::addNamedString( const std::string& includepath,
         return false;
     }
 
-    auto file                   = globjects::File::create( realfile );
-    m_namedStrings[includepath] = std::make_pair(
-        std::move( file ), globjects::NamedString::create( includepath, file.get() ) );
+    auto file    = globjects::File::create( realfile );
+    auto filePtr = file.get();
+    m_namedStrings[includepath] =
+        std::make_pair( std::move( file ), globjects::NamedString::create( includepath, filePtr ) );
 
     return true;
 }
@@ -149,6 +150,5 @@ void ShaderProgramManager::insertShader( const ShaderConfiguration& config,
     m_shaderPrograms.insert( {config, shader} );
 }
 
-RA_SINGLETON_IMPLEMENTATION( ShaderProgramManager );
 } // namespace Engine
 } // namespace Ra

@@ -11,7 +11,7 @@
 #include <PluginBase/RadiumPluginInterface.hpp>
 
 class QTimer;
-
+class QCommandLineParser;
 namespace Ra {
 namespace Engine {
 class RadiumEngine;
@@ -49,16 +49,75 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     /** Setup the application, create main window and main connections.
      * \param argc from main()
      * \param argv from main()
-     * \param factory : a functor that instanciate the mainWindow
      * \param applicationName
      * \param organizationName
      */
     BaseApplication( int& argc,
                      char** argv,
-                     const WindowFactory& factory,
                      QString applicationName  = "RadiumEngine",
                      QString organizationName = "STORM-IRIT" );
-    ~BaseApplication();
+
+    ~BaseApplication() override;
+
+    /** Initialize the application, create the Gui and OpenGL environment.
+     * The initialization of an application is made in several steps
+     *   1. Create and initialize the engine and its non-OpenGL services
+     *     - Once the engine singleton is instanciated, call the BaseApplication's virtual method
+     *     engineBaseInitialization to populate the engine with the base systems
+     *     (eg. GeometrySystem) and configure the non-openGL engine services.
+     *   2. Create and initialize the openGL environment
+     *     - When the openGL context is ready and bound, call the BaseApplication's virtual method
+     *     engineOpenGLInitialize (this method is a virtual slot connected to the event
+     *     Gui::Viewer::requestEngineOpenGLInitialization).
+     *     - When the application and its opengl window are ready, call the BaseApplication's
+     *     virtual method  initializeGl (this method is a virtual slot connected to the event
+     *     Gui::Viewer::glInitialized).
+     *   3. Create Plugin context, load plugins, configure base Radium::IO services
+     *     - The plugins located int the registered plugin paths (into the Radium Engine or
+     *     bundled with the installed application, into paths found in the app configuration file)
+     *     are loaded automatically.
+     *     - The Radium::IO services compiled into the Radium bundle are configured (file loaders)
+     *     - After plugins and default services are configured, call the BaseApplication's virtual
+     *     method addApplicationExtension.
+     *   4. Manage scene related command-line argument
+     *     - loads the given scene, ...
+     *
+     * \param factory : a functor that instanciate the mainWindow
+     * @note The initialize method call virtual methods on the object being initialized to
+     * configure the engine and application services.
+     * When redefining those methods, it is recommended to call the inherited one to have
+     * consistent initialization wrt the BaseApplication ancestor.
+     * The initialize method could be also overloaded by derived classes. In this case, it is
+     * recommended that the overload explicetely call the ancestor method..
+     */
+    void initialize( const WindowFactory& factory );
+
+    /**
+     * This method configure the base, non opengl dependant, scene services.
+     *
+     * It is expected that this method add the Engine's systems required by the application.
+     * and configure the engine time management properties.
+     * The default implementation add the following systems :
+     *   - Ra::Engine::GeometrySystem
+     *
+     * The default implementation also configure the time system according to the user requested
+     * frame rate (app command line argument -framerate) or to the default 60fps.
+     */
+    virtual void engineBaseInitialization();
+
+    /**
+     * Allow derived applications to add specific extensions to the engine and the base application.
+     * Such extensions are expected to be :
+     *  - specific file loaders
+     *  - specific plugins
+     *  - specific global resources needed by the application (Textures, shaders, ...)
+     *  This method could also be used to populate the engine with systems or with OpenGL related
+     *  services if this was not already done in the appropriate methods (engineBaseInitialization,
+     *  engineOpenGLInitialize, initializeGl)
+     *  - specific renderers (could be added instead when configuring OpenGL)
+     *  -
+     */
+    virtual void addApplicationExtension() {};
 
     /// Advance the engine for one frame.
     void radiumFrame();
@@ -92,6 +151,13 @@ class RA_GUIBASE_API BaseApplication : public QApplication
 
   public slots:
 
+    /// slot called when the OpenGL need to be initialized
+    virtual void engineOpenGLInitialize();
+
+    /// slot called once the application window and its OpenGL services are ready.
+    /// TODO : rename this to be more representative of post opengl & gui operations
+    virtual void initializeGl();
+
     void updateRadiumFrameIfNeeded() {
         // Main loop
         if ( m_isUpdateNeeded.load() ) radiumFrame();
@@ -106,7 +172,6 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     bool loadFile( QString path );
     void framesCountForStatsChanged( uint count );
     void appNeedsToQuit();
-    void initializeOpenGlPlugins();
 
     void setRealFrameRate( bool on );
     void setRecordFrames( bool on );
@@ -177,6 +242,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     uint m_numFrames;
     uint m_maxThreads;
     std::vector<FrameTimerData> m_timerData;
+    std::string m_pluginPath;
 
     /// If true, use the wall clock to advance the engine. If false, use a fixed time step.
     bool m_realFrameRate;
@@ -202,6 +268,7 @@ class RA_GUIBASE_API BaseApplication : public QApplication
     std::atomic<int> m_continuousUpdateRequest {1};
 
     Plugins::Context m_pluginContext;
+    QCommandLineParser* m_parser;
 };
 } // namespace GuiBase
 } // namespace Ra

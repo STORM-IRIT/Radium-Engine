@@ -67,6 +67,9 @@ class RA_GUIBASE_API MainWindowInterface : public QMainWindow
   signals:
     /// Emitted when the closed button has been hit.
     void closed();
+
+    /// Emitted when the viewer request OpenGL initialization of the engine
+    void requestEngineOpenGLInitialization();
 };
 } // namespace GuiBase
 } // namespace Ra

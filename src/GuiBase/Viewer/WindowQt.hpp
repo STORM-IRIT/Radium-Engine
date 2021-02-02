@@ -71,11 +71,15 @@ class RA_GUIBASE_API WindowQt : public QWindow
     void initialize();
     void resizeInternal( QResizeEvent* event );
 
-    // note when updating from globjets
-    // paintGL done by base app rendering loop
-
+    //
+    // OpenGL related methods
+    // Not inherited, defined here in the same way QOpenGLWidget define them.
+    //
+    /// Initialize the openGL related part of the Window
     virtual bool initializeGL();
+    /// DeInitialize the OpenGL
     virtual void deinitializeGL();
+    /// Resize the OpenGL related part of the Window
     virtual void resizeGL( QResizeEvent* event );
 
     // note when updating from globjets
