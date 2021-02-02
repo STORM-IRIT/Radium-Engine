@@ -92,7 +92,7 @@ RADIUM_EXTERNAL_CMAKE_INSTALL_MESSAGE=NEVER
 RADIUM_QUIET:BOOL=OFF
 --
 // Provide loaders based on Assimp library
-RADIUM_IO_ASSIMP:BOOL=OFF
+RADIUM_IO_ASSIMP:BOOL=ON
 --
 // Provide depricated loaders (to be removed without notice)
 RADIUM_IO_DEPRECATED:BOOL=ON
@@ -176,7 +176,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-install",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_IO_ASSIMP=ON",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     },
@@ -187,7 +187,7 @@ To fix it, edit `CMakeSettings.json`, such that
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "C:/Users/XXX/Dev/builds/Radium/${name}",
       "installRoot": "C:/Users/XXX/Dev/Radium-installdbg",
-      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF -DRADIUM_IO_ASSIMP=ON",
+      "cmakeCommandArgs": "-DCMAKE_PREFIX_PATH=C:/Qt-5.10/5.10.0/msvc2017_64 -DRADIUM_UPDATE_VERSION=OFF",
       "buildCommandArgs": "",
       "ctestCommandArgs": ""
     }

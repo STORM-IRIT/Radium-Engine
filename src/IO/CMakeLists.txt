@@ -6,7 +6,7 @@ project( ${ra_io_target}
          VERSION ${RADIUM_VERSION})
 
 option( RADIUM_IO_DEPRECATED  "Provide depricated loaders (to be removed without notice)" ON )
-option( RADIUM_IO_ASSIMP  "Provide loaders based on Assimp library" OFF )
+option( RADIUM_IO_ASSIMP  "Provide loaders based on Assimp library" ON )
 option( RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON )
 
 include( filelistIO )
