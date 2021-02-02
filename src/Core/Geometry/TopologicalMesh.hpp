@@ -591,6 +591,40 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
 
+    template <typename T>
+    inline void copyAttribToWedgeData( const TriangleMesh& mesh,
+                                       unsigned int vindex,
+                                       const std::vector<AttribHandle<T>>& attrHandleVec,
+                                       VectorArray<T>* to );
+
+    inline void copyMeshToWedgeData( const TriangleMesh& mesh,
+                                     unsigned int vindex,
+                                     const std::vector<AttribHandle<float>>& wprop_float,
+                                     const std::vector<AttribHandle<Vector2>>& wprop_vec2,
+                                     const std::vector<AttribHandle<Vector3>>& wprop_vec3,
+                                     const std::vector<AttribHandle<Vector4>>& wprop_vec4,
+                                     TopologicalMesh::WedgeData* wd );
+
+    template <typename T>
+    using HandleAndValueVector =
+        std::vector<std::pair<AttribHandle<T>, T>,
+                    Eigen::aligned_allocator<std::pair<AttribHandle<T>, T>>>;
+
+    template <typename T>
+    using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
+
+    template <typename T>
+    inline void copyAttribToTopo( const TriangleMesh& triMesh,
+                                  const std::vector<PropPair<T>>& vprop,
+                                  TopologicalMesh::HalfedgeHandle heh,
+                                  unsigned int vindex );
+
+    template <typename T>
+    inline void addAttribPairToTopo( const TriangleMesh& triMesh,
+                                     AttribManager::pointer_type attr,
+                                     std::vector<PropPair<T>>& vprop,
+                                     std::vector<OpenMesh::HPropHandleT<T>>& pph );
+
     void split_copy( EdgeHandle _eh, VertexHandle _vh );
     void split( EdgeHandle _eh, VertexHandle _vh );
 
