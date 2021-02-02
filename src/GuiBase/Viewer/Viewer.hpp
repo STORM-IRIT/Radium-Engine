@@ -141,8 +141,10 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
     ///@}
-
   signals:
+    /// Emitted when GL context is ready and the engine OpenGL part must be initialized.
+    /// Renderers might be added here using addRenderer.
+    void requestEngineOpenGLInitialization();
     bool glInitialized(); //! Emitted when GL context is ready. We except call to addRenderer here
     void rendererReady(); //! Emitted when the rendered is correctly initialized
     void rightClickPicking( const Ra::Engine::Renderer::PickingResult& result );
@@ -185,14 +187,10 @@ class RA_GUIBASE_API Viewer : public WindowQt, public KeyMappingManageable<Viewe
     /// Initialize renderer internal state + configure lights.
     void initializeRenderer( Engine::Renderer* renderer );
 
-    //
-    // OpenGL primitives
-    // Not herited, defined here in the same way QOpenGLWidget define them.
-    //
-
     /// Initialize openGL. Called on by the first "show" call to the main window.
     /// \warning This function is NOT reentrant, and may behave incorrectly
     /// if called at the same time than #intializeRenderer
+    /// @note Must be called only when a valid openGLContext is bound (see WindowsQt::initialize)
     bool initializeGL() override;
 
     /// Resize the view port and the camera. Called by the resize event.

@@ -387,8 +387,17 @@ class RA_ENGINE_API Renderer
     uint m_width {0};
     uint m_height {0};
 
-    ShaderProgramManager* m_shaderMgr {nullptr};
-    RenderObjectManager* m_roMgr {nullptr};
+    /// This raw pointer is used as an alias to a std::unique_ptr own by the engine.
+    /// It is guaranteed that the lifetime of the engine is longer than the lifetime of a Renderer.
+    /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-raw
+    /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr
+    ShaderProgramManager* m_shaderProgramManager {nullptr};
+
+    /// This raw pointer is used as an alias to a std::unique_ptr own by the engine.
+    /// It is guaranteed that the lifetime of the engine is longer than the lifetime of a Renderer.
+    /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Ri-raw
+    /// \see https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-ptr
+    RenderObjectManager* m_renderObjectManager {nullptr};
 
     //                It would make more sense if we are able to show the
     //                debugged texture in its own viewport.

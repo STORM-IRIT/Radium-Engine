@@ -120,7 +120,10 @@ std::shared_ptr<Ra::Engine::RenderObject> initQuad( Ra::GuiBase::BaseApplication
 }
 
 int main( int argc, char* argv[] ) {
-    Ra::GuiBase::BaseApplication app( argc, argv, Ra::GuiBase::SimpleWindowFactory {} );
+    //! [Creating the application]
+    Ra::GuiBase::BaseApplication app( argc, argv );
+    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    //! [Creating the application]
 
     //! [add the custom material to the material system]
     Ra::Engine::RawShaderMaterial::registerMaterial();
