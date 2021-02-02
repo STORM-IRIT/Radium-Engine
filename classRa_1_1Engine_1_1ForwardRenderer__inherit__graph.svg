@@ -100,8 +100,8 @@ var sectionId = 'dynsection-0';
 <polyline fill="none" stroke="black" points="4.5,-979.5 165.5,-979.5 "/>
 <text text-anchor="start" x="12.5" y="-967.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_width</text>
 <text text-anchor="start" x="12.5" y="-956.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_height</text>
-<text text-anchor="start" x="12.5" y="-945.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_shaderMgr</text>
-<text text-anchor="start" x="12.5" y="-934.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_roMgr</text>
+<text text-anchor="start" x="12.5" y="-945.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_shaderProgramManager</text>
+<text text-anchor="start" x="12.5" y="-934.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_renderObjectManager</text>
 <text text-anchor="start" x="12.5" y="-923.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_displayedTexture</text>
 <text text-anchor="start" x="12.5" y="-912.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_lightmanagers</text>
 <text text-anchor="start" x="12.5" y="-901.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_renderQueuesUpToDate</text>

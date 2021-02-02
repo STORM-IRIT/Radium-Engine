@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"Task_8hpp_source.html":[10,0,3,0,6,0],
 "Tex_8hpp.html":[10,0,3,0,2,12],
 "Tex_8hpp.html#a6a8bde170731bf837a94c3bdd53e7b50":[10,0,3,0,2,12,1],
 "Tex_8hpp.html#ae45597b9165d8d01d5318c7fbd3989ab":[10,0,3,0,2,12,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "basicsCompileRadium.html#autotoc_md15":[2,0,2,2],
 "basicsCompileRadium.html#autotoc_md16":[2,0,2,3],
 "basicsCompileRadium.html#autotoc_md17":[2,0,2,4],
-"basicsCompileRadium.html#autotoc_md18":[2,0,2,5]
+"basicsCompileRadium.html#autotoc_md18":[2,0,2,5],
+"basicsCompileRadium.html#autotoc_md9":[2,0,0]
 };

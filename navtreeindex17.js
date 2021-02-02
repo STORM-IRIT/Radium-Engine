@@ -1,5 +1,17 @@
 var NAVTREEINDEX17 =
 {
+"classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d":[9,0,2,2,12,2],
+"classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc":[9,0,2,2,12,16],
+"classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5":[9,0,2,2,12,11],
+"classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c":[9,0,2,2,12,4],
+"classRa_1_1Gui_1_1WindowQt.html#a42ef36929421a865ca2d0424e515292d":[9,0,2,2,12,7],
+"classRa_1_1Gui_1_1WindowQt.html#a44dcba0a79c9be83bb96b5bb0db1ab01":[9,0,2,2,12,10],
+"classRa_1_1Gui_1_1WindowQt.html#a44dfd5a3bfdc9a9c285a6ccbd681999a":[9,0,2,2,12,9],
+"classRa_1_1Gui_1_1WindowQt.html#a491aec3ef3823063794a0412ff9673df":[9,0,2,2,12,19],
+"classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854":[9,0,2,2,12,20],
+"classRa_1_1Gui_1_1WindowQt.html#a5e730ff2c5e6a199047ad3206500a4a1":[9,0,2,2,12,14],
+"classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4":[9,0,2,2,12,13],
+"classRa_1_1Gui_1_1WindowQt.html#a8562ae7db9d5118c81cbbbaa063617c5":[9,0,2,2,12,15],
 "classRa_1_1Gui_1_1WindowQt.html#a877eea734becb3be6835688f9023b39c":[9,0,2,2,12,6],
 "classRa_1_1Gui_1_1WindowQt.html#a9e218f1715f8207ad38140386120e8ae":[9,0,2,2,12,18],
 "classRa_1_1Gui_1_1WindowQt.html#aac16a1388a3a2f9d0ea1127ea700cafe":[9,0,2,2,12,8],
@@ -237,17 +249,5 @@ var NAVTREEINDEX17 =
 "develoldmanual.html#autotoc_md87":[4,5,2],
 "develoldmanual.html#autotoc_md88":[4,5,2,0],
 "develoldmanual.html#autotoc_md89":[4,5,2,1],
-"develoldmanual.html#autotoc_md90":[4,5,2,2],
-"develoldmanual.html#autotoc_md91":[4,5,2,3],
-"develoldmanual.html#autotoc_md92":[4,5,2,4],
-"develoldmanual.html#autotoc_md93":[4,5,2,5],
-"develoldmanual.html#autotoc_md94":[4,5,2,6],
-"develoldmanual.html#autotoc_md95":[4,5,3],
-"develoldmanual.html#autotoc_md96":[4,5,3,0],
-"develoldmanual.html#autotoc_md97":[4,5,3,1],
-"develpicking.html":[4,3,1,3],
-"develpicking.html#autotoc_md68":[4,3,1,3,0],
-"develpicking.html#autotoc_md69":[4,3,1,3,1],
-"develpicking.html#autotoc_md70":[4,3,1,3,2],
-"develplugin.html":[4,4,1]
+"develoldmanual.html#autotoc_md90":[4,5,2,2]
 };

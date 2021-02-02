@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">95ba71fc4f669b7817fcdb507196c444677fea4d</span>
+   &#160;<span id="projectnumber">631a028e731de8ccf1e1232ed419c5e7c5fcadee</span>
    </div>
   </td>
  </tr>
@@ -154,29 +154,30 @@ $(document).ready(function(){initNavTree('WindowQt_8hpp_source.html',''); initRe
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> initialize();</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> resizeInternal( QResizeEvent* event );</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// note when updating from globjets</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// paintGL done by base app rendering loop</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> initializeGL();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> deinitializeGL();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> resizeGL( QResizeEvent* event );</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="comment">// note when updating from globjets</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// paintGL done by base app rendering loop</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">   85</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a>* <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">s_getProcAddressHelper</a>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">static</span> glbinding::ProcAddress getProcAddress( <span class="keyword">const</span> <span class="keywordtype">char</span>* name );</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace Gui</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// OpenGL related methods</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">// Not inherited, defined here in the same way QOpenGLWidget define them.</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> initializeGL();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> deinitializeGL();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> resizeGL( QResizeEvent* event );</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment">// note when updating from globjets</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// paintGL done by base app rendering loop</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">   89</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="classRa_1_1Gui_1_1WindowQt.html">WindowQt</a>* <a class="code" href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">s_getProcAddressHelper</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">static</span> glbinding::ProcAddress getProcAddress( <span class="keyword">const</span> <span class="keywordtype">char</span>* name );</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;};</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;} <span class="comment">// namespace Gui</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassQWindow_html"><div class="ttname"><a href="classQWindow.html">QWindow</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html">Ra::Gui::WindowQt</a></div><div class="ttdoc">Base class for OpenGL widgets, compatble with Qt and globjects/glbindings.</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00027">WindowQt.hpp:27</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_af623672d7fdc3fd5d6a4c016ab98aac7"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">Ra::Gui::WindowQt::s_getProcAddressHelper</a></div><div class="ttdeci">static WindowQt * s_getProcAddressHelper</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00085">WindowQt.hpp:85</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_af623672d7fdc3fd5d6a4c016ab98aac7"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#af623672d7fdc3fd5d6a4c016ab98aac7">Ra::Gui::WindowQt::s_getProcAddressHelper</a></div><div class="ttdeci">static WindowQt * s_getProcAddressHelper</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00089">WindowQt.hpp:89</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_af022c0986f1c5c62c5341518c29c08e0"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#af022c0986f1c5c62c5341518c29c08e0">Ra::Gui::WindowQt::m_updatePending</a></div><div class="ttdeci">bool m_updatePending</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00068">WindowQt.hpp:68</a></div></div>
 <div class="ttc" id="aRaGuiBase_8hpp_html"><div class="ttname"><a href="RaGuiBase_8hpp.html">RaGuiBase.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1WindowQt_html_a5829f24c3ea2936025df81c65d7e4854"><div class="ttname"><a href="classRa_1_1Gui_1_1WindowQt.html#a5829f24c3ea2936025df81c65d7e4854">Ra::Gui::WindowQt::m_glInitialized</a></div><div class="ttdeci">std::atomic_bool m_glInitialized</div><div class="ttdef"><b>Definition:</b> <a href="WindowQt_8hpp_source.html#l00069">WindowQt.hpp:69</a></div></div>
@@ -187,7 +188,7 @@ $(document).ready(function(){initNavTree('WindowQt_8hpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_796a1a15fb9cc23998586ef6281d84e1.html">Viewer</a></li><li class="navelem"><a class="el" href="WindowQt_8hpp.html">WindowQt.hpp</a></li>
-    <li class="footer">Generated on Tue Feb 2 2021 09:27:34 for Radium Engine by
+    <li class="footer">Generated on Tue Feb 2 2021 13:36:20 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

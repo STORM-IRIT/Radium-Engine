@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">95ba71fc4f669b7817fcdb507196c444677fea4d</span>
+   &#160;<span id="projectnumber">631a028e731de8ccf1e1232ed419c5e7c5fcadee</span>
    </div>
   </td>
  </tr>
@@ -104,12 +104,21 @@ $(document).ready(function(){initNavTree('classRa_1_1Engine_1_1ShaderProgramMana
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1ShaderProgramManager__coll__graph.svg" width="291" height="191"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1ShaderProgramManager__coll__graph.svg" width="291" height="250"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a429621c33fb58d9b58a143207a939397"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html#a429621c33fb58d9b58a143207a939397">ShaderProgramManager</a> ()</td></tr>
+<tr class="memdesc:a429621c33fb58d9b58a143207a939397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rule of three needed here to prevent copy on this manager (only movable)  <a href="classRa_1_1Engine_1_1ShaderProgramManager.html#a429621c33fb58d9b58a143207a939397">More...</a><br /></td></tr>
+<tr class="separator:a429621c33fb58d9b58a143207a939397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af78023dd56888055c937b75fec542164"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html#af78023dd56888055c937b75fec542164">~ShaderProgramManager</a> ()</td></tr>
+<tr class="separator:af78023dd56888055c937b75fec542164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ba8270adf46e28820abbb928caf7776"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html#a9ba8270adf46e28820abbb928caf7776">ShaderProgramManager</a> (const <a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a> &amp;)=delete</td></tr>
+<tr class="separator:a9ba8270adf46e28820abbb928caf7776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02c73228df0c6768d00c074426d28c7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html#a02c73228df0c6768d00c074426d28c7b">operator=</a> (const <a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a> &amp;)=delete</td></tr>
+<tr class="separator:a02c73228df0c6768d00c074426d28c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82a7361639c0fbd401447e2d253dc961"><td class="memItemLeft" align="right" valign="top">Core::Utils::optional&lt; const <a class="el" href="classRa_1_1Engine_1_1ShaderProgram.html">ShaderProgram</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html#a82a7361639c0fbd401447e2d253dc961">addShaderProgram</a> (const <a class="el" href="classRa_1_1Engine_1_1ShaderConfiguration.html">ShaderConfiguration</a> &amp;config)</td></tr>
 <tr class="separator:a82a7361639c0fbd401447e2d253dc961"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ddf7b2a65b82380204c6bb5da2127d2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Engine_1_1ShaderProgram.html">ShaderProgram</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html#a5ddf7b2a65b82380204c6bb5da2127d2">getShaderProgram</a> (const std::string &amp;id)</td></tr>
@@ -131,7 +140,74 @@ Public Member Functions</h2></td></tr>
 <p>This manager is a singleton. At the creation of the singleton, one can give parameters that will define the default shader programm example : Engine::ShaderProgramManager::createInstance( "Shaders/Default.vert.glsl", "Shaders/Default.frag.glsl" ); </p>
 
 <p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8hpp_source.html#l00039">39</a> of file <a class="el" href="ShaderProgramManager_8hpp_source.html">ShaderProgramManager.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a429621c33fb58d9b58a143207a939397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a429621c33fb58d9b58a143207a939397">&#9670;&nbsp;</a></span>ShaderProgramManager() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ra::Engine::ShaderProgramManager::ShaderProgramManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rule of three needed here to prevent copy on this manager (only movable) </p>
+
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00018">18</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af78023dd56888055c937b75fec542164"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af78023dd56888055c937b75fec542164">&#9670;&nbsp;</a></span>~ShaderProgramManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ra::Engine::ShaderProgramManager::~ShaderProgramManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00020">20</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ba8270adf46e28820abbb928caf7776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ba8270adf46e28820abbb928caf7776">&#9670;&nbsp;</a></span>ShaderProgramManager() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ra::Engine::ShaderProgramManager::ShaderProgramManager </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a159e6f2102f157246faaa795fad1e82f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a159e6f2102f157246faaa795fad1e82f">&#9670;&nbsp;</a></span>addNamedString()</h2>
 
@@ -196,7 +272,7 @@ Public Member Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>ownership on the returned pointer is keep by the manager. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>this method is <em>not</em> reentrant </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00061">61</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00062">62</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
 <div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
@@ -231,7 +307,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the shader programm retrieved, or nullptr when no shader programm corresponding to the configuration is found. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00113">113</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00114">114</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -258,7 +334,33 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the shader programm retrieved, nullptr if the program was not in the collection </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00106">106</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00107">107</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a02c73228df0c6768d00c074426d28c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c73228df0c6768d00c074426d28c7b">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a>&amp; Ra::Engine::ShaderProgramManager::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -278,7 +380,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Reload source, recompile, link and validate all the managed programms. Usefull for shaders development </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00118">118</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00119">119</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -298,7 +400,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Reload all the registered name string. Usefull for shader development. </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00051">51</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00052">52</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -318,7 +420,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Programs that did not compiled are temporarilly stored and could be reloaded and compiled when one call this method. If the reloaded programm is ok, it is removed from the set of not compiled program and added to the programm collection. </p>
 
-<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00132">132</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ShaderProgramManager_8cpp_source.html#l00133">133</a> of file <a class="el" href="ShaderProgramManager_8cpp_source.html">ShaderProgramManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -332,7 +434,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1ShaderProgramManager.html">ShaderProgramManager</a></li>
-    <li class="footer">Generated on Tue Feb 2 2021 09:27:35 for Radium Engine by
+    <li class="footer">Generated on Tue Feb 2 2021 13:36:22 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

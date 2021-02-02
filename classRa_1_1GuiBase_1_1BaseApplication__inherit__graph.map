@@ -1,4 +1,4 @@
 <map id="Ra::GuiBase::BaseApplication" name="Ra::GuiBase::BaseApplication">
-<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="5,131,248,897"/>
+<area shape="rect" id="node1" title="This class contains the main application logic. It owns the engine and the GUI." alt="" coords="5,131,248,985"/>
 <area shape="rect" id="node2" href="$classQApplication.html" title=" " alt="" coords="74,5,179,83"/>
 </map>

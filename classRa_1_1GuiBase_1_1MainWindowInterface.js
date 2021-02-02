@@ -10,5 +10,6 @@ var classRa_1_1GuiBase_1_1MainWindowInterface =
     [ "getViewer", "classRa_1_1GuiBase_1_1MainWindowInterface.html#a7908d918b3cbccfd47d35c8cb3fba53c", null ],
     [ "onFrameComplete", "classRa_1_1GuiBase_1_1MainWindowInterface.html#ac7b7452779869b47cfe265b194d38025", null ],
     [ "postLoadFile", "classRa_1_1GuiBase_1_1MainWindowInterface.html#ae17532affbbcd9396b62ab7b47d6897a", null ],
+    [ "requestEngineOpenGLInitialization", "classRa_1_1GuiBase_1_1MainWindowInterface.html#a788b6f655da3c1d095a771f72f1a2aa5", null ],
     [ "updateUi", "classRa_1_1GuiBase_1_1MainWindowInterface.html#a869e55b56692245a35bb28610e360983", null ]
 ];

@@ -142,7 +142,6 @@ var NAVTREEINDEX4 =
 "ShaderConfiguration_8hpp.html#a01c64ec07c4055ad0185376972e97352af057c7175bec29032d9887e98e5e287f":[10,0,3,1,4,8,9,1,2],
 "ShaderConfiguration_8hpp_source.html":[10,0,3,1,4,8,9],
 "ShaderProgramManager_8cpp.html":[10,0,3,1,4,8,13],
-"ShaderProgramManager_8cpp.html#a1c9239bdda37656b60b9c1a8fe21308c":[10,0,3,1,4,8,13,1],
 "ShaderProgramManager_8cpp.html#ab3c502af91b719cecafd7393c82f59f5":[10,0,3,1,4,8,13,0],
 "ShaderProgramManager_8cpp_source.html":[10,0,3,1,4,8,13],
 "ShaderProgramManager_8hpp.html":[10,0,3,1,4,8,14],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "TaskQueue_8cpp_source.html":[10,0,3,0,6,1],
 "TaskQueue_8hpp.html":[10,0,3,0,6,2],
 "TaskQueue_8hpp_source.html":[10,0,3,0,6,2],
-"Task_8hpp.html":[10,0,3,0,6,0]
+"Task_8hpp.html":[10,0,3,0,6,0],
+"Task_8hpp_source.html":[10,0,3,0,6,0]
 };

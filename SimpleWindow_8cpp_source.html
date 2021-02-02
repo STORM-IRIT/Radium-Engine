@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">95ba71fc4f669b7817fcdb507196c444677fea4d</span>
+   &#160;<span id="projectnumber">631a028e731de8ccf1e1232ed419c5e7c5fcadee</span>
    </div>
   </td>
  </tr>
@@ -114,105 +114,98 @@ $(document).ready(function(){initNavTree('SimpleWindow_8cpp_source.html',''); in
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// Initialize the minimum tools for a Radium-Guibased Application</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    m_viewer = std::make_unique&lt;Viewer&gt;();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    connect( m_viewer.get(), &amp;<a class="code" href="classRa_1_1Gui_1_1Viewer.html#a8e1e9d1346dcf767bec5b743a2dd8802">Viewer::glInitialized</a>, <span class="keyword">this</span>, &amp;SimpleWindow::onGLInitialized );</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    m_viewer-&gt;setObjectName( QStringLiteral( <span class="stringliteral">&quot;m_viewer&quot;</span> ) );</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// Initialize the scene interactive representation</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    m_sceneModel =</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        std::make_unique&lt;Ra::GuiBase::ItemModel&gt;( Ra::Engine::RadiumEngine::getInstance(), <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    m_selectionManager =</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::make_unique&lt;Ra::GuiBase::SelectionManager&gt;( m_sceneModel.get(), <span class="keyword">this</span> );</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// initialize Gui for the application</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">auto</span> viewerWidget = QWidget::createWindowContainer( m_viewer.get() );</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    viewerWidget-&gt;setAutoFillBackground( <span class="keyword">false</span> );</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    setCentralWidget( viewerWidget );</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    setWindowTitle( QString( <span class="stringliteral">&quot;Radium player&quot;</span> ) );</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    createConnections();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a7c6dbff652e5d9c0f265e1ee3a4b485f">SimpleWindow::~SimpleWindow</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a22b9db88079de0bef86cea58c6801fa0">   41</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>* <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a22b9db88079de0bef86cea58c6801fa0">SimpleWindow::getViewer</a>() {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> m_viewer.get();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a336bbc6db6db1a7c39da10d2d9c4af7d">   45</a></span>&#160;<a class="code" href="classRa_1_1GuiBase_1_1SelectionManager.html">Ra::GuiBase::SelectionManager</a>* <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a336bbc6db6db1a7c39da10d2d9c4af7d">SimpleWindow::getSelectionManager</a>() {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> m_selectionManager.get();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6ed54819509a6c61c747d88f25ba8786">   49</a></span>&#160;<a class="code" href="classRa_1_1GuiBase_1_1Timeline.html">Ra::GuiBase::Timeline</a>* <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6ed54819509a6c61c747d88f25ba8786">SimpleWindow::getTimeline</a>() {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#afaf65b6eadd17ee62a5f9007f50198a7">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#afaf65b6eadd17ee62a5f9007f50198a7">SimpleWindow::updateUi</a>( <a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a>* ) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// no ui in the simple window, so, nothing to do</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#ab8f01cfeb03de10fde364e5eb39f315f">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#ab8f01cfeb03de10fde364e5eb39f315f">SimpleWindow::onFrameComplete</a>() {}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a211ae0115a84716b3c032e5adea32c00">   59</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a211ae0115a84716b3c032e5adea32c00">SimpleWindow::addRenderer</a>( <span class="keyword">const</span> std::string&amp;, std::shared_ptr&lt;Ra::Engine::Renderer&gt; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> ) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    m_viewer-&gt;addRenderer( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> );</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6fb44d2cb5c840a62fa8d5092ddd188b">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6fb44d2cb5c840a62fa8d5092ddd188b">SimpleWindow::postLoadFile</a>( <span class="keyword">const</span> std::string&amp; ) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    m_viewer-&gt;makeCurrent();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    m_viewer-&gt;getRenderer()-&gt;buildAllRenderTechniques();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    m_viewer-&gt;doneCurrent();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    m_selectionManager-&gt;clear();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">auto</span> aabb = Ra::Engine::RadiumEngine::getInstance()-&gt;computeSceneAabb();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> ( aabb.isEmpty() ) { m_viewer-&gt;getCameraManipulator()-&gt;resetCamera(); }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    { m_viewer-&gt;fitCameraToScene( aabb ); }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    emit <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a81cbf218e2a4a156ccabe45dc9349810">frameUpdate</a>();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#aea3941a27704828aa5a0fbc02124b390">   75</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#aea3941a27704828aa5a0fbc02124b390">SimpleWindow::cleanup</a>() {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    m_viewer.reset( <span class="keyword">nullptr</span> );</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">void</span> SimpleWindow::createConnections() {}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> SimpleWindow::onGLInitialized() {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">auto</span> forwardRenderer = std::make_shared&lt;ForwardRenderer&gt;();</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a211ae0115a84716b3c032e5adea32c00">addRenderer</a>( <span class="stringliteral">&quot;Forward renderer (default)&quot;</span>, forwardRenderer );</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace GuiBase</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    m_viewer-&gt;setObjectName( QStringLiteral( <span class="stringliteral">&quot;m_viewer&quot;</span> ) );</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// Initialize the scene interactive representation</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    m_sceneModel =</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::make_unique&lt;Ra::GuiBase::ItemModel&gt;( Ra::Engine::RadiumEngine::getInstance(), <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    m_selectionManager =</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::make_unique&lt;Ra::GuiBase::SelectionManager&gt;( m_sceneModel.get(), <span class="keyword">this</span> );</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// initialize Gui for the application</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">auto</span> viewerWidget = QWidget::createWindowContainer( m_viewer.get() );</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    viewerWidget-&gt;setAutoFillBackground( <span class="keyword">false</span> );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    setCentralWidget( viewerWidget );</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    setWindowTitle( QString( <span class="stringliteral">&quot;Radium player&quot;</span> ) );</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    createConnections();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a7c6dbff652e5d9c0f265e1ee3a4b485f">SimpleWindow::~SimpleWindow</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a22b9db88079de0bef86cea58c6801fa0">   40</a></span>&#160;<a class="code" href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a>* <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a22b9db88079de0bef86cea58c6801fa0">SimpleWindow::getViewer</a>() {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> m_viewer.get();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a336bbc6db6db1a7c39da10d2d9c4af7d">   44</a></span>&#160;<a class="code" href="classRa_1_1GuiBase_1_1SelectionManager.html">Ra::GuiBase::SelectionManager</a>* <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a336bbc6db6db1a7c39da10d2d9c4af7d">SimpleWindow::getSelectionManager</a>() {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> m_selectionManager.get();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6ed54819509a6c61c747d88f25ba8786">   48</a></span>&#160;<a class="code" href="classRa_1_1GuiBase_1_1Timeline.html">Ra::GuiBase::Timeline</a>* <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6ed54819509a6c61c747d88f25ba8786">SimpleWindow::getTimeline</a>() {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#afaf65b6eadd17ee62a5f9007f50198a7">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#afaf65b6eadd17ee62a5f9007f50198a7">SimpleWindow::updateUi</a>( <a class="code" href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a>* ) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// no ui in the simple window, so, nothing to do</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#ab8f01cfeb03de10fde364e5eb39f315f">   56</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#ab8f01cfeb03de10fde364e5eb39f315f">SimpleWindow::onFrameComplete</a>() {}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a211ae0115a84716b3c032e5adea32c00">   58</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a211ae0115a84716b3c032e5adea32c00">SimpleWindow::addRenderer</a>( <span class="keyword">const</span> std::string&amp;, std::shared_ptr&lt;Ra::Engine::Renderer&gt; <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> ) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    m_viewer-&gt;addRenderer( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">e</a> );</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6fb44d2cb5c840a62fa8d5092ddd188b">   62</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6fb44d2cb5c840a62fa8d5092ddd188b">SimpleWindow::postLoadFile</a>( <span class="keyword">const</span> std::string&amp; ) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    m_viewer-&gt;makeCurrent();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    m_viewer-&gt;getRenderer()-&gt;buildAllRenderTechniques();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    m_viewer-&gt;doneCurrent();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    m_selectionManager-&gt;clear();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">auto</span> aabb = Ra::Engine::RadiumEngine::getInstance()-&gt;computeSceneAabb();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span> ( aabb.isEmpty() ) { m_viewer-&gt;getCameraManipulator()-&gt;resetCamera(); }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    { m_viewer-&gt;fitCameraToScene( aabb ); }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    emit <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#a81cbf218e2a4a156ccabe45dc9349810">frameUpdate</a>();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindow.html#aea3941a27704828aa5a0fbc02124b390">   74</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html#aea3941a27704828aa5a0fbc02124b390">SimpleWindow::cleanup</a>() {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    m_viewer.reset( <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">void</span> SimpleWindow::createConnections() {}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace GuiBase</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
 <div class="ttc" id="aCameraManipulator_8hpp_html"><div class="ttname"><a href="CameraManipulator_8hpp.html">CameraManipulator.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a8e1e9d1346dcf767bec5b743a2dd8802"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a8e1e9d1346dcf767bec5b743a2dd8802">Ra::Gui::Viewer::glInitialized</a></div><div class="ttdeci">bool glInitialized()</div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aclassRa_1_1Plugins_1_1RadiumPluginInterface_html"><div class="ttname"><a href="classRa_1_1Plugins_1_1RadiumPluginInterface.html">Ra::Plugins::RadiumPluginInterface</a></div><div class="ttdoc">Interface class for Radiums plugins.</div><div class="ttdef"><b>Definition:</b> <a href="RadiumPluginInterface_8hpp_source.html#l00070">RadiumPluginInterface.hpp:70</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a22b9db88079de0bef86cea58c6801fa0"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a22b9db88079de0bef86cea58c6801fa0">Ra::GuiBase::SimpleWindow::getViewer</a></div><div class="ttdeci">Ra::Gui::Viewer * getViewer() override</div><div class="ttdoc">Access the viewer, i.e. the rendering widget.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00041">SimpleWindow.cpp:41</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a22b9db88079de0bef86cea58c6801fa0"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a22b9db88079de0bef86cea58c6801fa0">Ra::GuiBase::SimpleWindow::getViewer</a></div><div class="ttdeci">Ra::Gui::Viewer * getViewer() override</div><div class="ttdoc">Access the viewer, i.e. the rendering widget.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00040">SimpleWindow.cpp:40</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:53</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_aea3941a27704828aa5a0fbc02124b390"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#aea3941a27704828aa5a0fbc02124b390">Ra::GuiBase::SimpleWindow::cleanup</a></div><div class="ttdeci">virtual void cleanup() override</div><div class="ttdoc">Cleanup resources.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00075">SimpleWindow.cpp:75</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a336bbc6db6db1a7c39da10d2d9c4af7d"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a336bbc6db6db1a7c39da10d2d9c4af7d">Ra::GuiBase::SimpleWindow::getSelectionManager</a></div><div class="ttdeci">Ra::GuiBase::SelectionManager * getSelectionManager() override</div><div class="ttdoc">Access the selection manager.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00045">SimpleWindow.cpp:45</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_aea3941a27704828aa5a0fbc02124b390"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#aea3941a27704828aa5a0fbc02124b390">Ra::GuiBase::SimpleWindow::cleanup</a></div><div class="ttdeci">virtual void cleanup() override</div><div class="ttdoc">Cleanup resources.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00074">SimpleWindow.cpp:74</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a336bbc6db6db1a7c39da10d2d9c4af7d"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a336bbc6db6db1a7c39da10d2d9c4af7d">Ra::GuiBase::SimpleWindow::getSelectionManager</a></div><div class="ttdeci">Ra::GuiBase::SelectionManager * getSelectionManager() override</div><div class="ttdoc">Access the selection manager.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00044">SimpleWindow.cpp:44</a></div></div>
 <div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a81cbf218e2a4a156ccabe45dc9349810"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a81cbf218e2a4a156ccabe45dc9349810">Ra::GuiBase::SimpleWindow::frameUpdate</a></div><div class="ttdeci">void frameUpdate()</div><div class="ttdoc">Emitted when frame must be updated.</div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a6ed54819509a6c61c747d88f25ba8786"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6ed54819509a6c61c747d88f25ba8786">Ra::GuiBase::SimpleWindow::getTimeline</a></div><div class="ttdeci">Ra::GuiBase::Timeline * getTimeline() override</div><div class="ttdoc">Access the timeline.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00049">SimpleWindow.cpp:49</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_afaf65b6eadd17ee62a5f9007f50198a7"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#afaf65b6eadd17ee62a5f9007f50198a7">Ra::GuiBase::SimpleWindow::updateUi</a></div><div class="ttdeci">void updateUi(Ra::Plugins::RadiumPluginInterface *plugin) override</div><div class="ttdoc">Update the ui from the plugins loaded.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00053">SimpleWindow.cpp:53</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a6ed54819509a6c61c747d88f25ba8786"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6ed54819509a6c61c747d88f25ba8786">Ra::GuiBase::SimpleWindow::getTimeline</a></div><div class="ttdeci">Ra::GuiBase::Timeline * getTimeline() override</div><div class="ttdoc">Access the timeline.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00048">SimpleWindow.cpp:48</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_afaf65b6eadd17ee62a5f9007f50198a7"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#afaf65b6eadd17ee62a5f9007f50198a7">Ra::GuiBase::SimpleWindow::updateUi</a></div><div class="ttdeci">void updateUi(Ra::Plugins::RadiumPluginInterface *plugin) override</div><div class="ttdoc">Update the ui from the plugins loaded.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00052">SimpleWindow.cpp:52</a></div></div>
 <div class="ttc" id="aclassRa_1_1GuiBase_1_1MainWindowInterface_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1MainWindowInterface.html">Ra::GuiBase::MainWindowInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00033">MainWindowInterface.hpp:33</a></div></div>
 <div class="ttc" id="aViewer_8hpp_html"><div class="ttname"><a href="Viewer_8hpp.html">Viewer.hpp</a></div></div>
 <div class="ttc" id="aSimpleWindow_8hpp_html"><div class="ttname"><a href="SimpleWindow_8hpp.html">SimpleWindow.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a211ae0115a84716b3c032e5adea32c00"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a211ae0115a84716b3c032e5adea32c00">Ra::GuiBase::SimpleWindow::addRenderer</a></div><div class="ttdeci">void addRenderer(const std::string &amp;name, std::shared_ptr&lt; Ra::Engine::Renderer &gt; e) override</div><div class="ttdoc">Add render in the application: UI, viewer - this method does not associate a control panel.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00059">SimpleWindow.cpp:59</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_ab8f01cfeb03de10fde364e5eb39f315f"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#ab8f01cfeb03de10fde364e5eb39f315f">Ra::GuiBase::SimpleWindow::onFrameComplete</a></div><div class="ttdeci">void onFrameComplete() override</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00057">SimpleWindow.cpp:57</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a211ae0115a84716b3c032e5adea32c00"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a211ae0115a84716b3c032e5adea32c00">Ra::GuiBase::SimpleWindow::addRenderer</a></div><div class="ttdeci">void addRenderer(const std::string &amp;name, std::shared_ptr&lt; Ra::Engine::Renderer &gt; e) override</div><div class="ttdoc">Add render in the application: UI, viewer - this method does not associate a control panel.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00058">SimpleWindow.cpp:58</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_ab8f01cfeb03de10fde364e5eb39f315f"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#ab8f01cfeb03de10fde364e5eb39f315f">Ra::GuiBase::SimpleWindow::onFrameComplete</a></div><div class="ttdeci">void onFrameComplete() override</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00056">SimpleWindow.cpp:56</a></div></div>
 <div class="ttc" id="aclassRa_1_1GuiBase_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1Timeline.html">Ra::GuiBase::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition:</b> <a href="Timeline_8hpp_source.html#l00042">Timeline.hpp:42</a></div></div>
 <div class="ttc" id="aclassRa_1_1GuiBase_1_1SelectionManager_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SelectionManager.html">Ra::GuiBase::SelectionManager</a></div><div class="ttdef"><b>Definition:</b> <a href="SelectionManager_8hpp_source.html#l00018">SelectionManager.hpp:18</a></div></div>
 <div class="ttc" id="aEntityTreeModel_8hpp_html"><div class="ttname"><a href="EntityTreeModel_8hpp.html">EntityTreeModel.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ad6561217833b25364553930542830197"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">Ra::Core::Math::e</a></div><div class="ttdeci">constexpr Scalar e</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00012">Math.hpp:12</a></div></div>
 <div class="ttc" id="aSelectionManager_8hpp_html"><div class="ttname"><a href="SelectionManager_8hpp.html">SelectionManager.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a6fb44d2cb5c840a62fa8d5092ddd188b"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6fb44d2cb5c840a62fa8d5092ddd188b">Ra::GuiBase::SimpleWindow::postLoadFile</a></div><div class="ttdeci">virtual void postLoadFile(const std::string &amp;filename) override</div><div class="ttdoc">Call after loading a new file to let the window resetview for instance.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00063">SimpleWindow.cpp:63</a></div></div>
+<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a6fb44d2cb5c840a62fa8d5092ddd188b"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a6fb44d2cb5c840a62fa8d5092ddd188b">Ra::GuiBase::SimpleWindow::postLoadFile</a></div><div class="ttdeci">virtual void postLoadFile(const std::string &amp;filename) override</div><div class="ttdoc">Call after loading a new file to let the window resetview for instance.</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8cpp_source.html#l00062">SimpleWindow.cpp:62</a></div></div>
 <div class="ttc" id="aForwardRenderer_8hpp_html"><div class="ttname"><a href="ForwardRenderer_8hpp.html">ForwardRenderer.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html_a7c6dbff652e5d9c0f265e1ee3a4b485f"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html#a7c6dbff652e5d9c0f265e1ee3a4b485f">Ra::GuiBase::SimpleWindow::~SimpleWindow</a></div><div class="ttdeci">~SimpleWindow() override</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_4e2e1cf4f0ba1fe8214a1cc25fac15e2.html">RadiumWindow</a></li><li class="navelem"><a class="el" href="SimpleWindow_8cpp.html">SimpleWindow.cpp</a></li>
-    <li class="footer">Generated on Tue Feb 2 2021 09:27:34 for Radium Engine by
+    <li class="footer">Generated on Tue Feb 2 2021 13:36:20 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

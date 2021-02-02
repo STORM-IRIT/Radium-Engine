@@ -37,6 +37,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "processPicking", "classRa_1_1Gui_1_1Viewer.html#aeee8e169e5cdca89d16cde152a7f4657", null ],
     [ "reloadShaders", "classRa_1_1Gui_1_1Viewer.html#a78eef04365913a9a5b1d956a96533471", null ],
     [ "rendererReady", "classRa_1_1Gui_1_1Viewer.html#a364b2eb1f02c0cabf286a3127ec4c5dc", null ],
+    [ "requestEngineOpenGLInitialization", "classRa_1_1Gui_1_1Viewer.html#a3799eae2d58060b55f256b47f10e36d4", null ],
     [ "resizeGL", "classRa_1_1Gui_1_1Viewer.html#a04f1d64107ff6c0e15f66fc8cd5dcda5", null ],
     [ "rightClickPicking", "classRa_1_1Gui_1_1Viewer.html#a52ecfff106c502591642c270891e9c8b", null ],
     [ "setBackgroundColor", "classRa_1_1Gui_1_1Viewer.html#a1ab7ee32bff18239c4fa100a3cfab113", null ],

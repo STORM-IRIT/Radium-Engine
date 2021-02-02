@@ -1,0 +1,49 @@
+<map id="Ra::GuiBase::BaseApplication::initialize" name="Ra::GuiBase::BaseApplication::initialize">
+<area shape="rect" id="node1" title=" " alt="" coords="5,573,220,615"/>
+<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a96e0e209391861f0826eee05ebafaefc" title=" " alt="" coords="291,84,506,125"/>
+<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a084cf89dbf7dc52fd77286b573069458" title=" " alt="" coords="589,5,803,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a0a57ff7454c9c6b5a116844438f6d55e" title="Create signal / slots connections." alt="" coords="291,201,506,243"/>
+<area shape="rect" id="node12" href="$classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html#a696337774144e7c72871cda5f297eed3" title=" " alt="" coords="268,391,529,432"/>
+<area shape="rect" id="node13" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a26acc5ac47f764035b47fff8629ef98e" title=" " alt="" coords="291,456,506,497"/>
+<area shape="rect" id="node14" href="$classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8" title="Access to the OpenGL context of the Viewer." alt="" coords="297,522,500,549"/>
+<area shape="rect" id="node15" href="$classRa_1_1Gui_1_1Viewer.html#a17094c0201376a4beedb86fa39cf3fa2" title="Access to the feature picking manager." alt="" coords="299,573,498,615"/>
+<area shape="rect" id="node16" href="$namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2" title=" " alt="" coords="311,639,487,680"/>
+<area shape="rect" id="node19" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a3c772ae61fd47517427897752ef2c544" title=" " alt="" coords="291,704,506,745"/>
+<area shape="rect" id="node20" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a6e2e0e0982bf3edeee66fd79ce5a76ae" title=" " alt="" coords="291,325,506,367"/>
+<area shape="rect" id="node24" href="$classRa_1_1Gui_1_1Viewer.html#a1b8fa28801f526e43b17171dcb8c54e5" title="Set the camera managed by the cameraInterface." alt="" coords="298,770,499,797"/>
+<area shape="rect" id="node25" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a994127574934da53c606740018029c4b" title=" " alt="" coords="291,821,506,863"/>
+<area shape="rect" id="node26" href="$classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d" title="add observers to keyMappingManager for gizmo, camera and viewer." alt="" coords="303,887,494,928"/>
+<area shape="rect" id="node28" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a2910421794de7e097bb41b17643e1d34" title=" " alt="" coords="291,985,506,1027"/>
+<area shape="rect" id="node47" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a7ffbf14248b4b4f8dffeffffa8ffd795" title=" " alt="" coords="286,1051,511,1092"/>
+<area shape="rect" id="node5" href="$classRa_1_1GuiBase_1_1BaseApplication.html#aa19a984e0783e70237b8050feb1a3d2a" title=" " alt="" coords="589,267,803,308"/>
+<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d" title="call deinitializeGL if needed, with context activated" alt="" coords="620,71,772,112"/>
+<area shape="rect" id="node10" href="$classRa_1_1GuiBase_1_1BaseApplication.html#ae458de1413f5fd2264640bf2e74c3c8e" title="slot called when the OpenGL need to be initialized" alt="" coords="589,136,803,177"/>
+<area shape="rect" id="node11" href="$classRa_1_1GuiBase_1_1BaseApplication.html#a3278759eb6092255fc4036baf6ee953f" title=" " alt="" coords="589,201,803,243"/>
+<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c" title="DeInitialize the OpenGL." alt="" coords="886,71,1038,112"/>
+<area shape="rect" id="node8" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="886,468,1038,509"/>
+<area shape="rect" id="node9" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="886,231,1038,272"/>
+<area shape="rect" id="node17" href="$namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300" title=" " alt="" coords="620,620,772,661"/>
+<area shape="rect" id="node18" href="$namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4" title=" " alt="" coords="620,685,772,727"/>
+<area shape="rect" id="node21" href="$namespaceRa_1_1Core_1_1Utils.html#a99d916309a7c1727e74e630c93e6bdfa" title=" " alt="" coords="589,383,803,410"/>
+<area shape="rect" id="node22" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title=" " alt="" coords="602,434,790,461"/>
+<area shape="rect" id="node23" href="$classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5" title=" " alt="" coords="620,485,772,527"/>
+<area shape="rect" id="node27" href="$classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec" title=" " alt="" coords="577,846,815,902"/>
+<area shape="rect" id="node29" href="$classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" title="Add a new render object to the component. This adds the RO to the manager for drawing." alt="" coords="609,1207,783,1248"/>
+<area shape="rect" id="node31" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22" title=" " alt="" coords="601,927,791,968"/>
+<area shape="rect" id="node32" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#aae1fc77011d609ae60212adf315cd630" title=" " alt="" coords="863,979,1061,1020"/>
+<area shape="rect" id="node34" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#a70881604443264a7fceb751567eaa5b4" title=" " alt="" coords="597,1044,795,1085"/>
+<area shape="rect" id="node44" href="$classRa_1_1Engine_1_1SystemEntity.html#a2b341d35802bc8d3e1b7a49833db9730" title="Access the UI Component." alt="" coords="603,1109,789,1151"/>
+<area shape="rect" id="node30" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager." alt="" coords="875,1240,1049,1281"/>
+<area shape="rect" id="node33" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" title=" " alt="" coords="1109,979,1356,1020"/>
+<area shape="rect" id="node35" href="$namespaceRa_1_1Engine_1_1DrawPrimitives.html#a15f205ad77d9c632523c774b1e958eb9" title=" " alt="" coords="863,1044,1061,1085"/>
+<area shape="rect" id="node36" href="$classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" title=" " alt="" coords="1139,1044,1326,1085"/>
+<area shape="rect" id="node38" href="$namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a5e831d5088144082e9bd3828323aa57a" title=" " alt="" coords="1115,1109,1351,1151"/>
+<area shape="rect" id="node39" href="$classRa_1_1Engine_1_1RenderTechnique.html#a92778b063ae626dfac4a18d0f69fec5a" title=" " alt="" coords="1127,1175,1338,1216"/>
+<area shape="rect" id="node37" href="$classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" title=" " alt="" coords="1416,1044,1603,1085"/>
+<area shape="rect" id="node40" href="$classRa_1_1Engine_1_1RenderTechnique.html#a78ba61b1637743a35f058eeefa631f8a" title=" " alt="" coords="1404,1175,1615,1216"/>
+<area shape="rect" id="node41" href="$classRa_1_1Engine_1_1RenderTechnique.html#ad1d5a9d900e46594224f5b8df142081f" title=" " alt="" coords="1663,1109,1873,1151"/>
+<area shape="rect" id="node42" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="1689,1240,1847,1281"/>
+<area shape="rect" id="node43" href="$classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" title=" " alt="" coords="1663,1175,1873,1216"/>
+<area shape="rect" id="node45" href="$classRa_1_1Engine_1_1Entity.html#a524712805170bfce52ed0a98f7eee436" title="Get component with a given name." alt="" coords="893,1109,1031,1151"/>
+<area shape="rect" id="node46" href="$classRa_1_1Engine_1_1Entity.html#a6325dcb57427a3d8b52880d3b8ed6df8" title=" " alt="" coords="875,1175,1049,1216"/>
+</map>
