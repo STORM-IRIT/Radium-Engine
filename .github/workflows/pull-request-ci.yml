@@ -13,7 +13,6 @@ on:
       - master
 env:
   ext-dir: $GITHUB_WORKSPACE/external/install/
-  qt-dir: $RUNNER_WORKSPACE/Qt
 
 jobs:
   build:
@@ -30,16 +29,8 @@ jobs:
       - name: Add msbuild to PATH
         uses: seanmiddleditch/gha-setup-vsdevenv@master
         if: runner.os == 'Windows'
-      - name: Cache Qt
-        id: cache-qt
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.qt-dir }}
-          key: ${{ matrix.config.name }}-QtCache
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
-        with:
-          cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - name: Prepare directories
         run: |
           mkdir -p install/
@@ -105,16 +96,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
-      - name: Cache Qt
-        id: cache-qt
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.qt-dir }}
-          key: coverage-QtCache
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
-        with:
-          cached: ${{ steps.cache-qt.outputs.cache-hit }}
       - name: Install lcov
         run: sudo apt-get install -y lcov
       - name: Prepare directories
