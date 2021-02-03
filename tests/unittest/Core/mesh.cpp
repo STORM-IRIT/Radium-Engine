@@ -197,28 +197,19 @@ TEST_CASE( "Core/Geometry/TriangleMesh/CopyAllAttributes", "[Core][Core/Geometry
     auto& buf3    = attrib3.getDataWithLock();
 
     buf3.reserve( 3 );
-    Vector5 v;
-    int val = 1;
-    v << val, val, val, val, val;
-    val++;
-    buf3.push_back( v );
-    v << val, val, val, val, val;
-    val++;
-    buf3.push_back( v );
-    v << val, val, val, val, val;
-    val++;
-    buf3.push_back( v );
-    v << val, val, val, val, val;
-    val++;
-    buf3.push_back( v );
-    v << val, val, val, val, val;
-    val++;
-    buf3.push_back( v );
+    for ( int val = 1; val <= 3; ++val )
+    {
+        Vector5 v;
+        v << val, val, val, val, val;
+        buf3.push_back( v );
+    }
     attrib3.unlock();
 
     TriangleMesh m3;
 
     m3.copyBaseGeometry( m );
+
+    // this one do not copy Vector5 attrib
     m3.copyAllAttributes( m );
 
     REQUIRE( m3.getAttribHandle<Vector3>( attrib1.getName() ).idx().isValid() );
@@ -227,6 +218,7 @@ TEST_CASE( "Core/Geometry/TriangleMesh/CopyAllAttributes", "[Core][Core/Geometry
     REQUIRE( !m3.vertexAttribs().hasSameAttribs( m.vertexAttribs() ) );
     REQUIRE( !m.vertexAttribs().hasSameAttribs( m3.vertexAttribs() ) );
 
+    // but we can copy it explicitly
     auto handleM3 = m3.addAttrib( "vector5_attrib", m.getAttrib( handle3 ).data() );
 
     REQUIRE( m3.vertexAttribs().hasSameAttribs( m.vertexAttribs() ) );
