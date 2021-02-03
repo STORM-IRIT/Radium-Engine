@@ -479,7 +479,6 @@ void BaseApplication::initializeGl() {
     {
         for ( auto plugin : m_openGLPlugins )
         {
-
             plugin->openGlInitialize( m_pluginContext );
         }
         m_openGLPlugins.clear();

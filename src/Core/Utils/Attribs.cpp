@@ -49,9 +49,9 @@ void AttribManager::copyAllAttributes( const AttribManager& m ) {
             getAttrib( h ).setData( static_cast<Attrib<Vector4>*>( attr.get() )->data() );
         }
         else
-            LOG( logWARNING )
-                << "Warning, mesh attribute " << attr->getName()
-                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+            LOG( logWARNING ) << "Warning, copy of mesh attribute " << attr->getName()
+                              << " type is not supported (only float, vec2, vec3 nor vec4 are "
+                                 "supported) [from AttribManager::copyAllAttribute()]";
     }
 }
 
