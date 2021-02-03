@@ -69,6 +69,19 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * attributes on halfedges, so that TriangleMesh vertices with the same 3D
      * position are represented only once in the topological mesh.
      * \note This is a costly operation.
+     *
+     * \tparam NonManifoldFaceCommand Command executed when non-manifold faces are
+     * found. API and default implementation:
+     * \snippet Core/Geometry/TopologicalMesh.cpp Default command implementation
+     *
+     */
+    template <typename NonManifoldFaceCommand>
+    explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh,
+                              NonManifoldFaceCommand command );
+
+    /**
+     * \brief Convenience constructor
+     * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
      */
     explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
     void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh );
@@ -464,8 +477,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
   private:
     class WedgeCollection;
-    // wedge data and refcount, to maintain deleted status
-    class Wedge
+    //
+    /**
+     * This private class manage wedge data and refcount, to maintain deleted status
+     *
+     * \internal We need to export this class to make it accessible in .inl
+     */
+    class RA_CORE_API Wedge
     {
         WedgeData m_wedgeData {};
         unsigned int m_refCount {0};
@@ -498,8 +516,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * This private class manage the wedge collection.
      * Most of the data members are public so that the enclosing class can
      * easily manage the data.
+     *
+     * \internal We need to export this class to make it accessible in .inl
      */
-    class WedgeCollection
+    class RA_CORE_API WedgeCollection
     {
       public:
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
