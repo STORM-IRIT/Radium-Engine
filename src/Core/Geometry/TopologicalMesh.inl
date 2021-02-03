@@ -9,7 +9,9 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh§ ) {
+template <typename NonManifoldFaceCommand>
+inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
+                                         NonManifoldFaceCommand command ) {
     //    initWithWedge( triMesh );
     //    return;
 
@@ -101,6 +103,8 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh§ ) {
 
     size_t num_triangles = triMesh.getIndices().size();
 
+    command.initialize( triMesh );
+
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
         std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
@@ -160,17 +164,12 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh§ ) {
             }
         }
         else
-        {
-            LOG( logWARNING ) << "Invalid face handle returned : face not added (1)";
-            // TODO memorize invalid faces for post processing ...
-            //  see
-            //  https://www.graphics.rwth-aachen.de/media/openflipper_static/Daily-Builds/Doc/Free/Developer/OBJImporter_8cc_source.html
-            // for an exemple of loading
-        }
+        { command.process( face_vhandles ); }
         face_vhandles.clear();
         face_normals.clear();
         face_vertexIndex.clear();
     }
+    command.postProcess( *this );
 
     //    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
     //    printWedgesInfo( *this );
