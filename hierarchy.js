@@ -105,6 +105,7 @@ var hierarchy =
       [ "Ra::IO::AssimpLightDataLoader", "classRa_1_1IO_1_1AssimpLightDataLoader.html", null ]
     ] ],
     [ "Ra::Engine::DebugRender", "classRa_1_1Engine_1_1DebugRender.html", null ],
+    [ "Ra::Core::Geometry::DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html", null ],
     [ "DefaultTraits", null, [
       [ "Ra::Core::Geometry::TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", null ]
     ] ],

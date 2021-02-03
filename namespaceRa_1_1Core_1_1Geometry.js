@@ -7,6 +7,7 @@ var namespaceRa_1_1Core_1_1Geometry =
     [ "CatmullClarkSubdivider", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider" ],
     [ "CubicBezier", "classRa_1_1Core_1_1Geometry_1_1CubicBezier.html", "classRa_1_1Core_1_1Geometry_1_1CubicBezier" ],
     [ "Curve2D", "classRa_1_1Core_1_1Geometry_1_1Curve2D.html", "classRa_1_1Core_1_1Geometry_1_1Curve2D" ],
+    [ "DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html", "structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand" ],
     [ "Frustum", "structRa_1_1Core_1_1Geometry_1_1Frustum.html", "structRa_1_1Core_1_1Geometry_1_1Frustum" ],
     [ "IndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry" ],
     [ "IndexedPointCloud", "classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html", null ],

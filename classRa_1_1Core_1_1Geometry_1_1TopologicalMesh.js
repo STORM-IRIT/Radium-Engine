@@ -2,6 +2,7 @@ var classRa_1_1Core_1_1Geometry_1_1TopologicalMesh =
 [
     [ "WedgeData", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData" ],
     [ "WedgeIndex", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed", null ],
+    [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#acb5c9f896daa1b37a08d9cb768f8ad47", null ],
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afd3dca0d6e92af96cbfbfc939353ec8c", null ],
     [ "TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6", null ],
     [ "checkIntegrity", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2f74f47243bb49bcc0ceafe0c43b00fa", null ],

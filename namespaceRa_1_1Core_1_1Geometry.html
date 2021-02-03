@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">2600039e5c0658057b8b35f79222a332feceb026</span>
+   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
    </div>
   </td>
  </tr>
@@ -115,6 +115,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1CubicBezier.html">CubicBezier</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1Curve2D.html">Curve2D</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html">DefaultNonManifoldFaceCommand</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Default command implementation]  <a href="structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1Frustum.html">Frustum</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,9 +201,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a4a7dea220b0d39682a797fcbcedce712"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">LaplacianMatrix</a> = <a class="el" href="namespaceRa_1_1Core.html#a2d49896125fe4ece22bcf8449f9c1423">Sparse</a></td></tr>
 <tr class="memdesc:a4a7dea220b0d39682a797fcbcedce712"><td class="mdescLeft">&#160;</td><td class="mdescRight">GLOBAL MATRIX ///.  <a href="namespaceRa_1_1Core_1_1Geometry.html#a4a7dea220b0d39682a797fcbcedce712">More...</a><br /></td></tr>
 <tr class="separator:a4a7dea220b0d39682a797fcbcedce712"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41fcdb6b8fbcf4611261f5b52434fbe4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a41fcdb6b8fbcf4611261f5b52434fbe4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a> = std::pair&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; T &gt;, OpenMesh::HPropHandleT&lt; T &gt; &gt;</td></tr>
-<tr class="separator:a41fcdb6b8fbcf4611261f5b52434fbe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bf4612f3c19534c99e28e70c4c243e3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a4bf4612f3c19534c99e28e70c4c243e3"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a4bf4612f3c19534c99e28e70c4c243e3">HandleAndValueVector</a> = std::vector&lt; std::pair&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; T &gt;, T &gt;, Eigen::aligned_allocator&lt; std::pair&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; T &gt;, T &gt; &gt;&gt;</td></tr>
 <tr class="separator:a4bf4612f3c19534c99e28e70c4c243e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -384,26 +384,15 @@ Functions</h2></td></tr>
 <tr class="separator:a263765e5ec18c5e0d28c42049285b281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2cdf253d424b226f56cd74a7f1a3ced"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#ac2cdf253d424b226f56cd74a7f1a3ced">printWedgesInfo</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a> &amp;topo)</td></tr>
 <tr class="separator:ac2cdf253d424b226f56cd74a7f1a3ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac203cde4c478d1097bd622341cd381c8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac203cde4c478d1097bd622341cd381c8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#ac203cde4c478d1097bd622341cd381c8">addAttribPairToTopo</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;triMesh, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *topoMesh, <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a9eabc761ed4d62ae6497145ba74be9ee">AttribManager::pointer_type</a> attr, std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;vprop, std::vector&lt; OpenMesh::HPropHandleT&lt; T &gt;&gt; &amp;pph)</td></tr>
-<tr class="separator:ac203cde4c478d1097bd622341cd381c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2466c1d911e2bd07add946156a1459d2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a2466c1d911e2bd07add946156a1459d2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a2466c1d911e2bd07add946156a1459d2">addAttribPairToCore</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;triMesh, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *topoMesh, OpenMesh::HPropHandleT&lt; T &gt; oh, std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;vprop)</td></tr>
-<tr class="separator:a2466c1d911e2bd07add946156a1459d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1d699281b3cdbd99edf8292e821e85b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa1d699281b3cdbd99edf8292e821e85b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#aa1d699281b3cdbd99edf8292e821e85b">copyAttribToTopo</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;triMesh, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *topoMesh, const std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;vprop, TopologicalMesh::HalfedgeHandle heh, unsigned <a class="el" href="classint.html">int</a> vindex)</td></tr>
-<tr class="separator:aa1d699281b3cdbd99edf8292e821e85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20374bd28518c1b22ab5ca5e6bbe954c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a20374bd28518c1b22ab5ca5e6bbe954c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a20374bd28518c1b22ab5ca5e6bbe954c">copyAttribToCoreVertex</a> (<a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a4bf4612f3c19534c99e28e70c4c243e3">HandleAndValueVector</a>&lt; T &gt; &amp;data, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *topoMesh, const std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;vprop, TopologicalMesh::HalfedgeHandle heh)</td></tr>
-<tr class="separator:a20374bd28518c1b22ab5ca5e6bbe954c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac14e0a9688a0277102ca25c8088d6638"><td class="memTemplParams" colspan="2">template&lt;typename P , typename T &gt; </td></tr>
+<tr class="memitem:ac14e0a9688a0277102ca25c8088d6638"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#ac14e0a9688a0277102ca25c8088d6638">addAttribPairToCore</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;triMesh, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *topoMesh, OpenMesh::HPropHandleT&lt; T &gt; oh, std::vector&lt; P &gt; &amp;vprop)</td></tr>
+<tr class="separator:ac14e0a9688a0277102ca25c8088d6638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff21b894d323f5384399d13c13f3def7"><td class="memTemplParams" colspan="2">template&lt;typename P , typename T &gt; </td></tr>
+<tr class="memitem:aff21b894d323f5384399d13c13f3def7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#aff21b894d323f5384399d13c13f3def7">copyAttribToCoreVertex</a> (<a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a4bf4612f3c19534c99e28e70c4c243e3">HandleAndValueVector</a>&lt; T &gt; &amp;data, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *topoMesh, const std::vector&lt; P &gt; &amp;vprop, TopologicalMesh::HalfedgeHandle heh)</td></tr>
+<tr class="separator:aff21b894d323f5384399d13c13f3def7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b7df5286d950cbf7c9f75d90444623f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a5b7df5286d950cbf7c9f75d90444623f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a5b7df5286d950cbf7c9f75d90444623f">copyAttribToCore</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;triMesh, const <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a4bf4612f3c19534c99e28e70c4c243e3">HandleAndValueVector</a>&lt; T &gt; &amp;data)</td></tr>
 <tr class="separator:a5b7df5286d950cbf7c9f75d90444623f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0190a0e85f1f6043479c43e444e693ed"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a0190a0e85f1f6043479c43e444e693ed"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a0190a0e85f1f6043479c43e444e693ed">copyAttribToWedgeData</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;mesh, unsigned <a class="el" href="classint.html">int</a> vindex, const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; T &gt;&gt; &amp;attrHandleVec, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; *to)</td></tr>
-<tr class="separator:a0190a0e85f1f6043479c43e444e693ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e2e8eebe6d69cae6d5578d21e009caa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a0e2e8eebe6d69cae6d5578d21e009caa">copyMeshToWedgeData</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;mesh, unsigned <a class="el" href="classint.html">int</a> vindex, const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; float &gt;&gt; &amp;wprop_float, const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Vector2</a> &gt;&gt; &amp;wprop_vec2, const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> &gt;&gt; &amp;wprop_vec3, const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Vector4</a> &gt;&gt; &amp;wprop_vec4, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a> *wd)</td></tr>
-<tr class="separator:a0e2e8eebe6d69cae6d5578d21e009caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a74f2221e7c53c4927ef7da96cf5fc884">copyWedgeDataToAttribContainer</a> (<a class="el" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector</a>&lt; typename <a class="el" href="classRa_1_1Core_1_1Utils_1_1Attrib.html">Attrib</a>&lt; T &gt;::Container &gt; &amp;c, const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;wd)</td></tr>
 <tr class="separator:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -503,7 +492,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00174">174</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00138">138</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -559,24 +548,6 @@ template&lt;typename T &gt; </div>
 <p>"Point-Based Manifold Harmonics" [ Yang Liu, Balakrishnan Prabhakaran, Xiaohu Guo ] Visualization and Computer Graphics 2012 </p>
 
 <p class="definition">Definition at line <a class="el" href="Laplacian_8hpp_source.html#l00040">40</a> of file <a class="el" href="Laplacian_8hpp_source.html">Laplacian.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a41fcdb6b8fbcf4611261f5b52434fbe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41fcdb6b8fbcf4611261f5b52434fbe4">&#9670;&nbsp;</a></span>PropPair</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">Ra::Core::Geometry::PropPair</a> = typedef std::pair&lt;<a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt;T&gt;, OpenMesh::HPropHandleT&lt;T&gt; &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00019">19</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -671,13 +642,13 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a2466c1d911e2bd07add946156a1459d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2466c1d911e2bd07add946156a1459d2">&#9670;&nbsp;</a></span>addAttribPairToCore()</h2>
+<a id="ac14e0a9688a0277102ca25c8088d6638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac14e0a9688a0277102ca25c8088d6638">&#9670;&nbsp;</a></span>addAttribPairToCore()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename P , typename T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void Ra::Core::Geometry::addAttribPairToCore </td>
@@ -700,7 +671,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; P &gt; &amp;&#160;</td>
           <td class="paramname"><em>vprop</em>&#160;</td>
         </tr>
         <tr>
@@ -711,71 +682,13 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00152">152</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00128">128</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a2466c1d911e2bd07add946156a1459d2_cgraph.svg" width="100%" height="424"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="ac203cde4c478d1097bd622341cd381c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac203cde4c478d1097bd622341cd381c8">&#9670;&nbsp;</a></span>addAttribPairToTopo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::Geometry::addAttribPairToTopo </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;&#160;</td>
-          <td class="paramname"><em>triMesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *&#160;</td>
-          <td class="paramname"><em>topoMesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a9eabc761ed4d62ae6497145ba74be9ee">AttribManager::pointer_type</a>&#160;</td>
-          <td class="paramname"><em>attr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>vprop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; OpenMesh::HPropHandleT&lt; T &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>pph</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00131">131</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ac203cde4c478d1097bd622341cd381c8_cgraph.svg" width="100%" height="509"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ac14e0a9688a0277102ca25c8088d6638_cgraph.svg" width="100%" height="424"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -828,11 +741,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Normal_8cpp_source.html#l00128">128</a> of file <a class="el" href="Normal_8cpp_source.html">Normal.cpp</a>.</p>
-<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-2-content" class="dyncontent" style="display:none;">
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_aac282fcc97c6b84203b6f16578f157ae_cgraph.svg" width="628" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -872,11 +785,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Normal_8cpp_source.html#l00061">61</a> of file <a class="el" href="Normal_8cpp_source.html">Normal.cpp</a>.</p>
-<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-3-content" class="dyncontent" style="display:none;">
+<div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ad765969ba7ad7702de21ec8d8a7139a0_cgraph.svg" width="578" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -910,11 +823,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Normal_8cpp_source.html#l00144">144</a> of file <a class="el" href="Normal_8cpp_source.html">Normal.cpp</a>.</p>
-<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-4-content" class="dyncontent" style="display:none;">
+<div id="dynsection-3-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a0cd86167d9f7756ebfdeeaba68d64069_cgraph.svg" width="622" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -954,11 +867,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Normal_8cpp_source.html#l00086">86</a> of file <a class="el" href="Normal_8cpp_source.html">Normal.cpp</a>.</p>
-<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div id="dynsection-4-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a41872c45125d4d3de0c3f081667b80ed_cgraph.svg" width="571" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -992,11 +905,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00164">164</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_af4799e84c2d329c0480484def89468e3_cgraph.svg" width="100%" height="391"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1030,11 +943,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00053">53</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-7-content" class="dyncontent" style="display:none;">
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a1dd2ffd842670f7992d90ecefe973b6b_cgraph.svg" width="100%" height="391"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1074,11 +987,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00057">57</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-7-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-7-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_aa3d0bec8d5aaffccde5b93c057461364_cgraph.svg" width="100%" height="391"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1155,25 +1068,25 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00188">188</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00152">152</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a5b7df5286d950cbf7c9f75d90444623f_cgraph.svg" width="640" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="a20374bd28518c1b22ab5ca5e6bbe954c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20374bd28518c1b22ab5ca5e6bbe954c">&#9670;&nbsp;</a></span>copyAttribToCoreVertex()</h2>
+<a id="aff21b894d323f5384399d13c13f3def7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff21b894d323f5384399d13c13f3def7">&#9670;&nbsp;</a></span>copyAttribToCoreVertex()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename P , typename T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void Ra::Core::Geometry::copyAttribToCoreVertex </td>
@@ -1190,7 +1103,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; P &gt; &amp;&#160;</td>
           <td class="paramname"><em>vprop</em>, </td>
         </tr>
         <tr>
@@ -1207,185 +1120,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00177">177</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa1d699281b3cdbd99edf8292e821e85b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1d699281b3cdbd99edf8292e821e85b">&#9670;&nbsp;</a></span>copyAttribToTopo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::Geometry::copyAttribToTopo </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;&#160;</td>
-          <td class="paramname"><em>triMesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a> *&#160;</td>
-          <td class="paramname"><em>topoMesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a41fcdb6b8fbcf4611261f5b52434fbe4">PropPair</a>&lt; T &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>vprop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TopologicalMesh::HalfedgeHandle&#160;</td>
-          <td class="paramname"><em>heh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned <a class="el" href="classint.html">int</a>&#160;</td>
-          <td class="paramname"><em>vindex</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00161">161</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_aa1d699281b3cdbd99edf8292e821e85b_cgraph.svg" width="640" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a0190a0e85f1f6043479c43e444e693ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0190a0e85f1f6043479c43e444e693ed">&#9670;&nbsp;</a></span>copyAttribToWedgeData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::Geometry::copyAttribToWedgeData </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned <a class="el" href="classint.html">int</a>&#160;</td>
-          <td class="paramname"><em>vindex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; T &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>attrHandleVec</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; *&#160;</td>
-          <td class="paramname"><em>to</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00200">200</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a0190a0e85f1f6043479c43e444e693ed_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a0e2e8eebe6d69cae6d5578d21e009caa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e2e8eebe6d69cae6d5578d21e009caa">&#9670;&nbsp;</a></span>copyMeshToWedgeData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ra::Core::Geometry::copyMeshToWedgeData </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned <a class="el" href="classint.html">int</a>&#160;</td>
-          <td class="paramname"><em>vindex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; float &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>wprop_float</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a84720deb241ea9ebbf1160b46a42beb9">Vector2</a> &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>wprop_vec2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>wprop_vec3</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html">AttribHandle</a>&lt; <a class="el" href="namespaceRa_1_1Core.html#a637da7f2442a99a8074fca3e4d11df0a">Vector4</a> &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>wprop_vec4</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">TopologicalMesh::WedgeData</a> *&#160;</td>
-          <td class="paramname"><em>wd</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00211">211</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a0e2e8eebe6d69cae6d5578d21e009caa_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00141">141</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1417,7 +1152,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00643">643</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00435">435</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1448,11 +1183,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Adjacency_8cpp_source.html#l00082">82</a> of file <a class="el" href="Adjacency_8cpp_source.html">Adjacency.cpp</a>.</p>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a2215f56c1b05bd702c2fb410f05e8d42_cgraph.svg" width="428" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1486,11 +1221,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Laplacian_8cpp_source.html#l00082">82</a> of file <a class="el" href="Laplacian_8cpp_source.html">Laplacian.cpp</a>.</p>
-<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a95c1d7568ce1959c997f45474e119314_cgraph.svg" width="656" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1526,11 +1261,11 @@ template&lt;typename T &gt; </div>
 <p>WARNING: THIS IMPLEMENTATION IS FASTER THAN DOING L = D - A. </p>
 
 <p class="definition">Definition at line <a class="el" href="Laplacian_8cpp_source.html#l00041">41</a> of file <a class="el" href="Laplacian_8cpp_source.html">Laplacian.cpp</a>.</p>
-<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a408242b6be1450db90852886ba95ccf7_cgraph.svg" width="424" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1578,11 +1313,11 @@ template&lt;typename T &gt; </div>
 <p>WARNING: L must be a positive semi-definite matrix. </p>
 
 <p class="definition">Definition at line <a class="el" href="HeatDiffusion_8cpp_source.html#l00022">22</a> of file <a class="el" href="HeatDiffusion_8cpp_source.html">HeatDiffusion.cpp</a>.</p>
-<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a80873b51cb27bf543077dbb8c4486812_cgraph.svg" width="372" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1636,11 +1371,11 @@ template&lt;typename T &gt; </div>
 <p>WARNING: L must be a positive semi-definite matrix. </p>
 
 <p class="definition">Definition at line <a class="el" href="HeatDiffusion_8cpp_source.html#l00011">11</a> of file <a class="el" href="HeatDiffusion_8cpp_source.html">HeatDiffusion.cpp</a>.</p>
-<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a91144ef272476a8c6616e2d679cf7f1a_cgraph.svg" width="372" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1687,7 +1422,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00867">867</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00659">659</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1724,11 +1459,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="TriangleOperation_8cpp_source.html#l00008">8</a> of file <a class="el" href="TriangleOperation_8cpp_source.html">TriangleOperation.cpp</a>.</p>
-<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a80e2472f741c08ef62e73b2b5ce8f371_cgraph.svg" width="330" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1836,11 +1571,11 @@ template&lt;typename T &gt; </div>
 <p>Computes the squared distance from a query line to the triangle v. </p>
 
 <p class="definition">Definition at line <a class="el" href="DistanceQueries_8inl_source.html#l00235">235</a> of file <a class="el" href="DistanceQueries_8inl_source.html">DistanceQueries.inl</a>.</p>
-<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a6780f716b9ae3f272a875983011e38e9_cgraph.svg" width="360" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1886,11 +1621,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Normal_8cpp_source.html#l00045">45</a> of file <a class="el" href="Normal_8cpp_source.html">Normal.cpp</a>.</p>
-<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a6fbcc87652425f0a855e544474ce5226_cgraph.svg" width="566" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1926,11 +1661,11 @@ template&lt;typename T &gt; </div>
 <p>Create an axis-aligned cubic mesh. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00039">39</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_afb068127c364c858f766002daef77303_cgraph.svg" width="100%" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2009,11 +1744,11 @@ template&lt;typename T &gt; </div>
 <p>Create a capsule with given cylinder length and radius. Total length is length + 2*radius The capsule is along z axis </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00348">348</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-22-content" class="dyncontent" style="display:none;">
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a9a7411d1ab626094d61750c9236d1681_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2066,11 +1801,11 @@ template&lt;typename T &gt; </div>
 <p>Create a cone approximation (n-faced pyramid) with base face centered on base, pointing towards tip with given base radius. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00647">647</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a7c1802d8c6d3122f1f7316e0ab1efa33_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2123,11 +1858,11 @@ template&lt;typename T &gt; </div>
 <p>Create a cylinder approximation (n-faced prism) with base faces centered on A and B with given radius. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00272">272</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-24-content" class="dyncontent" style="display:none;">
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a74a11ca06c2edbf3724842ed69b6e58b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2169,11 +1904,11 @@ template&lt;typename T &gt; </div>
 <p>Create a spherical mesh by subdivision of an icosahedron. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00179">179</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-25-content" class="dyncontent" style="display:none;">
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a9f1b964d3d8b54b91ca8ba0f788c66e7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2211,11 +1946,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create a parametric spherical mesh of given radius. Template parameters set the resolution. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8inl_source.html#l00010">10</a> of file <a class="el" href="MeshPrimitives_8inl_source.html">MeshPrimitives.inl</a>.</p>
-<div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-26-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-26-content" class="dyncontent" style="display:none;">
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a3924dd04a97acc1a70488f1898879528_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2258,11 +1993,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create a parametric torus mesh. The minor radius is the radius of the inside of the tube and the major radius is the radius of the whole torus. The torus will be centered at the origin and have Z as rotation axis. Template parameters set the resolution of the mesh. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8inl_source.html#l00078">78</a> of file <a class="el" href="MeshPrimitives_8inl_source.html">MeshPrimitives.inl</a>.</p>
-<div id="dynsection-27" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-27-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-27-content" class="dyncontent" style="display:none;">
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a04686f466f9df16ac6424ee42c601931_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2316,11 +2051,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create a 2D grid mesh with given number of row and columns. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00701">701</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-28-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-28-content" class="dyncontent" style="display:none;">
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a9f66e13e9a53313225543f2f1abcda8e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2356,11 +2091,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create an axis-aligned cubic mesh. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00087">87</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-29" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-29-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-29-content" class="dyncontent" style="display:none;">
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_abe09238eb2ad72313e80dd3cb2d2bd1e_cgraph.svg" width="100%" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2451,11 +2186,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create a tube (empty cylinder) delimited by two radii, with bases centered on A and B. Outer radius must be larger than inner radius. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00544">544</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-30-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-30-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-26" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-26-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-30-content" class="dyncontent" style="display:none;">
+<div id="dynsection-26-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a552371bb1256aab67bf187c00247bbcf_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2491,11 +2226,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create a 2D quad mesh given half extents, centered on the origin with x axis as normal. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00013">13</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-31" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-31-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-31-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-27" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-27-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-31-content" class="dyncontent" style="display:none;">
+<div id="dynsection-27-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ad26d1980b2029b4091b7c926f670b6a6_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2531,11 +2266,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create a 2D quad mesh given half extents, centered on the origin with y axis as normal. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00021">21</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-32" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-32-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-32-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-28" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-28-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-32-content" class="dyncontent" style="display:none;">
+<div id="dynsection-28-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a2ef23b51eec839cc973377f25a704019_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2571,11 +2306,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 <p>Create a 2D quad mesh given half extents, centered on the origin with z axis as normal. </p>
 
 <p class="definition">Definition at line <a class="el" href="MeshPrimitives_8cpp_source.html#l00029">29</a> of file <a class="el" href="MeshPrimitives_8cpp_source.html">MeshPrimitives.cpp</a>.</p>
-<div id="dynsection-33" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-33-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-33-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-29" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-29-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-33-content" class="dyncontent" style="display:none;">
+<div id="dynsection-29-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ad5f12dda8ca32de7363062238f1d6ccd_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2609,11 +2344,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00183">183</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-34" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-34-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-34-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-30" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-30-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-30-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-34-content" class="dyncontent" style="display:none;">
+<div id="dynsection-30-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a7e28e84ffe6d6b159f0c1c776eda48f4_cgraph.svg" width="604" height="318"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2647,11 +2382,11 @@ template&lt;uint U = 16, uint V = U&gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00087">87</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-35" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-35-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-35-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-31" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-31-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-31-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-35-content" class="dyncontent" style="display:none;">
+<div id="dynsection-31-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a6aac09e7fe663efc551826ed7df444e8_cgraph.svg" width="554" height="290"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2692,12 +2427,12 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00652">652</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-36" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-36-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-36-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00444">444</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-32" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-32-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-32-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-36-content" class="dyncontent" style="display:none;">
+<div id="dynsection-32-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a75a8f2a2c6014095b3499bac5651899b_cgraph.svg" width="100%" height="457"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2733,11 +2468,11 @@ template&lt;typename T &gt; </div>
 <p>ONE RING ///. </p>
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00151">151</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-37" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-37-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-37-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-33" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-33-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-33-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-37-content" class="dyncontent" style="display:none;">
+<div id="dynsection-33-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a8958a3b02909cf42dbd13d1bce2758f4_cgraph.svg" width="604" height="202"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2773,11 +2508,11 @@ template&lt;typename T &gt; </div>
 <p>GLOBAL MATRIX ///. </p>
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00014">14</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-38" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-38-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-38-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-34" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-34-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-34-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-38-content" class="dyncontent" style="display:none;">
+<div id="dynsection-34-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ac7699468390d5560fbe9f11c5c85fc65_cgraph.svg" width="554" height="122"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2817,11 +2552,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00030">30</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-39" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-39-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-39-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-35" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-35-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-35-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-39-content" class="dyncontent" style="display:none;">
+<div id="dynsection-35-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ac2b7db20386a9cf3ad5cb8f064591938_cgraph.svg" width="554" height="122"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2916,11 +2651,11 @@ template&lt;typename T &gt; </div>
 <p>Return the squared distance from point Q to the segment AB defined by point A and vector AB = (B - A). </p>
 
 <p class="definition">Definition at line <a class="el" href="DistanceQueries_8inl_source.html#l00024">24</a> of file <a class="el" href="DistanceQueries_8inl_source.html">DistanceQueries.inl</a>.</p>
-<div id="dynsection-40" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-40-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-40-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-36" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-36-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-36-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-40-content" class="dyncontent" style="display:none;">
+<div id="dynsection-36-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_aeea8bbe4e358200b7cedea4f628ae3b4_cgraph.svg" width="587" height="122"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3027,12 +2762,12 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00109">109</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-41" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-41-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-41-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00106">106</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-37" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-37-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-37-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-41-content" class="dyncontent" style="display:none;">
+<div id="dynsection-37-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ac2cdf253d424b226f56cd74a7f1a3ced_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -3081,11 +2816,11 @@ template&lt;typename T &gt; </div>
 <p>Project point Q on segment AB defined by point A and vector AB = (B -A). Return the parameter t in [0,1] which identifies the projected point. </p>
 
 <p class="definition">Definition at line <a class="el" href="DistanceQueries_8inl_source.html#l00016">16</a> of file <a class="el" href="DistanceQueries_8inl_source.html">DistanceQueries.inl</a>.</p>
-<div id="dynsection-42" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-42-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-42-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-38" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-38-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-38-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-42-content" class="dyncontent" style="display:none;">
+<div id="dynsection-38-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a749ee9e81862ef200b0b7540cc1f16bc_cgraph.svg" width="376" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3163,11 +2898,11 @@ template&lt;typename T &gt; </div>
 <p>Intersect a ray with an axis-aligned bounding box. </p>
 
 <p class="definition">Definition at line <a class="el" href="RayCast_8cpp_source.html#l00010">10</a> of file <a class="el" href="RayCast_8cpp_source.html">RayCast.cpp</a>.</p>
-<div id="dynsection-43" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-43-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-43-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-39" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-39-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-39-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-43-content" class="dyncontent" style="display:none;">
+<div id="dynsection-39-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_afee0b3a6cc56ef40a3ced95de634e773_cgraph.svg" width="595" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3222,11 +2957,11 @@ template&lt;typename T &gt; </div>
 <p>Ref : Graphics Gem IV. <a href="http://www.realtimerendering.com/resources/GraphicsGems//gemsiv/ray_cyl.c">http://www.realtimerendering.com/resources/GraphicsGems//gemsiv/ray_cyl.c</a></p>
 
 <p class="definition">Definition at line <a class="el" href="RayCast_8cpp_source.html#l00153">153</a> of file <a class="el" href="RayCast_8cpp_source.html">RayCast.cpp</a>.</p>
-<div id="dynsection-44" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-44-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-44-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-40" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-40-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-40-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-44-content" class="dyncontent" style="display:none;">
+<div id="dynsection-40-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a8ea3d28fa5c884f63a9c9a3ac8f0513a_cgraph.svg" width="540" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3274,11 +3009,11 @@ template&lt;typename T &gt; </div>
 <p>Intersect a ray with an infinite plane defined by point A and normal. </p>
 
 <p class="definition">Definition at line <a class="el" href="RayCast_8cpp_source.html#l00119">119</a> of file <a class="el" href="RayCast_8cpp_source.html">RayCast.cpp</a>.</p>
-<div id="dynsection-45" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-45-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-45-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-41" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-41-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-41-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-45-content" class="dyncontent" style="display:none;">
+<div id="dynsection-41-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a8b8fe68d162f9a144a127573ca436286_cgraph.svg" width="330" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3326,11 +3061,11 @@ template&lt;typename T &gt; </div>
 <p>Intersects a ray with a sphere. </p>
 
 <p class="definition">Definition at line <a class="el" href="RayCast_8cpp_source.html#l00071">71</a> of file <a class="el" href="RayCast_8cpp_source.html">RayCast.cpp</a>.</p>
-<div id="dynsection-46" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-46-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-46-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-42" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-42-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-42-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-46-content" class="dyncontent" style="display:none;">
+<div id="dynsection-42-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ac3fcf1308c554772205cafeec197c592_cgraph.svg" width="372" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3384,11 +3119,11 @@ template&lt;typename T &gt; </div>
 <p>Intersect a ray with a triangle abc. </p>
 
 <p class="definition">Definition at line <a class="el" href="RayCast_8cpp_source.html#l00289">289</a> of file <a class="el" href="RayCast_8cpp_source.html">RayCast.cpp</a>.</p>
-<div id="dynsection-47" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-47-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-47-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-43" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-43-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-43-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-47-content" class="dyncontent" style="display:none;">
+<div id="dynsection-43-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a0f3fe94cd4330b6ff4b23ad27e909e3e_cgraph.svg" width="372" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3434,11 +3169,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="RayCast_8cpp_source.html#l00340">340</a> of file <a class="el" href="RayCast_8cpp_source.html">RayCast.cpp</a>.</p>
-<div id="dynsection-48" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-48-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-48-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-44" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-44-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-44-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-48-content" class="dyncontent" style="display:none;">
+<div id="dynsection-44-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a4cc6311a51cecbf1f70c74b4bac91634_cgraph.svg" width="100%" height="487"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -3494,11 +3229,11 @@ template&lt;typename T &gt; </div>
 <p>Computes the squared distance from a query segment to the triangle v. </p>
 
 <p class="definition">Definition at line <a class="el" href="DistanceQueries_8inl_source.html#l00341">341</a> of file <a class="el" href="DistanceQueries_8inl_source.html">DistanceQueries.inl</a>.</p>
-<div id="dynsection-49" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-49-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-49-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-45" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-45-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-45-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-49-content" class="dyncontent" style="display:none;">
+<div id="dynsection-45-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a688d12932b10a98fc8451275bafdea5b_cgraph.svg" width="559" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3673,11 +3408,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="TriangleOperation_8cpp_source.html#l00019">19</a> of file <a class="el" href="TriangleOperation_8cpp_source.html">TriangleOperation.cpp</a>.</p>
-<div id="dynsection-50" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-50-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-50-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-46" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-46-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-46-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-50-content" class="dyncontent" style="display:none;">
+<div id="dynsection-46-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a178f2b7309fe2ea5bc31a3abcb25368e_cgraph.svg" width="343" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3825,11 +3560,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="TriangleOperation_8cpp_source.html#l00023">23</a> of file <a class="el" href="TriangleOperation_8cpp_source.html">TriangleOperation.cpp</a>.</p>
-<div id="dynsection-51" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-51-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-51-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-47" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-47-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-47-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-51-content" class="dyncontent" style="display:none;">
+<div id="dynsection-47-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a2ce97206423345716bf1b55f60c1c227_cgraph.svg" width="343" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3873,11 +3608,11 @@ template&lt;typename T &gt; </div>
 <p>Computes the squared distance from a query triangle v1 to the triangle v2. </p>
 
 <p class="definition">Definition at line <a class="el" href="DistanceQueries_8inl_source.html#l00399">399</a> of file <a class="el" href="DistanceQueries_8inl_source.html">DistanceQueries.inl</a>.</p>
-<div id="dynsection-52" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-52-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-52-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-48" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-48-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-48-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-52-content" class="dyncontent" style="display:none;">
+<div id="dynsection-48-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a6a8b4792f56ebc1af6bfbf2c5c9b7ba4_cgraph.svg" width="100%" height="405"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -3911,11 +3646,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Adjacency_8cpp_source.html#l00065">65</a> of file <a class="el" href="Adjacency_8cpp_source.html">Adjacency.cpp</a>.</p>
-<div id="dynsection-53" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-53-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-53-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-49" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-49-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-49-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-53-content" class="dyncontent" style="display:none;">
+<div id="dynsection-49-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a4222426df43c98a23b9964a2b46dad3d_cgraph.svg" width="422" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3951,11 +3686,11 @@ template&lt;typename T &gt; </div>
 <p>GLOBAL MATRIX ///. </p>
 
 <p class="definition">Definition at line <a class="el" href="Adjacency_8cpp_source.html#l00016">16</a> of file <a class="el" href="Adjacency_8cpp_source.html">Adjacency.cpp</a>.</p>
-<div id="dynsection-54" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-54-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-54-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-50" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-50-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-50-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-54-content" class="dyncontent" style="display:none;">
+<div id="dynsection-50-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a997391e4c468de4d0cdf9467a2aee2a8_cgraph.svg" width="372" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -3989,11 +3724,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Adjacency_8cpp_source.html#l00030">30</a> of file <a class="el" href="Adjacency_8cpp_source.html">Adjacency.cpp</a>.</p>
-<div id="dynsection-55" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-55-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-55-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-51" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-51-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-51-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-55-content" class="dyncontent" style="display:none;">
+<div id="dynsection-51-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a6f56ddb73ecf2c2e3b229701aa6eccc7_cgraph.svg" width="372" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -4033,11 +3768,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Adjacency_8cpp_source.html#l00045">45</a> of file <a class="el" href="Adjacency_8cpp_source.html">Adjacency.cpp</a>.</p>
-<div id="dynsection-56" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-56-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-56-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-52" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-52-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-52-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-56-content" class="dyncontent" style="display:none;">
+<div id="dynsection-52-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a9514e20dcdf801525a00748b2b313abe_cgraph.svg" width="372" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -4106,11 +3841,11 @@ template&lt;typename T &gt; </div>
 <p>ONE RING ///. </p>
 
 <p class="definition">Definition at line <a class="el" href="Normal_8cpp_source.html#l00113">113</a> of file <a class="el" href="Normal_8cpp_source.html">Normal.cpp</a>.</p>
-<div id="dynsection-57" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-57-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-57-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-53" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-53-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-53-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-57-content" class="dyncontent" style="display:none;">
+<div id="dynsection-53-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a3ec7321d52cb6f195ad1207a970eaa35_cgraph.svg" width="604" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -4152,11 +3887,11 @@ template&lt;typename T &gt; </div>
 <p>GLOBAL ///. </p>
 
 <p class="definition">Definition at line <a class="el" href="Normal_8cpp_source.html#l00016">16</a> of file <a class="el" href="Normal_8cpp_source.html">Normal.cpp</a>.</p>
-<div id="dynsection-58" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-58-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-58-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-54" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-54-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-54-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-58-content" class="dyncontent" style="display:none;">
+<div id="dynsection-54-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a301a86628653badd5aac13c106126c92_cgraph.svg" width="554" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -4322,11 +4057,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00168">168</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-59" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-59-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-59-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-55" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-55-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-55-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-59-content" class="dyncontent" style="display:none;">
+<div id="dynsection-55-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a37248962876f3f79b163b4658a818682_cgraph.svg" width="604" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -4360,11 +4095,11 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Area_8cpp_source.html#l00069">69</a> of file <a class="el" href="Area_8cpp_source.html">Area.cpp</a>.</p>
-<div id="dynsection-60" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-60-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-60-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-56" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-56-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-56-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-60-content" class="dyncontent" style="display:none;">
+<div id="dynsection-56-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_ae54b55a0236c1198468d5cbc1f21158f_cgraph.svg" width="372" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -4397,12 +4132,12 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00023">23</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-61" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-61-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-61-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00020">20</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-57" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-57-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-57-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-61-content" class="dyncontent" style="display:none;">
+<div id="dynsection-57-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Core_1_1Geometry_a263765e5ec18c5e0d28c42049285b281_cgraph.svg" width="452" height="520"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -4415,7 +4150,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Geometry</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 15:07:23 for Radium Engine by
+    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
