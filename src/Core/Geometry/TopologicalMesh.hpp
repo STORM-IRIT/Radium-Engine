@@ -69,6 +69,19 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * attributes on halfedges, so that TriangleMesh vertices with the same 3D
      * position are represented only once in the topological mesh.
      * \note This is a costly operation.
+     *
+     * \tparam NonManifoldFaceCommand Command executed when non-manifold faces are
+     * found. API and default implementation:
+     * \snippet Core/Geometry/TopologicalMesh.cpp Default command implementation
+     *
+     */
+    template <typename NonManifoldFaceCommand>
+    explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh,
+                              NonManifoldFaceCommand command );
+
+    /**
+     * \brief Convenience constructor
+     * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
      */
     explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
     void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh );
@@ -464,8 +477,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
   private:
     class WedgeCollection;
-    // wedge data and refcount, to maintain deleted status
-    class Wedge
+    //
+    /**
+     * This private class manage wedge data and refcount, to maintain deleted status
+     *
+     * \internal We need to export this class to make it accessible in .inl
+     */
+    class RA_CORE_API Wedge
     {
         WedgeData m_wedgeData {};
         unsigned int m_refCount {0};
@@ -498,8 +516,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * This private class manage the wedge collection.
      * Most of the data members are public so that the enclosing class can
      * easily manage the data.
+     *
+     * \internal We need to export this class to make it accessible in .inl
      */
-    class WedgeCollection
+    class RA_CORE_API WedgeCollection
     {
       public:
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -590,6 +610,40 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     };
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
+
+    template <typename T>
+    inline void copyAttribToWedgeData( const TriangleMesh& mesh,
+                                       unsigned int vindex,
+                                       const std::vector<AttribHandle<T>>& attrHandleVec,
+                                       VectorArray<T>* to );
+
+    inline void copyMeshToWedgeData( const TriangleMesh& mesh,
+                                     unsigned int vindex,
+                                     const std::vector<AttribHandle<float>>& wprop_float,
+                                     const std::vector<AttribHandle<Vector2>>& wprop_vec2,
+                                     const std::vector<AttribHandle<Vector3>>& wprop_vec3,
+                                     const std::vector<AttribHandle<Vector4>>& wprop_vec4,
+                                     TopologicalMesh::WedgeData* wd );
+
+    template <typename T>
+    using HandleAndValueVector =
+        std::vector<std::pair<AttribHandle<T>, T>,
+                    Eigen::aligned_allocator<std::pair<AttribHandle<T>, T>>>;
+
+    template <typename T>
+    using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
+
+    template <typename T>
+    inline void copyAttribToTopo( const TriangleMesh& triMesh,
+                                  const std::vector<PropPair<T>>& vprop,
+                                  TopologicalMesh::HalfedgeHandle heh,
+                                  unsigned int vindex );
+
+    template <typename T>
+    inline void addAttribPairToTopo( const TriangleMesh& triMesh,
+                                     AttribManager::pointer_type attr,
+                                     std::vector<PropPair<T>>& vprop,
+                                     std::vector<OpenMesh::HPropHandleT<T>>& pph );
 
     void split_copy( EdgeHandle _eh, VertexHandle _vh );
     void split( EdgeHandle _eh, VertexHandle _vh );
