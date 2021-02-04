@@ -1,7 +1,6 @@
 #include <Engine/Data/VolumetricMaterial.hpp>
 
 #include <Engine/Data/ShaderConfigFactory.hpp>
-#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/Data/TextureManager.hpp>

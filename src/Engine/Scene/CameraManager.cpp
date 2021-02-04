@@ -8,8 +8,6 @@
 #include <Core/Tasks/TaskQueue.hpp>
 
 #include <Engine/FrameInfo.hpp>
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 

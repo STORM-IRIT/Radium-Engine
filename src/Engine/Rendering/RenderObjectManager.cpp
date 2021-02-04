@@ -7,7 +7,6 @@
 
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Scene/SystemDisplay.hpp>
 
 #include <Engine/Scene/SignalManager.hpp>
 

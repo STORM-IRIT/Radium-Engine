@@ -15,7 +15,6 @@
 #include <globjects/Shader.h>
 #include <globjects/base/StaticStringSource.h>
 
-#include <Engine/Data/ShaderProgram.hpp>
 #include <fstream>
 
 namespace Ra {

@@ -1,7 +1,6 @@
 #include <Core/Containers/AdjacencyList.hpp>
 
 #include <fstream>
-#include <utility>
 
 namespace Ra {
 namespace Core {

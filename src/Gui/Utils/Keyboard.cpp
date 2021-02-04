@@ -1,8 +1,5 @@
 #include <Gui/Utils/Keyboard.hpp>
 
-#include <Core/CoreMacros.hpp>
-#include <Core/Utils/Log.hpp>
-
 #include <map>
 
 namespace Ra {

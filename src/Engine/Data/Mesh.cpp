@@ -7,12 +7,8 @@
 #include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/OpenGL.hpp>
 
-#include <globjects/Program.h>
-
-#include <Engine/Data/ShaderProgram.hpp>
 #include <globjects/Buffer.h>
 #include <globjects/VertexArray.h>
-#include <globjects/VertexAttributeBinding.h>
 
 namespace Ra {
 namespace Engine {

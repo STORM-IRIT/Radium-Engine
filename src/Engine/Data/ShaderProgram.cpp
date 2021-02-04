@@ -1,24 +1,17 @@
 #include <Engine/Data/ShaderProgram.hpp>
 
-#include <Core/Utils/StringUtils.hpp>
-
-#include <globjects/base/File.h>
-#include <globjects/base/StaticStringSource.h>
-
 #include <globjects/NamedString.h>
 #include <globjects/Program.h>
 #include <globjects/Shader.h>
 #include <globjects/Texture.h>
-
-#include <regex>
-
-#include <Core/Math/GlmAdapters.hpp>
+#include <globjects/base/File.h>
+#include <globjects/base/StaticStringSource.h>
 
 #include <Core/Utils/Log.hpp>
-
 #include <Engine/Data/Texture.hpp>
 
 #include <numeric> // for std::accumulate
+#include <regex>
 
 namespace Ra {
 namespace Engine {

@@ -11,7 +11,6 @@
 #include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/PlainMaterial.hpp>
-#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>

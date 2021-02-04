@@ -1,7 +1,6 @@
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/Texture.hpp>
 
-#include "Texture.hpp"
 #include <globjects/Texture.h>
 
 #include <cmath>

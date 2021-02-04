@@ -1,5 +1,4 @@
 #include <Core/Asset/FileData.hpp>
-#include <Core/Asset/GeometryData.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Engine/FrameInfo.hpp>

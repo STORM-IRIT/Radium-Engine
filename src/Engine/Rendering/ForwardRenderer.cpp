@@ -5,7 +5,6 @@
 #include <Core/Utils/Log.hpp>
 
 #include <Engine/Data/Material.hpp>
-#include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
