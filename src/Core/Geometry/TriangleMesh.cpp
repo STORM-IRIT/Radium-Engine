@@ -1,10 +1,5 @@
-#include "TriangleMesh.hpp"
-#include <Core/Geometry/RayCast.hpp>
-#include <Core/Geometry/TriangleOperation.hpp> // triangleArea
+#include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Types.hpp>
-
-#include <array>
-#include <vector>
 
 namespace Ra {
 namespace Core {

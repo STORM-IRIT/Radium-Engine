@@ -10,7 +10,6 @@
 #include <Engine/Data/PlainMaterial.hpp>
 #include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
-#include <Engine/Scene/Camera.hpp>
 
 namespace Ra {
 namespace Gui {

@@ -1,7 +1,6 @@
 #include <Engine/Data/PlainMaterial.hpp>
 
 #include <Engine/Data/ShaderConfigFactory.hpp>
-#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/TextureManager.hpp>
 #include <Engine/RadiumEngine.hpp>

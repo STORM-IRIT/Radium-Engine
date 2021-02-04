@@ -12,7 +12,6 @@
 #include <Core/Utils/StringUtils.hpp>
 #include <Core/Utils/Version.hpp>
 
-#include <Engine/Data/ShaderConfigFactory.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/Camera.hpp>
@@ -30,7 +29,6 @@
 #    include <IO/AssimpLoader/AssimpFileLoader.hpp>
 #endif
 
-#include <Engine/Scene/Camera.hpp>
 #include <QCommandLineParser>
 #include <QDir>
 #include <QMessageBox>

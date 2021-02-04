@@ -5,7 +5,6 @@
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <Engine/Data/ShaderProgram.hpp>
 #include <globjects/NamedString.h>
 #include <globjects/Shader.h>
 #include <globjects/base/File.h>

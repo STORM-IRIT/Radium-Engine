@@ -1,7 +1,7 @@
 #include <Core/Resources/Resources.hpp>
 #include <Engine/Data/ShaderConfiguration.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
-#include <Engine/RadiumEngine.hpp>
+
 /**
  * Plain will be the default shader program
  */
