@@ -35,7 +35,7 @@ add_executable(HelloRadium MACOSX_BUNDLE
     HelloRadium/main.cpp)
 target_include_directories(HelloRadium PRIVATE HelloRadium)
 target_link_libraries(HelloRadium PUBLIC
-    Core Engine GuiBase
+    Core Engine Gui
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} HelloRadium)
@@ -47,7 +47,7 @@ add_executable(SimpleSimulationApp MACOSX_BUNDLE
     SimpleSimulationApp/main.cpp)
 target_include_directories(SimpleSimulationApp PRIVATE SimpleSimulationApp)
 target_link_libraries(SimpleSimulationApp PUBLIC
-    Core Engine GuiBase
+    Core Engine Gui
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} SimpleSimulationApp)
@@ -62,7 +62,7 @@ add_executable(DrawPrimitivesDemo MACOSX_BUNDLE
     DrawPrimitivesApp/minimalradium.hpp)
 target_include_directories(DrawPrimitivesDemo PRIVATE DrawPrimitivesApp)
 target_link_libraries(DrawPrimitivesDemo PUBLIC
-    Core Engine GuiBase
+    Core Engine Gui
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
@@ -73,7 +73,7 @@ add_executable(SimpleAnimationApp MACOSX_BUNDLE
     SimpleAnimationApp/main.cpp)
 target_include_directories(SimpleAnimationApp PRIVATE SimpleAnimationApp)
 target_link_libraries(SimpleAnimationApp PUBLIC
-    Core Engine GuiBase
+    Core Engine Gui
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} SimpleAnimationApp)
@@ -83,7 +83,7 @@ configure_radium_app(NAME SimpleAnimationApp)
 add_executable(RawShaderMaterial MACOSX_BUNDLE
     RawShaderMaterial/main.cpp)
 target_link_libraries(RawShaderMaterial PUBLIC
-    Core Engine GuiBase
+    Core Engine Gui
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} RawShaderMaterial)
@@ -93,7 +93,7 @@ configure_radium_app(NAME RawShaderMaterial)
 add_executable(CustomCameraManipulator MACOSX_BUNDLE
 CustomCameraManipulator/main.cpp)
 target_link_libraries(CustomCameraManipulator PUBLIC
-    Core Engine GuiBase
+    Core Engine Gui
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
 add_dependencies(${PROJECT_NAME} CustomCameraManipulator)

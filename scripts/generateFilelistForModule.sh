@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" -ne 1 ]; then
-    echo "Please provide one and only one module name among [Core|Engine|IO|GuiBase]"
+    echo "Please provide one and only one module name among [Core|Engine|IO|Gui]"
     exit 2
 fi
 
@@ -33,6 +33,17 @@ if [ "$BASE" = "Engine" ]; then
     echo ""  >> ${OUTPUT}
     echo  "set(${LOWBASE}_shaders"  >> ${OUTPUT}
     find  ../Shaders/ -name \*.glsl | grep -v Deprecated | cut -f 3- -d/ | sort | xargs -n1 echo "   "  >> ${OUTPUT}
+    echo ")"  >> ${OUTPUT}
+fi
+
+if [ "$BASE" = "Gui" ]; then
+    echo ""  >> ${OUTPUT}
+    echo  "set( ${LOWBASE}_uis"  >> ${OUTPUT}
+    find  ../src/${BASE}/ -name \*.ui | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> ${OUTPUT}
+    echo ")"  >> ${OUTPUT}
+    echo ""  >> ${OUTPUT}
+    echo  "set( ${LOWBASE}_resources"  >> ${OUTPUT}
+    find  ../src/${BASE}/ -name \*.qrc | cut -f 4- -d/ | sort | xargs -n1 echo "   "  >> ${OUTPUT}
     echo ")"  >> ${OUTPUT}
 fi
 

@@ -23,17 +23,17 @@ without loss of data, but during the conversion, vertices with the same position
 for instance).
 **New:** The other vertex attributes are stored on wedges. Each half-edge has one wedge index. If multiple half-edge have the same set of attributes (including vertex position) they have the same wedge index at construction. See section [wedges](#wedges) below.
 
- 3. Ra::Engine::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call).
-See inheritance digram of Ra::Engine::AttribArrayDisplayable
-   - Ra::Engine::Displayable
-   - Ra::Engine::AttribArrayDisplayable
-   - Ra::Engine::CoreGeometryDisplayable
-   - Ra::Engine::PointCloud *
-   - Ra::Engine::IndexedGeometry
-   - Ra::Engine::IndexedAttribArrayDisplayable
-   - Ra::Engine::LineMesh *
-   - Ra::Engine::Mesh *
-   - Ra::Engine::PolyMesh *
+ 3. Ra::Engine::Data::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call).
+See inheritance diagram of Ra::Engine::Data::AttribArrayDisplayable
+   - Ra::Engine::Data::Displayable
+   - Ra::Engine::Data::AttribArrayDisplayable
+   - Ra::Engine::Data::CoreGeometryDisplayable
+   - Ra::Engine::Data::PointCloud *
+   - Ra::Engine::Data::IndexedGeometry
+   - Ra::Engine::Data::IndexedAttribArrayDisplayable
+   - Ra::Engine::Data::LineMesh *
+   - Ra::Engine::Data::Mesh *
+   - Ra::Engine::Data::PolyMesh *
    
  `*` : the starred classes are the one you want to instanciate, the other are more for code factoring or abstraction.
    
@@ -42,12 +42,12 @@ See inheritance digram of Ra::Engine::AttribArrayDisplayable
 A Core Geometry can be used on its own.
 
 Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry.
-The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with Ra::Engine::Displayable::getAbstractGeometry or Ra::Engine::CoreGeometryDisplayable::getCoreGeometry
+The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with Ra::Engine::Data::Displayable::getAbstractGeometry or Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry
 
 
 # Data consistency
 As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty.
-On the next Ra::Engine::CoreGeometryDisplayable::updateGL, the dirty data will be updated on the GPU.
+On the next Ra::Engine::Data::CoreGeometryDisplayable::updateGL, the dirty data will be updated on the GPU.
 
 # Mesh creation
 `GeometryComponent` is in charge of loading a `GeometryData` and create the corresponding `Mesh`.

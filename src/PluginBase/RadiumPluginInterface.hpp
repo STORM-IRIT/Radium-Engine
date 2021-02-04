@@ -17,8 +17,10 @@ class QString;
 namespace Ra {
 
 namespace Engine {
+namespace Rendering {
 class Renderer;
 }
+} // namespace Engine
 
 namespace Core {
 namespace Asset {
@@ -143,7 +145,8 @@ class RadiumPluginInterface
      * \warning Allocated renderers are given to the application that takes ownership. They
      * MUST not be destroyed by the plugin
      */
-    virtual void addRenderers( std::vector<std::shared_ptr<Engine::Renderer>>* /*rds*/ ) {}
+    virtual void
+    addRenderers( std::vector<std::shared_ptr<Ra::Engine::Rendering::Renderer>>* /*rds*/ ) {}
 
     /**
      * Tells if the system will add a file loader

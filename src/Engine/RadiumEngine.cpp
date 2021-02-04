@@ -1,10 +1,7 @@
 #include <Engine/RadiumEngine.hpp>
 
-#include <chrono>
 #include <cstdio>
-#include <fstream>
 #include <iostream>
-#include <mutex>
 #include <streambuf>
 #include <string>
 #include <thread>
@@ -14,22 +11,23 @@
 #include <Core/Resources/Resources.hpp>
 #include <Core/Utils/StringUtils.hpp>
 
-#include <Engine/Entity/Entity.hpp>
+#include <Engine/Data/BlinnPhongMaterial.hpp>
+#include <Engine/Data/LambertianMaterial.hpp>
+#include <Engine/Data/MaterialConverters.hpp>
+#include <Engine/Data/PlainMaterial.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Data/ShaderProgramManager.hpp>
+#include <Engine/Data/TextureManager.hpp>
+#include <Engine/Data/VolumetricMaterial.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Managers/ComponentMessenger/ComponentMessenger.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Managers/SignalManager/SignalManager.hpp>
-#include <Engine/Managers/SystemDisplay/SystemDisplay.hpp>
-#include <Engine/Renderer/Material/BlinnPhongMaterial.hpp>
-#include <Engine/Renderer/Material/LambertianMaterial.hpp>
-#include <Engine/Renderer/Material/PlainMaterial.hpp>
-#include <Engine/Renderer/Material/VolumetricMaterial.hpp>
-#include <Engine/Renderer/RenderObject/RenderObject.hpp>
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp>
-#include <Engine/Renderer/Texture/TextureManager.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
+#include <Engine/Scene/ComponentMessenger.hpp>
+#include <Engine/Scene/Entity.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/SignalManager.hpp>
+#include <Engine/Scene/System.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -50,14 +48,14 @@ void RadiumEngine::initialize() {
         exit( -1 );
     }
     m_resourcesRootDir     = *resourceDir;
-    m_signalManager        = std::make_unique<SignalManager>();
-    m_entityManager        = std::make_unique<EntityManager>();
-    m_renderObjectManager  = std::make_unique<RenderObjectManager>();
-    m_textureManager       = std::make_unique<TextureManager>();
-    m_shaderProgramManager = std::make_unique<ShaderProgramManager>();
+    m_signalManager        = std::make_unique<Scene::SignalManager>();
+    m_entityManager        = std::make_unique<Scene::EntityManager>();
+    m_renderObjectManager  = std::make_unique<Rendering::RenderObjectManager>();
+    m_textureManager       = std::make_unique<Data::TextureManager>();
+    m_shaderProgramManager = std::make_unique<Data::ShaderProgramManager>();
 
     m_loadedFile.reset();
-    ComponentMessenger::createInstance();
+    Scene::ComponentMessenger::createInstance();
     m_loadingState = false;
 }
 
@@ -89,37 +87,43 @@ void RadiumEngine::registerDefaultPrograms() {
 
     // Engine support some built-in materials. Register here
     /// @todo find a way to integrate "Line" material into Radium Material System
-    ShaderConfiguration lConfig( "Lines" );
-    lConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
-    ShaderConfigurationFactory::addConfiguration( lConfig );
+    Data::ShaderConfiguration lConfig( "Lines" );
+    lConfig.addShader( Data::ShaderType_VERTEX,
+                       m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lConfig.addShader( Data::ShaderType_FRAGMENT,
+                       m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
+    Data::ShaderConfigurationFactory::addConfiguration( lConfig );
 
-    ShaderConfiguration lgConfig( "LinesGeom" );
-    lgConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lgConfig.addShader( ShaderType_FRAGMENT, m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
-    lgConfig.addShader( ShaderType_GEOMETRY, m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
-    ShaderConfigurationFactory::addConfiguration( lgConfig );
+    Data::ShaderConfiguration lgConfig( "LinesGeom" );
+    lgConfig.addShader( Data::ShaderType_VERTEX,
+                        m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lgConfig.addShader( Data::ShaderType_FRAGMENT,
+                        m_resourcesRootDir + "Shaders/Lines/Lines.frag.glsl" );
+    lgConfig.addShader( Data::ShaderType_GEOMETRY,
+                        m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
+    Data::ShaderConfigurationFactory::addConfiguration( lgConfig );
 
-    ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
-    lagConfig.addShader( ShaderType_VERTEX, m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
-    lagConfig.addShader( ShaderType_FRAGMENT,
+    Data::ShaderConfiguration lagConfig( "LinesAdjacencyGeom" );
+    lagConfig.addShader( Data::ShaderType_VERTEX,
+                         m_resourcesRootDir + "Shaders/Lines/Lines.vert.glsl" );
+    lagConfig.addShader( Data::ShaderType_FRAGMENT,
                          m_resourcesRootDir + "Shaders/Lines/LinesAdjacency.frag.glsl" );
-    lagConfig.addShader( ShaderType_GEOMETRY,
+    lagConfig.addShader( Data::ShaderType_GEOMETRY,
                          m_resourcesRootDir + "Shaders/Lines/Lines.geom.glsl" );
-    ShaderConfigurationFactory::addConfiguration( lagConfig );
+    Data::ShaderConfigurationFactory::addConfiguration( lagConfig );
 
     // Plain is flat or diffuse
-    PlainMaterial::registerMaterial();
-    BlinnPhongMaterial::registerMaterial();
-    LambertianMaterial::registerMaterial();
-    VolumetricMaterial::registerMaterial();
+    Data::PlainMaterial::registerMaterial();
+    Data::BlinnPhongMaterial::registerMaterial();
+    Data::LambertianMaterial::registerMaterial();
+    Data::VolumetricMaterial::registerMaterial();
 }
 
 void RadiumEngine::cleanup() {
-    PlainMaterial::unregisterMaterial();
-    BlinnPhongMaterial::unregisterMaterial();
-    LambertianMaterial::unregisterMaterial();
-    VolumetricMaterial::unregisterMaterial();
+    Data::PlainMaterial::unregisterMaterial();
+    Data::BlinnPhongMaterial::unregisterMaterial();
+    Data::LambertianMaterial::unregisterMaterial();
+    Data::VolumetricMaterial::unregisterMaterial();
     m_signalManager->setOn( false );
     m_entityManager.reset();
     m_renderObjectManager.reset();
@@ -133,7 +137,7 @@ void RadiumEngine::cleanup() {
         system.second.reset();
     }
 
-    ComponentMessenger::destroyInstance();
+    Scene::ComponentMessenger::destroyInstance();
 
     m_loadingState = false;
 }
@@ -160,7 +164,7 @@ void RadiumEngine::getTasks( Core::TaskQueue* taskQueue, Scalar dt ) {
     }
 }
 
-bool RadiumEngine::registerSystem( const std::string& name, System* system, int priority ) {
+bool RadiumEngine::registerSystem( const std::string& name, Scene::System* system, int priority ) {
     if ( findSystem( name ) != m_systems.end() )
     {
         LOG( logWARNING ) << "Try to add system " << name.c_str()
@@ -168,23 +172,23 @@ bool RadiumEngine::registerSystem( const std::string& name, System* system, int 
         return false;
     }
 
-    m_systems[std::make_pair( priority, name )] = std::shared_ptr<System>( system );
+    m_systems[std::make_pair( priority, name )] = std::shared_ptr<Scene::System>( system );
     LOG( logINFO ) << "Loaded : " << name;
     return true;
 }
 
-System* RadiumEngine::getSystem( const std::string& system ) const {
-    System* sys = nullptr;
-    auto it     = findSystem( system );
+Scene::System* RadiumEngine::getSystem( const std::string& system ) const {
+    Scene::System* sys = nullptr;
+    auto it            = findSystem( system );
 
     if ( it != m_systems.end() ) { sys = it->second.get(); }
 
     return sys;
 }
 
-Displayable* RadiumEngine::getMesh( const std::string& entityName,
-                                    const std::string& componentName,
-                                    const std::string& roName ) const {
+Data::Displayable* RadiumEngine::getMesh( const std::string& entityName,
+                                          const std::string& componentName,
+                                          const std::string& roName ) const {
 
     // 1) Get entity
     if ( m_entityManager->entityExists( entityName ) )
@@ -244,7 +248,7 @@ bool RadiumEngine::loadFile( const std::string& filename ) {
 
     std::string entityName = Core::Utils::getBaseName( filename, false );
 
-    Entity* entity = m_entityManager->createEntity( entityName );
+    Scene::Entity* entity = m_entityManager->createEntity( entityName );
 
     for ( auto& system : m_systems )
     {
@@ -272,23 +276,23 @@ void RadiumEngine::releaseFile() {
     m_loadingState = false;
 }
 
-RenderObjectManager* RadiumEngine::getRenderObjectManager() const {
+Rendering::RenderObjectManager* RadiumEngine::getRenderObjectManager() const {
     return m_renderObjectManager.get();
 }
 
-EntityManager* RadiumEngine::getEntityManager() const {
+Scene::EntityManager* RadiumEngine::getEntityManager() const {
     return m_entityManager.get();
 }
 
-SignalManager* RadiumEngine::getSignalManager() const {
+Scene::SignalManager* RadiumEngine::getSignalManager() const {
     return m_signalManager.get();
 }
 
-TextureManager* RadiumEngine::getTextureManager() const {
+Data::TextureManager* RadiumEngine::getTextureManager() const {
     return m_textureManager.get();
 }
 
-ShaderProgramManager* RadiumEngine::getShaderProgramManager() const {
+Data::ShaderProgramManager* RadiumEngine::getShaderProgramManager() const {
     return m_shaderProgramManager.get();
 }
 
@@ -324,7 +328,7 @@ Core::Aabb RadiumEngine::computeSceneAabb() const {
 
     Core::Aabb aabb;
 
-    const auto& systemEntity = Engine::SystemEntity::getInstance();
+    const auto& systemEntity = Scene::SystemEntity::getInstance();
     auto entities            = m_entityManager->getEntities();
     for ( const auto& entity : entities )
     {

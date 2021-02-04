@@ -31,7 +31,7 @@ option(RADIUM_ENABLE_COVERAGE         "Enable coverage, gcc only. Experimental, 
 option(RADIUM_GENERATE_LIB_CORE       "Include Radium::Core in CMake project" ON)
 option(RADIUM_GENERATE_LIB_IO         "Include Radium::IO in CMake project" ON)
 option(RADIUM_GENERATE_LIB_ENGINE     "Include Radium::Engine in CMake project" ON)
-option(RADIUM_GENERATE_LIB_GUIBASE    "Include Radium::GuiBase in CMake project" ON)
+option(RADIUM_GENERATE_LIB_GUI        "Include Radium::Gui in CMake project" ON)
 option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
 option(RADIUM_UPDATE_VERSION          "Update version file each time the project is compiled (update compilation time in version.cpp)" ON)
 option(RADIUM_INSTALL_DOC             "Install documentation. If RadiumDoc is compiled, install documentation to bundle directory for install target" ON)
@@ -162,7 +162,7 @@ set(LocalDependencies)
 add_subdirectory(src)
 
 # Add this target so that some IDE could propose to build all radium libs and examples at once
-add_custom_target(RadiumLibs DEPENDS Core Engine GuiBase IO PluginBase)
+add_custom_target(RadiumLibs DEPENDS Core Engine Gui IO PluginBase)
 
 # add a target allowing to force the installation of the library
 
@@ -209,7 +209,7 @@ messageSetting("RADIUM_ENABLE_TESTING")
 messageSetting("RADIUM_ENABLE_COVERAGE")
 messageSetting("RADIUM_GENERATE_LIB_CORE")
 messageSetting("RADIUM_GENERATE_LIB_ENGINE")
-messageSetting("RADIUM_GENERATE_LIB_GUIBASE")
+messageSetting("RADIUM_GENERATE_LIB_GUI")
 messageSetting("RADIUM_GENERATE_LIB_IO")
 messageSetting("RADIUM_GENERATE_LIB_PLUGINBASE")
 messageSetting("RADIUM_GIT_UPDATE_SUBMODULE")

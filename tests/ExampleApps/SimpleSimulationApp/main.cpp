@@ -1,23 +1,23 @@
 // Include Radium base application and its simple Gui
-#include <GuiBase/BaseApplication.hpp>
-#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Engine/Component/GeometryComponent.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/System/GeometrySystem.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
+#include <Engine/Scene/GeometrySystem.hpp>
 
 #include <Core/Tasks/Task.hpp>
 
 #include <QTimer>
 
-class SimpleSimulationSystem : public Ra::Engine::System
+class SimpleSimulationSystem : public Ra::Engine::Scene::System
 {
-    Ra::Engine::PointCloud* m_cloud;
-    const std::string colorHandleName = Ra::Engine::AttribArrayDisplayable::getAttribName(
-        Ra::Engine::AttribArrayDisplayable::VERTEX_COLOR );
+    Ra::Engine::Data::PointCloud* m_cloud;
+    const std::string colorHandleName = Ra::Engine::Data::AttribArrayDisplayable::getAttribName(
+        Ra::Engine::Data::AttribArrayDisplayable::VERTEX_COLOR );
 
     Ra::Core::Utils::Attrib<Ra::Core::Vector4>& getColorAttrib() {
         auto cHandle =
@@ -26,7 +26,7 @@ class SimpleSimulationSystem : public Ra::Engine::System
     }
 
   public:
-    inline SimpleSimulationSystem( Ra::Engine::PointCloud* c = nullptr ) : m_cloud( c ) {}
+    inline SimpleSimulationSystem( Ra::Engine::Data::PointCloud* c = nullptr ) : m_cloud( c ) {}
 
     virtual void generateTasks( Ra::Core::TaskQueue* q,
                                 const Ra::Engine::FrameInfo& /*info*/ ) override {
@@ -58,8 +58,8 @@ class SimpleSimulationSystem : public Ra::Engine::System
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv );
-    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //! [Creating the cloud]
@@ -82,7 +82,8 @@ int main( int argc, char* argv[] ) {
     //! [Create the engine entity for the cloud]
 
     //! [Create a geometry component with the cloud]
-    auto c = new Ra::Engine::PointCloudComponent( "cloud Mesh", e, std::move( cloud ), nullptr );
+    auto c =
+        new Ra::Engine::Scene::PointCloudComponent( "cloud Mesh", e, std::move( cloud ), nullptr );
     c->setSplatSize( 0.05f );
     //! [Create a geometry component with the cloud]
 

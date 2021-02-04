@@ -1,15 +1,10 @@
 #include <Engine/RaEngine.hpp>
 
 #include <QApplication>
-#include <QTimer>
 
 #include <QOpenGLContext>
 
-#include <GuiBase/TimerData/FrameTimerData.hpp>
-#include <GuiBase/Viewer/Viewer.hpp>
-
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+#include <Engine/Scene/EntityManager.hpp>
 
 #include <minimalapp.hpp>
 #include <minimalradium.hpp>
@@ -40,8 +35,8 @@ int main( int argc, char* argv[] ) {
     app.m_engine->registerSystem( "Minimal system", sys );
 
     // Create and initialize entity and component
-    Ra::Engine::Entity* e = app.m_engine->getEntityManager()->createEntity( "Cube" );
-    MinimalComponent* c   = new MinimalComponent( e );
+    Ra::Engine::Scene::Entity* e = app.m_engine->getEntityManager()->createEntity( "Cube" );
+    MinimalComponent* c          = new MinimalComponent( e );
     sys->addComponent( e, c );
     c->initialize();
 
