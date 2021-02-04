@@ -1,19 +1,19 @@
 // Include Radium base application and its simple Gui
-#include <GuiBase/BaseApplication.hpp>
-#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the Engine/entity/component interface
 #include <Core/Geometry/MeshPrimitives.hpp>
-#include <Engine/Component/GeometryComponent.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/System/GeometrySystem.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
+#include <Engine/Scene/GeometrySystem.hpp>
 
 #include <QTimer>
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv );
-    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
     //! [Creating the application]
 
     //! [Creating the cube]
@@ -31,7 +31,8 @@ int main( int argc, char* argv[] ) {
     //! [Create the engine entity for the cube]
 
     //! [Create a geometry component with the cube]
-    auto c = new Ra::Engine::TriangleMeshComponent( "Cube Mesh", e, std::move( cube ), nullptr );
+    auto c =
+        new Ra::Engine::Scene::TriangleMeshComponent( "Cube Mesh", e, std::move( cube ), nullptr );
     //! [Create a geometry component with the cube]
 
     //! [Register the entity/component association to the geometry system ]

@@ -6,7 +6,6 @@
 #include <set>
 
 #include <Core/Asset/HandleData.hpp>
-#include <Core/Containers/AlignedStdVector.hpp>
 #include <Core/Utils/Log.hpp>
 
 #include <IO/AssimpLoader/AssimpWrapper.hpp>

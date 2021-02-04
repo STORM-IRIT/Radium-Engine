@@ -1,4 +1,3 @@
-
 set( core_sources
     Animation/BulgeCorrection.cpp
     Animation/Cage.cpp
@@ -51,8 +50,8 @@ set( core_headers
     Animation/HandleArray.hpp
     Animation/HandleWeight.hpp
     Animation/HandleWeightOperation.hpp
-    Animation/KeyFramedValue.hpp
     Animation/KeyFramedValueController.hpp
+    Animation/KeyFramedValue.hpp
     Animation/KeyFramedValueInterpolators.hpp
     Animation/LinearBlendSkinning.hpp
     Animation/Pose.hpp

@@ -1,9 +1,9 @@
-#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
-#include <Engine/Renderer/Renderers/ForwardRenderer.hpp>
+#include <Engine/Data/ShaderConfigFactory.hpp>
+#include <Engine/Rendering/ForwardRenderer.hpp>
 #include <minimalapp.hpp>
 
-#include <GuiBase/Utils/KeyMappingManager.hpp>
-#include <GuiBase/Viewer/TrackballCameraManipulator.hpp>
+#include <Gui/Utils/KeyMappingManager.hpp>
+#include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
 MinimalApp::MinimalApp( int& argc, char** argv ) :
     QApplication( argc, argv ),
@@ -57,7 +57,8 @@ void MinimalApp::onGLInitialized() {
     // initialize here the OpenGL part of the engine used by the application
     m_engine->initializeGL();
     // add the renderer
-    std::shared_ptr<Ra::Engine::Renderer> e( new Ra::Engine::ForwardRenderer() );
+    std::shared_ptr<Ra::Engine::Rendering::Renderer> e(
+        new Ra::Engine::Rendering::ForwardRenderer() );
     m_viewer->addRenderer( e );
     connect( m_frame_timer, &QTimer::timeout, this, &MinimalApp::frame );
 }

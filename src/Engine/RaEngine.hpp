@@ -11,4 +11,4 @@
 #endif
 
 // always include engine's gl before any other
-#include <Engine/Renderer/OpenGL/OpenGL.hpp>
+#include <Engine/OpenGL.hpp>

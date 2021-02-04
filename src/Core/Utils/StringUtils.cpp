@@ -1,7 +1,5 @@
 #include <Core/Utils/StringUtils.hpp>
 
-#include <Core/CoreMacros.hpp>
-
 /*
  * NOMINMAX is already defined in CoreMacros.hpp ...
 
@@ -13,11 +11,7 @@
 */
 
 #include <algorithm> // std::min std::max
-#include <cstdarg>
-#include <cstdio>
-#include <cstring>
 #include <memory>
-#include <sstream>
 
 namespace Ra {
 namespace Core {

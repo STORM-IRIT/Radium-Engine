@@ -71,7 +71,7 @@ endmacro()
 checkOptionalTarget(Engine)
 checkOptionalTarget(IO)
 checkOptionalTarget(PluginBase)
-checkOptionalTarget(GuiBase)
+checkOptionalTarget(Gui)
 
 # Check the user request matches the available library targets
 set(Radium_FOUND True)
@@ -157,17 +157,17 @@ if(PluginBase_FOUND)
     include("${CMAKE_CURRENT_LIST_DIR}/PluginBaseTargets.cmake" )
 endif()
 
-if(GuiBase_FOUND)
+if(Gui_FOUND)
     find_dependency(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
         get_target_property(QtCore_Dll Qt5::Core LOCATION)
         get_filename_component(QtDlls_location "${QtCore_Dll}" DIRECTORY)
-    include("${CMAKE_CURRENT_LIST_DIR}/GuiBaseTargets.cmake" )
+    include("${CMAKE_CURRENT_LIST_DIR}/GuiTargets.cmake" )
 endif()
 
 # Compute paths
 get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
 # get up in the directories until we found a "Resources" subdir
-# TODO : instead of 'Resources' that might not exists if Engine nor GuiBase are compiled,
+# TODO : instead of 'Resources' that might not exists if Engine nor Gui are compiled,
 # search for a file identifying Radium (a la Eigen) and that is installed at the root of the
 # Radium Bundle
 while( NOT EXISTS ${SELF_DIR}/Resources)

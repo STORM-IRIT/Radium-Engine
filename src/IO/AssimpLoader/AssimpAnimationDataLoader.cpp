@@ -1,6 +1,5 @@
 #include <IO/AssimpLoader/AssimpAnimationDataLoader.hpp>
 
-#include <assimp/mesh.h>
 #include <assimp/scene.h>
 #include <set>
 

@@ -126,7 +126,7 @@ Then, in the library source code, each exported symbol should be prefixed by `<T
 ~~~{.cpp}
 #pragma once
 #include < <TARGET>/<TARGET>Macros.hpp >
-class <TARGET>_API MyAwesomeMaterial : public Ra::Engine::Material
+class <TARGET>_API MyAwesomeMaterial : public Ra::Engine::Data::Material
 {
     ...
 };

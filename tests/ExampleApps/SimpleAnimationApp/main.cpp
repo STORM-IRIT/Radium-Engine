@@ -1,16 +1,16 @@
 // Include Radium base application and its simple Gui
-#include <GuiBase/BaseApplication.hpp>
-#include <GuiBase/RadiumWindow/SimpleWindowFactory.hpp>
+#include <Gui/BaseApplication.hpp>
+#include <Gui/RadiumWindow/SimpleWindowFactory.hpp>
 
 // include the core geometry/appearance interface
 #include <Core/Asset/BlinnPhongMaterialData.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 
 // include the Engine/entity/component/system/animation interface
-#include <Engine/Component/GeometryComponent.hpp>
 #include <Engine/FrameInfo.hpp>
-#include <Engine/Managers/EntityManager/EntityManager.hpp>
-#include <Engine/System/System.hpp>
+#include <Engine/Scene/EntityManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
+#include <Engine/Scene/System.hpp>
 
 // include the keyframe animation interface
 #include <Core/Animation/KeyFramedValueController.hpp>
@@ -18,7 +18,7 @@
 #include <Core/Tasks/Task.hpp>
 
 // include the render object interface to keyframe the material
-#include <Engine/Renderer/RenderObject/RenderObjectManager.hpp>
+#include <Engine/Rendering/RenderObjectManager.hpp>
 
 // To terminate the demo after 4 seconds
 #include <QTimer>
@@ -39,7 +39,7 @@
  *      - Add the animation component to the animation system
  *
  */
-class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
+class KeyFramedGeometryComponent : public Ra::Engine::Scene::TriangleMeshComponent
 {
   public:
     /*!
@@ -47,12 +47,12 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
      * \warning Moves the mesh and takes its ownership
      */
     inline KeyFramedGeometryComponent( const std::string& name,
-                                       Ra::Engine::Entity* entity,
+                                       Ra::Engine::Scene::Entity* entity,
                                        Ra::Core::Geometry::TriangleMesh&& mesh ) :
-        Ra::Engine::TriangleMeshComponent( name,
-                                           entity,
-                                           std::move( mesh ),
-                                           new Ra::Core::Asset::BlinnPhongMaterialData {} ),
+        Ra::Engine::Scene::TriangleMeshComponent( name,
+                                                  entity,
+                                                  std::move( mesh ),
+                                                  new Ra::Core::Asset::BlinnPhongMaterialData {} ),
         m_transform( Ra::Core::Transform::Identity(), 0_ra ) {
         //! [Creating the transform KeyFrames]
         Ra::Core::Transform T = Ra::Core::Transform::Identity();
@@ -72,7 +72,8 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
         //! [Attach the color KeyFrames to a controller of the Render object material]
         m_colorController.m_value = colors;
         m_ro                      = getRoMgr()->getRenderObject( m_roIndex );
-        auto material = dynamic_cast<Ra::Engine::BlinnPhongMaterial*>( m_ro->getMaterial().get() );
+        auto material =
+            dynamic_cast<Ra::Engine::Data::BlinnPhongMaterial*>( m_ro->getMaterial().get() );
         m_colorController.m_updater = [colors, material]( const Scalar& t ) {
             auto C =
                 colors->at( t, Ra::Core::Animation::linearInterpolate<Ra::Core::Utils::Color> );
@@ -95,7 +96,7 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
     }
 
     /// The render object to animate
-    std::shared_ptr<Ra::Engine::RenderObject> m_ro;
+    std::shared_ptr<Ra::Engine::Rendering::RenderObject> m_ro;
 
     /// The Keyframes for the render object's tranform.
     Ra::Core::Animation::KeyFramedValue<Ra::Core::Transform> m_transform;
@@ -109,7 +110,7 @@ class KeyFramedGeometryComponent : public Ra::Engine::TriangleMeshComponent
 /// This system will be added to the engine. Every frame it will
 /// add a task to be executed, calling the update function of the component.
 /// \note This system makes time loop around.
-class SimpleAnimationSystem : public Ra::Engine::System
+class SimpleAnimationSystem : public Ra::Engine::Scene::System
 {
   public:
     virtual void generateTasks( Ra::Core::TaskQueue* q,
@@ -125,8 +126,8 @@ class SimpleAnimationSystem : public Ra::Engine::System
 
 int main( int argc, char* argv[] ) {
     //! [Creating the application]
-    Ra::GuiBase::BaseApplication app( argc, argv );
-    app.initialize( Ra::GuiBase::SimpleWindowFactory {} );
+    Ra::Gui::BaseApplication app( argc, argv );
+    app.initialize( Ra::Gui::SimpleWindowFactory {} );
 
     //![Parameterize the Engine  time loop]
     app.m_engine->setEndTime( 3_ra ); // <-- 3 relates to the keyframes of the demo component.

@@ -41,12 +41,12 @@ the time space and the selected KeyFramedValue:
 ## Display animated data using the Timeline
 
 `Ra::Core::Animation::KeyFramedValueController`s must be registered into the `Ra::GuiBase::Timeline`, which can be done using the
-`Ra::GuiBase::Timeline::registerKeyFramedValue` methods, binding them to the `Ra::Engine::Entity`, `Ra::Engine::Component` or
-`Ra::Engine::RenderObject` they belong to.
+`Ra::GuiBase::Timeline::registerKeyFramedValue` methods, binding them to the `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
+`Ra::Engine::Rendering::RenderObject` they belong to.
 
 ### Binding "Static" KeyFramedValue
-Those are `Ra::Core::Animation::KeyFramedValue`s that are an explicit part of a `Ra::Engine::Entity`, `Ra::Engine::Component` or
-`Ra::Engine::RenderObject` data, either filled upon construction or through the `Ra::GuiBase::Timeline`.
+Those are `Ra::Core::Animation::KeyFramedValue`s that are an explicit part of a `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
+`Ra::Engine::Rendering::RenderObject` data, either filled upon construction or through the `Ra::GuiBase::Timeline`.
 Static `Ra::Core::Animation::KeyFramedValue`s must be registered in the `Ra::GuiBase::Timeline` after the object's
 construction.
 They usually are not bound to an *UpdateCallback* function since the object they
@@ -57,10 +57,10 @@ Example Usage:
 using KeyFramedValue = Ra::Core::Animation::KeyFramedValue<Scalar>;
 using KeyFramedValueController = Ra::Core::Animation::KeyFramedValueController;
 
-struct MyComponentWithKeyFrame : public Ra::Engine::Component
+struct MyComponentWithKeyFrame : public Ra::Engine::Scene::Component
 {
-   MyComponentWithKeyFrame( const std::string& name, Ra::Engine::Entity* entity, Scalar value = 0_ra )
-       : Ra::Engine::Component( name, entity )
+   MyComponentWithKeyFrame( const std::string& name, Ra::Engine::Scene::Entity* entity, Scalar value = 0_ra )
+       : Ra::Engine::Scene::Component( name, entity )
        , m_keyframes( value, 0_ra )
        , m_currentValue( value )
    {}
@@ -82,14 +82,14 @@ struct MyComponentWithKeyFrame : public Ra::Engine::Component
    Scalar m_currentValue;
 };
 
-struct MyTimeDependantSystem : public Ra::Engine::System
+struct MyTimeDependantSystem : public Ra::Engine::Scene::System
 {
    MyTimeDependantSystem( Ra::GuiBase::Timeline* timeline )
-       : Ra::Engine::System()
+       : Ra::Engine::Scene::System()
        , m_timeline( timeline )
    {}
 
-    void AnimationSystem::handleAssetLoading( Ra::Engine::Entity* entity, const Ra::Core::Asset::FileData* fileData ) {
+    void AnimationSystem::handleAssetLoading( Ra::Engine::Scene::Entity* entity, const Ra::Core::Asset::FileData* fileData ) {
         // Add a Component whenever a file is loaded
         auto comp = new MyComponentWithKeyFrame( "MyComponentWithKeyFrame_", entity );
         registerComponent( entity, comp );
@@ -122,8 +122,8 @@ struct MyTimeDependantSystem : public Ra::Engine::System
 ```
 
 ### Binding "Dynamic" KeyFramedValues:
-Those are `Ra::Core::Animation::KeyFramedValue`s that are not part of an `Ra::Engine::Entity`, `Ra::Engine::Component` or
-`Ra::Engine::RenderObject` data, but are used to keyframe some of its data.
+Those are `Ra::Core::Animation::KeyFramedValue`s that are not part of an `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
+`Ra::Engine::Rendering::RenderObject` data, but are used to keyframe some of its data.
 Dynamic `Ra::Core::Animation::KeyFramedValue`s must be created for and owned by the UI, and registered in the
 `Ra::GuiBase::Timeline`.
 They are usually bound to an UpdateCallback function since they have to update the
@@ -133,8 +133,8 @@ Example Usage:
 ```c++
 /// Let's say there is a Component class defined as:
 struct MyComponent : public Component {
-    MyComponent( const std::string& name, Ra::Engine::Entity* entity, Scalar value = 0_ra )
-        : Ra::Engine::Component( name, entity )
+    MyComponent( const std::string& name, Ra::Engine::Scene::Entity* entity, Scalar value = 0_ra )
+        : Ra::Engine::Scene::Component( name, entity )
         , m_currentValue( value )
     {}
 
@@ -196,7 +196,7 @@ struct MyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface {
         // deal with selection
         if ( m_selectionManager->hasSelection() )
         {
-            const Ra::Engine::ItemEntry& ent = m_selectionManager->currentItem();
+            const Ra::Engine::Scene::ItemEntry& ent = m_selectionManager->currentItem();
             m_current = dynamic_cast<MyComponent*>( ent.m_component );
         }
         else

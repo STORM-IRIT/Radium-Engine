@@ -4,10 +4,6 @@
 #include <catch2/catch.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh>
-#include <OpenMesh/Tools/Subdivider/Uniform/LoopT.hh>
-
-#include <OpenMesh/Tools/Decimater/DecimaterT.hh>
-#include <OpenMesh/Tools/Decimater/ModQuadricT.hh>
 
 using namespace Ra::Core;
 using namespace Ra::Core::Utils;

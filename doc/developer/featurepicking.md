@@ -3,17 +3,17 @@
 
 # Usage
 
-The RadiumEngine's Ra::Engine::Renderer provides a picking method for Ra::Engine::RenderObject selection.
+The RadiumEngine's Ra::Engine::Rendering::Renderer provides a picking method for Ra::Engine::Rendering::RenderObject selection.
 
 The `FeaturePicking` feature enables to enhance the selection process up to selecting vertices, edges and triangles.
-The result of a Ra::Engine::Renderer::PickingQuery is a Ra::Engine::Renderer::PickingResult containing the following data:
- *   the picking mode: either Ra::Engine::Renderer::RO, Ra::Engine::Renderer::VERTEX, Ra::Engine::Renderer::EDGE, Ra::Engine::Renderer::TRIANGLE for simple feature selection and either Ra::Engine::Renderer::C_VERTEX, Ra::Engine::Renderer::C_EDGE or Ra::Engine::Renderer::C_TRIANGLE for multiple selection;
+The result of a Ra::Engine::Rendering::Renderer::PickingQuery is a Ra::Engine::Rendering::Renderer::PickingResult containing the following data:
+ *   the picking mode: either Ra::Engine::Rendering::Renderer::RO, Ra::Engine::Rendering::Renderer::VERTEX, Ra::Engine::Rendering::Renderer::EDGE, Ra::Engine::Rendering::Renderer::TRIANGLE for simple feature selection and either Ra::Engine::Rendering::Renderer::C_VERTEX, Ra::Engine::Rendering::Renderer::C_EDGE or Ra::Engine::Rendering::Renderer::C_TRIANGLE for multiple selection;
  *   the index of the RO the selection is for ;
  *   the list of selected vertices indices given w.r.t. the corresponding selected element ;
  *   the list of selected element indices, either points for point clouds or triangles for meshes ;
  *   the list of selected edge's opposite vertex indices given w.r.t. the corresponding selected triangle.
 
-Right after a selection, the Ra::Engine::Renderer::PickingResult are stored in the Ra::Gui::PickingManager and the Ra::GuiBase::SelectionManager emits Ra::GuiBase::SelectionManager::currentChanged signal so that Plugins are told a new selection has been made.
+Right after a selection, the Ra::Engine::Rendering::Renderer::PickingResult are stored in the Ra::Gui::PickingManager and the Ra::GuiBase::SelectionManager emits Ra::GuiBase::SelectionManager::currentChanged signal so that Plugins are told a new selection has been made.
 
 The selection of a mesh feature is activated by holding a specific key while selecting the object (see the `KeyMappingManager` configuration file for those). Multiple selection activation can be activated/de-activated by pressing the corresponding key, which would also make a circle shape, representing the selection area, appear on the screen.
 
