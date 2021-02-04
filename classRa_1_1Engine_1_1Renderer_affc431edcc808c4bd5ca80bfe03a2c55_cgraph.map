@@ -1,8 +1,0 @@
-<map id="Ra::Engine::Renderer::render" name="Ra::Engine::Renderer::render">
-<area shape="rect" id="node1" title="Tell the renderer it needs to render. This method does the following steps :" alt="" coords="5,136,164,177"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Renderer.html#a4bf7ab27df3a206bcb0b759f28dab716" title="Add the debug layer with useful informations." alt="" coords="212,5,371,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Renderer.html#a75b434244e669f4be43889a820011b79" title="Do all post processing stuff. If you override this method, be careful to fill." alt="" coords="212,71,371,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Renderer.html#a0991bff12be739a189f5a173458b6623" title="All the scene rendering magics basically happens here." alt="" coords="212,136,371,177"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Renderer.html#a02f80a1fa78786ad58d68393225aed64" title="Draw the UI data." alt="" coords="212,201,371,243"/>
-<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Renderer.html#a54631e8470c2638009457f53628dac57" title=" " alt="" coords="212,267,371,308"/>
-</map>

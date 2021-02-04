@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Renderer/Camera/Camera.cpp File Reference</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/Camera.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('Camera_8cpp.html',''); initResizable()
 <div class="title">Camera.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="Camera_8hpp_source.html">Engine/Renderer/Camera/Camera.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="Camera_8hpp_source.html">Engine/Scene/Camera.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="MakeShared_8hpp_source.html">Core/Containers/MakeShared.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Math_8hpp_source.html">Core/Math/Math.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="PlainMaterial_8hpp_source.html">Engine/Renderer/Material/PlainMaterial.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Mesh_8hpp_source.html">Engine/Renderer/Mesh/Mesh.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="RenderObject_8hpp_source.html">Engine/Renderer/RenderObject/RenderObject.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ShaderConfigFactory_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Mesh_8hpp_source.html">Engine/Data/Mesh.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="PlainMaterial_8hpp_source.html">Engine/Data/PlainMaterial.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderConfigFactory_8hpp_source.html">Engine/Data/ShaderConfigFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RenderObject_8hpp_source.html">Engine/Rendering/RenderObject.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for Camera.cpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -121,14 +121,16 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceRa_1_1Engine"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html">Ra::Engine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Scene"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Scene.html">Ra::Engine::Scene</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_35f904a890c1431d13964486334c23a9.html">Camera</a></li><li class="navelem"><a class="el" href="Camera_8cpp.html">Camera.cpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="Camera_8cpp.html">Camera.cpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

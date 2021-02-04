@@ -145,17 +145,17 @@
 <!-- Node0 -->
 <g id="node10" class="node">
 <title>Node0</title>
-<g id="a_node10"><a xlink:href="classRa_1_1GuiBase_1_1TransformEditor.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="9.5,-126 9.5,-145 168.5,-145 168.5,-126 9.5,-126"/>
-<text text-anchor="middle" x="89" y="-133" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::GuiBase::TransformEditor</text>
+<g id="a_node10"><a xlink:href="classRa_1_1Gui_1_1TransformEditor.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="21.5,-126 21.5,-145 156.5,-145 156.5,-126 21.5,-126"/>
+<text text-anchor="middle" x="89" y="-133" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TransformEditor</text>
 </a>
 </g>
 </g>
 <!-- Node0&#45;&gt;Node1 -->
 <g id="edge9" class="edge">
 <title>Node0&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M178.68,-135.5C198.28,-135.5 218.7,-135.5 237.18,-135.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="178.52,-132 168.52,-135.5 178.52,-139 178.52,-132"/>
+<path fill="none" stroke="midnightblue" d="M166.75,-135.5C189.82,-135.5 214.91,-135.5 237.18,-135.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="166.65,-132 156.65,-135.5 166.65,-139 166.65,-132"/>
 </g>
 </g>
 </svg>

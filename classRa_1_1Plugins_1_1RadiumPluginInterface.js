@@ -2,7 +2,7 @@ var classRa_1_1Plugins_1_1RadiumPluginInterface =
 [
     [ "~RadiumPluginInterface", "classRa_1_1Plugins_1_1RadiumPluginInterface.html#ad8ab2898d0e4c4da7fdf90abd2a14c34", null ],
     [ "addFileLoaders", "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a3fe610032c1dbb240e179b139d00624f", null ],
-    [ "addRenderers", "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a0abb07f37722a64372c5dce4b411cd7a", null ],
+    [ "addRenderers", "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a4f25e725a265ba2d82ce3972acf64185", null ],
     [ "doAddAction", "classRa_1_1Plugins_1_1RadiumPluginInterface.html#ac67c90cbc774815037521ec11b9fdbc5", null ],
     [ "doAddFileLoader", "classRa_1_1Plugins_1_1RadiumPluginInterface.html#acc10a0721a8fe34cc7e7735250b495c1", null ],
     [ "doAddMenu", "classRa_1_1Plugins_1_1RadiumPluginInterface.html#a75254b6686888a26e57ddfc83d85d372", null ],

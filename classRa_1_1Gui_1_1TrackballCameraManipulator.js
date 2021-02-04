@@ -17,7 +17,7 @@ var classRa_1_1Gui_1_1TrackballCameraManipulator =
     [ "handleMouseReleaseEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a32dd812e2bf249b55b37f15d6b180d59", null ],
     [ "handleWheelEvent", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a06b6743d9516b67e62947559c033551d", null ],
     [ "resetCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a8a75d252e06bcec380a3ac7354a1febd", null ],
-    [ "setCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#af2a45eb7b13cebbc0750809d05568ee3", null ],
+    [ "setCamera", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#ab2b652e6500337e6071ec54a05cd8fc3", null ],
     [ "setCameraPosition", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a5f04b67406543e5831557ed7327aa722", null ],
     [ "setCameraTarget", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a5842e8033069575bc57501e7d052c375", null ],
     [ "setTrackballCenter", "classRa_1_1Gui_1_1TrackballCameraManipulator.html#a10d35d47a6220187e3331763831b43ca", null ],

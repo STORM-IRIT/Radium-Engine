@@ -1,5 +1,5 @@
 var ItemEntry_8cpp =
 [
-    [ "getEntryName", "ItemEntry_8cpp.html#a318db0d77f9e9b965c12bd100fb8de50", null ],
-    [ "getItemROs", "ItemEntry_8cpp.html#a4e69e485a123c20126606f2552f51bb8", null ]
+    [ "getEntryName", "ItemEntry_8cpp.html#a6e686b60ad6a81dde7a154411273b5f9", null ],
+    [ "getItemROs", "ItemEntry_8cpp.html#aae7c9d8844b8896084b0734418f8916a", null ]
 ];

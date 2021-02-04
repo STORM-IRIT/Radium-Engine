@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 1316;
+var viewWidth = 1386;
 var viewHeight = 638;
 var sectionId = 'dynsection-2';
 </script>
@@ -54,7 +54,7 @@ var sectionId = 'dynsection-2';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>Ra::Gui::CameraManipulator::CameraManipulator</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-634 1312,-634 1312,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-634 1382,-634 1382,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
@@ -68,80 +68,80 @@ var sectionId = 'dynsection-2';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Camera.html#abec46e062874d71bf9cfc9143c889a60" target="_top" xlink:title="Pure virtual method to be overridden by any component. When this method is called you are guaranteed ...">
-<polygon fill="white" stroke="black" points="212,-282.5 212,-312.5 325,-312.5 325,-282.5 212,-282.5"/>
-<text text-anchor="start" x="220" y="-300.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Camera</text>
-<text text-anchor="middle" x="268.5" y="-289.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initialize</text>
+<g id="a_node2"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Camera.html#ae3ab12817e46328b81f918fdfc93d1a4" target="_top" xlink:title="Pure virtual method to be overridden by any component. When this method is called you are guaranteed ...">
+<polygon fill="white" stroke="black" points="213.5,-295.5 213.5,-325.5 323.5,-325.5 323.5,-295.5 213.5,-295.5"/>
+<text text-anchor="start" x="221.5" y="-313.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="middle" x="268.5" y="-302.5" font-family="Helvetica,sans-Serif" font-size="10.00">Camera::initialize</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M93.97,-128.56C127.28,-160.98 205.92,-237.55 244.85,-275.45"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="242.48,-278.02 252.08,-282.49 247.36,-273.01 242.48,-278.02"/>
+<path fill="none" stroke="midnightblue" d="M93.02,-128.63C126.07,-163.08 207.06,-247.5 245.96,-288.05"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="243.49,-290.52 252.93,-295.32 248.54,-285.68 243.49,-290.52"/>
 </g>
-<!-- Node29 -->
-<g id="node29" class="node">
-<title>Node29</title>
-<g id="a_node29"><a xlink:href="classRa_1_1Engine_1_1Camera.html#a4c2aac5ad419cef7720e2a18d93b3703" target="_top" xlink:title="Toggle on/off displaying the Camera.">
-<polygon fill="white" stroke="black" points="418,-47.5 418,-77.5 531,-77.5 531,-47.5 418,-47.5"/>
-<text text-anchor="start" x="426" y="-65.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Camera</text>
-<text text-anchor="middle" x="474.5" y="-54.5" font-family="Helvetica,sans-Serif" font-size="10.00">::show</text>
+<!-- Node28 -->
+<g id="node28" class="node">
+<title>Node28</title>
+<g id="a_node28"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Camera.html#a2819cfef46b340a2a58b4c6748c13015" target="_top" xlink:title="Toggle on/off displaying the Camera.">
+<polygon fill="white" stroke="black" points="419,-63.5 419,-93.5 529,-93.5 529,-63.5 419,-63.5"/>
+<text text-anchor="start" x="427" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="middle" x="474" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">Camera::show</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node29 -->
-<g id="edge36" class="edge">
-<title>Node1&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M115.08,-128.63C168.94,-148.41 271.27,-176.22 346,-137.5 370.63,-124.74 359.2,-102.31 382,-86.5 389.81,-81.08 398.77,-76.89 407.96,-73.64"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="409.1,-76.95 417.57,-70.59 406.98,-70.28 409.1,-76.95"/>
+<!-- Node1&#45;&gt;Node28 -->
+<g id="edge35" class="edge">
+<title>Node1&#45;&gt;Node28</title>
+<path fill="none" stroke="midnightblue" d="M119.65,-128.55C173.71,-145.84 270.61,-168.11 346,-137.5 366.68,-129.11 362.57,-113.48 382,-102.5 390.34,-97.78 399.63,-93.97 409,-90.89"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="410.2,-94.19 418.76,-87.94 408.18,-87.49 410.2,-94.19"/>
 </g>
-<!-- Node31 -->
-<g id="node31" class="node">
-<title>Node31</title>
-<g id="a_node31"><a xlink:href="classRa_1_1Gui_1_1CameraManipulator.html#a628cdfc34f5c32874c59011795db317c" target="_top" xlink:title=" ">
+<!-- Node30 -->
+<g id="node30" class="node">
+<title>Node30</title>
+<g id="a_node30"><a xlink:href="classRa_1_1Gui_1_1CameraManipulator.html#a628cdfc34f5c32874c59011795db317c" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="191,-98.5 191,-128.5 346,-128.5 346,-98.5 191,-98.5"/>
 <text text-anchor="start" x="199" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::CameraManipulator</text>
 <text text-anchor="middle" x="268.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setCameraFovInDegrees</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node31 -->
-<g id="edge33" class="edge">
-<title>Node1&#45;&gt;Node31</title>
+<!-- Node1&#45;&gt;Node30 -->
+<g id="edge32" class="edge">
+<title>Node1&#45;&gt;Node30</title>
 <path fill="none" stroke="midnightblue" d="M155.1,-113.5C163.56,-113.5 172.22,-113.5 180.79,-113.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="180.79,-117 190.79,-113.5 180.79,-110 180.79,-117"/>
 </g>
-<!-- Node32 -->
-<g id="node32" class="node">
-<title>Node32</title>
-<g id="a_node32"><a xlink:href="classRa_1_1Gui_1_1CameraManipulator.html#ac77a7c75a992261fba709ff10a0835b8" target="_top" xlink:title=" ">
+<!-- Node31 -->
+<g id="node31" class="node">
+<title>Node31</title>
+<g id="a_node31"><a xlink:href="classRa_1_1Gui_1_1CameraManipulator.html#ac77a7c75a992261fba709ff10a0835b8" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="191,-49.5 191,-79.5 346,-79.5 346,-49.5 191,-49.5"/>
 <text text-anchor="start" x="199" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::CameraManipulator</text>
 <text text-anchor="middle" x="268.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setCameraZFar</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node32 -->
-<g id="edge34" class="edge">
-<title>Node1&#45;&gt;Node32</title>
+<!-- Node1&#45;&gt;Node31 -->
+<g id="edge33" class="edge">
+<title>Node1&#45;&gt;Node31</title>
 <path fill="none" stroke="midnightblue" d="M136.49,-98.47C156.54,-93.27 179.17,-87.4 199.92,-82.02"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="200.82,-85.4 209.62,-79.51 199.06,-78.63 200.82,-85.4"/>
 </g>
-<!-- Node33 -->
-<g id="node33" class="node">
-<title>Node33</title>
-<g id="a_node33"><a xlink:href="classRa_1_1Gui_1_1CameraManipulator.html#a185e3ba5f2743f4b020afef74d7426ac" target="_top" xlink:title=" ">
+<!-- Node32 -->
+<g id="node32" class="node">
+<title>Node32</title>
+<g id="a_node32"><a xlink:href="classRa_1_1Gui_1_1CameraManipulator.html#a185e3ba5f2743f4b020afef74d7426ac" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="191,-0.5 191,-30.5 346,-30.5 346,-0.5 191,-0.5"/>
 <text text-anchor="start" x="199" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::CameraManipulator</text>
 <text text-anchor="middle" x="268.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setCameraZNear</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node33 -->
-<g id="edge35" class="edge">
-<title>Node1&#45;&gt;Node33</title>
+<!-- Node1&#45;&gt;Node32 -->
+<g id="edge34" class="edge">
+<title>Node1&#45;&gt;Node32</title>
 <path fill="none" stroke="midnightblue" d="M97.83,-98.36C119.49,-81.99 156.15,-56.03 191,-39.5 195,-37.6 199.18,-35.81 203.45,-34.12"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="204.73,-37.37 212.87,-30.58 202.28,-30.82 204.73,-37.37"/>
 </g>
@@ -149,461 +149,448 @@ var sectionId = 'dynsection-2';
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#ae1956b0396dadd84f55a12f2160e5671" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="412,-430 412,-471 537,-471 537,-430 412,-430"/>
-<text text-anchor="start" x="420" y="-459" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="start" x="420" y="-448" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
-<text text-anchor="middle" x="474.5" y="-437" font-family="Helvetica,sans-Serif" font-size="10.00">::addAttrib</text>
+<polygon fill="white" stroke="black" points="411.5,-430 411.5,-471 536.5,-471 536.5,-430 411.5,-430"/>
+<text text-anchor="start" x="419.5" y="-459" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="419.5" y="-448" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
+<text text-anchor="middle" x="474" y="-437" font-family="Helvetica,sans-Serif" font-size="10.00">::addAttrib</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M279.42,-312.68C297.05,-338.49 336.3,-390.99 382,-420.5 388.28,-424.55 395.15,-428.1 402.22,-431.21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="401.36,-434.64 411.95,-435.16 404,-428.15 401.36,-434.64"/>
+<path fill="none" stroke="midnightblue" d="M281,-325.51C299.73,-348.99 339.05,-394.39 382,-420.5 388.16,-424.24 394.83,-427.58 401.68,-430.54"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="400.51,-433.84 411.09,-434.34 403.13,-427.35 400.51,-433.84"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:href="classRa_1_1Engine_1_1Component.html#aea20d8186eb969b255cd83218a809178" target="_top" xlink:title="Add a new render object to the component. This adds the RO to the manager for drawing.">
-<polygon fill="white" stroke="black" points="409,-380.5 409,-410.5 540,-410.5 540,-380.5 409,-380.5"/>
-<text text-anchor="start" x="417" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Component</text>
-<text text-anchor="middle" x="474.5" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addRenderObject</text>
+<g id="a_node10"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c" target="_top" xlink:title="Add a new render object to the component. This adds the RO to the manager for drawing.">
+<polygon fill="white" stroke="black" points="392.5,-380.5 392.5,-410.5 555.5,-410.5 555.5,-380.5 392.5,-380.5"/>
+<text text-anchor="start" x="400.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="middle" x="474" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">Component::addRenderObject</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node2&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M288.75,-312.66C310.34,-329.01 346.94,-354.79 382,-370.5 387.39,-372.92 393.07,-375.14 398.85,-377.19"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="398.04,-380.61 408.63,-380.47 400.26,-373.97 398.04,-380.61"/>
+<path fill="none" stroke="midnightblue" d="M294.2,-325.74C316.5,-338.98 350.54,-357.97 382,-370.5 388.14,-372.94 394.6,-375.24 401.13,-377.37"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="400.12,-380.72 410.71,-380.37 402.22,-374.04 400.12,-380.72"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
-<g id="a_node12"><a xlink:href="classRa_1_1Engine_1_1RenderObject.html#af89f107cde1254df714a5131b050e477" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="404.5,-331.5 404.5,-361.5 544.5,-361.5 544.5,-331.5 404.5,-331.5"/>
-<text text-anchor="start" x="412.5" y="-349.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderObject</text>
-<text text-anchor="middle" x="474.5" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createRenderObject</text>
+<g id="a_node12"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#afe02bfade7fd3fe985d553fcf0a88410" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="394,-320 394,-361 554,-361 554,-320 394,-320"/>
+<text text-anchor="start" x="402" y="-349" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="start" x="402" y="-338" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderObject::createRender</text>
+<text text-anchor="middle" x="474" y="-327" font-family="Helvetica,sans-Serif" font-size="10.00">Object</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node12 -->
 <g id="edge11" class="edge">
 <title>Node2&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M325.24,-310.89C348.68,-316.52 376.24,-323.14 401.21,-329.14"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="400.45,-332.55 410.99,-331.49 402.09,-325.75 400.45,-332.55"/>
+<path fill="none" stroke="midnightblue" d="M323.77,-318.5C342.18,-321.21 363.27,-324.32 383.69,-327.33"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="383.23,-330.8 393.64,-328.8 384.25,-323.88 383.23,-330.8"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
-<g id="a_node14"><a xlink:href="classRa_1_1Engine_1_1AttribArrayDisplayable.html#acd5ce549b1358c2f319a884725633ed2" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="382,-282.5 382,-312.5 567,-312.5 567,-282.5 382,-282.5"/>
-<text text-anchor="start" x="390" y="-300.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::AttribArrayDisplayable</text>
-<text text-anchor="middle" x="474.5" y="-289.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getAttribName</text>
+<g id="a_node14"><a xlink:href="namespaceRa_1_1Engine_1_1Data_1_1ShaderConfigurationFactory.html#a0ecc004c00bff945aae8b673a738909f" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="405.5,-260 405.5,-301 542.5,-301 542.5,-260 405.5,-260"/>
+<text text-anchor="start" x="413.5" y="-289" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Data::Shader</text>
+<text text-anchor="start" x="413.5" y="-278" font-family="Helvetica,sans-Serif" font-size="10.00">ConfigurationFactory::</text>
+<text text-anchor="middle" x="474" y="-267" font-family="Helvetica,sans-Serif" font-size="10.00">getConfiguration</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node14 -->
 <g id="edge13" class="edge">
 <title>Node2&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M325.24,-297.5C339.57,-297.5 355.43,-297.5 371.3,-297.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="371.72,-301 381.72,-297.5 371.72,-294 371.72,-301"/>
+<path fill="none" stroke="midnightblue" d="M323.77,-302.5C345.71,-299.26 371.45,-295.47 395.32,-291.95"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="396.04,-295.38 405.42,-290.46 395.02,-288.46 396.04,-295.38"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
-<g id="a_node15"><a xlink:href="namespaceRa_1_1Engine_1_1ShaderConfigurationFactory.html#ad6fe3c60f8f2b9f9f5d8220ffe4d5ba6" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="388,-233.5 388,-263.5 561,-263.5 561,-233.5 388,-233.5"/>
-<text text-anchor="start" x="396" y="-251.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::ShaderConfiguration</text>
-<text text-anchor="middle" x="474.5" y="-240.5" font-family="Helvetica,sans-Serif" font-size="10.00">Factory::getConfiguration</text>
+<g id="a_node15"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a2b058b0fe2f9c2496b7805e0d5b15452" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="606.5,-247.5 606.5,-277.5 798.5,-277.5 798.5,-247.5 606.5,-247.5"/>
+<text text-anchor="start" x="614.5" y="-265.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="702.5" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::setConfiguration</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node15 -->
 <g id="edge14" class="edge">
 <title>Node2&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M325.24,-284.11C348.68,-278.48 376.24,-271.86 401.21,-265.86"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="402.09,-269.25 410.99,-263.51 400.45,-262.45 402.09,-269.25"/>
+<path fill="none" stroke="midnightblue" d="M290.2,-295.42C311.84,-280.65 347.43,-259.14 382,-250.5 458.29,-231.43 547.99,-237.14 612.89,-246.05"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="612.7,-249.55 623.09,-247.5 613.69,-242.62 612.7,-249.55"/>
 </g>
-<!-- Node16 -->
-<g id="node16" class="node">
-<title>Node16</title>
-<g id="a_node16"><a xlink:href="classRa_1_1Engine_1_1RenderTechnique.html#a22298207c6e70a98b829d6c5ead1a8e4" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="605,-228.5 605,-258.5 763,-258.5 763,-228.5 605,-228.5"/>
-<text text-anchor="start" x="613" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderTechnique</text>
-<text text-anchor="middle" x="684" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setConfiguration</text>
+<!-- Node17 -->
+<g id="node17" class="node">
+<title>Node17</title>
+<g id="a_node17"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="392,-112.5 392,-142.5 556,-142.5 556,-112.5 392,-112.5"/>
+<text text-anchor="start" x="400" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="474" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry::setIndices</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node16 -->
-<g id="edge15" class="edge">
-<title>Node2&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M285.81,-282.24C306.37,-264.13 343.7,-234.97 382,-223.5 460.66,-199.95 555.86,-212.74 617.84,-226.2"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="617.35,-229.68 627.88,-228.45 618.88,-222.85 617.35,-229.68"/>
+<!-- Node2&#45;&gt;Node17 -->
+<g id="edge16" class="edge">
+<title>Node2&#45;&gt;Node17</title>
+<path fill="none" stroke="midnightblue" d="M276.01,-295.25C290.32,-263.58 327.63,-190.51 382,-152.5 384.75,-150.58 387.65,-148.8 390.65,-147.16"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="392.45,-150.17 399.9,-142.64 389.38,-143.88 392.45,-150.17"/>
 </g>
 <!-- Node18 -->
 <g id="node18" class="node">
 <title>Node18</title>
-<g id="a_node18"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="392.5,-96.5 392.5,-126.5 556.5,-126.5 556.5,-96.5 392.5,-96.5"/>
-<text text-anchor="start" x="400.5" y="-114.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="474.5" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry::setIndices</text>
+<g id="a_node18"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a854a52959e785430e0e81ed9c7ae2c0d" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="382,-599.5 382,-629.5 566,-629.5 566,-599.5 382,-599.5"/>
+<text text-anchor="start" x="390" y="-617.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="474" y="-606.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderObject::setLocalTransform</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node18 -->
 <g id="edge17" class="edge">
 <title>Node2&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M278.15,-282.37C299.2,-246.06 353.45,-155.46 382,-135.5 384.12,-134.02 386.33,-132.63 388.6,-131.32"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="390.34,-134.36 397.65,-126.7 387.16,-128.13 390.34,-134.36"/>
+<path fill="none" stroke="midnightblue" d="M270.91,-325.62C276.12,-372.53 298.55,-516.82 382,-590.5 383.35,-591.69 384.75,-592.82 386.19,-593.9"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="384.6,-597.04 394.91,-599.48 388.38,-591.14 384.6,-597.04"/>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
-<g id="a_node19"><a xlink:href="classRa_1_1Engine_1_1RenderObject.html#a2d6a1bc2b7646fe0912035a2ece24864" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="404.5,-599.5 404.5,-629.5 544.5,-629.5 544.5,-599.5 404.5,-599.5"/>
-<text text-anchor="start" x="412.5" y="-617.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderObject</text>
-<text text-anchor="middle" x="474.5" y="-606.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setLocalTransform</text>
+<g id="a_node19"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aea01582e625ea544466c8c10d825a0c4" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="399,-550.5 399,-580.5 549,-580.5 549,-550.5 399,-550.5"/>
+<text text-anchor="start" x="407" y="-568.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="474" y="-557.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderObject::setMaterial</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node19 -->
 <g id="edge18" class="edge">
 <title>Node2&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M270.61,-312.63C274.98,-360.94 295.34,-512.89 382,-590.5 385.95,-594.04 390.36,-597.07 395.05,-599.66"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="393.84,-602.96 404.37,-604.11 396.86,-596.64 393.84,-602.96"/>
+<path fill="none" stroke="midnightblue" d="M272.37,-325.5C281.04,-366.54 310.81,-481.5 382,-540.5 384.44,-542.53 387.04,-544.39 389.75,-546.1"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="388.3,-549.3 398.75,-551.07 391.69,-543.17 388.3,-549.3"/>
 </g>
 <!-- Node20 -->
 <g id="node20" class="node">
 <title>Node20</title>
-<g id="a_node20"><a xlink:href="classRa_1_1Engine_1_1RenderObject.html#a6b34af1c9c64f5c9a8fded701cf5bf09" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="404.5,-550.5 404.5,-580.5 544.5,-580.5 544.5,-550.5 404.5,-550.5"/>
-<text text-anchor="start" x="412.5" y="-568.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderObject</text>
-<text text-anchor="middle" x="474.5" y="-557.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setMaterial</text>
+<g id="a_node20"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a13f5f243daad1b13a6bec5efe3831c25" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="383,-162 383,-203 565,-203 565,-162 383,-162"/>
+<text text-anchor="start" x="391" y="-191" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="start" x="391" y="-180" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::setParameters</text>
+<text text-anchor="middle" x="474" y="-169" font-family="Helvetica,sans-Serif" font-size="10.00">Provider</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node20 -->
 <g id="edge19" class="edge">
 <title>Node2&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M271.98,-312.72C279.77,-355.5 307.81,-477.76 382,-540.5 385.98,-543.87 390.38,-546.79 395.04,-549.32"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="393.72,-552.56 404.25,-553.71 396.73,-546.24 393.72,-552.56"/>
+<path fill="none" stroke="midnightblue" d="M284.66,-295.18C305.2,-275.12 343.71,-239.88 382,-217.5 388.33,-213.8 395.12,-210.35 402.04,-207.17"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="403.77,-210.23 411.52,-203.01 400.96,-203.83 403.77,-210.23"/>
 </g>
-<!-- Node21 -->
-<g id="node21" class="node">
-<title>Node21</title>
-<g id="a_node21"><a xlink:href="classRa_1_1Engine_1_1RenderTechnique.html#a92778b063ae626dfac4a18d0f69fec5a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="395.5,-145.5 395.5,-175.5 553.5,-175.5 553.5,-145.5 395.5,-145.5"/>
-<text text-anchor="start" x="403.5" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderTechnique</text>
-<text text-anchor="middle" x="474.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setParametersProvider</text>
+<!-- Node24 -->
+<g id="node24" class="node">
+<title>Node24</title>
+<g id="a_node24"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" target="_top" xlink:title="Set vertices.">
+<polygon fill="white" stroke="black" points="411.5,-490 411.5,-531 536.5,-531 536.5,-490 411.5,-490"/>
+<text text-anchor="start" x="419.5" y="-519" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="419.5" y="-508" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
+<text text-anchor="middle" x="474" y="-497" font-family="Helvetica,sans-Serif" font-size="10.00">::setVertices</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node21 -->
-<g id="edge20" class="edge">
-<title>Node2&#45;&gt;Node21</title>
-<path fill="none" stroke="midnightblue" d="M281.71,-282.15C300.79,-259.13 339.89,-215.66 382,-190.5 389.12,-186.25 396.91,-182.52 404.85,-179.27"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="406.13,-182.52 414.21,-175.67 403.62,-175.99 406.13,-182.52"/>
+<!-- Node2&#45;&gt;Node24 -->
+<g id="edge26" class="edge">
+<title>Node2&#45;&gt;Node24</title>
+<path fill="none" stroke="midnightblue" d="M275.42,-325.67C289.1,-358.74 326.03,-437.75 382,-480.5 388.13,-485.19 395.04,-489.16 402.22,-492.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="400.87,-495.75 411.44,-496.47 403.63,-489.32 400.87,-495.75"/>
 </g>
-<!-- Node25 -->
-<g id="node25" class="node">
-<title>Node25</title>
-<g id="a_node25"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a887411177386edbcdc35d0c6bf78a83a" target="_top" xlink:title="Set vertices.">
-<polygon fill="white" stroke="black" points="412,-490 412,-531 537,-531 537,-490 412,-490"/>
-<text text-anchor="start" x="420" y="-519" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="start" x="420" y="-508" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
-<text text-anchor="middle" x="474.5" y="-497" font-family="Helvetica,sans-Serif" font-size="10.00">::setVertices</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node25 -->
-<g id="edge27" class="edge">
-<title>Node2&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M274.61,-312.52C287.19,-347.3 323.01,-433.94 382,-480.5 388.18,-485.38 395.19,-489.48 402.5,-492.92"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="401.33,-496.22 411.9,-496.94 404.08,-489.79 401.33,-496.22"/>
-</g>
-<!-- Node2&#45;&gt;Node29 -->
-<g id="edge31" class="edge">
-<title>Node2&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M279.66,-282.39C295.06,-259.15 324.78,-212.96 346,-171.5 364.7,-134.98 350.98,-113.35 382,-86.5 389.54,-79.97 398.66,-75.19 408.18,-71.69"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="409.33,-75 417.79,-68.61 407.19,-68.33 409.33,-75"/>
+<!-- Node2&#45;&gt;Node28 -->
+<g id="edge30" class="edge">
+<title>Node2&#45;&gt;Node28</title>
+<path fill="none" stroke="midnightblue" d="M278.1,-295.13C292.38,-269.57 321.8,-216.66 346,-171.5 362.34,-141.01 354.97,-124.08 382,-102.5 389.85,-96.23 399.18,-91.59 408.83,-88.15"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="410.05,-91.44 418.54,-85.1 407.95,-84.76 410.05,-91.44"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ac2d3cdc360ffe1904a15ff8504de95b8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="603,-435.5 603,-465.5 765,-465.5 765,-435.5 603,-435.5"/>
-<text text-anchor="start" x="611" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
-<text text-anchor="middle" x="684" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addAttrib</text>
+<polygon fill="white" stroke="black" points="621.5,-435.5 621.5,-465.5 783.5,-465.5 783.5,-435.5 621.5,-435.5"/>
+<text text-anchor="start" x="629.5" y="-453.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
+<text text-anchor="middle" x="702.5" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addAttrib</text>
 </a>
 </g>
 </g>
 <!-- Node3&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node3&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M537.2,-450.5C554.61,-450.5 573.93,-450.5 592.66,-450.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="592.69,-454 602.69,-450.5 592.69,-447 592.69,-454"/>
+<path fill="none" stroke="midnightblue" d="M536.59,-450.5C559.5,-450.5 586.01,-450.5 610.97,-450.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="611.19,-454 621.19,-450.5 611.19,-447 611.19,-454"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae61e2c70f407d49d854ee4b98a39121f" target="_top" xlink:title="Return true if h correspond to an existing attribute in *this.">
-<polygon fill="white" stroke="black" points="801,-381.5 801,-411.5 963,-411.5 963,-381.5 801,-381.5"/>
-<text text-anchor="start" x="809" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
-<text text-anchor="middle" x="882" y="-388.5" font-family="Helvetica,sans-Serif" font-size="10.00">::isValid</text>
+<polygon fill="white" stroke="black" points="855,-381.5 855,-411.5 1017,-411.5 1017,-381.5 855,-381.5"/>
+<text text-anchor="start" x="863" y="-399.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
+<text text-anchor="middle" x="936" y="-388.5" font-family="Helvetica,sans-Serif" font-size="10.00">::isValid</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M739.6,-435.46C763.5,-428.87 791.71,-421.1 816.63,-414.24"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="817.65,-417.59 826.36,-411.55 815.79,-410.84 817.65,-417.59"/>
+<path fill="none" stroke="midnightblue" d="M767.99,-435.46C796.71,-428.76 830.72,-420.82 860.53,-413.87"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="861.52,-417.24 870.46,-411.55 859.93,-410.42 861.52,-417.24"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Observable.html#a7e5fe761726d56a51f95192eb6555f8f" target="_top" xlink:title="Notify (i.e. call) each attached observer with argument p.">
-<polygon fill="white" stroke="black" points="808,-431 808,-472 956,-472 956,-431 808,-431"/>
-<text text-anchor="start" x="816" y="-460" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
-<text text-anchor="start" x="816" y="-449" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const std::string &amp; &gt;</text>
-<text text-anchor="middle" x="882" y="-438" font-family="Helvetica,sans-Serif" font-size="10.00">::notify</text>
+<polygon fill="white" stroke="black" points="862,-431 862,-472 1010,-472 1010,-431 862,-431"/>
+<text text-anchor="start" x="870" y="-460" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Observable</text>
+<text text-anchor="start" x="870" y="-449" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; const std::string &amp; &gt;</text>
+<text text-anchor="middle" x="936" y="-438" font-family="Helvetica,sans-Serif" font-size="10.00">::notify</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node9 -->
 <g id="edge8" class="edge">
 <title>Node4&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M765,-450.91C775.75,-450.96 786.8,-451.02 797.61,-451.07"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="797.86,-454.58 807.87,-451.13 797.89,-447.58 797.86,-454.58"/>
+<path fill="none" stroke="midnightblue" d="M783.82,-450.85C805.79,-450.94 829.64,-451.04 851.77,-451.14"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="851.79,-454.64 861.8,-451.18 851.82,-447.64 851.79,-454.64"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribHandle.html#a17afbd6718234d480c05258369bdfde9" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="999,-405.5 999,-435.5 1153,-435.5 1153,-405.5 999,-405.5"/>
-<text text-anchor="start" x="1007" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribHandle</text>
-<text text-anchor="middle" x="1076" y="-412.5" font-family="Helvetica,sans-Serif" font-size="10.00">::attribName</text>
+<polygon fill="white" stroke="black" points="1069,-405.5 1069,-435.5 1223,-435.5 1223,-405.5 1069,-405.5"/>
+<text text-anchor="start" x="1077" y="-423.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribHandle</text>
+<text text-anchor="middle" x="1146" y="-412.5" font-family="Helvetica,sans-Serif" font-size="10.00">::attribName</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M963.03,-406.5C971.54,-407.57 980.22,-408.65 988.79,-409.72"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="988.43,-413.21 998.79,-410.97 989.3,-406.26 988.43,-413.21"/>
+<path fill="none" stroke="midnightblue" d="M1017.12,-405.74C1030.75,-407.32 1044.96,-408.96 1058.74,-410.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1058.35,-414.02 1068.68,-411.69 1059.15,-407.07 1058.35,-414.02"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Index.html#a771f93efd49538950e3cb9e57e46fbaf" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1016.5,-356.5 1016.5,-386.5 1135.5,-386.5 1135.5,-356.5 1016.5,-356.5"/>
-<text text-anchor="start" x="1024.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
-<text text-anchor="middle" x="1076" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Invalid</text>
+<polygon fill="white" stroke="black" points="1086.5,-356.5 1086.5,-386.5 1205.5,-386.5 1205.5,-356.5 1086.5,-356.5"/>
+<text text-anchor="start" x="1094.5" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
+<text text-anchor="middle" x="1146" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Invalid</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node5&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M963.03,-386.08C977.44,-384.2 992.34,-382.26 1006.39,-380.43"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1006.98,-383.89 1016.45,-379.12 1006.08,-376.94 1006.98,-383.89"/>
+<path fill="none" stroke="midnightblue" d="M1017.12,-386.87C1036.62,-384.53 1057.3,-382.04 1076.22,-379.77"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1076.72,-383.23 1086.23,-378.56 1075.89,-376.28 1076.72,-383.23"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
 <g id="a_node8"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Index.html#ab3376097b792b1ac2068c6da1cb6c8e4" target="_top" xlink:title="CONSTRUCTOR.">
-<polygon fill="white" stroke="black" points="1189,-356.5 1189,-386.5 1308,-386.5 1308,-356.5 1189,-356.5"/>
-<text text-anchor="start" x="1197" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
-<text text-anchor="middle" x="1248.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Index</text>
+<polygon fill="white" stroke="black" points="1259,-356.5 1259,-386.5 1378,-386.5 1378,-356.5 1259,-356.5"/>
+<text text-anchor="start" x="1267" y="-374.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
+<text text-anchor="middle" x="1318.5" y="-363.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Index</text>
 </a>
 </g>
 </g>
 <!-- Node7&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M1135.68,-371.5C1149.47,-371.5 1164.3,-371.5 1178.51,-371.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1178.72,-375 1188.72,-371.5 1178.72,-368 1178.72,-375"/>
+<path fill="none" stroke="midnightblue" d="M1205.68,-371.5C1219.47,-371.5 1234.3,-371.5 1248.51,-371.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1248.72,-375 1258.72,-371.5 1248.72,-368 1248.72,-375"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" target="_top" xlink:title="Shortcut to access the render object manager.">
-<polygon fill="white" stroke="black" points="618.5,-380.5 618.5,-410.5 749.5,-410.5 749.5,-380.5 618.5,-380.5"/>
-<text text-anchor="start" x="626.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Component</text>
-<text text-anchor="middle" x="684" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getRoMgr</text>
+<g id="a_node11"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1Component.html#a32a4bfb4e9b24644d680db3852099ff3" target="_top" xlink:title="Shortcut to access the render object manager.">
+<polygon fill="white" stroke="black" points="639.5,-380.5 639.5,-410.5 765.5,-410.5 765.5,-380.5 639.5,-380.5"/>
+<text text-anchor="start" x="647.5" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="middle" x="702.5" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">Component::getRoMgr</text>
 </a>
 </g>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
 <g id="edge10" class="edge">
 <title>Node10&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M540.02,-395.5C561.58,-395.5 585.79,-395.5 608.08,-395.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="608.17,-399 618.17,-395.5 608.17,-392 608.17,-399"/>
+<path fill="none" stroke="midnightblue" d="M555.81,-395.5C579.72,-395.5 605.73,-395.5 629.07,-395.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="629.24,-399 639.24,-395.5 629.24,-392 629.24,-399"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="classRa_1_1Engine_1_1RenderObject.html#acf300c8fdb55fee54d27b3fb46a1e523" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="614,-331.5 614,-361.5 754,-361.5 754,-331.5 614,-331.5"/>
-<text text-anchor="start" x="622" y="-349.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderObject</text>
-<text text-anchor="middle" x="684" y="-338.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderObject</text>
+<g id="a_node13"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ad09f179ed5641c53f3c027a94855f6ae" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="622,-325.5 622,-355.5 783,-355.5 783,-325.5 622,-325.5"/>
+<text text-anchor="start" x="630" y="-343.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="702.5" y="-332.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderObject::RenderObject</text>
 </a>
 </g>
 </g>
 <!-- Node12&#45;&gt;Node13 -->
 <g id="edge12" class="edge">
 <title>Node12&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M544.59,-346.5C563.57,-346.5 584.29,-346.5 603.79,-346.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="603.85,-350 613.85,-346.5 603.85,-343 603.85,-350"/>
+<path fill="none" stroke="midnightblue" d="M554.22,-340.5C572.82,-340.5 592.77,-340.5 611.79,-340.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="611.94,-344 621.94,-340.5 611.94,-337 611.94,-344"/>
 </g>
-<!-- Node17 -->
-<g id="node17" class="node">
-<title>Node17</title>
-<g id="a_node17"><a xlink:href="classRa_1_1Engine_1_1RenderTechnique.html#a49da5c66a13007251db4e1511daf3852" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="803,-211.5 803,-241.5 961,-241.5 961,-211.5 803,-211.5"/>
-<text text-anchor="start" x="811" y="-229.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderTechnique</text>
-<text text-anchor="middle" x="882" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setDirty</text>
+<!-- Node16 -->
+<g id="node16" class="node">
+<title>Node16</title>
+<g id="a_node16"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#af3b58075507144820fe06f6a129b0107" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="860.5,-230.5 860.5,-260.5 1011.5,-260.5 1011.5,-230.5 860.5,-230.5"/>
+<text text-anchor="start" x="868.5" y="-248.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="936" y="-237.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::setDirty</text>
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node17 -->
-<g id="edge16" class="edge">
-<title>Node16&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M763.03,-236.73C772.77,-235.89 782.79,-235.02 792.68,-234.16"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="793.26,-237.62 802.92,-233.27 792.66,-230.65 793.26,-237.62"/>
+<!-- Node15&#45;&gt;Node16 -->
+<g id="edge15" class="edge">
+<title>Node15&#45;&gt;Node16</title>
+<path fill="none" stroke="midnightblue" d="M798.66,-255.51C815.7,-254.26 833.36,-252.96 850.09,-251.74"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="850.65,-255.2 860.37,-250.98 850.14,-248.22 850.65,-255.2"/>
+</g>
+<!-- Node21 -->
+<g id="node21" class="node">
+<title>Node21</title>
+<g id="a_node21"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a61ce4565cdb1afebe02e0c3a5da0b5a2" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="602,-159.5 602,-189.5 803,-189.5 803,-159.5 602,-159.5"/>
+<text text-anchor="start" x="610" y="-177.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="702.5" y="-166.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::addPassProperties</text>
+</a>
+</g>
+</g>
+<!-- Node20&#45;&gt;Node21 -->
+<g id="edge20" class="edge">
+<title>Node20&#45;&gt;Node21</title>
+<path fill="none" stroke="midnightblue" d="M565.17,-179.32C573.95,-179 582.93,-178.69 591.88,-178.37"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="592.09,-181.87 601.96,-178.02 591.84,-174.87 592.09,-181.87"/>
 </g>
 <!-- Node22 -->
 <g id="node22" class="node">
 <title>Node22</title>
-<g id="a_node22"><a xlink:href="classRa_1_1Engine_1_1RenderTechnique.html#a78ba61b1637743a35f058eeefa631f8a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="605,-140.5 605,-170.5 763,-170.5 763,-140.5 605,-140.5"/>
-<text text-anchor="start" x="613" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderTechnique</text>
-<text text-anchor="middle" x="684" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addPassProperties</text>
+<g id="a_node22"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html#a80ed342917f6314ebe193cd311cfc8cd" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="839,-177.5 839,-207.5 1033,-207.5 1033,-177.5 839,-177.5"/>
+<text text-anchor="start" x="847" y="-195.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="936" y="-184.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderTechnique::hasConfiguration</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node22 -->
-<g id="edge21" class="edge">
-<title>Node21&#45;&gt;Node22</title>
-<path fill="none" stroke="midnightblue" d="M553.65,-158.62C567.02,-158.29 580.99,-157.96 594.6,-157.63"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="595.01,-161.12 604.92,-157.38 594.84,-154.12 595.01,-161.12"/>
+<!-- Node20&#45;&gt;Node22 -->
+<g id="edge24" class="edge">
+<title>Node20&#45;&gt;Node22</title>
+<path fill="none" stroke="midnightblue" d="M565.06,-195.26C577.45,-196.6 590.02,-197.75 602,-198.5 677.59,-203.24 763.01,-201.56 828.41,-198.79"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="828.9,-202.27 838.73,-198.33 828.59,-195.28 828.9,-202.27"/>
 </g>
 <!-- Node23 -->
 <g id="node23" class="node">
 <title>Node23</title>
-<g id="a_node23"><a xlink:href="classRa_1_1Engine_1_1RenderTechnique.html#ad1d5a9d900e46594224f5b8df142081f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="803,-158.5 803,-188.5 961,-188.5 961,-158.5 803,-158.5"/>
-<text text-anchor="start" x="811" y="-176.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderTechnique</text>
-<text text-anchor="middle" x="882" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">::hasConfiguration</text>
+<g id="a_node23"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" target="_top" xlink:title="VALID.">
+<polygon fill="white" stroke="black" points="876.5,-120.5 876.5,-150.5 995.5,-150.5 995.5,-120.5 876.5,-120.5"/>
+<text text-anchor="start" x="884.5" y="-138.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
+<text text-anchor="middle" x="936" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">::isValid</text>
 </a>
 </g>
+</g>
+<!-- Node20&#45;&gt;Node23 -->
+<g id="edge25" class="edge">
+<title>Node20&#45;&gt;Node23</title>
+<path fill="none" stroke="midnightblue" d="M543,-162C561.93,-157.06 582.62,-152.39 602,-149.5 692.64,-135.98 798.57,-133.83 866.19,-134.15"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="866.27,-137.66 876.29,-134.22 866.32,-130.66 866.27,-137.66"/>
+</g>
+<!-- Node21&#45;&gt;Node16 -->
+<g id="edge23" class="edge">
+<title>Node21&#45;&gt;Node16</title>
+<path fill="none" stroke="midnightblue" d="M751.76,-189.55C777.62,-197.59 810.03,-207.64 839,-216.5 850.58,-220.04 862.95,-223.8 874.82,-227.39"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="874.07,-230.82 884.66,-230.37 876.1,-224.12 874.07,-230.82"/>
+</g>
+<!-- Node21&#45;&gt;Node22 -->
+<g id="edge21" class="edge">
+<title>Node21&#45;&gt;Node22</title>
+<path fill="none" stroke="midnightblue" d="M803.02,-182.24C811.56,-182.9 820.23,-183.58 828.82,-184.24"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="828.62,-187.74 838.87,-185.03 829.17,-180.76 828.62,-187.74"/>
 </g>
 <!-- Node21&#45;&gt;Node23 -->
-<g id="edge25" class="edge">
+<g id="edge22" class="edge">
 <title>Node21&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M553.51,-173.99C569.81,-176.29 586.93,-178.31 603,-179.5 674.8,-184.82 693.02,-181.36 765,-179.5 773.96,-179.27 783.3,-178.94 792.62,-178.55"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="792.88,-182.04 802.71,-178.1 792.57,-175.05 792.88,-182.04"/>
+<path fill="none" stroke="midnightblue" d="M792.67,-159.48C817.08,-155.37 843.16,-150.97 866.23,-147.08"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="866.99,-150.51 876.27,-145.39 865.82,-143.6 866.99,-150.51"/>
 </g>
-<!-- Node24 -->
-<g id="node24" class="node">
-<title>Node24</title>
-<g id="a_node24"><a xlink:href="classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" target="_top" xlink:title="VALID.">
-<polygon fill="white" stroke="black" points="822.5,-101.5 822.5,-131.5 941.5,-131.5 941.5,-101.5 822.5,-101.5"/>
-<text text-anchor="start" x="830.5" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::Index</text>
-<text text-anchor="middle" x="882" y="-108.5" font-family="Helvetica,sans-Serif" font-size="10.00">::isValid</text>
+<!-- Node25 -->
+<g id="node25" class="node">
+<title>Node25</title>
+<g id="a_node25"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="621.5,-548.5 621.5,-578.5 783.5,-578.5 783.5,-548.5 621.5,-548.5"/>
+<text text-anchor="start" x="629.5" y="-566.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
+<text text-anchor="middle" x="702.5" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setAttrib</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node24 -->
-<g id="edge26" class="edge">
-<title>Node21&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M529.69,-145.47C552.19,-139.82 578.68,-133.94 603,-130.5 673.83,-120.47 755.71,-117.36 812.16,-116.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="812.45,-120.01 822.4,-116.39 812.36,-113.01 812.45,-120.01"/>
-</g>
-<!-- Node22&#45;&gt;Node17 -->
-<g id="edge24" class="edge">
-<title>Node22&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M726.57,-170.56C756.71,-181.48 797.66,-196.31 829.82,-207.96"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="828.9,-211.35 839.49,-211.46 831.28,-204.77 828.9,-211.35"/>
-</g>
-<!-- Node22&#45;&gt;Node23 -->
-<g id="edge22" class="edge">
-<title>Node22&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M763.03,-162.67C772.77,-163.56 782.79,-164.48 792.68,-165.39"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="792.64,-168.9 802.92,-166.33 793.28,-161.93 792.64,-168.9"/>
-</g>
-<!-- Node22&#45;&gt;Node24 -->
-<g id="edge23" class="edge">
-<title>Node22&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M760.5,-140.48C777.47,-137.1 795.39,-133.54 812.07,-130.22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="813.15,-133.57 822.28,-128.18 811.79,-126.7 813.15,-133.57"/>
+<!-- Node24&#45;&gt;Node25 -->
+<g id="edge27" class="edge">
+<title>Node24&#45;&gt;Node25</title>
+<path fill="none" stroke="midnightblue" d="M536.59,-524.91C564.6,-531.47 597.98,-539.28 627.36,-546.15"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="626.62,-549.57 637.15,-548.44 628.21,-542.76 626.62,-549.57"/>
 </g>
 <!-- Node26 -->
 <g id="node26" class="node">
 <title>Node26</title>
-<g id="a_node26"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="603,-548.5 603,-578.5 765,-578.5 765,-548.5 603,-548.5"/>
-<text text-anchor="start" x="611" y="-566.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
-<text text-anchor="middle" x="684" y="-555.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setAttrib</text>
+<g id="a_node26"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" target="_top" xlink:title="Access the vertices positions.">
+<polygon fill="white" stroke="black" points="640,-488 640,-529 765,-529 765,-488 640,-488"/>
+<text text-anchor="start" x="648" y="-517" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="start" x="648" y="-506" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
+<text text-anchor="middle" x="702.5" y="-495" font-family="Helvetica,sans-Serif" font-size="10.00">::vertices</text>
 </a>
 </g>
 </g>
-<!-- Node25&#45;&gt;Node26 -->
+<!-- Node24&#45;&gt;Node26 -->
 <g id="edge28" class="edge">
-<title>Node25&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M537.2,-526.26C561.45,-532.45 589.4,-539.59 614.3,-545.95"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="613.48,-549.36 624.04,-548.44 615.21,-542.57 613.48,-549.36"/>
+<title>Node24&#45;&gt;Node26</title>
+<path fill="none" stroke="midnightblue" d="M536.59,-509.96C565.3,-509.7 599.65,-509.4 629.55,-509.14"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="629.95,-512.63 639.92,-509.04 629.89,-505.63 629.95,-512.63"/>
 </g>
 <!-- Node27 -->
 <g id="node27" class="node">
 <title>Node27</title>
-<g id="a_node27"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" target="_top" xlink:title="Access the vertices positions.">
-<polygon fill="white" stroke="black" points="621.5,-488 621.5,-529 746.5,-529 746.5,-488 621.5,-488"/>
-<text text-anchor="start" x="629.5" y="-517" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="start" x="629.5" y="-506" font-family="Helvetica,sans-Serif" font-size="10.00">::AttribArrayGeometry</text>
-<text text-anchor="middle" x="684" y="-495" font-family="Helvetica,sans-Serif" font-size="10.00">::vertices</text>
+<g id="a_node27"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="855,-493.5 855,-523.5 1017,-523.5 1017,-493.5 855,-493.5"/>
+<text text-anchor="start" x="863" y="-511.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
+<text text-anchor="middle" x="936" y="-500.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getAttrib</text>
 </a>
 </g>
 </g>
-<!-- Node25&#45;&gt;Node27 -->
+<!-- Node26&#45;&gt;Node27 -->
 <g id="edge29" class="edge">
-<title>Node25&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M537.2,-509.91C560.4,-509.68 586.99,-509.43 611.04,-509.19"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="611.22,-512.69 621.18,-509.1 611.15,-505.69 611.22,-512.69"/>
+<title>Node26&#45;&gt;Node27</title>
+<path fill="none" stroke="midnightblue" d="M765.23,-508.5C789.58,-508.5 818.04,-508.5 844.62,-508.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="844.7,-512 854.7,-508.5 844.7,-505 844.7,-512"/>
 </g>
-<!-- Node28 -->
-<g id="node28" class="node">
-<title>Node28</title>
-<g id="a_node28"><a xlink:href="classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="801,-493.5 801,-523.5 963,-523.5 963,-493.5 801,-493.5"/>
-<text text-anchor="start" x="809" y="-511.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Utils::AttribManager</text>
-<text text-anchor="middle" x="882" y="-500.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getAttrib</text>
+<!-- Node29 -->
+<g id="node29" class="node">
+<title>Node29</title>
+<g id="a_node29"><a xlink:href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#af072f7f95cd30b95d66451887da6a37c" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="631,-63.5 631,-93.5 774,-93.5 774,-63.5 631,-63.5"/>
+<text text-anchor="start" x="639" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Rendering</text>
+<text text-anchor="middle" x="702.5" y="-70.5" font-family="Helvetica,sans-Serif" font-size="10.00">::RenderObject::setVisible</text>
 </a>
 </g>
 </g>
-<!-- Node27&#45;&gt;Node28 -->
-<g id="edge30" class="edge">
-<title>Node27&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M746.75,-508.5C760.7,-508.5 775.79,-508.5 790.64,-508.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="790.87,-512 800.87,-508.5 790.87,-505 790.87,-512"/>
-</g>
-<!-- Node30 -->
-<g id="node30" class="node">
-<title>Node30</title>
-<g id="a_node30"><a xlink:href="classRa_1_1Engine_1_1RenderObject.html#a62e0eb3a7de5a7d352b565a28260cc06" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="614,-47.5 614,-77.5 754,-77.5 754,-47.5 614,-47.5"/>
-<text text-anchor="start" x="622" y="-65.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::RenderObject</text>
-<text text-anchor="middle" x="684" y="-54.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setVisible</text>
-</a>
-</g>
-</g>
-<!-- Node29&#45;&gt;Node30 -->
-<g id="edge32" class="edge">
-<title>Node29&#45;&gt;Node30</title>
-<path fill="none" stroke="midnightblue" d="M531.11,-62.5C553.37,-62.5 579.45,-62.5 603.64,-62.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="603.88,-66 613.88,-62.5 603.88,-59 603.88,-66"/>
+<!-- Node28&#45;&gt;Node29 -->
+<g id="edge31" class="edge">
+<title>Node28&#45;&gt;Node29</title>
+<path fill="none" stroke="midnightblue" d="M529.25,-78.5C556.65,-78.5 590.44,-78.5 620.81,-78.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="620.97,-82 630.97,-78.5 620.97,-75 620.97,-82"/>
 </g>
 </g>
 </svg>

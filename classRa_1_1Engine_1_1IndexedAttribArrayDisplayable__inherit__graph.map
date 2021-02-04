@@ -1,6 +1,0 @@
-<map id="Ra::Engine::IndexedAttribArrayDisplayable&lt; I &gt;" name="Ra::Engine::IndexedAttribArrayDisplayable&lt; I &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="145,784,345,891"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1AttribArrayDisplayable.html" title=" " alt="" coords="5,292,252,736"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Displayable.html" title=" " alt="" coords="35,5,222,244"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes." alt="" coords="276,461,445,567"/>
-</map>

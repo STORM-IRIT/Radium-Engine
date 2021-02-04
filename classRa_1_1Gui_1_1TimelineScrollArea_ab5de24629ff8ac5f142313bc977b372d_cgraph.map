@@ -1,0 +1,4 @@
+<map id="Ra::Gui::TimelineScrollArea::onDrawRuler" name="Ra::Gui::TimelineScrollArea::onDrawRuler">
+<area shape="rect" id="node1" title="Force redraw with the given width." alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node2" href="$namespaceRa_1_1Core_1_1Math.html#ace580f6f34d6a778e2a6a0c7c81646b5" title="Component&#45;wise ceil() function on a floating&#45;point vector." alt="" coords="253,13,403,39"/>
+</map>

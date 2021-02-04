@@ -1,0 +1,11 @@
+<map id="Ra::Gui::Gizmo::findPointOnAxis" name="Ra::Gui::Gizmo::findPointOnAxis">
+<area shape="rect" id="node1" title="Find a mouse&#45;designed point on a 3D axis." alt="" coords="5,104,189,145"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#af59608b2ef700aac86dbcb57496c9397" title="Return the direction the camera is looking at." alt="" coords="259,5,420,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#ac9a4710cce5506c5ebfde703e7d80457" title=" " alt="" coords="237,71,441,112"/>
+<area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a33ddf1fbfdb03b05caa9fcc4ee528b8d" title="Return the up vector." alt="" coords="259,136,420,177"/>
+<area shape="rect" id="node8" href="$namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286" title="Intersect a ray with an infinite plane defined by point A and normal." alt="" coords="264,201,415,243"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a4f4d78382a79c6e9c92114f6377d9b6d" title="Return the position." alt="" coords="489,39,644,80"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a30dad115cdad28bc80a9b28529153298" title="Return the point on the screen plane (near plane) represented by screen coordinates pix." alt="" coords="493,104,640,145"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a61a8e0be9ab8f68298233904701f151e" title="Return the projection matrix." alt="" coords="692,104,861,145"/>
+<area shape="rect" id="node9" href="$namespaceOpenMesh.html#a575b338f0fc9ecb5393d23e977e6ac38" title=" " alt="" coords="507,209,627,235"/>
+</map>

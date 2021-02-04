@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -168,22 +168,7 @@ Usage</h1>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md72"></a>
 Implementation note</h1>
 <p>The viewer is the main entry point to dispatch key and mouse event. The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.</p>
-<p>For instance see <code><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></code> <code>Viewer::mousePressEvent</code>: </p><div class="fragment"><div class="line">    <span class="keyword">auto</span> buttons   = <span class="keyword">event</span>-&gt;buttons();</div>
-<div class="line">    <span class="keyword">auto</span> modifiers = <span class="keyword">event</span>-&gt;modifiers();</div>
-<div class="line">    <span class="keyword">auto</span> key       = <a class="code" href="namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828">activeKey</a>();</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// nothing under mouse ? juste move the camera ...</span></div>
-<div class="line">    <span class="keywordflow">if</span> ( result.m_roIdx.isInvalid() )</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keywordflow">if</span> ( m_camera-&gt;handleMousePressEvent( event, buttons, modifiers, key ) )</div>
-<div class="line">        { m_activeContext = m_camera-&gt;mappingContext(); }</div>
-<div class="line">        <span class="keywordflow">else</span></div>
-<div class="line">        {</div>
-<div class="line">            <span class="comment">// should not pass here, since viewerContext is only for valid picking ...</span></div>
-<div class="line">            m_activeContext = <a class="code" href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">KeyMappingManageable::getContext</a>();</div>
-<div class="line">        }</div>
-<div class="line">    }</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md73"></a>
+<p>For instance see <code><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></code> <code>Viewer::mousePressEvent</code>: </p><div class="fragment"></div><!-- fragment --> <h1><a class="anchor" id="autotoc_md73"></a>
 Key mapping and inheritence.</h1>
 <p>If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:</p>
 <ul>
@@ -236,21 +221,20 @@ Limits</h1>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aaae0a0c0c419bd1dc8f0296214120a7d"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d">Ra::Gui::Viewer::setupKeyMappingCallbacks</a></div><div class="ttdeci">virtual void setupKeyMappingCallbacks()</div><div class="ttdoc">add observers to keyMappingManager for gizmo, camera and viewer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00067">Viewer.cpp:67</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_aaae0a0c0c419bd1dc8f0296214120a7d"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#aaae0a0c0c419bd1dc8f0296214120a7d">Ra::Gui::Viewer::setupKeyMappingCallbacks</a></div><div class="ttdeci">virtual void setupKeyMappingCallbacks()</div><div class="ttdoc">add observers to keyMappingManager for gizmo, camera and viewer.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00068">Viewer.cpp:68</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">Ra::Core::Utils::logINFO</a></div><div class="ttdeci">@ logINFO</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00018">Log.hpp:18</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html">Ra::Gui::KeyMappingManageable</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00193">KeyMappingManager.hpp:193</a></div></div>
 <div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00053">Viewer.hpp:53</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html">Ra::Gui::Viewer</a></div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00055">Viewer.hpp:55</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a22954323f435085f355701781f846cda"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a22954323f435085f355701781f846cda">Ra::Gui::KeyMappingManageable::getContext</a></div><div class="ttdeci">static KeyMappingManager::Context getContext()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00196">KeyMappingManager.hpp:196</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a4f126885bbb69f67ea65a54a8923a686"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a4f126885bbb69f67ea65a54a8923a686">Ra::Gui::KeyMappingManageable::setContext</a></div><div class="ttdeci">static void setContext(const KeyMappingManager::Context &amp;c)</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00204">KeyMappingManager.hpp:204</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1KeyMappingManageable_html_a32756ab3dce798b29ccad350f7c815ec"><div class="ttname"><a href="classRa_1_1Gui_1_1KeyMappingManageable.html#a32756ab3dce798b29ccad350f7c815ec">Ra::Gui::KeyMappingManageable::configureKeyMapping</a></div><div class="ttdeci">static void configureKeyMapping()</div><div class="ttdef"><b>Definition:</b> <a href="KeyMappingManager_8hpp_source.html#l00200">KeyMappingManager.hpp:200</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Gui_html_abfd4441bc81a4a3a08a755c28ae9b828"><div class="ttname"><a href="namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828">Ra::Gui::activeKey</a></div><div class="ttdeci">int activeKey()</div><div class="ttdoc">return the last, still pressed, key code, -1 if no key currently pressed</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00030">Keyboard.cpp:30</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="gui.html">Gui</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

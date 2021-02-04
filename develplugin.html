@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -180,9 +180,9 @@ Configuring the plugin</h1>
 <p>Remember that resources associated with the plugin using the option <code>RESOURCES ListOfResourcesDirectory</code> of the <code>configure_radium_plugin</code> command are <em>linked</em> into the buildtree (on systems supporting symbolic links) and <em>copied</em> into the installed locations.</p>
 <h1><a class="anchor" id="autotoc_md100"></a>
 Using the Plugin</h1>
-<p>Any application that inherits from <code><a class="el" href="classRa_1_1GuiBase_1_1BaseApplication.html" title="This class contains the main application logic. It owns the engine and the GUI.">Ra::GuiBase::BaseApplication</a></code> could use any Plugin developped using the Radium Engine. As plugins are Qt objects that implement specific interface, it is also permitted to have any Qt Application to use plugins. Meanwhile, the following documentation is related to the Radium BaseApplication derived applications.</p>
+<p>Any application that inherits from <code>Ra::GuiBase::BaseApplication</code> could use any Plugin developped using the Radium Engine. As plugins are Qt objects that implement specific interface, it is also permitted to have any Qt Application to use plugins. Meanwhile, the following documentation is related to the Radium BaseApplication derived applications.</p>
 <p>If the plugin is installed in the Radium Bundle directory, it will be automatically loaded by any plugin-aware application. But, when developping a plugin, the installation in the Radium bundle directory is not always permitted nor efficient.</p>
-<p>It could then be useful to use the Plugin from its own installation directory or directly from its build-tree. To do that, the application could register the plugin directory location by calling the <code><a class="el" href="classRa_1_1GuiBase_1_1BaseApplication.html#aa7896f814da3cc73941265caaa11bb1e">Ra::GuiBase::BaseApplication::addPluginDirectory( const std::string&amp; pluginDir )</a>;</code> method that will record, in the QSettings file associated with the application, the directory in which the Radium Engine will look for plugins. Once this directory is registered, any plugin that will be found in this directory will be loaded at each application startup if the build type of the plugin is compatible with the build type of the application (release, debug, ...). If the plugin location that is registered correspond to the build tree location of the plugin, there is no need to instal it.</p>
+<p>It could then be useful to use the Plugin from its own installation directory or directly from its build-tree. To do that, the application could register the plugin directory location by calling the <code>Ra::GuiBase::BaseApplication::addPluginDirectory( const std::string&amp; pluginDir );</code> method that will record, in the QSettings file associated with the application, the directory in which the Radium Engine will look for plugins. Once this directory is registered, any plugin that will be found in this directory will be loaded at each application startup if the build type of the plugin is compatible with the build type of the application (release, debug, ...). If the plugin location that is registered correspond to the build tree location of the plugin, there is no need to instal it.</p>
 <p>Note that the main Radium demonstration application (<code>main-app</code>) offer a menu entry (<code>File/Plugins/Add plugin path)</code> that call the registration method once the user has selected a plugin location. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -191,7 +191,7 @@ Using the Plugin</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="extensions.html">Developing using Radium</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

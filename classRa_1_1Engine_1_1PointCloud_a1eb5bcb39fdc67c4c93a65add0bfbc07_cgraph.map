@@ -1,6 +1,0 @@
-<map id="Ra::Engine::PointCloud::render" name="Ra::Engine::PointCloud::render">
-<area shape="rect" id="node1" title="use glDrawArrays to draw all the points in the point cloud" alt="" coords="5,53,175,94"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1CoreGeometryDisplayable.html#ae3bbfdb65b56973e5ab1cd6f2dcb9b8f" title="assume m_vao is bound." alt="" coords="223,5,499,61"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="277,85,444,141"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="547,93,763,134"/>
-</map>

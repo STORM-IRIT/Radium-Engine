@@ -1,0 +1,4 @@
+<map id="Ra::Engine::Scene::Camera" name="Ra::Engine::Scene::Camera">
+<area shape="rect" id="node1" title="A Camera is an Engine Component storing a Camera object." alt="" coords="31,409,201,1352"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="5,5,227,361"/>
+</map>

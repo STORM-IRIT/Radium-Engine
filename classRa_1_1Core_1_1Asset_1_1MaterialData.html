@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -159,7 +159,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>represent material data loaded by a file loader. Material data must be identified by a unique name. Radium <a class="el" href="namespaceRa_1_1Engine.html">Engine</a> reserves the following names "AbstractMaterial" --&gt; unknown material, might serve for error management "BlinnPhong" --&gt; standar Blinn-Phong Material </p>
-<p>When extending the material system with a loader plugin (or something similar) : Define your own "Asset" class derived from <a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name....">Ra::Core::Asset::MaterialData</a> with the "type" that identifies it uniquely and corresponding to the external format of your material (in the file you load). Define your own "Engine" class, derived from <a class="el" href="classRa_1_1Engine_1_1Material.html">Ra::Engine::Material</a>. </p><pre class="fragment"> Make your plugin register the converter function from "Asset" to "Engine" for this material.
+<p>When extending the material system with a loader plugin (or something similar) : Define your own "Asset" class derived from <a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name....">Ra::Core::Asset::MaterialData</a> with the "type" that identifies it uniquely and corresponding to the external format of your material (in the file you load). Define your own "Engine" class, derived from Ra::Engine::Material. </p><pre class="fragment"> Make your plugin register the converter function from "Asset" to "Engine" for this material.
      This function may be everithing that is of the same type than
 </pre><p> std::function&lt;RadiumMaterialPtr(AssetMaterialPtr)&gt; Make your plugin register the default technique builder for this material. This will require to write some GLSL shaders and make them accessible from the application search directory. See example in <a class="el" href="RadiumEngine_8cpp.html">RadiumEngine.cpp</a> (<a class="el" href="classRa_1_1Engine_1_1RadiumEngine.html#a8d2085dbc31206d0bbdfc6014d247471">RadiumEngine::initialize()</a>) that defins default BlinnPhong Material. </p><pre class="fragment"> Make your loader instantiate the right "Asset" MaterialData class while loading material
 </pre><p> data from a file. </p><pre class="fragment"> The active system (GeometrySystem is the Radium Default), will then automatically use your
@@ -360,7 +360,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Asset.html">Asset</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Asset_1_1MaterialData.html">MaterialData</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

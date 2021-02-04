@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/GuiBase/RadiumWindow/SimpleWindowFactory.hpp Source File</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/RadiumWindow/SimpleWindowFactory.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -95,41 +95,41 @@ $(document).ready(function(){initNavTree('SimpleWindowFactory_8hpp_source.html',
 </div><!--header-->
 <div class="contents">
 <a href="SimpleWindowFactory_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="BaseApplication_8hpp.html">GuiBase/BaseApplication.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGuiBase_8hpp.html">GuiBase/RaGuiBase.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="SimpleWindow_8hpp.html">GuiBase/RadiumWindow/SimpleWindow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="BaseApplication_8hpp.html">Gui/BaseApplication.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGui_8hpp.html">Gui/RaGui.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="SimpleWindow_8hpp.html">Gui/RadiumWindow/SimpleWindow.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>GuiBase {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Gui {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindowFactory.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1GuiBase_1_1SimpleWindowFactory.html">SimpleWindowFactory</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html">Ra::GuiBase::BaseApplication::WindowFactory</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1SimpleWindowFactory.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRa_1_1Gui_1_1SimpleWindowFactory.html">SimpleWindowFactory</a> : <span class="keyword">public</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html">Ra::Gui::BaseApplication::WindowFactory</a></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html#a09afd28c1d37f36c60c28839965fc0e6">Ra::GuiBase::BaseApplication::WindowFactory::WindowFactory</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1SimpleWindowFactory.html#a6cdd6c71f5aebbf66125981365045f0d">   18</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1GuiBase_1_1MainWindowInterface.html">Ra::GuiBase::MainWindowInterface</a>* <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindowFactory.html#a6cdd6c71f5aebbf66125981365045f0d">createMainWindow</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classRa_1_1GuiBase_1_1SimpleWindow.html">SimpleWindow</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">using</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html#ae34094a01af231b3b1c164b327268dcf">Ra::Gui::BaseApplication::WindowFactory::WindowFactory</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1SimpleWindowFactory.html#a7d3e1327c80d9186c6f503d6cdb564e1">   18</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classRa_1_1Gui_1_1MainWindowInterface.html">Ra::Gui::MainWindowInterface</a>* <a class="code" href="classRa_1_1Gui_1_1SimpleWindowFactory.html#a7d3e1327c80d9186c6f503d6cdb564e1">createMainWindow</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classRa_1_1Gui_1_1SimpleWindow.html">SimpleWindow</a>();</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace GuiBase</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace Gui</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindowFactory_html_a6cdd6c71f5aebbf66125981365045f0d"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindowFactory.html#a6cdd6c71f5aebbf66125981365045f0d">Ra::GuiBase::SimpleWindowFactory::createMainWindow</a></div><div class="ttdeci">Ra::GuiBase::MainWindowInterface * createMainWindow() const override</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindowFactory_8hpp_source.html#l00018">SimpleWindowFactory.hpp:18</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory_html_a09afd28c1d37f36c60c28839965fc0e6"><div class="ttname"><a href="classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html#a09afd28c1d37f36c60c28839965fc0e6">Ra::GuiBase::BaseApplication::WindowFactory::WindowFactory</a></div><div class="ttdeci">WindowFactory()=default</div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1BaseApplication_1_1WindowFactory.html">Ra::GuiBase::BaseApplication::WindowFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00041">BaseApplication.hpp:41</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1MainWindowInterface_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1MainWindowInterface.html">Ra::GuiBase::MainWindowInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00033">MainWindowInterface.hpp:33</a></div></div>
+<div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_1_1WindowFactory_html_ae34094a01af231b3b1c164b327268dcf"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html#ae34094a01af231b3b1c164b327268dcf">Ra::Gui::BaseApplication::WindowFactory::WindowFactory</a></div><div class="ttdeci">WindowFactory()=default</div></div>
 <div class="ttc" id="aBaseApplication_8hpp_html"><div class="ttname"><a href="BaseApplication_8hpp.html">BaseApplication.hpp</a></div></div>
-<div class="ttc" id="aRaGuiBase_8hpp_html"><div class="ttname"><a href="RaGuiBase_8hpp.html">RaGuiBase.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindow_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindow.html">Ra::GuiBase::SimpleWindow</a></div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8hpp_source.html#l00014">SimpleWindow.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1BaseApplication_1_1WindowFactory_html"><div class="ttname"><a href="classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html">Ra::Gui::BaseApplication::WindowFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8hpp_source.html#l00034">BaseApplication.hpp:34</a></div></div>
 <div class="ttc" id="aSimpleWindow_8hpp_html"><div class="ttname"><a href="SimpleWindow_8hpp.html">SimpleWindow.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1SimpleWindowFactory_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1SimpleWindowFactory.html">Ra::GuiBase::SimpleWindowFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindowFactory_8hpp_source.html#l00014">SimpleWindowFactory.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1SimpleWindowFactory_html"><div class="ttname"><a href="classRa_1_1Gui_1_1SimpleWindowFactory.html">Ra::Gui::SimpleWindowFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindowFactory_8hpp_source.html#l00014">SimpleWindowFactory.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1SimpleWindow_html"><div class="ttname"><a href="classRa_1_1Gui_1_1SimpleWindow.html">Ra::Gui::SimpleWindow</a></div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindow_8hpp_source.html#l00014">SimpleWindow.hpp:14</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1MainWindowInterface_html"><div class="ttname"><a href="classRa_1_1Gui_1_1MainWindowInterface.html">Ra::Gui::MainWindowInterface</a></div><div class="ttdef"><b>Definition:</b> <a href="MainWindowInterface_8hpp_source.html#l00026">MainWindowInterface.hpp:26</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1SimpleWindowFactory_html_a7d3e1327c80d9186c6f503d6cdb564e1"><div class="ttname"><a href="classRa_1_1Gui_1_1SimpleWindowFactory.html#a7d3e1327c80d9186c6f503d6cdb564e1">Ra::Gui::SimpleWindowFactory::createMainWindow</a></div><div class="ttdeci">Ra::Gui::MainWindowInterface * createMainWindow() const override</div><div class="ttdef"><b>Definition:</b> <a href="SimpleWindowFactory_8hpp_source.html#l00018">SimpleWindowFactory.hpp:18</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_4e2e1cf4f0ba1fe8214a1cc25fac15e2.html">RadiumWindow</a></li><li class="navelem"><a class="el" href="SimpleWindowFactory_8hpp.html">SimpleWindowFactory.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:57 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_8988f038b6d0fb62ed1585b002e0bbf1.html">RadiumWindow</a></li><li class="navelem"><a class="el" href="SimpleWindowFactory_8hpp.html">SimpleWindowFactory.hpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

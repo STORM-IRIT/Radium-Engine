@@ -1,5 +1,0 @@
-<map id="Ra::Engine::Camera::fitZRange" name="Ra::Engine::Camera::fitZRange">
-<area shape="rect" id="node1" title="Fit the Z&#45;range of the camera to the scene&#39;s aabb. This will maximize z&#45;buffer precision." alt="" coords="5,5,156,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Camera.html#a2124136d939bd433f9630e23c403cdd6" title="Update the projection matrix according to the current parameters." alt="" coords="204,5,355,47"/>
-<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45" title=" " alt="" coords="403,13,565,39"/>
-</map>

@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="namespaceRa_1_1Gui.html#adfd2f2313117fd00a838954c5a8cb473" target="_top" xlink:title="set the key corresponding to">
+<g id="a_node2"><a xlink:href="namespaceRa_1_1Gui.html#ad78f1f51a1a408c30fdf27708a73fb71" target="_top" xlink:title="set the key corresponding to">
 <polygon fill="white" stroke="black" points="177,-6 177,-25 290,-25 290,-6 177,-6"/>
 <text text-anchor="middle" x="233.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::keyPressed</text>
 </a>

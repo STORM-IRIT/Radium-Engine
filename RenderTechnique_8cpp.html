@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Renderer/RenderTechnique/RenderTechnique.cpp File Reference</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Rendering/RenderTechnique.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -98,12 +98,12 @@ $(document).ready(function(){initNavTree('RenderTechnique_8cpp.html',''); initRe
 <div class="title">RenderTechnique.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="RenderTechnique_8hpp_source.html">Engine/Renderer/RenderTechnique/RenderTechnique.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="RenderTechnique_8hpp_source.html">Engine/Rendering/RenderTechnique.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="BlinnPhongMaterial_8hpp_source.html">Engine/Data/BlinnPhongMaterial.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RenderParameters_8hpp_source.html">Engine/Data/RenderParameters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderConfigFactory_8hpp_source.html">Engine/Data/ShaderConfigFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderProgramManager_8hpp_source.html">Engine/Data/ShaderProgramManager.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="RadiumEngine_8hpp_source.html">Engine/RadiumEngine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="BlinnPhongMaterial_8hpp_source.html">Engine/Renderer/Material/BlinnPhongMaterial.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="RenderParameters_8hpp_source.html">Engine/Renderer/RenderTechnique/RenderParameters.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ShaderConfigFactory_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ShaderProgramManager_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Log_8hpp_source.html">Core/Utils/Log.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for RenderTechnique.cpp:</div>
@@ -123,35 +123,37 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceRa_1_1Engine"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html">Ra::Engine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceRa_1_1Engine_1_1EngineRenderTechniques"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html">Ra::Engine::EngineRenderTechniques</a></td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Rendering"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Ra::Engine::Rendering</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html">Ra::Engine::Rendering::EngineRenderTechniques</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:affc37bf84d5ff81342b5c09587eedc34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#affc37bf84d5ff81342b5c09587eedc34">Ra::Engine::EngineRenderTechniques::registerDefaultTechnique</a> (const std::string &amp;name, DefaultTechniqueBuilder builder)</td></tr>
-<tr class="separator:affc37bf84d5ff81342b5c09587eedc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e2ce86d7ae1f3822819477bf5bd7c74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a6e2ce86d7ae1f3822819477bf5bd7c74">Ra::Engine::EngineRenderTechniques::removeDefaultTechnique</a> (const std::string &amp;name)</td></tr>
-<tr class="separator:a6e2ce86d7ae1f3822819477bf5bd7c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e831d5088144082e9bd3828323aa57a"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classbool.html">bool</a>, DefaultTechniqueBuilder &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a5e831d5088144082e9bd3828323aa57a">Ra::Engine::EngineRenderTechniques::getDefaultTechnique</a> (const std::string &amp;name)</td></tr>
-<tr class="separator:a5e831d5088144082e9bd3828323aa57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11ba1d0b96932c09a8599a4323191f54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a11ba1d0b96932c09a8599a4323191f54">Ra::Engine::EngineRenderTechniques::cleanup</a> ()</td></tr>
-<tr class="separator:a11ba1d0b96932c09a8599a4323191f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67b629b682664ad298fb629180d6a359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a67b629b682664ad298fb629180d6a359">Ra::Engine::Rendering::EngineRenderTechniques::registerDefaultTechnique</a> (const std::string &amp;name, DefaultTechniqueBuilder builder)</td></tr>
+<tr class="separator:a67b629b682664ad298fb629180d6a359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c07bfc49d9e946de729cfa7e41944d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a77c07bfc49d9e946de729cfa7e41944d">Ra::Engine::Rendering::EngineRenderTechniques::removeDefaultTechnique</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:a77c07bfc49d9e946de729cfa7e41944d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab597fd85376bd86d7e78dc4194e409c2"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classbool.html">bool</a>, DefaultTechniqueBuilder &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#ab597fd85376bd86d7e78dc4194e409c2">Ra::Engine::Rendering::EngineRenderTechniques::getDefaultTechnique</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:ab597fd85376bd86d7e78dc4194e409c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2b75c46f215b4f971e5a501fb12b54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#afd2b75c46f215b4f971e5a501fb12b54">Ra::Engine::Rendering::EngineRenderTechniques::cleanup</a> ()</td></tr>
+<tr class="separator:afd2b75c46f215b4f971e5a501fb12b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aee1e4962b5124f0d9532294edfa10968"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1RenderTechnique.html">Ra::Engine::RenderTechnique</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html#aee1e4962b5124f0d9532294edfa10968">Ra::Engine::RadiumDefaultRenderTechnique</a> {nullptr}</td></tr>
-<tr class="separator:aee1e4962b5124f0d9532294edfa10968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81dcaef8e19f8ae54cfa97c280d77d97"><td class="memItemLeft" align="right" valign="top">static std::map&lt; std::string, DefaultTechniqueBuilder &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a81dcaef8e19f8ae54cfa97c280d77d97">Ra::Engine::EngineRenderTechniques::EngineTechniqueRegistry</a></td></tr>
-<tr class="memdesc:a81dcaef8e19f8ae54cfa97c280d77d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map that stores each technique builder function.  <a href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a81dcaef8e19f8ae54cfa97c280d77d97">More...</a><br /></td></tr>
-<tr class="separator:a81dcaef8e19f8ae54cfa97c280d77d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32f87589933a7e75ad1ec183f53c92e7"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a32f87589933a7e75ad1ec183f53c92e7">Ra::Engine::Rendering::RadiumDefaultRenderTechnique</a> {nullptr}</td></tr>
+<tr class="separator:a32f87589933a7e75ad1ec183f53c92e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e13f89cd04faa1b3ec306e72923cda"><td class="memItemLeft" align="right" valign="top">static std::map&lt; std::string, DefaultTechniqueBuilder &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#af9e13f89cd04faa1b3ec306e72923cda">Ra::Engine::Rendering::EngineRenderTechniques::EngineTechniqueRegistry</a></td></tr>
+<tr class="memdesc:af9e13f89cd04faa1b3ec306e72923cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map that stores each technique builder function.  <a href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#af9e13f89cd04faa1b3ec306e72923cda">More...</a><br /></td></tr>
+<tr class="separator:af9e13f89cd04faa1b3ec306e72923cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_6bc97c5ccce2964f7b25f8377ac95818.html">RenderTechnique</a></li><li class="navelem"><a class="el" href="RenderTechnique_8cpp.html">RenderTechnique.cpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="RenderTechnique_8cpp.html">RenderTechnique.cpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

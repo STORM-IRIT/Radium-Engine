@@ -1,0 +1,7 @@
+<map id="Ra::Engine::Scene::Camera::setUpVector" name="Ra::Engine::Scene::Camera::setUpVector">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,165,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#ac735b2ab4cbe37a65f86adfeadb3c5eb" title="Apply the local transformation &#39;T&#39; to the camera." alt="" coords="213,37,396,79"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a33ddf1fbfdb03b05caa9fcc4ee528b8d" title="Return the up vector." alt="" coords="224,103,385,144"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html#a4f4d78382a79c6e9c92114f6377d9b6d" title="Return the position." alt="" coords="489,5,644,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a854a52959e785430e0e81ed9c7ae2c0d" title=" " alt="" coords="444,71,689,112"/>
+</map>

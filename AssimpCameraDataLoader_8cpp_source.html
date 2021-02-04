@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -140,9 +140,9 @@ $(document).ready(function(){initNavTree('AssimpCameraDataLoader_8cpp_source.htm
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    data.reserve( CameraSize );</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">for</span> ( <a class="code" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a> CameraId = 0; CameraId &lt; CameraSize; ++CameraId )</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Asset_1_1CameraData.html">CameraData</a>* <a class="code" href="classRa_1_1Engine_1_1Camera.html">Camera</a> = <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1CameraData.html">CameraData</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a229a70a10deeca86c397ae1cb94037d4">loadCameraData</a>( scene, *( scene-&gt;mCameras[CameraId] ), *<a class="code" href="classRa_1_1Engine_1_1Camera.html">Camera</a> );</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        data.push_back( std::unique_ptr&lt;CameraData&gt;( <a class="code" href="classRa_1_1Engine_1_1Camera.html">Camera</a> ) );</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Asset_1_1CameraData.html">CameraData</a>* Camera = <span class="keyword">new</span> <a class="code" href="classRa_1_1Core_1_1Asset_1_1CameraData.html">CameraData</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classRa_1_1IO_1_1AssimpCameraDataLoader.html#a229a70a10deeca86c397ae1cb94037d4">loadCameraData</a>( scene, *( scene-&gt;mCameras[CameraId] ), *Camera );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        data.push_back( std::unique_ptr&lt;CameraData&gt;( Camera ) );</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="classRa_1_1Core_1_1Asset_1_1DataLoader.html#a64e2a801c2efdc31b83683e8f69885fe">m_verbose</a> ) { <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;Camera Loading end.\n&quot;</span>; }</div>
@@ -244,12 +244,11 @@ $(document).ready(function(){initNavTree('AssimpCameraDataLoader_8cpp_source.htm
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1DataLoader_html"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1DataLoader.html">Ra::Core::Asset::DataLoader</a></div><div class="ttdef"><b>Definition:</b> <a href="DataLoader_8hpp_source.html#l00012">DataLoader.hpp:12</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1IO_html_aef6c50424873964fcea0008be55d4a34"><div class="ttname"><a href="namespaceRa_1_1IO.html#aef6c50424873964fcea0008be55d4a34">Ra::IO::assimpToCore</a></div><div class="ttdeci">Core::Vector3 assimpToCore(const aiVector3D &amp;v)</div><div class="ttdef"><b>Definition:</b> <a href="AssimpWrapper_8hpp_source.html#l00015">AssimpWrapper.hpp:15</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Asset_1_1CameraData_html_afdf2988f7681e3b92b5cd38679fd90e7"><div class="ttname"><a href="classRa_1_1Core_1_1Asset_1_1CameraData.html#afdf2988f7681e3b92b5cd38679fd90e7">Ra::Core::Asset::CameraData::setType</a></div><div class="ttdeci">void setType(const CameraType &amp;type)</div><div class="ttdoc">Set the projection type of the Camera.</div><div class="ttdef"><b>Definition:</b> <a href="CameraData_8inl_source.html#l00019">CameraData.inl:19</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Camera.html">Ra::Engine::Camera</a></div><div class="ttdoc">A Camera is an Engine Component storing a Camera object.</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00013">Camera.hpp:13</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fae119eb913a40fe8ed97cde8b98911e.html">IO</a></li><li class="navelem"><a class="el" href="dir_7788c5f37a81918c772c9185f759a19f.html">AssimpLoader</a></li><li class="navelem"><a class="el" href="AssimpCameraDataLoader_8cpp.html">AssimpCameraDataLoader.cpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:57 for Radium Engine by
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

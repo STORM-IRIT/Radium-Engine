@@ -1,9 +1,0 @@
-<map id="Ra::GuiBase::BaseApplication::loadPlugins" name="Ra::GuiBase::BaseApplication::loadPlugins">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,220,196"/>
-<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1BaseApplication.html#aa19a984e0783e70237b8050feb1a3d2a" title=" " alt="" coords="268,5,483,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1WindowQt.html#acd31b9e580f049491d13c16ef954d964" title=" " alt="" coords="299,71,451,112"/>
-<area shape="rect" id="node4" href="$namespaceRa_1_1Core_1_1Utils.html#a99d916309a7c1727e74e630c93e6bdfa" title=" " alt="" coords="268,137,483,163"/>
-<area shape="rect" id="node5" href="$namespaceRa_1_1Core_1_1Utils.html#aad2a7bedc49e227d0503794d76acbfea" title=" " alt="" coords="281,187,469,214"/>
-<area shape="rect" id="node6" href="$classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5" title=" " alt="" coords="299,239,451,280"/>
-<area shape="rect" id="node7" href="$classRa_1_1Gui_1_1WindowQt.html#a78476baacd2df24a260f604d02c8ddc4" title=" " alt="" coords="299,304,451,345"/>
-</map>

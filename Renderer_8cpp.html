@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Renderer/Renderer.cpp File Reference</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Rendering/Renderer.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -96,23 +96,23 @@ $(document).ready(function(){initNavTree('Renderer_8cpp.html',''); initResizable
 <div class="title">Renderer.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="Renderer_8hpp_source.html">Engine/Renderer/Renderer.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="Renderer_8hpp_source.html">Engine/Rendering/Renderer.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="FileData_8hpp_source.html">Core/Asset/FileData.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="MeshPrimitives_8hpp_source.html">Core/Geometry/MeshPrimitives.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Log_8hpp_source.html">Core/Utils/Log.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="LightManager_8hpp_source.html">Engine/Managers/LightManager/LightManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Material_8hpp_source.html">Engine/Data/Material.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Mesh_8hpp_source.html">Engine/Data/Mesh.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderConfigFactory_8hpp_source.html">Engine/Data/ShaderConfigFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderProgram_8hpp_source.html">Engine/Data/ShaderProgram.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderProgramManager_8hpp_source.html">Engine/Data/ShaderProgramManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Texture_8hpp_source.html">Engine/Data/Texture.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="TextureManager_8hpp_source.html">Engine/Data/TextureManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="OpenGL_8hpp_source.html">Engine/OpenGL.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="RadiumEngine_8hpp_source.html">Engine/RadiumEngine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ViewingParameters_8hpp_source.html">Engine/Renderer/Camera/ViewingParameters.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Material_8hpp_source.html">Engine/Renderer/Material/Material.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Mesh_8hpp_source.html">Engine/Renderer/Mesh/Mesh.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="OpenGL_8hpp_source.html">Engine/Renderer/OpenGL/OpenGL.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="RenderObject_8hpp_source.html">Engine/Renderer/RenderObject/RenderObject.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="RenderObjectManager_8hpp_source.html">Engine/Renderer/RenderObject/RenderObjectManager.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ShaderConfigFactory_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ShaderProgram_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderProgram.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ShaderProgramManager_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderProgramManager.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Texture_8hpp_source.html">Engine/Renderer/Texture/Texture.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="TextureManager_8hpp_source.html">Engine/Renderer/Texture/TextureManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RenderObject_8hpp_source.html">Engine/Rendering/RenderObject.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RenderObjectManager_8hpp_source.html">Engine/Rendering/RenderObjectManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ViewingParameters_8hpp_source.html">Engine/Rendering/ViewingParameters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="LightManager_8hpp_source.html">Engine/Scene/LightManager.hpp</a>&gt;</code><br />
 <code>#include &lt;globjects/Framebuffer.h&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
@@ -134,14 +134,16 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceRa_1_1Engine"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html">Ra::Engine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Rendering"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Ra::Engine::Rendering</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="Renderer_8cpp.html">Renderer.cpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="Renderer_8cpp.html">Renderer.cpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

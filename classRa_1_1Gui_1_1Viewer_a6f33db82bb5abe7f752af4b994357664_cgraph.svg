@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="namespaceRa_1_1Gui.html#abfd4441bc81a4a3a08a755c28ae9b828" target="_top" xlink:title="return the last, still pressed, key code, &#45;1 if no key currently pressed">
+<g id="a_node2"><a xlink:href="namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815" target="_top" xlink:title="return the last, still pressed, key code, &#45;1 if no key currently pressed">
 <polygon fill="white" stroke="black" points="233,-50 233,-69 339,-69 339,-50 233,-50"/>
 <text text-anchor="middle" x="286" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::activeKey</text>
 </a>

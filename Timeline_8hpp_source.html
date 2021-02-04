@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/GuiBase/Timeline/Timeline.hpp Source File</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Timeline/Timeline.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -96,11 +96,11 @@ $(document).ready(function(){initNavTree('Timeline_8hpp_source.html',''); initRe
 <div class="contents">
 <a href="Timeline_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGuiBase_8hpp.html">GuiBase/RaGuiBase.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaGui_8hpp.html">Gui/RaGui.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValue_8hpp.html">Core/Animation/KeyFramedValue.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="KeyFramedValueController_8hpp.html">Core/Animation/KeyFramedValueController.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ItemEntry_8hpp.html">Engine/ItemModel/ItemEntry.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ItemEntry_8hpp.html">Engine/Scene/ItemEntry.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;QDialog&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
@@ -109,30 +109,30 @@ $(document).ready(function(){initNavTree('Timeline_8hpp_source.html',''); initRe
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>Timeline;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1GuiBase.html">Ra::GuiBase</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa_1_1Gui.html">Ra::Gui</a> {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1GuiBase_1_1Timeline.html">   42</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a> <a class="code" href="classRa_1_1GuiBase_1_1Timeline.html">Timeline</a> : <span class="keyword">public</span> <a class="code" href="classQDialog.html">QDialog</a></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Timeline.html">   42</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a> <a class="code" href="classRa_1_1Gui_1_1Timeline.html">Timeline</a> : <span class="keyword">public</span> <a class="code" href="classQDialog.html">QDialog</a></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Q_OBJECT</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1GuiBase_1_1Timeline.html">Timeline</a>( QWidget* parent = <span class="keyword">nullptr</span> );</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    ~<a class="code" href="classRa_1_1GuiBase_1_1Timeline.html">Timeline</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Gui_1_1Timeline.html">Timeline</a>( QWidget* parent = <span class="keyword">nullptr</span> );</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    ~<a class="code" href="classRa_1_1Gui_1_1Timeline.html">Timeline</a>();</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> selectionChanged( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ItemEntry.html">Ra::Engine::ItemEntry</a>&amp; ent );</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> selectionChanged( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a>&amp; ent );</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> registerKeyFramedValue(</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* ent,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a>* ent,</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a>&amp; keyFramedValueController );</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> unregisterKeyFramedValue( <a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* ent, <span class="keyword">const</span> std::string&amp; name );</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> unregisterKeyFramedValue( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a>* ent, <span class="keyword">const</span> std::string&amp; name );</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> registerKeyFramedValue(</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a>* comp,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a>* comp,</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a>&amp; keyFramedValueController );</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> unregisterKeyFramedValue( <a class="code" href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a>* comp, <span class="keyword">const</span> std::string&amp; name );</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> unregisterKeyFramedValue( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a>* comp, <span class="keyword">const</span> std::string&amp; name );</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> registerKeyFramedValue(</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a> roIdx,</div>
@@ -205,41 +205,42 @@ $(document).ready(function(){initNavTree('Timeline_8hpp_source.html',''); initRe
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    Ui::Timeline* ui;</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    std::map&lt;Ra::Engine::Entity*, std::vector&lt;Ra::Core::Animation::KeyFramedValueController&gt;&gt;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    std::map&lt;Ra::Engine::Scene::Entity*, std::vector&lt;Ra::Core::Animation::KeyFramedValueController&gt;&gt;</div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        m_entityKeyFrames;</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    std::map&lt;Ra::Engine::Component*, std::vector&lt;Ra::Core::Animation::KeyFramedValueController&gt;&gt;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        m_componentKeyFrames;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    std::map&lt;Ra::Core::Utils::Index, std::vector&lt;Ra::Core::Animation::KeyFramedValueController&gt;&gt;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        m_renderObjectKeyFrames;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a> m_current;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;};</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;} <span class="comment">// namespace Ra::GuiBase</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    std::map&lt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a>*,</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;             std::vector&lt;Ra::Core::Animation::KeyFramedValueController&gt;&gt;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        m_componentKeyFrames;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    std::map&lt;Ra::Core::Utils::Index, std::vector&lt;Ra::Core::Animation::KeyFramedValueController&gt;&gt;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        m_renderObjectKeyFrames;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <a class="code" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a> m_current;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;};</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;} <span class="comment">// namespace Ra::Gui</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1GuiBase_html"><div class="ttname"><a href="namespaceRa_1_1GuiBase.html">Ra::GuiBase</a></div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00043">BaseApplication.cpp:43</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Gui_html"><div class="ttname"><a href="namespaceRa_1_1Gui.html">Ra::Gui</a></div><div class="ttdef"><b>Definition:</b> <a href="BaseApplication_8cpp_source.html#l00042">BaseApplication.cpp:42</a></div></div>
+<div class="ttc" id="aRaGui_8hpp_html"><div class="ttname"><a href="RaGui_8hpp.html">RaGui.hpp</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html">Ra::Engine::Scene::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
 <div class="ttc" id="aclassQDialog_html"><div class="ttname"><a href="classQDialog.html">QDialog</a></div></div>
 <div class="ttc" id="aKeyFramedValue_8hpp_html"><div class="ttname"><a href="KeyFramedValue_8hpp.html">KeyFramedValue.hpp</a></div></div>
+<div class="ttc" id="aRaGui_8hpp_html_aa3a964afac3327a7b8188a953a88c773"><div class="ttname"><a href="RaGui_8hpp.html#aa3a964afac3327a7b8188a953a88c773">RA_GUI_API</a></div><div class="ttdeci">#define RA_GUI_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGui_8hpp_source.html#l00012">RaGui.hpp:12</a></div></div>
 <div class="ttc" id="anamespaceUi_html"><div class="ttname"><a href="namespaceUi.html">Ui</a></div><div class="ttdoc">Custom Qt widget for animation (timeline)</div><div class="ttdef"><b>Definition:</b> <a href="HelpDialog_8hpp_source.html#l00004">HelpDialog.hpp:4</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aRaGuiBase_8hpp_html"><div class="ttname"><a href="RaGuiBase_8hpp.html">RaGuiBase.hpp</a></div></div>
 <div class="ttc" id="aItemEntry_8hpp_html"><div class="ttname"><a href="ItemEntry_8hpp.html">ItemEntry.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aclassRa_1_1Core_1_1Animation_1_1KeyFramedValueController_html"><div class="ttname"><a href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html">Ra::Core::Animation::KeyFramedValueController</a></div><div class="ttdef"><b>Definition:</b> <a href="KeyFramedValueController_8hpp_source.html#l00016">KeyFramedValueController.hpp:16</a></div></div>
-<div class="ttc" id="aclassRa_1_1GuiBase_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1GuiBase_1_1Timeline.html">Ra::GuiBase::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition:</b> <a href="Timeline_8hpp_source.html#l00042">Timeline.hpp:42</a></div></div>
-<div class="ttc" id="aRaGuiBase_8hpp_html_a488a6591ba8e25137ef4a512659e12f3"><div class="ttname"><a href="RaGuiBase_8hpp.html#a488a6591ba8e25137ef4a512659e12f3">RA_GUIBASE_API</a></div><div class="ttdeci">#define RA_GUIBASE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaGuiBase_8hpp_source.html#l00011">RaGuiBase.hpp:11</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Component_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Component.html">Ra::Engine::Component</a></div><div class="ttdoc">A component is an element that can be updated by a system. It is also linked to some other components...</div><div class="ttdef"><b>Definition:</b> <a href="Component_8hpp_source.html#l00030">Component.hpp:30</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00021">Entity.hpp:21</a></div></div>
 <div class="ttc" id="aKeyFramedValueController_8hpp_html"><div class="ttname"><a href="KeyFramedValueController_8hpp.html">KeyFramedValueController.hpp</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1ItemEntry.html">Ra::Engine::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00026">ItemEntry.hpp:26</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Timeline_html"><div class="ttname"><a href="classRa_1_1Gui_1_1Timeline.html">Ra::Gui::Timeline</a></div><div class="ttdoc">The Timeline class provides display and management of time, as well as keyframes.</div><div class="ttdef"><b>Definition:</b> <a href="Timeline_8hpp_source.html#l00042">Timeline.hpp:42</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ItemEntry_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ItemEntry.html">Ra::Engine::Scene::ItemEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="ItemEntry_8hpp_source.html#l00025">ItemEntry.hpp:25</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_64c76d60c346e3ad5c744bc9a5d9702d.html">Timeline</a></li><li class="navelem"><a class="el" href="Timeline_8hpp.html">Timeline.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:57 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_c11d904bd882c8440c506ccb3c29fbe5.html">Timeline</a></li><li class="navelem"><a class="el" href="Timeline_8hpp.html">Timeline.hpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

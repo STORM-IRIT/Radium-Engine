@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Renderer/Camera/ViewingParameters.hpp Source File</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Rendering/ViewingParameters.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -97,29 +97,33 @@ $(document).ready(function(){initNavTree('ViewingParameters_8hpp_source.html',''
 <a href="ViewingParameters_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ViewingParameters.html">    8</a></span>&#160;<span class="keyword">struct </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="structRa_1_1Engine_1_1ViewingParameters.html">ViewingParameters</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ViewingParameters.html#a3a38e45d4c40223a0c91ff72968fb510">    9</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> viewMatrix {Core::Matrix4::Identity()};</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ViewingParameters.html#af22ed51558cf60a8b525c96b27c2cba9">   10</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> projMatrix {Core::Matrix4::Identity()};</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ViewingParameters.html#a19b32043d826f517d976263529fa0b18">   11</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dt {0};</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;};</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="RaEngine_8hpp.html">Engine/RaEngine.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Data {</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">   10</a></span>&#160;<span class="keyword">struct </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">ViewingParameters</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html#ade81ffcc7e4aa5eb333c50887bd636d5">   11</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> viewMatrix {Core::Matrix4::Identity()};</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html#abbed2f4ad52d66589781225ddefed085">   12</a></span>&#160;    <a class="code" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> projMatrix {Core::Matrix4::Identity()};</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html#a10a8a6d5777436b5ebf57c1b8a301e2f">   13</a></span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> dt {0};</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;};</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1ViewingParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Ra::Engine::Data::ViewingParameters</a></div><div class="ttdoc">the set of viewing parameters extracted from the camera and given to the renderer</div><div class="ttdef"><b>Definition:</b> <a href="ViewingParameters_8hpp_source.html#l00010">ViewingParameters.hpp:10</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ViewingParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1ViewingParameters.html">Ra::Engine::ViewingParameters</a></div><div class="ttdoc">the set of viewing parameters extracted from the camera and given to the renderer</div><div class="ttdef"><b>Definition:</b> <a href="ViewingParameters_8hpp_source.html#l00008">ViewingParameters.hpp:8</a></div></div>
+<div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
 <div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_a4be45d931ceeeea4be9f14978f30e498"><div class="ttname"><a href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a></div><div class="ttdeci">float Scalar</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00255">CoreMacros.hpp:255</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_aae0c29088c6a4c7ab0d9ecb5398c9c18"><div class="ttname"><a href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Ra::Core::Matrix4</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 4, 4 &gt; Matrix4</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00052">Types.hpp:52</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_35f904a890c1431d13964486334c23a9.html">Camera</a></li><li class="navelem"><a class="el" href="ViewingParameters_8hpp.html">ViewingParameters.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:57 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="ViewingParameters_8hpp.html">ViewingParameters.hpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

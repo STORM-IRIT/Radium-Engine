@@ -1,0 +1,12 @@
+<map id="Ra::Engine::Scene::DefaultLightManager" name="Ra::Engine::Scene::DefaultLightManager">
+<area shape="rect" id="node1" title="DefaultLightManager. A simple Light Manager with a list of lights." alt="" coords="321,1192,505,1313"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="307,889,519,1143"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="225,631,437,840"/>
+<area shape="rect" id="node4" title=" " alt="" coords="166,447,369,568"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,189,236,296"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="260,204,389,281"/>
+<area shape="rect" id="node7" title=" " alt="" coords="388,5,427,83"/>
+<area shape="rect" id="node10" title="STL class." alt="" coords="414,204,571,281"/>
+<area shape="rect" id="node8" title=" " alt="" coords="393,461,619,553"/>
+<area shape="rect" id="node9" href="$classRa_1_1Engine_1_1Scene_1_1LightStorage.html" title=" " alt="" coords="595,145,742,340"/>
+</map>

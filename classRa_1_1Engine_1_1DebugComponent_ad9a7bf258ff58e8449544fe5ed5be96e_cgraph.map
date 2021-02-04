@@ -1,7 +1,0 @@
-<map id="Ra::Engine::DebugComponent::getRenderObject" name="Ra::Engine::DebugComponent::getRenderObject">
-<area shape="rect" id="node1" title="Access render object through RO manager." alt="" coords="5,39,221,80"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a13fc919e9fa01bfb36e67bc9011d325f" title=" " alt="" coords="269,5,465,47"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Component.html#a10b0bc182b76165744ebea603ae32dfe" title="Shortcut to access the render object manager." alt="" coords="280,71,455,112"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1RenderObjectManager.html#a242218228300c8e03481863b9a808dec" title=" " alt="" coords="513,5,700,47"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Utils_1_1Index.html#ac1a3e02d77abd15c2a307673f5b67fa1" title="VALID." alt="" coords="748,5,907,47"/>
-</map>

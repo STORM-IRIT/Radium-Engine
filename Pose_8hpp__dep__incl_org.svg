@@ -433,37 +433,37 @@
 <g id="node20" class="node">
 <title>Node20</title>
 <g id="a_node20"><a xlink:href="Timeline_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1654.5,-178.5 1654.5,-230.5 1809.5,-230.5 1809.5,-178.5 1654.5,-178.5"/>
-<text text-anchor="start" x="1662.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1662.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1662.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/GuiBase</text>
-<text text-anchor="middle" x="1732" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Timeline/Timeline.cpp</text>
+<polygon fill="white" stroke="black" points="1649,-178.5 1649,-230.5 1825,-230.5 1825,-178.5 1649,-178.5"/>
+<text text-anchor="start" x="1657" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1657" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1657" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/Gui/Timeline</text>
+<text text-anchor="middle" x="1737" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Timeline.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node19&#45;&gt;Node20 -->
 <g id="edge21" class="edge">
 <title>Node19&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M1737.35,-257.19C1736.43,-248.28 1735.46,-238.9 1734.6,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1733.89,-257.75 1738.4,-267.34 1740.85,-257.03 1733.89,-257.75"/>
+<path fill="none" stroke="midnightblue" d="M1739.38,-257.19C1738.97,-248.28 1738.54,-238.9 1738.15,-230.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1735.89,-257.51 1739.84,-267.34 1742.88,-257.19 1735.89,-257.51"/>
 </g>
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
 <g id="a_node21"><a xlink:href="AssimpAnimationDataLoader_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1827.5,-178.5 1827.5,-230.5 2024.5,-230.5 2024.5,-178.5 1827.5,-178.5"/>
-<text text-anchor="start" x="1835.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
-<text text-anchor="start" x="1835.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
-<text text-anchor="start" x="1835.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
-<text text-anchor="middle" x="1926" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpAnimationDataLoader.cpp</text>
+<polygon fill="white" stroke="black" points="1843.5,-178.5 1843.5,-230.5 2040.5,-230.5 2040.5,-178.5 1843.5,-178.5"/>
+<text text-anchor="start" x="1851.5" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">/home/runner/work/Radium</text>
+<text text-anchor="start" x="1851.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;Engine/Radium&#45;Engine/src</text>
+<text text-anchor="start" x="1851.5" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Radium&#45;Engine/src/IO/AssimpLoader</text>
+<text text-anchor="middle" x="1942" y="-185.5" font-family="Helvetica,sans-Serif" font-size="10.00">/AssimpAnimationDataLoader.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node19&#45;&gt;Node21 -->
 <g id="edge22" class="edge">
 <title>Node19&#45;&gt;Node21</title>
-<path fill="none" stroke="midnightblue" d="M1803.61,-263.06C1826.02,-252.52 1851.05,-240.75 1872.61,-230.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1802.07,-259.91 1794.51,-267.34 1805.05,-266.25 1802.07,-259.91"/>
+<path fill="none" stroke="midnightblue" d="M1808.15,-263.44C1832.79,-252.77 1860.44,-240.8 1884.19,-230.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1806.65,-260.27 1798.87,-267.45 1809.44,-266.69 1806.65,-260.27"/>
 </g>
 <!-- Node22&#45;&gt;Node19 -->
 <g id="edge24" class="edge">

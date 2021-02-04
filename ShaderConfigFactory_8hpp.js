@@ -1,6 +1,6 @@
 var ShaderConfigFactory_8hpp =
 [
-    [ "addConfiguration", "ShaderConfigFactory_8hpp.html#a36842535508a390108fb1205210a5c49", null ],
-    [ "getConfiguration", "ShaderConfigFactory_8hpp.html#ad6fe3c60f8f2b9f9f5d8220ffe4d5ba6", null ],
-    [ "removeConfiguration", "ShaderConfigFactory_8hpp.html#ae44a2c48cdd93d9695527193673685f6", null ]
+    [ "addConfiguration", "ShaderConfigFactory_8hpp.html#a00918835250fbd8bbe4deae59ecd6dde", null ],
+    [ "getConfiguration", "ShaderConfigFactory_8hpp.html#a0ecc004c00bff945aae8b673a738909f", null ],
+    [ "removeConfiguration", "ShaderConfigFactory_8hpp.html#a4131d754283ed259edf3def7a8891064", null ]
 ];

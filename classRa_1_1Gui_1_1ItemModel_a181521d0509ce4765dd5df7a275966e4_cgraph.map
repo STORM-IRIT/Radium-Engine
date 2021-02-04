@@ -1,0 +1,5 @@
+<map id="Ra::Gui::ItemModel::buildModel" name="Ra::Gui::ItemModel::buildModel">
+<area shape="rect" id="node1" title="Internal function to build the tree." alt="" coords="5,39,152,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1EntityManager.html#af6718889d269e336e2ebe6ef9637035f" title="Get all entities from the manager. This might be usefull to be able to display and navigate through t..." alt="" coords="200,5,395,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1RadiumEngine.html#a2991b0dd7d8c14bfe19e775231036dee" title=" " alt="" coords="201,71,394,112"/>
+</map>

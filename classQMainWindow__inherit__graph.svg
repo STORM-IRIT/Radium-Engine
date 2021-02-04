@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 196;
+var viewWidth = 172;
 var viewHeight = 562;
 var sectionId = 'dynsection-0';
 </script>
@@ -54,29 +54,29 @@ var sectionId = 'dynsection-0';
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>QMainWindow</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-558 192,-558 192,4 -4,4"/>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-558 168,-558 168,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="50.5,-496.5 50.5,-553.5 137.5,-553.5 137.5,-496.5 50.5,-496.5"/>
-<text text-anchor="middle" x="94" y="-541.5" font-family="Helvetica,sans-Serif" font-size="10.00">QMainWindow</text>
-<polyline fill="none" stroke="black" points="50.5,-534.5 137.5,-534.5 "/>
-<text text-anchor="middle" x="94" y="-522.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="50.5,-515.5 137.5,-515.5 "/>
-<text text-anchor="middle" x="94" y="-503.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polygon fill="#bfbfbf" stroke="black" points="38.5,-496.5 38.5,-553.5 125.5,-553.5 125.5,-496.5 38.5,-496.5"/>
+<text text-anchor="middle" x="82" y="-541.5" font-family="Helvetica,sans-Serif" font-size="10.00">QMainWindow</text>
+<polyline fill="none" stroke="black" points="38.5,-534.5 125.5,-534.5 "/>
+<text text-anchor="middle" x="82" y="-522.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="38.5,-515.5 125.5,-515.5 "/>
+<text text-anchor="middle" x="82" y="-503.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1GuiBase_1_1MainWindowInterface.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-303.5 0,-459.5 188,-459.5 188,-303.5 0,-303.5"/>
-<text text-anchor="middle" x="94" y="-447.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::GuiBase::MainWindowInterface</text>
-<polyline fill="none" stroke="black" points="0,-440.5 188,-440.5 "/>
-<text text-anchor="middle" x="94" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="0,-421.5 188,-421.5 "/>
+<g id="a_node2"><a xlink:href="classRa_1_1Gui_1_1MainWindowInterface.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="0,-303.5 0,-459.5 164,-459.5 164,-303.5 0,-303.5"/>
+<text text-anchor="middle" x="82" y="-447.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::MainWindowInterface</text>
+<polyline fill="none" stroke="black" points="0,-440.5 164,-440.5 "/>
+<text text-anchor="middle" x="82" y="-428.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="0,-421.5 164,-421.5 "/>
 <text text-anchor="start" x="8" y="-409.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ MainWindowInterface()</text>
 <text text-anchor="start" x="8" y="-398.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~MainWindowInterface()</text>
 <text text-anchor="start" x="8" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getViewer()</text>
@@ -93,46 +93,46 @@ var sectionId = 'dynsection-0';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M94,-486.34C94,-478.04 94,-468.96 94,-459.74"/>
-<polygon fill="none" stroke="midnightblue" points="90.5,-486.38 94,-496.38 97.5,-486.38 90.5,-486.38"/>
+<path fill="none" stroke="midnightblue" d="M82,-486.34C82,-478.04 82,-468.96 82,-459.74"/>
+<polygon fill="none" stroke="midnightblue" points="78.5,-486.38 82,-496.38 85.5,-486.38 78.5,-486.38"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classRa_1_1GuiBase_1_1SimpleWindow.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="16.5,-0.5 16.5,-266.5 171.5,-266.5 171.5,-0.5 16.5,-0.5"/>
-<text text-anchor="middle" x="94" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::GuiBase::SimpleWindow</text>
-<polyline fill="none" stroke="black" points="16.5,-247.5 171.5,-247.5 "/>
-<text text-anchor="middle" x="94" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="16.5,-228.5 171.5,-228.5 "/>
-<text text-anchor="start" x="24.5" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getViewer()</text>
-<text text-anchor="start" x="24.5" y="-205.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSelectionManager()</text>
-<text text-anchor="start" x="24.5" y="-194.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTimeline()</text>
-<text text-anchor="start" x="24.5" y="-183.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateUi()</text>
-<text text-anchor="start" x="24.5" y="-172.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onFrameComplete()</text>
-<text text-anchor="start" x="24.5" y="-161.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addRenderer()</text>
-<text text-anchor="start" x="24.5" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleWindow()</text>
-<text text-anchor="start" x="24.5" y="-139.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleWindow()</text>
-<text text-anchor="start" x="24.5" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="24.5" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleWindow()</text>
-<text text-anchor="start" x="24.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="24.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~SimpleWindow()</text>
-<text text-anchor="start" x="24.5" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ postLoadFile()</text>
-<text text-anchor="start" x="24.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ cleanup()</text>
-<text text-anchor="start" x="24.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">* SimpleWindow()</text>
-<text text-anchor="start" x="24.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">* SimpleWindow()</text>
-<text text-anchor="start" x="24.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">* operator=()</text>
-<text text-anchor="start" x="24.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">* SimpleWindow()</text>
-<text text-anchor="start" x="24.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">* operator=()</text>
-<text text-anchor="start" x="24.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">* ~SimpleWindow()</text>
+<g id="a_node3"><a xlink:href="classRa_1_1Gui_1_1SimpleWindow.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="black" points="12.5,-0.5 12.5,-266.5 151.5,-266.5 151.5,-0.5 12.5,-0.5"/>
+<text text-anchor="middle" x="82" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::SimpleWindow</text>
+<polyline fill="none" stroke="black" points="12.5,-247.5 151.5,-247.5 "/>
+<text text-anchor="middle" x="82" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="12.5,-228.5 151.5,-228.5 "/>
+<text text-anchor="start" x="20.5" y="-216.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getViewer()</text>
+<text text-anchor="start" x="20.5" y="-205.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getSelectionManager()</text>
+<text text-anchor="start" x="20.5" y="-194.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getTimeline()</text>
+<text text-anchor="start" x="20.5" y="-183.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ updateUi()</text>
+<text text-anchor="start" x="20.5" y="-172.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ onFrameComplete()</text>
+<text text-anchor="start" x="20.5" y="-161.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ addRenderer()</text>
+<text text-anchor="start" x="20.5" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleWindow()</text>
+<text text-anchor="start" x="20.5" y="-139.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleWindow()</text>
+<text text-anchor="start" x="20.5" y="-128.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="20.5" y="-117.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ SimpleWindow()</text>
+<text text-anchor="start" x="20.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="20.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~SimpleWindow()</text>
+<text text-anchor="start" x="20.5" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ postLoadFile()</text>
+<text text-anchor="start" x="20.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ cleanup()</text>
+<text text-anchor="start" x="20.5" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">* SimpleWindow()</text>
+<text text-anchor="start" x="20.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">* SimpleWindow()</text>
+<text text-anchor="start" x="20.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">* operator=()</text>
+<text text-anchor="start" x="20.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">* SimpleWindow()</text>
+<text text-anchor="start" x="20.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">* operator=()</text>
+<text text-anchor="start" x="20.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">* ~SimpleWindow()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M94,-293.33C94,-284.69 94,-275.8 94,-266.83"/>
-<polygon fill="none" stroke="midnightblue" points="90.5,-293.34 94,-303.34 97.5,-293.34 90.5,-293.34"/>
+<path fill="none" stroke="midnightblue" d="M82,-293.33C82,-284.69 82,-275.8 82,-266.83"/>
+<polygon fill="none" stroke="midnightblue" points="78.5,-293.34 82,-303.34 85.5,-293.34 78.5,-293.34"/>
 </g>
 </g>
 </svg>

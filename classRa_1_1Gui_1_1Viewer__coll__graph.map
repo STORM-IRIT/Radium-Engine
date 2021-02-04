@@ -1,52 +1,52 @@
 <map id="Ra::Gui::Viewer" name="Ra::Gui::Viewer">
-<area shape="rect" id="node1" title=" " alt="" coords="2115,3464,2342,4421"/>
-<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="102,1493,273,1834"/>
-<area shape="rect" id="node3" href="$classQWindow.html" title=" " alt="" coords="147,869,231,946"/>
-<area shape="rect" id="node4" title=" " alt="" coords="294,869,555,946"/>
-<area shape="rect" id="node5" title=" " alt="" coords="357,307,492,384"/>
-<area shape="rect" id="node6" title="STL class." alt="" coords="1042,307,1199,384"/>
-<area shape="rect" id="node23" title=" " alt="" coords="1735,861,1885,953"/>
-<area shape="rect" id="node24" title=" " alt="" coords="1007,861,1181,953"/>
-<area shape="rect" id="node45" title=" " alt="" coords="1917,3089,2121,3181"/>
-<area shape="rect" id="node7" title=" " alt="" coords="2341,13,2380,90"/>
-<area shape="rect" id="node17" title="STL class." alt="" coords="2384,307,2519,384"/>
-<area shape="rect" id="node20" title="STL class." alt="" coords="2204,307,2333,384"/>
-<area shape="rect" id="node38" title="STL class." alt="" coords="3243,555,3401,632"/>
-<area shape="rect" id="node8" title=" " alt="" coords="5,869,108,946"/>
-<area shape="rect" id="node9" href="$classbool.html" title=" " alt="" coords="866,869,917,946"/>
-<area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Renderer.html" title=" " alt="" coords="1687,1353,1901,1973"/>
-<area shape="rect" id="node46" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="1891,2080,2147,2685"/>
-<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="2113,2709,2350,2845"/>
-<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="2653,1603,2927,1724"/>
-<area shape="rect" id="node44" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="2462,2315,2699,2451"/>
-<area shape="rect" id="node37" title=" " alt="" coords="2959,2337,3115,2429"/>
-<area shape="rect" id="node13" title=" " alt="" coords="2304,861,2481,953"/>
-<area shape="rect" id="node14" href="$classRa_1_1Engine_1_1Texture.html" title=" " alt="" coords="1749,160,1916,531"/>
-<area shape="rect" id="node15" title="STL class." alt="" coords="2656,307,2743,384"/>
-<area shape="rect" id="node16" title="STL class." alt="" coords="2630,5,2769,97"/>
-<area shape="rect" id="node18" title=" " alt="" coords="1211,861,1406,953"/>
-<area shape="rect" id="node19" title=" " alt="" coords="1250,307,1378,384"/>
-<area shape="rect" id="node26" title=" " alt="" coords="2105,861,2280,953"/>
-<area shape="rect" id="node36" title=" " alt="" coords="2897,3089,3125,3181"/>
-<area shape="rect" id="node21" href="$classint.html" title=" " alt="" coords="2777,307,2816,384"/>
-<area shape="rect" id="node30" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title=" " alt="" coords="3556,656,3739,1159"/>
-<area shape="rect" id="node22" href="$classRa_1_1Engine_1_1RenderObjectManager.html" title=" " alt="" coords="2506,781,2717,1034"/>
-<area shape="rect" id="node25" href="$classRa_1_1Engine_1_1Displayable.html" title=" " alt="" coords="831,226,1018,465"/>
-<area shape="rect" id="node27" href="$classRa_1_1Engine_1_1LightManager.html" title=" " alt="" coords="1940,226,2152,465"/>
-<area shape="rect" id="node28" href="$classRa_1_1Engine_1_1ShaderProgramManager.html" title=" " alt="" coords="1430,788,1710,1027"/>
-<area shape="rect" id="node29" title=" " alt="" coords="3037,869,3087,946"/>
-<area shape="rect" id="node49" href="$classRa_1_1Engine_1_1Camera.html" title="A Camera is an Engine Component storing a Camera object." alt="" coords="2138,1309,2309,2017"/>
-<area shape="rect" id="node42" href="$structRa_1_1Engine_1_1ItemEntry.html" title=" " alt="" coords="3369,1566,3536,1761"/>
-<area shape="rect" id="node31" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="891,2869,1081,3401"/>
-<area shape="rect" id="node32" title=" " alt="" coords="927,2337,1090,2429"/>
-<area shape="rect" id="node33" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="714,2117,903,2649"/>
-<area shape="rect" id="node34" title=" " alt="" coords="545,1617,720,1709"/>
-<area shape="rect" id="node35" href="$classRa_1_1Gui_1_1PickingManager.html" title=" " alt="" coords="2513,3067,2694,3203"/>
-<area shape="rect" id="node39" href="$classRa_1_1Gui_1_1GizmoManager.html" title=" " alt="" coords="2265,3023,2488,3247"/>
-<area shape="rect" id="node40" href="$classQObject.html" title=" " alt="" coords="2554,1625,2629,1702"/>
-<area shape="rect" id="node41" href="$classRa_1_1GuiBase_1_1TransformEditor.html" title=" " alt="" coords="2723,2293,2935,2473"/>
-<area shape="rect" id="node43" title=" " alt="" coords="2866,861,3013,953"/>
-<area shape="rect" id="node47" title=" " alt="" coords="1496,1625,1663,1702"/>
-<area shape="rect" id="node48" href="$classRa_1_1Engine_1_1Light.html" title=" " alt="" coords="1925,1559,2113,1768"/>
-<area shape="rect" id="node50" title=" " alt="" coords="1289,1625,1472,1702"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3813,3548,4039,4505"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="503,1569,674,1911"/>
+<area shape="rect" id="node3" href="$classQWindow.html" title=" " alt="" coords="555,938,639,1015"/>
+<area shape="rect" id="node4" title=" " alt="" coords="6,938,267,1015"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,424,140,501"/>
+<area shape="rect" id="node6" title="STL class." alt="" coords="465,424,622,501"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1961,931,2174,1023"/>
+<area shape="rect" id="node28" title=" " alt="" coords="1534,931,1718,1023"/>
+<area shape="rect" id="node45" title=" " alt="" coords="2104,3173,2308,3265"/>
+<area shape="rect" id="node7" title=" " alt="" coords="944,71,983,149"/>
+<area shape="rect" id="node22" title="STL class." alt="" coords="983,424,1141,501"/>
+<area shape="rect" id="node23" title="STL class." alt="" coords="829,424,959,501"/>
+<area shape="rect" id="node35" title="STL class." alt="" coords="2333,424,2468,501"/>
+<area shape="rect" id="node8" title=" " alt="" coords="413,938,516,1015"/>
+<area shape="rect" id="node9" href="$classbool.html" title=" " alt="" coords="2758,938,2809,1015"/>
+<area shape="rect" id="node20" href="$classRa_1_1Engine_1_1Rendering_1_1Renderer.html" title=" " alt="" coords="1899,1423,2113,2057"/>
+<area shape="rect" id="node46" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="3067,2164,3323,2769"/>
+<area shape="rect" id="node10" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="3979,2793,4217,2929"/>
+<area shape="rect" id="node11" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="3999,1679,4274,1801"/>
+<area shape="rect" id="node44" href="$classRa_1_1Gui_1_1KeyMappingManageable.html" title=" " alt="" coords="4135,2399,4373,2535"/>
+<area shape="rect" id="node12" title=" " alt="" coords="3715,938,3766,1015"/>
+<area shape="rect" id="node48" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html" title="A Camera is an Engine Component storing a Camera object." alt="" coords="3655,1379,3826,2101"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Utils_1_1Index.html" title=" " alt="" coords="4439,725,4621,1228"/>
+<area shape="rect" id="node42" href="$structRa_1_1Engine_1_1Scene_1_1ItemEntry.html" title=" " alt="" coords="4447,1635,4613,1845"/>
+<area shape="rect" id="node14" href="$classint.html" title=" " alt="" coords="2669,424,2708,501"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="4745,2953,4934,3485"/>
+<area shape="rect" id="node16" title=" " alt="" coords="5015,2421,5178,2513"/>
+<area shape="rect" id="node17" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html" title=" " alt="" coords="4802,2201,4991,2733"/>
+<area shape="rect" id="node18" title=" " alt="" coords="4809,1694,4984,1786"/>
+<area shape="rect" id="node19" href="$classRa_1_1Gui_1_1PickingManager.html" title=" " alt="" coords="4958,3151,5139,3287"/>
+<area shape="rect" id="node38" title=" " alt="" coords="1029,2413,1180,2520"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1742,931,1937,1023"/>
+<area shape="rect" id="node30" title=" " alt="" coords="729,931,921,1023"/>
+<area shape="rect" id="node37" title=" " alt="" coords="861,3166,1066,3273"/>
+<area shape="rect" id="node24" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html" title=" " alt="" coords="995,850,1206,1103"/>
+<area shape="rect" id="node26" href="$classRa_1_1Engine_1_1Data_1_1Displayable.html" title=" " alt="" coords="1883,343,2097,582"/>
+<area shape="rect" id="node27" title=" " alt="" coords="1915,71,2065,149"/>
+<area shape="rect" id="node29" href="$classRa_1_1Engine_1_1Data_1_1Texture.html" title=" " alt="" coords="2122,277,2309,648"/>
+<area shape="rect" id="node33" title=" " alt="" coords="2393,931,2609,1023"/>
+<area shape="rect" id="node31" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="208,336,420,589"/>
+<area shape="rect" id="node32" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="208,5,420,215"/>
+<area shape="rect" id="node34" title="STL class." alt="" coords="2548,424,2635,501"/>
+<area shape="rect" id="node36" href="$classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html" title=" " alt="" coords="1230,857,1510,1096"/>
+<area shape="rect" id="node39" href="$classRa_1_1Gui_1_1GizmoManager.html" title=" " alt="" coords="4107,3107,4329,3331"/>
+<area shape="rect" id="node40" href="$classQObject.html" title=" " alt="" coords="3850,1701,3925,1779"/>
+<area shape="rect" id="node41" href="$classRa_1_1Gui_1_1TransformEditor.html" title=" " alt="" coords="4397,2377,4577,2557"/>
+<area shape="rect" id="node43" title=" " alt="" coords="4146,931,4293,1023"/>
+<area shape="rect" id="node47" title=" " alt="" coords="3252,1701,3419,1779"/>
+<area shape="rect" id="node49" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="3443,1628,3631,1852"/>
+<area shape="rect" id="node50" title=" " alt="" coords="2545,1701,2728,1779"/>
 </map>

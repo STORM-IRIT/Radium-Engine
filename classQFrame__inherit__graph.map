@@ -1,5 +1,5 @@
 <map id="QFrame" name="QFrame">
-<area shape="rect" id="node1" title=" " alt="" coords="187,5,260,83"/>
-<area shape="rect" id="node2" href="$classRa_1_1GuiBase_1_1TimelineFrameSelector.html" title=" " alt="" coords="5,131,215,443"/>
-<area shape="rect" id="node3" href="$classRa_1_1GuiBase_1_1TimelineTimeScale.html" title=" " alt="" coords="239,226,437,347"/>
+<area shape="rect" id="node1" title=" " alt="" coords="203,5,276,83"/>
+<area shape="rect" id="node2" href="$classRa_1_1Gui_1_1TimelineFrameSelector.html" title=" " alt="" coords="5,131,233,428"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1TimelineTimeScale.html" title=" " alt="" coords="258,226,461,333"/>
 </map>

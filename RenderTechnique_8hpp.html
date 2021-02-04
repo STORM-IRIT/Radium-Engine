@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Renderer/RenderTechnique/RenderTechnique.hpp File Reference</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Rendering/RenderTechnique.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -102,17 +102,17 @@ $(document).ready(function(){initNavTree('RenderTechnique_8hpp.html',''); initRe
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="Index_8hpp_source.html">Core/Utils/Index.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="RaEngine_8hpp_source.html">Engine/RaEngine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ShaderConfiguration_8hpp_source.html">Engine/Renderer/RenderTechnique/ShaderConfiguration.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderConfiguration_8hpp_source.html">Engine/Data/ShaderConfiguration.hpp</a>&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;<a class="el" href="RenderTechnique_8inl_source.html">Engine/Renderer/RenderTechnique/RenderTechnique.inl</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="RenderTechnique_8inl_source.html">Engine/Rendering/RenderTechnique.inl</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for RenderTechnique.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="RenderTechnique_8hpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="RenderTechnique_8hpp__incl.svg" width="100%" height="596"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('RenderTechnique_8hpp.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1RenderTechnique.html">Ra::Engine::RenderTechnique</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">Ra::Engine::Rendering::RenderTechnique</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -138,45 +138,49 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceRa_1_1Engine"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html">Ra::Engine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceRa_1_1Engine_1_1EngineRenderTechniques"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html">Ra::Engine::EngineRenderTechniques</a></td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Data"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Ra::Engine::Data</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Rendering"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Ra::Engine::Rendering</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html">Ra::Engine::Rendering::EngineRenderTechniques</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a890249adb486cfb2fce36f4638a90641"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a890249adb486cfb2fce36f4638a90641">Ra::Engine::EngineRenderTechniques::DefaultTechniqueBuilder</a> = std::function&lt; void(RenderTechnique &amp;rt, <a class="el" href="classbool.html">bool</a> isTransparent)&gt;</td></tr>
-<tr class="separator:a890249adb486cfb2fce36f4638a90641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcaf9b3e7385387d70bf9355541bcfb5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#adcaf9b3e7385387d70bf9355541bcfb5">Ra::Engine::Rendering::EngineRenderTechniques::DefaultTechniqueBuilder</a> = std::function&lt; void(RenderTechnique &amp;rt, <a class="el" href="classbool.html">bool</a> isTransparent)&gt;</td></tr>
+<tr class="separator:adcaf9b3e7385387d70bf9355541bcfb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:af0d75e4930eb1c298806919c11d76b6a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6a">Ra::Engine::DefaultRenderingPasses</a> : int { <br />
-&#160;&#160;<a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aa967e524813590bf2bb2b7fe8a5a8b68f">Ra::Engine::DEFAULT_PASS</a> = 0, 
-<a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aa3ff0ae60cd426d7a2f272a7c652837d7">Ra::Engine::LIGHTING_OPAQUE</a> = DEFAULT_PASS, 
-<a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aa1e9cbadaa169fba4449aa3547fa8d05e">Ra::Engine::Z_PREPASS</a>, 
-<a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aac406874ced20cbe0595d8eadd0a194be">Ra::Engine::LIGHTING_TRANSPARENT</a>, 
+<tr class="memitem:a6adc37d571180327fbdcf8dd786e9942"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942">Ra::Engine::Rendering::DefaultRenderingPasses</a> : int { <br />
+&#160;&#160;<a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a9ba696ce25a54b3f4ca0c33b3d373767">Ra::Engine::Rendering::DEFAULT_PASS</a> = 0, 
+<a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">Ra::Engine::Rendering::LIGHTING_OPAQUE</a> = DEFAULT_PASS, 
+<a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">Ra::Engine::Rendering::Z_PREPASS</a>, 
+<a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942adb4f8703ab187adf671e953a1163bf17">Ra::Engine::Rendering::LIGHTING_TRANSPARENT</a>, 
 <br />
-&#160;&#160;<a class="el" href="namespaceRa_1_1Engine.html#af0d75e4930eb1c298806919c11d76b6aae379bbc98454fd292e5d9f195775fe14">Ra::Engine::LIGHTING_VOLUMETRIC</a>
+&#160;&#160;<a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a2e6a8af4064ce6c2c25719b014d4867b">Ra::Engine::Rendering::LIGHTING_VOLUMETRIC</a>
 <br />
  }</td></tr>
-<tr class="separator:af0d75e4930eb1c298806919c11d76b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a6adc37d571180327fbdcf8dd786e9942"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:affc37bf84d5ff81342b5c09587eedc34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#affc37bf84d5ff81342b5c09587eedc34">Ra::Engine::EngineRenderTechniques::registerDefaultTechnique</a> (const std::string &amp;name, DefaultTechniqueBuilder builder)</td></tr>
-<tr class="separator:affc37bf84d5ff81342b5c09587eedc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e2ce86d7ae1f3822819477bf5bd7c74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a6e2ce86d7ae1f3822819477bf5bd7c74">Ra::Engine::EngineRenderTechniques::removeDefaultTechnique</a> (const std::string &amp;name)</td></tr>
-<tr class="separator:a6e2ce86d7ae1f3822819477bf5bd7c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e831d5088144082e9bd3828323aa57a"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classbool.html">bool</a>, DefaultTechniqueBuilder &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a5e831d5088144082e9bd3828323aa57a">Ra::Engine::EngineRenderTechniques::getDefaultTechnique</a> (const std::string &amp;name)</td></tr>
-<tr class="separator:a5e831d5088144082e9bd3828323aa57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11ba1d0b96932c09a8599a4323191f54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1EngineRenderTechniques.html#a11ba1d0b96932c09a8599a4323191f54">Ra::Engine::EngineRenderTechniques::cleanup</a> ()</td></tr>
-<tr class="separator:a11ba1d0b96932c09a8599a4323191f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67b629b682664ad298fb629180d6a359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a67b629b682664ad298fb629180d6a359">Ra::Engine::Rendering::EngineRenderTechniques::registerDefaultTechnique</a> (const std::string &amp;name, DefaultTechniqueBuilder builder)</td></tr>
+<tr class="separator:a67b629b682664ad298fb629180d6a359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77c07bfc49d9e946de729cfa7e41944d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#a77c07bfc49d9e946de729cfa7e41944d">Ra::Engine::Rendering::EngineRenderTechniques::removeDefaultTechnique</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:a77c07bfc49d9e946de729cfa7e41944d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab597fd85376bd86d7e78dc4194e409c2"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classbool.html">bool</a>, DefaultTechniqueBuilder &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#ab597fd85376bd86d7e78dc4194e409c2">Ra::Engine::Rendering::EngineRenderTechniques::getDefaultTechnique</a> (const std::string &amp;name)</td></tr>
+<tr class="separator:ab597fd85376bd86d7e78dc4194e409c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2b75c46f215b4f971e5a501fb12b54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#afd2b75c46f215b4f971e5a501fb12b54">Ra::Engine::Rendering::EngineRenderTechniques::cleanup</a> ()</td></tr>
+<tr class="separator:afd2b75c46f215b4f971e5a501fb12b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_6bc97c5ccce2964f7b25f8377ac95818.html">RenderTechnique</a></li><li class="navelem"><a class="el" href="RenderTechnique_8hpp.html">RenderTechnique.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="RenderTechnique_8hpp.html">RenderTechnique.hpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

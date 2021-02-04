@@ -17,7 +17,7 @@ var classRa_1_1Gui_1_1FlightCameraManipulator =
     [ "handleWheelEvent", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a15ab7c6e186e9713319b2206c733797f", null ],
     [ "mappingContext", "classRa_1_1Gui_1_1FlightCameraManipulator.html#ac37903d1f49046183be6f465c9ef5d3c", null ],
     [ "resetCamera", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a17ab04bf806ecdf489d9302074a9c3f4", null ],
-    [ "setCamera", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a3197e9d7bd2d6d73a9198fd3f3c952b1", null ],
+    [ "setCamera", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a1a95d7d2b4aa7f581ac153ebe81a6f61", null ],
     [ "setCameraPosition", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a64c25ec331d4b59d4846b574d3cd2da4", null ],
     [ "setCameraTarget", "classRa_1_1Gui_1_1FlightCameraManipulator.html#a2a17637e6af05694ed723608edcd1d46", null ],
     [ "toggleRotateAround", "classRa_1_1Gui_1_1FlightCameraManipulator.html#afe6090b28af87790eabdbbfb168e75ac", null ],

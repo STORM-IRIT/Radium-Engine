@@ -1,7 +1,0 @@
-<map id="Ra::Engine::Light" name="Ra::Engine::Light">
-<area shape="rect" id="node1" title=" " alt="" coords="233,395,421,604"/>
-<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1DirectionalLight.html" title=" " alt="" coords="5,733,208,883"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1PointLight.html" title=" " alt="" coords="233,711,421,905"/>
-<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1SpotLight.html" title=" " alt="" coords="445,652,651,964"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Component.html" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="216,5,437,347"/>
-</map>

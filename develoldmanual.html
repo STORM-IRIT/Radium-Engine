@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -150,11 +150,11 @@ Engine Object Model</h1>
 Entities</h2>
 <p><em>Entities</em> are the base object manipulated by the engine. You can think of them as "game objects", something that represent an object in the scene. Entity data include a world space to object space transform and a list of <em>Components</em></p>
 <p>The entity's role is only to hold together this transform and the list of components. The entity uses double buffering to prevent transforms from being updated more than once per frame.</p>
-<p>When creating an entity, if you set its transform, <em>do not forget</em> to call <code>Entity::swapTransformBuffers</code>, this might prevent you some headache. Example : </p><div class="fragment"><div class="line"><a class="code" href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a>* entity = theEntityManager-&gt;getOrCreate( <span class="stringliteral">&quot;MyEntity&quot;</span> );</div>
+<p>When creating an entity, if you set its transform, <em>do not forget</em> to call <code>Entity::swapTransformBuffers</code>, this might prevent you some headache. Example : </p><div class="fragment"><div class="line"><a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a>* entity = theEntityManager-&gt;getOrCreate( <span class="stringliteral">&quot;MyEntity&quot;</span> );</div>
 <div class="line"><a class="code" href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a> transform( Ra::Core::Transform::Identity() );</div>
 <div class="line">transform.translation = <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a>( 42, 13, 37 );</div>
-<div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Entity.html#a0555082e814666f1ec051e65b727930d">setTransform</a>( transform );</div>
-<div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Entity.html#a316ef3994a1181d235a341426b3d0c6f">swapTransformBuffers</a>();</div>
+<div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3d2c816d8383d6967fd283839a9485ff">setTransform</a>( transform );</div>
+<div class="line">entity-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Entity.html#adb8d7310c4f4036229d03f087cf05f56">swapTransformBuffers</a>();</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md89"></a>
 Systems and Components</h2>
 <p>Each <em>Component</em> represent an aspect of an <em>Entity</em> to a particular engine subsystem. For example, an animated character may have a skeleton(animation component), a high-resolution mesh (display component) and simplified convex shape for collision detection (physics component).</p>
@@ -200,7 +200,7 @@ Requirements</h2>
 <li>Plugin code must be in <code>namespace BaseNamePlugin</code></li>
 <li>The system defined by the plugin must be named <code>BaseNamePlugin::BaseNameSystem</code></li>
 <li>It must be defined in a header located at the top of the plugin sub-folder, named <code>BaseNameSystem.hpp</code> (its full path should be <code>src/Plugins/Basename/BasenameSystem.hpp</code>)</li>
-<li>The system must inherit from <code>Engine::System</code> and have a default empty constructor.</li>
+<li>The system must inherit from <code>Engine::Scene::System</code> and have a default empty constructor.</li>
 </ul>
 </li>
 </ul>
@@ -215,15 +215,15 @@ Default plugins</h2>
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_1_1Core_html_a78aad321111ea0b0aeb30f27c161c1b3"><div class="ttname"><a href="namespaceRa_1_1Core.html#a78aad321111ea0b0aeb30f27c161c1b3">Ra::Core::Transform</a></div><div class="ttdeci">Eigen::Transform&lt; Scalar, 3, Eigen::Affine &gt; Transform</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00082">Types.hpp:82</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html_a0555082e814666f1ec051e65b727930d"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html#a0555082e814666f1ec051e65b727930d">Ra::Engine::Entity::setTransform</a></div><div class="ttdeci">void setTransform(const Core::Transform &amp;transform)</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8inl_source.html#l00015">Entity.inl:15</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html">Ra::Engine::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_adb8d7310c4f4036229d03f087cf05f56"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#adb8d7310c4f4036229d03f087cf05f56">Ra::Engine::Scene::Entity::swapTransformBuffers</a></div><div class="ttdeci">void swapTransformBuffers()</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00065">Entity.cpp:65</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html_a3d2c816d8383d6967fd283839a9485ff"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html#a3d2c816d8383d6967fd283839a9485ff">Ra::Engine::Scene::Entity::setTransform</a></div><div class="ttdeci">void setTransform(const Core::Transform &amp;transform)</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8inl_source.html#l00016">Entity.inl:16</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_a96bbd92c4724ffd8d9d31849007213bf"><div class="ttname"><a href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Ra::Core::Vector3</a></div><div class="ttdeci">Eigen::Matrix&lt; Scalar, 3, 1 &gt; Vector3</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00024">Types.hpp:24</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Entity_html_a316ef3994a1181d235a341426b3d0c6f"><div class="ttname"><a href="classRa_1_1Engine_1_1Entity.html#a316ef3994a1181d235a341426b3d0c6f">Ra::Engine::Entity::swapTransformBuffers</a></div><div class="ttdeci">void swapTransformBuffers()</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8cpp_source.html#l00064">Entity.cpp:64</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Entity_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Entity.html">Ra::Engine::Scene::Entity</a></div><div class="ttdoc">An entity is an scene element. It ties together components with a transform.</div><div class="ttdef"><b>Definition:</b> <a href="Entity_8hpp_source.html#l00021">Entity.hpp:21</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

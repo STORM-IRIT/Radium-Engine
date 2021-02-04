@@ -1,0 +1,6 @@
+<map id="Ra::Engine::Rendering::RenderObject::computeAabb" name="Ra::Engine::Rendering::RenderObject::computeAabb">
+<area shape="rect" id="node1" title=" " alt="" coords="5,39,221,80"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a035f4dc2b719ab18b7417ff33b986f18" title=" " alt="" coords="269,39,481,80"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1Component.html#aaaac457b6b1c62d618f626c9c6771ad2" title="Return the entity the component belongs to." alt="" coords="529,5,693,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1Entity.html#ae5cd18623e1aca8045a05e32ecdff6e6" title=" " alt="" coords="535,71,688,112"/>
+</map>

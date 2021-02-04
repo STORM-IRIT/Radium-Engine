@@ -1,4 +1,0 @@
-<map id="Ra::Engine::Renderer::resize" name="Ra::Engine::Renderer::resize">
-<area shape="rect" id="node1" title="Resize the viewport and all the screen textures, fbos. This function must be overrided as soon as som..." alt="" coords="5,5,164,47"/>
-<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Renderer.html#a18a293f1c7c6864e4f1de7f6b88b0f4a" title=" " alt="" coords="212,5,371,47"/>
-</map>

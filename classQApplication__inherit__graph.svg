@@ -71,9 +71,9 @@ var sectionId = 'dynsection-0';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1GuiBase_1_1BaseApplication.html" target="_top" xlink:title="This class contains the main application logic. It owns the engine and the GUI.">
+<g id="a_node2"><a xlink:href="classRa_1_1Gui_1_1BaseApplication.html" target="_top" xlink:title="This class contains the main application logic. It owns the engine and the GUI.">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-640.5 182,-640.5 182,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="91" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::GuiBase::BaseApplication</text>
+<text text-anchor="middle" x="91" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::BaseApplication</text>
 <polyline fill="none" stroke="black" points="0,-621.5 182,-621.5 "/>
 <text text-anchor="start" x="8" y="-609.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ m_mainWindow</text>
 <text text-anchor="start" x="8" y="-598.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ m_engine</text>

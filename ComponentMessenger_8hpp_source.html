@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Managers/ComponentMessenger/ComponentMessenger.hpp Source File</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Scene/ComponentMessenger.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -106,166 +106,169 @@ $(document).ready(function(){initNavTree('ComponentMessenger_8hpp_source.html','
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Singleton_8hpp.html">Core/Utils/Singleton.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Component_8hpp.html">Engine/Component/Component.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Component_8hpp.html">Engine/Scene/Component.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Entity;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Component;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1ComponentMessenger.html">   37</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1ComponentMessenger.html">ComponentMessenger</a></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad">RA_SINGLETON_INTERFACE</a>( <a class="code" href="classRa_1_1Engine_1_1ComponentMessenger.html">ComponentMessenger</a> );</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html">   44</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a> {</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a20bf38a4a1095b8592808609e01e0fe2">   46</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a20bf38a4a1095b8592808609e01e0fe2">Getter</a> = std::function&lt;<span class="keyword">const</span> T*( void )&gt;;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a8e4d8107c72d94aa890fe56259573bbb">   48</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a8e4d8107c72d94aa890fe56259573bbb">Setter</a> = std::function&lt;void( <span class="keyword">const</span> T* )&gt;;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#abdcdf43dd3f508fc87ea01df79b0fd64">   51</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#abdcdf43dd3f508fc87ea01df79b0fd64">ReadWrite</a> = std::function&lt;T*( void )&gt;;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a1973ccef474cb41b5d946608760db321">   54</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T&amp; <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a1973ccef474cb41b5d946608760db321">getHelper</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a20bf38a4a1095b8592808609e01e0fe2">Getter</a>&amp; g ) { <span class="keywordflow">return</span> *( g() ); }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html">   58</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt;std::shared_ptr&lt;T&gt;&gt; {</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a24df50230a285daa538b4db23983a4ad">   59</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a24df50230a285daa538b4db23983a4ad">Getter</a>    = std::function&lt;std::shared_ptr&lt;const T&gt;( <span class="keywordtype">void</span> )&gt;;</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a38404208b26876402999c61527af6f9f">   60</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a38404208b26876402999c61527af6f9f">Setter</a>    = std::function&lt;void( std::shared_ptr&lt;const T&gt; )&gt;;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#ada181b4ae101b9c6f800923585ead247">   61</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#ada181b4ae101b9c6f800923585ead247">ReadWrite</a> = std::function&lt;std::shared_ptr&lt;T&gt;( <span class="keywordtype">void</span> )&gt;;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a8928d48bf65d9a823be7091d66cb5cee">   63</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> std::shared_ptr&lt;const T&gt;&amp; <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a8928d48bf65d9a823be7091d66cb5cee">getHelper</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a24df50230a285daa538b4db23983a4ad">Getter</a>&amp; g ) { <span class="keywordflow">return</span> ( g() ); }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    };</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">using</span> Key = std::pair&lt;std::string, std::type_index&gt;;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// Unfortunately there is no standard hash functions for std::pair.</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// so we have to provide one (which justs xors the two hashes)</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// We could use a proper hash combination function like this one :</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// http://www.boost.org/doc/libs/1_46_1/doc/html/hash/reference.html#boost.hash_combine</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">struct </span>HashFunc {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">inline</span> std::size_t operator()( <span class="keyword">const</span> Key&amp; k ) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    };</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">struct </span>CallbackBase {};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">struct </span>GetterCallback : <span class="keyword">public</span> CallbackBase {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">typename</span> CallbackTypes&lt;T&gt;::Getter m_cb;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    };</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">struct </span>SetterCallback : <span class="keyword">public</span> CallbackBase {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">typename</span> CallbackTypes&lt;T&gt;::Setter m_cb;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    };</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">struct </span>RwCallback : <span class="keyword">public</span> CallbackBase {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">typename</span> CallbackTypes&lt;T&gt;::ReadWrite m_cb;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    };</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">using</span> CallbackMap = std::unordered_map&lt;Key, std::unique_ptr&lt;CallbackBase&gt;, HashFunc&gt;;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    ComponentMessenger() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// Direct access to function pointers</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>Scene {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>Entity;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">class </span>Component;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">   39</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">ComponentMessenger</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad">RA_SINGLETON_INTERFACE</a>( <a class="code" href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">ComponentMessenger</a> );</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">   46</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">   48</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">Getter</a> = std::function&lt;<span class="keyword">const</span> T*( void )&gt;;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce">   50</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce">Setter</a> = std::function&lt;void( <span class="keyword">const</span> T* )&gt;;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a69156f044994d1cbcf666dbe97360acf">   53</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a69156f044994d1cbcf666dbe97360acf">ReadWrite</a> = std::function&lt;T*( void )&gt;;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a0102c735e12324054c60c3d16c571d23">   56</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T&amp; <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a0102c735e12324054c60c3d16c571d23">getHelper</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">Getter</a>&amp; g ) { <span class="keywordflow">return</span> *( g() ); }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html">   60</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">CallbackTypes</a>&lt;std::shared_ptr&lt;T&gt;&gt; {</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a57352b9b58750b5b1371cd41f2364bee">   61</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a57352b9b58750b5b1371cd41f2364bee">Getter</a>    = std::function&lt;std::shared_ptr&lt;const T&gt;( <span class="keywordtype">void</span> )&gt;;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a3250161f710458872f86c0de86d95f46">   62</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a3250161f710458872f86c0de86d95f46">Setter</a>    = std::function&lt;void( std::shared_ptr&lt;const T&gt; )&gt;;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a4eee0e46f6bbaebefa08a5aa87f280cb">   63</a></span>&#160;        <span class="keyword">using</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a4eee0e46f6bbaebefa08a5aa87f280cb">ReadWrite</a> = std::function&lt;std::shared_ptr&lt;T&gt;( <span class="keywordtype">void</span> )&gt;;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#af818660a41fe4f5e755edc2ca68f725a">   65</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> std::shared_ptr&lt;const T&gt;&amp; <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#af818660a41fe4f5e755edc2ca68f725a">getHelper</a>( <span class="keyword">const</span> <a class="code" href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a57352b9b58750b5b1371cd41f2364bee">Getter</a>&amp; g ) { <span class="keywordflow">return</span> ( g() ); }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    };</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">using</span> Key = std::pair&lt;std::string, std::type_index&gt;;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// Unfortunately there is no standard hash functions for std::pair.</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// so we have to provide one (which justs xors the two hashes)</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// We could use a proper hash combination function like this one :</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// http://www.boost.org/doc/libs/1_46_1/doc/html/hash/reference.html#boost.hash_combine</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">struct </span>HashFunc {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">inline</span> std::size_t operator()( <span class="keyword">const</span> Key&amp; k ) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    };</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">struct </span>CallbackBase {};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">struct </span>GetterCallback : <span class="keyword">public</span> CallbackBase {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keyword">typename</span> CallbackTypes&lt;T&gt;::Getter m_cb;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    };</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">struct </span>SetterCallback : <span class="keyword">public</span> CallbackBase {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">typename</span> CallbackTypes&lt;T&gt;::Setter m_cb;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    };</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">struct </span>RwCallback : <span class="keyword">public</span> CallbackBase {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keyword">typename</span> CallbackTypes&lt;T&gt;::ReadWrite m_cb;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    };</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">using</span> CallbackMap = std::unordered_map&lt;Key, std::unique_ptr&lt;CallbackBase&gt;, HashFunc&gt;;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    ComponentMessenger() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Getter getterCallback( <span class="keyword">const</span> Entity* entity,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                                      <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::ReadWrite rwCallback( <span class="keyword">const</span> Entity* entity,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                                                     <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Setter setterCallback( <span class="keyword">const</span> Entity* entity,</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                                                      <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">// Access the exported data.</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// Direct access to function pointers</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Getter getterCallback( <span class="keyword">const</span> Entity* entity,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                                                                      <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::ReadWrite rwCallback( <span class="keyword">const</span> Entity* entity,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                                                     <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">inline</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Setter setterCallback( <span class="keyword">const</span> Entity* entity,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                                                      <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">// Note : all functions assert when the data is not available.</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="comment">// e.g. get() assert if canGet() is false.</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> ReturnType&amp; get( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment">// Query if a given key has registered data.</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// Access the exported data.</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="comment">// Note : all functions assert when the data is not available.</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="comment">// e.g. get() assert if canGet() is false.</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> ReturnType&amp; get( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> canGet( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> canSet( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> canRw( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="comment">// Register callbacks</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment">// Query if a given key has registered data.</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> canGet( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> canSet( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> canRw( <span class="keyword">const</span> Entity* entity, <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> registerOutput( <span class="keyword">const</span> Entity* entity,</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                Component* comp,</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                                <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                <span class="keyword">const</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Getter&amp; cb );</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> registerReadWrite( <span class="keyword">const</span> Entity* entity,</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                                   Component* comp,</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                                   <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                                   <span class="keyword">const</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::ReadWrite&amp; cb );</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> registerInput( <span class="keyword">const</span> Entity* entity,</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                               Component* comp,</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                               <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                               <span class="keyword">const</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Setter&amp; cb );</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    std::unordered_map&lt;const Entity*, CallbackMap&gt;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        m_entityGetLists; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="comment">// Register callbacks</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="comment">//</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> registerOutput( <span class="keyword">const</span> Entity* entity,</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                Component* comp,</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                                <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                                <span class="keyword">const</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Getter&amp; cb );</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> registerReadWrite( <span class="keyword">const</span> Entity* entity,</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                                   Component* comp,</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                                   <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                                   <span class="keyword">const</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::ReadWrite&amp; cb );</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> ReturnType&gt;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> registerInput( <span class="keyword">const</span> Entity* entity,</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                               Component* comp,</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                               <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>,</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                               <span class="keyword">const</span> <span class="keyword">typename</span> CallbackTypes&lt;ReturnType&gt;::Setter&amp; cb );</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    std::unordered_map&lt;const Entity*, CallbackMap&gt;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        m_entitySetLists; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        m_entityGetLists; </div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    std::unordered_map&lt;const Entity*, CallbackMap&gt;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        m_entityRwLists; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;};</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ComponentMessenger_8inl.html">Engine/Managers/ComponentMessenger/ComponentMessenger.inl</a>&gt;</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        m_entitySetLists; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    std::unordered_map&lt;const Entity*, CallbackMap&gt;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        m_entityRwLists; </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;};</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;} <span class="comment">// namespace Scene</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ComponentMessenger_8inl.html">Engine/Scene/ComponentMessenger.inl</a>&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_a0102c735e12324054c60c3d16c571d23"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a0102c735e12324054c60c3d16c571d23">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::getHelper</a></div><div class="ttdeci">static const T &amp; getHelper(const Getter &amp;g)</div><div class="ttdoc">Calls the callback and retrieves the object.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00056">ComponentMessenger.hpp:56</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_html_a1973ccef474cb41b5d946608760db321"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a1973ccef474cb41b5d946608760db321">Ra::Engine::ComponentMessenger::CallbackTypes::getHelper</a></div><div class="ttdeci">static const T &amp; getHelper(const Getter &amp;g)</div><div class="ttdoc">Calls the callback and retrieves the object.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00054">ComponentMessenger.hpp:54</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_a38404208b26876402999c61527af6f9f"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a38404208b26876402999c61527af6f9f">Ra::Engine::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::Setter</a></div><div class="ttdeci">std::function&lt; void(std::shared_ptr&lt; const T &gt;)&gt; Setter</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00060">ComponentMessenger.hpp:60</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_ad3b421fdb7fe4703e3773b622076b373"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#ad3b421fdb7fe4703e3773b622076b373">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Getter</a></div><div class="ttdeci">std::function&lt; const T *(void)&gt; Getter</div><div class="ttdoc">Function pointer for a getter function.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00048">ComponentMessenger.hpp:48</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_a4eee0e46f6bbaebefa08a5aa87f280cb"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a4eee0e46f6bbaebefa08a5aa87f280cb">Ra::Engine::Scene::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::ReadWrite</a></div><div class="ttdeci">std::function&lt; std::shared_ptr&lt; T &gt;(void)&gt; ReadWrite</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00063">ComponentMessenger.hpp:63</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html">Ra::Engine::Scene::ComponentMessenger::CallbackTypes</a></div><div class="ttdoc">This describes the function pointers accepted for each type.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00046">ComponentMessenger.hpp:46</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_a06292bfe7ce6eb822834273ae0a60fce"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a06292bfe7ce6eb822834273ae0a60fce">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::Setter</a></div><div class="ttdeci">std::function&lt; void(const T *)&gt; Setter</div><div class="ttdoc">Function pointer for a setter function.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00050">ComponentMessenger.hpp:50</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_html_a69156f044994d1cbcf666dbe97360acf"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes.html#a69156f044994d1cbcf666dbe97360acf">Ra::Engine::Scene::ComponentMessenger::CallbackTypes::ReadWrite</a></div><div class="ttdeci">std::function&lt; T *(void)&gt; ReadWrite</div><div class="ttdoc">Function pointer for a read/write getter.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00053">ComponentMessenger.hpp:53</a></div></div>
 <div class="ttc" id="aSingleton_8hpp_html_ab39cd756057298304463e7f82f0e8cad"><div class="ttname"><a href="Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad">RA_SINGLETON_INTERFACE</a></div><div class="ttdeci">#define RA_SINGLETON_INTERFACE(TYPE)</div><div class="ttdef"><b>Definition:</b> <a href="Singleton_8hpp_source.html#l00020">Singleton.hpp:20</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_af818660a41fe4f5e755edc2ca68f725a"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#af818660a41fe4f5e755edc2ca68f725a">Ra::Engine::Scene::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::getHelper</a></div><div class="ttdeci">static const std::shared_ptr&lt; const T &gt; &amp; getHelper(const Getter &amp;g)</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00065">ComponentMessenger.hpp:65</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_html_a8e4d8107c72d94aa890fe56259573bbb"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a8e4d8107c72d94aa890fe56259573bbb">Ra::Engine::ComponentMessenger::CallbackTypes::Setter</a></div><div class="ttdeci">std::function&lt; void(const T *)&gt; Setter</div><div class="ttdoc">Function pointer for a setter function.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00048">ComponentMessenger.hpp:48</a></div></div>
 <div class="ttc" id="aComponent_8hpp_html"><div class="ttname"><a href="Component_8hpp.html">Component.hpp</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1ComponentMessenger_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html">Ra::Engine::Scene::ComponentMessenger</a></div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00039">ComponentMessenger.hpp:39</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_a57352b9b58750b5b1371cd41f2364bee"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a57352b9b58750b5b1371cd41f2364bee">Ra::Engine::Scene::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::Getter</a></div><div class="ttdeci">std::function&lt; std::shared_ptr&lt; const T &gt;(void)&gt; Getter</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00061">ComponentMessenger.hpp:61</a></div></div>
 <div class="ttc" id="aComponentMessenger_8inl_html"><div class="ttname"><a href="ComponentMessenger_8inl.html">ComponentMessenger.inl</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_html_a20bf38a4a1095b8592808609e01e0fe2"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#a20bf38a4a1095b8592808609e01e0fe2">Ra::Engine::ComponentMessenger::CallbackTypes::Getter</a></div><div class="ttdeci">std::function&lt; const T *(void)&gt; Getter</div><div class="ttdoc">Function pointer for a getter function.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00046">ComponentMessenger.hpp:46</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_html"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html">Ra::Engine::ComponentMessenger::CallbackTypes</a></div><div class="ttdoc">This describes the function pointers accepted for each type.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00044">ComponentMessenger.hpp:44</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1ComponentMessenger_html"><div class="ttname"><a href="classRa_1_1Engine_1_1ComponentMessenger.html">Ra::Engine::ComponentMessenger</a></div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00037">ComponentMessenger.hpp:37</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_ada181b4ae101b9c6f800923585ead247"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#ada181b4ae101b9c6f800923585ead247">Ra::Engine::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::ReadWrite</a></div><div class="ttdeci">std::function&lt; std::shared_ptr&lt; T &gt;(void)&gt; ReadWrite</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00061">ComponentMessenger.hpp:61</a></div></div>
+<div class="ttc" id="astructRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_a3250161f710458872f86c0de86d95f46"><div class="ttname"><a href="structRa_1_1Engine_1_1Scene_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a3250161f710458872f86c0de86d95f46">Ra::Engine::Scene::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::Setter</a></div><div class="ttdeci">std::function&lt; void(std::shared_ptr&lt; const T &gt;)&gt; Setter</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00062">ComponentMessenger.hpp:62</a></div></div>
 <div class="ttc" id="aSingleton_8hpp_html"><div class="ttname"><a href="Singleton_8hpp.html">Singleton.hpp</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_a24df50230a285daa538b4db23983a4ad"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a24df50230a285daa538b4db23983a4ad">Ra::Engine::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::Getter</a></div><div class="ttdeci">std::function&lt; std::shared_ptr&lt; const T &gt;(void)&gt; Getter</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00059">ComponentMessenger.hpp:59</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4_html_a8928d48bf65d9a823be7091d66cb5cee"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_3_01std_1_1shared__ptr_3_01T_01_4_01_4.html#a8928d48bf65d9a823be7091d66cb5cee">Ra::Engine::ComponentMessenger::CallbackTypes&lt; std::shared_ptr&lt; T &gt; &gt;::getHelper</a></div><div class="ttdeci">static const std::shared_ptr&lt; const T &gt; &amp; getHelper(const Getter &amp;g)</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00063">ComponentMessenger.hpp:63</a></div></div>
-<div class="ttc" id="astructRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes_html_abdcdf43dd3f508fc87ea01df79b0fd64"><div class="ttname"><a href="structRa_1_1Engine_1_1ComponentMessenger_1_1CallbackTypes.html#abdcdf43dd3f508fc87ea01df79b0fd64">Ra::Engine::ComponentMessenger::CallbackTypes::ReadWrite</a></div><div class="ttdeci">std::function&lt; T *(void)&gt; ReadWrite</div><div class="ttdoc">Function pointer for a read/write getter.</div><div class="ttdef"><b>Definition:</b> <a href="ComponentMessenger_8hpp_source.html#l00051">ComponentMessenger.hpp:51</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_06113b60808b1bbb52a01dfd2c3a8657.html">Managers</a></li><li class="navelem"><a class="el" href="dir_f60fd3cff26f751d5a136115ec0dccfa.html">ComponentMessenger</a></li><li class="navelem"><a class="el" href="ComponentMessenger_8hpp.html">ComponentMessenger.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:57 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="ComponentMessenger_8hpp.html">ComponentMessenger.hpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

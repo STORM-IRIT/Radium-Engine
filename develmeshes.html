@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -118,16 +118,16 @@ Geometry types</h1>
 </ul>
 </li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a>, which is an half-edge data structure. A converter allows to go back and forth to <code>TriangleMesh</code> without loss of data, but during the conversion, vertices with the same position represents the same topological point (and are hence merged). <b>Soon deprecated:</b> The other vertex attributes are stored on half-edges (to manage multiple normals per 3D positions for instance). <b>New:</b> The other vertex attributes are stored on wedges. Each half-edge has one wedge index. If multiple half-edge have the same set of attributes (including vertex position) they have the same wedge index at construction. See section <a href="#wedges">wedges</a> below.</li>
-<li><a class="el" href="namespaceRa_1_1Engine.html">Ra::Engine</a>::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call). See inheritance digram of <a class="el" href="classRa_1_1Engine_1_1AttribArrayDisplayable.html">Ra::Engine::AttribArrayDisplayable</a><ul>
-<li><a class="el" href="classRa_1_1Engine_1_1Displayable.html">Ra::Engine::Displayable</a></li>
-<li><a class="el" href="classRa_1_1Engine_1_1AttribArrayDisplayable.html">Ra::Engine::AttribArrayDisplayable</a></li>
-<li><a class="el" href="classRa_1_1Engine_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.">Ra::Engine::CoreGeometryDisplayable</a></li>
-<li><a class="el" href="classRa_1_1Engine_1_1PointCloud.html" title="A PointCloud without indices.">Ra::Engine::PointCloud</a> *</li>
-<li><a class="el" href="classRa_1_1Engine_1_1IndexedGeometry.html" title="A CoreGeometry, with indices.">Ra::Engine::IndexedGeometry</a></li>
-<li><a class="el" href="classRa_1_1Engine_1_1IndexedAttribArrayDisplayable.html">Ra::Engine::IndexedAttribArrayDisplayable</a></li>
-<li><a class="el" href="classRa_1_1Engine_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh.">Ra::Engine::LineMesh</a> *</li>
-<li><a class="el" href="classRa_1_1Engine_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Ra::Engine::Mesh</a> *</li>
-<li><a class="el" href="classRa_1_1Engine_1_1PolyMesh.html">Ra::Engine::PolyMesh</a> *</li>
+<li><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Ra::Engine::Data</a>::*, which stores a Core Geometry to handle 3D data, and manages the rendering aspect of it (VAO, VBO, draw call). See inheritance diagram of <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a><ul>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Ra::Engine::Data::Displayable</a></li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a></li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html" title="Template class to manage the Displayable aspect of a Core Geomertry, such as TriangleMesh.">Ra::Engine::Data::CoreGeometryDisplayable</a></li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1PointCloud.html" title="A PointCloud without indices.">Ra::Engine::Data::PointCloud</a> *</li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html" title="A CoreGeometry, with indices.">Ra::Engine::Data::IndexedGeometry</a></li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">Ra::Engine::Data::IndexedAttribArrayDisplayable</a></li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh.">Ra::Engine::Data::LineMesh</a> *</li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Ra::Engine::Data::Mesh</a> *</li>
+<li><a class="el" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">Ra::Engine::Data::PolyMesh</a> *</li>
 </ul>
 </li>
 </ol>
@@ -135,10 +135,10 @@ Geometry types</h1>
 <h1><a class="anchor" id="autotoc_md81"></a>
 Colaboration between Core and Engine</h1>
 <p>A Core Geometry can be used on its own.</p>
-<p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Displayable.html#a66e02e9b3b2abb1905d8df0ed77db017">Ra::Engine::Displayable::getAbstractGeometry</a> or <a class="el" href="classRa_1_1Engine_1_1CoreGeometryDisplayable.html#a00d5ea98eaac99f43e5e6b94e58dcd4c">Ra::Engine::CoreGeometryDisplayable::getCoreGeometry</a></p>
+<p>Engine Geometry must own a Core Geometry, either set at construction, or later with loadGeometry. The Core Geometry ownership is then transfered to the Engine Geometry, and can be accessed by reference with <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html#adf6f87ad353e84d1f6fd5a145e4fbd3d">Ra::Engine::Data::Displayable::getAbstractGeometry</a> or <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a166c11d14412bdfc7fe13fa9242dd63f">Ra::Engine::Data::CoreGeometryDisplayable::getCoreGeometry</a></p>
 <h1><a class="anchor" id="autotoc_md82"></a>
 Data consistency</h1>
-<p>As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty. On the next <a class="el" href="classRa_1_1Engine_1_1CoreGeometryDisplayable.html#a82efcf23c3d3e74189e321dec3793cb5" title="Update (i.e. send to GPU) the buffers marked as dirty.">Ra::Engine::CoreGeometryDisplayable::updateGL</a>, the dirty data will be updated on the GPU.</p>
+<p>As soon as a Core Geometry is owned by a Engine Geometry, each data update on the Core Geometry attribute trigger a observator method to mark the corresponding GPU data as dirty. On the next <a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#a185171226018c59fb689efcb2154619b" title="Update (i.e. send to GPU) the buffers marked as dirty.">Ra::Engine::Data::CoreGeometryDisplayable::updateGL</a>, the dirty data will be updated on the GPU.</p>
 <h1><a class="anchor" id="autotoc_md83"></a>
 Mesh creation</h1>
 <p><code>GeometryComponent</code> is in charge of loading a <code>GeometryData</code> and create the corresponding <code>Mesh</code>.</p>
@@ -239,7 +239,7 @@ Halfedge collapse and wedge.</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

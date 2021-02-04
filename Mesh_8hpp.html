@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Renderer/Mesh/Mesh.hpp File Reference</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Engine/Data/Mesh.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('Mesh_8hpp.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="RaEngine_8hpp_source.html">Engine/RaEngine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="DisplayableObject_8hpp_source.html">Engine/Renderer/Displayable/DisplayableObject.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="DisplayableObject_8hpp_source.html">Engine/Data/DisplayableObject.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="VectorArray_8hpp_source.html">Core/Containers/VectorArray.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="TriangleMesh_8hpp_source.html">Core/Geometry/TriangleMesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Color_8hpp_source.html">Core/Utils/Color.hpp</a>&gt;</code><br />
@@ -108,7 +108,8 @@ $(document).ready(function(){initNavTree('Mesh_8hpp.html',''); initResizable(); 
 <code>#include &lt;array&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;<a class="el" href="Mesh_8inl_source.html">Engine/Renderer/Mesh/Mesh.inl</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Mesh_8inl_source.html">Engine/Data/Mesh.inl</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ShaderProgram_8hpp_source.html">Engine/Data/ShaderProgram.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for Mesh.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -130,35 +131,35 @@ $(document).ready(function(){initNavTree('Mesh_8hpp.html',''); initResizable(); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Vao.html">Ra::Engine::Vao</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Vao.html">Ra::Engine::Data::Vao</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1AttribArrayDisplayable.html">Ra::Engine::AttribArrayDisplayable</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html">Ra::Engine::Data::AttribArrayDisplayable</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1AttribArrayDisplayable_1_1AttribObserver.html">Ra::Engine::AttribArrayDisplayable::AttribObserver</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable_1_1AttribObserver.html">Ra::Engine::Data::AttribArrayDisplayable::AttribObserver</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1VaoIndices.html">Ra::Engine::VaoIndices</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept class to ensure consistent naming of <a class="el" href="classRa_1_1Engine_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes.">VaoIndices</a> accross derived classes.  <a href="classRa_1_1Engine_1_1VaoIndices.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html">Ra::Engine::Data::VaoIndices</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concept class to ensure consistent naming of <a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html" title="Concept class to ensure consistent naming of VaoIndices accross derived classes.">VaoIndices</a> accross derived classes.  <a href="classRa_1_1Engine_1_1Data_1_1VaoIndices.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1VaoIndices_1_1IndicesObserver.html">Ra::Engine::VaoIndices::IndicesObserver</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html">Ra::Engine::Data::VaoIndices::IndicesObserver</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1IndexedAttribArrayDisplayable.html">Ra::Engine::IndexedAttribArrayDisplayable&lt; I &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedAttribArrayDisplayable.html">Ra::Engine::Data::IndexedAttribArrayDisplayable&lt; I &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1CoreGeometryDisplayable.html">Ra::Engine::CoreGeometryDisplayable&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template class to manage the <a class="el" href="classRa_1_1Engine_1_1Displayable.html">Displayable</a> aspect of a <a class="el" href="namespaceRa_1_1Core.html">Core</a> Geomertry, such as TriangleMesh.  <a href="classRa_1_1Engine_1_1CoreGeometryDisplayable.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html">Ra::Engine::Data::CoreGeometryDisplayable&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template class to manage the <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Displayable</a> aspect of a <a class="el" href="namespaceRa_1_1Core.html">Core</a> Geomertry, such as TriangleMesh.  <a href="classRa_1_1Engine_1_1Data_1_1CoreGeometryDisplayable.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1PointCloud.html">Ra::Engine::PointCloud</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Engine_1_1PointCloud.html" title="A PointCloud without indices.">PointCloud</a> without indices.  <a href="classRa_1_1Engine_1_1PointCloud.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1PointCloud.html">Ra::Engine::Data::PointCloud</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classRa_1_1Engine_1_1Data_1_1PointCloud.html" title="A PointCloud without indices.">PointCloud</a> without indices.  <a href="classRa_1_1Engine_1_1Data_1_1PointCloud.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1IndexedGeometry.html">Ra::Engine::IndexedGeometry&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A CoreGeometry, with indices.  <a href="classRa_1_1Engine_1_1IndexedGeometry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html">Ra::Engine::Data::IndexedGeometry&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A CoreGeometry, with indices.  <a href="classRa_1_1Engine_1_1Data_1_1IndexedGeometry.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1LineMesh.html">Ra::Engine::LineMesh</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh.">LineMesh</a>, own a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html">Core::Geometry::LineMesh</a>.  <a href="classRa_1_1Engine_1_1LineMesh.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Ra::Engine::Data::LineMesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html" title="LineMesh, own a Core::Geometry::LineMesh.">LineMesh</a>, own a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html">Core::Geometry::LineMesh</a>.  <a href="classRa_1_1Engine_1_1Data_1_1LineMesh.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Mesh.html">Ra::Engine::Mesh</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a>, own a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Core::Geometry::TriangleMesh</a>.  <a href="classRa_1_1Engine_1_1Mesh.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html">Ra::Engine::Data::Mesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a>, own a <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">Core::Geometry::TriangleMesh</a>.  <a href="classRa_1_1Engine_1_1Data_1_1Mesh.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1PolyMesh.html">Ra::Engine::PolyMesh</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">Ra::Engine::Data::PolyMesh</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -168,14 +169,18 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceRa_1_1Engine"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine.html">Ra::Engine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Rendering"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Ra::Engine::Rendering</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Data"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Ra::Engine::Data</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_54018506bb725509c19b38b6d9bcf0f6.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_f6a0a87962fcbf90fc709c1bf5ba5a00.html">Mesh</a></li><li class="navelem"><a class="el" href="Mesh_8hpp.html">Mesh.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="Mesh_8hpp.html">Mesh.hpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:00 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

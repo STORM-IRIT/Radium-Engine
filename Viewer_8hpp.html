@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/GuiBase/Viewer/Viewer.hpp File Reference</title>
+<title>Radium Engine: /home/runner/work/Radium-Engine/Radium-Engine/src/Radium-Engine/src/Gui/Viewer/Viewer.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">205cd9bc7399558f5945d844403484d3b5426655</span>
+   &#160;<span id="projectnumber">9b104af1d3342e4439e1509abb5952c5e8e02279</span>
    </div>
   </td>
  </tr>
@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('Viewer_8hpp.html',''); initResizable()
 <div class="title">Viewer.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="RaGuiBase_8hpp_source.html">GuiBase/RaGuiBase.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="RaGui_8hpp_source.html">Gui/RaGui.hpp</a>&gt;</code><br />
 <code>#include &lt;atomic&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;QWindow&gt;</code><br />
@@ -106,9 +106,10 @@ $(document).ready(function(){initNavTree('Viewer_8hpp.html',''); initResizable()
 <code>#include &lt;<a class="el" href="CoreMacros_8hpp_source.html">Core/CoreMacros.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Types_8hpp_source.html">Core/Types.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="RadiumEngine_8hpp_source.html">Engine/RadiumEngine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="Renderer_8hpp_source.html">Engine/Renderer/Renderer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="KeyMappingManager_8hpp_source.html">GuiBase/Utils/KeyMappingManager.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="WindowQt_8hpp_source.html">GuiBase/Viewer/WindowQt.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Renderer_8hpp_source.html">Engine/Rendering/Renderer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="Camera_8hpp_source.html">Engine/Scene/Camera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="KeyMappingManager_8hpp_source.html">Gui/Utils/KeyMappingManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="WindowQt_8hpp_source.html">Gui/Viewer/WindowQt.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for Viewer.hpp:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -170,7 +171,7 @@ Macros</h2></td></tr>
 <div class="line">    KMA_VALUE( VIEWER_RELOAD_SHADERS )       \</div>
 <div class="line">    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00268">268</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00270">270</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
@@ -190,18 +191,18 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00279">279</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Viewer_8hpp_source.html#l00281">281</a> of file <a class="el" href="Viewer_8hpp_source.html">Viewer.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aViewer_8hpp_html_a3939ec33e0cb280a33715cae09cf6512"><div class="ttname"><a href="Viewer_8hpp.html#a3939ec33e0cb280a33715cae09cf6512">KMA_VALUE</a></div><div class="ttdeci">#define KMA_VALUE(x)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00279">Viewer.hpp:279</a></div></div>
+<div class="ttc" id="aViewer_8hpp_html_a3939ec33e0cb280a33715cae09cf6512"><div class="ttname"><a href="Viewer_8hpp.html#a3939ec33e0cb280a33715cae09cf6512">KMA_VALUE</a></div><div class="ttdeci">#define KMA_VALUE(x)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00281">Viewer.hpp:281</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cb59203ea3f84fc4d67c89730003fed4.html">GuiBase</a></li><li class="navelem"><a class="el" href="dir_796a1a15fb9cc23998586ef6281d84e1.html">Viewer</a></li><li class="navelem"><a class="el" href="Viewer_8hpp.html">Viewer.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 3 2021 21:03:58 for Radium Engine by
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="Viewer_8hpp.html">Viewer.hpp</a></li>
+    <li class="footer">Generated on Thu Feb 4 2021 19:06:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

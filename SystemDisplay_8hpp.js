@@ -1,8 +1,8 @@
 var SystemDisplay_8hpp =
 [
-    [ "DebugComponent", "classRa_1_1Engine_1_1DebugComponent.html", "classRa_1_1Engine_1_1DebugComponent" ],
-    [ "UiComponent", "classRa_1_1Engine_1_1UiComponent.html", "classRa_1_1Engine_1_1UiComponent" ],
-    [ "SystemEntity", "classRa_1_1Engine_1_1SystemEntity.html", "classRa_1_1Engine_1_1SystemEntity" ],
+    [ "DebugComponent", "classRa_1_1Engine_1_1Scene_1_1DebugComponent.html", "classRa_1_1Engine_1_1Scene_1_1DebugComponent" ],
+    [ "UiComponent", "classRa_1_1Engine_1_1Scene_1_1UiComponent.html", "classRa_1_1Engine_1_1Scene_1_1UiComponent" ],
+    [ "SystemEntity", "classRa_1_1Engine_1_1Scene_1_1SystemEntity.html", "classRa_1_1Engine_1_1Scene_1_1SystemEntity" ],
     [ "RA_DISPLAY_AABB", "SystemDisplay_8hpp.html#ac6a31ef5222a2552f4333ced427c49a9", null ],
     [ "RA_DISPLAY_CAPSULE", "SystemDisplay_8hpp.html#a38b78c9b40a07f6dbddca50f04bb72ad", null ],
     [ "RA_DISPLAY_CIRCLE", "SystemDisplay_8hpp.html#a89b03194de87097d26ffeba5e5b66c8b", null ],
