@@ -18,6 +18,7 @@ string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
 if (NOT DEFINED glm_DIR)
+    CheckExternalsPrerequisite()
     StatusMessage("[EngineExternal]" "glm" "remote git")
     ExternalProject_Add( glm
         GIT_REPOSITORY https://github.com/g-truc/glm.git
@@ -42,6 +43,7 @@ endif()
 
 
 if (NOT DEFINED glbinding_DIR)
+    CheckExternalsPrerequisite()
     StatusMessage("[EngineExternal]" "glbinding" "remote git")
     ExternalProject_Add(glbinding
         GIT_REPOSITORY https://github.com/cginternals/glbinding.git
@@ -73,6 +75,7 @@ else ()
 endif ()
 
 if (NOT DEFINED globjects_DIR)
+    CheckExternalsPrerequisite()
     StatusMessage("" "globjects" "remote git")
     ExternalProject_Add(globjects
         GIT_REPOSITORY https://github.com/dlyr/globjects.git
@@ -98,6 +101,7 @@ else()
 endif()
 
 if (NOT DEFINED stb_DIR)
+    CheckExternalsPrerequisite()
     StatusMessage("" "stb" "remote git")
     ExternalProject_Add( stb
         GIT_REPOSITORY https://github.com/nothings/stb.git

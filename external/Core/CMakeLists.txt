@@ -14,6 +14,7 @@ string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
 if (NOT DEFINED Eigen3_DIR)
+    CheckExternalsPrerequisite()
     StatusMessage("" "eigen3" "remote git")
 
     ExternalProject_Add(Eigen3
@@ -34,6 +35,7 @@ endif ()
 
 
 if (NOT DEFINED OpenMesh_DIR)
+    CheckExternalsPrerequisite()
     StatusMessage("" "OpenMesh" "remote git")
     # I found some problems when generating xcode project for OpenMesh: the libXXX.dylib link to
     # libXXX.Major.minor.dylib (eg libOpenMesh.2.1.dylib) is not generated and the script failed.
@@ -55,6 +57,7 @@ else()
 endif()
 
 if (NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
+    CheckExternalsPrerequisite()
     StatusMessage("" "cpplocate" "remote git")
     ExternalProject_Add(cpplocate
         GIT_REPOSITORY https://github.com/cginternals/cpplocate.git

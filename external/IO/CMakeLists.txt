@@ -19,6 +19,7 @@ set(indent_string "${indent_string}--")
 
 if (RADIUM_IO_ASSIMP)
     if (NOT DEFINED assimp_DIR)
+        CheckExternalsPrerequisite()
         StatusMessage("[IOExternal]" "assimp" "remote git")
         # I found some problems when generating xcode project for Assimp. The debug version is expected even in Release mode.
         # As Release build does not generate the debug version, the script fail.
@@ -46,6 +47,7 @@ endif()
 
 if(RADIUM_IO_TINYPLY)
     if (NOT DEFINED tinyply_DIR)
+        CheckExternalsPrerequisite()
         StatusMessage("" "tinyply" "remote git")
         ExternalProject_Add( tinyply
             GIT_REPOSITORY https://github.com/ddiakopoulos/tinyply.git
