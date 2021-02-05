@@ -42,3 +42,7 @@ set(RADIUM_EXTERNAL_CMAKE_OPTIONS
 macro(StatusMessage MODULE NAME VAR)
     message(STATUS "${MODULE} Using ${NAME} from ${VAR}")
 endmacro()
+
+macro(CheckExternalsPrerequisite)
+    find_package(Git REQUIRED)
+endmacro()
