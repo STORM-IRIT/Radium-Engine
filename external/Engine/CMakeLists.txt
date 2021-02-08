@@ -67,11 +67,9 @@ else()
     StatusMessage("" "glbinding"  "${glbinding_DIR}")
 endif()
 
-set(GLOBJECTS_NEEDS_EIGEN_DEP FALSE)
 if (NOT DEFINED Eigen3_DIR)
     message(STATUS "globjects use bundled eigen3")
     set(Eigen3_DIR ${CMAKE_INSTALL_PREFIX}/share/eigen3/cmake/)
-    set(GLOBJECTS_NEEDS_EIGEN_DEP TRUE)
 else ()
     message(STATUS "globjects use eigen3 from ${Eigen3_DIR}")
 endif ()
@@ -85,7 +83,7 @@ if (NOT DEFINED globjects_DIR)
         GIT_PROGRESS TRUE
         PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        DEPENDS glbinding glm
+        DEPENDS glbinding glm Eigen3
         CMAKE_ARGS
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DOPTION_BUILD_DOCS=OFF
@@ -98,10 +96,6 @@ if (NOT DEFINED globjects_DIR)
         )
 
     set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/share/globjects)
-
-    if(GLOBJECTS_NEEDS_EIGEN_DEP)
-        add_dependencies( globjects Eigen3 )
-    endif()
 else()
     StatusMessage("" "globjects" "${globjects_DIR}")
 endif()
