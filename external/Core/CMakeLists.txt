@@ -31,6 +31,7 @@ if (NOT DEFINED Eigen3_DIR)
         )
 else ()
     StatusMessage("" "eigen3" ${Eigen3_DIR})
+    add_custom_target(Eigen3)    
 endif ()
 
 
@@ -71,7 +72,6 @@ if (NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
         -DOPTION_BUILD_TESTS=OFF
         -DOPTION_BUILD_DOCS=OFF
         -DCMAKE_MESSAGE_INDENT=${indent_string}\;
-
         )
 else()
     StatusMessage("" "cpplocate" ${cpplocate_DIR})
