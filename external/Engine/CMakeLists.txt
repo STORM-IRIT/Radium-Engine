@@ -83,7 +83,7 @@ if (NOT DEFINED globjects_DIR)
         GIT_PROGRESS TRUE
         PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        DEPENDS glbinding glm
+        DEPENDS glbinding glm Eigen3
         CMAKE_ARGS
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DOPTION_BUILD_DOCS=OFF
