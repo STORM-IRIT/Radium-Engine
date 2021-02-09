@@ -17,6 +17,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
+add_custom_target( IOExternals )
+
 if (RADIUM_IO_ASSIMP)
     if (NOT DEFINED assimp_DIR)
         CheckExternalsPrerequisite()
@@ -39,6 +41,7 @@ if (RADIUM_IO_ASSIMP)
             -DASSIMP_NO_EXPORT=True
             "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
             )
+        add_dependencies( IOExternals assimp )
     else()
         StatusMessage("" "assimp" "${assimp_DIR}")
     endif()
@@ -60,6 +63,7 @@ if(RADIUM_IO_TINYPLY)
             -DSHARED_LIB=TRUE
             "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"                   
             )
+        add_dependencies( IOExternals tinyply )
     else()
         StatusMessage("[IOExternal]" "tinyply" "${tinyply_DIR}")
     endif()

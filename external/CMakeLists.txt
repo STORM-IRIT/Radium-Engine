@@ -75,6 +75,8 @@ else()
   add_subdirectory(Core)
   # add Engine dependencies
   add_subdirectory(Engine)
+  # set dependencies between external targets
+  add_dependencies(EngineExternals CoreExternals)
   # add IO dependencies, all activated by default by this cmake script
   option( RADIUM_IO_ASSIMP  "Provide loaders based on Assimp library" ON )
   option( RADIUM_IO_TINYPLY "Provide loaders based on TinyPly library" ON )
