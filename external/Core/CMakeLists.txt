@@ -13,6 +13,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
+add_custom_target( CoreExternals )
+
 if (NOT DEFINED Eigen3_DIR)
     CheckExternalsPrerequisite()
     StatusMessage("" "eigen3" "remote git")
@@ -29,9 +31,9 @@ if (NOT DEFINED Eigen3_DIR)
         -DBUILD_TESTING=OFF
         "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
+    add_dependencies( CoreExternals Eigen3 )
 else ()
     StatusMessage("" "eigen3" ${Eigen3_DIR})
-    add_custom_target(Eigen3)    
 endif ()
 
 
@@ -53,6 +55,7 @@ if (NOT DEFINED OpenMesh_DIR)
         -DBUILD_APPS=OFF
         "-DCMAKE_MESSAGE_INDENT=${indent_string}\;"
         )
+    add_dependencies( CoreExternals OpenMesh )
 else()
     StatusMessage("" "OpenMesh" ${OpenMesh_DIR})
 endif()
@@ -73,6 +76,7 @@ if (NOT DEFINED cpplocate_DIR OR NOT cpplocate_DIR)
         -DOPTION_BUILD_DOCS=OFF
         -DCMAKE_MESSAGE_INDENT=${indent_string}\;
         )
+    add_dependencies( CoreExternals cpplocate )
 else()
     StatusMessage("" "cpplocate" ${cpplocate_DIR})
 endif()

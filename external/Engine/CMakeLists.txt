@@ -17,6 +17,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 string(REPLACE ";" "" indent_string "${CMAKE_MESSAGE_INDENT}")
 set(indent_string "${indent_string}--")
 
+add_custom_target( EngineExternals )
+
 if (NOT DEFINED glm_DIR)
     CheckExternalsPrerequisite()
     StatusMessage("[EngineExternal]" "glm" "remote git")
@@ -35,6 +37,7 @@ if (NOT DEFINED glm_DIR)
         )
 
     set(glm_DIR ${CMAKE_INSTALL_PREFIX}/lib/cmake/glm)
+    add_dependencies( EngineExternals glm )
 else()
     #because other might depends on it, but it's already done, define a dummy target
     add_custom_target(glm)
@@ -62,6 +65,7 @@ if (NOT DEFINED glbinding_DIR)
         )
 
     set(glbinding_DIR ${CMAKE_INSTALL_PREFIX}/share/glbinding)
+    add_dependencies( EngineExternals glbinding )
 else()
     add_custom_target(glbinding)
     StatusMessage("" "glbinding"  "${glbinding_DIR}")
@@ -83,7 +87,7 @@ if (NOT DEFINED globjects_DIR)
         GIT_PROGRESS TRUE
         PATCH_COMMAND git reset --hard && git apply -v --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/patches/globjects.patch"
         INSTALL_DIR "${CMAKE_INSTALL_PREFIX}"
-        DEPENDS glbinding glm Eigen3
+        DEPENDS glbinding glm
         CMAKE_ARGS
         ${RADIUM_EXTERNAL_CMAKE_OPTIONS}
         -DOPTION_BUILD_DOCS=OFF
@@ -96,6 +100,7 @@ if (NOT DEFINED globjects_DIR)
         )
 
     set(globjects_DIR ${CMAKE_INSTALL_PREFIX}/share/globjects)
+    add_dependencies( EngineExternals globjects )
 else()
     StatusMessage("" "globjects" "${globjects_DIR}")
 endif()
@@ -114,6 +119,7 @@ if (NOT DEFINED stb_DIR)
         COMMAND ${CMAKE_COMMAND} -E copy_if_different <SOURCE_DIR>/stb_image_write.h ${CMAKE_INSTALL_PREFIX}/include/stb/
         INSTALL_COMMAND ""
         )
+    add_dependencies( EngineExternals stb )
 else()
     StatusMessage("" "stb" "${stb_DIR}")
     message(STATUS  "Installing stb_image.h to ${CMAKE_INSTALL_PREFIX}/include")
