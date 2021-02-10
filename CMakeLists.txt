@@ -12,6 +12,9 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 # Enable helpfull warnings and C++17 for all files
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Require OSX 10.15 to support std::filesystem (https://developer.apple.com/documentation/xcode-release-notes/xcode-11-release-notes)
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
+
 
 # Project setup, versioning stuff here, change when changing the version
 # Note: keep the project name lower case only for easy linux packaging support
