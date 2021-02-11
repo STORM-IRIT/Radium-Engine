@@ -105,6 +105,8 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
 
     command.initialize( triMesh );
 
+    const bool hasNormals = !triMesh.normals().empty();
+
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
         std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
@@ -116,7 +118,6 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
         {
             unsigned int inMeshVertexIndex = triangle[j];
             const Vector3& p               = triMesh.vertices()[inMeshVertexIndex];
-            const Vector3& n               = triMesh.normals()[inMeshVertexIndex];
 
             typename VertexMap::iterator vtr = vertexHandles.find( p );
 
@@ -130,8 +131,9 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
             { vh = vtr->second; }
 
             face_vhandles[j]    = vh;
-            face_normals[j]     = n;
             face_vertexIndex[j] = inMeshVertexIndex;
+            if ( hasNormals ) face_normals[j] = triMesh.normals()[inMeshVertexIndex];
+
             WedgeData wd;
             wd.m_position = p;
 
@@ -154,7 +156,7 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
             for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
             {
                 TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
-                set_normal( heh, face_normals[vindex] );
+                if ( hasNormals ) set_normal( heh, face_normals[vindex] );
                 property( m_inputTriangleMeshIndexPph, heh ) = face_vertexIndex[vindex];
                 copyAttribToTopo( triMesh, vprop_float, heh, face_vertexIndex[vindex] );
                 copyAttribToTopo( triMesh, vprop_vec2, heh, face_vertexIndex[vindex] );
