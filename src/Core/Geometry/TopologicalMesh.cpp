@@ -266,8 +266,9 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
             VertexDataInternal v;
             CORE_ASSERT( i < 3, "Non-triangular face found." );
             v._vertex = point( to_vertex_handle( *fh_it ) );
-            v._normal = normal( to_vertex_handle( *fh_it ), *f_it );
 
+            if ( has_halfedge_normals() )
+            { v._normal = normal( to_vertex_handle( *fh_it ), *f_it ); }
             copyAttribToCoreVertex( v._float, this, vprop_float, *fh_it );
             copyAttribToCoreVertex( v._vec2, this, vprop_vec2, *fh_it );
             copyAttribToCoreVertex( v._vec3, this, vprop_vec3, *fh_it );
@@ -280,8 +281,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
                 vi = int( vertexIndex++ );
                 vertexHandles.insert( vtr, VertexMap::value_type( v, vi ) );
                 vertices.push_back( v._vertex );
-                normals.push_back( v._normal );
-
+                if ( has_halfedge_normals() ) { normals.push_back( v._normal ); }
                 copyAttribToCore( out, v._float );
                 copyAttribToCore( out, v._vec2 );
                 copyAttribToCore( out, v._vec3 );
@@ -296,7 +296,7 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
         indices.emplace_back( tindices[0], tindices[1], tindices[2] );
     }
     out.setVertices( std::move( vertices ) );
-    out.setNormals( std::move( normals ) );
+    if ( has_halfedge_normals() ) { out.setNormals( std::move( normals ) ); }
     out.setIndices( std::move( indices ) );
     CORE_ASSERT( vertexIndex == vertices.size(),
                  "Inconsistent number of faces in generated TriangleMesh." );
@@ -369,7 +369,6 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
         int tindices[3];
         int i = 0;
 
-        // iterator over vertex (through halfedge to get access to halfedge normals)
         for ( TopologicalMesh::ConstFaceHalfedgeIter fh_it = cfh_iter( *f_it ); fh_it.is_valid();
               ++fh_it )
         {
