@@ -106,7 +106,12 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
     command.initialize( triMesh );
 
     const bool hasNormals = !triMesh.normals().empty();
-
+    if ( !hasNormals )
+    {
+        release_face_normals();
+        release_vertex_normals();
+        release_halfedge_normals();
+    }
     for ( unsigned int i = 0; i < num_triangles; i++ )
     {
         std::vector<TopologicalMesh::VertexHandle> face_vhandles( 3 );
@@ -266,6 +271,12 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
     LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.size() << " wedges ";
 
     const bool hasNormals = !triMesh.normals().empty();
+    if ( !hasNormals )
+    {
+        release_face_normals();
+        release_vertex_normals();
+        release_halfedge_normals();
+    }
 
     command.initialize( triMesh );
     for ( unsigned int i = 0; i < num_triangles; i++ )
@@ -377,15 +388,31 @@ void TopologicalMesh::copyAttribToTopo( const TriangleMesh& triMesh,
 inline const TopologicalMesh::Normal& TopologicalMesh::normal( VertexHandle vh,
                                                                FaceHandle fh ) const {
     // find halfedge that point to vh and member of fh
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, return dummy ref to  (0,0,0)";
+        static TopologicalMesh::Normal dummy {0_ra, 0_ra, 0_ra};
+        return dummy;
+    }
     return normal( halfedge_handle( vh, fh ) );
 }
 
 inline void TopologicalMesh::set_normal( VertexHandle vh, FaceHandle fh, const Normal& n ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
 
     set_normal( halfedge_handle( vh, fh ), n );
 }
 
 inline void TopologicalMesh::propagate_normal_to_halfedges( VertexHandle vh ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
     for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
     {
         set_normal( *vih_it, normal( vh ) );
@@ -433,6 +460,11 @@ TopologicalMesh::getVector4PropsHandles() const {
 }
 
 inline void TopologicalMesh::createNormalPropOnFaces( OpenMesh::FPropHandleT<Normal>& fProp ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
     auto nph = halfedge_normals_pph();
     add_property( fProp, property( nph ).name() + "_subdiv_copy_F" );
 }
@@ -442,6 +474,11 @@ inline void TopologicalMesh::clearProp( OpenMesh::FPropHandleT<Normal>& fProp ) 
 }
 
 inline void TopologicalMesh::copyNormal( HalfedgeHandle input_heh, HalfedgeHandle copy_heh ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
     auto nph                  = halfedge_normals_pph();
     property( nph, copy_heh ) = property( nph, input_heh );
 }
@@ -449,6 +486,11 @@ inline void TopologicalMesh::copyNormal( HalfedgeHandle input_heh, HalfedgeHandl
 inline void TopologicalMesh::copyNormalFromFace( FaceHandle fh,
                                                  HalfedgeHandle heh,
                                                  OpenMesh::FPropHandleT<Normal> fProp ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
     auto nph             = halfedge_normals_pph();
     property( nph, heh ) = property( fProp, fh );
 }
@@ -464,6 +506,11 @@ inline void TopologicalMesh::interpolateNormal( HalfedgeHandle in_a,
 
 inline void TopologicalMesh::interpolateNormalOnFaces( FaceHandle fh,
                                                        OpenMesh::FPropHandleT<Normal> fProp ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
     auto nph = halfedge_normals_pph();
 
     // init sum to first
