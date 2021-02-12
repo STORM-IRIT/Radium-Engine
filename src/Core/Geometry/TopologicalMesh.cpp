@@ -67,6 +67,10 @@ std::string wedgeInfo( const Ra::Core::Geometry::TopologicalMesh& topo,
     return buffer.str();
 }
 
+bool TopologicalMesh::isManifold( VertexHandle vh ) const {
+    return is_manifold( vh );
+}
+
 bool TopologicalMesh::checkIntegrity() const {
     std::vector<unsigned int> count( m_wedges.size(), 0 );
     bool ret = true;
