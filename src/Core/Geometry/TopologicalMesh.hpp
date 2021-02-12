@@ -474,6 +474,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
 
+    /**
+     * is the vertex a "bow tie" vertex ?
+     * \note Alias for OpenMesh::is_manifold
+     */
+    bool isManifold( VertexHandle vh ) const;
+
     /// Check if evrything looks right in the data structure
     /// \return true if ok, false if ko.
     bool checkIntegrity() const;
