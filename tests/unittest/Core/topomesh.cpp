@@ -198,14 +198,6 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     using Ra::Core::Geometry::TopologicalMesh;
     using Ra::Core::Geometry::TriangleMesh;
 
-    // using Catmull =
-    //     OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::Geometry::TopologicalMesh>;
-    // using Loop = OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::Geometry::TopologicalMesh>;
-
-    // using Decimater = OpenMesh::Decimater::DecimaterT<Ra::Core::Geometry::TopologicalMesh>;
-    // using HModQuadric =
-    //     OpenMesh::Decimater::ModQuadricT<Ra::Core::Geometry::TopologicalMesh>::Handle;
-
     auto testConverter = []( const TriangleMesh& mesh ) {
         auto topologicalMesh = TopologicalMesh( mesh );
         auto newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
@@ -302,7 +294,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         // well formed mesh
 
         TriangleMesh mesh;
-        mesh.setVertices( vertices );
+        mesh.setVertices( std::move( vertices ) );
         mesh.setIndices( std::move( indices ) );
         TopologicalMesh topo1 {mesh};
         TopologicalMesh topo2;
@@ -363,6 +355,16 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f 
     REQUIRE( Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0.f ) );
 }
 
+/// \todo TEST_CASE( "Core/Geometry/TopologicalMesh/Subdivider",
+/// "[Core][Core/Geometry][TopologicalMesh]" ) {
+// using Catmull =
+//     OpenMesh::Subdivider::Uniform::CatmullClarkT<Ra::Core::Geometry::TopologicalMesh>;
+// using Loop = OpenMesh::Subdivider::Uniform::LoopT<Ra::Core::Geometry::TopologicalMesh>;
+// using Decimater = OpenMesh::Decimater::DecimaterT<Ra::Core::Geometry::TopologicalMesh>;
+// using HModQuadric =
+//     OpenMesh::Decimater::ModQuadricT<Ra::Core::Geometry::TopologicalMesh>::Handle;
+//}
+
 TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][TopologicalMesh]" ) {
     using Ra::Core::Vector3;
     using Ra::Core::Geometry::TopologicalMesh;
@@ -397,156 +399,217 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
     float f = .3f;
 
     test_split( topo, eh, f );
-    // split boundary edge
-    // collapse
-    // check float attrib value
+    /// \todo : split boundary edge,  collapse,  check float attrib value
 }
 
-// TEST_CASE( "Core/Geometry/TopologicalMesh/Complex", "[Core][Core/Geometry][TopologicalMesh]" ) {
-//
-//    VectorArray<Vector3> vertices = {{0_ra, 0_ra, 0_ra}};
-//    VectorArray<Vector3> normals {{0_ra, 0_ra, 1_ra}};
-//    VectorArray<Vector3ui> indices {{0, 0, 0}};
-//
-//    auto buildMesh = []( const VectorArray<Vector3>& v,
-//                         const VectorArray<Vector3>& n,
-//                         const VectorArray<Vector3ui>& i ) {
-//        TriangleMesh m;
-//        m.setVertices( v );
-//        m.setNormals( n );
-//        auto& idx = m.getIndicesWithLock();
-//        std::copy( i.begin(), i.end(), std::back_inserter( idx ) );
-//        m.indicesUnlock();
-//
-//        LOG( logINFO ) << " Built a mesh with " << m.vertices().size() << " vertices, "
-//                       << m.normals().size() << " normals and " << m.getIndices().size()
-//                       << " indices.";
-//
-//        return m;
-//    };
-//
-//    auto mesh = buildMesh( vertices, normals, indices );
-//    TopologicalMesh topo {mesh};
-//    auto mesh2 = topo.toTriangleMesh();
-//    //  REQUIRE( isSameMesh( mesh, mesh2 ) );
-//}
-//
-
 TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][TopologicalMesh]" ) {
+    SECTION( "Non manifold faces" ) {
+        struct MyNonManifoldCommand {
+            inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
+            inline void initialize( const TriangleMesh& /*triMesh*/ ) {}
+            inline void
+            process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
+                LOG( logINFO ) << "Non Manifold face found";
+                nonManifoldFaces++;
+            }
+            inline void postProcess( TopologicalMesh& /*tm*/ ) {
+                // Todo : For each non manifold face, remove the vertices that are not part of a
+                // face of the topomesh For the test, this will reduce the mesh_2 to mesh1
+                REQUIRE( nonManifoldFaces == targetNonManifoldFaces );
+                LOG( logINFO ) << "Process non-manifold faces";
+            }
 
-    struct MyNonManifoldCommand {
-        inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
-        inline void initialize( const TriangleMesh& /*triMesh*/ ) {}
-        inline void process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
-            LOG( logINFO ) << "Non Manifold face found";
-            nonManifoldFaces++;
+            int nonManifoldFaces {0};
+            const int targetNonManifoldFaces;
+        };
+
+        auto buildMesh = []( const VectorArray<Vector3>& v,
+                             const VectorArray<Vector3>& n,
+                             const VectorArray<Vector3ui>& i ) {
+            TriangleMesh m;
+            m.setVertices( v );
+            m.setNormals( n );
+            auto& idx = m.getIndicesWithLock();
+            std::copy( i.begin(), i.end(), std::back_inserter( idx ) );
+            m.indicesUnlock();
+
+            LOG( logINFO ) << " Built a mesh with " << m.vertices().size() << " vertices, "
+                           << m.normals().size() << " normals and " << m.getIndices().size()
+                           << " indices.";
+
+            return m;
+        };
+
+        // test if candidateMesh  -> TopologicalMesh -> TriangleMesh isSameMesh than referenceMesh,
+        // with and without the command.
+        auto testConverter = []( const TriangleMesh& referenceMesh,
+                                 const TriangleMesh& candidateMesh,
+                                 MyNonManifoldCommand command ) {
+            // test with functor
+            LOG( logINFO ) << "Converter with custom command";
+            TopologicalMesh topo {candidateMesh, command};
+            auto convertedMeshWithCommand = topo.toTriangleMesh();
+            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommand ) );
+
+            // test without functor
+            LOG( logINFO ) << "Converter without custom command";
+            TopologicalMesh topo3 {candidateMesh};
+            auto convertedMeshWithoutCommand = topo3.toTriangleMesh();
+            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommand ) );
+            return convertedMeshWithoutCommand;
+        };
+
+        VectorArray<Vector3> vertices = {
+            {0_ra, 0_ra, 0_ra}, {0_ra, 1_ra, 0_ra}, {1_ra, 1_ra, 0_ra}, {1_ra, 0_ra, 0_ra}};
+        VectorArray<Vector3> normals {
+            {0_ra, 0_ra, 1_ra}, {0_ra, 0_ra, 1_ra}, {0_ra, 0_ra, 1_ra}, {0_ra, 0_ra, 1_ra}};
+        VectorArray<Vector3ui> indices {{0, 2, 1}, {0, 3, 2}};
+
+        VectorArray<Vector3> vertices_2 = {{0_ra, 0_ra, 0_ra},
+                                           {0_ra, 1_ra, 0_ra},
+                                           {1_ra, 1_ra, 0_ra},
+                                           {1_ra, 0_ra, 0_ra},
+                                           {1_ra, 0_ra, 1_ra}};
+        VectorArray<Vector3> normals_2 {
+            {0_ra, 0_ra, 1_ra},
+            {0_ra, 0_ra, 1_ra},
+            {0_ra, 0_ra, 1_ra},
+            {0_ra, 0_ra, 1_ra},
+            {0_ra, -1_ra, 0_ra},
+        };
+
+        VectorArray<Vector3ui> indices_2 {{0, 2, 1}, {0, 3, 2}, {0, 2, 4}};
+
+        using Vector5 = Eigen::Matrix<Scalar, 5, 1>;
+        VectorArray<Vector5> attrib_array {
+            {0_ra, 0_ra, 0_ra, 0_ra, 1_ra},
+            {0_ra, 0_ra, 0_ra, 0_ra, 1_ra},
+            {0_ra, 0_ra, 0_ra, 0_ra, 1_ra},
+            {0_ra, -1_ra, 0_ra, 0_ra, 0_ra},
+        };
+
+        // well formed mesh
+        auto mesh = buildMesh( vertices, normals, indices );
+
+        // edge shared by three faces
+        LOG( logINFO ) << "Test with edge shared by three faces";
+        auto mesh2 = buildMesh( vertices_2, normals_2, indices_2 );
+
+        testConverter(
+            mesh, mesh2, MyNonManifoldCommand( 1 ) ); // we should find 1 non-manifold face
+
+        // test with unsupported attribute type
+        LOG( logINFO ) << "Test with unsupported attribute (all faces are manifold)";
+        auto mesh3 {mesh}, mesh4 {mesh};
+        auto handle  = mesh3.addAttrib<Vector5>( "vector5_attrib" );
+        auto& attrib = mesh3.getAttrib( handle );
+        auto& buf    = attrib.getDataWithLock();
+        buf          = attrib_array;
+        attrib.unlock();
+
+        REQUIRE( mesh4.vertexAttribs().hasSameAttribs( mesh.vertexAttribs() ) );
+        REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
+        REQUIRE( !mesh4.vertexAttribs().hasSameAttribs( mesh3.vertexAttribs() ) );
+        REQUIRE( !mesh3.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
+        mesh4 = testConverter(
+            mesh, mesh3, MyNonManifoldCommand( 0 ) ); // we should find 0 non-manifold face
+        REQUIRE( mesh4.vertexAttribs().hasSameAttribs( mesh.vertexAttribs() ) );
+        REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
+        REQUIRE( !mesh4.vertexAttribs().hasSameAttribs( mesh3.vertexAttribs() ) );
+        REQUIRE( !mesh3.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
+
+        // TODO : build a functor that add the faces as independant faces in the topomesh and
+        // define a manifold mesh that is similar to the result of processing of this non manifold.
+        //
+    }
+    SECTION( "Non manifold vertex : Bow tie" ) {
+        VectorArray<Vector3> vertices = {
+            {-1_ra, -1_ra, 0_ra},
+            {-1_ra, 1_ra, 0_ra},
+            {0_ra, 0_ra, 0_ra}, // non manifold vertex
+            {1_ra, -1_ra, 0_ra},
+            {1_ra, 1_ra, 0_ra},
+        };
+
+        VectorArray<Vector3ui> indices {{0, 2, 1}, {2, 3, 4}};
+        TriangleMesh mesh;
+        // do not move vertices, we need to compare afterward
+        mesh.setVertices( vertices );
+        mesh.setIndices( std::move( indices ) );
+
+        TopologicalMesh topo {mesh};
+
+        for ( auto itr = topo.vertices_begin(); itr != topo.vertices_end(); ++itr )
+        {
+            if ( Ra::Core::Math::areApproxEqual( ( topo.point( *itr ) - vertices[2] ).squaredNorm(),
+                                                 0_ra ) )
+            { REQUIRE( !topo.isManifold( *itr ) ); }
+            else
+            { REQUIRE( topo.isManifold( *itr ) ); }
         }
-        inline void postProcess( TopologicalMesh& /*tm*/ ) {
-            // Todo : For each non manifold face, remove the vertices that are not part of a face of
-            // the topomesh For the test, this will reduce the mesh_2 to mesh1
-            REQUIRE( nonManifoldFaces == targetNonManifoldFaces );
-            LOG( logINFO ) << "Process non-manifold faces";
+    }
+    SECTION( "Non manifold vertex : Double pyramid" ) {
+
+        struct MyNonManifoldCommand {
+            inline MyNonManifoldCommand(
+                std::vector<std::vector<TopologicalMesh::VertexHandle>>& faulty ) :
+                m_faulty( faulty ) {}
+            inline void initialize( const TriangleMesh& /*triMesh*/ ) {}
+            inline void process( const std::vector<TopologicalMesh::VertexHandle>& face_vhandles ) {
+                LOG( logINFO ) << "Non Manifold face found";
+                m_faulty.push_back( face_vhandles );
+                nonManifoldFaces++;
+            }
+            inline void postProcess( TopologicalMesh& /*tm*/ ) {
+                // Todo : For each non manifold face, remove the vertices that are not part of a
+                // face of the topomesh For the test, this will reduce the mesh_2 to mesh1
+                LOG( logINFO ) << "Process non-manifold faces";
+            }
+            std::vector<std::vector<TopologicalMesh::VertexHandle>>& m_faulty;
+            int nonManifoldFaces {0};
+        };
+
+        VectorArray<Vector3> vertices = {{0_ra, 1_ra, 1_ra},
+                                         {1_ra, 1_ra, 1_ra},
+                                         {0.5_ra, 1_ra, 0_ra},
+                                         {0.5_ra, 0.5_ra, 0.5_ra}, // non manifold vertex
+                                         {0_ra, 0_ra, 0_ra},
+                                         {1_ra, 0_ra, 0_ra},
+                                         {0.5_ra, 0_ra, 1_ra}};
+        VectorArray<Vector3ui> indices {
+            {0, 1, 2}, {2, 1, 3}, {1, 0, 3}, {0, 2, 3}, {4, 5, 6}, {5, 4, 3}, {4, 6, 3}, {6, 5, 3}};
+
+        TriangleMesh mesh;
+        mesh.setVertices( std::move( vertices ) );
+        mesh.setIndices( std::move( indices ) );
+        std::vector<std::vector<TopologicalMesh::VertexHandle>> faulty;
+
+        MyNonManifoldCommand command {faulty};
+        TopologicalMesh topo {mesh, command};
+
+        for ( auto itr = faulty.begin(); itr != faulty.end(); ++itr )
+        {
+            int cpt = 0;
+            for ( auto pitr = itr->begin(); pitr != itr->end(); ++pitr )
+            {
+                // vertex handle is part of the mesh
+                REQUIRE( topo.is_valid_handle( *pitr ) );
+
+                // each of the faulty face has one time the non manifold vertex
+                if ( Ra::Core::Math::areApproxEqual(
+                         ( topo.point( *pitr ) - vertices[3] ).squaredNorm(), 0_ra ) )
+                {
+                    cpt++;
+                    // this vertex is not a boundary (since the faulty face is complex)
+                    REQUIRE( !topo.is_boundary( *pitr ) );
+                }
+            }
+            REQUIRE( cpt == 1 );
         }
 
-        int nonManifoldFaces {0};
-        const int targetNonManifoldFaces;
-    };
-
-    auto buildMesh = []( const VectorArray<Vector3>& v,
-                         const VectorArray<Vector3>& n,
-                         const VectorArray<Vector3ui>& i ) {
-        TriangleMesh m;
-        m.setVertices( v );
-        m.setNormals( n );
-        auto& idx = m.getIndicesWithLock();
-        std::copy( i.begin(), i.end(), std::back_inserter( idx ) );
-        m.indicesUnlock();
-
-        LOG( logINFO ) << " Built a mesh with " << m.vertices().size() << " vertices, "
-                       << m.normals().size() << " normals and " << m.getIndices().size()
-                       << " indices.";
-
-        return m;
-    };
-
-    // test if candidateMesh  -> TopologicalMesh -> TriangleMesh isSameMesh than referenceMesh, with
-    // and without the command.
-    auto testConverter = []( const TriangleMesh& referenceMesh,
-                             const TriangleMesh& candidateMesh,
-                             MyNonManifoldCommand command ) {
-        // test with functor
-        LOG( logINFO ) << "Converter with custom command";
-        TopologicalMesh topo {candidateMesh, command};
-        auto convertedMeshWithCommand = topo.toTriangleMesh();
-        REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommand ) );
-
-        // test without functor
-        LOG( logINFO ) << "Converter without custom command";
-        TopologicalMesh topo3 {candidateMesh};
-        auto convertedMeshWithoutCommand = topo3.toTriangleMesh();
-        REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommand ) );
-        return convertedMeshWithoutCommand;
-    };
-
-    VectorArray<Vector3> vertices = {
-        {0_ra, 0_ra, 0_ra}, {0_ra, 1_ra, 0_ra}, {1_ra, 1_ra, 0_ra}, {1_ra, 0_ra, 0_ra}};
-    VectorArray<Vector3> normals {
-        {0_ra, 0_ra, 1_ra}, {0_ra, 0_ra, 1_ra}, {0_ra, 0_ra, 1_ra}, {0_ra, 0_ra, 1_ra}};
-    VectorArray<Vector3ui> indices {{0, 2, 1}, {0, 3, 2}};
-
-    VectorArray<Vector3> vertices_2 = {{0_ra, 0_ra, 0_ra},
-                                       {0_ra, 1_ra, 0_ra},
-                                       {1_ra, 1_ra, 0_ra},
-                                       {1_ra, 0_ra, 0_ra},
-                                       {1_ra, 0_ra, 1_ra}};
-    VectorArray<Vector3> normals_2 {
-        {0_ra, 0_ra, 1_ra},
-        {0_ra, 0_ra, 1_ra},
-        {0_ra, 0_ra, 1_ra},
-        {0_ra, 0_ra, 1_ra},
-        {0_ra, -1_ra, 0_ra},
-    };
-
-    VectorArray<Vector3ui> indices_2 {{0, 2, 1}, {0, 3, 2}, {0, 2, 4}};
-
-    using Vector5 = Eigen::Matrix<Scalar, 5, 1>;
-    VectorArray<Vector5> attrib_array {
-        {0_ra, 0_ra, 0_ra, 0_ra, 1_ra},
-        {0_ra, 0_ra, 0_ra, 0_ra, 1_ra},
-        {0_ra, 0_ra, 0_ra, 0_ra, 1_ra},
-        {0_ra, -1_ra, 0_ra, 0_ra, 0_ra},
-    };
-
-    // well formed mesh
-    auto mesh = buildMesh( vertices, normals, indices );
-
-    // edge shared by three faces
-    LOG( logINFO ) << "Test with edge shared by three faces";
-    auto mesh2 = buildMesh( vertices_2, normals_2, indices_2 );
-
-    testConverter( mesh, mesh2, MyNonManifoldCommand( 1 ) ); // we should find 1 non-manifold face
-
-    // test with unsupported attribute type
-    LOG( logINFO ) << "Test with unsupported attribute (all faces are manifold)";
-    auto mesh3 {mesh}, mesh4 {mesh};
-    auto handle  = mesh3.addAttrib<Vector5>( "vector5_attrib" );
-    auto& attrib = mesh3.getAttrib( handle );
-    auto& buf    = attrib.getDataWithLock();
-    buf          = attrib_array;
-    attrib.unlock();
-
-    REQUIRE( mesh4.vertexAttribs().hasSameAttribs( mesh.vertexAttribs() ) );
-    REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
-    REQUIRE( !mesh4.vertexAttribs().hasSameAttribs( mesh3.vertexAttribs() ) );
-    REQUIRE( !mesh3.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
-    mesh4 = testConverter(
-        mesh, mesh3, MyNonManifoldCommand( 0 ) ); // we should find 0 non-manifold face
-    REQUIRE( mesh4.vertexAttribs().hasSameAttribs( mesh.vertexAttribs() ) );
-    REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
-    REQUIRE( !mesh4.vertexAttribs().hasSameAttribs( mesh3.vertexAttribs() ) );
-    REQUIRE( !mesh3.vertexAttribs().hasSameAttribs( mesh4.vertexAttribs() ) );
-
-    // TODO : build a functor that add the faces as independant faces in the topomesh and
-    // define a manifold mesh that is similar to the result of processing of this non manifold.
-    //
+        for ( auto itr = topo.vertices_begin(); itr != topo.vertices_end(); ++itr )
+        {
+            REQUIRE( topo.isManifold( *itr ) );
+        }
+    }
 }
