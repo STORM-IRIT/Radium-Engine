@@ -162,11 +162,13 @@ void copyAttribToCore( TriangleMesh& triMesh, const HandleAndValueVector<T>& dat
 
 //! [Default command implementation]
 struct DefaultNonManifoldFaceCommand {
+    /// \brief details string is printed along with the message
+    DefaultNonManifoldFaceCommand( std::string details = {} ) : m_details {details} {}
     /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
     inline void initialize( const TriangleMesh& /*triMesh*/ ) {}
     /// \brief Process non-manifold face
     inline void process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
-        LOG( logWARNING ) << "Invalid face handle returned : face not added";
+        LOG( logWARNING ) << "Invalid face handle returned : face not added " + m_details;
         /// TODO memorize invalid faces for post processing ...
         ///  see
         ///  https://www.graphics.rwth-aachen.de/media/openflipper_static/Daily-Builds/Doc/Free/Developer/OBJImporter_8cc_source.html
@@ -175,14 +177,16 @@ struct DefaultNonManifoldFaceCommand {
     /// \brief If needed, apply post-processing on the Ra::Core::Geometry::TopologicalMesh
     inline void postProcess( TopologicalMesh& /*tm*/ ) {}
     //! [Default command implementation]
+  private:
+    std::string m_details;
 };
 
 void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
-    initWithWedge( triMesh, DefaultNonManifoldFaceCommand() );
+    initWithWedge( triMesh, DefaultNonManifoldFaceCommand( "[initWithWedges]" ) );
 }
 
 TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) :
-    TopologicalMesh( triMesh, DefaultNonManifoldFaceCommand() ) {}
+    TopologicalMesh( triMesh, DefaultNonManifoldFaceCommand( "[default ctor (props)]" ) ) {}
 
 TriangleMesh TopologicalMesh::toTriangleMesh() {
     struct VertexDataInternal {
