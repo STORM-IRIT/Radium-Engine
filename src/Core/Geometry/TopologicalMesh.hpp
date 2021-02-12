@@ -85,6 +85,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
     void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh );
+    template <typename NonManifoldFaceCommand>
+    void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh,
+                        NonManifoldFaceCommand command );
 
     /**
      * Construct an empty topological mesh
