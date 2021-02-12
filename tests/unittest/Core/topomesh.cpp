@@ -23,6 +23,8 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
     std::vector<Vector3> stackVertices;
     std::vector<Vector3> stackNormals;
 
+    bool hasNormals = meshOne.normals().size() > 0;
+
     i = 0;
     while ( result && i < int( meshOne.getIndices().size() ) )
     {
@@ -32,11 +34,13 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
         stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][1]] );
         stackVertices.push_back( meshOne.vertices()[meshOne.getIndices()[i][2]] );
 
-        stackNormals.clear();
-        stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][0]] );
-        stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][1]] );
-        stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][2]] );
-
+        if ( hasNormals )
+        {
+            stackNormals.clear();
+            stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][0]] );
+            stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][1]] );
+            stackNormals.push_back( meshOne.normals()[meshOne.getIndices()[i][2]] );
+        }
         for ( int j = 0; j < 3; ++j )
         {
             it = find( stackVertices.begin(),
@@ -47,16 +51,18 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
             { result = false; }
         }
 
-        for ( int j = 0; j < 3; ++j )
+        if ( hasNormals )
         {
-            it = find( stackNormals.begin(),
-                       stackNormals.end(),
-                       meshTwo.normals()[meshTwo.getIndices()[i][j]] );
-            if ( it != stackNormals.end() ) { stackNormals.erase( it ); }
-            else
-            { result = false; }
+            for ( int j = 0; j < 3; ++j )
+            {
+                it = find( stackNormals.begin(),
+                           stackNormals.end(),
+                           meshTwo.normals()[meshTwo.getIndices()[i][j]] );
+                if ( it != stackNormals.end() ) { stackNormals.erase( it ); }
+                else
+                { result = false; }
+            }
         }
-
         ++i;
     }
     return result;
@@ -287,6 +293,34 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         REQUIRE( check1 );
         REQUIRE( check2 );
         REQUIRE( topologicalMesh.checkIntegrity() );
+    }
+
+    SECTION( "Test without normals" ) {
+        VectorArray<Vector3> vertices = {
+            {0_ra, 0_ra, 0_ra}, {0_ra, 1_ra, 0_ra}, {1_ra, 1_ra, 0_ra}, {1_ra, 0_ra, 0_ra}};
+        VectorArray<Vector3ui> indices {{0, 2, 1}, {0, 3, 2}};
+        // well formed mesh
+
+        TriangleMesh mesh;
+        mesh.setVertices( vertices );
+        mesh.setIndices( std::move( indices ) );
+        TopologicalMesh topo1 {mesh};
+        TopologicalMesh topo2;
+        topo2.initWithWedge( mesh );
+
+        REQUIRE( topo1.checkIntegrity() );
+        REQUIRE( topo2.checkIntegrity() );
+
+        TriangleMesh mesh1 = topo1.toTriangleMesh();
+        TriangleMesh mesh2 = topo2.toTriangleMeshFromWedges();
+
+        REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh1.vertexAttribs() ) );
+        REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh2.vertexAttribs() ) );
+        REQUIRE( isSameMesh( mesh, mesh1 ) );
+        REQUIRE( isSameMesh( mesh, mesh2 ) );
+
+        REQUIRE( mesh1.normals().size() == 0 );
+        REQUIRE( mesh2.normals().size() == 0 );
     }
 }
 
