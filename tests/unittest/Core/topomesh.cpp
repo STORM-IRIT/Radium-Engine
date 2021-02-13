@@ -306,6 +306,38 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         TriangleMesh mesh1 = topo1.toTriangleMesh();
         TriangleMesh mesh2 = topo2.toTriangleMeshFromWedges();
 
+        // there is no normals at all.
+        REQUIRE( !topo1.has_halfedge_normals() );
+        REQUIRE( !topo1.has_face_normals() );
+        for ( auto vitr = topo1.vertices_begin(), vend = topo1.vertices_end(); vitr != vend;
+              ++vitr )
+        {
+            for ( auto fitr = topo1.vf_iter( *vitr ); fitr.is_valid(); ++fitr )
+            {
+                auto n = topo1.normal( *vitr, *fitr );
+                REQUIRE( Math::areApproxEqual( n.squaredNorm(), 0_ra ) );
+            }
+            topo1.propagate_normal_to_halfedges( *vitr );
+            REQUIRE( !topo1.has_halfedge_normals() );
+            REQUIRE( !topo1.has_face_normals() );
+        }
+
+        // nor on faces nor if we try to create them
+        REQUIRE( !topo1.has_face_normals() );
+        OpenMesh::FPropHandleT<TopologicalMesh::Normal> fProp;
+        topo1.createNormalPropOnFaces( fProp );
+        auto vh  = *topo1.vertices_begin();
+        auto he1 = topo1.halfedge_handle( vh );
+        auto he2 = topo1.next_halfedge_handle( he1 );
+        auto fh  = topo1.face_handle( he1 );
+        REQUIRE( !fProp.is_valid() );
+        REQUIRE( !topo1.has_face_normals() );
+        // even if we try to copy them, but no access error
+        topo1.copyNormal( he1, he2 );
+        topo1.copyNormalFromFace( fh, he1, fProp );
+        topo1.interpolateNormalOnFaces( fh, fProp );
+        REQUIRE( !topo1.has_halfedge_normals() );
+
         REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh1.vertexAttribs() ) );
         REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh2.vertexAttribs() ) );
         REQUIRE( isSameMesh( mesh, mesh1 ) );
@@ -446,13 +478,15 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
                                  const TriangleMesh& candidateMesh,
                                  MyNonManifoldCommand command ) {
             // test with functor
-            LOG( logINFO ) << "Converter with custom command";
             TopologicalMesh topo {candidateMesh, command};
-            auto convertedMeshWithCommand = topo.toTriangleMesh();
+            TopologicalMesh topoWedge;
+            topoWedge.initWithWedge( candidateMesh, command );
+            auto convertedMeshWithCommand      = topo.toTriangleMesh();
+            auto convertedMeshWithCommandWedge = topoWedge.toTriangleMeshFromWedges();
             REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommand ) );
+            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommandWedge ) );
 
             // test without functor
-            LOG( logINFO ) << "Converter without custom command";
             TopologicalMesh topo3 {candidateMesh};
             auto convertedMeshWithoutCommand = topo3.toTriangleMesh();
             REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommand ) );
