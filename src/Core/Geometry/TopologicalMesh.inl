@@ -12,8 +12,6 @@ namespace Geometry {
 template <typename NonManifoldFaceCommand>
 inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
                                          NonManifoldFaceCommand command ) {
-    //    initWithWedge( triMesh );
-    //    return;
 
     LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.getIndices().size()
                    << " faces and " << triMesh.vertices().size() << " vertices.";
@@ -31,7 +29,6 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
     VertexMap vertexHandles;
 
     add_property( m_inputTriangleMeshIndexPph );
-
     add_property( m_wedgeIndexPph );
 
     std::vector<PropPair<float>> vprop_float;
@@ -144,9 +141,6 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
         face_vertexIndex.clear();
     }
     command.postProcess( *this );
-
-    //    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
-    //    printWedgesInfo( *this );
 }
 
 template <typename NonManifoldFaceCommand>
@@ -836,7 +830,8 @@ int TopologicalMesh::WedgeData::compareVector( const T& a, const T& b ) {
 
 inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
     return
-        //     m_inputTriangleMeshIndex == lhs.m_inputTriangleMeshIndex &&
+        // do not have this yet, not sure we need to test them
+        // m_inputTriangleMeshIndex == lhs.m_inputTriangleMeshIndex &&
         // m_outputTriangleMeshIndex == lhs.m_outputTriangleMeshIndex &&
         m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
         m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
