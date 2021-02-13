@@ -97,7 +97,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * Return a triangleMesh from the topological mesh.
      * \note This is a costly operation.
-     * \warning It uses the attributes defined on halfedges.
+     * \warning It uses the attributes defined on halfedges. Do not work well if attribs are defined
+     * on wedges (initWithWedge), in this case use toTriangleMeshFromWedges()
      */
     TriangleMesh toTriangleMesh();
 
