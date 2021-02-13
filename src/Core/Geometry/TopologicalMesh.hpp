@@ -485,6 +485,19 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     bool checkIntegrity() const;
 
   private:
+    // internal function to build TriangleMesh attribs correspondance to wedge attribs.
+    class RA_CORE_API InitWedgeProps
+    {
+      public:
+        InitWedgeProps( TopologicalMesh* topo, const TriangleMesh& triMesh ) :
+            m_topo( topo ), m_triMesh( triMesh ) {}
+        void operator()( AttribBase* attr ) const;
+
+      private:
+        TopologicalMesh* m_topo;
+        const TriangleMesh& m_triMesh;
+    };
+
     class WedgeCollection;
     //
     /**
