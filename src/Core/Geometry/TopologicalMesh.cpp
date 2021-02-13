@@ -930,6 +930,42 @@ void TopologicalMesh::delete_face( FaceHandle _fh, bool _delete_isolated_vertice
     base::delete_face( _fh, _delete_isolated_vertices );
 }
 
+void TopologicalMesh::InitWedgeProps::operator()( AttribBase* attr ) const {
+    if ( attr->getSize() != m_triMesh.vertices().size() )
+    { LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName(); }
+    else if ( attr->getName() != std::string( "in_position" ) )
+    {
+        if ( attr->isFloat() )
+        {
+            m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
+                m_triMesh.getAttribHandle<float>( attr->getName() ) );
+            m_topo->m_wedges.addProp<float>( attr->getName() );
+        }
+        else if ( attr->isVector2() )
+        {
+            m_topo->m_wedges.m_wedgeVector2AttribHandles.push_back(
+                m_triMesh.getAttribHandle<Vector2>( attr->getName() ) );
+            m_topo->m_wedges.addProp<Vector2>( attr->getName() );
+        }
+        else if ( attr->isVector3() )
+        {
+            m_topo->m_wedges.m_wedgeVector3AttribHandles.push_back(
+                m_triMesh.getAttribHandle<Vector3>( attr->getName() ) );
+            m_topo->m_wedges.addProp<Vector3>( attr->getName() );
+        }
+        else if ( attr->isVector4() )
+        {
+            m_topo->m_wedges.m_wedgeVector4AttribHandles.push_back(
+                m_triMesh.getAttribHandle<Vector4>( attr->getName() ) );
+            m_topo->m_wedges.addProp<Vector4>( attr->getName() );
+        }
+        else
+            LOG( logWARNING )
+                << "Warning, mesh attribute " << attr->getName()
+                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    }
+}
+
 /////////////// WEDGES RELATED STUFF /////////////////
 
 TopologicalMesh::WedgeIndex

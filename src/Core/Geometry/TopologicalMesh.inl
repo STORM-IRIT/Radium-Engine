@@ -60,46 +60,9 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
                         << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
             }
         } );
+
     // loop over all attribs and build correspondance pair
-    triMesh.vertexAttribs().for_each_attrib(
-        [&triMesh, this]( const auto& attr ) {
-            if ( attr->getSize() != triMesh.vertices().size() )
-            {
-                LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute "
-                                  << attr->getName();
-            }
-            else if ( attr->getName() != std::string( "in_position" ) )
-            {
-                if ( attr->isFloat() )
-                {
-                    m_wedges.m_wedgeFloatAttribHandles.push_back(
-                        triMesh.getAttribHandle<float>( attr->getName() ) );
-                    m_wedges.addProp<float>( attr->getName() );
-                }
-                else if ( attr->isVector2() )
-                {
-                    m_wedges.m_wedgeVector2AttribHandles.push_back(
-                        triMesh.getAttribHandle<Vector2>( attr->getName() ) );
-                    m_wedges.addProp<Vector2>( attr->getName() );
-                }
-                else if ( attr->isVector3() )
-                {
-                    m_wedges.m_wedgeVector3AttribHandles.push_back(
-                        triMesh.getAttribHandle<Vector3>( attr->getName() ) );
-                    m_wedges.addProp<Vector3>( attr->getName() );
-                }
-                else if ( attr->isVector4() )
-                {
-                    m_wedges.m_wedgeVector4AttribHandles.push_back(
-                        triMesh.getAttribHandle<Vector4>( attr->getName() ) );
-                    m_wedges.addProp<Vector4>( attr->getName() );
-                }
-                else
-                    LOG( logWARNING )
-                        << "Warning, mesh attribute " << attr->getName()
-                        << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-            }
-        } );
+    triMesh.vertexAttribs().for_each_attrib( InitWedgeProps {this, triMesh} );
 
     size_t num_triangles = triMesh.getIndices().size();
 
@@ -209,45 +172,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
     add_property( m_wedgeIndexPph );
 
     // loop over all attribs and build correspondance pair
-    triMesh.vertexAttribs().for_each_attrib(
-        [&triMesh, this]( const auto& attr ) {
-            if ( attr->getSize() != triMesh.vertices().size() )
-            {
-                LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute "
-                                  << attr->getName();
-            }
-            else if ( attr->getName() != std::string( "in_position" ) )
-            {
-                if ( attr->isFloat() )
-                {
-                    m_wedges.m_wedgeFloatAttribHandles.push_back(
-                        triMesh.getAttribHandle<float>( attr->getName() ) );
-                    m_wedges.addProp<float>( attr->getName() );
-                }
-                else if ( attr->isVector2() )
-                {
-                    m_wedges.m_wedgeVector2AttribHandles.push_back(
-                        triMesh.getAttribHandle<Vector2>( attr->getName() ) );
-                    m_wedges.addProp<Vector2>( attr->getName() );
-                }
-                else if ( attr->isVector3() )
-                {
-                    m_wedges.m_wedgeVector3AttribHandles.push_back(
-                        triMesh.getAttribHandle<Vector3>( attr->getName() ) );
-                    m_wedges.addProp<Vector3>( attr->getName() );
-                }
-                else if ( attr->isVector4() )
-                {
-                    m_wedges.m_wedgeVector4AttribHandles.push_back(
-                        triMesh.getAttribHandle<Vector4>( attr->getName() ) );
-                    m_wedges.addProp<Vector4>( attr->getName() );
-                }
-                else
-                    LOG( logWARNING )
-                        << "Warning, mesh attribute " << attr->getName()
-                        << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-            }
-        } );
+    triMesh.vertexAttribs().for_each_attrib( InitWedgeProps {this, triMesh} );
 
     size_t num_triangles = triMesh.getIndices().size();
 
