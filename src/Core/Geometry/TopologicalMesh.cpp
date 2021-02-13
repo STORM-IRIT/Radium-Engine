@@ -668,13 +668,13 @@ void TopologicalMesh::split_copy( EdgeHandle _eh, VertexHandle _vh ) {
     {
         // get the halfedge pointing from new vertex to old vertex
         const HalfedgeHandle h = find_halfedge( _vh, vh );
-        if ( !is_boundary(
-                 h ) ) // for boundaries there are no faces whose properties need to be copied
+        // for boundaries there are no faces whose properties need to be copied
+        if ( !is_boundary( h ) )
         {
             FaceHandle fh0 = face_handle( h );
             FaceHandle fh1 = face_handle( opposite_halfedge_handle( prev_halfedge_handle( h ) ) );
-            if ( fh0.idx() >= nf ) // is fh0 the new face?
-                std::swap( fh0, fh1 );
+            // is fh0 the new face?
+            if ( fh0.idx() >= nf ) std::swap( fh0, fh1 );
 
             // copy properties from old face to new face
             copy_all_properties( fh0, fh1, true );
@@ -701,9 +701,6 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
 
     */
 
-    //   LOG( logINFO ) << "* before ************************";
-    //   printWedgesInfo( *this );
-
     // incorrect factor
     if ( f < 0 || f > 1 ) { return false; }
 
@@ -718,8 +715,6 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
 
     const auto v0 = to_vertex_handle( o0 );
     const auto v1 = to_vertex_handle( h0 );
-
-    //   LOG( logINFO ) << "* split **** " << v0 << " ----> " << v1;
 
     // add the new point
     const Point p   = Point( f * point( v1 ) + ( 1_ra - f ) * point( v0 ) );
@@ -821,9 +816,6 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
     updateWedgeIndex2( hvwidx, s0, s1, s2, h0, h1 );
     updateWedgeIndex1( hvwidx, r0, r1, r2, h1, h2 );
     updateWedgeIndex1( ovwidx, t0, t1, t2, o1, o2 );
-
-    // LOG( logINFO ) << "* after ************************";
-    //  printWedgesInfo( *this );
 
     return true;
 }
