@@ -478,18 +478,26 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
                                  const TriangleMesh& candidateMesh,
                                  MyNonManifoldCommand command ) {
             // test with functor
-            TopologicalMesh topo {candidateMesh, command};
-            TopologicalMesh topoWedge;
-            topoWedge.initWithWedge( candidateMesh, command );
-            auto convertedMeshWithCommand      = topo.toTriangleMesh();
-            auto convertedMeshWithCommandWedge = topoWedge.toTriangleMeshFromWedges();
+            TopologicalMesh topoWithCommand {candidateMesh, command};
+            TopologicalMesh topoWedgeWithCommand;
+            topoWedgeWithCommand.initWithWedge( candidateMesh, command );
+            auto convertedMeshWithCommand          = topoWithCommand.toTriangleMesh();
+            auto convertedMeshWithCommandFromWedge = topoWithCommand.toTriangleMeshFromWedges();
+            auto convertedMeshWedgeWithCommand = topoWedgeWithCommand.toTriangleMeshFromWedges();
             REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommand ) );
-            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommandWedge ) );
-
+            REQUIRE( isSameMesh( referenceMesh, convertedMeshWedgeWithCommand ) );
+            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommandFromWedge ) );
             // test without functor
-            TopologicalMesh topo3 {candidateMesh};
-            auto convertedMeshWithoutCommand = topo3.toTriangleMesh();
+            TopologicalMesh topoWithoutCommand {candidateMesh};
+            TopologicalMesh topoWedgeWithoutCommand {};
+            topoWedgeWithoutCommand.initWithWedge( candidateMesh );
+            auto convertedMeshWithoutCommand = topoWithoutCommand.toTriangleMesh();
+            auto convertedMeshWithoutCommandFromWedge =
+                topoWithoutCommand.toTriangleMeshFromWedges();
+            auto convertedMeshWedgeWithoutCommand = topoWedgeWithoutCommand.toTriangleMesh();
             REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommand ) );
+            REQUIRE( isSameMesh( referenceMesh, convertedMeshWedgeWithoutCommand ) );
+            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommandFromWedge ) );
             return convertedMeshWithoutCommand;
         };
 
