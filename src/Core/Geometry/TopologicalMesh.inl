@@ -171,7 +171,11 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
             }
         }
         else
-        { command.process( face_vhandles ); }
+        {
+            for ( auto wedgeIndex : face_wedges )
+                m_wedges.del( wedgeIndex );
+            command.process( face_vhandles );
+        }
         face_vhandles.clear();
         face_normals.clear();
         face_vertexIndex.clear();
