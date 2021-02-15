@@ -85,6 +85,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
     void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh );
+    template <typename NonManifoldFaceCommand>
+    void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh,
+                        NonManifoldFaceCommand command );
 
     /**
      * Construct an empty topological mesh
@@ -94,7 +97,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * Return a triangleMesh from the topological mesh.
      * \note This is a costly operation.
-     * \warning It uses the attributes defined on halfedges.
+     * \warning It uses the attributes defined on halfedges. Do not work well if attribs are defined
+     * on wedges (initWithWedge), in this case use toTriangleMeshFromWedges()
      */
     TriangleMesh toTriangleMesh();
 
@@ -471,11 +475,30 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
 
+    /**
+     * is the vertex a "bow tie" vertex ?
+     * \note Alias for OpenMesh::is_manifold
+     */
+    bool isManifold( VertexHandle vh ) const;
+
     /// Check if evrything looks right in the data structure
     /// \return true if ok, false if ko.
     bool checkIntegrity() const;
 
   private:
+    // internal function to build TriangleMesh attribs correspondance to wedge attribs.
+    class RA_CORE_API InitWedgeProps
+    {
+      public:
+        InitWedgeProps( TopologicalMesh* topo, const TriangleMesh& triMesh ) :
+            m_topo( topo ), m_triMesh( triMesh ) {}
+        void operator()( AttribBase* attr ) const;
+
+      private:
+        TopologicalMesh* m_topo;
+        const TriangleMesh& m_triMesh;
+    };
+
     class WedgeCollection;
     //
     /**
