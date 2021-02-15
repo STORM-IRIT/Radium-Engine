@@ -1,0 +1,11 @@
+<map id="Ra::Core::Geometry::TopologicalMesh::initWithWedge" name="Ra::Core::Geometry::TopologicalMesh::initWithWedge">
+<area shape="rect" id="node1" title=" " alt="" coords="5,187,203,243"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aebe4f9163305d76dec2fc1b8c34d68fb" title=" " alt="" coords="253,5,469,47"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title="read only access to indices" alt="" coords="251,71,471,112"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title=" " alt="" coords="525,155,728,211"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="277,267,444,323"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a6757687a50637e503f23ed2603fef9a8" title=" " alt="" coords="277,187,444,243"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a31d0673f24d7d2ace4452f77310cbf5a" title=" " alt="" coords="277,347,444,403"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="277,427,444,483"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="519,355,735,396"/>
+</map>

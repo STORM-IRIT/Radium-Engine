@@ -28,7 +28,7 @@ var searchData=
   ['defaultlightmanager_2ecpp_462',['DefaultLightManager.cpp',['../DefaultLightManager_8cpp.html',1,'']]],
   ['defaultlightmanager_2ehpp_463',['DefaultLightManager.hpp',['../DefaultLightManager_8hpp.html',1,'']]],
   ['defaultlightstorage_464',['DefaultLightStorage',['../classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html',1,'Ra::Engine::Scene::DefaultLightStorage'],['../classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#a833ba28877dddefb8568683aea1d84d1',1,'Ra::Engine::Scene::DefaultLightStorage::DefaultLightStorage()']]],
-  ['defaultnonmanifoldfacecommand_465',['DefaultNonManifoldFaceCommand',['../structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html',1,'Ra::Core::Geometry']]],
+  ['defaultnonmanifoldfacecommand_465',['DefaultNonManifoldFaceCommand',['../structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html',1,'Ra::Core::Geometry::DefaultNonManifoldFaceCommand'],['../structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html#a6d1bb32e91b6953489fbd37bddb5a622',1,'Ra::Core::Geometry::DefaultNonManifoldFaceCommand::DefaultNonManifoldFaceCommand()']]],
   ['defaultrenderingpasses_466',['DefaultRenderingPasses',['../namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942',1,'Ra::Engine::Rendering']]],
   ['defaultsystempriority_467',['defaultSystemPriority',['../namespaceRa_1_1Gui.html#aac984534075ae8028f3c18b328cccaaa',1,'Ra::Gui']]],
   ['defaulttechniquebuilder_468',['DefaultTechniqueBuilder',['../namespaceRa_1_1Engine_1_1Rendering_1_1EngineRenderTechniques.html#adcaf9b3e7385387d70bf9355541bcfb5',1,'Ra::Engine::Rendering::EngineRenderTechniques']]],
