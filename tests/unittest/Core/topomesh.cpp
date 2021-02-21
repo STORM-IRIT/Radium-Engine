@@ -795,3 +795,46 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
     std::cout << "faces: " << topologicalMesh.n_faces() << std::endl;
     REQUIRE( topologicalMesh.n_faces() == 0 );
 }
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][TopologicalMesh]" ) {
+
+    auto mesh = Ra::Core::Geometry::makeSharpBox();
+    auto topo = TopologicalMesh {};
+    topo.initWithWedge( mesh );
+
+    std::set<TopologicalMesh::WedgeIndex> wedgesIndices;
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        wedgesIndices.insert( topo.getWedgeIndex( *itr ) );
+    }
+    // each 8 vertices of the cube has 3 wedges
+    REQUIRE( wedgesIndices.size() == 8 * 3 );
+    REQUIRE( topo.checkIntegrity() );
+    auto wdRef = topo.getWedgeData( topo.getWedgeIndex( *topo.halfedges_begin() ) );
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        auto wdCur       = topo.getWedgeData( topo.getWedgeIndex( *itr ) );
+        auto wdNew       = wdRef;
+        wdNew.m_position = wdCur.m_position;
+        topo.setWedgeData( topo.getWedgeIndex( *itr ), wdNew );
+    }
+
+    wedgesIndices.clear();
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        wedgesIndices.insert( topo.getWedgeIndex( *itr ) );
+    }
+    // each 8 vertices of the cube still has 3 wedges
+    REQUIRE( wedgesIndices.size() == 8 * 3 );
+    REQUIRE( topo.checkIntegrity() );
+
+    topo.mergeEqualWedges();
+    wedgesIndices.clear();
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        wedgesIndices.insert( topo.getWedgeIndex( *itr ) );
+    }
+    // after merge, each vertex has only on wedge
+    REQUIRE( wedgesIndices.size() == 8 );
+    REQUIRE( topo.checkIntegrity() );
+}
