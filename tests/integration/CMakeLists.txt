@@ -9,8 +9,6 @@ set(INTEGRATION_TEST TinyPlyFileLoader)
 add_executable(integration_${INTEGRATION_TEST}
     ${INTEGRATION_TEST}/main.cpp)
 target_link_libraries(integration_${INTEGRATION_TEST} PUBLIC Core IO)
-configure_radium_app(NAME integration_${INTEGRATION_TEST})
-addRunAndDebugTargets(integration_${INTEGRATION_TEST})
 
 add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
 add_dependencies(integration_create_ref integration_${INTEGRATION_TEST}_create_ref)

@@ -62,12 +62,12 @@ void RawShaderMaterial::registerDefaultTechnique() {
 
 void RawShaderMaterial::registerMaterial() {
     // Defining the material converter
-    EngineMaterialConverters::registerMaterialConverter( "Rendering::RawShaderMaterialData",
+    EngineMaterialConverters::registerMaterialConverter( "Ra::Engine::Data::RawShaderMaterial",
                                                          RawShaderMaterialConverter() );
 }
 
 void RawShaderMaterial::unregisterMaterial() {
-    EngineMaterialConverters::removeMaterialConverter( "Rendering::RawShaderMaterialData" );
+    EngineMaterialConverters::removeMaterialConverter( "Ra::Engine::Data::RawShaderMaterial" );
 }
 
 void RawShaderMaterial::updateGL() {
