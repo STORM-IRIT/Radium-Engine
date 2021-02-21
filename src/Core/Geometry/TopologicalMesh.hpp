@@ -90,9 +90,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                         NonManifoldFaceCommand command );
 
     /**
-     * Construct an empty topological mesh
+     * Construct an empty topological mesh, only init mandatory properties.
      */
-    explicit TopologicalMesh() {}
+    explicit TopologicalMesh();
 
     /**
      * Return a triangleMesh from the topological mesh.

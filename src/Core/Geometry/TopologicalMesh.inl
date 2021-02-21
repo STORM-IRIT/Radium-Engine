@@ -11,7 +11,8 @@ namespace Geometry {
 
 template <typename NonManifoldFaceCommand>
 inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
-                                         NonManifoldFaceCommand command ) {
+                                         NonManifoldFaceCommand command ) :
+    TopologicalMesh() {
 
     LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.getIndices().size()
                    << " faces and " << triMesh.vertices().size() << " vertices.";
@@ -27,9 +28,6 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
-
-    add_property( m_inputTriangleMeshIndexPph );
-    add_property( m_wedgeIndexPph );
 
     std::vector<PropPair<float>> vprop_float;
     std::vector<std::pair<AttribHandle<Vector2>, OpenMesh::HPropHandleT<Vector2>>> vprop_vec2;
@@ -161,9 +159,6 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
-
-    add_property( m_inputTriangleMeshIndexPph );
-    add_property( m_wedgeIndexPph );
 
     // loop over all attribs and build correspondance pair
     triMesh.vertexAttribs().for_each_attrib( InitWedgeProps {this, triMesh} );
