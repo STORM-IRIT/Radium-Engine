@@ -165,7 +165,7 @@ class RA_ENGINE_API RenderTechnique final
      * @param pass the pass. If left by default, all active passes will get the properties
      */
     void addPassProperties( const std::list<std::string>& props,
-                            Core::Utils::Index pass = Core::Utils::Index( -1 ) );
+                            Core::Utils::Index pass = Core::Utils::Index {} );
     /**
      * Creates a default technique based on the ForwarRenderer sementic.
      *  pass 1 --> Z_PREPASS
