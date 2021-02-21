@@ -16,6 +16,9 @@ class RA_CORE_API Index
     /// Default constructor that allow implicit conversion from integer to Index
     constexpr Index( IntegerType i = s_invalid );
     constexpr Index( const Index& i );
+    template <typename Integer>
+    explicit constexpr Index( Integer i );
+
     constexpr Index& operator=( long int i );
 
     /// DESTRUCTOR: Must not be defined, we need it trivial to be
