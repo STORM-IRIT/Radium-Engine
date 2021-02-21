@@ -40,7 +40,7 @@ TaskQueue::TaskId TaskQueue::registerTask( Task* task ) {
     CORE_ASSERT( m_tasks.size() == m_dependencies.size(), "Inconsistent task list" );
     CORE_ASSERT( m_tasks.size() == m_remainingDependencies.size(), "Inconsistent task list" );
     CORE_ASSERT( m_tasks.size() == m_timerData.size(), "Inconsistent task list" );
-    return TaskId( m_tasks.size() - 1 );
+    return TaskId {m_tasks.size() - 1};
 }
 
 void TaskQueue::addDependency( TaskQueue::TaskId predecessor, TaskQueue::TaskId successor ) {
@@ -65,7 +65,7 @@ bool TaskQueue::addDependency( const std::string& predecessors, TaskQueue::TaskI
         if ( m_tasks[i]->getName() == predecessors )
         {
             added = true;
-            addDependency( TaskId( i ), successor );
+            addDependency( TaskId {i}, successor );
         }
     }
     return added;
@@ -78,7 +78,7 @@ bool TaskQueue::addDependency( TaskQueue::TaskId predecessor, const std::string&
         if ( m_tasks[i]->getName() == successors )
         {
             added = true;
-            addDependency( predecessor, TaskId( i ) );
+            addDependency( predecessor, TaskId {i} );
         }
     }
     return added;
@@ -160,7 +160,7 @@ void TaskQueue::startTasks() {
     // Enqueue all tasks with no dependencies.
     for ( uint t = 0; t < m_tasks.size(); ++t )
     {
-        if ( m_remainingDependencies[t] == 0 ) { queueTask( TaskId( t ) ); }
+        if ( m_remainingDependencies[t] == 0 ) { queueTask( TaskId {t} ); }
     }
 
     // Wake up all threads.

@@ -221,8 +221,7 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
 
             face_vhandles[j] = vh;
             if ( hasNormals ) face_normals[j] = triMesh.normals()[inMeshVertexIndex];
-            face_wedges[j] =
-                WedgeIndex {static_cast<WedgeIndex::Index::IntegerType>( inMeshVertexIndex )};
+            face_wedges[j] = WedgeIndex {inMeshVertexIndex};
         }
 
         // Add the face, then add attribs to vh
