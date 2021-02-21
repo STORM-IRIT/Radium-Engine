@@ -19,8 +19,6 @@ class RA_CORE_API Index
     template <typename Integer>
     explicit constexpr Index( Integer i );
 
-    constexpr Index& operator=( long int i );
-
     /// DESTRUCTOR: Must not be defined, we need it trivial to be
     /// constexpr
     // ~Index() { }
