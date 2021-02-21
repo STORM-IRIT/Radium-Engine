@@ -625,6 +625,11 @@ TopologicalMesh::getVertexWedges( OpenMesh::VertexHandle vh ) const {
     return ret;
 }
 
+inline TopologicalMesh::WedgeIndex
+TopologicalMesh::getWedgeIndex( OpenMesh::HalfedgeHandle heh ) const {
+    return property( getWedgeIndexPph(), heh );
+}
+
 inline const TopologicalMesh::WedgeData&
 TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeData( idx );
@@ -655,6 +660,22 @@ inline void TopologicalMesh::replaceWedgeIndex( OpenMesh::HalfedgeHandle he,
                                                 const WedgeIndex& widx ) {
     m_wedges.del( property( getWedgeIndexPph(), he ) );
     property( getWedgeIndexPph(), he ) = m_wedges.newReference( widx );
+}
+
+inline void TopologicalMesh::mergeEqualWedges() {
+    for ( auto itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr )
+    {
+        mergeEqualWedges( *itr );
+    }
+}
+
+inline void TopologicalMesh::mergeEqualWedges( OpenMesh::VertexHandle vh ) {
+
+    for ( auto itr = vih_iter( vh ); itr.is_valid(); ++itr )
+    {
+        // replace will search if wedge already present and use it, so merge occurs.
+        replaceWedge( *itr, getWedgeData( property( getWedgeIndexPph(), *itr ) ) );
+    }
 }
 
 inline const std::vector<std::string>& TopologicalMesh::getVec4AttribNames() const {

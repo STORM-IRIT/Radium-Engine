@@ -349,7 +349,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      *
      * At any time m_position as to be equal to the wedge's vertex point.
      * All wedges have the same set of attributes.
-     * Access and management is delegated to TopologicalMesh and WedgeCollectiom
+     * Access and management is delegated to TopologicalMesh and WedgeCollection
      */
     class WedgeData
     {
@@ -416,6 +416,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline std::set<WedgeIndex> getVertexWedges( OpenMesh::VertexHandle vh ) const;
 
     /**
+     * get the wedge index associated with an halfedge
+     */
+    inline WedgeIndex getWedgeIndex( OpenMesh::HalfedgeHandle heh ) const;
+
+    /**
      * Access to wedge data.
      * \param idx must be valid and correspond to a non delete wedge index.
      */
@@ -454,6 +459,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * The old wedge is "deleted". The new wedge reference count is incremented.
      */
     inline void replaceWedgeIndex( OpenMesh::HalfedgeHandle he, const WedgeIndex& widx );
+
+    /**
+     * call mergeEquelWedges( vh ) for every vertices of the mesh.
+     * \see void mergeEqualWedges( OpenMesh::VertexHandle vh );
+     */
+    inline void mergeEqualWedges();
+
+    /**
+     * Merge (make same index) wegdes with the same data around \a vh
+     * \param vh vertex handle to process
+     */
+    inline void mergeEqualWedges( OpenMesh::VertexHandle vh );
 
     /// Remove deleted element from the mesh, including wedges.
     void garbage_collection();
