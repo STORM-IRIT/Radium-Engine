@@ -11,7 +11,8 @@ namespace Geometry {
 
 template <typename NonManifoldFaceCommand>
 inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
-                                         NonManifoldFaceCommand command ) {
+                                         NonManifoldFaceCommand command ) :
+    TopologicalMesh() {
 
     LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.getIndices().size()
                    << " faces and " << triMesh.vertices().size() << " vertices.";
@@ -27,9 +28,6 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
-
-    add_property( m_inputTriangleMeshIndexPph );
-    add_property( m_wedgeIndexPph );
 
     std::vector<PropPair<float>> vprop_float;
     std::vector<std::pair<AttribHandle<Vector2>, OpenMesh::HPropHandleT<Vector2>>> vprop_vec2;
@@ -161,9 +159,6 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
-
-    add_property( m_inputTriangleMeshIndexPph );
-    add_property( m_wedgeIndexPph );
 
     // loop over all attribs and build correspondance pair
     triMesh.vertexAttribs().for_each_attrib( InitWedgeProps {this, triMesh} );
@@ -630,6 +625,11 @@ TopologicalMesh::getVertexWedges( OpenMesh::VertexHandle vh ) const {
     return ret;
 }
 
+inline TopologicalMesh::WedgeIndex
+TopologicalMesh::getWedgeIndex( OpenMesh::HalfedgeHandle heh ) const {
+    return property( getWedgeIndexPph(), heh );
+}
+
 inline const TopologicalMesh::WedgeData&
 TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeData( idx );
@@ -660,6 +660,22 @@ inline void TopologicalMesh::replaceWedgeIndex( OpenMesh::HalfedgeHandle he,
                                                 const WedgeIndex& widx ) {
     m_wedges.del( property( getWedgeIndexPph(), he ) );
     property( getWedgeIndexPph(), he ) = m_wedges.newReference( widx );
+}
+
+inline void TopologicalMesh::mergeEqualWedges() {
+    for ( auto itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr )
+    {
+        mergeEqualWedges( *itr );
+    }
+}
+
+inline void TopologicalMesh::mergeEqualWedges( OpenMesh::VertexHandle vh ) {
+
+    for ( auto itr = vih_iter( vh ); itr.is_valid(); ++itr )
+    {
+        // replace will search if wedge already present and use it, so merge occurs.
+        replaceWedge( *itr, getWedgeData( property( getWedgeIndexPph(), *itr ) ) );
+    }
 }
 
 inline const std::vector<std::string>& TopologicalMesh::getVec4AttribNames() const {

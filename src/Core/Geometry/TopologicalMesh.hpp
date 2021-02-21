@@ -90,9 +90,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
                         NonManifoldFaceCommand command );
 
     /**
-     * Construct an empty topological mesh
+     * Construct an empty topological mesh, only init mandatory properties.
      */
-    explicit TopologicalMesh() {}
+    explicit TopologicalMesh();
 
     /**
      * Return a triangleMesh from the topological mesh.
@@ -129,13 +129,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Get normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
-    inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
+    [[deprecated]] inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
 
     /**
      * Set normal of the vertex vh, when member of fh.
      * \note Asserts if vh is not a member of fh.
      */
-    void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
+    [[deprecated]] void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
 
     /// Import Base definition of normal and set normal.
     ///@{
@@ -149,7 +149,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * If you work with vertex normals, please call this function on all vertex
      * handles before convertion with toTriangleMesh.
      */
-    void propagate_normal_to_halfedges( VertexHandle vh );
+    [[deprecated]] void propagate_normal_to_halfedges( VertexHandle vh );
 
     /**
      * Return a handle to the halfedge property storing vertices indices within
@@ -169,10 +169,14 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * the TriangleMesh attributes.
      */
     ///@{
-    inline const std::vector<OpenMesh::HPropHandleT<float>>& getFloatPropsHandles() const;
-    inline const std::vector<OpenMesh::HPropHandleT<Vector2>>& getVector2PropsHandles() const;
-    inline const std::vector<OpenMesh::HPropHandleT<Vector3>>& getVector3PropsHandles() const;
-    inline const std::vector<OpenMesh::HPropHandleT<Vector4>>& getVector4PropsHandles() const;
+    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<float>>&
+    getFloatPropsHandles() const;
+    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector2>>&
+    getVector2PropsHandles() const;
+    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector3>>&
+    getVector3PropsHandles() const;
+    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector4>>&
+    getVector4PropsHandles() const;
     ///@}
 
     /**
@@ -349,7 +353,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      *
      * At any time m_position as to be equal to the wedge's vertex point.
      * All wedges have the same set of attributes.
-     * Access and management is delegated to TopologicalMesh and WedgeCollectiom
+     * Access and management is delegated to TopologicalMesh and WedgeCollection
      */
     class WedgeData
     {
@@ -416,6 +420,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline std::set<WedgeIndex> getVertexWedges( OpenMesh::VertexHandle vh ) const;
 
     /**
+     * get the wedge index associated with an halfedge
+     */
+    inline WedgeIndex getWedgeIndex( OpenMesh::HalfedgeHandle heh ) const;
+
+    /**
      * Access to wedge data.
      * \param idx must be valid and correspond to a non delete wedge index.
      */
@@ -454,6 +463,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * The old wedge is "deleted". The new wedge reference count is incremented.
      */
     inline void replaceWedgeIndex( OpenMesh::HalfedgeHandle he, const WedgeIndex& widx );
+
+    /**
+     * call mergeEquelWedges( vh ) for every vertices of the mesh.
+     * \see void mergeEqualWedges( OpenMesh::VertexHandle vh );
+     */
+    inline void mergeEqualWedges();
+
+    /**
+     * Merge (make same index) wegdes with the same data around \a vh
+     * \param vh vertex handle to process
+     */
+    inline void mergeEqualWedges( OpenMesh::VertexHandle vh );
 
     /// Remove deleted element from the mesh, including wedges.
     void garbage_collection();
@@ -657,16 +678,16 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 
     template <typename T>
-    inline void copyAttribToTopo( const TriangleMesh& triMesh,
-                                  const std::vector<PropPair<T>>& vprop,
-                                  TopologicalMesh::HalfedgeHandle heh,
-                                  unsigned int vindex );
+    [[deprecated]] inline void copyAttribToTopo( const TriangleMesh& triMesh,
+                                                 const std::vector<PropPair<T>>& vprop,
+                                                 TopologicalMesh::HalfedgeHandle heh,
+                                                 unsigned int vindex );
 
     template <typename T>
-    inline void addAttribPairToTopo( const TriangleMesh& triMesh,
-                                     AttribManager::pointer_type attr,
-                                     std::vector<PropPair<T>>& vprop,
-                                     std::vector<OpenMesh::HPropHandleT<T>>& pph );
+    [[deprecated]] inline void addAttribPairToTopo( const TriangleMesh& triMesh,
+                                                    AttribManager::pointer_type attr,
+                                                    std::vector<PropPair<T>>& vprop,
+                                                    std::vector<OpenMesh::HPropHandleT<T>>& pph );
 
     void split_copy( EdgeHandle _eh, VertexHandle _vh );
     void split( EdgeHandle _eh, VertexHandle _vh );
@@ -677,10 +698,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///\todo to be deleted/updated
     OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
     OpenMesh::HPropHandleT<Index> m_outputTriangleMeshIndexPph;
-    std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
-    std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
-    std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
-    std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
+    [[deprecated]] std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
+    [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
+    [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
+    [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
 
     friend class TMOperations;
 };
