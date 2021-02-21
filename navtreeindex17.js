@@ -1,5 +1,8 @@
 var NAVTREEINDEX17 =
 {
+"classRa_1_1Gui_1_1WindowQt.html":[9,0,2,2,28],
+"classRa_1_1Gui_1_1WindowQt.html#a190a81dd418c60026d3579333c2cc94d":[9,0,2,2,28,2],
+"classRa_1_1Gui_1_1WindowQt.html#a2643ef1e4f027f6967dc0dd362cf21dc":[9,0,2,2,28,16],
 "classRa_1_1Gui_1_1WindowQt.html#a2e0925fd8de20599b9f604043ecea8b5":[9,0,2,2,28,11],
 "classRa_1_1Gui_1_1WindowQt.html#a38fb78373f325c1cca3b8fab9a44d30c":[9,0,2,2,28,4],
 "classRa_1_1Gui_1_1WindowQt.html#a42ef36929421a865ca2d0424e515292d":[9,0,2,2,28,7],
@@ -246,8 +249,5 @@ var NAVTREEINDEX17 =
 "develoldmanual.html#autotoc_md86":[4,5,1],
 "develoldmanual.html#autotoc_md87":[4,5,2],
 "develoldmanual.html#autotoc_md88":[4,5,2,0],
-"develoldmanual.html#autotoc_md89":[4,5,2,1],
-"develoldmanual.html#autotoc_md90":[4,5,2,2],
-"develoldmanual.html#autotoc_md91":[4,5,2,3],
-"develoldmanual.html#autotoc_md92":[4,5,2,4]
+"develoldmanual.html#autotoc_md89":[4,5,2,1]
 };

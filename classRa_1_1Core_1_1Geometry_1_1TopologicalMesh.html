@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">627cbdb3106d755a5cebb8aaa909e32e156ccbed</span>
+   &#160;<span id="projectnumber">b5acbfcd90df7b612f0206b740bdd01d226ec890</span>
    </div>
   </td>
  </tr>
@@ -164,6 +164,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab9db8ffcd07686111a853b67eb85b2f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88b037b40acc05092f9e2d9371ba0c1f"><td class="memItemLeft" align="right" valign="top">std::set&lt; <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">WedgeIndex</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f">getVertexWedges</a> (OpenMesh::VertexHandle vh) const</td></tr>
 <tr class="separator:a88b037b40acc05092f9e2d9371ba0c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff1d09485ae33f3070ea2f0bd41abf9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">WedgeIndex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1ff1d09485ae33f3070ea2f0bd41abf9">getWedgeIndex</a> (OpenMesh::HalfedgeHandle heh) const</td></tr>
+<tr class="separator:a1ff1d09485ae33f3070ea2f0bd41abf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af04d4910fbeb0e3e13815cc36995dab7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">WedgeData</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af04d4910fbeb0e3e13815cc36995dab7">getWedgeData</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">WedgeIndex</a> &amp;idx) const</td></tr>
 <tr class="separator:af04d4910fbeb0e3e13815cc36995dab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa905a256aa1dc66d1a9124e6cf6ab44b"><td class="memItemLeft" align="right" valign="top">unsigned <a class="el" href="classint.html">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa905a256aa1dc66d1a9124e6cf6ab44b">getWedgeRefCount</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">WedgeIndex</a> &amp;idx) const</td></tr>
@@ -177,6 +179,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac557f5f97d22704bfc3dfedec806e109"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20d3efd4604adfb62144d193d61a7c56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a20d3efd4604adfb62144d193d61a7c56">replaceWedgeIndex</a> (OpenMesh::HalfedgeHandle he, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">WedgeIndex</a> &amp;widx)</td></tr>
 <tr class="separator:a20d3efd4604adfb62144d193d61a7c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d18bb4bf4fcfeffa145797122118004"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a4d18bb4bf4fcfeffa145797122118004">mergeEqualWedges</a> ()</td></tr>
+<tr class="separator:a4d18bb4bf4fcfeffa145797122118004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa459f5689069654aabe66cd8d72d2ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa459f5689069654aabe66cd8d72d2ea6">mergeEqualWedges</a> (OpenMesh::VertexHandle vh)</td></tr>
+<tr class="separator:aa459f5689069654aabe66cd8d72d2ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0eb9c1c7711f3aa24ad612b339942bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">garbage_collection</a> ()</td></tr>
 <tr class="memdesc:ad0eb9c1c7711f3aa24ad612b339942bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove deleted element from the mesh, including wedges.  <a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc">More...</a><br /></td></tr>
 <tr class="separator:ad0eb9c1c7711f3aa24ad612b339942bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -279,7 +285,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class represents a mesh with topological information on the vertex graph, using a half-edge representation.</p>
 <p>This integration is inspired by: <a href="https://gist.github.com/Unril/03fa353d0461ed6bd41d">https://gist.github.com/Unril/03fa353d0461ed6bd41d</a></p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd><p class="startdd">rename methods to respect Radium guideline (get/set/is, camelCase) </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd><p class="startdd">rename methods to respect Radium guideline (get/set/is, camelCase) </p>
 <p class="enddd">private inheritance from <a class="el" href="namespaceOpenMesh.html">OpenMesh</a>, and import relevant methods. </p>
 </dd></dl>
 
@@ -413,13 +419,13 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct an empty topological mesh </p>
+<p>Construct an empty topological mesh, only init mandatory properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8hpp_source.html#l00095">95</a> of file <a class="el" href="TopologicalMesh_8hpp_source.html">TopologicalMesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00195">195</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -497,7 +503,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Remove all the given properties from <em>mesh</em>. </p><dl class="section note"><dt>Note</dt><dd>Invalidates <em>normalProp</em> and clears the given property containers. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00561">561</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00556">556</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -534,7 +540,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Remove face property <em>prop</em> from <em>mesh</em>. </p><dl class="section note"><dt>Note</dt><dd>Invalidates the property handle. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00395">395</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00390">390</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -557,7 +563,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Remove <em>props</em> from <em>mesh</em>. </p><dl class="section note"><dt>Note</dt><dd>Clears <em>props</em>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00468">468</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00463">463</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -583,7 +589,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00823">823</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00828">828</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -630,7 +636,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Copy all properties from <em>input_heh</em> to <em>copy_heh</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00573">573</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00568">568</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -707,7 +713,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Copy all given face properties from <em>fh</em> to <em>heh</em>. </p><dl class="section note"><dt>Note</dt><dd>Each property must have been previously created either all at once through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad68779f7a72138a89f45c29f75dd692a">createAllPropsOnFaces()</a>, or individually through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a6ee8c2aff09a058a2e19ab9642ee42da">createNormalPropOnFaces()</a> and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa0f39c9b822cf5e300a7e67c76be06d6">createPropsOnFaces()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00582">582</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00577">577</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -754,7 +760,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Copy the normal property from <em>input_heh</em> to <em>copy_heh</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00399">399</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00394">394</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -799,7 +805,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Copy the face normal property <em>fProp</em> from <em>fh</em> to <em>heh</em>. </p><dl class="section note"><dt>Note</dt><dd><em>fProp</em> must have been previously created through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a6ee8c2aff09a058a2e19ab9642ee42da">createNormalPropOnFaces()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00409">409</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00404">404</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -838,7 +844,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Copy <em>props</em> properties from <em>input_heh</em> to <em>copy_heh</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00477">477</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00472">472</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -883,7 +889,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Copy face properties <em>props</em> from <em>fh</em> to <em>heh</em>. </p><dl class="section note"><dt>Note</dt><dd><em>fProps</em> must have been previously created through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa0f39c9b822cf5e300a7e67c76be06d6">createPropsOnFaces()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00487">487</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00482">482</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -940,7 +946,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Create a new property for each property of <em>mesh</em> on faces. Outputs the new face properties handles in the corresponding output parameters. </p><dl class="section note"><dt>Note</dt><dd>These new properties will have to be propagated onto the newly created halfedges with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa27554cabc24f8da953e7c23a8a5a274">copyAllProps()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00548">548</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00543">543</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-7" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-7-summary" class="dynsummary" style="display:block;">
@@ -977,7 +983,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Create a new property for normals on faces of <em>mesh</em>. </p><dl class="section note"><dt>Note</dt><dd>This new property will have to be propagated onto the newly created halfedges with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ac8072a8ec0aba0f10d6d2370d4ff849f">copyNormal()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00385">385</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00380">380</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1010,7 +1016,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Create a new property for each <em>input</em> properties of <em>mesh</em> on faces. </p><dl class="section note"><dt>Note</dt><dd>This new property will have to be propagated onto the newly created halfedges with <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a2e285050a0f20a662f08ba50fbf03b2d">copyProps()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00456">456</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00451">451</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1040,7 +1046,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00913">913</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00918">918</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1061,7 +1067,7 @@ template&lt;typename T &gt; </div>
 
 <p>Remove deleted element from the mesh, including wedges. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00880">880</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00885">885</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1088,7 +1094,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00674">674</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00690">690</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1115,7 +1121,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00366">366</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00361">361</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1143,7 +1149,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Return a handle to the halfedge property storing vertices indices within the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> *this has been built on. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00356">356</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00351">351</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1171,7 +1177,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Return a handle to the halfedge property storing vertices indices within the <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a> returned by <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa9a2d79990cf7cfb6abac7a2a648440f">toTriangleMesh()</a>. </p><dl class="section note"><dt>Note</dt><dd>This property is valid only after <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa9a2d79990cf7cfb6abac7a2a648440f">toTriangleMesh()</a> has been called. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00361">361</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00356">356</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1198,7 +1204,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00671">671</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00687">687</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1225,7 +1231,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00668">668</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00684">684</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1252,7 +1258,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00665">665</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00681">681</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1279,7 +1285,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00371">371</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00366">366</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1306,7 +1312,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00376">376</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00371">371</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1333,7 +1339,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00381">381</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00376">376</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1362,7 +1368,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Return the set of WedgeIndex incident to a given Vertex <em>vh</em>. only valid non deleted wedges are present in the set. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00622">622</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00617">617</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1400,6 +1406,43 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a1ff1d09485ae33f3070ea2f0bd41abf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff1d09485ae33f3070ea2f0bd41abf9">&#9670;&nbsp;</a></span>getWedgeIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">TopologicalMesh::WedgeIndex</a> Ra::Core::Geometry::TopologicalMesh::getWedgeIndex </td>
+          <td>(</td>
+          <td class="paramtype">OpenMesh::HalfedgeHandle&#160;</td>
+          <td class="paramname"><em>heh</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>get the wedge index associated with an halfedge </p>
+
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00629">629</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a1ff1d09485ae33f3070ea2f0bd41abf9_cgraph.svg" width="480" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="a1c787a24f4cb95e0b32fd56d9581fe00"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c787a24f4cb95e0b32fd56d9581fe00">&#9670;&nbsp;</a></span>getWedgeIndexPph()</h2>
 
@@ -1423,7 +1466,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00696">696</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00712">712</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1491,7 +1534,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Return the half-edge associated with a given vertex and face. </p><dl class="section note"><dt>Note</dt><dd>Asserts if vh is not a member of fh. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00345">345</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00340">340</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1542,14 +1585,14 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>use a kdtree </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>use a kdtree </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00147">147</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-8" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-8-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-8-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00145">145</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-8-content" class="dyncontent" style="display:none;">
+<div id="dynsection-9-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a9943a2369771aba12b153b8edabfd587_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1603,12 +1646,12 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Interpolate all properties on edge center (after edge split). </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00596">596</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-9-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00591">591</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-9-content" class="dyncontent" style="display:none;">
+<div id="dynsection-10-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a05fb96e24dd1bf49ff309e251e426572_cgraph.svg" width="494" height="467"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1674,12 +1717,12 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Interpolate <em>hprops</em> on face center. </p><dl class="section note"><dt>Note</dt><dd>Each property must have been previously created either all at once through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad68779f7a72138a89f45c29f75dd692a">createAllPropsOnFaces()</a>, or individually through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a6ee8c2aff09a058a2e19ab9642ee42da">createNormalPropOnFaces()</a> and <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa0f39c9b822cf5e300a7e67c76be06d6">createPropsOnFaces()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00607">607</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-10" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-10-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00602">602</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-10-content" class="dyncontent" style="display:none;">
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_af1f2bcbd11cf5e5a891ecde4345d51d9_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -1733,7 +1776,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Interpolate normal property on edge center (after edge split). </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00421">421</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00416">416</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1772,12 +1815,12 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
 </div><div class="memdoc">
 <p>Interpolate normal property on face center. </p><dl class="section note"><dt>Note</dt><dd><em>fProp</em> must have been previously created through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a6ee8c2aff09a058a2e19ab9642ee42da">createNormalPropOnFaces()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00430">430</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00425">425</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a188cdce2eb15cd9fc3dbdca27df9a1b9_cgraph.svg" width="479" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1831,7 +1874,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Interpolate <em>props</em> on edge center (after edge split). </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00500">500</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00495">495</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 
 </div>
 </div>
@@ -1870,12 +1913,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Interpolate <em>hprops</em> on face center. </p><dl class="section note"><dt>Note</dt><dd><em>fProps</em> must have been previously created through <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa0f39c9b822cf5e300a7e67c76be06d6">createPropsOnFaces()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00513">513</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00508">508</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a98391545fbf256845b44ae2d4b81ad44_cgraph.svg" width="479" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1907,12 +1950,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>true if at least one of edge's vertex as two different wedge arount the edge. false if the two vertices have the same wedge for both face aside the edge. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00682">682</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-13" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00698">698</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div id="dynsection-14-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a4f2209deb980debd0c4676c9a72c9570_cgraph.svg" width="500" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1945,12 +1988,12 @@ template&lt;typename T &gt; </div>
 
 <p>true if more than one wedge arount vertex <em>vh</em>, false if only one wedge </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00678">678</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-14" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00694">694</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a717f9e6f73f9a9d322d34fdf45ebdedf_cgraph.svg" width="475" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1975,6 +2018,76 @@ template&lt;typename T &gt; </div>
 <p>is the vertex a "bow tie" vertex ? </p><dl class="section note"><dt>Note</dt><dd>Alias for OpenMesh::is_manifold </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00070">70</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4d18bb4bf4fcfeffa145797122118004"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d18bb4bf4fcfeffa145797122118004">&#9670;&nbsp;</a></span>mergeEqualWedges() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Core::Geometry::TopologicalMesh::mergeEqualWedges </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>call mergeEquelWedges( vh ) for every vertices of the mesh. </p><dl class="section see"><dt>See also</dt><dd>void <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#aa459f5689069654aabe66cd8d72d2ea6">mergeEqualWedges( OpenMesh::VertexHandle vh )</a>; </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00665">665</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+
+</div>
+</div>
+<a id="aa459f5689069654aabe66cd8d72d2ea6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa459f5689069654aabe66cd8d72d2ea6">&#9670;&nbsp;</a></span>mergeEqualWedges() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Core::Geometry::TopologicalMesh::mergeEqualWedges </td>
+          <td>(</td>
+          <td class="paramtype">OpenMesh::VertexHandle&#160;</td>
+          <td class="paramname"><em>vh</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Merge (make same index) wegdes with the same data around <em>vh</em> </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vh</td><td>vertex handle to process </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00672">672</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_aa459f5689069654aabe66cd8d72d2ea6_cgraph.svg" width="100%" height="438"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 
 </div>
 </div>
@@ -2013,12 +2126,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Get normal of the vertex vh, when member of fh. </p><dl class="section note"><dt>Note</dt><dd>Asserts if vh is not a member of fh. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00311">311</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-15" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00306">306</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_ac5c3d992063c75010d556ed396bb84f9_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2050,12 +2163,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Set the normal n to all the halfedges that points to vh (i.e. incomming halfedges) . If you work with vertex normals, please call this function on all vertex handles before convertion with toTriangleMesh. </p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00333">333</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-16" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00328">328</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a5e2a85f189c962028c72b47de905c028_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2098,11 +2211,11 @@ template&lt;typename T &gt; </div>
 <p>Replace the wedge data associated with an halfedge. The old wedge is "deleted". If wedge data correspond to an already present wedge, it's index is used. </p>
 
 <p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00654">654</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-17" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_ac557f5f97d22704bfc3dfedec806e109_cgraph.svg" width="464" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2145,11 +2258,11 @@ template&lt;typename T &gt; </div>
 <p>Replace the wedge index associated with an halfedge. The old wedge is "deleted". The new wedge reference count is incremented. </p>
 
 <p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00659">659</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-18" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a20d3efd4604adfb62144d193d61a7c56_cgraph.svg" width="464" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2197,12 +2310,12 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>Set normal of the vertex vh, when member of fh. </p><dl class="section note"><dt>Note</dt><dd>Asserts if vh is not a member of fh. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00323">323</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
-<div id="dynsection-19" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00318">318</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
+<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a6757687a50637e503f23ed2603fef9a8_cgraph.svg" width="428" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -2340,12 +2453,12 @@ Mesh attributes are linearly interpolated on the newly created halfedge. </dd>
 <dd>
 f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00396">396</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-20" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00401">401</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a5be06e9a973e79d487dad3e570fb5928_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2378,12 +2491,12 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00685">685</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-21" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00690">690</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a27901ff7da14c15391fcd9e4e3c591e4_cgraph.svg" width="100%" height="593"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2407,12 +2520,12 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
 <p>Return a triangleMesh from the topological mesh. </p><dl class="section note"><dt>Note</dt><dd>This is a costly operation. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>It uses the attributes defined on halfedges. Do not work well if attribs are defined on wedges (initWithWedge), in this case use <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a9551ca2e07196c7b7eefb29399de8560">toTriangleMeshFromWedges()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00195">195</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-22" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00200">200</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-24" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-22-content" class="dyncontent" style="display:none;">
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_aa9a2d79990cf7cfb6abac7a2a648440f_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2438,12 +2551,12 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
 <p>add attribs to out</p>
 <p>Wedges are output vertices !</p>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00331">331</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
-<div id="dynsection-23" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00336">336</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<div id="dynsection-25" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_a9551ca2e07196c7b7eefb29399de8560_cgraph.svg" width="100%" height="537"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
@@ -2466,9 +2579,9 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
       </table>
 </div><div class="memdoc">
 <p>Update triangle mesh data, assuming the mesh and this topo mesh has the same topology. </p><dl class="section warning"><dt>Warning</dt><dd>note implemented yet. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>;) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>;) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00391">391</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00396">396</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -2493,7 +2606,7 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8hpp_source.html#l00685">685</a> of file <a class="el" href="TopologicalMesh_8hpp_source.html">TopologicalMesh.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TopologicalMesh_8hpp_source.html#l00706">706</a> of file <a class="el" href="TopologicalMesh_8hpp_source.html">TopologicalMesh.hpp</a>.</p>
 
 </div>
 </div>
@@ -2505,13 +2618,13 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aLog_8hpp_html_aba7b09d6e8fbe414c23705ad24dde6ff"><div class="ttname"><a href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a></div><div class="ttdeci">#define LOG(level)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00150">Log.hpp:150</a></div></div>
-<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab71f7b807bf20ff4b85d03a4db6961e6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8hpp_source.html#l00095">TopologicalMesh.hpp:95</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1TopologicalMesh_html_ab71f7b807bf20ff4b85d03a4db6961e6"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab71f7b807bf20ff4b85d03a4db6961e6">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a></div><div class="ttdeci">TopologicalMesh()</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8cpp_source.html#l00195">TopologicalMesh.cpp:195</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baadc8789af286140aeab56d98ed3dc7b41">Ra::Core::Utils::logWARNING</a></div><div class="ttdeci">@ logWARNING</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00017">Log.hpp:17</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Geometry</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a></li>
-    <li class="footer">Generated on Wed Feb 17 2021 16:48:16 for Radium Engine by
+    <li class="footer">Generated on Sun Feb 21 2021 17:38:18 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

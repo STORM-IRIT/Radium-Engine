@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">627cbdb3106d755a5cebb8aaa909e32e156ccbed</span>
+   &#160;<span id="projectnumber">b5acbfcd90df7b612f0206b740bdd01d226ec890</span>
    </div>
   </td>
  </tr>
@@ -207,7 +207,6 @@ Wedges</h2>
 <div class="caption">
 Wedge concept in a nutshell.</div></div>
    <p>Wedge are built at construction by using CoreMesh vertex index (which are supposed to represent wedges). Vertices with same (exact) position are merged topologically. The figure above show the basic concept of wedges for the example of vertex with color attribute (same works for normals, texture coordinates or any other attributes). a) A colored mesh, each vertex can have a different color depending on which face is considered. b) for rendering, vertex are duplicated the needed number of time. Here the center vertex is duplicated three time, while the top right one is duplicated two times. c) But for topological computation, one need to know these vertex are actually the same position, and are modified the same way. d) So the attributes (here color only) are represented as wedges associated with each coherent set of position+attributes. Here the center vertex has three wedges, while the top right vertex has two wedges. e) In the TopologicalMesh implementation, wedges are stored in an array, independently of the topology. Each half-edge has a wedge index. Half-edges that share the same wedge have the same index. During manipulation, if two wedges become the same (i.e. for the example on the figure, if we recolor the whole mesh using a single color), <b>they are not merged</b>. To merge wedges an explicit call to TopologicalMesh::mergeEqualWedges is needed. When a wedge is not referenced anymore (because referencing halfedges have been deleted), it is marked for deletation. When one call <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc" title="Remove deleted element from the mesh, including wedges.">Ra::Core::Geometry::TopologicalMesh::garbage_collection()</a>, the marked wedges are eventually deleted and halfedges index are updated accordingly.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>TopologicalMesh::mergeEqualWedges</dd></dl>
 <p>TopologicalMesh methods and types related to wedges:</p>
 <ul>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">Ra::Core::Geometry::TopologicalMesh::WedgeData</a> the actual wedge data, with one vector array for each of the supported types (float, Vector2, Vector3, Vector4). The order in these arrays follow the names found in getXXXAttribNames referenced below.</li>
@@ -224,7 +223,7 @@ Wedge concept in a nutshell.</div></div>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1c787a24f4cb95e0b32fd56d9581fe00">Ra::Core::Geometry::TopologicalMesh::getWedgeIndexPph</a></li>
 </ul>
 <dl class="section warning"><dt>Warning</dt><dd>To delete face, one need to call <code><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">Ra::Core::Geometry::TopologicalMesh::delete_face</a></code>, not the <code><a class="el" href="namespaceOpenMesh.html">OpenMesh</a></code> vanilla <code>delete_face</code></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>make <a class="el" href="namespaceOpenMesh.html">OpenMesh</a> inheritance private.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>make <a class="el" href="namespaceOpenMesh.html">OpenMesh</a> inheritance private.</dd></dl>
 <p>Use <code><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afd8ea5df294fb996c1f8c5d3871822c0">Ra::Core::Geometry::TopologicalMesh::collapseWedge</a></code> to perform halfedge collapse (works on triangle only ...). The following figure show the nasty updates: </p><div class="image">
 <object type="image/svg+xml" data="wedge-collapse.svg" style="pointer-events: none;"></object>
 <div class="caption">
@@ -239,7 +238,7 @@ Halfedge collapse and wedge.</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Wed Feb 17 2021 16:48:16 for Radium Engine by
+    <li class="footer">Generated on Sun Feb 21 2021 17:38:18 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
