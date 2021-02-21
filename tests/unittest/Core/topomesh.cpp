@@ -758,3 +758,83 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
         }
     }
 }
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
+           "[Core][Core/Geometry][TopologicalMesh]" ) {
+    Ra::Core::Geometry::TopologicalMesh topologicalMesh;
+    Ra::Core::Geometry::TopologicalMesh::VertexHandle vhandle[3];
+    Ra::Core::Geometry::TopologicalMesh::FaceHandle fhandle;
+
+    vhandle[0] =
+        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( 1, -1, -1 ) );
+    vhandle[1] =
+        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( 1, -1, 1 ) );
+    vhandle[2] =
+        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( -1, -1, 1 ) );
+
+    std::vector<Ra::Core::Geometry::TopologicalMesh::VertexHandle> face_vhandles;
+    face_vhandles.push_back( vhandle[0] );
+    face_vhandles.push_back( vhandle[1] );
+    face_vhandles.push_back( vhandle[2] );
+    fhandle = topologicalMesh.add_face( face_vhandles );
+
+    // newly created face have invalid wedges on halfedges
+    auto heh = topologicalMesh.halfedge_handle( fhandle );
+    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
+    heh = topologicalMesh.next_halfedge_handle( heh );
+    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
+    heh = topologicalMesh.next_halfedge_handle( heh );
+    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
+
+    std::cout << "faces: " << topologicalMesh.n_faces() << std::endl;
+    REQUIRE( topologicalMesh.n_faces() == 1 );
+
+    topologicalMesh.request_face_status();
+    topologicalMesh.delete_face( fhandle, false );
+    topologicalMesh.garbage_collection();
+    std::cout << "faces: " << topologicalMesh.n_faces() << std::endl;
+    REQUIRE( topologicalMesh.n_faces() == 0 );
+}
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][TopologicalMesh]" ) {
+
+    auto mesh = Ra::Core::Geometry::makeSharpBox();
+    auto topo = TopologicalMesh {};
+    topo.initWithWedge( mesh );
+
+    std::set<TopologicalMesh::WedgeIndex> wedgesIndices;
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        wedgesIndices.insert( topo.getWedgeIndex( *itr ) );
+    }
+    // each 8 vertices of the cube has 3 wedges
+    REQUIRE( wedgesIndices.size() == 8 * 3 );
+    REQUIRE( topo.checkIntegrity() );
+    auto wdRef = topo.getWedgeData( topo.getWedgeIndex( *topo.halfedges_begin() ) );
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        auto wdCur       = topo.getWedgeData( topo.getWedgeIndex( *itr ) );
+        auto wdNew       = wdRef;
+        wdNew.m_position = wdCur.m_position;
+        topo.setWedgeData( topo.getWedgeIndex( *itr ), wdNew );
+    }
+
+    wedgesIndices.clear();
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        wedgesIndices.insert( topo.getWedgeIndex( *itr ) );
+    }
+    // each 8 vertices of the cube still has 3 wedges
+    REQUIRE( wedgesIndices.size() == 8 * 3 );
+    REQUIRE( topo.checkIntegrity() );
+
+    topo.mergeEqualWedges();
+    wedgesIndices.clear();
+    for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
+    {
+        wedgesIndices.insert( topo.getWedgeIndex( *itr ) );
+    }
+    // after merge, each vertex has only on wedge
+    REQUIRE( wedgesIndices.size() == 8 );
+    REQUIRE( topo.checkIntegrity() );
+}

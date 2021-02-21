@@ -109,8 +109,6 @@ During manipulation, if two wedges become the same (i.e. for the example on the 
 To merge wedges an explicit call to TopologicalMesh::mergeEqualWedges is needed.
 When a wedge is not referenced anymore (because referencing halfedges have been deleted), it is marked for deletation. When one call Ra::Core::Geometry::TopologicalMesh::garbage_collection(), the marked wedges are eventually deleted and halfedges index are updated accordingly.
 
-\todo  TopologicalMesh::mergeEqualWedges
-
 TopologicalMesh methods and types related to wedges: 
 
 - Ra::Core::Geometry::TopologicalMesh::WedgeData the actual wedge data, with one vector array for each of the supported types (float, Vector2, Vector3, Vector4). The order in these arrays follow the names found in getXXXAttribNames referenced below.

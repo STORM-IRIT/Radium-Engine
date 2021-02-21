@@ -192,6 +192,11 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
 TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) :
     TopologicalMesh( triMesh, DefaultNonManifoldFaceCommand( "[default ctor (props)]" ) ) {}
 
+TopologicalMesh::TopologicalMesh() {
+    add_property( m_inputTriangleMeshIndexPph );
+    add_property( m_wedgeIndexPph );
+}
+
 TriangleMesh TopologicalMesh::toTriangleMesh() {
     struct VertexDataInternal {
         Vector3 _vertex;
@@ -914,8 +919,13 @@ void TopologicalMesh::delete_face( FaceHandle _fh, bool _delete_isolated_vertice
     for ( auto itr = fh_begin( _fh ); itr.is_valid(); ++itr )
     {
         auto idx = property( m_wedgeIndexPph, *itr );
-        CORE_ASSERT( idx.isValid(), "delete face, halfedge has an invalid wedge index" );
-        m_wedges.del( idx );
+        if ( idx.isInvalid() )
+        {
+            LOG( logWARNING )
+                << "[TopologicalMesh::delete_face] halfedge has an invalid wedge index";
+        }
+        else
+        { m_wedges.del( idx ); }
         // set an invalid index for the boundary halfedges
         property( m_wedgeIndexPph, *itr ) = WedgeIndex();
     }
