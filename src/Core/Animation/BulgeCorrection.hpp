@@ -11,8 +11,8 @@ namespace Animation {
 
 using Dv             = Vector1Array;
 using BoneProjection = Vector3Array;
-using MaxWeightID =
-    std::vector<uint>; // Array containing the ID of the bone influencing the most a vertex
+// Array containing the ID of the bone influencing the most a vertex
+using MaxWeightID = std::vector<uint>;
 
 struct BulgeCorrectionData {
     BulgeCorrectionData();

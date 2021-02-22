@@ -214,7 +214,7 @@ class RA_ENGINE_API RadiumEngine
     void popFboAndViewport();
 
     /// \name Time Management.
-    /// {
+    /// \{
 
     /**
      * \brief Toggles Real-time (on) or Constant (off) time flow.
