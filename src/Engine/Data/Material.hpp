@@ -40,7 +40,8 @@ class RA_ENGINE_API Material : public Data::ShaderParameterProvider
   protected:
     /**
      * Creates a named material with the given aspect
-     * @param name
+     * @param instanceName
+     * @param materialName
      * @param aspect
      */
     explicit Material( const std::string& instanceName,
