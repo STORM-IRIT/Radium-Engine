@@ -271,7 +271,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     inline AttribHandle<T> findAttrib( const std::string& name ) const;
 
     ///@{
-    /// Get attribute by handle \h.
+    /// Get attribute by handle \a h.
     /// \note The complexity for accessing an attribute is O(1).
     /// \warning There is no check on the handle validity.
     template <typename T>

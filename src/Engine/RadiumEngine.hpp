@@ -85,7 +85,7 @@ class RA_ENGINE_API RadiumEngine
     void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
 
     /**
-     * @param priority Value used to rank the systems (see more in description)
+     * \a priority Value used to rank the systems (see more in description)
      *
      * System with high priority will always be used first. Systems with the same
      * priority are ranked randomly.

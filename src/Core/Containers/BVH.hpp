@@ -15,7 +15,7 @@ namespace Containers {
  * \brief Stores a 3-dimensional hierarchy of meshes of arbitrary type.
  *
  * This class is marked as deprecated as it is not tested nor used.
- * \FIXME Confirm class status: add tests + use cases *or* remove
+ * \todo Confirm class status: add tests + use cases *or* remove
  *
  * \note Radium might soon have a generic type for geometrical objects.
  * This would allow to remove the template parameter of this class.
