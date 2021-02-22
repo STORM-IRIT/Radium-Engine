@@ -1,4 +1,4 @@
-\page forwardrendererconcept Concepts: Forward Render 
+\page forwardRenderer Forward Render 
 [TOC]
 
 The main renderer of Radium, implemented in the class Ra::Engine::Rendering::ForwardRenderer implements a Z-pre-pass forward 
