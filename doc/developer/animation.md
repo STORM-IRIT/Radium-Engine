@@ -1,4 +1,4 @@
-\page develanimation API: Animation pipeline
+\page develanimation  Animation pipeline
 [TOC]
 # Animation in Radium
 
