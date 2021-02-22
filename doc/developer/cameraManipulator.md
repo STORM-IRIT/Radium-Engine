@@ -1,4 +1,4 @@
-\page develCameraManipulator API: Camera manipulation in Radium
+\page develCameraManipulator  Camera manipulation in Radium
 [TOC]
 
 The Radium Engine provides some classes that allow to extend the way one might interact with a camera in an

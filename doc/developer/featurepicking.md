@@ -1,4 +1,4 @@
-\page develpicking API: Feature Picking
+\page develpicking  Feature Picking
 [TOC]
 
 # Usage

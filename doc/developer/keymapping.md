@@ -1,4 +1,4 @@
-\page develkeymapping API: KeyMapping
+\page develkeymapping  KeyMapping
 [TOC]
 
 

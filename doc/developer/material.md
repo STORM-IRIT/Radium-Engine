@@ -1,4 +1,4 @@
-\page develmaterials API: Material management
+\page develmaterials  Material management
 [TOC]
 
 A Ra::Engine::Data::Material is a way to control the appearance of an object when rendering. 

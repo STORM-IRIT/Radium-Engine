@@ -1,4 +1,4 @@
-\page develrendering API: Rendering pipeline
+\page develrendering  Rendering pipeline
 [TOC]
 
 # Rendering in Radium
