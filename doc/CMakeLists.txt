@@ -121,7 +121,7 @@ if(DOXYGEN_FOUND)
     set( DOXYGEN_INTERACTIVE_SVG        "YES")
     set( DOXYGEN_TOC_INCLUDE_HEADINGS   "2")
     set( DOXYGEN_IMAGE_PATH             "${CMAKE_CURRENT_SOURCE_DIR}/images")
-    set( DOXYGEN_DOT_GRAPH_MAX_NODES         "60")
+    set( DOXYGEN_DOT_GRAPH_MAX_NODES    "60")
 
     doxygen_add_docs(RadiumDoc
         ${md_pages_order} ${md_files} ${CMAKE_CURRENT_SOURCE_DIR}/../src/ ${CURRENT_SRC_DIR}
