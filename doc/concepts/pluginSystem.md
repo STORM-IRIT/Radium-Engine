@@ -2,9 +2,6 @@
 \todo check and update
 [TOC]
 
-
-# Plugin System
-
 The radium engine basically accept plugins to add functionnalities. An example
 could be a plug-in to support animation. ImGui, for instance, is implemented as
 a plugin.
@@ -14,7 +11,7 @@ Current possibilities include:
 + Export RenderObjects to be rendered by the application renderer.
 + Communicate with other plugins via the `ComponentMessenger` class.
 
-## Basic
+# Basic
 
 A plugin is integrated by placing the corresponding `.so` into `./Plugins/bin`.
 
@@ -29,7 +26,7 @@ One could also add:
 + `FooRenderObject`: define a new render object that will be rendered just like
 any others thanks to `RenderObjectManager`.
 
-## Plugin
+# Plugin
 
     // register the plugin to the application
     virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
@@ -42,16 +39,16 @@ any others thanks to `RenderObjectManager`.
     virtual bool doAddMenu() override;
     virtual QMenu* getMenu() override;
 
-## System
+# System
 
 ...
 
-## Component
+# Component
 
 Will communicate with others components through Entities.
 
 Please see `Entity`, `EntityManager`, `Component`, `ComponentMessenger`.
 
-## Task
+# Task
 
 ...
