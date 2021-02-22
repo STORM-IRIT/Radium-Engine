@@ -4,6 +4,26 @@
 
 Mainly inspired by https://google-styleguide.googlecode.com/svn/trunk/cppguide.html
 
+
+# Code style
+Please follow the scripts/clang-format coding style (tested `with clang-format 9.0`).
+We also provide a pre commit hook that checks the committed files are correctly formatted.
+To install both hooks and clang-format, simply run `./scripts/install-scripts-linux.sh` on linux, or adapt to your OS.
+
+* Indentation style : 4-spaces
+* Brace style : keep it consistent across files.
+* Case style : CamelCase
+* Only classes have their first letter capitalized. Functions and variables don't.
+* Class members have the `m_` prefix. Other prefixes (apart from `g_` for globals, and `s_` for static classe members) are discouraged.
+* no ifs / for / while one-liners. Braces everywhere. Even for cases in a switch.
+* separate different clauses in a boolean expression with parens.
+`( (a || b) && ( c+d < 0) )`
+* use c++ style casts unless converting a value (e.g. `int x = int(f))`. Avoid `const_cast` if possible.
+* use prefix increments (`++i` and not `i++`)
+* use `const` everywhere possible. use `constexpr` for const values.
+* line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)
+* no need for () for a return statement.
+
 # Headers #
 
 * Every .cpp must have an associated .hpp file
@@ -45,21 +65,6 @@ libraries using a fixed floating point type (e.g. Qt).
 use `Scalar()` or `_ra` suffix when defining numbers from literals (e.g. `auto a = .5_ra;`,
 `Scalar b = a * Scalar( 2 );` or `Scalar c = a / 2_ra;`).
 * Equality between Scalar values needs to be computed using `Ra::almost_equals` (see CoreMacros.hpp).
-
-# Code style
-* Indentation style : 4-spaces
-* Brace style : keep it consistent across files.
-* Case style : CamelCase
-* Only classes have their first letter capitalized. Functions and variables don't.
-* Class members have the `m_` prefix. Other prefixes (apart from `g_` for globals, and `s_` for static classe members) are discouraged.
-* no ifs / for / while one-liners. Braces everywhere. Even for cases in a switch.
-* separate different clauses in a boolean expression with parens.
-`( (a || b) && ( c+d < 0) )`
-* use c++ style casts unless converting a value (e.g. `int x = int(f))`. Avoid `const_cast` if possible.
-* use prefix increments (`++i` and not `i++`)
-* use `const` everywhere possible. use `constexpr` for const values.
-* line length should be kept at 80 (soft limit) and not exceed 120 (hard limit)
-* no need for () for a return statement.
 
 # Class design
 * Constructors should be trival. All complex work goes in an `init()` function

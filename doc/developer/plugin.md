@@ -1,22 +1,19 @@
 \page develplugin How to write your own plugin
 [TOC]
 
-Custom plugins can be easily added to Radium ecosystem.
+# Radium Plugin
+Tutorial and documentation here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
+
 In addition to the Ra::Plugins::RadiumPluginInterface API,
-Radium provides a set of tools simplifying the deployment of plugins, which among
-other things take care of the portability and relocatability of the
-binaries.
+Radium provides a set of tools simplifying the deployment of plugins, which take care of the portability and relocatability of the binaries.
 
 This manual describes how to configure, compile and use your plugin with any Radium-Plugin compatible application.
 
 # Setting a CMakeLists.txt for a Radium plugin
 
-To compile and use a plugin,
- the Radium environment must be configured,
-compiled and installed beforehand.
+To compile and use a plugin, the Radium libraries must be configured, compiled and installed beforehand.
 
-The main CMakeLists.txt file for compiling a Radium plugin
-could be as simple as
+Example CMakeLists.txt setup to compile a Radium plugin:
 
 ```cmake
  cmake_minimum_required(VERSION 3.6)

@@ -1,10 +1,12 @@
-# Component Messenger
+\page componentMessenger [deprecated] Component Messenger
+\todo check and update
+[TOC]
 
 This class is used to make componenent share data between each others. The whole system is based on **callbacks**
 registered from both parts to publish, suscribe or both to
 a data.
 
-## Read
+# Read #
 
 The **suscriber** must define and register some `ComponentMessenger::CallbackTypes<T>::Setter` that will
 be used by the `ComponentMessenger` to set the data to the
@@ -22,7 +24,7 @@ former.
         data = ComponentMessenger::getInstance()->get<T>( entity, "name");
     }
 
-## Write
+# Write #
 
     // definition of callback
     ComponentMessenger::CallbackTypes<T>::Getter data_out = std::bind( &FooComponent::getDataOut, this );
@@ -33,7 +35,7 @@ former.
 The **publisher** will define and register a `ComponentMessenger::CallbackTypes<T>::Getter` that will be used
 by the `ComponentMessenger` to fetch data from the former.
 
-## Read'n'Write
+# Read'n'Write #
 
     // definition of callback
     ComponentMessenger::CallbackTypes<T>::ReadWrite data_rw = std::bind( &FooComponent::getDataRw, this );
@@ -49,6 +51,6 @@ by the `ComponentMessenger` to fetch data from the former.
 
 Here a pointer of the data is basically shared and everyone has only to do:
 
-## The `setupIO()` function
+# The `setupIO()` function #
 
 A convention is to use the `setupIO()` function to interact with the messenger.

@@ -1,3 +1,8 @@
+\page pluginSystem Plugin System 
+\todo check and update
+[TOC]
+
+
 # Plugin System
 
 The radium engine basically accept plugins to add functionnalities. An example
@@ -30,7 +35,7 @@ any others thanks to `RenderObjectManager`.
     virtual void registerPlugin( Ra::Engine::RadiumEngine* engine ) override;
 
     // notify the need for a place in the toolbox
-    virtual bool doAddWidget( QString& name ) override;    
+    virtual bool doAddWidget( QString& name ) override;
     virtual QWidget* getWidget() override;
 
     // notify the need for a new menu entry
