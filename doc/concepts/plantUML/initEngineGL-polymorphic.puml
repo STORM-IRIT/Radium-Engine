@@ -1,13 +1,13 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-title Initialisation and run sequence for GuiBase::BaseApplication related applications \n Customizable BaseApplication initialization \n
+title Initialisation and run sequence for Gui::BaseApplication related applications \n Customizable BaseApplication initialization \n
 
 participant main
 participant UserApplication
-participant "Guibase::BaseApplication"
+participant "Gui::BaseApplication"
 participant "Engine::RadiumEngine"
-participant "GuiBase::MainWindowInterface"
+participant "Gui::MainWindowInterface"
 participant "Gui::Viewer"
 participant "Gui::WindowQt"
 participant OpenGL
@@ -15,7 +15,7 @@ participant OpenGL
 group Kind of user applications
     group Mara (User defined app)
     note left of "Engine::RadiumEngine" #AACCFF
-    UserApplication = class derived from "Guibase::BaseApplication".
+    UserApplication = class derived from "Gui::BaseApplication".
     Usage of the inherited class with specific implementation of MainWindowInterface.
     Application is controlled by the MainWindowInterface implementation.
     end note
@@ -28,7 +28,7 @@ group Kind of user applications
     group Radium Sandbox (Radium Apps)
     note left of "Engine::RadiumEngine" #BBFFCC
     UserApplication = main function.
-    Direct usage of "Guibase::BaseApplication" with specific implementation of MainWindowInterface.
+    Direct usage of "Gui::BaseApplication" with specific implementation of MainWindowInterface.
     Application is controlled by the MainWindowInterface implementation.
     end note
     -> UserApplication : start
@@ -38,7 +38,7 @@ group Kind of user applications
     group Radium demos (Example Apps)
     note left of "Engine::RadiumEngine" #FFCCBB
     UserApplication = main function.
-    Direct usage of "Guibase::BaseApplication" with GuiBase::SimpleWindow as MainWindowInterface.
+    Direct usage of "Gui::BaseApplication" with Gui::SimpleWindow as MainWindowInterface.
     The application populates the Engine and parameterizes timers before entering event loop.
     Application is automatic.
     end note
@@ -48,84 +48,84 @@ group Kind of user applications
 end
 
 == Application creation and internal configuration ==
-UserApplication -> "Guibase::BaseApplication" ++ : create( argc, argv, appname )
+UserApplication -> "Gui::BaseApplication" ++ : create( argc, argv, appname )
 return
 
 == Engine and gui configuration ==
-UserApplication -> "Guibase::BaseApplication" ++ : initialize( **WindowFactory** )
+UserApplication -> "Gui::BaseApplication" ++ : initialize( **WindowFactory** )
 
-"Guibase::BaseApplication" -> "Engine::RadiumEngine" ++ : Create & initialize
+"Gui::BaseApplication" -> "Engine::RadiumEngine" ++ : Create & initialize
 return Engine singleton
 
 == Configure Engine and scene services ==
-"Guibase::BaseApplication" -> "Guibase::BaseApplication" ++ : engineBaseInitialization
+"Gui::BaseApplication" -> "Gui::BaseApplication" ++ : engineBaseInitialization
 group #FF5555 Do we define some "engine default services"
 alt Add initDefaultSystems() method in Engine::RadiumEngine class
-"Guibase::BaseApplication" -> "Engine::RadiumEngine" : initDefaultSystems()
+"Gui::BaseApplication" -> "Engine::RadiumEngine" : initDefaultSystems()
 end
 alt Configure the systems explicitely in the application
-"Guibase::BaseApplication" -> "Engine::RadiumEngine" : Add geometry system
+"Gui::BaseApplication" -> "Engine::RadiumEngine" : Add geometry system
 end
 end
 
-"Guibase::BaseApplication" -> "Engine::RadiumEngine" : Configure time management
+"Gui::BaseApplication" -> "Engine::RadiumEngine" : Configure time management
 group Overridden engineBaseInitialization methods
     group #AACCFF Mara (User defined app)
-    "Guibase::BaseApplication" -> UserApplication ++ : specific engine internals
+    "Gui::BaseApplication" -> UserApplication ++ : specific engine internals
     return
     end
 end
 return
 
 == Configure OpenGL context and drawing/application window ==
-"Guibase::BaseApplication" -> "GuiBase::MainWindowInterface" ++ : createMainWindow from **WindowFactory**
-        "GuiBase::MainWindowInterface" -> "Gui::Viewer" ++ : create
+"Gui::BaseApplication" -> "Gui::MainWindowInterface" ++ : createMainWindow from **WindowFactory**
+        "Gui::MainWindowInterface" -> "Gui::Viewer" ++ : create
             "Gui::Viewer" -> "Gui::WindowQt" ++ : create
                 "Gui::WindowQt" -> OpenGL ++ : create context
                 return context
             return
         return
-        group Connections made by specific implementations of "GuiBase::MainWindowInterface"
-            group #FFCCBB  GuiBase:: SimpleWindow
-            "GuiBase::MainWindowInterface" -> "GuiBase::MainWindowInterface" : no connections
+        group Connections made by specific implementations of "Gui::MainWindowInterface"
+            group #FFCCBB  Gui:: SimpleWindow
+            "Gui::MainWindowInterface" -> "Gui::MainWindowInterface" : no connections
             end
             group #BBFFCC Sandbox::mainWindow
-            "GuiBase::MainWindowInterface" -> "Gui::Viewer" : connect slot onGLInitialized() to signal glInitialized
-            "GuiBase::MainWindowInterface" -> "Gui::Viewer" : connect slot onRendererReady() to signal rendererReady
+            "Gui::MainWindowInterface" -> "Gui::Viewer" : connect slot onGLInitialized() to signal glInitialized
+            "Gui::MainWindowInterface" -> "Gui::Viewer" : connect slot onRendererReady() to signal rendererReady
             end
             group #AACCFF Mara::mainWindow
-            "GuiBase::MainWindowInterface" -> "GuiBase::MainWindowInterface" : no connections
+            "Gui::MainWindowInterface" -> "Gui::MainWindowInterface" : no connections
             end
         end
 return mainWindow
 
-"Guibase::BaseApplication" -> "GuiBase::MainWindowInterface" ++ : getViewer()
+"Gui::BaseApplication" -> "Gui::MainWindowInterface" ++ : getViewer()
 return viewer
 
 == Configure event management on the drawing/application window ==
 
-"Guibase::BaseApplication" -> "Gui::Viewer" : connect slot engineOpenGLInitialize() to  signal requestEngineOpenGLInitialization
+"Gui::BaseApplication" -> "Gui::Viewer" : connect slot engineOpenGLInitialize() to  signal requestEngineOpenGLInitialization
 
-"Guibase::BaseApplication" -> "Gui::Viewer" : connect slot initializeGL() to signal glInitialized
-"Guibase::BaseApplication" -> "Gui::Viewer" : connect slot askForUpdate() to signal needUpdate
+"Gui::BaseApplication" -> "Gui::Viewer" : connect slot initializeGL() to signal glInitialized
+"Gui::BaseApplication" -> "Gui::Viewer" : connect slot askForUpdate() to signal needUpdate
 
 == Make OpenGL and drawing environment to be initialized ==
-"Guibase::BaseApplication" -> "GuiBase::MainWindowInterface" : show
-    "GuiBase::MainWindowInterface" -> "Gui::Viewer" : show
+"Gui::BaseApplication" -> "Gui::MainWindowInterface" : show
+    "Gui::MainWindowInterface" -> "Gui::Viewer" : show
     "Gui::Viewer" -> "Gui::WindowQt" : show
     "Gui::WindowQt" -> OpenGL ++ : makeCurrent
     "Gui::WindowQt" -> "Gui::Viewer" ++ : InitializeGL
         "Gui::Viewer" -> "Gui::Viewer" : globject init
         group Signal requestEngineOpenGLInitialization
-        "Gui::Viewer" -> "Guibase::BaseApplication" ++ : engineOpenGLInitialize
-            "Guibase::BaseApplication" -> "Engine::RadiumEngine" ++ : initializeGL()
+        "Gui::Viewer" -> "Gui::BaseApplication" ++ : engineOpenGLInitialize
+            "Gui::BaseApplication" -> "Engine::RadiumEngine" ++ : initializeGL()
             return
             group #AACCFF Mara (User defined app)
-            "Guibase::BaseApplication" -> UserApplication ++: addRenderers()
+            "Gui::BaseApplication" -> UserApplication ++: addRenderers()
                 UserApplication -> "Gui::Viewer" : addRenderer(Forward)
-                UserApplication -> "GuiBase::MainWindowInterface" : build Forward renderer gui
+                UserApplication -> "Gui::MainWindowInterface" : build Forward renderer gui
                 UserApplication -> "Gui::Viewer" : addRenderer(NodeBased)
-                UserApplication -> "GuiBase::MainWindowInterface" : build NodeBased renderer gui
+                UserApplication -> "Gui::MainWindowInterface" : build NodeBased renderer gui
             return
             end
         return
@@ -136,16 +136,16 @@ return viewer
         end note
         group Signal glInitialized
             group #BBFFCC Sandbox::mainWindow
-            "GuiBase::MainWindowInterface" <- "Gui::Viewer" ++: onGLInitialized()
-            "GuiBase::MainWindowInterface" -> "Gui::Viewer" : addRenderer(Forward)
+            "Gui::MainWindowInterface" <- "Gui::Viewer" ++: onGLInitialized()
+            "Gui::MainWindowInterface" -> "Gui::Viewer" : addRenderer(Forward)
             return
             end
 
-            "Guibase::BaseApplication" <- "Gui::Viewer" ++ : initializeGL()
-            "Guibase::BaseApplication" -> "Guibase::BaseApplication" : init pre-inserted plugin's GL
+            "Gui::BaseApplication" <- "Gui::Viewer" ++ : initializeGL()
+            "Gui::BaseApplication" -> "Gui::BaseApplication" : init pre-inserted plugin's GL
             group Overridden initializeGl methods
                 group #AACCFF Mara (User defined app)
-                "Guibase::BaseApplication" -> UserApplication ++ : initializeGl()
+                "Gui::BaseApplication" -> UserApplication ++ : initializeGl()
                 return
                 end
             end
@@ -162,11 +162,11 @@ return viewer
     "Gui::WindowQt" -> OpenGL : doneCurrent
     return
     "Gui::WindowQt" --> "Gui::Viewer"
-    "Gui::Viewer" --> "GuiBase::MainWindowInterface"
-    "GuiBase::MainWindowInterface" --> "Guibase::BaseApplication"
+    "Gui::Viewer" --> "Gui::MainWindowInterface"
+    "Gui::MainWindowInterface" --> "Gui::BaseApplication"
 == Configure and initialize extensions/plugins for application and input/output capabilities on the Engine ==
-    "Guibase::BaseApplication" -> "Guibase::BaseApplication" : Load Plugins
-    "Guibase::BaseApplication" -> "Engine::RadiumEngine" ++ : registerFileLoaders
+    "Gui::BaseApplication" -> "Gui::BaseApplication" : Load Plugins
+    "Gui::BaseApplication" -> "Engine::RadiumEngine" ++ : registerFileLoaders
     note left of "Engine::RadiumEngine"
     Radium::IO loaders if configured :
       - Tinyply
@@ -175,26 +175,26 @@ return viewer
     return
     group Overridden addApplicationExtension methods
         group #AACCFF Mara (User defined app)
-        "Guibase::BaseApplication" -> UserApplication ++ : addApplicationExtension()
+        "Gui::BaseApplication" -> UserApplication ++ : addApplicationExtension()
         UserApplication -> "Engine::RadiumEngine" : registerFileLoader
         return
         end
     end
 return
 == Application / Engine ready to be used ==
-group after "Guibase::BaseApplication" creation
+group after "Gui::BaseApplication" creation
 
     group Radium demos (Example Apps)
 
         UserApplication -> "Engine::RadiumEngine" : scene configuration
-        UserApplication -> "Guibase::BaseApplication" ++: event loop
+        UserApplication -> "Gui::BaseApplication" ++: event loop
         return exit()
         deactivate UserApplication #FFCCBB
         <- UserApplication : exit
     end
     group Radium Sandbox (Radium Apps)
 
-        UserApplication -> "Guibase::BaseApplication" ++: event loop
+        UserApplication -> "Gui::BaseApplication" ++: event loop
         return  exit()
         deactivate UserApplication #BBFFCC
         <- UserApplication : exit

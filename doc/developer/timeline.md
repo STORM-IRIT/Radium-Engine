@@ -2,7 +2,7 @@
 [TOC]
 # Timeline And Keyframes
 
-The `Ra::GuiBase::Timeline` class provides display and management of `Ra::Core::Animation::KeyFramedValue`s through
+The `Ra::Gui::Timeline` class provides display and management of `Ra::Core::Animation::KeyFramedValue`s through
 the `Ra::Core::Animation::KeyFramedValueController` class.
 
 ## The Timeline UI
@@ -40,14 +40,14 @@ the time space and the selected KeyFramedValue:
 
 ## Display animated data using the Timeline
 
-`Ra::Core::Animation::KeyFramedValueController`s must be registered into the `Ra::GuiBase::Timeline`, which can be done using the
-`Ra::GuiBase::Timeline::registerKeyFramedValue` methods, binding them to the `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
+`Ra::Core::Animation::KeyFramedValueController`s must be registered into the `Ra::Gui::Timeline`, which can be done using the
+`Ra::Gui::Timeline::registerKeyFramedValue` methods, binding them to the `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
 `Ra::Engine::Rendering::RenderObject` they belong to.
 
 ### Binding "Static" KeyFramedValue
 Those are `Ra::Core::Animation::KeyFramedValue`s that are an explicit part of a `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
-`Ra::Engine::Rendering::RenderObject` data, either filled upon construction or through the `Ra::GuiBase::Timeline`.
-Static `Ra::Core::Animation::KeyFramedValue`s must be registered in the `Ra::GuiBase::Timeline` after the object's
+`Ra::Engine::Rendering::RenderObject` data, either filled upon construction or through the `Ra::Gui::Timeline`.
+Static `Ra::Core::Animation::KeyFramedValue`s must be registered in the `Ra::Gui::Timeline` after the object's
 construction.
 They usually are not bound to an *UpdateCallback* function since the object they
 belong to usually calls `Ra::Core::Animation::KeyFramedValue::at` to query the current value.
@@ -84,7 +84,7 @@ struct MyComponentWithKeyFrame : public Ra::Engine::Scene::Component
 
 struct MyTimeDependantSystem : public Ra::Engine::Scene::System
 {
-   MyTimeDependantSystem( Ra::GuiBase::Timeline* timeline )
+   MyTimeDependantSystem( Ra::Gui::Timeline* timeline )
        : Ra::Engine::Scene::System()
        , m_timeline( timeline )
    {}
@@ -117,7 +117,7 @@ struct MyTimeDependantSystem : public Ra::Engine::Scene::System
    }
 
    /// The Timeline in which we record the Keyframes for visualisation and manipulation.
-   Ra::GuiBase::Timeline* m_timeline{nullptr};
+   Ra::Gui::Timeline* m_timeline{nullptr};
 };
 ```
 
@@ -125,7 +125,7 @@ struct MyTimeDependantSystem : public Ra::Engine::Scene::System
 Those are `Ra::Core::Animation::KeyFramedValue`s that are not part of an `Ra::Engine::Scene::Entity`, `Ra::Engine::Scene::Component` or
 `Ra::Engine::Rendering::RenderObject` data, but are used to keyframe some of its data.
 Dynamic `Ra::Core::Animation::KeyFramedValue`s must be created for and owned by the UI, and registered in the
-`Ra::GuiBase::Timeline`.
+`Ra::Gui::Timeline`.
 They are usually bound to an UpdateCallback function since they have to update the
 object's data they are linked to.
 
@@ -177,7 +177,7 @@ struct MyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface {
         m_selectionManager = context.m_selectionManager;
         if ( m_selectionManager )
         {
-            connect( m_selectionManager, &Ra::GuiBase::SelectionManager::currentChanged, this, &MyPlugin::onCurrentChanged );
+            connect( m_selectionManager, &Ra::Gui::SelectionManager::currentChanged, this, &MyPlugin::onCurrentChanged );
         }
     }
     bool doAddWidget( QString& name ) override {
@@ -234,7 +234,7 @@ struct MyPlugin : public QObject, Ra::Plugins::RadiumPluginInterface {
     };
 
     MyWidget* m_widget{nullptr};
-    Ra::GuiBase::Timeline* m_timeline{nullptr};
+    Ra::Gui::Timeline* m_timeline{nullptr};
     MyComponent* m_current;
     std::map<MyComponent*,KeyFramedValue*> m_keyframes;
 };

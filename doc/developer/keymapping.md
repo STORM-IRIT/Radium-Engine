@@ -93,7 +93,7 @@ The viewer is the main entry point to dispatch key and mouse event.
 The idea is that at a key press or mouse press event, the viewer is capable of determining which class will receive the events.
 
 For instance see `Viewer.cpp` `Viewer::mousePressEvent`:
- \snippet GuiBase/Viewer/Viewer.cpp event dispatch
+ \snippet Gui/Viewer/Viewer.cpp event dispatch
 
 # Key mapping and inheritence.
 If you want to define a derived class that inherits a base class with key mapping, and you want to have key mapping management in this derived, you have to consider the following implementation details:

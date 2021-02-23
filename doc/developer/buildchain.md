@@ -18,14 +18,14 @@ By default, `${CMAKE_INSTALL_PREFIX}` is set as follow:
 
 # Radium Libraries
 ## Overview
-Radium is split in 5 libraries: Core, Engine, GuiBase, UI and PluginBase.
+Radium is split in 5 libraries: Core, Engine, Gui, UI and PluginBase.
 The compilation of each library is controlled by the following cmake options
 
 ~~~{.cmake}
 option(RADIUM_GENERATE_LIB_CORE       "Include Radium::Core in CMake project" ON)
 option(RADIUM_GENERATE_LIB_IO         "Include Radium::IO in CMake project" ON)
 option(RADIUM_GENERATE_LIB_ENGINE     "Include Radium::Engine in CMake project" ON)
-option(RADIUM_GENERATE_LIB_GUIBASE    "Include Radium::GuiBase in CMake project" ON)
+option(RADIUM_GENERATE_LIB_GUI    "Include Radium::Gui in CMake project" ON)
 option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake project" ON)
 ~~~
 
@@ -35,7 +35,7 @@ option(RADIUM_GENERATE_LIB_PLUGINBASE "Include Radium::PluginBase in CMake proje
 add_dependencies (${ra_engine_target} PUBLIC Radium::Core)
 add_dependencies (${ra_io_target} PUBLIC Radium::Core)
 add_dependencies (${ra_pluginbase_target} Radium::Core Radium::Engine)
-add_dependencies (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
+add_dependencies (${ra_gui_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)
 ~~~
 
 \warning Consistency of `RADIUM_GENERATE_LIB_***` options is not checked wrt. the dependencies.
@@ -51,7 +51,7 @@ External dependencies can be fetched and built at configure time or pre build on
 Each library comes with its own dependencies, which are fetched and built at **configure** time:
 
 ~~~{.sh}
-$ cmake .. -DRADIUM_GENERATE_LIB_IO=OFF -DRADIUM_GENERATE_LIB_ENGINE=OFF -DRADIUM_GENERATE_LIB_GUIBASE=OFF -DRADIUM_GENERATE_LIB_PLUGINBASE=OFF -DRADIUM_ENABLE_TESTING=OFF
+$ cmake .. -DRADIUM_GENERATE_LIB_IO=OFF -DRADIUM_GENERATE_LIB_ENGINE=OFF -DRADIUM_GENERATE_LIB_GUI=OFF -DRADIUM_GENERATE_LIB_PLUGINBASE=OFF -DRADIUM_ENABLE_TESTING=OFF
 Starting to parse CMake project.
 Externals will be built with 8 core(s)
     == radiumproject Project configuration ==
@@ -102,7 +102,7 @@ To force processing again the dependencies of a given library, turn on the assoc
 OPTION( RADIUM_SKIP_${NAME_UPPER}_EXTERNAL "[addExternalFolder] Skip updating ${NAME}::external (disable for rebuild)" ON)
 ~~~
 
-where `$NAME_UPPER` is `CORE`, `ENGINE`, `GUIBASE`, `PLUGINBASE` or `IO`.
+where `$NAME_UPPER` is `CORE`, `ENGINE`, `GUI`, `PLUGINBASE` or `IO`.
 \note The option `RADIUM_SKIP_${NAME_UPPER}_EXTERNAL` is generated only if `RADIUM_GENERATE_LIB_${NAME_UPPER}` is `ON`.
 
 

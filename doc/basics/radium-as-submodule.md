@@ -9,7 +9,7 @@ Then, to use Radium in your own project, you need to set `CMAKE_PREFIX_PATH=/pat
 and add the following lines in your `CMakeLists.txt`:
 ~~~cmake
 find_package(Radium REQUIRED)
-target_link_libraries(${target} Radium::Core Radium::Engine Radium::IO Radium::GuiBase)
+target_link_libraries(${target} Radium::Core Radium::Engine Radium::IO Radium::Gui)
 ~~~
 Include directories and link instructions are populated automatically by cmake.
 
