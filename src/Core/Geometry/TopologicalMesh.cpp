@@ -341,11 +341,6 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
     TriangleMesh::IndexContainerType indices;
 
     /// add attribs to out
-    std::vector<AttribHandle<float>> wedgeFloatAttribHandles;
-    std::vector<AttribHandle<Vector2>> wedgeVector2AttribHandles;
-    std::vector<AttribHandle<Vector3>> wedgeVector3AttribHandles;
-    std::vector<AttribHandle<Vector4>> wedgeVector4AttribHandles;
-
     TriangleMesh::PointAttribHandle::Container wedgePosition;
     AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
