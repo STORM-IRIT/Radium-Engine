@@ -49,14 +49,14 @@ target_compile_definitions(unittests PRIVATE -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILE
 
 # convenience target for running only the unit tests
 add_custom_target(run_unittests
-    #this way we can use fake data from /test dir (if we have any):
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests
+    #this way we can use fake data from /tests/unittest/ dir (if we have any):
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMAND $<TARGET_FILE:unittests>
     DEPENDS unittests)
 
 # Verbose printing of results
 add_custom_target(run_unittests_verbose
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/tests
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMAND $<TARGET_FILE:unittests> -s -a -r=compact
     DEPENDS unittests)
 
