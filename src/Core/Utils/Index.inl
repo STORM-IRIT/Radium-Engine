@@ -8,7 +8,9 @@ namespace Utils {
 constexpr Index::Index( IntegerType i ) : m_idx( ( i < 0 ) ? s_invalid : i ) {}
 
 template <typename Integer>
-constexpr Index::Index( Integer i ) : m_idx( ( ( i < 0 ) || ( i > s_maxIdx ) ) ? s_invalid : i ) {}
+constexpr Index::Index( Integer i ) : m_idx( ( ( i < 0 ) || ( i > s_maxIdx ) ) ? s_invalid : i ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
+}
 
 constexpr Index::Index( const Index& i ) : m_idx( i.m_idx ) {}
 
@@ -66,6 +68,7 @@ constexpr Index Index::operator+( const Index& id ) {
 }
 template <typename Integer>
 constexpr Index Index::operator+( const Integer& id ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
     return ( *this ) + Index( id );
 }
 
@@ -75,6 +78,7 @@ constexpr Index Index::operator-( const Index& id ) {
 }
 template <typename Integer>
 constexpr Index Index::operator-( const Integer& id ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
     return ( *this ) - Index( id );
 }
 
@@ -83,6 +87,7 @@ constexpr bool Index::operator==( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator==( const Integer& i ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
     return ( *this == Index( IntegerType( i ) ) );
 }
 
@@ -91,6 +96,7 @@ constexpr bool Index::operator!=( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator!=( const Integer& i ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
     return ( !( *this == Index( IntegerType( i ) ) ) );
 }
 
@@ -109,6 +115,7 @@ constexpr bool Index::operator<=( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator<=( const Integer& i ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
     return ( *this <= Index( IntegerType( i ) ) );
 }
 
@@ -118,6 +125,7 @@ constexpr bool Index::operator>( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator>( const Integer& i ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
     return ( *this > Index( IntegerType( i ) ) );
 }
 
@@ -127,6 +135,7 @@ constexpr bool Index::operator>=( const Index& id ) {
 }
 template <typename Integer>
 constexpr bool Index::operator>=( const Integer& i ) {
+    static_assert( std::is_integral<Integer>::value, "Integral required." );
     return ( *this >= Index( IntegerType( i ) ) );
 }
 
