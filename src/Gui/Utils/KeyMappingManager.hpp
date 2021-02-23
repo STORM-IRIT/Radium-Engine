@@ -40,6 +40,8 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     /// reload last open file.
     void reloadConfiguration();
 
+    std::string getLoadedFilename() { return m_file->fileName().toStdString(); }
+
     /// Return the action associated to the binding buttons + modifiers + key
     /// \param buttons are the mouse buttons pressed, could be NoButton
     /// \param modifiers are the keyboard modifiers, could be NoModifiers
