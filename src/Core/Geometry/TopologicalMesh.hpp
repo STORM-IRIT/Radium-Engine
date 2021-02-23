@@ -112,9 +112,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
      * same topology.
-     * \warning note implemented yet.
      */
     void updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& mesh );
+    void update( const Ra::Core::Geometry::TriangleMesh& mesh );
 
     // import other version of halfedge_handle method
     using base::halfedge_handle;
@@ -185,6 +185,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     ///@{
 
+    void updateWedgeNormals();
     /**
      * Create a new property for normals on faces of \a mesh.
      * \note This new property will have to be propagated onto the newly created

@@ -388,9 +388,56 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
     return out;
 }
 
-void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& /*mesh*/ ) {
-    CORE_ASSERT( false, "not implemented yet" );
-    ///\todo ;)
+void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& out ) {
+    TriangleMesh::PointAttribHandle::Container wedgePosition;
+    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+        m_wedges.m_floatAttribNames.size() );
+    AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
+        m_wedges.m_vector2AttribNames.size() );
+    AlignedStdVector<Attrib<Vector3>::Container> wedgeVector3AttribData(
+        m_wedges.m_vector3AttribNames.size() );
+    AlignedStdVector<Attrib<Vector4>::Container> wedgeVector4AttribData(
+        m_wedges.m_vector4AttribNames.size() );
+
+    /// Wedges are output vertices !
+    for ( WedgeIndex widx {0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
+    {
+        const auto& wd = m_wedges.getWedgeData( widx );
+        wedgePosition.push_back( wd.m_position );
+        copyWedgeDataToAttribContainer( wedgeFloatAttribData, wd.m_floatAttrib );
+        copyWedgeDataToAttribContainer( wedgeVector2AttribData, wd.m_vector2Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector3AttribData, wd.m_vector3Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector4AttribData, wd.m_vector4Attrib );
+    }
+
+    out.setVertices( std::move( wedgePosition ) );
+    moveContainerToMesh<float>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
+    moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
+    moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );
+}
+
+void TopologicalMesh::update( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
+    for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
+    {
+        WedgeData wd;
+        wd.m_position = triMesh.vertices()[i];
+        copyMeshToWedgeData( triMesh,
+                             i,
+                             m_wedges.m_wedgeFloatAttribHandles,
+                             m_wedges.m_wedgeVector2AttribHandles,
+                             m_wedges.m_wedgeVector3AttribHandles,
+                             m_wedges.m_wedgeVector4AttribHandles,
+                             &wd );
+        // here ref is not incremented
+        m_wedges.setWedgeData( i, wd );
+    }
+    // update positions
+    for ( auto itr = halfedges_begin(), stop = halfedges_end(); itr != stop; ++itr )
+    {
+        point( to_vertex_handle( *itr ) ) =
+            m_wedges.getWedgeData( getWedgeIndex( *itr ) ).m_position;
+    }
 }
 
 bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {

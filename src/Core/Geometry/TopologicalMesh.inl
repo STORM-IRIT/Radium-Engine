@@ -507,6 +507,39 @@ TopologicalMesh::getVector4PropsHandles() const {
     return m_vec4Pph;
 }
 
+inline void TopologicalMesh::updateWedgeNormals() {
+    //
+    update_face_normals();
+
+    std::unordered_map<TopologicalMesh::Normal,
+                       std::pair<TopologicalMesh::Normal, std::set<WedgeIndex>>,
+                       hash_vec>
+        newNormals;
+    for ( auto itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr )
+    {
+        auto vh = *itr;
+        for ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it )
+        {
+            auto widx = property( m_wedgeIndexPph, *vh_it );
+            if ( widx.isValid() && !m_wedges.getWedge( widx ).isDeleted() )
+            {
+                auto oldNormal = normal( face_handle( *vh_it ) );
+                auto newNormal = normal( face_handle( *vh_it ) );
+                newNormals[oldNormal].first += newNormal;
+                newNormals[oldNormal].second.insert( widx );
+            }
+        }
+    }
+    for ( auto pair : newNormals )
+    {
+        pair.second.first /= pair.second.second.size();
+        for ( auto widx : pair.second.second )
+        {
+            setWedgeData( widx, "in_normal", pair.first );
+        }
+    }
+}
+
 inline void TopologicalMesh::createNormalPropOnFaces( OpenMesh::FPropHandleT<Normal>& fProp ) {
     if ( !has_halfedge_normals() )
     {
