@@ -18,7 +18,7 @@ class RA_CORE_API Index
     constexpr Index( const Index& i );
 
     /// Templated constructor to convert any interger type to index.
-    /// Integer template parameter has to be std::is_integral (static_assert'ed)
+    /// \tparam Integer template parameter has to be std::is_integral (static_assert'ed)
     template <typename Integer>
     explicit constexpr Index( Integer i );
 
