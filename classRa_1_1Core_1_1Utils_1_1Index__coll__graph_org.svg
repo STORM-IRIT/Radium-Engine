@@ -20,7 +20,7 @@
 <polyline fill="none" stroke="black" points="0,-338.5 137,-338.5 "/>
 <text text-anchor="start" x="8" y="-326.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
 <text text-anchor="start" x="8" y="-315.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
-<text text-anchor="start" x="8" y="-304.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="8" y="-304.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
 <text text-anchor="start" x="8" y="-293.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
 <text text-anchor="start" x="8" y="-282.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isInvalid()</text>
 <text text-anchor="start" x="8" y="-271.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setInvalid()</text>

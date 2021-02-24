@@ -144,7 +144,7 @@ var sectionId = 'dynsection-1';
 <polyline fill="none" stroke="black" points="3.5,-930.5 140.5,-930.5 "/>
 <text text-anchor="start" x="11.5" y="-918.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
 <text text-anchor="start" x="11.5" y="-907.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
-<text text-anchor="start" x="11.5" y="-896.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="11.5" y="-896.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
 <text text-anchor="start" x="11.5" y="-885.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
 <text text-anchor="start" x="11.5" y="-874.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isInvalid()</text>
 <text text-anchor="start" x="11.5" y="-863.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setInvalid()</text>

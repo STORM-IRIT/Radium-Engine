@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">a51af1596ca8a6b05a3bd536832b49a41cdf63f6</span>
+   &#160;<span id="projectnumber">4d6feab029229a86e9924fe13a33c6194d05d868</span>
    </div>
   </td>
  </tr>
@@ -123,18 +123,18 @@ Installation directory</h1>
 Radium Libraries</h1>
 <h2><a class="anchor" id="autotoc_md32"></a>
 Overview</h2>
-<p>Radium is split in 5 libraries: Core, Engine, GuiBase, UI and PluginBase. The compilation of each library is controlled by the following cmake options</p>
+<p>Radium is split in 5 libraries: Core, Engine, Gui, UI and PluginBase. The compilation of each library is controlled by the following cmake options</p>
 <div class="fragment"><div class="line">option(RADIUM_GENERATE_LIB_CORE       &quot;Include Radium::Core in CMake project&quot; ON)</div>
 <div class="line">option(RADIUM_GENERATE_LIB_IO         &quot;Include Radium::IO in CMake project&quot; ON)</div>
 <div class="line">option(RADIUM_GENERATE_LIB_ENGINE     &quot;Include Radium::Engine in CMake project&quot; ON)</div>
-<div class="line">option(RADIUM_GENERATE_LIB_GUIBASE    &quot;Include Radium::GuiBase in CMake project&quot; ON)</div>
+<div class="line">option(RADIUM_GENERATE_LIB_GUI    &quot;Include Radium::Gui in CMake project&quot; ON)</div>
 <div class="line">option(RADIUM_GENERATE_LIB_PLUGINBASE &quot;Include Radium::PluginBase in CMake project&quot; ON)</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md33"></a>
 Dependencies between libraries</h2>
 <div class="fragment"><div class="line">add_dependencies (${ra_engine_target} PUBLIC Radium::Core)</div>
 <div class="line">add_dependencies (${ra_io_target} PUBLIC Radium::Core)</div>
 <div class="line">add_dependencies (${ra_pluginbase_target} Radium::Core Radium::Engine)</div>
-<div class="line">add_dependencies (${ra_guibase_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)</div>
+<div class="line">add_dependencies (${ra_gui_target} PUBLIC Radium::Core Radium::Engine Radium::PluginBase Radium::IO)</div>
 </div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>Consistency of <code>RADIUM_GENERATE_LIB_***</code> options is not checked wrt. the dependencies.</dd></dl>
 <ul>
 <li>When enabled using <code>RADIUM_GENERATE_LIB_***</code>, each library has a compilation target: <code>Core</code>, <code>Engine</code>, ...</li>
@@ -145,7 +145,7 @@ External dependencies</h1>
 <h2><a class="anchor" id="autotoc_md35"></a>
 Fetch and build at configure time</h2>
 <p>Each library comes with its own dependencies, which are fetched and built at <b>configure</b> time:</p>
-<div class="fragment"><div class="line">$ cmake .. -DRADIUM_GENERATE_LIB_IO=OFF -DRADIUM_GENERATE_LIB_ENGINE=OFF -DRADIUM_GENERATE_LIB_GUIBASE=OFF -DRADIUM_GENERATE_LIB_PLUGINBASE=OFF -DRADIUM_ENABLE_TESTING=OFF</div>
+<div class="fragment"><div class="line">$ cmake .. -DRADIUM_GENERATE_LIB_IO=OFF -DRADIUM_GENERATE_LIB_ENGINE=OFF -DRADIUM_GENERATE_LIB_GUI=OFF -DRADIUM_GENERATE_LIB_PLUGINBASE=OFF -DRADIUM_ENABLE_TESTING=OFF</div>
 <div class="line">Starting to parse CMake project.</div>
 <div class="line">Externals will be built with 8 core(s)</div>
 <div class="line">    == radiumproject Project configuration ==</div>
@@ -186,7 +186,7 @@ Fetch and build at configure time</h2>
 </div><!-- fragment --><p>What is happening here, is that the dependencies of Core are fetched using git, then configured using cmake, built, and installed to ${CMAKE_INSTALL_PREFIX} of Radium. </p><dl class="section see"><dt>See also</dt><dd>File <code>cmake/externalFunc.cmake</code> for technical details.</dd></dl>
 <p>In order to save compilation time, dependencies are processed at the first run, and then skipped. To force processing again the dependencies of a given library, turn on the associated option</p>
 <div class="fragment"><div class="line">OPTION( RADIUM_SKIP_${NAME_UPPER}_EXTERNAL &quot;[addExternalFolder] Skip updating ${NAME}::external (disable for rebuild)&quot; ON)</div>
-</div><!-- fragment --><p>where <code>$NAME_UPPER</code> is <code>CORE</code>, <code>ENGINE</code>, <code>GUIBASE</code>, <code>PLUGINBASE</code> or <code>IO</code>. </p><dl class="section note"><dt>Note</dt><dd>The option <code>RADIUM_SKIP_${NAME_UPPER}_EXTERNAL</code> is generated only if <code>RADIUM_GENERATE_LIB_${NAME_UPPER}</code> is <code>ON</code>.</dd></dl>
+</div><!-- fragment --><p>where <code>$NAME_UPPER</code> is <code>CORE</code>, <code>ENGINE</code>, <code>GUI</code>, <code>PLUGINBASE</code> or <code>IO</code>. </p><dl class="section note"><dt>Note</dt><dd>The option <code>RADIUM_SKIP_${NAME_UPPER}_EXTERNAL</code> is generated only if <code>RADIUM_GENERATE_LIB_${NAME_UPPER}</code> is <code>ON</code>.</dd></dl>
 <h2><a class="anchor" id="autotoc_md36"></a>
 Building and installing Radium dependencies once for all</h2>
 <p>Radium dependencies can be built and installed alone, without building the whole Radium project.</p>
@@ -288,7 +288,7 @@ Coverage</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Sun Feb 21 2021 19:51:33 for Radium Engine by
+    <li class="footer">Generated on Wed Feb 24 2021 14:17:59 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -640,7 +640,7 @@
 <polyline fill="none" stroke="black" points="174,-3557.5 311,-3557.5 "/>
 <text text-anchor="start" x="182" y="-3545.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
 <text text-anchor="start" x="182" y="-3534.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
-<text text-anchor="start" x="182" y="-3523.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="182" y="-3523.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ Index()</text>
 <text text-anchor="start" x="182" y="-3512.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
 <text text-anchor="start" x="182" y="-3501.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isInvalid()</text>
 <text text-anchor="start" x="182" y="-3490.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setInvalid()</text>
