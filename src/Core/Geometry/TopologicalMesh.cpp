@@ -357,7 +357,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
         m_wedges.m_vector4AttribNames.size() );
 
     /// Wedges are output vertices !
-    for ( WedgeIndex widx {0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
+    for ( WedgeIndex widx {0}; widx < WedgeIndex {m_wedges.size()}; ++widx )
     {
         const auto& wd = m_wedges.getWedgeData( widx );
         wedgePosition.push_back( wd.m_position );
@@ -790,7 +790,7 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
                 this->m_wedges.newReference( property( this->m_wedgeIndexPph, h1_ ) );
         }
         else
-        { property( this->m_wedgeIndexPph, r0_ ) = WedgeIndex(); }
+        { property( this->m_wedgeIndexPph, r0_ ) = WedgeIndex {}; }
     };
 
     auto updateWedgeIndex2 = [this]( WedgeIndex widx_,
@@ -812,7 +812,7 @@ bool TopologicalMesh::splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f )
             property( this->m_wedgeIndexPph, s0_ ) = property( this->m_wedgeIndexPph, h0_ );
         }
         else
-        { property( this->m_wedgeIndexPph, s0_ ) = WedgeIndex(); }
+        { property( this->m_wedgeIndexPph, s0_ ) = WedgeIndex {}; }
     };
 
     // this update read from o0, must be done before t which reads from o0
@@ -910,7 +910,7 @@ void TopologicalMesh::garbage_collection() {
     }
     for ( size_t i = 0; i < m_wedges.size(); ++i )
     {
-        CORE_ASSERT( !m_wedges.getWedge( WedgeIndex( i ) ).isDeleted(),
+        CORE_ASSERT( !m_wedges.getWedge( WedgeIndex {i} ).isDeleted(),
                      "deleted wedge remains after garbage collection" );
     }
 }
@@ -927,7 +927,7 @@ void TopologicalMesh::delete_face( FaceHandle _fh, bool _delete_isolated_vertice
         else
         { m_wedges.del( idx ); }
         // set an invalid index for the boundary halfedges
-        property( m_wedgeIndexPph, *itr ) = WedgeIndex();
+        property( m_wedgeIndexPph, *itr ) = WedgeIndex {};
     }
     base::delete_face( _fh, _delete_isolated_vertices );
 }

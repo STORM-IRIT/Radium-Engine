@@ -10,7 +10,7 @@
 
     *   `Engine` the Engine module (dynamic library) contains all graphics related code and engine subsystems running.
 
-    *   `GuiBase` has the Qt-based GUI classes.
+    *   `Gui` has the Qt-based GUI classes.
 
 *   `Plugins` contains the plugins which add Systems and Components to the engine.
 

@@ -158,7 +158,7 @@ and _copied_ into the installed locations.
 
 # Using the Plugin
 
-Any application that inherits from `Ra::GuiBase::BaseApplication` could use any Plugin developped using the
+Any application that inherits from `Ra::Gui::BaseApplication` could use any Plugin developped using the
 Radium Engine. 
 As plugins are Qt objects that implement specific interface, it is also permitted to have any Qt
 Application to use plugins. Meanwhile, the following documentation is related to the Radium BaseApplication 
@@ -170,7 +170,7 @@ But, when developping a plugin, the installation in the Radium bundle directory 
 
 It could then be useful to use the Plugin from its own installation directory or directly from its build-tree.
 To do that, the application could register the plugin directory location by calling the 
-`Ra::GuiBase::BaseApplication::addPluginDirectory( const std::string& pluginDir );` method that will record, in the 
+`Ra::Gui::BaseApplication::addPluginDirectory( const std::string& pluginDir );` method that will record, in the 
 QSettings file associated with the application, the directory in which the Radium Engine will look for plugins.
 Once this directory is registered, any plugin that will be found in this directory will be loaded at each application 
 startup if the build type of the plugin is compatible with the build type of the application (release, debug, ...). 
