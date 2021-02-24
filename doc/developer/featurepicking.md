@@ -13,7 +13,7 @@ The result of a Ra::Engine::Rendering::Renderer::PickingQuery is a Ra::Engine::R
  *   the list of selected element indices, either points for point clouds or triangles for meshes ;
  *   the list of selected edge's opposite vertex indices given w.r.t. the corresponding selected triangle.
 
-Right after a selection, the Ra::Engine::Rendering::Renderer::PickingResult are stored in the Ra::Gui::PickingManager and the Ra::GuiBase::SelectionManager emits Ra::GuiBase::SelectionManager::currentChanged signal so that Plugins are told a new selection has been made.
+Right after a selection, the Ra::Engine::Rendering::Renderer::PickingResult are stored in the Ra::Gui::PickingManager and the Ra::Gui::SelectionManager emits Ra::Gui::SelectionManager::currentChanged signal so that Plugins are told a new selection has been made.
 
 The selection of a mesh feature is activated by holding a specific key while selecting the object (see the `KeyMappingManager` configuration file for those). Multiple selection activation can be activated/de-activated by pressing the corresponding key, which would also make a circle shape, representing the selection area, appear on the screen.
 

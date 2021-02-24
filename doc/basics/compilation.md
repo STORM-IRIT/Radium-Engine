@@ -6,7 +6,7 @@ All the dependencies are automatically fetched and compiled at build time.
  * [Core] Eigen, OpenMesh
  * [Engine] glm, globjects, glbindings
  * [IO] Assimp
- * [GuiBase] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 recommended)
+ * [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 recommended)
  * stb_image
 
 See @ref develbuildchain for technical details on dependencies management and how to provide locally installed dependencies.
@@ -70,8 +70,8 @@ RADIUM_GENERATE_LIB_CORE:BOOL=ON
 // Include Radium::Engine in CMake project
 RADIUM_GENERATE_LIB_ENGINE:BOOL=ON
 --
-// Include Radium::GuiBase in CMake project
-RADIUM_GENERATE_LIB_GUIBASE:BOOL=ON
+// Include Radium::Gui in CMake project
+RADIUM_GENERATE_LIB_GUI:BOOL=ON
 --
 // Include Radium::IO in CMake project
 RADIUM_GENERATE_LIB_IO:BOOL=ON

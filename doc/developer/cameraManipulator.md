@@ -17,13 +17,13 @@ demonstrated by the class `FlightCameraManipulator`.
 1. Define the class that must inherits from `Ra::Gui::CameraManipulator` and, in order to receive interaction events,
 from `Ra::Gui::KeyMappingManageable`. Note that a CameraManipulator is a `Q_OBJECT`
 
- \snippet GuiBase/Viewer/FlightCameraManipulator.hpp Declare class
+ \snippet Gui/Viewer/FlightCameraManipulator.hpp Declare class
 
 2. Implement the constructors (default, copy). Note that it is also very important to implement a constructor
 that will take any `Ra::Gui::CameraManipulator` and will copy the base class before initializing the current
 manipulator.
 
- \snippet GuiBase/Viewer/FlightCameraManipulator.cpp Constructor
+ \snippet Gui/Viewer/FlightCameraManipulator.cpp Constructor
 
 
 3. Implement the `Ra::Gui::KeyMappingManageable` part of the class. This implies defining the method
@@ -32,7 +32,7 @@ by `Ra::Gui::KeyMappingManageable`. It is recommended that, when implementing th
 a default configuration is defined and saved to the xml keymapping configuration file if this later does not already
 contains a configuration. This will allow the users to edit and customize the proposed keymapping configuration.
 
- \snippet GuiBase/Viewer/FlightCameraManipulator.cpp Implement KeyMappingManageable
+ \snippet Gui/Viewer/FlightCameraManipulator.cpp Implement KeyMappingManageable
 
 4. Implement the inherited abstract method according to the wanted behavior of the `Ra::Gui::CameraManipulator`
 
