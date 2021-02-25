@@ -8,10 +8,10 @@
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
+#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/Rendering/DebugRender.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
-#include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/DefaultLightManager.hpp>
 #include <Engine/Scene/Light.hpp>

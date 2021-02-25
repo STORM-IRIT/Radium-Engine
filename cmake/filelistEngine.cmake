@@ -63,6 +63,7 @@ set( engine_headers
     Data/SimpleMaterial.hpp
     Data/Texture.hpp
     Data/TextureManager.hpp
+    Data/ViewingParameters.hpp
     Data/VolumeObject.hpp
     Data/VolumetricMaterial.hpp
     FrameInfo.hpp
@@ -76,7 +77,6 @@ set( engine_headers
     Rendering/RenderObjectManager.hpp
     Rendering/RenderObjectTypes.hpp
     Rendering/RenderTechnique.hpp
-    Rendering/ViewingParameters.hpp
     Scene/Camera.hpp
     Scene/CameraManager.hpp
     Scene/CameraStorage.hpp

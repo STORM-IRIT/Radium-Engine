@@ -34,9 +34,9 @@
 #include <Core/Utils/StringUtils.hpp>
 
 #include <Engine/Data/ShaderProgramManager.hpp>
+#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Engine/Rendering/Renderer.hpp>
-#include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/DirLight.hpp>
