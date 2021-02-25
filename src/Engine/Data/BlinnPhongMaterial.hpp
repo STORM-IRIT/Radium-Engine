@@ -15,13 +15,12 @@ namespace Asset {
 class MaterialData;
 }
 } // namespace Core
+
 namespace Engine {
 
-namespace Rendering {
-class ShaderProgram;
-}
-
 namespace Data {
+class ShaderProgram;
+
 /**
  * Implementation of the Blinn-Phong Material BSDF.
  * @todo due to "Material.glsl" interface modification, must test this version with all plugins,

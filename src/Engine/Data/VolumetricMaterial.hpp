@@ -9,13 +9,11 @@
 #include <Engine/Data/Texture.hpp>
 
 namespace Ra {
-
 namespace Engine {
-namespace Rendering {
-class ShaderProgram;
-}
-
 namespace Data {
+
+class ShaderProgram;
+
 /**
  * Implementation of a simple Volumetric Material.
  * Based on a 3D texture defining the density distribution in the volume, perform ray-marching

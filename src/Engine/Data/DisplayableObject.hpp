@@ -8,14 +8,13 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
-#include <Engine/Data/ShaderProgram.hpp>
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
-class ShaderProgram;
-}
 namespace Data {
+
+class ShaderProgram;
+
 /**
  * Base class of any displayable object.
  */

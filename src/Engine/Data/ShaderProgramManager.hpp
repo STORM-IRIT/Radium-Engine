@@ -18,6 +18,7 @@ class NamedString;
 namespace Ra {
 namespace Engine {
 namespace Data {
+
 class ShaderProgram;
 class ShaderConfiguration;
 
