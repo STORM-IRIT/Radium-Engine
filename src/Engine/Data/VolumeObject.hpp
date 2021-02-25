@@ -81,5 +81,4 @@ class RA_ENGINE_API VolumeObject : public Displayable
 } // namespace Engine
 } // namespace Ra
 
-#include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Data/VolumeObject.inl>

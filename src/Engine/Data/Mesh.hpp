@@ -18,10 +18,9 @@
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
-class ShaderProgram;
-}
 namespace Data {
+class ShaderProgram;
+
 using namespace Ra::Core::Utils;
 
 /// VAO + VBO attributes management,
@@ -417,4 +416,3 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 } // namespace Engine
 } // namespace Ra
 #include <Engine/Data/Mesh.inl>
-#include <Engine/Data/ShaderProgram.hpp>

@@ -15,7 +15,7 @@
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
-#include <Engine/Rendering/ViewingParameters.hpp>
+#include <Engine/Data/ViewingParameters.hpp>
 
 namespace Ra {
 namespace Engine {
