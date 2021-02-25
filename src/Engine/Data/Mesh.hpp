@@ -18,10 +18,9 @@
 
 namespace Ra {
 namespace Engine {
-namespace Rendering {
-class ShaderProgram;
-}
 namespace Data {
+class ShaderProgram;
+
 using namespace Ra::Core::Utils;
 
 /// VAO + VBO attributes management,
