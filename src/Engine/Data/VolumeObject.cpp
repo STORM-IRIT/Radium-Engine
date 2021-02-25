@@ -1,12 +1,11 @@
-#include <Core/Geometry/Volume.hpp>
-
 #include <Engine/Data/VolumeObject.hpp>
-#include <Engine/OpenGL.hpp>
 
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/Volume.hpp>
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
+#include <Engine/OpenGL.hpp>
 
 namespace Ra {
 namespace Engine {

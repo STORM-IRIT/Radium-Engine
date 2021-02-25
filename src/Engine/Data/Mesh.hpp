@@ -416,4 +416,3 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
 } // namespace Engine
 } // namespace Ra
 #include <Engine/Data/Mesh.inl>
-#include <Engine/Data/ShaderProgram.hpp>
