@@ -10,11 +10,11 @@
 #include <Engine/Data/ShaderProgramManager.hpp>
 #include <Engine/Data/Texture.hpp>
 #include <Engine/Data/TextureManager.hpp>
+#include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
-#include <Engine/Rendering/ViewingParameters.hpp>
 #include <Engine/Scene/LightManager.hpp>
 
 #include <globjects/Framebuffer.h>
