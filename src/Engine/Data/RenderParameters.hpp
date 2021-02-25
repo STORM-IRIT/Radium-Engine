@@ -13,11 +13,9 @@
 namespace Ra {
 namespace Engine {
 namespace Data {
+
 class Texture;
 class ShaderProgram;
-} // namespace Data
-
-namespace Data {
 
 /**
  * Management of shader parameters with automatic binding of a named parameter to the corresponding
