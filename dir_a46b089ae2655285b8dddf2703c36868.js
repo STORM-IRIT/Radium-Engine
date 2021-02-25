@@ -86,6 +86,9 @@ var dir_a46b089ae2655285b8dddf2703c36868 =
     [ "TextureManager.hpp", "TextureManager_8hpp.html", [
       [ "TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", "classRa_1_1Engine_1_1Data_1_1TextureManager" ]
     ] ],
+    [ "ViewingParameters.hpp", "ViewingParameters_8hpp.html", [
+      [ "ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", "structRa_1_1Engine_1_1Data_1_1ViewingParameters" ]
+    ] ],
     [ "VolumeObject.cpp", "VolumeObject_8cpp.html", null ],
     [ "VolumeObject.hpp", "VolumeObject_8hpp.html", [
       [ "VolumeObject", "classRa_1_1Engine_1_1Data_1_1VolumeObject.html", "classRa_1_1Engine_1_1Data_1_1VolumeObject" ]

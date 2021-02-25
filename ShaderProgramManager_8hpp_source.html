@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">4d6feab029229a86e9924fe13a33c6194d05d868</span>
+   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
    </div>
   </td>
  </tr>
@@ -114,49 +114,50 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8hpp_source.html'
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>Engine {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>Data {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>ShaderProgram;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>ShaderConfiguration;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a> final</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    Core::Utils::optional&lt;const Data::ShaderProgram*&gt;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    addShaderProgram( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config );</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a>* getShaderProgram( <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a>* getShaderProgram( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config );</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> reloadAllShaderPrograms();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> reloadNotCompiledShaderPrograms();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">bool</span> addNamedString( <span class="keyword">const</span> std::string&amp; includepath, <span class="keyword">const</span> std::string&amp; realfile );</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordtype">void</span> reloadNamedString();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> insertShader( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                       <span class="keyword">const</span> std::shared_ptr&lt;Data::ShaderProgram&gt;&amp; shader );</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::map&lt;std::string, Data::ShaderConfiguration&gt; m_shaderProgramIds;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::map&lt;Data::ShaderConfiguration, std::shared_ptr&lt;Data::ShaderProgram&gt;&gt; m_shaderPrograms;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::vector&lt;Data::ShaderConfiguration&gt; m_shaderFailedConfs;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::map&lt;std::string,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;             std::pair&lt;std::unique_ptr&lt;globjects::File&gt;, std::unique_ptr&lt;globjects::NamedString&gt;&gt;&gt;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        m_namedStrings;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;};</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>ShaderProgram;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">class </span>ShaderConfiguration;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a> final</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    ~<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">ShaderProgramManager</a>&amp; ) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    Core::Utils::optional&lt;const Data::ShaderProgram*&gt;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    addShaderProgram( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config );</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a>* getShaderProgram( <span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span> );</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderProgram.html">Data::ShaderProgram</a>* getShaderProgram( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config );</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> reloadAllShaderPrograms();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> reloadNotCompiledShaderPrograms();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keywordtype">bool</span> addNamedString( <span class="keyword">const</span> std::string&amp; includepath, <span class="keyword">const</span> std::string&amp; realfile );</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> reloadNamedString();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> insertShader( <span class="keyword">const</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a>&amp; config,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                       <span class="keyword">const</span> std::shared_ptr&lt;Data::ShaderProgram&gt;&amp; shader );</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    std::map&lt;std::string, Data::ShaderConfiguration&gt; m_shaderProgramIds;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    std::map&lt;Data::ShaderConfiguration, std::shared_ptr&lt;Data::ShaderProgram&gt;&gt; m_shaderPrograms;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::vector&lt;Data::ShaderConfiguration&gt; m_shaderFailedConfs;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    std::map&lt;std::string,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;             std::pair&lt;std::unique_ptr&lt;globjects::File&gt;, std::unique_ptr&lt;globjects::NamedString&gt;&gt;&gt;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        m_namedStrings;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;};</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
@@ -165,14 +166,14 @@ $(document).ready(function(){initNavTree('ShaderProgramManager_8hpp_source.html'
 <div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
 <div class="ttc" id="anamespaceglobjects_html"><div class="ttname"><a href="namespaceglobjects.html">globjects</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00013">ShaderProgram.hpp:13</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
-<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">Ra::Engine::Data::ShaderProgramManager</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8hpp_source.html#l00035">ShaderProgramManager.hpp:35</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">Ra::Engine::Data::ShaderProgramManager</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8hpp_source.html#l00036">ShaderProgramManager.hpp:36</a></div></div>
 <div class="ttc" id="aStdOptional_8hpp_html"><div class="ttname"><a href="StdOptional_8hpp.html">StdOptional.hpp</a></div></div>
 <div class="ttc" id="aSingleton_8hpp_html"><div class="ttname"><a href="Singleton_8hpp.html">Singleton.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="ShaderProgramManager_8hpp.html">ShaderProgramManager.hpp</a></li>
-    <li class="footer">Generated on Wed Feb 24 2021 14:17:58 for Radium Engine by
+    <li class="footer">Generated on Thu Feb 25 2021 16:40:39 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

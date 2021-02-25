@@ -28,8 +28,5 @@ var dir_6b51c25a1fae8ca1123814c12a4ebb69 =
     [ "RenderObjectTypes.hpp", "RenderObjectTypes_8hpp.html", "RenderObjectTypes_8hpp" ],
     [ "RenderTechnique.cpp", "RenderTechnique_8cpp.html", "RenderTechnique_8cpp" ],
     [ "RenderTechnique.hpp", "RenderTechnique_8hpp.html", "RenderTechnique_8hpp" ],
-    [ "RenderTechnique.inl", "RenderTechnique_8inl.html", null ],
-    [ "ViewingParameters.hpp", "ViewingParameters_8hpp.html", [
-      [ "ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", "structRa_1_1Engine_1_1Data_1_1ViewingParameters" ]
-    ] ]
+    [ "RenderTechnique.inl", "RenderTechnique_8inl.html", null ]
 ];
