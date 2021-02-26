@@ -114,8 +114,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * same topology.
      */
     void updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& mesh );
-    void update( const Ra::Core::Geometry::TriangleMesh& mesh );
+    void updateTriangleMeshNormals( Ra::Core::Geometry::TriangleMesh& mesh );
+    void updateTriangleMeshNormals( AttribArrayGeometry::NormalAttribHandle::Container& normals );
 
+    void update( const Ra::Core::Geometry::TriangleMesh& mesh );
+    void updateNormals( const Ra::Core::Geometry::TriangleMesh& mesh );
+    void updatePositions( const Ra::Core::Geometry::TriangleMesh& mesh );
+    void updatePositions( const AttribArrayGeometry::PointAttribHandle::Container& vertices );
     // import other version of halfedge_handle method
     using base::halfedge_handle;
 
@@ -371,6 +376,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
         template <typename T>
         inline VectorArray<T>& getAttribArray();
+        template <typename T>
+        inline const VectorArray<T>& getAttribArray() const;
 
         explicit WedgeData() = default;
         inline bool operator==( const WedgeData& lhs ) const;
@@ -430,7 +437,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \param idx must be valid and correspond to a non delete wedge index.
      */
     inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
-
+    template <typename T>
+    const T& getWedgeData( const WedgeIndex& idx, const std::string& name ) const;
     /**
      * Return the wedge refcount, for debug purpose.
      */
@@ -611,6 +619,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// Return the wedge (not the data) for in class manipulation.
         /// client code should use getWedgeData only.
         inline const Wedge& getWedge( const WedgeIndex& idx ) const;
+        template <typename T>
+        inline const T& getWedgeData( const WedgeIndex& idx, const std::string& name ) const;
+        template <typename T>
+        inline T& getWedgeData( const WedgeIndex& idx, int attribIndex );
 
         /// \see TopologicalMesh::setWedgeData
         inline void setWedgeData( const WedgeIndex& idx, const WedgeData& wd );
@@ -619,6 +631,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         template <typename T>
         inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
         inline bool setWedgePosition( const WedgeIndex& idx, const Vector3& value );
+        template <typename T>
+        inline void setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                  const int& attribIndex,
+                                  const T& value );
+
+        template <typename T>
+        inline int getWedgeAttribIndex( const std::string& name ) {
+            auto nameArray = getNameArray<T>();
+            auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+            if ( itr != nameArray.end() ) { return std::distance( nameArray.begin(), itr ); }
+            return 0;
+        }
 
         // name is supposed to be unique within all attribs
         // not checks are performed
