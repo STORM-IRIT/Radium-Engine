@@ -464,7 +464,7 @@ void TopologicalMesh::updatePositions(
 #pragma omp parallel for
     for ( size_t i = 0; i < vertices.size(); ++i )
     {
-        m_wedges.setWedgePosition( i, vertices[i] );
+        m_wedges.m_data[i].getWedgeData().m_position              = vertices[i];
         point( m_wedges.m_data[i].getWedgeData().m_vertexHandle ) = vertices[i];
     }
 }
