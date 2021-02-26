@@ -510,32 +510,35 @@ TopologicalMesh::getVector4PropsHandles() const {
 inline void TopologicalMesh::updateWedgeNormals() {
     //
     update_face_normals();
+    auto normalsIndex = m_wedges.getWedgeAttribIndex<Normal>( "in_normal" );
 
-    std::unordered_map<TopologicalMesh::Normal,
-                       std::pair<TopologicalMesh::Normal, std::set<WedgeIndex>>,
-                       hash_vec>
-        newNormals;
     for ( auto itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr )
     {
+        std::unordered_map<TopologicalMesh::Normal,
+                           std::pair<TopologicalMesh::Normal, std::set<WedgeIndex>>,
+                           hash_vec>
+            newNormals;
+
         auto vh = *itr;
+
         for ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it )
         {
             auto widx = property( m_wedgeIndexPph, *vh_it );
             if ( widx.isValid() && !m_wedges.getWedge( widx ).isDeleted() )
             {
-                auto oldNormal = normal( face_handle( *vh_it ) );
+                auto oldNormal = m_wedges.getWedgeData<Normal>( widx, normalsIndex );
                 auto newNormal = normal( face_handle( *vh_it ) );
                 newNormals[oldNormal].first += newNormal;
                 newNormals[oldNormal].second.insert( widx );
             }
         }
-    }
-    for ( auto pair : newNormals )
-    {
-        pair.second.first /= pair.second.second.size();
-        for ( auto widx : pair.second.second )
+        for ( auto pair : newNormals )
         {
-            setWedgeData( widx, "in_normal", pair.first );
+            pair.second.first /= pair.second.second.size();
+            for ( auto widx : pair.second.second )
+            {
+                m_wedges.setWedgeData( widx, normalsIndex, pair.first );
+            }
         }
     }
 }
@@ -798,6 +801,41 @@ TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeData( idx );
 }
 
+template <typename T>
+inline const T& TopologicalMesh::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                               const std::string& name ) const {
+    return m_wedges.getWedgeData<T>( idx, name );
+}
+
+template <typename T>
+inline const T&
+TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                const std::string& name ) const {
+    if ( idx.isValid() )
+    {
+        auto nameArray = getNameArray<T>();
+        auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+        if ( itr != nameArray.end() )
+        {
+            auto attrIndex = std::distance( nameArray.begin(), itr );
+            return m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex];
+        }
+        else
+        {
+            LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
+                            << typeid( T ).name();
+        }
+    }
+    static T dummy;
+    return dummy;
+}
+
+template <typename T>
+inline T& TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                          int attribIndex ) {
+    return m_data[idx].getWedgeData().getAttribArray<T>()[attribIndex];
+}
+
 inline unsigned int TopologicalMesh::getWedgeRefCount( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeRefCount( idx );
 }
@@ -968,6 +1006,13 @@ inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMes
     return false;
 }
 
+template <typename T>
+inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                            const int& attrIndex,
+                                                            const T& value ) {
+    m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex] = value;
+}
+
 inline bool
 TopologicalMesh::WedgeCollection::setWedgePosition( const TopologicalMesh::WedgeIndex& idx,
                                                     const Vector3& value ) {
@@ -1063,10 +1108,14 @@ bool TopologicalMesh::WedgeData::operator!=( const TopologicalMesh::WedgeData& l
     return !( *this == lhs );
 }
 
-#define GET_ATTRIB_ARRAY_HELPER( TYPE, NAME )                                      \
-    template <>                                                                    \
-    inline VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() { \
-        return m_##NAME##Attrib;                                                   \
+#define GET_ATTRIB_ARRAY_HELPER( TYPE, NAME )                                                  \
+    template <>                                                                                \
+    inline VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() {             \
+        return m_##NAME##Attrib;                                                               \
+    }                                                                                          \
+    template <>                                                                                \
+    inline const VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() const { \
+        return m_##NAME##Attrib;                                                               \
     }
 
 GET_ATTRIB_ARRAY_HELPER( float, float )
