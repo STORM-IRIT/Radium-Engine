@@ -419,6 +419,12 @@ void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& out 
 
 void TopologicalMesh::updateTriangleMeshNormals(
     AttribArrayGeometry::NormalAttribHandle::Container& normals ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
+
 #pragma omp parallel for
     for ( unsigned int widx = 0; widx < m_wedges.size(); ++widx )
     {
