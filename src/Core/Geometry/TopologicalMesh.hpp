@@ -368,6 +368,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
         //        Index m_inputTriangleMeshIndex;
         //        Index m_outputTriangleMeshIndex;
+        VertexHandle m_vertexHandle;
         Vector3 m_position {};
         VectorArray<Scalar> m_floatAttrib;
         VectorArray<Vector2> m_vector2Attrib;
@@ -563,6 +564,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         unsigned int getRefCount() const { return m_refCount; }
 
         friend WedgeCollection;
+        friend TopologicalMesh;
     };
 
     /**
@@ -727,6 +729,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
     [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
     [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
+
+    int m_normalsIndex {-1};
+    std::map<std::pair<FaceHandle, VertexHandle>, std::vector<int>> m_faceVertexNormalWedges;
 
     friend class TMOperations;
 };
