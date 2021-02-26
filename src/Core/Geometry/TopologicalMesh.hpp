@@ -731,7 +731,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
 
     int m_normalsIndex {-1};
-    std::map<std::pair<FaceHandle, VertexHandle>, std::vector<int>> m_faceVertexNormalWedges;
+    // vertex handle idx -> face handle idx -> wedge idx with the same normal
+    std::vector<std::map<int, std::vector<int>>> m_vertexFaceWedgesWithSameNormals;
 
     friend class TMOperations;
 };
