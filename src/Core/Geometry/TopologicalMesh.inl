@@ -9,6 +9,108 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
+////////////////////////////////////////////////////////////////////////////////
+///////////////////      WedgeData                //////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// return 1 : equals, 2: strict less, 3: strict greater
+template <typename T>
+int TopologicalMesh::WedgeData::compareVector( const T& a, const T& b ) {
+    for ( int i = 0; i < T::RowsAtCompileTime; i++ )
+    {
+        if ( a[i] < b[i] ) return 2;
+        if ( a[i] > b[i] ) return 3;
+    }
+    // (a == b)
+    return 1;
+}
+
+inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
+    return
+        // do not have this yet, not sure we need to test them
+        // m_inputTriangleMeshIndex == lhs.m_inputTriangleMeshIndex &&
+        // m_outputTriangleMeshIndex == lhs.m_outputTriangleMeshIndex &&
+        m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
+        m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
+        m_vector4Attrib == lhs.m_vector4Attrib;
+}
+
+inline bool TopologicalMesh::WedgeData::operator<( const TopologicalMesh::WedgeData& lhs ) const {
+
+    CORE_ASSERT( ( m_floatAttrib.size() == lhs.m_floatAttrib.size() ) &&
+                     ( m_vector2Attrib.size() == lhs.m_vector2Attrib.size() ) &&
+                     ( m_vector3Attrib.size() == lhs.m_vector3Attrib.size() ) &&
+                     ( m_vector4Attrib.size() == lhs.m_vector4Attrib.size() ),
+                 "Could only compare wedge with same number of attributes" );
+
+    {
+        int comp = compareVector( m_position, lhs.m_position );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    for ( size_t i = 0; i < m_floatAttrib.size(); i++ )
+    {
+        if ( m_floatAttrib[i] < lhs.m_floatAttrib[i] )
+            return true;
+        else if ( m_floatAttrib[i] > lhs.m_floatAttrib[i] )
+            return false;
+    }
+
+    for ( size_t i = 0; i < m_vector2Attrib.size(); i++ )
+    {
+        int comp = compareVector( m_vector2Attrib[i], lhs.m_vector2Attrib[i] );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    for ( size_t i = 0; i < m_vector3Attrib.size(); i++ )
+    {
+        int comp = compareVector( m_vector3Attrib[i], lhs.m_vector3Attrib[i] );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    for ( size_t i = 0; i < m_vector4Attrib.size(); i++ )
+    {
+        int comp = compareVector( m_vector4Attrib[i], lhs.m_vector4Attrib[i] );
+        if ( comp == 2 ) return true;
+        if ( comp == 3 ) return false;
+    }
+    return false;
+}
+
+bool TopologicalMesh::WedgeData::operator!=( const TopologicalMesh::WedgeData& lhs ) const {
+    return !( *this == lhs );
+}
+
+#define GET_ATTRIB_ARRAY_HELPER( TYPE, NAME )                                                  \
+    template <>                                                                                \
+    inline VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() {             \
+        return m_##NAME##Attrib;                                                               \
+    }                                                                                          \
+    template <>                                                                                \
+    inline const VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() const { \
+        return m_##NAME##Attrib;                                                               \
+    }
+
+GET_ATTRIB_ARRAY_HELPER( float, float )
+GET_ATTRIB_ARRAY_HELPER( Vector2, vector2 )
+GET_ATTRIB_ARRAY_HELPER( Vector3, vector3 )
+GET_ATTRIB_ARRAY_HELPER( Vector4, vector4 )
+#undef GET_ATTRIB_ARRAY_HELPER
+
+template <typename T>
+inline VectorArray<T>& TopologicalMesh::WedgeData::getAttribArray() {
+    static_assert( sizeof( T ) == -1, "this type is not supported" );
+}
+
+struct hash_vec {
+    std::size_t operator()( const Vector3& lvalue ) const {
+        size_t hx = std::hash<Scalar>()( lvalue[0] );
+        size_t hy = std::hash<Scalar>()( lvalue[1] );
+        size_t hz = std::hash<Scalar>()( lvalue[2] );
+        return ( hx ^ ( hy << 1 ) ) ^ hz;
+    }
+};
+
 template <typename NonManifoldFaceCommand>
 inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
                                          NonManifoldFaceCommand command ) :
@@ -16,15 +118,6 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
 
     LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.getIndices().size()
                    << " faces and " << triMesh.vertices().size() << " vertices.";
-
-    struct hash_vec {
-        size_t operator()( const Vector3& lvalue ) const {
-            size_t hx = std::hash<Scalar>()( lvalue[0] );
-            size_t hy = std::hash<Scalar>()( lvalue[1] );
-            size_t hz = std::hash<Scalar>()( lvalue[2] );
-            return ( hx ^ ( hy << 1 ) ) ^ hz;
-        }
-    };
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
@@ -210,15 +303,6 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
     LOG( logINFO ) << "TopologicalMesh: load triMesh with " << triMesh.getIndices().size()
                    << " faces and " << triMesh.vertices().size() << " vertices.";
 
-    ///\todo use a kdtree
-    struct hash_vec {
-        size_t operator()( const Vector3& lvalue ) const {
-            size_t hx = std::hash<Scalar>()( lvalue[0] );
-            size_t hy = std::hash<Scalar>()( lvalue[1] );
-            size_t hz = std::hash<Scalar>()( lvalue[2] );
-            return ( hx ^ ( hy << 1 ) ) ^ hz;
-        }
-    };
     // use a hashmap for fast search of existing vertex position
     using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
     VertexMap vertexHandles;
@@ -1114,99 +1198,6 @@ inline void TopologicalMesh::WedgeCollection::garbageCollection() {
                                   m_data.end(),
                                   []( const Wedge& w ) { return w.isDeleted(); } ),
                   m_data.end() );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///////////////////      WedgeData                //////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-// return 1 : equals, 2: strict less, 3: strict greater
-template <typename T>
-int TopologicalMesh::WedgeData::compareVector( const T& a, const T& b ) {
-    for ( int i = 0; i < T::RowsAtCompileTime; i++ )
-    {
-        if ( a[i] < b[i] ) return 2;
-        if ( a[i] > b[i] ) return 3;
-    }
-    // (a == b)
-    return 1;
-}
-
-inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
-    return
-        // do not have this yet, not sure we need to test them
-        // m_inputTriangleMeshIndex == lhs.m_inputTriangleMeshIndex &&
-        // m_outputTriangleMeshIndex == lhs.m_outputTriangleMeshIndex &&
-        m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
-        m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
-        m_vector4Attrib == lhs.m_vector4Attrib;
-}
-
-inline bool TopologicalMesh::WedgeData::operator<( const TopologicalMesh::WedgeData& lhs ) const {
-
-    CORE_ASSERT( ( m_floatAttrib.size() == lhs.m_floatAttrib.size() ) &&
-                     ( m_vector2Attrib.size() == lhs.m_vector2Attrib.size() ) &&
-                     ( m_vector3Attrib.size() == lhs.m_vector3Attrib.size() ) &&
-                     ( m_vector4Attrib.size() == lhs.m_vector4Attrib.size() ),
-                 "Could only compare wedge with same number of attributes" );
-
-    {
-        int comp = compareVector( m_position, lhs.m_position );
-        if ( comp == 2 ) return true;
-        if ( comp == 3 ) return false;
-    }
-    for ( size_t i = 0; i < m_floatAttrib.size(); i++ )
-    {
-        if ( m_floatAttrib[i] < lhs.m_floatAttrib[i] )
-            return true;
-        else if ( m_floatAttrib[i] > lhs.m_floatAttrib[i] )
-            return false;
-    }
-
-    for ( size_t i = 0; i < m_vector2Attrib.size(); i++ )
-    {
-        int comp = compareVector( m_vector2Attrib[i], lhs.m_vector2Attrib[i] );
-        if ( comp == 2 ) return true;
-        if ( comp == 3 ) return false;
-    }
-    for ( size_t i = 0; i < m_vector3Attrib.size(); i++ )
-    {
-        int comp = compareVector( m_vector3Attrib[i], lhs.m_vector3Attrib[i] );
-        if ( comp == 2 ) return true;
-        if ( comp == 3 ) return false;
-    }
-    for ( size_t i = 0; i < m_vector4Attrib.size(); i++ )
-    {
-        int comp = compareVector( m_vector4Attrib[i], lhs.m_vector4Attrib[i] );
-        if ( comp == 2 ) return true;
-        if ( comp == 3 ) return false;
-    }
-    return false;
-}
-
-bool TopologicalMesh::WedgeData::operator!=( const TopologicalMesh::WedgeData& lhs ) const {
-    return !( *this == lhs );
-}
-
-#define GET_ATTRIB_ARRAY_HELPER( TYPE, NAME )                                                  \
-    template <>                                                                                \
-    inline VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() {             \
-        return m_##NAME##Attrib;                                                               \
-    }                                                                                          \
-    template <>                                                                                \
-    inline const VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() const { \
-        return m_##NAME##Attrib;                                                               \
-    }
-
-GET_ATTRIB_ARRAY_HELPER( float, float )
-GET_ATTRIB_ARRAY_HELPER( Vector2, vector2 )
-GET_ATTRIB_ARRAY_HELPER( Vector3, vector3 )
-GET_ATTRIB_ARRAY_HELPER( Vector4, vector4 )
-#undef GET_ATTRIB_ARRAY_HELPER
-
-template <typename T>
-inline VectorArray<T>& TopologicalMesh::WedgeData::getAttribArray() {
-    static_assert( sizeof( T ) == -1, "this type is not supported" );
 }
 
 } // namespace Geometry
