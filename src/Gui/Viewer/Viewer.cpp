@@ -98,13 +98,7 @@ Gui::Viewer::Viewer( QScreen* screen ) :
     m_isBrushPickingEnabled( false ),
     m_brushRadius( 10 ),
     m_camera( nullptr ),
-    m_gizmoManager( nullptr )
-#ifdef RADIUM_MULTITHREAD_RENDERING
-    ,
-    m_renderThread( nullptr )
-#endif
-{
-}
+    m_gizmoManager( nullptr ) {}
 
 Gui::Viewer::~Viewer() {
     if ( m_glInitialized.load() )

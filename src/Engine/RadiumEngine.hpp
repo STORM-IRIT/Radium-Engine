@@ -107,12 +107,13 @@ class RA_ENGINE_API RadiumEngine
      * When no RenderObject name is given, returns the mesh associated
      * to the first render object.
      * @note : mark as deprecated as it must be either removed or reimplemented
+     * @warning will be deprecated
      * @deprecated Will be removed from this class in the next release. A Mesh manager, that could
      * serve mesh by name will be implemented.
      */
-    [[deprecated]] Data::Displayable* getMesh( const std::string& entityName,
-                                               const std::string& componentName,
-                                               const std::string& roName = std::string() ) const;
+    Data::Displayable* getMesh( const std::string& entityName,
+                                const std::string& componentName,
+                                const std::string& roName = std::string() ) const;
 
     /**
      * Try to loads the given file.
