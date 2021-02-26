@@ -284,7 +284,9 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
 
             face_vhandles[j] = vh;
             if ( hasNormals ) face_normals[j] = triMesh.normals()[inMeshVertexIndex];
-            face_wedges[j] = WedgeIndex {inMeshVertexIndex};
+            face_wedges[j] =
+                WedgeIndex {static_cast<WedgeIndex::Index::IntegerType>( inMeshVertexIndex )};
+            m_wedges.m_data[inMeshVertexIndex].getWedgeData().m_vertexHandle = vh;
         }
 
         // remove consecutive equal vertex
@@ -372,6 +374,47 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
         face_normals.clear();
     }
     command.postProcess( *this );
+    m_normalsIndex = m_wedges.getWedgeAttribIndex<Normal>( "in_normal" );
+
+    m_faceVertexNormalWedges.clear();
+
+    for ( auto itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr )
+    {
+        std::unordered_map<TopologicalMesh::Normal,
+                           std::pair<std::set<FaceHandle>, std::set<WedgeIndex>>,
+                           hash_vec>
+            newNormals;
+
+        auto vh = *itr;
+
+        for ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it )
+        {
+            const auto& widx = property( m_wedgeIndexPph, *vh_it );
+            if ( widx.isValid() && !m_wedges.getWedge( widx ).isDeleted() )
+            {
+                auto oldNormal = m_wedges.getWedgeData<Normal>( widx, m_normalsIndex );
+                newNormals[oldNormal].first.insert( face_handle( *vh_it ) );
+                newNormals[oldNormal].second.insert( widx );
+            }
+        }
+
+        for ( const auto& pair : newNormals )
+        {
+            for ( const auto& fh : pair.second.first )
+            {
+                //  std::cout << "( " << fh.idx() << ", " << vh.idx() << " ) : ";
+                auto& v = m_faceVertexNormalWedges[std::make_pair( fh, vh )];
+                v.insert( v.end(), pair.second.second.begin(), pair.second.second.end() );
+                //                for ( auto widx : m_faceVertexNormalWedges[std::make_pair( fh, vh
+                //                )] )
+                //                {
+                //
+                //                    std::cout << widx << " ";
+                //                }
+                //                std::cout << "\n";
+            }
+        }
+    }
 
     LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
 }
@@ -509,9 +552,22 @@ TopologicalMesh::getVector4PropsHandles() const {
 
 inline void TopologicalMesh::updateWedgeNormals() {
     //
-    update_face_normals();
-    auto normalsIndex = m_wedges.getWedgeAttribIndex<Normal>( "in_normal" );
+    //    update_face_normals();
+    FaceIter f_it( faces_sbegin() ), f_end( faces_end() );
+    for ( ; f_it != f_end; ++f_it )
+    {
+        auto fv_it     = this->cfv_iter( *f_it );
+        const auto& p0 = point( *fv_it );
+        ++fv_it;
+        const auto& p1 = point( *fv_it );
+        ++fv_it;
+        const auto& p2 = point( *fv_it );
+        ++fv_it;
+        const Normal n = Ra::Core::Geometry::triangleNormal( p0, p1, p2 );
+        set_normal( *f_it, n );
+    }
 
+    /// \todo precompute this association, BUGGY FOR THE MOMENT
     for ( auto itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr )
     {
         std::unordered_map<TopologicalMesh::Normal,
@@ -526,7 +582,7 @@ inline void TopologicalMesh::updateWedgeNormals() {
             auto widx = property( m_wedgeIndexPph, *vh_it );
             if ( widx.isValid() && !m_wedges.getWedge( widx ).isDeleted() )
             {
-                auto oldNormal = m_wedges.getWedgeData<Normal>( widx, normalsIndex );
+                auto oldNormal = m_wedges.getWedgeData<Normal>( widx, m_normalsIndex );
                 auto newNormal = normal( face_handle( *vh_it ) );
                 newNormals[oldNormal].first += newNormal;
                 newNormals[oldNormal].second.insert( widx );
@@ -537,10 +593,34 @@ inline void TopologicalMesh::updateWedgeNormals() {
             pair.second.first /= pair.second.second.size();
             for ( auto widx : pair.second.second )
             {
-                m_wedges.setWedgeData( widx, normalsIndex, pair.first );
+                m_wedges.setWedgeData( widx, m_normalsIndex, pair.first.normalized() );
             }
         }
     }
+    /// THIS ONE IS BUGGY
+    /*
+        for ( auto& w : m_wedges.m_data )
+        {
+
+            w.getWedgeData().m_vector3Attrib[m_normalsIndex] = Normal {};
+        }
+        for ( auto f_itr = faces_begin(), stop = faces_end(); f_itr != stop; ++f_itr )
+        {
+            for ( auto fv_itr = cfv_iter( *f_itr ); fv_itr.is_valid(); ++fv_itr )
+            {
+                for ( const auto& widx : m_faceVertexNormalWedges[std::make_pair( *f_itr, *fv_itr )]
+       )
+                {
+                    m_wedges.m_data[widx].getWedgeData().m_vector3Attrib[m_normalsIndex] +=
+                        normal( *fv_itr );
+                }
+            }
+        }
+        for ( auto& w : m_wedges.m_data )
+        {
+            w.getWedgeData().m_vector3Attrib[m_normalsIndex].normalize();
+        }
+        */
 }
 
 inline void TopologicalMesh::createNormalPropOnFaces( OpenMesh::FPropHandleT<Normal>& fProp ) {

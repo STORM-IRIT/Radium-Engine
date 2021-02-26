@@ -419,11 +419,10 @@ void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& out 
 
 void TopologicalMesh::updateTriangleMeshNormals(
     AttribArrayGeometry::NormalAttribHandle::Container& normals ) {
-    auto normalsIndex = m_wedges.getWedgeAttribIndex<Normal>( "in_normal" );
 #pragma omp parallel for
     for ( unsigned int widx = 0; widx < m_wedges.size(); ++widx )
     {
-        normals[widx] = m_wedges.getWedgeData<Normal>( widx, normalsIndex );
+        normals[widx] = m_wedges.getWedgeData<Normal>( widx, m_normalsIndex );
     }
 }
 
@@ -461,26 +460,21 @@ void TopologicalMesh::updatePositions( const Ra::Core::Geometry::TriangleMesh& t
 
 void TopologicalMesh::updatePositions(
     const AttribArrayGeometry::PointAttribHandle::Container& vertices ) {
+
 #pragma omp parallel for
     for ( size_t i = 0; i < vertices.size(); ++i )
     {
         m_wedges.setWedgePosition( i, vertices[i] );
-    }
-    // update positions
-    for ( auto itr = halfedges_begin(), stop = halfedges_end(); itr != stop; ++itr )
-    {
-        point( to_vertex_handle( *itr ) ) =
-            m_wedges.getWedgeData( getWedgeIndex( *itr ) ).m_position;
+        point( m_wedges.m_data[i].getWedgeData().m_vertexHandle ) = vertices[i];
     }
 }
 
 void TopologicalMesh::updateNormals( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
-    auto& normals     = triMesh.normals();
-    auto normalsIndex = m_wedges.getWedgeAttribIndex<Normal>( "in_normal" );
+    auto& normals = triMesh.normals();
 #pragma omp parallel for
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
     {
-        m_wedges.setWedgeData<Normal>( i, normalsIndex, normals[i] );
+        m_wedges.setWedgeData<Normal>( i, m_normalsIndex, normals[i] );
     }
 }
 
