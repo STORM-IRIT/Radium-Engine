@@ -359,7 +359,7 @@ void TopologicalMesh::updateNormals( const Ra::Core::Geometry::TriangleMesh& tri
 #pragma omp parallel for
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
     {
-        m_wedges.setWedgeData<Normal>( i, m_normalsIndex, normals[i] );
+        m_wedges.setWedgeAttrib<Normal>( i, m_normalsIndex, normals[i] );
     }
 }
 
