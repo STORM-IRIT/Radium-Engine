@@ -183,9 +183,30 @@ inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMes
 }
 
 template <typename T>
-inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                                            const std::string& name,
-                                                            const T& value ) {
+inline bool TopologicalMesh::WedgeCollection::setWedgeAttrib( TopologicalMesh::WedgeData& wd,
+                                                              const std::string& name,
+                                                              const T& value ) {
+    auto nameArray = getNameArray<T>();
+    auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+    if ( itr != nameArray.end() )
+    {
+        auto attrIndex                    = std::distance( nameArray.begin(), itr );
+        wd.getAttribArray<T>()[attrIndex] = value;
+        return true;
+    }
+    else
+    {
+        LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
+                        << typeid( T ).name();
+    }
+    return false;
+}
+
+template <typename T>
+inline bool
+TopologicalMesh::WedgeCollection::setWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
+                                                  const std::string& name,
+                                                  const T& value ) {
     if ( idx.isValid() )
     {
         auto nameArray = getNameArray<T>();
@@ -206,30 +227,11 @@ inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMes
 }
 
 template <typename T>
-inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                                            const int& attrIndex,
-                                                            const T& value ) {
+inline void
+TopologicalMesh::WedgeCollection::setWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
+                                                  const int& attrIndex,
+                                                  const T& value ) {
     m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex] = value;
-}
-
-template <typename T>
-inline bool TopologicalMesh::WedgeCollection::setWedgeAttrib( TopologicalMesh::WedgeData& wd,
-                                                              const std::string& name,
-                                                              const T& value ) {
-    auto nameArray = getNameArray<T>();
-    auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
-    if ( itr != nameArray.end() )
-    {
-        auto attrIndex                    = std::distance( nameArray.begin(), itr );
-        wd.getAttribArray<T>()[attrIndex] = value;
-        return true;
-    }
-    else
-    {
-        LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
-                        << typeid( T ).name();
-    }
-    return false;
 }
 
 template <typename T>
@@ -738,7 +740,7 @@ template <typename T>
 inline bool TopologicalMesh::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
                                            const std::string& name,
                                            const T& value ) {
-    return m_wedges.setWedgeData( idx, name, value );
+    return m_wedges.setWedgeAttrib( idx, name, value );
 }
 
 inline void TopologicalMesh::setWedgeData( TopologicalMesh::WedgeIndex widx,
