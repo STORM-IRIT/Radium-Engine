@@ -54,14 +54,16 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
   private:
     using base = OpenMesh::PolyMesh_ArrayKernelT<TopologicalMeshTraits>;
     using base::PolyMesh_ArrayKernelT;
-    using Index   = Ra::Core::Utils::Index;
     using Vector3 = Ra::Core::Vector3;
+    using Index   = Ra::Core::Utils::Index;
     class Wedge;
+    class WedgeCollection;
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-    using WedgeIndex = Index;
+    class WedgeData;
+    using WedgeIndex = Ra::Core::Utils::Index;
 
     /**
      * Construct an empty topological mesh, only initialize mandatory properties.
@@ -144,13 +146,20 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \note Asserts if vh is not a member of fh.
      */
     [[deprecated]] void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
-    inline void propagate_normal_to_wedges( VertexHandle vh );
 
     /// Import Base definition of normal and set normal.
     ///@{
     using base::normal;
     using base::set_normal;
     ///@}
+
+    /**
+     * Set the normal n to all the halfedges that points to vh (i.e. incomming
+     * halfedges) .
+     * If you work with vertex normals, please call this function on all vertex
+     * handles before convertion with toTriangleMesh.
+     */
+    inline void propagate_normal_to_wedges( VertexHandle vh );
 
     /**
      * Return a handle to the halfedge property storing vertices indices within
@@ -173,45 +182,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     void updateWedgeNormals();
     ///@}
-
-    /**
-     * Inner class WedgeData represents the actual data per wedge, including position.
-     *
-     * At any time m_position as to be equal to the wedge's vertex point.
-     * All wedges have the same set of attributes.
-     * Access and management is delegated to TopologicalMesh and WedgeCollection
-     */
-    class WedgeData
-    {
-      public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-        //        Index m_inputTriangleMeshIndex;
-        //        Index m_outputTriangleMeshIndex;
-        VertexHandle m_vertexHandle;
-        Vector3 m_position {};
-        VectorArray<Scalar> m_floatAttrib;
-        VectorArray<Vector2> m_vector2Attrib;
-        VectorArray<Vector3> m_vector3Attrib;
-        VectorArray<Vector4> m_vector4Attrib;
-
-        template <typename T>
-        inline VectorArray<T>& getAttribArray();
-        template <typename T>
-        inline const VectorArray<T>& getAttribArray() const;
-
-        explicit WedgeData() = default;
-        inline bool operator==( const WedgeData& lhs ) const;
-        inline bool operator!=( const WedgeData& lhs ) const;
-        inline bool operator<( const WedgeData& lhs ) const;
-        friend Wedge;
-
-      private:
-        // return 1 : equals, 2: strict less, 3: strict greater
-        template <typename T>
-        static int compareVector( const T& a, const T& b );
-    };
-
     /**
      * \name Topological operations
      */
@@ -339,24 +309,45 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// \return true if ok, false if ko.
     bool checkIntegrity() const;
 
-  private:
-    // internal function to build TriangleMesh attribs correspondance to wedge attribs.
-    template <typename T>
-    class InitWedgeProps
+    /**
+     * Inner class WedgeData represents the actual data per wedge, including position.
+     *
+     * At any time m_position as to be equal to the wedge's vertex point.
+     * All wedges have the same set of attributes.
+     * Access and management is delegated to TopologicalMesh and WedgeCollection
+     */
+    class WedgeData
     {
       public:
-        InitWedgeProps( TopologicalMesh* topo,
-                        const Ra::Core::Geometry::IndexedGeometry<T>& triMesh ) :
-            m_topo( topo ), m_triMesh( triMesh ) {}
-        void operator()( AttribBase* attr ) const;
+        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+        explicit WedgeData() = default;
+        inline bool operator==( const WedgeData& lhs ) const;
+        inline bool operator!=( const WedgeData& lhs ) const;
+        inline bool operator<( const WedgeData& lhs ) const;
+
+        template <typename T>
+        inline VectorArray<T>& getAttribArray();
+        template <typename T>
+        inline const VectorArray<T>& getAttribArray() const;
+        friend Wedge;
+
+        //        Index m_inputTriangleMeshIndex;
+        //        Index m_outputTriangleMeshIndex;
+        VertexHandle m_vertexHandle;
+        Vector3 m_position {};
+        VectorArray<Scalar> m_floatAttrib;
+        VectorArray<Vector2> m_vector2Attrib;
+        VectorArray<Vector3> m_vector3Attrib;
+        VectorArray<Vector4> m_vector4Attrib;
 
       private:
-        TopologicalMesh* m_topo;
-        const Ra::Core::Geometry::IndexedGeometry<T>& m_triMesh;
+        // return 1 : equals, 2: strict less, 3: strict greater
+        template <typename T>
+        static int compareVector( const T& a, const T& b );
     };
 
-    class WedgeCollection;
-    //
+  private:
     /**
      * This private class manage wedge data and refcount, to maintain deleted status
      *
@@ -364,12 +355,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     class RA_CORE_API Wedge
     {
-        WedgeData m_wedgeData {};
-        unsigned int m_refCount {0};
-
-      private:
-        WedgeData& getWedgeData() { return m_wedgeData; }
-
       public:
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
@@ -390,6 +375,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
         friend WedgeCollection;
         friend TopologicalMesh;
+
+      private:
+        WedgeData& getWedgeData() { return m_wedgeData; }
+
+        WedgeData m_wedgeData {};
+        unsigned int m_refCount {0};
     };
 
     /**
@@ -403,12 +394,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     {
       public:
         EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-        template <typename T>
-        inline const std::vector<std::string>& getNameArray() const;
-
-        template <typename T>
-        inline std::vector<std::string>& getNameArray();
 
         /**
          * Add wd to the wedge collection, and return the index.
@@ -425,31 +410,24 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
          * to the wedge data. If the wedge is still referenced by other
          * halfedges, it will not be removed during garbageCollection.
          */
-        void del( const WedgeIndex& idx );
+        inline void del( const WedgeIndex& idx );
         WedgeIndex newReference( const WedgeIndex& idx );
 
         /**
          * Return the wedge data associated with \a idx
          */
-        const WedgeData& getWedgeData( const WedgeIndex& idx ) const {
-            CORE_ASSERT( idx.isValid() && !m_data[idx].isDeleted(),
-                         "access to invalid or deleted wedge is prohibited" );
-
-            return m_data[idx].getWedgeData();
-        }
-
-        unsigned int getWedgeRefCount( const WedgeIndex& idx ) const {
-            CORE_ASSERT( idx.isValid(), "access to invalid or deleted wedge is prohibited" );
-            return m_data[idx].getRefCount();
-        }
 
         /// Return the wedge (not the data) for in class manipulation.
         /// client code should use getWedgeData only.
         inline const Wedge& getWedge( const WedgeIndex& idx ) const;
+
+        inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
         template <typename T>
         inline const T& getWedgeData( const WedgeIndex& idx, const std::string& name ) const;
         template <typename T>
         inline T& getWedgeData( const WedgeIndex& idx, int attribIndex );
+
+        unsigned int getWedgeRefCount( const WedgeIndex& idx ) const;
 
         /// \see TopologicalMesh::setWedgeData
         inline void setWedgeData( const WedgeIndex& idx, const WedgeData& wd );
@@ -457,6 +435,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// \see TopologicalMesh::setWedgeData<T>
         template <typename T>
         inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
+        template <typename T>
+        inline void setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                  const int& attribIndex,
+                                  const T& value );
 
         /// change WedgeData member name to value.
         /// wd is moidified accordingly.
@@ -466,19 +448,15 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         inline bool
         setWedgeAttrib( TopologicalMesh::WedgeData& wd, const std::string& name, const T& value );
 
-        inline bool setWedgePosition( const WedgeIndex& idx, const Vector3& value );
         template <typename T>
-        inline void setWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                  const int& attribIndex,
-                                  const T& value );
+        inline int getWedgeAttribIndex( const std::string& name );
+
+        inline bool setWedgePosition( const WedgeIndex& idx, const Vector3& value );
+
+        /// management
 
         template <typename T>
-        inline int getWedgeAttribIndex( const std::string& name ) {
-            auto nameArray = getNameArray<T>();
-            auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
-            if ( itr != nameArray.end() ) { return std::distance( nameArray.begin(), itr ); }
-            return 0;
-        }
+        inline const std::vector<std::string>& getNameArray() const;
 
         // name is supposed to be unique within all attribs
         // not checks are performed
@@ -488,28 +466,19 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// return the offset ot apply to each wedgeindex so that
         /// after garbageCollection all indices are valid and coherent.
         std::vector<int> computeCleanupOffset() const;
-
-        /// remove unreferenced wedge, halfedges need to be reindexed.
-        inline void garbageCollection();
-
         /// \todo removeDuplicateWedge
         /// merge wedges with same data
         /// return old->new index correspondance to update wedgeIndexPph
         /// inline void removeDuplicateWedge
+
         inline size_t size() const { return m_data.size(); }
 
-        inline void clean() {
-            m_data.clear();
-            m_floatAttribNames.clear();
-            m_vector2AttribNames.clear();
-            m_vector3AttribNames.clear();
-            m_vector4AttribNames.clear();
-            m_wedgeFloatAttribHandles.clear();
-            m_wedgeVector2AttribHandles.clear();
-            m_wedgeVector3AttribHandles.clear();
-            m_wedgeVector4AttribHandles.clear();
-        }
+        /// remove unreferenced wedge, halfedges need to be reindexed.
+        inline void garbageCollection();
 
+        inline void clean();
+
+        ///\ todo       private:
         /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
         std::vector<std::string> m_floatAttribNames;
         std::vector<std::string> m_vector2AttribNames;
@@ -522,8 +491,42 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
         std::vector<AttribHandle<Vector4>> m_wedgeVector4AttribHandles;
 
-        //      private:
+        template <typename T>
+        inline std::vector<std::string>& getNameArray();
         AlignedStdVector<Wedge> m_data;
+    };
+
+    // internal function to build Core Mesh attribs correspondance to wedge attribs.
+    template <typename T>
+    class InitWedgeProps
+    {
+      public:
+        InitWedgeProps( TopologicalMesh* topo,
+                        const Ra::Core::Geometry::IndexedGeometry<T>& triMesh ) :
+            m_topo( topo ), m_triMesh( triMesh ) {}
+        void operator()( AttribBase* attr ) const;
+
+      private:
+        TopologicalMesh* m_topo;
+        const Ra::Core::Geometry::IndexedGeometry<T>& m_triMesh;
+    };
+
+    //! [Default command implementation]
+    template <typename T>
+    struct DefaultNonManifoldFaceCommand {
+        /// \brief details string is printed along with the message
+        DefaultNonManifoldFaceCommand( std::string details = {} ) : m_details {details} {}
+        /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
+        inline void initialize( const Ra::Core::Geometry::IndexedGeometry<T>& ) {}
+        /// \brief Process non-manifold face
+        inline void process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
+            LOG( logWARNING ) << "Invalid face handle returned : face not added " + m_details;
+        }
+        /// \brief If needed, apply post-processing on the Ra::Core::Geometry::TopologicalMesh
+        inline void postProcess( TopologicalMesh& ) {}
+        //! [Default command implementation]
+      private:
+        std::string m_details;
     };
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
@@ -565,24 +568,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     std::vector<std::map<int, std::vector<int>>> m_vertexFaceWedgesWithSameNormals;
 
     friend class TMOperations;
-
-    //! [Default command implementation]
-    template <typename T>
-    struct DefaultNonManifoldFaceCommand {
-        /// \brief details string is printed along with the message
-        DefaultNonManifoldFaceCommand( std::string details = {} ) : m_details {details} {}
-        /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
-        inline void initialize( const Ra::Core::Geometry::IndexedGeometry<T>& ) {}
-        /// \brief Process non-manifold face
-        inline void process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
-            LOG( logWARNING ) << "Invalid face handle returned : face not added " + m_details;
-        }
-        /// \brief If needed, apply post-processing on the Ra::Core::Geometry::TopologicalMesh
-        inline void postProcess( TopologicalMesh& ) {}
-        //! [Default command implementation]
-      private:
-        std::string m_details;
-    };
 };
 
 // heplers

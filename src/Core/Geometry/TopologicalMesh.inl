@@ -15,18 +15,6 @@ using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 ///////////////////      WedgeData                //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// return 1 : equals, 2: strict less, 3: strict greater
-template <typename T>
-int TopologicalMesh::WedgeData::compareVector( const T& a, const T& b ) {
-    for ( int i = 0; i < T::RowsAtCompileTime; i++ )
-    {
-        if ( a[i] < b[i] ) return 2;
-        if ( a[i] > b[i] ) return 3;
-    }
-    // (a == b)
-    return 1;
-}
-
 inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::WedgeData& lhs ) const {
     return
         // do not have this yet, not sure we need to test them
@@ -35,6 +23,10 @@ inline bool TopologicalMesh::WedgeData::operator==( const TopologicalMesh::Wedge
         m_position == lhs.m_position && m_floatAttrib == lhs.m_floatAttrib &&
         m_vector2Attrib == lhs.m_vector2Attrib && m_vector3Attrib == lhs.m_vector3Attrib &&
         m_vector4Attrib == lhs.m_vector4Attrib;
+}
+
+bool TopologicalMesh::WedgeData::operator!=( const TopologicalMesh::WedgeData& lhs ) const {
+    return !( *this == lhs );
 }
 
 inline bool TopologicalMesh::WedgeData::operator<( const TopologicalMesh::WedgeData& lhs ) const {
@@ -79,10 +71,6 @@ inline bool TopologicalMesh::WedgeData::operator<( const TopologicalMesh::WedgeD
     return false;
 }
 
-bool TopologicalMesh::WedgeData::operator!=( const TopologicalMesh::WedgeData& lhs ) const {
-    return !( *this == lhs );
-}
-
 #define GET_ATTRIB_ARRAY_HELPER( TYPE, NAME )                                                  \
     template <>                                                                                \
     inline VectorArray<TYPE>& TopologicalMesh::WedgeData::getAttribArray<TYPE>() {             \
@@ -103,6 +91,272 @@ template <typename T>
 inline VectorArray<T>& TopologicalMesh::WedgeData::getAttribArray() {
     static_assert( sizeof( T ) == -1, "this type is not supported" );
 }
+
+// return 1 : equals, 2: strict less, 3: strict greater
+template <typename T>
+int TopologicalMesh::WedgeData::compareVector( const T& a, const T& b ) {
+    for ( int i = 0; i < T::RowsAtCompileTime; i++ )
+    {
+        if ( a[i] < b[i] ) return 2;
+        if ( a[i] > b[i] ) return 3;
+    }
+    // (a == b)
+    return 1;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////      Wedge                    //////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// all in class for the moment
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////      WedgeCollection          //////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+inline void TopologicalMesh::WedgeCollection::del( const TopologicalMesh::WedgeIndex& idx ) {
+    if ( idx.isValid() ) m_data[idx].decrementRefCount();
+}
+
+inline TopologicalMesh::WedgeIndex
+TopologicalMesh::WedgeCollection::newReference( const TopologicalMesh::WedgeIndex& idx ) {
+    if ( idx.isValid() ) m_data[idx].incrementRefCount();
+    return idx;
+}
+
+inline const TopologicalMesh::Wedge&
+TopologicalMesh::WedgeCollection::getWedge( const TopologicalMesh::WedgeIndex& idx ) const {
+    return m_data[idx];
+}
+
+inline const TopologicalMesh::WedgeData&
+TopologicalMesh::WedgeCollection::getWedgeData( const WedgeIndex& idx ) const {
+    CORE_ASSERT( idx.isValid() && !m_data[idx].isDeleted(),
+                 "access to invalid or deleted wedge is prohibited" );
+
+    return m_data[idx].getWedgeData();
+}
+
+template <typename T>
+inline const T&
+TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                const std::string& name ) const {
+    if ( idx.isValid() )
+    {
+        auto nameArray = getNameArray<T>();
+        auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+        if ( itr != nameArray.end() )
+        {
+            auto attrIndex = std::distance( nameArray.begin(), itr );
+            return m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex];
+        }
+        else
+        {
+            LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
+                            << typeid( T ).name();
+        }
+    }
+    static T dummy;
+    return dummy;
+}
+
+template <typename T>
+inline T& TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                          int attribIndex ) {
+    return m_data[idx].getWedgeData().getAttribArray<T>()[attribIndex];
+}
+
+inline unsigned int
+TopologicalMesh::WedgeCollection::getWedgeRefCount( const WedgeIndex& idx ) const {
+    CORE_ASSERT( idx.isValid(), "access to invalid or deleted wedge is prohibited" );
+    return m_data[idx].getRefCount();
+}
+
+inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                            const TopologicalMesh::WedgeData& wd ) {
+    if ( !( wd.m_floatAttrib.size() == m_floatAttribNames.size() &&
+            wd.m_vector2Attrib.size() == m_vector2AttribNames.size() &&
+            wd.m_vector3Attrib.size() == m_vector3AttribNames.size() &&
+            wd.m_vector4Attrib.size() == m_vector4AttribNames.size() ) )
+    {
+        LOG( logWARNING ) << "Warning, topological mesh set wedge: number of attribs inconsistency";
+    }
+    if ( idx.isValid() ) m_data[idx].setWedgeData( wd );
+}
+
+template <typename T>
+inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                            const std::string& name,
+                                                            const T& value ) {
+    if ( idx.isValid() )
+    {
+        auto nameArray = getNameArray<T>();
+        auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+        if ( itr != nameArray.end() )
+        {
+            auto attrIndex = std::distance( nameArray.begin(), itr );
+            m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex] = value;
+            return true;
+        }
+        else
+        {
+            LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
+                            << typeid( T ).name();
+        }
+    }
+    return false;
+}
+
+template <typename T>
+inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                                            const int& attrIndex,
+                                                            const T& value ) {
+    m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex] = value;
+}
+
+template <typename T>
+inline bool TopologicalMesh::WedgeCollection::setWedgeAttrib( TopologicalMesh::WedgeData& wd,
+                                                              const std::string& name,
+                                                              const T& value ) {
+    auto nameArray = getNameArray<T>();
+    auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+    if ( itr != nameArray.end() )
+    {
+        auto attrIndex                    = std::distance( nameArray.begin(), itr );
+        wd.getAttribArray<T>()[attrIndex] = value;
+        return true;
+    }
+    else
+    {
+        LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
+                        << typeid( T ).name();
+    }
+    return false;
+}
+
+template <typename T>
+inline int TopologicalMesh::WedgeCollection::getWedgeAttribIndex( const std::string& name ) {
+    auto nameArray = getNameArray<T>();
+    auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+    if ( itr != nameArray.end() ) { return std::distance( nameArray.begin(), itr ); }
+    return 0;
+}
+
+inline bool
+TopologicalMesh::WedgeCollection::setWedgePosition( const TopologicalMesh::WedgeIndex& idx,
+                                                    const Vector3& value ) {
+    if ( idx.isValid() )
+    {
+        m_data[idx].getWedgeData().m_position = value;
+        return true;
+    }
+    return false;
+}
+
+#define GET_NAME_ARRAY_HELPER( TYPE, NAME )                                                       \
+    template <>                                                                                   \
+    inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray<TYPE>() \
+        const {                                                                                   \
+        return m_##NAME##AttribNames;                                                             \
+    }                                                                                             \
+    template <>                                                                                   \
+    inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray<TYPE>() {     \
+        return m_##NAME##AttribNames;                                                             \
+    }
+
+GET_NAME_ARRAY_HELPER( float, float )
+GET_NAME_ARRAY_HELPER( Vector2, vector2 )
+GET_NAME_ARRAY_HELPER( Vector3, vector3 )
+GET_NAME_ARRAY_HELPER( Vector4, vector4 )
+
+#undef GET_NAME_ARRAY_HELPER
+// These template functions are defined above for supported types.
+// For unsupported types they simply generate a compile error.
+template <typename T>
+inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() const {
+
+    LOG( logWARNING ) << "Warning, mesh attribute " << typeid( T ).name()
+                      << " is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    static_assert( sizeof( T ) == -1, "this type is not supported" );
+    return m_floatAttribNames;
+}
+
+template <typename T>
+inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() {
+
+    LOG( logWARNING ) << "Warning, mesh attribute " << typeid( T ).name()
+                      << " is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    static_assert( sizeof( T ) == -1, "this type is not supported" );
+    return m_floatAttribNames;
+}
+template <typename T>
+void TopologicalMesh::WedgeCollection::addProp( const std::string& name ) {
+    if ( name != std::string( "in_position" ) ) { getNameArray<T>().push_back( name ); }
+}
+
+inline void TopologicalMesh::WedgeCollection::garbageCollection() {
+    m_data.erase( std::remove_if( m_data.begin(),
+                                  m_data.end(),
+                                  []( const Wedge& w ) { return w.isDeleted(); } ),
+                  m_data.end() );
+}
+
+inline void TopologicalMesh::WedgeCollection::clean() {
+    m_data.clear();
+    m_floatAttribNames.clear();
+    m_vector2AttribNames.clear();
+    m_vector3AttribNames.clear();
+    m_vector4AttribNames.clear();
+    m_wedgeFloatAttribHandles.clear();
+    m_wedgeVector2AttribHandles.clear();
+    m_wedgeVector3AttribHandles.clear();
+    m_wedgeVector4AttribHandles.clear();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////      InitWedgeProps           //////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+template <typename T>
+void TopologicalMesh::InitWedgeProps<T>::operator()( AttribBase* attr ) const {
+    if ( attr->getSize() != m_triMesh.vertices().size() )
+    { LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName(); }
+    else if ( attr->getName() != std::string( "in_position" ) )
+    {
+        if ( attr->isFloat() )
+        {
+            m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
+                m_triMesh.template getAttribHandle<float>( attr->getName() ) );
+            m_topo->m_wedges.addProp<float>( attr->getName() );
+        }
+        else if ( attr->isVector2() )
+        {
+            m_topo->m_wedges.m_wedgeVector2AttribHandles.push_back(
+                m_triMesh.template getAttribHandle<Vector2>( attr->getName() ) );
+            m_topo->m_wedges.addProp<Vector2>( attr->getName() );
+        }
+        else if ( attr->isVector3() )
+        {
+            m_topo->m_wedges.m_wedgeVector3AttribHandles.push_back(
+                m_triMesh.template getAttribHandle<Vector3>( attr->getName() ) );
+            m_topo->m_wedges.addProp<Vector3>( attr->getName() );
+        }
+        else if ( attr->isVector4() )
+        {
+            m_topo->m_wedges.m_wedgeVector4AttribHandles.push_back(
+                m_triMesh.template getAttribHandle<Vector4>( attr->getName() ) );
+            m_topo->m_wedges.addProp<Vector4>( attr->getName() );
+        }
+        else
+            LOG( logWARNING )
+                << "Warning, mesh attribute " << attr->getName()
+                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////      TopologicalMesh          //////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 struct hash_vec {
     std::size_t operator()( const Vector3& lvalue ) const {
@@ -478,6 +732,22 @@ TopologicalMesh::getWedgeIndex( OpenMesh::HalfedgeHandle heh ) const {
     return property( getWedgeIndexPph(), heh );
 }
 
+inline unsigned int TopologicalMesh::getWedgeRefCount( const WedgeIndex& idx ) const {
+    return m_wedges.getWedgeRefCount( idx );
+}
+
+template <typename T>
+inline bool TopologicalMesh::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
+                                           const std::string& name,
+                                           const T& value ) {
+    return m_wedges.setWedgeData( idx, name, value );
+}
+
+inline void TopologicalMesh::setWedgeData( TopologicalMesh::WedgeIndex widx,
+                                           const TopologicalMesh::WedgeData& wedge ) {
+    m_wedges.setWedgeData( widx, wedge );
+}
+
 inline const TopologicalMesh::WedgeData&
 TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
     return m_wedges.getWedgeData( idx );
@@ -487,51 +757,6 @@ template <typename T>
 inline const T& TopologicalMesh::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
                                                const std::string& name ) const {
     return m_wedges.getWedgeData<T>( idx, name );
-}
-
-template <typename T>
-inline const T&
-TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                                const std::string& name ) const {
-    if ( idx.isValid() )
-    {
-        auto nameArray = getNameArray<T>();
-        auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
-        if ( itr != nameArray.end() )
-        {
-            auto attrIndex = std::distance( nameArray.begin(), itr );
-            return m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex];
-        }
-        else
-        {
-            LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
-                            << typeid( T ).name();
-        }
-    }
-    static T dummy;
-    return dummy;
-}
-
-template <typename T>
-inline T& TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                                          int attribIndex ) {
-    return m_data[idx].getWedgeData().getAttribArray<T>()[attribIndex];
-}
-
-inline unsigned int TopologicalMesh::getWedgeRefCount( const WedgeIndex& idx ) const {
-    return m_wedges.getWedgeRefCount( idx );
-}
-
-inline void TopologicalMesh::setWedgeData( TopologicalMesh::WedgeIndex widx,
-                                           const TopologicalMesh::WedgeData& wedge ) {
-    m_wedges.setWedgeData( widx, wedge );
-}
-
-template <typename T>
-inline bool TopologicalMesh::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                           const std::string& name,
-                                           const T& value ) {
-    return m_wedges.setWedgeData( idx, name, value );
 }
 
 inline void TopologicalMesh::replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd ) {
@@ -594,185 +819,6 @@ inline bool TopologicalMesh::isFeatureEdge( const EdgeHandle& eh ) const {
 inline const OpenMesh::HPropHandleT<TopologicalMesh::WedgeIndex>&
 TopologicalMesh::getWedgeIndexPph() const {
     return m_wedgeIndexPph;
-}
-
-template <typename T>
-void TopologicalMesh::InitWedgeProps<T>::operator()( AttribBase* attr ) const {
-    if ( attr->getSize() != m_triMesh.vertices().size() )
-    { LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName(); }
-    else if ( attr->getName() != std::string( "in_position" ) )
-    {
-        if ( attr->isFloat() )
-        {
-            m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
-                m_triMesh.template getAttribHandle<float>( attr->getName() ) );
-            m_topo->m_wedges.addProp<float>( attr->getName() );
-        }
-        else if ( attr->isVector2() )
-        {
-            m_topo->m_wedges.m_wedgeVector2AttribHandles.push_back(
-                m_triMesh.template getAttribHandle<Vector2>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector2>( attr->getName() );
-        }
-        else if ( attr->isVector3() )
-        {
-            m_topo->m_wedges.m_wedgeVector3AttribHandles.push_back(
-                m_triMesh.template getAttribHandle<Vector3>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector3>( attr->getName() );
-        }
-        else if ( attr->isVector4() )
-        {
-            m_topo->m_wedges.m_wedgeVector4AttribHandles.push_back(
-                m_triMesh.template getAttribHandle<Vector4>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector4>( attr->getName() );
-        }
-        else
-            LOG( logWARNING )
-                << "Warning, mesh attribute " << attr->getName()
-                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///////////////////      WEDGES RELATED STUFF     //////////////////////////////
-///////////////////      WedgeCollection          //////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-inline void TopologicalMesh::WedgeCollection::del( const TopologicalMesh::WedgeIndex& idx ) {
-    if ( idx.isValid() ) m_data[idx].decrementRefCount();
-}
-
-inline TopologicalMesh::WedgeIndex
-TopologicalMesh::WedgeCollection::newReference( const TopologicalMesh::WedgeIndex& idx ) {
-    if ( idx.isValid() ) m_data[idx].incrementRefCount();
-    return idx;
-}
-
-inline const TopologicalMesh::Wedge&
-TopologicalMesh::WedgeCollection::getWedge( const TopologicalMesh::WedgeIndex& idx ) const {
-    return m_data[idx];
-}
-
-inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                                            const TopologicalMesh::WedgeData& wd ) {
-    if ( !( wd.m_floatAttrib.size() == m_floatAttribNames.size() &&
-            wd.m_vector2Attrib.size() == m_vector2AttribNames.size() &&
-            wd.m_vector3Attrib.size() == m_vector3AttribNames.size() &&
-            wd.m_vector4Attrib.size() == m_vector4AttribNames.size() ) )
-    {
-        LOG( logWARNING ) << "Warning, topological mesh set wedge: number of attribs inconsistency";
-    }
-    if ( idx.isValid() ) m_data[idx].setWedgeData( wd );
-}
-
-#define GET_NAME_ARRAY_HELPER( TYPE, NAME )                                                       \
-    template <>                                                                                   \
-    inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray<TYPE>() \
-        const {                                                                                   \
-        return m_##NAME##AttribNames;                                                             \
-    }                                                                                             \
-    template <>                                                                                   \
-    inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray<TYPE>() {     \
-        return m_##NAME##AttribNames;                                                             \
-    }
-
-GET_NAME_ARRAY_HELPER( float, float )
-GET_NAME_ARRAY_HELPER( Vector2, vector2 )
-GET_NAME_ARRAY_HELPER( Vector3, vector3 )
-GET_NAME_ARRAY_HELPER( Vector4, vector4 )
-
-#undef GET_NAME_ARRAY_HELPER
-// These template functions are defined above for supported types.
-// For unsupported types they simply generate a compile error.
-template <typename T>
-inline const std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() const {
-
-    LOG( logWARNING ) << "Warning, mesh attribute " << typeid( T ).name()
-                      << " is not supported (only float, vec2, vec3 nor vec4 are supported)";
-    static_assert( sizeof( T ) == -1, "this type is not supported" );
-    return m_floatAttribNames;
-}
-
-template <typename T>
-inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray() {
-
-    LOG( logWARNING ) << "Warning, mesh attribute " << typeid( T ).name()
-                      << " is not supported (only float, vec2, vec3 nor vec4 are supported)";
-    static_assert( sizeof( T ) == -1, "this type is not supported" );
-    return m_floatAttribNames;
-}
-
-template <typename T>
-inline bool TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                                            const std::string& name,
-                                                            const T& value ) {
-    if ( idx.isValid() )
-    {
-        auto nameArray = getNameArray<T>();
-        auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
-        if ( itr != nameArray.end() )
-        {
-            auto attrIndex = std::distance( nameArray.begin(), itr );
-            m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex] = value;
-            return true;
-        }
-        else
-        {
-            LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
-                            << typeid( T ).name();
-        }
-    }
-    return false;
-}
-
-template <typename T>
-inline void TopologicalMesh::WedgeCollection::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
-                                                            const int& attrIndex,
-                                                            const T& value ) {
-    m_data[idx].getWedgeData().getAttribArray<T>()[attrIndex] = value;
-}
-
-inline bool
-TopologicalMesh::WedgeCollection::setWedgePosition( const TopologicalMesh::WedgeIndex& idx,
-                                                    const Vector3& value ) {
-    if ( idx.isValid() )
-    {
-        m_data[idx].getWedgeData().m_position = value;
-        return true;
-    }
-    return false;
-}
-
-template <typename T>
-void TopologicalMesh::WedgeCollection::addProp( const std::string& name ) {
-    if ( name != std::string( "in_position" ) ) { getNameArray<T>().push_back( name ); }
-}
-
-inline void TopologicalMesh::WedgeCollection::garbageCollection() {
-    m_data.erase( std::remove_if( m_data.begin(),
-                                  m_data.end(),
-                                  []( const Wedge& w ) { return w.isDeleted(); } ),
-                  m_data.end() );
-}
-
-template <typename T>
-inline bool TopologicalMesh::WedgeCollection::setWedgeAttrib( TopologicalMesh::WedgeData& wd,
-                                                              const std::string& name,
-                                                              const T& value ) {
-    auto nameArray = getNameArray<T>();
-    auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
-    if ( itr != nameArray.end() )
-    {
-        auto attrIndex                    = std::distance( nameArray.begin(), itr );
-        wd.getAttribArray<T>()[attrIndex] = value;
-        return true;
-    }
-    else
-    {
-        LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
-                        << typeid( T ).name();
-    }
-    return false;
 }
 
 } // namespace Geometry
