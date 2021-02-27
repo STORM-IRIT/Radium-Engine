@@ -6,12 +6,17 @@
 namespace Ra {
 namespace IO {
 
-/*
+/**
  * The class FileManager gives the base common interface for handling loading/storing data from/to
  * files.
+ * \warning will be removed once integration of file saving is done in new IO, see
+ * https://github.com/STORM-IRIT/Radium-Engine/issues/362
+ * \todo reimplement in IO
+ * \deprecated see https://github.com/STORM-IRIT/Radium-Engine/issues/362
  */
 template <typename DATA, bool Binary = false>
-class [[deprecated]] FileManager {
+class FileManager
+{
   public:
     /// ENUM
     enum LogEntryType {
@@ -43,17 +48,17 @@ class [[deprecated]] FileManager {
     /// LOG
     inline void addLogEntry( const std::string& text ); // Add a line in the log file. A newline
                                                         // character will be automatically added.
-    inline void addLogWarningEntry(
-        const std::string& text );                           // Add a warning line in the log file.
+    inline void
+    addLogWarningEntry( const std::string& text );           // Add a warning line in the log file.
     inline void addLogErrorEntry( const std::string& text ); // Add an error line in the log file.
     inline void addLogEntry( const std::string& text, const LogEntryType type );
 
     /// INTERFACE
     virtual std::string fileExtension() const = 0; // Return the extension given to the files.
-    virtual bool importData( std::istream & file,
-                             DATA & data ) = 0; // Load data from a given file. Return false if an
-                                                // error occurs, true otherwise.
-    virtual bool exportData( std::ostream & file,
+    virtual bool importData( std::istream& file,
+                             DATA& data ) = 0; // Load data from a given file. Return false if an
+                                               // error occurs, true otherwise.
+    virtual bool exportData( std::ostream& file,
                              const DATA& data ) = 0; // Store given data into a given file. Return
                                                      // false if an error occurs, true otherwise.
 
