@@ -613,28 +613,6 @@ void TopologicalMesh::copyMeshToWedgeData( const IndexedGeometry<T>& mesh,
     copyAttribToWedgeData( mesh, vindex, wprop_vec4, &wd->m_vector4Attrib );
 }
 
-inline const TopologicalMesh::Normal& TopologicalMesh::normal( VertexHandle vh,
-                                                               FaceHandle fh ) const {
-    // find halfedge that point to vh and member of fh
-    if ( !has_halfedge_normals() )
-    {
-        LOG( logERROR ) << "TopologicalMesh has no normals, return dummy ref to  (0,0,0)";
-        static TopologicalMesh::Normal dummy {0_ra, 0_ra, 0_ra};
-        return dummy;
-    }
-    return normal( halfedge_handle( vh, fh ) );
-}
-
-inline void TopologicalMesh::set_normal( VertexHandle vh, FaceHandle fh, const Normal& n ) {
-    if ( !has_halfedge_normals() )
-    {
-        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
-        return;
-    }
-
-    set_normal( halfedge_handle( vh, fh ), n );
-}
-
 inline void TopologicalMesh::propagate_normal_to_wedges( VertexHandle vh ) {
     if ( !has_halfedge_normals() )
     {
