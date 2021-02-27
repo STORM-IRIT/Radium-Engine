@@ -8,8 +8,6 @@
 namespace Ra {
 namespace Core {
 namespace Geometry {
-template <typename T>
-using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////      WedgeData                //////////////////////////////

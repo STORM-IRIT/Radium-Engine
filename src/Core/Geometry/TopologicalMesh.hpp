@@ -550,9 +550,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         std::vector<std::pair<AttribHandle<T>, T>,
                     Eigen::aligned_allocator<std::pair<AttribHandle<T>, T>>>;
 
-    template <typename T>
-    using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
-
     void split_copy( EdgeHandle _eh, VertexHandle _vh );
     void split( EdgeHandle _eh, VertexHandle _vh );
 
