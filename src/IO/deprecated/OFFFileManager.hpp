@@ -7,11 +7,15 @@
 namespace Ra {
 namespace IO {
 
-/*
+/**
  * The class OFFFileManager handles the loading and storing of TriangleMesh in the standard OFF
  * format.
+ * \warning will be removed once integration of file saving is done in new IO, see
+ * https://github.com/STORM-IRIT/Radium-Engine/issues/362
+ * \todo reimplement in IO
+ * \deprecated see https://github.com/STORM-IRIT/Radium-Engine/issues/362
  */
-class RA_IO_API [[deprecated]] OFFFileManager : public FileManager<Core::Geometry::TriangleMesh>
+class RA_IO_API OFFFileManager : public FileManager<Core::Geometry::TriangleMesh>
 {
   public:
     /// CONSTRUCTOR
@@ -26,8 +30,8 @@ class RA_IO_API [[deprecated]] OFFFileManager : public FileManager<Core::Geometr
 
     /// INTERFACE
     std::string fileExtension() const override;
-    bool importData( std::istream & file, Core::Geometry::TriangleMesh & data ) override;
-    bool exportData( std::ostream & file, const Core::Geometry::TriangleMesh& data ) override;
+    bool importData( std::istream& file, Core::Geometry::TriangleMesh& data ) override;
+    bool exportData( std::ostream& file, const Core::Geometry::TriangleMesh& data ) override;
 };
 
 } // namespace IO
