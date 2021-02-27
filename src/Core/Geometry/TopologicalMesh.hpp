@@ -461,7 +461,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         // name is supposed to be unique within all attribs
         // not checks are performed
         template <typename T>
-        void addProp( const std::string& name );
+        void addAttrib( const std::string& name );
 
         /// return the offset ot apply to each wedgeindex so that
         /// after garbageCollection all indices are valid and coherent.
