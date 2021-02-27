@@ -135,18 +135,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     inline HalfedgeHandle halfedge_handle( VertexHandle vh, FaceHandle fh ) const;
 
-    /**
-     * Get normal of the vertex vh, when member of fh.
-     * \note Asserts if vh is not a member of fh.
-     */
-    [[deprecated]] inline const Normal& normal( VertexHandle vh, FaceHandle fh ) const;
-
-    /**
-     * Set normal of the vertex vh, when member of fh.
-     * \note Asserts if vh is not a member of fh.
-     */
-    [[deprecated]] void set_normal( VertexHandle vh, FaceHandle fh, const Normal& n );
-
     /// Import Base definition of normal and set normal.
     ///@{
     using base::normal;
