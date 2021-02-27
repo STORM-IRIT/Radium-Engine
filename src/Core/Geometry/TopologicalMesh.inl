@@ -288,7 +288,7 @@ inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray(
     return m_floatAttribNames;
 }
 template <typename T>
-void TopologicalMesh::WedgeCollection::addProp( const std::string& name ) {
+void TopologicalMesh::WedgeCollection::addAttrib( const std::string& name ) {
     if ( name != std::string( "in_position" ) ) { getNameArray<T>().push_back( name ); }
 }
 
@@ -325,25 +325,25 @@ void TopologicalMesh::InitWedgeProps<T>::operator()( AttribBase* attr ) const {
         {
             m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
                 m_triMesh.template getAttribHandle<float>( attr->getName() ) );
-            m_topo->m_wedges.addProp<float>( attr->getName() );
+            m_topo->m_wedges.addAttrib<float>( attr->getName() );
         }
         else if ( attr->isVector2() )
         {
             m_topo->m_wedges.m_wedgeVector2AttribHandles.push_back(
                 m_triMesh.template getAttribHandle<Vector2>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector2>( attr->getName() );
+            m_topo->m_wedges.addAttrib<Vector2>( attr->getName() );
         }
         else if ( attr->isVector3() )
         {
             m_topo->m_wedges.m_wedgeVector3AttribHandles.push_back(
                 m_triMesh.template getAttribHandle<Vector3>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector3>( attr->getName() );
+            m_topo->m_wedges.addAttrib<Vector3>( attr->getName() );
         }
         else if ( attr->isVector4() )
         {
             m_topo->m_wedges.m_wedgeVector4AttribHandles.push_back(
                 m_triMesh.template getAttribHandle<Vector4>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector4>( attr->getName() );
+            m_topo->m_wedges.addAttrib<Vector4>( attr->getName() );
         }
         else
             LOG( logWARNING )
