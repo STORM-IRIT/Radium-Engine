@@ -290,8 +290,22 @@ inline std::vector<std::string>& TopologicalMesh::WedgeCollection::getNameArray(
     return m_floatAttribNames;
 }
 template <typename T>
-void TopologicalMesh::WedgeCollection::addAttrib( const std::string& name ) {
+int TopologicalMesh::WedgeCollection::addAttribName( const std::string& name ) {
     if ( name != std::string( "in_position" ) ) { getNameArray<T>().push_back( name ); }
+    return getNameArray<T>().size() - 1;
+}
+
+template <typename T>
+int TopologicalMesh::WedgeCollection::addAttrib( const std::string& name, const T& value ) {
+
+    auto index = addAttribName<T>( name );
+    for ( auto& w : m_data )
+    {
+        CORE_ASSERT( index = w.getWedgeData().getAttribArray<T>().size(),
+                     "inconsistent wedge attrib" );
+        w.getWedgeData().getAttribArray<T>().push_back( value );
+    }
+    return index;
 }
 
 inline void TopologicalMesh::WedgeCollection::garbageCollection() {
@@ -313,12 +327,29 @@ inline void TopologicalMesh::WedgeCollection::clean() {
     m_wedgeVector4AttribHandles.clear();
 }
 
+template <typename T>
+void init( VectorArray<T>& vec, const std::vector<std::string> names ) {
+    for ( size_t i = 0; i < names.size(); ++i )
+    {
+        vec.emplace_back();
+    }
+}
+// return a new wedgeData with uninit values.
+inline TopologicalMesh::WedgeData TopologicalMesh::WedgeCollection::newWedgeData() {
+    WedgeData ret;
+    init<float>( ret.getAttribArray<float>(), m_floatAttribNames );
+    init<Vector2>( ret.getAttribArray<Vector2>(), m_vector2AttribNames );
+    init<Vector3>( ret.getAttribArray<Vector3>(), m_vector3AttribNames );
+    init<Vector4>( ret.getAttribArray<Vector4>(), m_vector4AttribNames );
+    return ret;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////      InitWedgeProps           //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-void TopologicalMesh::InitWedgeProps<T>::operator()( AttribBase* attr ) const {
+void TopologicalMesh::InitWedgeAttribs<T>::operator()( AttribBase* attr ) const {
     if ( attr->getSize() != m_triMesh.vertices().size() )
     { LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName(); }
     else if ( attr->getName() != std::string( "in_position" ) )
@@ -327,25 +358,25 @@ void TopologicalMesh::InitWedgeProps<T>::operator()( AttribBase* attr ) const {
         {
             m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
                 m_triMesh.template getAttribHandle<float>( attr->getName() ) );
-            m_topo->m_wedges.addAttrib<float>( attr->getName() );
+            m_topo->m_wedges.addAttribName<float>( attr->getName() );
         }
         else if ( attr->isVector2() )
         {
             m_topo->m_wedges.m_wedgeVector2AttribHandles.push_back(
                 m_triMesh.template getAttribHandle<Vector2>( attr->getName() ) );
-            m_topo->m_wedges.addAttrib<Vector2>( attr->getName() );
+            m_topo->m_wedges.addAttribName<Vector2>( attr->getName() );
         }
         else if ( attr->isVector3() )
         {
             m_topo->m_wedges.m_wedgeVector3AttribHandles.push_back(
                 m_triMesh.template getAttribHandle<Vector3>( attr->getName() ) );
-            m_topo->m_wedges.addAttrib<Vector3>( attr->getName() );
+            m_topo->m_wedges.addAttribName<Vector3>( attr->getName() );
         }
         else if ( attr->isVector4() )
         {
             m_topo->m_wedges.m_wedgeVector4AttribHandles.push_back(
                 m_triMesh.template getAttribHandle<Vector4>( attr->getName() ) );
-            m_topo->m_wedges.addAttrib<Vector4>( attr->getName() );
+            m_topo->m_wedges.addAttribName<Vector4>( attr->getName() );
         }
         else
             LOG( logWARNING )
@@ -396,7 +427,7 @@ void TopologicalMesh::initWithWedge( const IndexedGeometry<T>& mesh,
     VertexMap vertexHandles;
 
     // loop over all attribs and build correspondance pair
-    mesh.vertexAttribs().for_each_attrib( InitWedgeProps {this, mesh} );
+    mesh.vertexAttribs().for_each_attrib( InitWedgeAttribs {this, mesh} );
 
     size_t num_triangles = mesh.getIndices().size();
 
