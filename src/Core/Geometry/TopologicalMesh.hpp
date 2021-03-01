@@ -237,12 +237,19 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     template <typename T>
     inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
 
+    inline WedgeData newWedgeData() { return m_wedges.newWedgeData(); }
+
     /**
      * Replace the wedge data associated with an halfedge.
      * The old wedge is "deleted". If wedge data correspond to an already
      * present wedge, it's index is used.
      */
     inline void replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd );
+
+    template <typename T>
+    inline int addWedgeAttrib( const std::string& name, T value = {} ) {
+        return m_wedges.addAttrib<T>( name, value );
+    }
 
     /**
      * Replace the wedge index associated with an halfedge.
@@ -446,8 +453,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
         // name is supposed to be unique within all attribs
         // not checks are performed
+        // return the index of the the newly added attrib.
         template <typename T>
-        void addAttrib( const std::string& name );
+        int addAttribName( const std::string& name );
+
+        // add attrib to all wedges with default value value
+        template <typename T>
+        int addAttrib( const std::string& name, const T& value = {} );
 
         /// return the offset ot apply to each wedgeindex so that
         /// after garbageCollection all indices are valid and coherent.
@@ -464,6 +476,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
         inline void clean();
 
+        // return a new wedgeData with uninit values.
+        inline WedgeData newWedgeData();
+
         ///\ todo       private:
         /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
         std::vector<std::string> m_floatAttribNames;
@@ -472,6 +487,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         std::vector<std::string> m_vector4AttribNames;
 
         /// attrib handle from the CoreMesh given at construction, if any.
+        /// used by TopologicalMesh::update()
         std::vector<AttribHandle<float>> m_wedgeFloatAttribHandles;
         std::vector<AttribHandle<Vector2>> m_wedgeVector2AttribHandles;
         std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
@@ -484,11 +500,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     // internal function to build Core Mesh attribs correspondance to wedge attribs.
     template <typename T>
-    class InitWedgeProps
+    class InitWedgeAttribs
     {
       public:
-        InitWedgeProps( TopologicalMesh* topo,
-                        const Ra::Core::Geometry::IndexedGeometry<T>& triMesh ) :
+        InitWedgeAttribs( TopologicalMesh* topo,
+                          const Ra::Core::Geometry::IndexedGeometry<T>& triMesh ) :
             m_topo( topo ), m_triMesh( triMesh ) {}
         void operator()( AttribBase* attr ) const;
 
