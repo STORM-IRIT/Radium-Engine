@@ -75,7 +75,6 @@ class KeyFramedValue : public KeyFramedValueBase
      * Creates a KeyFramedValue from a first keyframe.
      * \param frame the first keyframe value.
      * \param t the first keyframe point in time.
-     * \param interpolator the function used to interpolate between keyframes.
      */
     KeyFramedValue( VALUE_TYPE frame, Scalar t ) { insertKeyFrame( t, frame ); }
 
@@ -112,9 +111,9 @@ class KeyFramedValue : public KeyFramedValueBase
     inline const KeyFrame& operator[]( size_t i ) const { return m_keyframes[i]; }
 
     /**
-    ￼ * Inserts a new keyframe with value \p frame at time \p t.
-    ￼ * \note If a keyframe already exists for \p t, it will be overwritten.
-    ￼ */
+     * Inserts a new keyframe with value \p frame at time \p t.
+     * \note If a keyframe already exists for \p t, it will be overwritten.
+     */
     inline void insertKeyFrame( const Scalar& t, const VALUE_TYPE& frame ) {
         KeyFrame kf( t, frame );
         auto upper = std::upper_bound(
@@ -131,9 +130,9 @@ class KeyFramedValue : public KeyFramedValueBase
     }
 
     /**
-    ￼ * Inserts a keyframe at time \p t corresponding to the value interpolated at \p t
+     * Inserts a keyframe at time \p t corresponding to the value interpolated at \p t
      * using the given interpolator.
-    ￼ */
+     */
     inline void insertInterpolatedKeyFrame( const Scalar& t, const Interpolator& interpolator ) {
         insertKeyFrame( t, at( t, interpolator ) );
     }
@@ -161,9 +160,9 @@ class KeyFramedValue : public KeyFramedValueBase
     }
 
     /**
-    ￼ * \returns the value at time \p t, interpolated from the keyframes using the
+     * \returns the value at time \p t, interpolated from the keyframes using the
      *          given interpolator.
-    ￼ */
+     */
     inline VALUE_TYPE at( const Scalar& t, const Interpolator& interpolator ) const {
         return interpolator( *this, t );
     }

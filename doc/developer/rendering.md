@@ -1,4 +1,4 @@
-\page develrendering API: Rendering pipeline
+\page develrendering  Rendering pipeline
 [TOC]
 
 # Rendering in Radium
@@ -85,7 +85,7 @@ will get the OpenGL pipeline configuration and parameters from the Ra::Engine::R
 Ra::Engine::Rendering::RenderObject.
 
 The Radium Engine exports a ready to use renderer, Ra::Engine::Rendering::ForwardRenderer, that decomposes the rendering into three 
-passes as described in the \ref forwardrendererconcept document.
+passes as described in the \ref forwardRenderer document.
 
 ## Minimal renderer howto
 This section explain, through the developement of a simple Rendering, how to configure RenderObjects and RenderTechnique 

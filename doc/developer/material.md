@@ -1,4 +1,4 @@
-\page develmaterials API: Material management
+\page develmaterials  Material management
 [TOC]
 
 A Ra::Engine::Data::Material is a way to control the appearance of an object when rendering. 
@@ -48,21 +48,23 @@ To define a Ra::Engine::Rendering::RenderObject and add it to the component, the
 must be associated with a Ra::Engine::Rendering::RenderTechnique that links to the required Ra::Engine::Data::Material.
  
 To do that, the following steps must be done :
+\todo update snippets that are not available anymore.
+
 1. Create the Ra::Engine::Data::Mesh (see the [documentation about Meshes](@ref develmeshes))
-\snippet HelloRadium/minimalradium.cpp Creating the Engine Mesh
+\snippet HelloRadium/main.cpp Creating the Engine Mesh
 
 2. Create the Ra::Engine::Data::Material
-\snippet HelloRadium/minimalradium.cpp Creating the Material
+\snippet HelloRadium/main.cpp Creating the Material
 
 3. Create the Ra::Engine::Rendering::RenderTechnique, here using the Ra::Engine::Rendering::EngineRenderTechniques factory, and associate it 
 to the material
-\snippet HelloRadium/minimalradium.cpp Creating the RenderTechnique
+\snippet HelloRadium/main.cpp Creating the RenderTechnique
 
 4. Create the Ra::Engine::Rendering::RenderObject and add it to the Ra::Engine::Scene::Component
-\snippet HelloRadium/minimalradium.cpp Creating the RenderObject
+\snippet HelloRadium/main.cpp Creating the RenderObject
 
 Note that this way of using the _Radium Material Library_ is very related to the default Radium rendering capabilities
-exposed by the [Radium forward renderer](@ref forwardrendererconcept). 
+exposed by the [Radium forward renderer](@ref forwardRenderer). 
 See the [Render technique management](./rendertechnique) documentation to learn how to create your own 
 Ra::Engine::Rendering::RenderTechnique, potentially without associated material.
 
@@ -519,3 +521,63 @@ addRenderObject( renderObject );
 Then the draw call of ``renderObject`` uses the ``myConfig`` as shader configuration.
 Before rendering, the method ``updateGL`` on the ``parameterProvider`` instance is called so that the shader's uniforms values are updated according the one stored in ``parameterProvider``.
 
+
+# \todo TO UPDATE
+
+Shader programs are managed through their `ShaderConfiguration`, which contains the _shader objects_ (vertex, fragment, ... shader) and the _shader properties_ (not used for now though).
+
+Unless you are sure you have access to an OpenGL context (which means you are in `Ra::Gui::Viewer::startRendering()` or its callees), you must only manipulate the materials' render technique's shader configuration.
+
+## Manipulating ShaderConfigurations
+Basically, a shader configuration is a simple container with a name, and shader objects names.
+
+There are two valid ways to build a shader configuration : 
+
+```
+#include <Engine/RenderTechnique/ShaderProgram.hpp>
+
+ShaderConfiguration config("BlinnPhongWireframe");
+/*
+ Or :
+ ShaderConfiguration config;
+ config.m_name = "BlinnPhongWireframe";
+ */
+config.addShader(Ra::Engine::ShaderType_VERTEX, "../Shaders/BlinnPhongWireframe.vert.glsl");
+config.addShader(Ra::Engine::ShaderType_FRAGMENT, "../Shaders/BlinnPhongWireframe.frag.glsl");
+config.addShader(Ra::Engine::ShaderType_GEOMETRY, "../Shaders/BlinnPhongWireframe.geom.glsl");
+```
+
+The second way is similar, but enables adding directly vertex and fragment shader through the constructor
+
+```
+ShaderConfiguration config("Plain", "../Shaders/Plain.vert.glsl", "../Shaders/Plain.frag.glsl");
+// config.addShader(Ra::Engine::ShaderType_FOO, "../Shaders/Bar.foo.glsl");
+// ...
+```
+
+### ShaderConfigurationFactory
+If you know you will have to access the same shader configuration in multiple locations of your plugin(s), you can add it to the `ShaderConfigurationFactory` and then access it easier : 
+
+```
+#include <Engine/Renderer/RenderTechnique/ShaderProgram.hpp>
+#include <Engine/Renderer/RenderTechnique/ShaderConfigFactory.hpp>
+
+// Build BlinnPhong's configuration
+Ra::Engine::ShaderConfiguration blinnPhongConfig("BlinnPhong", "../Shaders/BlinnPhong.vert.glsl", "../Shaders/BlinnPhong.frag.glsl");
+
+// Add it to the factory
+Ra::Engine::ShaderConfigurationFactory::addConfiguration("BlinnPhong", blinnPhongConfig);
+/* 
+  Please note that you can also use
+Ra::Engine::ShaderConfigurationFactory::addConfiguration(blinnPhongConfig);
+  which will use the shader configuration's name. 
+*/
+
+// You can then access anywhere else by its name
+Ra::Engine::ShaderConfiguration config = ShaderConfigurationFactory::getConfiguration("BlinnPhong");
+```
+
+Using first or second _adder_ will work only if the name is not empty. Otherwise it will warn and return.
+
+You also have to add your configuration to the factory if you want to be able to change a render object to this 
+shader from the UI.

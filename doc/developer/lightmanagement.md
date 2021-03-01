@@ -1,4 +1,4 @@
-\page develLights API: Lights
+\page develLights  Lights
 [TOC]
 
 - Lights are components associated with an entity.

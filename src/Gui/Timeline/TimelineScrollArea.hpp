@@ -18,10 +18,10 @@ class TimelineScrollArea : public QScrollArea
   public:
     explicit TimelineScrollArea( QWidget* parent = nullptr );
 
-    /// \returns the <b>end<\b> of the Timeline's playzone.
+    /// \returns the \b end of the Timeline's playzone.
     Scalar getMaxDuration();
 
-    /// Set the <b>end<\b> of the Timeline's playzone.
+    /// Set the \b end of the Timeline's playzone.
     void setMaxDuration( Scalar duration );
 
     /// \return the step between two scale graduations.
@@ -37,34 +37,35 @@ class TimelineScrollArea : public QScrollArea
     int getZero();
 
   signals:
+    /// \todo use keymapping manager here
     /// Emitted when zoomed in/out or resized.
     void stepChanged( Scalar step );
 
-    /// Emitted when <i> is pressed.
+    /// Emitted when [i] is pressed.
     void addKeyFrame();
 
-    /// Emitted when <del> / <shift>+<i> is pressed.
+    /// Emitted when [del] / [shift]+[i] is pressed.
     void removeKeyFrame();
 
-    /// Emitted when <left_arrow> is pressed or <shift> + <wheel-up>.
+    /// Emitted when [left_arrow] is pressed or [shift] + [wheel-up].
     void previousKeyFrame();
 
-    /// Emitted when <right_arrow> is pressed or <shift> + <wheel-down>.
+    /// Emitted when [right_arrow] is pressed or [shift] + [wheel-down].
     void nextKeyFrame();
 
-    /// Emitted when <up_arrow> is pressed.
+    /// Emitted when [up_arrow] is pressed.
     void durationIncrement();
 
-    /// Emitted when <down_arrow> is pressed.
+    /// Emitted when [down_arrow] is pressed.
     void durationDecrement();
 
-    /// Emitted when <space> is pressed.
+    /// Emitted when [space] is pressed.
     void togglePlayPause();
 
-    /// Emitted when <crtl> + <z> / <u> key is pressed.
+    /// Emitted when [crtl] + [z] / [u] key is pressed.
     void undo();
 
-    /// Emitted when <crtl> + <shift> + <z> / <r> key is pressed.
+    /// Emitted when [crtl] + [shift] + [z] / [r] key is pressed.
     void redo();
 
   public slots:
@@ -84,7 +85,7 @@ class TimelineScrollArea : public QScrollArea
     int m_mousePosX {0}; ///< x coordinate of the mouse on mouse middle click.
     int m_sliderPos {0}; ///< x coordinate of the slider on mouse middle click.
 
-    Scalar m_maxDuration {20_ra}; ///< <b>end<\b> of the Timeline's playzone.
+    Scalar m_maxDuration {20_ra}; ///< \b end  of the Timeline's playzone.
     int m_nbInterval {0};         ///< Number of scale graduations.
     Scalar m_step {1};            ///< Step between two scale graduations.
     Scalar m_pixPerSec {10};      ///< Number of pixels used to display 1 second on the scale.

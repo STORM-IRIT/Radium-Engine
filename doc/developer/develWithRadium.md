@@ -1,29 +1,9 @@
-\page develWithRadium How to code in Radium
+\page develWithRadium How to contribute to Radium Libraries
 [TOC]
-
-There are four main options to work and develop using Radium:
-1. Write a plugin: full access to the Radium data structures, perfect to implement a new functionality: mesh processing, rendering.
-2. Write an application: give total control over the GUI, the camera settings, etc...
-3. Contribute to Radium libraries: to improve/extend core components of Radium.
-4. Testing: extend radium tests to improve testing coverage or when adding new functionality.
-
-Once installed, Radium offers several cmake functions to configure and build your extension. 
-You can access documentation and how-to about these cmake function in the [Radium cmake utilities](@ref cmakeutilities) documentation. 
-
-# Radium Plugin
-Tutorial and documentation here: [https://github.com/STORM-IRIT/Radium-PluginExample](https://github.com/STORM-IRIT/Radium-PluginExample)
-
-# Radium Application
-Tutorial here: [https://github.com/STORM-IRIT/Radium-AppExample](https://github.com/STORM-IRIT/Radium-AppExample)
 
 # Radium libraries
 Direct contributions to master are closed.
 Please submit your pull request.
-
-# Radium coding style
-Please follow the scripts/clang-format coding style (tested `with clang-format 9.0`).
-We also provide a pre commit hook that checks the committed files are correctly formatted.
-To install both hooks and clang-format, simply run `./scripts/install-scripts-linux.sh` on linux, or adapt to your OS.
 
 # Radium test suite
 ## Preliminaries
@@ -34,7 +14,8 @@ Radium testing is done using two tools:
 As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically.
 In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.
 
-## How to write tests
+## [deprectaed] How to write tests
+\todo update to catch unit tests and integration tests
 Tests are C++ executables, expected to set their return value accordingly to the test result, e.g. `return EXIT_FAILURE;` or by calling `abort();` in case of failure.
 
 Their source code is stored in `Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src`.

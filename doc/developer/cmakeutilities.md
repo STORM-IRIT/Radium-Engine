@@ -1,12 +1,7 @@
-\page cmakeutilities Cmake utilities for developing using Radium 
+\page cmakeutilities CMake setup
 [TOC]
 
-The Radium environment could be used in several ways 
- 1. developing some specific applications, 
- 2. extending the Radium capabilities by developing new libraries
- 3. integrating new functionalities in the Radium applications using plugins.
-
-As Radium relies on the [cmake](https://cmake.org/documentation/) build and configuration system, this 
+As Radium relies on the [CMake](https://cmake.org/documentation/) build and configuration system, this 
 documentation focuses on how to configure your build system to use and extend Radium using Radium cmake utilities.
 
 Complete functional examples using these cmake scripts are accessible in the `src/tests/ExampleApps` and `src/tests/ExamplePluginWithLib` directories of the [Radium source distribution](https://github.com/STORM-IRIT/Radium-Engine).
@@ -42,7 +37,7 @@ The functions defined by the Radium package are the following:
   - [`configure_radium_plugin`](#configure_radium_plugin).
   
 ## Client application configuration
-### Function `configure_radium_app` {#configure_radium_app}
+### configure_radium_app {#configure_radium_app}
 ~~~{.cmake}
 configure_radium_app( 
     NAME applicationName                        # The name of the executable target to configure as a relocatable application
@@ -82,7 +77,7 @@ For now (Radium version of August 2020):
 To get relocatable packages, download pre-built binaries here: [https://github.com/STORM-IRIT/Radium-Releases/releases](https://github.com/STORM-IRIT/Radium-Releases/releases)
 
 ## Extending Radium through libraries
-### Function `configure_radium_library` {#configure_radium_library}
+### configure_radium_library {#configure_radium_library}
 ~~~{.cmake}
 configure_radium_library( 
     TARGET targetName               # Name of the target to configure as a Radium Library
@@ -171,7 +166,7 @@ target_link_libraries(
 )
 ~~~
 
-### Function `installTargetResources` {#installTargetResources}
+### installTargetResources {#installTargetResources}
 ~~~{.cmake}
 installTargetResources( 
     TARGET targetName               # Name of the target for which resources must be installed                      
@@ -257,7 +252,7 @@ installTargetResources(
 )
 ~~~
 
-### Function `configure_radium_package` {#configurePackage}
+### configure_radium_package {#configurePackage}
 ~~~{.cmake}
 configure_radium_package( 
     NAME packageName                # The name of the package to install
@@ -279,7 +274,7 @@ This function is called implicitly, when defining a single component package, wh
 
 This function also allows to define multi-component packages for selective import using the `find_package(packageName [COMPONENTS comp1 comp2 ...]` command when called explicitly with an appropriate `PACKAGE_CONFIG` parameter.
  
-### Function `radium_exported_resources` {#radium_exported_resources}
+### radium_exported_resources {#radium_exported_resources}
 
 ~~~{.cmake}
 radium_exported_resources(
@@ -318,7 +313,7 @@ In the above example, the `<ACCESS_FROM_PACKAGE> path` parameter of the function
 This parameter must contain the relative path that start from the package module installation directory, here `<prefix>/lib/cmake`, to the resources installation directory, here `<prefix>/Resources`.
 
 ## Extending Radium through plugins
-### Function `configure_radium_plugin` {#configure_radium_plugin}
+### configure_radium_plugin {#configure_radium_plugin}
 
 ~~~{.cmake}
 configure_radium_plugin(
@@ -631,5 +626,5 @@ radium_exported_resources(
 where `<resourcesPrefix>` corresponds to the parameter `PREFIX` used when installing the resources for the target `<namespace>::<libtarget>`.
 
 ## Configuring an application plugin
-See the dedicated how to [How to write your own plugin](@ref develplugin).
+See [How to write your own plugin](@ref develplugin).
 

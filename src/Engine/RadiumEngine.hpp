@@ -85,15 +85,13 @@ class RA_ENGINE_API RadiumEngine
     void getTasks( Core::TaskQueue* taskQueue, Scalar dt );
 
     /**
-     * @param priority Value used to rank the systems (see more in description)
-     *
      * System with high priority will always be used first. Systems with the same
      * priority are ranked randomly.
      * Default priority is 1 for all systems;
      *
      * @param name
      * @param system
-     * @param priority
+     * @param priority Value used to rank the systems
      */
     bool registerSystem( const std::string& name, Scene::System* system, int priority = 1 );
 
@@ -214,7 +212,7 @@ class RA_ENGINE_API RadiumEngine
     void popFboAndViewport();
 
     /// \name Time Management.
-    /// {
+    /// \{
 
     /**
      * \brief Toggles Real-time (on) or Constant (off) time flow.

@@ -145,7 +145,7 @@ class RA_ENGINE_API AttribArrayDisplayable : public Displayable
             }
             else
             {
-                /// \fixme Should never be here
+                /// \todo Should never be here
                 LOG( logDEBUG ) << "Invalid dirty bit notified on " << m_displayable->getName();
             }
         }
