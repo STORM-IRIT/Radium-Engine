@@ -32,7 +32,7 @@ class RenderTechnique;
 namespace Gui {
 /** Base class for gizmos, i.e. graphic tools to manipulate a transform.
  *
- * \fixme There is a lot of duplicated code shared between the different Gizmos (rotate, translate,
+ * \todo There is a lot of duplicated code shared between the different Gizmos (rotate, translate,
  * scale). This is due to the fact that they all have Render Objects in xyz directions, and which
  * can be selected with the same logic. An alternative would be to have an intermediate class ,
  * e.g. `XYZGizmo` which performs all the generic operations (e.g. render object coloring in

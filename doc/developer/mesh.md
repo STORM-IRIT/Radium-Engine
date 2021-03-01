@@ -1,4 +1,4 @@
-\page develmeshes API: 3D objects (a.k.a. Meshes)
+\page develmeshes  3D objects (a.k.a. Meshes)
 [TOC]
 
 # Geometry types

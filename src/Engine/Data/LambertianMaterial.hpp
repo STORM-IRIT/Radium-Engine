@@ -21,7 +21,7 @@ class RA_ENGINE_API LambertianMaterial final : public SimpleMaterial
   public:
     /**
      * Construct a named Lambertian material
-     * @param name The name of the material
+     * @param instanceName The name of the material
      */
     explicit LambertianMaterial( const std::string& instanceName );
 

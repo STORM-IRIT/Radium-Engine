@@ -19,8 +19,8 @@
 /// to the tree, and static_cast the result of getItem to the concrete class to use it.
 
 namespace Ra {
-
 namespace Gui {
+
 /**
  * Base class for element of the tree representation.
  * It just maintains a tree structure leaving the data storage to derived classes.
@@ -35,8 +35,8 @@ class RA_GUI_API TreeItem
     TreeItem( const TreeItem& ) = delete;
     TreeItem& operator=( const TreeItem& ) = delete;
 
-    // Interface
-
+    /// \name Interface
+    /// \{
     /// Returns the name of the represented item to be
     /// displayed in the Qt tree.
     virtual std::string getName() const = 0;
@@ -46,25 +46,27 @@ class RA_GUI_API TreeItem
 
     /// Return true if the represented object can be selected.
     virtual bool isSelectable() const = 0;
+    /// \}
 
-    // Other functions
+    /// \name Other functions
+    /// \{
 
-    // Return the index of this object in the parents' child list.
-    // Of course this won't work for the root item.
+    /// Return the index of this object in the parents' child list.
+    /// Of course this won't work for the root item.
     int getIndexInParent() const;
 
     bool isChecked() const { return m_checked; }
     void setChecked( bool checked = true ) { m_checked = checked; }
-
+    /// \}
   public:
-    // Tree structure variables
-
+    /// \name Tree structure variables
+    /// \{
     /// Parent object of item.
     TreeItem* m_parent {nullptr};
 
     /// Children of item in the tree.
     std::vector<std::unique_ptr<TreeItem>> m_children;
-
+    /// \}
   private:
     bool m_checked {true};
 };
@@ -78,8 +80,8 @@ class RA_GUI_API TreeModel : public QAbstractItemModel
   public:
     TreeModel( QObject* parent = nullptr ) : QAbstractItemModel( parent ) {}
 
-    // QAbstractItemModel interface
-
+    /// \name QAbstractItemModel interface
+    /// \{
     /** Returns the number of rows, i.e .the number of children of a given parent item.
      *
      * @param parent
@@ -142,6 +144,7 @@ class RA_GUI_API TreeModel : public QAbstractItemModel
      */
     Qt::ItemFlags flags( const QModelIndex& index ) const override;
 
+    /// \}
     /** Call this function to update the tree model to the current content of the engine.
      *
      */
