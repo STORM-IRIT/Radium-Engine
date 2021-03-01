@@ -1,11 +1,31 @@
 var conceptsmanual =
 [
-    [ "Concepts: Forward Render", "forwardrendererconcept.html", [
-      [ "1. Depth, ambient color and \"deferred info\" pass", "forwardrendererconcept.html#autotoc_md21", null ],
-      [ "2. Lighting pass", "forwardrendererconcept.html#autotoc_md22", null ],
-      [ "3. Ordered independent transparency", "forwardrendererconcept.html#autotoc_md23", null ],
-      [ "4. Post-process the whole <em>render pass</em>", "forwardrendererconcept.html#autotoc_md24", null ],
-      [ "5. Debug and UI render objects", "forwardrendererconcept.html#autotoc_md25", null ],
-      [ "6. Write final texture to framebuffer / backbuffer", "forwardrendererconcept.html#autotoc_md26", null ]
+    [ "[deprecated] Component Messenger", "componentMessenger.html", [
+      [ "Read", "componentMessenger.html#autotoc_md22", null ],
+      [ "Write", "componentMessenger.html#autotoc_md23", null ],
+      [ "Read'n'Write", "componentMessenger.html#autotoc_md24", null ],
+      [ "The <tt>setupIO()</tt> function", "componentMessenger.html#autotoc_md25", null ]
+    ] ],
+    [ "[deprecated] Event System", "eventSystem.html", [
+      [ "Notes for event handling the radium engine", "eventSystem.html#autotoc_md26", [
+        [ "Events identification", "eventSystem.html#autotoc_md27", null ],
+        [ "Events registering", "eventSystem.html#autotoc_md28", null ],
+        [ "Events queue", "eventSystem.html#autotoc_md29", null ]
+      ] ]
+    ] ],
+    [ "Plugin System", "pluginSystem.html", [
+      [ "Basic", "pluginSystem.html#autotoc_md36", null ],
+      [ "Plugin", "pluginSystem.html#autotoc_md37", null ],
+      [ "System", "pluginSystem.html#autotoc_md38", null ],
+      [ "Component", "pluginSystem.html#autotoc_md39", null ],
+      [ "Task", "pluginSystem.html#autotoc_md40", null ]
+    ] ],
+    [ "Forward Render", "forwardRenderer.html", [
+      [ "1. Depth, ambient color and \"deferred info\" pass", "forwardRenderer.html#autotoc_md30", null ],
+      [ "2. Lighting pass", "forwardRenderer.html#autotoc_md31", null ],
+      [ "3. Ordered independent transparency", "forwardRenderer.html#autotoc_md32", null ],
+      [ "4. Post-process the whole <em>render pass</em>", "forwardRenderer.html#autotoc_md33", null ],
+      [ "5. Debug and UI render objects", "forwardRenderer.html#autotoc_md34", null ],
+      [ "6. Write final texture to framebuffer / backbuffer", "forwardRenderer.html#autotoc_md35", null ]
     ] ]
 ];

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
+   &#160;<span id="projectnumber">0ec92a5f58e4777170e968581e0b2fb89a62553c</span>
    </div>
   </td>
  </tr>
@@ -257,7 +257,8 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Creates a named material with the given aspect </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td></td></tr>
+    <tr><td class="paramname">instanceName</td><td></td></tr>
+    <tr><td class="paramname">materialName</td><td></td></tr>
     <tr><td class="paramname">aspect</td><td></td></tr>
   </table>
   </dd>
@@ -403,7 +404,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the list of properties the material migh use in a shader. each property will be added to the shader used for rendering this material under the form "#define theProperty". Shaders that support the given property could then fully render the material. Others migh render the meterial eroneously.</p>
 <p>The defaul implementation returns an empty list.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>: Validate this proposal </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000025">Todo:</a></b></dt><dd>: Validate this proposal </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html#ae73e4271a8d07ae0eab25782831814ee">Ra::Engine::Data::ShaderParameterProvider</a>.</p>
 
@@ -563,7 +564,7 @@ Protected Attributes</h2></td></tr>
 
 <p><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> aspect. </p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00106">106</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00107">107</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -589,7 +590,7 @@ Protected Attributes</h2></td></tr>
 
 <p><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a> instance name. </p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00104">104</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00105">105</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -614,7 +615,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Dirty mark : true if the openGL state of the material need to be updated before next draw call </p>
 
-<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00109">109</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Material_8hpp_source.html#l00110">110</a> of file <a class="el" href="Material_8hpp_source.html">Material.hpp</a>.</p>
 
 </div>
 </div>
@@ -629,7 +630,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Data</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a></li>
-    <li class="footer">Generated on Thu Feb 25 2021 16:40:40 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 1 2021 10:53:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

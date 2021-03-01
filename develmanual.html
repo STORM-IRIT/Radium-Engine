@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
+   &#160;<span id="projectnumber">0ec92a5f58e4777170e968581e0b2fb89a62553c</span>
    </div>
   </td>
  </tr>
@@ -94,13 +94,21 @@ $(document).ready(function(){initNavTree('develmanual.html',''); initResizable()
 <div class="title">Developer manual </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><ul>
-<li><a class="el" href="develWithRadium.html">How to code in Radium</a></li>
+<div class="textblock"><p>There are three main options to work and develop using Radium:</p><ol type="1">
+<li>Write a plugin: full access to the Radium data structures, perfect to implement a new functionality: mesh processing, rendering.</li>
+<li>Write an application: give total control over the GUI, the camera settings, etc...</li>
+<li>Contribute to Radium libraries: to improve/extend core components of Radium, add tests.</li>
+</ol>
+<p>Radium offers several cmake functions to configure and build your extension.</p>
+<ul>
+<li><a class="el" href="cmakeutilities.html">CMake setup</a></li>
+<li><a class="el" href="develplugin.html">How to write your own plugin</a></li>
+<li><a class="el" href="apps.html">How to write your own application</a></li>
+<li><a class="el" href="develWithRadium.html">How to contribute to Radium Libraries</a></li>
 <li><a class="el" href="develCodingConvention.html">Coding conventions for Radium</a></li>
 <li><a class="el" href="develbuildchain.html">Radium Build Chain</a></li>
 <li><a class="el" href="api.html">API</a></li>
-<li><a class="el" href="extensions.html">Developing using Radium</a></li>
-<li><a class="el" href="develoldmanual.html">[deprecated old version]Radium Engine programmer manual</a> </li>
+<li><a class="el" href="develoldmanual.html">[deprecated] Radium Engine programmer manual</a> </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -108,7 +116,7 @@ $(document).ready(function(){initNavTree('develmanual.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Feb 25 2021 16:40:40 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 1 2021 10:53:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

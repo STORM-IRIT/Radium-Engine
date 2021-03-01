@@ -1,52 +1,62 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Rendering/RenderObjectManager.cpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Rendering/RenderObjectManager.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2181,5,2448,76"/>
-<area shape="rect" id="node2" href="$RenderObjectManager_8hpp.html" title=" " alt="" coords="854,199,1082,240"/>
-<area shape="rect" id="node25" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="3123,295,3315,322"/>
-<area shape="rect" id="node30" href="$Component_8hpp.html" title=" " alt="" coords="395,295,611,322"/>
-<area shape="rect" id="node32" href="$Entity_8hpp.html" title=" " alt="" coords="2081,206,2258,233"/>
-<area shape="rect" id="node35" href="$Mesh_8hpp.html" title=" " alt="" coords="3441,124,3609,151"/>
-<area shape="rect" id="node45" href="$RenderObject_8hpp.html" title=" " alt="" coords="1620,206,1876,233"/>
-<area shape="rect" id="node48" href="$SignalManager_8hpp.html" title=" " alt="" coords="2283,206,2520,233"/>
-<area shape="rect" id="node50" title=" " alt="" coords="3633,124,3708,151"/>
-<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title=" " alt="" coords="2318,377,2477,404"/>
-<area shape="rect" id="node7" title=" " alt="" coords="3585,377,3641,404"/>
-<area shape="rect" id="node8" title=" " alt="" coords="1603,377,1680,404"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1949,295,2013,322"/>
-<area shape="rect" id="node10" title=" " alt="" coords="736,295,779,322"/>
-<area shape="rect" id="node11" title=" " alt="" coords="2957,377,3019,404"/>
-<area shape="rect" id="node12" href="$Index_8hpp.html" title=" " alt="" coords="1177,377,1332,404"/>
-<area shape="rect" id="node16" href="$IndexMap_8hpp.html" title=" " alt="" coords="187,295,370,322"/>
-<area shape="rect" id="node21" href="$Types_8hpp.html" title=" " alt="" coords="1406,377,1527,404"/>
-<area shape="rect" id="node24" href="$RenderObjectTypes_8hpp.html" title=" " alt="" coords="854,288,1082,329"/>
-<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title=" " alt="" coords="2423,527,2585,553"/>
-<area shape="rect" id="node6" href="$OpenGL_8hpp.html" title=" " alt="" coords="2267,452,2416,479"/>
-<area shape="rect" id="node5" title=" " alt="" coords="2192,601,2256,628"/>
-<area shape="rect" id="node13" href="$RaCore_8hpp.html" title=" " alt="" coords="2491,452,2621,479"/>
-<area shape="rect" id="node14" title=" " alt="" coords="1337,452,1396,479"/>
-<area shape="rect" id="node15" href="$Index_8inl.html" title=" " alt="" coords="1167,452,1313,479"/>
-<area shape="rect" id="node17" title=" " alt="" coords="391,377,476,404"/>
-<area shape="rect" id="node18" title=" " alt="" coords="5,377,80,404"/>
-<area shape="rect" id="node19" title=" " alt="" coords="105,377,167,404"/>
-<area shape="rect" id="node20" href="$IndexMap_8inl.html" title=" " alt="" coords="191,377,366,404"/>
-<area shape="rect" id="node22" title=" " alt="" coords="1421,452,1513,479"/>
-<area shape="rect" id="node23" title=" " alt="" coords="1537,452,1663,479"/>
-<area shape="rect" id="node26" href="$Singleton_8hpp.html" title=" " alt="" coords="3129,377,3308,404"/>
-<area shape="rect" id="node27" title=" " alt="" coords="3461,377,3512,404"/>
-<area shape="rect" id="node28" title=" " alt="" coords="3047,377,3105,404"/>
-<area shape="rect" id="node29" title=" " alt="" coords="3353,377,3412,404"/>
-<area shape="rect" id="node31" href="$Component_8inl.html" title=" " alt="" coords="551,377,759,404"/>
-<area shape="rect" id="node33" href="$IndexedObject_8hpp.html" title=" " alt="" coords="1157,295,1368,322"/>
-<area shape="rect" id="node34" href="$Entity_8inl.html" title=" " alt="" coords="2089,295,2258,322"/>
-<area shape="rect" id="node36" href="$DisplayableObject_8hpp.html" title=" " alt="" coords="3811,206,4063,233"/>
-<area shape="rect" id="node37" href="$VectorArray_8hpp.html" title=" " alt="" coords="4088,377,4320,404"/>
-<area shape="rect" id="node38" href="$TriangleMesh_8hpp.html" title=" " alt="" coords="4057,295,4295,322"/>
-<area shape="rect" id="node39" href="$Color_8hpp.html" title=" " alt="" coords="3691,377,3842,404"/>
-<area shape="rect" id="node40" href="$Log_8hpp.html" title=" " alt="" coords="4371,295,4512,322"/>
-<area shape="rect" id="node41" title=" " alt="" coords="3491,295,3626,322"/>
-<area shape="rect" id="node42" title=" " alt="" coords="3563,206,3735,233"/>
-<area shape="rect" id="node43" href="$Mesh_8inl.html" title=" " alt="" coords="3227,206,3387,233"/>
-<area shape="rect" id="node44" href="$ShaderProgram_8hpp.html" title=" " alt="" coords="2713,295,2946,322"/>
-<area shape="rect" id="node46" href="$RenderTechnique_8hpp.html" title=" " alt="" coords="1494,295,1773,322"/>
-<area shape="rect" id="node47" title=" " alt="" coords="1819,377,1906,404"/>
-<area shape="rect" id="node49" href="$ItemEntry_8hpp.html" title=" " alt="" coords="2435,295,2637,322"/>
+<area shape="rect" id="node1" title=" " alt="" coords="4046,5,4312,76"/>
+<area shape="rect" id="node2" href="$RenderObjectManager_8hpp.html" title=" " alt="" coords="2330,348,2558,389"/>
+<area shape="rect" id="node27" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="3570,445,3762,471"/>
+<area shape="rect" id="node32" href="$Component_8hpp.html" title=" " alt="" coords="186,445,402,471"/>
+<area shape="rect" id="node34" href="$Entity_8hpp.html" title=" " alt="" coords="1154,355,1332,382"/>
+<area shape="rect" id="node37" href="$Mesh_8hpp.html" title=" " alt="" coords="3147,124,3315,151"/>
+<area shape="rect" id="node56" href="$RenderObject_8hpp.html" title=" " alt="" coords="3384,355,3640,382"/>
+<area shape="rect" id="node58" href="$SignalManager_8hpp.html" title=" " alt="" coords="4475,355,4712,382"/>
+<area shape="rect" id="node60" title=" " alt="" coords="4444,124,4519,151"/>
+<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title=" " alt="" coords="4029,534,4188,561"/>
+<area shape="rect" id="node8" title=" " alt="" coords="2239,534,2295,561"/>
+<area shape="rect" id="node9" title=" " alt="" coords="3403,534,3480,561"/>
+<area shape="rect" id="node10" title=" " alt="" coords="3071,445,3135,471"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1663,445,1706,471"/>
+<area shape="rect" id="node12" title=" " alt="" coords="1536,616,1598,643"/>
+<area shape="rect" id="node13" href="$Index_8hpp.html" title=" " alt="" coords="2582,534,2736,561"/>
+<area shape="rect" id="node17" href="$IndexMap_8hpp.html" title=" " alt="" coords="824,445,1006,471"/>
+<area shape="rect" id="node22" href="$Types_8hpp.html" title=" " alt="" coords="1656,534,1777,561"/>
+<area shape="rect" id="node26" href="$RenderObjectTypes_8hpp.html" title=" " alt="" coords="2818,437,3046,479"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title=" " alt="" coords="2034,691,2196,717"/>
+<area shape="rect" id="node7" href="$OpenGL_8hpp.html" title=" " alt="" coords="4034,616,4183,643"/>
+<area shape="rect" id="node5" title=" " alt="" coords="2622,765,2696,792"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1538,765,1602,792"/>
+<area shape="rect" id="node14" href="$RaCore_8hpp.html" title=" " alt="" coords="2050,616,2180,643"/>
+<area shape="rect" id="node15" title=" " alt="" coords="2503,616,2562,643"/>
+<area shape="rect" id="node16" href="$Index_8inl.html" title=" " alt="" coords="2586,616,2732,643"/>
+<area shape="rect" id="node18" title=" " alt="" coords="1259,534,1344,561"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1110,534,1184,561"/>
+<area shape="rect" id="node20" title=" " alt="" coords="824,534,886,561"/>
+<area shape="rect" id="node21" href="$IndexMap_8inl.html" title=" " alt="" coords="910,534,1085,561"/>
+<area shape="rect" id="node23" title=" " alt="" coords="342,616,434,643"/>
+<area shape="rect" id="node24" title=" " alt="" coords="42,616,169,643"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1663,616,1770,643"/>
+<area shape="rect" id="node28" href="$Singleton_8hpp.html" title=" " alt="" coords="3504,534,3683,561"/>
+<area shape="rect" id="node29" title=" " alt="" coords="3930,534,3980,561"/>
+<area shape="rect" id="node30" title=" " alt="" coords="3708,534,3765,561"/>
+<area shape="rect" id="node31" title=" " alt="" coords="4744,616,4803,643"/>
+<area shape="rect" id="node33" href="$Component_8inl.html" title=" " alt="" coords="143,534,351,561"/>
+<area shape="rect" id="node35" href="$IndexedObject_8hpp.html" title=" " alt="" coords="2431,445,2642,471"/>
+<area shape="rect" id="node36" href="$Entity_8inl.html" title=" " alt="" coords="578,445,748,471"/>
+<area shape="rect" id="node38" href="$DisplayableObject_8hpp.html" title=" " alt="" coords="1888,199,2140,225"/>
+<area shape="rect" id="node39" href="$VectorArray_8hpp.html" title=" " alt="" coords="1407,445,1639,471"/>
+<area shape="rect" id="node41" href="$TriangleMesh_8hpp.html" title=" " alt="" coords="2026,273,2265,300"/>
+<area shape="rect" id="node45" href="$Log_8hpp.html" title=" " alt="" coords="4455,534,4596,561"/>
+<area shape="rect" id="node48" href="$Color_8hpp.html" title=" " alt="" coords="980,355,1130,382"/>
+<area shape="rect" id="node52" title=" " alt="" coords="3981,273,4116,300"/>
+<area shape="rect" id="node53" title=" " alt="" coords="3050,199,3222,225"/>
+<area shape="rect" id="node54" href="$Mesh_8inl.html" title=" " alt="" coords="3247,199,3407,225"/>
+<area shape="rect" id="node40" href="$AlignedStdVector_8hpp.html" title=" " alt="" coords="1802,527,2002,568"/>
+<area shape="rect" id="node42" href="$AbstractGeometry_8hpp.html" title=" " alt="" coords="1832,445,2102,471"/>
+<area shape="rect" id="node43" href="$Attribs_8hpp.html" title=" " alt="" coords="2582,355,2744,382"/>
+<area shape="rect" id="node44" href="$Observable_8hpp.html" title=" " alt="" coords="4343,445,4535,471"/>
+<area shape="rect" id="node51" href="$TriangleMesh_8inl.html" title=" " alt="" coords="2768,355,2998,382"/>
+<area shape="rect" id="node47" title=" " alt="" coords="4293,534,4380,561"/>
+<area shape="rect" id="node46" title=" " alt="" coords="4430,616,4488,643"/>
+<area shape="rect" id="node49" href="$Math_8hpp.html" title=" " alt="" coords="1031,445,1186,471"/>
+<area shape="rect" id="node50" title=" " alt="" coords="1210,445,1282,471"/>
+<area shape="rect" id="node55" href="$ShaderProgram_8hpp.html" title=" " alt="" coords="3210,445,3444,471"/>
+<area shape="rect" id="node57" href="$RenderTechnique_8hpp.html" title=" " alt="" coords="3786,445,4065,471"/>
+<area shape="rect" id="node59" href="$ItemEntry_8hpp.html" title=" " alt="" coords="4711,445,4914,471"/>
 </map>

@@ -1,52 +1,55 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Data/SimpleMaterial.cpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/Data/SimpleMaterial.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1271,5,1470,76"/>
-<area shape="rect" id="node2" href="$SimpleMaterial_8hpp.html" title=" " alt="" coords="1255,124,1487,151"/>
-<area shape="rect" id="node47" href="$TextureManager_8hpp.html" title=" " alt="" coords="1860,273,2097,300"/>
-<area shape="rect" id="node48" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="296,423,488,449"/>
-<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title=" " alt="" coords="1958,572,2117,599"/>
-<area shape="rect" id="node14" title=" " alt="" coords="48,497,99,524"/>
-<area shape="rect" id="node15" title=" " alt="" coords="945,572,1004,599"/>
-<area shape="rect" id="node16" href="$Color_8hpp.html" title=" " alt="" coords="1759,423,1910,449"/>
-<area shape="rect" id="node25" href="$Material_8hpp.html" title=" " alt="" coords="1277,199,1464,225"/>
-<area shape="rect" id="node45" href="$Texture_8hpp.html" title=" " alt="" coords="1809,348,1991,375"/>
-<area shape="rect" id="node46" href="$SimpleMaterial_8inl.html" title=" " alt="" coords="1029,199,1253,225"/>
-<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title=" " alt="" coords="1374,647,1535,673"/>
-<area shape="rect" id="node10" href="$OpenGL_8hpp.html" title=" " alt="" coords="2448,647,2597,673"/>
-<area shape="rect" id="node5" title=" " alt="" coords="1272,729,1341,755"/>
-<area shape="rect" id="node6" title=" " alt="" coords="1365,729,1427,755"/>
-<area shape="rect" id="node7" title=" " alt="" coords="1451,729,1531,755"/>
-<area shape="rect" id="node8" title=" " alt="" coords="1151,729,1225,755"/>
-<area shape="rect" id="node9" title=" " alt="" coords="1555,729,1619,755"/>
-<area shape="rect" id="node11" title=" " alt="" coords="2623,729,2793,755"/>
-<area shape="rect" id="node12" title=" " alt="" coords="2260,729,2423,755"/>
-<area shape="rect" id="node13" title=" " alt="" coords="2447,721,2598,763"/>
-<area shape="rect" id="node17" href="$Math_8hpp.html" title=" " alt="" coords="2307,497,2461,524"/>
-<area shape="rect" id="node22" title=" " alt="" coords="1639,572,1731,599"/>
-<area shape="rect" id="node23" title=" " alt="" coords="1755,572,1882,599"/>
-<area shape="rect" id="node24" title=" " alt="" coords="1957,497,2029,524"/>
-<area shape="rect" id="node18" href="$RaCore_8hpp.html" title=" " alt="" coords="1353,572,1484,599"/>
-<area shape="rect" id="node19" title=" " alt="" coords="2312,572,2397,599"/>
-<area shape="rect" id="node20" title=" " alt="" coords="2422,572,2485,599"/>
-<area shape="rect" id="node21" href="$Math_8inl.html" title=" " alt="" coords="2141,572,2288,599"/>
-<area shape="rect" id="node26" href="$Types_8hpp.html" title=" " alt="" coords="1558,497,1679,524"/>
-<area shape="rect" id="node28" href="$RenderParameters_8hpp.html" title=" " alt="" coords="908,273,1161,300"/>
-<area shape="rect" id="node44" href="$Material_8inl.html" title=" " alt="" coords="1281,273,1460,300"/>
-<area shape="rect" id="node27" title=" " alt="" coords="1508,572,1615,599"/>
-<area shape="rect" id="node29" title=" " alt="" coords="380,572,423,599"/>
-<area shape="rect" id="node30" title=" " alt="" coords="242,572,305,599"/>
-<area shape="rect" id="node31" href="$AlignedAllocator_8hpp.html" title=" " alt="" coords="623,348,887,375"/>
-<area shape="rect" id="node36" href="$Log_8hpp.html" title=" " alt="" coords="1139,497,1280,524"/>
-<area shape="rect" id="node39" href="$RenderParameters_8inl.html" title=" " alt="" coords="912,348,1157,375"/>
-<area shape="rect" id="node32" title=" " alt="" coords="693,423,803,449"/>
-<area shape="rect" id="node33" title=" " alt="" coords="827,423,898,449"/>
-<area shape="rect" id="node34" title=" " alt="" coords="512,423,579,449"/>
-<area shape="rect" id="node35" title=" " alt="" coords="603,423,669,449"/>
-<area shape="rect" id="node37" title=" " alt="" coords="1180,572,1239,599"/>
-<area shape="rect" id="node38" title=" " alt="" coords="1263,572,1329,599"/>
-<area shape="rect" id="node40" href="$ShaderProgram_8hpp.html" title=" " alt="" coords="922,423,1155,449"/>
-<area shape="rect" id="node41" href="$ShaderConfiguration_8hpp.html" title=" " alt="" coords="393,497,658,524"/>
-<area shape="rect" id="node42" title=" " alt="" coords="633,572,689,599"/>
-<area shape="rect" id="node43" title=" " alt="" coords="835,497,912,524"/>
-<area shape="rect" id="node49" href="$Singleton_8hpp.html" title=" " alt="" coords="1304,497,1483,524"/>
-<area shape="rect" id="node50" title=" " alt="" coords="311,497,369,524"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1200,5,1399,76"/>
+<area shape="rect" id="node2" href="$SimpleMaterial_8hpp.html" title=" " alt="" coords="1183,124,1415,151"/>
+<area shape="rect" id="node50" href="$TextureManager_8hpp.html" title=" " alt="" coords="1635,273,1873,300"/>
+<area shape="rect" id="node51" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="379,423,571,449"/>
+<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title=" " alt="" coords="1452,572,1611,599"/>
+<area shape="rect" id="node14" title=" " alt="" coords="239,497,290,524"/>
+<area shape="rect" id="node15" title=" " alt="" coords="2291,572,2350,599"/>
+<area shape="rect" id="node16" href="$Color_8hpp.html" title=" " alt="" coords="596,423,747,449"/>
+<area shape="rect" id="node25" href="$Material_8hpp.html" title=" " alt="" coords="1075,199,1262,225"/>
+<area shape="rect" id="node48" href="$Texture_8hpp.html" title=" " alt="" coords="1449,348,1630,375"/>
+<area shape="rect" id="node49" href="$SimpleMaterial_8inl.html" title=" " alt="" coords="1337,199,1561,225"/>
+<area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title=" " alt="" coords="512,647,673,673"/>
+<area shape="rect" id="node10" href="$OpenGL_8hpp.html" title=" " alt="" coords="2330,647,2479,673"/>
+<area shape="rect" id="node5" title=" " alt="" coords="421,729,490,755"/>
+<area shape="rect" id="node6" title=" " alt="" coords="514,729,575,755"/>
+<area shape="rect" id="node7" title=" " alt="" coords="599,729,679,755"/>
+<area shape="rect" id="node8" title=" " alt="" coords="266,729,341,755"/>
+<area shape="rect" id="node9" title=" " alt="" coords="703,729,767,755"/>
+<area shape="rect" id="node11" title=" " alt="" coords="2319,729,2490,755"/>
+<area shape="rect" id="node12" title=" " alt="" coords="2514,729,2677,755"/>
+<area shape="rect" id="node13" title=" " alt="" coords="2144,721,2295,763"/>
+<area shape="rect" id="node17" href="$Math_8hpp.html" title=" " alt="" coords="701,497,855,524"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1049,572,1141,599"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1165,572,1292,599"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1031,497,1103,524"/>
+<area shape="rect" id="node18" href="$RaCore_8hpp.html" title=" " alt="" coords="474,572,605,599"/>
+<area shape="rect" id="node19" title=" " alt="" coords="853,572,938,599"/>
+<area shape="rect" id="node20" title=" " alt="" coords="963,572,1025,599"/>
+<area shape="rect" id="node21" href="$Math_8inl.html" title=" " alt="" coords="682,572,829,599"/>
+<area shape="rect" id="node26" href="$Types_8hpp.html" title=" " alt="" coords="1128,497,1249,524"/>
+<area shape="rect" id="node28" href="$RenderParameters_8hpp.html" title=" " alt="" coords="781,273,1034,300"/>
+<area shape="rect" id="node47" href="$Material_8inl.html" title=" " alt="" coords="1138,273,1317,300"/>
+<area shape="rect" id="node27" title=" " alt="" coords="1317,572,1423,599"/>
+<area shape="rect" id="node29" title=" " alt="" coords="1985,572,2027,599"/>
+<area shape="rect" id="node30" title=" " alt="" coords="5,572,68,599"/>
+<area shape="rect" id="node31" href="$AlignedAllocator_8hpp.html" title=" " alt="" coords="581,348,845,375"/>
+<area shape="rect" id="node36" href="$Log_8hpp.html" title=" " alt="" coords="74,497,215,524"/>
+<area shape="rect" id="node39" href="$RenderParameters_8inl.html" title=" " alt="" coords="970,348,1215,375"/>
+<area shape="rect" id="node32" title=" " alt="" coords="771,423,881,449"/>
+<area shape="rect" id="node33" title=" " alt="" coords="905,423,976,449"/>
+<area shape="rect" id="node34" title=" " alt="" coords="1001,423,1067,449"/>
+<area shape="rect" id="node35" title=" " alt="" coords="1092,423,1157,449"/>
+<area shape="rect" id="node37" title=" " alt="" coords="254,572,313,599"/>
+<area shape="rect" id="node38" title=" " alt="" coords="163,572,230,599"/>
+<area shape="rect" id="node40" href="$ShaderProgram_8hpp.html" title=" " alt="" coords="1696,423,1929,449"/>
+<area shape="rect" id="node41" href="$ShaderConfiguration_8hpp.html" title=" " alt="" coords="1680,497,1945,524"/>
+<area shape="rect" id="node42" title=" " alt="" coords="1874,572,1930,599"/>
+<area shape="rect" id="node44" title=" " alt="" coords="1426,497,1503,524"/>
+<area shape="rect" id="node45" href="$ShaderProgram_8inl.html" title=" " alt="" coords="2072,497,2215,524"/>
+<area shape="rect" id="node43" title=" " alt="" coords="1791,572,1834,599"/>
+<area shape="rect" id="node46" title=" " alt="" coords="2067,572,2219,599"/>
+<area shape="rect" id="node52" href="$Singleton_8hpp.html" title=" " alt="" coords="447,497,626,524"/>
+<area shape="rect" id="node53" title=" " alt="" coords="365,497,423,524"/>
 </map>

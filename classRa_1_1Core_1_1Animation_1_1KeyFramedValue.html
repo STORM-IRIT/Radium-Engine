@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
+   &#160;<span id="projectnumber">0ec92a5f58e4777170e968581e0b2fb89a62553c</span>
    </div>
   </td>
  </tr>
@@ -286,12 +286,11 @@ template&lt;typename VALUE_TYPE &gt; </div>
   <table class="params">
     <tr><td class="paramname">frame</td><td>the first keyframe value. </td></tr>
     <tr><td class="paramname">t</td><td>the first keyframe point in time. </td></tr>
-    <tr><td class="paramname">interpolator</td><td>the function used to interpolate between keyframes. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00080">80</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00079">79</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -359,9 +358,9 @@ template&lt;typename VALUE_TYPE &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>￼ * </p><dl class="section return"><dt>Returns</dt><dd>the value at time <code>t</code>, interpolated from the keyframes using the given interpolator. ￼ </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the value at time <code>t</code>, interpolated from the keyframes using the given interpolator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00167">167</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00166">166</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -399,7 +398,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>a triplet(i,j,dt), where i is the index for the keyframe preceding t, j is the index for the keyframe following t and dt \( \in [0;1] \) is the linear parameter of <code>t</code> between times <code>ti</code> and <code>tj</code> at keyframes i and j. </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If <code>t</code> is lower than the first keyframe's time tf, then <code>i</code> = <code>j</code> = 0 and <code>dt</code> = 0. If <code>t</code> is higher than the last keyframe's time tl, then <code>i</code> = <code>j</code> = the index of the last keyframe and <code>dt</code> = 0. If <code>t</code> is an exact match on a keyframe's time tt, then <code>i</code> = <code>j</code> = the index of the keyframe and <code>dt</code> = 0. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00185">185</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00184">184</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -429,7 +428,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the collection of keyframes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00107">107</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00106">106</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -461,7 +460,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a170dcf7c25367d3922bc4335e57aef4b">Ra::Core::Animation::KeyFramedValueBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00086">86</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00085">85</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -500,9 +499,9 @@ template&lt;typename VALUE_TYPE &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>￼ * Inserts a keyframe at time <code>t</code> corresponding to the value interpolated at <code>t</code> using the given interpolator. ￼ </p>
+<p>Inserts a keyframe at time <code>t</code> corresponding to the value interpolated at <code>t</code> using the given interpolator. </p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00137">137</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00136">136</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -541,9 +540,9 @@ template&lt;typename VALUE_TYPE &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>￼ * Inserts a new keyframe with value <code>frame</code> at time <code>t</code>. ￼ * </p><dl class="section note"><dt>Note</dt><dd>If a keyframe already exists for <code>t</code>, it will be overwritten. ￼ </dd></dl>
+<p>Inserts a new keyframe with value <code>frame</code> at time <code>t</code>. </p><dl class="section note"><dt>Note</dt><dd>If a keyframe already exists for <code>t</code>, it will be overwritten. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00118">118</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00117">117</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -586,7 +585,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a670898a9faa41d69a540efbb1db240ee">Ra::Core::Animation::KeyFramedValueBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00154">154</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00153">153</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -617,7 +616,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if *this and <code>keyframe</code> do not have the exact same keyframes, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00231">231</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00230">230</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -676,7 +675,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if *this and <code>keyframe</code> have the exact same keyframes, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00223">223</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00222">222</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -707,7 +706,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the <code>i-th</code> keyframe. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00112">112</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00111">111</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -740,7 +739,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#acf23ff1af56986827f10a4636fa383da">Ra::Core::Animation::KeyFramedValueBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00145">145</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00144">144</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -772,7 +771,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 
 <p>Implements <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueBase.html#a5ee4085eca648244f7bcef756871e81b">Ra::Core::Animation::KeyFramedValueBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00102">102</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00101">101</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -801,7 +800,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 
 <p>The list of keyframes. </p>
 
-<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00238">238</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="KeyFramedValue_8hpp_source.html#l00237">237</a> of file <a class="el" href="KeyFramedValue_8hpp_source.html">KeyFramedValue.hpp</a>.</p>
 
 </div>
 </div>
@@ -814,7 +813,7 @@ template&lt;typename VALUE_TYPE &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Animation.html">Animation</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValue.html">KeyFramedValue</a></li>
-    <li class="footer">Generated on Thu Feb 25 2021 16:40:40 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 1 2021 10:53:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -29,13 +29,13 @@ var NAVTREE =
     [ "Radium Concepts", "conceptsmanual.html", "conceptsmanual" ],
     [ "Developer manual", "develmanual.html", "develmanual" ],
     [ "Licenses", "licenses.html", [
-      [ "Radium contributors", "licenses.html#autotoc_md2", null ],
-      [ "Third-party libraries", "licenses.html#autotoc_md3", [
-        [ "Qt", "licenses.html#autotoc_md4", null ],
-        [ "Eigen", "licenses.html#autotoc_md5", null ],
-        [ "Assimp", "licenses.html#autotoc_md6", null ],
-        [ "STB Image", "licenses.html#autotoc_md7", null ],
-        [ "Additional material", "licenses.html#autotoc_md8", null ]
+      [ "Radium contributors", "licenses.html#autotoc_md3", null ],
+      [ "Third-party libraries", "licenses.html#autotoc_md4", [
+        [ "Qt", "licenses.html#autotoc_md5", null ],
+        [ "Eigen", "licenses.html#autotoc_md6", null ],
+        [ "Assimp", "licenses.html#autotoc_md7", null ],
+        [ "STB Image", "licenses.html#autotoc_md8", null ],
+        [ "Additional material", "licenses.html#autotoc_md9", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -86,21 +86,21 @@ var NAVTREEINDEX =
 "Log_8hpp.html#ad7538d961d008c77173d308106df52c8",
 "RadiumPluginInterface_8hpp_source.html",
 "Tex_8hpp.html",
-"classQAbstractItemModel.html",
-"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#aaa1819402d479949bf166b3f4f4e4a18",
-"classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html#a49676d942f40fd1c12c5bb7084528143",
-"classRa_1_1Core_1_1Geometry_1_1Spline.html#ad1b5b900b78d5f66c3f40948e55b668a",
-"classRa_1_1Core_1_1Utils_1_1Attrib.html#ab5eaed58d457c665ff87f510a85c2838",
-"classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a0c6a0e09f5c16664cfdecff1679beba8",
-"classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a4089f4d00d229e66d855ee11b752d21c",
-"classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a31f912dff1496051766cf1c78fa026c6",
-"classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a8882f6f095ccf5ca2fbd4d4c524f736a",
-"classRa_1_1Gui_1_1BaseApplication.html#a62590cb32a648351b33d3571d324e8e8",
-"classRa_1_1Gui_1_1SimpleWindow.html#a588a1198153ac30b59fa71d4c52e8f49",
-"classRa_1_1Gui_1_1WindowQt.html",
-"develoldmanual.html#autotoc_md90",
-"namespacemembers_g.html",
-"structRa_1_1FrameTimerData.html#a14e57c08253004ab500702946340be10"
+"basicsmanual.html",
+"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a916a26ecb0361b1db0669ef483df9466",
+"classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html",
+"classRa_1_1Core_1_1Geometry_1_1Spline.html#ab9c32c7330985cf31ec5444fc8f16301",
+"classRa_1_1Core_1_1Utils_1_1Attrib.html#ab2c8f98c818cc868489801b1dfc7cb76",
+"classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html",
+"classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a3edf12827e83ece5e47fd89b65ac8562",
+"classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#a227614044bc14f4ee03de697bba67643",
+"classRa_1_1Engine_1_1Scene_1_1ComponentMessenger.html#a4d361720b74ab4b82ef882a33232ca97",
+"classRa_1_1Gui_1_1BaseApplication.html#a5c82472cd2a9b87417cdf42a96ebd776",
+"classRa_1_1Gui_1_1SimpleWindow.html#a169b6077c7e9df1092eb240cacc3c2a9",
+"classRa_1_1Gui_1_1Viewer.html#afc6e445d0f1225ebfea8f7236da1df0c",
+"develoldmanual.html#autotoc_md101",
+"namespacemembers_func_n.html",
+"structRa_1_1Engine_1_1Scene_1_1ItemEntry.html#a9673507f752d5efee0439afd0e52892b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
+   &#160;<span id="projectnumber">0ec92a5f58e4777170e968581e0b2fb89a62553c</span>
    </div>
   </td>
  </tr>
@@ -95,20 +95,20 @@ $(document).ready(function(){initNavTree('develbuildchain.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md30">Installation directory</a></li>
-<li class="level1"><a href="#autotoc_md31">Radium Libraries</a><ul><li class="level2"><a href="#autotoc_md32">Overview</a></li>
-<li class="level2"><a href="#autotoc_md33">Dependencies between libraries</a></li>
+<ul><li class="level1"><a href="#autotoc_md44">Installation directory</a></li>
+<li class="level1"><a href="#autotoc_md45">Radium Libraries</a><ul><li class="level2"><a href="#autotoc_md46">Overview</a></li>
+<li class="level2"><a href="#autotoc_md47">Dependencies between libraries</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md34">External dependencies</a><ul><li class="level2"><a href="#autotoc_md35">Fetch and build at configure time</a></li>
-<li class="level2"><a href="#autotoc_md36">Building and installing Radium dependencies once for all</a></li>
-<li class="level2"><a href="#autotoc_md37">User provided external dependencies</a></li>
+<li class="level1"><a href="#autotoc_md48">External dependencies</a><ul><li class="level2"><a href="#autotoc_md49">Fetch and build at configure time</a></li>
+<li class="level2"><a href="#autotoc_md50">Building and installing Radium dependencies once for all</a></li>
+<li class="level2"><a href="#autotoc_md51">User provided external dependencies</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md38">Coverage</a></li>
+<li class="level1"><a href="#autotoc_md52">Coverage</a></li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md30"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md44"></a>
 Installation directory</h1>
 <p>By default, <code>${CMAKE_INSTALL_PREFIX}</code> is set as follow:</p>
 <ul>
@@ -119,9 +119,9 @@ Installation directory</h1>
 <li>For Debug or RelWithDebInfo build</li>
 </ul>
 <div class="fragment"><div class="line">set(RADIUM_BUNDLE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Bundle-${CMAKE_CXX_COMPILER_ID}-${CMAKE_BUILD_TYPE})</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md31"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md45"></a>
 Radium Libraries</h1>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md46"></a>
 Overview</h2>
 <p>Radium is split in 5 libraries: Core, Engine, Gui, UI and PluginBase. The compilation of each library is controlled by the following cmake options</p>
 <div class="fragment"><div class="line">option(RADIUM_GENERATE_LIB_CORE       &quot;Include Radium::Core in CMake project&quot; ON)</div>
@@ -129,7 +129,7 @@ Overview</h2>
 <div class="line">option(RADIUM_GENERATE_LIB_ENGINE     &quot;Include Radium::Engine in CMake project&quot; ON)</div>
 <div class="line">option(RADIUM_GENERATE_LIB_GUI    &quot;Include Radium::Gui in CMake project&quot; ON)</div>
 <div class="line">option(RADIUM_GENERATE_LIB_PLUGINBASE &quot;Include Radium::PluginBase in CMake project&quot; ON)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md33"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md47"></a>
 Dependencies between libraries</h2>
 <div class="fragment"><div class="line">add_dependencies (${ra_engine_target} PUBLIC Radium::Core)</div>
 <div class="line">add_dependencies (${ra_io_target} PUBLIC Radium::Core)</div>
@@ -139,10 +139,10 @@ Dependencies between libraries</h2>
 <ul>
 <li>When enabled using <code>RADIUM_GENERATE_LIB_***</code>, each library has a compilation target: <code>Core</code>, <code>Engine</code>, ...</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md34"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 External dependencies</h1>
 <p>External dependencies can be fetched and built at configure time or pre build once for allowing</p>
-<h2><a class="anchor" id="autotoc_md35"></a>
+<h2><a class="anchor" id="autotoc_md49"></a>
 Fetch and build at configure time</h2>
 <p>Each library comes with its own dependencies, which are fetched and built at <b>configure</b> time:</p>
 <div class="fragment"><div class="line">$ cmake .. -DRADIUM_GENERATE_LIB_IO=OFF -DRADIUM_GENERATE_LIB_ENGINE=OFF -DRADIUM_GENERATE_LIB_GUI=OFF -DRADIUM_GENERATE_LIB_PLUGINBASE=OFF -DRADIUM_ENABLE_TESTING=OFF</div>
@@ -187,7 +187,7 @@ Fetch and build at configure time</h2>
 <p>In order to save compilation time, dependencies are processed at the first run, and then skipped. To force processing again the dependencies of a given library, turn on the associated option</p>
 <div class="fragment"><div class="line">OPTION( RADIUM_SKIP_${NAME_UPPER}_EXTERNAL &quot;[addExternalFolder] Skip updating ${NAME}::external (disable for rebuild)&quot; ON)</div>
 </div><!-- fragment --><p>where <code>$NAME_UPPER</code> is <code>CORE</code>, <code>ENGINE</code>, <code>GUI</code>, <code>PLUGINBASE</code> or <code>IO</code>. </p><dl class="section note"><dt>Note</dt><dd>The option <code>RADIUM_SKIP_${NAME_UPPER}_EXTERNAL</code> is generated only if <code>RADIUM_GENERATE_LIB_${NAME_UPPER}</code> is <code>ON</code>.</dd></dl>
-<h2><a class="anchor" id="autotoc_md36"></a>
+<h2><a class="anchor" id="autotoc_md50"></a>
 Building and installing Radium dependencies once for all</h2>
 <p>Radium dependencies can be built and installed alone, without building the whole Radium project.</p>
 <p>The file <code>external/CMakeLists.txt</code> could be used as a standalone project to install all the Radium dependencies in any location <em>outside Radium-Engine source dir</em> (if you try to build and install external as a subdir of Radium-Engine source, cmake configuration will fail).</p>
@@ -223,7 +223,7 @@ Building and installing Radium dependencies once for all</h2>
 <div class="line">-Dassimp_DIR      /path/to/external/install/lib/cmake/assimp-5.0/ \</div>
 <div class="line">-Dtinyply_DIR     /path/to/external/install/lib/cmake/tinyply/ \</div>
 <div class="line">.......</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md37"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md51"></a>
 User provided external dependencies</h2>
 <p>You can use your own installation of a local dependency instead of letting cmake fetch and compile it. To this end, just provide the corresponding '*_DIR' to cmake at configuration time (with '-D' option, configuration file or toolchain file, please refer to cmake documentation).</p>
 <p>Currently supported (note that these paths must refer to the installation directory of the corresponding library):</p>
@@ -278,7 +278,7 @@ User provided external dependencies</h2>
 </li>
 </ul>
 <dl class="section warning"><dt>Warning</dt><dd>You have to take care of the consistency of the external dependencies, e.g. it's not possible to use your version of globjects without providing your version of eigen, otherwise you will have mixed version in Radium.</dd></dl>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md52"></a>
 Coverage</h1>
 <p>You can generate <a href="http://ltp.sourceforge.net/coverage/lcov.php"><code>lcov</code></a> output files to check tests coverage. To this end, both <code>RADIUM_ENABLE_TESTING=ON</code> and <code>RADIUM_ENABLE_COVERAGE=ON</code> have to be passed to cmake, works on Linux in Debug. Then the target <code>lcov-capture</code> builds and run all the necessary steps and produce a file <code>total.info</code> in your build dir. Please check CMakeLists.txt for the detailed steps, and <code>lcov documentation</code> for further processing of <code>total.info</code> to generate an html report. </p>
 </div></div><!-- contents -->
@@ -288,7 +288,7 @@ Coverage</h1>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Thu Feb 25 2021 16:40:40 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 1 2021 10:53:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

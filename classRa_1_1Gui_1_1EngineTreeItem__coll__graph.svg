@@ -74,29 +74,35 @@ var sectionId = 'dynsection-1';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Gui_1_1TreeItem.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="223,-1218.5 223,-1374.5 341,-1374.5 341,-1218.5 223,-1218.5"/>
-<text text-anchor="middle" x="282" y="-1362.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TreeItem</text>
-<polyline fill="none" stroke="black" points="223,-1355.5 341,-1355.5 "/>
-<text text-anchor="middle" x="282" y="-1343.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="223,-1336.5 341,-1336.5 "/>
-<text text-anchor="start" x="231" y="-1324.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TreeItem()</text>
-<text text-anchor="start" x="231" y="-1313.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~TreeItem()</text>
-<text text-anchor="start" x="231" y="-1302.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TreeItem()</text>
-<text text-anchor="start" x="231" y="-1291.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="231" y="-1280.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getName()</text>
-<text text-anchor="start" x="231" y="-1269.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
-<text text-anchor="start" x="231" y="-1258.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isSelectable()</text>
-<text text-anchor="start" x="231" y="-1247.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndexInParent()</text>
-<text text-anchor="start" x="231" y="-1236.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isChecked()</text>
-<text text-anchor="start" x="231" y="-1225.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setChecked()</text>
+<polygon fill="white" stroke="black" points="223,-1185.5 223,-1407.5 341,-1407.5 341,-1185.5 223,-1185.5"/>
+<text text-anchor="middle" x="282" y="-1395.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::TreeItem</text>
+<polyline fill="none" stroke="black" points="223,-1388.5 341,-1388.5 "/>
+<text text-anchor="middle" x="282" y="-1376.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="223,-1369.5 341,-1369.5 "/>
+<text text-anchor="start" x="231" y="-1357.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TreeItem()</text>
+<text text-anchor="start" x="231" y="-1346.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~TreeItem()</text>
+<text text-anchor="start" x="231" y="-1335.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ TreeItem()</text>
+<text text-anchor="start" x="231" y="-1324.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="231" y="-1313.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getName()</text>
+<text text-anchor="start" x="231" y="-1302.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isValid()</text>
+<text text-anchor="start" x="231" y="-1291.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isSelectable()</text>
+<text text-anchor="start" x="231" y="-1280.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndexInParent()</text>
+<text text-anchor="start" x="231" y="-1269.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ isChecked()</text>
+<text text-anchor="start" x="231" y="-1258.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setChecked()</text>
+<text text-anchor="start" x="231" y="-1247.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getName()</text>
+<text text-anchor="start" x="231" y="-1236.5" font-family="Helvetica,sans-Serif" font-size="10.00">* isValid()</text>
+<text text-anchor="start" x="231" y="-1225.5" font-family="Helvetica,sans-Serif" font-size="10.00">* isSelectable()</text>
+<text text-anchor="start" x="231" y="-1214.5" font-family="Helvetica,sans-Serif" font-size="10.00">* getIndexInParent()</text>
+<text text-anchor="start" x="231" y="-1203.5" font-family="Helvetica,sans-Serif" font-size="10.00">* isChecked()</text>
+<text text-anchor="start" x="231" y="-1192.5" font-family="Helvetica,sans-Serif" font-size="10.00">* setChecked()</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node1 -->
 <g id="edge1" class="edge">
 <title>Node2&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M269.51,-1208.3C260.03,-1172.39 243.34,-1133.34 214,-1108 183.79,-1081.91 160.66,-1109.8 126,-1090 72.2,-1059.27 51,-1034.45 51,-972.5 51,-972.5 51,-972.5 51,-204.5 51,-161.58 56.53,-112.61 61.09,-79.55"/>
-<polygon fill="none" stroke="midnightblue" points="266.2,-1209.47 272,-1218.33 272.99,-1207.78 266.2,-1209.47"/>
+<path fill="none" stroke="midnightblue" d="M259.05,-1176.01C249.04,-1150.47 234.66,-1125.84 214,-1108 183.79,-1081.91 160.66,-1109.8 126,-1090 72.2,-1059.27 51,-1034.45 51,-972.5 51,-972.5 51,-972.5 51,-204.5 51,-161.58 56.53,-112.61 61.09,-79.55"/>
+<polygon fill="none" stroke="midnightblue" points="255.79,-1177.29 262.55,-1185.46 262.36,-1174.86 255.79,-1177.29"/>
 </g>
 <!-- Node2&#45;&gt;Node2 -->
 <g id="edge9" class="edge">
@@ -122,8 +128,8 @@ var sectionId = 'dynsection-1';
 <!-- Node2&#45;&gt;Node4 -->
 <g id="edge4" class="edge">
 <title>Node2&#45;&gt;Node4</title>
-<path fill="none" stroke="#404040" d="M276.25,-1218.13C271.6,-1155.55 265.21,-1069.57 261.36,-1017.69"/>
-<polygon fill="none" stroke="#404040" points="261.35,-1017.55 256.91,-1011.87 260.46,-1005.59 264.89,-1011.27 261.35,-1017.55"/>
+<path fill="none" stroke="#404040" d="M273.81,-1185.25C269.54,-1127.86 264.56,-1060.84 261.35,-1017.59"/>
+<polygon fill="none" stroke="#404040" points="261.34,-1017.48 256.91,-1011.79 260.45,-1005.51 264.89,-1011.2 261.34,-1017.48"/>
 <text text-anchor="middle" x="278.5" y="-1065.5" font-family="Helvetica,sans-Serif" font-size="10.00"> +ptr</text>
 </g>
 <!-- Node3 -->
@@ -143,8 +149,8 @@ var sectionId = 'dynsection-1';
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge">
 <title>Node3&#45;&gt;Node2</title>
-<path fill="none" stroke="#404040" d="M339.4,-774.2C339.59,-805.8 339.37,-854.68 337,-897 331.02,-1003.95 312.46,-1125.79 298.55,-1206.29"/>
-<polygon fill="none" stroke="#404040" points="298.5,-1206.53 301.41,-1213.13 296.44,-1218.35 293.53,-1211.75 298.5,-1206.53"/>
+<path fill="none" stroke="#404040" d="M339.4,-774.2C339.59,-805.8 339.37,-854.68 337,-897 331.79,-990.19 317.03,-1094.68 304.11,-1173.28"/>
+<polygon fill="none" stroke="#404040" points="304.1,-1173.33 307.07,-1179.91 302.14,-1185.17 299.17,-1178.6 304.1,-1173.33"/>
 <text text-anchor="middle" x="368" y="-969" font-family="Helvetica,sans-Serif" font-size="10.00"> +m_children</text>
 </g>
 <!-- Node4&#45;&gt;Node3 -->

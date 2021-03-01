@@ -1,14 +1,14 @@
 var gui =
 [
-    [ "API: KeyMapping", "develkeymapping.html", [
-      [ "Usage", "develkeymapping.html#autotoc_md71", null ],
-      [ "Implementation note", "develkeymapping.html#autotoc_md72", null ],
-      [ "Key mapping and inheritence.", "develkeymapping.html#autotoc_md73", null ],
-      [ "Limits", "develkeymapping.html#autotoc_md74", null ]
+    [ "KeyMapping", "develkeymapping.html", [
+      [ "Usage", "develkeymapping.html#autotoc_md82", null ],
+      [ "Implementation note", "develkeymapping.html#autotoc_md83", null ],
+      [ "Key mapping and inheritence.", "develkeymapping.html#autotoc_md84", null ],
+      [ "Limits", "develkeymapping.html#autotoc_md85", null ]
     ] ],
-    [ "API: Camera manipulation in Radium", "develCameraManipulator.html", [
-      [ "Implementing a CameraManipulator", "develCameraManipulator.html#autotoc_md39", null ],
-      [ "Extending/Specializing an existing CameraManipulator", "develCameraManipulator.html#autotoc_md40", null ],
-      [ "Using a CameraManipulator", "develCameraManipulator.html#autotoc_md41", null ]
+    [ "Camera manipulation in Radium", "develCameraManipulator.html", [
+      [ "Implementing a CameraManipulator", "develCameraManipulator.html#autotoc_md53", null ],
+      [ "Extending/Specializing an existing CameraManipulator", "develCameraManipulator.html#autotoc_md54", null ],
+      [ "Using a CameraManipulator", "develCameraManipulator.html#autotoc_md55", null ]
     ] ]
 ];

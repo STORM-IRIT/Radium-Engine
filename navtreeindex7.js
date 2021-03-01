@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a916a26ecb0361b1db0669ef483df9466":[9,0,2,0,2,3,18],
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#aaa1819402d479949bf166b3f4f4e4a18":[9,0,2,0,2,3,9],
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#ab5a95e6a448ad9092d54f75d348e62f2":[9,0,2,0,2,3,10],
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#abbdee82c9ae32932e0c9e2b80be6125d":[9,0,2,0,2,3,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "classRa_1_1Core_1_1Asset_1_1MaterialData.html#a70908d17601610295bf4031bb75d43ab":[9,0,2,0,2,13,4],
 "classRa_1_1Core_1_1Asset_1_1MaterialData.html#a82ae1319e8f37ffbac735919accfc29e":[9,0,2,0,2,13,0],
 "classRa_1_1Core_1_1Asset_1_1MaterialData.html#a87eb3a70c9b73af61b25d5eb85f41e16":[9,0,2,0,2,13,1],
-"classRa_1_1Core_1_1Asset_1_1MaterialData.html#aca3bb0601cd8a60732bfa08205576c57":[9,0,2,0,2,13,3],
-"classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html":[9,0,2,0,2,14]
+"classRa_1_1Core_1_1Asset_1_1MaterialData.html#aca3bb0601cd8a60732bfa08205576c57":[9,0,2,0,2,13,3]
 };

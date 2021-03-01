@@ -1,5 +1,6 @@
 var NAVTREEINDEX15 =
 {
+"classRa_1_1Gui_1_1BaseApplication.html#a5c82472cd2a9b87417cdf42a96ebd776":[9,0,2,2,0,43],
 "classRa_1_1Gui_1_1BaseApplication.html#a62590cb32a648351b33d3571d324e8e8":[9,0,2,2,0,41],
 "classRa_1_1Gui_1_1BaseApplication.html#a63ac75c301feb28d97e3740b78cc7860":[9,0,2,2,0,33],
 "classRa_1_1Gui_1_1BaseApplication.html#a6597afd597f1fa78e883d03cd876cc5c":[9,0,2,2,0,37],
@@ -248,6 +249,5 @@ var NAVTREEINDEX15 =
 "classRa_1_1Gui_1_1SelectionManager.html#ad6df9e5929c42e279ebaee7dc049ed0e":[9,0,2,2,14,2],
 "classRa_1_1Gui_1_1SelectionManager.html#adae1872d64a8ac3b57f8b81040fa99ad":[9,0,2,2,14,1],
 "classRa_1_1Gui_1_1SimpleWindow.html":[9,0,2,2,15],
-"classRa_1_1Gui_1_1SimpleWindow.html#a160c9918068afa3bb7c89dbc82bca6c4":[9,0,2,2,15,13],
-"classRa_1_1Gui_1_1SimpleWindow.html#a169b6077c7e9df1092eb240cacc3c2a9":[9,0,2,2,15,14]
+"classRa_1_1Gui_1_1SimpleWindow.html#a160c9918068afa3bb7c89dbc82bca6c4":[9,0,2,2,15,13]
 };

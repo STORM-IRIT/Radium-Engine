@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
+   &#160;<span id="projectnumber">0ec92a5f58e4777170e968581e0b2fb89a62553c</span>
    </div>
   </td>
  </tr>
@@ -95,21 +95,21 @@ $(document).ready(function(){initNavTree('basicsCompileRadium.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <div class="toc"><h3>Table of Contents</h3>
-<ul><li class="level1"><a href="#autotoc_md9">Dependencies</a></li>
-<li class="level1"><a href="#autotoc_md10">Supported compiler and platforms</a><ul><li class="level2"><a href="#autotoc_md11">Continuous Integration:</a></li>
+<ul><li class="level1"><a href="#autotoc_md10">Dependencies</a></li>
+<li class="level1"><a href="#autotoc_md11">Supported compiler and platforms</a><ul><li class="level2"><a href="#autotoc_md12">Continuous Integration:</a></li>
 </ul>
 </li>
-<li class="level1"><a href="#autotoc_md12">Build instructions</a><ul><li class="level2"><a href="#autotoc_md13">Getting dependencies</a></li>
-<li class="level2"><a href="#autotoc_md14">Folder structure</a></li>
-<li class="level2"><a href="#autotoc_md15">Configure build</a></li>
-<li class="level2"><a href="#autotoc_md16">Building on Linux/MacOS (command line instruction)</a></li>
-<li class="level2"><a href="#autotoc_md17">Building on Microsoft Windows with Visual Studio</a></li>
-<li class="level2"><a href="#autotoc_md18">Building with QtCreator</a></li>
+<li class="level1"><a href="#autotoc_md13">Build instructions</a><ul><li class="level2"><a href="#autotoc_md14">Getting dependencies</a></li>
+<li class="level2"><a href="#autotoc_md15">Folder structure</a></li>
+<li class="level2"><a href="#autotoc_md16">Configure build</a></li>
+<li class="level2"><a href="#autotoc_md17">Building on Linux/MacOS (command line instruction)</a></li>
+<li class="level2"><a href="#autotoc_md18">Building on Microsoft Windows with Visual Studio</a></li>
+<li class="level2"><a href="#autotoc_md19">Building with QtCreator</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="autotoc_md9"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md10"></a>
 Dependencies</h1>
 <p>All the dependencies are automatically fetched and compiled at build time.</p><ul>
 <li>[Core] <a class="el" href="namespaceEigen.html">Eigen</a>, <a class="el" href="namespaceOpenMesh.html">OpenMesh</a></li>
@@ -123,7 +123,7 @@ Dependencies</h1>
 <li>OpenGL 3+ / GLSL 330+</li>
 <li>CMake 3.15.7+</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Supported compiler and platforms</h1>
 <p>The following platforms and tool chains have been tested and should work :</p>
 <ul>
@@ -131,19 +131,19 @@ Supported compiler and platforms</h1>
 <li><em>Mac OSX</em> : gcc 8 or higher, Apple clang</li>
 <li><em>Linux</em> : gcc 8 or higher, clang</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Continuous Integration:</h2>
 <ul>
 <li><em>Linux (gcc8), Windows (MSVC 19.28.29335.0), and Mac OSX (AppleClang 12)</em> <a href="https://github.com/STORM-IRIT/Radium-Engine/actions">https://github.com/STORM-IRIT/Radium-Engine/actions</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Build instructions</h1>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Getting dependencies</h2>
 <p>They are automatically fetched by cmake at compile time. To force cmake re-fetching the dependencies, called </p><div class="fragment"><div class="line">make update</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md14"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md15"></a>
 Folder structure</h2>
-<h2><a class="anchor" id="autotoc_md15"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Configure build</h2>
 <p>Radium offers the following build options: </p><div class="fragment"><div class="line">// Enable testing. Tests are automatically built with target all</div>
 <div class="line">RADIUM_ENABLE_TESTING:BOOL=ON</div>
@@ -197,7 +197,7 @@ Configure build</h2>
 <div class="line">RADIUM_UPDATE_VERSION:BOOL=ON</div>
 </div><!-- fragment --><p>All radium related cmake options (with their current values) can be printed with <code>cmake -LAH | grep -B1 RADIUM</code> (on linux like system)</p>
 <dl class="section warning"><dt>Warning</dt><dd>For computers with low RAM capacities (under 12G) we recommend to set the <code>CMAKE_BUILD_PARALLEL_LEVEL</code> environment variable to a reasonable value (i.e. 2) to prevent the computer from swapping.</dd></dl>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Building on Linux/MacOS (command line instruction)</h2>
 <p>Out-of source builds are mandatory, we recommand to follow the usual sequence:</p>
 <div class="fragment"><div class="line">$ mkdir build</div>
@@ -207,7 +207,7 @@ Building on Linux/MacOS (command line instruction)</h2>
 </div><!-- fragment --><p>Finally, the <code>install</code> target will copy all the radium related library in the same place, usefull for App compilation</p>
 <div class="fragment"><div class="line">$ make install</div>
 </div><!-- fragment --><p>Note that installation requires write access on the installation directory.</p>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Building on Microsoft Windows with Visual Studio</h2>
 <h3>Supported versions of MSVC</h3>
 <p>Radium requires MSVC 2019 or superior, as it relies on:</p><ul>
@@ -250,7 +250,7 @@ Building on Microsoft Windows with Visual Studio</h2>
 <p><em>Note</em>: When compiling the dependencies you may hit the max path length fixed by Microsoft OS (260 characters). To fix this, you might need to change the path of your build dir to shorten it, or to change the limit on your system, see: <a href="https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later">https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#enable-long-paths-in-windows-10-version-1607-and-later</a></p>
 <h3>Compilation</h3>
 <p>Right click on <code>CMakeList.txt &gt; build &gt; all</code>. To install, you need to run any installation target, e.g. <code>Engine.dll (install)</code> or to select the menu <code>&lt;Build&gt;/&lt;Install radiumproject&gt;</code></p>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md19"></a>
 Building with QtCreator</h2>
 <p>QtCreator is supported on Windows, MacOS and Linux. No specific requirement here, just open Radium-Engine CMake project and enjoy ! </p>
 </div></div><!-- contents -->
@@ -260,7 +260,7 @@ Building with QtCreator</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Thu Feb 25 2021 16:40:40 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 1 2021 10:53:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

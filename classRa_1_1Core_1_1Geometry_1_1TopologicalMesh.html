@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
+   &#160;<span id="projectnumber">0ec92a5f58e4777170e968581e0b2fb89a62553c</span>
    </div>
   </td>
  </tr>
@@ -285,7 +285,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class represents a mesh with topological information on the vertex graph, using a half-edge representation.</p>
 <p>This integration is inspired by: <a href="https://gist.github.com/Unril/03fa353d0461ed6bd41d">https://gist.github.com/Unril/03fa353d0461ed6bd41d</a></p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd><p class="startdd">rename methods to respect Radium guideline (get/set/is, camelCase) </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd><p class="startdd">rename methods to respect Radium guideline (get/set/is, camelCase) </p>
 <p class="enddd">private inheritance from <a class="el" href="namespaceOpenMesh.html">OpenMesh</a>, and import relevant methods. </p>
 </dd></dl>
 
@@ -582,7 +582,7 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Halfedge collapes <em>he</em>. vo=from_vertex_handle(he) is deleted. After collapse vo incoming halfedges points to vh = to_vertex_handle(he). Wedge indices are updated to reflect the change in topology. For detailed topological modifications see <a class="el" href="develmeshes.html">API: 3D objects (a.k.a. Meshes)</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Halfedge collapes <em>he</em>. vo=from_vertex_handle(he) is deleted. After collapse vo incoming halfedges points to vh = to_vertex_handle(he). Wedge indices are updated to reflect the change in topology. For detailed topological modifications see <a class="el" href="develmeshes.html">3D objects (a.k.a. Meshes)</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">he</td><td>halfedge's hangle to collapse. </td></tr>
   </table>
@@ -1585,7 +1585,7 @@ template&lt;typename NonManifoldFaceCommand &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>use a kdtree </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>use a kdtree </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TopologicalMesh_8inl_source.html#l00145">145</a> of file <a class="el" href="TopologicalMesh_8inl_source.html">TopologicalMesh.inl</a>.</p>
 <div id="dynsection-9" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -2579,7 +2579,7 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
       </table>
 </div><div class="memdoc">
 <p>Update triangle mesh data, assuming the mesh and this topo mesh has the same topology. </p><dl class="section warning"><dt>Warning</dt><dd>note implemented yet. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>;) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>;) </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="TopologicalMesh_8cpp_source.html#l00396">396</a> of file <a class="el" href="TopologicalMesh_8cpp_source.html">TopologicalMesh.cpp</a>.</p>
 
@@ -2624,7 +2624,7 @@ f=0 correspond to halfedge_handle( eh, 0 ) (i.e. first vertex of the edge) </dd>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core.html">Core</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Geometry</a></li><li class="navelem"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">TopologicalMesh</a></li>
-    <li class="footer">Generated on Thu Feb 25 2021 16:40:40 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 1 2021 10:53:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

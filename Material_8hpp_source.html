@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">6bd1877ac4010e6f986049c3805154dad7775f20</span>
+   &#160;<span id="projectnumber">0ec92a5f58e4777170e968581e0b2fb89a62553c</span>
    </div>
   </td>
  </tr>
@@ -123,42 +123,42 @@ $(document).ready(function(){initNavTree('Material_8hpp_source.html',''); initRe
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    EIGEN_MAKE_ALIGNED_OPERATOR_NEW</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>( <span class="keyword">const</span> std::string&amp; instanceName,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                       <span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#ab14deb10a6a9567429937cd824f5be57">materialName</a>,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                       MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setMaterialName( std::string newName );</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; getInstanceName() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; getMaterialName() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setMaterialAspect( <span class="keyword">const</span> MaterialAspect&amp; aspect );</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> MaterialAspect&amp; getMaterialAspect() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> isTransparent() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::list&lt;std::string&gt; getPropertyList() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> needUpdate();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html#aef637b1f55bcdc5bfcf70b60a8c3a411">  104</a></span>&#160;    std::string m_instanceName {};</div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html#a313a653c8bfa24cf996aff1fb5dbdb13">  106</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> m_aspect {MaterialAspect::MAT_OPAQUE};</div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">  109</a></span>&#160;    <span class="keywordtype">bool</span> m_isDirty {<span class="keyword">true</span>};</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    std::string m_materialName;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;};</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace Ra</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Material_8inl.html">Engine/Data/Material.inl</a>&gt;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>( <span class="keyword">const</span> std::string&amp; instanceName,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                       <span class="keyword">const</span> std::string&amp; <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#ab14deb10a6a9567429937cd824f5be57">materialName</a>,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                       MaterialAspect aspect = MaterialAspect::MAT_OPAQUE );</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setMaterialName( std::string newName );</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html">Material</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; getInstanceName() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; getMaterialName() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setMaterialAspect( <span class="keyword">const</span> MaterialAspect&amp; aspect );</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> MaterialAspect&amp; getMaterialAspect() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> isTransparent() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    std::list&lt;std::string&gt; getPropertyList() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> needUpdate();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html#aef637b1f55bcdc5bfcf70b60a8c3a411">  105</a></span>&#160;    std::string m_instanceName {};</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html#a313a653c8bfa24cf996aff1fb5dbdb13">  107</a></span>&#160;    <a class="code" href="classRa_1_1Engine_1_1Data_1_1Material.html#accea1b072e372d94e28bc461e63daab2">MaterialAspect</a> m_aspect {MaterialAspect::MAT_OPAQUE};</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classRa_1_1Engine_1_1Data_1_1Material.html#ae2d00a304c8dfd9b2b10b809c5c27499">  110</a></span>&#160;    <span class="keywordtype">bool</span> m_isDirty {<span class="keyword">true</span>};</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    std::string m_materialName;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;};</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Material_8inl.html">Engine/Data/Material.inl</a>&gt;</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aRenderParameters_8hpp_html"><div class="ttname"><a href="RenderParameters_8hpp.html">RenderParameters.hpp</a></div></div>
@@ -175,7 +175,7 @@ $(document).ready(function(){initNavTree('Material_8hpp_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="Material_8hpp.html">Material.hpp</a></li>
-    <li class="footer">Generated on Thu Feb 25 2021 16:40:39 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 1 2021 10:53:36 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
