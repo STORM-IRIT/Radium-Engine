@@ -237,7 +237,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     template <typename T>
     inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
 
-    inline WedgeData newWedgeData() { return m_wedges.newWedgeData(); }
+    inline WedgeData newWedgeData() const { return m_wedges.newWedgeData(); }
+    inline WedgeData newWedgeData( HalfedgeHandle he ) const {
+        return m_wedges.newWedgeData( to_vertex_handle( he ), point( to_vertex_handle( he ) ) );
+    }
 
     /**
      * Replace the wedge data associated with an halfedge.
@@ -477,7 +480,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         inline void clean();
 
         // return a new wedgeData with uninit values.
-        inline WedgeData newWedgeData();
+        inline WedgeData newWedgeData() const;
+        inline WedgeData newWedgeData( TopologicalMesh::VertexHandle vh,
+                                       TopologicalMesh::Point p ) const;
 
         ///\ todo       private:
         /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
