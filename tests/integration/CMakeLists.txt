@@ -30,3 +30,46 @@ add_test(NAME integration_${INTEGRATION_TEST}_compare_to_ref
     COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_CURRENT_BINARY_DIR}/output.txt ${CMAKE_CURRENT_SOURCE_DIR}/data/references/${INTEGRATION_TEST}.txt)
 
 add_dependencies(integration integration_${INTEGRATION_TEST})
+
+
+
+
+set(INTEGRATION_TEST KeyMappingManager)
+
+
+find_program(LIBXML2_XMLLINT_EXECUTABLE xmllint)
+find_program(SED_EXECUTABLE sed)
+
+if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
+    find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
+    find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+
+    set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+
+    # KeyMappingManager saveConfiguration tests
+    add_executable(integration_${INTEGRATION_TEST} ${INTEGRATION_TEST}/main.cpp)
+    target_link_libraries(integration_${INTEGRATION_TEST} PUBLIC Core Gui PRIVATE std::filesystem ${Qt5_LIBRARIES})
+    target_compile_definitions(integration_${INTEGRATION_TEST}
+        PRIVATE -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}>
+        -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
+
+    add_custom_target(integration_${INTEGRATION_TEST}_create_ref)
+    add_test(NAME integration_${INTEGRATION_TEST}_save_output 
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
+        COMMAND bash -c "$<TARGET_FILE:integration_${INTEGRATION_TEST}>  ${CMAKE_CURRENT_BINARY_DIR} &&\
+ ${LIBXML2_XMLLINT_EXECUTABLE} --c14n11  ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
+ ${LIBXML2_XMLLINT_EXECUTABLE} --c14n11  ${CMAKE_CURRENT_SOURCE_DIR}/data/inputs/keymapping-valid.xml > ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ ${SED_EXECUTABLE} -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ ${SED_EXECUTABLE} -i.orig '/<!--.*-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml &&\
+ ${SED_EXECUTABLE} -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml &&\
+ ${SED_EXECUTABLE} -i.orig '/<!--/,/-->/d' ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml; ")
+
+    add_test(NAME integration_${INTEGRATION_TEST}_compare_to_ref
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${INTEGRATION_TEST}/
+        COMMAND 
+        COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-out-lint.xml ${CMAKE_CURRENT_BINARY_DIR}/keymapping-valid-in-lint.xml)
+
+    add_dependencies(integration integration_${INTEGRATION_TEST})
+else()
+    message(WARNING "Could not add integration test for KeyMappingManager: sed (${SED_EXECUTABLE}) or xmllint (${LIBXML2_XMLLINT_EXECUTABLE})")
+endif()
