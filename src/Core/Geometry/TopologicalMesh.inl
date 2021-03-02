@@ -335,12 +335,21 @@ void init( VectorArray<T>& vec, const std::vector<std::string> names ) {
     }
 }
 // return a new wedgeData with uninit values.
-inline TopologicalMesh::WedgeData TopologicalMesh::WedgeCollection::newWedgeData() {
+inline TopologicalMesh::WedgeData TopologicalMesh::WedgeCollection::newWedgeData() const {
     WedgeData ret;
     init<float>( ret.getAttribArray<float>(), m_floatAttribNames );
     init<Vector2>( ret.getAttribArray<Vector2>(), m_vector2AttribNames );
     init<Vector3>( ret.getAttribArray<Vector3>(), m_vector3AttribNames );
     init<Vector4>( ret.getAttribArray<Vector4>(), m_vector4AttribNames );
+    return ret;
+}
+
+inline TopologicalMesh::WedgeData
+TopologicalMesh::WedgeCollection::newWedgeData( TopologicalMesh::VertexHandle vh,
+                                                TopologicalMesh::Point p ) const {
+    WedgeData ret      = newWedgeData();
+    ret.m_vertexHandle = vh;
+    ret.m_position     = p;
     return ret;
 }
 
