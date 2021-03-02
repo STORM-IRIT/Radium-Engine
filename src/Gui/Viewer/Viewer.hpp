@@ -258,12 +258,6 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// Owning (QObject child) pointer to gizmo manager.
     GizmoManager* m_gizmoManager;
 
-#ifdef RADIUM_MULTITHREAD_RENDERING
-    // TODO are we really use this ? Remove if we do not plan to do multi thread rendering
-    /// Thread in which rendering is done.
-    [[deprecated]] QThread* m_renderThread = nullptr; // We have to use a QThread for MT rendering
-#endif
-
     Core::Utils::Color m_backgroundColor {Core::Utils::Color::Grey( 0.0392_ra, 0_ra )};
 
     KeyMappingManager::Context m_activeContext {};
