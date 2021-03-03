@@ -29,15 +29,16 @@ KeyMappingManager::KeyMappingManager() :
 
     QSettings settings;
     QString keyMappingFilename =
-        settings.value( "keymapping/config", m_defaultConfigFile.c_str() ).toString();
-    if ( !keyMappingFilename.contains( m_defaultConfigFile.c_str() ) )
+        settings.value( "keymapping/config", QString::fromStdString( m_defaultConfigFile ) )
+            .toString();
+    if ( !keyMappingFilename.contains( QString::fromStdString( m_defaultConfigFile ) ) )
     {
         LOG( logDEBUG ) << "Loading key mapping " << keyMappingFilename.toStdString() << " (from "
                         << settings.fileName().toStdString() << ")";
     }
     else
     { LOG( logDEBUG ) << "Loading default key mapping " << m_defaultConfigFile; }
-    loadConfiguration( keyMappingFilename.toStdString().c_str() );
+    loadConfiguration( keyMappingFilename.toStdString() );
 }
 
 KeyMappingManager::KeyMappingAction
@@ -227,16 +228,17 @@ void KeyMappingManager::bindKeyToAction( Ra::Core::Utils::Index contextIndex,
     m_mappingAction[contextIndex][binding] = actionIndex;
 }
 
-void KeyMappingManager::loadConfiguration( const char* filename ) {
+void KeyMappingManager::loadConfiguration( const std::string& inFilename ) {
     // if no filename is given, load default configuration
-    if ( !filename ) { filename = m_defaultConfigFile.c_str(); }
+    std::string filename = inFilename;
+    if ( filename.empty() ) { filename = m_defaultConfigFile.c_str(); }
 
     delete m_file;
-    m_file = new QFile( filename );
+    m_file = new QFile( QString::fromStdString( filename ) );
 
     if ( !m_file->open( QIODevice::ReadOnly ) )
     {
-        if ( strcmp( filename, m_defaultConfigFile.c_str() ) != 0 )
+        if ( filename != m_defaultConfigFile )
         {
             LOG( logERROR ) << "Failed to open key mapping configuration file ! "
                             << m_file->fileName().toStdString();
@@ -261,7 +263,7 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     }
 
     // Store setting only if not default
-    if ( std::string( filename ) != m_defaultConfigFile )
+    if ( filename != m_defaultConfigFile )
     {
         QSettings settings;
         settings.setValue( "keymapping/config", m_file->fileName() );
@@ -274,12 +276,11 @@ void KeyMappingManager::loadConfiguration( const char* filename ) {
     notify();
 }
 
-bool KeyMappingManager::saveConfiguration( const char* filename ) {
-    QString flnm;
-    if ( filename == nullptr ) { flnm = m_file->fileName(); }
-    else
-    { flnm = filename; }
-    QFile saveTo( flnm );
+bool KeyMappingManager::saveConfiguration( const std::string& inFilename ) {
+    QString filename {m_file->fileName()};
+    if ( !inFilename.empty() ) { filename = QString::fromStdString( inFilename ); }
+
+    QFile saveTo( filename );
     saveTo.open( QIODevice::WriteOnly );
     QXmlStreamWriter stream( &saveTo );
     stream.setAutoFormatting( true );
