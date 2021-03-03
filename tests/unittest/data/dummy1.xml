@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<keymaps>
+    <keymap context="DummyContext" key="" modifiers="" buttons="LeftButton" action="TEST1"/>
+    <keymap context="DummyContext" key="" modifiers="" buttons="RightButton" action="TEST2"/>
+</keymaps>

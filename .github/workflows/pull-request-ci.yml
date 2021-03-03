@@ -70,6 +70,9 @@ jobs:
         run: |
           cd build/Radium-Engine
           cmake --build . --parallel --config Release --target install
+      - name: Install tests dep
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libxml2-utils
       - name: Run unit tests
         if: runner.os != 'Windows'
         run: |
@@ -114,8 +117,8 @@ jobs:
         uses: jurplel/install-qt-action@v2
         with:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-      - name: Install lcov
-        run: sudo apt-get install -y lcov
+      - name: Install deps
+        run: sudo apt-get install -y lcov libxml2-utils
       - name: Prepare directories
         run: |
           mkdir -p install/

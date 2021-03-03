@@ -30,15 +30,17 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
 
     /// load configuration from filename, or default configration filename. It
     /// calls the listener callback then.
-    void loadConfiguration( const char* filename = nullptr );
+    void loadConfiguration( const std::string& filename = {} );
 
     /// Save the configuration
     /// @param filename the file to write to. It will be replaced
     /// @return true if file was correctly saved
-    bool saveConfiguration( const char* filename = nullptr );
+    bool saveConfiguration( const std::string& filename = {} );
 
     /// reload last open file.
     void reloadConfiguration();
+
+    std::string getLoadedFilename() { return m_file->fileName().toStdString(); }
 
     /// Return the action associated to the binding buttons + modifiers + key
     /// \param buttons are the mouse buttons pressed, could be NoButton
