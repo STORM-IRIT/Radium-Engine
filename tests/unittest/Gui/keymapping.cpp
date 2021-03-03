@@ -11,6 +11,50 @@ using namespace Ra::Gui;
 using Idx = KeyMappingManager::KeyMappingAction;
 using Ctx = KeyMappingManager::Context;
 
+class Dummy : public KeyMappingManageable<Dummy>
+{
+  public:
+    Dummy();
+    friend class KeyMappingManageable<Dummy>;
+
+  private:
+    bool checkIntegrity( const std::string& mess ) const;
+    static void configureKeyMapping_impl();
+
+    // here in public for testing purpose
+  public:
+#define KeyMappingDummy \
+    KMA_VALUE( TEST1 )  \
+    KMA_VALUE( TEST2 )
+
+#define KMA_VALUE( XX ) static KeyMappingManager::KeyMappingAction XX;
+    KeyMappingDummy
+#undef KMA_VALUE
+};
+
+using KeyMapping = KeyMappingManageable<Dummy>;
+
+#define KMA_VALUE( XX ) Gui::KeyMappingManager::KeyMappingAction Dummy::XX;
+KeyMappingDummy
+#undef KMA_VALUE
+
+    void
+    Dummy::configureKeyMapping_impl() {
+
+    KeyMapping::setContext( Gui::KeyMappingManager::getInstance()->getContext( "DummyContext" ) );
+    if ( Dummy::getContext().isInvalid() )
+    {
+        LOG( Ra::Core::Utils::logINFO )
+            << "DummyContext not defined (maybe the configuration file do not contains it)";
+        return;
+    }
+
+#define KMA_VALUE( XX ) \
+    XX = Gui::KeyMappingManager::getInstance()->getActionIndex( KeyMapping::getContext(), #XX );
+    KeyMappingDummy
+#undef KMA_VALUE
+}
+
 TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" ) {
     QSettings settings( "RadiumUnitTests", "KeyMappingManager" );
 
@@ -107,5 +151,57 @@ TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" 
         invalidAction = mgr->getAction( viewerContext, Qt::LeftButton, Qt::NoModifier, -1 );
         REQUIRE( invalidAction.isInvalid() );
         REQUIRE( mgr->getActionIndex( cameraContext, "VIEWER_TOGGLE_WIREFRAME" ).isInvalid() );
+    }
+
+    SECTION( "listener" ) {
+        // dummy1.xml
+        // LeftButton triggers TEST1, RightButton triggers TEST2
+        // (with index TEST1 : 0, TEST2: 1)
+        // dummy2.xml is the other way round dummy2.xml
+        // LeftButton triggers TEST2, RightButton triggers TEST1
+        // (with index TEST2: 0, TEST1: 1)
+
+        auto didx = mgr->addListener( Dummy::configureKeyMapping );
+        mgr->loadConfiguration( "data/dummy1.xml" );
+
+        // action index correspond to configuration
+        auto test1Idx = mgr->getActionIndex( Dummy::getContext(), "TEST1" );
+        auto test2Idx = mgr->getActionIndex( Dummy::getContext(), "TEST2" );
+
+        REQUIRE( test1Idx ==
+                 mgr->getAction( Dummy::getContext(), Qt::LeftButton, Qt::NoModifier, -1 ) );
+        REQUIRE( test2Idx ==
+                 mgr->getAction( Dummy::getContext(), Qt::RightButton, Qt::NoModifier, -1 ) );
+        // and set in Dummy class
+        REQUIRE( Dummy::TEST1 == test1Idx );
+        REQUIRE( Dummy::TEST2 == test2Idx );
+
+        // reload trigger configureKeyMapping and update binding/action index
+        mgr->loadConfiguration( "data/dummy2.xml" );
+        auto test1Idx2 = mgr->getActionIndex( Dummy::getContext(), "TEST1" );
+        auto test2Idx2 = mgr->getActionIndex( Dummy::getContext(), "TEST2" );
+
+        // action index have been updated in Dummy class (by observation)
+        REQUIRE( Dummy::TEST1 ==
+                 mgr->getAction( Dummy::getContext(), Qt::RightButton, Qt::NoModifier, -1 ) );
+        REQUIRE( Dummy::TEST2 ==
+                 mgr->getAction( Dummy::getContext(), Qt::LeftButton, Qt::NoModifier, -1 ) );
+        // and do not corresponds to the old one
+        REQUIRE( test1Idx != Dummy::TEST1 );
+        REQUIRE( test2Idx != Dummy::TEST2 );
+
+        // remove listener and relaod do not update action index
+        mgr->removeListener( didx );
+        mgr->loadConfiguration( "data/dummy1.xml" );
+        // action index have been reverted
+        REQUIRE( test1Idx ==
+                 mgr->getAction( Dummy::getContext(), Qt::LeftButton, Qt::NoModifier, -1 ) );
+        REQUIRE( test2Idx ==
+                 mgr->getAction( Dummy::getContext(), Qt::RightButton, Qt::NoModifier, -1 ) );
+        // but not updated in Dummy class
+        REQUIRE( Dummy::TEST1 != test1Idx );
+        REQUIRE( Dummy::TEST1 == test1Idx2 );
+        REQUIRE( Dummy::TEST2 != test2Idx );
+        REQUIRE( Dummy::TEST2 == test2Idx2 );
     }
 }
