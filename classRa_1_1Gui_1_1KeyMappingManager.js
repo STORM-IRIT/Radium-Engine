@@ -11,8 +11,9 @@ var classRa_1_1Gui_1_1KeyMappingManager =
     [ "getActionName", "classRa_1_1Gui_1_1KeyMappingManager.html#abccab01753a7893402ba7bd927594433", null ],
     [ "getContext", "classRa_1_1Gui_1_1KeyMappingManager.html#a4fee0746b2d2ef301af275de29daeb85", null ],
     [ "getContextName", "classRa_1_1Gui_1_1KeyMappingManager.html#ac543b46b15697cdf1f4549e7ed56a4a1", null ],
-    [ "loadConfiguration", "classRa_1_1Gui_1_1KeyMappingManager.html#aad32ca0767b840cfe9efea43335de826", null ],
+    [ "getLoadedFilename", "classRa_1_1Gui_1_1KeyMappingManager.html#aa3122cf424cc8ddcec4aa7c20be22a76", null ],
+    [ "loadConfiguration", "classRa_1_1Gui_1_1KeyMappingManager.html#a13dcf060b7ef48066af54fd566750cb8", null ],
     [ "reloadConfiguration", "classRa_1_1Gui_1_1KeyMappingManager.html#a741cb53f7151701a53a67ea9d904e5d0", null ],
     [ "removeListener", "classRa_1_1Gui_1_1KeyMappingManager.html#a8883b06bab09e89ee99714274b8ae315", null ],
-    [ "saveConfiguration", "classRa_1_1Gui_1_1KeyMappingManager.html#a77a25c034a6d0e90e3cf69c0eb311ad7", null ]
+    [ "saveConfiguration", "classRa_1_1Gui_1_1KeyMappingManager.html#aa920d2eb2a041c1ec4e9942fd5f8f7a6", null ]
 ];

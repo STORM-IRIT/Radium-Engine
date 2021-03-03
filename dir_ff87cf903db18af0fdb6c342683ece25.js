@@ -37,6 +37,7 @@ var dir_ff87cf903db18af0fdb6c342683ece25 =
     [ "Singleton.hpp", "Singleton_8hpp.html", "Singleton_8hpp" ],
     [ "StackTrace.cpp", "StackTrace_8cpp.html", "StackTrace_8cpp" ],
     [ "StackTrace.hpp", "StackTrace_8hpp.html", "StackTrace_8hpp" ],
+    [ "StdFilesystem.hpp", "StdFilesystem_8hpp.html", null ],
     [ "StdOptional.hpp", "StdOptional_8hpp.html", null ],
     [ "StdUtils.hpp", "StdUtils_8hpp.html", "StdUtils_8hpp" ],
     [ "StringUtils.cpp", "StringUtils_8cpp.html", "StringUtils_8cpp" ],

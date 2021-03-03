@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">10b76ebea1a564e2e29a921092b49f80ef78ab34</span>
+   &#160;<span id="projectnumber">3a16c51597e970355cdb4b79d240bc3ee07c3eda</span>
    </div>
   </td>
  </tr>
@@ -97,92 +97,80 @@ $(document).ready(function(){initNavTree('Resources_8cpp_source.html',''); initR
 <a href="Resources_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Resources_8hpp.html">Core/Resources/Resources.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="Log_8hpp.html">Core/Utils/Log.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cpplocate/cpplocate.h&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#ifndef CXX_FILESYSTEM_HAVE_FS</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#    error std::filesystem is required to compile this file</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#if CXX_FILESYSTEM_IS_EXPERIMENTAL</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#    include &lt;experimental/filesystem&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="StdFilesystem_8hpp.html">Core/Utils/StdFilesystem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;cpplocate/cpplocate.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html">   11</a></span>&#160;<span class="keyword">namespace </span>Resources {</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// We need the alias from std::experimental::filesystem to std::filesystem</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>std {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>filesystem = experimental::filesystem;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#    include &lt;filesystem&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html">   24</a></span>&#160;<span class="keyword">namespace </span>Resources {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceRa_1_1Core_1_1Utils.html">Ra::Core::Utils</a>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>fs = ::std::filesystem;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceRa_1_1Core_1_1Utils.html">Ra::Core::Utils</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>fs = ::std::filesystem;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">   16</a></span>&#160;fs::path <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( <span class="keyword">const</span> std::string&amp; pattern, <span class="keyword">const</span> std::string&amp; system, <span class="keywordtype">void</span>* libSymbol ) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::string p = cpplocate::locatePath( pattern, system, libSymbol );</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> fs::path( p ).lexically_normal();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// add a trailing &quot;/&quot; if path point to an existing directory.</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">   22</a></span>&#160;fs::path <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( <span class="keyword">const</span> fs::path&amp; path ) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> status = fs::status( path );</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> ( status.type() == fs::file_type::not_found ) <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> ( status.type() == fs::file_type::directory ) <span class="keywordflow">return</span> path / <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> path;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">   29</a></span>&#160;fs::path <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( <span class="keyword">const</span> std::string&amp; pattern, <span class="keyword">const</span> std::string&amp; system, <span class="keywordtype">void</span>* libSymbol ) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    std::string p = cpplocate::locatePath( pattern, system, libSymbol );</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> fs::path( p ).lexically_normal();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">   29</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">getRadiumResourcesPath</a>() {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">auto</span> p =</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( <span class="stringliteral">&quot;Resources/Shaders&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>( <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">getRadiumResourcesPath</a> ) );</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    p = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( p / <span class="stringliteral">&quot;Resources&quot;</span> );</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">// add a trailing &quot;/&quot; if path point to an existing directory.</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">   35</a></span>&#160;fs::path <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( <span class="keyword">const</span> fs::path&amp; path ) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">auto</span> status = fs::status( path );</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ( status.type() == fs::file_type::not_found ) <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> ( status.type() == fs::file_type::directory ) <span class="keywordflow">return</span> path / <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> path;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> ( p.empty() ) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> p.string();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">   38</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">getRadiumPluginsPath</a>() {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">auto</span> p = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( <span class="stringliteral">&quot;Plugins/lib&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>( <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">getRadiumPluginsPath</a> ) );</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    p      = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( p / <span class="stringliteral">&quot;Plugins&quot;</span> / <span class="stringliteral">&quot;lib&quot;</span> );</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">   42</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">getRadiumResourcesPath</a>() {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">auto</span> p =</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( <span class="stringliteral">&quot;Resources/Shaders&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>( <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">getRadiumResourcesPath</a> ) );</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    p = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( p / <span class="stringliteral">&quot;Resources&quot;</span> );</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> ( p.empty() ) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> p.string();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> ( p.empty() ) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> p.string();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">   47</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">getBasePath</a>() {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( cpplocate::getModulePath() ).string();</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">   51</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">getRadiumPluginsPath</a>() {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">auto</span> p = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( <span class="stringliteral">&quot;Plugins/lib&quot;</span>, <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>( <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">getRadiumPluginsPath</a> ) );</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    p      = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( p / <span class="stringliteral">&quot;Plugins&quot;</span> / <span class="stringliteral">&quot;lib&quot;</span> );</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> ( p.empty() ) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> p.string();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">   60</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">getBasePath</a>() {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( cpplocate::getModulePath() ).string();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">   64</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">getResourcesPath</a>( <span class="keywordtype">void</span>* symbol, <span class="keyword">const</span> std::string&amp; pattern ) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">auto</span> p = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( pattern, <span class="stringliteral">&quot;&quot;</span>, symbol );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    p      = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( p / pattern );</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> ( p.empty() ) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> p.string();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace Resources</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">   51</a></span>&#160;optional&lt;std::string&gt; <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">getResourcesPath</a>( <span class="keywordtype">void</span>* symbol, <span class="keyword">const</span> std::string&amp; pattern ) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">auto</span> p = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">searchPath</a>( pattern, <span class="stringliteral">&quot;&quot;</span>, symbol );</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    p      = <a class="code" href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">clean</a>( p / pattern );</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> ( p.empty() ) <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> p.string();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace Resources</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a49a62b95fba90756b4c2777238c2e032"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">Ra::Core::Resources::getBasePath</a></div><div class="ttdeci">optional&lt; std::string &gt; getBasePath()</div><div class="ttdoc">this one is always found, use optional for consistency ?</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00060">Resources.cpp:60</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a49a62b95fba90756b4c2777238c2e032"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a49a62b95fba90756b4c2777238c2e032">Ra::Core::Resources::getBasePath</a></div><div class="ttdeci">optional&lt; std::string &gt; getBasePath()</div><div class="ttdoc">this one is always found, use optional for consistency ?</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00047">Resources.cpp:47</a></div></div>
 <div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
 <div class="ttc" id="aResources_8hpp_html"><div class="ttname"><a href="Resources_8hpp.html">Resources.hpp</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html">Ra::Core::Utils</a></div><div class="ttdef"><b>Definition:</b> <a href="Attribs_8cpp_source.html#l00007">Attribs.cpp:7</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a3cb536c70ed3e05e6ed8c0da51670cb2"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">Ra::Core::Resources::getRadiumPluginsPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumPluginsPath()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00051">Resources.cpp:51</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_af434c5b44164970395428b4a00e7729c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumResourcesPath()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00042">Resources.cpp:42</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_ad157b4daee76752dc0af8d042619cf6c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">Ra::Core::Resources::getResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getResourcesPath(void *symbol, const std::string &amp;pattern)</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00064">Resources.cpp:64</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a90bbf2a2d93d6d69d393a46d4488a300"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">Ra::Core::Resources::clean</a></div><div class="ttdeci">fs::path clean(const fs::path &amp;path)</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00035">Resources.cpp:35</a></div></div>
+<div class="ttc" id="aStdFilesystem_8hpp_html"><div class="ttname"><a href="StdFilesystem_8hpp.html">StdFilesystem.hpp</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a3cb536c70ed3e05e6ed8c0da51670cb2"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a3cb536c70ed3e05e6ed8c0da51670cb2">Ra::Core::Resources::getRadiumPluginsPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumPluginsPath()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00038">Resources.cpp:38</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_af434c5b44164970395428b4a00e7729c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#af434c5b44164970395428b4a00e7729c">Ra::Core::Resources::getRadiumResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getRadiumResourcesPath()</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00029">Resources.cpp:29</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_ad157b4daee76752dc0af8d042619cf6c"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#ad157b4daee76752dc0af8d042619cf6c">Ra::Core::Resources::getResourcesPath</a></div><div class="ttdeci">optional&lt; std::string &gt; getResourcesPath(void *symbol, const std::string &amp;pattern)</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00051">Resources.cpp:51</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_a90bbf2a2d93d6d69d393a46d4488a300"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#a90bbf2a2d93d6d69d393a46d4488a300">Ra::Core::Resources::clean</a></div><div class="ttdeci">fs::path clean(const fs::path &amp;path)</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00022">Resources.cpp:22</a></div></div>
 <div class="ttc" id="aLog_8hpp_html"><div class="ttname"><a href="Log_8hpp.html">Log.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_ab95f03e3ca56365db3cfbb3aa0e376b4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">Ra::Core::Resources::searchPath</a></div><div class="ttdeci">fs::path searchPath(const std::string &amp;pattern, const std::string &amp;system, void *libSymbol)</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00029">Resources.cpp:29</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Resources_html_ab95f03e3ca56365db3cfbb3aa0e376b4"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Resources.html#ab95f03e3ca56365db3cfbb3aa0e376b4">Ra::Core::Resources::searchPath</a></div><div class="ttdeci">fs::path searchPath(const std::string &amp;pattern, const std::string &amp;system, void *libSymbol)</div><div class="ttdef"><b>Definition:</b> <a href="Resources_8cpp_source.html#l00016">Resources.cpp:16</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_05ad645af30ba5694f9d87fa8078b2c2.html">Resources</a></li><li class="navelem"><a class="el" href="Resources_8cpp.html">Resources.cpp</a></li>
-    <li class="footer">Generated on Tue Mar 2 2021 13:19:05 for Radium Engine by
+    <li class="footer">Generated on Wed Mar 3 2021 13:17:06 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

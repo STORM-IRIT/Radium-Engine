@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classRa_1_1Gui_1_1KeyMappingManager.html#a77a25c034a6d0e90e3cf69c0eb311ad7" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="classRa_1_1Gui_1_1KeyMappingManager.html#aa920d2eb2a041c1ec4e9942fd5f8f7a6" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="197,-0.5 197,-30.5 358,-30.5 358,-0.5 197,-0.5"/>
 <text text-anchor="start" x="205" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Gui::KeyMappingManager</text>
 <text text-anchor="middle" x="277.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::saveConfiguration</text>
