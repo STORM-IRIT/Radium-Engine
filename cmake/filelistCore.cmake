@@ -130,6 +130,7 @@ set( core_headers
     Utils/Observable.hpp
     Utils/Singleton.hpp
     Utils/StackTrace.hpp
+    Utils/StdFilesystem.hpp
     Utils/StdOptional.hpp
     Utils/StdUtils.hpp
     Utils/StringUtils.hpp
