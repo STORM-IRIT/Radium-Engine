@@ -2,7 +2,7 @@
 [TOC]
 
 # Rendering in Radium
-Rendering in Radium is managed by the abstract Ra::Engine::Rendering::Renderer class that provides the following main rendering method. 
+Rendering in Radium is managed by the abstract Ra::Engine::Rendering::Renderer class that provides the following main rendering method.
 
 ## Main abstract render method
 
@@ -56,7 +56,7 @@ This updates, if needed, the OpenGL internal state of RenderObjects.
 
 ### 3. Do picking if needed
 If there has been some picking requests since the last frame, `doPicking` is called.
-This function just renders all the objects (except _debug_ ones) by drawing them in a Id buffer to collect the ids 
+This function just renders all the objects (except _debug_ ones) by drawing them in a Id buffer to collect the ids
 of the entity, the render object, the polygon, ....
 
 Then, for each picking request done, `glReadPixels` is called at the requested location, and object Ids are retrieved.
@@ -73,20 +73,21 @@ This method will apply post-processing effects on the computed image.
 
 ## Defining a concrete renderer
 
-To define a concrete renderer, the Ra::Engine::Rendering::Renderer class must be derived to define all the method that 
+To define a concrete renderer, the Ra::Engine::Rendering::Renderer class must be derived to define all the method that
 implements renderer specific tasks and are declared a pure virtual methods in Ra::Engine::Rendering::Renderer.
 
 A concrete renderer will build its rendering loop, the `renderInternal` method, by decomposing it into passes
-configured, for each Ra::engine::RenderObject, using the Ra::Engine::Rendering::RenderTechique class.
+configured, for each Ra::Engine::Rendering::RenderObject available in the scene, using the
+Ra::Engine::Rendering::RenderTechnique class.
 
-A Ra::Engine::Rendering::RenderTechnique consists in a set of named Ra::Engine::Data::ShaderConfiguration that provide the GLSL code used
-by each pass to compute the appearance of a Ra::Engine::Rendering::RenderObject and a set of Ra::Engine::Data::ShaderParameterProvider
-that provide shader data to be used for each pass.
+A Ra::Engine::Rendering::RenderTechnique consists in a set of named Ra::Engine::Data::ShaderConfiguration that provide
+the GLSL code used by each pass to compute the appearance of a Ra::Engine::Rendering::RenderObject and a set of
+Ra::Engine::Data::ShaderParameterProvider that provide shader data to be used for each pass.
 
-When rendering, and for each rendering pass, the renderer will first set the global state of the OpenGL pipeline 
+When rendering, and for each rendering pass, the renderer will first set the global state of the OpenGL pipeline
 corresponding to the pass then loop over all the Ra::Engine::Rendering::RenderObject to be drawn.
-For each Ra::Engine::Rendering::RenderObject, the renderObject OpenGL pipeline configuration and parameters are fetched 
-from the Ra::Engine::Rendering::RenderTechnique associated with the Ra::Engine::Rendering::RenderObject, and the 
+For each Ra::Engine::Rendering::RenderObject, the renderObject OpenGL pipeline configuration and parameters are fetched
+from the Ra::Engine::Rendering::RenderTechnique associated with the Ra::Engine::Rendering::RenderObject, and the
 render object is drawn according to the Ra::Engine::Data::ViewingParameters for the current frame.
 
 The Radium Engine exports a ready to use concrete renderer, Ra::Engine::Rendering::ForwardRenderer, used by default by
@@ -94,7 +95,7 @@ the Radium-based applications, that decomposes the rendering into three passes a
 document.
 
 ## Minimal renderer howto
-This section explain, through the development of a simple Renderer, how to configure RenderObjects and RenderTechnique 
+This section explain, through the development of a simple Renderer, how to configure RenderObjects and RenderTechnique
 to be used by a renderer.
 
 ### Developping the Rendering
@@ -102,7 +103,6 @@ Help wanted for this section.
 
 ### Configuring the RenderObjects and their RenderTechnique
 Help wanted for this section.
-
 
 
 # Radium Engine default rendering information
