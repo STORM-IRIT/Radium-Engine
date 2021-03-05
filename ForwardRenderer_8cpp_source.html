@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">3a16c51597e970355cdb4b79d240bc3ee07c3eda</span>
+   &#160;<span id="projectnumber">ce718f502c95d5490baf49de365a146dbcd7c121</span>
    </div>
   </td>
  </tr>
@@ -702,47 +702,46 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    <span class="keywordflow">if</span> ( RenderedGeometry &amp;&amp; RenderedGeometry-&gt;getNumFaces() == 0 )</div>
 <div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    {</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160; </div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;        <span class="keyword">auto</span> addGeomShader = [&amp;rt]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> pass ) {</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;            <span class="keywordflow">if</span> ( rt-&gt;hasConfiguration( pass ) )</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;            {</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a> config = rt-&gt;getConfiguration( pass );</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43">addShader</a>( <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa2958a1e82afde512a71ad84e1c5db247">Data::ShaderType_GEOMETRY</a>,</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                                  RadiumEngine::getInstance()-&gt;getResourcesDir() +</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                                      <span class="stringliteral">&quot;Shaders/Points/PointCloud.geom.glsl&quot;</span> );</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;                rt-&gt;setConfiguration( config, pass );</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;            }</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;        };</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160; </div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;        addGeomShader( <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">DefaultRenderingPasses::LIGHTING_OPAQUE</a> );</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;        addGeomShader( <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942adb4f8703ab187adf671e953a1163bf17">DefaultRenderingPasses::LIGHTING_TRANSPARENT</a> );</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        addGeomShader( <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">DefaultRenderingPasses::Z_PREPASS</a> );</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;        <span class="comment">// construct the parameter provider for the technique</span></div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;        <span class="keyword">auto</span> pointCloud = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">Scene::PointCloudComponent</a>*<span class="keyword">&gt;</span>( ro-&gt;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ae91b08d3e3bca047eed7300f07947ad6">getComponent</a>() );</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;        <span class="keywordflow">if</span> ( pointCloud )</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;        {</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;            <span class="keyword">auto</span> pr = std::make_shared&lt;PointCloudParameterProvider&gt;( material, pointCloud );</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;            rt-&gt;setParametersProvider( pr );</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;        }</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;        { rt-&gt;setParametersProvider( material ); }</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    }</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    {</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        <span class="comment">// make the material the parameter provider for the technique</span></div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;        rt-&gt;setParametersProvider( material );</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;    }</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;    ro-&gt;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aeff85d0a41943b9de04ad00216333781">setRenderTechnique</a>( rt );</div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;}</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160; </div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="keywordtype">void</span> ForwardRenderer::updateShadowMaps() {</div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;    <span class="comment">// Radium V2 : implement shadow mapping</span></div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;}</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160; </div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;} <span class="comment">// namespace Rendering</span></div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        <span class="keyword">auto</span> pointCloud = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">Scene::PointCloudComponent</a>*<span class="keyword">&gt;</span>( ro-&gt;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#ae91b08d3e3bca047eed7300f07947ad6">getComponent</a>() );</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;        <span class="keywordflow">if</span> ( pointCloud )</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;        {</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;            <span class="keyword">auto</span> addGeomShader = [&amp;rt]( <a class="code" href="classRa_1_1Core_1_1Utils_1_1Index.html">Core::Utils::Index</a> pass ) {</div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;                <span class="keywordflow">if</span> ( rt-&gt;hasConfiguration( pass ) )</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;                {</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;                    <a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html">Data::ShaderConfiguration</a> config = rt-&gt;getConfiguration( pass );</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;                    config.<a class="code" href="classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a42ec93f4772c0455149a81e9d8502d43">addShader</a>( <a class="code" href="namespaceRa_1_1Engine_1_1Data.html#a7c546bc5ccbcfd57b78b5f4b689b1e5aa2958a1e82afde512a71ad84e1c5db247">Data::ShaderType_GEOMETRY</a>,</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;                                      RadiumEngine::getInstance()-&gt;getResourcesDir() +</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;                                          <span class="stringliteral">&quot;Shaders/Points/PointCloud.geom.glsl&quot;</span> );</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;                    rt-&gt;setConfiguration( config, pass );</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;                }</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;            };</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160; </div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;            addGeomShader( <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a3ff981fd9f47ecc46723d5f857391b57">DefaultRenderingPasses::LIGHTING_OPAQUE</a> );</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;            addGeomShader( <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942adb4f8703ab187adf671e953a1163bf17">DefaultRenderingPasses::LIGHTING_TRANSPARENT</a> );</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;            addGeomShader( <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a6adc37d571180327fbdcf8dd786e9942a51aa3f3937001c6d503e5fa61fa2a79c">DefaultRenderingPasses::Z_PREPASS</a> );</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;            <span class="comment">// construct the parameter provider for the technique</span></div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;            <span class="keyword">auto</span> pr = std::make_shared&lt;PointCloudParameterProvider&gt;( material, pointCloud );</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;            rt-&gt;setParametersProvider( pr );</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;        }</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;        { rt-&gt;setParametersProvider( material ); }</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    }</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    {</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        <span class="comment">// make the material the parameter provider for the technique</span></div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        rt-&gt;setParametersProvider( material );</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    }</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;    ro-&gt;<a class="code" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html#aeff85d0a41943b9de04ad00216333781">setRenderTechnique</a>( rt );</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;}</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; </div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;<span class="keywordtype">void</span> ForwardRenderer::updateShadowMaps() {</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;    <span class="comment">// Radium V2 : implement shadow mapping</span></div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;}</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160; </div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;} <span class="comment">// namespace Rendering</span></div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aRenderParameters_8hpp_html"><div class="ttname"><a href="RenderParameters_8hpp.html">RenderParameters.hpp</a></div></div>
@@ -862,7 +861,7 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="ForwardRenderer_8cpp.html">ForwardRenderer.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 3 2021 13:17:07 for Radium Engine by
+    <li class="footer">Generated on Fri Mar 5 2021 21:28:29 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
