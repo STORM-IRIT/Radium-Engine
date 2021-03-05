@@ -10,5 +10,5 @@ void main() {
     float d = max( abs( gColor.a ) - pixelWidthDiv2 + 0.5, 0. );
     float a = clamp( 1 - d * sqrt( 1. + slopeY2 ), 0., 1. );
 
-    fragColor = vec4( vec3( 1. ), a );
+    fragColor = vec4( vec3( 1., 0., 0. ), a );
 }
