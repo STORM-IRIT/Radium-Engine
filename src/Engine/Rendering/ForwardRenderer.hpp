@@ -79,6 +79,9 @@ class RA_ENGINE_API ForwardRenderer : public Renderer
     static const size_t ShadowMapSize {1024};
     std::vector<std::shared_ptr<Data::Texture>> m_shadowMaps;
     std::vector<Core::Matrix4> m_lightMatrices;
+
+    using WireMap = std::map<RenderObject*, std::shared_ptr<Data::Displayable>>;
+    WireMap m_wireframes;
 };
 
 } // namespace Rendering
