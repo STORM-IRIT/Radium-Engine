@@ -114,6 +114,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     PolyMesh toPolyMesh();
 
+    LineMesh toLineMesh();
+
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
      * same topology.

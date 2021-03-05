@@ -276,6 +276,64 @@ TriangleMesh TopologicalMesh::toTriangleMesh() {
     return out;
 }
 
+LineMesh TopologicalMesh::toLineMesh() {
+    // first cleanup deleted element
+    garbage_collection();
+
+    LineMesh out;
+    LineMesh::IndexContainerType indices;
+
+    TriangleMesh::PointAttribHandle::Container wedgePosition;
+    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+        m_wedges.m_floatAttribNames.size() );
+    AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
+        m_wedges.m_vector2AttribNames.size() );
+    AlignedStdVector<Attrib<Vector3>::Container> wedgeVector3AttribData(
+        m_wedges.m_vector3AttribNames.size() );
+    AlignedStdVector<Attrib<Vector4>::Container> wedgeVector4AttribData(
+        m_wedges.m_vector4AttribNames.size() );
+
+    /// Wedges are output vertices !
+    for ( WedgeIndex widx {0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
+    {
+        const auto& wd = m_wedges.getWedgeData( widx );
+        wedgePosition.push_back( wd.m_position );
+        copyWedgeDataToAttribContainer( wedgeFloatAttribData, wd.m_floatAttrib );
+        copyWedgeDataToAttribContainer( wedgeVector2AttribData, wd.m_vector2Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector3AttribData, wd.m_vector3Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector4AttribData, wd.m_vector4Attrib );
+    }
+
+    out.setVertices( std::move( wedgePosition ) );
+    moveContainerToMesh<float>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
+    moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
+    moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );
+
+    for ( TopologicalMesh::EdgeIter e_it = edges_sbegin(); e_it != edges_end(); ++e_it )
+    {
+        int tindices[2];
+
+        // take care of boundaries
+        auto he0 = halfedge_handle( *e_it, 0 );
+        if ( OpenMesh::ArrayKernel::is_boundary( he0 ) )
+        { he0 = prev_halfedge_handle( opposite_halfedge_handle( he0 ) ); }
+        if ( OpenMesh::ArrayKernel::is_boundary( he0 ) ) continue;
+        auto he1 = halfedge_handle( *e_it, 1 );
+        if ( OpenMesh::ArrayKernel::is_boundary( he1 ) )
+        { he1 = prev_halfedge_handle( opposite_halfedge_handle( he1 ) ); }
+        if ( OpenMesh::ArrayKernel::is_boundary( he1 ) ) continue;
+
+        tindices[0] = property( m_wedgeIndexPph, he0 );
+        tindices[1] = property( m_wedgeIndexPph, he1 );
+
+        indices.emplace_back( tindices[0], tindices[1] );
+    }
+
+    out.setIndices( std::move( indices ) );
+
+    return out;
+}
 PolyMesh TopologicalMesh::toPolyMesh() {
     // first cleanup deleted element
     garbage_collection();
