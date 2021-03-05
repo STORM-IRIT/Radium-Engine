@@ -431,7 +431,7 @@ function(installTargetResources)
     if (ARGS_FILES)
         set_target_properties(${ARGS_TARGET}
             PROPERTIES
-            RADIUM_TARGET_RESOURCES_FILES ${ARGS_FILES}
+            RADIUM_TARGET_RESOURCES_FILES "${ARGS_FILES}"
             )
     else ()
         file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)

@@ -607,25 +607,24 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
      */
     if ( RenderedGeometry && RenderedGeometry->getNumFaces() == 0 )
     {
-
-        auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
-            if ( rt->hasConfiguration( pass ) )
-            {
-                Data::ShaderConfiguration config = rt->getConfiguration( pass );
-                config.addShader( Data::ShaderType_GEOMETRY,
-                                  RadiumEngine::getInstance()->getResourcesDir() +
-                                      "Shaders/Points/PointCloud.geom.glsl" );
-                rt->setConfiguration( config, pass );
-            }
-        };
-
-        addGeomShader( DefaultRenderingPasses::LIGHTING_OPAQUE );
-        addGeomShader( DefaultRenderingPasses::LIGHTING_TRANSPARENT );
-        addGeomShader( DefaultRenderingPasses::Z_PREPASS );
-        // construct the parameter provider for the technique
         auto pointCloud = dynamic_cast<Scene::PointCloudComponent*>( ro->getComponent() );
         if ( pointCloud )
         {
+            auto addGeomShader = [&rt]( Core::Utils::Index pass ) {
+                if ( rt->hasConfiguration( pass ) )
+                {
+                    Data::ShaderConfiguration config = rt->getConfiguration( pass );
+                    config.addShader( Data::ShaderType_GEOMETRY,
+                                      RadiumEngine::getInstance()->getResourcesDir() +
+                                          "Shaders/Points/PointCloud.geom.glsl" );
+                    rt->setConfiguration( config, pass );
+                }
+            };
+
+            addGeomShader( DefaultRenderingPasses::LIGHTING_OPAQUE );
+            addGeomShader( DefaultRenderingPasses::LIGHTING_TRANSPARENT );
+            addGeomShader( DefaultRenderingPasses::Z_PREPASS );
+            // construct the parameter provider for the technique
             auto pr = std::make_shared<PointCloudParameterProvider>( material, pointCloud );
             rt->setParametersProvider( pr );
         }
