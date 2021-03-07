@@ -117,6 +117,64 @@ bool TopologicalMesh::checkIntegrity() const {
     return ret;
 }
 
+void TopologicalMesh::triangulate() {
+
+    auto fix = [this]( HalfedgeHandle next_he, const std::vector<HalfedgeHandle>& old_heh ) {
+        // tagged if already fixed
+        auto to_vh = to_vertex_handle( next_he );
+        // find ref in old_he to copy wedge idx
+
+        auto ref = std::find_if(
+            old_heh.begin(), old_heh.end(), [this, to_vh]( const HalfedgeHandle& he ) {
+                return to_vertex_handle( he ) == to_vh;
+            } );
+        if ( ref != old_heh.end() )
+        {
+            property( m_wedgeIndexPph, next_he ) =
+                m_wedges.newReference( property( m_wedgeIndexPph, *ref ) );
+        }
+        else
+        { LOG( logERROR ) << "triangulate::fix reference halfedge not found"; }
+        status( next_he ).set_tagged( true );
+    };
+
+    FaceIter f_it( faces_begin() ), f_end( faces_end() );
+    for ( ; f_it != f_end; ++f_it )
+    {
+        // save original halfedge of the face
+        std::vector<HalfedgeHandle> old_heh;
+        ConstFaceHalfedgeIter fh_itr = cfh_iter( *f_it );
+        for ( ; fh_itr.is_valid(); ++fh_itr )
+        {
+            old_heh.push_back( *fh_itr );
+        }
+        auto size = old_heh.size();
+        //   if ( size <= 3 ) continue;
+
+        // base openmesh triangulate
+        base::triangulate( *f_it );
+
+        // fix newly created he
+        for ( size_t i = 0; i < size; ++i )
+        {
+            auto next_he = next_halfedge_handle( old_heh[i] );
+            // if next_he is not the same as next in old_heh, then it's a new one.
+            // fix tag halfedge so that it is not fixed two times (in case opposite halfedge is also
+            // parsed in this loop.
+            if ( !status( next_he ).tagged() && next_he != old_heh[( i + 1 ) % size] )
+            {
+                fix( next_he, old_heh );
+                fix( opposite_halfedge_handle( next_he ), old_heh );
+            }
+        }
+    }
+    // untag everything
+    for ( auto& he : halfedges() )
+    {
+        status( he ).set_tagged( false );
+    }
+}
+
 void printWedgesInfo( const Ra::Core::Geometry::TopologicalMesh& topo ) {
     using namespace Ra::Core;
 
