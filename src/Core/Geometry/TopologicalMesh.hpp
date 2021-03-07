@@ -306,6 +306,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// \return true if ok, false if ko.
     bool checkIntegrity() const;
 
+    void triangulate();
+
     /**
      * Inner class WedgeData represents the actual data per wedge, including position.
      *
