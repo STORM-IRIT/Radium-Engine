@@ -3,6 +3,7 @@
 
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
@@ -38,10 +39,10 @@ using namespace Ra::Engine::Rendering;
 using namespace Ra::Engine::Data;
 using namespace Ra::Engine::Scene;
 
-/* This file contains a minimal radium/qt application which shows the
-classic "Spinning Cube" demo. */
-
-/// This is a very basic component which holds a spinning cube.
+/**
+ * This file contains a minimal radium/qt application which shows the geometrical primitives
+ * supported by Radium
+ */
 
 MinimalComponent::MinimalComponent( Ra::Engine::Scene::Entity* entity ) :
     Ra::Engine::Scene::Component( "Minimal Component", entity ) {}
@@ -76,6 +77,7 @@ void MinimalComponent::initialize() {
     int nCellX        = 5;
     int nCellY        = 5;
     Vector3 cellCorner {-nCellX * cellSize / 2_ra, 0_ra, -nCellY * cellSize / 2_ra};
+    Vector3 toCellCenter {cellSize / 2_ra, cellSize / 2_ra, cellSize / 2_ra};
     Scalar offset {0.05_ra};
     Vector3 offsetVec {offset, offset, offset};
     std::random_device rd;    // Will be used to obtain a seed for the random number engine
@@ -598,19 +600,6 @@ void MinimalComponent::initialize() {
             {0_ra, 4_ra, 0_ra},
             {-2_ra, 3_ra, 0_ra},
             {-2_ra, 2_ra, 0_ra},
-            // degen
-            {-1.1_ra, -2_ra, 0_ra},
-            {-0.5_ra, -2_ra, 0_ra},
-            {-0.3_ra, -2_ra, 0_ra},
-            {0.0_ra, -2_ra, 0_ra},
-            {0.0_ra, -2_ra, 0_ra},
-            {0.3_ra, -2_ra, 0_ra},
-            {0.5_ra, -2_ra, 0_ra},
-            {1.1_ra, -2_ra, 0_ra},
-            // degen2
-            {-1_ra, -3_ra, 0_ra},
-            {1_ra, -3_ra, 0_ra},
-
         } );
 
         Vector3Array normals;
@@ -626,11 +615,7 @@ void MinimalComponent::initialize() {
         quad << 0, 1, 2, 3;
         auto hepta = VectorNui( 7 );
         hepta << 3, 2, 4, 5, 6, 7, 8;
-        auto degen = VectorNui( 10 );
-        degen << 1, 0, 9, 10, 11, 12, 13, 14, 15, 16;
-        auto degen2 = VectorNui( 10 );
-        degen2 << 14, 13, 12, 11, 10, 9, 17, 18, 16, 15;
-        polyMesh.setIndices( {quad, hepta, degen, degen2} );
+        polyMesh.setIndices( {quad, hepta} );
 
         std::shared_ptr<PolyMesh> poly1( new PolyMesh( "Poly", std::move( polyMesh ) ) );
         poly1->getCoreGeometry().addAttrib(
@@ -650,13 +635,10 @@ void MinimalComponent::initialize() {
 
 /// This system will be added to the engine. Every frame it will
 /// add a task to be executed, calling the spin function of the component.
-void MinimalSystem::generateTasks( Ra::Core::TaskQueue* q, const Ra::Engine::FrameInfo& info ) {
-    CORE_UNUSED( info );
-    CORE_UNUSED( q );
+void MinimalSystem::generateTasks( Ra::Core::TaskQueue*, const Ra::Engine::FrameInfo& ) {
 
     // We check that our component is here.
     CORE_ASSERT( m_components.size() == 1, "System incorrectly initialized" );
-    //    MinimalComponent* c = static_cast<MinimalComponent*>( m_components[0].second );
 }
 
 void MinimalSystem::addComponent( Ra::Engine::Scene::Entity* ent, MinimalComponent* comp ) {
