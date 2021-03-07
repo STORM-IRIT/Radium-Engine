@@ -75,7 +75,17 @@ bool TopologicalMesh::checkIntegrity() const {
     bool ret = true;
     for ( auto he_itr {halfedges_begin()}; he_itr != halfedges_end(); ++he_itr )
     {
+        if ( status( *he_itr ).deleted() ) continue;
+
         auto widx = property( m_wedgeIndexPph, *he_itr );
+
+        if ( is_boundary( *he_itr ) != widx.isInvalid() )
+        {
+            LOG( logWARNING )
+                << "topological mesh wedge inconsistency, boundary he != invalid Wedge";
+            ret = false;
+        }
+
         if ( widx.isValid() )
         {
             count[widx]++;
@@ -84,10 +94,11 @@ bool TopologicalMesh::checkIntegrity() const {
             {
                 LOG( logWARNING ) << "topological mesh wedge inconsistency, wedge and to position "
                                      "differ for widx "
-                                  << widx << ", have "
+                                  << widx << ", have ("
                                   << m_wedges.getWedgeData( widx ).m_position.transpose()
-                                  << "instead of "
-                                  << point( to_vertex_handle( *he_itr ) ).transpose();
+                                  << ") instead of ("
+                                  << point( to_vertex_handle( *he_itr ) ).transpose() << ")";
+                ret = false;
             }
         }
     }
@@ -96,8 +107,8 @@ bool TopologicalMesh::checkIntegrity() const {
     {
         if ( m_wedges.getWedge( WedgeIndex {widx} ).getRefCount() != count[widx] )
         {
-            LOG( logWARNING ) << "topological mesh wedge count inconsistency, have  " << count[widx]
-                              << " instead of "
+            LOG( logWARNING ) << "topological mesh wedge count inconsistency, real count is "
+                              << count[widx] << " wedge ref count is "
                               << m_wedges.getWedge( WedgeIndex {widx} ).getRefCount()
                               << " for wedge id " << widx;
             ret = false;
