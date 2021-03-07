@@ -645,6 +645,25 @@ void MinimalComponent::initialize() {
                                                      Eigen::UniformScaling<Scalar>( 0.06_ra )} );
 
         addRenderObject( renderObject1 );
+
+        Ra::Core::Geometry::TopologicalMesh topo {poly1->getCoreGeometry()};
+        topo.triangulate();
+        topo.checkIntegrity();
+        auto triangulated = topo.toTriangleMesh();
+        std::shared_ptr<Mesh> poly2( new Mesh( "Poly", std::move( triangulated ) ) );
+        poly2->getCoreGeometry().addAttrib(
+            "in_color",
+            Vector4Array {poly2->getNumVertices(),
+                          colorBoost * Utils::Color {0_ra, 0.6_ra, 0.1_ra}} );
+
+        auto renderObject2 = RenderObject::createRenderObject(
+            "triangulated", this, RenderObjectType::Geometry, poly2, {} );
+        renderObject2->setMaterial( blinnPhongMaterial );
+        renderObject2->setLocalTransform(
+            Transform {Translation( Vector3( cellCorner ) + toCellCenter ) *
+                       Eigen::UniformScaling<Scalar>( 0.03_ra )} );
+
+        addRenderObject( renderObject2 );
     }
 
     if ( ENABLE_LOGO )
