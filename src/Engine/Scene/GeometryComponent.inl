@@ -97,6 +97,65 @@ void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::Ge
 }
 
 template <typename CoreMeshType>
+typename SurfaceMeshComponent<CoreMeshType>::RenderMeshType*
+SurfaceMeshComponent<CoreMeshType>::meshFactory( const std::string& name,
+                                                 const Ra::Core::Asset::GeometryData* data ) {
+    CoreMeshType mesh;
+    typename CoreMeshType::PointAttribHandle::Container vertices;
+    typename CoreMeshType::NormalAttribHandle::Container normals;
+    typename CoreMeshType::IndexContainerType indices;
+
+    vertices.reserve( data->getVerticesSize() );
+    std::copy(
+        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
+
+    if ( data->hasNormals() )
+    {
+        normals.reserve( data->getVerticesSize() );
+        std::copy(
+            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
+    }
+
+    const auto& faces = data->getFaces();
+    indices.reserve( faces.size() );
+    std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
+    mesh.setVertices( std::move( vertices ) );
+    mesh.setNormals( std::move( normals ) );
+
+    if ( data->hasTangents() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
+                        data->getTangents() );
+    }
+
+    if ( data->hasBiTangents() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
+                        data->getBiTangents() );
+    }
+
+    if ( data->hasTextureCoordinates() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
+                        data->getTexCoords() );
+    }
+
+    if ( data->hasColors() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
+    }
+
+    // To be discussed: Should not weights be part of the geometry ?
+    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
+
+    mesh.setIndices( std::move( indices ) );
+    RenderMeshType* ret = new RenderMeshType {name};
+    ret->loadGeometry( std::move( mesh ) );
+
+    return ret;
+}
+
+template <typename CoreMeshType>
 void SurfaceMeshComponent<CoreMeshType>::finalizeROFromGeometry(
     const Core::Asset::MaterialData* data,
     Core::Transform transform ) {

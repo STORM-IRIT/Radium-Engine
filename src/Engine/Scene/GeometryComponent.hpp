@@ -101,7 +101,9 @@ class SurfaceMeshComponent : public GeometryComponent
     inline const CoreMeshType& getCoreGeometry() const;
     inline RenderMeshType* getDisplayable();
 
-  public:
+    static RenderMeshType* meshFactory( const std::string& name,
+                                        const Ra::Core::Asset::GeometryData* data );
+
     // Component communication management
     inline void setupIO( const std::string& id ) override;
     inline void setDeformable( bool b );
