@@ -111,9 +111,69 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
             face_wedges[j] = m_wedges.add( wd );
         }
 
-        // Add the face, then add attribs to vh
-        auto fh = add_face( face_vhandles );
-        // In case of topological inconsistancy, face will be invalid ...
+        // take care of degen, see below in method initWithWedge for comments
+        // copied from initFromWedges EXECPT THE TWO LINES WITH COMMENT
+        // x-----------------------------------------------------------------------------------x
+        {
+            auto begin = face_vhandles.begin();
+            if ( face_vhandles.size() > 2 )
+            {
+                auto end       = face_vhandles.end() - 1;
+                auto wedgeEnd  = face_wedges.end() - 1;
+                auto normalEnd = face_normals.end() - 1;
+
+                while ( begin != end && *begin == *end )
+                {
+                    end--;
+                    // WARNING explicit del wedge (not needed in initWithWedges)
+                    m_wedges.del( *wedgeEnd );
+                    wedgeEnd--;
+                    normalEnd--;
+                }
+                face_vhandles.erase( end + 1, face_vhandles.end() );
+                face_wedges.erase( wedgeEnd + 1, face_wedges.end() );
+                face_normals.erase( normalEnd + 1, face_normals.end() );
+            }
+        }
+
+        {
+            auto first       = face_vhandles.begin();
+            auto wedgeFirst  = face_wedges.begin();
+            auto normalFirst = face_normals.begin();
+            auto last        = face_vhandles.end();
+
+            if ( first != last )
+            {
+                auto result       = first;
+                auto wedgeResult  = wedgeFirst;
+                auto normalResult = normalFirst;
+                while ( ++first != last )
+                {
+                    if ( !( *result == *first ) )
+                    {
+                        ++result;
+                        ++wedgeResult;
+                        ++normalResult;
+                        if ( result != first )
+                        {
+                            *result = std::move( *first );
+                            // WARNING explicit del wedge (not needed in initWithWedges)
+                            m_wedges.del( *wedgeResult );
+                            *wedgeResult  = std::move( *wedgeFirst );
+                            *normalResult = std::move( *normalFirst );
+                        }
+                    }
+                }
+                face_vhandles.erase( result + 1, face_vhandles.end() );
+                face_wedges.erase( wedgeResult + 1, face_wedges.end() );
+                face_normals.erase( normalResult + 1, face_normals.end() );
+            }
+        }
+        TopologicalMesh::FaceHandle fh;
+        // skip 2 vertex face
+        if ( face_vhandles.size() > 2 ) fh = add_face( face_vhandles );
+        // x-----------------------------------------------------------------------------------x
+
         if ( fh.is_valid() )
         {
             for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
@@ -139,6 +199,9 @@ inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
         face_vertexIndex.clear();
     }
     command.postProcess( *this );
+
+    // grabage collect since some wedge might already be deleted
+    garbage_collection();
 }
 
 template <typename NonManifoldFaceCommand>
@@ -224,8 +287,76 @@ void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh, NonManifoldFac
             face_wedges[j] = WedgeIndex {inMeshVertexIndex};
         }
 
-        // Add the face, then add attribs to vh
-        TopologicalMesh::FaceHandle fh = add_face( face_vhandles );
+        // remove consecutive equal vertex
+        // first take care of "loop" if begin == *end-1
+        // apply the same modifications on wedges and normals
+        // e.g. 1 2 1 becomes 1 2
+        {
+            auto begin = face_vhandles.begin();
+            if ( face_vhandles.size() > 2 )
+            {
+                auto end       = face_vhandles.end() - 1;
+                auto wedgeEnd  = face_wedges.end() - 1;
+                auto normalEnd = face_normals.end() - 1;
+
+                while ( begin != end && *begin == *end )
+                {
+                    end--;
+                    wedgeEnd--;
+                    normalEnd--;
+                }
+                face_vhandles.erase( end + 1, face_vhandles.end() );
+                face_wedges.erase( wedgeEnd + 1, face_wedges.end() );
+                face_normals.erase( normalEnd + 1, face_normals.end() );
+            }
+        }
+        // then remove duplicates
+        // e.g. 1 2 2 becomes 1 2
+        // equiv of
+        // face_vhandles.erase( std::unique( face_vhandles.begin(), face_vhandles.end() ),
+        //                     face_vhandles.end() );
+        // but handles wedges and normals
+        // see (https://en.cppreference.com/w/cpp/algorithm/unique)
+        {
+            auto first       = face_vhandles.begin();
+            auto wedgeFirst  = face_wedges.begin();
+            auto normalFirst = face_normals.begin();
+            auto last        = face_vhandles.end();
+
+            if ( first != last )
+            {
+                auto result       = first;
+                auto wedgeResult  = wedgeFirst;
+                auto normalResult = normalFirst;
+                while ( ++first != last )
+                {
+                    if ( !( *result == *first ) )
+                    {
+                        ++result;
+                        ++wedgeResult;
+                        ++normalResult;
+                        if ( result != first )
+                        {
+                            *result       = std::move( *first );
+                            *wedgeResult  = std::move( *wedgeFirst );
+                            *normalResult = std::move( *normalFirst );
+                        }
+                    }
+                }
+                face_vhandles.erase( result + 1, face_vhandles.end() );
+                face_wedges.erase( wedgeResult + 1, face_wedges.end() );
+                face_normals.erase( normalResult + 1, face_normals.end() );
+            }
+        }
+
+        ///\todo and "cross face ?"
+        // unique sort size == vhandles size, if not split ...
+
+        TopologicalMesh::FaceHandle fh;
+        // skip 2 vertex face
+        if ( face_vhandles.size() > 2 ) fh = add_face( face_vhandles );
+
+        // In case of topological inconsistancy, face will be invalid (or uninitialized <> invalid)
         if ( fh.is_valid() )
         {
             for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )

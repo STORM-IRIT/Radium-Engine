@@ -10,14 +10,32 @@ using namespace Ra::Core::Utils;
 using namespace Ra::Core::Geometry;
 
 bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
-                 const Ra::Core::Geometry::TriangleMesh& meshTwo ) {
+                 const Ra::Core::Geometry::TriangleMesh& meshTwo,
+                 bool expected = true ) {
 
     bool result = true;
     int i       = 0;
     // Check length
-    if ( meshOne.vertices().size() != meshTwo.vertices().size() ) return false;
-    if ( meshOne.normals().size() != meshTwo.normals().size() ) return false;
-    if ( meshOne.getIndices().size() != meshTwo.getIndices().size() ) return false;
+    if ( meshOne.vertices().size() != meshTwo.vertices().size() )
+    {
+        if ( expected )
+        {
+            LOG( logINFO ) << "isSameMesh failed vertices.size()" << meshOne.vertices().size()
+                           << " " << meshTwo.vertices().size();
+        }
+        return false;
+    }
+    if ( meshOne.normals().size() != meshTwo.normals().size() )
+    {
+        if ( expected ) { LOG( logINFO ) << "isSameMesh failed normals.size()"; }
+        return false;
+    }
+
+    if ( meshOne.getIndices().size() != meshTwo.getIndices().size() )
+    {
+        if ( expected ) { LOG( logINFO ) << "isSameMesh failed getIndices().size()"; }
+        return false;
+    }
 
     // Check triangles
     std::vector<Vector3> stackVertices;
@@ -48,7 +66,12 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
                        meshTwo.vertices()[meshTwo.getIndices()[i][j]] );
             if ( it != stackVertices.end() ) { stackVertices.erase( it ); }
             else
-            { result = false; }
+            {
+
+                if ( expected ) { LOG( logINFO ) << "isSameMesh failed face not found"; }
+
+                result = false;
+            }
         }
 
         if ( hasNormals )
