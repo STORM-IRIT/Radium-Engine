@@ -109,6 +109,17 @@ During manipulation, if two wedges become the same (i.e. for the example on the 
 To merge wedges an explicit call to TopologicalMesh::mergeEqualWedges is needed.
 When a wedge is not referenced anymore (because referencing halfedges have been deleted), it is marked for deletation. When one call Ra::Core::Geometry::TopologicalMesh::garbage_collection(), the marked wedges are eventually deleted and halfedges index are updated accordingly.
 
+During conversion from Core::Geometry::*Mesh to Core::Geometry::TopologicalMesh, non manifold mesh faces are not added but given to an optionally provided user defined functor (see Ra::Core::Geometry::TopologicalMesh::TopologicalMesh and Ra::Core::Geometry::DefaultNonManifoldFaceCommand).
+Some meshes have multiple times the **same** vertices with **different** values for attributes inside a **single** face.
+This kind of situation can either raise degenerated faces, (in case of triangle mesh) or valid faces for some cases for polymesh.
+
+\todo will be supported when TopologicalMesh will support PolyMesh.
+
+In the latter case, the face is cleaned from the duplicated position and added to the TopologicalMesh, using the first encountered wedge value.
+The following figure illustrate this.
+![Mesh to Topo conversion for faces with multiples times the same 3D position](wedge-degen.svg)
+
+
 TopologicalMesh methods and types related to wedges: 
 
 - Ra::Core::Geometry::TopologicalMesh::WedgeData the actual wedge data, with one vector array for each of the supported types (float, Vector2, Vector3, Vector4). The order in these arrays follow the names found in getXXXAttribNames referenced below.
