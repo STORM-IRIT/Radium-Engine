@@ -130,6 +130,20 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     std::map<IndicesSemanticCollection, std::pair<bool, IndexViewBase>> m_indices;
 };
 
+struct RA_CORE_API PointCloudIndexView : public IndexView<Vector1ui> {
+    inline PointCloudIndexView() : IndexView( "IndexPointCloud" ) {};
+};
+
+struct RA_CORE_API TriangleIndexView : public IndexView<Vector3ui> {
+    inline TriangleIndexView() : IndexView( "TriangleMesh" ) {};
+};
+
+// class RA_CORE_API PolyIndexView : public IndexViewCollectionHelper<VectorNui>
+// {};
+
+// class RA_CORE_API LineIndexView : public IndexViewCollectionHelper<Vector2ui>
+// {};
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
