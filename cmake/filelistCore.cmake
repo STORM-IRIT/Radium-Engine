@@ -25,6 +25,7 @@ set( core_sources
     Geometry/CatmullClarkSubdivider.cpp
     Geometry/deprecated/TopologicalMesh.cpp
     Geometry/HeatDiffusion.cpp
+    Geometry/IndexedGeometry.cpp
     Geometry/Laplacian.cpp
     Geometry/LoopSubdivider.cpp
     Geometry/MeshPrimitives.cpp
@@ -96,6 +97,7 @@ set( core_headers
     Geometry/DistanceQueries.hpp
     Geometry/Frustum.hpp
     Geometry/HeatDiffusion.hpp
+    Geometry/IndexedGeometry.hpp
     Geometry/Laplacian.hpp
     Geometry/LoopSubdivider.hpp
     Geometry/MeshPrimitives.hpp
