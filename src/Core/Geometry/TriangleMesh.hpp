@@ -227,7 +227,7 @@ class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
 {
   public:
     using IndexType          = T;
-    using IndexContainerType = AlignedStdVector<IndexType>;
+    using IndexContainerType = VectorArray<IndexType>;
 
     inline IndexedGeometry() = default;
     inline explicit IndexedGeometry( const IndexedGeometry<IndexType>& other );
