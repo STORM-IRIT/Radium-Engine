@@ -232,7 +232,7 @@ makeGeodesicSphere( Scalar radius, uint numSubdiv, const Utils::optional<Utils::
 
     for ( uint n = 0; n < numSubdiv; ++n )
     {
-        AlignedStdVector<Vector3ui> newTris; //= indices;
+        VectorArray<Vector3ui> newTris; //= indices;
         // Now subdivide every face into 4 triangles.
         for ( uint i = 0; i < indices.size(); ++i )
         {
