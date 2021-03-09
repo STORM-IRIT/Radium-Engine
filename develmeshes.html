@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">adddf08c832b6e2620c5491843b1c6a0ef541ca8</span>
+   &#160;<span id="projectnumber">406ee8a5c5ceca53ca6c7031d8f6dd630c8a25d1</span>
    </div>
   </td>
  </tr>
@@ -207,7 +207,13 @@ Wedges</h2>
 <div class="caption">
 Wedge concept in a nutshell.</div></div>
    <p>Wedge are built at construction by using CoreMesh vertex index (which are supposed to represent wedges). Vertices with same (exact) position are merged topologically. The figure above show the basic concept of wedges for the example of vertex with color attribute (same works for normals, texture coordinates or any other attributes). a) A colored mesh, each vertex can have a different color depending on which face is considered. b) for rendering, vertex are duplicated the needed number of time. Here the center vertex is duplicated three time, while the top right one is duplicated two times. c) But for topological computation, one need to know these vertex are actually the same position, and are modified the same way. d) So the attributes (here color only) are represented as wedges associated with each coherent set of position+attributes. Here the center vertex has three wedges, while the top right vertex has two wedges. e) In the TopologicalMesh implementation, wedges are stored in an array, independently of the topology. Each half-edge has a wedge index. Half-edges that share the same wedge have the same index. During manipulation, if two wedges become the same (i.e. for the example on the figure, if we recolor the whole mesh using a single color), <b>they are not merged</b>. To merge wedges an explicit call to TopologicalMesh::mergeEqualWedges is needed. When a wedge is not referenced anymore (because referencing halfedges have been deleted), it is marked for deletation. When one call <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc" title="Remove deleted element from the mesh, including wedges.">Ra::Core::Geometry::TopologicalMesh::garbage_collection()</a>, the marked wedges are eventually deleted and halfedges index are updated accordingly.</p>
-<p>TopologicalMesh methods and types related to wedges:</p>
+<p>During conversion from Core::Geometry::*Mesh to Core::Geometry::TopologicalMesh, non manifold mesh faces are not added but given to an optionally provided user defined functor (see <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#acb5c9f896daa1b37a08d9cb768f8ad47">Ra::Core::Geometry::TopologicalMesh::TopologicalMesh</a> and <a class="el" href="structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html" title="[Default command implementation]">Ra::Core::Geometry::DefaultNonManifoldFaceCommand</a>). Some meshes have multiple times the <b>same</b> vertices with <b>different</b> values for attributes inside a <b>single</b> face. This kind of situation can either raise degenerated faces, (in case of triangle mesh) or valid faces for some cases for polymesh.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>will be supported when TopologicalMesh will support PolyMesh.</dd></dl>
+<p>In the latter case, the face is cleaned from the duplicated position and added to the TopologicalMesh, using the first encountered wedge value. The following figure illustrate this. </p><div class="image">
+<object type="image/svg+xml" data="wedge-degen.svg" style="pointer-events: none;"></object>
+<div class="caption">
+Mesh to Topo conversion for faces with multiples times the same 3D position</div></div>
+   <p>TopologicalMesh methods and types related to wedges:</p>
 <ul>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html">Ra::Core::Geometry::TopologicalMesh::WedgeData</a> the actual wedge data, with one vector array for each of the supported types (float, Vector2, Vector3, Vector4). The order in these arrays follow the names found in getXXXAttribNames referenced below.</li>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">Ra::Core::Geometry::TopologicalMesh::WedgeIndex</a></li>
@@ -223,7 +229,7 @@ Wedge concept in a nutshell.</div></div>
 <li><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1c787a24f4cb95e0b32fd56d9581fe00">Ra::Core::Geometry::TopologicalMesh::getWedgeIndexPph</a></li>
 </ul>
 <dl class="section warning"><dt>Warning</dt><dd>To delete face, one need to call <code><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a8217e23b6dd7ac9297aba305661d42f5">Ra::Core::Geometry::TopologicalMesh::delete_face</a></code>, not the <code><a class="el" href="namespaceOpenMesh.html">OpenMesh</a></code> vanilla <code>delete_face</code></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>make <a class="el" href="namespaceOpenMesh.html">OpenMesh</a> inheritance private.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>make <a class="el" href="namespaceOpenMesh.html">OpenMesh</a> inheritance private.</dd></dl>
 <p>Use <code><a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afd8ea5df294fb996c1f8c5d3871822c0">Ra::Core::Geometry::TopologicalMesh::collapseWedge</a></code> to perform halfedge collapse (works on triangle only ...). The following figure show the nasty updates: </p><div class="image">
 <object type="image/svg+xml" data="wedge-collapse.svg" style="pointer-events: none;"></object>
 <div class="caption">
@@ -238,7 +244,7 @@ Halfedge collapse and wedge.</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li><li class="navelem"><a class="el" href="api.html">API</a></li><li class="navelem"><a class="el" href="core.html">Core</a></li>
-    <li class="footer">Generated on Tue Mar 9 2021 10:03:28 for Radium Engine by
+    <li class="footer">Generated on Tue Mar 9 2021 19:50:53 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,11 +1,12 @@
 <map id="Ra::Core::Geometry::TopologicalMesh::TopologicalMesh" name="Ra::Core::Geometry::TopologicalMesh::TopologicalMesh">
-<area shape="rect" id="node1" title=" " alt="" coords="5,195,260,236"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,244,260,285"/>
 <area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#aebe4f9163305d76dec2fc1b8c34d68fb" title=" " alt="" coords="310,5,526,47"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title="read only access to indices" alt="" coords="308,71,528,112"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title=" " alt="" coords="583,155,785,211"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="335,267,501,323"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a6757687a50637e503f23ed2603fef9a8" title=" " alt="" coords="335,187,501,243"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a31d0673f24d7d2ace4452f77310cbf5a" title=" " alt="" coords="335,347,501,403"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="335,427,501,483"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="576,355,792,396"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ad0eb9c1c7711f3aa24ad612b339942bc" title="Remove deleted element from the mesh, including wedges." alt="" coords="319,71,517,127"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc" title="read only access to indices" alt="" coords="308,152,528,193"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afaacfdb6d79a9ccac45b78eba989d41d" title=" " alt="" coords="583,237,785,293"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#abfd2320cb73c0cb14805c234af594b5e" title="Access the vertices normals." alt="" coords="335,349,501,405"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a6757687a50637e503f23ed2603fef9a8" title=" " alt="" coords="335,269,501,325"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#a31d0673f24d7d2ace4452f77310cbf5a" title=" " alt="" coords="335,429,501,485"/>
+<area shape="rect" id="node10" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a" title="Access the vertices positions." alt="" coords="335,509,501,565"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Utils_1_1AttribManager.html#ae0cb7281ec72606a5392602b4ea50d2c" title=" " alt="" coords="576,436,792,477"/>
 </map>
