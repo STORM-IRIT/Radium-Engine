@@ -23,6 +23,7 @@ endif()
 
 find_package( Threads REQUIRED )
 find_package( Filesystem COMPONENTS Final Experimental REQUIRED )
+find_package( Backtrace )
 
 include( filelistCore )
 
@@ -62,6 +63,13 @@ target_link_libraries(${ra_core_target} PUBLIC OpenMeshCore OpenMeshTools Thread
 target_compile_definitions(${ra_core_target} PRIVATE RA_CORE_EXPORTS)
 target_compile_definitions(${ra_core_target} PRIVATE -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}> -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
 
+configure_file(radium_backtrace.in radium_backtrace.h)
+if (Backtrace_FOUND)
+    target_include_directories(${ra_core_target} PRIVATE ${Backtrace_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR})
+    if (DEFINED Backtrace_LIBRARIES)
+        target_link_libraries(${ra_core_target} PRIVATE ${Backtrace_LIBRARIES} )
+    endif ()
+endif ()
 
 if (WIN_32)
     target_compile_definitions(${ra_core_target} PUBLIC _USE_MATH_DEFINES) ##OpenMesh
