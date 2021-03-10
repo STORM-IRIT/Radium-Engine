@@ -129,6 +129,7 @@ set( core_headers
     Utils/Index.hpp
     Utils/IndexMap.hpp
     Utils/Log.hpp
+    Utils/ObjectWithSemantic.hpp
     Utils/Observable.hpp
     Utils/Singleton.hpp
     Utils/StackTrace.hpp
