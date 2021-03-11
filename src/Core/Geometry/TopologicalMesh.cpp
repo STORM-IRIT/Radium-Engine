@@ -75,18 +75,21 @@ bool TopologicalMesh::checkIntegrity() const {
     bool ret = true;
     for ( auto he_itr {halfedges_begin()}; he_itr != halfedges_end(); ++he_itr )
     {
-        if ( status( *he_itr ).deleted() ) continue;
-
         auto widx = property( m_wedgeIndexPph, *he_itr );
+
+        if ( status( *he_itr ).deleted() ) { continue; }
 
         if ( is_boundary( *he_itr ) != widx.isInvalid() )
         {
-            LOG( logWARNING )
-                << "topological mesh wedge inconsistency, boundary he != invalid Wedge";
+            LOG( logWARNING ) << "topological mesh wedge inconsistency, boundary he ("
+                              << ( is_boundary( *he_itr ) ? "true," : "false," ) << he_itr->idx()
+                              << ") != invalid Wedge (" << ( widx.isInvalid() ? "true," : "false," )
+                              << widx << ") ref "
+                              << ( widx.isValid() ? m_wedges.getWedge( widx ).getRefCount() : 0 );
             ret = false;
         }
 
-        if ( widx.isValid() )
+        if ( widx.isValid() ) // i.e. non boudnary
         {
             count[widx]++;
 
@@ -107,10 +110,10 @@ bool TopologicalMesh::checkIntegrity() const {
     {
         if ( m_wedges.getWedge( WedgeIndex {widx} ).getRefCount() != count[widx] )
         {
-            LOG( logWARNING ) << "topological mesh wedge count inconsistency, real count is "
-                              << count[widx] << " wedge ref count is "
+            LOG( logWARNING ) << "topological mesh wedge count inconsistency, topo count [ "
+                              << count[widx] << " ] != wedge count [ "
                               << m_wedges.getWedge( WedgeIndex {widx} ).getRefCount()
-                              << " for wedge id " << widx;
+                              << " ] for id " << widx;
             ret = false;
         }
     }
@@ -777,6 +780,7 @@ bool TopologicalMesh::splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f ) {
     return true;
 }
 
+/*
 void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
     HalfedgeHandle h  = heh;
     HalfedgeHandle hn = next_halfedge_handle( h );
@@ -786,61 +790,338 @@ void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh ) {
     HalfedgeHandle on = next_halfedge_handle( o );
     HalfedgeHandle op = prev_halfedge_handle( o );
 
-    //    FaceHandle fh = face_handle( h );
-    //    FaceHandle fo = face_handle( o );
-
     VertexHandle vh = to_vertex_handle( h );
     VertexHandle vo = to_vertex_handle( o );
 
-    auto position = m_wedges.getWedgeData( property( m_wedgeIndexPph, heh ) ).m_position;
-    auto widx     = property( m_wedgeIndexPph, heh );
+    auto widx     = getWedgeIndex( heh );
+    auto position = getWedgeData( widx ).m_position;
 
-    CORE_ASSERT( widx.isValid(), "try to collapse onto an invalid wedge" );
-    CORE_ASSERT( !isFeatureVertex( vo ), "try to collapse a feature vertex" );
-
-    for ( VertexIHalfedgeIter vih_it( vih_iter( vo ) ); vih_it.is_valid(); ++vih_it )
     {
-        // delete and set to new widx
-        m_wedges.del( property( m_wedgeIndexPph, *vih_it ) );
-        property( m_wedgeIndexPph, *vih_it ) = m_wedges.newReference( widx );
+        auto rwidx              = getWedgeIndex( op );
+        auto lwidx              = widx;
+        auto olwidx              = getWedgeIndex( hp );
+        auto orwidx              = getWedgeIndex( o );
+        HalfedgeHandle ring_itr = hp;
+        while ( ring_itr != o )
+        {
+            auto twidx = getWedgeIndex( ring_itr );
+            if(twidx == orwidx){
+                replaceWedgeIndex( ring_itr, rwidx );
+            }
+             if(twidx == olwidx){
+                replaceWedgeIndex( ring_itr, lwidx );
+            }
+            ring_itr = prev_halfedge_handle( opposite_halfedge_handle( ring_itr ) );
+        }
     }
-    // but remove one ref for the deleted opposite he
-    m_wedges.del( property( m_wedgeIndexPph, o ) );
-
-    // and delete wedge of the remove he
-    // first if h is not boundary, copy the wedgeIndex of hn to hp to it
-    if ( !is_boundary( h ) )
-    {
-        property( m_wedgeIndexPph, hp ) =
-            m_wedges.newReference( property( m_wedgeIndexPph, opposite_halfedge_handle( hn ) ) );
-    }
-    m_wedges.del( property( m_wedgeIndexPph, hn ) );
-    m_wedges.del( property( m_wedgeIndexPph, opposite_halfedge_handle( hn ) ) );
-
-    if ( !is_boundary( o ) )
-    {
-        property( m_wedgeIndexPph, on ) =
-            m_wedges.newReference( property( m_wedgeIndexPph, opposite_halfedge_handle( op ) ) );
-    }
-    m_wedges.del( property( m_wedgeIndexPph, op ) );
-    m_wedges.del( property( m_wedgeIndexPph, opposite_halfedge_handle( op ) ) );
 
     base::collapse( h );
 
     for ( VertexIHalfedgeIter vih_it( vih_iter( vh ) ); vih_it.is_valid(); ++vih_it )
     {
         // delete and set to new widx
+         if ( !status( *vih_it ).deleted() ) {
         m_wedges.setWedgePosition( property( m_wedgeIndexPph, *vih_it ), position );
+        }
+    }
+}
+*/
+
+//-----------------------------------------------------------------------------
+void TopologicalMesh::collapse( HalfedgeHandle _hh, bool keepFrom ) {
+    HalfedgeHandle h0 = _hh;
+    HalfedgeHandle h1 = next_halfedge_handle( h0 );
+    HalfedgeHandle o0 = opposite_halfedge_handle( h0 );
+    HalfedgeHandle o1 = next_halfedge_handle( o0 );
+
+    // remove edge
+    collapse_edge( h0, keepFrom );
+
+    // remove loops
+    if ( next_halfedge_handle( next_halfedge_handle( h1 ) ) == h1 )
+        collapse_loop( next_halfedge_handle( h1 ) );
+    if ( next_halfedge_handle( next_halfedge_handle( o1 ) ) == o1 ) collapse_loop( o1 );
+}
+
+//-----------------------------------------------------------------------------
+void TopologicalMesh::collapse_edge( HalfedgeHandle _hh, bool keepFrom ) {
+    HalfedgeHandle h  = _hh;
+    HalfedgeHandle hn = next_halfedge_handle( h );
+    HalfedgeHandle hp = prev_halfedge_handle( h );
+
+    HalfedgeHandle o   = opposite_halfedge_handle( h );
+    HalfedgeHandle on  = next_halfedge_handle( o );
+    HalfedgeHandle ono = opposite_halfedge_handle( on );
+    HalfedgeHandle op  = prev_halfedge_handle( o );
+
+    FaceHandle fh = face_handle( h );
+    FaceHandle fo = face_handle( o );
+
+    VertexHandle vh = to_vertex_handle( h );
+    VertexHandle vo = to_vertex_handle( o );
+
+    auto widx = getWedgeIndex( h );
+    if ( widx.isInvalid() ) // i.e. h is boundary
+        widx = getWedgeIndex( op );
+    auto otherWidx = getWedgeIndex( op );
+    if ( otherWidx.isInvalid() ) // i.e. h is boundary
+        otherWidx = getWedgeIndex( h );
+
+// halfedge -> vertex
+
+// manual iter for from fixup
+#if 1
+    auto currentWidx     = widx;
+    auto ringWidx        = WedgeIndex {};
+    int phase            = 0;
+    HalfedgeHandle start = prev_halfedge_handle( opposite_halfedge_handle( hp ) );
+    HalfedgeHandle vih   = start;
+    do
+    {
+        set_vertex_handle( vih, vh );
+        if ( !is_boundary( vih ) )
+        {
+            if ( !keepFrom )
+            {
+                if ( phase == 0 )
+                {
+                    CORE_ASSERT( ringWidx.isInvalid(), "" );
+                    phase    = 1;
+                    ringWidx = getWedgeIndex( vih );
+                }
+                if ( phase == 1 && ringWidx != getWedgeIndex( vih ) )
+                {
+                    CORE_ASSERT( ringWidx.isValid(), "" );
+                    CORE_ASSERT( getWedgeIndex( vih ).isValid(), "" );
+                    phase       = 2;
+                    currentWidx = otherWidx;
+                }
+                replaceWedgeIndex( vih, currentWidx );
+            }
+            else
+            { m_wedges.setWedgePosition( getWedgeIndex( vih ), point( vh ) ); }
+        }
+        vih = prev_halfedge_handle( opposite_halfedge_handle( vih ) );
+    } while ( vih != start );
+#else
+    // auto version from openmesh
+    for ( VertexIHalfedgeIter vih_it( vih_iter( vo ) ); vih_it.is_valid(); ++vih_it )
+    {
+        set_vertex_handle( *vih_it, vh );
+        if ( !is_boundary( *vih_it ) )
+        {
+            if ( !keepFrom ) { replaceWedgeIndex( *vih_it, widx ); }
+            else
+            { m_wedges.setWedgePosition( getWedgeIndex( *vih_it ), point( vh ) ); }
+        }
+    }
+#endif
+
+    // halfedge -> halfedge
+    set_next_halfedge_handle( hp, hn );
+    if ( !is_boundary( hp ) )
+        if ( !keepFrom ) replaceWedgeIndex( hp, widx );
+
+    set_next_halfedge_handle( op, on );
+
+    if ( keepFrom )
+    {
+        if ( !is_boundary( op ) ) replaceWedgeIndex( op, getWedgeIndex( ono ) );
+    }
+    // face -> halfedge
+    if ( fh.is_valid() ) set_halfedge_handle( fh, hn );
+    if ( fo.is_valid() ) set_halfedge_handle( fo, on );
+
+    // vertex -> halfedge
+    if ( halfedge_handle( vh ) == o ) set_halfedge_handle( vh, hn );
+    adjust_outgoing_halfedge( vh );
+    set_isolated( vo );
+
+    // delete stuff
+    status( edge_handle( h ) ).set_deleted( true );
+
+    status( vo ).set_deleted( true );
+
+    m_wedges.del( getWedgeIndex( h ) );
+    m_wedges.del( getWedgeIndex( o ) );
+
+    if ( has_halfedge_status() )
+    {
+        status( h ).set_deleted( true );
+        status( o ).set_deleted( true );
     }
 }
 
-void TopologicalMesh::garbage_collection() {
-    for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
+//-----------------------------------------------------------------------------
+void TopologicalMesh::collapse_loop( HalfedgeHandle _hh ) {
+    HalfedgeHandle h0 = _hh;
+    HalfedgeHandle h1 = next_halfedge_handle( h0 );
+
+    HalfedgeHandle o0 = opposite_halfedge_handle( h0 );
+    HalfedgeHandle o1 = opposite_halfedge_handle( h1 );
+
+    VertexHandle v0 = to_vertex_handle( h0 );
+    VertexHandle v1 = to_vertex_handle( h1 );
+
+    FaceHandle fh = face_handle( h0 );
+    FaceHandle fo = face_handle( o0 );
+
+    // is it a loop ?
+    assert( ( next_halfedge_handle( h1 ) == h0 ) && ( h1 != o0 ) );
+
+    // halfedge -> halfedge
+    set_next_halfedge_handle( h1, next_halfedge_handle( o0 ) );
+    replaceWedgeIndex( h1, getWedgeIndex( o0 ) );
+    set_next_halfedge_handle( prev_halfedge_handle( o0 ), h1 );
+
+    // halfedge -> face
+    set_face_handle( h1, fo );
+
+    // vertex -> halfedge
+    set_halfedge_handle( v0, h1 );
+    adjust_outgoing_halfedge( v0 );
+    set_halfedge_handle( v1, o1 );
+    adjust_outgoing_halfedge( v1 );
+
+    // face -> halfedge
+    if ( fo.is_valid() && halfedge_handle( fo ) == o0 ) { set_halfedge_handle( fo, h1 ); }
+
+    // delete stuff
+    if ( fh.is_valid() )
     {
-        // already done in collapseWedge
-        // if ( status( *he_it ).deleted() ) { m_wedges.del(property(
-        // m_wedgeIndexPph, *he_it )); }
+        set_halfedge_handle( fh, InvalidHalfedgeHandle );
+        status( fh ).set_deleted( true );
     }
+    status( edge_handle( h0 ) ).set_deleted( true );
+
+    m_wedges.del( getWedgeIndex( h0 ) );
+    m_wedges.del( getWedgeIndex( o0 ) );
+
+    if ( has_halfedge_status() )
+    {
+        status( h0 ).set_deleted( true );
+        status( o0 ).set_deleted( true );
+    }
+}
+
+void TopologicalMesh::collapseWedge( TopologicalMesh::HalfedgeHandle heh, bool keepFromWedges ) {
+    collapse( heh, keepFromWedges );
+    ///\todo remove when seems to work
+    checkIntegrity();
+}
+
+void TopologicalMesh::collapseWedge2( TopologicalMesh::HalfedgeHandle heh, bool keepFromWedges ) {
+    LOG( logINFO ) << "in " << keepFromWedges;
+    checkIntegrity();
+
+    HalfedgeHandle h   = heh;
+    HalfedgeHandle hn  = next_halfedge_handle( h );
+    HalfedgeHandle hp  = prev_halfedge_handle( h );
+    HalfedgeHandle hpo = opposite_halfedge_handle( hp );
+
+    HalfedgeHandle o   = opposite_halfedge_handle( h );
+    HalfedgeHandle on  = next_halfedge_handle( o );
+    HalfedgeHandle ono = opposite_halfedge_handle( on );
+    HalfedgeHandle op  = prev_halfedge_handle( o );
+
+    if ( is_boundary( hn ) ) { CORE_ASSERT( getWedgeIndex( hn ).isInvalid(), "" ); }
+    if ( is_boundary( hp ) ) { CORE_ASSERT( getWedgeIndex( hp ).isInvalid(), "" ); }
+    if ( is_boundary( hpo ) ) { CORE_ASSERT( getWedgeIndex( hpo ).isInvalid(), "" ); }
+    if ( is_boundary( on ) ) { CORE_ASSERT( getWedgeIndex( on ).isInvalid(), "" ); }
+    if ( is_boundary( op ) ) { CORE_ASSERT( getWedgeIndex( op ).isInvalid(), "" ); }
+    if ( is_boundary( ono ) ) { CORE_ASSERT( getWedgeIndex( ono ).isInvalid(), "" ); }
+
+    VertexHandle vh = to_vertex_handle( h );
+    VertexHandle vo = to_vertex_handle( o );
+
+    auto widx = getWedgeIndex( h );
+
+    auto position = getWedgeData( widx ).m_position;
+
+    bool searchFeatureEdge  = getWedgeIndex( op ) != getWedgeIndex( h );
+    auto owidx              = getWedgeIndex( op );
+    HalfedgeHandle ring_itr = prev_halfedge_handle( opposite_halfedge_handle( hp ) );
+    auto currentWidx        = widx;
+    auto ringWidx           = getWedgeIndex( ring_itr );
+
+    if ( !keepFromWedges )
+    {
+        while ( ring_itr != ono )
+        {
+            if ( !is_boundary( ring_itr ) ) replaceWedgeIndex( ring_itr, currentWidx );
+            ring_itr = prev_halfedge_handle( opposite_halfedge_handle( ring_itr ) );
+            if ( searchFeatureEdge && ( ringWidx != getWedgeIndex( ring_itr ) ) )
+            {
+                searchFeatureEdge = false;
+                currentWidx       = owidx;
+            }
+            ringWidx = getWedgeIndex( ring_itr );
+        }
+    }
+
+    base::collapse( h );
+
+    // checks in case OpenMesh collapse change
+    CORE_ASSERT( status( h ).deleted(), "" );
+    CORE_ASSERT( status( vo ).deleted(), "" );
+    CORE_ASSERT( status( o ).deleted(), "" );
+    // delete wedge of deleted he during base collapse or fix WedgeIndex
+
+    m_wedges.del( getWedgeIndex( h ) );
+    m_wedges.del( getWedgeIndex( o ) );
+
+    if ( status( hp ).deleted() )
+    {
+        CORE_ASSERT( !status( hn ).deleted(), "" );
+        if ( !is_boundary( hn ) )
+            replaceWedgeIndex( hn, getWedgeIndex( hpo ) );
+        else
+        { CORE_ASSERT( getWedgeIndex( hn ).isInvalid(), "" ); }
+        CORE_ASSERT( status( hpo ).deleted(), "" );
+        m_wedges.del( getWedgeIndex( hp ) );
+        m_wedges.del( getWedgeIndex( hpo ) );
+    }
+    else
+    {
+        if ( !keepFromWedges ) { replaceWedgeIndex( hp, widx ); }
+    }
+
+    if ( status( on ).deleted() )
+    {
+        if ( !keepFromWedges ) {}
+        else
+        {
+            if ( !is_boundary( op ) )
+                replaceWedgeIndex( op, getWedgeIndex( ono ) );
+            else
+            { CORE_ASSERT( getWedgeIndex( op ).isInvalid(), "" ); }
+        }
+        CORE_ASSERT( status( ono ).deleted(), "" );
+        m_wedges.del( getWedgeIndex( on ) );
+        m_wedges.del( getWedgeIndex( ono ) );
+    }
+    else
+    {
+        if ( !keepFromWedges ) { replaceWedgeIndex( ono, currentWidx ); }
+    }
+
+    // fix position around the "to" vertex
+    for ( VertexIHalfedgeIter vih_it( vih_iter( vh ) ); vih_it.is_valid(); ++vih_it )
+    {
+        if ( !status( *vih_it ).deleted() && !is_boundary( *vih_it ) )
+        {
+            m_wedges.setWedgePosition( getWedgeIndex( *vih_it ), position );
+            // std::cout << " set  " << getWedgeIndex( *vih_it ) << " " << position.transpose()
+            //           << "\n";
+        }
+    }
+
+    LOG( logINFO ) << "out";
+    checkIntegrity();
+    LOG( logINFO ) << "done";
+}
+void TopologicalMesh::garbage_collection() {
+    // Wedge Ref count is already up to date, do not del again !
 
     auto offset = m_wedges.computeCleanupOffset();
     for ( HalfedgeIter he_it = halfedges_begin(); he_it != halfedges_end(); ++he_it )
