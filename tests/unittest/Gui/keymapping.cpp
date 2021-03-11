@@ -56,8 +56,9 @@ KeyMappingDummy
 }
 
 TEST_CASE( "Gui/Utils/KeyMappingManager", "[Gui][Gui/Utils][KeyMappingManager]" ) {
-    QSettings settings( "RadiumUnitTests", "KeyMappingManager" );
-
+    QCoreApplication::setOrganizationName( "RadiumUnitTests" );
+    QCoreApplication::setApplicationName( "KeyMappingManager" );
+    QSettings settings;
     settings.clear();
     KeyMappingManager::createInstance();
     auto mgr = Gui::KeyMappingManager::getInstance();
