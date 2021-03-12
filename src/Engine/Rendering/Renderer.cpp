@@ -44,9 +44,7 @@ Renderer::Renderer() :
     m_depthTexture {nullptr},
     m_fancyTexture {nullptr},
     m_pickingFbo {nullptr},
-    m_pickingTexture {nullptr} {
-    GL_CHECK_ERROR;
-}
+    m_pickingTexture {nullptr} {}
 
 Renderer::~Renderer() = default;
 
