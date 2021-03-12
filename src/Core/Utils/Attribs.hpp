@@ -256,7 +256,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * \brief contains Check if an attribute with the given \p name exists.
      * \param name Name of the attribute.
      * \warning There is no error check on the attribute type.
-     * \note The complexity for checking an attribute handle is O(log(n)).
+     * \complexity \f$ O(\log(n)) \f$
      */
     inline bool contains( const std::string& name ) const;
 
@@ -265,14 +265,14 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
      * \param name Name of the attribute.
      * \return Attribute handler if found, an invalid handler otherwise.
      * \warning There is no error check on the attribute type.
-     * \note The complexity for accessing an attribute handle is O(log(n)).
+     * \complexity \f$ O(\log(n)) \f$
      */
     template <typename T>
     inline AttribHandle<T> findAttrib( const std::string& name ) const;
 
     ///@{
     /// Get attribute by handle.
-    /// \note The complexity for accessing an attribute is O(1).
+    /// \complexity \f$ O(1) \f$
     /// \warning There is no check on the handle validity.
     template <typename T>
     inline Attrib<T>& getAttrib( const AttribHandle<T>& h );
@@ -281,7 +281,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     inline Attrib<T>* getAttribPtr( const AttribHandle<T>& h );
 
     /// Get attribute by handle (const).
-    /// \note The complexity for accessing an attribute is O(1).
+    /// \complexity \f$ O(1) \f$
     /// \warning There is no check on the handle validity.
     template <typename T>
     inline const Attrib<T>& getAttrib( const AttribHandle<T>& h ) const;
@@ -311,7 +311,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// notify(name) is called to trigger the observers
     /// \note If an attribute with the same name already exists,
     ///       just returns a AttribHandle to it.
-    /// \note The complexity for adding a new attribute is O(n).
+    /// \complexity \f$ O(n) \f$
     template <typename T>
     AttribHandle<T> addAttrib( const std::string& name );
 
@@ -319,7 +319,7 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
     /// notify(name) is called to trigger the observers
     /// \warning If a new attribute is added, old invalidated handles may lead to
     ///          the new attribute.
-    /// \note The complexity for removing an attribute is O(log(n)).
+    /// \complexity \f$ O(\log(n)) \f$
     template <typename T>
     void removeAttrib( AttribHandle<T>& h );
     /// Return true if *this and \p other have the same attributes, same amount

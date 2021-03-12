@@ -262,7 +262,7 @@ class RA_CORE_API VolumeSparse : public AbstractDiscreteVolume
      *
      * Returns an invalid value when no sample is registered in the targeted bin.
      *
-     * Complexity: At most last - first applications of the predicate
+     * \complexity At most last - first applications of the predicate
      * (http://en.cppreference.com/w/cpp/algorithm/find)
      */
     inline Utils::optional<ValueType> getBinValue( typename IndexType::Scalar idx ) const override {
@@ -275,7 +275,7 @@ class RA_CORE_API VolumeSparse : public AbstractDiscreteVolume
     ///
     /// Create the bin if not already existing
     ///
-    /// Complexity: At most last - first applications of the predicate
+    /// \complexity At most last - first applications of the predicate
     /// (http://en.cppreference.com/w/cpp/algorithm/find)
     inline void addToBin( const ValueType& value, typename IndexType::Scalar idx ) override {
         auto res = findBin( idx );
