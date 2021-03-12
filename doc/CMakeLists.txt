@@ -122,6 +122,9 @@ if(DOXYGEN_FOUND)
     set( DOXYGEN_TOC_INCLUDE_HEADINGS   "2")
     set( DOXYGEN_IMAGE_PATH             "${CMAKE_CURRENT_SOURCE_DIR}/images")
     set( DOXYGEN_DOT_GRAPH_MAX_NODES    "60")
+    set( DOXYGEN_ALIASES                [[complexity="@par Complexity:^^"]])
+    set( DOXYGEN_VERBATIM_VARS          DOXYGEN_ALIASES)
+
 
     doxygen_add_docs(RadiumDoc
         ${md_pages_order} ${md_files} ${CMAKE_CURRENT_SOURCE_DIR}/../src/ ${CURRENT_SRC_DIR}
