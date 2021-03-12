@@ -962,3 +962,65 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][T
     testAttrib( tri, "test2", 3.f );
     testAttrib( tri, "test3", 3.f );
 }
+
+optional<TopologicalMesh::HalfedgeHandle>
+findHalfedge( TopologicalMesh& topo, const Vector3& from, const Vector3& to ) {
+    bool found;
+    TopologicalMesh::HalfedgeHandle he;
+    for ( auto he_iter = topo.halfedges_begin(); he_iter != topo.halfedges_end(); ++he_iter )
+    {
+
+        if ( topo.point( topo.to_vertex_handle( he_iter ) ) == from &&
+             topo.point( topo.from_vertex_handle( he_iter ) ) == to )
+        {
+            found = true;
+            he    = *he_iter;
+        }
+    }
+    if ( found ) return he;
+    return {};
+}
+
+TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
+    Vector3Array points {
+        {00_ra, 00_ra, 00_ra},
+        {10_ra, 00_ra, 00_ra},
+        {05_ra, 05_ra, 00_ra},
+        {05_ra, 10_ra, 00_ra},
+        {15_ra, 05_ra, 00_ra},
+        {10_ra, 12_ra, 00_ra},
+        {10_ra, 15_ra, 00_ra},
+        {15_ra, 10_ra, 00_ra},
+    };
+    Vector3Array colors = {{0_ra, 0_ra, 0_ra},
+                           {0_ra, 0_ra, 0_ra},
+                           {1_ra, 1_ra, 1_ra},
+                           {2_ra, 2_ra, 2_ra},
+                           {3_ra, 3_ra, 3_ra},
+                           {4_ra, 4_ra, 4_ra},
+                           {5_ra, 5_ra, 5_ra},
+                           {6_ra, 6_ra, 6_ra},
+                           {7_ra, 7_ra, 7_ra},
+                           {8_ra, 8_ra, 8_ra},
+                           {9_ra, 9_ra, 9_ra},
+                           {10_ra, 10_ra, 10_ra},
+                           {11_ra, 11_ra, 11_ra}};
+
+    VectorArray<Vector3ui> indices1 {
+        {0, 1, 2}, {0, 2, 3}, {1, 5, 2}, {2, 5, 3}, {1, 4, 5}, {5, 7, 6}, {4, 7, 5}};
+
+    SECTION( "simple collapse" ) {
+        TriangleMesh mesh1;
+        mesh1.setVertices( points );
+        mesh1.addAttrib( "color", Vector3Array {colors.begin(), colors.begin() + points.size()} );
+        mesh1.setIndices( indices1 );
+        TopologicalMesh topo1 {mesh1};
+        // search for he
+        TopologicalMesh::HalfedgeHandle he;
+        auto optHe = findHalfedge( topo1, points[5], points[2] );
+        REQUIRE( optHe );
+        topo1.collapseWedge( *optHe );
+        optHe = findHalfedge( topo1, points[5], points[2] );
+        REQUIRE( !optHe );
+    }
+}
