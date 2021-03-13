@@ -372,8 +372,17 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         {
             std::shared_ptr<Data::Displayable> wro;
             std::shared_ptr<Data::LineMesh> disp;
+
+            /// \todo manage gl destruction on the Mesh side
+#if 0
             WireMap::iterator it = m_wireframes.find( ro.get() );
             if ( it == m_wireframes.end() )
+#else
+            WireMap copy = m_wireframes;
+            m_wireframes.clear();
+            WireMap::iterator it = copy.find( ro.get() );
+            if ( it == copy.end() )
+#endif
             {
                 using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
                 using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
@@ -458,20 +467,26 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 }
                 wro = disp;
             }
-            else
-            { wro = it->second; }
+            else {
+                wro = it->second;
+            }
             const Data::ShaderProgram* shader =
                 m_shaderProgramManager->getShaderProgram( "Wireframe" );
             shader->bind();
             if ( shader && wro )
             {
-                Core::Matrix4 modelMatrix = ro->getTransformAsMatrix();
-                shader->setUniform( "transform.proj", renderData.projMatrix );
-                shader->setUniform( "transform.view", renderData.viewMatrix );
-                shader->setUniform( "transform.model", modelMatrix );
-                shader->setUniform( "viewport", Core::Vector2 {m_width, m_height} );
-                wro->render( shader );
-                GL_CHECK_ERROR;
+                if ( ro->isVisible() )
+                {
+
+                    Core::Matrix4 modelMatrix = ro->getTransformAsMatrix();
+                    shader->setUniform( "transform.proj", renderData.projMatrix );
+                    shader->setUniform( "transform.view", renderData.viewMatrix );
+                    shader->setUniform( "transform.model", modelMatrix );
+                    shader->setUniform( "viewport", Core::Vector2 {m_width, m_height} );
+                    wro->render( shader );
+
+                    GL_CHECK_ERROR;
+                }
             }
         }
     }
