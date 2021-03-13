@@ -822,85 +822,137 @@ void MinimalComponent::initialize() {
             colors2[face[1]] = colors[face[0]];
             colors2[face[2]] = colors[face[0]];
         }
-        TriangleMesh mesh1;
 
-        TopologicalMesh topo1;
-        optional<TopologicalMesh::HalfedgeHandle> optHe;
-        Vector3 pos;
+        Vector4Array colors3 {24, Color::White()};
+        std::vector<int> topFaceIndices {1, 3, 5, 6};
+        std::vector<int> bottomFaceIndices {0, 2, 4, 7};
+
+        for ( const auto& faceIndex : topFaceIndices )
+        {
+            colors3[indices2[faceIndex][0]] = colors[0];
+            colors3[indices2[faceIndex][1]] = colors[0];
+            colors3[indices2[faceIndex][2]] = colors[0];
+        }
+        for ( const auto& faceIndex : bottomFaceIndices )
+        {
+            colors3[indices2[faceIndex][0]] = colors[1];
+            colors3[indices2[faceIndex][1]] = colors[1];
+            colors3[indices2[faceIndex][2]] = colors[1];
+        }
+        Vector4Array colors4 {24, Color::White()};
+
+        std::vector<std::vector<int>> splitContinuousWedges {// 0
+                                                             {0},
+                                                             {1},
+                                                             // 1
+                                                             {2, 3, 4},
+                                                             // 2
+                                                             {8, 7},
+                                                             {5, 6},
+                                                             // 3
+                                                             {9, 10, 11},
+                                                             // 4
+                                                             {12, 13},
+                                                             // 5
+                                                             {14, 15, 16},
+                                                             {17, 18, 19},
+                                                             // 6
+                                                             {20, 21},
+                                                             // 7
+                                                             {22, 23}};
+
+        for ( size_t i = 0; i < splitContinuousWedges.size(); ++i )
+        {
+            for ( const auto& widx : splitContinuousWedges[i] )
+            {
+                colors4[widx] = colors[i];
+            }
+        }
 
         auto addMergeScene =
             [findHalfedge, addMesh, &cellCorner, toCellCenter, cellSize, nCellX, nCellY](
                 const Vector3Array& points,
                 const Vector4Array& colors,
                 const Vector3uArray& indices1,
-                const Vector3& from,
-                const Vector3& to ) {
+                Vector3 from,
+                Vector3 to ) {
                 TriangleMesh mesh1;
-
                 TopologicalMesh topo1;
                 optional<TopologicalMesh::HalfedgeHandle> optHe;
                 Vector3 pos;
+                pos = cellCorner + toCellCenter;
+                Vector3 up {0_ra, .25_ra, 0_ra};
 
                 mesh1.setVertices( points );
                 mesh1.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
                                  Vector4Array {colors.begin(), colors.begin() + points.size()} );
                 mesh1.setIndices( indices1 );
                 topo1 = TopologicalMesh {mesh1};
+                topo1.mergeEqualWedges();
+                topo1.garbage_collection();
+                topo1.checkIntegrity();
                 optHe = findHalfedge( topo1, from, to );
 
-                pos = cellCorner + toCellCenter;
                 addMesh( pos, topo1 );
 
-                updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-                pos = cellCorner + toCellCenter;
+                pos += up;
                 topo1.collapseWedge( *optHe );
                 addMesh( pos, topo1 );
 
                 topo1 = TopologicalMesh {mesh1};
                 optHe = findHalfedge( topo1, from, to );
-                pos   = cellCorner + toCellCenter + Vector3 {0_ra, .25_ra, 0_ra};
+                pos += up;
+                topo1.collapseWedge( *optHe, true );
+                addMesh( pos, topo1 );
+
+                std::swap( from, to );
+                topo1 = TopologicalMesh {mesh1};
+                topo1.mergeEqualWedges();
+
+                optHe = findHalfedge( topo1, from, to );
+
+                pos += up;
+                topo1.collapseWedge( *optHe );
+                addMesh( pos, topo1 );
+
+                topo1 = TopologicalMesh {mesh1};
+                optHe = findHalfedge( topo1, from, to );
+                pos += up;
                 topo1.collapseWedge( *optHe, true );
                 addMesh( pos, topo1 );
             };
 
         // With "continuous" wedges.
         addMergeScene( points, colors, indices1, points[5], points[2] );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
+        // with "top/bottom" wedges
+        addMergeScene( points2, colors3, indices2, points[5], points[2] );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        // with continuous"top/bottom" wedges
+        addMergeScene( points2, colors4, indices2, points[5], points[2] );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
         // with "flat face" wedges
         addMergeScene( points2, colors2, indices2, points[5], points[2] );
-
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
         // boundary
         // With "continuous" wedges.
         addMergeScene( points, colors, indices3, points[5], points[2] );
-
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        // with "top/bottom" wedges
+        addMergeScene( points2, colors3, indices4, points[5], points[2] );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        // with continuous"top/bottom" wedges
+        addMergeScene( points2, colors4, indices4, points[5], points[2] );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
         // with "flat face" wedges
         addMergeScene( points2, colors2, indices4, points[5], points[2] );
-
-        // other way round
-        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-
-        // With "continuous" wedges.
-        addMergeScene( points, colors, indices1, points[2], points[5] );
-
-        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-
-        // with "flat face" wedges
-        addMergeScene( points2, colors2, indices2, points[2], points[5] );
-
-        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-        //
-        //        // boundary
-        //        // With "continuous" wedges.
-        addMergeScene( points, colors, indices3, points[2], points[5] );
-        //
-        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-        //        // with "flat face" wedges
-        addMergeScene( points2, colors2, indices4, points[2], points[5] );
     }
 }
 
