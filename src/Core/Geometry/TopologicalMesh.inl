@@ -800,7 +800,8 @@ inline void TopologicalMesh::mergeEqualWedges( OpenMesh::VertexHandle vh ) {
     for ( auto itr = vih_iter( vh ); itr.is_valid(); ++itr )
     {
         // replace will search if wedge already present and use it, so merge occurs.
-        replaceWedge( *itr, getWedgeData( property( getWedgeIndexPph(), *itr ) ) );
+        if ( !is_boundary( *itr ) )
+            replaceWedge( *itr, getWedgeData( property( getWedgeIndexPph(), *itr ) ) );
     }
 }
 
