@@ -139,6 +139,13 @@ template <typename T>
 inline const T&
 TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
                                                 const std::string& name ) const {
+    return getWedgeAttrib<T>( idx, name );
+}
+
+template <typename T>
+inline const T&
+TopologicalMesh::WedgeCollection::getWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
+                                                  const std::string& name ) const {
     if ( idx.isValid() )
     {
         auto nameArray = getNameArray<T>();
@@ -161,6 +168,12 @@ TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeInde
 template <typename T>
 inline T& TopologicalMesh::WedgeCollection::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
                                                           int attribIndex ) {
+    return getWedgeAttrib<T>( idx, attribIndex );
+}
+
+template <typename T>
+inline T& TopologicalMesh::WedgeCollection::getWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
+                                                            int attribIndex ) {
     return m_data[idx].getWedgeData().getAttribArray<T>()[attribIndex];
 }
 
@@ -758,6 +771,13 @@ template <typename T>
 inline bool TopologicalMesh::setWedgeData( const TopologicalMesh::WedgeIndex& idx,
                                            const std::string& name,
                                            const T& value ) {
+    return setWedgeAttrib( idx, name, value );
+}
+
+template <typename T>
+inline bool TopologicalMesh::setWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
+                                             const std::string& name,
+                                             const T& value ) {
     return m_wedges.setWedgeAttrib( idx, name, value );
 }
 
@@ -774,6 +794,12 @@ TopologicalMesh::getWedgeData( const WedgeIndex& idx ) const {
 template <typename T>
 inline const T& TopologicalMesh::getWedgeData( const TopologicalMesh::WedgeIndex& idx,
                                                const std::string& name ) const {
+    return getWedgeAttrib<T>( idx, name );
+}
+
+template <typename T>
+inline const T& TopologicalMesh::getWedgeAttrib( const TopologicalMesh::WedgeIndex& idx,
+                                                 const std::string& name ) const {
     return m_wedges.getWedgeData<T>( idx, name );
 }
 
