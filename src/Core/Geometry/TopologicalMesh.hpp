@@ -218,6 +218,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
     template <typename T>
     const T& getWedgeData( const WedgeIndex& idx, const std::string& name ) const;
+    template <typename T>
+    const T& getWedgeAttrib( const WedgeIndex& idx, const std::string& name ) const;
+
     /**
      * Return the wedge refcount, for debug purpose.
      */
@@ -238,6 +241,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     template <typename T>
     inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
+
+    template <typename T>
+    inline bool setWedgeAttrib( const WedgeIndex& idx, const std::string& name, const T& value );
 
     inline WedgeData newWedgeData() const { return m_wedges.newWedgeData(); }
     inline WedgeData newWedgeData( HalfedgeHandle he ) const {
@@ -434,6 +440,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         inline const T& getWedgeData( const WedgeIndex& idx, const std::string& name ) const;
         template <typename T>
         inline T& getWedgeData( const WedgeIndex& idx, int attribIndex );
+        template <typename T>
+        inline const T& getWedgeAttrib( const WedgeIndex& idx, const std::string& name ) const;
+        template <typename T>
+        inline T& getWedgeAttrib( const WedgeIndex& idx, int attribIndex );
 
         unsigned int getWedgeRefCount( const WedgeIndex& idx ) const;
 
