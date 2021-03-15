@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">853ffa2f93786a9a993474934e2aa70ecb3fe16d</span>
+   &#160;<span id="projectnumber">053bfa40f298f5789538bf8228b5941ae5046c01</span>
    </div>
   </td>
  </tr>
@@ -171,8 +171,36 @@ Macros</h2></td></tr>
 <tr class="separator:a38b78c9b40a07f6dbddca50f04bb72ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69e64b3b96ae1a92a8d55f7913024227"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SystemDisplay_8hpp.html#a69e64b3b96ae1a92a8d55f7913024227">RA_DISPLAY_LINE</a>(a,  b,  color)</td></tr>
 <tr class="separator:a69e64b3b96ae1a92a8d55f7913024227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2058cd61b926b9fce3d7ffd40975f6f2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="SystemDisplay_8hpp.html#a2058cd61b926b9fce3d7ffd40975f6f2">RA_CLEAR_DEBUG_DISPLAY</a>()</td></tr>
+<tr class="separator:a2058cd61b926b9fce3d7ffd40975f6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a2058cd61b926b9fce3d7ffd40975f6f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2058cd61b926b9fce3d7ffd40975f6f2">&#9670;&nbsp;</a></span>RA_CLEAR_DEBUG_DISPLAY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RA_CLEAR_DEBUG_DISPLAY</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        {                                                           \</div>
+<div class="line">            auto cmp = <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>();   \</div>
+<div class="line">            while ( cmp-&gt;m_renderObjects.size() )                   \</div>
+<div class="line">            {                                                       \</div>
+<div class="line">                cmp-&gt;removeRenderObject( cmp-&gt;m_renderObjects[0] ); \</div>
+<div class="line">            }                                                       \</div>
+<div class="line">        }</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00148">148</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+
+</div>
+</div>
 <a id="ac6a31ef5222a2552f4333ced427c49a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6a31ef5222a2552f4333ced427c49a9">&#9670;&nbsp;</a></span>RA_DISPLAY_AABB</h2>
 
@@ -198,12 +226,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a6e1258c6c5fc039cd512a9f7f653d7fc">Ra::Engine::DrawPrimitives::AABB</a>( a, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a6e1258c6c5fc039cd512a9f7f653d7fc">Ra::Engine::Data::DrawPrimitives::AABB</a>( a, color ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00117">117</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00118">118</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -244,12 +272,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a0a59d32879ec0d4d6692fbd463d802b1">Ra::Engine::DrawPrimitives::Capsule</a>( p1, p2, r, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a0a59d32879ec0d4d6692fbd463d802b1">Ra::Engine::Data::DrawPrimitives::Capsule</a>( p1, p2, r, color ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00134">134</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00136">136</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -290,12 +318,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab40bb69cc65f3770694a317f95b66606">Ra::Engine::DrawPrimitives::Circle</a>( c, n, r, 20, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab40bb69cc65f3770694a317f95b66606">Ra::Engine::Data::DrawPrimitives::Circle</a>( c, n, r, 20, color ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00093">93</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00094">94</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -324,12 +352,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Core_1_1Animation.html#a2c5a20bed6310f859c4f7b06c05c10b3">Ra::Engine::DrawPrimitives::Frame</a>( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>, <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">scale</a> ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a787adc450fb23508e84afb0aff0f0371">Ra::Engine::Data::DrawPrimitives::Frame</a>( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>, <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">scale</a> ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00111">111</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00112">112</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -364,12 +392,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a15a05dc926fa59f1a44419a0b994aa9a">Ra::Engine::DrawPrimitives::Line</a>( a, b, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a15a05dc926fa59f1a44419a0b994aa9a">Ra::Engine::Data::DrawPrimitives::Line</a>( a, b, color ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00140">140</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00142">142</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -410,12 +438,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Ra::Engine::DrawPrimitives::Normal</a>( p, n, color, <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">scale</a> ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Scene::DrawPrimitives::Primitive</a>(           \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Ra::Engine::Scene::DrawPrimitives::Normal</a>( p, n, color, <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">scale</a> ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00105">105</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00106">106</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -444,11 +472,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject(                           \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>( Ra::Engine::SystemEntity::dbgCmp(), \</div>
-<div class="line">                                                   <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb8bac927cad32e53b6ccaa05800a1d7">Ra::Engine::DrawPrimitives::OBB</a>( a, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb8bac927cad32e53b6ccaa05800a1d7">Ra::Engine::Data::DrawPrimitives::OBB</a>( a, color ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00123">123</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00124">124</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -483,10 +512,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Ra::Engine::DrawPrimitives::Point</a>( p, color, <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">scale</a> ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Ra::Engine::Data::DrawPrimitives::Point</a>( p, color, <a class="code" href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">scale</a> ) ) )</div>
 </div><!-- fragment -->
 <p>Macros for debug drawing. All coordinates are in world space. </p>
 
@@ -519,9 +548,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject(                           \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>( Ra::Engine::SystemEntity::dbgCmp(), \</div>
-<div class="line">                                                   <a class="code" href="namespaceRa_1_1Core.html#aa1af54f519852558e5553bba1e4a068a">Ra::Engine::DrawPrimitives::Ray</a>( r, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a20d1935c893100152ed28493bb5689d9">Ra::Engine::Data::DrawPrimitives::Ray</a>( r, color ) ) )</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00088">88</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
@@ -558,12 +588,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab0d998fb49864a940afd6009f12a484c">Ra::Engine::DrawPrimitives::Sphere</a>( c, r, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab0d998fb49864a940afd6009f12a484c">Ra::Engine::Data::DrawPrimitives::Sphere</a>( c, r, color ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00128">128</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00130">130</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -604,12 +634,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a5ff500d17cce57978b811c14a5757111">Ra::Engine::DrawPrimitives::Triangle</a>( a, b, c, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),                 \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a5ff500d17cce57978b811c14a5757111">Ra::Engine::Data::DrawPrimitives::Triangle</a>( a, b, c, color ) ) )</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00099">99</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00100">100</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
 </div>
 </div>
@@ -644,10 +674,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">        Ra::Engine::SystemEntity::dbgCmp()-&gt;addRenderObject( \</div>
-<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::DrawPrimitives::Primitive</a>(           \</div>
-<div class="line">                Ra::Engine::SystemEntity::dbgCmp(),          \</div>
-<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a7a457fa10ba75ab68446d8392f81ba48">Ra::Engine::DrawPrimitives::Vector</a>( p, v, color ) ) )</div>
+<b>Value:</b><div class="fragment"><div class="line">        <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>()-&gt;<a class="code" href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">addRenderObject</a>( \</div>
+<div class="line">            <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a>(            \</div>
+<div class="line">                <a class="code" href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a>(),          \</div>
+<div class="line">                <a class="code" href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a7a457fa10ba75ab68446d8392f81ba48">Ra::Engine::Data::DrawPrimitives::Vector</a>( p, v, color ) ) )</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="SystemDisplay_8hpp_source.html#l00082">82</a> of file <a class="el" href="SystemDisplay_8hpp_source.html">SystemDisplay.hpp</a>.</p>
 
@@ -655,26 +685,28 @@ Macros</h2></td></tr>
 </div>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a787adc450fb23508e84afb0aff0f0371"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a787adc450fb23508e84afb0aff0f0371">Ra::Engine::Data::DrawPrimitives::Frame</a></div><div class="ttdeci">MeshPtr Frame(const Core::Transform &amp;frameFromEntity, Scalar scale)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00374">DrawPrimitives.cpp:374</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_ad10130fea53a693f02d20eb4c1c6a155"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ad10130fea53a693f02d20eb4c1c6a155">Ra::Engine::Data::DrawPrimitives::Point</a></div><div class="ttdeci">LineMeshPtr Point(const Core::Vector3 &amp;point, const Core::Utils::Color &amp;color, Scalar scale)</div><div class="ttdoc">Displays given point shown as the crossing of 3 lines of length 'scale'.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00050">DrawPrimitives.cpp:50</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aeb8bac927cad32e53b6ccaa05800a1d7"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb8bac927cad32e53b6ccaa05800a1d7">Ra::Engine::Data::DrawPrimitives::OBB</a></div><div class="ttdeci">MeshPtr OBB(const Obb &amp;obb, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Display a wireframe OBB.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00473">DrawPrimitives.cpp:473</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_ab0d998fb49864a940afd6009f12a484c"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab0d998fb49864a940afd6009f12a484c">Ra::Engine::Data::DrawPrimitives::Sphere</a></div><div class="ttdeci">MeshPtr Sphere(const Core::Vector3 &amp;center, Scalar radius, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Displays sphere computed with given center and radius.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00241">DrawPrimitives.cpp:241</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a15a05dc926fa59f1a44419a0b994aa9a"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a15a05dc926fa59f1a44419a0b994aa9a">Ra::Engine::Data::DrawPrimitives::Line</a></div><div class="ttdeci">LineMeshPtr Line(const Core::Vector3 &amp;a, const Core::Vector3 &amp;b, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Displays given line.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00067">DrawPrimitives.cpp:67</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Animation_html_a2c5a20bed6310f859c4f7b06c05c10b3"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Animation.html#a2c5a20bed6310f859c4f7b06c05c10b3">Ra::Core::Animation::Frame</a></div><div class="ttdeci">Pose Frame</div><div class="ttdef"><b>Definition:</b> <a href="Sequence_8hpp_source.html#l00012">Sequence.hpp:12</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a7a457fa10ba75ab68446d8392f81ba48"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a7a457fa10ba75ab68446d8392f81ba48">Ra::Engine::Data::DrawPrimitives::Vector</a></div><div class="ttdeci">LineMeshPtr Vector(const Core::Vector3 &amp;start, const Core::Vector3 &amp;v, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Displays given vector shown as an arrow originating from 'start'.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00078">DrawPrimitives.cpp:78</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a0a59d32879ec0d4d6692fbd463d802b1"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a0a59d32879ec0d4d6692fbd463d802b1">Ra::Engine::Data::DrawPrimitives::Capsule</a></div><div class="ttdeci">MeshPtr Capsule(const Core::Vector3 &amp;p1, const Core::Vector3 &amp;p2, Scalar radius, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Displays a capsule computed with given endpoints and radius.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00256">DrawPrimitives.cpp:256</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aa9438814ccaa8de9aaed2dbf5e0bd6aa"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aa9438814ccaa8de9aaed2dbf5e0bd6aa">Ra::Engine::Data::DrawPrimitives::Normal</a></div><div class="ttdeci">LineMeshPtr Normal(const Core::Vector3 &amp;point, const Core::Vector3 &amp;normal, const Core::Utils::Color &amp;color, Scalar scale)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00335">DrawPrimitives.cpp:335</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_html_aa1af54f519852558e5553bba1e4a068a"><div class="ttname"><a href="namespaceRa_1_1Core.html#aa1af54f519852558e5553bba1e4a068a">Ra::Core::Ray</a></div><div class="ttdeci">Eigen::ParametrizedLine&lt; Scalar, 3 &gt; Ray</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00043">Types.hpp:43</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_a941baf20065c77d494ca251e6e104f31"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#a941baf20065c77d494ca251e6e104f31">Ra::Core::Math::scale</a></div><div class="ttdeci">Quaternion scale(const Quaternion &amp;q, const Scalar k)</div><div class="ttdoc">Returns the quaternion q multipled by a scalar factor of k.</div><div class="ttdef"><b>Definition:</b> <a href="LinearAlgebra_8inl_source.html#l00104">LinearAlgebra.inl:104</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1SystemEntity_html_a01c0943ba49ccc826fdf37798413b13d"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1SystemEntity.html#a01c0943ba49ccc826fdf37798413b13d">Ra::Engine::Scene::SystemEntity::dbgCmp</a></div><div class="ttdeci">static DebugComponent * dbgCmp()</div><div class="ttdoc">Access the debug component.</div><div class="ttdef"><b>Definition:</b> <a href="SystemDisplay_8cpp_source.html#l00024">SystemDisplay.cpp:24</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a6e1258c6c5fc039cd512a9f7f653d7fc"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a6e1258c6c5fc039cd512a9f7f653d7fc">Ra::Engine::Data::DrawPrimitives::AABB</a></div><div class="ttdeci">MeshPtr AABB(const Core::Aabb &amp;aabb, const Core::Utils::Color &amp;color)</div><div class="ttdoc">Display a wireframe AABB.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00450">DrawPrimitives.cpp:450</a></div></div>
+<div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Component_html_ae577a7986a8a4b7a9386a8e52fac7f6c"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Component.html#ae577a7986a8a4b7a9386a8e52fac7f6c">Ra::Engine::Scene::Component::addRenderObject</a></div><div class="ttdeci">Core::Utils::Index addRenderObject(Rendering::RenderObject *renderObject)</div><div class="ttdoc">Add a new render object to the component. This adds the RO to the manager for drawing.</div><div class="ttdef"><b>Definition:</b> <a href="Component_8cpp_source.html#l00037">Component.cpp:37</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a5ff500d17cce57978b811c14a5757111"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a5ff500d17cce57978b811c14a5757111">Ra::Engine::Data::DrawPrimitives::Triangle</a></div><div class="ttdeci">AttribArrayDisplayablePtr Triangle(const Core::Vector3 &amp;a, const Core::Vector3 &amp;b, const Core::Vector3 &amp;c, const Core::Utils::Color &amp;color, bool fill)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00109">DrawPrimitives.cpp:109</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_ab40bb69cc65f3770694a317f95b66606"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#ab40bb69cc65f3770694a317f95b66606">Ra::Engine::Data::DrawPrimitives::Circle</a></div><div class="ttdeci">LineMeshPtr Circle(const Core::Vector3 &amp;center, const Core::Vector3 &amp;normal, Scalar radius, uint segments, const Core::Utils::Color &amp;color)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00165">DrawPrimitives.cpp:165</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_aeb2f6005289276eda6e9ba9037b8eabf"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#aeb2f6005289276eda6e9ba9037b8eabf">Ra::Engine::Data::DrawPrimitives::Primitive</a></div><div class="ttdeci">Rendering::RenderObject * Primitive(Scene::Component *component, const MeshPtr &amp;mesh)</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00026">DrawPrimitives.cpp:26</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives_html_a20d1935c893100152ed28493bb5689d9"><div class="ttname"><a href="namespaceRa_1_1Engine_1_1Data_1_1DrawPrimitives.html#a20d1935c893100152ed28493bb5689d9">Ra::Engine::Data::DrawPrimitives::Ray</a></div><div class="ttdeci">LineMeshPtr Ray(const Core::Ray &amp;ray, const Core::Utils::Color &amp;color, Scalar len)</div><div class="ttdoc">Displays given ray as a straight line.</div><div class="ttdef"><b>Definition:</b> <a href="DrawPrimitives_8cpp_source.html#l00099">DrawPrimitives.cpp:99</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_89bb22796d297d82305d45a42e7934d2.html">Scene</a></li><li class="navelem"><a class="el" href="SystemDisplay_8hpp.html">SystemDisplay.hpp</a></li>
-    <li class="footer">Generated on Fri Mar 12 2021 15:04:30 for Radium Engine by
+    <li class="footer">Generated on Mon Mar 15 2021 08:53:37 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

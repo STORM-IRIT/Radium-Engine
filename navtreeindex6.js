@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"basicsTroubleshooting.html":[2,2],
 "basicsTroubleshooting.html#autotoc_md20":[2,2,0],
 "basicsTroubleshooting.html#autotoc_md21":[2,2,1],
 "basicsmanual.html":[2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a642d004c36e2ae885be5d3ea6a3bcf4f":[9,0,2,0,2,3,3],
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a659627947794a4bf79524b94d6c0093d":[9,0,2,0,2,3,23],
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a799c4d977374fa267b852ea34f31a457":[9,0,2,0,2,3,20],
-"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a7e9320de148bb4f3afbc9ef87bb09a7b":[9,0,2,0,2,3,4],
-"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a84cd32a0e14c55f3e178d6e824a8ac24":[9,0,2,0,2,3,27]
+"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a7e9320de148bb4f3afbc9ef87bb09a7b":[9,0,2,0,2,3,4]
 };
