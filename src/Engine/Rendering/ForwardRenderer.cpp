@@ -1,6 +1,7 @@
 #include <Engine/Rendering/ForwardRenderer.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
+#include <Core/Geometry/TopologicalMesh.hpp>
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
@@ -21,6 +22,8 @@
 #include <Core/RaCore.hpp>
 #include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
+
+#include <map>
 
 namespace Ra {
 using namespace Core;
@@ -73,6 +76,13 @@ void ForwardRenderer::initShaders() {
         {{"ComposeOIT"},
          resourcesRootDir + "Shaders/2DShaders/Basic2D.vert.glsl",
          resourcesRootDir + "Shaders/2DShaders/ComposeOIT.frag.glsl"} );
+
+    Data::ShaderConfiguration wireframe {{"Wireframe"},
+                                         resourcesRootDir + "Shaders/Lines/Wireframe.vert.glsl",
+                                         resourcesRootDir + "Shaders/Lines/Wireframe.frag.glsl"};
+    wireframe.addShader( Data::ShaderType::ShaderType_GEOMETRY,
+                         resourcesRootDir + "Shaders/Lines/Wireframe.geom.glsl" );
+    m_shaderProgramManager->addShaderProgram( wireframe );
 }
 
 void ForwardRenderer::initBuffers() {
@@ -164,6 +174,9 @@ void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderD
     }
     m_fancyTransparentCount = m_transparentRenderObjects.size();
     m_fancyVolumetricCount  = m_volumetricRenderObjects.size();
+
+    // simple hack to clean wireframes ...
+    if ( m_fancyRenderObjects.size() < m_wireframes.size() ) { m_wireframes.clear(); }
 }
 
 void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
@@ -175,7 +188,15 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     GL_ASSERT( glColorMask( 1, 1, 1, 1 ) );
 
     GL_ASSERT( glDrawBuffers( 4, buffers ) );
-
+    if ( m_wireframe )
+    {
+        ///\todo make offset relative to wireframe line width
+        glEnable( GL_POLYGON_OFFSET_FILL );
+        glPolygonOffset( 1.f, 3.f );
+        //    GL_ASSERT( glDepthRange( 0.001, 1.0 ) );
+    }
+    else
+    { glDisable( GL_POLYGON_OFFSET_FILL ); }
     static const auto clearZeros = Core::Utils::Color::Black();
     static const auto clearOnes  = Core::Utils::Color::White();
     static const float clearDepth {1.0f};
@@ -337,53 +358,130 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         }
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     }
-    // TODO : verify if this must be done before or after volumetric pass
+
     if ( m_wireframe )
     {
-        //        m_fbo->bind();
 
-        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-        glEnable( GL_LINE_SMOOTH );
-        glLineWidth( 1.f );
-        glEnable( GL_POLYGON_OFFSET_LINE );
-        glPolygonOffset( -1.0f, -1.1f );
+        m_fbo->bind();
 
-        // Light pass
+        glDisable( GL_POLYGON_OFFSET_FILL );
         GL_ASSERT( glDepthFunc( GL_LEQUAL ) );
         GL_ASSERT( glEnable( GL_BLEND ) );
-        GL_ASSERT( glBlendFunc( GL_ONE, GL_ONE ) );
-
+        glBlendEquationSeparate( GL_FUNC_ADD, GL_FUNC_ADD );
+        glBlendFuncSeparate( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO );
         GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
-
-        if ( m_lightmanagers[0]->count() > 0 )
+        for ( const auto& ro : m_fancyRenderObjects )
         {
-            // for ( const auto& l : m_lights )
-            for ( size_t i = 0; i < m_lightmanagers[0]->count(); ++i )
-            {
-                const auto l = m_lightmanagers[0]->getLight( i );
-                Data::RenderParameters wireframepassParams;
-                l->getRenderParameters( wireframepassParams );
+            std::shared_ptr<Data::Displayable> wro;
+            std::shared_ptr<Data::LineMesh> disp;
 
-                for ( const auto& ro : m_fancyRenderObjects )
+            WireMap::iterator it = m_wireframes.find( ro.get() );
+            if ( it == m_wireframes.end() )
+            {
+                using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
+                using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
+
+                auto displayable = ro->getMesh();
+                auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );
+                auto tp          = std::dynamic_pointer_cast<polymesh>( displayable );
+                //                Ra::Core::Geometry::TopologicalMesh topo;
+                bool drawable;
+                Core::Geometry::LineMesh lines;
+                Core::Geometry::LineMesh::IndexContainerType indices;
+                if ( tm )
                 {
-                    ro->render(
-                        wireframepassParams, renderData, DefaultRenderingPasses::LIGHTING_OPAQUE );
+                    drawable = tm->getRenderMode() ==
+                               Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES;
+                    if ( drawable )
+                    {
+                        lines.setVertices( tm->getCoreGeometry().vertices() );
+                        for ( const auto& index : tm->getCoreGeometry().getIndices() )
+                        {
+                            for ( unsigned int i = 0; i < 3; ++i )
+                            {
+                                int i1 = index[i];
+                                int i2 = index[( i + 1 ) % 3];
+                                if ( i1 > i2 ) std::swap( i1, i2 );
+                                indices.emplace_back( i1, i2 );
+                            }
+                        }
+                    }
                 }
-                // This will not work for the moment . skipping wireframe rendering of transparent
-                // objects
-#if 0
-                for ( const auto& ro : m_transparentRenderObjects)
+                if ( tp )
                 {
-                    ro->render( wireframepassParams, viewingParameters, RenderTechnique::LIGHTING_OPAQUE );
+                    drawable = tp->getRenderMode() ==
+                               Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES;
+
+                    if ( drawable )
+                    {
+                        drawable = tp->getRenderMode() ==
+                                   Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES;
+                        lines.setVertices( tp->getCoreGeometry().vertices() );
+                        for ( const auto& index : tp->getCoreGeometry().getIndices() )
+                        {
+                            auto s = index.size();
+                            for ( unsigned int i = 0; i < s; ++i )
+                            {
+                                int i1 = index[i];
+                                int i2 = index[( i + 1 ) % s];
+                                if ( i1 > i2 ) std::swap( i1, i2 );
+                                indices.emplace_back( i1, i2 );
+                            }
+                        }
+                    }
                 }
-#endif
+                if ( drawable )
+                {
+                    std::sort( indices.begin(),
+                               indices.end(),
+                               []( const Core::Geometry::LineMesh::IndexType& a,
+                                   const Core::Geometry::LineMesh::IndexType& b ) {
+                                   return a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] );
+                               } );
+                    indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );
+
+                    if ( indices.size() > 0 )
+                    {
+                        lines.setIndices( std::move( indices ) );
+                        disp = Ra::Core::make_shared<Data::LineMesh>( std::string( "wireframe" ),
+                                                                      std::move( lines ) );
+                        disp->updateGL();
+                        m_wireframes[ro.get()] = disp;
+                    }
+                    else
+                    {
+                        disp.reset();
+                        m_wireframes[ro.get()] = {nullptr};
+                    }
+                }
+                else
+                {
+                    disp.reset();
+                    m_wireframes[ro.get()] = {nullptr};
+                }
+                wro = disp;
+            }
+            else
+            { wro = it->second; }
+            const Data::ShaderProgram* shader =
+                m_shaderProgramManager->getShaderProgram( "Wireframe" );
+            shader->bind();
+            if ( shader && wro )
+            {
+                if ( ro->isVisible() )
+                {
+
+                    Core::Matrix4 modelMatrix = ro->getTransformAsMatrix();
+                    shader->setUniform( "transform.proj", renderData.projMatrix );
+                    shader->setUniform( "transform.view", renderData.viewMatrix );
+                    shader->setUniform( "transform.model", modelMatrix );
+                    shader->setUniform( "viewport", Core::Vector2 {m_width, m_height} );
+                    wro->render( shader );
+
+                    GL_CHECK_ERROR;
+                }
             }
         }
-        else
-        { LOG( logINFO ) << "Wireframe : no light sources, unable to render"; }
-
-        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-        glDisable( GL_POLYGON_OFFSET_LINE );
     }
 
     // Restore state
@@ -544,10 +642,10 @@ void ForwardRenderer::resizeInternal() {
                         << m_postprocessFbo->checkStatus();
     }
 
-    // FIXED : when m_postprocessFbo use the RendererTextures_Depth, the depth buffer is erased and
-    // is therefore useless for future computation. Do not use this post-process FBO to render
-    // eveything else than the scene. Create several FBO with ther own configuration (uncomment
-    // Renderer::m_depthTexture->texture() to see the difference.)
+    // FIXED : when m_postprocessFbo use the RendererTextures_Depth, the depth buffer is erased
+    // and is therefore useless for future computation. Do not use this post-process FBO to
+    // render eveything else than the scene. Create several FBO with ther own configuration
+    // (uncomment Renderer::m_depthTexture->texture() to see the difference.)
     m_uiXrayFbo->bind();
     m_uiXrayFbo->attachTexture( GL_DEPTH_ATTACHMENT, Renderer::m_depthTexture->texture() );
     m_uiXrayFbo->attachTexture( GL_COLOR_ATTACHMENT0, m_fancyTexture->texture() );
@@ -593,16 +691,16 @@ bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     auto material = ro->getMaterial();
     auto builder  = EngineRenderTechniques::getDefaultTechnique( material->getMaterialName() );
     auto rt       = Core::make_shared<RenderTechnique>();
-    // define the technique for rendering this RenderObject (here, using the default from Material
-    // name)
+    // define the technique for rendering this RenderObject (here, using the default from
+    // Material name)
     builder.second( *rt, material->isTransparent() );
     // If renderObject is a point cloud,  add geometry shader for splatting
     auto RenderedGeometry = ro->getMesh().get();
 
     /*
      * WARNING : this way of managing specific geometries is here only for testing and
-     * experimentation purpose. It will be replace soon by a better management of the way components
-     * could add specific properties to a rendertechnique
+     * experimentation purpose. It will be replace soon by a better management of the way
+     * components could add specific properties to a rendertechnique
      * TODO : see PR Draft and gist subShaderBlob
      */
     if ( RenderedGeometry && RenderedGeometry->getNumFaces() == 0 )
