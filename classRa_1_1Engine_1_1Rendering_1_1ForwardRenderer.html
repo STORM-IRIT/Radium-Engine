@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">053bfa40f298f5789538bf8228b5941ae5046c01</span>
+   &#160;<span id="projectnumber">da2cfe3f756a26a62e745168da86b0404fdc1889</span>
    </div>
   </td>
  </tr>
@@ -215,6 +215,8 @@ Protected Types</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:aa55576771d8c981a126826ebb5e193f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41cb6fbdda358a9ccd2ecb067534d522"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a41cb6fbdda358a9ccd2ecb067534d522">WireMap</a> = std::map&lt; <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">RenderObject</a> *, std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Data::Displayable</a> &gt; &gt;</td></tr>
+<tr class="separator:a41cb6fbdda358a9ccd2ecb067534d522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_types_classRa_1_1Engine_1_1Rendering_1_1Renderer"><td colspan="2" onclick="javascript:toggleInherit('pro_types_classRa_1_1Engine_1_1Rendering_1_1Renderer')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a></td></tr>
 <tr class="memitem:a2dbcea680a2cabb126009ce2ffa3fbe1 inherit pro_types_classRa_1_1Engine_1_1Rendering_1_1Renderer"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a2dbcea680a2cabb126009ce2ffa3fbe1">RenderObjectPtr</a> = std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">RenderObject</a> &gt;</td></tr>
 <tr class="separator:a2dbcea680a2cabb126009ce2ffa3fbe1 inherit pro_types_classRa_1_1Engine_1_1Rendering_1_1Renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -269,6 +271,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a0a031a708daef43b10de3b5deaec6527"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f54b27e3ff8544b8cbd22acb2360d09"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespaceRa_1_1Core.html#aae0c29088c6a4c7ab0d9ecb5398c9c18">Core::Matrix4</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a1f54b27e3ff8544b8cbd22acb2360d09">m_lightMatrices</a></td></tr>
 <tr class="separator:a1f54b27e3ff8544b8cbd22acb2360d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4739c82c5d6c5add3fcfb2b37c990d66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a41cb6fbdda358a9ccd2ecb067534d522">WireMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a4739c82c5d6c5add3fcfb2b37c990d66">m_wireframes</a></td></tr>
+<tr class="separator:a4739c82c5d6c5add3fcfb2b37c990d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classRa_1_1Engine_1_1Rendering_1_1Renderer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classRa_1_1Engine_1_1Rendering_1_1Renderer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Ra::Engine::Rendering::Renderer</a></td></tr>
 <tr class="memitem:afd545cce7c8d137eefc8cd20a08648fd inherit pro_attribs_classRa_1_1Engine_1_1Rendering_1_1Renderer"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afd545cce7c8d137eefc8cd20a08648fd">m_width</a> {0}</td></tr>
 <tr class="separator:afd545cce7c8d137eefc8cd20a08648fd inherit pro_attribs_classRa_1_1Engine_1_1Rendering_1_1Renderer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -342,7 +346,32 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="rendering_8md.html">rendering.md</a> for description of the renderer </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="ForwardRenderer_8hpp_source.html#l00023">23</a> of file <a class="el" href="ForwardRenderer_8hpp_source.html">ForwardRenderer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a41cb6fbdda358a9ccd2ecb067534d522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41cb6fbdda358a9ccd2ecb067534d522">&#9670;&nbsp;</a></span>WireMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a41cb6fbdda358a9ccd2ecb067534d522">Ra::Engine::Rendering::ForwardRenderer::WireMap</a> =  std::map&lt;<a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObject.html">RenderObject</a>*, std::shared_ptr&lt;<a class="el" href="classRa_1_1Engine_1_1Data_1_1Displayable.html">Data::Displayable</a>&gt; &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8hpp_source.html#l00083">83</a> of file <a class="el" href="ForwardRenderer_8hpp_source.html">ForwardRenderer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="aa55576771d8c981a126826ebb5e193f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa55576771d8c981a126826ebb5e193f0">&#9670;&nbsp;</a></span>RendererTextures</h2>
 
@@ -394,7 +423,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00042">42</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00045">45</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +486,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a6e1b35d72acf4f5a7a1ab6fa9a146a1e">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00592">592</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00690">690</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 <div id="dynsection-2" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-2-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
@@ -497,7 +526,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a30c9f288f2ac8406c804c55b2623e348">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00396">396</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00494">494</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 <div id="dynsection-3" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-3-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
@@ -568,7 +597,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ab14ff49e794cd718b77db013c9fae556">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00046">46</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00049">49</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -609,7 +638,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#a5fc9b2cb6c8fb0a7d1a7640a2ddc31b6">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00475">475</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00573">573</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 <div id="dynsection-4" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-4-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
@@ -652,16 +681,17 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo:</a></b></dt><dd>make offset relative to wireframe line width </dd></dl>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#afe2f99ba86df2575f32a79d3d01d8d2f">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00169">169</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00182">182</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer_a2f9c6987afaf3e8c7d250efffe4d1109_cgraph.svg" width="563" height="444"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer_a2f9c6987afaf3e8c7d250efffe4d1109_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 
@@ -693,7 +723,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac804ffc9a0b4f71c02610ce930fd5c65">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00496">496</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00594">594</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -725,7 +755,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#abad46a9149c0d4578327325450b2472e">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00433">433</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00531">531</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -761,7 +791,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac3f6b287470f899b6aa9306b82249765">Ra::Engine::Rendering::Renderer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00140">140</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00150">150</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1078,6 +1108,30 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a4739c82c5d6c5add3fcfb2b37c990d66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4739c82c5d6c5add3fcfb2b37c990d66">&#9670;&nbsp;</a></span>m_wireframes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a41cb6fbdda358a9ccd2ecb067534d522">WireMap</a> Ra::Engine::Rendering::ForwardRenderer::m_wireframes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8hpp_source.html#l00084">84</a> of file <a class="el" href="ForwardRenderer_8hpp_source.html">ForwardRenderer.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a066148b603bf27b6b410c5e9cd515e79"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a066148b603bf27b6b410c5e9cd515e79">&#9670;&nbsp;</a></span>ShadowMapSize</h2>
 
@@ -1112,7 +1166,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Rendering</a></li><li class="navelem"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">ForwardRenderer</a></li>
-    <li class="footer">Generated on Mon Mar 15 2021 08:53:37 for Radium Engine by
+    <li class="footer">Generated on Tue Mar 16 2021 19:03:01 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

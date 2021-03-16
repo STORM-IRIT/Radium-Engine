@@ -171,6 +171,7 @@ var NAVTREEINDEX8 =
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a240c93af3b90a3b019c9ef01f7cb2f7b":[9,0,2,0,4,9,8],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc":[9,0,2,0,4,9,9],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3c8d78a687611414e5d65150a5f24916":[9,0,2,0,4,9,3],
+"classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a50daf3caa437bc2721cf35b6453bc631":[9,0,2,0,4,9,14],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a69e609e323bf5b0c70fa0b22ac9dd825":[9,0,2,0,4,9,12],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a7b980c93c40307027025d3919a948eaa":[9,0,2,0,4,9,10],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a911ec504149568146f3371aa357c1ab9":[9,0,2,0,4,9,5],
@@ -179,7 +180,7 @@ var NAVTREEINDEX8 =
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ab39bf689191e11e975554952d2532cb9":[9,0,2,0,4,9,7],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ab9751f8dc126469d97b18b0df71092a5":[9,0,2,0,4,9,4],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ac3ee101f0ed33b2308096438689bc847":[9,0,2,0,4,9,13],
-"classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8":[9,0,2,0,4,9,14],
+"classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8":[9,0,2,0,4,9,15],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#aeb356174d889fbe16200d59ae903a6a4":[9,0,2,0,4,9,2],
 "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#af55011391ae649aaa4c53fefa0383770":[9,0,2,0,4,9,0],
 "classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html":[9,0,2,0,4,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX8 =
 "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb":[9,0,2,0,4,24,1],
 "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596":[9,0,2,0,4,24,1,1],
 "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbaf21efa3e3073d7f9ad5f9d0b7afc28b5":[9,0,2,0,4,24,1,0],
-"classRa_1_1Core_1_1Geometry_1_1Spline.html#a42c38a23a2dfae2239f39eddd8feb81b":[9,0,2,0,4,24,5],
-"classRa_1_1Core_1_1Geometry_1_1Spline.html#a965db2c67b6e77a8777975df596d5084":[9,0,2,0,4,24,0]
+"classRa_1_1Core_1_1Geometry_1_1Spline.html#a42c38a23a2dfae2239f39eddd8feb81b":[9,0,2,0,4,24,5]
 };

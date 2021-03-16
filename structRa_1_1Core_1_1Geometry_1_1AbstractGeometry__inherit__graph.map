@@ -5,11 +5,11 @@
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html" title=" " alt="" coords="148,933,363,1260"/>
 <area shape="rect" id="node4" href="$classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html" title="Discrete volume data storing values in a regular grid." alt="" coords="5,1323,156,1605"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html" title=" " alt="" coords="180,1345,331,1583"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="355,1330,593,1598"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="617,1330,854,1598"/>
-<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="878,1330,1115,1598"/>
-<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="1140,1330,1379,1598"/>
-<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="775,963,959,1231"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="355,1323,593,1605"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="617,1323,854,1605"/>
+<area shape="rect" id="node11" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="878,1323,1115,1605"/>
+<area shape="rect" id="node13" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="1140,1323,1379,1605"/>
+<area shape="rect" id="node15" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="775,955,959,1238"/>
 <area shape="rect" id="node16" href="$classRa_1_1Core_1_1Geometry_1_1LineStrip.html" title=" " alt="" coords="1196,1051,1347,1143"/>
 <area shape="rect" id="node17" href="$classRa_1_1Core_1_1Geometry_1_1PointCloud.html" title=" " alt="" coords="1371,1051,1521,1143"/>
 <area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html" title=" " alt="" coords="399,1655,549,1747"/>

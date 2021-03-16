@@ -145,26 +145,25 @@
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" target="_top" xlink:title="Abstract interface of a geometric compoennet in the Engine.">
-<polygon fill="white" stroke="black" points="287.5,-567.5 287.5,-701.5 436.5,-701.5 436.5,-567.5 287.5,-567.5"/>
-<text text-anchor="start" x="295.5" y="-689.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
-<text text-anchor="middle" x="362" y="-678.5" font-family="Helvetica,sans-Serif" font-size="10.00">GeometryComponent</text>
-<polyline fill="none" stroke="black" points="287.5,-671.5 436.5,-671.5 "/>
-<text text-anchor="start" x="295.5" y="-659.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_roIndex</text>
-<text text-anchor="start" x="295.5" y="-648.5" font-family="Helvetica,sans-Serif" font-size="10.00"># m_contentName</text>
-<polyline fill="none" stroke="black" points="287.5,-641.5 436.5,-641.5 "/>
-<text text-anchor="start" x="295.5" y="-629.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ GeometryComponent()</text>
-<text text-anchor="start" x="295.5" y="-618.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~GeometryComponent()</text>
-<text text-anchor="start" x="295.5" y="-607.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
-<text text-anchor="start" x="295.5" y="-596.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setupIO()</text>
-<text text-anchor="start" x="295.5" y="-585.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setContentName()</text>
-<text text-anchor="start" x="295.5" y="-574.5" font-family="Helvetica,sans-Serif" font-size="10.00"># getContentName()</text>
+<polygon fill="white" stroke="black" points="287.5,-573 287.5,-696 436.5,-696 436.5,-573 287.5,-573"/>
+<text text-anchor="start" x="295.5" y="-684" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Engine::Scene::</text>
+<text text-anchor="middle" x="362" y="-673" font-family="Helvetica,sans-Serif" font-size="10.00">GeometryComponent</text>
+<polyline fill="none" stroke="black" points="287.5,-666 436.5,-666 "/>
+<text text-anchor="start" x="295.5" y="-654" font-family="Helvetica,sans-Serif" font-size="10.00"># m_roIndex</text>
+<text text-anchor="start" x="295.5" y="-643" font-family="Helvetica,sans-Serif" font-size="10.00"># m_contentName</text>
+<polyline fill="none" stroke="black" points="287.5,-636 436.5,-636 "/>
+<text text-anchor="start" x="295.5" y="-624" font-family="Helvetica,sans-Serif" font-size="10.00">+ GeometryComponent()</text>
+<text text-anchor="start" x="295.5" y="-613" font-family="Helvetica,sans-Serif" font-size="10.00">+ ~GeometryComponent()</text>
+<text text-anchor="start" x="295.5" y="-602" font-family="Helvetica,sans-Serif" font-size="10.00">+ initialize()</text>
+<text text-anchor="start" x="295.5" y="-591" font-family="Helvetica,sans-Serif" font-size="10.00">+ setupIO()</text>
+<text text-anchor="start" x="295.5" y="-580" font-family="Helvetica,sans-Serif" font-size="10.00">+ setContentName()</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M420.89,-1014.28C405.04,-912.36 384.43,-779.78 372.27,-701.54"/>
+<path fill="none" stroke="midnightblue" d="M420.9,-1014.37C404.7,-910.13 383.5,-773.78 371.45,-696.31"/>
 <polygon fill="none" stroke="midnightblue" points="417.46,-1015.01 422.46,-1024.36 424.38,-1013.94 417.46,-1015.01"/>
 </g>
 <!-- Node7 -->
@@ -269,8 +268,8 @@
 <!-- Node4&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M351.27,-557.47C339.27,-484.51 316.33,-372.27 278,-281 267.31,-255.54 252.72,-229.52 238.02,-206.15"/>
-<polygon fill="none" stroke="midnightblue" points="347.84,-558.18 352.89,-567.49 354.75,-557.06 347.84,-558.18"/>
+<path fill="none" stroke="midnightblue" d="M352.12,-562.71C340.38,-489.98 317.26,-374.49 278,-281 267.31,-255.54 252.72,-229.52 238.02,-206.15"/>
+<polygon fill="none" stroke="midnightblue" points="348.68,-563.35 353.7,-572.68 355.59,-562.26 348.68,-563.35"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -296,8 +295,8 @@
 <!-- Node4&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node4&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M360.95,-557.23C359.61,-459.39 357.3,-290.91 355.99,-195.28"/>
-<polygon fill="none" stroke="midnightblue" points="357.46,-557.4 361.09,-567.35 364.45,-557.3 357.46,-557.4"/>
+<path fill="none" stroke="midnightblue" d="M361.03,-562.71C359.7,-465.83 357.32,-292.86 355.99,-195.4"/>
+<polygon fill="none" stroke="midnightblue" points="357.53,-563.04 361.17,-572.99 364.53,-562.95 357.53,-563.04"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">

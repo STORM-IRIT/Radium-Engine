@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="A component is an element that can be updated by a system. It is also linked to some other components..." alt="" coords="485,5,707,361"/>
 <area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1Camera.html" title="A Camera is an Engine Component storing a Camera object." alt="" coords="5,409,176,1352"/>
 <area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DebugComponent.html" title="Component for debug drawing." alt="" coords="201,820,365,941"/>
-<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="389,791,587,971"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1GeometryComponent.html" title="Abstract interface of a geometric compoennet in the Engine." alt="" coords="389,798,587,963"/>
 <area shape="rect" id="node7" href="$classRa_1_1Engine_1_1Scene_1_1Light.html" title=" " alt="" coords="611,769,799,993"/>
 <area shape="rect" id="node11" href="$classRa_1_1Engine_1_1Scene_1_1UiComponent.html" title="Component for UI drawing." alt="" coords="824,827,971,934"/>
 <area shape="rect" id="node12" href="$classRa_1_1Engine_1_1Scene_1_1VolumeComponent.html" title="Main class to convert Ra::Core::Asset::VolumeData to Ra::Engine::VolumeObject." alt="" coords="995,791,1187,971"/>

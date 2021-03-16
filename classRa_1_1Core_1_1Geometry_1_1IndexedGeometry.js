@@ -14,5 +14,6 @@ var classRa_1_1Core_1_1Geometry_1_1IndexedGeometry =
     [ "indicesUnlock", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a9fd4c8118607a4a0f5ffb51716682522", null ],
     [ "operator=", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a69e609e323bf5b0c70fa0b22ac9dd825", null ],
     [ "operator=", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ac3ee101f0ed33b2308096438689bc847", null ],
+    [ "setIndices", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a50daf3caa437bc2721cf35b6453bc631", null ],
     [ "setIndices", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#ad1fc6b57b469ef12d14f677852b8f2a8", null ]
 ];

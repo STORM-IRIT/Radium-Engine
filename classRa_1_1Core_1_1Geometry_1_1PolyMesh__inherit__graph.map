@@ -1,8 +1,8 @@
 <map id="Ra::Core::Geometry::PolyMesh" name="Ra::Core::Geometry::PolyMesh">
-<area shape="rect" id="node1" title=" " alt="" coords="165,1912,316,2004"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="121,1595,360,1863"/>
+<area shape="rect" id="node1" title=" " alt="" coords="165,1941,316,2033"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="121,1609,360,1892"/>
 <area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" title=" " alt="" coords="267,551,462,1215"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="149,1264,333,1532"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" title=" " alt="" coords="149,1264,333,1547"/>
 <area shape="rect" id="node4" href="$structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" title=" " alt="" coords="276,314,453,479"/>
 <area shape="rect" id="node5" href="$classRa_1_1Core_1_1Utils_1_1ObservableVoid.html" title=" " alt="" coords="5,844,231,921"/>
 <area shape="rect" id="node6" href="$classRa_1_1Core_1_1Utils_1_1Observable.html" title=" " alt="" coords="9,292,227,501"/>

@@ -225,160 +225,165 @@
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="262.5,-112 262.5,-312 440.5,-312 440.5,-112 262.5,-112"/>
-<text text-anchor="start" x="270.5" y="-300" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="351.5" y="-289" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector1ui &gt;</text>
-<polyline fill="none" stroke="black" points="262.5,-282 440.5,-282 "/>
-<text text-anchor="middle" x="351.5" y="-270" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="262.5,-263 440.5,-263 "/>
-<text text-anchor="start" x="270.5" y="-251" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="270.5" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="270.5" y="-229" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="270.5" y="-218" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="270.5" y="-207" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="270.5" y="-196" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="270.5" y="-185" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
-<text text-anchor="start" x="270.5" y="-174" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
-<text text-anchor="start" x="270.5" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="270.5" y="-152" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="270.5" y="-141" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="270.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="270.5" y="-119" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<polygon fill="white" stroke="black" points="262.5,-106.5 262.5,-317.5 440.5,-317.5 440.5,-106.5 262.5,-106.5"/>
+<text text-anchor="start" x="270.5" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="351.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector1ui &gt;</text>
+<polyline fill="none" stroke="black" points="262.5,-287.5 440.5,-287.5 "/>
+<text text-anchor="middle" x="351.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="262.5,-268.5 440.5,-268.5 "/>
+<text text-anchor="start" x="270.5" y="-256.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="270.5" y="-245.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="270.5" y="-234.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="270.5" y="-223.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="270.5" y="-212.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="270.5" y="-201.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="270.5" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
+<text text-anchor="start" x="270.5" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
+<text text-anchor="start" x="270.5" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="270.5" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="270.5" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="270.5" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="270.5" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="270.5" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M617.55,-756.45C592.08,-710.19 564.05,-658.15 539.5,-610 488.32,-509.62 433.59,-392.87 396.46,-312.08"/>
+<path fill="none" stroke="midnightblue" d="M617.55,-756.45C592.08,-710.19 564.05,-658.15 539.5,-610 489.53,-512 436.18,-398.39 399.13,-317.88"/>
 <polygon fill="none" stroke="midnightblue" points="614.54,-758.26 622.44,-765.32 620.67,-754.88 614.54,-758.26"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="458.5,-112 458.5,-312 636.5,-312 636.5,-112 458.5,-112"/>
-<text text-anchor="start" x="466.5" y="-300" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="547.5" y="-289" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector2ui &gt;</text>
-<polyline fill="none" stroke="black" points="458.5,-282 636.5,-282 "/>
-<text text-anchor="middle" x="547.5" y="-270" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="458.5,-263 636.5,-263 "/>
-<text text-anchor="start" x="466.5" y="-251" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="466.5" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="466.5" y="-229" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="466.5" y="-218" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="466.5" y="-207" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="466.5" y="-196" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="466.5" y="-185" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
-<text text-anchor="start" x="466.5" y="-174" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
-<text text-anchor="start" x="466.5" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="466.5" y="-152" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="466.5" y="-141" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="466.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="466.5" y="-119" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<polygon fill="white" stroke="black" points="458.5,-106.5 458.5,-317.5 636.5,-317.5 636.5,-106.5 458.5,-106.5"/>
+<text text-anchor="start" x="466.5" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="547.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector2ui &gt;</text>
+<polyline fill="none" stroke="black" points="458.5,-287.5 636.5,-287.5 "/>
+<text text-anchor="middle" x="547.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="458.5,-268.5 636.5,-268.5 "/>
+<text text-anchor="start" x="466.5" y="-256.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="466.5" y="-245.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="466.5" y="-234.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="466.5" y="-223.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="466.5" y="-212.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="466.5" y="-201.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="466.5" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
+<text text-anchor="start" x="466.5" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
+<text text-anchor="start" x="466.5" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="466.5" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="466.5" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="466.5" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="466.5" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="466.5" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node9 -->
 <g id="edge8" class="edge">
 <title>Node6&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M618.22,-749.12C598.53,-705.52 579.76,-656.83 568.5,-610 544.61,-510.68 541.33,-393.51 542.81,-312.33"/>
+<path fill="none" stroke="midnightblue" d="M618.22,-749.12C598.53,-705.52 579.76,-656.83 568.5,-610 545.14,-512.86 541.48,-398.65 542.71,-317.73"/>
 <polygon fill="none" stroke="midnightblue" points="615.09,-750.7 622.43,-758.34 621.46,-747.79 615.09,-750.7"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
 <g id="a_node11"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="654.5,-112 654.5,-312 832.5,-312 832.5,-112 654.5,-112"/>
-<text text-anchor="start" x="662.5" y="-300" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="743.5" y="-289" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector3ui &gt;</text>
-<polyline fill="none" stroke="black" points="654.5,-282 832.5,-282 "/>
-<text text-anchor="middle" x="743.5" y="-270" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="654.5,-263 832.5,-263 "/>
-<text text-anchor="start" x="662.5" y="-251" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="662.5" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="662.5" y="-229" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="662.5" y="-218" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="662.5" y="-207" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="662.5" y="-196" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="662.5" y="-185" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
-<text text-anchor="start" x="662.5" y="-174" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
-<text text-anchor="start" x="662.5" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="662.5" y="-152" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="662.5" y="-141" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="662.5" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="662.5" y="-119" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<polygon fill="white" stroke="black" points="654.5,-106.5 654.5,-317.5 832.5,-317.5 832.5,-106.5 654.5,-106.5"/>
+<text text-anchor="start" x="662.5" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="743.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; Vector3ui &gt;</text>
+<polyline fill="none" stroke="black" points="654.5,-287.5 832.5,-287.5 "/>
+<text text-anchor="middle" x="743.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="654.5,-268.5 832.5,-268.5 "/>
+<text text-anchor="start" x="662.5" y="-256.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="662.5" y="-245.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="662.5" y="-234.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="662.5" y="-223.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="662.5" y="-212.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="662.5" y="-201.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="662.5" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
+<text text-anchor="start" x="662.5" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
+<text text-anchor="start" x="662.5" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="662.5" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="662.5" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="662.5" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="662.5" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="662.5" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node11 -->
 <g id="edge10" class="edge">
 <title>Node6&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M722.36,-637.17C723.12,-628 723.83,-618.92 724.5,-610 732.07,-508.68 737.22,-392.57 740.23,-312.2"/>
+<path fill="none" stroke="midnightblue" d="M722.36,-637.17C723.12,-628 723.83,-618.92 724.5,-610 731.91,-510.91 736.99,-397.69 740.03,-317.58"/>
 <polygon fill="none" stroke="midnightblue" points="718.87,-636.88 721.53,-647.14 725.85,-637.47 718.87,-636.88"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
 <g id="a_node13"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="851,-112 851,-312 1030,-312 1030,-112 851,-112"/>
-<text text-anchor="start" x="859" y="-300" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="940.5" y="-289" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; VectorNui &gt;</text>
-<polyline fill="none" stroke="black" points="851,-282 1030,-282 "/>
-<text text-anchor="middle" x="940.5" y="-270" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="851,-263 1030,-263 "/>
-<text text-anchor="start" x="859" y="-251" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="859" y="-240" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="859" y="-229" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="859" y="-218" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="859" y="-207" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="859" y="-196" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="859" y="-185" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
-<text text-anchor="start" x="859" y="-174" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
-<text text-anchor="start" x="859" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="859" y="-152" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="859" y="-141" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="859" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="859" y="-119" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<polygon fill="white" stroke="black" points="851,-106.5 851,-317.5 1030,-317.5 1030,-106.5 851,-106.5"/>
+<text text-anchor="start" x="859" y="-305.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="940.5" y="-294.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; VectorNui &gt;</text>
+<polyline fill="none" stroke="black" points="851,-287.5 1030,-287.5 "/>
+<text text-anchor="middle" x="940.5" y="-275.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="851,-268.5 1030,-268.5 "/>
+<text text-anchor="start" x="859" y="-256.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="859" y="-245.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="859" y="-234.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="859" y="-223.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="859" y="-212.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="859" y="-201.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="859" y="-190.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
+<text text-anchor="start" x="859" y="-179.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
+<text text-anchor="start" x="859" y="-168.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="859" y="-157.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="859" y="-146.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="859" y="-135.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="859" y="-124.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="859" y="-113.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node13 -->
 <g id="edge12" class="edge">
 <title>Node6&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M771.88,-676.88C805.69,-581.06 846.18,-467.3 883.5,-365 889.73,-347.92 896.44,-329.8 902.99,-312.25"/>
+<path fill="none" stroke="midnightblue" d="M771.88,-676.88C805.69,-581.06 846.18,-467.3 883.5,-365 889.1,-349.64 895.09,-333.44 901.01,-317.57"/>
 <polygon fill="none" stroke="midnightblue" points="768.55,-675.8 768.53,-686.4 775.15,-678.13 768.55,-675.8"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
 <g id="a_node15"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="577.5,-387.5 577.5,-587.5 715.5,-587.5 715.5,-387.5 577.5,-387.5"/>
-<text text-anchor="start" x="585.5" y="-575.5" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
-<text text-anchor="middle" x="646.5" y="-564.5" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; T &gt;</text>
-<polyline fill="none" stroke="black" points="577.5,-557.5 715.5,-557.5 "/>
-<text text-anchor="middle" x="646.5" y="-545.5" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
-<polyline fill="none" stroke="black" points="577.5,-538.5 715.5,-538.5 "/>
-<text text-anchor="start" x="585.5" y="-526.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="585.5" y="-515.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="585.5" y="-504.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
-<text text-anchor="start" x="585.5" y="-493.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="585.5" y="-482.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
-<text text-anchor="start" x="585.5" y="-471.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
-<text text-anchor="start" x="585.5" y="-460.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
-<text text-anchor="start" x="585.5" y="-449.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
-<text text-anchor="start" x="585.5" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
-<text text-anchor="start" x="585.5" y="-427.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
-<text text-anchor="start" x="585.5" y="-416.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
-<text text-anchor="start" x="585.5" y="-405.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
-<text text-anchor="start" x="585.5" y="-394.5" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<polygon fill="white" stroke="black" points="577.5,-382 577.5,-593 715.5,-593 715.5,-382 577.5,-382"/>
+<text text-anchor="start" x="585.5" y="-581" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
+<text text-anchor="middle" x="646.5" y="-570" font-family="Helvetica,sans-Serif" font-size="10.00">::IndexedGeometry&lt; T &gt;</text>
+<polyline fill="none" stroke="black" points="577.5,-563 715.5,-563 "/>
+<text text-anchor="middle" x="646.5" y="-551" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
+<polyline fill="none" stroke="black" points="577.5,-544 715.5,-544 "/>
+<text text-anchor="start" x="585.5" y="-532" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="585.5" y="-521" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="585.5" y="-510" font-family="Helvetica,sans-Serif" font-size="10.00">+ IndexedGeometry()</text>
+<text text-anchor="start" x="585.5" y="-499" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="585.5" y="-488" font-family="Helvetica,sans-Serif" font-size="10.00">+ operator=()</text>
+<text text-anchor="start" x="585.5" y="-477" font-family="Helvetica,sans-Serif" font-size="10.00">+ clear()</text>
+<text text-anchor="start" x="585.5" y="-466" font-family="Helvetica,sans-Serif" font-size="10.00">+ copy()</text>
+<text text-anchor="start" x="585.5" y="-455" font-family="Helvetica,sans-Serif" font-size="10.00">+ checkConsistency()</text>
+<text text-anchor="start" x="585.5" y="-444" font-family="Helvetica,sans-Serif" font-size="10.00">+ append()</text>
+<text text-anchor="start" x="585.5" y="-433" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndices()</text>
+<text text-anchor="start" x="585.5" y="-422" font-family="Helvetica,sans-Serif" font-size="10.00">+ getIndicesWithLock()</text>
+<text text-anchor="start" x="585.5" y="-411" font-family="Helvetica,sans-Serif" font-size="10.00">+ indicesUnlock()</text>
+<text text-anchor="start" x="585.5" y="-400" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
+<text text-anchor="start" x="585.5" y="-389" font-family="Helvetica,sans-Serif" font-size="10.00">+ setIndices()</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node15 -->
 <g id="edge14" class="edge">
 <title>Node6&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M664.42,-637.19C662.34,-619.93 660.33,-603.23 658.45,-587.66"/>
+<path fill="none" stroke="midnightblue" d="M664.43,-637.28C662.59,-621.95 660.79,-607.07 659.1,-593.02"/>
 <polygon fill="none" stroke="midnightblue" points="660.98,-637.9 665.66,-647.41 667.93,-637.06 660.98,-637.9"/>
 </g>
 <!-- Node16 -->
@@ -438,8 +443,8 @@
 <!-- Node7&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M351.5,-101.85C351.5,-89.94 351.5,-78.59 351.5,-68.76"/>
-<polygon fill="none" stroke="midnightblue" points="348,-101.97 351.5,-111.97 355,-101.97 348,-101.97"/>
+<path fill="none" stroke="midnightblue" d="M351.5,-96.26C351.5,-86.3 351.5,-76.85 351.5,-68.51"/>
+<polygon fill="none" stroke="midnightblue" points="348,-96.38 351.5,-106.38 355,-96.38 348,-96.38"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
@@ -458,8 +463,8 @@
 <!-- Node9&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M547.5,-101.85C547.5,-89.94 547.5,-78.59 547.5,-68.76"/>
-<polygon fill="none" stroke="midnightblue" points="544,-101.97 547.5,-111.97 551,-101.97 544,-101.97"/>
+<path fill="none" stroke="midnightblue" d="M547.5,-96.26C547.5,-86.3 547.5,-76.85 547.5,-68.51"/>
+<polygon fill="none" stroke="midnightblue" points="544,-96.38 547.5,-106.38 551,-96.38 544,-96.38"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
@@ -478,8 +483,8 @@
 <!-- Node11&#45;&gt;Node12 -->
 <g id="edge11" class="edge">
 <title>Node11&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M743.5,-101.85C743.5,-89.94 743.5,-78.59 743.5,-68.76"/>
-<polygon fill="none" stroke="midnightblue" points="740,-101.97 743.5,-111.97 747,-101.97 740,-101.97"/>
+<path fill="none" stroke="midnightblue" d="M743.5,-96.26C743.5,-86.3 743.5,-76.85 743.5,-68.51"/>
+<polygon fill="none" stroke="midnightblue" points="740,-96.38 743.5,-106.38 747,-96.38 740,-96.38"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
@@ -498,8 +503,8 @@
 <!-- Node13&#45;&gt;Node14 -->
 <g id="edge13" class="edge">
 <title>Node13&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M940.5,-101.85C940.5,-89.94 940.5,-78.59 940.5,-68.76"/>
-<polygon fill="none" stroke="midnightblue" points="937,-101.97 940.5,-111.97 944,-101.97 937,-101.97"/>
+<path fill="none" stroke="midnightblue" d="M940.5,-96.26C940.5,-86.3 940.5,-76.85 940.5,-68.51"/>
+<polygon fill="none" stroke="midnightblue" points="937,-96.38 940.5,-106.38 944,-96.38 937,-96.38"/>
 </g>
 <!-- Node15&#45;&gt;Node7 -->
 <g id="edge15" class="edge">
@@ -511,15 +516,15 @@
 <!-- Node15&#45;&gt;Node9 -->
 <g id="edge17" class="edge">
 <title>Node15&#45;&gt;Node9</title>
-<path fill="none" stroke="orange" d="M591.64,-377.93C587.24,-367.6 583.11,-357.18 579.5,-347 575.54,-335.84 571.91,-323.99 568.64,-312.13"/>
-<polygon fill="orange" stroke="orange" points="588.55,-379.61 595.74,-387.39 594.97,-376.83 588.55,-379.61"/>
+<path fill="none" stroke="orange" d="M589.32,-372.41C585.79,-363.9 582.47,-355.37 579.5,-347 576.14,-337.53 573.02,-327.57 570.15,-317.52"/>
+<polygon fill="orange" stroke="orange" points="586.1,-373.79 593.23,-381.64 592.55,-371.06 586.1,-373.79"/>
 <text text-anchor="middle" x="615.5" y="-339" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector2ui &gt;</text>
 </g>
 <!-- Node15&#45;&gt;Node11 -->
 <g id="edge18" class="edge">
 <title>Node15&#45;&gt;Node11</title>
-<path fill="none" stroke="orange" d="M647.54,-377.13C649.69,-363.04 652.87,-349.01 657.5,-336 660.34,-328.02 663.84,-320.09 667.79,-312.31"/>
-<polygon fill="orange" stroke="orange" points="644.03,-377 646.16,-387.38 650.97,-377.93 644.03,-377"/>
+<path fill="none" stroke="orange" d="M648.39,-371.88C650.5,-359.57 653.45,-347.39 657.5,-336 659.68,-329.86 662.26,-323.75 665.13,-317.72"/>
+<polygon fill="orange" stroke="orange" points="644.93,-371.35 646.87,-381.77 651.85,-372.42 644.93,-371.35"/>
 <text text-anchor="middle" x="693.5" y="-339" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; Vector3ui &gt;</text>
 </g>
 <!-- Node15&#45;&gt;Node13 -->
