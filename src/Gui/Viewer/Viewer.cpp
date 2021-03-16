@@ -750,7 +750,8 @@ Gui::Viewer::pickAtPosition( Core::Vector2 position ) {
 
 bool Gui::Viewer::prepareDisplay() {
     auto renderer = getRenderer();
-    if ( renderer ) {
+    if ( renderer )
+    {
         makeCurrent();
         getRenderer()->buildAllRenderTechniques();
         auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();

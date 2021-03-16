@@ -41,7 +41,7 @@ int main( int argc, char* argv[] ) {
     //! [Register the entity/component association to the geometry system ]
 
     //! [Tell the window that something is to be displayed]
-    app.m_mainWindow->prepareDisplay( "Cube" );
+    app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
 
     // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.

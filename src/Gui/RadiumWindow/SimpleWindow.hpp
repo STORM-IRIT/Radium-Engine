@@ -49,8 +49,11 @@ class RA_GUI_API SimpleWindow : public Ra::Gui::MainWindowInterface
                       std::shared_ptr<Ra::Engine::Rendering::Renderer> e ) override;
 
   public slots:
-    /// Call after loading a new file to let the window resetview for instance.
-    virtual void prepareDisplay( const std::string& filename ) override;
+    /**
+     * Called when a scene is ready to display to parameterize the application window and the
+     * viewer.
+     */
+    virtual void prepareDisplay() override;
 
     /// Cleanup resources.
     virtual void cleanup() override;
