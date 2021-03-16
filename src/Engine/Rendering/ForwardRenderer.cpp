@@ -174,6 +174,9 @@ void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderD
     }
     m_fancyTransparentCount = m_transparentRenderObjects.size();
     m_fancyVolumetricCount  = m_volumetricRenderObjects.size();
+
+    // simple hack to clean wireframes ...
+    if ( m_fancyRenderObjects.size() < m_wireframes.size() ) { m_wireframes.clear(); }
 }
 
 void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
@@ -367,22 +370,13 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         glBlendEquationSeparate( GL_FUNC_ADD, GL_FUNC_ADD );
         glBlendFuncSeparate( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO );
         GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
-
         for ( const auto& ro : m_fancyRenderObjects )
         {
             std::shared_ptr<Data::Displayable> wro;
             std::shared_ptr<Data::LineMesh> disp;
 
-            /// \todo manage gl destruction on the Mesh side
-#if 0
             WireMap::iterator it = m_wireframes.find( ro.get() );
             if ( it == m_wireframes.end() )
-#else
-            WireMap copy = m_wireframes;
-            m_wireframes.clear();
-            WireMap::iterator it = copy.find( ro.get() );
-            if ( it == copy.end() )
-#endif
             {
                 using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
                 using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
@@ -467,9 +461,8 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 }
                 wro = disp;
             }
-            else {
-                wro = it->second;
-            }
+            else
+            { wro = it->second; }
             const Data::ShaderProgram* shader =
                 m_shaderProgramManager->getShaderProgram( "Wireframe" );
             shader->bind();
