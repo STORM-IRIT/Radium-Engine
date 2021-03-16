@@ -43,8 +43,8 @@ void MinimalComponent::initialize() {
     auto plainMaterial              = make_shared<PlainMaterial>( "Plain Material" );
     plainMaterial->m_perVertexColor = true;
 
-    auto lambertianMaterial                = make_shared<LambertianMaterial>( "Lambertian Material" );
-    lambertianMaterial->m_perVertexColor   = true;
+    auto lambertianMaterial              = make_shared<LambertianMaterial>( "Lambertian Material" );
+    lambertianMaterial->m_perVertexColor = true;
 
     //// setup ////
     Scalar colorBoost = 1_ra; /// since simple primitive are ambient only, boost their color
@@ -117,7 +117,6 @@ void MinimalComponent::initialize() {
         addRenderObject( testpoint );
     }
 
-
     for ( int i = 0; i < 10; ++i )
     {
         Vector3 randomVec {cellCorner + offsetVec +
@@ -136,7 +135,7 @@ void MinimalComponent::initialize() {
     //// LINES ////
     cellCorner = {-0.75_ra, 0_ra, 0.0_ra};
     {
-        auto testline =RenderObject::createRenderObject(
+        auto testline = RenderObject::createRenderObject(
             "test_line",
             this,
             RenderObjectType::Geometry,
@@ -147,7 +146,6 @@ void MinimalComponent::initialize() {
         testline->setMaterial( plainMaterial );
         addRenderObject( testline );
     }
-
 
     for ( int i = 0; i < 20; ++i )
     {
@@ -175,7 +173,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Vector(
-                cellCorner, Vector3 { 0_ra, 0.5_ra, 0_ra }, colorBoost * Utils::Color::Blue() ),
+                cellCorner, Vector3 {0_ra, 0.5_ra, 0_ra}, colorBoost * Utils::Color::Blue() ),
             {} );
         testvector->setMaterial( plainMaterial );
         addRenderObject( testvector );
@@ -210,9 +208,8 @@ void MinimalComponent::initialize() {
                 {cellCorner, {0_ra, 1_ra, 0_ra}}, colorBoost * Utils::Color::Yellow(), cellSize ),
             {} );
         testray->setMaterial( plainMaterial );
-        addRenderObject( testray);
+        addRenderObject( testray );
     }
-
 
     //// TRIANGLES ////
     cellCorner = {0_ra, 0_ra, 0.0_ra};
@@ -221,9 +218,9 @@ void MinimalComponent::initialize() {
             "test_triangle",
             this,
             RenderObjectType::Geometry,
-            DrawPrimitives::Triangle( cellCorner + Vector3 { -0.01_ra, 0.0_ra, 0.0_ra },
-                                      cellCorner + Vector3 { +0.01_ra, 0.0_ra, 0.0_ra },
-                                      cellCorner + Vector3 { +0.0_ra, 0.02_ra, 0.0_ra },
+            DrawPrimitives::Triangle( cellCorner + Vector3 {-0.01_ra, 0.0_ra, 0.0_ra},
+                                      cellCorner + Vector3 {+0.01_ra, 0.0_ra, 0.0_ra},
+                                      cellCorner + Vector3 {+0.0_ra, 0.02_ra, 0.0_ra},
                                       colorBoost * Utils::Color::White(),
                                       true ),
             {} );
@@ -284,7 +281,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Circle( cellCorner,
-                                    { 0_ra, 0_ra, 1_ra },
+                                    {0_ra, 0_ra, 1_ra},
                                     cellSize / 8_ra,
                                     64,
                                     colorBoost * Utils::Color::White() ),
@@ -307,15 +304,16 @@ void MinimalComponent::initialize() {
             Scalar circleRadius {Scalar( end / 2 + i ) / Scalar( 2 * end ) * cellSize / 8_ra};
             uint circleSubdiv {3 + j * end + i};
 
-            auto circle = RenderObject::createRenderObject( "test_circle",
-                                                            this,
-                                                            RenderObjectType::Geometry,
-                                                            DrawPrimitives::Circle( circleCenter,
-                                                                                    circleNormal,
-                                                                                    circleRadius,
-                                                                                    circleSubdiv,
-                                                                                    colorBoost * randomCol ),
-                                                            {} );
+            auto circle =
+                RenderObject::createRenderObject( "test_circle",
+                                                  this,
+                                                  RenderObjectType::Geometry,
+                                                  DrawPrimitives::Circle( circleCenter,
+                                                                          circleNormal,
+                                                                          circleRadius,
+                                                                          circleSubdiv,
+                                                                          colorBoost * randomCol ),
+                                                  {} );
             circle->setMaterial( plainMaterial );
             addRenderObject( circle );
         }
@@ -327,8 +325,8 @@ void MinimalComponent::initialize() {
             "test_circle",
             this,
             RenderObjectType::Geometry,
-            DrawPrimitives::CircleArc( cellCorner + Vector3 { 0_ra, 2_ra * offset, 0_ra },
-                                       { 0_ra, 0_ra, 1_ra },
+            DrawPrimitives::CircleArc( cellCorner + Vector3 {0_ra, 2_ra * offset, 0_ra},
+                                       {0_ra, 0_ra, 1_ra},
                                        cellSize / 8_ra,
                                        1_ra,
                                        64,
@@ -440,7 +438,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Capsule( cellCorner,
-                                     cellCorner + Vector3 { 0_ra, 0.1_ra, 0_ra },
+                                     cellCorner + Vector3 {0_ra, 0.1_ra, 0_ra},
                                      0.02_ra,
                                      Utils::Color::White() ),
             {} );
@@ -457,7 +455,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Disk( cellCorner,
-                                  Vector3 { 0_ra, 0_ra, 1_ra },
+                                  Vector3 {0_ra, 0_ra, 1_ra},
                                   0.05_ra,
                                   32,
                                   colorBoost * Utils::Color::White() ),
@@ -475,7 +473,7 @@ void MinimalComponent::initialize() {
             this,
             RenderObjectType::Geometry,
             DrawPrimitives::Normal(
-                cellCorner, Vector3 { 0_ra, 0_ra, 1_ra }, colorBoost * Utils::Color::White() ),
+                cellCorner, Vector3 {0_ra, 0_ra, 1_ra}, colorBoost * Utils::Color::White() ),
             {} );
         normal->setMaterial( plainMaterial );
         addRenderObject( normal );

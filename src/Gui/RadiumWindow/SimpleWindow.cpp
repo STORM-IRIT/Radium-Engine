@@ -6,6 +6,8 @@
 #include <Gui/Viewer/CameraManipulator.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
+#include <QStatusBar>
+
 namespace Ra {
 using namespace Gui;
 using namespace Engine;
@@ -60,12 +62,9 @@ void SimpleWindow::addRenderer( const std::string&,
     m_viewer->addRenderer( e );
 }
 
-void SimpleWindow::prepareDisplay( const std::string& ) {
+void SimpleWindow::prepareDisplay() {
     m_selectionManager->clear();
-
-    if ( m_viewer->prepareDisplay() ) {
-        emit frameUpdate();
-    }
+    if ( m_viewer->prepareDisplay() ) { emit frameUpdate(); }
 }
 
 void SimpleWindow::cleanup() {

@@ -116,7 +116,7 @@ std::shared_ptr<Ra::Engine::Rendering::RenderObject> initQuad( Ra::Gui::BaseAppl
         c->m_renderObjects[0] );
 
     // Initialize all OpenGL state for the scene content
-    app.m_mainWindow->prepareDisplay( "Cube" );
+    app.m_mainWindow->prepareDisplay();
     return ro;
 }
 

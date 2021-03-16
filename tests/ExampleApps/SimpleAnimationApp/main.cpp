@@ -157,7 +157,7 @@ int main( int argc, char* argv[] ) {
     //! [add the component to the animation system]
 
     //! [Tell the window that something is to be displayed]
-    app.m_mainWindow->prepareDisplay( "Cube" );
+    app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
 
     // terminate the app after 6 second (approximatively). Camera can be moved using mouse moves.
