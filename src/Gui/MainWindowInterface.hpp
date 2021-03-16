@@ -53,8 +53,8 @@ class RA_GUI_API MainWindowInterface : public QMainWindow
                               std::shared_ptr<Engine::Rendering::Renderer> e ) = 0;
 
   public slots:
-    /// Call after loading a new file to let the window resetview for instance.
-    virtual void postLoadFile( const std::string& filename ) = 0;
+    /// Called when a scene is ready to display to parameterize the application window and the viewer..
+    virtual void prepareDisplay( const std::string& filename ) = 0;
     /// Cleanup resources.
     virtual void cleanup() = 0;
 

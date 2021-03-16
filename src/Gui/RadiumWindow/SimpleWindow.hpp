@@ -50,7 +50,7 @@ class RA_GUI_API SimpleWindow : public Ra::Gui::MainWindowInterface
 
   public slots:
     /// Call after loading a new file to let the window resetview for instance.
-    virtual void postLoadFile( const std::string& filename ) override;
+    virtual void prepareDisplay( const std::string& filename ) override;
 
     /// Cleanup resources.
     virtual void cleanup() override;

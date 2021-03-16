@@ -67,6 +67,13 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// add observers to keyMappingManager for gizmo, camera and viewer.
     virtual void setupKeyMappingCallbacks();
 
+    /** Prepare the viewer to display a scene.
+     * This will ask the renderer to build its specific OenGL related objects
+     * and set the camera to its default state
+     * @return true if the scene is ready to display.
+     */
+    virtual bool prepareDisplay();
+
     //
     // Accessors
     //
@@ -140,6 +147,7 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
 
     void enableDebug();
 
+    /// get the currently used background color
     const Core::Utils::Color& getBackgroundColor() const { return m_backgroundColor; }
 
     ///@}
