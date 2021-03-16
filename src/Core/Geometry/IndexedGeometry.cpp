@@ -5,18 +5,26 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
+/// \fixme Deep copy
 MultiIndexedGeometry::MultiIndexedGeometry( const MultiIndexedGeometry& other ) :
     AttribArrayGeometry( other ), m_indices( other.m_indices ) {}
 
-/// \fixme Deep copy
 MultiIndexedGeometry::MultiIndexedGeometry( MultiIndexedGeometry&& other ) :
     AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
 
 MultiIndexedGeometry::MultiIndexedGeometry( const AttribArrayGeometry& other ) :
-    AttribArrayGeometry( other ) {}
+    AttribArrayGeometry( other ) {
+#ifdef MULTI_INDEX_MIMIC_TRIANGLE_MESH
+    setIndices( {} ); // force create of trianglemesh layer
+#endif
+}
 
 MultiIndexedGeometry::MultiIndexedGeometry( AttribArrayGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ) {}
+    AttribArrayGeometry( std::move( other ) ) {
+#ifdef MULTI_INDEX_MIMIC_TRIANGLE_MESH
+    setIndices( {} ); // force create of trianglemesh layer
+#endif
+}
 
 /// \fixme Deep copy
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometry& other ) {
@@ -51,6 +59,20 @@ void MultiIndexedGeometry::copy( const MultiIndexedGeometry& other ) {
 void MultiIndexedGeometry::checkConsistency() const {
 #ifdef CORE_DEBUG
 #endif
+}
+
+bool
+/// \todo Implement MultiIndexedGeometry::append
+MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
+    bool isCopyComplete = true;
+    for ( const auto& [key, value] : m_indices )
+    {
+        auto it = other.m_indices.find( key );
+        if ( !( it == other.m_indices.end() && value.second->append( *( it->second.second ) ) ) )
+            isCopyComplete = false;
+    }
+
+    return isCopyComplete;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -163,6 +185,7 @@ void MultiIndexedGeometry::unlockFirstLayerOccurrence( const LayerSemantic& sema
             CORE_ASSERT( value.first, "try to release unlocked layer" );
             value.first = false;
             notify();
+            return;
         }
     }
     throw std::out_of_range( "Layer entry not found" );
@@ -176,6 +199,7 @@ void MultiIndexedGeometry::unlockFirstLayerOccurrence( const LayerSemanticCollec
             CORE_ASSERT( value.first, "try to release unlocked layer" );
             value.first = false;
             notify();
+            return;
         }
     }
     throw std::out_of_range( "Layer entry not found" );
@@ -199,6 +223,7 @@ bool MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& l
     m_indices.insert( {key, std::make_pair( false, layer.release() )} );
 
     notify();
+    return true;
 }
 
 //////////////////////////////////////////////////////////////////////
