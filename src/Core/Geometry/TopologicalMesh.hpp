@@ -197,7 +197,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * For detailed topological modifications see \ref develmeshes.
      * \param he halfedge's hangle to collapse.
      */
-    void collapseWedge( TopologicalMesh::HalfedgeHandle he, bool keepFromVertex = false );
+    void collapse( HalfedgeHandle, bool = false );
+    [[deprecated( "use collapse() instead." )]] void
+    collapseWedge( TopologicalMesh::HalfedgeHandle he, bool keepFromVertex = false );
     ///@}
 
     /**
@@ -217,7 +219,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      */
     inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
     template <typename T>
-    const T& getWedgeData( const WedgeIndex& idx, const std::string& name ) const;
+    [[deprecated( "use getWedgeAttrib() instead." )]] const T&
+    getWedgeData( const WedgeIndex& idx, const std::string& name ) const;
     template <typename T>
     const T& getWedgeAttrib( const WedgeIndex& idx, const std::string& name ) const;
 
@@ -240,12 +243,16 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * type T.
      */
     template <typename T>
-    inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
+    [[deprecated( "use setWedgeAttrib() instead." )]] inline bool
+    setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
 
     template <typename T>
     inline bool setWedgeAttrib( const WedgeIndex& idx, const std::string& name, const T& value );
 
+    /** return a WedgeData with all attrib initialized to default values */
     inline WedgeData newWedgeData() const { return m_wedges.newWedgeData(); }
+    /** return a WedgeData with position (and vertex handle) initialized from the value of he's to
+     * vertex. */
     inline WedgeData newWedgeData( HalfedgeHandle he ) const {
         return m_wedges.newWedgeData( to_vertex_handle( he ), point( to_vertex_handle( he ) ) );
     }
@@ -356,11 +363,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
   private:
     // base on openmesh version
-    void collapse( HalfedgeHandle, bool );
     void collapse_edge( HalfedgeHandle, bool );
     void collapse_loop( HalfedgeHandle );
-    // old version
-    void collapseWedge2( TopologicalMesh::HalfedgeHandle he, bool keepFromVertex = false );
 
     /**
      * This private class manage wedge data and refcount, to maintain deleted status
