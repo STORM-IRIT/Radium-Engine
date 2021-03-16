@@ -12,7 +12,6 @@ namespace Core {
 namespace Geometry {
 // need forward declarations for friend classes outside of Utils namespace
 class TopologicalMesh;
-class TriangleMesh;
 } // namespace Geometry
 
 namespace Utils {
@@ -352,7 +351,6 @@ class RA_CORE_API AttribManager : public Observable<const std::string&>
 
     // Ease wrapper
     friend class ::Ra::Core::Geometry::TopologicalMesh;
-    friend class ::Ra::Core::Geometry::TriangleMesh;
 
     /// Count number of valid attribs
     int m_numAttribs {0};
