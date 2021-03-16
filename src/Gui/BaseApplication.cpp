@@ -385,7 +385,7 @@ bool BaseApplication::loadFile( QString path ) {
 
     m_engine->releaseFile();
 
-    m_mainWindow->postLoadFile( filename );
+    m_mainWindow->prepareDisplay( filename );
 
     emit loadComplete();
     return true;
