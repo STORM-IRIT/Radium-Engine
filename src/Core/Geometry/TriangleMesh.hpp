@@ -264,6 +264,7 @@ class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
     /// access to it.
     /// Notify observers of the update.
     void setIndices( IndexContainerType&& indices );
+    void setIndices( const IndexContainerType& indices );
 
   private:
     bool m_isIndicesLocked {false};

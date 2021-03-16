@@ -141,6 +141,9 @@ set(engine_shaders
     Lines/Lines.frag.glsl
     Lines/Lines.geom.glsl
     Lines/Lines.vert.glsl
+    Lines/Wireframe.frag.glsl
+    Lines/Wireframe.geom.glsl
+    Lines/Wireframe.vert.glsl
     Materials/BlinnPhong/BlinnPhong.frag.glsl
     Materials/BlinnPhong/BlinnPhong.glsl
     Materials/BlinnPhong/BlinnPhong.vert.glsl

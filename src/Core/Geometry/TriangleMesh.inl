@@ -317,6 +317,13 @@ void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
     notify();
 }
 
+template <typename T>
+void IndexedGeometry<T>::setIndices( const IndexContainerType& indices ) {
+    CORE_ASSERT( !m_isIndicesLocked, "try set already locked indices" );
+    m_indices = indices;
+    notify();
+}
+
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
