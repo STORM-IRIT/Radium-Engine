@@ -201,7 +201,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     /// \throws std::out_of_range
     inline const GeometryIndexLayerBase& getLayer( const LayerKeyType& layerKey ) const {
-        return m_indices.at( layerKey ).second;
+        return *( m_indices.at( layerKey ).second );
     }
 
     /// \copybrief getLayer( const LayerKeyType& ) const
@@ -324,17 +324,20 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     //////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
 
-    /// \brief Add or update layer
+    /// \brief Add layer
     ///
     /// Notify observers of the update.
+    /// \return false if a layer with same semantics and name already exists.
     ///
-    /// \warning If the layer already exists, it must be unlocked to be updated
-    /// \warning The layer is moved during the operation, thus the reference is invalidated
+    /// \warning Takes the ownership of the layer
     ///
-    void setLayer( const GeometryIndexLayerBase& layer, const std::string& layerName = "" );
+    bool addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
+                   const std::string& layerName = "" );
 
   private:
-    using EntryType = std::pair<bool, GeometryIndexLayerBase>;
+    /// Note: we cannot store unique_ptr here has unordered_map needs its
+    /// elements to be copy-constructible
+    using EntryType = std::pair<bool, GeometryIndexLayerBase*>;
     struct RA_CORE_API KeyHash {
         std::size_t operator()( const LayerKeyType& k ) const;
     };
