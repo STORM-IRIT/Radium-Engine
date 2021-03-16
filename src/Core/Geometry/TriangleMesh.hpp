@@ -274,8 +274,8 @@ class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
 class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
-class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
-{};
+// class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
+// {};
 
 class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>
 {};
@@ -288,3 +288,5 @@ class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
 } // namespace Ra
 
 #include <Core/Geometry/TriangleMesh.inl>
+
+#include "IndexedGeometry.hpp"
