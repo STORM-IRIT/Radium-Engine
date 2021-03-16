@@ -1,9 +1,11 @@
 
 #include <minimalradium.hpp>
 
+#include <Core/Asset/FileData.hpp>
 #include <Core/Containers/MakeShared.hpp>
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 #include <Core/Utils/Timer.hpp>
@@ -15,6 +17,11 @@
 #include <Engine/FrameInfo.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
+#include <Engine/Scene/GeometryComponent.hpp>
+
+#ifdef IO_USE_ASSIMP
+#    include <IO/AssimpLoader/AssimpFileLoader.hpp>
+#endif
 
 #include <random>
 
@@ -32,7 +39,9 @@ const bool ENABLE_CAPSULES  = true;
 const bool ENABLE_DISKS     = true;
 const bool ENABLE_NORMALS   = true;
 const bool ENABLE_POLYS     = true;
+const bool ENABLE_LOGO      = true;
 
+using namespace Ra;
 using namespace Ra::Core;
 using namespace Ra::Engine;
 using namespace Ra::Engine::Rendering;
@@ -73,9 +82,9 @@ void MinimalComponent::initialize() {
 
     //// setup ////
     Scalar colorBoost = 1_ra; /// since simple primitive are ambient only, boost their color
-    Scalar cellSize   = 0.25_ra;
-    int nCellX        = 5;
-    int nCellY        = 5;
+    Scalar cellSize   = 0.35_ra;
+    int nCellX        = 7;
+    int nCellY        = 7;
     Vector3 cellCorner {-nCellX * cellSize / 2_ra, 0_ra, -nCellY * cellSize / 2_ra};
     Vector3 toCellCenter {cellSize / 2_ra, cellSize / 2_ra, cellSize / 2_ra};
     Scalar offset {0.05_ra};
@@ -636,6 +645,69 @@ void MinimalComponent::initialize() {
                                                      Eigen::UniformScaling<Scalar>( 0.06_ra )} );
 
         addRenderObject( renderObject1 );
+    }
+
+    if ( ENABLE_LOGO )
+    {
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+        updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
+
+        Asset::FileData* data;
+        auto l               = IO::AssimpFileLoader();
+        auto rp              = Resources::getResourcesPath();
+        std::string filename = *rp + "/Assets/radium-logo.dae";
+        data                 = l.loadFile( filename );
+        if ( data != nullptr )
+        {
+            auto geomData = data->getGeometryData();
+
+            for ( const auto& gd : geomData )
+            {
+                std::shared_ptr<AttribArrayDisplayable> mesh {nullptr};
+                switch ( gd->getType() )
+                {
+                case Ra::Core::Asset::GeometryData::TRI_MESH:
+                    mesh = std::shared_ptr<Mesh> {
+                        createMeshFromGeometryData<Geometry::TriangleMesh>( "logo", gd )};
+                    break;
+                case Ra::Core::Asset::GeometryData::QUAD_MESH:
+                case Ra::Core::Asset::GeometryData::POLY_MESH:
+                    mesh = std::shared_ptr<PolyMesh> {
+                        createMeshFromGeometryData<Geometry::PolyMesh>( "logo", gd )};
+                    break;
+                default:
+                    break;
+                }
+
+                std::shared_ptr<Data::Material> roMaterial;
+                const Core::Asset::MaterialData* md =
+                    gd->hasMaterial() ? &( gd->getMaterial() ) : nullptr;
+                // First extract the material from asset or create a default one
+                if ( md != nullptr )
+                {
+                    auto converter =
+                        Data::EngineMaterialConverters::getMaterialConverter( md->getType() );
+                    auto mat = converter.second( md );
+                    roMaterial.reset( mat );
+                }
+                else
+                {
+                    auto mat             = new Data::BlinnPhongMaterial( "_DefaultBPMaterial" );
+                    mat->m_renderAsSplat = mesh->getNumFaces() == 0;
+                    roMaterial.reset( mat );
+                }
+
+                // Create the RenderObject
+                auto renderObject = RenderObject::createRenderObject(
+                    "logo", this, RenderObjectType::Geometry, mesh, {} );
+                renderObject->setLocalTransform(
+                    Transform {Translation( Vector3( cellCorner ) + toCellCenter ) *
+                               Eigen::UniformScaling<Scalar>( cellSize * 0.02_ra )} );
+                renderObject->setMaterial( roMaterial );
+
+                addRenderObject( renderObject );
+            }
+        }
     }
 }
 
