@@ -1,9 +1,9 @@
 <map id="Ra::Plugins::Context" name="Ra::Plugins::Context">
-<area shape="rect" id="node1" title="Data passed to the plugin constructor." alt="" coords="4763,5039,4917,5116"/>
+<area shape="rect" id="node1" title="Data passed to the plugin constructor." alt="" coords="4763,5053,4917,5131"/>
 <area shape="rect" id="node2" href="$classQObject.html" title=" " alt="" coords="2483,2172,2557,2249"/>
 <area shape="rect" id="node44" href="$classRa_1_1Gui_1_1GizmoManager.html" title=" " alt="" coords="3309,3578,3531,3802"/>
 <area shape="rect" id="node51" href="$classRa_1_1Gui_1_1CameraManipulator.html" title="The CameraManipulator class is the generic class for camera manipulators." alt="" coords="2916,2635,3172,3240"/>
-<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html" title=" " alt="" coords="3481,4019,3708,4976"/>
+<area shape="rect" id="node3" href="$classRa_1_1Gui_1_1Viewer.html" title=" " alt="" coords="3481,4019,3708,4991"/>
 <area shape="rect" id="node4" href="$classRa_1_1Gui_1_1WindowQt.html" title="Base class for OpenGL widgets, compatble with Qt and globjects/glbindings." alt="" coords="2040,2040,2211,2381"/>
 <area shape="rect" id="node5" href="$classQWindow.html" title=" " alt="" coords="2190,1409,2274,1486"/>
 <area shape="rect" id="node6" title=" " alt="" coords="2500,1409,2761,1486"/>
@@ -54,9 +54,9 @@
 <area shape="rect" id="node48" title=" " alt="" coords="4032,1401,4179,1493"/>
 <area shape="rect" id="node52" title=" " alt="" coords="2859,2172,3026,2249"/>
 <area shape="rect" id="node55" title=" " alt="" coords="3273,2172,3455,2249"/>
-<area shape="rect" id="node56" href="$classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes." alt="" coords="4877,4349,5099,4646"/>
+<area shape="rect" id="node56" href="$classRa_1_1Gui_1_1Timeline.html" title="The Timeline class provides display and management of time, as well as keyframes." alt="" coords="4877,4356,5099,4653"/>
 <area shape="rect" id="node57" href="$classQDialog.html" title=" " alt="" coords="4951,3651,5025,3729"/>
-<area shape="rect" id="node58" href="$classRa_1_1Gui_1_1SelectionManager.html" title=" " alt="" coords="5124,4400,5319,4595"/>
+<area shape="rect" id="node58" href="$classRa_1_1Gui_1_1SelectionManager.html" title=" " alt="" coords="5124,4407,5319,4602"/>
 <area shape="rect" id="node59" href="$classQItemSelectionModel.html" title=" " alt="" coords="5140,3651,5303,3729"/>
-<area shape="rect" id="node60" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="5343,4070,5569,4925"/>
+<area shape="rect" id="node60" href="$classRa_1_1Engine_1_1RadiumEngine.html" title=" " alt="" coords="5343,4077,5569,4932"/>
 </map>

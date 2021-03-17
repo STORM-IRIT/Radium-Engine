@@ -34,6 +34,7 @@ var classRa_1_1Gui_1_1Viewer =
     [ "mousePressEvent", "classRa_1_1Gui_1_1Viewer.html#a85bb9605cc40e330561ec2a070451768", null ],
     [ "mouseReleaseEvent", "classRa_1_1Gui_1_1Viewer.html#a3f65773027030ac179e755dfc3454121", null ],
     [ "needUpdate", "classRa_1_1Gui_1_1Viewer.html#a41551eb5214f8b3b79ce5248e9dd4b3b", null ],
+    [ "prepareDisplay", "classRa_1_1Gui_1_1Viewer.html#a02c5ab9153a9701e8f14589a4589f284", null ],
     [ "processPicking", "classRa_1_1Gui_1_1Viewer.html#aeee8e169e5cdca89d16cde152a7f4657", null ],
     [ "reloadShaders", "classRa_1_1Gui_1_1Viewer.html#a78eef04365913a9a5b1d956a96533471", null ],
     [ "rendererReady", "classRa_1_1Gui_1_1Viewer.html#a364b2eb1f02c0cabf286a3127ec4c5dc", null ],

@@ -13,6 +13,6 @@ var classRa_1_1Gui_1_1SimpleWindow =
     [ "onFrameComplete", "classRa_1_1Gui_1_1SimpleWindow.html#a5e5c1353bbc4bd57f6e0417d9997c628", null ],
     [ "operator=", "classRa_1_1Gui_1_1SimpleWindow.html#a7ae55291542476fc993be3a6b30490c3", null ],
     [ "operator=", "classRa_1_1Gui_1_1SimpleWindow.html#add6fd781d974f24e69e489355146229b", null ],
-    [ "postLoadFile", "classRa_1_1Gui_1_1SimpleWindow.html#a160c9918068afa3bb7c89dbc82bca6c4", null ],
+    [ "prepareDisplay", "classRa_1_1Gui_1_1SimpleWindow.html#aa64c4c92f5f699f47af60b44be7f7a97", null ],
     [ "updateUi", "classRa_1_1Gui_1_1SimpleWindow.html#a169b6077c7e9df1092eb240cacc3c2a9", null ]
 ];

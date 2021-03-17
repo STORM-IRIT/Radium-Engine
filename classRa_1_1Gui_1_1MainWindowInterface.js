@@ -9,7 +9,7 @@ var classRa_1_1Gui_1_1MainWindowInterface =
     [ "getTimeline", "classRa_1_1Gui_1_1MainWindowInterface.html#a599d957047c1b5b56e9beae3f05cdbc6", null ],
     [ "getViewer", "classRa_1_1Gui_1_1MainWindowInterface.html#a0e1597c5b741d3244d9c40360ddad67f", null ],
     [ "onFrameComplete", "classRa_1_1Gui_1_1MainWindowInterface.html#a3cb323a11dac39f6fb2e2c3c8bd623b5", null ],
-    [ "postLoadFile", "classRa_1_1Gui_1_1MainWindowInterface.html#afa7a51287a2d563c5924f2c2dbe07026", null ],
+    [ "prepareDisplay", "classRa_1_1Gui_1_1MainWindowInterface.html#a8cbeb9f100bb2a52464829eb0bb5331e", null ],
     [ "requestEngineOpenGLInitialization", "classRa_1_1Gui_1_1MainWindowInterface.html#ab808c0c7dbf9ff193a74e1bd8b9cfcce", null ],
     [ "updateUi", "classRa_1_1Gui_1_1MainWindowInterface.html#aad1fed51c3a22bbaeb0da5ea5ea693a1", null ]
 ];

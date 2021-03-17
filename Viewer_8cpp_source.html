@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">da2cfe3f756a26a62e745168da86b0404fdc1889</span>
+   &#160;<span id="projectnumber">c768a817dfe0bc0e98379fa0bf2f64f55604998d</span>
    </div>
   </td>
  </tr>
@@ -840,7 +840,22 @@ $(document).ready(function(){initNavTree('Viewer_8cpp_source.html',''); initResi
 <div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    <span class="keywordflow">return</span> result;</div>
 <div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;}</div>
 <div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160; </div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00751"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a02c5ab9153a9701e8f14589a4589f284">  751</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a02c5ab9153a9701e8f14589a4589f284">Gui::Viewer::prepareDisplay</a>() {</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keyword">auto</span> renderer = getRenderer();</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    <span class="keywordflow">if</span> ( renderer )</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    {</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;        makeCurrent();</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;        getRenderer()-&gt;buildAllRenderTechniques();</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        <span class="keyword">auto</span> aabb = Ra::Engine::RadiumEngine::getInstance()-&gt;computeSceneAabb();</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;        <span class="keywordflow">if</span> ( aabb.isEmpty() ) { getCameraManipulator()-&gt;resetCamera(); }</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        { fitCameraToScene( aabb ); }</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;        doneCurrent();</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    }</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;}</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespaceRa_1_1Gui_html_ad78f1f51a1a408c30fdf27708a73fb71"><div class="ttname"><a href="namespaceRa_1_1Gui.html#ad78f1f51a1a408c30fdf27708a73fb71">Ra::Gui::keyPressed</a></div><div class="ttdeci">void keyPressed(int code)</div><div class="ttdoc">set the key corresponding to</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00012">Keyboard.cpp:12</a></div></div>
@@ -873,6 +888,7 @@ $(document).ready(function(){initNavTree('Viewer_8cpp_source.html',''); initResi
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a1ffe7aaecf91a91d6b1e98fb9dc75e5a"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a1ffe7aaecf91a91d6b1e98fb9dc75e5a">Ra::Gui::Viewer::swapBuffers</a></div><div class="ttdeci">void swapBuffers()</div><div class="ttdoc">Blocks until rendering is finished.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00214">Viewer.cpp:214</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Data_1_1ViewingParameters_html"><div class="ttname"><a href="structRa_1_1Engine_1_1Data_1_1ViewingParameters.html">Ra::Engine::Data::ViewingParameters</a></div><div class="ttdoc">the set of viewing parameters extracted from the camera and given to the renderer</div><div class="ttdef"><b>Definition:</b> <a href="ViewingParameters_8hpp_source.html#l00010">ViewingParameters.hpp:10</a></div></div>
 <div class="ttc" id="aEntityManager_8hpp_html"><div class="ttname"><a href="EntityManager_8hpp.html">EntityManager.hpp</a></div></div>
+<div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a02c5ab9153a9701e8f14589a4589f284"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a02c5ab9153a9701e8f14589a4589f284">Ra::Gui::Viewer::prepareDisplay</a></div><div class="ttdeci">virtual bool prepareDisplay()</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00751">Viewer.cpp:751</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_ac15a6f178cfdcbfbfccaba8959973463"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#ac15a6f178cfdcbfbfccaba8959973463">Ra::Gui::Viewer::wheelEvent</a></div><div class="ttdeci">void wheelEvent(QWheelEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00554">Viewer.cpp:554</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Gui_html_a284a7353da7c360f6ff24c07ebb3f815"><div class="ttname"><a href="namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815">Ra::Gui::activeKey</a></div><div class="ttdeci">int activeKey()</div><div class="ttdoc">return the last, still pressed, key code, -1 if no key currently pressed</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00027">Keyboard.cpp:27</a></div></div>
 <div class="ttc" id="aDirLight_8hpp_html"><div class="ttname"><a href="DirLight_8hpp.html">DirLight.hpp</a></div></div>
@@ -939,7 +955,7 @@ $(document).ready(function(){initNavTree('Viewer_8cpp_source.html',''); initResi
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a587512c405c7aa219ac119c41f841517"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a587512c405c7aa219ac119c41f841517">Ra::Gui::Viewer::handleMouseMoveEvent</a></div><div class="ttdeci">virtual void handleMouseMoveEvent(QMouseEvent *event, Ra::Engine::Rendering::Renderer::PickingResult &amp;result)</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00687">Viewer.cpp:687</a></div></div>
 <div class="ttc" id="astructRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult_html_a72139bc2b6f4cff4ebfc65e6d6533b47"><div class="ttname"><a href="structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1PickingResult.html#a72139bc2b6f4cff4ebfc65e6d6533b47">Ra::Engine::Rendering::Renderer::PickingResult::m_roIdx</a></div><div class="ttdeci">Core::Utils::Index m_roIdx</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8hpp_source.html#l00101">Renderer.hpp:101</a></div></div>
 <div class="ttc" id="aPickingManager_8hpp_html"><div class="ttname"><a href="PickingManager_8hpp.html">PickingManager.hpp</a></div></div>
-<div class="ttc" id="aViewer_8hpp_html_a34ec0e56d6022d8eb0c289cf4436ecf1"><div class="ttname"><a href="Viewer_8hpp.html#a34ec0e56d6022d8eb0c289cf4436ecf1">KeyMappingViewer</a></div><div class="ttdeci">#define KeyMappingViewer</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00264">Viewer.hpp:264</a></div></div>
+<div class="ttc" id="aViewer_8hpp_html_a34ec0e56d6022d8eb0c289cf4436ecf1"><div class="ttname"><a href="Viewer_8hpp.html#a34ec0e56d6022d8eb0c289cf4436ecf1">KeyMappingViewer</a></div><div class="ttdeci">#define KeyMappingViewer</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8hpp_source.html#l00272">Viewer.hpp:272</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ad6561217833b25364553930542830197"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ad6561217833b25364553930542830197">Ra::Core::Math::e</a></div><div class="ttdeci">constexpr Scalar e</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00012">Math.hpp:12</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Utils_html_af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1">Ra::Core::Utils::logERROR</a></div><div class="ttdeci">@ logERROR</div><div class="ttdef"><b>Definition:</b> <a href="Log_8hpp_source.html#l00016">Log.hpp:16</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1Camera_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1Camera.html">Ra::Engine::Scene::Camera</a></div><div class="ttdoc">A Camera is an Engine Component storing a Camera object.</div><div class="ttdef"><b>Definition:</b> <a href="Camera_8hpp_source.html#l00014">Camera.hpp:14</a></div></div>
@@ -963,7 +979,7 @@ $(document).ready(function(){initNavTree('Viewer_8cpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></li>
-    <li class="footer">Generated on Tue Mar 16 2021 19:03:00 for Radium Engine by
+    <li class="footer">Generated on Wed Mar 17 2021 08:58:06 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
