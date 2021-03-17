@@ -385,7 +385,7 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );
                 auto tp          = std::dynamic_pointer_cast<polymesh>( displayable );
                 //                Ra::Core::Geometry::TopologicalMesh topo;
-                bool drawable;
+                bool drawable = false;
                 Core::Geometry::LineMesh lines;
                 Core::Geometry::LineMesh::IndexContainerType indices;
                 if ( tm )
