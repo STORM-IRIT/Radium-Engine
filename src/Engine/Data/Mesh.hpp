@@ -4,6 +4,7 @@
 
 #include <Engine/Data/DisplayableObject.hpp>
 
+#include <Core/Asset/GeometryData.hpp>
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Utils/Color.hpp>
@@ -411,6 +412,97 @@ class RA_ENGINE_API PolyMesh : public IndexedGeometry<Core::Geometry::PolyMesh>
     inline void triangulate();
     Core::AlignedStdVector<IndexType> m_triangleIndices;
 };
+
+/// create a TriangleMesh, PolyMesh or other Core::*Mesh from GeometryData
+template <typename CoreMeshType>
+CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData* data ) {
+    CoreMeshType mesh;
+    typename CoreMeshType::PointAttribHandle::Container vertices;
+    typename CoreMeshType::NormalAttribHandle::Container normals;
+    typename CoreMeshType::IndexContainerType indices;
+
+    vertices.reserve( data->getVerticesSize() );
+    std::copy(
+        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
+
+    if ( data->hasNormals() )
+    {
+        normals.reserve( data->getVerticesSize() );
+        std::copy(
+            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
+    }
+
+    const auto& faces = data->getFaces();
+    indices.reserve( faces.size() );
+    std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
+    mesh.setVertices( std::move( vertices ) );
+    mesh.setNormals( std::move( normals ) );
+
+    if ( data->hasTangents() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
+                        data->getTangents() );
+    }
+
+    if ( data->hasBiTangents() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
+                        data->getBiTangents() );
+    }
+
+    if ( data->hasTextureCoordinates() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
+                        data->getTexCoords() );
+    }
+
+    if ( data->hasColors() )
+    {
+        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
+    }
+
+    // To be discussed: Should not weights be part of the geometry ?
+    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
+
+    mesh.setIndices( std::move( indices ) );
+
+    return mesh;
+}
+
+/// Helpers to get RenderMesh type from CoreMesh Type
+namespace RenderMeshType {
+template <class CoreMeshT>
+struct getType {};
+
+template <>
+struct getType<Ra::Core::Geometry::LineMesh> {
+    using Type = Ra::Engine::Data::LineMesh;
+};
+
+template <>
+struct getType<Ra::Core::Geometry::TriangleMesh> {
+    using Type = Ra::Engine::Data::Mesh;
+};
+
+template <>
+struct getType<Ra::Core::Geometry::PolyMesh> {
+    using Type = Ra::Engine::Data::PolyMesh;
+};
+} // namespace RenderMeshType
+
+/// create Mesh, PolyMesh Engine::Data::*Mesh * from GeometryData
+template <typename CoreMeshType>
+typename RenderMeshType::getType<CoreMeshType>::Type*
+createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
+    using MeshType = typename RenderMeshType::getType<CoreMeshType>::Type;
+
+    CoreMeshType mesh = createCoreMeshFromGeometryData<CoreMeshType>( data );
+
+    MeshType* ret = new MeshType {name};
+    ret->loadGeometry( std::move( mesh ) );
+
+    return ret;
+}
 
 } // namespace Data
 } // namespace Engine

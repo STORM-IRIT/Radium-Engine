@@ -4,19 +4,17 @@
 #include <Core/Asset/VolumeData.hpp>
 #include <Core/Geometry/TriangleMesh.hpp>
 #include <Core/Geometry/Volume.hpp>
+#include <Engine/Data/Mesh.hpp>
 #include <Engine/Scene/Component.hpp>
 
 namespace Ra {
 namespace Engine {
 namespace Data {
-class Mesh;
-class LineMesh;
-class PolyMesh;
-class PointCloud;
 class VolumeObject;
 } // namespace Data
 
 namespace Scene {
+
 /// Abstract interface of a geometric compoennet in the Engine.
 class RA_ENGINE_API GeometryComponent : public Component
 {
@@ -45,25 +43,6 @@ class RA_ENGINE_API GeometryComponent : public Component
     std::string m_contentName {};
 };
 
-/// \internal
-namespace SurfaceMeshComponentInternal {
-template <class CoreMeshT>
-struct RenderMeshHelper {};
-
-template <>
-struct RenderMeshHelper<Ra::Core::Geometry::LineMesh> {
-    using Type = Ra::Engine::Data::LineMesh;
-};
-template <>
-struct RenderMeshHelper<Ra::Core::Geometry::TriangleMesh> {
-    using Type = Ra::Engine::Data::Mesh;
-};
-template <>
-struct RenderMeshHelper<Ra::Core::Geometry::PolyMesh> {
-    using Type = Ra::Engine::Data::PolyMesh;
-};
-} // namespace SurfaceMeshComponentInternal
-
 /*!
  * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
  *
@@ -79,8 +58,7 @@ class SurfaceMeshComponent : public GeometryComponent
     using base = GeometryComponent;
 
   public:
-    using RenderMeshType =
-        typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type;
+    using RenderMeshType = typename Data::RenderMeshType::getType<CoreMeshType>::Type;
 
     inline SurfaceMeshComponent( const std::string& name,
                                  Entity* entity,
@@ -101,7 +79,6 @@ class SurfaceMeshComponent : public GeometryComponent
     inline const CoreMeshType& getCoreGeometry() const;
     inline RenderMeshType* getDisplayable();
 
-  public:
     // Component communication management
     inline void setupIO( const std::string& id ) override;
     inline void setDeformable( bool b );
