@@ -6,8 +6,6 @@
 #include <Gui/Viewer/CameraManipulator.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
-#include <QStatusBar>
-
 namespace Ra {
 using namespace Gui;
 using namespace Engine;

@@ -65,9 +65,15 @@ target_link_libraries(DrawPrimitivesDemo PUBLIC
     Core Engine Gui
     Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml
     OpenGL::GL)
+get_target_property(USE_ASSIMP IO IO_ASSIMP)
+if (${USE_ASSIMP})
+    target_compile_definitions(DrawPrimitivesDemo PRIVATE "-DIO_USE_ASSIMP")
+endif ()
+
+
 add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
 message(STATUS "Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(NAME DrawPrimitivesDemo)
+configure_radium_app(NAME DrawPrimitivesDemo RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/DrawPrimitivesApp/Assets")
 
 add_executable(SimpleAnimationApp MACOSX_BUNDLE
     SimpleAnimationApp/main.cpp)
