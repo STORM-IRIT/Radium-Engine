@@ -113,11 +113,15 @@ struct hash_vec {
     }
 };
 
-template <typename NonManifoldFaceCommand>
-inline TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh,
-                                         NonManifoldFaceCommand command ) :
+template <typename MeshIndex>
+TopologicalMesh::TopologicalMesh( const Ra::Core::Geometry::IndexedGeometry<MeshIndex>& mesh ) :
+    TopologicalMesh( mesh, DefaultNonManifoldFaceCommand<MeshIndex>( "[default ctor (props)]" ) ) {}
+
+template <typename MeshIndex, typename NonManifoldFaceCommand>
+TopologicalMesh::TopologicalMesh( const IndexedGeometry<MeshIndex>& mesh,
+                                  NonManifoldFaceCommand command ) :
     TopologicalMesh() {
-    initWithWedge( triMesh, command );
+    initWithWedge( mesh, command );
 }
 
 template <typename T>
@@ -128,6 +132,8 @@ void TopologicalMesh::initWithWedge( const IndexedGeometry<T>& mesh ) {
 template <typename T, typename NonManifoldFaceCommand>
 void TopologicalMesh::initWithWedge( const IndexedGeometry<T>& mesh,
                                      NonManifoldFaceCommand command ) {
+
+    clean();
 
     LOG( logINFO ) << "TopologicalMesh: load mesh with " << mesh.getIndices().size()
                    << " faces and " << mesh.vertices().size() << " vertices.";
