@@ -469,36 +469,32 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
     return mesh;
 }
 
-/// \internal but not so internal ;) what to do ...
-namespace SurfaceMeshComponentInternal {
+/// Helpers to get RenderMesh type from CoreMesh Type
+namespace RenderMeshType {
 template <class CoreMeshT>
-struct RenderMeshHelper {};
+struct getType {};
 
 template <>
-struct RenderMeshHelper<Ra::Core::Geometry::LineMesh> {
+struct getType<Ra::Core::Geometry::LineMesh> {
     using Type = Ra::Engine::Data::LineMesh;
 };
 
 template <>
-struct RenderMeshHelper<Ra::Core::Geometry::TriangleMesh> {
+struct getType<Ra::Core::Geometry::TriangleMesh> {
     using Type = Ra::Engine::Data::Mesh;
 };
 
 template <>
-struct RenderMeshHelper<Ra::Core::Geometry::PolyMesh> {
+struct getType<Ra::Core::Geometry::PolyMesh> {
     using Type = Ra::Engine::Data::PolyMesh;
 };
-} // namespace SurfaceMeshComponentInternal
+} // namespace RenderMeshType
 
 /// create Mesh, PolyMesh Engine::Data::*Mesh * from GeometryData
 template <typename CoreMeshType>
-typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type*
+typename RenderMeshType::getType<CoreMeshType>::Type*
 createMeshFromGeometryData( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
-
-    typename CoreMeshType::PointAttribHandle::Container vertices;
-    typename CoreMeshType::NormalAttribHandle::Container normals;
-    typename CoreMeshType::IndexContainerType indices;
-    using MeshType = typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type;
+    using MeshType = typename RenderMeshType::getType<CoreMeshType>::Type;
 
     CoreMeshType mesh = createCoreMeshFromGeometryData<CoreMeshType>( data );
 
