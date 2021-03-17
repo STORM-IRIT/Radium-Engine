@@ -183,8 +183,8 @@ void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
     mesh.set_halfedge_handle( fh_new, heh1 );
 
     // deal with custom properties
-    mesh.copyAllProps( heh1, heh4 );
-    mesh.copyAllProps( heh5, heh3 );
+    ///\todo   mesh.copyAllProps( heh1, heh4 );
+    ///\todo     mesh.copyAllProps( heh5, heh3 );
     m_newFacePropOps[iter].push_back( {heh4, {{1, heh1}}} );
     m_newFacePropOps[iter].push_back( {heh3, {{1, heh5}}} );
 }
@@ -237,7 +237,9 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh,
         mesh.set_halfedge_handle( mesh.face_handle( opp_new_heh ), opp_new_heh );
 
         // deal with custom properties
-        mesh.interpolateAllProps( t_heh, opp_heh, opp_new_heh, 0.5 );
+
+        /// \todo
+        // mesh.interpolateAllProps( t_heh, opp_heh, opp_new_heh, 0.5 );
         m_newEdgePropOps[iter].push_back( {opp_new_heh, {{0.5, t_heh}, {0.5, opp_heh}}} );
     }
 
@@ -247,10 +249,10 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh,
         mesh.set_halfedge_handle( mesh.face_handle( heh ), heh );
 
         // deal with custom properties
-        mesh.copyAllProps( heh, new_heh );
+        /// \todo  mesh.copyAllProps( heh, new_heh );
         m_newEdgePropOps[iter].push_back( {new_heh, {{1, heh}}} );
         HeHandle heh_prev = mesh.prev_halfedge_handle( heh );
-        mesh.interpolateAllProps( heh_prev, new_heh, heh, 0.5 );
+        /// \todo mesh.interpolateAllProps( heh_prev, new_heh, heh, 0.5 );
         m_newEdgePropOps[iter].push_back( {heh, {{0.5, heh_prev}, {0.5, new_heh}}} );
     }
 

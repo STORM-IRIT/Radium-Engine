@@ -9,8 +9,7 @@ bool CatmullClarkSubdivider::prepare( TopologicalMesh& mesh ) {
     mesh.add_property( m_epH );
     mesh.add_property( m_fpH );
     mesh.add_property( m_creaseWeights );
-    mesh.createAllPropsOnFaces(
-        m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
+    ///\todo mesh.createAllPropsOnFaces( m_normalPropF );
     mesh.add_property( m_hV );
     for ( uint i = 0; i < mesh.n_halfedges(); ++i )
     {
@@ -30,7 +29,7 @@ bool CatmullClarkSubdivider::cleanup( TopologicalMesh& mesh ) {
     mesh.remove_property( m_epH );
     mesh.remove_property( m_fpH );
     mesh.remove_property( m_creaseWeights );
-    mesh.clearAllProps( m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
+    ///\todo   mesh.clearAllProps( m_normalPropF );
     mesh.remove_property( m_hV );
     return true;
 }
@@ -78,8 +77,7 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh,
 #pragma omp critical
             { m_newFaceVertexOps[iter].push_back( V_OPS( vh, ops ) ); }
             // deal with properties
-            mesh.interpolateAllPropsOnFaces(
-                fh, m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
+            ///\todo       mesh.interpolateAllPropsOnFaces( fh, m_normalPropF );
         }
 
         // Compute position for new (edge-) vertices and store them in the edge property
@@ -166,8 +164,8 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh,
         mesh.set_next_halfedge_handle( heh6, heh2 );
 
         // deal with properties
-        mesh.copyAllProps( heh3, heh5 );
-        mesh.copyAllProps( heh1, heh6 );
+        ///\todo mesh.copyAllProps( heh3, heh5 );
+        ///\todo     mesh.copyAllProps( heh1, heh6 );
         m_triangulationPropOps.push_back( {heh5, {{1, heh3}}} );
         m_triangulationPropOps.push_back( {heh6, {{1, heh1}}} );
     }
@@ -200,14 +198,13 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
     mesh.set_face_handle( hold, fh );
 
     // deal with properties for vh
-    mesh.copyAllPropsFromFace(
-        fh, hold, m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
+    ///\todo   mesh.copyAllPropsFromFace( fh, hold, m_normalPropF );
 
     // go around new vertex to build topology
     hold = mesh.opposite_halfedge_handle( hold );
 
     // deal with properties for hold
-    mesh.copyAllProps( hend, hold );
+    ///\todo    mesh.copyAllProps( hend, hold );
     m_newFacePropOps[iter].push_back( {hold, {{1, hend}}} );
 
     const Scalar inv_val = Scalar( 1 ) / valence;
@@ -231,8 +228,7 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
         mesh.set_next_halfedge_handle( hold, hh );
 
         // deal with properties for hnew
-        mesh.copyAllPropsFromFace(
-            fh, hnew, m_normalPropF, m_floatPropsF, m_vec2PropsF, m_vec3PropsF, m_vec4PropsF );
+        ///\todo    mesh.copyAllPropsFromFace( fh, hnew, m_normalPropF );
 
         // prepare for next face
         hh   = mesh.next_halfedge_handle( hnext );
@@ -240,7 +236,7 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
         mesh.set_next_halfedge_handle( hnext, hnew ); // this has to be done after hh !
 
         // deal with properties for hold
-        mesh.copyAllProps( hnext, hold );
+        ///\todo     mesh.copyAllProps( hnext, hold );
         m_newFacePropOps[iter].push_back( {hold, {{1, hnext}}} );
         p_ops[i] = {inv_val, hh};
     }
@@ -310,7 +306,7 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
         mesh.set_halfedge_handle( mesh.face_handle( opp_new_heh ), opp_new_heh );
 
         // deal with custom properties
-        mesh.interpolateAllProps( t_heh, opp_heh, opp_new_heh, 0.5 );
+        ///\todo     mesh.interpolateAllProps( t_heh, opp_heh, opp_new_heh, 0.5 );
         m_newEdgePropOps[iter].push_back( {opp_new_heh, {{0.5, t_heh}, {0.5, opp_heh}}} );
     }
 
@@ -320,10 +316,10 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
         mesh.set_halfedge_handle( mesh.face_handle( heh ), heh );
 
         // deal with custom properties
-        mesh.copyAllProps( heh, new_heh );
+        ///\todo    mesh.copyAllProps( heh, new_heh );
         m_newEdgePropOps[iter].push_back( {new_heh, {{1, heh}}} );
         HeHandle heh_prev = mesh.prev_halfedge_handle( heh );
-        mesh.interpolateAllProps( heh_prev, new_heh, heh, 0.5 );
+        ///\todo     mesh.interpolateAllProps( heh_prev, new_heh, heh, 0.5 );
         m_newEdgePropOps[iter].push_back( {heh, {{0.5, heh_prev}, {0.5, new_heh}}} );
     }
 
