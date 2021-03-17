@@ -86,7 +86,8 @@ void MinimalComponent::initialize() {
     std::uniform_real_distribution<Scalar> dis01( 0_ra, 1_ra );
     std::uniform_real_distribution<Scalar> dis11( -1_ra, 1_ra );
     std::uniform_int_distribution<uint> disInt( 0, 128 );
-    uint end = 8;
+    uint circleGridSize = 8;
+    uint numberOfSphere = 32;
 
     //// GRID ////
     if ( ENABLE_GRID )
@@ -326,32 +327,34 @@ void MinimalComponent::initialize() {
     {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-
-        auto circle = RenderObject::createRenderObject(
-            "test_circle",
-            this,
-            RenderObjectType::Geometry,
-            DrawPrimitives::Circle( cellCorner,
-                                    {0_ra, 0_ra, 1_ra},
-                                    cellSize / 8_ra,
-                                    64,
-                                    colorBoost * Utils::Color::White() ),
-            {} );
-        circle->setMaterial( plainMaterial );
-        addRenderObject( circle );
-
-        for ( uint j = 0; j < end; ++j )
-            for ( uint i = 0; i < end; ++i )
+        {
+            auto circle = RenderObject::createRenderObject(
+                "test_circle",
+                this,
+                RenderObjectType::Geometry,
+                DrawPrimitives::Circle( cellCorner,
+                                        {0_ra, 0_ra, 1_ra},
+                                        cellSize / 8_ra,
+                                        64,
+                                        colorBoost * Utils::Color::White() ),
+                {} );
+            circle->setMaterial( plainMaterial );
+            addRenderObject( circle );
+        }
+        for ( uint j = 0; j < circleGridSize; ++j )
+            for ( uint i = 0; i < circleGridSize; ++i )
             {
-                Vector3 circleCenter {cellCorner + offsetVec +
-                                      Vector3 {Scalar( j ) / end * ( cellSize - 2 * offset ),
-                                               offset,
-                                               Scalar( i ) / end * ( cellSize - 2 * offset )}};
+                Vector3 circleCenter {
+                    cellCorner + offsetVec +
+                    Vector3 {Scalar( j ) / circleGridSize * ( cellSize - 2 * offset ),
+                             offset,
+                             Scalar( i ) / circleGridSize * ( cellSize - 2 * offset )}};
                 Vector3 circleNormal {Vector3 {Scalar( i ), Scalar( j ), 10_ra}};
                 circleNormal.normalize();
                 Color randomCol {dis01( gen ), dis01( gen ), dis01( gen )};
-                Scalar circleRadius {Scalar( end / 2 + i ) / Scalar( 2 * end ) * cellSize / 8_ra};
-                uint circleSubdiv {3 + j * end + i};
+                Scalar circleRadius {Scalar( circleGridSize / 2 + i ) /
+                                     Scalar( 2 * circleGridSize ) * cellSize / 8_ra};
+                uint circleSubdiv {3 + j * circleGridSize + i};
 
                 auto circle = RenderObject::createRenderObject(
                     "test_circle",
@@ -370,33 +373,35 @@ void MinimalComponent::initialize() {
     //// CIRCLE ARC ////
     if ( ENABLE_ARCS )
     {
-        auto arc = RenderObject::createRenderObject(
-            "test_circle",
-            this,
-            RenderObjectType::Geometry,
-            DrawPrimitives::CircleArc( cellCorner + Vector3 {0_ra, 2_ra * offset, 0_ra},
-                                       {0_ra, 0_ra, 1_ra},
-                                       cellSize / 8_ra,
-                                       1_ra,
-                                       64,
-                                       colorBoost * Utils::Color::White() ),
-            {} );
-        arc->setMaterial( plainMaterial );
-        addRenderObject( arc );
-
-        for ( uint j = 0; j < end; ++j )
         {
-            for ( uint i = 0; i < end; ++i )
+            auto arc = RenderObject::createRenderObject(
+                "test_circle",
+                this,
+                RenderObjectType::Geometry,
+                DrawPrimitives::CircleArc( cellCorner + Vector3 {0_ra, 2_ra * offset, 0_ra},
+                                           {0_ra, 0_ra, 1_ra},
+                                           cellSize / 8_ra,
+                                           1_ra,
+                                           64,
+                                           colorBoost * Utils::Color::White() ),
+                {} );
+            arc->setMaterial( plainMaterial );
+            addRenderObject( arc );
+        }
+        for ( uint j = 0; j < circleGridSize; ++j )
+        {
+            for ( uint i = 0; i < circleGridSize; ++i )
             {
-                Vector3 circleCenter {cellCorner + offsetVec +
-                                      Vector3 {Scalar( j ) / end * ( cellSize - 2 * offset ),
-                                               2 * offset,
-                                               Scalar( i ) / end * ( cellSize - 2 * offset )}};
+                Vector3 circleCenter {
+                    cellCorner + offsetVec +
+                    Vector3 {Scalar( j ) / circleGridSize * ( cellSize - 2 * offset ),
+                             2 * offset,
+                             Scalar( i ) / circleGridSize * ( cellSize - 2 * offset )}};
                 Vector3 circleNormal {0_ra, 0_ra, 1_ra};
                 circleNormal.normalize();
                 Color randomCol {dis01( gen ), dis01( gen ), dis01( gen )};
                 Scalar circleRadius {( cellSize - 2_ra * offset ) / 20_ra};
-                Scalar circleArc {Scalar( i ) / Scalar( end ) * 2_ra};
+                Scalar circleArc {Scalar( i ) / Scalar( circleGridSize ) * 2_ra};
                 uint circleSubdiv {2 + j};
 
                 auto arc = RenderObject::createRenderObject(
@@ -421,20 +426,21 @@ void MinimalComponent::initialize() {
     {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
-        auto sphere = RenderObject::createRenderObject(
-            "test_sphere",
-            this,
-            RenderObjectType::Geometry,
-            DrawPrimitives::Sphere( cellCorner, 0.02_ra, Utils::Color::White() ),
-            {} );
-        sphere->setMaterial( blinnPhongMaterial );
-        addRenderObject( sphere );
-
-        end = 32;
-        for ( uint i = 0; i < end; ++i )
         {
-            Scalar angle {Scalar( i ) / Scalar( end ) * 7_ra};
-            Scalar ratio {Scalar( i ) / Scalar( end - 1 )};
+            auto sphere = RenderObject::createRenderObject(
+                "test_sphere",
+                this,
+                RenderObjectType::Geometry,
+                DrawPrimitives::Sphere( cellCorner, 0.02_ra, Utils::Color::White() ),
+                {} );
+            sphere->setMaterial( blinnPhongMaterial );
+            addRenderObject( sphere );
+        }
+        numberOfSphere = 32;
+        for ( uint i = 0; i < numberOfSphere; ++i )
+        {
+            Scalar angle {Scalar( i ) / Scalar( numberOfSphere ) * 7_ra};
+            Scalar ratio {Scalar( i ) / Scalar( numberOfSphere - 1 )};
             Vector3 center {cellCorner + Vector3 {cellSize / 2_ra, ratio * .1_ra, cellSize / 2_ra}};
             Vector3 center1 {center + Vector3 {ratio * cellSize * .4_ra * std::cos( angle ),
                                                0_ra,
@@ -554,7 +560,7 @@ void MinimalComponent::initialize() {
                    DrawPrimitives::Grid( const Core::Vector3& center,
                                                    const Core::Vector3& x,
                                                    const Core::Vector3& y,
-                                                   const Core::Utils::Color& color,
+                              k                     const Core::Utils::Color& color,
                                                    Scalar cellSize = 1.f,
                                                    uint res        = 10 );
 
