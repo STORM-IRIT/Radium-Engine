@@ -40,8 +40,8 @@ int main( int argc, char* argv[] ) {
     sys->addComponent( e, c );
     c->initialize();
 
-    auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
-    if ( !aabb.isEmpty() ) { app.m_viewer->fitCameraToScene( aabb ); }
+    // prepare the viewer to render the scene (i.e. build RenderTechniques for the active renderer)
+    app.m_viewer->prepareDisplay();
 
     // Start the app.
     app.m_frame_timer->start();
