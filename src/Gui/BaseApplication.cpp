@@ -264,8 +264,8 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
     // load supplemental plugins
     {
         QSettings settings;
-        QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
-        for ( const auto s : plunginPaths )
+        QStringList pluginPaths = settings.value( "plugins/paths" ).value<QStringList>();
+        for ( const auto& s : pluginPaths )
         {
             loadPlugins(
                 s.toStdString(), parser.values( "loadPlugin" ), parser.values( "ignorePlugin" ) );
@@ -694,14 +694,14 @@ void BaseApplication::setRecordGraph( bool on ) {
 
 void BaseApplication::addPluginDirectory( const std::string& pluginDir ) {
     QSettings settings;
-    QStringList plunginPaths = settings.value( "plugins/paths" ).value<QStringList>();
+    QStringList pluginPaths = settings.value( "plugins/paths" ).value<QStringList>();
     LOG( logINFO ) << "Registered plugin paths are : ";
-    for ( const auto s : plunginPaths )
+    for ( const auto& s : pluginPaths )
     {
         LOG( logINFO ) << s.toStdString();
     }
-    plunginPaths.append( pluginDir.c_str() );
-    settings.setValue( "plugins/paths", plunginPaths );
+    pluginPaths.append( pluginDir.c_str() );
+    settings.setValue( "plugins/paths", pluginPaths );
     loadPlugins( pluginDir, QStringList(), QStringList() );
 }
 
