@@ -1,5 +1,7 @@
 var NAVTREEINDEX15 =
 {
+"classRa_1_1Gui_1_1BaseApplication.html#a44d440e069bb05500ce0b25d296904ae":[9,0,2,2,0,28],
+"classRa_1_1Gui_1_1BaseApplication.html#a44f6cefbfc79dc8572511e3284ea9731":[9,0,2,2,0,57],
 "classRa_1_1Gui_1_1BaseApplication.html#a46ddcfcbd872c4e7e29aac63a3d521fb":[9,0,2,2,0,15],
 "classRa_1_1Gui_1_1BaseApplication.html#a4d29083479f7f8723ee6b7a3a7484395":[9,0,2,2,0,38],
 "classRa_1_1Gui_1_1BaseApplication.html#a4f8e0209256e00daa18315b201bc3df1":[9,0,2,2,0,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX15 =
 "classRa_1_1Gui_1_1SelectionManager.html#a0ddf108c39734c03754e2d6d0598f717":[9,0,2,2,14,7],
 "classRa_1_1Gui_1_1SelectionManager.html#a17f31e2a66ec2baedb61f03ec2b43c63":[9,0,2,2,14,4],
 "classRa_1_1Gui_1_1SelectionManager.html#a56c4599c6e21f80ecba97987645d6f78":[9,0,2,2,14,5],
-"classRa_1_1Gui_1_1SelectionManager.html#a5fc81cb02014f6439c4c3393341912cd":[9,0,2,2,14,0],
-"classRa_1_1Gui_1_1SelectionManager.html#a82271af0d1a3fef4b9d30afad3d7098c":[9,0,2,2,14,6],
-"classRa_1_1Gui_1_1SelectionManager.html#aa377708ea2b68d031b452915e144dc5a":[9,0,2,2,14,3]
+"classRa_1_1Gui_1_1SelectionManager.html#a5fc81cb02014f6439c4c3393341912cd":[9,0,2,2,14,0]
 };

@@ -154,6 +154,10 @@ var hierarchy =
     [ "Ra::Engine::FrameInfo", "structRa_1_1Engine_1_1FrameInfo.html", null ],
     [ "Ra::FrameTimerData", "structRa_1_1FrameTimerData.html", null ],
     [ "Ra::Core::Geometry::Frustum", "structRa_1_1Core_1_1Geometry_1_1Frustum.html", null ],
+    [ "Ra::Engine::Data::RenderMeshType::getType< CoreMeshT >", "structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType.html", null ],
+    [ "Ra::Engine::Data::RenderMeshType::getType< Ra::Core::Geometry::LineMesh >", "structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_3_01Ra_1_1Core_1_1Geometry_1_1LineMesh_01_4.html", null ],
+    [ "Ra::Engine::Data::RenderMeshType::getType< Ra::Core::Geometry::PolyMesh >", "structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_3_01Ra_1_1Core_1_1Geometry_1_1PolyMesh_01_4.html", null ],
+    [ "Ra::Engine::Data::RenderMeshType::getType< Ra::Core::Geometry::TriangleMesh >", "structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_3_01Ra_1_1Core_1_1Geometry_1_1TriangleMesh_01_4.html", null ],
     [ "Ra::Gui::Gizmo", "classRa_1_1Gui_1_1Gizmo.html", [
       [ "Ra::Gui::RotateGizmo", "classRa_1_1Gui_1_1RotateGizmo.html", null ],
       [ "Ra::Gui::ScaleGizmo", "classRa_1_1Gui_1_1ScaleGizmo.html", null ],
@@ -310,10 +314,6 @@ var hierarchy =
     [ "Ra::Engine::Rendering::Renderer", "classRa_1_1Engine_1_1Rendering_1_1Renderer.html", [
       [ "Ra::Engine::Rendering::ForwardRenderer", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html", null ]
     ] ],
-    [ "Ra::Engine::Scene::SurfaceMeshComponentInternal::RenderMeshHelper< CoreMeshT >", "structRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponentInternal_1_1RenderMeshHelper.html", null ],
-    [ "Ra::Engine::Scene::SurfaceMeshComponentInternal::RenderMeshHelper< Ra::Core::Geometry::LineMesh >", "structRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponentInternal_1_1RenderMeshHelper_3_01Ra_1_1Core_1_1Geometry_1_1LineMesh_01_4.html", null ],
-    [ "Ra::Engine::Scene::SurfaceMeshComponentInternal::RenderMeshHelper< Ra::Core::Geometry::PolyMesh >", "structRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponentInternal_1_1RenderMeshHelper_3_01Ra_1_1Core_1_1Geometry_1_1PolyMesh_01_4.html", null ],
-    [ "Ra::Engine::Scene::SurfaceMeshComponentInternal::RenderMeshHelper< Ra::Core::Geometry::TriangleMesh >", "structRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponentInternal_1_1RenderMeshHelper_3_01Ra_1_1Core_1_1Geometry_1_1TriangleMesh_01_4.html", null ],
     [ "Ra::Engine::Rendering::RenderObjectManager", "classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html", null ],
     [ "Ra::Engine::Data::RenderParameters", "classRa_1_1Engine_1_1Data_1_1RenderParameters.html", null ],
     [ "Ra::Engine::Rendering::RenderTechnique", "classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html", null ],
@@ -365,8 +365,8 @@ var hierarchy =
     [ "Ra::Engine::Data::Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", null ],
     [ "Ra::Engine::Data::TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", null ],
     [ "Ra::Engine::Data::TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
-    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
+    [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

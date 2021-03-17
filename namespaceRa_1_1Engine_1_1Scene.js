@@ -1,6 +1,5 @@
 var namespaceRa_1_1Engine_1_1Scene =
 [
-    [ "SurfaceMeshComponentInternal", "namespaceRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponentInternal.html", "namespaceRa_1_1Engine_1_1Scene_1_1SurfaceMeshComponentInternal" ],
     [ "BaseCouplingSystem", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem.html", "classRa_1_1Engine_1_1Scene_1_1BaseCouplingSystem" ],
     [ "Camera", "classRa_1_1Engine_1_1Scene_1_1Camera.html", "classRa_1_1Engine_1_1Scene_1_1Camera" ],
     [ "CameraManager", "classRa_1_1Engine_1_1Scene_1_1CameraManager.html", "classRa_1_1Engine_1_1Scene_1_1CameraManager" ],

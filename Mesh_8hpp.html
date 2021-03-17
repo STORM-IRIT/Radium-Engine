@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">609c225e35ee004429d45693f3db4fb699717c2d</span>
+   &#160;<span id="projectnumber">aaf86862b5965867ddec42cbfade29a5b65316be</span>
    </div>
   </td>
  </tr>
@@ -92,13 +92,15 @@ $(document).ready(function(){initNavTree('Mesh_8hpp.html',''); initResizable(); 
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Mesh.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="RaEngine_8hpp_source.html">Engine/RaEngine.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="DisplayableObject_8hpp_source.html">Engine/Data/DisplayableObject.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="GeometryData_8hpp_source.html">Core/Asset/GeometryData.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="VectorArray_8hpp_source.html">Core/Containers/VectorArray.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="TriangleMesh_8hpp_source.html">Core/Geometry/TriangleMesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Color_8hpp_source.html">Core/Utils/Color.hpp</a>&gt;</code><br />
@@ -122,7 +124,7 @@ $(document).ready(function(){initNavTree('Mesh_8hpp.html',''); initResizable(); 
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="Mesh_8hpp__dep__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="Mesh_8hpp__dep__incl.svg" width="100%" height="539"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </div>
@@ -160,6 +162,14 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">Ra::Engine::Data::PolyMesh</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType.html">Ra::Engine::Data::RenderMeshType::getType&lt; CoreMeshT &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_3_01Ra_1_1Core_1_1Geometry_1_1LineMesh_01_4.html">Ra::Engine::Data::RenderMeshType::getType&lt; Ra::Core::Geometry::LineMesh &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_3_01Ra_1_1Core_1_1Geometry_1_1TriangleMesh_01_4.html">Ra::Engine::Data::RenderMeshType::getType&lt; Ra::Core::Geometry::TriangleMesh &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Engine_1_1Data_1_1RenderMeshType_1_1getType_3_01Ra_1_1Core_1_1Geometry_1_1PolyMesh_01_4.html">Ra::Engine::Data::RenderMeshType::getType&lt; Ra::Core::Geometry::PolyMesh &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -170,6 +180,20 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceRa_1_1Engine_1_1Data"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Ra::Engine::Data</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceRa_1_1Engine_1_1Data_1_1RenderMeshType"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data_1_1RenderMeshType.html">Ra::Engine::Data::RenderMeshType</a></td></tr>
+<tr class="memdesc:namespaceRa_1_1Engine_1_1Data_1_1RenderMeshType"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helpers to get RenderMesh type from CoreMesh Type. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0f84cb217a3fb0563cc77bef7fce6b2f"><td class="memTemplParams" colspan="2">template&lt;typename CoreMeshType &gt; </td></tr>
+<tr class="memitem:a0f84cb217a3fb0563cc77bef7fce6b2f"><td class="memTemplItemLeft" align="right" valign="top">CoreMeshType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html#a0f84cb217a3fb0563cc77bef7fce6b2f">Ra::Engine::Data::createCoreMeshFromGeometryData</a> (const <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a> *data)</td></tr>
+<tr class="memdesc:a0f84cb217a3fb0563cc77bef7fce6b2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">create a TriangleMesh, <a class="el" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">PolyMesh</a> or other <a class="el" href="namespaceRa_1_1Core.html">Core</a>::*Mesh from GeometryData  <a href="namespaceRa_1_1Engine_1_1Data.html#a0f84cb217a3fb0563cc77bef7fce6b2f">More...</a><br /></td></tr>
+<tr class="separator:a0f84cb217a3fb0563cc77bef7fce6b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7191e7a0296dd1fb2fbaeb5c32749a95"><td class="memTemplParams" colspan="2">template&lt;typename CoreMeshType &gt; </td></tr>
+<tr class="memitem:a7191e7a0296dd1fb2fbaeb5c32749a95"><td class="memTemplItemLeft" align="right" valign="top">RenderMeshType::getType&lt; CoreMeshType &gt;::Type *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Data.html#a7191e7a0296dd1fb2fbaeb5c32749a95">Ra::Engine::Data::createMeshFromGeometryData</a> (const std::string &amp;name, const <a class="el" href="classRa_1_1Core_1_1Asset_1_1GeometryData.html">Ra::Core::Asset::GeometryData</a> *data)</td></tr>
+<tr class="memdesc:a7191e7a0296dd1fb2fbaeb5c32749a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">create <a class="el" href="classRa_1_1Engine_1_1Data_1_1Mesh.html" title="Mesh, own a Core::Geometry::TriangleMesh.">Mesh</a>, <a class="el" href="classRa_1_1Engine_1_1Data_1_1PolyMesh.html">PolyMesh</a> <a class="el" href="namespaceRa_1_1Engine_1_1Data.html">Engine::Data</a>::*Mesh * from GeometryData  <a href="namespaceRa_1_1Engine_1_1Data.html#a7191e7a0296dd1fb2fbaeb5c32749a95">More...</a><br /></td></tr>
+<tr class="separator:a7191e7a0296dd1fb2fbaeb5c32749a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -177,7 +201,7 @@ Namespaces</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_a46b089ae2655285b8dddf2703c36868.html">Data</a></li><li class="navelem"><a class="el" href="Mesh_8hpp.html">Mesh.hpp</a></li>
-    <li class="footer">Generated on Wed Mar 17 2021 12:56:33 for Radium Engine by
+    <li class="footer">Generated on Wed Mar 17 2021 13:56:29 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
