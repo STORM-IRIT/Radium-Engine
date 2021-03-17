@@ -152,14 +152,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///@}
 
     /**
-     * Set the normal n to all the halfedges that points to vh (i.e. incomming
-     * halfedges) .
-     * If you work with vertex normals, please call this function on all vertex
-     * handles before convertion with toTriangleMesh.
-     */
-    [[deprecated]] void propagate_normal_to_halfedges( VertexHandle vh );
-
-    /**
      * Return a handle to the halfedge property storing vertices indices within
      * the TriangleMesh *this has been built on.
      */
@@ -173,188 +165,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     inline const OpenMesh::HPropHandleT<Index>& getOutputTriangleMeshIndexPropHandle() const;
 
     /**
-     * \name Const access to handles of the HalfEdge properties coming from
-     * the TriangleMesh attributes.
-     */
-    ///@{
-    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<float>>&
-    getFloatPropsHandles() const;
-    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector2>>&
-    getVector2PropsHandles() const;
-    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector3>>&
-    getVector3PropsHandles() const;
-    [[deprecated]] inline const std::vector<OpenMesh::HPropHandleT<Vector4>>&
-    getVector4PropsHandles() const;
-    ///@}
-
-    /**
      * \name Dealing with normals
      * Utils to deal with normals when modifying the mesh topology.
      */
     ///@{
 
     void updateWedgeNormals();
-    /**
-     * Create a new property for normals on faces of \a mesh.
-     * \note This new property will have to be propagated onto the newly created
-     * halfedges with copyNormal().
-     */
-    inline void createNormalPropOnFaces( OpenMesh::FPropHandleT<Normal>& fProp );
-
-    /**
-     * Remove face property \a prop from \a mesh.
-     * \note Invalidates the property handle.
-     */
-    inline void clearProp( OpenMesh::FPropHandleT<Normal>& fProp );
-
-    /**
-     * Copy the normal property from \a input_heh to \a copy_heh.
-     */
-    inline void copyNormal( HalfedgeHandle input_heh, HalfedgeHandle copy_heh );
-
-    /** Copy the face normal property \a fProp from \a fh to \a heh.
-     * \note \a fProp must have been previously created through createNormalPropOnFaces().
-     */
-    inline void
-    copyNormalFromFace( FaceHandle fh, HalfedgeHandle heh, OpenMesh::FPropHandleT<Normal> fProp );
-
-    /**
-     * Interpolate normal property on edge center (after edge split).
-     */
-    inline void
-    interpolateNormal( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, Scalar f );
-
-    /** Interpolate normal property on face center.
-     * \note \a fProp must have been previously created through createNormalPropOnFaces().
-     */
-    inline void interpolateNormalOnFaces( FaceHandle fh, OpenMesh::FPropHandleT<Normal> fProp );
-    ///@}
-
-    /**
-     * \name Dealing with custom properties
-     * Utils to deal with custom properties of any type when modifying the mesh topology.
-     */
-    ///@{
-
-    /**
-     * Create a new property for each \a input properties of \a mesh on faces.
-     * \note This new property will have to be propagated onto the newly created
-     * halfedges with copyProps().
-     */
-    template <typename T>
-    void createPropsOnFaces( const std::vector<OpenMesh::HPropHandleT<T>>& input,
-                             std::vector<OpenMesh::FPropHandleT<T>>& output );
-
-    /**
-     * Remove \a props from \a mesh.
-     * \note Clears \a props.
-     */
-    template <typename T>
-    void clearProps( std::vector<OpenMesh::FPropHandleT<T>>& props );
-
-    /**
-     * Copy \a props properties from \a input_heh to \a copy_heh.
-     */
-    template <typename T>
-    void copyProps( HalfedgeHandle input_heh,
-                    HalfedgeHandle copy_heh,
-                    const std::vector<OpenMesh::HPropHandleT<T>>& props );
-
-    /**
-     * Copy face properties \a props from \a fh to \a heh.
-     * \note \a fProps must have been previously created through createPropsOnFaces().
-     */
-    template <typename T>
-    void copyPropsFromFace( FaceHandle fh,
-                            HalfedgeHandle heh,
-                            const std::vector<OpenMesh::FPropHandleT<T>>& fProps,
-                            const std::vector<OpenMesh::HPropHandleT<T>>& hProps );
-
-    /**
-     * Interpolate \a props on edge center (after edge split).
-     */
-    template <typename T>
-    void interpolateProps( HalfedgeHandle in_a,
-                           HalfedgeHandle in_b,
-                           HalfedgeHandle out,
-                           Scalar f,
-                           const std::vector<OpenMesh::HPropHandleT<T>>& props );
-
-    /**
-     * Interpolate \a hprops on face center.
-     * \note \a fProps must have been previously created through createPropsOnFaces().
-     */
-    template <typename T>
-    void interpolatePropsOnFaces( FaceHandle fh,
-                                  const std::vector<OpenMesh::HPropHandleT<T>>& hProps,
-                                  const std::vector<OpenMesh::FPropHandleT<T>>& fProps );
-    ///@}
-    /**
-        * \name Deal with all attributes* Utils to deal with the normal and
-        custom properties when modifying the mesh topology.*/
-
-    ///@{
-
-    /**
-     * Create a new property for each property of \a mesh on faces.
-     * Outputs the new face properties handles in the corresponding output parameters.
-     * \note These new properties will have to be propagated onto the newly created
-     * halfedges with copyAllProps().
-     */
-    inline void createAllPropsOnFaces( OpenMesh::FPropHandleT<Normal>& normalProp,
-                                       std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
-                                       std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
-                                       std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,
-                                       std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
-
-    /**
-     * Remove all the given properties from \a mesh.
-     * \note Invalidates \a normalProp and clears the given property containers.
-     */
-    inline void clearAllProps( OpenMesh::FPropHandleT<Normal>& normalProp,
-                               std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
-                               std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
-                               std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,
-                               std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
-
-    /**
-     * Copy all properties from \a input_heh to \a copy_heh.
-     */
-    inline void copyAllProps( HalfedgeHandle input_heh, HalfedgeHandle copy_heh );
-
-    /**
-     * Copy all given face properties from \a fh to \a heh.
-     * \note Each property must have been previously created either all at once
-     * through createAllPropsOnFaces(), or individually through
-     * createNormalPropOnFaces() and createPropsOnFaces().
-     */
-    inline void copyAllPropsFromFace( FaceHandle fh,
-                                      HalfedgeHandle heh,
-                                      OpenMesh::FPropHandleT<Normal> normalProp,
-                                      std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
-                                      std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
-                                      std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,
-                                      std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
-
-    /**
-     * Interpolate all properties on edge center (after edge split).
-     */
-    inline void
-    interpolateAllProps( HalfedgeHandle in_a, HalfedgeHandle in_b, HalfedgeHandle out, Scalar f );
-
-    /**
-     * Interpolate \a hprops on face center.
-     * \note Each property must have been previously created either all at once
-     * through createAllPropsOnFaces(), or individually through
-     * createNormalPropOnFaces() and createPropsOnFaces().
-     */
-    inline void
-    interpolateAllPropsOnFaces( FaceHandle fh,
-                                OpenMesh::FPropHandleT<Normal> normalProp,
-                                std::vector<OpenMesh::FPropHandleT<Scalar>>& floatProps,
-                                std::vector<OpenMesh::FPropHandleT<Vector2>>& vec2Props,
-                                std::vector<OpenMesh::FPropHandleT<Vector3>>& vec3Props,
-                                std::vector<OpenMesh::FPropHandleT<Vector4>>& vec4Props );
     ///@}
 
     /**
@@ -412,7 +228,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * the edge)
      */
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
-    bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
 
     /**
      * Halfedge collapes \a he.
@@ -709,18 +524,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     template <typename T>
     using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 
-    template <typename T>
-    [[deprecated]] inline void copyAttribToTopo( const TriangleMesh& triMesh,
-                                                 const std::vector<PropPair<T>>& vprop,
-                                                 TopologicalMesh::HalfedgeHandle heh,
-                                                 unsigned int vindex );
-
-    template <typename T>
-    [[deprecated]] inline void addAttribPairToTopo( const TriangleMesh& triMesh,
-                                                    AttribManager::pointer_type attr,
-                                                    std::vector<PropPair<T>>& vprop,
-                                                    std::vector<OpenMesh::HPropHandleT<T>>& pph );
-
     void split_copy( EdgeHandle _eh, VertexHandle _vh );
     void split( EdgeHandle _eh, VertexHandle _vh );
 
@@ -730,10 +533,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///\todo to be deleted/updated
     OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
     OpenMesh::HPropHandleT<Index> m_outputTriangleMeshIndexPph;
-    [[deprecated]] std::vector<OpenMesh::HPropHandleT<float>> m_floatPph;
-    [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector2>> m_vec2Pph;
-    [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector3>> m_vec3Pph;
-    [[deprecated]] std::vector<OpenMesh::HPropHandleT<Vector4>> m_vec4Pph;
 
     int m_normalsIndex {-1};
     // vertex handle idx -> face handle idx -> wedge idx with the same normal
