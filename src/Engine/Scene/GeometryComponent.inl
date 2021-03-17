@@ -6,7 +6,6 @@
 
 #include <Engine/Data/BlinnPhongMaterial.hpp>
 #include <Engine/Data/MaterialConverters.hpp>
-#include <Engine/Data/Mesh.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
@@ -37,123 +36,14 @@ SurfaceMeshComponent<CoreMeshType>::SurfaceMeshComponent( const std::string& nam
 
 template <typename CoreMeshType>
 void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::GeometryData* data ) {
-    m_contentName = data->getName();
-    m_displayMesh = Ra::Core::make_shared<RenderMeshType>( m_contentName );
-
-    CoreMeshType mesh;
-    typename CoreMeshType::PointAttribHandle::Container vertices;
-    typename CoreMeshType::NormalAttribHandle::Container normals;
-    typename CoreMeshType::IndexContainerType indices;
-
-    vertices.reserve( data->getVerticesSize() );
-    std::copy(
-        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
-
-    if ( data->hasNormals() )
-    {
-        normals.reserve( data->getVerticesSize() );
-        std::copy(
-            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
-    }
-
-    const auto& faces = data->getFaces();
-    indices.reserve( faces.size() );
-    std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
-    mesh.setVertices( std::move( vertices ) );
-    mesh.setNormals( std::move( normals ) );
-
-    if ( data->hasTangents() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
-                        data->getTangents() );
-    }
-
-    if ( data->hasBiTangents() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
-                        data->getBiTangents() );
-    }
-
-    if ( data->hasTextureCoordinates() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
-                        data->getTexCoords() );
-    }
-
-    if ( data->hasColors() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
-    }
-
-    // To be discussed: Should not weights be part of the geometry ?
-    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
-
-    mesh.setIndices( std::move( indices ) );
+    m_contentName     = data->getName();
+    m_displayMesh     = Ra::Core::make_shared<RenderMeshType>( m_contentName );
+    CoreMeshType mesh = Data::createCoreMeshFromGeometryData<CoreMeshType>( data );
 
     m_displayMesh->loadGeometry( std::move( mesh ) );
 
     finalizeROFromGeometry( data->hasMaterial() ? &( data->getMaterial() ) : nullptr,
                             data->getFrame() );
-}
-
-template <typename CoreMeshType>
-typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type*
-meshFactory( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
-    CoreMeshType mesh;
-    typename CoreMeshType::PointAttribHandle::Container vertices;
-    typename CoreMeshType::NormalAttribHandle::Container normals;
-    typename CoreMeshType::IndexContainerType indices;
-    using MeshType = typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type;
-
-    vertices.reserve( data->getVerticesSize() );
-    std::copy(
-        data->getVertices().begin(), data->getVertices().end(), std::back_inserter( vertices ) );
-
-    if ( data->hasNormals() )
-    {
-        normals.reserve( data->getVerticesSize() );
-        std::copy(
-            data->getNormals().begin(), data->getNormals().end(), std::back_inserter( normals ) );
-    }
-
-    const auto& faces = data->getFaces();
-    indices.reserve( faces.size() );
-    std::copy( faces.begin(), faces.end(), std::back_inserter( indices ) );
-    mesh.setVertices( std::move( vertices ) );
-    mesh.setNormals( std::move( normals ) );
-
-    if ( data->hasTangents() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
-                        data->getTangents() );
-    }
-
-    if ( data->hasBiTangents() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_BITANGENT ),
-                        data->getBiTangents() );
-    }
-
-    if ( data->hasTextureCoordinates() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TEXCOORD ),
-                        data->getTexCoords() );
-    }
-
-    if ( data->hasColors() )
-    {
-        mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
-    }
-
-    // To be discussed: Should not weights be part of the geometry ?
-    //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
-
-    mesh.setIndices( std::move( indices ) );
-
-    MeshType* ret = new MeshType {name};
-    ret->loadGeometry( std::move( mesh ) );
-
-    return ret;
 }
 
 template <typename CoreMeshType>
