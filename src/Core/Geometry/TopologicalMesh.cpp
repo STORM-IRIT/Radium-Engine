@@ -5,7 +5,6 @@
 
 #include <Eigen/StdVector>
 
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -164,33 +163,10 @@ void copyAttribToCore( TriangleMesh& triMesh, const HandleAndValueVector<T>& dat
     }
 }
 
-//! [Default command implementation]
-struct DefaultNonManifoldFaceCommand {
-    /// \brief details string is printed along with the message
-    DefaultNonManifoldFaceCommand( std::string details = {} ) : m_details {details} {}
-    /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
-    inline void initialize( const TriangleMesh& /*triMesh*/ ) {}
-    /// \brief Process non-manifold face
-    inline void process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
-        LOG( logWARNING ) << "Invalid face handle returned : face not added " + m_details;
-        /// TODO memorize invalid faces for post processing ...
-        ///  see
-        ///  https://www.graphics.rwth-aachen.de/media/openflipper_static/Daily-Builds/Doc/Free/Developer/OBJImporter_8cc_source.html
-        /// for an exemple of loading
-    }
-    /// \brief If needed, apply post-processing on the Ra::Core::Geometry::TopologicalMesh
-    inline void postProcess( TopologicalMesh& /*tm*/ ) {}
-    //! [Default command implementation]
-  private:
-    std::string m_details;
-};
-
-void TopologicalMesh::initWithWedge( const TriangleMesh& triMesh ) {
-    initWithWedge( triMesh, DefaultNonManifoldFaceCommand( "[initWithWedges]" ) );
-}
-
 TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) :
-    TopologicalMesh( triMesh, DefaultNonManifoldFaceCommand( "[default ctor (props)]" ) ) {}
+    TopologicalMesh(
+        triMesh,
+        DefaultNonManifoldFaceCommand<TriangleMesh::IndexType>( "[default ctor (props)]" ) ) {}
 
 TopologicalMesh::TopologicalMesh() {
     add_property( m_inputTriangleMeshIndexPph );
@@ -322,13 +298,13 @@ void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Contai
     }
 }
 
-template <typename T>
-void moveContainerToMesh( TriangleMesh& out,
+template <typename T, typename U>
+void moveContainerToMesh( IndexedGeometry<U>& out,
                           const std::vector<std::string>& names,
                           AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
     for ( size_t i = 0; i < wedgeAttribData.size(); ++i )
     {
-        auto attrHandle = out.addAttrib<T>( names[i] );
+        auto attrHandle = out.template addAttrib<T>( names[i] );
         out.getAttrib( attrHandle ).setData( std::move( wedgeAttribData[i] ) );
     }
 }
@@ -381,6 +357,66 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
             i++;
         }
         indices.emplace_back( tindices[0], tindices[1], tindices[2] );
+    }
+
+    out.setIndices( std::move( indices ) );
+
+    return out;
+}
+
+PolyMesh TopologicalMesh::toPolyMeshFromWedges() {
+    // first cleanup deleted element
+    garbage_collection();
+
+    PolyMesh out;
+    PolyMesh::IndexContainerType indices;
+
+    /// add attribs to out
+    std::vector<AttribHandle<float>> wedgeFloatAttribHandles;
+    std::vector<AttribHandle<Vector2>> wedgeVector2AttribHandles;
+    std::vector<AttribHandle<Vector3>> wedgeVector3AttribHandles;
+    std::vector<AttribHandle<Vector4>> wedgeVector4AttribHandles;
+
+    TriangleMesh::PointAttribHandle::Container wedgePosition;
+    AlignedStdVector<Attrib<float>::Container> wedgeFloatAttribData(
+        m_wedges.m_floatAttribNames.size() );
+    AlignedStdVector<Attrib<Vector2>::Container> wedgeVector2AttribData(
+        m_wedges.m_vector2AttribNames.size() );
+    AlignedStdVector<Attrib<Vector3>::Container> wedgeVector3AttribData(
+        m_wedges.m_vector3AttribNames.size() );
+    AlignedStdVector<Attrib<Vector4>::Container> wedgeVector4AttribData(
+        m_wedges.m_vector4AttribNames.size() );
+
+    /// Wedges are output vertices !
+    for ( WedgeIndex widx {0}; widx < WedgeIndex( m_wedges.size() ); ++widx )
+    {
+        const auto& wd = m_wedges.getWedgeData( widx );
+        wedgePosition.push_back( wd.m_position );
+        copyWedgeDataToAttribContainer( wedgeFloatAttribData, wd.m_floatAttrib );
+        copyWedgeDataToAttribContainer( wedgeVector2AttribData, wd.m_vector2Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector3AttribData, wd.m_vector3Attrib );
+        copyWedgeDataToAttribContainer( wedgeVector4AttribData, wd.m_vector4Attrib );
+    }
+
+    out.setVertices( std::move( wedgePosition ) );
+    moveContainerToMesh<float>( out, m_wedges.m_floatAttribNames, wedgeFloatAttribData );
+    moveContainerToMesh<Vector2>( out, m_wedges.m_vector2AttribNames, wedgeVector2AttribData );
+    moveContainerToMesh<Vector3>( out, m_wedges.m_vector3AttribNames, wedgeVector3AttribData );
+    moveContainerToMesh<Vector4>( out, m_wedges.m_vector4AttribNames, wedgeVector4AttribData );
+
+    for ( TopologicalMesh::FaceIter f_it = faces_sbegin(); f_it != faces_end(); ++f_it )
+    {
+        int i = 0;
+        PolyMesh::IndexType faceIndices( valence( *f_it ) );
+        // iterator over vertex (through halfedge to get access to halfedge normals)
+        for ( TopologicalMesh::ConstFaceHalfedgeIter fh_it = cfh_iter( *f_it ); fh_it.is_valid();
+              ++fh_it )
+        {
+            faceIndices( i ) = property( m_wedgeIndexPph, *fh_it );
+            i++;
+        }
+        // LOG( logDEBUG ) << "add polymesh face " << faceIndices.transpose();
+        indices.push_back( faceIndices );
     }
 
     out.setIndices( std::move( indices ) );
@@ -1016,42 +1052,6 @@ void TopologicalMesh::delete_face( FaceHandle _fh, bool _delete_isolated_vertice
         property( m_wedgeIndexPph, *itr ) = WedgeIndex {};
     }
     base::delete_face( _fh, _delete_isolated_vertices );
-}
-
-void TopologicalMesh::InitWedgeProps::operator()( AttribBase* attr ) const {
-    if ( attr->getSize() != m_triMesh.vertices().size() )
-    { LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName(); }
-    else if ( attr->getName() != std::string( "in_position" ) )
-    {
-        if ( attr->isFloat() )
-        {
-            m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
-                m_triMesh.getAttribHandle<float>( attr->getName() ) );
-            m_topo->m_wedges.addProp<float>( attr->getName() );
-        }
-        else if ( attr->isVector2() )
-        {
-            m_topo->m_wedges.m_wedgeVector2AttribHandles.push_back(
-                m_triMesh.getAttribHandle<Vector2>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector2>( attr->getName() );
-        }
-        else if ( attr->isVector3() )
-        {
-            m_topo->m_wedges.m_wedgeVector3AttribHandles.push_back(
-                m_triMesh.getAttribHandle<Vector3>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector3>( attr->getName() );
-        }
-        else if ( attr->isVector4() )
-        {
-            m_topo->m_wedges.m_wedgeVector4AttribHandles.push_back(
-                m_triMesh.getAttribHandle<Vector4>( attr->getName() ) );
-            m_topo->m_wedges.addProp<Vector4>( attr->getName() );
-        }
-        else
-            LOG( logWARNING )
-                << "Warning, mesh attribute " << attr->getName()
-                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
-    }
 }
 
 /////////////// WEDGES RELATED STUFF /////////////////
