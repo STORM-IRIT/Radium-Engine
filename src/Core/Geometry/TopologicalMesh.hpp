@@ -84,9 +84,11 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
      */
     explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
-    void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh );
-    template <typename NonManifoldFaceCommand>
-    void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh,
+
+    template <typename T>
+    void initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& mesh );
+    template <typename T, typename NonManifoldFaceCommand>
+    void initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& triMesh,
                         NonManifoldFaceCommand command );
 
     /**
@@ -108,6 +110,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \warning It uses the attributes defined on wedges
      */
     TriangleMesh toTriangleMeshFromWedges();
+    PolyMesh toPolyMeshFromWedges();
 
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
@@ -518,16 +521,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
   private:
     // internal function to build TriangleMesh attribs correspondance to wedge attribs.
-    class RA_CORE_API InitWedgeProps
+    template <typename T>
+    class InitWedgeProps
     {
       public:
-        InitWedgeProps( TopologicalMesh* topo, const TriangleMesh& triMesh ) :
+        InitWedgeProps( TopologicalMesh* topo,
+                        const Ra::Core::Geometry::IndexedGeometry<T>& triMesh ) :
             m_topo( topo ), m_triMesh( triMesh ) {}
         void operator()( AttribBase* attr ) const;
 
       private:
         TopologicalMesh* m_topo;
-        const TriangleMesh& m_triMesh;
+        const Ra::Core::Geometry::IndexedGeometry<T>& m_triMesh;
     };
 
     class WedgeCollection;
@@ -682,13 +687,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
 
-    template <typename T>
-    inline void copyAttribToWedgeData( const TriangleMesh& mesh,
+    template <typename U, typename T>
+    inline void copyAttribToWedgeData( const Ra::Core::Geometry::IndexedGeometry<U>& mesh,
                                        unsigned int vindex,
                                        const std::vector<AttribHandle<T>>& attrHandleVec,
                                        VectorArray<T>* to );
-
-    inline void copyMeshToWedgeData( const TriangleMesh& mesh,
+    template <typename T>
+    inline void copyMeshToWedgeData( const Ra::Core::Geometry::IndexedGeometry<T>& mesh,
                                      unsigned int vindex,
                                      const std::vector<AttribHandle<float>>& wprop_float,
                                      const std::vector<AttribHandle<Vector2>>& wprop_vec2,
@@ -735,6 +740,24 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     std::vector<std::map<int, std::vector<int>>> m_vertexFaceWedgesWithSameNormals;
 
     friend class TMOperations;
+
+    //! [Default command implementation]
+    template <typename T>
+    struct DefaultNonManifoldFaceCommand {
+        /// \brief details string is printed along with the message
+        DefaultNonManifoldFaceCommand( std::string details = {} ) : m_details {details} {}
+        /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
+        inline void initialize( const Ra::Core::Geometry::IndexedGeometry<T>& ) {}
+        /// \brief Process non-manifold face
+        inline void process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
+            LOG( logWARNING ) << "Invalid face handle returned : face not added " + m_details;
+        }
+        /// \brief If needed, apply post-processing on the Ra::Core::Geometry::TopologicalMesh
+        inline void postProcess( TopologicalMesh& ) {}
+        //! [Default command implementation]
+      private:
+        std::string m_details;
+    };
 };
 
 // heplers
