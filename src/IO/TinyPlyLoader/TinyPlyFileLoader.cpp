@@ -70,8 +70,8 @@ inline std::vector<uint8_t> read_file_binary( const std::string& pathToFile ) {
 }
 
 struct memory_stream : virtual memory_buffer, public std::istream {
-    memory_stream( char const* first_elem, size_t size ) :
-        memory_buffer( first_elem, size ), std::istream( static_cast<std::streambuf*>( this ) ) {}
+    memory_stream( char const* first_elem, size_t size_ ) :
+        memory_buffer( first_elem, size_ ), std::istream( static_cast<std::streambuf*>( this ) ) {}
 };
 
 FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
