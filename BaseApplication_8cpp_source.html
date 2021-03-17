@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c768a817dfe0bc0e98379fa0bf2f64f55604998d</span>
+   &#160;<span id="projectnumber">609c225e35ee004429d45693f3db4fb699717c2d</span>
    </div>
   </td>
  </tr>
@@ -359,8 +359,8 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="comment">// load supplemental plugins</span></div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    {</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        QSettings settings;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        QStringList plunginPaths = settings.value( <span class="stringliteral">&quot;plugins/paths&quot;</span> ).value&lt;QStringList&gt;();</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span> s : plunginPaths )</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        QStringList pluginPaths = settings.value( <span class="stringliteral">&quot;plugins/paths&quot;</span> ).value&lt;QStringList&gt;();</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : pluginPaths )</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        {</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2">loadPlugins</a>(</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                s.toStdString(), parser.values( <span class="stringliteral">&quot;loadPlugin&quot;</span> ), parser.values( <span class="stringliteral">&quot;ignorePlugin&quot;</span> ) );</div>
@@ -789,14 +789,14 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160; </div>
 <div class="line"><a name="l00695"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">  695</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#a02484e9e37b76e8f69fb59f984d54cbc">BaseApplication::addPluginDirectory</a>( <span class="keyword">const</span> std::string&amp; pluginDir ) {</div>
 <div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    QSettings settings;</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;    QStringList plunginPaths = settings.value( <span class="stringliteral">&quot;plugins/paths&quot;</span> ).value&lt;QStringList&gt;();</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;    QStringList pluginPaths = settings.value( <span class="stringliteral">&quot;plugins/paths&quot;</span> ).value&lt;QStringList&gt;();</div>
 <div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;    <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;Registered plugin paths are : &quot;</span>;</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span> s : plunginPaths )</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;    <span class="keywordflow">for</span> ( <span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : pluginPaths )</div>
 <div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;    {</div>
 <div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; s.toStdString();</div>
 <div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    }</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;    plunginPaths.append( pluginDir.c_str() );</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;    settings.setValue( <span class="stringliteral">&quot;plugins/paths&quot;</span>, plunginPaths );</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;    pluginPaths.append( pluginDir.c_str() );</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;    settings.setValue( <span class="stringliteral">&quot;plugins/paths&quot;</span>, pluginPaths );</div>
 <div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;    <a class="code" href="classRa_1_1Gui_1_1BaseApplication.html#ade2850bde46ffa889f9ca3a4c542d2e2">loadPlugins</a>( pluginDir, QStringList(), QStringList() );</div>
 <div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;}</div>
 <div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160; </div>
@@ -955,7 +955,7 @@ $(document).ready(function(){initNavTree('BaseApplication_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="BaseApplication_8cpp.html">BaseApplication.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 17 2021 08:58:06 for Radium Engine by
+    <li class="footer">Generated on Wed Mar 17 2021 12:56:32 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

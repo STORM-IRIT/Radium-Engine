@@ -387,7 +387,9 @@ var hierarchy =
       [ "Ra::Core::AlignedStdVector< Core::Vector2ui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Core::VectorNui >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Eigen::Transform< Scalar, 3, Eigen::Affine > >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
-      [ "Ra::Core::AlignedStdVector< IndexType >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
+      [ "Ra::Core::AlignedStdVector< IndexType >", "structRa_1_1Core_1_1AlignedStdVector.html", [
+        [ "Ra::Core::VectorArray< IndexType >", "classRa_1_1Core_1_1VectorArray.html", null ]
+      ] ],
       [ "Ra::Core::AlignedStdVector< int >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Ra::Core::Asset::HandleComponentData >", "structRa_1_1Core_1_1AlignedStdVector.html", null ],
       [ "Ra::Core::AlignedStdVector< Ra::Core::Vector3ui >", "structRa_1_1Core_1_1AlignedStdVector.html", [

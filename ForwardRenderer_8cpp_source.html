@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c768a817dfe0bc0e98379fa0bf2f64f55604998d</span>
+   &#160;<span id="projectnumber">609c225e35ee004429d45693f3db4fb699717c2d</span>
    </div>
   </td>
  </tr>
@@ -479,9 +479,9 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                <span class="keyword">auto</span> tm          = std::dynamic_pointer_cast&lt;trimesh&gt;( displayable );</div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                <span class="keyword">auto</span> tp          = std::dynamic_pointer_cast&lt;polymesh&gt;( displayable );</div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;                <span class="comment">//                Ra::Core::Geometry::TopologicalMesh topo;</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                <span class="keywordtype">bool</span> drawable;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                <span class="keywordtype">bool</span> drawable = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;                <a class="code" href="classRa_1_1Core_1_1Geometry_1_1LineMesh.html">Core::Geometry::LineMesh</a> lines;</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                <a class="code" href="structRa_1_1Core_1_1AlignedStdVector.html">Core::Geometry::LineMesh::IndexContainerType</a> indices;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                <a class="code" href="classRa_1_1Core_1_1VectorArray.html">Core::Geometry::LineMesh::IndexContainerType</a> indices;</div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                <span class="keywordflow">if</span> ( tm )</div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;                {</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;                    drawable = tm-&gt;getRenderMode() ==</div>
@@ -896,6 +896,7 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderParameterProvider_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderParameterProvider.html">Ra::Engine::Data::ShaderParameterProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderParameters_8hpp_source.html#l00222">RenderParameters.hpp:222</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1Renderer_html_ac385c64ebba4f5de0b51fb9ab7a31d16"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html#ac385c64ebba4f5de0b51fb9ab7a31d16">Ra::Engine::Rendering::Renderer::m_depthTexture</a></div><div class="ttdeci">std::unique_ptr&lt; Data::Texture &gt; m_depthTexture</div><div class="ttdoc">Depth texture : might be attached to the main framebuffer.</div><div class="ttdef"><b>Definition:</b> <a href="Renderer_8hpp_source.html#l00434">Renderer.hpp:434</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1ForwardRenderer_html_aa55576771d8c981a126826ebb5e193f0ab070977bad797ba201f4bc60165af0ab"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#aa55576771d8c981a126826ebb5e193f0ab070977bad797ba201f4bc60165af0ab">Ra::Engine::Rendering::ForwardRenderer::RendererTextures_OITRevealage</a></div><div class="ttdeci">@ RendererTextures_OITRevealage</div><div class="ttdef"><b>Definition:</b> <a href="ForwardRenderer_8hpp_source.html#l00057">ForwardRenderer.hpp:57</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1VectorArray_html"><div class="ttname"><a href="classRa_1_1Core_1_1VectorArray.html">Ra::Core::VectorArray&lt; IndexType &gt;</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_acc27193ddd9e038bd500a917835f869e"><div class="ttname"><a href="CoreMacros_8hpp.html#acc27193ddd9e038bd500a917835f869e">CORE_UNUSED</a></div><div class="ttdeci">#define CORE_UNUSED(X)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00144">CoreMacros.hpp:144</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1ForwardRenderer_html_a2f9c6987afaf3e8c7d250efffe4d1109"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a2f9c6987afaf3e8c7d250efffe4d1109">Ra::Engine::Rendering::ForwardRenderer::renderInternal</a></div><div class="ttdeci">void renderInternal(const Data::ViewingParameters &amp;renderData) override</div><div class="ttdoc">All the scene rendering magics basically happens here.</div><div class="ttdef"><b>Definition:</b> <a href="ForwardRenderer_8cpp_source.html#l00182">ForwardRenderer.cpp:182</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Scene_1_1PointCloudComponent_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Scene_1_1PointCloudComponent.html">Ra::Engine::Scene::PointCloudComponent</a></div><div class="ttdef"><b>Definition:</b> <a href="GeometryComponent_8hpp_source.html#l00129">GeometryComponent.hpp:129</a></div></div>
@@ -917,7 +918,6 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div class="ttc" id="aclassRa_1_1Core_1_1Utils_1_1Index_html"><div class="ttname"><a href="classRa_1_1Core_1_1Utils_1_1Index.html">Ra::Core::Utils::Index</a></div><div class="ttdef"><b>Definition:</b> <a href="Index_8hpp_source.html#l00010">Index.hpp:10</a></div></div>
 <div class="ttc" id="aDefaultLightManager_8hpp_html"><div class="ttname"><a href="DefaultLightManager_8hpp.html">DefaultLightManager.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider_html_a056b2fe8ecfe5776cc5fdb16e94ac73d"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html#a056b2fe8ecfe5776cc5fdb16e94ac73d">Ra::Engine::Rendering::PointCloudParameterProvider::~PointCloudParameterProvider</a></div><div class="ttdeci">~PointCloudParameterProvider() override=default</div></div>
-<div class="ttc" id="astructRa_1_1Core_1_1AlignedStdVector_html"><div class="ttname"><a href="structRa_1_1Core_1_1AlignedStdVector.html">Ra::Core::AlignedStdVector&lt; IndexType &gt;</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1ForwardRenderer_html_a8611fb9e2f7e153b19ef8a3553fd8c34"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#a8611fb9e2f7e153b19ef8a3553fd8c34">Ra::Engine::Rendering::ForwardRenderer::m_textures</a></div><div class="ttdeci">std::array&lt; std::unique_ptr&lt; Data::Texture &gt;, RendererTexture_Count &gt; m_textures</div><div class="ttdef"><b>Definition:</b> <a href="ForwardRenderer_8hpp_source.html#l00077">ForwardRenderer.hpp:77</a></div></div>
 <div class="ttc" id="aTopologicalMesh_8hpp_html"><div class="ttname"><a href="TopologicalMesh_8hpp.html">TopologicalMesh.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1ForwardRenderer_html_aae5180db931189bd9bd214bb27e649ba"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#aae5180db931189bd9bd214bb27e649ba">Ra::Engine::Rendering::ForwardRenderer::m_fbo</a></div><div class="ttdeci">std::unique_ptr&lt; globjects::Framebuffer &gt; m_fbo</div><div class="ttdef"><b>Definition:</b> <a href="ForwardRenderer_8hpp_source.html#l00063">ForwardRenderer.hpp:63</a></div></div>
@@ -968,7 +968,7 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="ForwardRenderer_8cpp.html">ForwardRenderer.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 17 2021 08:58:06 for Radium Engine by
+    <li class="footer">Generated on Wed Mar 17 2021 12:56:32 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

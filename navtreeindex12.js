@@ -1,6 +1,5 @@
 var NAVTREEINDEX12 =
 {
-"classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a08ad85fff1eaec5f85e0c2bda2709271":[9,0,2,1,0,17,11],
 "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a19d479f4e0a0e2f9688c62d77208f4b1":[9,0,2,1,0,17,16],
 "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a2528319b52e570628ed707755557b0fa":[9,0,2,1,0,17,19],
 "classRa_1_1Engine_1_1Data_1_1ShaderConfiguration.html#a3cccfd1b866104438bd209a42f0e3f76":[9,0,2,1,0,17,10],
@@ -249,5 +248,6 @@ var NAVTREEINDEX12 =
 "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html#af7af3e2f682fbd5a7cdb2fa5c3491659":[9,0,2,1,1,1,8],
 "classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html":[9,0,2,1,1,2],
 "classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html#a01cb615e7bf97fd6213c369272218dd6":[9,0,2,1,1,2,2],
-"classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html#a056b2fe8ecfe5776cc5fdb16e94ac73d":[9,0,2,1,1,2,1]
+"classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html#a056b2fe8ecfe5776cc5fdb16e94ac73d":[9,0,2,1,1,2,1],
+"classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html#a61b4c4ce3a3cbccbb49b34530e86eb17":[9,0,2,1,1,2,0]
 };

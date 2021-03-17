@@ -30,6 +30,5 @@ var classRa_1_1Core_1_1Utils_1_1AttribManager =
     [ "removeAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#aeb28dcc5c1980e1fc7da191eb69bcbcb", null ],
     [ "setAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a056b7697cfbedd6b20dde6ce7955094e", null ],
     [ "setAttrib", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#aaf13ef227f69c96fbf3f950b621ae3ed", null ],
-    [ "::Ra::Core::Geometry::TopologicalMesh", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a2539d55dfd09040e0602be7b324e8d26", null ],
-    [ "::Ra::Core::Geometry::TriangleMesh", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#aea28aed498c72be2287fadfbebedf651", null ]
+    [ "::Ra::Core::Geometry::TopologicalMesh", "classRa_1_1Core_1_1Utils_1_1AttribManager.html#a2539d55dfd09040e0602be7b324e8d26", null ]
 ];

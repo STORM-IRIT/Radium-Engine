@@ -9,9 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 478.5)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-478.5 737,-478.5 737,4 -4,4"/>
-<!-- Node301 -->
+<!-- Node302 -->
 <g id="node1" class="node">
-<title>Node301</title>
+<title>Node302</title>
 <g id="a_node1"><a xlink:href="structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="25.5,-272 25.5,-302 138.5,-302 138.5,-272 25.5,-272"/>
 <text text-anchor="start" x="33.5" y="-290" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -19,9 +19,9 @@
 </a>
 </g>
 </g>
-<!-- Node302 -->
+<!-- Node303 -->
 <g id="node2" class="node">
-<title>Node302</title>
+<title>Node303</title>
 <g id="a_node2"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="228,-370 228,-400 341,-400 341,-370 228,-370"/>
 <text text-anchor="start" x="236" y="-388" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -29,15 +29,15 @@
 </a>
 </g>
 </g>
-<!-- Node301&#45;&gt;Node302 -->
+<!-- Node302&#45;&gt;Node303 -->
 <g id="edge1" class="edge">
-<title>Node301&#45;&gt;Node302</title>
+<title>Node302&#45;&gt;Node303</title>
 <path fill="none" stroke="midnightblue" d="M123.16,-306.63C161.3,-325.27 217.83,-352.9 252.58,-369.89"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="124.41,-303.34 113.89,-302.1 121.34,-309.63 124.41,-303.34"/>
 </g>
-<!-- Node306 -->
+<!-- Node307 -->
 <g id="node6" class="node">
-<title>Node306</title>
+<title>Node307</title>
 <g id="a_node6"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="222,-248 222,-278 347,-278 347,-248 222,-248"/>
 <text text-anchor="start" x="230" y="-266" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -45,15 +45,15 @@
 </a>
 </g>
 </g>
-<!-- Node301&#45;&gt;Node306 -->
+<!-- Node302&#45;&gt;Node307 -->
 <g id="edge5" class="edge">
-<title>Node301&#45;&gt;Node306</title>
+<title>Node302&#45;&gt;Node307</title>
 <path fill="none" stroke="midnightblue" d="M148.81,-279.12C172.3,-276.31 198.67,-273.15 221.81,-270.38"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="148.1,-275.68 138.58,-280.35 148.93,-282.63 148.1,-275.68"/>
 </g>
-<!-- Node303 -->
+<!-- Node304 -->
 <g id="node3" class="node">
-<title>Node303</title>
+<title>Node304</title>
 <g id="a_node3"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="424.5,-420 424.5,-450 564.5,-450 564.5,-420 424.5,-420"/>
 <text text-anchor="start" x="432.5" y="-438" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -61,15 +61,15 @@
 </a>
 </g>
 </g>
-<!-- Node302&#45;&gt;Node303 -->
+<!-- Node303&#45;&gt;Node304 -->
 <g id="edge2" class="edge">
-<title>Node302&#45;&gt;Node303</title>
+<title>Node303&#45;&gt;Node304</title>
 <path fill="none" stroke="midnightblue" d="M351.19,-400.79C376.71,-406.93 405.8,-413.92 431,-419.98"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="351.78,-397.33 341.24,-398.4 350.15,-404.14 351.78,-397.33"/>
 </g>
-<!-- Node304 -->
+<!-- Node305 -->
 <g id="node4" class="node">
-<title>Node304</title>
+<title>Node305</title>
 <g id="a_node4"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1VolumeGrid.html" target="_top" xlink:title="Discrete volume data storing values in a regular grid.">
 <polygon fill="white" stroke="black" points="620,-395 620,-425 733,-425 733,-395 620,-395"/>
 <text text-anchor="start" x="628" y="-413" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -77,15 +77,15 @@
 </a>
 </g>
 </g>
-<!-- Node303&#45;&gt;Node304 -->
+<!-- Node304&#45;&gt;Node305 -->
 <g id="edge3" class="edge">
-<title>Node303&#45;&gt;Node304</title>
+<title>Node304&#45;&gt;Node305</title>
 <path fill="none" stroke="midnightblue" d="M574.51,-424.03C589.75,-421.91 605.41,-419.73 619.72,-417.75"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="574,-420.56 564.58,-425.41 574.96,-427.5 574,-420.56"/>
 </g>
-<!-- Node305 -->
+<!-- Node306 -->
 <g id="node5" class="node">
-<title>Node305</title>
+<title>Node306</title>
 <g id="a_node5"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1VolumeSparse.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="620,-444 620,-474 733,-474 733,-444 620,-444"/>
 <text text-anchor="start" x="628" y="-462" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -93,9 +93,9 @@
 </a>
 </g>
 </g>
-<!-- Node303&#45;&gt;Node305 -->
+<!-- Node304&#45;&gt;Node306 -->
 <g id="edge4" class="edge">
-<title>Node303&#45;&gt;Node305</title>
+<title>Node304&#45;&gt;Node306</title>
 <path fill="none" stroke="midnightblue" d="M574.51,-445.53C589.75,-447.57 605.41,-449.65 619.72,-451.56"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="574.95,-442.06 564.58,-444.21 574.03,-449 574.95,-442.06"/>
 </g>
@@ -109,9 +109,9 @@
 </a>
 </g>
 </g>
-<!-- Node306&#45;&gt;Node2 -->
+<!-- Node307&#45;&gt;Node2 -->
 <g id="edge6" class="edge">
-<title>Node306&#45;&gt;Node2</title>
+<title>Node307&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M357.06,-271.6C372.54,-273.46 389.09,-275.45 405.12,-277.38"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="357.41,-268.12 347.06,-270.4 356.57,-275.07 357.41,-268.12"/>
 </g>
@@ -125,9 +125,9 @@
 </a>
 </g>
 </g>
-<!-- Node306&#45;&gt;Node4 -->
+<!-- Node307&#45;&gt;Node4 -->
 <g id="edge8" class="edge">
-<title>Node306&#45;&gt;Node4</title>
+<title>Node307&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M328.36,-243.91C350.91,-234.26 379.17,-222.76 405,-214 414.2,-210.88 424.04,-207.89 433.69,-205.13"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="326.86,-240.75 319.07,-247.92 329.64,-247.17 326.86,-240.75"/>
 </g>
@@ -141,9 +141,9 @@
 </a>
 </g>
 </g>
-<!-- Node306&#45;&gt;Node6 -->
+<!-- Node307&#45;&gt;Node6 -->
 <g id="edge10" class="edge">
-<title>Node306&#45;&gt;Node6</title>
+<title>Node307&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M304.13,-239.99C337.52,-198.77 404.17,-116.54 405,-116 410.34,-112.53 416.17,-109.56 422.21,-107.01"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="301.31,-237.92 297.73,-247.89 306.75,-242.32 301.31,-237.92"/>
 </g>
@@ -157,9 +157,9 @@
 </a>
 </g>
 </g>
-<!-- Node306&#45;&gt;Node8 -->
+<!-- Node307&#45;&gt;Node8 -->
 <g id="edge12" class="edge">
-<title>Node306&#45;&gt;Node8</title>
+<title>Node307&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M307.16,-240.34C329.64,-218.08 366.81,-184.68 405,-165 411.65,-161.57 418.84,-158.59 426.15,-156.02"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="304.41,-238.15 299.84,-247.71 309.37,-243.08 304.41,-238.15"/>
 </g>
@@ -173,15 +173,15 @@
 </a>
 </g>
 </g>
-<!-- Node306&#45;&gt;Node10 -->
+<!-- Node307&#45;&gt;Node10 -->
 <g id="edge14" class="edge">
-<title>Node306&#45;&gt;Node10</title>
+<title>Node307&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M357.03,-254.75C379.1,-252.2 403.33,-249.4 425.18,-246.88"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="356.6,-251.27 347.06,-255.9 357.4,-258.23 356.6,-251.27"/>
 </g>
-<!-- Node307 -->
+<!-- Node308 -->
 <g id="node16" class="node">
-<title>Node307</title>
+<title>Node308</title>
 <g id="a_node16"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1LineStrip.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="438,-322 438,-352 551,-352 551,-322 438,-322"/>
 <text text-anchor="start" x="446" y="-340" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -189,15 +189,15 @@
 </a>
 </g>
 </g>
-<!-- Node306&#45;&gt;Node307 -->
+<!-- Node307&#45;&gt;Node308 -->
 <g id="edge15" class="edge">
-<title>Node306&#45;&gt;Node307</title>
+<title>Node307&#45;&gt;Node308</title>
 <path fill="none" stroke="midnightblue" d="M327.6,-282.21C350.26,-292.14 378.85,-304.03 405,-313 415.54,-316.62 426.93,-320.05 437.92,-323.13"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="328.84,-278.93 318.27,-278.09 326,-285.33 328.84,-278.93"/>
 </g>
-<!-- Node308 -->
+<!-- Node309 -->
 <g id="node17" class="node">
-<title>Node308</title>
+<title>Node309</title>
 <g id="a_node17"><a xlink:href="classRa_1_1Core_1_1Geometry_1_1PointCloud.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="438,-371 438,-401 551,-401 551,-371 438,-371"/>
 <text text-anchor="start" x="446" y="-389" font-family="Helvetica,sans-Serif" font-size="10.00">Ra::Core::Geometry</text>
@@ -205,9 +205,9 @@
 </a>
 </g>
 </g>
-<!-- Node306&#45;&gt;Node308 -->
+<!-- Node307&#45;&gt;Node309 -->
 <g id="edge16" class="edge">
-<title>Node306&#45;&gt;Node308</title>
+<title>Node307&#45;&gt;Node309</title>
 <path fill="none" stroke="midnightblue" d="M306.74,-285.53C329.15,-308.02 366.49,-342.03 405,-362 415.18,-367.28 426.63,-371.48 437.83,-374.8"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="308.96,-282.79 299.46,-278.09 303.96,-287.69 308.96,-282.79"/>
 </g>
