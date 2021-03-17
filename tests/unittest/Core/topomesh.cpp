@@ -83,7 +83,12 @@ bool isSameMesh( const Ra::Core::Geometry::TriangleMesh& meshOne,
                            meshTwo.normals()[meshTwo.getIndices()[i][j]] );
                 if ( it != stackNormals.end() ) { stackNormals.erase( it ); }
                 else
-                { result = false; }
+                {
+
+                    if ( expected ) { LOG( logINFO ) << "isSameMesh failed normal not found"; }
+
+                    result = false;
+                }
             }
         }
         ++i;
