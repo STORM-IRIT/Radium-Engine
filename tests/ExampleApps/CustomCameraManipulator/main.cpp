@@ -83,7 +83,7 @@ int main( int argc, char* argv[] ) {
     //! [Register the entity/component association to the geometry system ]
 
     //! [Tell the window that something is to be displayed]
-    app.m_mainWindow->postLoadFile( "Cube" );
+    app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
 
     //! [Install new manipulator]

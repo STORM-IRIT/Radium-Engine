@@ -98,7 +98,7 @@ int main( int argc, char* argv[] ) {
     //! [Create and Register the simulation system ]
 
     //! [Tell the window that something is to be displayed]
-    app.m_mainWindow->postLoadFile( "cloud" );
+    app.m_mainWindow->prepareDisplay();
     //! [Tell the window that something is to be displayed]
 
     // terminate the app after 4 second (approximatively). Camera can be moved using mouse moves.

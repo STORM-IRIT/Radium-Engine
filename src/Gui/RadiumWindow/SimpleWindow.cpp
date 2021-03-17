@@ -6,6 +6,8 @@
 #include <Gui/Viewer/CameraManipulator.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
+#include <QStatusBar>
+
 namespace Ra {
 using namespace Gui;
 using namespace Engine;
@@ -60,16 +62,9 @@ void SimpleWindow::addRenderer( const std::string&,
     m_viewer->addRenderer( e );
 }
 
-void SimpleWindow::postLoadFile( const std::string& ) {
-    m_viewer->makeCurrent();
-    m_viewer->getRenderer()->buildAllRenderTechniques();
-    m_viewer->doneCurrent();
+void SimpleWindow::prepareDisplay() {
     m_selectionManager->clear();
-    auto aabb = Ra::Engine::RadiumEngine::getInstance()->computeSceneAabb();
-    if ( aabb.isEmpty() ) { m_viewer->getCameraManipulator()->resetCamera(); }
-    else
-    { m_viewer->fitCameraToScene( aabb ); }
-    emit frameUpdate();
+    if ( m_viewer->prepareDisplay() ) { emit frameUpdate(); }
 }
 
 void SimpleWindow::cleanup() {
