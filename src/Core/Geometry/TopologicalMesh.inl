@@ -375,6 +375,22 @@ inline void TopologicalMesh::set_normal( VertexHandle vh, FaceHandle fh, const N
     set_normal( halfedge_handle( vh, fh ), n );
 }
 
+inline void TopologicalMesh::propagate_normal_to_wedges( VertexHandle vh ) {
+    if ( !has_halfedge_normals() )
+    {
+        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
+        return;
+    }
+    for ( VertexIHalfedgeIter vih_it = vih_iter( vh ); vih_it.is_valid(); ++vih_it )
+    {
+        auto wd = getWedgeData( property( getWedgeIndexPph(), *vih_it ) );
+
+        m_wedges.setWedgeAttrib( wd, "in_normal", normal( vh ) );
+
+        replaceWedge( *vih_it, wd );
+    }
+}
+
 inline TopologicalMesh::HalfedgeHandle TopologicalMesh::halfedge_handle( VertexHandle vh,
                                                                          FaceHandle fh ) const {
     for ( ConstVertexIHalfedgeIter vih_it = cvih_iter( vh ); vih_it.is_valid(); ++vih_it )
@@ -731,6 +747,26 @@ inline void TopologicalMesh::WedgeCollection::garbageCollection() {
                                   m_data.end(),
                                   []( const Wedge& w ) { return w.isDeleted(); } ),
                   m_data.end() );
+}
+
+template <typename T>
+inline bool TopologicalMesh::WedgeCollection::setWedgeAttrib( TopologicalMesh::WedgeData& wd,
+                                                              const std::string& name,
+                                                              const T& value ) {
+    auto nameArray = getNameArray<T>();
+    auto itr       = std::find( nameArray.begin(), nameArray.end(), name );
+    if ( itr != nameArray.end() )
+    {
+        auto attrIndex                    = std::distance( nameArray.begin(), itr );
+        wd.getAttribArray<T>()[attrIndex] = value;
+        return true;
+    }
+    else
+    {
+        LOG( logERROR ) << "Warning, set wedge: no wedge attrib named " << name << " of type "
+                        << typeid( T ).name();
+    }
+    return false;
 }
 
 } // namespace Geometry

@@ -136,10 +136,6 @@ TopologicalMesh::TopologicalMesh() {
     add_property( m_wedgeIndexPph );
 }
 
-TriangleMesh TopologicalMesh::toTriangleMesh() {
-    return toTriangleMeshFromWedges();
-}
-
 template <typename T>
 void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Container>& c,
                                      const VectorArray<T>& wd ) {
@@ -160,7 +156,7 @@ void moveContainerToMesh( IndexedGeometry<U>& out,
     }
 }
 
-TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
+TriangleMesh TopologicalMesh::toTriangleMesh() {
     // first cleanup deleted element
     garbage_collection();
 
@@ -215,7 +211,7 @@ TriangleMesh TopologicalMesh::toTriangleMeshFromWedges() {
     return out;
 }
 
-PolyMesh TopologicalMesh::toPolyMeshFromWedges() {
+PolyMesh TopologicalMesh::toPolyMesh() {
     // first cleanup deleted element
     garbage_collection();
 
