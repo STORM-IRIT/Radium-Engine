@@ -97,13 +97,13 @@ void SurfaceMeshComponent<CoreMeshType>::generateMesh( const Ra::Core::Asset::Ge
 }
 
 template <typename CoreMeshType>
-typename SurfaceMeshComponent<CoreMeshType>::RenderMeshType*
-SurfaceMeshComponent<CoreMeshType>::meshFactory( const std::string& name,
-                                                 const Ra::Core::Asset::GeometryData* data ) {
+typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type*
+meshFactory( const std::string& name, const Ra::Core::Asset::GeometryData* data ) {
     CoreMeshType mesh;
     typename CoreMeshType::PointAttribHandle::Container vertices;
     typename CoreMeshType::NormalAttribHandle::Container normals;
     typename CoreMeshType::IndexContainerType indices;
+    using MeshType = typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type;
 
     vertices.reserve( data->getVerticesSize() );
     std::copy(
@@ -149,7 +149,8 @@ SurfaceMeshComponent<CoreMeshType>::meshFactory( const std::string& name,
     //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
     mesh.setIndices( std::move( indices ) );
-    RenderMeshType* ret = new RenderMeshType {name};
+
+    MeshType* ret = new MeshType {name};
     ret->loadGeometry( std::move( mesh ) );
 
     return ret;

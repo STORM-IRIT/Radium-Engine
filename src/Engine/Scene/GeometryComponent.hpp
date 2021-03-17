@@ -17,6 +17,7 @@ class VolumeObject;
 } // namespace Data
 
 namespace Scene {
+
 /// Abstract interface of a geometric compoennet in the Engine.
 class RA_ENGINE_API GeometryComponent : public Component
 {
@@ -64,6 +65,10 @@ struct RenderMeshHelper<Ra::Core::Geometry::PolyMesh> {
 };
 } // namespace SurfaceMeshComponentInternal
 
+template <typename CoreMeshType>
+typename SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type*
+meshFactory( const std::string& name, const Ra::Core::Asset::GeometryData* data );
+
 /*!
  * \brief Main class to convert Ra::Core::Asset::GeometryData to Ra::Engine::Mesh
  *
@@ -100,9 +105,6 @@ class SurfaceMeshComponent : public GeometryComponent
     /// Returns the current display geometry.
     inline const CoreMeshType& getCoreGeometry() const;
     inline RenderMeshType* getDisplayable();
-
-    static RenderMeshType* meshFactory( const std::string& name,
-                                        const Ra::Core::Asset::GeometryData* data );
 
     // Component communication management
     inline void setupIO( const std::string& id ) override;
