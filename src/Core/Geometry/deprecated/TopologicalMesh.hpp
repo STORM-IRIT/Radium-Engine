@@ -57,12 +57,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using base::PolyMesh_ArrayKernelT;
     using Index   = Ra::Core::Utils::Index;
     using Vector3 = Ra::Core::Vector3;
-    class Wedge;
 
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-    using WedgeIndex = Index;
 
     /**
      * Construct a topological mesh from a triangle mesh.
@@ -85,10 +82,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
      */
     explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
-    void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh );
-    template <typename NonManifoldFaceCommand>
-    void initWithWedge( const Ra::Core::Geometry::TriangleMesh& triMesh,
-                        NonManifoldFaceCommand command );
 
     /**
      * Construct an empty topological mesh, only init mandatory properties.
@@ -98,17 +91,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /**
      * Return a triangleMesh from the topological mesh.
      * \note This is a costly operation.
-     * \warning It uses the attributes defined on halfedges. Do not work well if attribs are defined
-     * on wedges (initWithWedge), in this case use toTriangleMeshFromWedges()
      */
     TriangleMesh toTriangleMesh();
-
-    /**
-     * Return a triangleMesh from the topological mesh.
-     * \note This is a costly operation.
-     * \warning It uses the attributes defined on wedges
-     */
-    TriangleMesh toTriangleMeshFromWedges();
 
     /**
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
@@ -350,41 +334,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     ///@}
 
     /**
-     * Inner class WedgeData represents the actual data per wedge, including position.
-     *
-     * At any time m_position as to be equal to the wedge's vertex point.
-     * All wedges have the same set of attributes.
-     * Access and management is delegated to TopologicalMesh and WedgeCollection
-     */
-    class WedgeData
-    {
-      public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-        //        Index m_inputTriangleMeshIndex;
-        //        Index m_outputTriangleMeshIndex;
-        Vector3 m_position {};
-        VectorArray<Scalar> m_floatAttrib;
-        VectorArray<Vector2> m_vector2Attrib;
-        VectorArray<Vector3> m_vector3Attrib;
-        VectorArray<Vector4> m_vector4Attrib;
-
-        template <typename T>
-        inline VectorArray<T>& getAttribArray();
-
-        explicit WedgeData() = default;
-        inline bool operator==( const WedgeData& lhs ) const;
-        inline bool operator!=( const WedgeData& lhs ) const;
-        inline bool operator<( const WedgeData& lhs ) const;
-        friend Wedge;
-
-      private:
-        // return 1 : equals, 2: strict less, 3: strict greater
-        template <typename T>
-        static int compareVector( const T& a, const T& b );
-    };
-
-    /**
      * \name Topological operations
      */
     ///@{
@@ -403,273 +352,9 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     bool splitEdge( TopologicalMesh::EdgeHandle eh, Scalar f );
     bool splitEdgeWedge( TopologicalMesh::EdgeHandle eh, Scalar f );
 
-    /**
-     * Halfedge collapes \a he.
-     * vo=from_vertex_handle(he) is deleted.
-     * After collapse vo incoming halfedges points to vh = to_vertex_handle(he).
-     * Wedge indices are updated to reflect the change in topology.
-     * For detailed topological modifications see \ref develmeshes.
-     * \param he halfedge's hangle to collapse.
-     */
-    void collapseWedge( TopologicalMesh::HalfedgeHandle he );
     ///@}
 
-    /**
-     * Return the set of WedgeIndex incident to a given Vertex \a vh.
-     * only valid non deleted wedges are present in the set.
-     */
-    inline std::set<WedgeIndex> getVertexWedges( OpenMesh::VertexHandle vh ) const;
-
-    /**
-     * get the wedge index associated with an halfedge
-     */
-    inline WedgeIndex getWedgeIndex( OpenMesh::HalfedgeHandle heh ) const;
-
-    /**
-     * Access to wedge data.
-     * \param idx must be valid and correspond to a non delete wedge index.
-     */
-    inline const WedgeData& getWedgeData( const WedgeIndex& idx ) const;
-
-    /**
-     * Return the wedge refcount, for debug purpose.
-     */
-    inline unsigned int getWedgeRefCount( const WedgeIndex& idx ) const;
-
-    /** set WedgeData \a wd to the wedge with index \a widx.
-     * All halfedge that point to widx will get the new values.
-     * \param widx index of the wedge
-     * \param wd data to set to wedge that correspond to widx
-     */
-    inline void setWedgeData( WedgeIndex widx, const WedgeData& wd );
-
-    /**
-     * Change the WedgeData associated for \a idx, for attrib \a name to \a value.
-     * The data is changed for all halfedges referencing this wedge.
-     * \return true if the wedge is set, false if nothing set, i.e. if name is not an attrib of
-     * type T.
-     */
-    template <typename T>
-    inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
-
-    /**
-     * Replace the wedge data associated with an halfedge.
-     * The old wedge is "deleted". If wedge data correspond to an already
-     * present wedge, it's index is used.
-     */
-    inline void replaceWedge( OpenMesh::HalfedgeHandle he, const WedgeData& wd );
-
-    /**
-     * Replace the wedge index associated with an halfedge.
-     * The old wedge is "deleted". The new wedge reference count is incremented.
-     */
-    inline void replaceWedgeIndex( OpenMesh::HalfedgeHandle he, const WedgeIndex& widx );
-
-    /**
-     * call mergeEquelWedges( vh ) for every vertices of the mesh.
-     * \see void mergeEqualWedges( OpenMesh::VertexHandle vh );
-     */
-    inline void mergeEqualWedges();
-
-    /**
-     * Merge (make same index) wegdes with the same data around \a vh
-     * \param vh vertex handle to process
-     */
-    inline void mergeEqualWedges( OpenMesh::VertexHandle vh );
-
-    /// Remove deleted element from the mesh, including wedges.
-    void garbage_collection();
-
-    inline const std::vector<std::string>& getVec4AttribNames() const;
-    inline const std::vector<std::string>& getVec3AttribNames() const;
-    inline const std::vector<std::string>& getVec2AttribNames() const;
-    inline const std::vector<std::string>& getFloatAttribNames() const;
-
-    /// true if more than one wedge arount vertex \a vh, false if only one wedge
-    inline bool isFeatureVertex( const VertexHandle& vh ) const;
-
-    /// true if at least one of edge's vertex as two different wedge arount the
-    /// edge.
-    /// false if the two vertices have the same wedge for both face aside the edge.
-    inline bool isFeatureEdge( const EdgeHandle& eh ) const;
-
-    inline const OpenMesh::HPropHandleT<WedgeIndex>& getWedgeIndexPph() const;
-
-    void delete_face( FaceHandle _fh, bool _delete_isolated_vertices = true );
-
-    /**
-     * is the vertex a "bow tie" vertex ?
-     * \note Alias for OpenMesh::is_manifold
-     */
-    bool isManifold( VertexHandle vh ) const;
-
-    /// Check if evrything looks right in the data structure
-    /// \return true if ok, false if ko.
-    bool checkIntegrity() const;
-
   private:
-    // internal function to build TriangleMesh attribs correspondance to wedge attribs.
-    class RA_CORE_API InitWedgeProps
-    {
-      public:
-        InitWedgeProps( TopologicalMesh* topo, const TriangleMesh& triMesh ) :
-            m_topo( topo ), m_triMesh( triMesh ) {}
-        void operator()( AttribBase* attr ) const;
-
-      private:
-        TopologicalMesh* m_topo;
-        const TriangleMesh& m_triMesh;
-    };
-
-    class WedgeCollection;
-    //
-    /**
-     * This private class manage wedge data and refcount, to maintain deleted status
-     *
-     * \internal We need to export this class to make it accessible in .inl
-     */
-    class RA_CORE_API Wedge
-    {
-        WedgeData m_wedgeData {};
-        unsigned int m_refCount {0};
-
-      private:
-        WedgeData& getWedgeData() { return m_wedgeData; }
-
-      public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-        explicit Wedge() {}
-        explicit Wedge( const WedgeData& wd ) : m_wedgeData {wd}, m_refCount {1} {};
-        const WedgeData& getWedgeData() const { return m_wedgeData; }
-        void setWedgeData( const WedgeData& wedgeData ) { m_wedgeData = wedgeData; }
-        void setWedgeData( WedgeData&& wedgeData ) { m_wedgeData = std::move( wedgeData ); }
-        void incrementRefCount() { ++m_refCount; }
-        void decrementRefCount() {
-            if ( m_refCount ) --m_refCount;
-        }
-        /// comparison ignore refCount
-        bool operator==( const Wedge& lhs ) const { return m_wedgeData == lhs.m_wedgeData; }
-
-        bool isDeleted() const { return m_refCount == 0; }
-        unsigned int getRefCount() const { return m_refCount; }
-
-        friend WedgeCollection;
-    };
-
-    /**
-     * This private class manage the wedge collection.
-     * Most of the data members are public so that the enclosing class can
-     * easily manage the data.
-     *
-     * \internal We need to export this class to make it accessible in .inl
-     */
-    class RA_CORE_API WedgeCollection
-    {
-      public:
-        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
-        template <typename T>
-        inline const std::vector<std::string>& getNameArray() const;
-
-        template <typename T>
-        inline std::vector<std::string>& getNameArray();
-
-        /**
-         * Add wd to the wedge collection, and return the index.
-         * If a wedge with same data is already present, it's index is returned,
-         * otherwise a new wedge is added to the wedges collection.
-         * \param wd Data to insert.
-         * \return the index of the inserted (or found) wedge.
-         */
-        WedgeIndex add( const WedgeData& wd );
-
-        /**
-         * Delete the wedge \a idx from the collection.
-         * These deletion actually just remove one reference from an halfedge
-         * to the wedge data. If the wedge is still referenced by other
-         * halfedges, it will not be removed during garbageCollection.
-         */
-        void del( const WedgeIndex& idx );
-        WedgeIndex newReference( const WedgeIndex& idx );
-
-        /**
-         * Return the wedge data associated with \a idx
-         */
-        const WedgeData& getWedgeData( const WedgeIndex& idx ) const {
-            CORE_ASSERT( idx.isValid() && !m_data[idx].isDeleted(),
-                         "access to invalid or deleted wedge is prohibited" );
-
-            return m_data[idx].getWedgeData();
-        }
-
-        unsigned int getWedgeRefCount( const WedgeIndex& idx ) const {
-            CORE_ASSERT( idx.isValid(), "access to invalid or deleted wedge is prohibited" );
-            return m_data[idx].getRefCount();
-        }
-
-        /// Return the wedge (not the data) for in class manipulation.
-        /// client code should use getWedgeData only.
-        inline const Wedge& getWedge( const WedgeIndex& idx ) const;
-
-        /// \see TopologicalMesh::setWedgeData
-        inline void setWedgeData( const WedgeIndex& idx, const WedgeData& wd );
-
-        /// \see TopologicalMesh::setWedgeData<T>
-        template <typename T>
-        inline bool setWedgeData( const WedgeIndex& idx, const std::string& name, const T& value );
-        inline bool setWedgePosition( const WedgeIndex& idx, const Vector3& value );
-
-        // name is supposed to be unique within all attribs
-        // not checks are performed
-        template <typename T>
-        void addProp( const std::string& name );
-
-        /// return the offset ot apply to each wedgeindex so that
-        /// after garbageCollection all indices are valid and coherent.
-        std::vector<int> computeCleanupOffset() const;
-
-        /// remove unreferenced wedge, halfedges need to be reindexed.
-        inline void garbageCollection();
-
-        /// \todo removeDuplicateWedge
-        /// merge wedges with same data
-        /// return old->new index correspondance to update wedgeIndexPph
-        /// inline void removeDuplicateWedge
-        inline size_t size() const { return m_data.size(); }
-
-        /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
-        std::vector<std::string> m_floatAttribNames;
-        std::vector<std::string> m_vector2AttribNames;
-        std::vector<std::string> m_vector3AttribNames;
-        std::vector<std::string> m_vector4AttribNames;
-
-        /// attrib handle from the CoreMesh given at construction, if any.
-        std::vector<AttribHandle<float>> m_wedgeFloatAttribHandles;
-        std::vector<AttribHandle<Vector2>> m_wedgeVector2AttribHandles;
-        std::vector<AttribHandle<Vector3>> m_wedgeVector3AttribHandles;
-        std::vector<AttribHandle<Vector4>> m_wedgeVector4AttribHandles;
-
-        //      private:
-        AlignedStdVector<Wedge> m_data;
-    };
-
-    WedgeData interpolateWedgeAttributes( const WedgeData&, const WedgeData&, Scalar alpha );
-
-    template <typename T>
-    inline void copyAttribToWedgeData( const TriangleMesh& mesh,
-                                       unsigned int vindex,
-                                       const std::vector<AttribHandle<T>>& attrHandleVec,
-                                       VectorArray<T>* to );
-
-    inline void copyMeshToWedgeData( const TriangleMesh& mesh,
-                                     unsigned int vindex,
-                                     const std::vector<AttribHandle<float>>& wprop_float,
-                                     const std::vector<AttribHandle<Vector2>>& wprop_vec2,
-                                     const std::vector<AttribHandle<Vector3>>& wprop_vec3,
-                                     const std::vector<AttribHandle<Vector4>>& wprop_vec4,
-                                     TopologicalMesh::WedgeData* wd );
-
     template <typename T>
     using HandleAndValueVector =
         std::vector<std::pair<AttribHandle<T>, T>,
@@ -679,22 +364,19 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using PropPair = std::pair<AttribHandle<T>, OpenMesh::HPropHandleT<T>>;
 
     template <typename T>
-    [[deprecated]] inline void copyAttribToTopo( const TriangleMesh& triMesh,
-                                                 const std::vector<PropPair<T>>& vprop,
-                                                 TopologicalMesh::HalfedgeHandle heh,
-                                                 unsigned int vindex );
+    inline void copyAttribToTopo( const TriangleMesh& triMesh,
+                                  const std::vector<PropPair<T>>& vprop,
+                                  TopologicalMesh::HalfedgeHandle heh,
+                                  unsigned int vindex );
 
     template <typename T>
-    [[deprecated]] inline void addAttribPairToTopo( const TriangleMesh& triMesh,
-                                                    AttribManager::pointer_type attr,
-                                                    std::vector<PropPair<T>>& vprop,
-                                                    std::vector<OpenMesh::HPropHandleT<T>>& pph );
+    inline void addAttribPairToTopo( const TriangleMesh& triMesh,
+                                     AttribManager::pointer_type attr,
+                                     std::vector<PropPair<T>>& vprop,
+                                     std::vector<OpenMesh::HPropHandleT<T>>& pph );
 
     void split_copy( EdgeHandle _eh, VertexHandle _vh );
     void split( EdgeHandle _eh, VertexHandle _vh );
-
-    OpenMesh::HPropHandleT<WedgeIndex> m_wedgeIndexPph; /**< Halfedges' Wedge index */
-    WedgeCollection m_wedges;                           /**< Wedge data management */
 
     ///\todo to be deleted/updated
     OpenMesh::HPropHandleT<Index> m_inputTriangleMeshIndexPph;
@@ -707,11 +389,8 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     friend class TMOperations;
 };
 
-// heplers
-void printWedgesInfo( const TopologicalMesh& );
-
 } // namespace deprecated
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
-#include <Core/Geometry/TopologicalMesh.inl>
+#include <Core/Geometry/deprecated/TopologicalMesh.inl>
