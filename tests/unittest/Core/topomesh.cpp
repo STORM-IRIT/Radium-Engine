@@ -348,10 +348,11 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         auto newMesh         = topologicalMesh.toTriangleMesh();
         topologicalMesh.setWedgeData(
             TopologicalMesh::WedgeIndex {0}, "in_normal", Vector3( 0, 0, 0 ) );
-        auto newMesh3 = topologicalMesh.toTriangleMesh();
+        auto newMeshModified = topologicalMesh.toTriangleMesh();
 
         REQUIRE( isSameMesh( mesh, newMesh ) );
-        REQUIRE( !isSameMeshWedge( mesh, newMesh3 ) );
+        REQUIRE( isSameMeshWedge( mesh, newMesh ) );
+        REQUIRE( !isSameMeshWedge( mesh, newMeshModified ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
     }
 
@@ -364,8 +365,6 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         REQUIRE( topologicalMesh.checkIntegrity() );
     }
 
-    /// \todo update to wedges
-    /*
     SECTION( "Test normals" ) {
         auto mesh            = Ra::Core::Geometry::makeBox();
         auto topologicalMesh = TopologicalMesh( mesh );
@@ -382,7 +381,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
               v_it != topologicalMesh.vertices_end();
               ++v_it )
         {
-            topologicalMesh.propagate_normal_to_halfedges( *v_it );
+            topologicalMesh.propagate_normal_to_wedges( *v_it );
         }
 
         auto newMesh = topologicalMesh.toTriangleMesh();
@@ -400,7 +399,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         REQUIRE( check2 );
         REQUIRE( topologicalMesh.checkIntegrity() );
     }
-    */
+
     SECTION( "Test without normals" ) {
         VectorArray<Vector3> vertices = {
             {0_ra, 0_ra, 0_ra}, {0_ra, 1_ra, 0_ra}, {1_ra, 1_ra, 0_ra}, {1_ra, 0_ra, 0_ra}};
@@ -425,7 +424,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
                 auto n = topo1.normal( *vitr, *fitr );
                 REQUIRE( Math::areApproxEqual( n.squaredNorm(), 0_ra ) );
             }
-            topo1.propagate_normal_to_halfedges( *vitr );
+            topo1.propagate_normal_to_wedges( *vitr );
             REQUIRE( !topo1.has_halfedge_normals() );
             REQUIRE( !topo1.has_face_normals() );
         }
@@ -452,7 +451,7 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f 
     float f0 = topo.getWedgeData( *( topo.getVertexWedges( v0 ) ).begin() ).m_floatAttrib[0];
     auto p1  = topo.point( v1 );
     float f1 = topo.getWedgeData( *( topo.getVertexWedges( v1 ) ).begin() ).m_floatAttrib[0];
-    topo.splitEdgeWedge( eh, f );
+    topo.splitEdge( eh, f );
 
     // check validity
     REQUIRE( topo.is_valid_handle( he0 ) );
@@ -530,7 +529,7 @@ void test_poly() {
 
     TopologicalMesh topologicalMesh;
     topologicalMesh.initWithWedge( polyMesh );
-    auto newMesh = topologicalMesh.toPolyMeshFromWedges();
+    auto newMesh = topologicalMesh.toPolyMesh();
     REQUIRE( isSameMeshWedge( newMesh, polyMesh ) );
 }
 
@@ -790,39 +789,33 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
            "[Core][Core/Geometry][TopologicalMesh]" ) {
-    Ra::Core::Geometry::TopologicalMesh topologicalMesh;
-    Ra::Core::Geometry::TopologicalMesh::VertexHandle vhandle[3];
-    Ra::Core::Geometry::TopologicalMesh::FaceHandle fhandle;
+    TopologicalMesh topo;
+    TopologicalMesh::VertexHandle vhandle[3];
+    TopologicalMesh::FaceHandle fhandle;
 
-    vhandle[0] =
-        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( 1, -1, -1 ) );
-    vhandle[1] =
-        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( 1, -1, 1 ) );
-    vhandle[2] =
-        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( -1, -1, 1 ) );
+    vhandle[0] = topo.add_vertex( TopologicalMesh::Point( 1, -1, -1 ) );
+    vhandle[1] = topo.add_vertex( TopologicalMesh::Point( 1, -1, 1 ) );
+    vhandle[2] = topo.add_vertex( TopologicalMesh::Point( -1, -1, 1 ) );
 
-    std::vector<Ra::Core::Geometry::TopologicalMesh::VertexHandle> face_vhandles;
+    std::vector<TopologicalMesh::VertexHandle> face_vhandles;
     face_vhandles.push_back( vhandle[0] );
     face_vhandles.push_back( vhandle[1] );
     face_vhandles.push_back( vhandle[2] );
-    fhandle = topologicalMesh.add_face( face_vhandles );
+    fhandle = topo.add_face( face_vhandles );
 
     // newly created face have invalid wedges on halfedges
-    auto heh = topologicalMesh.halfedge_handle( fhandle );
-    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
-    heh = topologicalMesh.next_halfedge_handle( heh );
-    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
-    heh = topologicalMesh.next_halfedge_handle( heh );
-    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
+    auto heh = topo.halfedge_handle( fhandle );
+    REQUIRE( topo.property( topo.getWedgeIndexPph(), heh ).isInvalid() );
+    heh = topo.next_halfedge_handle( heh );
+    REQUIRE( topo.property( topo.getWedgeIndexPph(), heh ).isInvalid() );
+    heh = topo.next_halfedge_handle( heh );
+    REQUIRE( topo.property( topo.getWedgeIndexPph(), heh ).isInvalid() );
+    REQUIRE( topo.n_faces() == 1 );
 
-    std::cout << "faces: " << topologicalMesh.n_faces() << std::endl;
-    REQUIRE( topologicalMesh.n_faces() == 1 );
-
-    topologicalMesh.request_face_status();
-    topologicalMesh.delete_face( fhandle, false );
-    topologicalMesh.garbage_collection();
-    std::cout << "faces: " << topologicalMesh.n_faces() << std::endl;
-    REQUIRE( topologicalMesh.n_faces() == 0 );
+    topo.request_face_status();
+    topo.delete_face( fhandle, false );
+    topo.garbage_collection();
+    REQUIRE( topo.n_faces() == 0 );
 }
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][TopologicalMesh]" ) {
@@ -865,4 +858,107 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][T
     // after merge, each vertex has only on wedge
     REQUIRE( wedgesIndices.size() == 8 );
     REQUIRE( topo.checkIntegrity() );
+}
+
+template <typename T>
+void testAttrib( const IndexedGeometry<T>& mesh, const std::string& name, float value ) {
+
+    auto attribHandle = mesh.template getAttribHandle<float>( name );
+    REQUIRE( attribHandle.idx().isValid() );
+    auto& attrib = mesh.getAttrib( attribHandle );
+    for ( const auto& v : attrib.data() )
+    {
+        REQUIRE( v == value );
+    }
+}
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][TopologicalMesh]" ) {
+    TopologicalMesh topo {};
+    TopologicalMesh::VertexHandle vhandle[4];
+    TopologicalMesh::FaceHandle fhandle;
+
+    vhandle[0] = topo.add_vertex( TopologicalMesh::Point( -1, -1, 1 ) );
+    vhandle[1] = topo.add_vertex( TopologicalMesh::Point( 1, -1, 1 ) );
+    vhandle[2] = topo.add_vertex( TopologicalMesh::Point( 1, 1, 1 ) );
+    vhandle[3] = topo.add_vertex( TopologicalMesh::Point( -1, 1, 1 ) );
+
+    std::vector<TopologicalMesh::VertexHandle> face_vhandles;
+    face_vhandles.push_back( vhandle[0] );
+    face_vhandles.push_back( vhandle[1] );
+    face_vhandles.push_back( vhandle[2] );
+    face_vhandles.push_back( vhandle[3] );
+    fhandle = topo.add_face( face_vhandles );
+
+    REQUIRE( topo.n_faces() == 1 );
+
+    auto index1 = topo.addWedgeAttrib<float>( "test1", 1.f );
+    REQUIRE( index1 == 0 );
+    REQUIRE( topo.getFloatAttribNames().size() == 1 );
+    REQUIRE( topo.getFloatAttribNames()[0] == "test1" );
+
+    for ( const auto& he : topo.halfedges() )
+    {
+        if ( topo.is_boundary( he ) ) continue;
+
+        auto wd = topo.newWedgeData();
+
+        // need to set position and vertex handle for new wedges
+        wd.m_vertexHandle = topo.to_vertex_handle( he );
+        wd.m_position     = topo.point( wd.m_vertexHandle );
+
+        REQUIRE( wd.m_floatAttrib.size() == 1 );
+        wd.m_floatAttrib[index1] = 2.f;
+        topo.replaceWedge( he, wd );
+    }
+    REQUIRE( topo.checkIntegrity() );
+
+    auto index2 = topo.addWedgeAttrib<float>( "test2", 2.f );
+    REQUIRE( index2 == 1 );
+    for ( const auto& he : topo.halfedges() )
+    {
+        if ( topo.is_boundary( he ) ) continue;
+        // our we require the wedge to be already set for this he
+        auto wd = topo.newWedgeData( he );
+
+        REQUIRE( wd.m_vertexHandle == topo.to_vertex_handle( he ) );
+        REQUIRE( wd.m_position == topo.point( wd.m_vertexHandle ) );
+
+        REQUIRE( wd.m_floatAttrib.size() == 2 );
+        wd.m_floatAttrib[index2] = 3.f;
+        topo.replaceWedge( he, wd );
+    }
+
+    auto index3 = topo.addWedgeAttrib<float>( "test3", 3.f );
+    REQUIRE( index3 == 2 );
+    for ( const auto& he : topo.halfedges() )
+    {
+        if ( topo.is_boundary( he ) ) continue;
+
+        auto wedgeIndex = topo.getWedgeIndex( he );
+        REQUIRE( topo.getWedgeRefCount( wedgeIndex ) == 1 );
+        auto wedgeData = topo.getWedgeData( wedgeIndex );
+
+        REQUIRE( wedgeData.m_floatAttrib[index1] == 0.f );
+        REQUIRE( wedgeData.m_floatAttrib[index2] == 3.f );
+        REQUIRE( wedgeData.m_floatAttrib[index3] == 3.f );
+    }
+
+    auto poly = topo.toPolyMesh();
+    REQUIRE( poly.vertices().size() == 4 );
+    REQUIRE( poly.getIndices().size() == 1 );
+    REQUIRE( poly.getIndices()[0].size() == 4 );
+    testAttrib( poly, "test1", 0.f );
+    testAttrib( poly, "test2", 3.f );
+    testAttrib( poly, "test3", 3.f );
+
+    topo.triangulate();
+    topo.checkIntegrity();
+    auto tri = topo.toTriangleMesh();
+    REQUIRE( tri.vertices().size() == 4 );
+    REQUIRE( tri.getIndices().size() == 2 );
+    REQUIRE( tri.getIndices()[0].size() == 3 );
+    REQUIRE( tri.getIndices()[1].size() == 3 );
+    testAttrib( tri, "test1", 0.f );
+    testAttrib( tri, "test2", 3.f );
+    testAttrib( tri, "test3", 3.f );
 }
