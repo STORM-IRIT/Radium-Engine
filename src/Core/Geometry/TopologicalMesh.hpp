@@ -64,6 +64,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     using WedgeIndex = Index;
 
     /**
+     * Construct an empty topological mesh, only initialize mandatory properties.
+     */
+    explicit TopologicalMesh();
+
+    /**
+     * \brief Convenience constructor
+     * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
+     */
+    template <typename MeshIndex>
+    explicit TopologicalMesh( const Ra::Core::Geometry::IndexedGeometry<MeshIndex>& mesh );
+
+    /**
      * Construct a topological mesh from a triangle mesh.
      * This operation merges vertex with same position, but keeps vertex
      * attributes on halfedges, so that TriangleMesh vertices with the same 3D
@@ -75,26 +87,15 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * \snippet Core/Geometry/TopologicalMesh.cpp Default command implementation
      *
      */
-    template <typename NonManifoldFaceCommand>
-    explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh,
+    template <typename MeshIndex, typename NonManifoldFaceCommand>
+    explicit TopologicalMesh( const Ra::Core::Geometry::IndexedGeometry<MeshIndex>& mesh,
                               NonManifoldFaceCommand command );
-
-    /**
-     * \brief Convenience constructor
-     * \see TopologicalMesh( const Ra::Core::Geometry::TriangleMesh&, NonManifoldFaceCommand)
-     */
-    explicit TopologicalMesh( const Ra::Core::Geometry::TriangleMesh& triMesh );
 
     template <typename T>
     void initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& mesh );
     template <typename T, typename NonManifoldFaceCommand>
-    void initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& triMesh,
+    void initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& mesh,
                         NonManifoldFaceCommand command );
-
-    /**
-     * Construct an empty topological mesh, only init mandatory properties.
-     */
-    explicit TopologicalMesh();
 
     /**
      * Return a triangleMesh from the topological mesh.
@@ -306,6 +307,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     /// Remove deleted element from the mesh, including wedges.
     void garbage_collection();
+    inline void clean() {
+        base::clean();
+        m_wedges.clean();
+    }
 
     inline const std::vector<std::string>& getVec4AttribNames() const;
     inline const std::vector<std::string>& getVec3AttribNames() const;
@@ -492,6 +497,18 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         /// return old->new index correspondance to update wedgeIndexPph
         /// inline void removeDuplicateWedge
         inline size_t size() const { return m_data.size(); }
+
+        inline void clean() {
+            m_data.clear();
+            m_floatAttribNames.clear();
+            m_vector2AttribNames.clear();
+            m_vector3AttribNames.clear();
+            m_vector4AttribNames.clear();
+            m_wedgeFloatAttribHandles.clear();
+            m_wedgeVector2AttribHandles.clear();
+            m_wedgeVector3AttribHandles.clear();
+            m_wedgeVector4AttribHandles.clear();
+        }
 
         /// attrib names associated to vertex/wedges, getted from CoreMesh, if any,
         std::vector<std::string> m_floatAttribNames;

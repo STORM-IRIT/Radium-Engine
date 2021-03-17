@@ -126,10 +126,6 @@ void printWedgesInfo( const Ra::Core::Geometry::TopologicalMesh& topo ) {
         LOG( Utils::logINFO ) << wedgeInfo( topo, topo.property( topo.getWedgeIndexPph(), *itr ) );
     }
 }
-TopologicalMesh::TopologicalMesh( const TriangleMesh& triMesh ) :
-    TopologicalMesh(
-        triMesh,
-        DefaultNonManifoldFaceCommand<TriangleMesh::IndexType>( "[default ctor (props)]" ) ) {}
 
 TopologicalMesh::TopologicalMesh() {
     add_property( m_inputTriangleMeshIndexPph );
