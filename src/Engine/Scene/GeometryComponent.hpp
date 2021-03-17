@@ -58,8 +58,7 @@ class SurfaceMeshComponent : public GeometryComponent
     using base = GeometryComponent;
 
   public:
-    using RenderMeshType =
-        typename Data::SurfaceMeshComponentInternal::RenderMeshHelper<CoreMeshType>::Type;
+    using RenderMeshType = typename Data::RenderMeshType::getType<CoreMeshType>::Type;
 
     inline SurfaceMeshComponent( const std::string& name,
                                  Entity* entity,
