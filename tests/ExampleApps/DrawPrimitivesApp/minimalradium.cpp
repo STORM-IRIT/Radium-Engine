@@ -652,11 +652,14 @@ void MinimalComponent::initialize() {
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
         updateCellCorner( cellCorner, cellSize, nCellX, nCellY );
 
-        Asset::FileData* data;
+        Asset::FileData* data {nullptr};
+
+#ifdef IO_USE_ASSIMP
         auto l               = IO::AssimpFileLoader();
         auto rp              = Resources::getResourcesPath();
         std::string filename = *rp + "/Assets/radium-logo.dae";
         data                 = l.loadFile( filename );
+#endif
         if ( data != nullptr )
         {
             auto geomData = data->getGeometryData();
