@@ -1,6 +1,7 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
 #include <Core/Asset/FileData.hpp>
+#include <Core/Utils/Attribs.hpp>
 
 #include <tinyply.h>
 
@@ -195,6 +196,19 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         }
     };
 
+    auto copyScalarBufferToGeometry = []( const std::shared_ptr<tinyply::PlyData>& buffer,
+                                          Ra::Core::Vector1Array& container ) {
+        if ( buffer && buffer->count != 0 )
+        {
+            auto floatBuffer = reinterpret_cast<float*>( buffer->buffer.get() );
+            container.reserve( buffer->count );
+            for ( size_t i = 0; i < buffer->count; ++i )
+            {
+                container.emplace_back( floatBuffer[i] );
+            }
+        }
+    };
+
     copyBufferToGeometry( vertBuffer, geometry->getVertices() );
     copyBufferToGeometry( normalBuffer, geometry->getNormals() );
 
@@ -226,6 +240,34 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
                                         Scalar( colors[2] ) / 255_ra,
                                         1_ra );
             }
+        }
+    }
+
+    //// Save other attributes
+    /// \todo should be removed when all attributes are stored as Attribs in GeometryData
+    const std::set<std::string> usedAttributes {
+        "x", "y", "z", "nx", "ny", "nz", "alpha", "red", "green", "blue"};
+    auto& attribManager = geometry->getAttribManager();
+    for ( const auto& e : file.get_elements() )
+    {
+        if ( e.name == "vertex" )
+        {
+            for ( const auto& p : e.properties )
+            {
+                bool exists = usedAttributes.find( p.name ) != usedAttributes.end();
+                if ( !exists )
+                {
+                    auto buffer {initBuffer( "vertex", {p.name} )};
+                    LOG( logINFO ) << "[TinyPLY] Adding custom vertex attribute " << p.name;
+
+                    auto handle     = attribManager.addAttrib<Scalar>( p.name );
+                    auto& attrib    = attribManager.getAttrib( handle );
+                    auto& container = attrib.getDataWithLock();
+                    copyScalarBufferToGeometry( buffer, container );
+                    attrib.unlock();
+                }
+            }
+            break;
         }
     }
 
