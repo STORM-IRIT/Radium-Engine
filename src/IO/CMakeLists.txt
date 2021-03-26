@@ -22,7 +22,7 @@ add_library(
 populateLocalDependencies(NAME "assimp_DIR")
 populateLocalDependencies(NAME "tinyply_DIR")
 
-addExternalFolder( IO ${CMAKE_SOURCE_DIR}/external/IO
+addExternalFolder( IO ${RADIUM_EXTERNAL_DIR}/IO
     -DRADIUM_IO_ASSIMP=${RADIUM_IO_ASSIMP}
     -DRADIUM_IO_TINYPLY=${RADIUM_IO_TINYPLY}  ${LocalDependencies})
 
