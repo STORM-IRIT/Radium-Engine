@@ -7,6 +7,7 @@
 #include <Core/Containers/VectorArray.hpp>
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
+#include <Core/Utils/Attribs.hpp>
 #include <Core/Utils/Index.hpp>
 
 #include <Core/Asset/AssetData.hpp>
@@ -245,6 +246,10 @@ class RA_CORE_API GeometryData : public AssetData
     /// Print stast info to the Debug output.
     void displayInfo() const;
 
+    inline Utils::AttribManager& getAttribManager();
+
+    inline const Utils::AttribManager& getAttribManager() const;
+
   protected:
     /// The transformation of the object.
     Transform m_frame;
@@ -265,22 +270,26 @@ class RA_CORE_API GeometryData : public AssetData
     VectorNuArray m_polyhedron;
 
     /// The list of vertex normals.
-    Vector3Array m_normal;
+    [[deprecated]] Vector3Array m_normal;
 
     /// The list of vertex tangent vectors.
-    Vector3Array m_tangent;
+    [[deprecated]] Vector3Array m_tangent;
 
     /// The list of vertex bitangent vectors.
-    Vector3Array m_bitangent;
+    [[deprecated]] Vector3Array m_bitangent;
 
     /// The list of vertex texture coordinates.
-    Vector3Array m_texCoord;
+    [[deprecated]] Vector3Array m_texCoord;
 
     /// The list of vertex colors.
-    ColorArray m_color;
+    [[deprecated]] ColorArray m_color;
 
     /// The MaterialData for the object.
     std::shared_ptr<MaterialData> m_material;
+
+    /// Named attributes
+    /// \todo Move all built-in attributes to m_vertexAttribs
+    Utils::AttribManager m_vertexAttribs;
 };
 
 } // namespace Asset
