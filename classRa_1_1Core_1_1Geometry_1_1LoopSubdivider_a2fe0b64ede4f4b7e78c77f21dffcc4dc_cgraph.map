@@ -1,0 +1,5 @@
+<map id="Ra::Core::Geometry::LoopSubdivider::prepare" name="Ra::Core::Geometry::LoopSubdivider::prepare">
+<area shape="rect" id="node1" title=" " alt="" coords="5,53,193,94"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#aaba0897eaabd141a25000b5f8efeb14c" title=" " alt="" coords="241,5,460,61"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1LoopSubdivider.html#add8c5d70fca386c6ca8d57b6ba14c756" title="Pre&#45;compute weights." alt="" coords="271,85,430,141"/>
+</map>

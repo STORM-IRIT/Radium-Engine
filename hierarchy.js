@@ -105,8 +105,9 @@ var hierarchy =
       [ "Ra::IO::AssimpLightDataLoader", "classRa_1_1IO_1_1AssimpLightDataLoader.html", null ]
     ] ],
     [ "Ra::Engine::Rendering::DebugRender", "classRa_1_1Engine_1_1Rendering_1_1DebugRender.html", null ],
-    [ "Ra::Core::Geometry::DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html", null ],
+    [ "Ra::Core::Geometry::deprecated::DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1DefaultNonManifoldFaceCommand.html", null ],
     [ "DefaultTraits", null, [
+      [ "Ra::Core::Geometry::deprecated::TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMeshTraits.html", null ],
       [ "Ra::Core::Geometry::TopologicalMeshTraits", "structRa_1_1Core_1_1Geometry_1_1TopologicalMeshTraits.html", null ]
     ] ],
     [ "Ra::Core::Asset::LightData::DirLight", "structRa_1_1Core_1_1Asset_1_1LightData_1_1DirLight.html", null ],
@@ -173,6 +174,7 @@ var hierarchy =
       [ "Ra::Core::Animation::Skeleton", "classRa_1_1Core_1_1Animation_1_1Skeleton.html", null ]
     ] ],
     [ "Ra::Core::Asset::HandleComponentData", "structRa_1_1Core_1_1Asset_1_1HandleComponentData.html", null ],
+    [ "Ra::Core::Geometry::hash_vec", "structRa_1_1Core_1_1Geometry_1_1hash__vec.html", null ],
     [ "Ra::Core::Utils::Index", "classRa_1_1Core_1_1Utils_1_1Index.html", null ],
     [ "Ra::Core::Utils::IndexedObject", "classRa_1_1Core_1_1Utils_1_1IndexedObject.html", [
       [ "Ra::Engine::Rendering::RenderObject", "classRa_1_1Engine_1_1Rendering_1_1RenderObject.html", null ],
@@ -260,6 +262,7 @@ var hierarchy =
     [ "Ra::Core::Geometry::PointToTriangleOutput", "structRa_1_1Core_1_1Geometry_1_1PointToTriangleOutput.html", null ],
     [ "Ra::Core::Geometry::PolyLine", "classRa_1_1Core_1_1Geometry_1_1PolyLine.html", null ],
     [ "PolyMesh_ArrayKernelT", null, [
+      [ "Ra::Core::Geometry::deprecated::TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html", null ],
       [ "Ra::Core::Geometry::TopologicalMesh", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html", null ]
     ] ],
     [ "QAbstractItemModel", "classQAbstractItemModel.html", [
@@ -365,8 +368,8 @@ var hierarchy =
     [ "Ra::Engine::Data::Texture", "classRa_1_1Engine_1_1Data_1_1Texture.html", null ],
     [ "Ra::Engine::Data::TextureManager", "classRa_1_1Engine_1_1Data_1_1TextureManager.html", null ],
     [ "Ra::Engine::Data::TextureParameters", "structRa_1_1Engine_1_1Data_1_1TextureParameters.html", null ],
-    [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::Core::TaskQueue::TimerData", "structRa_1_1Core_1_1TaskQueue_1_1TimerData.html", null ],
+    [ "Ra::Engine::Rendering::Renderer::TimerData", "structRa_1_1Engine_1_1Rendering_1_1Renderer_1_1TimerData.html", null ],
     [ "Ra::Gui::TransformEditor", "classRa_1_1Gui_1_1TransformEditor.html", [
       [ "Ra::Gui::GizmoManager", "classRa_1_1Gui_1_1GizmoManager.html", null ]
     ] ],

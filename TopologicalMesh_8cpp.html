@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c7d25d082cc5fdf3d0f2baae39b1d4e2ffcab61f</span>
+   &#160;<span id="projectnumber">e23eb8ce59b9770b156ba1598738547a2946ac73</span>
    </div>
   </td>
  </tr>
@@ -91,9 +91,7 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp.html',''); initRe
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">TopologicalMesh.cpp File Reference</div>  </div>
@@ -103,7 +101,6 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp.html',''); initRe
 <code>#include &lt;<a class="el" href="RaCore_8hpp_source.html">Core/RaCore.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="Log_8hpp_source.html">Core/Utils/Log.hpp</a>&gt;</code><br />
 <code>#include &lt;Eigen/StdVector&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
@@ -117,12 +114,6 @@ $(document).ready(function(){initNavTree('TopologicalMesh_8cpp.html',''); initRe
 </div>
 <p><a href="TopologicalMesh_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html">Ra::Core::Geometry::DefaultNonManifoldFaceCommand</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Default command implementation]  <a href="structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceRa"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa.html">Ra</a></td></tr>
@@ -133,33 +124,18 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceRa_1_1Core_1_1Geometry"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html">Ra::Core::Geometry</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a4bf4612f3c19534c99e28e70c4c243e3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4bf4612f3c19534c99e28e70c4c243e3"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a4bf4612f3c19534c99e28e70c4c243e3">Ra::Core::Geometry::HandleAndValueVector</a> = std::vector&lt; std::pair&lt; AttribHandle&lt; T &gt;, T &gt;, Eigen::aligned_allocator&lt; std::pair&lt; AttribHandle&lt; T &gt;, T &gt; &gt;&gt;</td></tr>
-<tr class="separator:a4bf4612f3c19534c99e28e70c4c243e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a263765e5ec18c5e0d28c42049285b281"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a263765e5ec18c5e0d28c42049285b281">Ra::Core::Geometry::wedgeInfo</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a> &amp;topo, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a52ccf6aad0cf731177d8206f0a3c3fed">Ra::Core::Geometry::TopologicalMesh::WedgeIndex</a> &amp;idx)</td></tr>
+<tr class="memitem:a263765e5ec18c5e0d28c42049285b281"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a263765e5ec18c5e0d28c42049285b281">Ra::Core::Geometry::wedgeInfo</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a> &amp;topo, const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a904a07c44d020f2f0a2ac6b854532aa7">Ra::Core::Geometry::TopologicalMesh::WedgeIndex</a> &amp;idx)</td></tr>
 <tr class="separator:a263765e5ec18c5e0d28c42049285b281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2cdf253d424b226f56cd74a7f1a3ced"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#ac2cdf253d424b226f56cd74a7f1a3ced">Ra::Core::Geometry::printWedgesInfo</a> (const <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html">Ra::Core::Geometry::TopologicalMesh</a> &amp;topo)</td></tr>
 <tr class="separator:ac2cdf253d424b226f56cd74a7f1a3ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac14e0a9688a0277102ca25c8088d6638"><td class="memTemplParams" colspan="2">template&lt;typename P , typename T &gt; </td></tr>
-<tr class="memitem:ac14e0a9688a0277102ca25c8088d6638"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#ac14e0a9688a0277102ca25c8088d6638">Ra::Core::Geometry::addAttribPairToCore</a> (TriangleMesh &amp;triMesh, const TopologicalMesh *topoMesh, OpenMesh::HPropHandleT&lt; T &gt; oh, std::vector&lt; P &gt; &amp;vprop)</td></tr>
-<tr class="separator:ac14e0a9688a0277102ca25c8088d6638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff21b894d323f5384399d13c13f3def7"><td class="memTemplParams" colspan="2">template&lt;typename P , typename T &gt; </td></tr>
-<tr class="memitem:aff21b894d323f5384399d13c13f3def7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#aff21b894d323f5384399d13c13f3def7">Ra::Core::Geometry::copyAttribToCoreVertex</a> (HandleAndValueVector&lt; T &gt; &amp;data, const TopologicalMesh *topoMesh, const std::vector&lt; P &gt; &amp;vprop, TopologicalMesh::HalfedgeHandle heh)</td></tr>
-<tr class="separator:aff21b894d323f5384399d13c13f3def7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b7df5286d950cbf7c9f75d90444623f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5b7df5286d950cbf7c9f75d90444623f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a5b7df5286d950cbf7c9f75d90444623f">Ra::Core::Geometry::copyAttribToCore</a> (TriangleMesh &amp;triMesh, const HandleAndValueVector&lt; T &gt; &amp;data)</td></tr>
-<tr class="separator:a5b7df5286d950cbf7c9f75d90444623f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a74f2221e7c53c4927ef7da96cf5fc884">Ra::Core::Geometry::copyWedgeDataToAttribContainer</a> (<a class="el" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector</a>&lt; typename Attrib&lt; T &gt;::Container &gt; &amp;c, const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;wd)</td></tr>
 <tr class="separator:a74f2221e7c53c4927ef7da96cf5fc884"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75a8f2a2c6014095b3499bac5651899b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a75a8f2a2c6014095b3499bac5651899b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a75a8f2a2c6014095b3499bac5651899b">Ra::Core::Geometry::moveContainerToMesh</a> (TriangleMesh &amp;out, const std::vector&lt; std::string &gt; &amp;names, <a class="el" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector</a>&lt; typename Attrib&lt; T &gt;::Container &gt; &amp;wedgeAttribData)</td></tr>
-<tr class="separator:a75a8f2a2c6014095b3499bac5651899b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67dd170fa636a6aaa6efecc3e359966d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename U &gt; </td></tr>
+<tr class="memitem:a67dd170fa636a6aaa6efecc3e359966d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a67dd170fa636a6aaa6efecc3e359966d">Ra::Core::Geometry::moveContainerToMesh</a> (IndexedGeometry&lt; U &gt; &amp;out, const std::vector&lt; std::string &gt; &amp;names, <a class="el" href="structRa_1_1Core_1_1AlignedStdVector.html">AlignedStdVector</a>&lt; typename Attrib&lt; T &gt;::Container &gt; &amp;wedgeAttribData)</td></tr>
+<tr class="separator:a67dd170fa636a6aaa6efecc3e359966d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17110e2c83f72420d5b07e308f7f321e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a17110e2c83f72420d5b07e308f7f321e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Core_1_1Geometry.html#a17110e2c83f72420d5b07e308f7f321e">Ra::Core::Geometry::interpolate</a> (const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;in1, const <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;in2, <a class="el" href="classRa_1_1Core_1_1VectorArray.html">VectorArray</a>&lt; T &gt; &amp;out, const <a class="el" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> alpha)</td></tr>
 <tr class="separator:a17110e2c83f72420d5b07e308f7f321e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,7 +146,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="TopologicalMesh_8cpp.html">TopologicalMesh.cpp</a></li>
-    <li class="footer">Generated on Fri Mar 26 2021 12:57:36 for Radium Engine by
+    <li class="footer">Generated on Tue Mar 30 2021 08:03:26 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

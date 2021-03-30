@@ -1,4 +1,5 @@
 <map id="Ra::Gui::Viewer::initializeGL" name="Ra::Gui::Viewer::initializeGL">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,208,39"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,46,208,73"/>
 <area shape="rect" id="node2" href="$classRa_1_1Core_1_1Utils_1_1ColorBase.html#a7f0a6768d3dff7343b503929b142fc22" title=" " alt="" coords="256,5,445,47"/>
+<area shape="rect" id="node3" href="$namespaceRa_1_1Core_1_1Geometry.html#aee60cb09fb64ad0d55bb9af3d9707b48" title=" " alt="" coords="275,71,426,112"/>
 </map>

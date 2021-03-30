@@ -1,3 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structRa_1_1FrameTimerData.html" title="This struct holds all timings for one frame of the engine." alt="" coords="5,5,163,32"/>
+<area shape="rect" id="node1" href="$classRa_1_1Engine_1_1Scene_1_1System.html" title=" " alt="" coords="5,71,152,112"/>
+<area shape="rect" id="node2" href="$classRa_1_1Engine_1_1Scene_1_1CameraManager.html" title=" " alt="" coords="200,5,347,47"/>
+<area shape="rect" id="node4" href="$classRa_1_1Engine_1_1Scene_1_1GeometrySystem.html" title=" " alt="" coords="200,71,347,112"/>
+<area shape="rect" id="node5" href="$classRa_1_1Engine_1_1Scene_1_1LightManager.html" title=" " alt="" coords="200,136,347,177"/>
+<area shape="rect" id="node3" href="$classRa_1_1Engine_1_1Scene_1_1DefaultCameraManager.html" title="DefaultCameraManager. A simple Camera Manager with a list of Cameras." alt="" coords="395,5,573,47"/>
+<area shape="rect" id="node6" href="$classRa_1_1Engine_1_1Scene_1_1DefaultLightManager.html" title="DefaultLightManager. A simple Light Manager with a list of lights." alt="" coords="405,136,563,177"/>
 </map>

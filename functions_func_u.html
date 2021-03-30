@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c7d25d082cc5fdf3d0f2baae39b1d4e2ffcab61f</span>
+   &#160;<span id="projectnumber">e23eb8ce59b9770b156ba1598738547a2946ac73</span>
    </div>
   </td>
  </tr>
@@ -147,6 +147,7 @@ $(document).ready(function(){initNavTree('functions_func_u.html',''); initResiza
 <li>update()
 : <a class="el" href="classRa_1_1Core_1_1Containers_1_1BVH.html#a710de97bf27b91b71117966774969400">Ra::Core::Containers::BVH&lt; T &gt;</a>
 , <a class="el" href="classRa_1_1Core_1_1Geometry_1_1PolyLine.html#a947ec2636d3ec6f98828787645f05f05">Ra::Core::Geometry::PolyLine</a>
+, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#ab28c489a110572c2de73491ea8310699">Ra::Core::Geometry::TopologicalMesh</a>
 , <a class="el" href="classRa_1_1Gui_1_1Viewer.html#a48210627a598068db2492fc0aad99520">Ra::Gui::Viewer</a>
 </li>
 <li>updateData()
@@ -179,6 +180,9 @@ $(document).ready(function(){initNavTree('functions_func_u.html',''); initResiza
 <li>updateKeyFrame()
 : <a class="el" href="classRa_1_1Core_1_1Animation_1_1KeyFramedValueController.html#ab4b33f28d799a1ebf782394278789d0a">Ra::Core::Animation::KeyFramedValueController</a>
 </li>
+<li>updateNormals()
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#af6bbcf4207feca6844f6776de4e7f022">Ra::Core::Geometry::TopologicalMesh</a>
+</li>
 <li>updateParameters()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1Texture.html#ae88bb2f346291aaba4cbaebf4278095b">Ra::Engine::Data::Texture</a>
 </li>
@@ -190,6 +194,9 @@ $(document).ready(function(){initNavTree('functions_func_u.html',''); initResiza
 </li>
 <li>updatePickingRenderMode()
 : <a class="el" href="classRa_1_1Engine_1_1Data_1_1AttribArrayDisplayable.html#a4ba75a89f6c80c147b1bca040928ef6a">Ra::Engine::Data::AttribArrayDisplayable</a>
+</li>
+<li>updatePositions()
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a3239124dc871989c12902db381cb1a0d">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>updateProjMatrix()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1Camera.html#ac7669c1535dcde660198ad790d21bacd">Ra::Engine::Scene::Camera</a>
@@ -219,7 +226,11 @@ $(document).ready(function(){initNavTree('functions_func_u.html',''); initResiza
 , <a class="el" href="classRa_1_1Gui_1_1TranslateGizmo.html#a5a100607ad14934626008ba6222a4563">Ra::Gui::TranslateGizmo</a>
 </li>
 <li>updateTriangleMesh()
-: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a33f49b5e6bcec6a87ec7fdbff9caa457">Ra::Core::Geometry::TopologicalMesh</a>
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1deprecated_1_1TopologicalMesh.html#a8efc2ea2c49a51aa1210d92523dbaf61">Ra::Core::Geometry::deprecated::TopologicalMesh</a>
+, <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a33f49b5e6bcec6a87ec7fdbff9caa457">Ra::Core::Geometry::TopologicalMesh</a>
+</li>
+<li>updateTriangleMeshNormals()
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#afac801a579f45b7bc5c384c3c5b57c1f">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>updateUi()
 : <a class="el" href="classRa_1_1Gui_1_1MainWindowInterface.html#aad1fed51c3a22bbaeb0da5ea5ea693a1">Ra::Gui::MainWindowInterface</a>
@@ -228,6 +239,9 @@ $(document).ready(function(){initNavTree('functions_func_u.html',''); initResiza
 <li>updateValues()
 : <a class="el" href="classRa_1_1Gui_1_1GizmoManager.html#a2733d1f2a992c50e41b93790b5323fe1">Ra::Gui::GizmoManager</a>
 , <a class="el" href="classRa_1_1Gui_1_1TransformEditor.html#a85e5418bf64fad02ae75592d89bf91fe">Ra::Gui::TransformEditor</a>
+</li>
+<li>updateWedgeNormals()
+: <a class="el" href="classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a1346f320ffc6cd97938935f6202f6b98">Ra::Core::Geometry::TopologicalMesh</a>
 </li>
 <li>upload()
 : <a class="el" href="classRa_1_1Engine_1_1Scene_1_1DefaultLightStorage.html#a24a828442cf28683dd6908efd0c13474">Ra::Engine::Scene::DefaultLightStorage</a>
@@ -239,7 +253,7 @@ $(document).ready(function(){initNavTree('functions_func_u.html',''); initResiza
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Mar 26 2021 12:57:38 for Radium Engine by
+    <li class="footer">Generated on Tue Mar 30 2021 08:03:27 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

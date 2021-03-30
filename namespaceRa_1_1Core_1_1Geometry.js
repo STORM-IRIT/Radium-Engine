@@ -1,5 +1,6 @@
 var namespaceRa_1_1Core_1_1Geometry =
 [
+    [ "deprecated", "namespaceRa_1_1Core_1_1Geometry_1_1deprecated.html", "namespaceRa_1_1Core_1_1Geometry_1_1deprecated" ],
     [ "AbstractDiscreteVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractDiscreteVolume" ],
     [ "AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry" ],
     [ "AbstractVolume", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume.html", "classRa_1_1Core_1_1Geometry_1_1AbstractVolume" ],
@@ -7,8 +8,8 @@ var namespaceRa_1_1Core_1_1Geometry =
     [ "CatmullClarkSubdivider", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider.html", "classRa_1_1Core_1_1Geometry_1_1CatmullClarkSubdivider" ],
     [ "CubicBezier", "classRa_1_1Core_1_1Geometry_1_1CubicBezier.html", "classRa_1_1Core_1_1Geometry_1_1CubicBezier" ],
     [ "Curve2D", "classRa_1_1Core_1_1Geometry_1_1Curve2D.html", "classRa_1_1Core_1_1Geometry_1_1Curve2D" ],
-    [ "DefaultNonManifoldFaceCommand", "structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand.html", "structRa_1_1Core_1_1Geometry_1_1DefaultNonManifoldFaceCommand" ],
     [ "Frustum", "structRa_1_1Core_1_1Geometry_1_1Frustum.html", "structRa_1_1Core_1_1Geometry_1_1Frustum" ],
+    [ "hash_vec", "structRa_1_1Core_1_1Geometry_1_1hash__vec.html", "structRa_1_1Core_1_1Geometry_1_1hash__vec" ],
     [ "IndexedGeometry", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html", "classRa_1_1Core_1_1Geometry_1_1IndexedGeometry" ],
     [ "IndexedPointCloud", "classRa_1_1Core_1_1Geometry_1_1IndexedPointCloud.html", null ],
     [ "Line", "classRa_1_1Core_1_1Geometry_1_1Line.html", "classRa_1_1Core_1_1Geometry_1_1Line" ],

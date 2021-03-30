@@ -1,5 +1,6 @@
 var dir_cb2b5dfd43482fb277f6333d539f1f06 =
 [
+    [ "deprecated", "dir_e5ae3a9d3a26873eff00da258d44b53c.html", "dir_e5ae3a9d3a26873eff00da258d44b53c" ],
     [ "AbstractGeometry.hpp", "AbstractGeometry_8hpp.html", [
       [ "AbstractGeometry", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry.html", "structRa_1_1Core_1_1Geometry_1_1AbstractGeometry" ]
     ] ],

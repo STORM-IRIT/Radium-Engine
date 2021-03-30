@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">c7d25d082cc5fdf3d0f2baae39b1d4e2ffcab61f</span>
+   &#160;<span id="projectnumber">e23eb8ce59b9770b156ba1598738547a2946ac73</span>
    </div>
   </td>
  </tr>
@@ -508,7 +508,7 @@ $(document).ready(function(){initNavTree('Viewer_8cpp_source.html',''); initResi
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;}</div>
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
 <div class="line"><a name="l00414"></a><span class="lineno"><a class="line" href="classRa_1_1Gui_1_1Viewer.html#a1383e1d903dd8397c36287f545a7ce87">  414</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classRa_1_1Gui_1_1Viewer.html#a1383e1d903dd8397c36287f545a7ce87">Gui::Viewer::initializeGL</a>() {</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    globjects::init( getProcAddress );</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aee60cb09fb64ad0d55bb9af3d9707b48">globjects::init</a>( getProcAddress );</div>
 <div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;*** Radium Engine OpenGL context ***&quot;</span>;</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <a class="code" href="Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff">LOG</a>( <a class="code" href="namespaceRa_1_1Core_1_1Utils.html#af356995a5aa68a868197746fe85f38baa27e920d9d4c9e99133a5c9c3e4251cb4">logINFO</a> ) &lt;&lt; <span class="stringliteral">&quot;Renderer (glbinding) : &quot;</span> &lt;&lt; glbinding::aux::ContextInfo::renderer();</div>
@@ -890,6 +890,7 @@ $(document).ready(function(){initNavTree('Viewer_8cpp_source.html',''); initResi
 <div class="ttc" id="aEntityManager_8hpp_html"><div class="ttname"><a href="EntityManager_8hpp.html">EntityManager.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a02c5ab9153a9701e8f14589a4589f284"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a02c5ab9153a9701e8f14589a4589f284">Ra::Gui::Viewer::prepareDisplay</a></div><div class="ttdeci">virtual bool prepareDisplay()</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00751">Viewer.cpp:751</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_ac15a6f178cfdcbfbfccaba8959973463"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#ac15a6f178cfdcbfbfccaba8959973463">Ra::Gui::Viewer::wheelEvent</a></div><div class="ttdeci">void wheelEvent(QWheelEvent *event) override</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00554">Viewer.cpp:554</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aee60cb09fb64ad0d55bb9af3d9707b48"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aee60cb09fb64ad0d55bb9af3d9707b48">Ra::Core::Geometry::init</a></div><div class="ttdeci">void init(VectorArray&lt; T &gt; &amp;vec, const std::vector&lt; std::string &gt; names)</div><div class="ttdef"><b>Definition:</b> <a href="TopologicalMesh_8inl_source.html#l00344">TopologicalMesh.inl:344</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Gui_html_a284a7353da7c360f6ff24c07ebb3f815"><div class="ttname"><a href="namespaceRa_1_1Gui.html#a284a7353da7c360f6ff24c07ebb3f815">Ra::Gui::activeKey</a></div><div class="ttdeci">int activeKey()</div><div class="ttdoc">return the last, still pressed, key code, -1 if no key currently pressed</div><div class="ttdef"><b>Definition:</b> <a href="Keyboard_8cpp_source.html#l00027">Keyboard.cpp:27</a></div></div>
 <div class="ttc" id="aDirLight_8hpp_html"><div class="ttname"><a href="DirLight_8hpp.html">DirLight.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Gui_1_1Viewer_html_a48210627a598068db2492fc0aad99520"><div class="ttname"><a href="classRa_1_1Gui_1_1Viewer.html#a48210627a598068db2492fc0aad99520">Ra::Gui::Viewer::update</a></div><div class="ttdeci">void update(const Scalar dt)</div><div class="ttdoc">Update the internal viewer state to the (application) time dt.</div><div class="ttdef"><b>Definition:</b> <a href="Viewer_8cpp_source.html#l00162">Viewer.cpp:162</a></div></div>
@@ -979,7 +980,7 @@ $(document).ready(function(){initNavTree('Viewer_8cpp_source.html',''); initResi
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b5ac5e964c12a6b13a9d28feb9f3d3ed.html">Gui</a></li><li class="navelem"><a class="el" href="dir_b04feb2291820e8d3d098807c21e4559.html">Viewer</a></li><li class="navelem"><a class="el" href="Viewer_8cpp.html">Viewer.cpp</a></li>
-    <li class="footer">Generated on Fri Mar 26 2021 12:57:36 for Radium Engine by
+    <li class="footer">Generated on Tue Mar 30 2021 08:03:26 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

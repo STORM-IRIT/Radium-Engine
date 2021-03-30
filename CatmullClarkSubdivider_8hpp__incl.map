@@ -1,6 +1,6 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Geometry/CatmullClarkSubdivider.hpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Core/Geometry/CatmullClarkSubdivider.hpp">
 <area shape="rect" id="node1" title=" " alt="" coords="1836,5,2087,76"/>
-<area shape="rect" id="node2" href="$TopologicalMesh_8hpp.html" title=" " alt="" coords="1750,124,1949,165"/>
+<area shape="rect" id="node2" href="$deprecated_2TopologicalMesh_8hpp.html" title=" " alt="" coords="1750,124,1949,165"/>
 <area shape="rect" id="node51" title=" " alt="" coords="1973,124,2174,165"/>
 <area shape="rect" id="node3" href="$RaCore_8hpp.html" title=" " alt="" coords="1595,541,1725,568"/>
 <area shape="rect" id="node10" href="$VectorArray_8hpp.html" title=" " alt="" coords="1305,377,1537,404"/>
@@ -17,7 +17,7 @@
 <area shape="rect" id="node45" title=" " alt="" coords="2379,213,2538,255"/>
 <area shape="rect" id="node46" title=" " alt="" coords="2562,213,2721,255"/>
 <area shape="rect" id="node47" title=" " alt="" coords="2745,221,2788,247"/>
-<area shape="rect" id="node48" href="$TopologicalMesh_8inl.html" title=" " alt="" coords="2811,213,3010,255"/>
+<area shape="rect" id="node48" href="$deprecated_2TopologicalMesh_8inl.html" title=" " alt="" coords="2811,213,3010,255"/>
 <area shape="rect" id="node4" href="$CoreMacros_8hpp.html" title=" " alt="" coords="1579,616,1741,643"/>
 <area shape="rect" id="node5" title=" " alt="" coords="1764,691,1833,717"/>
 <area shape="rect" id="node6" title=" " alt="" coords="1487,691,1548,717"/>

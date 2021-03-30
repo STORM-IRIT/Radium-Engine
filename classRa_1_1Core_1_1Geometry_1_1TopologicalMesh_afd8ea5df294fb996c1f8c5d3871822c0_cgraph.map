@@ -1,5 +1,0 @@
-<map id="Ra::Core::Geometry::TopologicalMesh::collapseWedge" name="Ra::Core::Geometry::TopologicalMesh::collapseWedge">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,205,61"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a717f9e6f73f9a9d322d34fdf45ebdedf" title="true if more than one wedge arount vertex vh, false if only one wedge" alt="" coords="253,5,460,61"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Geometry_1_1TopologicalMesh.html#a88b037b40acc05092f9e2d9371ba0c1f" title=" " alt="" coords="508,5,717,61"/>
-</map>
