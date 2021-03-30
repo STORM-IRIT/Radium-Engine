@@ -4,7 +4,7 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-bool CatmullClarkSubdivider::prepare( TopologicalMesh& mesh ) {
+bool CatmullClarkSubdivider::prepare( deprecated::TopologicalMesh& mesh ) {
     mesh.add_property( m_vpPos );
     mesh.add_property( m_epH );
     mesh.add_property( m_fpH );
@@ -25,7 +25,7 @@ bool CatmullClarkSubdivider::prepare( TopologicalMesh& mesh ) {
     return true;
 }
 
-bool CatmullClarkSubdivider::cleanup( TopologicalMesh& mesh ) {
+bool CatmullClarkSubdivider::cleanup( deprecated::TopologicalMesh& mesh ) {
     mesh.remove_property( m_vpPos );
     mesh.remove_property( m_epH );
     mesh.remove_property( m_fpH );
@@ -35,7 +35,7 @@ bool CatmullClarkSubdivider::cleanup( TopologicalMesh& mesh ) {
     return true;
 }
 
-bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh,
+bool CatmullClarkSubdivider::subdivide( deprecated::TopologicalMesh& mesh,
                                         size_t n,
                                         const bool update_points ) {
     m_oldVertexOps.clear();
@@ -59,9 +59,9 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh,
         {
             const auto& fh = mesh.face_handle( i );
             // compute centroid
-            TopologicalMesh::Point centroid;
+            deprecated::TopologicalMesh::Point centroid;
             mesh.calc_face_centroid( fh, centroid );
-            TopologicalMesh::VertexHandle vh;
+            deprecated::TopologicalMesh::VertexHandle vh;
 #pragma omp critical
             { vh = mesh.new_vertex( centroid ); }
             mesh.property( m_fpH, fh ) = vh;
@@ -132,7 +132,7 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh,
         }
         m_newFacePropOps[iter].shrink_to_fit();
 
-        CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check(),
+        CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<deprecated::TopologicalMesh>( mesh ).check(),
                      "CatmullClarkSubdivision ended with a bad topology." );
     }
 
@@ -175,8 +175,8 @@ bool CatmullClarkSubdivider::subdivide( TopologicalMesh& mesh,
     return true;
 }
 
-void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
-                                         const TopologicalMesh::FaceHandle& fh,
+void CatmullClarkSubdivider::split_face( deprecated::TopologicalMesh& mesh,
+                                         const deprecated::TopologicalMesh::FaceHandle& fh,
                                          size_t iter ) {
     /*
         Split an n-gon into n quads by connecting
@@ -260,11 +260,11 @@ void CatmullClarkSubdivider::split_face( TopologicalMesh& mesh,
     }
 }
 
-void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
-                                         const TopologicalMesh::EdgeHandle& eh,
+void CatmullClarkSubdivider::split_edge( deprecated::TopologicalMesh& mesh,
+                                         const deprecated::TopologicalMesh::EdgeHandle& eh,
                                          size_t iter ) {
-    using HeHandle = TopologicalMesh::HalfedgeHandle;
-    using VHandle  = TopologicalMesh::VertexHandle;
+    using HeHandle = deprecated::TopologicalMesh::HalfedgeHandle;
+    using VHandle  = deprecated::TopologicalMesh::VertexHandle;
 
     // prepare data
     HeHandle heh     = mesh.halfedge_handle( eh, 0 );
@@ -335,14 +335,14 @@ void CatmullClarkSubdivider::split_edge( TopologicalMesh& mesh,
     mesh.adjust_outgoing_halfedge( vh1 );
 }
 
-void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,
-                                               const TopologicalMesh::EdgeHandle& eh,
+void CatmullClarkSubdivider::compute_midpoint( deprecated::TopologicalMesh& mesh,
+                                               const deprecated::TopologicalMesh::EdgeHandle& eh,
                                                const bool update_points,
                                                size_t iter ) {
-    TopologicalMesh::HalfedgeHandle heh     = mesh.halfedge_handle( eh, 0 );
-    TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
+    deprecated::TopologicalMesh::HalfedgeHandle heh     = mesh.halfedge_handle( eh, 0 );
+    deprecated::TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
 
-    TopologicalMesh::Point pos = mesh.point( mesh.to_vertex_handle( heh ) );
+    deprecated::TopologicalMesh::Point pos = mesh.point( mesh.to_vertex_handle( heh ) );
     pos += mesh.point( mesh.to_vertex_handle( opp_heh ) );
 
     // prepare operations
@@ -382,10 +382,10 @@ void CatmullClarkSubdivider::compute_midpoint( TopologicalMesh& mesh,
     }
 }
 
-void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
-                                            const TopologicalMesh::VertexHandle& vh,
+void CatmullClarkSubdivider::update_vertex( deprecated::TopologicalMesh& mesh,
+                                            const deprecated::TopologicalMesh::VertexHandle& vh,
                                             size_t iter ) {
-    TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
+    deprecated::TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
 
     // prepare operations
     std::vector<V_OP> ops;
@@ -431,7 +431,7 @@ void CatmullClarkSubdivider::update_vertex( TopologicalMesh& mesh,
         }
         pos *= inv_v2;
 
-        TopologicalMesh::Point Q( 0, 0, 0 );
+        deprecated::TopologicalMesh::Point Q( 0, 0, 0 );
         for ( auto vf_itr = mesh.vf_iter( vh ); vf_itr.is_valid(); ++vf_itr )
         {
             Q += mesh.point( mesh.property( m_fpH, *vf_itr ) );
@@ -455,7 +455,7 @@ void CatmullClarkSubdivider::recompute( const Vector3Array& newCoarseVertices,
                                         const Vector3Array& newCoarseNormals,
                                         Vector3Array& newSubdivVertices,
                                         Vector3Array& newSubdivNormals,
-                                        TopologicalMesh& mesh ) {
+                                        deprecated::TopologicalMesh& mesh ) {
     // update vertices
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
     auto hNormalProp    = mesh.halfedge_normals_pph();

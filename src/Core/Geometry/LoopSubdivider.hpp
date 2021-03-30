@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/Geometry/deprecated/TopologicalMesh.hpp>
 #include <Core/Math/LinearAlgebra.hpp> // Math::pi
 #include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
 
@@ -15,23 +15,23 @@ namespace Geometry {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API LoopSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<deprecated::TopologicalMesh, Scalar>
 {
 
-    using base    = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
+    using base    = OpenMesh::Subdivider::Uniform::SubdividerT<deprecated::TopologicalMesh, Scalar>;
     using Weight  = std::pair<Scalar, Scalar>;
     using Weights = std::vector<Weight>;
-    using V_OP    = std::pair<Scalar, TopologicalMesh::VertexHandle>;
-    using V_OPS   = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
+    using V_OP    = std::pair<Scalar, deprecated::TopologicalMesh::VertexHandle>;
+    using V_OPS   = std::pair<deprecated::TopologicalMesh::VertexHandle, std::vector<V_OP>>;
     using SV_OPS  = std::vector<V_OPS>;
-    using P_OP    = std::pair<Scalar, TopologicalMesh::HalfedgeHandle>;
-    using P_OPS   = std::pair<TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
+    using P_OP    = std::pair<Scalar, deprecated::TopologicalMesh::HalfedgeHandle>;
+    using P_OPS   = std::pair<deprecated::TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
     using SP_OPS  = std::vector<P_OPS>;
 
   public:
     LoopSubdivider() : base() {}
 
-    explicit LoopSubdivider( TopologicalMesh& mesh ) : base() { attach( mesh ); }
+    explicit LoopSubdivider( deprecated::TopologicalMesh& mesh ) : base() { attach( mesh ); }
 
     ~LoopSubdivider() { detach(); }
 
@@ -47,7 +47,7 @@ class RA_CORE_API LoopSubdivider
     /// \code
     /// // 1- apply subdivision once
     /// Ra::Core::Geometry::TriangleMesh triangleMesh;
-    /// Ra::Core::Geometry::TopologicalMesh topoMesh( triangleMesh );
+    /// Ra::Core::Geometry::deprecated::TopologicalMesh topoMesh( triangleMesh );
     /// Ra::Core::LoopSubdivider subdiv( topoMesh );
     /// subdiv( 2 );
     /// // get back to TriangleMesh (mandatory before re-applying)
@@ -62,7 +62,7 @@ class RA_CORE_API LoopSubdivider
                     const Vector3Array& newCoarseNormals,
                     Vector3Array& newSubdivVertices,
                     Vector3Array& newSubdivNormals,
-                    TopologicalMesh& mesh );
+                    deprecated::TopologicalMesh& mesh );
 
   protected:
     /// Pre-compute weights.
@@ -71,11 +71,13 @@ class RA_CORE_API LoopSubdivider
         std::generate( m_weights.begin(), m_weights.end(), compute_weight() );
     }
 
-    bool prepare( TopologicalMesh& mesh ) override;
+    bool prepare( deprecated::TopologicalMesh& mesh ) override;
 
-    bool cleanup( TopologicalMesh& mesh ) override;
+    bool cleanup( deprecated::TopologicalMesh& mesh ) override;
 
-    bool subdivide( TopologicalMesh& mesh, size_t n, const bool updatePoints = true ) override;
+    bool subdivide( deprecated::TopologicalMesh& mesh,
+                    size_t n,
+                    const bool updatePoints = true ) override;
 
   private:
     /// Helper functor to compute weights for Loop-subdivision.
@@ -101,30 +103,38 @@ class RA_CORE_API LoopSubdivider
     // topological modifiers
 
     /// Face recomposition
-    void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh, size_t iter );
+    void split_face( deprecated::TopologicalMesh& mesh,
+                     const deprecated::TopologicalMesh::FaceHandle& fh,
+                     size_t iter );
 
     /// Face corner recomposition
-    void
-    corner_cutting( TopologicalMesh& mesh, const TopologicalMesh::HalfedgeHandle& he, size_t iter );
+    void corner_cutting( deprecated::TopologicalMesh& mesh,
+                         const deprecated::TopologicalMesh::HalfedgeHandle& he,
+                         size_t iter );
 
     /// Edge recomposition
-    void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, size_t iter );
+    void split_edge( deprecated::TopologicalMesh& mesh,
+                     const deprecated::TopologicalMesh::EdgeHandle& eh,
+                     size_t iter );
 
     // geometry helpers
 
     /// compute edge midpoint
-    void
-    compute_midpoint( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, size_t iter );
+    void compute_midpoint( deprecated::TopologicalMesh& mesh,
+                           const deprecated::TopologicalMesh::EdgeHandle& eh,
+                           size_t iter );
 
     /// smooth input vertices
-    void smooth( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh, size_t iter );
+    void smooth( deprecated::TopologicalMesh& mesh,
+                 const deprecated::TopologicalMesh::VertexHandle& vh,
+                 size_t iter );
 
   private:
     /// old vertex new position
-    OpenMesh::VPropHandleT<TopologicalMesh::Point> m_vpPos;
+    OpenMesh::VPropHandleT<deprecated::TopologicalMesh::Point> m_vpPos;
 
     /// new edge midpoint position
-    OpenMesh::EPropHandleT<TopologicalMesh::VertexHandle> m_epPos;
+    OpenMesh::EPropHandleT<deprecated::TopologicalMesh::VertexHandle> m_epPos;
 
     /// precomputed weights
     Weights m_weights;
@@ -136,7 +146,7 @@ class RA_CORE_API LoopSubdivider
     std::vector<SP_OPS> m_newFacePropOps;
 
     /// old vertex halfedges
-    OpenMesh::HPropHandleT<TopologicalMesh::VertexHandle> m_hV;
+    OpenMesh::HPropHandleT<deprecated::TopologicalMesh::VertexHandle> m_hV;
 };
 
 } // namespace Geometry
