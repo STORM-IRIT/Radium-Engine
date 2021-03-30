@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Geometry/TopologicalMesh.hpp>
+#include <Core/Geometry/deprecated/TopologicalMesh.hpp>
 
 #include <OpenMesh/Tools/Subdivider/Uniform/SubdividerT.hh>
 
@@ -15,21 +15,22 @@ namespace Geometry {
  * \note We here consider that boundary halfedges do not store attributes.
  */
 class RA_CORE_API CatmullClarkSubdivider
-    : public OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>
+    : public OpenMesh::Subdivider::Uniform::SubdividerT<deprecated::TopologicalMesh, Scalar>
 {
-
-    using base   = OpenMesh::Subdivider::Uniform::SubdividerT<TopologicalMesh, Scalar>;
-    using V_OP   = std::pair<Scalar, TopologicalMesh::VertexHandle>;
-    using V_OPS  = std::pair<TopologicalMesh::VertexHandle, std::vector<V_OP>>;
+    using base   = OpenMesh::Subdivider::Uniform::SubdividerT<deprecated::TopologicalMesh, Scalar>;
+    using V_OP   = std::pair<Scalar, deprecated::TopologicalMesh::VertexHandle>;
+    using V_OPS  = std::pair<deprecated::TopologicalMesh::VertexHandle, std::vector<V_OP>>;
     using SV_OPS = std::vector<V_OPS>;
-    using P_OP   = std::pair<Scalar, TopologicalMesh::HalfedgeHandle>;
-    using P_OPS  = std::pair<TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
+    using P_OP   = std::pair<Scalar, deprecated::TopologicalMesh::HalfedgeHandle>;
+    using P_OPS  = std::pair<deprecated::TopologicalMesh::HalfedgeHandle, std::vector<P_OP>>;
     using SP_OPS = std::vector<P_OPS>;
 
   public:
     CatmullClarkSubdivider() : base() {}
 
-    explicit CatmullClarkSubdivider( TopologicalMesh& mesh ) : base() { attach( mesh ); }
+    explicit CatmullClarkSubdivider( deprecated::TopologicalMesh& mesh ) : base() {
+        attach( mesh );
+    }
 
     ~CatmullClarkSubdivider() { detach(); }
 
@@ -45,7 +46,7 @@ class RA_CORE_API CatmullClarkSubdivider
     /// \code
     /// // 1- apply subdivision once
     /// Ra::Core::Geometry::TriangleMesh triangleMesh;
-    /// Ra::Core::Geometry::TopologicalMesh topoMesh( triangleMesh );
+    /// Ra::Core::Geometry::deprecated::TopologicalMesh topoMesh( triangleMesh );
     /// Ra::Core::CatmullClarkSubdivider subdiv( topoMesh );
     /// subdiv( 2 );
     /// // get back to TriangleMesh (mandatory before re-applying)
@@ -60,51 +61,58 @@ class RA_CORE_API CatmullClarkSubdivider
                     const Vector3Array& newCoarseNormals,
                     Vector3Array& newSubdivVertices,
                     Vector3Array& newSubdivNormals,
-                    TopologicalMesh& mesh );
+                    deprecated::TopologicalMesh& mesh );
 
   protected:
-    bool prepare( TopologicalMesh& _m ) override;
+    bool prepare( deprecated::TopologicalMesh& _m ) override;
 
-    bool cleanup( TopologicalMesh& _m ) override;
+    bool cleanup( deprecated::TopologicalMesh& _m ) override;
 
-    bool subdivide( TopologicalMesh& _m, size_t _n, const bool _update_points = true ) override;
+    bool subdivide( deprecated::TopologicalMesh& _m,
+                    size_t _n,
+                    const bool _update_points = true ) override;
 
   private:
     // topology helpers
 
     /// Edge recomposition
-    void split_edge( TopologicalMesh& mesh, const TopologicalMesh::EdgeHandle& eh, size_t iter );
+    void split_edge( deprecated::TopologicalMesh& mesh,
+                     const deprecated::TopologicalMesh::EdgeHandle& eh,
+                     size_t iter );
 
     /// Face recomposition
-    void split_face( TopologicalMesh& mesh, const TopologicalMesh::FaceHandle& fh, size_t iter );
+    void split_face( deprecated::TopologicalMesh& mesh,
+                     const deprecated::TopologicalMesh::FaceHandle& fh,
+                     size_t iter );
 
     // geometry helpers
 
     /// compute edge midpoint
-    void compute_midpoint( TopologicalMesh& mesh,
-                           const TopologicalMesh::EdgeHandle& eh,
+    void compute_midpoint( deprecated::TopologicalMesh& mesh,
+                           const deprecated::TopologicalMesh::EdgeHandle& eh,
                            const bool update_points,
                            size_t iter );
 
     /// smooth input vertices
-    void
-    update_vertex( TopologicalMesh& mesh, const TopologicalMesh::VertexHandle& vh, size_t iter );
+    void update_vertex( deprecated::TopologicalMesh& mesh,
+                        const deprecated::TopologicalMesh::VertexHandle& vh,
+                        size_t iter );
 
   private:
     /// crease weights
     OpenMesh::EPropHandleT<Scalar> m_creaseWeights;
 
     /// old vertex new position
-    OpenMesh::VPropHandleT<TopologicalMesh::Point> m_vpPos;
+    OpenMesh::VPropHandleT<deprecated::TopologicalMesh::Point> m_vpPos;
 
     /// new edge midpoint handle
-    OpenMesh::EPropHandleT<TopologicalMesh::VertexHandle> m_epH;
+    OpenMesh::EPropHandleT<deprecated::TopologicalMesh::VertexHandle> m_epH;
 
     /// new face point handle
-    OpenMesh::FPropHandleT<TopologicalMesh::VertexHandle> m_fpH;
+    OpenMesh::FPropHandleT<deprecated::TopologicalMesh::VertexHandle> m_fpH;
 
     /// deal with normals on faces
-    OpenMesh::FPropHandleT<TopologicalMesh::Normal> m_normalPropF;
+    OpenMesh::FPropHandleT<deprecated::TopologicalMesh::Normal> m_normalPropF;
 
     /// deal with custom properties on faces
     std::vector<OpenMesh::FPropHandleT<float>> m_floatPropsF;
@@ -121,7 +129,7 @@ class RA_CORE_API CatmullClarkSubdivider
     SP_OPS m_triangulationPropOps;
 
     /// old vertex halfedges
-    OpenMesh::HPropHandleT<TopologicalMesh::VertexHandle> m_hV;
+    OpenMesh::HPropHandleT<deprecated::TopologicalMesh::VertexHandle> m_hV;
 };
 
 } // namespace Geometry

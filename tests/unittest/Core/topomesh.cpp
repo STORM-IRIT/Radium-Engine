@@ -110,19 +110,21 @@ class WedgeDataAndIdx
     bool operator!=( const WedgeDataAndIdx& lhs ) const { return !( *this == lhs ); }
 };
 
-#define COPY_TO_WEDGES_VECTOR_HELPER( UPTYPE, REALTYPE )                                      \
-    if ( attr->is##UPTYPE() )                                                                 \
-    {                                                                                         \
-        auto data =                                                                           \
-            meshOne.getAttrib( meshOne.getAttribHandle<REALTYPE>( attr->getName() ) ).data(); \
-        for ( size_t i = 0; i < size; ++i )                                                   \
-        {                                                                                     \
-            wedgesMeshOne[i].m_data.getAttribArray<REALTYPE>().push_back( data[i] );          \
-        }                                                                                     \
+#define COPY_TO_WEDGES_VECTOR_HELPER( UPTYPE, REALTYPE )                                       \
+    if ( attr->is##UPTYPE() )                                                                  \
+    {                                                                                          \
+        auto data =                                                                            \
+            meshOne.getAttrib( meshOne.template getAttribHandle<REALTYPE>( attr->getName() ) ) \
+                .data();                                                                       \
+        for ( size_t i = 0; i < size; ++i )                                                    \
+        {                                                                                      \
+            wedgesMeshOne[i].m_data.getAttribArray<REALTYPE>().push_back( data[i] );           \
+        }                                                                                      \
     }
 
+template <typename T>
 void copyToWedgesVector( size_t size,
-                         const TriangleMesh& meshOne,
+                         const IndexedGeometry<T>& meshOne,
                          AlignedStdVector<WedgeDataAndIdx>& wedgesMeshOne,
                          AttribBase* attr ) {
 
@@ -140,6 +142,7 @@ void copyToWedgesVector( size_t size,
                 wedgesMeshOne[i].m_data.m_position = data[i];
             }
         }
+
         COPY_TO_WEDGES_VECTOR_HELPER( Float, float );
         COPY_TO_WEDGES_VECTOR_HELPER( Vector2, Vector2 );
         COPY_TO_WEDGES_VECTOR_HELPER( Vector3, Vector3 );
@@ -148,13 +151,18 @@ void copyToWedgesVector( size_t size,
 }
 #undef COPY_TO_WEDGES_VECTOR_HELPER
 
-bool isSameMeshWedge( const Ra::Core::Geometry::TriangleMesh& meshOne,
-                      const Ra::Core::Geometry::TriangleMesh& meshTwo ) {
+template <typename T>
+bool isSameMeshWedge( const Ra::Core::Geometry::IndexedGeometry<T>& meshOne,
+                      const Ra::Core::Geometry::IndexedGeometry<T>& meshTwo ) {
 
     using namespace Ra::Core;
     using namespace Ra::Core::Geometry;
 
     // Check length
+    // LOG( logDEBUG ) << meshOne.vertices().size() << " / " << meshTwo.vertices().size();
+    // LOG( logDEBUG ) << meshOne.normals().size() << " / " << meshTwo.normals().size();
+    // LOG( logDEBUG ) << meshOne.getIndices().size() << " / " << meshTwo.getIndices().size();
+
     if ( meshOne.vertices().size() != meshTwo.vertices().size() ) return false;
     if ( meshOne.normals().size() != meshTwo.normals().size() ) return false;
     if ( meshOne.getIndices().size() != meshTwo.getIndices().size() ) return false;
@@ -171,22 +179,28 @@ bool isSameMeshWedge( const Ra::Core::Geometry::TriangleMesh& meshOne,
         wedgesMeshTwo.push_back( wd );
     }
     using namespace std::placeholders;
-    auto f1 =
-        std::bind( copyToWedgesVector, size, std::cref( meshOne ), std::ref( wedgesMeshOne ), _1 );
+    auto f1 = std::bind(
+        copyToWedgesVector<T>, size, std::cref( meshOne ), std::ref( wedgesMeshOne ), _1 );
     meshOne.vertexAttribs().for_each_attrib( f1 );
 
-    auto f2 =
-        std::bind( copyToWedgesVector, size, std::cref( meshTwo ), std::ref( wedgesMeshTwo ), _1 );
+    auto f2 = std::bind(
+        copyToWedgesVector<T>, size, std::cref( meshTwo ), std::ref( wedgesMeshTwo ), _1 );
     meshTwo.vertexAttribs().for_each_attrib( f2 );
 
     std::sort( wedgesMeshOne.begin(), wedgesMeshOne.end() );
     std::sort( wedgesMeshTwo.begin(), wedgesMeshTwo.end() );
 
-    if ( wedgesMeshOne != wedgesMeshTwo ) return false;
+    if ( wedgesMeshOne != wedgesMeshTwo )
+    {
+        // LOG( logDEBUG ) << "not same wedges";
+        return false;
+    }
 
     std::vector<int> newMeshOneIdx( wedgesMeshOne.size() );
     std::vector<int> newMeshTwoIdx( wedgesMeshOne.size() );
-    size_t curIdx                         = 0;
+
+    size_t curIdx = 0;
+
     newMeshOneIdx[wedgesMeshOne[0].m_idx] = 0;
     newMeshTwoIdx[wedgesMeshTwo[0].m_idx] = 0;
 
@@ -194,31 +208,50 @@ bool isSameMeshWedge( const Ra::Core::Geometry::TriangleMesh& meshOne,
     {
         if ( wedgesMeshOne[i] != wedgesMeshOne[i - 1] ) ++curIdx;
         newMeshOneIdx[wedgesMeshOne[i].m_idx] = curIdx;
+        // std::cout << wedgesMeshOne[i].m_idx << " : " << curIdx << "\n";
     }
-
+    // std::cout << "***\n";
     curIdx = 0;
     for ( size_t i = 1; i < wedgesMeshTwo.size(); ++i )
     {
         if ( wedgesMeshTwo[i] != wedgesMeshTwo[i - 1] ) ++curIdx;
         newMeshTwoIdx[wedgesMeshTwo[i].m_idx] = curIdx;
+        // std::cout << wedgesMeshTwo[i].m_idx << " : " << curIdx << "\n";
     }
 
-    auto indices1 = meshOne.getIndices();
-    auto indices2 = meshTwo.getIndices();
+    typename Ra::Core::Geometry::IndexedGeometry<T>::IndexContainerType indices1 =
+        meshOne.getIndices();
+    typename Ra::Core::Geometry::IndexedGeometry<T>::IndexContainerType indices2 =
+        meshTwo.getIndices();
 
-    for ( auto& triangle : indices1 )
+    for ( auto& face : indices1 )
     {
-        triangle[0] = newMeshOneIdx[triangle[0]];
-        triangle[1] = newMeshOneIdx[triangle[1]];
-        triangle[2] = newMeshOneIdx[triangle[2]];
+        // std::cout << "face ";
+        for ( int i = 0; i < face.size(); ++i )
+        {
+            face( i ) = newMeshOneIdx[face( i )];
+            // std::cout << face( i ) << " ";
+        }
+        // std::cout << "\n";
     }
-    for ( auto& triangle : indices2 )
+    // std::cout << "***\n";
+    for ( auto& face : indices2 )
     {
-        triangle[0] = newMeshTwoIdx[triangle[0]];
-        triangle[1] = newMeshTwoIdx[triangle[1]];
-        triangle[2] = newMeshTwoIdx[triangle[2]];
+
+        // std::cout << "face ";
+        for ( int i = 0; i < face.size(); ++i )
+        {
+            face( i ) = newMeshTwoIdx[face( i )];
+            // std::cout << face( i ) << " ";
+        }
+        // std::cout << "\n";
     }
-    return indices1 == indices2;
+    if ( indices1 != indices2 )
+    {
+        // LOG( logDEBUG ) << "not same indices";
+        return false;
+    }
+    return true;
 }
 
 TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMesh]" ) {
@@ -227,21 +260,10 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
     using Ra::Core::Geometry::TriangleMesh;
 
     auto testConverter = []( const TriangleMesh& mesh ) {
-        auto topologicalMesh      = TopologicalMesh( mesh );
-        auto topologicalMeshWedge = TopologicalMesh {};
-        topologicalMeshWedge.initWithWedge( mesh );
-        auto newMeshWedge        = topologicalMesh.toTriangleMeshFromWedges();
-        auto newMesh             = topologicalMesh.toTriangleMesh();
-        auto newMeshWedgeWedge   = topologicalMeshWedge.toTriangleMeshFromWedges();
-        auto newMeshWedgeWithout = topologicalMeshWedge.toTriangleMesh();
+        auto topologicalMesh = TopologicalMesh( mesh );
+        auto newMesh         = topologicalMesh.toTriangleMesh();
         REQUIRE( isSameMesh( mesh, newMesh ) );
-        REQUIRE( isSameMesh( mesh, newMeshWedge ) );
-        REQUIRE( isSameMesh( mesh, newMeshWedgeWedge ) );
-        REQUIRE( isSameMesh( mesh, newMeshWedgeWithout ) );
-        REQUIRE( isSameMeshWedge( mesh, newMeshWedge ) );
-        REQUIRE( isSameMeshWedge( mesh, newMeshWedgeWedge ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
-        REQUIRE( topologicalMeshWedge.checkIntegrity() );
     };
 
     SECTION( "Closed mesh" ) {
@@ -301,53 +323,22 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         attrib4.unlock();
         attrib5.unlock();
 
-        auto topologicalMesh      = TopologicalMesh( mesh );
-        auto topologicalMeshWedge = TopologicalMesh {};
-        topologicalMeshWedge.initWithWedge( mesh );
-        auto newMesh             = topologicalMesh.toTriangleMesh();
-        auto newMeshWedge        = topologicalMesh.toTriangleMeshFromWedges();
-        auto newMeshWedgeWedge   = topologicalMeshWedge.toTriangleMeshFromWedges();
-        auto newMeshWedgeWithout = topologicalMeshWedge.toTriangleMesh();
+        auto topologicalMesh = TopologicalMesh( mesh );
+        auto newMesh         = topologicalMesh.toTriangleMesh();
         REQUIRE( isSameMesh( mesh, newMesh ) );
-        REQUIRE( isSameMesh( mesh, newMeshWedge ) );
-        REQUIRE( isSameMesh( mesh, newMeshWedgeWedge ) );
-        REQUIRE( isSameMesh( mesh, newMeshWedgeWithout ) );
-        REQUIRE( isSameMeshWedge( mesh, newMeshWedge ) );
-        REQUIRE( isSameMeshWedge( mesh, newMeshWedgeWedge ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
-        REQUIRE( topologicalMeshWedge.checkIntegrity() );
 
         // oversize attrib not suported
         REQUIRE( !newMesh.hasAttrib( "vector5_attrib" ) );
-        REQUIRE( !newMeshWedge.hasAttrib( "vector5_attrib" ) );
-        REQUIRE( !newMeshWedgeWedge.hasAttrib( "vector5_attrib" ) );
-        REQUIRE( !newMeshWedgeWithout.hasAttrib( "vector5_attrib" ) );
 
         REQUIRE( newMesh.hasAttrib( "vector2_attrib" ) );
-        REQUIRE( newMeshWedge.hasAttrib( "vector2_attrib" ) );
-        REQUIRE( newMeshWedgeWedge.hasAttrib( "vector2_attrib" ) );
 
         REQUIRE( newMesh.hasAttrib( "vector4_attrib" ) );
-        REQUIRE( newMeshWedge.hasAttrib( "vector4_attrib" ) );
-        REQUIRE( newMeshWedgeWedge.hasAttrib( "vector4_attrib" ) );
-
-        // When init with wedge, and converted from propos (without wedges) wedge, attribs are lost.
-        REQUIRE( !newMeshWedgeWithout.hasAttrib( "vector2_attrib" ) );
-        REQUIRE( !newMeshWedgeWithout.hasAttrib( "vector4_attrib" ) );
 
         // empty attrib not converted
         REQUIRE( !newMesh.hasAttrib( "evector2_attrib" ) );
-        REQUIRE( !newMeshWedge.hasAttrib( "evector2_attrib" ) );
-        REQUIRE( !newMeshWedgeWedge.hasAttrib( "veector2_attrib" ) );
-        REQUIRE( !newMeshWedgeWithout.hasAttrib( "veector2_attrib" ) );
         REQUIRE( !newMesh.hasAttrib( "evector4_attrib" ) );
-        REQUIRE( !newMeshWedge.hasAttrib( "evector4_attrib" ) );
-        REQUIRE( !newMeshWedgeWedge.hasAttrib( "veector4_attrib" ) );
-        REQUIRE( !newMeshWedgeWithout.hasAttrib( "veector4_attrib" ) );
         REQUIRE( !newMesh.hasAttrib( "evector5_attrib" ) );
-        REQUIRE( !newMeshWedge.hasAttrib( "evector5_attrib" ) );
-        REQUIRE( !newMeshWedgeWedge.hasAttrib( "evector5_attrib" ) );
-        REQUIRE( !newMeshWedgeWithout.hasAttrib( "evector5_attrib" ) );
     }
 
     SECTION( "Edit topo mesh" ) {
@@ -355,32 +346,23 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
 
         auto topologicalMesh = TopologicalMesh( mesh );
         auto newMesh         = topologicalMesh.toTriangleMesh();
-        auto newMesh2        = topologicalMesh.toTriangleMeshFromWedges();
         topologicalMesh.setWedgeData(
             TopologicalMesh::WedgeIndex {0}, "in_normal", Vector3( 0, 0, 0 ) );
-        auto newMesh3 = topologicalMesh.toTriangleMeshFromWedges();
+        auto newMeshModified = topologicalMesh.toTriangleMesh();
 
         REQUIRE( isSameMesh( mesh, newMesh ) );
-        REQUIRE( isSameMesh( mesh, newMesh2 ) );
-        REQUIRE( isSameMeshWedge( mesh, newMesh2 ) );
-        REQUIRE( !isSameMeshWedge( mesh, newMesh3 ) );
+        REQUIRE( isSameMeshWedge( mesh, newMesh ) );
+        REQUIRE( !isSameMeshWedge( mesh, newMeshModified ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
     }
 
     SECTION( "Test skip empty attributes" ) {
         auto mesh = Ra::Core::Geometry::makeCylinder( Vector3( 0, 0, 0 ), Vector3( 0, 0, 1 ), 1 );
         mesh.addAttrib<float>( "empty" );
-        auto topologicalMesh      = TopologicalMesh( mesh );
-        auto topologicalMeshWedge = TopologicalMesh {};
-        topologicalMeshWedge.initWithWedge( mesh );
-        auto newMesh           = topologicalMesh.toTriangleMesh();
-        auto newMeshWedge      = topologicalMesh.toTriangleMeshFromWedges();
-        auto newMeshWedgeWedge = topologicalMeshWedge.toTriangleMeshFromWedges();
+        auto topologicalMesh = TopologicalMesh( mesh );
+        auto newMesh         = topologicalMesh.toTriangleMesh();
         REQUIRE( !newMesh.hasAttrib( "empty" ) );
-        REQUIRE( !newMeshWedge.hasAttrib( "empty" ) );
-        REQUIRE( !newMeshWedgeWedge.hasAttrib( "empty" ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
-        REQUIRE( topologicalMeshWedge.checkIntegrity() );
     }
 
     SECTION( "Test normals" ) {
@@ -399,7 +381,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
               v_it != topologicalMesh.vertices_end();
               ++v_it )
         {
-            topologicalMesh.propagate_normal_to_halfedges( *v_it );
+            topologicalMesh.propagate_normal_to_wedges( *v_it );
         }
 
         auto newMesh = topologicalMesh.toTriangleMesh();
@@ -428,14 +410,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         mesh.setVertices( std::move( vertices ) );
         mesh.setIndices( std::move( indices ) );
         TopologicalMesh topo1 {mesh};
-        TopologicalMesh topo2;
-        topo2.initWithWedge( mesh );
-
         REQUIRE( topo1.checkIntegrity() );
-        REQUIRE( topo2.checkIntegrity() );
-
         TriangleMesh mesh1 = topo1.toTriangleMesh();
-        TriangleMesh mesh2 = topo2.toTriangleMeshFromWedges();
 
         // there is no normals at all.
         REQUIRE( !topo1.has_halfedge_normals() );
@@ -443,12 +419,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         for ( auto vitr = topo1.vertices_begin(), vend = topo1.vertices_end(); vitr != vend;
               ++vitr )
         {
-            for ( auto fitr = topo1.vf_iter( *vitr ); fitr.is_valid(); ++fitr )
-            {
-                auto n = topo1.normal( *vitr, *fitr );
-                REQUIRE( Math::areApproxEqual( n.squaredNorm(), 0_ra ) );
-            }
-            topo1.propagate_normal_to_halfedges( *vitr );
+            topo1.propagate_normal_to_wedges( *vitr );
             REQUIRE( !topo1.has_halfedge_normals() );
             REQUIRE( !topo1.has_face_normals() );
         }
@@ -456,26 +427,11 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         // nor on faces nor if we try to create them
         REQUIRE( !topo1.has_face_normals() );
         OpenMesh::FPropHandleT<TopologicalMesh::Normal> fProp;
-        topo1.createNormalPropOnFaces( fProp );
-        auto vh  = *topo1.vertices_begin();
-        auto he1 = topo1.halfedge_handle( vh );
-        auto he2 = topo1.next_halfedge_handle( he1 );
-        auto fh  = topo1.face_handle( he1 );
-        REQUIRE( !fProp.is_valid() );
-        REQUIRE( !topo1.has_face_normals() );
-        // even if we try to copy them, but no access error
-        topo1.copyNormal( he1, he2 );
-        topo1.copyNormalFromFace( fh, he1, fProp );
-        topo1.interpolateNormalOnFaces( fh, fProp );
-        REQUIRE( !topo1.has_halfedge_normals() );
 
         REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh1.vertexAttribs() ) );
-        REQUIRE( mesh.vertexAttribs().hasSameAttribs( mesh2.vertexAttribs() ) );
         REQUIRE( isSameMesh( mesh, mesh1 ) );
-        REQUIRE( isSameMesh( mesh, mesh2 ) );
 
         REQUIRE( mesh1.normals().size() == 0 );
-        REQUIRE( mesh2.normals().size() == 0 );
     }
 }
 
@@ -490,7 +446,7 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f 
     float f0 = topo.getWedgeData( *( topo.getVertexWedges( v0 ) ).begin() ).m_floatAttrib[0];
     auto p1  = topo.point( v1 );
     float f1 = topo.getWedgeData( *( topo.getVertexWedges( v1 ) ).begin() ).m_floatAttrib[0];
-    topo.splitEdgeWedge( eh, f );
+    topo.splitEdge( eh, f );
 
     // check validity
     REQUIRE( topo.is_valid_handle( he0 ) );
@@ -516,6 +472,66 @@ void test_split( TopologicalMesh& topo, TopologicalMesh::EdgeHandle eh, float f 
     auto fcheck = ( f * f1 + ( 1.f - f ) * f0 );
     REQUIRE( Math::areApproxEqual( fsplit, fcheck ) );
     REQUIRE( Math::areApproxEqual( ( psplit - wd.m_position ).squaredNorm(), 0.f ) );
+}
+
+void test_poly() {
+    Ra::Core::Geometry::PolyMesh polyMesh;
+    polyMesh.setVertices( {
+        // quad
+        {-1.1_ra, -0_ra, 0_ra},
+        {1.1_ra, -0_ra, 0_ra},
+        {1_ra, 1_ra, 0_ra},
+        {-1_ra, 1_ra, 0_ra},
+        // hepta
+        {2_ra, 2_ra, 0_ra},
+        {2_ra, 3_ra, 0_ra},
+        {0_ra, 4_ra, 0_ra},
+        {-2_ra, 3_ra, 0_ra},
+        {-2_ra, 2_ra, 0_ra},
+        // degen
+        {-1.1_ra, -2_ra, 0_ra},
+        {-0.5_ra, -2_ra, 0_ra},
+        {-0.3_ra, -2_ra, 0_ra},
+        {0.0_ra, -2_ra, 0_ra},
+        {0.001_ra, -2_ra, 0_ra},
+        {0.3_ra, -2_ra, 0_ra},
+        {0.5_ra, -2_ra, 0_ra},
+        {1.1_ra, -2_ra, 0_ra},
+        // degen2
+        {-1_ra, -3_ra, 0_ra},
+        {1_ra, -3_ra, 0_ra},
+
+    } );
+
+    Vector3Array normals;
+    normals.resize( polyMesh.vertices().size() );
+    std::transform(
+        polyMesh.vertices().cbegin(),
+        polyMesh.vertices().cend(),
+        normals.begin(),
+        []( const Vector3& v ) { return ( v + Vector3( 0_ra, 0_ra, 1_ra ) ).normalized(); } );
+    polyMesh.setNormals( normals );
+
+    auto quad = VectorNui( 4 );
+    quad << 0, 1, 2, 3;
+    auto hepta = VectorNui( 7 );
+    hepta << 3, 2, 4, 5, 6, 7, 8;
+    auto degen = VectorNui( 10 );
+    degen << 1, 0, 9, 10, 11, 12, 13, 14, 15, 16;
+    auto degen2 = VectorNui( 10 );
+    degen2 << 14, 13, 12, 11, 10, 9, 17, 18, 16, 15;
+    polyMesh.setIndices( {quad, hepta, degen, degen2} );
+
+    TopologicalMesh topologicalMesh;
+    topologicalMesh.initWithWedge( polyMesh );
+    auto newMesh = topologicalMesh.toPolyMesh();
+    REQUIRE( isSameMeshWedge( newMesh, polyMesh ) );
+}
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/PolyMesh",
+           "[Core][Core/Geometry][TopologicalMesh][PolyMesh]" ) {
+
+    test_poly();
 }
 
 /// \todo TEST_CASE( "Core/Geometry/TopologicalMesh/Subdivider",
@@ -569,15 +585,12 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
     SECTION( "Non manifold faces" ) {
         struct MyNonManifoldCommand {
             inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
-            inline void initialize( const TriangleMesh& /*triMesh*/ ) {}
-            inline void
-            process( const std::vector<TopologicalMesh::VertexHandle>& /*face_vhandles*/ ) {
+            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
+            inline void process( const std::vector<TopologicalMesh::VertexHandle>& ) {
                 LOG( logINFO ) << "Non Manifold face found";
                 nonManifoldFaces++;
             }
-            inline void postProcess( TopologicalMesh& /*tm*/ ) {
-                // Todo : For each non manifold face, remove the vertices that are not part of a
-                // face of the topomesh For the test, this will reduce the mesh_2 to mesh1
+            inline void postProcess( TopologicalMesh& ) {
                 REQUIRE( nonManifoldFaces == targetNonManifoldFaces );
                 LOG( logINFO ) << "Process non-manifold faces";
             }
@@ -610,25 +623,12 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
                                  MyNonManifoldCommand command ) {
             // test with functor
             TopologicalMesh topoWithCommand {candidateMesh, command};
-            TopologicalMesh topoWedgeWithCommand;
-            topoWedgeWithCommand.initWithWedge( candidateMesh, command );
-            auto convertedMeshWithCommand          = topoWithCommand.toTriangleMesh();
-            auto convertedMeshWithCommandFromWedge = topoWithCommand.toTriangleMeshFromWedges();
-            auto convertedMeshWedgeWithCommand = topoWedgeWithCommand.toTriangleMeshFromWedges();
+            auto convertedMeshWithCommand = topoWithCommand.toTriangleMesh();
             REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommand ) );
-            REQUIRE( isSameMesh( referenceMesh, convertedMeshWedgeWithCommand ) );
-            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithCommandFromWedge ) );
             // test without functor
             TopologicalMesh topoWithoutCommand {candidateMesh};
-            TopologicalMesh topoWedgeWithoutCommand {};
-            topoWedgeWithoutCommand.initWithWedge( candidateMesh );
             auto convertedMeshWithoutCommand = topoWithoutCommand.toTriangleMesh();
-            auto convertedMeshWithoutCommandFromWedge =
-                topoWithoutCommand.toTriangleMeshFromWedges();
-            auto convertedMeshWedgeWithoutCommand = topoWedgeWithoutCommand.toTriangleMesh();
             REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommand ) );
-            REQUIRE( isSameMesh( referenceMesh, convertedMeshWedgeWithoutCommand ) );
-            REQUIRE( isSameMesh( referenceMesh, convertedMeshWithoutCommandFromWedge ) );
             return convertedMeshWithoutCommand;
         };
 
@@ -727,17 +727,12 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
             inline MyNonManifoldCommand(
                 std::vector<std::vector<TopologicalMesh::VertexHandle>>& faulty ) :
                 m_faulty( faulty ) {}
-            inline void initialize( const TriangleMesh& /*triMesh*/ ) {}
+            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& face_vhandles ) {
-                LOG( logINFO ) << "Non Manifold face found";
                 m_faulty.push_back( face_vhandles );
                 nonManifoldFaces++;
             }
-            inline void postProcess( TopologicalMesh& /*tm*/ ) {
-                // Todo : For each non manifold face, remove the vertices that are not part of a
-                // face of the topomesh For the test, this will reduce the mesh_2 to mesh1
-                LOG( logINFO ) << "Process non-manifold faces";
-            }
+            inline void postProcess( TopologicalMesh& ) {}
             std::vector<std::vector<TopologicalMesh::VertexHandle>>& m_faulty;
             int nonManifoldFaces {0};
         };
@@ -789,46 +784,39 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/Initialization",
            "[Core][Core/Geometry][TopologicalMesh]" ) {
-    Ra::Core::Geometry::TopologicalMesh topologicalMesh;
-    Ra::Core::Geometry::TopologicalMesh::VertexHandle vhandle[3];
-    Ra::Core::Geometry::TopologicalMesh::FaceHandle fhandle;
+    TopologicalMesh topo;
+    TopologicalMesh::VertexHandle vhandle[3];
+    TopologicalMesh::FaceHandle fhandle;
 
-    vhandle[0] =
-        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( 1, -1, -1 ) );
-    vhandle[1] =
-        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( 1, -1, 1 ) );
-    vhandle[2] =
-        topologicalMesh.add_vertex( Ra::Core::Geometry::TopologicalMesh::Point( -1, -1, 1 ) );
+    vhandle[0] = topo.add_vertex( TopologicalMesh::Point( 1, -1, -1 ) );
+    vhandle[1] = topo.add_vertex( TopologicalMesh::Point( 1, -1, 1 ) );
+    vhandle[2] = topo.add_vertex( TopologicalMesh::Point( -1, -1, 1 ) );
 
-    std::vector<Ra::Core::Geometry::TopologicalMesh::VertexHandle> face_vhandles;
+    std::vector<TopologicalMesh::VertexHandle> face_vhandles;
     face_vhandles.push_back( vhandle[0] );
     face_vhandles.push_back( vhandle[1] );
     face_vhandles.push_back( vhandle[2] );
-    fhandle = topologicalMesh.add_face( face_vhandles );
+    fhandle = topo.add_face( face_vhandles );
 
     // newly created face have invalid wedges on halfedges
-    auto heh = topologicalMesh.halfedge_handle( fhandle );
-    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
-    heh = topologicalMesh.next_halfedge_handle( heh );
-    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
-    heh = topologicalMesh.next_halfedge_handle( heh );
-    REQUIRE( topologicalMesh.property( topologicalMesh.getWedgeIndexPph(), heh ).isInvalid() );
+    auto heh = topo.halfedge_handle( fhandle );
+    REQUIRE( topo.property( topo.getWedgeIndexPph(), heh ).isInvalid() );
+    heh = topo.next_halfedge_handle( heh );
+    REQUIRE( topo.property( topo.getWedgeIndexPph(), heh ).isInvalid() );
+    heh = topo.next_halfedge_handle( heh );
+    REQUIRE( topo.property( topo.getWedgeIndexPph(), heh ).isInvalid() );
+    REQUIRE( topo.n_faces() == 1 );
 
-    std::cout << "faces: " << topologicalMesh.n_faces() << std::endl;
-    REQUIRE( topologicalMesh.n_faces() == 1 );
-
-    topologicalMesh.request_face_status();
-    topologicalMesh.delete_face( fhandle, false );
-    topologicalMesh.garbage_collection();
-    std::cout << "faces: " << topologicalMesh.n_faces() << std::endl;
-    REQUIRE( topologicalMesh.n_faces() == 0 );
+    topo.request_face_status();
+    topo.delete_face( fhandle, false );
+    topo.garbage_collection();
+    REQUIRE( topo.n_faces() == 0 );
 }
 
 TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][TopologicalMesh]" ) {
 
     auto mesh = Ra::Core::Geometry::makeSharpBox();
-    auto topo = TopologicalMesh {};
-    topo.initWithWedge( mesh );
+    auto topo = TopologicalMesh {mesh};
 
     std::set<TopologicalMesh::WedgeIndex> wedgesIndices;
     for ( auto itr = topo.halfedges_begin(), stop = topo.halfedges_end(); itr != stop; ++itr )
@@ -865,4 +853,325 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/MergeWedges", "[Core][Core/Geometry][T
     // after merge, each vertex has only on wedge
     REQUIRE( wedgesIndices.size() == 8 );
     REQUIRE( topo.checkIntegrity() );
+}
+
+template <typename T>
+void testAttrib( const IndexedGeometry<T>& mesh, const std::string& name, float value ) {
+
+    auto attribHandle = mesh.template getAttribHandle<float>( name );
+    REQUIRE( attribHandle.idx().isValid() );
+    auto& attrib = mesh.getAttrib( attribHandle );
+    for ( const auto& v : attrib.data() )
+    {
+        REQUIRE( v == value );
+    }
+}
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/Triangulate", "[Core][Core/Geometry][TopologicalMesh]" ) {
+    TopologicalMesh topo {};
+    TopologicalMesh::VertexHandle vhandle[4];
+    TopologicalMesh::FaceHandle fhandle;
+
+    vhandle[0] = topo.add_vertex( TopologicalMesh::Point( -1, -1, 1 ) );
+    vhandle[1] = topo.add_vertex( TopologicalMesh::Point( 1, -1, 1 ) );
+    vhandle[2] = topo.add_vertex( TopologicalMesh::Point( 1, 1, 1 ) );
+    vhandle[3] = topo.add_vertex( TopologicalMesh::Point( -1, 1, 1 ) );
+
+    std::vector<TopologicalMesh::VertexHandle> face_vhandles;
+    face_vhandles.push_back( vhandle[0] );
+    face_vhandles.push_back( vhandle[1] );
+    face_vhandles.push_back( vhandle[2] );
+    face_vhandles.push_back( vhandle[3] );
+    fhandle = topo.add_face( face_vhandles );
+
+    REQUIRE( topo.n_faces() == 1 );
+
+    auto index1 = topo.addWedgeAttrib<float>( "test1", 1.f );
+    REQUIRE( index1 == 0 );
+    REQUIRE( topo.getFloatAttribNames().size() == 1 );
+    REQUIRE( topo.getFloatAttribNames()[0] == "test1" );
+
+    for ( const auto& he : topo.halfedges() )
+    {
+        if ( topo.is_boundary( he ) ) continue;
+
+        auto wd = topo.newWedgeData();
+
+        // need to set position and vertex handle for new wedges
+        wd.m_vertexHandle = topo.to_vertex_handle( he );
+        wd.m_position     = topo.point( wd.m_vertexHandle );
+
+        REQUIRE( wd.m_floatAttrib.size() == 1 );
+        wd.m_floatAttrib[index1] = 2.f;
+        topo.replaceWedge( he, wd );
+    }
+    REQUIRE( topo.checkIntegrity() );
+
+    auto index2 = topo.addWedgeAttrib<float>( "test2", 2.f );
+    REQUIRE( index2 == 1 );
+    for ( const auto& he : topo.halfedges() )
+    {
+        if ( topo.is_boundary( he ) ) continue;
+        // our we require the wedge to be already set for this he
+        auto wd = topo.newWedgeData( he );
+
+        REQUIRE( wd.m_vertexHandle == topo.to_vertex_handle( he ) );
+        REQUIRE( wd.m_position == topo.point( wd.m_vertexHandle ) );
+
+        REQUIRE( wd.m_floatAttrib.size() == 2 );
+        wd.m_floatAttrib[index2] = 3.f;
+        topo.replaceWedge( he, wd );
+    }
+
+    auto index3 = topo.addWedgeAttrib<float>( "test3", 3.f );
+    REQUIRE( index3 == 2 );
+    for ( const auto& he : topo.halfedges() )
+    {
+        if ( topo.is_boundary( he ) ) continue;
+
+        auto wedgeIndex = topo.getWedgeIndex( he );
+        REQUIRE( topo.getWedgeRefCount( wedgeIndex ) == 1 );
+        auto wedgeData = topo.getWedgeData( wedgeIndex );
+
+        REQUIRE( wedgeData.m_floatAttrib[index1] == 0.f );
+        REQUIRE( wedgeData.m_floatAttrib[index2] == 3.f );
+        REQUIRE( wedgeData.m_floatAttrib[index3] == 3.f );
+    }
+
+    auto poly = topo.toPolyMesh();
+    REQUIRE( poly.vertices().size() == 4 );
+    REQUIRE( poly.getIndices().size() == 1 );
+    REQUIRE( poly.getIndices()[0].size() == 4 );
+    testAttrib( poly, "test1", 0.f );
+    testAttrib( poly, "test2", 3.f );
+    testAttrib( poly, "test3", 3.f );
+
+    topo.triangulate();
+    topo.checkIntegrity();
+    auto tri = topo.toTriangleMesh();
+    REQUIRE( tri.vertices().size() == 4 );
+    REQUIRE( tri.getIndices().size() == 2 );
+    REQUIRE( tri.getIndices()[0].size() == 3 );
+    REQUIRE( tri.getIndices()[1].size() == 3 );
+    testAttrib( tri, "test1", 0.f );
+    testAttrib( tri, "test2", 3.f );
+    testAttrib( tri, "test3", 3.f );
+}
+
+optional<TopologicalMesh::HalfedgeHandle>
+findHalfedge( TopologicalMesh& topo, const Vector3& from, const Vector3& to ) {
+    bool found;
+    TopologicalMesh::HalfedgeHandle he;
+    for ( auto he_iter = topo.halfedges_begin(); he_iter != topo.halfedges_end(); ++he_iter )
+    {
+
+        if ( topo.point( topo.to_vertex_handle( he_iter ) ) == from &&
+             topo.point( topo.from_vertex_handle( he_iter ) ) == to )
+        {
+            found = true;
+            he    = *he_iter;
+        }
+    }
+    if ( found ) return he;
+    return {};
+}
+
+TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
+    using namespace Ra::Core;
+    using namespace Ra::Core::Utils;
+    using namespace Ra::Core::Geometry;
+    auto findHalfedge = []( TopologicalMesh& topo,
+                            const Vector3& from,
+                            const Vector3& to ) -> optional<TopologicalMesh::HalfedgeHandle> {
+        bool found;
+        TopologicalMesh::HalfedgeHandle he;
+        for ( auto he_iter = topo.halfedges_begin(); he_iter != topo.halfedges_end(); ++he_iter )
+        {
+
+            if ( topo.point( topo.to_vertex_handle( he_iter ) ) == to &&
+                 topo.point( topo.from_vertex_handle( he_iter ) ) == from )
+            {
+                found = true;
+                he    = *he_iter;
+            }
+        }
+        if ( found ) return he;
+        return {};
+    };
+
+    Vector3Array points1 {
+        {00._ra, 00._ra, 00._ra},
+        {10._ra, 00._ra, 00._ra},
+        {05._ra, 05._ra, 00._ra},
+        {05._ra, 10._ra, 00._ra},
+        {15._ra, 05._ra, 00._ra},
+        {10._ra, 08._ra, 00._ra},
+        {10._ra, 12._ra, 00._ra},
+        {15._ra, 10._ra, 00._ra},
+    };
+    Vector3Array points2 = {points1[0], points1[0], points1[1], points1[1], points1[1], points1[2],
+                            points1[2], points1[2], points1[2], points1[3], points1[3], points1[3],
+                            points1[4], points1[4], points1[5], points1[5], points1[5], points1[5],
+                            points1[5], points1[5], points1[6], points1[6], points1[7], points1[7]};
+
+    Vector4Array colors1 = {
+        {0_ra, 0_ra, 0_ra, 1_ra},    {1_ra, 1_ra, 1_ra, 1_ra},    {2_ra, 2_ra, 2_ra, 1_ra},
+        {3_ra, 3_ra, 3_ra, 1_ra},    {4_ra, 4_ra, 4_ra, 1_ra},    {5_ra, 5_ra, 5_ra, 1_ra},
+        {6_ra, 6_ra, 6_ra, 1_ra},    {7_ra, 7_ra, 7_ra, 1_ra},    {8_ra, 8_ra, 8_ra, 1_ra},
+        {9_ra, 9_ra, 9_ra, 1_ra},    {10_ra, 10_ra, 10_ra, 1_ra}, {11_ra, 11_ra, 11_ra, 1_ra},
+        {12_ra, 12_ra, 12_ra, 1_ra}, {13_ra, 13_ra, 13_ra, 1_ra}, {14_ra, 14_ra, 14_ra, 1_ra},
+        {15_ra, 15_ra, 15_ra, 1_ra}, {16_ra, 16_ra, 16_ra, 1_ra}, {17_ra, 17_ra, 17_ra, 1_ra},
+        {18_ra, 18_ra, 18_ra, 1_ra}, {19_ra, 19_ra, 19_ra, 1_ra}, {20_ra, 20_ra, 20_ra, 1_ra},
+        {21_ra, 21_ra, 21_ra, 1_ra}, {22_ra, 22_ra, 22_ra, 1_ra}, {23_ra, 23_ra, 23_ra, 1_ra},
+    };
+
+    Vector3uArray indices1 {
+        {0, 2, 1}, {0, 3, 2}, {1, 2, 5}, {2, 3, 5}, {1, 5, 4}, {3, 6, 5}, {5, 6, 7}, {4, 5, 7}};
+
+    Vector3uArray indices3 = {{0, 2, 1}, {1, 2, 5}, {1, 5, 4}, {3, 6, 5}, {5, 6, 7}, {4, 5, 7}};
+
+    Vector3uArray indices4 = {
+        {0, 2, 5}, {3, 14, 6}, {4, 12, 15}, {11, 18, 20}, {17, 22, 21}, {16, 13, 23}};
+
+    Vector3uArray indices2 {{0, 5, 2},
+                            {1, 9, 8},
+                            {3, 6, 14},
+                            {7, 10, 19},
+                            {4, 15, 12},
+                            {11, 20, 18},
+                            {17, 21, 22},
+                            {16, 23, 13}};
+    Vector4Array colors2 {24, Color::White()};
+    for ( const auto& face : indices2 )
+    {
+        colors2[face[0]] = colors1[face[0]];
+        colors2[face[1]] = colors1[face[0]];
+        colors2[face[2]] = colors1[face[0]];
+    }
+
+    Vector4Array colors3 {24, Color::White()};
+    std::vector<int> topFaceIndices {1, 3, 5, 6};
+    std::vector<int> bottomFaceIndices {0, 2, 4, 7};
+
+    for ( const auto& faceIndex : topFaceIndices )
+    {
+        colors3[indices2[faceIndex][0]] = colors1[0];
+        colors3[indices2[faceIndex][1]] = colors1[0];
+        colors3[indices2[faceIndex][2]] = colors1[0];
+    }
+    for ( const auto& faceIndex : bottomFaceIndices )
+    {
+        colors3[indices2[faceIndex][0]] = colors1[1];
+        colors3[indices2[faceIndex][1]] = colors1[1];
+        colors3[indices2[faceIndex][2]] = colors1[1];
+    }
+
+    Vector4Array colors4 {24, Color::White()};
+
+    std::vector<std::vector<int>> splitContinuousWedges {// 0
+                                                         {0},
+                                                         {1},
+                                                         // 1
+                                                         {2, 3, 4},
+                                                         // 2
+                                                         {8, 7},
+                                                         {5, 6},
+                                                         // 3
+                                                         {9, 10, 11},
+                                                         // 4
+                                                         {12, 13},
+                                                         // 5
+                                                         {14, 15, 16},
+                                                         {17, 18, 19},
+                                                         // 6
+                                                         {20, 21},
+                                                         // 7
+                                                         {22, 23}};
+
+    for ( size_t i = 0; i < splitContinuousWedges.size(); ++i )
+    {
+        for ( const auto& widx : splitContinuousWedges[i] )
+        {
+            colors4[widx] = colors1[i];
+        }
+    }
+
+    ///\todo add more checks on resulting topology and wedges after collapse
+    auto addMergeScene = [findHalfedge]( const Vector3Array& points,
+                                         const Vector4Array& colors,
+                                         const Vector3uArray& indices,
+                                         Vector3 from,
+                                         Vector3 to ) {
+        TriangleMesh mesh1;
+        TopologicalMesh topo1;
+        optional<TopologicalMesh::HalfedgeHandle> optHe;
+
+        mesh1.setVertices( points );
+        mesh1.addAttrib( "color", Vector4Array {colors.begin(), colors.begin() + points.size()} );
+        mesh1.setIndices( indices );
+
+        topo1 = TopologicalMesh {mesh1};
+        topo1.mergeEqualWedges();
+        topo1.garbage_collection();
+
+        topo1.checkIntegrity();
+        optHe = findHalfedge( topo1, from, to );
+        REQUIRE( optHe );
+
+        topo1.collapse( *optHe );
+        REQUIRE( topo1.checkIntegrity() );
+
+        topo1 = TopologicalMesh {mesh1};
+        optHe = findHalfedge( topo1, from, to );
+        REQUIRE( optHe );
+
+        topo1.collapse( *optHe, true );
+        REQUIRE( topo1.checkIntegrity() );
+
+        std::swap( from, to );
+
+        topo1 = TopologicalMesh {mesh1};
+        topo1.mergeEqualWedges();
+        topo1.garbage_collection();
+        optHe = findHalfedge( topo1, from, to );
+        REQUIRE( optHe );
+
+        topo1.collapse( *optHe );
+        REQUIRE( topo1.checkIntegrity() );
+
+        topo1 = TopologicalMesh {mesh1};
+        optHe = findHalfedge( topo1, from, to );
+        REQUIRE( optHe );
+
+        topo1.collapse( *optHe, true );
+        REQUIRE( topo1.checkIntegrity() );
+    };
+
+    SECTION( "With continuous wedges." ) {
+        addMergeScene( points1, colors1, indices1, points1[5], points1[2] );
+    }
+
+    SECTION( "with top/bottom wedges" ) {
+        addMergeScene( points2, colors3, indices2, points1[5], points1[2] );
+    }
+
+    SECTION( "with continuous top/bottom wedges" ) {
+        addMergeScene( points2, colors4, indices2, points1[5], points1[2] );
+    }
+    SECTION( "with flat face wedges" ) {
+        addMergeScene( points2, colors2, indices2, points1[5], points1[2] );
+    }
+
+    SECTION( "boundary  With continuous wedges." ) {
+        addMergeScene( points1, colors1, indices3, points1[5], points1[2] );
+    }
+    SECTION( "boundary with top/bottom wedges" ) {
+        addMergeScene( points2, colors3, indices4, points1[5], points1[2] );
+    }
+    SECTION( "boundary with continuous top/bottom wedges" ) {
+        addMergeScene( points2, colors4, indices4, points1[5], points1[2] );
+    }
+    SECTION( "boundary with flat face wedges" ) {
+        addMergeScene( points2, colors2, indices4, points1[5], points1[2] );
+    }
 }

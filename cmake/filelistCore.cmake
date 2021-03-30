@@ -23,6 +23,7 @@ set( core_sources
     Geometry/Adjacency.cpp
     Geometry/Area.cpp
     Geometry/CatmullClarkSubdivider.cpp
+    Geometry/deprecated/TopologicalMesh.cpp
     Geometry/HeatDiffusion.cpp
     Geometry/Laplacian.cpp
     Geometry/LoopSubdivider.cpp
@@ -91,6 +92,7 @@ set( core_headers
     Geometry/Area.hpp
     Geometry/CatmullClarkSubdivider.hpp
     Geometry/Curve2D.hpp
+    Geometry/deprecated/TopologicalMesh.hpp
     Geometry/DistanceQueries.hpp
     Geometry/Frustum.hpp
     Geometry/HeatDiffusion.hpp
@@ -154,6 +156,7 @@ set( core_inlines
     Containers/Grid.inl
     Containers/Tex.inl
     Geometry/Curve2D.inl
+    Geometry/deprecated/TopologicalMesh.inl
     Geometry/DistanceQueries.inl
     Geometry/MeshPrimitives.inl
     Geometry/PolyLine.inl

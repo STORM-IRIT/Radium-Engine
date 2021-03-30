@@ -4,7 +4,7 @@ namespace Ra {
 namespace Core {
 namespace Geometry {
 
-bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
+bool LoopSubdivider::prepare( deprecated::TopologicalMesh& mesh ) {
     uint maxValence = 0;
     for ( auto v_it = mesh.vertices_begin(); v_it != mesh.vertices_end(); ++v_it )
     {
@@ -22,14 +22,16 @@ bool LoopSubdivider::prepare( TopologicalMesh& mesh ) {
     return true;
 }
 
-bool LoopSubdivider::cleanup( TopologicalMesh& mesh ) {
+bool LoopSubdivider::cleanup( deprecated::TopologicalMesh& mesh ) {
     mesh.remove_property( m_vpPos );
     mesh.remove_property( m_epPos );
     mesh.remove_property( m_hV );
     return true;
 }
 
-bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool updatePoints ) {
+bool LoopSubdivider::subdivide( deprecated::TopologicalMesh& mesh,
+                                size_t n,
+                                const bool updatePoints ) {
     m_oldVertexOps.clear();
     m_newVertexOps.clear();
     m_newEdgePropOps.clear();
@@ -39,8 +41,8 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
     m_newEdgePropOps.resize( n );
     m_newFacePropOps.resize( n );
 
-    TopologicalMesh::FaceIter fit, f_end;
-    TopologicalMesh::EdgeIter eit, e_end;
+    deprecated::TopologicalMesh::FaceIter fit, f_end;
+    deprecated::TopologicalMesh::EdgeIter eit, e_end;
 
     // Do n subdivisions
     for ( uint iter = 0; iter < n; ++iter )
@@ -100,17 +102,17 @@ bool LoopSubdivider::subdivide( TopologicalMesh& mesh, size_t n, const bool upda
         }
 
         // Now we have an consistent mesh!
-        CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<TopologicalMesh>( mesh ).check(),
+        CORE_ASSERT( OpenMesh::Utils::MeshCheckerT<deprecated::TopologicalMesh>( mesh ).check(),
                      "LoopSubdivision ended with a bad topology." );
     }
 
     return true;
 }
 
-void LoopSubdivider::split_face( TopologicalMesh& mesh,
-                                 const TopologicalMesh::FaceHandle& fh,
+void LoopSubdivider::split_face( deprecated::TopologicalMesh& mesh,
+                                 const deprecated::TopologicalMesh::FaceHandle& fh,
                                  size_t iter ) {
-    using HeHandle = TopologicalMesh::HalfedgeHandle;
+    using HeHandle = deprecated::TopologicalMesh::HalfedgeHandle;
     // get where to cut
     HeHandle heh1( mesh.halfedge_handle( fh ) );
     HeHandle heh2( mesh.next_halfedge_handle( mesh.next_halfedge_handle( heh1 ) ) );
@@ -122,12 +124,12 @@ void LoopSubdivider::split_face( TopologicalMesh& mesh,
     corner_cutting( mesh, heh3, iter );
 }
 
-void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
-                                     const TopologicalMesh::HalfedgeHandle& he,
+void LoopSubdivider::corner_cutting( deprecated::TopologicalMesh& mesh,
+                                     const deprecated::TopologicalMesh::HalfedgeHandle& he,
                                      size_t iter ) {
-    using HeHandle = TopologicalMesh::HalfedgeHandle;
-    using VHandle  = TopologicalMesh::VertexHandle;
-    using FHandle  = TopologicalMesh::FaceHandle;
+    using HeHandle = deprecated::TopologicalMesh::HalfedgeHandle;
+    using VHandle  = deprecated::TopologicalMesh::VertexHandle;
+    using FHandle  = deprecated::TopologicalMesh::FaceHandle;
 
     // Define Halfedge Handles
     HeHandle heh1( he );
@@ -189,11 +191,11 @@ void LoopSubdivider::corner_cutting( TopologicalMesh& mesh,
     m_newFacePropOps[iter].push_back( {heh3, {{1, heh5}}} );
 }
 
-void LoopSubdivider::split_edge( TopologicalMesh& mesh,
-                                 const TopologicalMesh::EdgeHandle& eh,
+void LoopSubdivider::split_edge( deprecated::TopologicalMesh& mesh,
+                                 const deprecated::TopologicalMesh::EdgeHandle& eh,
                                  size_t iter ) {
-    using HeHandle = TopologicalMesh::HalfedgeHandle;
-    using VHandle  = TopologicalMesh::VertexHandle;
+    using HeHandle = deprecated::TopologicalMesh::HalfedgeHandle;
+    using VHandle  = deprecated::TopologicalMesh::VertexHandle;
 
     // prepare data
     HeHandle heh     = mesh.halfedge_handle( eh, 0 );
@@ -262,13 +264,13 @@ void LoopSubdivider::split_edge( TopologicalMesh& mesh,
     mesh.adjust_outgoing_halfedge( vh1 );
 }
 
-void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh,
-                                       const TopologicalMesh::EdgeHandle& eh,
+void LoopSubdivider::compute_midpoint( deprecated::TopologicalMesh& mesh,
+                                       const deprecated::TopologicalMesh::EdgeHandle& eh,
                                        size_t iter ) {
-    TopologicalMesh::HalfedgeHandle heh     = mesh.halfedge_handle( eh, 0 );
-    TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
+    deprecated::TopologicalMesh::HalfedgeHandle heh     = mesh.halfedge_handle( eh, 0 );
+    deprecated::TopologicalMesh::HalfedgeHandle opp_heh = mesh.halfedge_handle( eh, 1 );
 
-    TopologicalMesh::Point pos = mesh.point( mesh.to_vertex_handle( heh ) );
+    deprecated::TopologicalMesh::Point pos = mesh.point( mesh.to_vertex_handle( heh ) );
     pos += mesh.point( mesh.to_vertex_handle( opp_heh ) );
 
     std::vector<V_OP> ops;
@@ -302,19 +304,19 @@ void LoopSubdivider::compute_midpoint( TopologicalMesh& mesh,
     }
 }
 
-void LoopSubdivider::smooth( TopologicalMesh& mesh,
-                             const TopologicalMesh::VertexHandle& vh,
+void LoopSubdivider::smooth( deprecated::TopologicalMesh& mesh,
+                             const deprecated::TopologicalMesh::VertexHandle& vh,
                              size_t iter ) {
-    using VHandle = TopologicalMesh::VertexHandle;
+    using VHandle = deprecated::TopologicalMesh::VertexHandle;
 
-    TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
+    deprecated::TopologicalMesh::Point pos( 0.0, 0.0, 0.0 );
 
     std::vector<V_OP> ops;
 
     if ( mesh.is_boundary( vh ) ) // if boundary: Point 1-6-1
     {
-        TopologicalMesh::HalfedgeHandle heh;
-        TopologicalMesh::HalfedgeHandle prev_heh;
+        deprecated::TopologicalMesh::HalfedgeHandle heh;
+        deprecated::TopologicalMesh::HalfedgeHandle prev_heh;
         heh = mesh.halfedge_handle( vh );
 
         assert( mesh.is_boundary( mesh.edge_handle( heh ) ) );
@@ -338,7 +340,7 @@ void LoopSubdivider::smooth( TopologicalMesh& mesh,
     }
     else // inner vertex: (1-a) * p + a/n * Sum q, q in one-ring of p
     {
-        TopologicalMesh::VertexVertexIter vvit;
+        deprecated::TopologicalMesh::VertexVertexIter vvit;
         const uint valence = mesh.valence( vh );
         ops.resize( valence + 1 );
         int i = 0;
@@ -364,7 +366,7 @@ void LoopSubdivider::recompute( const Vector3Array& newCoarseVertices,
                                 const Vector3Array& newCoarseNormals,
                                 Vector3Array& newSubdivVertices,
                                 Vector3Array& newSubdivNormals,
-                                TopologicalMesh& mesh ) {
+                                deprecated::TopologicalMesh& mesh ) {
     // update vertices
     auto inTriIndexProp = mesh.getInputTriangleMeshIndexPropHandle();
     auto hNormalProp    = mesh.halfedge_normals_pph();
