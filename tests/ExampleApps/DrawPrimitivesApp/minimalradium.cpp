@@ -775,7 +775,7 @@ void MinimalComponent::initialize() {
             addRenderObject( renderObject2 );
         };
 
-        Vector3Array points {
+        Vector3Array points1 {
             {00._ra, 00._ra, 00._ra},
             {10._ra, 00._ra, 00._ra},
             {05._ra, 05._ra, 00._ra},
@@ -785,12 +785,13 @@ void MinimalComponent::initialize() {
             {10._ra, 12._ra, 00._ra},
             {15._ra, 10._ra, 00._ra},
         };
-        Vector3Array points2 = {points[0], points[0], points[1], points[1], points[1], points[2],
-                                points[2], points[2], points[2], points[3], points[3], points[3],
-                                points[4], points[4], points[5], points[5], points[5], points[5],
-                                points[5], points[5], points[6], points[6], points[7], points[7]};
+        Vector3Array points2 = {points1[0], points1[0], points1[1], points1[1], points1[1],
+                                points1[2], points1[2], points1[2], points1[2], points1[3],
+                                points1[3], points1[3], points1[4], points1[4], points1[5],
+                                points1[5], points1[5], points1[5], points1[5], points1[5],
+                                points1[6], points1[6], points1[7], points1[7]};
 
-        Vector4Array colors = {
+        Vector4Array colors1 = {
             {0_ra, 0_ra, 0_ra, 1_ra},    {1_ra, 1_ra, 1_ra, 1_ra},    {2_ra, 2_ra, 2_ra, 1_ra},
             {3_ra, 3_ra, 3_ra, 1_ra},    {4_ra, 4_ra, 4_ra, 1_ra},    {5_ra, 5_ra, 5_ra, 1_ra},
             {6_ra, 6_ra, 6_ra, 1_ra},    {7_ra, 7_ra, 7_ra, 1_ra},    {8_ra, 8_ra, 8_ra, 1_ra},
@@ -801,7 +802,7 @@ void MinimalComponent::initialize() {
             {21_ra, 21_ra, 21_ra, 1_ra}, {22_ra, 22_ra, 22_ra, 1_ra}, {23_ra, 23_ra, 23_ra, 1_ra},
         };
 
-        for ( auto& c : colors )
+        for ( auto& c : colors1 )
         {
             c = colorBoost * Vector4 {dis01( gen ), dis01( gen ), dis01( gen ), 1_ra};
         }
@@ -824,9 +825,9 @@ void MinimalComponent::initialize() {
         Vector4Array colors2 {24, Color::White()};
         for ( const auto& face : indices2 )
         {
-            colors2[face[0]] = colors[face[0]];
-            colors2[face[1]] = colors[face[0]];
-            colors2[face[2]] = colors[face[0]];
+            colors2[face[0]] = colors1[face[0]];
+            colors2[face[1]] = colors1[face[0]];
+            colors2[face[2]] = colors1[face[0]];
         }
 
         Vector4Array colors3 {24, Color::White()};
@@ -835,15 +836,15 @@ void MinimalComponent::initialize() {
 
         for ( const auto& faceIndex : topFaceIndices )
         {
-            colors3[indices2[faceIndex][0]] = colors[0];
-            colors3[indices2[faceIndex][1]] = colors[0];
-            colors3[indices2[faceIndex][2]] = colors[0];
+            colors3[indices2[faceIndex][0]] = colors1[0];
+            colors3[indices2[faceIndex][1]] = colors1[0];
+            colors3[indices2[faceIndex][2]] = colors1[0];
         }
         for ( const auto& faceIndex : bottomFaceIndices )
         {
-            colors3[indices2[faceIndex][0]] = colors[1];
-            colors3[indices2[faceIndex][1]] = colors[1];
-            colors3[indices2[faceIndex][2]] = colors[1];
+            colors3[indices2[faceIndex][0]] = colors1[1];
+            colors3[indices2[faceIndex][1]] = colors1[1];
+            colors3[indices2[faceIndex][2]] = colors1[1];
         }
         Vector4Array colors4 {24, Color::White()};
 
@@ -871,7 +872,7 @@ void MinimalComponent::initialize() {
         {
             for ( const auto& widx : splitContinuousWedges[i] )
             {
-                colors4[widx] = colors[i];
+                colors4[widx] = colors1[i];
             }
         }
 
@@ -880,85 +881,85 @@ void MinimalComponent::initialize() {
                 Vector3 pos,
                 const Vector3Array& points,
                 const Vector4Array& colors,
-                const Vector3uArray& indices1,
+                const Vector3uArray& indices,
                 Vector3 from,
                 Vector3 to ) {
-                TriangleMesh mesh1;
-                TopologicalMesh topo1;
+                TriangleMesh mesh;
+                TopologicalMesh topo;
                 optional<TopologicalMesh::HalfedgeHandle> optHe;
                 Vector3 up {0_ra, .05_ra, 0_ra};
 
-                mesh1.setVertices( points );
-                mesh1.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
-                                 Vector4Array {colors.begin(), colors.begin() + points.size()} );
-                mesh1.setIndices( indices1 );
-                topo1 = TopologicalMesh {mesh1};
-                topo1.mergeEqualWedges();
-                topo1.garbage_collection();
-                topo1.checkIntegrity();
-                optHe = findHalfedge( topo1, from, to );
+                mesh.setVertices( points );
+                mesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ),
+                                Vector4Array {colors.begin(), colors.begin() + points.size()} );
+                mesh.setIndices( indices );
+                topo = TopologicalMesh {mesh};
+                topo.mergeEqualWedges();
+                topo.garbage_collection();
+                topo.checkIntegrity();
+                optHe = findHalfedge( topo, from, to );
 
-                addMesh( pos, topo1 );
+                addMesh( pos, topo );
 
                 pos += up;
-                topo1.collapse( *optHe );
-                addMesh( pos, topo1 );
+                topo.collapse( *optHe );
+                addMesh( pos, topo );
 
-                topo1 = TopologicalMesh {mesh1};
-                optHe = findHalfedge( topo1, from, to );
+                topo  = TopologicalMesh {mesh};
+                optHe = findHalfedge( topo, from, to );
                 pos += up;
-                topo1.collapse( *optHe, true );
-                addMesh( pos, topo1 );
+                topo.collapse( *optHe, true );
+                addMesh( pos, topo );
 
                 std::swap( from, to );
-                topo1 = TopologicalMesh {mesh1};
-                topo1.mergeEqualWedges();
+                topo = TopologicalMesh {mesh};
+                topo.mergeEqualWedges();
 
-                optHe = findHalfedge( topo1, from, to );
+                optHe = findHalfedge( topo, from, to );
 
                 pos += up;
-                topo1.collapse( *optHe );
-                addMesh( pos, topo1 );
+                topo.collapse( *optHe );
+                addMesh( pos, topo );
 
-                topo1 = TopologicalMesh {mesh1};
-                optHe = findHalfedge( topo1, from, to );
+                topo  = TopologicalMesh {mesh};
+                optHe = findHalfedge( topo, from, to );
                 pos += up;
-                topo1.collapse( *optHe, true );
-                addMesh( pos, topo1 );
+                topo.collapse( *optHe, true );
+                addMesh( pos, topo );
             };
         Vector3 dx  = Vector3( cellSize / 8_ra, 0_ra, 0_ra );
         Vector3 pos = cellCorner;
         pos[2] += toCellCenter[2];
         // With "continuous" wedges.
-        addMergeScene( pos, points, colors, indices1, points[5], points[2] );
+        addMergeScene( pos, points1, colors1, indices1, points1[5], points1[2] );
 
         // with "top/bottom" wedges
-        addMergeScene( pos, points2, colors3, indices2, points[5], points[2] );
+        addMergeScene( pos, points2, colors3, indices2, points1[5], points1[2] );
         pos += dx;
 
         // with continuous"top/bottom" wedges
-        addMergeScene( pos, points2, colors4, indices2, points[5], points[2] );
+        addMergeScene( pos, points2, colors4, indices2, points1[5], points1[2] );
         pos += dx;
 
         // with "flat face" wedges
-        addMergeScene( pos, points2, colors2, indices2, points[5], points[2] );
+        addMergeScene( pos, points2, colors2, indices2, points1[5], points1[2] );
         pos += dx;
 
         // boundary
         // With "continuous" wedges.
-        addMergeScene( pos, points, colors, indices3, points[5], points[2] );
+        addMergeScene( pos, points1, colors1, indices3, points1[5], points1[2] );
         pos += dx;
 
         // with "top/bottom" wedges
-        addMergeScene( pos, points2, colors3, indices4, points[5], points[2] );
+        addMergeScene( pos, points2, colors3, indices4, points1[5], points1[2] );
         pos += dx;
 
         // with continuous"top/bottom" wedges
-        addMergeScene( pos, points2, colors4, indices4, points[5], points[2] );
+        addMergeScene( pos, points2, colors4, indices4, points1[5], points1[2] );
         pos += dx;
 
         // with "flat face" wedges
-        addMergeScene( pos, points2, colors2, indices4, points[5], points[2] );
+        addMergeScene( pos, points2, colors2, indices4, points1[5], points1[2] );
     }
 }
 
