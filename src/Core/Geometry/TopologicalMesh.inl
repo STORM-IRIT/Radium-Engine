@@ -407,6 +407,43 @@ void TopologicalMesh::InitWedgeAttribs<T>::operator()( AttribBase* attr ) const 
     }
 }
 
+inline void
+TopologicalMesh::InitWedgeAttribsFromMultiIndexedGeometry::operator()( AttribBase* attr ) const {
+    if ( attr->getSize() != m_triMesh.vertices().size() )
+    { LOG( logWARNING ) << "[TopologicalMesh] Skip badly sized attribute " << attr->getName(); }
+    else if ( attr->getName() != std::string( "in_position" ) )
+    {
+        if ( attr->isFloat() )
+        {
+            m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
+                m_triMesh.template getAttribHandle<float>( attr->getName() ) );
+            m_topo->m_wedges.addAttribName<float>( attr->getName() );
+        }
+        else if ( attr->isVector2() )
+        {
+            m_topo->m_wedges.m_wedgeVector2AttribHandles.push_back(
+                m_triMesh.template getAttribHandle<Vector2>( attr->getName() ) );
+            m_topo->m_wedges.addAttribName<Vector2>( attr->getName() );
+        }
+        else if ( attr->isVector3() )
+        {
+            m_topo->m_wedges.m_wedgeVector3AttribHandles.push_back(
+                m_triMesh.template getAttribHandle<Vector3>( attr->getName() ) );
+            m_topo->m_wedges.addAttribName<Vector3>( attr->getName() );
+        }
+        else if ( attr->isVector4() )
+        {
+            m_topo->m_wedges.m_wedgeVector4AttribHandles.push_back(
+                m_triMesh.template getAttribHandle<Vector4>( attr->getName() ) );
+            m_topo->m_wedges.addAttribName<Vector4>( attr->getName() );
+        }
+        else
+            LOG( logWARNING )
+                << "Warning, mesh attribute " << attr->getName()
+                << " type is not supported (only float, vec2, vec3 nor vec4 are supported)";
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////      TopologicalMesh          //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -429,6 +466,232 @@ TopologicalMesh::TopologicalMesh( const IndexedGeometry<MeshIndex>& mesh,
                                   NonManifoldFaceCommand command ) :
     TopologicalMesh() {
     initWithWedge( mesh, command );
+}
+
+inline TopologicalMesh::TopologicalMesh( const Ra::Core::Geometry::MultiIndexedGeometry& mesh ) :
+    TopologicalMesh( mesh,
+                     DefaultNonManifoldFaceCommandForMultiIndexedGeometry( "[default ctor]" ) ) {}
+
+template <typename NonManifoldFaceCommand>
+TopologicalMesh::TopologicalMesh( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+                                  NonManifoldFaceCommand command ) :
+    TopologicalMesh() {
+    initWithWedge( mesh, command );
+}
+
+inline void TopologicalMesh::initWithWedge( const Ra::Core::Geometry::MultiIndexedGeometry& mesh ) {
+    initWithWedge( mesh,
+                   DefaultNonManifoldFaceCommandForMultiIndexedGeometry(
+                       "[initWithWedges (MultiIndexedGeometry)]" ) );
+}
+
+template <typename NonManifoldFaceCommand>
+void TopologicalMesh::initWithWedge( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
+                                     NonManifoldFaceCommand command ) {
+
+    clean();
+
+    // init from triangular faces
+    /// \FIXME Support other layers, e.g., PolyIndexLayer
+    const auto& abstractLayer =
+        mesh.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
+    const auto& faces = static_cast<const TriangleIndexLayer&>( abstractLayer ).collection();
+
+    LOG( logINFO ) << "TopologicalMesh: load mesh with " << faces.size() << " faces and "
+                   << mesh.vertices().size() << " vertices.";
+    // use a hashmap for fast search of existing vertex position
+    using VertexMap = std::unordered_map<Vector3, TopologicalMesh::VertexHandle, hash_vec>;
+    VertexMap vertexHandles;
+
+    // loop over all attribs and build correspondance pair
+    mesh.vertexAttribs().for_each_attrib( InitWedgeAttribsFromMultiIndexedGeometry {this, mesh} );
+
+    size_t num_triangles = faces.size();
+
+    for ( size_t i = 0; i < mesh.vertices().size(); ++i )
+    {
+        // create an empty wedge, with 0 ref
+        Wedge w;
+
+        WedgeData wd;
+        wd.m_position = mesh.vertices()[i];
+        copyMeshToWedgeData( mesh,
+                             i,
+                             m_wedges.m_wedgeFloatAttribHandles,
+                             m_wedges.m_wedgeVector2AttribHandles,
+                             m_wedges.m_wedgeVector3AttribHandles,
+                             m_wedges.m_wedgeVector4AttribHandles,
+                             &wd );
+        // here ref is not incremented
+        w.setWedgeData( std::move( wd ) );
+        // the newly added wedge is not referenced yet, will be done with `newReference` when
+        // creating faces just below
+        m_wedges.m_data.push_back( w );
+    }
+
+    LOG( logINFO ) << "TopologicalMesh: have  " << m_wedges.size() << " wedges ";
+
+    const bool hasNormals = !mesh.normals().empty();
+    if ( !hasNormals )
+    {
+        release_face_normals();
+        release_vertex_normals();
+        release_halfedge_normals();
+    }
+
+    command.initialize( mesh );
+    for ( unsigned int i = 0; i < num_triangles; i++ )
+    {
+        const auto& face      = faces[i];
+        const size_t num_vert = face.size();
+        std::vector<TopologicalMesh::VertexHandle> face_vhandles( num_vert );
+        std::vector<TopologicalMesh::Normal> face_normals( num_vert );
+        std::vector<WedgeIndex> face_wedges( num_vert );
+
+        for ( size_t j = 0; j < num_vert; ++j )
+        {
+            unsigned int inMeshVertexIndex = face[j];
+            const Vector3& p               = mesh.vertices()[inMeshVertexIndex];
+
+            typename VertexMap::iterator vtr = vertexHandles.find( p );
+            TopologicalMesh::VertexHandle vh;
+            if ( vtr == vertexHandles.end() )
+            {
+                vh = add_vertex( p );
+                vertexHandles.insert( vtr, typename VertexMap::value_type( p, vh ) );
+            }
+            else
+            { vh = vtr->second; }
+
+            face_vhandles[j] = vh;
+            if ( hasNormals ) face_normals[j] = mesh.normals()[inMeshVertexIndex];
+            face_wedges[j] = WedgeIndex {inMeshVertexIndex};
+            m_wedges.m_data[inMeshVertexIndex].getWedgeData().m_vertexHandle = vh;
+        }
+
+        // remove consecutive equal vertex
+        // first take care of "loop" if begin == *end-1
+        // apply the same modifications on wedges and normals
+        // e.g. 1 2 1 becomes 1 2
+        {
+            auto begin = face_vhandles.begin();
+            if ( face_vhandles.size() > 2 )
+            {
+                auto end       = face_vhandles.end() - 1;
+                auto wedgeEnd  = face_wedges.end() - 1;
+                auto normalEnd = face_normals.end() - 1;
+
+                while ( begin != end && *begin == *end )
+                {
+                    end--;
+                    wedgeEnd--;
+                    normalEnd--;
+                }
+                face_vhandles.erase( end + 1, face_vhandles.end() );
+                face_wedges.erase( wedgeEnd + 1, face_wedges.end() );
+                face_normals.erase( normalEnd + 1, face_normals.end() );
+            }
+        }
+        // then remove duplicates
+        // e.g. 1 2 2 becomes 1 2
+        // equiv of
+        // face_vhandles.erase( std::unique( face_vhandles.begin(), face_vhandles.end() ),
+        //                     face_vhandles.end() );
+        // but handles wedges and normals
+        // see (https://en.cppreference.com/w/cpp/algorithm/unique)
+        {
+            auto first       = face_vhandles.begin();
+            auto wedgeFirst  = face_wedges.begin();
+            auto normalFirst = face_normals.begin();
+            auto last        = face_vhandles.end();
+
+            if ( first != last )
+            {
+                auto result       = first;
+                auto wedgeResult  = wedgeFirst;
+                auto normalResult = normalFirst;
+                while ( ++first != last )
+                {
+                    if ( !( *result == *first ) )
+                    {
+                        ++result;
+                        ++wedgeResult;
+                        ++normalResult;
+                        if ( result != first )
+                        {
+                            *result       = std::move( *first );
+                            *wedgeResult  = std::move( *wedgeFirst );
+                            *normalResult = std::move( *normalFirst );
+                        }
+                    }
+                }
+                face_vhandles.erase( result + 1, face_vhandles.end() );
+                face_wedges.erase( wedgeResult + 1, face_wedges.end() );
+                face_normals.erase( normalResult + 1, face_normals.end() );
+            }
+        }
+
+        ///\todo and "cross face ?"
+        // unique sort size == vhandles size, if not split ...
+
+        TopologicalMesh::FaceHandle fh;
+        // skip 2 vertex face
+        if ( face_vhandles.size() > 2 ) fh = add_face( face_vhandles );
+
+        // In case of topological inconsistancy, face will be invalid (or uninitialized <> invalid)
+        if ( fh.is_valid() )
+        {
+            for ( size_t vindex = 0; vindex < face_vhandles.size(); vindex++ )
+            {
+                TopologicalMesh::HalfedgeHandle heh = halfedge_handle( face_vhandles[vindex], fh );
+                if ( hasNormals ) set_normal( heh, face_normals[vindex] );
+                property( m_wedgeIndexPph, heh ) = m_wedges.newReference( face_wedges[vindex] );
+            }
+        }
+        else
+        { command.process( face_vhandles ); }
+        face_vhandles.clear();
+        face_normals.clear();
+    }
+    command.postProcess( *this );
+    if ( hasNormals )
+    {
+        m_normalsIndex = m_wedges.getWedgeAttribIndex<Normal>( "in_normal" );
+
+        m_vertexFaceWedgesWithSameNormals.clear();
+        m_vertexFaceWedgesWithSameNormals.resize( n_vertices() );
+
+        for ( auto itr = vertices_begin(), stop = vertices_end(); itr != stop; ++itr )
+        {
+            std::unordered_map<TopologicalMesh::Normal,
+                               std::pair<std::set<FaceHandle>, std::set<WedgeIndex>>,
+                               hash_vec>
+                normalSharedByWedges;
+
+            auto vh = *itr;
+
+            for ( ConstVertexIHalfedgeIter vh_it = cvih_iter( vh ); vh_it.is_valid(); ++vh_it )
+            {
+                const auto& widx = property( m_wedgeIndexPph, *vh_it );
+                if ( widx.isValid() && !m_wedges.getWedge( widx ).isDeleted() )
+                {
+                    auto oldNormal = m_wedges.getWedgeData<Normal>( widx, m_normalsIndex );
+                    normalSharedByWedges[oldNormal].first.insert( face_handle( *vh_it ) );
+                    normalSharedByWedges[oldNormal].second.insert( widx );
+                }
+            }
+
+            for ( const auto& pair : normalSharedByWedges )
+            {
+                for ( const auto& fh : pair.second.first )
+                {
+                    auto& v = m_vertexFaceWedgesWithSameNormals[vh.idx()][fh.idx()];
+                    v.insert( v.end(), pair.second.second.begin(), pair.second.second.end() );
+                }
+            }
+        }
+    }
+    LOG( logINFO ) << "TopologicalMesh: load end with  " << m_wedges.size() << " wedges ";
 }
 
 template <typename T>
@@ -655,6 +918,32 @@ template <typename T>
 void TopologicalMesh::copyMeshToWedgeData( const IndexedGeometry<T>& mesh,
                                            unsigned int vindex,
                                            const std::vector<AttribHandle<Scalar>>& wprop_float,
+                                           const std::vector<AttribHandle<Vector2>>& wprop_vec2,
+                                           const std::vector<AttribHandle<Vector3>>& wprop_vec3,
+                                           const std::vector<AttribHandle<Vector4>>& wprop_vec4,
+                                           TopologicalMesh::WedgeData* wd ) {
+
+    copyAttribToWedgeData( mesh, vindex, wprop_float, &wd->m_floatAttrib );
+    copyAttribToWedgeData( mesh, vindex, wprop_vec2, &wd->m_vector2Attrib );
+    copyAttribToWedgeData( mesh, vindex, wprop_vec3, &wd->m_vector3Attrib );
+    copyAttribToWedgeData( mesh, vindex, wprop_vec4, &wd->m_vector4Attrib );
+}
+
+template <typename T>
+void TopologicalMesh::copyAttribToWedgeData( const MultiIndexedGeometry& mesh,
+                                             unsigned int vindex,
+                                             const std::vector<AttribHandle<T>>& attrHandleVec,
+                                             VectorArray<T>* to ) {
+    for ( auto handle : attrHandleVec )
+    {
+        auto& attr = mesh.template getAttrib<T>( handle );
+        to->push_back( attr.data()[vindex] );
+    }
+}
+
+void TopologicalMesh::copyMeshToWedgeData( const MultiIndexedGeometry& mesh,
+                                           unsigned int vindex,
+                                           const std::vector<AttribHandle<float>>& wprop_float,
                                            const std::vector<AttribHandle<Vector2>>& wprop_vec2,
                                            const std::vector<AttribHandle<Vector3>>& wprop_vec3,
                                            const std::vector<AttribHandle<Vector4>>& wprop_vec4,

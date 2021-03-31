@@ -13,18 +13,10 @@ MultiIndexedGeometry::MultiIndexedGeometry( MultiIndexedGeometry&& other ) :
     AttribArrayGeometry( std::move( other ) ), m_indices( std::move( other.m_indices ) ) {}
 
 MultiIndexedGeometry::MultiIndexedGeometry( const AttribArrayGeometry& other ) :
-    AttribArrayGeometry( other ) {
-#ifdef MULTI_INDEX_MIMIC_TRIANGLE_MESH
-    setIndices( {} ); // force create of trianglemesh layer
-#endif
-}
+    AttribArrayGeometry( other ) {}
 
 MultiIndexedGeometry::MultiIndexedGeometry( AttribArrayGeometry&& other ) :
-    AttribArrayGeometry( std::move( other ) ) {
-#ifdef MULTI_INDEX_MIMIC_TRIANGLE_MESH
-    setIndices( {} ); // force create of trianglemesh layer
-#endif
-}
+    AttribArrayGeometry( std::move( other ) ) {}
 
 /// \fixme Deep copy
 MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometry& other ) {
