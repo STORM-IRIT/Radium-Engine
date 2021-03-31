@@ -5,6 +5,7 @@
 #include <Core/Utils/Color.hpp>
 #include <Core/Utils/Log.hpp>
 
+#include <Engine/Data/LambertianMaterial.hpp>
 #include <Engine/Data/Material.hpp>
 #include <Engine/Data/RenderParameters.hpp>
 #include <Engine/Data/ShaderProgramManager.hpp>
@@ -689,8 +690,16 @@ class PointCloudParameterProvider : public Data::ShaderParameterProvider
  */
 bool ForwardRenderer::buildRenderTechnique( RenderObject* ro ) const {
     auto material = ro->getMaterial();
-    auto builder  = EngineRenderTechniques::getDefaultTechnique( material->getMaterialName() );
-    auto rt       = Core::make_shared<RenderTechnique>();
+    if ( !material )
+    {
+        LOG( logWARNING ) << "ForwardRenderer : no material found when building RenderTechnique"
+                          << " - adding red Lambertian material";
+        auto defMat     = new Data::LambertianMaterial( "ForwardRenderer::Default material" );
+        defMat->m_color = Ra::Core::Utils::Color::Red();
+        material.reset( defMat );
+    }
+    auto builder = EngineRenderTechniques::getDefaultTechnique( material->getMaterialName() );
+    auto rt      = Core::make_shared<RenderTechnique>();
     // define the technique for rendering this RenderObject (here, using the default from
     // Material name)
     builder.second( *rt, material->isTransparent() );
