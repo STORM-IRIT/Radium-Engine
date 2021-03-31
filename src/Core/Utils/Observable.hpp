@@ -53,7 +53,7 @@ class Observable
     /// Attach an \p observer that will be call on subsecant call to notify()
     /// \return An unique int to identify the observer, could be used to pass to Obeservable::detach
     inline int attach( Observer observer ) {
-        m_observers.insert( std::make_pair( ++m_currentId, observer ) );
+        m_observers.insert( {++m_currentId, observer} );
         return m_currentId;
     }
 
