@@ -464,6 +464,9 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
+    // add custom attribs
+    mesh.vertexAttribs().copyAllAttributes( data->getAttribManager() );
+
     mesh.setIndices( std::move( indices ) );
 
     return mesh;
