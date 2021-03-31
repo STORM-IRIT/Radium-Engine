@@ -351,8 +351,6 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         auto newMeshModified = topologicalMesh.toTriangleMesh();
 
         REQUIRE( isSameMesh( mesh, newMesh ) );
-        REQUIRE( isSameMeshWedge( mesh, newMesh ) );
-        REQUIRE( !isSameMeshWedge( mesh, newMeshModified ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
     }
 
@@ -585,7 +583,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
     SECTION( "Non manifold faces" ) {
         struct MyNonManifoldCommand {
             explicit inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
-            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
+            inline void initialize( const AttribArrayGeometry& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& ) {
                 LOG( logINFO ) << "Non Manifold face found";
                 nonManifoldFaces++;
@@ -727,7 +725,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
             explicit inline MyNonManifoldCommand(
                 std::vector<std::vector<TopologicalMesh::VertexHandle>>& faulty ) :
                 m_faulty( faulty ) {}
-            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
+            inline void initialize( const AttribArrayGeometry& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& face_vhandles ) {
                 m_faulty.push_back( face_vhandles );
                 nonManifoldFaces++;
