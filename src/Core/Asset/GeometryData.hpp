@@ -246,8 +246,10 @@ class RA_CORE_API GeometryData : public AssetData
     /// Print stast info to the Debug output.
     void displayInfo() const;
 
+    /// Access to the attrib manager
     inline Utils::AttribManager& getAttribManager();
 
+    /// Access to the (const) attrib manager
     inline const Utils::AttribManager& getAttribManager() const;
 
   protected:
