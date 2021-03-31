@@ -44,7 +44,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
         //! [Creating and adding pointcloud layer]
         auto pil = std::make_unique<PointCloudIndexLayer>();
         // fill indices as linspace
-        pil->generateIndicesFromAttributes( geo );
+        pil->linearIndices( geo );
         // optional: save semantics for later
         pilSemantics = pil->semantics();
         // insert with default name
