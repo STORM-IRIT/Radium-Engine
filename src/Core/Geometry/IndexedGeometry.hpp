@@ -408,7 +408,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
 struct RA_CORE_API PointCloudIndexLayer : public GeometryIndexLayer<Vector1ui> {
     inline PointCloudIndexLayer() : GeometryIndexLayer( staticSemanticName ) {}
     /// \brief Generate linearly spaced indices with same size as \p attr vertex buffer
-    void generateIndicesFromAttributes( const AttribArrayGeometry& attr );
+    void linearIndices( const AttribArrayGeometry& attr );
 
     static constexpr const char* staticSemanticName = "PointCloud";
 

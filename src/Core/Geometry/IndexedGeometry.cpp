@@ -217,7 +217,7 @@ void MultiIndexedGeometry::unlockLayer( const LayerKeyType& layerKey ) {
 
 bool MultiIndexedGeometry::addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
                                      const std::string& layerName ) {
-    LayerKeyType key = std::make_pair( layer->semantics(), layerName );
+    LayerKeyType key {layer->semantics(), layerName};
     if ( m_indices.find( key ) != m_indices.end() ) return false;
 
     m_indices.insert( {key, std::make_pair( false, layer.release() )} );
@@ -243,7 +243,7 @@ std::size_t MultiIndexedGeometry::KeyHash::operator()( const LayerKeyType& k ) c
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-void PointCloudIndexLayer::generateIndicesFromAttributes( const AttribArrayGeometry& attr ) {
+void PointCloudIndexLayer::linearIndices( const AttribArrayGeometry& attr ) {
     auto nbVert = attr.vertices().size();
     collection().resize( nbVert );
     collection().getMap() = IndexContainerType::Matrix::LinSpaced( nbVert, 0, nbVert - 1 );

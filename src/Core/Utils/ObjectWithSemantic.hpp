@@ -35,9 +35,9 @@ class RA_CORE_API ObjectWithSemantic
     }
 
     inline bool shareSemantic( const ObjectWithSemantic& other ) {
-        for ( const auto& s : _names )
-            if ( other._names.find( s ) != other._names.end() ) return true;
-        return false;
+        return std::any_of( _names.begin(), _names.end(), [&other]( const auto& s ) {
+            return other.hasSemantic( s );
+        } );
     }
 
     inline bool sameSemantics( const ObjectWithSemantic& other ) { return _names == other._names; }
