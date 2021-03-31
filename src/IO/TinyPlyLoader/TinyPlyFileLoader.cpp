@@ -76,22 +76,16 @@ struct memory_stream : virtual memory_buffer, public std::istream {
 };
 
 template <typename DataType, typename ContainerType>
-void copyArrayToRadiumcontainer( const uint8_t* buffer, ContainerType& container, size_t count ) {
-    CORE_UNUSED( buffer );
-    CORE_UNUSED( container );
-    CORE_UNUSED( count );
-    LOG( logERROR )
-        << "Using an unsupported specialisation of "
-           "copyArrayToRadiumcontainer<typename DataType, typename ContainerType> with\n"
-           "\t DataType      = "
-        << typeid( DataType ).name() << std::endl
-        << "\t ContainerType = " << typeid( ContainerType ).name();
+void copyArrayToContainer( const uint8_t*, ContainerType&, size_t ) {
+    static_assert( std::is_same<ContainerType, Ra::Core::Vector3Array>::value ||
+                       std::is_same<ContainerType, Ra::Core::Vector1Array>::value,
+                   "[TinyPLY] unsupported template specialisation for copyArrayToContainer." );
 }
 
 template <typename DataType>
-void copyArrayToRadiumcontainer( const uint8_t* buffer,
-                                 Ra::Core::Vector1Array& container,
-                                 size_t count ) {
+void copyArrayToContainer( const uint8_t* buffer,
+                           Ra::Core::Vector1Array& container,
+                           size_t count ) {
     auto data = reinterpret_cast<const DataType*>( buffer );
     container.reserve( count );
     for ( size_t i = 0; i < count; ++i )
@@ -101,9 +95,9 @@ void copyArrayToRadiumcontainer( const uint8_t* buffer,
 }
 
 template <typename DataType>
-void copyArrayToRadiumcontainer( const uint8_t* buffer,
-                                 Ra::Core::Vector3Array& container,
-                                 size_t count ) {
+void copyArrayToContainer( const uint8_t* buffer,
+                           Ra::Core::Vector3Array& container,
+                           size_t count ) {
     auto data = reinterpret_cast<const DataType*>( buffer );
     container.reserve( count );
     for ( size_t i = 0; i < count; ++i )
@@ -113,24 +107,23 @@ void copyArrayToRadiumcontainer( const uint8_t* buffer,
 }
 
 template <typename ContainerType>
-void copyBufferToRadiumContainer( const std::shared_ptr<tinyply::PlyData>& buffer,
-                                  ContainerType& container ) {
+void copyBufferToContainer( const std::shared_ptr<tinyply::PlyData>& buffer,
+                            ContainerType& container ) {
     if ( buffer && buffer->count != 0 )
     {
         switch ( buffer->t )
         {
         case tinyply::Type::FLOAT32: {
-            copyArrayToRadiumcontainer<float>( buffer->buffer.get(), container, buffer->count );
+            copyArrayToContainer<float>( buffer->buffer.get(), container, buffer->count );
         }
         break;
         case tinyply::Type::FLOAT64: {
-            copyArrayToRadiumcontainer<double>( buffer->buffer.get(), container, buffer->count );
+            copyArrayToContainer<double>( buffer->buffer.get(), container, buffer->count );
         }
         break;
         default:
-            LOG( logWARNING )
-                << "[TinyPLY] copyBufferToRadiumContainer - unsupported buffer type ..."
-                << tinyply::PropertyTable[buffer->t].str;
+            LOG( logWARNING ) << "[TinyPLY] copyBufferToContainer - unsupported buffer type ..."
+                              << tinyply::PropertyTable[buffer->t].str;
         }
     }
 }
@@ -248,10 +241,7 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
             {
                 bool exists = usedAttributes.find( p.name ) != usedAttributes.end();
                 if ( !exists )
-                {
-                    LOG( logINFO ) << "[TinyPLY] Requesting custom vertex attribute " << p.name;
-                    allAttributes.emplace_back( p.name, initBuffer( "vertex", {p.name} ) );
-                }
+                { allAttributes.emplace_back( p.name, initBuffer( "vertex", {p.name} ) ); }
             }
             break;
         }
@@ -260,8 +250,8 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     // read requested buffers (and only those) from file content
     file.read( *file_stream );
 
-    copyBufferToRadiumContainer( vertBuffer, geometry->getVertices() );
-    copyBufferToRadiumContainer( normalBuffer, geometry->getNormals() );
+    copyBufferToContainer( vertBuffer, geometry->getVertices() );
+    copyBufferToContainer( normalBuffer, geometry->getNormals() );
 
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 )
@@ -310,11 +300,10 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         std::replace( attribName.begin(), attribName.end(), '-', '_' );
         LOG( logINFO ) << "[TinyPLY] Adding custom attrib with name " << attribName << " (was "
                        << a.first << ")";
-
         auto handle     = attribManager.addAttrib<Scalar>( attribName );
         auto& attrib    = attribManager.getAttrib( handle );
         auto& container = attrib.getDataWithLock();
-        copyBufferToRadiumContainer( a.second, container );
+        copyBufferToContainer( a.second, container );
         attrib.unlock();
     }
 
