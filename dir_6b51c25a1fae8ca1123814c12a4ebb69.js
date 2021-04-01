@@ -4,9 +4,7 @@ var dir_6b51c25a1fae8ca1123814c12a4ebb69 =
     [ "DebugRender.hpp", "DebugRender_8hpp.html", [
       [ "DebugRender", "classRa_1_1Engine_1_1Rendering_1_1DebugRender.html", "classRa_1_1Engine_1_1Rendering_1_1DebugRender" ]
     ] ],
-    [ "ForwardRenderer.cpp", "ForwardRenderer_8cpp.html", [
-      [ "PointCloudParameterProvider", "classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html", "classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider" ]
-    ] ],
+    [ "ForwardRenderer.cpp", "ForwardRenderer_8cpp.html", "ForwardRenderer_8cpp" ],
     [ "ForwardRenderer.hpp", "ForwardRenderer_8hpp.html", [
       [ "ForwardRenderer", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html", "classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer" ]
     ] ],

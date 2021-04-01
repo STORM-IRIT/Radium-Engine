@@ -186,6 +186,7 @@ var hierarchy =
     [ "Ra::Core::Utils::IndexMap< std::shared_ptr< Ra::Engine::Rendering::RenderObject > >", "classRa_1_1Core_1_1Utils_1_1IndexMap.html", null ],
     [ "Ra::Core::Utils::IndexMap< std::unique_ptr< Ra::Engine::Scene::Entity > >", "classRa_1_1Core_1_1Utils_1_1IndexMap.html", null ],
     [ "Ra::Engine::Data::VaoIndices::IndicesObserver", "classRa_1_1Engine_1_1Data_1_1VaoIndices_1_1IndicesObserver.html", null ],
+    [ "Ra::Engine::Rendering::IndicesUpdater< CoreGeometry >", "classRa_1_1Engine_1_1Rendering_1_1IndicesUpdater.html", null ],
     [ "std::ios_base", null, [
       [ "std::basic_ios< Char >", null, [
         [ "std::basic_istream< Char >", null, [
@@ -423,6 +424,7 @@ var hierarchy =
       ] ]
     ] ],
     [ "OpenMesh::vector_traits< Ra::Core::Vector3 >", "structOpenMesh_1_1vector__traits_3_01Ra_1_1Core_1_1Vector3_01_4.html", null ],
+    [ "Ra::Engine::Rendering::VerticesUpdater< CoreGeometry >", "classRa_1_1Engine_1_1Rendering_1_1VerticesUpdater.html", null ],
     [ "Ra::Engine::Data::ViewingParameters", "structRa_1_1Engine_1_1Data_1_1ViewingParameters.html", null ],
     [ "Ra::Core::Geometry::TopologicalMesh::WedgeData", "classRa_1_1Core_1_1Geometry_1_1TopologicalMesh_1_1WedgeData.html", null ],
     [ "Ra::Gui::BaseApplication::WindowFactory", "classRa_1_1Gui_1_1BaseApplication_1_1WindowFactory.html", [

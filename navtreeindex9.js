@@ -1,5 +1,7 @@
 var NAVTREEINDEX9 =
 {
+"classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#ae448ab863d63832845762621d6860def":[9,0,2,0,4,23,1],
+"classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#aef1ade611b265044d6762811b502901f":[9,0,2,0,4,23,4],
 "classRa_1_1Core_1_1Geometry_1_1Spline.html":[9,0,2,0,4,25],
 "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fb":[9,0,2,0,4,25,1],
 "classRa_1_1Core_1_1Geometry_1_1Spline.html#a164e49e88843cb33e6ba4f9e2918a9fbac53a78216cb37d6e25dead35f63b1596":[9,0,2,0,4,25,1,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX9 =
 "classRa_1_1Core_1_1Task.html":[9,0,2,0,14],
 "classRa_1_1Core_1_1Task.html#a6c1ba13f4d8a2965f8b0b371c83efb69":[9,0,2,0,14,1],
 "classRa_1_1Core_1_1Task.html#a949ed1549444f19d3e74e044e0166a07":[9,0,2,0,14,2],
-"classRa_1_1Core_1_1Task.html#accfd0b3baf6b6f30fbf58708ff6bd763":[9,0,2,0,14,0],
-"classRa_1_1Core_1_1TaskQueue.html":[9,0,2,0,15],
-"classRa_1_1Core_1_1TaskQueue.html#a133a9b42dbb00afd3873b83a044c447f":[9,0,2,0,15,9]
+"classRa_1_1Core_1_1Task.html#accfd0b3baf6b6f30fbf58708ff6bd763":[9,0,2,0,14,0]
 };

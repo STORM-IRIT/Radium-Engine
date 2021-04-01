@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">f963b98be35e895056805d73d0ea2731e1fb1573</span>
+   &#160;<span id="projectnumber">ecfa8305548817e9195a75d4918fe04e514c9777</span>
    </div>
   </td>
  </tr>
@@ -112,6 +112,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1ForwardRenderer.html">ForwardRenderer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1IndicesUpdater.html">IndicesUpdater</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1PointCloudParameterProvider.html">PointCloudParameterProvider</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1Renderer.html">Renderer</a></td></tr>
@@ -121,6 +123,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html">RenderObjectManager</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1RenderTechnique.html">RenderTechnique</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRa_1_1Engine_1_1Rendering_1_1VerticesUpdater.html">VerticesUpdater</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -146,6 +150,12 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a0dac28617f14a03d8769950f61e4f0bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a0dac28617f14a03d8769950f61e4f0bb">RA_SINGLETON_IMPLEMENTATION</a> (<a class="el" href="classRa_1_1Engine_1_1Rendering_1_1DebugRender.html">DebugRender</a>)</td></tr>
 <tr class="separator:a0dac28617f14a03d8769950f61e4f0bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a443c7f81c77866096e0fd8aa9d2c2c83"><td class="memTemplParams" colspan="2">template&lt;typename IndexContainerType &gt; </td></tr>
+<tr class="memitem:a443c7f81c77866096e0fd8aa9d2c2c83"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a443c7f81c77866096e0fd8aa9d2c2c83">computeIndices</a> (<a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a1faeec4857c5b03449d2332f4e495bc4">Core::Geometry::LineMesh::IndexContainerType</a> &amp;indices, IndexContainerType &amp;other)</td></tr>
+<tr class="separator:a443c7f81c77866096e0fd8aa9d2c2c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a761adfb13ac78a854c9abdfa2d33dbdc"><td class="memTemplParams" colspan="2">template&lt;typename CoreGeometry &gt; </td></tr>
+<tr class="memitem:a761adfb13ac78a854c9abdfa2d33dbdc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html#a761adfb13ac78a854c9abdfa2d33dbdc">setupLineMesh</a> (std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Data::LineMesh</a> &gt; &amp;disp, CoreGeometry &amp;core)</td></tr>
+<tr class="separator:a761adfb13ac78a854c9abdfa2d33dbdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -217,6 +227,38 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a443c7f81c77866096e0fd8aa9d2c2c83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a443c7f81c77866096e0fd8aa9d2c2c83">&#9670;&nbsp;</a></span>computeIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename IndexContainerType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Rendering::computeIndices </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a1faeec4857c5b03449d2332f4e495bc4">Core::Geometry::LineMesh::IndexContainerType</a> &amp;&#160;</td>
+          <td class="paramname"><em>indices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">IndexContainerType &amp;&#160;</td>
+          <td class="paramname"><em>other</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00184">184</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a0dac28617f14a03d8769950f61e4f0bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0dac28617f14a03d8769950f61e4f0bb">&#9670;&nbsp;</a></span>RA_SINGLETON_IMPLEMENTATION()</h2>
 
@@ -232,6 +274,46 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a761adfb13ac78a854c9abdfa2d33dbdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a761adfb13ac78a854c9abdfa2d33dbdc">&#9670;&nbsp;</a></span>setupLineMesh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename CoreGeometry &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::Engine::Rendering::setupLineMesh </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classRa_1_1Engine_1_1Data_1_1LineMesh.html">Data::LineMesh</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>disp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CoreGeometry &amp;&#160;</td>
+          <td class="paramname"><em>core</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ForwardRenderer_8cpp_source.html#l00240">240</a> of file <a class="el" href="ForwardRenderer_8cpp_source.html">ForwardRenderer.cpp</a>.</p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespaceRa_1_1Engine_1_1Rendering_a761adfb13ac78a854c9abdfa2d33dbdc_cgraph.svg" width="100%" height="525"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
 
 </div>
 </div>
@@ -258,7 +340,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine.html">Engine</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Engine_1_1Rendering.html">Rendering</a></li>
-    <li class="footer">Generated on Thu Apr 1 2021 18:36:27 for Radium Engine by
+    <li class="footer">Generated on Thu Apr 1 2021 19:43:06 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

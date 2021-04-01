@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"GlmAdapters_8hpp.html#aa85c3a25c49a6a8ca9c8d86bbb33f60c":[10,0,3,0,4,2,30],
+"GlmAdapters_8hpp.html#aaa86fb604794a3066538086b4888c1dc":[10,0,3,0,4,2,25],
 "GlmAdapters_8hpp.html#aadd189b438d27159e18457ffc802ba0e":[10,0,3,0,4,2,8],
 "GlmAdapters_8hpp.html#aaff0c2520f721912c35ae8fd9234a861":[10,0,3,0,4,2,35],
 "GlmAdapters_8hpp.html#ab489023b6833257fc803908e3a6d2aa2":[10,0,3,0,4,2,29],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "LinearBlendSkinning_8hpp.html#a19bc7bcc26d8a3662f182f6d9a61764d":[10,0,3,0,0,16,0],
 "LinearBlendSkinning_8hpp_source.html":[10,0,3,0,0,16],
 "Log_8hpp.html":[10,0,3,0,7,13],
-"Log_8hpp.html#a6c6bb5efb42799004bfb0e047598c185":[10,0,3,0,7,13,4],
-"Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff":[10,0,3,0,7,13,5],
-"Log_8hpp.html#ad0de4260ab1f1fe62f457d2a1299e536":[10,0,3,0,7,13,3]
+"Log_8hpp.html#a6c6bb5efb42799004bfb0e047598c185":[10,0,3,0,7,13,4]
 };

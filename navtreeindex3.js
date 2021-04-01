@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"Log_8hpp.html#aba7b09d6e8fbe414c23705ad24dde6ff":[10,0,3,0,7,13,5],
+"Log_8hpp.html#ad0de4260ab1f1fe62f457d2a1299e536":[10,0,3,0,7,13,3],
 "Log_8hpp.html#ad7538d961d008c77173d308106df52c8":[10,0,3,0,7,13,7],
 "Log_8hpp.html#af356995a5aa68a868197746fe85f38ba":[10,0,3,0,7,13,6],
 "Log_8hpp.html#af356995a5aa68a868197746fe85f38baa13a1caf0e94070a7a06073a6eb9cc2f1":[10,0,3,0,7,13,6,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "RadiumEngine_8cpp.html#a7c2980d8b8dbd863a5d995e7572cb3cf":[10,0,3,1,5,0],
 "RadiumEngine_8cpp_source.html":[10,0,3,1,5],
 "RadiumEngine_8hpp.html":[10,0,3,1,6],
-"RadiumEngine_8hpp_source.html":[10,0,3,1,6],
-"RadiumPluginInterface_8cpp.html":[10,0,3,4,1],
-"RadiumPluginInterface_8cpp_source.html":[10,0,3,4,1]
+"RadiumEngine_8hpp_source.html":[10,0,3,1,6]
 };
