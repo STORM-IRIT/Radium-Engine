@@ -473,18 +473,14 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
                 auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );
                 auto tp          = std::dynamic_pointer_cast<polymesh>( displayable );
 
-                if ( tm )
-                {
-                    if ( tm->getRenderMode() ==
+                auto processLineMesh = []( auto m, std::shared_ptr<Data::LineMesh>& disp ) {
+                    if ( m->getRenderMode() ==
                          Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES )
-                    { setupLineMesh( disp, tm->getCoreGeometry() ); }
-                }
-                if ( tp )
-                {
-                    if ( tp->getRenderMode() ==
-                         Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES )
-                    { setupLineMesh( disp, tp->getCoreGeometry() ); }
-                }
+                    { setupLineMesh( disp, m->getCoreGeometry() ); }
+                };
+                if ( tm ) { processLineMesh( tm, disp ); }
+                if ( tp ) { processLineMesh( tp, disp ); }
+
                 m_wireframes[ro.get()] = disp;
                 wro                    = disp;
             }
