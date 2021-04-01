@@ -75,13 +75,6 @@ struct memory_stream : virtual memory_buffer, public std::istream {
         memory_buffer( first_elem, size_ ), std::istream( static_cast<std::streambuf*>( this ) ) {}
 };
 
-template <typename DataType, typename ContainerType>
-void copyArrayToContainer( const uint8_t*, ContainerType&, size_t ) {
-    static_assert( std::is_same<ContainerType, Ra::Core::Vector3Array>::value ||
-                       std::is_same<ContainerType, Ra::Core::Vector1Array>::value,
-                   "[TinyPLY] unsupported template specialisation for copyArrayToContainer." );
-}
-
 template <typename DataType>
 void copyArrayToContainer( const uint8_t* buffer,
                            Ra::Core::Vector1Array& container,
