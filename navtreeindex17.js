@@ -1,6 +1,5 @@
 var NAVTREEINDEX17 =
 {
-"classRa_1_1Gui_1_1Viewer.html#a3799eae2d58060b55f256b47f10e36d4":[9,0,2,2,27,38],
 "classRa_1_1Gui_1_1Viewer.html#a3b9354fafa6bf871aaf3d2840c4b4b93":[9,0,2,2,27,8],
 "classRa_1_1Gui_1_1Viewer.html#a3f65773027030ac179e755dfc3454121":[9,0,2,2,27,32],
 "classRa_1_1Gui_1_1Viewer.html#a3fb791c061ab715571765fa6f0c64fce":[9,0,2,2,27,54],
@@ -249,5 +248,6 @@ var NAVTREEINDEX17 =
 "develCodingConvention.html#autotoc_md69":[4,4,4],
 "develCodingConvention.html#autotoc_md70":[4,4,5],
 "develCodingConvention.html#autotoc_md71":[4,4,6],
-"develCodingConvention.html#autotoc_md72":[4,4,7]
+"develCodingConvention.html#autotoc_md72":[4,4,7],
+"develLights.html":[4,6,1,2]
 };
