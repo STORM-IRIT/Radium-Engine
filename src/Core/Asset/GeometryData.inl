@@ -240,6 +240,14 @@ inline bool GeometryData::hasMaterial() const {
     return m_material != nullptr;
 }
 
+const Utils::AttribManager& GeometryData::getAttribManager() const {
+    return m_vertexAttribs;
+}
+
+Utils::AttribManager& GeometryData::getAttribManager() {
+    return m_vertexAttribs;
+}
+
 } // namespace Asset
 } // namespace Core
 } // namespace Ra
