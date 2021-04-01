@@ -113,6 +113,9 @@ void PointCloudComponent::generatePointCloud( const Ra::Core::Asset::GeometryDat
         mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
     }
 
+    // add custom attribs
+    mesh.vertexAttribs().copyAllAttributes( data->getAttribManager() );
+
     // To be discussed: Should not weights be part of the geometry ?
     //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
 

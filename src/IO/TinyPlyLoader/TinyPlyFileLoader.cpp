@@ -1,6 +1,7 @@
 #include <IO/TinyPlyLoader/TinyPlyFileLoader.hpp>
 
 #include <Core/Asset/FileData.hpp>
+#include <Core/Utils/Attribs.hpp>
 
 #include <tinyply.h>
 
@@ -74,6 +75,59 @@ struct memory_stream : virtual memory_buffer, public std::istream {
         memory_buffer( first_elem, size_ ), std::istream( static_cast<std::streambuf*>( this ) ) {}
 };
 
+template <typename DataType, typename ContainerType>
+void copyArrayToContainer( const uint8_t*, ContainerType&, size_t ) {
+    static_assert( std::is_same<ContainerType, Ra::Core::Vector3Array>::value ||
+                       std::is_same<ContainerType, Ra::Core::Vector1Array>::value,
+                   "[TinyPLY] unsupported template specialisation for copyArrayToContainer." );
+}
+
+template <typename DataType>
+void copyArrayToContainer( const uint8_t* buffer,
+                           Ra::Core::Vector1Array& container,
+                           size_t count ) {
+    auto data = reinterpret_cast<const DataType*>( buffer );
+    container.reserve( count );
+    for ( size_t i = 0; i < count; ++i )
+    {
+        container.emplace_back( data[i] );
+    }
+}
+
+template <typename DataType>
+void copyArrayToContainer( const uint8_t* buffer,
+                           Ra::Core::Vector3Array& container,
+                           size_t count ) {
+    auto data = reinterpret_cast<const DataType*>( buffer );
+    container.reserve( count );
+    for ( size_t i = 0; i < count; ++i )
+    {
+        container.emplace_back( data[i * 3 + 0], data[i * 3 + 1], data[i * 3 + 2] );
+    }
+}
+
+template <typename ContainerType>
+void copyBufferToContainer( const std::shared_ptr<tinyply::PlyData>& buffer,
+                            ContainerType& container ) {
+    if ( buffer && buffer->count != 0 )
+    {
+        switch ( buffer->t )
+        {
+        case tinyply::Type::FLOAT32: {
+            copyArrayToContainer<float>( buffer->buffer.get(), container, buffer->count );
+        }
+        break;
+        case tinyply::Type::FLOAT64: {
+            copyArrayToContainer<double>( buffer->buffer.get(), container, buffer->count );
+        }
+        break;
+        default:
+            LOG( logWARNING ) << "[TinyPLY] copyBufferToContainer - unsupported buffer type ..."
+                              << tinyply::PropertyTable[buffer->t].str;
+        }
+    }
+}
+
 FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
 
     std::unique_ptr<std::istream> file_stream;
@@ -139,10 +193,6 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         LOG( logINFO ) << "....................................................................";
     }
 
-    // The count returns the number of instances of the property group. The vectors
-    // above will be resized into a multiple of the property group size as
-    // they are "flattened"... i.e. verts = {x, y, z, x, y, z, ...}
-
     auto initBuffer = [&file]( const std::string& elementKey,
                                const std::vector<std::string> propertyKeys ) {
         std::shared_ptr<tinyply::PlyData> ret;
@@ -156,16 +206,6 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
         return ret;
     };
 
-    auto vertBuffer {initBuffer( "vertex", {"x", "y", "z"} )};
-
-    // if there is no vertex prop, or their count is 0, then quit.
-    if ( !vertBuffer || vertBuffer->count == 0 )
-    {
-        delete fileData;
-        LOG( logINFO ) << "[TinyPLY] No vertice found";
-        return nullptr;
-    }
-
     auto startTime {std::clock()};
 
     // a unique name is required by the component messaging system
@@ -174,29 +214,44 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
                                                     GeometryData::POINT_CLOUD );
     geometry->setFrame( Core::Transform::Identity() );
 
+    /// request for vertex position
+    auto vertBuffer {initBuffer( "vertex", {"x", "y", "z"} )};
+    // if there is no vertex prop, or their count is 0, then quit.
+    if ( !vertBuffer || vertBuffer->count == 0 )
+    {
+        delete fileData;
+        LOG( logINFO ) << "[TinyPLY] No vertex found";
+        return nullptr;
+    }
+    /// request for standard vertex attributes
+    /// \todo merge with non standard attributes when all will be stored as Attribs in GeometryData
     auto normalBuffer {initBuffer( "vertex", {"nx", "ny", "nz"} )};
     auto alphaBuffer {initBuffer( "vertex", {"alpha"} )};
     auto colorBuffer {initBuffer( "vertex", {"red", "green", "blue"} )};
 
-    // read buffer data from file content
+    //// request for non standard vertex attributes
+    std::vector<std::pair<std::string, std::shared_ptr<tinyply::PlyData>>> allAttributes;
+    const std::set<std::string> usedAttributes {
+        "x", "y", "z", "nx", "ny", "nz", "alpha", "red", "green", "blue"};
+    for ( const auto& e : file.get_elements() )
+    {
+        if ( e.name == "vertex" )
+        {
+            for ( const auto& p : e.properties )
+            {
+                bool exists = usedAttributes.find( p.name ) != usedAttributes.end();
+                if ( !exists )
+                { allAttributes.emplace_back( p.name, initBuffer( "vertex", {p.name} ) ); }
+            }
+            break;
+        }
+    }
+
+    // read requested buffers (and only those) from file content
     file.read( *file_stream );
 
-    auto copyBufferToGeometry = []( const std::shared_ptr<tinyply::PlyData>& buffer,
-                                    Ra::Core::Vector3Array& container ) {
-        if ( buffer && buffer->count != 0 )
-        {
-            auto floatBuffer = reinterpret_cast<float*>( buffer->buffer.get() );
-            container.reserve( buffer->count );
-            for ( size_t i = 0; i < buffer->count; ++i )
-            {
-                container.emplace_back(
-                    floatBuffer[i * 3 + 0], floatBuffer[i * 3 + 1], floatBuffer[i * 3 + 2] );
-            }
-        }
-    };
-
-    copyBufferToGeometry( vertBuffer, geometry->getVertices() );
-    copyBufferToGeometry( normalBuffer, geometry->getNormals() );
+    copyBufferToContainer( vertBuffer, geometry->getVertices() );
+    copyBufferToContainer( normalBuffer, geometry->getNormals() );
 
     size_t colorCount = colorBuffer ? colorBuffer->count : 0;
     if ( colorCount != 0 )
@@ -227,6 +282,29 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
                                         1_ra );
             }
         }
+    }
+
+    //// Save other attributes
+    auto& attribManager = geometry->getAttribManager();
+    for ( const auto& a : allAttributes )
+    {
+        // For now manage scalar properties only
+        /// @todo, when all vertex attribs are managed through the attrib manager, add here
+        if ( a.second->isList )
+        {
+            LOG( logWARNING ) << "[TinyPLY] unmanaged vector attribute " << a.first;
+            continue;
+        }
+        /// Transform attrib name to valid GLSL identifier
+        auto attribName {a.first};
+        std::replace( attribName.begin(), attribName.end(), '-', '_' );
+        LOG( logINFO ) << "[TinyPLY] Adding custom attrib with name " << attribName << " (was "
+                       << a.first << ")";
+        auto handle     = attribManager.addAttrib<Scalar>( attribName );
+        auto& attrib    = attribManager.getAttrib( handle );
+        auto& container = attrib.getDataWithLock();
+        copyBufferToContainer( a.second, container );
+        attrib.unlock();
     }
 
     fileData->m_geometryData.clear();

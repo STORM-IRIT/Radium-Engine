@@ -438,6 +438,7 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
     mesh.setVertices( std::move( vertices ) );
     mesh.setNormals( std::move( normals ) );
 
+    // \todo remove when data will handle all the attributes in a coherent way.
     if ( data->hasTangents() )
     {
         mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_TANGENT ),
@@ -461,7 +462,12 @@ CoreMeshType createCoreMeshFromGeometryData( const Ra::Core::Asset::GeometryData
         mesh.addAttrib( Data::Mesh::getAttribName( Data::Mesh::VERTEX_COLOR ), data->getColors() );
     }
 
-    // To be discussed: Should not weights be part of the geometry ?
+    // add custom attribs
+    // only attributs not handled before are handled by data->getAttribManager()
+    // but futur plan will handle also "usual" attibutes this way
+    mesh.vertexAttribs().copyAllAttributes( data->getAttribManager() );
+
+    // also this one will be automatically done with the futur behavior
     //        mesh->addData( Data::Mesh::VERTEX_WEIGHTS, meshData.weights );
 
     mesh.setIndices( std::move( indices ) );

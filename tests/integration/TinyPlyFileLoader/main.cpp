@@ -20,5 +20,6 @@ int main( int /*argc*/, char** /*argv*/ ) {
     std::unique_ptr<FileData>( loader.loadFile( "../data/inputs/test_color_nonormals.ply" ) );
     std::unique_ptr<FileData>( loader.loadFile( "../data/inputs/test_color_normals.ply" ) );
     std::unique_ptr<FileData>( loader.loadFile( "../data/inputs/test_nocolor_normals.ply" ) );
+    std::unique_ptr<FileData>( loader.loadFile( "../data/inputs/custom_attr.ply" ) );
     return 0;
 }
