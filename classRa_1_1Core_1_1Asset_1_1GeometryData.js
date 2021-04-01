@@ -15,6 +15,8 @@ var classRa_1_1Core_1_1Asset_1_1GeometryData =
     [ "GeometryData", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a9804ed3ecf91d74d308b46fc6747ea62", null ],
     [ "~GeometryData", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a7dff25c7c6df77a54541b4726916596a", null ],
     [ "displayInfo", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a7ae5d35a0639bd16020abc828fc29e52", null ],
+    [ "getAttribManager", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ac0639140eb38750d87d3c3dd9df1bc10", null ],
+    [ "getAttribManager", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ad6231ba9a255de56bee473f700aa4da9", null ],
     [ "getBiTangents", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a1e3871c31bed0bd00be8d06c3452581d", null ],
     [ "getBiTangents", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#adba1271b6ed2c102782533d2f575278f", null ],
     [ "getColors", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a0db79e4c77ed3009dc40d81e260c635e", null ],
@@ -78,5 +80,6 @@ var classRa_1_1Core_1_1Asset_1_1GeometryData =
     [ "m_tangent", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a4b9756ac30b00f91da7e656268325c06", null ],
     [ "m_texCoord", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a2f813e1a9e308c0e87ccdc6d0a371fe7", null ],
     [ "m_type", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#a40e5038e701cf3b77594cc13f34036a6", null ],
-    [ "m_vertex", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab59a813b6bf3bccd6252bb933f571380", null ]
+    [ "m_vertex", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab59a813b6bf3bccd6252bb933f571380", null ],
+    [ "m_vertexAttribs", "classRa_1_1Core_1_1Asset_1_1GeometryData.html#ab95ef80a98549aa42f6244fd8f90eb10", null ]
 ];

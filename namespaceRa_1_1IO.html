@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">77369f3ef4901bfa448384a6da3ec44080964c8a</span>
+   &#160;<span id="projectnumber">1dae18f3955eb9140579e8c2c976279be3199ac4</span>
    </div>
   </td>
  </tr>
@@ -150,6 +150,18 @@ Functions</h2></td></tr>
 <tr class="separator:a79b225b7aa83eab5059576750b31c1f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1ce9d4e01a51f9464c1f05767584b18"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#aa1ce9d4e01a51f9464c1f05767584b18">read_file_binary</a> (const std::string &amp;pathToFile)</td></tr>
 <tr class="separator:aa1ce9d4e01a51f9464c1f05767584b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3f989f07417ec9801bde88dd0e25364"><td class="memTemplParams" colspan="2">template&lt;typename DataType , typename ContainerType &gt; </td></tr>
+<tr class="memitem:ad3f989f07417ec9801bde88dd0e25364"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#ad3f989f07417ec9801bde88dd0e25364">copyArrayToContainer</a> (const uint8_t *, ContainerType &amp;, size_t)</td></tr>
+<tr class="separator:ad3f989f07417ec9801bde88dd0e25364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3ace30f3bb3246cd6ae8b6e96912439"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:aa3ace30f3bb3246cd6ae8b6e96912439"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#aa3ace30f3bb3246cd6ae8b6e96912439">copyArrayToContainer</a> (const uint8_t *buffer, <a class="el" href="namespaceRa_1_1Core.html#a18c686b0eba869c4cf1f8a24f227a9d2">Ra::Core::Vector1Array</a> &amp;container, size_t count)</td></tr>
+<tr class="separator:aa3ace30f3bb3246cd6ae8b6e96912439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad97605d87f9d3ba40e6674280f677301"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:ad97605d87f9d3ba40e6674280f677301"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#ad97605d87f9d3ba40e6674280f677301">copyArrayToContainer</a> (const uint8_t *buffer, Ra::Core::Vector3Array &amp;container, size_t count)</td></tr>
+<tr class="separator:ad97605d87f9d3ba40e6674280f677301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ed915daf74c8fa1a7f164baf4e12869"><td class="memTemplParams" colspan="2">template&lt;typename ContainerType &gt; </td></tr>
+<tr class="memitem:a3ed915daf74c8fa1a7f164baf4e12869"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceRa_1_1IO.html#a3ed915daf74c8fa1a7f164baf4e12869">copyBufferToContainer</a> (const std::shared_ptr&lt; tinyply::PlyData &gt; &amp;buffer, ContainerType &amp;container)</td></tr>
+<tr class="separator:a3ed915daf74c8fa1a7f164baf4e12869"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af8045c69f144e30c226515389d41bcd9"></a>
@@ -410,6 +422,152 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad3f989f07417ec9801bde88dd0e25364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3f989f07417ec9801bde88dd0e25364">&#9670;&nbsp;</a></span>copyArrayToContainer() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType , typename ContainerType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::IO::copyArrayToContainer </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerType &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00079">79</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa3ace30f3bb3246cd6ae8b6e96912439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3ace30f3bb3246cd6ae8b6e96912439">&#9670;&nbsp;</a></span>copyArrayToContainer() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::IO::copyArrayToContainer </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceRa_1_1Core.html#a18c686b0eba869c4cf1f8a24f227a9d2">Ra::Core::Vector1Array</a> &amp;&#160;</td>
+          <td class="paramname"><em>container</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00086">86</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad97605d87f9d3ba40e6674280f677301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad97605d87f9d3ba40e6674280f677301">&#9670;&nbsp;</a></span>copyArrayToContainer() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::IO::copyArrayToContainer </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ra::Core::Vector3Array &amp;&#160;</td>
+          <td class="paramname"><em>container</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00098">98</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3ed915daf74c8fa1a7f164baf4e12869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ed915daf74c8fa1a7f164baf4e12869">&#9670;&nbsp;</a></span>copyBufferToContainer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ContainerType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ra::IO::copyBufferToContainer </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; tinyply::PlyData &gt; &amp;&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ContainerType &amp;&#160;</td>
+          <td class="paramname"><em>container</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00110">110</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a95293c86c5fb700e167b22e147d02d25"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95293c86c5fb700e167b22e147d02d25">&#9670;&nbsp;</a></span>coreToAssimp()</h2>
 
@@ -462,7 +620,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00055">55</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TinyPlyFileLoader_8cpp_source.html#l00056">56</a> of file <a class="el" href="TinyPlyFileLoader_8cpp_source.html">TinyPlyFileLoader.cpp</a>.</p>
 
 </div>
 </div>
@@ -472,7 +630,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1IO.html">IO</a></li>
-    <li class="footer">Generated on Wed Mar 31 2021 19:18:30 for Radium Engine by
+    <li class="footer">Generated on Thu Apr 1 2021 08:02:43 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

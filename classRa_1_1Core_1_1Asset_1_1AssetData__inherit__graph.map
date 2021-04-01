@@ -1,12 +1,12 @@
 <map id="Ra::Core::Asset::AssetData" name="Ra::Core::Asset::AssetData">
 <area shape="rect" id="node1" title=" " alt="" coords="745,5,941,127"/>
-<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html" title=" " alt="" coords="5,901,232,1257"/>
-<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html" title=" " alt="" coords="256,849,467,1308"/>
-<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html" title=" " alt="" coords="490,175,715,1983"/>
-<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html" title=" " alt="" coords="739,578,946,1579"/>
-<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1LightData.html" title=" " alt="" coords="971,879,1163,1279"/>
-<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name...." alt="" coords="1187,1003,1402,1154"/>
-<area shape="rect" id="node10" href="$structRa_1_1Core_1_1Asset_1_1VolumeData.html" title=" " alt="" coords="1426,1003,1635,1154"/>
-<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html" title=" " alt="" coords="1075,2031,1280,2519"/>
-<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html" title=" " alt="" coords="1304,2207,1520,2343"/>
+<area shape="rect" id="node2" href="$classRa_1_1Core_1_1Asset_1_1AnimationData.html" title=" " alt="" coords="5,923,232,1279"/>
+<area shape="rect" id="node3" href="$classRa_1_1Core_1_1Asset_1_1CameraData.html" title=" " alt="" coords="256,871,467,1330"/>
+<area shape="rect" id="node4" href="$classRa_1_1Core_1_1Asset_1_1GeometryData.html" title=" " alt="" coords="490,175,715,2027"/>
+<area shape="rect" id="node5" href="$classRa_1_1Core_1_1Asset_1_1HandleData.html" title=" " alt="" coords="739,600,946,1601"/>
+<area shape="rect" id="node6" href="$classRa_1_1Core_1_1Asset_1_1LightData.html" title=" " alt="" coords="971,901,1163,1301"/>
+<area shape="rect" id="node7" href="$classRa_1_1Core_1_1Asset_1_1MaterialData.html" title="represent material data loaded by a file loader. Material data must be identified by a unique name...." alt="" coords="1187,1025,1402,1176"/>
+<area shape="rect" id="node10" href="$structRa_1_1Core_1_1Asset_1_1VolumeData.html" title=" " alt="" coords="1426,1025,1635,1176"/>
+<area shape="rect" id="node8" href="$classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html" title=" " alt="" coords="1075,2075,1280,2563"/>
+<area shape="rect" id="node9" href="$classRa_1_1Core_1_1Asset_1_1RawShaderMaterialData.html" title=" " alt="" coords="1304,2251,1520,2387"/>
 </map>
