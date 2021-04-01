@@ -180,6 +180,88 @@ void ForwardRenderer::updateStepInternal( const Data::ViewingParameters& renderD
     if ( m_fancyRenderObjects.size() < m_wireframes.size() ) { m_wireframes.clear(); }
 }
 
+template <typename IndexContainerType>
+void computeIndices( Core::Geometry::LineMesh::IndexContainerType& indices,
+                     IndexContainerType& other ) {
+
+    for ( const auto& index : other )
+    {
+        auto s = index.size();
+        for ( unsigned int i = 0; i < s; ++i )
+        {
+            int i1 = index[i];
+            int i2 = index[( i + 1 ) % s];
+            if ( i1 > i2 ) std::swap( i1, i2 );
+            indices.emplace_back( i1, i2 );
+        }
+    }
+
+    std::sort( indices.begin(),
+               indices.end(),
+               []( const Core::Geometry::LineMesh::IndexType& a,
+                   const Core::Geometry::LineMesh::IndexType& b ) {
+                   return a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] );
+               } );
+    indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );
+}
+
+// store LineMesh and Core, define the observer functor to update data one core update for wireframe
+// linemesh
+template <typename CoreGeometry>
+class VerticesUpdater
+{
+  public:
+    VerticesUpdater( std::shared_ptr<Data::LineMesh> disp, CoreGeometry& core ) :
+        m_disp {disp}, m_core {core} {};
+
+    void operator()() { m_disp->getCoreGeometry().setVertices( m_core.vertices() ); }
+    std::shared_ptr<Data::LineMesh> m_disp;
+    CoreGeometry& m_core;
+};
+
+template <typename CoreGeometry>
+class IndicesUpdater
+{
+  public:
+    IndicesUpdater( std::shared_ptr<Data::LineMesh> disp, CoreGeometry& core ) :
+        m_disp {disp}, m_core {core} {};
+
+    void operator()() {
+        auto lineIndices = m_disp->getCoreGeometry().getIndicesWithLock();
+        computeIndices( lineIndices, m_core.getIndices() );
+        m_disp->getCoreGeometry().indicesUnlock();
+    }
+    std::shared_ptr<Data::LineMesh> m_disp;
+    CoreGeometry& m_core;
+};
+
+// create a linemesh to draw wireframe given a core mesh
+template <typename CoreGeometry>
+void setupLineMesh( std::shared_ptr<Data::LineMesh>& disp, CoreGeometry& core ) {
+
+    Core::Geometry::LineMesh lines;
+    Core::Geometry::LineMesh::IndexContainerType indices;
+
+    lines.setVertices( core.vertices() );
+    computeIndices( indices, core.getIndices() );
+    if ( indices.size() > 0 )
+    {
+        lines.setIndices( std::move( indices ) );
+        disp =
+            Ra::Core::make_shared<Data::LineMesh>( std::string( "wireframe" ), std::move( lines ) );
+        disp->updateGL();
+
+        // add observer
+        auto handle = core.template getAttribHandle<typename CoreGeometry::Point>(
+            Data::Mesh::getAttribName( Data::Mesh::VERTEX_POSITION ) );
+        core.vertexAttribs().getAttrib( handle ).attach( VerticesUpdater( disp, core ) );
+
+        core.attach( IndicesUpdater( disp, core ) );
+    }
+    else
+    { disp.reset(); }
+}
+
 void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData ) {
 
     m_fbo->bind();
@@ -220,9 +302,10 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
     {
         ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
     }
-    // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments (if
-    // any) might influence the z-buffer Rendering transparent objects assuming that they discard
-    // all their non-opaque fragments
+    // Transparent objects are rendered in the Z-prepass, but only their fully opaque fragments
+    // (if any) might influence the z-buffer.
+    // Rendering transparent objects assuming that they
+    // discard all their non-opaque fragments
     for ( const auto& ro : m_transparentRenderObjects )
     {
         ro->render( zprepassParams, renderData, DefaultRenderingPasses::Z_PREPASS );
@@ -238,7 +321,8 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
 
     GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
 
-    // Radium V2 : this render loop might be greatly improved by inverting light and objects loop
+    // Radium V2 : this render loop might be greatly improved by inverting light and objects
+    // loop.
     // Make shaders bounded only once, minimize full stats-changes, ...
     if ( m_lightmanagers[0]->count() > 0 )
     {
@@ -322,7 +406,8 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         GL_ASSERT( glEnable( GL_DEPTH_TEST ) );
     }
     // Volumetric pass
-    // Z-test is enabled but z-write must be disable to allow access to the z-buffer in the shader.
+    // Z-test is enabled but z-write must be disable to allow access to the z-buffer in the
+    // shader.
     // This pass render in its own FBO and copy the result to the main colortexture
     if ( !m_volumetricRenderObjects.empty() )
     {
@@ -371,106 +456,46 @@ void ForwardRenderer::renderInternal( const Data::ViewingParameters& renderData 
         glBlendEquationSeparate( GL_FUNC_ADD, GL_FUNC_ADD );
         glBlendFuncSeparate( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO );
         GL_ASSERT( glDrawBuffers( 1, buffers ) ); // Draw color texture
+
         for ( const auto& ro : m_fancyRenderObjects )
         {
             std::shared_ptr<Data::Displayable> wro;
-            std::shared_ptr<Data::LineMesh> disp;
 
             WireMap::iterator it = m_wireframes.find( ro.get() );
             if ( it == m_wireframes.end() )
             {
+                std::shared_ptr<Data::LineMesh> disp;
+
                 using trimesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::TriangleMesh>;
                 using polymesh = Ra::Engine::Data::IndexedGeometry<Ra::Core::Geometry::PolyMesh>;
 
                 auto displayable = ro->getMesh();
                 auto tm          = std::dynamic_pointer_cast<trimesh>( displayable );
                 auto tp          = std::dynamic_pointer_cast<polymesh>( displayable );
-                //                Ra::Core::Geometry::TopologicalMesh topo;
-                bool drawable = false;
-                Core::Geometry::LineMesh lines;
-                Core::Geometry::LineMesh::IndexContainerType indices;
-                if ( tm )
-                {
-                    drawable = tm->getRenderMode() ==
-                               Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES;
-                    if ( drawable )
-                    {
-                        lines.setVertices( tm->getCoreGeometry().vertices() );
-                        for ( const auto& index : tm->getCoreGeometry().getIndices() )
-                        {
-                            for ( unsigned int i = 0; i < 3; ++i )
-                            {
-                                int i1 = index[i];
-                                int i2 = index[( i + 1 ) % 3];
-                                if ( i1 > i2 ) std::swap( i1, i2 );
-                                indices.emplace_back( i1, i2 );
-                            }
-                        }
-                    }
-                }
-                if ( tp )
-                {
-                    drawable = tp->getRenderMode() ==
-                               Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES;
 
-                    if ( drawable )
-                    {
-                        drawable = tp->getRenderMode() ==
-                                   Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES;
-                        lines.setVertices( tp->getCoreGeometry().vertices() );
-                        for ( const auto& index : tp->getCoreGeometry().getIndices() )
-                        {
-                            auto s = index.size();
-                            for ( unsigned int i = 0; i < s; ++i )
-                            {
-                                int i1 = index[i];
-                                int i2 = index[( i + 1 ) % s];
-                                if ( i1 > i2 ) std::swap( i1, i2 );
-                                indices.emplace_back( i1, i2 );
-                            }
-                        }
-                    }
-                }
-                if ( drawable )
-                {
-                    std::sort( indices.begin(),
-                               indices.end(),
-                               []( const Core::Geometry::LineMesh::IndexType& a,
-                                   const Core::Geometry::LineMesh::IndexType& b ) {
-                                   return a[0] < b[0] || ( a[0] == b[0] && a[1] < b[1] );
-                               } );
-                    indices.erase( std::unique( indices.begin(), indices.end() ), indices.end() );
+                auto processLineMesh = []( auto m, std::shared_ptr<Data::LineMesh>& disp ) {
+                    if ( m->getRenderMode() ==
+                         Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES )
+                    { setupLineMesh( disp, m->getCoreGeometry() ); }
+                };
+                if ( tm ) { processLineMesh( tm, disp ); }
+                if ( tp ) { processLineMesh( tp, disp ); }
 
-                    if ( indices.size() > 0 )
-                    {
-                        lines.setIndices( std::move( indices ) );
-                        disp = Ra::Core::make_shared<Data::LineMesh>( std::string( "wireframe" ),
-                                                                      std::move( lines ) );
-                        disp->updateGL();
-                        m_wireframes[ro.get()] = disp;
-                    }
-                    else
-                    {
-                        disp.reset();
-                        m_wireframes[ro.get()] = {nullptr};
-                    }
-                }
-                else
-                {
-                    disp.reset();
-                    m_wireframes[ro.get()] = {nullptr};
-                }
-                wro = disp;
+                m_wireframes[ro.get()] = disp;
+                wro                    = disp;
             }
             else
             { wro = it->second; }
+
             const Data::ShaderProgram* shader =
                 m_shaderProgramManager->getShaderProgram( "Wireframe" );
-            shader->bind();
+
             if ( shader && wro )
             {
+                shader->bind();
                 if ( ro->isVisible() )
                 {
+                    wro->updateGL();
 
                     Core::Matrix4 modelMatrix = ro->getTransformAsMatrix();
                     shader->setUniform( "transform.proj", renderData.projMatrix );
