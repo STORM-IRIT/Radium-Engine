@@ -22,7 +22,7 @@ jobs:
       matrix:
         config:
           - { name: "Windows MSVC", os: windows-latest, cc: "cl.exe", cxx: "cl.exe", icon: "Windows"}
-          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-8", cxx: "g++-8", icon: "Linux" }
+          - { name: "Ubuntu gcc", os: ubuntu-latest, cc: "gcc-10", cxx: "g++-10", icon: "Linux" }
           - { name: "MacOS clang", os: macos-latest, cc: "clang", cxx: "clang++", icon: "Apple" }
     steps:
       - uses: seanmiddleditch/gha-setup-ninja@master
