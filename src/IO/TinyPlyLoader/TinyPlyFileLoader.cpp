@@ -179,35 +179,96 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     auto alphaBuffer {initBuffer( "vertex", {"alpha"} )};
     auto colorBuffer {initBuffer( "vertex", {"red", "green", "blue"} )};
 
-    // read buffer data from file content
+    //// request for non standard vertex attribs
+    /// \todo should be removed when all attributes are stored as Attribs in GeometryData
+    std::vector<std::pair<std::string, std::shared_ptr<tinyply::PlyData>>> allattribs;
+    const std::set<std::string> usedAttributes {
+        "x", "y", "z", "nx", "ny", "nz", "alpha", "red", "green", "blue"};
+    for ( const auto& e : file.get_elements() )
+    {
+        if ( e.name == "vertex" )
+        {
+            for ( const auto& p : e.properties )
+            {
+                bool exists = usedAttributes.find( p.name ) != usedAttributes.end();
+                if ( !exists )
+                {
+                    LOG( logINFO ) << "[TinyPLY] Requesting custom vertex attribute " << p.name;
+                    allattribs.emplace_back( p.name, initBuffer( "vertex", {p.name} ) );
+                }
+            }
+            break;
+        }
+    }
+
+    // read buffer data from file content (NOTE : only read requested buffers)
     file.read( *file_stream );
 
     auto copyBufferToGeometry = []( const std::shared_ptr<tinyply::PlyData>& buffer,
                                     Ra::Core::Vector3Array& container ) {
         if ( buffer && buffer->count != 0 )
         {
-            auto floatBuffer = reinterpret_cast<float*>( buffer->buffer.get() );
-            container.reserve( buffer->count );
-            for ( size_t i = 0; i < buffer->count; ++i )
+            switch ( buffer->t )
             {
-                container.emplace_back(
-                    floatBuffer[i * 3 + 0], floatBuffer[i * 3 + 1], floatBuffer[i * 3 + 2] );
+            case tinyply::Type::FLOAT32: {
+                auto floatBuffer = reinterpret_cast<float*>( buffer->buffer.get() );
+                container.reserve( buffer->count );
+                for ( size_t i = 0; i < buffer->count; ++i )
+                {
+                    container.emplace_back(
+                        floatBuffer[i * 3 + 0], floatBuffer[i * 3 + 1], floatBuffer[i * 3 + 2] );
+                }
+            }
+            break;
+            case tinyply::Type::FLOAT64: {
+                auto doubleBuffer = reinterpret_cast<double*>( buffer->buffer.get() );
+                container.reserve( buffer->count );
+                for ( size_t i = 0; i < buffer->count; ++i )
+                {
+                    container.emplace_back(
+                        doubleBuffer[i * 3 + 0], doubleBuffer[i * 3 + 1], doubleBuffer[i * 3 + 2] );
+                }
+            }
+            break;
+            default:
+                LOG( logWARNING ) << "[TinyPLY] copyBufferToGeometry - unsupported buffer type ..."
+                                  << tinyply::PropertyTable[buffer->t].str;
             }
         }
     };
 
-    auto copyScalarBufferToGeometry = []( const std::shared_ptr<tinyply::PlyData>& buffer,
-                                          Ra::Core::Vector1Array& container ) {
-        if ( buffer && buffer->count != 0 )
-        {
-            auto floatBuffer = reinterpret_cast<float*>( buffer->buffer.get() );
-            container.reserve( buffer->count );
-            for ( size_t i = 0; i < buffer->count; ++i )
+    auto copyScalarBufferToGeometry =
+        []( const std::shared_ptr<tinyply::PlyData>& buffer, Ra::Core::Vector1Array& container ) {
+            if ( buffer && buffer->count != 0 )
             {
-                container.emplace_back( floatBuffer[i] );
+                switch ( buffer->t )
+                {
+                case tinyply::Type::FLOAT32: {
+                    auto floatBuffer = reinterpret_cast<float*>( buffer->buffer.get() );
+                    container.reserve( buffer->count );
+                    for ( size_t i = 0; i < buffer->count; ++i )
+                    {
+                        container.emplace_back( floatBuffer[i] );
+                    }
+                }
+                break;
+                case tinyply::Type::FLOAT64: {
+                    auto doubleBuffer = reinterpret_cast<double*>( buffer->buffer.get() );
+
+                    container.reserve( buffer->count );
+                    for ( size_t i = 0; i < buffer->count; ++i )
+                    {
+                        container.emplace_back( doubleBuffer[i] );
+                    }
+                }
+                break;
+                default:
+                    LOG( logWARNING )
+                        << "[TinyPLY] copyScalarBufferToGeometry - unsupported buffer type ..."
+                        << tinyply::PropertyTable[buffer->t].str;
+                }
             }
-        }
-    };
+        };
 
     copyBufferToGeometry( vertBuffer, geometry->getVertices() );
     copyBufferToGeometry( normalBuffer, geometry->getNormals() );
@@ -244,31 +305,27 @@ FileData* TinyPlyFileLoader::loadFile( const std::string& filename ) {
     }
 
     //// Save other attributes
-    /// \todo should be removed when all attributes are stored as Attribs in GeometryData
-    const std::set<std::string> usedAttributes {
-        "x", "y", "z", "nx", "ny", "nz", "alpha", "red", "green", "blue"};
+    /// \todo should be generalized when all attributes are stored as Attribs in GeometryData
     auto& attribManager = geometry->getAttribManager();
-    for ( const auto& e : file.get_elements() )
+    for ( const auto& a : allattribs )
     {
-        if ( e.name == "vertex" )
+        // manage scalar properties only
+        if ( a.second->isList )
         {
-            for ( const auto& p : e.properties )
-            {
-                bool exists = usedAttributes.find( p.name ) != usedAttributes.end();
-                if ( !exists )
-                {
-                    auto buffer {initBuffer( "vertex", {p.name} )};
-                    LOG( logINFO ) << "[TinyPLY] Adding custom vertex attribute " << p.name;
-
-                    auto handle     = attribManager.addAttrib<Scalar>( p.name );
-                    auto& attrib    = attribManager.getAttrib( handle );
-                    auto& container = attrib.getDataWithLock();
-                    copyScalarBufferToGeometry( buffer, container );
-                    attrib.unlock();
-                }
-            }
-            break;
+            LOG( logWARNING ) << "[TinyPLY] unmanaged vector attribute " << a.first;
+            continue;
         }
+        /// Transform attrib name to valid GLSL identifier
+        auto attribName {a.first};
+        std::replace( attribName.begin(), attribName.end(), '-', '_' );
+        LOG( logINFO ) << "[TinyPLY] Adding custom attrib with name " << attribName << " (was "
+                       << a.first << ")";
+
+        auto handle     = attribManager.addAttrib<Scalar>( attribName );
+        auto& attrib    = attribManager.getAttrib( handle );
+        auto& container = attrib.getDataWithLock();
+        copyScalarBufferToGeometry( a.second, container );
+        attrib.unlock();
     }
 
     fileData->m_geometryData.clear();
