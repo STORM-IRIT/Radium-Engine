@@ -1,4 +1,4 @@
-#define RADIUMENGINE_BVH_HPP
+#pragma once
 
 #include <Core/RaCore.hpp>
 #include <Eigen/Geometry>
