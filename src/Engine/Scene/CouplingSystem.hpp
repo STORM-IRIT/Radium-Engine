@@ -40,7 +40,7 @@ class BaseCouplingSystem : public _BaseAbstractSystem
     using BaseAbstractSystem = _BaseAbstractSystem;
 
     inline BaseCouplingSystem() {
-        static_assert( std::is_base_of<Ra::Engine::System, BaseAbstractSystem>::value,
+        static_assert( std::is_base_of<Ra::Engine::Scene::System, BaseAbstractSystem>::value,
                        "BaseAbstractSystem must inherit Ra::Core::System" );
     }
     ~BaseCouplingSystem() override = default;
