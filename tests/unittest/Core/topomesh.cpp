@@ -584,7 +584,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/EdgeSplit", "[Core][Core/Geometry][Top
 TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][TopologicalMesh]" ) {
     SECTION( "Non manifold faces" ) {
         struct MyNonManifoldCommand {
-            inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
+            explicit inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
             inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& ) {
                 LOG( logINFO ) << "Non Manifold face found";
@@ -724,7 +724,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
     SECTION( "Non manifold vertex : Double pyramid" ) {
 
         struct MyNonManifoldCommand {
-            inline MyNonManifoldCommand(
+            explicit inline MyNonManifoldCommand(
                 std::vector<std::vector<TopologicalMesh::VertexHandle>>& faulty ) :
                 m_faulty( faulty ) {}
             inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
