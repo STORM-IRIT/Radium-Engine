@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">ecfa8305548817e9195a75d4918fe04e514c9777</span>
+   &#160;<span id="projectnumber">1363a3e6bd94f7167ab42f89be064936dbe6d020</span>
    </div>
   </td>
  </tr>
@@ -567,10 +567,10 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                <span class="keyword">auto</span> tm          = std::dynamic_pointer_cast&lt;trimesh&gt;( displayable );</div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                <span class="keyword">auto</span> tp          = std::dynamic_pointer_cast&lt;polymesh&gt;( displayable );</div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160; </div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                <span class="keyword">auto</span> processLineMesh = []( <span class="keyword">auto</span> m, std::shared_ptr&lt;Data::LineMesh&gt;&amp; disp ) {</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                    <span class="keywordflow">if</span> ( m-&gt;getRenderMode() ==</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                <span class="keyword">auto</span> processLineMesh = []( <span class="keyword">auto</span> cm, std::shared_ptr&lt;Data::LineMesh&gt;&amp; lm ) {</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                    <span class="keywordflow">if</span> ( cm-&gt;getRenderMode() ==</div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;                         Data::AttribArrayDisplayable::MeshRenderMode::RM_TRIANGLES )</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                    { <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a761adfb13ac78a854c9abdfa2d33dbdc">setupLineMesh</a>( disp, m-&gt;getCoreGeometry() ); }</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                    { <a class="code" href="namespaceRa_1_1Engine_1_1Rendering.html#a761adfb13ac78a854c9abdfa2d33dbdc">setupLineMesh</a>( lm, cm-&gt;getCoreGeometry() ); }</div>
 <div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;                };</div>
 <div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;                <span class="keywordflow">if</span> ( tm ) { processLineMesh( tm, disp ); }</div>
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;                <span class="keywordflow">if</span> ( tp ) { processLineMesh( tp, disp ); }</div>
@@ -1020,7 +1020,7 @@ $(document).ready(function(){initNavTree('ForwardRenderer_8cpp_source.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="dir_6b51c25a1fae8ca1123814c12a4ebb69.html">Rendering</a></li><li class="navelem"><a class="el" href="ForwardRenderer_8cpp.html">ForwardRenderer.cpp</a></li>
-    <li class="footer">Generated on Thu Apr 1 2021 19:43:04 for Radium Engine by
+    <li class="footer">Generated on Fri Apr 2 2021 16:18:57 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
