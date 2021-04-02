@@ -10,8 +10,10 @@
 
 namespace Ra {
 namespace Engine {
+namespace Scene {
 struct ItemEntry;
-}
+} // namespace Scene
+} // namespace Engine
 } // namespace Ra
 namespace Ra {
 namespace Gui {
