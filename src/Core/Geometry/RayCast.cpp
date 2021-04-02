@@ -297,9 +297,6 @@ bool RayCastTriangle( const Ray& ray,
     ON_ASSERT( const Vector3 n = ab.cross( ac ) );
     CORE_ASSERT( n.squaredNorm() > 0, "Degenerate triangle" );
 
-    Scalar u = 0.0;
-    Scalar v = 0.0;
-
     // Compute determinant
     const Vector3 pvec = ray.direction().cross( ac );
     const Scalar det   = ab.dot( pvec );
@@ -311,21 +308,21 @@ bool RayCastTriangle( const Ray& ray,
 
     if ( det > 0 )
     {
-        u = tvec.dot( pvec );
+        Scalar u = tvec.dot( pvec );
         if ( u < 0 || u > det )
         {
             return false; // We're out of the slab across ab
         }
 
-        v = ray.direction().dot( qvec );
+        Scalar v = ray.direction().dot( qvec );
         if ( v < 0 || u + v > det ) { return false; }
     }
     else if ( det < 0 )
     {
-        u = tvec.dot( pvec );
+        Scalar u = tvec.dot( pvec );
         if ( u > 0 || u < det ) { return false; }
 
-        v = ray.direction().dot( qvec );
+        Scalar v = ray.direction().dot( qvec );
         if ( v > 0 || u + v < det ) { return false; }
     }
     else // line parallel to plane. Maybe we should intersect with the triangle edges ?
