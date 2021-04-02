@@ -1,0 +1,9 @@
+
+@str_core_headers@
+@str_engine_headers@
+@str_gui_headers@
+@str_io_headers@
+
+int  main() {
+    return 0;
+}

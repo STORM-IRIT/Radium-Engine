@@ -73,3 +73,38 @@ if(LIBXML2_XMLLINT_EXECUTABLE AND SED_EXECUTABLE)
 else()
     message(WARNING "Could not add integration test for KeyMappingManager: sed (${SED_EXECUTABLE}) or xmllint (${LIBXML2_XMLLINT_EXECUTABLE})")
 endif()
+
+
+find_package(Filesystem COMPONENTS Final Experimental REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets OpenGL Xml REQUIRED)
+    
+macro(generate_includes _name)
+    include( filelist${_name} )
+    string( TOLOWER ${_name} lowername)
+    set( filelist "${lowername}_headers" )
+    set( tmp ${${filelist}})
+    list(TRANSFORM tmp PREPEND "#include <${_name}/") 
+    list(TRANSFORM tmp APPEND ">\n") 
+    string (REPLACE ";" "" str_${lowername}_headers "${tmp}")
+endmacro()
+
+generate_includes(Core)
+generate_includes(Engine)
+generate_includes(Gui)
+generate_includes(IO)
+
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/includes.cpp.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp"
+)
+
+set(Qt5_LIBRARIES Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+add_executable( integration_includes  "${CMAKE_CURRENT_BINARY_DIR}/includes.cpp")
+target_link_libraries(integration_includes PUBLIC Core Gui Engine PRIVATE std::filesystem ${Qt5_LIBRARIES})
+target_compile_definitions(integration_includes
+    PRIVATE -DCXX_FILESYSTEM_HAVE_FS -DCXX_FILESYSTEM_IS_EXPERIMENTAL=$<BOOL:${CXX_FILESYSTEM_IS_EXPERIMENTAL}>
+    -DCXX_FILESYSTEM_NAMESPACE=${CXX_FILESYSTEM_NAMESPACE})
+
+# there is no run here, the fact that it compiles is the test. maybe use try_compile, but harder to do ;)
+add_dependencies(integration integration_includes)
+
