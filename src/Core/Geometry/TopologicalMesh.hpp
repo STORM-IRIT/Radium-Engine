@@ -547,7 +547,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     template <typename T>
     struct DefaultNonManifoldFaceCommand {
         /// \brief details string is printed along with the message
-        DefaultNonManifoldFaceCommand( std::string details = {} ) : m_details {details} {}
+        DefaultNonManifoldFaceCommand( const std::string& details = {} ) : m_details {details} {}
         /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
         inline void initialize( const Ra::Core::Geometry::IndexedGeometry<T>& ) {}
         /// \brief Process non-manifold face
