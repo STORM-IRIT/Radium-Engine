@@ -46,7 +46,7 @@ Curve2D::Vector Line::f( Scalar u ) const {
     return ( 1.0 - u ) * m_points[0] + u * m_points[1];
 }
 
-Curve2D::Vector Line::df( Scalar u ) const {
+Curve2D::Vector Line::df( Scalar /*u*/ ) const {
     return m_points[1] - m_points[0];
 }
 
