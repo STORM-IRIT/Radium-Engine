@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">afdc660497b34bb72845f7c4b4c42e2d02dc2af9</span>
+   &#160;<span id="projectnumber">9d8c5b34c191ab3a31acff2f12cf3b0d66f613db</span>
    </div>
   </td>
  </tr>
@@ -390,69 +390,66 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ac1c032aad1e007a2b79b7f39b8813919">ON_ASSERT</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> n = ab.cross( ac ) );</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a>( n.squaredNorm() &gt; 0, <span class="stringliteral">&quot;Degenerate triangle&quot;</span> );</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u = 0.0;</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> v = 0.0;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="comment">// Compute determinant</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> pvec = ray.direction().cross( ac );</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> det   = ab.dot( pvec );</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="comment">// Compute determinant</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> pvec = ray.direction().cross( ac );</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> det   = ab.dot( pvec );</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> tvec   = ray.origin() - a;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> inv_det = 1.f / det;</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> tvec   = ray.origin() - a;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> inv_det = 1.f / det;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> qvec = tvec.cross( ab );</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordflow">if</span> ( det &gt; 0 )</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    {</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        u = tvec.dot( pvec );</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <span class="keywordflow">if</span> ( u &lt; 0 || u &gt; det )</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        {</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// We&#39;re out of the slab across ab</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        }</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        v = ray.direction().dot( qvec );</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        <span class="keywordflow">if</span> ( v &lt; 0 || u + v &gt; det ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    }</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( det &lt; 0 )</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    {</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        u = tvec.dot( pvec );</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordflow">if</span> ( u &gt; 0 || u &lt; det ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        v = ray.direction().dot( qvec );</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        <span class="keywordflow">if</span> ( v &gt; 0 || u + v &lt; det ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    }</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordflow">else</span> <span class="comment">// line parallel to plane. Maybe we should intersect with the triangle edges ?</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="comment">// If we&#39;re here we really intersect the triangle so let&#39;s compute T.</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> = ac.dot( qvec ) * inv_det;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> &gt;= 0 ) { hitsOut.push_back( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ); }</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordflow">return</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> &gt;= 0 );</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;}</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00340"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a4cc6311a51cecbf1f70c74b4bac91634">  340</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4cc6311a51cecbf1f70c74b4bac91634">RayCastTriangleMesh</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#aa1af54f519852558e5553bba1e4a068a">Ray</a>&amp; r,</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                          <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a>&amp; mesh,</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                          std::vector&lt;Scalar&gt;&amp; hitsOut,</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                          std::vector&lt;Vector3ui&gt;&amp; trianglesIdxOut ) {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keywordtype">bool</span> hit = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc">getIndices</a>().size(); ++i )</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    {</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>    = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc">getIndices</a>()[i];</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; a = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>()[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>[0]];</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; b = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>()[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>[1]];</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; c = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>()[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>[2]];</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a0f3fe94cd4330b6ff4b23ad27e909e3e">RayCastTriangle</a>( r, a, b, c, hitsOut ) )</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        {</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            trianglesIdxOut.push_back( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> );</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            hit = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        }</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    }</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="keywordflow">return</span> hit;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;}</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;} <span class="comment">// namespace Geometry</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a> qvec = tvec.cross( ab );</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keywordflow">if</span> ( det &gt; 0 )</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u = tvec.dot( pvec );</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <span class="keywordflow">if</span> ( u &lt; 0 || u &gt; det )</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        {</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// We&#39;re out of the slab across ab</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        }</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> v = ray.direction().dot( qvec );</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="keywordflow">if</span> ( v &lt; 0 || u + v &gt; det ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    }</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( det &lt; 0 )</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> u = tvec.dot( pvec );</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordflow">if</span> ( u &gt; 0 || u &lt; det ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> v = ray.direction().dot( qvec );</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordflow">if</span> ( v &gt; 0 || u + v &lt; det ) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    }</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">else</span> <span class="comment">// line parallel to plane. Maybe we should intersect with the triangle edges ?</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="comment">// If we&#39;re here we really intersect the triangle so let&#39;s compute T.</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="keyword">const</span> <a class="code" href="CoreMacros_8hpp.html#a4be45d931ceeeea4be9f14978f30e498">Scalar</a> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> = ac.dot( qvec ) * inv_det;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> &gt;= 0 ) { hitsOut.push_back( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> ); }</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">return</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> &gt;= 0 );</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;}</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
+<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="namespaceRa_1_1Core_1_1Geometry.html#a4cc6311a51cecbf1f70c74b4bac91634">  337</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a4cc6311a51cecbf1f70c74b4bac91634">RayCastTriangleMesh</a>( <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#aa1af54f519852558e5553bba1e4a068a">Ray</a>&amp; r,</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                          <span class="keyword">const</span> <a class="code" href="classRa_1_1Core_1_1Geometry_1_1TriangleMesh.html">TriangleMesh</a>&amp; mesh,</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                          std::vector&lt;Scalar&gt;&amp; hitsOut,</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                          std::vector&lt;Vector3ui&gt;&amp; trianglesIdxOut ) {</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keywordtype">bool</span> hit = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">for</span> ( <span class="keywordtype">size_t</span> i = 0; i &lt; mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc">getIndices</a>().size(); ++i )</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    {</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>    = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1IndexedGeometry.html#a3878b66aabc0e24f2c9b4ca1946ad6fc">getIndices</a>()[i];</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; a = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>()[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>[0]];</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; b = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>()[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>[1]];</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        <span class="keyword">const</span> <a class="code" href="namespaceRa_1_1Core.html#a96bbd92c4724ffd8d9d31849007213bf">Vector3</a>&amp; c = mesh.<a class="code" href="classRa_1_1Core_1_1Geometry_1_1AttribArrayGeometry.html#acabe05880d71a8dc4406964c258fff5a">vertices</a>()[<a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a>[2]];</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <span class="keywordflow">if</span> ( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#a0f3fe94cd4330b6ff4b23ad27e909e3e">RayCastTriangle</a>( r, a, b, c, hitsOut ) )</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        {</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            trianglesIdxOut.push_back( <a class="code" href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">t</a> );</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            hit = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        }</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    }</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordflow">return</span> hit;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;}</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;} <span class="comment">// namespace Geometry</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
@@ -468,7 +465,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div class="ttc" id="anamespaceRa_1_1Core_html_a66854efd74c5507e9b15f998ccda8f96"><div class="ttname"><a href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Ra::Core::Aabb</a></div><div class="ttdeci">Eigen::AlignedBox&lt; Scalar, 3 &gt; Aabb</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00086">Types.hpp:86</a></div></div>
 <div class="ttc" id="aCoreMacros_8hpp_html_ad41e3117f73edb005dc583642a396f9a"><div class="ttname"><a href="CoreMacros_8hpp.html#ad41e3117f73edb005dc583642a396f9a">CORE_ASSERT</a></div><div class="ttdeci">#define CORE_ASSERT(EXP, DESC)</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00347">CoreMacros.hpp:347</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_ac3fcf1308c554772205cafeec197c592"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#ac3fcf1308c554772205cafeec197c592">Ra::Core::Geometry::RayCastSphere</a></div><div class="ttdeci">bool RayCastSphere(const Ray &amp;r, const Core::Vector3 &amp;center, Scalar radius, std::vector&lt; Scalar &gt; &amp;hitsOut)</div><div class="ttdoc">Intersects a ray with a sphere.</div><div class="ttdef"><b>Definition:</b> <a href="RayCast_8cpp_source.html#l00071">RayCast.cpp:71</a></div></div>
-<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a4cc6311a51cecbf1f70c74b4bac91634"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a4cc6311a51cecbf1f70c74b4bac91634">Ra::Core::Geometry::RayCastTriangleMesh</a></div><div class="ttdeci">bool RayCastTriangleMesh(const Ray &amp;r, const TriangleMesh &amp;mesh, std::vector&lt; Scalar &gt; &amp;hitsOut, std::vector&lt; Vector3ui &gt; &amp;trianglesIdxOut)</div><div class="ttdef"><b>Definition:</b> <a href="RayCast_8cpp_source.html#l00340">RayCast.cpp:340</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a4cc6311a51cecbf1f70c74b4bac91634"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a4cc6311a51cecbf1f70c74b4bac91634">Ra::Core::Geometry::RayCastTriangleMesh</a></div><div class="ttdeci">bool RayCastTriangleMesh(const Ray &amp;r, const TriangleMesh &amp;mesh, std::vector&lt; Scalar &gt; &amp;hitsOut, std::vector&lt; Vector3ui &gt; &amp;trianglesIdxOut)</div><div class="ttdef"><b>Definition:</b> <a href="RayCast_8cpp_source.html#l00337">RayCast.cpp:337</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_aa04e6052d8911b1df1bd881474debb45"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#aa04e6052d8911b1df1bd881474debb45">Ra::Core::Geometry::t</a></div><div class="ttdeci">Time t(const Scalar &amp;m, const Scalar &amp;h)</div><div class="ttdef"><b>Definition:</b> <a href="HeatDiffusion_8cpp_source.html#l00007">HeatDiffusion.cpp:7</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_html_aa1af54f519852558e5553bba1e4a068a"><div class="ttname"><a href="namespaceRa_1_1Core.html#aa1af54f519852558e5553bba1e4a068a">Ra::Core::Ray</a></div><div class="ttdeci">Eigen::ParametrizedLine&lt; Scalar, 3 &gt; Ray</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00043">Types.hpp:43</a></div></div>
 <div class="ttc" id="anamespaceRa_1_1Core_1_1Geometry_html_a8b8fe68d162f9a144a127573ca436286"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Geometry.html#a8b8fe68d162f9a144a127573ca436286">Ra::Core::Geometry::RayCastPlane</a></div><div class="ttdeci">bool RayCastPlane(const Ray &amp;r, const Core::Vector3 a, const Core::Vector3 &amp;normal, std::vector&lt; Scalar &gt; &amp;hitsOut)</div><div class="ttdoc">Intersect a ray with an infinite plane defined by point A and normal.</div><div class="ttdef"><b>Definition:</b> <a href="RayCast_8cpp_source.html#l00119">RayCast.cpp:119</a></div></div>
@@ -483,7 +480,7 @@ $(document).ready(function(){initNavTree('RayCast_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_cb2b5dfd43482fb277f6333d539f1f06.html">Geometry</a></li><li class="navelem"><a class="el" href="RayCast_8cpp.html">RayCast.cpp</a></li>
-    <li class="footer">Generated on Fri Apr 2 2021 17:30:38 for Radium Engine by
+    <li class="footer">Generated on Sat Apr 3 2021 06:55:23 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

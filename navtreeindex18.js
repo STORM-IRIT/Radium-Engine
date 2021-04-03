@@ -1,6 +1,5 @@
 var NAVTREEINDEX18 =
 {
-"develCameraManipulator.html#autotoc_md54":[4,6,2,1,1],
 "develCameraManipulator.html#autotoc_md55":[4,6,2,1,2],
 "develCodingConvention.html":[4,4],
 "develCodingConvention.html#autotoc_md65":[4,4,0],
@@ -200,8 +199,8 @@ var NAVTREEINDEX18 =
 "functions_type.html":[9,3,3],
 "functions_u.html":[9,3,0,21],
 "functions_v.html":[9,3,0,22],
-"functions_vars.html":[9,3,2],
 "functions_vars.html":[9,3,2,0],
+"functions_vars.html":[9,3,2],
 "functions_vars_b.html":[9,3,2,1],
 "functions_vars_c.html":[9,3,2,2],
 "functions_vars_d.html":[9,3,2,3],
@@ -244,10 +243,11 @@ var NAVTREEINDEX18 =
 "licenses.html#autotoc_md8":[5,1,3],
 "licenses.html#autotoc_md9":[5,1,4],
 "namespaceEigen.html":[8,0,1],
-"namespaceOpenMesh.html":[9,0,1],
 "namespaceOpenMesh.html":[8,0,3],
+"namespaceOpenMesh.html":[9,0,1],
 "namespaceQt__utils.html":[8,0,4],
-"namespaceRa.html":[9,0,2],
 "namespaceRa.html":[8,0,5],
-"namespaceRa_1_1Asset.html":[8,0,5,0]
+"namespaceRa.html":[9,0,2],
+"namespaceRa_1_1Asset.html":[8,0,5,0],
+"namespaceRa_1_1Core.html":[8,0,5,1]
 };

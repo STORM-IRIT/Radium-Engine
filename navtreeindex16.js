@@ -1,6 +1,5 @@
 var NAVTREEINDEX16 =
 {
-"classRa_1_1Gui_1_1KeyMappingManager.html#a929548f74f967115fc31200370b45933":[9,0,2,2,9,2],
 "classRa_1_1Gui_1_1KeyMappingManager.html#a9a5cbf64a012151c7257c7c1c4117c85":[9,0,2,2,9,4],
 "classRa_1_1Gui_1_1KeyMappingManager.html#aa3122cf424cc8ddcec4aa7c20be22a76":[9,0,2,2,9,11],
 "classRa_1_1Gui_1_1KeyMappingManager.html#aa920d2eb2a041c1ec4e9942fd5f8f7a6":[9,0,2,2,9,15],
@@ -249,5 +248,6 @@ var NAVTREEINDEX16 =
 "classRa_1_1Gui_1_1Viewer.html#a04f1d64107ff6c0e15f66fc8cd5dcda5":[9,0,2,2,27,39],
 "classRa_1_1Gui_1_1Viewer.html#a0522b4876b6a6e84ba5c8e40f66b714f":[9,0,2,2,27,55],
 "classRa_1_1Gui_1_1Viewer.html#a0bc8019968c23fd6ca0d1c27c0d6ec0d":[9,0,2,2,27,46],
-"classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8":[9,0,2,2,27,12]
+"classRa_1_1Gui_1_1Viewer.html#a12da0e6456afc0e7a13a85636ec852d8":[9,0,2,2,27,12],
+"classRa_1_1Gui_1_1Viewer.html#a1383e1d903dd8397c36287f545a7ce87":[9,0,2,2,27,26]
 };

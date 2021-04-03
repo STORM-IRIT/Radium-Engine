@@ -1,6 +1,5 @@
 var NAVTREEINDEX17 =
 {
-"classRa_1_1Gui_1_1Viewer.html#a1383e1d903dd8397c36287f545a7ce87":[9,0,2,2,27,26],
 "classRa_1_1Gui_1_1Viewer.html#a14a1ad5406cca6655fd9ed6e296bf8e3":[9,0,2,2,27,27],
 "classRa_1_1Gui_1_1Viewer.html#a17094c0201376a4beedb86fa39cf3fa2":[9,0,2,2,27,14],
 "classRa_1_1Gui_1_1Viewer.html#a1735d8ab17f76727c1505fcc9ec6b416":[9,0,2,2,27,7],
@@ -249,5 +248,6 @@ var NAVTREEINDEX17 =
 "deprecated_2TopologicalMesh_8inl.html":[10,0,3,0,3,0,2],
 "deprecated_2TopologicalMesh_8inl_source.html":[10,0,3,0,3,0,2],
 "develCameraManipulator.html":[4,6,2,1],
-"develCameraManipulator.html#autotoc_md53":[4,6,2,1,0]
+"develCameraManipulator.html#autotoc_md53":[4,6,2,1,0],
+"develCameraManipulator.html#autotoc_md54":[4,6,2,1,1]
 };

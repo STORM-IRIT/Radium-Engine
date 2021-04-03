@@ -1,6 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"classRa_1_1Core_1_1Asset_1_1LightData.html#ad4d33642ba53fbcf7524b4ed78d81734":[9,0,2,0,2,12,17],
 "classRa_1_1Core_1_1Asset_1_1LightData.html#ae7194939e14882a4cacfbd8bab57d073":[9,0,2,0,2,12,6],
 "classRa_1_1Core_1_1Asset_1_1LightData.html#af579f37fbc47af3fad64a54f04de344c":[9,0,2,0,2,12,26],
 "classRa_1_1Core_1_1Asset_1_1MaterialData.html":[9,0,2,0,2,13],
@@ -249,5 +248,6 @@ var NAVTREEINDEX8 =
 "classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#a476e5e5adc42d03e634684b67b59bfeb":[9,0,2,0,4,23,6],
 "classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#acb7b066c7fbb126bba398128702ff50e":[9,0,2,0,4,23,5],
 "classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#acce493e7c8b457ab9eb9ac23e03f94a2":[9,0,2,0,4,23,3],
-"classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#ad50c69b747a641cd90748d94555a3518":[9,0,2,0,4,23,2]
+"classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#ad50c69b747a641cd90748d94555a3518":[9,0,2,0,4,23,2],
+"classRa_1_1Core_1_1Geometry_1_1QuadraSpline.html#ae448ab863d63832845762621d6860def":[9,0,2,0,4,23,1]
 };

@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"basicsCompileRadium.html#autotoc_md17":[2,0,2,3],
 "basicsCompileRadium.html#autotoc_md18":[2,0,2,4],
 "basicsCompileRadium.html#autotoc_md19":[2,0,2,5],
 "basicsRadiumSubmodule.html":[2,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX6 =
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a16c276bf7f228aabdaf75b11abe4b495":[9,0,2,0,2,3,5],
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a1fcf2c63f4d27b5c8f54eef5e0a8f589":[9,0,2,0,2,3,12],
 "classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a221c87142a1e9432271ce74574234923":[9,0,2,0,2,3,25],
-"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a6088035924f64264ea23b10a96b9370a":[9,0,2,0,2,3,17]
+"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a6088035924f64264ea23b10a96b9370a":[9,0,2,0,2,3,17],
+"classRa_1_1Core_1_1Asset_1_1BlinnPhongMaterialData.html#a642d004c36e2ae885be5d3ea6a3bcf4f":[9,0,2,0,2,3,3]
 };
