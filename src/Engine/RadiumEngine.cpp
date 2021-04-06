@@ -1,11 +1,5 @@
 #include <Engine/RadiumEngine.hpp>
 
-#include <cstdio>
-#include <iostream>
-#include <streambuf>
-#include <string>
-#include <thread>
-
 #include <Core/Asset/FileData.hpp>
 #include <Core/Asset/FileLoaderInterface.hpp>
 #include <Core/Resources/Resources.hpp>
@@ -28,6 +22,14 @@
 #include <Engine/Scene/SignalManager.hpp>
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
+
+#include <globjects/State.h>
+
+#include <cstdio>
+#include <iostream>
+#include <streambuf>
+#include <string>
+#include <thread>
 
 namespace Ra {
 namespace Engine {
@@ -60,7 +62,11 @@ void RadiumEngine::initialize() {
 }
 
 void RadiumEngine::initializeGL() {
+    m_openglState = std::make_unique<globjects::State>( globjects::State::DeferredMode );
     registerDefaultPrograms();
+    // needed to upload non multiple of 4 width texture loaded with stbi.
+    m_openglState->pixelStore( GL_UNPACK_ALIGNMENT, 1 );
+    m_openglState->apply();
 }
 
 void RadiumEngine::registerDefaultPrograms() {
