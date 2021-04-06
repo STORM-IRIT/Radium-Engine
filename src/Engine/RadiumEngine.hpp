@@ -10,6 +10,10 @@
 #include <string>
 #include <vector>
 
+namespace globjects {
+class State;
+}
+
 namespace Ra {
 namespace Core {
 class TaskQueue;
@@ -30,15 +34,11 @@ class SignalManager;
 
 namespace Data {
 class ShaderProgramManager;
-}
-
-namespace Data {
 class Displayable;
 class TextureManager;
 } // namespace Data
 
 namespace Rendering {
-
 class RenderObjectManager;
 }
 
@@ -390,6 +390,10 @@ class RA_ENGINE_API RadiumEngine
     };
 
     TimeData m_timeData;
+
+    /// OpenGL State, usefull to set state of the rendering pipeline. Initialized during
+    /// initializedGL()
+    std::unique_ptr<globjects::State> m_openglState {nullptr};
 };
 } // namespace Engine
 } // namespace Ra
