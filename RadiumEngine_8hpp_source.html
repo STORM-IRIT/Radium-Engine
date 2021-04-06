@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9d8c5b34c191ab3a31acff2f12cf3b0d66f613db</span>
+   &#160;<span id="projectnumber">25ff018224ee4167456d21bae4043e636cc5decb</span>
    </div>
   </td>
  </tr>
@@ -106,35 +106,35 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>Core {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>TaskQueue;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>Asset {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>FileLoaderInterface;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>FileData;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace Asset</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace Core</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>Engine {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>Scene {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span>System;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span>Entity;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">class </span>Component;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">class </span>EntityManager;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">class </span>SignalManager;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace Scene</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">namespace </span>Data {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">class </span>ShaderProgramManager;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceglobjects.html">globjects</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>State;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>Core {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>TaskQueue;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>Asset {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>FileLoaderInterface;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">class </span>FileData;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace Asset</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace Core</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span>Engine {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>Scene {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">class </span>System;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">class </span>Entity;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">class </span>Component;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">class </span>EntityManager;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">class </span>SignalManager;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace Scene</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span>Data {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">class </span>Displayable;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">class </span>TextureManager;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace Data</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">namespace </span>Rendering {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">class </span>ShaderProgramManager;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">class </span>Displayable;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">class </span>TextureManager;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace Data</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span>Rendering {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">class </span>RenderObjectManager;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
@@ -276,9 +276,11 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    };</div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    TimeData m_timeData;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;};</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;} <span class="comment">// namespace Engine</span></div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;} <span class="comment">// namespace Ra</span></div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    std::unique_ptr&lt;globjects::State&gt; m_openglState {<span class="keyword">nullptr</span>};</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;};</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;} <span class="comment">// namespace Engine</span></div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;} <span class="comment">// namespace Ra</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aCoreMacros_8hpp_html_a69aa29b598b851b0640aa225a9e5d61d"><div class="ttname"><a href="CoreMacros_8hpp.html#a69aa29b598b851b0640aa225a9e5d61d">uint</a></div><div class="ttdeci">unsigned int uint</div><div class="ttdef"><b>Definition:</b> <a href="CoreMacros_8hpp_source.html#l00249">CoreMacros.hpp:249</a></div></div>
@@ -287,6 +289,7 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div class="ttc" id="aSingleton_8hpp_html_ab39cd756057298304463e7f82f0e8cad"><div class="ttname"><a href="Singleton_8hpp.html#ab39cd756057298304463e7f82f0e8cad">RA_SINGLETON_INTERFACE</a></div><div class="ttdeci">#define RA_SINGLETON_INTERFACE(TYPE)</div><div class="ttdef"><b>Definition:</b> <a href="Singleton_8hpp_source.html#l00020">Singleton.hpp:20</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1TextureManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1TextureManager.html">Ra::Engine::Data::TextureManager</a></div><div class="ttdef"><b>Definition:</b> <a href="TextureManager_8hpp_source.html#l00018">TextureManager.hpp:18</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html_aa6975e66ca4c57b82c5c76aaceeec571"><div class="ttname"><a href="RaEngine_8hpp.html#aa6975e66ca4c57b82c5c76aaceeec571">RA_ENGINE_API</a></div><div class="ttdeci">#define RA_ENGINE_API</div><div class="ttdoc">Defines the correct macro to export dll symbols.</div><div class="ttdef"><b>Definition:</b> <a href="RaEngine_8hpp_source.html#l00010">RaEngine.hpp:10</a></div></div>
+<div class="ttc" id="anamespaceglobjects_html"><div class="ttname"><a href="namespaceglobjects.html">globjects</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgram_8hpp_source.html#l00013">ShaderProgram.hpp:13</a></div></div>
 <div class="ttc" id="aRaEngine_8hpp_html"><div class="ttname"><a href="RaEngine_8hpp.html">RaEngine.hpp</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Data_1_1ShaderProgramManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Data_1_1ShaderProgramManager.html">Ra::Engine::Data::ShaderProgramManager</a></div><div class="ttdef"><b>Definition:</b> <a href="ShaderProgramManager_8hpp_source.html#l00036">ShaderProgramManager.hpp:36</a></div></div>
 <div class="ttc" id="aclassRa_1_1Engine_1_1Rendering_1_1RenderObjectManager_html"><div class="ttname"><a href="classRa_1_1Engine_1_1Rendering_1_1RenderObjectManager.html">Ra::Engine::Rendering::RenderObjectManager</a></div><div class="ttdef"><b>Definition:</b> <a href="RenderObjectManager_8hpp_source.html#l00023">RenderObjectManager.hpp:23</a></div></div>
@@ -308,7 +311,7 @@ $(document).ready(function(){initNavTree('RadiumEngine_8hpp_source.html',''); in
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li><li class="navelem"><a class="el" href="RadiumEngine_8hpp.html">RadiumEngine.hpp</a></li>
-    <li class="footer">Generated on Sat Apr 3 2021 06:55:23 for Radium Engine by
+    <li class="footer">Generated on Tue Apr 6 2021 14:17:47 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,62 +1,62 @@
 <map id="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/RadiumEngine.cpp" name="/home/runner/work/Radium&#45;Engine/Radium&#45;Engine/src/Radium&#45;Engine/src/Engine/RadiumEngine.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2919,5,3117,76"/>
-<area shape="rect" id="node2" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="3731,295,3923,322"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1910,385,1969,411"/>
-<area shape="rect" id="node13" title=" " alt="" coords="925,124,986,151"/>
-<area shape="rect" id="node14" title=" " alt="" coords="6630,295,6710,322"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1061,124,1151,151"/>
-<area shape="rect" id="node16" title=" " alt="" coords="3085,385,3149,411"/>
-<area shape="rect" id="node17" href="$FileData_8hpp.html" title=" " alt="" coords="5611,295,5790,322"/>
-<area shape="rect" id="node19" href="$FileLoaderInterface_8hpp.html" title=" " alt="" coords="453,295,703,322"/>
-<area shape="rect" id="node20" href="$Resources_8hpp.html" title=" " alt="" coords="5,295,228,322"/>
-<area shape="rect" id="node22" href="$StringUtils_8hpp.html" title=" " alt="" coords="1105,295,1291,322"/>
-<area shape="rect" id="node23" href="$BlinnPhongMaterial_8hpp.html" title=" " alt="" coords="1441,206,1701,233"/>
-<area shape="rect" id="node28" href="$LambertianMaterial_8hpp.html" title=" " alt="" coords="2390,124,2651,151"/>
-<area shape="rect" id="node30" href="$MaterialConverters_8hpp.html" title=" " alt="" coords="3145,295,3403,322"/>
-<area shape="rect" id="node32" href="$PlainMaterial_8hpp.html" title=" " alt="" coords="2023,124,2242,151"/>
-<area shape="rect" id="node33" href="$ShaderConfigFactory_8hpp.html" title=" " alt="" coords="1227,199,1417,240"/>
-<area shape="rect" id="node37" href="$ShaderProgramManager_8hpp.html" title=" " alt="" coords="2915,288,3121,329"/>
-<area shape="rect" id="node38" href="$TextureManager_8hpp.html" title=" " alt="" coords="1725,206,1962,233"/>
-<area shape="rect" id="node39" href="$VolumetricMaterial_8hpp.html" title=" " alt="" coords="2293,206,2551,233"/>
-<area shape="rect" id="node41" href="$FrameInfo_8hpp.html" title=" " alt="" coords="3176,124,3340,151"/>
-<area shape="rect" id="node42" href="$RenderObject_8hpp.html" title=" " alt="" coords="4701,124,4957,151"/>
-<area shape="rect" id="node49" href="$RenderObjectManager_8hpp.html" title=" " alt="" coords="6996,288,7224,329"/>
-<area shape="rect" id="node51" href="$ComponentMessenger_8hpp.html" title=" " alt="" coords="5840,206,6127,233"/>
-<area shape="rect" id="node56" href="$Entity_8hpp.html" title=" " alt="" coords="3999,295,4176,322"/>
-<area shape="rect" id="node57" href="$EntityManager_8hpp.html" title=" " alt="" coords="4201,295,4435,322"/>
-<area shape="rect" id="node58" href="$SignalManager_8hpp.html" title=" " alt="" coords="6734,295,6971,322"/>
-<area shape="rect" id="node59" href="$System_8hpp.html" title=" " alt="" coords="5193,295,5384,322"/>
-<area shape="rect" id="node60" href="$SystemDisplay_8hpp.html" title=" " alt="" coords="3638,206,3875,233"/>
-<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title=" " alt="" coords="3463,385,3621,411"/>
-<area shape="rect" id="node5" href="$Types_8hpp.html" title=" " alt="" coords="4397,385,4519,411"/>
-<area shape="rect" id="node7" href="$Singleton_8hpp.html" title=" " alt="" coords="3990,385,4169,411"/>
-<area shape="rect" id="node8" title=" " alt="" coords="2378,385,2429,411"/>
-<area shape="rect" id="node9" title=" " alt="" coords="5383,385,5461,411"/>
-<area shape="rect" id="node10" title=" " alt="" coords="3799,385,3856,411"/>
-<area shape="rect" id="node12" title=" " alt="" coords="4777,385,4840,411"/>
-<area shape="rect" id="node4" href="$OpenGL_8hpp.html" title=" " alt="" coords="1585,467,1734,493"/>
-<area shape="rect" id="node6" href="$RaCore_8hpp.html" title=" " alt="" coords="4393,541,4523,568"/>
-<area shape="rect" id="node18" href="$FileData_8inl.html" title=" " alt="" coords="5615,385,5786,411"/>
-<area shape="rect" id="node21" href="$StdOptional_8hpp.html" title=" " alt="" coords="186,385,381,411"/>
-<area shape="rect" id="node24" href="$Color_8hpp.html" title=" " alt="" coords="992,385,1143,411"/>
-<area shape="rect" id="node25" href="$Material_8hpp.html" title=" " alt="" coords="2129,295,2315,322"/>
-<area shape="rect" id="node26" href="$Texture_8hpp.html" title=" " alt="" coords="1569,295,1750,322"/>
-<area shape="rect" id="node27" href="$BlinnPhongMaterial_8inl.html" title=" " alt="" coords="727,295,979,322"/>
-<area shape="rect" id="node29" href="$SimpleMaterial_8hpp.html" title=" " alt="" coords="1986,206,2218,233"/>
-<area shape="rect" id="node31" title=" " alt="" coords="5967,385,6053,411"/>
-<area shape="rect" id="node34" href="$ShaderConfiguration_8hpp.html" title=" " alt="" coords="4612,295,4877,322"/>
-<area shape="rect" id="node35" title=" " alt="" coords="5835,385,5891,411"/>
-<area shape="rect" id="node36" title=" " alt="" coords="6570,385,6613,411"/>
-<area shape="rect" id="node40" href="$VolumetricMaterial_8inl.html" title=" " alt="" coords="2440,295,2689,322"/>
-<area shape="rect" id="node43" title=" " alt="" coords="6871,385,6935,411"/>
-<area shape="rect" id="node44" href="$IndexedObject_8hpp.html" title=" " alt="" coords="4543,385,4754,411"/>
-<area shape="rect" id="node46" href="$ShaderProgram_8hpp.html" title=" " alt="" coords="4572,206,4805,233"/>
-<area shape="rect" id="node47" href="$RenderObjectTypes_8hpp.html" title=" " alt="" coords="7080,377,7308,419"/>
-<area shape="rect" id="node48" href="$RenderTechnique_8hpp.html" title=" " alt="" coords="4829,206,5108,233"/>
-<area shape="rect" id="node45" href="$Index_8hpp.html" title=" " alt="" coords="5713,467,5867,493"/>
-<area shape="rect" id="node50" href="$IndexMap_8hpp.html" title=" " alt="" coords="6077,385,6260,411"/>
-<area shape="rect" id="node52" title=" " alt="" coords="6017,295,6104,322"/>
-<area shape="rect" id="node53" title=" " alt="" coords="6128,295,6252,322"/>
-<area shape="rect" id="node54" href="$Component_8hpp.html" title=" " alt="" coords="4902,295,5118,322"/>
-<area shape="rect" id="node55" href="$ComponentMessenger_8inl.html" title=" " alt="" coords="6276,295,6555,322"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3513,5,3712,76"/>
+<area shape="rect" id="node2" href="$RadiumEngine_8hpp.html" title=" " alt="" coords="3681,295,3873,322"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1990,385,2049,411"/>
+<area shape="rect" id="node13" href="$FileData_8hpp.html" title=" " alt="" coords="5509,295,5687,322"/>
+<area shape="rect" id="node15" href="$FileLoaderInterface_8hpp.html" title=" " alt="" coords="453,295,703,322"/>
+<area shape="rect" id="node16" href="$Resources_8hpp.html" title=" " alt="" coords="5,295,228,322"/>
+<area shape="rect" id="node18" href="$StringUtils_8hpp.html" title=" " alt="" coords="1155,295,1342,322"/>
+<area shape="rect" id="node19" href="$BlinnPhongMaterial_8hpp.html" title=" " alt="" coords="1432,206,1692,233"/>
+<area shape="rect" id="node24" href="$LambertianMaterial_8hpp.html" title=" " alt="" coords="1715,124,1977,151"/>
+<area shape="rect" id="node26" href="$MaterialConverters_8hpp.html" title=" " alt="" coords="3094,295,3353,322"/>
+<area shape="rect" id="node28" href="$PlainMaterial_8hpp.html" title=" " alt="" coords="2446,124,2665,151"/>
+<area shape="rect" id="node29" href="$ShaderConfigFactory_8hpp.html" title=" " alt="" coords="517,199,708,240"/>
+<area shape="rect" id="node33" href="$ShaderProgramManager_8hpp.html" title=" " alt="" coords="2865,288,3070,329"/>
+<area shape="rect" id="node34" href="$TextureManager_8hpp.html" title=" " alt="" coords="2582,206,2819,233"/>
+<area shape="rect" id="node35" href="$VolumetricMaterial_8hpp.html" title=" " alt="" coords="2183,206,2440,233"/>
+<area shape="rect" id="node37" href="$FrameInfo_8hpp.html" title=" " alt="" coords="3308,124,3472,151"/>
+<area shape="rect" id="node38" href="$RenderObject_8hpp.html" title=" " alt="" coords="4739,124,4995,151"/>
+<area shape="rect" id="node45" href="$RenderObjectManager_8hpp.html" title=" " alt="" coords="5763,288,5991,329"/>
+<area shape="rect" id="node47" href="$ComponentMessenger_8hpp.html" title=" " alt="" coords="5525,206,5812,233"/>
+<area shape="rect" id="node48" title=" " alt="" coords="6891,295,6971,322"/>
+<area shape="rect" id="node52" href="$Entity_8hpp.html" title=" " alt="" coords="5104,295,5281,322"/>
+<area shape="rect" id="node53" title=" " alt="" coords="6855,385,6919,411"/>
+<area shape="rect" id="node54" href="$EntityManager_8hpp.html" title=" " alt="" coords="3947,295,4182,322"/>
+<area shape="rect" id="node55" href="$SignalManager_8hpp.html" title=" " alt="" coords="6478,295,6715,322"/>
+<area shape="rect" id="node56" href="$System_8hpp.html" title=" " alt="" coords="4308,295,4499,322"/>
+<area shape="rect" id="node57" href="$SystemDisplay_8hpp.html" title=" " alt="" coords="3694,206,3931,233"/>
+<area shape="rect" id="node58" title=" " alt="" coords="6981,124,7111,151"/>
+<area shape="rect" id="node59" title=" " alt="" coords="7135,124,7197,151"/>
+<area shape="rect" id="node60" title=" " alt="" coords="7221,124,7311,151"/>
+<area shape="rect" id="node3" href="$RaEngine_8hpp.html" title=" " alt="" coords="3412,385,3571,411"/>
+<area shape="rect" id="node5" href="$Types_8hpp.html" title=" " alt="" coords="4209,385,4331,411"/>
+<area shape="rect" id="node7" href="$Singleton_8hpp.html" title=" " alt="" coords="3903,385,4082,411"/>
+<area shape="rect" id="node8" title=" " alt="" coords="2638,385,2689,411"/>
+<area shape="rect" id="node9" title=" " alt="" coords="5087,385,5165,411"/>
+<area shape="rect" id="node10" title=" " alt="" coords="3748,385,3805,411"/>
+<area shape="rect" id="node12" title=" " alt="" coords="4624,385,4687,411"/>
+<area shape="rect" id="node4" href="$OpenGL_8hpp.html" title=" " alt="" coords="2651,467,2801,493"/>
+<area shape="rect" id="node6" href="$RaCore_8hpp.html" title=" " alt="" coords="4205,541,4335,568"/>
+<area shape="rect" id="node14" href="$FileData_8inl.html" title=" " alt="" coords="5514,385,5685,411"/>
+<area shape="rect" id="node17" href="$StdOptional_8hpp.html" title=" " alt="" coords="167,385,362,411"/>
+<area shape="rect" id="node20" href="$Color_8hpp.html" title=" " alt="" coords="992,385,1143,411"/>
+<area shape="rect" id="node21" href="$Material_8hpp.html" title=" " alt="" coords="1926,295,2113,322"/>
+<area shape="rect" id="node22" href="$Texture_8hpp.html" title=" " alt="" coords="1569,295,1750,322"/>
+<area shape="rect" id="node23" href="$BlinnPhongMaterial_8inl.html" title=" " alt="" coords="727,295,979,322"/>
+<area shape="rect" id="node25" href="$SimpleMaterial_8hpp.html" title=" " alt="" coords="1725,206,1957,233"/>
+<area shape="rect" id="node27" title=" " alt="" coords="6588,385,6675,411"/>
+<area shape="rect" id="node30" href="$ShaderConfiguration_8hpp.html" title=" " alt="" coords="4523,295,4788,322"/>
+<area shape="rect" id="node31" title=" " alt="" coords="5814,385,5870,411"/>
+<area shape="rect" id="node32" title=" " alt="" coords="5447,385,5490,411"/>
+<area shape="rect" id="node36" href="$VolumetricMaterial_8inl.html" title=" " alt="" coords="2187,295,2436,322"/>
+<area shape="rect" id="node39" title=" " alt="" coords="6497,385,6561,411"/>
+<area shape="rect" id="node40" href="$IndexedObject_8hpp.html" title=" " alt="" coords="5945,385,6155,411"/>
+<area shape="rect" id="node42" href="$ShaderProgram_8hpp.html" title=" " alt="" coords="4424,206,4657,233"/>
+<area shape="rect" id="node43" href="$RenderObjectTypes_8hpp.html" title=" " alt="" coords="6240,377,6468,419"/>
+<area shape="rect" id="node44" href="$RenderTechnique_8hpp.html" title=" " alt="" coords="4733,206,5012,233"/>
+<area shape="rect" id="node41" href="$Index_8hpp.html" title=" " alt="" coords="5473,467,5627,493"/>
+<area shape="rect" id="node46" href="$IndexMap_8hpp.html" title=" " alt="" coords="5189,385,5372,411"/>
+<area shape="rect" id="node49" title=" " alt="" coords="6117,295,6204,322"/>
+<area shape="rect" id="node50" title=" " alt="" coords="6228,295,6352,322"/>
+<area shape="rect" id="node51" href="$Component_8hpp.html" title=" " alt="" coords="4863,295,5079,322"/>
 </map>
