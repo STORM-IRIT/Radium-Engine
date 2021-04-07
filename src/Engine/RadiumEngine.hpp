@@ -10,9 +10,7 @@
 #include <string>
 #include <vector>
 
-namespace globjects {
-class State;
-}
+#include <globjects/State.h>
 
 namespace Ra {
 namespace Core {
