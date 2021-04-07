@@ -63,4 +63,5 @@ installTargetResources(
     FILES ${engine_shaders}
     )
 
-list(POP_BACK CMAKE_MESSAGE_INDENT)
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
+

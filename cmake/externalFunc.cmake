@@ -112,7 +112,7 @@ macro(addExternalFolder NAME FOLDER )
       DESTINATION
         share/
     )
-    list(POP_BACK CMAKE_MESSAGE_INDENT)
+    list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
     message(STATUS "[addExternalFolder] end process ${NAME} ${FOLDER}")
 
 endmacro()
