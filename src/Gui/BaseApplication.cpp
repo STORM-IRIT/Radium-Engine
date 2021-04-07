@@ -131,7 +131,8 @@ BaseApplication::BaseApplication( int& argc,
                         maxThreadsOpt,
                         numFramesOpt,
                         recordOpt} );
-    parser.process( *this );
+    if ( !parser.parse( this->arguments() ) )
+        LOG( logWARNING ) << "Command line parsing failed due to unsupported or missing options";
 
     if ( parser.isSet( fpsOpt ) ) m_targetFPS = parser.value( fpsOpt ).toUInt();
     if ( parser.isSet( pluginOpt ) ) m_pluginPath = parser.value( pluginOpt ).toStdString();
