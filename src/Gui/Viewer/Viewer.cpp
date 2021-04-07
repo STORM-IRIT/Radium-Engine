@@ -181,19 +181,28 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
     // TODO : implement better management of UI and debug render objects so that the are drawn with
     // an adequate
     //  znear/zfar values
-#if 0
+#if 1
     // update znear/zfar to fit the scene ...
-    auto roManager = Engine::RadiumEngine::getInstance()->getRenderObjectManager();
-    if (roManager) {
-        // TODO : make the aabb only recomputed when needed. For now, getSceneAabb loop over scene vertices to (re)compute the aabb at each call.
-        auto aabb = roManager->getSceneAabb();
-        if ( !aabb.isEmpty() ) {
-            // tight depth bounds
-            m_camera->getCamera()->fitZRange(aabb);
-        } else {
+    auto entityManager = Engine::RadiumEngine::getInstance()->getEntityManager();
+    if ( entityManager )
+    {
+        Core::Aabb aabb;
+
+        for ( const auto& entity : entityManager->getEntities() )
+        {
+            // transform is applied in ro aabb computation ...
+            aabb.extend( entity->computeAabb() );
+        }
+        if ( !aabb.isEmpty() )
+        {
+            // tight depth boundsCM
+            m_camera->getCamera()->fitZRange( aabb );
+        }
+        else
+        {
             // scene is empty, reset to defaults bounds ?
-            m_camera->setCameraZNear(0.1);
-            m_camera->setCameraZFar(100);
+            m_camera->setCameraZNear( 0.1 );
+            m_camera->setCameraZFar( 100 );
         }
     }
 #endif
