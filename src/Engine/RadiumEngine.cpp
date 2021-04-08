@@ -46,8 +46,9 @@ void RadiumEngine::initialize() {
     auto resourceDir {Core::Resources::getRadiumResourcesPath()};
     if ( !resourceDir )
     {
-        LOG( logERROR ) << "Default resources dir not found.";
-        exit( -1 );
+        LOG( logWARNING )
+            << "Default Radium resources dir not found. Setting resources path to \".\"";
+        resourceDir = {"."};
     }
     m_resourcesRootDir     = *resourceDir;
     m_signalManager        = std::make_unique<Scene::SignalManager>();
