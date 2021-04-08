@@ -60,7 +60,9 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 
     inline uint getNumComponents() const;
 
-    virtual Core::Aabb computeAabb() const;
+    virtual Core::Aabb computeAabb();
+
+    void invalidateAabb();
 
   private:
     Core::Transform m_transform;
@@ -71,6 +73,9 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 
     std::string m_name {};
     bool m_transformChanged {false};
+
+    bool m_isAabbValid {false};
+    Core::Aabb m_aabb;
 };
 
 } // namespace Scene

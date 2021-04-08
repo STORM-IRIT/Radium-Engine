@@ -151,6 +151,9 @@ class RA_ENGINE_API Camera : public Scene::Component
     /// Fit the Z-range of the camera to the scene's aabb. This will maximize z-buffer precision
     virtual void fitZRange( const Core::Aabb& aabb );
 
+    const Scalar m_minZNear {0.01_ra}; // prefix ??
+    const Scalar m_minZRange {0.01_ra};
+
   protected:
     Core::Transform m_frame {
         Core::Transform::Identity()}; ///< Camera frame (inverse of the view matrix)

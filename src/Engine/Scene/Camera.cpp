@@ -142,11 +142,11 @@ Camera* Camera::duplicate( Entity* cloneEntity, const std::string& cloneName ) c
 }
 
 void Camera::fitZRange( const Core::Aabb& aabb ) {
-    const auto& minAabb         = aabb.min();
-    const auto& maxAabb         = aabb.max();
     const auto& position        = m_frame.translation();
     Ra::Core::Vector3 direction = m_frame.linear() * Ra::Core::Vector3( 0_ra, 0_ra, -1_ra );
 
+    const auto& minAabb = aabb.min();
+    const auto& maxAabb = aabb.max();
     m_zNear = m_zFar = direction.dot( minAabb - position );
 
     auto adaptRange = [position, direction, this]( Scalar x, Scalar y, Scalar z ) {
@@ -164,10 +164,8 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
     adaptRange( maxAabb[0], minAabb[1], maxAabb[2] );
     adaptRange( maxAabb[0], minAabb[1], minAabb[2] );
 
-    // ensure a minimum depth range
-    Scalar range = ( m_zFar - m_zNear ) / 100_ra;
-    m_zNear      = std::max( range, m_zNear - range );
-    m_zFar       = std::max( 2_ra * range, m_zFar + range );
+    if ( m_zNear < m_minZNear ) { m_zNear = m_minZNear; }
+    if ( ( m_zFar - m_zNear ) < m_minZRange ) { m_zFar += m_minZRange - ( m_zFar - m_zNear ); }
 
     updateProjMatrix();
 }
