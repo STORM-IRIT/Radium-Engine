@@ -1,8 +1,8 @@
 #include <Gui/Timeline/TimelineFrameSelector.hpp>
 
+#include <QMouseEvent>
 #include <QPainter>
 #include <QTimer>
-#include <QWheelEvent>
 #include <QtGlobal>
 
 #include <Core/Math/Math.hpp>

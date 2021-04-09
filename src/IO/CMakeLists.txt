@@ -66,4 +66,5 @@ configure_radium_library(
     TARGET ${ra_io_target}
     FILES "${io_headers};${io_inlines}"
 )
-list(POP_BACK CMAKE_MESSAGE_INDENT)
+
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)

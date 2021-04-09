@@ -23,8 +23,6 @@
 #include <Engine/Scene/System.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-#include <globjects/State.h>
-
 #include <cstdio>
 #include <iostream>
 #include <streambuf>
