@@ -45,4 +45,5 @@ configure_radium_library(
 install(FILES ${pluginbase_json} DESTINATION ${ConfigPackageLocation}
     )
 
-list(POP_BACK CMAKE_MESSAGE_INDENT)
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
+

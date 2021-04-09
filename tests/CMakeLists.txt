@@ -82,4 +82,4 @@ add_custom_target(check_verbose
     COMMAND ${CMAKE_CTEST_COMMAND}  -V --output-on-failure -C Debug
     DEPENDS RadiumExampleApps unittests integration)
 
-list(POP_BACK CMAKE_MESSAGE_INDENT)
+list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
