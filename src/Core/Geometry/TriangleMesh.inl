@@ -25,6 +25,8 @@ inline AttribArrayGeometry& AttribArrayGeometry::operator=( const AttribArrayGeo
         m_vertexAttribs.copyAllAttributes( other.m_vertexAttribs );
         m_verticesHandle = other.m_verticesHandle;
         m_normalsHandle  = other.m_normalsHandle;
+
+        invalidateAabb();
     }
     return *this;
 }
@@ -35,6 +37,8 @@ inline AttribArrayGeometry& AttribArrayGeometry::operator=( AttribArrayGeometry&
         m_vertexAttribs  = std::move( other.m_vertexAttribs );
         m_verticesHandle = std::move( other.m_verticesHandle );
         m_normalsHandle  = std::move( other.m_normalsHandle );
+
+        invalidateAabb();
     }
     return *this;
 }
@@ -43,12 +47,14 @@ inline void AttribArrayGeometry::clear() {
     m_vertexAttribs.clear();
     // restore the default attribs (empty though)
     initDefaultAttribs();
+    invalidateAabb();
 }
 
 inline void AttribArrayGeometry::copyBaseGeometry( const AttribArrayGeometry& other ) {
     clear();
     m_vertexAttribs.copyAttributes(
         other.m_vertexAttribs, other.m_verticesHandle, other.m_normalsHandle );
+    invalidateAabb();
 }
 
 template <typename... Handles>
@@ -57,6 +63,7 @@ inline bool AttribArrayGeometry::copyAttributes( const AttribArrayGeometry& inpu
     if ( vertices().size() != input.vertices().size() ) return false;
     // copy attribs
     m_vertexAttribs.copyAttributes( input.m_vertexAttribs, attribs... );
+    invalidateAabb();
     return true;
 }
 
@@ -64,24 +71,34 @@ inline bool AttribArrayGeometry::copyAllAttributes( const AttribArrayGeometry& i
     if ( vertices().size() != input.vertices().size() ) return false;
     // copy attribs
     m_vertexAttribs.copyAllAttributes( input.m_vertexAttribs );
+    invalidateAabb();
     return true;
 }
 
-inline Aabb AttribArrayGeometry::computeAabb() const {
-    Aabb aabb;
-    for ( const auto& v : vertices() )
+inline Aabb AttribArrayGeometry::computeAabb() {
+    if ( !m_isAabbValid )
     {
-        aabb.extend( v );
+        Aabb aabb;
+        for ( const auto& v : vertices() )
+        {
+            aabb.extend( v );
+        }
+
+        m_aabb        = aabb;
+        m_isAabbValid = true;
     }
-    return aabb;
+
+    return m_aabb;
 }
 
 inline void AttribArrayGeometry::setVertices( PointAttribHandle::Container&& vertices ) {
     m_vertexAttribs.setAttrib( m_verticesHandle, std::move( vertices ) );
+    invalidateAabb();
 }
 
 inline void AttribArrayGeometry::setVertices( const PointAttribHandle::Container& vertices ) {
     m_vertexAttribs.setAttrib<PointAttribHandle::value_type>( m_verticesHandle, vertices );
+    invalidateAabb();
 }
 
 inline const AttribArrayGeometry::PointAttribHandle::Container&
@@ -132,6 +149,7 @@ inline bool AttribArrayGeometry::hasAttrib( const std::string& name ) {
 
 template <typename T>
 inline Utils::AttribHandle<T> AttribArrayGeometry::addAttrib( const std::string& name ) {
+    invalidateAabb();
     return m_vertexAttribs.addAttrib<T>( name );
 }
 
@@ -141,6 +159,7 @@ AttribArrayGeometry::addAttrib( const std::string& name,
                                 const typename Core::VectorArray<T>& data ) {
     auto handle = addAttrib<T>( name );
     getAttrib( handle ).setData( data );
+    invalidateAabb();
     return handle;
 }
 
@@ -150,12 +169,14 @@ AttribArrayGeometry::addAttrib( const std::string& name,
                                 const typename Utils::Attrib<T>::Container&& data ) {
     auto handle = addAttrib<T>( name );
     getAttrib( handle ).setData( std::move( data ) );
+    invalidateAabb();
     return handle;
 }
 
 template <typename T>
 inline void AttribArrayGeometry::removeAttrib( Utils::AttribHandle<T>& h ) {
     m_vertexAttribs.removeAttrib( h );
+    invalidateAabb();
 }
 
 inline Utils::AttribManager& AttribArrayGeometry::vertexAttribs() {
@@ -185,6 +206,7 @@ inline void AttribArrayGeometry::normalsUnlock() {
 inline void AttribArrayGeometry::initDefaultAttribs() {
     m_verticesHandle = m_vertexAttribs.addAttrib<PointAttribHandle::value_type>( "in_position" );
     m_normalsHandle  = m_vertexAttribs.addAttrib<NormalAttribHandle::value_type>( "in_normal" );
+    invalidateAabb();
 }
 
 template <typename T>
@@ -194,6 +216,7 @@ inline void AttribArrayGeometry::append_attrib( Utils::AttribBase* attr ) {
     const auto& v1 = attr->cast<T>().data();
     v0.insert( v0.end(), v1.cbegin(), v1.cend() );
     m_vertexAttribs.getAttrib( h ).unlock();
+    invalidateAabb();
 }
 
 /*** IndexedGeometry ***/
@@ -211,6 +234,7 @@ IndexedGeometry<T>::operator=( const IndexedGeometry<IndexType>& other ) {
     AttribArrayGeometry::operator=( other );
     m_indices                    = other.m_indices;
     notify();
+    invalidateAabb();
     return *this;
 }
 
@@ -219,6 +243,7 @@ inline IndexedGeometry<T>& IndexedGeometry<T>::operator=( IndexedGeometry<IndexT
     AttribArrayGeometry::operator=( std::move( other ) );
     m_indices                    = std::move( other.m_indices );
     notify();
+    invalidateAabb();
     return *this;
 }
 
@@ -227,6 +252,7 @@ inline void IndexedGeometry<T>::clear() {
     m_indices.clear();
     AttribArrayGeometry::clear();
     notify();
+    invalidateAabb();
 }
 
 template <typename T>
@@ -234,6 +260,7 @@ inline void IndexedGeometry<T>::copy( const IndexedGeometry<IndexType>& other ) 
     AttribArrayGeometry::copyBaseGeometry( other );
     m_indices = other.m_indices;
     notify();
+    invalidateAabb();
 }
 
 template <typename T>
@@ -288,6 +315,7 @@ inline bool IndexedGeometry<T>::append( const IndexedGeometry<IndexType>& other 
         }
     }
     notify();
+    invalidateAabb();
     return true;
 }
 
@@ -315,6 +343,7 @@ void IndexedGeometry<T>::setIndices( IndexContainerType&& indices ) {
     CORE_ASSERT( !m_isIndicesLocked, "try set already locked indices" );
     m_indices = std::move( indices );
     notify();
+    invalidateAabb();
 }
 
 template <typename T>
@@ -322,6 +351,7 @@ void IndexedGeometry<T>::setIndices( const IndexContainerType& indices ) {
     CORE_ASSERT( !m_isIndicesLocked, "try set already locked indices" );
     m_indices = indices;
     notify();
+    invalidateAabb();
 }
 
 } // namespace Geometry
