@@ -95,6 +95,7 @@ void SkinningComponent::initialize() {
         if ( !m_meshIsPoly ) { m_refData.m_referenceMesh = *m_triMeshWriter(); }
         else
         { m_refData.m_referenceMesh = triangulate( *m_polyMeshWriter() ); }
+        /// TODO : use the tangent computation algorithms from Core as soon as it is available.
         if ( !m_refData.m_referenceMesh.hasAttrib( tangentName ) &&
              !m_refData.m_referenceMesh.hasAttrib( bitangentName ) )
         {
@@ -102,7 +103,7 @@ void SkinningComponent::initialize() {
             Vector3Array tangents( normals.size() );
             Vector3Array bitangents( normals.size() );
 #pragma omp parallel for
-            for ( int i = 0; i < normals.size(); ++i )
+            for ( int i = 0; i < int( normals.size() ); ++i )
             {
                 Core::Math::getOrthogonalVectors( normals[i], tangents[i], bitangents[i] );
             }
@@ -116,7 +117,7 @@ void SkinningComponent::initialize() {
             const auto& bitangents = m_refData.m_referenceMesh.getAttrib( bH ).data();
             Vector3Array tangents( normals.size() );
 #pragma omp parallel for
-            for ( int i = 0; i < normals.size(); ++i )
+            for ( int i = 0; i < int( normals.size() ); ++i )
             {
                 tangents[i] = bitangents[i].cross( normals[i] );
             }
@@ -129,7 +130,7 @@ void SkinningComponent::initialize() {
             const auto& tangents = m_refData.m_referenceMesh.getAttrib( tH ).data();
             Vector3Array bitangents( normals.size() );
 #pragma omp parallel for
-            for ( int i = 0; i < normals.size(); ++i )
+            for ( int i = 0; i < int( normals.size() ); ++i )
             {
                 bitangents[i] = normals[i].cross( tangents[i] );
             }
@@ -233,7 +234,13 @@ void SkinningComponent::skin() {
             break;
         }
         case COR: {
+#ifdef ENABLE_COR
             centerOfRotationSkinning( m_refData, tangents, bitangents, m_frameData );
+#else
+            //      Center of Rotation Skinning is deactivated due to strong instabilities. Fallback
+            //      to DQS
+            dualQuaternionSkinning( m_refData, tangents, bitangents, m_frameData );
+#endif
             break;
         }
         case STBS_LBS: {
@@ -252,7 +259,7 @@ void SkinningComponent::skin() {
             m_topoMesh.updateWedgeNormals();
             m_topoMesh.updateTriangleMeshNormals( m_frameData.m_currentNormal );
 #pragma omp parallel for
-            for ( int i = 0; i < m_frameData.m_currentNormal.size(); ++i )
+            for ( int i = 0; i < int( m_frameData.m_currentNormal.size() ); ++i )
             {
                 Core::Math::getOrthogonalVectors( m_frameData.m_currentNormal[i],
                                                   m_frameData.m_currentTangent[i],
@@ -344,7 +351,7 @@ void SkinningComponent::computeSTBSWeights() {
     auto vertices = m_refData.m_referenceMesh.vertices();
     Transform M   = m_refData.m_meshTransformInverse.inverse();
 #pragma omp parallel for
-    for ( int i = 0; i < vertices.size(); ++i )
+    for ( int i = 0; i < int( vertices.size() ); ++i )
     {
         vertices[i] = M * vertices[i];
     }
@@ -398,12 +405,20 @@ void SkinningComponent::setupIO( const std::string& id ) {
 }
 
 void SkinningComponent::setSkinningType( SkinningType type ) {
+#ifndef ENABLE_COR
+    if ( type == COR )
+    {
+        LOG( logWARNING ) << "Center of Rotation Skinning is deactivated due to strong "
+                             "instabilities. Fallback to DQS";
+        type = DQS;
+    }
+#endif
     m_skinningType = type;
     if ( m_isReady )
     {
         // compute the per-vertex center of rotation only if required.
         // FIXME: takes time, would be nice to store them in a file and reload.
-        if ( type == COR && m_refData.m_CoR.empty() ) { computeCoR( m_refData ); }
+        if ( m_skinningType == COR && m_refData.m_CoR.empty() ) { computeCoR( m_refData ); }
         m_forceUpdate = true;
     }
 }
@@ -462,6 +477,7 @@ void SkinningComponent::showWeights( bool on ) {
         } // end of switch.
         // change the material
         ro->setMaterial( m_weightMaterial );
+        // TODO : as this considers renderer is ForwardRenderer, find how to generalize.
         ro->getRenderTechnique()->setParametersProvider( m_weightMaterial );
         // get the UV attrib handle, will create it if not there.
         handle = geom->addAttrib<Vector3>( attrUV );
