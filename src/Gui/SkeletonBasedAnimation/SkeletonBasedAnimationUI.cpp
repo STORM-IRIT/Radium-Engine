@@ -59,12 +59,10 @@ void SkeletonBasedAnimationUI::selectionChanged( const Engine::Scene::ItemEntry&
     if ( m_selection.m_entity == nullptr ) { return; }
     for ( auto& comp : m_selection.m_entity->getComponents() )
     {
-        if ( comp->getName().compare( 0, 3, "AC_" ) == 0 )
+        if ( auto curSkel = dynamic_cast<Engine::Scene::SkeletonComponent*>( comp.get() ) )
         {
             // register current Skeleton component
-            m_currentSkeleton = static_cast<Engine::Scene::SkeletonComponent*>( comp.get() );
-            if ( m_currentSkeleton == nullptr ) { continue; }
-
+            m_currentSkeleton = curSkel;
             // update the ui accordingly
             ui->tabWidget->setEnabled( true );
             ui->actionXray->setChecked( m_currentSkeleton->isXray() );
@@ -82,13 +80,10 @@ void SkeletonBasedAnimationUI::selectionChanged( const Engine::Scene::ItemEntry&
             ui->m_xray->setChecked( m_currentSkeleton->isXray() );
             ui->m_showSkeleton->setChecked( m_currentSkeleton->isShowingSkeleton() );
         }
-        if ( comp->getName().compare( 0, 4, "SkC_" ) == 0 )
+        if ( auto skinComp = dynamic_cast<Engine::Scene::SkinningComponent*>( comp.get() ) )
         {
             // register the current skinning component
-            auto skinComp = static_cast<Engine::Scene::SkinningComponent*>( comp.get() );
-            if ( skinComp == nullptr ) { continue; }
             m_currentSkinnings.emplace_back( skinComp );
-
             // update the ui accordingly
             ui->m_skinning->setEnabled( true );
             ui->m_smartStretch->setEnabled( true );
@@ -157,10 +152,11 @@ void SkeletonBasedAnimationUI::postLoadFile( Engine::Scene::Entity* entity ) {
     m_currentSkinnings.clear();
     ui->tabWidget->setEnabled( false );
     ui->m_skinning->setEnabled( false );
-    // register the animation keyframes into the timeline
+    if ( !m_timeline ) { return; }
+    // register the animation keyframes of the first animation into the timeline
     auto c = std::find_if(
-        entity->getComponents().begin(), entity->getComponents().end(), []( const auto& c ) {
-            return ( c->getName().compare( 0, 3, "AC_" ) == 0 );
+        entity->getComponents().begin(), entity->getComponents().end(), []( const auto& cmpt ) {
+            return ( dynamic_cast<Ra::Engine::Scene::SkeletonComponent*>( cmpt.get() ) != nullptr );
         } );
     if ( c != entity->getComponents().end() )
     {
@@ -172,6 +168,7 @@ void SkeletonBasedAnimationUI::postLoadFile( Engine::Scene::Entity* entity ) {
             auto it = std::find_if(
                 boneMap->begin(), boneMap->end(), [j]( const auto& b ) { return b.second == j; } );
             if ( it == boneMap->end() ) { continue; } // end bone
+
             m_timeline->registerKeyFramedValue(
                 it->first,
                 KeyFramedValueController(
@@ -183,6 +180,20 @@ void SkeletonBasedAnimationUI::postLoadFile( Engine::Scene::Entity* entity ) {
                     } ) ); // no update callback here
         }
     }
+    // update the timeline display interval to the bounding interval of all anims
+    Scalar startTime = std::numeric_limits<Scalar>::max();
+    Scalar endTime   = 0;
+    for ( const auto& animComp : entity->getComponents() )
+    {
+        if ( auto skel = dynamic_cast<Ra::Engine::Scene::SkeletonComponent*>( animComp.get() ) )
+        {
+            auto [s, e] = skel->getAnimationTimeInterval();
+            startTime   = std::min( startTime, s );
+            endTime     = std::max( endTime, e );
+        }
+    }
+    m_timeline->onChangeStart( startTime );
+    m_timeline->onChangeEnd( endTime );
 }
 
 void SkeletonBasedAnimationUI::on_actionXray_triggered( bool checked ) {

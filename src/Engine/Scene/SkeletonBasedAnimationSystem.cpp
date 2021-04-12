@@ -29,9 +29,8 @@ void SkeletonBasedAnimationSystem::generateTasks( Core::TaskQueue* taskQueue,
     for ( auto compEntry : m_components )
     {
         // deal with AnimationComponents
-        if ( compEntry.second->getName().compare( 0, 3, "AC_" ) == 0 )
+        if ( auto animComp = dynamic_cast<SkeletonComponent*>( compEntry.second ) )
         {
-            auto animComp = static_cast<SkeletonComponent*>( compEntry.second );
             if ( !Core::Math::areApproxEqual( m_time, frameInfo.m_animationTime ) )
             {
                 // here we update the skeleton w.r.t. the animation
@@ -51,9 +50,8 @@ void SkeletonBasedAnimationSystem::generateTasks( Core::TaskQueue* taskQueue,
             }
         }
         // deal with SkinningComponents
-        else if ( compEntry.second->getName().compare( 0, 4, "SkC_" ) == 0 )
+        else if ( auto skinComp = dynamic_cast<SkinningComponent*>( compEntry.second ) )
         {
-            auto skinComp = static_cast<SkinningComponent*>( compEntry.second );
             auto skinFunc = std::bind( &SkinningComponent::skin, skinComp );
             auto skinTask =
                 new Core::FunctionTask( skinFunc, "SkinnerTask_" + skinComp->getMeshName() );
@@ -68,6 +66,7 @@ void SkeletonBasedAnimationSystem::generateTasks( Core::TaskQueue* taskQueue,
             taskQueue->addDependency( skinTaskId, endTaskId );
         }
     }
+
     m_time = frameInfo.m_animationTime;
 }
 
@@ -77,14 +76,23 @@ void SkeletonBasedAnimationSystem::handleAssetLoading( Entity* entity,
     auto animData = fileData->getAnimationData();
 
     // deal with AnimationComponents
+    Scalar startTime = std::numeric_limits<Scalar>::max();
+    Scalar endTime   = 0;
     for ( const auto& skel : skelData )
     {
         auto component = new SkeletonComponent( "AC_" + skel->getName(), entity );
         component->handleSkeletonLoading( skel );
         component->handleAnimationLoading( animData );
+        auto [s, e] = component->getAnimationTimeInterval();
+        startTime   = std::min( startTime, s );
+        endTime     = std::max( endTime, e );
         component->setXray( m_xrayOn );
         registerComponent( entity, component );
     }
+    // configure the time on the Engine
+    auto engine = RadiumEngine::getInstance();
+    engine->setStartTime( startTime );
+    engine->setEndTime( endTime );
 
     // deal with SkinningComponents
     auto geomData = fileData->getGeometryData();
@@ -119,8 +127,8 @@ void SkeletonBasedAnimationSystem::setXray( bool on ) {
     m_xrayOn = on;
     for ( const auto& comp : m_components )
     {
-        if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
-        { static_cast<SkeletonComponent*>( comp.second )->setXray( on ); }
+        if ( auto animComp = dynamic_cast<SkeletonComponent*>( comp.second ) )
+        { animComp->setXray( on ); }
     }
 }
 
@@ -131,8 +139,8 @@ bool SkeletonBasedAnimationSystem::isXrayOn() {
 void SkeletonBasedAnimationSystem::toggleSkeleton( const bool status ) {
     for ( const auto& comp : m_components )
     {
-        if ( comp.second->getName().compare( 0, 3, "AC_" ) == 0 )
-        { static_cast<SkeletonComponent*>( comp.second )->toggleSkeleton( status ); }
+        if ( auto animComp = dynamic_cast<SkeletonComponent*>( comp.second ) )
+        { animComp->toggleSkeleton( status ); }
     }
 }
 
