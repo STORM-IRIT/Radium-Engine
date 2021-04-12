@@ -80,9 +80,18 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
     /// Print info to the Debug output. Need to be extended by child classes
     void displayInfo() const;
 
+    void invalidateAabb();
+
+    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_slot0; }
+
   protected:
     /// The type of geometry for the object.
     VolumeStorageType m_type;
+
+    bool m_isAabbValid {false};
+    Core::Aabb m_aabb;
+
+    Ra::Core::Utils::ObservableVoid m_slot0;
 };
 /**
  * General interface for discrete volume that store the information into a set of bins indexed in
@@ -109,7 +118,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     void clear() override;
 
     /// Compute the aabb of the volume
-    Aabb computeAabb() const override;
+    Aabb computeAabb() override;
 
     /// return the size (number of bins ni each dimension) of the volume
     const Vector3i& size() const { return m_size; }
@@ -117,6 +126,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     void setSize( Eigen::Ref<const Vector3i> size ) {
         m_size = size;
         updateStorage();
+        invalidateAabb();
     }
     /// return the bin size
     const Vector3& binSize() const { return m_binSize; }
@@ -125,6 +135,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
     void setBinSize( Eigen::Ref<const Vector3> binSize ) {
         CORE_ASSERT( binSize != Vector3::Zero(), "Volume bin size can't be zero." );
         m_binSize = binSize;
+        invalidateAabb();
     }
 
     /// Get the value of the given bin
@@ -149,6 +160,7 @@ class RA_CORE_API AbstractDiscreteVolume : public AbstractVolume
         if ( auto res = linearIndex( p ) )
         {
             addToBin( value, *res );
+            invalidateAabb();
             return true;
         }
         return false;

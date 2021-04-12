@@ -18,6 +18,8 @@ bool AttribArrayGeometry::append( const AttribArrayGeometry& other ) {
         if ( attr->isVector4() ) this->append_attrib<Vector4>( attr );
     } );
 
+    invalidateAabb();
+
     return true;
 }
 
@@ -28,12 +30,19 @@ void AttribArrayGeometry::clearAttributes() {
     initDefaultAttribs();
     setVertices( v );
     setNormals( n );
+
+    invalidateAabb();
 }
 
 void AttribArrayGeometry::colorize( const Utils::Color& color ) {
     static const std::string colorAttribName( "in_color" );
     auto colorAttribHandle = addAttrib<Core::Vector4>( colorAttribName );
     getAttrib( colorAttribHandle ).setData( Vector4Array( vertices().size(), color ) );
+}
+
+void AttribArrayGeometry::invalidateAabb() {
+    m_isAabbValid = false;
+    m_slot0.notify();
 }
 
 } // namespace Geometry

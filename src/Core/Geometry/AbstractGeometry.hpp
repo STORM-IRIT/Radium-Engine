@@ -2,6 +2,7 @@
 
 #include <Core/RaCore.hpp>
 #include <Core/Types.hpp>
+#include <Core/Utils/Observable.hpp>
 
 namespace Ra {
 namespace Core {
@@ -32,7 +33,8 @@ struct RA_CORE_API AbstractGeometry {
     virtual void clear() = 0;
 
     /// Compute bounding box
-    virtual Aabb computeAabb() const = 0;
+    virtual Aabb computeAabb()                                   = 0;
+    virtual Ra::Core::Utils::ObservableVoid& getAabbObservable() = 0;
 };
 
 } // namespace Geometry

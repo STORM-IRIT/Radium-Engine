@@ -164,7 +164,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// \warning The original handles are not valid for the AttribArrayGeometry copy.
     inline bool copyAllAttributes( const AttribArrayGeometry& input );
 
-    inline Aabb computeAabb() const override;
+    inline Aabb computeAabb() override;
 
     /// Utility function colorzing the AttribArrayGeometry with a given color.
     /// \note Add the color attribute if needed.
@@ -192,6 +192,10 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// Release lock on vertices normals
     inline void normalsUnlock();
 
+    void invalidateAabb();
+
+    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_slot0; }
+
   private:
     /// Sets the default attribs.
     inline void initDefaultAttribs();
@@ -210,6 +214,11 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     /// The handle for normals, making request faster.
     NormalAttribHandle m_normalsHandle;
+
+    bool m_isAabbValid {false};
+    Core::Aabb m_aabb;
+
+    Ra::Core::Utils::ObservableVoid m_slot0;
 };
 
 class RA_CORE_API PointCloud : public AttribArrayGeometry
