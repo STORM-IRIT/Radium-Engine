@@ -37,15 +37,10 @@ Gui::CameraManipulator::CameraManipulator( uint width, uint height ) :
         Engine::Scene::SystemEntity::getInstance()->getComponents().cend(),
         []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
     if ( it != Engine::Scene::SystemEntity::getInstance()->getComponents().cend() )
-    { m_camera = static_cast<Engine::Scene::Camera*>( ( *it ).get() ); }
+    { m_camera = static_cast<Engine::Scene::CameraComponent*>( ( *it ).get() )->getCamera(); }
     else
     {
-        m_camera = new Engine::Scene::Camera( Engine::Scene::SystemEntity::getInstance(),
-                                              "CAMERA_DEFAULT",
-                                              Scalar( height ),
-                                              Scalar( width ) );
-        m_camera->initialize();
-        m_camera->show( false );
+        m_camera = new Engine::Data::Camera( Scalar( height ), Scalar( width ) );
 
         setCameraFovInDegrees( 60.0_ra );
         setCameraZNear( 0.1_ra );
@@ -64,9 +59,8 @@ void Gui::CameraManipulator::resetToDefaultCamera() {
         []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
     if ( it != Engine::Scene::SystemEntity::getInstance()->getComponents().cend() )
     {
-        m_camera = static_cast<Engine::Scene::Camera*>( ( *it ).get() );
+        m_camera = static_cast<Engine::Scene::CameraComponent*>( ( *it ).get() )->getCamera();
         m_camera->resize( w, h );
-        m_camera->show( false );
     }
     else
     {
@@ -128,7 +122,7 @@ Gui::KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }
 
-const Engine::Scene::Camera& Gui::CameraManipulator::getCameraFromViewer( QObject* v ) {
+const Engine::Data::Camera& Gui::CameraManipulator::getCameraFromViewer( QObject* v ) {
     return *static_cast<Gui::Viewer*>( v )->getCameraManipulator()->getCamera();
 }
 

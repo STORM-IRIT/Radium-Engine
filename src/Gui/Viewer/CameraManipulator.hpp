@@ -80,14 +80,14 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
     /// Pointer access to the camera.
-    const Engine::Scene::Camera* getCamera() const { return m_camera; }
+    const Engine::Data::Camera* getCamera() const { return m_camera; }
 
     /// Pointer access to the camera.
-    Engine::Scene::Camera* getCamera() { return m_camera; }
+    Engine::Data::Camera* getCamera() { return m_camera; }
 
     /// Set the Camera to be manipulated.
     /// \note CameraManipulator doesn't have ownership.
-    virtual void setCamera( Engine::Scene::Camera* camera ) = 0;
+    virtual void setCamera( Engine::Data::Camera* camera ) = 0;
 
     /**
      * Set the Engine::Data::Camera used to the default one.
@@ -110,7 +110,7 @@ class RA_GUI_API CameraManipulator : public QObject
 
     /// Static method to get the Camera from the given viewer.
     // FIXME: shouldn't be here!
-    static const Engine::Scene::Camera& getCameraFromViewer( QObject* v );
+    static const Engine::Data::Camera& getCameraFromViewer( QObject* v );
 
   public slots:
     /// \name Camera properties setters
@@ -168,8 +168,8 @@ class RA_GUI_API CameraManipulator : public QObject
     /// used as a "focus" point by a manipulator.
     Core::Vector3 m_target;
 
-    Engine::Scene::Camera* m_camera; ///< The Camera.
-    Engine::Scene::Light* m_light;   ///< The light attached to the Camera.
+    Engine::Data::Camera* m_camera; ///< The Camera.
+    Engine::Scene::Light* m_light;  ///< The light attached to the Camera.
 };
 
 } // namespace Gui

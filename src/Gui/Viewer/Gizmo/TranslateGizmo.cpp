@@ -141,7 +141,7 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform TranslateGizmo::mouseMove( const Engine::Scene::Camera& cam,
+Core::Transform TranslateGizmo::mouseMove( const Engine::Data::Camera& cam,
                                            const Core::Vector2& nextXY,
                                            bool stepped,
                                            bool whole ) {
@@ -191,7 +191,7 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Scene::Camera& cam,
     return m_transform;
 }
 
-void TranslateGizmo::setInitialState( const Engine::Scene::Camera& /*cam*/,
+void TranslateGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
                                       const Core::Vector2& /*initialXY*/ ) {
     m_initialPix = Core::Vector2::Zero();
     m_start      = false;

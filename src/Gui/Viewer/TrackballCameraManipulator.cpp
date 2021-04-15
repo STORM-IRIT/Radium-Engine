@@ -215,14 +215,13 @@ bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) 
     return false;
 }
 
-void Gui::TrackballCameraManipulator::setCamera( Engine::Scene::Camera* camera ) {
+void Gui::TrackballCameraManipulator::setCamera( Engine::Data::Camera* camera ) {
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera         = camera;
     m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
     m_distFromCenter = 2.0_ra;
     updatePhiTheta();
-    m_camera->show( false );
 
     if ( m_light != nullptr )
     {

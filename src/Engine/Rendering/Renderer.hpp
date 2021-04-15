@@ -25,7 +25,6 @@ class FileData;
 namespace Engine {
 
 namespace Data {
-class Camera;
 class Texture;
 struct ViewingParameters;
 class ShaderProgram;

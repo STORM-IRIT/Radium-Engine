@@ -22,9 +22,9 @@ class RotateGizmo : public Gizmo
     void selectConstraint( int drawableIndex ) override;
     bool isSelected() override { return m_selectedAxis != -1; }
 
-    void setInitialState( const Engine::Scene::Camera& cam,
+    void setInitialState( const Engine::Data::Camera& cam,
                           const Core::Vector2& initialXY ) override;
-    Core::Transform mouseMove( const Engine::Scene::Camera& cam,
+    Core::Transform mouseMove( const Engine::Data::Camera& cam,
                                const Core::Vector2& nextXY,
                                bool stepped,
                                bool whole ) override;

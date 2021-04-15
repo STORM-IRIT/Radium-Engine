@@ -137,7 +137,7 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform ScaleGizmo::mouseMove( const Engine::Scene::Camera& cam,
+Core::Transform ScaleGizmo::mouseMove( const Engine::Data::Camera& cam,
                                        const Core::Vector2& nextXY,
                                        bool stepped,
                                        bool whole ) {
@@ -229,7 +229,7 @@ Core::Transform ScaleGizmo::mouseMove( const Engine::Scene::Camera& cam,
     return m_transform;
 }
 
-void ScaleGizmo::setInitialState( const Engine::Scene::Camera& /*cam*/,
+void ScaleGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
                                   const Core::Vector2& /*initialXY*/ ) {
     m_initialPix = Core::Vector2::Zero();
     m_start      = false;
