@@ -57,7 +57,7 @@ void AbstractVolume::displayInfo() const {
 
 void AbstractVolume::invalidateAabb() {
     m_isAabbValid = false;
-    m_slot0.notify();
+    m_aabbObservable.notify();
 }
 
 void AbstractDiscreteVolume::clear() {

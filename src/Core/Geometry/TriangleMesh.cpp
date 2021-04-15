@@ -42,7 +42,7 @@ void AttribArrayGeometry::colorize( const Utils::Color& color ) {
 
 void AttribArrayGeometry::invalidateAabb() {
     m_isAabbValid = false;
-    m_slot0.notify();
+    m_aabbObservable.notify();
 }
 
 } // namespace Geometry
