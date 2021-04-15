@@ -194,7 +194,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     void invalidateAabb();
 
-    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_slot0; }
+    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_aabbObservable; }
 
   private:
     /// Sets the default attribs.
@@ -218,7 +218,7 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     bool m_isAabbValid {false};
     Core::Aabb m_aabb;
 
-    Ra::Core::Utils::ObservableVoid m_slot0;
+    Ra::Core::Utils::ObservableVoid m_aabbObservable;
 };
 
 class RA_CORE_API PointCloud : public AttribArrayGeometry

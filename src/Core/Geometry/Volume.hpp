@@ -82,7 +82,7 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
 
     void invalidateAabb();
 
-    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_slot0; }
+    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_aabbObservable; }
 
   protected:
     /// The type of geometry for the object.
@@ -91,7 +91,7 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
     bool m_isAabbValid {false};
     Core::Aabb m_aabb;
 
-    Ra::Core::Utils::ObservableVoid m_slot0;
+    Ra::Core::Utils::ObservableVoid m_aabbObservable;
 };
 /**
  * General interface for discrete volume that store the information into a set of bins indexed in
