@@ -7,19 +7,10 @@
 #include <catch2/catch.hpp>
 
 TEST_CASE( "Engine/Camera" ) {
-    using namespace Ra::Engine::Scene;
-    using namespace Ra::Engine;
+    using namespace Ra::Engine::Data;
     using namespace Ra::Core;
 
-    RadiumEngine::createInstance();
-    RadiumEngine::getInstance()->initialize();
-
-    Entity* ent = new Entity {"test"};
-
-    REQUIRE( ent->getName() == "test" );
-
-    Camera* cam = new Camera {ent, "test", 10, 10};
-    cam->initialize();
+    Camera* cam = new Camera {10, 10};
 
     REQUIRE( Math::areApproxEqual( cam->getZNear(), 0.1_ra ) );
     REQUIRE( Math::areApproxEqual( cam->getZFar(), 1000_ra ) );
@@ -65,7 +56,4 @@ TEST_CASE( "Engine/Camera" ) {
     REQUIRE( Math::areApproxEqual( cam->getZNear(), cam->m_minZNear ) );
     REQUIRE( Math::areApproxEqual( cam->getZFar(), cam->getZNear() + cam->m_minZRange ) );
     //}
-
-    /// \todo cleanup ?
-    //    RadiumEngine::destroyInstance();
 }

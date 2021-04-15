@@ -119,8 +119,8 @@ Gui::CameraManipulator* Gui::Viewer::getCameraManipulator() {
     return m_camera.get();
 }
 
-void Gui::Viewer::setCamera( Engine::Scene::Camera* camera ) {
-    m_camera->setCamera( camera );
+void Gui::Viewer::setCamera( Engine::Scene::CameraComponent* camera ) {
+    m_camera->setCamera( camera->getCamera() );
 }
 
 Gui::GizmoManager* Gui::Viewer::getGizmoManager() {

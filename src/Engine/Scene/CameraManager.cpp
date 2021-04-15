@@ -32,15 +32,15 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
-        auto comp                 = new Camera( entity, componentName, 100, 100 );
+        auto comp                 = new CameraComponent( entity, componentName, 100, 100 );
         switch ( data->getType() )
         {
         case CameraData::ORTHOGRAPHIC: {
-            comp->setType( Camera::ProjType::ORTHOGRAPHIC );
+            comp->setType( Ra::Engine::Data::Camera::ProjType::ORTHOGRAPHIC );
             break;
         }
         case CameraData::PERSPECTIVE: {
-            comp->setType( Camera::ProjType::PERSPECTIVE );
+            comp->setType( Ra::Engine::Data::Camera::ProjType::PERSPECTIVE );
             break;
         }
         }
@@ -60,18 +60,19 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
 
 void CameraManager::registerComponent( const Entity* entity, Component* component ) {
     System::registerComponent( entity, component );
-    m_data->add( reinterpret_cast<Camera*>( component ) );
+    m_data->add( reinterpret_cast<CameraComponent*>( component ) );
 }
 
 void CameraManager::unregisterComponent( const Entity* entity, Component* component ) {
     System::unregisterComponent( entity, component );
-    m_data->remove( reinterpret_cast<Camera*>( component ) );
+    m_data->remove( reinterpret_cast<CameraComponent*>( component ) );
 }
 
 void CameraManager::unregisterAllComponents( const Entity* entity ) {
     for ( const auto& comp : this->m_components )
     {
-        if ( comp.first == entity ) { m_data->remove( reinterpret_cast<Camera*>( comp.second ) ); }
+        if ( comp.first == entity )
+        { m_data->remove( reinterpret_cast<CameraComponent*>( comp.second ) ); }
     }
     System::unregisterAllComponents( entity );
 }

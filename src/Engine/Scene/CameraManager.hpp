@@ -10,7 +10,7 @@
 namespace Ra {
 namespace Engine {
 namespace Data {
-class Camera;
+class CameraComponent;
 }
 
 namespace Scene {
@@ -33,10 +33,10 @@ class RA_ENGINE_API CameraManager : public System
     ~CameraManager() override = default;
 
     /// Get a pointer to the cam-th Camera.
-    virtual const Camera* getCamera( size_t cam ) const = 0;
+    virtual const CameraComponent* getCamera( size_t cam ) const = 0;
 
     /// Add a Camera to the manager ...
-    virtual void addCamera( Camera* cam ) = 0;
+    virtual void addCamera( CameraComponent* cam ) = 0;
 
     //
     // Calls for the Renderer

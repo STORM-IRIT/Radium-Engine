@@ -316,7 +316,8 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
         if ( loadFile( parser.value( "camera" ) ) )
         {
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
-            auto camera = static_cast<Engine::Scene::Camera*>( entity->getComponents()[0].get() );
+            auto camera =
+                static_cast<Engine::Scene::CameraComponent*>( entity->getComponents()[0].get() );
             m_viewer->setCamera( camera );
         }
     }

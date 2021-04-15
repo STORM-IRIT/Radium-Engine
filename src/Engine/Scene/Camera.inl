@@ -4,7 +4,8 @@
 
 namespace Ra {
 namespace Engine {
-namespace Scene {
+
+namespace Data {
 
 inline Core::Transform Camera::getFrame() const {
     return m_frame;
@@ -26,24 +27,6 @@ inline void Camera::setPosition( const Core::Vector3& position ) {
 
 inline Core::Vector3 Camera::getDirection() const {
     return ( -m_frame.affine().block<3, 1>( 0, 2 ) ).normalized();
-}
-
-inline void Camera::setDirection( const Core::Vector3& direction ) {
-    Core::Transform T = Core::Transform::Identity();
-
-    auto d0 = getDirection();
-    auto d1 = direction.normalized();
-
-    auto c = d0.cross( d1 );
-    auto d = d0.dot( d1 );
-
-    // Special case if two directions are exactly opposites we constrain.
-    // to rotate around the up vector.
-    if ( c.isApprox( Core::Vector3::Zero() ) && d < 0.0 )
-    { T.rotate( Core::AngleAxis( Core::Math::PiDiv2, Core::Vector3::UnitY() ) ); }
-    else
-    { T.rotate( Core::Quaternion::FromTwoVectors( d0, d1 ) ); }
-    applyTransform( T );
 }
 
 inline Core::Vector3 Camera::getUpVector() const {
@@ -104,13 +87,6 @@ inline Scalar Camera::getHeight() const {
     return m_height;
 }
 
-inline void Camera::resize( Scalar width, Scalar height ) {
-    m_width  = width;
-    m_height = height;
-    m_aspect = width / height;
-    updateProjMatrix();
-}
-
 inline Scalar Camera::getAspect() const {
     return m_aspect;
 }
@@ -124,11 +100,23 @@ inline void Camera::setType( const ProjType& projectionType ) {
 }
 
 inline Core::Matrix4 Camera::getViewMatrix() const {
-    return ( m_entity->getTransform() * m_frame ).inverse().matrix();
+    return getFrame().inverse().matrix();
 }
 
 inline Core::Matrix4 Camera::getProjMatrix() const {
     return m_projMatrix;
+}
+
+inline Scalar Camera::getMinZNear() const {
+    return m_minZNear;
+}
+
+inline Scalar Camera::getMinZRange() const {
+    return m_minZRange;
+}
+
+inline void Camera::setProjMatrix( Core::Matrix4 projMatrix ) {
+    m_projMatrix = projMatrix;
 }
 
 inline Core::Vector2 Camera::project( const Core::Vector3& p ) const {
@@ -136,21 +124,132 @@ inline Core::Vector2 Camera::project( const Core::Vector3& p ) const {
     point.head<3>()     = p;
     auto vpPoint        = getProjMatrix() * getViewMatrix() * point;
 
-    return Core::Vector2( m_width * Scalar( 0.5 ) * ( vpPoint.x() + Scalar( 1 ) ),
-                          m_height * Scalar( 0.5 ) * ( vpPoint.y() + Scalar( -1 ) ) );
+    return Core::Vector2( getWidth() * Scalar( 0.5 ) * ( vpPoint.x() + Scalar( 1 ) ),
+                          getHeight() * Scalar( 0.5 ) * ( vpPoint.y() + Scalar( -1 ) ) );
 }
 
 inline Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
-    const Scalar localX = ( Scalar( 2 ) * pix.x() ) / m_width - Scalar( 1 );
+    const Scalar localX = ( Scalar( 2 ) * pix.x() ) / getWidth() - Scalar( 1 );
     // Y is "inverted" (goes downwards)
-    const Scalar localY = -( Scalar( 2 ) * pix.y() ) / m_height + Scalar( 1 );
+    const Scalar localY = -( Scalar( 2 ) * pix.y() ) / getHeight() + Scalar( 1 );
 
     // Multiply the point in screen space by the inverted projection matrix
     // and then by the inverted view matrix ( = m_frame) to get it in world space.
     // NB : localPoint needs to be a vec4 to be multiplied by the proj matrix.
-    const Core::Vector4 localPoint( localX, localY, -m_zNear, Scalar( 1 ) );
+    const Core::Vector4 localPoint( localX, localY, -getZNear(), Scalar( 1 ) );
     const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
-    return m_frame * unproj.head<3>();
+    return getFrame() * unproj.head<3>();
+}
+} // namespace Data
+
+namespace Scene {
+
+inline Core::Transform CameraComponent::getFrame() const {
+    return m_camera->getFrame();
+}
+
+inline void CameraComponent::setFrame( const Core::Transform& frame ) {
+    m_camera->setFrame( frame );
+}
+
+inline Core::Vector3 CameraComponent::getPosition() const {
+    return m_camera->getPosition();
+}
+
+inline void CameraComponent::setPosition( const Core::Vector3& position ) {
+    m_camera->setPosition( position );
+}
+
+inline Core::Vector3 CameraComponent::getDirection() const {
+    return m_camera->getDirection();
+}
+
+inline void CameraComponent::setDirection( const Core::Vector3& direction ) {
+    m_camera->setDirection( direction );
+}
+
+inline Core::Vector3 CameraComponent::getUpVector() const {
+    return m_camera->getUpVector();
+}
+
+inline void CameraComponent::setUpVector( const Core::Vector3& upVector ) {
+    m_camera->setUpVector( upVector );
+}
+
+inline Core::Vector3 CameraComponent::getRightVector() const {
+    return m_camera->getRightVector();
+}
+
+inline Scalar CameraComponent::getFOV() const {
+    return m_camera->getFOV();
+}
+
+inline void CameraComponent::setFOV( Scalar fov ) {
+    m_camera->setFOV( fov );
+}
+
+inline Scalar CameraComponent::getZNear() const {
+    return m_camera->getZNear();
+}
+
+inline void CameraComponent::setZNear( Scalar zNear ) {
+    m_camera->setZNear( zNear );
+}
+
+inline Scalar CameraComponent::getZFar() const {
+    return m_camera->getZFar();
+}
+
+inline void CameraComponent::setZFar( Scalar zFar ) {
+    m_camera->setZFar( zFar );
+}
+
+inline Scalar CameraComponent::getZoomFactor() const {
+    return m_camera->getZoomFactor();
+}
+
+inline void CameraComponent::setZoomFactor( const Scalar& zoomFactor ) {
+    m_camera->setZoomFactor( zoomFactor );
+}
+
+inline Scalar CameraComponent::getWidth() const {
+    return m_camera->getWidth();
+}
+
+inline Scalar CameraComponent::getHeight() const {
+    return m_camera->getHeight();
+}
+
+inline void CameraComponent::resize( Scalar width, Scalar height ) {
+    m_camera->resize( width, height );
+}
+
+inline Scalar CameraComponent::getAspect() const {
+    return m_camera->getAspect();
+}
+
+inline Ra::Engine::Data::Camera::ProjType CameraComponent::getType() const {
+    return m_camera->getType();
+}
+
+inline void CameraComponent::setType( const Ra::Engine::Data::Camera::ProjType& projectionType ) {
+    m_camera->setType( projectionType );
+}
+
+inline Core::Matrix4 CameraComponent::getViewMatrix() const {
+    return m_camera->getViewMatrix();
+}
+
+inline Core::Matrix4 CameraComponent::getProjMatrix() const {
+    return m_camera->getProjMatrix();
+}
+
+inline Core::Vector2 CameraComponent::project( const Core::Vector3& p ) const {
+    return m_camera->project( p );
+}
+
+inline Core::Vector3 CameraComponent::unProject( const Core::Vector2& pix ) const {
+    return m_camera->unProject( pix );
 }
 } // namespace Scene
 } // namespace Engine

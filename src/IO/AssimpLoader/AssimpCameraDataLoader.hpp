@@ -12,7 +12,7 @@ struct aiNode;
 
 namespace Ra {
 namespace Engine {
-class Camera;
+class CameraComponent;
 } // namespace Engine
 
 namespace Core {

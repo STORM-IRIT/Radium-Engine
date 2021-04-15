@@ -11,6 +11,7 @@ class Camera;
 }
 
 namespace Scene {
+class CameraComponent;
 
 /**
  * Interface providing functions to access and store cameras in
@@ -31,16 +32,16 @@ class RA_ENGINE_API CameraStorage
     virtual size_t size() const = 0;
 
     /// Add a Camera to the container.
-    virtual void add( Camera* cam ) = 0;
+    virtual void add( CameraComponent* cam ) = 0;
 
     /// Remove a Camera from the container.
-    virtual void remove( Camera* cam ) = 0;
+    virtual void remove( CameraComponent* cam ) = 0;
 
     /// Clear the container.
     virtual void clear() = 0;
 
     /// Access the container.
-    virtual Camera* operator[]( unsigned int n ) = 0;
+    virtual CameraComponent* operator[]( unsigned int n ) = 0;
 };
 
 } // namespace Scene

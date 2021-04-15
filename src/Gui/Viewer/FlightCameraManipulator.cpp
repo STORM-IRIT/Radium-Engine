@@ -228,15 +228,13 @@ bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
 }
 
-void Gui::FlightCameraManipulator::setCamera( Engine::Scene::Camera* camera ) {
+void Gui::FlightCameraManipulator::setCamera( Engine::Data::Camera* camera ) {
 
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera = camera;
     m_target = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
     initializeFixedUpVector();
-
-    m_camera->show( false );
 
     if ( m_light != nullptr )
     {

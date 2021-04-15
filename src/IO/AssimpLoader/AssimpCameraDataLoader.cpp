@@ -44,9 +44,9 @@ void AssimpCameraDataLoader::loadData( const aiScene* scene,
     data.reserve( CameraSize );
     for ( uint CameraId = 0; CameraId < CameraSize; ++CameraId )
     {
-        CameraData* Camera = new CameraData();
-        loadCameraData( scene, *( scene->mCameras[CameraId] ), *Camera );
-        data.push_back( std::unique_ptr<CameraData>( Camera ) );
+        CameraData* CameraComponent = new CameraData();
+        loadCameraData( scene, *( scene->mCameras[CameraId] ), *CameraComponent );
+        data.push_back( std::unique_ptr<CameraData>( CameraComponent ) );
     }
 
     if ( m_verbose ) { LOG( logINFO ) << "Camera Loading end.\n"; }
