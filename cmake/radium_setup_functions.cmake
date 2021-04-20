@@ -516,7 +516,7 @@ function(configure_Windows_Radium_app)
     if (NOT ${RADIUM_RESOURCES_DIR} STREQUAL "${CMAKE_INSTALL_PREFIX}/Resources")
         # Configure the resources installation
         # TODO : do we have to call installTargetResources here ?
-        install(DIRECTORY ${RADIUM_RESOURCES_DIR}  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/)
+        install(DIRECTORY ${RADIUM_RESOURCES_DIR}  DESTINATION ${CMAKE_INSTALL_PREFIX}/)
     endif()
 endfunction()
 
