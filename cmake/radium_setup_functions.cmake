@@ -106,7 +106,7 @@ function(configure_cmdline_Radium_app)
             installTargetResources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
-                BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources
+                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources
             )
         endforeach ()
     endif ()
@@ -244,7 +244,7 @@ function(configure_bundled_Radium_app)
             installTargetResources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
-                BUILDLOCATION ${CMAKE_CURRENT_BINARY_DIR}/bin/${ARGS_NAME}.app/Contents/Resources
+                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/bin/${ARGS_NAME}.app/Contents/Resources
             )
         endforeach ()
     endif ()
