@@ -656,7 +656,8 @@ void Gui::Viewer::handleMousePressEvent( QMouseEvent* event,
     {
         // something under the mouse, let's check if it's a gizmo ro
         getGizmoManager()->handlePickingResult( result.m_roIdx );
-        if ( getGizmoManager()->handleMousePressEvent( event, buttons, modifiers, key ) )
+        if ( getGizmoManager()->handleMousePressEvent(
+                 event, buttons, modifiers, key, *m_camera->getCamera() ) )
         { m_activeContext = GizmoManager::getContext(); } // if not, try to do camera stuff
         else if ( m_camera->handleMousePressEvent( event, buttons, modifiers, key ) )
         { m_activeContext = m_camera->mappingContext(); }
@@ -706,7 +707,10 @@ void Gui::Viewer::handleMouseMoveEvent( QMouseEvent* event,
     if ( m_activeContext == m_camera->mappingContext() )
     { m_camera->handleMouseMoveEvent( event, buttons, modifiers, key ); }
     else if ( m_activeContext == GizmoManager::getContext() )
-    { m_gizmoManager->handleMouseMoveEvent( event, buttons, modifiers, key ); }
+    {
+        m_gizmoManager->handleMouseMoveEvent(
+            event, buttons, modifiers, key, *m_camera->getCamera() );
+    }
     else if ( m_activeContext == KeyMappingManageable::getContext() )
     {
         auto action      = keyMap->getAction( m_activeContext, buttons, modifiers, key );

@@ -40,12 +40,14 @@ class RA_GUI_API GizmoManager : public QObject,
     virtual bool handleMousePressEvent( QMouseEvent* event,
                                         const Qt::MouseButtons& buttons,
                                         const Qt::KeyboardModifiers& modifiers,
-                                        int key );
+                                        int key,
+                                        const Engine::Data::Camera& cam );
     virtual bool handleMouseReleaseEvent( QMouseEvent* event );
     virtual bool handleMouseMoveEvent( QMouseEvent* event,
                                        const Qt::MouseButtons& buttons,
                                        const Qt::KeyboardModifiers& modifiers,
-                                       int key );
+                                       int key,
+                                       const Engine::Data::Camera& cam );
 
   public slots:
     /// Set the object being currently edited
