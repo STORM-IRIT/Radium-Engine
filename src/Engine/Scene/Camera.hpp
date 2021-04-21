@@ -17,7 +17,7 @@ class Camera
 
     Camera( Scalar height, Scalar width );
 
-    ~Camera();
+    ~Camera() = default;
 
     /// Return the frame of the camera.
     /// Where Y is the up vector and -Z is the direction vector.
