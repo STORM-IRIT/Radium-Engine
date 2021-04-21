@@ -108,10 +108,6 @@ class RA_GUI_API CameraManipulator : public QObject
     /// pointer acces to the attached light if it exists, returns nullptr otherwise.
     Engine::Scene::Light* getLight() { return m_light; }
 
-    /// Static method to get the Camera from the given viewer.
-    // FIXME: shouldn't be here!
-    static const Engine::Data::Camera& getCameraFromViewer( QObject* v );
-
   public slots:
     /// \name Camera properties setters
     ///@{
