@@ -1,4 +1,5 @@
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Utils/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraManager.hpp>
 
 #include <Core/Asset/CameraData.hpp>
@@ -36,11 +37,11 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
         switch ( data->getType() )
         {
         case CameraData::ORTHOGRAPHIC: {
-            comp->setType( Ra::Engine::Data::Camera::ProjType::ORTHOGRAPHIC );
+            comp->setType( Ra::Core::Utils::Camera::ProjType::ORTHOGRAPHIC );
             break;
         }
         case CameraData::PERSPECTIVE: {
-            comp->setType( Ra::Engine::Data::Camera::ProjType::PERSPECTIVE );
+            comp->setType( Ra::Core::Utils::Camera::ProjType::PERSPECTIVE );
             break;
         }
         }

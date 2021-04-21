@@ -4,7 +4,7 @@
 #include <Engine/Scene/CameraStorage.hpp>
 #include <Engine/Scene/System.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <memory>
 
 namespace Ra {

@@ -1,14 +1,12 @@
 #include <Core/Math/Math.hpp>
-#include <Engine/RadiumEngine.hpp>
-#include <Engine/Scene/Camera.hpp>
-#include <Engine/Scene/Entity.hpp>
-#include <iostream>
+#include <Core/Utils/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 
 #include <catch2/catch.hpp>
 
 TEST_CASE( "Engine/Camera" ) {
-    using namespace Ra::Engine::Data;
     using namespace Ra::Core;
+    using namespace Ra::Core::Utils;
 
     Camera* cam = new Camera {10, 10};
 

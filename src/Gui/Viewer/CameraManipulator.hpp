@@ -11,7 +11,8 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Utils/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 
 namespace Ra {
@@ -80,17 +81,17 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
     /// Pointer access to the camera.
-    const Engine::Data::Camera* getCamera() const { return m_camera; }
+    const Core::Utils::Camera* getCamera() const { return m_camera; }
 
     /// Pointer access to the camera.
-    Engine::Data::Camera* getCamera() { return m_camera; }
+    Core::Utils::Camera* getCamera() { return m_camera; }
 
     /// Set the Camera to be manipulated.
     /// \note CameraManipulator doesn't have ownership.
-    virtual void setCamera( Engine::Data::Camera* camera ) = 0;
+    virtual void setCamera( Core::Utils::Camera* camera ) = 0;
 
     /**
-     * Set the Engine::Data::Camera used to the default one.
+     * Set the Core::Utils::Camera used to the default one.
      * This method allow to have a quick fix of issue #378 before switching to Radium v2
      * development. \todo have a cleaner camera management and control in the Gui Radium
      * library. Gui Camera interface Must define a clean interface between the application and
@@ -164,8 +165,8 @@ class RA_GUI_API CameraManipulator : public QObject
     /// used as a "focus" point by a manipulator.
     Core::Vector3 m_target;
 
-    Engine::Data::Camera* m_camera; ///< The Camera.
-    Engine::Scene::Light* m_light;  ///< The light attached to the Camera.
+    Core::Utils::Camera* m_camera; ///< The Camera.
+    Engine::Scene::Light* m_light; ///< The light attached to the Camera.
 };
 
 } // namespace Gui

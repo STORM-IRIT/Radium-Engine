@@ -1,14 +1,14 @@
 #include <Gui/Viewer/FlightCameraManipulator.hpp>
 
 #include <Core/Math/Math.hpp>
+#include <Core/Utils/Camera.hpp>
 #include <Core/Utils/Log.hpp>
-#include <Engine/Scene/Camera.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Gui/Utils/Keyboard.hpp>
 
 #include <Gui/Utils/KeyMappingManager.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <QApplication>
 #include <QMessageBox>
 #include <algorithm>
@@ -228,7 +228,7 @@ bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
 }
 
-void Gui::FlightCameraManipulator::setCamera( Engine::Data::Camera* camera ) {
+void Gui::FlightCameraManipulator::setCamera( Core::Utils::Camera* camera ) {
 
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );

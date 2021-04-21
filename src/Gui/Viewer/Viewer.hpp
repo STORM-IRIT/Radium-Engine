@@ -15,7 +15,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/Renderer.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 #include <Gui/Viewer/WindowQt.hpp>
 

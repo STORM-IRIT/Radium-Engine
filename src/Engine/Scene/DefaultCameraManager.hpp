@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Utils/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraManager.hpp>
-
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraStorage.hpp>
 #include <memory>
 #include <vector>
 
@@ -26,7 +26,7 @@ class RA_ENGINE_API DefaultCameraStorage : public CameraStorage
 
   private:
     /** Vectors (by Camera type) of Camera references. */
-    std::multimap<Ra::Engine::Data::Camera::ProjType, CameraComponent*> m_Cameras;
+    std::multimap<Ra::Core::Utils::Camera::ProjType, CameraComponent*> m_Cameras;
 };
 
 /**
