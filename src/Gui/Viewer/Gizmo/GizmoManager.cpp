@@ -119,7 +119,8 @@ void GizmoManager::updateValues() {
 bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
                                           const Qt::MouseButtons& buttons,
                                           const Qt::KeyboardModifiers& modifiers,
-                                          int key ) {
+                                          int key,
+                                          const Engine::Data::Camera& cam ) {
 
     if ( !canEdit() || m_currentGizmoType == NONE || !currentGizmo()->isSelected() )
     { return false; }
@@ -128,7 +129,6 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
 
     if ( !( isValidAction( action ) ) ) { return false; }
 
-    const Engine::Data::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
     currentGizmo()->setInitialState( cam,
                                      Core::Vector2( Scalar( event->x() ), Scalar( event->y() ) ) );
     return true;
@@ -142,7 +142,8 @@ bool GizmoManager::handleMouseReleaseEvent( QMouseEvent* /*event*/ ) {
 bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
                                          const Qt::MouseButtons& buttons,
                                          const Qt::KeyboardModifiers& modifiers,
-                                         int key ) {
+                                         int key,
+                                         const Engine::Data::Camera& cam ) {
     ///\todo what about if someone start a motion with a key, and then release it while moving the
     /// mouse ?
     auto action = KeyMappingManager::getInstance()->getAction(
@@ -152,7 +153,6 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
          currentGizmo()->isSelected() )
     {
         Core::Vector2 currentXY( event->x(), event->y() );
-        const Engine::Data::Camera& cam = CameraManipulator::getCameraFromViewer( parent() );
         bool step  = action == GIZMOMANAGER_STEP || action == GIZMOMANAGER_STEP_WHOLE;
         bool whole = action == GIZMOMANAGER_WHOLE || action == GIZMOMANAGER_STEP_WHOLE;
 
