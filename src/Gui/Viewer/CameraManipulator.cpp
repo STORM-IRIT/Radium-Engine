@@ -122,8 +122,4 @@ Gui::KeyMappingManager::Context Gui::CameraManipulator::mappingContext() {
     return Gui::KeyMappingManager::Context();
 }
 
-const Engine::Data::Camera& Gui::CameraManipulator::getCameraFromViewer( QObject* v ) {
-    return *static_cast<Gui::Viewer*>( v )->getCameraManipulator()->getCamera();
-}
-
 } // namespace Ra
