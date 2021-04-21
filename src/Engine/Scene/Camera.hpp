@@ -182,32 +182,40 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
 
     /// Return the frame of the camera.
     /// Where Y is the up vector and -Z is the direction vector.
-    inline Core::Transform getFrame() const;
+    [[deprecated( "Use getCamera()->getFrame() instead" )]] inline Core::Transform getFrame() const;
 
     /// Set the frame of the camera to 'frame'
-    inline void setFrame( const Core::Transform& frame );
+    [[deprecated( "Use getCamera()->setFrame() instead" )]] inline void
+    setFrame( const Core::Transform& frame );
 
     /// Return the position.
-    inline Core::Vector3 getPosition() const;
+    [[deprecated( "Use getCamera()->getPosition() instead" )]] inline Core::Vector3
+    getPosition() const;
 
     /// Set the position of the camera to 'position'.
-    inline void setPosition( const Core::Vector3& position );
+    [[deprecated( "Use getCamera()->setPosition() instead" )]] inline void
+    setPosition( const Core::Vector3& position );
 
     /// Return the direction the camera is looking at.
-    inline Core::Vector3 getDirection() const;
+    [[deprecated( "Use getCamera()->getDirection() instead" )]] inline Core::Vector3
+    getDirection() const;
 
     /// Set the direction of the camera to 'direction'.
     /// The other vectors will be rotated accordingly.
-    inline void setDirection( const Core::Vector3& direction );
+    [[deprecated( "Use getCamera()->setDirection() instead" )]] inline void
+    setDirection( const Core::Vector3& direction );
 
     /// Return the up vector.
-    inline Core::Vector3 getUpVector() const;
+    [[deprecated( "Use getCamera()->getUpVector() instead" )]] inline Core::Vector3
+    getUpVector() const;
 
     /// Set the up vector of the camera to 'upVector'.
     /// The other vectors will be rotated accordingly.
-    inline void setUpVector( const Core::Vector3& upVector );
+    [[deprecated( "Use getCamera()->setUpVector() instead" )]] inline void
+    setUpVector( const Core::Vector3& upVector );
 
-    inline Core::Vector3 getRightVector() const;
+    [[deprecated( "Use getCamera()->getRightVector() instead" )]] inline Core::Vector3
+    getRightVector() const;
 
     /// Apply the local transformation 'T' to the camera.
     void applyTransform( const Core::Transform& T );
@@ -217,13 +225,15 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
     //
 
     /// Return the view matrix.
-    inline Core::Matrix4 getViewMatrix() const;
+    [[deprecated( "Use getCamera()->getViewMatrix() instead" )]] inline Core::Matrix4
+    getViewMatrix() const;
 
     /// Return the projection matrix.
-    inline Core::Matrix4 getProjMatrix() const;
+    [[deprecated( "Use getCamera()->getProjMatrix() instead" )]] inline Core::Matrix4
+    getProjMatrix() const;
 
     /// Update the projection matrix according to the current parameters.
-    void updateProjMatrix();
+    [[deprecated( "Use getCamera()->updateProjMatrix() instead" )]] void updateProjMatrix();
 
     //
     // Utility functions
@@ -234,38 +244,45 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
 
     /// Return a ray emanating from the camera, passing by the point given by
     /// screen coordinates x and y.
-    Core::Ray getRayFromScreen( const Core::Vector2& pix ) const;
+    [[deprecated( "Use getCamera()->getRayFromScreen() instead" )]] Core::Ray
+    getRayFromScreen( const Core::Vector2& pix ) const;
 
     /// Return the screen coordinates of the given point p (in world coordinates).
-    inline Core::Vector2 project( const Core::Vector3& p ) const;
+    [[deprecated( "Use getCamera()->project() instead" )]] inline Core::Vector2
+    project( const Core::Vector3& p ) const;
 
     /// Return the point on the screen plane (near plane) represented by screen coordinates pix.
-    inline Core::Vector3 unProject( const Core::Vector2& pix ) const;
+    [[deprecated( "Use getCamera()->unProject() instead" )]] inline Core::Vector3
+    unProject( const Core::Vector2& pix ) const;
 
     //
     // Getters and setters for projection matrix parameters.
     //
 
     /// Return the projection type.
-    inline Ra::Engine::Data::Camera::ProjType getType() const;
+    [[deprecated( "Use getCamera()->getType() instead" )]] inline Ra::Engine::Data::Camera::ProjType
+    getType() const;
 
     /// Set the projection type to 'projectionType'.
-    inline void setType( const Ra::Engine::Data::Camera::ProjType& projectionType );
+    [[deprecated( "Use getCamera()->setType() instead" )]] inline void
+    setType( const Ra::Engine::Data::Camera::ProjType& projectionType );
 
     /// Return the Field Of View.
     /// \note Meaningless for orthogonal projection.
-    inline Scalar getFOV() const;
+    [[deprecated( "Use getCamera()->getFOV() instead" )]] inline Scalar getFOV() const;
 
     /// Set the Field Of View to 'fov'.
     /// \note Meaningless for orthogonal projection.
     /// \warning Trigger a rebuild of the projection matrix.
-    inline void setFOV( Scalar fov );
+    [[deprecated( "Use getCamera()->setFOV() instead" )]] inline void setFOV( Scalar fov );
 
     /// Return the zoom factor.
-    inline Scalar getZoomFactor() const;
+    [[deprecated( "Use getCamera()->getZoomFactor() instead" )]] inline Scalar
+    getZoomFactor() const;
 
     /// Set the zoom factor to 'zoomFactor'.
-    inline void setZoomFactor( const Scalar& zoomFactor );
+    [[deprecated( "Use getCamera()->setZoomFactor() instead" )]] inline void
+    setZoomFactor( const Scalar& zoomFactor );
 
     /// \name To be deprecated.
     /// Currently, only the CameraInterface (i.e. TrackballCameraManipulator) calls these
@@ -273,35 +290,37 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
     /// Thus these methods might disappear.
     ///@{
     /// Return the Z Near plane distance from the camera.
-    inline Scalar getZNear() const;
+    [[deprecated( "Use getCamera()->getZNear() instead" )]] inline Scalar getZNear() const;
 
     /// Set the Z Near plane distance to 'zNear'.
-    inline void setZNear( Scalar zNear );
+    [[deprecated( "Use getCamera()->setZNear() instead" )]] inline void setZNear( Scalar zNear );
 
     /// Return the Z Far plane distance from the camera.
-    inline Scalar getZFar() const;
+    [[deprecated( "Use getCamera()->getZFar() instead" )]] inline Scalar getZFar() const;
 
     /// Set the Z Far plane distance to 'zFar'.
-    inline void setZFar( Scalar zFar );
+    [[deprecated( "Use getCamera()->setZFar() instead" )]] inline void setZFar( Scalar zFar );
 
     /// Return the width of the viewport.
-    inline Scalar getWidth() const;
+    [[deprecated( "Use getCamera()->getWidth() instead" )]] inline Scalar getWidth() const;
 
     /// Return the height of the viewport.
-    inline Scalar getHeight() const;
+    [[deprecated( "Use getCamera()->getHeight() instead" )]] inline Scalar getHeight() const;
 
     /// Return the aspect ratio of the viewport.
-    inline Scalar getAspect() const;
+    [[deprecated( "Use getCamera()->getAspect() instead" )]] inline Scalar getAspect() const;
 
     /// Change the viewport size.
-    inline void resize( Scalar width, Scalar height );
+    [[deprecated( "Use getCamera()->resize() instead" )]] inline void resize( Scalar width,
+                                                                              Scalar height );
     ///@}
 
     /// Duplicate the camera under a different Entity and a different name
     virtual CameraComponent* duplicate( Entity* cloneEntity, const std::string& cloneName ) const;
 
     /// Fit the Z-range of the camera to the scene's aabb. This will maximize z-buffer precision
-    virtual void fitZRange( const Core::Aabb& aabb );
+    [[deprecated( "Use getCamera()->fitZRange() instead" )]] virtual void
+    fitZRange( const Core::Aabb& aabb );
 
     Data::Camera* getCamera() const { return m_camera; }
     Data::Camera* getCamera() { return m_camera; }
