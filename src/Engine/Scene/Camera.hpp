@@ -322,11 +322,11 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
     [[deprecated( "Use getCamera()->fitZRange() instead" )]] virtual void
     fitZRange( const Core::Aabb& aabb );
 
-    Data::Camera* getCamera() const { return m_camera; }
-    Data::Camera* getCamera() { return m_camera; }
+    Data::Camera* getCamera() const { return m_camera.get(); }
+    Data::Camera* getCamera() { return m_camera.get(); }
 
   protected:
-    Data::Camera* m_camera;
+    std::unique_ptr<Data::Camera> m_camera;
     Rendering::RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
 };
 } // namespace Scene

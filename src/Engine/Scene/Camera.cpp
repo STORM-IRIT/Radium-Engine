@@ -144,7 +144,7 @@ CameraComponent::CameraComponent( Entity* entity,
                                   Scalar height,
                                   Scalar width ) :
     Component( name, entity ) {
-    m_camera = new Data::Camera {height, width};
+    m_camera = std::make_unique<Data::Camera>( height, width );
 }
 
 CameraComponent::~CameraComponent() = default;
