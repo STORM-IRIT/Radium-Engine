@@ -4,10 +4,11 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
+#include <Core/Utils/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 
 namespace Ra {
 namespace Gui {
@@ -141,7 +142,7 @@ void TranslateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform TranslateGizmo::mouseMove( const Engine::Data::Camera& cam,
+Core::Transform TranslateGizmo::mouseMove( const Core::Utils::Camera& cam,
                                            const Core::Vector2& nextXY,
                                            bool stepped,
                                            bool whole ) {
@@ -191,7 +192,7 @@ Core::Transform TranslateGizmo::mouseMove( const Engine::Data::Camera& cam,
     return m_transform;
 }
 
-void TranslateGizmo::setInitialState( const Engine::Data::Camera& /*cam*/,
+void TranslateGizmo::setInitialState( const Core::Utils::Camera& /*cam*/,
                                       const Core::Vector2& /*initialXY*/ ) {
     m_initialPix = Core::Vector2::Zero();
     m_start      = false;

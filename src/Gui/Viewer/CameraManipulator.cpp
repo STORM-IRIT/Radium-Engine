@@ -1,11 +1,11 @@
 #include <Gui/Viewer/CameraManipulator.hpp>
 
 #include <Core/Math/Math.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Utils/Camera.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
 namespace Ra {
@@ -40,7 +40,7 @@ Gui::CameraManipulator::CameraManipulator( uint width, uint height ) :
     { m_camera = static_cast<Engine::Scene::CameraComponent*>( ( *it ).get() )->getCamera(); }
     else
     {
-        m_camera = new Engine::Data::Camera( Scalar( height ), Scalar( width ) );
+        m_camera = new Core::Utils::Camera( Scalar( height ), Scalar( width ) );
 
         setCameraFovInDegrees( 60.0_ra );
         setCameraZNear( 0.1_ra );

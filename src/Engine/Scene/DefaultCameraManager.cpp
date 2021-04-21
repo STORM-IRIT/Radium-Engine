@@ -1,7 +1,7 @@
 #include <Engine/Scene/DefaultCameraManager.hpp>
 
 #include <Engine/RadiumEngine.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 
 namespace Ra {
 namespace Engine {

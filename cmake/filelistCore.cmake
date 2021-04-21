@@ -39,6 +39,7 @@ set( core_sources
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
+    Utils/Camera.cpp
     Utils/CircularIndex.cpp
     Utils/StackTrace.cpp
     Utils/StringUtils.cpp
@@ -122,6 +123,7 @@ set( core_headers
     Tasks/TaskQueue.hpp
     Types.hpp
     Utils/Attribs.hpp
+    Utils/Camera.hpp
     Utils/Chronometer.hpp
     Utils/CircularIndex.hpp
     Utils/Color.hpp
@@ -168,6 +170,7 @@ set( core_inlines
     Math/Math.inl
     Math/Quadric.inl
     Utils/Attribs.inl
+    Utils/Camera.inl
     Utils/CircularIndex.inl
     Utils/Index.inl
     Utils/IndexMap.inl

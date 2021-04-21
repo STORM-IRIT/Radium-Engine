@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Engine/RaEngine.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 
 namespace Ra {
 namespace Engine {

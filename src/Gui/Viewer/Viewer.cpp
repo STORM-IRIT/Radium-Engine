@@ -37,7 +37,7 @@
 #include <Engine/Data/ViewingParameters.hpp>
 #include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Engine/Rendering/Renderer.hpp>
-#include <Engine/Scene/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>
@@ -47,7 +47,8 @@
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Utils/PickingManager.hpp>
 
-#include <Engine/Scene/Camera.hpp>
+#include <Core/Utils/Camera.hpp>
+#include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Viewer/Gizmo/GizmoManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 

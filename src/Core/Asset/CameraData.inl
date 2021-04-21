@@ -1,7 +1,5 @@
 #pragma once
 #include <Core/Asset/CameraData.hpp>
-
-#include "CameraData.hpp"
 #include <Core/Utils/Log.hpp>
 
 namespace Ra {

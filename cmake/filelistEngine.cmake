@@ -24,7 +24,7 @@ set( engine_sources
     Rendering/RenderObject.cpp
     Rendering/RenderObjectManager.cpp
     Rendering/RenderTechnique.cpp
-    Scene/Camera.cpp
+    Scene/CameraComponent.cpp
     Scene/CameraManager.cpp
     Scene/Component.cpp
     Scene/ComponentMessenger.cpp
@@ -80,7 +80,7 @@ set( engine_headers
     Rendering/RenderObjectManager.hpp
     Rendering/RenderObjectTypes.hpp
     Rendering/RenderTechnique.hpp
-    Scene/Camera.hpp
+    Scene/CameraComponent.hpp
     Scene/CameraManager.hpp
     Scene/CameraStorage.hpp
     Scene/Component.hpp
@@ -118,7 +118,7 @@ set( engine_inlines
     Data/VolumeObject.inl
     Data/VolumetricMaterial.inl
     Rendering/RenderTechnique.inl
-    Scene/Camera.inl
+    Scene/CameraComponent.inl
     Scene/Component.inl
     Scene/ComponentMessenger.inl
     Scene/DirLight.inl
