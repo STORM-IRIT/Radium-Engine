@@ -50,7 +50,7 @@ Gui::CameraManipulator::CameraManipulator( uint width, uint height ) :
 
 void Gui::CameraManipulator::resetToDefaultCamera() {
     // get parameters from the current camera
-    // Thisis awfull and requires that the current camera is still alive ...
+    // This is awfull and requires that the current camera is still alive ...
     Scalar w = m_camera->getWidth();
     Scalar h = m_camera->getHeight();
     auto it  = std::find_if(
@@ -64,8 +64,8 @@ void Gui::CameraManipulator::resetToDefaultCamera() {
     }
     else
     {
-        LOG( logWARNING )
-            << "A living camera is required. The application might now behave unexpectedly.";
+        LOG( logWARNING ) << "resetToDefaultCamera(): CAMERA_DEFAULT not found. The application "
+                             "might now behave unexpectedly.";
     }
 }
 
