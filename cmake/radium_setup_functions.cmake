@@ -65,13 +65,13 @@ function(configure_cmdline_Radium_app)
         ${ARGN}
     )
     if (NOT ARGS_NAME)
-        message(FATAL_ERROR "[configure_radium_app] You must provide the main target of the application")
+        message(FATAL_ERROR "[configure_cmdline_Radium_app] You must provide the main target of the application")
     endif ()
     # configure the application
     if (APPLE)
         get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
         if (IsMacBundle)
-            message(FATAL_ERROR "[configure_radium_app] Error configuring ${ARGS_NAME} as a cmdline application. A bundle was asked for this target.")
+            message(FATAL_ERROR "[configure_cmdline_Radium_app] Error configuring ${ARGS_NAME} as a cmdline application. A bundle was asked for this target.")
         endif ()
     endif ()
     # Configure the executable installation
@@ -79,31 +79,11 @@ function(configure_cmdline_Radium_app)
         TARGETS ${ARGS_NAME}
         RUNTIME DESTINATION bin
         )
-    # TODO, this Windows only bundle fix might be adapted to Linux also ... perhaps with the same code ?
-    if (MSVC OR MSVC_IDE OR MINGW)
-        # Construction of the  dependency paths
-        set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
-        list(APPEND FIX_LIBRARY_DIR "${RadiumDlls_Location}")
-        # Add the Qt bin dir ...
-        list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
-        # Add the Radium externals's dll location 
-        list(APPEND FIX_LIBRARY_DIR "${RadiumExternalDlls_location}")
-        list(REMOVE_DUPLICATES FIX_LIBRARY_DIR)
-        # Fix the bundled directory
-        install(CODE "message(STATUS \"Fixing application with Qt base directory at ${FIX_LIBRARY_DIR} !!\")
-                       include(BundleUtilities)
-                       fixup_bundle( ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
-                     "
-            )
-        if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-            install(FILES $<TARGET_PDB_FILE:${ARGS_NAME}> DESTINATION bin)
-        endif()
-    endif ()
-    
+
     # Configure the application own resources installation
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
-            message(STATUS "[configure_radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
+            message(STATUS "[configure_cmdline_Radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
             installTargetResources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
@@ -151,12 +131,12 @@ function(configure_bundled_Radium_app)
         ${ARGN}
     )
     if (NOT ARGS_NAME)
-        message(FATAL_ERROR "[configure_radium_app] You must provide the main target of the application")
+        message(FATAL_ERROR "[configure_bundled_Radium_app] You must provide the main target of the application")
     endif ()
     # configure the application
     get_target_property(IsMacBundle ${ARGS_NAME} MACOSX_BUNDLE)
     if (NOT IsMacBundle)
-        message(FATAL_ERROR "[configure_radium_app] Error configuring ${ARGS_NAME} as a Bundled application. Only MacOsX is supported")
+        message(FATAL_ERROR "[configure_bundled_Radium_app] Error configuring ${ARGS_NAME} as a Bundled application. Only MacOsX is supported")
     endif ()
 
     set_target_properties(${ARGS_NAME} PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME ${ARGS_NAME})
@@ -243,7 +223,7 @@ function(configure_bundled_Radium_app)
     # Configure the resources installation
     if (ARGS_RESOURCES)
         foreach (resLocation ${ARGS_RESOURCES})
-            message(STATUS "[configure_radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
+            message(STATUS "[configure_bundled_Radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
             installTargetResources(
                 TARGET ${ARGS_NAME}
                 DIRECTORY ${resLocation}
@@ -504,12 +484,80 @@ function(configure_Windows_Radium_app)
     # Configure the executable installation
     install(
         TARGETS ${ARGS_NAME}
-        BUNDLE DESTINATION "bin/"
+        RUNTIME DESTINATION "bin/"
     )
+
     message(STATUS "[configure_Windows_Radium_app] Installing  ${ARGS_NAME} (Radium dll from ${RADIUM_ROOT_DIR}/bin)")
     SET(RadiumDlls_Location ${RADIUM_ROOT_DIR}/bin)
-    configure_cmdline_Radium_app(${ARGN})
-    # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html)
+
+    # Construction of the  dependency paths
+    set(FIX_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}")
+    list(APPEND FIX_LIBRARY_DIR "${RadiumDlls_Location}")
+    # Add the Qt bin dir ...
+    list(APPEND FIX_LIBRARY_DIR "${QtDlls_location}")
+    # Add the Radium externals's dll location 
+    list(APPEND FIX_LIBRARY_DIR "${RadiumExternalDlls_location}")
+    list(REMOVE_DUPLICATES FIX_LIBRARY_DIR)
+
+    # build the list of resource directory from the linked libraries to copy into the bundle
+    get_target_property(linkedLibs ${ARGS_NAME} LINK_LIBRARIES)
+    set(depsRsc "")
+    foreach(lib ${linkedLibs})
+        get_target_property(rscPrefix ${lib} RADIUM_TARGET_RESOURCES_PREFIX)
+        if (NOT ${rscPrefix} STREQUAL "rscPrefix-NOTFOUND")
+            get_target_property(rscLocation ${lib} RADIUM_TARGET_INSTALLED_RESOURCES)
+            list(APPEND depsRsc ${rscLocation})
+        endif ()
+    endforeach()
+
+    #install Radium plugins
+    if (ARGS_USE_PLUGINS)
+        install(CODE "
+        message(STATUS \"Installing ${ARGS_NAME} with plugins\")
+        include(BundleUtilities)
+        set(BU_CHMOD_BUNDLE_ITEMS TRUE)
+        file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX})
+        set(instRsc ${depsRsc})
+        foreach( rsc \${instRsc})
+            file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/Resources)
+        endforeach()
+        if (EXISTS ${RADIUM_PLUGINS_DIR})
+            if (EXISTS ${RADIUM_PLUGINS_DIR}/Resources)
+                file(COPY \"${RADIUM_PLUGINS_DIR}/Resources\" DESTINATION \"${CMAKE_INSTALL_PREFIX}\")
+            endif()
+            file(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/Plugins/lib\")
+        endif()      
+        file(MAKE_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/Plugins/lib\")
+        file(GLOB RadiumAvailablePlugins
+                RELATIVE ${RADIUM_PLUGINS_DIR}/lib/
+                ${RADIUM_PLUGINS_DIR}/lib/*.dll )
+        set(InstalledPlugins)
+        foreach (plugin \${RadiumAvailablePlugins})
+            file(COPY \"${RADIUM_PLUGINS_DIR}/lib/\${plugin}\" DESTINATION \"${CMAKE_INSTALL_PREFIX}/Plugins/lib\")
+            file(COPY \"${RADIUM_PLUGINS_DIR}/lib/\${plugin}\" DESTINATION \"${CMAKE_INSTALL_PREFIX}/bin\")
+            list( APPEND InstalledPlugins ${CMAKE_INSTALL_PREFIX}/Plugins/lib/\${plugin} )
+        endforeach ()
+        fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\${InstalledPlugins}\" \"${FIX_LIBRARY_DIR};${CMAKE_INSTALL_PREFIX}/Plugins/lib\")
+        ")
+    else ()
+        install(CODE "
+            message(STATUS \"Installing ${ARGS_NAME} without plugins\")
+            include(BundleUtilities)
+            set(BU_CHMOD_BUNDLE_ITEMS TRUE)
+            file(COPY ${RADIUM_RESOURCES_DIR} DESTINATION ${CMAKE_INSTALL_PREFIX})
+            set(instRsc ${depsRsc})
+            foreach( rsc \${instRsc})
+                file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/Resources)
+            endforeach()
+            fixup_bundle(${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.exe \"\" \"${FIX_LIBRARY_DIR}\")
+            "
+            )
+    endif ()
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        install(FILES $<TARGET_PDB_FILE:${ARGS_NAME}> DESTINATION bin)
+    endif()
+
+    # deploy qt
     get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
     list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
     if(NOT QTCOREIDX EQUAL -1)
@@ -517,17 +565,20 @@ function(configure_Windows_Radium_app)
         windeployqt( ${ARGS_NAME} bin )
     endif()
 
-    #install Radium plugins
-    if (ARGS_USE_PLUGINS)
-         message(STATUS "[configure_Windows_Radium_app] Plugins are not yet supported for windows app ${ARGS_NAME} ")
+    # Configure the application own resources installation
+    if (ARGS_RESOURCES)
+        foreach (resLocation ${ARGS_RESOURCES})
+            message(STATUS "[configure_cmdline_Radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
+            installTargetResources(
+                TARGET ${ARGS_NAME}
+                DIRECTORY ${resLocation}
+                PREFIX ${ARGS_PREFIX}
+                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources
+            )
+        endforeach ()
     endif ()
-    if (NOT ${RADIUM_RESOURCES_DIR} STREQUAL "${CMAKE_INSTALL_PREFIX}/Resources")
-        # Configure the resources installation
-        # TODO : do we have to call installTargetResources here ?
-        install(DIRECTORY ${RADIUM_RESOURCES_DIR}  DESTINATION ${CMAKE_INSTALL_PREFIX}/)
-    endif()
-endfunction()
 
+endfunction()
 
 # Configuration of the build and installation procedure for Radium application
 # Allows to install application with dependent resources
@@ -615,10 +666,13 @@ function(configure_radium_plugin)
     else ()
         set(${ARGS_NAME}_INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
     endif ()
+    # On windows, plugins (dlls) are runtime and not libraries
     install(
         TARGETS ${ARGS_NAME}
         DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
         LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+        RUNTIME DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+        ARCHIVE DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
     )
     # Configure the plugin helper library
     if (ARGS_HELPER_LIBS)
@@ -661,6 +715,8 @@ function(configure_radium_plugin)
                 install(TARGETS ${OriginalLib}
                     DESTINATION ${${ARGS_NAME}_INSTALL_DIR}
                     LIBRARY DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+                    RUNTIME DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
+                    ARCHIVE DESTINATION ${${ARGS_NAME}_INSTALL_DIR}/lib
                     )
             endif ()
         endforeach ()
