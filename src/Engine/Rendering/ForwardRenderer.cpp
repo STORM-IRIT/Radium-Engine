@@ -24,6 +24,8 @@
 #include <Engine/Data/ShaderProgram.hpp>
 #include <Engine/Scene/GeometryComponent.hpp>
 
+#include <Engine/Scene/SystemDisplay.hpp>
+
 #include <map>
 
 namespace Ra {
@@ -51,9 +53,21 @@ void ForwardRenderer::initializeInternal() {
     initShaders();
     initBuffers();
 
+    /// \todo move manager on the engine side.
     auto cameraManager = new Scene::DefaultCameraManager();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
                                                              cameraManager );
+
+    auto comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
+                                                    "CAMERA_DEFAULT",
+                                                    Scalar( m_height ),
+                                                    Scalar( m_width ) );
+    comp->initialize();
+    comp->getCamera()->setFOV( 60.0_ra * Core::Math::toRad );
+    comp->getCamera()->setZNear( 0.1_ra );
+    comp->getCamera()->setZFar( 1000.0_ra );
+
+    cameraManager->addCamera( comp );
 
     auto lightManager = new Scene::DefaultLightManager();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultLightManager", lightManager );
