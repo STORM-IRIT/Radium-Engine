@@ -2,6 +2,7 @@
 
 #include <Core/Math/Math.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
+#include <Engine/Scene/CameraManager.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
@@ -32,40 +33,15 @@ Gui::CameraManipulator::CameraManipulator( uint width, uint height ) :
     m_target( 0_ra, 0_ra, 0_ra ),
     m_camera( nullptr ),
     m_light( nullptr ) {
-    auto it = std::find_if(
-        Engine::Scene::SystemEntity::getInstance()->getComponents().cbegin(),
-        Engine::Scene::SystemEntity::getInstance()->getComponents().cend(),
-        []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
-    if ( it != Engine::Scene::SystemEntity::getInstance()->getComponents().cend() )
-    { m_camera = static_cast<Engine::Scene::CameraComponent*>( ( *it ).get() )->getCamera(); }
+
+    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+        Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+
+    if ( cameraManager->count() > 0 ) { m_camera = cameraManager->getCamera( 0 )->getCamera(); }
     else
     {
-        m_camera = new Core::Utils::Camera( Scalar( height ), Scalar( width ) );
-
-        setCameraFovInDegrees( 60.0_ra );
-        setCameraZNear( 0.1_ra );
-        setCameraZFar( 1000.0_ra );
-    }
-}
-
-void Gui::CameraManipulator::resetToDefaultCamera() {
-    // get parameters from the current camera
-    // This is awfull and requires that the current camera is still alive ...
-    Scalar w = m_camera->getWidth();
-    Scalar h = m_camera->getHeight();
-    auto it  = std::find_if(
-        Engine::Scene::SystemEntity::getInstance()->getComponents().cbegin(),
-        Engine::Scene::SystemEntity::getInstance()->getComponents().cend(),
-        []( const auto& c ) { return c->getName().compare( "CAMERA_DEFAULT" ) == 0; } );
-    if ( it != Engine::Scene::SystemEntity::getInstance()->getComponents().cend() )
-    {
-        m_camera = static_cast<Engine::Scene::CameraComponent*>( ( *it ).get() )->getCamera();
-        m_camera->resize( w, h );
-    }
-    else
-    {
-        LOG( logWARNING ) << "resetToDefaultCamera(): CAMERA_DEFAULT not found. The application "
-                             "might now behave unexpectedly.";
+        LOG( logWARNING )
+            << "CameraManager has no camera ! it should always have the default camera";
     }
 }
 
