@@ -166,14 +166,14 @@ endif()
 
 # Compute paths
 get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
-# get up in the directories until we found a "Resources" subdir
-# TODO : instead of 'Resources' that might not exists if Engine nor Gui are compiled,
+# get up in the directories until we found a "Resources/Radium" subdir
+# TODO : instead of 'Resources/Radium' that might not exists if Engine nor Gui are compiled,
 # search for a file identifying Radium (a la Eigen) and that is installed at the root of the
 # Radium Bundle
-while( NOT EXISTS ${SELF_DIR}/Resources)
+while( NOT EXISTS ${SELF_DIR}/Resources/Radium)
   get_filename_component(SELF_DIR "${SELF_DIR}" DIRECTORY)
 endwhile()
 
 set(RADIUM_ROOT_DIR "${SELF_DIR}")
-set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
+set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources/Radium")
 set(RADIUM_PLUGINS_DIR "${SELF_DIR}/Plugins")
