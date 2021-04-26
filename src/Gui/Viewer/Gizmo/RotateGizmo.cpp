@@ -4,7 +4,7 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
@@ -91,7 +91,7 @@ void RotateGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform RotateGizmo::mouseMove( const Core::Utils::Camera& cam,
+Core::Transform RotateGizmo::mouseMove( const Core::Asset::Camera& cam,
                                         const Core::Vector2& nextXY,
                                         bool stepped,
                                         bool /*whole*/ ) {
@@ -180,7 +180,7 @@ Core::Transform RotateGizmo::mouseMove( const Core::Utils::Camera& cam,
     return m_transform;
 }
 
-void RotateGizmo::setInitialState( const Core::Utils::Camera& /*cam*/,
+void RotateGizmo::setInitialState( const Core::Asset::Camera& /*cam*/,
                                    const Core::Vector2& initialXY ) {
     m_initialPix = initialXY;
     m_start      = false;

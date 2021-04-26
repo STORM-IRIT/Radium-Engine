@@ -4,7 +4,7 @@
 #include <Core/Geometry/MeshPrimitives.hpp>
 #include <Core/Utils/Color.hpp>
 
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Data/Mesh.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderTechnique.hpp>
@@ -138,7 +138,7 @@ void ScaleGizmo::selectConstraint( int drawableIdx ) {
     }
 }
 
-Core::Transform ScaleGizmo::mouseMove( const Core::Utils::Camera& cam,
+Core::Transform ScaleGizmo::mouseMove( const Core::Asset::Camera& cam,
                                        const Core::Vector2& nextXY,
                                        bool stepped,
                                        bool whole ) {
@@ -230,7 +230,7 @@ Core::Transform ScaleGizmo::mouseMove( const Core::Utils::Camera& cam,
     return m_transform;
 }
 
-void ScaleGizmo::setInitialState( const Core::Utils::Camera& /*cam*/,
+void ScaleGizmo::setInitialState( const Core::Asset::Camera& /*cam*/,
                                   const Core::Vector2& /*initialXY*/ ) {
     m_initialPix = Core::Vector2::Zero();
     m_start      = false;

@@ -1,4 +1,4 @@
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
@@ -12,7 +12,7 @@ using Core::Math::PiDiv4;
 
 namespace Core {
 
-namespace Utils {
+namespace Asset {
 
 Camera::Camera( Scalar width, Scalar height ) :
     m_width {width}, m_height {height}, m_aspect {width / height} {}
@@ -146,6 +146,6 @@ Core::Ray Camera::getRayFromScreen( const Core::Vector2& pix ) const {
     return Core::Ray::Through( getPosition(), unProject( pix ) );
 }
 
-} // namespace Utils
+} // namespace Asset
 } // namespace Core
 } // namespace Ra

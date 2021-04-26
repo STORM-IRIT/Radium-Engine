@@ -1,4 +1,4 @@
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 
 #include <Core/Containers/MakeShared.hpp>
@@ -23,7 +23,7 @@ CameraComponent::CameraComponent( Entity* entity,
                                   Scalar height,
                                   Scalar width ) :
     Component( name, entity ) {
-    m_camera = std::make_unique<Core::Utils::Camera>( height, width );
+    m_camera = std::make_unique<Core::Asset::Camera>( height, width );
 }
 
 CameraComponent::~CameraComponent() = default;

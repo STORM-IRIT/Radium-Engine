@@ -11,7 +11,7 @@
 #include <Core/Types.hpp>
 #include <Core/Utils/Log.hpp>
 
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Utils/KeyMappingManager.hpp>
 
@@ -81,14 +81,14 @@ class RA_GUI_API CameraManipulator : public QObject
     virtual bool handleKeyReleaseEvent( QKeyEvent* event ) = 0;
 
     /// Pointer access to the camera.
-    const Core::Utils::Camera* getCamera() const { return m_camera; }
+    const Core::Asset::Camera* getCamera() const { return m_camera; }
 
     /// Pointer access to the camera.
-    Core::Utils::Camera* getCamera() { return m_camera; }
+    Core::Asset::Camera* getCamera() { return m_camera; }
 
     /// Set the Camera to be manipulated.
     /// \note CameraManipulator doesn't have ownership.
-    virtual void setCamera( Core::Utils::Camera* camera ) = 0;
+    virtual void setCamera( Core::Asset::Camera* camera ) = 0;
 
     /// Set the Light attached to the camera.
     /// \note CameraManipulator doesn't have ownership.
@@ -156,7 +156,7 @@ class RA_GUI_API CameraManipulator : public QObject
     /// used as a "focus" point by a manipulator.
     Core::Vector3 m_target;
 
-    Core::Utils::Camera* m_camera; ///< The Camera.
+    Core::Asset::Camera* m_camera; ///< The Camera.
     Engine::Scene::Light* m_light; ///< The light attached to the Camera.
 };
 

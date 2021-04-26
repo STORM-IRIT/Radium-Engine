@@ -5,7 +5,7 @@
 
 namespace Ra {
 namespace Core {
-namespace Utils {
+namespace Asset {
 
 class RA_CORE_API Camera
 {
@@ -161,8 +161,8 @@ class RA_CORE_API Camera
     Scalar m_aspect {1_ra};  ///< Aspect ratio, i.e. width/height. Precomputed for updateProjMatrix.
     ///@}
 };
-} // namespace Utils
+} // namespace Asset
 } // namespace Core
 } // namespace Ra
 
-#include <Core/Utils/Camera.inl>
+#include <Core/Asset/Camera.inl>

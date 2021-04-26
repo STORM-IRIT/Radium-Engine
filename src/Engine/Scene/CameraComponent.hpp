@@ -1,8 +1,8 @@
 #pragma once
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Types.hpp>
-#include <Core/Utils/Camera.hpp>
 #include <Engine/RaEngine.hpp>
 #include <Engine/Scene/Component.hpp>
 
@@ -107,12 +107,12 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
     //
 
     /// Return the projection type.
-    [[deprecated( "Use getCamera()->getType() instead" )]] inline Ra::Core::Utils::Camera::ProjType
+    [[deprecated( "Use getCamera()->getType() instead" )]] inline Ra::Core::Asset::Camera::ProjType
     getType() const;
 
     /// Set the projection type to 'projectionType'.
     [[deprecated( "Use getCamera()->setType() instead" )]] inline void
-    setType( const Ra::Core::Utils::Camera::ProjType& projectionType );
+    setType( const Ra::Core::Asset::Camera::ProjType& projectionType );
 
     /// Return the Field Of View.
     /// \note Meaningless for orthogonal projection.
@@ -169,11 +169,11 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
     [[deprecated( "Use getCamera()->fitZRange() instead" )]] virtual void
     fitZRange( const Core::Aabb& aabb );
 
-    Core::Utils::Camera* getCamera() const { return m_camera.get(); }
-    Core::Utils::Camera* getCamera() { return m_camera.get(); }
+    Core::Asset::Camera* getCamera() const { return m_camera.get(); }
+    Core::Asset::Camera* getCamera() { return m_camera.get(); }
 
   protected:
-    std::unique_ptr<Core::Utils::Camera> m_camera;
+    std::unique_ptr<Core::Asset::Camera> m_camera;
     Rendering::RenderObject* m_RO {nullptr}; ///< Render mesh for the camera.
 };
 } // namespace Scene

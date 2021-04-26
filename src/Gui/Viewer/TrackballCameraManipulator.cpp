@@ -1,7 +1,7 @@
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Math/Math.hpp>
-#include <Core/Utils/Camera.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Gui/Utils/Keyboard.hpp>
@@ -215,7 +215,7 @@ bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) 
     return false;
 }
 
-void Gui::TrackballCameraManipulator::setCamera( Core::Utils::Camera* camera ) {
+void Gui::TrackballCameraManipulator::setCamera( Core::Asset::Camera* camera ) {
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );
     m_camera         = camera;

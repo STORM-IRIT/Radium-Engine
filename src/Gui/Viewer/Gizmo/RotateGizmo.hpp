@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Viewer/Gizmo/Gizmo.hpp>
 
@@ -23,8 +23,8 @@ class RotateGizmo : public Gizmo
     void selectConstraint( int drawableIndex ) override;
     bool isSelected() override { return m_selectedAxis != -1; }
 
-    void setInitialState( const Core::Utils::Camera& cam, const Core::Vector2& initialXY ) override;
-    Core::Transform mouseMove( const Core::Utils::Camera& cam,
+    void setInitialState( const Core::Asset::Camera& cam, const Core::Vector2& initialXY ) override;
+    Core::Transform mouseMove( const Core::Asset::Camera& cam,
                                const Core::Vector2& nextXY,
                                bool stepped,
                                bool whole ) override;
