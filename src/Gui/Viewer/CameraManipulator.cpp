@@ -24,7 +24,7 @@ Gui::CameraManipulator::CameraManipulator( const CameraManipulator& other ) :
     m_camera( other.m_camera ),
     m_light( other.m_light ) {}
 
-Gui::CameraManipulator::CameraManipulator( uint width, uint height ) :
+Gui::CameraManipulator::CameraManipulator() :
     m_cameraSensitivity( 1.0_ra ),
     m_quickCameraModifier( 1._ra ),
     m_wheelSpeedModifier( 0.02_ra ),

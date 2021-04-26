@@ -18,7 +18,7 @@ class RA_GUI_API TrackballCameraManipulator
 
   public:
     /// Default constructor
-    TrackballCameraManipulator( uint width, uint height );
+    TrackballCameraManipulator();
 
     /// Copy constructor used when switching camera manipulator
     /// Requires that m_target is on the line of sight of the camera.
