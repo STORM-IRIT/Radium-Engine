@@ -677,7 +677,7 @@ void MinimalComponent::initialize() {
 #ifdef IO_USE_ASSIMP
         auto l               = IO::AssimpFileLoader();
         auto rp              = Resources::getResourcesPath();
-        std::string filename = *rp + "/Assets/radium-logo.dae";
+        std::string filename = *rp + "/DrawPrimitivesApp/Assets/radium-logo.dae";
         data                 = l.loadFile( filename );
 #endif
         if ( data != nullptr )

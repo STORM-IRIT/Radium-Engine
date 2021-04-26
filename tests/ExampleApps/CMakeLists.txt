@@ -73,7 +73,7 @@ endif ()
 
 add_dependencies(${PROJECT_NAME} DrawPrimitivesDemo)
 message(STATUS "Installing DrawPrimitivesDemo into ${CMAKE_INSTALL_PREFIX}")
-configure_radium_app(NAME DrawPrimitivesDemo RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/DrawPrimitivesApp/Assets")
+configure_radium_app(NAME DrawPrimitivesDemo RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/DrawPrimitivesApp/Assets"  PREFIX "DrawPrimitiveApp")
 
 add_executable(SimpleAnimationApp MACOSX_BUNDLE
     SimpleAnimationApp/main.cpp)
