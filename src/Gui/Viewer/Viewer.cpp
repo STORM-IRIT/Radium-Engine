@@ -439,12 +439,6 @@ bool Gui::Viewer::initializeGL() {
     LOG( logINFO ) << "*** Radium Engine Viewer ***";
 
     createGizmoManager();
-    // create default camera interface : trackball
-    m_camera       = std::make_unique<Gui::TrackballCameraManipulator>( width(), height() );
-    auto headlight = new Engine::Scene::DirectionalLight(
-        Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
-    headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
-    m_camera->attachLight( headlight );
 
     emit glInitialized();
     m_glInitialized = true;
@@ -464,6 +458,14 @@ bool Gui::Viewer::initializeGL() {
             initializeRenderer( rptr.get() );
         }
     }
+    // create default camera interface : trackball
+    m_camera = std::make_unique<Gui::TrackballCameraManipulator>( width(), height() );
+
+    auto headlight = new Engine::Scene::DirectionalLight(
+        Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
+    headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
+
+    m_camera->attachLight( headlight );
 
     if ( m_currentRenderer == nullptr ) { changeRenderer( 0 ); }
 
