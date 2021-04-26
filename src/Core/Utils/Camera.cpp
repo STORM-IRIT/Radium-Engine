@@ -17,6 +17,20 @@ namespace Utils {
 Camera::Camera( Scalar width, Scalar height ) :
     m_width {width}, m_height {height}, m_aspect {width / height} {}
 
+Camera& Camera::operator=( const Camera& rhs ) {
+    m_frame      = rhs.getFrame();
+    m_projMatrix = rhs.getProjMatrix();
+    m_projType   = rhs.getType();
+    m_zoomFactor = rhs.getZoomFactor();
+    m_fov        = rhs.getFOV();
+    m_zNear      = rhs.getZNear();
+    m_zFar       = rhs.getZFar();
+    m_width      = rhs.getWidth();
+    m_height     = rhs.getHeight();
+    m_aspect     = rhs.getAspect();
+    return *this;
+}
+
 void Camera::setDirection( const Core::Vector3& direction ) {
     Core::Transform T = Core::Transform::Identity();
 

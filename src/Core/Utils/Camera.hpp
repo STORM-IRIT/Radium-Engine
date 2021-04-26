@@ -13,9 +13,11 @@ class RA_CORE_API Camera
     /// Define the projection type.
     enum class ProjType { ORTHOGRAPHIC, PERSPECTIVE };
 
-    Camera( Scalar height, Scalar width );
+    Camera( Scalar height = 1_ra, Scalar width = 1_ra );
 
     ~Camera() = default;
+
+    Camera& operator=( const Camera& rhs );
 
     /// Return the frame of the camera.
     /// Where Y is the up vector and -Z is the direction vector.
