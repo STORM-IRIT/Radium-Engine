@@ -19,6 +19,14 @@ namespace Scene {
 using namespace Core::Utils; // log
 using namespace Core::Asset;
 
+Ra::Core::Utils::Camera CameraManager::defaultCamera;
+
+CameraManager::CameraManager() {
+    defaultCamera.setFOV( 60.0_ra * Core::Math::toRad );
+    defaultCamera.setZNear( 0.1_ra );
+    defaultCamera.setZFar( 1000.0_ra );
+}
+
 size_t CameraManager::count() const {
     return m_data->size();
 }

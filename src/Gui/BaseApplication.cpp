@@ -315,6 +315,8 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
     {
         if ( loadFile( parser.value( "camera" ) ) )
         {
+
+            /// \todo fix this, I don't get this code (d.)
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
             auto camera =
                 static_cast<Engine::Scene::CameraComponent*>( entity->getComponents()[0].get() );

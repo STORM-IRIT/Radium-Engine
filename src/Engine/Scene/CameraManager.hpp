@@ -23,7 +23,7 @@ class RA_ENGINE_API CameraManager : public System
     // Radium-V2 : make Camera manager compatible with range for ...
   public:
     /// Constructor
-    CameraManager() = default;
+    CameraManager();
 
     // Make copies impossible
     CameraManager( const CameraManager& ) = delete;
@@ -56,6 +56,8 @@ class RA_ENGINE_API CameraManager : public System
     void generateTasks( Core::TaskQueue* taskQueue, const Engine::FrameInfo& frameInfo ) override;
 
     void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
+
+    static Ra::Core::Utils::Camera defaultCamera;
 
   protected:
     /** Inherited method marked as final to ensure correct memory management

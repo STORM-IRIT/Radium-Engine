@@ -38,6 +38,7 @@
 #include <Engine/Rendering/ForwardRenderer.hpp>
 #include <Engine/Rendering/Renderer.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
+#include <Engine/Scene/CameraManager.hpp>
 #include <Engine/Scene/Component.hpp>
 #include <Engine/Scene/DirLight.hpp>
 #include <Engine/Scene/EntityManager.hpp>
@@ -124,6 +125,15 @@ void Gui::Viewer::setCamera( Engine::Scene::CameraComponent* camera ) {
     m_camera->setCamera( camera->getCamera() );
 }
 
+void Gui::Viewer::resetToDefaultCamera() {
+
+    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+        Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+
+    *m_camera->getCamera() = cameraManager->defaultCamera;
+    m_camera->getCamera()->resize( width(), height() );
+}
+
 Gui::GizmoManager* Gui::Viewer::getGizmoManager() {
     return m_gizmoManager;
 }
@@ -201,9 +211,12 @@ void Gui::Viewer::startRendering( const Scalar dt ) {
         }
         else
         {
+            auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+                Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+
             // scene is empty, reset to defaults bounds ?
-            m_camera->setCameraZNear( 0.1 );
-            m_camera->setCameraZFar( 100 );
+            m_camera->setCameraZNear( cameraManager->defaultCamera.getZNear() );
+            m_camera->setCameraZFar( cameraManager->defaultCamera.getZFar() );
         }
     }
 #endif
