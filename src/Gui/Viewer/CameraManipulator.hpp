@@ -90,15 +90,6 @@ class RA_GUI_API CameraManipulator : public QObject
     /// \note CameraManipulator doesn't have ownership.
     virtual void setCamera( Core::Utils::Camera* camera ) = 0;
 
-    /**
-     * Set the Core::Utils::Camera used to the default one.
-     * This method allow to have a quick fix of issue #378 before switching to Radium v2
-     * development. \todo have a cleaner camera management and control in the Gui Radium
-     * library. Gui Camera interface Must define a clean interface between the application and
-     * the Engine. This method is similar to the getCameraFromViewer, it should not be there ...
-     */
-    void resetToDefaultCamera();
-
     /// Set the Light attached to the camera.
     /// \note CameraManipulator doesn't have ownership.
     void attachLight( Engine::Scene::Light* light );
