@@ -64,7 +64,7 @@ configure_radium_library(
     FILES "${gui_headers};${gui_inlines}"
 )
 message(STATUS "installing resources from Configs")
-installTargetResources(
+install_target_resources(
     TARGET ${ra_gui_target}
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Configs
 )
