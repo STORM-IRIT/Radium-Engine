@@ -63,9 +63,8 @@ void ForwardRenderer::initializeInternal() {
                                                     Scalar( m_height ),
                                                     Scalar( m_width ) );
     comp->initialize();
-    comp->getCamera()->setFOV( 60.0_ra * Core::Math::toRad );
-    comp->getCamera()->setZNear( 0.1_ra );
-    comp->getCamera()->setZFar( 1000.0_ra );
+    *comp->getCamera() = cameraManager->defaultCamera;
+    comp->getCamera()->resize( m_height, m_width );
 
     cameraManager->addCamera( comp );
 
