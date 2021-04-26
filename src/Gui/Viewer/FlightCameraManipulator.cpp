@@ -68,8 +68,8 @@ KeyMappingManager::Context Gui::FlightCameraManipulator::mappingContext() {
     return FlightCameraKeyMapping::getContext();
 }
 
-Gui::FlightCameraManipulator::FlightCameraManipulator( uint width, uint height ) :
-    CameraManipulator( width, height ),
+Gui::FlightCameraManipulator::FlightCameraManipulator() :
+    CameraManipulator(),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),

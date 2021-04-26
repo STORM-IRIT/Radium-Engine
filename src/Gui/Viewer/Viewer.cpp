@@ -459,8 +459,8 @@ bool Gui::Viewer::initializeGL() {
         }
     }
     // create default camera interface : trackball
-    m_camera = std::make_unique<Gui::TrackballCameraManipulator>( width(), height() );
-
+    m_camera = std::make_unique<Gui::TrackballCameraManipulator>();
+    m_camera->getCamera()->resize( width(), height() );
     auto headlight = new Engine::Scene::DirectionalLight(
         Ra::Engine::Scene::SystemEntity::getInstance(), "headlight" );
     headlight->setColor( Ra::Core::Utils::Color::Grey( 1.0_ra ) );
@@ -479,7 +479,7 @@ void Gui::Viewer::resizeGL( QResizeEvent* event ) {
 #ifndef OS_MACOS
     gl::glViewport( 0, 0, width, height );
 #endif
-    m_camera->resizeViewport( width, height );
+    m_camera->getCamera()->resize( width, height );
     m_currentRenderer->resize( width, height );
     emit needUpdate();
 }

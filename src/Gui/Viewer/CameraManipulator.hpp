@@ -35,7 +35,7 @@ class RA_GUI_API CameraManipulator : public QObject
 
   public:
     /// Initializes a manipulator for a given viewport size.
-    CameraManipulator( uint width, uint height );
+    CameraManipulator();
 
     /// Initializes a manipulator keeping properties from an already existing one.
     /// This allows to switch from one manipulator to another while keeping the same visual

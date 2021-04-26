@@ -18,7 +18,7 @@ class RA_GUI_API FlightCameraManipulator : public CameraManipulator,
     friend class KeyMappingManageable<FlightCameraManipulator>;
 
   public:
-    FlightCameraManipulator( uint width, uint height );
+    FlightCameraManipulator();
     explicit FlightCameraManipulator( const FlightCameraManipulator& other );
     explicit FlightCameraManipulator( const CameraManipulator& other );
     virtual ~FlightCameraManipulator();

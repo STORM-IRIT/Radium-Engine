@@ -45,8 +45,8 @@ KeyMappingCamera
 #undef KMA_VALUE
 }
 
-Gui::TrackballCameraManipulator::TrackballCameraManipulator( uint width, uint height ) :
-    CameraManipulator( width, height ),
+Gui::TrackballCameraManipulator::TrackballCameraManipulator() :
+    CameraManipulator(),
     m_rotateAround( true ),
     m_cameraRotateMode( false ),
     m_cameraPanMode( false ),
