@@ -28,8 +28,8 @@ fs::path clean( const fs::path& path ) {
 
 optional<std::string> getRadiumResourcesPath() {
     auto p =
-        searchPath( "Resources/Shaders", "", reinterpret_cast<void*>( getRadiumResourcesPath ) );
-    p = clean( p / "Resources" );
+        searchPath( "Resources/Radium/", "", reinterpret_cast<void*>( getRadiumResourcesPath ) );
+    p = clean( p / "Resources/Radium" );
 
     if ( p.empty() ) return {};
     return p.string();

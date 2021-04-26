@@ -60,6 +60,7 @@ message(STATUS "installing resources from ${RADIUM_SHADERS_DIR}")
 install_target_resources(
     TARGET ${ra_engine_target}
     DIRECTORY ${RADIUM_SHADERS_DIR}
+    PREFIX "Radium"
     FILES ${engine_shaders}
     )
 
