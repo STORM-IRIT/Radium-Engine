@@ -48,7 +48,7 @@
 #include <Gui/Utils/Keyboard.hpp>
 #include <Gui/Utils/PickingManager.hpp>
 
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Gui/Viewer/Gizmo/GizmoManager.hpp>
 #include <Gui/Viewer/TrackballCameraManipulator.hpp>

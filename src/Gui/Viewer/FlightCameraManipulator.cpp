@@ -1,7 +1,7 @@
 #include <Gui/Viewer/FlightCameraManipulator.hpp>
 
+#include <Core/Asset/Camera.hpp>
 #include <Core/Math/Math.hpp>
-#include <Core/Utils/Camera.hpp>
 #include <Core/Utils/Log.hpp>
 #include <Engine/Scene/Light.hpp>
 #include <Gui/Utils/Keyboard.hpp>
@@ -228,7 +228,7 @@ bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
 }
 
-void Gui::FlightCameraManipulator::setCamera( Core::Utils::Camera* camera ) {
+void Gui::FlightCameraManipulator::setCamera( Core::Asset::Camera* camera ) {
 
     if ( !camera ) return;
     camera->resize( m_camera->getWidth(), m_camera->getHeight() );

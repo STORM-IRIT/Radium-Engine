@@ -12,6 +12,7 @@ set( core_sources
     Animation/StretchableTwistableBoneSkinning.cpp
     Asset/AnimationData.cpp
     Asset/BlinnPhongMaterialData.cpp
+    Asset/Camera.cpp
     Asset/CameraData.cpp
     Asset/FileData.cpp
     Asset/GeometryData.cpp
@@ -39,7 +40,6 @@ set( core_sources
     Resources/Resources.cpp
     Tasks/TaskQueue.cpp
     Utils/Attribs.cpp
-    Utils/Camera.cpp
     Utils/CircularIndex.cpp
     Utils/StackTrace.cpp
     Utils/StringUtils.cpp
@@ -68,6 +68,7 @@ set( core_headers
     Asset/AssetData.hpp
     Asset/BlinnPhongMaterialData.hpp
     Asset/CameraData.hpp
+    Asset/Camera.hpp
     Asset/DataLoader.hpp
     Asset/FileData.hpp
     Asset/FileLoaderInterface.hpp
@@ -123,7 +124,6 @@ set( core_headers
     Tasks/TaskQueue.hpp
     Types.hpp
     Utils/Attribs.hpp
-    Utils/Camera.hpp
     Utils/Chronometer.hpp
     Utils/CircularIndex.hpp
     Utils/Color.hpp
@@ -148,6 +148,7 @@ set( core_inlines
     Asset/AnimationData.inl
     Asset/BlinnPhongMaterialData.inl
     Asset/CameraData.inl
+    Asset/Camera.inl
     Asset/FileData.inl
     Asset/GeometryData.inl
     Asset/HandleData.inl
@@ -170,7 +171,6 @@ set( core_inlines
     Math/Math.inl
     Math/Quadric.inl
     Utils/Attribs.inl
-    Utils/Camera.inl
     Utils/CircularIndex.inl
     Utils/Index.inl
     Utils/IndexMap.inl

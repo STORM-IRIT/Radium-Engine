@@ -1,4 +1,4 @@
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/CameraManager.hpp>
 
@@ -19,7 +19,7 @@ namespace Scene {
 using namespace Core::Utils; // log
 using namespace Core::Asset;
 
-Ra::Core::Utils::Camera CameraManager::defaultCamera;
+Ra::Core::Asset::Camera CameraManager::defaultCamera;
 
 CameraManager::CameraManager() {
     defaultCamera.setFOV( 60.0_ra * Core::Math::toRad );
@@ -45,11 +45,11 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
         switch ( data->getType() )
         {
         case CameraData::ORTHOGRAPHIC: {
-            comp->setType( Ra::Core::Utils::Camera::ProjType::ORTHOGRAPHIC );
+            comp->setType( Ra::Core::Asset::Camera::ProjType::ORTHOGRAPHIC );
             break;
         }
         case CameraData::PERSPECTIVE: {
-            comp->setType( Ra::Core::Utils::Camera::ProjType::PERSPECTIVE );
+            comp->setType( Ra::Core::Asset::Camera::ProjType::PERSPECTIVE );
             break;
         }
         }

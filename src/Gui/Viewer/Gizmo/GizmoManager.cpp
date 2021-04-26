@@ -1,4 +1,4 @@
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/OpenGL.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
@@ -121,7 +121,7 @@ bool GizmoManager::handleMousePressEvent( QMouseEvent* event,
                                           const Qt::MouseButtons& buttons,
                                           const Qt::KeyboardModifiers& modifiers,
                                           int key,
-                                          const Core::Utils::Camera& cam ) {
+                                          const Core::Asset::Camera& cam ) {
 
     if ( !canEdit() || m_currentGizmoType == NONE || !currentGizmo()->isSelected() )
     { return false; }
@@ -144,7 +144,7 @@ bool GizmoManager::handleMouseMoveEvent( QMouseEvent* event,
                                          const Qt::MouseButtons& buttons,
                                          const Qt::KeyboardModifiers& modifiers,
                                          int key,
-                                         const Core::Utils::Camera& cam ) {
+                                         const Core::Asset::Camera& cam ) {
     ///\todo what about if someone start a motion with a key, and then release it while moving the
     /// mouse ?
     auto action = KeyMappingManager::getInstance()->getAction(

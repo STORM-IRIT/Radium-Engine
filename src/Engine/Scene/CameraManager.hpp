@@ -57,7 +57,7 @@ class RA_ENGINE_API CameraManager : public System
 
     void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
 
-    static Ra::Core::Utils::Camera defaultCamera;
+    static Ra::Core::Asset::Camera defaultCamera;
 
   protected:
     /** Inherited method marked as final to ensure correct memory management

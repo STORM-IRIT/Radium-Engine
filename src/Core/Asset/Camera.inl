@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 
 namespace Ra {
 namespace Core {
-namespace Utils {
+namespace Asset {
 
 inline Core::Transform Camera::getFrame() const {
     return m_frame;
@@ -139,6 +139,6 @@ inline Core::Vector3 Camera::unProject( const Core::Vector2& pix ) const {
     const Core::Vector4 unproj = getProjMatrix().inverse() * localPoint;
     return getFrame() * unproj.head<3>();
 }
-} // namespace Utils
+} // namespace Asset
 } // namespace Core
 } // namespace Ra

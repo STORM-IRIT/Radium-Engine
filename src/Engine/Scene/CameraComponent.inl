@@ -1,5 +1,5 @@
 #pragma once
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 #include <Engine/Scene/Entity.hpp>
 
@@ -91,11 +91,11 @@ inline Scalar CameraComponent::getAspect() const {
     return m_camera->getAspect();
 }
 
-inline Ra::Core::Utils::Camera::ProjType CameraComponent::getType() const {
+inline Ra::Core::Asset::Camera::ProjType CameraComponent::getType() const {
     return m_camera->getType();
 }
 
-inline void CameraComponent::setType( const Ra::Core::Utils::Camera::ProjType& projectionType ) {
+inline void CameraComponent::setType( const Ra::Core::Asset::Camera::ProjType& projectionType ) {
     m_camera->setType( projectionType );
 }
 

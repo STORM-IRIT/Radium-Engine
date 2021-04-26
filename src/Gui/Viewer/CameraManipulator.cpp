@@ -6,7 +6,7 @@
 #include <Engine/Scene/Light.hpp>
 #include <Engine/Scene/SystemDisplay.hpp>
 
-#include <Core/Utils/Camera.hpp>
+#include <Core/Asset/Camera.hpp>
 #include <Gui/Viewer/Viewer.hpp>
 
 namespace Ra {

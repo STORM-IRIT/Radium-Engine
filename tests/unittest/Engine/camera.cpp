@@ -1,5 +1,5 @@
+#include <Core/Asset/Camera.hpp>
 #include <Core/Math/Math.hpp>
-#include <Core/Utils/Camera.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
 
 #include <catch2/catch.hpp>
@@ -7,6 +7,7 @@
 TEST_CASE( "Engine/Camera" ) {
     using namespace Ra::Core;
     using namespace Ra::Core::Utils;
+    using namespace Ra::Core::Asset;
 
     Camera* cam = new Camera {10, 10};
 
