@@ -15,7 +15,7 @@ if (MSVC OR MSVC_IDE OR MINGW)
     # must find the Qt installation directory. This will be set by RadiumConfig.cmake after install
     # TODO : find a way to that more efficiently
     find_dependency(Qt5 COMPONENTS Core REQUIRED)
-    addImportedDir(FROM Qt5::Core TO QtDlls_location)
+    add_imported_dir(FROM Qt5::Core TO QtDlls_location)
 endif()
 
 include(radium_setup_functions)
