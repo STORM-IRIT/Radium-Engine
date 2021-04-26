@@ -76,6 +76,8 @@ class RA_ENGINE_API Entity : public Core::Utils::IndexedObject
 
     bool m_isAabbValid {false};
     Core::Aabb m_aabb;
+
+    ///\todo add an index;
 };
 
 } // namespace Scene
