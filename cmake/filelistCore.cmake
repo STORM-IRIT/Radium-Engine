@@ -136,6 +136,7 @@ set( core_headers
     Utils/Singleton.hpp
     Utils/StackTrace.hpp
     Utils/StdFilesystem.hpp
+    Utils/StdMapIterators.hpp
     Utils/StdOptional.hpp
     Utils/StdUtils.hpp
     Utils/StringUtils.hpp
