@@ -406,98 +406,111 @@ struct RA_CORE_API TriangleIndexLayer : public GeometryIndexLayer<Vector3ui> {
         GeometryIndexLayer( staticSemanticName, names... ) {}
 };
 
-class RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui>
-{
-    inline PolyIndexLayer() : GeometryIndexLayer( "PolyMesh" ) {}
+struct RA_CORE_API PolyIndexLayer : public GeometryIndexLayer<VectorNui> {
+    inline PolyIndexLayer() : GeometryIndexLayer( staticSemanticName ) {}
+
+    static constexpr const char* staticSemanticName = "PolyMesh";
 
   protected:
     template <class... SemanticNames>
-    inline PolyIndexLayer( SemanticNames... names ) : GeometryIndexLayer( "PolyMesh", names... ) {}
+    inline PolyIndexLayer( SemanticNames... names ) :
+        GeometryIndexLayer( staticSemanticName, names... ) {}
 };
 
-class RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui>
-{
-    inline LineIndexLayer() : GeometryIndexLayer( "LineMesh" ) {}
+struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
+    inline LineIndexLayer() : GeometryIndexLayer( staticSemanticName ) {}
+
+    static constexpr const char* staticSemanticName = "LineMesh";
 
   protected:
     template <class... SemanticNames>
-    inline LineIndexLayer( SemanticNames... names ) : GeometryIndexLayer( "LineMesh", names... ) {}
+    inline LineIndexLayer( SemanticNames... names ) :
+        GeometryIndexLayer( staticSemanticName, names... ) {}
 };
 
 #ifdef MULTI_INDEX_MIMIC_TRIANGLE_MESH
 
-class RA_CORE_API TriangleMesh : public MultiIndexedGeometry
+/// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
+/// \deprecated
+template <typename LayerT_>
+class PredifinedIndexGeometry : public MultiIndexedGeometry
 {
+  private:
+    using DefaultLayerType = LayerT_;
+
   public:
-    using IndexType          = Vector3ui;
+    using IndexType          = typename DefaultLayerType::IndexType;
     using IndexContainerType = VectorArray<IndexType>;
 
-    inline TriangleMesh() : MultiIndexedGeometry() {
-        // force to create of trianglemesh layer
-        auto l = std::make_unique<TriangleIndexLayer>();
+    inline PredifinedIndexGeometry() : MultiIndexedGeometry() {
+        auto l = std::make_unique<DefaultLayerType>();
         addLayer( std::move( l ) );
     }
 
-    inline TriangleMesh( const AttribArrayGeometry& other ) : MultiIndexedGeometry( other ) {
+    inline PredifinedIndexGeometry( const AttribArrayGeometry& other ) :
+        MultiIndexedGeometry( other ) {
         // force to create of trianglemesh layer
-        auto l = std::make_unique<TriangleIndexLayer>();
+        auto l = std::make_unique<DefaultLayerType>();
         addLayer( std::move( l ) );
     }
 
-    inline TriangleMesh( AttribArrayGeometry&& other ) :
+    inline PredifinedIndexGeometry( AttribArrayGeometry&& other ) :
         MultiIndexedGeometry( std::move( other ) ) {
         // force to create of trianglemesh layer
-        auto l = std::make_unique<TriangleIndexLayer>();
+        auto l = std::make_unique<DefaultLayerType>();
         addLayer( std::move( l ) );
     }
 
-    // Mimic old API of TriangleMesh
-
     /// read only access to indices
-    inline const IndexContainerType& getIndices() const;
+    inline const IndexContainerType& getIndices() const {
+        const auto& abstractLayer = getFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
+        return static_cast<const DefaultLayerType&>( abstractLayer ).collection();
+    }
 
     /// read write access to indices.
     /// Cause indices to be "lock" for the caller
     /// need to be unlock by the caller before any one can ask for write access.
-    inline IndexContainerType& getIndicesWithLock();
+    inline IndexContainerType& getIndicesWithLock() {
+        auto& abstractLayer =
+            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
+        return static_cast<DefaultLayerType&>( abstractLayer ).collection();
+    }
 
     /// unlock previously read write acces, notify observers of the update.
-    inline void indicesUnlock();
+    inline void indicesUnlock() {
+        unlockFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
+    }
 
     /// set indices. Indices must be unlock, i.e. no one should have write
     /// access to it.
     /// Notify observers of the update.
-    inline void setIndices( IndexContainerType&& indices );
-    inline void setIndices( const IndexContainerType& indices );
+    inline void setIndices( IndexContainerType&& indices ) {
+        auto& abstractLayer =
+            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
+        static_cast<DefaultLayerType&>( abstractLayer ).collection() = std::move( indices );
+        unlockFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
+        notify();
+    }
+    inline void setIndices( const IndexContainerType& indices ) {
+        auto& abstractLayer =
+            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
+        static_cast<DefaultLayerType&>( abstractLayer ).collection() = indices;
+        unlockFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
+        notify();
+    }
 };
 
-const TriangleMesh::IndexContainerType& TriangleMesh::getIndices() const {
-    const auto& abstractLayer = getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
-    return static_cast<const TriangleIndexLayer&>( abstractLayer ).collection();
-}
+class RA_CORE_API IndexedPointCloud : public PredifinedIndexGeometry<PointCloudIndexLayer>
+{};
 
-TriangleMesh::IndexContainerType& TriangleMesh::getIndicesWithLock() {
-    auto& abstractLayer = getFirstLayerOccurrenceWithLock( TriangleIndexLayer::staticSemanticName );
-    return static_cast<TriangleIndexLayer&>( abstractLayer ).collection();
-}
+class RA_CORE_API TriangleMesh : public PredifinedIndexGeometry<TriangleIndexLayer>
+{};
 
-void TriangleMesh::indicesUnlock() {
-    unlockFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
-}
+class RA_CORE_API PolyMesh : public PredifinedIndexGeometry<PolyIndexLayer>
+{};
 
-void TriangleMesh::setIndices( IndexContainerType&& indices ) {
-    auto& abstractLayer = getFirstLayerOccurrenceWithLock( TriangleIndexLayer::staticSemanticName );
-    static_cast<TriangleIndexLayer&>( abstractLayer ).collection() = std::move( indices );
-    unlockFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
-    notify();
-}
-
-void TriangleMesh::setIndices( const IndexContainerType& indices ) {
-    auto& abstractLayer = getFirstLayerOccurrenceWithLock( TriangleIndexLayer::staticSemanticName );
-    static_cast<TriangleIndexLayer&>( abstractLayer ).collection() = indices;
-    unlockFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
-    notify();
-}
+class RA_CORE_API LineMesh : public PredifinedIndexGeometry<LineIndexLayer>
+{};
 
 #endif
 
