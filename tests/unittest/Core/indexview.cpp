@@ -17,6 +17,9 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
     using Ra::Core::Geometry::TriangleMesh;
     using Ra::Core::Utils::ObjectWithSemantic;
 
+    // Store keys of the layers that should be in the geometry
+    std::set<MultiIndexedGeometry::LayerKeyType> keys;
+
     TriangleMesh mesh = Ra::Core::Geometry::makeBox();
 
     // copy AttribArrayGeometry;
@@ -28,8 +31,9 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
         // TriangleMesh is a MultiIndexedGeometry, so the layer has already
         // been added
         REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
-        tilSemantics = geo.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName )
-                           .second.semantics();
+        auto [key, layer] = geo.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
+        keys.insert( key );
+        tilSemantics = layer.semantics();
     }
 
     ObjectWithSemantic::SemanticNameCollection pilSemantics;
@@ -44,6 +48,8 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
         bool layerAdded = geo.addLayer( std::move( pil ) );
         //! [Creating and adding pointcloud layer]
         REQUIRE( layerAdded );
+
+        keys.insert( {pilSemantics, ""} );
     }
 
     REQUIRE( geo.containsLayer( tilSemantics ) );
@@ -65,6 +71,7 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
     REQUIRE( geo.countLayers( cilSemantics ) == 0 );
 
     REQUIRE( geo.addLayer( std::move( cil ) ) );
+    keys.insert( {cilSemantics, ""} );
 
     REQUIRE( geo.containsLayer( cilSemantics ) );
     REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
@@ -77,6 +84,17 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
     REQUIRE( geo.countLayers( TriangleIndexLayer::staticSemanticName ) == 2 );
     REQUIRE( geo.countLayers( PointCloudIndexLayer::staticSemanticName ) == 1 );
     REQUIRE( geo.countLayers( CustomTriangleIndexLayer::staticSemanticName ) == 1 );
+
+    // Check layer keys iterator: we should traverse all keys
+    REQUIRE( keys.size() != 0 );
+    //! [Iterating over layer keys]
+    for ( const auto& k : geo.layerKeys() )
+    {
+        REQUIRE( keys.erase( k ) == 1 );
+        REQUIRE( geo.countLayers( k ) == 1 );
+    }
+    //! [Iterating over layer keys]
+    REQUIRE( keys.size() == 0 );
 
     // // base attributes are automatically added
     // auto h_pos = mesh.getAttribHandle<Vector3>( "in_position" );
