@@ -5,12 +5,6 @@
 #include <Core/Utils/ObjectWithSemantic.hpp>
 #include <unordered_map>
 
-#define MULTI_INDEX_MIMIC_TRIANGLE_MESH
-
-#ifdef MULTI_INDEX_MIMIC_TRIANGLE_MESH
-#    pragma message( "You are compiling MultiIndexedGeometry with deprecate compatibility mode" )
-#endif
-
 namespace Ra {
 namespace Core {
 namespace Geometry {
@@ -428,10 +422,8 @@ struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
         GeometryIndexLayer( staticSemanticName, names... ) {}
 };
 
-#ifdef MULTI_INDEX_MIMIC_TRIANGLE_MESH
-
 /// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
-/// \deprecated
+/// This class will be marked as deprecated soon.
 template <typename LayerT_>
 class PredifinedIndexGeometry : public MultiIndexedGeometry
 {
@@ -511,8 +503,6 @@ class RA_CORE_API PolyMesh : public PredifinedIndexGeometry<PolyIndexLayer>
 
 class RA_CORE_API LineMesh : public PredifinedIndexGeometry<LineIndexLayer>
 {};
-
-#endif
 
 } // namespace Geometry
 } // namespace Core

@@ -25,18 +25,11 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
     // Create triangle Layer
     ObjectWithSemantic::SemanticNameCollection tilSemantics;
     {
-#ifndef MULTI_INDEX_MIMIC_TRIANGLE_MESH
-        auto til          = std::make_unique<TriangleIndexLayer>();
-        tilSemantics      = til->semantics();
-        til->collection() = mesh.getIndices();
-        REQUIRE( geo.addLayer( std::move( til ) ) );
-#else
         // TriangleMesh is a MultiIndexedGeometry, so the layer has already
         // been added
         REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
         tilSemantics =
             geo.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName ).semantics();
-#endif
     }
 
     ObjectWithSemantic::SemanticNameCollection pilSemantics;
