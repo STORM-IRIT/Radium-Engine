@@ -167,7 +167,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     inline bool containsLayer( const LayerSemanticCollection& semantics,
                                const std::string& layerName ) const {
-        return containsLayer( std::make_pair( semantics, layerName ) );
+        return containsLayer( {semantics, layerName} );
     }
 
     /// \copybrief containsLayer( const LayerKeyType& ) const
@@ -202,7 +202,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
     inline size_t countLayers( const LayerSemanticCollection& semantics,
                                const std::string& layerName ) const {
-        return countLayers( std::make_pair( semantics, layerName ) );
+        return countLayers( {semantics, layerName} );
     }
 
     /// \copybrief countLayers( const LayerKeyType& ) const
@@ -239,7 +239,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \throws std::out_of_range
     inline const GeometryIndexLayerBase& getLayer( const LayerSemanticCollection& semantics,
                                                    const std::string& layerName ) const {
-        return getLayer( std::make_pair( semantics, layerName ) );
+        return getLayer( {semantics, layerName} );
     }
 
     /// \copybrief getLayer( const LayerKeyType& ) const
@@ -283,7 +283,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \throws std::out_of_range
     inline GeometryIndexLayerBase& getLayerWithLock( const LayerSemanticCollection& semantics,
                                                      const std::string& layerName ) {
-        return getLayerWithLock( std::make_pair( semantics, layerName ) );
+        return getLayerWithLock( {semantics, layerName} );
     }
 
     /// \copybrief getLayerWithLock( const LayerKeyType& )
@@ -326,7 +326,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \throws std::out_of_range
     inline void unlockLayer( const LayerSemanticCollection& semantics,
                              const std::string& layerName ) {
-        unlockLayer( std::make_pair( semantics, layerName ) );
+        unlockLayer( {semantics, layerName} );
     }
 
     /// \copybrief unlockLayer( const LayerKeyType& )
