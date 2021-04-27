@@ -82,9 +82,8 @@ function(configure_cmdline_radium_app)
             message(STATUS "[configure_cmdline_radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
             install_target_resources(
                 TARGET ${ARGS_NAME}
-                DIRECTORY ${resLocation}
-                PREFIX ${ARGS_PREFIX}
-                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources
+                RESOURCES_DIR ${resLocation}
+                RESOURCES_INSTALL_DIR ${ARGS_PREFIX}
             )
         endforeach ()
     endif ()
@@ -140,7 +139,15 @@ function(configure_bundled_radium_app)
     set_target_properties(${ARGS_NAME} PROPERTIES MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
     set_target_properties(${ARGS_NAME} PROPERTIES MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}")
 
-    # Configure the executable installation
+    # install the bundle
+    if (ARGS_RESOURCES)
+        # as install copies the simlinks from the build tree, there is an error if the linked resources have been already installed
+        # remove them before installing
+    install(CODE "
+            # this remove the previously installed resources to prevent error due to simlink copy
+            file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources/)
+        ")
+    endif()
     install(
         TARGETS ${ARGS_NAME}
         BUNDLE DESTINATION "bin/"
@@ -156,7 +163,7 @@ function(configure_bundled_radium_app)
         endif ()
     endforeach()
     list(REMOVE_DUPLICATES depsRsc)
-    # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html)
+    # install qtPlugins (QPA plugin name found here https://doc.qt.io/qt-5/qpa.html) needed to fixup the bundle
     get_target_property(IsUsingQt ${ARGS_NAME} LINK_LIBRARIES)
     list(FIND IsUsingQt "Qt5::Core" QTCOREIDX)
     if(NOT QTCOREIDX EQUAL -1)
@@ -165,13 +172,12 @@ function(configure_bundled_radium_app)
         install_qt5_plugin("Qt5::QCocoaIntegrationPlugin" INSTALLED_QT_PLUGINS "${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/")
         install_qt5_plugin("Qt5::QMacStylePlugin" INSTALLED_QT_PLUGINS "${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/")
     endif()
-    #install Radium plugins
+    # install dependencies and fixup the bundle
     if (ARGS_USE_PLUGINS)
         install(CODE "
         message(STATUS \"Installing ${ARGS_NAME} with plugins\")
         include(BundleUtilities)
         set(BU_CHMOD_BUNDLE_ITEMS TRUE)
-        file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
         set(instRsc ${depsRsc})
         foreach( rsc \${instRsc})
             file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
@@ -206,7 +212,6 @@ function(configure_bundled_radium_app)
             message(STATUS \"Installing ${ARGS_NAME} without plugins\")
             include(BundleUtilities)
             set(BU_CHMOD_BUNDLE_ITEMS TRUE)
-            file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
             set(instRsc ${depsRsc})
             foreach( rsc \${instRsc})
                 file(COPY \${rsc} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_NAME}.app/Contents/Resources)
@@ -221,9 +226,8 @@ function(configure_bundled_radium_app)
             message(STATUS "[configure_bundled_radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
             install_target_resources(
                 TARGET ${ARGS_NAME}
-                DIRECTORY ${resLocation}
-                PREFIX ${ARGS_PREFIX}
-                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/bin/${ARGS_NAME}.app/Contents/Resources
+                RESOURCES_DIR ${resLocation}
+                RESOURCES_INSTALL_DIR ${ARGS_PREFIX}
             )
         endforeach ()
     endif ()
@@ -337,80 +341,87 @@ function(radium_exported_resources)
 endfunction()
 
 # Install resources for the target  theTarget:
-#    - Link( copy under window ) the resource dir DIRECTORY into the buildtree at the given BUILD_LOCATION
+#    - Link( copy under window ) the resource dir RESOURCES_DIR into the buildtree at the given BUILD_LOCATION
 #    - Install the required files into the TARGET_INSTALL_DIR/Resources[/PREFIX] directory
 # If called only with a directory, all the files from this directory and subdirs will be installed
 # This function also define the custom properties RADIUM_RESOURCE_DIRECTORY and RADIUM_RESOURCE_FILES
 # for the given target with the corresponding value.
 # To be called with
 # install_target_resources( TARGET theTarget
-#                  DIRECTORY theBaseResourceDirectory
-#                  [BUILD_LOCATION whereToLinkInTheBuildTree]
-#                  [PREFIX TargetResourcePathPrefix]
+#                  RESOURCES_DIR theBaseResourceDirectory
+#                  [RESOURCES_INSTALL_DIR where to link (in the build-tree) or install (in the install tree]
 #                  [FILES[file1[file2...]]]
-# if not specfied, BUILD_LOCATION is "Resources/PREFIX/"
 function(install_target_resources)
     #"declare" and parse parameters
     cmake_parse_arguments(
         ARGS
         ""
-        "TARGET;DIRECTORY;BUILD_LOCATION;PREFIX"
+        "TARGET;RESOURCES_DIR;RESOURCES_INSTALL_DIR;"
         "FILES"
         ${ARGN}
         )
+
     #verify that the function was called with expected parameters
     if (NOT ARGS_TARGET)
         message(FATAL_ERROR "[install_target_resources] You must provide a target that need these resources")
     endif ()
-    if (NOT ARGS_DIRECTORY)
+    if (NOT ARGS_RESOURCES_DIR)
         message(FATAL_ERROR "[install_target_resources] You must provide a resource directory")
     endif ()
-
-    if (ARGS_PREFIX)
-        set(ARGS_PREFIX "${ARGS_PREFIX}")
+    if (ARGS_RESOURCES_INSTALL_DIR)
+        set(ARGS_RESOURCES_INSTALL_DIR "${ARGS_RESOURCES_INSTALL_DIR}")
         set_target_properties(${ARGS_TARGET}
-            PROPERTIES
-            RADIUM_TARGET_RESOURCES_PREFIX ${ARGS_PREFIX}
+            PROPERTIES 
+            RADIUM_TARGET_RESOURCES_PREFIX ${ARGS_RESOURCES_INSTALL_DIR}
             )
-    else ()
-        set(ARGS_PREFIX "")
+    else()
+        set(ARGS_RESOURCES_INSTALL_DIR "")
     endif ()
+    get_target_property(targetType ${ARGS_TARGET} TYPE)
+    # compute resources dir for build tree and install tree
+    get_filename_component(rsc_dir ${ARGS_RESOURCES_DIR} NAME)
 
-    if (NOT ARGS_BUILD_LOCATION)
-        # linking resources as in Radium bundle build dir : ${CMAKE_CURRENT_BINARY_DIR}/../Resources
-        get_filename_component(resourceBaseDir ${CMAKE_CURRENT_BINARY_DIR} DIRECTORY)
-        set(ARGS_BUILD_LOCATION ${resourceBaseDir}/Resources/)
-    endif ()
-    set(ARGS_BUILD_LOCATION ${ARGS_BUILD_LOCATION}/${ARGS_PREFIX})
+    # compute where to link the resources in the buildtree (as in a bundle : ${CMAKE_CURRENT_BINARY_DIR}/../Resources
+    if (${targetType} STREQUAL "EXECUTABLE")
+        if (APPLE)
+            set( buildtree_dir ${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}.app/Contents/Resources)
+            install(CODE "
+                # remove the link installed from the build-tree to copy the corresponding resources
+                file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_TARGET}.app/Contents/Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir})
+            ")
+        else()
+            set(buildtree_dir ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
+        endif()
+    else()
+        set(buildtree_dir ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
+    endif()
+    set(buildtree_dir "${buildtree_dir}/${ARGS_RESOURCES_INSTALL_DIR}")
 
-    #compute resources dir for build tree and install tree
-    get_filename_component(rsc_dir ${ARGS_DIRECTORY} NAME)
-    set(buildtree_dir ${ARGS_BUILD_LOCATION})
-    #installing resources in the buildtree( link if available, copy if not)
-    message(STATUS "[install_target_resources] Linking resources directory ${ARGS_DIRECTORY} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
+    # installing resources in the buildtree (link if available, copy if not)
+    message(STATUS "[install_target_resources] Linking resources directory ${ARGS_RESOURCES_DIR} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
     file(MAKE_DIRECTORY "${buildtree_dir}")
-
     if (MSVC OR MSVC_IDE OR MINGW)
         add_custom_command(
             TARGET ${ARGS_TARGET}
             POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARGS_DIRECTORY} "${buildtree_dir}/${rsc_dir}"
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARGS_RESOURCES_DIR} "${buildtree_dir}/${rsc_dir}"
             VERBATIM
             )
     else ()
         add_custom_command(
             TARGET ${ARGS_TARGET}
             POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E create_symlink ${ARGS_DIRECTORY} "${buildtree_dir}/${rsc_dir}"
+            COMMAND ${CMAKE_COMMAND} -E create_symlink ${ARGS_RESOURCES_DIR} "${buildtree_dir}/${rsc_dir}"
             VERBATIM
             )
     endif ()
-    #Install in the install tree
-    #Identify the individual files( to preserve directory structure )
+
+    # Install in the install tree
+    # Identify the individual files( to preserve directory structure )
     # set the target properties
     set_target_properties(${ARGS_TARGET}
         PROPERTIES
-        RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_DIRECTORY}
+        RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_RESOURCES_DIR}
         )
     if (ARGS_FILES)
         set_target_properties(${ARGS_TARGET}
@@ -418,37 +429,36 @@ function(install_target_resources)
             RADIUM_TARGET_RESOURCES_FILES "${ARGS_FILES}"
             )
     else ()
-        file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_DIRECTORY} ${ARGS_DIRECTORY}/*)
+        file(GLOB_RECURSE ARGS_FILES RELATIVE ${ARGS_RESOURCES_DIR} ${ARGS_RESOURCES_DIR}/*)
     endif ()
-    #install resource for application or shared library
-    get_target_property(targetType ${ARGS_TARGET} TYPE)
 
+    #install resource for application or shared library
+    message(STATUS "[install_target_resources] Installing resources for target ${ARGS_TARGET} into Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}")
     if (${targetType} STREQUAL "EXECUTABLE")
         foreach (file ${ARGS_FILES})
             get_filename_component(file_dir ${file} DIRECTORY)
             if (APPLE)
                 install(
-                    FILES ${ARGS_DIRECTORY}/${file}
-                    DESTINATION bin/${ARGS_TARGET}.app/Contents/Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
+                    FILES ${ARGS_RESOURCES_DIR}/${file}
+                    DESTINATION bin/${ARGS_TARGET}.app/Contents/Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}/${file_dir}
                     )
             else ()
                 install(
-                    FILES ${ARGS_DIRECTORY}/${file}
-                    DESTINATION Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
+                    FILES ${ARGS_RESOURCES_DIR}/${file}
+                    DESTINATION Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}/${file_dir}
                     )
             endif ()
         endforeach ()
     elseif (${targetType} STREQUAL "SHARED_LIBRARY")
-        message(STATUS "[install_target_resources] Installing resources for target ${ARGS_TARGET} into Resources/${ARGS_PREFIX}")
         set_target_properties(${ARGS_TARGET}
             PROPERTIES
-            RADIUM_TARGET_INSTALLED_RESOURCES "${CMAKE_INSTALL_PREFIX}/Resources/${ARGS_PREFIX}"
+            RADIUM_TARGET_INSTALLED_RESOURCES "${CMAKE_INSTALL_PREFIX}/Resources/${ARGS_RESOURCES_INSTALL_DIR}"
             )
         foreach (file ${ARGS_FILES})
             get_filename_component(file_dir ${file} DIRECTORY)
             install(
-                FILES ${ARGS_DIRECTORY}/${file}
-                DESTINATION Resources/${ARGS_PREFIX}/${rsc_dir}/${file_dir}
+                FILES ${ARGS_RESOURCES_DIR}/${file}
+                DESTINATION Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}/${file_dir}
                 )
         endforeach ()
     else ()
@@ -565,9 +575,8 @@ function(configure_windows_radium_app)
             message(STATUS "[configure_cmdline_radium_app] Installing resources ${resLocation} for ${ARGS_NAME} ")
             install_target_resources(
                 TARGET ${ARGS_NAME}
-                DIRECTORY ${resLocation}
-                PREFIX ${ARGS_PREFIX}
-                BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources
+                RESOURCES_DIR ${resLocation}
+                RESOURCES_INSTALL_DIR ${ARGS_PREFIX}
             )
         endforeach ()
     endif ()

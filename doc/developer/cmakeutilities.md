@@ -192,10 +192,9 @@ target_link_libraries(
 ### install_target_resources {#install_target_resources}
 ~~~{.cmake}
 install_target_resources( 
-    TARGET targetName               # Name of the target for which resources must be installed                      
-    DIRECTORY resourceDirectory  # location, in the source tree, of the resources 
-    [BUILD_LOCATION whereToLink]    # In the build tree, where to link the resources (default ${CMAKE_CURRENT_BINARY_DIR}/../Resources
-    [PREFIX TargetResourcePrefix]   # In the install tree, where to install resources (default <empty>).
+    TARGET targetName                # Name of the target for which resources must be installed                      
+    RESOURCES_DIR resourceDirectory  # location, in the source tree, of the resources 
+    [RESOURCES_INSTALL_DIR baseDir]  # Name of the base directory of the installed (or linked in the buildtree) resources
     [FILES [file1[file2...]]]        # Resources individual files to install
 ~~~
 
@@ -204,13 +203,12 @@ installs the required resources.
 
 This function takes the following parameters:
 
-*Parameter name*                 | *Parameter description*
----------------------------------|--------------------
- `<TARGET> targetName`           | The name of the target to configure.
- `<DIRECTORY> resourceDirectory` | The directory in the source tree that contains the resource to install.
- `<PREFIX> TargetResourcePrefix` | If given, the resources will be installed into the directory `<install_prefix>/Resources/<PREFIX>/`. If not, the resources will be installed into the directory `<install_prefix>/Resources/` where `<install_prefix>` is the installation directory of the target.
- `<BUILD_LOCATION> whereToLink`  | If given, `<DIRECTORY>` will be linked in the build tree at this location. If not, the resource directory will be linked to `${CMAKE_CURRENT_BINARY_DIR}/../Resources[/<PREFIX>]` directory.
- `<FILES> file1 file2 ...`       | If given, this allow to install only the given files from `<DIRECTORY>`. If not, all the files from `<DIRECTORY>` will be installed.
+*Parameter name*                     | *Parameter description*
+-------------------------------------|--------------------
+ `<TARGET> targetName`               | The name of the target to configure.
+ `<RESOURCES_DIR> resourceDirectory` | The directory in the source tree that contains the resource to install.
+ `<RESOURCES_INSTALL_DIR> baseDirectory`     | If given, the resources will be installed into the directory `<install_prefix>/Resources/<RESOURCES_INSTALL_DIR>/`. If not, the resources will be installed into the directory `<install_prefix>/Resources/` where `<install_prefix>` is the installation directory of the target or the current binary dir of the build tree.
+  `<FILES> file1 file2 ...`           | If given, this allow to install only the given files from `<DIRECTORY>`. If not, all the files from `<DIRECTORY>` will be installed.
  
 For a Radium-based software component, resources can be of several types:
   - Text files, that contain some glsl source code used for shaders.
@@ -276,11 +274,10 @@ When using the [`install_target_resources`](#install_target_resources) function 
 
 ~~~{.cmake}
 # Assuming MyComponentTarget was configured as a library, plugin or executable, this will configure the resource access in the build tree and the install tree
-installTargetResources(
+install_target_resources(
     TARGET MyComponentTarget                            # The name of the target
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/MyResource    # Where are the resources in the source tree
-    BUILD_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/Resources/MyComponentResources # The resources will be linked here in the buildtree
-    PREFIX MyComponentResources # the resources will be installed in <prefix>/Resources/MyComponentResources
+    RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/MyResource    # Where are the resources in the source tree
+    RESOURCES_INSTALL_DIR MyComponentResources # the resources will be installed in <prefix>/Resources/MyComponentResources
 )
 ~~~
 
@@ -315,7 +312,8 @@ radium_exported_resources(
     [PREFIX resourcesPrefix] # Name of the directory in wich the resources are installed
 )
 ~~~
-This function defines the resources access properties for the exported target `<target>`. Based on these properties, client application and libraries might access to the exported resources.
+This function, intended to be used in a `Config.in`cmake script defines the resources access properties for the exported target `<target>`. 
+Based on these properties, client application and libraries might access to the resources of an imported target found by FindPackage(PackageName)
 
 This function takes the following parameters:
 
@@ -391,7 +389,7 @@ where `<prefix>` refer to the base plugin dir into the build tree or the install
  - When installed into the Radium distribution bundle, `<prefix>` refers to `${RADIUM_ROOT_DIR}/Plugins`. Optional resources directories are copied into `Resources` directory.
  - When installed in the user specified install location, `<prefix>` refers to `${CMAKE_INSTALL_PREFIX}`. Optional resources directories are copied into `Resources` directory.
 
-When a plugin is installed and depends on a helper library that embed its own resources, the helper resources are copied into the `<prefix>/Resources` directory so that the helper lib could find its resources as described in the section [`installTargetResources`](#installTargetResources).
+When a plugin is installed and depends on a helper library that embed its own resources, the helper resources are copied into the `<prefix>/Resources` directory so that the helper lib could find its resources as described in the section [`install_target_resources`](#install_target_resources).
 In this hierarchy, a plugin will access to its resources in a way very similar than any other library. Only one level of hierarchy, whose name is the plugin name, will be added.
 
 
@@ -457,7 +455,7 @@ is created into this bundle, and it contains the relocatable `.app` bundle.
 If the option `MACOSX_BUNDLE` is not given, the executable will not be a bundled macOS `.app` but a command line 
 application and will be installed as any application on Linux.
 
-The resources associated to an application are installed using the [`installTargetResources`](#installTargetResources).
+The resources associated to an application are installed using the [`install_target_resources`](#install_target_resources).
 
 ## Configuring client and extension libraries
 ### Configuring the library target
@@ -634,11 +632,11 @@ endif()
 Based on the above example, once the package `<packageName>` is found, the targets `<namespace>::<firstLib>` and  `<namespace>::<secondLib>` will be imported in the current project and should be used as any imported Radium targets.
 
 ### Configuring library resources
-When a library need to access resources, the [`installTargetResources`](#installTargetResources) must be called once the library target is configured as explain above.
+When a library need to access resources, the [`install_target_resources`](#install_target_resources) must be called once the library target is configured as explain above.
 This result, as an example, in the following cmake snippet if the library `${NAME_OF_LIBRARY}` need to access glsl source file from the resource directory `${CMAKE_CURRENT_SOURCE_DIR}/Shaders` in the source tree.
 ~~~{.cmake}
 # Optional, if the library need resources
-installTargetResources(
+install_target_resources(
         TARGET ${NAME_OF_LIBRARY}
         DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Shaders
 )
