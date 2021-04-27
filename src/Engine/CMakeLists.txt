@@ -59,8 +59,8 @@ configure_radium_library(
 message(STATUS "installing resources from ${RADIUM_SHADERS_DIR}")
 install_target_resources(
     TARGET ${ra_engine_target}
-    DIRECTORY ${RADIUM_SHADERS_DIR}
-    PREFIX "Radium"
+    RESOURCES_DIR ${RADIUM_SHADERS_DIR}
+    RESOURCES_INSTALL_DIR "Radium"
     FILES ${engine_shaders}
     )
 
