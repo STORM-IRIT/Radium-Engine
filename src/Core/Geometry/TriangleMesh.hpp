@@ -271,18 +271,6 @@ class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
     IndexContainerType m_indices;
 };
 
-class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
-{};
-
-// class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
-// {};
-
-class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>
-{};
-
-class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
-{};
-
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra
