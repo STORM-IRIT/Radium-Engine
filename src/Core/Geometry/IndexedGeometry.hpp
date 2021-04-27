@@ -1,8 +1,12 @@
 #pragma once
 
 #include <Core/Containers/VectorArray.hpp>
+
 #include <Core/Geometry/TriangleMesh.hpp>
+
 #include <Core/Utils/ObjectWithSemantic.hpp>
+#include <Core/Utils/StdMapIterators.hpp>
+
 #include <unordered_map>
 
 namespace Ra {
@@ -367,6 +371,12 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     ///
     bool addLayer( std::unique_ptr<GeometryIndexLayerBase>&& layer,
                    const std::string& layerName = "" );
+
+    /// \brief Range on layer keys (read-only)
+    ///
+    /// Usage:
+    /// \snippet tests/unittest/Core/indexview.cpp Iterating over layer keys
+    [[nodiscard]] inline auto layerKeys() const { return Utils::map_keys( m_indices ); }
 
   private:
     /// Note: we cannot store unique_ptr here has unordered_map needs its
