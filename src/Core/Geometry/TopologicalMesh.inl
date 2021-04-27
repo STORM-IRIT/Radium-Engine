@@ -663,7 +663,7 @@ void TopologicalMesh::initWithWedge( const Ra::Core::Geometry::MultiIndexedGeome
     if ( isTriMesh )
     {
         const auto& abstractLayer =
-            mesh.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName );
+            mesh.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName ).second;
         const auto& faces = static_cast<const TriangleIndexLayer&>( abstractLayer ).collection();
         LOG( logINFO ) << "TopologicalMesh: process " << faces.size() << " triangular faces ";
         processFaces( faces );
@@ -672,7 +672,7 @@ void TopologicalMesh::initWithWedge( const Ra::Core::Geometry::MultiIndexedGeome
     if ( isPolyMesh )
     {
         const auto& abstractLayer =
-            mesh.getFirstLayerOccurrence( PolyIndexLayer::staticSemanticName );
+            mesh.getFirstLayerOccurrence( PolyIndexLayer::staticSemanticName ).second;
         const auto& faces = static_cast<const PolyIndexLayer&>( abstractLayer ).collection();
         LOG( logINFO ) << "TopologicalMesh: process " << faces.size() << " polygonal faces ";
         processFaces( faces );

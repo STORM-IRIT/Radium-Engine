@@ -110,20 +110,20 @@ size_t MultiIndexedGeometry::countLayers( const LayerSemanticCollection& semanti
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-const GeometryIndexLayerBase&
+std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemantic& semanticName ) const {
     for ( const auto& [key, value] : m_indices )
     {
-        if ( key.first.find( semanticName ) != key.first.end() ) return *( value.second );
+        if ( key.first.find( semanticName ) != key.first.end() ) return {key, *( value.second )};
     }
     throw std::out_of_range( "Layer entry not found" );
 }
 
-const GeometryIndexLayerBase&
+std::pair<MultiIndexedGeometry::LayerKeyType, const GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemanticCollection& semantics ) const {
     for ( const auto& [key, value] : m_indices )
     {
-        if ( key.first == semantics ) return *( value.second );
+        if ( key.first == semantics ) return {key, *( value.second )};
     }
     throw std::out_of_range( "Layer entry not found" );
 }
@@ -131,7 +131,7 @@ MultiIndexedGeometry::getFirstLayerOccurrence( const LayerSemanticCollection& se
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-GeometryIndexLayerBase&
+std::pair<MultiIndexedGeometry::LayerKeyType, GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrenceWithLock( const LayerSemantic& semanticName ) {
     for ( auto& [key, value] : m_indices )
     {
@@ -139,13 +139,13 @@ MultiIndexedGeometry::getFirstLayerOccurrenceWithLock( const LayerSemantic& sema
         {
             CORE_ASSERT( !value.first, "try to get already locked layer" );
             value.first = true;
-            return *( value.second );
+            return {key, *( value.second )};
         }
     }
     throw std::out_of_range( "Layer entry not found" );
 }
 
-GeometryIndexLayerBase&
+std::pair<MultiIndexedGeometry::LayerKeyType, GeometryIndexLayerBase&>
 MultiIndexedGeometry::getFirstLayerOccurrenceWithLock( const LayerSemanticCollection& semantics ) {
     for ( auto& [key, value] : m_indices )
     {
@@ -153,7 +153,7 @@ MultiIndexedGeometry::getFirstLayerOccurrenceWithLock( const LayerSemanticCollec
         {
             CORE_ASSERT( !value.first, "try to get already locked layer" );
             value.first = true;
-            return *( value.second );
+            return {key, *( value.second )};
         }
     }
     throw std::out_of_range( "Layer entry not found" );

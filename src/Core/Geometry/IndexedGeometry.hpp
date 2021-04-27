@@ -247,8 +247,9 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// Convenience function.
     /// \param semantics collection of semantics associated with the layer (they should all match)
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
+    /// \return The layer and its LayerKey (to be used with getLayer, getLayerWithLock, unlockLayer)
     /// \throws std::out_of_range
-    const GeometryIndexLayerBase&
+    std::pair<LayerKeyType, const GeometryIndexLayerBase&>
     getFirstLayerOccurrence( const LayerSemanticCollection& semantics ) const;
 
     /// \copybrief getLayer( const LayerKeyType& ) const
@@ -256,8 +257,9 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// Convenience function.
     /// \param semanticName layer one semantic associated with the layer
     /// \complexity \f$ O(N) \f$, with \f$ N \f$ the number of semantic names in the collection
+    /// \return The layer and its LayerKey (to be used with getLayer, getLayerWithLock, unlockLayer)
     /// \throws std::out_of_range
-    const GeometryIndexLayerBase&
+    std::pair<LayerKeyType, const GeometryIndexLayerBase&>
     getFirstLayerOccurrence( const LayerSemantic& semanticName ) const;
 
     //////////////////////////////////////////////////////////////////////
@@ -292,8 +294,9 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \see getLayerWithLock( const LayerKeyType& ) for details about locks
     /// \param semantics collection of semantics associated with the layer (they should all match)
     /// \complexity \f$ O(n) \f$, with \f$ n \f$ the number of layers in the collection
+    /// \return The layer and its LayerKey (to be used with getLayer, getLayerWithLock, unlockLayer)
     /// \throws std::out_of_range
-    GeometryIndexLayerBase&
+    std::pair<LayerKeyType, GeometryIndexLayerBase&>
     getFirstLayerOccurrenceWithLock( const LayerSemanticCollection& semantics );
 
     /// \copybrief getLayerWithLock( const LayerKeyType& )
@@ -302,8 +305,10 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
     /// \see getLayerWithLock( const LayerKeyType& ) for details about locks
     /// \param semanticName layer one semantic associated with the layer
     /// \complexity \f$ O(N) \f$, with \f$ N \f$ the number of semantic names in the collection
+    /// \return The layer and its LayerKey (to be used with getLayer, getLayerWithLock, unlockLayer)
     /// \throws std::out_of_range
-    GeometryIndexLayerBase& getFirstLayerOccurrenceWithLock( const LayerSemantic& semanticName );
+    std::pair<LayerKeyType, GeometryIndexLayerBase&>
+    getFirstLayerOccurrenceWithLock( const LayerSemantic& semanticName );
 
     //////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
@@ -329,6 +334,9 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
         unlockLayer( {semantics, layerName} );
     }
 
+    // The following methods are only mean to be used by PredifinedIndexGeometry and should not be
+    // part of the final API
+  protected:
     /// \copybrief unlockLayer( const LayerKeyType& )
     ///
     /// Convenience function.
@@ -349,7 +357,7 @@ class RA_CORE_API MultiIndexedGeometry : public AttribArrayGeometry, public Util
 
     //////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
-
+  public:
     /// \brief Add layer
     ///
     /// Notify observers of the update.
@@ -455,7 +463,8 @@ class PredifinedIndexGeometry : public MultiIndexedGeometry
 
     /// read only access to indices
     inline const IndexContainerType& getIndices() const {
-        const auto& abstractLayer = getFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
+        const auto& abstractLayer =
+            getFirstLayerOccurrence( DefaultLayerType::staticSemanticName ).second;
         return static_cast<const DefaultLayerType&>( abstractLayer ).collection();
     }
 
@@ -464,7 +473,7 @@ class PredifinedIndexGeometry : public MultiIndexedGeometry
     /// need to be unlock by the caller before any one can ask for write access.
     inline IndexContainerType& getIndicesWithLock() {
         auto& abstractLayer =
-            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
+            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName ).second;
         return static_cast<DefaultLayerType&>( abstractLayer ).collection();
     }
 
@@ -477,17 +486,17 @@ class PredifinedIndexGeometry : public MultiIndexedGeometry
     /// access to it.
     /// Notify observers of the update.
     inline void setIndices( IndexContainerType&& indices ) {
-        auto& abstractLayer =
+        auto [key, abstractLayer] =
             getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
         static_cast<DefaultLayerType&>( abstractLayer ).collection() = std::move( indices );
-        unlockFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
+        unlockLayer( key );
         notify();
     }
     inline void setIndices( const IndexContainerType& indices ) {
-        auto& abstractLayer =
+        auto [key, abstractLayer] =
             getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
         static_cast<DefaultLayerType&>( abstractLayer ).collection() = indices;
-        unlockFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
+        unlockLayer( key );
         notify();
     }
 };

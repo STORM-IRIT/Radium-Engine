@@ -28,8 +28,8 @@ TEST_CASE( "Core/Geometry/IndexedGeometry", "[Core][Core/Geometry][IndexedGeomet
         // TriangleMesh is a MultiIndexedGeometry, so the layer has already
         // been added
         REQUIRE( geo.containsLayer( TriangleIndexLayer::staticSemanticName ) );
-        tilSemantics =
-            geo.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName ).semantics();
+        tilSemantics = geo.getFirstLayerOccurrence( TriangleIndexLayer::staticSemanticName )
+                           .second.semantics();
     }
 
     ObjectWithSemantic::SemanticNameCollection pilSemantics;
