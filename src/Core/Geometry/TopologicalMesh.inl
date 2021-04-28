@@ -686,18 +686,6 @@ void TopologicalMesh::initWithWedge(
 }
 
 template <typename T>
-void TopologicalMesh::initWithWedge( const IndexedGeometry<T>& mesh ) {
-    initWithWedge( mesh, mesh.getLayerKey(), DefaultNonManifoldFaceCommand( "[initWithWedges]" ) );
-}
-
-template <typename T, typename NonManifoldFaceCommand>
-void TopologicalMesh::initWithWedge( const IndexedGeometry<T>& mesh,
-                                     NonManifoldFaceCommand command ) {
-
-    initWithWedge( mesh, mesh.getLayerKey(), command );
-}
-
-template <typename T>
 void TopologicalMesh::copyAttribToWedgeData( const MultiIndexedGeometry& mesh,
                                              unsigned int vindex,
                                              const std::vector<AttribHandle<T>>& attrHandleVec,
