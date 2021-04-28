@@ -37,6 +37,9 @@ class RA_CORE_API GeometryIndexLayerBase : public Utils::ObservableVoid,
 
     virtual bool append( const GeometryIndexLayerBase& other ) = 0;
 
+    /// return the number of index (i.e. "faces") contained in the layer.
+    virtual size_t size() = 0;
+
   protected:
     template <class... SemanticNames>
     inline GeometryIndexLayerBase( SemanticNames... names ) : ObjectWithSemantic( names... ) {}
@@ -62,6 +65,8 @@ struct GeometryIndexLayer : public GeometryIndexLayerBase {
         }
         return false;
     }
+
+    inline size_t size() override { return _collection.size(); }
 
   protected:
     template <class... SemanticNames>
@@ -442,75 +447,6 @@ struct RA_CORE_API LineIndexLayer : public GeometryIndexLayer<Vector2ui> {
 
 /// Temporary class providing the old API for TriangleMesh, LineMesh and PolyMesh
 /// This class will be marked as deprecated soon.
-template <typename LayerT_>
-class PredifinedIndexGeometry : public MultiIndexedGeometry
-{
-  private:
-    using DefaultLayerType = LayerT_;
-
-  public:
-    using IndexType          = typename DefaultLayerType::IndexType;
-    using IndexContainerType = VectorArray<IndexType>;
-
-    inline PredifinedIndexGeometry() : MultiIndexedGeometry() {
-        auto l = std::make_unique<DefaultLayerType>();
-        addLayer( std::move( l ) );
-    }
-
-    inline PredifinedIndexGeometry( const AttribArrayGeometry& other ) :
-        MultiIndexedGeometry( other ) {
-        // force to create of trianglemesh layer
-        auto l = std::make_unique<DefaultLayerType>();
-        addLayer( std::move( l ) );
-    }
-
-    inline PredifinedIndexGeometry( AttribArrayGeometry&& other ) :
-        MultiIndexedGeometry( std::move( other ) ) {
-        // force to create of trianglemesh layer
-        auto l = std::make_unique<DefaultLayerType>();
-        addLayer( std::move( l ) );
-    }
-
-    /// read only access to indices
-    inline const IndexContainerType& getIndices() const {
-        const auto& abstractLayer =
-            getFirstLayerOccurrence( DefaultLayerType::staticSemanticName ).second;
-        return static_cast<const DefaultLayerType&>( abstractLayer ).collection();
-    }
-
-    /// read write access to indices.
-    /// Cause indices to be "lock" for the caller
-    /// need to be unlock by the caller before any one can ask for write access.
-    inline IndexContainerType& getIndicesWithLock() {
-        auto& abstractLayer =
-            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName ).second;
-        return static_cast<DefaultLayerType&>( abstractLayer ).collection();
-    }
-
-    /// unlock previously read write acces, notify observers of the update.
-    inline void indicesUnlock() {
-        unlockFirstLayerOccurrence( DefaultLayerType::staticSemanticName );
-    }
-
-    /// set indices. Indices must be unlock, i.e. no one should have write
-    /// access to it.
-    /// Notify observers of the update.
-    inline void setIndices( IndexContainerType&& indices ) {
-        auto [key, abstractLayer] =
-            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
-        static_cast<DefaultLayerType&>( abstractLayer ).collection() = std::move( indices );
-        unlockLayer( key );
-        notify();
-    }
-    inline void setIndices( const IndexContainerType& indices ) {
-        auto [key, abstractLayer] =
-            getFirstLayerOccurrenceWithLock( DefaultLayerType::staticSemanticName );
-        static_cast<DefaultLayerType&>( abstractLayer ).collection() = indices;
-        unlockLayer( key );
-        notify();
-    }
-};
-
 namespace IndexLayerType {
 template <class IndexT>
 struct getType {};
@@ -543,18 +479,20 @@ class IndexedGeometry : public MultiIndexedGeometry
   public:
     using IndexType          = T;
     using IndexContainerType = VectorArray<IndexType>;
-    using MainIndexLayer     = typename IndexLayerType::getType<IndexType>::Type;
 
+  private:
+    using DefaultLayerType = typename IndexLayerType::getType<IndexType>::Type;
+
+  public:
     IndexedGeometry() {
-        auto layer          = std::make_unique<MainIndexLayer>();
+        auto layer          = std::make_unique<DefaultLayerType>();
         m_mainIndexLayerKey = {layer->semantics(), ""};
         addLayer( std::move( layer ) );
     }
+
     inline const IndexContainerType& getIndices() const {
-        //  const auto& abstractLayer = getLayer( m_mainIndexLayerKey );
-        const auto& abstractLayer =
-            getFirstLayerOccurrence( MainIndexLayer::staticSemanticName ).second;
-        return static_cast<const MainIndexLayer&>( abstractLayer ).collection();
+        const auto& abstractLayer = getLayer( m_mainIndexLayerKey );
+        return static_cast<const DefaultLayerType&>( abstractLayer ).collection();
     }
 
     /// read write access to indices.
@@ -562,7 +500,7 @@ class IndexedGeometry : public MultiIndexedGeometry
     /// need to be unlock by the caller before any one can ask for write access.
     inline IndexContainerType& getIndicesWithLock() {
         auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
-        return static_cast<MainIndexLayer&>( abstractLayer ).collection();
+        return static_cast<DefaultLayerType&>( abstractLayer ).collection();
     }
 
     /// unlock previously read write acces, notify observers of the update.
@@ -573,14 +511,15 @@ class IndexedGeometry : public MultiIndexedGeometry
     /// Notify observers of the update.
     inline void setIndices( IndexContainerType&& indices ) {
         auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
-        static_cast<MainIndexLayer&>( abstractLayer ).collection() = std::move( indices );
+        static_cast<DefaultLayerType&>( abstractLayer ).collection() = std::move( indices );
         notify();
     }
     inline void setIndices( const IndexContainerType& indices ) {
         auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
-        static_cast<MainIndexLayer&>( abstractLayer ).collection() = indices;
+        static_cast<DefaultLayerType&>( abstractLayer ).collection() = indices;
         notify();
     }
+    const LayerKeyType& getLayerKey() const { return m_mainIndexLayerKey; }
 
   private:
     LayerKeyType m_mainIndexLayerKey;
