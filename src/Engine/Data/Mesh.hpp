@@ -17,6 +17,9 @@
 #include <map>
 #include <vector>
 
+#include <Core/Utils/ObjectWithSemantic.hpp>
+#include <iterator>
+
 namespace Ra {
 namespace Engine {
 namespace Data {
@@ -352,6 +355,45 @@ class IndexedGeometry : public CoreGeometryDisplayable<T>, public VaoIndices
 
   protected:
     void updateGL_specific_impl() override;
+};
+
+template <typename T>
+class MultiIndexedGeometry : public CoreGeometryDisplayable<T>
+{
+  public:
+    using base = CoreGeometryDisplayable<T>;
+    using CoreGeometryDisplayable<T>::CoreGeometryDisplayable;
+    explicit MultiIndexedGeometry(
+        const std::string& name,
+        typename base::CoreGeometry&& geom,
+        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_TRIANGLES );
+    void render( const ShaderProgram* prog ) override;
+
+    void loadGeometry( T&& mesh ) override;
+
+  protected:
+    void updateGL_specific_impl() override;
+
+    using LayerSemanticCollection = Core::Utils::ObjectWithSemantic::SemanticNameCollection;
+    using LayerSemantic           = Core::Utils::ObjectWithSemantic::SemanticName;
+    using LayerKeyType            = std::pair<LayerSemanticCollection, std::string>;
+
+    using EntryType = std::pair<bool, VaoIndices*>;
+    struct RA_CORE_API KeyHash {
+        std::size_t operator()( const LayerKeyType& k ) const {
+            // Mix semantic collection into a single identifier string
+            std::ostringstream stream;
+            std::copy(
+                k.first.begin(), k.first.end(), std::ostream_iterator<std::string>( stream, "" ) );
+            std::string result = stream.str();
+            std::sort( result.begin(), result.end() );
+
+            // Combine with layer name hash
+            return std::hash<std::string> {}( result ) ^
+                   ( std::hash<std::string> {}( k.second ) << 1 );
+        }
+    };
+    std::unordered_map<LayerKeyType, EntryType, KeyHash> m_indices;
 };
 
 /// LineMesh, own a Core::Geometry::LineMesh
