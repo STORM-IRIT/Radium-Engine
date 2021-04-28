@@ -368,50 +368,65 @@ function(install_target_resources)
     if (NOT ARGS_RESOURCES_DIR)
         message(FATAL_ERROR "[install_target_resources] You must provide a resource directory")
     endif ()
+    
     if (ARGS_RESOURCES_INSTALL_DIR)
-        set(ARGS_RESOURCES_INSTALL_DIR "${ARGS_RESOURCES_INSTALL_DIR}")
+        set(RESOURCES_INSTALL_DIR "${ARGS_RESOURCES_INSTALL_DIR}")
         set_target_properties(${ARGS_TARGET}
             PROPERTIES 
-            RADIUM_TARGET_RESOURCES_PREFIX ${ARGS_RESOURCES_INSTALL_DIR}
+            RADIUM_TARGET_RESOURCES_PREFIX ${RESOURCES_INSTALL_DIR}
             )
-    else()
-        set(ARGS_RESOURCES_INSTALL_DIR "")
+    else ()
+        set(RESOURCES_INSTALL_DIR "")
     endif ()
-    get_target_property(targetType ${ARGS_TARGET} TYPE)
-    # compute resources dir for build tree and install tree
-    get_filename_component(rsc_dir ${ARGS_RESOURCES_DIR} NAME)
+    
+    get_target_property(TARGET_TYPE ${ARGS_TARGET} TYPE)
+    # get resrouces last directory from ${ARGS_RESOURCES_DIR}
+    get_filename_component(RESOURCES_LAST_DIR ${ARGS_RESOURCES_DIR} NAME)
 
     # compute where to link the resources in the buildtree (as in a bundle : ${CMAKE_CURRENT_BINARY_DIR}/../Resources
-    if (${targetType} STREQUAL "EXECUTABLE")
+    # also set RESOURCES_DESTINATION_DIR
+    if (${TARGET_TYPE} STREQUAL "EXECUTABLE")
         if (APPLE)
-            set( buildtree_dir ${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}.app/Contents/Resources)
+            set(RESOURCES_DESTINATION_DIR "bin/${ARGS_TARGET}.app/Contents/Resources/")
+            set(RESOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/${ARGS_NAME}.app/Contents/Resources)
             install(CODE "
                 # remove the link installed from the build-tree to copy the corresponding resources
-                file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/bin/${ARGS_TARGET}.app/Contents/Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir})
+                file(REMOVE_RECURSE ${CMAKE_INSTALL_PREFIX}/${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR})
             ")
-        else()
-            set(buildtree_dir ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
-        endif()
-    else()
-        set(buildtree_dir ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
-    endif()
-    set(buildtree_dir "${buildtree_dir}/${ARGS_RESOURCES_INSTALL_DIR}")
+        else () 
+            set(RESOURCES_DESTINATION_DIR "Resources/")
+            set(RESOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
+        endif ()
+    elseif (${TARGET_TYPE} STREQUAL "SHARED_LIBRARY")
+        set(RESOURCES_DESTINATION_DIR "Resources/")
+        set(RESOURCES_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/../Resources)
+        set_target_properties(${ARGS_TARGET}
+            PROPERTIES
+            RADIUM_TARGET_INSTALLED_RESOURCES "${CMAKE_INSTALL_PREFIX}/Resources/${RESOURCES_INSTALL_DIR}"
+            )
+    else ()
+        message(FATAL_ERROR "[install_target_resources] Unknown target type ${TARGET_TYPE} for target ${ARGS_TARGET} ")
+    endif ()
+
+    # append target specific resrouces install dir
+    set(RESOURCES_DESTINATION_DIR "${RESOURCES_DESTINATION_DIR}/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR}")
+    set(RESOURCES_BINARY_DIR "${RESOURCES_BINARY_DIR}/${RESOURCES_INSTALL_DIR}")
 
     # installing resources in the buildtree (link if available, copy if not)
-    message(STATUS "[install_target_resources] Linking resources directory ${ARGS_RESOURCES_DIR} for target ${ARGS_TARGET} into ${buildtree_dir}/${rsc_dir}")
-    file(MAKE_DIRECTORY "${buildtree_dir}")
+    message(STATUS "[install_target_resources] BINARY_DIR Linking resources directory ${ARGS_RESOURCES_DIR} for target ${ARGS_TARGET} into ${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}")
+    file(MAKE_DIRECTORY "${RESOURCES_BINARY_DIR}")
     if (MSVC OR MSVC_IDE OR MINGW)
         add_custom_command(
             TARGET ${ARGS_TARGET}
             POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARGS_RESOURCES_DIR} "${buildtree_dir}/${rsc_dir}"
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARGS_RESOURCES_DIR} "${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}"
             VERBATIM
             )
     else ()
         add_custom_command(
             TARGET ${ARGS_TARGET}
             POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E create_symlink ${ARGS_RESOURCES_DIR} "${buildtree_dir}/${rsc_dir}"
+            COMMAND ${CMAKE_COMMAND} -E create_symlink ${ARGS_RESOURCES_DIR} "${RESOURCES_BINARY_DIR}/${RESOURCES_LAST_DIR}"
             VERBATIM
             )
     endif ()
@@ -423,6 +438,8 @@ function(install_target_resources)
         PROPERTIES
         RADIUM_TARGET_RESOURCES_DIRECTORY ${ARGS_RESOURCES_DIR}
         )
+
+    #why do not set tgt prop if files is not set, even if there is files in resources directory ?
     if (ARGS_FILES)
         set_target_properties(${ARGS_TARGET}
             PROPERTIES
@@ -433,36 +450,18 @@ function(install_target_resources)
     endif ()
 
     #install resource for application or shared library
-    message(STATUS "[install_target_resources] Installing resources for target ${ARGS_TARGET} into Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}")
-    if (${targetType} STREQUAL "EXECUTABLE")
-        foreach (file ${ARGS_FILES})
-            get_filename_component(file_dir ${file} DIRECTORY)
-            if (APPLE)
-                install(
-                    FILES ${ARGS_RESOURCES_DIR}/${file}
-                    DESTINATION bin/${ARGS_TARGET}.app/Contents/Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}/${file_dir}
-                    )
-            else ()
-                install(
-                    FILES ${ARGS_RESOURCES_DIR}/${file}
-                    DESTINATION Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}/${file_dir}
-                    )
-            endif ()
-        endforeach ()
-    elseif (${targetType} STREQUAL "SHARED_LIBRARY")
-        set_target_properties(${ARGS_TARGET}
-            PROPERTIES
-            RADIUM_TARGET_INSTALLED_RESOURCES "${CMAKE_INSTALL_PREFIX}/Resources/${ARGS_RESOURCES_INSTALL_DIR}"
-            )
-        foreach (file ${ARGS_FILES})
-            get_filename_component(file_dir ${file} DIRECTORY)
+    message(STATUS "[install_target_resources] Installing resources for target ${ARGS_TARGET} into Resources/${RESOURCES_INSTALL_DIR}/${RESOURCES_LAST_DIR}")
+
+    if (${TARGET_TYPE} STREQUAL "EXECUTABLE" OR ${TARGET_TYPE} STREQUAL "SHARED_LIBRARY")
+        foreach (FILE ${ARGS_FILES})
+            get_filename_component(FILE_DIR ${FILE} DIRECTORY)
             install(
-                FILES ${ARGS_RESOURCES_DIR}/${file}
-                DESTINATION Resources/${ARGS_RESOURCES_INSTALL_DIR}/${rsc_dir}/${file_dir}
+                FILES ${ARGS_RESOURCES_DIR}/${FILE}
+                DESTINATION ${RESOURCES_DESTINATION_DIR}/${FILE_DIR}
                 )
         endforeach ()
     else ()
-        message(FATAL_ERROR "[install_target_resources] Unknown target type ${targetType} for target ${ARGS_TARGET} ")
+        message(FATAL_ERROR "[install_target_resources] Unknown target type ${TARGET_TYPE} for target ${ARGS_TARGET} ")
     endif ()
 endfunction()
 
