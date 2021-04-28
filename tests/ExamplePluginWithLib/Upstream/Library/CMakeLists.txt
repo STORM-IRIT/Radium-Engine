@@ -75,7 +75,7 @@ configure_radium_library(
     FILES "${public_headers}"
 )
 
-installTargetResources(
+install_target_resources(
     TARGET ${PROJECT_NAME}
     DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/LibraryResources
 )

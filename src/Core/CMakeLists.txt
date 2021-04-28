@@ -35,9 +35,9 @@ add_library(
     ${RA_VERSION_CPP}
 )
 
-populateLocalDependencies(NAME "Eigen3_DIR")
-populateLocalDependencies(NAME "OpenMesh_DIR")
-populateLocalDependencies(NAME "cpplocate_DIR")
+populate_local_dependencies(NAME "Eigen3_DIR")
+populate_local_dependencies(NAME "OpenMesh_DIR")
+populate_local_dependencies(NAME "cpplocate_DIR")
 
 addExternalFolder(Core ${RADIUM_EXTERNAL_DIR}/Core ${LocalDependencies})
 

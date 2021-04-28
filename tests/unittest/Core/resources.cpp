@@ -11,7 +11,7 @@ TEST_CASE( "Core/Resources", "[Core]" ) {
     auto basePath            = getBasePath();
     auto baseResourcesPath   = getResourcesPath();
     auto baseResourcesPath1 =
-        getResourcesPath( reinterpret_cast<void*>( getRadiumResourcesPath ), "Resources" );
+        getResourcesPath( reinterpret_cast<void*>( getRadiumResourcesPath ), "Resources/Radium" );
     auto baseResourcesPath2 = getResourcesPath( reinterpret_cast<void*>( dummy ), "" );
     auto baseResourcesPath3 = getResourcesPath( nullptr, "" );
     auto baseResourcesPath4 = getResourcesPath( nullptr, "hopeYouDontHaveAPathWithThisName" );

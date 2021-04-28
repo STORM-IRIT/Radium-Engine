@@ -54,7 +54,7 @@ find_dependency(Eigen3    REQUIRED NO_DEFAULT_PATH)
 find_dependency(OpenMesh  REQUIRED NO_DEFAULT_PATH)
 find_dependency(cpplocate REQUIRED NO_DEFAULT_PATH)
 if (MSVC OR MSVC_IDE OR MINGW)
-    addImportedDir( FROM cpplocate::cpplocate TO RadiumExternalDlls_location) 
+    add_imported_dir( FROM cpplocate::cpplocate TO RadiumExternalDlls_location) 
 endif()
 
 set(_supported_components Core)
@@ -104,8 +104,8 @@ if(Engine_FOUND)
     find_dependency(glbinding REQUIRED NO_DEFAULT_PATH)
     find_dependency(globjects REQUIRED NO_DEFAULT_PATH)
     if (MSVC OR MSVC_IDE OR MINGW)
-        addImportedDir( FROM glbinding::glbinding TO RadiumExternalDlls_location) 
-        addImportedDir( FROM globjects::globjects TO RadiumExternalDlls_location)
+        add_imported_dir( FROM glbinding::glbinding TO RadiumExternalDlls_location) 
+        add_imported_dir( FROM globjects::globjects TO RadiumExternalDlls_location)
     endif()
     include("${CMAKE_CURRENT_LIST_DIR}/EngineTargets.cmake" )
 endif()
@@ -132,7 +132,7 @@ if(IO_FOUND)
           MAP_IMPORTED_CONFIG_RELWITHDEBINFO Release
         )
         if (MSVC OR MSVC_IDE OR MINGW)
-            addImportedDir( FROM assimp::assimp TO RadiumExternalDlls_location)
+            add_imported_dir( FROM assimp::assimp TO RadiumExternalDlls_location)
         endif()
     endif()
     if( depTinyPLYFound GREATER_EQUAL "0")
@@ -143,7 +143,7 @@ if(IO_FOUND)
         endif()
         find_dependency(tinyply REQUIRED NO_DEFAULT_PATH)
         if (MSVC OR MSVC_IDE OR MINGW)
-            addImportedDir( FROM tinyply TO RadiumExternalDlls_location)
+            add_imported_dir( FROM tinyply TO RadiumExternalDlls_location)
         endif()
     endif()
 
@@ -166,14 +166,14 @@ endif()
 
 # Compute paths
 get_filename_component(SELF_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
-# get up in the directories until we found a "Resources" subdir
-# TODO : instead of 'Resources' that might not exists if Engine nor Gui are compiled,
+# get up in the directories until we found a "Resources/Radium" subdir
+# TODO : instead of 'Resources/Radium' that might not exists if Engine nor Gui are compiled,
 # search for a file identifying Radium (a la Eigen) and that is installed at the root of the
 # Radium Bundle
-while( NOT EXISTS ${SELF_DIR}/Resources)
+while( NOT EXISTS ${SELF_DIR}/Resources/Radium)
   get_filename_component(SELF_DIR "${SELF_DIR}" DIRECTORY)
 endwhile()
 
 set(RADIUM_ROOT_DIR "${SELF_DIR}")
-set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources")
+set(RADIUM_RESOURCES_DIR "${SELF_DIR}/Resources/Radium")
 set(RADIUM_PLUGINS_DIR "${SELF_DIR}/Plugins")
