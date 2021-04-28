@@ -19,8 +19,8 @@ add_library(
     )
 
 #LocalDependencies form parent scope
-populateLocalDependencies(NAME "assimp_DIR")
-populateLocalDependencies(NAME "tinyply_DIR")
+populate_local_dependencies(NAME "assimp_DIR")
+populate_local_dependencies(NAME "tinyply_DIR")
 
 addExternalFolder( IO ${RADIUM_EXTERNAL_DIR}/IO
     -DRADIUM_IO_ASSIMP=${RADIUM_IO_ASSIMP}

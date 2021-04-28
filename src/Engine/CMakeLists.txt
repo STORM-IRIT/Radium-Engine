@@ -25,10 +25,10 @@ add_custom_target(RadiumEngineShaders ALL SOURCES ${engine_shaders_full})
 
 
 #LocalDependencies form parent scope
-populateLocalDependencies(NAME "glm_DIR")
-populateLocalDependencies(NAME "glbinding_DIR")
-populateLocalDependencies(NAME "globjects_DIR")
-populateLocalDependencies(NAME "stb_DIR")
+populate_local_dependencies(NAME "glm_DIR")
+populate_local_dependencies(NAME "glbinding_DIR")
+populate_local_dependencies(NAME "globjects_DIR")
+populate_local_dependencies(NAME "stb_DIR")
 
 addExternalFolder(Engine ${RADIUM_EXTERNAL_DIR}/Engine ${LocalDependencies})
 
@@ -57,9 +57,10 @@ configure_radium_library(
     FILES "${engine_headers};${engine_inlines}"
 )
 message(STATUS "installing resources from ${RADIUM_SHADERS_DIR}")
-installTargetResources(
+install_target_resources(
     TARGET ${ra_engine_target}
-    DIRECTORY ${RADIUM_SHADERS_DIR}
+    RESOURCES_DIR ${RADIUM_SHADERS_DIR}
+    RESOURCES_INSTALL_DIR "Radium"
     FILES ${engine_shaders}
     )
 
