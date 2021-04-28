@@ -523,7 +523,7 @@ void test_poly() {
     polyMesh.setIndices( {quad, hepta, degen, degen2} );
 
     TopologicalMesh topologicalMesh;
-    topologicalMesh.initWithWedge( polyMesh );
+    topologicalMesh.initWithWedge( polyMesh, polyMesh.getLayerKey() );
     auto newMesh = topologicalMesh.toPolyMesh();
     REQUIRE( isSameMeshWedge( newMesh, polyMesh ) );
 }

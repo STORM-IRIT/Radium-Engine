@@ -124,15 +124,6 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
         const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey,
         NonManifoldFaceCommand command );
 
-    template <typename T>
-    [[deprecated( "Use MultiIndexedGeometry instead" )]] void
-    initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& mesh );
-
-    template <typename T, typename NonManifoldFaceCommand>
-    [[deprecated( "Use MultiIndexedGeometry instead" )]] void
-    initWithWedge( const Ra::Core::Geometry::IndexedGeometry<T>& mesh,
-                   NonManifoldFaceCommand command );
-
     inline void
     initWithWedge( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
                    const Ra::Core::Geometry::MultiIndexedGeometry::LayerKeyType& layerKey );
