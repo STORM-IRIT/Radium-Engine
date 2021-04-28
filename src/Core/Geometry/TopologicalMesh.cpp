@@ -224,17 +224,6 @@ void moveContainerToMesh( IndexedGeometry<U>& out,
     }
 }
 
-template <typename T>
-void moveContainerToMesh( MultiIndexedGeometry& out,
-                          const std::vector<std::string>& names,
-                          AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
-    for ( size_t i = 0; i < wedgeAttribData.size(); ++i )
-    {
-        auto attrHandle = out.template addAttrib<T>( names[i] );
-        out.getAttrib( attrHandle ).setData( std::move( wedgeAttribData[i] ) );
-    }
-}
-
 TriangleMesh TopologicalMesh::toTriangleMesh() {
     // first cleanup deleted element
     garbage_collection();
