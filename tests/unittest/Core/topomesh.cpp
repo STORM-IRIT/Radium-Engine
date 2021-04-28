@@ -1291,3 +1291,59 @@ TEST_CASE( "Core/TopologicalMesh/CollapseWedge" ) {
         addSplitScene( points2, colors2, indices4, points1[5], points1[2] );
     }
 }
+
+TEST_CASE( "Core/Geometry/TopologicalMesh/Updates", "[Core][Core/Geometry][TopologicalMesh]" ) {
+    using Ra::Core::Vector3;
+    using Ra::Core::Geometry::TopologicalMesh;
+    using Ra::Core::Geometry::TriangleMesh;
+
+    auto testConverter = []( TriangleMesh mesh ) {
+        auto topologicalMesh = TopologicalMesh( mesh );
+        auto& vertices       = mesh.verticesWithLock();
+        for ( auto& v : vertices )
+        {
+            v = TriangleMesh::Point( 0_ra, 1_ra, 2_ra );
+        }
+        mesh.verticesUnlock();
+
+        // update topo mesh positions from mesh
+        topologicalMesh.updatePositions( mesh.vertices() );
+        for ( auto itr = topologicalMesh.vertices_begin(); itr != topologicalMesh.vertices_end();
+              ++itr )
+        {
+            REQUIRE(
+                topologicalMesh.point( *itr ).isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+            // modify for next test.
+            topologicalMesh.point( *itr ) = TopologicalMesh::Point( 3_ra, 4_ra, 5_ra );
+        }
+
+        // the other way round
+        topologicalMesh.updateTriangleMesh( mesh );
+
+        // not update since wedges are not updated yet
+        for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr )
+        {
+
+            REQUIRE( itr->isApprox( TriangleMesh::Point( 0_ra, 1_ra, 2_ra ) ) );
+        }
+
+        topologicalMesh.copyPointsPositionToWedges();
+        topologicalMesh.updateTriangleMesh( mesh );
+
+        // not update since wedges are not updated yet
+        for ( auto itr = mesh.vertices().begin(); itr != mesh.vertices().end(); ++itr )
+        {
+
+            REQUIRE( itr->isApprox( TriangleMesh::Point( 3_ra, 4_ra, 5_ra ) ) );
+        }
+    };
+
+    SECTION( "Closed mesh" ) {
+        testConverter( Ra::Core::Geometry::makeBox() );
+        testConverter( Ra::Core::Geometry::makeSharpBox() );
+    }
+
+    SECTION( "Mesh with boundaries" ) {
+        testConverter( Ra::Core::Geometry::makePlaneGrid( 2, 2 ) );
+    }
+}

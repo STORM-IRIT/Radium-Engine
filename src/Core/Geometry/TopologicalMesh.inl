@@ -378,8 +378,8 @@ TopologicalMesh::InitWedgeAttribsFromMultiIndexedGeometry::operator()( AttribBas
         if ( attr->isFloat() )
         {
             m_topo->m_wedges.m_wedgeFloatAttribHandles.push_back(
-                m_triMesh.template getAttribHandle<float>( attr->getName() ) );
-            m_topo->m_wedges.addAttribName<float>( attr->getName() );
+                m_triMesh.template getAttribHandle<Scalar>( attr->getName() ) );
+            m_topo->m_wedges.addAttribName<Scalar>( attr->getName() );
         }
         else if ( attr->isVector2() )
         {
@@ -699,7 +699,7 @@ void TopologicalMesh::copyAttribToWedgeData( const MultiIndexedGeometry& mesh,
 
 void TopologicalMesh::copyMeshToWedgeData( const MultiIndexedGeometry& mesh,
                                            unsigned int vindex,
-                                           const std::vector<AttribHandle<float>>& wprop_float,
+                                           const std::vector<AttribHandle<Scalar>>& wprop_float,
                                            const std::vector<AttribHandle<Vector2>>& wprop_vec2,
                                            const std::vector<AttribHandle<Vector3>>& wprop_vec3,
                                            const std::vector<AttribHandle<Vector4>>& wprop_vec4,

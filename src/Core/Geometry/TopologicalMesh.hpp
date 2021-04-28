@@ -584,7 +584,7 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// \todo add layerKey
     struct DefaultNonManifoldFaceCommand {
         /// \brief details string is printed along with the message
-        DefaultNonManifoldFaceCommand( std::string details = {} ) : m_details {details} {}
+        DefaultNonManifoldFaceCommand( const std::string& details = {} ) : m_details {details} {}
         /// \brief Initalize with input Ra::Core::Geometry::TriangleMesh
         inline void initialize( const Ra::Core::Geometry::MultiIndexedGeometry& ) {}
         /// \brief Process non-manifold face
@@ -610,11 +610,12 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
     /// @todo when MultiIndexView will be operational, remove the IndexedGeometry<T> version above
     inline void copyMeshToWedgeData( const Ra::Core::Geometry::MultiIndexedGeometry& mesh,
                                      unsigned int vindex,
-                                     const std::vector<AttribHandle<float>>& wprop_float,
+                                     const std::vector<AttribHandle<Scalar>>& wprop_float,
                                      const std::vector<AttribHandle<Vector2>>& wprop_vec2,
                                      const std::vector<AttribHandle<Vector3>>& wprop_vec3,
                                      const std::vector<AttribHandle<Vector4>>& wprop_vec4,
                                      TopologicalMesh::WedgeData* wd );
+
     template <typename T>
     using HandleAndValueVector =
         std::vector<std::pair<AttribHandle<T>, T>,
