@@ -511,16 +511,91 @@ class PredifinedIndexGeometry : public MultiIndexedGeometry
     }
 };
 
-class RA_CORE_API IndexedPointCloud : public PredifinedIndexGeometry<PointCloudIndexLayer>
+namespace IndexLayerType {
+template <class IndexT>
+struct getType {};
+
+template <>
+struct getType<Vector2ui> {
+    using Type = Ra::Core::Geometry::LineIndexLayer;
+};
+
+template <>
+struct getType<Vector3ui> {
+    using Type = Ra::Core::Geometry::TriangleIndexLayer;
+};
+
+template <>
+struct getType<VectorNui> {
+    using Type = Ra::Core::Geometry::PolyIndexLayer;
+};
+
+template <>
+struct getType<Vector1ui> {
+    using Type = Ra::Core::Geometry::PointCloudIndexLayer;
+};
+
+} // namespace IndexLayerType
+
+template <typename T>
+class IndexedGeometry : public MultiIndexedGeometry
+{
+  public:
+    using IndexType          = T;
+    using IndexContainerType = VectorArray<IndexType>;
+    using MainIndexLayer     = typename IndexLayerType::getType<IndexType>::Type;
+
+    IndexedGeometry() {
+        auto layer          = std::make_unique<MainIndexLayer>();
+        m_mainIndexLayerKey = {layer->semantics(), ""};
+        addLayer( std::move( layer ) );
+    }
+    inline const IndexContainerType& getIndices() const {
+        //  const auto& abstractLayer = getLayer( m_mainIndexLayerKey );
+        const auto& abstractLayer =
+            getFirstLayerOccurrence( MainIndexLayer::staticSemanticName ).second;
+        return static_cast<const MainIndexLayer&>( abstractLayer ).collection();
+    }
+
+    /// read write access to indices.
+    /// Cause indices to be "lock" for the caller
+    /// need to be unlock by the caller before any one can ask for write access.
+    inline IndexContainerType& getIndicesWithLock() {
+        auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
+        return static_cast<MainIndexLayer&>( abstractLayer ).collection();
+    }
+
+    /// unlock previously read write acces, notify observers of the update.
+    inline void indicesUnlock() { unlockLayer( m_mainIndexLayerKey ); }
+
+    /// set indices. Indices must be unlock, i.e. no one should have write
+    /// access to it.
+    /// Notify observers of the update.
+    inline void setIndices( IndexContainerType&& indices ) {
+        auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
+        static_cast<MainIndexLayer&>( abstractLayer ).collection() = std::move( indices );
+        notify();
+    }
+    inline void setIndices( const IndexContainerType& indices ) {
+        auto& abstractLayer = getLayerWithLock( m_mainIndexLayerKey );
+        static_cast<MainIndexLayer&>( abstractLayer ).collection() = indices;
+        notify();
+    }
+
+  private:
+    LayerKeyType m_mainIndexLayerKey;
+};
+
+class RA_CORE_API IndexedPointCloud : public IndexedGeometry<Vector1ui>
 {};
 
-class RA_CORE_API TriangleMesh : public PredifinedIndexGeometry<TriangleIndexLayer>
+class RA_CORE_API TriangleMesh : public IndexedGeometry<Vector3ui>
 {};
 
-class RA_CORE_API PolyMesh : public PredifinedIndexGeometry<PolyIndexLayer>
+class RA_CORE_API PolyMesh : public IndexedGeometry<VectorNui>
 {};
 
-class RA_CORE_API LineMesh : public PredifinedIndexGeometry<LineIndexLayer>
+class RA_CORE_API LineMesh : public IndexedGeometry<Vector2ui>
 {};
 
 } // namespace Geometry
