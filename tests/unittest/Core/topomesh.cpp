@@ -124,7 +124,7 @@ class WedgeDataAndIdx
 
 template <typename T>
 void copyToWedgesVector( size_t size,
-                         const PredifinedIndexGeometry<T>& meshOne,
+                         const IndexedGeometry<T>& meshOne,
                          AlignedStdVector<WedgeDataAndIdx>& wedgesMeshOne,
                          AttribBase* attr ) {
 
@@ -152,8 +152,8 @@ void copyToWedgesVector( size_t size,
 #undef COPY_TO_WEDGES_VECTOR_HELPER
 
 template <typename T>
-bool isSameMeshWedge( const Ra::Core::Geometry::PredifinedIndexGeometry<T>& meshOne,
-                      const Ra::Core::Geometry::PredifinedIndexGeometry<T>& meshTwo ) {
+bool isSameMeshWedge( const Ra::Core::Geometry::IndexedGeometry<T>& meshOne,
+                      const Ra::Core::Geometry::IndexedGeometry<T>& meshTwo ) {
 
     using namespace Ra::Core;
     using namespace Ra::Core::Geometry;
@@ -219,9 +219,9 @@ bool isSameMeshWedge( const Ra::Core::Geometry::PredifinedIndexGeometry<T>& mesh
         // std::cout << wedgesMeshTwo[i].m_idx << " : " << curIdx << "\n";
     }
 
-    typename Ra::Core::Geometry::PredifinedIndexGeometry<T>::IndexContainerType indices1 =
+    typename Ra::Core::Geometry::IndexedGeometry<T>::IndexContainerType indices1 =
         meshOne.getIndices();
-    typename Ra::Core::Geometry::PredifinedIndexGeometry<T>::IndexContainerType indices2 =
+    typename Ra::Core::Geometry::IndexedGeometry<T>::IndexContainerType indices2 =
         meshTwo.getIndices();
 
     for ( auto& face : indices1 )
@@ -351,6 +351,8 @@ TEST_CASE( "Core/Geometry/TopologicalMesh", "[Core][Core/Geometry][TopologicalMe
         auto newMeshModified = topologicalMesh.toTriangleMesh();
 
         REQUIRE( isSameMesh( mesh, newMesh ) );
+        REQUIRE( isSameMeshWedge( mesh, newMesh ) );
+        REQUIRE( !isSameMeshWedge( mesh, newMeshModified ) );
         REQUIRE( topologicalMesh.checkIntegrity() );
     }
 
@@ -583,7 +585,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
     SECTION( "Non manifold faces" ) {
         struct MyNonManifoldCommand {
             explicit inline MyNonManifoldCommand( int target ) : targetNonManifoldFaces( target ) {}
-            inline void initialize( const AttribArrayGeometry& ) {}
+            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& ) {
                 LOG( logINFO ) << "Non Manifold face found";
                 nonManifoldFaces++;
@@ -725,7 +727,7 @@ TEST_CASE( "Core/Geometry/TopologicalMesh/Manifold", "[Core][Core/Geometry][Topo
             explicit inline MyNonManifoldCommand(
                 std::vector<std::vector<TopologicalMesh::VertexHandle>>& faulty ) :
                 m_faulty( faulty ) {}
-            inline void initialize( const AttribArrayGeometry& ) {}
+            inline void initialize( const IndexedGeometry<TriangleMesh::IndexType>& ) {}
             inline void process( const std::vector<TopologicalMesh::VertexHandle>& face_vhandles ) {
                 m_faulty.push_back( face_vhandles );
                 nonManifoldFaces++;

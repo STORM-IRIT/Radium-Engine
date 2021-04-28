@@ -218,59 +218,6 @@ class RA_CORE_API PointCloud : public AttribArrayGeometry
 class RA_CORE_API LineStrip : public AttribArrayGeometry
 {};
 
-/// Simple Mesh structure that handles indexed polygonal mesh with vertex
-/// attributes. Each face is indexed with typename T = IndexType.
-/// T is assumed to be an Eigen Vector of unsigned ints
-/// observable on indices
-template <typename T>
-class IndexedGeometry : public AttribArrayGeometry, public Utils::ObservableVoid
-{
-  public:
-    using IndexType          = T;
-    using IndexContainerType = VectorArray<IndexType>;
-
-    inline IndexedGeometry() = default;
-    inline explicit IndexedGeometry( const IndexedGeometry<IndexType>& other );
-    inline explicit IndexedGeometry( IndexedGeometry<IndexType>&& other );
-    inline IndexedGeometry<IndexType>& operator=( const IndexedGeometry<IndexType>& other );
-    inline IndexedGeometry<IndexType>& operator=( IndexedGeometry<IndexType>&& other );
-
-    inline void clear() override;
-
-    /// Copy only the geometry and the indices from \p other, but not the attributes.
-    inline void copy( const IndexedGeometry<IndexType>& other );
-
-    /// Check that the IndexedGeometry is well built, asserting when it is not.
-    /// only compiles to something when in debug mode.
-    inline void checkConsistency() const;
-
-    /// Appends another IndexedGeometry to this one, but only if they have the same attributes.
-    /// Return True if \p other has been successfully appended.
-    /// \warning There is no error check on the handles attribute type.
-    inline bool append( const IndexedGeometry<IndexType>& other );
-
-    /// read only access to indices
-    const IndexContainerType& getIndices() const;
-
-    /// read write access to indices.
-    /// Cause indices to be "lock" for the caller
-    /// need to be unlock by the caller before any one can ask for write access.
-    IndexContainerType& getIndicesWithLock();
-
-    /// unlock previously read write acces, notify observers of the update.
-    void indicesUnlock();
-
-    /// set indices. Indices must be unlock, i.e. no one should have write
-    /// access to it.
-    /// Notify observers of the update.
-    void setIndices( IndexContainerType&& indices );
-    void setIndices( const IndexContainerType& indices );
-
-  private:
-    bool m_isIndicesLocked {false};
-    IndexContainerType m_indices;
-};
-
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra

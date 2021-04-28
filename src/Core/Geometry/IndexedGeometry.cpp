@@ -23,6 +23,7 @@ MultiIndexedGeometry& MultiIndexedGeometry::operator=( const MultiIndexedGeometr
     AttribArrayGeometry::operator=( other );
     m_indices                    = other.m_indices;
     notify();
+    invalidateAabb();
     return *this;
 }
 
@@ -31,6 +32,7 @@ MultiIndexedGeometry& MultiIndexedGeometry::operator=( MultiIndexedGeometry&& ot
     AttribArrayGeometry::operator=( std::move( other ) );
     m_indices                    = std::move( other.m_indices );
     notify();
+    invalidateAabb();
     return *this;
 }
 
@@ -38,6 +40,7 @@ void MultiIndexedGeometry::clear() {
     m_indices.clear();
     AttribArrayGeometry::clear();
     notify();
+    invalidateAabb();
 }
 
 /// \fixme Deep copy
@@ -45,6 +48,7 @@ void MultiIndexedGeometry::copy( const MultiIndexedGeometry& other ) {
     AttribArrayGeometry::copyBaseGeometry( other );
     m_indices = other.m_indices;
     notify();
+    invalidateAabb();
 }
 
 /// \todo Implement MultiIndexedGeometry::checkConsistency
@@ -64,6 +68,8 @@ MultiIndexedGeometry::append( const MultiIndexedGeometry& other ) {
             isCopyComplete = false;
     }
 
+    notify();
+    invalidateAabb();
     return isCopyComplete;
 }
 
