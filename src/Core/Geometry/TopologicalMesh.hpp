@@ -204,6 +204,10 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
 
     void updateWedgeNormals();
     ///@}
+
+    /// update wedge's position to correspond to current point position, which might not be the case
+    /// if point(handle) = something; has been used.
+    void copyPointsPositionToWedges();
     /**
      * \name Topological operations
      */

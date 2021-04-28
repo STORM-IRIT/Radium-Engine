@@ -746,50 +746,6 @@ TopologicalMesh::getOutputTriangleMeshIndexPropHandle() const {
     return m_outputTriangleMeshIndexPph;
 }
 
-inline void TopologicalMesh::updateWedgeNormals() {
-    if ( !has_halfedge_normals() )
-    {
-        LOG( logERROR ) << "TopologicalMesh has no normals, nothing set";
-        return;
-    }
-    //    update_face_normals();
-    FaceIter f_it( faces_sbegin() ), f_end( faces_end() );
-    for ( ; f_it != f_end; ++f_it )
-    {
-        auto fv_it     = this->cfv_iter( *f_it );
-        const auto& p0 = point( *fv_it );
-        ++fv_it;
-        const auto& p1 = point( *fv_it );
-        ++fv_it;
-        const auto& p2 = point( *fv_it );
-        ++fv_it;
-        const Normal n = Ra::Core::Geometry::triangleNormal( p0, p1, p2 );
-        set_normal( *f_it, n );
-    }
-
-    for ( auto& w : m_wedges.m_data )
-    {
-        w.getWedgeData().m_vector3Attrib[m_normalsIndex] = Normal {0_ra, 0_ra, 0_ra};
-    }
-
-    for ( auto v_itr = vertices_begin(), stop = vertices_end(); v_itr != stop; ++v_itr )
-    {
-        for ( ConstVertexFaceIter f_itr = cvf_iter( *v_itr ); f_itr.is_valid(); ++f_itr )
-        {
-            for ( const auto& widx : m_vertexFaceWedgesWithSameNormals[v_itr->idx()][f_itr->idx()] )
-            {
-                m_wedges.m_data[widx].getWedgeData().m_vector3Attrib[m_normalsIndex] +=
-                    normal( *f_itr );
-            }
-        }
-    }
-
-    for ( auto& w : m_wedges.m_data )
-    {
-        w.getWedgeData().m_vector3Attrib[m_normalsIndex].normalize();
-    }
-}
-
 inline std::set<TopologicalMesh::WedgeIndex>
 TopologicalMesh::getVertexWedges( OpenMesh::VertexHandle vh ) const {
     std::set<TopologicalMesh::WedgeIndex> ret;
