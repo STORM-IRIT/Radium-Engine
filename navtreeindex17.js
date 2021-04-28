@@ -227,7 +227,7 @@ var NAVTREEINDEX17 =
 "cmakeutilities.html#configure_radium_app":[4,0,0,0,0],
 "cmakeutilities.html#configure_radium_library":[4,0,0,1,0],
 "cmakeutilities.html#configure_radium_plugin":[4,0,0,2,0],
-"cmakeutilities.html#installTargetResources":[4,0,0,1,1],
+"cmakeutilities.html#install_target_resources":[4,0,0,1,1],
 "cmakeutilities.html#radium_exported_resources":[4,0,0,1,3],
 "componentMessenger.html":[3,0],
 "componentMessenger.html#autotoc_md22":[3,0,0],

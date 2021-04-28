@@ -7,7 +7,7 @@ var develmanual =
         ] ],
         [ "Extending Radium through libraries", "cmakeutilities.html#autotoc_md58", [
           [ "configure_radium_library", "cmakeutilities.html#configure_radium_library", null ],
-          [ "installTargetResources", "cmakeutilities.html#installTargetResources", null ],
+          [ "install_target_resources", "cmakeutilities.html#install_target_resources", null ],
           [ "configure_radium_package", "cmakeutilities.html#configurePackage", null ],
           [ "radium_exported_resources", "cmakeutilities.html#radium_exported_resources", null ]
         ] ],
