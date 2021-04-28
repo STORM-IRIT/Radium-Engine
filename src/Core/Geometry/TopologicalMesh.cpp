@@ -213,8 +213,8 @@ void copyWedgeDataToAttribContainer( AlignedStdVector<typename Attrib<T>::Contai
     }
 }
 
-template <typename T, typename U>
-void moveContainerToMesh( IndexedGeometry<U>& out,
+template <typename T>
+void moveContainerToMesh( Ra::Core::Geometry::MultiIndexedGeometry& out,
                           const std::vector<std::string>& names,
                           AlignedStdVector<typename Attrib<T>::Container>& wedgeAttribData ) {
     for ( size_t i = 0; i < wedgeAttribData.size(); ++i )
@@ -397,7 +397,7 @@ PolyMesh TopologicalMesh::toPolyMesh() {
     return out;
 }
 
-void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& out ) {
+void TopologicalMesh::updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& out ) {
     TriangleMesh::PointAttribHandle::Container wedgePosition;
     AlignedStdVector<Attrib<Scalar>::Container> wedgeFloatAttribData(
         m_wedges.m_floatAttribNames.size() );
@@ -440,13 +440,13 @@ void TopologicalMesh::updateTriangleMeshNormals(
     }
 }
 
-void TopologicalMesh::updateTriangleMeshNormals( Ra::Core::Geometry::TriangleMesh& out ) {
+void TopologicalMesh::updateTriangleMeshNormals( Ra::Core::Geometry::MultiIndexedGeometry& out ) {
     auto& normals = out.normalsWithLock();
     updateTriangleMeshNormals( normals );
     out.normalsUnlock();
 }
 
-void TopologicalMesh::update( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
+void TopologicalMesh::update( const Ra::Core::Geometry::MultiIndexedGeometry& triMesh ) {
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )
     {
         WedgeData wd;
@@ -468,7 +468,7 @@ void TopologicalMesh::update( const Ra::Core::Geometry::TriangleMesh& triMesh ) 
     }
 }
 
-void TopologicalMesh::updatePositions( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
+void TopologicalMesh::updatePositions( const Ra::Core::Geometry::MultiIndexedGeometry& triMesh ) {
     updatePositions( triMesh.vertices() );
 }
 
@@ -482,7 +482,7 @@ void TopologicalMesh::updatePositions(
     }
 }
 
-void TopologicalMesh::updateNormals( const Ra::Core::Geometry::TriangleMesh& triMesh ) {
+void TopologicalMesh::updateNormals( const Ra::Core::Geometry::MultiIndexedGeometry& triMesh ) {
     auto& normals = triMesh.normals();
 
     for ( size_t i = 0; i < triMesh.vertices().size(); ++i )

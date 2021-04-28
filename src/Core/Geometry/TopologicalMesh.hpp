@@ -153,13 +153,13 @@ class RA_CORE_API TopologicalMesh : public OpenMesh::PolyMesh_ArrayKernelT<Topol
      * Update triangle mesh data, assuming the mesh and this topo mesh has the
      * same topology.
      */
-    void updateTriangleMesh( Ra::Core::Geometry::TriangleMesh& mesh );
-    void updateTriangleMeshNormals( Ra::Core::Geometry::TriangleMesh& mesh );
+    void updateTriangleMesh( Ra::Core::Geometry::MultiIndexedGeometry& mesh );
+    void updateTriangleMeshNormals( Ra::Core::Geometry::MultiIndexedGeometry& mesh );
     void updateTriangleMeshNormals( AttribArrayGeometry::NormalAttribHandle::Container& normals );
 
-    void update( const Ra::Core::Geometry::TriangleMesh& mesh );
-    void updateNormals( const Ra::Core::Geometry::TriangleMesh& mesh );
-    void updatePositions( const Ra::Core::Geometry::TriangleMesh& mesh );
+    void update( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
+    void updateNormals( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
+    void updatePositions( const Ra::Core::Geometry::MultiIndexedGeometry& mesh );
     void updatePositions( const AttribArrayGeometry::PointAttribHandle::Container& vertices );
     // import other version of halfedge_handle method
     using base::halfedge_handle;
