@@ -66,6 +66,7 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
 
     /// Apply the local transformation 'T' to the camera.
     void applyTransform( const Core::Transform& T );
+    void updateTransform();
 
     //
     // Access to view and projection matrices.
@@ -171,6 +172,7 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
 
     Core::Asset::Camera* getCamera() const { return m_camera.get(); }
     Core::Asset::Camera* getCamera() { return m_camera.get(); }
+    const Rendering::RenderObject* getRenderObject() const { return m_RO; }
 
   protected:
     std::unique_ptr<Core::Asset::Camera> m_camera;
