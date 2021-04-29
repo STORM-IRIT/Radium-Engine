@@ -91,6 +91,8 @@ class RA_ENGINE_API Component
 
     void invalidateAabb();
 
+    const std::vector<Core::Utils::Index>& getRenderObjects() { return m_renderObjects; }
+
   protected:
     /// Shortcut to access the render object manager.
     static Rendering::RenderObjectManager* getRoMgr();
