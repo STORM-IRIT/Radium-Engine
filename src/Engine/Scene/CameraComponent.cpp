@@ -34,8 +34,8 @@ void CameraComponent::initialize() {
     using Data::PlainMaterial;
     if ( !m_renderObjects.empty() ) return;
     // Create the render mesh for the camera
-    auto m = std::make_shared<Mesh>( m_name + "_mesh" );
-    Ra::Core::Geometry::TriangleMesh triMesh;
+
+    Ra::Core::Geometry::LineMesh triMesh;
     triMesh.setVertices( {{0_ra, 0_ra, 0_ra},
                           {-.5_ra, -.5_ra, -1_ra},
                           {-.5_ra, .5_ra, -1_ra},
@@ -44,22 +44,21 @@ void CameraComponent::initialize() {
                           {-.3_ra, .5_ra, -1_ra},
                           {0_ra, .7_ra, -1_ra},
                           {.3_ra, .5_ra, -1_ra}} );
-    triMesh.setIndices( {{0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1}, {5, 6, 7}} );
-    Core::Vector4Array c( 8, {.2_ra, .2_ra, .2_ra, 1_ra} );
-    triMesh.addAttrib( Mesh::getAttribName( Mesh::VERTEX_COLOR ), c );
+    triMesh.setIndices(
+        {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 2}, {1, 4}, {2, 3}, {3, 4}, {5, 6}, {6, 7}} );
 
+    auto m = std::make_shared<Data::LineMesh>( m_name + "_mesh" );
     m->loadGeometry( std::move( triMesh ) );
-
     // Create the RO
-    auto mat = Core::make_shared<PlainMaterial>( m_name + "_Material" );
-    /// \todo switch to "mat->m_color          = {.2_ra, .2_ra, .2_ra, 1_ra};"
-    mat->m_perVertexColor = true;
+    auto mat              = Core::make_shared<PlainMaterial>( m_name + "_Material" );
+    mat->m_color          = {1_ra, .5_ra, 0_ra, 1_ra};
+    mat->m_perVertexColor = false;
     Rendering::RenderTechnique rt;
     auto cfg = Data::ShaderConfigurationFactory::getConfiguration( "Plain" );
     rt.setConfiguration( *cfg );
     rt.setParametersProvider( mat );
     m_RO = Rendering::RenderObject::createRenderObject(
-        m_name + "_RO", this, Rendering::RenderObjectType::Debug, m, rt );
+        m_name + "_RO", this, Rendering::RenderObjectType::Geometry, m, rt );
     m_RO->setLocalTransform( m_camera->getFrame() );
     m_RO->setMaterial( mat );
     show( false );
