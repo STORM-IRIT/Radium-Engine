@@ -91,6 +91,11 @@ void CameraComponent::applyTransform( const Core::Transform& T ) {
     m_RO->setLocalTransform( m_camera->getFrame() );
 }
 
+void CameraComponent::updateTransform() {
+    CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
+    m_RO->setLocalTransform( m_camera->getFrame() );
+}
+
 void CameraComponent::updateProjMatrix() {
     m_camera->updateProjMatrix();
 }
