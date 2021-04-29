@@ -17,6 +17,7 @@
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Rendering/RenderObjectManager.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
+#include <Engine/Scene/DefaultCameraManager.hpp>
 #include <Engine/Scene/Entity.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/SignalManager.hpp>
@@ -57,6 +58,11 @@ void RadiumEngine::initialize() {
 
     m_loadedFile.reset();
     Scene::ComponentMessenger::createInstance();
+
+    auto cameraManager = new Scene::DefaultCameraManager();
+    Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
+                                                             cameraManager );
+
     m_loadingState = false;
 }
 
