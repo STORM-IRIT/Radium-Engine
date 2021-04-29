@@ -43,9 +43,11 @@ class RA_GUI_API KeyMappingManager : public Ra::Core::Utils::ObservableVoid
     std::string getLoadedFilename() { return m_file->fileName().toStdString(); }
 
     /// Return the action associated to the binding buttons + modifiers + key
+    /// \param context is the context to get action from (e.g. camera or gizmo)
     /// \param buttons are the mouse buttons pressed, could be NoButton
     /// \param modifiers are the keyboard modifiers, could be NoModifiers
     /// \param key is the key pressed, could be -1
+    /// \param wheel specifies if we consider a wheel event
     KeyMappingManager::KeyMappingAction getAction( const KeyMappingManager::Context& context,
                                                    const Qt::MouseButtons& buttons,
                                                    const Qt::KeyboardModifiers& modifiers,
