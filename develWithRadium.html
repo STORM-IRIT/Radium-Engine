@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9e355e2d265fbd8297c8bb731fcc32dbcbef7eda</span>
+   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
    </div>
   </td>
  </tr>
@@ -97,9 +97,7 @@ $(document).ready(function(){initNavTree('develWithRadium.html',''); initResizab
 <div class="toc"><h3>Table of Contents</h3>
 <ul><li class="level1"><a href="#autotoc_md73">Radium libraries</a></li>
 <li class="level1"><a href="#autotoc_md74">Radium test suite</a><ul><li class="level2"><a href="#autotoc_md75">Preliminaries</a></li>
-<li class="level2"><a href="#autotoc_md76">[deprectaed] How to write tests</a></li>
-<li class="level2"><a href="#autotoc_md77">How to add a test to the testing suite</a></li>
-<li class="level2"><a href="#autotoc_md78">How to run tests locally and on the CI systems</a></li>
+<li class="level2"><a href="#autotoc_md76">How to write tests</a></li>
 </ul>
 </li>
 </ul>
@@ -117,109 +115,53 @@ Preliminaries</h2>
 </ul>
 <p>As a Radium contributor, and in most cases, you will have to work only with CTest, and let the CI system run your tests automatically. In this section we describe how to write a new test, how to insert it in the testing suite, and how to validate your results on your computer and the CI systems.</p>
 <h2><a class="anchor" id="autotoc_md76"></a>
-[deprectaed] How to write tests</h2>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>update to catch unit tests and integration tests Tests are C++ executables, expected to set their return value accordingly to the test result, e.g. <code>return EXIT_FAILURE;</code> or by calling <code>abort();</code> in case of failure.</dd></dl>
-<p>Their source code is stored in <code>Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src</code>.</p>
-<p>We provide in <code>Radium-Engine/tests/Tests.hpp</code> some utility functions to ease tests implementation.</p>
-<p>Let's consider the following snippet:`</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="LinearAlgebra_8hpp.html">Core/Math/LinearAlgebra.hpp</a>&gt;</span>                        <span class="comment">// include path contains Radium sources,</span></div>
-<div class="line"><span class="preprocessor">#include &lt;OpenMesh/Tools/Subdivider/Uniform/CatmullClarkT.hh&gt;</span> <span class="comment">// Radium&#39;s dependencies</span></div>
-<div class="line"><span class="preprocessor">#include &lt;Tests.hpp&gt;</span>                                          <span class="comment">// and the testing tools</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">namespace </span><a class="code" href="namespaceRa.html">Ra</a> {</div>
-<div class="line"><span class="keyword">namespace </span>Testing {</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> run() {</div>
-<div class="line">    <span class="keywordtype">bool</span> condition = <span class="keyword">true</span>;</div>
-<div class="line">    RA_VERIFY( condition, <span class="stringliteral">&quot;This test is passing&quot;</span> );</div>
-<div class="line">    <span class="comment">// RA_VERIFY( ! condition, &quot;This test does not pass&quot; );</span></div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line">} <span class="comment">// namespace Testing</span></div>
-<div class="line">} <span class="comment">// namespace Ra</span></div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span> **argv) {</div>
-<div class="line">   <span class="keyword">using namespace </span><a class="code" href="namespaceRa.html">Ra</a>;</div>
-<div class="line"> </div>
-<div class="line">   <span class="keywordflow">if</span>(!Testing::init_testing(1, argv))</div>
-<div class="line">   {</div>
-<div class="line">        <span class="keywordflow">return</span> EXIT_FAILURE;</div>
-<div class="line">   }</div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">   #pragma omp parallel for</span></div>
-<div class="line">   <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; Testing::g_repeat; ++i)</div>
-<div class="line">   {</div>
-<div class="line">       CALL_SUBTEST(( Testing::run() ));</div>
-<div class="line">   }</div>
-<div class="line"> </div>
-<div class="line">   <span class="keywordflow">return</span> EXIT_SUCCESS;</div>
-<div class="line">}</div>
-</div><!-- fragment --><p>The <code>Ra::Testing::run()</code> method is performing the tests, and use the macro <code>RA_VERIFY</code> to abort the execution if the condition fails. This macro is provided in <code>&lt;Tests.hpp&gt;</code>.</p>
-<p>The <code>main()</code> is simple is should not vary to much across tests. It first initializes the testing helpers (including random number generation), and then call the testing function <code>g_repeat</code> times. Repetition is strongly encouraged, especially to test or detect piece of codes involving non-deterministic behavior. Of course, multiple functions can be called in place of the <code>run()</code> function shown in this example. A standard use case is:</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#pragma omp parallel for</span></div>
-<div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; Testing::g_repeat; ++i)</div>
-<div class="line">{</div>
-<div class="line">     CALL_SUBTEST(( Testing::run&lt;float&gt;() ));</div>
-<div class="line">     CALL_SUBTEST(( Testing::run&lt;double&gt;() ));</div>
-<div class="line">     <span class="comment">// ... other types</span></div>
-<div class="line">}</div>
-</div><!-- fragment --><p>Note that we target Unit Tests, which can be defined as: </p><blockquote class="doxtable">
+How to write tests</h2>
+<p>There is two kind of tests, integration test and unit test. Tests are run with the <code>check</code> target and it's variant (<code>check_verbose</code>, <code>test</code>, <code>run_unittests</code>, <code>run_unittests_verbose</code>)</p>
+<ul>
+<li>integration test are based on program return values, using the ctest suite. The tests are set in <code>tests/integration/CMakeLists.txt</code>, see <code>add_test</code> <a href="https://cmake.org/cmake/help/latest/command/add_test.html">documentation</a>. Integration tests typically run some program, catch and analyze the output, compare to reference output etc.</li>
+<li>unit test use Catch2 framework <a href="https://github.com/catchorg/Catch2/blob/devel/docs/tutorial.md">see tutorial</a></li>
+</ul>
+<p>Note that we target Unit Tests, which can be defined as: </p><blockquote class="doxtable">
 <p>The purpose of a unit test in software engineering is to verify the behavior of a relatively small piece of software, independently from other parts. Unit tests are narrow in scope, and allow us to cover all cases, ensuring that every single part works correctly.</p>
 <p>Source: <a href="https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters">https://www.toptal.com/qa/how-to-write-testable-code-and-why-it-matters</a> </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md77"></a>
-How to add a test to the testing suite</h2>
-<p>The testing suite is handled by <code>cmake</code>: tests need to be added with their sources and dependencies. We provide a <code>cmake</code> helper function to add a test easily:</p>
-<div class="fragment"><div class="line">radium_add_test( TARGET my_test_name SRC src/my_test.cpp LIBS radiumCore radiumEngine )</div>
-</div><!-- fragment --><p>See <code>Radium-Engine/cmake/ConfigureTesting.cmake</code> for the implementation of this function, and <code>Radium-Engine/tests/CoreTests/CMakeLists.txt</code> for an usage example.</p>
-<p>Tests are located in <code>Radium-Engine/tests/{Core,Engine,IO,Gui}Tests/src</code>. Currently <code>cmake</code> scripts are configured only for <code>Core</code>, you might need to copy and adapt them in case you add tests for the others packages (this is what you should do ! ;) ).</p>
-<h2><a class="anchor" id="autotoc_md78"></a>
-How to run tests locally and on the CI systems</h2>
-<p>First, you need to have the <code>cmake</code> option <code>RADIUM_COMPILE_TESTS</code> set to <code>ON</code> (the default).</p>
-<p>To run the tests locally, you first need to compile them (<code>make buildtests</code>) and then call CTest (<code>make test</code>). You should get something like: </p><div class="fragment"><div class="line">$ make test</div>
-<div class="line">Running tests...</div>
-<div class="line">Test project /home/me/build-Radium-Engine-Desktop-Release</div>
-<div class="line">      Start  1: test_core_algebra</div>
-<div class="line"> 1/11 Test  #1: test_core_algebra ................   Passed    0.00 sec</div>
-<div class="line">      Start  2: test_core_animation</div>
-<div class="line"> 2/11 Test  #2: test_core_animation ..............   Passed    0.01 sec</div>
-<div class="line">      Start  3: test_core_containers</div>
-<div class="line"> 3/11 Test  #3: test_core_containers .............   Passed    0.00 sec</div>
-<div class="line">      Start  4: test_core_distance</div>
-<div class="line"> 4/11 Test  #4: test_core_distance ...............   Passed    0.00 sec</div>
-<div class="line">      Start  5: test_core_geometry</div>
-<div class="line"> 5/11 Test  #5: test_core_geometry ...............   Passed    0.00 sec</div>
-<div class="line">      Start  6: test_core_indexmap</div>
-<div class="line"> 6/11 Test  #6: test_core_indexmap ...............   Passed    0.00 sec</div>
-<div class="line">      Start  7: test_core_mesh</div>
-<div class="line"> 7/11 Test  #7: test_core_mesh ...................   Passed    0.00 sec</div>
-<div class="line">      Start  8: test_core_raycast</div>
-<div class="line"> 8/11 Test  #8: test_core_raycast ................   Passed    0.01 sec</div>
-<div class="line">      Start  9: test_core_string</div>
-<div class="line"> 9/11 Test  #9: test_core_string .................   Passed    0.00 sec</div>
-<div class="line">      Start 10: test_core_topomesh</div>
-<div class="line">10/11 Test #10: test_core_topomesh ...............   Passed    0.01 sec</div>
-<div class="line">      Start 11: test_core_polyline</div>
-<div class="line">11/11 Test #11: test_core_polyline ...............   Passed    0.00 sec</div>
+<p>To add a unit test, create the test file in tests/unittest/LIB/mytestfile.cpp where LIB correspond to the library you are testing (Core, Engine, Gui, IO). Edit <code>tests/unittest/CMakeLists.txt</code> and add your test to the list of sources of <code>add_executable(unittests ...</code>. If your test needs data, add them to <code>tests/unittest/data</code>. unittest working dir is <code>tests/unittest</code> so you can refer your data with a relative path starting with <code>data</code>. No output file are allowed in unittest. <code>TEST_CASE</code> first argument is the unique test name, second argument is a list of optional tags. You can add independent <code>TEST_SECTION</code>s to your test, please refer to <a href="https://github.com/catchorg/Catch2/tree/devel/docs">catch2 documentation</a>.</p>
+<p>Here is an example:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Obb_8hpp.html">Core/Geometry/Obb.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Math_8hpp.html">Core/Math/Math.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Types_8hpp.html">Core/Types.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;catch2/catch.hpp&gt;</span></div>
 <div class="line"> </div>
-<div class="line">100% tests passed, 0 tests failed out of 11</div>
+<div class="line">TEST_CASE( <span class="stringliteral">&quot;Core/Geometry/Obb&quot;</span>, <span class="stringliteral">&quot;[Core][Core/Geometry][Obb]&quot;</span> ) {</div>
 <div class="line"> </div>
-<div class="line">Total Test time (real) =   0.06 sec</div>
-</div><!-- fragment --><p>The standard output is not printed when using CTest. To debug a test, you might need to run it directly. Tests binaries are located in <code>CMAKE_BUILD_PATH/tests/</code>.</p>
-<p>Tests are automatically compiled and ran for Linux and MacOS CI, each time commits are pushed to Github. See snippet from TravisCI configuration file <code>Radium-Engine/.travis</code>: </p><div class="fragment"><div class="line">script:</div>
-<div class="line">  - make -j 4</div>
-<div class="line">  - make buildtests &amp;&amp; make test</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="line">    <span class="keyword">using namespace </span><a class="code" href="namespaceRa_1_1Core.html">Ra::Core</a>;</div>
+<div class="line">    SECTION( <span class="stringliteral">&quot;Simple tests&quot;</span> ) {</div>
+<div class="line">        <span class="comment">// Check Obb and empty aabb</span></div>
+<div class="line">        <a class="code" href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Aabb</a> aabb;</div>
+<div class="line">        <a class="code" href="classRa_1_1Core_1_1Geometry_1_1Obb.html">Geometry::Obb</a> obb( aabb, Transform::Identity() );</div>
+<div class="line">        REQUIRE( obb.toAabb().isEmpty() );</div>
+<div class="line">        REQUIRE( obb.toAabb().isApprox( aabb ) );</div>
+<div class="line">        obb.transform().rotate( <a class="code" href="namespaceRa_1_1Core.html#a074dc1e99d57862739cab73a09cc49c1">AngleAxis</a>( <a class="code" href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Math::Pi</a>, Vector3::UnitX() ) );</div>
+<div class="line">        REQUIRE( obb.toAabb().isEmpty() );</div>
+<div class="line">        REQUIRE( obb.toAabb().isApprox( aabb ) );</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --></div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
-<div class="ttc" id="aLinearAlgebra_8hpp_html"><div class="ttname"><a href="LinearAlgebra_8hpp.html">LinearAlgebra.hpp</a></div></div>
-<div class="ttc" id="anamespaceRa_html"><div class="ttname"><a href="namespaceRa.html">Ra</a></div><div class="ttdoc">This file contains definitions of aliases for basic vector classes and functions.</div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00005">BulgeCorrection.cpp:5</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html"><div class="ttname"><a href="namespaceRa_1_1Core.html">Ra::Core</a></div><div class="ttdef"><b>Definition:</b> <a href="BulgeCorrection_8cpp_source.html#l00006">BulgeCorrection.cpp:6</a></div></div>
+<div class="ttc" id="aclassRa_1_1Core_1_1Geometry_1_1Obb_html"><div class="ttname"><a href="classRa_1_1Core_1_1Geometry_1_1Obb.html">Ra::Core::Geometry::Obb</a></div><div class="ttdoc">An oriented bounding box.</div><div class="ttdef"><b>Definition:</b> <a href="Obb_8hpp_source.html#l00011">Obb.hpp:11</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a66854efd74c5507e9b15f998ccda8f96"><div class="ttname"><a href="namespaceRa_1_1Core.html#a66854efd74c5507e9b15f998ccda8f96">Ra::Core::Aabb</a></div><div class="ttdeci">Eigen::AlignedBox&lt; Scalar, 3 &gt; Aabb</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00086">Types.hpp:86</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_1_1Math_html_ae85a94d4f706d35cfcd6864480aee5b3"><div class="ttname"><a href="namespaceRa_1_1Core_1_1Math.html#ae85a94d4f706d35cfcd6864480aee5b3">Ra::Core::Math::Pi</a></div><div class="ttdeci">constexpr Scalar Pi</div><div class="ttdef"><b>Definition:</b> <a href="Math_8hpp_source.html#l00013">Math.hpp:13</a></div></div>
+<div class="ttc" id="anamespaceRa_1_1Core_html_a074dc1e99d57862739cab73a09cc49c1"><div class="ttname"><a href="namespaceRa_1_1Core.html#a074dc1e99d57862739cab73a09cc49c1">Ra::Core::AngleAxis</a></div><div class="ttdeci">Eigen::AngleAxis&lt; Scalar &gt; AngleAxis</div><div class="ttdef"><b>Definition:</b> <a href="Types_8hpp_source.html#l00090">Types.hpp:90</a></div></div>
+<div class="ttc" id="aObb_8hpp_html"><div class="ttname"><a href="Obb_8hpp.html">Obb.hpp</a></div></div>
+<div class="ttc" id="aTypes_8hpp_html"><div class="ttname"><a href="Types_8hpp.html">Types.hpp</a></div></div>
+<div class="ttc" id="aMath_8hpp_html"><div class="ttname"><a href="Math_8hpp.html">Math.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="develmanual.html">Developer manual</a></li>
-    <li class="footer">Generated on Wed Apr 28 2021 09:50:45 for Radium Engine by
+    <li class="footer">Generated on Thu Apr 29 2021 09:18:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -23,10 +23,10 @@ var develmanual =
       ] ]
     ] ],
     [ "How to write your own plugin", "develplugin.html", [
-      [ "Radium Plugin", "develplugin.html#autotoc_md111", null ],
-      [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md112", null ],
-      [ "Configuring the plugin", "develplugin.html#autotoc_md113", null ],
-      [ "Using the Plugin", "develplugin.html#autotoc_md114", null ]
+      [ "Radium Plugin", "develplugin.html#autotoc_md109", null ],
+      [ "Setting a CMakeLists.txt for a Radium plugin", "develplugin.html#autotoc_md110", null ],
+      [ "Configuring the plugin", "develplugin.html#autotoc_md111", null ],
+      [ "Using the Plugin", "develplugin.html#autotoc_md112", null ]
     ] ],
     [ "How to write your own application", "apps.html", [
       [ "Radium Application", "apps.html#autotoc_md2", null ]
@@ -35,9 +35,7 @@ var develmanual =
       [ "Radium libraries", "develWithRadium.html#autotoc_md73", null ],
       [ "Radium test suite", "develWithRadium.html#autotoc_md74", [
         [ "Preliminaries", "develWithRadium.html#autotoc_md75", null ],
-        [ "[deprectaed] How to write tests", "develWithRadium.html#autotoc_md76", null ],
-        [ "How to add a test to the testing suite", "develWithRadium.html#autotoc_md77", null ],
-        [ "How to run tests locally and on the CI systems", "develWithRadium.html#autotoc_md78", null ]
+        [ "How to write tests", "develWithRadium.html#autotoc_md76", null ]
       ] ]
     ] ],
     [ "Coding conventions for Radium", "develCodingConvention.html", [
@@ -65,22 +63,22 @@ var develmanual =
     ] ],
     [ "API", "api.html", "api" ],
     [ "[deprecated] Radium Engine programmer manual", "develoldmanual.html", [
-      [ "Source code organization", "develoldmanual.html#autotoc_md97", [
-        [ "Import and export", "develoldmanual.html#autotoc_md98", null ]
+      [ "Source code organization", "develoldmanual.html#autotoc_md95", [
+        [ "Import and export", "develoldmanual.html#autotoc_md96", null ]
       ] ],
-      [ "Core Libs", "develoldmanual.html#autotoc_md99", null ],
-      [ "Engine Object Model", "develoldmanual.html#autotoc_md100", [
-        [ "Entities", "develoldmanual.html#autotoc_md101", null ],
-        [ "Systems and Components", "develoldmanual.html#autotoc_md102", null ],
-        [ "Frame and Tasks", "develoldmanual.html#autotoc_md103", null ],
-        [ "Rendering", "develoldmanual.html#autotoc_md104", null ],
-        [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md105", null ],
-        [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md106", null ],
-        [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md107", null ]
+      [ "Core Libs", "develoldmanual.html#autotoc_md97", null ],
+      [ "Engine Object Model", "develoldmanual.html#autotoc_md98", [
+        [ "Entities", "develoldmanual.html#autotoc_md99", null ],
+        [ "Systems and Components", "develoldmanual.html#autotoc_md100", null ],
+        [ "Frame and Tasks", "develoldmanual.html#autotoc_md101", null ],
+        [ "Rendering", "develoldmanual.html#autotoc_md102", null ],
+        [ "ItemEntry : Handles to engine objects", "develoldmanual.html#autotoc_md103", null ],
+        [ "Object manipulation and editable transforms", "develoldmanual.html#autotoc_md104", null ],
+        [ "The system Entity and Debug Display", "develoldmanual.html#autotoc_md105", null ]
       ] ],
-      [ "The plugin framework", "develoldmanual.html#autotoc_md108", [
-        [ "Requirements", "develoldmanual.html#autotoc_md109", null ],
-        [ "Default plugins", "develoldmanual.html#autotoc_md110", null ]
+      [ "The plugin framework", "develoldmanual.html#autotoc_md106", [
+        [ "Requirements", "develoldmanual.html#autotoc_md107", null ],
+        [ "Default plugins", "develoldmanual.html#autotoc_md108", null ]
       ] ]
     ] ]
 ];

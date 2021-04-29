@@ -99,8 +99,8 @@ var NAVTREEINDEX =
 "classRa_1_1Gui_1_1KeyMappingManager.html#a9a5cbf64a012151c7257c7c1c4117c85",
 "classRa_1_1Gui_1_1Viewer.html#a14a1ad5406cca6655fd9ed6e296bf8e3",
 "develCameraManipulator.html#autotoc_md55",
-"namespaceRa_1_1Core.html",
-"structRa_1_1Core_1_1Skinning_1_1RefData.html"
+"namespaceRa_1_1Core_1_1Animation.html",
+"structRa_1_1Core_1_1Skinning_1_1RefData.html#a6d342658fa9e6cf5b807a4b1732a89f9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

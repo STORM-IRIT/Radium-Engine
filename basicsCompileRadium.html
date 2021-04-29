@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9e355e2d265fbd8297c8bb731fcc32dbcbef7eda</span>
+   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
    </div>
   </td>
  </tr>
@@ -118,7 +118,7 @@ Dependencies</h1>
 <li>[Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 recommended)</li>
 <li>stb_image</li>
 </ul>
-<p>See <a class="el" href="develbuildchain.html">Radium Build Chain</a> for technical details on dependencies management and how to provide locally installed dependencies.</p>
+<p>**See <a class="el" href="develbuildchain.html">Radium Build Chain</a> for technical details on dependencies management and how to provide locally installed dependencies.**</p>
 <p>Minimal requirements</p><ul>
 <li>OpenGL 3+ / GLSL 330+</li>
 <li>CMake 3.15.7+</li>
@@ -143,7 +143,12 @@ Getting dependencies</h2>
 <p>They are automatically fetched by cmake at compile time. To force cmake re-fetching the dependencies, called </p><div class="fragment"><div class="line">make update</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md15"></a>
 Folder structure</h2>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<p>Radium-Engine relies on CMake buildchain on all supported platforms. In most cases, building should be pretty straightforward, provided that cmake can locate the dependencies. If cmake doesn't locate the Qt files (e.g. if you manually installed Qt as opposed to using your distribution's package), see the troubleshooting section below.</p>
+<p>Build output is generated in the <code>Radium-Engine/Bundle-*</code> directory (with <code>*</code> the name of the CXX compiler, followed by the build type), with the following structure, if externals are compiled along Radium </p><div class="fragment"><div class="line">Bundle-*</div>
+<div class="line"> - bin/  include/  lib/  libdata/  LICENSE  README.md  Resources/  share/</div>
+</div><!-- fragment --><p>Or if externals are compiled locally : </p><div class="fragment"><div class="line">Bundle-*</div>
+<div class="line"> - bin/  include/  lib/  LICENSE  README.md  Resources/  share/</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md16"></a>
 Configure build</h2>
 <p>Radium offers the following build options: </p><div class="fragment"><div class="line">// Enable testing. Tests are automatically built with target all</div>
 <div class="line">RADIUM_ENABLE_TESTING:BOOL=ON</div>
@@ -260,7 +265,7 @@ Building with QtCreator</h2>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="basicsmanual.html">Radium Basics</a></li>
-    <li class="footer">Generated on Wed Apr 28 2021 09:50:45 for Radium Engine by
+    <li class="footer">Generated on Thu Apr 29 2021 09:18:38 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

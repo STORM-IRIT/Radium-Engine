@@ -34,7 +34,7 @@
   <td id="projectlogo"><img alt="Logo" src="radium-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Radium Engine
-   &#160;<span id="projectnumber">9e355e2d265fbd8297c8bb731fcc32dbcbef7eda</span>
+   &#160;<span id="projectnumber">21edc6cd0317b37e4da861319322aa78b4738879</span>
    </div>
   </td>
  </tr>
@@ -443,7 +443,7 @@ Protected Member Functions</h2></td></tr>
 <p>keyFrameChanged is emitted when user insert keyFrame in a known keyFrame position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>is the ith keyFrame to change. </td></tr>
+    <tr><td class="paramname">i</td><td>is the ith keyFrame to change. </td></tr>
   </table>
   </dd>
 </dl>
@@ -477,7 +477,7 @@ Protected Member Functions</h2></td></tr>
 <p>keyFrameDeleted is emitted when user remove keyFrame. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>is the ith keyFrame to remove (chronological order). </td></tr>
+    <tr><td class="paramname">i</td><td>is the ith keyFrame to remove (chronological order). </td></tr>
   </table>
   </dd>
 </dl>
@@ -521,7 +521,7 @@ Protected Member Functions</h2></td></tr>
 <p>keyFrameMoved is emitted when user move the keyFrame on cursor to a new position (on mouse) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time0</td><td>is the old time of the keyFrame.</td></tr>
+    <tr><td class="paramname">i</td><td>is the index of the keyFrame.</td></tr>
     <tr><td class="paramname">time1</td><td>is the new time of the keyFrame. </td></tr>
   </table>
   </dd>
@@ -566,7 +566,7 @@ Protected Member Functions</h2></td></tr>
 <p>keyFramesMoved is emitted when user move keyFrames. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">time</td><td>is the time of the first keyFrame to move. </td></tr>
+    <tr><td class="paramname">first</td><td>is the index of the first keyFrame to move. </td></tr>
     <tr><td class="paramname">offset</td><td>is sliding distance for moving. </td></tr>
   </table>
   </dd>
@@ -1123,7 +1123,7 @@ Protected Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceRa.html">Ra</a></li><li class="navelem"><a class="el" href="namespaceRa_1_1Gui.html">Gui</a></li><li class="navelem"><a class="el" href="classRa_1_1Gui_1_1Timeline.html">Timeline</a></li>
-    <li class="footer">Generated on Wed Apr 28 2021 09:50:45 for Radium Engine by
+    <li class="footer">Generated on Thu Apr 29 2021 09:18:39 for Radium Engine by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>
