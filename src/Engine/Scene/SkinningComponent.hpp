@@ -101,14 +101,6 @@ class RA_ENGINE_API SkinningComponent : public Component
 
     /// Returns the current method used to skin the normal, tangent and binormal vectors.
     inline NormalSkinning getNormalSkinning() const { return m_normalSkinning; }
-
-    /// Toggles use of smart stretch.
-    /// \todo rename this as setPseudoIK
-    void setSmartStretch( bool on );
-
-    /// Returns whether smart stretch is active or not.
-    /// \todo rename this as isPseudoIKOn
-    bool isSmartStretchOn() const { return m_smartStretch; }
     /// \}
 
     /// \name Skinning Data
@@ -156,9 +148,6 @@ class RA_ENGINE_API SkinningComponent : public Component
     /// Internal function to compute the STBS weights.
     void computeSTBSWeights();
 
-    /// Applies smart stretch to the given pose.
-    void applySmartStretch( Core::Animation::Pose& pose );
-
   private:
     template <typename T>
     using Getter = typename ComponentMessenger::CallbackTypes<T>::Getter;
@@ -186,10 +175,6 @@ class RA_ENGINE_API SkinningComponent : public Component
 
     /// The method to skin the normal, tangent and bitangent vectors.
     NormalSkinning m_normalSkinning;
-
-    /// Stretch mode: false = standard, true = smart.
-    /// TODO : verify smart streatch. Does not work with several gltf skeletons
-    bool m_smartStretch {false};
 
     /// Are all the required data available.
     bool m_isReady;
