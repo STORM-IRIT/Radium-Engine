@@ -18,7 +18,7 @@ In this section we describe how to write a new test, how to insert it in the tes
 
 There is two kind of tests, integration test and unit test. Tests are run with the `check` target and it's variant (`check_verbose`, `test`, `run_unittests`, `run_unittests_verbose`)
 
-* integration test are based on program return values, using the ctest suite. The tests are set in `tests/integration/CMakeLists.txt`, see `add_test` [documenation](https://cmake.org/cmake/help/latest/command/add_test.html).
+* integration test are based on program return values, using the ctest suite. The tests are set in `tests/integration/CMakeLists.txt`, see `add_test` [documentation](https://cmake.org/cmake/help/latest/command/add_test.html).
   Integration tests typically run some program, catch and analyze the output, compare to reference output etc.
 * unit test use Catch2 framework [see tutorial](https://github.com/catchorg/Catch2/blob/devel/docs/tutorial.md)
 
@@ -31,7 +31,7 @@ Note that we target Unit Tests, which can be defined as:
 
 To add a unit test, 
 create the test file in tests/unittest/LIB/mytestfile.cpp where LIB correspond to the library you are testing (Core, Engine, Gui, IO).
-Add this file to the `tests/unittest/CMakeLists.txt` to the list of sources of `add_executable(unittests ...`.
+Edit `tests/unittest/CMakeLists.txt` and add your test to the list of sources of `add_executable(unittests ...`.
 If your test needs data, add them to `tests/unittest/data`. unittest working dir is `tests/unittest` so you can refer your data with a relative path starting with `data`. No output file are allowed in unittest.
 `TEST_CASE` first argument is the unique test name, second argument is a list of optional tags. You can add independent `TEST_SECTION`s to your test, please refer to [catch2 documentation](https://github.com/catchorg/Catch2/tree/devel/docs).
 
