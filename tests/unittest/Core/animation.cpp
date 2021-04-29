@@ -7,6 +7,10 @@
 #include <Core/Animation/KeyFramedValueController.hpp>
 //! [include keyframedvaluecontroller]
 
+//! [include DualQuaternionSkinning ]
+#include <Core/Animation/DualQuaternionSkinning.hpp>
+//! [include DualQuaternionSkinning ]
+
 #include <catch2/catch.hpp>
 
 using namespace Ra::Core;
@@ -386,4 +390,57 @@ TEST_CASE( "Core/Animation/KeyFramedStruct" ) {
         REQUIRE( Math::areApproxEqual( a.fetch( 2_ra ), 4_ra ) );
         REQUIRE( Math::areApproxEqual( a.fetch( 4_ra ), 8_ra ) );
     }
+}
+TEST_CASE( "Core/Animation/DualQuaternionSkinning",
+           "[Core][Core/Animation][DualQuaternionSkinning]" ) {
+    // initialize the pose
+    Ra::Core::Animation::Pose pose;
+    Ra::Core::Transform t0 { Ra::Core::Transform::Identity() };
+    Ra::Core::Transform t1 ( Eigen::AngleAxis(Scalar(-M_PI/4.), Ra::Core::Vector3 {0_ra, 1_ra, 0_ra}) );
+    pose.push_back(t0);
+    pose.push_back(t1);
+    // define a simple mesh
+    Ra::Core::Vector3Array vertices {
+        {0_ra, 0_ra, 0_ra},
+        {0_ra, 1_ra, 0_ra},
+        {1_ra, 0_ra, 0_ra},
+        {1_ra, 1_ra, 0_ra},
+        {2_ra, 0_ra, 0_ra},
+        {2_ra, 1_ra, 0_ra}
+    };
+    // define the weight matrix
+    Ra::Core::Animation::WeightMatrix weights(6, 2);
+    // M( i, j ) = w   , if vertex i is influenced by transform j ;
+    // influence of bone 0
+    weights.insert(0, 0) = 1_ra;
+    weights.insert(1, 0) = 1_ra;
+    weights.insert(2, 0) = 0.5_ra;
+    weights.insert(3, 0) = 0.5_ra;
+    // influence of bone 1
+    weights.insert(2, 1) = 0.5_ra;
+    weights.insert(3, 1) = 0.5_ra;
+    weights.insert(4, 1) = 1_ra;
+    weights.insert(5, 1) = 1_ra;
+
+    // Interpolate the transformations
+    Ra::Core::Quaternion q0(t0.linear());
+    Ra::Core::Quaternion q1(t1.linear());
+    Ra::Core::Quaternion q3 = q0.slerp(0.5_ra, q1);
+
+    // test dual quaternions
+    auto dq = Ra::Core::Animation::computeDQ(pose, weights);
+    REQUIRE(q3.toRotationMatrix().isApprox(dq[2].getTransform().linear()) );
+
+    // apply and verify dualquaternion deformation
+    auto sk = Ra::Core::Animation::applyDualQuaternions(dq, vertices);
+    REQUIRE( vertices[0].isApprox(sk[0]) );
+    Ra::Core::Transform t(q3);
+    auto vt = t*vertices[2];
+    REQUIRE( vt.isApprox(sk[2]) );
+    auto vt1 = t1*vertices[4];
+    REQUIRE( vt1.isApprox(sk[4]) );
+
+    // test naive dual quaternions
+    auto dq_n = Ra::Core::Animation::computeDQ(pose, weights);
+    REQUIRE( q3.toRotationMatrix().isApprox(dq_n[2].getTransform().linear()) );
 }
