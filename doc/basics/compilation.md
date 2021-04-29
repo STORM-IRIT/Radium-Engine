@@ -9,7 +9,7 @@ All the dependencies are automatically fetched and compiled at build time.
  * [Gui] Qt Core, Qt Widgets and Qt OpenGL v5.5+ (5.14 recommended)
  * stb_image
 
-See @ref develbuildchain for technical details on dependencies management and how to provide locally installed dependencies.
+**See @ref develbuildchain for technical details on dependencies management and how to provide locally installed dependencies.**
 
 Minimal requirements
  * OpenGL 3+ / GLSL 330+
@@ -36,26 +36,21 @@ make update
 ~~~
 
 ## Folder structure
-<!--Radium-Engine relies on CMake buildchain on all supported platforms.
+Radium-Engine relies on CMake buildchain on all supported platforms.
 In most cases, building should be pretty straightforward, provided that cmake can locate the dependencies.
-You will need to have the openGL headers and libraries, Qt 5.4 or more and cmake.
 If cmake doesn't locate the Qt files (e.g. if you manually installed Qt as opposed to using your distribution's package),
 see the troubleshooting section below.
 
-See plateform-dependent instructions for detailled how-to.
-
-Build output is generated in the `Radium-Engine/Bundle-*` directory (with `*` the name of the CXX compiler), with the following structure:
+Build output is generated in the `Radium-Engine/Bundle-*` directory (with `*` the name of the CXX compiler, followed by the build type), with the following structure, if externals are compiled along Radium
 ~~~
 Bundle-*
-  - 3rdPartyLibraries
-  - Debug: bin/, lib/
-  - Release: bin/, lib/
-  - ...  #other build types if any (generated at compile time)
+ - bin/  include/  lib/  libdata/  LICENSE  README.md  Resources/  share/
 ~~~
-`3rdPartyLibraries` are always compiled in `Release` mode.
-Plugins are generated in `bin/Plugins`.
-
-TODO: Update this part of the documentation-->
+Or if externals are compiled locally :
+~~~
+Bundle-*
+ - bin/  include/  lib/  LICENSE  README.md  Resources/  share/
+~~~
 
 ## Configure build
 
