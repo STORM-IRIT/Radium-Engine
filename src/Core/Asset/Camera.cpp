@@ -28,7 +28,6 @@ Camera& Camera::operator=( const Camera& rhs ) {
     m_width      = rhs.getWidth();
     m_height     = rhs.getHeight();
     m_aspect     = rhs.getAspect();
-    notify();
     return *this;
 }
 
@@ -64,7 +63,6 @@ void Camera::applyTransform( const Core::Transform& T ) {
     t2.translation()   = getPosition();
 
     m_frame = t2 * T * t1 * m_frame;
-    notify();
 }
 
 void Camera::updateProjMatrix() {

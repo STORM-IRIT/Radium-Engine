@@ -61,19 +61,6 @@ void CameraComponent::initialize() {
         m_name + "_RO", this, Rendering::RenderObjectType::Geometry, m, rt );
     m_RO->setLocalTransform( m_camera->getFrame() );
 
-    class RoUpdater
-    {
-      public:
-        void operator()() { m_RO->setLocalTransform( m_camera->getFrame() ); }
-        Core::Asset::Camera* m_camera;
-        Rendering::RenderObject* m_RO;
-    };
-    RoUpdater updater;
-    updater.m_camera = m_camera.get();
-    updater.m_RO     = m_RO;
-
-    m_camera->attach( updater );
-
     m_RO->setMaterial( mat );
     show( false );
     m_RO->setPickable( false );

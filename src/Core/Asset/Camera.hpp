@@ -7,7 +7,7 @@ namespace Ra {
 namespace Core {
 namespace Asset {
 
-class RA_CORE_API Camera : public Utils::ObservableVoid
+class RA_CORE_API Camera
 {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW

@@ -9,6 +9,8 @@
 #include <Core/Tasks/TaskQueue.hpp>
 
 #include <Engine/FrameInfo.hpp>
+#include <Engine/RadiumEngine.hpp>
+#include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
 
@@ -31,8 +33,30 @@ size_t CameraManager::count() const {
     return m_data->size();
 }
 
-void CameraManager::generateTasks( Core::TaskQueue* /*taskQueue*/,
-                                   const Engine::FrameInfo& /*frameInfo*/ ) {}
+void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
+                                   const Engine::FrameInfo& /*frameInfo*/ ) {
+
+    class RoUpdater : public Ra::Core::Task
+    {
+      public:
+        void process() override { m_camera->updateTransform(); }
+        std::string getName() const override { return "camera updater"; }
+        CameraComponent* m_camera;
+    };
+
+    // only update visible components.
+    for ( size_t i = 0; i < m_data->size(); ++i )
+    {
+        auto comp = ( *m_data )[i];
+        auto ro   = comp->getRenderObject();
+        if ( ro->isVisible() )
+        {
+            auto updater      = new RoUpdater();
+            updater->m_camera = comp;
+            taskQueue->registerTask( updater );
+        }
+    }
+}
 
 void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
     std::vector<CameraData*> cameraData = filedata->getCameraData();
