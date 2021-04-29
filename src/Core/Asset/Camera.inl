@@ -12,6 +12,7 @@ inline Core::Transform Camera::getFrame() const {
 
 inline void Camera::setFrame( const Core::Transform& frame ) {
     m_frame = frame;
+    notify();
 }
 
 inline Core::Vector3 Camera::getPosition() const {
