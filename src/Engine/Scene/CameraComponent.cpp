@@ -63,6 +63,7 @@ void CameraComponent::initialize() {
     m_RO->setLocalTransform( m_camera->getFrame() );
     m_RO->setMaterial( mat );
     show( false );
+    m_RO->setPickable( false );
     addRenderObject( m_RO );
 }
 
