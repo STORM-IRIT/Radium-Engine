@@ -53,11 +53,8 @@ void ForwardRenderer::initializeInternal() {
     initShaders();
     initBuffers();
 
-    /// \todo move manager on the engine side.
-    auto cameraManager = new Scene::DefaultCameraManager();
-    Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
-                                                             cameraManager );
-
+    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+        Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
     auto comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
                                                     "CAMERA_DEFAULT",
                                                     Scalar( m_height ),
