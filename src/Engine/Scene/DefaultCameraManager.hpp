@@ -26,7 +26,8 @@ class RA_ENGINE_API DefaultCameraStorage : public CameraStorage
 
   private:
     /** Vectors (by Camera type) of Camera references. */
-    std::multimap<Ra::Core::Asset::Camera::ProjType, CameraComponent*> m_Cameras;
+    // std::multmmap<Ra::Core::Asset::Camera::ProjType, CameraComponent*> m_data;
+    std::vector<CameraComponent*> m_data;
 };
 
 /**
