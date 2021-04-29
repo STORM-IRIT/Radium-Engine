@@ -323,6 +323,8 @@ class RA_ENGINE_API PointCloud : public CoreGeometryDisplayable<Core::Geometry::
         typename base::CoreGeometry&& geom,
         typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_POINTS );
 
+    inline explicit PointCloud( const std::string& name, MeshRenderMode renderMode = RM_POINTS );
+
     /// use glDrawArrays to draw all the points in the point cloud
     void render( const ShaderProgram* prog ) override;
 
@@ -362,6 +364,9 @@ class RA_ENGINE_API LineMesh : public IndexedGeometry<Core::Geometry::LineMesh>
     inline explicit LineMesh(
         const std::string& name,
         typename base::CoreGeometry&& geom,
+        typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_LINES );
+    inline explicit LineMesh(
+        const std::string& name,
         typename base::MeshRenderMode renderMode = base::MeshRenderMode::RM_LINES );
 
   protected:
