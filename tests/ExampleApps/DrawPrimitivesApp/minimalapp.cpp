@@ -68,14 +68,14 @@ void MinimalApp::frame() {
     // to check the time from last frame.
     const Scalar dt = 1.f / Scalar( m_target_fps );
 
-    // Starts the renderer
-    m_viewer->startRendering( dt );
-
     // Collect and run tasks
     m_engine->getTasks( m_task_queue.get(), dt );
     m_task_queue->startTasks();
     m_task_queue->waitForTasks();
     m_task_queue->flushTaskQueue();
+
+    // Starts the renderer
+    m_viewer->startRendering( dt );
 
     // Finish the frame
     m_viewer->swapBuffers();
