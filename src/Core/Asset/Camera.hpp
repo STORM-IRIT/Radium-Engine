@@ -2,12 +2,12 @@
 
 #include <Core/Math/Math.hpp>
 #include <Core/Types.hpp>
-
+#include <Core/Utils/Observable.hpp>
 namespace Ra {
 namespace Core {
 namespace Asset {
 
-class RA_CORE_API Camera
+class RA_CORE_API Camera : public Utils::ObservableVoid
 {
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
