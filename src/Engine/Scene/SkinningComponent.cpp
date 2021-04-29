@@ -210,8 +210,6 @@ void SkinningComponent::skin() {
     const auto prevPose    = m_frameData.m_skeleton.getPose( SpaceType::MODEL );
     m_frameData.m_skeleton = *skel;
     auto currentPose       = m_frameData.m_skeleton.getPose( SpaceType::MODEL );
-    if ( m_smartStretch ) { applySmartStretch( currentPose ); }
-    m_frameData.m_skeleton.setPose( currentPose, SpaceType::MODEL );
     if ( !areEqual( currentPose, prevPose ) || m_forceUpdate )
     {
         m_forceUpdate            = false;
@@ -366,42 +364,6 @@ void SkinningComponent::computeSTBSWeights() {
     m_refData.m_weightSTBS = computeSTBS_weights( vertices, m_refData.m_skeleton );
 }
 
-void SkinningComponent::applySmartStretch( Pose& pose ) {
-    auto refSkel            = m_refData.m_skeleton;
-    const auto& currentSkel = m_frameData.m_skeleton;
-    for ( int i = 0; i < int( refSkel.size() ); ++i )
-    {
-        if ( refSkel.m_graph.isRoot( i ) ) { continue; }
-
-        // get transforms
-        const uint parent       = refSkel.m_graph.parents()[i];
-        const auto& boneModel   = currentSkel.getTransform( i, SpaceType::MODEL );
-        const auto& parentModel = currentSkel.getTransform( parent, SpaceType::MODEL );
-        const auto& parentRef   = refSkel.getTransform( parent, SpaceType::MODEL );
-        const auto parentT      = parentModel * parentRef.inverse( Eigen::Affine );
-
-        // do nothing for multi-siblings
-        if ( refSkel.m_graph.children()[parent].size() > 1 )
-        {
-            refSkel.setTransform( parent, parentModel, SpaceType::MODEL );
-            continue;
-        }
-
-        // rotate parent to align with bone
-        Vector3 A;
-        Vector3 B;
-        refSkel.getBonePoints( parent, A, B );
-        B          = parentT * B;
-        Vector3 B_ = boneModel.translation();
-        auto q     = Quaternion::FromTwoVectors( ( B - A ), ( B_ - A ) );
-        Transform R( q );
-        R.pretranslate( A );
-        R.translate( -A );
-        refSkel.setTransform( parent, R * parentModel, SpaceType::MODEL );
-    }
-    pose = refSkel.getPose( SpaceType::MODEL );
-}
-
 void SkinningComponent::setupIO( const std::string& id ) {
     auto compMsg = ComponentMessenger::getInstance();
 
@@ -434,10 +396,6 @@ const std::string& SkinningComponent::getMeshName() const {
 
 const std::string& SkinningComponent::getSkeletonName() const {
     return m_skelName;
-}
-
-void SkinningComponent::setSmartStretch( bool on ) {
-    m_smartStretch = on;
 }
 
 void SkinningComponent::showWeights( bool on ) {

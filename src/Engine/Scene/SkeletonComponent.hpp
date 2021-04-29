@@ -139,7 +139,7 @@ class RA_ENGINE_API SkeletonComponent : public Component
     bool isPingPong() const;
     /// \}
 
-    /// \name Skeleton display
+    /// \name Skeleton display and manipulation
     /// \{
 
     /// Turns xray display on/off for the skeleton bones.
@@ -160,6 +160,12 @@ class RA_ENGINE_API SkeletonComponent : public Component
 
     /// Updates the skeleton display.
     void updateDisplay();
+
+    /// Sets the given manipulation scheme for the Skeleton.
+    void setManipulationScheme( const Core::Animation::Skeleton::Manipulation& scheme );
+
+    /// Returns the manipulation scheme for the Skeleton.
+    Core::Animation::Skeleton::Manipulation getManipulationScheme();
     /// \}
 
   private:

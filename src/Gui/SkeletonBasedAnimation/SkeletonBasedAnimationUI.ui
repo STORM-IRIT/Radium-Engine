@@ -29,7 +29,7 @@
       <bool>false</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="tabsClosable">
       <bool>false</bool>
@@ -186,16 +186,26 @@
      </widget>
      <widget class="QWidget" name="m_rig">
       <attribute name="title">
-       <string>Rig</string>
+       <string>Skeleton</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="m_showSkeleton">
-         <property name="text">
-          <string/>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="checked">
-          <bool>true</bool>
+         <property name="text">
+          <string>X-Ray:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Show:</string>
          </property>
         </widget>
        </item>
@@ -232,14 +242,17 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_2">
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="m_showSkeleton">
          <property name="text">
-          <string>Show:</string>
+          <string/>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="4" column="1">
         <spacer name="verticalSpacer_1">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -252,16 +265,24 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="m_manipulation">
+         <item>
+          <property name="text">
+           <string>Forward</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Pseudo IK</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>X-Ray:</string>
+          <string>Manipulation Scheme</string>
          </property>
         </widget>
        </item>
@@ -272,60 +293,6 @@
        <string>Skinning</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Normal Skinning:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Skinning Method:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="m_normalSkinning">
-         <item>
-          <property name="text">
-           <string>Standard Approx.</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Geometric Eval.</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="m_showWeights">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Show Weights</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="m_smartStretch">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>Smart Stretch</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="1">
         <widget class="QComboBox" name="m_weightsType">
          <property name="enabled">
@@ -341,6 +308,13 @@
            <string>STBS Weights</string>
           </property>
          </item>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Normal Skinning:</string>
+         </property>
         </widget>
        </item>
        <item row="1" column="1">
@@ -387,6 +361,37 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Skinning Method:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="m_normalSkinning">
+         <item>
+          <property name="text">
+           <string>Standard Approx.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Geometric Eval.</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="m_showWeights">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Show Weights</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

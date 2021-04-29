@@ -92,7 +92,7 @@ class RA_GUI_API SkeletonBasedAnimationUI : public QFrame
     void on_m_saveAnim_clicked();
     /// \}
 
-    /// \name Rig GUI
+    /// \name Skeleton GUI
     /// \{
 
     /// Slot for the user requesting x-ray animation skeletons (through the toolbox).
@@ -100,13 +100,13 @@ class RA_GUI_API SkeletonBasedAnimationUI : public QFrame
 
     /// Slot for the user requesting to show the skeleton.
     void on_m_showSkeleton_toggled( bool checked );
+
+    /// Slot for the user changing the skeleton manipulation scheme.
+    void on_m_manipulation_currentIndexChanged( int index );
     /// \}
 
     /// \name Skinning GUI
     /// \{
-
-    /// Slot for the user toggling the smart stretch.
-    void on_m_smartStretch_toggled( bool checked );
 
     /// Slot for the user changing the skinning method.
     void on_m_skinningMethod_currentIndexChanged( int index );

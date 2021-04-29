@@ -79,6 +79,8 @@ void SkeletonBasedAnimationUI::selectionChanged( const Engine::Scene::ItemEntry&
             ui->m_currentAnimation->setCurrentIndex( int( m_currentSkeleton->getAnimationId() ) );
             ui->m_xray->setChecked( m_currentSkeleton->isXray() );
             ui->m_showSkeleton->setChecked( m_currentSkeleton->isShowingSkeleton() );
+            ui->m_manipulation->setCurrentIndex(
+                int( m_currentSkeleton->getManipulationScheme() ) );
         }
         if ( auto skinComp = dynamic_cast<Engine::Scene::SkinningComponent*>( comp.get() ) )
         {
@@ -86,8 +88,6 @@ void SkeletonBasedAnimationUI::selectionChanged( const Engine::Scene::ItemEntry&
             m_currentSkinnings.emplace_back( skinComp );
             // update the ui accordingly
             ui->m_skinning->setEnabled( true );
-            ui->m_smartStretch->setEnabled( true );
-            ui->m_smartStretch->setChecked( skinComp->isSmartStretchOn() );
             ui->actionLBS->setEnabled( true );
             ui->actionDQS->setEnabled( true );
             ui->actionCoR->setEnabled( true );
@@ -339,17 +339,14 @@ void SkeletonBasedAnimationUI::on_m_showSkeleton_toggled( bool checked ) {
     askForUpdate();
 }
 
-void SkeletonBasedAnimationUI::on_m_smartStretch_toggled( bool checked ) {
-    for ( auto skin : m_currentSkinnings )
-    {
-        skin->setSmartStretch( checked );
-    }
+void SkeletonBasedAnimationUI::on_m_manipulation_currentIndexChanged( int index ) {
+    m_currentSkeleton->setManipulationScheme( Skeleton::Manipulation( index ) );
     askForUpdate();
 }
 
 void SkeletonBasedAnimationUI::on_m_skinningMethod_currentIndexChanged( int newType ) {
     CORE_ASSERT( newType >= 0 && newType < 5, "Invalid Skinning Type" );
-    using SkinningType = Ra::Engine::Scene::SkinningComponent::SkinningType;
+    using SkinningType = Engine::Scene::SkinningComponent::SkinningType;
     auto type          = SkinningType( newType );
     for ( auto skin : m_currentSkinnings )
     {
