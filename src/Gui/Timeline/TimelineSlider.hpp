@@ -7,7 +7,7 @@ namespace Ra::Gui {
  * A TimelineSlider is a widget which transmits mouse move events along the
  * x-axis.
  * It is used to display blocks movable along the x-axis, e.g. timezone's
- * <b>start<\b> and <b>end<\b> time points.
+ * \b start and \b end time points.
  */
 class TimelineSlider : public QLabel
 {

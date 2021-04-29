@@ -1,3 +1,4 @@
+//! [obb test]
 #include <Core/Geometry/Obb.hpp>
 #include <Core/Math/Math.hpp>
 #include <Core/Types.hpp>
@@ -17,3 +18,4 @@ TEST_CASE( "Core/Geometry/Obb", "[Core][Core/Geometry][Obb]" ) {
         REQUIRE( obb.toAabb().isApprox( aabb ) );
     }
 }
+//! [obb test]

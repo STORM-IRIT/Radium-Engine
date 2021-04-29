@@ -138,26 +138,26 @@ class RA_GUI_API Timeline : public QDialog
 
     /*!
      * \brief keyFrameDeleted is emitted when user remove keyFrame.
-     * \param id is the ith keyFrame to remove (chronological order).
+     * \param i is the ith keyFrame to remove (chronological order).
      */
     void keyFrameDeleted( size_t i );
 
     /*!
      * \brief keyFrameChanged is emitted when user insert keyFrame in a known keyFrame position.
-     * \param id is the ith keyFrame to change.
+     * \param i is the ith keyFrame to change.
      */
     void keyFrameChanged( size_t i );
 
     /*!
      * \brief keyFrameMoved is emitted when user move the keyFrame on cursor to a new position (on
-     * mouse) \param time0 is the old time of the keyFrame. \param time1 is the new time of the
+     * mouse) \param i is the index of the keyFrame. \param time1 is the new time of the
      * keyFrame.
      */
     void keyFrameMoved( size_t i, Scalar time1 );
 
     /*!
      * \brief keyFramesMoved is emitted when user move keyFrames.
-     * \param time is the time of the first keyFrame to move.
+     * \param first is the index of the first keyFrame to move.
      * \param offset is sliding distance for moving.
      */
     void keyFramesMoved( size_t first, Scalar offset );
