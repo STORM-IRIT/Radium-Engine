@@ -277,7 +277,8 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     KMA_VALUE( VIEWER_RAYCAST )              \
     KMA_VALUE( VIEWER_SCALE_BRUSH )          \
     KMA_VALUE( VIEWER_RELOAD_SHADERS )       \
-    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )
+    KMA_VALUE( VIEWER_TOGGLE_WIREFRAME )     \
+    KMA_VALUE( VIEWER_SWITCH_CAMERA )
 
 #define KMA_VALUE( x ) static KeyMappingManager::KeyMappingAction x;
     KeyMappingViewer

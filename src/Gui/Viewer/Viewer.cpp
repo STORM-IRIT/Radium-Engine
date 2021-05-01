@@ -521,7 +521,6 @@ void Gui::Viewer::keyPressEvent( QKeyEvent* event ) {
         event->ignore();
         return;
     }
-
     keyPressed( event->key() );
     if ( event->isAutoRepeat() ) return;
 
@@ -628,6 +627,19 @@ void Gui::Viewer::handleKeyPressEvent( QKeyEvent* event ) {
             m_isBrushPickingEnabled = !m_isBrushPickingEnabled;
             m_currentRenderer->setBrushRadius( m_isBrushPickingEnabled ? m_brushRadius : 0 );
             emit toggleBrushPicking( m_isBrushPickingEnabled );
+        }
+        else if ( actionViewer == VIEWER_SWITCH_CAMERA )
+        {
+            auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+                Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+            static int idx = 0;
+            if ( cameraManager->count() > 0 )
+            {
+                idx %= cameraManager->count();
+                cameraManager->activate( idx );
+                m_camera->updateCamera();
+            }
+            idx++;
         }
     }
 }
