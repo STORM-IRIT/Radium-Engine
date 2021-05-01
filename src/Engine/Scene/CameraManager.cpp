@@ -13,6 +13,7 @@
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/ComponentMessenger.hpp>
 #include <Engine/Scene/Entity.hpp>
+#include <Engine/Scene/SystemDisplay.hpp>
 
 namespace Ra {
 namespace Engine {
@@ -27,6 +28,61 @@ CameraManager::CameraManager() {
     defaultCamera.setFOV( 60.0_ra * Core::Math::toRad );
     defaultCamera.setZNear( 0.1_ra );
     defaultCamera.setZFar( 1000.0_ra );
+}
+
+void CameraManager::initialize() {
+
+    if ( count() > 0 )
+    {
+        LOG( logDEBUG ) << "CameraManager seems to be already initialized, do nothing.";
+        return;
+    }
+
+    auto comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
+                                                    "CAMERA_DEFAULT" );
+    comp->initialize();
+    *comp->getCamera() = defaultCamera;
+    addCamera( comp );
+
+    /// TMP FOR TESTS
+    comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
+                                               "CAMERA_DEFAULT60" );
+    comp->initialize();
+    *comp->getCamera() = defaultCamera;
+    addCamera( comp );
+
+    comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
+                                               "CAMERA_DEFAULT120" );
+    comp->initialize();
+    *comp->getCamera() = defaultCamera;
+    comp->getCamera()->setFOV( 120 * Core::Math::toRad );
+    comp->getCamera()->setPosition( {1_ra, 1_ra, 1_ra} );
+    comp->getCamera()->resize( 100, 10 );
+
+    addCamera( comp );
+}
+
+void CameraManager::activate( Core::Utils::Index index ) {
+
+    if ( index.isInvalid() || index > count() )
+    {
+        LOG( logDEBUG ) << "Try to activate camera with an invalid/out of bound index. Ignored.";
+        return;
+    }
+    // save current size
+    auto width                   = getCamera( 0 )->getCamera()->getWidth();
+    auto height                  = getCamera( 0 )->getCamera()->getHeight();
+    *getCamera( 0 )->getCamera() = *getCamera( index )->getCamera();
+    getCamera( 0 )->getCamera()->resize( width, height );
+    getCamera( 0 )->getCamera()->updateProjMatrix();
+}
+
+Ra::Core::Utils::Index CameraManager::getCameraIndex( const CameraComponent* cam ) {
+    for ( size_t i = 0; i < m_data->size(); ++i )
+    {
+        if ( cam == ( *m_data )[i] ) return i;
+    }
+    return {};
 }
 
 size_t CameraManager::count() const {
@@ -61,7 +117,6 @@ void CameraManager::generateTasks( Core::TaskQueue* taskQueue,
 void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata ) {
     std::vector<CameraData*> cameraData = filedata->getCameraData();
     uint id                             = 0;
-    m_data->clear();
     for ( const auto& data : cameraData )
     {
         std::string componentName = "CAMERA_" + entity->getName() + std::to_string( id++ );
@@ -77,11 +132,15 @@ void CameraManager::handleAssetLoading( Entity* entity, const FileData* filedata
             break;
         }
         }
-        comp->setFrame( Core::Transform( data->getFrame() ) );
-        comp->setFOV( data->getFov() );
-        comp->setZNear( data->getZNear() );
-        comp->setZFar( data->getZFar() );
-        comp->setZoomFactor( data->getZoomFactor() );
+        comp->getCamera()->setFrame( Core::Transform( data->getFrame() ) );
+        if ( data->getType() == CameraData::CameraType::ORTHOGRAPHIC )
+            comp->getCamera()->setType( Camera::ProjType::ORTHOGRAPHIC );
+        else
+            comp->getCamera()->setType( Camera::ProjType::PERSPECTIVE );
+        comp->getCamera()->setFOV( data->getFov() );
+        comp->getCamera()->setZNear( data->getZNear() );
+        comp->getCamera()->setZFar( data->getZFar() );
+        comp->getCamera()->setZoomFactor( data->getZoomFactor() );
 
         // comp should be allocated in CameraStorage (well, not sure ...)
         if ( !comp ) continue;

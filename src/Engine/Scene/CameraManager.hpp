@@ -17,6 +17,8 @@ namespace Scene {
 /**
  * Interface providing functions to manage a group or type of Cameras
  * in a specific way.
+ * Always have at least one camera (index 0) as "active".
+ * Activate camera copy camera content from id to camera index 0.
  */
 class RA_ENGINE_API CameraManager : public System
 {
@@ -32,11 +34,17 @@ class RA_ENGINE_API CameraManager : public System
     /// Virtual destructor
     ~CameraManager() override = default;
 
-    /// Get a pointer to the cam-th Camera.
-    virtual const CameraComponent* getCamera( size_t cam ) const = 0;
+    /// Get a pointer to the i-th Camera.
+    virtual const CameraComponent* getCamera( size_t i ) const = 0;
 
     /// Add a Camera to the manager ...
     virtual void addCamera( CameraComponent* cam ) = 0;
+    virtual Core::Utils::Index getCameraIndex( const CameraComponent* cam );
+
+    /// Add a default camera
+    virtual void initialize();
+
+    void activate( Core::Utils::Index index );
 
     //
     // Calls for the Renderer
@@ -48,6 +56,9 @@ class RA_ENGINE_API CameraManager : public System
      * CameraManager to tell it has only one Camera, for example if it wants to send
      * a lot of sources at once in a single RenderParams, let's say a texture.
      */
+    // I dont' get the idea of texture camera storage here, event if it's possible for some kind of
+    // multi view synthesis, the camera manager manages Components, do this idea of texture means
+    // the components share some data where the know how to read/write the chunk ? (dlyr.)
     virtual size_t count() const;
 
     //
