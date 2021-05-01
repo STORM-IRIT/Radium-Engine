@@ -55,15 +55,9 @@ void ForwardRenderer::initializeInternal() {
 
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
         Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
-    auto comp = new Engine::Scene::CameraComponent( Engine::Scene::SystemEntity::getInstance(),
-                                                    "CAMERA_DEFAULT",
-                                                    Scalar( m_height ),
-                                                    Scalar( m_width ) );
-    comp->initialize();
-    *comp->getCamera() = cameraManager->defaultCamera;
-    comp->getCamera()->resize( m_height, m_width );
 
-    cameraManager->addCamera( comp );
+    auto comp = cameraManager->getCamera( 0 );
+    comp->getCamera()->resize( m_height, m_width );
 
     auto lightManager = new Scene::DefaultLightManager();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultLightManager", lightManager );
