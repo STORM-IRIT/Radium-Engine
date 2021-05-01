@@ -60,6 +60,7 @@ void RadiumEngine::initialize() {
     Scene::ComponentMessenger::createInstance();
 
     auto cameraManager = new Scene::DefaultCameraManager();
+    cameraManager->initialize();
     Ra::Engine::RadiumEngine::getInstance()->registerSystem( "DefaultCameraManager",
                                                              cameraManager );
 
