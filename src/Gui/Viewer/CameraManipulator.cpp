@@ -79,6 +79,13 @@ void CameraManipulator::setCameraZFar( Scalar zFar ) {
     m_camera->setZFar( zFar );
 }
 
+void CameraManipulator::updateCamera() {
+    auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+        Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+
+    m_camera = cameraManager->getCamera( 0 )->getCamera();
+}
+
 void CameraManipulator::mapCameraBehaviourToAabb( const Core::Aabb& aabb ) {
     m_targetedAabb             = aabb;
     m_targetedAabbVolume       = aabb.volume();

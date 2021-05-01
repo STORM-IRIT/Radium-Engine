@@ -17,6 +17,7 @@
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Rendering/RenderObject.hpp>
 #include <Engine/Scene/CameraComponent.hpp>
+#include <Engine/Scene/CameraManager.hpp>
 #include <Engine/Scene/EntityManager.hpp>
 #include <Engine/Scene/GeometrySystem.hpp>
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
@@ -316,11 +317,15 @@ void BaseApplication::initialize( const WindowFactory& factory ) {
         if ( loadFile( parser.value( "camera" ) ) )
         {
 
-            /// \todo fix this, I don't get this code (d.)
+            /// \todo fix this, I don't get this code (d.),
+            /// updated using cameraManager.
             auto entity = *( m_engine->getEntityManager()->getEntities().rbegin() );
             auto camera =
                 static_cast<Engine::Scene::CameraComponent*>( entity->getComponents()[0].get() );
-            m_viewer->setCamera( camera );
+            auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
+                Engine::RadiumEngine::getInstance()->getSystem( "DefaultCameraManager" ) );
+
+            cameraManager->addCamera( camera );
         }
     }
 
