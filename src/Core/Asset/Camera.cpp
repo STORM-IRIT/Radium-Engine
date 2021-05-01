@@ -25,9 +25,7 @@ Camera& Camera::operator=( const Camera& rhs ) {
     m_fov        = rhs.getFOV();
     m_zNear      = rhs.getZNear();
     m_zFar       = rhs.getZFar();
-    m_width      = rhs.getWidth();
-    m_height     = rhs.getHeight();
-    m_aspect     = rhs.getAspect();
+    resize( rhs.getWidth(), rhs.getHeight() );
     return *this;
 }
 
