@@ -39,11 +39,19 @@ class RA_ENGINE_API CameraManager : public System
 
     /// Add a Camera to the manager ...
     virtual void addCamera( CameraComponent* cam ) = 0;
+
+    /// get camera component's index, if this component is managed.
+    /// \return valid index if component is managed, invalid index in other case.
     virtual Core::Utils::Index getCameraIndex( const CameraComponent* cam );
 
     /// Add a default camera
     virtual void initialize();
 
+    /// activate camera at index given its index.
+    /// index-th camera data is copied to the "default camera" at index 0.
+    /// width and height of camera 0 is kept during this process, since it's likely to be screen
+    /// size, while index-th camera width height might be something else.
+    /// \param index: camera's index to activate, if invalid or out of bound, activation is ignored.
     void activate( Core::Utils::Index index );
 
     //
@@ -68,6 +76,8 @@ class RA_ENGINE_API CameraManager : public System
 
     void handleAssetLoading( Entity* entity, const Core::Asset::FileData* data ) override;
 
+    /// this static data member handles default camera values.
+    /// can be tweaked after ctor and before initalization, or for any kind of reset.
     static Ra::Core::Asset::Camera defaultCamera;
 
   protected:

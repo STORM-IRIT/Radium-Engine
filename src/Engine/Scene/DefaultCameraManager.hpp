@@ -25,7 +25,7 @@ class RA_ENGINE_API DefaultCameraStorage : public CameraStorage
     CameraComponent* operator[]( unsigned int n ) override;
 
   private:
-    /** Vectors (by Camera type) of Camera references. */
+    /** Vectors of Camera references. */
     // std::multmmap<Ra::Core::Asset::Camera::ProjType, CameraComponent*> m_data;
     std::vector<CameraComponent*> m_data;
 };
