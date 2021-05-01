@@ -86,9 +86,6 @@ class RA_GUI_API Viewer : public WindowQt, public KeyMappingManageable<Viewer>
     /// Access to camera interface.
     CameraManipulator* getCameraManipulator();
 
-    /// Set the camera managed by the cameraInterface
-    void setCamera( Engine::Scene::CameraComponent* camera );
-
     void resetToDefaultCamera();
 
     /// Access to gizmo manager
