@@ -89,7 +89,7 @@ class RA_GUI_API CameraManipulator : public QObject
     /// Set the Camera to be manipulated.
     /// \note CameraManipulator doesn't have ownership.
     virtual void setCamera( Core::Asset::Camera* camera ) = 0;
-
+    virtual void updateCamera();
     /// Set the Light attached to the camera.
     /// \note CameraManipulator doesn't have ownership.
     void attachLight( Engine::Scene::Light* light );

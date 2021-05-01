@@ -121,10 +121,6 @@ Gui::CameraManipulator* Gui::Viewer::getCameraManipulator() {
     return m_camera.get();
 }
 
-void Gui::Viewer::setCamera( Engine::Scene::CameraComponent* camera ) {
-    m_camera->setCamera( camera->getCamera() );
-}
-
 void Gui::Viewer::resetToDefaultCamera() {
 
     auto cameraManager = static_cast<Ra::Engine::Scene::CameraManager*>(
