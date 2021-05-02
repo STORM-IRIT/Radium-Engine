@@ -217,7 +217,7 @@ bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) 
 
 void Gui::TrackballCameraManipulator::setCamera( Core::Asset::Camera* camera ) {
     if ( !camera ) return;
-    camera->resize( m_camera->getWidth(), m_camera->getHeight() );
+    camera->setViewport( m_camera->getWidth(), m_camera->getHeight() );
     m_camera         = camera;
     m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
     m_distFromCenter = 2.0_ra;

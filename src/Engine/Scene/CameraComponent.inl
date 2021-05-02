@@ -84,7 +84,7 @@ inline Scalar CameraComponent::getHeight() const {
 }
 
 inline void CameraComponent::resize( Scalar width, Scalar height ) {
-    m_camera->resize( width, height );
+    m_camera->setViewport( width, height );
 }
 
 inline Scalar CameraComponent::getAspect() const {

@@ -48,7 +48,7 @@ CameraManipulator::CameraManipulator() :
 CameraManipulator::~CameraManipulator() {}
 
 void CameraManipulator::resizeViewport( uint width, uint height ) {
-    m_camera->resize( Scalar( width ), Scalar( height ) );
+    m_camera->setViewport( Scalar( width ), Scalar( height ) );
 }
 
 Core::Matrix4 CameraManipulator::getProjMatrix() const {

@@ -231,7 +231,7 @@ bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
 void Gui::FlightCameraManipulator::setCamera( Core::Asset::Camera* camera ) {
 
     if ( !camera ) return;
-    camera->resize( m_camera->getWidth(), m_camera->getHeight() );
+    camera->setViewport( m_camera->getWidth(), m_camera->getHeight() );
     m_camera = camera;
     m_target = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
     initializeFixedUpVector();

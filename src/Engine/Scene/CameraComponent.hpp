@@ -159,8 +159,8 @@ class RA_ENGINE_API CameraComponent : public Scene::Component
     [[deprecated( "Use getCamera()->getAspect() instead" )]] inline Scalar getAspect() const;
 
     /// Change the viewport size.
-    [[deprecated( "Use getCamera()->resize() instead" )]] inline void resize( Scalar width,
-                                                                              Scalar height );
+    [[deprecated( "Use getCamera()->setViewport() instead" )]] inline void resize( Scalar width,
+                                                                                   Scalar height );
     ///@}
 
     /// Duplicate the camera under a different Entity and a different name
