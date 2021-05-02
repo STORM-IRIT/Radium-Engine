@@ -76,12 +76,10 @@ const std::string& RenderObject::getName() const {
 
 void RenderObject::setVisible( bool visible ) {
     m_visible = visible;
-    invalidateAabb();
 }
 
 void RenderObject::toggleVisible() {
     m_visible = !m_visible;
-    invalidateAabb();
 }
 
 bool RenderObject::isVisible() const {
