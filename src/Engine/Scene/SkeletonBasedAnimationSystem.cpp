@@ -1,14 +1,15 @@
 #include <Engine/Scene/SkeletonBasedAnimationSystem.hpp>
 
-#include <iostream>
 #include <string>
 
-#include <Core/Animation/KeyFramedValueController.hpp>
 #include <Core/Asset/FileData.hpp>
 #include <Core/Math/Math.hpp>
+#include <Core/Resources/Resources.hpp>
 #include <Core/Tasks/Task.hpp>
 #include <Core/Tasks/TaskQueue.hpp>
 
+#include <Engine/Data/Texture.hpp>
+#include <Engine/Data/TextureManager.hpp>
 #include <Engine/FrameInfo.hpp>
 #include <Engine/RadiumEngine.hpp>
 #include <Engine/Scene/SkeletonComponent.hpp>
@@ -20,7 +21,21 @@ namespace Ra {
 namespace Engine {
 namespace Scene {
 
-SkeletonBasedAnimationSystem::SkeletonBasedAnimationSystem() : System(), m_xrayOn( false ) {}
+SkeletonBasedAnimationSystem::SkeletonBasedAnimationSystem() : System(), m_xrayOn( false ) {
+    auto resourceDir {Core::Resources::getRadiumResourcesPath()};
+    if ( resourceDir )
+    {
+        auto* engine  = RadiumEngine::getInstance();
+        auto* texMngr = engine->getTextureManager();
+        // Register an entry into the texture manager
+        auto& heatmapData = texMngr->addTexture( "Engine:Skinning:weights", 1, 128, nullptr );
+        // load the texture image without OpenGL initialization
+        heatmapData.name = *resourceDir + "/Textures/heatmap.png";
+        texMngr->loadTextureImage( heatmapData );
+        // Set the registered name again for further access to the texture
+        heatmapData.name = "Engine:Skinning:weights";
+    }
+}
 
 // System Interface
 
