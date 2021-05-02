@@ -21,20 +21,45 @@ struct RA_CORE_API AbstractGeometry {
      * When a base class is intended for polymorphic use, its destructor may have
      * to be declared public and virtual. This blocks implicit moves
      * (and deprecates implicit copies), and so the special member functions
-     * have to be declared as defaulted.
-     * See http://en.cppreference.com/w/cpp/language/rule_of_three
      */
-    virtual ~AbstractGeometry()                 = default;
-    AbstractGeometry()                          = default;
-    AbstractGeometry( const AbstractGeometry& ) = default;
-    AbstractGeometry& operator=( const AbstractGeometry& ) = default;
-
+    virtual ~AbstractGeometry() = default;
+    AbstractGeometry()          = default;
+    AbstractGeometry( const AbstractGeometry& other ) {
+        m_isAabbValid = other.m_isAabbValid;
+        m_aabb        = other.m_aabb;
+        other.m_aabbObservable.copyObserversTo( m_aabbObservable );
+    }
+    AbstractGeometry& operator=( const AbstractGeometry& other ) {
+        m_isAabbValid = other.m_isAabbValid;
+        m_aabb        = other.m_aabb;
+        other.m_aabbObservable.copyObserversTo( m_aabbObservable );
+        return *this;
+    }
     /// Erases all data, making the geometry empty.
     virtual void clear() = 0;
 
     /// Compute bounding box
-    virtual Aabb computeAabb()                                   = 0;
-    virtual Ra::Core::Utils::ObservableVoid& getAabbObservable() = 0;
+    virtual Aabb computeAabb() = 0;
+
+    void invalidateAabb() {
+        m_isAabbValid = false;
+        m_aabbObservable.notify();
+    }
+    bool isAabbValid() { return m_isAabbValid; }
+    Core::Aabb getAabb() const { return m_aabb; }
+    Ra::Core::Utils::ObservableVoid& getAabbObservable() { return m_aabbObservable; }
+
+  protected:
+    // set a new (valid) aabb
+    void setAabb( const Core::Aabb& aabb ) {
+        m_aabb        = aabb;
+        m_isAabbValid = true;
+    }
+
+  private:
+    bool m_isAabbValid {false};
+    Core::Aabb m_aabb;
+    Ra::Core::Utils::ObservableVoid m_aabbObservable;
 };
 
 } // namespace Geometry

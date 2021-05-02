@@ -55,11 +55,6 @@ void AbstractVolume::displayInfo() const {
     LOG( logINFO ) << " Type           : " << type;
 }
 
-void AbstractVolume::invalidateAabb() {
-    m_isAabbValid = false;
-    m_aabbObservable.notify();
-}
-
 void AbstractDiscreteVolume::clear() {
     setBinSize( Vector3::Zero() );
     setSize( Vector3i::Zero() );
@@ -67,12 +62,9 @@ void AbstractDiscreteVolume::clear() {
 }
 
 Aabb AbstractDiscreteVolume::computeAabb() {
-    if ( !m_isAabbValid )
-    {
-        m_aabb        = Aabb( Vector3::Zero(), m_binSize.cwiseProduct( m_size.cast<Scalar>() ) );
-        m_isAabbValid = true;
-    }
-    return m_aabb;
+    if ( !isAabbValid() )
+    { setAabb( Aabb( Vector3::Zero(), m_binSize.cwiseProduct( m_size.cast<Scalar>() ) ) ); }
+    return getAabb();
 }
 
 } // namespace Geometry

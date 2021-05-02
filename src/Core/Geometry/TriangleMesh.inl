@@ -76,7 +76,7 @@ inline bool AttribArrayGeometry::copyAllAttributes( const AttribArrayGeometry& i
 }
 
 inline Aabb AttribArrayGeometry::computeAabb() {
-    if ( !m_isAabbValid )
+    if ( !isAabbValid() )
     {
         Aabb aabb;
         for ( const auto& v : vertices() )
@@ -84,11 +84,10 @@ inline Aabb AttribArrayGeometry::computeAabb() {
             aabb.extend( v );
         }
 
-        m_aabb        = aabb;
-        m_isAabbValid = true;
+        setAabb( aabb );
     }
 
-    return m_aabb;
+    return getAabb();
 }
 
 inline void AttribArrayGeometry::setVertices( PointAttribHandle::Container&& vertices ) {
