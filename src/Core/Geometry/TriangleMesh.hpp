@@ -192,10 +192,6 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
     /// Release lock on vertices normals
     inline void normalsUnlock();
 
-    void invalidateAabb();
-
-    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_aabbObservable; }
-
   private:
     /// Sets the default attribs.
     inline void initDefaultAttribs();
@@ -214,11 +210,6 @@ class RA_CORE_API AttribArrayGeometry : public AbstractGeometry
 
     /// The handle for normals, making request faster.
     NormalAttribHandle m_normalsHandle;
-
-    bool m_isAabbValid {false};
-    Core::Aabb m_aabb;
-
-    Ra::Core::Utils::ObservableVoid m_aabbObservable;
 };
 
 class RA_CORE_API PointCloud : public AttribArrayGeometry

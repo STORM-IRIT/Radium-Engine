@@ -40,11 +40,6 @@ void AttribArrayGeometry::colorize( const Utils::Color& color ) {
     getAttrib( colorAttribHandle ).setData( Vector4Array( vertices().size(), color ) );
 }
 
-void AttribArrayGeometry::invalidateAabb() {
-    m_isAabbValid = false;
-    m_aabbObservable.notify();
-}
-
 } // namespace Geometry
 } // namespace Core
 } // namespace Ra

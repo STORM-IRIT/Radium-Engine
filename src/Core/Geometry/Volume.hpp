@@ -80,18 +80,9 @@ class RA_CORE_API AbstractVolume : public AbstractGeometry
     /// Print info to the Debug output. Need to be extended by child classes
     void displayInfo() const;
 
-    void invalidateAabb();
-
-    Ra::Core::Utils::ObservableVoid& getAabbObservable() override { return m_aabbObservable; }
-
   protected:
     /// The type of geometry for the object.
     VolumeStorageType m_type;
-
-    bool m_isAabbValid {false};
-    Core::Aabb m_aabb;
-
-    Ra::Core::Utils::ObservableVoid m_aabbObservable;
 };
 /**
  * General interface for discrete volume that store the information into a set of bins indexed in
