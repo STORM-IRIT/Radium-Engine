@@ -131,7 +131,7 @@ class RA_CORE_API Camera
     inline Scalar getAspect() const;
 
     /// Change the viewport size.
-    void resize( Scalar width, Scalar height );
+    void setViewport( Scalar width, Scalar height );
     ///@}
 
     void applyTransform( const Core::Transform& T );

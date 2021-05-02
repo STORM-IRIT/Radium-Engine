@@ -25,7 +25,7 @@ Camera& Camera::operator=( const Camera& rhs ) {
     m_fov        = rhs.getFOV();
     m_zNear      = rhs.getZNear();
     m_zFar       = rhs.getZFar();
-    resize( rhs.getWidth(), rhs.getHeight() );
+    setViewport( rhs.getWidth(), rhs.getHeight() );
     return *this;
 }
 
@@ -47,7 +47,7 @@ void Camera::setDirection( const Core::Vector3& direction ) {
     applyTransform( T );
 }
 
-void Camera::resize( Scalar width, Scalar height ) {
+void Camera::setViewport( Scalar width, Scalar height ) {
     m_width  = width;
     m_height = height;
     m_aspect = width / height;

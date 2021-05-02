@@ -57,7 +57,7 @@ void CameraManager::initialize() {
     *comp->getCamera() = defaultCamera;
     comp->getCamera()->setFOV( 120 * Core::Math::toRad );
     comp->getCamera()->setPosition( {1_ra, 1_ra, 1_ra} );
-    comp->getCamera()->resize( 100, 10 );
+    comp->getCamera()->setViewport( 100, 10 );
 
     addCamera( comp );
 }
@@ -73,7 +73,7 @@ void CameraManager::activate( Core::Utils::Index index ) {
     auto width                   = getCamera( 0 )->getCamera()->getWidth();
     auto height                  = getCamera( 0 )->getCamera()->getHeight();
     *getCamera( 0 )->getCamera() = *getCamera( index )->getCamera();
-    getCamera( 0 )->getCamera()->resize( width, height );
+    getCamera( 0 )->getCamera()->setViewport( width, height );
     getCamera( 0 )->getCamera()->updateProjMatrix();
 }
 
