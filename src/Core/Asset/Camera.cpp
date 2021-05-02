@@ -134,7 +134,7 @@ void Camera::fitZRange( const Core::Aabb& aabb ) {
     adaptRange( maxAabb[0], minAabb[1], minAabb[2] );
 
     if ( m_zNear < m_minZNear ) { m_zNear = m_minZNear; }
-    if ( ( m_zFar - m_zNear ) < m_minZRange ) { m_zFar += m_minZRange - ( m_zFar - m_zNear ); }
+    if ( ( m_zFar - m_zNear ) < m_minZRange ) { m_zFar = m_zNear + m_minZRange; }
 
     updateProjMatrix();
 }
