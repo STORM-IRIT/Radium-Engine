@@ -48,16 +48,16 @@ void CameraComponent::initialize() {
 
     auto m = std::make_shared<Data::LineMesh>( m_name + "_mesh" );
     m->loadGeometry( std::move( triMesh ) );
+
     // Create the RO
     auto mat              = Core::make_shared<PlainMaterial>( m_name + "_Material" );
     mat->m_color          = {1_ra, .5_ra, 0_ra, 1_ra};
     mat->m_perVertexColor = false;
-    Rendering::RenderTechnique rt;
-    auto cfg = Data::ShaderConfigurationFactory::getConfiguration( "Plain" );
-    rt.setConfiguration( *cfg );
-    rt.setParametersProvider( mat );
-    m_RO = Rendering::RenderObject::createRenderObject(
-        m_name + "_RO", this, Rendering::RenderObjectType::Geometry, m, rt );
+    m_RO                  = Rendering::RenderObject::createRenderObject( m_name + "_RO",
+                                                        this,
+                                                        Rendering::RenderObjectType::Geometry,
+                                                        m,
+                                                        Rendering::RenderTechnique {} );
     m_RO->setLocalTransform( m_camera->getFrame() );
 
     m_RO->setMaterial( mat );
