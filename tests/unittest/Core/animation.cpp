@@ -399,12 +399,12 @@ TEST_CASE( "Core/Animation/Skeleton", "[Core][Core/Animation][Skeleton]" ) {
     using Space = HandleArray::SpaceType;
     // build the skeleton in the X direction: > - > - > - > starting at the origin
     Skeleton skel;
-    uint root            = skel.addRoot( Transform::Identity(), "root" );
+    int root             = skel.addRoot( Transform::Identity(), "root" );
     Transform localT     = Transform::Identity();
     localT.translation() = Vector3::UnitX();
-    uint bone1           = skel.addBone( root, localT, Space::LOCAL, "bone1" );
-    uint bone2           = skel.addBone( bone1, localT, Space::LOCAL, "bone2" );
-    uint bone3           = skel.addBone( bone2, localT, Space::LOCAL, "bone3" );
+    int bone1            = skel.addBone( root, localT, Space::LOCAL, "bone1" );
+    int bone2            = skel.addBone( bone1, localT, Space::LOCAL, "bone2" );
+    int bone3            = skel.addBone( bone2, localT, Space::LOCAL, "bone3" );
 
     SECTION( "Test initialization" ) {
         // check root / leaf status
@@ -564,19 +564,19 @@ TEST_CASE( "Core/Animation/Skeleton", "[Core][Core/Animation][Skeleton]" ) {
              * first rotate and move root:                 =>  ^
              *                              > - > - > - >      +
              */
-            Transform T = Transform::Identity();
+            T = Transform::Identity();
             T.rotate( AngleAxis( Math::Pi / 2, Vector3::UnitZ() ) );
             T.translation() = Vector3::UnitY();
             skel.setTransform( root, T, Space::LOCAL );
             // check Pose
             REQUIRE( areEqual( skel.getPose( Space::LOCAL ), {T, localT1, localT2, localT3} ) );
-            Transform T1 = Transform::Identity();
+            T1 = Transform::Identity();
             T1.rotate( AngleAxis( Math::Pi / 2, Vector3::UnitZ() ) );
             T1.translation() = 2 * Vector3::UnitY();
-            Transform T2     = Transform::Identity();
+            T2               = Transform::Identity();
             T2.rotate( AngleAxis( Math::Pi / 2, Vector3::UnitZ() ) );
             T2.translation() = 3 * Vector3::UnitY();
-            Transform T3     = Transform::Identity();
+            T3               = Transform::Identity();
             T3.rotate( AngleAxis( Math::Pi / 2, Vector3::UnitZ() ) );
             T3.translation() = 4 * Vector3::UnitY();
             REQUIRE( areEqual( skel.getPose( Space::MODEL ), {T, T1, T2, T3} ) );
