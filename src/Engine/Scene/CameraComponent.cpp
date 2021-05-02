@@ -15,7 +15,6 @@ using Core::Math::PiDiv2;
 using Core::Math::PiDiv4;
 
 namespace Engine {
-
 namespace Scene {
 
 CameraComponent::CameraComponent( Entity* entity,
@@ -80,7 +79,10 @@ void CameraComponent::applyTransform( const Core::Transform& T ) {
 
 void CameraComponent::updateTransform() {
     CORE_ASSERT( m_RO, "Camera's render object must be initialize with Camera::intialize()" );
-    m_RO->setLocalTransform( m_camera->getFrame() );
+    m_RO->setLocalTransform( m_camera->getFrame() *
+                             Eigen::Scaling( 1_ra,
+                                             1_ra / m_camera->getAspect(),
+                                             .5_ra / std::tan( m_camera->getFOV() * .5_ra ) ) );
 }
 
 void CameraComponent::updateProjMatrix() {
