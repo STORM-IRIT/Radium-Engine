@@ -127,8 +127,8 @@ Core::Matrix4 Camera::ortho( Scalar b, Scalar t, Scalar l, Scalar r, Scalar n, S
 }
 
 void Camera::fitZRange( const Core::Aabb& aabb ) {
-    const auto& position        = m_frame.translation();
-    Ra::Core::Vector3 direction = m_frame.linear() * Ra::Core::Vector3( 0_ra, 0_ra, -1_ra );
+    const auto& position        = getPosition();
+    Ra::Core::Vector3 direction = getDirection();
 
     const auto& minAabb = aabb.min();
     const auto& maxAabb = aabb.max();
