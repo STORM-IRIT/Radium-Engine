@@ -63,6 +63,12 @@ install_target_resources(
     RESOURCES_INSTALL_DIR "Radium"
     FILES ${engine_shaders}
     )
+message(STATUS "installing resources from ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures")
+install_target_resources(
+    TARGET ${ra_engine_target}
+    RESOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures
+    RESOURCES_INSTALL_DIR "Radium"
+)
 
 list(REMOVE_AT CMAKE_MESSAGE_INDENT -1)
 

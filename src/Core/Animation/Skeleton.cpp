@@ -85,7 +85,7 @@ void Skeleton::setTransform( const uint i, const Transform& T, const SpaceType M
         Transform modelT = T;
         if ( MODE == SpaceType::LOCAL ) modelT = ( m_modelSpace[i] * m_pose[i].inverse() * T );
         // turn bone translation into rotation for parent
-        const uint pBoneIdx = m_graph.parents()[i];
+        const int pBoneIdx = m_graph.parents()[i];
         if ( pBoneIdx != -1 && m_graph.children()[pBoneIdx].size() == 1 )
         {
             const auto& pTBoneModel = m_modelSpace[pBoneIdx];

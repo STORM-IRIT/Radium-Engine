@@ -183,9 +183,8 @@ void SkinningComponent::initialize() {
 
         // assign texture
         Data::TextureParameters texParam;
-        texParam.name = ":/Textures/Influence0.png";
-        auto tex = RadiumEngine::getInstance()->getTextureManager()->getOrLoadTexture( texParam );
-        mat->addTexture( Data::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE, tex );
+        texParam.name = "Engine:Skinning:weights";
+        mat->addTexture( Data::BlinnPhongMaterial::TextureSemantic::TEX_DIFFUSE, texParam );
         m_weightMaterial.reset( mat );
 
         // compute default weights uv
