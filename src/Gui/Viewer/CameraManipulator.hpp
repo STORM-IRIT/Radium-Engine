@@ -88,8 +88,13 @@ class RA_GUI_API CameraManipulator : public QObject
 
     /// Set the Camera to be manipulated.
     /// \note CameraManipulator doesn't have ownership.
-    virtual void setCamera( Core::Asset::Camera* camera ) = 0;
+    [[deprecated( "use CameraManager::activate(idx) instead" )]] virtual void
+    setCamera( Core::Asset::Camera* camera );
+
+    /// Reset manipulator internal data according to current active camera from manager.
+    /// Call each time the active camera is changed to have coherent data.
     virtual void updateCamera();
+
     /// Set the Light attached to the camera.
     /// \note CameraManipulator doesn't have ownership.
     void attachLight( Engine::Scene::Light* light );
@@ -152,8 +157,8 @@ class RA_GUI_API CameraManipulator : public QObject
     bool m_mapCameraBahaviourToAabb; ///< whether the camera is restrained or not
 
     /// Target point of the camera (usefull for most of the manipulator metaphor)
-    /// Be aware that m_target must always be on the line of sight of the camera so that it could be
-    /// used as a "focus" point by a manipulator.
+    /// Be aware that m_target must always be on the line of sight of the camera so that it
+    /// could be used as a "focus" point by a manipulator.
     Core::Vector3 m_target;
 
     Core::Asset::Camera* m_camera; ///< The Camera.

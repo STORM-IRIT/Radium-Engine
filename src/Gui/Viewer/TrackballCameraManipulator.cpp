@@ -86,7 +86,7 @@ void Gui::TrackballCameraManipulator::resetCamera() {
 }
 
 void Gui::TrackballCameraManipulator::updateCamera() {
-    m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
+    m_target         = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
     m_distFromCenter = 2.0_ra;
     updatePhiTheta();
 
@@ -229,21 +229,6 @@ bool Gui::TrackballCameraManipulator::handleKeyPressEvent(
 
 bool Gui::TrackballCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
-}
-
-void Gui::TrackballCameraManipulator::setCamera( Core::Asset::Camera* camera ) {
-    if ( !camera ) return;
-    camera->setViewport( m_camera->getWidth(), m_camera->getHeight() );
-    m_camera         = camera;
-    m_target         = m_camera->getPosition() + 2 * m_camera->getDirection().normalized();
-    m_distFromCenter = 2.0_ra;
-    updatePhiTheta();
-
-    if ( m_light != nullptr )
-    {
-        m_light->setPosition( m_camera->getPosition() );
-        m_light->setDirection( m_camera->getDirection() );
-    }
 }
 
 void Gui::TrackballCameraManipulator::setCameraPosition( const Core::Vector3& position ) {

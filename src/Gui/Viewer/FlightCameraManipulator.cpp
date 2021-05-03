@@ -100,6 +100,22 @@ Gui::FlightCameraManipulator::FlightCameraManipulator( const CameraManipulator& 
 
 Gui::FlightCameraManipulator::~FlightCameraManipulator() = default;
 
+void Gui::FlightCameraManipulator::updateCamera() {
+
+    initializeFixedUpVector();
+
+    m_target      = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
+    m_flightSpeed = 0.2_ra;
+
+    if ( m_light != nullptr )
+    {
+        m_light->setPosition( m_camera->getPosition() );
+        m_light->setDirection( m_camera->getDirection() );
+    }
+
+    emit cameraChanged( m_camera->getPosition(), m_target );
+}
+
 void Gui::FlightCameraManipulator::resetCamera() {
     m_camera->setFrame( Core::Transform::Identity() );
     m_camera->setPosition( Core::Vector3( 0, 0, 1 ) );
@@ -226,21 +242,6 @@ bool Gui::FlightCameraManipulator::handleKeyPressEvent(
 
 bool Gui::FlightCameraManipulator::handleKeyReleaseEvent( QKeyEvent* /*e*/ ) {
     return false;
-}
-
-void Gui::FlightCameraManipulator::setCamera( Core::Asset::Camera* camera ) {
-
-    if ( !camera ) return;
-    camera->setViewport( m_camera->getWidth(), m_camera->getHeight() );
-    m_camera = camera;
-    m_target = m_camera->getPosition() + 2_ra * m_camera->getDirection().normalized();
-    initializeFixedUpVector();
-
-    if ( m_light != nullptr )
-    {
-        m_light->setPosition( m_camera->getPosition() );
-        m_light->setDirection( m_camera->getDirection() );
-    }
 }
 
 void Gui::FlightCameraManipulator::setCameraPosition( const Core::Vector3& position ) {
