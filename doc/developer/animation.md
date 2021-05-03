@@ -15,83 +15,14 @@ There are two ways data can be animated using `Ra::Core::Animation::KeyFramedVal
  - When the data is directly specified as a `Ra::Core::Animation::KeyFramedValue`.
    In this case, particular values at specific times can be specified to create the animation
    keyframes, and then used when requested:
-```c++
-    #include <Core/Animation/KeyFramedValue>
-    #include <Core/Animation/KeyFramedValueInterpolators>
-    struct MyStruct {
-        MyStruct()
-          : m_nonAnimatedData( 2_ra )                       // initialize the non animated data as 2
-          , m_animatedData( 0_ra, 1_ra ) {                  // creating the animated data with value 0 at time 1
-            m_animatedData.insertKeyFrame( 1_ra, 2_ra );    // adding a keyframe with value 1 at time 2
-        }
-
-        Scalar fetch( Scalar time ) {
-            // fetch the interpolated value for the given time
-            Scalar v_t = m_animatedData.at( t, Ra::Core::Animation::linearInterpolate<Scalar> );
-            // use it
-            return m_nonAnimatedData * v_t;
-        }
-
-        Scalar m_nonAnimatedData;
-        Ra::Core::Animation::KeyFramedValue<Scalar> m_animatedData;
-    };
-
-    int main() {
-        MyStruct a;
-        std::cout << a.fetch( 0_ra )   << std::endl; // prints: 0
-        std::cout << a.fetch( 1.5_ra ) << std::endl; // prints: 1
-        std::cout << a.fetch( 3_ra )   << std::endl; // prints: 4
-    }
-```
+   \snippet unittest/Core/animation.cpp include keyframed
+   \snippet unittest/Core/animation.cpp declare MyStruct
+   \snippet unittest/Core/animation.cpp use MyStruct
  - When the data is not specified as a `Ra::Core::Animation::KeyFramedValue` but one wants to animate it.
    In this case, one must use the `Ra::Core::Animation::KeyFramedValueController` to animate the data:
-```c++
-    // keeping the definition of struct MyStruct above:
-    #include <Core/Animation/KeyFramedValueController>
-    struct MyStructAnimator {
-        MyStructAnimator( MyStruct& struct ) {
-            // create the keyframes for the data
-            auto frames = new Ra::Core::Animation::KeyFramedValue<Scalar>( 0_ra, 0_ra );
-            frames->insertKeyFrame( 4_ra, 4_ra );
-            // create the controller
-            m_controller.m_value = frames;
-            m_controller.m_updater = [frames, &struct]( const Scalar& t ) {
-                // fetch the interpolated value for the given time
-                auto v_t = frames->at( t, Ra::Core::Animation::linearInterpolate<Scalar> );
-                // update the data
-                struct.m_nonAnimatedData = v_t;
-            };
-        }
-
-        void update( Scalar time ) {
-            m_controller.updateKeyFrame( time ); // uses the keyframes to update the data.
-        }
-
-        Ra::Core::KeyFramedValueController m_controller;
-    };
-
-
-    int main() {
-        MyStruct a;
-        MyStructAnimator b( a );
-        std::cout << a.fetch( 0_ra )   << std::endl; // prints: 0
-        std::cout << a.fetch( 1.5_ra ) << std::endl; // prints: 1
-        std::cout << a.fetch( 3_ra )   << std::endl; // prints: 4
-        b.update( 1 );                               // now: a.m_nonAnimatedData = 1
-        std::cout << a.fetch( 0_ra )   << std::endl; // prints: 0
-        std::cout << a.fetch( 1.5_ra ) << std::endl; // prints: 0.5
-        std::cout << a.fetch( 3_ra )   << std::endl; // prints: 2
-        b.update( 2 );                               // now: a.m_nonAnimatedData = 2
-        std::cout << a.fetch( 0_ra )   << std::endl; // prints: 0
-        std::cout << a.fetch( 1.5_ra ) << std::endl; // prints: 1
-        std::cout << a.fetch( 3_ra )   << std::endl; // prints: 4
-        b.update( 4 );                               // now: a.m_nonAnimatedData = 4
-        std::cout << a.fetch( 0_ra )   << std::endl; // prints: 0
-        std::cout << a.fetch( 1.5_ra ) << std::endl; // prints: 2
-        std::cout << a.fetch( 3_ra )   << std::endl; // prints: 8
-    }
-```
-
+   \snippet unittest/Core/animation.cpp include keyframedvaluecontroller
+   \snippet unittest/Core/animation.cpp declare MyStructAnimator
+   \snippet unittest/Core/animation.cpp use MyStructAnimator
 
 ## Character Animation
 
@@ -119,9 +50,9 @@ one must associate influence weights to each vertex of a mesh within a `Ra::Core
 These influence weights, or skinning weights, are then used by a skinning algorithm to deform
 the associated mesh vertices w.r.t. the handles deformation defined by the animation pose.
 The mesh is also linked to each handle through a `bindMatrix` that expresses the
-transformation from the mesh's local frame to the handle local frame.
+transformation from the mesh's local frame to the handle's local frame.
 
-In the case of character animation, an animation is a set of `Ra::Core::Animation::KeyFramedValues<Ra::Core::Transform>`,
+In the case of character animation, an animation is a set of `Ra::Core::Animation::KeyFramedValue<Ra::Core::Transform>`,
 one for each joint, which are interpolated by default as follows:
  - the translation and scale channels are linearly interpolated;
  - the rotation channel is linearly interpolated in quaternion space.
@@ -134,16 +65,30 @@ Hence, in order to deform the character's mesh, one must first use the handle's 
 to express the mesh vertices position into the handles' local space before combining the
 handles local transformations to deform the mesh vertices.
 
-### The Skeleton-Based Character Animation Plugin
+*Note*: As of now, cage-based character animation is not implemented in the Radium Engine.
 
-The `SkeletonBasedAnimation` plugin (https://gitlab.com/Storm-IRIT/radium-official-plugins/skeletonbasedanimation)
-provides one plugin specific to skeleton-based character animation and skinning.
-This plugin provides a `SkeletonComponent`, which manages user interactions with
-the animation skeleton, enabling posing the character and playing the animations.
-It also provides a `SkinningComponent`, which is responsible for deforming the
-object's mesh vertices according to the desired skinning method.
+#### Skeleton-Based Character Animation in Radium
 
-### Importing skeleton-based character animation data into Radium
+The Radium Engine provides a system specific to the skeleton-based animation of a
+character, the `Ra::Engine::Scene::SkeletonBasedAnimationSystem.
+This system is responsible for transmitting calls to/from animation-related processes
+to 2 specific `Ra::Engine::Scene::Component`:
+ - the `Ra::Engine::Scene::SkeletonComponent`, which manages user interactions
+   with the animation skeleton, enabling posing the character and playing the
+   animations;
+ - the `Ra::Engine::Scene::SkinningComponent`, which is responsible for deforming
+   the object's mesh vertices according to the desired skinning method.
+
+The Radium Engine provides 4 skinning methods: Linear-Blend Skinning,
+Dual-Quaternion Skinning, Center-Of-Rotation Skinning and Stretchable-Twistable-Bone-Skinning
+(available in both the LBS or DQS forms).
+
+The Radium Engine also provides a user interface for Skeleton-based character
+animation parameters: the `Ra::Gui::SkeletonBasedAnimationUI`, which allows the
+user to edit animations, running parameters, skeleton display, skinning parameters
+and skinning weights display.
+
+#### Importing skeleton-based character animation data into Radium
 
 In order to import animation related data into Radium, the default loader would be the `Ra::IO::AssimpLoader`,
  which deals with several standard animation formats (fbx, collada, ...).

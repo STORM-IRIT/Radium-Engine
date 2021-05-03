@@ -22,7 +22,7 @@ namespace Data {
  *  These parameters describe the image data of the texture :
  *    - target, width, height, depth, format, internalFormat, type and texels for describing image
  * data
- *    - wrapS, wrapT, wrapP, minfilter and magFilter for describing the sampler of the texture.
+ *    - wrapS, wrapT, wrapP, minFilter and magFilter for describing the sampler of the texture.
  *
  *  When one wants to create a texture, the first thing to do is to create and fill a Texture
  * parameter structure that will describe the Texture.
@@ -67,7 +67,7 @@ struct TextureParameters {
     /// OpenGL magnification filter ( GL_LINEAR or GL_NEAREST )
     GLenum magFilter {GL_LINEAR};
     /// External data (ownership is left to caller, not stored after OpenGL texture creation).
-    /// Note that, for cubmap texture, this is considered as a "void*[6]" array containing the 6
+    /// Note that, for cube-map texture, this is considered as a "void*[6]" array containing the 6
     /// faces of the cube corresponding to the targets. <br/>
     /// texels[0] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_X <br/>
     /// texels[1] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_X <br/>
@@ -75,11 +75,13 @@ struct TextureParameters {
     /// texels[3] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Y <br/>
     /// texels[4] <-- GL_TEXTURE_CUBE_MAP_POSITIVE_Z <br/>
     /// texels[5] <-- GL_TEXTURE_CUBE_MAP_NEGATIVE_Z <br/>
+    /// @todo memory allocated for this pointer might be lost at texture deletion as ownership is
+    /// unclear.
     void* texels {nullptr};
 };
 
 /** Represent a Texture of the engine
- * See TextureManager to informations about how unique texture are defined.
+ * See TextureManager for information about how unique texture are defined.
  */
 class RA_ENGINE_API Texture final
 {
@@ -131,11 +133,7 @@ class RA_ENGINE_API Texture final
      * https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindImageTexture.xhtml
      * for documentation
      */
-    void bindImageTexture( int unit,
-                           const GLint level,
-                           const GLboolean layered,
-                           const GLint layer,
-                           const GLenum access );
+    void bindImageTexture( int unit, GLint level, GLboolean layered, GLint layer, GLenum access );
 
     /**
      * @return Name of the texture.
@@ -193,11 +191,11 @@ class RA_ENGINE_API Texture final
      * This allocate GPU memory to store the new resized texture and, if texels are not nullptr,
      * upload the new content.
      * @note : If texels are not nullptr, user must ensure the texels array is correctly
-     * dimmensionned.
+     * dimensioned.
      * @param w width of the texture
      * @param h height of the texture
      * @param d depth of the texture
-     * @param pix the new texel array corresponding the the new texture dimension
+     * @param pix the new texels array corresponding the the new texture dimension
      */
     void resize( size_t w = 1, size_t h = 1, size_t d = 1, void* pix = nullptr );
 
@@ -205,7 +203,7 @@ class RA_ENGINE_API Texture final
     const TextureParameters& getParameters() const { return m_textureParameters; }
 
     /** get read/write access to texture parameters, need to update
-     * representation afterward, @see setParamters()
+     * representation afterward, @see setParameters()
      */
     TextureParameters& getParameters() { return m_textureParameters; }
 
@@ -221,19 +219,19 @@ class RA_ENGINE_API Texture final
   private:
     /**
      * Convert a color texture from sRGB to Linear RGB spaces.
-     * The content of the array of texel
+     * The content of the array of texels.
      * designated by the texel pointer is modified by side effect.
      * Full transformation as described at https://en.wikipedia.org/wiki/SRGB
      * @param texels the array of texels to linearize
-     * @param numCommponent number of color channels.
+     * @param numComponent number of color channels.
      * @param bool hasAlphaChannel indicate if the last channel is an alpha channel.
      * @param gamma the gama value to use (sRGB is 2.4)
      * @note only 8 bit (GL_UNSIGNED_BYTE data format) textures are managed by this operator.
      */
-    void sRGBToLinearRGB( uint8_t* texels, uint numCommponent, bool hasAlphaChannel );
+    void sRGBToLinearRGB( uint8_t* texels, uint numComponent, bool hasAlphaChannel );
 
     /// linearize a cube map by calling sRGBToLinearRGB fore each face
-    void linearizeCubeMap( uint numCommponent, bool hasAlphaChannel );
+    void linearizeCubeMap( uint numComponent, bool hasAlphaChannel );
 
     /** Texture parameters
      */
@@ -241,43 +239,10 @@ class RA_ENGINE_API Texture final
 
     /// Link to glObject texture
     std::unique_ptr<globjects::Texture> m_texture;
-    /// Is the texture mipmaped ?
-    bool m_isMipMaped {false};
+    /// Is the texture mip-mapped ?
+    bool m_isMipMapped {false};
     /// Is the texture in LinearRGB ?
     bool m_isLinear {false};
-
-#if 0
-    /**
-  * @brief Init the textures needed for the cubemap from OpenGL point of view.
-  *
-  * Generate, bind and configure OpenGL texture.<br/>
-  * Also sets wrapping to GL_REPEAT and min / mag filters to GL_LINEAR, although no mipmaps are
-  * generated.<br/><br/>
-  *
-  * It is highly recommended to take a look at
-  * <a href="https://www.opengl.org/wiki/GLAPI/glTexImage2D">glTexImage2D documentation</a>
-  * since this method doc will highly refer to it.
-  *
-  *
-  * @param width Width of the six 2D textures.
-  *
-  * @param height Height of the six 2D textures.
-  *
-  * @param format The format of the pixel data.
-  * Refer to the link given above, at the \b format section
-  * for further informations about the available formats.
-  *
-  * @param data Data contained in the texture. Can be nullptr. <br/>
-  * If \b data is not null, the texture will take the ownership of it.
-  *
-  * @param linearize (default false) : convert the texture from sRGB to Linear RGB color space
-  *
-  * @param mipmaped (default false) : generate a prefiltered mipmap for the texture.
-  *
-  * @todo integrate this method in the same workflow than other textures ...
-  */
-    void generateCube( bool linearize = false );
-#endif
 };
 } // namespace Data
 } // namespace Engine

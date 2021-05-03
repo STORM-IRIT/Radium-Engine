@@ -23,7 +23,7 @@ class RA_ENGINE_API TextureManager final
 
   public:
     /** Add a texture giving its name, dimension and content.
-     * Usefull for defining procedural textures
+     * Useful for defining procedural textures
      *
      * @param name  name of the texture
      * @param width width of the texture
@@ -88,12 +88,15 @@ class RA_ENGINE_API TextureManager final
      * The cooperation of updateTextureContent and updatePendingTextures allow applications to
      * manage efficiently the on line texture generation by separating the content definition
      * (updateTextureContent) from the OpenGL state modification (updatePendingTextures).
+     *
+     * @todo find a better name and description for this method that do not act on
+     * _pending textures_, i.e. textures that do not have a valid OpenGl state.
      */
     void updatePendingTextures();
 
     /** Load a texture as described by texParameters.
      * @note : only loads 2D image file for now.
-     * @param texParameters parameters describing the texture to laod. This paremeters will be
+     * @param texParameters parameters describing the texture to load. This parameter will be
      * updated (width, height, ...) according to the loaded file properties.
      */
     void loadTextureImage( TextureParameters& texParameters );
@@ -103,11 +106,12 @@ class RA_ENGINE_API TextureManager final
     ~TextureManager();
 
   private:
+    /// Textures that have a usable and up to date OpenGL state
     std::map<std::string, Texture*> m_textures;
+    /// Textures that do not have a usable OpenGL state
     std::map<std::string, TextureParameters> m_pendingTextures;
+    /// Textures whose OpenGl stat is not up to date
     std::map<std::string, void*> m_pendingData;
-
-    bool m_verbose;
 };
 
 } // namespace Data
